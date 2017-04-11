@@ -15,6 +15,7 @@
 		4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */; };
 		4E16D8481E9CD0FE002A1881 /* hoomxbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */; };
 		4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */; };
+		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,9 @@
 		4E16D84E1E9CD0FE002A1881 /* hoomxbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hoomxbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hoomxbUITests.m; sourceTree = "<group>"; };
 		4E16D8541E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
+		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +90,8 @@
 				4E16D8461E9CD0FE002A1881 /* hoomxbTests */,
 				4E16D8511E9CD0FE002A1881 /* hoomxbUITests */,
 				4E16D82B1E9CD0FE002A1881 /* Products */,
+				AB2C5DD4297DD10D18ED07A2 /* Pods */,
+				93AB8A7B8B5BF47D9A9FFDF5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -140,6 +147,23 @@
 			path = hoomxbUITests;
 			sourceTree = "<group>";
 		};
+		93AB8A7B8B5BF47D9A9FFDF5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AB2C5DD4297DD10D18ED07A2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */,
+				B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,9 +171,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4E16D8571E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxb" */;
 			buildPhases = (
+				F371DAFC047AF7A268C34DA1 /* [CP] Check Pods Manifest.lock */,
 				4E16D8261E9CD0FE002A1881 /* Sources */,
 				4E16D8271E9CD0FE002A1881 /* Frameworks */,
 				4E16D8281E9CD0FE002A1881 /* Resources */,
+				66E283077D9763B274CFFA54 /* [CP] Embed Pods Frameworks */,
+				8131C46B2F56F932ACC61550 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -270,6 +297,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		66E283077D9763B274CFFA54 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8131C46B2F56F932ACC61550 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F371DAFC047AF7A268C34DA1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4E16D8261E9CD0FE002A1881 /* Sources */ = {
@@ -423,24 +498,28 @@
 		};
 		4E16D8581E9CD0FE002A1881 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				INFOPLIST_FILE = hoomxb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxb";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		4E16D8591E9CD0FE002A1881 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				INFOPLIST_FILE = hoomxb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxb";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
