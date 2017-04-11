@@ -1,0 +1,537 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4E16D82F1E9CD0FE002A1881 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D82E1E9CD0FE002A1881 /* main.m */; };
+		4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8311E9CD0FE002A1881 /* AppDelegate.m */; };
+		4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8341E9CD0FE002A1881 /* ViewController.m */; };
+		4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D8361E9CD0FE002A1881 /* Main.storyboard */; };
+		4E16D83A1E9CD0FE002A1881 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D8391E9CD0FE002A1881 /* Assets.xcassets */; };
+		4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */; };
+		4E16D8481E9CD0FE002A1881 /* hoomxbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */; };
+		4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4E16D8441E9CD0FE002A1881 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E16D8221E9CD0FE002A1881 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E16D8291E9CD0FE002A1881;
+			remoteInfo = hoomxb;
+		};
+		4E16D84F1E9CD0FE002A1881 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E16D8221E9CD0FE002A1881 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E16D8291E9CD0FE002A1881;
+			remoteInfo = hoomxb;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4E16D82A1E9CD0FE002A1881 /* hoomxb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hoomxb.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E16D82E1E9CD0FE002A1881 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		4E16D8301E9CD0FE002A1881 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		4E16D8311E9CD0FE002A1881 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		4E16D8331E9CD0FE002A1881 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		4E16D8341E9CD0FE002A1881 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		4E16D8371E9CD0FE002A1881 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4E16D8391E9CD0FE002A1881 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4E16D83C1E9CD0FE002A1881 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4E16D83E1E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E16D8431E9CD0FE002A1881 /* hoomxbTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hoomxbTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hoomxbTests.m; sourceTree = "<group>"; };
+		4E16D8491E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E16D84E1E9CD0FE002A1881 /* hoomxbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hoomxbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hoomxbUITests.m; sourceTree = "<group>"; };
+		4E16D8541E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4E16D8271E9CD0FE002A1881 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E16D8401E9CD0FE002A1881 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E16D84B1E9CD0FE002A1881 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4E16D8211E9CD0FE002A1881 = {
+			isa = PBXGroup;
+			children = (
+				4E16D82C1E9CD0FE002A1881 /* hoomxb */,
+				4E16D8461E9CD0FE002A1881 /* hoomxbTests */,
+				4E16D8511E9CD0FE002A1881 /* hoomxbUITests */,
+				4E16D82B1E9CD0FE002A1881 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4E16D82B1E9CD0FE002A1881 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4E16D82A1E9CD0FE002A1881 /* hoomxb.app */,
+				4E16D8431E9CD0FE002A1881 /* hoomxbTests.xctest */,
+				4E16D84E1E9CD0FE002A1881 /* hoomxbUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4E16D82C1E9CD0FE002A1881 /* hoomxb */ = {
+			isa = PBXGroup;
+			children = (
+				4E16D8301E9CD0FE002A1881 /* AppDelegate.h */,
+				4E16D8311E9CD0FE002A1881 /* AppDelegate.m */,
+				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
+				4E16D8341E9CD0FE002A1881 /* ViewController.m */,
+				4E16D8361E9CD0FE002A1881 /* Main.storyboard */,
+				4E16D8391E9CD0FE002A1881 /* Assets.xcassets */,
+				4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */,
+				4E16D83E1E9CD0FE002A1881 /* Info.plist */,
+				4E16D82D1E9CD0FE002A1881 /* Supporting Files */,
+			);
+			path = hoomxb;
+			sourceTree = "<group>";
+		};
+		4E16D82D1E9CD0FE002A1881 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4E16D82E1E9CD0FE002A1881 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4E16D8461E9CD0FE002A1881 /* hoomxbTests */ = {
+			isa = PBXGroup;
+			children = (
+				4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */,
+				4E16D8491E9CD0FE002A1881 /* Info.plist */,
+			);
+			path = hoomxbTests;
+			sourceTree = "<group>";
+		};
+		4E16D8511E9CD0FE002A1881 /* hoomxbUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */,
+				4E16D8541E9CD0FE002A1881 /* Info.plist */,
+			);
+			path = hoomxbUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4E16D8291E9CD0FE002A1881 /* hoomxb */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E16D8571E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxb" */;
+			buildPhases = (
+				4E16D8261E9CD0FE002A1881 /* Sources */,
+				4E16D8271E9CD0FE002A1881 /* Frameworks */,
+				4E16D8281E9CD0FE002A1881 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hoomxb;
+			productName = hoomxb;
+			productReference = 4E16D82A1E9CD0FE002A1881 /* hoomxb.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4E16D8421E9CD0FE002A1881 /* hoomxbTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E16D85A1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbTests" */;
+			buildPhases = (
+				4E16D83F1E9CD0FE002A1881 /* Sources */,
+				4E16D8401E9CD0FE002A1881 /* Frameworks */,
+				4E16D8411E9CD0FE002A1881 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E16D8451E9CD0FE002A1881 /* PBXTargetDependency */,
+			);
+			name = hoomxbTests;
+			productName = hoomxbTests;
+			productReference = 4E16D8431E9CD0FE002A1881 /* hoomxbTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4E16D84D1E9CD0FE002A1881 /* hoomxbUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E16D85D1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbUITests" */;
+			buildPhases = (
+				4E16D84A1E9CD0FE002A1881 /* Sources */,
+				4E16D84B1E9CD0FE002A1881 /* Frameworks */,
+				4E16D84C1E9CD0FE002A1881 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E16D8501E9CD0FE002A1881 /* PBXTargetDependency */,
+			);
+			name = hoomxbUITests;
+			productName = hoomxbUITests;
+			productReference = 4E16D84E1E9CD0FE002A1881 /* hoomxbUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4E16D8221E9CD0FE002A1881 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "hooms\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010un-miniX";
+				TargetAttributes = {
+					4E16D8291E9CD0FE002A1881 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Z9M2NMJFP5;
+						ProvisioningStyle = Automatic;
+					};
+					4E16D8421E9CD0FE002A1881 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Z9M2NMJFP5;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4E16D8291E9CD0FE002A1881;
+					};
+					4E16D84D1E9CD0FE002A1881 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Z9M2NMJFP5;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4E16D8291E9CD0FE002A1881;
+					};
+				};
+			};
+			buildConfigurationList = 4E16D8251E9CD0FE002A1881 /* Build configuration list for PBXProject "hoomxb" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4E16D8211E9CD0FE002A1881;
+			productRefGroup = 4E16D82B1E9CD0FE002A1881 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4E16D8291E9CD0FE002A1881 /* hoomxb */,
+				4E16D8421E9CD0FE002A1881 /* hoomxbTests */,
+				4E16D84D1E9CD0FE002A1881 /* hoomxbUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4E16D8281E9CD0FE002A1881 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */,
+				4E16D83A1E9CD0FE002A1881 /* Assets.xcassets in Resources */,
+				4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E16D8411E9CD0FE002A1881 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E16D84C1E9CD0FE002A1881 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4E16D8261E9CD0FE002A1881 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
+				4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */,
+				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E16D83F1E9CD0FE002A1881 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E16D8481E9CD0FE002A1881 /* hoomxbTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E16D84A1E9CD0FE002A1881 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4E16D8451E9CD0FE002A1881 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E16D8291E9CD0FE002A1881 /* hoomxb */;
+			targetProxy = 4E16D8441E9CD0FE002A1881 /* PBXContainerItemProxy */;
+		};
+		4E16D8501E9CD0FE002A1881 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E16D8291E9CD0FE002A1881 /* hoomxb */;
+			targetProxy = 4E16D84F1E9CD0FE002A1881 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4E16D8361E9CD0FE002A1881 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4E16D8371E9CD0FE002A1881 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4E16D83C1E9CD0FE002A1881 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4E16D8551E9CD0FE002A1881 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4E16D8561E9CD0FE002A1881 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4E16D8581E9CD0FE002A1881 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxb/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxb";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4E16D8591E9CD0FE002A1881 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxb/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxb";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		4E16D85B1E9CD0FE002A1881 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxbTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hoomxb.app/hoomxb";
+			};
+			name = Debug;
+		};
+		4E16D85C1E9CD0FE002A1881 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxbTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hoomxb.app/hoomxb";
+			};
+			name = Release;
+		};
+		4E16D85E1E9CD0FE002A1881 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxbUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = hoomxb;
+			};
+			name = Debug;
+		};
+		4E16D85F1E9CD0FE002A1881 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxbUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = hoomxb;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4E16D8251E9CD0FE002A1881 /* Build configuration list for PBXProject "hoomxb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E16D8551E9CD0FE002A1881 /* Debug */,
+				4E16D8561E9CD0FE002A1881 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E16D8571E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E16D8581E9CD0FE002A1881 /* Debug */,
+				4E16D8591E9CD0FE002A1881 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4E16D85A1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E16D85B1E9CD0FE002A1881 /* Debug */,
+				4E16D85C1E9CD0FE002A1881 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		4E16D85D1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E16D85E1E9CD0FE002A1881 /* Debug */,
+				4E16D85F1E9CD0FE002A1881 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4E16D8221E9CD0FE002A1881 /* Project object */;
+}
