@@ -15,6 +15,7 @@
 		4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */; };
 		4E16D8481E9CD0FE002A1881 /* hoomxbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */; };
 		4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */; };
+		4E77D2631E9E4EF300940FF4 /* UIViewController+HxbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E77D2621E9E4EF300940FF4 /* UIViewController+HxbViewController.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,8 @@
 		4E16D84E1E9CD0FE002A1881 /* hoomxbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hoomxbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hoomxbUITests.m; sourceTree = "<group>"; };
 		4E16D8541E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E77D2611E9E4EF300940FF4 /* UIViewController+HxbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HxbViewController.h"; sourceTree = "<group>"; };
+		4E77D2621E9E4EF300940FF4 /* UIViewController+HxbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HxbViewController.m"; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
 		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
@@ -108,6 +111,7 @@
 		4E16D82C1E9CD0FE002A1881 /* hoomxb */ = {
 			isa = PBXGroup;
 			children = (
+				4E77D25F1E9E4ED400940FF4 /* Tools */,
 				4E16D8301E9CD0FE002A1881 /* AppDelegate.h */,
 				4E16D8311E9CD0FE002A1881 /* AppDelegate.m */,
 				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
@@ -145,6 +149,23 @@
 				4E16D8541E9CD0FE002A1881 /* Info.plist */,
 			);
 			path = hoomxbUITests;
+			sourceTree = "<group>";
+		};
+		4E77D25F1E9E4ED400940FF4 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				4E77D2601E9E4ED400940FF4 /* Category */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		4E77D2601E9E4ED400940FF4 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				4E77D2611E9E4EF300940FF4 /* UIViewController+HxbViewController.h */,
+				4E77D2621E9E4EF300940FF4 /* UIViewController+HxbViewController.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 		93AB8A7B8B5BF47D9A9FFDF5 /* Frameworks */ = {
@@ -351,6 +372,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E77D2631E9E4EF300940FF4 /* UIViewController+HxbViewController.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */,
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
@@ -593,6 +615,7 @@
 				4E16D8591E9CD0FE002A1881 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4E16D85A1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbTests" */ = {
 			isa = XCConfigurationList;
@@ -601,6 +624,7 @@
 				4E16D85C1E9CD0FE002A1881 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4E16D85D1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbUITests" */ = {
 			isa = XCConfigurationList;
@@ -609,6 +633,7 @@
 				4E16D85F1E9CD0FE002A1881 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
