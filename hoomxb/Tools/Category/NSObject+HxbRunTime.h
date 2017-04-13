@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSObject (HxbRunTime)
-
++ (NSArray *)hxb_runTimeGetporperty;
 @end

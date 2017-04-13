@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UIViewController (HxbViewController)
-
+- (void)hxb_addChildController:(UIViewController *)childController intoView:(UIView *)view;
 @end
