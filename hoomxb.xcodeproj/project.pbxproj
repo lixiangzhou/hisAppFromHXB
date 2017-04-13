@@ -33,6 +33,11 @@
 		E1EF4D4D1E9F906B00C18219 /* UIView+HxbView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D461E9F906B00C18219 /* UIView+HxbView.m */; };
 		E1EF4D4E1E9F906B00C18219 /* UIViewController+HxbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D491E9F906B00C18219 /* UIViewController+HxbViewController.m */; };
 		E1EF4D521E9F907100C18219 /* HXBBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D511E9F907100C18219 /* HXBBaseTableView.m */; };
+		E1EF4D551E9F98CE00C18219 /* HXBBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D541E9F98CE00C18219 /* HXBBaseTableViewCell.m */; };
+		E1EF4D581E9F994D00C18219 /* HXBBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D571E9F994D00C18219 /* HXBBaseCollectionView.m */; };
+		E1EF4D5B1E9FA5AE00C18219 /* HXBBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D5A1E9FA5AE00C18219 /* HXBBaseCollectionViewCell.m */; };
+		E1EF4D651E9FA8FC00C18219 /* HXBBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D641E9FA8FC00C18219 /* HXBBaseViewController.m */; };
+		E1EF4D681E9FAE8A00C18219 /* HXBBaseHandDate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D671E9FAE8A00C18219 /* HXBBaseHandDate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +112,16 @@
 		E1EF4D491E9F906B00C18219 /* UIViewController+HxbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HxbViewController.m"; sourceTree = "<group>"; };
 		E1EF4D501E9F907100C18219 /* HXBBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableView.h; sourceTree = "<group>"; };
 		E1EF4D511E9F907100C18219 /* HXBBaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTableView.m; sourceTree = "<group>"; };
+		E1EF4D531E9F98CE00C18219 /* HXBBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableViewCell.h; sourceTree = "<group>"; };
+		E1EF4D541E9F98CE00C18219 /* HXBBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTableViewCell.m; sourceTree = "<group>"; };
+		E1EF4D561E9F994D00C18219 /* HXBBaseCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseCollectionView.h; sourceTree = "<group>"; };
+		E1EF4D571E9F994D00C18219 /* HXBBaseCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseCollectionView.m; sourceTree = "<group>"; };
+		E1EF4D591E9FA5AE00C18219 /* HXBBaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseCollectionViewCell.h; sourceTree = "<group>"; };
+		E1EF4D5A1E9FA5AE00C18219 /* HXBBaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseCollectionViewCell.m; sourceTree = "<group>"; };
+		E1EF4D631E9FA8FC00C18219 /* HXBBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseViewController.h; sourceTree = "<group>"; };
+		E1EF4D641E9FA8FC00C18219 /* HXBBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewController.m; sourceTree = "<group>"; };
+		E1EF4D661E9FAE8A00C18219 /* HXBBaseHandDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HXBBaseHandDate.h; path = hoomxb/Tools/Base/HXBBaseHandDate.h; sourceTree = SOURCE_ROOT; };
+		E1EF4D671E9FAE8A00C18219 /* HXBBaseHandDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HXBBaseHandDate.m; path = hoomxb/Tools/Base/HXBBaseHandDate.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -301,8 +316,18 @@
 		E1EF4D4F1E9F907100C18219 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				E1EF4D661E9FAE8A00C18219 /* HXBBaseHandDate.h */,
+				E1EF4D671E9FAE8A00C18219 /* HXBBaseHandDate.m */,
+				E1EF4D631E9FA8FC00C18219 /* HXBBaseViewController.h */,
+				E1EF4D641E9FA8FC00C18219 /* HXBBaseViewController.m */,
 				E1EF4D501E9F907100C18219 /* HXBBaseTableView.h */,
 				E1EF4D511E9F907100C18219 /* HXBBaseTableView.m */,
+				E1EF4D531E9F98CE00C18219 /* HXBBaseTableViewCell.h */,
+				E1EF4D541E9F98CE00C18219 /* HXBBaseTableViewCell.m */,
+				E1EF4D561E9F994D00C18219 /* HXBBaseCollectionView.h */,
+				E1EF4D571E9F994D00C18219 /* HXBBaseCollectionView.m */,
+				E1EF4D591E9FA5AE00C18219 /* HXBBaseCollectionViewCell.h */,
+				E1EF4D5A1E9FA5AE00C18219 /* HXBBaseCollectionViewCell.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -495,16 +520,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1D624271E9E59FB00EE52D4 /* NSString+HxbHash.m in Sources */,
+				E1EF4D551E9F98CE00C18219 /* HXBBaseTableViewCell.m in Sources */,
+				E1EF4D651E9FA8FC00C18219 /* HXBBaseViewController.m in Sources */,
 				E1D6242D1E9E5A9400EE52D4 /* UIColor+HxbColor.m in Sources */,
 				E1D6241E1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E1EF4D4E1E9F906B00C18219 /* UIViewController+HxbViewController.m in Sources */,
+				E1EF4D581E9F994D00C18219 /* HXBBaseCollectionView.m in Sources */,
 				E1EF4D521E9F907100C18219 /* HXBBaseTableView.m in Sources */,
+				E1EF4D681E9FAE8A00C18219 /* HXBBaseHandDate.m in Sources */,
 				E1D624241E9E598500EE52D4 /* NSObject+HxbRunTime.m in Sources */,
 				E1D624331E9E5B7600EE52D4 /* UIScreen+Hxb.m in Sources */,
 				E1D6241B1E9E587100EE52D4 /* NSArray+HxbLog.m in Sources */,
 				4E54026E1E9FAC400076B542 /* NSString+HxbMask.m in Sources */,
 				E1EF4D4B1E9F906B00C18219 /* UILabel+HxbLabel.m in Sources */,
+				E1EF4D5B1E9FA5AE00C18219 /* HXBBaseCollectionViewCell.m in Sources */,
 				4E5402771E9FACA70076B542 /* NSString+CopiesTransfer.m in Sources */,
 				4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */,
 				E1EF4D4A1E9F906B00C18219 /* UIButton+HxbButton.m in Sources */,
