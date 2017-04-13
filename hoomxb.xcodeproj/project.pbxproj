@@ -85,6 +85,7 @@
 		E1EF4D191E9F675000C18219 /* UIView+HxbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HxbView.m"; sourceTree = "<group>"; };
 		E1EF4D1B1E9F676200C18219 /* UIViewController+HxbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HxbViewController.h"; sourceTree = "<group>"; };
 		E1EF4D1C1E9F676200C18219 /* UIViewController+HxbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HxbViewController.m"; sourceTree = "<group>"; };
+		E1EF4D281E9F8E6C00C18219 /* NSArray+HxbLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+HxbLog.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +193,7 @@
 				E1EF4D151E9F66D200C18219 /* UIViewController */,
 				E1EF4D101E9F66D200C18219 /* UIView */,
 				E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */,
+				E1EF4D281E9F8E6C00C18219 /* NSArray+HxbLog.h */,
 				E1D6241A1E9E587100EE52D4 /* NSArray+HxbLog.m */,
 				E1D6241C1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.h */,
 				E1D6241D1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m */,
