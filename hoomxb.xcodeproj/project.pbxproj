@@ -15,17 +15,17 @@
 		4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */; };
 		4E16D8481E9CD0FE002A1881 /* hoomxbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */; };
 		4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */; };
-		4E77D2631E9E4EF300940FF4 /* UIViewController+HxbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E77D2621E9E4EF300940FF4 /* UIViewController+HxbViewController.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
-		E1D623EF1E9E551D00EE52D4 /* UIView+HxbView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D623EE1E9E551D00EE52D4 /* UIView+HxbView.m */; };
 		E1D6241B1E9E587100EE52D4 /* NSArray+HxbLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D6241A1E9E587100EE52D4 /* NSArray+HxbLog.m */; };
 		E1D6241E1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D6241D1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m */; };
 		E1D624241E9E598500EE52D4 /* NSObject+HxbRunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D624231E9E598500EE52D4 /* NSObject+HxbRunTime.m */; };
 		E1D624271E9E59FB00EE52D4 /* NSString+HxbHash.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D624261E9E59FB00EE52D4 /* NSString+HxbHash.m */; };
-		E1D6242A1E9E5A4A00EE52D4 /* UIButton+HxbButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D624291E9E5A4A00EE52D4 /* UIButton+HxbButton.m */; };
 		E1D6242D1E9E5A9400EE52D4 /* UIColor+HxbColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D6242C1E9E5A9400EE52D4 /* UIColor+HxbColor.m */; };
-		E1D624301E9E5AF400EE52D4 /* UILabel+HxbLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D6242F1E9E5AF400EE52D4 /* UILabel+HxbLabel.m */; };
 		E1D624331E9E5B7600EE52D4 /* UIScreen+Hxb.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D624321E9E5B7600EE52D4 /* UIScreen+Hxb.m */; };
+		E1EF4D161E9F66D200C18219 /* UIButton+HxbButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D121E9F66D200C18219 /* UIButton+HxbButton.m */; };
+		E1EF4D171E9F66D200C18219 /* UILabel+HxbLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D141E9F66D200C18219 /* UILabel+HxbLabel.m */; };
+		E1EF4D1A1E9F675000C18219 /* UIView+HxbView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D191E9F675000C18219 /* UIView+HxbView.m */; };
+		E1EF4D1D1E9F676200C18219 /* UIViewController+HxbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D1C1E9F676200C18219 /* UIViewController+HxbViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,13 +62,9 @@
 		4E16D84E1E9CD0FE002A1881 /* hoomxbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hoomxbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hoomxbUITests.m; sourceTree = "<group>"; };
 		4E16D8541E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4E77D2611E9E4EF300940FF4 /* UIViewController+HxbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HxbViewController.h"; sourceTree = "<group>"; };
-		4E77D2621E9E4EF300940FF4 /* UIViewController+HxbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HxbViewController.m"; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
 		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
-		E1D623ED1E9E551D00EE52D4 /* UIView+HxbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HxbView.h"; sourceTree = "<group>"; };
-		E1D623EE1E9E551D00EE52D4 /* UIView+HxbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HxbView.m"; sourceTree = "<group>"; };
 		E1D624191E9E587100EE52D4 /* NSArray+HxbLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+HxbLog.h"; sourceTree = "<group>"; };
 		E1D6241A1E9E587100EE52D4 /* NSArray+HxbLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+HxbLog.m"; sourceTree = "<group>"; };
 		E1D6241C1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+HxbAttributedString.h"; sourceTree = "<group>"; };
@@ -77,15 +73,19 @@
 		E1D624231E9E598500EE52D4 /* NSObject+HxbRunTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+HxbRunTime.m"; sourceTree = "<group>"; };
 		E1D624251E9E59FB00EE52D4 /* NSString+HxbHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HxbHash.h"; sourceTree = "<group>"; };
 		E1D624261E9E59FB00EE52D4 /* NSString+HxbHash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HxbHash.m"; sourceTree = "<group>"; };
-		E1D624281E9E5A4A00EE52D4 /* UIButton+HxbButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+HxbButton.h"; sourceTree = "<group>"; };
-		E1D624291E9E5A4A00EE52D4 /* UIButton+HxbButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+HxbButton.m"; sourceTree = "<group>"; };
 		E1D6242B1E9E5A9400EE52D4 /* UIColor+HxbColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+HxbColor.h"; sourceTree = "<group>"; };
 		E1D6242C1E9E5A9400EE52D4 /* UIColor+HxbColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HxbColor.m"; sourceTree = "<group>"; };
-		E1D6242E1E9E5AF400EE52D4 /* UILabel+HxbLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+HxbLabel.h"; sourceTree = "<group>"; };
-		E1D6242F1E9E5AF400EE52D4 /* UILabel+HxbLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+HxbLabel.m"; sourceTree = "<group>"; };
 		E1D624311E9E5B7600EE52D4 /* UIScreen+Hxb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+Hxb.h"; sourceTree = "<group>"; };
 		E1D624321E9E5B7600EE52D4 /* UIScreen+Hxb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+Hxb.m"; sourceTree = "<group>"; };
 		E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxbCategorys.h; sourceTree = "<group>"; };
+		E1EF4D111E9F66D200C18219 /* UIButton+HxbButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+HxbButton.h"; sourceTree = "<group>"; };
+		E1EF4D121E9F66D200C18219 /* UIButton+HxbButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+HxbButton.m"; sourceTree = "<group>"; };
+		E1EF4D131E9F66D200C18219 /* UILabel+HxbLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+HxbLabel.h"; sourceTree = "<group>"; };
+		E1EF4D141E9F66D200C18219 /* UILabel+HxbLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+HxbLabel.m"; sourceTree = "<group>"; };
+		E1EF4D181E9F675000C18219 /* UIView+HxbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HxbView.h"; sourceTree = "<group>"; };
+		E1EF4D191E9F675000C18219 /* UIView+HxbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HxbView.m"; sourceTree = "<group>"; };
+		E1EF4D1B1E9F676200C18219 /* UIViewController+HxbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HxbViewController.h"; sourceTree = "<group>"; };
+		E1EF4D1C1E9F676200C18219 /* UIViewController+HxbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HxbViewController.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,11 +190,9 @@
 		4E77D2601E9E4ED400940FF4 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				E1EF4D151E9F66D200C18219 /* UIViewController */,
+				E1EF4D101E9F66D200C18219 /* UIView */,
 				E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */,
-				4E77D2611E9E4EF300940FF4 /* UIViewController+HxbViewController.h */,
-				4E77D2621E9E4EF300940FF4 /* UIViewController+HxbViewController.m */,
-				E1D623ED1E9E551D00EE52D4 /* UIView+HxbView.h */,
-				E1D623EE1E9E551D00EE52D4 /* UIView+HxbView.m */,
 				E1D624191E9E587100EE52D4 /* NSArray+HxbLog.h */,
 				E1D6241A1E9E587100EE52D4 /* NSArray+HxbLog.m */,
 				E1D6241C1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.h */,
@@ -203,12 +201,8 @@
 				E1D624231E9E598500EE52D4 /* NSObject+HxbRunTime.m */,
 				E1D624251E9E59FB00EE52D4 /* NSString+HxbHash.h */,
 				E1D624261E9E59FB00EE52D4 /* NSString+HxbHash.m */,
-				E1D624281E9E5A4A00EE52D4 /* UIButton+HxbButton.h */,
-				E1D624291E9E5A4A00EE52D4 /* UIButton+HxbButton.m */,
 				E1D6242B1E9E5A9400EE52D4 /* UIColor+HxbColor.h */,
 				E1D6242C1E9E5A9400EE52D4 /* UIColor+HxbColor.m */,
-				E1D6242E1E9E5AF400EE52D4 /* UILabel+HxbLabel.h */,
-				E1D6242F1E9E5AF400EE52D4 /* UILabel+HxbLabel.m */,
 				E1D624311E9E5B7600EE52D4 /* UIScreen+Hxb.h */,
 				E1D624321E9E5B7600EE52D4 /* UIScreen+Hxb.m */,
 			);
@@ -230,6 +224,28 @@
 				B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		E1EF4D101E9F66D200C18219 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				E1EF4D181E9F675000C18219 /* UIView+HxbView.h */,
+				E1EF4D191E9F675000C18219 /* UIView+HxbView.m */,
+				E1EF4D111E9F66D200C18219 /* UIButton+HxbButton.h */,
+				E1EF4D121E9F66D200C18219 /* UIButton+HxbButton.m */,
+				E1EF4D131E9F66D200C18219 /* UILabel+HxbLabel.h */,
+				E1EF4D141E9F66D200C18219 /* UILabel+HxbLabel.m */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		E1EF4D151E9F66D200C18219 /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E1EF4D1B1E9F676200C18219 /* UIViewController+HxbViewController.h */,
+				E1EF4D1C1E9F676200C18219 /* UIViewController+HxbViewController.m */,
+			);
+			path = UIViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -419,18 +435,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1D623EF1E9E551D00EE52D4 /* UIView+HxbView.m in Sources */,
-				E1D6242A1E9E5A4A00EE52D4 /* UIButton+HxbButton.m in Sources */,
 				E1D624271E9E59FB00EE52D4 /* NSString+HxbHash.m in Sources */,
-				E1D624301E9E5AF400EE52D4 /* UILabel+HxbLabel.m in Sources */,
 				E1D6242D1E9E5A9400EE52D4 /* UIColor+HxbColor.m in Sources */,
+				E1EF4D1D1E9F676200C18219 /* UIViewController+HxbViewController.m in Sources */,
 				E1D6241E1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m in Sources */,
-				4E77D2631E9E4EF300940FF4 /* UIViewController+HxbViewController.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E1D624241E9E598500EE52D4 /* NSObject+HxbRunTime.m in Sources */,
 				E1D624331E9E5B7600EE52D4 /* UIScreen+Hxb.m in Sources */,
 				E1D6241B1E9E587100EE52D4 /* NSArray+HxbLog.m in Sources */,
+				E1EF4D171E9F66D200C18219 /* UILabel+HxbLabel.m in Sources */,
+				E1EF4D1A1E9F675000C18219 /* UIView+HxbView.m in Sources */,
 				4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */,
+				E1EF4D161E9F66D200C18219 /* UIButton+HxbButton.m in Sources */,
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
