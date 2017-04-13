@@ -28,6 +28,8 @@
 		E1EF4D4D1E9F906B00C18219 /* UIView+HxbView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D461E9F906B00C18219 /* UIView+HxbView.m */; };
 		E1EF4D4E1E9F906B00C18219 /* UIViewController+HxbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D491E9F906B00C18219 /* UIViewController+HxbViewController.m */; };
 		E1EF4D521E9F907100C18219 /* HXBBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D511E9F907100C18219 /* HXBBaseTableView.m */; };
+		E1EF4D551E9F98CE00C18219 /* HXBBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D541E9F98CE00C18219 /* HXBBaseTableViewCell.m */; };
+		E1EF4D581E9F994D00C18219 /* HXBBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D571E9F994D00C18219 /* HXBBaseCollectionView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +94,10 @@
 		E1EF4D491E9F906B00C18219 /* UIViewController+HxbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HxbViewController.m"; sourceTree = "<group>"; };
 		E1EF4D501E9F907100C18219 /* HXBBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableView.h; sourceTree = "<group>"; };
 		E1EF4D511E9F907100C18219 /* HXBBaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTableView.m; sourceTree = "<group>"; };
+		E1EF4D531E9F98CE00C18219 /* HXBBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableViewCell.h; sourceTree = "<group>"; };
+		E1EF4D541E9F98CE00C18219 /* HXBBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTableViewCell.m; sourceTree = "<group>"; };
+		E1EF4D561E9F994D00C18219 /* HXBBaseCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseCollectionView.h; sourceTree = "<group>"; };
+		E1EF4D571E9F994D00C18219 /* HXBBaseCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseCollectionView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,6 +268,10 @@
 			children = (
 				E1EF4D501E9F907100C18219 /* HXBBaseTableView.h */,
 				E1EF4D511E9F907100C18219 /* HXBBaseTableView.m */,
+				E1EF4D531E9F98CE00C18219 /* HXBBaseTableViewCell.h */,
+				E1EF4D541E9F98CE00C18219 /* HXBBaseTableViewCell.m */,
+				E1EF4D561E9F994D00C18219 /* HXBBaseCollectionView.h */,
+				E1EF4D571E9F994D00C18219 /* HXBBaseCollectionView.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -454,10 +464,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1D624271E9E59FB00EE52D4 /* NSString+HxbHash.m in Sources */,
+				E1EF4D551E9F98CE00C18219 /* HXBBaseTableViewCell.m in Sources */,
 				E1D6242D1E9E5A9400EE52D4 /* UIColor+HxbColor.m in Sources */,
 				E1D6241E1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E1EF4D4E1E9F906B00C18219 /* UIViewController+HxbViewController.m in Sources */,
+				E1EF4D581E9F994D00C18219 /* HXBBaseCollectionView.m in Sources */,
 				E1EF4D521E9F907100C18219 /* HXBBaseTableView.m in Sources */,
 				E1D624241E9E598500EE52D4 /* NSObject+HxbRunTime.m in Sources */,
 				E1D624331E9E5B7600EE52D4 /* UIScreen+Hxb.m in Sources */,
