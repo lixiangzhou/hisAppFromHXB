@@ -30,7 +30,7 @@
         }
     }
     NSString *resultStr = [NSString stringWithString:result];
-    resultStr = [resultStr stringByAppendingString:[KeyChain token]];
+//    resultStr = [resultStr stringByAppendingString:[KeyChain token]];
     
     NSLog(@"加密前 %@",resultStr);
     
