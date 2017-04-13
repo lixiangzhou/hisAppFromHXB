@@ -22,11 +22,6 @@
 		E1D624271E9E59FB00EE52D4 /* NSString+HxbHash.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D624261E9E59FB00EE52D4 /* NSString+HxbHash.m */; };
 		E1D6242D1E9E5A9400EE52D4 /* UIColor+HxbColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D6242C1E9E5A9400EE52D4 /* UIColor+HxbColor.m */; };
 		E1D624331E9E5B7600EE52D4 /* UIScreen+Hxb.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D624321E9E5B7600EE52D4 /* UIScreen+Hxb.m */; };
-		E1EF4D161E9F66D200C18219 /* UIButton+HxbButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D121E9F66D200C18219 /* UIButton+HxbButton.m */; };
-		E1EF4D171E9F66D200C18219 /* UILabel+HxbLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D141E9F66D200C18219 /* UILabel+HxbLabel.m */; };
-		E1EF4D1A1E9F675000C18219 /* UIView+HxbView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D191E9F675000C18219 /* UIView+HxbView.m */; };
-		E1EF4D1D1E9F676200C18219 /* UIViewController+HxbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D1C1E9F676200C18219 /* UIViewController+HxbViewController.m */; };
-		E1EF4D201E9F68A600C18219 /* UITableView+HxbTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D1F1E9F68A600C18219 /* UITableView+HxbTableView.m */; };
 		E1EF4D271E9F693F00C18219 /* HXBBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D261E9F693F00C18219 /* HXBBaseTableView.m */; };
 /* End PBXBuildFile section */
 
@@ -79,22 +74,9 @@
 		E1D624311E9E5B7600EE52D4 /* UIScreen+Hxb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+Hxb.h"; sourceTree = "<group>"; };
 		E1D624321E9E5B7600EE52D4 /* UIScreen+Hxb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+Hxb.m"; sourceTree = "<group>"; };
 		E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxbCategorys.h; sourceTree = "<group>"; };
-		E1EF4D111E9F66D200C18219 /* UIButton+HxbButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+HxbButton.h"; sourceTree = "<group>"; };
-		E1EF4D121E9F66D200C18219 /* UIButton+HxbButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+HxbButton.m"; sourceTree = "<group>"; };
-		E1EF4D131E9F66D200C18219 /* UILabel+HxbLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+HxbLabel.h"; sourceTree = "<group>"; };
-		E1EF4D141E9F66D200C18219 /* UILabel+HxbLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+HxbLabel.m"; sourceTree = "<group>"; };
-		E1EF4D181E9F675000C18219 /* UIView+HxbView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HxbView.h"; sourceTree = "<group>"; };
-		E1EF4D191E9F675000C18219 /* UIView+HxbView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HxbView.m"; sourceTree = "<group>"; };
-		E1EF4D1B1E9F676200C18219 /* UIViewController+HxbViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HxbViewController.h"; sourceTree = "<group>"; };
-		E1EF4D1C1E9F676200C18219 /* UIViewController+HxbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HxbViewController.m"; sourceTree = "<group>"; };
-
-		E1EF4D1E1E9F68A600C18219 /* UITableView+HxbTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+HxbTableView.h"; sourceTree = "<group>"; };
-		E1EF4D1F1E9F68A600C18219 /* UITableView+HxbTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+HxbTableView.m"; sourceTree = "<group>"; };
 		E1EF4D251E9F693F00C18219 /* HXBBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableView.h; sourceTree = "<group>"; };
 		E1EF4D261E9F693F00C18219 /* HXBBaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTableView.m; sourceTree = "<group>"; };
-
 		E1EF4D281E9F8E6C00C18219 /* NSArray+HxbLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+HxbLog.h"; sourceTree = "<group>"; };
-
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,8 +182,6 @@
 		4E77D2601E9E4ED400940FF4 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				E1EF4D151E9F66D200C18219 /* UIViewController */,
-				E1EF4D101E9F66D200C18219 /* UIView */,
 				E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */,
 				E1EF4D281E9F8E6C00C18219 /* NSArray+HxbLog.h */,
 				E1D6241A1E9E587100EE52D4 /* NSArray+HxbLog.m */,
@@ -234,30 +214,6 @@
 				B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		E1EF4D101E9F66D200C18219 /* UIView */ = {
-			isa = PBXGroup;
-			children = (
-				E1EF4D181E9F675000C18219 /* UIView+HxbView.h */,
-				E1EF4D191E9F675000C18219 /* UIView+HxbView.m */,
-				E1EF4D111E9F66D200C18219 /* UIButton+HxbButton.h */,
-				E1EF4D121E9F66D200C18219 /* UIButton+HxbButton.m */,
-				E1EF4D131E9F66D200C18219 /* UILabel+HxbLabel.h */,
-				E1EF4D141E9F66D200C18219 /* UILabel+HxbLabel.m */,
-				E1EF4D1E1E9F68A600C18219 /* UITableView+HxbTableView.h */,
-				E1EF4D1F1E9F68A600C18219 /* UITableView+HxbTableView.m */,
-			);
-			path = UIView;
-			sourceTree = "<group>";
-		};
-		E1EF4D151E9F66D200C18219 /* UIViewController */ = {
-			isa = PBXGroup;
-			children = (
-				E1EF4D1B1E9F676200C18219 /* UIViewController+HxbViewController.h */,
-				E1EF4D1C1E9F676200C18219 /* UIViewController+HxbViewController.m */,
-			);
-			path = UIViewController;
 			sourceTree = "<group>";
 		};
 		E1EF4D211E9F68CC00C18219 /* Base */ = {
@@ -458,18 +414,13 @@
 			files = (
 				E1D624271E9E59FB00EE52D4 /* NSString+HxbHash.m in Sources */,
 				E1D6242D1E9E5A9400EE52D4 /* UIColor+HxbColor.m in Sources */,
-				E1EF4D1D1E9F676200C18219 /* UIViewController+HxbViewController.m in Sources */,
 				E1D6241E1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E1EF4D271E9F693F00C18219 /* HXBBaseTableView.m in Sources */,
 				E1D624241E9E598500EE52D4 /* NSObject+HxbRunTime.m in Sources */,
 				E1D624331E9E5B7600EE52D4 /* UIScreen+Hxb.m in Sources */,
 				E1D6241B1E9E587100EE52D4 /* NSArray+HxbLog.m in Sources */,
-				E1EF4D171E9F66D200C18219 /* UILabel+HxbLabel.m in Sources */,
-				E1EF4D1A1E9F675000C18219 /* UIView+HxbView.m in Sources */,
-				E1EF4D201E9F68A600C18219 /* UITableView+HxbTableView.m in Sources */,
 				4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */,
-				E1EF4D161E9F66D200C18219 /* UIButton+HxbButton.m in Sources */,
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
