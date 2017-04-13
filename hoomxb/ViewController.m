@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-
+#import "HXBBaseCollectionView.h"
 @interface ViewController ()
 
 @end
@@ -17,9 +17,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [UIView animateWithDuration:1 animations:^{
-        
-    }];
+
+  
 }
 
 
