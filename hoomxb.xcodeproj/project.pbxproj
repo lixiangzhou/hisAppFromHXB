@@ -120,6 +120,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E0C6FCE1E9FA2EA00F092C2 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
 		4E16D8211E9CD0FE002A1881 = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +152,7 @@
 		4E16D82C1E9CD0FE002A1881 /* hoomxb */ = {
 			isa = PBXGroup;
 			children = (
+				4E0C6FCE1E9FA2EA00F092C2 /* Network */,
 				4E77D25F1E9E4ED400940FF4 /* Tools */,
 				4E16D8301E9CD0FE002A1881 /* AppDelegate.h */,
 				4E16D8311E9CD0FE002A1881 /* AppDelegate.m */,
