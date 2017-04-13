@@ -22,7 +22,6 @@
 		E1D624271E9E59FB00EE52D4 /* NSString+HxbHash.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D624261E9E59FB00EE52D4 /* NSString+HxbHash.m */; };
 		E1D6242D1E9E5A9400EE52D4 /* UIColor+HxbColor.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D6242C1E9E5A9400EE52D4 /* UIColor+HxbColor.m */; };
 		E1D624331E9E5B7600EE52D4 /* UIScreen+Hxb.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D624321E9E5B7600EE52D4 /* UIScreen+Hxb.m */; };
-		E1EF4D271E9F693F00C18219 /* HXBBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1EF4D261E9F693F00C18219 /* HXBBaseTableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,8 +73,6 @@
 		E1D624311E9E5B7600EE52D4 /* UIScreen+Hxb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+Hxb.h"; sourceTree = "<group>"; };
 		E1D624321E9E5B7600EE52D4 /* UIScreen+Hxb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+Hxb.m"; sourceTree = "<group>"; };
 		E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxbCategorys.h; sourceTree = "<group>"; };
-		E1EF4D251E9F693F00C18219 /* HXBBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableView.h; sourceTree = "<group>"; };
-		E1EF4D261E9F693F00C18219 /* HXBBaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTableView.m; sourceTree = "<group>"; };
 		E1EF4D281E9F8E6C00C18219 /* NSArray+HxbLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+HxbLog.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,7 +170,6 @@
 		4E77D25F1E9E4ED400940FF4 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				E1EF4D211E9F68CC00C18219 /* Base */,
 				4E77D2601E9E4ED400940FF4 /* Category */,
 			);
 			path = Tools;
@@ -214,15 +210,6 @@
 				B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		E1EF4D211E9F68CC00C18219 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				E1EF4D251E9F693F00C18219 /* HXBBaseTableView.h */,
-				E1EF4D261E9F693F00C18219 /* HXBBaseTableView.m */,
-			);
-			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -416,7 +403,6 @@
 				E1D6242D1E9E5A9400EE52D4 /* UIColor+HxbColor.m in Sources */,
 				E1D6241E1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
-				E1EF4D271E9F693F00C18219 /* HXBBaseTableView.m in Sources */,
 				E1D624241E9E598500EE52D4 /* NSObject+HxbRunTime.m in Sources */,
 				E1D624331E9E5B7600EE52D4 /* UIScreen+Hxb.m in Sources */,
 				E1D6241B1E9E587100EE52D4 /* NSArray+HxbLog.m in Sources */,
