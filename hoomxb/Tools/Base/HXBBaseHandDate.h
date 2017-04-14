@@ -25,8 +25,6 @@ typedef enum : NSUInteger {
 //单利
 + (instancetype) sharedHandleDate;
 
-/**返回较晚的时间*/
-+ (NSDate *)handleDaterRturnLaterDateWithData: (NSDate *)date andOtherDate: (NSDate *)otherDate;
 
 /**
  * 关于时间与当前时间 比较早晚 的方法
