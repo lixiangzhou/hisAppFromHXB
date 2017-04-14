@@ -13,5 +13,3 @@
 #import "HXBBaseTableViewCell.h"//tableViewCell
 #import "HXBBaseCollectionView.h"//collectionView
 #import "HXBBaseCollectionViewCell.h"//collectionViewCell
-
-
