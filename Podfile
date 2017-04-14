@@ -12,4 +12,5 @@ pod 'YYModel'
 pod 'WebViewJavascriptBridge', '~> 5.0'
 pod 'YYKeyboardManager'
 pod 'HandyFrame'
+pod 'ReactiveObjC'
 end
