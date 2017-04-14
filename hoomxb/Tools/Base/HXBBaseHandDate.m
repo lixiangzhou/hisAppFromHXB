@@ -15,7 +15,7 @@
 
 @implementation HXBBaseHandDate
 //单利
-static PYHandleDate *_instancetype;
+static HXBBaseHandDate *_instancetype;
 + (instancetype) sharedHandleDate {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -31,7 +31,7 @@ static PYHandleDate *_instancetype;
     NSDate *dateTwo = [[self sharedHandleDate] returnDateWithOBJ:otherDate andDateFormatter:nil];
     //返回时间对象
     NSDate *returnDate;
-    if (compareType == PYHandleCompareType_returnLittle) {
+    if (compareType == HXBHandleCompareType_returnLittle) {
         returnDate = [dateOne laterDate:dateTwo];
     }else {
         returnDate = [dateOne earlierDate:dateTwo];
