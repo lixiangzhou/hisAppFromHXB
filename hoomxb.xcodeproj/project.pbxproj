@@ -21,6 +21,7 @@
 		4E5402741E9FAC910076B542 /* NSString+PerMilMoney.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5402731E9FAC910076B542 /* NSString+PerMilMoney.m */; };
 		4E5402771E9FACA70076B542 /* NSString+CopiesTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5402761E9FACA70076B542 /* NSString+CopiesTransfer.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
+		E122D8031EA080C200DC71ED /* UIImageView+HxbSDWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8021EA080C200DC71ED /* UIImageView+HxbSDWebImage.m */; };
 		E1D6241B1E9E587100EE52D4 /* NSArray+HxbLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D6241A1E9E587100EE52D4 /* NSArray+HxbLog.m */; };
 		E1D6241E1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D6241D1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m */; };
 		E1D624241E9E598500EE52D4 /* NSObject+HxbRunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D624231E9E598500EE52D4 /* NSObject+HxbRunTime.m */; };
@@ -87,9 +88,12 @@
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
 		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
+		E122D8011EA080C200DC71ED /* UIImageView+HxbSDWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+HxbSDWebImage.h"; sourceTree = "<group>"; };
+		E122D8021EA080C200DC71ED /* UIImageView+HxbSDWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+HxbSDWebImage.m"; sourceTree = "<group>"; };
+		E122D8051EA0A2F700DC71ED /* HxbBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxbBase.h; sourceTree = "<group>"; };
 		E1D6241A1E9E587100EE52D4 /* NSArray+HxbLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+HxbLog.m"; sourceTree = "<group>"; };
-		E1D6241C1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+HxbAttributedString.h"; sourceTree = "<group>"; };
-		E1D6241D1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+HxbAttributedString.m"; sourceTree = "<group>"; };
+		E1D6241C1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+HxbAttributedString.h"; path = "../NSAttributedString+HxbAttributedString.h"; sourceTree = "<group>"; };
+		E1D6241D1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+HxbAttributedString.m"; path = "../NSAttributedString+HxbAttributedString.m"; sourceTree = "<group>"; };
 		E1D624221E9E598500EE52D4 /* NSObject+HxbRunTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+HxbRunTime.h"; sourceTree = "<group>"; };
 		E1D624231E9E598500EE52D4 /* NSObject+HxbRunTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+HxbRunTime.m"; sourceTree = "<group>"; };
 		E1D624251E9E59FB00EE52D4 /* NSString+HxbHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+HxbHash.h"; path = "hoomxb/Tools/Category/NSString+HxbHash.h"; sourceTree = SOURCE_ROOT; };
@@ -98,7 +102,7 @@
 		E1D6242C1E9E5A9400EE52D4 /* UIColor+HxbColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HxbColor.m"; sourceTree = "<group>"; };
 		E1D624311E9E5B7600EE52D4 /* UIScreen+Hxb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScreen+Hxb.h"; sourceTree = "<group>"; };
 		E1D624321E9E5B7600EE52D4 /* UIScreen+Hxb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScreen+Hxb.m"; sourceTree = "<group>"; };
-		E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxbCategorys.h; sourceTree = "<group>"; };
+		E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HxbCategorys.h; path = Category/HxbCategorys.h; sourceTree = "<group>"; };
 		E1EF4D281E9F8E6C00C18219 /* NSArray+HxbLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+HxbLog.h"; sourceTree = "<group>"; };
 		E1EF4D3F1E9F906B00C18219 /* UIButton+HxbButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+HxbButton.h"; sourceTree = "<group>"; };
 		E1EF4D401E9F906B00C18219 /* UIButton+HxbButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+HxbButton.m"; sourceTree = "<group>"; };
@@ -238,6 +242,8 @@
 				E1D624261E9E59FB00EE52D4 /* NSString+HxbHash.m */,
 				4E5402691E9FAB220076B542 /* NSString+General.h */,
 				4E54026A1E9FAB220076B542 /* NSString+General.m */,
+				E1D6241C1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.h */,
+				E1D6241D1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m */,
 			);
 			path = NSString;
 			sourceTree = "<group>";
@@ -245,6 +251,8 @@
 		4E77D25F1E9E4ED400940FF4 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */,
+				E122D8051EA0A2F700DC71ED /* HxbBase.h */,
 				E1EF4D4F1E9F907100C18219 /* Base */,
 				4E77D2601E9E4ED400940FF4 /* Category */,
 			);
@@ -257,11 +265,8 @@
 				4E5402681E9FAACB0076B542 /* NSString */,
 				E1EF4D3E1E9F906B00C18219 /* UIView */,
 				E1EF4D471E9F906B00C18219 /* UIViewController */,
-				E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */,
 				E1EF4D281E9F8E6C00C18219 /* NSArray+HxbLog.h */,
 				E1D6241A1E9E587100EE52D4 /* NSArray+HxbLog.m */,
-				E1D6241C1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.h */,
-				E1D6241D1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m */,
 				E1D624221E9E598500EE52D4 /* NSObject+HxbRunTime.h */,
 				E1D624231E9E598500EE52D4 /* NSObject+HxbRunTime.m */,
 				E1D6242B1E9E5A9400EE52D4 /* UIColor+HxbColor.h */,
@@ -292,14 +297,16 @@
 		E1EF4D3E1E9F906B00C18219 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				E1EF4D451E9F906B00C18219 /* UIView+HxbView.h */,
+				E1EF4D461E9F906B00C18219 /* UIView+HxbView.m */,
+				E1EF4D431E9F906B00C18219 /* UITableView+HxbTableView.h */,
+				E1EF4D441E9F906B00C18219 /* UITableView+HxbTableView.m */,
 				E1EF4D3F1E9F906B00C18219 /* UIButton+HxbButton.h */,
 				E1EF4D401E9F906B00C18219 /* UIButton+HxbButton.m */,
 				E1EF4D411E9F906B00C18219 /* UILabel+HxbLabel.h */,
 				E1EF4D421E9F906B00C18219 /* UILabel+HxbLabel.m */,
-				E1EF4D431E9F906B00C18219 /* UITableView+HxbTableView.h */,
-				E1EF4D441E9F906B00C18219 /* UITableView+HxbTableView.m */,
-				E1EF4D451E9F906B00C18219 /* UIView+HxbView.h */,
-				E1EF4D461E9F906B00C18219 /* UIView+HxbView.m */,
+				E122D8011EA080C200DC71ED /* UIImageView+HxbSDWebImage.h */,
+				E122D8021EA080C200DC71ED /* UIImageView+HxbSDWebImage.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -526,6 +533,7 @@
 				E1D6241E1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E1EF4D4E1E9F906B00C18219 /* UIViewController+HxbViewController.m in Sources */,
+				E122D8031EA080C200DC71ED /* UIImageView+HxbSDWebImage.m in Sources */,
 				E1EF4D581E9F994D00C18219 /* HXBBaseCollectionView.m in Sources */,
 				E1EF4D521E9F907100C18219 /* HXBBaseTableView.m in Sources */,
 				E1EF4D681E9FAE8A00C18219 /* HXBBaseHandDate.m in Sources */,

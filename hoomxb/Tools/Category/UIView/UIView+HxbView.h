@@ -28,10 +28,6 @@
 
 
 
-
-
-
-
     /// 返回屏幕截图
 - (UIImage *)hxb_snapshotImage;
 @end
