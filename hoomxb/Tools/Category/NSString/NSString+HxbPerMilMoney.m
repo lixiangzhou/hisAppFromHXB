@@ -6,9 +6,9 @@
 //  Copyright © 2016年 hongxb. All rights reserved.
 //
 
-#import "NSString+PerMilMoney.h"
+#import "NSString+HxbPerMilMoney.h"
 
-@implementation NSString (PerMilMoney)
+@implementation NSString (HxbPerMilMoney)
 
 +(NSString *)GetPerMilWithDouble:(double)number
 {

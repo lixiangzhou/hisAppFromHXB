@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (PerMilMoney)
+@interface NSString (HxbPerMilMoney)
 
 +(NSString *)GetPerMilWithDouble:(double)number;
 

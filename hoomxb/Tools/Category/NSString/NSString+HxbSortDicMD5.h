@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (SortDicMD5)
+@interface NSString (HxbSortDicMD5)
 
 + (NSString *)signStringBySortFromParamDict:(NSMutableDictionary *)dict;
 

@@ -15,7 +15,6 @@
 #pragma mark - 关于key
 
 #pragma mark - 属性的添加
-#pragma mark - frame
 //setter
 - (void)setCenterX:(CGFloat)centerX
 {
@@ -115,8 +114,6 @@
 @end
 
 
-
-
 // -------------------- readMe ---------------
 /*动态添加属性
  1.  setter方法
@@ -127,5 +124,5 @@
  objc_setAssociatedObject(self, &HXBVIEWFRAME_MAXY, hxbMaxYNum, OBJC_ASSOCIATION_ASSIGN);
  
  2. getter方法
- 
+
  */

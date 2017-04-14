@@ -6,12 +6,12 @@
 //  Copyright © 2016年 hoomsun. All rights reserved.
 //
 
-#import "NSString+SortDicMD5.h"
+#import "NSString+HxbSortDicMD5.h"
 #import <CommonCrypto/CommonDigest.h>
 
 //#define MD5KEY @"Fr46lwabMP6MNSNtJr3t8HjVNjzIVJeE"
 
-@implementation NSString (SortDicMD5)
+@implementation NSString (HxbSortDicMD5)
 
 + (NSString *)signStringBySortFromParamDict:(NSMutableDictionary *)dict {
     NSMutableDictionary *sortDict = [dict mutableCopy];

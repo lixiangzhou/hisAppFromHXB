@@ -15,10 +15,10 @@
 		4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */; };
 		4E16D8481E9CD0FE002A1881 /* hoomxbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */; };
 		4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */; };
-		4E54026B1E9FAB220076B542 /* NSString+General.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E54026A1E9FAB220076B542 /* NSString+General.m */; };
+		4E54026B1E9FAB220076B542 /* NSString+HxbGeneral.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E54026A1E9FAB220076B542 /* NSString+HxbGeneral.m */; };
 		4E54026E1E9FAC400076B542 /* NSString+HxbMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E54026D1E9FAC400076B542 /* NSString+HxbMask.m */; };
-		4E5402711E9FAC890076B542 /* NSString+SortDicMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5402701E9FAC890076B542 /* NSString+SortDicMD5.m */; };
-		4E5402741E9FAC910076B542 /* NSString+PerMilMoney.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5402731E9FAC910076B542 /* NSString+PerMilMoney.m */; };
+		4E5402711E9FAC890076B542 /* NSString+HxbSortDicMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5402701E9FAC890076B542 /* NSString+HxbSortDicMD5.m */; };
+		4E5402741E9FAC910076B542 /* NSString+HxbPerMilMoney.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5402731E9FAC910076B542 /* NSString+HxbPerMilMoney.m */; };
 		4E5402771E9FACA70076B542 /* NSString+CopiesTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5402761E9FACA70076B542 /* NSString+CopiesTransfer.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 		E122D8031EA080C200DC71ED /* UIImageView+HxbSDWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8021EA080C200DC71ED /* UIImageView+HxbSDWebImage.m */; };
@@ -75,14 +75,14 @@
 		4E16D84E1E9CD0FE002A1881 /* hoomxbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hoomxbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hoomxbUITests.m; sourceTree = "<group>"; };
 		4E16D8541E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4E5402691E9FAB220076B542 /* NSString+General.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+General.h"; sourceTree = "<group>"; };
-		4E54026A1E9FAB220076B542 /* NSString+General.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+General.m"; sourceTree = "<group>"; };
+		4E5402691E9FAB220076B542 /* NSString+HxbGeneral.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HxbGeneral.h"; sourceTree = "<group>"; };
+		4E54026A1E9FAB220076B542 /* NSString+HxbGeneral.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HxbGeneral.m"; sourceTree = "<group>"; };
 		4E54026C1E9FAC400076B542 /* NSString+HxbMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HxbMask.h"; sourceTree = "<group>"; };
 		4E54026D1E9FAC400076B542 /* NSString+HxbMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HxbMask.m"; sourceTree = "<group>"; };
-		4E54026F1E9FAC890076B542 /* NSString+SortDicMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+SortDicMD5.h"; sourceTree = "<group>"; };
-		4E5402701E9FAC890076B542 /* NSString+SortDicMD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+SortDicMD5.m"; sourceTree = "<group>"; };
-		4E5402721E9FAC910076B542 /* NSString+PerMilMoney.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PerMilMoney.h"; sourceTree = "<group>"; };
-		4E5402731E9FAC910076B542 /* NSString+PerMilMoney.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PerMilMoney.m"; sourceTree = "<group>"; };
+		4E54026F1E9FAC890076B542 /* NSString+HxbSortDicMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HxbSortDicMD5.h"; sourceTree = "<group>"; };
+		4E5402701E9FAC890076B542 /* NSString+HxbSortDicMD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HxbSortDicMD5.m"; sourceTree = "<group>"; };
+		4E5402721E9FAC910076B542 /* NSString+HxbPerMilMoney.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HxbPerMilMoney.h"; sourceTree = "<group>"; };
+		4E5402731E9FAC910076B542 /* NSString+HxbPerMilMoney.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HxbPerMilMoney.m"; sourceTree = "<group>"; };
 		4E5402751E9FACA70076B542 /* NSString+CopiesTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CopiesTransfer.h"; sourceTree = "<group>"; };
 		4E5402761E9FACA70076B542 /* NSString+CopiesTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CopiesTransfer.m"; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
@@ -232,16 +232,16 @@
 			children = (
 				4E5402751E9FACA70076B542 /* NSString+CopiesTransfer.h */,
 				4E5402761E9FACA70076B542 /* NSString+CopiesTransfer.m */,
-				4E5402721E9FAC910076B542 /* NSString+PerMilMoney.h */,
-				4E5402731E9FAC910076B542 /* NSString+PerMilMoney.m */,
-				4E54026F1E9FAC890076B542 /* NSString+SortDicMD5.h */,
-				4E5402701E9FAC890076B542 /* NSString+SortDicMD5.m */,
+				4E5402721E9FAC910076B542 /* NSString+HxbPerMilMoney.h */,
+				4E5402731E9FAC910076B542 /* NSString+HxbPerMilMoney.m */,
+				4E54026F1E9FAC890076B542 /* NSString+HxbSortDicMD5.h */,
+				4E5402701E9FAC890076B542 /* NSString+HxbSortDicMD5.m */,
 				4E54026C1E9FAC400076B542 /* NSString+HxbMask.h */,
 				4E54026D1E9FAC400076B542 /* NSString+HxbMask.m */,
 				E1D624251E9E59FB00EE52D4 /* NSString+HxbHash.h */,
 				E1D624261E9E59FB00EE52D4 /* NSString+HxbHash.m */,
-				4E5402691E9FAB220076B542 /* NSString+General.h */,
-				4E54026A1E9FAB220076B542 /* NSString+General.m */,
+				4E5402691E9FAB220076B542 /* NSString+HxbGeneral.h */,
+				4E54026A1E9FAB220076B542 /* NSString+HxbGeneral.m */,
 				E1D6241C1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.h */,
 				E1D6241D1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m */,
 			);
@@ -251,8 +251,8 @@
 		4E77D25F1E9E4ED400940FF4 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */,
 				E122D8051EA0A2F700DC71ED /* HxbBase.h */,
+				E1EF4D071E9F10DC00C18219 /* HxbCategorys.h */,
 				E1EF4D4F1E9F907100C18219 /* Base */,
 				4E77D2601E9E4ED400940FF4 /* Category */,
 			);
@@ -548,10 +548,10 @@
 				E1EF4D4A1E9F906B00C18219 /* UIButton+HxbButton.m in Sources */,
 				E1EF4D4D1E9F906B00C18219 /* UIView+HxbView.m in Sources */,
 				E1EF4D4C1E9F906B00C18219 /* UITableView+HxbTableView.m in Sources */,
-				4E54026B1E9FAB220076B542 /* NSString+General.m in Sources */,
-				4E5402741E9FAC910076B542 /* NSString+PerMilMoney.m in Sources */,
+				4E54026B1E9FAB220076B542 /* NSString+HxbGeneral.m in Sources */,
+				4E5402741E9FAC910076B542 /* NSString+HxbPerMilMoney.m in Sources */,
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
-				4E5402711E9FAC890076B542 /* NSString+SortDicMD5.m in Sources */,
+				4E5402711E9FAC890076B542 /* NSString+HxbSortDicMD5.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
