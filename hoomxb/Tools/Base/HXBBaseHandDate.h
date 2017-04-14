@@ -28,7 +28,7 @@ typedef enum : NSUInteger {
 
 /**
  * 关于时间与当前时间 比较早晚 的方法
- * date_OBJ : 传入一个字符串或者时间对象
+ * @param date_OBJ : 传入一个字符串或者时间对象
  */
 - (BOOL)isLateCurrentDateWithDate: (NSObject *)date_OBJ andDateForMatter: (NSString *)dateForMatter;
 
