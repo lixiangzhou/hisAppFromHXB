@@ -46,6 +46,7 @@ fprintf(stderr, "-------------------\n");   \
 #import <HandyFrame/UIView+LayoutMethods.h>
 #import <MJRefresh/MJRefresh.h>
 #import <AFNetworking/AFNetworking.h>
+#import <ReactiveObjC.h>
 #import <UICKeyChainStore.h>
 
 #import "UIResponder+FindNext.h"
