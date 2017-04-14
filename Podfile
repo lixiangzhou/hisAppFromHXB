@@ -11,4 +11,5 @@ pod 'Masonry'
 pod 'YYModel'
 pod 'WebViewJavascriptBridge', '~> 5.0'
 pod 'YYKeyboardManager'
+pod 'HandyFrame'
 end
