@@ -15,11 +15,17 @@
 		4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */; };
 		4E16D8481E9CD0FE002A1881 /* hoomxbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */; };
 		4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */; };
-		4E26E39C1EA0FC2A0078B419 /* NYBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3921EA0FC2A0078B419 /* NYBaseRequest.m */; };
-		4E26E39D1EA0FC2A0078B419 /* NYHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3941EA0FC2A0078B419 /* NYHTTPConnection.m */; };
-		4E26E39E1EA0FC2A0078B419 /* NYNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3971EA0FC2A0078B419 /* NYNetworkConfig.m */; };
-		4E26E39F1EA0FC2A0078B419 /* NYNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3991EA0FC2A0078B419 /* NYNetworkManager.m */; };
-		4E26E3A01EA0FC2A0078B419 /* NYNetworkManager+DefaultMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E39B1EA0FC2A0078B419 /* NYNetworkManager+DefaultMethod.m */; };
+		4E26E3AF1EA0FE660078B419 /* NYBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3A51EA0FE660078B419 /* NYBaseRequest.m */; };
+		4E26E3B01EA0FE660078B419 /* NYHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3A71EA0FE660078B419 /* NYHTTPConnection.m */; };
+		4E26E3B11EA0FE660078B419 /* NYNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3AA1EA0FE660078B419 /* NYNetworkConfig.m */; };
+		4E26E3B21EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3AC1EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m */; };
+		4E26E3B31EA0FE660078B419 /* NYNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3AE1EA0FE660078B419 /* NYNetworkManager.m */; };
+		4E26E3B81EA0FE790078B419 /* RequestTestAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3B51EA0FE790078B419 /* RequestTestAPI.m */; };
+		4E26E3B91EA0FE790078B419 /* TokenAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3B71EA0FE790078B419 /* TokenAPI.m */; };
+		4E26E3BD1EA0FEED0078B419 /* tokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3BC1EA0FEED0078B419 /* tokenModel.m */; };
+		4E26E3C01EA0FEFE0078B419 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3BF1EA0FEFE0078B419 /* BaseModel.m */; };
+		4E26E3C61EA0FF4C0078B419 /* KeyChainManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3C31EA0FF4C0078B419 /* KeyChainManage.m */; };
+		4E26E3C71EA0FF4C0078B419 /* UserDefaultManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3C51EA0FF4C0078B419 /* UserDefaultManage.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 		E122D8461EA0CAB900DC71ED /* HXBBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D80B1EA0CAB900DC71ED /* HXBBaseCollectionView.m */; };
 		E122D8471EA0CAB900DC71ED /* HXBBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D80D1EA0CAB900DC71ED /* HXBBaseCollectionViewCell.m */; };
@@ -82,17 +88,29 @@
 		4E16D84E1E9CD0FE002A1881 /* hoomxbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hoomxbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hoomxbUITests.m; sourceTree = "<group>"; };
 		4E16D8541E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4E26E3911EA0FC2A0078B419 /* NYBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYBaseRequest.h; sourceTree = "<group>"; };
-		4E26E3921EA0FC2A0078B419 /* NYBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYBaseRequest.m; sourceTree = "<group>"; };
-		4E26E3931EA0FC2A0078B419 /* NYHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYHTTPConnection.h; sourceTree = "<group>"; };
-		4E26E3941EA0FC2A0078B419 /* NYHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYHTTPConnection.m; sourceTree = "<group>"; };
-		4E26E3951EA0FC2A0078B419 /* NYNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetwork.h; sourceTree = "<group>"; };
-		4E26E3961EA0FC2A0078B419 /* NYNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetworkConfig.h; sourceTree = "<group>"; };
-		4E26E3971EA0FC2A0078B419 /* NYNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYNetworkConfig.m; sourceTree = "<group>"; };
-		4E26E3981EA0FC2A0078B419 /* NYNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetworkManager.h; sourceTree = "<group>"; };
-		4E26E3991EA0FC2A0078B419 /* NYNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYNetworkManager.m; sourceTree = "<group>"; };
-		4E26E39A1EA0FC2A0078B419 /* NYNetworkManager+DefaultMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NYNetworkManager+DefaultMethod.h"; sourceTree = "<group>"; };
-		4E26E39B1EA0FC2A0078B419 /* NYNetworkManager+DefaultMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NYNetworkManager+DefaultMethod.m"; sourceTree = "<group>"; };
+		4E26E3A41EA0FE660078B419 /* NYBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYBaseRequest.h; sourceTree = "<group>"; };
+		4E26E3A51EA0FE660078B419 /* NYBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYBaseRequest.m; sourceTree = "<group>"; };
+		4E26E3A61EA0FE660078B419 /* NYHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYHTTPConnection.h; sourceTree = "<group>"; };
+		4E26E3A71EA0FE660078B419 /* NYHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYHTTPConnection.m; sourceTree = "<group>"; };
+		4E26E3A81EA0FE660078B419 /* NYNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetwork.h; sourceTree = "<group>"; };
+		4E26E3A91EA0FE660078B419 /* NYNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetworkConfig.h; sourceTree = "<group>"; };
+		4E26E3AA1EA0FE660078B419 /* NYNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYNetworkConfig.m; sourceTree = "<group>"; };
+		4E26E3AB1EA0FE660078B419 /* NYNetworkManager+DefaultMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NYNetworkManager+DefaultMethod.h"; sourceTree = "<group>"; };
+		4E26E3AC1EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NYNetworkManager+DefaultMethod.m"; sourceTree = "<group>"; };
+		4E26E3AD1EA0FE660078B419 /* NYNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetworkManager.h; sourceTree = "<group>"; };
+		4E26E3AE1EA0FE660078B419 /* NYNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYNetworkManager.m; sourceTree = "<group>"; };
+		4E26E3B41EA0FE790078B419 /* RequestTestAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestTestAPI.h; sourceTree = "<group>"; };
+		4E26E3B51EA0FE790078B419 /* RequestTestAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestTestAPI.m; sourceTree = "<group>"; };
+		4E26E3B61EA0FE790078B419 /* TokenAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenAPI.h; sourceTree = "<group>"; };
+		4E26E3B71EA0FE790078B419 /* TokenAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenAPI.m; sourceTree = "<group>"; };
+		4E26E3BB1EA0FEED0078B419 /* tokenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenModel.h; sourceTree = "<group>"; };
+		4E26E3BC1EA0FEED0078B419 /* tokenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tokenModel.m; sourceTree = "<group>"; };
+		4E26E3BE1EA0FEFE0078B419 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		4E26E3BF1EA0FEFE0078B419 /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		4E26E3C21EA0FF4C0078B419 /* KeyChainManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyChainManage.h; sourceTree = "<group>"; };
+		4E26E3C31EA0FF4C0078B419 /* KeyChainManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainManage.m; sourceTree = "<group>"; };
+		4E26E3C41EA0FF4C0078B419 /* UserDefaultManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManage.h; sourceTree = "<group>"; };
+		4E26E3C51EA0FF4C0078B419 /* UserDefaultManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultManage.m; sourceTree = "<group>"; };
 		4EA93FBC1EA0A59D002F3615 /* HXBFontMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFontMacro.h; sourceTree = "<group>"; };
 		4EA93FBD1EA0A5AB002F3615 /* HXBAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAPI.h; sourceTree = "<group>"; };
 		4EA93FBE1EA0A5B9002F3615 /* MacrosInBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacrosInBusiness.h; sourceTree = "<group>"; };
@@ -181,24 +199,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4E0C6FCE1E9FA2EA00F092C2 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				4E26E3911EA0FC2A0078B419 /* NYBaseRequest.h */,
-				4E26E3921EA0FC2A0078B419 /* NYBaseRequest.m */,
-				4E26E3931EA0FC2A0078B419 /* NYHTTPConnection.h */,
-				4E26E3941EA0FC2A0078B419 /* NYHTTPConnection.m */,
-				4E26E3951EA0FC2A0078B419 /* NYNetwork.h */,
-				4E26E3961EA0FC2A0078B419 /* NYNetworkConfig.h */,
-				4E26E3971EA0FC2A0078B419 /* NYNetworkConfig.m */,
-				4E26E3981EA0FC2A0078B419 /* NYNetworkManager.h */,
-				4E26E3991EA0FC2A0078B419 /* NYNetworkManager.m */,
-				4E26E39A1EA0FC2A0078B419 /* NYNetworkManager+DefaultMethod.h */,
-				4E26E39B1EA0FC2A0078B419 /* NYNetworkManager+DefaultMethod.m */,
-			);
-			path = Network;
-			sourceTree = "<group>";
-		};
 		4E16D8211E9CD0FE002A1881 = {
 			isa = PBXGroup;
 			children = (
@@ -224,8 +224,8 @@
 		4E16D82C1E9CD0FE002A1881 /* hoomxb */ = {
 			isa = PBXGroup;
 			children = (
+				4E26E3A11EA0FE660078B419 /* Network */,
 				4EA93FBB1EA0A591002F3615 /* Macros */,
-				4E0C6FCE1E9FA2EA00F092C2 /* Network */,
 				E122D8081EA0CAB900DC71ED /* Tools */,
 				4E16D8301E9CD0FE002A1881 /* AppDelegate.h */,
 				4E16D8311E9CD0FE002A1881 /* AppDelegate.m */,
@@ -267,6 +267,67 @@
 			path = hoomxbUITests;
 			sourceTree = "<group>";
 		};
+		4E26E3A11EA0FE660078B419 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				4E26E3BA1EA0FED60078B419 /* HxbModel */,
+				4E26E3A21EA0FE660078B419 /* HxbAPI */,
+				4E26E3A31EA0FE660078B419 /* HxbNetworking */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		4E26E3A21EA0FE660078B419 /* HxbAPI */ = {
+			isa = PBXGroup;
+			children = (
+				4E26E3B41EA0FE790078B419 /* RequestTestAPI.h */,
+				4E26E3B51EA0FE790078B419 /* RequestTestAPI.m */,
+				4E26E3B61EA0FE790078B419 /* TokenAPI.h */,
+				4E26E3B71EA0FE790078B419 /* TokenAPI.m */,
+			);
+			path = HxbAPI;
+			sourceTree = "<group>";
+		};
+		4E26E3A31EA0FE660078B419 /* HxbNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				4E26E3A41EA0FE660078B419 /* NYBaseRequest.h */,
+				4E26E3A51EA0FE660078B419 /* NYBaseRequest.m */,
+				4E26E3A61EA0FE660078B419 /* NYHTTPConnection.h */,
+				4E26E3A71EA0FE660078B419 /* NYHTTPConnection.m */,
+				4E26E3A81EA0FE660078B419 /* NYNetwork.h */,
+				4E26E3A91EA0FE660078B419 /* NYNetworkConfig.h */,
+				4E26E3AA1EA0FE660078B419 /* NYNetworkConfig.m */,
+				4E26E3AB1EA0FE660078B419 /* NYNetworkManager+DefaultMethod.h */,
+				4E26E3AC1EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m */,
+				4E26E3AD1EA0FE660078B419 /* NYNetworkManager.h */,
+				4E26E3AE1EA0FE660078B419 /* NYNetworkManager.m */,
+			);
+			path = HxbNetworking;
+			sourceTree = "<group>";
+		};
+		4E26E3BA1EA0FED60078B419 /* HxbModel */ = {
+			isa = PBXGroup;
+			children = (
+				4E26E3BE1EA0FEFE0078B419 /* BaseModel.h */,
+				4E26E3BF1EA0FEFE0078B419 /* BaseModel.m */,
+				4E26E3BB1EA0FEED0078B419 /* tokenModel.h */,
+				4E26E3BC1EA0FEED0078B419 /* tokenModel.m */,
+			);
+			path = HxbModel;
+			sourceTree = "<group>";
+		};
+		4E26E3C11EA0FF4C0078B419 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				4E26E3C21EA0FF4C0078B419 /* KeyChainManage.h */,
+				4E26E3C31EA0FF4C0078B419 /* KeyChainManage.m */,
+				4E26E3C41EA0FF4C0078B419 /* UserDefaultManage.h */,
+				4E26E3C51EA0FF4C0078B419 /* UserDefaultManage.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		4EA93FBB1EA0A591002F3615 /* Macros */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +361,7 @@
 			children = (
 				E122D8441EA0CAB900DC71ED /* HxbBase.h */,
 				E122D8451EA0CAB900DC71ED /* HxbCategorys.h */,
+				4E26E3C11EA0FF4C0078B419 /* Manager */,
 				E122D8091EA0CAB900DC71ED /* Base */,
 				E122D8161EA0CAB900DC71ED /* Category */,
 			);
@@ -613,38 +675,44 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E26E39D1EA0FC2A0078B419 /* NYHTTPConnection.m in Sources */,
+				4E26E3B01EA0FE660078B419 /* NYHTTPConnection.m in Sources */,
 				E122D8551EA0CAB900DC71ED /* NSString+HxbSortDicMD5.m in Sources */,
+				4E26E3C71EA0FF4C0078B419 /* UserDefaultManage.m in Sources */,
 				E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */,
 				E122D85B1EA0CAB900DC71ED /* UILabel+HxbLabel.m in Sources */,
+				4E26E3B91EA0FE790078B419 /* TokenAPI.m in Sources */,
 				E122D84E1EA0CAB900DC71ED /* NSObject+HxbRunTime.m in Sources */,
 				E122D85E1EA0CAB900DC71ED /* UIViewController+HxbViewController.m in Sources */,
 				E122D8531EA0CAB900DC71ED /* NSString+HxbMask.m in Sources */,
 				E122D8591EA0CAB900DC71ED /* UIButton+HxbButton.m in Sources */,
 				E122D8581EA0CAB900DC71ED /* UIScreen+Hxb.m in Sources */,
+				4E26E3C01EA0FEFE0078B419 /* BaseModel.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E122D85A1EA0CAB900DC71ED /* UIImageView+HxbSDWebImage.m in Sources */,
 				E122D84A1EA0CAB900DC71ED /* HXBBaseTableViewCell.m in Sources */,
+				4E26E3B31EA0FE660078B419 /* NYNetworkManager.m in Sources */,
 				4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */,
 				E122D84F1EA0CAB900DC71ED /* NSAttributedString+HxbAttributedString.m in Sources */,
 				E122D8521EA0CAB900DC71ED /* NSString+HxbHash.m in Sources */,
 				E122D8471EA0CAB900DC71ED /* HXBBaseCollectionViewCell.m in Sources */,
+				4E26E3B21EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m in Sources */,
 				E122D8501EA0CAB900DC71ED /* NSString+CopiesTransfer.m in Sources */,
 				E122D8541EA0CAB900DC71ED /* NSString+HxbPerMilMoney.m in Sources */,
+				4E26E3B81EA0FE790078B419 /* RequestTestAPI.m in Sources */,
 				E122D8511EA0CAB900DC71ED /* NSString+HxbGeneral.m in Sources */,
 				E122D8491EA0CAB900DC71ED /* HXBBaseTableView.m in Sources */,
 				E122D8461EA0CAB900DC71ED /* HXBBaseCollectionView.m in Sources */,
 				E122D8481EA0CAB900DC71ED /* HXBBaseHandDate.m in Sources */,
 				E122D85D1EA0CAB900DC71ED /* UIView+HxbView.m in Sources */,
 				E122D84B1EA0CAB900DC71ED /* HXBBaseViewController.m in Sources */,
-				4E26E39C1EA0FC2A0078B419 /* NYBaseRequest.m in Sources */,
-				4E26E39F1EA0FC2A0078B419 /* NYNetworkManager.m in Sources */,
+				4E26E3AF1EA0FE660078B419 /* NYBaseRequest.m in Sources */,
+				4E26E3BD1EA0FEED0078B419 /* tokenModel.m in Sources */,
 				E122D8571EA0CAB900DC71ED /* UIResponder+FindNext.m in Sources */,
-				4E26E3A01EA0FC2A0078B419 /* NYNetworkManager+DefaultMethod.m in Sources */,
+				4E26E3C61EA0FF4C0078B419 /* KeyChainManage.m in Sources */,
 				E122D85C1EA0CAB900DC71ED /* UITableView+HxbTableView.m in Sources */,
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
 				E122D8561EA0CAB900DC71ED /* UIColor+HxbColor.m in Sources */,
-				4E26E39E1EA0FC2A0078B419 /* NYNetworkConfig.m in Sources */,
+				4E26E3B11EA0FE660078B419 /* NYNetworkConfig.m in Sources */,
 				E122D84D1EA0CAB900DC71ED /* NSObject+Hxb.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

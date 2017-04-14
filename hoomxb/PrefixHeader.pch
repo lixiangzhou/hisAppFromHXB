@@ -39,14 +39,14 @@ fprintf(stderr, "-------------------\n");   \
 #import "HXBAPI.h"
 #import "HXBFontMacro.h"
 #import "HXBColorMacro.h"
-
+#import "KeyChainManage.h"
 
 #import <YYModel.h>
 #import <YYKeyboardManager/YYKeyboardManager.h>
 #import <HandyFrame/UIView+LayoutMethods.h>
 #import <MJRefresh/MJRefresh.h>
 #import <AFNetworking/AFNetworking.h>
-
+#import <UICKeyChainStore.h>
 
 #import "UIResponder+FindNext.h"
 //#import "UIViewController+MethodSwizzle.h"

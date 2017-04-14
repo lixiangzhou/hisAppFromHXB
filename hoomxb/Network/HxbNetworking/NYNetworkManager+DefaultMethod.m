@@ -14,7 +14,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 
 - (void)defaultMethodRequestSuccessWithRequest:(NYBaseRequest *)request
 {
-    DLog(@"请求成功-request：%@",request);
+//    DLog(@"请求成功-request：%@",request);
     [[NSNotificationCenter defaultCenter] postNotificationName:RequestSuccess object:nil userInfo:nil];
 }
 

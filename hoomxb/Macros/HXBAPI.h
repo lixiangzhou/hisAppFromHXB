@@ -38,7 +38,7 @@
 //曹曹曹曹曹曹曹曹曹曹
 //#define BASEURL                                       @"http://10.1.80.10:9001"
 #define FYCallBackUrl                                 @"/fyCallback/app/0"
-
+#define TOKENURL                                      @"/token"
 
 //#define REGISTERCHECK                                 @"registerCheck"
 //#define LOGIN                                         @"login"
