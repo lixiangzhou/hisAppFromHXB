@@ -20,6 +20,7 @@
 		4E5402711E9FAC890076B542 /* NSString+SortDicMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5402701E9FAC890076B542 /* NSString+SortDicMD5.m */; };
 		4E5402741E9FAC910076B542 /* NSString+PerMilMoney.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5402731E9FAC910076B542 /* NSString+PerMilMoney.m */; };
 		4E5402771E9FACA70076B542 /* NSString+CopiesTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5402761E9FACA70076B542 /* NSString+CopiesTransfer.m */; };
+		4EDE5EB51EA0A0BF007BF379 /* UIResponder+FindNext.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDE5EB41EA0A0BF007BF379 /* UIResponder+FindNext.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 		E1D6241B1E9E587100EE52D4 /* NSArray+HxbLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D6241A1E9E587100EE52D4 /* NSArray+HxbLog.m */; };
 		E1D6241E1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D6241D1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m */; };
@@ -84,6 +85,13 @@
 		4E5402731E9FAC910076B542 /* NSString+PerMilMoney.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PerMilMoney.m"; sourceTree = "<group>"; };
 		4E5402751E9FACA70076B542 /* NSString+CopiesTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CopiesTransfer.h"; sourceTree = "<group>"; };
 		4E5402761E9FACA70076B542 /* NSString+CopiesTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CopiesTransfer.m"; sourceTree = "<group>"; };
+		4EA93FBC1EA0A59D002F3615 /* HXBFontMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFontMacro.h; sourceTree = "<group>"; };
+		4EA93FBD1EA0A5AB002F3615 /* HXBAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAPI.h; sourceTree = "<group>"; };
+		4EA93FBE1EA0A5B9002F3615 /* MacrosInBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacrosInBusiness.h; sourceTree = "<group>"; };
+		4EA93FBF1EA0A5FB002F3615 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		4EA93FC01EA0A6D0002F3615 /* HXBColorMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBColorMacro.h; sourceTree = "<group>"; };
+		4EDE5EB31EA0A0BF007BF379 /* UIResponder+FindNext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+FindNext.h"; sourceTree = "<group>"; };
+		4EDE5EB41EA0A0BF007BF379 /* UIResponder+FindNext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+FindNext.m"; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
 		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
@@ -182,6 +190,7 @@
 		4E16D82C1E9CD0FE002A1881 /* hoomxb */ = {
 			isa = PBXGroup;
 			children = (
+				4EA93FBB1EA0A591002F3615 /* Macros */,
 				4E0C6FCE1E9FA2EA00F092C2 /* Network */,
 				4E77D25F1E9E4ED400940FF4 /* Tools */,
 				4E16D8301E9CD0FE002A1881 /* AppDelegate.h */,
@@ -189,9 +198,6 @@
 				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
 				4E16D8341E9CD0FE002A1881 /* ViewController.m */,
 				4E16D8361E9CD0FE002A1881 /* Main.storyboard */,
-				4E16D8391E9CD0FE002A1881 /* Assets.xcassets */,
-				4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */,
-				4E16D83E1E9CD0FE002A1881 /* Info.plist */,
 				4E16D82D1E9CD0FE002A1881 /* Supporting Files */,
 			);
 			path = hoomxb;
@@ -200,6 +206,10 @@
 		4E16D82D1E9CD0FE002A1881 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */,
+				4E16D8391E9CD0FE002A1881 /* Assets.xcassets */,
+				4E16D83E1E9CD0FE002A1881 /* Info.plist */,
+				4EA93FBF1EA0A5FB002F3615 /* PrefixHeader.pch */,
 				4E16D82E1E9CD0FE002A1881 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -254,6 +264,7 @@
 		4E77D2601E9E4ED400940FF4 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				4EDE5EB21EA0A0A6007BF379 /* UIResponder */,
 				4E5402681E9FAACB0076B542 /* NSString */,
 				E1EF4D3E1E9F906B00C18219 /* UIView */,
 				E1EF4D471E9F906B00C18219 /* UIViewController */,
@@ -270,6 +281,26 @@
 				E1D624321E9E5B7600EE52D4 /* UIScreen+Hxb.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		4EA93FBB1EA0A591002F3615 /* Macros */ = {
+			isa = PBXGroup;
+			children = (
+				4EA93FBE1EA0A5B9002F3615 /* MacrosInBusiness.h */,
+				4EA93FBD1EA0A5AB002F3615 /* HXBAPI.h */,
+				4EA93FC01EA0A6D0002F3615 /* HXBColorMacro.h */,
+				4EA93FBC1EA0A59D002F3615 /* HXBFontMacro.h */,
+			);
+			path = Macros;
+			sourceTree = "<group>";
+		};
+		4EDE5EB21EA0A0A6007BF379 /* UIResponder */ = {
+			isa = PBXGroup;
+			children = (
+				4EDE5EB31EA0A0BF007BF379 /* UIResponder+FindNext.h */,
+				4EDE5EB41EA0A0BF007BF379 /* UIResponder+FindNext.m */,
+			);
+			path = UIResponder;
 			sourceTree = "<group>";
 		};
 		93AB8A7B8B5BF47D9A9FFDF5 /* Frameworks */ = {
@@ -523,6 +554,7 @@
 				E1EF4D551E9F98CE00C18219 /* HXBBaseTableViewCell.m in Sources */,
 				E1EF4D651E9FA8FC00C18219 /* HXBBaseViewController.m in Sources */,
 				E1D6242D1E9E5A9400EE52D4 /* UIColor+HxbColor.m in Sources */,
+				4EDE5EB51EA0A0BF007BF379 /* UIResponder+FindNext.m in Sources */,
 				E1D6241E1E9E58B500EE52D4 /* NSAttributedString+HxbAttributedString.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E1EF4D4E1E9F906B00C18219 /* UIViewController+HxbViewController.m in Sources */,
@@ -692,6 +724,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
 				INFOPLIST_FILE = hoomxb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -706,6 +739,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
 				INFOPLIST_FILE = hoomxb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
