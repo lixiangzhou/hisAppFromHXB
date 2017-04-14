@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-@interface NSString (General)
+@interface NSString (HxbGeneral)
 //+(CGSize)getSizeWithText:(NSString*)text fontOfSize:(int)fontSize boundingRectSize:(CGSize)rectSize;
 
 +(NSString*)getAppVersionNum;

@@ -14,33 +14,28 @@
 
 
 
-
-//主要方法： 子controller添加到父controller
-#import "UIViewController+HxbViewController"
-
-
-/*
- 1. frame 的快捷获取及写入
- 2. 屏幕截图
- */
-#import "UIView+HxbView"
-
-/*
- 1. log 打印中文
- */
-#import "NSArray+HxbLog"
-
-/*
- 1. 使用图像和文本生成上下排列的属性文本
- */
-#import "NSAttributedString+HxbAttributedString"
-
-/*
- 1. 获取对象的属性列表
- */
-#import "NSObject+HxbRunTime"
+#pragma mark -  ------------UI相关-----------------------
+#import "UIViewController+HxbViewController.h"//快速添加到父控件
+#import "UIView+HxbView.h"//frame获取及写入，屏幕截图
+#import "UITableView+HxbTableView.h"//tableView
+#import "UILabel+HxbLabel.h"//label 的快速创建
+#import "UIButton+HxbButton.h"//button的快速创建
+#import "UIImageView+HxbSDWebImage.h"//对SDWebImage的封装
+#import "UIColor+HxbColor.h"// 随机色，rgb，16进制颜色
+#import "UIScreen+Hxb.h"//快速获取屏幕的宽，高，分辨率
 
 
+
+
+#pragma mark - -------------NSObjct相关----------------------
+#import "NSArray+HxbLog.h"//log 打印中文
+#import "NSObject+HxbRunTime.h"//获取对象的属性列表
+
+
+
+
+#pragma mark - -------------NSString 相关-------------------------
+#import "NSAttributedString+HxbAttributedString.h"//使用图像和文本生成上下排列的属性文本
 /*
  1.计算HMAC MD5散列结果
  2.计算HMAC SHA1散列结果
@@ -48,28 +43,18 @@
  4.计算HMAC SHA512散列结果
  5.等。。。。
  */
-#import "NSString+HxbHash"
+#import "NSString+HxbHash.h"
+#import "NSString+CopiesTransfer.h"//字符串的截取
+#import "NSString+PerMilMoney.h"//
+#import "NSString+SortDicMD5.h"//MD5
+#import "NSString+HxbMask.h"
+#import "NSString+General.h"//里面有正则判断手机号
 
 
-/*
- 1. button的快速创建
- */
-#import "UIButton+HxbButton"
-
-/*
- 1.使用 16 进制数字创建颜色，例如 0xFF0000 创建红色
- 2.生成随机颜色
- 3.使用 R / G / B 数值创建颜色
- */
-#import "UIColor+HxbColor"
 
 
-/*
- 1. label 的快速创建
- */
-#import "UILabel+HxbLabel"
 
-/*
- 1. 快速获取屏幕的宽，高，分辨率
- */
-#import "UIScreen+Hxb"
+
+
+
+

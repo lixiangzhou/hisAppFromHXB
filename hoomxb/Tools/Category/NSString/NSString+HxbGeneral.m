@@ -6,9 +6,9 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "NSString+General.h"
+#import "NSString+HxbGeneral.h"
 
-@implementation NSString (General)
+@implementation NSString (HxbGeneral)
 //根据字符串长度获取label的size
 //+(CGSize)getSizeWithText:(NSString*)text fontOfSize:(int)fontSize boundingRectSize:(CGSize)rectSize
 //{
