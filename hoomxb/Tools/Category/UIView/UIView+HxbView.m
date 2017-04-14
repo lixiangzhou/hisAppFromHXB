@@ -37,7 +37,6 @@
  // 第三个参数：关联的value
  // 第四个参数:关联的策略
  objc_setAssociatedObject(self, &HXBVIEWFRAME_MAXY, hxbMaxYNum, OBJC_ASSOCIATION_ASSIGN);
- 
  2. getter方法
 
  */
