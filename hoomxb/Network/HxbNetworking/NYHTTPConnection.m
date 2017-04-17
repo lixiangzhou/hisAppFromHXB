@@ -11,7 +11,7 @@
 #import "TokenAPI.h"
 #import "tokenModel.h"
 #import <objc/runtime.h>
-
+#import "HxbHTTPSessionManager.h"
 #define Config [NYNetworkConfig sharedInstance]
 
 //@implementation NYBaseRequest (NYHTTPConnection)
@@ -41,7 +41,7 @@
 
 @property (strong, nonatomic) NSMutableDictionary<NSNumber *, NSURLSessionTask *> *dispatchTable;
 
-@property (nonatomic, strong) AFHTTPSessionManager *manager;
+@property (nonatomic, strong) HxbHTTPSessionManager *manager;
 @end
 
 @implementation NYHTTPConnection
@@ -73,7 +73,7 @@
     self.success = success;
     self.failture = failure;
     
-    _manager = [[AFHTTPSessionManager alloc]init];
+    _manager = [HxbHTTPSessionManager manager];
 //-------------------------------------------request----------------------------------------
     if (request.requestSerializerType == NYRequestSerializerTypeHTTP) {
         _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -119,9 +119,9 @@
     switch (request.requestMethod) {
         case NYRequestMethodGet:
         {
-//    if ([KeyChain token].length == 0) {
-//         [self getToken];
-//    }
+    if ([KeyChain token].length == 0) {
+         [self getToken];
+    }
             task = [_manager GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 
                 [self requestHandleSuccess:request responseObject:responseObject];
@@ -159,28 +159,28 @@
             }];
         }
             break;
-//        case NYRequestMethodPut:
-//        {
-//            task = [manager PUT:urlString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//                [self requestHandleSuccess:request responseObject:responseObject];
-//                [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
-//            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//                [self requestHandleFailure:request error:error];
-//                [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
-//            }];
-//        }
-//            break;
-//        case NYRequestMethodDelete:
-//        {
-//            task = [manager DELETE:urlString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//                [self requestHandleSuccess:request responseObject:responseObject];
-//                [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
-//            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//                [self requestHandleFailure:request error:error];
-//                [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
-//            }];
-//        }
-//            break;
+        case NYRequestMethodPut:
+        {
+            task = [_manager PUT:urlString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                [self requestHandleSuccess:request responseObject:responseObject];
+                [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                [self requestHandleFailure:request error:error];
+                [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
+            }];
+        }
+            break;
+        case NYRequestMethodDelete:
+        {
+            task = [_manager DELETE:urlString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                [self requestHandleSuccess:request responseObject:responseObject];
+                [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                [self requestHandleFailure:request error:error];
+                [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
+            }];
+        }
+            break;
         default:{
             NSLog(@"unsupported request method");
         }
