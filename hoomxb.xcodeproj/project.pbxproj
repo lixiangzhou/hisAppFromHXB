@@ -291,11 +291,11 @@
 		4E26E3A31EA0FE660078B419 /* HxbNetworking */ = {
 			isa = PBXGroup;
 			children = (
+				4E26E3A81EA0FE660078B419 /* NYNetwork.h */,
 				4E26E3A41EA0FE660078B419 /* NYBaseRequest.h */,
 				4E26E3A51EA0FE660078B419 /* NYBaseRequest.m */,
 				4E26E3A61EA0FE660078B419 /* NYHTTPConnection.h */,
 				4E26E3A71EA0FE660078B419 /* NYHTTPConnection.m */,
-				4E26E3A81EA0FE660078B419 /* NYNetwork.h */,
 				4E26E3A91EA0FE660078B419 /* NYNetworkConfig.h */,
 				4E26E3AA1EA0FE660078B419 /* NYNetworkConfig.m */,
 				4E26E3AB1EA0FE660078B419 /* NYNetworkManager+DefaultMethod.h */,
