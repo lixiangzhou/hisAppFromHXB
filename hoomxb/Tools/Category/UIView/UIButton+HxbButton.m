@@ -9,7 +9,9 @@
 #import "UIButton+HxbButton.h"
 
 @implementation UIButton (HxbButton)
-    
+
+
+//快速创建
 + (instancetype)hxb_textButton:(NSString *)title fontSize:(CGFloat)fontSize normalColor:(UIColor *)normalColor selectedColor:(UIColor *)selectedColor {
     
     UIButton *button = [[self alloc] init];
@@ -25,4 +27,5 @@
     
     return button;
 }
+
 @end
