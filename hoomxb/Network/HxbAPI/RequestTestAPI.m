@@ -7,7 +7,7 @@
 //
 
 #import "RequestTestAPI.h"
-//#define REQUEST_URL @"http://192.168.1.227:9000/list"
+
 @implementation RequestTestAPI
 - (id)init
 {
