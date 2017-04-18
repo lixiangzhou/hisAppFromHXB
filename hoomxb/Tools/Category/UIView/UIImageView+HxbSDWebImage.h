@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIImageView (HxbSDWebImage)
+
 /**
  *  异步加载图片
  *
@@ -27,4 +28,11 @@
  *  @param downImageProgressBlock  下载进度
  */
 - (void)hxb_downloadImage:(NSString *)urlStr placeholder:(NSString *)imageName success:(void(^)(UIImage *image))downImageSuccessBlock failed:(void(^)(NSError *error))downImageFailedBlock progress:(void(^)(CGFloat progress))downImageProgressBlock;
+
+
+/**
+ * 本地图片切图
+ * @param capImageName 图片的名字
+ */
++ (instancetype)hxb_capImageWithName: (NSString *)capImageName ;
 @end

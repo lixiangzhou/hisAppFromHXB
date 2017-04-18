@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import "NYNetwork.h"
+#import "NYNetwork.h"//网络请求的kit
+#import "HXBBaseTabBarController.h"//自定义的tabBarController
 @interface AppDelegate ()
 
 @end
@@ -16,10 +17,22 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     //配置网络
     [self setNetworkConfig];
     
+    _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
+    tabBarController.selectColor = [UIColor redColor];
+    tabBarController.normalColor = [UIColor grayColor];
+    
+    NSArray *controllerNameArray = @[@"ViewController",@"ViewController",@"ViewController"];
+    NSArray *controllerTitleArray = @[@"首页",@"你的",@"我的"];
+    NSArray *imageArray = @[@"1",@"1",@"1"];
+    NSString *commonName = @"1";
+    [tabBarController subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
+    
+    _window.rootViewController = tabBarController;
+    [_window makeKeyAndVisible];
     return YES;
 }
 
