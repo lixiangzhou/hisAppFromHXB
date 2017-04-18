@@ -263,7 +263,6 @@
 				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
 				4E16D8341E9CD0FE002A1881 /* ViewController.m */,
 				4E16D8361E9CD0FE002A1881 /* Main.storyboard */,
-				E1C9647C1EA600C20066DBC4 /* Assets.xcassets */,
 				4E16D82D1E9CD0FE002A1881 /* Supporting Files */,
 			);
 			path = hoomxb;
@@ -272,6 +271,7 @@
 		4E16D82D1E9CD0FE002A1881 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E1C9647C1EA600C20066DBC4 /* Assets.xcassets */,
 				4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */,
 				4E16D83E1E9CD0FE002A1881 /* Info.plist */,
 				4EA93FBF1EA0A5FB002F3615 /* PrefixHeader.pch */,

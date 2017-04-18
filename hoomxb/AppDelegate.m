@@ -20,19 +20,8 @@
     //配置网络
     [self setNetworkConfig];
     
-    _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
-    tabBarController.selectColor = [UIColor redColor];
-    tabBarController.normalColor = [UIColor grayColor];
-    
-    NSArray *controllerNameArray = @[@"ViewController",@"ViewController",@"ViewController"];
-    NSArray *controllerTitleArray = @[@"首页",@"你的",@"我的"];
-    NSArray *imageArray = @[@"1",@"1",@"1"];
-    NSString *commonName = @"1";
-    [tabBarController subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
-    
-    _window.rootViewController = tabBarController;
-    [_window makeKeyAndVisible];
+    //创建根视图 并设置.
+    [self creatRootViewController];
     return YES;
 }
 
@@ -42,6 +31,23 @@
     NYNetworkConfig *config = [NYNetworkConfig sharedInstance];
     config.baseUrl = BASEURL;
     config.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+}
+
+#pragma mark - 创建并设置根视图控制器
+- (void)creatRootViewController {
+    _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
+    tabBarController.selectColor = [UIColor redColor];
+    tabBarController.normalColor = [UIColor grayColor];
+    //数据
+    NSArray *controllerNameArray = @[@"ViewController",@"ViewController",@"ViewController"];
+    NSArray *controllerTitleArray = @[@"首页",@"你的",@"我的"];
+    NSArray *imageArray = @[@"1",@"1",@"1"];
+    NSString *commonName = @"1";
+    [tabBarController subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
+    
+    _window.rootViewController = tabBarController;
+    [_window makeKeyAndVisible];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
