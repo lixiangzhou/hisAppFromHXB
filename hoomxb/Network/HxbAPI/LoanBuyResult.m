@@ -1,14 +1,14 @@
 //
-//  LoanBuyConfirmAPI.m
+//  LoanBuyResult.m
 //  hoomxb
 //
-//  Created by HXB-C on 2017/4/18.
+//  Created by HXB on 2017/4/18.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "LoanBuyConfirmAPI.h"
-//192.168.1.21:3000/loan/buy/confirm   POST   散标购买确认
-@implementation LoanBuyConfirmAPI
+#import "LoanBuyResult.h"
+//192.168.1.21:3000/loan/buy/result      POST   散标购买结果
+@implementation LoanBuyResult
 - (id)init
 {
     self = [super init];
@@ -18,7 +18,7 @@
 }
 
 - (NSString *)requestUrl {
-    return @"/confirm";
+    return @"/result";
 }
 
 - (NYRequestMethod)requestMethod {
@@ -29,5 +29,4 @@
     return @{
              };
 }
-
 @end
