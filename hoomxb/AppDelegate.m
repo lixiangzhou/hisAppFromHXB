@@ -20,7 +20,7 @@
     //配置网络
     [self setNetworkConfig];
     
-    //创建根视图 并设置
+    //创建根视图 并设置.
     [self creatRootViewController];
     return YES;
 }
