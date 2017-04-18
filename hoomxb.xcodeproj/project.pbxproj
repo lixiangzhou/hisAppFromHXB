@@ -259,7 +259,6 @@
 				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
 				4E16D8341E9CD0FE002A1881 /* ViewController.m */,
 				4E16D8361E9CD0FE002A1881 /* Main.storyboard */,
-				E1C9647C1EA600C20066DBC4 /* Assets.xcassets */,
 				4E16D82D1E9CD0FE002A1881 /* Supporting Files */,
 			);
 			path = hoomxb;
@@ -268,6 +267,7 @@
 		4E16D82D1E9CD0FE002A1881 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E1C9647C1EA600C20066DBC4 /* Assets.xcassets */,
 				4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */,
 				4E16D83E1E9CD0FE002A1881 /* Info.plist */,
 				4EA93FBF1EA0A5FB002F3615 /* PrefixHeader.pch */,
@@ -418,26 +418,10 @@
 		E122D8091EA0CAB900DC71ED /* Base */ = {
 			isa = PBXGroup;
 			children = (
-
-
-				E122D80A1EA0CAB900DC71ED /* HXBBaseCollectionView.h */,
-				E122D80B1EA0CAB900DC71ED /* HXBBaseCollectionView.m */,
-				E122D80C1EA0CAB900DC71ED /* HXBBaseCollectionViewCell.h */,
-				E122D80D1EA0CAB900DC71ED /* HXBBaseCollectionViewCell.m */,
-				E122D80E1EA0CAB900DC71ED /* HXBBaseHandDate.h */,
-				E122D80F1EA0CAB900DC71ED /* HXBBaseHandDate.m */,
-				E122D8101EA0CAB900DC71ED /* HXBBaseTableView.h */,
-				E122D8111EA0CAB900DC71ED /* HXBBaseTableView.m */,
-				E122D8121EA0CAB900DC71ED /* HXBBaseTableViewCell.h */,
-				E122D8131EA0CAB900DC71ED /* HXBBaseTableViewCell.m */,
-				E122D8141EA0CAB900DC71ED /* HXBBaseViewController.h */,
-				E122D8151EA0CAB900DC71ED /* HXBBaseViewController.m */,
 				4E5C788E1EA60A8F00417375 /* HxbWelcomView.h */,
 				4E5C788F1EA60A8F00417375 /* HxbWelcomView.m */,
-
 				E1C964621EA5E04F0066DBC4 /* BaseController */,
 				E1C964691EA5E04F0066DBC4 /* BaseView */,
-
 			);
 			path = Base;
 			sourceTree = "<group>";
