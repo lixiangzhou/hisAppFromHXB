@@ -24,7 +24,7 @@
     HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
     tabBarController.selectColor = [UIColor redColor];
     tabBarController.normalColor = [UIColor grayColor];
-    //数据ss
+    //数据
     NSArray *controllerNameArray = @[@"ViewController",@"ViewController",@"ViewController"];
     NSArray *controllerTitleArray = @[@"首页",@"你的",@"我的"];
     NSArray *imageArray = @[@"1",@"1",@"1"];
