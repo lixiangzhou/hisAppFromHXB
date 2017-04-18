@@ -116,7 +116,7 @@ static NSString * const kLocalAvatarImageData = @"kLocalAvatarImageData";
 
 - (void)printAllInfo
 {
-    KeyChainManage *manager = KeyChain;
+//    KeyChainManage *manager = KeyChain;
 //    DLog(@"kcManager-info:\n{\n phone:%@\n token:%@\n userId:%@\n inviteCode:%@\n loginpwd:%@\n tradepwd:%@\n realName:%@\n realID:%@\n bankArr:%@\n}",manager.phone,manager.token,manager.userId,manager.inviteCode,manager.loginPwd,manager.tradePwd,manager.realName,manager.realId,manager.bankNumArr);
 //    DLog(@"keychain-realinfo:\nallkey:%@,\nallitem:%@",manager.keychain.allKeys,manager.keychain.allItems);
 //    DLog(@"kc-bankArr:%@\nkc-token:%@",[NSKeyedUnarchiver unarchiveObjectWithData:[manager.keychain dataForKey:kBankNumArr]],manager.keychain[kToken]);

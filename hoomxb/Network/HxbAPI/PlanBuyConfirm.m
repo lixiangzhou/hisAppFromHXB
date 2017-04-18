@@ -1,14 +1,16 @@
 //
-//  LoanBuyConfirmAPI.m
+//  PlanBuyConfirm.m
 //  hoomxb
 //
-//  Created by HXB-C on 2017/4/18.
+//  Created by HXB on 2017/4/18.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "LoanBuyConfirmAPI.h"
-//192.168.1.21:3000/loan/buy/confirm   POST   散标购买确认
-@implementation LoanBuyConfirmAPI
+#import "PlanBuyConfirm.h"
+
+//192.168.1.21:3000/plan/buy/confirm   POST   计划购买确认
+
+@implementation PlanBuyConfirm
 - (id)init
 {
     self = [super init];
@@ -29,5 +31,4 @@
     return @{
              };
 }
-
 @end

@@ -29,7 +29,7 @@
     }
     if (subLen > 0) {
         
-        for (int i = len -1; i > range.location; i--) {
+        for (long i = len - 1; i > range.location; i--) {
             if (![[copiesStr substringWithRange:NSMakeRange(i, 1)] isEqualToString:@"0"]) {
                 // 拿到i
                 return [copiesStr substringToIndex:i+1];
