@@ -8,7 +8,7 @@
 
 #import "HxbHTTPSessionManager.h"
 #import "tokenModel.h"
-
+#import "HxbHUDProgress.h"
 
 @implementation HxbHTTPSessionManager
 
@@ -20,17 +20,13 @@
     
     void (^authFailBlock)(NSURLResponse *response, id _Nullable responseObject,  NSError * _Nullable error) = ^(NSURLResponse *response, id _Nullable responseObject,  NSError * _Nullable error)
     {
-        
-
         NSLog(@"error %@",error);
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
         if([httpResponse statusCode] == 401){
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        
-        [self getToken];
-        
-    });
+            [HxbHUDProgress errorWithErrorCode:[httpResponse statusCode]];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                [self getToken];
+            });
         }else{
             NSLog(@"no auth error");
             completionHandler(response, responseObject, error);
@@ -40,9 +36,6 @@
     NSURLSessionDataTask *stask = [super dataTaskWithRequest:request uploadProgress:uploadProgressBlock downloadProgress:downloadProgressBlock completionHandler:authFailBlock];
     
     return stask;
-    
-    
-    
 }
 
 - (void)getToken{
@@ -62,4 +55,5 @@
         }];
     });
 }
+
 @end

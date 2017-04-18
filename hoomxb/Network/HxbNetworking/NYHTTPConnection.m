@@ -196,7 +196,6 @@
     NSString *tokenURL = [NSString stringWithFormat:@"%@%@",BASEURL,TOKENURL];
     
     [_manager GET:tokenURL parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-        
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         NSLog(@"😝😝😝😝😝%@",responseObject);
         NSDictionary *dic = [responseObject objectForKey:@"data"];
@@ -208,8 +207,6 @@
     }];
     });
 }
-
-
 
 - (void)requestHandleSuccess:(NYBaseRequest *)request responseObject:(id)object
 {

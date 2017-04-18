@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface HxbHUDProgress : NSObject
++ (void)errorWithErrorCode:(NSInteger)errorCode;
 - (void)showAnimationWithText:(NSString *)text;
-
 - (void)hide;
+
 @end

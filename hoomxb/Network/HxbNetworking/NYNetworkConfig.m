@@ -11,10 +11,11 @@
 
 @interface NYNetworkConfig ()
 
-//终端，1代表iOS平台
-@property (nonatomic, copy) NSString *terminal;
-
 @property (nonatomic, strong, readwrite) NSDictionary *additionalHeaderFields;
+
+@property (nonatomic, strong) NSString *systemVision;
+
+@property (nonatomic, strong) NSString *userAgent;
 
 @end
 
@@ -34,11 +35,13 @@
 {
     self = [super init];
     if (self) {
+        self.systemVision = [[UIDevice currentDevice] systemVersion];
         self.version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+        self.userAgent = [NSString stringWithFormat:@"iphone/%@/%@" ,self.systemVision,self.version];
         _additionalHeaderFields = @{};
         self.baseUrl = @"";
         self.defaultAcceptableStatusCodes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)];
-        self.defaultAcceptableContentTypes = [NSSet setWithObjects:@"text/json", @"text/javascript", @"application/json", nil];
+        self.defaultAcceptableContentTypes = [NSSet setWithObjects:@"text/json", @"text/javascript", @"application/json",@"application/x-www-form-urlencoded",nil];
     }
     return self;
 }
@@ -48,8 +51,7 @@
     
     NSDictionary *dict = @{
                            @"X-HxbAuth-Token":[KeyChain token],
-                           @"Version":self.version,
-                           @"Terminal":@"1",
+                           @"UserAgent":self.userAgent,
                            @"IDFA":[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString],
                            @"X-Request-Id":[[[UIDevice currentDevice] identifierForVendor] UUIDString],
                            };

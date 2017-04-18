@@ -19,6 +19,45 @@
     NSTimer *timer;
 }
 
++ (void)errorWithErrorCode:(NSInteger)errorCode{
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    MBProgressHUD *HUD = [[MBProgressHUD alloc]initWithWindow:keyWindow];
+    [keyWindow addSubview:HUD];
+    if (errorCode == 401) {
+        NSString *text = @"验证失效,请您重新刷新";
+        HUD.detailsLabelText = text;
+        HUD.detailsLabelFont = [UIFont systemFontOfSize:16];
+        HUD.mode = MBProgressHUDModeText;
+        
+        int sec = text.length > 6? 2:1;
+        
+        [HUD showAnimated:YES whileExecutingBlock:^{
+            sleep(sec);
+        } completionBlock:^{
+            [HUD removeFromSuperview];
+        }];
+    }
+}
+
++ (void)errorWithErrorCode:(int )errorCode message:(NSString *)message{
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    MBProgressHUD *HUD = [[MBProgressHUD alloc]initWithWindow:keyWindow];
+    [keyWindow addSubview:HUD];
+        NSString *text = message;
+        HUD.detailsLabelText = text;
+        HUD.detailsLabelFont = [UIFont systemFontOfSize:16];
+        HUD.mode = MBProgressHUDModeText;
+        
+        int sec = text.length > 6? 2:1;
+        
+        [HUD showAnimated:YES whileExecutingBlock:^{
+            sleep(sec);
+        } completionBlock:^{
+            [HUD removeFromSuperview];
+        }];
+ 
+}
+
 - (void)showAnimationWithText:(NSString *)text
 {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;

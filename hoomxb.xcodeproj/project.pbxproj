@@ -233,6 +233,7 @@
 		4E16D82C1E9CD0FE002A1881 /* hoomxb */ = {
 			isa = PBXGroup;
 			children = (
+				4E5C788D1EA5FE2600417375 /* Base */,
 				4E26E3A11EA0FE660078B419 /* Network */,
 				4EA93FBB1EA0A591002F3615 /* Macros */,
 				E122D8081EA0CAB900DC71ED /* Tools */,
@@ -339,6 +340,13 @@
 				4E26E3C51EA0FF4C0078B419 /* UserDefaultManage.m */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		4E5C788D1EA5FE2600417375 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 		4E9B8BF81EA5B0D60056FCC8 /* HUD */ = {
