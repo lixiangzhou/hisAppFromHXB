@@ -28,6 +28,7 @@
 		4E26E3C71EA0FF4C0078B419 /* UserDefaultManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3C51EA0FF4C0078B419 /* UserDefaultManage.m */; };
 		4E80A57B1EA4F4930006D012 /* HxbHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E80A57A1EA4F4930006D012 /* HxbHTTPSessionManager.m */; };
 		4E9B8BF71EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9B8BF61EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m */; };
+		4E9B8BFB1EA5B1CA0056FCC8 /* HxbHUDProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9B8BFA1EA5B1CA0056FCC8 /* HxbHUDProgress.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 		E122D8461EA0CAB900DC71ED /* HXBBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D80B1EA0CAB900DC71ED /* HXBBaseCollectionView.m */; };
 		E122D8471EA0CAB900DC71ED /* HXBBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D80D1EA0CAB900DC71ED /* HXBBaseCollectionViewCell.m */; };
@@ -117,6 +118,8 @@
 		4E80A57A1EA4F4930006D012 /* HxbHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHTTPSessionManager.m; sourceTree = "<group>"; };
 		4E9B8BF51EA5AFC20056FCC8 /* LoanBuyConfirmAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoanBuyConfirmAPI.h; sourceTree = "<group>"; };
 		4E9B8BF61EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoanBuyConfirmAPI.m; sourceTree = "<group>"; };
+		4E9B8BF91EA5B1CA0056FCC8 /* HxbHUDProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHUDProgress.h; sourceTree = "<group>"; };
+		4E9B8BFA1EA5B1CA0056FCC8 /* HxbHUDProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHUDProgress.m; sourceTree = "<group>"; };
 		4EA93FBC1EA0A59D002F3615 /* HXBFontMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFontMacro.h; sourceTree = "<group>"; };
 		4EA93FBD1EA0A5AB002F3615 /* HXBAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAPI.h; sourceTree = "<group>"; };
 		4EA93FBE1EA0A5B9002F3615 /* MacrosInBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacrosInBusiness.h; sourceTree = "<group>"; };
@@ -338,6 +341,15 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
+		4E9B8BF81EA5B0D60056FCC8 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				4E9B8BF91EA5B1CA0056FCC8 /* HxbHUDProgress.h */,
+				4E9B8BFA1EA5B1CA0056FCC8 /* HxbHUDProgress.m */,
+			);
+			path = HUD;
+			sourceTree = "<group>";
+		};
 		4EA93FBB1EA0A591002F3615 /* Macros */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,6 +383,7 @@
 			children = (
 				E122D8441EA0CAB900DC71ED /* HxbBase.h */,
 				E122D8451EA0CAB900DC71ED /* HxbCategorys.h */,
+				4E9B8BF81EA5B0D60056FCC8 /* HUD */,
 				4E26E3C11EA0FF4C0078B419 /* Manager */,
 				E122D8091EA0CAB900DC71ED /* Base */,
 				E122D8161EA0CAB900DC71ED /* Category */,
@@ -712,6 +725,7 @@
 				E122D8541EA0CAB900DC71ED /* NSString+HxbPerMilMoney.m in Sources */,
 				4E26E3B81EA0FE790078B419 /* RequestTestAPI.m in Sources */,
 				E122D8511EA0CAB900DC71ED /* NSString+HxbGeneral.m in Sources */,
+				4E9B8BFB1EA5B1CA0056FCC8 /* HxbHUDProgress.m in Sources */,
 				E122D8491EA0CAB900DC71ED /* HXBBaseTableView.m in Sources */,
 				E122D8461EA0CAB900DC71ED /* HXBBaseCollectionView.m in Sources */,
 				E122D8481EA0CAB900DC71ED /* HXBBaseHandDate.m in Sources */,

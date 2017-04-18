@@ -8,7 +8,7 @@
 
 #import "NYNetworkManager.h"
 #import "NYHTTPConnection.h"
-//#import "NYProgressHUD.h"
+#import "HxbHUDProgress.h"
 
 //#import <FBRetainCycleDetector/FBRetainCycleDetector.h>
 
@@ -31,16 +31,16 @@
 
 - (void)addRequest:(NYBaseRequest *)request withHUD:(NSString *)content
 {
-//    NYProgressHUD *hud = (content.length)? [NYProgressHUD new]:nil;
-//    [hud showAnimationWithText:content];
-//    NSLog(@"%@",request.requestHeaderFieldValueDictionary);
+    HxbHUDProgress *hud = (content.length)? [HxbHUDProgress new]:nil;
+    [hud showAnimationWithText:content];
+    NSLog(@"%@",request.requestHeaderFieldValueDictionary);
   
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
     [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
-//        [hud hide];
+        [hud hide];
         [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
-//        [hud hide];
+        [hud hide];
         [self processConnection:connection withRequest:request error:error];
     }];
 

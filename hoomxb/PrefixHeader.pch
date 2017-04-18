@@ -48,6 +48,7 @@ fprintf(stderr, "-------------------\n");   \
 #import <AFNetworking/AFNetworking.h>
 #import <ReactiveObjC.h>
 #import <UICKeyChainStore.h>
+#import <MBProgressHUD.h>
 
 #import "UIResponder+FindNext.h"
 //#import "UIViewController+MethodSwizzle.h"
