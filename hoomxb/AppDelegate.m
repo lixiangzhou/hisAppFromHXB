@@ -20,6 +20,21 @@
     //配置网络
     [self setNetworkConfig];
     
+    //创建根视图 并设置
+    [self creatRootViewController];
+    return YES;
+}
+
+#pragma mark - 设置网路库的Config
+- (void)setNetworkConfig
+{
+    NYNetworkConfig *config = [NYNetworkConfig sharedInstance];
+    config.baseUrl = BASEURL;
+    config.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+}
+
+#pragma mark - 创建并设置根视图控制器
+- (void)creatRootViewController {
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
     tabBarController.selectColor = [UIColor redColor];
@@ -33,15 +48,6 @@
     
     _window.rootViewController = tabBarController;
     [_window makeKeyAndVisible];
-    return YES;
-}
-
-#pragma mark - 设置网路库的Config
-- (void)setNetworkConfig
-{
-    NYNetworkConfig *config = [NYNetworkConfig sharedInstance];
-    config.baseUrl = BASEURL;
-    config.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
