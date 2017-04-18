@@ -27,6 +27,7 @@
 		4E26E3C61EA0FF4C0078B419 /* KeyChainManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3C31EA0FF4C0078B419 /* KeyChainManage.m */; };
 		4E26E3C71EA0FF4C0078B419 /* UserDefaultManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3C51EA0FF4C0078B419 /* UserDefaultManage.m */; };
 		4E80A57B1EA4F4930006D012 /* HxbHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E80A57A1EA4F4930006D012 /* HxbHTTPSessionManager.m */; };
+		4E9B8BF71EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9B8BF61EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 		E122D8461EA0CAB900DC71ED /* HXBBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D80B1EA0CAB900DC71ED /* HXBBaseCollectionView.m */; };
 		E122D8471EA0CAB900DC71ED /* HXBBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D80D1EA0CAB900DC71ED /* HXBBaseCollectionViewCell.m */; };
@@ -114,6 +115,8 @@
 		4E26E3C51EA0FF4C0078B419 /* UserDefaultManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultManage.m; sourceTree = "<group>"; };
 		4E80A5791EA4F4930006D012 /* HxbHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHTTPSessionManager.h; sourceTree = "<group>"; };
 		4E80A57A1EA4F4930006D012 /* HxbHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHTTPSessionManager.m; sourceTree = "<group>"; };
+		4E9B8BF51EA5AFC20056FCC8 /* LoanBuyConfirmAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoanBuyConfirmAPI.h; sourceTree = "<group>"; };
+		4E9B8BF61EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoanBuyConfirmAPI.m; sourceTree = "<group>"; };
 		4EA93FBC1EA0A59D002F3615 /* HXBFontMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFontMacro.h; sourceTree = "<group>"; };
 		4EA93FBD1EA0A5AB002F3615 /* HXBAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAPI.h; sourceTree = "<group>"; };
 		4EA93FBE1EA0A5B9002F3615 /* MacrosInBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacrosInBusiness.h; sourceTree = "<group>"; };
@@ -287,6 +290,8 @@
 				4E26E3B51EA0FE790078B419 /* RequestTestAPI.m */,
 				4E26E3B61EA0FE790078B419 /* TokenAPI.h */,
 				4E26E3B71EA0FE790078B419 /* TokenAPI.m */,
+				4E9B8BF51EA5AFC20056FCC8 /* LoanBuyConfirmAPI.h */,
+				4E9B8BF61EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m */,
 			);
 			path = HxbAPI;
 			sourceTree = "<group>";
@@ -690,6 +695,7 @@
 				E122D85E1EA0CAB900DC71ED /* UIViewController+HxbViewController.m in Sources */,
 				E122D8531EA0CAB900DC71ED /* NSString+HxbMask.m in Sources */,
 				E122D8591EA0CAB900DC71ED /* UIButton+HxbButton.m in Sources */,
+				4E9B8BF71EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m in Sources */,
 				E122D8581EA0CAB900DC71ED /* UIScreen+Hxb.m in Sources */,
 				4E80A57B1EA4F4930006D012 /* HxbHTTPSessionManager.m in Sources */,
 				4E26E3C01EA0FEFE0078B419 /* BaseModel.m in Sources */,
