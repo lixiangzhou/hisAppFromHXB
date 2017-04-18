@@ -18,6 +18,6 @@
     ///
     /// @return UIButton
 + (instancetype)hxb_textButton:(NSString *)title fontSize:(CGFloat)fontSize normalColor:(UIColor *)normalColor selectedColor:(UIColor *)selectedColor;
-@property (nonatomic,copy) void((^)(UIButton *button))tapActionBlock;
+//@property (nonatomic,copy) void((^)(UIButton *button))tapActionBlock;
 
 @end
