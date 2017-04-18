@@ -29,4 +29,14 @@
 
 @property (nonatomic, strong) NSSet *defaultAcceptableContentTypes;
 
+
+
+// -------------------------- readMe -----------------------------
+/*
+ APPdelegate中用这个类的单利对象设置了
+ 1. 设置了网络的baseURL，
+ 2. 设置了请求头
+ 
+ 在单利创建的时候，对网络环境进行了检测
+ */
 @end

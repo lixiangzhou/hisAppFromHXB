@@ -18,7 +18,7 @@
 }
 
 - (NSString *)requestUrl {
-    return @"/api/user/signupPost";
+    return @"/user/signup";
 }
 
 - (NYRequestMethod)requestMethod {

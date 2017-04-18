@@ -26,6 +26,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [[self alloc] init];
+        //网络实时监控
+        [sharedInstance networkMonitoring];
     });
     return sharedInstance;
 }
@@ -43,6 +45,7 @@
     return self;
 }
 
+//MARK: 设置请求基本信息
 - (NSDictionary *)additionalHeaderFields
 {
     
@@ -56,5 +59,36 @@
 
     return dict;
 }
+
+//MARK: 网络实时监控
+- (void)networkMonitoring {
+    [[AFNetworkReachabilityManager sharedManager] startMonitoring];//开启网络监控
+    [[AFNetworkReachabilityManager sharedManager ] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        switch (status) {
+            case -1:
+                NSLog(@"🐯未知网络");
+                break;
+            case 0:
+                NSLog(@"🐯网络不可达");
+                break;
+            case 1:
+                NSLog(@"🐯GPRS网络");
+                break;
+            case 2:
+                NSLog(@"🐯wifi网络");
+                break;
+            default:
+                break;
+        }
+        if(status ==AFNetworkReachabilityStatusReachableViaWWAN || status == AFNetworkReachabilityStatusReachableViaWiFi)
+        {
+            NSLog(@"🐯有网");
+        }else
+        {
+            NSLog(@"🐯没有网");
+        }
+    }];
+}
+
 
 @end

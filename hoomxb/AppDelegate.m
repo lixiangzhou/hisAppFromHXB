@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "NYNetwork.h"
 @interface AppDelegate ()
 
 @end
@@ -17,11 +17,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    
+    //配置网络
+    [self setNetworkConfig];
     
     return YES;
 }
 
+#pragma mark - 设置网路库的Config
+- (void)setNetworkConfig
+{
+    NYNetworkConfig *config = [NYNetworkConfig sharedInstance];
+    config.baseUrl = BASEURL;
+    config.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

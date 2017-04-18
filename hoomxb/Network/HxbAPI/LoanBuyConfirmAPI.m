@@ -9,5 +9,25 @@
 #import "LoanBuyConfirmAPI.h"
 
 @implementation LoanBuyConfirmAPI
+- (id)init
+{
+    self = [super init];
+    if (self) {
+    }
+    return self;
+}
+
+- (NSString *)requestUrl {
+    return @"/confirm";
+}
+
+- (NYRequestMethod)requestMethod {
+    return NYRequestMethodGet;
+}
+
+- (id)requestArgument {
+    return @{
+             };
+}
 
 @end
