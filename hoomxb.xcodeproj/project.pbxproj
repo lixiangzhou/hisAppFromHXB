@@ -434,10 +434,6 @@
 		E122D8091EA0CAB900DC71ED /* Base */ = {
 			isa = PBXGroup;
 			children = (
-
-				4E5C788E1EA60A8F00417375 /* HxbWelcomView.h */,
-				4E5C788F1EA60A8F00417375 /* HxbWelcomView.m */,
-
 				E1C964621EA5E04F0066DBC4 /* BaseController */,
 				E1C964691EA5E04F0066DBC4 /* BaseView */,
 			);
