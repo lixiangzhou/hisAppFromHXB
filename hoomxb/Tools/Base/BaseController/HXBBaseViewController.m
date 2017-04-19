@@ -37,20 +37,21 @@
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc]init];
     configuration.allowsInlineMediaPlayback = YES;
     _webView = [[WKWebView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64) configuration:configuration];
-    
-    [_webView loadRequest:[NSURLRequest requestWithURL:self.pushURL]];
-    
-    //设置代理
-    _webView.UIDelegate = self;
-    _webView.navigationDelegate = self;
-    
-    //打开侧滑手势
-    _webView.allowsBackForwardNavigationGestures = YES;
-    
-    
-    //加入到self.view
-    [self.view addSubview:_webView];
-}
+    if (self.pushURL) {
+        [_webView loadRequest:[NSURLRequest requestWithURL:self.pushURL]];
+        
+        //设置代理
+        _webView.UIDelegate = self;
+        _webView.navigationDelegate = self;
+        
+        //打开侧滑手势
+        _webView.allowsBackForwardNavigationGestures = YES;
+        
+        
+        //加入到self.view
+        [self.view addSubview:_webView];
+    }
+   }
 
 #pragma mark - WKNavigationDelegate
 //HTTPS 没有证书的话（自建证书）不能加载，所以来开启权限。  注意：对ios8 无效，

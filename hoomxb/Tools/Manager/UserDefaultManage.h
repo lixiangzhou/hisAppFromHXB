@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #define UserDefault [UserDefaultManage sharedInstance]
-
+#define kUserDefaults [NSUserDefaults standardUserDefaults]
 @interface UserDefaultManage : NSObject
 
 /**
