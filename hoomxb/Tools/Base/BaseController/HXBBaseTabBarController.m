@@ -47,7 +47,6 @@
     
     for (int i = 0; i < subViewControllerNameArray.count; i ++) {
         UIViewController *VC = [self ctratSubControllerWithName:subViewControllerNameArray[i]];
-        VC.view.backgroundColor = [UIColor whiteColor];
         
         //设置字体
         VC.title = titleArray[i];

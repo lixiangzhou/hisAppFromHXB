@@ -68,16 +68,16 @@
     [[AFNetworkReachabilityManager sharedManager ] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         switch (status) {
             case -1:
-                NSLog(@"🐯未知网络");
+//                NSLog(@"🐯未知网络");
                 break;
             case 0:
-                NSLog(@"🐯网络不可达");
+//                NSLog(@"🐯网络不可达");
                 break;
             case 1:
-                NSLog(@"🐯GPRS网络");
+//                NSLog(@"🐯GPRS网络");
                 break;
             case 2:
-                NSLog(@"🐯wifi网络");
+//                NSLog(@"🐯wifi网络");
                 break;
             default:
                 break;
