@@ -43,7 +43,7 @@
     tabBarController.selectColor = [UIColor redColor];
     tabBarController.normalColor = [UIColor grayColor];
     //数据
-    NSArray *controllerNameArray = @[@"HxbHomeViewController",@"ViewController",@"ViewController"];
+    NSArray *controllerNameArray = @[@"HxbHomeViewController",@"ViewController",@"HxbMyViewController"];
     NSArray *controllerTitleArray = @[@"首页",@"理财",@"我的"];
     NSArray *imageArray = @[@"1",@"1",@"1"];
     NSString *commonName = @"1";
@@ -66,15 +66,12 @@
     }
     // 2.无论沙盒中是否存在广告图片，都需要重新调用广告接口，判断广告是否更新
     [self getAdvertisingImage];
-    
 }
 
 - (void)getAdvertisingImage
 {
     
     // TODO 请求广告接口
-    
-    // 这里原本采用美团的广告接口，现在了一些固定的图片url代替
     NSArray *imageArray = @[@"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222441_kVZXU.jpeg", @"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222425_zFKGY.thumb.700_0.jpeg", @"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222413_ak25z.thumb.700_0.jpeg", @"https://a-ssl.duitang.com/uploads/item/201604/06/20160406172034_TVkJs.thumb.700_0.jpeg"];
     NSString *imageUrl = imageArray[arc4random() % imageArray.count];
     

@@ -8,7 +8,10 @@
 
 #import "HXBBaseTabBarController.h"
 #import "HXBBaseNavigationController.h"
-@interface HXBBaseTabBarController ()
+#import "HxbSignInViewController.h"
+#import "HxbMyViewController.h"
+
+@interface HXBBaseTabBarController ()<UITabBarControllerDelegate>
 
 @end
 
@@ -33,6 +36,7 @@
 #pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,6 +44,10 @@
 
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginVC) name:ShowLoginVC object:nil];
+}
 
 #pragma mark - 封装的方法
 //MARK: 根据subVC名创建subVC并加入到self.childViewControllers里面
@@ -47,7 +55,7 @@
     
     for (int i = 0; i < subViewControllerNameArray.count; i ++) {
         UIViewController *VC = [self ctratSubControllerWithName:subViewControllerNameArray[i]];
-        VC.view.backgroundColor = [UIColor whiteColor];
+//        VC.view.backgroundColor = [UIColor whiteColor];
         
         //设置字体
         VC.title = titleArray[i];
@@ -84,6 +92,51 @@
     UIViewController *controller = [[class alloc]init];
     return controller;
 }
+
+- (void)showLoginVC
+{
+    [self performSelector:@selector(realShowLogin) withObject:nil afterDelay:0];
+}
+
+- (void)realShowLogin
+{
+    HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
+    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
+//    self.homePageVC.willPresent = YES;
+//    self.moneyManageVC.willPresent = YES;
+    [self presentViewController:navi animated:YES completion:nil];
+    //    [self presentViewController:navLoginVC animated:YES completion:nil];
+}
+
+#pragma mark - tabBarDelegate
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+//    DLog(@"select item === %lu",(unsigned long)tabBarController.selectedIndex);
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    UIViewController *vc = ((HXBBaseNavigationController *)viewController).viewControllers[0];
+    
+    // [viewController.tabBarItem.title isEqualToString:@"资产"]
+    if (vc && [vc.class isSubclassOfClass:[HxbMyViewController class]])
+    {
+        // login
+        if ([KeyChain isLogin])
+        {
+            return YES;
+        }
+        else
+        {
+            [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
+            return NO;
+        }
+        return YES;
+        
+    }
+    return YES;
+}
+
 @end
 
 

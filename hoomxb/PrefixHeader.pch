@@ -33,7 +33,7 @@ fprintf(stderr, "-------------------\n");   \
 #import <Foundation/Foundation.h>
 
 #import "MacrosInBusiness.h"
-
+#import "HxbNotificationMacros.h"
 #import "HXBAPI.h"
 #import "HXBFontMacro.h"
 #import "HXBColorMacro.h"
@@ -43,7 +43,8 @@ fprintf(stderr, "-------------------\n");   \
 #import "HxbBase.h"
 
 #import "HxbThirdTools.h"
-
+#import "HxbCategorys.h"
+#import "HxbTools.h"
 #import "UIResponder+FindNext.h"
 //#import "UIViewController+MethodSwizzle.h"
 

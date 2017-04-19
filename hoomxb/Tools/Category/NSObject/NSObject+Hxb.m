@@ -9,7 +9,7 @@
 #import "NSObject+Hxb.h"
 #import <NSObject+YYModel.h>
 @implementation NSObject (Hxb)
--(NSString *)description {
-    return [self yy_modelDescription];
-}
+//-(NSString *)description {
+//    return [self yy_modelDescription];
+//}
 @end

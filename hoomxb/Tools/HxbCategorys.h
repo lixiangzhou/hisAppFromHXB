@@ -45,10 +45,10 @@
  */
 #import "NSString+HxbHash.h"
 #import "NSString+CopiesTransfer.h"//字符串的截取
-#import "NSString+PerMilMoney.h"//
-#import "NSString+SortDicMD5.h"//MD5
+#import "NSString+HxbPerMilMoney.h"//
+#import "NSString+HxbSortDicMD5.h"//MD5
 #import "NSString+HxbMask.h"
-#import "NSString+General.h"//里面有正则判断手机号
+#import "NSString+HxbGeneral.h"//里面有正则判断手机号
 
 
 
