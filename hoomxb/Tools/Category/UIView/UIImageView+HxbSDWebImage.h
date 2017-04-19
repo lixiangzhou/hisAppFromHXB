@@ -34,5 +34,5 @@
  * 本地图片切图
  * @param capImageName 图片的名字
  */
-+ (instancetype)hxb_capImageWithName: (NSString *)capImageName ;
+- (void)hxb_capImageWithName: (NSString *)capImageName;
 @end

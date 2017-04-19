@@ -46,7 +46,9 @@
     NSArray *controllerNameArray = @[@"HxbHomeViewController",@"ViewController",@"HxbMyViewController"];
     NSArray *controllerTitleArray = @[@"首页",@"理财",@"我的"];
     NSArray *imageArray = @[@"1",@"1",@"1"];
+    //选中下的图片前缀
     NSString *commonName = @"1";
+    
     [tabBarController subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
     
     _window.rootViewController = tabBarController;

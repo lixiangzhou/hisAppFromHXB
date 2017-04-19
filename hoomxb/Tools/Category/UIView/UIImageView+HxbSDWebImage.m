@@ -33,9 +33,9 @@
     }];
 }
 //MARK: 切图
-+ (instancetype)hxb_capImageWithName: (NSString *)capImageName {
+- (void)hxb_capImageWithName: (NSString *)capImageName {
     UIImage *img = [UIImage imageNamed:capImageName];
     [img stretchableImageWithLeftCapWidth:img.size.width * 0.5 topCapHeight:img.size.height * 0.5];
-    return img;
+    self.image = img;
 }
 @end
