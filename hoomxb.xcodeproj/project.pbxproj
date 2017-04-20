@@ -61,6 +61,7 @@
 		E122D85C1EA0CAB900DC71ED /* UITableView+HxbTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D83E1EA0CAB900DC71ED /* UITableView+HxbTableView.m */; };
 		E122D85D1EA0CAB900DC71ED /* UIView+HxbView.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8401EA0CAB900DC71ED /* UIView+HxbView.m */; };
 		E122D85E1EA0CAB900DC71ED /* UIViewController+HxbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8431EA0CAB900DC71ED /* UIViewController+HxbViewController.m */; };
+		E1975FBC1EA7774200A0123F /* PYContDownManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1975FBB1EA7774200A0123F /* PYContDownManager.m */; };
 		E1C964521EA5C6000066DBC4 /* LoanBuyResult.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964511EA5C6000066DBC4 /* LoanBuyResult.m */; };
 		E1C964581EA5C6A50066DBC4 /* PlanBuyConfirm.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964571EA5C6A50066DBC4 /* PlanBuyConfirm.m */; };
 		E1C9645B1EA5C6E80066DBC4 /* PlanBuyResult.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C9645A1EA5C6E80066DBC4 /* PlanBuyResult.m */; };
@@ -210,6 +211,8 @@
 		E122D8431EA0CAB900DC71ED /* UIViewController+HxbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HxbViewController.m"; sourceTree = "<group>"; };
 		E122D8441EA0CAB900DC71ED /* HxbBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbBase.h; sourceTree = "<group>"; };
 		E122D8451EA0CAB900DC71ED /* HxbCategorys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbCategorys.h; sourceTree = "<group>"; };
+		E1975FBA1EA7773A00A0123F /* PYContDownManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYContDownManager.h; sourceTree = "<group>"; };
+		E1975FBB1EA7774200A0123F /* PYContDownManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYContDownManager.m; sourceTree = "<group>"; };
 		E1C964501EA5C6000066DBC4 /* LoanBuyResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoanBuyResult.h; sourceTree = "<group>"; };
 		E1C964511EA5C6000066DBC4 /* LoanBuyResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoanBuyResult.m; sourceTree = "<group>"; };
 		E1C964561EA5C6A50066DBC4 /* PlanBuyConfirm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlanBuyConfirm.h; sourceTree = "<group>"; };
@@ -646,6 +649,7 @@
 			children = (
 				E1C964621EA5E04F0066DBC4 /* BaseController */,
 				E1C964691EA5E04F0066DBC4 /* BaseView */,
+				E1975FB91EA776FA00A0123F /* BaseObject */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -749,6 +753,15 @@
 				E122D8431EA0CAB900DC71ED /* UIViewController+HxbViewController.m */,
 			);
 			path = UIViewController;
+			sourceTree = "<group>";
+		};
+		E1975FB91EA776FA00A0123F /* BaseObject */ = {
+			isa = PBXGroup;
+			children = (
+				E1975FBA1EA7773A00A0123F /* PYContDownManager.h */,
+				E1975FBB1EA7774200A0123F /* PYContDownManager.m */,
+			);
+			path = BaseObject;
 			sourceTree = "<group>";
 		};
 		E1C964621EA5E04F0066DBC4 /* BaseController */ = {
@@ -979,7 +992,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -997,6 +1010,7 @@
 				4E422CA91EA735C400C0EB62 /* HxbSignInViewController.m in Sources */,
 				E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */,
 				4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */,
+				E1975FBC1EA7774200A0123F /* PYContDownManager.m in Sources */,
 				4E3C1D031EA6286400C8BD36 /* HxbWelcomeView.m in Sources */,
 				E122D85B1EA0CAB900DC71ED /* UILabel+HxbLabel.m in Sources */,
 				E1C964791EA5E04F0066DBC4 /* HXBBaseHandDate.m in Sources */,
