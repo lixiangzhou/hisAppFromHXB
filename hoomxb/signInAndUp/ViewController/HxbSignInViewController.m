@@ -7,6 +7,7 @@
 //
 
 #import "HxbSignInViewController.h"
+#import "HxbSignInViewModel.h"
 
 @interface HxbSignInViewController ()
 <
@@ -41,7 +42,9 @@ UITextFieldDelegate
 
 - (void)signInButtonClick:(UIButton *)sender{
     NSLog(@"登录验证");
-    [self calibratePassword];
+//    [self calibratePassword];
+    [self signInResponse];
+    
 }
 
 - (void)dismiss{
@@ -54,12 +57,22 @@ UITextFieldDelegate
     self.navigationItem.leftBarButtonItem = leftItem;
 }
 
+- (void)signInResponse{
+  
+    HxbSignInViewModel *signInViewModel =[[HxbSignInViewModel alloc]init];
+    [signInViewModel signInRequestWithUserName:@"13000000063" Password:@"111111" SuccessBlock:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
+    } FailureBlock:^(NYBaseRequest *request, NSError *error) {
+        
+    }];
+}
+
 - (void) calibratePassword{
   
     [_passwordTextField resignFirstResponder];
     if (![NSString isStringContainNumberWith:_passwordTextField.text]) {
      
-        [HxbHUDProgress showTextWithMessage:@"得到的"];
+        [HxbHUDProgress showTextWithMessage:@""];
         return;
     }
     if ([NSString isChinese:_passwordTextField.text]) {

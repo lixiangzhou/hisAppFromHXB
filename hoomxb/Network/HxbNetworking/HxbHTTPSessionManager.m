@@ -9,7 +9,8 @@
 #import "HxbHTTPSessionManager.h"
 #import "tokenModel.h"
 #import "HxbHUDProgress.h"
-
+#import <AdSupport/AdSupport.h>
+#import "NYNetworkConfig.h"
 @implementation HxbHTTPSessionManager
 
 
@@ -23,9 +24,26 @@
         NSLog(@"error %@",error);
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
         if([httpResponse statusCode] == 401){
-            [HxbHUDProgress errorWithErrorCode:[httpResponse statusCode]];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-                [self getToken];
+            
+                //调用refreshAccesstoken方法，刷新access token。
+                                [self refreshAccessToken:^(NSData *data) {
+                                    NSDictionary *dic = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"data"];
+                                    tokenModel *model = [tokenModel yy_modelWithJSON:dic];
+                                    NSLog(@"😝😝😝😝😝%@",model.token);
+                                    [KeyChain setToken:model.token];
+                                    NSURLRequest *newRequest = request;
+                                    NSMutableURLRequest *mutableRequest = [request mutableCopy];    //拷贝request
+                                    [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-HxbAuth-Token"];
+                                    newRequest = [mutableRequest copy];
+                                    NSLog(@"request >>>>>>>>    %@",newRequest.allHTTPHeaderFields);
+                                    
+                                    NSURLSessionDataTask *originalTask = [super dataTaskWithRequest:newRequest uploadProgress:uploadProgressBlock downloadProgress:downloadProgressBlock completionHandler:completionHandler];
+                                    
+                                    [originalTask resume];
+                                    
+//                                    NSLog(@"%@",originalTask.currentRequest);
+                                }];
             });
         }else{
             NSLog(@"no auth error");
@@ -38,22 +56,39 @@
     return stask;
 }
 
-- (void)getToken{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        NSString *tokenURL = [NSString stringWithFormat:@"%@%@",BASEURL,TOKENURL];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        [manager GET:tokenURL parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-            
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"😝😝😝😝😝%@",responseObject);
-            NSDictionary *dic = [responseObject objectForKey:@"data"];
-            tokenModel *model = [tokenModel yy_modelWithJSON:dic];
-            NSLog(@"😝😝😝😝😝%@",model.token);
-            [KeyChain setToken:model.token];
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"😱😱😱😱😱%@",error);
-        }];
-    });
+//- (void)getToken{
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+//        NSString *tokenURL = [NSString stringWithFormat:@"%@%@",BASEURL,TOKENURL];
+//        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//        [manager GET:tokenURL parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+//            
+//        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            NSLog(@"😝😝😝😝😝%@",responseObject);
+//            NSDictionary *dic = [responseObject objectForKey:@"data"];
+//            tokenModel *model = [tokenModel yy_modelWithJSON:dic];
+//            NSLog(@"😝😝😝😝😝%@",model.token);
+//            [KeyChain setToken:model.token];
+//        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//            NSLog(@"😱😱😱😱😱%@",error);
+//        }];
+//    });
+//}
+
+-(void)refreshAccessToken:(void(^)(NSData *data))refresh{
+     NSString *tokenURLString = [NSString stringWithFormat:@"%@%@",BASEURL,TOKENURL];
+       NSURL *tokenURL =[NSURL URLWithString:tokenURLString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:tokenURL];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+//                                      NSLog(@"data:%@",response);
+                                       NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil]);
+                                      refresh(data);
+                                  }];
+    
+    [task resume];
 }
 
 @end

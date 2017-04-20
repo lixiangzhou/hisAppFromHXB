@@ -75,16 +75,28 @@
  
 }
 
+- (void)showAnimation
+{
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    _HUD = [[MBProgressHUD alloc]initWithView:keyWindow];
+    
+    [keyWindow addSubview:_HUD];
+    _HUD.delegate = self;//添加代理
+    _HUD.mode = MBProgressHUDModeIndeterminate;
+    [_HUD showAnimated:YES];
+    
+}
+
 - (void)showAnimationWithText:(NSString *)text
 {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    _HUD = [[MBProgressHUD alloc]initWithWindow:keyWindow];
+    _HUD = [[MBProgressHUD alloc]initWithView:keyWindow];
     
     [keyWindow addSubview:_HUD];
-    _HUD.labelText = text;
+    _HUD.label.text = text;
     _HUD.delegate = self;//添加代理
     
-    [_HUD show:YES];
+    [_HUD showAnimated:YES];
     self.mTime =0;
     timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFired:) userInfo:nil repeats:30];
     timer.fireDate = [NSDate distantPast];
@@ -103,7 +115,7 @@
 
 -(void)hide
 {
-    [_HUD hide:YES];
+    [_HUD hideAnimated:YES];
     if (timer) {
         timer.fireDate = [NSDate distantFuture];
     }

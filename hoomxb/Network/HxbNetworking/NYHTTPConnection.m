@@ -119,29 +119,29 @@
     switch (request.requestMethod) {
         case NYRequestMethodGet:
         {
-    if ([KeyChain token].length == 0) {
-         [self getToken];
-    }
+//    if ([KeyChain token].length == 0) {
+//         [self getToken];
+//    }
             task = [_manager GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 
                 [self requestHandleSuccess:request responseObject:responseObject];
                 [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)task.response;
+//                NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)task.response;
 //                NSLog(@"ceode:>>>>>>>>%ld",(long)err);
-                if([httpResponse statusCode] == 401){
-                    [self getToken];
-                    task = [_manager GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                        
-                        [self requestHandleSuccess:request responseObject:responseObject];
-                        [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
-                    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-                   
-                        [self requestHandleFailure:request error:error];
-                        [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
-                    }];
-
-                }
+//                if([httpResponse statusCode] == 401){
+//                    [self getToken];
+//                    task = [_manager GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//                        
+//                        [self requestHandleSuccess:request responseObject:responseObject];
+//                        [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
+//                    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//                   
+//                        [self requestHandleFailure:request error:error];
+//                        [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
+//                    }];
+//
+//                }
                 [self requestHandleFailure:request error:error];
                 [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
             }];
