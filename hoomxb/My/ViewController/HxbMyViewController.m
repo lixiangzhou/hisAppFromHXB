@@ -9,29 +9,26 @@
 #import "HxbMyViewController.h"
 
 @interface HxbMyViewController ()
-
+@property (nonatomic,strong) UIButton *signOutButton;
 @end
 
 @implementation HxbMyViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor cyanColor];
+//    self.view.backgroundColor = [UIColor cyanColor];
+    [self.view addSubview:self.signOutButton];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)signOutButtonButtonClick:(UIButton *)sender{
+    [KeyChain removeAllInfo];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UIButton *)signOutButton{
+    if (!_signOutButton) {
+        _signOutButton = [UIButton btnwithTitle:@"Sign Out" andTarget:self andAction:@selector(signOutButtonButtonClick:) andFrameByCategory:CGRectMake(20, SCREEN_HEIGHT /2 + 100, SCREEN_WIDTH - 40, 44)];
+    }
+    return _signOutButton;
 }
-*/
 
 @end

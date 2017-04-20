@@ -29,6 +29,8 @@ UITextFieldDelegate
     [self.view addSubview:self.phoneTextField];
     [self.view addSubview:self.passwordTextField];
     [self.view addSubview:self.signInButton];
+    _phoneTextField.text = @"13000000063";
+    _passwordTextField.text = @"111111";
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -42,7 +44,7 @@ UITextFieldDelegate
 
 - (void)signInButtonClick:(UIButton *)sender{
     NSLog(@"登录验证");
-//    [self calibratePassword];
+    [self calibratePassword];
     [self signInResponse];
     
 }
@@ -58,27 +60,43 @@ UITextFieldDelegate
 }
 
 - (void)signInResponse{
-  
+    if (_phoneTextField.text.length == 0) {
+        [HxbHUDProgress showTextWithMessage:@"用户名不能为空"];
+        return;
+    }
+    
+    if (_passwordTextField.text.length == 0) {
+        [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
+        return;
+    }
+    
     HxbSignInViewModel *signInViewModel =[[HxbSignInViewModel alloc]init];
-    [signInViewModel signInRequestWithUserName:@"13000000063" Password:@"111111" SuccessBlock:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
+  //  {"username":"13000000063","password":"111111"}
+    [signInViewModel signInRequestWithUserName:_phoneTextField.text Password:_passwordTextField.text SuccessBlock:^(BOOL login, NSString *message) {
+        if (login) {
+            [HxbHUDProgress showTextWithMessage:message];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [KeyChain setPhone:_phoneTextField.text];
+            [KeyChain setLoginPwd:_passwordTextField.text];
+        }
     } FailureBlock:^(NYBaseRequest *request, NSError *error) {
-        
+       [HxbHUDProgress showTextWithMessage:error.description];
     }];
 }
 
 - (void) calibratePassword{
   
     [_passwordTextField resignFirstResponder];
-    if (![NSString isStringContainNumberWith:_passwordTextField.text]) {
-     
-        [HxbHUDProgress showTextWithMessage:@""];
-        return;
-    }
-    if ([NSString isChinese:_passwordTextField.text]) {
-//        [self showWrongViewWithTitle:@"密码格式错误" detail:@"密码中不能出现中文字符"];
-        return;
-    }
+//    if (![NSString isStringContainNumberWith:_passwordTextField.text]) {
+//     
+//        [HxbHUDProgress showTextWithMessage:@""];
+//        return;
+//    }
+//    if ([NSString isChinese:_passwordTextField.text]) {
+////        [self showWrongViewWithTitle:@"密码格式错误" detail:@"密码中不能出现中文字符"];
+//        return;
+//    }
+
 }
 
 - (UITextField *)phoneTextField{
