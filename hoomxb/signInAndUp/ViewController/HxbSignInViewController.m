@@ -29,7 +29,8 @@ UITextFieldDelegate
     [self.view addSubview:self.phoneTextField];
     [self.view addSubview:self.passwordTextField];
     [self.view addSubview:self.signInButton];
-    
+    _phoneTextField.text = @"13000000063";
+    _passwordTextField.text = @"111111";
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -68,6 +69,7 @@ UITextFieldDelegate
         [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
         return;
     }
+    
     HxbSignInViewModel *signInViewModel =[[HxbSignInViewModel alloc]init];
   //  {"username":"13000000063","password":"111111"}
     [signInViewModel signInRequestWithUserName:_phoneTextField.text Password:_passwordTextField.text SuccessBlock:^(BOOL login, NSString *message) {
