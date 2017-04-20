@@ -40,6 +40,8 @@
 		4E80A57B1EA4F4930006D012 /* HxbHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E80A57A1EA4F4930006D012 /* HxbHTTPSessionManager.m */; };
 		4E9B8BF71EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9B8BF61EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m */; };
 		4E9B8BFB1EA5B1CA0056FCC8 /* HxbHUDProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9B8BFA1EA5B1CA0056FCC8 /* HxbHUDProgress.m */; };
+		4ED355FE1EA77D4900CE5EA1 /* LoginAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED355FD1EA77D4900CE5EA1 /* LoginAPI.m */; };
+		4EF80FFB1EA78BFB00E36890 /* HxbSignInViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF80FFA1EA78BFB00E36890 /* HxbSignInViewModel.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 		E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8191EA0CAB900DC71ED /* NSArray+HxbLog.m */; };
 		E122D84D1EA0CAB900DC71ED /* NSObject+Hxb.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D81B1EA0CAB900DC71ED /* NSObject+Hxb.m */; };
@@ -163,6 +165,10 @@
 		4EA93FBE1EA0A5B9002F3615 /* MacrosInBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacrosInBusiness.h; sourceTree = "<group>"; };
 		4EA93FBF1EA0A5FB002F3615 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		4EA93FC01EA0A6D0002F3615 /* HXBColorMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBColorMacro.h; sourceTree = "<group>"; };
+		4ED355FC1EA77D4900CE5EA1 /* LoginAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAPI.h; sourceTree = "<group>"; };
+		4ED355FD1EA77D4900CE5EA1 /* LoginAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAPI.m; sourceTree = "<group>"; };
+		4EF80FF91EA78BFB00E36890 /* HxbSignInViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbSignInViewModel.h; sourceTree = "<group>"; };
+		4EF80FFA1EA78BFB00E36890 /* HxbSignInViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbSignInViewModel.m; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
 		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
@@ -352,6 +358,8 @@
 				E1C964571EA5C6A50066DBC4 /* PlanBuyConfirm.m */,
 				E1C964591EA5C6E80066DBC4 /* PlanBuyResult.h */,
 				E1C9645A1EA5C6E80066DBC4 /* PlanBuyResult.m */,
+				4ED355FC1EA77D4900CE5EA1 /* LoginAPI.h */,
+				4ED355FD1EA77D4900CE5EA1 /* LoginAPI.m */,
 			);
 			path = HxbAPI;
 			sourceTree = "<group>";
@@ -499,6 +507,8 @@
 		4E422CA61EA7311000C0EB62 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4EF80FF91EA78BFB00E36890 /* HxbSignInViewModel.h */,
+				4EF80FFA1EA78BFB00E36890 /* HxbSignInViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -979,8 +989,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4ED355FE1EA77D4900CE5EA1 /* LoginAPI.m in Sources */,
 				4E26E3B01EA0FE660078B419 /* NYHTTPConnection.m in Sources */,
 				E122D8551EA0CAB900DC71ED /* NSString+HxbSortDicMD5.m in Sources */,
+				4EF80FFB1EA78BFB00E36890 /* HxbSignInViewModel.m in Sources */,
 				4E26E3C71EA0FF4C0078B419 /* UserDefaultManage.m in Sources */,
 				4E422CA91EA735C400C0EB62 /* HxbSignInViewController.m in Sources */,
 				E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */,

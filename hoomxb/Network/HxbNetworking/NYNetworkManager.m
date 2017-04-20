@@ -48,14 +48,14 @@
 
 - (void)addRequestWithAnimation:(NYBaseRequest *)request
 {
-//    NYProgressHUD *hud = [NYProgressHUD new];
-//    [hud showToastAnimation];
+    HxbHUDProgress *hud = [HxbHUDProgress new];
+    [hud showAnimation];
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
     [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
-//        [hud hideToastAnimation];
+        [hud hide];
         [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
-//        [hud hideToastAnimation];
+        [hud hide];
         [self processConnection:connection withRequest:request error:error];
     }];
 }
