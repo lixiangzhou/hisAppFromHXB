@@ -59,7 +59,9 @@
 		E122D85C1EA0CAB900DC71ED /* UITableView+HxbTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D83E1EA0CAB900DC71ED /* UITableView+HxbTableView.m */; };
 		E122D85D1EA0CAB900DC71ED /* UIView+HxbView.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8401EA0CAB900DC71ED /* UIView+HxbView.m */; };
 		E122D85E1EA0CAB900DC71ED /* UIViewController+HxbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8431EA0CAB900DC71ED /* UIViewController+HxbViewController.m */; };
-		E1975FBC1EA7774200A0123F /* PYContDownManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1975FBB1EA7774200A0123F /* PYContDownManager.m */; };
+		E1339B7A1EA85668002BE5B1 /* PYContDownManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1339B791EA85668002BE5B1 /* PYContDownManager.m */; };
+		E1BDFDB11EA89D2000311EC2 /* HXBBaseHandDate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BDFDB01EA89D2000311EC2 /* HXBBaseHandDate.m */; };
+		E1BDFDB71EA89DDA00311EC2 /* HXBServerAndClientTime.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BDFDB61EA89DDA00311EC2 /* HXBServerAndClientTime.m */; };
 		E1C964521EA5C6000066DBC4 /* LoanBuyResult.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964511EA5C6000066DBC4 /* LoanBuyResult.m */; };
 		E1C964581EA5C6A50066DBC4 /* PlanBuyConfirm.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964571EA5C6A50066DBC4 /* PlanBuyConfirm.m */; };
 		E1C9645B1EA5C6E80066DBC4 /* PlanBuyResult.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C9645A1EA5C6E80066DBC4 /* PlanBuyResult.m */; };
@@ -68,7 +70,6 @@
 		E1C964761EA5E04F0066DBC4 /* HXBBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964681EA5E04F0066DBC4 /* HXBBaseViewController.m */; };
 		E1C964771EA5E04F0066DBC4 /* HXBBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C9646B1EA5E04F0066DBC4 /* HXBBaseCollectionView.m */; };
 		E1C964781EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C9646D1EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.m */; };
-		E1C964791EA5E04F0066DBC4 /* HXBBaseHandDate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C9646F1EA5E04F0066DBC4 /* HXBBaseHandDate.m */; };
 		E1C9647A1EA5E04F0066DBC4 /* HXBBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964711EA5E04F0066DBC4 /* HXBBaseTableView.m */; };
 		E1C9647B1EA5E04F0066DBC4 /* HXBBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964731EA5E04F0066DBC4 /* HXBBaseTableViewCell.m */; };
 		E1C9647D1EA600C20066DBC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1C9647C1EA600C20066DBC4 /* Assets.xcassets */; };
@@ -205,8 +206,12 @@
 		E122D8431EA0CAB900DC71ED /* UIViewController+HxbViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HxbViewController.m"; sourceTree = "<group>"; };
 		E122D8441EA0CAB900DC71ED /* HxbBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbBase.h; sourceTree = "<group>"; };
 		E122D8451EA0CAB900DC71ED /* HxbCategorys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbCategorys.h; sourceTree = "<group>"; };
-		E1975FBA1EA7773A00A0123F /* PYContDownManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYContDownManager.h; sourceTree = "<group>"; };
-		E1975FBB1EA7774200A0123F /* PYContDownManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYContDownManager.m; sourceTree = "<group>"; };
+		E1339B781EA85668002BE5B1 /* PYContDownManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYContDownManager.h; sourceTree = "<group>"; };
+		E1339B791EA85668002BE5B1 /* PYContDownManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYContDownManager.m; sourceTree = "<group>"; };
+		E1BDFDAF1EA89D2000311EC2 /* HXBBaseHandDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseHandDate.h; sourceTree = "<group>"; };
+		E1BDFDB01EA89D2000311EC2 /* HXBBaseHandDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseHandDate.m; sourceTree = "<group>"; };
+		E1BDFDB51EA89DDA00311EC2 /* HXBServerAndClientTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBServerAndClientTime.h; sourceTree = "<group>"; };
+		E1BDFDB61EA89DDA00311EC2 /* HXBServerAndClientTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBServerAndClientTime.m; sourceTree = "<group>"; };
 		E1C964501EA5C6000066DBC4 /* LoanBuyResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoanBuyResult.h; sourceTree = "<group>"; };
 		E1C964511EA5C6000066DBC4 /* LoanBuyResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoanBuyResult.m; sourceTree = "<group>"; };
 		E1C964561EA5C6A50066DBC4 /* PlanBuyConfirm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlanBuyConfirm.h; sourceTree = "<group>"; };
@@ -223,8 +228,6 @@
 		E1C9646B1EA5E04F0066DBC4 /* HXBBaseCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseCollectionView.m; sourceTree = "<group>"; };
 		E1C9646C1EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseCollectionViewCell.h; sourceTree = "<group>"; };
 		E1C9646D1EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseCollectionViewCell.m; sourceTree = "<group>"; };
-		E1C9646E1EA5E04F0066DBC4 /* HXBBaseHandDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseHandDate.h; sourceTree = "<group>"; };
-		E1C9646F1EA5E04F0066DBC4 /* HXBBaseHandDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseHandDate.m; sourceTree = "<group>"; };
 		E1C964701EA5E04F0066DBC4 /* HXBBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableView.h; sourceTree = "<group>"; };
 		E1C964711EA5E04F0066DBC4 /* HXBBaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTableView.m; sourceTree = "<group>"; };
 		E1C964721EA5E04F0066DBC4 /* HXBBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableViewCell.h; sourceTree = "<group>"; };
@@ -748,8 +751,12 @@
 		E1975FB91EA776FA00A0123F /* BaseObject */ = {
 			isa = PBXGroup;
 			children = (
-				E1975FBA1EA7773A00A0123F /* PYContDownManager.h */,
-				E1975FBB1EA7774200A0123F /* PYContDownManager.m */,
+				E1339B781EA85668002BE5B1 /* PYContDownManager.h */,
+				E1339B791EA85668002BE5B1 /* PYContDownManager.m */,
+				E1BDFDAF1EA89D2000311EC2 /* HXBBaseHandDate.h */,
+				E1BDFDB01EA89D2000311EC2 /* HXBBaseHandDate.m */,
+				E1BDFDB51EA89DDA00311EC2 /* HXBServerAndClientTime.h */,
+				E1BDFDB61EA89DDA00311EC2 /* HXBServerAndClientTime.m */,
 			);
 			path = BaseObject;
 			sourceTree = "<group>";
@@ -774,8 +781,6 @@
 				E1C9646B1EA5E04F0066DBC4 /* HXBBaseCollectionView.m */,
 				E1C9646C1EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.h */,
 				E1C9646D1EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.m */,
-				E1C9646E1EA5E04F0066DBC4 /* HXBBaseHandDate.h */,
-				E1C9646F1EA5E04F0066DBC4 /* HXBBaseHandDate.m */,
 				E1C964701EA5E04F0066DBC4 /* HXBBaseTableView.h */,
 				E1C964711EA5E04F0066DBC4 /* HXBBaseTableView.m */,
 				E1C964721EA5E04F0066DBC4 /* HXBBaseTableViewCell.h */,
@@ -857,7 +862,7 @@
 				TargetAttributes = {
 					4E16D8291E9CD0FE002A1881 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = Z9M2NMJFP5;
+						DevelopmentTeam = 2ZLD6E8Y4P;
 						ProvisioningStyle = Automatic;
 					};
 					4E16D8421E9CD0FE002A1881 = {
@@ -998,11 +1003,11 @@
 				4E422CA91EA735C400C0EB62 /* HxbSignInViewController.m in Sources */,
 				E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */,
 				4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */,
-				E1975FBC1EA7774200A0123F /* PYContDownManager.m in Sources */,
+				E1339B7A1EA85668002BE5B1 /* PYContDownManager.m in Sources */,
 				4E3C1D031EA6286400C8BD36 /* HxbWelcomeView.m in Sources */,
 				E122D85B1EA0CAB900DC71ED /* UILabel+HxbLabel.m in Sources */,
-				E1C964791EA5E04F0066DBC4 /* HXBBaseHandDate.m in Sources */,
 				4E26E3B91EA0FE790078B419 /* TokenAPI.m in Sources */,
+				E1BDFDB71EA89DDA00311EC2 /* HXBServerAndClientTime.m in Sources */,
 				E1C964771EA5E04F0066DBC4 /* HXBBaseCollectionView.m in Sources */,
 				E122D84E1EA0CAB900DC71ED /* NSObject+HxbRunTime.m in Sources */,
 				E122D85E1EA0CAB900DC71ED /* UIViewController+HxbViewController.m in Sources */,
@@ -1043,6 +1048,7 @@
 				4E3C1D081EA62BB300C8BD36 /* HxbFileManager.m in Sources */,
 				E122D85C1EA0CAB900DC71ED /* UITableView+HxbTableView.m in Sources */,
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
+				E1BDFDB11EA89D2000311EC2 /* HXBBaseHandDate.m in Sources */,
 				E122D8561EA0CAB900DC71ED /* UIColor+HxbColor.m in Sources */,
 				4E26E3B11EA0FE660078B419 /* NYNetworkConfig.m in Sources */,
 				E122D84D1EA0CAB900DC71ED /* NSObject+Hxb.m in Sources */,
@@ -1195,7 +1201,8 @@
 			baseConfigurationReference = DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2ZLD6E8Y4P;
 				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
 				INFOPLIST_FILE = hoomxb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1210,7 +1217,8 @@
 			baseConfigurationReference = B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2ZLD6E8Y4P;
 				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
 				INFOPLIST_FILE = hoomxb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
