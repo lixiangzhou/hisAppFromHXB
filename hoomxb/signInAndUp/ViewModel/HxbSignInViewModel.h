@@ -10,5 +10,5 @@
 #import "NYBaseRequest.h"
 
 @interface HxbSignInViewModel : NSObject
-- (void)signInRequestWithUserName:(NSString *)userName Password:(NSString *)password SuccessBlock:(void(^)(NYBaseRequest *request, id responseObject))success FailureBlock:(void(^)(NYBaseRequest *request, NSError *error))failure;
+- (void)signInRequestWithUserName:(NSString *)userName Password:(NSString *)password SuccessBlock:(void(^)(BOOL login,  NSString *message))success FailureBlock:(void(^)(NYBaseRequest *request, NSError *error))failure;
 @end

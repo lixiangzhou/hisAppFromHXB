@@ -8,17 +8,23 @@
 
 #import "HxbSignInViewModel.h"
 #import "LoginAPI.h"
-
+#import "LoginModel.h"
 @implementation HxbSignInViewModel
 
-- (void)signInRequestWithUserName:(NSString *)userName Password:(NSString *)password SuccessBlock:(void(^)(NYBaseRequest *request, id responseObject))success FailureBlock:(void(^)(NYBaseRequest *request, NSError *error))failure{
+- (void)signInRequestWithUserName:(NSString *)userName Password:(NSString *)password SuccessBlock:(void(^)(BOOL login,  NSString *message))success FailureBlock:(void(^)(NYBaseRequest *request, NSError *error))failure{
 //      [KeyChain removeToken];
     LoginAPI *loginApi = [[LoginAPI alloc] initWithUserName:userName loginPwd:password];
     [loginApi startAnimationWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
-        if (success) {
-            success(request,responseObject);
+        LoginModel *model = [LoginModel yy_modelWithJSON:responseObject];
+        if (model.code == 0) {
+            NSString *message = model.message;
+            success(YES,message);
         }
+//        model.
+//        if (success) {
+//            success(request,responseObject);
+//        }
 
     } failure:^(NYBaseRequest *request, NSError *error) {
         failure(request,error);
