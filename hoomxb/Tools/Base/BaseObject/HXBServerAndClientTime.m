@@ -8,6 +8,10 @@
 
 #import "HXBServerAndClientTime.h"
 
+@interface HXBServerAndClientTime ()
+
+@end
+
 @implementation HXBServerAndClientTime
 
 + (instancetype) sharedServerAndClientTime {
@@ -26,12 +30,27 @@
     return serverAndClientTime;
 }
 
+
+//MARK: setter
 - (void)setServerTime:(NSString *)serverTime {
     _serverTime = serverTime;
    double serverTimeDouble = serverTime.longLongValue;
    
+    //计算当前的时间秒数
     NSTimeInterval currentDateInterval = [[[NSDate alloc]init] timeIntervalSince1970];
-    
-    _serverAndClientDate = [NSDate dateWithTimeIntervalSinceNow:serverTimeDouble - currentDateInterval];
+    //计算时差
+     NSNumber *timeDifferenceTemp = @(serverTimeDouble - currentDateInterval);
+    [self setValue:timeDifferenceTemp forKey:@"timeDifference"];
 }
+
+//MARK: getter
+- (NSDate *)serverAndClientDate {
+    return [NSDate dateWithTimeIntervalSinceNow:self.timeDifference.doubleValue];;
+}
+
+- (NSNumber *)serverAndClientTimeInterval {
+    return @([self.serverAndClientDate timeIntervalSince1970]);
+}
+
+
 @end

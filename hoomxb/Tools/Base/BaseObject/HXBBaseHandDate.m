@@ -207,7 +207,7 @@ static HXBBaseHandDate *_instancetype;
         dateBlock(year,month,day,hour,minute,second);
     }
     // 伪代码
-    //    年差额 = dateCom.year, 月差额 = dateCom.month, 日差额 = dateCom.day, 小时差额 = dateCom.hour, 分钟差额 = dateCom.minute, 秒差额 = dateCom.second
+    // 年差额 = dateCom.year, 月差额 = dateCom.month, 日差额 = dateCom.day, 小时差额 = dateCom.hour, 分钟差额 = dateCom.minute, 秒差额 = dateCom.second
     
     
     NSString *str;

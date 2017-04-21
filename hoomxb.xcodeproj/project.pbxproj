@@ -295,18 +295,17 @@
 		4E16D82C1E9CD0FE002A1881 /* hoomxb */ = {
 			isa = PBXGroup;
 			children = (
-				4E422CAD1EA7383D00C0EB62 /* My */,
-				4E422CA21EA730D600C0EB62 /* signInAndUp */,
-				4E3C1D091EA6421B00C8BD36 /* Home */,
-				4E3C1D041EA628E300C8BD36 /* Source */,
-				4E26E3A11EA0FE660078B419 /* Network */,
-				4EA93FBB1EA0A591002F3615 /* Macros */,
-				E122D8081EA0CAB900DC71ED /* Tools */,
 				4E16D8301E9CD0FE002A1881 /* AppDelegate.h */,
 				4E16D8311E9CD0FE002A1881 /* AppDelegate.m */,
 				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
 				4E16D8341E9CD0FE002A1881 /* ViewController.m */,
-				4E16D8361E9CD0FE002A1881 /* Main.storyboard */,
+				4E26E3A11EA0FE660078B419 /* Network */,
+				4E3C1D041EA628E300C8BD36 /* Source */,
+				E122D8081EA0CAB900DC71ED /* Tools */,
+				4E422CA21EA730D600C0EB62 /* signInAndUp */,
+				4E3C1D091EA6421B00C8BD36 /* Home */,
+				4E422CAD1EA7383D00C0EB62 /* My */,
+				4EA93FBB1EA0A591002F3615 /* Macros */,
 				4E16D82D1E9CD0FE002A1881 /* Supporting Files */,
 			);
 			path = hoomxb;
@@ -320,6 +319,7 @@
 				4E16D83E1E9CD0FE002A1881 /* Info.plist */,
 				4EA93FBF1EA0A5FB002F3615 /* PrefixHeader.pch */,
 				4E16D82E1E9CD0FE002A1881 /* main.m */,
+				4E16D8361E9CD0FE002A1881 /* Main.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

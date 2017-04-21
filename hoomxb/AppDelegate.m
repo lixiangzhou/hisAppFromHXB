@@ -75,7 +75,6 @@
 
 - (void)getAdvertisingImage
 {
-    
     // TODO 请求广告接口
     NSArray *imageArray = @[@"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222441_kVZXU.jpeg", @"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222425_zFKGY.thumb.700_0.jpeg", @"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222413_ak25z.thumb.700_0.jpeg", @"https://a-ssl.duitang.com/uploads/item/201604/06/20160406172034_TVkJs.thumb.700_0.jpeg"];
     NSString *imageUrl = imageArray[arc4random() % imageArray.count];
@@ -88,9 +87,7 @@
     NSString *filePath = [HxbFileManager getFilePathWithImageName:imageName];
     BOOL isExist = [HxbFileManager isFileExistWithFilePath:filePath];
     if (!isExist){// 如果该图片不存在，则删除老图片，下载新图片
-        
         [self downloadAdImageWithUrl:imageUrl imageName:imageName];
-        
     }
     
 }
@@ -134,47 +131,39 @@
 }
 //根据服务器时间计算与本地时间的时间差
 - (void)serverAndClientTime {
-    NSString *serverTime;
+    //......服务器请求数据
+    NSString *serverTime;//服务器求情下来之后的服务器时间戳
     HXBServerAndClientTime *serverAndClientTime = [HXBServerAndClientTime sharedServerAndClientTime];
     serverAndClientTime.serverTime = serverTime;
 }
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
     
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
 }
 
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
-    
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
-    
-    // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
-    
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
 
