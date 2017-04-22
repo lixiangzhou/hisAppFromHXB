@@ -19,7 +19,7 @@
         LoginModel *model = [LoginModel yy_modelWithJSON:responseObject];
         if (model.code == 0) {
             NSString *message = model.message;
-            success(YES,message);
+            if (success) success(YES,message);
         }
 //        model.
 //        if (success) {
@@ -27,7 +27,7 @@
 //        }
 
     } failure:^(NYBaseRequest *request, NSError *error) {
-        failure(request,error);
+        if (failure) failure(request,error);
     }];
 }
 @end

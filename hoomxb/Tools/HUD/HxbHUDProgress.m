@@ -84,7 +84,6 @@
     _HUD.delegate = self;//添加代理
     _HUD.mode = MBProgressHUDModeIndeterminate;
     [_HUD showAnimated:YES];
-    
 }
 
 - (void)showAnimationWithText:(NSString *)text
