@@ -23,7 +23,6 @@
  * @param imageNameArray 默认情况下的image的名字
  * @param selectImageCommonName 选中情况下的image的名字的前缀
  */
-//MARK:
 - (void)subViewControllerNames: (NSArray <NSString *> *)subViewControllerNameArray andNavigationControllerTitleArray: (NSArray<NSString *>*)titleArray andImageNameArray: (NSArray<NSString *>*)imageNameArray andSelectImageCommonName: (NSString *)selectImageCommonName;
 
 @end

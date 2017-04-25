@@ -63,6 +63,7 @@
 		E122D85D1EA0CAB900DC71ED /* UIView+HxbView.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8401EA0CAB900DC71ED /* UIView+HxbView.m */; };
 		E122D85E1EA0CAB900DC71ED /* UIViewController+HxbViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8431EA0CAB900DC71ED /* UIViewController+HxbViewController.m */; };
 		E1339B7A1EA85668002BE5B1 /* HXBBaseContDownManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1339B791EA85668002BE5B1 /* HXBBaseContDownManager.m */; };
+		E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */; };
 		E1BDFDB11EA89D2000311EC2 /* HXBBaseHandDate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BDFDB01EA89D2000311EC2 /* HXBBaseHandDate.m */; };
 		E1BDFDB71EA89DDA00311EC2 /* HXBServerAndClientTime.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BDFDB61EA89DDA00311EC2 /* HXBServerAndClientTime.m */; };
 		E1C964521EA5C6000066DBC4 /* LoanBuyResult.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964511EA5C6000066DBC4 /* LoanBuyResult.m */; };
@@ -76,6 +77,8 @@
 		E1C9647A1EA5E04F0066DBC4 /* HXBBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964711EA5E04F0066DBC4 /* HXBBaseTableView.m */; };
 		E1C9647B1EA5E04F0066DBC4 /* HXBBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964731EA5E04F0066DBC4 /* HXBBaseTableViewCell.m */; };
 		E1C9647D1EA600C20066DBC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1C9647C1EA600C20066DBC4 /* Assets.xcassets */; };
+		E1D2CA551EAB4D8E000099C7 /* HxbMyHomePageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D2CA541EAB4D8E000099C7 /* HxbMyHomePageViewModel.m */; };
+		E1D2CA631EAB4F26000099C7 /* HxbFinanctingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D2CA621EAB4F26000099C7 /* HxbFinanctingViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -217,6 +220,8 @@
 		E122D8451EA0CAB900DC71ED /* HxbCategorys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbCategorys.h; sourceTree = "<group>"; };
 		E1339B781EA85668002BE5B1 /* HXBBaseContDownManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseContDownManager.h; sourceTree = "<group>"; };
 		E1339B791EA85668002BE5B1 /* HXBBaseContDownManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseContDownManager.m; sourceTree = "<group>"; };
+		E1B2D53E1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+HXBScrollView.h"; sourceTree = "<group>"; };
+		E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+HXBScrollView.m"; sourceTree = "<group>"; };
 		E1BDFDAF1EA89D2000311EC2 /* HXBBaseHandDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseHandDate.h; sourceTree = "<group>"; };
 		E1BDFDB01EA89D2000311EC2 /* HXBBaseHandDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseHandDate.m; sourceTree = "<group>"; };
 		E1BDFDB51EA89DDA00311EC2 /* HXBServerAndClientTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBServerAndClientTime.h; sourceTree = "<group>"; };
@@ -242,6 +247,10 @@
 		E1C964721EA5E04F0066DBC4 /* HXBBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableViewCell.h; sourceTree = "<group>"; };
 		E1C964731EA5E04F0066DBC4 /* HXBBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTableViewCell.m; sourceTree = "<group>"; };
 		E1C9647C1EA600C20066DBC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1D2CA531EAB4D8E000099C7 /* HxbMyHomePageViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbMyHomePageViewModel.h; sourceTree = "<group>"; };
+		E1D2CA541EAB4D8E000099C7 /* HxbMyHomePageViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbMyHomePageViewModel.m; sourceTree = "<group>"; };
+		E1D2CA611EAB4F26000099C7 /* HxbFinanctingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbFinanctingViewController.h; sourceTree = "<group>"; };
+		E1D2CA621EAB4F26000099C7 /* HxbFinanctingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbFinanctingViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,13 +308,14 @@
 				4E16D8311E9CD0FE002A1881 /* AppDelegate.m */,
 				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
 				4E16D8341E9CD0FE002A1881 /* ViewController.m */,
+				4EA93FBB1EA0A591002F3615 /* Macros */,
 				4E26E3A11EA0FE660078B419 /* Network */,
 				4E3C1D041EA628E300C8BD36 /* Source */,
 				E122D8081EA0CAB900DC71ED /* Tools */,
 				4E422CA21EA730D600C0EB62 /* signInAndUp */,
 				4E3C1D091EA6421B00C8BD36 /* Home */,
 				4E422CAD1EA7383D00C0EB62 /* My */,
-				4EA93FBB1EA0A591002F3615 /* Macros */,
+				E1D2CA561EAB4EFC000099C7 /* Financing */,
 				4E16D82D1E9CD0FE002A1881 /* Supporting Files */,
 			);
 			path = hoomxb;
@@ -437,19 +447,12 @@
 		4E3C1D091EA6421B00C8BD36 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				4E3C1D0A1EA6421B00C8BD36 /* Model */,
+				E1D2CA4E1EAB4D51000099C7 /* Model */,
+				E1D2CA4F1EAB4D51000099C7 /* ViewModel */,
 				4E3C1D0B1EA6421B00C8BD36 /* View */,
 				4E3C1D0C1EA6421B00C8BD36 /* ViewController */,
-				4E3C1D0D1EA6421B00C8BD36 /* ViewModel */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		4E3C1D0A1EA6421B00C8BD36 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		4E3C1D0B1EA6421B00C8BD36 /* View */ = {
@@ -470,13 +473,6 @@
 				4E6D31001EA70DC900598529 /* HxbHomeViewController.m */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		4E3C1D0D1EA6421B00C8BD36 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		4E422CA21EA730D600C0EB62 /* signInAndUp */ = {
@@ -527,26 +523,12 @@
 		4E422CAD1EA7383D00C0EB62 /* My */ = {
 			isa = PBXGroup;
 			children = (
-				4E422CAE1EA7383D00C0EB62 /* Model */,
-				4E422CAF1EA7383D00C0EB62 /* View */,
 				4E422CB01EA7383D00C0EB62 /* ViewController */,
-				4E422CB11EA7383D00C0EB62 /* ViewModel */,
+				E1D2CA511EAB4D6B000099C7 /* View */,
+				E1D2CA521EAB4D6B000099C7 /* ViewModel */,
+				E1D2CA501EAB4D6B000099C7 /* Model */,
 			);
 			path = My;
-			sourceTree = "<group>";
-		};
-		4E422CAE1EA7383D00C0EB62 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		4E422CAF1EA7383D00C0EB62 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		4E422CB01EA7383D00C0EB62 /* ViewController */ = {
@@ -556,13 +538,6 @@
 				4E422CB31EA7386900C0EB62 /* HxbMyViewController.m */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		4E422CB11EA7383D00C0EB62 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		4E422CB51EA7402200C0EB62 /* launch */ = {
@@ -750,6 +725,8 @@
 				E122D83E1EA0CAB900DC71ED /* UITableView+HxbTableView.m */,
 				E122D83F1EA0CAB900DC71ED /* UIView+HxbView.h */,
 				E122D8401EA0CAB900DC71ED /* UIView+HxbView.m */,
+				E1B2D53E1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.h */,
+				E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */,
 			);
 			path = UIView;
 			sourceTree = "<group>";
@@ -804,6 +781,84 @@
 				4E3C1D021EA6286400C8BD36 /* HxbWelcomeView.m */,
 			);
 			path = BaseView;
+			sourceTree = "<group>";
+		};
+		E1D2CA4E1EAB4D51000099C7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E1D2CA4F1EAB4D51000099C7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E1D2CA501EAB4D6B000099C7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E1D2CA511EAB4D6B000099C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E1D2CA521EAB4D6B000099C7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E1D2CA531EAB4D8E000099C7 /* HxbMyHomePageViewModel.h */,
+				E1D2CA541EAB4D8E000099C7 /* HxbMyHomePageViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E1D2CA561EAB4EFC000099C7 /* Financing */ = {
+			isa = PBXGroup;
+			children = (
+				E1D2CA571EAB4EFD000099C7 /* Model */,
+				E1D2CA581EAB4EFD000099C7 /* View */,
+				E1D2CA591EAB4EFD000099C7 /* ViewController */,
+				E1D2CA5C1EAB4EFD000099C7 /* ViewModel */,
+			);
+			path = Financing;
+			sourceTree = "<group>";
+		};
+		E1D2CA571EAB4EFD000099C7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E1D2CA581EAB4EFD000099C7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E1D2CA591EAB4EFD000099C7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E1D2CA611EAB4F26000099C7 /* HxbFinanctingViewController.h */,
+				E1D2CA621EAB4F26000099C7 /* HxbFinanctingViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E1D2CA5C1EAB4EFD000099C7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1029,6 +1084,7 @@
 				E122D84E1EA0CAB900DC71ED /* NSObject+HxbRunTime.m in Sources */,
 				E122D85E1EA0CAB900DC71ED /* UIViewController+HxbViewController.m in Sources */,
 				E1C964751EA5E04F0066DBC4 /* HXBBaseTabBarController.m in Sources */,
+				E1D2CA551EAB4D8E000099C7 /* HxbMyHomePageViewModel.m in Sources */,
 				E122D8531EA0CAB900DC71ED /* NSString+HxbMask.m in Sources */,
 				E1C964521EA5C6000066DBC4 /* LoanBuyResult.m in Sources */,
 				4E9B8BF71EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m in Sources */,
@@ -1037,6 +1093,7 @@
 				E122D8581EA0CAB900DC71ED /* UIScreen+Hxb.m in Sources */,
 				E1C964761EA5E04F0066DBC4 /* HXBBaseViewController.m in Sources */,
 				4E80A57B1EA4F4930006D012 /* HxbHTTPSessionManager.m in Sources */,
+				E1D2CA631EAB4F26000099C7 /* HxbFinanctingViewController.m in Sources */,
 				4E26E3C01EA0FEFE0078B419 /* BaseModel.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E122D85A1EA0CAB900DC71ED /* UIImageView+HxbSDWebImage.m in Sources */,
@@ -1063,6 +1120,7 @@
 				4E26E3BD1EA0FEED0078B419 /* tokenModel.m in Sources */,
 				E122D8571EA0CAB900DC71ED /* UIResponder+FindNext.m in Sources */,
 				4E26E3C61EA0FF4C0078B419 /* KeyChainManage.m in Sources */,
+				E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */,
 				4E3C1D081EA62BB300C8BD36 /* HxbFileManager.m in Sources */,
 				E122D85C1EA0CAB900DC71ED /* UITableView+HxbTableView.m in Sources */,
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,

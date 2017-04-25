@@ -13,7 +13,6 @@
  */
 
 
-
 #pragma mark -  ------------UI相关-----------------------
 #import "UIViewController+HxbViewController.h"//快速添加到父控件
 #import "UIView+HxbView.h"//frame获取及写入，屏幕截图
@@ -23,7 +22,7 @@
 #import "UIImageView+HxbSDWebImage.h"//对SDWebImage的封装
 #import "UIColor+HxbColor.h"// 随机色，rgb，16进制颜色
 #import "UIScreen+Hxb.h"//快速获取屏幕的宽，高，分辨率
-
+#import "UIScrollView+HXBScrollView.h"//关于上拉刷新与下拉加载
 
 
 

@@ -46,7 +46,7 @@
     tabBarController.selectColor = [UIColor redColor];
     tabBarController.normalColor = [UIColor grayColor];
     //数据
-    NSArray *controllerNameArray = @[@"HxbHomeViewController",@"ViewController",@"HxbMyViewController"];
+    NSArray *controllerNameArray = @[@"HxbHomeViewController",@"HxbFinanctingViewController",@"HxbMyViewController"];
     NSArray *controllerTitleArray = @[@"首页",@"理财",@"我的"];
     NSArray *imageArray = @[@"1",@"1",@"1"];
     //选中下的图片前缀

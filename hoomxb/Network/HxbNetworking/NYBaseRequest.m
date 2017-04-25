@@ -12,7 +12,7 @@
 
 @implementation NYBaseRequest
 
-//----------------------------------request---------------------------------
+//---------------------------------- request ---------------------------------
 - (NYRequestMethod)requestMethods
 {
     return NYRequestMethodGet;

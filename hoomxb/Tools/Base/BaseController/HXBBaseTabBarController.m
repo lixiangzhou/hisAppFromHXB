@@ -93,6 +93,7 @@
     return controller;
 }
 
+//MARK: 显示登录界面
 - (void)showLoginVC
 {
     [self performSelector:@selector(realShowLogin) withObject:nil afterDelay:0];
