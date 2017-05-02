@@ -8,6 +8,8 @@
 
 #import "HxbSignInViewController.h"
 #import "HxbSignInViewModel.h"
+#import "HxbSignUpViewController.h"
+#import "HxbPhoneVerifyViewController.h"
 
 @interface HxbSignInViewController ()
 <
@@ -18,6 +20,7 @@ UITextFieldDelegate
 @property (nonatomic, strong) UIView *lineView;
 @property (nonatomic, strong) UIView *lineSecondView;
 @property (nonatomic, strong) UIButton *signInButton;
+@property (nonatomic, strong) UIButton *signUpbutton;
 @end
 
 @implementation HxbSignInViewController
@@ -29,6 +32,7 @@ UITextFieldDelegate
     [self.view addSubview:self.phoneTextField];
     [self.view addSubview:self.passwordTextField];
     [self.view addSubview:self.signInButton];
+    [self.view addSubview:self.signUpbutton];
     _phoneTextField.text = @"13000000063";
     _passwordTextField.text = @"111111";
 }
@@ -40,6 +44,11 @@ UITextFieldDelegate
 
 - (void)textFieldDidChange:(UITextField *)textField{
     
+}
+
+- (void)signUpButtonClick:(UIButton *)sender{
+    HxbPhoneVerifyViewController *phoneVerifyViewController =[[HxbPhoneVerifyViewController alloc]init];
+    [self.navigationController pushViewController:phoneVerifyViewController animated:true];
 }
 
 - (void)signInButtonClick:(UIButton *)sender{
@@ -156,6 +165,19 @@ UITextFieldDelegate
         _signInButton = [UIButton btnwithTitle:@"Sign In" andTarget:self andAction:@selector(signInButtonClick:) andFrameByCategory:CGRectMake(20,CGRectGetMaxY(_passwordTextField.frame) + 120, SCREEN_WIDTH - 40, 44)];
     }
     return _signInButton;
+}
+
+- (UIButton *)signUpbutton{
+    if (!_signUpbutton) {
+        _signUpbutton = [[UIButton alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(_signInButton.frame) + 20, SCREEN_WIDTH , 20)];
+        [_signUpbutton setTitle:@"Sign Up" forState:UIControlStateNormal];
+        [_signUpbutton setTitleColor:COR1 forState:UIControlStateNormal];
+        [_signUpbutton.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [_signUpbutton addTarget:self action:@selector(signUpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+//                         btnwithTitle:@"Sign In" andTarget:self andAction:@selector(signUpButtonClick:) andFrameByCategory:];
+ 
+    }
+    return _signUpbutton;
 }
 
 @end

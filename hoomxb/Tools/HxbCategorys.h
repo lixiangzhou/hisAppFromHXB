@@ -23,7 +23,7 @@
 #import "UIColor+HxbColor.h"// 随机色，rgb，16进制颜色
 #import "UIScreen+Hxb.h"//快速获取屏幕的宽，高，分辨率
 #import "UIScrollView+HXBScrollView.h"//关于上拉刷新与下拉加载
-
+#import "UITextField+HxbTextField.h" //TextField的自定义
 
 
 #pragma mark - -------------NSObjct相关----------------------

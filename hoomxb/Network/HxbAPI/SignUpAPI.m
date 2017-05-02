@@ -1,15 +1,14 @@
-
 //
-//  TokenAPI.m
-//  NetWorkingTest
+//  SignUpAPI.m
+//  hoomxb
 //
-//  Created by HXB-C on 2017/3/27.
+//  Created by HXB-C on 2017/5/2.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "TokenAPI.h"
+#import "SignUpAPI.h"
 
-@implementation TokenAPI
+@implementation SignUpAPI
 
 - (id)init
 {
@@ -20,16 +19,17 @@
 }
 
 - (NSString *)requestUrl {
-    return @"/token";
+    return @"/user/signup";
 }
 
 - (NYRequestMethod)requestMethod {
-    return NYRequestMethodGet;
+    return NYRequestMethodPost;
 }
 
 - (id)requestArgument {
     return @{
-};
+
+    };
 }
 
 @end

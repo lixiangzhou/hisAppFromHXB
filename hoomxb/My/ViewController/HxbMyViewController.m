@@ -23,10 +23,10 @@
 }
 //登出按钮事件
 - (void)signOutButtonButtonClick:(UIButton *)sender{
-//    [KeyChain removeAllInfo];
-    UIViewController *VC =[[UIViewController alloc]init];
-    VC.view.backgroundColor = [UIColor redColor];
-    [self.navigationController pushViewController:VC animated:true];
+    [KeyChain removeAllInfo];
+//    UIViewController *VC =[[UIViewController alloc]init];
+//    VC.view.backgroundColor = [UIColor redColor];
+//    [self.navigationController pushViewController:VC animated:true];
 
 }
 
