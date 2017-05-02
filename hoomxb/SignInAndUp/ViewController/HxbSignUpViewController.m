@@ -8,6 +8,7 @@
 
 #import "HxbSignUpViewController.h"
 #import "HxbSignUpViewModel.h"
+#import "HxbSignInViewModel.h"
 
 @interface HxbSignUpViewController ()
 <
@@ -37,9 +38,26 @@ UITextFieldDelegate
             }];
             
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                [self dismissViewControllerAnimated:true completion:nil];
-                NSLog(@"%@",action.title);
                 
+                HxbSignInViewModel *signInViewModel =[[HxbSignInViewModel alloc]init];
+                //  {"username":"13000000063","password":"111111"}
+                NSString *userName = @"13000000063";
+                NSString *passWord = @"111111";
+                [signInViewModel signInRequestWithUserName:userName Password:passWord SuccessBlock:^(BOOL login, NSString *message) {
+                    if (login) {
+                        [HxbHUDProgress showTextWithMessage:message];
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                        [KeyChain setPhone:userName];
+                        [KeyChain setLoginPwd:passWord];
+                        [self dismissViewControllerAnimated:true completion:nil];
+                        
+                    }
+                } FailureBlock:^(NYBaseRequest *request, NSError *error) {
+                    
+                    [HxbHUDProgress showTextWithMessage:@"请您登录"];
+                    [self.navigationController popToRootViewControllerAnimated:true];
+                    
+                }];
             }];
             
             [alertController addAction:cancelAction];

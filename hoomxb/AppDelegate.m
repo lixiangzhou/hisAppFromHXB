@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "NYNetwork.h"//网络请求的kit
-#import "HXBBaseTabBarController.h"//自定义的tabBarController
 #import "HxbAdvertiseView.h"//弹窗
 #import "HXBServerAndClientTime.h"//客户端与服务器时间协调的工具类
 @interface AppDelegate ()
@@ -16,7 +15,27 @@
 @end
 
 @implementation AppDelegate
+/**
+ *  懒加载主界面Tabbar
+ */
 
+- (HXBBaseTabBarController *)mainTabbarVC
+{
+    if (!_mainTabbarVC) {
+        _mainTabbarVC = [[HXBBaseTabBarController alloc]init];
+        _mainTabbarVC.selectColor = [UIColor redColor];
+        _mainTabbarVC.normalColor = [UIColor grayColor];
+        NSArray *controllerNameArray = @[@"HxbHomeViewController",@"HxbFinanctingViewController",@"HxbMyViewController"];
+        NSArray *controllerTitleArray = @[@"首页",@"理财",@"我的"];
+        NSArray *imageArray = @[@"1",@"1",@"1"];
+        //选中下的图片前缀
+        NSString *commonName = @"1";
+        
+        [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
+
+    }
+    return _mainTabbarVC;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //配置网络
@@ -42,19 +61,10 @@
 - (void)creatRootViewController {
     
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
-    tabBarController.selectColor = [UIColor redColor];
-    tabBarController.normalColor = [UIColor grayColor];
+//    HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
+
     //数据
-    NSArray *controllerNameArray = @[@"HxbHomeViewController",@"HxbFinanctingViewController",@"HxbMyViewController"];
-    NSArray *controllerTitleArray = @[@"首页",@"理财",@"我的"];
-    NSArray *imageArray = @[@"1",@"1",@"1"];
-    //选中下的图片前缀
-    NSString *commonName = @"1";
-    
-    [tabBarController subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
-    
-    _window.rootViewController = tabBarController;
+    _window.rootViewController = self.mainTabbarVC;
     [_window makeKeyAndVisible];
     [self setAdvertiseView];
 }

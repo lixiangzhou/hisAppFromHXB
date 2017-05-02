@@ -10,5 +10,7 @@
 #import "NYBaseRequest.h"
 
 @interface HxbSignUpViewModel : NSObject
+
 - (void)signUpRequestSuccessBlock:(void(^)(BOOL signupSuccess,  NSString *message))success FailureBlock:(void(^)(NYBaseRequest *request, NSError *error))failure;
+
 @end

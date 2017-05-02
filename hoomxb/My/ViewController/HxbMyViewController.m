@@ -7,6 +7,7 @@
 //
 
 #import "HxbMyViewController.h"
+#import "AppDelegate.h"
 
 @interface HxbMyViewController ()
 @property (nonatomic,strong) UIButton *signOutButton;
@@ -23,7 +24,27 @@
 }
 //登出按钮事件
 - (void)signOutButtonButtonClick:(UIButton *)sender{
-    [KeyChain removeAllInfo];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您确定要退出登录吗？" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+        
+        NSLog(@"%@",action.title);
+        
+    }];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [KeyChain removeAllInfo];
+        [((AppDelegate*)[UIApplication sharedApplication].delegate).mainTabbarVC setSelectedIndex:0];
+        
+    }];
+    
+    [alertController addAction:cancelAction];
+    
+    [alertController addAction:okAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 //    UIViewController *VC =[[UIViewController alloc]init];
 //    VC.view.backgroundColor = [UIColor redColor];
 //    [self.navigationController pushViewController:VC animated:true];

@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HXBBaseTabBarController.h"//自定义的tabBarController
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (nonatomic, strong) HXBBaseTabBarController *mainTabbarVC;
 
 @end
 
