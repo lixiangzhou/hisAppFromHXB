@@ -7,7 +7,11 @@
 //
 
 #import "HXBBaseViewController.h"
+#import "BannerModel.h"
 
 @interface HxbHomeViewController : HXBBaseViewController
+
+- (void)showBannerWebViewWithURL:(NSString *)linkUrl;
+- (void)showBannerWebViewWithModel:(BannerModel *)model;
 
 @end
