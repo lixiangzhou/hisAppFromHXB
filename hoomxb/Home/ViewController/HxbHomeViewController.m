@@ -8,18 +8,42 @@
 
 #import "HxbHomeViewController.h"
 #import "HxbAdvertiseViewController.h"
+#import "HXBBannerView.h"
 
 @interface HxbHomeViewController ()
-
+@property (nonatomic,strong)HXBBannerView *bannerView;
 @end
 
 @implementation HxbHomeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor orangeColor];
+    [self.navigationController setNavigationBarHidden:true animated:true];
+//    self.view.backgroundColor = [UIColor orangeColor];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAd) name:@"pushtoad" object:nil];
-    // Do any additional setup after loading the view.
+//    HXBBannerView *bannersView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, 100, SCREEN_WIDTH, 100)];
+    [self.view addSubview:self.bannerView];
+
+}
+///点击banner跳转
+- (void)showBannerWebViewWithURL:(NSString *)linkUrl
+{
+//    HXBWKWebViewVC *webView = [[HXBWKWebViewVC alloc]initWithUrl:linkUrl];
+//    [self.navigationController pushViewController:webView animated:YES];
+}
+- (void)showBannerWebViewWithModel:(BannerModel *)model
+{
+//    HXBWKWebViewVC *webView = [[HXBWKWebViewVC alloc]initWithBannersModel:model];
+//    [self.navigationController pushViewController:webView animated:YES];
+}
+
+- (HXBBannerView *)bannerView
+{
+    if (!_bannerView) {
+        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
+        _bannerView.backgroundColor = COR1;
+    }
+    return _bannerView;
 }
 
 - (void)pushToAd {
@@ -30,20 +54,5 @@
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pushtoad" object:nil];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

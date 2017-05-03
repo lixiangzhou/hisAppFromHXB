@@ -45,6 +45,16 @@
 		4EAD98DB1EB86B520029A3FF /* HxbSignUpViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98DA1EB86B520029A3FF /* HxbSignUpViewModel.m */; };
 		4EAD98DE1EB86BED0029A3FF /* SignUpAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98DD1EB86BED0029A3FF /* SignUpAPI.m */; };
 		4EAD98E11EB86CC70029A3FF /* SignUpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98E01EB86CC70029A3FF /* SignUpModel.m */; };
+		4EAD98E41EB87D290029A3FF /* HXBBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98E31EB87D290029A3FF /* HXBBannerView.m */; };
+		4EAD98E81EB87D810029A3FF /* pageControl_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EAD98E61EB87D810029A3FF /* pageControl_select@2x.png */; };
+		4EAD98E91EB87D810029A3FF /* pageControl_select@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EAD98E71EB87D810029A3FF /* pageControl_select@3x.png */; };
+		4EAD98EC1EB87D990029A3FF /* pageControl@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EAD98EA1EB87D990029A3FF /* pageControl@2x.png */; };
+		4EAD98ED1EB87D990029A3FF /* pageControl@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EAD98EB1EB87D990029A3FF /* pageControl@3x.png */; };
+		4EAD98F01EB87E330029A3FF /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98EF1EB87E330029A3FF /* BannerModel.m */; };
+		4EAD98F31EB89EAB0029A3FF /* bannerplaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EAD98F11EB89EAB0029A3FF /* bannerplaceholder@2x.png */; };
+		4EAD98F41EB89EAB0029A3FF /* bannerplaceholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EAD98F21EB89EAB0029A3FF /* bannerplaceholder@3x.png */; };
+		4EAD98F71EB89F220029A3FF /* banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EAD98F51EB89F220029A3FF /* banner@2x.png */; };
+		4EAD98F81EB89F220029A3FF /* banner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EAD98F61EB89F220029A3FF /* banner@3x.png */; };
 		4ED355FE1EA77D4900CE5EA1 /* LoginAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED355FD1EA77D4900CE5EA1 /* LoginAPI.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 		E10E7DE71EAF65BA005FC2E3 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E7DE01EAF65BA005FC2E3 /* LoginModel.m */; };
@@ -188,6 +198,18 @@
 		4EAD98DD1EB86BED0029A3FF /* SignUpAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpAPI.m; sourceTree = "<group>"; };
 		4EAD98DF1EB86CC70029A3FF /* SignUpModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpModel.h; sourceTree = "<group>"; };
 		4EAD98E01EB86CC70029A3FF /* SignUpModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpModel.m; sourceTree = "<group>"; };
+		4EAD98E21EB87D290029A3FF /* HXBBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBannerView.h; sourceTree = "<group>"; };
+		4EAD98E31EB87D290029A3FF /* HXBBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBannerView.m; sourceTree = "<group>"; };
+		4EAD98E61EB87D810029A3FF /* pageControl_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pageControl_select@2x.png"; sourceTree = "<group>"; };
+		4EAD98E71EB87D810029A3FF /* pageControl_select@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pageControl_select@3x.png"; sourceTree = "<group>"; };
+		4EAD98EA1EB87D990029A3FF /* pageControl@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pageControl@2x.png"; sourceTree = "<group>"; };
+		4EAD98EB1EB87D990029A3FF /* pageControl@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pageControl@3x.png"; sourceTree = "<group>"; };
+		4EAD98EE1EB87E330029A3FF /* BannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerModel.h; sourceTree = "<group>"; };
+		4EAD98EF1EB87E330029A3FF /* BannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerModel.m; sourceTree = "<group>"; };
+		4EAD98F11EB89EAB0029A3FF /* bannerplaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bannerplaceholder@2x.png"; sourceTree = "<group>"; };
+		4EAD98F21EB89EAB0029A3FF /* bannerplaceholder@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bannerplaceholder@3x.png"; sourceTree = "<group>"; };
+		4EAD98F51EB89F220029A3FF /* banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@2x.png"; sourceTree = "<group>"; };
+		4EAD98F61EB89F220029A3FF /* banner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@3x.png"; sourceTree = "<group>"; };
 		4ED355FC1EA77D4900CE5EA1 /* LoginAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginAPI.h; sourceTree = "<group>"; };
 		4ED355FD1EA77D4900CE5EA1 /* LoginAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginAPI.m; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
@@ -461,6 +483,7 @@
 		4E3C1D051EA628E300C8BD36 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4EAD98E51EB87D500029A3FF /* Home */,
 				4E422CB51EA7402200C0EB62 /* launch */,
 				4E422CB71EA7402200C0EB62 /* signIn */,
 			);
@@ -481,6 +504,8 @@
 		4E3C1D0B1EA6421B00C8BD36 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4EAD98E21EB87D290029A3FF /* HXBBannerView.h */,
+				4EAD98E31EB87D290029A3FF /* HXBBannerView.m */,
 				4E3C1D0E1EA6424D00C8BD36 /* HxbAdvertiseView.h */,
 				4E3C1D0F1EA6424D00C8BD36 /* HxbAdvertiseView.m */,
 			);
@@ -574,6 +599,21 @@
 				4E422CAB1EA736F700C0EB62 /* HxbNotificationMacros.m */,
 			);
 			path = Macros;
+			sourceTree = "<group>";
+		};
+		4EAD98E51EB87D500029A3FF /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				4EAD98F51EB89F220029A3FF /* banner@2x.png */,
+				4EAD98F61EB89F220029A3FF /* banner@3x.png */,
+				4EAD98F11EB89EAB0029A3FF /* bannerplaceholder@2x.png */,
+				4EAD98F21EB89EAB0029A3FF /* bannerplaceholder@3x.png */,
+				4EAD98EA1EB87D990029A3FF /* pageControl@2x.png */,
+				4EAD98EB1EB87D990029A3FF /* pageControl@3x.png */,
+				4EAD98E61EB87D810029A3FF /* pageControl_select@2x.png */,
+				4EAD98E71EB87D810029A3FF /* pageControl_select@3x.png */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		93AB8A7B8B5BF47D9A9FFDF5 /* Frameworks */ = {
@@ -813,6 +853,8 @@
 		E1D2CA4E1EAB4D51000099C7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4EAD98EE1EB87E330029A3FF /* BannerModel.h */,
+				4EAD98EF1EB87E330029A3FF /* BannerModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1002,8 +1044,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E422CBC1EA7402200C0EB62 /* login_close@3x.png in Resources */,
+				4EAD98E81EB87D810029A3FF /* pageControl_select@2x.png in Resources */,
 				4E422CBA1EA7402200C0EB62 /* 4.png in Resources */,
+				4EAD98F81EB89F220029A3FF /* banner@3x.png in Resources */,
+				4EAD98F41EB89EAB0029A3FF /* bannerplaceholder@3x.png in Resources */,
+				4EAD98EC1EB87D990029A3FF /* pageControl@2x.png in Resources */,
+				4EAD98ED1EB87D990029A3FF /* pageControl@3x.png in Resources */,
+				4EAD98F31EB89EAB0029A3FF /* bannerplaceholder@2x.png in Resources */,
+				4EAD98F71EB89F220029A3FF /* banner@2x.png in Resources */,
 				4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */,
+				4EAD98E91EB87D810029A3FF /* pageControl_select@3x.png in Resources */,
 				4E422CBB1EA7402200C0EB62 /* login_close@2x.png in Resources */,
 				E1C9647D1EA600C20066DBC4 /* Assets.xcassets in Resources */,
 				4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
@@ -1094,12 +1144,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EAD98E41EB87D290029A3FF /* HXBBannerView.m in Sources */,
 				4ED355FE1EA77D4900CE5EA1 /* LoginAPI.m in Sources */,
 				4E26E3B01EA0FE660078B419 /* NYHTTPConnection.m in Sources */,
 				E122D8551EA0CAB900DC71ED /* NSString+HxbSortDicMD5.m in Sources */,
 				4E26E3C71EA0FF4C0078B419 /* UserDefaultManage.m in Sources */,
 				E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */,
 				4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */,
+				4EAD98F01EB87E330029A3FF /* BannerModel.m in Sources */,
 				4EAD98DE1EB86BED0029A3FF /* SignUpAPI.m in Sources */,
 				E1339B7A1EA85668002BE5B1 /* HXBBaseContDownManager.m in Sources */,
 				4E3C1D031EA6286400C8BD36 /* HxbWelcomeView.m in Sources */,
