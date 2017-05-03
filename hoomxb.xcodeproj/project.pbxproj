@@ -794,6 +794,10 @@
 		E1C964691EA5E04F0066DBC4 /* BaseView */ = {
 			isa = PBXGroup;
 			children = (
+				4E3C1D011EA6286400C8BD36 /* HxbWelcomeView.h */,
+				4E3C1D021EA6286400C8BD36 /* HxbWelcomeView.m */,
+				E11A52311EB190670043F37D /* HXBBaseWaveView.h */,
+				E11A52321EB190670043F37D /* HXBBaseWaveView.m */,
 				E1C9646A1EA5E04F0066DBC4 /* HXBBaseCollectionView.h */,
 				E1C9646B1EA5E04F0066DBC4 /* HXBBaseCollectionView.m */,
 				E1C9646C1EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.h */,
@@ -802,10 +806,6 @@
 				E1C964711EA5E04F0066DBC4 /* HXBBaseTableView.m */,
 				E1C964721EA5E04F0066DBC4 /* HXBBaseTableViewCell.h */,
 				E1C964731EA5E04F0066DBC4 /* HXBBaseTableViewCell.m */,
-				4E3C1D011EA6286400C8BD36 /* HxbWelcomeView.h */,
-				4E3C1D021EA6286400C8BD36 /* HxbWelcomeView.m */,
-				E11A52311EB190670043F37D /* HXBBaseWaveView.h */,
-				E11A52321EB190670043F37D /* HXBBaseWaveView.m */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";

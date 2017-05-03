@@ -15,7 +15,7 @@
 #import "HXBBaseTableViewCell.h"//tableViewCell
 #import "HXBBaseCollectionView.h"//collectionView
 #import "HXBBaseCollectionViewCell.h"//collectionViewCell
-
+#import "HXBBaseWaveView.h"//关于水波的类
 
 //MARK: NSObject
 #import "HXBBaseHandDate.h"//关于时间处理的类
