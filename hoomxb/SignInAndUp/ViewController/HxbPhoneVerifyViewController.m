@@ -40,11 +40,10 @@ UITextFieldDelegate
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
         [_phoneTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
         UILabel *leftLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,70, 44)];
-        leftLable.text = @"手机号：";
+        leftLable.text = @"手机号";
         leftLable.textColor = COR1;
         _phoneTextField.leftViewMode = UITextFieldViewModeAlways;
         _phoneTextField.leftView = leftLable;
-        
     }
     return _phoneTextField;
 }

@@ -9,6 +9,7 @@
 #import "HxbSignUpViewController.h"
 #import "HxbSignUpViewModel.h"
 #import "HxbSignInViewModel.h"
+#import "HxbSignUpSucceedViewController.h"
 
 @interface HxbSignUpViewController ()
 <
@@ -29,16 +30,16 @@ UITextFieldDelegate
     //  {"username":"13000000063","password":"111111"}
     [signUpViewModel signUpRequestSuccessBlock:^(BOOL signupSuccess, NSString *message) {
         if (signupSuccess) {
-            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"注册成功" message:message preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"注册成功" message:message preferredStyle:UIAlertControllerStyleAlert];
+//            
+//            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+//                
+//                NSLog(@"%@",action.title);
+//                
+//            }];
+//            
+//            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
             
-            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-                
-                NSLog(@"%@",action.title);
-                
-            }];
-            
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                
                 HxbSignInViewModel *signInViewModel =[[HxbSignInViewModel alloc]init];
                 //  {"username":"13000000063","password":"111111"}
                 NSString *userName = @"13000000063";
@@ -46,11 +47,11 @@ UITextFieldDelegate
                 [signInViewModel signInRequestWithUserName:userName Password:passWord SuccessBlock:^(BOOL login, NSString *message) {
                     if (login) {
                         [HxbHUDProgress showTextWithMessage:message];
-                        [self dismissViewControllerAnimated:YES completion:nil];
                         [KeyChain setPhone:userName];
                         [KeyChain setLoginPwd:passWord];
-                        [self dismissViewControllerAnimated:true completion:nil];
-                        
+                        HxbSignUpSucceedViewController *signUpSucceedViewController = [[HxbSignUpSucceedViewController alloc]init];
+                        [self.navigationController pushViewController:signUpSucceedViewController animated:true];
+//                        [self dismissViewControllerAnimated:true completion:nil];
                     }
                 } FailureBlock:^(NYBaseRequest *request, NSError *error) {
                     
@@ -58,14 +59,14 @@ UITextFieldDelegate
                     [self.navigationController popToRootViewControllerAnimated:true];
                     
                 }];
-            }];
+//            }];
             
-            [alertController addAction:cancelAction];
-            
-            [alertController addAction:okAction];
-            
-            [self presentViewController:alertController animated:YES completion:nil];
-            
+//            [alertController addAction:cancelAction];
+//            
+//            [alertController addAction:okAction];
+//            
+//            [self presentViewController:alertController animated:YES completion:nil];
+        
         }
     } FailureBlock:^(NYBaseRequest *request, NSError *error) {
         

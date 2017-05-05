@@ -25,6 +25,11 @@
 		4E26E3C01EA0FEFE0078B419 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3BF1EA0FEFE0078B419 /* BaseModel.m */; };
 		4E26E3C61EA0FF4C0078B419 /* KeyChainManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3C31EA0FF4C0078B419 /* KeyChainManage.m */; };
 		4E26E3C71EA0FF4C0078B419 /* UserDefaultManage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3C51EA0FF4C0078B419 /* UserDefaultManage.m */; };
+		4E294F101EB9885C007D5042 /* HxbSignInView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E294F0F1EB9885C007D5042 /* HxbSignInView.m */; };
+		4E294F1B1EB9B2D3007D5042 /* HxbSecurityCertificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E294F1A1EB9B2D3007D5042 /* HxbSecurityCertificationViewController.m */; };
+		4E294F1E1EB9B2E4007D5042 /* HxbSecurityCertificationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E294F1D1EB9B2E4007D5042 /* HxbSecurityCertificationView.m */; };
+		4E294F211EB9BD88007D5042 /* HxbSignUpSucceedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E294F201EB9BD88007D5042 /* HxbSignUpSucceedViewController.m */; };
+		4E294F241EB9E73A007D5042 /* HxbMyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E294F231EB9E73A007D5042 /* HxbMyView.m */; };
 		4E3C1D031EA6286400C8BD36 /* HxbWelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C1D021EA6286400C8BD36 /* HxbWelcomeView.m */; };
 		4E3C1D081EA62BB300C8BD36 /* HxbFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C1D071EA62BB300C8BD36 /* HxbFileManager.m */; };
 		4E3C1D101EA6424D00C8BD36 /* HxbAdvertiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C1D0F1EA6424D00C8BD36 /* HxbAdvertiseView.m */; };
@@ -37,6 +42,7 @@
 		4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */; };
 		4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D31001EA70DC900598529 /* HxbHomeViewController.m */; };
 		4E80A57B1EA4F4930006D012 /* HxbHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E80A57A1EA4F4930006D012 /* HxbHTTPSessionManager.m */; };
+		4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */; };
 		4E9B8BF71EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9B8BF61EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m */; };
 		4E9B8BFB1EA5B1CA0056FCC8 /* HxbHUDProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9B8BFA1EA5B1CA0056FCC8 /* HxbHUDProgress.m */; };
 		4EAD98D21EB82C060029A3FF /* HxbSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98D11EB82C060029A3FF /* HxbSignUpViewController.m */; };
@@ -154,6 +160,16 @@
 		4E26E3C31EA0FF4C0078B419 /* KeyChainManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyChainManage.m; sourceTree = "<group>"; };
 		4E26E3C41EA0FF4C0078B419 /* UserDefaultManage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefaultManage.h; sourceTree = "<group>"; };
 		4E26E3C51EA0FF4C0078B419 /* UserDefaultManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefaultManage.m; sourceTree = "<group>"; };
+		4E294F0E1EB9885C007D5042 /* HxbSignInView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbSignInView.h; sourceTree = "<group>"; };
+		4E294F0F1EB9885C007D5042 /* HxbSignInView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbSignInView.m; sourceTree = "<group>"; };
+		4E294F191EB9B2D3007D5042 /* HxbSecurityCertificationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbSecurityCertificationViewController.h; sourceTree = "<group>"; };
+		4E294F1A1EB9B2D3007D5042 /* HxbSecurityCertificationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbSecurityCertificationViewController.m; sourceTree = "<group>"; };
+		4E294F1C1EB9B2E4007D5042 /* HxbSecurityCertificationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbSecurityCertificationView.h; sourceTree = "<group>"; };
+		4E294F1D1EB9B2E4007D5042 /* HxbSecurityCertificationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbSecurityCertificationView.m; sourceTree = "<group>"; };
+		4E294F1F1EB9BD88007D5042 /* HxbSignUpSucceedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbSignUpSucceedViewController.h; sourceTree = "<group>"; };
+		4E294F201EB9BD88007D5042 /* HxbSignUpSucceedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbSignUpSucceedViewController.m; sourceTree = "<group>"; };
+		4E294F221EB9E73A007D5042 /* HxbMyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbMyView.h; sourceTree = "<group>"; };
+		4E294F231EB9E73A007D5042 /* HxbMyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbMyView.m; sourceTree = "<group>"; };
 		4E3C1D011EA6286400C8BD36 /* HxbWelcomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbWelcomeView.h; sourceTree = "<group>"; };
 		4E3C1D021EA6286400C8BD36 /* HxbWelcomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbWelcomeView.m; sourceTree = "<group>"; };
 		4E3C1D061EA62BB300C8BD36 /* HxbFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbFileManager.h; sourceTree = "<group>"; };
@@ -177,6 +193,8 @@
 		4E6D31001EA70DC900598529 /* HxbHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHomeViewController.m; sourceTree = "<group>"; };
 		4E80A5791EA4F4930006D012 /* HxbHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHTTPSessionManager.h; sourceTree = "<group>"; };
 		4E80A57A1EA4F4930006D012 /* HxbHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHTTPSessionManager.m; sourceTree = "<group>"; };
+		4E8CD0781EBB571A00DCDC5A /* HxbMyViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbMyViewHeaderView.h; sourceTree = "<group>"; };
+		4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbMyViewHeaderView.m; sourceTree = "<group>"; };
 		4E9B8BF51EA5AFC20056FCC8 /* LoanBuyConfirmAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoanBuyConfirmAPI.h; sourceTree = "<group>"; };
 		4E9B8BF61EA5AFC20056FCC8 /* LoanBuyConfirmAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoanBuyConfirmAPI.m; sourceTree = "<group>"; };
 		4E9B8BF91EA5B1CA0056FCC8 /* HxbHUDProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHUDProgress.h; sourceTree = "<group>"; };
@@ -351,6 +369,7 @@
 				4E16D8311E9CD0FE002A1881 /* AppDelegate.m */,
 				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
 				4E16D8341E9CD0FE002A1881 /* ViewController.m */,
+				4E294F111EB9B249007D5042 /* securityCertification */,
 				4EA93FBB1EA0A591002F3615 /* Macros */,
 				4E26E3A11EA0FE660078B419 /* Network */,
 				4E3C1D041EA628E300C8BD36 /* Source */,
@@ -470,6 +489,59 @@
 				4E3C1D071EA62BB300C8BD36 /* HxbFileManager.m */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		4E294F0D1EB98692007D5042 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E294F0E1EB9885C007D5042 /* HxbSignInView.h */,
+				4E294F0F1EB9885C007D5042 /* HxbSignInView.m */,
+			);
+			name = View;
+			path = hoomxb/signInAndUp/View;
+			sourceTree = SOURCE_ROOT;
+		};
+		4E294F111EB9B249007D5042 /* securityCertification */ = {
+			isa = PBXGroup;
+			children = (
+				4E294F121EB9B299007D5042 /* Model */,
+				4E294F131EB9B299007D5042 /* ViewModel */,
+				4E294F141EB9B299007D5042 /* View */,
+				4E294F151EB9B299007D5042 /* ViewController */,
+			);
+			path = securityCertification;
+			sourceTree = "<group>";
+		};
+		4E294F121EB9B299007D5042 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4E294F131EB9B299007D5042 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4E294F141EB9B299007D5042 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E294F1C1EB9B2E4007D5042 /* HxbSecurityCertificationView.h */,
+				4E294F1D1EB9B2E4007D5042 /* HxbSecurityCertificationView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4E294F151EB9B299007D5042 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E294F191EB9B2D3007D5042 /* HxbSecurityCertificationViewController.h */,
+				4E294F1A1EB9B2D3007D5042 /* HxbSecurityCertificationViewController.m */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		4E3C1D041EA628E300C8BD36 /* Source */ = {
@@ -636,6 +708,7 @@
 		E10E7DDD1EAF65BA005FC2E3 /* SignInAndUp */ = {
 			isa = PBXGroup;
 			children = (
+				4E294F0D1EB98692007D5042 /* View */,
 				E10E7DDE1EAF65BA005FC2E3 /* Model */,
 				E10E7DE11EAF65BA005FC2E3 /* ViewController */,
 				E10E7DE41EAF65BA005FC2E3 /* ViewModel */,
@@ -663,6 +736,8 @@
 				4EAD98D11EB82C060029A3FF /* HxbSignUpViewController.m */,
 				4EAD98D61EB869220029A3FF /* HxbPhoneVerifyViewController.h */,
 				4EAD98D71EB869220029A3FF /* HxbPhoneVerifyViewController.m */,
+				4E294F1F1EB9BD88007D5042 /* HxbSignUpSucceedViewController.h */,
+				4E294F201EB9BD88007D5042 /* HxbSignUpSucceedViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -876,6 +951,10 @@
 		E1D2CA511EAB4D6B000099C7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4E294F221EB9E73A007D5042 /* HxbMyView.h */,
+				4E294F231EB9E73A007D5042 /* HxbMyView.m */,
+				4E8CD0781EBB571A00DCDC5A /* HxbMyViewHeaderView.h */,
+				4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1150,11 +1229,13 @@
 				E122D8551EA0CAB900DC71ED /* NSString+HxbSortDicMD5.m in Sources */,
 				4E26E3C71EA0FF4C0078B419 /* UserDefaultManage.m in Sources */,
 				E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */,
+				4E294F101EB9885C007D5042 /* HxbSignInView.m in Sources */,
 				4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */,
 				4EAD98F01EB87E330029A3FF /* BannerModel.m in Sources */,
 				4EAD98DE1EB86BED0029A3FF /* SignUpAPI.m in Sources */,
 				E1339B7A1EA85668002BE5B1 /* HXBBaseContDownManager.m in Sources */,
 				4E3C1D031EA6286400C8BD36 /* HxbWelcomeView.m in Sources */,
+				4E294F211EB9BD88007D5042 /* HxbSignUpSucceedViewController.m in Sources */,
 				E122D85B1EA0CAB900DC71ED /* UILabel+HxbLabel.m in Sources */,
 				4E26E3B91EA0FE790078B419 /* TokenAPI.m in Sources */,
 				E1BDFDB71EA89DDA00311EC2 /* HXBServerAndClientTime.m in Sources */,
@@ -1187,6 +1268,7 @@
 				4E26E3B21EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m in Sources */,
 				E122D8501EA0CAB900DC71ED /* NSString+CopiesTransfer.m in Sources */,
 				E122D8541EA0CAB900DC71ED /* NSString+HxbPerMilMoney.m in Sources */,
+				4E294F1E1EB9B2E4007D5042 /* HxbSecurityCertificationView.m in Sources */,
 				4E26E3B81EA0FE790078B419 /* RequestTestAPI.m in Sources */,
 				4E422CAC1EA736F700C0EB62 /* HxbNotificationMacros.m in Sources */,
 				4E422CB41EA7386900C0EB62 /* HxbMyViewController.m in Sources */,
@@ -1210,11 +1292,14 @@
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
 				E1BDFDB11EA89D2000311EC2 /* HXBBaseHandDate.m in Sources */,
 				E10E7DE91EAF65BA005FC2E3 /* HxbSignInViewModel.m in Sources */,
+				4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */,
 				E122D8561EA0CAB900DC71ED /* UIColor+HxbColor.m in Sources */,
 				4E26E3B11EA0FE660078B419 /* NYNetworkConfig.m in Sources */,
 				E122D84D1EA0CAB900DC71ED /* NSObject+Hxb.m in Sources */,
+				4E294F241EB9E73A007D5042 /* HxbMyView.m in Sources */,
 				4E3C1D101EA6424D00C8BD36 /* HxbAdvertiseView.m in Sources */,
 				E11A52331EB190670043F37D /* HXBBaseWaveView.m in Sources */,
+				4E294F1B1EB9B2D3007D5042 /* HxbSecurityCertificationViewController.m in Sources */,
 				4E422CC51EA7617700C0EB62 /* UIButton+HxbButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
