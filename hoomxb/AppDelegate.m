@@ -65,6 +65,7 @@
 
     //数据
     _window.rootViewController = self.mainTabbarVC;
+    _window.backgroundColor = [UIColor whiteColor];
     [_window makeKeyAndVisible];
     [self setAdvertiseView];
 }

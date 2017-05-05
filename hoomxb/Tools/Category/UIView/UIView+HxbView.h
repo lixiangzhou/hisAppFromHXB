@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface UIView (HxbView)
-
     /// 返回屏幕截图
 - (UIImage *)hxb_snapshotImage;
 @end

@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface UIScrollView (HXBScrollView)
+
+
+
 /**
  * 没有动图的下拉刷新
  * @param headerRefreshCallBack 刷新启动执行的回调
