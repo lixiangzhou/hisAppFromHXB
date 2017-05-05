@@ -7,7 +7,11 @@
 //
 
 #import "HXBBaseTableView.h"
-
+@interface HXBBaseTableView ()
+@property (nonatomic,copy) void (^clickCellBlock)(NSIndexPath *index, id model);
+@end
 @implementation HXBBaseTableView
-
+- (void)clickCellBlockFunc:(void (^)(NSIndexPath *, id))clickCellBlock {
+    self.clickCellBlock = clickCellBlock;
+}
 @end
