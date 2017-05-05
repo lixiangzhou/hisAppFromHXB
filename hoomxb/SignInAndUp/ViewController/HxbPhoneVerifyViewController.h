@@ -9,5 +9,4 @@
 #import "HXBBaseViewController.h"
 
 @interface HxbPhoneVerifyViewController : HXBBaseViewController
-
 @end

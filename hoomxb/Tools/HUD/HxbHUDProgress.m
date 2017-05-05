@@ -22,6 +22,7 @@
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     MBProgressHUD *HUD = [[MBProgressHUD alloc]initWithView:keyWindow];
     [keyWindow addSubview:HUD];
+    HUD.removeFromSuperViewOnHide = YES;
         NSString *text = message;
         HUD.detailsLabel.text = text;
         HUD.detailsLabel.font = [UIFont systemFontOfSize:16];
@@ -39,6 +40,7 @@
 + (void)errorWithErrorCode:(NSInteger)errorCode{
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     MBProgressHUD *HUD = [[MBProgressHUD alloc]initWithView:keyWindow];
+    HUD.removeFromSuperViewOnHide = YES;
     [keyWindow addSubview:HUD];
     if (errorCode == 401) {
         NSString *text = @"验证失效,请您重新刷新";
@@ -59,6 +61,7 @@
 + (void)errorWithErrorCode:(int )errorCode message:(NSString *)message{
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     MBProgressHUD *HUD = [[MBProgressHUD alloc]initWithWindow:keyWindow];
+    HUD.removeFromSuperViewOnHide = YES;
     [keyWindow addSubview:HUD];
         NSString *text = message;
         HUD.detailsLabelText = text;
@@ -79,7 +82,7 @@
 {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     _HUD = [[MBProgressHUD alloc]initWithView:keyWindow];
-    
+    _HUD.removeFromSuperViewOnHide = YES;
     [keyWindow addSubview:_HUD];
     _HUD.delegate = self;//添加代理
     _HUD.mode = MBProgressHUDModeIndeterminate;
@@ -90,7 +93,7 @@
 {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     _HUD = [[MBProgressHUD alloc]initWithView:keyWindow];
-    
+    _HUD.removeFromSuperViewOnHide = YES;
     [keyWindow addSubview:_HUD];
     _HUD.label.text = text;
     _HUD.delegate = self;//添加代理
@@ -114,11 +117,11 @@
 
 -(void)hide
 {
+    _HUD.removeFromSuperViewOnHide = YES;
     [_HUD hideAnimated:YES];
     if (timer) {
         timer.fireDate = [NSDate distantFuture];
     }
-    
 }
 
 #pragma mark MBProgressHUD代理方法
