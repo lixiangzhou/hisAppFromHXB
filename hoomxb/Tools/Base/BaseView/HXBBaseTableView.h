@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface HXBBaseTableView : UITableView
+//点击了cell
+- (void)clickCellBlockFunc: (void(^)(NSIndexPath *index, id model))clickCellBlock;
 
 @end

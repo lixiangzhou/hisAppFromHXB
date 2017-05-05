@@ -7,20 +7,70 @@
 //
 
 #import "HxbFinanctingViewController.h"
-#import "UIScrollView+HXBScrollView.h"
+#import "UIScrollView+HXBScrollView.h"//上拉刷新
+#import "HXBFinanctingView_HomePage.h"//最主要的view
+#import "HXBFinancing_PlanDetailsViewController.h"//红利计划详情页
+#import "HXBFinancing_LoanDetailsViewController.h"//散标详情页
 @interface HxbFinanctingViewController () <UITableViewDataSource>
-@property (nonatomic,strong) UITableView *tableView;
-
+@property (nonatomic,strong) UITableView *tableView;//测试
+@property (nonatomic,strong) HXBFinanctingView_HomePage *homePageView;//最主要的view
 @end
 static NSString *CELLID = @"CELLID";
 @implementation HxbFinanctingViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    [self setupTableView];
-        [self setupRefresh];
- 
+    
+    /* 测试
+     [super viewDidLoad];
+     [self setupTableView];
+     [self setupRefresh];
+     */
+    //rootView
+    [self setup];
+    //点击事件
+    [self clickCell];
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    };
 }
+
+- (void)setup {
+    self.homePageView = [[HXBFinanctingView_HomePage alloc]initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height - 64- 49)];
+    self.homePageView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:self.homePageView];
+}
+
+#pragma mark - 处理点击事件
+- (void)clickCell {
+    //点击了红利计划列表的cell，跳转了红利计划详情页
+    [self clickPlanListCell];
+    //点击了散标列表页测cell， 跳转详情页
+    [self clickLoanListCell];
+}
+//MARK: - 点击了红利计划列表页的 cell
+- (void) clickPlanListCell {
+    __weak typeof(self) weakSelf = self;
+    [self.homePageView setClickPlanListCellBlock:^(NSIndexPath *index, id model) {
+        [weakSelf pushPlanDetailsViewControllerWithModel:model];
+    }];
+}
+- (void)pushPlanDetailsViewControllerWithModel: (id)model {
+    HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
+    [self.navigationController pushViewController:planDetailsVC animated:true];
+}
+//MARK: - 点击了散标列表页的 cell
+- (void) clickLoanListCell {
+    __weak typeof (self) weakSelf = self;
+    [self.homePageView setClickLoanListCellBlock:^(NSIndexPath *index, id model) {
+        [weakSelf pushLoanListCellViewControllerWithModel:model];
+    }];
+}
+- (void)pushLoanListCellViewControllerWithModel: (id)model {
+    HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
+    [self.navigationController pushViewController:loanDetailsVC animated:true];
+}
+#pragma mark - 测试
+/*
 - (void)setupTableView {
     self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     
@@ -69,5 +119,6 @@ static NSString *CELLID = @"CELLID";
     cell.textLabel.text = indexPath.description;
     return cell;
 }
+ */
 
 @end
