@@ -46,6 +46,9 @@ fprintf(stderr, "-------------------\n");   \
 #import "HxbCategorys.h"
 #import "HxbTools.h"
 #import "UIResponder+FindNext.h"
+
+#import "HXBScreenAdaptation.h"
+
 //#import "UIViewController+MethodSwizzle.h"
 
 //#import "UIView+LayoutMethods.h"

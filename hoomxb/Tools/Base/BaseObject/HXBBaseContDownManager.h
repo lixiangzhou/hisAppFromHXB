@@ -9,7 +9,7 @@
 
 
 //注意 需要做倒计时的model的储存剩余时间变量的key一定要是NSString类型
-
+//下周开始给model 添加属性，让cell直接从model里面拿值
 
 #import <UIKit/UIKit.h>
 
@@ -27,7 +27,7 @@ typedef enum : NSUInteger {
 
 /**
  * 请用这个方法（或者对应的init方法）创建对象
- * @param countDownStartTime 剩多长时间开始倒计时（默认剩余60分钟倒计时）
+ * @param countDownStartTime 剩多少秒开始倒计时（默认剩余60分钟倒计时）
  * @param countDownUnit 倒计时单位时间（默认为1妙）
  * @param modelArray 需要倒计时的model数组
  * @param modelDateKey model储存到期时间的属性名
@@ -42,7 +42,7 @@ typedef enum : NSUInteger {
                                       andModelDateType: (PYContDownManagerModelDateType)modelDateType;
 /**
  * 请用这个方法（或者对应的init方法）创建对象
- * @param countDownStartTime 剩多长时间开始倒计时
+ * @param countDownStartTime 剩多少秒开始倒计时
  * @param countDownUnit 倒计时单位时间
  * @param modelArray 需要倒计时的model数组
  * @param modelDateKey model储存到期时间的属性名
@@ -78,4 +78,7 @@ typedef enum : NSUInteger {
  * 客户端时间,默认为手机的当前时间。如果有偏差可以在这里调整
  */
 @property (nonatomic,strong) NSDate *clientTime;
+
+///是否自动停止 (在没有需要定时的时候，如果是，那么将不会自动开启默认是NO)
+@property (nonatomic,assign) BOOL isAutoEnd;
 @end

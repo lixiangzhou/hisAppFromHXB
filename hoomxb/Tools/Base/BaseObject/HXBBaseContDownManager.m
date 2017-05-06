@@ -32,6 +32,7 @@
 @property (nonatomic,strong) dispatch_source_t timer;
 //记录了组数（暂时未用）
 @property (nonatomic,assign) int column;
+@property (nonatomic,strong) NSMutableArray *countDownArray;
 @end
 
 
@@ -71,6 +72,12 @@
         _clientTime = [NSDate date];
     }
     return _clientTime;
+}
+- (NSMutableArray *)countDownArray {
+    if (!_countDownArray) {
+        _countDownArray = [[NSMutableArray alloc]init];
+    }
+    return _countDownArray;
 }
 
 #pragma mark - 创建对象
@@ -178,13 +185,19 @@
         
         //判断是否需要计时
         if (dateNumber <= self.countdownStartTime && dateNumber >= 0) {
+            //添加到数组中
+            [self.countDownArray addObject:model];
             if ([[model valueForKey:self.modelCountDownKey] isKindOfClass:NSClassFromString(@"NSString")]) {
                 [model setValue:@(dateNumber).description forKey:self.modelCountDownKey];
             }else if ([[model valueForKey:self.modelCountDownKey] isKindOfClass:NSClassFromString(@"NSNumber")]) {
                 [model setValue:@(dateNumber) forKey:self.modelCountDownKey];
             }
+        }else {
+            [self.countDownArray removeObject:model];
         }
     }];
+    //关掉定时器
+    if (!self.countDownArray.count && self.isAutoEnd) [self cancelTimer];
 }
 
 //MARK: 时间差的计算

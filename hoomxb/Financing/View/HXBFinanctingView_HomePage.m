@@ -12,7 +12,7 @@
 #import "HXBFinancting_PlanListTableView.h"//计划列表View
 #import "HXBFinancting_LoanListTableView.h"//散标列表View
 #import "HXBFinancing_PlanDetailsViewController.h"//红利详情页
-#define kWeakSelf __weak typeof (self)weakSelf = self;
+#import "HXBFinHomePageViewModel_PlanList.h"//红利计划的Viewmodel
 
 
 @interface HXBFinanctingView_HomePage()
@@ -32,6 +32,31 @@
 
 @implementation HXBFinanctingView_HomePage
 
+#pragma mark - setter 主要是进行了UI的刷新
+- (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
+    _finPlanListVMArray = finPlanListVMArray;
+    self.planListTableView.planListViewModelArray = finPlanListVMArray;
+}
+
+
+
+//MARK: - 关于刷新 停止
+- (void)setIsStopRefresh_loan:(BOOL)isStopRefresh_loan {
+    _isStopRefresh_loan = isStopRefresh_loan;
+    if (isStopRefresh_loan) {
+        [self.loanListTableView.mj_footer endRefreshing];
+        [self.loanListTableView.mj_header endRefreshing];
+    }
+}
+- (void)setIsStopRefresh_Plan:(BOOL)isStopRefresh_Plan {
+    _isStopRefresh_Plan = isStopRefresh_Plan;
+    if (isStopRefresh_Plan) {
+        [self.planListTableView.mj_footer endRefreshing];
+        [self.planListTableView.mj_header endRefreshing];
+    }
+}
+
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -47,11 +72,15 @@
     
     self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表"];
     
+    
 //设置toolBarView
     [self setupToolBarView];
     
 //搭建底部的ScrollView
     [self setupBottomScrollViewArray];
+    
+    //为底部的scrollView添加定时器
+    [self setupCountDownManager];
     
 //搭建ScrollToolBarView
     [self setupScrollToolBarView];
@@ -74,14 +103,33 @@
     [self setupPlanListTableView];
     //散标列表
     [self setupLoanListTableView];
+    
     self.bottomViewArray = @[
                              self.planListTableView,
                              self.loanListTableView
                             ];
 }
+
+//MARK: 定时器管理者
+- (void)setupCountDownManager {
+    NSMutableArray *arrayM = [[NSMutableArray alloc]init];
+    [arrayM addObjectsFromArray:self.finPlanListVMArray];
+    [arrayM addObjectsFromArray:self.finLoanListVMArray];
+    
+    
+    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime:60 * 60 andCountDownUnit:1 andModelArray: arrayM andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
+    
+    //要与服务器时间想比较
+//    self.contDwonManager.clientTime = [HXBDate]
+    self.contDwonManager.isAutoEnd = true;
+    //开启定时器
+    [self.contDwonManager resumeTimer];
+    
+}
+
 //MARK:红利计划列表
 - (void)setupPlanListTableView {
-    __weak typeof (self)weakSelf = self;
+    kWeakSelf
     self.planListTableView = [[HXBFinancting_PlanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     //点击cell的block
@@ -93,12 +141,12 @@
     
     //上拉刷新，下拉加载
     [self.planListTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-         if (self.planRefreshFooterBlock) self.planRefreshFooterBlock();
+         if (weakSelf.planRefreshFooterBlock) weakSelf.planRefreshFooterBlock();
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
        
     }];
     [self.planListTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        if (self.planRefreshHeaderBlock) self.planRefreshHeaderBlock();
+        if (weakSelf.planRefreshHeaderBlock) weakSelf.planRefreshHeaderBlock();
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
         
     }];
@@ -116,12 +164,12 @@
     
     //上拉刷新，下拉加载
     [self.loanListTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        if (self.loanRefreshFooterBlock) self.loanRefreshFooterBlock();
+        if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
         
     }];
     [self.loanListTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        if (self.loanRefreshHeaderBlock) self.loanRefreshHeaderBlock();
+        if (weakSelf.loanRefreshHeaderBlock) weakSelf.loanRefreshHeaderBlock();
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
         
     }];
@@ -131,5 +179,12 @@
 - (void)setupScrollToolBarView {
     self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) andTopView:nil andTopViewH:0 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:30 andBottomViewSet:self.bottomViewArray];
     [self addSubview:self.scrollToolBarView];
+    //点击事件的分发
+    kWeakSelf
+    [self.scrollToolBarView midToolBarViewClickWithBlock:^(NSInteger index, NSString *title, UIButton *option) {
+        if (weakSelf.midToolBarViewClickWithBlock){
+            weakSelf.midToolBarViewClickWithBlock(index,title,option);
+        }
+    }];
 }
 @end

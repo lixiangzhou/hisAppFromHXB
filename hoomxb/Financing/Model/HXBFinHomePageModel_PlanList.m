@@ -6,8 +6,10 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFinanctingModel_HomePage.h"
+#import "HXBFinHomePageModel_PlanList.h"
 
-@implementation HXBFinanctingModel_HomePage
-
+@implementation HXBFinHomePageModel_PlanList
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"id" : @"ID"};
+}
 @end

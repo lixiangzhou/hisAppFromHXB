@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class HXBFinancting_PlanListTableView;
+@class HXBFinHomePageViewModel_PlanList;
 @interface HXBFinancting_PlanListTableView : HXBBaseTableView
-@property (nonatomic,strong) NSArray <HXBFinancting_PlanListTableView *>* planListViewModelArray;
+@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList *>* planListViewModelArray;
 @property (nonatomic,copy) void (^clickPlanListCellBlock)(NSIndexPath *index, id model);
 @end
