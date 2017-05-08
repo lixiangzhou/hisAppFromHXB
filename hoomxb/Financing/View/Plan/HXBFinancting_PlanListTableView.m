@@ -60,6 +60,13 @@ static NSString *CELLID = @"CELLID";
     HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
     cell.finPlanListViewModel = self.planListViewModelArray[indexPath.row];
     
+    __weak typeof (cell)weakCell = cell;
+    cell.lockPeriodLabel_ConstStr = self.lockPeriodLabel_ConstStr;
+    cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;
+    [cell.finPlanListViewModel setCountDownBlock:^(NSString *countDownString) {
+        weakCell.countDownString = countDownString;
+    }];
+    
     return cell;
 }
 

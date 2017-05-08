@@ -77,7 +77,7 @@
 - (UILabel *)lockPeriodLabel_Const {
     if (!_lockPeriodLabel_Const) {
         _lockPeriodLabel_Const = [[UILabel alloc]init];
-        _lockPeriodLabel_Const.text = @"计划期限";
+        _lockPeriodLabel_Const.text = self.lockPeriodLabel_ConstStr;
         _lockPeriodLabel_Const.textColor = [UIColor grayColor];
     }
     return _lockPeriodLabel_Const;
@@ -85,7 +85,6 @@
 - (UILabel *)expectedYearRateLable_Const {
     if (!_expectedYearRateLable_Const) {
         _expectedYearRateLable_Const = [[UILabel alloc]init];
-        _expectedYearRateLable_Const.text = @"预期年化";
         _expectedYearRateLable_Const.textColor = [UIColor grayColor];
     }
     return _expectedYearRateLable_Const;
@@ -99,6 +98,8 @@
 - (UILabel *)countDownLable {
     if (!_countDownLable){
         _countDownLable = [[UILabel alloc]init];
+        _countDownLable.textColor = [UIColor blueColor];
+        _countDownLable.text = @"a11111";
     }
     return _countDownLable;
 }
@@ -109,13 +110,22 @@
 - (void)setCountDownString:(NSString *)countDownString {
     _countDownString = countDownString;
     self.countDownLable.text = countDownString;
+    NSLog(@"-------------------------%@",[NSThread currentThread]);
 }
-
+- (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
+    _lockPeriodLabel_ConstStr = lockPeriodLabel_ConstStr;
+    self.lockPeriodLabel_Const.text = lockPeriodLabel_ConstStr;
+}
+- (void)setExpectedYearRateLable_ConstStr:(NSString *)expectedYearRateLable_ConstStr {
+    _expectedYearRateLable_ConstStr = expectedYearRateLable_ConstStr;
+    _expectedYearRateLable_Const.text = _expectedYearRateLable_ConstStr;
+}
 - (void)setupSubView {
   
 //    [self Tests];//测试数据
     [self addSubUI];//添加子控件
     [self layoutSubUI];//布局UI
+    self.countDownLable.backgroundColor = [UIColor redColor];
    
     }
 - (void)Tests {
@@ -124,11 +134,8 @@
     self.lockPeriodLabel.text = @"3个月";
     self.addStatus.text = @"等待加入";
     self.preferentialLabel.text = @"限时8折，速速抢购";
+    self.countDownLable.backgroundColor = [UIColor redColor];
     self.arrowImageView.backgroundColor = [UIColor redColor];
-//    [self setupAttributeString];//富文本
-//    self.expectedYearRateLable.attributedText = [self setupAttributeStringWithString:@"12 %" WithRange:NSMakeRange(0, 2) andAttributeColor:[UIColor redColor] andAttributeFont:[UIFont systemFontOfSize:24]];
-//    
-//    self.lockPeriodLabel.attributedText = [self setupAttributeStringWithString:@"3个月" WithRange:NSMakeRange(0, 1) andAttributeColor:[UIColor blackColor] andAttributeFont:[UIFont systemFontOfSize: 24]];
 }
 ///添加子控件
 - (void)addSubUI {
@@ -148,8 +155,8 @@
     __weak typeof (self)weakSelf = self;
     //布局
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@20);
-        make.left.equalTo(@20);
+        make.top.equalTo(weakSelf.contentView).offset(20);
+        make.left.equalTo(weakSelf.contentView).offset(20);
         make.right.equalTo(weakSelf.contentView).offset(-20);
     }];
     [self.expectedYearRateLable mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -188,6 +195,7 @@
     [self.countDownLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.addStatus.mas_bottom).offset(10);
         make.left.equalTo(weakSelf.addStatus);
+        make.right.equalTo(weakSelf.addStatus);
         make.height.equalTo(@20);
     }];
 }

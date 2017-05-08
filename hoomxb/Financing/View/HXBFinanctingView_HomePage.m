@@ -36,6 +36,7 @@
 - (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
     _finPlanListVMArray = finPlanListVMArray;
     self.planListTableView.planListViewModelArray = finPlanListVMArray;
+    [self.contDwonManager countDownWithModelArray:finPlanListVMArray andModelDateKey:nil  andModelCountDownKey:nil];
 }
 
 
@@ -84,6 +85,8 @@
     
 //搭建ScrollToolBarView
     [self setupScrollToolBarView];
+    //定时器
+    [self setupCountDownManager];
 }
 
 //设置toolBarView
@@ -104,6 +107,7 @@
     //散标列表
     [self setupLoanListTableView];
     
+
     self.bottomViewArray = @[
                              self.planListTableView,
                              self.loanListTableView
@@ -114,23 +118,24 @@
 - (void)setupCountDownManager {
     NSMutableArray *arrayM = [[NSMutableArray alloc]init];
     [arrayM addObjectsFromArray:self.finPlanListVMArray];
-    [arrayM addObjectsFromArray:self.finLoanListVMArray];
+//    [arrayM addObjectsFromArray:self.finLoanListVMArray];
     
     
-    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime:60 * 60 andCountDownUnit:1 andModelArray: arrayM andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
+    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 60 andCountDownUnit:1 andModelArray: self.finPlanListVMArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
     
     //要与服务器时间想比较
 //    self.contDwonManager.clientTime = [HXBDate]
     self.contDwonManager.isAutoEnd = true;
     //开启定时器
     [self.contDwonManager resumeTimer];
-    
 }
 
 //MARK:红利计划列表
 - (void)setupPlanListTableView {
     kWeakSelf
     self.planListTableView = [[HXBFinancting_PlanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.planListTableView.expectedYearRateLable_ConstStr = @"预期年化";
+    self.planListTableView.lockPeriodLabel_ConstStr = @"计划期限";
     
     //点击cell的block
     [self.planListTableView setClickPlanListCellBlock:^(NSIndexPath *indexPage, id model) {
@@ -155,6 +160,8 @@
 //MARK:散标列表
 - (void)setupLoanListTableView {
      self.loanListTableView = [[HXBFinancting_LoanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.loanListTableView.expectedYearRateLable_ConstStr = @"年利率";
+    self.loanListTableView.lockPeriodLabel_ConstStr = @"期限";
     kWeakSelf
     [self.loanListTableView setClickLoanListCellBlock:^(NSIndexPath *index, id model) {
         if (weakSelf.clickLoanListCellBlock) {

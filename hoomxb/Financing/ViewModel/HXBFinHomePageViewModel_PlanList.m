@@ -13,17 +13,28 @@
  * 关于代售状态的枚举
  */
 typedef enum : NSUInteger {
-    HXBFinHomePageViewModel_PlanList_BOOKFAR,///等待预售开始超过30分
-    HXBFinHomePageViewModel_PlanList_BOOKNEAR,///等待预售开始小于30分钟
-    HXBFinHomePageViewModel_PlanList_BOOK,///预定
-    HXBFinHomePageViewModel_PlanList_BOOKFULL,///预定满额
-    HXBFinHomePageViewModel_PlanList_WAIT_OPEN,///等待开放购买大于30分钟
-    HXBFinHomePageViewModel_PlanList_WAIT_RESERVE,///等待开放购买小于30分钟
-    HXBFinHomePageViewModel_PlanList_OPENING,///开放加入
-    HXBFinHomePageViewModel_PlanList_OPEN_FULL,///加入满额
-    HXBFinHomePageViewModel_PlanList_PERIOD_LOCKING,///收益中
-    HXBFinHomePageViewModel_PlanList_PERIOD_OPEN,///开放期
-    HXBFinHomePageViewModel_PlanList_PERIOD_CLOSED,///已退出
+    ///等待预售开始超过30分
+    HXBFinHomePageViewModel_PlanList_BOOKFAR,
+    ///等待预售开始小于30分钟
+    HXBFinHomePageViewModel_PlanList_BOOKNEAR,
+    ///预定
+    HXBFinHomePageViewModel_PlanList_BOOK,
+    ///预定满额
+    HXBFinHomePageViewModel_PlanList_BOOKFULL,
+    ///等待开放购买大于30分钟
+    HXBFinHomePageViewModel_PlanList_WAIT_OPEN,
+    ///等待开放购买小于30分钟
+    HXBFinHomePageViewModel_PlanList_WAIT_RESERVE,
+    ///开放加入
+    HXBFinHomePageViewModel_PlanList_OPENING,
+    ///加入满额
+    HXBFinHomePageViewModel_PlanList_OPEN_FULL,
+    ///收益中
+    HXBFinHomePageViewModel_PlanList_PERIOD_LOCKING,
+    ///开放期
+    HXBFinHomePageViewModel_PlanList_PERIOD_OPEN,
+    ///已退出
+    HXBFinHomePageViewModel_PlanList_PERIOD_CLOSED,
 } HXBFinHomePageViewModel_PlanList_Status;
 
 
@@ -33,11 +44,15 @@ typedef enum : NSUInteger {
 
 - (void)setPlanListModel:(HXBFinHomePageModel_PlanList *)planListModel {
     _planListModel = planListModel;
+//    self.countDownLastStr = planListModel.displayTime;
+    NSDate *date = [[NSDate alloc]init];
+    NSString *dateStr = @([date timeIntervalSince1970] + 30).description;
+    self.countDownLastStr = dateStr;
 }
 
 
 
-#pragma mark - getter 
+#pragma mark - getter
 //红利计划状态
 - (NSString *)unifyStatus {
     if (!_unifyStatus) {
@@ -57,23 +72,23 @@ typedef enum : NSUInteger {
 //红利计划状态
 - (void)setupUnifyStatus {
     switch (self.planListModel.unifyStatus.integerValue) {
-        case HXBFinHomePageViewModel_PlanList_BOOKFAR:///等待预售开始超过30分
-        case HXBFinHomePageViewModel_PlanList_BOOKNEAR:///等待预售开始小于30分钟
-        case HXBFinHomePageViewModel_PlanList_BOOK:///预定
-        case HXBFinHomePageViewModel_PlanList_BOOKFULL:///预定满额
-        case HXBFinHomePageViewModel_PlanList_WAIT_OPEN:///等待开放购买大于30分钟
-        case HXBFinHomePageViewModel_PlanList_WAIT_RESERVE:///等待开放购买小于30分钟
+        case HXBFinHomePageViewModel_PlanList_BOOKFAR://等待预售开始超过30分
+        case HXBFinHomePageViewModel_PlanList_BOOKNEAR://等待预售开始小于30分钟
+        case HXBFinHomePageViewModel_PlanList_BOOK://预定
+        case HXBFinHomePageViewModel_PlanList_BOOKFULL://预定满额
+        case HXBFinHomePageViewModel_PlanList_WAIT_OPEN://等待开放购买大于30分钟
+        case HXBFinHomePageViewModel_PlanList_WAIT_RESERVE://等待开放购买小于30分钟
             self.unifyStatus = @"等待加入";
             break;
-        case HXBFinHomePageViewModel_PlanList_OPENING:///开放加入
-        case HXBFinHomePageViewModel_PlanList_OPEN_FULL:///加入满额
+        case HXBFinHomePageViewModel_PlanList_OPENING://开放加入
+        case HXBFinHomePageViewModel_PlanList_OPEN_FULL://加入满额
             self.unifyStatus = @"加入";
             break;
-        case HXBFinHomePageViewModel_PlanList_PERIOD_LOCKING:///收益中
-        case HXBFinHomePageViewModel_PlanList_PERIOD_OPEN:///开放期
+        case HXBFinHomePageViewModel_PlanList_PERIOD_LOCKING://收益中
+        case HXBFinHomePageViewModel_PlanList_PERIOD_OPEN://开放期
             self.unifyStatus = @"收益中";
             break;
-        case HXBFinHomePageViewModel_PlanList_PERIOD_CLOSED:///已退出
+        case HXBFinHomePageViewModel_PlanList_PERIOD_CLOSED://已退出
             self.unifyStatus = @"等待计息";
             break;
     }

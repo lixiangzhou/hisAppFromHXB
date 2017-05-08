@@ -15,8 +15,8 @@
 @property (nonatomic,assign) long countDownStartTime;
 ///外界传入的倒计时基本单位
 @property (nonatomic,assign) double countDownUnit;
-///外界传入的modelarray
-@property (nonatomic,strong) NSArray *modelArray;
+/////外界传入的modelarray
+//@property (nonatomic,strong) NSArray *modelArray;
 ///外界传入的model中计算倒计时时间的key
 @property (nonatomic,copy) NSString *modelDateKey;
 ///外界传入的model中的用于倒计时显示的key
@@ -67,12 +67,7 @@
     }
     return _countDownStartTime;
 }
-- (NSDate *)clientTime {
-    if (!_clientTime) {
-        _clientTime = [NSDate date];
-    }
-    return _clientTime;
-}
+
 - (NSMutableArray *)countDownArray {
     if (!_countDownArray) {
         _countDownArray = [[NSMutableArray alloc]init];
@@ -80,6 +75,12 @@
     return _countDownArray;
 }
 
+
+#pragma mark - setter 
+- (void)setModelArray:(NSArray *)modelArray {
+    _modelArray = modelArray;
+    [self createTimer];
+}
 #pragma mark - 创建对象
 + (instancetype)countDownManagerWithCountDownStartTime: (long)countDownStartTime
                                       andCountDownUnit: (double)countDownUnit
@@ -143,7 +144,6 @@
         
         //3.要调用的任务
         dispatch_source_set_event_handler(timer, ^{
-            NSLog(@"GCD-----%@",[NSThread currentThread]);
             dispatch_async(self.queue, ^{
                 [self lookingForATimelyModelArray:self.modelArray];
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -162,6 +162,10 @@
 
 - (void)lookingForATimelyModelArray: (NSArray *)modelArray {
     
+    if (!modelArray.count) {
+        [self cancelTimer];
+        return;
+    }
     [modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         //如果依然是数组那么就在便利一次
         if ([[model class] isSubclassOfClass:NSClassFromString(@"NSArray")]) {
@@ -187,11 +191,9 @@
         if (dateNumber <= self.countdownStartTime && dateNumber >= 0) {
             //添加到数组中
             [self.countDownArray addObject:model];
-            if ([[model valueForKey:self.modelCountDownKey] isKindOfClass:NSClassFromString(@"NSString")]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [model setValue:@(dateNumber).description forKey:self.modelCountDownKey];
-            }else if ([[model valueForKey:self.modelCountDownKey] isKindOfClass:NSClassFromString(@"NSNumber")]) {
-                [model setValue:@(dateNumber) forKey:self.modelCountDownKey];
-            }
+            });
         }else {
             [self.countDownArray removeObject:model];
         }
@@ -202,8 +204,11 @@
 
 //MARK: 时间差的计算
 - (long long)computationTimeDifferenceWithDateNumber: (long long)dateNumber {
-    
-    NSTimeInterval timeInterval = [self.clientTime timeIntervalSince1970];
+    NSDate *date = [[NSDate alloc]init];
+    if (self.clientTime) {
+        date = self.clientTime;
+    }
+    NSTimeInterval timeInterval = [date timeIntervalSince1970];
     return (dateNumber - timeInterval);
 }
 
@@ -224,4 +229,19 @@
         [self createTimer];
     }
 }
+//MARK: 数组发生变化了
+- (void)countDownWithModelArray:(NSArray *)modelArray andModelDateKey:(NSString *)modelDateKey andModelCountDownKey:(NSString *)modelCountDownKey {
+    if (modelArray.count) {
+        self.modelArray = modelArray;
+    }
+    if (modelDateKey) {
+        self.modelDateKey = modelDateKey;
+    }
+    if (modelCountDownKey) {
+        _modelCountDownKey = modelCountDownKey;
+    }
+    [self cancelTimer];
+    [self resumeTimer];
+}
+
 @end

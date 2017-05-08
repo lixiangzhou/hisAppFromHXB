@@ -48,7 +48,14 @@
     self.isUPRefresh_Plan = isUPData;
     
     HXBFinancing_planListAPI *planBuyListAPI = [[HXBFinancing_planListAPI alloc]init];
-    
+    planBuyListAPI.requestArgument = @{
+                                       @"version" : @"1.0",
+                                       @"userId" : @"1",
+                                       @"start" : @(1),
+                                       @"num" : @"20",
+                                       @"pageNumber" : @1,
+                                       @"pageSize" : @(20)//每页的个数
+                                       };
     //当前页
 //    [planBuyListAPI.requestArgument setObject:@(self.planListPage) forKey:@"pageNumber"];
     
@@ -75,7 +82,7 @@
         
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (error && failureBlock) {
-            NSLog(@"✘红利计划请求没有数据");
+            NSLog(@"%@ === ✘红利计划请求没有数据 ===",error);
             failureBlock(error);
         }
     }];
@@ -96,5 +103,4 @@
         }
     }];
 }
-
 @end

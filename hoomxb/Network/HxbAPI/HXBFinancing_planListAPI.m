@@ -27,14 +27,7 @@
 }
 
 - (id)requestArgument {
-    return@{
-            @"version" : @"1.0",
-            @"userId" : @"1",
-            @"start" : @(1),
-            @"num" : @"20",
-            @"pageNumber" : @1,
-            @"pageSize" : @(20)//每页的个数
-            };
+    return @{};
 }
 
 @end
