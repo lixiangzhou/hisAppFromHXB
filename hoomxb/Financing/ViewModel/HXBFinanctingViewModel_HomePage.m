@@ -9,6 +9,8 @@
 #import "HXBFinanctingViewModel_HomePage.h"
 #import "HXBFinanctingModel_HomePage.h"
 @implementation HXBFinanctingViewModel_HomePage
+
+
 - (void) setHomePageModel:(HXBFinanctingModel_HomePage *)homePageModel {
     _homePageModel = homePageModel;
 }

@@ -63,6 +63,9 @@
     self.toolBarView.isAnima_ItemBottomBarView = true;
     self.toolBarView.animaTime_ItemBottomBarView = .5;
     self.toolBarView.itemBarAnimaViewColor = [UIColor blueColor];
+    //边框
+    self.toolBarView.layer.borderWidth = .2;
+    self.toolBarView.layer.borderColor = [UIColor grayColor].CGColor;
 }
 
 //设置底部的scrollView数组
@@ -80,10 +83,24 @@
 - (void)setupPlanListTableView {
     __weak typeof (self)weakSelf = self;
     self.planListTableView = [[HXBFinancting_PlanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    
+    //点击cell的block
     [self.planListTableView setClickPlanListCellBlock:^(NSIndexPath *indexPage, id model) {
         if (weakSelf.clickPlanListCellBlock) {
             weakSelf.clickPlanListCellBlock(indexPage,model);
         }
+    }];
+    
+    //上拉刷新，下拉加载
+    [self.planListTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+         if (self.planRefreshFooterBlock) self.planRefreshFooterBlock();
+    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+       
+    }];
+    [self.planListTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        if (self.planRefreshHeaderBlock) self.planRefreshHeaderBlock();
+    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
+        
     }];
 }
 
@@ -95,6 +112,18 @@
         if (weakSelf.clickLoanListCellBlock) {
             weakSelf.clickLoanListCellBlock(index, model);
         }
+    }];
+    
+    //上拉刷新，下拉加载
+    [self.loanListTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        if (self.loanRefreshFooterBlock) self.loanRefreshFooterBlock();
+    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+        
+    }];
+    [self.loanListTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        if (self.loanRefreshHeaderBlock) self.loanRefreshHeaderBlock();
+    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
+        
     }];
 }
 
