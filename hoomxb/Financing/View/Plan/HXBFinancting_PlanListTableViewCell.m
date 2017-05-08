@@ -7,6 +7,9 @@
 //
 
 #import "HXBFinancting_PlanListTableViewCell.h"
+#import "HXBFinHomePageViewModel_PlanList.h"
+#import "HXBFinHomePageModel_PlanList.h"
+
 @interface HXBFinancting_PlanListTableViewCell ()
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *expectedYearRateLable;//语气年化
@@ -16,9 +19,19 @@
 @property (nonatomic,strong) UIImageView *arrowImageView;
 @property (nonatomic,strong) UILabel *expectedYearRateLable_Const;
 @property (nonatomic,strong) UILabel *lockPeriodLabel_Const;
+@property (nonatomic,strong) UILabel *countDownLable;//倒计时label
 @end
 @implementation HXBFinancting_PlanListTableViewCell
 
+- (void)setFinPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)finPlanListViewModel {
+    _finPlanListViewModel = finPlanListViewModel;
+    HXBFinHomePageModel_PlanList *model = finPlanListViewModel.planListModel;
+    self.nameLabel.text = model.name;
+    
+    self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
+    self.lockPeriodLabel.text = finPlanListViewModel.planListModel.lockPeriod;
+    self.addStatus.text = finPlanListViewModel.unifyStatus;
+}
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -64,7 +77,7 @@
 - (UILabel *)lockPeriodLabel_Const {
     if (!_lockPeriodLabel_Const) {
         _lockPeriodLabel_Const = [[UILabel alloc]init];
-        _lockPeriodLabel_Const.text = @"计划期限";
+        _lockPeriodLabel_Const.text = self.lockPeriodLabel_ConstStr;
         _lockPeriodLabel_Const.textColor = [UIColor grayColor];
     }
     return _lockPeriodLabel_Const;
@@ -72,7 +85,6 @@
 - (UILabel *)expectedYearRateLable_Const {
     if (!_expectedYearRateLable_Const) {
         _expectedYearRateLable_Const = [[UILabel alloc]init];
-        _expectedYearRateLable_Const.text = @"预期年化";
         _expectedYearRateLable_Const.textColor = [UIColor grayColor];
     }
     return _expectedYearRateLable_Const;
@@ -83,11 +95,37 @@
     }
     return _arrowImageView;
 }
+- (UILabel *)countDownLable {
+    if (!_countDownLable){
+        _countDownLable = [[UILabel alloc]init];
+        _countDownLable.textColor = [UIColor blueColor];
+        _countDownLable.text = @"a11111";
+    }
+    return _countDownLable;
+}
+
+
+#pragma mark - setter
+//MARK: 倒计时的重要传递
+- (void)setCountDownString:(NSString *)countDownString {
+    _countDownString = countDownString;
+    self.countDownLable.text = countDownString;
+    NSLog(@"-------------------------%@",[NSThread currentThread]);
+}
+- (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
+    _lockPeriodLabel_ConstStr = lockPeriodLabel_ConstStr;
+    self.lockPeriodLabel_Const.text = lockPeriodLabel_ConstStr;
+}
+- (void)setExpectedYearRateLable_ConstStr:(NSString *)expectedYearRateLable_ConstStr {
+    _expectedYearRateLable_ConstStr = expectedYearRateLable_ConstStr;
+    _expectedYearRateLable_Const.text = _expectedYearRateLable_ConstStr;
+}
 - (void)setupSubView {
   
-    [self Tests];//测试数据
+//    [self Tests];//测试数据
     [self addSubUI];//添加子控件
     [self layoutSubUI];//布局UI
+    self.countDownLable.backgroundColor = [UIColor redColor];
    
     }
 - (void)Tests {
@@ -96,11 +134,8 @@
     self.lockPeriodLabel.text = @"3个月";
     self.addStatus.text = @"等待加入";
     self.preferentialLabel.text = @"限时8折，速速抢购";
+    self.countDownLable.backgroundColor = [UIColor redColor];
     self.arrowImageView.backgroundColor = [UIColor redColor];
-//    [self setupAttributeString];//富文本
-    self.expectedYearRateLable.attributedText = [self setupAttributeStringWithString:@"12 %" WithRange:NSMakeRange(0, 2) andAttributeColor:[UIColor redColor] andAttributeFont:[UIFont systemFontOfSize:24]];
-    
-    self.lockPeriodLabel.attributedText = [self setupAttributeStringWithString:@"3个月" WithRange:NSMakeRange(0, 1) andAttributeColor:[UIColor blackColor] andAttributeFont:[UIFont systemFontOfSize: 24]];
 }
 ///添加子控件
 - (void)addSubUI {
@@ -113,14 +148,15 @@
     [self.contentView addSubview:self.addStatus];
     [self.contentView addSubview:self.preferentialLabel];
     [self.contentView addSubview:self.arrowImageView];
+    [self.contentView addSubview:self.countDownLable];
 }
 ///布局UI
 - (void)layoutSubUI {
     __weak typeof (self)weakSelf = self;
     //布局
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@20);
-        make.left.equalTo(@20);
+        make.top.equalTo(weakSelf.contentView).offset(20);
+        make.left.equalTo(weakSelf.contentView).offset(20);
         make.right.equalTo(weakSelf.contentView).offset(-20);
     }];
     [self.expectedYearRateLable mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -156,18 +192,27 @@
         make.right.equalTo(weakSelf.arrowImageView);
         make.height.equalTo(@20);
     }];
+    [self.countDownLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.addStatus.mas_bottom).offset(10);
+        make.left.equalTo(weakSelf.addStatus);
+        make.right.equalTo(weakSelf.addStatus);
+        make.height.equalTo(@20);
+    }];
 }
 
-- (NSMutableAttributedString *)setupAttributeStringWithString:(NSString *)string WithRange: (NSRange)range andAttributeColor: (UIColor *)color andAttributeFont: (UIFont *)font{
-        //添加字符串
-        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
-        //设置字体
-        [attr addAttribute:NSFontAttributeName value:font range: range];
-        //设置颜色
-        [attr addAttribute:NSForegroundColorAttributeName value:color range:range];
-    
-        return attr;
-}
+
+
+
+//- (NSMutableAttributedString *)setupAttributeStringWithString:(NSString *)string WithRange: (NSRange)range andAttributeColor: (UIColor *)color andAttributeFont: (UIFont *)font{
+//        //添加字符串
+//        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
+//        //设置字体
+//        [attr addAttribute:NSFontAttributeName value:font range: range];
+//        //设置颜色
+//        [attr addAttribute:NSForegroundColorAttributeName value:color range:range];
+//    
+//        return attr;
+//}
 
 
 ///富文本处理的知识

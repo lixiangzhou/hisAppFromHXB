@@ -15,7 +15,6 @@
     //获取属性长度 找文件里面的copy
     unsigned int outCount ;
     objc_property_t * plist = class_copyPropertyList([self class], &outCount);
-    
     NSMutableArray * arrayM = [[NSMutableArray alloc]initWithCapacity:outCount];
     for (int i = 0; i < outCount; i ++) {
         objc_property_t property = plist[i];

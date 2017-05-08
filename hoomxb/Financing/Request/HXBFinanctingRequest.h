@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HXBFinanctingView_HomePage;
+@class HXBFinHomePageViewModel_PlanList;
 @interface HXBFinanctingRequest : NSObject
-@property (nonatomic,strong) NSArray <HXBFinanctingView_HomePage *> *viewModelArray_homePage;
-
-
-
+//MAKR: 红利计划列表的网络请求
+- (void)planBuyListWithIsUpData: (BOOL)isUPData
+                andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray))successDateBlock
+                andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end
 
 

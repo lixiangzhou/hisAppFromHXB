@@ -11,4 +11,8 @@
 @interface HXBFinancting_LoanListTableView : HXBBaseTableView
 ///点击散标列表后回调，跳转详情页
 @property (nonatomic,copy) void (^clickLoanListCellBlock)(NSIndexPath *index, id model);
+///年利率文字
+@property (nonatomic,strong) NSString *expectedYearRateLable_ConstStr;
+///期限
+@property (nonatomic,strong) NSString *lockPeriodLabel_ConstStr;
 @end

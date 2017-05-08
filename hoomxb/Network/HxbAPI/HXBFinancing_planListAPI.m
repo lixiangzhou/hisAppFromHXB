@@ -1,14 +1,15 @@
 //
-//  PlanBuyListAPI.m
+//  HXBFinancing_planList.m
 //  hoomxb
 //
-//  Created by HXB on 2017/5/3.
+//  Created by HXB on 2017/5/6.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "PlanBuyListAPI.h"
-//192.168.1.21:3000/plan/list 红利计划列表
-@implementation PlanBuyListAPI
+#import "HXBFinancing_planListAPI.h"
+
+@implementation HXBFinancing_planListAPI
+//192.168.1.21:8070/financeplan/queryForIndexUplanListNew.action 红利计划列表
 - (id)init
 {
     self = [super init];
@@ -18,7 +19,7 @@
 }
 
 - (NSString *)requestUrl {
-    return @"/plan/list";
+    return @"/financeplan/queryForIndexUplanListNew.action";
 }
 
 - (NYRequestMethod)requestMethod {
@@ -26,8 +27,7 @@
 }
 
 - (id)requestArgument {
-    return @{
-             };
+    return @{};
 }
 
 @end
