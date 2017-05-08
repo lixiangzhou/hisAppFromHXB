@@ -63,6 +63,10 @@ UITableViewDataSource
 
 #pragma TableViewDelegate
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44;
 }
@@ -81,6 +85,7 @@ UITableViewDataSource
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr ];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
     }
     return cell;
@@ -96,7 +101,7 @@ UITableViewDataSource
 
 - (UITableView *)mainTableView{
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc]initWithFrame:self.frame style:UITableViewStyleGrouped];
+        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.tableHeaderView = self.headerView;
@@ -106,7 +111,7 @@ UITableViewDataSource
 
 - (HxbMyViewHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/3)];
+        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/3 + 60)];
     }
     return _headerView;
 }

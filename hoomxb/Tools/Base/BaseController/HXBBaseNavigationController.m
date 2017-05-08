@@ -36,6 +36,24 @@
     [self popViewControllerAnimated:YES];
 }
 
+#pragma mark - override push
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.interactivePopGestureRecognizer.enabled = NO;
+    }
+    
+    if (self.viewControllers.count >= 1)
+    {   //如果进入子页面，隐藏tabbar的bottombar
+        viewController.hidesBottomBarWhenPushed = YES;
+        
+        //将导航栏显示出来
+        self.navigationBar.hidden = NO;
+    }
+    
+    [super pushViewController:viewController animated:animated];
+}
+
 
 #pragma mark - setter pop的自定义
 - (void)popViewControllerWithToViewController: (NSString *)toViewControllerStr andAnimated: (BOOL)animated{
