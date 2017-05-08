@@ -35,6 +35,9 @@ static NSString *CELLID = @"CELLID";
     self.dataSource = self;
     
     [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
+    self.separatorInset = UIEdgeInsetsMake(0, -50, 0, 0);
+    
+    self.rowHeight = 200;
 }
 
 #pragma mark - datesource
@@ -46,15 +49,15 @@ static NSString *CELLID = @"CELLID";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor brownColor];
-    cell.textLabel.text = @(indexPath.row).description;
+//    cell.backgroundColor = [UIColor brownColor];
+//    cell.textLabel.text = @(indexPath.row).description;
     return cell;
 }
 
 #pragma mark - delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //拿到cell的model
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    HXBFinancting_PlanListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     //点击后的block回调给了HomePageView
     if (self.clickPlanListCellBlock) {
         self.clickPlanListCellBlock(indexPath, nil);

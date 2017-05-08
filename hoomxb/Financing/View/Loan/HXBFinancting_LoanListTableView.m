@@ -8,7 +8,7 @@
 
 #import "HXBFinancting_LoanListTableView.h"
 #import "HXBFinancting_LoanListTableViewCell.h"
-
+#import "HXBFinancting_PlanListTableViewCell.h"
 
 @interface HXBFinancting_LoanListTableView ()
 <
@@ -34,7 +34,9 @@ static NSString *CELLID = @"CELLID";
     self.delegate = self;
     self.dataSource = self;
     
-    [self registerClass:[HXBFinancting_LoanListTableViewCell class] forCellReuseIdentifier:CELLID];
+    [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
+    self.separatorInset = UIEdgeInsetsMake(0, -50, 0, 0);
+    self.rowHeight = 200;
 }
 
 #pragma mark - datesource
@@ -45,9 +47,7 @@ static NSString *CELLID = @"CELLID";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HXBFinancting_LoanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor orangeColor];
-    cell.textLabel.text = @(indexPath.row).description;
+    HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
     return cell;
 }
 

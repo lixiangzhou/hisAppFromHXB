@@ -19,24 +19,30 @@ static NSString *CELLID = @"CELLID";
 @implementation HxbFinanctingViewController
 
 - (void)viewDidLoad {
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     /* 测试
      [super viewDidLoad];
      [self setupTableView];
      [self setupRefresh];
      */
     //rootView
+    
+    
     [self setup];
     //点击事件
     [self clickCell];
-    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-    };
+
+    //上拉刷新与下拉加载
+    [self registerRefresh];
 }
 
 - (void)setup {
+    //防止跳转的时候，tableView向上或者向下移动
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    };
+    //创建自视图
     self.homePageView = [[HXBFinanctingView_HomePage alloc]initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height - 64- 49)];
-    self.homePageView.backgroundColor = [UIColor grayColor];
     [self.view addSubview:self.homePageView];
 }
 
@@ -56,6 +62,7 @@ static NSString *CELLID = @"CELLID";
 }
 - (void)pushPlanDetailsViewControllerWithModel: (id)model {
     HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
+    planDetailsVC.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:planDetailsVC animated:true];
 }
 //MARK: - 点击了散标列表页的 cell
@@ -67,7 +74,35 @@ static NSString *CELLID = @"CELLID";
 }
 - (void)pushLoanListCellViewControllerWithModel: (id)model {
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
+    loanDetailsVC.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:loanDetailsVC animated:true];
+}
+
+#pragma mark - 上啦刷新与下拉加载
+- (void) registerRefresh{
+    //红利计划上拉刷新与下拉加载
+    [self setupPlanRefresh];
+    
+    //散标上拉刷新与下拉加载
+    [self setupLoanRefresh];
+}
+//MARK:  红利计划上啦刷新
+- (void)setupPlanRefresh {
+    [self.homePageView setPlanRefreshFooterBlock:^{
+        NSLog(@"加载了");
+    }];
+    [self.homePageView setPlanRefreshHeaderBlock:^{
+        NSLog(@"刷新了");
+    }];
+}
+- (void)setupLoanRefresh {
+    
+    [self.homePageView setLoanRefreshFooterBlock:^{
+        NSLog(@"加载了");
+    }];
+    [self.homePageView setLoanRefreshHeaderBlock:^{
+        NSLog(@"刷新了");
+    }];
 }
 #pragma mark - 测试
 /*

@@ -14,4 +14,7 @@
 - (void)clickCellBlockFunc:(void (^)(NSIndexPath *, id))clickCellBlock {
     self.clickCellBlock = clickCellBlock;
 }
+
+
+
 @end

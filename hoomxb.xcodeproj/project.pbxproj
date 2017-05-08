@@ -88,6 +88,10 @@
 		E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */; };
 		E1BDFDB11EA89D2000311EC2 /* HXBBaseHandDate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BDFDB01EA89D2000311EC2 /* HXBBaseHandDate.m */; };
 		E1BDFDB71EA89DDA00311EC2 /* HXBServerAndClientTime.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BDFDB61EA89DDA00311EC2 /* HXBServerAndClientTime.m */; };
+		E1C10A4D1EBC60E500C21984 /* HXBFin_PlanDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C10A4C1EBC60E500C21984 /* HXBFin_PlanDetailsView.m */; };
+		E1C10A501EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C10A4F1EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m */; };
+		E1C10A541EBC81C200C21984 /* HXBFin_DetailsViewBase.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C10A531EBC81C200C21984 /* HXBFin_DetailsViewBase.m */; };
+		E1C10A571EBC824F00C21984 /* HXBFinBase_FlowChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C10A561EBC824F00C21984 /* HXBFinBase_FlowChartView.m */; };
 		E1C964741EA5E04F0066DBC4 /* HXBBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964641EA5E04F0066DBC4 /* HXBBaseNavigationController.m */; };
 		E1C964751EA5E04F0066DBC4 /* HXBBaseTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964661EA5E04F0066DBC4 /* HXBBaseTabBarController.m */; };
 		E1C964761EA5E04F0066DBC4 /* HXBBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964681EA5E04F0066DBC4 /* HXBBaseViewController.m */; };
@@ -300,6 +304,14 @@
 		E1BDFDB01EA89D2000311EC2 /* HXBBaseHandDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseHandDate.m; sourceTree = "<group>"; };
 		E1BDFDB51EA89DDA00311EC2 /* HXBServerAndClientTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBServerAndClientTime.h; sourceTree = "<group>"; };
 		E1BDFDB61EA89DDA00311EC2 /* HXBServerAndClientTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBServerAndClientTime.m; sourceTree = "<group>"; };
+		E1C10A4B1EBC60E500C21984 /* HXBFin_PlanDetailsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_PlanDetailsView.h; sourceTree = "<group>"; };
+		E1C10A4C1EBC60E500C21984 /* HXBFin_PlanDetailsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_PlanDetailsView.m; sourceTree = "<group>"; };
+		E1C10A4E1EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinPlanDetailsView_FlowChart.h; sourceTree = "<group>"; };
+		E1C10A4F1EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinPlanDetailsView_FlowChart.m; sourceTree = "<group>"; };
+		E1C10A521EBC81C200C21984 /* HXBFin_DetailsViewBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_DetailsViewBase.h; sourceTree = "<group>"; };
+		E1C10A531EBC81C200C21984 /* HXBFin_DetailsViewBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_DetailsViewBase.m; sourceTree = "<group>"; };
+		E1C10A551EBC824F00C21984 /* HXBFinBase_FlowChartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinBase_FlowChartView.h; sourceTree = "<group>"; };
+		E1C10A561EBC824F00C21984 /* HXBFinBase_FlowChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinBase_FlowChartView.m; sourceTree = "<group>"; };
 		E1C964631EA5E04F0066DBC4 /* HXBBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseNavigationController.h; sourceTree = "<group>"; };
 		E1C964641EA5E04F0066DBC4 /* HXBBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseNavigationController.m; sourceTree = "<group>"; };
 		E1C964651EA5E04F0066DBC4 /* HXBBaseTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTabBarController.h; sourceTree = "<group>"; };
@@ -950,6 +962,29 @@
 			path = BaseObject;
 			sourceTree = "<group>";
 		};
+		E1C10A4A1EBC60BD00C21984 /* PlanDetails */ = {
+			isa = PBXGroup;
+			children = (
+				E1C10A4B1EBC60E500C21984 /* HXBFin_PlanDetailsView.h */,
+				E1C10A4C1EBC60E500C21984 /* HXBFin_PlanDetailsView.m */,
+				E1C10A4E1EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.h */,
+				E1C10A4F1EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m */,
+			);
+			path = PlanDetails;
+			sourceTree = "<group>";
+		};
+		E1C10A511EBC818D00C21984 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E1C10A521EBC81C200C21984 /* HXBFin_DetailsViewBase.h */,
+				E1C10A531EBC81C200C21984 /* HXBFin_DetailsViewBase.m */,
+				E1C10A551EBC824F00C21984 /* HXBFinBase_FlowChartView.h */,
+				E1C10A561EBC824F00C21984 /* HXBFinBase_FlowChartView.m */,
+			);
+			name = Base;
+			path = Loan/Base;
+			sourceTree = "<group>";
+		};
 		E1C964621EA5E04F0066DBC4 /* BaseController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1055,6 +1090,7 @@
 			children = (
 				E1E4613D1EB98CF2005B1FC6 /* HXBFinanctingView_HomePage.h */,
 				E1E4613E1EB98CF2005B1FC6 /* HXBFinanctingView_HomePage.m */,
+				E1C10A511EBC818D00C21984 /* Base */,
 				E1E4617C1EB9BDE9005B1FC6 /* Plan */,
 				E1E4617B1EB9BDE9005B1FC6 /* Loan */,
 			);
@@ -1166,6 +1202,7 @@
 		E1E4617C1EB9BDE9005B1FC6 /* Plan */ = {
 			isa = PBXGroup;
 			children = (
+				E1C10A4A1EBC60BD00C21984 /* PlanDetails */,
 				E1E4617D1EB9BE25005B1FC6 /* HXBFinancting_PlanListTableView.h */,
 				E1E4617E1EB9BE25005B1FC6 /* HXBFinancting_PlanListTableView.m */,
 				E1E461831EB9C17A005B1FC6 /* HXBFinancting_PlanListTableViewCell.h */,
@@ -1393,6 +1430,7 @@
 				E1E4618B1EB9C53A005B1FC6 /* HXBFinancting_LoanListTableViewCell.m in Sources */,
 				E1E461721EB9B448005B1FC6 /* LoanBuyResult.m in Sources */,
 				E122D8551EA0CAB900DC71ED /* NSString+HxbSortDicMD5.m in Sources */,
+				E1C10A4D1EBC60E500C21984 /* HXBFin_PlanDetailsView.m in Sources */,
 				4E26E3C71EA0FF4C0078B419 /* UserDefaultManage.m in Sources */,
 				E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */,
 				4E294F101EB9885C007D5042 /* HxbSignInView.m in Sources */,
@@ -1400,6 +1438,7 @@
 				E1E4613F1EB98CF2005B1FC6 /* HXBFinanctingView_HomePage.m in Sources */,
 				4EAD98F01EB87E330029A3FF /* BannerModel.m in Sources */,
 				E1E461881EB9C528005B1FC6 /* HXBFinancting_LoanListTableView.m in Sources */,
+				E1C10A541EBC81C200C21984 /* HXBFin_DetailsViewBase.m in Sources */,
 				E1339B7A1EA85668002BE5B1 /* HXBBaseContDownManager.m in Sources */,
 				4E3C1D031EA6286400C8BD36 /* HxbWelcomeView.m in Sources */,
 				4E294F211EB9BD88007D5042 /* HxbSignUpSucceedViewController.m in Sources */,
@@ -1427,6 +1466,7 @@
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E122D85A1EA0CAB900DC71ED /* UIImageView+HxbSDWebImage.m in Sources */,
 				E1C9647B1EA5E04F0066DBC4 /* HXBBaseTableViewCell.m in Sources */,
+				E1C10A501EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m in Sources */,
 				4E26E3B31EA0FE660078B419 /* NYNetworkManager.m in Sources */,
 				4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */,
 				E1E4617F1EB9BE25005B1FC6 /* HXBFinancting_PlanListTableView.m in Sources */,
@@ -1441,6 +1481,7 @@
 				E1E461771EB9B494005B1FC6 /* LoanListAPI.m in Sources */,
 				E122D8501EA0CAB900DC71ED /* NSString+CopiesTransfer.m in Sources */,
 				E122D8541EA0CAB900DC71ED /* NSString+HxbPerMilMoney.m in Sources */,
+				E1C10A571EBC824F00C21984 /* HXBFinBase_FlowChartView.m in Sources */,
 				4E294F1E1EB9B2E4007D5042 /* HxbSecurityCertificationView.m in Sources */,
 				4E26E3B81EA0FE790078B419 /* RequestTestAPI.m in Sources */,
 				4E422CAC1EA736F700C0EB62 /* HxbNotificationMacros.m in Sources */,
