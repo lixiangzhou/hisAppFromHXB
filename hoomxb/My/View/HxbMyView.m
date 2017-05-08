@@ -45,15 +45,12 @@ UITableViewDataSource
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
-    
-    id next = [self nextResponder];
-    while (![next isKindOfClass:[HxbMyViewController class]]) {
-        next = [next nextResponder];
-    }
-    if ([next isKindOfClass:[HxbMyViewController class]]) {
-        HxbMyViewController *vc = (HxbMyViewController *)next;
-       [vc presentViewController:alertController animated:YES completion:nil];
-    }
+     HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+//    [topVC.navigationController popToRootViewControllerAnimated:NO];
+//      id next = [self nextResponder];
+//    [UIResponder findNextResponderForClass:[HxbMyViewController class]ByFirstResponder:[self nextResponder]];
+// 
+    [vc presentViewController:alertController animated:YES completion:nil];
     
     //    UIViewController *VC =[[UIViewController alloc]init];
     //    VC.view.backgroundColor = [UIColor redColor];
@@ -71,11 +68,16 @@ UITableViewDataSource
     return 44;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0.1;
+    if (section == 0) {
+        return 20;
+    }else{
+        return 10;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10;
+    
+    return 0.1;
 }
 
 #pragma TableViewDataSource
@@ -87,6 +89,14 @@ UITableViewDataSource
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
+    }
+    
+    if (indexPath.section == 0) {
+        cell.textLabel.text = @"红利计划";
+    }else if (indexPath.section == 1){
+        cell.textLabel.text = @"散标";
+    }else{
+        cell.textLabel.text = @"交易记录";
     }
     return cell;
 }
@@ -111,7 +121,7 @@ UITableViewDataSource
 
 - (HxbMyViewHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/3 + 60)];
+        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/3 + 100)];
     }
     return _headerView;
 }
@@ -119,7 +129,7 @@ UITableViewDataSource
 //登出按钮
 - (UIButton *)signOutButton{
     if (!_signOutButton) {
-        _signOutButton = [UIButton btnwithTitle:@"Sign Out" andTarget:self andAction:@selector(signOutButtonButtonClick:) andFrameByCategory:CGRectMake(20, SCREEN_HEIGHT/2 + 100, SCREEN_WIDTH - 40, 44)];
+        _signOutButton = [UIButton btnwithTitle:@"Sign Out" andTarget:self andAction:@selector(signOutButtonButtonClick:) andFrameByCategory:CGRectMake(20, SCREEN_HEIGHT - 100, SCREEN_WIDTH - 40, 44)];
     }
     return _signOutButton;
 }
