@@ -11,7 +11,7 @@
 //注意 需要做倒计时的model的储存剩余时间变量的key一定要是NSString类型
 //下周开始给model 添加属性，让cell直接从model里面拿值
 //model的储存剩余时间的属性必须是NSString 类型
-
+///注意 如果在tableView中有多个cell要显示定时的时候，在tableView滚动时要停止定时器 否则会发生cell 的重用问题
 #import <UIKit/UIKit.h>
 
 
@@ -65,6 +65,11 @@ typedef enum : NSUInteger {
  * @param countdownDataFredbackWithBlock 给外界提供了model (这时候model已经赋值成功了)，
  */
 - (void)countdownDataFredbackWithBlock: (void(^)())countdownDataFredbackWithBlock;
+
+/**
+ * 每个model的剩余值得改变都会调用
+ */
+- (void)countDownWithChangeModelBlock: (void (^)(id model, NSIndexPath *index)) changeModelBlock;
 
 /**当数组发生变化的时候调用
 * @param modelArray 需要倒计时的model数组

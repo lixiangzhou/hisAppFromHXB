@@ -13,6 +13,9 @@
 #import "HXBFinancing_LoanDetailsViewController.h"//散标详情页
 #import "HXBFinanctingRequest.h"//网络请求工具类
 #import "HXBFinHomePageViewModel_PlanList.h"//红利计划列表viewmodel
+#import "HXBFinHomePageViewModel_LoanList.h"//散标列表的ViewModel
+
+
 @interface HxbFinanctingViewController ()
 @property (nonatomic,strong) HXBFinanctingView_HomePage *homePageView;//最主要的view
 
@@ -24,7 +27,7 @@
 //红利计划列表的数据数组
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList*>* finPlanListVMArray;
 //散标列表的数据数组
-@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList*>* finLoanListVMArray;
+@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList*>* finLoanListVMArray;
 
 
 @end
@@ -39,6 +42,10 @@
     _finPlanListVMArray = finPlanListVMArray;
     self.homePageView.finPlanListVMArray = finPlanListVMArray;
 }
+- (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
+    _finLoanListVMArray = finLoanListVMArray;
+    self.homePageView.finLoanListVMArray = finLoanListVMArray;
+}
 
 - (void)viewDidLoad {
     self.view.backgroundColor = [UIColor whiteColor];
@@ -50,7 +57,10 @@
     
     //点击事件
     [self clickCell];
-
+    
+    //中间的toolBar 被点击或者被滚动
+    [self clickMidToolBarView];
+    
     //上拉刷新与下拉加载
     [self registerRefresh];
     [self planLoadDateWithIsUpData:true];
@@ -74,9 +84,12 @@
     kWeakSelf
     [self.homePageView setMidToolBarViewClickWithBlock:^(NSInteger index, NSString *title, UIButton *button) {
         //网络数据请求
-        if (weakSelf.isFirstClickLoan) {
-            
+        if ([title isEqualToString:@"红利计划"]) {
+            [weakSelf planLoadDateWithIsUpData:true];
+        }else if ([title isEqualToString:@"散标列表"]) {
+            [weakSelf loanLoadDateWithIsUpData:true];
         }
+
     }];
 }
 - (void)clickCell {
@@ -132,12 +145,15 @@
 }
 //MARK: 散标刷新加载
 - (void)setupLoanRefresh {
+    kWeakSelf
     self.isFirstClickLoan = false;
     [self.homePageView setLoanRefreshFooterBlock:^{
         NSLog(@"加载了");
+        [weakSelf loanLoadDateWithIsUpData:false];
     }];
     [self.homePageView setLoanRefreshHeaderBlock:^{
         NSLog(@"刷新了");
+        [weakSelf loanLoadDateWithIsUpData:true];
     }];
 }
 
@@ -150,6 +166,17 @@
         self.homePageView.isStopRefresh_Plan = true;
     } andFailureBlock:^(NSError *error) {
         self.homePageView.isStopRefresh_Plan = true;
+    }];
+}
+
+- (void)loanLoadDateWithIsUpData: (BOOL)isUpData {
+    [self.finantingRequest loanBuyListWithIsUpData:isUpData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_LoanList *> *viewModelArray) {
+        self.finLoanListVMArray = viewModelArray;
+        //结束下拉刷新与上拉刷新
+        self.homePageView.isStopRefresh_loan = true;
+    } andFailureBlock:^(NSError *error) {
+        //结束下拉刷新与上拉刷新
+        self.homePageView.isStopRefresh_loan = true;
     }];
 }
 @end

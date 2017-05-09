@@ -7,7 +7,7 @@
 //
 
 #import "LoanListAPI.h"
-//192.168.1.21:3000/loan/list 散标列表
+//192.168.1.21:3000/lend/loanindex 散标列表
 @implementation LoanListAPI
 - (id)init
 {
@@ -18,7 +18,7 @@
 }
 
 - (NSString *)requestUrl {
-    return @"/loan/list";
+    return @"/lend/loanindex";
 }
 
 - (NYRequestMethod)requestMethod {

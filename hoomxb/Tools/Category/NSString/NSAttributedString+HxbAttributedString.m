@@ -37,4 +37,14 @@
     return attM.copy;
 }
 
+
++ (NSMutableAttributedString *)setupAttributeStringWithString:(NSString *)string WithRange: (NSRange)range andAttributeColor: (UIColor *)color andAttributeFont: (UIFont *)font{
+    //添加字符串
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
+    //设置字体
+    [attr addAttribute:NSFontAttributeName value:font range: range];
+    //设置颜色
+    [attr addAttribute:NSForegroundColorAttributeName value:color range:range];
+    return attr;
+}
 @end

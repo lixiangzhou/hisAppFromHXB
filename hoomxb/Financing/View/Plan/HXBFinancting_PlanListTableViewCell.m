@@ -9,7 +9,8 @@
 #import "HXBFinancting_PlanListTableViewCell.h"
 #import "HXBFinHomePageViewModel_PlanList.h"
 #import "HXBFinHomePageModel_PlanList.h"
-
+#import "HXBFinHomePageViewModel_LoanList.h"
+#import "HXBFinHomePageModel_LoanList.h"
 @interface HXBFinancting_PlanListTableViewCell ()
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *expectedYearRateLable;//语气年化
@@ -31,6 +32,17 @@
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = finPlanListViewModel.planListModel.lockPeriod;
     self.addStatus.text = finPlanListViewModel.unifyStatus;
+}
+
+- (void) setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
+    _loanListViewModel = loanListViewModel;
+    HXBFinHomePageModel_LoanList *model = loanListViewModel.loanListModel;
+    self.nameLabel.text = model.title;
+    
+    self.expectedYearRateLable.attributedText = loanListViewModel.expectedYearRateAttributedStr;
+    self.lockPeriodLabel.text = model.months;
+    self.addStatus.text = loanListViewModel.status;
+
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -110,7 +122,6 @@
 - (void)setCountDownString:(NSString *)countDownString {
     _countDownString = countDownString;
     self.countDownLable.text = countDownString;
-    NSLog(@"-------------------------%@",[NSThread currentThread]);
 }
 - (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
     _lockPeriodLabel_ConstStr = lockPeriodLabel_ConstStr;

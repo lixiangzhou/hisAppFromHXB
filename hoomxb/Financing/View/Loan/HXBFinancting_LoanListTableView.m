@@ -7,8 +7,9 @@
 //
 
 #import "HXBFinancting_LoanListTableView.h"
-#import "HXBFinancting_LoanListTableViewCell.h"
+
 #import "HXBFinancting_PlanListTableViewCell.h"
+#import "HXBFinHomePageViewModel_LoanList.h"
 
 @interface HXBFinancting_LoanListTableView ()
 <
@@ -21,6 +22,12 @@ UITableViewDataSource
 @implementation HXBFinancting_LoanListTableView
 
 static NSString *CELLID = @"CELLID";
+
+#pragma mark - setter
+- (void)setLoanListViewModelArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)loanListViewModelArray {
+    _loanListViewModelArray = loanListViewModelArray;
+    [self reloadData];
+}
 
 - (instancetype) initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
@@ -42,12 +49,14 @@ static NSString *CELLID = @"CELLID";
 #pragma mark - datesource
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+    return self.loanListViewModelArray.count;
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
+    cell.loanListViewModel = self.loanListViewModelArray[indexPath.row];
+    
     cell.lockPeriodLabel_ConstStr = self.lockPeriodLabel_ConstStr;
     cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;
     return cell;

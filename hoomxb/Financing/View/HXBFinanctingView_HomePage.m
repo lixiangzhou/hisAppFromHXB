@@ -38,7 +38,10 @@
     self.planListTableView.planListViewModelArray = finPlanListVMArray;
     [self.contDwonManager countDownWithModelArray:finPlanListVMArray andModelDateKey:nil  andModelCountDownKey:nil];
 }
-
+- (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
+    _finLoanListVMArray = finLoanListVMArray;
+    self.loanListTableView.loanListViewModelArray =finLoanListVMArray;
+}
 
 
 //MARK: - 关于刷新 停止
@@ -136,6 +139,8 @@
     self.planListTableView = [[HXBFinancting_PlanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.planListTableView.expectedYearRateLable_ConstStr = @"预期年化";
     self.planListTableView.lockPeriodLabel_ConstStr = @"计划期限";
+    //监听contentOffset
+    [self.planListTableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
     //点击cell的block
     [self.planListTableView setClickPlanListCellBlock:^(NSIndexPath *indexPage, id model) {
@@ -156,7 +161,11 @@
         
     }];
 }
-
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"contentOffset"]) {
+        
+    }
+}
 //MARK:散标列表
 - (void)setupLoanListTableView {
      self.loanListTableView = [[HXBFinancting_LoanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];

@@ -12,5 +12,6 @@
 @property (nonatomic,strong) HXBFinHomePageModel_LoanList *loanListModel;
 ///状态
 @property (nonatomic,copy) NSString *status;
-
+///红利计划列表页的年计划利率
+@property (nonatomic,copy) NSAttributedString *expectedYearRateAttributedStr;
 @end

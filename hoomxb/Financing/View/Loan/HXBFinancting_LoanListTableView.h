@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HXBFinHomePageViewModel_LoanList;
 @interface HXBFinancting_LoanListTableView : HXBBaseTableView
 ///点击散标列表后回调，跳转详情页
 @property (nonatomic,copy) void (^clickLoanListCellBlock)(NSIndexPath *index, id model);
@@ -15,4 +15,6 @@
 @property (nonatomic,strong) NSString *expectedYearRateLable_ConstStr;
 ///期限
 @property (nonatomic,strong) NSString *lockPeriodLabel_ConstStr;
+
+@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList *>*loanListViewModelArray;
 @end

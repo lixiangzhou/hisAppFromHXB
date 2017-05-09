@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 @class HXBFinHomePageViewModel_PlanList;
+@class HXBFinHomePageViewModel_LoanList;
 
 @interface HXBFinanctingView_HomePage : UIView
 ///MARK: ----------  model的数组 （数据源） ---------------
 //红利计划列表的数据数组
-@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList*>* finPlanListVMArray;
+@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList *>* finPlanListVMArray;
 //散标列表的数据数组
-@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList*>* finLoanListVMArray;
+@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList *>* finLoanListVMArray;
 
 
 //MARK: ----------  点击了中间的toolBarView按钮 ---------------
@@ -46,5 +47,5 @@
 ///MARK: ------------ 定时管理 -----------
 @property (nonatomic,strong) HXBBaseContDownManager *contDwonManager;
 
-
 @end
+///注意 在滚动的时候停止定时器 否则会发生cell 的重用问题

@@ -8,6 +8,8 @@
 
 #import "HXBFin_DetailsViewBase.h"
 #import "HXBFinBase_FlowChartView.h"
+#import "HXBFinDetail_TableView.h"
+
 #define kWeakSelf __weak typeof(self)weakSelf = self;
 @interface HXBFin_DetailsViewBase()
 ///预期年化的view
@@ -21,6 +23,8 @@
 ///立即加入视图
 @property (nonatomic,strong) UIView *addView;
 
+///* 预期收益不代表实际收益投资需谨慎
+@property (nonatomic,copy) NSString *promptStr;
 
 @end
 
@@ -31,7 +35,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+            self.promptStr = @"* 预期收益不代表实际收益投资需谨慎";
     }
     return self;
 }
@@ -45,6 +49,7 @@
     [self setupSurplusValueView]; ///剩余可投里面
     [self setupAddTrustView];//曾信view（内部对是否分为左右进行了判断）
     [self setupFlowChartView];///流程引导视图
+    [self setupTableView];///展示计划详情等的 tableView
     [self setupAddView];///立即加入视图
     
     self.flowChartView.backgroundColor = [UIColor hxb_randomColor];
@@ -74,7 +79,7 @@
     }];
     
     //是否分为左右两个（起投，剩余金额）
-    if (!self.isFlowChart) {
+    if (!self.isPlan || !self.isFlowChart) {
         [self setupSurplusValueViewWithTowView];
     }else{
         [self upDownLableWithView:self.surplusValueView andDistance:10 andFirstFont:[UIFont systemFontOfSize:30] andFirstStr:@"123%" andSecondStr:@"剩余可投"];
@@ -103,7 +108,7 @@
 //MARK: - 增信
 - (void)setupAddTrustView {
     kWeakSelf
-    if (!self.isFlowChart) return;
+    if (!self.isFlowChart && self.isPlan) return;
     self.trustView = [[UIView alloc]init];
     [self addSubview: self.trustView];
     [self.trustView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -111,12 +116,12 @@
         make.left.right.equalTo(weakSelf);
         make.height.equalTo(@80);
     }];
-    
-    
 }
 
 //MARK: - 引导视图
 - (void)setupFlowChartView {
+    if (!self.isPlan) return;
+    
     //如果是 则用增信view 不是则用剩余可投view作为约束参考
     UIView *view = self.isFlowChart ? self.trustView : self.surplusValueView;
     self.flowChartView = [[HXBFinBase_FlowChartView alloc]init];
@@ -139,7 +144,7 @@
     }];
     UIButton *addButton = [[UIButton alloc]init];
     [self.addView addSubview:addButton];
-    [self.addView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.equalTo(weakSelf.addView);
         make.left.top.equalTo(weakSelf.addView).offset(20);
         make.bottom.right.equalTo(weakSelf.addView).offset(-20);
@@ -180,6 +185,30 @@
     //测试
     view.backgroundColor = [UIColor hxb_randomColor];
     firstLable.backgroundColor = [UIColor redColor];
+}
+
+
+//MARK: - 展示计划详情等的 tableView
+- (void)setupTableView {
+    kWeakSelf
+    if (!self.isFlowChart && !self.isPlan) return;
+    
+    HXBFinDetail_TableView * tableView = [[HXBFinDetail_TableView alloc]init];
+    [self addSubview:tableView];
+    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.flowChartView.mas_bottom).offset(20);
+        make.left.right.equalTo(weakSelf);
+        make.height.equalTo(@120);
+    }];
+    UILabel *lable = [[UILabel alloc]init];
+    [self addSubview:lable];
+    [lable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(tableView.mas_bottom);
+        make.left.right.equalTo(weakSelf);
+        make.centerX.centerY.equalTo(weakSelf);
+    }];
+    lable.text = self.promptStr;
+    lable.textColor = [UIColor grayColor];
 }
 
 @end

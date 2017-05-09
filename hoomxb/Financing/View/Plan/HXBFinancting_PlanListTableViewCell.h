@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 @class HXBFinHomePageViewModel_PlanList;
+@class HXBFinHomePageViewModel_LoanList;
 @interface HXBFinancting_PlanListTableViewCell : HXBBaseTableViewCell
+
+@property (nonatomic,strong) HXBFinHomePageViewModel_LoanList *loanListViewModel;
 @property (nonatomic,strong) HXBFinHomePageViewModel_PlanList *finPlanListViewModel;
 ///用于倒计时的string
 @property (nonatomic,copy) NSString *countDownString;

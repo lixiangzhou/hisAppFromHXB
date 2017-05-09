@@ -8,11 +8,11 @@
 
 #import "HXBFinancing_PlanDetailsViewController.h"
 #import "HXBFin_PlanDetailsView.h"
-
+#import "HXBFin_DetailsView_PlanDetailsView.h"
 
 
 @interface HXBFinancing_PlanDetailsViewController ()
-@property(nonatomic,strong) HXBFin_PlanDetailsView *planDetailsView;
+@property(nonatomic,strong) HXBFin_DetailsView_PlanDetailsView *planDetailsView;
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
@@ -26,8 +26,9 @@
 - (void)setup {
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.planDetailsView = [[HXBFin_PlanDetailsView alloc]initWithFrame:self.view.frame];
+    self.planDetailsView = [[HXBFin_DetailsView_PlanDetailsView alloc]initWithFrame:self.view.frame];
     [self.view addSubview:self.planDetailsView];
+    [self.planDetailsView show];
 }
 
 - (void)didReceiveMemoryWarning {

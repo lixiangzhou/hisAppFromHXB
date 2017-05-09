@@ -45,6 +45,7 @@ typedef enum : NSUInteger {
     _loanListModel = loanListModel;
     //状态的处理
     [self setupStatusWithLoanListModelStatus:loanListModel.status];
+    self.expectedYearRateAttributedStr = [self setupExpectedYearRateAttributedStrWithStr:loanListModel.interest WithFont:[UIFont systemFontOfSize:30] andColor:[UIColor redColor] andRange:NSMakeRange(0, loanListModel.interest.length)];
 }
 
 
@@ -78,5 +79,14 @@ typedef enum : NSUInteger {
     if ([status isEqualToString:@"FANGBIAO_PROCESSING"]) self.status = @"放款中";//放款中
     if ([status isEqualToString:@"LIUBIAO_PROCESSING"]) self.status = @"流标中";//流标中
 }
+
+- (NSMutableAttributedString *)setupExpectedYearRateAttributedStrWithStr: (NSString *)str WithFont: (UIFont *)font andColor: (UIColor *)color andRange: (NSRange)range{
+    NSMutableAttributedString *expecetedAttributedStr = [[NSMutableAttributedString alloc]initWithString:str];
+    [expecetedAttributedStr addAttribute:NSFontAttributeName value:font range:range];
+    [expecetedAttributedStr addAttribute:NSForegroundColorAttributeName value:color range:range];
+    return expecetedAttributedStr;
+}
+
+
 
 @end

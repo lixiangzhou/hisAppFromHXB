@@ -59,12 +59,16 @@ static NSString *CELLID = @"CELLID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
     cell.finPlanListViewModel = self.planListViewModelArray[indexPath.row];
-    
+    kWeakSelf
     __weak typeof (cell)weakCell = cell;
     cell.lockPeriodLabel_ConstStr = self.lockPeriodLabel_ConstStr;
     cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;
     [cell.finPlanListViewModel setCountDownBlock:^(NSString *countDownString) {
-        weakCell.countDownString = countDownString;
+        CGPoint velocity = [weakSelf.panGestureRecognizer velocityInView:self];
+        
+        if (!velocity.y && !weakSelf.tracking && !weakSelf.dragging && !weakSelf.decelerating){
+            weakCell.countDownString = countDownString;
+        }
     }];
     
     return cell;

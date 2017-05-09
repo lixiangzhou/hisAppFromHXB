@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+@class HXBFinDetail_TableViewCellModel;
 
 @interface HXBFin_DetailsViewBase : UIView
+
 ///显示视图，在给相关的属性赋值后，一定要调用show方法
 - (void)show;
+
 ///剩余可投是否分为左右两个
 @property (nonatomic,assign) BOOL isFlowChart;
+
+///是否为红利计划
+@property (nonatomic,assign) BOOL isPlan;
+
+///底部的tableView的模型数组
+@property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*modelArray;
 @end

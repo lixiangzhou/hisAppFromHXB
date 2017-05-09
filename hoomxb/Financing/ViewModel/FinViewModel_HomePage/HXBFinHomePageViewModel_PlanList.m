@@ -100,18 +100,10 @@ typedef enum : NSUInteger {
     
     NSString *expectedYearRateStr = [NSString stringWithFormat:@"%@%@",self.planListModel.expectedYearRate,@"%"];
     
-    self.expectedYearRateAttributedStr = [self setupAttributeStringWithString:expectedYearRateStr WithRange:NSMakeRange(0, length) andAttributeColor:[UIColor redColor] andAttributeFont:[UIFont systemFontOfSize:25]];
+    self.expectedYearRateAttributedStr = [NSMutableAttributedString setupAttributeStringWithString:expectedYearRateStr WithRange:NSMakeRange(0, length) andAttributeColor:[UIColor redColor] andAttributeFont:[UIFont systemFontOfSize:25]];
 }
 
-- (NSMutableAttributedString *)setupAttributeStringWithString:(NSString *)string WithRange: (NSRange)range andAttributeColor: (UIColor *)color andAttributeFont: (UIFont *)font{
-    //添加字符串
-    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
-    //设置字体
-    [attr addAttribute:NSFontAttributeName value:font range: range];
-    //设置颜色
-    [attr addAttribute:NSForegroundColorAttributeName value:color range:range];
-    return attr;
-}
+
 
 
 

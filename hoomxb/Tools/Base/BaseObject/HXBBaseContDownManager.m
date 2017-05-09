@@ -193,6 +193,7 @@
             [self.countDownArray addObject:model];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [model setValue:@(dateNumber).description forKey:self.modelCountDownKey];
+                
             });
         }else {
             [self.countDownArray removeObject:model];
