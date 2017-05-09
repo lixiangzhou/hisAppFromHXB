@@ -71,6 +71,7 @@ typedef enum : NSUInteger {
  */
 - (void)countDownWithChangeModelBlock: (void (^)(id model, NSIndexPath *index)) changeModelBlock;
 
+
 /**当数组发生变化的时候调用
 * @param modelArray 需要倒计时的model数组
 * @param modelDateKey model储存到期时间的属性名
