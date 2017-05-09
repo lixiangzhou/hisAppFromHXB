@@ -24,7 +24,6 @@
 @property (nonatomic, strong) UIButton *rightHeadButton;
 @end
 
-
 @implementation HxbMyViewHeaderView
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -46,6 +45,25 @@
         [self addSubview:self.rightHeadButton];
     }
     return self;
+}
+
+- (void)leftHeaderButtonClick:(UIButton *)sender{
+    
+    if ([self.delegate respondsToSelector:@selector(didClickLeftHeadBtn:)]) {
+        [self.delegate didClickLeftHeadBtn:sender];
+    }
+}
+
+- (void)topupButtonClick:(UIButton *)sender{
+    if ([self.delegate respondsToSelector:@selector(didClickTopUpBtn:)]) {
+        [self.delegate didClickTopUpBtn:sender];
+    }
+}
+
+- (void)withdrawButtonClick:(UIButton *)sender{
+    if ([self.delegate respondsToSelector:@selector(didClickWithdrawBtn:)]) {
+        [self.delegate didClickWithdrawBtn:sender];
+    }
 }
 
 - (UILabel *)allFinanceLabel{
@@ -130,6 +148,7 @@
         _topupButton.backgroundColor = [UIColor whiteColor];
         [_topupButton setTitle:@"充值" forState:UIControlStateNormal];
         [_topupButton setTitleColor:COR1 forState:UIControlStateNormal];
+        [_topupButton addTarget:self action:@selector(topupButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _topupButton;
 }
@@ -140,6 +159,7 @@
         _withdrawButton.backgroundColor = [UIColor whiteColor];
         [_withdrawButton setTitle:@"提现" forState:UIControlStateNormal];
         [_withdrawButton setTitleColor:COR1 forState:UIControlStateNormal];
+        [_withdrawButton addTarget:self action:@selector(withdrawButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _withdrawButton;
 }
@@ -164,6 +184,7 @@
     if (!_leftHeadButton) {
         _leftHeadButton = [[UIButton alloc]initWithFrame:CGRectMake(20, 40, 40, 40)];
         [_leftHeadButton setImage:[UIImage imageNamed:@"1"] forState:UIControlStateNormal];
+        [_leftHeadButton addTarget:self action:@selector(leftHeaderButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _leftHeadButton;
 }

@@ -10,11 +10,12 @@
 #import "HxbMyViewHeaderView.h"
 #import "AppDelegate.h"
 #import "HxbMyViewController.h"
-
+#import "HxbMyPlanViewController.h"
 @interface HxbMyView ()
 <
 UITableViewDelegate,
-UITableViewDataSource
+UITableViewDataSource,
+MyViewHeaderDelegate
 >
 @property (nonatomic, strong) UITableView *mainTableView;
 @property (nonatomic, strong) HxbMyViewHeaderView *headerView;
@@ -33,6 +34,20 @@ UITableViewDataSource
     return self;
 }
 
+- (void)didClickLeftHeadBtn:(UIButton *)sender{
+    [self.delegate didLeftHeadBtnClick:sender];
+   
+}
+-(void)didClickTopUpBtn:(UIButton *)sender{
+    [self.delegate didClickTopUpBtn:sender];
+}
+
+- (void)didClickWithdrawBtn:(UIButton *)sender{
+    [self.delegate didClickWithdrawBtn:sender];
+}
+- (void)didClickRightHeadBtn{
+    
+}
 //登出按钮事件
 - (void)signOutButtonButtonClick:(UIButton *)sender{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您确定要退出登录吗？" preferredStyle:UIAlertControllerStyleAlert];
@@ -46,22 +61,21 @@ UITableViewDataSource
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
      HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-//    [topVC.navigationController popToRootViewControllerAnimated:NO];
-//      id next = [self nextResponder];
-//    [UIResponder findNextResponderForClass:[HxbMyViewController class]ByFirstResponder:[self nextResponder]];
-// 
     [vc presentViewController:alertController animated:YES completion:nil];
     
     //    UIViewController *VC =[[UIViewController alloc]init];
     //    VC.view.backgroundColor = [UIColor redColor];
     //    [self.navigationController pushViewController:VC animated:true];
-    
 }
 
 #pragma TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.section == 0) {
+        HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+        HxbMyPlanViewController *myPlanViewController = [[HxbMyPlanViewController alloc]init];
+        [vc.navigationController pushViewController:myPlanViewController animated:YES];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -90,7 +104,7 @@ UITableViewDataSource
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
     }
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
         cell.textLabel.text = @"红利计划";
     }else if (indexPath.section == 1){
@@ -115,6 +129,7 @@ UITableViewDataSource
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.tableHeaderView = self.headerView;
+        _mainTableView.tableHeaderView.userInteractionEnabled = YES;
     }
     return _mainTableView;
 }
@@ -122,6 +137,8 @@ UITableViewDataSource
 - (HxbMyViewHeaderView *)headerView{
     if (!_headerView) {
         _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/3 + 100)];
+        _headerView.delegate = self;
+        _headerView.userInteractionEnabled = YES;
     }
     return _headerView;
 }

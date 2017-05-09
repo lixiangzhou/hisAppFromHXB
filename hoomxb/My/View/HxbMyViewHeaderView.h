@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@protocol MyViewHeaderDelegate <NSObject>
+- (void)didClickLeftHeadBtn:(UIButton *_Nullable)sender;
+- (void)didClickRightHeadBtn;
+- (void)didClickTopUpBtn:(UIButton *_Nullable)sender;
+- (void)didClickWithdrawBtn:(UIButton *_Nullable)sender;
+@end
 
 @interface HxbMyViewHeaderView : UIView
-
+@property (nonatomic,weak,nullable)id<MyViewHeaderDelegate>delegate;
 @end
