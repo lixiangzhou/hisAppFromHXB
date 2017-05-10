@@ -7,6 +7,9 @@
 //
 
 #import "HXBBaseViewController.h"
+@interface MyTopUpBankView : UIView
+
+@end
 
 @interface HxbMyTopUpViewController : HXBBaseViewController
 

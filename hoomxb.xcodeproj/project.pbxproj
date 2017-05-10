@@ -67,6 +67,8 @@
 		4EAD98E11EB86CC70029A3FF /* SignUpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98E01EB86CC70029A3FF /* SignUpModel.m */; };
 		4EAD98E41EB87D290029A3FF /* HXBBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98E31EB87D290029A3FF /* HXBBannerView.m */; };
 		4EAD98F01EB87E330029A3FF /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98EF1EB87E330029A3FF /* BannerModel.m */; };
+		4EC492991EC19A7D00B7DAA2 /* zhaoshang.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC492981EC19A7D00B7DAA2 /* zhaoshang.png */; };
+		4EC492A31EC1C4A000B7DAA2 /* HxbBindCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC492A21EC1C4A000B7DAA2 /* HxbBindCardViewController.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 		E10E7DE71EAF65BA005FC2E3 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E7DE01EAF65BA005FC2E3 /* LoginModel.m */; };
 		E10E7DE81EAF65BA005FC2E3 /* HxbSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E7DE31EAF65BA005FC2E3 /* HxbSignInViewController.m */; };
@@ -268,6 +270,9 @@
 		4EAD98E31EB87D290029A3FF /* HXBBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBannerView.m; sourceTree = "<group>"; };
 		4EAD98EE1EB87E330029A3FF /* BannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerModel.h; sourceTree = "<group>"; };
 		4EAD98EF1EB87E330029A3FF /* BannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerModel.m; sourceTree = "<group>"; };
+		4EC492981EC19A7D00B7DAA2 /* zhaoshang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhaoshang.png; sourceTree = "<group>"; };
+		4EC492A11EC1C4A000B7DAA2 /* HxbBindCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbBindCardViewController.h; sourceTree = "<group>"; };
+		4EC492A21EC1C4A000B7DAA2 /* HxbBindCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbBindCardViewController.m; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
 		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
@@ -454,6 +459,7 @@
 				4E16D8311E9CD0FE002A1881 /* AppDelegate.m */,
 				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
 				4E16D8341E9CD0FE002A1881 /* ViewController.m */,
+				4EC4929A1EC1C45A00B7DAA2 /* BindBankCard */,
 				4E7CCF371EBC1B5B00F7BDB3 /* Source */,
 				4E294F111EB9B249007D5042 /* securityCertification */,
 				4EA93FBB1EA0A591002F3615 /* Macros */,
@@ -719,6 +725,8 @@
 		4E7CCF381EBC1B5B00F7BDB3 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4EC492981EC19A7D00B7DAA2 /* zhaoshang.png */,
+				4EC492961EC19A7900B7DAA2 /* My */,
 				4E7CCF391EBC1B5B00F7BDB3 /* Home */,
 				4E7CCF421EBC1B5B00F7BDB3 /* launch */,
 				4E7CCF441EBC1B5B00F7BDB3 /* signIn */,
@@ -789,6 +797,61 @@
 				E1C10A581EBCA4FE00C21984 /* HXBScreenAdaptation.h */,
 			);
 			path = Macros;
+			sourceTree = "<group>";
+		};
+		4EC492961EC19A7900B7DAA2 /* My */ = {
+			isa = PBXGroup;
+			children = (
+				4EC492971EC19A7900B7DAA2 /* bank */,
+			);
+			path = My;
+			sourceTree = "<group>";
+		};
+		4EC492971EC19A7900B7DAA2 /* bank */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = bank;
+			sourceTree = "<group>";
+		};
+		4EC4929A1EC1C45A00B7DAA2 /* BindBankCard */ = {
+			isa = PBXGroup;
+			children = (
+				4EC4929B1EC1C45A00B7DAA2 /* View */,
+				4EC4929C1EC1C45B00B7DAA2 /* ViewController */,
+				4EC4929D1EC1C45B00B7DAA2 /* ViewModel */,
+			);
+			path = BindBankCard;
+			sourceTree = "<group>";
+		};
+		4EC4929B1EC1C45A00B7DAA2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4EC4929C1EC1C45B00B7DAA2 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4EC492A11EC1C4A000B7DAA2 /* HxbBindCardViewController.h */,
+				4EC492A21EC1C4A000B7DAA2 /* HxbBindCardViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4EC4929D1EC1C45B00B7DAA2 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4EC492A41EC1CAB800B7DAA2 /* UINavigationController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UINavigationController;
 			sourceTree = "<group>";
 		};
 		93AB8A7B8B5BF47D9A9FFDF5 /* Frameworks */ = {
@@ -883,6 +946,7 @@
 		E122D8161EA0CAB900DC71ED /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				4EC492A41EC1CAB800B7DAA2 /* UINavigationController */,
 				4E422CBE1EA7491700C0EB62 /* UIButton */,
 				4E422CBD1EA7458200C0EB62 /* UITextField */,
 				E122D8411EA0CAB900DC71ED /* UIViewController */,
@@ -1380,6 +1444,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E7CCF481EBC1B5B00F7BDB3 /* banner@3x.png in Resources */,
+				4EC492991EC19A7D00B7DAA2 /* zhaoshang.png in Resources */,
 				4E7CCF511EBC1B5B00F7BDB3 /* login_close@3x.png in Resources */,
 				4E7CCF491EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png in Resources */,
 				4E7CCF501EBC1B5B00F7BDB3 /* login_close@2x.png in Resources */,
@@ -1552,6 +1617,7 @@
 				4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */,
 				4EAD98D81EB869220029A3FF /* HxbPhoneVerifyViewController.m in Sources */,
 				4E80AA8D1EC085F300A4CB5A /* HxbFeedbackViewController.m in Sources */,
+				4EC492A31EC1C4A000B7DAA2 /* HxbBindCardViewController.m in Sources */,
 				E1C9647A1EA5E04F0066DBC4 /* HXBBaseTableView.m in Sources */,
 				E1E461741EB9B448005B1FC6 /* PlanBuyResult.m in Sources */,
 				4E80AA911EC087F000A4CB5A /* HxbMyTopUpViewController.m in Sources */,

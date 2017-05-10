@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "HxbMyView.h"
 #import "HxbAccountInfoViewController.h"
+#import "HxbMyTopUpViewController.h"
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
 @end
@@ -66,10 +67,12 @@
     [self.navigationController pushViewController:accountInfoVC animated:YES];
 }
 - (void)didClickTopUpBtn:(UIButton *)sender{
-    
+    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
 }
 
 - (void)didClickWithdrawBtn:(UIButton *)sender{
+    
     
 }
 - (void)clickBarButtonItem {
