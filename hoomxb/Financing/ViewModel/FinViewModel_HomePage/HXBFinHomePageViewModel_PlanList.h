@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class HXBFinHomePageModel_PlanList;
+///红利计划的首页ViewModel
 @interface HXBFinHomePageViewModel_PlanList : NSObject
 ///红利计划的model
 @property (nonatomic,strong) HXBFinHomePageModel_PlanList *planListModel;
@@ -20,6 +21,4 @@
 @property (nonatomic,copy) NSString *countDownLastStr;
 ///储存倒计时时间的string
 @property (nonatomic,copy) NSString *countDownString;
-///倒计时的block
-@property (nonatomic,copy) void(^countDownBlock)(NSString *countDownString);
 @end

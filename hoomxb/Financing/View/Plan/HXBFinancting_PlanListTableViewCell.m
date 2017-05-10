@@ -28,7 +28,7 @@
     _finPlanListViewModel = finPlanListViewModel;
     HXBFinHomePageModel_PlanList *model = finPlanListViewModel.planListModel;
     self.nameLabel.text = model.name;
-    
+    self.countDownLable.text = finPlanListViewModel.countDownString;
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = finPlanListViewModel.planListModel.lockPeriod;
     self.addStatus.text = finPlanListViewModel.unifyStatus;

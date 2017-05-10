@@ -26,6 +26,8 @@
 ///* 预期收益不代表实际收益投资需谨慎
 @property (nonatomic,copy) NSString *promptStr;
 
+/// 底部的tableView
+@property (nonatomic,strong) HXBFinDetail_TableView *bottomTableView;
 @end
 
 @implementation HXBFin_DetailsViewBase
@@ -54,14 +56,14 @@
     
     self.flowChartView.backgroundColor = [UIColor hxb_randomColor];
     self.addView.backgroundColor = [UIColor hxb_randomColor];
-    self.addView.backgroundColor = [UIColor hxb_randomColor];
-    
+    self.trustView.backgroundColor = [UIColor hxb_randomColor];
+    self.bottomTableView.backgroundColor = [UIColor redColor];
 }
 
 //MARK: - 预期年化的view
 - (void)setupExpectedYearRateView {
     self.expectedYearRateView = [[UIView alloc]init];
-    self.expectedYearRateView.frame = CGRectMake(0, 0, self.width, 300);
+    self.expectedYearRateView.frame = CGRectMake(0, 0, self.width, 200);
     [self addSubview:self.expectedYearRateView];
     [self upDownLableWithView:self.expectedYearRateView andDistance:20 andFirstFont:[UIFont systemFontOfSize:40] andFirstStr:@"12.0%" andSecondStr:@"预期年化"];
 }
@@ -75,11 +77,11 @@
     [self.surplusValueView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.expectedYearRateView.mas_bottom).offset(1);
         make.right.left.equalTo(weakSelf);
-        make.height.equalTo(@70);
+        make.height.equalTo(@80);
     }];
     
     //是否分为左右两个（起投，剩余金额）
-    if (!self.isPlan || !self.isFlowChart) {
+    if (self.isFlowChart) {
         [self setupSurplusValueViewWithTowView];
     }else{
         [self upDownLableWithView:self.surplusValueView andDistance:10 andFirstFont:[UIFont systemFontOfSize:30] andFirstStr:@"123%" andSecondStr:@"剩余可投"];
@@ -108,7 +110,7 @@
 //MARK: - 增信
 - (void)setupAddTrustView {
     kWeakSelf
-    if (!self.isFlowChart && self.isPlan) return;
+    if (!self.isFlowChart) return;
     self.trustView = [[UIView alloc]init];
     [self addSubview: self.trustView];
     [self.trustView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -120,16 +122,15 @@
 
 //MARK: - 引导视图
 - (void)setupFlowChartView {
-    if (!self.isPlan) return;
-    
+    kWeakSelf
     //如果是 则用增信view 不是则用剩余可投view作为约束参考
     UIView *view = self.isFlowChart ? self.trustView : self.surplusValueView;
     self.flowChartView = [[HXBFinBase_FlowChartView alloc]init];
     [self addSubview:self.flowChartView];
     [self.flowChartView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(view.mas_bottom);
-        make.left.right.equalTo(view);
-        make.height.equalTo(@80);
+        make.left.right.equalTo(weakSelf);
+        make.height.equalTo(@100);
     }];
 }
 //MARK: - 立即加入按钮的添加
@@ -151,7 +152,6 @@
     }];
     [addButton setTitle:@"立即加入" forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
-    
 }
 - (void)clickAddButton: (UIButton *)button {
     NSLog(@" - 立即加入 - ");
@@ -191,21 +191,23 @@
 //MARK: - 展示计划详情等的 tableView
 - (void)setupTableView {
     kWeakSelf
-    if (!self.isFlowChart && !self.isPlan) return;
+    if (!self.isFlowChart) return;
     
-    HXBFinDetail_TableView * tableView = [[HXBFinDetail_TableView alloc]init];
-    [self addSubview:tableView];
-    [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.flowChartView.mas_bottom).offset(20);
+    self.bottomTableView = [[HXBFinDetail_TableView alloc]init];
+    [self addSubview:self.bottomTableView];
+    [self.bottomTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.flowChartView.mas_bottom).offset(0);
         make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@120);
+        make.height.equalTo(@100);
     }];
+    
+    self.bottomTableView.rowHeight = 40;
     UILabel *lable = [[UILabel alloc]init];
     [self addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(tableView.mas_bottom);
+        make.top.equalTo(weakSelf.bottomTableView.mas_bottom);
         make.left.right.equalTo(weakSelf);
-        make.centerX.centerY.equalTo(weakSelf);
+        make.centerX.equalTo(weakSelf);
     }];
     lable.text = self.promptStr;
     lable.textColor = [UIColor grayColor];

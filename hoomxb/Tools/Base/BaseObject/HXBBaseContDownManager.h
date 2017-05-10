@@ -68,6 +68,7 @@ typedef enum : NSUInteger {
 
 /**
  * 每个model的剩余值得改变都会调用
+ * @param changeModelBlock 改变model时候的回调
  */
 - (void)countDownWithChangeModelBlock: (void (^)(id model, NSIndexPath *index)) changeModelBlock;
 

@@ -19,8 +19,10 @@
 @interface HxbFinanctingViewController ()
 @property (nonatomic,strong) HXBFinanctingView_HomePage *homePageView;//最主要的view
 
-//记录是否为第一次点击
-@property (nonatomic,assign) BOOL isFirstClickLoan;
+//散标是否为第一次加载
+@property (nonatomic,assign) BOOL isFirstLoadNetDataLoan;
+//红利计划是否为第一次加载
+@property (nonatomic,assign) BOOL isFirstLoadNetDataPlan;
 
 //首页的网络请求类
 @property (nonatomic,strong) HXBFinanctingRequest *finantingRequest;
@@ -66,8 +68,9 @@
     [self planLoadDateWithIsUpData:true];
 }
 - (void)creatProperty {
-    self.isFirstClickLoan = true;
-    self.finantingRequest = [[HXBFinanctingRequest alloc]init];
+    self.isFirstLoadNetDataLoan = true;
+    self.isFirstLoadNetDataPlan = true;
+    self.finantingRequest = [HXBFinanctingRequest sharedFinanctingRequest];
 }
 - (void)setup {
     //防止跳转的时候，tableView向上或者向下移动
@@ -84,9 +87,9 @@
     kWeakSelf
     [self.homePageView setMidToolBarViewClickWithBlock:^(NSInteger index, NSString *title, UIButton *button) {
         //网络数据请求
-        if ([title isEqualToString:@"红利计划"]) {
+        if ([title isEqualToString:@"红利计划"] && self.isFirstLoadNetDataPlan) {
             [weakSelf planLoadDateWithIsUpData:true];
-        }else if ([title isEqualToString:@"散标列表"]) {
+        }else if ([title isEqualToString:@"散标列表"] && self.isFirstLoadNetDataLoan) {
             [weakSelf loanLoadDateWithIsUpData:true];
         }
 
@@ -107,6 +110,8 @@
 }
 - (void)pushPlanDetailsViewControllerWithModel: (id)model {
     HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
+    planDetailsVC.isPlan = true;
+    planDetailsVC.isFlowChart = true;
     planDetailsVC.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:planDetailsVC animated:true];
 }
@@ -146,7 +151,6 @@
 //MARK: 散标刷新加载
 - (void)setupLoanRefresh {
     kWeakSelf
-    self.isFirstClickLoan = false;
     [self.homePageView setLoanRefreshFooterBlock:^{
         NSLog(@"加载了");
         [weakSelf loanLoadDateWithIsUpData:false];
@@ -164,6 +168,7 @@
         self.finPlanListVMArray = viewModelArray;
         //结束下拉刷新与上拉刷新
         self.homePageView.isStopRefresh_Plan = true;
+        self.isFirstLoadNetDataPlan = false;
     } andFailureBlock:^(NSError *error) {
         self.homePageView.isStopRefresh_Plan = true;
     }];
@@ -174,9 +179,19 @@
         self.finLoanListVMArray = viewModelArray;
         //结束下拉刷新与上拉刷新
         self.homePageView.isStopRefresh_loan = true;
+        self.isFirstLoadNetDataLoan = false;
     } andFailureBlock:^(NSError *error) {
         //结束下拉刷新与上拉刷新
         self.homePageView.isStopRefresh_loan = true;
     }];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [self.homePageView.contDwonManager cancelTimer];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.homePageView.contDwonManager resumeTimer];
+    [self.homePageView loadData];
 }
 @end

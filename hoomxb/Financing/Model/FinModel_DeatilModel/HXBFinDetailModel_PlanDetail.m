@@ -8,6 +8,14 @@
 
 #import "HXBFinDetailModel_PlanDetail.h"
 
-@implementation HXBFinDetailModel_PlanDetail
+@implementation HXBFinDetailModel_PlanDetail;
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"planDatail_dataList":[HXBFinDetailModel_PlanDetail_DataList class]};
+}
+@end
 
+@implementation HXBFinDetailModel_PlanDetail_DataList
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"id" : @"ID"};
+}
 @end

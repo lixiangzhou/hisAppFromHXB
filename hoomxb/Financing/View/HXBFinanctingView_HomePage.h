@@ -42,6 +42,8 @@
 @property (nonatomic,copy) void(^loanRefreshFooterBlock)();
 ///散标下拉刷新
 @property (nonatomic,copy) void(^loanRefreshHeaderBlock)();
+///刷新UI
+- (void)loadData;
 
 
 ///MARK: ------------ 定时管理 -----------

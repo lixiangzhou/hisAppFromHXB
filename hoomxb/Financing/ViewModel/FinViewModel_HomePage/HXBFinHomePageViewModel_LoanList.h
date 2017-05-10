@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class HXBFinHomePageModel_LoanList;
+///散标列表页- 一级界面ViewModel
 @interface HXBFinHomePageViewModel_LoanList : NSObject
 @property (nonatomic,strong) HXBFinHomePageModel_LoanList *loanListModel;
 ///状态

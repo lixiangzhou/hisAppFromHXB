@@ -110,13 +110,6 @@ typedef enum : NSUInteger {
 
 ///监听是否倒计时了
 - (void)setValue:(id)value forKey:(NSString *)key {
-    
     [super setValue:value forKey:key];
-    if ([key isEqualToString:@"countDownString"]) {
-        //发送信息
-        if (self.countDownBlock) {
-            self.countDownBlock(_countDownString);
-        }
-    }
 }
 @end

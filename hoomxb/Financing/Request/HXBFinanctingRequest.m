@@ -14,6 +14,13 @@
 #import "HXBFinHomePageModel_PlanList.h"//红利计划列表页的Model
 #import "HXBFinHomePageModel_LoanList.h"//散标列表的model
 
+
+//MARK: - 详情页
+#import "HXBFinancing_PlanDetaileAPI.h"//红利计划详情页
+#import "HXBFinDetailViewModel_PlanDetail.h"//红利计划详情的ViewModel
+#import "HXBFinDetailModel_PlanDetail.h"//红利计划详情页Model
+
+
 @interface HXBFinanctingRequest ()
 //红利计划列表的页数
 @property (nonatomic,assign) BOOL isUPRefresh_Plan;
@@ -28,6 +35,7 @@
 @end
 
 @implementation HXBFinanctingRequest
+
 - (instancetype)init {
     if (self = [super init]){
         self.planListViewModelArray = [[NSMutableArray alloc]init];
@@ -35,6 +43,16 @@
     }
     return self;
 }
+
++ (instancetype)sharedFinanctingRequest {
+    static dispatch_once_t onceToken;
+    static id _instanceType;
+    dispatch_once(&onceToken, ^{
+        _instanceType = [[self alloc]init];
+    });
+    return _instanceType;
+}
+
 
 #pragma mark - setter
 - (void)setIsUPRefresh_Plan:(BOOL)isUPRefresh_Plan {
@@ -142,4 +160,50 @@
         }
     }];
 }
+
+
+#pragma mark - 详情页 数据请求
+- (void)planDetaileWithSuccessBlock: (void(^)(NSArray<HXBFinDetailViewModel_PlanDetail *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
+    HXBFinancing_PlanDetaileAPI *planDetaileAPI = [[HXBFinancing_PlanDetaileAPI alloc]init];
+//     id requestArgument = @{
+//                                       @"version" : @"1.0",
+//                                       @"userId" : @"1",
+//                                       @"financePlanId" : @"1",
+//                                       @"platform" : @"IOS"
+//                                       };
+
+    
+    [planDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",request.requestArgument);
+        NSDictionary *planDetaileDic = [responseObject valueForKey:@"data"];
+        HXBFinDetailViewModel_PlanDetail *planDetaileViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
+        [planDetaileViewModel yy_modelSetWithDictionary:planDetaileDic];
+        NSLog(@"%@",planDetaileViewModel);
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (error && failureBlock) {
+            NSLog(@"✘红利计划详情 - 请求没有数据");
+            failureBlock(error);
+        }
+    }];
+    
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    NSDictionary *dic = @{@"Content-Type":@"application/x-www-form-urlencoded"};
+//    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+//    
+//    [manager POST:@"http://192.168.1.27:8070/financeplan/financeplandetail.action" parameters:requestArgument progress:^(NSProgress * _Nonnull uploadProgress) {
+//        
+//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        
+//    }];
+}
+
+- (void)loanDetaileWithSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
+    
+    
+}
+
+
+
 @end

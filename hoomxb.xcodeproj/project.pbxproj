@@ -63,6 +63,7 @@
 		E10E7DE71EAF65BA005FC2E3 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E7DE01EAF65BA005FC2E3 /* LoginModel.m */; };
 		E10E7DE81EAF65BA005FC2E3 /* HxbSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E7DE31EAF65BA005FC2E3 /* HxbSignInViewController.m */; };
 		E10E7DE91EAF65BA005FC2E3 /* HxbSignInViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E7DE61EAF65BA005FC2E3 /* HxbSignInViewModel.m */; };
+		E10F58E31EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E10F58E21EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.m */; };
 		E11A52331EB190670043F37D /* HXBBaseWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = E11A52321EB190670043F37D /* HXBBaseWaveView.m */; };
 		E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8191EA0CAB900DC71ED /* NSArray+HxbLog.m */; };
 		E122D84D1EA0CAB900DC71ED /* NSObject+Hxb.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D81B1EA0CAB900DC71ED /* NSObject+Hxb.m */; };
@@ -259,6 +260,8 @@
 		E10E7DE31EAF65BA005FC2E3 /* HxbSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbSignInViewController.m; sourceTree = "<group>"; };
 		E10E7DE51EAF65BA005FC2E3 /* HxbSignInViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbSignInViewModel.h; sourceTree = "<group>"; };
 		E10E7DE61EAF65BA005FC2E3 /* HxbSignInViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbSignInViewModel.m; sourceTree = "<group>"; };
+		E10F58E11EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancing_PlanDetaileAPI.h; sourceTree = "<group>"; };
+		E10F58E21EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancing_PlanDetaileAPI.m; sourceTree = "<group>"; };
 		E11A52311EB190670043F37D /* HXBBaseWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWaveView.h; sourceTree = "<group>"; };
 		E11A52321EB190670043F37D /* HXBBaseWaveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWaveView.m; sourceTree = "<group>"; };
 		E122D8181EA0CAB900DC71ED /* NSArray+HxbLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+HxbLog.h"; sourceTree = "<group>"; };
@@ -1249,6 +1252,8 @@
 		E1E4616C1EB9B448005B1FC6 /* Plan */ = {
 			isa = PBXGroup;
 			children = (
+				E10F58E11EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.h */,
+				E10F58E21EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.m */,
 				E14231661EBD803100E12C9D /* HXBFinancing_planListAPI.h */,
 				E14231671EBD803100E12C9D /* HXBFinancing_planListAPI.m */,
 				E1E4616D1EB9B448005B1FC6 /* PlanBuyConfirm.h */,
@@ -1548,6 +1553,7 @@
 				E10E7DE81EAF65BA005FC2E3 /* HxbSignInViewController.m in Sources */,
 				E122D84F1EA0CAB900DC71ED /* NSAttributedString+HxbAttributedString.m in Sources */,
 				E17262BF1EBB2B890064A25F /* HXBFinancing_PlanDetailsViewController.m in Sources */,
+				E10F58E31EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.m in Sources */,
 				E122D8521EA0CAB900DC71ED /* NSString+HxbHash.m in Sources */,
 				E1C964741EA5E04F0066DBC4 /* HXBBaseNavigationController.m in Sources */,
 				4E26E3B21EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m in Sources */,

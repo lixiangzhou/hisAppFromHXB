@@ -12,4 +12,7 @@
 - (void)setPlanDetailModel:(HXBFinDetailModel_PlanDetail *)planDetailModel {
     _planDetailModel = planDetailModel;
 }
+- (NSString *)description {
+    return [self yy_modelDescription];
+}
 @end

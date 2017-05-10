@@ -27,12 +27,16 @@
 @property(nonatomic,strong) dispatch_queue_t queue;
 ///用于对外刷新UI的接口
 @property(nonatomic,copy) void(^countdownDataFredbackWithBlock)();
-
+///每个model 的剩余时间属性改变的时候都会调用
+@property(nonatomic,copy) void (^changeModelBlock)(id model, NSIndexPath *index);
 //注意:此处应该使用强引用 strong
 @property (nonatomic,strong) dispatch_source_t timer;
 //记录了组数（暂时未用）
 @property (nonatomic,assign) int column;
+//记录需要倒计时的model
 @property (nonatomic,strong) NSMutableArray *countDownArray;
+//传入的model数组是否为二维数组
+@property (nonatomic,assign) BOOL isTwo_DimensionalArray;
 @end
 
 
@@ -167,40 +171,59 @@
         return;
     }
     [modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-        //如果依然是数组那么就在便利一次
+        //如果依然是数组那么就在遍历一次
         if ([[model class] isSubclassOfClass:NSClassFromString(@"NSArray")]) {
+            self.isTwo_DimensionalArray = true;
             self.column ++;
-            [self lookingForATimelyModelArray:model];
-        }
-        
-        //判断model中的关于时间类的类型
-        NSString *dateValue = [model valueForKey:self.modelDateKey];
-        
-        long long dateNumber = dateValue.longLongValue;
-       
-        //如果没有时间值
-        if (!dateNumber) return;
-        
-        //判断是否需要计算时间差
-        if (self.modelDateType == PYContDownManagerModelDateType_OriginalTime){
-            //时间差计算
-           dateNumber = [self computationTimeDifferenceWithDateNumber:dateNumber];
-        }
-        
-        //判断是否需要计时
-        if (dateNumber <= self.countdownStartTime && dateNumber >= 0) {
-            //添加到数组中
-            [self.countDownArray addObject:model];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [model setValue:@(dateNumber).description forKey:self.modelCountDownKey];
-                
-            });
+            NSArray *modelArray = model;
+            [modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+                [self enumerateWithModel:model andIndex:idx];
+            }];
         }else {
-            [self.countDownArray removeObject:model];
+            [self enumerateWithModel:model andIndex:idx];
         }
     }];
+}
+- (void)enumerateWithModel: (id)model andIndex: (NSUInteger) idx{
+    //判断model中的关于时间类的类型
+    NSString *dateValue = [model valueForKey:self.modelDateKey];
+    
+    long long dateNumber = dateValue.longLongValue;
+    
+    //如果没有时间值
+    if (!dateNumber) return;
+    
+    //判断是否需要计算时间差
+    if (self.modelDateType == PYContDownManagerModelDateType_OriginalTime){
+        //时间差计算
+        dateNumber = [self computationTimeDifferenceWithDateNumber:dateNumber];
+    }
+    
+    //判断是否需要计时
+    if (dateNumber <= self.countdownStartTime && dateNumber >= 0) {
+        //添加到数组中
+        [self.countDownArray addObject:model];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [model setValue:@(dateNumber).description forKey:self.modelCountDownKey];
+            if(self.changeModelBlock) {
+                //如果小于0，就是零，如果是
+                NSInteger section = self.column  < 0 ? 0 : self.column;
+                
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:section];
+                self.changeModelBlock(model,indexPath);
+            }
+        });
+    }else {
+        [self.countDownArray removeObject:model];
+    }
+
     //关掉定时器
     if (!self.countDownArray.count && self.isAutoEnd) [self cancelTimer];
+    
+    //如果是二维数组，并且到达最后了，就置为-1
+    if (self.isTwo_DimensionalArray && self.column >= self.modelArray.count) {
+        self.column = -1;
+    }
 }
 
 //MARK: 时间差的计算
@@ -218,15 +241,21 @@
     self.countdownDataFredbackWithBlock = countdownDataFredbackWithBlock;
 }
 
+//MARK: model改变的时候会调用
+- (void)countDownWithChangeModelBlock:(void (^)(id, NSIndexPath *))changeModelBlock {
+    self.changeModelBlock = changeModelBlock;
+}
 
 //MARK: 取消定时器
 - (void)cancelTimer {
     dispatch_cancel(self.timer);
+    self.column = -1;
     self.timer = nil;
 }
 //MARK: 开启定时器
 - (void)resumeTimer {
-    if (!self.timer) {
+    if (!self.timer){
+        self.column = -1;
         [self createTimer];
     }
 }

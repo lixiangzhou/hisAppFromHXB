@@ -193,7 +193,7 @@
         if (self.setUpItemSelectBarViewBlock) {
             self.setUpItemSelectBarViewBlock (button,barView);
         }
-        [optionItemInfoM arrayByAddingObject:button];
+        [optionItemInfoM addObject:button];
     }
     _optionItemInfo = optionItemInfoM.copy;
 }

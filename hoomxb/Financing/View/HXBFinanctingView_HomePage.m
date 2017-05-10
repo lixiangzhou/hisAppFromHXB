@@ -125,9 +125,11 @@
     
     
     self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 60 andCountDownUnit:1 andModelArray: self.finPlanListVMArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
-    
+    [self.contDwonManager countDownWithChangeModelBlock:^(id model, NSIndexPath *index) {
+        [self.planListTableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
+    }];
     //要与服务器时间想比较
-//    self.contDwonManager.clientTime = [HXBDate]
+//    self.contDwonManager.clientTime = [HXBDate       ]
     self.contDwonManager.isAutoEnd = true;
     //开启定时器
     [self.contDwonManager resumeTimer];
@@ -200,7 +202,14 @@
     [self.scrollToolBarView midToolBarViewClickWithBlock:^(NSInteger index, NSString *title, UIButton *option) {
         if (weakSelf.midToolBarViewClickWithBlock){
             weakSelf.midToolBarViewClickWithBlock(index,title,option);
+            NSLog(@"%@",title);
         }
     }];
+}
+
+// 刷新UI
+- (void)loadData {
+    [self.loanListTableView reloadData];
+    [self.planListTableView reloadData];
 }
 @end

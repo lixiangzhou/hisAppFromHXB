@@ -40,7 +40,9 @@ static NSString *CELLID = @"CELLID";
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinDetail_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
+    cell.contentView.backgroundColor = [UIColor hxb_randomColor];
     cell.model = self.tableViewCellModelArray[indexPath.row];
+    cell.textLabel.text = @(indexPath.row).description;
     return cell;
 }
 @end
@@ -66,14 +68,14 @@ static NSString *CELLID = @"CELLID";
     self.iconImageView = [[UIImageView alloc]init];
     
     [self.contentView addSubview:self.optionLabel];
-    [self.contentView addSubview:self.optionLabel];
+    [self.contentView addSubview:self.iconImageView];
     
     [self.optionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf.contentView);
+        make.centerY.equalTo(weakSelf.contentView);
         make.left.equalTo(weakSelf.contentView).offset(20);
     }];
     [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf.contentView);
+        make.centerY.equalTo(weakSelf.contentView);
         make.left.equalTo(weakSelf.contentView).offset(10);
         make.height.width.equalTo(@10);
     }];

@@ -8,6 +8,7 @@
 
 #import "HXBFin_DetailsViewBase.h"
 
+///红利计划详情页的主视图
 @interface HXBFin_DetailsView_PlanDetailsView : HXBFin_DetailsViewBase
 
 @end
