@@ -18,4 +18,7 @@
 
 ///底部的tableView的模型数组
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*modelArray;
+
+///loanID
+@property (nonatomic,copy) NSString *loanID;
 @end

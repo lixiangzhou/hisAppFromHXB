@@ -172,7 +172,7 @@
      planDetaileAPI.requestArgument = @{
                                        @"version" : @"1.0",
                                        @"userId" : @"1",
-                                       @"financePlanId" : @"1",
+                                       @"financePlanId" : financePlanId,
                                        @"platform" : @"IOS"
                                        };
 
@@ -208,10 +208,10 @@
 //    }];
 }
 
-- (void)loanDetaileWithLoanID: (NSString *)financeLoanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_PlanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
+- (void)loanDetaileWithLoanID: (NSString *)financeLoanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
     HXBFinancing_LoanDetileAPI *loanDetaileAPI = [[HXBFinancing_LoanDetileAPI alloc]init];
     loanDetaileAPI.requestArgument = @{
-                                       @"loanId" : @"761064",
+                                       @"loanId" : financeLoanId,
                                        @"start" : @"0",
                                        @"num" : @"10",
                                        @"order" : @"AMOUNT",
