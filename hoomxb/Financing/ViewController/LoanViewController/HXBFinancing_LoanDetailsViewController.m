@@ -74,7 +74,7 @@
 
 //MARK: 网络数据请求
 - (void)downLoadData {
-    [[HXBFinanctingRequest sharedFinanctingRequest] loanDetaileWithSuccessBlock:^(HXBFinDetailViewModel_LoanDetail *viewModel) {
+    [[HXBFinanctingRequest sharedFinanctingRequest] loanDetaileWithLoanID:self.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanDetail *viewModel) {
         self.loanDetailsView.loanDetailViewModel = viewModel;
         self.loanDetailsView.modelArray = self.tableViewModelArray;
     } andFailureBlock:^(NSError *error) {

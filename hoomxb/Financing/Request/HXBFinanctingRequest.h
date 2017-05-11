@@ -37,7 +37,7 @@
 ///红利计划-数据请求- 详情页
 - (void)planDetaileWithPlanID: (NSString *)financePlanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_PlanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 ///散标- 数据请求- 详情页
-- (void)loanDetaileWithSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail * viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)loanDetaileWithLoanID: (NSString *)financeLoanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end
 
 
