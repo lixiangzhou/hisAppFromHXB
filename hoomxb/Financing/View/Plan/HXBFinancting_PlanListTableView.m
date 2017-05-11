@@ -8,7 +8,7 @@
 
 #import "HXBFinancting_PlanListTableView.h"
 #import "HXBFinancting_PlanListTableViewCell.h"
-
+#import "HXBFinHomePageViewModel_PlanList.h"//viewmodel
 
 @interface HXBFinancting_PlanListTableView ()
 <
@@ -20,7 +20,16 @@ UITableViewDataSource
 
 @implementation HXBFinancting_PlanListTableView
 
+
+
 static NSString *CELLID = @"CELLID";
+
+
+- (void)setPlanListViewModelArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)planListViewModelArray {
+    _planListViewModelArray = planListViewModelArray;
+    [self reloadData];
+}
+
 
 - (instancetype) initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
@@ -43,14 +52,15 @@ static NSString *CELLID = @"CELLID";
 #pragma mark - datesource
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 20;
+//    return 20;
     return self.planListViewModelArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
-//    cell.backgroundColor = [UIColor brownColor];
-//    cell.textLabel.text = @(indexPath.row).description;
+    cell.finPlanListViewModel = self.planListViewModelArray[indexPath.row];
+    cell.lockPeriodLabel_ConstStr = self.lockPeriodLabel_ConstStr;
+    cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;
     return cell;
 }
 

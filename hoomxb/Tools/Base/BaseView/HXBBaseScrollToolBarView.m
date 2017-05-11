@@ -264,6 +264,12 @@
                 UIScrollView *scrollView = (UIScrollView *)self.bottomViewSet[index];
                 self.offsetY = self.contentOffset.y - scrollView.contentOffset.y;
             }
+            //如果点击事件回调被实现，那么执行外部的回调事件
+            if (self.clickMidToolBarViewBlock) {
+                UIButton *option = self.midToolBarView.optionItemInfo[index];
+                NSString *title = self.midToolBarView.optionStrArray[index];
+                self.clickMidToolBarViewBlock(index, title, option);
+            }
         }
     }
 }

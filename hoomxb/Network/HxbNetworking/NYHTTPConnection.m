@@ -41,7 +41,7 @@
 
 @property (strong, nonatomic) NSMutableDictionary<NSNumber *, NSURLSessionTask *> *dispatchTable;
 
-@property (nonatomic, strong) HxbHTTPSessionManager *manager;
+//@property (nonatomic, strong) HxbHTTPSessionManager *manager;
 @end
 
 @implementation NYHTTPConnection
@@ -73,31 +73,31 @@
     self.success = success;
     self.failture = failure;
     
-    _manager = [HxbHTTPSessionManager manager];
+    HxbHTTPSessionManager *manager = [HxbHTTPSessionManager manager];
 //-------------------------------------------request----------------------------------------
-    if (request.requestSerializerType == NYRequestSerializerTypeHTTP) {
-        _manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    }else if (request.requestSerializerType == NYRequestSerializerTypeJson){
-        _manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    }
-    
-    _manager.requestSerializer.timeoutInterval = request.timeoutInterval ?: Config.defaultTimeOutInterval ?: 30;
+//    if (request.requestSerializerType == NYRequestSerializerTypeHTTP) {
+//        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+//    }else if (request.requestSerializerType == NYRequestSerializerTypeJson){
+//        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    }
+
+    manager.requestSerializer.timeoutInterval = request.timeoutInterval ?: Config.defaultTimeOutInterval ?: 30;
     
     NSDictionary *headers = [self headerFieldsValueWithRequest:request];
-      [_manager.requestSerializer setHTTPShouldHandleCookies:NO];
+      [manager.requestSerializer setHTTPShouldHandleCookies:NO];
     
     [headers enumerateKeysAndObjectsUsingBlock:^(id field, id value, BOOL * __unused stop) {
-        [_manager.requestSerializer setValue:value forHTTPHeaderField:field];
+        [manager.requestSerializer setValue:value forHTTPHeaderField:field];
     }];
     
 //--------------------------------------------response----------------------------------------
     if (request.responseSerializerType == NYResponseSerializerTypeHTTP) {
-        _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     }else if (request.responseSerializerType == NYResponseSerializerTypeJson){
-        _manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
     }
-    _manager.responseSerializer.acceptableStatusCodes = Config.defaultAcceptableStatusCodes;
-    _manager.responseSerializer.acceptableContentTypes = Config.defaultAcceptableContentTypes;
+    manager.responseSerializer.acceptableStatusCodes = Config.defaultAcceptableStatusCodes;
+    manager.responseSerializer.acceptableContentTypes = Config.defaultAcceptableContentTypes;
     
     NSString *urlString = @"";
     if (request.baseUrl.length) {
@@ -122,7 +122,7 @@
 //    if ([KeyChain token].length == 0) {
 //         [self getToken];
 //    }
-            task = [_manager GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            task = [manager GET:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 
                 [self requestHandleSuccess:request responseObject:responseObject];
                 [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
@@ -150,7 +150,8 @@
             break;
         case NYRequestMethodPost:
         {
-            task = [_manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//            HxbHTTPSessionManager *manager = [HxbHTTPSessionManager manager];
+            task = [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 [self requestHandleSuccess:request responseObject:responseObject];
                 [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -161,7 +162,7 @@
             break;
         case NYRequestMethodPut:
         {
-            task = [_manager PUT:urlString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            task = [manager PUT:urlString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 [self requestHandleSuccess:request responseObject:responseObject];
                 [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -172,7 +173,7 @@
             break;
         case NYRequestMethodDelete:
         {
-            task = [_manager DELETE:urlString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            task = [manager DELETE:urlString parameters:parameters success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 [self requestHandleSuccess:request responseObject:responseObject];
                 [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -191,22 +192,22 @@
     request.connection = self;
 }
 
-- (void)getToken{
-     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-    NSString *tokenURL = [NSString stringWithFormat:@"%@%@",BASEURL,TOKENURL];
-    
-    [_manager GET:tokenURL parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"😝😝😝😝😝%@",responseObject);
-        NSDictionary *dic = [responseObject objectForKey:@"data"];
-        tokenModel *model = [tokenModel yy_modelWithJSON:dic];
-        NSLog(@"😝😝😝😝😝%@",model.token);
-        [KeyChain setToken:model.token];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"😱😱😱😱😱%@",error);
-    }];
-    });
-}
+//- (void)getToken{
+//     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+//    NSString *tokenURL = [NSString stringWithFormat:@"%@%@",BASEURL,TOKENURL];
+//    
+//    [_manager GET:tokenURL parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//        NSLog(@"😝😝😝😝😝%@",responseObject);
+//        NSDictionary *dic = [responseObject objectForKey:@"data"];
+//        tokenModel *model = [tokenModel yy_modelWithJSON:dic];
+//        NSLog(@"😝😝😝😝😝%@",model.token);
+//        [KeyChain setToken:model.token];
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"😱😱😱😱😱%@",error);
+//    }];
+//    });
+//}
 
 - (void)requestHandleSuccess:(NYBaseRequest *)request responseObject:(id)object
 {

@@ -20,4 +20,12 @@
     ///
     /// @return 属性文本
 + (instancetype)hxb_imageTextWithImage:(UIImage *)image imageWH:(CGFloat)imageWH title:(NSString *)title fontSize:(CGFloat)fontSize titleColor:(UIColor *)titleColor spacing:(CGFloat)spacing;
+
+/**
+ * 关于改变某段字的颜色与大小
+ * @param range 范围
+ * @param color 范围内的颜色
+ * @param font 范围内的字体
+ */
++ (NSMutableAttributedString *)setupAttributeStringWithString:(NSString *)string WithRange: (NSRange)range andAttributeColor: (UIColor *)color andAttributeFont: (UIFont *)font;
 @end

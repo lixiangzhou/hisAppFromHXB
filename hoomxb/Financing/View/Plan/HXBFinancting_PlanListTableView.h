@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class HXBFinancting_PlanListTableView;
+@class HXBFinHomePageViewModel_PlanList;
 @interface HXBFinancting_PlanListTableView : HXBBaseTableView
-@property (nonatomic,strong) NSArray <HXBFinancting_PlanListTableView *>* planListViewModelArray;
+@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList *>* planListViewModelArray;
 @property (nonatomic,copy) void (^clickPlanListCellBlock)(NSIndexPath *index, id model);
+///年利率文字
+@property (nonatomic,strong) NSString *expectedYearRateLable_ConstStr;
+///期限
+@property (nonatomic,strong) NSString *lockPeriodLabel_ConstStr;
 @end
