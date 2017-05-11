@@ -76,7 +76,7 @@
     HxbHTTPSessionManager *manager = [HxbHTTPSessionManager manager];
 //-------------------------------------------request----------------------------------------
 //    if (request.requestSerializerType == NYRequestSerializerTypeHTTP) {
-//        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        manager.requestSerializer = [AFHTTPRequestSerializer serializer];
 //    }else if (request.requestSerializerType == NYRequestSerializerTypeJson){
 //        manager.requestSerializer = [AFJSONRequestSerializer serializer];
 //    }

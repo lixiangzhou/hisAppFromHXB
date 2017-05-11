@@ -11,6 +11,8 @@
 #import "HXBFin_DetailsView_LoanDetailsView.h"
 #import "HXBFinanctingRequest.h"
 #import "HXBFinDetailViewModel_LoanDetail.h"
+#import "HXBFinHomePageViewModel_LoanList.h"
+#import "HXBFinHomePageModel_LoanList.h"
 //#import "HXBFinDetailView"
 
 @interface HXBFinancing_LoanDetailsViewController ()
@@ -25,6 +27,19 @@
 @end
 
 @implementation HXBFinancing_LoanDetailsViewController
+
+- (void)loadView {
+    [super loadView];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    return;
+}
+
+- (void)setLoanListViewMode:(HXBFinHomePageViewModel_LoanList *)loanListViewMode {
+    _loanListViewMode = loanListViewMode;
+    //标题
+    self.title = self.loanListViewMode.loanListModel.title;
+    self.loanID = self.loanListViewMode.loanListModel.loanId;
+}
 ///给self. tableViewarray赋值
 - (void) setupTableViewArray {
     self.tableViewImageArray = @[
@@ -67,7 +82,15 @@
     //是否为计划界面
     self.loanDetailsView.isPlan = false;
     self.loanDetailsView.isFlowChart = true;
+    
+    [self.loanDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
+       //跳转相应的页面
+        NSLog(@"%@",model.optionTitle);
+        
+        
+    }];
     [self downLoadData];
+    
     //    [self.planDetailsView show];
     
 }
@@ -86,7 +109,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 @end

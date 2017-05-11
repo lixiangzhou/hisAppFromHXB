@@ -12,6 +12,8 @@
 #import "HXBFinanctingRequest.h"//请求类
 #import "HXBFinDetailViewModel_PlanDetail.h"//红利计划详情页Viewmodel
 #import "HXBFinDetail_TableView.h"//详情页tableView的model
+#import "HXBFinHomePageViewModel_PlanList.h"
+#import "HXBFinHomePageModel_PlanList.h"
 @interface HXBFinancing_PlanDetailsViewController ()
 @property(nonatomic,strong) HXBFin_DetailsView_PlanDetailsView *planDetailsView;
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewModelArray;
@@ -22,6 +24,18 @@
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
+- (void)loadView {
+    [super loadView];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    return;
+}
+
+- (void)setPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)planListViewModel {
+    _planListViewModel = planListViewModel;
+    self.planID = planListViewModel.planListModel.ID;
+    
+}
+
 - (void) setupTableViewArray {
     self.tableViewImageArray = @[
                                  @"1",
@@ -62,6 +76,11 @@
     //是否为计划界面
     _planDetailsView.isPlan = true;
     _planDetailsView.isFlowChart = true;
+    
+    [self.planDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
+        //跳转相应的页面
+        NSLog(@"%@",model.optionTitle);
+    }];
      [self downLoadData];
 //    [self.planDetailsView show];
    
@@ -80,7 +99,5 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
-
 
 @end

@@ -10,6 +10,8 @@
 
 #import "HXBFinancting_PlanListTableViewCell.h"
 #import "HXBFinHomePageViewModel_LoanList.h"
+#import "HXBFinHomePageViewModel_LoanList.h"
+
 
 @interface HXBFinancting_LoanListTableView ()
 <
@@ -65,10 +67,11 @@ static NSString *CELLID = @"CELLID";
 #pragma mark - delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     //拿到cell的model
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    HXBFinancting_PlanListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+  
     //点击后的block回调给了HomePageView
     if (self.clickLoanListCellBlock) {
-        self.clickLoanListCellBlock(indexPath, nil);
+        self.clickLoanListCellBlock(indexPath, cell.loanListViewModel);
     }
 }
 

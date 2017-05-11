@@ -25,5 +25,6 @@
 @property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planDetailViewModel;
 ///散标的ViewModel
 @property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanDetailViewModel;
-
+///点击了 详情页底部的tableView的cell
+- (void)clickBottomTableViewCellBloakFunc: (void(^)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model))clickBottomTabelViewCellBlock;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "HXBFinancing_LoanDetileAPI.h"
-///192.168.1.21:8070/lend/loanlenderallrecord
+///192.168.1.21:8070/lend/loandetail
 @implementation HXBFinancing_LoanDetileAPI
 - (id)init
 {
@@ -18,15 +18,17 @@
 }
 
 - (NSString *)requestUrl {
-    return @"/lend/loanlenderallrecord";
+    return @"/lend/loandetail";
 }
 
 - (NYRequestMethod)requestMethod {
     return NYRequestMethodPost;
 }
-
-- (id)requestArgument {
-    return @{
-             };
-}
+//
+//- (id)requestArgument {
+//    return @{
+//             @"loanId" : @"761133",
+//             @"version" : @"1.0"
+//             };
+//}
 @end

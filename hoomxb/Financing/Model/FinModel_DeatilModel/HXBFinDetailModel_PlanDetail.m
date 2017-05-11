@@ -16,6 +16,6 @@
 
 @implementation HXBFinDetailModel_PlanDetail_DataList
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"id" : @"ID"};
+    return @{@"ID" : @"id"};
 }
 @end

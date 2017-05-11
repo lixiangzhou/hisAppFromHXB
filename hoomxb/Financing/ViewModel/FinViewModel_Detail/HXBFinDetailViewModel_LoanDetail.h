@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HXBFinDetailModel_LoanDetail;
+@class HXBFinDatailModel_LoanDetail;
 @interface HXBFinDetailViewModel_LoanDetail : NSObject
-@property (nonatomic,strong) HXBFinDetailModel_LoanDetail *loanDetailModel;
+@property (nonatomic,strong) HXBFinDatailModel_LoanDetail *loanDetailModel;
 @end

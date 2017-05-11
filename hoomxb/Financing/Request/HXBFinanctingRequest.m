@@ -22,7 +22,7 @@
 
 #import "HXBFinancing_LoanDetileAPI.h"//散标详情API
 #import "HXBFinDetailViewModel_LoanDetail.h"//散标详情ViewModel
-#import "HXBFinDetailModel_LoanDetail.h"//散标Model
+#import "HXBFinDatailModel_LoanDetail.h"//散标Model
 
 
 @interface HXBFinanctingRequest ()
@@ -124,7 +124,7 @@
 //MARK: 散标列表api
 - (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
     self.isUPRefresh_Loan = isUPData;
-    HXBFinancing_LoanDetileAPI *loanListAPI = [[HXBFinancing_LoanDetileAPI alloc]init];
+    HXBFinancing_LoanListAPI *loanListAPI = [[HXBFinancing_LoanListAPI alloc]init];
     loanListAPI.requestArgument = @{
                                        @"version" : @"1.0",
                                        @"userId" : @"1",
@@ -211,17 +211,15 @@
 - (void)loanDetaileWithLoanID: (NSString *)financeLoanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
     HXBFinancing_LoanDetileAPI *loanDetaileAPI = [[HXBFinancing_LoanDetileAPI alloc]init];
     loanDetaileAPI.requestArgument = @{
-                                       @"loanId" : financeLoanId,
-                                       @"start" : @"0",
-                                       @"num" : @"10",
-                                       @"order" : @"AMOUNT",
+                                       @"loanId" : @"761133",
                                        @"version" : @"1.0"
                                        };
+    loanDetaileAPI.requestArgument;
     
     [loanDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",request.requestArgument);
         NSDictionary *planDetaileDic = [responseObject valueForKey:@"data"];
-        HXBFinDetailModel_LoanDetail *loanDetaileModel = [[HXBFinDetailModel_LoanDetail alloc]init];
+        HXBFinDatailModel_LoanDetail *loanDetaileModel = [[HXBFinDatailModel_LoanDetail alloc]init];
         [loanDetaileModel yy_modelSetWithDictionary:planDetaileDic];
         NSLog(@"%@", loanDetaileModel);
         HXBFinDetailViewModel_LoanDetail *loanDetailViewModel = [[HXBFinDetailViewModel_LoanDetail alloc]init];
