@@ -42,6 +42,7 @@ fprintf(stderr, "-------------------\n");   \
 #import "HxbFileManager.h"
 #import "UserDefaultManage.h"
 #import "HxbBase.h"
+#import "MacroDefinition.h"
 
 #import "HxbThirdTools.h"
 #import "HxbCategorys.h"

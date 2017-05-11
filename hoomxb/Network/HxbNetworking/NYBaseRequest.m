@@ -28,7 +28,7 @@
 
 - (NSDictionary *)requestArgument{
     return @{};
-}
+} 
 
 - (NSDictionary *)requestHeaderFieldValueDictionary{
     return @{};
