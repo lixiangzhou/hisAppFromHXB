@@ -70,7 +70,7 @@
 }
 - (void)setLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)loanDetailViewModel{
     _loanDetailViewModel = loanDetailViewModel;
-    self.startInvestmentStr = [NSString stringWithFormat:@"%@",loanDetailViewModel.loanDetailModel.];
+//    self.startInvestmentStr = [NSString stringWithFormat:@"%@",loanDetailViewModel.loanDetailModel.];
     self.totalInterestStr_const = @"预期年利率";
     self.remainAmount_const = @"剩余可投";
     self.startInvestmentStr_const = @"起投";
