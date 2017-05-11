@@ -7,9 +7,9 @@
 //
 
 #import "HXBFinDetailViewModel_LoanDetail.h"
-#import "HXBFinDetailModel_LoanDetail.h"
+#import "HXBFinDatailModel_LoanDetail.h"
 @implementation HXBFinDetailViewModel_LoanDetail
-- (void)setLoanDetailModel:(HXBFinDetailModel_LoanDetail *)loanDetailModel {
+- (void)setLoanDetailModel:(HXBFinDatailModel_LoanDetail *)loanDetailModel {
     _loanDetailModel = loanDetailModel;
 }
 @end

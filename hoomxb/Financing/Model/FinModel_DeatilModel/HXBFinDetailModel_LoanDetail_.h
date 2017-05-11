@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 ///散标详情Model
-@interface HXBFinDetailModel_LoanDetail : NSObject
+@interface HXBFinDetailModel_LoanDetail_ : NSObject
 @property (nonatomic,copy) NSString *joinCount;
 @property (nonatomic,copy) NSString *loanLenderRecord_list;
 @property (nonatomic,copy) NSString *myJoinCount;

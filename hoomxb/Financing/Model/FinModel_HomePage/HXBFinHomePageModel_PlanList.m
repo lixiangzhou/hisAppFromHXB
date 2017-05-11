@@ -10,6 +10,6 @@
 
 @implementation HXBFinHomePageModel_PlanList
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"id" : @"ID"};
+    return @{@"ID" : @"id"};
 }
 @end
