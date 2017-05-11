@@ -10,7 +10,7 @@
 
 @implementation HXBFinDetailModel_PlanDetail;
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{@"planDatail_dataList":[HXBFinDetailModel_PlanDetail_DataList class]};
+    return @{@"dataList":[HXBFinDetailModel_PlanDetail_DataList class]};
 }
 @end
 

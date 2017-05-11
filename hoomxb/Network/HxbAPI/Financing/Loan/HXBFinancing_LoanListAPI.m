@@ -9,7 +9,7 @@
 #import "HXBFinancing_LoanListAPI.h"
 
 @implementation HXBFinancing_LoanListAPI
-//http://192.168.1.21:8070/financeplanlend/loanindex POST   散标list、
+//192.168.1.21:3000/lend/loanindex 散标列表 POST   散标list、
 
 - (id)init
 {
@@ -20,7 +20,7 @@
 }
 
 - (NSString *)requestUrl {
-    return @"/financeplanlend/loanindex";
+    return @"/lend/loanindex";
 }
 
 - (NYRequestMethod)requestMethod {

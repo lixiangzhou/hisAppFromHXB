@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class HXBFinDetail_TableViewCellModel;
 
+
+///散标详情页的控制器
 @interface HXBFinancing_LoanDetailsViewController : HXBBaseViewController
 
+///剩余可投是否分为左右两个
+@property (nonatomic,assign) BOOL isFlowChart;
+
+///底部的tableView的模型数组
+@property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*modelArray;
 @end

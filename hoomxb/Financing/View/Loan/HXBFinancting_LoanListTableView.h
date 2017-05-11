@@ -15,6 +15,6 @@
 @property (nonatomic,strong) NSString *expectedYearRateLable_ConstStr;
 ///期限
 @property (nonatomic,strong) NSString *lockPeriodLabel_ConstStr;
-
+///数据源
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList *>*loanListViewModelArray;
 @end

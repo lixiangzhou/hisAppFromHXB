@@ -9,7 +9,7 @@
 #import "HXBFinanctingRequest.h"
 #import "HXBFinHomePageViewModel_PlanList.h"//红利计划的的ViewModel
 #import "HXBFinHomePageViewModel_LoanList.h"//散标列表的ViewModel
-#import "LoanListAPI.h"//散标列表api
+#import "HXBFinancing_LoanListAPI.h"//散标列表api
 #import "HXBFinancing_planListAPI.h"//红利计划列表api
 #import "HXBFinHomePageModel_PlanList.h"//红利计划列表页的Model
 #import "HXBFinHomePageModel_LoanList.h"//散标列表的model
@@ -19,6 +19,10 @@
 #import "HXBFinancing_PlanDetaileAPI.h"//红利计划详情页
 #import "HXBFinDetailViewModel_PlanDetail.h"//红利计划详情的ViewModel
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划详情页Model
+
+#import "HXBFinancing_LoanDetileAPI.h"//散标详情API
+#import "HXBFinDetailViewModel_LoanDetail.h"//散标详情ViewModel
+#import "HXBFinDetailModel_LoanDetail.h"//散标Model
 
 
 @interface HXBFinanctingRequest ()
@@ -120,7 +124,7 @@
 //MARK: 散标列表api
 - (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
     self.isUPRefresh_Loan = isUPData;
-    LoanListAPI *loanListAPI = [[LoanListAPI alloc]init];
+    HXBFinancing_LoanDetileAPI *loanListAPI = [[HXBFinancing_LoanDetileAPI alloc]init];
     loanListAPI.requestArgument = @{
                                        @"version" : @"1.0",
                                        @"userId" : @"1",
@@ -163,22 +167,27 @@
 
 
 #pragma mark - 详情页 数据请求
-- (void)planDetaileWithSuccessBlock: (void(^)(NSArray<HXBFinDetailViewModel_PlanDetail *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
+- (void)planDetaileWithPlanID: (NSString *)financePlanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_PlanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
     HXBFinancing_PlanDetaileAPI *planDetaileAPI = [[HXBFinancing_PlanDetaileAPI alloc]init];
-//     id requestArgument = @{
-//                                       @"version" : @"1.0",
-//                                       @"userId" : @"1",
-//                                       @"financePlanId" : @"1",
-//                                       @"platform" : @"IOS"
-//                                       };
+     planDetaileAPI.requestArgument = @{
+                                       @"version" : @"1.0",
+                                       @"userId" : @"1",
+                                       @"financePlanId" : @"1",
+                                       @"platform" : @"IOS"
+                                       };
 
     
     [planDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",request.requestArgument);
         NSDictionary *planDetaileDic = [responseObject valueForKey:@"data"];
-        HXBFinDetailViewModel_PlanDetail *planDetaileViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
-        [planDetaileViewModel yy_modelSetWithDictionary:planDetaileDic];
-        NSLog(@"%@",planDetaileViewModel);
+        HXBFinDetailModel_PlanDetail *planDetaileModel = [[HXBFinDetailModel_PlanDetail alloc]init];
+        [planDetaileModel yy_modelSetWithDictionary:planDetaileDic];
+        NSLog(@"%@",planDetaileModel);
+        HXBFinDetailViewModel_PlanDetail *planDetailViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
+        planDetailViewModel.planDetailModel = planDetaileModel;
+        if (successDateBlock) {
+            successDateBlock(planDetailViewModel);
+        }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (error && failureBlock) {
             NSLog(@"✘红利计划详情 - 请求没有数据");
@@ -199,8 +208,33 @@
 //    }];
 }
 
-- (void)loanDetaileWithSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
+- (void)loanDetaileWithLoanID: (NSString *)financeLoanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_PlanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
+    HXBFinancing_LoanDetileAPI *loanDetaileAPI = [[HXBFinancing_LoanDetileAPI alloc]init];
+    loanDetaileAPI.requestArgument = @{
+                                       @"loanId" : @"761064",
+                                       @"start" : @"0",
+                                       @"num" : @"10",
+                                       @"order" : @"AMOUNT",
+                                       @"version" : @"1.0"
+                                       };
     
+    [loanDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",request.requestArgument);
+        NSDictionary *planDetaileDic = [responseObject valueForKey:@"data"];
+        HXBFinDetailModel_LoanDetail *loanDetaileModel = [[HXBFinDetailModel_LoanDetail alloc]init];
+        [loanDetaileModel yy_modelSetWithDictionary:planDetaileDic];
+        NSLog(@"%@", loanDetaileModel);
+        HXBFinDetailViewModel_LoanDetail *loanDetailViewModel = [[HXBFinDetailViewModel_LoanDetail alloc]init];
+        loanDetailViewModel.loanDetailModel = loanDetaileModel;
+        if (successDateBlock) {
+            successDateBlock(loanDetailViewModel);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (error && failureBlock) {
+            NSLog(@"✘红利计划详情 - 请求没有数据");
+            failureBlock(error);
+        }
+    }];
     
 }
 

@@ -16,8 +16,8 @@
 UITableViewDelegate,
 UITableViewDataSource
 >
-
 @end
+
 
 @implementation HXBFinancting_LoanListTableView
 

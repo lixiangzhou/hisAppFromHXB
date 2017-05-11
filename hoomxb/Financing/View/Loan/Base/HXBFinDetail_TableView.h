@@ -10,6 +10,8 @@
 
 
 @interface HXBFinDetail_TableViewCellModel: NSObject
++ (instancetype)finDetail_TableViewCellModelWithImageName: (NSString *)imageName andOptionIitle: (NSString *)optionTitle;
+- (instancetype)initWithImageName: (NSString *)imageName andOptionIitle: (NSString *)optionTitle;
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic,copy) NSString *optionTitle;
 @end

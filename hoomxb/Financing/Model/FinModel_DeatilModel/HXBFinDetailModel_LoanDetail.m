@@ -9,5 +9,11 @@
 #import "HXBFinDetailModel_LoanDetail.h"
 
 @implementation HXBFinDetailModel_LoanDetail
++ (NSDictionary *)modelContainerPropertyGenericClass {
+    return @{@"loanLenderRecord_list":[HXBFinDetailModel_LoanDetail_loanLenderRecord_list class]};
+}
+@end
+
+@implementation HXBFinDetailModel_LoanDetail_loanLenderRecord_list
 
 @end

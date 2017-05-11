@@ -21,7 +21,6 @@
    
     void (^authFailBlock)(NSURLResponse *response, id _Nullable responseObject,  NSError * _Nullable error) = ^(NSURLResponse *response, id _Nullable responseObject,  NSError * _Nullable error)
     {
-        NSLog(@"%@",responseObject);
         NSLog(@"error %@",error);
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
         if([httpResponse statusCode] == 401){

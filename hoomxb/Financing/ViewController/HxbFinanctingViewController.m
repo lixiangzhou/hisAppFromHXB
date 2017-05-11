@@ -187,11 +187,11 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    [self.homePageView.contDwonManager cancelTimer];
+//    [self.homePageView.contDwonManager cancelTimer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.homePageView.contDwonManager resumeTimer];
+//    [self.homePageView.contDwonManager resumeTimer];
     [self.homePageView loadData];
 }
 @end

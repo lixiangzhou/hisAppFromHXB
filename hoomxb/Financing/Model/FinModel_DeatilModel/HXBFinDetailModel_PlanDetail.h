@@ -50,7 +50,7 @@
 @property (nonatomic,copy) NSString *finishRatio;
 
 ///红利计划详情页的数据数组
-@property (nonatomic,strong) NSArray <HXBFinDetailModel_PlanDetail_DataList *>*planDatail_dataList;
+@property (nonatomic,strong) NSArray <HXBFinDetailModel_PlanDetail_DataList *>*dataList;
 @end
 
 
@@ -61,6 +61,8 @@
 @property (nonatomic,copy) NSString *rsvCount;
 ///优惠券加息利率
 @property (nonatomic,copy) NSString *couponInterestRate;
+///剩余金额
+@property (nonatomic,copy) NSString *remainAmount;
 ///介绍说明
 @property (nonatomic,copy) NSString *introduce;
 ///MobileUplanFullStatusTransfer
@@ -71,10 +73,16 @@
 @property (nonatomic,copy) NSString *lockPeriodStr;
 ///锁定期结束时间(退出时间)
 @property (nonatomic,copy) NSString *endLockingTime;
+///参与U计划的费率
+@property (nonatomic,copy) NSString *buyInRate;
+///总金额
+@property (nonatomic,copy) NSString *amount;
+
+@property (nonatomic,copy) NSString *ID;
 ///
 @property (nonatomic,copy) NSString *financeStatus;
-///
-@property (nonatomic,copy) NSString *ID;
+///已赚总利息
+@property (nonatomic,copy) NSString *earnInterest;
 ///本期加息利率
 @property (nonatomic,copy) NSString *extraInterestRate;
 ///提前退出U计划的费率

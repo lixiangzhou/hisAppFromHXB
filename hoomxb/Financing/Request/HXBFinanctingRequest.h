@@ -11,7 +11,7 @@
 @class HXBFinHomePageViewModel_PlanList;
 @class HXBFinHomePageViewModel_LoanList;
 @class HXBFinDetailViewModel_PlanDetail;
-
+@class HXBFinDetailViewModel_LoanDetail;
 
 ///理财界面的所有网络请求页全部都在这里了
 @interface HXBFinanctingRequest : NSObject
@@ -35,9 +35,9 @@
 
 #pragma mark - 理财二级界面 - 详情界面的数据请求
 ///红利计划-数据请求- 详情页
-- (void)planDetaileWithSuccessBlock: (void(^)(NSArray<HXBFinDetailViewModel_PlanDetail *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)planDetaileWithPlanID: (NSString *)financePlanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_PlanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 ///散标- 数据请求- 详情页
-
+- (void)loanDetaileWithSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail * viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end
 
 
