@@ -23,4 +23,5 @@
 
 + (BOOL)isIncludeSpecialCharact: (NSString *)str;
 
++ (BOOL)validateIDCardNumber:(NSString *)identityCard;
 @end

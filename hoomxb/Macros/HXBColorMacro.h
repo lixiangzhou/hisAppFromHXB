@@ -9,6 +9,10 @@
 #ifndef HXBColorMacro_h
 #define HXBColorMacro_h
 
+/**
+ *  返回一个RGBA格式的UIColor对象
+ */
+#define RGBA(r, g, b, a) [UIColor colorWithRed:r/255.0f green:g/255.0f blue:b/255.0f alpha:a]
 
 // 色值库
 

@@ -10,11 +10,12 @@
 #import "HxbMyViewHeaderView.h"
 #import "AppDelegate.h"
 #import "HxbMyViewController.h"
-
+#import "HxbMyPlanViewController.h"
 @interface HxbMyView ()
 <
 UITableViewDelegate,
-UITableViewDataSource
+UITableViewDataSource,
+MyViewHeaderDelegate
 >
 @property (nonatomic, strong) UITableView *mainTableView;
 @property (nonatomic, strong) HxbMyViewHeaderView *headerView;
@@ -33,6 +34,20 @@ UITableViewDataSource
     return self;
 }
 
+- (void)didClickLeftHeadBtn:(UIButton *)sender{
+    [self.delegate didLeftHeadBtnClick:sender];
+   
+}
+-(void)didClickTopUpBtn:(UIButton *)sender{
+    [self.delegate didClickTopUpBtn:sender];
+}
+
+- (void)didClickWithdrawBtn:(UIButton *)sender{
+    [self.delegate didClickWithdrawBtn:sender];
+}
+- (void)didClickRightHeadBtn{
+    
+}
 //登出按钮事件
 - (void)signOutButtonButtonClick:(UIButton *)sender{
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您确定要退出登录吗？" preferredStyle:UIAlertControllerStyleAlert];
@@ -45,37 +60,38 @@ UITableViewDataSource
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
-    
-    id next = [self nextResponder];
-    while (![next isKindOfClass:[HxbMyViewController class]]) {
-        next = [next nextResponder];
-    }
-    if ([next isKindOfClass:[HxbMyViewController class]]) {
-        HxbMyViewController *vc = (HxbMyViewController *)next;
-       [vc presentViewController:alertController animated:YES completion:nil];
-    }
+     HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+    [vc presentViewController:alertController animated:YES completion:nil];
     
     //    UIViewController *VC =[[UIViewController alloc]init];
     //    VC.view.backgroundColor = [UIColor redColor];
     //    [self.navigationController pushViewController:VC animated:true];
-    
 }
 
 #pragma TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    if (indexPath.section == 0) {
+        HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+        HxbMyPlanViewController *myPlanViewController = [[HxbMyPlanViewController alloc]init];
+        [vc.navigationController pushViewController:myPlanViewController animated:YES];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 44;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0.1;
+    if (section == 0) {
+        return 20;
+    }else{
+        return 10;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 10;
+    
+    return 0.1;
 }
 
 #pragma TableViewDataSource
@@ -87,6 +103,14 @@ UITableViewDataSource
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.section == 0) {
+        cell.textLabel.text = @"红利计划";
+    }else if (indexPath.section == 1){
+        cell.textLabel.text = @"散标";
+    }else{
+        cell.textLabel.text = @"交易记录";
     }
     return cell;
 }
@@ -105,13 +129,16 @@ UITableViewDataSource
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.tableHeaderView = self.headerView;
+        _mainTableView.tableHeaderView.userInteractionEnabled = YES;
     }
     return _mainTableView;
 }
 
 - (HxbMyViewHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/3 + 60)];
+        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/3 + 100)];
+        _headerView.delegate = self;
+        _headerView.userInteractionEnabled = YES;
     }
     return _headerView;
 }
@@ -119,7 +146,7 @@ UITableViewDataSource
 //登出按钮
 - (UIButton *)signOutButton{
     if (!_signOutButton) {
-        _signOutButton = [UIButton btnwithTitle:@"Sign Out" andTarget:self andAction:@selector(signOutButtonButtonClick:) andFrameByCategory:CGRectMake(20, SCREEN_HEIGHT/2 + 100, SCREEN_WIDTH - 40, 44)];
+        _signOutButton = [UIButton btnwithTitle:@"Sign Out" andTarget:self andAction:@selector(signOutButtonButtonClick:) andFrameByCategory:CGRectMake(20, SCREEN_HEIGHT - 100, SCREEN_WIDTH - 40, 44)];
     }
     return _signOutButton;
 }

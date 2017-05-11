@@ -36,6 +36,7 @@ fprintf(stderr, "-------------------\n");   \
 #import "HxbNotificationMacros.h"
 #import "HXBAPI.h"
 #import "HXBFontMacro.h"
+//#import "HxbUIMacro.h"
 #import "HXBColorMacro.h"
 #import "KeyChainManage.h"
 #import "HxbFileManager.h"

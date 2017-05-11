@@ -8,6 +8,7 @@
 
 #import "HxbSecurityCertificationViewController.h"
 #import "HxbSecurityCertificationView.h"
+#import "HxbBindCardViewController.h"
 
 @interface HxbSecurityCertificationViewController ()
 <
@@ -26,7 +27,12 @@ securityCertificationViewDelegate
 }
 
 - (void)didClickSecurityCertificationButton{
-    [HxbHUDProgress showTextWithMessage:@"点了"];
+//    [HxbHUDProgress showTextWithMessage:@"点了"];
+    
+    if (![KeyChain hasBindBankcard]) {
+        HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];
+        [self.navigationController pushViewController:bindCardVC animated:YES];
+    }
 }
 
 @end
