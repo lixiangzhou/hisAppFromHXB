@@ -14,7 +14,15 @@
 #import "HXBFinanctingRequest.h"//网络请求工具类
 #import "HXBFinHomePageViewModel_PlanList.h"//红利计划列表viewmodel
 #import "HXBFinHomePageViewModel_LoanList.h"//散标列表的ViewModel
+#import "HXBFinHomePageModel_PlanList.h"//红利计划列表model
+#import "HXBFinHomePageModel_LoanList.h"//散标列表的Model
 
+
+#import "HXBFinDetailViewModel_PlanDetail.h"//红利计划的ViewModel
+#import "HXBFinDetailViewModel_LoanDetail.h"//散标详情的ViewMOdel
+
+#import "HXBFinDetailModel_PlanDetail.h"//红利计划的Model
+#import "HXBFinDetailModel_LoanDetail.h"//散标详情的MOdel
 
 @interface HxbFinanctingViewController ()
 @property (nonatomic,strong) HXBFinanctingView_HomePage *homePageView;//最主要的view
@@ -104,12 +112,13 @@
 //MARK: - 点击了红利计划列表页的 cell
 - (void) clickPlanListCell {
     __weak typeof(self) weakSelf = self;
-    [self.homePageView setClickPlanListCellBlock:^(NSIndexPath *index, id model) {
+    [self.homePageView setClickPlanListCellBlock:^(NSIndexPath *index, HXBFinHomePageViewModel_PlanList *model) {
         [weakSelf pushPlanDetailsViewControllerWithModel:model];
     }];
 }
-- (void)pushPlanDetailsViewControllerWithModel: (id)model {
+- (void)pushPlanDetailsViewControllerWithModel: (HXBFinHomePageViewModel_PlanList *)model {
     HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
+    planDetailsVC.planID = model.planListModel.ID;
     planDetailsVC.isPlan = true;
     planDetailsVC.isFlowChart = true;
     planDetailsVC.hidesBottomBarWhenPushed = true;
@@ -122,8 +131,9 @@
         [weakSelf pushLoanListCellViewControllerWithModel:model];
     }];
 }
-- (void)pushLoanListCellViewControllerWithModel: (id)model {
+- (void)pushLoanListCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanList *)model {
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
+    loanDetailsVC.loanID = model.loanListModel.loanId;
     loanDetailsVC.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:loanDetailsVC animated:true];
 }

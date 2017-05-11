@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+////接口 lend/loanindex
 @interface HXBFinHomePageModel_LoanList : NSObject
 
 ///总金额,本期开放的额度,计划金额（元）
@@ -29,3 +29,14 @@
 ///贷款ID
 @property (nonatomic,copy) NSString *loanId;
 @end
+/**
+ "amount": "6000.0",
+ "months": "12",
+ "title": "这个必须得填，否则接口啥也不给你返回！",
+ "status": "OPEN",
+ "interest": "9.0",
+ "certificateType": "SDRZ",
+ "borrowerLevel": "HR",
+ "finishedRatio": "99.0",
+ "loanId": "760645"
+ */
