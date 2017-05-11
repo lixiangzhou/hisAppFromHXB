@@ -38,6 +38,14 @@
 		4E422CC51EA7617700C0EB62 /* UIButton+HxbButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E422CC01EA7493900C0EB62 /* UIButton+HxbButton.m */; };
 		4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */; };
 		4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D31001EA70DC900598529 /* HxbHomeViewController.m */; };
+		4E73BBC91EC2C10A001B8357 /* HxbWithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E73BBC81EC2C10A001B8357 /* HxbWithdrawViewController.m */; };
+		4E73BBD01EC2EFCF001B8357 /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4E73BBCF1EC2EFCF001B8357 /* area.plist */; };
+		4E73BBD81EC2F48E001B8357 /* HxbPickerArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E73BBD51EC2F48E001B8357 /* HxbPickerArea.m */; };
+		4E73BBD91EC2F48E001B8357 /* HxbToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E73BBD71EC2F48E001B8357 /* HxbToolbar.m */; };
+		4E73BBDC1EC2F549001B8357 /* HxbPickerCofig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E73BBDB1EC2F549001B8357 /* HxbPickerCofig.m */; };
+		4E73BBDF1EC30FBD001B8357 /* HxbPickerBankSubBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E73BBDE1EC30FBD001B8357 /* HxbPickerBankSubBranch.m */; };
+		4E73BBE21EC310C6001B8357 /* HxbWithdrawCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E73BBE11EC310C6001B8357 /* HxbWithdrawCardViewController.m */; };
+		4E73BBE51EC31A6A001B8357 /* HxbWithdrawResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E73BBE41EC31A69001B8357 /* HxbWithdrawResultViewController.m */; };
 		4E7CCF471EBC1B5B00F7BDB3 /* banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3A1EBC1B5B00F7BDB3 /* banner@2x.png */; };
 		4E7CCF481EBC1B5B00F7BDB3 /* banner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3B1EBC1B5B00F7BDB3 /* banner@3x.png */; };
 		4E7CCF491EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3C1EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png */; };
@@ -218,6 +226,21 @@
 		4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbAdvertiseViewController.m; sourceTree = "<group>"; };
 		4E6D30FF1EA70DC900598529 /* HxbHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHomeViewController.h; sourceTree = "<group>"; };
 		4E6D31001EA70DC900598529 /* HxbHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHomeViewController.m; sourceTree = "<group>"; };
+		4E73BBC71EC2C10A001B8357 /* HxbWithdrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbWithdrawViewController.h; sourceTree = "<group>"; };
+		4E73BBC81EC2C10A001B8357 /* HxbWithdrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbWithdrawViewController.m; sourceTree = "<group>"; };
+		4E73BBCF1EC2EFCF001B8357 /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
+		4E73BBD41EC2F48E001B8357 /* HxbPickerArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbPickerArea.h; sourceTree = "<group>"; };
+		4E73BBD51EC2F48E001B8357 /* HxbPickerArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbPickerArea.m; sourceTree = "<group>"; };
+		4E73BBD61EC2F48E001B8357 /* HxbToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbToolbar.h; sourceTree = "<group>"; };
+		4E73BBD71EC2F48E001B8357 /* HxbToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbToolbar.m; sourceTree = "<group>"; };
+		4E73BBDA1EC2F549001B8357 /* HxbPickerCofig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbPickerCofig.h; sourceTree = "<group>"; };
+		4E73BBDB1EC2F549001B8357 /* HxbPickerCofig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbPickerCofig.m; sourceTree = "<group>"; };
+		4E73BBDD1EC30FBD001B8357 /* HxbPickerBankSubBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbPickerBankSubBranch.h; sourceTree = "<group>"; };
+		4E73BBDE1EC30FBD001B8357 /* HxbPickerBankSubBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbPickerBankSubBranch.m; sourceTree = "<group>"; };
+		4E73BBE01EC310C6001B8357 /* HxbWithdrawCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbWithdrawCardViewController.h; sourceTree = "<group>"; };
+		4E73BBE11EC310C6001B8357 /* HxbWithdrawCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbWithdrawCardViewController.m; sourceTree = "<group>"; };
+		4E73BBE31EC31A69001B8357 /* HxbWithdrawResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbWithdrawResultViewController.h; sourceTree = "<group>"; };
+		4E73BBE41EC31A69001B8357 /* HxbWithdrawResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbWithdrawResultViewController.m; sourceTree = "<group>"; };
 		4E7CCF3A1EBC1B5B00F7BDB3 /* banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@2x.png"; sourceTree = "<group>"; };
 		4E7CCF3B1EBC1B5B00F7BDB3 /* banner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@3x.png"; sourceTree = "<group>"; };
 		4E7CCF3C1EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bannerplaceholder@2x.png"; sourceTree = "<group>"; };
@@ -692,6 +715,12 @@
 				4E80AA8C1EC085F300A4CB5A /* HxbFeedbackViewController.m */,
 				4E80AA8F1EC087F000A4CB5A /* HxbMyTopUpViewController.h */,
 				4E80AA901EC087F000A4CB5A /* HxbMyTopUpViewController.m */,
+				4E73BBC71EC2C10A001B8357 /* HxbWithdrawViewController.h */,
+				4E73BBC81EC2C10A001B8357 /* HxbWithdrawViewController.m */,
+				4E73BBE01EC310C6001B8357 /* HxbWithdrawCardViewController.h */,
+				4E73BBE11EC310C6001B8357 /* HxbWithdrawCardViewController.m */,
+				4E73BBE31EC31A69001B8357 /* HxbWithdrawResultViewController.h */,
+				4E73BBE41EC31A69001B8357 /* HxbWithdrawResultViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -714,9 +743,18 @@
 			path = UIButton;
 			sourceTree = "<group>";
 		};
+		4E73BBCE1EC2EFC3001B8357 /* Plist */ = {
+			isa = PBXGroup;
+			children = (
+				4E73BBCF1EC2EFCF001B8357 /* area.plist */,
+			);
+			path = Plist;
+			sourceTree = "<group>";
+		};
 		4E7CCF371EBC1B5B00F7BDB3 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				4E73BBCE1EC2EFC3001B8357 /* Plist */,
 				4E7CCF381EBC1B5B00F7BDB3 /* images */,
 			);
 			path = Source;
@@ -827,6 +865,14 @@
 		4EC4929B1EC1C45A00B7DAA2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4E73BBD41EC2F48E001B8357 /* HxbPickerArea.h */,
+				4E73BBD51EC2F48E001B8357 /* HxbPickerArea.m */,
+				4E73BBD61EC2F48E001B8357 /* HxbToolbar.h */,
+				4E73BBD71EC2F48E001B8357 /* HxbToolbar.m */,
+				4E73BBDA1EC2F549001B8357 /* HxbPickerCofig.h */,
+				4E73BBDB1EC2F549001B8357 /* HxbPickerCofig.m */,
+				4E73BBDD1EC30FBD001B8357 /* HxbPickerBankSubBranch.h */,
+				4E73BBDE1EC30FBD001B8357 /* HxbPickerBankSubBranch.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1456,6 +1502,7 @@
 				4E7CCF4F1EBC1B5B00F7BDB3 /* 4.png in Resources */,
 				E1C9647D1EA600C20066DBC4 /* Assets.xcassets in Resources */,
 				4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
+				4E73BBD01EC2EFCF001B8357 /* area.plist in Resources */,
 				4E7CCF4E1EBC1B5B00F7BDB3 /* pageControl_select@3x.png in Resources */,
 				4E7CCF471EBC1B5B00F7BDB3 /* banner@2x.png in Resources */,
 			);
@@ -1562,6 +1609,7 @@
 				E1339B7A1EA85668002BE5B1 /* HXBBaseContDownManager.m in Sources */,
 				4E3C1D031EA6286400C8BD36 /* HxbWelcomeView.m in Sources */,
 				4E294F211EB9BD88007D5042 /* HxbSignUpSucceedViewController.m in Sources */,
+				4E73BBC91EC2C10A001B8357 /* HxbWithdrawViewController.m in Sources */,
 				E122D85B1EA0CAB900DC71ED /* UILabel+HxbLabel.m in Sources */,
 				E1E461661EB9B3A9005B1FC6 /* SignUpAPI.m in Sources */,
 				4E26E3B91EA0FE790078B419 /* TokenAPI.m in Sources */,
@@ -1586,6 +1634,7 @@
 				E1E461451EB9A665005B1FC6 /* HXBFinHomePageModel_PlanList.m in Sources */,
 				4E80A57B1EA4F4930006D012 /* HxbHTTPSessionManager.m in Sources */,
 				E1D2CA631EAB4F26000099C7 /* HxbFinanctingViewController.m in Sources */,
+				4E73BBD91EC2F48E001B8357 /* HxbToolbar.m in Sources */,
 				4E26E3C01EA0FEFE0078B419 /* BaseModel.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E122D85A1EA0CAB900DC71ED /* UIImageView+HxbSDWebImage.m in Sources */,
@@ -1598,8 +1647,10 @@
 				E10E7DE81EAF65BA005FC2E3 /* HxbSignInViewController.m in Sources */,
 				E122D84F1EA0CAB900DC71ED /* NSAttributedString+HxbAttributedString.m in Sources */,
 				E17262BF1EBB2B890064A25F /* HXBFinancing_PlanDetailsViewController.m in Sources */,
+				4E73BBDF1EC30FBD001B8357 /* HxbPickerBankSubBranch.m in Sources */,
 				E122D8521EA0CAB900DC71ED /* NSString+HxbHash.m in Sources */,
 				E1C964741EA5E04F0066DBC4 /* HXBBaseNavigationController.m in Sources */,
+				4E73BBD81EC2F48E001B8357 /* HxbPickerArea.m in Sources */,
 				4E26E3B21EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m in Sources */,
 				E1E461491EB9AB74005B1FC6 /* HXBFinanctingRequest.m in Sources */,
 				E1E4613C1EB98B5C005B1FC6 /* HXBBaseToolBarView.m in Sources */,
@@ -1631,6 +1682,7 @@
 				4EAD98D51EB838F80029A3FF /* UITextField+HxbTextField.m in Sources */,
 				E122D8571EA0CAB900DC71ED /* UIResponder+FindNext.m in Sources */,
 				4E26E3C61EA0FF4C0078B419 /* KeyChainManage.m in Sources */,
+				4E73BBDC1EC2F549001B8357 /* HxbPickerCofig.m in Sources */,
 				4E80AA8A1EC076D000A4CB5A /* HxbMyAboutMeViewController.m in Sources */,
 				E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */,
 				4E3C1D081EA62BB300C8BD36 /* HxbFileManager.m in Sources */,
@@ -1640,6 +1692,7 @@
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
 				E1BDFDB11EA89D2000311EC2 /* HXBBaseHandDate.m in Sources */,
 				E10E7DE91EAF65BA005FC2E3 /* HxbSignInViewModel.m in Sources */,
+				4E73BBE51EC31A6A001B8357 /* HxbWithdrawResultViewController.m in Sources */,
 				4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */,
 				4E80AA7A1EC0624B00A4CB5A /* HxbAccountInfoViewController.m in Sources */,
 				E122D8561EA0CAB900DC71ED /* UIColor+HxbColor.m in Sources */,
@@ -1652,6 +1705,7 @@
 				E11A52331EB190670043F37D /* HXBBaseWaveView.m in Sources */,
 				4E294F1B1EB9B2D3007D5042 /* HxbSecurityCertificationViewController.m in Sources */,
 				4E422CC51EA7617700C0EB62 /* UIButton+HxbButton.m in Sources */,
+				4E73BBE21EC310C6001B8357 /* HxbWithdrawCardViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

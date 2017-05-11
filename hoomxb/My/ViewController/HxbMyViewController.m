@@ -11,6 +11,8 @@
 #import "HxbMyView.h"
 #import "HxbAccountInfoViewController.h"
 #import "HxbMyTopUpViewController.h"
+#import "HxbWithdrawViewController.h"
+
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
 @end
@@ -66,14 +68,15 @@
     HxbAccountInfoViewController *accountInfoVC = [[HxbAccountInfoViewController alloc]init];
     [self.navigationController pushViewController:accountInfoVC animated:YES];
 }
+
 - (void)didClickTopUpBtn:(UIButton *)sender{
     HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
     [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
 }
 
 - (void)didClickWithdrawBtn:(UIButton *)sender{
-    
-    
+    HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+    [self.navigationController pushViewController:withdrawViewController animated:YES];
 }
 - (void)clickBarButtonItem {
     NSLog(@"点击了返回按钮");
