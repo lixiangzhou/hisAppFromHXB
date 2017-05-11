@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UIButton *rightHeadButton;
 @end
 
+
 @implementation HxbMyViewHeaderView
 
 - (instancetype)initWithFrame:(CGRect)frame{
