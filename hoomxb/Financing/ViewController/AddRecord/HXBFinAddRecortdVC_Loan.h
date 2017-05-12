@@ -1,5 +1,5 @@
 //
-//  HXBFinancing_AddRecord_Loan.h
+//  HXBFinAddRecortdVC_Loan.h
 //  hoomxb
 //
 //  Created by HXB on 2017/5/11.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HXBFinancing_AddRecord_Loan : UIViewController
+@interface HXBFinAddRecortdVC_Loan : UIViewController
 
 @end

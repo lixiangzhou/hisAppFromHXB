@@ -12,8 +12,12 @@
 #import "HXBFinanctingRequest.h"//请求类
 #import "HXBFinDetailViewModel_PlanDetail.h"//红利计划详情页Viewmodel
 #import "HXBFinDetail_TableView.h"//详情页tableView的model
-#import "HXBFinHomePageViewModel_PlanList.h"
-#import "HXBFinHomePageModel_PlanList.h"
+#import "HXBFinHomePageViewModel_PlanList.h"//红利计划的Viewmodel
+#import "HXBFinHomePageModel_PlanList.h"//红利计划的Model
+
+#import "HXBFinAddRecordVC_Plan.h"//红利计划的加入记录
+#import "HXBFin_Detail_DetailsVC_Plan.h"//红利计划详情中的详情
+
 @interface HXBFinancing_PlanDetailsViewController ()
 @property(nonatomic,strong) HXBFin_DetailsView_PlanDetailsView *planDetailsView;
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewModelArray;
@@ -21,6 +25,8 @@
 @property (nonatomic,strong) NSArray <NSString *>* tableViewTitleArray;
 ///详情底部的tableView的图片数组
 @property (nonatomic,strong) NSArray <NSString *>* tableViewImageArray;
+///详情页的ViewMode
+@property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planDetailViewModel;
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
@@ -80,6 +86,21 @@
     [self.planDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
         //跳转相应的页面
         NSLog(@"%@",model.optionTitle);
+        ///点击了计划详情
+        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[0]]) {
+            HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc]init];
+            detail_DetailPlanVC.planDetailModel = self.planDetailViewModel;
+            [self.navigationController pushViewController:detail_DetailPlanVC animated:true];
+        }
+        ///  加入记录
+        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[1]]) {
+            HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
+            [self.navigationController pushViewController:planAddRecordVC animated:true];
+        }
+        ///红利计划服务
+        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[2]]) {
+            
+        }
     }];
      [self downLoadData];
 //    [self.planDetailsView show];
@@ -90,6 +111,7 @@
 - (void)downLoadData {
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
         self.planDetailsView.planDetailViewModel = viewModel;
+        self.planDetailViewModel = viewModel;
         self.planDetailsView.modelArray = self.tableViewModelArray;
     } andFailureBlock:^(NSError *error) {
         
