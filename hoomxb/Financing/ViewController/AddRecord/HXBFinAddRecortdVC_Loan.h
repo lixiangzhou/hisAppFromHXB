@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HXBFinAddRecortdVC_Loan : UIViewController
+@interface HXBFinAddRecortdVC_Loan : HXBBaseViewController
 
 @end

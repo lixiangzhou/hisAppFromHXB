@@ -7,156 +7,69 @@
 //
 
 #import "HXBFinAddRecordVC_Plan.h"
-#import "HXBFinDetailModel_PlanDetail.h"
+#import "HXBFinanctingRequest.h"
+#import "HXBFinDetailModel_PlanDetail.h"//红利计划详情页Model
+#import "HXBFinAddRecortdTableView_Plan.h"//红利计划的加入计划View,里面自定义了 cell
+#import "HXBFinModel_AddRecortdModel_Plan.h"//红利计划 - 加入计划的Model，这个没有ViewModel的封装（数据太简单）
+
+
 
 @interface HXBFinAddRecordVC_Plan ()
-///计划金额
-@property (nonatomic,strong) UILabel *planAmountLabel;
-@property (nonatomic,strong) UILabel *planAmountLabel_const;
-
-///加入条件
-@property (nonatomic,strong) UILabel *joinConditionLabel;
-@property (nonatomic,strong) UILabel *joinConditionLabel_const;
-
-///Joined on the line加入上线
-@property (nonatomic,strong) UILabel *joinedOnTheLineLabel;
-@property (nonatomic,strong) UILabel *joinedOnTheLineLabel_const;
-
-///开始加入日期
-@property (nonatomic,strong) UILabel *startByDateLabel;
-@property (nonatomic,strong) UILabel *startByDateLabel_const;
-
-///退出日期
-@property (nonatomic,strong) UILabel *exitDateLabel;
-@property (nonatomic,strong) UILabel *exitDateLabel_const;
-
-///期限
-@property (nonatomic,strong) UILabel *theTermLabel;
-@property (nonatomic,strong) UILabel *theTermLabel_const;
-
-///到期退出方式
-@property (nonatomic,strong) UILabel *expiredExitMethodLabel;
-@property (nonatomic,strong) UILabel *expiredExitMethodLabel_const;
-
-///安全保障
-@property (nonatomic,strong) UILabel *securityLabel;
-@property (nonatomic,strong) UILabel *securityLabel_const;
-
-///收益处理方式
-@property (nonatomic,strong) UILabel *revenueApproachLabel;
-@property (nonatomic,strong) UILabel *revenueApproachLabel_const;
-
-///服务费
-@property (nonatomic,strong) UILabel *serviceChargeLabel;
-@property (nonatomic,strong) UILabel *serviceChargeLabel_const;
+@property (nonatomic,strong) HXBFinAddRecortdTableView_Plan *addRecortdTableView;
 @end
-
+static NSString *CELLID = @"CELLID";
 @implementation HXBFinAddRecordVC_Plan
 - (void) setPlanDetailModel:(HXBFinDetailModel_PlanDetail *)planDetailModel {
     _planDetailModel = planDetailModel;
-    [self setUPStr];
 }
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUP];
-    [self setUP_const];
-    [self setUP_constStr];
-    [self setUPAlignment];
+    [self downDoadDataWithISUPLoad:true];
 }
 
-///初始化展示网络数据的lable
 - (void)setUP {
-    self.planAmountLabel = [[UILabel alloc]init];
-    self.joinConditionLabel = [[UILabel alloc]init];
-    self.joinedOnTheLineLabel = [[UILabel alloc]init];
-    self.startByDateLabel = [[UILabel alloc]init];
-    self.exitDateLabel = [[UILabel alloc]init];
-    self.theTermLabel = [[UILabel alloc]init];
-    self.expiredExitMethodLabel = [[UILabel alloc]init];
-    self.securityLabel = [[UILabel alloc]init];
-    self.revenueApproachLabel = [[UILabel alloc]init];
-    self.serviceChargeLabel = [[UILabel alloc]init];
-    
-    
-    [self.view addSubview:self.planAmountLabel];
-    [self.view addSubview:self.joinConditionLabel];
-    [self.view addSubview:self.joinedOnTheLineLabel];
-    [self.view addSubview:self.startByDateLabel];
-    [self.view addSubview:self.exitDateLabel];
-    [self.view addSubview:self.theTermLabel];
-    [self.view addSubview:self.securityLabel];
-    [self.view addSubview:self.revenueApproachLabel];
-    [self.view addSubview:self.serviceChargeLabel];
+    self.addRecortdTableView = [[HXBFinAddRecortdTableView_Plan alloc]initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height - 64) style:UITableViewStylePlain];
+    [self.view addSubview:self.addRecortdTableView];
 }
 
-///设置展示网络数据的label的值
-- (void)setUPStr {
-    HXBFinDetailModel_PlanDetail_DataList *dataList = self.planDetailModel.dataList.firstObject;
-    self.planAmountLabel.text = @"测试加入原因";
-    self.joinConditionLabel.text = @"测试加入原因";
-    self.joinedOnTheLineLabel.text = dataList.singleMaxRegisterAmount;
-    self.startByDateLabel.text = dataList.beginSellingTime;
-    self.exitDateLabel.text = @"测试推出时间";
-    self.theTermLabel.text = @"推出时间";
-    self.expiredExitMethodLabel.text = @"到期退出方式";
-    self.securityLabel.text =@"安全保障";
-    self.revenueApproachLabel.text = @"收益处理方式";
-    self.serviceChargeLabel.text = @"服务费";
+- (void) footerRefresh {
+    [self.addRecortdTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        
+    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+        
+    }];
 }
 
-///设置展示网络数据的Lable的对其方式
-- (void)setUPAlignment {
-    self.planAmountLabel.textAlignment = NSTextAlignmentRight;
-    self.joinConditionLabel.textAlignment = NSTextAlignmentRight;
-    self.joinedOnTheLineLabel.textAlignment = NSTextAlignmentRight;
-    self.startByDateLabel.textAlignment = NSTextAlignmentRight;
-    self.exitDateLabel.textAlignment = NSTextAlignmentRight;
-    self.theTermLabel.textAlignment = NSTextAlignmentRight;
-    self.expiredExitMethodLabel.textAlignment = NSTextAlignmentRight;
-    self.securityLabel.textAlignment = NSTextAlignmentRight;
-    self.revenueApproachLabel.textAlignment = NSTextAlignmentRight;
-    self.serviceChargeLabel.textAlignment = NSTextAlignmentRight;
-    
+- (void)headerRefresh {
+    [self.addRecortdTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        
+    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
+        
+    }];
 }
 
-///初始化提示label
-- (void)setUP_const {
-    self.planAmountLabel_const = [[UILabel alloc]init];
-    self.joinConditionLabel_const = [[UILabel alloc]init];
-    self.joinedOnTheLineLabel_const = [[UILabel alloc]init];
-    self.startByDateLabel_const = [[UILabel alloc]init];
-    self.exitDateLabel_const = [[UILabel alloc]init];
-    self.theTermLabel_const = [[UILabel alloc]init];
-    self.expiredExitMethodLabel_const = [[UILabel alloc]init];
-    self.securityLabel_const = [[UILabel alloc]init];
-    self.revenueApproachLabel_const = [[UILabel alloc]init];
-    self.serviceChargeLabel_const = [[UILabel alloc]init];
-    
-    
-    [self.view addSubview:self.planAmountLabel_const];
-    [self.view addSubview:self.joinConditionLabel_const];
-    [self.view addSubview:self.joinedOnTheLineLabel_const];
-    [self.view addSubview:self.startByDateLabel_const];
-    [self.view addSubview:self.exitDateLabel_const];
-    [self.view addSubview:self.theTermLabel_const];
-    [self.view addSubview:self.securityLabel_const];
-    [self.view addSubview:self.revenueApproachLabel_const];
-    [self.view addSubview:self.serviceChargeLabel_const];
+- (void)downDoadDataWithISUPLoad: (BOOL)isUPLoad {
+    [[HXBFinanctingRequest sharedFinanctingRequest] planAddRecortdWithISUPLoad:true andFinancePlanId:self.planDetailModel.dataList.firstObject.ID andOrder:nil andSuccessBlock:^(HXBFinModel_AddRecortdModel_Plan *model) {
+        self.addRecortdTableView.addRecortdModel_Plan = model;
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
 }
 
-///为提示label赋值
-- (void)setUP_constStr {
-    self.planAmountLabel_const.text = @"计划金额";
-    self.joinConditionLabel_const.text = @"加入条件";
-    self.joinedOnTheLineLabel_const.text = @"加入上线";
-    self.startByDateLabel_const.text = @"开始加入日期";
-    self.exitDateLabel_const.text = @"退出日期";
-    self.theTermLabel_const.text = @"期限";
-    self.expiredExitMethodLabel_const.text = @"到期退出方式";
-    self.securityLabel_const.text = @"安全保障";
-    self.revenueApproachLabel_const.text = @"收益处理方式";
-    self.serviceChargeLabel_const.text = @"服务费";
-}
+
+
+
+
+
+
+
+
+
+
+
 
 
 - (void)didReceiveMemoryWarning {

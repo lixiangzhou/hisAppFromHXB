@@ -102,6 +102,7 @@ typedef enum : NSUInteger {
 /// 需要倒计时的model数组
 @property (nonatomic,strong) NSArray *modelArray;
 
-
+/// 在上拉加载的时候可能会有卡顿，传入scrollView解决这个问题
+- (void)stopWenScrollViewScrollBottomWithTableView: (UIScrollView *)scrollView;
 
 @end

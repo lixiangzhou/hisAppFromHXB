@@ -11,6 +11,8 @@
 #import "HXBFin_DetailsView_PlanDetailsView.h"///红利计划详情页的主视图
 #import "HXBFinanctingRequest.h"//请求类
 #import "HXBFinDetailViewModel_PlanDetail.h"//红利计划详情页Viewmodel
+#import "HXBFinDetailModel_PlanDetail.h"//红利计划详情model
+
 #import "HXBFinDetail_TableView.h"//详情页tableView的model
 #import "HXBFinHomePageViewModel_PlanList.h"//红利计划的Viewmodel
 #import "HXBFinHomePageModel_PlanList.h"//红利计划的Model
@@ -18,8 +20,11 @@
 #import "HXBFinAddRecordVC_Plan.h"//红利计划的加入记录
 #import "HXBFin_Detail_DetailsVC_Plan.h"//红利计划详情中的详情
 
+#import "HXBFinPlanContract_contraceWebViewVC.h"//协议
+
 @interface HXBFinancing_PlanDetailsViewController ()
 @property(nonatomic,strong) HXBFin_DetailsView_PlanDetailsView *planDetailsView;
+///底部点的cellModel
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewModelArray;
 ///tableView的tatile
 @property (nonatomic,strong) NSArray <NSString *>* tableViewTitleArray;
@@ -30,11 +35,6 @@
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
-- (void)loadView {
-    [super loadView];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    return;
-}
 
 - (void)setPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)planListViewModel {
     _planListViewModel = planListViewModel;
@@ -51,7 +51,7 @@
     self.tableViewTitleArray = @[
                                  @"计划详情",
                                  @"加入记录",
-                                 @"红利计划服务"
+                                 @"红利计划服务协议"
                                  ];
 }
 - (NSArray<HXBFinDetail_TableViewCellModel *> *)tableViewModelArray {
@@ -82,6 +82,8 @@
     //是否为计划界面
     _planDetailsView.isPlan = true;
     _planDetailsView.isFlowChart = true;
+    _planDetailsView.planListViewModel = self.planListViewModel;
+    
     
     [self.planDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
         //跳转相应的页面
@@ -95,11 +97,15 @@
         ///  加入记录
         if ([model.optionTitle isEqualToString:self.tableViewTitleArray[1]]) {
             HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
+            planAddRecordVC.planDetailModel = self.planDetailViewModel.planDetailModel;
             [self.navigationController pushViewController:planAddRecordVC animated:true];
         }
         ///红利计划服务
         if ([model.optionTitle isEqualToString:self.tableViewTitleArray[2]]) {
-            
+            //跳转一个webView
+            HXBFinPlanContract_contraceWebViewVC * contractWebViewVC = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
+            contractWebViewVC.URL = self.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
+            [self.navigationController pushViewController:contractWebViewVC animated:true];
         }
     }];
      [self downLoadData];

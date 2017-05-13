@@ -16,6 +16,12 @@
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划详情的Model
 #import "HXBFinDatailModel_LoanDetail.h"//散标详情的Model
 
+#import "HXBFinHomePageViewModel_PlanList.h"///红利计划列表页Viewmodel
+#import "HXBFinHomePageViewModel_LoanList.h"///散标列表页的Viewmodel\
+
+#import "HXBFinHomePageModel_PlanList.h"
+#import "HXBFinHomePageModel_LoanList.h"
+
 @interface HXBFin_DetailsViewBase()
 ///预期年化的view
 @property (nonatomic,strong) UIView *expectedYearRateView;
@@ -49,6 +55,8 @@
 
 ///底部的tableView被点击
 @property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
+///加入的button
+@property (nonatomic,strong) UIButton *addButton;
 @end
 
 @implementation HXBFin_DetailsViewBase
@@ -57,6 +65,14 @@
     self.bottomTableView.tableViewCellModelArray = modelArray;
 }
 #pragma mark - setter
+//判断了加入按钮的状态
+- (void)setPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)planListViewModel {
+    if ([planListViewModel.planListModel.joined isEqualToString:@"false"]) {//是否为已加入
+        [self.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
+    }else {
+          [self.addButton setTitle:@"追加" forState:UIControlStateNormal];
+    }
+}
 - (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
     self.isPlan = true;
     
@@ -71,7 +87,16 @@
     self.startInvestmentStr_const = @"标的期限";
     self.promptStr = @"* 预期收益不代表实际收益投资需谨慎";
     
+  
     [self show];
+}
+
+- (void)setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
+//    if ([loanListViewModel.loanListModel.joined isEqualToString:@"false"]) {//是否为已加入
+        [self.addButton setTitle:@"立即投标" forState:UIControlStateNormal];
+//    }else {
+//        [self.addButton setTitle:@"追加" forState:UIControlStateNormal];
+//    }
 }
 - (void)setLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)loanDetailViewModel{
     self.isPlan = false;
@@ -84,6 +109,7 @@
     self.startInvestmentStr = loanVO.leftMonths;
     self.startInvestmentStr_const = @"标的期限";
     self.promptStr = @"* 预期收益不代表实际收益投资需谨慎";
+    [self.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
     [self show];
 }
 - (instancetype)initWithFrame:(CGRect)frame
@@ -207,18 +233,25 @@
         make.left.right.equalTo(weakSelf);
         make.height.equalTo(@60);
     }];
-    UIButton *addButton = [[UIButton alloc]init];
-    [self.addView addSubview:addButton];
-    [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.addButton = [[UIButton alloc]init];
+    [self.addView addSubview:_addButton];
+    [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.equalTo(weakSelf.addView);
         make.left.top.equalTo(weakSelf.addView).offset(20);
         make.bottom.right.equalTo(weakSelf.addView).offset(-20);
     }];
-    [addButton setTitle:@"立即加入" forState:UIControlStateNormal];
-    [addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
+    [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 - (void)clickAddButton: (UIButton *)button {
     NSLog(@" - 立即加入 - ");
+    ///判断是否为登录状态
+    if (![KeyChain isLogin]) {//没有登录就跳登录
+        [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
+    }
+    if ([KeyChain isLogin]) {//登陆了就
+        //判断是否有风险测评，
+    }
 }
 
 

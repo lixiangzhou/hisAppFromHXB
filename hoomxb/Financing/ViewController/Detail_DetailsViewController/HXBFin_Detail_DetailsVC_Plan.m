@@ -56,15 +56,22 @@
 
 - (void) setPlanDetailModel:(HXBFinDetailViewModel_PlanDetail *)planDetailModel {
     _planDetailModel = planDetailModel;
+    if (!self.theTermLabel_const) {
+        [self setUP];
+        [self setUP_const];
+        [self setUP_constStr];
+        [self setUPAlignment];
+        [self layoutLables];
+        [self layoutLable_const];
+    }
     [self setUPStr];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUP];
-    [self setUP_const];
-    [self setUP_constStr];
-    [self setUPAlignment];
+    self.view.backgroundColor = [UIColor whiteColor];
+
 }
+
 
 ///初始化展示网络数据的lable
 - (void)setUP {
@@ -90,6 +97,57 @@
     [self.view addSubview:self.revenueApproachLabel];
     [self.view addSubview:self.serviceChargeLabel];
 }
+
+///布局展示网络数据的label
+- (void)layoutLables {
+    kWeakSelf
+    [self.planAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.view);
+        make.top.equalTo(@64);
+        make.height.equalTo(@20);
+    }];
+    [self.joinConditionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.planAmountLabel.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.joinedOnTheLineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.joinConditionLabel.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.startByDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.joinedOnTheLineLabel.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.exitDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.startByDateLabel.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.theTermLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.exitDateLabel.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.securityLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.theTermLabel.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.revenueApproachLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.securityLabel.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.serviceChargeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.revenueApproachLabel.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+}
+
 
 ///设置展示网络数据的label的值
 - (void)setUPStr {
@@ -133,7 +191,6 @@
     self.revenueApproachLabel_const = [[UILabel alloc]init];
     self.serviceChargeLabel_const = [[UILabel alloc]init];
     
-    
     [self.view addSubview:self.planAmountLabel_const];
     [self.view addSubview:self.joinConditionLabel_const];
     [self.view addSubview:self.joinedOnTheLineLabel_const];
@@ -159,12 +216,63 @@
     self.serviceChargeLabel_const.text = @"服务费";
 }
 
-
+///布局const
+- (void)layoutLable_const {
+    kWeakSelf
+    [self.planAmountLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.view);
+        make.top.equalTo(@64);
+        make.height.equalTo(@20);
+    }];
+    [self.joinConditionLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.planAmountLabel_const.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.joinedOnTheLineLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.joinConditionLabel_const.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.startByDateLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.joinedOnTheLineLabel_const.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.exitDateLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.startByDateLabel_const.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.theTermLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.exitDateLabel_const.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.securityLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.theTermLabel_const.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.revenueApproachLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.securityLabel_const.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+    [self.serviceChargeLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.revenueApproachLabel_const.mas_bottom);
+        make.height.equalTo(@20);
+    }];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    NSLog(@"√ -- %@ 被销毁",self.class);
+}
 /*
 #pragma mark - Navigation
 

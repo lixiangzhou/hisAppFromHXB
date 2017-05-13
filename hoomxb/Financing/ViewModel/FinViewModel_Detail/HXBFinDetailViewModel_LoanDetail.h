@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 @class HXBFinDatailModel_LoanDetail;
+///散标投递的详情页的ViewModel
 @interface HXBFinDetailViewModel_LoanDetail : NSObject
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail *loanDetailModel;
 @end

@@ -1,22 +1,22 @@
 //
-//  HXBFinAddRecortdVC_Loan.m
+//  HXBFin_Detail_DetailVC_Loan.m
 //  hoomxb
 //
-//  Created by HXB on 2017/5/11.
+//  Created by HXB on 2017/5/13.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFinAddRecortdVC_Loan.h"
+#import "HXBFin_Detail_DetailVC_Loan.h"
 
-@interface HXBFinAddRecortdVC_Loan ()
+@interface HXBFin_Detail_DetailVC_Loan ()
 
 @end
 
-@implementation HXBFinAddRecortdVC_Loan
+@implementation HXBFin_Detail_DetailVC_Loan
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
