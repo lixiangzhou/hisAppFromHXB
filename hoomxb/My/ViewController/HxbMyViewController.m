@@ -20,11 +20,11 @@
     self.imageName = @"1";
 
     //登录的测试
-    //对controllerView进行布局
-//    [self setupSubView];
+//    对controllerView进行布局
+    [self setupSubView];
     
-    //散标列表 红利计划的Button
-    [self setupBUTTON];
+//    //散标列表 红利计划的Button
+//    [self setupBUTTON];
 }
 
 
