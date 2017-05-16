@@ -8,7 +8,7 @@
 
 #import "HXBHomePageAfterLoginView.h"
 @interface HXBHomePageAfterLoginView ()
-@property (nonatomic,strong) UILabel * profitTitleLabel;
+@property (nonatomic,strong) UILabel * userTitleLabel;
 @property (nonatomic,strong) UILabel * profitLabel;
 @property (nonatomic,strong) UIButton * selectEyeButton;
 @end
@@ -19,16 +19,17 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        [self addSubview:self.profitTitleLabel];
+        [self addSubview:self.userTitleLabel];
         [self addSubview:self.profitLabel];
         [self addSubview:self.selectEyeButton];
         [self setContentFrame];
+        [self loadData];
     }
     return self;
 }
 
--(void)setContentFrame{
-    [_profitTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+- (void)setContentFrame{
+    [_userTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
         make.top.equalTo(self).offset(16);
         make.width.equalTo(@(SCREEN_WIDTH/3));
@@ -37,7 +38,7 @@
     
     [_profitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(15);
-        make.top.equalTo(_profitTitleLabel.mas_bottom).offset(10);
+        make.top.equalTo(_userTitleLabel.mas_bottom).offset(10);
         make.width.equalTo(@(SCREEN_WIDTH-70));
         make.height.equalTo(@25);
     }];
@@ -46,14 +47,10 @@
         make.right.equalTo(self).offset(-8);
         make.centerY.equalTo(self);
         make.size.mas_equalTo(CGSizeMake(40, 40));
-        
     }];
-    
 }
 
-
-
--(void)selectEyeButtonClicked:(UIButton *)sender
+- (void)selectEyeButtonClicked:(UIButton *)sender
 {
     UIButton *button = (UIButton*)sender;
     button.selected = !button.selected;
@@ -77,21 +74,24 @@
         //         }
     }
 }
-
-
--(UILabel *)profitTitleLabel{
-    if (!_profitTitleLabel) {
-        _profitTitleLabel = [[UILabel alloc]init];
-        _profitTitleLabel.textColor = COR10;
-        _profitTitleLabel.font = HXB_Text_Font(SIZ16);
-        _profitTitleLabel.textAlignment = NSTextAlignmentLeft;
-        _profitTitleLabel.text = @"累计收益(元)";
-    }
-    
-    return _profitTitleLabel;
+- (void)loadData{
+    NSString *userName = @"hxb0001";
+   _userTitleLabel.text = [NSString stringWithFormat:@"您好，%@",userName];
 }
 
--(UILabel *)profitLabel{
+- (UILabel *)userTitleLabel{
+    if (!_userTitleLabel) {
+        _userTitleLabel = [[UILabel alloc]init];
+        _userTitleLabel.textColor = COR10;
+        _userTitleLabel.font = HXB_Text_Font(SIZ16);
+        _userTitleLabel.textAlignment = NSTextAlignmentCenter;
+        _userTitleLabel.text = @"累计收益(元)";
+    }
+    
+    return _userTitleLabel;
+}
+
+- (UILabel *)profitLabel{
     if (!_profitLabel) {
         _profitLabel = [[UILabel alloc]init];
         _profitLabel.textColor = COR7;

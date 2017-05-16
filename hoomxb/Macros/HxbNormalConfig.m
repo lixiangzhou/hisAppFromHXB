@@ -1,12 +1,12 @@
 //
-//  HxbPickerCofig.m
+//  HxbNormalConfig.m
 //  hoomxb
 //
-//  Created by HXB-C on 2017/5/10.
+//  Created by HXB-C on 2017/5/16.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HxbPickerCofig.h"
+#import "HxbNormalConfig.h"
 
 /** 1.统一的较小间距 5*/
 CGFloat const HxbMarginSmall = 5;

@@ -218,7 +218,7 @@
         
         UILabel *label = [UILabel new];
         label.frame = CGRectMake(0, 0, _footerView.width, _footerView.height);
-        label.text = @"— 点击理财，选购更多 —";
+        label.text = @"预期年利率不等于实际收益，投资需谨慎";
         label.font = HXB_Text_Font(SIZ15);
         label.textColor = COR11;
         label.textAlignment = NSTextAlignmentCenter;
