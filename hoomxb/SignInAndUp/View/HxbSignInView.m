@@ -36,21 +36,21 @@ UITextFieldDelegate
 }
 - (void)signInResponse{
     
-    HxbSignInViewModel *signInViewModel =[[HxbSignInViewModel alloc]init];
-    //  {"username":"13000000063","password":"111111"}
-    [signInViewModel signInRequestWithUserName:_phoneTextField.text Password:_passwordTextField.text SuccessBlock:^(BOOL login, NSString *message) {
-        if (login) {
-            [HxbHUDProgress showTextWithMessage:message];
-            if ([self.delegate respondsToSelector:@selector(didClickSignInBtn)]) {
-                [self.delegate didClickSignInBtn];
-        }
-          
+//    HxbSignInViewModel *signInViewModel =[[HxbSignInViewModel alloc]init];
+//    //  {"username":"13000000063","password":"111111"}
+//    [signInViewModel signInRequestWithUserName:_phoneTextField.text Password:_passwordTextField.text SuccessBlock:^(BOOL login, NSString *message) {
+//        if (login) {
+//            [HxbHUDProgress showTextWithMessage:message];
+//            if ([self.delegate respondsToSelector:@selector(didClickSignInBtn)]) {
+//                [self.delegate didClickSignInBtn];
+//        }
+    
             [KeyChain setPhone:_phoneTextField.text];
             [KeyChain setLoginPwd:_passwordTextField.text];
-        }
-    } FailureBlock:^(NYBaseRequest *request, NSError *error) {
-        [HxbHUDProgress showTextWithMessage:error.description];
-    }];
+//        }
+//    } FailureBlock:^(NYBaseRequest *request, NSError *error) {
+//        [HxbHUDProgress showTextWithMessage:error.description];
+//    }];
 }
 
 - (BOOL) calibratePassword{

@@ -9,7 +9,11 @@
 #import "HxbMyViewController.h"
 #import "AppDelegate.h"
 #import "HxbMyView.h"
-@interface HxbMyViewController ()
+#import "HxbAccountInfoViewController.h"
+#import "HxbMyTopUpViewController.h"
+#import "HxbWithdrawViewController.h"
+
+@interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
 @end
 
@@ -18,15 +22,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.imageName = @"1";
-
+    
     //登录的测试
     //对controllerView进行布局
-//    [self setupSubView];
+    //    [self setupSubView];
     
     //散标列表 红利计划的Button
     [self setupBUTTON];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
 
 //MARK: 对controllerView进行布局
 - (void)setupSubView {
@@ -35,6 +49,8 @@
 
 - (void)setupMyView{
     HxbMyView *myView = [[HxbMyView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    myView.delegate = self;
+    myView.userInteractionEnabled = YES;
     [self.view addSubview:myView];
 }
 
@@ -59,9 +75,22 @@
     [myLoanBut addTarget:self action:@selector(clickMyLoanButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)clickMyPlanButton: (UIButton *)button {
-    NSLog(@"%@ - 红利计划点击",self.class);
-    
+- (void)didLeftHeadBtnClick:(UIButton *)sender{
+    HxbAccountInfoViewController *accountInfoVC = [[HxbAccountInfoViewController alloc]init];
+    [self.navigationController pushViewController:accountInfoVC animated:YES];
+}
+
+- (void)didClickTopUpBtn:(UIButton *)sender{
+    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+}
+
+- (void)didClickWithdrawBtn:(UIButton *)sender{
+    HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+    [self.navigationController pushViewController:withdrawViewController animated:YES];
+}
+- (void)clickBarButtonItem {
+    NSLog(@"点击了返回按钮");
 }
 
 - (void)clickMyLoanButton: (UIButton *)button {
