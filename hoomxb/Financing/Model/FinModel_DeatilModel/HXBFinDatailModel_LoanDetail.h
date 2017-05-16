@@ -56,7 +56,7 @@
 ///利益
 @property (nonatomic,copy) NSString *interest;
 ///描述
-@property (nonatomic,copy) NSString *description;
+@property (nonatomic,copy) NSString *description_loanVO;
 ///左边的月数
 @property (nonatomic,copy) NSString *leftMonths;
 ///所有受保护
@@ -155,7 +155,7 @@
 @property (nonatomic,copy) NSString *companyName;//": "新密市房屋征收与补偿办公室",
 @property (nonatomic,copy) NSString *companyPost;//": "征补三科副科长",
 @property (nonatomic,copy) NSString *createTime;//": 1493776767000,
-@property (nonatomic,copy) NSString *description;//": "公司职员，现居北京市，从事批发和零售业行业，工作收入稳定",
+@property (nonatomic,copy) NSString *description_userVO;//": "公司职员，现居北京市，从事批发和零售业行业，工作收入稳定",
 @property (nonatomic,copy) NSString *graduation;//": "大专",
 @property (nonatomic,copy) NSString *hasCar;//": true,
 @property (nonatomic,copy) NSString *hasChild;//": true,

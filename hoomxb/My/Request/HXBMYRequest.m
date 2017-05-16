@@ -168,7 +168,7 @@
             [self.exit_Plan_array addObjectsFromArray:viewModelArray];
             return self.exit_Plan_array;
     }
-    NSLog(@"🌶 %@，我的 plan 的数组赋值出错",self.class);
+    NSLog(@"🌶  %@，我的 plan 的数组赋值出错",self.class);
     return nil;
 }
 @end

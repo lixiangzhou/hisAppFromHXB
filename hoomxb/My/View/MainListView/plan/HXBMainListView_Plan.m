@@ -90,6 +90,8 @@
 //搭建中部的toolBarView
 - (void)setupToolBarView {
     self.toolBarView = [HXBBaseToolBarView toolBarViewWithFrame:CGRectZero andOptionStrArray:self.toolBarOptionTitleArray];
+    //把toolBarView的button记录下来
+    
     //持有中
     self.hold_Plan_Button = self.toolBarView.optionItemInfo[0];
     //退出中
@@ -99,7 +101,6 @@
     
     //开启动画
     self.toolBarView.isAnima_ItemBottomBarView = true;
-    
 }
 //搭建底部的ScrollView
 - (void)setupBottomScrollViewArray {
