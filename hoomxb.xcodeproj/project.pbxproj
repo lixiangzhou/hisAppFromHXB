@@ -14,6 +14,7 @@
 		4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */; };
 		4E16D8481E9CD0FE002A1881 /* hoomxbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */; };
 		4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */; };
+		4E1C62991ECA9F5B00AF1029 /* HXBRequestType_MYManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C62971ECA9F5B00AF1029 /* HXBRequestType_MYManager.m */; };
 		4E26E3AF1EA0FE660078B419 /* NYBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3A51EA0FE660078B419 /* NYBaseRequest.m */; };
 		4E26E3B01EA0FE660078B419 /* NYHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3A71EA0FE660078B419 /* NYHTTPConnection.m */; };
 		4E26E3B11EA0FE660078B419 /* NYNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3AA1EA0FE660078B419 /* NYNetworkConfig.m */; };
@@ -131,8 +132,6 @@
 		E17509BA1EC6E52900E17B39 /* HXBFinPlanContract_contraceWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E17509B91EC6E52900E17B39 /* HXBFinPlanContract_contraceWebViewVC.m */; };
 		E17509BD1EC6F2A100E17B39 /* HXBFin_Detail_DetailVC_Loan.m in Sources */ = {isa = PBXBuildFile; fileRef = E17509BC1EC6F2A100E17B39 /* HXBFin_Detail_DetailVC_Loan.m */; };
 		E17509C01EC6F38900E17B39 /* HXBFinContract_contraceWebViewVC_Loan.m in Sources */ = {isa = PBXBuildFile; fileRef = E17509BF1EC6F38900E17B39 /* HXBFinContract_contraceWebViewVC_Loan.m */; };
-		E18B68941EC98AF60047E458 /* HXBMYRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B68931EC98AF60047E458 /* HXBMYRequest.m */; };
-		E18B68971EC98E020047E458 /* HXBRequestType_MYManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B68961EC98E020047E458 /* HXBRequestType_MYManager.m */; };
 		E18B689A1EC997170047E458 /* HXBMYModel_MainPlanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B68991EC997170047E458 /* HXBMYModel_MainPlanModel.m */; };
 		E18B689D1EC99B7E0047E458 /* HXBMYViewModel_MianPlanViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B689C1EC99B7E0047E458 /* HXBMYViewModel_MianPlanViewModel.m */; };
 		E18B68A01EC99D210047E458 /* HXBRequstAPI_MYMainPlanAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B689F1EC99D210047E458 /* HXBRequstAPI_MYMainPlanAPI.m */; };
@@ -211,6 +210,10 @@
 		4E16D84E1E9CD0FE002A1881 /* hoomxbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hoomxbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hoomxbUITests.m; sourceTree = "<group>"; };
 		4E16D8541E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E1C62941ECA9F5B00AF1029 /* HXBMYRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYRequest.h; sourceTree = "<group>"; };
+		4E1C62951ECA9F5B00AF1029 /* HXBMYRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMYRequest.m; sourceTree = "<group>"; };
+		4E1C62961ECA9F5B00AF1029 /* HXBRequestType_MYManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestType_MYManager.h; sourceTree = "<group>"; };
+		4E1C62971ECA9F5B00AF1029 /* HXBRequestType_MYManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRequestType_MYManager.m; sourceTree = "<group>"; };
 		4E26E3A41EA0FE660078B419 /* NYBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYBaseRequest.h; sourceTree = "<group>"; };
 		4E26E3A51EA0FE660078B419 /* NYBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYBaseRequest.m; sourceTree = "<group>"; };
 		4E26E3A61EA0FE660078B419 /* NYHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYHTTPConnection.h; sourceTree = "<group>"; };
@@ -446,10 +449,6 @@
 		E17509BC1EC6F2A100E17B39 /* HXBFin_Detail_DetailVC_Loan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Detail_DetailVC_Loan.m; sourceTree = "<group>"; };
 		E17509BE1EC6F38900E17B39 /* HXBFinContract_contraceWebViewVC_Loan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinContract_contraceWebViewVC_Loan.h; sourceTree = "<group>"; };
 		E17509BF1EC6F38900E17B39 /* HXBFinContract_contraceWebViewVC_Loan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinContract_contraceWebViewVC_Loan.m; sourceTree = "<group>"; };
-		E18B68921EC98AF60047E458 /* HXBMYRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYRequest.h; sourceTree = "<group>"; };
-		E18B68931EC98AF60047E458 /* HXBMYRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMYRequest.m; sourceTree = "<group>"; };
-		E18B68951EC98E020047E458 /* HXBRequestType_MYManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestType_MYManager.h; sourceTree = "<group>"; };
-		E18B68961EC98E020047E458 /* HXBRequestType_MYManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRequestType_MYManager.m; sourceTree = "<group>"; };
 		E18B68981EC997170047E458 /* HXBMYModel_MainPlanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYModel_MainPlanModel.h; sourceTree = "<group>"; };
 		E18B68991EC997170047E458 /* HXBMYModel_MainPlanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMYModel_MainPlanModel.m; sourceTree = "<group>"; };
 		E18B689B1EC99B7E0047E458 /* HXBMYViewModel_MianPlanViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYViewModel_MianPlanViewModel.h; sourceTree = "<group>"; };
@@ -639,6 +638,17 @@
 			path = hoomxbUITests;
 			sourceTree = "<group>";
 		};
+		4E1C62931ECA9F5B00AF1029 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				4E1C62941ECA9F5B00AF1029 /* HXBMYRequest.h */,
+				4E1C62951ECA9F5B00AF1029 /* HXBMYRequest.m */,
+				4E1C62961ECA9F5B00AF1029 /* HXBRequestType_MYManager.h */,
+				4E1C62971ECA9F5B00AF1029 /* HXBRequestType_MYManager.m */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
 		4E26E3A11EA0FE660078B419 /* Network */ = {
 			isa = PBXGroup;
 			children = (
@@ -812,6 +822,7 @@
 		4E422CAD1EA7383D00C0EB62 /* My */ = {
 			isa = PBXGroup;
 			children = (
+				4E1C62931ECA9F5B00AF1029 /* Request */,
 				4E80AA7E1EC0730000A4CB5A /* Cell */,
 				4E422CB01EA7383D00C0EB62 /* ViewController */,
 				E1D2CA511EAB4D6B000099C7 /* View */,
@@ -1313,17 +1324,6 @@
 				E17509B91EC6E52900E17B39 /* HXBFinPlanContract_contraceWebViewVC.m */,
 			);
 			path = ContractWebViewController;
-			sourceTree = "<group>";
-		};
-		E18B68911EC98AD60047E458 /* Request */ = {
-			isa = PBXGroup;
-			children = (
-				E18B68921EC98AF60047E458 /* HXBMYRequest.h */,
-				E18B68931EC98AF60047E458 /* HXBMYRequest.m */,
-				E18B68951EC98E020047E458 /* HXBRequestType_MYManager.h */,
-				E18B68961EC98E020047E458 /* HXBRequestType_MYManager.m */,
-			);
-			path = Request;
 			sourceTree = "<group>";
 		};
 		E18B68A11EC9D3860047E458 /* MainListView */ = {
@@ -1913,6 +1913,7 @@
 				E1E461731EB9B448005B1FC6 /* PlanBuyConfirm.m in Sources */,
 				E1E461651EB9B3A9005B1FC6 /* LoginAPI.m in Sources */,
 				E16314321EC0761C0090567E /* HXBFinHomePageViewModel_PlanList.m in Sources */,
+				4E1C62991ECA9F5B00AF1029 /* HXBRequestType_MYManager.m in Sources */,
 				E17509C01EC6F38900E17B39 /* HXBFinContract_contraceWebViewVC_Loan.m in Sources */,
 				E1BDFDB71EA89DDA00311EC2 /* HXBServerAndClientTime.m in Sources */,
 				E18B689A1EC997170047E458 /* HXBMYModel_MainPlanModel.m in Sources */,
@@ -1924,14 +1925,12 @@
 				E16314491EC084660090567E /* HXBFinDetail_TableView.m in Sources */,
 				E1C964751EA5E04F0066DBC4 /* HXBBaseTabBarController.m in Sources */,
 				4E8198AA1EC44BCE00D668A1 /* HXBHomePageAfterLoginView.m in Sources */,
-				E1D2CA551EAB4D8E000099C7 /* HxbMyHomePageViewModel.m in Sources */,
 				4E80AA771EC05E3A00A4CB5A /* HxbMyPlanViewController.m in Sources */,
 				E122D8531EA0CAB900DC71ED /* NSString+HxbMask.m in Sources */,
 				E16314351EC076750090567E /* HXBFinDetailViewModel_PlanDetail.m in Sources */,
 				E1FBADB71EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m in Sources */,
 				E112623A1EC5A9290084A22D /* FinModel_AddRecortdModel_Loan.m in Sources */,
 				4EAD98E11EB86CC70029A3FF /* SignUpModel.m in Sources */,
-				E18B68941EC98AF60047E458 /* HXBMYRequest.m in Sources */,
 				E1E461851EB9C17A005B1FC6 /* HXBFinancting_PlanListTableViewCell.m in Sources */,
 				E122D8581EA0CAB900DC71ED /* UIScreen+Hxb.m in Sources */,
 				E1C964761EA5E04F0066DBC4 /* HXBBaseViewController.m in Sources */,
@@ -1993,7 +1992,7 @@
 				E17509AF1EC6D58900E17B39 /* HXBBaseWebViewController.m in Sources */,
 				4E9B8BFB1EA5B1CA0056FCC8 /* HxbHUDProgress.m in Sources */,
 				4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */,
-				E1FDF6241EC3291C00FF98AC /* HXBFinDetailModel_LoanDetail.m in Sources */,
+				E1FDF6241EC3291C00FF98AC /* HXBFinDetailModel_LoanDetail_.m in Sources */,
 				E1C964781EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.m in Sources */,
 				E122D85D1EA0CAB900DC71ED /* UIView+HxbView.m in Sources */,
 				4E26E3AF1EA0FE660078B419 /* NYBaseRequest.m in Sources */,
