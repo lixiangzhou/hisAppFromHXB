@@ -8,9 +8,13 @@
 
 #import "HXBHomePageAfterLoginView.h"
 @interface HXBHomePageAfterLoginView ()
-@property (nonatomic,strong) UILabel * profitTitleLabel;
-@property (nonatomic,strong) UILabel * profitLabel;
-@property (nonatomic,strong) UIButton * selectEyeButton;
+@property (nonatomic, strong) UILabel *userTitleLabel;
+@property (nonatomic, strong) UILabel *tipLabel;
+@property (nonatomic, strong) UILabel *profitLabel;
+@property (nonatomic, strong) UIButton *selectEyeButton;
+@property (nonatomic, strong) NSString *amountString;
+@property (nonatomic, strong) NSString *profitString;
+
 @end
 
 @implementation HXBHomePageAfterLoginView
@@ -18,27 +22,29 @@
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor whiteColor];
-        [self addSubview:self.profitTitleLabel];
+//        self.backgroundColor = [UIColor whiteColor];
+        [self addSubview:self.userTitleLabel];
+        [self addSubview:self.tipLabel];
         [self addSubview:self.profitLabel];
         [self addSubview:self.selectEyeButton];
         [self setContentFrame];
+        [self loadData];
     }
     return self;
 }
 
--(void)setContentFrame{
-    [_profitTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(15);
-        make.top.equalTo(self).offset(16);
-        make.width.equalTo(@(SCREEN_WIDTH/3));
+- (void)setContentFrame{
+    [_userTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self);
+        make.top.equalTo(self).offset(HxbMarginBig + 10);
+        make.right.equalTo(self);
         make.height.equalTo(@11);
     }];
     
-    [_profitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(15);
-        make.top.equalTo(_profitTitleLabel.mas_bottom).offset(10);
-        make.width.equalTo(@(SCREEN_WIDTH-70));
+    [_tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self);
+        make.bottom.equalTo(self).offset(-10);
+        make.right.equalTo(self);
         make.height.equalTo(@25);
     }];
     
@@ -46,18 +52,14 @@
         make.right.equalTo(self).offset(-8);
         make.centerY.equalTo(self);
         make.size.mas_equalTo(CGSizeMake(40, 40));
-        
     }];
-    
 }
 
-
-
--(void)selectEyeButtonClicked:(UIButton *)sender
+- (void)selectEyeButtonClicked:(UIButton *)sender
 {
     UIButton *button = (UIButton*)sender;
     button.selected = !button.selected;
-    NSString * oldStr = _profitLabel.text;
+    NSString * oldStr = _tipLabel.text;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (!sender.selected) {
 //        _profitLabel.text = [NSString stringWithFormat:@"%.2f",[_profitModel.currentProfit doubleValue]];
@@ -68,8 +70,8 @@
     
         [defaults setBool:YES forKey:@"hideProfit"];
         [defaults synchronize];
-        NSString *string = [_profitLabel.text substringWithRange:NSMakeRange(0,oldStr.length)];
-        _profitLabel.text = [oldStr stringByReplacingOccurrencesOfString:string withString:@"****"];
+        NSString *string = [_tipLabel.text substringWithRange:NSMakeRange(0,oldStr.length)];
+        _tipLabel.text = [oldStr stringByReplacingOccurrencesOfString:string withString:@"****"];
         //字符串的替换
         //        for (int i=0; i<oldStr.length; i++) {
         //            NSString * hideString = @"*";
@@ -78,25 +80,55 @@
     }
 }
 
-
--(UILabel *)profitTitleLabel{
-    if (!_profitTitleLabel) {
-        _profitTitleLabel = [[UILabel alloc]init];
-        _profitTitleLabel.textColor = COR10;
-        _profitTitleLabel.font = HXB_Text_Font(SIZ16);
-        _profitTitleLabel.textAlignment = NSTextAlignmentLeft;
-        _profitTitleLabel.text = @"累计收益(元)";
-    }
-    
-    return _profitTitleLabel;
+- (void)loadData{
+    NSString *userName = @"hxb0001";
+   _userTitleLabel.text = [NSString stringWithFormat:@"您好，%@",userName];
 }
 
--(UILabel *)profitLabel{
+- (void)setAmountString:(NSString *)amountString{
+    _amountString = amountString;
+    if (_amountString.length != 0) {
+    _tipLabel.text = amountString;
+    }
+}
+
+- (void)setProfitAndAmountData{
+    _amountString = @"3000.00";
+}
+
+- (void)setProfitString:(NSString *)profitString{
+    _profitString = profitString;
+}
+
+- (void)setTipString:(NSString *)tipString{
+    _tipString = tipString;
+    _tipLabel.text = tipString;
+}
+
+- (UILabel *)userTitleLabel{
+    if (!_userTitleLabel) {
+        _userTitleLabel = [[UILabel alloc]init];
+        _userTitleLabel.textColor = COR10;
+        _userTitleLabel.font = HXB_Text_Font(SIZ16);
+        _userTitleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    
+    return _userTitleLabel;
+}
+
+- (UILabel *)tipLabel{
+    if (!_tipLabel) {
+        _tipLabel = [[UILabel alloc]init];
+        _tipLabel.textColor = COR7;
+        _tipLabel.font = HXB_Text_Font(22);
+        _tipLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _tipLabel;
+}
+
+- (UILabel *)profitLabel{
     if (!_profitLabel) {
-        _profitLabel = [[UILabel alloc]init];
-        _profitLabel.textColor = COR7;
-        _profitLabel.font = HXB_Text_Font(22);
-        _profitLabel.textAlignment = NSTextAlignmentLeft;
+        _profitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_userTitleLabel.frame) + 5, SCREEN_WIDTH, 15)];
     }
     return _profitLabel;
 }

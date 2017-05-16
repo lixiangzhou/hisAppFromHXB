@@ -11,4 +11,7 @@
 
 @interface HXBHomePageAfterLoginView : UIView
 //@property (nonatomic,strong)AssetOverviewModel * profitModel;
+@property (nonatomic, strong) NSString *tipString;
+
+- (void)setProfitData;
 @end

@@ -104,11 +104,12 @@
     if (!_introductionButton) {
         _introductionButton = [[HXBHomePageModuleButton alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH/3, 85)];
         [_introductionButton addTarget:self action:@selector(intoduceButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/6 - 26, 56, self.width/3-10, 13)];
-        titleLabel.text = @"品牌介绍";
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_introductionButton.frame) - 28, self.width/3, 13)];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.text = @"注册";
         titleLabel.font = HXB_Text_Font(13);
         titleLabel.textColor = COR7;
-        [self addSubview:titleLabel];
+        [_introductionButton addSubview:titleLabel];
     }
     return _introductionButton;
 }
@@ -117,7 +118,7 @@
     if (!_introductionImageView) {
         _introductionImageView = [[UIImageView alloc]initWithFrame:CGRectMake(46.5, 16, 32, 32)];
         _introductionImageView.center = CGPointMake(SCREEN_WIDTH/6, 32);
-        _introductionImageView.image = [UIImage imageNamed:@"hoom_introduce"];
+        _introductionImageView.image = [UIImage imageNamed:@"introductionplaceholder.png"];
     }
 
     return _introductionImageView;
@@ -129,11 +130,12 @@
     if (!_safetyButton) {
         _safetyButton = [[HXBHomePageModuleButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/3,0,SCREEN_WIDTH/3,85)];
         [_safetyButton addTarget:self action:@selector(safetyButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2 - 26, 56, self.width/3-10, 13)];
-        titleLabel.text = @"安全保障";
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(_safetyButton.frame) - 28, self.width/3, 13)];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.text = @"安全认证";
         titleLabel.font = HXB_Text_Font(13);
         titleLabel.textColor = COR7;
-        [self addSubview:titleLabel];
+        [self.safetyButton addSubview:titleLabel];
     }
     return _safetyButton;
 }
@@ -143,7 +145,7 @@
     if (!_safetyImageView) {
         _safetyImageView = [[UIImageView alloc]initWithFrame:CGRectMake(46.5, 16, 32, 32)];
         _safetyImageView.center = CGPointMake(SCREEN_WIDTH/6, 32);
-        _safetyImageView.image = [UIImage imageNamed:@"hoom_safety"];
+        _safetyImageView.image = [UIImage imageNamed:@"introductionplaceholder.png"];
     }
     return _safetyImageView;
 }
@@ -153,11 +155,12 @@
     if (!_inviteButton) {
         _inviteButton = [[HXBHomePageModuleButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/3 * 2,0,SCREEN_WIDTH/3,85)];
         [_inviteButton addTarget:self action:@selector(inviteButtonClicked) forControlEvents:UIControlEventTouchUpInside];
-        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/6*5 - 26, 56, self.width/3-10, 13)];
-        titleLabel.text = @"邀请好友";
+        UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_inviteButton.frame) - 28, self.width/3,13)];
+        titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.text = @"投资";
         titleLabel.font = HXB_Text_Font(13);
         titleLabel.textColor = COR7;
-        [self addSubview:titleLabel];
+        [self.inviteButton addSubview:titleLabel];
     }
     return _inviteButton;
 }
@@ -166,7 +169,7 @@
     if (!_inviteImageView) {
         _inviteImageView = [[UIImageView alloc]initWithFrame:CGRectMake(46.5, 16, 32, 32)];
         _inviteImageView.center = CGPointMake(SCREEN_WIDTH/6, 32);
-        _inviteImageView.image = [UIImage imageNamed:@"hoom_invite"];
+        _inviteImageView.image = [UIImage imageNamed:@"introductionplaceholder.png"];
     }
       return _inviteImageView;
 }

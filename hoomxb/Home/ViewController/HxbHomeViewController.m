@@ -20,7 +20,11 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAd) name:@"pushtoad" object:nil];
     [self.view addSubview:self.homeView];
-
+    [self.homeView changeIndicationView];
+    [self.homeView showSecurityCertificationOrInvest];
+    
+    //    [self getBannersWithCompletion:^{}];
+    
 }
 
 - (void)pushToAd {
@@ -32,16 +36,13 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pushtoad" object:nil];
 }
 
-    
 
-    
 
-//    [self.homePageView changeIndicationView];
-//    [self getBannersWithCompletion:^{}];
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 
 

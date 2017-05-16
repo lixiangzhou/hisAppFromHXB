@@ -30,11 +30,11 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self addSubview:self.bannerView];
-        [self addSubview:self.bulletinView];
         [self addSubview:self.indicationView];
         [self addSubview:self.afterLoginView];
         [self addSubview:self.moduleView];
+        [self addSubview:self.bannerView];
+        [self addSubview:self.bulletinView];
 
 //        [self.moduleView setTopLine];
     }
@@ -48,11 +48,11 @@
         return;
     }
     self.bulletinView.hidden = YES;
-    self.indicationView.y = self.bannerView.height;
-    self.afterLoginView.y = self.bannerView.height;
-
-    self.moduleView.y = self.bannerView.height + self.indicationView.height;
-
+//    self.indicationView.y = self.bannerView.height;
+//    self.afterLoginView.y = self.bannerView.height;
+//
+//    self.moduleView.y = self.bannerView.height + self.indicationView.height;
+//
     self.height = self.height - self.bulletinView.height;
     [self.bulletinView removeFromSuperview];
     
@@ -93,17 +93,14 @@
     }
 }
 
-
 - (void)hideLoginIndicationView
 {    self.afterLoginView.hidden = NO;
-    if (self.indicationView.hidden == YES) {
+    if (self.indicationView.hidden) {
         return;
     }
 //    self.height = self.height - self.indicationView.height;
-    if (self.bulletinView.hidden == YES) {
-        self.moduleView.y = self.bannerView.height + self.afterLoginView.height;
-    }else{
-        self.moduleView.y = self.bannerView.height + self.bulletinView.height +  self.afterLoginView.height;
+    if (!self.bulletinView.hidden) {
+//        self.moduleView.y = self.bannerView.height + self.bulletinView.height +  self.afterLoginView.height;
     }
     self.indicationView.hidden = YES;
     [self resetView];
@@ -127,6 +124,16 @@
     [self resetView];
 }
 
+- (void)showSecurityCertificationOrInvest{
+    if ( [KeyChain isLogin] && [KeyChain isVerify]) {
+       self.afterLoginView.tipString = @"已安全认证，立即投资啦！";
+    }else{
+       self.afterLoginView.tipString = @"还没有，安全认证";
+    }
+    if ( [KeyChain isLogin]&&[KeyChain isVerify] && [KeyChain isInvest]) {
+        
+    }
+}
 - (void)resetView
 {
     if ([self.delegate respondsToSelector:@selector(resetHeadView)]) {
@@ -153,10 +160,38 @@
 }
 
 #pragma mark Get Methods
+
+
+- (HXBHomePageLoginIndicationView *)indicationView
+{
+    if (!_indicationView) {
+        _indicationView = [[HXBHomePageLoginIndicationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 105)];
+    }
+    return _indicationView;
+}
+
+-(HXBHomePageAfterLoginView *)afterLoginView
+{
+    if (!_afterLoginView) {
+        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 105)];
+        //       _afterLoginView.hidden  = YES;
+    }
+    return _afterLoginView;
+}
+
+- (HXBHomePageModuleView *)moduleView
+{
+    if (!_moduleView) {
+        _moduleView = [[HXBHomePageModuleView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_indicationView.frame), SCREEN_WIDTH, 85)];
+        _moduleView.backgroundColor = COR1;
+    }
+    return _moduleView;
+}
+
 - (HXBBannerView *)bannerView
 {
     if (!_bannerView) {
-        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
+        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_moduleView.frame), SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
     }
     return _bannerView;
 }
@@ -164,35 +199,13 @@
 - (HXBHomePageBulletinView *)bulletinView
 {
     if (!_bulletinView) {
-        _bulletinView = [[HXBHomePageBulletinView alloc]initWithFrame:CGRectMake(0, _bannerView.height, SCREEN_WIDTH, 40)];
+        _bulletinView = [[HXBHomePageBulletinView alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(_bannerView.frame), SCREEN_WIDTH, 40)];
         _bulletinView.delegete = self;
     }
     return _bulletinView;
 }
 
-- (HXBHomePageLoginIndicationView *)indicationView
-{
-    if (!_indicationView) {
-        _indicationView = [[HXBHomePageLoginIndicationView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_bulletinView.frame), SCREEN_WIDTH, 72)];
-    }
-    return _indicationView;
-}
 
-- (HXBHomePageModuleView *)moduleView
-{
-    if (!_moduleView) {
-        _moduleView = [[HXBHomePageModuleView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_indicationView.frame), SCREEN_WIDTH, 85)];
-    }
-    return _moduleView;
-}
 
--(HXBHomePageAfterLoginView *)afterLoginView
-{
-    if (!_afterLoginView) {
-       _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_bulletinView.frame), SCREEN_WIDTH, 72)];
-//       _afterLoginView.hidden  = YES;
-    }
-    return _afterLoginView;
-}
 
 @end

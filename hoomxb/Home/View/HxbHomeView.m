@@ -9,7 +9,7 @@
 #import "HxbHomeView.h"
 #import "HXBHomePageHeadView.h"
 
-@interface HxbHomeView ()
+@interface HxbHomeView ()<UITableViewDelegate,UITableViewDataSource,HXBHomePageHeadViewDelegate>
 @property (nonatomic, strong) HXBHomePageHeadView *headView;
 @property (nonatomic, strong) UIView *footerView;
 @end
@@ -26,6 +26,7 @@
 //        [self.mainTableView addSubview:self.refreshControl];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIndicationView) name:IsLoginToReloadTableView object:nil];
 //        [self addSubview:self.navigationBar];
+
     }
     return self;
 }
@@ -48,11 +49,15 @@
 
 - (void)changeIndicationView
 {
-    if ([KeyChain isLogin]) {
+//    if ([KeyChain isLogin]) {
         [self.headView hideLoginIndicationView];
-    }else{
-        [self.headView showLoginIndicationView];
-    }
+//    }else{
+//        [self.headView showLoginIndicationView];
+//    }
+}
+
+- (void)showSecurityCertificationOrInvest{
+    [self.headView showSecurityCertificationOrInvest];
 }
 
 - (void)endRefreshing
@@ -203,7 +208,7 @@
 - (HXBHomePageHeadView *)headView
 {
     if (!_headView) {
-        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH *9/16 + 195)];//199
+        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH *9/16 + 195 + 33)];//199
         _headView.delegate = self;
     }
     return _headView;
@@ -218,7 +223,7 @@
         
         UILabel *label = [UILabel new];
         label.frame = CGRectMake(0, 0, _footerView.width, _footerView.height);
-        label.text = @"— 点击理财，选购更多 —";
+        label.text = @"预期年利率不等于实际收益，投资需谨慎";
         label.font = HXB_Text_Font(SIZ15);
         label.textColor = COR11;
         label.textAlignment = NSTextAlignmentCenter;

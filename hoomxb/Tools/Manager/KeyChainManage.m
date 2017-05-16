@@ -85,6 +85,11 @@ static NSString * const kLocalAvatarImageData = @"kLocalAvatarImageData";
     return hasBankcard;
 }
 
+- (BOOL)isInvest{
+    BOOL isInvest = true;
+    return isInvest;
+}
+
 - (BOOL)removeAllInfo
 {
     //

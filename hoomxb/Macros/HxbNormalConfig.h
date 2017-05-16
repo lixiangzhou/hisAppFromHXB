@@ -1,8 +1,8 @@
 //
-//  HxbPickerCofig.h
+//  HxbNormalConfig.h
 //  hoomxb
 //
-//  Created by HXB-C on 2017/5/10.
+//  Created by HXB-C on 2017/5/16.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
@@ -25,4 +25,5 @@ UIKIT_EXTERN CGFloat const HxbControlSystemHeight;
 
 /** 6.控件的普通高度 36 */
 UIKIT_EXTERN CGFloat const HxbControlNormalHeight;
+
 

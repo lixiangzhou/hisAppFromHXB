@@ -28,11 +28,12 @@
 @property (nonatomic, assign) BOOL network;
 
 - (void)hideLoginIndicationView;
-
 - (void)showLoginIndicationView;
-
 
 - (void)hideBulletinView;
 - (void)showBulletinView;
+
+- (void)showSecurityCertificationOrInvest;
+
 
 @end

@@ -12,4 +12,9 @@
 @interface HxbHomeView : UIView
 @property (nonatomic,strong)HXBBannerView *bannerView;
 @property (nonatomic, strong) UITableView *mainTableView;
+
+- (void)changeIndicationView;
+- (void)hideBulletinView;
+- (void)showBulletinView;
+- (void)showSecurityCertificationOrInvest;
 @end
