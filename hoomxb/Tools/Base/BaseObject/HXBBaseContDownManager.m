@@ -37,6 +37,7 @@
 @property (nonatomic,strong) NSMutableArray *countDownArray;
 //传入的model数组是否为二维数组
 @property (nonatomic,assign) BOOL isTwo_DimensionalArray;
+@property (nonatomic,strong) UIScrollView *scrollView;
 @end
 
 
@@ -128,6 +129,9 @@
 - (void)createTimer {
         //0.创建队列
         dispatch_queue_t queue = self.queue;
+        [self.modelArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj setValue:@"0" forKey:self.modelCountDownKey];
+        }];
         //1.创建GCD中的定时器
         /*
          第一个参数:创建source的类型 DISPATCH_SOURCE_TYPE_TIMER:定时器
@@ -188,7 +192,7 @@
     //判断model中的关于时间类的类型
     NSString *dateValue = [model valueForKey:self.modelDateKey];
     
-    long long dateNumber = dateValue.longLongValue;
+    __block long long dateNumber = dateValue.longLongValue;
     
     //如果没有时间值
     if (!dateNumber) return;
@@ -200,29 +204,40 @@
     }
     
     //判断是否需要计时
-    if (dateNumber <= self.countdownStartTime && dateNumber >= 0) {
-        //添加到数组中
-        [self.countDownArray addObject:model];
+    //以前的判断条件是这个：dateNumber <= self.countdownStartTime && dateNumber >= 0
+    //但是如果没有加dateNumber >= 0 这个条件，那么就不会再都是0的时候发出消息让外部进行UI刷新
+    if (dateNumber <= self.countdownStartTime) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (dateNumber <= 0) dateNumber = 0;
             [model setValue:@(dateNumber).description forKey:self.modelCountDownKey];
             if(self.changeModelBlock) {
                 //如果小于0，就是零，如果是
                 NSInteger section = self.column  < 0 ? 0 : self.column;
-                
+
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:section];
                 self.changeModelBlock(model,indexPath);
             }
         });
-    }else {
-        [self.countDownArray removeObject:model];
     }
-
-    //关掉定时器
-    if (!self.countDownArray.count && self.isAutoEnd) [self cancelTimer];
+    
     
     //如果是二维数组，并且到达最后了，就置为-1
     if (self.isTwo_DimensionalArray && self.column >= self.modelArray.count) {
         self.column = -1;
+    }
+    
+    //是否自动关闭定时器
+    if (!self.isAutoEnd) {
+        return;
+    }
+    __block NSInteger count = 0;
+    [self.modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([model valueForKey:self.modelCountDownKey] <= 0) {
+            count++;
+        }
+    }];
+    if (count == self.modelArray.count) {
+        [self cancelTimer];
     }
 }
 
@@ -274,4 +289,33 @@
     [self resumeTimer];
 }
 
+
+- (void)stopWenScrollViewScrollBottomWithTableView: (UIScrollView *)scrollView {
+    self.scrollView = scrollView;
+    [self.scrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"state"]) {
+        UIPanGestureRecognizer *pan = (UIPanGestureRecognizer *)object;
+        switch (pan.state) {
+            case UIGestureRecognizerStateBegan:
+                [self cancelTimer];
+                break;
+            case UIGestureRecognizerStateEnded:
+            case UIGestureRecognizerStateCancelled:
+            case UIGestureRecognizerStateFailed:
+                [self resumeTimer];
+                break;
+            case UIGestureRecognizerStateChanged:
+            case UIGestureRecognizerStatePossible:
+                break;
+        }
+    }
+}
+- (void)dealloc
+{
+    [self.scrollView.panGestureRecognizer removeObserver:self forKeyPath:@"state"];
+    NSLog(@"√ %@ 被销毁了",self.class);
+}
 @end

@@ -22,7 +22,7 @@
 #import "HXBFinDetailViewModel_LoanDetail.h"//散标详情的ViewMOdel
 
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划的Model
-#import "HXBFinDetailModel_LoanDetail.h"//散标详情的MOdel
+#import "HXBFinDatailModel_LoanDetail.h"//散标详情的MOdel
 
 @interface HxbFinanctingViewController ()
 @property (nonatomic,strong) HXBFinanctingView_HomePage *homePageView;//最主要的view
@@ -81,6 +81,7 @@
     self.finantingRequest = [HXBFinanctingRequest sharedFinanctingRequest];
 }
 - (void)setup {
+    self.view.backgroundColor = [UIColor whiteColor];
     //防止跳转的时候，tableView向上或者向下移动
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -122,6 +123,7 @@
     planDetailsVC.isPlan = true;
     planDetailsVC.isFlowChart = true;
     planDetailsVC.hidesBottomBarWhenPushed = true;
+    planDetailsVC.planListViewModel = model;
     [self.navigationController pushViewController:planDetailsVC animated:true];
 }
 //MARK: - 点击了散标列表页的 cell
@@ -134,6 +136,7 @@
 - (void)pushLoanListCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanList *)model {
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
     loanDetailsVC.loanID = model.loanListModel.loanId;
+    loanDetailsVC.loanListViewMode = model;
     loanDetailsVC.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:loanDetailsVC animated:true];
 }
@@ -197,11 +200,11 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-//    [self.homePageView.contDwonManager cancelTimer];
+    [self.homePageView.contDwonManager cancelTimer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-//    [self.homePageView.contDwonManager resumeTimer];
+    [self.homePageView.contDwonManager resumeTimer];
     [self.homePageView loadData];
 }
 @end

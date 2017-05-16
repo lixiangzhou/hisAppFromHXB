@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class HXBFinDetail_TableViewCellModel;
-
+@class HXBFinHomePageViewModel_LoanList;
 
 ///散标详情页的控制器
 @interface HXBFinancing_LoanDetailsViewController : HXBBaseViewController
@@ -21,4 +21,6 @@
 
 ///loanID
 @property (nonatomic,copy) NSString *loanID;
+
+@property (nonatomic,strong) HXBFinHomePageViewModel_LoanList *loanListViewMode;
 @end

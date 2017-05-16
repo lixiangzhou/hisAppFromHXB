@@ -26,6 +26,7 @@
     return @"";
 }
 
+/// 不能在这里写，因为在子类中，如果没有重写
 - (NSDictionary *)requestArgument{
     return @{};
 } 

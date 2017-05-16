@@ -14,7 +14,13 @@
 #import "HXBFinDetailViewModel_LoanDetail.h"//散标详情的ViewMOdel
 
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划详情的Model
-#import "HXBFinDetailModel_LoanDetail.h"//散标详情的Model
+#import "HXBFinDatailModel_LoanDetail.h"//散标详情的Model
+
+#import "HXBFinHomePageViewModel_PlanList.h"///红利计划列表页Viewmodel
+#import "HXBFinHomePageViewModel_LoanList.h"///散标列表页的Viewmodel\
+
+#import "HXBFinHomePageModel_PlanList.h"
+#import "HXBFinHomePageModel_LoanList.h"
 
 @interface HXBFin_DetailsViewBase()
 ///预期年化的view
@@ -46,6 +52,11 @@
 ///红利计划：剩余金额 散标列表是（剩余金额）
 @property (nonatomic,copy) NSString *remainAmount;
 @property (nonatomic,copy) NSString *remainAmount_const;
+
+///底部的tableView被点击
+@property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
+///加入的button
+@property (nonatomic,strong) UIButton *addButton;
 @end
 
 @implementation HXBFin_DetailsViewBase
@@ -54,7 +65,17 @@
     self.bottomTableView.tableViewCellModelArray = modelArray;
 }
 #pragma mark - setter
+//判断了加入按钮的状态
+- (void)setPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)planListViewModel {
+    if ([planListViewModel.planListModel.joined isEqualToString:@"false"]) {//是否为已加入
+        [self.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
+    }else {
+          [self.addButton setTitle:@"追加" forState:UIControlStateNormal];
+    }
+}
 - (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
+    self.isPlan = true;
+    
     _planDetailViewModel = planDetailViewModel;
     self.totalInterestStr = planDetailViewModel.planDetailModel.totalInterest;
     self.startInvestmentStr = @"1000元";
@@ -66,22 +87,36 @@
     self.startInvestmentStr_const = @"标的期限";
     self.promptStr = @"* 预期收益不代表实际收益投资需谨慎";
     
+  
     [self show];
 }
+
+- (void)setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
+//    if ([loanListViewModel.loanListModel.joined isEqualToString:@"false"]) {//是否为已加入
+        [self.addButton setTitle:@"立即投标" forState:UIControlStateNormal];
+//    }else {
+//        [self.addButton setTitle:@"追加" forState:UIControlStateNormal];
+//    }
+}
 - (void)setLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)loanDetailViewModel{
+    self.isPlan = false;
     _loanDetailViewModel = loanDetailViewModel;
-//    self.startInvestmentStr = [NSString stringWithFormat:@"%@",loanDetailViewModel.loanDetailModel.];
+    HXBFinDatailModel_LoanDetail_loanVo *loanVO = loanDetailViewModel.loanDetailModel.loanVo;
+    self.totalInterestStr = loanVO.totalInterestPer100;
     self.totalInterestStr_const = @"预期年利率";
+    self.remainAmount = loanVO.surplusAmount;
     self.remainAmount_const = @"剩余可投";
-    self.startInvestmentStr_const = @"起投";
+    self.startInvestmentStr = loanVO.leftMonths;
+    self.startInvestmentStr_const = @"标的期限";
     self.promptStr = @"* 预期收益不代表实际收益投资需谨慎";
+    [self.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
     [self show];
 }
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithWhite:0.8 alpha:1];
+        self.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     }
     return self;
 }
@@ -176,6 +211,8 @@
 //MARK: - 引导视图
 - (void)setupFlowChartView {
     kWeakSelf
+    if (!self.isPlan) return;
+        
     //如果是 则用增信view 不是则用剩余可投view作为约束参考
     UIView *view = self.isFlowChart ? self.trustView : self.surplusValueView;
     self.flowChartView = [[HXBFinBase_FlowChartView alloc]init];
@@ -196,18 +233,25 @@
         make.left.right.equalTo(weakSelf);
         make.height.equalTo(@60);
     }];
-    UIButton *addButton = [[UIButton alloc]init];
-    [self.addView addSubview:addButton];
-    [addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.addButton = [[UIButton alloc]init];
+    [self.addView addSubview:_addButton];
+    [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.equalTo(weakSelf.addView);
         make.left.top.equalTo(weakSelf.addView).offset(20);
         make.bottom.right.equalTo(weakSelf.addView).offset(-20);
     }];
-    [addButton setTitle:@"立即加入" forState:UIControlStateNormal];
-    [addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
+    [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 - (void)clickAddButton: (UIButton *)button {
     NSLog(@" - 立即加入 - ");
+    ///判断是否为登录状态
+    if (![KeyChain isLogin]) {//没有登录就跳登录
+        [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
+    }
+    if ([KeyChain isLogin]) {//登陆了就
+        //判断是否有风险测评，
+    }
 }
 
 
@@ -241,17 +285,18 @@
 //MARK: - 展示计划详情等的 tableView
 - (void)setupTableView {
     kWeakSelf
-//    if (!self.isFlowChart) return;
     self.bottomTableView = [[HXBFinDetail_TableView alloc]init];
     self.bottomTableView.tableViewCellModelArray = self.modelArray;
     self.bottomTableView.bounces = false;
     [self addSubview:self.bottomTableView];
+    UIView *view = self.isPlan? self.flowChartView : self.trustView;
     [self.bottomTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.flowChartView.mas_bottom).offset(0);
+        make.top.equalTo(view.mas_bottom).offset(1);
         make.left.right.equalTo(weakSelf);
         make.height.equalTo(@120);
     }];
-    
+    //cell的点击事件
+    [self.bottomTableView clickBottomTableViewCellBloakFunc:self.clickBottomTabelViewCellBlock];
     self.bottomTableView.rowHeight = 40;
     UILabel *lable = [[UILabel alloc]init];
     [self addSubview:lable];
@@ -261,7 +306,11 @@
         make.centerX.equalTo(weakSelf);
     }];
     lable.text = self.promptStr;
+    lable.textAlignment = NSTextAlignmentCenter;
     lable.textColor = [UIColor grayColor];
 }
-
+//MARK: 事件的传递
+- (void)clickBottomTableViewCellBloakFunc:(void (^)(NSIndexPath *, HXBFinDetail_TableViewCellModel *))clickBottomTabelViewCellBlock {
+    self.clickBottomTabelViewCellBlock = clickBottomTabelViewCellBlock;
+}
 @end

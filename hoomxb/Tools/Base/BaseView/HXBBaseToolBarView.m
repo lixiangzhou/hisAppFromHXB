@@ -18,7 +18,7 @@
 //点击选项按钮的事件回调
 @property (nonatomic,copy) void(^clickOptionItemBlock)(UIButton *button,NSString *itemText, NSInteger index);
 /**关于item底部的view自定义*/
-@property (nonatomic,copy) void(^setUpItemSelectBarViewBlock)(UIButton *button,UIView *barView);
+@property (nonatomic,copy) void(^setUpBarViewItemBlock)(UIButton *button,UIView *barView);
 @end
 
 @implementation HXBBaseToolBarView
@@ -190,8 +190,8 @@
             self.selectItem = button;
         }
         
-        if (self.setUpItemSelectBarViewBlock) {
-            self.setUpItemSelectBarViewBlock (button,barView);
+        if (self.setUpBarViewItemBlock) {
+            self.setUpBarViewItemBlock (button,barView);
         }
         [optionItemInfoM addObject:button];
     }
@@ -249,8 +249,8 @@
     self.clickOptionItemBlock = clickOptionItemBlock;
 }
 /**关于item底部的view自定义*/
-- (void)setUpItemSelectBarViewBlockFuncWithBlcok:(void (^)(UIButton *, UIView *))setupItemSelctBarViewBlock {
-    self.setUpItemSelectBarViewBlock = setupItemSelctBarViewBlock;
+- (void)setUpsetUpBarViewItemBlockFuncWithBlcok:(void (^)(UIButton *, UIView *))setUpBarViewItemBlock {
+    self.setUpBarViewItemBlock = setUpBarViewItemBlock;
 }
 #pragma mark - 设置了readonly属性所以重写方法返回NO，防止外部KVC
 + (BOOL)accessInstanceVariablesDirectly{

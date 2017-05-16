@@ -22,11 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.imageName = @"1";
-    //登出按钮
-//    [self.view addSubview:self.signOutButton];
+
+    //登录的测试
     //对controllerView进行布局
+//    [self setupSubView];
     
-    [self setupSubView];
+    //散标列表 红利计划的Button
+    [self setupBUTTON];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -42,10 +44,7 @@
 
 //MARK: 对controllerView进行布局
 - (void)setupSubView {
-    //对navigationItem进行更改
-    [self setupNavigation];
     [self setupMyView];
-    
 }
 
 - (void)setupMyView{
@@ -55,13 +54,25 @@
     [self.view addSubview:myView];
 }
 
-//MARK: 对navigationItem进行更改
-- (void)setupNavigation {
-    UIImage *image = [UIImage imageNamed:@"1"];
-    image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(clickBarButtonItem)];
 
-    [self.navigationItem setLeftBarButtonItem:leftBarButtonItem];
+
+- (void) setupBUTTON {
+    [self setupButton_MYPlan];
+    [self setupButton_MYLoan];
+}
+- (void) setupButton_MYPlan {
+    UIButton *myPlanBut = [UIButton hxb_textButton:@"plan" fontSize:20 normalColor:[UIColor blueColor] selectedColor:[UIColor redColor]];
+    myPlanBut.frame = CGRectMake(100, 100, 100, 100);
+    
+    [self.view addSubview:myPlanBut];
+    [myPlanBut addTarget:self action:@selector(clickMyPlanButton:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)setupButton_MYLoan {
+    UIButton *myLoanBut = [UIButton hxb_textButton:@"loan" fontSize:20 normalColor:[UIColor blueColor] selectedColor:[UIColor redColor]];
+    myLoanBut.frame = CGRectMake(100, 300, 100, 100);
+    [self.view addSubview:myLoanBut];
+    [myLoanBut addTarget:self action:@selector(clickMyLoanButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)didLeftHeadBtnClick:(UIButton *)sender{
@@ -82,4 +93,7 @@
     NSLog(@"点击了返回按钮");
 }
 
+- (void)clickMyLoanButton: (UIButton *)button {
+    NSLog(@"%@ - 散标被点击");
+}
 @end

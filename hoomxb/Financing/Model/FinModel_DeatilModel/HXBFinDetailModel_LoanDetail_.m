@@ -6,9 +6,9 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFinDetailModel_LoanDetail.h"
+#import "HXBFinDetailModel_LoanDetail_.h"
 
-@implementation HXBFinDetailModel_LoanDetail
+@implementation HXBFinDetailModel_LoanDetail_
 + (NSDictionary *)modelContainerPropertyGenericClass {
     return @{@"loanLenderRecord_list":[HXBFinDetailModel_LoanDetail_loanLenderRecord_list class]};
 }

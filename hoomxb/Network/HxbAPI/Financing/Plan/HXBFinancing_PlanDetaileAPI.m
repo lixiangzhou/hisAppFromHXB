@@ -25,12 +25,12 @@
     return NYRequestMethodPost;
 }
 
-- (id)requestArgument {
-    return @{
-             @"version" : @"1.0",
-             @"userId" : @"1",
-             @"financePlanId" : @"1",
-             @"platform" : @"IOS"
-             };
-}
+//- (id)requestArgument {
+//    return @{
+//             @"version" : @"1.0",
+//             @"userId" : @"1",
+//             @"financePlanId" : @"1",
+//             @"platform" : @"IOS"
+//             };
+//}
 @end

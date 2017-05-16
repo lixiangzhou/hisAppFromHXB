@@ -39,7 +39,7 @@ static NSString * const kLocalAvatarImageData = @"kLocalAvatarImageData";
 
 @implementation KeyChainManage
 
-+ (id)sharedInstance
++ (instancetype)sharedInstance
 {
     static KeyChainManage *sharedInstance = nil;
     static dispatch_once_t once;

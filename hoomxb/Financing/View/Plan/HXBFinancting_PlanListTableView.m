@@ -9,7 +9,9 @@
 #import "HXBFinancting_PlanListTableView.h"
 #import "HXBFinancting_PlanListTableViewCell.h"
 #import "HXBFinHomePageViewModel_PlanList.h"//viewmodel
-
+#import "HXBFinHomePageViewModel_LoanList.h"
+#import "HXBFinHomePageModel_PlanList.h"
+#import "HXBFinHomePageModel_LoanList.h"
 @interface HXBFinancting_PlanListTableView ()
 <
 UITableViewDelegate,
@@ -70,8 +72,7 @@ static NSString *CELLID = @"CELLID";
     HXBFinancting_PlanListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     //点击后的block回调给了HomePageView
     if (self.clickPlanListCellBlock) {
-        self.clickPlanListCellBlock(indexPath, nil);
+        self.clickPlanListCellBlock(indexPath, cell.finPlanListViewModel);
     }
 }
-
 @end

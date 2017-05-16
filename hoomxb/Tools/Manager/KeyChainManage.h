@@ -15,7 +15,7 @@
 /**
  *  获取KeyChainManage单例
  */
-+ (id)sharedInstance;
++ (instancetype)sharedInstance;
 
 @property (nonatomic, copy) NSString *token;
 @property (nonatomic, copy) NSString *phone;

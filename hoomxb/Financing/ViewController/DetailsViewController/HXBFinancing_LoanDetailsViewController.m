@@ -8,9 +8,16 @@
 
 #import "HXBFinancing_LoanDetailsViewController.h"
 #import "HXBFinDetail_TableView.h"
-#import "HXBFin_DetailsView_LoanDetailsView.h"
-#import "HXBFinanctingRequest.h"
-#import "HXBFinDetailViewModel_LoanDetail.h"
+
+#import "HXBFin_DetailsView_LoanDetailsView.h"//贷款详情的View
+#import "HXBFinanctingRequest.h"//网络请求类
+#import "HXBFinDetailViewModel_LoanDetail.h"//贷款详情的ViewModel
+#import "HXBFinHomePageViewModel_LoanList.h"//贷款详情的Model
+#import "HXBFinHomePageModel_LoanList.h"//贷款列表的Model
+
+#import "HXBFin_Detail_DetailVC_Loan.h"//贷款信息的控制器
+#import "HXBFinAddRecortdVC_Loan.h"//贷款记录的控制器
+#import "HXBFinContract_contraceWebViewVC_Loan.h"//贷款合同的控制器
 //#import "HXBFinDetailView"
 
 @interface HXBFinancing_LoanDetailsViewController ()
@@ -25,6 +32,14 @@
 @end
 
 @implementation HXBFinancing_LoanDetailsViewController
+
+
+- (void)setLoanListViewMode:(HXBFinHomePageViewModel_LoanList *)loanListViewMode {
+    _loanListViewMode = loanListViewMode;
+    //标题
+    self.title = self.loanListViewMode.loanListModel.title;
+    self.loanID = self.loanListViewMode.loanListModel.loanId;
+}
 ///给self. tableViewarray赋值
 - (void) setupTableViewArray {
     self.tableViewImageArray = @[
@@ -67,7 +82,35 @@
     //是否为计划界面
     self.loanDetailsView.isPlan = false;
     self.loanDetailsView.isFlowChart = true;
+    self.loanDetailsView.loanListViewModel = self.loanListViewMode;
+    
+    
+    [self.loanDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
+       //跳转相应的页面
+        NSLog(@"%@",model.optionTitle);
+        ///点击了借款信息
+        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[0]]) {
+            HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
+//            detail_DetailLoanVC. = self.planDetailViewModel;
+            [self.navigationController pushViewController:detail_DetailLoanVC animated:true];
+        }
+        ///  借款记录
+        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[1]]) {
+            HXBFinAddRecortdVC_Loan *loanAddRecordVC = [[HXBFinAddRecortdVC_Loan alloc]init];
+//            loanAddRecordVC.planDetailModel = self.planDetailViewModel.planDetailModel;
+            [self.navigationController pushViewController:loanAddRecordVC animated:true];
+        }
+        ///合同
+        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[2]]) {
+            //跳转一个webView
+            HXBFinContract_contraceWebViewVC_Loan * contractWebViewVC = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
+//            contractWebViewVC.URL = self.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
+            [self.navigationController pushViewController:contractWebViewVC animated:true];
+        }
+        
+    }];
     [self downLoadData];
+    
     //    [self.planDetailsView show];
     
 }
@@ -86,7 +129,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 
 @end

@@ -10,6 +10,9 @@
 @class HXBFinDetail_TableViewCellModel;
 @class HXBFinDetailViewModel_PlanDetail;
 @class HXBFinDetailViewModel_LoanDetail;
+
+@class HXBFinHomePageViewModel_PlanList;
+@class HXBFinHomePageViewModel_LoanList;
 ///详情页的主视图基类
 @interface HXBFin_DetailsViewBase : UIView
 
@@ -21,9 +24,16 @@
 @property (nonatomic,assign) BOOL isPlan;
 ///底部的tableView的模型数组
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*modelArray;
+
+///planListViewModel
+@property (nonatomic,strong) HXBFinHomePageViewModel_LoanList *loanListViewModel;
+///loanListViewModel
+@property (nonatomic,strong) HXBFinHomePageViewModel_PlanList *planListViewModel;
+
 ///计划详情的ViewModel
 @property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planDetailViewModel;
 ///散标的ViewModel
 @property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanDetailViewModel;
-
+///点击了 详情页底部的tableView的cell
+- (void)clickBottomTableViewCellBloakFunc: (void(^)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model))clickBottomTabelViewCellBlock;
 @end

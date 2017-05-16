@@ -34,7 +34,7 @@
 @property (nonatomic,copy) NSString *totalInterest;
 ///本金余额合约名称
 @property (nonatomic,copy) NSString *principalBalanceContractName;
-///是通过角色（反正翻译是这么翻译）
+///是否登录
 @property (nonatomic,copy) NSString *isRolePassed;
 
 
@@ -54,7 +54,7 @@
 @end
 
 
-
+///红利计划详情数据的数据
 @interface HXBFinDetailModel_PlanDetail_DataList : NSObject
 //========================= dataList ===========================
 ///理财计划预定日志次数
@@ -121,7 +121,6 @@
 @property (nonatomic,copy) NSString *beginResellingTime;
 //==============================================================
 @end
-
 
 
 /**

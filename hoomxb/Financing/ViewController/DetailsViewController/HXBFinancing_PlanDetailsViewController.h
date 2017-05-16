@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @class HXBFinDetail_TableViewCellModel;
+@class HXBFinHomePageViewModel_PlanList;
+
 ///红利计划详情页的控制器
 @interface HXBFinancing_PlanDetailsViewController : HXBBaseViewController
 ///剩余可投是否分为左右两个
@@ -21,4 +23,5 @@
 
 ///计划id
 @property (nonatomic,copy) NSString *planID;
+@property (nonatomic,strong) HXBFinHomePageViewModel_PlanList *planListViewModel;
 @end

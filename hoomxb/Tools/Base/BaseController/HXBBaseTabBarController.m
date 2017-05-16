@@ -117,27 +117,20 @@
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
-    UIViewController *vc = ((HXBBaseNavigationController *)viewController).viewControllers[0];
+    return true;
+    //获取当前的导航控制器的跟控制器
+    UIViewController *vc = ((HXBBaseNavigationController *)viewController).viewControllers.firstObject;
     
-    // [viewController.tabBarItem.title isEqualToString:@"资产"]
-    if (vc && [vc.class isSubclassOfClass:[HxbMyViewController class]])
-    {
-        // login
-        if ([KeyChain isLogin])
-        {
-            return YES;
-        }
-        else
-        {
-            [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
-            return NO;
-        }
-        return YES;
-        
+    //当前的控制器是否为 “我的“ 界面的控制器
+    BOOL isMYController = vc && [vc.class isSubclassOfClass:[HxbMyViewController class]];
+    
+    //当前是否处于登录状态// 没有登录的话就return一个NO，并modal一个登录控制器。
+    if (isMYController && ![KeyChain isLogin]) {
+        [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
+        return NO;
     }
     return YES;
 }
-
 @end
 
 
