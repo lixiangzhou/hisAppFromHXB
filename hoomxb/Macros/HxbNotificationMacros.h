@@ -11,7 +11,7 @@
 #define  HXBNotificationCenter  [NSNotificationCenter defaultCenter]
 
 extern NSString *const ShowLoginVC;
-
+extern NSString *const IsLoginToReloadTableView;
 @interface HxbNotificationMacros : NSObject
 
 @end

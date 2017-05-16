@@ -7,7 +7,7 @@
 //
 
 #import "HxbNotificationMacros.h"
-NSString *const ShowLoginVC = @"ShowLoginVC";
-@implementation HxbNotificationMacros
 
-@end
+NSString *const ShowLoginVC = @"ShowLoginVC";
+NSString *const IsLoginToReloadTableView = @"IsLoginToReloadTableView";
+

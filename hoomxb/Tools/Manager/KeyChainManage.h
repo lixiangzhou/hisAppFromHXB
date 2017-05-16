@@ -52,5 +52,5 @@
 
 - (void)printAllInfo;
 
-
+- (BOOL)isInvest;
 @end

@@ -93,7 +93,6 @@
     }
 }
 
-
 - (void)hideLoginIndicationView
 {    self.afterLoginView.hidden = NO;
     if (self.indicationView.hidden) {
@@ -125,6 +124,16 @@
     [self resetView];
 }
 
+- (void)showSecurityCertificationOrInvest{
+    if ( [KeyChain isLogin] && [KeyChain isVerify]) {
+       self.afterLoginView.tipString = @"已安全认证，立即投资啦！";
+    }else{
+       self.afterLoginView.tipString = @"还没有，安全认证";
+    }
+    if ( [KeyChain isLogin]&&[KeyChain isVerify] && [KeyChain isInvest]) {
+        
+    }
+}
 - (void)resetView
 {
     if ([self.delegate respondsToSelector:@selector(resetHeadView)]) {
@@ -156,7 +165,7 @@
 - (HXBHomePageLoginIndicationView *)indicationView
 {
     if (!_indicationView) {
-        _indicationView = [[HXBHomePageLoginIndicationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 72)];
+        _indicationView = [[HXBHomePageLoginIndicationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 105)];
     }
     return _indicationView;
 }
@@ -164,7 +173,7 @@
 -(HXBHomePageAfterLoginView *)afterLoginView
 {
     if (!_afterLoginView) {
-        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 72)];
+        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 105)];
         //       _afterLoginView.hidden  = YES;
     }
     return _afterLoginView;
