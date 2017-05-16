@@ -7,7 +7,7 @@
 //
 
 #import "HXBMYRequest.h"
-#import "HXBRequestType_MYManager.h"//关于我的界面的 网络 相关的枚举管理类
+
 // --------- 主界面
 #import "HXBRequstAPI_MYMainPlanAPI.h"//主界面 plan API
 #import "HXBMYViewModel_MianPlanViewModel.h"//主界面 planViewModel

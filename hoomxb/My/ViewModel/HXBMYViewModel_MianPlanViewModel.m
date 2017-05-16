@@ -11,5 +11,7 @@
 @implementation HXBMYViewModel_MianPlanViewModel
 - (void)setPlanModel:(HXBMYModel_MainPlanModel *)planModel{
     _planModel = planModel;
+    self.requestType = [HXBRequestType_MYManager myPlan_requestTypeStr: planModel.dataList.type];
+    self.responseStatus = [HXBRequestType_MYManager myPlan_ResponsStatusStr:planModel.dataList.status];
 }
 @end
