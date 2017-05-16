@@ -15,6 +15,7 @@
 ///创建单利对象
 + (instancetype) sharedMYRequest;
 
+
 #pragma mark - 红利计划的相关网络请求
 
 
