@@ -130,7 +130,9 @@
     }];
     //要与服务器时间想比较
 //    self.contDwonManager.clientTime = [HXBDate       ]
+//    [self.contDwonManager stopWenScrollViewScrollBottomWithTableView:self.planListTableView];
     self.contDwonManager.isAutoEnd = true;
+    
     //开启定时器
     [self.contDwonManager resumeTimer];
 }

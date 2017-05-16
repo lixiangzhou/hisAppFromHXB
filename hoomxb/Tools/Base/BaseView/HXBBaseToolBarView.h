@@ -73,7 +73,7 @@
 
 
 
-#pragma mark - itemBottomBarView
+#pragma mark - 自定义item
  /*
   item默认的底部的barView
    view默认是隐藏的
@@ -85,7 +85,7 @@
 @property (nonatomic,strong) UIColor *itemBottomBarViewColor;
 
 /**关于item底部的view自定义*/
-- (void)setUpItemSelectBarViewBlockFuncWithBlcok: (void (^)(UIButton *button, UIView *barView))setupItemSelctBarViewBlock;
+- (void)setUpsetUpBarViewItemBlockFuncWithBlcok:(void (^)(UIButton *button, UIView *buttonBottomView))setUpBarViewItemBlock;
 
 
 #pragma mark - itemBottomBarView 带动画

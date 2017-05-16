@@ -24,6 +24,9 @@
 
 
 @implementation HXBFinDatailModel_LoanDetail_loanVo
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"description_loanVO" : @"description"};
+}
 @end
 
 
@@ -44,7 +47,10 @@
 
 @implementation HXBFinDatailModel_LoanDetail_userVo
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"ID" : @"id"};
+    return @{
+             @"ID" : @"id",
+             @"description_userVO" : @"description"
+             };
 }
 @end
 

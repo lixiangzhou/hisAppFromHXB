@@ -75,5 +75,4 @@ static NSString *CELLID = @"CELLID";
         self.clickPlanListCellBlock(indexPath, cell.finPlanListViewModel);
     }
 }
-
 @end
