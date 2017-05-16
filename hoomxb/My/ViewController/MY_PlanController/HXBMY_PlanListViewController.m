@@ -131,7 +131,7 @@
     [self.planListView hold_RefreashWithDownBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:true];
     } andUPBlock:^{
-       weakSelf d 
+//       weakSelf d 
     }];
 }
 @end
