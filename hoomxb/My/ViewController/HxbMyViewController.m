@@ -65,6 +65,6 @@
 }
 
 - (void)clickMyLoanButton: (UIButton *)button {
-    NSLog(@"%@ - 散标被点击");
+    NSLog(@"%@ - 散标被点击",self.class);
 }
 @end

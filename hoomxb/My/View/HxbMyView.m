@@ -81,7 +81,6 @@ UITableViewDataSource
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr ];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
-        
     }
     return cell;
 }
