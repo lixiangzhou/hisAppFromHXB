@@ -7,18 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @class HXBFinHomePageViewModel_PlanList;//红利计划的首页ViewModel
 @class HXBFinHomePageViewModel_LoanList;//散标列表页- 一级界面ViewModel
 @class HXBFinDetailViewModel_PlanDetail;//红利计划详情页ViewModel
 @class HXBFinDetailViewModel_LoanDetail;//散标投递的详情页的ViewModel
 @class HXBFinModel_AddRecortdModel_Plan;//理财模块的加入记录接口
 
+
 ///理财界面的所有网络请求页全部都在这里了
 @interface HXBFinanctingRequest : NSObject
 
+
+
 ///单利
 + (instancetype)sharedFinanctingRequest;
+
 
 
 #pragma mark - 理财一级界面的数据请求
@@ -40,14 +43,10 @@
 ///散标- 数据请求- 详情页
 - (void)loanDetaileWithLoanID: (NSString *)financeLoanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
+
+
 #pragma mark - 红利计划详情页 - 加入记录
 // 红利计划详情页 - 加入记录
 - (void)planAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinancePlanId: (NSString *)financePlanId andOrder: (NSString *)order andSuccessBlock: (void(^)(HXBFinModel_AddRecortdModel_Plan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end
 
-
-
-
-/** ====================== readMe =============================
- * 1. 所有的理财模块的网络请求都在这里了
- */

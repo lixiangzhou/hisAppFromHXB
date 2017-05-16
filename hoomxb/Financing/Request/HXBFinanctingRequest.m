@@ -192,11 +192,9 @@
 
     
     [planDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",request.requestArgument);
         NSDictionary *planDetaileDic = [responseObject valueForKey:@"data"];
         HXBFinDetailModel_PlanDetail *planDetaileModel = [[HXBFinDetailModel_PlanDetail alloc]init];
         [planDetaileModel yy_modelSetWithDictionary:planDetaileDic];
-        NSLog(@"%@",planDetaileModel);
         HXBFinDetailViewModel_PlanDetail *planDetailViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
         planDetailViewModel.planDetailModel = planDetaileModel;
         if (successDateBlock) {
@@ -208,18 +206,6 @@
             failureBlock(error);
         }
     }];
-    
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-//    NSDictionary *dic = @{@"Content-Type":@"application/x-www-form-urlencoded"};
-//    [manager.requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-//    
-//    [manager POST:@"http://192.168.1.27:8070/financeplan/financeplandetail.action" parameters:requestArgument progress:^(NSProgress * _Nonnull uploadProgress) {
-//        
-//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-//        
-//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//        
-//    }];
 }
 
 - (void)loanDetaileWithLoanID: (NSString *)financeLoanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
@@ -229,11 +215,9 @@
                                        @"version" : @"1.0" //版本号
                                        };
     [loanDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",request.requestArgument);
         NSDictionary *planDetaileDic = [responseObject valueForKey:@"data"];
         HXBFinDatailModel_LoanDetail *loanDetaileModel = [[HXBFinDatailModel_LoanDetail alloc]init];
         [loanDetaileModel yy_modelSetWithDictionary:planDetaileDic];
-        NSLog(@"%@", loanDetaileModel);
         HXBFinDetailViewModel_LoanDetail *loanDetailViewModel = [[HXBFinDetailViewModel_LoanDetail alloc]init];
         loanDetailViewModel.loanDetailModel = loanDetaileModel;
         if (successDateBlock) {

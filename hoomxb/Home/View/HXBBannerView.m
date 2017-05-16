@@ -223,7 +223,7 @@
     if (!urlStr.length) {
         return;
     }
-    NSMutableString *finalUrlStr = [urlStr stringByAppendingFormat:@"?token=%@",[KeyChain token]];
+    NSString *finalUrlStr = [urlStr stringByAppendingFormat:@"?token=%@",[KeyChain token]];
     id next = [self nextResponder];
     while (![next isKindOfClass:[HxbHomeViewController class]]) {
         next = [next nextResponder];
