@@ -10,7 +10,8 @@
 #import "HxbMyViewHeaderView.h"
 #import "AppDelegate.h"
 #import "HxbMyViewController.h"
-#import "HxbMyPlanViewController.h"
+#import "HXBMY_PlanListViewController.h"///plan 列表的VC
+#import "HXBMY_LoanListViewController.h"///散标 列表的VC
 @interface HxbMyView ()
 <
 UITableViewDelegate,
@@ -71,9 +72,9 @@ MyViewHeaderDelegate
 #pragma TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0) {//第一组： plan
         HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-        HxbMyPlanViewController *myPlanViewController = [[HxbMyPlanViewController alloc]init];
+        HXBMY_PlanListViewController *myPlanViewController = [[HXBMY_PlanListViewController alloc]init];
         [vc.navigationController pushViewController:myPlanViewController animated:YES];
     }
 }

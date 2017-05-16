@@ -119,13 +119,16 @@
 
 //根据self.isConstantChange，判断是否进行常用变量的计算
 - (void)calculateValue {
-    self.contentOffset = CGPointMake(0, 0);
-    self.kScrollToolBarViewH = self.frame.size.height;
-    self.kScrollToolBarViewW = self.frame.size.width;
-    self.kMidToolBarViewW = self.kScrollToolBarViewW - self.midToolBarViewMargin * 2;
-    self.kBottomScrollViewH = self.kScrollToolBarViewH - self.kMidToolBarViewH;
-    self.kBottomScrollViewY = self.kTopViewH + self.kMidToolBarViewH;
-    self.selectToolBarViewIndex = self.midToolBarView.selectItemIndex;
+    if (self.isConstantChange) {
+        self.isConstantChange = false;
+        self.contentOffset = CGPointMake(0, 0);
+        self.kScrollToolBarViewH = self.frame.size.height;
+        self.kScrollToolBarViewW = self.frame.size.width;
+        self.kMidToolBarViewW = self.kScrollToolBarViewW - self.midToolBarViewMargin * 2;
+        self.kBottomScrollViewH = self.kScrollToolBarViewH - self.kMidToolBarViewH;
+        self.kBottomScrollViewY = self.kTopViewH + self.kMidToolBarViewH;
+        self.selectToolBarViewIndex = self.midToolBarView.selectItemIndex;
+    }
 }
 
 //布局子控件
@@ -153,11 +156,12 @@
     [self addSubview: self.midToolBarView];
     
     //MARK: 中间的toolbarView点击事件的回调
+    __weak typeof (self)weakSelf = self;
     [self.midToolBarView clickOptionItemBLockFuncWithClickOptionItemBlock:^(UIButton *button, NSString *itemText, NSInteger index) {
-        CGFloat contentOffsetX = index * self.kScrollToolBarViewW;
-        self.bottomScrollView.contentOffset = CGPointMake(contentOffsetX, 0);
+        CGFloat contentOffsetX = index * weakSelf.kScrollToolBarViewW;
+        weakSelf.bottomScrollView.contentOffset = CGPointMake(contentOffsetX, 0);
         //如果点击事件回调被实现，那么执行外部的回调事件
-        if (self.clickMidToolBarViewBlock) self.clickMidToolBarViewBlock(index,itemText,button);
+        if (weakSelf.clickMidToolBarViewBlock) weakSelf.clickMidToolBarViewBlock(index,itemText,button);
     }];
     [self.midToolBarView show];
 }
@@ -182,14 +186,15 @@
 
 //布局bottomScrollView内部的Views
 - (void)setupScrollContentSubViews {
+    __weak typeof (self)weakSelf = self;
     [self.bottomViewSet enumerateObjectsUsingBlock:^(UIView * _Nonnull view, NSUInteger idx, BOOL * _Nonnull stop) {
-        view.frame = CGRectMake(idx * self.kScrollToolBarViewW, 0, self.kScrollToolBarViewW,self.kBottomScrollViewH);
-        [self.bottomScrollView addSubview:view];
+        view.frame = CGRectMake(idx * weakSelf.kScrollToolBarViewW, 0, weakSelf.kScrollToolBarViewW,weakSelf.kBottomScrollViewH);
+        [weakSelf.bottomScrollView addSubview:view];
         //如果是UIScrollView并且topView有高度的话就监听一下他的contentOffset
-        if ([view isKindOfClass:NSClassFromString(@"UIScrollView")] && self.kTopViewH) {
+        if ([view isKindOfClass:NSClassFromString(@"UIScrollView")] && weakSelf.kTopViewH) {
             UIScrollView *scrollView = (UIScrollView *)view;
             //添加观察者
-            [scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+            [scrollView addObserver:weakSelf forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         }
     }];
 }
@@ -276,7 +281,11 @@
 
 - (void)dealloc{
     //销毁观察者：
-    [self removeObserver:self forKeyPath:@"contentOffset"];
+    [self.bottomViewSet enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass: [UIScrollView class]]) {
+            [obj removeObserver:self forKeyPath:@"contentOffset"];
+        }
+    }];
     NSLog(@"✅ %@ 被销毁",NSStringFromClass(self.class));
 }
 @end

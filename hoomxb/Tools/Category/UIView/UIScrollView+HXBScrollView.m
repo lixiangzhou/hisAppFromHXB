@@ -10,7 +10,7 @@
 
 @implementation UIScrollView (HXBScrollView)
 
-//带有动画的上拉刷新
+//带有动画的下拉刷新
 - (void)hxb_GifHeaderWithIdleImages:(NSArray<UIImage *>*)idleImages
                     andPullingImages:(NSArray <UIImage*>*)pullingImages
                    andFreshingImages:(NSArray<UIImage*>*)refreshingImages
@@ -34,7 +34,7 @@
     self.mj_header = header;
 }
 
-//带有动画的下拉刷新
+//带有动画的上拉加载
 - (void)hxb_GifFooterWithIdleImages:(NSArray<UIImage*>*)idleImages
                     andPullingImages:(NSArray <UIImage*>*)pullingImages
                    andFreshingImages:(NSArray<UIImage*>*)refreshingImages
@@ -60,7 +60,7 @@
 }
 
 
-//MARK: 默认的下拉加载
+//MARK: 默认的下拉刷新
 - (void)hxb_HeaderWithHeaderRefreshCallBack:(void(^)())headerRefreshCallBack
                      andSetUpGifHeaderBlock:(void(^)(MJRefreshNormalHeader *header))headerBlock{
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -71,7 +71,7 @@
     self.mj_header = header;
 }
 
-//MARK: 默认的上拉刷新
+//MARK: 默认的上拉加载
 - (void)hxb_FooterWithRefreshBlock:(void(^)())footerRefreshCallBack
             andSetUpGifFooterBlock:(void(^)(MJRefreshBackNormalFooter *footer))footerBlock{
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
