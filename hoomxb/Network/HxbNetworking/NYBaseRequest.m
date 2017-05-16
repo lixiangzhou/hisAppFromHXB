@@ -28,11 +28,8 @@
 
 /// 不能在这里写，因为在子类中，如果没有重写
 - (NSDictionary *)requestArgument{
-    if (!_requestArgument) {
-        _requestArgument = @{};
-    }
-    return _requestArgument;
-}
+    return @{};
+} 
 
 - (NSDictionary *)requestHeaderFieldValueDictionary{
     return @{};

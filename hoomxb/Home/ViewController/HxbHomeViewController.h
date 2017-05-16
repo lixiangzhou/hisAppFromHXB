@@ -7,11 +7,12 @@
 //
 
 #import "HXBBaseViewController.h"
+#import "HxbHomeView.h"
 #import "BannerModel.h"
 
 @interface HxbHomeViewController : HXBBaseViewController
+@property (nonatomic, strong) HxbHomeView *homeView;
 
 - (void)showBannerWebViewWithURL:(NSString *)linkUrl;
 - (void)showBannerWebViewWithModel:(BannerModel *)model;
-
 @end
