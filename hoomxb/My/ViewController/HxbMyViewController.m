@@ -75,22 +75,9 @@
     [myLoanBut addTarget:self action:@selector(clickMyLoanButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)didLeftHeadBtnClick:(UIButton *)sender{
-    HxbAccountInfoViewController *accountInfoVC = [[HxbAccountInfoViewController alloc]init];
-    [self.navigationController pushViewController:accountInfoVC animated:YES];
-}
-
-- (void)didClickTopUpBtn:(UIButton *)sender{
-    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-}
-
-- (void)didClickWithdrawBtn:(UIButton *)sender{
-    HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
-    [self.navigationController pushViewController:withdrawViewController animated:YES];
-}
-- (void)clickBarButtonItem {
-    NSLog(@"点击了返回按钮");
+- (void)clickMyPlanButton: (UIButton *)button {
+    NSLog(@"%@ - 红利计划点击",self.class);
+    
 }
 
 - (void)clickMyLoanButton: (UIButton *)button {
