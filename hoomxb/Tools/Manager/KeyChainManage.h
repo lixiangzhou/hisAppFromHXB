@@ -38,6 +38,8 @@
 
 @property (nonatomic, assign, readonly) BOOL isLogin;
 
+@property (nonatomic, strong) NSString *assetsTotal;
+
 - (void)removePassword;     //!< 移除密码
 
 - (void)removeToken;        //!< 移除token
