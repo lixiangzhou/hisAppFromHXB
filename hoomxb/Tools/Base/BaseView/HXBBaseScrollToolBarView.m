@@ -220,9 +220,12 @@
 //              //偏移到底
 //            self.contentOffset = kToolBarViewOffsetTop;
 //        }
+        
         //偏移量的计算
         //向下拉
         BOOL isDown = oldContentOffset.y > newContentOffset.y;
+        BOOL isScrollViewNotScroll = scrollView.contentSize.height < scrollView.frame.size.height;
+        BOOL isTracking = scrollView.dragging && scrollView.tracking && !scrollView.decelerating;
         BOOL isGreater = self.contentOffset.y > newContentOffset.y;
         if (isDown && (newContentOffset.y <= 0)) {
             self.offsetY = 0;
@@ -230,14 +233,27 @@
         if (!isDown && newContentOffset.y >= self.kTopViewH) {
             self.offsetY = 0;
         }
-//        if (self.contentOffset.y <= 0 && newContentOffset.y <= 0) {
-//            self.offsetY = 0;
-//        }
-//        if (self.contentOffset.y >= self.kTopViewH && newContentOffset.y >= self.kTopViewH) {
-//            self.offsetY = 0;
-//        }
-        self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
         
+        if (scrollView.contentSize.height < scrollView.frame.size.height) {
+//            scrollView.contentSize = CGSizeMake(0, scrollView.frame.size.height);
+            CGPoint point = [scrollView.panGestureRecognizer translationInView:self];
+            self.contentOffset = CGPointMake(0, -point.y);
+        } else {
+            self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
+        }
+////        if (self.contentOffset.y <= 0 && newContentOffset.y <= 0) {
+////            self.offsetY = 0;
+////        }
+////        if (self.contentOffset.y >= self.kTopViewH && newContentOffset.y >= self.kTopViewH) {
+////            self.offsetY = 0;
+////        }
+////        if (isDown && isScrollViewNotScroll && isTracking) {
+////            [self setContentOffset:CGPointMake(0, 0) animated:true];
+////        }else if (!isDown && isScrollViewNotScroll && isTracking) {
+////            [self setContentOffset:CGPointMake(0, _kTopViewH) animated:true];
+////        }else {
+//            self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
+////        }
         if (self.contentOffset.y <= 0) {
             self.contentOffset = kToolBarViewOffsetBottom;
         }

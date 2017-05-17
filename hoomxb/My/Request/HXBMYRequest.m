@@ -86,7 +86,7 @@
     NSString *pageNumberStr = @([self getRequestPageWithType:planRequestType]).description;
     
     NSString *userIDStr = [KeyChainManage sharedInstance].userId;
-    if (userIDStr.length) {
+    if (!userIDStr.length) {
         NSLog(@"%@, - 没有userID 使用了测试 的userID ： 2458528", self.class);
         userIDStr = @"2458528";
     }
@@ -99,21 +99,23 @@
     
     
     [mainPlanAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSArray<NSDictionary *>*responseArray = responseObject[@"data"];
-        
-        __block NSMutableArray <HXBMYViewModel_MianPlanViewModel *>*dataArray = [[NSMutableArray alloc]init];
+        NSDictionary *responseDic = responseObject[@"data"];
+    
+        HXBMYModel_MainPlanModel *planModel = [[HXBMYModel_MainPlanModel alloc]init];
+        [planModel yy_modelSetWithDictionary:responseDic];
         //数据的
-        [responseArray enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull responseDic, NSUInteger idx, BOOL * _Nonnull stop) {
-            HXBMYModel_MainPlanModel *planModel = [[HXBMYModel_MainPlanModel alloc]init];
-            [planModel yy_modelSetWithDictionary:responseDic];
-            HXBMYViewModel_MianPlanViewModel *planViewModel = [[HXBMYViewModel_MianPlanViewModel alloc]init];
-            planViewModel.planModel = planModel;
-            //数据的储存
-            [dataArray addObject:planViewModel];
+        NSLog(@"%@",planModel.dataList);
+        
+        NSMutableArray <HXBMYViewModel_MianPlanViewModel *> *planViewModelArray = [[NSMutableArray alloc]init];
+        [planModel.dataList enumerateObjectsUsingBlock:^(HXBMYModel_MainPlanModel_DataList * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            HXBMYViewModel_MianPlanViewModel *viewModel = [[HXBMYViewModel_MianPlanViewModel alloc]init];
+            viewModel.planModelDataList = obj;
+            [planViewModelArray addObject:viewModel];
         }];
-        NSString *typeStr = dataArray.firstObject.planModel.dataList.type;
+        
+        NSString *typeStr = planModel.dataList.firstObject.type;
         //数据的处理
-       NSArray *handleData = [self handleResponseArrayWithIsupData:isUPData andTypeStr:typeStr andViewModelArray:dataArray];
+        NSArray *handleData = [self handleResponseArrayWithIsupData:isUPData andTypeStr:typeStr andViewModel:planViewModelArray];
         //向外回调
         if (successDateBlock) successDateBlock(handleData);
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -135,19 +137,19 @@
 }
 
 ///根据typeStr 来进行数据的处理
-- (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andTypeStr: (NSString *)typeStr andViewModelArray: (NSArray < HXBMYViewModel_MianPlanViewModel *>*)viewModeArray {
+- (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andTypeStr: (NSString *)typeStr andViewModel: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)viewMode {
     HXBRequestType_MY_PlanRequestType type = [HXBRequestType_MYManager myPlan_requestTypeStr:typeStr];
-    return [self handleResponseArrayWithIsupData: isupdata andType:type andViewModelArray:viewModeArray];
+    return [self handleResponseArrayWithIsupData: isupdata andType:type andViewModel:viewMode];
 }
 ///根据返回的类型来 进行数据得分发
-- (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andType: (HXBRequestType_MY_PlanRequestType)type andViewModelArray: (NSArray < HXBMYViewModel_MianPlanViewModel *>*)viewModelArray{
+- (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andType: (HXBRequestType_MY_PlanRequestType)type andViewModel: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)viewModel{
     switch (type) {
         case HXBRequestType_MY_PlanRequestType_EXITING_PLAN://退出中
             if (isupdata) {//如果是下拉刷新 就先清空数再追加
                 self.exitingPage = 1;
                 [self.exiting_Plan_array removeAllObjects];
             }
-            [self.exiting_Plan_array addObjectsFromArray:viewModelArray];
+            [self.exiting_Plan_array addObjectsFromArray:viewModel];
             return self.exiting_Plan_array;
             
         
@@ -156,7 +158,7 @@
                 self.holdPlanPage = 1;
                 [self.hold_Plan_array removeAllObjects];
             }
-            [self.hold_Plan_array addObjectsFromArray:viewModelArray];
+            [self.hold_Plan_array addObjectsFromArray:viewModel];
             return self.hold_Plan_array;
             
         
@@ -165,7 +167,7 @@
                 self.exitPage = 1;
                 [self.exit_Plan_array removeAllObjects];
             }
-            [self.exit_Plan_array addObjectsFromArray:viewModelArray];
+            [self.exit_Plan_array addObjectsFromArray:viewModel];
             return self.exit_Plan_array;
     }
     NSLog(@"🌶  %@，我的 plan 的数组赋值出错",self.class);

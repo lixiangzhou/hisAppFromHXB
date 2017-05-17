@@ -7,7 +7,8 @@
 //
 
 #import "HXBMY_PlanListViewController.h"
-#import "HXBMYViewModel_MianPlanViewModel.h"
+#import "HXBMYViewModel_MianPlanViewModel.h"// plan ViewModel
+#import "HXBMYModel_MainPlanModel.h"//plan model
 #import "HXBMainListView_Plan.h"
 #import "HXBMYRequest.h"
 
@@ -64,8 +65,11 @@
         
     }];
 }
-
-- (void)handleViewModelArrayWithViewModelArray: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)planViewModelArray{
+///网络数据请求数据处理
+- (void)handleViewModelArrayWithViewModelArray: (NSArray<HXBMYViewModel_MianPlanViewModel *>*)planViewModelArray{
+//    如果 没有值就直接return
+    if (!planViewModelArray.count) return;
+    //
     switch (planViewModelArray.firstObject.requestType) {
         case HXBRequestType_MY_PlanRequestType_HOLD_PLAN://持有中
             self.planListView.hold_Plan_array = planViewModelArray;
@@ -92,18 +96,23 @@
 }
 // 中部的toolBarView的选中的option变化时候调用
 - (void) setupMidToolBarViewChangeSelect {
+    //根据type来对相应的 界面进行网络请求 如果
     __weak typeof (self)weakSelf = self;
     [self.planListView changeMidSelectOptionFuncWithBlock:^(UIButton *button, NSString *title, NSInteger index, HXBRequestType_MY_PlanRequestType type) {
         switch (type) {
+                //持有中
             case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:
-                if (!self.hold_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:true];
+                if (!self.hold_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
                 break;
                 
-            case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
-                if (!self.exit_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:true];
-                break;
+                //退出中
             case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:
                 if (!self.exiting_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:true];
+                break;
+            
+                //已退出
+            case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
+                if (!self.exit_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:true];
                 break;
         }
     }];
@@ -131,7 +140,11 @@
     [self.planListView hold_RefreashWithDownBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:true];
     } andUPBlock:^{
-//       weakSelf d 
     }];
+}
+
+//MARK: 销毁
+- (void) dealloc {
+    NSLog(@"%@ - ✅被销毁",self.class);
 }
 @end

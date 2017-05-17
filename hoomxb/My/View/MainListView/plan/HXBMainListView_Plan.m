@@ -41,9 +41,9 @@
 
 
 @implementation HXBMainListView_Plan
-@synthesize hold_Plan_array = _hold_Plan_array;
-@synthesize exiting_Plan_array = _exiting_Plan_array;
-@synthesize exit_Plan_array = _exit_Plan_array;
+//@synthesize hold_Plan_array = _hold_Plan_array;
+//@synthesize exiting_Plan_array = _exiting_Plan_array;
+//@synthesize exit_Plan_array = _exit_Plan_array;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -55,7 +55,7 @@
 }
 
 
-#pragma mark - setter 
+#pragma mark - setter  数据源
 - (void) setExit_Plan_array:(NSMutableArray<HXBMYViewModel_MianPlanViewModel *> *)exit_Plan_array {
     _exit_Plan_array = exit_Plan_array;
     self.exit_Plan_TableView.mainPlanViewModelArray = exit_Plan_array;

@@ -9,41 +9,18 @@
 #import "HXBBaseView_MYList_TableViewCell.h"
 
 #import "HXBMYViewModel_MianPlanViewModel.h"///红利计划的viewmodel
-/*
- ///投资期限
- @property (nonatomic,copy) NSString *lockPeriod;//": "1",
- ///已获收益
- @property (nonatomic,copy) NSString *earnAmount;//": "100.00",
- ///收益的状态
- @property (nonatomic,copy) NSString *status;//": "PURCHASE_END",
- ///转让金额
- @property (nonatomic,copy) NSString *redProgressLeft;//": "50000.00",
- ///完成时间
- @property (nonatomic,copy) NSString *redFinishTime;//": "2017-05-06 14:43:46.0",
- @property (nonatomic,copy) NSString *type;//": "HOLD_PLAN",
- ///退出时间
- @property (nonatomic,copy) NSString *endLockingTime;//": "1495283676000",
- @property (nonatomic,copy) NSString *ID;//": "156688",
- @property (nonatomic,copy) NSString *financeSubPointId;//": "1291978",
- @property (nonatomic,copy) NSString *statusCode;//": "PURCHASE_END",
- @property (nonatomic,copy) NSString *finalAmount;//": "50000.00",
- @property (nonatomic,copy) NSString *category;//": "A",
- ///预期收益率
- @property (nonatomic,copy) NSString *expectedRate;//": "4.50",
- ///计划名称
- @property (nonatomic,copy) NSString *name;//": "安琪发布计划11",
- @property (nonatomic,copy) NSString *subPointId;//": "1291978"
- */
+#import "HXBMYModel_MainPlanModel.h"//红利计划model
+
 @interface HXBBaseView_MYList_TableViewCell ()
     ///投资名称
     @property (nonatomic,strong) UILabel *nameLable;
-    ///投资金额
+    ///投资金额 (红利 加入金额)
     @property (nonatomic,strong) UILabel *investmentAmountLable;
-    ///收本息的label
+    ///收本息的label  （红利：已获收益）
     @property (nonatomic,strong) UILabel *toBeReceived;
-    ///下一还款日
+    ///下一还款日 （预期年利率）
     @property (nonatomic,strong) UILabel *nextRepaymentDay;
-    ///还款期数
+    ///还款期数 （状态）
     @property (nonatomic,strong) UILabel *theNumberOfPeriods;
     // ---------------- _const -------------
     ///投资名称
@@ -60,7 +37,14 @@
 @end
 
 @implementation HXBBaseView_MYList_TableViewCell
-
+- (void)setPlanViewMode:(HXBMYViewModel_MianPlanViewModel *)planViewMode {
+    _planViewMode = planViewMode;
+    self.nameLable.text = planViewMode.planModelDataList.name;//名字
+    self.investmentAmountLable.text = planViewMode.planModelDataList.redProgressLeft;//左边的
+    self.toBeReceived.text = planViewMode.planModelDataList.earnAmount;//计划的 已获利息
+    self.nextRepaymentDay.text = planViewMode.planModelDataList.expectedRate;//预期年利率
+    self.theNumberOfPeriods.text = planViewMode.planModelDataList.status;//计划状态
+}
     
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -100,7 +84,7 @@
     [self.contentView addSubview:self.theNumberOfPeriods_const];
     self.investmentAmountLable_const.text = @"加入金额(元)";
     self.toBeReceived_const.text = @"已获收益（元）";
-    self.theNumberOfPeriods_const.text = @"退出";
+    self.nextRepaymentDay_const.text = @"预期年利率";
     [self setUPLaoutSubView];
 }
     //布局子控件
@@ -145,7 +129,7 @@
     [self.nextRepaymentDay mas_makeConstraints:^(MASConstraintMaker *make) {
        
         make.top.equalTo(weakSelf.investmentAmountLable).offset(kScrAdaptationH(0));
-        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(-20));
+        make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationW(-20));
     }];
     [self.nextRepaymentDay_const mas_makeConstraints:^(MASConstraintMaker *make) {
         
@@ -157,13 +141,13 @@
     [self.theNumberOfPeriods_const mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerY.equalTo(weakSelf.nameLable).offset(kScrAdaptationH(0));
-        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(-20));
+        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW(-20));
     }];
     ///退出日期
     [self.theNumberOfPeriods mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerY.equalTo(weakSelf.nameLable).offset(kScrAdaptationH(0));
-        make.centerX.equalTo(weakSelf.theNumberOfPeriods_const).offset(kScrAdaptationW(-20));
+        make.right.equalTo(weakSelf.theNumberOfPeriods_const.mas_left).offset(kScrAdaptationW(-20));
     }];
 }
 

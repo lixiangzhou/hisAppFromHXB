@@ -20,7 +20,7 @@ redProgressLeft:待转让金额
 @class HXBMYModel_MainPlanModel_DataList;
 ///关于 我的红利计划的 主界面的Model
 @interface HXBMYModel_MainPlanModel : NSObject
-@property (nonatomic,strong) HXBMYModel_MainPlanModel_DataList *dataList;
+@property (nonatomic,strong) NSArray <HXBMYModel_MainPlanModel_DataList*>*dataList;
 
 @property (nonatomic,copy) NSString *totalCount;//": 1,
 @property (nonatomic,copy) NSString *pageSize;//": 10,
@@ -44,8 +44,10 @@ redProgressLeft:待转让金额
 ///退出时间
 @property (nonatomic,copy) NSString *endLockingTime;//": "1495283676000",
 @property (nonatomic,copy) NSString *ID;//": "156688",
+///财务子点ID
 @property (nonatomic,copy) NSString *financeSubPointId;//": "1291978",
 @property (nonatomic,copy) NSString *statusCode;//": "PURCHASE_END",
+///最终金额
 @property (nonatomic,copy) NSString *finalAmount;//": "50000.00",
 @property (nonatomic,copy) NSString *category;//": "A",
 ///预期收益率
