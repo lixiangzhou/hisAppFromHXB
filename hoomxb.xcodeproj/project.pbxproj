@@ -55,7 +55,6 @@
 		4E7CCF501EBC1B5B00F7BDB3 /* login_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF451EBC1B5B00F7BDB3 /* login_close@2x.png */; };
 		4E7CCF511EBC1B5B00F7BDB3 /* login_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF461EBC1B5B00F7BDB3 /* login_close@3x.png */; };
 		4E80A57B1EA4F4930006D012 /* HxbHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E80A57A1EA4F4930006D012 /* HxbHTTPSessionManager.m */; };
-		4E80AA771EC05E3A00A4CB5A /* HxbMyPlanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E80AA761EC05E3A00A4CB5A /* HxbMyPlanViewController.m */; };
 		4E80AA7A1EC0624B00A4CB5A /* HxbAccountInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E80AA791EC0624B00A4CB5A /* HxbAccountInfoViewController.m */; };
 		4E80AA7D1EC0725900A4CB5A /* HxbMyBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E80AA7C1EC0725900A4CB5A /* HxbMyBankCardViewController.m */; };
 		4E80AA841EC0758E00A4CB5A /* HxbMyAccountSecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E80AA831EC0758E00A4CB5A /* HxbMyAccountSecurityViewController.m */; };
@@ -94,6 +93,7 @@
 		4ED2F2801ECADC960014E5C7 /* introductionplaceholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED2F27E1ECADC960014E5C7 /* introductionplaceholder@3x.png */; };
 		4ED2F2831ECAE3C30014E5C7 /* HxbNormalConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED2F2821ECAE3C30014E5C7 /* HxbNormalConfig.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
+		E10720401ECAE7B1002C59B1 /* HXBBaseTableView_MYPlanList_TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E107203F1ECAE7B1002C59B1 /* HXBBaseTableView_MYPlanList_TableView.m */; };
 		E10E7DE71EAF65BA005FC2E3 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E7DE01EAF65BA005FC2E3 /* LoginModel.m */; };
 		E10E7DE81EAF65BA005FC2E3 /* HxbSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E7DE31EAF65BA005FC2E3 /* HxbSignInViewController.m */; };
 		E10E7DE91EAF65BA005FC2E3 /* HxbSignInViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E7DE61EAF65BA005FC2E3 /* HxbSignInViewModel.m */; };
@@ -294,8 +294,6 @@
 		4E7CCF461EBC1B5B00F7BDB3 /* login_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_close@3x.png"; sourceTree = "<group>"; };
 		4E80A5791EA4F4930006D012 /* HxbHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHTTPSessionManager.h; sourceTree = "<group>"; };
 		4E80A57A1EA4F4930006D012 /* HxbHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHTTPSessionManager.m; sourceTree = "<group>"; };
-		4E80AA751EC05E3A00A4CB5A /* HxbMyPlanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbMyPlanViewController.h; sourceTree = "<group>"; };
-		4E80AA761EC05E3A00A4CB5A /* HxbMyPlanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbMyPlanViewController.m; sourceTree = "<group>"; };
 		4E80AA781EC0624B00A4CB5A /* HxbAccountInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbAccountInfoViewController.h; sourceTree = "<group>"; };
 		4E80AA791EC0624B00A4CB5A /* HxbAccountInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbAccountInfoViewController.m; sourceTree = "<group>"; };
 		4E80AA7B1EC0725900A4CB5A /* HxbMyBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbMyBankCardViewController.h; sourceTree = "<group>"; };
@@ -375,6 +373,8 @@
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
 		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
+		E107203E1ECAE7B1002C59B1 /* HXBBaseTableView_MYPlanList_TableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableView_MYPlanList_TableView.h; sourceTree = "<group>"; };
+		E107203F1ECAE7B1002C59B1 /* HXBBaseTableView_MYPlanList_TableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTableView_MYPlanList_TableView.m; sourceTree = "<group>"; };
 		E10E7DDF1EAF65BA005FC2E3 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		E10E7DE01EAF65BA005FC2E3 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		E10E7DE21EAF65BA005FC2E3 /* HxbSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbSignInViewController.h; sourceTree = "<group>"; };
@@ -466,6 +466,12 @@
 		E17509BE1EC6F38900E17B39 /* HXBFinContract_contraceWebViewVC_Loan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinContract_contraceWebViewVC_Loan.h; sourceTree = "<group>"; };
 		E17509BF1EC6F38900E17B39 /* HXBFinContract_contraceWebViewVC_Loan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinContract_contraceWebViewVC_Loan.m; sourceTree = "<group>"; };
 		E189D74F1ECAD6F8004DB1DC /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
+		E189D7521ECAD9F3004DB1DC /* HXBMY_LoanListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_LoanListViewController.h; sourceTree = "<group>"; };
+		E189D7531ECAD9F3004DB1DC /* HXBMY_LoanListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_LoanListViewController.m; sourceTree = "<group>"; };
+		E189D7551ECAD9F3004DB1DC /* HXBMY_PlanListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_PlanListViewController.h; sourceTree = "<group>"; };
+		E189D7561ECAD9F3004DB1DC /* HXBMY_PlanListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_PlanListViewController.m; sourceTree = "<group>"; };
+		E189D75D1ECADBDB004DB1DC /* HXBBaseView_MYList_TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseView_MYList_TableViewCell.h; sourceTree = "<group>"; };
+		E189D75E1ECADBDB004DB1DC /* HXBBaseView_MYList_TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseView_MYList_TableViewCell.m; sourceTree = "<group>"; };
 		E18B68981EC997170047E458 /* HXBMYModel_MainPlanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYModel_MainPlanModel.h; sourceTree = "<group>"; };
 		E18B68991EC997170047E458 /* HXBMYModel_MainPlanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMYModel_MainPlanModel.m; sourceTree = "<group>"; };
 		E18B689B1EC99B7E0047E458 /* HXBMYViewModel_MianPlanViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYViewModel_MianPlanViewModel.h; sourceTree = "<group>"; };
@@ -512,8 +518,6 @@
 		E1C964721EA5E04F0066DBC4 /* HXBBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableViewCell.h; sourceTree = "<group>"; };
 		E1C964731EA5E04F0066DBC4 /* HXBBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTableViewCell.m; sourceTree = "<group>"; };
 		E1C9647C1EA600C20066DBC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		E1CC03531ECAB1A700121D21 /* HXBBaseView_MainListTableVIewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseView_MainListTableVIewCell.h; sourceTree = "<group>"; };
-		E1CC03541ECAB1A700121D21 /* HXBBaseView_MainListTableVIewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseView_MainListTableVIewCell.m; sourceTree = "<group>"; };
 		E1CC03571ECAD2AD00121D21 /* HXBMYRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYRequest.h; sourceTree = "<group>"; };
 		E1CC03581ECAD2AD00121D21 /* HXBMYRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMYRequest.m; sourceTree = "<group>"; };
 		E1CC03591ECAD2AD00121D21 /* HXBRequestType_MYManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestType_MYManager.h; sourceTree = "<group>"; };
@@ -849,8 +853,8 @@
 			children = (
 				4E422CB21EA7386900C0EB62 /* HxbMyViewController.h */,
 				4E422CB31EA7386900C0EB62 /* HxbMyViewController.m */,
-				4E80AA751EC05E3A00A4CB5A /* HxbMyPlanViewController.h */,
-				4E80AA761EC05E3A00A4CB5A /* HxbMyPlanViewController.m */,
+				E189D7511ECAD9F3004DB1DC /* MY_LoanController */,
+				E189D7541ECAD9F3004DB1DC /* MY_PlanController */,
 				4E80AA781EC0624B00A4CB5A /* HxbAccountInfoViewController.h */,
 				4E80AA791EC0624B00A4CB5A /* HxbAccountInfoViewController.m */,
 				4E80AA7B1EC0725900A4CB5A /* HxbMyBankCardViewController.h */,
@@ -1352,10 +1356,39 @@
 			path = ContractWebViewController;
 			sourceTree = "<group>";
 		};
+		E189D7511ECAD9F3004DB1DC /* MY_LoanController */ = {
+			isa = PBXGroup;
+			children = (
+				E189D7521ECAD9F3004DB1DC /* HXBMY_LoanListViewController.h */,
+				E189D7531ECAD9F3004DB1DC /* HXBMY_LoanListViewController.m */,
+			);
+			path = MY_LoanController;
+			sourceTree = "<group>";
+		};
+		E189D7541ECAD9F3004DB1DC /* MY_PlanController */ = {
+			isa = PBXGroup;
+			children = (
+				E189D7551ECAD9F3004DB1DC /* HXBMY_PlanListViewController.h */,
+				E189D7561ECAD9F3004DB1DC /* HXBMY_PlanListViewController.m */,
+			);
+			path = MY_PlanController;
+			sourceTree = "<group>";
+		};
+		E189D7591ECADB3D004DB1DC /* BaseView */ = {
+			isa = PBXGroup;
+			children = (
+				E107203E1ECAE7B1002C59B1 /* HXBBaseTableView_MYPlanList_TableView.h */,
+				E107203F1ECAE7B1002C59B1 /* HXBBaseTableView_MYPlanList_TableView.m */,
+				E189D75D1ECADBDB004DB1DC /* HXBBaseView_MYList_TableViewCell.h */,
+				E189D75E1ECADBDB004DB1DC /* HXBBaseView_MYList_TableViewCell.m */,
+			);
+			path = BaseView;
+			sourceTree = "<group>";
+		};
 		E18B68A11EC9D3860047E458 /* MainListView */ = {
 			isa = PBXGroup;
 			children = (
-				E1CC03521ECAB16200121D21 /* BaseView */,
+				E189D7591ECADB3D004DB1DC /* BaseView */,
 				E18B68A51EC9D3D80047E458 /* plan */,
 			);
 			path = MainListView;
@@ -1457,15 +1490,6 @@
 				E1C964711EA5E04F0066DBC4 /* HXBBaseTableView.m */,
 				E1C964721EA5E04F0066DBC4 /* HXBBaseTableViewCell.h */,
 				E1C964731EA5E04F0066DBC4 /* HXBBaseTableViewCell.m */,
-			);
-			path = BaseView;
-			sourceTree = "<group>";
-		};
-		E1CC03521ECAB16200121D21 /* BaseView */ = {
-			isa = PBXGroup;
-			children = (
-				E1CC03531ECAB1A700121D21 /* HXBBaseView_MainListTableVIewCell.h */,
-				E1CC03541ECAB1A700121D21 /* HXBBaseView_MainListTableVIewCell.m */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -1944,6 +1968,7 @@
 				E1FDF61E1EC31F0E00FF98AC /* HXBFinancing_LoanDetileAPI.m in Sources */,
 				4E94B2741ECBF8C1003CCBA7 /* HxbHomePageModel.m in Sources */,
 				E1D7883E1EC32AE000566AC1 /* HXBFinancting_LoanListTableView.m in Sources */,
+				E10720401ECAE7B1002C59B1 /* HXBBaseTableView_MYPlanList_TableView.m in Sources */,
 				E18B68A01EC99D210047E458 /* HXBRequstAPI_MYMainPlanAPI.m in Sources */,
 				E1E461721EB9B448005B1FC6 /* LoanBuyResult.m in Sources */,
 				E122D8551EA0CAB900DC71ED /* NSString+HxbSortDicMD5.m in Sources */,
@@ -1985,7 +2010,6 @@
 				E1C964751EA5E04F0066DBC4 /* HXBBaseTabBarController.m in Sources */,
 				E1CC035B1ECAD2AD00121D21 /* HXBMYRequest.m in Sources */,
 				4E8198AA1EC44BCE00D668A1 /* HXBHomePageAfterLoginView.m in Sources */,
-				4E80AA771EC05E3A00A4CB5A /* HxbMyPlanViewController.m in Sources */,
 				E122D8531EA0CAB900DC71ED /* NSString+HxbMask.m in Sources */,
 				E16314351EC076750090567E /* HXBFinDetailViewModel_PlanDetail.m in Sources */,
 				E1FBADB71EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m in Sources */,
@@ -2020,6 +2044,7 @@
 				E18B689D1EC99B7E0047E458 /* HXBMYViewModel_MianPlanViewModel.m in Sources */,
 				E122D8521EA0CAB900DC71ED /* NSString+HxbHash.m in Sources */,
 				E18B68A81EC9D3D80047E458 /* HXBMainListView_Plan.m in Sources */,
+				E189D7581ECAD9F3004DB1DC /* HXBMY_PlanListViewController.m in Sources */,
 				4ED2F2781ECAD0BA0014E5C7 /* HXBMyBankCell.m in Sources */,
 				E11262371EC5A9200084A22D /* HXBFinModel_AddRecortdModel_Plan.m in Sources */,
 				E17509BA1EC6E52900E17B39 /* HXBFinPlanContract_contraceWebViewVC.m in Sources */,
@@ -2050,7 +2075,9 @@
 				E17509BD1EC6F2A100E17B39 /* HXBFin_Detail_DetailVC_Loan.m in Sources */,
 				4EAD98D21EB82C060029A3FF /* HxbSignUpViewController.m in Sources */,
 				E17509AF1EC6D58900E17B39 /* HXBBaseWebViewController.m in Sources */,
+
 				4ED2F2831ECAE3C30014E5C7 /* HxbNormalConfig.m in Sources */,
+
 				4E9B8BFB1EA5B1CA0056FCC8 /* HxbHUDProgress.m in Sources */,
 				4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */,
 				E1FDF6241EC3291C00FF98AC /* HXBFinDetailModel_LoanDetail_.m in Sources */,
@@ -2078,6 +2105,7 @@
 				4E73BBE51EC31A6A001B8357 /* HxbWithdrawResultViewController.m in Sources */,
 				4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */,
 				4E80AA7A1EC0624B00A4CB5A /* HxbAccountInfoViewController.m in Sources */,
+				E189D75F1ECADBDB004DB1DC /* HXBBaseView_MYList_TableViewCell.m in Sources */,
 				E122D8561EA0CAB900DC71ED /* UIColor+HxbColor.m in Sources */,
 				4E80AA841EC0758E00A4CB5A /* HxbMyAccountSecurityViewController.m in Sources */,
 				4E26E3B11EA0FE660078B419 /* NYNetworkConfig.m in Sources */,
@@ -2090,6 +2118,7 @@
 				E11A52331EB190670043F37D /* HXBBaseWaveView.m in Sources */,
 				4E294F1B1EB9B2D3007D5042 /* HxbSecurityCertificationViewController.m in Sources */,
 				4E81989F1EC442CA00D668A1 /* HxbBannerViewModel.m in Sources */,
+				E189D7571ECAD9F3004DB1DC /* HXBMY_LoanListViewController.m in Sources */,
 				4E422CC51EA7617700C0EB62 /* UIButton+HxbButton.m in Sources */,
 				4E73BBE21EC310C6001B8357 /* HxbWithdrawCardViewController.m in Sources */,
 			);

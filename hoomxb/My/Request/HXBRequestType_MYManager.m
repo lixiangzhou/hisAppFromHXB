@@ -7,7 +7,7 @@
 //
 
 #import "HXBRequestType_MYManager.h"
-
+#import <limits.h>
 @implementation HXBRequestType_MYManager
 /// 根据枚举值返回对应的请求参数字符串 ———— 我的红利计划主界面
 + (HXBRequestType_MY_PlanRequestType)myPlan_requestTypeStr: (NSString *)typeStr{
@@ -33,8 +33,8 @@
             break;
     }
     if (!typeStr.length) {
-        NSLog(@"%@ - 我的红利计划主界面—— 对应的请求参数字符串 返回错误,默认为（EXIT_PLAN 已退出状态）",self.class);
-        typeStr = @"EXIT_PLAN";
+        NSLog(@"%@ - 我的红利计划主界面—— 对应的请求参数字符串 返回错误,）",self.class);
+
     }
     return typeStr;
 }
@@ -51,8 +51,7 @@
             break;
     }
     if (!statusStr.length) {
-        NSLog(@"%@， - 我的红利计划主界面 -- 对应的相应参数字符串 输入错误，默认为 （PURCHASE_END 等待计息）",self.class);
-        statusStr = @"PURCHASE_END";
+        NSLog(@"%@， - 我的红利计划主界面 -- 对应的相应参数字符串 输入错误",self.class);
     }
     return statusStr;
 }
@@ -61,8 +60,8 @@
 + (HXBRequestType_MY_PlanResponseStatus)myPlan_ResponsStatusStr: (NSString *)responsStr {
     if ([responsStr isEqualToString:@"EXIT_PLAN"]) return HXBRequestType_MY_PlanResponseStatus_PURCHASE_END;//等待计息
     if ([responsStr isEqualToString:@"HOLD_PLAN"]) return HXBRequestType_MY_PlanResponseStatus_REDEMPTION_PERIOD;//收益中
-    NSLog(@"%@， - 我的红利计划主界面 -- 对应的相应参数字符串 输入错误，默认为 （PURCHASE_END 等待计息）",self.class);
-    return HXBRequestType_MY_PlanResponseStatus_REDEMPTION_PERIOD;
+    NSLog(@"%@， - 我的红利计划主界面 -- 对应的相应参数字符串 输入错误，",self.class);
+    return LONG_MAX;
 }
 
 
