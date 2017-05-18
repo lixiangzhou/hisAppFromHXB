@@ -131,7 +131,7 @@
         }];
         
         NSString *typeStr = planModel.dataList.firstObject.type;
-        //数据的处理
+        //数据的处理。。
         HXBRequstAPI_MYMainPlanAPI *planRequest = (HXBRequstAPI_MYMainPlanAPI *)request;
         NSArray *handleData = [self handleResponseArrayWithIsupData:planRequest.isUPData andTypeStr:typeStr andViewModel:planViewModelArray];
         //向外回调
