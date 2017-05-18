@@ -7,20 +7,18 @@
 //
 
 #import "HxbHomeRequest.h"
-#import "HxbHomePageViewModel.h"
 #import "HxbAccountAssetAPI.h"
 #import "HxbHomePageModel.h"
 @implementation HxbHomeRequest
 
-#pragma mark - 详情页 数据请求
-- (void)HomeAccountAssetWithUserID: (NSString *)userId andSuccessBlock: (void(^)(HxbHomePageViewModel *viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
+#pragma mark -  数据请求
+- (void)homeAccountAssetWithUserID: (NSString *)userId andSuccessBlock: (void(^)(HxbHomePageViewModel *viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
     HxbAccountAssetAPI *accountAsseAPI = [[HxbAccountAssetAPI alloc]init];
     accountAsseAPI.requestArgument = @{
                                        @"version" : @"1.0",
                                        @"userId" : userId,
                                        @"platform" : @"IOS"
                                        };
-    
     
     [accountAsseAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSDictionary *baseDic = [responseObject valueForKey:@"data"];
@@ -33,7 +31,7 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (error && failureBlock) {
-            NSLog(@"✘红利计划详情 - 请求没有数据");
+            NSLog(@"✘ 首页资金等- 请求没有数据");
             failureBlock(error);
         }
     }];

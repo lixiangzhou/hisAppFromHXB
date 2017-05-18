@@ -10,4 +10,5 @@
 #import "HxbHomePageModel.h"
 @interface HxbHomePageViewModel : NSObject
 @property (nonatomic,strong)HxbHomePageModel *homePageModel;
+@property (nonatomic,strong) NSString *assetsTotal;
 @end

@@ -8,8 +8,8 @@
 
 #import "HxbHomeViewController.h"
 #import "HxbAdvertiseViewController.h"
-
-
+#import "HxbHomeRequest.h"
+#import "HxbHomeRequest_dataList.h"
 @interface HxbHomeViewController ()
 
 @end
@@ -20,9 +20,10 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAd) name:@"pushtoad" object:nil];
     [self.view addSubview:self.homeView];
+    [self getData];
     [self.homeView changeIndicationView];
     [self.homeView showSecurityCertificationOrInvest];
-    
+
     //    [self getBannersWithCompletion:^{}];
     
 }
@@ -36,16 +37,11 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pushtoad" object:nil];
 }
 
-
-
-
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-
-
 }
 
 - (void)viewWillWillappear:(BOOL)animated
@@ -61,6 +57,24 @@
 }
 
 #pragma mark Request
+- (void)getData{
+    HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
+    NSString *userId = @"2110468";
+    [request homeAccountAssetWithUserID:userId andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
+        [self.homeView setDataModel:viewModel];
+        NSLog(@"%@",viewModel);
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
+    
+    HxbHomeRequest_dataList * homeRequest_dataList = [[HxbHomeRequest_dataList alloc]init];
+    [homeRequest_dataList homeDataListSuccessBlock:^(NSMutableArray<HxbHomePageViewModel_dataList *> *homeDataListViewModelArray) {
+        self.homeView.homeDataListViewModelArray = [NSMutableArray array];
+        self.homeView.homeDataListViewModelArray = homeDataListViewModelArray;
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
+}
 //- (void)getBannersWithCompletion:(void(^)())completion
 //{
 //    [self.homePageView getTopProductsData:NO];

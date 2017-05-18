@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "HxbHomePageViewModel.h"
 @interface HxbHomeRequest : NSObject
+
+- (void)homeAccountAssetWithUserID: (NSString *)userId
+                   andSuccessBlock: (void(^)(HxbHomePageViewModel *viewModel))successDateBlock
+                   andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 @end

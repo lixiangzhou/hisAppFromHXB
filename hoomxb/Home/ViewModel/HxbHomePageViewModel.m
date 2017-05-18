@@ -9,5 +9,10 @@
 #import "HxbHomePageViewModel.h"
 
 @implementation HxbHomePageViewModel
+- (void)setHomePageModel:(HxbHomePageModel *)homePageModel{
+    _homePageModel = homePageModel;
+    _assetsTotal = [NSString stringWithFormat:@"%@",@(homePageModel.assetsTotal)];
+    
+}
 
 @end

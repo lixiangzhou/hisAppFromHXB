@@ -8,10 +8,13 @@
 
 #import "HxbHomeView.h"
 #import "HXBHomePageHeadView.h"
+#import "HXBHomePageProductCell.h"
 
 @interface HxbHomeView ()<UITableViewDelegate,UITableViewDataSource,HXBHomePageHeadViewDelegate>
 @property (nonatomic, strong) HXBHomePageHeadView *headView;
 @property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, strong) HxbHomePageViewModel *dataViewModel;
+
 @end
 
 @implementation HxbHomeView
@@ -72,6 +75,14 @@
     self.mainTableView.tableHeaderView = self.headView;
 }
 
+- (void)setDataModel:(HxbHomePageViewModel *)dataModel{
+    _dataViewModel = dataModel;
+    NSLog(@"%f",_dataViewModel.homePageModel.assetsTotal);
+}
+- (void)setHomeDataListViewModelArray:(NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
+    _homeDataListViewModelArray = homeDataListViewModelArray;
+    [_mainTableView reloadData];
+}
 //- (void)loadData
 //{
 //    id next = [self nextResponder];
@@ -109,7 +120,8 @@
 //        return _hotSellDataList.count;
 //    }else
 //    {
-        return 1;
+    NSLog(@"%lu",(unsigned long)_homeDataListViewModelArray.count);
+        return _homeDataListViewModelArray.count;
 //    }
 }
 
@@ -124,19 +136,18 @@
 //        TopProductModel * model = [_hotSellDataList objectAtIndex:indexPath.row];
 //        if (model.requiredNew) {
 //            if (indexPath.row == 0) {
-//                HXBHomePageFreshCell *cell = [[HXBHomePageFreshCell alloc]init];
-//                cell.model = model;
-//                return cell;
+
 //            }else{
-//                static NSString *identifier = @"ProductCelled";
-//                HXBHomePageProductCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-//                if (!cell) {
-//                    cell = [[HXBHomePageProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-//                }
+                static NSString *identifier = @"ProductCelled";
+                HXBHomePageProductCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                if (!cell) {
+                    cell = [[HXBHomePageProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                    }
+                   cell.homeDataListViewModel = _homeDataListViewModelArray[indexPath.row];
+    
 //                cell.model = model;
-//                NSLog(@"%ld",(long)model.status);
-//                return cell;
-//            }
+//                NSLog(@"%ld",(long)model.status)
+              return cell;
 //        }else{
 //            static NSString *identifier = @"ProductCell";
 //            HXBHomePageProductCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -160,13 +171,13 @@
 //        };
 //        return cell;
 //    }
-        static NSString *identifier = @"ProductCelled";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (!cell) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        }
+//        static NSString *identifier = @"ProductCelled";
+//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+//        if (!cell) {
+//            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+//        }
 
-        return cell;
+
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -260,4 +271,11 @@
     }
     return _bannerView;
 }
+
+//- (NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
+//    if (!_homeDataListViewModelArray) {
+//        _homeDataListViewModelArray = [NSMutableArray array];
+//    }
+//    return _homeDataListViewModelArray;
+//}
 @end
