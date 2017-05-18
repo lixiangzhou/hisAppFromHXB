@@ -247,6 +247,7 @@
 ////        if (self.contentOffset.y >= self.kTopViewH && newContentOffset.y >= self.kTopViewH) {
 ////            self.offsetY = 0;
 ////        }
+        
 ////        if (isDown && isScrollViewNotScroll && isTracking) {
 ////            [self setContentOffset:CGPointMake(0, 0) animated:true];
 ////        }else if (!isDown && isScrollViewNotScroll && isTracking) {

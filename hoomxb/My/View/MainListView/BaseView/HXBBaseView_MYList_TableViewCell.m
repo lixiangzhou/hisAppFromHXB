@@ -10,7 +10,8 @@
 
 #import "HXBMYViewModel_MianPlanViewModel.h"///红利计划的viewmodel
 #import "HXBMYModel_MainPlanModel.h"//红利计划model
-
+#import "HXBMYViewModel_MainLoanViewModel.h"//散标的ViewModel
+#import "HXBMyModel_MainLoanModel.h"//散标的Model
 @interface HXBBaseView_MYList_TableViewCell ()
     ///投资名称
     @property (nonatomic,strong) UILabel *nameLable;
@@ -44,6 +45,14 @@
     self.toBeReceived.text = planViewMode.planModelDataList.earnAmount;//计划的 已获利息
     self.nextRepaymentDay.text = planViewMode.planModelDataList.expectedRate;//预期年利率
     self.theNumberOfPeriods.text = planViewMode.planModelDataList.status;//计划状态
+}
+- (void)setLoanViewModel:(HXBMYViewModel_MainLoanViewModel *)loanViewModel {
+    _loanViewModel = loanViewModel;
+    self.nameLable.text = loanViewModel.loanModel.loanTitle;//名字
+    self.investmentAmountLable.text = loanViewModel.loanModel.amount;//左边的
+    self.toBeReceived.text = loanViewModel.loanModel.toRepay;// 本息
+    self.nextRepaymentDay.text = loanViewModel.loanModel.nextRepayDate;//预期年利率
+    self.theNumberOfPeriods.text = loanViewModel.loanModel.status;//计划状态
 }
     
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

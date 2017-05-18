@@ -28,7 +28,10 @@ UITableViewDataSource
     _mainPlanViewModelArray = mainPlanViewModelArray;
     [self reloadData];
 }
-
+- (void)setMainLoanViewModelArray:(NSArray<HXBMYViewModel_MainLoanViewModel *> *)mainLoanViewModelArray {
+    _mainLoanViewModelArray = mainLoanViewModelArray;
+    [self reloadData];
+}
 
 - (instancetype) initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
@@ -48,11 +51,15 @@ UITableViewDataSource
 
 #pragma mark - delegate 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.mainPlanViewModelArray.count;
+    return self.mainPlanViewModelArray? self.mainPlanViewModelArray.count : self.mainLoanViewModelArray.count;
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBBaseView_MYList_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
-    cell.planViewMode = self.mainPlanViewModelArray[indexPath.row];
+    if (self.mainLoanViewModelArray) {
+        cell.planViewMode = self.mainPlanViewModelArray[indexPath.row];
+    }else {
+        cell.loanViewModel = self.mainLoanViewModelArray[indexPath.row];
+    }
     return cell;
 }
 
@@ -62,4 +69,5 @@ UITableViewDataSource
     ///点击cell的回调
     if (self.clickCellBlock) self.clickCellBlock(model, indexPath);
 }
+
 @end

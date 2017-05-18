@@ -9,5 +9,5 @@
 #import "NYBaseRequest.h"
 
 @interface HXBFinancing_planListAPI : NYBaseRequest
-
+@property (nonatomic,assign) BOOL isUPData;
 @end

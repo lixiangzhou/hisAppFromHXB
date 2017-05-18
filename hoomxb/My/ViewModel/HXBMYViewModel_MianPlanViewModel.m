@@ -18,4 +18,7 @@
     //红利计划的状态
     self.status = [HXBRequestType_MYManager myPlan_ResponsStatus:self.responseStatus];
 }
+- (NSString *)description {
+    return [self yy_modelDescription];
+}
 @end

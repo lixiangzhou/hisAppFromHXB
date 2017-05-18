@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 @class HXBMYViewModel_MianPlanViewModel;
-
+@class HXBMYViewModel_MainLoanViewModel;
 ///底部的TableView
 @interface HXBBaseTableView_MYPlanList_TableView : HXBBaseTableView
 ///数据源
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MianPlanViewModel *>*mainPlanViewModelArray;
+///数据源 loan
+@property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel *>*mainLoanViewModelArray;
 ///点击了cell
 @property (nonatomic,copy) void (^clickCellBlock)(id ViewModel, NSIndexPath *indexPath);
 @end

@@ -122,11 +122,13 @@
     NSMutableArray *arrayM = [[NSMutableArray alloc]init];
     [arrayM addObjectsFromArray:self.finPlanListVMArray];
 //    [arrayM addObjectsFromArray:self.finLoanListVMArray];
-    
+    __weak typeof (self)weakSelf = self;
     
     self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 60 andCountDownUnit:1 andModelArray: self.finPlanListVMArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
     [self.contDwonManager countDownWithChangeModelBlock:^(id model, NSIndexPath *index) {
-        [self.planListTableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
+        if (weakSelf.finPlanListVMArray.count > index.row) {
+            [weakSelf.planListTableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
+        }
     }];
     //要与服务器时间想比较
 //    self.contDwonManager.clientTime = [HXBDate       ]

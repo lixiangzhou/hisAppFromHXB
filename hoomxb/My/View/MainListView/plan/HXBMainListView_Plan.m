@@ -11,16 +11,19 @@
 #import "HXBBaseToolBarView.h"
 #import "HXBBaseScrollToolBarView.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
+static NSString *const holdTitle = @"持有中";
+static NSString *const exitTingTitle = @"退出中";
+static NSString *const exitTitle = @"已退出";
 
 @interface HXBMainListView_Plan ()
 @property (nonatomic,strong) HXBMainListView_Plan_TopView *topView;
 @property (nonatomic,strong) HXBBaseToolBarView *toolBarView;
-@property (nonatomic,strong) NSArray *toolBarOptionTitleArray;
+@property (nonatomic,strong) NSMutableArray <NSString *>*toolBarOptionTitleArray;
 @property (nonatomic,strong) HXBBaseScrollToolBarView *scorllToolBarView;
-@property (nonatomic,strong) UIButton *exit_Plan_button;
-@property (nonatomic,strong) UIButton *exiting_Plan_button;
-@property (nonatomic,strong) UIButton *hold_Plan_Button;
 
+@property (nonatomic,strong) UILabel *exitLabel;
+@property (nonatomic,strong) UILabel *exitingLabel;
+@property (nonatomic,strong) UILabel *holdLabel;
 
 @property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *exit_Plan_TableView;///退出后
 @property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *exiting_Plan_TableView;///退出中
@@ -41,9 +44,6 @@
 
 
 @implementation HXBMainListView_Plan
-//@synthesize hold_Plan_array = _hold_Plan_array;
-//@synthesize exiting_Plan_array = _exiting_Plan_array;
-//@synthesize exit_Plan_array = _exit_Plan_array;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -59,19 +59,26 @@
 - (void) setExit_Plan_array:(NSMutableArray<HXBMYViewModel_MianPlanViewModel *> *)exit_Plan_array {
     _exit_Plan_array = exit_Plan_array;
     self.exit_Plan_TableView.mainPlanViewModelArray = exit_Plan_array;
-    [self.exit_Plan_button setTitle:[NSString stringWithFormat:@"已退出(%@)",@(exit_Plan_array.count)] forState:UIControlStateNormal];
+    self.exitLabel.text = [self formatStrWithTypeStr:exitTitle andCountStr:exit_Plan_array.count];
+
 }
 - (void)setExiting_Plan_array:(NSMutableArray<HXBMYViewModel_MianPlanViewModel *> *)exiting_Plan_array {
     _exiting_Plan_array = exiting_Plan_array;
     self.exiting_Plan_TableView.mainPlanViewModelArray = exiting_Plan_array;
-    [self.exiting_Plan_button setTitle:[NSString stringWithFormat:@"退出中(%@)",@(exiting_Plan_array.count)] forState:UIControlStateNormal];
+    self.exitingLabel.text = [self formatStrWithTypeStr:exitTingTitle andCountStr:exiting_Plan_array.count];
 }
 - (void)setHold_Plan_array:(NSMutableArray<HXBMYViewModel_MianPlanViewModel *> *)hold_Plan_array {
     _hold_Plan_array = hold_Plan_array;
     self.hold_Plan_TableView.mainPlanViewModelArray = hold_Plan_array;
-    [self.hold_Plan_Button setTitle:[NSString stringWithFormat:@"持有中(%@)",@(hold_Plan_array.count)] forState:UIControlStateNormal];
+    self.holdLabel.text = [self formatStrWithTypeStr:holdTitle andCountStr:hold_Plan_array.count];
 }
-
+- (NSString *)formatStrWithTypeStr: (NSString *)typeStr andCountStr: (NSInteger)count {
+    if (count) {
+        NSString *countStr = @(count).description;
+        return [NSString stringWithFormat:@"%@(%@)",typeStr,countStr];
+    }
+    return typeStr;
+}
 #pragma mark - getter 
 - (NSArray *)exit_Plan_arrayAtIndexes:(NSIndexSet *)indexes {
     if (!_exit_Plan_array) {
@@ -95,10 +102,13 @@
 #pragma mark - 搭建UI
 - (void)setUP {
     self.toolBarOptionTitleArray = @[
-                                     @"持有中",
-                                     @"退出中",
-                                     @"已退出"
-                                     ];
+                                     holdTitle,
+                                     exitTingTitle,
+                                     exitTitle
+                                     ].mutableCopy;
+    self.holdLabel = [self creatLableWithTitle:holdTitle];
+    self.exitingLabel = [self creatLableWithTitle:exitTingTitle];
+    self.exitLabel = [self creatLableWithTitle:exitTitle];
     [self setupSubView];
 }
 
@@ -107,6 +117,7 @@
     [self setupToolBarView];//搭建中部的toolBarView
     [self setupBottomScrollViewArray];//创建底部的ScrollView的集合
     [self setupScrollToolBarView];//搭建scrollToolBarView
+    [self refresh];//刷新的搭建
 }
 // 搭建顶部的View信息
 - (void)setupTopView {
@@ -114,18 +125,36 @@
 }
 //搭建中部的toolBarView
 - (void)setupToolBarView {
+    kWeakSelf
     self.toolBarView = [HXBBaseToolBarView toolBarViewWithFrame:CGRectZero andOptionStrArray:self.toolBarOptionTitleArray];
-    //把toolBarView的button记录下来
-    
-    //持有中
-    self.hold_Plan_Button = self.toolBarView.optionItemInfo[0];
-    //退出中
-    self.exiting_Plan_button = self.toolBarView.optionItemInfo[1];
-    //已退出
-    self.exit_Plan_button = self.toolBarView.optionItemInfo[2];
-    
     //开启动画
     self.toolBarView.isAnima_ItemBottomBarView = true;
+    // 对item 进行自定义
+    [self.toolBarView setUpsetUpBarViewItemBlockFuncWithBlcok:^(UIButton *button, UIView *buttonBottomView) {
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        if ([button.titleLabel.text isEqualToString:holdTitle]) {
+            [weakSelf addLableWithButton:button andLable:weakSelf.holdLabel];
+        }
+        if ([button.titleLabel.text isEqualToString:exitTingTitle]) {
+            [weakSelf addLableWithButton:button andLable:weakSelf.exitingLabel];
+        }
+        if ([button.titleLabel.text isEqualToString:exitTitle]) {
+            [weakSelf addLableWithButton:button andLable:weakSelf.exitLabel];
+        }
+    }];
+}
+- (UILabel *)creatLableWithTitle: (NSString *)title {
+    UILabel *label = [[UILabel alloc] init];
+     label.textAlignment = NSTextAlignmentCenter;
+    label.text = title;
+    return label;
+}
+- (void)addLableWithButton: (UIButton *)button andLable: (UILabel *)label{
+    [button addSubview:label];
+    label.frame = button.bounds;
+    button.titleLabel.text = @"";
 }
 //搭建底部的ScrollView
 - (NSArray *)setupBottomScrollViewArray {
@@ -151,7 +180,6 @@
                 index = weakSelf.toolBarOptionTitleArray.count - 1;
             }
             HXBRequestType_MY_PlanRequestType type = index;
-            
             weakSelf.changeMidSelectOptionBlock(option, title, index, type);
         }
     }];
@@ -163,7 +191,6 @@
 - (void)changeMidSelectOptionFuncWithBlock:(void (^)(UIButton *button, NSString *title, NSInteger index, HXBRequestType_MY_PlanRequestType requestType))changeMidSelectOptionBlock {
     self.changeMidSelectOptionBlock = changeMidSelectOptionBlock;
 }
-
 
 ///上啦刷新下拉加载
 - (void)refresh {
@@ -178,11 +205,11 @@
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {}];
     
     [self.exiting_Plan_TableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        if (weakSelf.exiting_Plan_DownRefresh) weakSelf.exiting_Plan_DownRefresh();
+        if (weakSelf.exiting_Plan_DownRefresh) weakSelf.exiting_Plan_UPRefresh();
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {}];
     
     [self.exit_Plan_TableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        if (weakSelf.exit_Plan_DownRefresh) weakSelf.exiting_Plan_DownRefresh();
+        if (weakSelf.exit_Plan_DownRefresh) weakSelf.exiting_Plan_UPRefresh();
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {}];
 }
 //上啦加载
@@ -193,13 +220,14 @@
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
     
     [self.exiting_Plan_TableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        if(weakSelf.exiting_Plan_UPRefresh) weakSelf.exiting_Plan_UPRefresh();
+        if(weakSelf.exiting_Plan_UPRefresh) weakSelf.exiting_Plan_DownRefresh();
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
     
     [self.exit_Plan_TableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        if(weakSelf.exit_Plan_UPRefresh) weakSelf.exiting_Plan_UPRefresh();
+        if(weakSelf.exit_Plan_UPRefresh) weakSelf.exit_Plan_DownRefresh();
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
 }
+
 //停止刷新
 - (void)endRefresh {
     [self.hold_Plan_TableView.mj_header endRefreshing];
@@ -210,18 +238,18 @@
     [self.exiting_Plan_TableView.mj_footer endRefreshing];
 }
 
-//刷新的传递
-- (void)exit_RefreashWithDownBlock:(void (^)())downBlock andUPBlock:(void (^)())UPBlock {
-    self.exit_Plan_DownRefresh = downBlock;
-    self.exit_Plan_UPRefresh = UPBlock;
+//MARK: 刷新的传递
+- (void)hold_RefreashWithDownBlock:(void (^)())downBlock andUPBlock:(void (^)())UPBlock {
+    self.hold_Plan_UPRefresh = UPBlock;
+    self.hold_Plan_DownRefresh = downBlock;
 }
 - (void)exiting_RefreashWithDownBlock:(void (^)())downBlock andUPBlock:(void (^)())UPBlock {
     self.exiting_Plan_DownRefresh = downBlock;
     self.exiting_Plan_UPRefresh = UPBlock;
 }
-- (void)hold_RefreashWithDownBlock:(void (^)())downBlock andUPBlock:(void (^)())UPBlock {
-    self.hold_Plan_UPRefresh = UPBlock;
-    self.hold_Plan_DownRefresh = downBlock;
+- (void)exit_RefreashWithDownBlock:(void (^)())downBlock andUPBlock:(void (^)())UPBlock {
+    self.exit_Plan_DownRefresh = downBlock;
+    self.exit_Plan_UPRefresh = UPBlock;
 }
 
 //MARK: 销毁

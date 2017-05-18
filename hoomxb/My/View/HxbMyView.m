@@ -77,6 +77,11 @@ MyViewHeaderDelegate
         HXBMY_PlanListViewController *myPlanViewController = [[HXBMY_PlanListViewController alloc]init];
         [vc.navigationController pushViewController:myPlanViewController animated:YES];
     }
+    if (indexPath.section == 1) {
+        HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+        HXBMY_LoanListViewController *loanListViewController = [[HXBMY_LoanListViewController alloc]init];
+        [VC.navigationController pushViewController:loanListViewController animated:true];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

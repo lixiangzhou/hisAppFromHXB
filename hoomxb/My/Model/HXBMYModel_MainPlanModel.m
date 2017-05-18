@@ -13,11 +13,17 @@
              @"dataList":[HXBMYModel_MainPlanModel_DataList class],
              };
 }
+- (NSString *)description {
+    return [self yy_modelDescription];
+}
 @end
 
 
 @implementation HXBMYModel_MainPlanModel_DataList
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"ID" : @"id"};
+}
+- (NSString *)description {
+    return [self yy_modelDescription];
 }
 @end

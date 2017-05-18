@@ -21,5 +21,6 @@
 #import "HxbBase.h"
 #import "MacroDefinition.h"
 
+#import "HXMacros_BLog.h"
 #import "HXBScreenAdaptation.h"
 #endif /* HxbMacro_h */

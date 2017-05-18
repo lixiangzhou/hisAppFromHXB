@@ -46,6 +46,8 @@
     [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
     ///事件的传递
     [self registerEvent];
+    //刷新  加载
+    [self registerRefresh];
 }
 
 //搭建UI
@@ -57,12 +59,13 @@
 
 #pragma mark - 下载数据
 - (void)downLoadDataWitRequestType: (HXBRequestType_MY_PlanRequestType) requestType andIsUpData: (BOOL)isUpData{
+    __weak typeof (self)weakSelf = self;
     [[HXBMYRequest sharedMYRequest] myPlan_requestWithPlanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MianPlanViewModel *> *viewModelArray) {
         //数据的分发
-        [self handleViewModelArrayWithViewModelArray:viewModelArray];
-    
+        [weakSelf handleViewModelArrayWithViewModelArray:viewModelArray];
+        [weakSelf.planListView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        
+        [weakSelf.planListView endRefresh];
     }];
 }
 ///网络数据请求数据处理
@@ -94,7 +97,7 @@
     // 中部的toolBarView的选中的option变化时候调用
     [self setupMidToolBarViewChangeSelect];
 }
-// 中部的toolBarView的选中的option变化时候调用
+//MARK:  中部的toolBarView的选中的option变化时候调用
 - (void) setupMidToolBarViewChangeSelect {
     //根据type来对相应的 界面进行网络请求 如果
     __weak typeof (self)weakSelf = self;
@@ -102,49 +105,53 @@
         switch (type) {
                 //持有中
             case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:
-                if (!self.hold_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
+                if (!weakSelf.hold_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
                 break;
                 
                 //退出中
             case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:
-                if (!self.exiting_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:true];
+                if (!weakSelf.exiting_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:true];
                 break;
             
                 //已退出
             case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
-                if (!self.exit_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:true];
+                if (!weakSelf.exit_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:true];
                 break;
         }
     }];
 }
 
-//MARK: - 刷新 加载 时间注册
+//MARK: - 刷新 加载 注册
+- (void) registerRefresh {
+    [self refresh_hold];
+    [self refresh_exiting];
+    [self refresh_exit];
+}
 - (void) refresh_hold {
     __weak typeof(self)weakSelf = self;
     [self.planListView hold_RefreashWithDownBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
-    } andUPBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:false];
-    }];
-}
-- (void) refresh_exit {
-    __weak typeof (self)weakSelf = self;
-    [self.planListView hold_RefreashWithDownBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:true];
     } andUPBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:false];
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
     }];
 }
 - (void) refresh_exiting {
     __weak typeof (self)weakSelf = self;
-    [self.planListView hold_RefreashWithDownBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:true];
+    [self.planListView exiting_RefreashWithDownBlock:^{
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:false];
     } andUPBlock:^{
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:true];
+    }];
+}
+- (void) refresh_exit {
+    __weak typeof (self)weakSelf = self;
+    [self.planListView exit_RefreashWithDownBlock:^{
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:false];
+    } andUPBlock:^{
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:true];
     }];
 }
 
 //MARK: 销毁
-- (void) dealloc {
-    NSLog(@"%@ - ✅被销毁",self.class);
-}
+kDealloc
 @end

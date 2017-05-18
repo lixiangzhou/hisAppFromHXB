@@ -12,7 +12,8 @@
 
 /// 我的 plan listView
 @interface HXBMainListView_Plan : UIView
-//MARK: - 数据源
+
+#pragma mark - 数据源
 ///持有中
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MianPlanViewModel *>*hold_Plan_array;
 ///plan 推出中
@@ -20,8 +21,8 @@
 ///plan 已退出
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MianPlanViewModel *>*exit_Plan_array;
 
-///plan 的toolbarView的中间的点击
-- (void)changeMidSelectOptionFuncWithBlock:(void (^)(UIButton *button, NSString *title, NSInteger index, HXBRequestType_MY_PlanRequestType requestType))changeMidSelectOptionBlock;
+
+#pragma mark - 刷新
 ///停止刷新
 - (void)endRefresh;
 
@@ -32,4 +33,7 @@
 ///上拉下拉刷新 exit
 - (void) exit_RefreashWithDownBlock:(void(^)())downBlock andUPBlock: (void(^)())UPBlock;
 
+
+#pragma mark - 中间的toolBarView的select Option 改变的时候
+- (void)changeMidSelectOptionFuncWithBlock:(void (^)(UIButton *button, NSString *title, NSInteger index, HXBRequestType_MY_PlanRequestType requestType))changeMidSelectOptionBlock;
 @end

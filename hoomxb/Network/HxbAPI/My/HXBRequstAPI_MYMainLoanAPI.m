@@ -1,16 +1,17 @@
 //
-//  HXBRequstAPI_MYMainPlanAPI.m
+//  HXBRequstAPI_MYMainLoanAPI.m
 //  hoomxb
 //
 //  Created by HXB on 2017/5/17.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBRequstAPI_MYMainPlanAPI.h"
+#import "HXBRequstAPI_MYMainLoanAPI.h"
 
-@implementation HXBRequstAPI_MYMainPlanAPI
+@implementation HXBRequstAPI_MYMainLoanAPI
 - (NSString *)requestUrl {
-    return @"/account/userfinanceplanlist.action";
+//    /account/userloanstatis.action
+    return @"/account/userloanlist.action";
 }
 
 - (NYRequestMethod)requestMethod {

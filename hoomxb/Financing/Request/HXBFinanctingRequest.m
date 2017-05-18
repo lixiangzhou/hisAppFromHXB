@@ -31,14 +31,11 @@
 
 @interface HXBFinanctingRequest ()
 //红利计划列表的页数
-@property (nonatomic,assign) BOOL isUPRefresh_Plan;
 @property (nonatomic,assign) NSInteger planListPage;
 
-@property (nonatomic,assign) BOOL isUPRefresh_Loan;
 @property (nonatomic,assign) NSInteger loanListPage;
 
 //红利计划 加入记录
-@property (nonatomic,assign) BOOL isUPLoadAddRecortd_Plan;
 @property (nonatomic,assign) NSInteger addRecortdPage_Plan;
 
 //红利计划列表的数据数组
@@ -67,33 +64,11 @@
 
 
 #pragma mark - setter
-- (void)setIsUPRefresh_Plan:(BOOL)isUPRefresh_Plan {
-    _isUPRefresh_Plan = isUPRefresh_Plan;
-    if (_isUPRefresh_Plan) {
-        self.planListPage = 1;
-        [self.planListViewModelArray removeAllObjects];
-    }
-}
-- (void)setIsUPRefresh_Loan:(BOOL)isUPRefresh_Loan {
-    _isUPRefresh_Loan = isUPRefresh_Loan;
-    if (_isUPRefresh_Loan) {
-        self.loanListPage = 1;
-        [self.loanListViewModelArray removeAllObjects];
-    }
-}
-
-- (void)setIsUPLoadAddRecortd_Plan:(BOOL)isUPLoadAddRecortd_Plan{
-    _isUPLoadAddRecortd_Plan = isUPLoadAddRecortd_Plan;
-    if (isUPLoadAddRecortd_Plan) {
-        self.addRecortdPage_Plan = 1;
-    }
-}
 
 #pragma mark - homePage reaquest
 //MARK: 红利计划列表api
 - (void)planBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
     //是否为上拉刷新
-    self.isUPRefresh_Plan = isUPData;
     
     HXBFinancing_planListAPI *planBuyListAPI = [[HXBFinancing_planListAPI alloc]init];
     planBuyListAPI.requestArgument = @{
@@ -104,7 +79,8 @@
                                        @"pageNumber" : @(self.planListPage),
                                        @"pageSize" : @(20)//每页的个数
                                        };
-
+    planBuyListAPI.isUPData = isUPData;
+    
     [planBuyListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
         if (!dataList.count) {
@@ -112,8 +88,9 @@
             return;
         }
         
+        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [[NSMutableArray alloc]init];
+        
         [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-           
             HXBFinHomePageModel_PlanList *financtingPlanListModel = [[HXBFinHomePageModel_PlanList alloc]init];
             //创建viewModel
             HXBFinHomePageViewModel_PlanList *financtingPlanListViewModel = [[HXBFinHomePageViewModel_PlanList alloc]init];
@@ -121,10 +98,13 @@
             [financtingPlanListModel yy_modelSetWithDictionary:obj];
             //给viewModel赋值MODEL
             financtingPlanListViewModel.planListModel = financtingPlanListModel;
-            [self.planListViewModelArray addObject:financtingPlanListViewModel];
+            [planListViewModelArray addObject:financtingPlanListViewModel];
         }];
         //回调
-        self.planListPage ++;
+        HXBFinancing_planListAPI *planListAPI = (HXBFinancing_planListAPI *)request;
+        //数据的处理
+        [self plan_handleDataWithIsUPData:planListAPI.isUPData andData:planListViewModelArray];
+        
         if (successDateBlock) successDateBlock(self.planListViewModelArray);
         
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -134,10 +114,30 @@
         }
     }];
 }
-
+///数据的处理
+- (void)plan_handleDataWithIsUPData: (BOOL)isUPData andData: (NSArray<HXBFinHomePageViewModel_PlanList *>*)viewModelArray {
+    if (isUPData) {
+        [self.planListViewModelArray removeAllObjects];
+        _planListPage = 1;
+    }
+    //是否为重复数据
+    __block BOOL isErrorData = false;
+    //遍历，看是请求的数据为一样的数据
+    [self.planListViewModelArray enumerateObjectsUsingBlock:^(HXBFinHomePageViewModel_PlanList * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([viewModelArray.firstObject.planListModel.ID isEqualToString:obj.planListModel.ID]) {
+            kNetWorkError(@"红利计划列表页的 追加数据出现重复数据, 已经返回");
+            isErrorData = true;
+            *stop = true;
+        }
+    }];
+    //如果是重复数据，那么就return
+    if (isErrorData) return;
+    //否则加一
+    self.planListPage ++;
+    [self.planListViewModelArray addObjectsFromArray:viewModelArray];
+}
 //MARK: 散标列表api
 - (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
-    self.isUPRefresh_Loan = isUPData;
     HXBFinancing_LoanListAPI *loanListAPI = [[HXBFinancing_LoanListAPI alloc]init];
     loanListAPI.requestArgument = @{
                                        @"version" : @"1.0",
@@ -147,6 +147,7 @@
                                        @"pageNumber" : @(self.loanListPage),
                                        @"pageSize" : @(20)//每页的个数
                                        };
+    loanListAPI.isUPData = isUPData;
     [loanListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         //数据
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
@@ -155,6 +156,7 @@
             NSLog(@"✘散标购买请求没有数据");
             return;
         }
+        NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [[NSMutableArray alloc]init];
         
         [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             
@@ -165,10 +167,11 @@
             [financtingLoanListModel yy_modelSetWithDictionary:obj];
             //给viewModel赋值MODEL
             financtingLoanListViewModel.loanListModel = financtingLoanListModel;
-            [self.loanListViewModelArray addObject:financtingLoanListViewModel];
+            [loanDataListModelArray addObject:financtingLoanListViewModel];
         }];
         //回调
-        self.loanListPage ++;
+        HXBFinancing_LoanListAPI *loanListApi = (HXBFinancing_LoanListAPI *)request;
+        [self loan_handleDataWithIsUPData:loanListApi.isUPData andViewModel:loanDataListModelArray];
         if (successDateBlock) successDateBlock(self.loanListViewModelArray);
         
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -178,7 +181,25 @@
         }
     }];
 }
-
+- (void)loan_handleDataWithIsUPData: (BOOL)isUPData andViewModel: (NSArray <HXBFinHomePageViewModel_LoanList *>*)loan_viewModelArray {
+    if (isUPData) {
+        self.loanListPage = 1;
+        [self.loanListViewModelArray removeAllObjects];
+    }
+    
+    __block BOOL isErrorData = false;
+    [self.loanListViewModelArray enumerateObjectsUsingBlock:^(HXBFinHomePageViewModel_LoanList * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        if ([loan_viewModelArray.firstObject.loanListModel.loanId isEqualToString:obj.loanListModel.loanId]) {
+            kNetWorkError(@"理财 - loan列表页的 追加数据出现重复数据, 已经返回");
+            isErrorData = true;
+            *stop = true;
+        }
+    }];
+    if(isErrorData) return;
+    self.loanListPage ++;
+    [self.loanListViewModelArray addObjectsFromArray:loan_viewModelArray];
+}
 
 #pragma mark - 详情页 数据请求
 - (void)planDetaileWithPlanID: (NSString *)financePlanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_PlanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
@@ -190,7 +211,6 @@
                                        @"platform" : @"IOS"
                                        };
 
-    
     [planDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSDictionary *planDetaileDic = [responseObject valueForKey:@"data"];
         HXBFinDetailModel_PlanDetail *planDetaileModel = [[HXBFinDetailModel_PlanDetail alloc]init];
@@ -238,7 +258,7 @@
     //order 排序：AMOUNT-按加入金额排序，其他值-按加入时间排序
     //version string 响应结果版本号：1.0-默认值
     HXBFinancing_PlanAddRecortdAPI *planAddRecortdAPI = [[HXBFinancing_PlanAddRecortdAPI alloc]init];
-    self.isUPLoadAddRecortd_Plan = isUPLoad;
+//    self.isUPLoadAddRecortd_Plan = isUPLoad;
     if (!order) order = @"TIME";
     if (!financePlanId) financePlanId = @"2";
     planAddRecortdAPI.requestArgument = @{

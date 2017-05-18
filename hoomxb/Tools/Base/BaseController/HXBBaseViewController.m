@@ -28,7 +28,5 @@
 //    [self setupWebView];
 }
 //MARK: 销毁
-- (void) dealloc {
-    NSLog(@"%@ - ✅被销毁",self.class);
-}
+kDealloc
 @end

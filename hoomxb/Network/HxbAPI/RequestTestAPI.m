@@ -25,10 +25,5 @@
     return NYRequestMethodPost;
 }
 
-- (id)requestArgument {
-    return @{
-             
-             };
-}
 
 @end
