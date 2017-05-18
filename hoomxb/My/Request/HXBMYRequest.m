@@ -101,13 +101,14 @@
     
     HXBRequstAPI_MYMainPlanAPI *mainPlanAPI = [[HXBRequstAPI_MYMainPlanAPI alloc]init];
     NSString *type = [HXBRequestType_MYManager myPlan_requestType:planRequestType];
-    NSString *pageNumberStr = @([self getRequestPageWithType:planRequestType]).description;
+    NSString *pageNumberStr = @([self getRequestPageWithType:planRequestType andIsUPData:isUPData]).description;
     
     NSString *userIDStr = [KeyChainManage sharedInstance].userId;
     if (!userIDStr.length) {
         NSLog(@"%@, - 没有userID 使用了测试 的userID ： 2458528", self.class);
         userIDStr = @"2458528";
     }
+    
     mainPlanAPI.requestArgument = @{
                                     @"type" : type,
                                     @"pageNumber" : pageNumberStr,
@@ -145,13 +146,16 @@
     }];
 }
 ///根据type 区分page
-- (NSInteger)getRequestPageWithType: (HXBRequestType_MY_PlanRequestType)type {
+- (NSInteger)getRequestPageWithType: (HXBRequestType_MY_PlanRequestType)type andIsUPData: (BOOL)isUPData{
     switch (type) {
         case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
+            if (isUPData) self.exitPage = 1;
             return self.exitPage;
         case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:
+            if(isUPData) self.holdPlanPage = 1;
             return self.holdPlanPage;
         case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:
+            if(isUPData) self.exitingPage = 1;
             return self.exitingPage;
     }
 }
@@ -213,9 +217,11 @@
     NSInteger page = 1;
     switch (loanRequestType) {
         case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN:
+            if (isUPData) self.repayingPage = 1;
             page = self.repayingPage;
             break;
         case HXBRequestType_MY_LoanRequestType_BID_LOAN:
+            if (isUPData) self.bidPage = 1;
             page = self.bidPage;
             break;
         case HXBRequestType_MY_LoanRequestType_FINISH_LOAN:

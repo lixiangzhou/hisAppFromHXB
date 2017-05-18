@@ -55,7 +55,7 @@ UITableViewDataSource
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBBaseView_MYList_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
-    if (self.mainLoanViewModelArray) {
+    if (self.mainPlanViewModelArray) {
         cell.planViewMode = self.mainPlanViewModelArray[indexPath.row];
     }else {
         cell.loanViewModel = self.mainLoanViewModelArray[indexPath.row];
