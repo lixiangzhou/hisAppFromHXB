@@ -130,7 +130,7 @@
     }else{
        self.afterLoginView.tipString = @"还没有，安全认证";
     }
-    if ( [KeyChain isLogin]&&[KeyChain isVerify] && [KeyChain isInvest]) {
+    if ([KeyChain isVerify] && [KeyChain isInvest]) {
         
     }
 }

@@ -9,7 +9,7 @@
 #import "BaseModel.h"
 
 @interface BulletinsModel : BaseModel
-@property(nonatomic,strong) NSString * content;
-@property (nonatomic, strong) NSString *linkUrl;
+@property(nonatomic, copy) NSString * content;
+@property(nonatomic, copy) NSString *linkUrl;
 
 @end

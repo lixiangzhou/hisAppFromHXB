@@ -29,6 +29,7 @@ static NSString * const kDefBankNum = @"defBankNum";
 static NSString * const kBankNumArr = @"bankNumArr";
 static NSString * const kAvatarImageURL = @"avatarImageURL";
 static NSString * const kLocalAvatarImageData = @"kLocalAvatarImageData";
+static NSString * const kAssetsTotal = @"kAssetsTotal";
 
 @interface KeyChainManage ()
 
@@ -86,7 +87,7 @@ static NSString * const kLocalAvatarImageData = @"kLocalAvatarImageData";
 }
 
 - (BOOL)isInvest{
-    BOOL isInvest = true;
+    BOOL isInvest = ![[KeyChain assetsTotal] isEqualToString:@""] && [KeyChain isLogin];
     return isInvest;
 }
 
@@ -257,6 +258,15 @@ static NSString * const kLocalAvatarImageData = @"kLocalAvatarImageData";
     return defBankNum?:@"";
 }
 
+- (NSString *)assetsTotal{
+    NSString *assetsTotal = self.keychain[kAssetsTotal];
+    return assetsTotal?:@"";
+}
+
+- (void)setAssetsTotal:(NSString *)assetsTotal{
+    self.keychain[kAssetsTotal] = assetsTotal;
+}
+
 // 对象存取时，需要做处理
 - (void)setBankNumArr:(NSArray *)bankNumArr
 {
@@ -271,7 +281,6 @@ static NSString * const kLocalAvatarImageData = @"kLocalAvatarImageData";
     
     return bankArr.count?bankArr:[NSArray array];
 }
-
 
 
 @end
