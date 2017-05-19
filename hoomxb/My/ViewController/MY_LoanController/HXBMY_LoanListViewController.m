@@ -57,19 +57,19 @@
 ///网络数据请求数据处理
 - (void)handleViewModelArrayWithViewModelArray: (NSArray<HXBMYViewModel_MainLoanViewModel *>*)loanViewModelArray{
     //    如果 没有值就直接return
-    if (!loanViewModelArray.count) return;
-    switch (loanViewModelArray.firstObject.requestType) {
-        case HXBRequestType_MY_LoanRequestType_BID_LOAN://持有中
-            self.loanListView.bid_ViewModelArray = loanViewModelArray;
-            self.loan_BID_ViewModelArray = loanViewModelArray;
-            break;
-        case HXBRequestType_MY_LoanRequestType_FINISH_LOAN: //已经推出
-            break;
-        case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN://正在推出
-            self.loanListView.repaying_ViewModelArray = loanViewModelArray;
-            self.loan_REPAYING_ViewModelArray = loanViewModelArray;
-            break;
-    }
+////    if (!loanViewModelArray.count) return;
+//    switch (loanViewModelArray.firstObject.requestType) {
+//        case HXBRequestType_MY_LoanRequestType_BID_LOAN://持有中
+//            self.loanListView.bid_ViewModelArray = loanViewModelArray;
+//            self.loan_BID_ViewModelArray = loanViewModelArray;
+//            break;
+//        case HXBRequestType_MY_LoanRequestType_FINISH_LOAN: //已经推出
+//            break;
+//        case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN://正在推出
+//            self.loanListView.repaying_ViewModelArray = loanViewModelArray;
+//            self.loan_REPAYING_ViewModelArray = loanViewModelArray;
+//            break;
+//    }
 }
 
 #pragma mark - 注册事件

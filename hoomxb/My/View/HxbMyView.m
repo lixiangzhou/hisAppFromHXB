@@ -12,6 +12,8 @@
 #import "HxbMyViewController.h"
 #import "HXBMY_PlanListViewController.h"///plan 列表的VC
 #import "HXBMY_LoanListViewController.h"///散标 列表的VC
+#import "HXBMY_CapitalRecordViewController.h"//资产记录
+
 @interface HxbMyView ()
 <
 UITableViewDelegate,
@@ -81,6 +83,12 @@ MyViewHeaderDelegate
         HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
         HXBMY_LoanListViewController *loanListViewController = [[HXBMY_LoanListViewController alloc]init];
         [VC.navigationController pushViewController:loanListViewController animated:true];
+    }
+    if (indexPath.section == 2) {
+        HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+        HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
+        [VC.navigationController pushViewController:capitalRecordViewController animated:true];
+        
     }
 }
 

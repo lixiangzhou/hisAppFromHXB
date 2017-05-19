@@ -17,6 +17,10 @@
 #import "HXBMYViewModel_MainLoanViewModel.h"//主界面的 loanViewModel
 #import "HXBMyModel_MainLoanModel.h"//主界面的 loanModel
 
+#import "HXBRequestAPI_MYMainCapitalRecordAPI.h"///主界面 资产记录API
+#import "HXBMYViewModel_MainCapitalRecordViewModel.h"//主界面 资产记录 ViewMOdel
+//#import "HXBMYModel_MainCapitalRecordModel.h"//主界面 资产记录Model ViewModel 里面加入了
+
 
 
 
@@ -41,6 +45,10 @@
 /// loan 已结清
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainLoanViewModel *>*finish_Loan_array;
 @property (nonatomic,assign) NSInteger finishPage;
+
+//资产记录
+@property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainCapitalRecordViewModel *>*capitalRecordViewModel_array;
+@property (nonatomic,assign) NSInteger capitalRecordPage;
 @end
 
 
@@ -85,10 +93,28 @@
     return _exitPage;
 }
 - (NSInteger) holdPlanPage {
-    if (_holdPlanPage <= 0) {
+    if (_holdPlanPage < 1) {
         _holdPlanPage = 1;
     }
     return _holdPlanPage;
+}
+- (NSInteger)repayingPage {
+    if (_repayingPage < 1) {
+        _repayingPage = 1;
+    }
+    return _repayingPage;
+}
+- (NSInteger)bidPage {
+    if (_bidPage < 1) {
+        _bidPage = 1;
+    }
+    return _bidPage;
+}
+- (NSInteger)capitalRecordPage {
+    if (_capitalRecordPage < 1) {
+        _capitalRecordPage = 1;
+    }
+    return _capitalRecordPage;
 }
 
 #pragma mark - 主要页面的网络请求
@@ -294,7 +320,64 @@
 
 
 #pragma mark - 资金记录 接口
-//- (void)capitalRecord
-
+- (void)capitalRecord_requestWithStartDate: (NSString *)startDate
+                                andEndDate: (NSString *)endDate
+                               andIsUPData: (BOOL)isUPData andRequestType: (NSString *)requestType
+                           andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *>* viewModelArray))successDateBlock
+                           andFailureBlock: (void(^)(NSError *error))failureBlock {
+    HXBRequestAPI_MYMainCapitalRecordAPI *capitalRecordAPI = [[HXBRequestAPI_MYMainCapitalRecordAPI alloc]init];
+    //如果是下拉刷新的话
+    if (isUPData) self.capitalRecordPage = 1;
+    
+    //页数
+    NSString *pageSTR = @(self.capitalRecordPage).description;
+    
+    NSString *userID = [KeyChainManage sharedInstance].userId;
+    if (!userID.length) userID = @"2458538";
+    
+    if (!startDate.length) {
+        startDate = @"2017-01-01";
+    }
+    if (!endDate.length) endDate = @"2017-12-31";
+    capitalRecordAPI.requestArgument = @{
+                                      @"userId" : userID,//用户id
+                             @"pointParentType" : @"CHECKOUT",//用英文 资金记录查询类型
+                                    @"startDay" : startDate,//查询开始时间
+                                      @"endDay" : endDate,//结束时间
+                                       @"start" : pageSTR,//页数
+                                         @"num" : @"30"//每页的data数
+                                         };
+    capitalRecordAPI.isUPData = isUPData;
+    
+    [capitalRecordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        HXBRequestAPI_MYMainCapitalRecordAPI *api = (HXBRequestAPI_MYMainCapitalRecordAPI *)request;
+        NSDictionary *data = [responseObject valueForKey:@"data"];
+        HXBMYModel_MainCapitalRecordModel *capitalRecordModel = [[HXBMYModel_MainCapitalRecordModel alloc]init];
+        
+        //模型转化
+        [capitalRecordModel yy_modelSetWithDictionary:data];
+        //遍历
+        NSMutableArray <HXBMYViewModel_MainCapitalRecordViewModel *>*viewModelArray = [[NSMutableArray alloc]init];
+        [capitalRecordModel.dataList enumerateObjectsUsingBlock:^(HXBMYModel_MainCapitalRecordModel_dataList * _Nonnull dataList, NSUInteger idx, BOOL * _Nonnull stop) {
+            HXBMYViewModel_MainCapitalRecordViewModel *viewModel = [[HXBMYViewModel_MainCapitalRecordViewModel alloc]init];
+            viewModel.capitalRecordModel_dataList = dataList;
+            [viewModelArray addObject:viewModel];
+        }];
+        if (successDateBlock) {
+            NSMutableArray <HXBMYViewModel_MainCapitalRecordViewModel *>*capitalRecordViewModelArray = [self capitalRecord_handleDataWithIsUPData:api.isUPData andViewModelArray:viewModelArray];
+            successDateBlock(capitalRecordViewModelArray);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+    }];
+}
+- (NSMutableArray <HXBMYViewModel_MainCapitalRecordViewModel *>*)capitalRecord_handleDataWithIsUPData: (BOOL)isUPData andViewModelArray: (NSArray <HXBMYViewModel_MainCapitalRecordViewModel *>*)viewModeArray {
+    if (isUPData) {
+        self.capitalRecordPage = 1;
+        [self.capitalRecordViewModel_array removeAllObjects];
+    }
+    self.capitalRecordPage ++;
+    [self.capitalRecordViewModel_array addObjectsFromArray:viewModeArray];
+    return self.capitalRecordViewModel_array;
+}
 kDealloc
 @end
