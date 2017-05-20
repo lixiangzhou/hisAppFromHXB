@@ -10,6 +10,7 @@
 #import "HXBMainListView_Loan.h"
 #import "HXBMYViewModel_MainLoanViewModel.h"
 #import "HXBMYRequest.h"
+#import "HXBMY_PlanList_DetailViewController.h"
 @interface HXBMY_LoanListViewController ()
 
 @property (nonatomic,strong) HXBMainListView_Loan *loanListView;
@@ -20,9 +21,16 @@
 
 @implementation HXBMY_LoanListViewController
 
+//MARK: 销毁
+kDealloc
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    //防止跳转的时候，tableView向上或者向下移动
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    };
     [self setUP];
 }
 
@@ -36,6 +44,8 @@
     [self registerEvent];
     //刷新  加载
     [self registerRefresh];
+    //cell的点击事件的注册
+    [self registerCilickCellEvent];
 }
 
 //搭建UI
@@ -45,37 +55,39 @@
 }
 #pragma mark - 下载数据
 - (void)downLoadDataWitRequestType: (HXBRequestType_MY_LoanRequestType) requestType andIsUpData: (BOOL)isUpData{
-    __weak typeof (self)weakSelf = self;
+    ///这里面没有产生循环引用 block里面不能用weakSelf
     [[HXBMYRequest sharedMYRequest] myLoan_requestWithPlanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MainLoanViewModel *> *viewModelArray) {
         //数据的分发
-        [weakSelf handleViewModelArrayWithViewModelArray:viewModelArray];
-        [weakSelf.loanListView endRefresh];
+        [self handleViewModelArrayWithViewModelArray:viewModelArray];
+        [self.loanListView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        [weakSelf.loanListView endRefresh];
+        [self.loanListView endRefresh];
     }];
 }
 ///网络数据请求数据处理
 - (void)handleViewModelArrayWithViewModelArray: (NSArray<HXBMYViewModel_MainLoanViewModel *>*)loanViewModelArray{
-    //    如果 没有值就直接return
-////    if (!loanViewModelArray.count) return;
-//    switch (loanViewModelArray.firstObject.requestType) {
-//        case HXBRequestType_MY_LoanRequestType_BID_LOAN://持有中
-//            self.loanListView.bid_ViewModelArray = loanViewModelArray;
-//            self.loan_BID_ViewModelArray = loanViewModelArray;
-//            break;
-//        case HXBRequestType_MY_LoanRequestType_FINISH_LOAN: //已经推出
-//            break;
-//        case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN://正在推出
-//            self.loanListView.repaying_ViewModelArray = loanViewModelArray;
-//            self.loan_REPAYING_ViewModelArray = loanViewModelArray;
-//            break;
-//    }
+//        如果 没有值就直接return
+    if (!loanViewModelArray.count) return;
+    switch (loanViewModelArray.firstObject.requestType) {
+        case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN://收益中
+            self.loanListView.repaying_ViewModelArray = loanViewModelArray;
+            self.loan_REPAYING_ViewModelArray = loanViewModelArray;
+            break;
+        case HXBRequestType_MY_LoanRequestType_BID_LOAN://投标中
+            self.loanListView.bid_ViewModelArray = loanViewModelArray;
+            self.loan_BID_ViewModelArray = loanViewModelArray;
+            break;
+        case HXBRequestType_MY_LoanRequestType_FINISH_LOAN: //已结清 预留字段
+            break;
+    }
 }
 
 #pragma mark - 注册事件
 - (void) registerEvent {
     // 中部的toolBarView的选中的option变化时候调用
     [self setupMidToolBarViewChangeSelect];
+    
+    //点击cell的时候调用
 }
 //MARK:  中部的toolBarView的选中的option变化时候调用
 - (void) setupMidToolBarViewChangeSelect {
@@ -121,6 +133,17 @@
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
     }];
 }
-//MARK: 销毁
-kDealloc
+
+
+#pragma mark - 点击cell 事件的注册
+- (void)registerCilickCellEvent {
+    [self.loanListView clickLoan_repaying_CellFuncWithBlock:^(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex) {
+        
+        HXBMY_PlanList_DetailViewController *planListDetailViewController = [[HXBMY_PlanList_DetailViewController alloc]init];
+        [self.navigationController pushViewController:planListDetailViewController animated:true];
+    }];
+    [self.loanListView clickLoan_bid_CellFuncWithBlock:^(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex) {
+        NSLog(@"散标列表暂无详情页");
+    }];
+}
 @end

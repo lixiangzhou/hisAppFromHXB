@@ -9,11 +9,11 @@
 #import "HXBRequestType_MYManager.h"
 #import <limits.h>
 static NSString *MY_PlanRequestType_HOLD_PLAN = @"HOLD_PLAN";
-static NSString *MY_PlanRequestType_HOLD_PLAN_UI = @"";
+static NSString *MY_PlanRequestType_HOLD_PLAN_UI = @"等待计息";
 static NSString *MY_PlanRequestType_EXITING_PLAN = @"EXITING_PLAN";
-static NSString *MY_PlanRequestType_EXITING_PLAN_UI = @"";
+static NSString *MY_PlanRequestType_EXITING_PLAN_UI = @"退出中";
 static NSString *MY_PlanRequestType_EXIT_PLAN = @"EXIT_PLAN";
-static NSString *MY_PlanRequestType_EXIT_PLAN_UI = @"";
+static NSString *MY_PlanRequestType_EXIT_PLAN_UI = @"已退出";
 
 
 @implementation HXBRequestType_MYManager
@@ -27,23 +27,27 @@ static NSString *MY_PlanRequestType_EXIT_PLAN_UI = @"";
     return HXBRequestType_MY_PlanRequestType_EXIT_PLAN;
 }
 /// 根据枚举值返回对应的请求参数字符串 ———— 我的红利计划主界面
-+ (NSString *)myPlan_requestType: (HXBRequestType_MY_PlanRequestType)type{
++ (NSString *)myPlan_requestType: (HXBRequestType_MY_PlanRequestType)type andTypeBlock: (void(^)(NSString *typeUI, NSString *type))typeBlock{
     NSString *typeStr = @"";
+    NSString *typeStrUI = @"";
     switch (type) {
         case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
             typeStr = MY_PlanRequestType_EXIT_PLAN;
+            typeStrUI = MY_PlanRequestType_EXIT_PLAN_UI;
             break;
             case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:
             typeStr = MY_PlanRequestType_HOLD_PLAN;
+            typeStrUI = MY_PlanRequestType_HOLD_PLAN_UI;
             break;
             case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:
+            typeStrUI = MY_PlanRequestType_EXITING_PLAN_UI;
             typeStr = MY_PlanRequestType_EXITING_PLAN;
             break;
     }
     if (!typeStr.length) {
         NSLog(@"%@ - 我的红利计划主界面—— 对应的请求参数字符串 返回错误,）",self.class);
-
     }
+    typeBlock(typeStrUI,typeStr);
     return typeStr;
 }
 ///红利计划相应的 计划状态

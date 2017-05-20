@@ -237,7 +237,8 @@
         if (scrollView.contentSize.height < scrollView.frame.size.height) {
 //            scrollView.contentSize = CGSizeMake(0, scrollView.frame.size.height);
             CGPoint point = [scrollView.panGestureRecognizer translationInView:self];
-            self.contentOffset = CGPointMake(0, -point.y);
+            self.contentOffset = CGPointMake(0, -point.y + self.contentOffset.y);
+            self.offsetY = self.contentOffset.y;
         } else {
             self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
         }

@@ -12,7 +12,10 @@
 - (void)setPlanModelDataList:(HXBMYModel_MainPlanModel_DataList *)planModelDataList {
     _planModelDataList = planModelDataList;
     //请求类型
-    self.requestType = [HXBRequestType_MYManager myPlan_requestTypeStr: planModelDataList.type];
+    self.requestType = [HXBRequestType_MYManager myPlan_requestTypeStr:self.planModelDataList.type];
+    [HXBRequestType_MYManager myPlan_requestType:self.requestType andTypeBlock:^(NSString *typeUI, NSString *type) {
+        self.requestType_UI = typeUI;
+    }];
     //相应类型
     self.responseStatus = [HXBRequestType_MYManager myPlan_ResponsStatusStr:planModelDataList.status];
     //红利计划的状态

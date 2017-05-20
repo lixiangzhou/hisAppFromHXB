@@ -20,7 +20,6 @@
     HxbIndexPlanListAPI *indexPlanListAPI = [[HxbIndexPlanListAPI alloc]init];
     [indexPlanListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSDictionary *baseDic = [responseObject valueForKey:@"data"];
-        NSLog(@"%@",baseDic);
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
            _homeDataListViewModelArray  = [NSMutableArray array];
         if (!responseObject || !dataList.count) {
@@ -29,7 +28,6 @@
         }
         
         [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            NSLog(@"%@",obj);
             
          
             HxbHomePageModel_DataList *homeDataListModel = [[HxbHomePageModel_DataList alloc]init];

@@ -85,7 +85,7 @@ static NSString *const loan_BID_LOAN_UI = @"投标中";
 /// 根据枚举值返回对应的请求参数字符串 ———— 我的红利计划主界面
 + (HXBRequestType_MY_PlanRequestType)myPlan_requestTypeStr: (NSString *)typeStr;
 /// 根据枚举值返回对应的请求参数字符串 ———— 我的红利计划主界面
-+ (NSString *)myPlan_requestType: (HXBRequestType_MY_PlanRequestType)type;
++ (NSString *)myPlan_requestType: (HXBRequestType_MY_PlanRequestType)type andTypeBlock: (void(^)(NSString *typeUI, NSString *type))typeBlock;
 
 
 ///红利计划相应的 计划状态

@@ -22,7 +22,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.imageName = @"1";
-    
+    //防止跳转的时候，tableView向上或者向下移动
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    };
     //登录的测试
 
 //    对controllerView进行布局

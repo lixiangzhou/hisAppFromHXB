@@ -13,5 +13,5 @@
 //@property (nonatomic,strong)AssetOverviewModel * profitModel;
 @property (nonatomic, strong) NSString *tipString;
 
-- (void)setProfitData;
+//- (void)setProfitData;
 @end

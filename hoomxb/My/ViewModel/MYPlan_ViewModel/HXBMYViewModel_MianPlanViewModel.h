@@ -15,6 +15,8 @@
 @property (nonatomic,strong) HXBMYModel_MainPlanModel_DataList *planModelDataList;
 ///请求的类型 （持有中， 正在推出， 已经推出）
 @property (nonatomic,assign) HXBRequestType_MY_PlanRequestType requestType;
+///UI展示的请求的类型 （持有中， 正在推出， 已经推出）
+@property (nonatomic,copy) NSString *requestType_UI;
 /// 相应后数据的状态
 @property (nonatomic,assign) HXBRequestType_MY_PlanResponseStatus responseStatus;
 /// 红利计划 的状态

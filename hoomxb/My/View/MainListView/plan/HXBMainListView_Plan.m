@@ -11,6 +11,7 @@
 #import "HXBBaseToolBarView.h"
 #import "HXBBaseScrollToolBarView.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
+#import "HXBMYViewModel_MianPlanViewModel.h"
 static NSString *const holdTitle = @"持有中";
 static NSString *const exitTingTitle = @"退出中";
 static NSString *const exitTitle = @"已退出";
@@ -40,11 +41,18 @@ static NSString *const exitTitle = @"已退出";
 @property (nonatomic,copy) void(^hold_Plan_UPRefresh)();
 @property (nonatomic,copy) void(^exiting_Plan_UPRefresh)();
 @property (nonatomic,copy) void(^exit_Plan_UPRefresh)();
+
+//MARK: - cell的点击
+///cell的点击事件的传递
+@property (nonatomic,copy) void(^clickPlan_HoldCellBlock)(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickLoanCellIndex);
+@property (nonatomic,copy) void(^clickPlan_exitingCellBlock)(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickLoanCellIndex);
+@property (nonatomic,copy) void(^clickPlan_exitCellBlock)(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickLoanCellIndex);
 @end
 
 
 @implementation HXBMainListView_Plan
-
+//MARK: 销毁
+kDealloc
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -118,6 +126,7 @@ static NSString *const exitTitle = @"已退出";
     [self setupBottomScrollViewArray];//创建底部的ScrollView的集合
     [self setupScrollToolBarView];//搭建scrollToolBarView
     [self refresh];//刷新的搭建
+    [self registerClickCellEvent];//注册cell的点击事件
 }
 // 搭建顶部的View信息
 - (void)setupTopView {
@@ -252,8 +261,31 @@ static NSString *const exitTitle = @"已退出";
     self.exit_Plan_UPRefresh = UPBlock;
 }
 
-//MARK: 销毁
-- (void) dealloc {
-    NSLog(@"%@ - ✅被销毁",self.class);
+//MARK: cell的点击
+- (void)registerClickCellEvent {
+    [self.hold_Plan_TableView clickPlanCellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickCellIndex) {
+        if (self.clickPlan_HoldCellBlock) {
+            self.clickPlan_HoldCellBlock(viewModel, clickCellIndex);
+        }
+    }];
+    [self.exiting_Plan_TableView clickPlanCellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickCellIndex) {
+        if (self.clickPlan_exitingCellBlock) {
+            self.clickPlan_exitingCellBlock(viewModel, clickCellIndex);
+        }
+    }];
+    [self.exit_Plan_TableView clickPlanCellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickCellIndex) {
+        if (self.clickPlan_exitCellBlock) {
+            self.clickPlan_exitCellBlock(viewModel, clickCellIndex);
+        }
+    }];
+}
+- (void)clickLoan_hold_CellFuncWithBlock:(void (^)(HXBMYViewModel_MianPlanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex))clickPlanCellBlock {
+    self.clickPlan_HoldCellBlock = clickPlanCellBlock;
+}
+- (void)clickLoan_exiting_CellFuncWithBlock:(void (^)(HXBMYViewModel_MianPlanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex))clickPlanCellBlock {
+    self.clickPlan_exitingCellBlock = clickPlanCellBlock;
+}
+- (void)clickLoan_exit_CellFuncWithBlock:(void (^)(HXBMYViewModel_MianPlanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex))clickPlanCellBlock {
+    self.clickPlan_exitCellBlock = clickPlanCellBlock;
 }
 @end

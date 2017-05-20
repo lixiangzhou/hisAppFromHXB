@@ -8,7 +8,8 @@
 
 #import "HXBBaseTableView_MYPlanList_TableView.h"
 #import "HXBBaseView_MYList_TableViewCell.h"
-
+#import "HXBMYViewModel_MainLoanViewModel.h"// 我的界面的 loan list ViewModel
+#import "HXBMYViewModel_MianPlanViewModel.h"//  我的界面的 plan list ViewModel
 
 static NSString *const CELLID = @"CELLID";
 @interface HXBBaseTableView_MYPlanList_TableView ()
@@ -16,6 +17,9 @@ static NSString *const CELLID = @"CELLID";
 UITableViewDelegate,
 UITableViewDataSource
 >
+///cell的点击事件的传递
+@property (nonatomic,copy) void(^clickLoanCellBlock)(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex);
+@property (nonatomic,copy) void(^clickPlanCellBlock)(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickPlanCellIndex);
 
 @end
 
@@ -45,7 +49,7 @@ UITableViewDataSource
     self.delegate = self;
     self.dataSource = self;
     [self registerClass:[HXBBaseView_MYList_TableViewCell class] forCellReuseIdentifier:CELLID];
-    self.rowHeight = 80;
+    self.rowHeight = 130;
 }
 
 
@@ -66,8 +70,20 @@ UITableViewDataSource
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBBaseView_MYList_TableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     id model = cell.planViewMode? cell.planViewMode : cell.loanViewModel;
-    ///点击cell的回调
-    if (self.clickCellBlock) self.clickCellBlock(model, indexPath);
+    if (cell.planViewMode && self.clickPlanCellBlock) {
+        self.clickPlanCellBlock(model, indexPath);
+        return;
+    }
+    if (cell.loanViewModel && self.clickLoanCellBlock) {
+        self.clickLoanCellBlock(model, indexPath);
+        return;
+    }
 }
-
+///点击了cell
+- (void)clickLoanCellFuncWithBlock: (void(^)(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex))clickLoanCellBlock{
+    self.clickLoanCellBlock = clickLoanCellBlock;
+}
+- (void)clickPlanCellFuncWithBlock: (void(^)(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickPlanCellIndex))clickPlanCellBlock{
+    self.clickPlanCellBlock = clickPlanCellBlock;
+}
 @end

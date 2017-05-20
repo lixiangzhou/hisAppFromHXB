@@ -16,5 +16,6 @@
 ///数据源 loan
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel *>*mainLoanViewModelArray;
 ///点击了cell
-@property (nonatomic,copy) void (^clickCellBlock)(id ViewModel, NSIndexPath *indexPath);
+- (void)clickLoanCellFuncWithBlock: (void(^)(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex))clickLoanCellBlock;
+- (void)clickPlanCellFuncWithBlock: (void(^)(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickPlanCellIndex))clickPlanCellBlock;
 @end

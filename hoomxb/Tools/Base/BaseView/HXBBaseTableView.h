@@ -11,8 +11,4 @@
 @interface HXBBaseTableView : UITableView
 @property (nonatomic,assign) BOOL isOpenRefresh;
 
-
-//点击了cell
-- (void)clickCellBlockFunc: (void(^)(NSIndexPath *index, id model))clickCellBlock;
-
 @end

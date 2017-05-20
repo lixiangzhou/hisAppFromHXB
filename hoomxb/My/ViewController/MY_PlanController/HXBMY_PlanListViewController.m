@@ -7,6 +7,8 @@
 //
 
 #import "HXBMY_PlanListViewController.h"
+#import "HXBMY_PlanList_DetailViewController.h"
+
 #import "HXBMYViewModel_MianPlanViewModel.h"// plan ViewModel
 #import "HXBMYModel_MainPlanModel.h"//plan model
 #import "HXBMainListView_Plan.h"
@@ -28,7 +30,8 @@
 @end
 
 @implementation HXBMY_PlanListViewController
-
+//MARK: 销毁
+kDealloc
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,6 +39,10 @@
     [self setUP];
     ///网络请求
     [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
+    //防止跳转的时候，tableView向上或者向下移动
+    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+    };
 }
 
 //设置
@@ -48,6 +55,8 @@
     [self registerEvent];
     //刷新  加载
     [self registerRefresh];
+    //cell 点击的加载
+    [self registerClickCell];
 }
 
 //搭建UI
@@ -152,6 +161,26 @@
     }];
 }
 
-//MARK: 销毁
-kDealloc
+#pragma mark - cell点击事件的注册
+- (void)registerClickCell {
+    //持有中
+    [self.planListView clickLoan_hold_CellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickLoanCellIndex) {
+        HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
+        planListDetailVC.planViewModel = planViewModel;
+        [self.navigationController pushViewController:planListDetailVC animated:true];
+    }];
+    //退出中
+    [self.planListView clickLoan_exiting_CellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickLoanCellIndex) {
+        HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
+        planListDetailVC.planViewModel = planViewModel;
+        [self.navigationController pushViewController:planListDetailVC animated:true];
+    }];
+    //已退出
+    [self.planListView clickLoan_exit_CellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickLoanCellIndex) {
+        HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
+        planListDetailVC.planViewModel = planViewModel;
+        [self.navigationController pushViewController:planListDetailVC animated:true];
+    }];
+}
+
 @end
