@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class HXBMYModel_AssetStatistics_Plan;
 @class HXBMYViewModel_MianPlanViewModel;
 #import "HXBRequestType_MYManager.h"
 
@@ -14,6 +15,8 @@
 @interface HXBMainListView_Plan : UIView
 
 #pragma mark - 数据源
+///资产统计
+@property (nonatomic,strong) HXBMYModel_AssetStatistics_Plan *planAssetStatisticsModel;
 ///持有中
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MianPlanViewModel *>*hold_Plan_array;
 ///plan 推出中
@@ -23,6 +26,9 @@
 
 
 #pragma mark - 刷新
+///资产统计的刷新
+- (void)requestAssetStatisticsWithBlockFunc: (void(^)())assetStatisticsWithBlock;
+
 ///停止刷新
 - (void)endRefresh;
 

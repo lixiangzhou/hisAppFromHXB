@@ -34,7 +34,7 @@
 
 
 //MARK: 事件传递的block
-@property (nonatomic,copy) void(^clickMidToolBarViewBlock)(NSInteger index, NSString *title,UIButton *option);
+@property (nonatomic,copy) void(^switchBottomScrollViewBlock)(NSInteger index, NSString *title,UIButton *option);
 
 @end
 
@@ -72,9 +72,10 @@
 #pragma mark - 回调事件的传递
 ///对于中间的ToolBarView点击事件的回调
 - (void)midToolBarViewClickWithBlock: (void(^)(NSInteger index, NSString *title,UIButton *option))clickMidToolBarViewBlock {
-    self.clickMidToolBarViewBlock = clickMidToolBarViewBlock;
 }
-
+- (void)switchBottomScrollViewCallBack:(void (^)(NSInteger, NSString *, UIButton *))switchBottomScrollViewBlock {
+    self.switchBottomScrollViewBlock = switchBottomScrollViewBlock;
+}
 #pragma mark - 构造方法
 + (instancetype) scrollToolBarViewWithFrame:(CGRect)frame
                                  andTopView:(UIView *)topView
@@ -161,7 +162,7 @@
         CGFloat contentOffsetX = index * weakSelf.kScrollToolBarViewW;
         weakSelf.bottomScrollView.contentOffset = CGPointMake(contentOffsetX, 0);
         //如果点击事件回调被实现，那么执行外部的回调事件
-        if (weakSelf.clickMidToolBarViewBlock) weakSelf.clickMidToolBarViewBlock(index,itemText,button);
+        if (weakSelf.switchBottomScrollViewBlock) weakSelf.switchBottomScrollViewBlock(index,itemText,button);
     }];
     [self.midToolBarView show];
 }
@@ -224,9 +225,9 @@
         //偏移量的计算
         //向下拉
         BOOL isDown = oldContentOffset.y > newContentOffset.y;
-        BOOL isScrollViewNotScroll = scrollView.contentSize.height < scrollView.frame.size.height;
-        BOOL isTracking = scrollView.dragging && scrollView.tracking && !scrollView.decelerating;
-        BOOL isGreater = self.contentOffset.y > newContentOffset.y;
+//        BOOL isScrollViewNotScroll = scrollView.contentSize.height < scrollView.frame.size.height;
+//        BOOL isTracking = scrollView.dragging && scrollView.tracking && !scrollView.decelerating;
+//        BOOL isGreater = self.contentOffset.y > newContentOffset.y;
         if (isDown && (newContentOffset.y <= 0)) {
             self.offsetY = 0;
         }
@@ -235,7 +236,6 @@
         }
         
         if (scrollView.contentSize.height < scrollView.frame.size.height) {
-//            scrollView.contentSize = CGSizeMake(0, scrollView.frame.size.height);
             CGPoint point = [scrollView.panGestureRecognizer translationInView:self];
             self.contentOffset = CGPointMake(0, -point.y + self.contentOffset.y);
             self.offsetY = self.contentOffset.y;
@@ -288,10 +288,10 @@
                 self.offsetY = self.contentOffset.y - scrollView.contentOffset.y;
             }
             //如果点击事件回调被实现，那么执行外部的回调事件
-            if (self.clickMidToolBarViewBlock) {
+            if (self.switchBottomScrollViewBlock) {
                 UIButton *option = self.midToolBarView.optionItemInfo[index];
                 NSString *title = self.midToolBarView.optionStrArray[index];
-                self.clickMidToolBarViewBlock(index, title, option);
+                self.switchBottomScrollViewBlock(index, title, option);
             }
         }
     }
@@ -304,6 +304,6 @@
             [obj removeObserver:self forKeyPath:@"contentOffset"];
         }
     }];
-    NSLog(@"✅ %@ 被销毁",NSStringFromClass(self.class));
+    NSLog(@"%@ - ✅被销毁",self.class);
 }
 @end

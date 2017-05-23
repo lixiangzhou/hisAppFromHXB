@@ -11,7 +11,7 @@
 @class HXBMYViewModel_LoanDetailViewModel;
 @class HXBMYViewModel_MainCapitalRecortdDetailViewModel;
 
-
+///里面包含了详情接口，以及 资产统计接口
 @interface HXBMYReqest_DetailRequest : NSObject
 //MARK: 计划详情 接口
 ///计划列表详情接口
@@ -23,4 +23,6 @@
                                   andRequestType: (NSString *)requestType
                                  andSuccessBlock: (void(^)(HXBMYViewModel_LoanDetailViewModel *viewModelArray))successDateBlock
                                  andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+
 @end

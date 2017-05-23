@@ -11,6 +11,7 @@
 #import "HXBMYViewModel_MainLoanViewModel.h"
 #import "HXBMYRequest.h"
 #import "HXBMY_PlanList_DetailViewController.h"
+#import "HXBMYModel_AssetStatistics_Loan.h"
 @interface HXBMY_LoanListViewController ()
 
 @property (nonatomic,strong) HXBMainListView_Loan *loanListView;
@@ -36,6 +37,8 @@ kDealloc
 
 //设置
 - (void)setUP {
+    ///请求资产统计的网络请求
+    [self assetStatisticsLoadData];
     ///view的创建
     [self setupView];
     ///网络请求
@@ -46,6 +49,15 @@ kDealloc
     [self registerRefresh];
     //cell的点击事件的注册
     [self registerCilickCellEvent];
+    // 当底部的tableView 左右切换 事件的注册
+    [self registerSwichScrollViewCallBack];
+}
+
+///资产统计网络请求
+- (void)assetStatisticsLoadData {
+    [[HXBMYRequest sharedMYRequest] myLoanAssetStatistics_requestWithSuccessBlock:^(NSArray<HXBMYModel_AssetStatistics_Loan *> *model) {
+        self.loanListView.loanAssetStatisticsModel = model.firstObject;
+    } andFailureBlock:^(NSError *error) {}];
 }
 
 //搭建UI
@@ -134,13 +146,29 @@ kDealloc
     }];
 }
 
+///切换底部的ScrollView的时候调用
+- (void)registerSwichScrollViewCallBack {
+    __weak typeof(self)weakSelf = self;
+    [self.loanListView switchBottomScrollViewCallBackFunc:^(NSInteger index, NSString *title, UIButton *option) {
+        if ([title isEqualToString:HXBRequestType_MY_REPAYING_LOAN_UI]) {
+            if (!weakSelf.loan_REPAYING_ViewModelArray.count){///在收益中刷新
+                [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+            }
+        }
+        if ([title isEqualToString:HXBRequestType_MY_BID_LOAN_UI]) {///投标中刷新
+            if (!weakSelf.loan_BID_ViewModelArray.count) {
+                [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:true];
+            }
+        }
+    }];
+}
 
 #pragma mark - 点击cell 事件的注册
 - (void)registerCilickCellEvent {
+    kWeakSelf
     [self.loanListView clickLoan_repaying_CellFuncWithBlock:^(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex) {
-        
         HXBMY_PlanList_DetailViewController *planListDetailViewController = [[HXBMY_PlanList_DetailViewController alloc]init];
-        [self.navigationController pushViewController:planListDetailViewController animated:true];
+        [weakSelf.navigationController pushViewController:planListDetailViewController animated:true];
     }];
     [self.loanListView clickLoan_bid_CellFuncWithBlock:^(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex) {
         NSLog(@"散标列表暂无详情页");

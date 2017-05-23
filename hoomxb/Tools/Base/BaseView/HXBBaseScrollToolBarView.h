@@ -35,7 +35,7 @@
             andMidToolBarViewH:(CGFloat)midToolBarViewH
               andBottomViewSet:(NSArray <UIView *>*)bottomViewSet;
 ///对于中间的ToolBarView点击事件的回调
-- (void)midToolBarViewClickWithBlock: (void(^)(NSInteger index, NSString *title,UIButton *option))clickMidToolBarViewBlock;
+- (void)switchBottomScrollViewCallBack: (void(^)(NSInteger index, NSString *title,UIButton *option))switchBottomScrollViewBlock;
 
 - (void)show;
 @end

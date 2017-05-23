@@ -81,6 +81,11 @@
     footer.automaticallyHidden = true;
     self.mj_footer = footer;
 }
+
+- (void)endRefresh {
+    [self.mj_header endRefreshing];
+    [self.mj_footer endRefreshing];
+}
 @end
 
 

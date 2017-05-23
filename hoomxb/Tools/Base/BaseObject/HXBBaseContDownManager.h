@@ -48,7 +48,6 @@ typedef enum : NSUInteger {
  * @param modelArray 需要倒计时的model数组
  * @param modelDateKey model储存到期时间的属性名
  * @param modelCountDownKey model储存剩余时间的属性名
- * @param modelTypeArray model的类型数组
  * @param modelDateType model中储存的到期时间是否为剩余时间
  */
 - (instancetype)initWithCountDownStartTime: (long)countDownStartTime
@@ -56,7 +55,6 @@ typedef enum : NSUInteger {
                              andModelArray: (NSArray *)modelArray
                            andModelDateKey: (NSString *)modelDateKey
                       andModelCountDownKey: (NSString *)modelCountDownKey
-                         andModelTypeArray: (NSArray<NSString *>*)modelTypeArray
                           andModelDateType: (PYContDownManagerModelDateType)modelDateType;
 
 
@@ -102,7 +100,12 @@ typedef enum : NSUInteger {
 /// 需要倒计时的model数组
 @property (nonatomic,strong) NSArray *modelArray;
 
-/// 在上拉加载的时候可能会有卡顿，传入scrollView解决这个问题
+/**
+ * 在集成了MJRefresh之后，上拉加载时， 会出现卡顿，
+ * 这是因为在子线程计算数据后，在回到主线程刷新UI时候，会强制把runloop由NSDefaultRunLoopMode转化为NSDefaultRunLoopMode，从而MJRefresh会自动回弹，
+ * 此方法主要解决了这个问题。
+ * 传入scrollView监听了偏移量，在滑动到底部的时候，会自动关闭Model的刷新和对外界的UI刷新，
+ */
 - (void)stopWenScrollViewScrollBottomWithTableView: (UIScrollView *)scrollView;
 
 @end

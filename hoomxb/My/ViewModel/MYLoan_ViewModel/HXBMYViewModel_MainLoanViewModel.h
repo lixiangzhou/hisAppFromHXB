@@ -14,6 +14,8 @@
 @interface HXBMYViewModel_MainLoanViewModel : NSObject
 @property (nonatomic,strong) HXBMyModel_MainLoanModel *loanModel;
 ///请求的类型
+@property (nonatomic,assign) HXBRequestType_MY_LoanResponsType responsType;
+///请求的类型
 @property (nonatomic,assign) HXBRequestType_MY_LoanRequestType requestType;
 ///相应的类型
 @property (nonatomic,copy) NSString *responsStatus;

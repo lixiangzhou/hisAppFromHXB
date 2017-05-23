@@ -10,7 +10,8 @@
 
 @interface UIScrollView (HXBScrollView)
 
-
+///停止刷新
+- (void)endRefresh;
 
 /**
  * 没有动图的下拉刷新

@@ -94,7 +94,7 @@
 #pragma mark - 处理点击事件
 - (void)clickMidToolBarView {
     kWeakSelf
-    [self.homePageView setMidToolBarViewClickWithBlock:^(NSInteger index, NSString *title, UIButton *button) {
+    [self.homePageView setSwitchBottomScrollViewBlock:^(NSInteger index, NSString *title, UIButton *button) {
         //网络数据请求
         if ([title isEqualToString:@"红利计划"] && self.isFirstLoadNetDataPlan) {
             [weakSelf planLoadDateWithIsUpData:true];

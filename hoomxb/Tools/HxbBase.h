@@ -9,6 +9,7 @@
 
 //MARK: UIViewController
 #import "HXBBaseViewController.h"//控制器的基类
+#import "HXBBaseNavigationController.h"
 
 //MARK: UIView
 #import "HXBBaseTableView.h"//tableView

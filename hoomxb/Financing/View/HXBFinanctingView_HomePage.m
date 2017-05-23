@@ -132,7 +132,7 @@
     }];
     //要与服务器时间想比较
 //    self.contDwonManager.clientTime = [HXBDate       ]
-//    [self.contDwonManager stopWenScrollViewScrollBottomWithTableView:self.planListTableView];
+    [self.contDwonManager stopWenScrollViewScrollBottomWithTableView:self.planListTableView];
     self.contDwonManager.isAutoEnd = true;
     
     //开启定时器
@@ -203,9 +203,9 @@
     [self addSubview:self.scrollToolBarView];
     //点击事件的分发
     kWeakSelf
-    [self.scrollToolBarView midToolBarViewClickWithBlock:^(NSInteger index, NSString *title, UIButton *option) {
-        if (weakSelf.midToolBarViewClickWithBlock){
-            weakSelf.midToolBarViewClickWithBlock(index,title,option);
+    [self.scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
+        if (weakSelf.switchBottomScrollViewBlock){
+            weakSelf.switchBottomScrollViewBlock(index,title,option);
             NSLog(@"%@",title);
         }
     }];

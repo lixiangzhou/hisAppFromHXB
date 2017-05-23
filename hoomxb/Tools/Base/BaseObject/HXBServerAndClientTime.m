@@ -51,6 +51,8 @@
 - (NSNumber *)serverAndClientTimeInterval {
     return @([self.serverAndClientDate timeIntervalSince1970]);
 }
-
+- (void)dealloc{
+    NSLog(@"%@ - ✅被销毁",self.class);
+}
 
 @end

@@ -84,7 +84,7 @@
                                             completionHandler:
                                   ^(NSData *data, NSURLResponse *response, NSError *error) {
 //                                      NSLog(@"data:%@",response);
-                                       NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil]);
+//                                       NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil]);
                                       refresh(data);
                                   }];
     

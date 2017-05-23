@@ -47,6 +47,9 @@ kDealloc
 
 //设置
 - (void)setUP {
+    
+    ///请求资产统计的网络请求
+    [self assetStatisticsLoadData];
     ///view的创建
     [self setupView];
     ///网络请求
@@ -57,6 +60,13 @@ kDealloc
     [self registerRefresh];
     //cell 点击的加载
     [self registerClickCell];
+}
+
+///资产统计网络请求
+- (void)assetStatisticsLoadData {
+    [[HXBMYRequest sharedMYRequest] myPlanAssetStatistics_requestWithSuccessBlock:^(HXBMYModel_AssetStatistics_Plan *model) {
+        self.planListView.planAssetStatisticsModel = model;
+    } andFailureBlock:^(NSError *error) {}];
 }
 
 //搭建UI
@@ -164,22 +174,24 @@ kDealloc
 #pragma mark - cell点击事件的注册
 - (void)registerClickCell {
     //持有中
+    kWeakSelf
     [self.planListView clickLoan_hold_CellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickLoanCellIndex) {
         HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
         planListDetailVC.planViewModel = planViewModel;
-        [self.navigationController pushViewController:planListDetailVC animated:true];
+        [weakSelf.navigationController pushViewController:planListDetailVC animated:true];
     }];
     //退出中
+    
     [self.planListView clickLoan_exiting_CellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickLoanCellIndex) {
         HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
         planListDetailVC.planViewModel = planViewModel;
-        [self.navigationController pushViewController:planListDetailVC animated:true];
+        [weakSelf.navigationController pushViewController:planListDetailVC animated:true];
     }];
     //已退出
     [self.planListView clickLoan_exit_CellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickLoanCellIndex) {
         HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
         planListDetailVC.planViewModel = planViewModel;
-        [self.navigationController pushViewController:planListDetailVC animated:true];
+        [weakSelf.navigationController pushViewController:planListDetailVC animated:true];
     }];
 }
 

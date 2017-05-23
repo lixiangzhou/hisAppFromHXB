@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @class HXBFinDetailModel_PlanDetail;
-@interface HXBFinAddRecordVC_Plan : UIViewController
+@interface HXBFinAddRecordVC_Plan : HXBBaseViewController
 @property (nonatomic,strong) HXBFinDetailModel_PlanDetail *planDetailModel;
 @end

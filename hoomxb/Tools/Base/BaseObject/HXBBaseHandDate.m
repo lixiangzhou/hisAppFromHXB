@@ -25,6 +25,12 @@ static HXBBaseHandDate *_instancetype;
     return _instancetype;
 }
 
+- (NSString *) stringFromDate:(NSObject *)dateObj andDateFormat: (NSString *)format {
+    NSDate *date = [self returnDateWithOBJ:dateObj andDateFormatter:format];
+    return [self.dateFormatter stringFromDate:date];
+}
+
+
 #pragma mark - 返回较晚(或较早时间)的时间
 + (NSDate *)laterDateWithData: (NSObject *)date andOtherDate: (NSObject *)otherDate andCompareType: (PYHandleCompareType)compareType{
     NSDate *dateOne = [[self sharedHandleDate] returnDateWithOBJ:date andDateFormatter:nil];
@@ -140,11 +146,11 @@ static HXBBaseHandDate *_instancetype;
         date = [self.dateFormatter dateFromString:dateStr];
         
     }else{
-        NSLog(@"传入的date_OBJ对象不能被识别 我可以识别 日期的NSString,NSNumber,NSDate");
+        NSLog(@"🌶传入的date_OBJ对象不能被识别 我可以识别 日期的NSString,NSNumber,NSDate");
         return nil;
     }
     if (!date) {
-        NSLog(@"传入的对象不能被转化成时间对象");
+        NSLog(@"🌶传入的对象不能被转化成时间对象");
     }
     return date;
 }
@@ -285,5 +291,8 @@ static HXBBaseHandDate *_instancetype;
     }
     return str;
     
+}
+- (void)dealloc{
+    NSLog(@"%@ - ✅被销毁",self.class);
 }
 @end

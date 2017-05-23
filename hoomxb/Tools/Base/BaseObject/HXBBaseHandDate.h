@@ -25,6 +25,12 @@ typedef enum : NSUInteger {
 //单利
 + (instancetype) sharedHandleDate;
 
+/**
+ * 根据字符串生成时间
+ * param: format 生成的字符串格式 默认yyyy-MM-dd HH:mm:ss
+ */
+- (NSString *) stringFromDate:(NSObject *)dateObj andDateFormat: (NSString *)format;
+
 
 /**
  * 关于时间与当前时间 比较早晚 的方法

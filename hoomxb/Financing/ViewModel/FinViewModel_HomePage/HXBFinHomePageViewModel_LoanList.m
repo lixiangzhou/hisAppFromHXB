@@ -50,18 +50,6 @@ typedef enum : NSUInteger {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 ///状态的处理
 - (void)setupStatusWithLoanListModelStatus: (NSString *) status{
     

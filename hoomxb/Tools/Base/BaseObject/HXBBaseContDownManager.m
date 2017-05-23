@@ -38,6 +38,8 @@
 //传入的model数组是否为二维数组
 @property (nonatomic,assign) BOOL isTwo_DimensionalArray;
 @property (nonatomic,strong) UIScrollView *scrollView;
+@property (nonatomic,assign) BOOL isPan;
+//@property (nonatomic,strong) NSTimer *pyTimer;
 @end
 
 
@@ -127,10 +129,20 @@
 #pragma mark - 倒计时开始
 //MARK: 计时器的创建
 - (void)createTimer {
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        self.pyTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(repeat1) userInfo:nil repeats:YES];
+//        [[NSRunLoop currentRunLoop] addTimer:self.pyTimer forMode:NSRunLoopCommonModes];
+//    });
+//    
+//    return;
         //0.创建队列
         dispatch_queue_t queue = self.queue;
         [self.modelArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [obj setValue:@"0" forKey:self.modelCountDownKey];
+            NSString *countDownStr = [obj valueForKey:self.modelCountDownKey];
+            
+            if (countDownStr.floatValue <= 0 || countDownStr.floatValue >= self.countDownStartTime) {
+                [obj setValue:@"0" forKey:self.modelCountDownKey];
+            }
         }];
         //1.创建GCD中的定时器
         /*
@@ -153,6 +165,9 @@
         //3.要调用的任务
         dispatch_source_set_event_handler(timer, ^{
             dispatch_async(self.queue, ^{
+                if (self.isPan) {
+                    return;
+                }
                 [self lookingForATimelyModelArray:self.modelArray];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (self.countdownDataFredbackWithBlock) {
@@ -292,30 +307,27 @@
 
 - (void)stopWenScrollViewScrollBottomWithTableView: (UIScrollView *)scrollView {
     self.scrollView = scrollView;
-    [self.scrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+    [self.scrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"state"]) {
-        UIPanGestureRecognizer *pan = (UIPanGestureRecognizer *)object;
-        switch (pan.state) {
-            case UIGestureRecognizerStateBegan:
-                [self cancelTimer];
-                break;
-            case UIGestureRecognizerStateEnded:
-            case UIGestureRecognizerStateCancelled:
-            case UIGestureRecognizerStateFailed:
-                [self resumeTimer];
-                break;
-            case UIGestureRecognizerStateChanged:
-            case UIGestureRecognizerStatePossible:
-                break;
+        if ([keyPath isEqualToString:@"contentOffset"]) {
+            UIScrollView *scrollView = (UIScrollView *)object;
+            NSNumber *contentOffset = change[NSKeyValueChangeNewKey];
+            CGFloat contentOffsetY = contentOffset.CGPointValue.y;
+            //表示滑动到了底部
+            BOOL isScrollViewBottom = (scrollView.contentSize.height - contentOffsetY) <= 1 + scrollView.frame.size.height - 2;
+            if (isScrollViewBottom) {
+                self.isPan = true;
+            }else {
+                self.isPan = false;
+            }
         }
-    }
 }
+
 - (void)dealloc
 {
-    [self.scrollView.panGestureRecognizer removeObserver:self forKeyPath:@"state"];
-    NSLog(@"√ %@ 被销毁了",self.class);
+    [self.scrollView removeObserver:self forKeyPath:@"contentOffset"];
+    NSLog(@"%@ - ✅被销毁",self.class);
 }
 @end

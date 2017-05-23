@@ -49,9 +49,10 @@
 
 #pragma mark - 网络数据的请求
 - (void)downData {
+    __weak typeof (self)weakSelf = self;
     NSString *planID = self.planViewModel.planModelDataList.ID;
     [self.detailRequest planListDetails_requestWithFinancePlanID:planID andSuccessBlock:^(HXBMYViewModel_PlanDetailViewModel *viewModel) {
-        self.planDetailView.planDetailViewModel = viewModel;
+        weakSelf.planDetailView.planDetailViewModel = viewModel;
     } andFailureBlock:^(NSError *error) {
         
     }];

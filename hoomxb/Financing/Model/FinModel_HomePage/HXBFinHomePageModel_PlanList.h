@@ -78,5 +78,11 @@
 @property (nonatomic,copy) NSString *joinCount;
 ///U计划预期年化收益率
 @property (nonatomic,copy) NSString *expectedRate;
+
+
+
+
+@property (nonatomic,copy) NSString *tag;//": "第11个",
+@property (nonatomic,copy) NSString *beginResellingTime;//": "2017-05-09 15:40:58"
 @end
 

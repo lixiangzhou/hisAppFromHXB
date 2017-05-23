@@ -15,6 +15,8 @@
 
 @interface HXBMainListView_Loan()
 
+
+
 //MARK: --------------------------- topView -------------------
 @property (nonatomic,strong) HXBMainListView_Loan_TopView *loanTopView;
 
@@ -40,7 +42,7 @@
 @property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *erpaying_Loan_TableView;
 ///投标中
 @property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *bid_Loan_TableView;
-
+///投标中是否第一次加载
 
 //MARK: ------------------------- 刷新 ----------------------------
 ///plan 上拉刷新与下拉加载的block
@@ -49,11 +51,17 @@
 
 @property (nonatomic,copy) void(^repaying_Loan_UPRefresh)();
 @property (nonatomic,copy) void(^bid_Loan_UPRefresh)();
+///将要切换底部视图的时候调用
+@property (nonatomic,copy) void(^switchBottomScrollViewBlock)(NSInteger index, NSString *title, UIButton *option);
 
 //MARK: - cell的点击
 ///cell的点击事件的传递
 @property (nonatomic,copy) void(^clickLoan_BIDCellBlock)(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex);
 @property (nonatomic,copy) void(^clickLoan_RepayingCellBlock)(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex);
+
+
+///资产统计的事件注册
+@property (nonatomic,copy) void (^assetStatisticsWithBlock)();
 @end
 
 ///收益中
@@ -65,6 +73,10 @@ static NSString *BID_Title = @"投标中";
 //MARK: 销毁
 kDealloc
 #pragma mark - setter
+- (void)setLoanAssetStatisticsModel:(HXBMYModel_AssetStatistics_Loan *)loanAssetStatisticsModel {
+    _loanAssetStatisticsModel = loanAssetStatisticsModel;
+    self.loanTopView.loanAssetStatisticsModel = loanAssetStatisticsModel;
+}
 - (void)setRepaying_ViewModelArray:(NSArray<HXBMYViewModel_MainLoanViewModel *> *)repaying_ViewModelArray {
     _repaying_ViewModelArray = repaying_ViewModelArray;
     self.erpaying_Loan_TableView.mainLoanViewModelArray = repaying_ViewModelArray;
@@ -169,8 +181,11 @@ kDealloc
 }
 ///搭建scrollToolBarView；
 - (void)createScrollToolBarView {
-    
+    kWeakSelf
     self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 64, self.width, self.height - 64) andTopView:self.loanTopView andTopViewH:300 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:30 andBottomViewSet:self.tableViewArray];
+    [self.scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
+        weakSelf.switchBottomScrollViewBlock ? weakSelf.switchBottomScrollViewBlock(index,title,option) : nil;
+    }];
     [self addSubview:self.scrollToolBarView];
 }
 
@@ -230,14 +245,15 @@ kDealloc
 
 //MARK: cell的点击
 - (void)registerClickCellEvent {
+    __weak typeof (self)weakSelf = self;
     [self.bid_Loan_TableView clickLoanCellFuncWithBlock:^(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex) {
-        if (self.clickLoan_BIDCellBlock) {
-            self.clickLoan_BIDCellBlock(loanViewModel, clickLoanCellIndex);
+        if (weakSelf.clickLoan_BIDCellBlock) {
+            weakSelf.clickLoan_BIDCellBlock(loanViewModel, clickLoanCellIndex);
         }
     }];
     [self.erpaying_Loan_TableView clickLoanCellFuncWithBlock:^(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex) {
-        if (self.clickLoan_RepayingCellBlock) {
-            self.clickLoan_RepayingCellBlock(loanViewModel, clickLoanCellIndex);
+        if (weakSelf.clickLoan_RepayingCellBlock) {
+            weakSelf.clickLoan_RepayingCellBlock(loanViewModel, clickLoanCellIndex);
         }
     }];
 }
@@ -248,4 +264,13 @@ kDealloc
     self.clickLoan_RepayingCellBlock = clickLoanCellBlock;
 }
 
+- (void)switchBottomScrollViewCallBackFunc:(void (^)(NSInteger, NSString *, UIButton *))switchBottomScrollViewBlock {
+    self.switchBottomScrollViewBlock = switchBottomScrollViewBlock;
+}
+
+
+///MARK: 开始刷新资产统计
+- (void)requestAssetStatisticsWithBlockFunc:(void (^)())assetStatisticsWithBlock {
+    self.assetStatisticsWithBlock = assetStatisticsWithBlock;
+}
 @end

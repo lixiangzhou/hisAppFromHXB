@@ -109,7 +109,7 @@
         
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (error && failureBlock) {
-            NSLog(@"%@ === ✘红利计划请求没有数据 ===",error);
+            kNetWorkError(@"");
             failureBlock(error);
         }
     }];
@@ -201,6 +201,10 @@
     [self.loanListViewModelArray addObjectsFromArray:loan_viewModelArray];
 }
 
+
+
+
+
 #pragma mark - 详情页 数据请求
 - (void)planDetaileWithPlanID: (NSString *)financePlanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_PlanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
     HXBFinancing_PlanDetaileAPI *planDetaileAPI = [[HXBFinancing_PlanDetaileAPI alloc]init];
@@ -245,7 +249,7 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (error && failureBlock) {
-            NSLog(@"✘红利计划详情 - 请求没有数据");
+            NSLog(@"✘散标计划详情 - 请求没有数据");
             failureBlock(error);
         }
     }];

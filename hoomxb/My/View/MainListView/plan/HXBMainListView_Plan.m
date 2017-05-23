@@ -47,6 +47,9 @@ static NSString *const exitTitle = @"已退出";
 @property (nonatomic,copy) void(^clickPlan_HoldCellBlock)(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickLoanCellIndex);
 @property (nonatomic,copy) void(^clickPlan_exitingCellBlock)(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickLoanCellIndex);
 @property (nonatomic,copy) void(^clickPlan_exitCellBlock)(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickLoanCellIndex);
+
+///资产统计的事件注册
+@property (nonatomic,copy) void (^assetStatisticsWithBlock)();
 @end
 
 
@@ -64,6 +67,10 @@ kDealloc
 
 
 #pragma mark - setter  数据源
+- (void) setPlanAssetStatisticsModel:(HXBMYModel_AssetStatistics_Plan *)planAssetStatisticsModel {
+    _planAssetStatisticsModel = planAssetStatisticsModel;
+    self.topView.planAssetStatisticsModel = planAssetStatisticsModel;
+}
 - (void) setExit_Plan_array:(NSMutableArray<HXBMYViewModel_MianPlanViewModel *> *)exit_Plan_array {
     _exit_Plan_array = exit_Plan_array;
     self.exit_Plan_TableView.mainPlanViewModelArray = exit_Plan_array;
@@ -183,7 +190,7 @@ kDealloc
     
     ///事件的传递
     kWeakSelf
-    [scrollToolBarView midToolBarViewClickWithBlock:^(NSInteger index, NSString *title, UIButton *option) {
+    [scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
         if (weakSelf.changeMidSelectOptionBlock) {
             if (index >= weakSelf.toolBarOptionTitleArray.count) {
                 index = weakSelf.toolBarOptionTitleArray.count - 1;
@@ -263,19 +270,20 @@ kDealloc
 
 //MARK: cell的点击
 - (void)registerClickCellEvent {
+    kWeakSelf
     [self.hold_Plan_TableView clickPlanCellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickCellIndex) {
-        if (self.clickPlan_HoldCellBlock) {
-            self.clickPlan_HoldCellBlock(viewModel, clickCellIndex);
+        if (weakSelf.clickPlan_HoldCellBlock) {
+            weakSelf.clickPlan_HoldCellBlock(viewModel, clickCellIndex);
         }
     }];
     [self.exiting_Plan_TableView clickPlanCellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickCellIndex) {
-        if (self.clickPlan_exitingCellBlock) {
-            self.clickPlan_exitingCellBlock(viewModel, clickCellIndex);
+        if (weakSelf.clickPlan_exitingCellBlock) {
+            weakSelf.clickPlan_exitingCellBlock(viewModel, clickCellIndex);
         }
     }];
     [self.exit_Plan_TableView clickPlanCellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *viewModel, NSIndexPath *clickCellIndex) {
-        if (self.clickPlan_exitCellBlock) {
-            self.clickPlan_exitCellBlock(viewModel, clickCellIndex);
+        if (weakSelf.clickPlan_exitCellBlock) {
+            weakSelf.clickPlan_exitCellBlock(viewModel, clickCellIndex);
         }
     }];
 }
@@ -287,5 +295,10 @@ kDealloc
 }
 - (void)clickLoan_exit_CellFuncWithBlock:(void (^)(HXBMYViewModel_MianPlanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex))clickPlanCellBlock {
     self.clickPlan_exitCellBlock = clickPlanCellBlock;
+}
+
+///MARK: 开始刷新资产统计
+- (void)requestAssetStatisticsWithBlockFunc:(void (^)())assetStatisticsWithBlock {
+    self.assetStatisticsWithBlock = assetStatisticsWithBlock;
 }
 @end

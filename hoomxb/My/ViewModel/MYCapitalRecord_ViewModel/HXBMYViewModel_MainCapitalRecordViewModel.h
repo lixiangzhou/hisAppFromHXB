@@ -7,8 +7,16 @@
 //
 
 #import "NYBaseRequest.h"
-#import "HXBMYModel_MainCapitalRecordModel.h"
+@class HXBMYModel_CapitalRecordDetailModel;
 ///关于资金列表的ViewModel
 @interface HXBMYViewModel_MainCapitalRecordViewModel : NSObject
-@property (nonatomic,assign)HXBMYModel_MainCapitalRecordModel_dataList *capitalRecordModel_dataList;
+@property (nonatomic,strong) HXBMYModel_CapitalRecordDetailModel *capitalRecordModel;
+///账户余额
+@property (nonatomic,copy) NSString *balance;
+///时间
+@property (nonatomic,copy) NSString *time;
+///支出
+@property (nonatomic,copy) NSString *pay;
 @end
+
+

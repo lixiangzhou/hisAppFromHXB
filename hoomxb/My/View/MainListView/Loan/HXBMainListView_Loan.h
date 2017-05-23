@@ -9,9 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "HXBRequestType_MYManager.h"
 @class HXBMYViewModel_MainLoanViewModel;
+@class HXBMYModel_AssetStatistics_Loan;
 @interface HXBMainListView_Loan : UIView
+
 #pragma mark - 数据源
-#pragma mark - 数据源
+///资产统计model
+@property (nonatomic,strong) HXBMYModel_AssetStatistics_Loan *loanAssetStatisticsModel;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel*> *repaying_ViewModelArray;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel*> *bid_ViewModelArray;
 
@@ -28,4 +31,10 @@
 - (void)erpaying_RefreashWithDownBlock:(void (^)())downBlock andUPBlock:(void (^)())UPBlock;
 - (void)bid_RefreashWithDownBlock:(void (^)())downBlock andUPBlock:(void (^)())UPBlock;
 - (void)endRefresh;
+
+///资产统计的刷新
+- (void)requestAssetStatisticsWithBlockFunc: (void(^)())assetStatisticsWithBlock;
+
+/// 将要切换底部的scrollView的时候调用
+- (void)switchBottomScrollViewCallBackFunc: (void(^)(NSInteger index, NSString *title, UIButton *option))switchBottomScrollViewBlock;
 @end

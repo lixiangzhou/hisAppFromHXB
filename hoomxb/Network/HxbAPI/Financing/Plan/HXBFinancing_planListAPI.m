@@ -19,7 +19,7 @@
 }
 
 - (NSString *)requestUrl {
-    return @"/financeplan/queryForIndexUplanListNew.action";
+    return @"/financeplan/financeplanlist.action";
 }
 
 - (NYRequestMethod)requestMethod {

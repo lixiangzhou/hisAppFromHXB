@@ -19,7 +19,7 @@
 
 
 //MARK: ----------  点击了中间的toolBarView按钮 ---------------
-@property (nonatomic,copy) void(^midToolBarViewClickWithBlock)(NSInteger index, NSString *title, UIButton *option);
+@property (nonatomic,copy) void(^switchBottomScrollViewBlock)(NSInteger index, NSString *title, UIButton *option);
 
 
 //MARK: ----------  点击cell ---------------

@@ -71,13 +71,11 @@
 #pragma mark HXBHomePageHeadViewDelegate Methods
 - (void)resetHeadView
 {
-    NSLog(@"==========%f",self.headView.height);
     self.mainTableView.tableHeaderView = self.headView;
 }
 
 - (void)setDataModel:(HxbHomePageViewModel *)dataModel{
     _dataViewModel = dataModel;
-    NSLog(@"%f",_dataViewModel.homePageModel.assetsTotal);
 }
 - (void)setHomeDataListViewModelArray:(NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
     _homeDataListViewModelArray = homeDataListViewModelArray;
@@ -120,7 +118,7 @@
 //        return _hotSellDataList.count;
 //    }else
 //    {
-    NSLog(@"%lu",(unsigned long)_homeDataListViewModelArray.count);
+//    NSLog(@"%lu",(unsigned long)_homeDataListViewModelArray.count);
         return _homeDataListViewModelArray.count;
 //    }
 }
