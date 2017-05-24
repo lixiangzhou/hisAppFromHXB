@@ -9,10 +9,43 @@
 #import <Foundation/Foundation.h>
 
 @interface HXBFinHomePageModel_PlanList : NSObject
-//MARK: ======================= 目前返回字段 ==========================
 
+//MARK: ======================= 目前返回字段 ==========================
 ///总金额,本期开放的额度,计划金额（元）
 @property (nonatomic,copy) NSString *amount;
+///string	锁定期限(月),计划期限
+@property (nonatomic,copy) NSString *lockPeriod;
+///	string	开始销售时间
+@property (nonatomic,copy) NSString *beginSellingTime;
+///	string	最小注册金额
+@property (nonatomic,copy) NSString *minRegisterAmount;
+///	string	基础利率
+@property (nonatomic,copy) NSString *baseInterestRate;
+///	string	计划id
+@property (nonatomic,copy) NSString *ID;
+///	string	计划状态
+@property (nonatomic,copy) NSString *unifyStatus;
+///	string	模板类型
+@property (nonatomic,copy) NSString *category;
+///	string	本期加息利率
+@property (nonatomic,copy) NSString *extraInterestRate;
+///	string	加入次数
+@property (nonatomic,copy) NSString *joinCount;
+///	string	年化利率
+@property (nonatomic,copy) NSString *expectedRate;
+///	string	计划名称
+@property (nonatomic,copy) NSString *name;
+@property (nonatomic,copy) NSString *beginResellingTime;
+///最终注册总金额
+@property (nonatomic,copy) NSString *finishRatio;
+
+
+
+
+
+
+
+
 ///可用金额
 @property (nonatomic,copy) NSString *avalibleAmount;
 ///平均出价数
@@ -33,16 +66,11 @@
 @property (nonatomic,copy) NSString *financeLeftAmount;
 ///资金使用率
 @property (nonatomic,copy) NSString *fundsUseRate;
-///红利计划ID
-@property (nonatomic,copy) NSString *ID;
 ///加入
 @property (nonatomic,copy) NSString *joined;
 ///锁天
 @property (nonatomic,copy) NSString *lockDays;
-///锁定期限(月),计划期限
-@property (nonatomic,copy) NSString *lockPeriod;
-///计划名称
-@property (nonatomic,copy) NSString *name;
+
 ///过程比
 @property (nonatomic,copy) NSString *processRatio;
 ///省
@@ -57,32 +85,11 @@
 
 
 //MARK: -====================== 未知字段 ============================
-///最终注册总金额
-@property (nonatomic,copy) NSString *finishRatio;
-///开始预定时间
-@property (nonatomic,copy) NSString *beginSellingTime;
-///统一的状态
-@property (nonatomic,copy) NSString *unifyStatus;
-///注册金额起点
-@property (nonatomic,copy) NSString *minRegisterAmount;
-///本期基准利率
-@property (nonatomic,copy) NSString *baseInterestRate;
 
 ///财务状况
 @property (nonatomic,copy) NSString *financeStatus;
-///U计划分类
-@property (nonatomic,copy) NSString *category;
-///本期加息利率
-@property (nonatomic,copy) NSString *extraInterestRate;
-///加入人次
-@property (nonatomic,copy) NSString *joinCount;
-///U计划预期年化收益率
-@property (nonatomic,copy) NSString *expectedRate;
-
-
-
-
 @property (nonatomic,copy) NSString *tag;//": "第11个",
-@property (nonatomic,copy) NSString *beginResellingTime;//": "2017-05-09 15:40:58"
+//": "2017-05-09 15:40:58"
+
 @end
 

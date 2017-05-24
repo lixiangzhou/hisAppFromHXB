@@ -13,7 +13,7 @@
 #import "HXBFinancting_LoanListTableView.h"//散标列表View
 #import "HXBFinancing_PlanDetailsViewController.h"//红利详情页
 #import "HXBFinHomePageViewModel_PlanList.h"//红利计划的Viewmodel
-
+#import "HXBFinancting_PlanListTableViewCell.h"//红利计划的cell
 
 @interface HXBFinanctingView_HomePage()
 //ScrollToolBarView
@@ -48,8 +48,7 @@
 - (void)setIsStopRefresh_loan:(BOOL)isStopRefresh_loan {
     _isStopRefresh_loan = isStopRefresh_loan;
     if (isStopRefresh_loan) {
-        [self.loanListTableView.mj_footer endRefreshing];
-        [self.loanListTableView.mj_header endRefreshing];
+        [self.loanListTableView endRefresh];
     }
 }
 - (void)setIsStopRefresh_Plan:(BOOL)isStopRefresh_Plan {
@@ -125,14 +124,15 @@
     __weak typeof (self)weakSelf = self;
     
     self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 60 andCountDownUnit:1 andModelArray: self.finPlanListVMArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
-    [self.contDwonManager countDownWithChangeModelBlock:^(id model, NSIndexPath *index) {
+    [self.contDwonManager countDownWithChangeModelBlock:^(HXBFinHomePageViewModel_PlanList *model, NSIndexPath *index) {
         if (weakSelf.finPlanListVMArray.count > index.row) {
-            [weakSelf.planListTableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
+            HXBFinancting_PlanListTableViewCell *cell = [weakSelf.planListTableView cellForRowAtIndexPath:index];
+            cell.countDownString = model.countDownString;
         }
     }];
     //要与服务器时间想比较
 //    self.contDwonManager.clientTime = [HXBDate       ]
-    [self.contDwonManager stopWenScrollViewScrollBottomWithTableView:self.planListTableView];
+//    [self.contDwonManager stopWenScrollViewScrollBottomWithTableView:self.planListTableView];
     self.contDwonManager.isAutoEnd = true;
     
     //开启定时器

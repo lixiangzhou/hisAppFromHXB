@@ -203,6 +203,7 @@
         make.right.equalTo(weakSelf.arrowImageView);
         make.height.equalTo(@20);
     }];
+    self.countDownLable.backgroundColor = [UIColor hxb_randomColor];
     [self.countDownLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.addStatus.mas_bottom).offset(10);
         make.left.equalTo(weakSelf.addStatus);
@@ -210,8 +211,6 @@
         make.height.equalTo(@20);
     }];
 }
-
-
 
 
 //- (NSMutableAttributedString *)setupAttributeStringWithString:(NSString *)string WithRange: (NSRange)range andAttributeColor: (UIColor *)color andAttributeFont: (UIFont *)font{

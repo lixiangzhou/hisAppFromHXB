@@ -50,4 +50,4 @@
 @property (nonatomic,strong) HXBBaseContDownManager *contDwonManager;
 
 @end
-///注意 在滚动的时候停止定时器 否则会发生cell 的重用问题
+

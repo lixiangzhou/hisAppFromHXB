@@ -178,4 +178,31 @@
 }
 
 
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:
+//(void (^)(UIBackgroundFetchResult))completionHandler {
+//    
+//    //判断app是不是在前台运行，有三个状态(如果不进行判断处理，当你的app在前台运行时，收到推送时，通知栏不会弹出提示的)
+//    // UIApplicationStateActive, 在前台运行
+//    // UIApplicationStateInactive,未启动app
+//    //UIApplicationStateBackground    app在后台
+//    
+//    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive)
+//    {  //此时app在前台运行，我的做法是弹出一个alert，告诉用户有一条推送，用户可以选择查看或者忽略
+//        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"推送消息"
+//                                                         message:@"您有一条新的推送消息!"
+//                                                        delegate:self
+//                                               cancelButtonTitle:@"取消"
+//                                               otherButtonTitles:@"查看",nil];
+//        [alert show];
+//        
+//    }
+//    
+//} else {
+//    //这里是app未运行或者在后台，通过点击手机通知栏的推送消息打开app时可以在这里进行处理，比如，拿到推送里的内容或者附加      字段(假设，推送里附加了一个url为 www.baidu.com)，那么你就可以拿到这个url，然后进行跳转到相应店web页，当然，不一定必须是web页，也可以是你app里的任意一个controll，跳转的话用navigation或者模态视图都可以
+//}
+//
+////这里设置app的图片的角标为0，红色但角标就会消失
+//[UIApplication sharedApplication].applicationIconBadgeNumber  =  0;
+//completionHandler(UIBackgroundFetchResultNewData);
+//}
 @end

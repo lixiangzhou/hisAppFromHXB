@@ -9,6 +9,8 @@
 #import "HXBFinHomePageViewModel_PlanList.h"
 #import "HXBFinHomePageModel_PlanList.h"
 
+#define kExpectedYearRateFont [UIFont systemFontOfSize: kScrAdaptationH(20)]
+
 /**
  * 关于代售状态的枚举
  */
@@ -47,6 +49,7 @@ typedef enum : NSUInteger {
 //    self.countDownLastStr = planListModel.displayTime;
     NSDate *date = [[NSDate alloc]init];
     NSString *dateStr = @([date timeIntervalSince1970] + 30).description;
+    [self setupExpectedYearRateAttributedStr];// 红利计划列表页的cell里面的年利率
     self.countDownLastStr = dateStr;
 }
 
@@ -61,13 +64,6 @@ typedef enum : NSUInteger {
     return _unifyStatus;
 }
 
-// 红利计划列表页的cell里面的年利率
-- (NSAttributedString *)expectedYearRateAttributedStr {
-    if (!_expectedYearRateAttributedStr) {
-       [self setupExpectedYearRateAttributedStr];
-    }
-    return _expectedYearRateAttributedStr;
-}
 
 //红利计划状态
 - (void)setupUnifyStatus {
@@ -96,11 +92,24 @@ typedef enum : NSUInteger {
 //红利计划列表的年利率计算
 - (void)setupExpectedYearRateAttributedStr {
     
-    NSInteger length = self.planListModel.expectedYearRate.length;
+    CGFloat length = self.planListModel.expectedRate.floatValue;
+//    NSLog(@" - - - %lf -",length);
+//    NSLog(@" str - %@ -",self.planListModel.expectedRate);
+    NSString *expectedYearRateStr = [NSString stringWithFormat:@"%.2lf%@",self.planListModel.expectedRate.floatValue,@"%"];
+    NSLog(@"%@",expectedYearRateStr);
     
-    NSString *expectedYearRateStr = [NSString stringWithFormat:@"%@%@",self.planListModel.expectedYearRate,@"%"];
+    NSString *numberStr = [NSString stringWithFormat:@"%.2lf",self.planListModel.expectedRate.floatValue];
+    NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
+    NSInteger startRange = numberStr.length - 3;
+    NSInteger endRange = numberStr.length;
+    NSRange range = NSMakeRange(0, startRange);
     
-    self.expectedYearRateAttributedStr = [NSMutableAttributedString setupAttributeStringWithString:expectedYearRateStr WithRange:NSMakeRange(0, length) andAttributeColor:[UIColor redColor] andAttributeFont:[UIFont systemFontOfSize:25]];
+    [numberAttributeString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+    [numberAttributeString addAttribute:NSFontAttributeName value:kExpectedYearRateFont range:range];
+    
+    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc]initWithString:@"%"];
+    [numberAttributeString appendAttributedString:attributedStr];
+    self.expectedYearRateAttributedStr = numberAttributeString;
 }
 
 

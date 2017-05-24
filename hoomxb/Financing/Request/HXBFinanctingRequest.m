@@ -44,7 +44,18 @@
 @end
 
 @implementation HXBFinanctingRequest
-
+- (NSInteger)planListPage {
+    if (_planListPage < 1) {
+        _planListPage = 1;
+    }
+    return _planListPage;
+}
+- (NSInteger)loanListPage {
+    if (_loanListPage < 1) {
+        _loanListPage = 1;
+    }
+    return _loanListPage;
+}
 - (instancetype)init {
     if (self = [super init]){
         self.planListViewModelArray = [[NSMutableArray alloc]init];
@@ -69,18 +80,20 @@
 //MARK: 红利计划列表api
 - (void)planBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
     //是否为上拉刷新
-    
+    if (isUPData) {
+        self.planListPage = 1;
+    }
     HXBFinancing_planListAPI *planBuyListAPI = [[HXBFinancing_planListAPI alloc]init];
     planBuyListAPI.requestArgument = @{
                                        @"version" : @"1.0",
                                        @"userId" : @"1",
-                                       @"start" : @(1),
+                                       @"start" : @(self.planListPage),
                                        @"num" : @"20",
                                        @"pageNumber" : @(self.planListPage),
                                        @"pageSize" : @(20)//每页的个数
                                        };
-    planBuyListAPI.isUPData = isUPData;
     
+     planBuyListAPI.isUPData = isUPData;
     [planBuyListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
         if (!dataList.count) {
@@ -96,6 +109,9 @@
             HXBFinHomePageViewModel_PlanList *financtingPlanListViewModel = [[HXBFinHomePageViewModel_PlanList alloc]init];
             //字典转模型
             [financtingPlanListModel yy_modelSetWithDictionary:obj];
+            
+            NSLog(@"--- obj%@  - %d --- ",[obj valueForKey:@"expectedRate"],idx);
+            NSLog(@"---expectedRate- %@--",financtingPlanListModel.expectedRate);
             //给viewModel赋值MODEL
             financtingPlanListViewModel.planListModel = financtingPlanListModel;
             [planListViewModelArray addObject:financtingPlanListViewModel];
@@ -139,10 +155,13 @@
 //MARK: 散标列表api
 - (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
     HXBFinancing_LoanListAPI *loanListAPI = [[HXBFinancing_LoanListAPI alloc]init];
+    if (isUPData) {
+        self.loanListPage = 1;
+    }
     loanListAPI.requestArgument = @{
                                        @"version" : @"1.0",
                                        @"userId" : @"1",
-                                       @"start" : @(1),
+                                       @"start" : @(self.loanListPage),
                                        @"num" : @"20",
                                        @"pageNumber" : @(self.loanListPage),
                                        @"pageSize" : @(20)//每页的个数
@@ -153,8 +172,8 @@
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
         
         if (!responseObject || !dataList.count) {
+            
             NSLog(@"✘散标购买请求没有数据");
-            return;
         }
         NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [[NSMutableArray alloc]init];
         
@@ -197,8 +216,10 @@
         }
     }];
     if(isErrorData) return;
-    self.loanListPage ++;
-    [self.loanListViewModelArray addObjectsFromArray:loan_viewModelArray];
+    if (loan_viewModelArray.count) {
+        self.loanListPage ++;
+        [self.loanListViewModelArray addObjectsFromArray:loan_viewModelArray];
+    }
 }
 
 

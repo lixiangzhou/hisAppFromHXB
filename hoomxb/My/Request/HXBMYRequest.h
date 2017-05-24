@@ -25,7 +25,7 @@
 #pragma mark - 主要页面的网络请求
 ///资金统计的Request plan
 - (void)myPlanAssetStatistics_requestWithSuccessBlock: (void(^)(HXBMYModel_AssetStatistics_Plan *model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
-//MARK: 红利计划 主界面的网络数据请求
+///红利计划 主界面的网络数据请求
 - (void)myPlan_requestWithPlanType: (HXBRequestType_MY_PlanRequestType)planRequestType
                          andUpData: (BOOL)isUPData
                    andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MianPlanViewModel *>* viewModelArray))successDateBlock
@@ -36,13 +36,13 @@
 - (void)myLoanAssetStatistics_requestWithSuccessBlock: (void(^)(NSArray <HXBMYModel_AssetStatistics_Loan *>*model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
-//MARK: 红利计划 主界面的网络数据请求
+///红利计划 主界面的网络数据请求
 - (void)myLoan_requestWithPlanType: (HXBRequestType_MY_LoanRequestType)planRequestType
                          andUpData: (BOOL)isUPData
                    andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainLoanViewModel *>* viewModelArray))successDateBlock
                    andFailureBlock: (void(^)(NSError *error))failureBlock;
 
-//MARK: 资金记录 接口
+/// 资金记录 接口
 - (void)capitalRecord_requestWithScreenType: (NSString *)screenType
                                andStartDate: (NSString *)startDate
                                  andEndDate: (NSString *)endDate

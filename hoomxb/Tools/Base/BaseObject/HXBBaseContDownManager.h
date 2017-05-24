@@ -9,9 +9,7 @@
 
 
 //注意 需要做倒计时的model的储存剩余时间变量的key一定要是NSString类型
-//下周开始给model 添加属性，让cell直接从model里面拿值
-//model的储存剩余时间的属性必须是NSString 类型
-///注意 如果在tableView中有多个cell要显示定时的时候，在tableView滚动时要停止定时器 否则会发生cell 的重用问题
+//关于更多，请看简书：http://www.jianshu.com/p/5d37adf1e03e
 #import <UIKit/UIKit.h>
 
 
@@ -58,6 +56,11 @@ typedef enum : NSUInteger {
                           andModelDateType: (PYContDownManagerModelDateType)modelDateType;
 
 
+
+
+
+
+// ------------------------ UI刷新的回调 ------------------------------------------
 /**
  * 没次单位时间过后就会掉一次，可以在这里刷新UI（已经回到了主线程）
  * @param countdownDataFredbackWithBlock 给外界提供了model (这时候model已经赋值成功了)，
@@ -69,7 +72,22 @@ typedef enum : NSUInteger {
  * @param changeModelBlock 改变model时候的回调
  */
 - (void)countDownWithChangeModelBlock: (void (^)(id model, NSIndexPath *index)) changeModelBlock;
+/**
+ * 刷新为单行刷新： [weakSelf.planListTableView reloadRowsAtIndexPaths:@[index] withRowAnimation:UITableViewRowAnimationNone];
+ * 上拉加载时， 会出现卡顿，
+ * 传入scrollView监听了偏移量，在滑动到底部的时候，会自动关闭Model的刷新和对外界的UI刷新，
+ */
+- (void)stopWenScrollViewScrollBottomWithTableView: (UIScrollView *)scrollView;
 
+
+
+
+
+
+
+// ------------------------ 数组改变或者数组中的model改变 调用次方法 -----------------------------
+/// 需要倒计时的model数组 （在model 改变后，会自动开启定时器）
+@property (nonatomic,strong) NSArray *modelArray;
 
 /**当数组发生变化的时候调用
 * @param modelArray 需要倒计时的model数组
@@ -80,32 +98,28 @@ typedef enum : NSUInteger {
            andModelCountDownKey: (NSString *)modelCountDownKey;
 
 
-/**
- * 取消定时器
- */
-- (void)cancelTimer;
-/**
- *开启定时器
- */
-- (void)resumeTimer;
 
+// ----------------------- 定时器管理 -------------------------------------------------------
+///取消定时器
+- (void)cancelTimer;
+/// 开启定时器
+- (void)resumeTimer;
+///是否自动停止 (在没有需要定时的时候，如果是，那么将不会自动开启默认是NO)
+@property (nonatomic,assign) BOOL isAutoEnd;
+
+
+
+// ----------------------- 服务器时间的协调 ----------------------
 /**
  * 客户端时间,默认为手机的当前时间。如果有偏差可以在这里调整
  */
 @property (nonatomic,strong) NSDate *clientTime;
 
-///是否自动停止 (在没有需要定时的时候，如果是，那么将不会自动开启默认是NO)
-@property (nonatomic,assign) BOOL isAutoEnd;
 
-/// 需要倒计时的model数组
-@property (nonatomic,strong) NSArray *modelArray;
 
-/**
- * 在集成了MJRefresh之后，上拉加载时， 会出现卡顿，
- * 这是因为在子线程计算数据后，在回到主线程刷新UI时候，会强制把runloop由NSDefaultRunLoopMode转化为NSDefaultRunLoopMode，从而MJRefresh会自动回弹，
- * 此方法主要解决了这个问题。
- * 传入scrollView监听了偏移量，在滑动到底部的时候，会自动关闭Model的刷新和对外界的UI刷新，
- */
-- (void)stopWenScrollViewScrollBottomWithTableView: (UIScrollView *)scrollView;
+
+
+
+
 
 @end
