@@ -13,6 +13,7 @@
 @class HXBFinDetailViewModel_LoanDetail;//散标投递的详情页的ViewModel
 @class HXBFinModel_AddRecortdModel_Plan;//理财模块的加入记录接口
 
+static NSString *const HXBFinHomePagePlan_ASC = @"";
 
 ///理财界面的所有网络请求页全部都在这里了
 @interface HXBFinanctingRequest : NSObject

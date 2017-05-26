@@ -7,27 +7,34 @@
 //
 
 #import <Foundation/Foundation.h>
+
 ////接口 lend/loanindex
 @interface HXBFinHomePageModel_LoanList : NSObject
 
-///总金额,本期开放的额度,计划金额（元）
+///	string	借款总额
 @property (nonatomic,copy) NSString *amount;
-///锁定期限(月),计划期限
+///	string	借款周期（月）
 @property (nonatomic,copy) NSString *months;
-///计划名称
+//	string	借款标题
 @property (nonatomic,copy) NSString *title;
-///状态
+///	string	交易状态(参考通用说明里标的状态)
 @property (nonatomic,copy) NSString *status;
-///兴趣
+///	string	利率
 @property (nonatomic,copy) NSString *interest;
-///证书类型
+///	string	信用认证：’XYRZ’-信用认证标、’SDRZ’-实地认证标、’JGDB’-机构担保标、’ZNLC’-智能理财标
 @property (nonatomic,copy) NSString *certificateType;
-///借款人的水平
+///	string	等级名称（HR、E、D、C、B、A、AA）
 @property (nonatomic,copy) NSString *borrowerLevel;
-///成品率
+///	string	完成率
 @property (nonatomic,copy) NSString *finishedRatio;
-///贷款ID
+///string	标ID
 @property (nonatomic,copy) NSString *loanId;
+///	Int	总条数
+@property (nonatomic,copy) NSString *totalCount;
+///	Int	每页多少条
+@property (nonatomic,copy) NSString *pageSize;
+///	Int	第几页
+@property (nonatomic,copy) NSString *pageNumber;
 @end
 /**
  "amount": "6000.0",

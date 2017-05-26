@@ -15,8 +15,10 @@
 
 @property (nonatomic, strong) NSTimer *countTimer;
 
+@property (nonatomic,copy) void(^clickAdvertiseViewBlock )();
 @property (nonatomic, assign) int count;
 
+@property (nonatomic,copy) void(^clickSkipButtonBlock)();
 @end
 @implementation HxbAdvertiseView
 
@@ -47,7 +49,7 @@ static int const showtime = 3;
         CGFloat btnW = 60;
         CGFloat btnH = 30;
         _countBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - btnW - 24, btnH, btnW, btnH)];
-        [_countBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+        [_countBtn addTarget:self action:@selector(clickSkipButton) forControlEvents:UIControlEventTouchUpInside];
         [_countBtn setTitle:[NSString stringWithFormat:@"跳过%d", showtime] forState:UIControlStateNormal];
         _countBtn.titleLabel.font = [UIFont systemFontOfSize:15];
         [_countBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -61,27 +63,71 @@ static int const showtime = 3;
     return self;
 }
 
-- (void)setFilePath:(NSString *)filePath
+// 移除广告页面
+- (void)dismiss
 {
-    _filePath = filePath;
-    _adView.image = [UIImage imageWithContentsOfFile:filePath];
+    [self.countTimer invalidate];
+    self.countTimer = nil;
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        
+        self.alpha = 0.f;
+        
+    } completion:^(BOOL finished) {
+        
+        [self removeFromSuperview];
+        
+    }];
+    
 }
+
+
+// 点击了跳过按钮
+- (void)clickSkipButton {
+    if (self.clickSkipButtonBlock) {
+        self.clickSkipButtonBlock();
+    }
+    [self dismiss];
+}
+
+/** 点击了广告页面 显示广告*/
+- (void)showAdvertiseWebViewWithBlock: (void(^)())clickAdvertiseViewBlock {
+    self.clickAdvertiseViewBlock = clickAdvertiseViewBlock;
+}
+
+
+- (void)clickSkipButtonFuncWithBlock: (void(^)())clickSkipButtonBlock {
+    self.clickSkipButtonBlock = clickSkipButtonBlock;
+}
+
 
 - (void)pushToAd{
     
     [self dismiss];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"pushtoad" object:nil userInfo:nil];
+    if (self.clickAdvertiseViewBlock) {
+        self.clickAdvertiseViewBlock();
+    }
 }
+
+
+- (void)setFilePath:(NSString *)filePath
+{
+    _filePath = filePath;
+    _adView.image = [UIImage imageWithContentsOfFile:filePath];
+}
+- (void)setAdvertiseImage:(UIImage *)advertiseImage {
+    _advertiseImage = advertiseImage;
+    _adView.image = _advertiseImage;
+}
+
+
 
 - (void)countDown
 {
     _count --;
     [_countBtn setTitle:[NSString stringWithFormat:@"跳过%d",_count] forState:UIControlStateNormal];
-    if (_count == 0) {
-        
-        [self dismiss];
-    }
+    if (_count == 0) [self dismiss];
 }
 
 - (void)show
@@ -91,8 +137,6 @@ static int const showtime = 3;
     
     // 倒计时方法2：定时器
     [self startTimer];
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    [window addSubview:self];
 }
 
 // 定时器倒计时
@@ -101,6 +145,8 @@ static int const showtime = 3;
     _count = showtime;
     [[NSRunLoop mainRunLoop] addTimer:self.countTimer forMode:NSRunLoopCommonModes];
 }
+
+
 
 // GCD倒计时
 - (void)startCoundown
@@ -128,23 +174,6 @@ static int const showtime = 3;
     dispatch_resume(_timer);
 }
 
-// 移除广告页面
-- (void)dismiss
-{
-    [self.countTimer invalidate];
-    self.countTimer = nil;
-    
-    [UIView animateWithDuration:0.3f animations:^{
-        
-        self.alpha = 0.f;
-        
-    } completion:^(BOOL finished) {
-        
-        [self removeFromSuperview];
-        
-    }];
-    
-}
 
 
 @end

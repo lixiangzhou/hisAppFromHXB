@@ -1,14 +1,14 @@
 //
-//  HxbAdvertiseViewController.h
+//  HXBBaseAdvertiseViewController.h
 //  hoomxb
 //
-//  Created by HXB-C on 2017/4/19.
+//  Created by HXB on 2017/5/26.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-///广告的VC
-@interface HxbAdvertiseViewController : UIViewController
+///关于广告加载的工具类
+@interface HXBBaseAdvertiseViewController : UIViewController
 
 @property (nonatomic, copy) NSString *adUrl;
 ///dismiss

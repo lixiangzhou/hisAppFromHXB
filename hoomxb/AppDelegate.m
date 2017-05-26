@@ -10,23 +10,32 @@
 #import "NYNetwork.h"//网络请求的kit
 #import "HxbAdvertiseView.h"//弹窗
 #import "HXBServerAndClientTime.h"//客户端与服务器时间协调的工具类
+#import "HXBAdvertisementManager.h"//广告管理者、
+#import "HXBBaseVersionUpdateManager.h"//
+#import "HxbAdvertiseViewController.h"///广告的VC
+static NSString *const home = @"首页";
+static NSString *const financing = @"理财";
+static NSString *const my = @"我的";
+
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-/**
- *  懒加载主界面Tabbar
- */
-
+///懒加载主界面Tabbar
 - (HXBBaseTabBarController *)mainTabbarVC
 {
     if (!_mainTabbarVC) {
         _mainTabbarVC = [[HXBBaseTabBarController alloc]init];
-        _mainTabbarVC.selectColor = [UIColor redColor];
-        _mainTabbarVC.normalColor = [UIColor grayColor];
-        NSArray *controllerNameArray = @[@"HxbHomeViewController",@"HxbFinanctingViewController",@"HxbMyViewController"];
-        NSArray *controllerTitleArray = @[@"首页",@"理财",@"我的"];
+        _mainTabbarVC.selectColor = [UIColor redColor];///选中的颜色
+        _mainTabbarVC.normalColor = [UIColor grayColor];///平常状态的颜色
+        
+        NSArray *controllerNameArray = @[
+                                         @"HxbHomeViewController",//首页
+                                         @"HxbFinanctingViewController",//理财
+                                         @"HxbMyViewController"];//我的
+        //title 集合
+        NSArray *controllerTitleArray = @[home,financing,my];
         NSArray *imageArray = @[@"1",@"1",@"1"];
         //选中下的图片前缀
         NSString *commonName = @"1";
@@ -38,8 +47,12 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     //配置网络
     [self setNetworkConfig];
+    
+    //判断app是否第一次启动，以及版本是否需要更新
+    [self judgementApplication];
     
     //创建根视图 并设置
     [self creatRootViewController];
@@ -49,97 +62,32 @@
     return YES;
 }
 
-#pragma mark - 设置网路库的Config
-- (void)setNetworkConfig
-{
-    NYNetworkConfig *config = [NYNetworkConfig sharedInstance];
-    config.baseUrl = BASEURL;
-    config.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-}
 
+
+#pragma mark - 判断app是否第一次启动，以及版本是否需要更新
+- (void)judgementApplication {
+    if([HXBBaseVersionUpdateManager isFirstStartUPAPP]) {
+        
+    }
+}
 #pragma mark - 创建并设置根视图控制器
 - (void)creatRootViewController {
     
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-//    HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
+//HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
 
     //数据
-    _window.rootViewController = self.mainTabbarVC;
+    HxbAdvertiseViewController *advertiseViewControllre = [[HxbAdvertiseViewController alloc]init];
+    _window.rootViewController = advertiseViewControllre;
+    [advertiseViewControllre dismissAdvertiseViewControllerFunc:^{
+        _window.rootViewController = self.mainTabbarVC;
+    }];
     _window.backgroundColor = [UIColor whiteColor];
     [_window makeKeyAndVisible];
-    [self setAdvertiseView];
 }
 
-- (void)setAdvertiseView{
-    
-    NSString *filePath = [HxbFileManager getFilePathWithImageName:[kUserDefaults valueForKey:adImageName]];
-    
-    BOOL isExist = [HxbFileManager isFileExistWithFilePath:filePath];
-    if (isExist) {// 图片存在
-        HxbAdvertiseView *advertiseView = [[HxbAdvertiseView alloc] initWithFrame:self.window.bounds];
-        advertiseView.filePath = filePath;
-        [advertiseView show];
-    }
-    // 2.无论沙盒中是否存在广告图片，都需要重新调用广告接口，判断广告是否更新
-    [self getAdvertisingImage];
-}
 
-- (void)getAdvertisingImage
-{
-    // TODO 请求广告接口
-    NSArray *imageArray = @[@"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222441_kVZXU.jpeg", @"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222425_zFKGY.thumb.700_0.jpeg", @"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222413_ak25z.thumb.700_0.jpeg", @"https://a-ssl.duitang.com/uploads/item/201604/06/20160406172034_TVkJs.thumb.700_0.jpeg"];
-    NSString *imageUrl = imageArray[arc4random() % imageArray.count];
-    
-    // 获取图片名:43-130P5122Z60-50.jpg
-    NSArray *stringArr = [imageUrl componentsSeparatedByString:@"/"];
-    NSString *imageName = stringArr.lastObject;
-    
-    // 拼接沙盒路径
-    NSString *filePath = [HxbFileManager getFilePathWithImageName:imageName];
-    BOOL isExist = [HxbFileManager isFileExistWithFilePath:filePath];
-    if (!isExist){// 如果该图片不存在，则删除老图片，下载新图片
-        [self downloadAdImageWithUrl:imageUrl imageName:imageName];
-    }
-    
-}
 
-/**
- *  下载新图片
- */
-- (void)downloadAdImageWithUrl:(NSString *)imageUrl imageName:(NSString *)imageName
-{
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageUrl]];
-        UIImage *image = [UIImage imageWithData:data];
-        
-        NSString *filePath = [HxbFileManager getFilePathWithImageName:imageName]; // 保存文件的名称
-        
-        if ([UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES]) {// 保存成功
-            NSLog(@"保存成功");
-            [self deleteOldImage];
-            [kUserDefaults setValue:imageName forKey:adImageName];
-            [kUserDefaults synchronize];
-            // 如果有广告链接，将广告链接也保存下来
-        }else{
-            NSLog(@"保存失败");
-        }
-        
-    });
-}
-
-/**
- *  删除旧图片
- */
-- (void)deleteOldImage
-{
-    NSString *imageName = [kUserDefaults valueForKey:adImageName];
-    if (imageName) {
-        NSString *filePath = [HxbFileManager getFilePathWithImageName:imageName];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        [fileManager removeItemAtPath:filePath error:nil];
-    }
-}
 //根据服务器时间计算与本地时间的时间差
 - (void)serverAndClientTime {
     //......服务器请求数据
@@ -176,7 +124,13 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
 }
-
+#pragma mark - 设置网路库的Config
+- (void)setNetworkConfig
+{
+    NYNetworkConfig *config = [NYNetworkConfig sharedInstance];
+    config.baseUrl = BASEURL;
+    config.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+}
 
 //- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:
 //(void (^)(UIBackgroundFetchResult))completionHandler {

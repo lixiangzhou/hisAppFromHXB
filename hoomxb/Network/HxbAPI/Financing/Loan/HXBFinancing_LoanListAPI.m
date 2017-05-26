@@ -7,7 +7,10 @@
 //
 
 #import "HXBFinancing_LoanListAPI.h"
-
+///升序
+static NSString *const HXBFin_LoanListOrder_ASC = @"ASC";
+///降序
+static NSString *const HXBFin_LoanListOrder_DESC = @"DESC";
 @implementation HXBFinancing_LoanListAPI
 //192.168.1.21:3000/lend/loanindex 散标列表 POST   散标list、
 
@@ -20,11 +23,11 @@
 }
 
 - (NSString *)requestUrl {
-    return @"/lend/loanindex";
+    return @"/loan/list";
 }
 
 - (NYRequestMethod)requestMethod {
-    return NYRequestMethodPost;
+    return NYRequestMethodGet;
 }
 
 //- (id)requestArgument {

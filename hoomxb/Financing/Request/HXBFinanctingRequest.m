@@ -161,6 +161,7 @@
     loanListAPI.requestArgument = @{
                                        @"version" : @"1.0",
                                        @"userId" : @"1",
+                                       @"order" : @"ASC",
                                        @"start" : @(self.loanListPage),
                                        @"num" : @"20",
                                        @"pageNumber" : @(self.loanListPage),

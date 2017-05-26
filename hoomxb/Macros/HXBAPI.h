@@ -25,7 +25,7 @@
 //#define BASEURL                                       @"http://10.1.80.11:9001"
 
 //叶
-#define BASEURL                                       @"http://192.168.1.27:8070"
+#define BASEURL                                       @"http://192.168.1.21:3000"
 //#define BASEURL                                       @"http://120.25.102.84:9001"
 //#define BASEURL                                       @"http://10.1.80.146:6666"//
 

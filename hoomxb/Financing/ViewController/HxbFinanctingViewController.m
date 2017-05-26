@@ -59,6 +59,9 @@
 
 - (void)viewDidLoad {
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    // NAV
+    self.isHiddenNavigationBar = true;
     //初始化属性
     [self creatProperty];
     
@@ -87,7 +90,7 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     };
     //创建自视图
-    self.homePageView = [[HXBFinanctingView_HomePage alloc]initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height - 64- 49)];
+    self.homePageView = [[HXBFinanctingView_HomePage alloc]initWithFrame:CGRectMake(0, HxbNaVigationStatusBarY, self.view.width, self.view.height - HxbNaVigationStatusBarY - HxbTabBarHeight)];
     [self.view addSubview:self.homePageView];
 }
 
@@ -200,10 +203,12 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     [self.homePageView.contDwonManager cancelTimer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self.homePageView.contDwonManager resumeTimer];
     [self.homePageView loadData];
 }

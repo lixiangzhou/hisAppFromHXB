@@ -20,8 +20,14 @@ CGFloat const HxbMarginBig = 16;
 /** 4.导航栏的最大的Y值 64*/
 CGFloat const HxbNavigationBarY = 64;
 
+/** 4.导航栏电池条的最大的Y值 20*/
+CGFloat const HxbNaVigationStatusBarY = 20;
+
 /** 5.控件的系统高度 44*/
 CGFloat const HxbControlSystemHeight = 44;
 
 /** 6.控件的普通高度 36*/
 CGFloat const HxbControlNormalHeight = 36;
+
+/** 8.tabBar的高度 49*/
+CGFloat const HxbTabBarHeight = 49;

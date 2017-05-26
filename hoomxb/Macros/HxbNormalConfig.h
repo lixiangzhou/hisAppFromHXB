@@ -20,10 +20,15 @@ UIKIT_EXTERN CGFloat const HxbMarginBig;
 /** 4.导航栏的最大的Y值 64 */
 UIKIT_EXTERN CGFloat const HxbNavigationBarY;
 
-/** 5.控件的系统高度 44 */
+/** 5.导航栏电池条的最大的Y值 20*/
+UIKIT_EXTERN CGFloat const HxbNaVigationStatusBarY;
+
+/** 6.控件的系统高度 44 */
 UIKIT_EXTERN CGFloat const HxbControlSystemHeight;
 
-/** 6.控件的普通高度 36 */
+/** 7.控件的普通高度 36 */
 UIKIT_EXTERN CGFloat const HxbControlNormalHeight;
 
+/** 8.tabBar的高度 49*/
+UIKIT_EXTERN CGFloat const HxbTabBarHeight;
 

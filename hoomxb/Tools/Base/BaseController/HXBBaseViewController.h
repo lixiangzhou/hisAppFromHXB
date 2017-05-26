@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface HXBBaseViewController : UIViewController
-
+///是否隐藏导航栏
+@property (nonatomic,assign) BOOL isHiddenNavigationBar;
+///自动把scrollView向下平移64
+@property (nonatomic,assign) BOOL hxb_automaticallyAdjustsScrollViewInsets;
 @end
