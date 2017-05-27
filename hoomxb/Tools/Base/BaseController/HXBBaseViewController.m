@@ -43,8 +43,15 @@ kDealloc
     };
 }
 #pragma mark - 隐藏导航条
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = self.isHiddenNavigationBar;
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:animated];
 }
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
 @end

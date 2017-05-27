@@ -17,18 +17,13 @@
     return self;
 }
 
-- (NSString *)requestUrl {
-    return @"/lend/loandetail";
-}
 
 - (NYRequestMethod)requestMethod {
     return NYRequestMethodPost;
 }
-//
-//- (id)requestArgument {
-//    return @{
-//             @"loanId" : @"761133",
-//             @"version" : @"1.0"
-//             };
-//}
+
+- (NSString *)requestUrl {
+    return [NSString stringWithFormat:@"loan/%ld",self.loanID];
+}
+
 @end

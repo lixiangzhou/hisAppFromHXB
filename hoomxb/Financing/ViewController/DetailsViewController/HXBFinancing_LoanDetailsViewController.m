@@ -85,35 +85,34 @@
     self.loanDetailsView.isFlowChart = true;
     self.loanDetailsView.loanListViewModel = self.loanListViewMode;
     
-    
+    __weak typeof (self)weakSelf = self;
     [self.loanDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
        //跳转相应的页面
         NSLog(@"%@",model.optionTitle);
         ///点击了借款信息
-        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[0]]) {
+        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0]]) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
 //            detail_DetailLoanVC. = self.planDetailViewModel;
-            [self.navigationController pushViewController:detail_DetailLoanVC animated:true];
+            [weakSelf.navigationController pushViewController:detail_DetailLoanVC animated:true];
         }
         ///  借款记录
-        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[1]]) {
+        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
             HXBFinAddRecortdVC_Loan *loanAddRecordVC = [[HXBFinAddRecortdVC_Loan alloc]init];
 //            loanAddRecordVC.planDetailModel = self.planDetailViewModel.planDetailModel;
-            [self.navigationController pushViewController:loanAddRecordVC animated:true];
+            [weakSelf.navigationController pushViewController:loanAddRecordVC animated:true];
         }
         ///合同
-        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[2]]) {
+        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2]]) {
             //跳转一个webView
             HXBFinContract_contraceWebViewVC_Loan * contractWebViewVC = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
 //            contractWebViewVC.URL = self.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
-            [self.navigationController pushViewController:contractWebViewVC animated:true];
+            [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
         }
         
     }];
     [self downLoadData];
     
     //    [self.planDetailsView show];
-    
 }
 
 //MARK: 网络数据请求
@@ -128,7 +127,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

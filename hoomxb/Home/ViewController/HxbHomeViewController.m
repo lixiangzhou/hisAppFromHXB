@@ -10,6 +10,8 @@
 #import "HxbAdvertiseViewController.h"
 #import "HxbHomeRequest.h"
 #import "HxbHomeRequest_dataList.h"
+#import "HXBRequestUserInfoAPI.h"///用户信息的管理类
+
 @interface HxbHomeViewController ()
 
 @end
@@ -58,6 +60,12 @@
 
 #pragma mark Request
 - (void)getData{
+    HXBRequestUserInfoAPI *userInfo = [[HXBRequestUserInfoAPI alloc]init];
+    [userInfo downLoadUserInfoWithSeccessBlock:^(NYBaseRequest *request, HXBRequestUserInfoAPI *model) {
+        
+    } andFailure:^(NYBaseRequest *request, NSError *error) {
+        
+    }];
     HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
     NSString *userId = @"2110468";
     [request homeAccountAssetWithUserID:userId andSuccessBlock:^(HxbHomePageViewModel *viewModel) {

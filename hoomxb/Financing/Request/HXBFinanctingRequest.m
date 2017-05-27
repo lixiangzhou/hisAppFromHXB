@@ -256,10 +256,9 @@
 
 - (void)loanDetaileWithLoanID: (NSString *)financeLoanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
     HXBFinancing_LoanDetileAPI *loanDetaileAPI = [[HXBFinancing_LoanDetileAPI alloc]init];
-    loanDetaileAPI.requestArgument = @{
-                                       @"loanId" : @"761133",//loanID
-                                       @"version" : @"1.0" //版本号
-                                       };
+    
+    loanDetaileAPI.loanID = financeLoanId.integerValue;
+    
     [loanDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSDictionary *planDetaileDic = [responseObject valueForKey:@"data"];
         HXBFinDatailModel_LoanDetail *loanDetaileModel = [[HXBFinDatailModel_LoanDetail alloc]init];

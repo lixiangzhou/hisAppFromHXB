@@ -61,7 +61,7 @@
         for (int i = 0; i < self.tableViewImageArray.count; i++) {
             NSString *imageName = self.tableViewImageArray[i];
             NSString *title = self.tableViewTitleArray[i];
-               HXBFinDetail_TableViewCellModel *model = [[HXBFinDetail_TableViewCellModel alloc]initWithImageName:imageName andOptionIitle:title];
+            HXBFinDetail_TableViewCellModel *model = [[HXBFinDetail_TableViewCellModel alloc]initWithImageName:imageName andOptionIitle:title];
             [tableViewModelArrayM addObject:model];
         }
         _tableViewModelArray = tableViewModelArrayM.copy;
@@ -86,28 +86,28 @@
     _planDetailsView.isFlowChart = true;
     _planDetailsView.planListViewModel = self.planListViewModel;
     
-    
+    __weak typeof (self)weakSelf = self;
     [self.planDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
         //跳转相应的页面
         NSLog(@"%@",model.optionTitle);
         ///点击了计划详情
-        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[0]]) {
+        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0]]) {
             HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc]init];
-            detail_DetailPlanVC.planDetailModel = self.planDetailViewModel;
-            [self.navigationController pushViewController:detail_DetailPlanVC animated:true];
+            detail_DetailPlanVC.planDetailModel = weakSelf.planDetailViewModel;
+            [weakSelf.navigationController pushViewController:detail_DetailPlanVC animated:true];
         }
         ///  加入记录
-        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[1]]) {
+        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
             HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
-            planAddRecordVC.planDetailModel = self.planDetailViewModel.planDetailModel;
-            [self.navigationController pushViewController:planAddRecordVC animated:true];
+            planAddRecordVC.planDetailModel = weakSelf.planDetailViewModel.planDetailModel;
+            [weakSelf.navigationController pushViewController:planAddRecordVC animated:true];
         }
         ///红利计划服务
-        if ([model.optionTitle isEqualToString:self.tableViewTitleArray[2]]) {
+        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2]]) {
             //跳转一个webView
             HXBFinPlanContract_contraceWebViewVC * contractWebViewVC = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
-            contractWebViewVC.URL = self.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
-            [self.navigationController pushViewController:contractWebViewVC animated:true];
+            contractWebViewVC.URL = weakSelf.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
+            [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
         }
     }];
      [self downLoadData];

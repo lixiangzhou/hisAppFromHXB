@@ -13,6 +13,20 @@
 @class HXBFinDatailModel_LoanDetail_creditInfo;
 @class HXBFinDatailModel_LoanDetail_userVo;
 
+/**婚姻状态*/
+typedef enum : NSUInteger {
+    ///已婚
+    HXBFinDatailModel_LoanDetail_marriageStatus_MARRIED,
+    ///未婚
+    HXBFinDatailModel_LoanDetail_marriageStatus_UNMARRIED,
+    ///离异
+    HXBFinDatailModel_LoanDetail_marriageStatus_DIVORCED,
+    ///丧偶
+    HXBFinDatailModel_LoanDetail_marriageStatus_WIDOWED,
+  
+} HXBFinDatailModel_LoanDetail_marriageStatus;
+
+
 ///散标的所有信息基本都在这里了
 @interface HXBFinDatailModel_LoanDetail : NSObject
 ///散标的基本信息
@@ -37,6 +51,10 @@
 
 ///散标的基本信息
 @interface HXBFinDatailModel_LoanDetail_loanVo : NSObject
+///	string	籍贯所在地
+@property (nonatomic,copy) NSString *accountLocation;
+///	string	公司地址
+@property (nonatomic,copy) NSString *companyAddress;
 ///保证金额
 @property (nonatomic,copy) NSString *guaranteedAmount;
 ///剩余金额
@@ -148,35 +166,72 @@
 // --------------------- 用户信息 ---------------------
 ///用户信息
 @interface HXBFinDatailModel_LoanDetail_userVo : NSObject
-@property (nonatomic,copy) NSString *accountLocation;//": "河南省郑州市",
-@property (nonatomic,copy) NSString *companyAddress;//": "西大街行政服务中心四楼",
-@property (nonatomic,copy) NSString *companyCategory;//": "机关事业",
-@property (nonatomic,copy) NSString *companyLocation;//": "郑州市",
-@property (nonatomic,copy) NSString *companyName;//": "新密市房屋征收与补偿办公室",
-@property (nonatomic,copy) NSString *companyPost;//": "征补三科副科长",
-@property (nonatomic,copy) NSString *createTime;//": 1493776767000,
-@property (nonatomic,copy) NSString *description_userVO;//": "公司职员，现居北京市，从事批发和零售业行业，工作收入稳定",
-@property (nonatomic,copy) NSString *graduation;//": "大专",
-@property (nonatomic,copy) NSString *hasCar;//": true,
-@property (nonatomic,copy) NSString *hasChild;//": true,
-@property (nonatomic,copy) NSString *hasHouse;//": false,
-@property (nonatomic,copy) NSString *hasHouseLoan;//": false,
-@property (nonatomic,copy) NSString *homeTown;//": "河南省郑州市新密市老城菜市场西口86号",
-@property (nonatomic,copy) NSString *ID;//": 1068,
-@property (nonatomic,copy) NSString *immediateName;//": "张松花",
-@property (nonatomic,copy) NSString *immediateRelationShip;//": "配偶",
-@property (nonatomic,copy) NSString *immediateTel;//": "13938237899",
-@property (nonatomic,copy) NSString *jobStatus;//": "一般管理人员",
-@property (nonatomic,copy) NSString *loanId;//": 761133,
-@property (nonatomic,copy) NSString *marriageStatus;//": "MARRIED",
-@property (nonatomic,copy) NSString *monthlyIncome;//": "3200",
-@property (nonatomic,copy) NSString *otherRelationName;//": "吕海涛",
-@property (nonatomic,copy) NSString *otherRelationShip;//": "同事",
-@property (nonatomic,copy) NSString *otherRelationTel;//": "15890672333",
-@property (nonatomic,copy) NSString *refId;//": "dasyghgda",
-@property (nonatomic,copy) NSString *university;//": "北大",
-@property (nonatomic,copy) NSString *updateTime;//": 1493776767000,
-@property (nonatomic,copy) NSString *version;//": 0
+
+///	string	籍贯所在地
+@property (nonatomic,copy) NSString *accountLocation;
+///	string	公司地址
+@property (nonatomic,copy) NSString *companyAddress;
+///	string	公司类别
+@property (nonatomic,copy) NSString *companyCategory;
+///	;string	公司所在城市
+@property (nonatomic,copy) NSString *companyLocation;
+///	string;///	公司名称
+@property (nonatomic,copy) NSString *companyName;
+///	string;/	公司职位
+@property (nonatomic,copy) NSString *companyPost;
+///	string	合同号码
+@property (nonatomic,copy) NSString *contractCode;
+///	string	标的描述
+@property (nonatomic,copy) NSString *description;
+///	string	最高学历
+@property (nonatomic,copy) NSString *graduation;
+///	string	是否有车
+@property (nonatomic,copy) NSString *hasCar;
+///	string	是否有孩子
+@property (nonatomic,copy) NSString *hasChild;
+///	string	是否有房子
+@property (nonatomic,copy) NSString *hasHouse;
+///	string	是否有房贷
+@property (nonatomic,copy) NSString *hasHouseLoan;
+///	string	籍贯所在省份
+@property (nonatomic,copy) NSString *homeTown;
+///	string	直系亲属姓名
+@property (nonatomic,copy) NSString *immediateName;
+///	string	直系亲属关系
+@property (nonatomic,copy) NSString *immediateRelationShip;
+///	string	直系亲属电话
+@property (nonatomic,copy) NSString *immediateTel;
+///	string	工作状态
+@property (nonatomic,copy) NSString *jobStatus;
+///	int	标id
+@property (nonatomic,copy) NSString *loanId;
+///	string	婚姻状态（见下表）
+@property (nonatomic,copy) NSString *marriageStatus;
+///	string	月收入
+@property (nonatomic,copy) NSString *monthlyIncome;
+///	string	其他联系人姓名
+@property (nonatomic,copy) NSString *otherRelationName;
+///	string	其他联系人关系
+@property (nonatomic,copy) NSString *otherRelationShip;
+///	string	进件号
+@property (nonatomic,copy) NSString *refId;
+///	string	居住地址
+@property (nonatomic,copy) NSString *residence;
+///	string	居住地电话
+@property (nonatomic,copy) NSString *residenceTel;
+///	string	大学
+@property (nonatomic,copy) NSString *university;
+
+///": 1493776767000,
+@property (nonatomic,copy) NSString *createTime;
+///": "公司职员，现居北京市，从事批发和零售业行业，工作收入稳定",
+@property (nonatomic,copy) NSString *description_userVO;
+//": 1068,
+@property (nonatomic,copy) NSString *ID;
+//": 1493776767000,
+@property (nonatomic,copy) NSString *updateTime;
+//": 0
+@property (nonatomic,copy) NSString *version;
 @end
 
 

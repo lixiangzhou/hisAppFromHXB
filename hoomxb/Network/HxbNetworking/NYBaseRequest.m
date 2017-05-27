@@ -32,7 +32,10 @@
 //} 
 
 - (NSDictionary *)requestHeaderFieldValueDictionary{
-    return @{};
+    if (_requestHeaderFieldValueDictionary) {
+        _requestHeaderFieldValueDictionary = @{};
+    }
+    return _requestHeaderFieldValueDictionary;
 }
 
 - (NYRequestSerializerType)requestSerializerType{

@@ -9,5 +9,6 @@
 #import "NYBaseRequest.h"
 ///关于散标的详情页API
 @interface HXBFinancing_LoanDetileAPI : NYBaseRequest
-
+///loanID
+@property (nonatomic,assign) NSInteger loanID;
 @end

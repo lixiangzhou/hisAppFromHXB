@@ -76,7 +76,6 @@ static int const showtime = 3;
     } completion:^(BOOL finished) {
         
         [self removeFromSuperview];
-        
     }];
     
 }
@@ -127,7 +126,12 @@ static int const showtime = 3;
 {
     _count --;
     [_countBtn setTitle:[NSString stringWithFormat:@"跳过%d",_count] forState:UIControlStateNormal];
-    if (_count == 0) [self dismiss];
+    if (_count == 0) {
+        if (self.clickSkipButtonBlock) {
+            self.clickSkipButtonBlock();
+        }
+        [self dismiss];
+    }
 }
 
 - (void)show

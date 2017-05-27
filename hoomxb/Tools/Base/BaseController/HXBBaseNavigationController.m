@@ -8,8 +8,9 @@
 
 #import "HXBBaseNavigationController.h"
 #import "HxbHomeViewController.h"
-@interface HXBBaseNavigationController ()
-
+#import "PYFullScreenGesturePOPManager.h"
+@interface HXBBaseNavigationController ()<UIGestureRecognizerDelegate>
+@property (nonatomic,strong) PYFullScreenGesturePOPManager *popManager;
 @end
 
 
@@ -40,7 +41,7 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.interactivePopGestureRecognizer.enabled = NO;
+        self.interactivePopGestureRecognizer.enabled = true;
     }
     
     if (self.viewControllers.count >= 1)
@@ -65,10 +66,17 @@
 }
 
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    PYFullScreenGesturePOPManager *popManager = [[PYFullScreenGesturePOPManager alloc]initWithViewController:self andTransitionanimationType:PYFullScreenGestureManager_TransitionanimationType_Custom];
+    self.popManager = popManager;
 }
-
+#pragma mark - 里面判断了是否为跟控制器
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    ///这里有两个条件不允许手势执行，1、当前控制器为根控制器；2、如果这个push、pop动画正在执行（私有属性）
+    return self.viewControllers.count != 1 && ![[self valueForKey:@"_isTransitioning"] boolValue];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
