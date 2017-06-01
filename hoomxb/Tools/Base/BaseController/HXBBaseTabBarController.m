@@ -36,6 +36,7 @@
 #pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginVC) name:ShowLoginVC object:nil];
     self.delegate = self;
 }
 
@@ -46,7 +47,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginVC) name:ShowLoginVC object:nil];
+    
 }
 
 #pragma mark - 封装的方法
@@ -117,7 +118,7 @@
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
-    return true;
+//    return true;
     //获取当前的导航控制器的跟控制器
     UIViewController *vc = ((HXBBaseNavigationController *)viewController).viewControllers.firstObject;
     

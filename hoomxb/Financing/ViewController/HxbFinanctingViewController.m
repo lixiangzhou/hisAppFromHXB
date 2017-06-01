@@ -188,7 +188,7 @@
     } andFailureBlock:^(NSError *error) {
         self.homePageView.isStopRefresh_Plan = true;
     }];
-}
+} 
 
 - (void)loanLoadDateWithIsUpData: (BOOL)isUpData {
     [self.finantingRequest loanBuyListWithIsUpData:isUpData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_LoanList *> *viewModelArray) {

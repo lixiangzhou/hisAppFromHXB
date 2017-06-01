@@ -8,7 +8,12 @@
 
 #import "NYNetworkConfig.h"
 #import <AdSupport/AdSupport.h>
+///通用接口Header必传字段 userAgent
+static NSString *const User_Agent = @"User-Agent";
+///通用接口Header必传字段 token
+static NSString *const X_HxbAuth_Token = @"X-HxbAuth-Token";
 
+///网络数据的基本数据类
 @interface NYNetworkConfig ()
 
 @property (nonatomic, strong, readwrite) NSDictionary *additionalHeaderFields;
@@ -53,8 +58,8 @@
 {
     
     NSDictionary *dict = @{
-                           @"X-HxbAuth-Token":[KeyChain token],
-                           @"UserAgent":self.userAgent,
+                           X_HxbAuth_Token:[KeyChain token],
+                           User_Agent:self.userAgent,
                            @"IDFA":[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString],
                            @"X-Request-Id":[[[UIDevice currentDevice] identifierForVendor] UUIDString],
                            };
@@ -91,6 +96,4 @@
         }
     }];
 }
-
-
 @end

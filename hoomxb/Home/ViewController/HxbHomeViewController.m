@@ -20,20 +20,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAd) name:@"pushtoad" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAd) name:@"pushtoad" object:nil];
     [self.view addSubview:self.homeView];
     [self getData];
     [self.homeView changeIndicationView];
     [self.homeView showSecurityCertificationOrInvest];
-
+    self.automaticallyAdjustsScrollViewInsets = NO;
     //    [self getBannersWithCompletion:^{}];
     
 }
 
-- (void)pushToAd {
-    HxbAdvertiseViewController *adVc = [[HxbAdvertiseViewController alloc] init];
-    [self.navigationController pushViewController:adVc animated:YES];
-}
+//- (void)pushToAd {
+//    HxbAdvertiseViewController *adVc = [[HxbAdvertiseViewController alloc] init];
+//    [self.navigationController pushViewController:adVc animated:YES];
+//}
 
 -(void)dealloc{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pushtoad" object:nil];
@@ -42,16 +42,19 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [self.navigationController setNavigationBarHidden:true animated:false];
 }
 
-- (void)viewWillWillappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [self.navigationController setNavigationBarHidden:true animated:false];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.navigationController setNavigationBarHidden:false animated:false];
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -60,12 +63,8 @@
 
 #pragma mark Request
 - (void)getData{
-    HXBRequestUserInfoAPI *userInfo = [[HXBRequestUserInfoAPI alloc]init];
-    [userInfo downLoadUserInfoWithSeccessBlock:^(NYBaseRequest *request, HXBRequestUserInfoAPI *model) {
-        
-    } andFailure:^(NYBaseRequest *request, NSError *error) {
-        
-    }];
+
+
     HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
     NSString *userId = @"2110468";
     [request homeAccountAssetWithUserID:userId andSuccessBlock:^(HxbHomePageViewModel *viewModel) {

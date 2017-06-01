@@ -29,7 +29,7 @@
         HUD.mode = MBProgressHUDModeText;
         
         int sec = text.length > 6? 2:1;
-
+    
         [HUD showAnimated:YES whileExecutingBlock:^{
             sleep(sec);
         } completionBlock:^{

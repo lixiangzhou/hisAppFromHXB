@@ -17,8 +17,7 @@
  *  @param rightLength   右边几位需要转换
  *  @param leftFont      左边字符串的字体
  *  @param rightFont     右边字符串的字体
- *
- *  @return
+ *  @return NSMutableAttributedString
  */
 + (NSMutableAttributedString *)transferWithString:(NSString *)string rightLength:(NSInteger)rightLength leftFont:(UIFont *)leftFont  rightFont:(UIFont *)rightFont;
 

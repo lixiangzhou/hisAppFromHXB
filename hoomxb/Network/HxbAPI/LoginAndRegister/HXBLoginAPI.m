@@ -6,9 +6,9 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "LoginAPI.h"
+#import "HXBLoginAPI.h"
 
-@implementation LoginAPI
+@implementation HXBLoginAPI
 {
     NSString *_userName;
     NSString *_loginPwd;
@@ -30,12 +30,5 @@
 
 - (NYRequestMethod)requestMethod {
     return NYRequestMethodPost;
-}
-
-- (id)requestArgument {
-    return @{
-             @"username": _userName,
-             @"password": _loginPwd,
-             };
 }
 @end

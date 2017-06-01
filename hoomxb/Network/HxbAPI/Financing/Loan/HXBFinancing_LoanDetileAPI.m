@@ -19,7 +19,7 @@
 
 
 - (NYRequestMethod)requestMethod {
-    return NYRequestMethodPost;
+    return NYRequestMethodGet;
 }
 
 - (NSString *)requestUrl {

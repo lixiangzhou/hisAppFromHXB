@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol SignViewDelegate <NSObject>
-- (void)didClickSignInBtn;
-- (void)didClicksignUpBtn;
-@end
-
 @interface HxbSignInView : UIView
-@property (nonatomic, weak, nullable) id<SignViewDelegate> delegate;
+//点击事件的传递
+///点击了登录按钮
+- (void) signIN_ClickButtonFunc: (void(^)(NSString *pasword))clickSignInButtonBlock;
+///点击了注册按钮
+- (void) signUP_clickButtonFunc: (void(^)())clickSignUPButtonBlock;
 @end

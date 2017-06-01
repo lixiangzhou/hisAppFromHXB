@@ -1,23 +1,19 @@
 //
-//  HXBRequestUserInfoAPI.m
+//  HXBSmscode.m
 //  hoomxb
 //
-//  Created by HXB on 2017/5/27.
+//  Created by HXB on 2017/5/31.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBRequestUserInfoAPI.h"
+#import "HXBSmscodeAPI.h"
 
-@implementation HXBRequestUserInfoAPI
-
-
-
+@implementation HXBSmscodeAPI
 - (NSString *)requestUrl {
-    return @"/user/info";
+    return @"/send/smscode";
 }
 
 - (NYRequestMethod)requestMethod {
     return NYRequestMethodPost;
 }
 @end
-

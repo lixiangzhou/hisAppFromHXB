@@ -8,6 +8,6 @@
 
 #import "NYBaseRequest.h"
 
-@interface LoginAPI : NYBaseRequest
+@interface HXBLoginAPI : NYBaseRequest
 - (id)initWithUserName:(NSString *)userName loginPwd:(NSString *)loginPwd;
 @end

@@ -101,7 +101,7 @@ static NSString *const kHXBCFBundleShortVersionString = @"CFBundleShortVersionSt
 //输出YES（服务器大与本地） 输出NO（服务器小于本地）
 - (BOOL)compareEditionNumber:(NSString *)serverNumberStr localNumber:(NSString*)localNumberStr {
     // 获取app版本
-    NSString *app_Version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+//    NSString *app_Version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     
     //剔除版本号字符串中的点
     serverNumberStr = [serverNumberStr stringByReplacingOccurrencesOfString:@"." withString:@""];

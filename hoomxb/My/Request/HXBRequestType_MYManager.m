@@ -21,6 +21,7 @@
     NSLog(@"🌶 %@, - 我的红利计划主界面  根据枚举值返回对应的请求参数字符串 出现错误",self.class);
     return HXBRequestType_MY_PlanRequestType_EXIT_PLAN;
 }
+
 /// 根据枚举值返回对应的请求参数字符串 ———— 我的红利计划主界面
 + (NSString *)myPlan_requestType: (HXBRequestType_MY_PlanRequestType)type andTypeBlock: (void(^)(NSString *typeUI, NSString *type))typeBlock{
     NSString *typeStr = @"";
@@ -45,6 +46,7 @@
     typeBlock(typeStrUI,typeStr);
     return typeStr;
 }
+
 ///红利计划相应的 计划状态
 + (NSString *)myPlan_ResponsStatus: (HXBRequestType_MY_PlanResponseStatus)status {
     NSString *statusStr = @"";
@@ -88,7 +90,8 @@
     NSLog(@"%@ - 我的loan 列表 -- 转化 收益和 等待计息失败",self.class);
     return LONG_MAX;
 }
-// 根据枚举值返回对应的请求参数字符串 ———— 我的Loan主界面
+
+/// 根据枚举值返回对应的请求参数字符串 ———— 我的Loan主界面
 + (void)myLoan_requestType: (HXBRequestType_MY_LoanRequestType)type andReturnParamBlock: (void(^)(NSString *type, NSString *UI_Type))returnParamBlock{
     switch (type) {
         case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN:
@@ -102,6 +105,4 @@
             break;
     }
 }
-
-
 @end

@@ -92,7 +92,7 @@ typedef enum : NSUInteger {
 //红利计划列表的年利率计算
 - (void)setupExpectedYearRateAttributedStr {
     
-    CGFloat length = self.planListModel.expectedRate.floatValue;
+//    CGFloat length = self.planListModel.expectedRate.floatValue;
 //    NSLog(@" - - - %lf -",length);
 //    NSLog(@" str - %@ -",self.planListModel.expectedRate);
     NSString *expectedYearRateStr = [NSString stringWithFormat:@"%.2lf%@",self.planListModel.expectedRate.floatValue,@"%"];
@@ -101,7 +101,7 @@ typedef enum : NSUInteger {
     NSString *numberStr = [NSString stringWithFormat:@"%.2lf",self.planListModel.expectedRate.floatValue];
     NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
     NSInteger startRange = numberStr.length - 3;
-    NSInteger endRange = numberStr.length;
+//    NSInteger endRange = numberStr.length;
     NSRange range = NSMakeRange(0, startRange);
     
     [numberAttributeString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];

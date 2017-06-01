@@ -1,23 +1,19 @@
 //
-//  HXBRequestUserInfoAPI.m
+//  HXBCheckMobile.m
 //  hoomxb
 //
-//  Created by HXB on 2017/5/27.
+//  Created by HXB on 2017/5/31.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBRequestUserInfoAPI.h"
+#import "HXBCheckMobileAPI.h"
 
-@implementation HXBRequestUserInfoAPI
-
-
-
+@implementation HXBCheckMobileAPI
 - (NSString *)requestUrl {
-    return @"/user/info";
+    return @"/checkMobile";
 }
 
 - (NYRequestMethod)requestMethod {
     return NYRequestMethodPost;
 }
 @end
-

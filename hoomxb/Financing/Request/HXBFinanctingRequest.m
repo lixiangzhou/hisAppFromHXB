@@ -87,8 +87,6 @@
     planBuyListAPI.requestArgument = @{
                                        @"version" : @"1.0",
                                        @"userId" : @"1",
-                                       @"start" : @(self.planListPage),
-                                       @"num" : @"20",
                                        @"pageNumber" : @(self.planListPage),
                                        @"pageSize" : @(20)//每页的个数
                                        };
@@ -110,7 +108,7 @@
             //字典转模型
             [financtingPlanListModel yy_modelSetWithDictionary:obj];
             
-            NSLog(@"--- obj%@  - %d --- ",[obj valueForKey:@"expectedRate"],idx);
+            NSLog(@"--- obj%@ --- ",[obj valueForKey:@"expectedRate"]);
             NSLog(@"---expectedRate- %@--",financtingPlanListModel.expectedRate);
             //给viewModel赋值MODEL
             financtingPlanListViewModel.planListModel = financtingPlanListModel;
@@ -270,7 +268,7 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (error && failureBlock) {
-            NSLog(@"✘散标计划详情 - 请求没有数据");
+            kNetWorkError(@"✘散标计划详情 - 请求没有数据")
             failureBlock(error);
         }
     }];

@@ -18,12 +18,16 @@
     return self;
 }
 
+//- (NSString *)requestUrl {
+//    return @"/financeplan/financeplanlist.action";
+//}
+
 - (NSString *)requestUrl {
-    return @"/financeplan/financeplanlist.action";
+    return @"/plan";
 }
 
 - (NYRequestMethod)requestMethod {
-    return NYRequestMethodPost;
+    return NYRequestMethodGet;
 }
 
 @end

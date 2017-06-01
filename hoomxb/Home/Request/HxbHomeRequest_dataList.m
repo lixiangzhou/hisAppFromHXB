@@ -19,7 +19,7 @@
     
     HxbIndexPlanListAPI *indexPlanListAPI = [[HxbIndexPlanListAPI alloc]init];
     [indexPlanListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSDictionary *baseDic = [responseObject valueForKey:@"data"];
+//        NSDictionary *baseDic = [responseObject valueForKey:@"data"];
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
            _homeDataListViewModelArray  = [NSMutableArray array];
         if (!responseObject || !dataList.count) {
