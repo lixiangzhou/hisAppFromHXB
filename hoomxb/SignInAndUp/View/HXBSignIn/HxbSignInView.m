@@ -43,9 +43,23 @@ UITextFieldDelegate
 @property (nonatomic, strong) UILabel *phoneNumberLabel;
 ///密码
 @property (nonatomic, strong) UILabel *passwordLabel;
+///显示手机号的信息的label (是否为手机号，手机号是否已注册)
+@property (nonatomic, strong) UILabel *isPhoneNumberLabel;
+///手机号是否存在
+@property (nonatomic, copy) void(^checkMobileBlock)(NSString *mobile);
+///是否已经注册
+@property (nonatomic, assign) BOOL isRegisterWithMobile;
 @end
 
 @implementation HxbSignInView
+
+#pragma mark - 参数的传递
+- (void)checkMobileResultFuncWithCheckMobileResultStr:(NSString *)checkMobileResultStr andIsEditLoginButton:(BOOL)isEditLoginButton {
+    self.isPhoneNumberLabel.text = checkMobileResultStr;
+    self.signInButton.userInteractionEnabled = isEditLoginButton;
+}
+
+
 
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -68,6 +82,8 @@ UITextFieldDelegate
     self.phoneNumberLabel = [[UILabel alloc]init];///关于手机号的Label
     self.passwordLabel = [[UILabel alloc]init];///关于密码的label
     
+    self.isPhoneNumberLabel = [[UILabel alloc]init];///显示手机号的信息的label (是否为手机号，手机号是否已注册)
+    
     [self addSubview:self.phoneTextField];
     [self addSubview:self.passwordTextField];
     [self addSubview:self.signInButton];
@@ -76,6 +92,7 @@ UITextFieldDelegate
     [self addSubview:self.phoneNumberLabel];
     [self addSubview:self.passwordLabel];
     
+    [self addSubview:self.isPhoneNumberLabel];
     
     kWeakSelf
     [self.phoneNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -111,10 +128,16 @@ UITextFieldDelegate
         make.right.left.equalTo(weakSelf.signInButton);
     }];
     
+    [self.isPhoneNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(80));
+        make.width.equalTo(weakSelf);
+    }];
+    
     self.signInButton.backgroundColor = [UIColor hxb_randomColor];
     self.signUpbutton.backgroundColor = [UIColor hxb_randomColor];
     self.passwordTextField.backgroundColor = [UIColor hxb_randomColor];
     self.phoneTextField.backgroundColor = [UIColor hxb_randomColor];
+    self.isPhoneNumberLabel.backgroundColor = [UIColor hxb_randomColor];
 }
 
 ///设置子控件
@@ -144,16 +167,21 @@ UITextFieldDelegate
 ///点击了 登录按钮
 - (void)clickSignInButton: (UIButton *)signInButton {
     ///有未填写的信息，或者有手机号不正确 就返回
-    if ([self notFillInThoseInformation]) return;
-    if (![NSString isMobileNumber:self.phoneTextField.text]) return;
-    
+    if ([self notFillInThoseInformation]) {
+        NSLog(@"填写手机号");
+        return;
+    }
+    ///填写的不是手机号码
+    if (![NSString isMobileNumber:self.phoneTextField.text]) {
+        NSLog(@"填写 正确的 手机号");
+        return;
+    }
     ///可以登录
     if (self.clickSignInButtonBlock) self.clickSignInButtonBlock(self.passwordTextField.text);
-    
 }
 ///点击了 注册按钮
 - (void)clickSignUPButton: (UIButton *)signUPButton {
-    
+    if (self.clickSignUpButtonBlock) self.clickSignUpButtonBlock();
 }
 ///判断 未填写那些资料 （密码、手机号）
 - (BOOL) notFillInThoseInformation {
@@ -177,16 +205,22 @@ UITextFieldDelegate
 }
 ///当textField 的值将要改变的时候调用
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+
     //1、textField 输入string后的值
     NSString *str = nil;
     if (string.length) {
         str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-    }else {
+    }
+    else if(!string.length) {
         NSInteger length = self.phoneTextField.text.length;
         NSRange range = NSMakeRange(length - 1, 1);
         NSMutableString *strM = self.phoneTextField.text.mutableCopy;
         [strM deleteCharactersInRange:range];
         str = strM.copy;
+    }
+    if (str.length > 11) {//防止了重复请求数据 以及\n换行的错误
+        [self firstResponderChenge];
+        return false;
     }
     
     //是否展示清除按钮
@@ -195,40 +229,48 @@ UITextFieldDelegate
     
     //如果是号码textField 那么就直接返回true
     if (textField == self.passwordTextField) return true;
+    
+    //如果是号密码的textField 那么就判断，是否超多了11位，如果超过了，就直接取消第一相应，并调到密码的第一相应
+    [self isPhoneTextFieldLenthOutdo11WithStr:str];
     //是否为电话号码
     [self showISMobileNumberViewWithString: str];
     
     //点击了删除按钮
     if ([string isEqual: @""]) return true;
-    
-    //如果是号密码的textField 那么就判断，是否超多了11位，如果超过了，就直接取消第一相应，并调到密码的第一相应
-    if ([self isPhoneTextFieldLenthOutdo11]) {
-        [self.phoneTextField resignFirstResponder];
-        [self.passwordTextField becomeFirstResponder];
-    }
     return true;
 }
 
 ///停止编辑的时候要判断有没有手势密码。（有 输入，没有就去设置）
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     if (textField == self.phoneTextField) {
-     
+        
     }
     return true;
 }
 
 ///电话的number是否为超出了11位
-- (BOOL) isPhoneTextFieldLenthOutdo11 {
-    if (self.phoneTextField.text.length >= 11) {
-        return true;
+- (void) isPhoneTextFieldLenthOutdo11WithStr: (NSString *)phoneText {
+    if(phoneText.length > 11) {
+        [self firstResponderChenge];
     }
-    return false;
 }
-
+- (void)firstResponderChenge {
+    [self.phoneTextField resignFirstResponder];
+    [self.passwordTextField becomeFirstResponder];
+}
 ///展示是否为电话号码
 - (void)showISMobileNumberViewWithString:(NSString *)str {
     BOOL isTrue = [NSString isMobileNumber:str];
     NSLog(@"电话号码-- %d",isTrue);
+    if (!isTrue) {//不是真的，提示输入正确的密码
+        self.isPhoneNumberLabel.text = kPhoneText_Error;
+        return;
+    }
+    self.isPhoneNumberLabel.text = @"";
+    ///请求手机号是否存在
+    if (self.checkMobileBlock) {
+        self.checkMobileBlock(str);
+    }
 }
 
 
@@ -243,70 +285,9 @@ UITextFieldDelegate
     self.clickSignUpButtonBlock = clickSignUPButtonBlock;
 }
 
-
-
-
-
-/*
-- (UITextField *)phoneTextField{
-    if (!_phoneTextField) {
-        _phoneTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, self.height/3 - 80, SCREEN_WIDTH - 40, 44)];
-        RACSignal *signal = [self.phoneTextField.rac_textSignal map:^id(NSString *value) {
-            return @(value.length);
-        }];
-        [signal subscribeNext:^(id x) {
-           
-            NSInteger X = [x integerValue];
-            if (X >= 11) {
-                [self.passwordTextField resignFirstResponder];
-                [self.passwordTextField becomeFirstResponder];
-            }
-        }];
-//        [_phoneTextField addTarget:self action:@selector(phoneTextFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-        UILabel *leftLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,70, 44)];
-        leftLable.text = @"手机号";
-        leftLable.textColor = COR1;
-        _phoneTextField.leftViewMode = UITextFieldViewModeAlways;
-        _phoneTextField.delegate = self;
-        _phoneTextField.leftView = leftLable;
-        _phoneTextField.returnKeyType = UIReturnKeyNext;
-    }
-    return _phoneTextField;
+///请求手机号是否存在
+- (void) checkMobileRequestBlockFunc: (void(^)(NSString *mobile))checkMobileBlock {
+    self.checkMobileBlock = checkMobileBlock;
 }
-
-- (UITextField *)passwordTextField{
-    if (!_passwordTextField) {
-        _passwordTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_phoneTextField.frame) + 60, SCREEN_WIDTH - 40, 44)];
-//        [_passwordTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-        UILabel *leftLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,70, 44)];
-        leftLable.text = @"密码";
-        leftLable.textColor = COR1;
-        _passwordTextField.leftViewMode = UITextFieldViewModeAlways;
-        _passwordTextField.delegate = self;
-        _passwordTextField.leftView = leftLable;
-        _passwordTextField.returnKeyType = UIReturnKeyDone;
-    }
-    return _passwordTextField;
-}
-
-- (UIButton *)signInButton{
-    if (!_signInButton) {
-        _signInButton = [UIButton btnwithTitle:@"Sign In" andTarget:self andAction:@selector(signInButtonClick:) andFrameByCategory:CGRectMake(20,CGRectGetMaxY(_passwordTextField.frame) + 120, SCREEN_WIDTH - 40, 44)];
-    }
-    return _signInButton;
-}
-
-- (UIButton *)signUpbutton{
-    if (!_signUpbutton) {
-        _signUpbutton = [[UIButton alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(_signInButton.frame) + 20, SCREEN_WIDTH , 20)];
-        [_signUpbutton setTitle:@"Sign Up" forState:UIControlStateNormal];
-        [_signUpbutton setTitleColor:COR1 forState:UIControlStateNormal];
-        [_signUpbutton.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [_signUpbutton addTarget:self action:@selector(signUpButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        //                         btnwithTitle:@"Sign In" andTarget:self andAction:@selector(signUpButtonClick:) andFrameByCategory:];
-    }
-    return _signUpbutton;
-}
-*/
- @end
+@end
 

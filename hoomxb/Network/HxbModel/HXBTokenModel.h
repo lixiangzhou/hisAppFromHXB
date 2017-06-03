@@ -8,7 +8,7 @@
 
 #import "BaseModel.h"
 
-@interface tokenModel : BaseModel
+@interface HXBTokenModel : BaseModel
 @property (nonatomic, copy) NSString *token;
-@property (nonatomic, copy) tokenModel *data;
+@property (nonatomic, copy) HXBTokenModel *data;
 @end

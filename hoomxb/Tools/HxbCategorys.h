@@ -50,6 +50,7 @@
 #import "NSString+HxbSortDicMD5.h"//MD5
 #import "NSString+HxbMask.h"
 #import "NSString+HxbGeneral.h"//里面有正则判断手机号
+#import "NSString+HXBPhonNumber.h"///隐藏了phonNumber中的中间的字符
 
 
 

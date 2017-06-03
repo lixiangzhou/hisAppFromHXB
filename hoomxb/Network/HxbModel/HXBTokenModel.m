@@ -6,9 +6,9 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "tokenModel.h"
+#import "HXBTokenModel.h"
 
-@implementation tokenModel
+@implementation HXBTokenModel
 //- (NSString *)dataModel
 //{
 //    NSDictionary * dic = [self dictionaryWithJsonString:_data];

@@ -7,7 +7,7 @@
 //
 
 #import "HxbHTTPSessionManager.h"
-#import "tokenModel.h"
+#import "HXBTokenModel.h"
 #import "HxbHUDProgress.h"
 #import <AdSupport/AdSupport.h>
 #import "NYNetworkConfig.h"
@@ -30,8 +30,9 @@
                 //调用refreshAccesstoken方法，刷新access token。
                 [self refreshAccessToken:^(NSData *data) {
                     NSDictionary *dic = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"data"];
-                    tokenModel *model = [tokenModel yy_modelWithJSON:dic];
+                    HXBTokenModel *model = [HXBTokenModel yy_modelWithJSON:dic];
                     NSLog(@"😝😝😝😝😝%@",model.token);
+                    kNetWorkError(@"token失效");
                    
                     [KeyChain setToken:model.token];
                     NSURLRequest *newRequest = request;

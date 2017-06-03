@@ -84,16 +84,16 @@ andGreaterThan_LoginTotalNumberBlock: (void(^)())GreaterThan_LoginTotalNumberBlo
 }
 ///图验请求 如果请求成功那么就 执行外部传进来的 block
 - (void)captcha_DownLoadDataWithShowCaptchaBlock:(void(^)(id response))showCaptchaBlock {
-    [HXBSignUPAndLoginRequest captchaRequestWithSuccessBlock:^(id responseObject) {
-        if (responseObject) {
-            if (showCaptchaBlock) {
-                showCaptchaBlock(responseObject);
-            }
-            NSLog(@"%@",responseObject);
-        }
-    } andFailureBlock:^(NSError *error) {
-        
-    }];
+//    [HXBSignUPAndLoginRequest captchaRequestWithSuccessBlock:^(id responseObject) {
+//        if (responseObject) {
+//            if (showCaptchaBlock) {
+//                showCaptchaBlock(responseObject);
+//            }
+//            NSLog(@"%@",responseObject);
+//        }
+//    } andFailureBlock:^(NSError *error) {
+//        
+//    }];
 }
 ///登录 数据的请求
 - (void)signIn_downLoadDataWithCaptcha: (NSString *)captcha andPassword: (NSString *)password {

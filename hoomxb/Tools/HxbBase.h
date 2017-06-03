@@ -29,3 +29,4 @@
 #import "HXBBaseHandDate.h"//关于时间处理的类
 #import "HXBServerAndClientTime.h"//与服务器时间协调
 #import "HXBBaseContDownManager.h"//关于倒计时的类
+#import "Animatr.h"//转场动画的工具类

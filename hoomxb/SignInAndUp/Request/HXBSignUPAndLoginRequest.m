@@ -13,7 +13,7 @@
 #import "HXBCheckCaptchaAPI.h"///校验图片验证码
 #import "HXBSmscodeAPI.h"///发送短信的接口
 #import "HXBCheckMobileAPI.h"///校验手机号
-
+#import "HXBTokenManager.h"///请求token
 
 @implementation HXBSignUPAndLoginRequest
 + (void)signUPRequetWithMobile: (NSString *)mobile///手机号
@@ -59,44 +59,71 @@
                                      };
     }
     
-  [loginAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-      if (![responseObject valueForKey:@"status"]) {
-          kNetWorkError(@"登录请求失败");
-          if (failureBlock) {
-              failureBlock(nil);
-          }
-      }
-      if (successBlock) {
-          successBlock(true);
-      }
-  } failure:^(NYBaseRequest *request, NSError *error) {
-      if (failureBlock) {
-          failureBlock(error);
-      }
-      kNetWorkError(@"登录请求失败");
-  }];
+    [loginAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        if (![responseObject valueForKey:@"status"]) {
+            kNetWorkError(@"登录请求失败");
+            if (failureBlock) {
+                failureBlock(nil);
+            }
+        }
+        if (successBlock) {
+            successBlock(true);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (failureBlock) {
+            failureBlock(error);
+        }
+        kNetWorkError(@"登录请求失败");
+    }];
 }
 
 #pragma mark - 图验
-+ (void)captchaRequestWithSuccessBlock: (void(^)(id responseObject))successBlock
+- (void)captchaRequestWithSuccessBlock: (void(^)(id responseObject))successBlock
                        andFailureBlock: (void(^)(NSError *error))failureBlock {
+    
     HXBCaptchaAPI *captchaAPI = [[HXBCaptchaAPI alloc]init];
-  [captchaAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-      if (![responseObject valueForKey:@"status"]) {
-          kNetWorkError(@"图验请求失败");
-          if (failureBlock) {
-              failureBlock(nil);
-          }
-      }
-      if (successBlock) {
-          successBlock(responseObject);
-      }
-  } failure:^(NYBaseRequest *request, NSError *error) {
-      if (failureBlock) {
-          failureBlock(error);
-      }
-      kNetWorkError(@"图验请求失败");
-  }];
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSString *URLSTR = [NSString stringWithFormat:@"%@%@",BASEURL,captchaAPI.requestUrl];
+    NSURL *url = [NSURL URLWithString:URLSTR];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSMutableURLRequest *requestM = [request mutableCopy];
+    //配置userAgent
+    NSString *systemVision = [[UIDevice currentDevice] systemVersion];
+    NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+    NSString *userAgent = [NSString stringWithFormat:@"iphone/%@/%@" ,systemVision,version];
+    [requestM addValue:userAgent forHTTPHeaderField:@"User-Agent"];
+    requestM.HTTPMethod = @"GET";
+    //配置token
+    [requestM addValue:KeyChain.token forHTTPHeaderField: kHXBToken_X_HxbAuth_Token];
+    ///创建请求
+    NSURLSessionTask *task = [session dataTaskWithRequest:requestM.copy completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        if (data) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                UIImage *image = [UIImage imageWithData:data];
+                if (successBlock) successBlock(image);
+            });
+        }else if(error) {
+            ///请求token
+            [HXBTokenManager downLoadTokenWithURL:nil andDownLoadTokenSucceedBlock:^(NSString *token) {
+                ///在请求一次
+                ///添加token
+                [requestM addValue:kHXBToken_X_HxbAuth_Token forHTTPHeaderField: KeyChain.token];
+                NSURLSessionTask *task = [session dataTaskWithRequest:requestM.copy completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+                    if (data) {
+                        //NSData *imageData = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            UIImage *image = [UIImage imageWithData:data];
+                            if (successBlock) successBlock(image);
+                        });
+                    }
+                }];
+                [task resume];
+            } andFailureBlock:^(NSError *error) {
+                
+            }];
+        }
+    }];
+    [task resume];
 }
 
 
@@ -109,12 +136,14 @@
                                         @"captcha" : captcha///图验Code
                                         };
     [checkCaptchaAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        if (![responseObject valueForKey:@"status"]) {
-            kNetWorkError(@"校验图片验证码请求失败");
+        NSString *status = [responseObject valueForKey:@"status"];
+        if (status.integerValue) {
+            kNetWorkError(@"验证码 输入错误");
             if (failureBlock) failureBlock(nil);
+        }else {
+            if (successBlock) successBlock(true);
         }
         
-        if (successBlock) successBlock(true);
     } failure:^(NYBaseRequest *request, NSError *error) {
         
         if (failureBlock) failureBlock(error);
@@ -145,7 +174,7 @@
         if (successBlock) successBlock(true);
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-       
+        
         if (failureBlock) failureBlock(error);
         kNetWorkError(@"发送短信 请求失败");
     }];
@@ -154,16 +183,30 @@
 
 #pragma mark - 校验手机号
 + (void)checkMobileRequestWithMobile: (NSString *)mobile
-                     andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
+                     andSuccessBlock: (void(^)(BOOL isExist))successBlock
                      andFailureBlock: (void(^)(NSError *error))failureBlock {
     
-    HXBCheckCaptchaAPI *checkCaptchaAPI = [[HXBCheckCaptchaAPI alloc]init];
-    [checkCaptchaAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        if (![responseObject valueForKey:@"status"]) {
-            kNetWorkError(@"校验手机号 请求失败");
-            if (failureBlock) failureBlock(nil);
+    HXBCheckMobileAPI *checkMobileAPI = [[HXBCheckMobileAPI alloc]init];
+    
+    
+    
+    checkMobileAPI.requestArgument = @{
+                                       @"mobile":mobile
+                                       };
+    [checkMobileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSString *status = [responseObject valueForKey:@"status"];
+        if (!status.integerValue) {
+            successBlock(false);
+            return;
         }
-        if (successBlock) successBlock(true);
+        
+        NSString *message = [responseObject valueForKey:@"message"];
+        if ([message isEqualToString:@"手机号码已存在"]) {
+            successBlock(true);
+            return;
+        }
+        successBlock(false);
+        
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);
         kNetWorkError(@"校验手机号 请求失败");

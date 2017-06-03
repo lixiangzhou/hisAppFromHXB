@@ -109,11 +109,21 @@
     }
 }
 
-#pragma mark - 判断字符串是否包含字母
+#pragma mark - 判断字符串是否包含数字
 + (BOOL)isStringContainNumberWith:(NSString *)str {
+    NSRegularExpression *numberRegular = [NSRegularExpression regularExpressionWithPattern:@"[0-9]" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSInteger count = [numberRegular numberOfMatchesInString:str options:NSMatchingReportProgress range:NSMakeRange(0, str.length)];
+    //count是str中包含[0-9]数字的个数，只要count>0，说明str中包含数字
+    if (count > 0) {
+        return YES;
+    }
+    return NO;
+}
+#pragma mark - 判断字符串是否包含字母
++ (BOOL)isStringCOntainStringWith:(NSString *)str {
     NSRegularExpression *numberRegular = [NSRegularExpression regularExpressionWithPattern:@"[A-Za-z]" options:NSRegularExpressionCaseInsensitive error:nil];
     NSInteger count = [numberRegular numberOfMatchesInString:str options:NSMatchingReportProgress range:NSMakeRange(0, str.length)];
-    //count是str中包含[A-Za-z]数字的个数，只要count>0，说明str中包含数字
+    //count是str中包含[A-Za-z]字母的个数，只要count>0，说明str中包含字母
     if (count > 0) {
         return YES;
     }

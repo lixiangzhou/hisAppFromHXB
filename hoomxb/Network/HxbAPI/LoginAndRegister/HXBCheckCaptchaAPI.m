@@ -10,7 +10,7 @@
 
 @implementation HXBCheckCaptchaAPI
 - (NSString *)requestUrl {
-    return @"/captcha";
+    return @"/checkCaptcha";
 }
 
 - (NYRequestMethod)requestMethod {

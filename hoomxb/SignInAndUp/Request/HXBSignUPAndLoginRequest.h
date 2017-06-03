@@ -48,7 +48,7 @@
  * @param successBlock 成功的回调
  * @param failureBlock 是被的回调
  */
-+ (void)captchaRequestWithSuccessBlock: (void(^)(id responseObject))successBlock
+- (void)captchaRequestWithSuccessBlock: (void(^)(id responseObject))successBlock
                        andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 /**
@@ -75,10 +75,10 @@
 
 
 /**
- * 发送短信的接口
+ * 校验手机号
  * @param mobile    用户名
  */
 + (void)checkMobileRequestWithMobile: (NSString *)mobile
-                     andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
+                     andSuccessBlock: (void(^)(BOOL isExist))successBlock
                      andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end
