@@ -177,7 +177,7 @@
 {
     if (!_afterLoginView) {
         _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 105)];
-        //       _afterLoginView.hidden  = YES;
+//               _afterLoginView.hidden  = YES;
     }
     return _afterLoginView;
 }
@@ -201,6 +201,9 @@
         bannerModel.picUrl = @"http://dl.bizhi.sogou.com/images/2012/03/14/124196.jpg";
         bannerModel.linkUrl = @"http://blog.csdn.net/lkxasdfg/article/details/8660827";
         _bannerView.bannersModel = @[bannerModel,bannerModel,bannerModel,bannerModel];
+        [_bannerView clickBannerImageWithBlock:^(BannerModel *model) {
+            NSLog(@"%@%@",model.picUrl,model.title);
+        }];
     }
     return _bannerView;
 }

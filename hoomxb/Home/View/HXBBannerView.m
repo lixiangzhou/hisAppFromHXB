@@ -132,6 +132,7 @@
                 self.setUPImageViewTitleBlock(titleLabel);
             }else {
                 titleLabel.frame = CGRectMake(0, _imageHeight - kImageViewTitleLabelH, _imageWidth, kImageViewTitleLabelH);
+                [_bannerimageView addSubview:titleLabel];
             }
         }
         
