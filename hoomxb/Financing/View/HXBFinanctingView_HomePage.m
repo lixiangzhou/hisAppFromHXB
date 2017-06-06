@@ -76,7 +76,7 @@
     self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表"];
     
     
-//设置toolBarView
+//设置toolBarVie
     [self setupToolBarView];
     
 //搭建底部的ScrollView

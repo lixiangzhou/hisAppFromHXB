@@ -18,11 +18,11 @@
 }
 
 - (NSString *)requestUrl {
-    return @"/financeplan/financeplandetail.action";
+    return [NSString stringWithFormat:@"/plan/%ld",self.planID];
 }
 
 - (NYRequestMethod)requestMethod {
-    return NYRequestMethodPost;
+    return NYRequestMethodGet;
 }
 
 //- (id)requestArgument {

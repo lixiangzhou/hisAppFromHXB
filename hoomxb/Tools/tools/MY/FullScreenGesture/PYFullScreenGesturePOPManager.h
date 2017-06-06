@@ -18,5 +18,4 @@ typedef enum : NSUInteger {
 @interface PYFullScreenGesturePOPManager : NSObject
 /// 自定转场动画 实现的全屏手势
 - (instancetype)initWithViewController:(UINavigationController <UIGestureRecognizerDelegate> *)navigationController andTransitionanimationType: (PYFullScreenGestureManager_TransitionanimationType) type;
-
 @end

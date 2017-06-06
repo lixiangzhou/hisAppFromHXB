@@ -9,14 +9,6 @@
 #import "HXBFinancing_LoanDetileAPI.h"
 ///192.168.1.21:8070/lend/loandetail
 @implementation HXBFinancing_LoanDetileAPI
-- (id)init
-{
-    self = [super init];
-    if (self) {
-    }
-    return self;
-}
-
 
 - (NYRequestMethod)requestMethod {
     return NYRequestMethodGet;

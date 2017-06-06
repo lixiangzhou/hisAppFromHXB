@@ -13,14 +13,18 @@
 #import "BannerModel.h"
 #import <UIImageView+WebCache.h>
 
+#define kImageViewTitleLabelH 25
+
 @interface HXBBannerView ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIPageControl *pageControl;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) UIImageView *bannerimageView;
-
-
+/// 点击banner的回调
+@property (nonatomic, copy) void(^clickBannerImageBlock)();
+///对于imageView里面的Label的设置
+@property (nonatomic,copy) void(^setUPImageViewTitleBlock)(UILabel *label);
 @end
 
 @implementation HXBBannerView
@@ -116,6 +120,16 @@
             imgUrl = [NSURL URLWithString:[_bannersModel[i - 1].picUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }
         [_bannerimageView sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"bannerplaceholder"]];
+        NSString *title = self.bannersModel[i].title;
+        if (title.length) {
+            UILabel *titleLabel = [[UILabel alloc]init];
+            titleLabel.text = title;
+            if (self.setUPImageViewTitleBlock) {
+                self.setUPImageViewTitleBlock(titleLabel);
+            }else {
+                titleLabel.frame = CGRectMake(0, _imageHeight - kImageViewTitleLabelH, _imageWidth, kImageViewTitleLabelH);
+            }
+        }
         
         [self.scrollView addSubview:_bannerimageView];
     }
@@ -124,7 +138,6 @@
     self.pageControl.currentPage = 0;
     
     [self beginScrollAnimation];
-
 }
 
 //切换图片操作
@@ -163,7 +176,7 @@
     }
 }
 
-//开始进行
+///开始进行
 - (void)beginScrollAnimation
 {
     [self.timer invalidate];
@@ -171,48 +184,25 @@
     [[NSRunLoop currentRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
-//点击banner图片
-- (void)bannerClickWithModel    // model click
-{
-//    if (_pageIndex > _bannersModel.count-1 || !_bannersModel )
-        if ( !_bannersModel )
-    {
-        return;
-    }
+///点击banner图片
+- (void)bannerClickWithModel {
+    if ( !_bannersModel) return;
     
     NSString *urlStr;
     if (_pageIndex > _bannersModel.count -1)
     {
         urlStr = [_bannersModel[_pageIndex - 1] linkUrl]? :@"" ;
-        
-        if (!urlStr.length) {
-            return;
-        }
-        id next = [self nextResponder];
-        while (![next isKindOfClass:[HxbHomeViewController class]]) {
-            next = [next nextResponder];
-        }
-        if ([next isKindOfClass:[HxbHomeViewController class]]) {
-            HxbHomeViewController *vc = (HxbHomeViewController *)next;
-            [vc showBannerWebViewWithModel:_bannersModel[_pageIndex -1]];
-        }
+        ///如果没有url 就返回
+        if (!urlStr.length) return;
+        if (self.clickBannerImageBlock) self.clickBannerImageBlock(_bannersModel[_pageIndex -1]);
     }else{
         urlStr = [_bannersModel[_pageIndex] linkUrl]? :@"" ;
-        
-        if (!urlStr.length) {
-            return;
-        }
-        id next = [self nextResponder];
-        while (![next isKindOfClass:[HxbHomeViewController class]]) {
-            next = [next nextResponder];
-        }
-        if ([next isKindOfClass:[HxbHomeViewController class]]) {
-            HxbHomeViewController *vc = (HxbHomeViewController *)next;
-            [vc showBannerWebViewWithModel:_bannersModel[_pageIndex]];
-        }
+        if (!urlStr.length) return;
+        if (self.clickBannerImageBlock) self.clickBannerImageBlock(_bannersModel[_pageIndex]);
     }
 }
 
+/*
 - (void)bannerClick // url click
 {
     if (_pageIndex > _bannersModel.count-1 || !_bannersModel ) {
@@ -233,7 +223,7 @@
         [vc showBannerWebViewWithURL:finalUrlStr];
     }
 }
-
+*/
 #pragma mark UIScrollView Delegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
@@ -251,8 +241,8 @@
 {
     _bannersModel = bannersModel;
     _imageIndex = _bannersModel.count;
-    [self configScrollView];
-    [self setImageViews];
+    [self configScrollView];//设置scrollview大小及contentsize
+    [self setImageViews];//根据图片数量生成imageview
 }
 
 - (UIScrollView *)scrollView
@@ -281,6 +271,11 @@
     return _pageControl;
 }
 
-
+- (void)setUPImageViewTitleWithBlock:(void (^)(UILabel *))setUPImageViewTitleBlock {
+    self.setUPImageViewTitleBlock = setUPImageViewTitleBlock;
+}
+- (void)clickBannerImageWithBlock: (void(^)(BannerModel *model))clickBannerImageBlock {
+    self.clickBannerImageBlock = clickBannerImageBlock;
+}
 
 @end

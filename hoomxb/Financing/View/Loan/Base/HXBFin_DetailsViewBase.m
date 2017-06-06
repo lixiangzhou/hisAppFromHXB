@@ -242,6 +242,7 @@
     }];
     [self.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
+    self.addButton.backgroundColor = [UIColor blackColor];
 }
 - (void)clickAddButton: (UIButton *)button {
     NSLog(@" - 立即加入 - ");

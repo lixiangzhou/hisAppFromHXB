@@ -70,7 +70,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.isHiddenNavigationBar = false;
     [self setup];
 }
@@ -129,5 +128,4 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
-
 @end

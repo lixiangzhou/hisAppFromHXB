@@ -45,13 +45,17 @@ kDealloc
 #pragma mark - 隐藏导航条
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:animated];
+    self.automaticallyAdjustsScrollViewInsets = self.hxb_automaticallyAdjustsScrollViewInsets;
+    [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:false];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:false];
+}
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.navigationController setNavigationBarHidden:false animated:false];
 }
 
 @end
