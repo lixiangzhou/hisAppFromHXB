@@ -12,6 +12,8 @@
 #import "HXBHomePageLoginIndicationView.h"
 #import "HXBHomePageAfterLoginView.h"
 
+#import "BannerModel.h"
+
 @interface HXBHomePageHeadView () <HXBHomePageBulletinViewDelegate>
 
 @property (nonatomic, strong) HXBHomePageBulletinView *bulletinView;
@@ -194,6 +196,11 @@
     if (!_bannerView) {
         _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_moduleView.frame), SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
         _bannerView.backgroundColor = [UIColor blueColor];
+        BannerModel *bannerModel = [[BannerModel alloc] init];
+        bannerModel.title = @"banner";
+        bannerModel.picUrl = @"http://dl.bizhi.sogou.com/images/2012/03/14/124196.jpg";
+        bannerModel.linkUrl = @"http://blog.csdn.net/lkxasdfg/article/details/8660827";
+        _bannerView.bannersModel = @[bannerModel,bannerModel,bannerModel,bannerModel];
     }
     return _bannerView;
 }

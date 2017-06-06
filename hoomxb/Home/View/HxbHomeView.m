@@ -10,8 +10,6 @@
 #import "HXBHomePageHeadView.h"
 #import "HXBHomePageProductCell.h"
 
-#import "BannerModel.h"
-
 @interface HxbHomeView ()<UITableViewDelegate,UITableViewDataSource,HXBHomePageHeadViewDelegate>
 @property (nonatomic, strong) HXBHomePageHeadView *headView;
 @property (nonatomic, strong) UIView *footerView;
