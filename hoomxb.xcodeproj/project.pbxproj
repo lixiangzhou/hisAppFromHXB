@@ -152,6 +152,7 @@
 		E1318C021EDEBC8D00DF1061 /* HXBCheckMobileAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E1318C011EDEBC8D00DF1061 /* HXBCheckMobileAPI.m */; };
 		E1318C051EDECF7D00DF1061 /* HXBSign_InAndUPViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1318C041EDECF7D00DF1061 /* HXBSign_InAndUPViewModel.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
+		E157A89E1EE6B044002BF6AC /* HXBToolWebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A89D1EE6B044002BF6AC /* HXBToolWebViewViewController.m */; };
 		E15ADF701EE0196800D61818 /* HXBRequestUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E15ADF6B1EE0196800D61818 /* HXBRequestUserInfo.m */; };
 		E15ADF711EE0196800D61818 /* HXBRequestUserInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E15ADF6D1EE0196800D61818 /* HXBRequestUserInfoViewModel.m */; };
 		E15ADF721EE0196800D61818 /* HXBUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E15ADF6F1EE0196800D61818 /* HXBUserInfoModel.m */; };
@@ -555,6 +556,8 @@
 		E1318C041EDECF7D00DF1061 /* HXBSign_InAndUPViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSign_InAndUPViewModel.m; sourceTree = "<group>"; };
 		E157A8941EE67A1F002BF6AC /* HXBToolCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBToolCountDownButton.h; sourceTree = "<group>"; };
 		E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBToolCountDownButton.m; sourceTree = "<group>"; };
+		E157A89C1EE6B044002BF6AC /* HXBToolWebViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBToolWebViewViewController.h; sourceTree = "<group>"; };
+		E157A89D1EE6B044002BF6AC /* HXBToolWebViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBToolWebViewViewController.m; sourceTree = "<group>"; };
 		E15ADF6A1EE0196800D61818 /* HXBRequestUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestUserInfo.h; sourceTree = "<group>"; };
 		E15ADF6B1EE0196800D61818 /* HXBRequestUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRequestUserInfo.m; sourceTree = "<group>"; };
 		E15ADF6C1EE0196800D61818 /* HXBRequestUserInfoViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestUserInfoViewModel.h; sourceTree = "<group>"; };
@@ -1683,6 +1686,23 @@
 			path = CountDownButton;
 			sourceTree = "<group>";
 		};
+		E157A89A1EE6AFF8002BF6AC /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E157A89B1EE6AFF8002BF6AC /* WebViewController */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E157A89B1EE6AFF8002BF6AC /* WebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E157A89C1EE6B044002BF6AC /* HXBToolWebViewViewController.h */,
+				E157A89D1EE6B044002BF6AC /* HXBToolWebViewViewController.m */,
+			);
+			path = WebViewController;
+			sourceTree = "<group>";
+		};
 		E15ADF691EE018DB00D61818 /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -1979,6 +1999,7 @@
 		E1CD4BB41ED83064000CC57B /* MY */ = {
 			isa = PBXGroup;
 			children = (
+				E157A89A1EE6AFF8002BF6AC /* ViewController */,
 				E157A8921EE679FC002BF6AC /* UIView */,
 				E1E588531EE1650E0045C4AE /* TransitioningManager */,
 				E1CD4BD71ED8523D000CC57B /* FullScreenGesture */,
@@ -2727,6 +2748,7 @@
 				4EAD98E11EB86CC70029A3FF /* SignUpModel.m in Sources */,
 				E1E588761EE16BEA0045C4AE /* HxbSignInView.m in Sources */,
 				E1E461851EB9C17A005B1FC6 /* HXBFinancting_PlanListTableViewCell.m in Sources */,
+				E157A89E1EE6B044002BF6AC /* HXBToolWebViewViewController.m in Sources */,
 				E122D8581EA0CAB900DC71ED /* UIScreen+Hxb.m in Sources */,
 				E1C964761EA5E04F0066DBC4 /* HXBBaseViewController.m in Sources */,
 				E1CD4BDA1ED85266000CC57B /* PYFullScreenGesturePOPManager.m in Sources */,

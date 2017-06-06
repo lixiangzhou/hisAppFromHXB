@@ -52,7 +52,7 @@
 }
 
 #pragma mark - WKNavigationDelegate
-//HTTPS 没有证书的话（自建证书）不能加载，所以来开启权限。  注意：对ios8 无效，
+//HTTPS 没有证书的话（自签证书）不能加载，所以来开启权限。  注意：对ios8 无效，
 - (void)webView:(WKWebView *)webView didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential *credential))completionHandler {
     if ([challenge.protectionSpace.authenticationMethod isEqualToString:NSURLAuthenticationMethodServerTrust]) {
         if ([challenge previousFailureCount] == 0) {
