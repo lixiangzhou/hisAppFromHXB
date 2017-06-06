@@ -10,6 +10,7 @@
 @class BannerModel;
 
 @interface HXBBannerView : UIView
+
 ///关于bannersModel array
 @property (nonatomic, strong) NSArray<BannerModel *> *bannersModel;
 
