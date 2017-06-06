@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
 
+///服务器返回的常用字段
+static NSString *const kResponseStatus = @"status";
+///服务器返回的常用字段
+static NSString *const kResponseData = @"data";
+///服务器返回的常用字段
+static NSString *const kResponseMessage = @"message";
+
 @class NYBaseRequest;
 @class NYHTTPConnection;
 

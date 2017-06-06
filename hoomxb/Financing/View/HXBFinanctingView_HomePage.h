@@ -45,7 +45,6 @@
 ///刷新UI
 - (void)loadData;
 
-
 ///MARK: ------------ 定时管理 -----------
 @property (nonatomic,strong) HXBBaseContDownManager *contDwonManager;
 

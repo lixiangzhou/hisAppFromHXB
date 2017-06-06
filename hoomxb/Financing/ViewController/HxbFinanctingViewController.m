@@ -38,8 +38,6 @@
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList*>* finPlanListVMArray;
 //散标列表的数据数组
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList*>* finLoanListVMArray;
-
-
 @end
 
 
@@ -180,25 +178,27 @@
 
 #pragma mark - 网络数据请求
 - (void)planLoadDateWithIsUpData: (BOOL)isUPData {
+    __weak typeof(self)weakSelf = self;
     [self.finantingRequest planBuyListWithIsUpData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray) {
-        self.finPlanListVMArray = viewModelArray;
+        weakSelf.finPlanListVMArray = viewModelArray;
         //结束下拉刷新与上拉刷新
-        self.homePageView.isStopRefresh_Plan = true;
-        self.isFirstLoadNetDataPlan = false;
+        weakSelf.homePageView.isStopRefresh_Plan = true;
+        weakSelf.isFirstLoadNetDataPlan = false;
     } andFailureBlock:^(NSError *error) {
-        self.homePageView.isStopRefresh_Plan = true;
+        weakSelf.homePageView.isStopRefresh_Plan = true;
     }];
 } 
 
 - (void)loanLoadDateWithIsUpData: (BOOL)isUpData {
+    __weak typeof(self)weakSelf = self;
     [self.finantingRequest loanBuyListWithIsUpData:isUpData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_LoanList *> *viewModelArray) {
-        self.finLoanListVMArray = viewModelArray;
+        weakSelf.finLoanListVMArray = viewModelArray;
         //结束下拉刷新与上拉刷新
-        self.homePageView.isStopRefresh_loan = true;
-        self.isFirstLoadNetDataLoan = false;
+        weakSelf.homePageView.isStopRefresh_loan = true;
+        weakSelf.isFirstLoadNetDataLoan = false;
     } andFailureBlock:^(NSError *error) {
         //结束下拉刷新与上拉刷新
-        self.homePageView.isStopRefresh_loan = true;
+        weakSelf.homePageView.isStopRefresh_loan = true;
     }];
 }
 

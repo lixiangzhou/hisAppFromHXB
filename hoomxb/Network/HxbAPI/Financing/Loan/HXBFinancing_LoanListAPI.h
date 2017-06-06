@@ -24,4 +24,6 @@ typedef enum : NSUInteger {
 @interface HXBFinancing_LoanListAPI : NYBaseRequest
 ///是否为上拉刷新
 @property (nonatomic,assign) BOOL isUPData;
+///page 从1 开始，
+@property (nonatomic,assign) NSInteger loanPage;
 @end

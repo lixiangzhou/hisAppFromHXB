@@ -14,6 +14,13 @@ static NSString *const HXBFin_LoanListOrder_DESC = @"DESC";
 @implementation HXBFinancing_LoanListAPI
 //192.168.1.21:3000/lend/loanindex 散标列表 POST   散标list、
 
+- (NSInteger) loanPage {
+    if (!_loanPage) {
+        _loanPage = 1;
+    }
+    return _loanPage;
+}
+
 - (id)init
 {
     self = [super init];
@@ -23,7 +30,7 @@ static NSString *const HXBFin_LoanListOrder_DESC = @"DESC";
 }
 
 - (NSString *)requestUrl {
-    return @"/loan/list";
+    return [NSString stringWithFormat:@"/loan?page=%ld",self.loanPage];
 }
 
 - (NYRequestMethod)requestMethod {

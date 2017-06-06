@@ -63,8 +63,6 @@
 
 #pragma mark Request
 - (void)getData{
-
-
     HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
     NSString *userId = @"2110468";
     [request homeAccountAssetWithUserID:userId andSuccessBlock:^(HxbHomePageViewModel *viewModel) {

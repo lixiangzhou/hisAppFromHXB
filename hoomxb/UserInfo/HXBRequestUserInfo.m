@@ -12,7 +12,7 @@
 
 @implementation HXBRequestUserInfo
 ///数据请求
-- (void) downLoadUserInfoWithSeccessBlock: (void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure:(void(^)(NSError *error))failureBlock {
++ (void) downLoadUserInfoWithSeccessBlock: (void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure:(void(^)(NSError *error))failureBlock {
     HXBRequestUserInfoAPI *userInfoAPI = [[HXBRequestUserInfoAPI alloc]init];
     
     [userInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
@@ -29,6 +29,7 @@
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {
             failureBlock(error);
+            
         }
         kNetWorkError(@"用户请求失败");
     }];

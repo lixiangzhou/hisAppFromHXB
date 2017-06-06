@@ -10,6 +10,14 @@
 
 @implementation HXBFinancing_planListAPI
 //192.168.1.21:8070/financeplan/queryForIndexUplanListNew.action 红利计划列表
+
+- (NSInteger) planPage {
+    if (!_planPage) {
+        _planPage = 1;
+    }
+    return _planPage;
+}
+
 - (id)init
 {
     self = [super init];
@@ -18,12 +26,8 @@
     return self;
 }
 
-//- (NSString *)requestUrl {
-//    return @"/financeplan/financeplanlist.action";
-//}
-
 - (NSString *)requestUrl {
-    return @"/plan";
+    return [NSString stringWithFormat:@"/plan?page=%ld",self.planPage];
 }
 
 - (NYRequestMethod)requestMethod {

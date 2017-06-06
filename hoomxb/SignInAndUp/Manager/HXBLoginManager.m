@@ -76,11 +76,11 @@ andGreaterThan_LoginTotalNumberBlock: (void(^)())GreaterThan_LoginTotalNumberBlo
 ///用户数据的请求
 - (void)userInfo_DownLoadData {
     HXBRequestUserInfo *userInfo_request = [[HXBRequestUserInfo alloc]init];
-    [userInfo_request downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        self.userInfoViewModel = viewModel;
-    } andFailure:^(NSError *error) {
-        NSLog(@"用户数据请求出错");
-    }];
+//    [userInfo_request downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+//        self.userInfoViewModel = viewModel;
+//    } andFailure:^(NSError *error) {
+//        NSLog(@"用户数据请求出错");
+//    }];
 }
 ///图验请求 如果请求成功那么就 执行外部传进来的 block
 - (void)captcha_DownLoadDataWithShowCaptchaBlock:(void(^)(id response))showCaptchaBlock {

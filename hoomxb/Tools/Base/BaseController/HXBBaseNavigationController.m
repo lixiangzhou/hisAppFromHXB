@@ -69,7 +69,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    PYFullScreenGesturePOPManager *popManager = [[PYFullScreenGesturePOPManager alloc]initWithViewController:self andTransitionanimationType:PYFullScreenGestureManager_TransitionanimationType_Custom];
+    PYFullScreenGesturePOPManager *popManager = [[PYFullScreenGesturePOPManager alloc]initWithViewController:self andTransitionanimationType:PYFullScreenGestureManager_TransitionanimationType_Runtime];
     self.popManager = popManager;
 }
 #pragma mark - 里面判断了是否为跟控制器

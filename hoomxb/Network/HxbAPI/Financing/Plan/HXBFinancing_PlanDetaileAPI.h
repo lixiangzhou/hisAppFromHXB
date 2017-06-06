@@ -9,5 +9,6 @@
 #import "NYBaseRequest.h"
 /**红利计划详情页*/
 @interface HXBFinancing_PlanDetaileAPI : NYBaseRequest
-
+///planID 
+@property (nonatomic,assign) NSInteger planID;
 @end

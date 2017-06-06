@@ -101,12 +101,12 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 ///用户数据的请求
 - (void)userInfo_DownLoadData {
     __weak typeof(self)weakSelf = self;
-    HXBRequestUserInfo *userInfo_request = [[HXBRequestUserInfo alloc]init];
-    [userInfo_request downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.userInfoViewModel = viewModel;
-    } andFailure:^(NSError *error) {
-        NSLog(@"用户数据请求出错");
-    }];
+//    HXBRequestUserInfo *userInfo_request = [[HXBRequestUserInfo alloc]init];
+//    [userInfo_request downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+//        weakSelf.userInfoViewModel = viewModel;
+//    } andFailure:^(NSError *error) {
+//        NSLog(@"用户数据请求出错");
+//    }];
 }
 
 ///登录 数据的请求

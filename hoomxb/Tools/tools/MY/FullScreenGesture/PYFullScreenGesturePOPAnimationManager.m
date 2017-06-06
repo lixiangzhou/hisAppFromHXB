@@ -18,7 +18,7 @@
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
     //这个方法返回动画执行的时间 时间不能太长，会产生很多问题
-    return 0.01;
+    return 0.051;
 }
 
 /**
