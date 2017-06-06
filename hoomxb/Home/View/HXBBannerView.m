@@ -280,7 +280,4 @@
     }
     return _pageControl;
 }
-
-
-
 @end
