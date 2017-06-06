@@ -176,7 +176,7 @@
     }
 }
 
-//开始进行
+///开始进行
 - (void)beginScrollAnimation
 {
     [self.timer invalidate];
