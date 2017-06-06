@@ -24,7 +24,6 @@
 #import "HXBBaseScrollToolBarView.h"//关于底部几个scrollView需要左右联动，并且顶部的View可以随着底部的偏移量上下移动，中部有一个toolBarView
 
 
-
 //MARK: NSObject
 #import "HXBBaseHandDate.h"//关于时间处理的类
 #import "HXBServerAndClientTime.h"//与服务器时间协调

@@ -151,6 +151,7 @@
 		E1318BFF1EDEB88B00DF1061 /* HXBSmscodeAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E1318BFE1EDEB88B00DF1061 /* HXBSmscodeAPI.m */; };
 		E1318C021EDEBC8D00DF1061 /* HXBCheckMobileAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E1318C011EDEBC8D00DF1061 /* HXBCheckMobileAPI.m */; };
 		E1318C051EDECF7D00DF1061 /* HXBSign_InAndUPViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1318C041EDECF7D00DF1061 /* HXBSign_InAndUPViewModel.m */; };
+		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
 		E15ADF701EE0196800D61818 /* HXBRequestUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E15ADF6B1EE0196800D61818 /* HXBRequestUserInfo.m */; };
 		E15ADF711EE0196800D61818 /* HXBRequestUserInfoViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E15ADF6D1EE0196800D61818 /* HXBRequestUserInfoViewModel.m */; };
 		E15ADF721EE0196800D61818 /* HXBUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E15ADF6F1EE0196800D61818 /* HXBUserInfoModel.m */; };
@@ -552,6 +553,8 @@
 		E1318C011EDEBC8D00DF1061 /* HXBCheckMobileAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCheckMobileAPI.m; sourceTree = "<group>"; };
 		E1318C031EDECF7D00DF1061 /* HXBSign_InAndUPViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSign_InAndUPViewModel.h; sourceTree = "<group>"; };
 		E1318C041EDECF7D00DF1061 /* HXBSign_InAndUPViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSign_InAndUPViewModel.m; sourceTree = "<group>"; };
+		E157A8941EE67A1F002BF6AC /* HXBToolCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBToolCountDownButton.h; sourceTree = "<group>"; };
+		E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBToolCountDownButton.m; sourceTree = "<group>"; };
 		E15ADF6A1EE0196800D61818 /* HXBRequestUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestUserInfo.h; sourceTree = "<group>"; };
 		E15ADF6B1EE0196800D61818 /* HXBRequestUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRequestUserInfo.m; sourceTree = "<group>"; };
 		E15ADF6C1EE0196800D61818 /* HXBRequestUserInfoViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestUserInfoViewModel.h; sourceTree = "<group>"; };
@@ -1663,6 +1666,23 @@
 			path = Request;
 			sourceTree = "<group>";
 		};
+		E157A8921EE679FC002BF6AC /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				E157A8931EE679FC002BF6AC /* CountDownButton */,
+			);
+			path = UIView;
+			sourceTree = "<group>";
+		};
+		E157A8931EE679FC002BF6AC /* CountDownButton */ = {
+			isa = PBXGroup;
+			children = (
+				E157A8941EE67A1F002BF6AC /* HXBToolCountDownButton.h */,
+				E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */,
+			);
+			path = CountDownButton;
+			sourceTree = "<group>";
+		};
 		E15ADF691EE018DB00D61818 /* UserInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -1959,6 +1979,7 @@
 		E1CD4BB41ED83064000CC57B /* MY */ = {
 			isa = PBXGroup;
 			children = (
+				E157A8921EE679FC002BF6AC /* UIView */,
 				E1E588531EE1650E0045C4AE /* TransitioningManager */,
 				E1CD4BD71ED8523D000CC57B /* FullScreenGesture */,
 				E1CD4BB51ED83064000CC57B /* Advertise */,
@@ -2643,6 +2664,7 @@
 				E1C10A4D1EBC60E500C21984 /* HXBFin_PlanDetailsView.m in Sources */,
 				E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */,
 				E1B0F48D1EC4950A0071246F /* HXBFin_Detail_DetailsVC_Plan.m in Sources */,
+				E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */,
 				E1CB56241ED3E82700D962CA /* HXBMYCapitalRecord_TableView.m in Sources */,
 				4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */,
 				E1E5886A1EE167A80045C4AE /* HxbPhoneVerifyViewController.m in Sources */,

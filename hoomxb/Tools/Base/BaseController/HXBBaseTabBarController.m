@@ -56,7 +56,6 @@
     
     for (int i = 0; i < subViewControllerNameArray.count; i ++) {
         UIViewController *VC = [self ctratSubControllerWithName:subViewControllerNameArray[i]];
-//        VC.view.backgroundColor = [UIColor whiteColor];
         
         //设置字体
         VC.title = titleArray[i];
@@ -66,8 +65,8 @@
         }
         
         //字体的颜色
-        [NAV.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} forState:UIControlStateNormal];
-        [NAV.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor redColor]} forState:UIControlStateSelected];
+        [NAV.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName : self.normalColor} forState:UIControlStateNormal];
+        [NAV.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName : self.selectColor} forState:UIControlStateSelected];
         
         // 设置image 及渲染模式
         UIImage *image = [UIImage imageNamed:imageNameArray[i]];

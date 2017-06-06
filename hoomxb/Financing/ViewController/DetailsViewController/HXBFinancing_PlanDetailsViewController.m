@@ -70,7 +70,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.isHiddenNavigationBar = false;
     [self setup];
 }

@@ -6,6 +6,9 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
+#import "HXBToolCountDownButton.h"///倒计时button
+
+
 #import "HxbFinanctingViewController.h"
 #import "UIScrollView+HXBScrollView.h"//上拉刷新
 #import "HXBFinanctingView_HomePage.h"//最主要的view
@@ -38,6 +41,8 @@
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList*>* finPlanListVMArray;
 //散标列表的数据数组
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList*>* finLoanListVMArray;
+
+@property (nonatomic,strong) HXBToolCountDownButton *countDownButton;
 @end
 
 
@@ -57,7 +62,9 @@
 
 - (void)viewDidLoad {
     self.view.backgroundColor = [UIColor whiteColor];
+    self.countDownButton = [[HXBToolCountDownButton alloc]init];
     
+    [self.countDownButton setValue:@1 forKey:@"selected"];
     // NAV
     self.isHiddenNavigationBar = true;
     //初始化属性
@@ -120,6 +127,8 @@
 }
 - (void)pushPlanDetailsViewControllerWithModel: (HXBFinHomePageViewModel_PlanList *)model {
     HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"红利计划##" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = leftBarButtonItem;
     planDetailsVC.planID = model.planListModel.ID;
     planDetailsVC.isPlan = true;
     planDetailsVC.isFlowChart = true;
@@ -135,6 +144,8 @@
     }];
 }
 - (void)pushLoanListCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanList *)model {
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"散标##" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.navigationItem.backBarButtonItem = leftBarButtonItem;
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
     loanDetailsVC.loanID = model.loanListModel.loanId;
     loanDetailsVC.loanListViewMode = model;

@@ -9,6 +9,7 @@
 #ifndef HxbTools_h
 #define HxbTools_h
 
-#import "HxbHUDProgress.h"
+#import "HxbHUDProgress.h"///HUD
+#import "HXBToolCountDownButton.h"///关于倒计时的button
 
 #endif /* HxbTools_h */
