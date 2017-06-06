@@ -111,16 +111,20 @@
         _bannerimageView.frame = CGRectMake(_imageWidth * i, 0, _imageWidth, _imageHeight);
         NSLog(@"%@",_bannersModel);
         NSURL *imgUrl = nil;
-        // [aString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]
+        //记录索引
+        NSInteger count = 0;
         if (i == 0) {
             imgUrl = [NSURL URLWithString:[_bannersModel[_imageIndex - 1].picUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            count = _imageIndex - 1;
         }else if (i == _imageIndex + 1){
             imgUrl = [NSURL URLWithString:[_bannersModel[0].picUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            count = 0;
         }else{
             imgUrl = [NSURL URLWithString:[_bannersModel[i - 1].picUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            count = i - 1;
         }
         [_bannerimageView sd_setImageWithURL:imgUrl placeholderImage:[UIImage imageNamed:@"bannerplaceholder"]];
-        NSString *title = self.bannersModel[i].title;
+        NSString *title = self.bannersModel[count].title;
         if (title.length) {
             UILabel *titleLabel = [[UILabel alloc]init];
             titleLabel.text = title;
@@ -128,6 +132,7 @@
                 self.setUPImageViewTitleBlock(titleLabel);
             }else {
                 titleLabel.frame = CGRectMake(0, _imageHeight - kImageViewTitleLabelH, _imageWidth, kImageViewTitleLabelH);
+                [_bannerimageView addSubview:titleLabel];
             }
         }
         
