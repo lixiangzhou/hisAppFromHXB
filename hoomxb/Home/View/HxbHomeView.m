@@ -10,8 +10,6 @@
 #import "HXBHomePageHeadView.h"
 #import "HXBHomePageProductCell.h"
 
-#import "BannerModel.h"
-
 @interface HxbHomeView ()<UITableViewDelegate,UITableViewDataSource,HXBHomePageHeadViewDelegate>
 @property (nonatomic, strong) HXBHomePageHeadView *headView;
 @property (nonatomic, strong) UIView *footerView;
@@ -269,11 +267,6 @@
     if (!_bannerView) {
         _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
         _bannerView.backgroundColor = COR1;
-        BannerModel *bannerModel = [[BannerModel alloc] init];
-        bannerModel.title = @"banner";
-        bannerModel.picUrl = @"http://dl.bizhi.sogou.com/images/2012/03/14/124196.jpg";
-        bannerModel.linkUrl = @"http://blog.csdn.net/lkxasdfg/article/details/8660827";
-        _bannerView.bannersModel = @[bannerModel,bannerModel];
     }
     return _bannerView;
 }
