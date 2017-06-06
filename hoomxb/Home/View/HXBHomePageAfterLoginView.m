@@ -9,7 +9,8 @@
 #import "HXBHomePageAfterLoginView.h"
 @interface HXBHomePageAfterLoginView ()
 @property (nonatomic, strong) UILabel *userTitleLabel;
-@property (nonatomic, strong) UILabel *tipLabel;
+//@property (nonatomic, strong) UILabel *tipLabel;
+@property (nonatomic, strong) UIButton *tipButton;
 @property (nonatomic, strong) UILabel *profitLabel;
 @property (nonatomic, strong) UIButton *selectEyeButton;
 @property (nonatomic, strong) NSString *amountString;
@@ -24,7 +25,7 @@
     if (self) {
 //        self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.userTitleLabel];
-        [self addSubview:self.tipLabel];
+        [self addSubview:self.tipButton];
         [self addSubview:self.profitLabel];
         [self addSubview:self.selectEyeButton];
         [self setContentFrame];
@@ -41,11 +42,21 @@
         make.height.equalTo(@11);
     }];
     
-    [_tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self);
+//    [_tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self);
+//        make.bottom.equalTo(self).offset(-10);
+//        make.right.equalTo(self);
+//        make.height.equalTo(@25);
+//    }];
+    
+    [_tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).offset(-10);
-        make.right.equalTo(self);
-        make.height.equalTo(@25);
+        make.centerX.equalTo(self);
+        make.size.mas_equalTo(CGSizeMake(170, 25));
+//        make.right.equalTo(self);
+//        make.left.equalTo(self);
+//        make.height.equalTo(@25);
+//        make.width.equalTo(@90);
     }];
     
     [_selectEyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,7 +70,8 @@
 {
     UIButton *button = (UIButton*)sender;
     button.selected = !button.selected;
-    NSString * oldStr = _tipLabel.text;
+    NSString * oldStr = _tipButton.titleLabel.text;
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (!sender.selected) {
 //        _profitLabel.text = [NSString stringWithFormat:@"%.2f",[_profitModel.currentProfit doubleValue]];
@@ -70,8 +82,8 @@
     
         [defaults setBool:YES forKey:@"hideProfit"];
         [defaults synchronize];
-        NSString *string = [_tipLabel.text substringWithRange:NSMakeRange(0,oldStr.length)];
-        _tipLabel.text = [oldStr stringByReplacingOccurrencesOfString:string withString:@"****"];
+        NSString *string = [_tipButton.titleLabel.text substringWithRange:NSMakeRange(0,oldStr.length)];
+        _tipButton.titleLabel.text = [oldStr stringByReplacingOccurrencesOfString:string withString:@"****"];
         //字符串的替换
         //        for (int i=0; i<oldStr.length; i++) {
         //            NSString * hideString = @"*";
@@ -88,7 +100,7 @@
 - (void)setAmountString:(NSString *)amountString{
     _amountString = amountString;
     if (_amountString.length != 0) {
-    _tipLabel.text = amountString;
+    _tipButton.titleLabel.text = amountString;
     }
 }
 
@@ -102,7 +114,7 @@
 
 - (void)setTipString:(NSString *)tipString{
     _tipString = tipString;
-    _tipLabel.text = tipString;
+    [_tipButton setTitle:tipString forState:UIControlStateNormal];
 }
 
 - (UILabel *)userTitleLabel{
@@ -116,14 +128,27 @@
     return _userTitleLabel;
 }
 
-- (UILabel *)tipLabel{
-    if (!_tipLabel) {
-        _tipLabel = [[UILabel alloc]init];
-        _tipLabel.textColor = COR7;
-        _tipLabel.font = HXB_Text_Font(22);
-        _tipLabel.textAlignment = NSTextAlignmentCenter;
+//- (UILabel *)tipLabel{
+//    if (!_tipLabel) {
+//        _tipLabel = [[UILabel alloc]init];
+//        _tipLabel.textColor = COR7;
+//        _tipLabel.font = HXB_Text_Font(22);
+//        _tipLabel.textAlignment = NSTextAlignmentCenter;
+//    }
+//    return _tipLabel;
+//}
+
+- (UIButton *)tipButton
+{
+    if (!_tipButton) {
+        _tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_tipButton setTitleColor:COR7 forState:UIControlStateNormal];
+        _tipButton.titleLabel.font =  [UIFont systemFontOfSize:kScrAdaptationH(18)];
+        _tipButton.layer.borderWidth = 1.0f;
+        _tipButton.layer.borderColor = COR1.CGColor;
+        _tipButton.backgroundColor = [UIColor whiteColor];
     }
-    return _tipLabel;
+    return _tipButton;
 }
 
 - (UILabel *)profitLabel{

@@ -112,6 +112,7 @@
 }
 
 #pragma mark UITableView Delegate/DataSource
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 //    if (_network) {
@@ -119,7 +120,7 @@
 //    }else
 //    {
 //    NSLog(@"%lu",(unsigned long)_homeDataListViewModelArray.count);
-        return _homeDataListViewModelArray.count;
+        return 1;
 //    }
 }
 

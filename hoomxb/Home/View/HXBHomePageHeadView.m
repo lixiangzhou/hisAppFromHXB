@@ -94,7 +94,8 @@
 }
 
 - (void)hideLoginIndicationView
-{    self.afterLoginView.hidden = NO;
+{
+    self.afterLoginView.hidden = NO;
     if (self.indicationView.hidden) {
         return;
     }
@@ -128,7 +129,7 @@
     if ( [KeyChain isLogin] && [KeyChain isVerify]) {
        self.afterLoginView.tipString = @"已安全认证，立即投资啦！";
     }else{
-       self.afterLoginView.tipString = @"还没有，安全认证";
+       self.afterLoginView.tipString = @"安全认证";
     }
     if ([KeyChain isVerify] && [KeyChain isInvest]) {
         
@@ -192,6 +193,7 @@
 {
     if (!_bannerView) {
         _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_moduleView.frame), SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
+        _bannerView.backgroundColor = [UIColor blueColor];
     }
     return _bannerView;
 }
