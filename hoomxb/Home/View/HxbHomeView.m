@@ -273,7 +273,8 @@
         bannerModel.title = @"banner";
         bannerModel.picUrl = @"http://dl.bizhi.sogou.com/images/2012/03/14/124196.jpg";
         bannerModel.linkUrl = @"http://blog.csdn.net/lkxasdfg/article/details/8660827";
-        _bannerView.bannersModel = @[bannerModel,bannerModel];
+    
+        _bannerView.bannersModel = @[bannerModel,bannerModel,bannerModel];
     }
     return _bannerView;
 }
