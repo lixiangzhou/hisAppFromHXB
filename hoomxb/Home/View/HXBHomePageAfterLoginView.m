@@ -35,7 +35,7 @@
 }
 
 - (void)setContentFrame{
-    [_userTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.userTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
         make.top.equalTo(self).offset(HxbMarginBig + 10);
         make.right.equalTo(self);
@@ -49,17 +49,17 @@
 //        make.height.equalTo(@25);
 //    }];
     
-    [_tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).offset(-10);
         make.centerX.equalTo(self);
-        make.size.mas_equalTo(CGSizeMake(170, 25));
+        make.size.mas_equalTo(CGSizeMake(kScrAdaptationH(170), 25));
 //        make.right.equalTo(self);
 //        make.left.equalTo(self);
 //        make.height.equalTo(@25);
 //        make.width.equalTo(@90);
     }];
     
-    [_selectEyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.selectEyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(-8);
         make.centerY.equalTo(self);
         make.size.mas_equalTo(CGSizeMake(40, 40));
@@ -93,8 +93,15 @@
 }
 
 - (void)loadData{
-    NSString *userName = @"hxb0001";
-   _userTitleLabel.text = [NSString stringWithFormat:@"您好，%@",userName];
+    NSString *userName = @"5层安全防护保护资金安全";
+//   _userTitleLabel.text = [NSString stringWithFormat:@"您好，%@",userName];
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:userName];
+    // 设置字体和设置字体的范围
+    [attrStr addAttribute:NSFontAttributeName
+                    value:[UIFont systemFontOfSize:30.0f]
+                    range:NSMakeRange(0, 1)];
+    _userTitleLabel.attributedText = attrStr;
+    
 }
 
 - (void)setAmountString:(NSString *)amountString{
@@ -114,6 +121,7 @@
 
 - (void)setTipString:(NSString *)tipString{
     _tipString = tipString;
+
     [_tipButton setTitle:tipString forState:UIControlStateNormal];
 }
 
@@ -121,10 +129,9 @@
     if (!_userTitleLabel) {
         _userTitleLabel = [[UILabel alloc]init];
         _userTitleLabel.textColor = COR10;
-        _userTitleLabel.font = HXB_Text_Font(SIZ16);
+        _userTitleLabel.font = HXB_Text_Font(SIZ17);
         _userTitleLabel.textAlignment = NSTextAlignmentCenter;
     }
-    
     return _userTitleLabel;
 }
 
@@ -143,9 +150,9 @@
     if (!_tipButton) {
         _tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_tipButton setTitleColor:COR7 forState:UIControlStateNormal];
-        _tipButton.titleLabel.font =  [UIFont systemFontOfSize:kScrAdaptationH(18)];
+        _tipButton.titleLabel.font =  [UIFont systemFontOfSize:14];
         _tipButton.layer.borderWidth = 1.0f;
-        _tipButton.layer.borderColor = COR1.CGColor;
+        _tipButton.layer.borderColor = COR10.CGColor;
         _tipButton.backgroundColor = [UIColor whiteColor];
     }
     return _tipButton;

@@ -8,18 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol HXBHomePageBulletinViewDelegate <NSObject>
-
-@optional
-
-- (void)closeButtonView;
-
-@end
+//@protocol HXBHomePageBulletinViewDelegate <NSObject>
+//
+//@optional
+//
+//- (void)closeButtonView;
+//
+//@end
 
 @interface HXBHomePageBulletinView : UIView
 
 @property (nonatomic, strong) NSArray *bulletinsModel;
 
-@property (nonatomic, weak) id <HXBHomePageBulletinViewDelegate> delegete;
+//@property (nonatomic, weak) id <HXBHomePageBulletinViewDelegate> delegete;
 
 @end

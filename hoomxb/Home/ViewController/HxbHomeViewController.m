@@ -28,8 +28,20 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     //    [self getBannersWithCompletion:^{}];
     
+    [self registerRefresh];
+    
 }
 
+/**
+ 下拉加载数据
+ */
+- (void)registerRefresh{
+    kWeakSelf
+    self.homeView.homeRefreshHeaderBlock = ^(){
+        NSLog(@"首页下来加载数据");
+        weakSelf.homeView.isStopRefresh_Home = YES;
+    };
+}
 //- (void)pushToAd {
 //    HxbAdvertiseViewController *adVc = [[HxbAdvertiseViewController alloc] init];
 //    [self.navigationController pushViewController:adVc animated:YES];
@@ -204,6 +216,13 @@
 - (HxbHomeView *)homeView{
     if (!_homeView) {
         _homeView = [[HxbHomeView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        
+        /**
+         点击cell中按钮的回调的Block
+         */
+        _homeView.purchaseButtonClickBlock = ^(){
+            NSLog(@"点击cell中按钮的回调的Block");
+        };
     }
     return _homeView;
 }

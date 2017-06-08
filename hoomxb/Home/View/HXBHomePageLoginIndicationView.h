@@ -10,5 +10,9 @@
 
 @interface HXBHomePageLoginIndicationView : UIView
 
+/**
+ 假的模型数据（需要调整）
+ */
+@property (nonatomic, copy) NSString *modle;
 
 @end
