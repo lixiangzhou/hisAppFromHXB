@@ -25,6 +25,7 @@ UITableViewDataSource
     [super viewDidLoad];
     self.title = @"账户信息";
     [self.view addSubview:self.tableView];
+    self.hxb_automaticallyAdjustsScrollViewInsets = true;
 }
 
 #pragma TableViewDelegate

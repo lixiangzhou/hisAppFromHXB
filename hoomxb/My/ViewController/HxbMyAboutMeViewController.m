@@ -23,6 +23,7 @@ UITableViewDelegate,UITableViewDataSource
     [super viewDidLoad];
     self.title = @"关于我们";
     [self.view addSubview:self.tableView];
+    self.hxb_automaticallyAdjustsScrollViewInsets = true;
 }
 
 #pragma TableViewDelegate

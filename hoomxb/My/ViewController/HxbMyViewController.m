@@ -24,7 +24,7 @@
     self.imageName = @"1";
     //防止跳转的时候，tableView向上或者向下移动
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
+        self.automaticallyAdjustsScrollViewInsets = true;
     };
     //登录的测试
 
