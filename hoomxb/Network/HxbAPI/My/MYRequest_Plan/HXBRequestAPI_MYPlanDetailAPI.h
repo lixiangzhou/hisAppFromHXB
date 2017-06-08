@@ -9,5 +9,5 @@
 #import "NYBaseRequest.h"
 /// 我的界面 红利计划详情 接口
 @interface HXBRequestAPI_MYPlanDetailAPI : NYBaseRequest
-
+@property (nonatomic, copy) NSString *planID;
 @end

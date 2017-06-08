@@ -7,6 +7,21 @@
 //
 
 #import <Foundation/Foundation.h>
+/**交易记录筛选条件*/
+typedef enum : NSUInteger {
+    ///充值
+    HXBRequestType_MY_tradlist_TopUp,
+    ///提现
+    HXBRequestType_MY_tradlist_WithdrawCash,
+    ///散标债权
+    HXBRequestType_MY_tradlist_Loan,
+    ///红利计划
+    HXBRequestType_MY_tradlist_Plan
+} HXBRequestType_MY_tradlist;
+
+
+
+
 static NSString *const MY_PlanRequestType_HOLD_PLAN = @"HOLD_PLAN";
 static NSString *const MY_PlanRequestType_HOLD_PLAN_UI = @"等待计息";
 static NSString *const MY_PlanRequestType_EXITING_PLAN = @"EXITING_PLAN";
@@ -30,11 +45,11 @@ static NSString *const MY_PlanResponsType_PURCHASEING_Plan = @"PURCHASEING";
 */
 typedef enum : NSUInteger {
     ///持有中
-    HXBRequestType_MY_PlanRequestType_HOLD_PLAN,
+    HXBRequestType_MY_PlanRequestType_HOLD_PLAN = 1,
     ///EXITING_PLAN（退出中）
-    HXBRequestType_MY_PlanRequestType_EXITING_PLAN,
+    HXBRequestType_MY_PlanRequestType_EXITING_PLAN = 2,
     /// EXIT_PLAN（已退出）
-    HXBRequestType_MY_PlanRequestType_EXIT_PLAN,
+    HXBRequestType_MY_PlanRequestType_EXIT_PLAN = 3,
 } HXBRequestType_MY_PlanRequestType;
 
 //MARK: 红利计划response
@@ -95,8 +110,12 @@ typedef enum : NSInteger{
 }HXBRequestType_MY_LoanResponsType;
 
 
+
+
+
 ///关于请求的一些枚举值的处理
 @interface HXBRequestType_MYManager : NSObject
+
 #pragma mark - 账户内 红利 计划 枚举
 
 /// 根据枚举值返回对应的请求参数字符串 ———— 我的红利计划主界面

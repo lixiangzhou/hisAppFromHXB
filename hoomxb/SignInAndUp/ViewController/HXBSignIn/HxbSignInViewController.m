@@ -29,6 +29,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 @property (nonatomic,strong) NSNumber *reuqestSignINNumber;
 ///用户的基本信息的ViewModel
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+
 @end
 
 @implementation HxbSignInViewController
@@ -50,6 +51,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     [self registerSignViewEvent];///signView事件注册
     [self registerCheckMobileEvent];///请求手机号是否存在
     [self registerSignUPEvent];///注册 点击signUP事件
+    [self registerClickforgetPasswordButton];///忘记密码
 }
 
 /// 设置 登录界面
@@ -63,13 +65,19 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 ///点击了登录按钮
 - (void)registerSignViewEvent {
     kWeakSelf
-    [self.signView signIN_ClickButtonFunc:^(NSString *pasword) {
-        [weakSelf userInfo_DownLoadData];//请求用户信息
+    [self.signView signIN_ClickButtonFunc:^(NSString *pasword, NSString *mobile) {
+        
+        //[weakSelf userInfo_DownLoadData];//请求用户信息
         if ([weakSelf.reuqestSignINNumber integerValue] > 3) {//如果大于三次了
             
         }
         //用户登录请求
-        
+        [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:pasword andCaptcha:nil andSuccessBlock:^(BOOL isSuccess) {
+            NSLog(@"登录成功");
+            [weakSelf dismiss];
+        } andFailureBlock:^(NSError *error) {
+            
+        }];
         
     }];
 }
@@ -87,15 +95,25 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     }];
 }
 
-///注册 点击注册事件
+#pragma mark - 注册 点击注册事件
 - (void)registerSignUPEvent {
     kWeakSelf
     [self.signView signUP_clickButtonFunc:^{
         HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
+        signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;
         [weakSelf.navigationController pushViewController:signUPVC animated:true];
     }];
 }
 
+///点击了忘记密码按钮
+- (void)registerClickforgetPasswordButton {
+    kWeakSelf
+    [self.signView clickforgetPasswordButtonFunc:^{
+        HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc] init];
+        signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
+        [weakSelf.navigationController pushViewController:signUPVC animated:true];
+    }];
+}
 
 #pragma mark - 数据的请求
 ///用户数据的请求

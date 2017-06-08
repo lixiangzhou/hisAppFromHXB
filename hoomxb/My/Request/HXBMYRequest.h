@@ -43,7 +43,7 @@
                    andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 /// 资金记录 接口
-- (void)capitalRecord_requestWithScreenType: (NSString *)screenType
+- (void)capitalRecord_requestWithScreenType: (HXBRequestType_MY_tradlist)screenType
                                andStartDate: (NSString *)startDate
                                  andEndDate: (NSString *)endDate
                                 andIsUPData: (BOOL)isUPData 

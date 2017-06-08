@@ -162,24 +162,28 @@
                    andFailureBlock: (void(^)(NSError *error))failureBlock {
     
     HXBRequstAPI_MYMainPlanAPI *mainPlanAPI = [[HXBRequstAPI_MYMainPlanAPI alloc]init];
-    static NSString *typeArgument = nil;
-    [HXBRequestType_MYManager myPlan_requestType:planRequestType andTypeBlock:^(NSString *typeUI, NSString *type) {
-        typeArgument = type;
-    }];
-    NSString *pageNumberStr = @([self getRequestPageWithType:planRequestType andIsUPData:isUPData]).description;
-    
-    NSString *userIDStr = [KeyChainManage sharedInstance].userId;
-    if (!userIDStr.length) {
-        NSLog(@"%@, - 没有userID 使用了测试 的userID ： 2458528", self.class);
-        userIDStr = @"2458528";
+
+    NSString *pageNumberStr = @(planRequestType).description;
+    NSInteger page = 0;
+    switch (planRequestType) {
+        case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
+            page = self.exitPage;
+            break;
+        case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:
+            page = self.holdPlanPage;
+            break;
+        case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:
+            page = self.exitingPage;
+            break;
+        default:
+            break;
     }
     
     mainPlanAPI.requestArgument = @{
-                                    @"type" : typeArgument,
-                                    @"pageNumber" : pageNumberStr,
-                                    @"pageSize" : @20,
-                                    @"userId" : userIDStr
+                                    @"filter" : pageNumberStr,
+                                    @"page" :	@(page).description
                                     };
+   
     mainPlanAPI.isUPData = isUPData;
     
     [mainPlanAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
@@ -407,7 +411,7 @@
 
 
 #pragma mark - 资金记录 接口
-- (void)capitalRecord_requestWithScreenType: (NSString *)screenType
+- (void)capitalRecord_requestWithScreenType: (HXBRequestType_MY_tradlist)screenType
                                andStartDate: (NSString *)startDate
                                 andEndDate: (NSString *)endDate
                                andIsUPData: (BOOL)isUPData 
@@ -420,29 +424,15 @@
     //页数
     NSString *pageSTR = @(self.capitalRecordPage).description;
     
-    NSString *userID = [KeyChainManage sharedInstance].userId;
-    if (!userID.length) userID = @"2458528";
-    
-    if (!startDate.length) {
-        startDate = @"2017-01-01";
-    }
-    if (!endDate.length) endDate = @"2017-12-31";
-    capitalRecordAPI.requestArgument = @{
-                                      @"userId" : userID,//用户id
-                             @"pointParentType" : screenType,//用英文 资金记录查询类型
-                                    @"startDay" : startDate,//查询开始时间
-                                      @"endDay" : endDate,//结束时间
-                                       @"start" : pageSTR,//页数
-                                         @"num" : @"10",//每页的data数
-                                  @"pageNumber" : pageSTR,//页数
-                                    @"pageSize" : @"10"
-                                         };
     capitalRecordAPI.isUPData = isUPData;
+    capitalRecordAPI.page = pageSTR;
+    capitalRecordAPI.filter = screenType;
+//    capitalRecordAPI.planID = @(planid)
     
     [capitalRecordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         HXBRequestAPI_MYMainCapitalRecordAPI *api = (HXBRequestAPI_MYMainCapitalRecordAPI *)request;
         NSDictionary *data = [responseObject valueForKey:@"data"];
-        NSArray <NSDictionary *>*dataList = [data valueForKey:@"pointLog_list"];
+        NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
         
         NSMutableArray <HXBMYViewModel_MainCapitalRecordViewModel *>* viewModelArray = [[NSMutableArray alloc]init];
         [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

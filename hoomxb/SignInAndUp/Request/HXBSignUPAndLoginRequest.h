@@ -7,6 +7,11 @@
 //
 
 #import "NYBaseRequest.h"
+#import "HXBSignUPAndLoginRequest_EnumManager.h"//枚举管理类
+
+
+
+
 ///登录注册相关地 一些请求都在这里了
 /// 图形验证码， 教研图片验证码， 注册，登录
 @interface HXBSignUPAndLoginRequest : NSObject
@@ -68,7 +73,7 @@
  * @param captcha 	校验图片二维码 的数字
  */
 + (void)smscodeRequestWithMobile: (NSString *)mobile
-                       andAction: (NSString *)action
+                       andAction: (HXBSignUPAndLoginRequest_sendSmscodeType)action
                       andCaptcha: (NSString *)captcha
                  andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
                  andFailureBlock: (void(^)(NSError *error))failureBlock;
@@ -81,4 +86,17 @@
 + (void)checkMobileRequestWithMobile: (NSString *)mobile
                      andSuccessBlock: (void(^)(BOOL isExist))successBlock
                      andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+
+/**
+ * 安全认证
+ * @param userName 用户名
+ * @param identityCard 身份证
+ * @param password 交易密码
+ */
++ (void)realnameRequestWithUserName: (NSString *)userName
+                    andIdentityCard: (NSString *)identityCard
+                        andPassword: (NSString *)password
+                    andSuccessBlock: (void(^)(BOOL isExist))successBlock
+                    andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end

@@ -101,6 +101,11 @@
 		E11262371EC5A9200084A22D /* HXBFinModel_AddRecortdModel_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E11262361EC5A9200084A22D /* HXBFinModel_AddRecortdModel_Plan.m */; };
 		E112623A1EC5A9290084A22D /* FinModel_AddRecortdModel_Loan.m in Sources */ = {isa = PBXBuildFile; fileRef = E11262391EC5A9290084A22D /* FinModel_AddRecortdModel_Loan.m */; };
 		E112623D1EC5AAE70084A22D /* HXBFinancing_PlanAddRecortdAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E112623C1EC5AAE70084A22D /* HXBFinancing_PlanAddRecortdAPI.m */; };
+		E11F7A4C1EE7AD0800E3EC74 /* HXBFinHomePageViewModel_PlanList.m in Sources */ = {isa = PBXBuildFile; fileRef = E16314301EC0761C0090567E /* HXBFinHomePageViewModel_PlanList.m */; };
+		E11F7A4F1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E11F7A4E1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.m */; };
+		E11F7A5A1EE7D23500E3EC74 /* HXBSignUPRealnameView.m in Sources */ = {isa = PBXBuildFile; fileRef = E11F7A591EE7D23500E3EC74 /* HXBSignUPRealnameView.m */; };
+		E11F7A5E1EE7D2AB00E3EC74 /* HXBSignUPRealnameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E11F7A5D1EE7D2AB00E3EC74 /* HXBSignUPRealnameViewController.m */; };
+		E11F7A611EE7ECC700E3EC74 /* HXBRealnameAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E11F7A601EE7ECC700E3EC74 /* HXBRealnameAPI.m */; };
 		E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8191EA0CAB900DC71ED /* NSArray+HxbLog.m */; };
 		E122D84D1EA0CAB900DC71ED /* NSObject+Hxb.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D81B1EA0CAB900DC71ED /* NSObject+Hxb.m */; };
 		E122D84E1EA0CAB900DC71ED /* NSObject+HxbRunTime.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D81D1EA0CAB900DC71ED /* NSObject+HxbRunTime.m */; };
@@ -213,6 +218,8 @@
 		E1CD4BD61ED83156000CC57B /* HXBBaseAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BB91ED83064000CC57B /* HXBBaseAdvertiseViewController.m */; };
 		E1CD4BDA1ED85266000CC57B /* PYFullScreenGesturePOPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BD91ED85266000CC57B /* PYFullScreenGesturePOPManager.m */; };
 		E1CD4BDD1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BDC1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m */; };
+		E1D048401EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0483F1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.m */; };
+		E1D048451EE8F637002A4E28 /* UIView+HXBFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D048441EE8F637002A4E28 /* UIView+HXBFrame.m */; };
 		E1D2CA631EAB4F26000099C7 /* HxbFinanctingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D2CA621EAB4F26000099C7 /* HxbFinanctingViewController.m */; };
 		E1D3D0D21ED6B526003F1DBA /* HXBAdvertisementManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D0D11ED6B526003F1DBA /* HXBAdvertisementManager.m */; };
 		E1D7883E1EC32AE000566AC1 /* HXBFinancting_LoanListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FDF6291EC329F100FF98AC /* HXBFinancting_LoanListTableView.m */; };
@@ -450,6 +457,14 @@
 		E11262391EC5A9290084A22D /* FinModel_AddRecortdModel_Loan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinModel_AddRecortdModel_Loan.m; sourceTree = "<group>"; };
 		E112623B1EC5AAE70084A22D /* HXBFinancing_PlanAddRecortdAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancing_PlanAddRecortdAPI.h; sourceTree = "<group>"; };
 		E112623C1EC5AAE70084A22D /* HXBFinancing_PlanAddRecortdAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancing_PlanAddRecortdAPI.m; sourceTree = "<group>"; };
+		E11F7A4D1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPAndLoginRequest_EnumManager.h; sourceTree = "<group>"; };
+		E11F7A4E1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSignUPAndLoginRequest_EnumManager.m; sourceTree = "<group>"; };
+		E11F7A581EE7D23500E3EC74 /* HXBSignUPRealnameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPRealnameView.h; sourceTree = "<group>"; };
+		E11F7A591EE7D23500E3EC74 /* HXBSignUPRealnameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSignUPRealnameView.m; sourceTree = "<group>"; };
+		E11F7A5C1EE7D2AB00E3EC74 /* HXBSignUPRealnameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPRealnameViewController.h; sourceTree = "<group>"; };
+		E11F7A5D1EE7D2AB00E3EC74 /* HXBSignUPRealnameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSignUPRealnameViewController.m; sourceTree = "<group>"; };
+		E11F7A5F1EE7ECC700E3EC74 /* HXBRealnameAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRealnameAPI.h; sourceTree = "<group>"; };
+		E11F7A601EE7ECC700E3EC74 /* HXBRealnameAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRealnameAPI.m; sourceTree = "<group>"; };
 		E122D8181EA0CAB900DC71ED /* NSArray+HxbLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+HxbLog.h"; sourceTree = "<group>"; };
 		E122D8191EA0CAB900DC71ED /* NSArray+HxbLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+HxbLog.m"; sourceTree = "<group>"; };
 		E122D81A1EA0CAB900DC71ED /* NSObject+Hxb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Hxb.h"; sourceTree = "<group>"; };
@@ -682,6 +697,10 @@
 		E1CD4BD91ED85266000CC57B /* PYFullScreenGesturePOPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYFullScreenGesturePOPManager.m; sourceTree = "<group>"; };
 		E1CD4BDB1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYFullScreenGesturePOPAnimationManager.h; sourceTree = "<group>"; };
 		E1CD4BDC1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYFullScreenGesturePOPAnimationManager.m; sourceTree = "<group>"; };
+		E1D0483E1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestAPI_MYAccountSafety.h; sourceTree = "<group>"; };
+		E1D0483F1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRequestAPI_MYAccountSafety.m; sourceTree = "<group>"; };
+		E1D048431EE8F637002A4E28 /* UIView+HXBFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HXBFrame.h"; sourceTree = "<group>"; };
+		E1D048441EE8F637002A4E28 /* UIView+HXBFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HXBFrame.m"; sourceTree = "<group>"; };
 		E1D2CA611EAB4F26000099C7 /* HxbFinanctingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbFinanctingViewController.h; sourceTree = "<group>"; };
 		E1D2CA621EAB4F26000099C7 /* HxbFinanctingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbFinanctingViewController.m; sourceTree = "<group>"; };
 		E1D3D0D01ED6B526003F1DBA /* HXBAdvertisementManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAdvertisementManager.h; sourceTree = "<group>"; };
@@ -1372,6 +1391,24 @@
 			path = FinModel_AddRecortdModel;
 			sourceTree = "<group>";
 		};
+		E11F7A571EE7D23500E3EC74 /* SignUPRealnameView */ = {
+			isa = PBXGroup;
+			children = (
+				E11F7A581EE7D23500E3EC74 /* HXBSignUPRealnameView.h */,
+				E11F7A591EE7D23500E3EC74 /* HXBSignUPRealnameView.m */,
+			);
+			path = SignUPRealnameView;
+			sourceTree = "<group>";
+		};
+		E11F7A5B1EE7D29600E3EC74 /* HXBSignUPRealnameViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E11F7A5C1EE7D2AB00E3EC74 /* HXBSignUPRealnameViewController.h */,
+				E11F7A5D1EE7D2AB00E3EC74 /* HXBSignUPRealnameViewController.m */,
+			);
+			path = HXBSignUPRealnameViewController;
+			sourceTree = "<group>";
+		};
 		E122D8081EA0CAB900DC71ED /* Tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -1662,6 +1699,8 @@
 			children = (
 				E1318BF11EDE943900DF1061 /* HXBSignUPAndLoginRequest.h */,
 				E1318BF21EDE943900DF1061 /* HXBSignUPAndLoginRequest.m */,
+				E11F7A4D1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.h */,
+				E11F7A4E1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.m */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -1994,6 +2033,7 @@
 		E1CD4BB41ED83064000CC57B /* MY */ = {
 			isa = PBXGroup;
 			children = (
+				E1D048411EE8F60D002A4E28 /* Frame */,
 				E157A89A1EE6AFF8002BF6AC /* ViewController */,
 				E157A8921EE679FC002BF6AC /* UIView */,
 				E1E588531EE1650E0045C4AE /* TransitioningManager */,
@@ -2067,6 +2107,24 @@
 				E1CD4BDC1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m */,
 			);
 			path = FullScreenGesture;
+			sourceTree = "<group>";
+		};
+		E1D0483D1EE8F303002A4E28 /* MYRequest_ Account */ = {
+			isa = PBXGroup;
+			children = (
+				E1D0483E1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.h */,
+				E1D0483F1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.m */,
+			);
+			path = "MYRequest_ Account";
+			sourceTree = "<group>";
+		};
+		E1D048411EE8F60D002A4E28 /* Frame */ = {
+			isa = PBXGroup;
+			children = (
+				E1D048431EE8F637002A4E28 /* UIView+HXBFrame.h */,
+				E1D048441EE8F637002A4E28 /* UIView+HXBFrame.m */,
+			);
+			path = Frame;
 			sourceTree = "<group>";
 		};
 		E1D2CA4E1EAB4D51000099C7 /* Model */ = {
@@ -2250,6 +2308,7 @@
 		E1E4615E1EB9B368005B1FC6 /* My */ = {
 			isa = PBXGroup;
 			children = (
+				E1D0483D1EE8F303002A4E28 /* MYRequest_ Account */,
 				E1270B601ECEDBCB00729BC9 /* MYRequest_Plan */,
 				E1270B5D1ECEDBCB00729BC9 /* MYRequest_Loan */,
 				E1270B5A1ECEDBCB00729BC9 /* MYRequest_CapitalRecord */,
@@ -2283,6 +2342,8 @@
 				E1318BFE1EDEB88B00DF1061 /* HXBSmscodeAPI.m */,
 				E1318C001EDEBC8D00DF1061 /* HXBCheckMobileAPI.h */,
 				E1318C011EDEBC8D00DF1061 /* HXBCheckMobileAPI.m */,
+				E11F7A5F1EE7ECC700E3EC74 /* HXBRealnameAPI.h */,
+				E11F7A601EE7ECC700E3EC74 /* HXBRealnameAPI.m */,
 			);
 			path = LoginAndRegister;
 			sourceTree = "<group>";
@@ -2373,6 +2434,7 @@
 				E1E588621EE167A80045C4AE /* HxbSignUpSucceedViewController.m */,
 				E1E588631EE167A80045C4AE /* HxbSignUpViewController.h */,
 				E1E588641EE167A80045C4AE /* HxbSignUpViewController.m */,
+				E11F7A5B1EE7D29600E3EC74 /* HXBSignUPRealnameViewController */,
 			);
 			path = HXBSignUP;
 			sourceTree = "<group>";
@@ -2411,6 +2473,7 @@
 			children = (
 				E1E588741EE16BEA0045C4AE /* HXBSignUPView.h */,
 				E1E588751EE16BEA0045C4AE /* HXBSignUPView.m */,
+				E11F7A571EE7D23500E3EC74 /* SignUPRealnameView */,
 			);
 			name = HXBSignUP;
 			path = hoomxb/SignInAndUp/View/HXBSignUP;
@@ -2664,6 +2727,7 @@
 				4E94B2781ECC1B13003CCBA7 /* HXBBaseTableView_MYPlanList_TableView.m in Sources */,
 				4E94B2711ECBF613003CCBA7 /* HxbAccountAssetAPI.m in Sources */,
 				E1CD4BD21ED83064000CC57B /* HXBBaseHandDate.m in Sources */,
+				E11F7A5A1EE7D23500E3EC74 /* HXBSignUPRealnameView.m in Sources */,
 				E1270B2C1ECED0CA00729BC9 /* HXBMYReqest_DetailRequest.m in Sources */,
 				4EAD98E41EB87D290029A3FF /* HXBBannerView.m in Sources */,
 				E17E6ADA1ECD826D0046888B /* HXBMY_LoanListViewController.m in Sources */,
@@ -2673,6 +2737,7 @@
 				E1FDF61E1EC31F0E00FF98AC /* HXBFinancing_LoanDetileAPI.m in Sources */,
 				4E94B2741ECBF8C1003CCBA7 /* HxbHomePageModel.m in Sources */,
 				E1CD4BCC1ED83064000CC57B /* KeyChainManage.m in Sources */,
+				E11F7A5E1EE7D2AB00E3EC74 /* HXBSignUPRealnameViewController.m in Sources */,
 				E1D7883E1EC32AE000566AC1 /* HXBFinancting_LoanListTableView.m in Sources */,
 				E1E461721EB9B448005B1FC6 /* LoanBuyResult.m in Sources */,
 				E122D8551EA0CAB900DC71ED /* NSString+HxbSortDicMD5.m in Sources */,
@@ -2693,6 +2758,7 @@
 				E1270B641ECEDBCB00729BC9 /* HXBRequstAPI_MYMainLoanAPI.m in Sources */,
 				4EAD98F01EB87E330029A3FF /* BannerModel.m in Sources */,
 				4E94B2831ECC2D64003CCBA7 /* HxbHomePageModel_DataList.m in Sources */,
+				E1D048451EE8F637002A4E28 /* UIView+HXBFrame.m in Sources */,
 				E18B68AB1EC9D7230047E458 /* HXBMainListView_Plan_TopView.m in Sources */,
 				E1270B3B1ECED23F00729BC9 /* HXBMYViewModel_PlanDetailViewModel.m in Sources */,
 				E1E5886E1EE168370045C4AE /* HXBCheckCaptchaViewController.m in Sources */,
@@ -2732,6 +2798,7 @@
 				E122D85E1EA0CAB900DC71ED /* UIViewController+HxbViewController.m in Sources */,
 				E16314491EC084660090567E /* HXBFinDetail_TableView.m in Sources */,
 				E1C964751EA5E04F0066DBC4 /* HXBBaseTabBarController.m in Sources */,
+				E11F7A611EE7ECC700E3EC74 /* HXBRealnameAPI.m in Sources */,
 				E1CD4BD11ED83064000CC57B /* HXBBaseContDownManager.m in Sources */,
 				E1CC035B1ECAD2AD00121D21 /* HXBMYRequest.m in Sources */,
 				E1318BF61EDEA9DC00DF1061 /* HXBCaptchaAPI.m in Sources */,
@@ -2752,6 +2819,7 @@
 				4E80A57B1EA4F4930006D012 /* HxbHTTPSessionManager.m in Sources */,
 				4E8198AB1EC44BCE00D668A1 /* HXBHomePageBulletinView.m in Sources */,
 				E1D2CA631EAB4F26000099C7 /* HxbFinanctingViewController.m in Sources */,
+				E1D048401EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.m in Sources */,
 				4E73BBD91EC2F48E001B8357 /* HxbToolbar.m in Sources */,
 				4E26E3C01EA0FEFE0078B419 /* BaseModel.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
@@ -2852,6 +2920,7 @@
 				4E94B2771ECBF922003CCBA7 /* HxbHomePageViewModel.m in Sources */,
 				E1E461391EB98ADD005B1FC6 /* HXBBaseScrollToolBarView.m in Sources */,
 				E1270B461ECED2D000729BC9 /* HXBMyModel_MainLoanModel.m in Sources */,
+				E11F7A4F1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.m in Sources */,
 				E1FB6F5D1EE4F768006901F6 /* HXBUserInfo.m in Sources */,
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
 				E1270B4A1ECED2E900729BC9 /* HXBMYModel_PlanDetailModel.m in Sources */,
@@ -2892,6 +2961,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E11F7A4C1EE7AD0800E3EC74 /* HXBFinHomePageViewModel_PlanList.m in Sources */,
 				4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

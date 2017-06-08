@@ -30,7 +30,6 @@ static HXBBaseHandDate *_instancetype;
     return [self.dateFormatter stringFromDate:date];
 }
 
-
 #pragma mark - 返回较晚(或较早时间)的时间
 + (NSDate *)laterDateWithData: (NSObject *)date andOtherDate: (NSObject *)otherDate andCompareType: (PYHandleCompareType)compareType{
     NSDate *dateOne = [[self sharedHandleDate] returnDateWithOBJ:date andDateFormatter:nil];
@@ -158,7 +157,7 @@ static HXBBaseHandDate *_instancetype;
 
 
 #pragma mark - 两个时间相比的差值并返回字符串
-- (NSString *)compareDateWithandDateFormatter: (NSString *)dateFormatterStr andCompareDate: (NSObject *)startTime andSecondCompareDate: (NSString *)endTime andDateBlock: (void(^)(NSInteger year, NSInteger month, NSInteger day, NSInteger hour,NSInteger minute, NSInteger second))dateBlock {
+- (NSString *)compareDateWithandDateFormatter: (NSString *)dateFormatterStr andCompareDate: (NSObject *)startTime andSecondCompareDate: (NSObject *)endTime andDateBlock: (void(^)(NSInteger year, NSInteger month, NSInteger day, NSInteger hour,NSInteger minute, NSInteger second))dateBlock {
     
     if (!dateFormatterStr){
         dateFormatterStr = @"yyyy-MM-dd HH:mm:ss";

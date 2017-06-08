@@ -18,18 +18,13 @@
 
 
 @implementation HXBMYReqest_DetailRequest
-//MARK: 资金记录 接口
+//MARK: 计划详情 接口
 - (void)planListDetails_requestWithFinancePlanID: (NSString *)planID
                                  andSuccessBlock: (void(^)(HXBMYViewModel_PlanDetailViewModel *viewModel))successDateBlock
                                  andFailureBlock: (void(^)(NSError *error))failureBlock {
     
     HXBRequestAPI_MYPlanDetailAPI *planDetailAPI = [[HXBRequestAPI_MYPlanDetailAPI alloc]init];
-    NSString *userID = [KeyChainManage sharedInstance].userId;
-    if (!userID.length) userID = @"2458528";
-    planDetailAPI.requestArgument = @{
-                                      @"financePlanId" : planID,
-                                      @"userId" : userID
-                                      };
+    planDetailAPI.planID = planID;
     
     [planDetailAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSDictionary *dataDic = responseObject[@"data"][@"dataList"];

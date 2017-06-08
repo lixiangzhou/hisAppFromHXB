@@ -11,7 +11,6 @@
 
 #import <YYModel.h>
 #import <YYKeyboardManager/YYKeyboardManager.h>
-#import <HandyFrame/UIView+LayoutMethods.h>
 #import <MJRefresh/MJRefresh.h>
 #import <AFNetworking/AFNetworking.h>
 #import <ReactiveObjC.h>

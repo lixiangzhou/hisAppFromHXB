@@ -25,7 +25,7 @@ UITextFieldDelegate
 ///下一步button
 @property (nonatomic, strong) UIButton *nextButton;
 ///点击了下一步的button
-@property (nonatomic, copy) void(^clickNextButtonBlock)();
+@property (nonatomic, copy) void(^clickNextButtonBlock)(NSString *mobile);
 ///请求 手机好校验
 @property (nonatomic, copy) void(^checkMobileBlock)(NSString *mobile);
 ///点击了已有账号，去登陆按钮
@@ -175,7 +175,7 @@ UITextFieldDelegate
         self.checkMobileLabel.text = @"手机号不正确";
         return;
     }
-    if (self.clickNextButtonBlock) self.clickNextButtonBlock();
+    if (self.clickNextButtonBlock) self.clickNextButtonBlock(self.phoneTextField.text);
 }
 ///点击了已有账号登录按钮
 - (void)clickHavedAccountButton: (UIButton *)button {
@@ -185,7 +185,7 @@ UITextFieldDelegate
 }
 
 //事件的传递
-- (void)signUPClickNextButtonFunc:(void (^)())clickNextButtonBlock {
+- (void)signUPClickNextButtonFunc:(void (^)(NSString *mobile))clickNextButtonBlock {
     self.clickNextButtonBlock = clickNextButtonBlock;
 }
 //手机号校验

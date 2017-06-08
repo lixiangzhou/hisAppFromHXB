@@ -41,11 +41,6 @@
 
 
 
-
-
-
-
-
 ///可用金额
 @property (nonatomic,copy) NSString *avalibleAmount;
 ///平均出价数

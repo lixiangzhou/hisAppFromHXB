@@ -158,9 +158,6 @@
     if (identityCard.length <= 0)
     {
         flag = NO;
-        
-        
-        
         return flag;
     }
     
@@ -233,5 +230,57 @@
     {
         return flag;
     }
+}
+
+///验证是密码 不包含中文与特殊字符，包括字母与数字
++ (BOOL)contentNumberAndChar_notContentChinessAndSpecialCharactWithStr: (NSString *)str{
+    ///判断字符串是否包含数字
+    BOOL isContentNumber = [NSString isStringContainNumberWith:str];
+    ///判断是否有中文字符
+    BOOL isContentChiness = [NSString isChinese:str];
+    ///判断字符串是否包含特殊字符
+    BOOL isContentSpecialCharact = [NSString isIncludeSpecialCharact:str];
+    ///判断是否有字母
+    BOOL isContentChar = [NSString isStringCOntainStringWith:str];
+    
+    return isContentNumber && (!isContentChiness) && (!isContentSpecialCharact) && isContentChar;
+}
+///6-20位数字和字母组成 密码
++ (BOOL)checkPassWordWithString: (NSString *)str
+{
+    if ([NSString isIncludeSpecialCharact:str]) return NO;
+    
+    //6-20位数字和字母组成
+    NSString *regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+    if ([pred evaluateWithObject:str]) {
+        return YES ;
+    }else{
+        return NO;
+    }
+}
+
+//根据身份证号获取生日
++ (NSString *)birthdayStrFromIdentityCard:(NSString *)numberStr
+{
+    NSMutableString *result = [NSMutableString stringWithCapacity:0];
+    NSString *year = nil;
+    NSString *month = nil;
+    
+    NSString *day = nil;
+    if([numberStr length]<14)
+        return result;
+    
+    year = [numberStr substringWithRange:NSMakeRange(6, 4)];
+    month = [numberStr substringWithRange:NSMakeRange(10, 2)];
+    day = [numberStr substringWithRange:NSMakeRange(12,2)];
+    
+    [result appendString:year];
+    [result appendString:@"-"];
+    [result appendString:month];
+    [result appendString:@"-"];
+    [result appendString:day];
+    
+    return result;
 }
 @end

@@ -44,7 +44,9 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 /// 密码是否合格 （字符，数字不能有特殊字符）
 @property (nonatomic, assign) BOOL isPasswordQualified;
 ///点击了确认
-@property (nonatomic, copy) void(^clickSetPassWordButtonBlock)(NSString *password);
+@property (nonatomic, copy) void(^clickSetPassWordButtonBlock)(NSString *password, NSString *smscode,NSString *inviteCode);
+///点击了发送短信验证码按钮
+@property (nonatomic, copy) void(^clickSendSmscodeButtonBlock)();
 @end
 
 @implementation HXBSendSmscodeView
@@ -178,6 +180,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///点击了发送按钮
 - (void)clickSendButton: (UIButton *)button {
     self.sendButton.userInteractionEnabled = false;
+    if (self.clickSendSmscodeButtonBlock) self.clickSendSmscodeButtonBlock();
     [self.timer fire];
 }
 
@@ -185,7 +188,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)clickSetPassWordButton: (UIButton *)button {
     if([self isPasswordQualifiedFunWithStr:self.passwordStr]) {
         //合格 请求数据
-        if (self.clickSetPassWordButtonBlock) self.clickSetPassWordButtonBlock(self.passwordStr);
+        if (self.clickSetPassWordButtonBlock) self.clickSetPassWordButtonBlock(self.passwordStr,self.smscode_TextField.text,nil);
     }else {
         NSLog(@"🌶密码不合格");
     }
@@ -252,7 +255,13 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     return isContentNumber && (!isContentChiness) && (!isContentSpecialCharact) && isContentCar;
 }
 
-- (void)clickSetPassWordButtonFunc:(void (^)(NSString *))clickSetPassWordButtonBlock {
+///点击了确认设置密码按钮
+- (void)clickSetPassWordButtonFunc:(void (^)(NSString *password, NSString *smscode,NSString *inviteCode))clickSetPassWordButtonBlock {
     self.clickSetPassWordButtonBlock = clickSetPassWordButtonBlock;
+}
+
+///点击了发送短信验证码按钮
+- (void)clickSendSmscodeButtonWithBlock: (void(^)())clickSendSmscodeButtonBlock {
+    self.clickSendSmscodeButtonBlock = clickSendSmscodeButtonBlock;
 }
 @end

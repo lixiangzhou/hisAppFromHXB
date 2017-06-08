@@ -10,10 +10,10 @@
 
 @implementation HXBRequstAPI_MYMainPlanAPI
 - (NSString *)requestUrl {
-    return @"/account/userfinanceplanlist.action";
+    return @"/account/plan";
 }
 
 - (NYRequestMethod)requestMethod {
-    return NYRequestMethodPost;
+    return NYRequestMethodGet;
 }
 @end

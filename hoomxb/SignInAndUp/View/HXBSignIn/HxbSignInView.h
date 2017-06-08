@@ -11,11 +11,13 @@
 //事件的传递
 
 ///点击了登录按钮
-- (void) signIN_ClickButtonFunc: (void(^)(NSString *pasword))clickSignInButtonBlock;
+- (void)signIN_ClickButtonFunc:(void (^)(NSString *pasword,NSString *mobile))clickSignInButtonBlock;
 ///点击了注册按钮
 - (void) signUP_clickButtonFunc: (void(^)())clickSignUPButtonBlock;
 ///请求手机号是否存在
 - (void) checkMobileRequestBlockFunc: (void(^)(NSString *mobile))checkMobileBlock;
+///点击了忘记密码
+- (void) clickforgetPasswordButtonFunc: (void(^)())forgetPasswordButtonBlock;
 
 /**
  * 请求到手机号是否存在后 把结果放在这个函数中
