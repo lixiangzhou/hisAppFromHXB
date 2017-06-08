@@ -10,11 +10,11 @@
 #import "HXBMyBankCell.h"
 @interface HxbMyBankCardViewController ()
 <UITableViewDelegate,UITableViewDataSource>
-
-@property(nonatomic,strong) UITableView *tableView;
+@property (nonatomic,strong) UITableView *tableView;
 @end
 
 @implementation HxbMyBankCardViewController
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

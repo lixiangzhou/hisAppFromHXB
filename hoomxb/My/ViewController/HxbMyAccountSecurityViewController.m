@@ -13,10 +13,24 @@
 UITableViewDataSource,UITableViewDelegate
 >
 @property (nonatomic ,strong) UITableView *tableView;
+
+@property (nonatomic,copy) NSString *idPassedStr;
+@property (nonatomic,copy) NSString *phonNumber;
 @end
 
 @implementation HxbMyAccountSecurityViewController
-
+#pragma mark - setter
+- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
+    _userInfoViewModel = userInfoViewModel;
+    ///是否安全认证
+    HXBUserInfoModel *model = self.userInfoViewModel.userInfoModel;
+    if (model.userInfo.isIdPassed) {
+        self.idPassedStr = [NSString stringWithFormat:@"%@%@",model.userInfo.realName,model.userInfo.idNo];
+    }else {
+        self.idPassedStr = @"去认证";
+    }
+    self.phonNumber = [model.userInfo.mobile hxb_hiddenPhonNumberWithMid];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"账户安全";
@@ -70,10 +84,10 @@ UITableViewDataSource,UITableViewDelegate
 
         if (indexPath.row == 0) {
             cell.textLabel.text = @"安全认证";
-            cell.detailTextLabel.text = @"去认证";
+            cell.detailTextLabel.text = self.idPassedStr;
         }else if (indexPath.row == 1){
             cell.textLabel.text = @"绑定手机号";
-            cell.detailTextLabel.text = @"167****8768";
+            cell.detailTextLabel.text = self.phonNumber;
         }
     }else{
         if (indexPath.row == 0) {

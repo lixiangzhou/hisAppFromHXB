@@ -10,13 +10,14 @@
 #import "HxbMyBankCardViewController.h"
 #import "HxbMyAccountSecurityViewController.h"
 #import "HxbMyAboutMeViewController.h"
-
+#import "HXBRequestUserInfo.h"
 @interface HxbAccountInfoViewController ()
 <
 UITableViewDelegate,
 UITableViewDataSource
 >
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @end
 
 @implementation HxbAccountInfoViewController
@@ -41,6 +42,7 @@ UITableViewDataSource
             [self.navigationController pushViewController:myBankCardViewVC animated:YES];
         }else if (indexPath.row == 1){
             HxbMyAccountSecurityViewController *myAccountSecurityVC = [[HxbMyAccountSecurityViewController alloc]init];
+             myAccountSecurityVC.userInfoViewModel = self.userInfoViewModel;
             [self.navigationController pushViewController:myAccountSecurityVC animated:YES];
         }else{
 
@@ -112,6 +114,15 @@ UITableViewDataSource
         _tableView.dataSource = self;
     }
     return _tableView;
+}
+
+#pragma mark - 加载数据
+- (void)loadData_userInfo {
+    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        self.userInfoViewModel = viewModel;
+    } andFailure:^(NSError *error) {
+        NSLog(@"%@",self);
+    }];
 }
 
 @end

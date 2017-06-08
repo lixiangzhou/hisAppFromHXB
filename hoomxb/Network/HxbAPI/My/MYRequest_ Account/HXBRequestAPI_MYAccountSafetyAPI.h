@@ -8,6 +8,6 @@
 
 #import "NYBaseRequest.h"
 ///账户安全
-@interface HXBRequestAPI_MYAccountSafety : NYBaseRequest
+@interface HXBRequestAPI_MYAccountSafetyAPI : NYBaseRequest
 
 @end

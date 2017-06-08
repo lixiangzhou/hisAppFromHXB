@@ -17,27 +17,31 @@
  */
 + (instancetype)sharedInstance;
 
-@property (nonatomic, copy) NSString *token;
-@property (nonatomic, copy) NSString *phone;
-@property (nonatomic, copy) NSString *userId;
-@property (nonatomic, copy) NSString *userName;
-@property (nonatomic, copy) NSString *inviteCode;
+@property (nonatomic, copy) NSString  *token;
+@property (nonatomic, copy) NSString  *phone;
+@property (nonatomic, copy) NSString  *userId;
+@property (nonatomic, copy) NSString  *userName;
+@property (nonatomic, copy) NSString  *inviteCode;
 
-@property (nonatomic, copy) NSString *loginPwd;
-@property (nonatomic, copy) NSString *tradePwd;
-@property (nonatomic, copy) NSString *gesturePwd;
-
-@property (nonatomic, copy) NSString *realId;           //!< 身份证
-@property (nonatomic, copy) NSString *realName;         //!<
-@property (nonatomic, copy) NSString *defBankNum;
-
-@property (nonatomic, copy) NSString *avatarImageURL;
-@property (nonatomic, copy) NSData *localAvatarImageData;
+@property (nonatomic, copy) NSString  *loginPwd;
+///交易密码
+@property (nonatomic, copy) NSString  *tradePwd;
+@property (nonatomic, copy) NSString  *gesturePwd;
+///身份证
+@property (nonatomic, copy) NSString  *realId;           //!< 身份证
+///姓名
+@property (nonatomic, copy) NSString  *realName;//!<
+///银行卡名
+@property (nonatomic, copy) NSString  *defBankNum;
+///头像url
+@property (nonatomic, copy) NSString  *avatarImageURL;
+///头像的data
+@property (nonatomic, copy) NSData    *localAvatarImageData;
 
 @property (nonatomic, strong) NSArray *bankNumArr;
 
 @property (nonatomic, assign, readonly) BOOL isLogin;
-
+///总资产
 @property (nonatomic, strong) NSString *assetsTotal;
 
 - (void)removePassword;     //!< 移除密码
