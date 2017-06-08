@@ -14,11 +14,11 @@
 
 #import "BannerModel.h"
 
-@interface HXBHomePageHeadView () <HXBHomePageBulletinViewDelegate>
+@interface HXBHomePageHeadView () 
 
 @property (nonatomic, strong) HXBHomePageBulletinView *bulletinView;
 
-@property (nonatomic, strong) HXBHomePageModuleView *moduleView;
+//@property (nonatomic, strong) HXBHomePageModuleView *moduleView;
 
 @property (nonatomic, strong) HXBHomePageLoginIndicationView *indicationView;
 
@@ -34,7 +34,7 @@
     if (self) {
         [self addSubview:self.indicationView];
         [self addSubview:self.afterLoginView];
-        [self addSubview:self.moduleView];
+//        [self addSubview:self.moduleView];
         [self addSubview:self.bannerView];
         [self addSubview:self.bulletinView];
 
@@ -44,34 +44,34 @@
 }
 
 #pragma mark HXBHomePageBulletinViewDelegate Methods
-- (void)closeButtonView
-{
-    if (self.bulletinView.hidden == YES) {
-        return;
-    }
-    self.bulletinView.hidden = YES;
-//    self.indicationView.y = self.bannerView.height;
-//    self.afterLoginView.y = self.bannerView.height;
-//
-//    self.moduleView.y = self.bannerView.height + self.indicationView.height;
-//
-    self.height = self.height - self.bulletinView.height;
-    [self.bulletinView removeFromSuperview];
-    
-    [self resetView];
-}
+//- (void)closeButtonView
+//{
+//    if (self.bulletinView.hidden == YES) {
+//        return;
+//    }
+//    self.bulletinView.hidden = YES;
+////    self.indicationView.y = self.bannerView.height;
+////    self.afterLoginView.y = self.bannerView.height;
+////
+////    self.moduleView.y = self.bannerView.height + self.indicationView.height;
+////
+//    self.height = self.height - self.bulletinView.height;
+//    [self.bulletinView removeFromSuperview];
+//    
+//    [self resetView];
+//}
 
 -(void)setNetwork:(BOOL)network{
     _network = network;
-    self.moduleView.network = _network ;
+//    self.moduleView.network = _network ;
 
 }
 
 #pragma mark Private Methods
-- (void)hideBulletinView
-{
-    [self closeButtonView];
-}
+//- (void)hideBulletinView
+//{
+//    [self closeButtonView];
+//}
 
 - (void)showBulletinView
 {
@@ -81,21 +81,20 @@
         // set frame
         if ([KeyChain isLogin]) {
             self.afterLoginView.y = self.afterLoginView.y + self.bulletinView.height;
-            self.moduleView.y = self.moduleView.y + self.bulletinView.height;
+//            self.moduleView.y = self.moduleView.y + self.bulletinView.height;
             self.height = self.height + self.bulletinView.height;
         }else
         {
             self.indicationView.y = self.indicationView.y + self.bulletinView.height;
-            self.moduleView.y = self.moduleView.y + self.bulletinView.height;
+//            self.moduleView.y = self.moduleView.y + self.bulletinView.height;
             self.height = self.height + self.bulletinView.height;
         }
-   
         
         [self resetView];
     }
 }
 
-- (void)hideLoginIndicationView
+- (void)showNotValidatedView
 {
     self.afterLoginView.hidden = NO;
     if (self.indicationView.hidden) {
@@ -109,20 +108,12 @@
     [self resetView];
 }
 
-- (void)showLoginIndicationView
+- (void)showAlreadyInvestedView
 {
     self.afterLoginView.hidden = YES;
     if (self.indicationView.hidden == NO) {
         return;
     }
-    if (self.bulletinView.hidden == YES) {
-        self.moduleView.y = CGRectGetMaxY(self.indicationView.frame);
-    }else{
-        self.moduleView.y = self.bannerView.height + self.bulletinView.height +  self.indicationView .height;
-        self.indicationView.y = self.bannerView.height + self.bulletinView.height;
-    }
-//    self.height = self.height + self.indicationView.height;
-  
     self.indicationView.hidden = NO;
     [self resetView];
 }
@@ -163,8 +154,6 @@
 }
 
 #pragma mark Get Methods
-
-
 - (HXBHomePageLoginIndicationView *)indicationView
 {
     if (!_indicationView) {
@@ -182,28 +171,28 @@
     return _afterLoginView;
 }
 
-- (HXBHomePageModuleView *)moduleView
-{
-    if (!_moduleView) {
-        _moduleView = [[HXBHomePageModuleView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_indicationView.frame), SCREEN_WIDTH, 85)];
-        _moduleView.backgroundColor = COR1;
-    }
-    return _moduleView;
-}
+//- (HXBHomePageModuleView *)moduleView
+//{
+//    if (!_moduleView) {
+//        _moduleView = [[HXBHomePageModuleView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_indicationView.frame), SCREEN_WIDTH, 85)];
+//        _moduleView.backgroundColor = COR1;
+//    }
+//    return _moduleView;
+//}
 
 - (HXBBannerView *)bannerView
 {
     if (!_bannerView) {
-        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_moduleView.frame), SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
+        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
         _bannerView.backgroundColor = [UIColor blueColor];
         BannerModel *bannerModel = [[BannerModel alloc] init];
         bannerModel.title = @"banner";
-        bannerModel.picUrl = @"http://dl.bizhi.sogou.com/images/2012/03/14/124196.jpg";
+        bannerModel.picUrl = @"http://img05.tooopen.com/images/20150531/tooopen_sy_127457023651.jpg";
         bannerModel.linkUrl = @"http://blog.csdn.net/lkxasdfg/article/details/8660827";
         _bannerView.bannersModel = @[bannerModel,bannerModel,bannerModel,bannerModel];
-        [_bannerView clickBannerImageWithBlock:^(BannerModel *model) {
+        _bannerView.clickBannerImageBlock = ^(BannerModel *model){
             NSLog(@"%@%@",model.picUrl,model.title);
-        }];
+        };
     }
     return _bannerView;
 }
@@ -212,7 +201,7 @@
 {
     if (!_bulletinView) {
         _bulletinView = [[HXBHomePageBulletinView alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(_bannerView.frame), SCREEN_WIDTH, 40)];
-        _bulletinView.delegete = self;
+//        _bulletinView.delegete = self;
     }
     return _bulletinView;
 }

@@ -50,13 +50,16 @@
     }
 }
 
+/**
+ 判断业务逻辑
+ */
 - (void)changeIndicationView
 {
-//    if ([KeyChain isLogin]) {
-        [self.headView hideLoginIndicationView];
-//    }else{
-//        [self.headView showLoginIndicationView];
-//    }
+    //没有投资显示的界面
+    [self.headView showNotValidatedView];
+    //已经投资显示的界面
+//    [self.headView showAlreadyInvestedView];
+
 }
 
 - (void)showSecurityCertificationOrInvest{
@@ -120,13 +123,14 @@
 //    }else
 //    {
 //    NSLog(@"%lu",(unsigned long)_homeDataListViewModelArray.count);
-        return 1;
+//    return _homeDataListViewModelArray.count;
+    return 10;
 //    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 169;
+    return 116;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -136,14 +140,17 @@
 //        if (model.requiredNew) {
 //            if (indexPath.row == 0) {
 
-//            }else{
+    //            }else{
                 static NSString *identifier = @"ProductCelled";
                 HXBHomePageProductCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
                 if (!cell) {
                     cell = [[HXBHomePageProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
                     }
                    cell.homeDataListViewModel = _homeDataListViewModelArray[indexPath.row];
-    
+                   kWeakSelf
+                   cell.purchaseButtonClickBlock = ^(){
+                       weakSelf.purchaseButtonClickBlock();
+                   };
 //                cell.model = model;
 //                NSLog(@"%ld",(long)model.status)
               return cell;
@@ -215,11 +222,20 @@
 //    
 //}
 
+- (void)setIsStopRefresh_Home:(BOOL)isStopRefresh_Home{
+    _isStopRefresh_Home = isStopRefresh_Home;
+    if (isStopRefresh_Home) {
+        [self.mainTableView.mj_footer endRefreshing];
+        [self.mainTableView.mj_header endRefreshing];
+    }
+}
+
+
 - (HXBHomePageHeadView *)headView
 {
     if (!_headView) {
-        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH *9/16 + 195 + 33)];//199
-        _headView.delegate = self;
+        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH *9/16 + 110 + 33)];//199
+        _headView.delegate = self;  
     }
     return _headView;
 }
@@ -257,6 +273,12 @@
         _mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
 //        _mainTableView.hxb_behindHeader = [[HXBRefreshHeader alloc]initWithRefreshingTarget:self refreshingAction:@selector(loadData)];
 //        _mainTableView.hxb_behindHeader.sloganView.hidden = NO;
+        kWeakSelf
+        [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+            if (weakSelf.homeRefreshHeaderBlock) weakSelf.homeRefreshHeaderBlock();
+        } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
+            
+        }];
         _mainTableView.tableFooterView = self.footerView;
     }
     return _mainTableView;

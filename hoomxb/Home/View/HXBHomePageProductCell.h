@@ -15,6 +15,11 @@
 @property (nonatomic, strong) NSString *expectAnnualizedRatesTitleString;
 @property (nonatomic, strong) NSString *titleString;
 @property (nonatomic, strong) HxbHomePageViewModel_dataList *homeDataListViewModel;
+
+/**
+ cell点击按钮回调的Block
+ */
+@property (nonatomic, copy) void(^purchaseButtonClickBlock)();
 @end
 
 @interface CategoryLabel : UILabel

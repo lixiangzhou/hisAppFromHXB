@@ -13,13 +13,25 @@
 
 @interface HXBHomePageLoginIndicationView ()
 
-@property (nonatomic, strong) UIView *backView;
 
-@property (nonatomic, strong) UIImageView *leftImage;
+/**
+ 用户昵称
+ */
+@property (nonatomic, strong) UILabel *userNameLabel;
+/**
+ 累计收益
+ */
+@property (nonatomic, strong) UILabel *accumulatedIncomeLabel;
+/**
+ 可用金额
+ */
+@property (nonatomic, strong) UILabel *availableAmountLabel;
+/**
+ 是否显示密文的按钮
+ */
+@property (nonatomic, strong) UIButton *ciphertextButton;
 
-@property (nonatomic, strong) UILabel *contentLabel;
 
-@property (nonatomic, strong) UIButton *loginButton;
 
 @end
 
@@ -29,71 +41,126 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self addSubview:self.userNameLabel];
+        [self addSubview:self.accumulatedIncomeLabel];
+        [self addSubview:self.availableAmountLabel];
+        [self addSubview:self.ciphertextButton];
         
-        [self addSubview:self.backView];
-//        [self.backView addSubview:self.leftImage];
-        [self.backView addSubview:self.contentLabel];
-        [self.backView addSubview:self.loginButton];
+        [self setupSubViewFrame];
+        self.modle = @"";
     }
     return self;
 }
 
 #pragma mark Action Methods
-- (void)buttonClicked
+- (void)setupSubViewFrame{
+    [self.userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.top.equalTo(@16);
+    }];
+    [self.accumulatedIncomeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.userNameLabel).offset(30);
+    }];
+    [self.availableAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.accumulatedIncomeLabel).offset(30);
+    }];
+    [self.ciphertextButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.accumulatedIncomeLabel.mas_right);
+        make.centerY.equalTo(self.accumulatedIncomeLabel);
+        make.size.mas_equalTo(CGSizeMake(kScrAdaptationH(25), kScrAdaptationH(25)));
+    }];
+}
+//- (void)buttonClicked
+//{
+//    id next = [self nextResponder];
+//    while (![next isKindOfClass:[HxbHomeViewController class]]) {
+//        next = [next nextResponder];
+//    }
+//    if ([next isKindOfClass:[HxbHomeViewController class]]) {
+//        HxbHomeViewController *vc = (HxbHomeViewController *)next;
+////        [vc loginOrSignUp];
+//    }
+//}
+#pragma mark Set Methdos
+- (void)setModle:(NSString *)modle
 {
-    id next = [self nextResponder];
-    while (![next isKindOfClass:[HxbHomeViewController class]]) {
-        next = [next nextResponder];
+    _modle = modle;
+    self.availableAmountLabel.attributedText = [self handleWithString:@"可用金额(元):789.76"];
+    self.accumulatedIncomeLabel.attributedText = [self handleWithString:@"累计收益(元):789.76"];
+}
+
+/**
+ 点击隐藏金钱
+ */
+- (void)ciphertextButtonClick
+{
+   
+    if (self.ciphertextButton.selected) {
+        self.accumulatedIncomeLabel.attributedText = [self handleWithString:@"累计收益(元):789.76"];
+    }else{
+        self.accumulatedIncomeLabel.attributedText = [self handleWithString:@"累计收益(元):******"];
     }
-    if ([next isKindOfClass:[HxbHomeViewController class]]) {
-        HxbHomeViewController *vc = (HxbHomeViewController *)next;
-//        [vc loginOrSignUp];
-    }
+    self.ciphertextButton.selected = !self.ciphertextButton.selected;
+}
+
+/**
+ 对字符串进行部分放大处理
+
+ @param str 需要处理的字符串
+ @return 返回给你一个NSMutableAttributedString类型的字符串
+ */
+- (NSMutableAttributedString *)handleWithString:(NSString *)str
+{
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:str];
+    // 设置字体和设置字体的范围
+    [attrStr addAttribute:NSFontAttributeName
+                                     value:[UIFont systemFontOfSize:17.0f]
+                                     range:NSMakeRange(8, str.length - 8)];
+    return attrStr;
+
 }
 
 #pragma mark Get Methdos
-- (UIView *)backView
+
+- (UILabel *)userNameLabel
 {
-    if (!_backView) {
-        _backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 72)];
-        _backView.backgroundColor = [UIColor whiteColor];
+    if (!_userNameLabel) {
+        _userNameLabel = [[UILabel alloc] init];
+        _userNameLabel.textAlignment = NSTextAlignmentCenter;
+        _userNameLabel.text = @"你好，hxb1234567";
+        _userNameLabel.font = [UIFont systemFontOfSize:12];
     }
-    return _backView;
+    return _userNameLabel;
 }
 
-- (UIImageView *)leftImage
+- (UILabel *)accumulatedIncomeLabel
 {
-    if (!_leftImage) {
-        _leftImage = [[UIImageView alloc]initWithFrame:CGRectMake(15, 12, 36, 36)];
-        _leftImage.image = [UIImage imageNamed:@"homepage_yuanbao.png"];
+    if (!_accumulatedIncomeLabel) {
+        _accumulatedIncomeLabel = [[UILabel alloc] init];
+//        _accumulatedIncomeLabel.text = @"累计收益(元):789.76";
+        _accumulatedIncomeLabel.font = [UIFont systemFontOfSize:12];
     }
-    return _leftImage;
+    return _accumulatedIncomeLabel;
 }
 
-- (UILabel *)contentLabel
+- (UILabel *)availableAmountLabel
 {
-    if (!_contentLabel) {
-        _contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(16, 30, SCREEN_WIDTH - 170, 14)];
-        _contentLabel.text = @"立即注册开启理财之旅!";
-        _contentLabel.font = HXB_Text_Font(14);
-        _contentLabel.textColor = COR9;
+    if (!_availableAmountLabel) {
+        _availableAmountLabel = [[UILabel alloc] init];
+        _availableAmountLabel.font = [UIFont systemFontOfSize:12];
     }
-    return _contentLabel;
+    return _availableAmountLabel;
 }
-
-- (UIButton *)loginButton
+- (UIButton *)ciphertextButton
 {
-    if (!_loginButton) {
-        _loginButton = [[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 111, 20, 95, 32)];
-        _loginButton.backgroundColor = [UIColor whiteColor];
-        _loginButton.layer.borderColor = [MAIN_THEME_COLOR CGColor];
-        _loginButton.layer.borderWidth = 1.f;
-        [_loginButton setTitle:@"登录/注册" forState:UIControlStateNormal];
-        [_loginButton setTitleColor:MAIN_THEME_COLOR forState:UIControlStateNormal];
-        _loginButton.titleLabel.font = HXB_Text_Font(14);
-        [_loginButton addTarget:self action:@selector(buttonClicked) forControlEvents:UIControlEventTouchUpInside];
+    if (!_ciphertextButton) {
+        _ciphertextButton = [[UIButton alloc] init];
+        _ciphertextButton.backgroundColor = [UIColor redColor];
+        [_ciphertextButton addTarget:self action:@selector(ciphertextButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _loginButton;
+    return _ciphertextButton;
 }
-
 @end

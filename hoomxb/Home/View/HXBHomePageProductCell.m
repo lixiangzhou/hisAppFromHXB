@@ -23,7 +23,8 @@
 @property (nonatomic, strong) UILabel *promptLabel;
 @property (nonatomic, strong) UILabel *expectAnnualizedRatesLabel;
 @property (nonatomic, strong) UILabel *investmentPeriodLabel;
-@property (nonatomic, strong) UILabel *purchaseLabel;
+//@property (nonatomic, strong) UILabel *purchaseLabel;
+@property (nonatomic, strong) UIButton *purchaseButton;
 @property (nonatomic, strong) UILabel *expectAnnualizedRatesTitleLabel;
 @property (nonatomic, strong) UILabel *investmentPeriodTitleLabel;
 @property (nonatomic, strong) CategoryLabel *categoryLabel;
@@ -46,7 +47,8 @@
         [self.backView addSubview:self.expectAnnualizedRatesLabel];
         [self.backView addSubview:self.investmentPeriodTitleLabel];
         [self.backView addSubview:self.investmentPeriodLabel];
-        [self.backView addSubview:self.purchaseLabel];
+//        [self.backView addSubview:self.purchaseLabel];
+        [self.backView addSubview:self.purchaseButton];
         [self.backView addSubview:self.bottomLine];
 
     }
@@ -66,11 +68,17 @@
 //    _expectAnnualizedRatesTitleString = expectAnnualizedRatesTitleString;
 //    _expectAnnualizedRatesTitleLabel.text = _expectAnnualizedRatesTitleString;
 //}
+
 #pragma mark Set Methods
 - (void)setHomeDataListViewModel:(HxbHomePageViewModel_dataList *)homeDataListViewModel{
     _homeDataListViewModel = homeDataListViewModel;
     _titleString = homeDataListViewModel.homePageModel_DataList.name;
-    _titleLabel.text = _titleString;
+    if (_titleString.length == 0) {
+        self.titleLabel.text = @"A123456期";
+    }else
+    {
+        self.titleLabel.text = _titleString;
+    }
 }
 //- (void)setModel:(TopProductModel *)model
 //{
@@ -121,9 +129,7 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(16, 16, SCREEN_WIDTH -  200, 14)];
 //        [_titleLabel sizeToFit];
-        _titleLabel.font = HXB_Text_Font(14);
-        _titleLabel.text = @"红利计划3月期A123456期";
-        _titleLabel.backgroundColor = [UIColor greenColor];
+        _titleLabel.font = [UIFont systemFontOfSize:10];
     }
     return _titleLabel;
 }
@@ -135,7 +141,6 @@
 {
     if (!_promptLabel) {
         _promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 110, self.titleLabel.y, 110, 14)];
-        _promptLabel.backgroundColor = [UIColor redColor];
         _promptLabel.font = [UIFont systemFontOfSize:10];
         _promptLabel.text = @"喜迎国庆，立加息啦";
         _promptLabel.textAlignment = NSTextAlignmentCenter;
@@ -158,8 +163,9 @@
     if (!_expectAnnualizedRatesLabel) {
         
         _expectAnnualizedRatesLabel = [[UILabel alloc]initWithFrame:CGRectMake(16, 50, 120, 22)];
-        _expectAnnualizedRatesLabel.textColor = COR1;
+        _expectAnnualizedRatesLabel.textColor = COR10;
         _expectAnnualizedRatesLabel.text = @"预期年利率";
+        _expectAnnualizedRatesLabel.font = [UIFont systemFontOfSize:12];
     }
     return _expectAnnualizedRatesLabel;
 }
@@ -176,25 +182,42 @@
 {
     if (!_investmentPeriodLabel) {
         _investmentPeriodLabel = [[UILabel alloc]initWithFrame:CGRectMake(RightItemPercent*SCREEN_WIDTH, 50, 50, 22)];
-        _investmentPeriodLabel.textColor = RGB(85, 85, 85);
+        _investmentPeriodLabel.textColor = COR10;
         _investmentPeriodLabel.text = @"期限";
+        _investmentPeriodLabel.font = [UIFont systemFontOfSize:12];
     }
     return _investmentPeriodLabel;
 }
 
-- (UILabel *)purchaseLabel
+//- (UILabel *)purchaseLabel
+//{
+//    if (!_purchaseLabel) {
+//        _purchaseLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) + 10, self.investmentPeriodLabel.y, SCREEN_WIDTH - CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) - 20, 36)];
+//        _purchaseLabel.font = HXB_Text_Font(13);
+//        _purchaseLabel.textColor = COR8;
+//        _purchaseLabel.text = @"加入";
+//        _purchaseLabel.userInteractionEnabled = YES;
+//        _purchaseLabel.textAlignment = NSTextAlignmentCenter;
+//        _purchaseLabel.layer.borderWidth = 1.f;
+//        _purchaseLabel.layer.borderColor = [COR10 CGColor];
+//        _purchaseLabel.layer.cornerRadius = 4.0f;
+//    }
+//    return _purchaseLabel;
+//}
+
+- (UIButton *)purchaseButton
 {
-    if (!_purchaseLabel) {
-        _purchaseLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) + 10, self.investmentPeriodLabel.y, SCREEN_WIDTH - CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) - 20, 36)];
-        _purchaseLabel.font = HXB_Text_Font(13);
-        _purchaseLabel.textColor = COR1;
-        _purchaseLabel.text = @"加入";
-        _purchaseLabel.userInteractionEnabled = YES;
-        _purchaseLabel.textAlignment = NSTextAlignmentCenter;
-        _purchaseLabel.layer.borderWidth = 1.f;
-        _purchaseLabel.layer.borderColor = [COR9 CGColor];
+    if (!_purchaseButton) {
+        _purchaseButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) + 10, self.investmentPeriodLabel.y, SCREEN_WIDTH - CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) - 20, 36)];
+        _purchaseButton.titleLabel.font = HXB_Text_Font(13);
+        [_purchaseButton setTitleColor:COR8 forState:UIControlStateNormal];
+        [_purchaseButton setTitle:@"加入" forState:UIControlStateNormal];
+        [_purchaseButton addTarget:self action:@selector(purchaseButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        _purchaseButton.layer.borderWidth = 1.f;
+        _purchaseButton.layer.borderColor = [COR10 CGColor];
+        _purchaseButton.layer.cornerRadius = 4.0f;
     }
-    return _purchaseLabel;
+    return _purchaseButton;
 }
 
 - (CategoryLabel *)categoryLabel
@@ -216,6 +239,15 @@
         _bottomLine.backgroundColor = COR11;
     }
     return _bottomLine;
+}
+
+#pragma mark - 处理按钮点击事件
+- (void)purchaseButtonClick
+{
+//    NSLog(@"%s",__func__);
+    if (self.purchaseButtonClickBlock) {
+        self.purchaseButtonClickBlock();
+    }
 }
 
 #pragma mark - 重写父类的方法

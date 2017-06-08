@@ -27,8 +27,14 @@
 
 @property (nonatomic, assign) BOOL network;
 
-- (void)hideLoginIndicationView;
-- (void)showLoginIndicationView;
+/**
+ 未投资显示的页面
+ */
+- (void)showNotValidatedView;
+/**
+ 已投资显示的页面
+ */
+- (void)showAlreadyInvestedView;
 
 - (void)hideBulletinView;
 - (void)showBulletinView;
