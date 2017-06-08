@@ -17,4 +17,5 @@
 #import <UICKeyChainStore.h>
 #import <MBProgressHUD.h>
 #import <Masonry/Masonry.h>
+#import <SDCycleScrollView/SDCycleScrollView.h>
 #endif /* HxbThirdTools_h */

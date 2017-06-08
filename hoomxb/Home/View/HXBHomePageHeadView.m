@@ -198,9 +198,9 @@
         bannerModel.picUrl = @"http://img05.tooopen.com/images/20150531/tooopen_sy_127457023651.jpg";
         bannerModel.linkUrl = @"http://blog.csdn.net/lkxasdfg/article/details/8660827";
         _bannerView.bannersModel = @[bannerModel,bannerModel,bannerModel,bannerModel];
-        [_bannerView clickBannerImageWithBlock:^(BannerModel *model) {
+        _bannerView.clickBannerImageBlock = ^(BannerModel *model){
             NSLog(@"%@%@",model.picUrl,model.title);
-        }];
+        };
     }
     return _bannerView;
 }

@@ -13,4 +13,5 @@ pod 'YYKeyboardManager'
 pod 'ReactiveObjC'
 pod 'UICKeyChainStore'
 pod 'MBProgressHUD'
+pod 'SDCycleScrollView','~> 1.64'
 end
