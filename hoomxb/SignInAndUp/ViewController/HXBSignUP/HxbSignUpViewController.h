@@ -7,7 +7,7 @@
 //
 
 #import "HXBBaseViewController.h"
-
+#import "HXBSignUPAndLoginRequest_EnumManager.h"
 @interface HxbSignUpViewController : HXBBaseViewController
-
+@property (nonatomic,assign) HXBSignUPAndLoginRequest_sendSmscodeType type;
 @end

@@ -172,9 +172,11 @@
     NSInteger index = _scrollView.contentOffset.x / _imageWidth;
     if (index == 0) {
         _pageIndex = _imageIndex;
-        _scrollView.contentOffset = CGPointMake(_imageWidth * _imageIndex, 0);
+//        _scrollView.contentOffset = CGPointMake(_imageWidth * _imageIndex, 0);
+        [_scrollView setContentOffset:CGPointMake(_imageWidth * _imageIndex, 0) animated:false];
     }else if (index == _imageIndex + 1){
-        _scrollView.contentOffset = CGPointMake(_imageWidth, 0);
+//        _scrollView.contentOffset = CGPointMake(_imageWidth, 0);
+        [_scrollView setContentOffset:CGPointMake(_imageIndex, 0) animated:false];
         _pageIndex = 0;
     }else{
         _pageIndex = index - 1;

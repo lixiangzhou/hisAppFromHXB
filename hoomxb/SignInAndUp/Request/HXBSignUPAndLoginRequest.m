@@ -7,6 +7,7 @@
 //
 
 #import "HXBSignUPAndLoginRequest.h"
+#import "HXBSignUPAndLoginRequest_EnumManager.h"
 #import "HXBSignUpAPI.h"///注册api
 #import "HXBLoginAPI.h"///登录api
 #import "HXBCaptchaAPI.h"///图验api
@@ -14,6 +15,8 @@
 #import "HXBSmscodeAPI.h"///发送短信的接口
 #import "HXBCheckMobileAPI.h"///校验手机号
 #import "HXBTokenManager.h"///请求token
+#import "HXBRealnameAPI.h"///安全认证的API
+
 
 @implementation HXBSignUPAndLoginRequest
 + (void)signUPRequetWithMobile: (NSString *)mobile///手机号
@@ -23,6 +26,9 @@
                andSuccessBlock: (void(^)())successBlock
                andFailureBlock: (void(^)(NSError *error))failureBlock {
     HXBSignUpAPI *signUPAPI = [[HXBSignUpAPI alloc]init];
+    if (!inviteCode) {
+        inviteCode = @"";
+    }
     signUPAPI.requestArgument = @{
                                   @"mobile"	: mobile,///           是	string	手机号
                                   @"smscode" : smscode,///	      是	string	短信验证码
@@ -68,6 +74,7 @@
         }
         if (successBlock) {
             successBlock(true);
+            KeyChain.phone = mobile;
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {
@@ -154,14 +161,15 @@
 
 #pragma mark - 发送短信接口
 + (void)smscodeRequestWithMobile: (NSString *)mobile
-                       andAction: (NSString *)action
+                       andAction: (HXBSignUPAndLoginRequest_sendSmscodeType)action
                       andCaptcha: (NSString *)captcha
                  andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
                  andFailureBlock: (void(^)(NSError *error))failureBlock{
     HXBSmscodeAPI *smscodeAPI = [[HXBSmscodeAPI alloc]init];
+    NSString *actionStr = [HXBSignUPAndLoginRequest_EnumManager getKeyWithHXBSignUPAndLoginRequest_sendSmscodeType:action];
     smscodeAPI.requestArgument = @{
                                    @"mobile":mobile,///     是	string	用户名
-                                   @"action":action,///     是	string	signup(参照通用短信发送类型)
+                                   @"action":actionStr,///     是	string	signup(参照通用短信发送类型)
                                    @"captcha":captcha///	是	string	校验图片二维码
                                    };
     [smscodeAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
@@ -196,7 +204,7 @@
     [checkMobileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSString *status = [responseObject valueForKey:@"status"];
         if (!status.integerValue) {
-            successBlock(false);
+            if (failureBlock) failureBlock(nil);
             return;
         }
         
@@ -212,4 +220,35 @@
         kNetWorkError(@"校验手机号 请求失败");
     }];
 }
+
+#pragma mark - 安全认证
++ (void)realnameRequestWithUserName: (NSString *)userName
+                    andIdentityCard: (NSString *)identityCard
+                        andPassword: (NSString *)password
+                    andSuccessBlock: (void(^)(BOOL isExist))successBlock
+                    andFailureBlock: (void(^)(NSError *error))failureBlock {
+    
+    HXBRealnameAPI *realnameApi = [[HXBRealnameAPI alloc]init];
+    realnameApi.requestArgument = @{
+                                    @"userName" : userName,
+                                    @"identityCard" : identityCard,
+                                    @"password" : password
+                                    };
+    [realnameApi startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSString *status = [responseObject valueForKey:@"status"];
+        if (!status.integerValue) {
+            if (failureBlock) failureBlock(nil);
+            return;
+        }
+        
+        if (successBlock) {
+            successBlock(true);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (failureBlock) failureBlock(nil);
+         kNetWorkError(@"安全认证 请求失败")
+    }];
+    
+}
+
 @end

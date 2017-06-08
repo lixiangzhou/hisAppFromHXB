@@ -9,7 +9,7 @@
 
 #import "HxbSignInView.h"
 
-
+static NSString *const kForgetPasswordText = @"忘记密码";
 static NSString *const kPhoneText = @"手机号";
 static NSString *const kPasswordText = @"密码";
 static NSString *const kSignInText = @"同意用户协议并登陆";
@@ -27,7 +27,7 @@ UITextFieldDelegate
 >
 
 ///点击了登录按钮
-@property (nonatomic,copy) void(^clickSignInButtonBlock)(NSString *pasword);
+@property (nonatomic,copy) void(^clickSignInButtonBlock)(NSString *pasword,NSString *mobile);
 ///点击了注册按钮
 @property (nonatomic,copy) void(^clickSignUpButtonBlock)();
 
@@ -49,6 +49,10 @@ UITextFieldDelegate
 @property (nonatomic, copy) void(^checkMobileBlock)(NSString *mobile);
 ///是否已经注册
 @property (nonatomic, assign) BOOL isRegisterWithMobile;
+///忘记密码按钮
+@property (nonatomic,strong) UIButton *forgetPasswordButton;
+///点击了忘记密码 button
+@property (nonatomic,copy) void(^forgetPasswordButtonBlock)();
 @end
 
 @implementation HxbSignInView
@@ -78,6 +82,8 @@ UITextFieldDelegate
     self.passwordTextField = [[UITextField alloc]init];
     self.signInButton = [[UIButton alloc]init];
     self.signUpbutton = [[UIButton alloc]init];
+    self.forgetPasswordButton = [[UIButton alloc]init];
+    
     
     self.phoneNumberLabel = [[UILabel alloc]init];///关于手机号的Label
     self.passwordLabel = [[UILabel alloc]init];///关于密码的label
@@ -93,6 +99,8 @@ UITextFieldDelegate
     [self addSubview:self.passwordLabel];
     
     [self addSubview:self.isPhoneNumberLabel];
+    [self addSubview:self.forgetPasswordButton];
+    
     
     kWeakSelf
     [self.phoneNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -132,12 +140,21 @@ UITextFieldDelegate
         make.top.equalTo(weakSelf).offset(kScrAdaptationH(80));
         make.width.equalTo(weakSelf);
     }];
+    [self.forgetPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.passwordTextField.mas_bottom).offset(kScrAdaptationH(20));
+        make.right.equalTo(weakSelf.passwordTextField);
+        make.height.equalTo(@(kScrAdaptationH(30)));
+        make.width.equalTo(@(kScrAdaptationW(60)));
+    }];
+    
     
     self.signInButton.backgroundColor = [UIColor hxb_randomColor];
     self.signUpbutton.backgroundColor = [UIColor hxb_randomColor];
     self.passwordTextField.backgroundColor = [UIColor hxb_randomColor];
     self.phoneTextField.backgroundColor = [UIColor hxb_randomColor];
     self.isPhoneNumberLabel.backgroundColor = [UIColor hxb_randomColor];
+    self.forgetPasswordButton.backgroundColor = [UIColor hxb_randomColor];
+    
 }
 
 ///设置子控件
@@ -155,6 +172,7 @@ UITextFieldDelegate
     //button 的设置
     [self.signInButton setTitle:kSignInText forState:UIControlStateNormal];
     [self.signUpbutton setTitle:kSignUPText forState:UIControlStateNormal];
+    [self.forgetPasswordButton setTitle:kForgetPasswordText forState:UIControlStateNormal];
     
     self.signUpbutton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.signInButton.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -162,6 +180,7 @@ UITextFieldDelegate
     //点击事件的添加
     [self.signInButton addTarget:self action:@selector(clickSignInButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.signUpbutton addTarget:self action:@selector(clickSignUPButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.forgetPasswordButton addTarget:self action:@selector(clickForgetPasswordButton:) forControlEvents:UIControlEventTouchUpInside];
     
 }
 ///点击了 登录按钮
@@ -177,7 +196,7 @@ UITextFieldDelegate
         return;
     }
     ///可以登录
-    if (self.clickSignInButtonBlock) self.clickSignInButtonBlock(self.passwordTextField.text);
+    if (self.clickSignInButtonBlock) self.clickSignInButtonBlock(self.passwordTextField.text,self.phoneTextField.text);
 }
 ///点击了 注册按钮
 - (void)clickSignUPButton: (UIButton *)signUPButton {
@@ -196,7 +215,10 @@ UITextFieldDelegate
     }
     return false;
 }
-
+///点击了忘记密码按钮
+- (void)clickForgetPasswordButton: (UIButton *)button {
+    if (self.forgetPasswordButtonBlock) self.forgetPasswordButtonBlock();
+}
 
 
 #pragma mark - textField 的代理方法
@@ -277,7 +299,7 @@ UITextFieldDelegate
 
 #pragma mark - 点击事件的传递
 //登录
-- (void)signIN_ClickButtonFunc:(void (^)(NSString *pasword))clickSignInButtonBlock {
+- (void)signIN_ClickButtonFunc:(void (^)(NSString *pasword,NSString *mobile))clickSignInButtonBlock {
     self.clickSignInButtonBlock = clickSignInButtonBlock;
 }
 //注册
@@ -288,6 +310,11 @@ UITextFieldDelegate
 ///请求手机号是否存在
 - (void) checkMobileRequestBlockFunc: (void(^)(NSString *mobile))checkMobileBlock {
     self.checkMobileBlock = checkMobileBlock;
+}
+
+///点击了忘记密码
+- (void) clickforgetPasswordButtonFunc: (void(^)())forgetPasswordButtonBlock {
+    self.forgetPasswordButtonBlock = forgetPasswordButtonBlock;
 }
 @end
 

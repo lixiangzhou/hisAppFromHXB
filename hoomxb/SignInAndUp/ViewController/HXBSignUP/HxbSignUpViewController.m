@@ -22,6 +22,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 
 @property (nonatomic, strong) HXBSignUPView *signUPView;
 @property (nonatomic, assign) BOOL isCheckCaptchaSucceed;
+@property (nonatomic, copy) NSString *checkPaptchaStr;
 @end
 
 @implementation HxbSignUpViewController
@@ -49,13 +50,14 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 ///点击了下一步按钮
 - (void) registerEvent_ClickNextButton {
     kWeakSelf
-    [self.signUPView signUPClickNextButtonFunc:^{
+    [self.signUPView signUPClickNextButtonFunc:^(NSString *mobile) {
         NSLog(@"点击了下一步");
         //1. modal一个控制器
         ///1. 如果要是已经图验过了，那就不需要图验了
         HXBCheckCaptchaViewController *checkCaptchVC = [[HXBCheckCaptchaViewController alloc]init];
-        [checkCaptchVC checkCaptchaSucceedFunc:^{
+        [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
             weakSelf.isCheckCaptchaSucceed = true;
+            self.checkPaptchaStr = checkPaptcha;
         }];
         if (!weakSelf.isCheckCaptchaSucceed) {
             [weakSelf presentViewController:checkCaptchVC animated:true completion:nil];
@@ -63,6 +65,9 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
         }
         //发送短信vc
         HXBSendSmscodeViewController *sendSmscodeVC = [[HXBSendSmscodeViewController alloc]init];
+        sendSmscodeVC.phonNumber = mobile;
+        sendSmscodeVC.captcha = self.checkPaptchaStr;
+        sendSmscodeVC.type = self.type;
         [weakSelf.navigationController pushViewController:sendSmscodeVC animated:true];
     }];
 }

@@ -29,4 +29,8 @@
 + (BOOL)isIncludeSpecialCharact: (NSString *)str;
 ///验证身份证号是否合法
 + (BOOL)validateIDCardNumber:(NSString *)identityCard;
+///6-20位数字和字母组成 密码
++ (BOOL)checkPassWordWithString: (NSString *)str;
+///根据身份证号获取生日
++(NSString *)birthdayStrFromIdentityCard:(NSString *)numberStr;
 @end

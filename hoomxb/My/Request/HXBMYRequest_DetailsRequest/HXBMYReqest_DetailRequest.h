@@ -18,6 +18,8 @@
 - (void)planListDetails_requestWithFinancePlanID: (NSString *)planID
                                  andSuccessBlock: (void(^)(HXBMYViewModel_PlanDetailViewModel *viewModel))successDateBlock
                                  andFailureBlock: (void(^)(NSError *error))failureBlock;
+///计划 投资记录
+
 //MARK: 散标详情 接口
 - (void)loanListDetails_requestWithFinancePlanID: (NSString *)planID
                                   andRequestType: (NSString *)requestType

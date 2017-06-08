@@ -10,11 +10,13 @@
 #import "HXBCheckCaptcha.h"
 #import "HXBSignUPAndLoginRequest.h"
 #import   "UIImageView+WebCache.h"
+
+
 @interface HXBCheckCaptchaViewController ()
 @property (nonatomic, strong) Animatr *animatrManager;
 @property (nonatomic, strong) HXBCheckCaptcha *checkCaptcha;
 @property (nonatomic, strong) HXBSignUPAndLoginRequest *request;
-@property (nonatomic, copy) void (^isCheckCaptchaSucceedBlock)();
+@property (nonatomic, copy) void (^isCheckCaptchaSucceedBlock)(NSString *captcha);
 @end
 
 @implementation HXBCheckCaptchaViewController
@@ -108,7 +110,7 @@
             //正确就dismiss
             if (isSuccessBlock) {
                 ///通知控制器 图验通过
-                if(self.isCheckCaptchaSucceedBlock) self.isCheckCaptchaSucceedBlock();
+                if(weakSelf.isCheckCaptchaSucceedBlock) weakSelf.isCheckCaptchaSucceedBlock(checkCaptChaStr);
                 [weakSelf dismissViewControllerAnimated:true completion:nil];
             }else{
                 weakSelf.checkCaptcha.isCorrect = false;
@@ -128,7 +130,7 @@
 }
 
 ///验证通过
-- (void)checkCaptchaSucceedFunc:(void (^)())isCheckCaptchaSucceedBlock {
+- (void)checkCaptchaSucceedFunc:(void (^)(NSString *checkCaptcha))isCheckCaptchaSucceedBlock {
     self.isCheckCaptchaSucceedBlock = isCheckCaptchaSucceedBlock;
 }
 

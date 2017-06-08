@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 ///关于 注册的view
 @interface HXBSignUPView : UIView
-- (void)signUPClickNextButtonFunc: (void(^)())clickNextButtonBlock;
+- (void)signUPClickNextButtonFunc: (void(^)(NSString *mobile))clickNextButtonBlock;
 ///请求 手机好校验
 - (void)checkMobileWithBlockFunc: (void(^)(NSString *mobile))checkMobileBlock;
 ///手机号校验 信息展示label的text

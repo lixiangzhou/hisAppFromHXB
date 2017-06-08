@@ -9,9 +9,10 @@
 #import "HXBRequstAPI_MYMainLoanAPI.h"
 
 @implementation HXBRequstAPI_MYMainLoanAPI
+
 - (NSString *)requestUrl {
 //    /account/userloanstatis.action
-    return @"/account/userloanlist.action";
+    return @"/account/loan";
 }
 
 - (NYRequestMethod)requestMethod {

@@ -114,12 +114,4 @@ typedef enum : NSUInteger {
  * 客户端时间,默认为手机的当前时间。如果有偏差可以在这里调整
  */
 @property (nonatomic,strong) NSDate *clientTime;
-
-
-
-
-
-
-
-
 @end

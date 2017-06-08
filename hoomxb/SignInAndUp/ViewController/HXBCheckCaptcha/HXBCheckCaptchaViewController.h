@@ -9,5 +9,5 @@
 #import "HXBBaseViewController.h"
 ///modal 出来的校验码
 @interface HXBCheckCaptchaViewController : HXBBaseViewController
-- (void)checkCaptchaSucceedFunc: (void(^)())isCheckCaptchaSucceedBlock;
+- (void)checkCaptchaSucceedFunc: (void(^)(NSString *checkPaptcha))isCheckCaptchaSucceedBlock;
 @end

@@ -32,7 +32,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 
 @interface HXBMY_CapitalRecordViewController ()
 @property (nonatomic,strong) HXBMYCapitalRecord_TableView *tableView;
-@property (nonatomic,copy) NSString *screenType;
+@property (nonatomic,assign) HXBRequestType_MY_tradlist screenType;
 @end
 
 @implementation HXBMY_CapitalRecordViewController
@@ -40,8 +40,9 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUP];
-    self.screenType = kScreen_All;
-    [self downDataWithScreenType:kScreen_All andStartDate:nil andEndDate:nil andIsUPData:true];
+    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+    self.screenType = HXBRequestType_MY_tradlist_Loan;
+    [self downDataWithScreenType:HXBRequestType_MY_tradlist_Loan andStartDate:nil andEndDate:nil andIsUPData:true];
 }
 
 - (void)setUP {
@@ -54,19 +55,20 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 }
 
 - (void)refresh {
+    kWeakSelf
     [self.tableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        [self downDataWithScreenType:self.screenType andStartDate:nil andEndDate:nil andIsUPData:false];
+        [weakSelf downDataWithScreenType:weakSelf.screenType andStartDate:nil andEndDate:nil andIsUPData:false];
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
     }];
     
     
     [self.tableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        [self downDataWithScreenType:self.screenType andStartDate:nil andEndDate:nil andIsUPData:true];
+        [weakSelf downDataWithScreenType:weakSelf.screenType andStartDate:nil andEndDate:nil andIsUPData:true];
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
     }];
 }
 
-- (void)downDataWithScreenType: (NSString *)screenType andStartDate:(NSString *)startData andEndDate:(NSString *)endData andIsUPData:(BOOL)isUPData {
+- (void)downDataWithScreenType: (HXBRequestType_MY_tradlist)screenType andStartDate:(NSString *)startData andEndDate:(NSString *)endData andIsUPData:(BOOL)isUPData {
     [[HXBMYRequest sharedMYRequest] capitalRecord_requestWithScreenType:screenType
                                                            andStartDate:startData
                                                              andEndDate:endData

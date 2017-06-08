@@ -10,10 +10,10 @@
 
 @implementation HXBRequestAPI_MYPlanDetailAPI
 - (NSString *)requestUrl {
-    return @"/financeplan/my_plan_detail.action";
+    return [NSString stringWithFormat:@"plan/%@",self.planID];
 }
 
 - (NYRequestMethod)requestMethod {
-    return NYRequestMethodPost;
+    return NYRequestMethodGet;
 }
 @end

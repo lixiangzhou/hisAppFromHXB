@@ -9,6 +9,7 @@
 #import "HXBSendSmscodeViewController.h"
 #import "HXBSendSmscodeView.h"///发送短信的view
 
+#import "HxbSignUpSucceedViewController.h"
 ///短信验证 VC
 @interface HXBSendSmscodeViewController ()
 @property (nonatomic,strong) HXBSendSmscodeView *smscodeView;
@@ -18,15 +19,56 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUP];
+    [self setUPView];//视图设置
+    [self registerEvent];//事件注册
 }
 
-- (void)setUP {
+- (void)setUPView {
     self.smscodeView = [[HXBSendSmscodeView alloc] initWithFrame:self.view.frame];
     self.smscodeView.phonNumber = self.phonNumber;
     [self.view addSubview: self.smscodeView];
 }
 
+#pragma mark - 点击事件的注册
+- (void) registerEvent {
+    ///注册短信验证码
+    [self registerSendSmscode];
+    ///点击确认设置密码
+    [self registerPassword];
+}
+
+///注册短信验证码
+- (void)registerSendSmscode {
+    __weak typeof(self)weakSelf = self;
+    [self.smscodeView clickSendSmscodeButtonWithBlock:^{
+       //请求网络数据
+        [HXBSignUPAndLoginRequest smscodeRequestWithMobile:weakSelf.phonNumber andAction:weakSelf.type andCaptcha:weakSelf.captcha andSuccessBlock:^(BOOL isSuccessBlock) {
+            NSLog(@"密码设置成功");
+            switch (weakSelf.type) {
+                case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:
+                    NSLog(@"重置登录密码");
+                    break;
+                case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
+                    NSLog(@"注册");
+                    break;
+            }
+        } andFailureBlock:^(NSError *error) {
+            kNetWorkError(@"短信发送失败");
+        }];
+    }];
+}
+
+- (void)registerPassword {
+    __weak typeof(self)weakSelf = self;
+    [self.smscodeView clickSetPassWordButtonFunc:^(NSString *password, NSString *smscode,NSString *inviteCode) {
+       [HXBSignUPAndLoginRequest signUPRequetWithMobile:weakSelf.phonNumber andSmscode:smscode andPassword:password andInviteCode:inviteCode andSuccessBlock:^{
+           HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
+           [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
+       } andFailureBlock:^(NSError *error) {
+           
+       }];
+    }];
+}
 
 
 

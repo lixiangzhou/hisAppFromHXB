@@ -11,4 +11,5 @@
 @interface HXBRequstAPI_MYMainPlanAPI : NYBaseRequest
 ///是否为上拉刷新
 @property (nonatomic,assign) BOOL isUPData;
+
 @end

@@ -10,10 +10,12 @@
 
 @implementation HXBRequestAPI_MYMainCapitalRecordAPI
 - (NSString *)requestUrl {
-    return @"/account/userpointlog.action";
+//    return [NSString stringWithFormat:@"/account/plan/%@/loanRecord?page=%@",self.planID,self.page];
+    return [NSString stringWithFormat:@"/account/tradlist?page=%@&filter=%@",self.page,@(self.filter)];
+//    return @"/account/tradlist";
 }
 
 - (NYRequestMethod)requestMethod {
-    return NYRequestMethodPost;
+    return NYRequestMethodGet;
 }
 @end

@@ -195,7 +195,7 @@ kDealloc
             if (index >= weakSelf.toolBarOptionTitleArray.count) {
                 index = weakSelf.toolBarOptionTitleArray.count - 1;
             }
-            HXBRequestType_MY_PlanRequestType type = index;
+            HXBRequestType_MY_PlanRequestType type = index + 1;
             weakSelf.changeMidSelectOptionBlock(option, title, index, type);
         }
     }];
