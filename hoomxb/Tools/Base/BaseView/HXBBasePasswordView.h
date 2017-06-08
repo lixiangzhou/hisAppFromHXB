@@ -12,16 +12,20 @@
 @interface HXBBasePasswordView : UIView
 
 ///隐藏密码的展位符
-@property (nonatomic,copy) NSString *hiddenStr;
+@property (nonatomic,strong) UIImage *hiddenImage;
 
 ///眼睛的image
 @property (nonatomic,strong) UIImage *hiddenPasswordImage;
 
 ///placeholder
-@property (nonatomic,copy) NSString *passwordTextFiled_Placeholder;
+@property (nonatomic,copy) NSString *placeholder;
 
 ///password constTitle
 @property (nonatomic,copy) NSString *passwordConstTitle;
+
+/// 密码
+@property (nonatomic,copy) NSString *passwordString;
+
 
 ///6-20位数字和字母组成 密码
 + (BOOL)isPasswordQualifiedFunWithStr: (NSString *)password;

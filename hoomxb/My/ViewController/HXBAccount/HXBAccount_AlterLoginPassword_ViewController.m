@@ -24,7 +24,13 @@
     [self.view addSubview:self.alterLoginPasswordView];
     self.alterLoginPasswordView.frame = self.view.frame;
     self.edgesForExtendedLayout = false;
+    [self.alterLoginPasswordView clickAlterButtonWithBlock:^{
+        //验证密码
+        
+    }];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

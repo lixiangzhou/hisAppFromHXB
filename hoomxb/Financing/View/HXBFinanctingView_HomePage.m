@@ -174,7 +174,7 @@
 }
 //MARK:散标列表
 - (void)setupLoanListTableView {
-     self.loanListTableView = [[HXBFinancting_LoanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.loanListTableView = [[HXBFinancting_LoanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.loanListTableView.expectedYearRateLable_ConstStr = @"年利率";
     self.loanListTableView.lockPeriodLabel_ConstStr = @"期限";
     kWeakSelf
