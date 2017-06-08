@@ -7,9 +7,9 @@
 //
 
 #import "HXBAccount_AlterLoginPassword_ViewController.h"
-
+#import "HXBAccount_AlterLoginPassword_View.h"///修改登录密码的view
 @interface HXBAccount_AlterLoginPassword_ViewController ()
-
+@property (nonatomic,strong) HXBAccount_AlterLoginPassword_View *alterLoginPasswordView;
 @end
 
 @implementation HXBAccount_AlterLoginPassword_ViewController
@@ -20,7 +20,10 @@
 }
 
 - (void)setUPView {
-    
+    self.alterLoginPasswordView = [[HXBAccount_AlterLoginPassword_View alloc]init];
+    [self.view addSubview:self.alterLoginPasswordView];
+    self.alterLoginPasswordView.frame = self.view.frame;
+    self.edgesForExtendedLayout = false;
 }
 
 - (void)didReceiveMemoryWarning {

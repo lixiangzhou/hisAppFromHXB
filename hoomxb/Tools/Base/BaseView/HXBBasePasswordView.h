@@ -26,6 +26,11 @@
 ///6-20位数字和字母组成 密码
 + (BOOL)isPasswordQualifiedFunWithStr: (NSString *)password;
 
-///布局子控件
-- (void)layoutSubView_WithBlock: (void(^)(UILabel *password_constLable,UITextField *password_TextField , UIButton *eyeButton)) layoutSubViewBlock;
+/// 初始化 并且 布局子控件
+- (instancetype)initWithFrame:(CGRect)frame
+layoutSubView_WithPassword_constLableEdgeInsets: (UIEdgeInsets)password_constLableEdgeInsets
+andPassword_TextFieldEdgeInsets: (UIEdgeInsets)Password_TextFieldEdgeInsets
+       andEyeButtonEdgeInsets: (UIEdgeInsets)eyeButtonEdgeInsets
+           andPassword_constW: (NSInteger)password_constW
+                andEyeButtonW: (NSInteger)eyeButtonW;
 @end

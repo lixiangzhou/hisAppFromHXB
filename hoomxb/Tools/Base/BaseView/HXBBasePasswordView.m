@@ -21,34 +21,41 @@
 /// 密码是否合格 （字符，数字不能有特殊字符）
 @property (nonatomic, assign) BOOL isPasswordQualified;
 @property (nonatomic, copy) void(^layoutSubViewBlock)(UILabel *password_constLable,UITextField *password_TextField , UIButton *eyeButton);
+@property (nonatomic, assign) UIEdgeInsets password_constLableEdgeInsets;
+@property (nonatomic, assign) UIEdgeInsets password_TextFieldEdgeInsets;
+@property (nonatomic, assign) UIEdgeInsets eyeButtonEdgeInsets;
+@property (nonatomic, assign) NSInteger password_constW;
+@property (nonatomic, assign) NSInteger eyeButtonW;
 @end
 
 
 @implementation HXBBasePasswordView
 
-- (instancetype)initWithFrame:(CGRect)frame layoutSubView_WithBlock: (void(^)(UILabel *password_constLable,UITextField *password_TextField , UIButton *eyeButton)) layoutSubViewBlock
+- (instancetype)initWithFrame:(CGRect)frame layoutSubView_WithPassword_constLableEdgeInsets: (UIEdgeInsets)password_constLableEdgeInsets andPassword_TextFieldEdgeInsets: (UIEdgeInsets)Password_TextFieldEdgeInsets andEyeButtonEdgeInsets: (UIEdgeInsets)eyeButtonEdgeInsets andPassword_constW: (NSInteger)password_constW andEyeButtonW: (NSInteger)eyeButtonW
 {
     self = [super initWithFrame:frame];
     if (self) {
         [self creatSubView];
         [self setSubView];
         [self addButtonTarget];
-        self.layoutSubViewBlock = layoutSubViewBlock;
-        if (self.layoutSubViewBlock) {
-            self.layoutSubViewBlock(self.password_constLable, self.password_TextField, self.eyeButton);
-        }else {
-            [self hxb_layoutSubView];
-        }
+        self.password_constLableEdgeInsets = password_constLableEdgeInsets;
+        self.password_TextFieldEdgeInsets = password_constLableEdgeInsets;
+        self.eyeButtonEdgeInsets = eyeButtonEdgeInsets;
+        self.password_constW = password_constW;
+        self.eyeButtonW = eyeButtonW;
+        [self show];
     }
     return self;
 }
 
-- (NSString *)hiddenStr {
-    if (!_hiddenStr) {
-        _hiddenStr = @"·";
+- (void) show {
+    if (self.layoutSubViewBlock) {
+        self.layoutSubViewBlock(self.password_constLable, self.password_TextField, self.eyeButton);
+    }else {
+        [self hxb_layoutSubView];
     }
-    return _hiddenStr;
 }
+
 - (void)setHiddenPasswordImage:(UIImage *)hiddenPasswordImage {
     _hiddenPasswordImage = hiddenPasswordImage;
     _eyeButton.imageView.image = hiddenPasswordImage;
@@ -78,20 +85,23 @@
 ///布局
 - (void)hxb_layoutSubView {
     kWeakSelf
+    
     [self.password_constLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(20));
-        make.right.equalTo(@(kScrAdaptationW(-20)));
-        make.width.equalTo(@(kScrAdaptationW(40)));
-    }];
-    [self.password_TextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.height.equalTo(weakSelf.password_constLable);
-        make.left.equalTo(weakSelf.password_constLable.mas_right);
-        make.right.equalTo(weakSelf.eyeButton).offset(kScrAdaptationW(-10));
+        make.bottom.equalTo(weakSelf).offset(kScrAdaptationH(weakSelf.password_constLableEdgeInsets.bottom));
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(weakSelf.password_constLableEdgeInsets.top));
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(weakSelf.password_constLableEdgeInsets.left));
+        make.width.equalTo(@(kScrAdaptationW(weakSelf.password_constW)));
     }];
     [self.eyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.password_constLable);
-        make.right.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.width.height.offset(kScrAdaptationW(10));
+        make.right.equalTo(weakSelf).offset(kScrAdaptationW(0));
+        make.width.height.offset(kScrAdaptationW(weakSelf.eyeButtonW));
+    }];
+    [self.password_TextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.password_constLable.mas_right);
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(0));
+        make.bottom.equalTo(weakSelf).offset(kScrAdaptationH(0));
+        make.right.equalTo(weakSelf.eyeButton.mas_left).offset(kScrAdaptationW(0));
     }];
     
     self.password_TextField.backgroundColor = [UIColor hxb_randomColor];

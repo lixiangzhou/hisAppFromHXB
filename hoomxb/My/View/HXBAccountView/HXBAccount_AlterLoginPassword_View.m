@@ -33,7 +33,7 @@
 ///设置UI
 - (void)setUPView {
     kWeakSelf
-    self.password_New = [[HXBBasePasswordView alloc]init];
+//    self.password_New = [[HXBBasePasswordView alloc]initWithFrame:CGRectZero layoutSubView_WithBlock:nil];
     self.password_Original = [[UITextField alloc]init];
     self.alterButton = [[UIButton alloc]init];
     
@@ -48,7 +48,7 @@
         make.height.equalTo(@(kScrAdaptationH(40)));
     }];
     [self.password_New mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.password_Original).offset(kScrAdaptationH(20));
+        make.top.equalTo(weakSelf.password_Original.mas_bottom).offset(kScrAdaptationH(20));
         make.left.right.height.equalTo(weakSelf.password_Original);
     }];
     [self.alterButton mas_makeConstraints:^(MASConstraintMaker *make) {
