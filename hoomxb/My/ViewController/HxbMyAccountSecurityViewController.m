@@ -8,6 +8,7 @@
 
 #import "HxbMyAccountSecurityViewController.h"
 #import "HxbSignUpViewController.h"///注册
+#import "HXBModifyTransactionPasswordViewController.h"//交易密码
 @interface HxbMyAccountSecurityViewController ()
 <
 UITableViewDataSource,UITableViewDelegate
@@ -57,6 +58,9 @@ UITableViewDataSource,UITableViewDelegate
             [self.navigationController pushViewController: signUPVC animated:true];
         }else if (indexPath.row == 1){
             NSLog(@"click 设置交易密码");
+            HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+            modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
+            [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
         }else{
             NSLog(@"click 设置手势密码");
         }
