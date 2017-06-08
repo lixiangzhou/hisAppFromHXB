@@ -6,9 +6,9 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBRequestAPI_MYAccountSafety.h"
+#import "HXBRequestAPI_MYAccountSafetyAPI.h"
 
-@implementation HXBRequestAPI_MYAccountSafety
+@implementation HXBRequestAPI_MYAccountSafetyAPI
 - (NSString *)requestUrl {
     return @"/account/userplanAssets.action";
 }

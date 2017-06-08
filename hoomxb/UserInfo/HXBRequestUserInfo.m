@@ -8,7 +8,6 @@
 
 #import "HXBRequestUserInfo.h"
 #import "HXBRequestUserInfoAPI.h"
-#import "HXBRequestUserInfoViewModel.h"
 
 @implementation HXBRequestUserInfo
 ///数据请求
@@ -29,7 +28,6 @@
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {
             failureBlock(error);
-            
         }
         kNetWorkError(@"用户请求失败");
     }];

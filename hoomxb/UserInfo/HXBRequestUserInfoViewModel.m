@@ -12,5 +12,13 @@
 #import "HXBRequestUserInfoAPI.h"
 
 @implementation HXBRequestUserInfoViewModel
-
+- (void)setUserInfoModel:(HXBUserInfoModel *)userInfoModel {
+    _userInfoModel = userInfoModel;
+    [KeyChainManage sharedInstance].phone = userInfoModel.userInfo.mobile;
+    [KeyChainManage sharedInstance].userId = userInfoModel.userInfo.userId;
+    [KeyChainManage sharedInstance].userName = userInfoModel.userInfo.username;
+    [KeyChainManage sharedInstance].assetsTotal = userInfoModel.userAssets.assetsTotal;
+    [KeyChainManage sharedInstance].realName = userInfoModel.userInfo.realName;
+    [KeyChainManage sharedInstance].realId = userInfoModel.userInfo.idNo;
+}
 @end

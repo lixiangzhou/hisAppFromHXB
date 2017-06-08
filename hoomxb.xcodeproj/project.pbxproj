@@ -2112,8 +2112,8 @@
 		E1D0483D1EE8F303002A4E28 /* MYRequest_ Account */ = {
 			isa = PBXGroup;
 			children = (
-				E1D0483E1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.h */,
-				E1D0483F1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.m */,
+				E1D0483E1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafetyAPI.h */,
+				E1D0483F1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafetyAPI.m */,
 			);
 			path = "MYRequest_ Account";
 			sourceTree = "<group>";
@@ -2818,7 +2818,7 @@
 				4E80A57B1EA4F4930006D012 /* HxbHTTPSessionManager.m in Sources */,
 				4E8198AB1EC44BCE00D668A1 /* HXBHomePageBulletinView.m in Sources */,
 				E1D2CA631EAB4F26000099C7 /* HxbFinanctingViewController.m in Sources */,
-				E1D048401EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.m in Sources */,
+				E1D048401EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafetyAPI.m in Sources */,
 				4E73BBD91EC2F48E001B8357 /* HxbToolbar.m in Sources */,
 				4E26E3C01EA0FEFE0078B419 /* BaseModel.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,

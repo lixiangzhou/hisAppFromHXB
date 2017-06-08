@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HXBRequestUserInfoViewModel;
+#import "HXBRequestUserInfoViewModel.h"
 @interface HXBRequestUserInfo : NSObject
 ///请求数据
 + (void) downLoadUserInfoWithSeccessBlock: (void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure:(void(^)( NSError *error))failureBlock;

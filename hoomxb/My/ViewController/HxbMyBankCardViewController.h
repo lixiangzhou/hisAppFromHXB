@@ -8,6 +8,7 @@
 
 #import "HXBBaseViewController.h"
 
+///账户安全
 @interface HxbMyBankCardViewController : HXBBaseViewController
 
 @end
