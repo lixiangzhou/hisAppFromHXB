@@ -65,6 +65,7 @@
 		4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8198B51EC450C900D668A1 /* UILabel+Util.m */; };
 		4E8198B91EC459AF00D668A1 /* HxbHomePageFreshCustomerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8198B81EC459AF00D668A1 /* HxbHomePageFreshCustomerView.m */; };
 		4E81E3971EE8F8E4006AD3FC /* UIView+HXBFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E3961EE8F8E4006AD3FC /* UIView+HXBFrame.m */; };
+		4E81E39A1EE90418006AD3FC /* HXBRequestAPI_MYAccountSafetyAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E3991EE90418006AD3FC /* HXBRequestAPI_MYAccountSafetyAPI.m */; };
 		4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */; };
 		4E94B26B1ECBF59D003CCBA7 /* HxbHomeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B26A1ECBF59D003CCBA7 /* HxbHomeRequest.m */; };
 		4E94B2711ECBF613003CCBA7 /* HxbAccountAssetAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B2701ECBF613003CCBA7 /* HxbAccountAssetAPI.m */; };
@@ -219,7 +220,6 @@
 		E1CD4BD61ED83156000CC57B /* HXBBaseAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BB91ED83064000CC57B /* HXBBaseAdvertiseViewController.m */; };
 		E1CD4BDA1ED85266000CC57B /* PYFullScreenGesturePOPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BD91ED85266000CC57B /* PYFullScreenGesturePOPManager.m */; };
 		E1CD4BDD1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BDC1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m */; };
-		E1D048401EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0483F1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.m */; };
 		E1D2CA631EAB4F26000099C7 /* HxbFinanctingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D2CA621EAB4F26000099C7 /* HxbFinanctingViewController.m */; };
 		E1D3D0D21ED6B526003F1DBA /* HXBAdvertisementManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D0D11ED6B526003F1DBA /* HXBAdvertisementManager.m */; };
 		E1D7883E1EC32AE000566AC1 /* HXBFinancting_LoanListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FDF6291EC329F100FF98AC /* HXBFinancting_LoanListTableView.m */; };
@@ -387,6 +387,8 @@
 		4E8198B81EC459AF00D668A1 /* HxbHomePageFreshCustomerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHomePageFreshCustomerView.m; sourceTree = "<group>"; };
 		4E81E3951EE8F8E4006AD3FC /* UIView+HXBFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+HXBFrame.h"; sourceTree = "<group>"; };
 		4E81E3961EE8F8E4006AD3FC /* UIView+HXBFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+HXBFrame.m"; sourceTree = "<group>"; };
+		4E81E3981EE90418006AD3FC /* HXBRequestAPI_MYAccountSafetyAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestAPI_MYAccountSafetyAPI.h; sourceTree = "<group>"; };
+		4E81E3991EE90418006AD3FC /* HXBRequestAPI_MYAccountSafetyAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRequestAPI_MYAccountSafetyAPI.m; sourceTree = "<group>"; };
 		4E8CD0781EBB571A00DCDC5A /* HxbMyViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbMyViewHeaderView.h; sourceTree = "<group>"; };
 		4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbMyViewHeaderView.m; sourceTree = "<group>"; };
 		4E94B2691ECBF59D003CCBA7 /* HxbHomeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHomeRequest.h; sourceTree = "<group>"; };
@@ -699,8 +701,6 @@
 		E1CD4BD91ED85266000CC57B /* PYFullScreenGesturePOPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYFullScreenGesturePOPManager.m; sourceTree = "<group>"; };
 		E1CD4BDB1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYFullScreenGesturePOPAnimationManager.h; sourceTree = "<group>"; };
 		E1CD4BDC1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYFullScreenGesturePOPAnimationManager.m; sourceTree = "<group>"; };
-		E1D0483E1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestAPI_MYAccountSafety.h; sourceTree = "<group>"; };
-		E1D0483F1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafety.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRequestAPI_MYAccountSafety.m; sourceTree = "<group>"; };
 		E1D2CA611EAB4F26000099C7 /* HxbFinanctingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbFinanctingViewController.h; sourceTree = "<group>"; };
 		E1D2CA621EAB4F26000099C7 /* HxbFinanctingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbFinanctingViewController.m; sourceTree = "<group>"; };
 		E1D3D0D01ED6B526003F1DBA /* HXBAdvertisementManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAdvertisementManager.h; sourceTree = "<group>"; };
@@ -2112,8 +2112,8 @@
 		E1D0483D1EE8F303002A4E28 /* MYRequest_ Account */ = {
 			isa = PBXGroup;
 			children = (
-				E1D0483E1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafetyAPI.h */,
-				E1D0483F1EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafetyAPI.m */,
+				4E81E3981EE90418006AD3FC /* HXBRequestAPI_MYAccountSafetyAPI.h */,
+				4E81E3991EE90418006AD3FC /* HXBRequestAPI_MYAccountSafetyAPI.m */,
 			);
 			path = "MYRequest_ Account";
 			sourceTree = "<group>";
@@ -2818,7 +2818,6 @@
 				4E80A57B1EA4F4930006D012 /* HxbHTTPSessionManager.m in Sources */,
 				4E8198AB1EC44BCE00D668A1 /* HXBHomePageBulletinView.m in Sources */,
 				E1D2CA631EAB4F26000099C7 /* HxbFinanctingViewController.m in Sources */,
-				E1D048401EE8F340002A4E28 /* HXBRequestAPI_MYAccountSafetyAPI.m in Sources */,
 				4E73BBD91EC2F48E001B8357 /* HxbToolbar.m in Sources */,
 				4E26E3C01EA0FEFE0078B419 /* BaseModel.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
@@ -2856,6 +2855,7 @@
 				4E26E3B21EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m in Sources */,
 				E1057D261EE250AD00C63286 /* HXBTokenManager.m in Sources */,
 				E1318C051EDECF7D00DF1061 /* HXBSign_InAndUPViewModel.m in Sources */,
+				4E81E39A1EE90418006AD3FC /* HXBRequestAPI_MYAccountSafetyAPI.m in Sources */,
 				E1E461491EB9AB74005B1FC6 /* HXBFinanctingRequest.m in Sources */,
 				E1E4613C1EB98B5C005B1FC6 /* HXBBaseToolBarView.m in Sources */,
 				E1D3D0D21ED6B526003F1DBA /* HXBAdvertisementManager.m in Sources */,

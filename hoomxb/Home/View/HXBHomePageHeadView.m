@@ -114,13 +114,7 @@
     if (self.indicationView.hidden == NO) {
         return;
     }
-//    if (self.bulletinView.hidden == YES) {
-//        self.moduleView.y = CGRectGetMaxY(self.indicationView.frame);
-//    }else{
-//        self.moduleView.y = self.bannerView.height + self.bulletinView.height +  self.indicationView .height;
-//        self.indicationView.y = self.bannerView.height + self.bulletinView.height;
-//    }
-//    self.height = self.height + self.indicationView.height;
+
   
     self.indicationView.hidden = NO;
     [self resetView];

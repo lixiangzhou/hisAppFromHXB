@@ -50,13 +50,16 @@
     }
 }
 
+/**
+ 判断业务逻辑
+ */
 - (void)changeIndicationView
 {
-//    if ([KeyChain isLogin]) {
-//        [self.headView hideLoginIndicationView];
-//    }else{
-        [self.headView showLoginIndicationView];
-//    }
+    //没有投资显示的界面
+//    [self.headView hideLoginIndicationView];
+    //已经投资显示的界面
+    [self.headView showLoginIndicationView];
+
 }
 
 - (void)showSecurityCertificationOrInvest{
