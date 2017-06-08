@@ -30,11 +30,11 @@
 /**
  未投资显示的页面
  */
-- (void)hideLoginIndicationView;
+- (void)showNotValidatedView;
 /**
  已投资显示的页面
  */
-- (void)showLoginIndicationView;
+- (void)showAlreadyInvestedView;
 
 - (void)hideBulletinView;
 - (void)showBulletinView;

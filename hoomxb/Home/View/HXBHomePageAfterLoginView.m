@@ -92,6 +92,16 @@
     }
 }
 
+/**
+ 认证的按钮的点击
+ */
+- (void)tipButtonClick
+{
+    if (self.tipButtonClickBlock) {
+        self.tipButtonClickBlock();
+    }
+}
+
 - (void)loadData{
     NSString *userName = @"5层安全防护保护资金安全";
 //   _userTitleLabel.text = [NSString stringWithFormat:@"您好，%@",userName];
@@ -121,8 +131,7 @@
 
 - (void)setTipString:(NSString *)tipString{
     _tipString = tipString;
-
-    [_tipButton setTitle:tipString forState:UIControlStateNormal];
+    [self.tipButton setTitle:tipString forState:UIControlStateNormal];
 }
 
 - (UILabel *)userTitleLabel{
@@ -154,6 +163,7 @@
         _tipButton.layer.borderWidth = 1.0f;
         _tipButton.layer.borderColor = COR10.CGColor;
         _tipButton.backgroundColor = [UIColor whiteColor];
+        [_tipButton addTarget:self action:@selector(tipButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _tipButton;
 }

@@ -94,7 +94,7 @@
     }
 }
 
-- (void)hideLoginIndicationView
+- (void)showNotValidatedView
 {
     self.afterLoginView.hidden = NO;
     if (self.indicationView.hidden) {
@@ -108,14 +108,12 @@
     [self resetView];
 }
 
-- (void)showLoginIndicationView
+- (void)showAlreadyInvestedView
 {
     self.afterLoginView.hidden = YES;
     if (self.indicationView.hidden == NO) {
         return;
     }
-
-  
     self.indicationView.hidden = NO;
     [self resetView];
 }

@@ -56,9 +56,9 @@
 - (void)changeIndicationView
 {
     //没有投资显示的界面
-//    [self.headView hideLoginIndicationView];
+    [self.headView showNotValidatedView];
     //已经投资显示的界面
-    [self.headView showLoginIndicationView];
+//    [self.headView showAlreadyInvestedView];
 
 }
 
