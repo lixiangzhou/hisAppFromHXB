@@ -88,21 +88,8 @@
 - (void)setModle:(NSString *)modle
 {
     _modle = modle;
-    NSString *str = @"可用金额(元):789.76";
-    NSMutableAttributedString *availableAmountAttrStr = [[NSMutableAttributedString alloc] initWithString:str];
-    // 设置字体和设置字体的范围
-    [availableAmountAttrStr addAttribute:NSFontAttributeName
-                    value:[UIFont systemFontOfSize:17.0f]
-                    range:NSMakeRange(8, str.length - 8)];
-    self.availableAmountLabel.attributedText = availableAmountAttrStr;
-    str = @"累计收益(元):789.76";
-    NSMutableAttributedString *accumulatedIncomeAttrStr = [[NSMutableAttributedString alloc] initWithString:str];
-    // 设置字体和设置字体的范围
-    [accumulatedIncomeAttrStr addAttribute:NSFontAttributeName
-                                   value:[UIFont systemFontOfSize:17.0f]
-                                   range:NSMakeRange(8, str.length - 8)];
-    self.accumulatedIncomeLabel.attributedText = accumulatedIncomeAttrStr;
-    
+    self.availableAmountLabel.attributedText = [self handleWithString:@"可用金额(元):789.76"];
+    self.accumulatedIncomeLabel.attributedText = [self handleWithString:@"累计收益(元):789.76"];
 }
 
 /**
@@ -112,24 +99,28 @@
 {
    
     if (self.ciphertextButton.selected) {
-        NSString *str = @"累计收益(元):789.76";
-        NSMutableAttributedString *accumulatedIncomeAttrStr = [[NSMutableAttributedString alloc] initWithString:str];
-        // 设置字体和设置字体的范围
-        [accumulatedIncomeAttrStr addAttribute:NSFontAttributeName
-                                         value:[UIFont systemFontOfSize:17.0f]
-                                         range:NSMakeRange(8, str.length - 8)];
-        self.accumulatedIncomeLabel.attributedText = accumulatedIncomeAttrStr;
+        self.accumulatedIncomeLabel.attributedText = [self handleWithString:@"累计收益(元):789.76"];
     }else{
-        NSString *str = @"累计收益(元):***";
-        NSMutableAttributedString *accumulatedIncomeAttrStr = [[NSMutableAttributedString alloc] initWithString:str];
-        // 设置字体和设置字体的范围
-        [accumulatedIncomeAttrStr addAttribute:NSFontAttributeName
-                                         value:[UIFont systemFontOfSize:17.0f]
-                                         range:NSMakeRange(8, str.length - 8)];
-        self.accumulatedIncomeLabel.attributedText = accumulatedIncomeAttrStr;
+        self.accumulatedIncomeLabel.attributedText = [self handleWithString:@"累计收益(元):******"];
     }
-    
     self.ciphertextButton.selected = !self.ciphertextButton.selected;
+}
+
+/**
+ 对字符串进行部分放大处理
+
+ @param str 需要处理的字符串
+ @return 返回给你一个NSMutableAttributedString类型的字符串
+ */
+- (NSMutableAttributedString *)handleWithString:(NSString *)str
+{
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:str];
+    // 设置字体和设置字体的范围
+    [attrStr addAttribute:NSFontAttributeName
+                                     value:[UIFont systemFontOfSize:17.0f]
+                                     range:NSMakeRange(8, str.length - 8)];
+    return attrStr;
+
 }
 
 #pragma mark Get Methdos
