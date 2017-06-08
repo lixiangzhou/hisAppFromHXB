@@ -7,7 +7,7 @@
 //
 
 #import "HxbMyAccountSecurityViewController.h"
-
+#import "HxbSignUpViewController.h"///注册
 @interface HxbMyAccountSecurityViewController ()
 <
 UITableViewDataSource,UITableViewDelegate
@@ -42,15 +42,23 @@ UITableViewDataSource,UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
-        
+        if (indexPath.row == 0) {//表示安全认证
+        }
+        if (indexPath.row == 1) {//点击绑定手机号
+            NSLog(@"click 绑定手机号");
+            
+        }
     }else if(indexPath.section == 1){
         
         if (indexPath.row == 0) {
-        
+            NSLog(@"click 设置登录密码");
+            HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc] init];
+            signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
+            [self.navigationController pushViewController: signUPVC animated:true];
         }else if (indexPath.row == 1){
-         
+            NSLog(@"click 设置交易密码");
         }else{
-            
+            NSLog(@"click 设置手势密码");
         }
         
     }else{

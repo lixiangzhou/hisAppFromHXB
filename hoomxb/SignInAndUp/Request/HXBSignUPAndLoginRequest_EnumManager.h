@@ -7,6 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#pragma mark - 错误码
+///输入验证码
+static NSInteger const HXBSignUPAndLoginRequestError_captcha102 = 102;
+
+
+
 ///	String	REGISTER (注册)
 static NSString *const kTypeKey_signup;
 ///	String	RESETPASSWORD (重置登录密码)
