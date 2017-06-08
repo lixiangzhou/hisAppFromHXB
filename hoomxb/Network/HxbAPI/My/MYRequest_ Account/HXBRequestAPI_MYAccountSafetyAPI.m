@@ -9,6 +9,7 @@
 #import "HXBRequestAPI_MYAccountSafetyAPI.h"
 
 @implementation HXBRequestAPI_MYAccountSafetyAPI
+
 - (NSString *)requestUrl {
     return @"/account/userplanAssets.action";
 }
