@@ -12,9 +12,9 @@
 ///用户相关的Model
 @interface HXBUserInfoModel : NSObject
 ///资金相关
-@property (nonatomic,copy) HXBRequestUserInfoAPI_UserAssets *userAssets;
+@property (nonatomic,strong) HXBRequestUserInfoAPI_UserAssets *userAssets;
 ///用户相关
-@property (nonatomic,copy) HXBRequestUserInfoAPI_UserInfo *userInfo;
+@property (nonatomic,strong) HXBRequestUserInfoAPI_UserInfo *userInfo;
 @end
 
 
@@ -62,7 +62,6 @@
 @property (nonatomic,copy) NSString *hasEverInvestFinancePlan;
 ///int	是否绑卡 1：已绑卡， 0：未绑卡
 @property (nonatomic,copy) NSString *hasBindCard;
-
 ///真实姓名
 @property (nonatomic,copy) NSString *realName;///": "别妙芙",
 ///身份证 640121197904299980

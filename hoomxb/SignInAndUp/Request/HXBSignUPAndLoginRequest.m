@@ -66,11 +66,12 @@
     }
     
     [loginAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        if (![responseObject valueForKey:@"status"]) {
+        if ([responseObject valueForKey:@"status"]) {
             kNetWorkError(@"登录请求失败");
             if (failureBlock) {
                 failureBlock(nil);
             }
+            return;
         }
         if (successBlock) {
             successBlock(true);
@@ -174,7 +175,7 @@
                                    };
     [smscodeAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         
-        if (![responseObject valueForKey:@"status"]) {
+        if ([responseObject valueForKey:@"status"]) {
             kNetWorkError(@"发送短信 请求失败");
             if (failureBlock) failureBlock(nil);
         }
@@ -203,7 +204,7 @@
                                        };
     [checkMobileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSString *status = [responseObject valueForKey:@"status"];
-        if (!status.integerValue) {
+        if (status.integerValue) {
             if (failureBlock) failureBlock(nil);
             return;
         }
@@ -236,7 +237,7 @@
                                     };
     [realnameApi startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSString *status = [responseObject valueForKey:@"status"];
-        if (!status.integerValue) {
+        if (status.integerValue) {
             if (failureBlock) failureBlock(nil);
             return;
         }
