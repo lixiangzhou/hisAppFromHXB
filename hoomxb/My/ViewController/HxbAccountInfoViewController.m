@@ -36,6 +36,7 @@ UITableViewDataSource
     }else if(indexPath.section == 1){
         
         if (indexPath.row == 0) {
+            //账户安全
             HxbMyBankCardViewController *myBankCardViewVC = [[HxbMyBankCardViewController alloc]init];
             [self.navigationController pushViewController:myBankCardViewVC animated:YES];
         }else if (indexPath.row == 1){
