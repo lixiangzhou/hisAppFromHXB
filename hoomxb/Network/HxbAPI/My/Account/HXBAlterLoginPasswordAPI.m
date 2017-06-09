@@ -9,5 +9,11 @@
 #import "HXBAlterLoginPasswordAPI.h"
 
 @implementation HXBAlterLoginPasswordAPI
+- (NSString *)requestUrl {
+    return @"/checkIdentityAuth";
+}
 
+- (NYRequestMethod)requestMethod {
+    return NYRequestMethodPost;
+}
 @end

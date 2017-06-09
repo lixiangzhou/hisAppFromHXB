@@ -9,6 +9,7 @@
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBModifyTransactionPasswordHomeView.h"
 #import "HXBTransactionPasswordConfirmationViewController.h"
+#import "HXBModifyTransactionPasswordRequest.h"
 @interface HXBModifyTransactionPasswordViewController ()
 
 @property (nonatomic, strong) HXBModifyTransactionPasswordHomeView *homeView;
@@ -20,18 +21,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setupSubView];
-}
-
-/**
- 设置子View
- */
-- (void)setupSubView
-{
     self.title = @"修改交易密码";
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    [self.view addSubview:self.homeView];
 }
+
+- (void)authenticationWithIDCard:(NSString *)IDCard
+{
+    HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
+    [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andSuccessBlock:^(NSString *viewModel) {
+        
+    } andFailureBlock:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+
 
 
 #pragma mark - Get方法
@@ -40,13 +44,21 @@
     if (!_homeView) {
         _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:self.view.bounds];
         __weak typeof(self) weakSelf = self;
+        
+        _homeView.getValidationCodeButtonClickBlock = ^(NSString *IDCard){
+            [weakSelf authenticationWithIDCard:IDCard];
+        };
+        //点击下一步回调
         _homeView.nextButtonClickBlock = ^(NSString *idCardNo,NSString *verificationCode){
             HXBTransactionPasswordConfirmationViewController *transactionPasswordVC = [[HXBTransactionPasswordConfirmationViewController alloc] init];
             [weakSelf.navigationController pushViewController:transactionPasswordVC animated:YES];
         };
+        [self.view addSubview:_homeView];
     }
     return _homeView;
 }
+
+
 
 #pragma mark - set方法
 - (void)setUserInfoModel:(HXBUserInfoModel *)userInfoModel

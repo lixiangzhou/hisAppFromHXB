@@ -17,6 +17,15 @@
     return [self stringByReplacingOccurrencesOfString:[self substringWithRange:NSMakeRange(3,4)]withString:@"****"];
 }
 
+- (NSString *) hxb_hiddenUserNameWithleft {
+    NSString *str = @"";
+    for (int i = 0; i<self.length - 1; i++) {
+        str = [NSString stringWithFormat:@"%@*",str];
+    }
+    return [self stringByReplacingOccurrencesOfString:[self substringWithRange:NSMakeRange(0,self.length - 1)]withString:str];
+}
+
+
 -(NSString *)replaceStringWithAsterisk:(NSString *)originalStr startLocation:(NSInteger)startLocation lenght:(NSInteger)lenght
 
 {

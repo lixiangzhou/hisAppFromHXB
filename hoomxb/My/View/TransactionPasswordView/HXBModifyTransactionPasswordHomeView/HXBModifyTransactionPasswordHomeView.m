@@ -43,13 +43,17 @@
  */
 @property (nonatomic, strong) UIButton *nextButton;
 
+@property (nonatomic, weak) NSTimer *timer;
+
 @end
 
 @implementation HXBModifyTransactionPasswordHomeView
 
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    if (self = [super initWithFrame:frame]) {
+    self = [super initWithFrame:frame];
+    if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [self setup];
         [self setupSubViewFrame];
@@ -105,6 +109,7 @@
  */
 - (void)setup
 {
+    
     [self addSubview:self.authenticatedNameTipLabel];
     [self addSubview:self.authenticatedNameLabel];
     [self addSubview:self.idCardTextField];
@@ -122,9 +127,24 @@
 - (void)getValidationCodeButtonClick
 {
     NSLog(@"%s",__func__);
+    self.getValidationCodeButton.enabled = NO;
+    __block int count = 60;
+    [self.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%d秒",count] forState:UIControlStateNormal];
+    kWeakSelf
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        count--;
+        [weakSelf.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%d秒",count] forState:UIControlStateNormal];
+        if (count == -1) {
+            weakSelf.getValidationCodeButton.enabled = YES;
+            [weakSelf.timer invalidate];
+            weakSelf.timer = nil;
+            [weakSelf.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        }
+    }];
     if (self.getValidationCodeButtonClickBlock) {
-        self.getValidationCodeButtonClickBlock();
+        self.getValidationCodeButtonClickBlock(self.idCardTextField.text);
     }
+    
 }
 
 /**
@@ -142,11 +162,8 @@
 - (void)setUserInfoModel:(HXBUserInfoModel *)userInfoModel
 {
     _userInfoModel = userInfoModel;
-    self.authenticatedNameLabel.text = userInfoModel.userInfo.realName;
-    NSLog(@"%@",userInfoModel.userInfo.mobile);
-    NSLog(@"%@",self.phoneNumberLabel);
-    self.phoneNumberLabel.text = userInfoModel.userInfo.mobile;
-    NSLog(@"%@",self.phoneNumberLabel);
+    self.authenticatedNameLabel.text = [userInfoModel.userInfo.realName hxb_hiddenUserNameWithleft];
+    self.phoneNumberLabel.text = [userInfoModel.userInfo.mobile hxb_hiddenPhonNumberWithMid];
 }
 
 #pragma mark - get方法
@@ -258,5 +275,10 @@
     return _nextButton;
 }
 
+- (void)dealloc
+{
+    [self.timer invalidate];
+    self.timer = nil;
+}
 
 @end

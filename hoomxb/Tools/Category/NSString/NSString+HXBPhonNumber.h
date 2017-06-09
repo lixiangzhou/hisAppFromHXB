@@ -11,4 +11,6 @@
 @interface NSString (HXBPhonNumber)
 ///隐藏了手机号码中的中间字段
 - (NSString *) hxb_hiddenPhonNumberWithMid;
+///隐藏了真是姓名前面的字段
+- (NSString *) hxb_hiddenUserNameWithleft;
 @end
