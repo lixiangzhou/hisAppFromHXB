@@ -25,7 +25,10 @@
                                                     };
     
     [mobifyPassword_LoginRequest startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        
+        if ([responseObject valueForKey:@"status"]) {
+            kNetWorkError(@"修改登录密码失败");
+            if (failureBlock) failureBlock(nil);
+        }
     } failure:^(NYBaseRequest *request, NSError *error) {
         
     }];
