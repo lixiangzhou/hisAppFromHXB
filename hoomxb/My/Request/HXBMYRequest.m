@@ -405,6 +405,8 @@
                            andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *>* viewModelArray))successDateBlock
                            andFailureBlock: (void(^)(NSError *error))failureBlock {
     HXBRequestAPI_MYMainCapitalRecordAPI *capitalRecordAPI = [[HXBRequestAPI_MYMainCapitalRecordAPI alloc]init];
+    
+    
     //如果是下拉刷新的话
     if (isUPData) self.capitalRecordPage = 1;
     
@@ -418,6 +420,7 @@
     
     [capitalRecordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         HXBRequestAPI_MYMainCapitalRecordAPI *api = (HXBRequestAPI_MYMainCapitalRecordAPI *)request;
+        
         NSDictionary *data = [responseObject valueForKey:@"data"];
         NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
         

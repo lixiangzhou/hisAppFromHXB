@@ -13,7 +13,7 @@
 #import "HXBSignUPAndLoginRequest.h"///用于请求注册登录的接口
 #import "HXBRequestUserInfo.h"///用户数据的请求
 #import "HXBRequestUserInfoViewModel.h"///userinfo的viewModel
-
+#import "HXBCheckCaptchaViewController.h"
 
 ///登录请求的次数 （大于三次后， 就要进行图验）
 static NSString *const kReuqestSignINNumber = @"reuqestSignINNumber";
@@ -29,7 +29,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 @property (nonatomic,strong) NSNumber *reuqestSignINNumber;
 ///用户的基本信息的ViewModel
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
-
+@property (nonatomic,copy) NSString *checkCaptcha;
 @end
 
 @implementation HxbSignInViewController
@@ -68,17 +68,26 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     [self.signView signIN_ClickButtonFunc:^(NSString *pasword, NSString *mobile) {
         
         //[weakSelf userInfo_DownLoadData];//请求用户信息
-        if ([weakSelf.reuqestSignINNumber integerValue] > 3) {//如果大于三次了
+        if ([weakSelf.reuqestSignINNumber integerValue] >= 3) {//如果大于三次了
             
+            HXBCheckCaptchaViewController *vc = [[HXBCheckCaptchaViewController alloc] init];
+            [vc checkCaptchaSucceedFunc:^(NSString *checkPaptcha) {
+                self.checkCaptcha = checkPaptcha;
+            }];
+            [weakSelf presentViewController:vc animated:true completion:nil];
         }
         //用户登录请求
-        [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:pasword andCaptcha:nil andSuccessBlock:^(BOOL isSuccess) {
+        [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:pasword andCaptcha:self.checkCaptcha andSuccessBlock:^(BOOL isSuccess) {
             NSLog(@"登录成功");
+            self.reuqestSignINNumber = @(0);
             [weakSelf dismiss];
         } andFailureBlock:^(NSError *error) {
-            
+            self.reuqestSignINNumber = @(self.reuqestSignINNumber.integerValue + 1);
+            if (!error) {
+                HXBCheckCaptchaViewController *vc = [[HXBCheckCaptchaViewController alloc] init];
+                [weakSelf presentViewController:vc animated:true completion:nil];
+            }
         }];
-        
     }];
 }
 ///注册 校验手机号事件
@@ -119,7 +128,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 ///用户数据的请求
 - (void)userInfo_DownLoadData {
     __weak typeof(self)weakSelf = self;
-//    HXBRequestUserInfo *userInfo_request = [[HXBRequestUserInfo alloc]init];
+    HXBRequestUserInfo *userInfo_request = [[HXBRequestUserInfo alloc]init];
 //    [userInfo_request downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
 //        weakSelf.userInfoViewModel = viewModel;
 //    } andFailure:^(NSError *error) {

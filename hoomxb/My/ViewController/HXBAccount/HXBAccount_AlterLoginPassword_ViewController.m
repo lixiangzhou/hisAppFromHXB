@@ -8,6 +8,7 @@
 
 #import "HXBAccount_AlterLoginPassword_ViewController.h"
 #import "HXBAccount_AlterLoginPassword_View.h"///修改登录密码的view
+#import "HXBMobifyPassword_LoginRequest.h"///修改密码接口
 @interface HXBAccount_AlterLoginPassword_ViewController ()
 @property (nonatomic,strong) HXBAccount_AlterLoginPassword_View *alterLoginPasswordView;
 @end
@@ -24,9 +25,14 @@
     [self.view addSubview:self.alterLoginPasswordView];
     self.alterLoginPasswordView.frame = self.view.frame;
     self.edgesForExtendedLayout = false;
-    [self.alterLoginPasswordView clickAlterButtonWithBlock:^{
+    [self.alterLoginPasswordView clickAlterButtonWithBlock:^(NSString *password_Original, NSString *password_New) {
         //验证密码
-        
+        [HXBMobifyPassword_LoginRequest mobifyPassword_LoginRequest_requestWithOldPwd:password_Original andNewPwd:password_New andSuccessBlock:^{
+        } andFailureBlock:^(NSError *error) {
+            if (error) {
+                
+            }
+        }];
     }];
 }
 

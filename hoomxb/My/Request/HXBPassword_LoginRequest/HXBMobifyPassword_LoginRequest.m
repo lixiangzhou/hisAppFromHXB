@@ -10,7 +10,7 @@
 #import "HXBMobifyPassword_LoginRequest.h"
 #import "NYBaseRequest.h"//请求工具类
 @implementation HXBMobifyPassword_LoginRequest
-- (void)mobifyPassword_LoginRequest_requestWithOldPwd: (NSString *)oldPassword
++ (void)mobifyPassword_LoginRequest_requestWithOldPwd: (NSString *)oldPassword
                                             andNewPwd: (NSString *)newPassword
                                       andSuccessBlock: (void(^)())successDateBlock
                                       andFailureBlock: (void(^)(NSError *error))failureBlock
@@ -26,11 +26,15 @@
     
     [mobifyPassword_LoginRequest startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         if ([responseObject valueForKey:@"status"]) {
+            NSLog(@"%@",responseObject);
             kNetWorkError(@"修改登录密码失败");
+            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) failureBlock(nil);
         }
-    } failure:^(NYBaseRequest *request, NSError *error) {
         
+        if (successDateBlock) successDateBlock();
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (failureBlock) failureBlock(nil);
     }];
     
     
