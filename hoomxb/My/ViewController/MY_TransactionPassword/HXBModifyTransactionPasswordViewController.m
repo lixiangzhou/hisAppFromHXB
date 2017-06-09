@@ -18,6 +18,15 @@
 
 @implementation HXBModifyTransactionPasswordViewController
 
+#pragma mark - VC的生命周期
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.homeView sendCodeFail];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -25,10 +34,19 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
+/**
+ 验证身份证号码
+
+ @param IDCard 身份证号码
+ */
 - (void)authenticationWithIDCard:(NSString *)IDCard
 {
+    kWeakSelf
     HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
-    [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andSuccessBlock:^(NSString *viewModel) {
+    [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andSuccessBlock:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+        [weakSelf.homeView idcardWasSuccessfully];
+        [weakSelf getValidationCode];
         
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
@@ -36,22 +54,59 @@
 }
 
 
+/**
+ 获取验证码
+ */
+- (void)getValidationCode
+{
+    kWeakSelf
+    HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
+    [modifyTransactionPasswordRequest myTransactionPasswordWithSuccessBlock:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+    } andFailureBlock:^(NSError *error) {
+        NSLog(@"%@",error);
+        [weakSelf.homeView sendCodeFail];
+    }];
+}
+
+/**
+ 同时验证身份证和验证码
+ */
+- (void)verifyWithIDCard:(NSString *)IDCard andCode:(NSString *)code
+{
+    kWeakSelf
+    HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
+    [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andWithCode:code andSuccessBlock:^(id responseObject) {
+        
+        [weakSelf checkIdentitySmsSuccessWithIDCard:IDCard andCode:code];
+        
+    } andFailureBlock:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+}
+
+- (void)checkIdentitySmsSuccessWithIDCard:(NSString *)IDCard andCode:(NSString *)code
+{
+    HXBTransactionPasswordConfirmationViewController *transactionPasswordVC = [[HXBTransactionPasswordConfirmationViewController alloc] init];
+    transactionPasswordVC.idcard = IDCard;
+    transactionPasswordVC.code = code;
+    [self.navigationController pushViewController:transactionPasswordVC animated:YES];}
 
 
 #pragma mark - Get方法
 - (HXBModifyTransactionPasswordHomeView *)homeView
 {
     if (!_homeView) {
+        kWeakSelf
         _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:self.view.bounds];
-        __weak typeof(self) weakSelf = self;
         
         _homeView.getValidationCodeButtonClickBlock = ^(NSString *IDCard){
             [weakSelf authenticationWithIDCard:IDCard];
         };
         //点击下一步回调
         _homeView.nextButtonClickBlock = ^(NSString *idCardNo,NSString *verificationCode){
-            HXBTransactionPasswordConfirmationViewController *transactionPasswordVC = [[HXBTransactionPasswordConfirmationViewController alloc] init];
-            [weakSelf.navigationController pushViewController:transactionPasswordVC animated:YES];
+            [weakSelf verifyWithIDCard:idCardNo andCode:verificationCode];
         };
         [self.view addSubview:_homeView];
     }

@@ -61,6 +61,7 @@
     return self;
 }
 
+
 - (void)setupSubViewFrame
 {
     [self.authenticatedNameTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -126,7 +127,17 @@
  */
 - (void)getValidationCodeButtonClick
 {
-    NSLog(@"%s",__func__);
+    if (self.getValidationCodeButtonClickBlock) {
+        self.getValidationCodeButtonClickBlock(self.idCardTextField.text);
+    }
+    
+}
+
+/**
+ 身份证验证成功
+ */
+- (void)idcardWasSuccessfully
+{
     self.getValidationCodeButton.enabled = NO;
     __block int count = 60;
     [self.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%d秒",count] forState:UIControlStateNormal];
@@ -141,10 +152,18 @@
             [weakSelf.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
         }
     }];
-    if (self.getValidationCodeButtonClickBlock) {
-        self.getValidationCodeButtonClickBlock(self.idCardTextField.text);
-    }
-    
+}
+
+/**
+ 发送验证码失败
+ */
+- (void)sendCodeFail
+{
+    self.getValidationCodeButton.enabled = YES;
+    [self.timer invalidate];
+    self.timer = nil;
+    [self.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+
 }
 
 /**

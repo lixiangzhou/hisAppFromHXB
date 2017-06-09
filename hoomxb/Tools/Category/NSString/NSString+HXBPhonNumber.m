@@ -25,6 +25,10 @@
     return [self stringByReplacingOccurrencesOfString:[self substringWithRange:NSMakeRange(0,self.length - 1)]withString:str];
 }
 
+- (NSString *)hxb_hiddenBankCard
+{
+    return [self stringByReplacingOccurrencesOfString:[self substringWithRange:NSMakeRange(0,self.length - 4)]withString:@"**** **** **** "];
+}
 
 -(NSString *)replaceStringWithAsterisk:(NSString *)originalStr startLocation:(NSInteger)startLocation lenght:(NSInteger)lenght
 

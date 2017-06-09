@@ -7,7 +7,7 @@
 //
 
 #import "HXBMyBankCell.h"
-
+#import "HXBBankCardModel.h"
 
 @interface HXBMyBankCell ()
 
@@ -46,12 +46,13 @@
 }
 
 #pragma mark Set
-//- (void)setModel:(BankCardsModel *)model
-//{
-
+- (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
+{
+    _bankCardModel = bankCardModel;
+    self.bankTitleLabel.text = bankCardModel.bankType;
+    self.cardNumLabel.text = [bankCardModel.cardId hxb_hiddenBankCard];
     
-    //    self.bankImageView.image = [UIImage imageNamed:@"gongshang"]; // 测试
-//}
+}
 
 #pragma mark Get
 - (UIView *)cornerView
@@ -68,6 +69,7 @@
     if (!_backView) {
         _backView = [[UIView alloc]initWithFrame:CGRectMake(12, 0, SCREEN_WIDTH - 24, 139)];
         _backView.layer.cornerRadius = 12.f;
+        _backView.backgroundColor = [UIColor whiteColor];
     }
     return _backView;
 }
@@ -100,7 +102,7 @@
     if (!_bankTitleLabel) {
         _bankTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_bankImageContainer.frame) + 16, 16, SCREEN_WIDTH - 70, SIZ12)];
         _bankTitleLabel.font = HXB_Text_Font(SIZ12);
-        _bankTitleLabel.textColor = [UIColor whiteColor];
+        _bankTitleLabel.textColor = [UIColor blackColor];
     }
     return _bankTitleLabel;
 }
@@ -119,7 +121,7 @@
 {
     if (!_cardNumLabel) {
         _cardNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(_bankTitleLabel.x, _backView.height - 40.5, SCREEN_WIDTH - 70, SIZ11)];
-        _cardNumLabel.textColor = [UIColor whiteColor];
+        _cardNumLabel.textColor = [UIColor blackColor];
     }
     return _cardNumLabel;
 }

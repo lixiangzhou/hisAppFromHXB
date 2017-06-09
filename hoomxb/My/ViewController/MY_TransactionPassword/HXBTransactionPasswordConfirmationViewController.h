@@ -10,4 +10,14 @@
 
 @interface HXBTransactionPasswordConfirmationViewController : HXBBaseViewController
 
+/**
+ 身份证号码
+ */
+@property (nonatomic, copy) NSString *idcard;
+/**
+ 验证码
+ */
+@property (nonatomic, copy) NSString *code;
+
+
 @end

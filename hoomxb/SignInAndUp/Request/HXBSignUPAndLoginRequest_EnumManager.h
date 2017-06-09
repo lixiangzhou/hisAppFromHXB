@@ -15,15 +15,15 @@ static NSInteger const HXBSignUPAndLoginRequestError_captcha102 = 102;
 
 
 ///	String	REGISTER (注册)
-static NSString *const kTypeKey_signup;
+static NSString *const kTypeKey_signup = @"signup";
 ///	String	RESETPASSWORD (重置登录密码)
-static NSString *const kTypeKey_forgot;
+static NSString *const kTypeKey_forgot = @"forgot" ;
 ///	String	RESETCASHPWD (重置交易密码)
-static NSString *const kTypeKey_tradpwd;
+static NSString *const kTypeKey_tradpwd = @"tradpwd";
 ///	String	CHECKOLDMOBILE (校验老的手机号)
-static NSString *const kTypeKey_oldmobile;
+static NSString *const kTypeKey_oldmobile = @"oldmobile";
 ///	String	UPDATEMOBILE (修改绑定手机号)
-static NSString *const kTypeKey_newmobile;
+static NSString *const kTypeKey_newmobile = @"newmobile";
 
 /**通用短信发送类型*/
 typedef enum : NSUInteger {

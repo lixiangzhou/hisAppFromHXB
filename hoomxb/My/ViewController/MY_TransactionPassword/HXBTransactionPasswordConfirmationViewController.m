@@ -8,6 +8,7 @@
 
 #import "HXBTransactionPasswordConfirmationViewController.h"
 #import "HXBTransactionPasswordConfirmationView.h"
+#import "HXBModifyTransactionPasswordRequest.h"
 @interface HXBTransactionPasswordConfirmationViewController ()
 
 @property (nonatomic, strong) HXBTransactionPasswordConfirmationView *homeView;
@@ -29,10 +30,33 @@
     [self.view addSubview:self.homeView];
 }
 
+/**
+ 确认修改交易密码
+
+ @param surePassword 设置的新密码
+ */
+- (void)confirmTransactionWithPassword:(NSString *)surePassword
+{
+    kWeakSelf
+    HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
+    [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:self.idcard andWithCode:self.code andWithPassword:surePassword andSuccessBlock:^(id responseObject) {
+        [HxbHUDProgress showTextWithMessage:@"修改成功"];
+        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
+    
+}
+
+#pragma mark - get方法
 - (HXBTransactionPasswordConfirmationView *)homeView
 {
     if (!_homeView) {
         _homeView = [[HXBTransactionPasswordConfirmationView alloc] initWithFrame:self.view.bounds];
+        kWeakSelf
+        _homeView.confirmChangeButtonClickBlock = ^(NSString *surePassword){
+            [weakSelf confirmTransactionWithPassword:surePassword];
+        };
     }
     return _homeView;
 }

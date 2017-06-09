@@ -13,18 +13,16 @@
 @implementation NYBaseRequest
 
 //---------------------------------- request ---------------------------------
-- (NYRequestMethod)requestMethods
-{
-    return NYRequestMethodGet;
-}
-
-- (NSString *)requestUrl{
-    return @"";
-}
-
-- (NSString *)baseUrl{
-    return @"";
-}
+//- (NYRequestMethod)requestMethods
+//{
+//    return NYRequestMethodGet;
+//}
+//
+//
+//
+//- (NSString *)baseUrl{
+//    return @"";
+//}
 
 /// 不能在这里写，因为在子类中，如果没有重写
 //- (NSDictionary *)requestArgument{
@@ -32,7 +30,7 @@
 //} 
 
 - (NSDictionary *)requestHeaderFieldValueDictionary{
-    if (_requestHeaderFieldValueDictionary) {
+    if (!_requestHeaderFieldValueDictionary) {
         _requestHeaderFieldValueDictionary = @{};
     }
     return _requestHeaderFieldValueDictionary;

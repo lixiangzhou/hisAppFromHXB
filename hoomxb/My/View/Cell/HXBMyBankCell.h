@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-
+@class HXBBankCardModel;
 @interface HXBMyBankCell : UITableViewCell
 
-
+@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 
 @end
