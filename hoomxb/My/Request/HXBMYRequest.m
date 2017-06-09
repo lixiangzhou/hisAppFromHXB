@@ -300,8 +300,8 @@
     }];
 }
 
-
-- (void)myLoan_requestWithPlanType: (HXBRequestType_MY_LoanRequestType)loanRequestType
+/// 散标列表的 请求
+- (void)myLoan_requestWithLoanType: (HXBRequestType_MY_LoanRequestType)LoanRequestType
                          andUpData: (BOOL)isUPData
                    andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainLoanViewModel *>* viewModelArray))successDateBlock
                    andFailureBlock: (void(^)(NSError *error))failureBlock{
@@ -312,11 +312,11 @@
     }
     __block NSString *loanTypeStr = nil;
     //获取请求类型
-    [HXBRequestType_MYManager myLoan_requestType:loanRequestType andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
+    [HXBRequestType_MYManager myLoan_requestType:LoanRequestType andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
         loanTypeStr = type;
     }];
     NSInteger page = 1;
-    switch (loanRequestType) {
+    switch (LoanRequestType) {
         case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN:
             if (isUPData) self.repayingPage = 1;
             page = self.repayingPage;
@@ -335,7 +335,7 @@
                                     @"type" :  loanTypeStr,
                                     @"version" : @"1.0",
                                     };
-    mainLoanAPI.requestType = loanRequestType;//后台没有返回给我，所以就自己记录在了api里面
+    mainLoanAPI.requestType = LoanRequestType;//后台没有返回给我，所以就自己记录在了api里面
     mainLoanAPI.isUPData = isUPData;
     [mainLoanAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         
@@ -353,22 +353,11 @@
         }];
         HXBRequstAPI_MYMainLoanAPI *loanRequestAPI = (HXBRequstAPI_MYMainLoanAPI *)request;
         
-        /// 测试
-//        HXBMyModel_MainLoanModel *loanModel = [[HXBMyModel_MainLoanModel alloc]init];
-//        [loanModel steUPProperty];
-//        HXBMYViewModel_MainLoanViewModel *viewModel = [[HXBMYViewModel_MainLoanViewModel alloc]init];
-//        viewModel.loanModel = loanModel;
-//        viewModel.requestType = HXBRequestType_MY_LoanRequestType_REPAYING_LOAN;
-//        loanViewModelArray = @[
-//                               viewModel
-//                               ].mutableCopy;
-//        
         //如果block 在外界实现了，并且loanViewModelArray有值
         if (successDateBlock) {
             HXBRequestType_MY_LoanRequestType loanRequestType = mainLoanAPI.requestType;
             //对数据的处理（里面进行了对page的处理，与ViewModelArray 种类 的处理）
             NSArray <HXBMYViewModel_MainLoanViewModel *>*viewModelArray = [self loan_handleLoanViewModelArrayWithIsUPData:loanRequestAPI.isUPData andRequestType:loanRequestType andLoanViewModelArray:loanViewModelArray];
-
             successDateBlock(viewModelArray);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {

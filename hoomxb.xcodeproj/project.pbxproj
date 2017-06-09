@@ -19,7 +19,6 @@
 		4E26E3B11EA0FE660078B419 /* NYNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3AA1EA0FE660078B419 /* NYNetworkConfig.m */; };
 		4E26E3B21EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3AC1EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m */; };
 		4E26E3B31EA0FE660078B419 /* NYNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3AE1EA0FE660078B419 /* NYNetworkManager.m */; };
-		4E26E3B91EA0FE790078B419 /* TokenAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3B71EA0FE790078B419 /* TokenAPI.m */; };
 		4E26E3BD1EA0FEED0078B419 /* HXBTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3BC1EA0FEED0078B419 /* HXBTokenModel.m */; };
 		4E26E3C01EA0FEFE0078B419 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E26E3BF1EA0FEFE0078B419 /* BaseModel.m */; };
 		4E294F1B1EB9B2D3007D5042 /* HxbSecurityCertificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E294F1A1EB9B2D3007D5042 /* HxbSecurityCertificationViewController.m */; };
@@ -309,8 +308,6 @@
 		4E26E3AC1EA0FE660078B419 /* NYNetworkManager+DefaultMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NYNetworkManager+DefaultMethod.m"; sourceTree = "<group>"; };
 		4E26E3AD1EA0FE660078B419 /* NYNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetworkManager.h; sourceTree = "<group>"; };
 		4E26E3AE1EA0FE660078B419 /* NYNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYNetworkManager.m; sourceTree = "<group>"; };
-		4E26E3B61EA0FE790078B419 /* TokenAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenAPI.h; sourceTree = "<group>"; };
-		4E26E3B71EA0FE790078B419 /* TokenAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenAPI.m; sourceTree = "<group>"; };
 		4E26E3BB1EA0FEED0078B419 /* HXBTokenModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTokenModel.h; sourceTree = "<group>"; };
 		4E26E3BC1EA0FEED0078B419 /* HXBTokenModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTokenModel.m; sourceTree = "<group>"; };
 		4E26E3BE1EA0FEFE0078B419 /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
@@ -920,8 +917,6 @@
 				E1E4615F1EB9B38E005B1FC6 /* Home */,
 				E1E4615E1EB9B368005B1FC6 /* My */,
 				E1E4614A1EB9B31E005B1FC6 /* Financing */,
-				4E26E3B61EA0FE790078B419 /* TokenAPI.h */,
-				4E26E3B71EA0FE790078B419 /* TokenAPI.m */,
 			);
 			path = HxbAPI;
 			sourceTree = "<group>";
@@ -2873,7 +2868,6 @@
 				E1270B4D1ECED2FC00729BC9 /* HXBMYModel_LoanDetailModel.m in Sources */,
 				E1270B361ECED1F300729BC9 /* HXBMYViewModel_MainCapitalRecordViewModel.m in Sources */,
 				E1270B371ECED1F300729BC9 /* HXBMYViewModel_MainLoanViewModel.m in Sources */,
-				4E26E3B91EA0FE790078B419 /* TokenAPI.m in Sources */,
 				E1CB56141ED2CFD300D962CA /* HXBRequestAPI_MYAssetStatisticsAPI_Plan.m in Sources */,
 				E1B0F4861EC492160071246F /* HXBFinAddRecordVC_Plan.m in Sources */,
 				4E94B2861ECC2ED2003CCBA7 /* HxbHomePageViewModel_dataList.m in Sources */,

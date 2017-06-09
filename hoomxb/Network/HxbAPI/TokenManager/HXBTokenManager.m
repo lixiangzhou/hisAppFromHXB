@@ -10,8 +10,6 @@
 #import "HXBTokenModel.h"
 
 
-static int count = 0;
-
 @implementation HXBTokenManager
 + (void)downLoadTokenWithURL: (NSString *)urlStr andDownLoadTokenSucceedBlock: (void(^)(NSString *token))downLoadTokenSucceedBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
     if (!urlStr) urlStr = kHXBTokenURL;
