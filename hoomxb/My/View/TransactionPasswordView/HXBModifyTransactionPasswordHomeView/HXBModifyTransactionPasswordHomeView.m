@@ -142,7 +142,7 @@
         }
     }];
     if (self.getValidationCodeButtonClickBlock) {
-        self.getValidationCodeButtonClickBlock();
+        self.getValidationCodeButtonClickBlock(self.idCardTextField.text);
     }
     
 }

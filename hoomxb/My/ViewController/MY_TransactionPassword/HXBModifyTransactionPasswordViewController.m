@@ -40,8 +40,8 @@
         _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:self.view.bounds];
         __weak typeof(self) weakSelf = self;
         
-        _homeView.getValidationCodeButtonClickBlock = ^(){
-            [weakSelf authenticationWithIDCard:<#(NSString *)#>]
+        _homeView.getValidationCodeButtonClickBlock = ^(NSString *IDCard){
+            [weakSelf authenticationWithIDCard:IDCard];
         };
         
         //点击下一步回调

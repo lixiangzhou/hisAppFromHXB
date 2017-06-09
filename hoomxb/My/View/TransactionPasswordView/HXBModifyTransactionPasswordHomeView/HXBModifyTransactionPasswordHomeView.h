@@ -18,7 +18,7 @@
 /**
  获取验证码回调的方法
  */
-@property (nonatomic, copy) void(^getValidationCodeButtonClickBlock)();
+@property (nonatomic, copy) void(^getValidationCodeButtonClickBlock)(NSString *IDCard);
 /**
  下一步按点击回调的Block
  */
