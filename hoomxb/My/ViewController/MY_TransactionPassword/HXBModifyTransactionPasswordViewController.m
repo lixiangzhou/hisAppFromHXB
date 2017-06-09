@@ -31,7 +31,7 @@
     [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andSuccessBlock:^(NSString *viewModel) {
         
     } andFailureBlock:^(NSError *error) {
-        
+        NSLog(@"%@",error);
     }];
 }
 
