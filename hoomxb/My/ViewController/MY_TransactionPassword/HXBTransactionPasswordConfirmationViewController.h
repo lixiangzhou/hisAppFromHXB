@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HXBTransactionPasswordConfirmationViewController : UIViewController
+@interface HXBTransactionPasswordConfirmationViewController : HXBBaseViewController
 
 @end

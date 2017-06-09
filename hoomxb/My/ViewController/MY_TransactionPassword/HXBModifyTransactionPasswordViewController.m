@@ -20,18 +20,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setupSubView];
-}
-
-/**
- 设置子View
- */
-- (void)setupSubView
-{
     self.title = @"修改交易密码";
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    [self.view addSubview:self.homeView];
 }
+
 
 
 #pragma mark - Get方法
@@ -44,6 +36,7 @@
             HXBTransactionPasswordConfirmationViewController *transactionPasswordVC = [[HXBTransactionPasswordConfirmationViewController alloc] init];
             [weakSelf.navigationController pushViewController:transactionPasswordVC animated:YES];
         };
+        [self.view addSubview:_homeView];
     }
     return _homeView;
 }

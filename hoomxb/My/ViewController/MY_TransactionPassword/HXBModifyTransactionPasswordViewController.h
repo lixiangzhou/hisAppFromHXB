@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class HXBUserInfoModel;
-@interface HXBModifyTransactionPasswordViewController : UIViewController
+@interface HXBModifyTransactionPasswordViewController : HXBBaseViewController
 
 @property (nonatomic, strong) HXBUserInfoModel *userInfoModel;
 

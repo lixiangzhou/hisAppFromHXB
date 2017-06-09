@@ -52,7 +52,6 @@
 /// loan 已结清
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainLoanViewModel *>*finish_Loan_array;
 @property (nonatomic,assign) NSInteger finishPage;
-
 //资产记录
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainCapitalRecordViewModel *>*capitalRecordViewModel_array;
 @property (nonatomic,assign) NSInteger capitalRecordPage;
@@ -153,7 +152,6 @@
     }];
     
 }
-
 
 //MARK: ========= 红利计划 主界面的网络数据请求 =========
 - (void)myPlan_requestWithPlanType: (HXBRequestType_MY_PlanRequestType)planRequestType

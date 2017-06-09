@@ -47,7 +47,6 @@ UITableViewDataSource,UITableViewDelegate
         }
         if (indexPath.row == 1) {//点击绑定手机号
             NSLog(@"click 绑定手机号");
-            
         }
     }else if(indexPath.section == 1){
         
