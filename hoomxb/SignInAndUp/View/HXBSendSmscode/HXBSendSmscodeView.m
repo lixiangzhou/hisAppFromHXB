@@ -157,6 +157,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///设置
 - (void)setSubView {
     self.password_TextField.delegate = self;
+    self.password_TextField.secureTextEntry = true;
     self.smscode_TextField.delegate = self;
 }
 
@@ -170,14 +171,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///点击了眼睛的按钮
 - (void)clickEyeButton: (UIButton *)button {
     self.eyeButton.selected = !self.eyeButton.selected;
-    if (!self.hiddenPasswordStr) {
-        self.password_TextField.secureTextEntry = !self.eyeButton.selected;
-    }
-    if (self.eyeButton.selected) {
-        self.password_TextField.text = self.passwordStr;
-    }else {
-        self.password_TextField.attributedText = self.hiddenPasswordStr;
-    }
+    self.password_TextField.secureTextEntry = !self.eyeButton.selected;
 }
 
 ///点击了发送按钮
@@ -217,34 +211,6 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 #pragma mark - textField delegate
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if ([string isEqualToString:@"\n"]) {
-        [textField resignFirstResponder];
-        if ([textField isEqual:self.smscode_TextField]) {
-            [self.password_TextField becomeFirstResponder];
-        }
-        return false;
-    }
-    if (![textField isEqual: self.password_TextField]) {
-        return true;
-    }
-    if (!string.length){
-        NSRange range = NSMakeRange(self.passwordStr.length - 1, 1);
-        [self.passwordStr deleteCharactersInRange: range];
-        [self.hiddenPasswordStr deleteCharactersInRange:range];
-        return true;
-    }
-    [self.passwordStr appendString:string];
-    NSTextAttachment *attach = [[NSTextAttachment alloc] init];
-    attach.image = [UIImage imageNamed:@""];
-    NSAttributedString *picAttr = [NSAttributedString attributedStringWithAttachment:attach];
-    [self.hiddenPasswordStr appendAttributedString:picAttr];
-    
-    //显示 字符
-    if (self.eyeButton.selected) {
-        self.password_TextField.text = self.passwordStr;
-    }else {
-        self.password_TextField.attributedText = self.hiddenPasswordStr;
-    }
     return true;
 }
 

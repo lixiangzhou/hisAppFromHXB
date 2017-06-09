@@ -67,9 +67,10 @@
     
     [loginAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         if ([responseObject valueForKey:@"status"]) {
-            kNetWorkError(@"登录请求失败");
+            NSLog(@"%@",responseObject);
             if (failureBlock) {
                 failureBlock(nil);
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
             return;
         }
@@ -250,6 +251,29 @@
          kNetWorkError(@"安全认证 请求失败")
     }];
     
+}
+
+#pragma mark - 忘记密码
++ (void)forgotPasswordRequestWithMobile: (NSString *)mobile
+                             andSmscode: (NSString *)smscode
+                             andCaptcha: (NSString *)captcha
+                            andPassword: (NSString *)password
+                        andSuccessBlock: (void(^)(BOOL isExist))successBlock
+                        andFailureBlock: (void(^)(NSError *error))failureBlock {
+    NYBaseRequest *forgotPasswordAPI = [[NYBaseRequest alloc]init];
+    forgotPasswordAPI.requestUrl = HXBAccount_ForgotPasswordURL;
+    forgotPasswordAPI.requestArgument = @{
+                                          @"mobile" : mobile,
+                                          @"smscode" : smscode,
+                                          @"captcha" : captcha,
+                                          @"password" : password
+                                          };
+    
+    [forgotPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        
+    }];
 }
 
 @end

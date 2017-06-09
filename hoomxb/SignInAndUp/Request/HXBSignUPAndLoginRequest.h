@@ -46,7 +46,7 @@
                    andPassword: (NSString *)password
                     andCaptcha: (NSString *)captcha
                andSuccessBlock: (void(^)(BOOL isSuccess))successBlock
-               andFailureBlock: (void(^)(NSError *error))failureBlock ;
+               andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
 /**
@@ -100,4 +100,18 @@
                         andPassword: (NSString *)password
                     andSuccessBlock: (void(^)(BOOL isExist))successBlock
                     andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+/**
+ * 忘记密码
+ *@param mobile     手机号
+ *@param smscode	短信
+ *@param captcha	图验
+ *@param password	新密码
+ */
++ (void)forgotPasswordRequestWithMobile: (NSString *)mobile
+                             andSmscode: (NSString *)smscode
+                             andCaptcha: (NSString *)captcha
+                            andPassword: (NSString *)password
+                        andSuccessBlock: (void(^)(BOOL isExist))successBlock
+                        andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end

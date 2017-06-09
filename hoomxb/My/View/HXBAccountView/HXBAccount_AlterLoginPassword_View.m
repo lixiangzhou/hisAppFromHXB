@@ -17,7 +17,7 @@
 @property (nonatomic,strong) UIButton *alterButton;
 
 ////点击了确认修改密码
-@property (nonatomic,copy) void(^clickAlterButtonBlock)();
+@property (nonatomic,copy) void(^clickAlterButtonBlock)(NSString *password_Original, NSString *password_New);
 @end
 
 @implementation HXBAccount_AlterLoginPassword_View
@@ -70,9 +70,9 @@
 ///点击了确认修改按钮
 - (void)clickAlterButton: (UIButton *)button {
     NSLog(@"点击了确认修改按钮");
-    if (self.clickAlterButtonBlock) self.clickAlterButtonBlock();
+    if (self.clickAlterButtonBlock) self.clickAlterButtonBlock(self.password_Original.text,self.password_New.passwordString);
 }
-- (void)clickAlterButtonWithBlock:(void (^)())clickAlterButtonBlock {
+- (void)clickAlterButtonWithBlock:(void (^)(NSString *password_Original, NSString *password_New))clickAlterButtonBlock {
     self.clickAlterButtonBlock = clickAlterButtonBlock;
 }
 @end

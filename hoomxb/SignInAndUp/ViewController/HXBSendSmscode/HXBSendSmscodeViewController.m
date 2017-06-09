@@ -61,12 +61,23 @@
 - (void)registerPassword {
     __weak typeof(self)weakSelf = self;
     [self.smscodeView clickSetPassWordButtonFunc:^(NSString *password, NSString *smscode,NSString *inviteCode) {
-       [HXBSignUPAndLoginRequest signUPRequetWithMobile:weakSelf.phonNumber andSmscode:smscode andPassword:password andInviteCode:inviteCode andSuccessBlock:^{
-           HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
-           [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
-       } andFailureBlock:^(NSError *error) {
-           
-       }];
+        
+        if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
+            NSLog(@"忘记密码");
+            [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:self.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {
+                HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
+                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
+            } andFailureBlock:^(NSError *error) {
+                
+            }];
+        }else {
+            [HXBSignUPAndLoginRequest signUPRequetWithMobile:weakSelf.phonNumber andSmscode:smscode andPassword:password andInviteCode:inviteCode andSuccessBlock:^{
+                HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
+                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
+            } andFailureBlock:^(NSError *error) {
+            }];
+        }
+        
     }];
 }
 
