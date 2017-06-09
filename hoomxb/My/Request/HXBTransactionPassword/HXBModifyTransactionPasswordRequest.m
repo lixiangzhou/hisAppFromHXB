@@ -20,8 +20,10 @@
 */
 - (void)myTransactionPasswordWithIDcard:(NSString *)IDcard andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
+
+    
     NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
-    alterLoginPasswordAPI.requestUrl = @"/checkIdentityAuth";
+    alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     alterLoginPasswordAPI.requestArgument = @{
                                        @"identity" : IDcard
@@ -57,7 +59,7 @@
 - (void)myTransactionPasswordWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
-    alterLoginPasswordAPI.requestUrl = @"/send/smscode/base";
+    alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPassword_SendSmscodeURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     NSLog(@"%@",kTypeKey_tradpwd);
     
@@ -97,7 +99,7 @@
 - (void)myTransactionPasswordWithIDcard:(NSString *)IDcard andWithCode:(NSString *)code andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
-    alterLoginPasswordAPI.requestUrl = @"/account/checkIdentitySms";
+    alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPassword_CheckIdentitySmsURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     alterLoginPasswordAPI.requestArgument = @{
                                               @"identity" : IDcard,
@@ -137,7 +139,7 @@
 - (void)myTransactionPasswordWithIDcard:(NSString *)IDcard andWithCode:(NSString *)code  andWithPassword:(NSString *)password andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
-    alterLoginPasswordAPI.requestUrl = @"/account/cashpwd/edit";
+    alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPassword_CashpwdEditURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     alterLoginPasswordAPI.requestArgument = @{
                                               @"cashPassword" : password,

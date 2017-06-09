@@ -26,6 +26,17 @@
 /// ------------------- 修改密码
 #define kHXBSetUPAccount_MobifyPassword_LoginRequestURL @"/account/password"//修改登录密码
 
+/// ------------------- 修改交易密码--验证用户身份信息接口
+#define kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL @"/checkIdentityAuth"
+
+/// ------------------- 修改交易密码--发送验证码
+#define kHXBSetTransaction_MobifyPassword_SendSmscodeURL @"/send/smscode/base"
+
+/// ------------------- 修改交易密码--校验身份证和短信接口
+#define kHXBSetTransaction_MobifyPassword_CheckIdentitySmsURL @"/account/checkIdentitySms"
+
+/// ------------------- 修改交易密码--修改交易密码接口
+#define kHXBSetTransaction_MobifyPassword_CashpwdEditURL @"/account/cashpwd/edit"
 
 /// ------------------ code 处理
 
