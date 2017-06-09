@@ -2664,6 +2664,7 @@
 		4E16D8221E9CD0FE002A1881 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = HXB;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "hooms\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010un-miniX";
 				TargetAttributes = {
