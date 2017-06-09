@@ -114,4 +114,8 @@
                             andPassword: (NSString *)password
                         andSuccessBlock: (void(^)(BOOL isExist))successBlock
                         andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+
+
+
 @end

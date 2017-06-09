@@ -11,6 +11,19 @@
 
 #pragma mark - 通用接口说
 
+///展示hud 并 判断请求是否成功
+#define kHXBResponsShowHUD if ([responseObject[@"status"] intValue]) {\
+if (failureBlock) {\
+    failureBlock(nil);\
+return;\
+}\
+}\
+[HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+
+
+
+
+
 
 #pragma mark - 红利计划
 

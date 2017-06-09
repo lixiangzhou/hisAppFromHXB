@@ -36,6 +36,7 @@
                                   @"inviteCode" : inviteCode///    否	string	邀请码
                                   };
     [signUPAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        kHXBResponsShowHUD;
         if (successBlock) successBlock();
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);
@@ -230,19 +231,17 @@
                     andSuccessBlock: (void(^)(BOOL isExist))successBlock
                     andFailureBlock: (void(^)(NSError *error))failureBlock {
     
-    HXBRealnameAPI *realnameApi = [[HXBRealnameAPI alloc]init];
+    NYBaseRequest *realnameApi = [[HXBRealnameAPI alloc]init];
+    realnameApi.baseUrl = @"/user/realname";
+    realnameApi.requestMethod = NYRequestMethodPost;
     realnameApi.requestArgument = @{
                                     @"userName" : userName,
                                     @"identityCard" : identityCard,
                                     @"password" : password
                                     };
     [realnameApi startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSString *status = [responseObject valueForKey:@"status"];
-        if (status.integerValue) {
-            if (failureBlock) failureBlock(nil);
-            return;
-        }
-        
+        ///判断是否成功
+        kHXBResponsShowHUD
         if (successBlock) {
             successBlock(true);
         }
@@ -268,11 +267,15 @@
                                           @"captcha" : captcha,
                                           @"password" : password
                                           };
+    forgotPasswordAPI.requestMethod = NYRequestMethodPost;
     
     [forgotPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        
+        kHXBResponsShowHUD
+        if(successBlock) successBlock(true);
+        NSLog(@"%@",responseObject);
     } failure:^(NYBaseRequest *request, NSError *error) {
-        
+        if(failureBlock) failureBlock(error);
+        NSLog(@"%@",error);
     }];
 }
 

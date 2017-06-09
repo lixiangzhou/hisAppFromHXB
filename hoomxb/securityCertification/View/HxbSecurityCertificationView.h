@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol securityCertificationViewDelegate <NSObject>
-- (void)didClickSecurityCertificationButton;
-@end
+
 
 @interface HxbSecurityCertificationView : UIView
-@property (nonatomic, weak, nullable) id<securityCertificationViewDelegate> delegate;
+/**安全认证 点击了下一步按钮*/
+- (void)clickNextButtonFuncWithBlock: (void(^)(NSString *name, NSString *idCard, NSString *transactionPassword))clickNextButtonBlock;
 @end

@@ -37,10 +37,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///确认设置密码按钮
 @property (nonatomic, strong) UIButton      *setPassWordButton;
 
-/// 用户输入的密码
-@property (nonatomic, strong) NSMutableString *passwordStr;
-/// 隐藏的密码的string
-@property (nonatomic, strong) NSMutableAttributedString *hiddenPasswordStr;
+
 /// 密码是否合格 （字符，数字不能有特殊字符）
 @property (nonatomic, assign) BOOL isPasswordQualified;
 ///点击了确认
@@ -78,8 +75,6 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 ///创建对象
 - (void)creatSubView {
-    self.hiddenPasswordStr = [[NSMutableAttributedString alloc]init];
-    self.passwordStr = [[NSMutableString alloc]init];
     self.phonNumberLabel = [[UILabel alloc]init];
     self.smscode_TextField = [[UITextField alloc]init];
     self.smscode_constLabel = [[UILabel alloc]init];
@@ -183,9 +178,9 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 ///点击了确定设置按钮
 - (void)clickSetPassWordButton: (UIButton *)button {
-    if([self isPasswordQualifiedFunWithStr:self.passwordStr]) {
+    if([self isPasswordQualifiedFunWithStr:self.password_TextField.text]) {
         //合格 请求数据
-        if (self.clickSetPassWordButtonBlock) self.clickSetPassWordButtonBlock(self.passwordStr,self.smscode_TextField.text,nil);
+        if (self.clickSetPassWordButtonBlock) self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,nil);
     }else {
         NSLog(@"🌶密码不合格");
     }

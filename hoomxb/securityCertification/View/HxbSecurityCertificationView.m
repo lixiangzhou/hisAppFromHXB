@@ -17,6 +17,8 @@ UITextFieldDelegate
 @property (nonatomic, strong) UITextField *payPasswordTextField;
 @property (nonatomic, strong) UITextField *payPasswordConfirmTextField;
 @property (nonatomic, strong) UIButton *securityCertificationButton;
+/**安全认证 点击了下一步按钮*/
+@property (nonatomic,copy) void(^clickNextButtonBlock)(NSString *name, NSString *idCard, NSString *transactionPassword);
 @end
 
 @implementation HxbSecurityCertificationView
@@ -32,8 +34,10 @@ UITextFieldDelegate
     }
     return self;
 }
+
+
 - (void)securityCertificationButtonClick:(UIButton *)sender{
-    if ([self.delegate respondsToSelector:@selector(didClickSecurityCertificationButton)]) {
+
         if (_identityCardNumTextField.text.length == 0|| _nameTextField.text.length == 0 || _payPasswordTextField.text.length == 0 || _payPasswordConfirmTextField.text.length == 0) {
             return [HxbHUDProgress showTextWithMessage:@"不能有空"];
         }
@@ -41,7 +45,7 @@ UITextFieldDelegate
 //            return [HxbHUDProgress showTextWithMessage:@"请输入正确的身份证号"];
 //        }
         if (_payPasswordTextField.text.length <8 ||_payPasswordConfirmTextField.text.length <8) {
-            return [HxbHUDProgress showTextWithMessage:@"交易密码不能小于6位"];
+            return [HxbHUDProgress showTextWithMessage:@"交易密码不能小于8位"];
         }
         if (![_payPasswordTextField.text isEqualToString:_payPasswordConfirmTextField.text]) {
              return [HxbHUDProgress showTextWithMessage:@"两次输入的密码不一致"];
@@ -49,17 +53,13 @@ UITextFieldDelegate
         [KeyChain setRealName:_nameTextField.text];
         [KeyChain setRealId:_identityCardNumTextField.text];
         [KeyChain setTradePwd:_payPasswordConfirmTextField.text];
-        [self.delegate didClickSecurityCertificationButton];
-    }
+        ///点击了安全认证按钮
+        if (self.clickNextButtonBlock) {
+            self.clickNextButtonBlock(self.nameTextField.text, self.identityCardNumTextField.text, self.payPasswordTextField.text);
+        }
 }
-- (void)textFieldEditing{
-    [_identityCardNumTextField.rac_textSignal subscribeNext:^(id x) {
-       
-    
-        
-    }];
 
-}
+
 - (UITextField *)nameTextField{
     if (!_nameTextField) {
         _nameTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, 64+44, SCREEN_WIDTH - 40, 44)];
@@ -126,5 +126,20 @@ UITextFieldDelegate
     }
     return _securityCertificationButton;
 }
+
+///点击了 下一步按钮
+- (void)clickNextButtonFuncWithBlock: (void(^)(NSString *name, NSString *idCard, NSString *transactionPassword))clickNextButtonBlock {
+    self.clickNextButtonBlock = clickNextButtonBlock;
+}
+
+
+#pragma mark - delegate
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
+    if ([textField isEqual:self.identityCardNumTextField]) {
+        //验证身份证是否合法
+        
+    }
+}
+
 
 @end

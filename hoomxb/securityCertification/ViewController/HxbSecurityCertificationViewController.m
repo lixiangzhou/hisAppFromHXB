@@ -11,9 +11,7 @@
 #import "HxbBindCardViewController.h"
 
 @interface HxbSecurityCertificationViewController ()
-<
-securityCertificationViewDelegate
->
+
 @end
 
 @implementation HxbSecurityCertificationViewController
@@ -23,16 +21,20 @@ securityCertificationViewDelegate
     self.title = @"安全认证";
     HxbSecurityCertificationView *securityCertificationView = [[HxbSecurityCertificationView alloc]initWithFrame:self.view.frame];
     [self.view addSubview:securityCertificationView];
-    securityCertificationView.delegate = self;
+    
+    ///点击了next
+    [securityCertificationView clickNextButtonFuncWithBlock:^(NSString *name, NSString *idCard, NSString *transactionPassword) {
+        if (![KeyChain hasBindBankcard]) {
+            HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];
+            [self.navigationController pushViewController:bindCardVC animated:YES];
+        }
+    }];
 }
 
 - (void)didClickSecurityCertificationButton{
 //    [HxbHUDProgress showTextWithMessage:@"点了"];
     
-    if (![KeyChain hasBindBankcard]) {
-        HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];
-        [self.navigationController pushViewController:bindCardVC animated:YES];
-    }
+   
 }
 
 @end
