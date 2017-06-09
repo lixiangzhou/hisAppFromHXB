@@ -27,7 +27,12 @@
 
 - (void)authenticationWithIDCard:(NSString *)IDCard
 {
-    
+    HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
+    [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andSuccessBlock:^(NSString *viewModel) {
+        
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
 }
 
 
@@ -43,7 +48,6 @@
         _homeView.getValidationCodeButtonClickBlock = ^(NSString *IDCard){
             [weakSelf authenticationWithIDCard:IDCard];
         };
-        
         //点击下一步回调
         _homeView.nextButtonClickBlock = ^(NSString *idCardNo,NSString *verificationCode){
             HXBTransactionPasswordConfirmationViewController *transactionPasswordVC = [[HXBTransactionPasswordConfirmationViewController alloc] init];
