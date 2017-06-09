@@ -8,9 +8,16 @@
 
 #import "HxbMyBankCardViewController.h"
 #import "HXBMyBankCell.h"
+#import "NYBaseRequest.h"
+#import "HXBBankCardModel.h"
 @interface HxbMyBankCardViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *tableView;
+
+/**
+ 数据模型数组
+ */
+@property (nonatomic, strong) NSArray *modelArr;
 @end
 
 @implementation HxbMyBankCardViewController
@@ -18,13 +25,38 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"银行卡";
     [self.view addSubview:self.tableView];
-    
 }
+
+- (void)loadBankCardData
+{
+    kWeakSelf
+    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
+    bankCardAPI.requestUrl = @"/account/user/card";
+    bankCardAPI.requestMethod = NYRequestMethodGet;
+    [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
+        [weakSelf.tableView.mj_header endRefreshing];
+        NSInteger status =  [responseObject[@"status"] integerValue];
+        if (status != 0) {
+            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            return;
+        }
+        weakSelf.modelArr = [NSArray yy_modelArrayWithClass:[HXBBankCardModel class] json:responseObject[@"data"]];
+        [weakSelf.tableView reloadData];
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        NSLog(@"%@",error);
+        [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+        [weakSelf.tableView.mj_header endRefreshing];
+    }];
+
+}
+
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.modelArr.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -37,6 +69,7 @@
     if (!cell) {
         cell = [[HXBMyBankCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
+    cell.bankCardModel = self.modelArr[indexPath.section];
     cell.backgroundColor = BACKGROUNDCOLOR;
     
     return cell;
@@ -69,6 +102,11 @@
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         _tableView.separatorColor = [UIColor clearColor];
         _tableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 12)];
+        kWeakSelf
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [weakSelf loadBankCardData];
+        }];
+        [_tableView.mj_header beginRefreshing];
     }
     return _tableView;
 }

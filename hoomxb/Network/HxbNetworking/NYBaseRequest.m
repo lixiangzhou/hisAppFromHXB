@@ -13,16 +13,13 @@
 @implementation NYBaseRequest
 
 //---------------------------------- request ---------------------------------
-- (NYRequestMethod)requestMethods
-{
-    return NYRequestMethodGet;
-}
-
-//- (NSString *)requestUrl{
-//
-//    return @"";
+//- (NYRequestMethod)requestMethods
+//{
+//    return NYRequestMethodGet;
 //}
-
+//
+//
+//
 //- (NSString *)baseUrl{
 //    return @"";
 //}

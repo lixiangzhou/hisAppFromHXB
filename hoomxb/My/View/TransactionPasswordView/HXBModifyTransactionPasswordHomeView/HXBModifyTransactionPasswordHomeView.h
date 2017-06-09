@@ -23,5 +23,12 @@
  下一步按点击回调的Block
  */
 @property (nonatomic, copy) void(^nextButtonClickBlock)(NSString *idCardNo,NSString *verificationCode);
-
+/**
+ 身份证验证成功
+ */
+- (void)idcardWasSuccessfully;
+/**
+ 发送验证码失败
+ */
+- (void)sendCodeFail;
 @end
