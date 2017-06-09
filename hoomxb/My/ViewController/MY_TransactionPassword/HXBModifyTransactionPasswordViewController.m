@@ -9,6 +9,7 @@
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBModifyTransactionPasswordHomeView.h"
 #import "HXBTransactionPasswordConfirmationViewController.h"
+#import "HXBModifyTransactionPasswordRequest.h"
 @interface HXBModifyTransactionPasswordViewController ()
 
 @property (nonatomic, strong) HXBModifyTransactionPasswordHomeView *homeView;
@@ -24,6 +25,12 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
+- (void)authenticationWithIDCard:(NSString *)IDCard
+{
+    
+}
+
+
 
 
 #pragma mark - Get方法
@@ -32,6 +39,12 @@
     if (!_homeView) {
         _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:self.view.bounds];
         __weak typeof(self) weakSelf = self;
+        
+        _homeView.getValidationCodeButtonClickBlock = ^(){
+            [weakSelf authenticationWithIDCard:<#(NSString *)#>]
+        };
+        
+        //点击下一步回调
         _homeView.nextButtonClickBlock = ^(NSString *idCardNo,NSString *verificationCode){
             HXBTransactionPasswordConfirmationViewController *transactionPasswordVC = [[HXBTransactionPasswordConfirmationViewController alloc] init];
             [weakSelf.navigationController pushViewController:transactionPasswordVC animated:YES];
@@ -40,6 +53,8 @@
     }
     return _homeView;
 }
+
+
 
 #pragma mark - set方法
 - (void)setUserInfoModel:(HXBUserInfoModel *)userInfoModel
