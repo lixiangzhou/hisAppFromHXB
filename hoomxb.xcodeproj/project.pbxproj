@@ -29,6 +29,7 @@
 		4E422CB41EA7386900C0EB62 /* HxbMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E422CB31EA7386900C0EB62 /* HxbMyViewController.m */; };
 		4E422CC51EA7617700C0EB62 /* UIButton+HxbButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E422CC01EA7493900C0EB62 /* UIButton+HxbButton.m */; };
 		4E6677C21EEA96300064ECCE /* HXBBankCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6677C11EEA96300064ECCE /* HXBBankCardModel.m */; };
+		4E6677C31EEAA4250064ECCE /* HXBRequestAPI_MYMainCapitalRecordAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CDBC91EEA7DCD0037F2D0 /* HXBRequestAPI_MYMainCapitalRecordAPI.m */; };
 		4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */; };
 		4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D31001EA70DC900598529 /* HxbHomeViewController.m */; };
 		4E73BBC91EC2C10A001B8357 /* HxbWithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E73BBC81EC2C10A001B8357 /* HxbWithdrawViewController.m */; };
@@ -103,7 +104,6 @@
 		E1057D6D1EE28C4F00C63286 /* HXBSendSmscodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1057D6C1EE28C4F00C63286 /* HXBSendSmscodeView.m */; };
 		E1057D701EE28D0C00C63286 /* NSString+HXBPhonNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = E1057D6F1EE28D0C00C63286 /* NSString+HXBPhonNumber.m */; };
 		E10CDBC51EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CDBC41EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m */; };
-		E10CDBCA1EEA7DCD0037F2D0 /* HXBRequestAPI_MYMainCapitalRecordAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CDBC91EEA7DCD0037F2D0 /* HXBRequestAPI_MYMainCapitalRecordAPI.m */; };
 		E10E7DE71EAF65BA005FC2E3 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E7DE01EAF65BA005FC2E3 /* LoginModel.m */; };
 		E10F58E31EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E10F58E21EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.m */; };
 		E11262331EC5A85F0084A22D /* HXBFinAddRecortdTableView_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E11262321EC5A85F0084A22D /* HXBFinAddRecortdTableView_Plan.m */; };
@@ -2841,6 +2841,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E6677C31EEAA4250064ECCE /* HXBRequestAPI_MYMainCapitalRecordAPI.m in Sources */,
 				E1CD4BD61ED83156000CC57B /* HXBBaseAdvertiseViewController.m in Sources */,
 				4E94B27A1ECC1B3D003CCBA7 /* HXBMY_PlanListViewController.m in Sources */,
 				4E94B2791ECC1B23003CCBA7 /* HXBBaseView_MYList_TableViewCell.m in Sources */,
