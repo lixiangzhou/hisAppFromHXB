@@ -30,7 +30,6 @@
 
 //    对controllerView进行布局
     [self setupSubView];
-
     //对controllerView进行布局
     //    [self setupSubView];
 

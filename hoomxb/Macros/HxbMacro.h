@@ -23,4 +23,6 @@
 
 #import "HXMacros_BLog.h"
 #import "HXBScreenAdaptation.h"
+
+#import "HXBRequestURL.h"
 #endif /* HxbMacro_h */

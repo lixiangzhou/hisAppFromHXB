@@ -17,4 +17,5 @@
 - (NYRequestMethod)requestMethod {
     return NYRequestMethodPost;
 }
+
 @end

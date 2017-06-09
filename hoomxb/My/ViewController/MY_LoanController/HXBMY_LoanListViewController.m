@@ -68,7 +68,7 @@ kDealloc
 #pragma mark - 下载数据
 - (void)downLoadDataWitRequestType: (HXBRequestType_MY_LoanRequestType) requestType andIsUpData: (BOOL)isUpData{
     ///这里面没有产生循环引用 block里面不能用weakSelf
-    [[HXBMYRequest sharedMYRequest] myLoan_requestWithPlanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MainLoanViewModel *> *viewModelArray) {
+    [[HXBMYRequest sharedMYRequest] myLoan_requestWithLoanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MainLoanViewModel *> *viewModelArray) {
         //数据的分发
         [self handleViewModelArrayWithViewModelArray:viewModelArray];
         [self.loanListView endRefresh];

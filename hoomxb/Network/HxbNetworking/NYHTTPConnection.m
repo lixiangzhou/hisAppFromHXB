@@ -8,7 +8,7 @@
 
 #import "NYHTTPConnection.h"
 #import "NYNetworkConfig.h"
-#import "TokenAPI.h"
+
 #import "HXBTokenModel.h"
 #import <objc/runtime.h>
 #import "HxbHTTPSessionManager.h"
