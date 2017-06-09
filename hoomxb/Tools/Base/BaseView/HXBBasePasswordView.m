@@ -17,53 +17,67 @@
 /// 用户输入的密码
 @property (nonatomic, strong) NSMutableString *passwordStr;
 /// 隐藏的密码的string
-@property (nonatomic, strong) NSMutableString *hiddenPasswordStr;
+@property (nonatomic, strong) NSMutableAttributedString *hiddenPasswordStr;
 /// 密码是否合格 （字符，数字不能有特殊字符）
 @property (nonatomic, assign) BOOL isPasswordQualified;
 @property (nonatomic, copy) void(^layoutSubViewBlock)(UILabel *password_constLable,UITextField *password_TextField , UIButton *eyeButton);
+@property (nonatomic, assign) UIEdgeInsets password_constLableEdgeInsets;
+@property (nonatomic, assign) UIEdgeInsets password_TextFieldEdgeInsets;
+@property (nonatomic, assign) UIEdgeInsets eyeButtonEdgeInsets;
+@property (nonatomic, assign) NSInteger password_constW;
+@property (nonatomic, assign) NSInteger eyeButtonW;
 @end
 
 
 @implementation HXBBasePasswordView
 
-- (instancetype)initWithFrame:(CGRect)frame layoutSubView_WithBlock: (void(^)(UILabel *password_constLable,UITextField *password_TextField , UIButton *eyeButton)) layoutSubViewBlock
+- (instancetype)initWithFrame:(CGRect)frame layoutSubView_WithPassword_constLableEdgeInsets: (UIEdgeInsets)password_constLableEdgeInsets andPassword_TextFieldEdgeInsets: (UIEdgeInsets)Password_TextFieldEdgeInsets andEyeButtonEdgeInsets: (UIEdgeInsets)eyeButtonEdgeInsets andPassword_constW: (NSInteger)password_constW andEyeButtonW: (NSInteger)eyeButtonW
 {
     self = [super initWithFrame:frame];
     if (self) {
         [self creatSubView];
         [self setSubView];
         [self addButtonTarget];
-        self.layoutSubViewBlock = layoutSubViewBlock;
-        if (self.layoutSubViewBlock) {
-            self.layoutSubViewBlock(self.password_constLable, self.password_TextField, self.eyeButton);
-        }else {
-            [self hxb_layoutSubView];
-        }
+        self.password_constLableEdgeInsets = password_constLableEdgeInsets;
+        self.password_TextFieldEdgeInsets = password_constLableEdgeInsets;
+        self.eyeButtonEdgeInsets = eyeButtonEdgeInsets;
+        self.password_constW = password_constW;
+        self.eyeButtonW = eyeButtonW;
+        self.password_TextField.secureTextEntry = true;
+        [self show];
     }
     return self;
 }
 
-- (NSString *)hiddenStr {
-    if (!_hiddenStr) {
-        _hiddenStr = @"·";
+- (void) show {
+    if (self.layoutSubViewBlock) {
+        self.layoutSubViewBlock(self.password_constLable, self.password_TextField, self.eyeButton);
+    }else {
+        [self hxb_layoutSubView];
     }
-    return _hiddenStr;
 }
+
 - (void)setHiddenPasswordImage:(UIImage *)hiddenPasswordImage {
     _hiddenPasswordImage = hiddenPasswordImage;
     _eyeButton.imageView.image = hiddenPasswordImage;
 }
-- (void)setPasswordTextFiled_Placeholder:(NSString *)passwordTextFiled_Placeholder {
-    _passwordTextFiled_Placeholder = passwordTextFiled_Placeholder;
-    self.password_TextField.placeholder = passwordTextFiled_Placeholder;
+- (void)setPlaceholder:(NSString *)placeholder {
+    _placeholder = placeholder;
+    self.password_TextField.placeholder = placeholder;
 }
 - (void)setPasswordConstTitle:(NSString *)passwordConstTitle {
     _passwordConstTitle = passwordConstTitle;
     self.password_constLable.text = passwordConstTitle;
 }
+- (NSString *)passwordString {
+    if (self.hiddenImage) {
+        return self.passwordStr;
+    }
+    return self.password_TextField.text;
+}
 ///创建对象
 - (void)creatSubView {
-    self.hiddenPasswordStr = [[NSMutableString alloc]init];
+    self.hiddenPasswordStr = [[NSMutableAttributedString alloc]init];
     self.passwordStr = [[NSMutableString alloc]init];
 
     self.password_TextField = [[UITextField alloc]init];
@@ -78,20 +92,23 @@
 ///布局
 - (void)hxb_layoutSubView {
     kWeakSelf
+    
     [self.password_constLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(20));
-        make.right.equalTo(@(kScrAdaptationW(-20)));
-        make.width.equalTo(@(kScrAdaptationW(40)));
-    }];
-    [self.password_TextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.height.equalTo(weakSelf.password_constLable);
-        make.left.equalTo(weakSelf.password_constLable.mas_right);
-        make.right.equalTo(weakSelf.eyeButton).offset(kScrAdaptationW(-10));
+        make.bottom.equalTo(weakSelf).offset(kScrAdaptationH(weakSelf.password_constLableEdgeInsets.bottom));
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(weakSelf.password_constLableEdgeInsets.top));
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(weakSelf.password_constLableEdgeInsets.left));
+        make.width.equalTo(@(kScrAdaptationW(weakSelf.password_constW)));
     }];
     [self.eyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.password_constLable);
-        make.right.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.width.height.offset(kScrAdaptationW(10));
+        make.right.equalTo(weakSelf).offset(kScrAdaptationW(0));
+        make.width.height.offset(kScrAdaptationW(weakSelf.eyeButtonW));
+    }];
+    [self.password_TextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.password_constLable.mas_right);
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(0));
+        make.bottom.equalTo(weakSelf).offset(kScrAdaptationH(0));
+        make.right.equalTo(weakSelf.eyeButton.mas_left).offset(kScrAdaptationW(0));
     }];
     
     self.password_TextField.backgroundColor = [UIColor hxb_randomColor];
@@ -112,15 +129,22 @@
 ///点击了眼睛的按钮
 - (void)clickEyeButton: (UIButton *)button {
     self.eyeButton.selected = !self.eyeButton.selected;
+    
+    if(!self.hiddenImage) {
+        self.password_TextField.secureTextEntry = !self.eyeButton.selected;
+        return;
+    }
+    
     if (self.eyeButton.selected) {
         self.password_TextField.text = self.passwordStr;
     }else {
-        self.password_TextField.text = self.hiddenPasswordStr;
+        self.password_TextField.attributedText = self.hiddenPasswordStr;
     }
 }
 
 #pragma mark - textField delegate
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
     if ([string isEqualToString:@"\n"]) {
         [textField resignFirstResponder];
         return false;
@@ -128,6 +152,7 @@
     if (![textField isEqual: self.password_TextField]) {
         return true;
     }
+    if (!self.hiddenImage) return true;
     if (!string.length){//删除字符
         NSRange range = NSMakeRange(self.passwordStr.length - 1, 1);
         [self.passwordStr deleteCharactersInRange: range];
@@ -135,13 +160,17 @@
         return true;
     }
     [self.passwordStr appendString:string];
-    [self.hiddenPasswordStr appendString:self.hiddenStr];
+    //添加图片
+    NSTextAttachment *attach = [[NSTextAttachment alloc] init];
+    attach.image = self.hiddenImage;
+    NSAttributedString *picAttr = [NSAttributedString attributedStringWithAttachment:attach];
+    [self.hiddenPasswordStr appendAttributedString:picAttr];
     
     //显示 字符
     if (self.eyeButton.selected) {
         self.password_TextField.text = self.passwordStr;
     }else {
-        self.password_TextField.text = self.hiddenPasswordStr;
+        self.password_TextField.attributedText = self.hiddenPasswordStr;
     }
     return false;
 }
@@ -164,8 +193,4 @@
     }
 }
 
-///
-- (void)layoutSubView_WithBlock: (void(^)(UILabel *password_constLable,UITextField *password_TextField , UIButton *eyeButton)) layoutSubViewBlock{
-    self.layoutSubViewBlock = layoutSubViewBlock;
-}
 @end

@@ -7,8 +7,12 @@
 //
 
 #import "HxbMyAccountSecurityViewController.h"
+
+#import "HXBAccount_AlterLoginPassword_ViewController.h"///注册
+
 #import "HxbSignUpViewController.h"///注册
 #import "HXBModifyTransactionPasswordViewController.h"//交易密码
+
 @interface HxbMyAccountSecurityViewController ()
 <
 UITableViewDataSource,UITableViewDelegate
@@ -52,7 +56,7 @@ UITableViewDataSource,UITableViewDelegate
         
         if (indexPath.row == 0) {
             NSLog(@"click 设置登录密码");
-            HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc] init];
+            HXBAccount_AlterLoginPassword_ViewController *signUPVC = [[HXBAccount_AlterLoginPassword_ViewController alloc] init];
             signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
             [self.navigationController pushViewController: signUPVC animated:true];
         }else if (indexPath.row == 1){

@@ -33,7 +33,7 @@
 ///设置UI
 - (void)setUPView {
     kWeakSelf
-    self.password_New = [[HXBBasePasswordView alloc]init];
+    self.password_New = [[HXBBasePasswordView alloc]initWithFrame:CGRectZero layoutSubView_WithPassword_constLableEdgeInsets:UIEdgeInsetsZero andPassword_TextFieldEdgeInsets:UIEdgeInsetsZero andEyeButtonEdgeInsets:UIEdgeInsetsZero andPassword_constW:kScrAdaptationW(30) andEyeButtonW:kScrAdaptationW(10)];
     self.password_Original = [[UITextField alloc]init];
     self.alterButton = [[UIButton alloc]init];
     
@@ -48,17 +48,21 @@
         make.height.equalTo(@(kScrAdaptationH(40)));
     }];
     [self.password_New mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.password_Original).offset(kScrAdaptationH(20));
+        make.top.equalTo(weakSelf.password_Original.mas_bottom).offset(kScrAdaptationH(20));
         make.left.right.height.equalTo(weakSelf.password_Original);
     }];
     [self.alterButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.password_New).offset(kScrAdaptationH(20));
+        make.top.equalTo(weakSelf.password_New.mas_bottom).offset(kScrAdaptationH(20));
         make.centerX.equalTo(weakSelf);
         make.height.equalTo(@(kScrAdaptationH(40)));
         make.width.equalTo(@(kScrAdaptationW(80)));
     }];
     
     self.password_Original.placeholder = @"原始登录密码";
+    self.password_New.placeholder = @"设置登录密码";
+    self.password_Original.borderStyle = UITextBorderStyleRoundedRect;
+    
+    self.alterButton.backgroundColor = [UIColor hxb_randomColor];
     
     [self.alterButton setTitle:@"确认修改" forState:UIControlStateNormal];
     [self.alterButton addTarget:self action:@selector(clickAlterButton:) forControlEvents:UIControlEventTouchUpInside];

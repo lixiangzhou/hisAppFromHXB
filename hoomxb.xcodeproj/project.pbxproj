@@ -224,6 +224,10 @@
 		E1CD4BD61ED83156000CC57B /* HXBBaseAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BB91ED83064000CC57B /* HXBBaseAdvertiseViewController.m */; };
 		E1CD4BDA1ED85266000CC57B /* PYFullScreenGesturePOPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BD91ED85266000CC57B /* PYFullScreenGesturePOPManager.m */; };
 		E1CD4BDD1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BDC1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m */; };
+		E1D048531EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D048511EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m */; };
+		E1D048561EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D048541EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.m */; };
+		E1D048591EE96FC5002A4E28 /* HXBBasePasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D048581EE96FC5002A4E28 /* HXBBasePasswordView.m */; };
+		E1D0485D1EE9808B002A4E28 /* HXBAlterLoginPasswordAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D0485C1EE9808B002A4E28 /* HXBAlterLoginPasswordAPI.m */; };
 		E1D2CA631EAB4F26000099C7 /* HxbFinanctingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D2CA621EAB4F26000099C7 /* HxbFinanctingViewController.m */; };
 		E1D3D0D21ED6B526003F1DBA /* HXBAdvertisementManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D0D11ED6B526003F1DBA /* HXBAdvertisementManager.m */; };
 		E1D7883E1EC32AE000566AC1 /* HXBFinancting_LoanListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FDF6291EC329F100FF98AC /* HXBFinancting_LoanListTableView.m */; };
@@ -473,8 +477,8 @@
 		E11262391EC5A9290084A22D /* FinModel_AddRecortdModel_Loan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FinModel_AddRecortdModel_Loan.m; sourceTree = "<group>"; };
 		E112623B1EC5AAE70084A22D /* HXBFinancing_PlanAddRecortdAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancing_PlanAddRecortdAPI.h; sourceTree = "<group>"; };
 		E112623C1EC5AAE70084A22D /* HXBFinancing_PlanAddRecortdAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancing_PlanAddRecortdAPI.m; sourceTree = "<group>"; };
-		E11F7A4D1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPAndLoginRequest_EnumManager.h; sourceTree = "<group>"; };
-		E11F7A4E1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSignUPAndLoginRequest_EnumManager.m; sourceTree = "<group>"; };
+		E11F7A4D1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HXBSignUPAndLoginRequest_EnumManager.h; path = ../Request/HXBSignUPAndLoginRequest_EnumManager.h; sourceTree = "<group>"; };
+		E11F7A4E1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HXBSignUPAndLoginRequest_EnumManager.m; path = ../Request/HXBSignUPAndLoginRequest_EnumManager.m; sourceTree = "<group>"; };
 		E11F7A581EE7D23500E3EC74 /* HXBSignUPRealnameView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPRealnameView.h; sourceTree = "<group>"; };
 		E11F7A591EE7D23500E3EC74 /* HXBSignUPRealnameView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSignUPRealnameView.m; sourceTree = "<group>"; };
 		E11F7A5C1EE7D2AB00E3EC74 /* HXBSignUPRealnameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPRealnameViewController.h; sourceTree = "<group>"; };
@@ -713,6 +717,14 @@
 		E1CD4BD91ED85266000CC57B /* PYFullScreenGesturePOPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYFullScreenGesturePOPManager.m; sourceTree = "<group>"; };
 		E1CD4BDB1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYFullScreenGesturePOPAnimationManager.h; sourceTree = "<group>"; };
 		E1CD4BDC1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYFullScreenGesturePOPAnimationManager.m; sourceTree = "<group>"; };
+		E1D048511EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAccount_AlterLoginPassword_ViewController.m; sourceTree = "<group>"; };
+		E1D048521EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAccount_AlterLoginPassword_ViewController.h; sourceTree = "<group>"; };
+		E1D048541EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAccount_AlterLoginPassword_View.m; sourceTree = "<group>"; };
+		E1D048551EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAccount_AlterLoginPassword_View.h; sourceTree = "<group>"; };
+		E1D048571EE96FC5002A4E28 /* HXBBasePasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBasePasswordView.h; sourceTree = "<group>"; };
+		E1D048581EE96FC5002A4E28 /* HXBBasePasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBasePasswordView.m; sourceTree = "<group>"; };
+		E1D0485B1EE9808B002A4E28 /* HXBAlterLoginPasswordAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAlterLoginPasswordAPI.h; sourceTree = "<group>"; };
+		E1D0485C1EE9808B002A4E28 /* HXBAlterLoginPasswordAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAlterLoginPasswordAPI.m; sourceTree = "<group>"; };
 		E1D2CA611EAB4F26000099C7 /* HxbFinanctingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbFinanctingViewController.h; sourceTree = "<group>"; };
 		E1D2CA621EAB4F26000099C7 /* HxbFinanctingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbFinanctingViewController.m; sourceTree = "<group>"; };
 		E1D3D0D01ED6B526003F1DBA /* HXBAdvertisementManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAdvertisementManager.h; sourceTree = "<group>"; };
@@ -900,6 +912,7 @@
 		4E26E3A21EA0FE660078B419 /* HxbAPI */ = {
 			isa = PBXGroup;
 			children = (
+				E1D0485A1EE97A07002A4E28 /* Account */,
 				E1057D231EE2509C00C63286 /* TokenManager */,
 				E1DA70C51ED9509A0065B2E2 /* UserInfo */,
 				4E26E3A31EA0FE660078B419 /* HxbNetworking */,
@@ -1751,8 +1764,6 @@
 			children = (
 				E1318BF11EDE943900DF1061 /* HXBSignUPAndLoginRequest.h */,
 				E1318BF21EDE943900DF1061 /* HXBSignUPAndLoginRequest.m */,
-				E11F7A4D1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.h */,
-				E11F7A4E1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.m */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -1811,6 +1822,8 @@
 				E15ADF781EE0239E00D61818 /* HXBLoginManager.m */,
 				E1E588501EE14AF50045C4AE /* HXBSingnUPEventManager.h */,
 				E1E588511EE14AF50045C4AE /* HXBSingnUPEventManager.m */,
+				E11F7A4D1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.h */,
+				E11F7A4E1EE7AEF200E3EC74 /* HXBSignUPAndLoginRequest_EnumManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2009,6 +2022,8 @@
 		E1C964691EA5E04F0066DBC4 /* BaseView */ = {
 			isa = PBXGroup;
 			children = (
+				E1D048571EE96FC5002A4E28 /* HXBBasePasswordView.h */,
+				E1D048581EE96FC5002A4E28 /* HXBBasePasswordView.m */,
 				E1E4613A1EB98B5C005B1FC6 /* HXBBaseToolBarView.h */,
 				E1E4613B1EB98B5C005B1FC6 /* HXBBaseToolBarView.m */,
 				E1E461381EB98ADD005B1FC6 /* HXBBaseScrollToolBarView.h */,
@@ -2182,6 +2197,8 @@
 		E1D048461EE93209002A4E28 /* HXBAccount */ = {
 			isa = PBXGroup;
 			children = (
+				E1D048511EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m */,
+				E1D048521EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.h */,
 			);
 			path = HXBAccount;
 			sourceTree = "<group>";
@@ -2189,8 +2206,19 @@
 		E1D0484A1EE93315002A4E28 /* HXBAccountView */ = {
 			isa = PBXGroup;
 			children = (
+				E1D048541EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.m */,
+				E1D048551EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.h */,
 			);
 			path = HXBAccountView;
+			sourceTree = "<group>";
+		};
+		E1D0485A1EE97A07002A4E28 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				E1D0485B1EE9808B002A4E28 /* HXBAlterLoginPasswordAPI.h */,
+				E1D0485C1EE9808B002A4E28 /* HXBAlterLoginPasswordAPI.m */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		E1D2CA4E1EAB4D51000099C7 /* Model */ = {
@@ -2780,7 +2808,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2833,6 +2861,7 @@
 				E1C10A541EBC81C200C21984 /* HXBFin_DetailsViewBase.m in Sources */,
 				E1B0F4891EC492980071246F /* HXBFinAddRecortdVC_Loan.m in Sources */,
 				E1E588521EE14AF50045C4AE /* HXBSingnUPEventManager.m in Sources */,
+				E1D048591EE96FC5002A4E28 /* HXBBasePasswordView.m in Sources */,
 				E1CD4BD41ED83064000CC57B /* HXBBaseVersionUpdateManager.m in Sources */,
 				4E3C1D031EA6286400C8BD36 /* HxbWelcomeView.m in Sources */,
 				E1CD4BD01ED83064000CC57B /* PYBaseContDownManager.m in Sources */,
@@ -2864,6 +2893,7 @@
 				E16314431EC076F40090567E /* HXBFinDetailModel_PlanDetail.m in Sources */,
 				E122D84E1EA0CAB900DC71ED /* NSObject+HxbRunTime.m in Sources */,
 				E1247B881ECC5A3800B2CD7C /* HXBFinancing_planListAPI.m in Sources */,
+				E1D048561EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.m in Sources */,
 				E122D85E1EA0CAB900DC71ED /* UIViewController+HxbViewController.m in Sources */,
 				E16314491EC084660090567E /* HXBFinDetail_TableView.m in Sources */,
 				E1C964751EA5E04F0066DBC4 /* HXBBaseTabBarController.m in Sources */,
@@ -2881,6 +2911,7 @@
 				E1E461851EB9C17A005B1FC6 /* HXBFinancting_PlanListTableViewCell.m in Sources */,
 				E122D8581EA0CAB900DC71ED /* UIScreen+Hxb.m in Sources */,
 				E1C964761EA5E04F0066DBC4 /* HXBBaseViewController.m in Sources */,
+				E1D0485D1EE9808B002A4E28 /* HXBAlterLoginPasswordAPI.m in Sources */,
 				E1CD4BDA1ED85266000CC57B /* PYFullScreenGesturePOPManager.m in Sources */,
 				4E8198AC1EC44BCE00D668A1 /* HXBHomePageHeadView.m in Sources */,
 				E1247B3F1ECC2ABC00B2CD7C /* HXBMainListView_Loan.m in Sources */,
@@ -2961,6 +2992,7 @@
 				4ED2F2831ECAE3C30014E5C7 /* HxbNormalConfig.m in Sources */,
 				E1270B251ECED07100729BC9 /* HXBMY_PlanList_DetailViewController.m in Sources */,
 				4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */,
+				E1D048531EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m in Sources */,
 				E1FDF6241EC3291C00FF98AC /* HXBFinDetailModel_LoanDetail_.m in Sources */,
 				E1270B751ECEEC6300729BC9 /* HXBMY_PlanDetail_InfoCell.m in Sources */,
 				E1C964781EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.m in Sources */,

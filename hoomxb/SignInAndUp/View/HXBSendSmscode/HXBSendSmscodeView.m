@@ -40,7 +40,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 /// 用户输入的密码
 @property (nonatomic, strong) NSMutableString *passwordStr;
 /// 隐藏的密码的string
-@property (nonatomic, strong) NSMutableString *hiddenPasswordStr;
+@property (nonatomic, strong) NSMutableAttributedString *hiddenPasswordStr;
 /// 密码是否合格 （字符，数字不能有特殊字符）
 @property (nonatomic, assign) BOOL isPasswordQualified;
 ///点击了确认
@@ -78,7 +78,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 ///创建对象
 - (void)creatSubView {
-    self.hiddenPasswordStr = [[NSMutableString alloc]init];
+    self.hiddenPasswordStr = [[NSMutableAttributedString alloc]init];
     self.passwordStr = [[NSMutableString alloc]init];
     self.phonNumberLabel = [[UILabel alloc]init];
     self.smscode_TextField = [[UITextField alloc]init];
@@ -170,10 +170,13 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///点击了眼睛的按钮
 - (void)clickEyeButton: (UIButton *)button {
     self.eyeButton.selected = !self.eyeButton.selected;
+    if (!self.hiddenPasswordStr) {
+        self.password_TextField.secureTextEntry = !self.eyeButton.selected;
+    }
     if (self.eyeButton.selected) {
         self.password_TextField.text = self.passwordStr;
     }else {
-        self.password_TextField.text = self.hiddenPasswordStr;
+        self.password_TextField.attributedText = self.hiddenPasswordStr;
     }
 }
 
@@ -231,15 +234,18 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         return true;
     }
     [self.passwordStr appendString:string];
-    [self.hiddenPasswordStr appendString:@"*"];
+    NSTextAttachment *attach = [[NSTextAttachment alloc] init];
+    attach.image = [UIImage imageNamed:@""];
+    NSAttributedString *picAttr = [NSAttributedString attributedStringWithAttachment:attach];
+    [self.hiddenPasswordStr appendAttributedString:picAttr];
     
     //显示 字符
     if (self.eyeButton.selected) {
         self.password_TextField.text = self.passwordStr;
     }else {
-        self.password_TextField.text = self.hiddenPasswordStr;
+        self.password_TextField.attributedText = self.hiddenPasswordStr;
     }
-    return false;
+    return true;
 }
 
 - (BOOL)isPasswordQualifiedFunWithStr: (NSString *)password {
