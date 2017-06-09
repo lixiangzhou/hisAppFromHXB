@@ -102,6 +102,7 @@
 		E1057D691EE28B8500C63286 /* HXBSendSmscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1057D681EE28B8500C63286 /* HXBSendSmscodeViewController.m */; };
 		E1057D6D1EE28C4F00C63286 /* HXBSendSmscodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1057D6C1EE28C4F00C63286 /* HXBSendSmscodeView.m */; };
 		E1057D701EE28D0C00C63286 /* NSString+HXBPhonNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = E1057D6F1EE28D0C00C63286 /* NSString+HXBPhonNumber.m */; };
+		E10CDBC51EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CDBC41EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m */; };
 		E10E7DE71EAF65BA005FC2E3 /* LoginModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E7DE01EAF65BA005FC2E3 /* LoginModel.m */; };
 		E10F58E31EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = E10F58E21EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.m */; };
 		E11262331EC5A85F0084A22D /* HXBFinAddRecortdTableView_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E11262321EC5A85F0084A22D /* HXBFinAddRecortdTableView_Plan.m */; };
@@ -467,6 +468,9 @@
 		E1057D6F1EE28D0C00C63286 /* NSString+HXBPhonNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HXBPhonNumber.m"; sourceTree = "<group>"; };
 		E107203E1ECAE7B1002C59B1 /* HXBBaseTableView_MYPlanList_TableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTableView_MYPlanList_TableView.h; sourceTree = "<group>"; };
 		E107203F1ECAE7B1002C59B1 /* HXBBaseTableView_MYPlanList_TableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTableView_MYPlanList_TableView.m; sourceTree = "<group>"; };
+		E10CDBC31EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMobifyPassword_LoginRequest.h; sourceTree = "<group>"; };
+		E10CDBC41EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMobifyPassword_LoginRequest.m; sourceTree = "<group>"; };
+		E10CDBC61EEA4F320037F2D0 /* HXBRequestURL.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HXBRequestURL.h; path = HxbAPI/HXBRequestURL.h; sourceTree = "<group>"; };
 		E10E7DDF1EAF65BA005FC2E3 /* LoginModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginModel.h; sourceTree = "<group>"; };
 		E10E7DE01EAF65BA005FC2E3 /* LoginModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginModel.m; sourceTree = "<group>"; };
 		E10F58E11EC1BDB90034A812 /* HXBFinancing_PlanDetaileAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancing_PlanDetaileAPI.h; sourceTree = "<group>"; };
@@ -903,6 +907,7 @@
 		4E26E3A11EA0FE660078B419 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E10CDBC61EEA4F320037F2D0 /* HXBRequestURL.h */,
 				4E26E3BA1EA0FED60078B419 /* HxbModel */,
 				4E26E3A21EA0FE660078B419 /* HxbAPI */,
 			);
@@ -1404,6 +1409,15 @@
 			name = HXBSendSmscode;
 			path = hoomxb/SignInAndUp/View/HXBSendSmscode;
 			sourceTree = SOURCE_ROOT;
+		};
+		E10CDBC21EEA473D0037F2D0 /* HXBPassword_LoginRequest */ = {
+			isa = PBXGroup;
+			children = (
+				E10CDBC31EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.h */,
+				E10CDBC41EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m */,
+			);
+			path = HXBPassword_LoginRequest;
+			sourceTree = "<group>";
 		};
 		E10E7DDD1EAF65BA005FC2E3 /* SignInAndUp */ = {
 			isa = PBXGroup;
@@ -2075,6 +2089,7 @@
 				E1CC03581ECAD2AD00121D21 /* HXBMYRequest.m */,
 				E1CC03591ECAD2AD00121D21 /* HXBRequestType_MYManager.h */,
 				E1CC035A1ECAD2AD00121D21 /* HXBRequestType_MYManager.m */,
+				E10CDBC21EEA473D0037F2D0 /* HXBPassword_LoginRequest */,
 				4EAB3EDD1EEA392200E3924E /* HXBTransactionPassword */,
 				E1270B291ECED0B000729BC9 /* HXBMYRequest_DetailsRequest */,
 			);
@@ -2906,6 +2921,7 @@
 				E1C964751EA5E04F0066DBC4 /* HXBBaseTabBarController.m in Sources */,
 				E11F7A611EE7ECC700E3EC74 /* HXBRealnameAPI.m in Sources */,
 				4EAB3EE01EEA3D3E00E3924E /* HXBModifyTransactionPasswordRequest.m in Sources */,
+				E10CDBC51EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m in Sources */,
 				E1CD4BD11ED83064000CC57B /* HXBBaseContDownManager.m in Sources */,
 				E1CC035B1ECAD2AD00121D21 /* HXBMYRequest.m in Sources */,
 				E1318BF61EDEA9DC00DF1061 /* HXBCaptchaAPI.m in Sources */,
