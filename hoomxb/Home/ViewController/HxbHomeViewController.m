@@ -10,7 +10,6 @@
 #import "HxbAdvertiseViewController.h"
 #import "HxbHomeRequest.h"
 #import "HxbHomeRequest_dataList.h"
-#import "HXBRequestUserInfoAPI.h"///用户信息的管理类
 
 @interface HxbHomeViewController ()
 

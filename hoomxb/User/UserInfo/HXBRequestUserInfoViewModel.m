@@ -9,7 +9,6 @@
 #import "HXBRequestUserInfoViewModel.h"
 #import "HXBRequestUserInfoViewModel.h"
 #import "HXBUserInfoModel.h"
-#import "HXBRequestUserInfoAPI.h"
 
 @implementation HXBRequestUserInfoViewModel
 - (void)setUserInfoModel:(HXBUserInfoModel *)userInfoModel {

@@ -8,27 +8,23 @@
 
 #import "HXBSignUPAndLoginRequest.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
-#import "HXBSignUpAPI.h"///注册api
-#import "HXBLoginAPI.h"///登录api
-#import "HXBCaptchaAPI.h"///图验api
-#import "HXBCheckCaptchaAPI.h"///校验图片验证码
-#import "HXBSmscodeAPI.h"///发送短信的接口
-#import "HXBCheckMobileAPI.h"///校验手机号
-#import "HXBTokenManager.h"///请求token
-#import "HXBRealnameAPI.h"///安全认证的API
 
+#import "HXBTokenManager.h"///请求token
+#import "HXBBaseRequest.h"//网络数据请求
 
 @implementation HXBSignUPAndLoginRequest
+
 + (void)signUPRequetWithMobile: (NSString *)mobile///手机号
                     andSmscode: (NSString *)smscode///短信验证码
                    andPassword: (NSString *)password///密码
                  andInviteCode: (NSString *)inviteCode///邀请码
                andSuccessBlock: (void(^)())successBlock
                andFailureBlock: (void(^)(NSError *error))failureBlock {
-    HXBSignUpAPI *signUPAPI = [[HXBSignUpAPI alloc]init];
-    if (!inviteCode) {
-        inviteCode = @"";
-    }
+    HXBBaseRequest *signUPAPI = [[HXBBaseRequest alloc]init];
+    signUPAPI.requestMethod = NYRequestMethodPost;
+    signUPAPI.requestUrl = kHXBUser_SignUPURL;
+    if (!inviteCode) inviteCode = @"";
+    
     signUPAPI.requestArgument = @{
                                   @"mobile"	: mobile,///           是	string	手机号
                                   @"smscode" : smscode,///	      是	string	短信验证码
@@ -52,29 +48,17 @@
                     andCaptcha: (NSString *)captcha
                andSuccessBlock: (void(^)(BOOL isSuccess))successBlock
                andFailureBlock: (void(^)(NSError *error))failureBlock {
-    HXBLoginAPI *loginAPI = [[HXBLoginAPI alloc]init];
-    if (captcha) {
-        loginAPI.requestArgument = @{
-                                     @"mobile" : mobile,///         是	string	用户名
-                                     @"password" : password,///     是	string	密码
-                                     @"captcha" : captcha,///       否	string	图验(只有在登录错误超过3次才需要输入图验)
-                                     };
-    }else {
-        loginAPI.requestArgument = @{
-                                     @"mobile" : mobile,///         是	string	用户名
-                                     @"password" : password,///     是	string	密码
-                                     };
-    }
+    HXBBaseRequest *loginAPI = [[HXBBaseRequest alloc]init];
+    loginAPI.requestMethod = NYRequestMethodPost;
+    if (!captcha) captcha = @"";
+    loginAPI.requestArgument = @{
+                                 @"mobile" : mobile,///         是	string	用户名
+                                 @"password" : password,///     是	string	密码
+                                 @"captcha" : captcha,///       否	string	图验(只有在登录错误超过3次才需要输入图验)
+                                 };
     
     [loginAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        if ([responseObject valueForKey:@"status"]) {
-            NSLog(@"%@",responseObject);
-            if (failureBlock) {
-                failureBlock(nil);
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            }
-            return;
-        }
+        kHXBResponsShowHUD;
         if (successBlock) {
             successBlock(true);
             KeyChain.phone = mobile;
@@ -91,9 +75,8 @@
 - (void)captchaRequestWithSuccessBlock: (void(^)(id responseObject))successBlock
                        andFailureBlock: (void(^)(NSError *error))failureBlock {
     
-    HXBCaptchaAPI *captchaAPI = [[HXBCaptchaAPI alloc]init];
     NSURLSession *session = [NSURLSession sharedSession];
-    NSString *URLSTR = [NSString stringWithFormat:@"%@%@",BASEURL,captchaAPI.requestUrl];
+    NSString *URLSTR = [NSString stringWithFormat:@"%@%@",BASEURL,@"/captcha"];
     NSURL *url = [NSURL URLWithString:URLSTR];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSMutableURLRequest *requestM = [request mutableCopy];
@@ -141,21 +124,16 @@
 + (void)checkCaptcharRequestWithCaptcha: (NSString *)captcha
                         andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
                         andFailureBlock: (void(^)(NSError *error))failureBlock{
-    HXBCheckCaptchaAPI *checkCaptchaAPI = [[HXBCheckCaptchaAPI alloc]init];
+    HXBBaseRequest *checkCaptchaAPI = [[HXBBaseRequest alloc]init];
+    checkCaptchaAPI.requestUrl = kHXBUser_checkCaptchaURL;
+    checkCaptchaAPI.requestMethod = NYRequestMethodPost;
     checkCaptchaAPI.requestArgument = @{
                                         @"captcha" : captcha///图验Code
                                         };
     [checkCaptchaAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSString *status = [responseObject valueForKey:@"status"];
-        if (status.integerValue) {
-            kNetWorkError(@"验证码 输入错误");
-            if (failureBlock) failureBlock(nil);
-        }else {
-            if (successBlock) successBlock(true);
-        }
-        
+        kHXBResponsShowHUD;
+        if (successBlock) successBlock(true);
     } failure:^(NYBaseRequest *request, NSError *error) {
-        
         if (failureBlock) failureBlock(error);
         kNetWorkError(@"校验图片验证码请求失败");
     }];
@@ -168,7 +146,9 @@
                       andCaptcha: (NSString *)captcha
                  andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
                  andFailureBlock: (void(^)(NSError *error))failureBlock{
-    HXBSmscodeAPI *smscodeAPI = [[HXBSmscodeAPI alloc]init];
+    HXBBaseRequest *smscodeAPI = [[HXBBaseRequest alloc]init];
+    smscodeAPI.requestUrl = kHXBUser_smscodeURL;
+    smscodeAPI.requestMethod = NYRequestMethodPost;
     NSString *actionStr = [HXBSignUPAndLoginRequest_EnumManager getKeyWithHXBSignUPAndLoginRequest_sendSmscodeType:action];
     smscodeAPI.requestArgument = @{
                                    @"mobile":mobile,///     是	string	用户名
@@ -197,9 +177,9 @@
                      andSuccessBlock: (void(^)(BOOL isExist))successBlock
                      andFailureBlock: (void(^)(NSError *error))failureBlock {
     
-    HXBCheckMobileAPI *checkMobileAPI = [[HXBCheckMobileAPI alloc]init];
-    
-    
+    HXBBaseRequest *checkMobileAPI = [[HXBBaseRequest alloc]init];
+    checkMobileAPI.requestMethod = NYRequestMethodPost;
+    checkMobileAPI.requestUrl = kHXBUser_CheckMobileURL;
     
     checkMobileAPI.requestArgument = @{
                                        @"mobile":mobile
@@ -231,7 +211,7 @@
                     andSuccessBlock: (void(^)(BOOL isExist))successBlock
                     andFailureBlock: (void(^)(NSError *error))failureBlock {
     
-    NYBaseRequest *realnameApi = [[HXBRealnameAPI alloc]init];
+    NYBaseRequest *realnameApi = [[NYBaseRequest alloc]init];
     realnameApi.baseUrl = @"/user/realname";
     realnameApi.requestMethod = NYRequestMethodPost;
     realnameApi.requestArgument = @{

@@ -9,43 +9,32 @@
 #ifndef HXBRequestURL_h
 #define HXBRequestURL_h
 
-#pragma mark - 通用接口说
-
-/// ======================= 展示hud 并 判断请求是否成功 =======================
-#define kHXBResponsShowHUD if ([responseObject[@"status"] intValue]) {\
-if (failureBlock) {\
-    failureBlock(nil);\
-[HxbHUDProgress showTextWithMessage:responseObject[@"message"]];\
-return;\
-}\
-}
-
-
-
-
-
-
 //MARK: ======================= 理财资产 界面 =======================
-#define kHXBFinanc_Plan_AddRecortdURL(planID) [NSString stringWithFormat:@"/plan/%@/record",(planID)]//红利计划
-
-
-
+//plan
+#define kHXBFinanc_PlanLisetURL(planListPage) [NSString stringWithFormat:@"/plan?page=%ld",(planListPage)]//红利计划列表
+#define kHXBFinanc_Plan_AddRecortdURL(planID) [NSString stringWithFormat:@"/plan/%@/record",(planID)]//红利计划 加入记录
+//loan
+#define kHXBFinanc_LoanListURL(loanListPage) [NSString stringWithFormat:@"/loan?page=%ld",(loanListPage)]//标的列表
+#define kHXBFinanc_LoanDetaileURL(loanID) [NSString stringWithFormat:@"loan/%ld",(loanID)]//散标详情URL
 
 
 
 //MARK: ======================= 用户 =======================
+#define kHXBUser_UserInfoURL @"/user/info"///用户信息
 #define HXBAccount_ForgotPasswordURL @"/forgot"///忘记密码
-
-
-
-
-
+#define kHXBUser_SignUPURL @"/user/signup"//注册
+#define kHXBUser_checkCaptchaURL @"/checkCaptcha"///校验 图片验证码
+#define kHXBUser_smscodeURL @"/send/smscode"///发送短信接口
+#define kHXBUser_CheckMobileURL @"/checkMobile"///校验手机号
 
 
 //MARK: ======================= 账户内 =======================
+#define kHXBMY_CapitalRecordURL @"/account/tradlist"///交易记录
+#define kHXBMY_PlanListURL @"/account/plan"//账户内  planlist
+#define kHXBMY_PlanAssetsURL @"/account/plan"// plan 资金统计
 
-
-
+#define kHXBMY_LoanListURL @"/account/loan"//账户内  loanlist
+#define kHXBMY_LoanAssetsURL @"/account/loanAssets"//loan资金统计
 
 
 
@@ -55,7 +44,6 @@ return;\
 #define kHXBSetTransaction_MobifyPassword_SendSmscodeURL @"/send/smscode/base"//修改交易密码--发送验证码
 #define kHXBSetTransaction_MobifyPassword_CheckIdentitySmsURL @"/account/checkIdentitySms"//修改交易密码--校验身份证和短信接口
 #define kHXBSetTransaction_MobifyPassword_CashpwdEditURL @"/account/cashpwd/edit"//修改交易密码--修改交易密码接口
-
 
 
 

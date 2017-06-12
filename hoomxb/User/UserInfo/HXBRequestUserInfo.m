@@ -7,12 +7,13 @@
 //
 
 #import "HXBRequestUserInfo.h"
-#import "HXBRequestUserInfoAPI.h"
-
+#import "HXBBaseRequest.h"
 @implementation HXBRequestUserInfo
 ///数据请求
 + (void) downLoadUserInfoWithSeccessBlock: (void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure:(void(^)(NSError *error))failureBlock {
-    HXBRequestUserInfoAPI *userInfoAPI = [[HXBRequestUserInfoAPI alloc]init];
+     HXBBaseRequest *userInfoAPI = [[HXBBaseRequest alloc]init];
+    userInfoAPI.requestUrl = kHXBUser_CheckMobileURL;
+    userInfoAPI.requestMethod = NYRequestMethodGet;
     
     [userInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD

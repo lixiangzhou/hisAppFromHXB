@@ -78,8 +78,6 @@ kDealloc
 }
 ///网络数据请求数据处理
 - (void)handleViewModelArrayWithViewModelArray: (NSArray<HXBMYViewModel_MainLoanViewModel *>*)loanViewModelArray{
-//        如果 没有值就直接return
-    if (!loanViewModelArray.count) return;
     switch (loanViewModelArray.firstObject.requestType) {
         case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN://收益中
             self.loanListView.repaying_ViewModelArray = loanViewModelArray;

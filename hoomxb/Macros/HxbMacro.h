@@ -25,4 +25,5 @@
 #import "HXBScreenAdaptation.h"
 
 #import "HXBRequestURL.h"
+#import "HXBRequestEnumAndStatic.h"
 #endif /* HxbMacro_h */

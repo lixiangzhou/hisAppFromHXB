@@ -36,7 +36,13 @@
 #pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
+    ///注册通知
+    [self registerNotification];
     self.delegate = self;
+}
+///注册通知
+- (void)registerNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentLoginVC:) name:ShowLoginVC object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -120,17 +126,21 @@
     
     //当前是否处于登录状态// 没有登录的话就return一个NO，并modal一个登录控制器。
     if (isMYController && ![KeyChain isLogin]) {
-        [self modalSignInViewController];
+        [[NSNotificationCenter defaultCenter] postNotificationName:ShowLoginVC object:nil];
         return NO;
     }
     return YES;
 }
 
 // modal 登录控制器
-- (void) modalSignInViewController {
+- (void) presentLoginVC:(NSNotification *)notification {
     HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
     [self presentViewController:navi animated:YES completion:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end
 

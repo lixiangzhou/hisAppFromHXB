@@ -93,7 +93,7 @@ static NSString *const HXBRequestType_MY_SDRZ_Loan = @"SDRZ";
 //MARK: 账户内 散标 枚举
 typedef enum : NSUInteger {
     ///已结清
-    HXBRequestType_MY_LoanRequestType_FINISH_LOAN,
+    HXBRequestType_MY_LoanRequestType_FINISH_LOAN = 1,
     ///收益中
     HXBRequestType_MY_LoanRequestType_REPAYING_LOAN,
     ///投标中

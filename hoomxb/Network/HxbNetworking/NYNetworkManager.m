@@ -109,12 +109,11 @@
 }
 
 //---------------------------------在回调中默认执行方法，在扩展中重写--------------------------
-- (void)defaultMethodRequestSuccessWithRequest:(NYBaseRequest *)request
-{
+- (void)defaultMethodRequestSuccessWithRequest:(NYBaseRequest *)request {
+    
 }
 
-- (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request
-{
+- (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request {
 }
 
 @end
