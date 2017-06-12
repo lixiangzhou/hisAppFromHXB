@@ -15,6 +15,7 @@
     HXBRequestUserInfoAPI *userInfoAPI = [[HXBRequestUserInfoAPI alloc]init];
     
     [userInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        kHXBResponsShowHUD
         HXBUserInfoModel *userInfoModel = [[HXBUserInfoModel alloc]init];
         [userInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];
         

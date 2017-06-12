@@ -8,6 +8,9 @@
 
 #import "HXBFinAddRecordVC_Plan.h"
 #import "HXBFinanctingRequest.h"
+#import "HXBFinHomePageViewModel_PlanList.h"
+#import "HXBFinHomePageModel_PlanList.h"
+#import "HXBFinDetailViewModel_PlanDetail.h"
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划详情页Model
 #import "HXBFinAddRecortdTableView_Plan.h"//红利计划的加入计划View,里面自定义了 cell
 #import "HXBFinModel_AddRecortdModel_Plan.h"//红利计划 - 加入计划的Model，这个没有ViewModel的封装（数据太简单）
@@ -19,10 +22,9 @@
 @end
 static NSString *CELLID = @"CELLID";
 @implementation HXBFinAddRecordVC_Plan
-- (void) setPlanDetailModel:(HXBFinDetailModel_PlanDetail *)planDetailModel {
-    _planDetailModel = planDetailModel;
+- (void) setPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)planListViewModel {
+    _planListViewModel = planListViewModel;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,7 +54,7 @@ static NSString *CELLID = @"CELLID";
 }
 
 - (void)downDoadDataWithISUPLoad: (BOOL)isUPLoad {
-    [[HXBFinanctingRequest sharedFinanctingRequest] planAddRecortdWithISUPLoad:true andFinancePlanId:self.planDetailModel.dataList.firstObject.ID andOrder:nil andSuccessBlock:^(HXBFinModel_AddRecortdModel_Plan *model) {
+    [[HXBFinanctingRequest sharedFinanctingRequest] planAddRecortdWithISUPLoad:true andFinancePlanId:self.planListViewModel.planListModel.ID andOrder:nil andSuccessBlock:^(HXBFinModel_AddRecortdModel_Plan *model) {
         self.addRecortdTableView.addRecortdModel_Plan = model;
     } andFailureBlock:^(NSError *error) {
         

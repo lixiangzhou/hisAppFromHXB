@@ -98,7 +98,7 @@
         ///  加入记录
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
             HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
-            planAddRecordVC.planDetailModel = weakSelf.planDetailViewModel.planDetailModel;
+            planAddRecordVC.planListViewModel = weakSelf.planListViewModel;
             [weakSelf.navigationController pushViewController:planAddRecordVC animated:true];
         }
         ///红利计划服务

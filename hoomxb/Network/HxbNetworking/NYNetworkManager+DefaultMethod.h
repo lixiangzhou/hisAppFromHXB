@@ -7,7 +7,7 @@
 //
 
 #import "NYNetworkManager.h"
-
+///对网络数据请求失败做了处理 （账号单点登录）
 @interface NYNetworkManager (DefaultMethod)
 
 @end

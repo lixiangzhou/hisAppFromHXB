@@ -36,7 +36,6 @@
 #pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginVC) name:ShowLoginVC object:nil];
     self.delegate = self;
 }
 
@@ -93,19 +92,13 @@
     return controller;
 }
 
-//MARK: 显示登录界面
-- (void)showLoginVC
-{
-    [self performSelector:@selector(realShowLogin) withObject:nil afterDelay:0];
-}
 
 - (void)realShowLogin
 {
-    HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
+  
 //    self.homePageVC.willPresent = YES;
 //    self.moneyManageVC.willPresent = YES;
-    [self presentViewController:navi animated:YES completion:nil];
+    
     //    [self presentViewController:navLoginVC animated:YES completion:nil];
 }
 
@@ -127,10 +120,17 @@
     
     //当前是否处于登录状态// 没有登录的话就return一个NO，并modal一个登录控制器。
     if (isMYController && ![KeyChain isLogin]) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
+        [self modalSignInViewController];
         return NO;
     }
     return YES;
+}
+
+// modal 登录控制器
+- (void) modalSignInViewController {
+    HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
+    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
+    [self presentViewController:navi animated:YES completion:nil];
 }
 @end
 

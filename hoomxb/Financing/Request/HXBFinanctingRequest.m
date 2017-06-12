@@ -335,33 +335,16 @@
 
 #pragma mark - 红利计划详情页 - 加入记录
 - (void)planAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinancePlanId: (NSString *)financePlanId andOrder: (NSString *)order andSuccessBlock: (void(^)(HXBFinModel_AddRecortdModel_Plan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
-    //order 排序：AMOUNT-按加入金额排序，其他值-按加入时间排序
-    //version string 响应结果版本号：1.0-默认值
-    HXBFinancing_PlanAddRecortdAPI *planAddRecortdAPI = [[HXBFinancing_PlanAddRecortdAPI alloc]init];
-//    self.isUPLoadAddRecortd_Plan = isUPLoad;
-    if (!order) order = @"TIME";
-    if (!financePlanId) financePlanId = @"2";
-    planAddRecortdAPI.requestArgument = @{
-                                          @"userId" : @"7", // int 用户ID
-                                          @"financePlanId" : @2, // 红利计划ID
-                                          @"order" :  order, // string 排序
-                                          @"version" : @"1.0" //响应结果版本号：1.0-默认值
-                                          };
+
+    NYBaseRequest *planAddRecortdAPI = [[NYBaseRequest alloc]init];
+    planAddRecortdAPI.requestMethod = NYRequestMethodGet;
+    planAddRecortdAPI.requestUrl = kHXBFinanc_Plan_AddRecortdURL(financePlanId);
+    
     [planAddRecortdAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        kHXBResponsShowHUD
         HXBFinModel_AddRecortdModel_Plan *planAddRecortdModel = [[HXBFinModel_AddRecortdModel_Plan alloc]init];
-        ///数据是否出错
-        NSString *status = responseObject[kResponseStatus];
-        if (status.integerValue) {
-            kNetWorkError(@"计划详情 没有数据");
-            if(failureBlock) failureBlock(nil);
-        }
         NSDictionary *dataDic = [responseObject valueForKey:@"data"];
         [planAddRecortdModel yy_modelSetWithDictionary:dataDic];
-        
-        if (!planAddRecortdModel) {
-            kNetWorkError(@"计划详情 没有数据");
-            if(failureBlock)failureBlock(nil);
-        }
         
         if (successDateBlock) {
             successDateBlock(planAddRecortdModel);

@@ -10,7 +10,7 @@
 #import "NYBaseRequest.h"
 
 @class NYNetworkManager;
-
+///对HUD进行了封装
 @interface NYNetworkManager : NSObject
 
 + (instancetype)sharedManager;

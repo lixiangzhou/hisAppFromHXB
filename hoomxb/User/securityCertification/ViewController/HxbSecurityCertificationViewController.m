@@ -24,12 +24,28 @@
     
     ///点击了next
     [securityCertificationView clickNextButtonFuncWithBlock:^(NSString *name, NSString *idCard, NSString *transactionPassword) {
+        
+        [self dismissViewControllerAnimated:true completion:nil];
+        //查看是否安全认证 （获取用户信息）
+        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+           
+        } andFailure:^(NSError *error) {
+            
+        }];
+        
         if (![KeyChain hasBindBankcard]) {
             HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];
             [self.navigationController pushViewController:bindCardVC animated:YES];
+        }else {
+          
         }
     }];
 }
+
+- (void)requestSecurityCertification {
+    
+}
+
 
 - (void)didClickSecurityCertificationButton{
 //    [HxbHUDProgress showTextWithMessage:@"点了"];

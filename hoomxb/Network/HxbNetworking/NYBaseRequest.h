@@ -19,7 +19,7 @@ static NSString *const kResponseMessage = @"message";
 @class NYBaseRequest;
 @class NYHTTPConnection;
 
-//--------------------------定义方法序列化枚举，成功失败回调--------------------------
+//================================== 定义方法序列化枚举，成功失败回调 ==================================
 typedef NS_ENUM(NSInteger, NYRequestMethod){
     NYRequestMethodGet = 0,
     NYRequestMethodPost,
@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, NYResponseSerializerType){
 typedef void (^SuccessBlock)(NYBaseRequest *request, id responseObject);
 typedef void (^FailureBlock)(NYBaseRequest *request, NSError *error);
 
-//-----------------------------请求完成代理方法----------------------------
+//==================================  请求完成代理方法 ==================================
 @protocol NYRequestDelegate <NSObject>
 
 @optional
@@ -51,7 +51,8 @@ typedef void (^FailureBlock)(NYBaseRequest *request, NSError *error);
 @end
 
 @interface NYBaseRequest : NSObject
-//-------------------------------request-------------------------------------
+
+//================================== request ==================================
 @property (nonatomic, weak) NYHTTPConnection *connection;
 //请求方法 Get/Post
 @property (nonatomic, assign) NYRequestMethod requestMethod;
@@ -70,7 +71,8 @@ typedef void (^FailureBlock)(NYBaseRequest *request, NSError *error);
 //请求超时时间
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
-//-------------------------------response------------------------------------
+
+//================================== response ==================================
 //响应序列化类型
 @property (nonatomic, assign) NYResponseSerializerType responseSerializerType;
 //响应状态码，如403
@@ -82,7 +84,8 @@ typedef void (^FailureBlock)(NYBaseRequest *request, NSError *error);
 //回调失败错误
 @property (nonatomic, strong) NSError *error;
 
-//--------------------------------callback----------------------------------
+
+//================================== callback ==================================
 //返回成功回调
 @property (nonatomic, copy) SuccessBlock success;
 //返回失败回调
@@ -90,8 +93,8 @@ typedef void (^FailureBlock)(NYBaseRequest *request, NSError *error);
 //代理
 @property (nonatomic, weak) id<NYRequestDelegate> delegate;
 
-//---------------------------------function---------------------------------
 
+//================================== function ==================================
 - (void)start;
 
 - (void)startWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;

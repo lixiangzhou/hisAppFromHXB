@@ -43,7 +43,6 @@
         [hud hide];
         [self processConnection:connection withRequest:request error:error];
     }];
-
 }
 
 - (void)addRequestWithAnimation:(NYBaseRequest *)request

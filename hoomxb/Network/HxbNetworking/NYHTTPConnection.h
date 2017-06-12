@@ -15,7 +15,7 @@ typedef void (^ConnectionSuccessBlock)(NYHTTPConnection *connection, id response
 typedef void (^ConnectionFailureBlock)(NYHTTPConnection *connection, NSError *error);
 
 
-
+///网络数据的请求
 @interface NYHTTPConnection : NSObject
 
 @property (nonatomic, strong, readonly) NSURLSessionDataTask *task;

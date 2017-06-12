@@ -7,7 +7,7 @@
 //
 
 #import "HxbSecurityCertificationView.h"
-
+#import "HXBModifyTransactionPasswordRequest.h"
 @interface HxbSecurityCertificationView()
 <
 UITextFieldDelegate
@@ -136,9 +136,18 @@ UITextFieldDelegate
 #pragma mark - delegate
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     if ([textField isEqual:self.identityCardNumTextField]) {
-        //验证身份证是否合法
-        
+        ///验证身份证是否合法
+        HXBModifyTransactionPasswordRequest *request = [[HXBModifyTransactionPasswordRequest alloc]init];
+        __block BOOL isEndEditing = false;
+        ///验证身份证是否合法
+        [request myTransactionPasswordWithIDcard:self.identityCardNumTextField.text andSuccessBlock:^(id responseObject) {
+            isEndEditing = true;
+       } andFailureBlock:^(NSError *error) {
+           isEndEditing = true;
+       }];
+        return isEndEditing;
     }
+    return true;
 }
 
 

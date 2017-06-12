@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+///网络请求 的基本配置，网络状态的监听
 @interface NYNetworkConfig : NSObject
 
 /**
