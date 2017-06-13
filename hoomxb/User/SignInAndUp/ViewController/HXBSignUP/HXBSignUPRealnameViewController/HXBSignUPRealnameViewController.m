@@ -8,6 +8,7 @@
 
 #import "HXBSignUPRealnameViewController.h"
 #import "HXBSignUPAndLoginRequest.h"
+#import "HXBModifyTransactionPasswordRequest.h"
 ///实名认证的VC
 @interface HXBSignUPRealnameViewController () <UITextFieldDelegate>
 @property (nonatomic,strong) UIButton *goRealnameButton;
@@ -75,23 +76,29 @@
 
 - (void) clickGoRealnameButton: (UIButton *) button{
     NSLog(@"确定安全认证");
-    
+    [self downLoadData_realname];
 }
 
+- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (![textField isEqual:self.idCardTextField]) return true;
+    return !(textField.text.length >= 18);
+}
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     if ([textField isEqual:self.idCardTextField]) {
         if([NSString validateIDCardNumber: textField.text]) {
-            // 发送请求
-            
+            // 发送请求 校验身份证是否合法
+            HXBModifyTransactionPasswordRequest *request = [[HXBModifyTransactionPasswordRequest alloc]init];
+            [request myTransactionPasswordWithIDcard:textField.text andSuccessBlock:^(id responseObject) {
+                NSLog(@"%@",responseObject);
+            } andFailureBlock:^(NSError *error) {
+                NSLog(@"🌶  银行卡不合法");
+            }];
         }
     }
     if ([textField isEqual:self.setupPasswordTextField]) {
         // 符合密码规范
-        if ([NSString checkPassWordWithString:self.setupPasswordTextField.text]) {
-            // 认证成功页面
-            
-        }
+        self.goRealnameButton.userInteractionEnabled = [NSString checkPassWordWithString:self.setupPasswordTextField.text];
     }
     return true;
 }
@@ -102,25 +109,16 @@
         if (isExist) {
             ///跳到认证成功页
             NSLog(@"认证成功");
+            [self dismissViewControllerAnimated:true completion:nil];
         }
     } andFailureBlock:^(NSError *error) {
         NSLog(@"认证失败");
     }];
     
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

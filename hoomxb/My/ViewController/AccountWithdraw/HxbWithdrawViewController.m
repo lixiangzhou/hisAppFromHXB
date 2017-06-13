@@ -10,6 +10,7 @@
 #import "HxbSecurityCertificationViewController.h"
 #import "HxbWithdrawCardViewController.h"
 
+
 @interface HxbWithdrawViewController ()
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIButton *nextButton;
@@ -38,18 +39,24 @@
         [HxbHUDProgress showTextWithMessage:@"金额不能小于1"];
         return;
     }
-    //实名认证
-    if (![KeyChain isVerify]) {
-        HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
-        [self.navigationController pushViewController:securityCertificationVC animated:YES];
-        return;
-    }
     
-    if (![KeyChain hasBindBankcard]) {
-        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-        [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-        return;
-    }
+    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        //实名认证
+        if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
+            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
+            [self.navigationController pushViewController:securityCertificationVC animated:YES];
+            return;
+        }
+        
+        if (!viewModel.userInfoModel.userInfo.hasBindCard.integerValue) {
+            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+            [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+            return;
+        }
+    } andFailure:^(NSError *error) {
+        
+    }];
+   
 }
 
 - (WithdrawBankView *)mybankView{

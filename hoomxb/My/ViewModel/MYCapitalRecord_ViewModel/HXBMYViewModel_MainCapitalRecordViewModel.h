@@ -8,6 +8,20 @@
 
 #import "NYBaseRequest.h"
 @class HXBMYModel_CapitalRecordDetailModel;
+/**交易记录筛选条件*/
+typedef enum : NSUInteger {
+    ///充值
+    HXBRequestType_MY_tradlist_TopUp,
+    ///提现
+    HXBRequestType_MY_tradlist_WithdrawCash,
+    ///散标债权
+    HXBRequestType_MY_tradlist_Loan,
+    ///红利计划
+    HXBRequestType_MY_tradlist_Plan
+} HXBRequestType_MY_tradlist;
+
+
+
 ///关于资金列表的ViewModel
 @interface HXBMYViewModel_MainCapitalRecordViewModel : NSObject
 @property (nonatomic,strong) HXBMYModel_CapitalRecordDetailModel *capitalRecordModel;

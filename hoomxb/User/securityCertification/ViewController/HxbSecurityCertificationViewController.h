@@ -7,7 +7,7 @@
 //
 
 #import "HXBBaseViewController.h"
-
+///安全认证
 @interface HxbSecurityCertificationViewController : HXBBaseViewController
 
 @end

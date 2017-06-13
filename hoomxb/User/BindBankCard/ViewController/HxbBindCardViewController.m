@@ -37,7 +37,6 @@
 {
     [self.locationTextField resignFirstResponder];
     [[[HxbPickerArea alloc]initWithDelegate:self]show];
-
 }
 - (UITextField *)bankCardTextField{
     if (!_bankCardTextField) {

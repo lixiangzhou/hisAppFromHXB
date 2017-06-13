@@ -63,30 +63,11 @@
 
 
 
-- (void) setupBUTTON {
-    [self setupButton_MYPlan];
-    [self setupButton_MYLoan];
-}
-- (void) setupButton_MYPlan {
-    UIButton *myPlanBut = [UIButton hxb_textButton:@"plan" fontSize:20 normalColor:[UIColor blueColor] selectedColor:[UIColor redColor]];
-    myPlanBut.frame = CGRectMake(100, 100, 100, 100);
-    
-    [self.view addSubview:myPlanBut];
-    [myPlanBut addTarget:self action:@selector(clickMyPlanButton:) forControlEvents:UIControlEventTouchUpInside];
-}
-
-- (void)setupButton_MYLoan {
-    UIButton *myLoanBut = [UIButton hxb_textButton:@"loan" fontSize:20 normalColor:[UIColor blueColor] selectedColor:[UIColor redColor]];
-    myLoanBut.frame = CGRectMake(100, 300, 100, 100);
-    [self.view addSubview:myLoanBut];
-    [myLoanBut addTarget:self action:@selector(clickMyLoanButton:) forControlEvents:UIControlEventTouchUpInside];
-}
-
 - (void)didLeftHeadBtnClick:(UIButton *)sender{
     HxbAccountInfoViewController *accountInfoVC = [[HxbAccountInfoViewController alloc]init];
     [self.navigationController pushViewController:accountInfoVC animated:YES];
 }
-
+/// 提现
 - (void)didClickTopUpBtn:(UIButton *)sender{
     HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
     [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];

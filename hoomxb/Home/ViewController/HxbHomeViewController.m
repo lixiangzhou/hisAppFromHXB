@@ -149,7 +149,7 @@
 ///登录
 - (void)loginOrSignUp
 {
-    [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:nil];
 }
 
 ///点击banner跳转

@@ -7,7 +7,7 @@
 //
 
 #import "HXBBaseViewController.h"
-
+///绑定银行卡
 @interface HxbBindCardViewController : HXBBaseViewController
 
 @end

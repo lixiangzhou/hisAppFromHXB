@@ -11,7 +11,7 @@
 #import "HXBBaseToolBarView.h"
 #import "HXBBaseScrollToolBarView.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
-#import "HXBMYViewModel_MianPlanViewModel.h"
+
 static NSString *const holdTitle = @"持有中";
 static NSString *const exitTingTitle = @"退出中";
 static NSString *const exitTitle = @"已退出";

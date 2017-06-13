@@ -39,17 +39,24 @@
         return;
     }
 //实名认证
-    if (![KeyChain isVerify]) {
-        HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
-        [self.navigationController pushViewController:securityCertificationVC animated:YES];
-        return;
-    }
+    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        //是否实名
+        if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
+            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
+            [self.navigationController pushViewController:securityCertificationVC animated:YES];
+            return;
+        }
+        //是否绑卡
+        if (!viewModel.userInfoModel.userInfo.hasBindCard.integerValue) {
+            HxbBindCardViewController *bindCardViewController = [[HxbBindCardViewController alloc]init];
+            [self.navigationController pushViewController:bindCardViewController animated:YES];
+            return;
+        }
+    } andFailure:^(NSError *error) {
+        
+    }];
     
-    if (![KeyChain hasBindBankcard]) {
-        HxbBindCardViewController *bindCardViewController = [[HxbBindCardViewController alloc]init];
-        [self.navigationController pushViewController:bindCardViewController animated:YES];
-        return;
-    }
+   
 }
 
 - (MyTopUpBankView *)mybankView{

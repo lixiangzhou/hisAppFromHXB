@@ -16,13 +16,13 @@
 #import "HXBMYModel_AssetStatistics_Loan.h"//loan 资金统计的Model  没有ViewModel
 
 // --------- 主界面
-#import "HXBMYViewModel_MianPlanViewModel.h"//主界面 planViewModel
+
 #import "HXBMYModel_MainPlanModel.h"//主界面的 planModel
 
-#import "HXBMYViewModel_MainLoanViewModel.h"//主界面的 loanViewModel
+
 #import "HXBMyModel_MainLoanModel.h"//主界面的 loanModel
 
-#import "HXBMYViewModel_MainCapitalRecordViewModel.h"//主界面 资产记录 ViewMOdel
+
 #import "HXBMYModel_CapitalRecordDetailModel.h"//主界面 资产记录Model ViewModel 里面加入了（这里不再添加)
 
 
@@ -239,7 +239,7 @@
 
 ///根据typeStr 来进行数据的处理
 - (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andTypeStr: (NSString *)typeStr andViewModel: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)viewMode {
-    HXBRequestType_MY_PlanRequestType type = [HXBRequestType_MYManager myPlan_requestTypeStr:typeStr];
+    HXBRequestType_MY_PlanRequestType type = [HXBMYViewModel_MianPlanViewModel myPlan_requestTypeStr:typeStr];
     return [self plan_handleResponseArrayWithIsupData: isupdata andType:type andViewModel:viewMode];
 }
 
@@ -313,7 +313,7 @@
     self.loanListAPI.requestMethod = NYRequestMethodGet;
     __block NSString *loanTypeStr = nil;
     //获取请求类型
-    [HXBRequestType_MYManager myLoan_requestType:LoanRequestType andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
+    [HXBMYViewModel_MainLoanViewModel myLoan_requestType:LoanRequestType andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
         loanTypeStr = type;
     }];
     NSInteger page = 1;

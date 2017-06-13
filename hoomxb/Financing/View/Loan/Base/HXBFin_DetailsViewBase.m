@@ -248,7 +248,7 @@
     NSLog(@" - 立即加入 - ");
     ///判断是否为登录状态
     if (![KeyChain isLogin]) {//没有登录就跳登录
-        [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:kHXBNotification_ShowLoginVC object:nil];
     }
     if ([KeyChain isLogin]) {//登陆了就
         //判断是否有风险测评，

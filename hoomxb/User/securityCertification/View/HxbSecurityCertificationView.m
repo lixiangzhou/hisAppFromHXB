@@ -134,18 +134,27 @@ UITextFieldDelegate
 
 
 #pragma mark - delegate
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (!string.length) {
+        return true;
+    }
+    if ([textField isEqual:self.identityCardNumTextField]) {
+        return textField.text.length < 18;
+    }
+    return true;
+}
+
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     if ([textField isEqual:self.identityCardNumTextField]) {
         ///验证身份证是否合法
         HXBModifyTransactionPasswordRequest *request = [[HXBModifyTransactionPasswordRequest alloc]init];
-        __block BOOL isEndEditing = false;
         ///验证身份证是否合法
         [request myTransactionPasswordWithIDcard:self.identityCardNumTextField.text andSuccessBlock:^(id responseObject) {
-            isEndEditing = true;
        } andFailureBlock:^(NSError *error) {
-           isEndEditing = true;
+           //
+           NSLog(@"身份证不合法");
        }];
-        return isEndEditing;
     }
     return true;
 }

@@ -66,7 +66,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 - (void)registerSignViewEvent {
     kWeakSelf
     [self.signView signIN_ClickButtonFunc:^(NSString *pasword, NSString *mobile) {
-        
+
         //[weakSelf userInfo_DownLoadData];//请求用户信息
         if ([weakSelf.reuqestSignINNumber integerValue] >= 3) {//如果大于三次了
             
@@ -80,6 +80,8 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
         [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:pasword andCaptcha:self.checkCaptcha andSuccessBlock:^(BOOL isSuccess) {
             NSLog(@"登录成功");
             self.reuqestSignINNumber = @(0);
+            //调到我的界面
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:self];
             [weakSelf dismiss];
         } andFailureBlock:^(NSError *error) {
             self.reuqestSignINNumber = @(self.reuqestSignINNumber.integerValue + 1);
@@ -168,6 +170,6 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [HXBNotificationCenter removeObserver:self name:ShowLoginVC object:nil];
+    [HXBNotificationCenter removeObserver:self name:kHXBNotification_ShowLoginVC object:nil];
 }
 @end

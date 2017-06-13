@@ -50,6 +50,7 @@
                andFailureBlock: (void(^)(NSError *error))failureBlock {
     HXBBaseRequest *loginAPI = [[HXBBaseRequest alloc]init];
     loginAPI.requestMethod = NYRequestMethodPost;
+    loginAPI.requestUrl = kHXBUser_LoginURL;
     if (!captcha) captcha = @"";
     loginAPI.requestArgument = @{
                                  @"mobile" : mobile,///         是	string	用户名
@@ -62,6 +63,7 @@
         if (successBlock) {
             successBlock(true);
             KeyChain.phone = mobile;
+            KeyChain.loginPwd = [request.requestArgument valueForKey:@"password"];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {
@@ -212,12 +214,12 @@
                     andFailureBlock: (void(^)(NSError *error))failureBlock {
     
     NYBaseRequest *realnameApi = [[NYBaseRequest alloc]init];
-    realnameApi.baseUrl = @"/user/realname";
+    realnameApi.requestUrl = kHXBUser_realnameURL;
     realnameApi.requestMethod = NYRequestMethodPost;
     realnameApi.requestArgument = @{
-                                    @"userName" : userName,
-                                    @"identityCard" : identityCard,
-                                    @"password" : password
+                                    @"name" : userName,
+                                    @"idCardNo" : identityCard,
+                                    @"tradpwd" : password
                                     };
     [realnameApi startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         ///判断是否成功
@@ -227,6 +229,7 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(nil);
+        [HxbHUDProgress showTextWithMessage:@"安全认证 请求失败"];
          kNetWorkError(@"安全认证 请求失败")
     }];
     

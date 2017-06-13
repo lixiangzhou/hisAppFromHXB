@@ -52,7 +52,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 //未登录状态 弹出登录框 status 为1 message 为@“请登录后操作”
 - (void) showLoginVCWithRequest: (NYBaseRequest *)request {
     if ([request.responseObject[kResponseMessage] isEqualToString:@"请登录后操作"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:ShowLoginVC object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
     }
 }
 

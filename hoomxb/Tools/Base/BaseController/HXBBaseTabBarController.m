@@ -42,7 +42,8 @@
 }
 ///注册通知
 - (void)registerNotification {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentLoginVC:) name:ShowLoginVC object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentLoginVC:) name:kHXBNotification_ShowLoginVC object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMyVC:) name:kHXBNotification_LoginSuccess_PushMYVC object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -126,7 +127,7 @@
     
     //当前是否处于登录状态// 没有登录的话就return一个NO，并modal一个登录控制器。
     if (isMYController && ![KeyChain isLogin]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:ShowLoginVC object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         return NO;
     }
     return YES;
@@ -137,6 +138,10 @@
     HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
     [self presentViewController:navi animated:YES completion:nil];
+}
+//跳转 myVC
+- (void) pushMyVC:(NSNotification *)notification {
+    self.selectedViewController = self.viewControllers.lastObject;
 }
 
 - (void)dealloc {
