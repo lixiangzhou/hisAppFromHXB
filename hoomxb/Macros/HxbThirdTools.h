@@ -10,7 +10,7 @@
 #define HxbThirdTools_h
 
 #import <YYModel.h>
-#import <YYKeyboardManager/YYKeyboardManager.h>
+//#import <YYKeyboardManager/YYKeyboardManager.h>
 #import <MJRefresh/MJRefresh.h>
 #import <AFNetworking/AFNetworking.h>
 #import <ReactiveObjC.h>
