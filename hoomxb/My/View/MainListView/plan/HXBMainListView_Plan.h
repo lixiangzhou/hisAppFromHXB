@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @class HXBMYModel_AssetStatistics_Plan;
-@class HXBMYViewModel_MianPlanViewModel;
-#import "HXBRequestType_MYManager.h"
+
+#import "HXBMYViewModel_MianPlanViewModel.h"
 
 /// 我的 plan listView
 @interface HXBMainListView_Plan : UIView

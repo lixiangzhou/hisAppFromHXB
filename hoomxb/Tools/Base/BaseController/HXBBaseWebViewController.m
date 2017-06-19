@@ -10,16 +10,15 @@
 #import <WebKit/WebKit.h>
 
 @interface HXBBaseWebViewController ()<WKUIDelegate,WKNavigationDelegate>
-
+@property (nonatomic,strong) WKWebView *webView;
 @end
 
-@implementation HXBBaseWebViewController{
-    WKWebView * _webView;
-}
+@implementation HXBBaseWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setupWebView];
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {

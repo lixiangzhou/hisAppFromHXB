@@ -59,8 +59,13 @@
     _finLoanListVMArray = finLoanListVMArray;
     self.homePageView.finLoanListVMArray = finLoanListVMArray;
 }
-
+- (void) pan: (UIPanGestureRecognizer *)pan {
+    NSLog(@"%@",pan);
+}
 - (void)viewDidLoad {
+    
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
+    [self.view addGestureRecognizer:pan];
     self.view.backgroundColor = [UIColor whiteColor];
     self.countDownButton = [[HXBToolCountDownButton alloc]init];
     
@@ -144,15 +149,17 @@
     }];
 }
 - (void)pushLoanListCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanList *)model {
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"散标##" style:UIBarButtonItemStylePlain target:nil action:nil];
-    self.navigationItem.backBarButtonItem = leftBarButtonItem;
+   
+    
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
     loanDetailsVC.loanID = model.loanListModel.loanId;
     loanDetailsVC.loanListViewMode = model;
     loanDetailsVC.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:loanDetailsVC animated:true];
 }
-
+- (void)clickLeftBarButtonItem {
+    [self popoverPresentationController];
+}
 #pragma mark - 上啦刷新与下拉加载
 - (void) registerRefresh{
     //红利计划上拉刷新与下拉加载

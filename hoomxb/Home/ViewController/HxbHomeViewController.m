@@ -10,7 +10,6 @@
 #import "HxbAdvertiseViewController.h"
 #import "HxbHomeRequest.h"
 #import "HxbHomeRequest_dataList.h"
-#import "HXBRequestUserInfoAPI.h"///用户信息的管理类
 
 @interface HxbHomeViewController ()
 
@@ -150,7 +149,7 @@
 ///登录
 - (void)loginOrSignUp
 {
-    [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
+    [[NSNotificationCenter defaultCenter]postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:nil];
 }
 
 ///点击banner跳转

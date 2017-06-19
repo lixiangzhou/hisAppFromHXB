@@ -16,7 +16,9 @@
 ///传入的model中的用于倒计时时间的参数是剩余时间还是原始时间。
 ///如果是原始时间的话，还要比较时间差，然后在判断符不符合倒计时标准
 typedef enum : NSUInteger {
+    ///传入的是时间差
     PYContDownManagerModelDateType_Remainder = 0,
+    ///传入的是截止时间
     PYContDownManagerModelDateType_OriginalTime = 1,
 } PYContDownManagerModelDateType;
 

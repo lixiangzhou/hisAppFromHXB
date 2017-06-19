@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HXBRequestType_MYManager.h"
-@class HXBMYViewModel_MainLoanViewModel;
+#import "HXBMYViewModel_MainLoanViewModel.h"
 @class HXBMYModel_AssetStatistics_Loan;
 @interface HXBMainListView_Loan : UIView
 

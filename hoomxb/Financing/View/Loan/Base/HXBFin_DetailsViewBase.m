@@ -55,11 +55,15 @@
 
 ///底部的tableView被点击
 @property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
+@property (nonatomic,copy) void (^clickAddButtonBlock)();
 ///加入的button
 @property (nonatomic,strong) UIButton *addButton;
+
 @end
 
 @implementation HXBFin_DetailsViewBase
+
+
 - (void)setModelArray:(NSArray<HXBFinDetail_TableViewCellModel *> *)modelArray {
     _modelArray = modelArray;
     self.bottomTableView.tableViewCellModelArray = modelArray;
@@ -73,20 +77,24 @@
           [self.addButton setTitle:@"追加" forState:UIControlStateNormal];
     }
 }
+
+#pragma mark - 计划的ViewModel
 - (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
     self.isPlan = true;
     
     _planDetailViewModel = planDetailViewModel;
-    self.totalInterestStr = planDetailViewModel.planDetailModel.totalInterest;
+    self.totalInterestStr = planDetailViewModel.planDetailModel.expectedRate;
     self.startInvestmentStr = @"1000元";
-    self.remainAmount = self.planDetailViewModel.planDetailModel.dataList.firstObject.remainAmount;
+    self.remainAmount = planDetailViewModel.remainAmount;
     
     
     self.totalInterestStr_const = @"年利率";
     self.remainAmount_const = @"剩余金额";
-    self.startInvestmentStr_const = @"标的期限";
+    self.startInvestmentStr_const = @"起投";
     self.promptStr = @"* 预期收益不代表实际收益投资需谨慎";
-    
+    if ([self respondsToSelector:@selector(setData_PlanWithPlanDetailViewModel:)]) {
+        [self setData_PlanWithPlanDetailViewModel:planDetailViewModel];
+    }
   
     [self show];
 }
@@ -98,15 +106,18 @@
 //        [self.addButton setTitle:@"追加" forState:UIControlStateNormal];
 //    }
 }
+#pragma mark - 散标的setMOdel
 - (void)setLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)loanDetailViewModel{
     self.isPlan = false;
+    if ([self respondsToSelector:@selector(setData_LoanWithLoanDetailViewModel:)]) {
+        [self setData_LoanWithLoanDetailViewModel:loanDetailViewModel];
+    }
     _loanDetailViewModel = loanDetailViewModel;
-    HXBFinDatailModel_LoanDetail_loanVo *loanVO = loanDetailViewModel.loanDetailModel.loanVo;
-    self.totalInterestStr = loanVO.totalInterestPer100;
+    self.totalInterestStr = loanDetailViewModel.totalInterestPer100;///年利率
     self.totalInterestStr_const = @"预期年利率";
-    self.remainAmount = loanVO.surplusAmount;
+    self.remainAmount = loanDetailViewModel.surplusAmount;
     self.remainAmount_const = @"剩余可投";
-    self.startInvestmentStr = loanVO.leftMonths;
+    self.startInvestmentStr = loanDetailViewModel.leftMonths;
     self.startInvestmentStr_const = @"标的期限";
     self.promptStr = @"* 预期收益不代表实际收益投资需谨慎";
     [self.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
@@ -246,12 +257,8 @@
 }
 - (void)clickAddButton: (UIButton *)button {
     NSLog(@" - 立即加入 - ");
-    ///判断是否为登录状态
-    if (![KeyChain isLogin]) {//没有登录就跳登录
-        [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
-    }
-    if ([KeyChain isLogin]) {//登陆了就
-        //判断是否有风险测评，
+    if (self.clickAddButtonBlock) {
+        self.clickAddButtonBlock();
     }
 }
 
@@ -313,5 +320,9 @@
 //MARK: 事件的传递
 - (void)clickBottomTableViewCellBloakFunc:(void (^)(NSIndexPath *, HXBFinDetail_TableViewCellModel *))clickBottomTabelViewCellBlock {
     self.clickBottomTabelViewCellBlock = clickBottomTabelViewCellBlock;
+}
+/// 点击了立即加入的button
+- (void) clickAddButtonFunc: (void(^)())clickAddButtonBlock {
+    self.clickAddButtonBlock = clickAddButtonBlock;
 }
 @end

@@ -76,15 +76,16 @@
 @property (nonatomic,copy) NSString *status;
 ///子点计数
 @property (nonatomic,copy) NSString *subPointCount;
-
+///string	计划名称
+@property (nonatomic,copy) NSString *diffTime;
 
 
 //MARK: -====================== 未知字段 ============================
-
 ///财务状况
 @property (nonatomic,copy) NSString *financeStatus;
 @property (nonatomic,copy) NSString *tag;//": "第11个",
 //": "2017-05-09 15:40:58"
 
+///String	倒计时时间戳
 @end
 

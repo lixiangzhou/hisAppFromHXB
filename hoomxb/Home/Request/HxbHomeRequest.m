@@ -7,13 +7,15 @@
 //
 
 #import "HxbHomeRequest.h"
-#import "HxbAccountAssetAPI.h"
 #import "HxbHomePageModel.h"
+#import "HXBBaseRequest.h"///网络数据的请求
 @implementation HxbHomeRequest
 
 #pragma mark -  数据请求
 - (void)homeAccountAssetWithUserID: (NSString *)userId andSuccessBlock: (void(^)(HxbHomePageViewModel *viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
-    HxbAccountAssetAPI *accountAsseAPI = [[HxbAccountAssetAPI alloc]init];
+    HXBBaseRequest *accountAsseAPI = [[HXBBaseRequest alloc]init];
+    accountAsseAPI.requestMethod = NYRequestMethodGet;
+    accountAsseAPI.requestUrl = @"/account/asset.action";
     accountAsseAPI.requestArgument = @{
                                        @"version" : @"1.0",
                                        @"userId" : userId,

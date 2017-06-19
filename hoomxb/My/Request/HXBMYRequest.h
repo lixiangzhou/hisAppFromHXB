@@ -7,12 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HXBRequestType_MYManager.h"//关于我的界面的 网络 相关的枚举管理类
-@class HXBMYViewModel_MianPlanViewModel;//我的plan 主界面的ViewModel
-@class HXBMYViewModel_MainLoanViewModel;//我的loan 主界面的ViewModel
-
-@class HXBMYViewModel_MainCapitalRecordViewModel;//资产记录的viewmodel
-
+#import "HXBMYViewModel_MianPlanViewModel.h"//主界面 planViewModel
+#import "HXBMYViewModel_MainLoanViewModel.h"//主界面的 loanViewModel
+#import "HXBMYViewModel_MainCapitalRecordViewModel.h"//主界面 资产记录 ViewMOdel
 @class HXBMYModel_AssetStatistics_Plan;//资金统计的Model plan
 @class HXBMYModel_AssetStatistics_Loan;//资金统计的Model loan
 

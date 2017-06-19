@@ -42,20 +42,10 @@ typedef enum : NSUInteger {
 
 @implementation HXBFinHomePageViewModel_PlanList
 
-
-
 - (void)setPlanListModel:(HXBFinHomePageModel_PlanList *)planListModel {
     _planListModel = planListModel;
-    //self.countDownLastStr = planListModel.beginSellingTime;
-    //"2017-05-25 14:38:58
-    HXBBaseHandDate *manager = [HXBBaseHandDate sharedHandleDate];
-    self.countDownLastStr = @([manager returnDateWithOBJ:planListModel.beginSellingTime andDateFormatter:nil].timeIntervalSince1970).description;
-    
-    NSLog(@"%@",planListModel.beginSellingTime);
-//    NSDate *date = [[NSDate alloc]init];
-//    NSString *dateStr = @([date timeIntervalSince1970] + 30).description;
     [self setupExpectedYearRateAttributedStr];// 红利计划列表页的cell里面的年利率
-//    self.countDownLastStr = dateStr;
+    self.countDownLastStr = planListModel.diffTime;
 }
 
 
@@ -96,31 +86,21 @@ typedef enum : NSUInteger {
 }
 //红利计划列表的年利率计算
 - (void)setupExpectedYearRateAttributedStr {
-    
-//    CGFloat length = self.planListModel.expectedRate.floatValue;
-//    NSLog(@" - - - %lf -",length);
-//    NSLog(@" str - %@ -",self.planListModel.expectedRate);
     NSString *expectedYearRateStr = [NSString stringWithFormat:@"%.2lf%@",self.planListModel.expectedRate.floatValue,@"%"];
     NSLog(@"%@",expectedYearRateStr);
     
     NSString *numberStr = [NSString stringWithFormat:@"%.2lf",self.planListModel.expectedRate.floatValue];
     NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
     NSInteger startRange = numberStr.length - 3;
-//    NSInteger endRange = numberStr.length;
     NSRange range = NSMakeRange(0, startRange);
     
     [numberAttributeString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
-    [numberAttributeString addAttribute:NSFontAttributeName value:kExpectedYearRateFont range:range];
+    [numberAttributeString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:range];
     
     NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc]initWithString:@"%"];
     [numberAttributeString appendAttributedString:attributedStr];
     self.expectedYearRateAttributedStr = numberAttributeString;
 }
-
-
-
-
-
 
 ///监听是否倒计时了
 - (void)setValue:(id)value forKey:(NSString *)key {

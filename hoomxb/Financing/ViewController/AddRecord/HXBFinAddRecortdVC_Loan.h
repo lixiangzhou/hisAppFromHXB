@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface HXBFinAddRecortdVC_Loan : HXBBaseViewController
-
+@property (nonatomic,copy) NSString *loanID;
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HXBFinDetailModel_PlanDetail;
+@class HXBFinHomePageViewModel_PlanList;
 @interface HXBFinAddRecordVC_Plan : HXBBaseViewController
-@property (nonatomic,strong) HXBFinDetailModel_PlanDetail *planDetailModel;
+@property (nonatomic,strong) HXBFinHomePageViewModel_PlanList *planListViewModel;
 @end

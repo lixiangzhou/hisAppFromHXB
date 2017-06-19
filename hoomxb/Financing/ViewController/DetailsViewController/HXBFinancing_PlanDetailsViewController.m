@@ -21,6 +21,7 @@
 #import "HXBFin_Detail_DetailsVC_Plan.h"//红利计划详情中的详情
 
 #import "HXBFinPlanContract_contraceWebViewVC.h"//协议
+#import "HXBPlan_JoinImmediatelyViewController.h"//购买
 
 @interface HXBFinancing_PlanDetailsViewController ()
 @property(nonatomic,strong) HXBFin_DetailsView_PlanDetailsView *planDetailsView;
@@ -72,18 +73,32 @@
     [super viewDidLoad];
     self.isHiddenNavigationBar = false;
     [self setup];
+    [self downLoadData];
+    [self registerClickCell];
+    [self registerClickAddButton];
 }
 
 //MARK: ------ setup -------
 - (void)setup {
+    kWeakSelf
+    [self.hxbBaseVCScrollView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [weakSelf downLoadData];
+    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
+    }];
+    
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.planDetailsView = [[HXBFin_DetailsView_PlanDetailsView alloc]initWithFrame:self.view.frame];
-    [self.view addSubview:self.planDetailsView];
+    [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
     //是否为计划界面
     _planDetailsView.isPlan = true;
     _planDetailsView.isFlowChart = true;
     _planDetailsView.planListViewModel = self.planListViewModel;
+}
+
+
+///MARK: 事件注册
+- (void)registerClickCell {
     
     __weak typeof (self)weakSelf = self;
     [self.planDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
@@ -98,7 +113,7 @@
         ///  加入记录
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
             HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
-            planAddRecordVC.planDetailModel = weakSelf.planDetailViewModel.planDetailModel;
+            planAddRecordVC.planListViewModel = weakSelf.planListViewModel;
             [weakSelf.navigationController pushViewController:planAddRecordVC animated:true];
         }
         ///红利计划服务
@@ -109,9 +124,25 @@
             [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
         }
     }];
-     [self downLoadData];
-//    [self.planDetailsView show];
-   
+}
+
+///注册 addButton点击事件
+- (void)registerClickAddButton {
+    kWeakSelf
+    [self.planDetailsView clickAddButtonFunc:^{
+        //如果不是登录 那么就登录
+        if (![KeyChainManage sharedInstance].isLogin) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
+        
+        //判断是否风险测评
+        
+        //跳转加入界面
+        HXBPlan_JoinImmediatelyViewController *planJoinVC = [[HXBPlan_JoinImmediatelyViewController alloc]init];
+        planJoinVC.isPlan = true;
+        planJoinVC.planViewModel = self.planDetailViewModel;
+        [weakSelf.navigationController pushViewController:planJoinVC animated:true];
+    }];
 }
 
 //MARK: 网络数据请求
@@ -120,8 +151,9 @@
         self.planDetailsView.planDetailViewModel = viewModel;
         self.planDetailViewModel = viewModel;
         self.planDetailsView.modelArray = self.tableViewModelArray;
+        [self.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        
+        [self.hxbBaseVCScrollView endRefresh];
     }];
 }
 

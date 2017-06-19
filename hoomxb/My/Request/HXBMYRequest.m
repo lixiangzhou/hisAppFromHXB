@@ -7,32 +7,33 @@
 //
 
 #import "HXBMYRequest.h"
+#import "HXBBaseRequest.h"///网络数据请求
+
 //-------资金统计
-#import "HXBRequestAPI_MYAssetStatisticsAPI_Plan.h"//plan的资金统计
-#import "HXBRequestAPI_MYAssetStatisticsAPI_Loan.h"//loan的资金统计
 
 //plan
 #import "HXBMYModel_AssetStatistics_Plan.h"//plan 资金统计的Model 没有ViewModel
 #import "HXBMYModel_AssetStatistics_Loan.h"//loan 资金统计的Model  没有ViewModel
 
 // --------- 主界面
-#import "HXBRequstAPI_MYMainPlanAPI.h"//主界面 plan API
-#import "HXBMYViewModel_MianPlanViewModel.h"//主界面 planViewModel
+
 #import "HXBMYModel_MainPlanModel.h"//主界面的 planModel
 
-#import "HXBRequstAPI_MYMainLoanAPI.h"//主界面的 loan API
-#import "HXBMYViewModel_MainLoanViewModel.h"//主界面的 loanViewModel
+
 #import "HXBMyModel_MainLoanModel.h"//主界面的 loanModel
 
-#import "HXBRequestAPI_MYMainCapitalRecordAPI.h"///主界面 资产记录API
-#import "HXBMYViewModel_MainCapitalRecordViewModel.h"//主界面 资产记录 ViewMOdel
+
 #import "HXBMYModel_CapitalRecordDetailModel.h"//主界面 资产记录Model ViewModel 里面加入了（这里不再添加)
 
 
 
 
 @interface HXBMYRequest ()
-///持有中
+///planAPI
+@property (nonatomic,strong) HXBBaseRequest *planListAPI;
+///计划资产
+@property (nonatomic,strong) HXBBaseRequest *planAssetsAPI;
+///plan 持有中
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MianPlanViewModel *>*hold_Plan_array;
 @property (nonatomic,assign) NSInteger holdPlanPage;//用于记录页数的字段
 ///plan 推出中
@@ -43,16 +44,23 @@
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MianPlanViewModel *>*exit_Plan_array;
 @property (nonatomic,assign) NSInteger exitPage;//记录了推出的页数字段
 
+
+///loanAPI
+@property (nonatomic,strong) HXBBaseRequest *loanListAPI;
+///散标资产
+@property (nonatomic,strong) HXBBaseRequest *loanAssetsAPI;
 ///loan 收益中
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainLoanViewModel *>*repaying_Loan_array;
 @property (nonatomic,assign) NSInteger repayingPage;
 /// loan 投标中
+
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainLoanViewModel *>*bid_Loan_array;
 @property (nonatomic,assign) NSInteger bidPage;
 /// loan 已结清
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainLoanViewModel *>*finish_Loan_array;
 @property (nonatomic,assign) NSInteger finishPage;
 //资产记录
+@property (nonatomic,strong) HXBBaseRequest *capitalRecordAPI;
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainCapitalRecordViewModel *>*capitalRecordViewModel_array;
 @property (nonatomic,assign) NSInteger capitalRecordPage;
 @end
@@ -72,6 +80,7 @@
 - (instancetype) init {
     if (self = [super init]) {
         [self creatArray];
+        [self creatAPI];
     }
     return self;
 }
@@ -84,6 +93,14 @@
     self.bid_Loan_array = [[NSMutableArray alloc]init];
     self.repaying_Loan_array = [[NSMutableArray alloc]init];
     self.capitalRecordViewModel_array = [[NSMutableArray alloc]init];
+}
+///创建api
+- (void)creatAPI {
+    self.loanListAPI = [[HXBBaseRequest alloc]init];
+    self.planListAPI = [[HXBBaseRequest alloc]init];
+    self.planAssetsAPI = [[HXBBaseRequest alloc]init];
+    self.loanAssetsAPI = [[HXBBaseRequest alloc]init];
+    self.capitalRecordAPI = [[HXBBaseRequest alloc]init];
 }
 
 #pragma mark - getter
@@ -125,20 +142,14 @@
 }
 
 #pragma mark - 主要页面的网络请求
+
 ///MARK: - 资金统计网络请求
 ///plan
 - (void)myPlanAssetStatistics_requestWithSuccessBlock: (void(^)(HXBMYModel_AssetStatistics_Plan*model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
-    HXBRequestAPI_MYAssetStatisticsAPI_Plan *planAssetStatisticsAPI = [[HXBRequestAPI_MYAssetStatisticsAPI_Plan alloc]init];
-    NSString *userID = [KeyChainManage sharedInstance].userId;
-    if (!userID.length) {
-        userID = @"2458531";
-    }
-    planAssetStatisticsAPI.requestArgument = @{
-                                               @"userId" : userID
-                                               };
-    NSMutableArray *modelArray = [[NSMutableArray alloc]init];
-    
-    [planAssetStatisticsAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    self.planListAPI.requestUrl = kHXBMY_PlanAssetsURL;
+    self.planListAPI.requestArgument = NYRequestMethodGet;
+    [self.planListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        kHXBResponsShowHUD;
         NSDictionary *dataList = [[responseObject valueForKey:@"data"] valueForKey:@"dataList"];
         HXBMYModel_AssetStatistics_Plan *planAssetStatisticsModel = [[HXBMYModel_AssetStatistics_Plan alloc]init];
         [planAssetStatisticsModel yy_modelSetWithDictionary:dataList];
@@ -150,7 +161,6 @@
             failureBlock(error);
         }
     }];
-    
 }
 
 //MARK: ========= 红利计划 主界面的网络数据请求 =========
@@ -158,9 +168,9 @@
                          andUpData: (BOOL)isUPData
                    andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MianPlanViewModel *>* viewModelArray))successDateBlock
                    andFailureBlock: (void(^)(NSError *error))failureBlock {
+    __weak typeof(self)weakSelf = self;
+    self.planListAPI.requestUrl = kHXBMY_PlanListURL;
     
-    HXBRequstAPI_MYMainPlanAPI *mainPlanAPI = [[HXBRequstAPI_MYMainPlanAPI alloc]init];
-
     NSString *pageNumberStr = @(planRequestType).description;
     NSInteger page = 0;
     switch (planRequestType) {
@@ -177,14 +187,15 @@
             break;
     }
     
-    mainPlanAPI.requestArgument = @{
+    self.planListAPI.requestArgument = @{
                                     @"filter" : pageNumberStr,
                                     @"page" :	@(page).description
                                     };
    
-    mainPlanAPI.isUPData = isUPData;
+    self.planListAPI.isUPReloadData = isUPData;
     
-    [mainPlanAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [self.planListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        kHXBResponsShowHUD;
         NSDictionary *responseDic = responseObject[@"data"];
     
         HXBMYModel_MainPlanModel *planModel = [[HXBMYModel_MainPlanModel alloc]init];
@@ -199,8 +210,7 @@
         
         NSString *typeStr = planModel.dataList.firstObject.type;
         //数据的处理。。
-        HXBRequstAPI_MYMainPlanAPI *planRequest = (HXBRequstAPI_MYMainPlanAPI *)request;
-        NSArray *handleData = [self handleResponseArrayWithIsupData:planRequest.isUPData andTypeStr:typeStr andViewModel:planViewModelArray];
+        NSArray *handleData = [weakSelf handleResponseArrayWithIsupData:weakSelf.planListAPI.isUPReloadData andTypeStr:typeStr andViewModel:planViewModelArray];
         //向外回调
         if (successDateBlock) {
             successDateBlock(handleData);
@@ -229,9 +239,10 @@
 
 ///根据typeStr 来进行数据的处理
 - (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andTypeStr: (NSString *)typeStr andViewModel: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)viewMode {
-    HXBRequestType_MY_PlanRequestType type = [HXBRequestType_MYManager myPlan_requestTypeStr:typeStr];
+    HXBRequestType_MY_PlanRequestType type = [HXBMYViewModel_MianPlanViewModel myPlan_requestTypeStr:typeStr];
     return [self plan_handleResponseArrayWithIsupData: isupdata andType:type andViewModel:viewMode];
 }
+
 ///根据返回的类型来 进行数据得分发
 - (NSMutableArray *)plan_handleResponseArrayWithIsupData: (BOOL)isupdata andType: (HXBRequestType_MY_PlanRequestType)type andViewModel: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)viewModel{
 //    if (!viewModel.firstObject.planModelDataList.status) return nil;
@@ -270,17 +281,13 @@
 //MARK:============== loan 主界面的网络数据请求  =========
 ///资金统计 请求 loan
 - (void)myLoanAssetStatistics_requestWithSuccessBlock: (void(^)(NSArray <HXBMYModel_AssetStatistics_Loan *>*model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
-    HXBRequestAPI_MYAssetStatisticsAPI_Loan *loanAssetStatisticsAPI = [[HXBRequestAPI_MYAssetStatisticsAPI_Loan alloc]init];
-    NSString *userID = [KeyChainManage sharedInstance].userId;
-    if (!userID.length) {
-        userID = @"2458659";
-    }
-    loanAssetStatisticsAPI.requestArgument = @{
-                                               @"userId" : userID
-                                               };
+    
+    self.loanAssetsAPI.requestUrl = kHXBMY_LoanAssetsURL;
+    self.loanAssetsAPI.requestMethod = NYRequestMethodGet;
     
     NSMutableArray *modelArray = [[NSMutableArray alloc]init];
-    [loanAssetStatisticsAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [self.loanAssetsAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        kHXBResponsShowHUD;
         NSArray <NSDictionary *>*dataList = [[responseObject valueForKey:@"data"] valueForKey:@"dataList"];
         [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             HXBMYModel_AssetStatistics_Loan *planAssetStatisticsModel = [[HXBMYModel_AssetStatistics_Loan alloc]init];
@@ -290,7 +297,6 @@
         if (successDateBlock) {
             successDateBlock(modelArray);
         }
-
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {
             failureBlock(error);
@@ -303,14 +309,11 @@
                          andUpData: (BOOL)isUPData
                    andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainLoanViewModel *>* viewModelArray))successDateBlock
                    andFailureBlock: (void(^)(NSError *error))failureBlock{
-    HXBRequstAPI_MYMainLoanAPI *mainLoanAPI = [[HXBRequstAPI_MYMainLoanAPI alloc]init];
-    NSString *userIDStr = [KeyChainManage sharedInstance].userId;
-    if (!userIDStr.length) {
-        userIDStr = @"2458528";
-    }
+    self.loanListAPI.requestUrl = kHXBMY_LoanListURL;
+    self.loanListAPI.requestMethod = NYRequestMethodGet;
     __block NSString *loanTypeStr = nil;
     //获取请求类型
-    [HXBRequestType_MYManager myLoan_requestType:LoanRequestType andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
+    [HXBMYViewModel_MainLoanViewModel myLoan_requestType:LoanRequestType andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
         loanTypeStr = type;
     }];
     NSInteger page = 1;
@@ -326,36 +329,33 @@
         case HXBRequestType_MY_LoanRequestType_FINISH_LOAN:
             break;
     }
-    mainLoanAPI.requestArgument = @{
-                                    @"pageNumber" : @(page).description,
-                                    @"pageSize" : @"10",
-                                    @"userId" : userIDStr,
-                                    @"type" :  loanTypeStr,
-                                    @"version" : @"1.0",
+    self.loanListAPI.isUPReloadData = isUPData;
+    self.loanListAPI.requestArgument = @{
+                                    @"page" : @(page),
+                                    @"filter" :  @(LoanRequestType).description,
                                     };
-    mainLoanAPI.requestType = LoanRequestType;//后台没有返回给我，所以就自己记录在了api里面
-    mainLoanAPI.isUPData = isUPData;
-    [mainLoanAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [self.loanListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        kHXBResponsShowHUD;
         
         NSMutableArray <HXBMYViewModel_MainLoanViewModel*> *loanViewModelArray = [[NSMutableArray alloc]init];
         NSArray <NSDictionary *>*dataArray = [[responseObject valueForKey:@"data"] valueForKey:@"loanList"];
 
-        HXBRequstAPI_MYMainLoanAPI *mainLoanAPI = (HXBRequstAPI_MYMainLoanAPI *)request;
+        NSString *type = [request.requestArgument valueForKey:@"type"];
+        
         [dataArray enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
             HXBMYViewModel_MainLoanViewModel *viewModel = [[HXBMYViewModel_MainLoanViewModel alloc]init];
             HXBMyModel_MainLoanModel *loanModel = [[HXBMyModel_MainLoanModel alloc]init];
              [loanModel yy_modelSetWithDictionary:dic];
-            viewModel.loanModel = loanModel;
-            viewModel.requestType = mainLoanAPI.requestType;
+             viewModel.loanModel = loanModel;
+             viewModel.requestType = type.integerValue;
             [loanViewModelArray addObject:viewModel];
         }];
-        HXBRequstAPI_MYMainLoanAPI *loanRequestAPI = (HXBRequstAPI_MYMainLoanAPI *)request;
         
         //如果block 在外界实现了，并且loanViewModelArray有值
         if (successDateBlock) {
-            HXBRequestType_MY_LoanRequestType loanRequestType = mainLoanAPI.requestType;
+            HXBRequestType_MY_LoanRequestType loanRequestType = type.integerValue;
             //对数据的处理（里面进行了对page的处理，与ViewModelArray 种类 的处理）
-            NSArray <HXBMYViewModel_MainLoanViewModel *>*viewModelArray = [self loan_handleLoanViewModelArrayWithIsUPData:loanRequestAPI.isUPData andRequestType:loanRequestType andLoanViewModelArray:loanViewModelArray];
+            NSArray <HXBMYViewModel_MainLoanViewModel *>*viewModelArray = [self loan_handleLoanViewModelArrayWithIsUPData:self.loanListAPI.isUPReloadData andRequestType:loanRequestType andLoanViewModelArray:loanViewModelArray];
             successDateBlock(viewModelArray);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -397,29 +397,26 @@
 }
 
 
-#pragma mark - 资金记录 接口
+
+#pragma mark - 交易记录 接口
 - (void)capitalRecord_requestWithScreenType: (HXBRequestType_MY_tradlist)screenType
                                andStartDate: (NSString *)startDate
                                 andEndDate: (NSString *)endDate
                                andIsUPData: (BOOL)isUPData 
                            andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *>* viewModelArray))successDateBlock
                            andFailureBlock: (void(^)(NSError *error))failureBlock {
-    HXBRequestAPI_MYMainCapitalRecordAPI *capitalRecordAPI = [[HXBRequestAPI_MYMainCapitalRecordAPI alloc]init];
     
+    __weak typeof(self)weakSelf = self;
+    self.capitalRecordAPI.requestUrl = kHXBMY_CapitalRecordURL;
+    self.capitalRecordAPI.isUPReloadData = isUPData;
+    self.capitalRecordAPI.requestArgument = @{
+                                              @"page" : @(self.capitalRecordAPI.dataPage).description,
+                                            @"filter" : @(screenType).description
+                                              };
+    self.capitalRecordAPI.requestMethod = NYRequestMethodGet;
     
-    //如果是下拉刷新的话
-    if (isUPData) self.capitalRecordPage = 1;
-    
-    //页数
-    NSString *pageSTR = @(self.capitalRecordPage).description;
-    
-    capitalRecordAPI.isUPData = isUPData;
-    capitalRecordAPI.page = pageSTR;
-    capitalRecordAPI.filter = screenType;
-//    capitalRecordAPI.planID = @(planid)
-    
-    [capitalRecordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        HXBRequestAPI_MYMainCapitalRecordAPI *api = (HXBRequestAPI_MYMainCapitalRecordAPI *)request;
+    [self.capitalRecordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        kHXBResponsShowHUD
         
         NSDictionary *data = [responseObject valueForKey:@"data"];
         NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
@@ -435,7 +432,7 @@
         }];
        
         if (successDateBlock) {
-            NSMutableArray <HXBMYViewModel_MainCapitalRecordViewModel *>*capitalRecordViewModelArray = [self capitalRecord_handleDataWithIsUPData:api.isUPData andViewModelArray:viewModelArray];
+            NSMutableArray <HXBMYViewModel_MainCapitalRecordViewModel *>*capitalRecordViewModelArray = [self capitalRecord_handleDataWithIsUPData:weakSelf.capitalRecordAPI.isUPReloadData andViewModelArray:viewModelArray];
             successDateBlock(capitalRecordViewModelArray);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {

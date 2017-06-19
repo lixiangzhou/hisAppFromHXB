@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 
 #define  HXBNotificationCenter  [NSNotificationCenter defaultCenter]
+/// 展示登录的VC
+extern NSString *const kHXBNotification_ShowLoginVC;
+extern NSString *const kHXBNotification_IsLoginToReloadTableView;
+///跳转我的界面
+extern NSString *const kHXBNotification_LoginSuccess_PushMYVC;
 
-extern NSString *const ShowLoginVC;
-extern NSString *const IsLoginToReloadTableView;
 @interface HxbNotificationMacros : NSObject
 
 @end

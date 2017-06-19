@@ -13,8 +13,6 @@
 #import <WebKit/WebKit.h>
 
 @interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate>
-
-
 @end
 
 @implementation HXBBaseViewController{
@@ -25,8 +23,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-//    [self setupWebView];
+    //解决侧滑手势失效
+    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
 }
+
+- (UIScrollView *)hxbBaseVCScrollView {
+    if (!_hxbBaseVCScrollView) {
+        self.automaticallyAdjustsScrollViewInsets = NO;
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+        _hxbBaseVCScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
+    }
+    return _hxbBaseVCScrollView;
+}
+
 //MARK: 销毁
 kDealloc
 #pragma mark - gtter 方法

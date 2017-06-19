@@ -18,6 +18,8 @@
 #import "HXBFin_Detail_DetailVC_Loan.h"//贷款信息的控制器
 #import "HXBFinAddRecortdVC_Loan.h"//贷款记录的控制器
 #import "HXBFinContract_contraceWebViewVC_Loan.h"//贷款合同的控制器
+
+#import "HXBPlan_JoinImmediatelyViewController.h"//加入
 //#import "HXBFinDetailView"
 
 @interface HXBFinancing_LoanDetailsViewController ()
@@ -72,56 +74,97 @@
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = false;
     [self setup];
+    [self downLoadData];
+    [self registerEvent];
 }
-
+- (void)clickLeftBarButtonItem {
+    [self.navigationController popViewControllerAnimated:true];
+}
 //MARK: ------ setup -------
 - (void)setup {
+    kWeakSelf
+    [self.hxbBaseVCScrollView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [weakSelf downLoadData];
+    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
+        
+    }];
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(clickLeftBarButtonItem)];
+    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.hxbBaseVCScrollView.backgroundColor = [UIColor whiteColor];
     self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:self.view.frame];
-    [self.view addSubview:self.loanDetailsView];
+    [self.hxbBaseVCScrollView addSubview:self.loanDetailsView];
+    
+
+    
     //是否为计划界面
     self.loanDetailsView.isPlan = false;
     self.loanDetailsView.isFlowChart = true;
     self.loanDetailsView.loanListViewModel = self.loanListViewMode;
-    
+}
+
+
+- (void) registerEvent {
+    [self registerClickCell];
+    [self registerClickAddButton];
+}
+
+- (void)registerClickCell {
     __weak typeof (self)weakSelf = self;
     [self.loanDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
-       //跳转相应的页面
+        //跳转相应的页面
         NSLog(@"%@",model.optionTitle);
         ///点击了借款信息
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0]]) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
-//            detail_DetailLoanVC. = self.planDetailViewModel;
+            //            detail_DetailLoanVC. = self.planDetailViewModel;
             [weakSelf.navigationController pushViewController:detail_DetailLoanVC animated:true];
         }
         ///  借款记录
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
             HXBFinAddRecortdVC_Loan *loanAddRecordVC = [[HXBFinAddRecortdVC_Loan alloc]init];
-//            loanAddRecordVC.planDetailModel = self.planDetailViewModel.planDetailModel;
+            //            loanAddRecordVC.planDetailModel = self.planDetailViewModel.planDetailModel;
+            loanAddRecordVC.loanID = weakSelf.loanID;
             [weakSelf.navigationController pushViewController:loanAddRecordVC animated:true];
         }
         ///合同
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2]]) {
             //跳转一个webView
             HXBFinContract_contraceWebViewVC_Loan * contractWebViewVC = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
-//            contractWebViewVC.URL = self.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
+            //            contractWebViewVC.URL = self.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
             [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
         }
         
     }];
-    [self downLoadData];
-    
-    //    [self.planDetailsView show];
 }
+
+///点击了立即加入
+- (void)registerClickAddButton {
+    kWeakSelf
+    [self.loanDetailsView clickAddButtonFunc:^{
+        //如果不是登录 那么就登录
+        if (![KeyChainManage sharedInstance].isLogin) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
+        
+        //判断是否风险测评
+        
+        //跳转加入界面
+        HXBPlan_JoinImmediatelyViewController *loanJoinVC = [[HXBPlan_JoinImmediatelyViewController alloc]init];
+        loanJoinVC.isPlan = false;
+        [weakSelf.navigationController pushViewController:loanJoinVC animated:true];
+    }];
+}
+
 
 //MARK: 网络数据请求
 - (void)downLoadData {
     [[HXBFinanctingRequest sharedFinanctingRequest] loanDetaileWithLoanID:self.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanDetail *viewModel) {
         self.loanDetailsView.loanDetailViewModel = viewModel;
         self.loanDetailsView.modelArray = self.tableViewModelArray;
+        [self.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        
+        [self.hxbBaseVCScrollView endRefresh];
     }];
 }
 

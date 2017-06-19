@@ -11,5 +11,5 @@
 
 #import "HxbHUDProgress.h"///HUD
 #import "HXBToolCountDownButton.h"///关于倒计时的button
-
+#import "HXBRequestUserInfo.h"///用户信息
 #endif /* HxbTools_h */

@@ -9,7 +9,7 @@
 #import "HxbHomeRequest_dataList.h"
 #import "HxbHomePageModel_DataList.h"
 #import "HxbHomePageViewModel_dataList.h"
-
+#import "HXBBaseRequest.h"//网络请求
 @interface HxbHomeRequest_dataList()
 @property (nonatomic,strong) NSMutableArray <HxbHomePageViewModel_dataList *>*homeDataListViewModelArray;
 @end
@@ -17,9 +17,9 @@
 @implementation HxbHomeRequest_dataList
 - (void)homeDataListSuccessBlock: (void(^)(NSMutableArray <HxbHomePageViewModel_dataList *>*homeDataListViewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
     
-    HxbIndexPlanListAPI *indexPlanListAPI = [[HxbIndexPlanListAPI alloc]init];
+    HXBBaseRequest *indexPlanListAPI = [[HXBBaseRequest alloc]init];
+    indexPlanListAPI.requestUrl = @"/financeplan/queryForIndexUplanListNew.action";
     [indexPlanListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-//        NSDictionary *baseDic = [responseObject valueForKey:@"data"];
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
            _homeDataListViewModelArray  = [NSMutableArray array];
         if (!responseObject || !dataList.count) {

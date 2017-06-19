@@ -51,14 +51,14 @@ typedef enum : NSUInteger {
 
 ///散标的基本信息
 @interface HXBFinDatailModel_LoanDetail_loanVo : NSObject
-///	string	籍贯所在地
+///string	籍贯所在地
 @property (nonatomic,copy) NSString *accountLocation;
-///	string	公司地址
+///string	公司地址
 @property (nonatomic,copy) NSString *companyAddress;
+///string	剩余可投金额
+@property (nonatomic,copy) NSString *surplusAmount;
 ///保证金额
 @property (nonatomic,copy) NSString *guaranteedAmount;
-///剩余金额
-@property (nonatomic,copy) NSString *surplusAmount;
 ///月金额
 @property (nonatomic,copy) NSString *monthAmount;
 ///总计100美元
@@ -99,6 +99,13 @@ typedef enum : NSUInteger {
 @property (nonatomic,copy) NSString *borrowerLevel;
 ///loanID
 @property (nonatomic,copy) NSString *loanId;
+///": "山东分公司反对大富大贵梵蒂冈梵蒂冈",
+@property (nonatomic,copy) NSString *description;
+///";: "1天1时21分47秒",
+@property (nonatomic,copy) NSString *fullTime;
+///": "2016-10-03"
+@property (nonatomic,copy) NSString *nextRepayDate;
+
 @end
 
 // --------------------- idCardInfo ---------------------
@@ -167,58 +174,64 @@ typedef enum : NSUInteger {
 ///用户信息
 @interface HXBFinDatailModel_LoanDetail_userVo : NSObject
 
-///	string	籍贯所在地
 @property (nonatomic,copy) NSString *accountLocation;
-///	string	公司地址
+///string	籍贯所在地
 @property (nonatomic,copy) NSString *companyAddress;
-///	string	公司类别
+///	string	公司地址
 @property (nonatomic,copy) NSString *companyCategory;
-///	;string	公司所在城市
+///	string	公司类别
 @property (nonatomic,copy) NSString *companyLocation;
-///	string;///	公司名称
+///	string	公司所在城市
 @property (nonatomic,copy) NSString *companyName;
-///	string;/	公司职位
+///	string	公司名称
 @property (nonatomic,copy) NSString *companyPost;
-///	string	合同号码
+///	string	公司职位
 @property (nonatomic,copy) NSString *contractCode;
-///	string	最高学历
+///	string	合同号码
+@property (nonatomic,copy) NSString *description;
+///	string	标的描述
 @property (nonatomic,copy) NSString *graduation;
-///	string	是否有车
+///	string	最高学历
 @property (nonatomic,copy) NSString *hasCar;
-///	string	是否有孩子
+///	string	是否有车
 @property (nonatomic,copy) NSString *hasChild;
-///	string	是否有房子
+///	string	是否有孩子
 @property (nonatomic,copy) NSString *hasHouse;
-///	string	是否有房贷
+///	string	是否有房子
 @property (nonatomic,copy) NSString *hasHouseLoan;
-///	string	籍贯所在省份
+///	string	是否有房贷
 @property (nonatomic,copy) NSString *homeTown;
-///	string	直系亲属姓名
+///	string	籍贯所在省份
 @property (nonatomic,copy) NSString *immediateName;
-///	string	直系亲属关系
+///	string	直系亲属姓名
 @property (nonatomic,copy) NSString *immediateRelationShip;
-///	string	直系亲属电话
+///	string	直系亲属关系
 @property (nonatomic,copy) NSString *immediateTel;
-///	string	工作状态
+///	string	直系亲属电话
 @property (nonatomic,copy) NSString *jobStatus;
-///	int	标id
+///	string	工作状态
 @property (nonatomic,copy) NSString *loanId;
-///	string	婚姻状态（见下表）
+///	int	标id
 @property (nonatomic,copy) NSString *marriageStatus;
-///	string	月收入
+///	string	婚姻状态（见下表）
 @property (nonatomic,copy) NSString *monthlyIncome;
-///	string	其他联系人姓名
+///	string	月收入
 @property (nonatomic,copy) NSString *otherRelationName;
-///	string	其他联系人关系
+///	string	其他联系人姓名
 @property (nonatomic,copy) NSString *otherRelationShip;
-///	string	进件号
+///	string	其他联系人关系
 @property (nonatomic,copy) NSString *refId;
-///	string	居住地址
+///	string	进件号
 @property (nonatomic,copy) NSString *residence;
-///	string	居住地电话
+///	string	居住地址
 @property (nonatomic,copy) NSString *residenceTel;
-///	string	大学
+///	string	居住地电话
 @property (nonatomic,copy) NSString *university;
+///	string	大学
+@property (nonatomic,copy) NSString *companyIndustry;
+///	string	工作类别
+@property (nonatomic,copy) NSString *hasCarLoan;
+
 
 ///": 1493776767000,
 @property (nonatomic,copy) NSString *createTime;
@@ -230,6 +243,8 @@ typedef enum : NSUInteger {
 @property (nonatomic,copy) NSString *updateTime;
 //": 0
 @property (nonatomic,copy) NSString *version;
+
+
 @end
 
 

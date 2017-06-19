@@ -12,6 +12,10 @@
 @class HXBFinDetailViewModel_PlanDetail;//红利计划详情页ViewModel
 @class HXBFinDetailViewModel_LoanDetail;//散标投递的详情页的ViewModel
 @class HXBFinModel_AddRecortdModel_Plan;//理财模块的加入记录接口
+@class FinModel_AddRecortdModel_Loan;//加入记录model
+@class HXBFinModel_Buy_Plan;//购买
+@class HXBconfirmBuyReslut;
+
 
 static NSString *const HXBFinHomePagePlan_ASC = @"";
 
@@ -49,5 +53,20 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 #pragma mark - 红利计划详情页 - 加入记录
 // 红利计划详情页 - 加入记录
 - (void)planAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinancePlanId: (NSString *)financePlanId andOrder: (NSString *)order andSuccessBlock: (void(^)(HXBFinModel_AddRecortdModel_Plan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+// 散标详情页 加入记录
+- (void)loanAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)financeLoanId andOrder: (NSString *)order andSuccessBlock: (void(^)(FinModel_AddRecortdModel_Loan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+#pragma mark - 购买
+/// 计划购买
+- (void)planBuyWithPlanID:(NSString *)planID
+                andAmount: (NSString *)amount
+          andSuccessBlock:(void (^)(HXBFinModel_Buy_Plan *model))successDateBlock
+          andFailureBlock:(void (^)(NSError *))failureBlock;
+/// 计划购买确认结果
+- (void)plan_confirmBuyReslutWithPlanID: (NSString *)planID
+                              andAmount: (NSString *)amount
+                        andSuccessBlock:(void (^)(HXBconfirmBuyReslut *model))successDateBlock
+                        andFailureBlock:(void (^)(NSError *error))failureBlock;
 @end
 

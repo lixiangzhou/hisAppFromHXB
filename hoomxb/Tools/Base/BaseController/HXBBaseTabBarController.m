@@ -36,8 +36,14 @@
 #pragma mark - viewDidLoad
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(showLoginVC) name:ShowLoginVC object:nil];
+    ///注册通知
+    [self registerNotification];
     self.delegate = self;
+}
+///注册通知
+- (void)registerNotification {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentLoginVC:) name:kHXBNotification_ShowLoginVC object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMyVC:) name:kHXBNotification_LoginSuccess_PushMYVC object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,20 +99,14 @@
     return controller;
 }
 
-//MARK: 显示登录界面
-- (void)showLoginVC
-{
-    [self performSelector:@selector(realShowLogin) withObject:nil afterDelay:0];
-}
 
 - (void)realShowLogin
 {
-    HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
+  
 //    self.homePageVC.willPresent = YES;
 //    self.moneyManageVC.willPresent = YES;
-    [self presentViewController:navi animated:YES completion:nil];
-    //    [self presentViewController:navLoginVC animated:YES completion:nil];
+    
+//    [self presentViewController:navLoginVC animated:YES completion:nil];
 }
 
 #pragma mark - tabBarDelegate
@@ -127,10 +127,25 @@
     
     //当前是否处于登录状态// 没有登录的话就return一个NO，并modal一个登录控制器。
     if (isMYController && ![KeyChain isLogin]) {
-        [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         return NO;
     }
     return YES;
+}
+
+// modal 登录控制器
+- (void) presentLoginVC:(NSNotification *)notification {
+    HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
+    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
+    [self presentViewController:navi animated:YES completion:nil];
+}
+//跳转 myVC
+- (void) pushMyVC:(NSNotification *)notification {
+    self.selectedViewController = self.viewControllers.lastObject;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end
 
