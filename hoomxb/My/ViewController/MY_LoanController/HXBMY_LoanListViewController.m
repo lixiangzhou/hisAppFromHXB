@@ -82,10 +82,12 @@ kDealloc
         case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN://收益中
             self.loanListView.repaying_ViewModelArray = loanViewModelArray;
             self.loan_REPAYING_ViewModelArray = loanViewModelArray;
+            self.loanListView.repaying_ViewModelArray = [[NSArray alloc]init];
             break;
         case HXBRequestType_MY_LoanRequestType_BID_LOAN://投标中
             self.loanListView.bid_ViewModelArray = loanViewModelArray;
             self.loan_BID_ViewModelArray = loanViewModelArray;
+            self.loanListView.bid_ViewModelArray = [[NSArray alloc]init];
             break;
         case HXBRequestType_MY_LoanRequestType_FINISH_LOAN: //已结清 预留字段
             break;

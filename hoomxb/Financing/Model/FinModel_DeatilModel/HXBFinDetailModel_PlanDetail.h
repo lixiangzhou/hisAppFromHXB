@@ -23,15 +23,11 @@
 #import <Foundation/Foundation.h>
 @class HXBFinDetailModel_PlanDetail_DataList;
 
+
 ///post /financeplan/financeplandetail.action 红利计划详情Model
 @interface HXBFinDetailModel_PlanDetail : NSObject
-
 ///曾信地址
 @property (nonatomic,copy) NSString *contractUrl;
-///注册数量
-@property (nonatomic,copy) NSString *registerCount;
-///总利息
-@property (nonatomic,copy) NSString *totalInterest;
 ///本金余额合约名称
 @property (nonatomic,copy) NSString *principalBalanceContractName;
 ///是否登录
@@ -49,8 +45,88 @@
 ///最终注册总金额
 @property (nonatomic,copy) NSString *finishRatio;
 
+///int	用户组id
+@property (nonatomic,copy) NSString *groupid;
+///String	近七天加入理财计划（全部）的人数
+@property (nonatomic,copy) NSString *registerCount;
+///String	预期收益计算值（1000的收益）
+@property (nonatomic,copy) NSString *totalInterest;
+///[String	计划介绍
+@property (nonatomic,copy) NSString *introduce;
+///String	计划状态
+@property (nonatomic,copy) NSString *unifyStatus;
+///String	基础利率
+@property (nonatomic,copy) NSString *baseInterestRate;
+///锁定结束时间
+@property (nonatomic,copy) NSString *endLockingTime;
+///String	计划id
+@property (nonatomic,copy) NSString *id;
+///String	加息利率
+@property (nonatomic,copy) NSString *extraInterestRate;
+////String	提前退出费率
+@property (nonatomic,copy) NSString *quitRateAdvance;
+///String	年利率
+@property (nonatomic,copy) NSString *expectedRate;
+///String	计划名称
+@property (nonatomic,copy) NSString *name;
+///String	单笔加入上线
+@property (nonatomic,copy) NSString *singleMaxRegisterAmount;
+///计划期限（锁定期）
+@property (nonatomic,copy) NSString *lockPeriod;
+///String	开始销售时间
+@property (nonatomic,copy) NSString *beginSellingTime;
+///String	可投资对象
+@property (nonatomic,copy) NSString *productsJson;
+///String	超出预期收益部分作为服务费
+@property (nonatomic,copy) NSString *interestName;
+///String	最小注册金额
+@property (nonatomic,copy) NSString *minRegisterAmount;
+///String	进入锁定期时间
+@property (nonatomic,copy) NSString *financeEndTime;
+///String	加入人次
+@property (nonatomic,copy) NSString *joinCount;
+///String	销售期限(天)
+@property (nonatomic,copy) NSString *salePeriod;
+///String	已获收益（累计赚取）
+@property (nonatomic,copy) NSString *earnInterest;
+///String	是否首次够买
+@property (nonatomic,copy) NSString *isFirst;
+///String	注册倍数金额
+@property (nonatomic,copy) NSString *registerMultipleAmount;
+///String	销售结束时间
+@property (nonatomic,copy) NSString *endSellingTime;
+///String	计入费率
+@property (nonatomic,copy) NSString *buyInRate;
+///String	剩余可追加金额
+@property (nonatomic,copy) NSString *userRemainAmount;
+///String	剩余可投
+@property (nonatomic,copy) NSString *remainAmount;
+///String	倒计时时间戳
+@property (nonatomic,copy) NSString *diffTime;
+@property (nonatomic,copy) NSString *rsvCount;///": "0",
+@property (nonatomic,copy) NSString *couponInterestRate;///": "",
+@property (nonatomic,copy) NSString *quitRate;///": "0.0",
+@property (nonatomic,copy) NSString *tag;///": "3424324",
+@property (nonatomic,copy) NSString *desc3;///": "05月13日 16:56 开放加入",
+@property (nonatomic,copy) NSString *desc4;///": "05月13日 16:56",
+@property (nonatomic,copy) NSString *lockPeriodStr;///": "2021年06月17日(1个月)",
+@property (nonatomic,copy) NSString *amount;///": "7000.0",
+@property (nonatomic,copy) NSString *financeStatus;//": "3",
+@property (nonatomic,copy) NSString *beginSelling;//Time": "2021-05-13 16:56:00",
+@property (nonatomic,copy) NSString *interestRate;//": "0.0",
+@property (nonatomic,copy) NSString *fillTime;//": "2天2时4分0秒",
+@property (nonatomic,copy) NSString *category;//": "A",
+@property (nonatomic,copy) NSString *lockStart;///": "05-17 16:56",
+@property (nonatomic,copy) NSString *beginResellingTime;//": "2021-05-13 16:56:00",
+@property (nonatomic,copy) NSString *contractName;//": "理财计划服务协议",
+
+
+
+
+
+
 ///红利计划详情页的数据数组
-@property (nonatomic,strong) NSArray <HXBFinDetailModel_PlanDetail_DataList *>*dataList;
+//@property (nonatomic,strong) NSArray <HXBFinDetailModel_PlanDetail_DataList *>*dataList;
 @end
 
 

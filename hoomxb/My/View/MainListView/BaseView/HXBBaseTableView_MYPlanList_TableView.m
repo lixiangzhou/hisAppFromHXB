@@ -54,8 +54,11 @@ UITableViewDataSource
 
 
 #pragma mark - delegate 
+
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.mainPlanViewModelArray? self.mainPlanViewModelArray.count : self.mainLoanViewModelArray.count;
+//    return self.mainPlanViewModelArray? self.mainPlanViewModelArray.count : self.mainLoanViewModelArray.count;
+
+    return self.mainPlanViewModelArray? 3 : 11;
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBBaseView_MYList_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];

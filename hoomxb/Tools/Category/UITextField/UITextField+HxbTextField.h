@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UITextField (HxbTextField)
+
 + (UITextField *)hxb_lineTextFieldWithFrame:(CGRect)frame;
+
 @end

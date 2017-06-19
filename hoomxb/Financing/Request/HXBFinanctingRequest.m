@@ -25,7 +25,12 @@
 
 //MARK: - 加入记录
 #import "HXBFinModel_AddRecortdModel_Plan.h"//加入记录的model
+#import "FinModel_AddRecortdModel_Loan.h"//加入记录的model loan
 
+
+//MARK: - 购买
+#import "HXBFinModel_Buy_Plan.h"///购买
+#import "HXBconfirmBuyReslut.h"///购买结果
 
 @interface HXBFinanctingRequest ()
 #pragma mark - Plan
@@ -42,6 +47,8 @@
 @property (nonatomic,strong) HXBBaseRequest *loanListAPI;
 ///散标 详情的API
 @property (nonatomic,strong) HXBBaseRequest *loanDetaileAPI;
+///散标 加入记录API
+@property (nonatomic,strong) HXBBaseRequest *loanAddRecortdAPI;
 
 //红利计划列表的数据数组
 @property (nonatomic,strong) NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray;
@@ -84,7 +91,12 @@
     }
     return _loanDetaileAPI;
 }
-
+- (HXBBaseRequest *)loanAddRecortdAPI {
+    if (!_loanAddRecortdAPI) {
+        _loanAddRecortdAPI = [[HXBBaseRequest alloc]init];
+    }
+    return _loanAddRecortdAPI;
+}
 
 - (instancetype)init {
     if (self = [super init]){
@@ -303,7 +315,7 @@
 
 #pragma mark - 红利计划详情页 - 加入记录
 - (void)planAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinancePlanId: (NSString *)financePlanId andOrder: (NSString *)order andSuccessBlock: (void(^)(HXBFinModel_AddRecortdModel_Plan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
-
+    self.planAddRecortdAPI.isUPReloadData = isUPLoad;
     self.planAddRecortdAPI.requestMethod = NYRequestMethodGet;
     self.planAddRecortdAPI.requestUrl = kHXBFinanc_Plan_AddRecortdURL(financePlanId);
     
@@ -321,5 +333,111 @@
             failureBlock(error);
         }
     }];
+}
+#pragma mark - 散标计划详情 - 加入记录
+- (void)loanAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)financeLoanId andOrder: (NSString *)order andSuccessBlock: (void(^)(FinModel_AddRecortdModel_Loan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
+    self.loanAddRecortdAPI.requestMethod = NYRequestMethodGet;
+    
+    self.loanAddRecortdAPI.requestUrl = kHXBFinanc_Loan_AddRecortdURL(financeLoanId);
+    [self.loanAddRecortdAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+       kHXBResponsShowHUD
+        FinModel_AddRecortdModel_Loan *model = [[FinModel_AddRecortdModel_Loan alloc]init];
+        NSDictionary *dic = [responseObject valueForKey:@"data"];
+        [model yy_modelSetWithDictionary:dic];
+        if (successDateBlock) {
+            successDateBlock(model);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+         kNetWorkError(@"loan 加入计划 - 网络请求失败")
+        if (error) {
+            failureBlock(error);
+        }
+    }];
+}
+
+
+#pragma mark - 购买
+#define kHXBFin_Buy_PlanURL(planID) [NSString stringWithFormat:@"/plan/%@/confirm",(planID)]
+/// 计划购买
+- (void)planBuyWithPlanID:(NSString *)planID
+                andAmount:(NSString *)amount
+          andSuccessBlock:(void (^)(HXBFinModel_Buy_Plan *model))successDateBlock
+          andFailureBlock:(void (^)(NSError *))failureBlock {
+    HXBBaseRequest *buyRequest = [[HXBBaseRequest alloc]init];
+    
+    
+    
+    
+    buyRequest.requestUrl = kHXBFin_Buy_PlanURL(planID);
+    buyRequest.requestMethod = NYRequestMethodPost;
+    if (!amount) amount = @"";
+    buyRequest.requestArgument = @{
+                                   @"amount" : amount
+                                   };
+    [buyRequest.infoDic setObject:planID forKey:@"planID"];
+    [buyRequest.infoDic setObject:amount forKey:@"amount"];
+    
+    [buyRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+       kHXBResponsShowHUD
+        NSDictionary *dic = [responseObject valueForKey:@"data"];
+        HXBFinModel_Buy_Plan *planBuyModel = [[HXBFinModel_Buy_Plan alloc]init];
+        [planBuyModel yy_modelSetWithDictionary:dic];
+        if (successDateBlock) {
+            successDateBlock(planBuyModel);
+            [self plan_confirmBuyReslutWithPlanID:buyRequest.infoDic[@"planID"] andAmount: buyRequest.infoDic[@"amount"] andSuccessBlock:^(HXBconfirmBuyReslut *model) {
+                
+            } andFailureBlock:^(NSError *error) {
+                
+            }];
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        kNetWorkError(@"plan 购买 - 网络请求失败")
+        if (error) {
+            failureBlock(error);
+        }
+    }];
+}
+
+#pragma mark - 确认购买
+///确认购买 plan
+#define kHXBFin_Plan_ConfirmBuyReslutURL(planID) [NSString stringWithFormat:@"/plan/%@/result",(planID)]
+- (void)plan_confirmBuyReslutWithPlanID: (NSString *)planID
+                              andAmount: (NSString *)amount
+                        andSuccessBlock:(void (^)(HXBconfirmBuyReslut *model))successDateBlock
+                        andFailureBlock:(void (^)(NSError *error))failureBlock{
+    HXBBaseRequest *confirmBuyReslut = [[HXBBaseRequest alloc]init];
+    
+    if (!amount) amount = @"";
+    confirmBuyReslut.requestArgument = @{
+                                         @"amount" : amount
+                                         };
+    
+    confirmBuyReslut.requestUrl = kHXBFin_Plan_ConfirmBuyReslutURL(planID);
+    confirmBuyReslut.requestMethod = NYRequestMethodPost;
+    
+    [confirmBuyReslut startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+        if (status) {
+            switch (status) {
+                    //	3408:，3100：已售罄
+                case 3408:
+                    [HxbHUDProgress showTextWithMessage:@"余额不足"];
+                    break;
+                case 3100:
+                    [HxbHUDProgress showTextWithMessage:@"已售罄"];
+            }
+            return;
+        }
+        
+        NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
+        HXBconfirmBuyReslut *reslut = [[HXBconfirmBuyReslut alloc]init];
+        [reslut yy_modelSetWithDictionary:dataDic];
+        if (successDateBlock) {
+            successDateBlock(reslut);
+        }
+            
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+    }];
+    
 }
 @end

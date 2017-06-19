@@ -44,16 +44,8 @@ typedef enum : NSUInteger {
 
 - (void)setPlanListModel:(HXBFinHomePageModel_PlanList *)planListModel {
     _planListModel = planListModel;
-    //self.countDownLastStr = planListModel.beginSellingTime;
-    //"2017-05-25 14:38:58
-//    HXBBaseHandDate *manager = [HXBBaseHandDate sharedHandleDate];
-//    self.countDownLastStr = @([manager returnDateWithOBJ:planListModel.beginSellingTime andDateFormatter:nil].timeIntervalSince1970).description;
-    
-    NSLog(@"%@",planListModel.beginSellingTime);
-//    NSDate *date = [[NSDate alloc]init];
-//    NSString *dateStr = @([date timeIntervalSince1970] + 30).description;
     [self setupExpectedYearRateAttributedStr];// 红利计划列表页的cell里面的年利率
-//    self.countDownLastStr = dateStr;
+    self.countDownLastStr = planListModel.diffTime;
 }
 
 

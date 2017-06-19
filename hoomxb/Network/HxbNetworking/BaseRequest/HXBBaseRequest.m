@@ -12,6 +12,12 @@
 
 @end
 @implementation HXBBaseRequest
+- (NSMutableDictionary *)infoDic {
+    if (!_infoDic) {
+        _infoDic = [[NSMutableDictionary alloc]init];
+    }
+    return _infoDic;
+}
 //其他的Page 的设置在 NYNetworkManager+DefaultMethod 中
 - (NSInteger) dataPage {
     if (_dataPage <= 1) _dataPage = 1;

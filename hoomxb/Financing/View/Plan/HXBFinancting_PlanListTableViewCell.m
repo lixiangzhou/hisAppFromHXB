@@ -28,6 +28,7 @@
     _finPlanListViewModel = finPlanListViewModel;
     HXBFinHomePageModel_PlanList *model = finPlanListViewModel.planListModel;
     self.nameLabel.text = model.name;
+    [self.countDownLable setHidden: !finPlanListViewModel.countDownString.integerValue];
     self.countDownLable.text = finPlanListViewModel.countDownString;
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = finPlanListViewModel.planListModel.lockPeriod;
@@ -121,6 +122,7 @@
 //MARK: 倒计时的重要传递
 - (void)setCountDownString:(NSString *)countDownString {
     _countDownString = countDownString;
+    [self.countDownLable setHidden:!countDownString.integerValue];
     self.countDownLable.text = countDownString;
 }
 - (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {

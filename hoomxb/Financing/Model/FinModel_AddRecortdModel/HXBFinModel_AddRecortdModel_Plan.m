@@ -17,9 +17,30 @@
 @end
 
 @implementation HXBFinModel_AddRecortdModel_Plan_dataList
-- (void)setValue:(id)value forKey:(NSString *)key {
-    if ([key isEqualToString:@"amount"]) {
-        _amount_YUAN = [NSString stringWithFormat:@"%@,元",value];
+
+- (void)setAmount:(NSString *)amount {
+    _amount = amount;
+    _amount = [NSString hxb_getPerMilWithDouble:amount.floatValue];
+    _amount_YUAN = [NSString stringWithFormat:@"%@元",amount];
+}
+
+- (void)setJoinTime:(NSString *)joinTime {
+    _joinTime = joinTime;
+    _hxb_joinTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:joinTime andDateFormat:@"yyyy-MM-dd  HH:mm"];
+}
+- (void)setNickName:(NSString *)nickName {
+    _nickName = nickName;
+    if (nickName.length >= 6) {
+        NSString *str = [nickName substringWithRange:NSMakeRange(0, 3)];
+        NSString *strLast = [nickName substringWithRange:NSMakeRange(nickName.length - 2, 2)];
+        NSMutableString *strMid = @"".mutableCopy;
+        for (NSInteger i = (nickName.length - 5); i > 0; i --) {
+            [strMid appendString:@"*"];
+        }
+        _hxb_nickName = [NSString stringWithFormat:@"%@%@%@",str,strMid,strLast];
+    }else {
+        _hxb_nickName = nickName;
     }
 }
+
 @end

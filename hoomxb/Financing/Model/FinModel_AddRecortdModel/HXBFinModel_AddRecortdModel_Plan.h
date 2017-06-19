@@ -19,12 +19,20 @@
 
 ///理财模块的加入记录接口的dataList
 @interface HXBFinModel_AddRecortdModel_Plan_dataList : NSObject
-@property (nonatomic,copy) NSString *amount_YUAN;//拼接了 “元”汉字
-@property (nonatomic,copy) NSString *amount;//": 1000,
-@property (nonatomic,copy) NSString *index;//": 6,
-@property (nonatomic,copy) NSString *joinTime;//": 1492264587000,
-@property (nonatomic,copy) NSString *nickName;//": "null",
+///string	序号
+@property (nonatomic,copy) NSString *index;
+///	string	加入金额
+@property (nonatomic,copy) NSString *amount;
+///	string	加入时间
+@property (nonatomic,copy) NSString *joinTime;
+///	string	投资人
+@property (nonatomic,copy) NSString *nickName;
 @property (nonatomic,copy) NSString *type;//": "ME"
+///处理后的投资人
+@property (nonatomic,copy) NSString *hxb_nickName;
+///处理后的时间
+@property (nonatomic,copy) NSString *hxb_joinTime;
+@property (nonatomic,copy) NSString *amount_YUAN;//拼接了 “元”汉字
 @end
 
 /**

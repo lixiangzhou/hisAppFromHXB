@@ -28,9 +28,4 @@
 ///这个方法是服务器重定向时调用，即 接收到服务器跳转请求之后调用
 @property (nonatomic,copy) void(^didReceiveServerRedirectBlock)(WKNavigation *navigation);
 
-
-/// 在收到响应后，决定是否跳转
-- (void)hxb_webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler;
-
-
 @end

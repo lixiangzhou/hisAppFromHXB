@@ -18,5 +18,21 @@
     
     return formattedNumberString;
 }
+///后面拼接了 元
++ (NSString *)hxb_getPerMilWithDouble:(double)number {
+    return [NSString stringWithFormat:@"%@元", [self GetPerMilWithDouble: number]];
+}
 
++ (NSString *) hiddenStr: (NSString *)string MidWithFistLenth: (NSInteger)fistLenth andLastLenth: (NSInteger)lastLenth {
+    if (string.length >= fistLenth + lastLenth) {
+        NSString *str = [string substringWithRange:NSMakeRange(0, fistLenth)];
+        NSString *strLast = [string substringWithRange:NSMakeRange(str.length - lastLenth, lastLenth)];
+        NSMutableString *strMid = @"".mutableCopy;
+        for (NSInteger i = (str.length - fistLenth - lastLenth); i > 0; i --) {
+            [strMid appendString:@"*"];
+        }
+        string = [NSString stringWithFormat:@"%@%@%@",str,strMid,strLast];
+    }
+    return string;
+}
 @end

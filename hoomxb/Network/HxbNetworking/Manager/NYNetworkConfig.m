@@ -62,6 +62,7 @@ static NSString *const X_HxbAuth_Token = @"X-HxbAuth-Token";
                            User_Agent:self.userAgent,
                            @"IDFA":[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString],
                            @"X-Request-Id":[[[UIDevice currentDevice] identifierForVendor] UUIDString],
+                           @"X-HxbAuth-Timestamp":@([NSDate date].timeIntervalSince1970).description
                            };
 
     return dict;

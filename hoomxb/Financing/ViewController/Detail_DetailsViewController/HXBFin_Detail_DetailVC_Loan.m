@@ -9,14 +9,25 @@
 #import "HXBFin_Detail_DetailVC_Loan.h"
 
 @interface HXBFin_Detail_DetailVC_Loan ()
-
+@property (nonatomic, strong) UIScrollView *scrollView;
 @end
 
 @implementation HXBFin_Detail_DetailVC_Loan
 
+-(void)loadView {
+    [super loadView];
+    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    self.view = self.scrollView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    kWeakSelf
+    [self.scrollView hxb_HeaderWithHeaderRefreshCallBack:^{
+        [weakSelf.scrollView endRefresh];
+    } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

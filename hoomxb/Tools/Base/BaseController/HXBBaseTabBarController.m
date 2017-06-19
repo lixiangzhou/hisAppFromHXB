@@ -106,7 +106,7 @@
 //    self.homePageVC.willPresent = YES;
 //    self.moneyManageVC.willPresent = YES;
     
-    //    [self presentViewController:navLoginVC animated:YES completion:nil];
+//    [self presentViewController:navLoginVC animated:YES completion:nil];
 }
 
 #pragma mark - tabBarDelegate

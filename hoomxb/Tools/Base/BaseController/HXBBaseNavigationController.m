@@ -50,8 +50,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //侧滑手势开启
-    PYFullScreenGesturePOPManager *popManager = [[PYFullScreenGesturePOPManager alloc]initWithViewController:self andTransitionanimationType:PYFullScreenGestureManager_TransitionanimationType_Runtime];
-    self.popManager = popManager;
+//    PYFullScreenGesturePOPManager *popManager = [[PYFullScreenGesturePOPManager alloc]initWithViewController:self andTransitionanimationType:PYFullScreenGestureManager_TransitionanimationType_Runtime];
+//    self.popManager = popManager;
 }
 #pragma mark - 里面判断了是否为跟控制器
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {

@@ -104,6 +104,7 @@
         self.bottomViewSet = bottomViewSet;
         self.isConstantChange = true;
         self.isSetupSubView = true;
+        
     }
     return self;
 }
@@ -116,6 +117,7 @@
     [self calculateValue];
     //布局子控件
     [self setupSubViewWithISSetupSubView:self.isSetupSubView];
+    self.contentSize = CGSizeMake(self.frame.size.width, self.frame.size.height + self.kTopViewH);
 }
 
 //根据self.isConstantChange，判断是否进行常用变量的计算
@@ -174,11 +176,13 @@
     self.bottomScrollView.frame = CGRectMake(0, self.kBottomScrollViewY, self.kScrollToolBarViewW, self.kBottomScrollViewH);
     CGFloat bottomScrollViewContentSizeX = self.bottomViewSet.count * self.kScrollToolBarViewW;
     self.bottomScrollView.contentSize = CGSizeMake(bottomScrollViewContentSizeX, self.kBottomScrollViewH);
+
     self.bottomScrollView.delegate = self;
     self.bottomScrollView.pagingEnabled = true;
     self.bottomScrollView.showsVerticalScrollIndicator = false;
     self.bottomScrollView.showsHorizontalScrollIndicator = false;
     self.contentOffset = CGPointMake(self.midToolBarView.selectItemIndex * self.kScrollToolBarViewW, 0);
+    self.bounces = false;
     [self addSubview: self.bottomScrollView];
     
     //布局bottomScrollView内部的Views
@@ -242,6 +246,7 @@
         } else {
             self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
         }
+//        self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
 ////        if (self.contentOffset.y <= 0 && newContentOffset.y <= 0) {
 ////            self.offsetY = 0;
 ////        }

@@ -7,6 +7,7 @@
 //
 
 #import "HXBFinAddRecortdTableView_Plan.h"
+#import "FinModel_AddRecortdModel_Loan.h"
 ///红利计划加入记录的model
 #import "HXBFinModel_AddRecortdModel_Plan.h"
 static NSString *CELLID = @"CELLID";
@@ -24,6 +25,11 @@ UITableViewDataSource
     _addRecortdModel_Plan = addRecortdModel_Plan;
     [self reloadData];
 }
+
+- (void)setLoanModel:(FinModel_AddRecortdModel_Loan *)loanModel {
+    _loanModel = loanModel;
+    [self reloadData];
+}
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setUP];
@@ -39,11 +45,20 @@ UITableViewDataSource
 }
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.addRecortdModel_Plan.dataList.count;
+    if (self.addRecortdModel_Plan.dataList.count) {
+        return self.addRecortdModel_Plan.dataList.count;
+    }
+    return self.loanModel.loanLenderRecord_list.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinAddRecortdTableViewCell_Plan *planCell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
-    planCell.addRecortdModel_plan_dataList = self.addRecortdModel_Plan.dataList[indexPath.row];
+    if (self.addRecortdModel_Plan.dataList.count) {
+        planCell.addRecortdModel_plan_dataList = self.addRecortdModel_Plan.dataList[indexPath.row];
+    }
+    if (self.loanModel.loanLenderRecord_list.count) {
+        planCell.loanModel = self.loanModel.loanLenderRecord_list[indexPath.row];
+    }
+    
     return planCell;
 }
 @end
@@ -61,10 +76,18 @@ UITableViewDataSource
 - (void)setAddRecortdModel_plan_dataList:(HXBFinModel_AddRecortdModel_Plan_dataList *)addRecortdModel_plan_dataList {
     _addRecortdModel_plan_dataList = addRecortdModel_plan_dataList;
     
-    _numberLabel.text = addRecortdModel_plan_dataList.index;
-    _IDLabel.text = @"测试的字段";
-    _dateLabel.text = addRecortdModel_plan_dataList.joinTime;
-    _YUANLable.text = addRecortdModel_plan_dataList.amount;
+    _numberLabel.text   = addRecortdModel_plan_dataList.index;
+    _IDLabel.text       = addRecortdModel_plan_dataList.hxb_nickName;
+    _dateLabel.text     = addRecortdModel_plan_dataList.hxb_joinTime;
+    _YUANLable.text     = addRecortdModel_plan_dataList.amount_YUAN;
+}
+
+- (void)setLoanModel:(HXBFinModel_AddRecortdModel_loanLenderRecord_list_Loan *)loanModel {
+    _loanModel = loanModel;
+    _numberLabel.text   = loanModel.index;
+    _IDLabel.text       = loanModel.username;
+    _dateLabel.text     = loanModel.lendTime;
+    _YUANLable.text     = loanModel.amount;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

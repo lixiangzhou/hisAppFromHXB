@@ -129,12 +129,6 @@
 #pragma mark - 倒计时开始
 //MARK: 计时器的创建
 - (void)createTimer {
-//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        self.pyTimer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(repeat1) userInfo:nil repeats:YES];
-//        [[NSRunLoop currentRunLoop] addTimer:self.pyTimer forMode:NSRunLoopCommonModes];
-//    });
-//    
-//    return;
         //0.创建队列
         dispatch_queue_t queue = self.queue;
         [self.modelArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -216,6 +210,8 @@
     if (self.modelDateType == PYContDownManagerModelDateType_OriginalTime){
         //时间差计算
         dateNumber = [self computationTimeDifferenceWithDateNumber:dateNumber];
+    }else {
+        dateNumber --;
     }
     
     //判断是否需要计时
@@ -234,7 +230,6 @@
             }
         });
     }
-    
     
     //如果是二维数组，并且到达最后了，就置为-1
     if (self.isTwo_DimensionalArray && self.column >= self.modelArray.count) {

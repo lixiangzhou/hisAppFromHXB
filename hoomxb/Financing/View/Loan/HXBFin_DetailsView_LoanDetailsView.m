@@ -10,5 +10,7 @@
 
 @implementation HXBFin_DetailsView_LoanDetailsView
 
-
+- (void)setData_LoanWithLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)LoanDetailVieModel {
+    
+}
 @end

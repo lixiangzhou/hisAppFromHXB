@@ -9,6 +9,7 @@
 #import "NYBaseRequest.h"
 /// 对上啦刷新与下拉加载做了处理
 @interface HXBBaseRequest : NYBaseRequest
+@property (nonatomic, strong) NSMutableDictionary *infoDic;
 ///是否是上啦刷新
 @property (nonatomic, assign) BOOL isUPReloadData;
 ///当前页数
