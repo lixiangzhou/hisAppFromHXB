@@ -16,7 +16,7 @@
 @property (nonatomic,strong) HXBRechargeView *rechargeView;
 ///加入上线
 @property (nonatomic,strong) UILabel *upperLimitLabel;
-
+@property (nonatomic,strong) UILabel *upperLimitLabel_const;
 
 @property (nonatomic,strong) UIView  *profitView;
 ///收益方式
@@ -56,6 +56,7 @@
     self.profitTypeLabel.text = model.profitTypeLabelStr;//@"收益在投资";
     self.profitLabel_count.text = model.profitLabel_consttStr;//@"预计收益";
     self.upperLimitLabel.text = model.upperLimitLabelStr;///@"本期计划加入上线 50,000元";
+    self.upperLimitLabel_const.text = model.upperLimitLabel_constStr;
     self.negotiateLabel.text = model.negotiateLabelStr;///@"我已阅读并同意";
     [self.negotiateButton setTitle: model.negotiateButtonStr forState: UIControlStateNormal];
     [self.addButton setTitle:model.addButtonStr forState:UIControlStateNormal];
@@ -81,7 +82,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.model = [[HXBJoinImmediateView_Model alloc]init];
+        _model = [[HXBJoinImmediateView_Model alloc]init];
         // 创建
         [self creatViews];
         // 布局
@@ -109,8 +110,10 @@
 - (void)creatViews {
     self.rechargeView = [[HXBRechargeView alloc]init];
     self.rechargeView.textField.delegate = self;
-    self.upperLimitLabel = [[UILabel alloc]init];
+    self.rechargeView.textField.keyboardType = UIKeyboardTypeNumberPad;
     
+    self.upperLimitLabel = [[UILabel alloc]init];
+    self.upperLimitLabel_const = [[UILabel alloc]init];
     self.profitView = [[UIView alloc]init];
     self.profitTypeLable_Const = [[UILabel alloc]init];
     self.profitTypeLabel = [[UILabel alloc]init];
@@ -127,6 +130,8 @@
 - (void)layoutViews {
     [self addSubview:self.rechargeView];
     [self addSubview:_upperLimitLabel];
+    [self addSubview:self.upperLimitLabel_const];
+    
     [self addSubview:_profitView];
     [self.profitView addSubview:self.profitTypeLable_Const];
     [self.profitView addSubview:self.profitTypeLabel];
@@ -146,9 +151,12 @@
     }];
     [self.upperLimitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.rechargeView.mas_bottom).offset(kScrAdaptationH(7));
+        make.left.equalTo(self.upperLimitLabel_const.mas_right).offset(kScrAdaptationW(7));
+    }];
+    [self.upperLimitLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.rechargeView.mas_bottom).offset(kScrAdaptationH(7));
         make.left.equalTo(self).offset(kScrAdaptationW(30));
     }];
-    
     [self.profitView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.upperLimitLabel.mas_bottom).offset(kScrAdaptationH(20));
         make.left.right.equalTo(self);
@@ -156,7 +164,7 @@
     }];
     [self.profitTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.profitView);
-        make.right.equalTo(self.profitView).offset(kScrAdaptationW(20));
+        make.right.equalTo(self.profitView).offset(kScrAdaptationW(-20));
         make.height.equalTo(@(kScrAdaptationH(30)));
     }];
     [self.profitTypeLable_Const mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -245,6 +253,14 @@
     self.clickRechargeButton = clickRechageButtonBlock;
 }
 
+
+- (BOOL)textFieldShouldReturn:(UITextField *)theTextField {
+    if ([theTextField isEqual:self.rechargeView.textField]) {
+        [theTextField resignFirstResponder];
+    }
+    return YES;
+}
+
 - (BOOL) textFieldShouldEndEditing:(UITextField *)textField {
     if ([textField isEqual:self.rechargeView.textField]) {
         // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
@@ -259,6 +275,7 @@
             return false;
         }
 //        self.profitLabel.text = self.model.
+        self.profitLabel.text = [self.model totalInterestWithAmount:textField.text.integerValue];
     }
     return true;
 }
@@ -267,7 +284,7 @@
 
 @implementation HXBJoinImmediateView_Model
 /**
- 预期收益
+预期收益
  */
 - (NSString *) totalInterestWithAmount: (CGFloat)amount {
     return [NSString hxb_getPerMilWithDouble: ((amount * self.totalInterest.floatValue) / 100)];

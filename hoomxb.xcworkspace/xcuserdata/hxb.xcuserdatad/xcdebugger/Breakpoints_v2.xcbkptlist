@@ -19,29 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hoomxb/Financing/View/Loan/JoinImmediately/HXBJoinImmediateView.m"
-            timestampString = "519386867.620115"
+            filePath = "hoomxb/My/ViewController/Account/HxbMyAccountSecurityViewController.m"
+            timestampString = "519543886.847594"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
-            landmarkName = "-creatViews"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/Financing/View/Loan/JoinImmediately/HXBRechargeView.m"
-            timestampString = "519386511.467834"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "-initWithFrame:"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

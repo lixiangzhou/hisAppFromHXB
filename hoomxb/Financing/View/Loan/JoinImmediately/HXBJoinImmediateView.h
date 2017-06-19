@@ -59,6 +59,8 @@ static NSString *const loanProfitTypeLabel = @"标的剩余可投金额";
 @property (nonatomic,copy) NSString *negotiateButtonStr;
 ///加入上线
 @property (nonatomic,copy) NSString *upperLimitLabelStr;
+///加入上线 const
+@property (nonatomic,copy) NSString *upperLimitLabel_constStr;
 ///确认加入的Buttonstr
 @property (nonatomic,copy) NSString *addButtonStr;
 /**
