@@ -87,7 +87,7 @@ typedef enum : NSUInteger {
 //红利计划列表的年利率计算
 - (void)setupExpectedYearRateAttributedStr {
     NSString *expectedYearRateStr = [NSString stringWithFormat:@"%.2lf%@",self.planListModel.expectedRate.floatValue,@"%"];
-    NSLog(@"%@",expectedYearRateStr);
+//    NSLog(@"%@",expectedYearRateStr);
     
     NSString *numberStr = [NSString stringWithFormat:@"%.2lf",self.planListModel.expectedRate.floatValue];
     NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];

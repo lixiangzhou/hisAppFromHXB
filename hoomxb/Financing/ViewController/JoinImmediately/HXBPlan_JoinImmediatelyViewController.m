@@ -24,6 +24,12 @@
 }
 
 - (void)viewDidLoad {
+    kWeakSelf
+    [self.hxbBaseVCScrollView hxb_HeaderWithHeaderRefreshCallBack:^{
+        [weakSelf.hxbBaseVCScrollView endRefresh];
+    } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
+    }];
+    
     [super viewDidLoad];
     //判断是否登录
     [self isLogin];
@@ -46,7 +52,7 @@
 - (void)setUPViews {
     kWeakSelf
     self.joinimmediateView = [[HXBJoinImmediateView alloc] init];
-    [self.view addSubview:self.joinimmediateView];
+    [self.hxbBaseVCScrollView addSubview:self.joinimmediateView];
     self.joinimmediateView.frame = self.view.frame;
     [self.joinimmediateView setUPValueWithModelBlock:^HXBJoinImmediateView_Model *(HXBJoinImmediateView_Model *model) {
         ///预计收益Const
@@ -61,21 +67,24 @@
         model.buyButtonStr = @"一键购买";
         ///收益方式
         model.profitTypeLable_ConstStr = @"收益处理方式";
-        
+        ///加入上限
+        model.upperLimitLabel_constStr = @"本期计划加入上限";
+        ///收益方法
+        model.profitTypeLabelStr = weakSelf.planViewModel.profitType;
         /// ￥1000起投，1000递增 placeholder
         model.rechargeViewTextField_placeholderStr = weakSelf.planViewModel.addCondition;
         
         ///余额展示
         model.balanceLabelStr = weakSelf.planViewModel.userRemainAmount;
-        ///收益方法
-        model.profitTypeLabelStr = weakSelf.planViewModel.profitType;
-        ///预计收益
+
+        ///预计收益 在 加入计划的 view 内部计算
+        
      
         ///服务协议 button str
         model.negotiateButtonStr = weakSelf.planViewModel.contractName;
         model.totalInterest = weakSelf.planViewModel.totalInterest;
         ///加入上线
-        model.upperLimitLabelStr = weakSelf.planViewModel.planDetailModel.singleMaxRegisterAmount;
+        model.upperLimitLabelStr = weakSelf.planViewModel.singleMaxRegisterAmount;
         ///确认加入的Buttonstr
         model.addButtonStr = @"确认加入";
         return model;

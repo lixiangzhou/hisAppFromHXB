@@ -12,7 +12,6 @@
 - (void)setPlanDetailModel:(HXBFinDetailModel_PlanDetail *)planDetailModel {
     _planDetailModel = planDetailModel;
  
-    [self setUPSingleMaxRegisterAmount];//加入上线
     [self setUPBeginSellingTime];///开始时间
     [self setUPFinanceEndTime];///退出时间
     [self setUPLockPeriod];///计划期限
@@ -24,10 +23,12 @@
 
 
  //加入上线
-- (void)setUPSingleMaxRegisterAmount {
-   
-    self.singleMaxRegisterAmount = [NSString GetPerMilWithDouble:self.planDetailModel.singleMaxRegisterAmount.floatValue];
-    self.singleMaxRegisterAmount = [NSString stringWithFormat:@"%@元",self.singleMaxRegisterAmount];
+
+- (NSString *)singleMaxRegisterAmount {
+    if (!_singleMaxRegisterAmount) {
+        _singleMaxRegisterAmount = [NSString hxb_getPerMilWithDouble: self.planDetailModel.singleMaxRegisterAmount.floatValue];
+    }
+    return _singleMaxRegisterAmount;
 }
 ///开始时间
 - (void)setUPBeginSellingTime {
@@ -108,7 +109,7 @@
  加入方式
  */
 - (NSString *) profitType {
-    if (_profitType) {
+    if (!_profitType) {
         _profitType = @"收益再投资";
     }
     return _profitType;
@@ -118,7 +119,7 @@
  已经收益
  */
 - (NSString *) earnInterest {
-    if (_earnInterest) {
+    if (!_earnInterest) {
         _earnInterest = self.planDetailModel.earnInterest;
     }
     return _earnInterest;
@@ -127,7 +128,7 @@
  预期收益比例
  */
 - (NSString *) totalInterest {
-    if (_totalInterest) {
+    if (!_totalInterest) {
         _totalInterest = self.planDetailModel.totalInterest;
     }
     return _totalInterest;
