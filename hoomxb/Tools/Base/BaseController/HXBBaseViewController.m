@@ -33,12 +33,25 @@
 //        self.edgesForExtendedLayout = UIRectEdgeNone;
         _hxbBaseVCScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
+        [_hxbBaseVCScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     }
     return _hxbBaseVCScrollView;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"contentOffset"]) {
+        [self.view endEditing:true];
+    }else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+    }
+}
+
 //MARK: 销毁
-kDealloc
+- (void)dealloc {
+    [self.hxbBaseVCScrollView removeObserver: self forKeyPath:@"contentOffset"];
+    NSLog(@"✅被销毁 %@",self);
+}
 #pragma mark - gtter 方法
 ///隐藏导航条
 - (void)setIsHiddenNavigationBar:(BOOL)isHiddenNavigationBar {

@@ -8,6 +8,7 @@
 
 #import "NYNetworkConfig.h"
 #import <AdSupport/AdSupport.h>
+#import <UIKit/UIKit.h>
 ///通用接口Header必传字段 userAgent
 static NSString *const User_Agent = @"User-Agent";
 ///通用接口Header必传字段 token
@@ -57,12 +58,20 @@ static NSString *const X_HxbAuth_Token = @"X-HxbAuth-Token";
 - (NSDictionary *)additionalHeaderFields
 {
     
+    
+    NSDate *date = [NSDate date];
+    NSDateFormatter *format = [[NSDateFormatter alloc] init];
+//    [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    //将获取后的本地时间 转换成东八区时间
+    format.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT+0800"];
+    NSString*strDate = [format stringFromDate:date];
+    
     NSDictionary *dict = @{
                            X_HxbAuth_Token:[KeyChain token],
                            User_Agent:self.userAgent,
                            @"IDFA":[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString],
                            @"X-Request-Id":[[[UIDevice currentDevice] identifierForVendor] UUIDString],
-                           @"X-HxbAuth-Timestamp":@([NSDate date].timeIntervalSince1970).description
+                           @"X-HxbAuth-Timestamp":strDate
                            };
 
     return dict;
