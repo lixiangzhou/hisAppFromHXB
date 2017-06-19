@@ -7,8 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HxbHomePageModel.h"
+@class HxbHomePageModel,HXBHomeBaseModel;
+
 @interface HxbHomePageViewModel : NSObject
 @property (nonatomic,strong)HxbHomePageModel *homePageModel;
 @property (nonatomic,strong) NSString *assetsTotal;
+
+@property (nonatomic, strong) HXBHomeBaseModel *homeBaseModel;
 @end

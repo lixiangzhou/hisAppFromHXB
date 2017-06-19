@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HXBBannerView.h"
-
+@class HXBHomeBaseModel;
 @protocol HXBHomePageHeadViewDelegate <NSObject>
 
 @optional
@@ -21,11 +21,19 @@
 
 @property (nonatomic, strong) HXBBannerView *bannerView;
 
-@property (nonatomic, strong) NSArray *bulletinsModel;
+/**
+ 请求下来的数据模型
+ */
+@property (nonatomic, strong) HXBHomeBaseModel *homeBaseModel;
 
 @property (nonatomic, strong) id <HXBHomePageHeadViewDelegate> delegate;
 
 @property (nonatomic, assign) BOOL network;
+
+/**
+ 各种认证按钮的点击回调Block
+ */
+@property (nonatomic, copy) void(^tipButtonClickBlock_homePageHeadView)();
 
 /**
  未投资显示的页面

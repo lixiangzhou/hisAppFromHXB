@@ -6,15 +6,49 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "BaseModel.h"
-//参数名	类型	说明
-//name	String	计划名称
-//lockPeriod	String	锁定期限
-//expectedYearRate	String	预期年化收益率
-//status	String	状态 （3：等待开放加入，4：开放加入，5：已满额，6：收益中，8：已退出）
-@interface HxbHomePageModel_DataList : BaseModel
+#import <Foundation/Foundation.h>
+/*
+ name               计划名称
+ lockPeriod         锁定期限
+ expectedRate		预期年化收益率
+ unifyStatus		状态
+ tag                活动文案
+ baseInterestRate	基础利率
+ extraInterestRate	加息利率
+ diffTime           倒计时时间差
+ */
+@interface HxbHomePageModel_DataList : NSObject
+
+/**
+ 计划名称
+ */
 @property (nonatomic, copy) NSString *name;
+/**
+ 锁定期限
+ */
 @property (nonatomic, copy) NSString *lockPeriod;
-@property (nonatomic, copy) NSString *expectedYearRate;
-@property (nonatomic, copy) NSString *status;
+/**
+ 预期年化收益率
+ */
+@property (nonatomic, copy) NSString *expectedRate;
+/**
+ 状态
+ */
+@property (nonatomic, copy) NSString *unifyStatus;
+/**
+ 活动文案
+ */
+@property (nonatomic, copy) NSString *tag;
+/**
+ 基础利率
+ */
+@property (nonatomic, copy) NSString *baseInterestRate;
+/**
+ 加息利率
+ */
+@property (nonatomic, copy) NSString *extraInterestRate;
+/**
+ 倒计时时间差
+ */
+@property (nonatomic, copy) NSString *diffTime;
 @end

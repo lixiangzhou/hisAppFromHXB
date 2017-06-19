@@ -9,5 +9,8 @@
 #import "BannerModel.h"
 
 @implementation BannerModel
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"ID" : @"id"};
+}
 
 @end

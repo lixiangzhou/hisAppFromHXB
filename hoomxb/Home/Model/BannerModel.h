@@ -8,12 +8,36 @@
 
 #import "BaseModel.h"
 
-@interface BannerModel : BaseModel
+@interface BannerModel : NSObject
+
 ///标题
 @property (nonatomic, copy) NSString *title;
 ///图片绝对地址
-@property (nonatomic, copy) NSString *picUrl;
+@property (nonatomic, copy) NSString *image;
 ///跳转链接
-@property (nonatomic, copy) NSString *linkUrl;
-
+@property (nonatomic, copy) NSString *url;
+/**
+ 开始时间
+ */
+@property (nonatomic, copy) NSString *start;
+/**
+ 结束时间
+ */
+@property (nonatomic, copy) NSString *end;
+/**
+ 背景色
+ */
+@property (nonatomic, copy) NSString *color;
+/**
+ id
+ */
+@property (nonatomic, copy) NSString *ID;
+/**
+ 创建时间
+ */
+@property (nonatomic, copy) NSString *createTime;
+/**
+ 更新时间
+ */
+@property (nonatomic, copy) NSString *updateTime;
 @end

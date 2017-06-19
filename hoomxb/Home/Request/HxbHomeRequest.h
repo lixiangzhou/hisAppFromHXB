@@ -14,4 +14,7 @@
                    andSuccessBlock: (void(^)(HxbHomePageViewModel *viewModel))successDateBlock
                    andFailureBlock: (void(^)(NSError *error))failureBlock;
 
+- (void)homePlanRecommendWithSuccessBlock: (void(^)(HxbHomePageViewModel *viewModel))successDateBlock
+                          andFailureBlock: (void(^)(NSError *error))failureBlock;
+
 @end

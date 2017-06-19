@@ -15,11 +15,16 @@
 //- (void)closeButtonView;
 //
 //@end
-
+@class HXBHomeTitleModel;
 @interface HXBHomePageBulletinView : UIView
 
-@property (nonatomic, strong) NSArray *bulletinsModel;
+//@property (nonatomic, strong) NSArray *bulletinsModel;
 
 //@property (nonatomic, weak) id <HXBHomePageBulletinViewDelegate> delegete;
+
+/**
+ 请求下来的数据模型
+ */
+@property (nonatomic, strong) HXBHomeTitleModel *homeTitle;
 
 @end

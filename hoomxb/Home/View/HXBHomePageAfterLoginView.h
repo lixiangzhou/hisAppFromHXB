@@ -16,7 +16,7 @@
 /**
  各种认证按钮的点击回调Block
  */
-@property (nonatomic, copy) void(^tipButtonClickBlock)();
+@property (nonatomic, copy) void(^tipButtonClickBlock_homePageAfterLoginView)();
 
 
 //- (void)setProfitData;

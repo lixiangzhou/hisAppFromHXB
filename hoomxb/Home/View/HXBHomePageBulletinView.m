@@ -10,6 +10,7 @@
 #import "HxbHomeViewController.h"
 
 #import "BulletinsModel.h"
+#import "HXBHomeTitleModel.h"
 
 @interface HXBHomePageBulletinView ()
 
@@ -159,14 +160,10 @@
 //}
 
 #pragma mark Set Methods
-- (void)setBulletinsModel:(NSArray *)bulletinsModel
+- (void)setHomeTitle:(HXBHomeTitleModel *)homeTitle
 {
-    _bulletinsModel = bulletinsModel;
-    _contentIndex = _bulletinsModel.count;
-//    self.contentScrollView.contentSize = CGSizeMake(_contentWidth, _viewHeight * (_bulletinsModel.count + 2));
-//    self.contentScrollView.contentOffset = CGPointMake(0, _viewHeight);
-//    [self setContentLabel];
-//    [self beginRoll];
+    _homeTitle = homeTitle;
+    self.promptTagLabel.text = homeTitle.planTitle;
 }
 
 #pragma mark Get Methods
@@ -187,7 +184,7 @@
         CGFloat promptTagLabelWidth = 150;
         _promptTagLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width - promptTagLabelWidth, 0, promptTagLabelWidth, self.height)];
         _promptTagLabel.textColor = COR10;
-        _promptTagLabel.text = @"1000元投起，整存整取";
+//        _promptTagLabel.text = @"1000元投起，整存整取";
         _promptTagLabel.font = [UIFont systemFontOfSize:12];
         _promptTagLabel.textAlignment = NSTextAlignmentRight;
     }

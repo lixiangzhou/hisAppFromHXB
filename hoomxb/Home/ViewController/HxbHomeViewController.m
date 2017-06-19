@@ -10,7 +10,8 @@
 #import "HxbAdvertiseViewController.h"
 #import "HxbHomeRequest.h"
 #import "HxbHomeRequest_dataList.h"
-
+#import "HxbSecurityCertificationViewController.h"
+#import "HXBHomeBaseModel.h"
 @interface HxbHomeViewController ()
 
 @end
@@ -38,7 +39,7 @@
     kWeakSelf
     self.homeView.homeRefreshHeaderBlock = ^(){
         NSLog(@"首页下来加载数据");
-        weakSelf.homeView.isStopRefresh_Home = YES;
+        [weakSelf getData];
     };
 }
 //- (void)pushToAd {
@@ -74,22 +75,29 @@
 
 #pragma mark Request
 - (void)getData{
+    kWeakSelf
     HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
-    NSString *userId = @"2110468";
-    [request homeAccountAssetWithUserID:userId andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
-        [self.homeView setDataModel:viewModel];
-        NSLog(@"%@",viewModel);
+    [request homePlanRecommendWithSuccessBlock:^(HxbHomePageViewModel *viewModel) {
+        weakSelf.homeView.homeBaseModel = viewModel.homeBaseModel;
+        weakSelf.homeView.isStopRefresh_Home = YES;
     } andFailureBlock:^(NSError *error) {
-        
+        NSLog(@"%@",error);
     }];
-    
-    HxbHomeRequest_dataList * homeRequest_dataList = [[HxbHomeRequest_dataList alloc]init];
-    [homeRequest_dataList homeDataListSuccessBlock:^(NSMutableArray<HxbHomePageViewModel_dataList *> *homeDataListViewModelArray) {
-        self.homeView.homeDataListViewModelArray = [NSMutableArray array];
-        self.homeView.homeDataListViewModelArray = homeDataListViewModelArray;
-    } andFailureBlock:^(NSError *error) {
-        
-    }];
+//    NSString *userId = @"2110468";
+//    [request homeAccountAssetWithUserID:userId andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
+//        [self.homeView setDataModel:viewModel];
+//        NSLog(@"%@",viewModel);
+//    } andFailureBlock:^(NSError *error) {
+//        
+//    }];
+//    
+//    HxbHomeRequest_dataList * homeRequest_dataList = [[HxbHomeRequest_dataList alloc]init];
+//    [homeRequest_dataList homeDataListSuccessBlock:^(NSMutableArray<HxbHomePageViewModel_dataList *> *homeDataListViewModelArray) {
+//        self.homeView.homeDataListViewModelArray = [NSMutableArray array];
+//        self.homeView.homeDataListViewModelArray = homeDataListViewModelArray;
+//    } andFailureBlock:^(NSError *error) {
+//        
+//    }];
 }
 //- (void)getBannersWithCompletion:(void(^)())completion
 //{
@@ -149,7 +157,9 @@
 ///登录
 - (void)loginOrSignUp
 {
+    
     [[NSNotificationCenter defaultCenter]postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:nil];
+    
 }
 
 ///点击banner跳转
@@ -214,13 +224,27 @@
 
 - (HxbHomeView *)homeView{
     if (!_homeView) {
+        kWeakSelf
         _homeView = [[HxbHomeView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        
         /**
          点击cell中按钮的回调的Block
          */
         _homeView.purchaseButtonClickBlock = ^(){
             NSLog(@"点击cell中按钮的回调的Block");
+        };
+        _homeView.tipButtonClickBlock_homeView = ^(){
+            if (![KeyChain isLogin]) {
+                //跳转登录注册
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+            }else if ([KeyChain isLogin] && [KeyChain isVerify])
+            {
+                //跳转立即投资
+                weakSelf.tabBarController.selectedIndex = 1;
+            }else{
+                //跳转安全认证
+                HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
+                [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
+            }
         };
     }
     return _homeView;

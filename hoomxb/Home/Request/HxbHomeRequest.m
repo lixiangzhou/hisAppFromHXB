@@ -9,6 +9,7 @@
 #import "HxbHomeRequest.h"
 #import "HxbHomePageModel.h"
 #import "HXBBaseRequest.h"///网络数据的请求
+#import "HXBHomeBaseModel.h"
 @implementation HxbHomeRequest
 
 #pragma mark -  数据请求
@@ -39,5 +40,25 @@
     }];
 }
 
+- (void)homePlanRecommendWithSuccessBlock:(void (^)(HxbHomePageViewModel *))successDateBlock andFailureBlock:(void (^)(NSError *))failureBlock
+{
+    HXBBaseRequest *homePlanRecommendAPI = [[HXBBaseRequest alloc] init];
+    homePlanRecommendAPI.requestMethod = NYRequestMethodGet;
+    homePlanRecommendAPI.requestUrl = @"/home";
+    
+    [homePlanRecommendAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+         NSDictionary *baseDic = [responseObject valueForKey:@"data"];
+        HxbHomePageViewModel *homePageViewModel = [[HxbHomePageViewModel alloc] init];
+        homePageViewModel.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
+        if (successDateBlock) {
+            successDateBlock(homePageViewModel);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        if (error && failureBlock) {
+            NSLog(@"✘ 首页计划列表 - 请求没有数据");
+            failureBlock(error);
+        }
+    }];
+}
 
 @end

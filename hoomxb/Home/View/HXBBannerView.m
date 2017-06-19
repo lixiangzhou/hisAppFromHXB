@@ -40,7 +40,7 @@
 - (SDCycleScrollView *)bannerScrollView
 {
     if (!_bannerScrollView) {
-        _bannerScrollView = [SDCycleScrollView cycleScrollViewWithFrame:self.bounds delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+        _bannerScrollView = [SDCycleScrollView cycleScrollViewWithFrame:self.bounds delegate:self placeholderImage:[UIImage imageNamed:@"bannerplaceholder"]];
         _bannerScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
         /** 自定义分页控件小圆标颜色 */
 //        _bannerScrollView.currentPageDotColor = [UIColor whiteColor];
@@ -67,7 +67,7 @@
     NSMutableArray *imageURLStringsGroup = [NSMutableArray array];
     for (BannerModel *bannerModel in bannersModel) {
         [titlesGroup addObject:bannerModel.title];
-        [imageURLStringsGroup addObject:bannerModel.picUrl];
+        [imageURLStringsGroup addObject:bannerModel.image];
     }
     self.bannerScrollView.titlesGroup = titlesGroup;
     self.bannerScrollView.imageURLStringsGroup = imageURLStringsGroup;
