@@ -61,7 +61,7 @@ static NSString *const X_HxbAuth_Token = @"X-HxbAuth-Token";
     
     NSDate *date = [NSDate date];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
-//    [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     //将获取后的本地时间 转换成东八区时间
     format.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT+0800"];
     NSString*strDate = [format stringFromDate:date];

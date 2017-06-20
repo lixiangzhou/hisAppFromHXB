@@ -123,8 +123,9 @@
 //MARK: 红利计划列表api
 - (void)planBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
     //是否为上拉刷新
+    self.planListAPI.isUPReloadData = isUPData;///这里一定要 在前面  否则
+    
     self.planListAPI.requestUrl = kHXBFinanc_PlanLisetURL(self.planListAPI.dataPage);
-    self.planListAPI.isUPReloadData = isUPData;
     self.planListAPI.requestMethod = NYRequestMethodGet;
     [self.planListAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         ///数据是否出错

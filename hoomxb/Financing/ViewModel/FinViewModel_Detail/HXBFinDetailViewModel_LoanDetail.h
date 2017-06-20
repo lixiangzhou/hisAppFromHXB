@@ -11,10 +11,23 @@
 ///散标投递的详情页的ViewModel
 @interface HXBFinDetailViewModel_LoanDetail : NSObject
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail *loanDetailModel;
-///总计100美元
-@property (nonatomic,copy) NSString *totalInterestPer100;
+
 ///string	剩余可投金额
 @property (nonatomic,copy) NSString *surplusAmount;
 ///左边的月数
 @property (nonatomic,copy) NSString *leftMonths;
+
+///收益方法
+@property (nonatomic,copy) NSString *loanType;
+/// ￥1000起投，1000递增 placeholder
+@property (nonatomic,copy) NSString *addCondition;
+///加入上线
+@property (nonatomic,copy) NSString *unRepaid;
+///预计收益 在 加入计划的 view 内部计算
+@property (nonatomic,copy) NSString *totalInterestPer100;
+///服务协议 button str
+@property (nonatomic,copy) NSString *agreementTitle;
+
+
+///确认加入的Buttonstr
 @end

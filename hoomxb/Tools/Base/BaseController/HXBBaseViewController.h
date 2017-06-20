@@ -15,4 +15,6 @@
 @property (nonatomic,assign) BOOL hxb_automaticallyAdjustsScrollViewInsets;
 ///懒加载 scrollView，作为了垫底的scrollView
 @property (nonatomic,strong) UIScrollView *hxbBaseVCScrollView;
+///tracking ScrollView
+- (void) trackingScrollViewBlock: (void(^)(UIScrollView *scrollView)) trackingScrollViewBlock;
 @end

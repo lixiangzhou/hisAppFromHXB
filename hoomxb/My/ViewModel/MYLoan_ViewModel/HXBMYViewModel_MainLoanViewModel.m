@@ -18,7 +18,6 @@
 
 
 
-
 #pragma mark -  loan 界面
 /// 根据枚举值返回对应的请求参数字符串 ———— 我的Loan界面
 + (HXBRequestType_MY_LoanRequestType)myLoan_RequestTypeStr: (NSString *)typeStr {

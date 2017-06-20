@@ -13,6 +13,7 @@
 #import <WebKit/WebKit.h>
 
 @interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate>
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @end
 
 @implementation HXBBaseViewController{
@@ -33,15 +34,18 @@
 //        self.edgesForExtendedLayout = UIRectEdgeNone;
         _hxbBaseVCScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
-        [_hxbBaseVCScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
     }
     return _hxbBaseVCScrollView;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     
-    if ([keyPath isEqualToString:@"contentOffset"]) {
-        [self.view endEditing:true];
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+        }
     }else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
     }
@@ -49,7 +53,7 @@
 
 //MARK: 销毁
 - (void)dealloc {
-    [self.hxbBaseVCScrollView removeObserver: self forKeyPath:@"contentOffset"];
+    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
     NSLog(@"✅被销毁 %@",self);
 }
 #pragma mark - gtter 方法
@@ -80,5 +84,8 @@
     [super viewDidDisappear:animated];
     [self.navigationController setNavigationBarHidden:false animated:false];
 }
-
+///tracking ScrollView
+- (void) trackingScrollViewBlock: (void(^)(UIScrollView *scrollView)) trackingScrollViewBlock {
+    self.trackingScrollViewBlock = trackingScrollViewBlock;
+}
 @end

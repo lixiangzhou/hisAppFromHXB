@@ -89,6 +89,8 @@ UITextFieldDelegate
     self.passwordLabel = [[UILabel alloc]init];///关于密码的label
     
     self.isPhoneNumberLabel = [[UILabel alloc]init];///显示手机号的信息的label (是否为手机号，手机号是否已注册)
+    self.passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;
+    
     
     [self addSubview:self.phoneTextField];
     [self addSubview:self.passwordTextField];

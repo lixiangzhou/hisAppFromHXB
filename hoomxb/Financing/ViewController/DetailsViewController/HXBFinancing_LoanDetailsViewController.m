@@ -19,7 +19,9 @@
 #import "HXBFinAddRecortdVC_Loan.h"//贷款记录的控制器
 #import "HXBFinContract_contraceWebViewVC_Loan.h"//贷款合同的控制器
 
-#import "HXBPlan_JoinImmediatelyViewController.h"//加入
+#import "HXBFinBuy_Loan_ViewController.h"//加入
+
+#import "HXBFin_Loan_BuyViewController.h"//加入界面
 //#import "HXBFinDetailView"
 
 @interface HXBFinancing_LoanDetailsViewController ()
@@ -90,12 +92,10 @@
     }];
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(clickLeftBarButtonItem)];
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    
     self.hxbBaseVCScrollView.backgroundColor = [UIColor whiteColor];
     self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:self.view.frame];
     [self.hxbBaseVCScrollView addSubview:self.loanDetailsView];
     
-
     
     //是否为计划界面
     self.loanDetailsView.isPlan = false;
@@ -150,8 +150,8 @@
         //判断是否风险测评
         
         //跳转加入界面
-        HXBPlan_JoinImmediatelyViewController *loanJoinVC = [[HXBPlan_JoinImmediatelyViewController alloc]init];
-        loanJoinVC.isPlan = false;
+        HXBFin_Loan_BuyViewController *loanJoinVC = [[HXBFin_Loan_BuyViewController alloc]init];
+        loanJoinVC.loanViewModel = weakSelf.loanDetailsView.loanDetailViewModel;
         [weakSelf.navigationController pushViewController:loanJoinVC animated:true];
     }];
 }
@@ -159,12 +159,13 @@
 
 //MARK: 网络数据请求
 - (void)downLoadData {
+    __weak typeof(self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] loanDetaileWithLoanID:self.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanDetail *viewModel) {
-        self.loanDetailsView.loanDetailViewModel = viewModel;
-        self.loanDetailsView.modelArray = self.tableViewModelArray;
-        [self.hxbBaseVCScrollView endRefresh];
+        weakSelf.loanDetailsView.loanDetailViewModel = viewModel;
+        weakSelf.loanDetailsView.modelArray = weakSelf.tableViewModelArray;
+        [weakSelf.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        [self.hxbBaseVCScrollView endRefresh];
+        [weakSelf.hxbBaseVCScrollView endRefresh];
     }];
 }
 

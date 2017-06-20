@@ -29,6 +29,8 @@ typedef enum : NSUInteger {
 
 ///散标的所有信息基本都在这里了
 @interface HXBFinDatailModel_LoanDetail : NSObject
+///起投金额
+@property (nonatomic,copy) NSString *minInverst;
 ///散标的基本信息
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail_loanVo *loanVo;
 ///协议的url
@@ -99,8 +101,6 @@ typedef enum : NSUInteger {
 @property (nonatomic,copy) NSString *borrowerLevel;
 ///loanID
 @property (nonatomic,copy) NSString *loanId;
-///": "山东分公司反对大富大贵梵蒂冈梵蒂冈",
-@property (nonatomic,copy) NSString *description;
 ///";: "1天1时21分47秒",
 @property (nonatomic,copy) NSString *fullTime;
 ///": "2016-10-03"

@@ -20,4 +20,12 @@
     [KeyChainManage sharedInstance].realName = userInfoModel.userInfo.realName;
     [KeyChainManage sharedInstance].realId = userInfoModel.userInfo.idNo;
 }
+
+- (NSString *)availablePoint {
+    if (!_availablePoint) {
+        _availablePoint = [NSString hxb_getPerMilWithDouble:self.userInfoModel.userAssets.availablePoint.floatValue];
+    }
+    return _availablePoint;
+}
+
 @end

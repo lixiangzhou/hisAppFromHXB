@@ -9,18 +9,24 @@
 #import <UIKit/UIKit.h>
 @class HXBJoinImmediateView_Model;
 @interface HXBJoinImmediateView : UIView
+@property (nonatomic,assign) BOOL isEndEditing;
+
 ///设置值
 - (void)setUPValueWithModelBlock:(HXBJoinImmediateView_Model *(^)(HXBJoinImmediateView_Model *model))setUPValueBlock;
 @property (nonatomic,assign) BOOL isPlan;
 
+@property (nonatomic,weak) UITextField *rechargeViewTextField;
+
+
 ///点击了一键购买
-- (void)clickBuyButtonFunc:(void(^)(NSString *capital))clickBuyButtonBlock;
+- (void)clickBuyButtonFunc:(void(^)(NSString *capitall,UITextField *textField))clickBuyButtonBlock;
 ///点击了充值
 - (void)clickRechargeFunc: (void(^)())clickRechageButtonBlock;
 //点击了 服务协议
 - (void)clickNegotiateButtonFunc: (void(^)())clickNegotiateButtonBlock;
 ///点击了加入
 - (void)clickAddButtonFunc: (void(^)(NSString *capital))clickAddButtonBlock;
+
 @end
 
 

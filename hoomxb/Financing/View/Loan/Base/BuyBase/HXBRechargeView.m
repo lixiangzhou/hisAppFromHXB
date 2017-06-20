@@ -28,15 +28,24 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
 @implementation HXBRechargeView
 @synthesize model = _model;
 
+- (void)setIsEndEditing:(BOOL)isEndEditing {
+    _isEndEditing = isEndEditing;
+    [self.textField endEditing:isEndEditing];
+    [self.buyTextField endEditing:isEndEditing];
+    [self.buyTextField.textField endEditing:isEndEditing];
+}
+
 - (HXBRechargeView_Model *)model {
     if (!_model) {
         _model = [[HXBRechargeView_Model alloc]init];
     }
     return _model;
 }
+
 - (void) setUPValueWithModel: (HXBRechargeView_Model *(^)(HXBRechargeView_Model *model))setUPValueBlock {
     self.model = setUPValueBlock(self.model);
 }
+
 - (void) setModel:(HXBRechargeView_Model *)model {
     ///余额 title
     self.balanceLabel.text = model.balanceLabelStr;
@@ -49,9 +58,11 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
 - (UITextField *)textField {
     return self.buyTextField.textField;
 }
+
 - (UIButton *)button {
     return self.buyTextField.button;
 }
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -65,6 +76,7 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
 ///设置ViewS
 - (void)setUPViews {
     self.buyTextField = [[HXBBaseTextField alloc]initWithFrame:CGRectZero andBottomLienSpace:0 andBottomLienHeight:kScrAdaptationH(2) andRightButtonW:kScrAdaptationW(80)];
+    
     self.rechargeButton = [[UIButton alloc]init];
     self.balanceLabel = [[UILabel alloc]init];
     self.balanceLabel_const = [[UILabel alloc]init];

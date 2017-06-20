@@ -15,5 +15,4 @@
 - (void)showAnimationWithText:(NSString *)text;
 - (void)showAnimation;
 - (void)hide;
-
 @end
