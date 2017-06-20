@@ -56,6 +56,8 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 }
 
 
+
+
 //MARK: status == 0
 //page++
 - (void) addRequestPage: (HXBBaseRequest *)request {
