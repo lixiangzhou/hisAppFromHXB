@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HXBFinDetailViewModel_PlanDetail;
+@class HXBFinDetailViewModel_PlanDetail,HXBJoinImmediateView_Model;
 ///plan 立即加入
-@interface HXBPlan_JoinImmediatelyViewController : HXBBaseViewController
+@interface HXBFin_Plan_BuyViewController : HXBBaseViewController
 @property (nonatomic,assign) BOOL isPlan;
 @property (nonatomic,assign) NSInteger ID;
 @property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planViewModel;
+///设置 值
+- (void)setUPValueWithJoinImmediateView_Model: (HXBJoinImmediateView_Model *)model;
 @end

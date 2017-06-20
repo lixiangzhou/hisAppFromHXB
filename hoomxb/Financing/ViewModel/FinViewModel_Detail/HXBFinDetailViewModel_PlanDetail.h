@@ -21,12 +21,12 @@
 @property (nonatomic,copy) NSString *lockPeriod;
 ///": "理财计划服务协议",
 @property (nonatomic,copy) NSString *contractName;
-/// 起投
+/// 剩余金额
 @property (nonatomic,copy) NSString *remainAmount;
 ///剩余可追加金额
 @property (nonatomic,copy) NSString *userRemainAmount;
 
-///投标下线
+///起投
 @property (nonatomic,copy) NSString *minRegisterAmount;
 ///加入条件加入金额%@元起，%@元的整数倍递增
 @property (nonatomic,copy) NSString *addCondition;

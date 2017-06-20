@@ -12,5 +12,6 @@
 ///用户相关的VIewmode
 @interface HXBRequestUserInfoViewModel : NSObject
 @property (nonatomic,strong) HXBUserInfoModel *userInfoModel;
-
+///可用余额
+@property (nonatomic,copy) NSString *availablePoint;
 @end

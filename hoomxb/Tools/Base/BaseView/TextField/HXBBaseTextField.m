@@ -52,6 +52,7 @@
     self.textField = [[UITextField alloc]init];
     self.button = [[UIButton alloc]init];
     self.textField.returnKeyType = UIReturnKeyDone;
+    [self.textField becomeFirstResponder];
 }
 
 - (void)layoutViews {
@@ -81,11 +82,8 @@
     CGMutablePathRef path = CGPathCreateMutable();
     CGPathMoveToPoint(path, nil, self.space, self.frame.size.height - self.lienHeight);
     CGPathAddLineToPoint(path, nil, self.frame.size.width - self.space, self.frame.size.height - self.lienHeight);
-    
     CGContextAddPath(context, path);
-    
     CGContextSetLineWidth(context, self.lienHeight);
-    
     CGContextSetRGBFillColor(context, _red, _green, _blue, _alpha);
 }
 

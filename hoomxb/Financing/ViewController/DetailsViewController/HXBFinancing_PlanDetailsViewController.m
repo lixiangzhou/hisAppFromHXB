@@ -21,7 +21,8 @@
 #import "HXBFin_Detail_DetailsVC_Plan.h"//红利计划详情中的详情
 
 #import "HXBFinPlanContract_contraceWebViewVC.h"//协议
-#import "HXBPlan_JoinImmediatelyViewController.h"//购买
+#import "HXBFinBuy_plan_ViewController.h"//计划加入
+#import "HXBFin_Plan_BuyViewController.h"//加入 界面
 
 @interface HXBFinancing_PlanDetailsViewController ()
 @property(nonatomic,strong) HXBFin_DetailsView_PlanDetailsView *planDetailsView;
@@ -134,26 +135,23 @@
         if (![KeyChainManage sharedInstance].isLogin) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         }
-        
-        //判断是否风险测评
-        
         //跳转加入界面
-        HXBPlan_JoinImmediatelyViewController *planJoinVC = [[HXBPlan_JoinImmediatelyViewController alloc]init];
-        planJoinVC.isPlan = true;
-        planJoinVC.planViewModel = self.planDetailViewModel;
+        HXBFin_Plan_BuyViewController *planJoinVC = [[HXBFin_Plan_BuyViewController alloc]init];
+        planJoinVC.planViewModel = weakSelf.planDetailViewModel;
         [weakSelf.navigationController pushViewController:planJoinVC animated:true];
     }];
 }
 
 //MARK: 网络数据请求
 - (void)downLoadData {
+    __weak typeof (self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
-        self.planDetailsView.planDetailViewModel = viewModel;
-        self.planDetailViewModel = viewModel;
-        self.planDetailsView.modelArray = self.tableViewModelArray;
-        [self.hxbBaseVCScrollView endRefresh];
+        weakSelf.planDetailsView.planDetailViewModel = viewModel;
+        weakSelf.planDetailViewModel = viewModel;
+        weakSelf.planDetailsView.modelArray = self.tableViewModelArray;
+        [weakSelf.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        [self.hxbBaseVCScrollView endRefresh];
+        [weakSelf.hxbBaseVCScrollView endRefresh];
     }];
 }
 

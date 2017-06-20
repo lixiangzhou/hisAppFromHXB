@@ -11,6 +11,8 @@
 @interface HXBRechargeView : UIView
 - (void) setUPValueWithModel: (HXBRechargeView_Model *(^)(HXBRechargeView_Model *model))setUPValueBlock;
 
+@property (nonatomic,assign) BOOL isEndEditing;
+
 @property (nonatomic,strong) UITextField *textField;
 @property (nonatomic,strong) UIButton *button;
 ///placeholder

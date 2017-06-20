@@ -33,8 +33,6 @@
 ///是否登录
 @property (nonatomic,copy) NSString *isRolePassed;
 
-
-
 ///当前时间 lockDay 销售期限(天)
 @property (nonatomic,copy) NSString *currentTime;
 ///锁天数
