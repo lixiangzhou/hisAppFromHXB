@@ -924,6 +924,7 @@
 			isa = PBXGroup;
 			children = (
 				E1CC03561ECAD2AD00121D21 /* Request */,
+				4E422CB01EA7383D00C0EB62 /* ViewController */,
 				E1D2CA511EAB4D6B000099C7 /* View */,
 				E1D2CA521EAB4D6B000099C7 /* ViewModel */,
 				E1D2CA501EAB4D6B000099C7 /* Model */,
@@ -948,8 +949,7 @@
 				4E80AA8B1EC085F300A4CB5A /* HxbFeedbackViewController.h */,
 				4E80AA8C1EC085F300A4CB5A /* HxbFeedbackViewController.m */,
 			);
-			name = ViewController;
-			path = ../ViewController;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		4E422CBD1EA7458200C0EB62 /* UITextField */ = {
@@ -2214,7 +2214,6 @@
 		E1CC03561ECAD2AD00121D21 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				4E422CB01EA7383D00C0EB62 /* ViewController */,
 				E1CC03571ECAD2AD00121D21 /* HXBMYRequest.h */,
 				E1CC03581ECAD2AD00121D21 /* HXBMYRequest.m */,
 				E1CC03591ECAD2AD00121D21 /* HXBRequestType_MYManager.h */,
