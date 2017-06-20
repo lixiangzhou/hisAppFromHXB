@@ -34,17 +34,16 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 
 
 #pragma mark - 请求失败
-//- (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request
-//{
-//    if (request.responseStatusCode == 409) {
-//        //重复登录，强制下线
-////        [[NSNotificationCenter defaultCenter] postNotificationName:ForceLogout object:nil];
-//        return;
-//    }
-////    [NYProgressHUD showToastText:@"网络请求错误"];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:RequestFailure object:nil userInfo:nil];
-//}
-
+- (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request
+{
+    if (request.responseStatusCode == 402 || request.responseStatusCode == 401) {
+        //重复登录，强制下线
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        return;
+    }
+//    [NYProgressHUD showToastText:@"网络请求错误"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:RequestFailure object:nil userInfo:nil];
+}
 
 
 #pragma mark - 请求成功，
@@ -56,12 +55,13 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     }
 }
 
+
 //MARK: status == 0
 //page++
 - (void) addRequestPage: (HXBBaseRequest *)request {
     request.dataPage ++;
 }
-////对数据进行处理 并返回
+///对数据进行处理 并返回
 //- (void) handleDataWithRequest: (HXBBaseRequest *)request {
 //    NSDictionary *dataDic = [request.responseObject valueForKey:kResponseData];
 //    NSObject *viewModel = [[request.viewModelClass alloc]init];
