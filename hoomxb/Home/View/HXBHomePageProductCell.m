@@ -13,6 +13,8 @@
 //#import "HXBMoneyManageDetailsViewController.h"
 #import "UILabel+Util.h"
 
+#import "HxbHomePageModel_DataList.h"
+
 #define RightItemPercent        0.436
 #define BackWidth               (SCREEN_WIDTH - 16)
 
@@ -26,6 +28,7 @@
 //@property (nonatomic, strong) UILabel *purchaseLabel;
 @property (nonatomic, strong) UIButton *purchaseButton;
 @property (nonatomic, strong) UILabel *expectAnnualizedRatesTitleLabel;
+@property (nonatomic, strong) UILabel *extraInterestRateLabel;
 @property (nonatomic, strong) UILabel *investmentPeriodTitleLabel;
 @property (nonatomic, strong) CategoryLabel *categoryLabel;
 @property (nonatomic, strong) UIView *bottomLine;
@@ -45,14 +48,31 @@
         [self.backView addSubview:self.promptLabel];
         [self.backView addSubview:self.expectAnnualizedRatesTitleLabel];
         [self.backView addSubview:self.expectAnnualizedRatesLabel];
+        [self.backView addSubview:self.extraInterestRateLabel];
         [self.backView addSubview:self.investmentPeriodTitleLabel];
         [self.backView addSubview:self.investmentPeriodLabel];
 //        [self.backView addSubview:self.purchaseLabel];
         [self.backView addSubview:self.purchaseButton];
         [self.backView addSubview:self.bottomLine];
-
+        //设置子控件的位置
+        [self setupSubViewFrame];
     }
     return self;
+}
+
+/**
+ 设置子控件的位置
+ */
+- (void)setupSubViewFrame
+{
+    [self.expectAnnualizedRatesTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@16);
+        make.top.equalTo(self.expectAnnualizedRatesLabel.mas_bottom);
+    }];
+    [self.extraInterestRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.expectAnnualizedRatesTitleLabel.mas_right);
+        make.centerY.equalTo(self.expectAnnualizedRatesTitleLabel);
+    }];
 }
 
 -(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
@@ -70,15 +90,17 @@
 //}
 
 #pragma mark Set Methods
-- (void)setHomeDataListViewModel:(HxbHomePageViewModel_dataList *)homeDataListViewModel{
-    _homeDataListViewModel = homeDataListViewModel;
-    _titleString = homeDataListViewModel.homePageModel_DataList.name;
-    if (_titleString.length == 0) {
-        self.titleLabel.text = @"A123456期";
-    }else
-    {
-        self.titleLabel.text = _titleString;
-    }
+
+- (void)setHomePageModel_DataList:(HxbHomePageModel_DataList *)homePageModel_DataList
+{
+    _homePageModel_DataList = homePageModel_DataList;
+    _titleString = homePageModel_DataList.name;
+    self.titleLabel.text = _titleString;
+    self.investmentPeriodTitleLabel.text = [NSString stringWithFormat:@"%@个月",homePageModel_DataList.lockPeriod];
+    self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.2f%@",[homePageModel_DataList.baseInterestRate doubleValue],@"%"];
+    self.extraInterestRateLabel.text = homePageModel_DataList.extraInterestRate;
+    [self.purchaseButton setTitle:homePageModel_DataList.unifyStatus forState:UIControlStateNormal];
+    
 }
 //- (void)setModel:(TopProductModel *)model
 //{
@@ -150,18 +172,29 @@
 
 -(UILabel *)expectAnnualizedRatesTitleLabel{
     if (!_expectAnnualizedRatesTitleLabel) {
-        _expectAnnualizedRatesTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(16, 80, 100, 15)];
+        _expectAnnualizedRatesTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 80, 100, 15)];
         _expectAnnualizedRatesTitleLabel.text = @"8.00%";
         _expectAnnualizedRatesTitleLabel.font = HXB_Text_Font(12);
         _expectAnnualizedRatesTitleLabel.textColor = COR10;
+        
     }
     return _expectAnnualizedRatesTitleLabel;
+}
+
+- (UILabel *)extraInterestRateLabel
+{
+    if (!_extraInterestRateLabel) {
+        _extraInterestRateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.expectAnnualizedRatesTitleLabel.right, self.expectAnnualizedRatesTitleLabel.bottom, 100, 15)];
+        _extraInterestRateLabel.text = @"+8.00%";
+        _extraInterestRateLabel.font = [UIFont systemFontOfSize:12];
+        _extraInterestRateLabel.textColor = COR7;
+    }
+    return _extraInterestRateLabel;
 }
 
 - (UILabel *)expectAnnualizedRatesLabel
 {
     if (!_expectAnnualizedRatesLabel) {
-        
         _expectAnnualizedRatesLabel = [[UILabel alloc]initWithFrame:CGRectMake(16, 50, 120, 22)];
         _expectAnnualizedRatesLabel.textColor = COR10;
         _expectAnnualizedRatesLabel.text = @"预期年利率";

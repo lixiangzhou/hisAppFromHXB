@@ -13,7 +13,7 @@
 #import "HXBHomePageAfterLoginView.h"
 
 #import "BannerModel.h"
-
+#import "HXBHomeBaseModel.h"
 @interface HXBHomePageHeadView () 
 
 @property (nonatomic, strong) HXBHomePageBulletinView *bulletinView;
@@ -22,7 +22,7 @@
 
 @property (nonatomic, strong) HXBHomePageLoginIndicationView *indicationView;
 
-@property (nonatomic, strong) HXBHomePageAfterLoginView * afterLoginView;
+@property (nonatomic, strong) HXBHomePageAfterLoginView *afterLoginView;
 
 @end
 
@@ -119,14 +119,23 @@
 }
 
 - (void)showSecurityCertificationOrInvest{
-    if ( [KeyChain isLogin] && [KeyChain isVerify]) {
-       self.afterLoginView.tipString = @"已安全认证，立即投资啦！";
+    
+    if (![KeyChain isLogin]) {
+        self.afterLoginView.tipString = @"登录/注册";
+    }else if ([KeyChain isLogin] && [KeyChain isVerify])
+    {
+        self.afterLoginView.tipString = @"立即投资啦！";
     }else{
-       self.afterLoginView.tipString = @"安全认证";
+        self.afterLoginView.tipString = @"安全认证";
     }
-    if ([KeyChain isVerify] && [KeyChain isInvest]) {
-        
-    }
+//    if ( [KeyChain isLogin] && [KeyChain isVerify]) {
+//       self.afterLoginView.tipString = @"立即投资啦！";
+//    }else{
+//       self.afterLoginView.tipString = @"安全认证";
+//    }
+//    if ([KeyChain isVerify] && [KeyChain isInvest]) {
+//        
+//    }
 }
 - (void)resetView
 {
@@ -135,23 +144,23 @@
     }
 }
 
-//-(void)setProfitModel:(AssetOverviewModel *)profitModel
-//{
-//    _profitModel = profitModel;
-//    self.afterLoginView.profitModel = profitModel;
-//     NSLog(@"%@",profitModel.currentProfit);
-//}
+- (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
+{
+    _homeBaseModel = homeBaseModel;
+    self.bulletinView.homeTitle = homeBaseModel.homeTitle;
+    self.bannerView.bannersModel = homeBaseModel.bannerList;
+}
 
 
 #pragma mark Set Methods
-- (void)setBulletinsModel:(NSArray *)bulletinsModel
-{
-    if (!bulletinsModel || bulletinsModel.count == 0) {
-        [self hideBulletinView];
-    }
-    _bulletinsModel = bulletinsModel;
-    self.bulletinView.bulletinsModel = bulletinsModel;
-}
+//- (void)setBulletinsModel:(NSArray *)bulletinsModel
+//{
+//    if (!bulletinsModel || bulletinsModel.count == 0) {
+//        [self hideBulletinView];
+//    }
+//    _bulletinsModel = bulletinsModel;
+//    self.bulletinView.bulletinsModel = bulletinsModel;
+//}
 
 #pragma mark Get Methods
 - (HXBHomePageLoginIndicationView *)indicationView
@@ -164,9 +173,16 @@
 
 -(HXBHomePageAfterLoginView *)afterLoginView
 {
+    kWeakSelf
     if (!_afterLoginView) {
         _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 105)];
-//               _afterLoginView.hidden  = YES;
+        _afterLoginView.tipButtonClickBlock_homePageAfterLoginView = ^(){
+            if (weakSelf.tipButtonClickBlock_homePageHeadView) {
+                weakSelf.tipButtonClickBlock_homePageHeadView();
+            }
+            
+        };
+        //               _afterLoginView.hidden  = YES;
     }
     return _afterLoginView;
 }
@@ -185,13 +201,13 @@
     if (!_bannerView) {
         _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
         _bannerView.backgroundColor = [UIColor blueColor];
-        BannerModel *bannerModel = [[BannerModel alloc] init];
-        bannerModel.title = @"banner";
-        bannerModel.picUrl = @"http://img05.tooopen.com/images/20150531/tooopen_sy_127457023651.jpg";
-        bannerModel.linkUrl = @"http://blog.csdn.net/lkxasdfg/article/details/8660827";
-        _bannerView.bannersModel = @[bannerModel,bannerModel,bannerModel,bannerModel];
+//        BannerModel *bannerModel = [[BannerModel alloc] init];
+//        bannerModel.title = @"banner";
+//        bannerModel.image = @"http://img05.tooopen.com/images/20150531/tooopen_sy_127457023651.jpg";
+//        bannerModel.url = @"http://blog.csdn.net/lkxasdfg/article/details/8660827";
+//        _bannerView.bannersModel = @[bannerModel,bannerModel,bannerModel,bannerModel];
         _bannerView.clickBannerImageBlock = ^(BannerModel *model){
-            NSLog(@"%@%@",model.picUrl,model.title);
+            NSLog(@"%@%@",model.image,model.title);
         };
     }
     return _bannerView;

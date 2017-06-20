@@ -33,6 +33,7 @@
         NSLog(@"身份证验证%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
+            
             [HxbHUDProgress showTextWithMessage:@"身份证号码不对"];
             if (failureBlock) {
                 failureBlock(nil);

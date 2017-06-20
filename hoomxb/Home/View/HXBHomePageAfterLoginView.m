@@ -12,7 +12,7 @@
 //@property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UIButton *tipButton;
 @property (nonatomic, strong) UILabel *profitLabel;
-@property (nonatomic, strong) UIButton *selectEyeButton;
+//@property (nonatomic, strong) UIButton *selectEyeButton;
 @property (nonatomic, strong) NSString *amountString;
 @property (nonatomic, strong) NSString *profitString;
 
@@ -27,7 +27,7 @@
         [self addSubview:self.userTitleLabel];
         [self addSubview:self.tipButton];
         [self addSubview:self.profitLabel];
-        [self addSubview:self.selectEyeButton];
+//        [self addSubview:self.selectEyeButton];
         [self setContentFrame];
         [self loadData];
     }
@@ -59,46 +59,46 @@
 //        make.width.equalTo(@90);
     }];
     
-    [self.selectEyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-8);
-        make.centerY.equalTo(self);
-        make.size.mas_equalTo(CGSizeMake(40, 40));
-    }];
+//    [self.selectEyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(self).offset(-8);
+//        make.centerY.equalTo(self);
+//        make.size.mas_equalTo(CGSizeMake(40, 40));
+//    }];
 }
 
-- (void)selectEyeButtonClicked:(UIButton *)sender
-{
-    UIButton *button = (UIButton*)sender;
-    button.selected = !button.selected;
-    NSString * oldStr = _tipButton.titleLabel.text;
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (!sender.selected) {
-//        _profitLabel.text = [NSString stringWithFormat:@"%.2f",[_profitModel.currentProfit doubleValue]];
-        [defaults setBool:NO forKey:@"hideProfit"];
-        
-        [defaults synchronize];
-    }else{
-    
-        [defaults setBool:YES forKey:@"hideProfit"];
-        [defaults synchronize];
-        NSString *string = [_tipButton.titleLabel.text substringWithRange:NSMakeRange(0,oldStr.length)];
-        _tipButton.titleLabel.text = [oldStr stringByReplacingOccurrencesOfString:string withString:@"****"];
-        //字符串的替换
-        //        for (int i=0; i<oldStr.length; i++) {
-        //            NSString * hideString = @"*";
-        //            hideString = [hideString stringByAppendingString:@"%@",i*hideString];
-        //         }
-    }
-}
+//- (void)selectEyeButtonClicked:(UIButton *)sender
+//{
+//    UIButton *button = (UIButton*)sender;
+//    button.selected = !button.selected;
+//    NSString * oldStr = _tipButton.titleLabel.text;
+//    
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    if (!sender.selected) {
+////        _profitLabel.text = [NSString stringWithFormat:@"%.2f",[_profitModel.currentProfit doubleValue]];
+//        [defaults setBool:NO forKey:@"hideProfit"];
+//        
+//        [defaults synchronize];
+//    }else{
+//    
+//        [defaults setBool:YES forKey:@"hideProfit"];
+//        [defaults synchronize];
+//        NSString *string = [_tipButton.titleLabel.text substringWithRange:NSMakeRange(0,oldStr.length)];
+//        _tipButton.titleLabel.text = [oldStr stringByReplacingOccurrencesOfString:string withString:@"****"];
+//        //字符串的替换
+//        //        for (int i=0; i<oldStr.length; i++) {
+//        //            NSString * hideString = @"*";
+//        //            hideString = [hideString stringByAppendingString:@"%@",i*hideString];
+//        //         }
+//    }
+//}
 
 /**
  认证的按钮的点击
  */
 - (void)tipButtonClick
 {
-    if (self.tipButtonClickBlock) {
-        self.tipButtonClickBlock();
+    if (self.tipButtonClickBlock_homePageAfterLoginView) {
+        self.tipButtonClickBlock_homePageAfterLoginView();
     }
 }
 
@@ -175,16 +175,16 @@
     return _profitLabel;
 }
 
-- (UIButton *)selectEyeButton
-{
-    if (!_selectEyeButton) {
-        _selectEyeButton = [[UIButton alloc]init];
-        [_selectEyeButton setImage:[UIImage imageNamed:@"hoomEye_open"] forState:UIControlStateNormal];
-        [_selectEyeButton setImage:[UIImage imageNamed:@"hoomEye_close"] forState:UIControlStateSelected];
-        [_selectEyeButton addTarget:self action:@selector(selectEyeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _selectEyeButton;
-}
+//- (UIButton *)selectEyeButton
+//{
+//    if (!_selectEyeButton) {
+//        _selectEyeButton = [[UIButton alloc]init];
+//        [_selectEyeButton setImage:[UIImage imageNamed:@"hoomEye_open"] forState:UIControlStateNormal];
+//        [_selectEyeButton setImage:[UIImage imageNamed:@"hoomEye_close"] forState:UIControlStateSelected];
+//        [_selectEyeButton addTarget:self action:@selector(selectEyeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _selectEyeButton;
+//}
 
 
 @end

@@ -9,10 +9,12 @@
 #import "HxbHomeView.h"
 #import "HXBHomePageHeadView.h"
 #import "HXBHomePageProductCell.h"
-
+#import "HXBHomeBaseModel.h"
+#import "HXBHomeTitleModel.h"
 @interface HxbHomeView ()<UITableViewDelegate,UITableViewDataSource,HXBHomePageHeadViewDelegate>
 @property (nonatomic, strong) HXBHomePageHeadView *headView;
 @property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, strong) UILabel *footerLabel;
 @property (nonatomic, strong) HxbHomePageViewModel *dataViewModel;
 
 @end
@@ -55,10 +57,15 @@
  */
 - (void)changeIndicationView
 {
-    //没有投资显示的界面
-    [self.headView showNotValidatedView];
-    //已经投资显示的界面
-//    [self.headView showAlreadyInvestedView];
+    
+    if ([KeyChain isVerify] && [KeyChain isInvest]) {
+        //已经投资显示的界面
+        [self.headView showAlreadyInvestedView];
+    }else
+    {
+         //没有投资显示的界面
+        [self.headView showNotValidatedView];
+    }
 
 }
 
@@ -80,10 +87,19 @@
 - (void)setDataModel:(HxbHomePageViewModel *)dataModel{
     _dataViewModel = dataModel;
 }
-- (void)setHomeDataListViewModelArray:(NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
-    _homeDataListViewModelArray = homeDataListViewModelArray;
-    [_mainTableView reloadData];
+
+- (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
+{
+    _homeBaseModel = homeBaseModel;
+    _footerLabel.text = homeBaseModel.homeTitle.baseTitle;
+    self.headView.homeBaseModel = homeBaseModel;
+    [self.mainTableView reloadData];
 }
+
+//- (void)setHomeDataListViewModelArray:(NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
+//    _homeDataListViewModelArray = homeDataListViewModelArray;
+//    [_mainTableView reloadData];
+//}
 //- (void)loadData
 //{
 //    id next = [self nextResponder];
@@ -124,7 +140,7 @@
 //    {
 //    NSLog(@"%lu",(unsigned long)_homeDataListViewModelArray.count);
 //    return _homeDataListViewModelArray.count;
-    return 10;
+    return self.homeBaseModel.homePlanRecommend.count;
 //    }
 }
 
@@ -146,7 +162,7 @@
                 if (!cell) {
                     cell = [[HXBHomePageProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
                     }
-                   cell.homeDataListViewModel = _homeDataListViewModelArray[indexPath.row];
+                   cell.homePageModel_DataList = self.homeBaseModel.homePlanRecommend[indexPath.row];
                    kWeakSelf
                    cell.purchaseButtonClickBlock = ^(){
                        weakSelf.purchaseButtonClickBlock();
@@ -234,8 +250,14 @@
 - (HXBHomePageHeadView *)headView
 {
     if (!_headView) {
+        kWeakSelf
         _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH *9/16 + 110 + 33)];//199
-        _headView.delegate = self;  
+        _headView.delegate = self;
+        _headView.tipButtonClickBlock_homePageHeadView = ^(){
+            if (weakSelf.tipButtonClickBlock_homeView) {
+                weakSelf.tipButtonClickBlock_homeView();
+            }
+        };
     }
     return _headView;
 }
@@ -247,15 +269,15 @@
         _footerView.backgroundColor = BACKGROUNDCOLOR;
         _footerView.frame = CGRectMake(0, 0, _mainTableView.width, 48);
         
-        UILabel *label = [UILabel new];
-        label.frame = CGRectMake(0, 0, _footerView.width, _footerView.height);
-        label.text = @"预期年利率不等于实际收益，投资需谨慎";
-        label.font = HXB_Text_Font(SIZ15);
-        label.textColor = COR11;
-        label.textAlignment = NSTextAlignmentCenter;
-        label.backgroundColor = CLEARCOLOR;
+        _footerLabel = [UILabel new];
+        _footerLabel.frame = CGRectMake(0, 0, _footerView.width, _footerView.height);
+        _footerLabel.text = @"预期年利率不等于实际收益，投资需谨慎";
+        _footerLabel.font = HXB_Text_Font(SIZ15);
+        _footerLabel.textColor = COR11;
+        _footerLabel.textAlignment = NSTextAlignmentCenter;
+        _footerLabel.backgroundColor = CLEARCOLOR;
         
-        [_footerView addSubview:label];
+        [_footerView addSubview:_footerLabel];
     }
     return _footerView;
 }
