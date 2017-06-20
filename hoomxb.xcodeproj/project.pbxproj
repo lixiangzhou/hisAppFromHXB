@@ -924,6 +924,7 @@
 			isa = PBXGroup;
 			children = (
 				E1CC03561ECAD2AD00121D21 /* Request */,
+				4E422CB01EA7383D00C0EB62 /* ViewController */,
 				E1D2CA511EAB4D6B000099C7 /* View */,
 				E1D2CA521EAB4D6B000099C7 /* ViewModel */,
 				E1D2CA501EAB4D6B000099C7 /* Model */,
@@ -948,8 +949,7 @@
 				4E80AA8B1EC085F300A4CB5A /* HxbFeedbackViewController.h */,
 				4E80AA8C1EC085F300A4CB5A /* HxbFeedbackViewController.m */,
 			);
-			name = ViewController;
-			path = ../ViewController;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		4E422CBD1EA7458200C0EB62 /* UITextField */ = {
@@ -2214,7 +2214,6 @@
 		E1CC03561ECAD2AD00121D21 /* Request */ = {
 			isa = PBXGroup;
 			children = (
-				4E422CB01EA7383D00C0EB62 /* ViewController */,
 				E1CC03571ECAD2AD00121D21 /* HXBMYRequest.h */,
 				E1CC03581ECAD2AD00121D21 /* HXBMYRequest.m */,
 				E1CC03591ECAD2AD00121D21 /* HXBRequestType_MYManager.h */,
@@ -2817,7 +2816,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3002,11 +3001,8 @@
 				E16017761EF3D82C00A2AAE8 /* HXBconfirmBuyReslut.m in Sources */,
 				4ED2F2831ECAE3C30014E5C7 /* HxbNormalConfig.m in Sources */,
 				E10EB4BE1EEFE0B500F16CFA /* HxbMyTopUpViewController.m in Sources */,
-
 				E165EA9B1EF8E6D500D68763 /* HXBJoinImmediateView.m in Sources */,
-
 				4EB45DA51EF7A2BF00C2CF21 /* HxbHomeRequest_dataList.m in Sources */,
-
 				E1270B251ECED07100729BC9 /* HXBMY_PlanList_DetailViewController.m in Sources */,
 				4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */,
 				E1D048531EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m in Sources */,

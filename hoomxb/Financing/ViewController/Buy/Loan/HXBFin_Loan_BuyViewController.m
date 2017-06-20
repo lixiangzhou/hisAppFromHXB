@@ -130,6 +130,7 @@
             ///余额展示
             model.JoinImmediateView_Model.balanceLabelStr = viewModel.availablePoint;
             
+            
             ///服务协议 button str
             model.JoinImmediateView_Model.negotiateButtonStr = weakSelf.loanViewModel.agreementTitle;
             model.JoinImmediateView_Model.totalInterest = weakSelf.loanViewModel.totalInterestPer100;
