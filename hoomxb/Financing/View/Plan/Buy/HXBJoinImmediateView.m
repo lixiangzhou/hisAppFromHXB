@@ -289,7 +289,8 @@
     return true;
 }
 - (BOOL) textFieldShouldEndEditing:(UITextField *)textField {
-   //        self.profitLabel.text = self.model.
+   
+    //        self.profitLabel.text = self.model.
     self.profitLabel.text = [self.model totalInterestWithAmount:textField.text.integerValue];
     return true;
 }
