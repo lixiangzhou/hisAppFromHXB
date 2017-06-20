@@ -17,7 +17,7 @@ NSString *const a = @"tong";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    //
+
 }
 
 
