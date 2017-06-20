@@ -49,6 +49,7 @@
 		4E81E3FE1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E3FC1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m */; };
 		4E81E4061EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E4021EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m */; };
 		4E81E4071EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E4051EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.m */; };
+		4E886FB71EF916A30056086E /* HXBGesturePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FB61EF916A30056086E /* HXBGesturePasswordViewController.m */; };
 		4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */; };
 		4E94B2741ECBF8C1003CCBA7 /* HxbHomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B2731ECBF8C1003CCBA7 /* HxbHomePageModel.m */; };
 		4E94B2771ECBF922003CCBA7 /* HxbHomePageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B2761ECBF922003CCBA7 /* HxbHomePageViewModel.m */; };
@@ -352,6 +353,8 @@
 		4E81E4021EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyTransactionPasswordHomeView.m; sourceTree = "<group>"; };
 		4E81E4041EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTransactionPasswordConfirmationView.h; sourceTree = "<group>"; };
 		4E81E4051EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTransactionPasswordConfirmationView.m; sourceTree = "<group>"; };
+		4E886FB51EF916A30056086E /* HXBGesturePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGesturePasswordViewController.h; sourceTree = "<group>"; };
+		4E886FB61EF916A30056086E /* HXBGesturePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGesturePasswordViewController.m; sourceTree = "<group>"; };
 		4E8CD0781EBB571A00DCDC5A /* HxbMyViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbMyViewHeaderView.h; sourceTree = "<group>"; };
 		4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbMyViewHeaderView.m; sourceTree = "<group>"; };
 		4E94B2721ECBF8C1003CCBA7 /* HxbHomePageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHomePageModel.h; sourceTree = "<group>"; };
@@ -937,6 +940,7 @@
 			children = (
 				4E422CB21EA7386900C0EB62 /* HxbMyViewController.h */,
 				4E422CB31EA7386900C0EB62 /* HxbMyViewController.m */,
+				4E886FB41EF916590056086E /* MY_GesturePasswordController */,
 				4E81E3F81EE94FDE006AD3FC /* MY_TransactionPassword */,
 				E1D048461EE93209002A4E28 /* HXBAccount */,
 				E189D7541ECAD9F3004DB1DC /* MY_PlanController */,
@@ -1089,6 +1093,15 @@
 				4E81E4051EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.m */,
 			);
 			path = HXBModifyTransactionPasswordViewController;
+			sourceTree = "<group>";
+		};
+		4E886FB41EF916590056086E /* MY_GesturePasswordController */ = {
+			isa = PBXGroup;
+			children = (
+				4E886FB51EF916A30056086E /* HXBGesturePasswordViewController.h */,
+				4E886FB61EF916A30056086E /* HXBGesturePasswordViewController.m */,
+			);
+			path = MY_GesturePasswordController;
 			sourceTree = "<group>";
 		};
 		4E94B28A1ECC496C003CCBA7 /* NSAttributedString */ = {
@@ -2900,6 +2913,7 @@
 				4E8198AE1EC44BCE00D668A1 /* HXBHomePageModuleView.m in Sources */,
 				E133DCDE1EEE3597009466DE /* SignUpModel.m in Sources */,
 				4E81E3FE1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m in Sources */,
+				4E886FB71EF916A30056086E /* HXBGesturePasswordViewController.m in Sources */,
 				E16314431EC076F40090567E /* HXBFinDetailModel_PlanDetail.m in Sources */,
 				E133DCE71EEE3597009466DE /* HxbPhoneVerifyViewController.m in Sources */,
 				E165EABA1EF8E82F00D68763 /* HXBFin_Plan_BuyViewController.m in Sources */,

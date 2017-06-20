@@ -66,6 +66,7 @@ UITableViewDataSource,UITableViewDelegate
             [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
         }else{
             NSLog(@"click 设置手势密码");
+            
         }
         
     }else{
