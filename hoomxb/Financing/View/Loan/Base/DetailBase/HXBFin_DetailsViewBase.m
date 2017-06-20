@@ -100,7 +100,8 @@
 }
 
 - (void)setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
-//    if ([loanListViewModel.loanListModel.joined isEqualToString:@"false"]) {//是否为已加入
+
+    //    if ([loanListViewModel.loanListModel.joined isEqualToString:@"false"]) {//是否为已加入
         [self.addButton setTitle:@"立即投标" forState:UIControlStateNormal];
 //    }else {
 //        [self.addButton setTitle:@"追加" forState:UIControlStateNormal];

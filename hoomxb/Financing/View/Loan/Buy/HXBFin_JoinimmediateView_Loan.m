@@ -26,7 +26,6 @@
 
 ///确定加入
 @property (nonatomic,strong) UIButton *addButton;
-
 ///点击了一键购买
 @property (nonatomic,copy) void (^clickBuyButton)(NSString *capitall,UITextField *textField);
 ///点击了充值

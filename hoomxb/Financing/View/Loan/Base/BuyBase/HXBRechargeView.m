@@ -19,7 +19,6 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
 ///充值的button
 @property (nonatomic,strong) UIButton *rechargeButton;
 
-
 ///点击了一键购买
 @property (nonatomic,copy) void (^clickBuyButton)();
 ///点击了充值
