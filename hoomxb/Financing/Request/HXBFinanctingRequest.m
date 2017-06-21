@@ -385,7 +385,7 @@
         [planBuyModel yy_modelSetWithDictionary:dic];
         [request.infoDic setObject:planBuyModel forKey:@"planBuyModel"];
         if (successDateBlock) {
-            [self plan_confirmBuyReslutWithPlanID:buyRequest.infoDic[@"planID"] andAmount: buyRequest.infoDic[@"amount"] andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
+            [self plan_buyReslutWithPlanID:buyRequest.infoDic[@"planID"] andAmount: buyRequest.infoDic[@"amount"] andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
                 successDateBlock(request.infoDic[@"planBuyModel"],model);
             } andFailureBlock:^(NSError *error) {
                 if (failureBlock) {
