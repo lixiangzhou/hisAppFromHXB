@@ -26,7 +26,10 @@
 @property (nonatomic, copy) NSString  *loginPwd;
 ///交易密码
 @property (nonatomic, copy) NSString  *tradePwd;
+///手势密码
 @property (nonatomic, copy) NSString  *gesturePwd;
+///手势密码输入的次数
+@property (nonatomic, copy) NSString  *gesturePwdCount;
 ///身份证
 @property (nonatomic, copy) NSString  *realId;           //!< 身份证
 ///姓名
@@ -45,6 +48,10 @@
 @property (nonatomic, strong) NSString *assetsTotal;
 
 - (void)removePassword;     //!< 移除密码
+
+- (void)removeGesture;     //!< 移除手势密码
+
+- (void)removeGesturePwdCount;//!< 移除手势密码可输入次数
 
 - (void)removeToken;        //!< 移除token
 

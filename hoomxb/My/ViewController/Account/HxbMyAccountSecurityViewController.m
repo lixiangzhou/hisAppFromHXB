@@ -12,7 +12,8 @@
 
 #import "HxbSignUpViewController.h"///注册
 #import "HXBModifyTransactionPasswordViewController.h"//交易密码
-
+#import "HXBGesturePasswordViewController.h"//手势密码
+#import "HXBModifyGesturePasswordController.h"//修改手势密码
 @interface HxbMyAccountSecurityViewController ()
 <
 UITableViewDataSource,UITableViewDelegate
@@ -66,7 +67,16 @@ UITableViewDataSource,UITableViewDelegate
             [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
         }else{
             NSLog(@"click 设置手势密码");
-            
+            if (KeyChain.gesturePwd.length)
+            {
+                HXBModifyGesturePasswordController *modifyGesturePasswordVC = [[HXBModifyGesturePasswordController alloc] init];
+                 [self.navigationController pushViewController:modifyGesturePasswordVC animated:YES];
+            }else
+            {
+                HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+                gesturePasswordVC.type = GestureViewControllerTypeSetting;
+                [self.navigationController pushViewController:gesturePasswordVC animated:YES];
+            }
         }
         
     }else{
@@ -113,8 +123,14 @@ UITableViewDataSource,UITableViewDelegate
             cell.textLabel.text = @"交易密码";
             cell.detailTextLabel.text = @"修改";
         }else{
-            cell.textLabel.text = @"手势密码";
-            cell.detailTextLabel.text = @"修改";
+            if (KeyChain.gesturePwd.length) {
+                cell.textLabel.text = @"修改手势密码";
+                cell.detailTextLabel.text = @"修改";
+            }else
+            {
+                cell.textLabel.text = @"手势密码";
+                cell.detailTextLabel.text = @"设置";
+            }
         }
 
     }

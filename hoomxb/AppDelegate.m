@@ -13,6 +13,8 @@
 #import "HXBAdvertisementManager.h"//广告管理者、
 #import "HXBBaseVersionUpdateManager.h"//
 #import "HxbAdvertiseViewController.h"///广告的VC
+#import "HXBGesturePasswordViewController.h"//手势面膜控制器
+
 static NSString *const home = @"首页";
 static NSString *const financing = @"理财";
 static NSString *const my = @"我的";
@@ -75,18 +77,34 @@ static NSString *const my = @"我的";
     
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
 //HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
-
+    
     //数据
+    __weak typeof(self) weakSelf = self;
     HxbAdvertiseViewController *advertiseViewControllre = [[HxbAdvertiseViewController alloc]init];
     _window.rootViewController = advertiseViewControllre;
     [advertiseViewControllre dismissAdvertiseViewControllerFunc:^{
-        _window.rootViewController = self.mainTabbarVC;
+        [weakSelf enterTheGesturePasswordVC];
+        
     }];
     _window.backgroundColor = [UIColor whiteColor];
     [_window makeKeyAndVisible];
 }
 
 
+/**
+ 判断是否进入手势密码
+ */
+- (void)enterTheGesturePasswordVC
+{
+    if (KeyChain.gesturePwd.length) {
+        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+        gesturePasswordVC.type = GestureViewControllerTypeLogin;
+         _window.rootViewController = gesturePasswordVC;
+    }else
+    {
+        _window.rootViewController = self.mainTabbarVC;
+    }
+}
 
 //根据服务器时间计算与本地时间的时间差
 - (void)serverAndClientTime {

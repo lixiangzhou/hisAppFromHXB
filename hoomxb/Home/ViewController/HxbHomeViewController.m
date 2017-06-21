@@ -55,6 +55,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:true animated:false];
+    [self.homeView showSecurityCertificationOrInvest];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
