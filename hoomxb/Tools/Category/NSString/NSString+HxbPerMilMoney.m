@@ -35,4 +35,13 @@
     }
     return string;
 }
+
+///如果拼接的是最后一个字符串是“”，那么就默认为删除键，删除最后一个字符
+- (NSString *) hxb_StringWithFormatAndDeleteLastChar: (NSString *)string {
+    if (string != nil && !string.length && self.length >= 1) {
+        NSMutableString *tempStr = self.mutableCopy;
+        return [tempStr substringToIndex:self.length - 1].copy;
+    }
+    return [NSString stringWithFormat:@"%@%@",self,string];
+}
 @end

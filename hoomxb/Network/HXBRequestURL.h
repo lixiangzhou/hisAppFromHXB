@@ -49,4 +49,11 @@
 
 
 //MARK: ======================= 充值提现 =======================
+
+
+//MARK: ======================= 购买 ==========================
+#define kHXBFin_Plan_ConfirmBuyReslutURL(planID) [NSString stringWithFormat:@"/plan/%@/result",(planID)]//确认购买
+#define kHXBFin_Buy_PlanURL(planID) [NSString stringWithFormat:@"/plan/%@/confirm",(planID)]//购买
+#define kHXBFin_Buy_LoanURL(LoanID) [NSString stringWithFormat:@"/loan/%@/confirm",(LoanID)]
+#define kHXBFin_BuyReslut_LoanURL(loanID) [NSString stringWithFormat:@"/loan/%@/result",(loanID)]
 #endif

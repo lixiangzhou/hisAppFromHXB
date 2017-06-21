@@ -229,6 +229,8 @@
 
 - (void)clickAddButton: (UIButton *)button {
     NSLog(@" - 立即加入 - ");
+    //a)	先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍”
+
     if (self.clickAddButtonBlock) {
         self.clickAddButtonBlock();
     }

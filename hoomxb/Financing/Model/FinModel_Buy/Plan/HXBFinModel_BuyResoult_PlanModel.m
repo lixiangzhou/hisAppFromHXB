@@ -6,8 +6,8 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBconfirmBuyReslut.h"
+#import "HXBFinModel_BuyResoult_PlanModel.h"
 
-@implementation HXBconfirmBuyReslut
+@implementation HXBFinModel_BuyResoult_PlanModel
 
 @end

@@ -63,7 +63,6 @@
     }];
     
     self.joinimmediateView.frame = self.view.frame;
-    
 }
 
  - (void) registerEvent {
@@ -74,18 +73,33 @@
      }];
      ///点击了一键购买
      [self.joinimmediateView clickBuyButtonFunc:^(NSString *capitall, UITextField *textField) {
+         ///用户余额，
+         CGFloat userInfo_availablePoint = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue;
+         if (!userInfo_availablePoint) {
+             [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
+             return;
+         }
+         ///用户可以追加的金额
+         CGFloat userRemainAmount = weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue;
+         
+         CGFloat buyAmount = userRemainAmount < userInfo_availablePoint? userRemainAmount : userInfo_availablePoint;
+         textField.text = [NSString stringWithFormat:@"%.2lf",buyAmount];
      }];
      ///点击了加入
      [self.joinimmediateView clickAddButtonFunc:^(NSString *capital) {
          // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
-         if (!(capital.floatValue >= 1000)) {
+         CGFloat minRegisterAmount = weakSelf.planViewModel.minRegisterAmount.floatValue;
+         if (!(capital.floatValue < minRegisterAmount)) {
              NSLog(@"请输入大于等于1000");
-             [HxbHUDProgress showTextWithMessage:@"起投金额1000元"];
+             [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"起投金额%.2lf元",minRegisterAmount]];
              return;
          }
-         if ((capital.integerValue % 1000) != 0) {
+         
+         NSInteger minRegisterAmountInteger = minRegisterAmount;
+         if ((capital.integerValue % minRegisterAmountInteger) != 0) {
              NSLog(@"1000的整数倍");
-             [HxbHUDProgress showTextWithMessage:@"投资金额应为1000的整数倍"];
+             NSString *message = [NSString stringWithFormat:@"投资金额应为%ld的整数倍",minRegisterAmountInteger];
+             [HxbHUDProgress showTextWithMessage:message];
              return;
          }
          //判断是否安全认证
@@ -93,12 +107,14 @@
              if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
                  [HxbHUDProgress showTextWithMessage:@"去安全认证"];
              }else {
-                 [[HXBFinanctingRequest sharedFinanctingRequest] planBuyWithPlanID:@(weakSelf.ID).description andAmount:capital andSuccessBlock:^(HXBFinModel_Buy_Plan *model) {
-                     
+                 [[HXBFinanctingRequest sharedFinanctingRequest] planBuyWithPlanID:weakSelf.planViewModel.planDetailModel.ID andAmount:capital andSuccessBlock:^(HXBFinModel_Buy_Plan *model, HXBFinModel_BuyResoult_PlanModel *resultModel) {
+                     NSLog(@"加入成功");
+                     [HxbHUDProgress showTextWithMessage:@"加入成功"];
+                     [self popoverPresentationController];
                  } andFailureBlock:^(NSError *error) {
                      
                  }];
-                  }
+             }
          } andFailure:^(NSError *error) {
              [HxbHUDProgress showTextWithMessage:@"加入失败"];
          }];
@@ -117,6 +133,7 @@
         } andFailure:^(NSError *error) {
     }];
 }
+///赋值
 - (void) setUPModel {
     kWeakSelf
     [self.joinimmediateView setUPValueWithModelBlock:^HXBJoinImmediateView_Model *(HXBJoinImmediateView_Model *model) {
@@ -150,6 +167,8 @@
         model.totalInterest = weakSelf.planViewModel.totalInterest;
         ///加入上线
         model.upperLimitLabelStr = weakSelf.planViewModel.singleMaxRegisterAmount;
+        ///预计收益
+        model.profitLabelStr = [NSString hxb_getPerMilWithDouble:0.0];
         ///确认加入的Buttonstr
         model.addButtonStr = @"确认加入";
         return model;

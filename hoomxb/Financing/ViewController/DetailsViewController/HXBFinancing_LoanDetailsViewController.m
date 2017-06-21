@@ -167,6 +167,7 @@
         
         //跳转加入界面
         HXBFin_Loan_BuyViewController *loanJoinVC = [[HXBFin_Loan_BuyViewController alloc]init];
+        loanJoinVC.loanViewModel = weakSelf.loanDetailViewModel;
         [weakSelf.navigationController pushViewController:loanJoinVC animated:true];
     }];
 }

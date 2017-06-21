@@ -256,20 +256,30 @@
     return YES;
 }
 
+- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([textField isEqual:self.rechargeView.textField]) {
+        
+        NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
+        
+        self.profitLabel.text = [self.model.JoinImmediateView_Model totalInterestWithAmount:amount.floatValue];
+    }
+    return true;
+}
 - (BOOL) textFieldShouldEndEditing:(UITextField *)textField {
     if ([textField isEqual:self.rechargeView.textField]) {
         // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
-        if (!(textField.text.floatValue >= 1000)) {
-            NSLog(@"请输入大于等于1000");
-            [HxbHUDProgress showTextWithMessage:@"起投金额1000元"];
-            return false;
-        }
-        if ((textField.text.integerValue % 1000) != 0) {
-            NSLog(@"1000的整数倍");
-            [HxbHUDProgress showTextWithMessage:@"投资金额应为1000的整数倍"];
-            return false;
-        }
+//        if (!(textField.text.floatValue >= 1000)) {
+//            NSLog(@"请输入大于等于1000");
+//            [HxbHUDProgress showTextWithMessage:@"起投金额1000元"];
+//            return false;
+//        }
+//        if ((textField.text.integerValue % 1000) != 0) {
+//            NSLog(@"1000的整数倍");
+//            [HxbHUDProgress showTextWithMessage:@"投资金额应为1000的整数倍"];
+//            return false;
+//        }
         //        self.profitLabel.text = self.model.
+        
         self.profitLabel.text = [self.model.JoinImmediateView_Model totalInterestWithAmount:textField.text.integerValue];
     }
     return true;
@@ -277,4 +287,7 @@
 @end
 
 @implementation HXBFin_JoinimmediateView_Loan_ViewModel
+- (void)setProfitLabelStr:(NSString *)profitLabelStr {
+    _profitLabelStr = [_JoinImmediateView_Model totalInterestWithAmount:profitLabelStr.floatValue];
+}
 @end
