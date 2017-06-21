@@ -27,9 +27,14 @@
  */
 @property (nonatomic, copy) void(^homeRefreshHeaderBlock)();
 /**
- 点击cell中回调的Block
+ 点击cell中按钮回调的Block
  */
 @property (nonatomic, copy) void(^purchaseButtonClickBlock)();
+
+/**
+ 点击cell回调的Block
+ */
+@property (nonatomic, copy) void (^homeCellClickBlick)(NSIndexPath *indexPath);
 
 /**
  各种认证按钮的点击回调Block

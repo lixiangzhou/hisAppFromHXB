@@ -12,6 +12,8 @@
 #import "HxbHomeRequest_dataList.h"
 #import "HxbSecurityCertificationViewController.h"
 #import "HXBHomeBaseModel.h"
+#import "HXBFinancing_PlanDetailsViewController.h"
+#import "HxbHomePageModel_DataList.h"
 @interface HxbHomeViewController ()
 
 @end
@@ -232,6 +234,23 @@
          */
         _homeView.purchaseButtonClickBlock = ^(){
             NSLog(@"点击cell中按钮的回调的Block");
+        };
+        
+        /**
+         点击cell中的回调的Block
+
+         @param indexPath 点击cell的indexPath
+         */
+        _homeView.homeCellClickBlick = ^(NSIndexPath *indexPath){
+            HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
+            UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"红利计划##" style:UIBarButtonItemStylePlain target:nil action:nil];
+            weakSelf.navigationItem.backBarButtonItem = leftBarButtonItem;
+            HxbHomePageModel_DataList *homePageModel = weakSelf.homeView.homeBaseModel.homePlanRecommend[indexPath.row];
+            planDetailsVC.planID = homePageModel.ID;
+            planDetailsVC.isPlan = true;
+            planDetailsVC.isFlowChart = true;
+            planDetailsVC.hidesBottomBarWhenPushed = true;
+            [weakSelf.navigationController pushViewController:planDetailsVC animated:true];
         };
         _homeView.tipButtonClickBlock_homeView = ^(){
             if (![KeyChain isLogin]) {

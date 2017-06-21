@@ -24,6 +24,7 @@ static NSString *CELLID = @"CELLID";
 @implementation HXBFinAddRecordVC_Plan
 - (void) setPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)planListViewModel {
     _planListViewModel = planListViewModel;
+    self.planID = planListViewModel.planListModel.ID;
 }
 
 - (void)viewDidLoad {
@@ -54,7 +55,7 @@ static NSString *CELLID = @"CELLID";
 }
 
 - (void)downDoadDataWithISUPLoad: (BOOL)isUPLoad {
-    [[HXBFinanctingRequest sharedFinanctingRequest] planAddRecortdWithISUPLoad:true andFinancePlanId:self.planListViewModel.planListModel.ID andOrder:nil andSuccessBlock:^(HXBFinModel_AddRecortdModel_Plan *model) {
+    [[HXBFinanctingRequest sharedFinanctingRequest] planAddRecortdWithISUPLoad:true andFinancePlanId:self.planID andOrder:nil andSuccessBlock:^(HXBFinModel_AddRecortdModel_Plan *model) {
         self.addRecortdTableView.addRecortdModel_Plan = model;
     } andFailureBlock:^(NSError *error) {
         

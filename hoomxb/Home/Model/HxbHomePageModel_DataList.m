@@ -10,6 +10,10 @@
 
 @implementation HxbHomePageModel_DataList
 
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"ID" : @"id"};
+}
+
 - (void)setUnifyStatus:(NSString *)unifyStatus
 {
     _unifyStatus = [self judgmentStateValue:unifyStatus];
