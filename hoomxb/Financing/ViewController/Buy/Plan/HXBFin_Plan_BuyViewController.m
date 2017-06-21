@@ -156,23 +156,15 @@
         /// ￥1000起投，1000递增 placeholder
         model.rechargeViewTextField_placeholderStr = weakSelf.planViewModel.addCondition;
         
-        ///余额展示
-        model.balanceLabelStr =  weakSelf.userInfoViewModel.availablePoint;
-        
-        ///预计收益 在 加入计划的 view 内部计算
-        
-        ///服务协议 button str
-        model.negotiateButtonStr = weakSelf.planViewModel.contractName;
-        model.totalInterest = weakSelf.planViewModel.totalInterest;
-        ///加入上线
-        model.upperLimitLabelStr = weakSelf.planViewModel.singleMaxRegisterAmount;
-        ///预计收益
-        model.profitLabelStr = [NSString hxb_getPerMilWithDouble:0.0];
-        ///确认加入的Buttonstr
-        model.addButtonStr = @"确认加入";
-        
-        return model;
-    }];
+            ///服务协议 button str
+            model.negotiateButtonStr = weakSelf.planViewModel.contractName;
+            model.totalInterest = weakSelf.planViewModel.totalInterest;
+            ///加入上线
+            model.upperLimitLabelStr = weakSelf.planViewModel.singleMaxRegisterAmount;
+            ///确认加入的Buttonstr
+            model.addButtonStr = @"确认加入";
+            return model;
+        }];
 }
 
 - (void)didReceiveMemoryWarning {

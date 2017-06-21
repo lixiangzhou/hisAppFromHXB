@@ -21,6 +21,7 @@ static NSString * const kInviteCode = @"inviteCode";
 static NSString * const kLoginPwd = @"loginPwd";
 static NSString * const kTradePwd = @"tradePwd";
 static NSString * const kGesturePwd = @"gesturePwd";
+static NSString * const kGesturePwdCount = @"gesturePwdCount";
 
 static NSString * const kRealName = @"realName";
 static NSString * const kRealId = @"realId";
@@ -106,12 +107,19 @@ static NSString * const kAssetsTotal = @"kAssetsTotal";
     [manager.keychain removeItemForKey:kLoginPwd];
     [manager.keychain removeItemForKey:kTradePwd];
     [manager.keychain removeItemForKey:kGesturePwd];
+    [manager.keychain removeItemForKey:kGesturePwdCount];
 }
 
 - (void)removeGesture
 {
     KeyChainManage *manager = KeyChain;
     [manager.keychain removeItemForKey:kGesturePwd];
+}
+
+- (void)removeGesturePwdCount
+{
+    KeyChainManage *manager = KeyChain;
+    [manager.keychain removeItemForKey:kGesturePwdCount];
 }
 
 - (void)removeToken
@@ -222,10 +230,22 @@ static NSString * const kAssetsTotal = @"kAssetsTotal";
 {
     self.keychain[kGesturePwd] = gesturePwd;
 }
+
+- (void)setGesturePwdCount:(NSString *)gesturePwdCount
+{
+    self.keychain[kGesturePwdCount] = gesturePwdCount;
+}
+
 - (NSString *)gesturePwd
 {
     NSString *gesturePwd = self.keychain[kGesturePwd];
     return gesturePwd?:@"";
+}
+
+- (NSString *)gesturePwdCount
+{
+    NSString *gesturePwdCount = self.keychain[kGesturePwdCount];
+    return gesturePwdCount?:@"";
 }
 
 - (void)setRealId:(NSString *)realId
