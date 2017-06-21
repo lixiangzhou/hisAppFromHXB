@@ -13,11 +13,19 @@
 #import "HXBRechargeView.h"
 #import "HXBFinDetailViewModel_LoanDetail.h"
 #import "HXBFinDatailModel_LoanDetail.h"
+#import "HXBFinModel_Buy_Plan.h"
+#import "HXBFinModel_BuyResoult_PlanModel.h"
+#import "HXBFinModel_Buy_LoanModel.h"
+#import "HXBFinModel_BuyResoult_LoanModel.h"
 @interface HXBFin_Loan_BuyViewController ()
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan *joinimmediateView_Loan;
 @end
 
 @implementation HXBFin_Loan_BuyViewController
+
+- (void) setLoanViewModel:(HXBFinDetailViewModel_LoanDetail *)loanViewModel {
+    _loanViewModel = loanViewModel;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -60,27 +68,46 @@
     }
 
 - (void) registerEvent {
-    __weak typeof(self) weakSelf = self;
     ///点击了充值
+    [self registerClickRecharge];
+    ///点击了一键购买
+    [self registerClickAddButton];
+    ///点击了加入
+    [self registerClickAddButton];
+    //点击了 服务协议
+    [self registerClickNegotiateButton];
+}
+
+///点击了充值
+- (void)registerClickRecharge {
     [self.joinimmediateView_Loan clickRechargeFunc:^{
         [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
     }];
-    ///点击了一键购买
+}
+///点击了一键购买
+- (void)registerClickBuyButton {
     [self.joinimmediateView_Loan clickBuyButtonFunc:^(NSString *capitall, UITextField *textField) {
-        
-        
     }];
-    ///点击了加入
+}
+
+///点击了加入
+- (void)registerClickAddButton {
+    kWeakSelf
     [self.joinimmediateView_Loan clickAddButtonFunc:^(NSString *capital) {
         // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
-        if (!(capital.floatValue >= 1000)) {
+        
+        CGFloat minRegisterAmount = weakSelf.loanViewModel.surplusAmount.floatValue;
+        if (!(capital.floatValue < minRegisterAmount)) {
             NSLog(@"请输入大于等于1000");
-            [HxbHUDProgress showTextWithMessage:@"起投金额1000元"];
+            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"起投金额%.2lf元",minRegisterAmount]];
             return;
         }
-        if ((capital.integerValue % 1000) != 0) {
+        
+        NSInteger minRegisterAmountInteger = minRegisterAmount;
+        if ((capital.integerValue % minRegisterAmountInteger) != 0) {
             NSLog(@"1000的整数倍");
-            [HxbHUDProgress showTextWithMessage:@"投资金额应为1000的整数倍"];
+            NSString *message = [NSString stringWithFormat:@"投资金额应为%ld的整数倍",minRegisterAmountInteger];
+            [HxbHUDProgress showTextWithMessage:message];
             return;
         }
         //判断是否安全认证
@@ -88,17 +115,22 @@
             if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
                 [HxbHUDProgress showTextWithMessage:@"去安全认证"];
             }else {
-                [[HXBFinanctingRequest sharedFinanctingRequest] planBuyWithPlanID:@(weakSelf.ID).description andAmount:capital andSuccessBlock:^(HXBFinModel_Buy_Plan *model) {
-                    
+                [[HXBFinanctingRequest sharedFinanctingRequest] loanBuyWithLoanID:weakSelf.loanViewModel.loanDetailModel.loanVo.loanId andAmount:capital andSuccessBlock:^(HXBFinModel_Buy_LoanModel *model, HXBFinModel_BuyResoult_LoanModel *resultModel) {
+                    ///加入成功
+                    [self popoverPresentationController];
                 } andFailureBlock:^(NSError *error) {
-                    
+                    NSLog(@"加入失败 %@ error =%@",self,error);
                 }];
             }
         } andFailure:^(NSError *error) {
             [HxbHUDProgress showTextWithMessage:@"加入失败"];
         }];
     }];
-    //点击了 服务协议
+}
+
+
+///点击了 服务协议
+- (void)registerClickNegotiateButton {
     [self.joinimmediateView_Loan clickNegotiateButtonFunc:^{
         
     }];
@@ -125,6 +157,7 @@
             ///加入上限
             //    model.upperLimitLabel_constStr = @"本期计划加入上限";
             /// ￥1000起投，1000递增 placeholder
+            model.profitLabelStr = weakSelf.loanViewModel.addCondition;
             model.amount = weakSelf.loanViewModel.loanDetailModel.loanVo.amount;//可用余额
             model.JoinImmediateView_Model.rechargeViewTextField_placeholderStr = weakSelf.loanViewModel.addCondition;
             ///余额展示
@@ -138,6 +171,8 @@
             model.JoinImmediateView_Model.upperLimitLabelStr = weakSelf.loanViewModel.unRepaid;
             ///确认加入的Buttonstr
             model.JoinImmediateView_Model.addButtonStr = @"确认加入";
+            ///预期收益
+            model.profitLabelStr = [NSString hxb_getPerMilWithDouble:0.0];
             return model;
         }];
 

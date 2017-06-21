@@ -146,8 +146,9 @@ static NSString * const kAssetsTotal = @"kAssetsTotal";
 #pragma mark - getter/setter
 -(BOOL)isLogin
 {
-    BOOL isLogin = ![self.token isEqualToString:@""] && self.phone.length;
-    
+    BOOL isLogin = self.token.length && self.phone.length;
+    NSLog(@"token = %@",self.token);
+    NSLog(@"phone = %@",self.phone);
     return isLogin;
 }
 

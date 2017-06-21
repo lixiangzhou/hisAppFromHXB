@@ -45,4 +45,8 @@
 @property (nonatomic,copy) NSString *earnInterest;
 ///收益的 比例
 @property (nonatomic,copy) NSString *totalInterest;
+///总资金
+@property (nonatomic,copy) NSString *amount;
+/// remainAmount_const
+@property (nonatomic,copy) NSString *remainAmount_const;
 @end

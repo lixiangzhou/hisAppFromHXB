@@ -9,5 +9,4 @@
 #import "HXBBaseViewController.h"
 
 @interface HxbSignInViewController : HXBBaseViewController
-
 @end

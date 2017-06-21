@@ -240,16 +240,6 @@
 - (void)clickAddButton: (UIButton *)button {
     NSLog(@"点了确认加入");
     // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
-    if (!(self.rechargeView.textField.text.floatValue >= 1000)) {
-        NSLog(@"请输入大于等于1000");
-        [HxbHUDProgress showTextWithMessage:@"起投金额1000元"];
-        return;
-    }
-    if ((self.rechargeView.textField.text.integerValue % 1000) != 0) {
-        NSLog(@"1000的整数倍");
-        [HxbHUDProgress showTextWithMessage:@"投资金额应为1000的整数倍"];
-        return;
-    }
     if (self.clickAddButton) {
         self.clickAddButton(self.rechargeView.textField.text);
     }
@@ -284,14 +274,14 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([textField isEqual:self.rechargeView.textField]) {
-        self.profitLabel.text = [self.model totalInterestWithAmount:textField.text.integerValue];
+        NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
+        self.profitLabel.text = [self.model totalInterestWithAmount:amount.floatValue];
     }
     return true;
 }
 - (BOOL) textFieldShouldEndEditing:(UITextField *)textField {
-   
-    //        self.profitLabel.text = self.model.
-    self.profitLabel.text = [self.model totalInterestWithAmount:textField.text.integerValue];
+
+    self.profitLabel.text = [self.model totalInterestWithAmount:textField.text.floatValue];
     return true;
 }
 @end

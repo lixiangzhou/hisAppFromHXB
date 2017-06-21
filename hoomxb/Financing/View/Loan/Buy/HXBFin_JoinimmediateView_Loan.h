@@ -25,7 +25,10 @@
 - (void)clickRechargeFunc: (void(^)())clickRechageButtonBlock;
 //点击了 服务协议
 - (void)clickNegotiateButtonFunc: (void(^)())clickNegotiateButtonBlock;
-///点击了加入
+/**
+ ///点击了加入
+ @param clickAddButtonBlock 加入金额block
+ */
 - (void)clickAddButtonFunc: (void(^)(NSString *capital))clickAddButtonBlock;
 @end
 

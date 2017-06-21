@@ -47,6 +47,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     self.title = @"Sign In";
     [self setLeftItemBar];
     [self setSignView];/// 设置 登录界面
@@ -58,9 +59,13 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 
 /// 设置 登录界面
 - (void)setSignView{
+    kWeakSelf
     self.signView = [[HxbSignInView alloc]initWithFrame:self.view.frame];
-    [self.view addSubview:self.signView];
-
+    self.hxb_automaticallyAdjustsScrollViewInsets = false;
+    [self.hxbBaseVCScrollView addSubview:self.signView];
+    [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
+        [weakSelf.signView endEditing:true];
+    }];
 }
 
 #pragma mark - signView事件注册
@@ -135,8 +140,8 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 #pragma mark - 数据的请求
 ///用户数据的请求
 - (void)userInfo_DownLoadData {
-    __weak typeof(self)weakSelf = self;
-    HXBRequestUserInfo *userInfo_request = [[HXBRequestUserInfo alloc]init];
+//    __weak typeof(self)weakSelf = self;
+//    HXBRequestUserInfo *userInfo_request = [[HXBRequestUserInfo alloc]init];
 //    [userInfo_request downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
 //        weakSelf.userInfoViewModel = viewModel;
 //    } andFailure:^(NSError *error) {
@@ -161,7 +166,9 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 }
 
 - (void)dismiss{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 - (void)setLeftItemBar{

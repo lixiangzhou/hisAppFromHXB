@@ -12,6 +12,9 @@
 + (NSDictionary *)modelContainerPropertyGenericClass {
     return @{@"dataList":[HXBFinDetailModel_PlanDetail_DataList class]};
 }
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"ID" : @"id"};
+}
 @end
 
 @implementation HXBFinDetailModel_PlanDetail_DataList

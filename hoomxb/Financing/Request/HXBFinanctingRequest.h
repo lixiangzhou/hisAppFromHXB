@@ -13,8 +13,10 @@
 @class HXBFinDetailViewModel_LoanDetail;//散标投递的详情页的ViewModel
 @class HXBFinModel_AddRecortdModel_Plan;//理财模块的加入记录接口
 @class FinModel_AddRecortdModel_Loan;//加入记录model
-@class HXBFinModel_Buy_Plan;//购买
-@class HXBconfirmBuyReslut;
+@class HXBFinModel_BuyResoult_PlanModel;//购买
+@class HXBFinModel_Buy_Plan;
+@class HXBFinModel_BuyResoult_LoanModel;
+@class HXBFinModel_Buy_LoanModel;
 
 
 static NSString *const HXBFinHomePagePlan_ASC = @"";
@@ -58,15 +60,15 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 - (void)loanAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)financeLoanId andOrder: (NSString *)order andSuccessBlock: (void(^)(FinModel_AddRecortdModel_Loan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 #pragma mark - 购买
-/// 计划购买
+/// 计划 购买
 - (void)planBuyWithPlanID:(NSString *)planID
-                andAmount: (NSString *)amount
-          andSuccessBlock:(void (^)(HXBFinModel_Buy_Plan *model))successDateBlock
+                andAmount:(NSString *)amount
+          andSuccessBlock:(void (^)(HXBFinModel_Buy_Plan *model,HXBFinModel_BuyResoult_PlanModel *resultModel))successDateBlock
           andFailureBlock:(void (^)(NSError *))failureBlock;
-/// 计划购买确认结果
-- (void)plan_confirmBuyReslutWithPlanID: (NSString *)planID
-                              andAmount: (NSString *)amount
-                        andSuccessBlock:(void (^)(HXBconfirmBuyReslut *model))successDateBlock
-                        andFailureBlock:(void (^)(NSError *error))failureBlock;
+/// loan 购买
+- (void)loanBuyWithLoanID:(NSString *)loanID
+                andAmount:(NSString *)amount
+          andSuccessBlock:(void (^)(HXBFinModel_Buy_LoanModel *model,HXBFinModel_BuyResoult_LoanModel *resultModel))successDateBlock
+          andFailureBlock:(void (^)(NSError *error))failureBlock;
 @end
 

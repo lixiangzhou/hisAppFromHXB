@@ -58,7 +58,7 @@
 ///锁定结束时间
 @property (nonatomic,copy) NSString *endLockingTime;
 ///String	计划id
-@property (nonatomic,copy) NSString *id;
+@property (nonatomic,copy) NSString *ID;
 ///String	加息利率
 @property (nonatomic,copy) NSString *extraInterestRate;
 ////String	提前退出费率
