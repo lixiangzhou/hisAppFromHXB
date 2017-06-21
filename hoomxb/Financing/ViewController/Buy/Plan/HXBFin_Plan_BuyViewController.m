@@ -112,7 +112,6 @@
                      [HxbHUDProgress showTextWithMessage:@"加入成功"];
                      [self popoverPresentationController];
                  } andFailureBlock:^(NSError *error) {
-                     
                  }];
              }
          } andFailure:^(NSError *error) {
