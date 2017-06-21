@@ -11,3 +11,12 @@
 @implementation HXBFinModel_BuyResoult_LoanModel
 
 @end
+@implementation HXBFinModel_BuyResoult_LoanModel_StateInput
+
+@end
+@implementation HXBFinModel_BuyResoult_LoanModel_Context
+
+@end
+@implementation HXBFinModel_BuyResoult_LoanModel_Context_TransInput
+
+@end

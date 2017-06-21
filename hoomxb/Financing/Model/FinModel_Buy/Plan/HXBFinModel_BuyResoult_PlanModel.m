@@ -11,3 +11,20 @@
 @implementation HXBFinModel_BuyResoult_PlanModel
 
 @end
+
+@implementation HXBFinModel_BuyResoult_PlanModel_context
+
+@end
+
+
+@implementation HXBFinModel_BuyResoult_PlanModel_stateInput
+
+@end
+
+@implementation HXBFinModel_BuyResoult_PlanModel_context_transInput
+
+@end
+
+@implementation HXBFinModel_BuyResoult_PlanModel_context_transInput_reserve2
+
+@end
