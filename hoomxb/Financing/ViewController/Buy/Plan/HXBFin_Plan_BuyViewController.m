@@ -170,6 +170,7 @@
         model.profitLabelStr = [NSString hxb_getPerMilWithDouble:0.0];
         ///确认加入的Buttonstr
         model.addButtonStr = @"确认加入";
+        
         return model;
     }];
 }
