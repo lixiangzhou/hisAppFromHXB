@@ -198,7 +198,10 @@ UITextFieldDelegate
         return;
     }
     ///可以登录
-    if (self.clickSignInButtonBlock) self.clickSignInButtonBlock(self.passwordTextField.text,self.phoneTextField.text);
+    if (self.clickSignInButtonBlock)
+    {
+        self.clickSignInButtonBlock(self.passwordTextField.text,self.phoneTextField.text);
+    }
 }
 ///点击了 注册按钮
 - (void)clickSignUPButton: (UIButton *)signUPButton {
@@ -300,7 +303,7 @@ UITextFieldDelegate
 
 
 #pragma mark - 点击事件的传递
-//登录
+///登录
 - (void)signIN_ClickButtonFunc:(void (^)(NSString *pasword,NSString *mobile))clickSignInButtonBlock {
     self.clickSignInButtonBlock = clickSignInButtonBlock;
 }

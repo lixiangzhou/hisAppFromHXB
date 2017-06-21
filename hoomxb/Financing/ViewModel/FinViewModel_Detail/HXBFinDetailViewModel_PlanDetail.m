@@ -56,10 +56,26 @@
     }
     return _contractName;
 }
-///剩余可投
+
+/**
+ 剩余可投
+ */
+- (NSString *) remainAmount  {
+    //剩余金额：不为0时显示剩余金额，为0时或状态不为可加入时，该字段变为【计划总金额：XXXXXX】
+    if (!_remainAmount) {
+        if (self.planDetailModel.remainAmount.floatValue <= 0) {
+            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.remainAmount.floatValue];
+        } else {
+            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount.floatValue];
+        }
+    }
+    return _remainAmount;
+}
 - (void)setUPRemainAmount {
     self.remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.remainAmount.floatValue];
 }
+
+
 ///剩余可追加金额
 - (void)setUPUserRemainAmount {
     self.userRemainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.userRemainAmount.floatValue];

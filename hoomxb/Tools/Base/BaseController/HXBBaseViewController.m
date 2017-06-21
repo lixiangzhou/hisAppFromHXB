@@ -32,9 +32,10 @@
     if (!_hxbBaseVCScrollView) {
         self.automaticallyAdjustsScrollViewInsets = NO;
 //        self.edgesForExtendedLayout = UIRectEdgeNone;
-        _hxbBaseVCScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
         [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
     }
     return _hxbBaseVCScrollView;
 }

@@ -47,9 +47,9 @@
 
 ///判断是否登录
 - (void)isLogin {
-    if (!KeyChain.isLogin) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-    }
+//    if (!KeyChain.isLogin) {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+//    }
 }
 
 ///UI搭建
@@ -110,87 +110,51 @@
 }
 
 - (void)setValue {
-    kWeakSelf
+    [self setUPModel];
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         self.userInfoViewModel = viewModel;
-        [self.joinimmediateView setUPValueWithModelBlock:^HXBJoinImmediateView_Model *(HXBJoinImmediateView_Model *model) {
-            
-            ///预计收益Const
-            model.profitLabel_consttStr = @"预期收益";
-            ///服务协议
-            model.negotiateLabelStr = @"我已阅读并同意";
-            ///余额 title
-            model.balanceLabel_constStr = @"可用余额";
-            ///充值的button str
-            model.rechargeButtonStr = @"充值";
-            ///一键购买的str
-            model.buyButtonStr = @"一键购买";
-            ///收益方式
-            model.profitTypeLable_ConstStr = @"收益处理方式";
-            ///加入上限
-            model.upperLimitLabel_constStr = @"本期计划加入上限";
-            
-            ///收益方法
-            model.profitTypeLabelStr = weakSelf.planViewModel.profitType;
-            /// ￥1000起投，1000递增 placeholder
-            model.rechargeViewTextField_placeholderStr = weakSelf.planViewModel.addCondition;
-            
-            ///余额展示
-            model.balanceLabelStr = viewModel.availablePoint;
-            
-            ///预计收益 在 加入计划的 view 内部计算
-            
-            ///服务协议 button str
-            model.negotiateButtonStr = weakSelf.planViewModel.contractName;
-            model.totalInterest = weakSelf.planViewModel.totalInterest;
-            ///加入上线
-            model.upperLimitLabelStr = weakSelf.planViewModel.singleMaxRegisterAmount;
-            ///确认加入的Buttonstr
-            model.addButtonStr = @"确认加入";
-            return model;
-        }];
-
-    
-        [self.joinimmediateView setUPValueWithModelBlock:^HXBJoinImmediateView_Model *(HXBJoinImmediateView_Model *model) {
-            
-            ///预计收益Const
-            model.profitLabel_consttStr = @"预期收益";
-            ///服务协议
-            model.negotiateLabelStr = @"我已阅读并同意";
-            ///余额 title
-            model.balanceLabel_constStr = @"可用余额";
-            ///充值的button str
-            model.rechargeButtonStr = @"充值";
-            ///一键购买的str
-            model.buyButtonStr = @"一键购买";
-            ///收益方式
-            model.profitTypeLable_ConstStr = @"收益处理方式";
-            ///加入上限
-            model.upperLimitLabel_constStr = @"本期计划加入上限";
-            
-            ///收益方法
-            model.profitTypeLabelStr = weakSelf.planViewModel.profitType;
-            /// ￥1000起投，1000递增 placeholder
-            model.rechargeViewTextField_placeholderStr = weakSelf.planViewModel.addCondition;
-            
-            ///余额展示
-            model.balanceLabelStr = viewModel.availablePoint;
-            
-            ///预计收益 在 加入计划的 view 内部计算
-        
-            ///服务协议 button str
-            model.negotiateButtonStr = weakSelf.planViewModel.contractName;
-            model.totalInterest = weakSelf.planViewModel.totalInterest;
-            ///加入上线
-            model.upperLimitLabelStr = weakSelf.planViewModel.singleMaxRegisterAmount;
-            ///确认加入的Buttonstr
-            model.addButtonStr = @"确认加入";
-            return model;
-        }];
-    } andFailure:^(NSError *error) {
+        [self setUPModel];
+        } andFailure:^(NSError *error) {
     }];
 }
-
+- (void) setUPModel {
+    kWeakSelf
+    [self.joinimmediateView setUPValueWithModelBlock:^HXBJoinImmediateView_Model *(HXBJoinImmediateView_Model *model) {
+        ///预计收益Const
+        model.profitLabel_consttStr = @"预期收益";
+        ///服务协议
+        model.negotiateLabelStr = @"我已阅读并同意";
+        ///余额 title
+        model.balanceLabel_constStr = @"可用余额";
+        ///充值的button str
+        model.rechargeButtonStr = @"充值";
+        ///一键购买的str
+        model.buyButtonStr = @"一键购买";
+        ///收益方式
+        model.profitTypeLable_ConstStr = @"收益处理方式";
+        ///加入上限
+        model.upperLimitLabel_constStr = @"本期计划加入上限";
+        
+        ///收益方法
+        model.profitTypeLabelStr = weakSelf.planViewModel.profitType;
+        /// ￥1000起投，1000递增 placeholder
+        model.rechargeViewTextField_placeholderStr = weakSelf.planViewModel.addCondition;
+        
+        ///余额展示
+        model.balanceLabelStr =  weakSelf.userInfoViewModel.availablePoint;
+        
+        ///预计收益 在 加入计划的 view 内部计算
+        
+        ///服务协议 button str
+        model.negotiateButtonStr = weakSelf.planViewModel.contractName;
+        model.totalInterest = weakSelf.planViewModel.totalInterest;
+        ///加入上线
+        model.upperLimitLabelStr = weakSelf.planViewModel.singleMaxRegisterAmount;
+        ///确认加入的Buttonstr
+        model.addButtonStr = @"确认加入";
+        return model;
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

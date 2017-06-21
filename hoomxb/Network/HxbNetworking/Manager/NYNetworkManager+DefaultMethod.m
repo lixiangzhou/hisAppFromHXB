@@ -37,6 +37,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 - (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request
 {
     if (request.responseStatusCode == 402 || request.responseStatusCode == 401) {
+        [[KeyChainManage sharedInstance] removeToken];
         //重复登录，强制下线
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         return;
@@ -54,8 +55,6 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
     }
 }
-
-
 
 
 //MARK: status == 0

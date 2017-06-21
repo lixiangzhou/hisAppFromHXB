@@ -20,24 +20,40 @@
 #import "HXBFinContract_contraceWebViewVC_Loan.h"//贷款合同的控制器
 
 #import "HXBFinBuy_Loan_ViewController.h"//加入
-
+#import "HXBFinDetailViewModel_LoanDetail.h"
 #import "HXBFin_Loan_BuyViewController.h"//加入界面
 //#import "HXBFinDetailView"
 
 @interface HXBFinancing_LoanDetailsViewController ()
 
 @property(nonatomic,strong) HXBFin_DetailsView_LoanDetailsView *loanDetailsView;
-
+@property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanDetailViewModel;
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewModelArray;
 ///tableView的tatile
 @property (nonatomic,strong) NSArray <NSString *>* tableViewTitleArray;
 ///详情底部的tableView的图片数组
 @property (nonatomic,strong) NSArray <NSString *>* tableViewImageArray;
+
 @end
 
 @implementation HXBFinancing_LoanDetailsViewController
 
-
+- (void) setLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)loanDetailViewModel {
+    _loanDetailViewModel = loanDetailViewModel;
+    kWeakSelf
+    
+    [self.loanDetailsView setUPViewModelVM:^HXBFin_DetailsViewBase_ViewModelVM *(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM) {
+        viewModelVM.totalInterestStr           = weakSelf.loanDetailViewModel.totalInterestPer100;///年利率
+        viewModelVM.totalInterestStr_const     = @"预期年利率";
+        viewModelVM.remainAmount               = weakSelf.loanDetailViewModel.surplusAmount;
+        viewModelVM.remainAmount_const         = @"剩余可投";
+        viewModelVM.startInvestmentStr         = weakSelf.loanDetailViewModel.leftMonths;
+        viewModelVM.startInvestmentStr_const   = @"标的期限";
+        viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
+        viewModelVM.addButtonStr               = @"立即加入";
+        return viewModelVM;
+    }];
+}
 - (void)setLoanListViewMode:(HXBFinHomePageViewModel_LoanList *)loanListViewMode {
     _loanListViewMode = loanListViewMode;
     //标题
@@ -100,7 +116,6 @@
     //是否为计划界面
     self.loanDetailsView.isPlan = false;
     self.loanDetailsView.isFlowChart = true;
-    self.loanDetailsView.loanListViewModel = self.loanListViewMode;
 }
 
 
@@ -145,13 +160,13 @@
         //如果不是登录 那么就登录
         if (![KeyChainManage sharedInstance].isLogin) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+            return;
         }
         
         //判断是否风险测评
         
         //跳转加入界面
         HXBFin_Loan_BuyViewController *loanJoinVC = [[HXBFin_Loan_BuyViewController alloc]init];
-        loanJoinVC.loanViewModel = weakSelf.loanDetailsView.loanDetailViewModel;
         [weakSelf.navigationController pushViewController:loanJoinVC animated:true];
     }];
 }
@@ -161,7 +176,7 @@
 - (void)downLoadData {
     __weak typeof(self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] loanDetaileWithLoanID:self.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanDetail *viewModel) {
-        weakSelf.loanDetailsView.loanDetailViewModel = viewModel;
+        weakSelf.loanDetailViewModel = viewModel;
         weakSelf.loanDetailsView.modelArray = weakSelf.tableViewModelArray;
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {

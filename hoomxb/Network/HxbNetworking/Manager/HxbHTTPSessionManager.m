@@ -37,6 +37,7 @@
                     kNetWorkError(@"token失效");
                    
                     [KeyChain setToken:model.token];
+                    
                     NSURLRequest *newRequest = request;
                     NSMutableURLRequest *mutableRequest = [request mutableCopy];    //拷贝request
                     [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-HxbAuth-Token"];

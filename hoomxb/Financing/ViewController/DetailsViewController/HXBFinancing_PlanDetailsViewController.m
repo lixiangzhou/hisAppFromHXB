@@ -43,6 +43,23 @@
     self.planID = planListViewModel.planListModel.ID;
     
 }
+///设置值
+- (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
+    kWeakSelf
+    _planDetailViewModel = planDetailViewModel;
+    [_planDetailsView setUPViewModelVM:^HXBFin_DetailsViewBase_ViewModelVM *(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM) {
+        viewModelVM.totalInterestStr           = weakSelf.planDetailViewModel.planDetailModel.expectedRate;
+        viewModelVM.startInvestmentStr         = weakSelf.planDetailViewModel.minRegisterAmount;
+        viewModelVM.remainAmount               = weakSelf.planDetailViewModel.remainAmount;
+        
+        viewModelVM.totalInterestStr_const     = @"年利率";
+        viewModelVM.remainAmount_const         = @"剩余金额";
+        viewModelVM.startInvestmentStr_const   = @"起投";
+        viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
+        viewModelVM.addButtonStr               = @"立即加入";
+        return viewModelVM;
+    }];
+}
 
 - (void) setupTableViewArray {
     self.tableViewImageArray = @[
@@ -94,13 +111,11 @@
     //是否为计划界面
     _planDetailsView.isPlan = true;
     _planDetailsView.isFlowChart = true;
-    _planDetailsView.planListViewModel = self.planListViewModel;
 }
 
 
 ///MARK: 事件注册
 - (void)registerClickCell {
-    
     __weak typeof (self)weakSelf = self;
     [self.planDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
         //跳转相应的页面
@@ -134,6 +149,7 @@
         //如果不是登录 那么就登录
         if (![KeyChainManage sharedInstance].isLogin) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+            return;
         }
         //跳转加入界面
         HXBFin_Plan_BuyViewController *planJoinVC = [[HXBFin_Plan_BuyViewController alloc]init];
@@ -146,7 +162,6 @@
 - (void)downLoadData {
     __weak typeof (self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
-        weakSelf.planDetailsView.planDetailViewModel = viewModel;
         weakSelf.planDetailViewModel = viewModel;
         weakSelf.planDetailsView.modelArray = self.tableViewModelArray;
         [weakSelf.hxbBaseVCScrollView endRefresh];

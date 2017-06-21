@@ -23,6 +23,7 @@
 #import "HXBFinHomePageModel_LoanList.h"
 
 @interface HXBFin_DetailsViewBase()
+@property (nonatomic,strong) HXBFin_DetailsViewBase_ViewModelVM *viewModelVM;
 ///预期年化的view
 @property (nonatomic,strong) UIView *expectedYearRateView;
 ///曾信View
@@ -52,7 +53,7 @@
 ///红利计划：剩余金额 散标列表是（剩余金额）
 @property (nonatomic,copy) NSString *remainAmount;
 @property (nonatomic,copy) NSString *remainAmount_const;
-
+@property (nonatomic,copy) NSString *addButtonStr;
 ///底部的tableView被点击
 @property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
 @property (nonatomic,copy) void (^clickAddButtonBlock)();
@@ -62,67 +63,35 @@
 @end
 
 @implementation HXBFin_DetailsViewBase
+@synthesize viewModelVM = _viewModelVM;
 
+- (HXBFin_DetailsViewBase_ViewModelVM *) viewModelVM {
+    if (!_viewModelVM) {
+        _viewModelVM = [[HXBFin_DetailsViewBase_ViewModelVM alloc]init];
+    }
+    return _viewModelVM;
+}
 
+- (void)setUPViewModelVM: (HXBFin_DetailsViewBase_ViewModelVM* (^)(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM))detailsViewBase_ViewModelVMBlock {
+    self.viewModelVM = detailsViewBase_ViewModelVMBlock(self.viewModelVM);
+}
+
+- (void)setViewModelVM:(HXBFin_DetailsViewBase_ViewModelVM *)viewModelVM {
+    _viewModelVM = viewModelVM;
+    self.totalInterestStr           = viewModelVM.totalInterestStr;
+    self.startInvestmentStr         = viewModelVM.startInvestmentStr;
+    self.remainAmount               = viewModelVM.remainAmount;
+    
+    self.totalInterestStr_const     = viewModelVM.totalInterestStr_const;
+    self.remainAmount_const         = viewModelVM.remainAmount_const;
+    self.startInvestmentStr_const   = viewModelVM.startInvestmentStr_const;
+    self.promptStr                  = viewModelVM.promptStr;
+    self.addButtonStr               = viewModelVM.addButtonStr;
+    [self show];
+}
 - (void)setModelArray:(NSArray<HXBFinDetail_TableViewCellModel *> *)modelArray {
     _modelArray = modelArray;
     self.bottomTableView.tableViewCellModelArray = modelArray;
-}
-#pragma mark - setter
-//判断了加入按钮的状态
-- (void)setPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)planListViewModel {
-    if ([planListViewModel.planListModel.joined isEqualToString:@"false"]) {//是否为已加入
-        [self.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
-    }else {
-          [self.addButton setTitle:@"追加" forState:UIControlStateNormal];
-    }
-}
-
-#pragma mark - 计划的ViewModel
-- (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
-    self.isPlan = true;
-    
-    _planDetailViewModel            = planDetailViewModel;
-    self.totalInterestStr           = planDetailViewModel.planDetailModel.expectedRate;
-    self.startInvestmentStr         = planDetailViewModel.minRegisterAmount;
-    self.remainAmount               = planDetailViewModel.remainAmount;
-    
-    
-    self.totalInterestStr_const     = @"年利率";
-    self.remainAmount_const         = @"剩余金额";
-    self.startInvestmentStr_const   = @"起投";
-    self.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
-    if ([self respondsToSelector:@selector(setData_PlanWithPlanDetailViewModel:)]) {
-        [self setData_PlanWithPlanDetailViewModel:planDetailViewModel];
-    }
-  
-    [self show];
-}
-
-- (void)setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
-
-    //    if ([loanListViewModel.loanListModel.joined isEqualToString:@"false"]) {//是否为已加入
-        [self.addButton setTitle:@"立即投标" forState:UIControlStateNormal];
-//    }else {
-//        [self.addButton setTitle:@"追加" forState:UIControlStateNormal];
-//    }
-}
-#pragma mark - 散标的setMOdel
-- (void)setLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)loanDetailViewModel{
-    self.isPlan = false;
-    if ([self respondsToSelector:@selector(setData_LoanWithLoanDetailViewModel:)]) {
-        [self setData_LoanWithLoanDetailViewModel:loanDetailViewModel];
-    }
-    _loanDetailViewModel            = loanDetailViewModel;
-    self.totalInterestStr           = loanDetailViewModel.totalInterestPer100;///年利率
-    self.totalInterestStr_const     = @"预期年利率";
-    self.remainAmount               = loanDetailViewModel.surplusAmount;
-    self.remainAmount_const         = @"剩余可投";
-    self.startInvestmentStr         = loanDetailViewModel.leftMonths;
-    self.startInvestmentStr_const   = @"标的期限";
-    self.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
-    [self.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
-    [self show];
 }
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -153,8 +122,7 @@
     self.surplusValueView.backgroundColor = [UIColor whiteColor];
     self.flowChartView.backgroundColor = [UIColor darkGrayColor];
     self.addView.backgroundColor = [UIColor grayColor];
-//    self.trustView.backgroundColor = [UIColor hxb_randomColor];
-//    self.bottomTableView.backgroundColor = [UIColor redColor];
+
 }
 
 //MARK: - 预期年化的view
@@ -163,6 +131,7 @@
     self.expectedYearRateView.frame = CGRectMake(0, 0, self.width, 200);
     [self addSubview:self.expectedYearRateView];
     [self upDownLableWithView:self.expectedYearRateView andDistance:20 andFirstFont:[UIFont systemFontOfSize:40] andFirstStr:[NSString stringWithFormat:@"%@%@",self.totalInterestStr,@"%"]  andSecondStr:[NSString stringWithFormat:@"%@",self.totalInterestStr_const]];
+    
 }
 
 //MARK: - 剩余可投view
@@ -184,6 +153,7 @@
         [self upDownLableWithView:self.surplusValueView andDistance:10 andFirstFont:[UIFont systemFontOfSize:30] andFirstStr:self.remainAmount andSecondStr:self.remainAmount_const];
     }
 }
+
 //剩余投资（起投，剩余金额
 - (void)setupSurplusValueViewWithTowView {
     __weak typeof (self) weakSelf = self;
@@ -252,10 +222,11 @@
         make.left.top.equalTo(weakSelf.addView).offset(20);
         make.bottom.right.equalTo(weakSelf.addView).offset(-20);
     }];
-    [self.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     self.addButton.backgroundColor = [UIColor blackColor];
+    [self.addButton setTitle:self.addButtonStr forState:UIControlStateNormal];
 }
+
 - (void)clickAddButton: (UIButton *)button {
     NSLog(@" - 立即加入 - ");
     if (self.clickAddButtonBlock) {
@@ -287,7 +258,6 @@
     firstLable.text = firstStr;
     secondLable.text = secondStr;
     secondLable.textColor = [UIColor grayColor];
-    
 }
 
 
@@ -326,4 +296,7 @@
 - (void) clickAddButtonFunc: (void(^)())clickAddButtonBlock {
     self.clickAddButtonBlock = clickAddButtonBlock;
 }
+@end
+
+@implementation HXBFin_DetailsViewBase_ViewModelVM
 @end
