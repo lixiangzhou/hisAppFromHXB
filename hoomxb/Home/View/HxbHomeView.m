@@ -203,6 +203,10 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.homeCellClickBlick) {
+        self.homeCellClickBlick(indexPath);
+    }
 //    
 //    if (_network) {
 //        [tableView deselectRowAtIndexPath:indexPath animated:YES];

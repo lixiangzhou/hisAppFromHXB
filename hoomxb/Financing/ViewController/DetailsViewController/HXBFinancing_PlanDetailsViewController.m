@@ -130,6 +130,7 @@
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
             HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
             planAddRecordVC.planListViewModel = weakSelf.planListViewModel;
+            planAddRecordVC.planID = weakSelf.planID;
             [weakSelf.navigationController pushViewController:planAddRecordVC animated:true];
         }
         ///红利计划服务

@@ -51,4 +51,9 @@
  倒计时时间差
  */
 @property (nonatomic, copy) NSString *diffTime;
+
+/**
+ id
+ */
+@property (nonatomic, copy) NSString *ID;
 @end
