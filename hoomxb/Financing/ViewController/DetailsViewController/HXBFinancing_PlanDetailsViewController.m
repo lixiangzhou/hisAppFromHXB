@@ -56,7 +56,15 @@
         viewModelVM.remainAmount_const         = @"剩余金额";
         viewModelVM.startInvestmentStr_const   = @"起投";
         viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
-        viewModelVM.addButtonStr               = @"立即加入";
+        
+        if (weakSelf.planDetailViewModel.planDetailModel.isFirst) {
+            viewModelVM.addButtonStr           = @"追加";
+        }else {
+            viewModelVM.addButtonStr           = @"立即加入";
+        }
+        if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
+            
+        }
         return viewModelVM;
     }];
 }

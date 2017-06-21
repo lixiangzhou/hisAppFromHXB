@@ -59,7 +59,7 @@ MyViewHeaderDelegate
     }];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [KeyChain removeAllInfo];
-        [((AppDelegate*)[UIApplication sharedApplication].delegate).mainTabbarVC setSelectedIndex:0];
+        [(HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController setSelectedIndex:0];
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];

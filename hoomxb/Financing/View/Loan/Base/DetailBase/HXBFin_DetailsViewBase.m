@@ -67,7 +67,11 @@
 
 - (HXBFin_DetailsViewBase_ViewModelVM *) viewModelVM {
     if (!_viewModelVM) {
+        kWeakSelf
         _viewModelVM = [[HXBFin_DetailsViewBase_ViewModelVM alloc]init];
+        [_viewModelVM addButtonChengeTitleChenge:^(NSString * buttonStr) {
+            [weakSelf.addButton setTitle:buttonStr forState:UIControlStateNormal];
+        }];
     }
     return _viewModelVM;
 }
@@ -300,5 +304,17 @@
 }
 @end
 
+@interface HXBFin_DetailsViewBase_ViewModelVM ()
+@property (nonatomic,copy) void(^addButtonChengeTitleBlock)(NSString *buttonTitle);
+@end
 @implementation HXBFin_DetailsViewBase_ViewModelVM
+- (void)setAddButtonStr:(NSString *)addButtonStr {
+    _addButtonStr = addButtonStr;
+    if (self.addButtonChengeTitleBlock) {
+        self.addButtonChengeTitleBlock(addButtonStr);
+    }
+}
+- (void)addButtonChengeTitleChenge:(void (^)(NSString *))addButtonChengeTitleBlock {
+    self.addButtonChengeTitleBlock = addButtonChengeTitleBlock;
+}
 @end

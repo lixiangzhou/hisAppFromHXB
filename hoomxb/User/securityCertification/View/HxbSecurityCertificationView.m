@@ -50,9 +50,9 @@ UITextFieldDelegate
         if (![_payPasswordTextField.text isEqualToString:_payPasswordConfirmTextField.text]) {
              return [HxbHUDProgress showTextWithMessage:@"两次输入的密码不一致"];
         }
-        [KeyChain setRealName:_nameTextField.text];
-        [KeyChain setRealId:_identityCardNumTextField.text];
-        [KeyChain setTradePwd:_payPasswordConfirmTextField.text];
+//        [KeyChain setRealName:_nameTextField.text];
+//        [KeyChain setRealId:_identityCardNumTextField.text];
+//        [KeyChain setTradePwd:_payPasswordConfirmTextField.text];
         ///点击了安全认证按钮
         if (self.clickNextButtonBlock) {
             self.clickNextButtonBlock(self.nameTextField.text, self.identityCardNumTextField.text, self.payPasswordTextField.text);
@@ -146,16 +146,16 @@ UITextFieldDelegate
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    if ([textField isEqual:self.identityCardNumTextField]) {
-        ///验证身份证是否合法
-        HXBModifyTransactionPasswordRequest *request = [[HXBModifyTransactionPasswordRequest alloc]init];
-        ///验证身份证是否合法
-        [request myTransactionPasswordWithIDcard:self.identityCardNumTextField.text andSuccessBlock:^(id responseObject) {
-       } andFailureBlock:^(NSError *error) {
-           //
-           NSLog(@"身份证不合法");
-       }];
-    }
+//    if ([textField isEqual:self.identityCardNumTextField]) {
+//        ///验证身份证是否合法
+//        HXBModifyTransactionPasswordRequest *request = [[HXBModifyTransactionPasswordRequest alloc]init];
+//        ///验证身份证是否合法
+//        [request myTransactionPasswordWithIDcard:self.identityCardNumTextField.text andSuccessBlock:^(id responseObject) {
+//       } andFailureBlock:^(NSError *error) {
+//           //
+//           NSLog(@"身份证不合法");
+//       }];
+//    }
     return true;
 }
 

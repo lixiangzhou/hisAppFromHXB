@@ -42,17 +42,14 @@
             
         }];
     }];
+   
 }
 
 - (void)requestSecurityCertification {
-    
 }
 
 
 - (void)didClickSecurityCertificationButton{
-//    [HxbHUDProgress showTextWithMessage:@"点了"];
-    
-   
 }
 
 @end

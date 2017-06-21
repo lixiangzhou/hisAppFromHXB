@@ -98,7 +98,7 @@
          NSInteger minRegisterAmountInteger = minRegisterAmount;
          if ((capital.integerValue % minRegisterAmountInteger) != 0) {
              NSLog(@"1000的整数倍");
-             NSString *message = [NSString stringWithFormat:@"投资金额应为%ld的整数倍",minRegisterAmountInteger];
+             NSString *message = [NSString stringWithFormat:@"投资金额应为%ld的整数倍",(long)minRegisterAmountInteger];
              [HxbHUDProgress showTextWithMessage:message];
              return;
          }

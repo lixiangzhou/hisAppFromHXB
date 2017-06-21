@@ -132,4 +132,36 @@
         _HUD = nil;
     }
 }
+
+/**
+// 自定义HUD
+// */
+//- (void)customViewExampleWithView:(UIView *)view andImage: (UIImage *) {
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    
+//    // Set the custom view mode to show any view.
+//    hud.mode = MBProgressHUDModeCustomView;
+//    // Set an image view with a checkmark.
+//    UIImage *image = [[UIImage imageNamed:@"Checkmark"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+//    hud.customView = [[UIImageView alloc] initWithImage:image];
+//    // Looks a bit nicer if we make it square.
+//    hud.square = YES;
+//    // Optional label text.
+//    hud.label.text = NSLocalizedString(@"Done", @"HUD done title");
+//    
+//    [hud hideAnimated:YES afterDelay:3.f];
+//}
+
+/**
+ 带有label的HUD
+ */
+//- (void)labelExample {
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+//    hud.bezelView.backgroundColor = [UIColor colorWithRed:125/255.0f green:125/255.0f blue:125/255.0f alpha:1.f];
+//    hud.label.text = NSLocalizedString(@"Loading...", @"HUD loading title");
+//    hud.label.textColor = [UIColor whiteColor];
+//    
+//    //加载完成
+//    //    [hud hideAnimated:YES];
+//}
 @end

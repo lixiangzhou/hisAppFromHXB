@@ -96,7 +96,7 @@
     [self.joinimmediateView_Loan clickAddButtonFunc:^(NSString *capital) {
         // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
         
-        CGFloat minRegisterAmount = weakSelf.loanViewModel.surplusAmount.floatValue;
+        CGFloat minRegisterAmount = weakSelf.loanViewModel.loanDetailModel.minInverst.floatValue;
         if ((capital.floatValue < minRegisterAmount)) {
             NSLog(@"请输入大于等于1000");
             [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"起投金额%.2lf元",minRegisterAmount]];
@@ -106,7 +106,7 @@
         NSInteger minRegisterAmountInteger = minRegisterAmount;
         if ((capital.integerValue % minRegisterAmountInteger) != 0) {
             NSLog(@"1000的整数倍");
-            NSString *message = [NSString stringWithFormat:@"投资金额应为%ld的整数倍",minRegisterAmountInteger];
+            NSString *message = [NSString stringWithFormat:@"投资金额应为%ld的整数倍",(long)minRegisterAmountInteger];
             [HxbHUDProgress showTextWithMessage:message];
             return;
         }

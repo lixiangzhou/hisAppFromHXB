@@ -80,4 +80,5 @@
 @property (nonatomic,copy) NSString *remainAmount_const;
 
 @property (nonatomic,copy) NSString *addButtonStr;
+- (void) addButtonChengeTitleChenge: (void(^)(NSString *))addButtonChengeTitleBlock;
 @end
