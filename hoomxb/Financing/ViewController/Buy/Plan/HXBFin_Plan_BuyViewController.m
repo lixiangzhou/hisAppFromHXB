@@ -165,9 +165,6 @@
             model.addButtonStr = @"确认加入";
             return model;
         }];
-    } andFailure:^(NSError *error) {
-        
-    }];
 }
 
 - (void)didReceiveMemoryWarning {
