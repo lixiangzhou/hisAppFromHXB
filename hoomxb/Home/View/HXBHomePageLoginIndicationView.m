@@ -10,6 +10,7 @@
 #import "HxbHomeViewController.h"
 
 #import "UILabel+Util.h"
+#import "HXBRequestUserInfo.h"
 
 @interface HXBHomePageLoginIndicationView ()
 
@@ -31,7 +32,7 @@
  */
 @property (nonatomic, strong) UIButton *ciphertextButton;
 
-
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 @end
 
@@ -88,8 +89,18 @@
 - (void)setModle:(NSString *)modle
 {
     _modle = modle;
-    self.availableAmountLabel.attributedText = [self handleWithString:@"可用金额(元):789.76"];
-    self.accumulatedIncomeLabel.attributedText = [self handleWithString:@"累计收益(元):789.76"];
+    kWeakSelf
+    
+    
+    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        weakSelf.availableAmountLabel.text = [NSString stringWithFormat:@"可用金额(元):%@",viewModel.userInfoModel.userAssets.availablePoint];
+        weakSelf.accumulatedIncomeLabel.text = [NSString stringWithFormat:@"累计收益(元):%@",viewModel.userInfoModel.userAssets.earnTotal];
+        weakSelf.userInfoViewModel = viewModel;
+    } andFailure:^(NSError *error) {
+        
+    }];
+
+    
 }
 
 /**
@@ -99,29 +110,14 @@
 {
    
     if (self.ciphertextButton.selected) {
-        self.accumulatedIncomeLabel.attributedText = [self handleWithString:@"累计收益(元):789.76"];
+        self.accumulatedIncomeLabel.text = [NSString stringWithFormat:@"累计收益(元):%@",self.userInfoViewModel.userInfoModel.userAssets.earnTotal];
     }else{
-        self.accumulatedIncomeLabel.attributedText = [self handleWithString:@"累计收益(元):******"];
+        self.accumulatedIncomeLabel.text = [self.accumulatedIncomeLabel.text replaceStringWithStartLocation:8 lenght:self.userInfoViewModel.userInfoModel.userAssets.earnTotal.length];
     }
     self.ciphertextButton.selected = !self.ciphertextButton.selected;
 }
 
-/**
- 对字符串进行部分放大处理
 
- @param str 需要处理的字符串
- @return 返回给你一个NSMutableAttributedString类型的字符串
- */
-- (NSMutableAttributedString *)handleWithString:(NSString *)str
-{
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:str];
-    // 设置字体和设置字体的范围
-    [attrStr addAttribute:NSFontAttributeName
-                                     value:[UIFont systemFontOfSize:17.0f]
-                                     range:NSMakeRange(8, str.length - 8)];
-    return attrStr;
-
-}
 
 #pragma mark Get Methdos
 

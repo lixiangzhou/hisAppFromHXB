@@ -255,7 +255,7 @@
         _homeView.tipButtonClickBlock_homeView = ^(){
             
             [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-                
+                NSLog(@"%@",isVerify);
                 if (![KeyChain isLogin]) {
                     //跳转登录注册
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
