@@ -151,6 +151,7 @@
         ///加入上限
         model.upperLimitLabel_constStr = @"本期计划加入上限";
         
+        model.balanceLabelStr = weakSelf.planViewModel.userRemainAmount;
         ///收益方法
         model.profitTypeLabelStr = weakSelf.planViewModel.profitType;
         /// ￥1000起投，1000递增 placeholder

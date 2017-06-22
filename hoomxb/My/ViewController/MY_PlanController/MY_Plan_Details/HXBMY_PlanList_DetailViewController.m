@@ -54,7 +54,6 @@
     [self.detailRequest planListDetails_requestWithFinancePlanID:planID andSuccessBlock:^(HXBMYViewModel_PlanDetailViewModel *viewModel) {
         weakSelf.planDetailView.planDetailViewModel = viewModel;
     } andFailureBlock:^(NSError *error) {
-        
     }];
 }
 

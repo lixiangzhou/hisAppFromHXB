@@ -20,12 +20,13 @@
 - (void)planListDetails_requestWithFinancePlanID: (NSString *)planID
                                  andSuccessBlock: (void(^)(HXBMYViewModel_PlanDetailViewModel *viewModel))successDateBlock
                                  andFailureBlock: (void(^)(NSError *error))failureBlock {
-   
+    
     HXBBaseRequest *planDetailAPI = [[HXBBaseRequest alloc]init];
     planDetailAPI.requestUrl = kHXBMY_PlanDetaileURL(planID);
     planDetailAPI.requestMethod = NYRequestMethodGet;
     
     [planDetailAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        kHXBResponsShowHUD
         NSDictionary *dataDic = responseObject[@"data"][@"dataList"];
         HXBMYModel_PlanDetailModel *planDetailModel = [[HXBMYModel_PlanDetailModel alloc]init];
         [planDetailModel yy_modelSetWithDictionary:dataDic];

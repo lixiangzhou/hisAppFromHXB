@@ -57,11 +57,8 @@
         viewModelVM.startInvestmentStr_const   = @"起投";
         viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
         
-        if (weakSelf.planDetailViewModel.planDetailModel.isFirst) {
-            viewModelVM.addButtonStr           = @"追加";
-        }else {
-            viewModelVM.addButtonStr           = @"立即加入";
-        }
+        viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
+        
         if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
             
         }
