@@ -451,9 +451,9 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
                 isVerifyBlock(_isVerify);
             }
         }];
-        if (isVerifyBlock) {
-            isVerifyBlock(_isVerify);
-        }
+    }
+    if (isVerifyBlock) {
+        isVerifyBlock(_isVerify);
     }
 }
 //!<手势密码是否开启
