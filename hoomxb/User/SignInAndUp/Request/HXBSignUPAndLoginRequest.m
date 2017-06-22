@@ -62,6 +62,7 @@
         kHXBResponsShowHUD;
         if (successBlock) {
             successBlock(true);
+            
             [KeyChain setMobile:mobile];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
