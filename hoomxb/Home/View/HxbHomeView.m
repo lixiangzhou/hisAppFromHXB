@@ -60,7 +60,17 @@
     kWeakSelf
     [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
         if ([isVerify isEqualToString:@"1"] && [KeyChain isInvest]) {
-            [weakSelf.headView showAlreadyInvestedView];
+            
+            [KeyChain assetsTotalWithBlock:^(NSString *assetsTotal) {
+                if ([assetsTotal integerValue]>0) {
+                    //已经投资显示的界面
+                    [weakSelf.headView showAlreadyInvestedView];
+                }else
+                {
+                    //没有投资显示的界面
+                    [weakSelf.headView showNotValidatedView];
+                }
+            }];
         }else
         {
             //没有投资显示的界面

@@ -27,6 +27,7 @@
                                 };
     [request startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSString *message = responseObject[kResponseMessage];
+        
         if ([responseObject[kResponseStatus] integerValue] == 1) {
             if (failureBlock) {
                 failureBlock(nil,message);
