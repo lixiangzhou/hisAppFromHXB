@@ -9,5 +9,5 @@
 #import "HXBBaseViewController.h"
 ///账户界面
 @interface HxbAccountInfoViewController : HXBBaseViewController
-
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @end

@@ -12,9 +12,10 @@
 #import "HxbAccountInfoViewController.h"
 #import "HxbMyTopUpViewController.h"
 #import "HxbWithdrawViewController.h"
-
+#import "HXBRequestUserInfo.h"
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @end
 
 @implementation HxbMyViewController
@@ -56,6 +57,7 @@
 
 - (void)setupMyView{
     HxbMyView *myView = [[HxbMyView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    myView.userInfoViewModel = self.userInfoViewModel;
     myView.delegate = self;
     myView.userInteractionEnabled = YES;
     [self.view addSubview:myView];
@@ -65,6 +67,7 @@
 
 - (void)didLeftHeadBtnClick:(UIButton *)sender{
     HxbAccountInfoViewController *accountInfoVC = [[HxbAccountInfoViewController alloc]init];
+    accountInfoVC.userInfoViewModel = self.userInfoViewModel;
     [self.navigationController pushViewController:accountInfoVC animated:YES];
 }
 /// 提现
@@ -83,5 +86,14 @@
 
 - (void)clickMyLoanButton: (UIButton *)button {
     NSLog(@"%@ - 散标被点击",self.class);
+}
+#pragma mark - 加载数据
+- (void)loadData_userInfo {
+    kWeakSelf
+    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        weakSelf.userInfoViewModel = viewModel;
+    } andFailure:^(NSError *error) {
+        NSLog(@"%@",self);
+    }];
 }
 @end

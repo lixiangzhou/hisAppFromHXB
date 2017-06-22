@@ -15,5 +15,6 @@
 - (NSString *) hxb_hiddenUserNameWithleft;
 ///隐藏了银行卡号
 - (NSString *) hxb_hiddenBankCard;
-
+///将某个范围内的字符串变为不可见
+-(NSString *)replaceStringWithStartLocation:(NSInteger)startLocation lenght:(NSInteger)lenght;
 @end

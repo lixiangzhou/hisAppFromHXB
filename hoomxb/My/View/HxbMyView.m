@@ -37,6 +37,16 @@ MyViewHeaderDelegate
     return self;
 }
 
+
+/**
+ 数据模型的set方法
+ */
+- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
+{
+    _userInfoViewModel = userInfoViewModel;
+    self.headerView.userInfoViewModel = userInfoViewModel;
+}
+
 - (void)didClickLeftHeadBtn:(UIButton *)sender{
     [self.delegate didLeftHeadBtnClick:sender];
    
