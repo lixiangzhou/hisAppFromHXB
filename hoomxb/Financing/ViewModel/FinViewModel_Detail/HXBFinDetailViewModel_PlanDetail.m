@@ -94,55 +94,59 @@
     self.hxb_singleMaxRegisterAmount = [NSString stringWithFormat:@"本期计划加入上限%@元",str];
 }
 
-- (NSString *)addButtonStr {
+- (void)setAddButtonStrValue {
+    self.isAddButtonNoInteraction = true;
     if (self.planDetailModel.isFirst.integerValue) {
         self.addButtonStr = @"立即加入";
         self.isAddButtonNoInteraction = false;
     }else {
         self.addButtonStr = @"追加";
-        self.isAddButtonNoInteraction = false;
+        self.isAddButtonNoInteraction = true;
     }
     switch ([self.planDetailModel.unifyStatus integerValue]) {
         case 0:
-            return @"等待预售开始超过30分";
+            self.addButtonStr = @"等待预售开始超过30分";
             break;
         case 1:
-            return @"等待预售开始小于30分钟";
+            self.addButtonStr = @"等待预售开始小于30分钟";
             break;
         case 2:
-            return @"预定";
+            self.addButtonStr = @"预定";
             break;
         case 3:
-            return @"预定满额";
+            self.addButtonStr = @"预定满额";
             break;
         case 4:
-            return @"等待开放购买大于30分钟";
+            self.addButtonStr = @"等待开放购买大于30分钟";
             break;
         case 5:
-            return @"等待开放购买小于30分钟";
+            self.addButtonStr = @"等待开放购买小于30分钟";
             break;
         case 6:
-            return @"开放加入";
+            self.addButtonStr = @"开放加入";
             break;
         case 7:
-            return @"加入满额";
+            self.addButtonStr = @"加入满额";
             break;
         case 8:
-            return @"收益中";
+            self.addButtonStr = @"收益中";
             break;
         case 9:
-            return @"开放期";
+            self.addButtonStr = @"开放期";
             break;
         case 10:
-            return @"已退出";
+            self.addButtonStr = @"已退出";
             break;
     }
-    return @"立即加入";
+    self.addButtonStr = @"立即加入";
 }
-- (void)setUPAddButtonStr {
-   
 
-        }
+
+- (NSString *)countDownStr {
+    return self.planDetailModel.diffTime;
+}
+
+
 /**
  投标下线
  */

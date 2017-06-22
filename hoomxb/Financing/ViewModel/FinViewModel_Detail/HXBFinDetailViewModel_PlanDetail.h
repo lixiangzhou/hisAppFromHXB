@@ -33,20 +33,28 @@
 
 ///本期计划加入上线//1.加入上限：金额随用户实际的可加入金额变动，e.g.用户第一次投该期红利计划，显示为“本期计划加入上限50,000元”,用户投资30000元后，第二次追加进到该页面，显示“本期计划加入上限20,000元”，加入上限>计划剩余可投资金额时，显示计划剩余可投资金额
 @property (nonatomic,copy) NSString *hxb_singleMaxRegisterAmount;
+
+
 ///立即加入的String
 @property (nonatomic,copy) NSString *addButtonStr;
+/// 倒计时的 string
+@property (nonatomic,copy) NSString *countDownStr;
 
 ///加入按钮是否置灰
 @property (nonatomic,assign) BOOL isAddButtonNoInteraction;
 
 ///收益方式
 @property (nonatomic,copy) NSString *profitType;
+
 ///已经收益
 @property (nonatomic,copy) NSString *earnInterest;
+
 ///收益的 比例
 @property (nonatomic,copy) NSString *totalInterest;
+
 ///总资金
 @property (nonatomic,copy) NSString *amount;
+
 /// remainAmount_const
 @property (nonatomic,copy) NSString *remainAmount_const;
 @end
