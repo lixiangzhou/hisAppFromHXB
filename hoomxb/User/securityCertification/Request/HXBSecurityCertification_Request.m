@@ -26,12 +26,14 @@
                                 @"tradpwd" : tradpwd
                                 };
     [request startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        NSString *message = responseObject[kResponseMessage];
         
+        NSString *message = responseObject[kResponseMessage];
         if ([responseObject[kResponseStatus] integerValue] == 1) {
             if (failureBlock) {
+                [HxbHUDProgress showTextWithMessage:message];
                 failureBlock(nil,message);
             }
+            
             NSLog(@"用户已经进行过实名认证。");
             return;
         }

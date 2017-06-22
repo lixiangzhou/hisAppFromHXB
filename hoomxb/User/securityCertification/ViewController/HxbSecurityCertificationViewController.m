@@ -38,24 +38,10 @@
                     [self dismissViewControllerAnimated:true completion:nil];
                 }
             } andFailure:^(NSError *error) {
+                
             }];
 
         } andFailureBlock:^(NSError *error, NSString *message) {
-            
-        }];
-        [HXBSignUPAndLoginRequest realnameRequestWithUserName:name andIdentityCard:idCard andPassword:transactionPassword andSuccessBlock:^(BOOL isExist) {
-            //（获取用户信息）
-            [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-                //是否绑卡
-                if (!viewModel.userInfoModel.userInfo.hasBindCard.integerValue) {
-                    HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];
-                    [self.navigationController pushViewController:bindCardVC animated:YES];
-                }else {
-                    [self dismissViewControllerAnimated:true completion:nil];
-                }
-            } andFailure:^(NSError *error) {
-            }];
-        } andFailureBlock:^(NSError *error) {
             
         }];
     }];
