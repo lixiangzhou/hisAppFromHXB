@@ -17,6 +17,11 @@
  */
 + (instancetype)sharedInstance;
 @property (nonatomic, copy) NSString  *token;
+@property (nonatomic, assign, readonly) BOOL isLogin;
+///手势密码
+@property (nonatomic, copy) NSString  *gesturePwd;
+///手势密码输入的次数
+@property (nonatomic, copy) NSString  *gesturePwdCount;
 /*
 @property (nonatomic, copy) NSString  *token;
 @property (nonatomic, copy) NSString  *phone;
@@ -123,6 +128,7 @@
 
 ///信息赋值
 - (void) setValueWithUserInfoModel: (HXBRequestUserInfoViewModel *)userInfoViewModel;
+
 
 
 - (void)removePassword;     //!< 移除密码
