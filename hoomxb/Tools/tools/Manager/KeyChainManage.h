@@ -128,8 +128,10 @@
 
 ///信息赋值
 - (void) setValueWithUserInfoModel: (HXBRequestUserInfoViewModel *)userInfoViewModel;
-
-
+/*
+ 储存号码
+ */
+- (void) setMobile:(NSString *)mobile;
 
 - (void)removePassword;     //!< 移除密码
 

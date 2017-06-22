@@ -18,7 +18,7 @@
     [self setUPUserRemainAmount];///剩余可追加金额
     [self setUPRemainAmount];///剩余可投
     [self setUPhxb_SingleMaxRegisterAmount];///本期计划加入上限
-    [self setUPAddButtonStr];
+    [self setAddButtonStrValue];
 }
 
 

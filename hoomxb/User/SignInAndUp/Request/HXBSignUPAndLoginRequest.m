@@ -62,8 +62,7 @@
         kHXBResponsShowHUD;
         if (successBlock) {
             successBlock(true);
-            KeyChain.phone = mobile;
-            KeyChain.loginPwd = [request.requestArgument valueForKey:@"password"];
+            [KeyChain setMobile:mobile];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {

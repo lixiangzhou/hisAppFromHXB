@@ -111,6 +111,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 @end
 
 @implementation KeyChainManage
+@synthesize mobile = _mobile;
 
 + (instancetype)sharedInstance
 {
@@ -140,34 +141,40 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     
     //是否实名
     _isVerify = userInfoViewModel.userInfoModel.userInfo.isAllPassed;
-    [_keychain setObject:_isVerify forKeyedSubscript:kIsAllPassed];
+    _keychain[kIsAllPassed] = _isVerify;
     
     //是否绑卡 已绑卡， 0：未绑卡
     _isBindCard = userInfoViewModel.userInfoModel.userInfo.hasBindCard;
-    [_keychain setObject:_isBindCard forKeyedSubscript:kIsBindCard];
+    _keychain[kIsBindCard] = _isBindCard;
     
     //isCashPasswordPassed	String	是否有交易密码
     _isCashPasswordPassed = userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed;
-    [_keychain setObject:_isCashPasswordPassed forKeyedSubscript:kISCashPasswordPassed];
+     _keychain[kISCashPasswordPassed] = _isCashPasswordPassed;
+    
     ///isIdPassed	String	是否实名
     _isIdPassed = userInfoViewModel.userInfoModel.userInfo.isIdPassed;
-    [_keychain setObject:_isIdPassed forKeyedSubscript:kIsIdPassed];
+    _keychain[kIsIdPassed] = _isIdPassed;
+    
     
     ///isMobilePassed	String	是否手机号
     _isMobilePassed = userInfoViewModel.userInfoModel.userInfo.isMobilePassed;
-    [_keychain setObject:_isMobilePassed forKeyedSubscript:kIsMobilePassed];
+    _keychain[kIsMobilePassed] = _isMobilePassed;
+    
     
     ///用户手机号
     _mobile = userInfoViewModel.userInfoModel.userInfo.mobile;
-    [_keychain setObject:_mobile forKeyedSubscript:kMobile];
+    _keychain[kMobile] = _mobile;
+    
     
     /// 用户名
     _userName = userInfoViewModel.userInfoModel.userInfo.username;
-    [_keychain setObject:_userName forKeyedSubscript:kUserName];
+    _keychain[kUserName] = _userName;
+    
     
     ///用户id
     _userId = userInfoViewModel.userInfoModel.userInfo.userId;
-    [_keychain setObject:_userId forKeyedSubscript:kUserId];
+    _keychain[kUserId] = _userId;
+    
     ///	double	总资产
     _assetsTotal = userInfoViewModel.userInfoModel.userAssets.assetsTotal;
     ///	double	累计收益
@@ -354,7 +361,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 
 ///isMobilePassed	String	是否手机号
 - (void)isMobilePassedWithBlock: (void(^)(NSString *mobilePassed))mobilePassedBlock {
-   if (![[_keychain valueForKey:kIsMobilePassed] integerValue]) {
+   if (![_isMobilePassed integerValue]) {
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             [self setValueWithUserInfoModel:viewModel];
             if (mobilePassedBlock) {
@@ -432,17 +439,14 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 }
 ///	是否安全认证
 - (void) isVerifyWithBlock: (void(^)(NSString *isVerify))isVerifyBlock {
-    if (![[_keychain valueForKey:kIsAllPassed] integerValue]) {
+    if (![self.isVerify length]) {
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             _isVerify = viewModel.userInfoModel.userInfo.isAllPassed;
             [_keychain setObject:_isVerify forKeyedSubscript:kIsAllPassed];
             if (isVerifyBlock) {
                 isVerifyBlock(_isVerify);
             }
-            
         } andFailure:^(NSError *error) {
-            _isVerify = @"0";
-            [_keychain setObject:@"0" forKeyedSubscript:kIsAllPassed];
             if (isVerifyBlock) {
                 isVerifyBlock(_isVerify);
             }
@@ -536,6 +540,13 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     return isLogin;
 }
 
+- (void) setMobile:(NSString *)mobile {
+    _mobile = mobile;
+    self.keychain[kMobile] = mobile;
+}
+- (NSString *)mobile {
+    return self.keychain[kMobile];
+}
 - (void)setToken:(NSString *)token
 {
     self.keychain[kToken] = token;
