@@ -17,7 +17,7 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+//@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @end
 
 @implementation HxbAccountInfoViewController
@@ -27,7 +27,7 @@ UITableViewDataSource
     self.title = @"账户信息";
     [self.view addSubview:self.tableView];
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
-    [self loadData_userInfo];///加载用户数据
+//    [self loadData_userInfo];///加载用户数据
     
 }
 
@@ -119,12 +119,13 @@ UITableViewDataSource
 }
 
 #pragma mark - 加载数据
-- (void)loadData_userInfo {
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        self.userInfoViewModel = viewModel;
-    } andFailure:^(NSError *error) {
-        NSLog(@"%@",self);
-    }];
-}
+//- (void)loadData_userInfo {
+//    kWeakSelf
+//    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+//        weakSelf.userInfoViewModel = viewModel;
+//    } andFailure:^(NSError *error) {
+//        NSLog(@"%@",self);
+//    }];
+//}
 
 @end

@@ -15,5 +15,6 @@
 @end
 
 @interface HxbMyViewHeaderView : UIView
+@property (nonatomic, strong) HXBRequestUserInfoViewModel * _Nonnull userInfoViewModel;
 @property (nonatomic,weak,nullable)id<MyViewHeaderDelegate>delegate;
 @end

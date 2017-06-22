@@ -28,6 +28,7 @@
         }
         
     } failure:^(NYBaseRequest *request, NSError *error) {
+        NSLog(@"%@",error);
         if (failureBlock) {
             failureBlock(error);
         }

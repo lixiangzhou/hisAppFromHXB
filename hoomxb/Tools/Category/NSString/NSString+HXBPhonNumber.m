@@ -30,21 +30,16 @@
     return [self stringByReplacingOccurrencesOfString:[self substringWithRange:NSMakeRange(0,self.length - 4)]withString:@"**** **** **** "];
 }
 
--(NSString *)replaceStringWithAsterisk:(NSString *)originalStr startLocation:(NSInteger)startLocation lenght:(NSInteger)lenght
-
+-(NSString *)replaceStringWithStartLocation:(NSInteger)startLocation lenght:(NSInteger)lenght
 {
     
-    NSString *newStr = originalStr;
-    
-    for (int i = 0; i < lenght; i++) {
-        
-        NSRange range = NSMakeRange(startLocation, 1);
-        
-        newStr = [newStr stringByReplacingCharactersInRange:range withString:@"*"];
-        
-        startLocation ++;
-        
+    NSString *newStr = @"";
+    for (NSInteger i = startLocation; i<self.length; i++) {
+        newStr = [NSString stringWithFormat:@"%@*",newStr];
     }
+    NSRange range = NSMakeRange(startLocation, lenght);
+    newStr = [self stringByReplacingCharactersInRange:range withString:newStr];
+    
     return newStr;
 }
 @end

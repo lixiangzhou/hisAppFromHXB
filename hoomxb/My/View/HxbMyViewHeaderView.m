@@ -48,12 +48,42 @@
     return self;
 }
 
+/**
+ 设置数据
+
+ @param userInfoViewModel 数据模型
+ */
+- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
+{
+    _userInfoViewModel = userInfoViewModel;
+    self.allFinanceLabel.text = userInfoViewModel.userInfoModel.userAssets.assetsTotal?:@"0.00";
+    self.accumulatedProfitLabel.text = userInfoViewModel.userInfoModel.userAssets.earnTotal?:@"0.00";
+    self.balanceLabel.text = userInfoViewModel.userInfoModel.userAssets.availablePoint?:@"0.00";
+}
+
+
 - (void)leftHeaderButtonClick:(UIButton *)sender{
     
     if ([self.delegate respondsToSelector:@selector(didClickLeftHeadBtn:)]) {
         [self.delegate didClickLeftHeadBtn:sender];
     }
 }
+
+- (void)rightHeadButtonClick:(UIButton *)rightHeadBtn
+{
+    if (rightHeadBtn.selected) {
+        self.allFinanceLabel.text = self.userInfoViewModel.userInfoModel.userAssets.assetsTotal?:@"0.00";
+        self.accumulatedProfitLabel.text = self.userInfoViewModel.userInfoModel.userAssets.earnTotal?:@"0.00";
+        self.balanceLabel.text = self.userInfoViewModel.userInfoModel.userAssets.availablePoint?:@"0.00";
+    }else
+    {
+        self.allFinanceLabel.text = [self.allFinanceLabel.text replaceStringWithStartLocation:0 lenght:self.allFinanceLabel.text.length];
+        self.accumulatedProfitLabel.text = [self.accumulatedProfitLabel.text replaceStringWithStartLocation:0 lenght:self.allFinanceLabel.text.length];
+        self.balanceLabel.text = [self.balanceLabel.text replaceStringWithStartLocation:0 lenght:self.allFinanceLabel.text.length];
+    }
+    rightHeadBtn.selected = !rightHeadBtn.selected;
+}
+
 
 - (void)topupButtonClick:(UIButton *)sender{
     if ([self.delegate respondsToSelector:@selector(didClickTopUpBtn:)]) {
@@ -193,7 +223,8 @@
 - (UIButton *)rightHeadButton{
     if (!_rightHeadButton) {
         _rightHeadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.width - 40 - 20, 40, 40, 40)];
-        [_rightHeadButton setImage:[UIImage imageNamed:@"1"] forState:UIControlStateNormal];;
+        [_rightHeadButton setImage:[UIImage imageNamed:@"1"] forState:UIControlStateNormal];
+        [_rightHeadButton addTarget:self action:@selector(rightHeadButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightHeadButton;
 }
