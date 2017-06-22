@@ -31,7 +31,6 @@
             //（获取用户信息）
             [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
                 //是否绑卡
-                KeyChainManage
                 if (!viewModel.userInfoModel.userInfo.hasBindCard.integerValue) {
                     HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];
                     [self.navigationController pushViewController:bindCardVC animated:YES];

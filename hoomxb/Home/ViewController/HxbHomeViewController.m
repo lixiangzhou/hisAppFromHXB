@@ -253,18 +253,24 @@
             [weakSelf.navigationController pushViewController:planDetailsVC animated:true];
         };
         _homeView.tipButtonClickBlock_homeView = ^(){
-            if (![KeyChain isLogin]) {
-                //跳转登录注册
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-            }else if ([KeyChain isLogin] && [KeyChain isVerify])
-            {
-                //跳转立即投资
-                weakSelf.tabBarController.selectedIndex = 1;
-            }else{
-                //跳转安全认证
-                HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
-                [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
-            }
+            
+            [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
+                
+                if (![KeyChain isLogin]) {
+                    //跳转登录注册
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                }else if ([KeyChain isLogin] && [isVerify isEqualToString:@"1"])
+                {
+                    //跳转立即投资
+                    weakSelf.tabBarController.selectedIndex = 1;
+                }else{
+                    //跳转安全认证
+                    HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
+                    [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
+                }
+ 
+            }];
+            
         };
     }
     return _homeView;

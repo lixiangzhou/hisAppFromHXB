@@ -57,15 +57,24 @@
  */
 - (void)changeIndicationView
 {
-    
-    if ([KeyChain isVerify] && [KeyChain isInvest]) {
-        //已经投资显示的界面
-        [self.headView showAlreadyInvestedView];
-    }else
-    {
-         //没有投资显示的界面
-        [self.headView showNotValidatedView];
-    }
+    kWeakSelf
+    [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
+        if ([isVerify isEqualToString:@"1"] && [KeyChain isInvest]) {
+            [weakSelf.headView showAlreadyInvestedView];
+        }else
+        {
+            //没有投资显示的界面
+            [weakSelf.headView showNotValidatedView];
+        }
+    }];
+//    if ([KeyChain isVerify] && [KeyChain isInvest]) {
+//        //已经投资显示的界面
+//        [self.headView showAlreadyInvestedView];
+//    }else
+//    {
+//         //没有投资显示的界面
+//        [self.headView showNotValidatedView];
+//    }
 
 }
 
