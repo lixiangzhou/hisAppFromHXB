@@ -10,6 +10,7 @@
 #import "HxbSecurityCertificationView.h"
 #import "HxbBindCardViewController.h"
 #import "HXBSignUPAndLoginRequest.h"//网络请求
+#import "HXBSecurityCertification_Request.h"
 @interface HxbSecurityCertificationViewController ()
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userViewModel;
 @end
@@ -26,6 +27,23 @@
     [securityCertificationView clickNextButtonFuncWithBlock:^(NSString *name, NSString *idCard, NSString *transactionPassword) {
         
         //安全认证请求
+        [HXBSecurityCertification_Request securityCertification_RequestWithName:name andIdCardNo:idCard andTradpwd:transactionPassword andSuccessBlock:^(BOOL isExist) {
+            //（获取用户信息）
+            [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+                //是否绑卡
+                KeyChainManage
+                if (!viewModel.userInfoModel.userInfo.hasBindCard.integerValue) {
+                    HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];
+                    [self.navigationController pushViewController:bindCardVC animated:YES];
+                }else {
+                    [self dismissViewControllerAnimated:true completion:nil];
+                }
+            } andFailure:^(NSError *error) {
+            }];
+
+        } andFailureBlock:^(NSError *error, NSString *message) {
+            
+        }];
         [HXBSignUPAndLoginRequest realnameRequestWithUserName:name andIdentityCard:idCard andPassword:transactionPassword andSuccessBlock:^(BOOL isExist) {
             //（获取用户信息）
             [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {

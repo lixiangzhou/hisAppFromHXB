@@ -180,6 +180,7 @@
 		E16017671EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E16017661EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.m */; };
 		E160176B1EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = E160176A1EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.m */; };
 		E16017791EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m in Sources */ = {isa = PBXBuildFile; fileRef = E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */; };
+		E1625B241EFB620200FE9ABF /* HXBSecurityCertification_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = E1625B231EFB620200FE9ABF /* HXBSecurityCertification_Request.m */; };
 		E16314311EC0761C0090567E /* HXBFinHomePageViewModel_LoanList.m in Sources */ = {isa = PBXBuildFile; fileRef = E163142E1EC0761C0090567E /* HXBFinHomePageViewModel_LoanList.m */; };
 		E16314321EC0761C0090567E /* HXBFinHomePageViewModel_PlanList.m in Sources */ = {isa = PBXBuildFile; fileRef = E16314301EC0761C0090567E /* HXBFinHomePageViewModel_PlanList.m */; };
 		E16314351EC076750090567E /* HXBFinDetailViewModel_PlanDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E16314341EC076750090567E /* HXBFinDetailViewModel_PlanDetail.m */; };
@@ -623,6 +624,8 @@
 		E160176A1EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinModel_AddRecortd_Plan_Model.m; sourceTree = "<group>"; };
 		E16017771EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseCountDownManager_lightweight.h; sourceTree = "<group>"; };
 		E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseCountDownManager_lightweight.m; sourceTree = "<group>"; };
+		E1625B221EFB620200FE9ABF /* HXBSecurityCertification_Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSecurityCertification_Request.h; sourceTree = "<group>"; };
+		E1625B231EFB620200FE9ABF /* HXBSecurityCertification_Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSecurityCertification_Request.m; sourceTree = "<group>"; };
 		E163142D1EC0761C0090567E /* HXBFinHomePageViewModel_LoanList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinHomePageViewModel_LoanList.h; sourceTree = "<group>"; };
 		E163142E1EC0761C0090567E /* HXBFinHomePageViewModel_LoanList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinHomePageViewModel_LoanList.m; sourceTree = "<group>"; };
 		E163142F1EC0761C0090567E /* HXBFinHomePageViewModel_PlanList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinHomePageViewModel_PlanList.h; sourceTree = "<group>"; };
@@ -1806,6 +1809,7 @@
 		E133DCF21EEE35D7009466DE /* securityCertification */ = {
 			isa = PBXGroup;
 			children = (
+				E1625B211EFB619E00FE9ABF /* Request */,
 				E133DCF31EEE35D7009466DE /* View */,
 				E133DCF61EEE35D7009466DE /* ViewController */,
 			);
@@ -1958,6 +1962,15 @@
 				E165EAB31EF8E82F00D68763 /* Plan */,
 			);
 			path = Buy;
+			sourceTree = "<group>";
+		};
+		E1625B211EFB619E00FE9ABF /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				E1625B221EFB620200FE9ABF /* HXBSecurityCertification_Request.h */,
+				E1625B231EFB620200FE9ABF /* HXBSecurityCertification_Request.m */,
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 		E163142B1EC075FB0090567E /* FinViewModel_Detail */ = {
@@ -3107,6 +3120,7 @@
 				E133DD411EEEC14C009466DE /* HXBRequestEnumAndStatic.m in Sources */,
 				E133DCEA1EEE3597009466DE /* HXBSignUPRealnameViewController.m in Sources */,
 				4E886FBB1EF9194E0056086E /* HXBCircle.m in Sources */,
+				E1625B241EFB620200FE9ABF /* HXBSecurityCertification_Request.m in Sources */,
 				4E94B2901ECC49D2003CCBA7 /* HXBHomePageProductCell.m in Sources */,
 				E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */,
 				E133DD3C1EEEC14C009466DE /* HxbHTTPSessionManager.m in Sources */,

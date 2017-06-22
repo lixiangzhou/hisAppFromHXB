@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
-
+///服务器返回未知异常
+static  NSInteger const kResponseStatusError = 300000;
 ///服务器返回的常用字段
 static NSString *const kResponseStatus = @"status";
 ///服务器返回的常用字段

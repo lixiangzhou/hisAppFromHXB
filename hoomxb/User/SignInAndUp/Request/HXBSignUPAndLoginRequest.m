@@ -206,7 +206,7 @@
     }];
 }
 
-#pragma mark - 安全认证
+#pragma mark - 实名认证
 + (void)realnameRequestWithUserName: (NSString *)userName
                     andIdentityCard: (NSString *)identityCard
                         andPassword: (NSString *)password
@@ -229,8 +229,8 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(nil);
-        [HxbHUDProgress showTextWithMessage:@"安全认证 请求失败"];
-         kNetWorkError(@"安全认证 请求失败")
+        [HxbHUDProgress showTextWithMessage:@"实名认证 请求失败"];
+         kNetWorkError(@"实名认证 请求失败")
     }];
     
 }

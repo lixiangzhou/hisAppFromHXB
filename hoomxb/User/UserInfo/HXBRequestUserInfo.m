@@ -11,7 +11,7 @@
 @implementation HXBRequestUserInfo
 ///数据请求
 + (void) downLoadUserInfoWithSeccessBlock: (void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure:(void(^)(NSError *error))failureBlock {
-     HXBBaseRequest *userInfoAPI = [[HXBBaseRequest alloc]init];
+    HXBBaseRequest *userInfoAPI = [[HXBBaseRequest alloc]init];
     userInfoAPI.requestUrl = kHXBUser_UserInfoURL;
     userInfoAPI.requestMethod = NYRequestMethodGet;
     
