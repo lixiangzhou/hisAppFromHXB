@@ -186,13 +186,16 @@
         default:
             break;
     }
-    
+    if (isUPData) {
+        page = 1;
+    }
+    self.planListAPI.isUPReloadData = isUPData;
     self.planListAPI.requestArgument = @{
                                     @"filter" : pageNumberStr,
                                     @"page" :	@(page).description
                                     };
    
-    self.planListAPI.isUPReloadData = isUPData;
+    
     
     [self.planListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD;

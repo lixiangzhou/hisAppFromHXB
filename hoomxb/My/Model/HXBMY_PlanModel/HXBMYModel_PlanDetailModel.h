@@ -7,24 +7,32 @@
 //
 
 #import <Foundation/Foundation.h>
+
+
+
 /// 我的 界面的 红利计划详情页的Model
 @interface HXBMYModel_PlanDetailModel : NSObject
-///计入金额
+
+///	string	计入金额
 @property (nonatomic,copy) NSString *amount;
-///预期年化收益率
+///	string	预期年化收益率
 @property (nonatomic,copy) NSString *expectedRate;
-///处理方式 （HXB：当日提取至红小宝账户，INVEST：收益再投资）
+///	string	处理方式 （HXB：当日提取至红小宝账户，INVEST：收益再投资）
 @property (nonatomic,copy) NSString *cashType;
-///已获收益
+///	string	已获收益
 @property (nonatomic,copy) NSString *earnAmount;
-///加入时间
+///	string	加入时间
 @property (nonatomic,copy) NSString *registerTime;
-///退出时间
+///	string	退出时间
 @property (nonatomic,copy) NSString *endLockingTime;
-///预期收益
+///	string	预期收益
 @property (nonatomic,copy) NSString *totalInterest;
-///状态（PURCHASE_END：收益中，PURCHASEING：等待计息）
+///	string	状态（PURCHASE_END：收益中，PURCHASEING：等待计息）
 @property (nonatomic,copy) NSString *status;
+///	Int	剩余天数
+@property (nonatomic,copy) NSString *lastDays;
+
+
 @property (nonatomic,copy) NSString *lockPeriod;//": "1",
 @property (nonatomic,copy) NSString *type;//": "HOLD_PLAN",
 @property (nonatomic,copy) NSString *isUseCoupon;//": "0",
@@ -34,6 +42,9 @@
 @property (nonatomic,copy) NSString *name;//": "安琪发布计划11",
 @property (nonatomic,copy) NSString *subPointId;//": "1291978",
 @property (nonatomic,copy) NSString *contractName;//": "理财计划服务协议"
+
+
+
 @end
 
 /*

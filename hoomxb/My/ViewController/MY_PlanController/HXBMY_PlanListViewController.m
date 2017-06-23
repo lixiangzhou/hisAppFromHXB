@@ -95,18 +95,15 @@ kDealloc
     switch (planViewModelArray.firstObject.requestType) {
         case HXBRequestType_MY_PlanRequestType_HOLD_PLAN://持有中
             self.planListView.hold_Plan_array = planViewModelArray;
-            self.planListView.hold_Plan_array = [[NSArray alloc]init];
             self.hold_Plan_array = planViewModelArray;
             break;
         case HXBRequestType_MY_PlanRequestType_EXIT_PLAN: //已经推出
             self.exit_Plan_array = planViewModelArray;
             self.planListView.exit_Plan_array = planViewModelArray;
-            self.planListView.exit_Plan_array = [[NSArray alloc]init];
             break;
         case HXBRequestType_MY_PlanRequestType_EXITING_PLAN://正在推出
             self.planListView.exiting_Plan_array = planViewModelArray;
             self.exiting_Plan_array = planViewModelArray;
-            self.planListView.exiting_Plan_array = [[NSArray alloc]init];
             break;
     }
 }
