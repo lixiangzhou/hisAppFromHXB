@@ -10,4 +10,9 @@
 ///安全认证
 @interface HxbSecurityCertificationViewController : HXBBaseViewController
 
+/**
+ 用户信息模型
+ */
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+
 @end

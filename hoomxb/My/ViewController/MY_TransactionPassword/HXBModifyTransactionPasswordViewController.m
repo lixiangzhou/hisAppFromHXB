@@ -44,9 +44,10 @@
     kWeakSelf
     HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
     [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andSuccessBlock:^(id responseObject) {
+        
         NSLog(@"%@",responseObject);
         [weakSelf.homeView idcardWasSuccessfully];
-        [weakSelf getValidationCode];
+        [weakSelf getValidationCodesadasdafdsfdsdsf];
         
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
@@ -57,7 +58,7 @@
 /**
  获取验证码
  */
-- (void)getValidationCode
+- (void)getValidationCodesadasdafdsfdsdsf
 {
     kWeakSelf
     HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];

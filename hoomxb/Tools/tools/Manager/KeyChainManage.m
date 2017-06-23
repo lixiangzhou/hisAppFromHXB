@@ -11,6 +11,9 @@
 #import <UICKeyChainStore.h>
 #import <Security/Security.h>
 #import "HXBRequestUserInfo.h"
+
+#define kGesturePwd self.keychain[kMobile]
+
 static NSString * const kService = @"www.hoomxb.com";
 //注册时返回的信息
 static NSString * const kToken = @"token";
@@ -20,7 +23,7 @@ static NSString * const kInviteCode = @"inviteCode";
 
 static NSString * const kLoginPwd = @"loginPwd";
 static NSString * const kTradePwd = @"tradePwd";
-static NSString * const kGesturePwd = @"gesturePwd";
+//static NSString * const kGesturePwd = @"gesturePwd";
 static NSString * const kGesturePwdCount = @"gesturePwdCount";
 
 static NSString * const kRealName = @"realName";
@@ -487,6 +490,19 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     return rmSuccess;
 }
 
+//- (BOOL)signOut
+//{
+//    KeyChainManage *manager = KeyChain;
+//    NSString *gesturePwd = self.gesturePwd;
+//    NSString *gesturePwdCount = self.gesturePwdCount;
+//    BOOL rmSuccess = [manager.keychain removeAllItems];
+//    self.keychain[kGesturePwd] = gesturePwd;
+//    NSLog(@"%@",self.keychain[kGesturePwd]);
+//    self.keychain[kGesturePwdCount] = gesturePwdCount;
+//    
+//    return rmSuccess;
+//}
+
 - (void)removePassword
 {
     KeyChainManage *manager = KeyChain;
@@ -513,7 +529,11 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     KeyChainManage *manager = KeyChain;
     [manager.keychain removeItemForKey:kToken];
 }
-
+- (void)removeMobile
+{
+    KeyChainManage *manager = KeyChain;
+    [manager.keychain removeItemForKey:kMobile];
+}
 - (void)printAllInfo
 {
     /*
