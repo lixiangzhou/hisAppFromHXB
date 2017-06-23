@@ -39,6 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.hxb_automaticallyAdjustsScrollViewInsets = true;
     [self setUP];
 }
 - (void) setUP {

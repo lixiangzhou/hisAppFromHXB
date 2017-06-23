@@ -37,10 +37,11 @@ static NSString *kJoinDateLable_const = @"加入日期";
 
 @implementation HXBMY_PlanDetail_InfoCell
 - (void)setPlanDetailViewModel:(HXBMYViewModel_PlanDetailViewModel *)planDetailViewModel {
-    self.addTheAmountLable.text = self.planDetailViewModel.planDetailModel.earnAmount;
-    self.expectedAnnualInterestRateLable.text = self.planDetailViewModel.planDetailModel.amount;
-    self.theTermLable.text = self.planDetailViewModel.planDetailModel.lockPeriod;
-    self.joinDateLable.text = self.planDetailViewModel.planDetailModel.registerTime;
+    _planDetailViewModel = planDetailViewModel;
+    self.addTheAmountLable.text = self.planDetailViewModel.planDetailModel.amount;///加入金额
+    self.expectedAnnualInterestRateLable.text = self.planDetailViewModel.planDetailModel.expectedRate;///预期年利率
+    self.theTermLable.text = self.planDetailViewModel.planDetailModel.lockPeriod;///期限
+    self.joinDateLable.text = self.planDetailViewModel.planDetailModel.registerTime;///加入日期
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

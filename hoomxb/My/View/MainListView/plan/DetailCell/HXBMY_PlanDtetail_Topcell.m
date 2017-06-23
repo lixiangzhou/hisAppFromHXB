@@ -20,8 +20,9 @@
 @implementation HXBMY_PlanDtetail_Topcell
 - (void)setPlanDetailViewModel:(HXBMYViewModel_PlanDetailViewModel *)planDetailViewModel {
     _planDetailViewModel = planDetailViewModel;
-    self.inComeLable.text = self.planDetailViewModel.planDetailModel.earnAmount;
+    self.inComeLable.text = self.planDetailViewModel.addAuomt;
     self.planTypeLable.text = self.planDetailViewModel.cashType;
+    self.inComeLable_Const.text = self.planDetailViewModel.inComeLable_ConstStr;
 }
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -59,7 +60,6 @@
     }];
     
     self.inComeLable_Const.text = @"已获收益(元)";
-    [self temp];
 }
 
 - (void) temp {

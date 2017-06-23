@@ -53,36 +53,48 @@ typedef enum : NSUInteger {
 #pragma mark - getter
 //红利计划状态
 - (NSString *)unifyStatus {
-    if (!_unifyStatus) {
-        [self setupUnifyStatus];
-    }
-    return _unifyStatus;
+    return [self setupUnifyStatus];
 }
 
 
 //红利计划状态
-- (void)setupUnifyStatus {
+- (NSString *)setupUnifyStatus {
     switch (self.planListModel.unifyStatus.integerValue) {
-        case HXBFinHomePageViewModel_PlanList_BOOKFAR://等待预售开始超过30分
-        case HXBFinHomePageViewModel_PlanList_BOOKNEAR://等待预售开始小于30分钟
-        case HXBFinHomePageViewModel_PlanList_BOOK://预定
-        case HXBFinHomePageViewModel_PlanList_BOOKFULL://预定满额
-        case HXBFinHomePageViewModel_PlanList_WAIT_OPEN://等待开放购买大于30分钟
-        case HXBFinHomePageViewModel_PlanList_WAIT_RESERVE://等待开放购买小于30分钟
-            self.unifyStatus = @"等待加入";
+        case 0:
+            return @"等待预售开始超过30分";
             break;
-        case HXBFinHomePageViewModel_PlanList_OPENING://开放加入
-        case HXBFinHomePageViewModel_PlanList_OPEN_FULL://加入满额
-            self.unifyStatus = @"加入";
+        case 1:
+            return @"等待预售开始小于30分钟";
             break;
-        case HXBFinHomePageViewModel_PlanList_PERIOD_LOCKING://收益中
-        case HXBFinHomePageViewModel_PlanList_PERIOD_OPEN://开放期
-            self.unifyStatus = @"收益中";
+        case 2:
+            return @"预定";
             break;
-        case HXBFinHomePageViewModel_PlanList_PERIOD_CLOSED://已退出
-            self.unifyStatus = @"等待计息";
+        case 3:
+            return @"预定满额";
+            break;
+        case 4:
+            return @"等待开放购买大于30分钟";
+            break;
+        case 5:
+            return @"等待开放购买小于30分钟";
+            break;
+        case 6:
+            return @"开放加入";
+            break;
+        case 7:
+            return @"加入满额";
+            break;
+        case 8:
+            return @"收益中";
+            break;
+        case 9:
+            return @"开放期";
+            break;
+        case 10:
+            return @"已退出";
             break;
     }
+    return nil;
 }
 //红利计划列表的年利率计算
 - (void)setupExpectedYearRateAttributedStr {

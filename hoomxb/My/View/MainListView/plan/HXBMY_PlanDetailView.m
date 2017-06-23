@@ -13,7 +13,8 @@
 #import "HXBMY_PlanDetail_InfoCell.h"//中部的信息的Cell
 #import "HXBMY_PlanDetail_TypeCell.h"//底部的左右 都有lable的cell
 #import "HXBMY_PlanInvestmentRecordCell.h"//投资记录
-
+#import "HXBBaseView_TwoLable_View.h"///两个label的组件
+#import "HXBBaseView_MoreTopBottomView.h"///多个topBottomView
 ///红利详情 顶部的cell
 static NSString *kTOPCELLID = @"kTOPCELLID";
 ///中部的信息的Cell
@@ -37,7 +38,30 @@ static NSString *kINVESTMENTRECORDCELL_INVESTMENTRECORD = @"投资记录";
 UITableViewDelegate,
 UITableViewDataSource
 >
-
+/**
+ 顶部的VIew
+ */
+@property (nonatomic,strong) UIView *topView;
+/**
+ topViewMassge
+ */
+@property (nonatomic,strong) HXBBaseView_TwoLable_View *topViewMassge;
+/**
+  标信息的view
+ */
+@property (nonatomic,strong) HXBBaseView_MoreTopBottomView *infoView;
+/**
+ type view
+ */
+@property (nonatomic,strong) HXBBaseView_TwoLable_View *typeView;
+/**
+ 合同view
+ */
+@property (nonatomic,strong) HXBBaseView_TwoLable_View *contractView;
+/**
+ 投资记录
+ */
+@property (nonatomic,strong) HXBBaseView_TwoLable_View *loanRecordView;
 @end
 @implementation HXBMY_PlanDetailView
 - (void)setPlanDetailViewModel:(HXBMYViewModel_PlanDetailViewModel *)planDetailViewModel {
@@ -47,10 +71,105 @@ UITableViewDataSource
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
-        [self setUP];
+        [self setUPViews];
     }
     return self;
 }
+
+
+- (void)setUPViews {
+    [self setUPViews_Create];
+    [self setUPViews_Frame];
+}
+- (void)setUPViews_Create {
+    self.topView = [[UIView alloc]init];
+    self.topViewMassge = [[HXBBaseView_TwoLable_View alloc]init];
+    self.infoView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:20 andTopBottomSpace:0];
+    self.typeView = [[HXBBaseView_TwoLable_View alloc]init];
+    self.contractView = [[HXBBaseView_TwoLable_View alloc]init];
+    self.loanRecordView = [[HXBBaseView_TwoLable_View alloc]init];
+    
+    [self addSubview:self.topView];
+    [self addSubview:self.topViewMassge];
+    [self addSubview:self.infoView];
+    [self addSubview:self.typeView];
+    [self addSubview:self.contractView];
+    [self addSubview:_loanRecordView];
+}
+- (void)setUPViews_Frame {
+    [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH(80)));
+    }];
+    [self.topViewMassge mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.topView.mas_centerX);
+        make.centerY.equalTo(self.topView.mas_centerY);
+        make.height.equalTo(@(kScrAdaptationH(60)));
+        make.width.equalTo(self);
+    }];
+    [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH(80)));
+    }];
+    [self.typeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH(40)));
+    }];
+    [self.contractView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH(20)));
+    }];
+    [self.loanRecordView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH(20)));
+    }];
+}
+
+- (void)setUPValue {
+    kWeakSelf
+    [self.topViewMassge setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+        viewModelVM.isLeftRight = false;
+        viewModelVM.leftLabelStr = @"已获收益(元)";
+        viewModelVM.rightLabelStr = weakSelf.planDetailViewModel.earnAmount;
+        viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
+        viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
+        return viewModelVM;
+    }];
+    [self.infoView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+        viewManager.leftStrArray = @[
+                                     @"加入金额",
+                                     @"预期年利率",
+                                     @"期限",
+                                     @"加入日期",
+                                     ];
+        viewManager.rightStrArray = @[
+                                      weakSelf.planDetailViewModel.addAuomt,
+                                      weakSelf.planDetailViewModel.expectedRate,
+                                      weakSelf.planDetailViewModel.lockTime,
+                                      weakSelf.planDetailViewModel.addTime
+                                      ];
+        return viewManager;
+    }];
+    [self.typeView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+        viewModelVM.isLeftRight = true;
+        viewModelVM.leftLabelStr = @"收益处理方式";
+        viewModelVM.rightLabelStr = weakSelf.planDetailViewModel.cashType;
+        viewModelVM.leftLabelAlignment = NSTextAlignmentLeft;
+        viewModelVM.rightLabelAlignment = NSTextAlignmentRight;
+        return viewModelVM;
+    }];
+}
+
 
 - (void)setUP {
     self.dataSource = self;
@@ -87,6 +206,7 @@ UITableViewDataSource
 - (UITableViewCell *)handleTableViewCellWithTableView: (UITableView *)tableView andIndetfier: (NSIndexPath *)indexPath {
     if (!indexPath.section) {
         HXBMY_PlanDtetail_Topcell *cell = [tableView dequeueReusableCellWithIdentifier:kTOPCELLID forIndexPath:indexPath];
+        cell.planDetailViewModel = self.planDetailViewModel;
         return cell;
     }
     return  [self handleIndexPathTwoSctionWithTableView:tableView andRow:indexPath];
@@ -125,12 +245,16 @@ UITableViewDataSource
         case 0:
             return 100;
             case 1:
-            return 40;
+            return 80;
             case 2:
-            return 20;
+            return 40;
         default:
             return 20;
     }
 }
+
+
+
+
 @end
 

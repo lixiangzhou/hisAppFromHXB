@@ -39,7 +39,9 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     if (request.responseStatusCode == 402 || request.responseStatusCode == 401) {
         [[KeyChainManage sharedInstance] removeToken];
         //重复登录，强制下线
+        if (request.responseStatusCode == 402) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
         return;
     }
 //    [NYProgressHUD showToastText:@"网络请求错误"];
