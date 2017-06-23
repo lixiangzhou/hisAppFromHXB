@@ -58,7 +58,7 @@ static NSString *const X_HxbAuth_Token = @"X-HxbAuth-Token";
 - (NSDictionary *)additionalHeaderFields
 {
     
-    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+    NSDate *datenow = [NSDate date];
     NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970] * 1000];
     
     NSDictionary *dict = @{
