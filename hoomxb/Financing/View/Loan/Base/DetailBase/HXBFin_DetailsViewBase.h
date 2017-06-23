@@ -80,5 +80,7 @@
 @property (nonatomic,copy) NSString *remainAmount_const;
 
 @property (nonatomic,copy) NSString *addButtonStr;
+///期限的string
+@property (nonatomic,copy) NSString *lockPeriodStr;
 - (void) addButtonChengeTitleChenge: (void(^)(NSString *))addButtonChengeTitleBlock;
 @end

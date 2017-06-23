@@ -40,6 +40,8 @@
 @property (nonatomic,strong) UIScrollView *scrollView;
 @property (nonatomic,assign) BOOL isPan;
 //@property (nonatomic,strong) NSTimer *pyTimer;
+
+
 @end
 
 
@@ -199,28 +201,38 @@
 }
 - (void)enumerateWithModel: (id)model andIndex: (NSUInteger) idx{
     //判断model中的关于时间类的类型
-    NSString *dateValue = [model valueForKey:self.modelDateKey];
-    
+    NSString *datelastValue= [model valueForKey:self.modelCountDownKey];
+    NSString *dateValue = [model valueForKey:self.modelDateKey];//传入的model中计算倒计时时间的key
     __block long long dateNumber = dateValue.longLongValue;
     
-    //如果没有时间值
-    if (!dateNumber) return;
-    
+    if (dateNumber == 0 && datelastValue.integerValue == 0) {
+        if (self.isTwo_DimensionalArray) {
+            if (!(self.countDownArray.count == self.column + 1)) {
+                return;
+            }
+        }else {
+            if (!(self.countDownArray.count == idx + 1)) {
+                return;
+            }
+        }
+    }
+
     //判断是否需要计算时间差
     if (self.modelDateType == PYContDownManagerModelDateType_OriginalTime){
+        dateNumber --;
+    }else {
         //时间差计算
         dateNumber = [self computationTimeDifferenceWithDateNumber:dateNumber];
-    }else {
-        dateNumber --;
     }
     
     //判断是否需要计时
     //以前的判断条件是这个：dateNumber <= self.countdownStartTime && dateNumber >= 0
-    //但是如果没有加dateNumber >= 0 这个条件，那么就不会再都是0的时候发出消息让外部进行UI刷新
+    //如果没有加dateNumber >= 0 这个条件，那么就不会再都是0的时候发出消息让外部进行UI刷新
     if (dateNumber <= self.countdownStartTime) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (dateNumber <= 0) dateNumber = 0;
             [model setValue:@(dateNumber).description forKey:self.modelCountDownKey];
+            [model setValue:@(dateNumber) forKey:self.modelDateKey];
             if(self.changeModelBlock) {
                 //如果小于0，就是零，如果是
                 NSInteger section = self.column  < 0 ? 0 : self.column;

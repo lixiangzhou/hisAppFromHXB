@@ -76,7 +76,7 @@
 @property (nonatomic,copy) NSString *status;
 ///子点计数
 @property (nonatomic,copy) NSString *subPointCount;
-///string	计划名称
+///string	计划倒计时
 @property (nonatomic,copy) NSString *diffTime;
 
 

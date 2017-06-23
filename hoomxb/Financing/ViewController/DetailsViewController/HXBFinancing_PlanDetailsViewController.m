@@ -58,7 +58,7 @@
         viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
         
         viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
-        
+        viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
         if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
             
         }
