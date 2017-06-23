@@ -17,7 +17,10 @@
     
     [userInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD
+        NSLog(@"%@",responseObject);
+        NSLog(@"%@",[KeyChain token]);
         HXBUserInfoModel *userInfoModel = [[HXBUserInfoModel alloc]init];
+        
         [userInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];
         
         HXBRequestUserInfoViewModel *viewModel = [[HXBRequestUserInfoViewModel alloc]init];

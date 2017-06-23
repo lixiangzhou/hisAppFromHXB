@@ -16,6 +16,7 @@
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+@property (nonatomic, strong) HxbMyView *myView;
 @end
 
 @implementation HxbMyViewController
@@ -58,13 +59,17 @@
 }
 
 - (void)setupMyView{
-    HxbMyView *myView = [[HxbMyView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    myView.userInfoViewModel = self.userInfoViewModel;
-    myView.delegate = self;
-    myView.userInteractionEnabled = YES;
-    [self.view addSubview:myView];
+    self.myView = [[HxbMyView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    self.myView.delegate = self;
+    self.myView.userInteractionEnabled = YES;
+    [self.view addSubview:self.myView];
 }
 
+- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
+{
+    _userInfoViewModel = userInfoViewModel;
+    self.myView.userInfoViewModel = self.userInfoViewModel;
+}
 
 
 - (void)didLeftHeadBtnClick:(UIButton *)sender{
