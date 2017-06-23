@@ -87,6 +87,7 @@ UITableViewDataSource
 - (UITableViewCell *)handleTableViewCellWithTableView: (UITableView *)tableView andIndetfier: (NSIndexPath *)indexPath {
     if (!indexPath.section) {
         HXBMY_PlanDtetail_Topcell *cell = [tableView dequeueReusableCellWithIdentifier:kTOPCELLID forIndexPath:indexPath];
+        cell.planDetailViewModel = self.planDetailViewModel;
         return cell;
     }
     return  [self handleIndexPathTwoSctionWithTableView:tableView andRow:indexPath];
@@ -125,9 +126,9 @@ UITableViewDataSource
         case 0:
             return 100;
             case 1:
-            return 40;
+            return 70;
             case 2:
-            return 20;
+            return 40;
         default:
             return 20;
     }
