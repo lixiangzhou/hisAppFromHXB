@@ -56,9 +56,11 @@
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
 {
     _userInfoViewModel = userInfoViewModel;
-    self.allFinanceLabel.text = userInfoViewModel.userInfoModel.userAssets.assetsTotal?:@"0.00";
-    self.accumulatedProfitLabel.text = userInfoViewModel.userInfoModel.userAssets.earnTotal?:@"0.00";
-    self.balanceLabel.text = userInfoViewModel.userInfoModel.userAssets.availablePoint?:@"0.00";
+    
+    self.allFinanceLabel.text = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.assetsTotal doubleValue]]?:@"0.00";
+    self.accumulatedProfitLabel.text = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
+    self.balanceLabel.text = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
+//    userInfoViewModel.userInfoModel.userAssets.availablePoint?:@"0.00";
 }
 
 
@@ -100,7 +102,7 @@
 - (UILabel *)allFinanceLabel{
     if (!_allFinanceLabel) {
         _allFinanceLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.height/2 - 60, self.width, 40)];
-        _allFinanceLabel.text = @"38.00";
+//        _allFinanceLabel.text = @"38.00";
         _allFinanceLabel.textAlignment = NSTextAlignmentCenter;
         _allFinanceLabel.font = [UIFont systemFontOfSize:40];
         _allFinanceLabel.textColor = [UIColor whiteColor];
@@ -134,7 +136,7 @@
 - (UILabel *)accumulatedProfitLabel{
     if (!_accumulatedProfitLabel) {
         _accumulatedProfitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(_accumulatedProfitTitleLabel.frame) + 30, self.width/2, 20)];
-        _accumulatedProfitLabel.text = @"30.8";
+//        _accumulatedProfitLabel.text = @"30.8";
         _accumulatedProfitLabel.textAlignment = NSTextAlignmentCenter;
         _accumulatedProfitLabel.font = [UIFont systemFontOfSize:20];
         _accumulatedProfitLabel.textColor = [UIColor whiteColor];    }
@@ -156,7 +158,7 @@
 - (UILabel *)balanceLabel{
     if (!_balanceLabel) {
     _balanceLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.width/2,CGRectGetMaxY(_balanceTitleLabel.frame) + 30, self.width/2, 20)];
-    _balanceLabel.text = @"38.00";
+//    _balanceLabel.text = @"38.00";
     _balanceLabel.textAlignment = NSTextAlignmentCenter;
     _balanceLabel.font = [UIFont systemFontOfSize:20];
     _balanceLabel.textColor = [UIColor whiteColor];

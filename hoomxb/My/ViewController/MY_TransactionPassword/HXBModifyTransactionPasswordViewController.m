@@ -47,7 +47,11 @@
         
         NSLog(@"%@",responseObject);
         [weakSelf.homeView idcardWasSuccessfully];
-        [weakSelf getValidationCodesadasdafdsfdsdsf];
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [weakSelf getValidationCodesadasdafdsfdsdsf];
+        });
+        
         
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
@@ -63,7 +67,7 @@
     kWeakSelf
     HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
     [modifyTransactionPasswordRequest myTransactionPasswordWithSuccessBlock:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        NSLog(@"获取验证码成功%@",responseObject);
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
         [weakSelf.homeView sendCodeFail];
