@@ -58,20 +58,15 @@ static NSString *const X_HxbAuth_Token = @"X-HxbAuth-Token";
 - (NSDictionary *)additionalHeaderFields
 {
     
-    
-    NSDate *date = [NSDate date];
-    NSDateFormatter *format = [[NSDateFormatter alloc] init];
-    [format setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    //将获取后的本地时间 转换成东八区时间
-    format.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT+0800"];
-    NSString*strDate = [format stringFromDate:date];
+    NSDate *datenow = [NSDate date];//现在时间,你可以输出来看下是什么格式
+    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970] * 1000];
     
     NSDictionary *dict = @{
                            X_HxbAuth_Token:[KeyChain token],
                            User_Agent:self.userAgent,
                            @"IDFA":[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString],
                            @"X-Request-Id":[[[UIDevice currentDevice] identifierForVendor] UUIDString],
-                           @"X-HxbAuth-Timestamp":strDate
+                           @"X-HxbAuth-Timestamp":timeSp
                            };
 
     return dict;
