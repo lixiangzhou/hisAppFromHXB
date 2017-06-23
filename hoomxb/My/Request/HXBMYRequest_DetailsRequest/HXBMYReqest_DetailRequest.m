@@ -27,7 +27,7 @@
     
     [planDetailAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD
-        NSDictionary *dataDic = responseObject[@"data"][@"dataList"];
+        NSDictionary *dataDic = responseObject[@"data"];
         HXBMYModel_PlanDetailModel *planDetailModel = [[HXBMYModel_PlanDetailModel alloc]init];
         [planDetailModel yy_modelSetWithDictionary:dataDic];
         
