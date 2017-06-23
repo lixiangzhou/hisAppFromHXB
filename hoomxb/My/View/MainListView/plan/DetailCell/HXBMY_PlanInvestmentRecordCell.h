@@ -11,11 +11,13 @@
 
 /// 投资记录的Cell
 @interface HXBMY_PlanInvestmentRecordCell : HXBBaseTableViewCell
+@property (nonatomic,strong) HXBMYViewModel_PlanDetailViewModel *planDetailViewModel;
+
 ///投资记录 str
 @property (nonatomic,copy) NSString *planInvestmentRecord;
 /// 投资记录的StrConst
 @property (nonatomic,copy) NSString *PlanInvestmentRecord_const;
 
-@property (nonatomic,strong) HXBMYViewModel_PlanDetailViewModel *planDetailViewModel;
-
+///收益方式
+@property (nonatomic,copy) NSString *inComeLable_ConstStr;
 @end

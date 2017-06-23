@@ -19,4 +19,26 @@
 @property (nonatomic,copy) NSString *status;
 ///合同
 @property (nonatomic,copy) NSString *contractName;
+///收益方式
+@property (nonatomic,copy) NSString *inComeLable_ConstStr;
+/**
+ 加入日期
+ */
+@property (nonatomic,copy) NSString * addTime;
+/**
+ 加入金额
+ */
+@property (nonatomic,copy) NSString * addAuomt;
+/**
+ 期限
+ */
+@property (nonatomic,copy) NSString * lockTime;
+/**
+ 已获收益
+ */
+@property (nonatomic,copy) NSString * earnAmount;
+/**
+ 预期年率利
+ */
+@property (nonatomic,copy) NSString * expectedRate;
 @end

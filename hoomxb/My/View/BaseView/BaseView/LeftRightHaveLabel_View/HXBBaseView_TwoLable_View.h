@@ -14,9 +14,9 @@
 - (void) setUP_TwoViewVMFunc: (HXBBaseView_TwoLable_View_ViewModel *(^)(HXBBaseView_TwoLable_View_ViewModel *viewModelVM))setUP_ToViewViewVMBlock;
 @end
 @interface HXBBaseView_TwoLable_View_ViewModel : NSObject
-@property (nonatomic,assign) BOOL isLeftRight;
-@property (nonatomic,copy) NSString *leftLabelStr;
-@property (nonatomic,copy) NSString *rightLabelStr;
-@property (nonatomic,assign) NSTextAlignment leftLabelAlignment;
-@property (nonatomic,assign) NSTextAlignment rightLabelAlignment;
+@property (nonatomic,assign) BOOL               isLeftRight;
+@property (nonatomic,copy) NSString *           leftLabelStr;
+@property (nonatomic,copy) NSString *           rightLabelStr;
+@property (nonatomic,assign) NSTextAlignment    leftLabelAlignment;
+@property (nonatomic,assign) NSTextAlignment    rightLabelAlignment;
 @end
