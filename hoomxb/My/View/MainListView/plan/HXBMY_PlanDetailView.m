@@ -126,7 +126,7 @@ UITableViewDataSource
         case 0:
             return 100;
             case 1:
-            return 70;
+            return 80;
             case 2:
             return 40;
         default:
