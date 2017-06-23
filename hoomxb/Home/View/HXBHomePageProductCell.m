@@ -100,6 +100,7 @@
     self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.2f%@",[homePageModel_DataList.baseInterestRate doubleValue],@"%"];
     self.extraInterestRateLabel.text = homePageModel_DataList.extraInterestRate;
     [self.purchaseButton setTitle:homePageModel_DataList.unifyStatus forState:UIControlStateNormal];
+    self.promptLabel.text = homePageModel_DataList.tag;
     
 }
 //- (void)setModel:(TopProductModel *)model

@@ -10,6 +10,12 @@
 
 
 @interface HxbSecurityCertificationView : UIView
+
+/**
+ 用户信息模型
+ */
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+
 /**安全认证 点击了下一步按钮*/
 - (void)clickNextButtonFuncWithBlock: (void(^)(NSString *name, NSString *idCard, NSString *transactionPassword))clickNextButtonBlock;
 @end

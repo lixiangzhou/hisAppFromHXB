@@ -143,6 +143,10 @@
 
 - (BOOL)removeAllInfo;
 
+- (BOOL)signOut;      //!< 退出登录
+
+- (void)removeMobile;       //!< 移除手机号
+
 - (BOOL)isSwitchOn;         //!<手势密码是否开启
 
 - (BOOL)hasBindBankcard;    //!<已经绑定了银行卡

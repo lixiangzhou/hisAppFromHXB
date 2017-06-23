@@ -12,15 +12,18 @@
 #import "HXBSignUPAndLoginRequest.h"//网络请求
 #import "HXBSecurityCertification_Request.h"
 @interface HxbSecurityCertificationViewController ()
-@property (nonatomic, strong) HXBRequestUserInfoViewModel *userViewModel;
 @end
 
 @implementation HxbSecurityCertificationViewController
+
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"安全认证";
     HxbSecurityCertificationView *securityCertificationView = [[HxbSecurityCertificationView alloc]initWithFrame:self.view.frame];
+    securityCertificationView.userInfoViewModel = self.userInfoViewModel;
     [self.view addSubview:securityCertificationView];
     
     ///点击了next

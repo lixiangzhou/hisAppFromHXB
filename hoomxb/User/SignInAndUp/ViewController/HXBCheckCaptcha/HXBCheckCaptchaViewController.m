@@ -93,9 +93,10 @@
 }
 ///请求数据 图验图片
 - (void)downCheckCaptcha {
+    kWeakSelf
     self.request = [[HXBSignUPAndLoginRequest alloc]init];
     [self.request captchaRequestWithSuccessBlock:^(id responseObject) {
-        self.checkCaptcha.checkCaptchaImage = responseObject;
+        weakSelf.checkCaptcha.checkCaptchaImage = responseObject;
     } andFailureBlock:^(NSError *error) {
         
     }];

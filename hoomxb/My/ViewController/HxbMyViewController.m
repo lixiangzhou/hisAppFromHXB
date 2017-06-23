@@ -37,6 +37,8 @@
     
 //    //散标列表 红利计划的Button
 //    [self setupBUTTON];
+    //加载用户数据
+    [self loadData_userInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

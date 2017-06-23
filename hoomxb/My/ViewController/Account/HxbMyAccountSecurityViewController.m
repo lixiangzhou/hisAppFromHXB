@@ -32,7 +32,7 @@ UITableViewDataSource,UITableViewDelegate
     ///是否安全认证
     HXBUserInfoModel *model = self.userInfoViewModel.userInfoModel;
     if (model.userInfo.isIdPassed) {
-        self.idPassedStr = [NSString stringWithFormat:@"%@%@",model.userInfo.realName,model.userInfo.idNo];
+        self.idPassedStr = [NSString stringWithFormat:@"%@%@",[model.userInfo.realName replaceStringWithStartLocation:1 lenght:model.userInfo.realName.length - 1],[model.userInfo.idNo replaceStringWithStartLocation:3 lenght:model.userInfo.idNo.length - 3]];
     }else {
         self.idPassedStr = @"去认证";
     }
@@ -52,9 +52,11 @@ UITableViewDataSource,UITableViewDelegate
         if (indexPath.row == 0) {//表示安全认证
             //跳转安全认证
             HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
+            securityCertificationVC.userInfoViewModel = self.userInfoViewModel;
             [self.navigationController pushViewController:securityCertificationVC animated:YES];
         }
         if (indexPath.row == 1) {//点击绑定手机号
+            
             NSLog(@"click 绑定手机号");
         }
     }else if(indexPath.section == 1){
@@ -66,9 +68,20 @@ UITableViewDataSource,UITableViewDelegate
             [self.navigationController pushViewController: signUPVC animated:true];
         }else if (indexPath.row == 1){
             NSLog(@"click 设置交易密码");
-            HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-            modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
-            [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+            kWeakSelf
+            [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
+                if ([isVerify isEqualToString:@"1"]) {
+                    HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+                    modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
+                    [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+                }else
+                {
+                    //跳转安全认证
+                    HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
+                    [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
+                }
+            }];
+            
         }else{
             NSLog(@"click 设置手势密码");
             if (KeyChain.gesturePwd.length)
@@ -113,7 +126,14 @@ UITableViewDataSource,UITableViewDelegate
        if (indexPath.section == 0){
 
         if (indexPath.row == 0) {
-            cell.textLabel.text = @"安全认证";
+             if (self.userInfoViewModel.userInfoModel.userInfo.isIdPassed)
+             {
+                 cell.textLabel.text = @"身份信息";
+             }else
+             {
+                 cell.textLabel.text = @"安全认证";
+             }
+            
             cell.detailTextLabel.text = self.idPassedStr;
         }else if (indexPath.row == 1){
             cell.textLabel.text = @"绑定手机号";

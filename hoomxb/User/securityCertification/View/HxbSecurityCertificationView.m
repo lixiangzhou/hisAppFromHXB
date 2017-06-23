@@ -23,6 +23,19 @@ UITextFieldDelegate
 
 @implementation HxbSecurityCertificationView
 
+
+
+- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
+{
+    _userInfoViewModel = userInfoViewModel;
+    if ([userInfoViewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"1"]) {
+        self.nameTextField.text = userInfoViewModel.userInfoModel.userInfo.username;
+        self.identityCardNumTextField.text = userInfoViewModel.userInfoModel.userInfo.idNo;
+        self.userInteractionEnabled = NO;
+    }
+}
+
+
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
