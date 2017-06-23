@@ -48,7 +48,7 @@
         make.centerY.equalTo(weakSelf);
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-10));
     }];
-    [self setUPLable];
+//    [self setUPLable];
 }
 - (void) setUPLable {
     self.inComeType_ConstLable.text = @"测试";
