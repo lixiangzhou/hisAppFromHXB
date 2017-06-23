@@ -120,16 +120,20 @@
 
 - (void)showSecurityCertificationOrInvest{
     kWeakSelf
-    [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-        if (![KeyChain isLogin]) {
-            weakSelf.afterLoginView.tipString = @"登录/注册";
-        }else if ([KeyChain isLogin] && [isVerify isEqualToString:@"1"])
-        {
-            weakSelf.afterLoginView.tipString = @"立即投资啦！";
-        }else{
-            weakSelf.afterLoginView.tipString = @"安全认证";
-        }
-    }];
+    if (![KeyChain isLogin]) {
+        self.afterLoginView.tipString = @"登录/注册";
+    }else
+    {
+        [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
+            if ([KeyChain isLogin] && [isVerify isEqualToString:@"1"])
+            {
+                weakSelf.afterLoginView.tipString = @"立即投资啦！";
+            }else{
+                weakSelf.afterLoginView.tipString = @"安全认证";
+            }
+        }];
+    }
+    
     
     
 //    if ( [KeyChain isLogin] && [KeyChain isVerify]) {
