@@ -42,7 +42,7 @@
 @property (nonatomic,copy) NSString *countDownStr;
 
 ///加入按钮是否置灰
-@property (nonatomic,assign) BOOL isAddButtonNoInteraction;
+@property (nonatomic,assign) BOOL isAddButtonInteraction;
 
 ///收益方式
 @property (nonatomic,copy) NSString *profitType;

@@ -82,5 +82,7 @@
 @property (nonatomic,copy) NSString *addButtonStr;
 ///期限的string
 @property (nonatomic,copy) NSString *lockPeriodStr;
+///是否可以点击 addbutton
+@property (nonatomic,assign) BOOL isUserInteractionEnabled;
 - (void) addButtonChengeTitleChenge: (void(^)(NSString *))addButtonChengeTitleBlock;
 @end

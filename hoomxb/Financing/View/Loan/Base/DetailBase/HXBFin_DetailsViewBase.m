@@ -92,6 +92,7 @@
     self.promptStr                  = viewModelVM.promptStr;
     self.addButtonStr               = viewModelVM.addButtonStr;
     self.lockPeriodStr              = viewModelVM.lockPeriodStr;
+    
     [self show];
 }
 - (void)setModelArray:(NSArray<HXBFinDetail_TableViewCellModel *> *)modelArray {
@@ -239,6 +240,7 @@
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     self.addButton.backgroundColor = [UIColor blackColor];
     [self.addButton setTitle:self.addButtonStr forState:UIControlStateNormal];
+    self.addButton.userInteractionEnabled = self.viewModelVM.isUserInteractionEnabled;
 }
 
 - (void)clickAddButton: (UIButton *)button {

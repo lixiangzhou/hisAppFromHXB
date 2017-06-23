@@ -95,13 +95,13 @@
 }
 
 - (void)setAddButtonStrValue {
-    self.isAddButtonNoInteraction = true;
+    self.isAddButtonInteraction = false;
     if (self.planDetailModel.isFirst.integerValue) {
         self.addButtonStr = @"立即加入";
-        self.isAddButtonNoInteraction = false;
+        self.isAddButtonInteraction = true;
     }else {
         self.addButtonStr = @"追加";
-        self.isAddButtonNoInteraction = true;
+        self.isAddButtonInteraction = false;
     }
     switch ([self.planDetailModel.unifyStatus integerValue]) {
         case 0:
@@ -117,16 +117,16 @@
             self.addButtonStr = @"预定满额";
             break;
         case 4:
-            self.addButtonStr = @"等待开放购买大于30分钟";
+            self.addButtonStr = @"等待加入";
             break;
         case 5:
-            self.addButtonStr = @"等待开放购买小于30分钟";
+            self.addButtonStr = @"等待加入";
             break;
         case 6:
-            self.addButtonStr = @"开放加入";
+            self.addButtonStr = @"立即加入";
             break;
         case 7:
-            self.addButtonStr = @"加入满额";
+            self.addButtonStr = @"收益中";
             break;
         case 8:
             self.addButtonStr = @"收益中";
@@ -138,7 +138,6 @@
             self.addButtonStr = @"已退出";
             break;
     }
-    self.addButtonStr = @"立即加入";
 }
 
 

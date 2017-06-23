@@ -59,6 +59,7 @@
         
         viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
         viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
+        viewModelVM.isUserInteractionEnabled   = weakSelf.planDetailViewModel.isAddButtonInteraction;
         if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
             
         }
