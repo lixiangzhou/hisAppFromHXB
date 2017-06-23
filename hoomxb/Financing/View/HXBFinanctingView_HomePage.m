@@ -123,7 +123,7 @@
 //    [arrayM addObjectsFromArray:self.finLoanListVMArray];
     __weak typeof (self)weakSelf = self;
     
-    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 60 andCountDownUnit:1 andModelArray: self.finPlanListVMArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
+    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray: self.finPlanListVMArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
     [self.contDwonManager countDownWithChangeModelBlock:^(HXBFinHomePageViewModel_PlanList *model, NSIndexPath *index) {
         if (weakSelf.finPlanListVMArray.count > index.row) {
             HXBFinancting_PlanListTableViewCell *cell = [weakSelf.planListTableView cellForRowAtIndexPath:index];

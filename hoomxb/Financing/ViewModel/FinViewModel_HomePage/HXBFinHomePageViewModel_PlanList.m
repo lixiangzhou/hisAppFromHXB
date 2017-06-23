@@ -45,9 +45,20 @@ typedef enum : NSUInteger {
 - (void)setPlanListModel:(HXBFinHomePageModel_PlanList *)planListModel {
     _planListModel = planListModel;
     [self setupExpectedYearRateAttributedStr];// 红利计划列表页的cell里面的年利率
-    self.countDownLastStr = planListModel.diffTime;
 }
-
+/**
+ 剩余时间
+ */
+- (NSString *) countDownLastStr {
+    if (!_countDownLastStr) {
+        _countDownLastStr = @(self.planListModel.diffTime.integerValue / 1000).description;
+        NSLog(@"%@",self.planListModel.diffTime);
+        if (_countDownLastStr.integerValue <= 3600 && _countDownLastStr.integerValue >= 0) {
+            NSLog(@"%@",_countDownLastStr);
+        }
+    }
+    return _countDownLastStr;
+}
 
 
 #pragma mark - getter
@@ -62,7 +73,7 @@ typedef enum : NSUInteger {
     switch (self.planListModel.unifyStatus.integerValue) {
         case 0:
             return @"等待预售开始超过30分";
-            break;
+       
         case 1:
             return @"等待预售开始小于30分钟";
             break;
@@ -73,16 +84,16 @@ typedef enum : NSUInteger {
             return @"预定满额";
             break;
         case 4:
-            return @"等待开放购买大于30分钟";
+            return @"等待加入";
             break;
         case 5:
-            return @"等待开放购买小于30分钟";
+            return @"等待加入";
             break;
         case 6:
-            return @"开放加入";
+            return @"加入";
             break;
         case 7:
-            return @"加入满额";
+            return @"加入";
             break;
         case 8:
             return @"收益中";

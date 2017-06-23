@@ -37,7 +37,10 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addSubview:self.signUPView];
+    [self.hxbBaseVCScrollView addSubview:self.signUPView];
+    [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
+        [self.hxbBaseVCScrollView endEditing:true];
+    }];
     [self registerEvent];
 }
 

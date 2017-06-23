@@ -45,7 +45,7 @@
 @property (nonatomic,copy) NSString *totalInterestStr;
 ///红利计划为：预期年利率 散标为：年利率
 @property (nonatomic,copy) NSString *totalInterestStr_const;
-
+@property (nonatomic,copy) NSString *lockPeriodStr;
 ///红利计划：（起投 固定值1000） 散标：（标的期限）
 @property (nonatomic,copy) NSString *startInvestmentStr;
 @property (nonatomic,copy) NSString *startInvestmentStr_const;
@@ -91,6 +91,7 @@
     self.startInvestmentStr_const   = viewModelVM.startInvestmentStr_const;
     self.promptStr                  = viewModelVM.promptStr;
     self.addButtonStr               = viewModelVM.addButtonStr;
+    self.lockPeriodStr              = viewModelVM.lockPeriodStr;
     [self show];
 }
 - (void)setModelArray:(NSArray<HXBFinDetail_TableViewCellModel *> *)modelArray {
@@ -133,9 +134,18 @@
 - (void)setupExpectedYearRateView {
     self.expectedYearRateView = [[UIView alloc]init];
     self.expectedYearRateView.frame = CGRectMake(0, 0, self.width, 200);
+    //期限
+    UILabel *lockPeriodLabel = [[UILabel alloc]init];
     [self addSubview:self.expectedYearRateView];
     [self upDownLableWithView:self.expectedYearRateView andDistance:20 andFirstFont:[UIFont systemFontOfSize:40] andFirstStr:[NSString stringWithFormat:@"%@%@",self.totalInterestStr,@"%"]  andSecondStr:[NSString stringWithFormat:@"%@",self.totalInterestStr_const]];
     
+    [self.expectedYearRateView addSubview:lockPeriodLabel];
+    [lockPeriodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.expectedYearRateView);
+        make.top.equalTo(self).offset(64);
+        make.height.width.equalTo(@(kScrAdaptationH(50)));
+    }];
+    lockPeriodLabel.text = self.viewModelVM.lockPeriodStr;
 }
 
 //MARK: - 剩余可投view

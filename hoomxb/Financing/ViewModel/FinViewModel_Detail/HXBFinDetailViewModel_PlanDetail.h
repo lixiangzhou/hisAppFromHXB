@@ -17,6 +17,7 @@
 @property (nonatomic,copy) NSString *beginSellingTime;
 ///String	进入锁定期时间
 @property (nonatomic,copy) NSString *financeEndTime;
+
 ///计划期限（锁定期）
 @property (nonatomic,copy) NSString *lockPeriod;
 ///": "理财计划服务协议",
@@ -57,4 +58,6 @@
 
 /// remainAmount_const
 @property (nonatomic,copy) NSString *remainAmount_const;
+/// 计划期限
+@property (nonatomic,copy) NSString *lockPeriodStr;
 @end

@@ -27,7 +27,10 @@
 @property (nonatomic,copy) NSString *totalInterestPer100;
 ///服务协议 button str
 @property (nonatomic,copy) NSString *agreementTitle;
-
+/**
+ 标的期限
+ */
+@property (nonatomic,copy) NSString * lockPeriodStr;
 
 ///确认加入的Buttonstr
 @end

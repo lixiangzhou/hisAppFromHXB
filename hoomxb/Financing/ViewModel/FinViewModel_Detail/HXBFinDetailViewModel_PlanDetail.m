@@ -197,4 +197,13 @@
     }
     return _totalInterest;
 }
+/**
+ 计划期限
+ */
+- (NSString *) lockPeriodStr {
+    if (!_lockPeriodStr) {
+        _lockPeriodStr = [NSString stringWithFormat: @"%@个月",self.planDetailModel.lockPeriodStr];
+    }
+    return _lockPeriod;
+}
 @end
