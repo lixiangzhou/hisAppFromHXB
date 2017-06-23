@@ -53,7 +53,9 @@
         viewModelVM.remainAmount               = weakSelf.planDetailViewModel.remainAmount;
         
         viewModelVM.totalInterestStr_const     = @"年利率";
+        
         viewModelVM.remainAmount_const         = @"剩余金额";
+        
         viewModelVM.startInvestmentStr_const   = @"起投";
         viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
         
@@ -161,6 +163,9 @@
         //跳转加入界面
         HXBFin_Plan_BuyViewController *planJoinVC = [[HXBFin_Plan_BuyViewController alloc]init];
         planJoinVC.planViewModel = weakSelf.planDetailViewModel;
+        [planJoinVC setCallBackBlock:^{
+            [self.navigationController popoverPresentationController];
+        }];
         [weakSelf.navigationController pushViewController:planJoinVC animated:true];
     }];
 }

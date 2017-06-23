@@ -12,8 +12,20 @@
 @interface HXBFinDetailViewModel_LoanDetail : NSObject
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail *loanDetailModel;
 
-///string	剩余可投金额
+
+/**
+ status 标的状态
+ */
+@property (nonatomic,copy) NSString * status;
+/**
+ string	剩余可投金额
+ */
 @property (nonatomic,copy) NSString *surplusAmount;
+/**
+ 剩余可投：为0时或状态为已满标、收益中时，字段变为标的金额
+ */
+@property (nonatomic,copy) NSString *surplusAmount_ConstStr;
+
 ///左边的月数
 @property (nonatomic,copy) NSString *leftMonths;
 
@@ -32,5 +44,14 @@
  */
 @property (nonatomic,copy) NSString * lockPeriodStr;
 
-///确认加入的Buttonstr
+/**
+ ///确认加入的Buttonstr
+ */
+@property (nonatomic,copy) NSString * addButtonStr;
+
+/**
+ addButton是否可以点击
+ */
+@property (nonatomic,assign) BOOL isAddButtonEndEditing;
+
 @end

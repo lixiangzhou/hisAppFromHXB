@@ -24,6 +24,8 @@
 @property (nonatomic,copy) NSString *contractName;
 /// 剩余金额
 @property (nonatomic,copy) NSString *remainAmount;
+///剩余金额
+@property (nonatomic,copy) NSString *remainAmount_constStr;
 ///剩余可追加金额
 @property (nonatomic,copy) NSString *userRemainAmount;
 

@@ -115,9 +115,10 @@
             if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
                 [HxbHUDProgress showTextWithMessage:@"去安全认证"];
             }else {
-                [[HXBFinanctingRequest sharedFinanctingRequest] loanBuyWithLoanID:weakSelf.loanViewModel.loanDetailModel.loanVo.loanId andAmount:capital andSuccessBlock:^(HXBFinModel_Buy_LoanModel *model, HXBFinModel_BuyResoult_LoanModel *resultModel) {
+                [[HXBFinanctingRequest sharedFinanctingRequest]loan_confirmBuyReslutWithLoanID:weakSelf.loanViewModel.loanDetailModel.loanVo.loanId andAmount:capital andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
                     ///加入成功
-                    [self popoverPresentationController];
+                    [HxbHUDProgress showTextWithMessage:@"加入成功"];
+                    [self.navigationController popToRootViewControllerAnimated:true];
                 } andFailureBlock:^(NSError *error) {
                     NSLog(@"加入失败 %@ error =%@",self,error);
                 }];
@@ -173,6 +174,7 @@
             model.JoinImmediateView_Model.addButtonStr = @"确认加入";
             ///预期收益
             model.profitLabelStr = [NSString hxb_getPerMilWithDouble:0.0];
+            model.addButtonEndEditing = weakSelf.loanViewModel.isAddButtonEndEditing;
             return model;
         }];
 

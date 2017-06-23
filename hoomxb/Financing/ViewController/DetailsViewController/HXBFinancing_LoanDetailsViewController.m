@@ -50,7 +50,10 @@
         viewModelVM.startInvestmentStr         = weakSelf.loanDetailViewModel.leftMonths;
         viewModelVM.startInvestmentStr_const   = @"标的期限";
         viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
-        viewModelVM.addButtonStr               = @"立即加入";
+        viewModelVM.addButtonStr               = weakSelf.loanDetailViewModel.addButtonStr;
+        viewModelVM.remainAmount_const         = weakSelf.loanDetailViewModel.surplusAmount_ConstStr;
+        viewModelVM.remainAmount               = weakSelf.loanDetailViewModel.surplusAmount;
+        viewModelVM.isUserInteractionEnabled   = weakSelf.loanDetailViewModel.isAddButtonEndEditing;
         return viewModelVM;
     }];
 }

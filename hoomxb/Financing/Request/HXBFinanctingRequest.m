@@ -477,14 +477,14 @@
         if (failureBlock) failureBlock(error);
     }];
 }
-///MARK: - loan 购买结果
 
+///MARK: - loan 购买结果
 - (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
                               andAmount: (NSString *)amount
                         andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
                         andFailureBlock:(void (^)(NSError *error))failureBlock {
     HXBBaseRequest *loanBuyReslutRequest = [[HXBBaseRequest alloc]init];
-    
+    loanBuyReslutRequest.requestMethod = NYRequestMethodPost;
     loanBuyReslutRequest.requestUrl = kHXBFin_BuyReslut_LoanURL(loanID);
     amount = amount ? amount : @"";
     loanBuyReslutRequest.requestArgument = @{

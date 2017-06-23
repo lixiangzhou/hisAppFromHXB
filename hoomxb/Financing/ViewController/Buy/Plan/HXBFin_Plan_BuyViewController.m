@@ -107,11 +107,11 @@
              if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
                  [HxbHUDProgress showTextWithMessage:@"去安全认证"];
              }else {
-                 [[HXBFinanctingRequest sharedFinanctingRequest] planBuyWithPlanID:weakSelf.planViewModel.planDetailModel.ID andAmount:capital andSuccessBlock:^(HXBFinModel_Buy_Plan *model, HXBFinModel_BuyResoult_PlanModel *resultModel) {
-                     NSLog(@"加入成功");
+                 [[HXBFinanctingRequest sharedFinanctingRequest]plan_buyReslutWithPlanID:weakSelf.planViewModel.planDetailModel.ID  andAmount:capital andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
                      [HxbHUDProgress showTextWithMessage:@"加入成功"];
-                     [self popoverPresentationController];
+                     [self.navigationController popToRootViewControllerAnimated:true];
                  } andFailureBlock:^(NSError *error) {
+                     
                  }];
              }
          } andFailure:^(NSError *error) {

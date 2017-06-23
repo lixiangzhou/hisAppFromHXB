@@ -45,4 +45,8 @@
 @property (nonatomic,copy) NSString *loanAcountLable_ConstStr;
 ///散标投资标的剩余可投金额
 @property (nonatomic,copy) NSString *loanAcountLabelStr;
+/**
+ addButton是否可以点击
+ */
+@property (nonatomic,assign) BOOL addButtonEndEditing;
 @end

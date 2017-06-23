@@ -16,7 +16,6 @@
     [self setUPFinanceEndTime];///退出时间
     [self setUPLockPeriod];///计划期限
     [self setUPUserRemainAmount];///剩余可追加金额
-    [self setUPRemainAmount];///剩余可投
     [self setUPhxb_SingleMaxRegisterAmount];///本期计划加入上限
     [self setAddButtonStrValue];
 }
@@ -56,6 +55,9 @@
     }
     return _contractName;
 }
+/**
+ 剩余金额 const
+ */
 
 /**
  剩余可投
@@ -64,16 +66,16 @@
     //剩余金额：不为0时显示剩余金额，为0时或状态不为可加入时，该字段变为【计划总金额：XXXXXX】
     if (!_remainAmount) {
         if (self.planDetailModel.remainAmount.floatValue <= 0) {
-            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.remainAmount.floatValue];
-        } else {
             _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount.floatValue];
+            _remainAmount_constStr = @"计划总金额";
+        } else {
+            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.remainAmount.floatValue];
+            _remainAmount_constStr = @"剩余金额";
         }
     }
     return _remainAmount;
 }
-- (void)setUPRemainAmount {
-    self.remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.remainAmount.floatValue];
-}
+
 
 
 ///剩余可追加金额
@@ -106,36 +108,47 @@
     switch ([self.planDetailModel.unifyStatus integerValue]) {
         case 0:
             self.addButtonStr = @"等待预售开始超过30分";
+             self.isAddButtonInteraction = false;
             break;
         case 1:
             self.addButtonStr = @"等待预售开始小于30分钟";
+             self.isAddButtonInteraction = false;
             break;
         case 2:
             self.addButtonStr = @"预定";
+             self.isAddButtonInteraction = false;
             break;
         case 3:
             self.addButtonStr = @"预定满额";
+             self.isAddButtonInteraction = false;
             break;
         case 4:
             self.addButtonStr = @"等待加入";
+             self.isAddButtonInteraction = false;
             break;
         case 5:
             self.addButtonStr = @"等待加入";
+             self.isAddButtonInteraction = false;
             break;
         case 6:
             self.addButtonStr = @"立即加入";
+             self.isAddButtonInteraction = true;
             break;
         case 7:
             self.addButtonStr = @"收益中";
+             self.isAddButtonInteraction = false;
             break;
         case 8:
             self.addButtonStr = @"收益中";
+             self.isAddButtonInteraction = false;
             break;
         case 9:
             self.addButtonStr = @"开放期";
+            self.isAddButtonInteraction = false;
             break;
         case 10:
             self.addButtonStr = @"已退出";
+            self.isAddButtonInteraction = false;
             break;
     }
 }

@@ -71,7 +71,7 @@ typedef enum : NSUInteger {
 @property (nonatomic,copy) NSString *amount;
 ///标题
 @property (nonatomic,copy) NSString *title;
-///保持时间
+///剩余时间
 @property (nonatomic,copy) NSString *remainTime;
 ///利益
 @property (nonatomic,copy) NSString *interest;

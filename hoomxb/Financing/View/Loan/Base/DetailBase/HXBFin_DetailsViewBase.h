@@ -62,6 +62,15 @@
 
 
 @interface HXBFin_DetailsViewBase_ViewModelVM: NSObject
+//
+///**
+// 剩余可投
+// */
+//@property (nonatomic,copy) NSString * surplusAmount;
+///**
+// 剩余可投的const
+// */
+//@property (nonatomic,copy) NSString * surplusAmount_const;
 
 ///* 预期收益不代表实际收益投资需谨慎
 @property (nonatomic,copy) NSString *promptStr;

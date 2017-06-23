@@ -12,10 +12,108 @@
 - (void)setLoanDetailModel:(HXBFinDatailModel_LoanDetail *)loanDetailModel {
     _loanDetailModel = loanDetailModel;
     [self setUP_totalInterestPer100];
-
+    [self status];
     [self setUP_leftMonths];
 }
 
+- (BOOL)isAddButtonEndEditing {
+    return true;
+}
+/**
+ 标的状态
+ */
+- (NSString *) status {
+    if (!_status) {
+        NSString *status = self.loanDetailModel.loanVo.status;
+        ///String	投标中
+        if ( [status isEqualToString:@"OPEN"]){
+            self.addButtonStr = @"立即投标";
+             _surplusAmount_ConstStr = @"剩余金额";
+            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.surplusAmount.floatValue];
+        }
+        ///	String	已满标
+        if ([status isEqualToString:@"READY"]){
+            self.addButtonStr = @"立即投标";
+            _surplusAmount_ConstStr = @"标的总金额";
+            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+            
+        }
+        ///	String	已流标
+        if ([status isEqualToString:@"FAILED"]){
+            self.addButtonStr = @"立即投标";
+        }
+        ///	String	收益中
+        if ([status isEqualToString:@"IN_PROGRESS"]){
+            self.addButtonStr = @"立即投标";
+            _surplusAmount_ConstStr = @"标的总金额";
+            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+        }
+        ///	String	逾期
+        if ([status isEqualToString:@"OVER_DUE"]){
+            self.addButtonStr = @"立即投标";
+            _surplusAmount_ConstStr = @"标的总金额";
+              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+            
+        }
+        ///	String	坏账
+        if ([status isEqualToString:@"BAD_DEBT"]){
+            self.addButtonStr = @"立即投标";
+            _surplusAmount_ConstStr = @"标的总金额";
+              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+        }
+        
+        ///	String	已结清
+        if ([status isEqualToString:@"CLOSED"]){
+            self.addButtonStr = @"立即投标";
+            _surplusAmount_ConstStr = @"标的总金额";
+              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+        }
+        
+        ///	String	新申请
+        if ([status isEqualToString:@"FIRST_APPLY"]){
+            self.addButtonStr = @"立即投标";
+            _surplusAmount_ConstStr = @"标的总金额";
+              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+        }
+        
+        ///	String	已满标
+        if ([status isEqualToString:@"FIRST_READY"]){
+            self.addButtonStr = @"立即投标";
+            _surplusAmount_ConstStr = @"标的总金额";
+              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+        }
+        
+        ///	String	预售
+        if ([status isEqualToString:@"PRE_SALES"]){
+            self.addButtonStr = @"立即投标";
+            _surplusAmount_ConstStr = @"标的总金额";
+              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+        }
+        
+        ///	String	等待招标
+        if ([status isEqualToString:@"WAIT_OPEN"]){
+            self.addButtonStr = @"立即投标";
+            _surplusAmount_ConstStr = @"标的总金额";
+              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+        }
+        
+        ///	String	放款中
+        if ([status isEqualToString:@"FANGBIAO_PROCESSING"]){
+            self.addButtonStr = @"立即投标";
+            _surplusAmount_ConstStr = @"标的总金额";
+              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+        }
+        
+        ///	String	流标中
+        if ([status isEqualToString:@"LIUBIAO_PROCESSING"]){
+            self.addButtonStr = @"立即投标";
+            _surplusAmount_ConstStr = @"标的总金额";
+              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+        }
+
+    }
+    return _status;
+}
 ///预期年利率
 - (void)setUP_totalInterestPer100 {
    
@@ -34,11 +132,30 @@
  */
 - (NSString *) surplusAmount {
     if (!_surplusAmount) {
-        _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.surplusAmount.floatValue];
+        if (self.loanDetailModel.loanVo.surplusAmount.floatValue <= 0) {
+            _surplusAmount_ConstStr = @"标的总金额";
+            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+        }else {
+            [self status];
+        }
+        
     }
     return _surplusAmount;
 }
-
+/**
+ 剩余可投 字符
+ */
+- (NSString *) surplusAmount_ConstStr {
+    if (!_surplusAmount_ConstStr) {
+        if (self.loanDetailModel.loanVo.surplusAmount.floatValue <= 0) {
+            _surplusAmount_ConstStr = @"标的总金额";
+            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+        }else {
+            [self status];
+        }
+    }
+    return _surplusAmount_ConstStr;
+}
 /**
 左边的月数
  */
