@@ -439,21 +439,23 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 }
 ///	是否安全认证
 - (void) isVerifyWithBlock: (void(^)(NSString *isVerify))isVerifyBlock {
-    if (![self.isVerify length]) {
-        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            _isVerify = viewModel.userInfoModel.userInfo.isAllPassed;
-            [_keychain setObject:_isVerify forKeyedSubscript:kIsAllPassed];
-            if (isVerifyBlock) {
-                isVerifyBlock(_isVerify);
-            }
-        } andFailure:^(NSError *error) {
-            if (isVerifyBlock) {
-                isVerifyBlock(_isVerify);
-            }
-        }];
-    }
-    if (isVerifyBlock) {
-        isVerifyBlock(_isVerify);
+    if ([KeyChain isLogin]) {
+        if (![self.isVerify length]) {
+            [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+                _isVerify = viewModel.userInfoModel.userInfo.isAllPassed;
+                [_keychain setObject:_isVerify forKeyedSubscript:kIsAllPassed];
+                if (isVerifyBlock) {
+                    isVerifyBlock(_isVerify);
+                }
+            } andFailure:^(NSError *error) {
+                if (isVerifyBlock) {
+                    isVerifyBlock(_isVerify);
+                }
+            }];
+        }
+        if (isVerifyBlock) {
+            isVerifyBlock(_isVerify);
+        }
     }
 }
 //!<手势密码是否开启

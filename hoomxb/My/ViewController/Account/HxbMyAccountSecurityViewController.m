@@ -14,6 +14,7 @@
 #import "HXBModifyTransactionPasswordViewController.h"//交易密码
 #import "HXBGesturePasswordViewController.h"//手势密码
 #import "HXBModifyGesturePasswordController.h"//修改手势密码
+#import "HxbSecurityCertificationViewController.h"//安全认证
 @interface HxbMyAccountSecurityViewController ()
 <
 UITableViewDataSource,UITableViewDelegate
@@ -49,7 +50,9 @@ UITableViewDataSource,UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {//表示安全认证
-            
+            //跳转安全认证
+            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
+            [self.navigationController pushViewController:securityCertificationVC animated:YES];
         }
         if (indexPath.row == 1) {//点击绑定手机号
             NSLog(@"click 绑定手机号");

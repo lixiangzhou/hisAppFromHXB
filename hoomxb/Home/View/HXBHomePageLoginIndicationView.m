@@ -48,7 +48,8 @@
         [self addSubview:self.ciphertextButton];
         
         [self setupSubViewFrame];
-        self.modle = @"";
+        
+        [self loadNewDate];
     }
     return self;
 }
@@ -86,15 +87,13 @@
 //    }
 //}
 #pragma mark Set Methdos
-- (void)setModle:(NSString *)modle
+- (void)loadNewDate
 {
-    _modle = modle;
     kWeakSelf
-    
-    
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.availableAmountLabel.text = [NSString stringWithFormat:@"可用金额(元):%@",viewModel.userInfoModel.userAssets.availablePoint];
         weakSelf.accumulatedIncomeLabel.text = [NSString stringWithFormat:@"累计收益(元):%@",viewModel.userInfoModel.userAssets.earnTotal];
+        weakSelf.userNameLabel.text = viewModel.userInfoModel.userInfo.username;
         weakSelf.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
         
