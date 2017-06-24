@@ -58,6 +58,11 @@
 - (void)changeIndicationView
 {
     kWeakSelf
+    if (![KeyChain isLogin]) {
+        //没有投资显示的界面
+        [weakSelf.headView showNotValidatedView];
+        return;
+    }
     [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
         if ([isVerify isEqualToString:@"1"] && [KeyChain isInvest]) {
             
