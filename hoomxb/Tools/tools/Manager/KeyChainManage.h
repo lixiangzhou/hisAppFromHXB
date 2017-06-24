@@ -78,6 +78,10 @@
 @property (nonatomic,copy) NSString *idNo;
  */
 
+
+///是否登录
+- (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock;
+
 ///	double	总资产
 - (void)assetsTotalWithBlock: (void(^)(NSString *assetsTotal))assetsTotalWithBlock;
 

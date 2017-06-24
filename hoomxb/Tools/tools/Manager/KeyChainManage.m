@@ -570,6 +570,22 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     return isLogin;
 }
 
+- (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock {
+    if (!self.isLogin) {
+        isLoginInRealTimeBlock (false);
+    }
+    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        if (isLoginInRealTimeBlock) {
+            [self setValueWithUserInfoModel:viewModel];
+            isLoginInRealTimeBlock(true);
+        }
+    } andFailure:^(NSError *error) {
+        if (isLoginInRealTimeBlock) {
+            isLoginInRealTimeBlock(false);
+        }
+    }];
+}
+
 - (void) setMobile:(NSString *)mobile {
     _mobile = mobile;
     self.keychain[kMobile] = mobile;
