@@ -1,4 +1,4 @@
-//
+        //
 //  HxbSignInViewController.m
 //  hoomxb
 //
@@ -89,7 +89,11 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             NSLog(@"登录成功");
             self.reuqestSignINNumber = @(0);
             //调到我的界面
-            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:self];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:self];
+            [KeyChain setMobile:mobile];
+            [[KeyChainManage sharedInstance] mobileWithBlock:^(NSString *mobile) {
+                
+            }];
             [weakSelf dismiss];
         } andFailureBlock:^(NSError *error) {
             self.reuqestSignINNumber = @(self.reuqestSignINNumber.integerValue + 1);

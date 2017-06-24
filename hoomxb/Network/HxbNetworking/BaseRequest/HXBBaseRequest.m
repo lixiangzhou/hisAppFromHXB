@@ -36,8 +36,17 @@
 
 - (void)startWithHUD:(NSString *)str
 {
-    [[NYNetworkManager sharedManager] addRequest:self withHUD:str];
-    
+    if (!self.isJudgeLogin) {
+        [[NYNetworkManager sharedManager] addRequest:self withHUD:str];
+        return;
+    }
+    [[KeyChainManage sharedInstance] isLoginWithInRealTimeBlock:^(BOOL isLogin) {
+        if (isLogin) {
+            [[NYNetworkManager sharedManager] addRequest:self withHUD:str];
+        }else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
+    }];
 }
 
 - (void)startWithAnimation
@@ -47,23 +56,62 @@
 
 - (void)startWithSuccess:(void(^)(HXBBaseRequest *request, id responseObject))success
               failure:(void(^)(HXBBaseRequest *request, NSError *error))failure {
-    self.success = [success copy];
-    self.failure = [failure copy];
-    [self start];
+    
+    if (!self.isJudgeLogin) {
+        self.success = [success copy];
+        self.failure = [failure copy];
+        [self start];
+        return;
+    }
+    [[KeyChainManage sharedInstance] isLoginWithInRealTimeBlock:^(BOOL isLogin) {
+        if (isLogin) {
+            self.success = [success copy];
+            self.failure = [failure copy];
+            [self start];
+        }else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
+    }];
 }
 
-- (void)startWithHUDStr:(NSString *)string Success:(void(^)(HXBBaseRequest *request, id responseObject))success
-             failure:(void(^)(HXBBaseRequest *request, NSError *error))failure {
-    self.success = [success copy];
-    self.failure = [failure copy];
-    [self startWithHUD:string];
+- (void)startWithHUDStr:(NSString *)string Success:(void(^)(HXBBaseRequest *request, id responseObject))success failure:(void(^)(HXBBaseRequest *request, NSError *error))failure {
+    if (!self.isJudgeLogin) {
+        self.success = [success copy];
+        self.failure = [failure copy];
+        [self startWithHUD:string];
+        return;
+    }
+    [[KeyChainManage sharedInstance] isLoginWithInRealTimeBlock:^(BOOL isLogin) {
+        if (isLogin) {
+            self.success = [success copy];
+            self.failure = [failure copy];
+            [self startWithHUD:string];
+        }else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
+    }];
+   
 }
 
 - (void)startAnimationWithSuccess:(void(^)(HXBBaseRequest *request, id responseObject))success
                           failure:(void(^)(HXBBaseRequest *request, NSError *error))failure {
-    self.success = [success copy];
-    self.failure = [failure copy];
-    [self startWithAnimation];
+ 
+    if (!self.isJudgeLogin) {
+        self.success = [success copy];
+        self.failure = [failure copy];
+        [self startWithAnimation];
+        return;
+    }
+    [[KeyChainManage sharedInstance] isLoginWithInRealTimeBlock:^(BOOL isLogin) {
+        if (isLogin) {
+            self.success = [success copy];
+            self.failure = [failure copy];
+            [self startWithAnimation];
+        }else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
+    }];
+    
 }
 
 
