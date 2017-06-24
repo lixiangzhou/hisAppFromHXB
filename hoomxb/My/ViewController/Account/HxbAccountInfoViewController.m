@@ -76,13 +76,13 @@ UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *celledStr = @"celled";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr ];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
-        cell.textLabel.text = @"Hxb00001";
+        cell.textLabel.text = self.userInfoViewModel.userInfoModel.userInfo.username;
         cell.imageView.image = [UIImage imageNamed:@"1"];
 
     }else if (indexPath.section == 1){
