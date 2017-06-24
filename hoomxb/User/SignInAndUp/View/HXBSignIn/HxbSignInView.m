@@ -58,6 +58,8 @@ UITextFieldDelegate
 @implementation HxbSignInView
 
 #pragma mark - 参数的传递
+
+///李鹏跃 ： 禁止用 登录按钮
 - (void)checkMobileResultFuncWithCheckMobileResultStr:(NSString *)checkMobileResultStr andIsEditLoginButton:(BOOL)isEditLoginButton {
     self.isPhoneNumberLabel.text = checkMobileResultStr;
     self.signInButton.userInteractionEnabled = isEditLoginButton;

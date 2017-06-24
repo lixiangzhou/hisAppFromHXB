@@ -24,9 +24,14 @@
 }
 
 - (void)setUPView {
+    
     self.smscodeView = [[HXBSendSmscodeView alloc] initWithFrame:self.view.frame];
+    kWeakSelf
+    [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
+        [weakSelf.smscodeView endEditing:true];
+    }];
     self.smscodeView.phonNumber = self.phonNumber;
-    [self.view addSubview: self.smscodeView];
+    [self.hxbBaseVCScrollView addSubview: self.smscodeView];
 }
 
 #pragma mark - 点击事件的注册

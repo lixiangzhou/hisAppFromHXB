@@ -66,7 +66,10 @@ typedef enum : NSUInteger {
 /// 红利计划 的状态
 @property (nonatomic,copy) NSString *status;
 
-
+/**
+ 年利率
+ */
+@property (nonatomic,copy) NSString * expectedRate;
 
 ///红利计划相应的 计划状态
 + (NSString *)myPlan_ResponsStatus: (HXBRequestType_MY_PlanResponseStatus)status;

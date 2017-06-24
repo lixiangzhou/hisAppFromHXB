@@ -494,7 +494,6 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 
 - (BOOL)removeAllInfo
 {
-    //
     KeyChainManage *manager = KeyChain;
     BOOL rmSuccess = [manager.keychain removeAllItems];
     

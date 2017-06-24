@@ -365,6 +365,7 @@
 /// 计划购买
 - (void)planBuyWithPlanID:(NSString *)planID
                 andAmount:(NSString *)amount
+                cashType : (NSString *)cashType
           andSuccessBlock:(void (^)(HXBFinModel_Buy_Plan *model,HXBFinModel_BuyResoult_PlanModel *resultModel))successDateBlock
           andFailureBlock:(void (^)(NSError *))failureBlock {
     HXBBaseRequest *buyRequest = [[HXBBaseRequest alloc]init];
@@ -385,8 +386,8 @@
         [planBuyModel yy_modelSetWithDictionary:dic];
         [request.infoDic setObject:planBuyModel forKey:@"planBuyModel"];
         if (successDateBlock) {
-            [self plan_buyReslutWithPlanID:buyRequest.infoDic[@"planID"] andAmount: buyRequest.infoDic[@"amount"] andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
-                successDateBlock(request.infoDic[@"planBuyModel"],model);
+            [self plan_buyReslutWithPlanID:buyRequest.infoDic[@"planID"]  andAmount:buyRequest.infoDic[@"amount"] cashType:cashType andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
+                 successDateBlock(request.infoDic[@"planBuyModel"],model);
             } andFailureBlock:^(NSError *error) {
                 if (failureBlock) {
                     failureBlock(error);
@@ -403,16 +404,18 @@
 
 #pragma mark - 购买结果
 ///确认购买 plan
-//收益方式 HXB(当日提取至红小宝账户),INVEST(收益再投资）
+//cashType 收益方式 HXB(当日提取至红小宝账户),INVEST(收益再投资）
 - (void)plan_buyReslutWithPlanID: (NSString *)planID
                               andAmount: (NSString *)amount
+                       cashType : (NSString *)cashType
                         andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
                         andFailureBlock:(void (^)(NSError *error))failureBlock{
     HXBBaseRequest *confirmBuyReslut = [[HXBBaseRequest alloc]init];
     
     if (!amount) amount = @"";
     confirmBuyReslut.requestArgument = @{
-                                         @"amount" : amount
+                                         @"amount" : amount,
+                                         @"cashType" : cashType
                                          };
     
     confirmBuyReslut.requestUrl = kHXBFin_Plan_ConfirmBuyReslutURL(planID);
@@ -420,6 +423,7 @@
     
     [confirmBuyReslut startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+        kHXBResponsShowHUD
         if (status == 3408) {
             [HxbHUDProgress showTextWithMessage:@"余额不足"];
             if (failureBlock) failureBlock(nil);

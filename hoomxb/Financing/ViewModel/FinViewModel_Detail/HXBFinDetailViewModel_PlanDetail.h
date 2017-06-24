@@ -46,6 +46,8 @@
 ///加入按钮是否置灰
 @property (nonatomic,assign) BOOL isAddButtonInteraction;
 
+///收益方式UI
+@property (nonatomic,copy) NSString *profitType_UI;
 ///收益方式
 @property (nonatomic,copy) NSString *profitType;
 

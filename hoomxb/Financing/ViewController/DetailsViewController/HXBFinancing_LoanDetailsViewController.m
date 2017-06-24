@@ -53,7 +53,7 @@
         viewModelVM.addButtonStr               = weakSelf.loanDetailViewModel.addButtonStr;
         viewModelVM.remainAmount_const         = weakSelf.loanDetailViewModel.surplusAmount_ConstStr;
         viewModelVM.remainAmount               = weakSelf.loanDetailViewModel.surplusAmount;
-        viewModelVM.isUserInteractionEnabled   = weakSelf.loanDetailViewModel.isAddButtonEndEditing;
+        viewModelVM.isUserInteractionEnabled   = weakSelf.loanDetailViewModel.isAddButtonEditing;
         return viewModelVM;
     }];
 }

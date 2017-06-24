@@ -69,6 +69,7 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 /// 计划 购买 结果返回
 - (void)plan_buyReslutWithPlanID: (NSString *)planID
                        andAmount: (NSString *)amount
+                       cashType : (NSString *)cashType
                  andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
                  andFailureBlock:(void (^)(NSError *error))failureBlock;
 
