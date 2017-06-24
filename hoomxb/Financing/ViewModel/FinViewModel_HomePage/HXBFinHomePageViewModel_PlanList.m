@@ -72,38 +72,28 @@ typedef enum : NSUInteger {
 - (NSString *)setupUnifyStatus {
     switch (self.planListModel.unifyStatus.integerValue) {
         case 0:
-            return @"等待预售开始超过30分";
-       
+//            return @"等待预售开始超过30分";
         case 1:
-            return @"等待预售开始小于30分钟";
-            break;
+//            return @"等待预售开始小于30分钟";
         case 2:
-            return @"预定";
-            break;
+//            return @"预定";
         case 3:
-            return @"预定满额";
-            break;
+//            return @"预定满额";
         case 4:
-            return @"等待加入";
-            break;
+//            return @"等待开放购买大于30分钟";
         case 5:
+//            return @"等待开放购买小于30分钟";
             return @"等待加入";
-            break;
         case 6:
-            return @"加入";
-            break;
+            return @"立即加入";
         case 7:
-            return @"加入";
-            break;
+            return @"等待计息";
         case 8:
             return @"收益中";
-            break;
         case 9:
             return @"开放期";
-            break;
         case 10:
             return @"已退出";
-            break;
     }
     return nil;
 }

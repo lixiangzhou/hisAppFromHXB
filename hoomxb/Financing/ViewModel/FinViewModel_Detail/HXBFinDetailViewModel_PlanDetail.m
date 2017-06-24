@@ -107,40 +107,41 @@
     }
     switch ([self.planDetailModel.unifyStatus integerValue]) {
         case 0:
-            self.addButtonStr = @"等待预售开始超过30分";
-             self.isAddButtonInteraction = false;
-            break;
+//            self.addButtonStr = @"等待预售开始超过30分";
+//            self.isAddButtonInteraction = false;
+//            break;
         case 1:
-            self.addButtonStr = @"等待预售开始小于30分钟";
-             self.isAddButtonInteraction = false;
-            break;
+//            self.addButtonStr = @"等待预售开始小于30分钟";
+//            self.isAddButtonInteraction = false;
+//            break;
         case 2:
-            self.addButtonStr = @"预定";
-             self.isAddButtonInteraction = false;
-            break;
+//            self.addButtonStr = @"预定";
+//            self.isAddButtonInteraction = false;
+//            break;
         case 3:
-            self.addButtonStr = @"预定满额";
-             self.isAddButtonInteraction = false;
-            break;
+//            self.addButtonStr = @"预定满额";
+//            self.isAddButtonInteraction = false;
+//            break;
         case 4:
-            self.addButtonStr = @"等待加入";
-             self.isAddButtonInteraction = false;
-            break;
+//            self.addButtonStr = @"等待开放购买大于30分钟";
+//            self.isAddButtonInteraction = false;
+//            break;
         case 5:
+//            self.addButtonStr = @"等待开放购买小于30分钟";
+            self.isAddButtonInteraction = false;
             self.addButtonStr = @"等待加入";
-             self.isAddButtonInteraction = false;
             break;
         case 6:
             self.addButtonStr = @"立即加入";
-             self.isAddButtonInteraction = true;
+            self.isAddButtonInteraction = true;
             break;
         case 7:
-            self.addButtonStr = @"收益中";
-             self.isAddButtonInteraction = false;
+            self.addButtonStr = @"等待计息";
+            self.isAddButtonInteraction = false;
             break;
         case 8:
             self.addButtonStr = @"收益中";
-             self.isAddButtonInteraction = false;
+            self.isAddButtonInteraction = false;
             break;
         case 9:
             self.addButtonStr = @"开放期";
@@ -184,9 +185,18 @@
 /**
  加入方式
  */
-- (NSString *) profitType {
+- (NSString *) profitType_UI {
     if (!_profitType) {
         _profitType = @"收益再投资";
+    }
+    return _profitType;
+}
+/**
+  ///	string	处理方式 （HXB：当日提取至红小宝账户，INVEST：收益再投资）
+ */
+- (NSString *) profitType {
+    if (!_profitType) {
+        _profitType = @"INVEST";
     }
     return _profitType;
 }

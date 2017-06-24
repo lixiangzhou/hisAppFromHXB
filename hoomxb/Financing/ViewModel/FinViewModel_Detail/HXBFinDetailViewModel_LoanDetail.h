@@ -52,6 +52,6 @@
 /**
  addButton是否可以点击
  */
-@property (nonatomic,assign) BOOL isAddButtonEndEditing;
+@property (nonatomic,assign) BOOL isAddButtonEditing;
 
 @end

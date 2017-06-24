@@ -29,7 +29,15 @@
     return [self yy_modelDescription];
 }
 
-
+/**
+ 预期年利率
+ */
+- (NSString *) expectedRate {
+    if (!_expectedRate) {
+        _expectedRate = [NSString stringWithFormat:@"%.2lf%@",self.planModelDataList.expectedRate.floatValue,@"%"];
+    }
+    return _expectedRate;
+}
 
 
 #pragma mark - ======================== 枚举的转化方法 =============================

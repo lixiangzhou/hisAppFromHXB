@@ -174,7 +174,7 @@
             model.JoinImmediateView_Model.addButtonStr = @"确认加入";
             ///预期收益
             model.profitLabelStr = [NSString hxb_getPerMilWithDouble:0.0];
-            model.addButtonEndEditing = weakSelf.loanViewModel.isAddButtonEndEditing;
+            model.addButtonEndEditing = weakSelf.loanViewModel.isAddButtonEditing;
             return model;
         }];
 

@@ -341,9 +341,9 @@
         kHXBResponsShowHUD;
         
         NSMutableArray <HXBMYViewModel_MainLoanViewModel*> *loanViewModelArray = [[NSMutableArray alloc]init];
-        NSArray <NSDictionary *>*dataArray = [[responseObject valueForKey:@"data"] valueForKey:@"loanList"];
+        NSArray <NSDictionary *>*dataArray = [[responseObject valueForKey:@"data"] valueForKey:@"dataList"];
 
-        NSString *type = [request.requestArgument valueForKey:@"type"];
+        NSString *type = [request.requestArgument valueForKey:@"filter"];
         
         [dataArray enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
             HXBMYViewModel_MainLoanViewModel *viewModel = [[HXBMYViewModel_MainLoanViewModel alloc]init];
@@ -369,7 +369,6 @@
     }];
 }
 - (NSArray *)loan_handleLoanViewModelArrayWithIsUPData: (BOOL)isUPdata andRequestType: (HXBRequestType_MY_LoanRequestType)loanRequestType andLoanViewModelArray: (NSArray<HXBMYViewModel_MainLoanViewModel*>*)viewModelArray{
-    if (!viewModelArray.count) return nil;
     switch (loanRequestType) {
         case HXBRequestType_MY_LoanRequestType_BID_LOAN://投标中
             if (isUPdata) {

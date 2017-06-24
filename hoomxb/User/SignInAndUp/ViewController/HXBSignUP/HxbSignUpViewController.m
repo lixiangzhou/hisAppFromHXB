@@ -80,9 +80,10 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     [self.signUPView checkMobileWithBlockFunc:^(NSString *mobile) {
         [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
             ///已有账号
-            weakSelf.signUPView.checkMobileStr = isExist? kAlreadyRegistered : @"";
+            weakSelf.signUPView.checkMobileStr = @"该手机后暂未注册";
         } andFailureBlock:^(NSError *error) {
-            
+            ///已有账号
+            weakSelf.signUPView.checkMobileStr = kAlreadyRegistered;
         }];
     }];
 }

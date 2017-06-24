@@ -50,6 +50,7 @@
 //    if (!KeyChain.isLogin) {
 //        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
 //    }
+
 }
 
 ///UI搭建
@@ -103,19 +104,17 @@
              return;
          }
          //判断是否安全认证
-         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-             if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
+         [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
+             if (!isVerify) {
                  [HxbHUDProgress showTextWithMessage:@"去安全认证"];
-             }else {
-                 [[HXBFinanctingRequest sharedFinanctingRequest]plan_buyReslutWithPlanID:weakSelf.planViewModel.planDetailModel.ID  andAmount:capital andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
+             } else {
+                 [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.planDetailModel.ID andAmount:capital cashType:weakSelf.planViewModel.profitType andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
                      [HxbHUDProgress showTextWithMessage:@"加入成功"];
                      [self.navigationController popToRootViewControllerAnimated:true];
                  } andFailureBlock:^(NSError *error) {
-                     
+                     [HxbHUDProgress showTextWithMessage:@"加入失败"];
                  }];
              }
-         } andFailure:^(NSError *error) {
-             [HxbHUDProgress showTextWithMessage:@"加入失败"];
          }];
      }];
      //点击了 服务协议
@@ -153,7 +152,7 @@
         
         model.balanceLabelStr = weakSelf.planViewModel.userRemainAmount;
         ///收益方法
-        model.profitTypeLabelStr = weakSelf.planViewModel.profitType;
+        model.profitTypeLabelStr = weakSelf.planViewModel.profitType_UI;
         /// ￥1000起投，1000递增 placeholder
         model.rechargeViewTextField_placeholderStr = weakSelf.planViewModel.addCondition;
         
