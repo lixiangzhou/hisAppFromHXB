@@ -50,7 +50,7 @@
 //    if (!KeyChain.isLogin) {
 //        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
 //    }
-    KeyChainManage
+
 }
 
 ///UI搭建
