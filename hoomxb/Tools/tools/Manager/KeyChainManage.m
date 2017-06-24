@@ -316,6 +316,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
                 userIdBlock(_userId);
             }
         }];
+        return;
     }
     if (userIdBlock) {
         userIdBlock(_userId);
@@ -336,6 +337,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
                 userNameBlock(_userName);
             }
         }];
+        return;
     }
     if (userNameBlock) {
         userNameBlock(_userName);
@@ -356,6 +358,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
                 userMobileBlock(_mobile);
             }
         }];
+        return;
     }
     if (userMobileBlock) {
         userMobileBlock(_mobile);
@@ -376,6 +379,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
                 mobilePassedBlock(_isMobilePassed);
             }
         }];
+       return;
     }
     if (mobilePassedBlock) {
         mobilePassedBlock(_isMobilePassed);
@@ -396,6 +400,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
                 isIdPassedBlock(_isIdPassed);
             }
         }];
+        return;
     }
     if(isIdPassedBlock) {
         isIdPassedBlock(_isIdPassed);
@@ -416,6 +421,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
                 isCashPasswordPassedBlock(_isCashPasswordPassed);
             }
         }];
+        return;
     }
     if (isCashPasswordPassedBlock) {
         isCashPasswordPassedBlock(_isCashPasswordPassed);
@@ -435,6 +441,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
                 isBindCardBlock(_isBindCard);
             }
         }];
+        return;
     }
     if (isBindCardBlock) {
         isBindCardBlock(_isBindCard);
@@ -454,6 +461,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
                 isVerifyBlock(_isVerify);
             }
         }];
+        return;
     }
     if (isVerifyBlock) {
         isVerifyBlock(_isVerify);
