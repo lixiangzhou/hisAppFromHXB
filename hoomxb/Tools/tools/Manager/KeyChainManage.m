@@ -747,4 +747,6 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     
     return bankArr.count?bankArr:[NSArray array];
 }
+
+//- (void)setValueWith
 @end

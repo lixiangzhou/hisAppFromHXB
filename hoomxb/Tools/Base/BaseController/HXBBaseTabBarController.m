@@ -128,7 +128,7 @@
     //当前是否处于登录状态// 没有登录的话就return一个NO，并modal一个登录控制器。
     if (isMYController && ![KeyChain isLogin]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-        return NO;
+        return false;
     }
     return YES;
 }

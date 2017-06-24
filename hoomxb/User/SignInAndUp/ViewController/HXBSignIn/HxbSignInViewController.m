@@ -60,6 +60,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 /// 设置 登录界面
 - (void)setSignView{
     kWeakSelf
+
     self.signView = [[HxbSignInView alloc]initWithFrame:self.view.frame];
     self.hxb_automaticallyAdjustsScrollViewInsets = false;
     [self.hxbBaseVCScrollView addSubview:self.signView];
@@ -90,7 +91,8 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             self.reuqestSignINNumber = @(0);
             //调到我的界面
 //            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:self];
-            [KeyChain setMobile:mobile];
+            [KeyChain removeAllInfo];
+//            [KeyChain setMobile:mobile];
             [[KeyChainManage sharedInstance] mobileWithBlock:^(NSString *mobile) {
                 
             }];
@@ -182,6 +184,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     self.navigationItem.leftBarButtonItem = leftItem;
 }
 - (void)didClickSignInBtn{
+    
     [self dismiss];
 }
 
