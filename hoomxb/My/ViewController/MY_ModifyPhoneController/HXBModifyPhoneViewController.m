@@ -44,6 +44,8 @@
             [modifyPhoneRequest mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(id responseObject) {
                 NSLog(@"%@",responseObject);
                 [KeyChain setMobile:phoneNumber];
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+                
             } andFailureBlock:^(NSError *error) {
                 NSLog(@"%@",error);
             }];

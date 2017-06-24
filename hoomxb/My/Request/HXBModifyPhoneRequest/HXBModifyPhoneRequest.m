@@ -32,10 +32,10 @@
     [alterLoginPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
+        [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
         if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) {
-                failureBlock(nil);
+                failureBlock(responseObject);
             }
             return;
         }
