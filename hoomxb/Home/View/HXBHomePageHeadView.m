@@ -134,8 +134,6 @@
         }];
     }
     
-    
-    
 //    if ( [KeyChain isLogin] && [KeyChain isVerify]) {
 //       self.afterLoginView.tipString = @"立即投资啦！";
 //    }else{

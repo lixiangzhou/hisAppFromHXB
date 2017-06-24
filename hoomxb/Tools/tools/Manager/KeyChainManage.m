@@ -449,6 +449,9 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 }
 ///	是否安全认证
 - (void) isVerifyWithBlock: (void(^)(NSString *isVerify))isVerifyBlock {
+    if (![KeyChain isLogin]) {
+        return;
+    }
     if (![self.isVerify length]) {
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             _isVerify = viewModel.userInfoModel.userInfo.isAllPassed;
