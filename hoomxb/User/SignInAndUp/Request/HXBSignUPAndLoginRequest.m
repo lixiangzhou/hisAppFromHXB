@@ -161,7 +161,8 @@
         
         if ([responseObject valueForKey:@"status"]) {
             kNetWorkError(@"发送短信 请求失败");
-            if (failureBlock) failureBlock(nil);
+            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            if (failureBlock) failureBlock(responseObject);
         }
         
         if (successBlock) successBlock(true)    ;

@@ -10,6 +10,7 @@
 #import "HXBModifyTransactionPasswordHomeView.h"
 #import "HXBTransactionPasswordConfirmationViewController.h"
 #import "HXBModifyTransactionPasswordRequest.h"
+#import "HXBModifyPhoneViewController.h"
 @interface HXBModifyTransactionPasswordViewController ()
 
 @property (nonatomic, strong) HXBModifyTransactionPasswordHomeView *homeView;
@@ -30,7 +31,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title = @"修改交易密码";
     self.edgesForExtendedLayout = UIRectEdgeNone;
 }
 
@@ -49,7 +49,7 @@
         [weakSelf.homeView idcardWasSuccessfully];
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [weakSelf getValidationCodesadasdafdsfdsdsf];
+            [weakSelf getValidationCode];
         });
         
         
@@ -62,7 +62,7 @@
 /**
  获取验证码
  */
-- (void)getValidationCodesadasdafdsfdsdsf
+- (void)getValidationCode
 {
     kWeakSelf
     HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
@@ -93,10 +93,17 @@
 
 - (void)checkIdentitySmsSuccessWithIDCard:(NSString *)IDCard andCode:(NSString *)code
 {
-    HXBTransactionPasswordConfirmationViewController *transactionPasswordVC = [[HXBTransactionPasswordConfirmationViewController alloc] init];
-    transactionPasswordVC.idcard = IDCard;
-    transactionPasswordVC.code = code;
-    [self.navigationController pushViewController:transactionPasswordVC animated:YES];}
+    if ([self.title isEqualToString:@"修改交易密码"]) {
+        HXBTransactionPasswordConfirmationViewController *transactionPasswordVC = [[HXBTransactionPasswordConfirmationViewController alloc] init];
+        transactionPasswordVC.idcard = IDCard;
+        transactionPasswordVC.code = code;
+        [self.navigationController pushViewController:transactionPasswordVC animated:YES];
+    }else if ([self.title isEqualToString:@"修改绑定手机号"]){
+        HXBModifyPhoneViewController *modifyPhoneVC = [[HXBModifyPhoneViewController alloc] init];
+        [self.navigationController pushViewController:modifyPhoneVC animated:YES];
+    }
+    
+}
 
 
 #pragma mark - Get方法

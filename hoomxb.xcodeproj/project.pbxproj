@@ -59,6 +59,9 @@
 		4E886FCD1EF940010056086E /* HXBModifyGesturePasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FCC1EF940010056086E /* HXBModifyGesturePasswordController.m */; };
 		4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */; };
 		4E9127551EFA69FB007F8C13 /* HXBFinModel_BuyResoult_PlanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1757AFC1EFA3E1B009C0BC8 /* HXBFinModel_BuyResoult_PlanModel.m */; };
+		4E9345501EFE0FD300D2886B /* HXBModifyPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93454F1EFE0FD300D2886B /* HXBModifyPhoneViewController.m */; };
+		4E9345541EFE102500D2886B /* HXBModifyPhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9345531EFE102500D2886B /* HXBModifyPhoneView.m */; };
+		4E9345581EFE48C300D2886B /* HXBModifyPhoneRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9345571EFE48C300D2886B /* HXBModifyPhoneRequest.m */; };
 		4E94B2741ECBF8C1003CCBA7 /* HxbHomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B2731ECBF8C1003CCBA7 /* HxbHomePageModel.m */; };
 		4E94B2771ECBF922003CCBA7 /* HxbHomePageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B2761ECBF922003CCBA7 /* HxbHomePageViewModel.m */; };
 		4E94B2781ECC1B13003CCBA7 /* HXBBaseTableView_MYPlanList_TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E107203F1ECAE7B1002C59B1 /* HXBBaseTableView_MYPlanList_TableView.m */; };
@@ -384,6 +387,12 @@
 		4E886FCC1EF940010056086E /* HXBModifyGesturePasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyGesturePasswordController.m; sourceTree = "<group>"; };
 		4E8CD0781EBB571A00DCDC5A /* HxbMyViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbMyViewHeaderView.h; sourceTree = "<group>"; };
 		4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbMyViewHeaderView.m; sourceTree = "<group>"; };
+		4E93454E1EFE0FD300D2886B /* HXBModifyPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyPhoneViewController.h; sourceTree = "<group>"; };
+		4E93454F1EFE0FD300D2886B /* HXBModifyPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyPhoneViewController.m; sourceTree = "<group>"; };
+		4E9345521EFE102500D2886B /* HXBModifyPhoneView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyPhoneView.h; sourceTree = "<group>"; };
+		4E9345531EFE102500D2886B /* HXBModifyPhoneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyPhoneView.m; sourceTree = "<group>"; };
+		4E9345561EFE48C300D2886B /* HXBModifyPhoneRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyPhoneRequest.h; sourceTree = "<group>"; };
+		4E9345571EFE48C300D2886B /* HXBModifyPhoneRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyPhoneRequest.m; sourceTree = "<group>"; };
 		4E94B2721ECBF8C1003CCBA7 /* HxbHomePageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHomePageModel.h; sourceTree = "<group>"; };
 		4E94B2731ECBF8C1003CCBA7 /* HxbHomePageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHomePageModel.m; sourceTree = "<group>"; };
 		4E94B2751ECBF922003CCBA7 /* HxbHomePageViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHomePageViewModel.h; sourceTree = "<group>"; };
@@ -979,6 +988,7 @@
 			children = (
 				4E422CB21EA7386900C0EB62 /* HxbMyViewController.h */,
 				4E422CB31EA7386900C0EB62 /* HxbMyViewController.m */,
+				4E93454D1EFE0FD300D2886B /* MY_ModifyPhoneController */,
 				4E886FB41EF916590056086E /* MY_GesturePasswordController */,
 				4E81E3F81EE94FDE006AD3FC /* MY_TransactionPassword */,
 				E1D048461EE93209002A4E28 /* HXBAccount */,
@@ -1162,6 +1172,33 @@
 				4E886FC91EF9205E0056086E /* CALayer+Anim.m */,
 			);
 			path = GesturePasswordView;
+			sourceTree = "<group>";
+		};
+		4E93454D1EFE0FD300D2886B /* MY_ModifyPhoneController */ = {
+			isa = PBXGroup;
+			children = (
+				4E93454E1EFE0FD300D2886B /* HXBModifyPhoneViewController.h */,
+				4E93454F1EFE0FD300D2886B /* HXBModifyPhoneViewController.m */,
+			);
+			path = MY_ModifyPhoneController;
+			sourceTree = "<group>";
+		};
+		4E9345511EFE100100D2886B /* ModifyPhoneView */ = {
+			isa = PBXGroup;
+			children = (
+				4E9345521EFE102500D2886B /* HXBModifyPhoneView.h */,
+				4E9345531EFE102500D2886B /* HXBModifyPhoneView.m */,
+			);
+			path = ModifyPhoneView;
+			sourceTree = "<group>";
+		};
+		4E9345551EFE488B00D2886B /* HXBModifyPhoneRequest */ = {
+			isa = PBXGroup;
+			children = (
+				4E9345561EFE48C300D2886B /* HXBModifyPhoneRequest.h */,
+				4E9345571EFE48C300D2886B /* HXBModifyPhoneRequest.m */,
+			);
+			path = HXBModifyPhoneRequest;
 			sourceTree = "<group>";
 		};
 		4E94B28A1ECC496C003CCBA7 /* NSAttributedString */ = {
@@ -2359,6 +2396,7 @@
 				E1CC03581ECAD2AD00121D21 /* HXBMYRequest.m */,
 				E1CC03591ECAD2AD00121D21 /* HXBRequestType_MYManager.h */,
 				E1CC035A1ECAD2AD00121D21 /* HXBRequestType_MYManager.m */,
+				4E9345551EFE488B00D2886B /* HXBModifyPhoneRequest */,
 				E10CDBC21EEA473D0037F2D0 /* HXBPassword_LoginRequest */,
 				4EAB3EDD1EEA392200E3924E /* HXBTransactionPassword */,
 				E1270B291ECED0B000729BC9 /* HXBMYRequest_DetailsRequest */,
@@ -2492,8 +2530,8 @@
 		E1D048461EE93209002A4E28 /* HXBAccount */ = {
 			isa = PBXGroup;
 			children = (
-				E1D048511EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m */,
 				E1D048521EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.h */,
+				E1D048511EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m */,
 			);
 			path = HXBAccount;
 			sourceTree = "<group>";
@@ -2558,6 +2596,7 @@
 				4E294F231EB9E73A007D5042 /* HxbMyView.m */,
 				4E8CD0781EBB571A00DCDC5A /* HxbMyViewHeaderView.h */,
 				4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */,
+				4E9345511EFE100100D2886B /* ModifyPhoneView */,
 				4E886FB81EF9192C0056086E /* GesturePasswordView */,
 				4E81E3FF1EE95036006AD3FC /* TransactionPasswordView */,
 				E1D0484A1EE93315002A4E28 /* HXBAccountView */,
@@ -2959,7 +2998,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3070,6 +3109,7 @@
 				4E8198AA1EC44BCE00D668A1 /* HXBHomePageAfterLoginView.m in Sources */,
 				E122D8531EA0CAB900DC71ED /* NSString+HxbMask.m in Sources */,
 				E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */,
+				4E9345581EFE48C300D2886B /* HXBModifyPhoneRequest.m in Sources */,
 				E133DCEE1EEE3597009466DE /* HXBRequestUserInfo.m in Sources */,
 				E165EAA91EF8E74600D68763 /* HXBFinDetail_TableView.m in Sources */,
 				E133DCEB1EEE3597009466DE /* HxbSignUpSucceedViewController.m in Sources */,
@@ -3109,6 +3149,7 @@
 				E122D84F1EA0CAB900DC71ED /* NSAttributedString+HxbAttributedString.m in Sources */,
 				E1E5885B1EE165BF0045C4AE /* Animatr.m in Sources */,
 				E11262331EC5A85F0084A22D /* HXBFinAddRecortdTableView_Plan.m in Sources */,
+				4E9345501EFE0FD300D2886B /* HXBModifyPhoneViewController.m in Sources */,
 				E1270B381ECED1F300729BC9 /* HXBMYViewModel_MianPlanViewModel.m in Sources */,
 				E122D8521EA0CAB900DC71ED /* NSString+HxbHash.m in Sources */,
 				E18B68A81EC9D3D80047E458 /* HXBMainListView_Plan.m in Sources */,
@@ -3158,6 +3199,7 @@
 				E10EB4BE1EEFE0B500F16CFA /* HxbMyTopUpViewController.m in Sources */,
 				E165EA9B1EF8E6D500D68763 /* HXBJoinImmediateView.m in Sources */,
 				4EB45DA51EF7A2BF00C2CF21 /* HxbHomeRequest_dataList.m in Sources */,
+				4E9345541EFE102500D2886B /* HXBModifyPhoneView.m in Sources */,
 				E1270B251ECED07100729BC9 /* HXBMY_PlanList_DetailViewController.m in Sources */,
 				4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */,
 				E1D048531EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m in Sources */,

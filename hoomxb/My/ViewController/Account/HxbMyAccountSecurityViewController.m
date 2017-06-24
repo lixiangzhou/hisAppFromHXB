@@ -48,6 +48,7 @@ UITableViewDataSource,UITableViewDelegate
 #pragma TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    kWeakSelf
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {//表示安全认证
             //跳转安全认证
@@ -56,8 +57,16 @@ UITableViewDataSource,UITableViewDelegate
             [self.navigationController pushViewController:securityCertificationVC animated:YES];
         }
         if (indexPath.row == 1) {//点击绑定手机号
-            
+            [KeyChain isMobilePassedWithBlock:^(NSString *mobilePassed) {
+                if ([mobilePassed isEqualToString:@"1"]) {
+                    HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+                    modifyTransactionPasswordVC.title = @"修改绑定手机号";
+                    modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
+                    [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+                }
+            }];
             NSLog(@"click 绑定手机号");
+            
         }
     }else if(indexPath.section == 1){
         
@@ -68,10 +77,11 @@ UITableViewDataSource,UITableViewDelegate
             [self.navigationController pushViewController: signUPVC animated:true];
         }else if (indexPath.row == 1){
             NSLog(@"click 设置交易密码");
-            kWeakSelf
+            
             [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
                 if ([isVerify isEqualToString:@"1"]) {
                     HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+                    modifyTransactionPasswordVC.title = @"修改交易密码";
                     modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
                     [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
                 }else

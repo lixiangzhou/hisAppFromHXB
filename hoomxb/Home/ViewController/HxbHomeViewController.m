@@ -25,8 +25,8 @@
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAd) name:@"pushtoad" object:nil];
     [self.view addSubview:self.homeView];
     [self getData];
-    [self.homeView changeIndicationView];
-    [self.homeView showSecurityCertificationOrInvest];
+//    [self.homeView changeIndicationView];
+//    [self.homeView showSecurityCertificationOrInvest];
     self.automaticallyAdjustsScrollViewInsets = NO;
     //    [self getBannersWithCompletion:^{}];
     
