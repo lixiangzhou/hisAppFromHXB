@@ -60,7 +60,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
         HXBCheckCaptchaViewController *checkCaptchVC = [[HXBCheckCaptchaViewController alloc]init];
         [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
             weakSelf.isCheckCaptchaSucceed = true;
-            self.checkPaptchaStr = checkPaptcha;
+            weakSelf.checkPaptchaStr = checkPaptcha;
         }];
         if (!weakSelf.isCheckCaptchaSucceed) {
             [weakSelf presentViewController:checkCaptchVC animated:true completion:nil];
