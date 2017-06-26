@@ -11,42 +11,108 @@
 @implementation HXBMYViewModel_MainLoanViewModel
 - (void)setLoanModel:(HXBMyModel_MainLoanModel *)loanModel {
     _loanModel = loanModel;
-    self.responsType = [HXBMYViewModel_MainLoanViewModel myLoan_ResponsType:loanModel.loanType];
+    self.responsType = [HXBEnumerateTransitionManager myLoan_ResponsType:loanModel.loanType];
 }
-
-
-
-
-
-#pragma mark -  loan 界面
-/// 根据枚举值返回对应的请求参数字符串 ———— 我的Loan界面
-+ (HXBRequestType_MY_LoanRequestType)myLoan_RequestTypeStr: (NSString *)typeStr {
-    if ([typeStr isEqualToString:HXBRequestType_MY_FINISH_LOAN]) return HXBRequestType_MY_LoanRequestType_FINISH_LOAN;
-    if ([typeStr isEqualToString:HXBRequestType_MY_BID_LOAN]) return HXBRequestType_MY_LoanRequestType_BID_LOAN;
-    if ([typeStr isEqualToString:HXBRequestType_MY_REPAYING_LOAN]) return HXBRequestType_MY_LoanRequestType_REPAYING_LOAN;
-    NSLog(@"%@， - 我的Loan主界面 -- 对应的相应参数字符串 输入错误，",self.class);
-    return LONG_MAX;
-}
-
-+ (HXBRequestType_MY_LoanResponsType)myLoan_ResponsType: (NSString *)responsType {
-    if ([responsType isEqualToString:HXBRequestType_MY_XYRZ_Loan]) return HXBRequestType_MY_LoanResponsType_XYRZ;
-    if ([responsType isEqualToString:HXBRequestType_MY_SDRZ_Loan]) return HXBRequestType_MY_LoanResponsType_SDRZ;
-    NSLog(@"%@ - 我的loan 列表 -- 转化 收益和 等待计息失败",self.class);
-    return LONG_MAX;
-}
-
-/// 根据枚举值返回对应的请求参数字符串 ———— 我的Loan主界面
-+ (void)myLoan_requestType: (HXBRequestType_MY_LoanRequestType)type andReturnParamBlock: (void(^)(NSString *type, NSString *UI_Type))returnParamBlock{
-    switch (type) {
-        case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN:
-            returnParamBlock(HXBRequestType_MY_REPAYING_LOAN,HXBRequestType_MY_REPAYING_LOAN_UI);
-            break;
-        case HXBRequestType_MY_LoanRequestType_FINISH_LOAN:
-            returnParamBlock(HXBRequestType_MY_FINISH_LOAN,HXBRequestType_MY_FINISH_LOAN_UI);
-            break;
-        case HXBRequestType_MY_LoanRequestType_BID_LOAN:
-            returnParamBlock(HXBRequestType_MY_BID_LOAN,HXBRequestType_MY_BID_LOAN_UI);
-            break;
+/**
+ 待收本息
+ */
+- (NSString *) toRepay {
+    if (!_toRepay) {
+        _toRepay = [NSString hxb_getPerMilWithDouble:self.loanModel.toRepay.floatValue];
     }
+    return _toRepay;
+}
+
+/**
+ 还款期数
+ */
+- (NSString *)goBackLoanTime  {
+    if (!_goBackLoanTime) {
+        _goBackLoanTime = [NSString stringWithFormat:@"已还期数%@/%@",self.loanModel.termsLeft,self.loanModel.termsInTotal];
+    }
+    return _goBackLoanTime;
+}
+
+/**
+ 下次还款日
+ */
+- (NSString *) nextRepayDate {
+    if (!_nextRepayDate) {
+        _nextRepayDate = [[HXBBaseHandDate sharedHandleDate] stringFromDate:self.loanModel.nextRepayDate andDateFormat:@"MM-dd"];
+    }
+    return _nextRepayDate;
+}
+
+/**
+ 月收本息(元)
+ */
+- (NSString *) monthlyRepay {
+    if (!_monthlyRepay) {
+        _monthlyRepay = [NSString hxb_getPerMilWithDouble:self.loanModel.monthlyRepay.floatValue];
+    }
+    return _monthlyRepay;
+}
+/**
+ 投资金额
+ */
+
+- (NSString *) amount {
+    if (!_amount) {
+        _amount = [NSString hxb_getPerMilWithDouble:self.loanModel.amount.floatValue];
+    }
+    return _amount;
+}
+
+/**
+ 利率
+ */
+- (NSString *) interest {
+    if (!_interest) {
+        _interest = [NSString stringWithFormat:@"%.2lf%@",self.loanModel.interest.floatValue,@"%"];
+    }
+    return _interest;
+}
+
+/**
+ 期限
+ */
+
+- (NSString *) termsInTotal {
+    if (!_termsInTotal) {
+        _termsInTotal = self.loanModel.termsInTotal;
+    }
+    return _termsInTotal;
+}
+
+/**
+ 还款方式
+ */
+- (NSString *) loanType {
+    if (!_loanType) {
+//        HXBRequestType_MY_LoanRequestType type = [HXBEnumerateTransitionManager myLoan_RequestTypeStr:self.loanModel.loanType];
+//        [HXBEnumerateTransitionManager myLoan_requestType:type andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
+//            _loanType = UI_Type;
+//        }];
+        _loanType = @"等额本息";
+    }
+    return _loanType;
+}
+/**
+ 已收本息
+ */
+- (NSString *) repaid {
+    if (!_repaid) {
+        _repaid = [NSString hxb_getPerMilWithDouble:self.loanModel.repaid.floatValue];
+    }
+    return _repaid;
+}
+/**
+ 请求
+ */
+- (HXBRequestType_MY_LoanRequestType) requestType {
+    if (!_requestType) {
+        _requestType = [HXBEnumerateTransitionManager myLoan_RequestTypeStr:self.loanModel.loanType];
+    }
+    return _requestType;
 }
 @end

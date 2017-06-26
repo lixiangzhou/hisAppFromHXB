@@ -36,26 +36,26 @@
 @end
 
 @interface  HXBBaseView_MoreTopBottomViewManager : NSObject
-@property (nonatomic,assign) NSTextAlignment    leftLabelAlignment;
-@property (nonatomic,assign) NSTextAlignment    rightLabelAlignment;
+@property (nonatomic,assign) NSTextAlignment leftLabelAlignment;
+@property (nonatomic,assign) NSTextAlignment rightLabelAlignment;
 /**
  左侧的stringArray
  */
-@property (nonatomic,strong) NSArray <NSString *>       *leftStrArray;
+@property (nonatomic,strong) NSArray <NSString *>           *leftStrArray;
 /**
  右侧的stringArray
  */
-@property (nonatomic,strong) NSArray <NSString *>       *rightStrArray;
+@property (nonatomic,strong) NSArray <NSString *>           *rightStrArray;
 /**
  左侧的viewArray
  */
-@property (nonatomic,strong,readonly) NSArray <UIView *>*leftViewArray;
+@property (nonatomic,strong,readonly) NSArray <UIView *>    *leftViewArray;
 /**
  右侧的viewArray
  */
-@property (nonatomic,strong,readonly) NSArray <UIView *>*rightViewArray;
+@property (nonatomic,strong,readonly) NSArray <UIView *>    *rightViewArray;
 /**
  全部的viewArray
  */
-@property (nonatomic,strong,readonly) NSArray <UIView *>*allViewArray;
+@property (nonatomic,strong,readonly) NSArray <UIView *>    *allViewArray;
 @end

@@ -49,7 +49,7 @@ UITableViewDataSource
 /**
  topViewMassge
  */
-@property (nonatomic,strong) HXBBaseView_MoreTopBottomView      *topViewMassge;
+@property (nonatomic,strong) HXBBaseView_TwoLable_View      *topViewMassge;
 /**
   标信息的view
  */
@@ -77,9 +77,13 @@ UITableViewDataSource
     self.manager = viewManagerBlock(_manager);
     self.topStatusLabel.text = _manager.topViewStatusStr;
     kWeakSelf
-    [self.topViewMassge setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+//    [self.topViewMassge setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+//        return weakSelf.manager.topViewMassgeManager;
+//    }];
+    [self.topViewMassge setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         return weakSelf.manager.topViewMassgeManager;
-    }];    [self.infoView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+    }];
+    [self.infoView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
         return  weakSelf.manager.infoViewManager;
     }];
     [self.typeView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
@@ -115,7 +119,7 @@ UITableViewDataSource
 - (void)setUPViews_Create {
     self.topView        = [[UIView alloc]init];
     self.topStatusLabel = [[UILabel alloc]init];
-    self.topViewMassge  = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0];
+    self.topViewMassge  = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
     self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:20 andTopBottomSpace:0];
     self.typeView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0];
     self.contractView   = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0];
@@ -145,8 +149,9 @@ UITableViewDataSource
     }];
     [self.topStatusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.equalTo(self.topView);
-        make.height.width.equalTo(@(kScrAdaptationH(60)));
+        make.height.equalTo(@(kScrAdaptationH(90)));
     }];
+    [self.topStatusLabel sizeToFit];
     [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(8));
         make.left.equalTo(self);
@@ -271,7 +276,7 @@ UITableViewDataSource
 {
     self = [super init];
     if (self) {
-        self.topViewMassgeManager   = [[HXBBaseView_MoreTopBottomViewManager alloc]init];
+        self.topViewMassgeManager   = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
         self.infoViewManager        = [[HXBBaseView_MoreTopBottomViewManager alloc] init];
         self.typeViewManager        = [[HXBBaseView_MoreTopBottomViewManager alloc]init];;
         self.contractViewManager    = [[HXBBaseView_MoreTopBottomViewManager alloc]init];

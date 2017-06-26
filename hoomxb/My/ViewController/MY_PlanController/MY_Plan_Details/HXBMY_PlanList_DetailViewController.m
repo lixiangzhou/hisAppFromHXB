@@ -62,6 +62,8 @@
     [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
         
         manager.topViewStatusStr = viewModel.status;
+        manager.topViewMassgeManager.leftLabelStr = @"已获受益（元）";
+        manager.topViewMassgeManager.rightLabelStr = viewModel.earnAmount;
         manager.topViewMassgeManager.leftLabelAlignment = NSTextAlignmentCenter;
         manager.topViewMassgeManager.rightLabelAlignment = NSTextAlignmentCenter;
         

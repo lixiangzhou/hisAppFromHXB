@@ -322,7 +322,7 @@
     self.loanListAPI.requestMethod = NYRequestMethodGet;
     __block NSString *loanTypeStr = nil;
     //获取请求类型
-    [HXBMYViewModel_MainLoanViewModel myLoan_requestType:LoanRequestType andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
+    [HXBEnumerateTransitionManager myLoan_requestType:LoanRequestType andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
         loanTypeStr = type;
     }];
     NSInteger page = 1;

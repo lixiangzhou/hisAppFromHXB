@@ -7,31 +7,78 @@
 //
 
 #import "HXBMY_LoanList_DetailViewController.h"
-
+#import "HXBMY_Loan_DetailView.h"
+#import "HXBMYViewModel_MainLoanViewModel.h"
 @interface HXBMY_LoanList_DetailViewController ()
-
+/**
+ 散标详情
+ */
+@property (nonatomic,strong) HXBMY_Loan_DetailView *loanDetailView;
 @end
 
 @implementation HXBMY_LoanList_DetailViewController
 
+- (void) setLoanDetailViewModel:(HXBMYViewModel_MainLoanViewModel *)loanDetailViewModel {
+    _loanDetailViewModel = loanDetailViewModel;
+    kWeakSelf
+    [self.loanDetailView setUPValueWithManagerBlock:^HXBMY_Loan_DetailViewManager *(HXBMY_Loan_DetailViewManager *manager) {
+        _loanDetailViewModel = loanDetailViewModel;
+        
+        manager.termsLeftStr = weakSelf.loanDetailViewModel.goBackLoanTime;
+        
+        manager.toRepayLableManager.isLeftRight         = false;
+        manager.toRepayLableManager.leftLabelStr        = @"待收金额（元）";
+        manager.toRepayLableManager.rightLabelStr       = weakSelf.loanDetailViewModel.toRepay;
+        manager.toRepayLableManager.leftLabelAlignment  = NSTextAlignmentCenter;
+        manager.toRepayLableManager.rightLabelAlignment = NSTextAlignmentCenter;
+        
+        manager.nextRepayDateLableManager.isLeftRight   = false;
+        manager.nextRepayDateLableManager.leftLabelStr  = @"下一还款日";
+        manager.nextRepayDateLableManager.rightLabelStr = weakSelf.loanDetailViewModel.nextRepayDate;
+        manager.nextRepayDateLableManager.leftLabelAlignment = NSTextAlignmentCenter;
+        manager.nextRepayDateLableManager.rightLabelAlignment = NSTextAlignmentCenter;
+        
+        manager.monthlyPrincipalManager.isLeftRight     = false;
+        manager.monthlyPrincipalManager.leftLabelStr    = @"月收本息（元）";
+        manager.monthlyPrincipalManager.rightLabelStr   = weakSelf.loanDetailViewModel.monthlyRepay;
+        manager.monthlyPrincipalManager.leftLabelAlignment = NSTextAlignmentCenter;
+        manager.monthlyPrincipalManager.rightLabelAlignment = NSTextAlignmentCenter;
+        
+        manager.infoViewManager.leftStrArray = @[
+                                                 @"投资金额",
+                                                 @"利率",
+                                                 @"期限",
+                                                 @"还款方式",
+                                                 @"已收本息"
+                                                 ];
+        manager.infoViewManager.rightStrArray = @[
+                                                  weakSelf.loanDetailViewModel.amount,
+                                                  weakSelf.loanDetailViewModel.interest,
+                                                  weakSelf.loanDetailViewModel.termsInTotal,
+                                                  weakSelf.loanDetailViewModel.loanType,
+                                                  weakSelf.loanDetailViewModel.repaid
+                                                  ];
+        manager.infoViewManager.rightLabelAlignment = NSTextAlignmentRight;
+        manager.infoViewManager.leftLabelAlignment  = NSTextAlignmentLeft;
+        
+        
+        manager.contractLabelManager.leftStrArray   =  @[@"合同"];
+        manager.contractLabelManager.rightStrArray  = @[@"《借款合同》"];
+        manager.contractLabelManager.leftLabelAlignment = NSTextAlignmentCenter;
+        manager.contractLabelManager.rightLabelAlignment = NSTextAlignmentCenter;
+        return manager;
+    }];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setUPView];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
+- (void)setUPView {
+    self.loanDetailView = [[HXBMY_Loan_DetailView alloc]initWithFrame:self.view.frame];
+    
+    [self.hxbBaseVCScrollView addSubview:self.loanDetailView];
+    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+    self.loanDetailViewModel = _loanDetailViewModel;
+    }
 @end

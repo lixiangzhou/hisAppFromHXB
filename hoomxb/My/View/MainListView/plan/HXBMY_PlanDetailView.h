@@ -26,7 +26,7 @@
 /**
  topViewMassge
  */
-@property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager      *topViewMassgeManager;
+@property (nonatomic,strong) HXBBaseView_TwoLable_View_ViewModel      *topViewMassgeManager;
 /**
  标信息的view
  */

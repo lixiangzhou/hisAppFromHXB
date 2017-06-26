@@ -148,6 +148,11 @@
 
 
 @implementation HXBBaseView_MoreTopBottomViewManager
-
+- (void)setRightStrArray:(NSArray<NSString *> *)rightStrArray {
+    if (!rightStrArray) {
+        NSLog(@"🌶 没有数据 -- %@",self);
+    }
+    _rightStrArray = rightStrArray;
+}
 
 @end

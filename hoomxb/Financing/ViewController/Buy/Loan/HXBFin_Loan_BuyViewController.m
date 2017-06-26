@@ -41,7 +41,7 @@
     
     //请求 个人数据
     [[KeyChainManage sharedInstance] assetsTotalWithBlock:^(NSString *assetsTotal) {
-        
+        _assetsTotal = assetsTotal;
     }];
     //判断是否登录
     [self isLogin];
