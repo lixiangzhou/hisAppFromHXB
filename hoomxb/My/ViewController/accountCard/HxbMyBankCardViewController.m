@@ -15,9 +15,10 @@
 @property (nonatomic,strong) UITableView *tableView;
 
 /**
- 数据模型数组
+ 数据模型
  */
-@property (nonatomic, strong) NSArray *modelArr;
+@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
+
 @end
 
 @implementation HxbMyBankCardViewController
@@ -27,6 +28,7 @@
     [super viewDidLoad];
     self.title = @"银行卡";
     [self.view addSubview:self.tableView];
+    
 }
 
 - (void)loadBankCardData
@@ -43,7 +45,8 @@
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             return;
         }
-        weakSelf.modelArr = [NSArray yy_modelArrayWithClass:[HXBBankCardModel class] json:responseObject[@"data"]];
+        weakSelf.bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+//        [NSArray yy_modelArrayWithClass:[HXBBankCardModel class] json:responseObject[@"data"]];
         [weakSelf.tableView reloadData];
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);
@@ -54,13 +57,16 @@
 }
 
 #pragma mark - UITableViewDelegate
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return self.modelArr.count;
-}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 1;
+    if (self.bankCardModel.cardId.length) {
+        return 1;
+    }else
+    {
+        return 0;
+    }
+    
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -69,7 +75,7 @@
     if (!cell) {
         cell = [[HXBMyBankCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    cell.bankCardModel = self.modelArr[indexPath.section];
+    cell.bankCardModel = self.bankCardModel;
     cell.backgroundColor = BACKGROUNDCOLOR;
     
     return cell;
@@ -106,7 +112,7 @@
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             [weakSelf loadBankCardData];
         }];
-        [_tableView.mj_header beginRefreshing];
+        [self loadBankCardData];
     }
     return _tableView;
 }
