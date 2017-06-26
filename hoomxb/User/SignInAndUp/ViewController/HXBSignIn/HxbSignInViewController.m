@@ -94,9 +94,9 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             [KeyChain removeAllInfo];
 //            [KeyChain setMobile:mobile];
             [[KeyChainManage sharedInstance] mobileWithBlock:^(NSString *mobile) {
-                
+                [weakSelf dismiss];
             }];
-            [weakSelf dismiss];
+            
         } andFailureBlock:^(NSError *error) {
             self.reuqestSignINNumber = @(self.reuqestSignINNumber.integerValue + 1);
             if (!error) {
