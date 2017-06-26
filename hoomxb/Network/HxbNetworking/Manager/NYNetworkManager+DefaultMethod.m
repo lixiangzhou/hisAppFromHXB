@@ -37,9 +37,12 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 - (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request
 {
     if (request.responseStatusCode == 402 || request.responseStatusCode == 401) {
-        [[KeyChainManage sharedInstance] removeToken];
+        [[KeyChainManage sharedInstance] removeAllInfo];
+        
+        //弹框处理
         //重复登录，强制下线
         if (request.responseStatusCode == 402) {
+            [HxbHUDProgress showTextWithMessage:@"您的账户在另外一台设备登录"];
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         }
         return;

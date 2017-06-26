@@ -16,7 +16,15 @@
     userInfoAPI.requestMethod = NYRequestMethodGet;
     
     [userInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        kHXBResponsShowHUD
+        if ([responseObject[kResponseStatus] integerValue] == 402) {
+            if (failureBlock) {
+                failureBlock(nil);
+                ///数据请求失败
+            }
+            return;
+        }else if ([responseObject[kResponseStatus] integerValue]) {
+            kHXBResponsShowHUD
+        }
         NSLog(@"%@",responseObject);
         NSLog(@"%@",[KeyChain token]);
         HXBUserInfoModel *userInfoModel = [[HXBUserInfoModel alloc]init];

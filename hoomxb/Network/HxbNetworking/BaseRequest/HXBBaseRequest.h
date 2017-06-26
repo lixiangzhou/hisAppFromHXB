@@ -10,7 +10,7 @@
 /// 对上啦刷新与下拉加载做了处理
 @interface HXBBaseRequest : NYBaseRequest
 
-
+@property (nonatomic,assign) BOOL isJudgeLogin;
 
 @property (nonatomic, strong) NSMutableDictionary *infoDic;
 ///是否是上啦刷新

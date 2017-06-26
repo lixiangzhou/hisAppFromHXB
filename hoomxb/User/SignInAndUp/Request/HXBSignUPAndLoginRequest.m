@@ -1,4 +1,4 @@
-//
+                                                                                                                                                                                                                                  //
 //  HXBSignUPAndLoginRequest.m
 //  hoomxb
 //
@@ -158,11 +158,14 @@
                                    @"captcha":captcha///	是	string	校验图片二维码
                                    };
     [smscodeAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+//        kHXBResponsShowHUD
         
-        if ([responseObject valueForKey:@"status"]) {
+        if (![[responseObject valueForKey:@"status"] isEqualToString:@"0"]) {
+            
             kNetWorkError(@"发送短信 请求失败");
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) failureBlock(responseObject);
+            return;
         }
         
         if (successBlock) successBlock(true);

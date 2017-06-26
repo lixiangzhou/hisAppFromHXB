@@ -304,7 +304,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 
 ///userId	int	用户id
 - (void)userIdWithBlock: (void(^)(NSString *userID))userIdBlock {
-    if (![[_keychain valueForKey:kUserName] length]) {
+    if (![_keychain[kUserName] length]) {
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             [self setValueWithUserInfoModel:viewModel];
             if (userIdBlock) {
@@ -325,7 +325,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 
 ///用户名
 - (void)userNameWithBlock: (void(^)(NSString *userName))userNameBlock {
-    if (![[_keychain valueForKey:kUserName] length]) {
+    if (![_keychain[kUserName] length]) {
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             [self setValueWithUserInfoModel:viewModel];
             if (userNameBlock) {
@@ -346,7 +346,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 
 ///用户手机号
 - (void)mobileWithBlock: (void(^)(NSString *mobile))userMobileBlock{
-    if (![[_keychain valueForKey:kMobile] length]) {
+    if (![_keychain[kMobile] length]) {
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             [self setValueWithUserInfoModel:viewModel];
             if (userMobileBlock) {
@@ -409,7 +409,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 
 ///是否有交易密码
 - (void)isCashPasswordPassedWithBlock: (void(^)(NSString *isCashPasswordPassed))isCashPasswordPassedBlock {
-    if (![[_keychain valueForKey:kISCashPasswordPassed] integerValue]) {
+    if (![_keychain[kISCashPasswordPassed] integerValue]) {
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             [self setValueWithUserInfoModel:viewModel];
             if (isCashPasswordPassedBlock) {
@@ -429,7 +429,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 }
 ///是否绑卡
 - (void)isBindCardWithBlock: (void (^)(NSString *isBindCard))isBindCardBlock {
-    if (![[_keychain valueForKey:kIsBindCard] integerValue]) {
+    if (![_keychain[kIsBindCard] integerValue]) {
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             [self setValueWithUserInfoModel:viewModel];
             if (isBindCardBlock) {
@@ -564,6 +564,22 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     NSLog(@"token = %@",self.token);
     NSLog(@"phone = %@",self.mobile);
     return isLogin;
+}
+
+- (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock {
+    if (!self.isLogin) {
+        isLoginInRealTimeBlock (false);
+    }
+    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        if (isLoginInRealTimeBlock) {
+            [self setValueWithUserInfoModel:viewModel];
+            isLoginInRealTimeBlock(true);
+        }
+    } andFailure:^(NSError *error) {
+        if (isLoginInRealTimeBlock) {
+            isLoginInRealTimeBlock(false);
+        }
+    }];
 }
 
 - (void) setMobile:(NSString *)mobile {
@@ -728,5 +744,5 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     return bankArr.count?bankArr:[NSArray array];
 }
 
-
+//- (void)setValueWith
 @end
