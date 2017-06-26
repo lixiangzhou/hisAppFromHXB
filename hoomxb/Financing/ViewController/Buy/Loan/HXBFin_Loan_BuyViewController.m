@@ -19,6 +19,8 @@
 #import "HXBFinModel_BuyResoult_LoanModel.h"
 @interface HXBFin_Loan_BuyViewController ()
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan *joinimmediateView_Loan;
+///个人总资产
+@property (nonatomic,copy) NSString *assetsTotal;
 @end
 
 @implementation HXBFin_Loan_BuyViewController
@@ -36,6 +38,11 @@
     }];
     
     [super viewDidLoad];
+    
+    //请求 个人数据
+    [[KeyChainManage sharedInstance] assetsTotalWithBlock:^(NSString *assetsTotal) {
+        
+    }];
     //判断是否登录
     [self isLogin];
     
@@ -108,6 +115,12 @@
             NSLog(@"1000的整数倍");
             NSString *message = [NSString stringWithFormat:@"投资金额应为%ld的整数倍",(long)minRegisterAmountInteger];
             [HxbHUDProgress showTextWithMessage:message];
+            return;
+        }
+        
+        //是否大于剩余金额
+        if (capital.integerValue >= self.assetsTotal.floatValue) {
+            [HxbHUDProgress showTextWithMessage:@"输入金额大于了剩余金额"];
             return;
         }
         //判断是否安全认证
