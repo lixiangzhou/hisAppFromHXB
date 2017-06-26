@@ -23,6 +23,7 @@
     NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
     alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPhoneNumber_CashMobileEditURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
+    if (!(newPhoneNumber.length && newsmscode.length)) return;
     alterLoginPasswordAPI.requestArgument = @{
                                               @"mobile" : newPhoneNumber,
                                               @"newsmscode" : newsmscode,
