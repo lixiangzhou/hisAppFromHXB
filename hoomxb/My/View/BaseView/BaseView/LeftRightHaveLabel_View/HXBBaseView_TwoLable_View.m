@@ -19,12 +19,11 @@
 
 - (void) setUP_TwoViewVMFunc: (HXBBaseView_TwoLable_View_ViewModel *(^)(HXBBaseView_TwoLable_View_ViewModel *viewModelVM))setUP_ToViewViewVMBlock {
     self.ViewVM = setUP_ToViewViewVMBlock(self.ViewVM);
+    [self setUPViewValue];
 }
 
 - (void)setViewModelVM:(HXBBaseView_TwoLable_View_ViewModel *)ViewVM {
     _ViewVM = ViewVM;
-
-    [self setUPViewFrame];
     
 }
 
@@ -34,10 +33,13 @@
     if (self) {
         _ViewVM = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
         [self setUP];
+
     }
     return self;
 }
-
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    [self setUPViewFrame];
+}
 - (void) setUP {
     self.leftLabel = [[UILabel alloc]init];
     self.rightLabel = [[UILabel alloc]init];

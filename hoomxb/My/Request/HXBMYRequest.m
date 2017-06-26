@@ -248,7 +248,7 @@
 
 ///根据typeStr 来进行数据的处理
 - (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andTypeStr: (NSString *)typeStr andViewModel: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)viewMode {
-    HXBRequestType_MY_PlanRequestType type = [HXBMYViewModel_MianPlanViewModel myPlan_requestTypeStr:typeStr];
+    HXBRequestType_MY_PlanRequestType type = [HXBEnumerateTransitionManager myPlan_requestTypeStr:typeStr];
     return [self plan_handleResponseArrayWithIsupData: isupdata andType:type andViewModel:viewMode];
 }
 

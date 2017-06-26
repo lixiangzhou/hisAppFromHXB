@@ -205,6 +205,7 @@
 		E165EAB91EF8E82F00D68763 /* HXBFinBuy_Loan_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E165EAB21EF8E82F00D68763 /* HXBFinBuy_Loan_ViewController.m */; };
 		E165EABA1EF8E82F00D68763 /* HXBFin_Plan_BuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E165EAB51EF8E82F00D68763 /* HXBFin_Plan_BuyViewController.m */; };
 		E165EABB1EF8E82F00D68763 /* HXBFinBuy_plan_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E165EAB71EF8E82F00D68763 /* HXBFinBuy_plan_ViewController.m */; };
+		E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */; };
 		E17509AF1EC6D58900E17B39 /* HXBBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E17509AE1EC6D58900E17B39 /* HXBBaseWebViewController.m */; };
 		E17509B61EC6E22600E17B39 /* HXBFinPlanContract_ContractWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = E17509B51EC6E22600E17B39 /* HXBFinPlanContract_ContractWebView.m */; };
 		E17509BA1EC6E52900E17B39 /* HXBFinPlanContract_contraceWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E17509B91EC6E52900E17B39 /* HXBFinPlanContract_contraceWebViewVC.m */; };
@@ -680,6 +681,8 @@
 		E165EAB51EF8E82F00D68763 /* HXBFin_Plan_BuyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Plan_BuyViewController.m; sourceTree = "<group>"; };
 		E165EAB61EF8E82F00D68763 /* HXBFinBuy_plan_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinBuy_plan_ViewController.h; sourceTree = "<group>"; };
 		E165EAB71EF8E82F00D68763 /* HXBFinBuy_plan_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinBuy_plan_ViewController.m; sourceTree = "<group>"; };
+		E173D6631F00D75300D04BDA /* HXBEnumerateTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBEnumerateTransitionManager.h; sourceTree = "<group>"; };
+		E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBEnumerateTransitionManager.m; sourceTree = "<group>"; };
 		E17509AD1EC6D58900E17B39 /* HXBBaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWebViewController.h; sourceTree = "<group>"; };
 		E17509AE1EC6D58900E17B39 /* HXBBaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWebViewController.m; sourceTree = "<group>"; };
 		E17509B41EC6E22600E17B39 /* HXBFinPlanContract_ContractWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinPlanContract_ContractWebView.h; sourceTree = "<group>"; };
@@ -1226,6 +1229,8 @@
 				E1C10A581EBCA4FE00C21984 /* HXBScreenAdaptation.h */,
 				4ED2F2811ECAE3C30014E5C7 /* HxbNormalConfig.h */,
 				4ED2F2821ECAE3C30014E5C7 /* HxbNormalConfig.m */,
+				E173D6631F00D75300D04BDA /* HXBEnumerateTransitionManager.h */,
+				E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -3031,6 +3036,7 @@
 				4E886FC41EF91EBA0056086E /* HXBCircleInfoView.m in Sources */,
 				E1CD4BCC1ED83064000CC57B /* KeyChainManage.m in Sources */,
 				4E886FCD1EF940010056086E /* HXBModifyGesturePasswordController.m in Sources */,
+				E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */,
 				E1D7883E1EC32AE000566AC1 /* HXBFinancting_LoanListTableView.m in Sources */,
 				E133DD3D1EEEC14C009466DE /* NYHTTPConnection.m in Sources */,
 				E122D8551EA0CAB900DC71ED /* NSString+HxbSortDicMD5.m in Sources */,

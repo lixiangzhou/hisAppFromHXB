@@ -32,6 +32,7 @@
 //MARK: ======================= 账户内 =======================
 #define kHXBMY_CapitalRecordURL @"/account/tradlist"///交易记录
 #define kHXBMY_PlanListURL @"/account/plan"//账户内  planlist
+#define kHXBMY_PlanDetaileURL(planID) [NSString stringWithFormat:@"/account/plan/%@",(planID)]
 #define kHXBMY_PlanAssetsURL @"/account/plan"// plan 资金统计
 
 #define kHXBMY_LoanListURL @"/account/loan"//账户内  loanlist

@@ -41,11 +41,11 @@
 /**
  左侧的stringArray
  */
-@property (nonatomic,strong) NSArray <NSString *>*leftStrArray;
+@property (nonatomic,strong) NSArray <NSString *>       *leftStrArray;
 /**
  右侧的stringArray
  */
-@property (nonatomic,strong) NSArray <NSString *>*rightStrArray;
+@property (nonatomic,strong) NSArray <NSString *>       *rightStrArray;
 /**
  左侧的viewArray
  */
