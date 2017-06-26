@@ -9,5 +9,5 @@
 #import "HXBBaseViewController.h"
 
 @interface HxbSignInViewController : HXBBaseViewController
-@property (nonatomic,) 
+
 @end
