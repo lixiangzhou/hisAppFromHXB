@@ -55,6 +55,13 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     kWeakSelf
     [self.signUPView signUPClickNextButtonFunc:^(NSString *mobile) {
         NSLog(@"点击了下一步");
+        if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {
+            if ([weakSelf.signUPView.checkMobileStr isEqualToString:kAlreadyRegistered]) return;
+        }else
+        {
+            if ([weakSelf.signUPView.checkMobileStr isEqualToString:@"该手机后暂未注册"]) return;
+        }
+        
         //1. modal一个控制器
         ///1. 如果要是已经图验过了，那就不需要图验了
         HXBCheckCaptchaViewController *checkCaptchVC = [[HXBCheckCaptchaViewController alloc]init];
@@ -78,15 +85,70 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 - (void) registerEvent_checkMobile {
     kWeakSelf
     [self.signUPView checkMobileWithBlockFunc:^(NSString *mobile) {
-        [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
-            ///已有账号
-            weakSelf.signUPView.checkMobileStr = @"该手机后暂未注册";
-        } andFailureBlock:^(NSError *error) {
-            ///已有账号
-            weakSelf.signUPView.checkMobileStr = kAlreadyRegistered;
-        }];
+        if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {
+            [weakSelf registerCheckMobileWithMobile:mobile];
+        }else
+        {
+            [weakSelf forgotPasswordCheckMobileWithMobile:mobile];
+        }
     }];
 }
+
+/**
+ 注册验证手机号
+
+ @param mobile 手机号
+ */
+- (void)registerCheckMobileWithMobile:(NSString *)mobile
+{
+    kWeakSelf
+    [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
+        NSLog(@"%d",isExist);
+        if (isExist) {
+            ///已有账号
+            weakSelf.signUPView.checkMobileStr = @"该手机号暂未注册";
+        }else
+        {
+            ///已有账号
+            weakSelf.signUPView.checkMobileStr = kAlreadyRegistered;
+        }
+        ///已有账号
+//        weakSelf.signUPView.checkMobileStr = @"该手机号暂未注册";
+    } andFailureBlock:^(NSError *error) {
+        NSLog(@"%@",error);
+        ///已有账号
+        weakSelf.signUPView.checkMobileStr = kAlreadyRegistered;
+    }];
+
+}
+
+/**
+ 忘记密码验证手机号
+
+ @param mobile 手机号
+ */
+- (void)forgotPasswordCheckMobileWithMobile:(NSString *)mobile
+{
+    kWeakSelf
+    [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
+        if (isExist) {
+            ///已有账号
+            weakSelf.signUPView.checkMobileStr = kAlreadyRegistered;
+        }else
+        {
+            ///已有账号
+            weakSelf.signUPView.checkMobileStr = @"该手机号暂未注册";
+        }
+
+        ///已有账号
+//        weakSelf.signUPView.checkMobileStr = @"该手机号暂未注册";
+    } andFailureBlock:^(NSError *error) {
+        NSLog(@"%@",error);
+        ///已有账号
+        weakSelf.signUPView.checkMobileStr = kAlreadyRegistered;
+    }];
+}
+
 ///点击了已有账号按钮
 - (void) registerEvent_clickHaveAccount{
     kWeakSelf

@@ -81,13 +81,19 @@
 
 
 /**
- * 校验手机号
+ * 注册校验手机号
  * @param mobile    用户名
  */
 + (void)checkMobileRequestWithMobile: (NSString *)mobile
                      andSuccessBlock: (void(^)(BOOL isExist))successBlock
                      andFailureBlock: (void(^)(NSError *error))failureBlock;
-
+/**
+ * 忘记密码校验手机号
+ * @param mobile    用户名
+ */
++ (void)checkExistMobileRequestWithMobile: (NSString *)mobile
+                          andSuccessBlock: (void(^)(BOOL isExist))successBlock
+                          andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 /**
  * 安全认证

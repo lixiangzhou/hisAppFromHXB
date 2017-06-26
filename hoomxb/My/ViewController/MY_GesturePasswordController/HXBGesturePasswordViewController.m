@@ -191,11 +191,16 @@ static NSString *const my = @"我的";
     
     // 管理手势密码
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self creatButton:leftBtn frame:CGRectMake(CircleViewEdgeMargin + 20, kScreenH - 60, kScreenW/2, 20) title:@"管理手势密码" alignment:UIControlContentHorizontalAlignmentLeft tag:buttonTagManager];
+    [self creatButton:leftBtn frame:CGRectMake(CircleViewEdgeMargin + 20, kScreenH - 60, kScreenW/2, 20) title:@"账号密码登录" alignment:UIControlContentHorizontalAlignmentCenter tag:buttonTagManager];
+    [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@16);
+        make.right.equalTo(self.view).offset(-16);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-60);
+    }];
     
     // 登录其他账户
-    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self creatButton:rightBtn frame:CGRectMake(kScreenW/2 - CircleViewEdgeMargin - 20, kScreenH - 60, kScreenW/2, 20) title:@"登陆其他账户" alignment:UIControlContentHorizontalAlignmentRight tag:buttonTagForget];
+//    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self creatButton:rightBtn frame:CGRectMake(kScreenW/2 - CircleViewEdgeMargin - 20, kScreenH - 60, kScreenW/2, 20) title:@"登陆其他账户" alignment:UIControlContentHorizontalAlignmentRight tag:buttonTagForget];
 }
 
 #pragma mark - 创建UIButton
@@ -236,9 +241,10 @@ static NSString *const my = @"我的";
             break;
         case buttonTagManager:
         {
-            NSLog(@"点击了管理手势密码按钮");
-            
-            
+            NSLog(@"点击了账户密码登录");
+            [KeyChain signOut];
+            [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         }
             break;
         case buttonTagForget:

@@ -68,7 +68,7 @@ MyViewHeaderDelegate
         NSLog(@"%@",action.title);
     }];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [KeyChain removeAllInfo];
+        [KeyChain signOut];
         [(HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController setSelectedIndex:0];
     }];
     [alertController addAction:cancelAction];

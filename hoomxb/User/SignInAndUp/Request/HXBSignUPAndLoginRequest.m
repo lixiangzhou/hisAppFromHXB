@@ -175,7 +175,7 @@
 }
 
 
-#pragma mark - 校验手机号
+#pragma mark - 注册校验手机号
 + (void)checkMobileRequestWithMobile: (NSString *)mobile
                      andSuccessBlock: (void(^)(BOOL isExist))successBlock
                      andFailureBlock: (void(^)(NSError *error))failureBlock {
@@ -187,9 +187,37 @@
     checkMobileAPI.requestArgument = @{
                                        @"mobile":mobile
                                        };
+    NSLog(@"%@",[KeyChain token]);
     [checkMobileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        
+        kHXBResponsShowHUD
         NSString *status = [responseObject valueForKey:@"status"];
-        if(successBlock) successBlock(status.integerValue);
+        if(successBlock) successBlock(!status.integerValue);
+        
+        
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (failureBlock) failureBlock(error);
+        kNetWorkError(@"校验手机号 请求失败");
+    }];
+}
+
+#pragma mark - 忘记密码校验手机号
++ (void)checkExistMobileRequestWithMobile: (NSString *)mobile
+                     andSuccessBlock: (void(^)(BOOL isExist))successBlock
+                     andFailureBlock: (void(^)(NSError *error))failureBlock {
+    
+    HXBBaseRequest *checkMobileAPI = [[HXBBaseRequest alloc]init];
+    checkMobileAPI.requestMethod = NYRequestMethodPost;
+    checkMobileAPI.requestUrl = kHXBUser_CheckExistMobileURL;
+    
+    checkMobileAPI.requestArgument = @{
+                                       @"mobile":mobile
+                                       };
+    [checkMobileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        kHXBResponsShowHUD
+        NSString *status = [responseObject valueForKey:@"status"];
+        if(successBlock) successBlock(!status.integerValue);
+        
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);
         kNetWorkError(@"校验手机号 请求失败");

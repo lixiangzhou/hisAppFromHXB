@@ -144,9 +144,7 @@
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     alterLoginPasswordAPI.requestArgument = @{
                                               @"cashPassword" : password,
-                                              @"identity" : IDcard,
-                                              @"action" : kTypeKey_tradpwd,
-                                              @"smscode" : code
+                                              @"identity" : IDcard
                                               };
     [alterLoginPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
