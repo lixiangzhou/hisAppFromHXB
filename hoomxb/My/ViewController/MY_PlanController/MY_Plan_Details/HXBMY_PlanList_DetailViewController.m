@@ -43,9 +43,9 @@
     [self setUP];
 }
 - (void) setUP {
-    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
+    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:self.view.frame];
     self.planDetailView = planDetailView;
-    [self.view addSubview:planDetailView];
+    [self.hxbBaseVCScrollView addSubview:planDetailView];
 }
 
 #pragma mark - 网络数据的请求
@@ -53,11 +53,124 @@
     __weak typeof (self)weakSelf = self;
     NSString *planID = self.planViewModel.planModelDataList.ID;
     [self.detailRequest planListDetails_requestWithFinancePlanID:planID andSuccessBlock:^(HXBMYViewModel_PlanDetailViewModel *viewModel) {
-        weakSelf.planDetailView.planDetailViewModel = viewModel;
+        [weakSelf dispatchValueWithDetailViewModel:viewModel];
     } andFailureBlock:^(NSError *error) {
     }];
 }
 
+- (void)dispatchValueWithDetailViewModel: (HXBMYViewModel_PlanDetailViewModel *)viewModel {
+    [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
+        
+        manager.topViewStatusStr = viewModel.status;
+        manager.topViewMassgeManager.leftLabelStr = @"已获受益（元）";
+        manager.topViewMassgeManager.rightLabelStr = viewModel.earnAmount;
+        manager.topViewMassgeManager.leftLabelAlignment = NSTextAlignmentCenter;
+        manager.topViewMassgeManager.rightLabelAlignment = NSTextAlignmentCenter;
+        
+        ///判断到底是哪种
+        [self judgementStatusWithStauts: viewModel.statusInt andManager:manager andHXBMYViewModel_PlanDetailViewModel:viewModel];
+ 
+        manager.infoViewManager.leftLabelAlignment = NSTextAlignmentLeft;
+        manager.infoViewManager.rightLabelAlignment = NSTextAlignmentRight;
+        
+
+        manager.typeViewManager.leftStrArray = @[
+                                                 @"收益处理方式"
+                                                 ];
+        manager.typeViewManager.rightStrArray = @[viewModel.cashType];
+        manager.typeViewManager.leftLabelAlignment = NSTextAlignmentLeft;
+        manager.typeViewManager.rightLabelAlignment = NSTextAlignmentRight;
+
+
+        manager.contractViewManager.leftStrArray = @[@"合同"];
+        manager.contractViewManager.rightStrArray = @[viewModel.contractName];
+        manager.contractViewManager.leftLabelAlignment = NSTextAlignmentLeft;
+        manager.contractViewManager.rightLabelAlignment = NSTextAlignmentRight;
+
+        manager.loanRecordViewManager.leftStrArray = @[@"投资记录"];
+        manager.loanRecordViewManager.rightStrArray = @[@">"];
+        manager.loanRecordViewManager.leftLabelAlignment = NSTextAlignmentLeft;
+        manager.loanRecordViewManager.rightLabelAlignment = NSTextAlignmentRight;
+        
+        return manager;
+    }];
+}
+
+- (void)judgementStatusWithStauts: (NSInteger)status andManager: (HXBMY_PlanDetailView_Manager *)manager andHXBMYViewModel_PlanDetailViewModel: (HXBMYViewModel_PlanDetailViewModel *)viewModel{
+    /**
+     statusInt
+     1: 表示等待计息
+     2: 表示受益中
+     3: 表示退出中
+     4: 表示已退出
+     */
+    switch (status) {
+            //表示等待计息
+        case 1:
+            manager.infoViewManager.leftStrArray = @[
+                                                     @"加入金额",
+                                                     @"预期年利率",
+                                                     @"期限",
+                                                     @"加入日期",
+                                                     ];
+            manager.infoViewManager.rightStrArray = @[
+                                                      viewModel.addAuomt,
+                                                      viewModel.expectedRate,
+                                                      viewModel.lockTime,
+                                                      viewModel.addTime
+                                                      ];
+            break;
+            //2: 表示受益中
+        case 2:
+            manager.infoViewManager.leftStrArray = @[
+                                                     @"加入金额",
+                                                     @"预期年利率",
+                                                     @"期限",
+                                                     @"加入日期",
+                                                     ];
+            manager.infoViewManager.rightStrArray = @[
+                                                      viewModel.addAuomt,
+                                                      viewModel.expectedRate,
+                                                      viewModel.lockTime,
+                                                      viewModel.addTime
+                                                      ];
+            break;
+            //3: 表示退出中
+        case 3:
+            manager.infoViewManager.leftStrArray = @[
+                                                     @"加入金额",
+                                                     @"预期年利率",
+                                                     @"期限",
+                                                     @"加入日期",
+                                                     @"待转出金额"
+                                                     ];
+            manager.infoViewManager.rightStrArray = @[
+                                                      viewModel.addAuomt,
+                                                      viewModel.expectedRate,
+                                                      viewModel.lockTime,
+                                                      viewModel.addTime,
+                                                      viewModel.redProgressLeft
+                                                      ];
+            break;
+            //4: 表示已退出
+        case 4:
+            manager.infoViewManager.leftStrArray = @[
+                                                     @"加入金额",
+                                                     @"预期年利率",
+                                                     @"实际退出日期",
+                                                     @"期限",
+                                                     ];
+            manager.infoViewManager.rightStrArray = @[
+                                                      viewModel.addAuomt,
+                                                      viewModel.expectedRate,
+                                                      viewModel.endLockingTime,
+                                                      viewModel.lockTime
+                                                      ];
+            break;
+        default:
+            break;
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

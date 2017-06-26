@@ -26,4 +26,5 @@
 
 #import "HXBRequestURL.h"
 #import "HXBRequestEnumAndStatic.h"
+#import "HXBEnumerateTransitionManager.h"
 #endif /* HxbMacro_h */

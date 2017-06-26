@@ -17,7 +17,21 @@
 @property (nonatomic,copy) NSString *cashType;
 ///红利计划 状态
 @property (nonatomic,copy) NSString *status;
-///合同
+/**
+ status 对应的枚举
+ 1: 表示等待计息
+ 2: 表示受益中
+ 3: 表示退出中
+ 4: 表示已退出
+ */
+@property (nonatomic,assign) int statusInt;
+/**
+ ///红利计划 的种类 （收益中还是退出中 还是已退出）
+ */
+@property (nonatomic,copy) NSString * type;
+/**
+ 合同
+ */
 @property (nonatomic,copy) NSString *contractName;
 ///收益方式
 @property (nonatomic,copy) NSString *inComeLable_ConstStr;
@@ -41,4 +55,12 @@
  预期年率利
  */
 @property (nonatomic,copy) NSString * expectedRate;
+/**
+ 等待转让金额
+ */
+@property (nonatomic,copy) NSString * redProgressLeft;
+/**
+ 退出时间
+ */
+@property (nonatomic,copy) NSString * endLockingTime;
 @end

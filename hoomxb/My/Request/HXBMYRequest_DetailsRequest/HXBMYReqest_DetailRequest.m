@@ -14,7 +14,7 @@
 #import "HXBMYViewModel_PlanDetailViewModel.h"
 #import "HXBBaseRequest.h"///网络数据的请求
 
-#define kHXBMY_PlanDetaileURL(planID) [NSString stringWithFormat:@"/account/plan/%@",(planID)]
+
 @implementation HXBMYReqest_DetailRequest
 //MARK: 计划详情 接口
 - (void)planListDetails_requestWithFinancePlanID: (NSString *)planID
@@ -26,6 +26,7 @@
     planDetailAPI.requestMethod = NYRequestMethodGet;
     
     [planDetailAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
         kHXBResponsShowHUD
         NSDictionary *dataDic = responseObject[@"data"];
         HXBMYModel_PlanDetailModel *planDetailModel = [[HXBMYModel_PlanDetailModel alloc]init];

@@ -10,4 +10,5 @@
 @class HXBMYViewModel_MianPlanViewModel;///红利计划的ViewModel
 @interface HXBMY_PlanList_DetailViewController : HXBBaseViewController
 @property (nonatomic,strong) HXBMYViewModel_MianPlanViewModel *planViewModel;
+- (void)setUPValue;
 @end

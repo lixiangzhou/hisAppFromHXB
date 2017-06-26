@@ -248,7 +248,7 @@
 
 ///根据typeStr 来进行数据的处理
 - (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andTypeStr: (NSString *)typeStr andViewModel: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)viewMode {
-    HXBRequestType_MY_PlanRequestType type = [HXBMYViewModel_MianPlanViewModel myPlan_requestTypeStr:typeStr];
+    HXBRequestType_MY_PlanRequestType type = [HXBEnumerateTransitionManager myPlan_requestTypeStr:typeStr];
     return [self plan_handleResponseArrayWithIsupData: isupdata andType:type andViewModel:viewMode];
 }
 
@@ -322,7 +322,7 @@
     self.loanListAPI.requestMethod = NYRequestMethodGet;
     __block NSString *loanTypeStr = nil;
     //获取请求类型
-    [HXBMYViewModel_MainLoanViewModel myLoan_requestType:LoanRequestType andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
+    [HXBEnumerateTransitionManager myLoan_requestType:LoanRequestType andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
         loanTypeStr = type;
     }];
     NSInteger page = 1;
