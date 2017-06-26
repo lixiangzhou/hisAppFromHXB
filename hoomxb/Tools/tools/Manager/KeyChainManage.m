@@ -500,18 +500,14 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     return rmSuccess;
 }
 
-//- (BOOL)signOut
-//{
-//    KeyChainManage *manager = KeyChain;
-//    NSString *gesturePwd = self.gesturePwd;
-//    NSString *gesturePwdCount = self.gesturePwdCount;
-//    BOOL rmSuccess = [manager.keychain removeAllItems];
-//    self.keychain[kGesturePwd] = gesturePwd;
-//    NSLog(@"%@",self.keychain[kGesturePwd]);
-//    self.keychain[kGesturePwdCount] = gesturePwdCount;
-//    
-//    return rmSuccess;
-//}
+- (void)signOut
+{
+    KeyChainManage *manager = KeyChain;
+    [manager.keychain removeItemForKey:kLoginPwd];
+    [manager.keychain removeItemForKey:kTradePwd];
+    [manager.keychain removeItemForKey:kToken];
+    [manager.keychain removeItemForKey:kMobile];
+}
 
 - (void)removePassword
 {

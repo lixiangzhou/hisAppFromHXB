@@ -247,6 +247,7 @@
         [_purchaseButton setTitleColor:COR8 forState:UIControlStateNormal];
         [_purchaseButton setTitle:@"加入" forState:UIControlStateNormal];
         [_purchaseButton addTarget:self action:@selector(purchaseButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        _purchaseButton.enabled = NO;
         _purchaseButton.layer.borderWidth = 1.f;
         _purchaseButton.layer.borderColor = [COR10 CGColor];
         _purchaseButton.layer.cornerRadius = 4.0f;

@@ -12,6 +12,7 @@
 #import "HXBCheckCaptchaViewController.h"
 #import "HXBModifyPhoneRequest.h"
 #import "HXBSignUPAndLoginRequest.h"
+#import "HxbAccountInfoViewController.h"
 @interface HXBModifyPhoneViewController ()
 @property (nonatomic, strong) HXBModifyPhoneView *homeView;
 
@@ -44,8 +45,15 @@
             [modifyPhoneRequest mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(id responseObject) {
                 NSLog(@"%@",responseObject);
                 [KeyChain setMobile:phoneNumber];
-                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
                 
+                __block HxbAccountInfoViewController *accountInfoVC;
+                
+                [weakSelf.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([VC isKindOfClass:[HxbAccountInfoViewController class]]) {
+                        accountInfoVC = VC;
+                    }
+                }];
+                [weakSelf.navigationController popToViewController:accountInfoVC animated:YES];
             } andFailureBlock:^(NSError *error) {
                 NSLog(@"%@",error);
             }];

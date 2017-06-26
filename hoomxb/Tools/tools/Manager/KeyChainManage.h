@@ -147,7 +147,7 @@
 
 - (BOOL)removeAllInfo;
 
-- (BOOL)signOut;      //!< 退出登录
+- (void)signOut;      //!< 退出登录
 
 - (void)removeMobile;       //!< 移除手机号
 

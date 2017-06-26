@@ -21,6 +21,8 @@ static NSString *const my = @"我的";
 
 @interface AppDelegate ()
 
+@property (nonatomic, strong) NSDate *exitTime;
+
 @end
 
 @implementation AppDelegate
@@ -84,7 +86,6 @@ static NSString *const my = @"我的";
     _window.rootViewController = advertiseViewControllre;
     [advertiseViewControllre dismissAdvertiseViewControllerFunc:^{
         [weakSelf enterTheGesturePasswordVC];
-        
     }];
     _window.backgroundColor = [UIColor whiteColor];
     [_window makeKeyAndVisible];
@@ -125,12 +126,20 @@ static NSString *const my = @"我的";
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
+    self.exitTime = [NSDate date];
+    NSLog(@"%@",application);
 }
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
+    NSDate *nowTime = [NSDate date];
+    NSTimeInterval timeDifference = [nowTime timeIntervalSinceDate: self.exitTime];
+    if (timeDifference>300) {
+        [self enterTheGesturePasswordVC];
+    }
+
 }
 
 

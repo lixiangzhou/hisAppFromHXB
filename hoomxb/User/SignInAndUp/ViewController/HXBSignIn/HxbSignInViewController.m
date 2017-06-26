@@ -94,9 +94,9 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             [KeyChain removeAllInfo];
 //            [KeyChain setMobile:mobile];
             [[KeyChainManage sharedInstance] mobileWithBlock:^(NSString *mobile) {
-                
+                [weakSelf dismiss];
             }];
-            [weakSelf dismiss];
+            
         } andFailureBlock:^(NSError *error) {
             self.reuqestSignINNumber = @(self.reuqestSignINNumber.integerValue + 1);
             if (!error) {
@@ -113,7 +113,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 - (void) registerCheckMobileEvent {
     kWeakSelf
     [self.signView checkMobileRequestBlockFunc:^(NSString *mobile) {
-      [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
+      [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
           NSString *existStr = isExist? kMobile_IsExist : kMobile_NotExis;
           ///通过这个方法吧要展示的信息，和是否可以点击登录按钮进行设定
           [weakSelf.signView checkMobileResultFuncWithCheckMobileResultStr:existStr andIsEditLoginButton:isExist];
