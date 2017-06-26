@@ -80,8 +80,8 @@
     }else
     {
         self.allFinanceLabel.text = [self.allFinanceLabel.text replaceStringWithStartLocation:0 lenght:self.allFinanceLabel.text.length];
-        self.accumulatedProfitLabel.text = [self.accumulatedProfitLabel.text replaceStringWithStartLocation:0 lenght:self.allFinanceLabel.text.length];
-        self.balanceLabel.text = [self.balanceLabel.text replaceStringWithStartLocation:0 lenght:self.allFinanceLabel.text.length];
+        self.accumulatedProfitLabel.text = [self.accumulatedProfitLabel.text replaceStringWithStartLocation:0 lenght:self.accumulatedProfitLabel.text.length];
+        self.balanceLabel.text = [self.balanceLabel.text replaceStringWithStartLocation:0 lenght:self.balanceLabel.text.length];
     }
     rightHeadBtn.selected = !rightHeadBtn.selected;
 }

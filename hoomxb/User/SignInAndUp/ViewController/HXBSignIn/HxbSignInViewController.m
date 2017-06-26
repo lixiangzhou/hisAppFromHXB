@@ -91,7 +91,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             self.reuqestSignINNumber = @(0);
             //调到我的界面
 //            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:self];
-            [KeyChain removeAllInfo];
+            [KeyChain signOut];
 //            [KeyChain setMobile:mobile];
             [[KeyChainManage sharedInstance] mobileWithBlock:^(NSString *mobile) {
                 [weakSelf dismiss];

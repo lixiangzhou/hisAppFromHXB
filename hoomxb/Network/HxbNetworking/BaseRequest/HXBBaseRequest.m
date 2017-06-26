@@ -56,7 +56,6 @@
 
 - (void)startWithSuccess:(void(^)(HXBBaseRequest *request, id responseObject))success
               failure:(void(^)(HXBBaseRequest *request, NSError *error))failure {
-    
     if (!self.isJudgeLogin) {
         self.success = [success copy];
         self.failure = [failure copy];

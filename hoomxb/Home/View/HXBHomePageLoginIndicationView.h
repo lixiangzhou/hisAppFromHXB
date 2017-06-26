@@ -10,6 +10,6 @@
 
 @interface HXBHomePageLoginIndicationView : UIView
 
-
+- (void)loadNewDate;
 
 @end

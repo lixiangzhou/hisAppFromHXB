@@ -29,9 +29,13 @@ UITextFieldDelegate
 {
     _userInfoViewModel = userInfoViewModel;
     if ([userInfoViewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"1"]) {
-        self.nameTextField.text = userInfoViewModel.userInfoModel.userInfo.username;
-        self.identityCardNumTextField.text = userInfoViewModel.userInfoModel.userInfo.idNo;
+        self.nameTextField.text = [userInfoViewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:userInfoViewModel.userInfoModel.userInfo.realName.length - 1];
+        
+        self.identityCardNumTextField.text =  [userInfoViewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:3 lenght:userInfoViewModel.userInfoModel.userInfo.idNo.length - 3];
         self.userInteractionEnabled = NO;
+        if (userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed) {
+            self.payPasswordTextField.text = @"已设置";
+        }
     }
 }
 
