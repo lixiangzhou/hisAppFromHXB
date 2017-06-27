@@ -72,6 +72,8 @@
 		4E94B2901ECC49D2003CCBA7 /* HXBHomePageProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B28F1ECC49D2003CCBA7 /* HXBHomePageProductCell.m */; };
 		4E9982401F022A6400CABA59 /* HXBWithdrawalsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99823F1F022A6400CABA59 /* HXBWithdrawalsRequest.m */; };
 		4E9982471F02677B00CABA59 /* HXBAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9982461F02677B00CABA59 /* HXBAlertVC.m */; };
+		4E99824D1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99824A1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m */; };
+		4E99824E1F026C3600CABA59 /* HXBMY_AllFinanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99824C1F026C3600CABA59 /* HXBMY_AllFinanceView.m */; };
 		4EAB3EE01EEA3D3E00E3924E /* HXBModifyTransactionPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAB3EDF1EEA3D3E00E3924E /* HXBModifyTransactionPasswordRequest.m */; };
 		4EAD98D51EB838F80029A3FF /* UITextField+HxbTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98D41EB838F80029A3FF /* UITextField+HxbTextField.m */; };
 		4EAD98E41EB87D290029A3FF /* HXBBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98E31EB87D290029A3FF /* HXBBannerView.m */; };
@@ -143,7 +145,6 @@
 		E1270B7B1ECEED7C00729BC9 /* HXBMY_PlanInvestmentRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1270B7A1ECEED7C00729BC9 /* HXBMY_PlanInvestmentRecordCell.m */; };
 		E12800EB1F0201250066FB66 /* HXBMY_AllFinanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800EA1F0201250066FB66 /* HXBMY_AllFinanceViewController.m */; };
 		E12800EF1F02015B0066FB66 /* HXBMY_AllFinanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800EE1F02015B0066FB66 /* HXBMY_AllFinanceView.m */; };
-		E12800F21F0204B70066FB66 /* HXBMy_AllFinance_TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800F11F0204B70066FB66 /* HXBMy_AllFinance_TableViewCell.m */; };
 		E12800F91F023AB40066FB66 /* HXBCode.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800F81F023AB40066FB66 /* HXBCode.m */; };
 		E133DCD71EEE3597009466DE /* HxbPickerArea.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DC8F1EEE3597009466DE /* HxbPickerArea.m */; };
 		E133DCD81EEE3597009466DE /* HxbPickerBankSubBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DC911EEE3597009466DE /* HxbPickerBankSubBranch.m */; };
@@ -414,6 +415,10 @@
 		4E99823F1F022A6400CABA59 /* HXBWithdrawalsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawalsRequest.m; sourceTree = "<group>"; };
 		4E9982451F02677B00CABA59 /* HXBAlertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAlertVC.h; sourceTree = "<group>"; };
 		4E9982461F02677B00CABA59 /* HXBAlertVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAlertVC.m; sourceTree = "<group>"; };
+		4E9982491F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMy_AllFinance_TableViewCell.h; sourceTree = "<group>"; };
+		4E99824A1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMy_AllFinance_TableViewCell.m; sourceTree = "<group>"; };
+		4E99824B1F026C3600CABA59 /* HXBMY_AllFinanceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_AllFinanceView.h; sourceTree = "<group>"; };
+		4E99824C1F026C3600CABA59 /* HXBMY_AllFinanceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_AllFinanceView.m; sourceTree = "<group>"; };
 		4EA93FBC1EA0A59D002F3615 /* HXBFontMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFontMacro.h; sourceTree = "<group>"; };
 		4EA93FBD1EA0A5AB002F3615 /* HXBAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAPI.h; sourceTree = "<group>"; };
 		4EA93FBE1EA0A5B9002F3615 /* MacrosInBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacrosInBusiness.h; sourceTree = "<group>"; };
@@ -559,10 +564,7 @@
 		E1270B7A1ECEED7C00729BC9 /* HXBMY_PlanInvestmentRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_PlanInvestmentRecordCell.m; sourceTree = "<group>"; };
 		E12800E91F0201250066FB66 /* HXBMY_AllFinanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_AllFinanceViewController.h; sourceTree = "<group>"; };
 		E12800EA1F0201250066FB66 /* HXBMY_AllFinanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_AllFinanceViewController.m; sourceTree = "<group>"; };
-		E12800ED1F02015B0066FB66 /* HXBMY_AllFinanceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_AllFinanceView.h; sourceTree = "<group>"; };
 		E12800EE1F02015B0066FB66 /* HXBMY_AllFinanceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_AllFinanceView.m; sourceTree = "<group>"; };
-		E12800F01F0204B70066FB66 /* HXBMy_AllFinance_TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMy_AllFinance_TableViewCell.h; sourceTree = "<group>"; };
-		E12800F11F0204B70066FB66 /* HXBMy_AllFinance_TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMy_AllFinance_TableViewCell.m; sourceTree = "<group>"; };
 		E12800F71F023AB40066FB66 /* HXBCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCode.h; sourceTree = "<group>"; };
 		E12800F81F023AB40066FB66 /* HXBCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCode.m; sourceTree = "<group>"; };
 		E133DC8E1EEE3597009466DE /* HxbPickerArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbPickerArea.h; sourceTree = "<group>"; };
@@ -1248,6 +1250,17 @@
 			path = AlertView;
 			sourceTree = "<group>";
 		};
+		4E9982481F026C3600CABA59 /* MY_AllFinanceView */ = {
+			isa = PBXGroup;
+			children = (
+				4E9982491F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.h */,
+				4E99824A1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m */,
+				4E99824B1F026C3600CABA59 /* HXBMY_AllFinanceView.h */,
+				4E99824C1F026C3600CABA59 /* HXBMY_AllFinanceView.m */,
+			);
+			path = MY_AllFinanceView;
+			sourceTree = "<group>";
+		};
 		4EA93FBB1EA0A591002F3615 /* Macros */ = {
 			isa = PBXGroup;
 			children = (
@@ -1675,17 +1688,6 @@
 				E12800EA1F0201250066FB66 /* HXBMY_AllFinanceViewController.m */,
 			);
 			path = MY_AllFinanceController;
-			sourceTree = "<group>";
-		};
-		E12800EC1F0201490066FB66 /* MY_AllFinanceView */ = {
-			isa = PBXGroup;
-			children = (
-				E12800ED1F02015B0066FB66 /* HXBMY_AllFinanceView.h */,
-				E12800EE1F02015B0066FB66 /* HXBMY_AllFinanceView.m */,
-				E12800F01F0204B70066FB66 /* HXBMy_AllFinance_TableViewCell.h */,
-				E12800F11F0204B70066FB66 /* HXBMy_AllFinance_TableViewCell.m */,
-			);
-			path = MY_AllFinanceView;
 			sourceTree = "<group>";
 		};
 		E133DC8B1EEE3597009466DE /* User */ = {
@@ -2661,6 +2663,7 @@
 				4E294F231EB9E73A007D5042 /* HxbMyView.m */,
 				4E8CD0781EBB571A00DCDC5A /* HxbMyViewHeaderView.h */,
 				4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */,
+				4E9982481F026C3600CABA59 /* MY_AllFinanceView */,
 				4E9982411F025CBD00CABA59 /* AlertView */,
 				4E9345511EFE100100D2886B /* ModifyPhoneView */,
 				4E886FB81EF9192C0056086E /* GesturePasswordView */,
@@ -3064,7 +3067,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3180,6 +3183,7 @@
 				E122D8531EA0CAB900DC71ED /* NSString+HxbMask.m in Sources */,
 				E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */,
 				4E9345581EFE48C300D2886B /* HXBModifyPhoneRequest.m in Sources */,
+				4E99824E1F026C3600CABA59 /* HXBMY_AllFinanceView.m in Sources */,
 				E133DCEE1EEE3597009466DE /* HXBRequestUserInfo.m in Sources */,
 				E165EAA91EF8E74600D68763 /* HXBFinDetail_TableView.m in Sources */,
 				E133DCEB1EEE3597009466DE /* HxbSignUpSucceedViewController.m in Sources */,
@@ -3217,6 +3221,7 @@
 				E133DCD81EEE3597009466DE /* HxbPickerBankSubBranch.m in Sources */,
 				4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */,
 				E163144C1EC0937C0090567E /* HXBFin_DetailsView_PlanDetailsView.m in Sources */,
+				4E99824D1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m in Sources */,
 				E1E4617F1EB9BE25005B1FC6 /* HXBFinancting_PlanListTableView.m in Sources */,
 				E122D84F1EA0CAB900DC71ED /* NSAttributedString+HxbAttributedString.m in Sources */,
 				E1E5885B1EE165BF0045C4AE /* Animatr.m in Sources */,
