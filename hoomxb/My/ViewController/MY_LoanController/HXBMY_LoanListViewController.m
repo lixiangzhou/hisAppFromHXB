@@ -12,6 +12,7 @@
 #import "HXBMYRequest.h"
 #import "HXBMY_PlanList_DetailViewController.h"
 #import "HXBMYModel_AssetStatistics_Loan.h"
+#import "HXBMY_LoanList_DetailViewController.h"
 @interface HXBMY_LoanListViewController ()
 
 @property (nonatomic,strong) HXBMainListView_Loan *loanListView;
@@ -165,7 +166,8 @@ kDealloc
 - (void)registerCilickCellEvent {
     kWeakSelf
     [self.loanListView clickLoan_repaying_CellFuncWithBlock:^(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex) {
-        HXBMY_PlanList_DetailViewController *planListDetailViewController = [[HXBMY_PlanList_DetailViewController alloc]init];
+        HXBMY_LoanList_DetailViewController *planListDetailViewController = [[HXBMY_LoanList_DetailViewController alloc]init];
+        planListDetailViewController.loanDetailViewModel = loanViewModel;
         [weakSelf.navigationController pushViewController:planListDetailViewController animated:true];
     }];
     [self.loanListView clickLoan_bid_CellFuncWithBlock:^(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex) {

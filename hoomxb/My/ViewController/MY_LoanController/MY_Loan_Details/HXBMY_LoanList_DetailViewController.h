@@ -7,7 +7,10 @@
 //
 
 #import "HXBBaseViewController.h"
-
+@class HXBMYViewModel_MainLoanViewModel;
 @interface HXBMY_LoanList_DetailViewController : HXBBaseViewController
-
+/**
+ 数据源
+ */
+@property (nonatomic,strong)HXBMYViewModel_MainLoanViewModel *loanDetailViewModel;
 @end

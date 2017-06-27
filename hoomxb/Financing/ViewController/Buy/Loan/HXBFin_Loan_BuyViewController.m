@@ -41,7 +41,7 @@
     
     //请求 个人数据
     [[KeyChainManage sharedInstance] assetsTotalWithBlock:^(NSString *assetsTotal) {
-        
+        _assetsTotal = assetsTotal;
     }];
     //判断是否登录
     [self isLogin];
@@ -102,7 +102,6 @@
     kWeakSelf
     [self.joinimmediateView_Loan clickAddButtonFunc:^(NSString *capital) {
         // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
-        
         CGFloat minRegisterAmount = weakSelf.loanViewModel.loanDetailModel.minInverst.floatValue;
         if ((capital.floatValue < minRegisterAmount)) {
             NSLog(@"请输入大于等于1000");

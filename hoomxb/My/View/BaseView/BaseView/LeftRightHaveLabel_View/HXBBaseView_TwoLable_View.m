@@ -19,21 +19,21 @@
 
 - (void) setUP_TwoViewVMFunc: (HXBBaseView_TwoLable_View_ViewModel *(^)(HXBBaseView_TwoLable_View_ViewModel *viewModelVM))setUP_ToViewViewVMBlock {
     self.ViewVM = setUP_ToViewViewVMBlock(self.ViewVM);
+    [self setUPViewValue];
 }
 
 - (void)setViewModelVM:(HXBBaseView_TwoLable_View_ViewModel *)ViewVM {
     _ViewVM = ViewVM;
-
-    [self setUPViewFrame];
     
 }
 
-- (instancetype)init
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
         _ViewVM = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
         [self setUP];
+        [self setUPViewFrame];
     }
     return self;
 }
@@ -41,6 +41,8 @@
 - (void) setUP {
     self.leftLabel = [[UILabel alloc]init];
     self.rightLabel = [[UILabel alloc]init];
+    [self addSubview:self.leftLabel];
+    [self addSubview:self.rightLabel];
 }
 
 - (void)setUPViewFrame {
@@ -56,11 +58,12 @@
         
     } else { //上下结构
         [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.left.equalTo(self);
+            make.right.left.top.equalTo(self);
             make.bottom.equalTo(self.mas_centerY);
+            
         }];
         [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.left.equalTo(self);
+            make.right.left.bottom.equalTo(self);
             make.top.equalTo(self.mas_centerY);
         }];
     }
@@ -74,9 +77,6 @@
     self.rightLabel.textAlignment = _ViewVM.rightLabelAlignment;
 }
 @end
-
-
-
 
 @implementation HXBBaseView_TwoLable_View_ViewModel
 @end
