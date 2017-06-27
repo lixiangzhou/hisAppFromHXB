@@ -10,7 +10,8 @@
 #import "HxbSecurityCertificationViewController.h"
 #import "HxbWithdrawCardViewController.h"
 #import "HXBBankCardModel.h"
-
+#import "HXBWithdrawalsRequest.h"
+#import "HxbWithdrawResultViewController.h"
 @interface HxbWithdrawViewController ()
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UILabel *availableBalanceLabel;
@@ -36,14 +37,17 @@
     [self.view addSubview:self.tipLabel];
     [self.view addSubview:self.arrivalDateLabel];
     [self setCardViewFrame];
-    [self loadBankCard];
+    
 }
 - (void)setCardViewFrame{
     
     if (![self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
         self.mybankView.hidden = YES;
         [_amountTextField setY:100];
-//        [_nextButton setY:CGRectGetMaxY(_amountTextField.frame) + 20];
+        
+    }else
+    {
+        [self loadBankCard];
     }
     [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@20);
@@ -59,8 +63,55 @@
     }];
 }
 
+- (void)withdrawals
+{
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"输入交易密码" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UITextField *passwordTextField = alertController.textFields.firstObject;
+        
+        if (passwordTextField.text.length == 0) {
+            return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
+            return;
+        }
+        [self checkWithdrawals:passwordTextField.text];
+    }];
+    
+    UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:okAction];
+    [alertController addAction:cancalAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)checkWithdrawals:(NSString *)paypassword
+{
+    self.view.userInteractionEnabled = NO;
+    kWeakSelf
+    NSMutableDictionary *requestArgument  = [NSMutableDictionary dictionary];
+    requestArgument[@"bankno"] = self.bankCardModel.bankCode;
+    requestArgument[@"city"] = self.bankCardModel.city;
+    requestArgument[@"bank"] = self.bankCardModel.cardId;
+    requestArgument[@"paypassword"] = paypassword;
+    requestArgument[@"amount"] = self.bankCardModel.amount;
+    HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
+    [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+        weakSelf.view.userInteractionEnabled = YES;
+        HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
+        weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
+        withdrawResultVC.bankCardModel = weakSelf.bankCardModel;
+        [weakSelf.navigationController pushViewController:withdrawResultVC animated:YES];
+    } andFailureBlock:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+    
+}
+
 - (void)nextButtonClick:(UIButton *)sender{
     kWeakSelf
+    self.bankCardModel.amount = self.amountTextField.text;
     if ([_amountTextField.text doubleValue] < 1) {
         [HxbHUDProgress showTextWithMessage:@"金额不能小于1"];
         return;
@@ -69,7 +120,11 @@
         [HxbHUDProgress showTextWithMessage:@"金额不能大于余额"];
         return;
     }
-    self.bankCardModel.amount = self.amountTextField.text;
+    
+    if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+        [self withdrawals];
+        return;
+    }
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         //实名认证
         if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
@@ -79,7 +134,9 @@
         }else
         {
             HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-            withdrawCardViewController.bankCardModel = weakSelf.bankCardModel;
+            if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+                 withdrawCardViewController.bankCardModel = weakSelf.bankCardModel;
+            }
             [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
             return;
         }

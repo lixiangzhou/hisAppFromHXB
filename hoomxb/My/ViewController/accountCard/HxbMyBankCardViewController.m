@@ -109,10 +109,17 @@
         _tableView.separatorColor = [UIColor clearColor];
         _tableView.tableHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 12)];
         kWeakSelf
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            [weakSelf loadBankCardData];
+        
+        [KeyChain isBindCardWithBlock:^(NSString *isBindCard) {
+            if ([isBindCard isEqualToString:@"1"]) {
+                 [self loadBankCardData];
+                _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+                    [weakSelf loadBankCardData];
+                }];
+            }
         }];
-        [self loadBankCardData];
+        
+       
     }
     return _tableView;
 }

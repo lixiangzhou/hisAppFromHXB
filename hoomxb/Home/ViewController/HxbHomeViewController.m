@@ -87,6 +87,7 @@
         weakSelf.homeView.homeBaseModel = viewModel.homeBaseModel;
         weakSelf.homeView.isStopRefresh_Home = YES;
     } andFailureBlock:^(NSError *error) {
+        weakSelf.homeView.isStopRefresh_Home = YES;
         NSLog(@"%@",error);
     }];
 //    NSString *userId = @"2110468";

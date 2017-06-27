@@ -109,9 +109,11 @@
 {
    
     if (self.ciphertextButton.selected) {
+        self.availableAmountLabel.text = [NSString stringWithFormat:@"可用金额(元):%@",self.userInfoViewModel.userInfoModel.userAssets.availablePoint];
         self.accumulatedIncomeLabel.text = [NSString stringWithFormat:@"累计收益(元):%@",self.userInfoViewModel.userInfoModel.userAssets.earnTotal];
     }else{
-        self.accumulatedIncomeLabel.text = [self.accumulatedIncomeLabel.text replaceStringWithStartLocation:8 lenght:self.userInfoViewModel.userInfoModel.userAssets.earnTotal.length];
+        self.accumulatedIncomeLabel.text = [self.accumulatedIncomeLabel.text replaceStringWithStartLocation:8 lenght:self.userInfoViewModel.userInfoModel.userAssets.earnTotal.length?:1];
+        self.availableAmountLabel.text = [self.availableAmountLabel.text replaceStringWithStartLocation:8 lenght:self.userInfoViewModel.userInfoModel.userAssets.availablePoint.length?:1];
     }
     self.ciphertextButton.selected = !self.ciphertextButton.selected;
 }

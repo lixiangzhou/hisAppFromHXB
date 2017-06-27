@@ -107,9 +107,9 @@
 - (void)rightHeadButtonClick:(UIButton *)rightHeadBtn
 {
     if (rightHeadBtn.selected) {
-        self.allFinanceLabel.text = self.userInfoViewModel.userInfoModel.userAssets.assetsTotal?:@"0.00";
-        self.accumulatedProfitLabel.text = self.userInfoViewModel.userInfoModel.userAssets.earnTotal?:@"0.00";
-        self.balanceLabel.text = self.userInfoViewModel.userInfoModel.userAssets.availablePoint?:@"0.00";
+        self.allFinanceLabel.text = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.assetsTotal doubleValue]]?:@"0.00";
+        self.accumulatedProfitLabel.text = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
+        self.balanceLabel.text = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
     }else
     {
         self.allFinanceLabel.text = [self.allFinanceLabel.text replaceStringWithStartLocation:0 lenght:self.allFinanceLabel.text.length];

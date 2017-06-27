@@ -13,8 +13,16 @@
 - (void)didClickWithdrawBtn:(UIButton *_Nullable)sender;
 @end
 @interface HxbMyView : UIView
+
+/**
+ 下拉加载回调的Block
+ */
+@property (nonatomic, copy) void(^ _Nonnull homeRefreshHeaderBlock)();
+/**
+ 是否停止刷新
+ */
+@property (nonatomic,assign) BOOL isStopRefresh_Home;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel * _Nonnull userInfoViewModel;
 @property (nonatomic,weak,nullable) id<MyViewDelegate>delegate;
-///点击了 总资产
-- (void)clickAllFinanceButtonWithBlock: (void(^_Nullable)(UILabel * _Nullable button))clickAllFinanceButtonBlock;
+
 @end

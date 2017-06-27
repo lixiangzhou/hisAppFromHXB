@@ -35,7 +35,7 @@
     
     NSString *newStr = @"";
     
-    for (NSInteger i = startLocation; i < lenght; i++) {
+    for (NSInteger i = 0; i < lenght; i++) {
         newStr = [NSString stringWithFormat:@"%@*",newStr];
     }
     NSRange range = NSMakeRange(startLocation, lenght);

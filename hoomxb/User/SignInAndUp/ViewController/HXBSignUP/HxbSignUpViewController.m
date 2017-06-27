@@ -79,7 +79,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
             if ([weakSelf.signUPView.checkMobileStr isEqualToString:kAlreadyRegistered]) return;
         }else
         {
-            if ([weakSelf.signUPView.checkMobileStr isEqualToString:@"该手机后暂未注册"]) return;
+            if([weakSelf.signUPView.checkMobileStr isEqualToString:@"该手机号暂未注册"]) return;
         }
         
         //1. modal一个控制器
