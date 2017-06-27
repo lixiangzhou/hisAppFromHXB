@@ -71,7 +71,7 @@
         NSLog(@"验证码验证%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:@"验证码发送失败"];
+            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) {
                 failureBlock(nil);
             }

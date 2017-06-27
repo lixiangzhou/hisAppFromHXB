@@ -97,6 +97,7 @@
 
 - (void)didClickWithdrawBtn:(UIButton *)sender{
     HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+    withdrawViewController.userInfoViewModel = self.userInfoViewModel;
     [self.navigationController pushViewController:withdrawViewController animated:YES];
 }
 - (void)clickBarButtonItem {

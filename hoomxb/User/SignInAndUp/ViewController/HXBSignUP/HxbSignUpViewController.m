@@ -41,6 +41,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
         [self.hxbBaseVCScrollView endEditing:true];
     }];
+    self.automaticallyAdjustsScrollViewInsets = YES;
     [self registerEvent];
 }
 
