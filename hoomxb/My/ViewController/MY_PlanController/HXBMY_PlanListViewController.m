@@ -64,9 +64,10 @@ kDealloc
 
 ///资产统计网络请求
 - (void)assetStatisticsLoadData {
-    [[HXBMYRequest sharedMYRequest] myPlanAssetStatistics_requestWithSuccessBlock:^(HXBMYModel_AssetStatistics_Plan *model) {
-        self.planListView.planAssetStatisticsModel = model;
-    } andFailureBlock:^(NSError *error) {}];
+    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        self.planListView.userInfoViewModel = viewModel;
+    } andFailure:^(NSError *error) {
+    }];
 }
 
 //搭建UI
@@ -150,6 +151,7 @@ kDealloc
     __weak typeof(self)weakSelf = self;
     [self.planListView hold_RefreashWithDownBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:false];
+        [weakSelf assetStatisticsLoadData];
     } andUPBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
     }];
@@ -157,6 +159,7 @@ kDealloc
 - (void) refresh_exiting {
     __weak typeof (self)weakSelf = self;
     [self.planListView exiting_RefreashWithDownBlock:^{
+        [weakSelf assetStatisticsLoadData];
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:false];
     } andUPBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:true];
@@ -165,6 +168,7 @@ kDealloc
 - (void) refresh_exit {
     __weak typeof (self)weakSelf = self;
     [self.planListView exit_RefreashWithDownBlock:^{
+        [weakSelf assetStatisticsLoadData];
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:false];
     } andUPBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:true];

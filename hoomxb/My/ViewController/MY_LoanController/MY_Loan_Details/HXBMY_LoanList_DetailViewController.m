@@ -64,8 +64,8 @@
         
         manager.contractLabelManager.leftStrArray   =  @[@"合同"];
         manager.contractLabelManager.rightStrArray  = @[@"《借款合同》"];
-        manager.contractLabelManager.leftLabelAlignment = NSTextAlignmentCenter;
-        manager.contractLabelManager.rightLabelAlignment = NSTextAlignmentCenter;
+        manager.contractLabelManager.leftLabelAlignment = NSTextAlignmentLeft;
+        manager.contractLabelManager.rightLabelAlignment = NSTextAlignmentRight;
         return manager;
     }];
 }

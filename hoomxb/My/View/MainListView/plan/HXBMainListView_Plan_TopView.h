@@ -11,5 +11,5 @@
 ///顶部的View
 @interface HXBMainListView_Plan_TopView : UIView
 ///资产统计
-@property (nonatomic,strong) HXBMYModel_AssetStatistics_Plan *planAssetStatisticsModel;
+@property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @end

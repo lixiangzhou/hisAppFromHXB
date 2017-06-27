@@ -15,6 +15,7 @@
 @interface HXBFin_Plan_BuyViewController ()
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) HXBJoinImmediateView *joinimmediateView;
+@property (nonatomic,copy) NSString *availablePoint;//可用余额；
 @end
 
 @implementation HXBFin_Plan_BuyViewController
@@ -30,8 +31,12 @@
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
-    
-    [super viewDidLoad];
+    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        _availablePoint = viewModel.availablePoint;
+    } andFailure:^(NSError *error) {
+        
+    }];
+     [super viewDidLoad];
     //判断是否登录
     [self isLogin];
 
@@ -108,7 +113,7 @@
              if (!isVerify) {
                  [HxbHUDProgress showTextWithMessage:@"去安全认证"];
              } else {
-                 [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.planDetailModel.ID andAmount:capital cashType:weakSelf.planViewModel.profitType andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
+                 [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.planDetailModel.ID andAmount:capital cashType:@"INVEST" andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
                      [HxbHUDProgress showTextWithMessage:@"加入成功"];
                      [self.navigationController popToRootViewControllerAnimated:true];
                  } andFailureBlock:^(NSError *error) {
@@ -149,8 +154,8 @@
         model.profitTypeLable_ConstStr = @"收益处理方式";
         ///加入上限
         model.upperLimitLabel_constStr = @"本期计划加入上限";
-        
-        model.balanceLabelStr = weakSelf.planViewModel.userRemainAmount;
+        ///余额 title
+        model.balanceLabelStr = weakSelf.availablePoint;
         ///收益方法
         model.profitTypeLabelStr = weakSelf.planViewModel.profitType_UI;
         /// ￥1000起投，1000递增 placeholder
@@ -159,9 +164,13 @@
             ///服务协议 button str
             model.negotiateButtonStr = weakSelf.planViewModel.contractName;
             model.totalInterest = weakSelf.planViewModel.totalInterest;
-            ///加入上线
-            model.upperLimitLabelStr = weakSelf.planViewModel.singleMaxRegisterAmount;
-            ///确认加入的Buttonstr
+            ///加入上线 (min (用户可投， 本期剩余))
+        if (weakSelf.planViewModel.userRemainAmount.floatValue < weakSelf.planViewModel.remainAmount.floatValue) {
+            model.upperLimitLabelStr = weakSelf.planViewModel.userRemainAmount;
+        }else {
+             model.upperLimitLabelStr = weakSelf.planViewModel.remainAmount;
+        }
+        ///确认加入的Buttonstr
             model.addButtonStr = @"确认加入";
             return model;
         }];

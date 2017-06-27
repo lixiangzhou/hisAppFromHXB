@@ -21,19 +21,69 @@
 }
 
 - (void)setUPView {
+kWeakSelf
     self.alterLoginPasswordView = [[HXBAccount_AlterLoginPassword_View alloc]init];
     [self.view addSubview:self.alterLoginPasswordView];
     self.alterLoginPasswordView.frame = self.view.frame;
     self.edgesForExtendedLayout = false;
     [self.alterLoginPasswordView clickAlterButtonWithBlock:^(NSString *password_Original, NSString *password_New) {
         //验证密码
+        if ([KeyChainManage sharedInstance].siginCount.integerValue == 4) {
+            [self alertVC_4];
+        }
+        if ([KeyChainManage sharedInstance].siginCount.integerValue > 5) {
+            [self alertVC_5];
+        }
         [HXBMobifyPassword_LoginRequest mobifyPassword_LoginRequest_requestWithOldPwd:password_Original andNewPwd:password_New andSuccessBlock:^{
+            [KeyChainManage sharedInstance].siginCount = @(0).description;
+            [weakSelf.navigationController popToRootViewControllerAnimated:true];
         } andFailureBlock:^(NSError *error) {
             if (error) {
-                
+                NSLog(@"%@",error);
+            }else {
+                [KeyChainManage sharedInstance].siginCount = @([KeyChainManage sharedInstance].siginCount.integerValue + 1).description;
             }
         }];
     }];
+    
+}
+
+- (void)alertVC_4 {
+    //弹窗提示是否找回，点击找回退出登录到登录页面
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"是否找回密码" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    //            [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    //
+    //            }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        ///退出登录
+        [[KeyChainManage sharedInstance] signOut];
+        //到登录界面
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+    }];
+    
+    UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:okAction];
+    [alertController addAction:cancalAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (void)alertVC_5 {
+    //弹窗提示是否找回，点击找回退出登录到登录页面
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"错误超过5次，请24小时之后再试" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+    //            [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+    //
+    //            }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        ///退出登录
+        [[KeyChainManage sharedInstance] signOut];
+        //到登录界面
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+    }];
+    
+//    UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:okAction];
+//    [alertController addAction:cancalAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 

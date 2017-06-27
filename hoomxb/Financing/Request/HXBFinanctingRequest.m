@@ -188,7 +188,7 @@
 //MARK: 散标列表api
 - (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
     self.loanListAPI.isUPReloadData = isUPData;
-    self.loanListAPI.requestUrl =  kHXBFinanc_LoanListURL(self.loanListAPI.dataPage);
+    self.loanListAPI.requestUrl =  kHXBFinanc_LoanListURL((long)self.loanListAPI.dataPage);
     self.loanListAPI.requestMethod = NYRequestMethodGet;
 
     [self.loanListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {

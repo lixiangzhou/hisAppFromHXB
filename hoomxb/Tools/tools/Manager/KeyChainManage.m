@@ -13,6 +13,7 @@
 #import "HXBRequestUserInfo.h"
 
 #define kGesturePwd self.keychain[kMobile]
+#define kSiginPwd self.keychain[kMobile]
 
 static NSString * const kService = @"www.hoomxb.com";
 //注册时返回的信息
@@ -427,6 +428,19 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
         isCashPasswordPassedBlock(_isCashPasswordPassed);
     }
 }
+/// 用户信息的请求
+- (void)downLoadUserInfoWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure{
+    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        [self setValueWithUserInfoModel:viewModel];
+        if (seccessBlock) {
+            seccessBlock(viewModel);
+        }
+    } andFailure:^(NSError *error) {
+        if (failure) {
+            failure (error);
+        }
+    }];
+}
 ///是否绑卡
 - (void)isBindCardWithBlock: (void (^)(NSString *isBindCard))isBindCardBlock {
     if (![_keychain[kIsBindCard] integerValue]) {
@@ -675,6 +689,13 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 - (void)setGesturePwdCount:(NSString *)gesturePwdCount
 {
     self.keychain[kGesturePwdCount] = gesturePwdCount;
+}
+
+- (void)setSiginCount:(NSString *)siginCount {
+    self.keychain[kSiginPwd] = siginCount;
+}
+- (NSString *)siginCount {
+    return self.keychain[kSiginPwd] ? : @"0";
 }
 
 - (NSString *)gesturePwd

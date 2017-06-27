@@ -22,6 +22,11 @@
 @property (nonatomic, copy) NSString  *gesturePwd;
 ///手势密码输入的次数
 @property (nonatomic, copy) NSString  *gesturePwdCount;
+
+///记录修改登录密码的次数
+@property (nonatomic, copy) NSString *siginCount;
+
+
 /*
 @property (nonatomic, copy) NSString  *token;
 @property (nonatomic, copy) NSString  *phone;
@@ -132,6 +137,9 @@
 
 ///信息赋值
 - (void) setValueWithUserInfoModel: (HXBRequestUserInfoViewModel *)userInfoViewModel;
+
+/// 用户信息的请求
+- (void)downLoadUserInfoWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure;
 /*
  储存号码
  */

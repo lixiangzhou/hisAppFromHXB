@@ -1,13 +1,13 @@
 //
-//  HxbFeedbackViewController.h
+//  HXBMY_AllFinanceViewController.h
 //  hoomxb
 //
-//  Created by HXB-C on 2017/5/8.
+//  Created by HXB on 2017/6/27.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
 #import "HXBBaseViewController.h"
 
-@interface HxbFeedbackViewController : HXBBaseViewController
+@interface HXBMY_AllFinanceViewController : HXBBaseViewController
 
 @end

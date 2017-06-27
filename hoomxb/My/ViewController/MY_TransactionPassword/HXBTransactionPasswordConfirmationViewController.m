@@ -37,11 +37,10 @@
  */
 - (void)confirmTransactionWithPassword:(NSString *)surePassword
 {
-    kWeakSelf
     HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
     [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:self.idcard andWithCode:self.code andWithPassword:surePassword andSuccessBlock:^(id responseObject) {
         [HxbHUDProgress showTextWithMessage:@"修改成功"];
-        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+//        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
     } andFailureBlock:^(NSError *error) {
         
     }];

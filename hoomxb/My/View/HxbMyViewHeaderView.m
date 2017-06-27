@@ -22,15 +22,32 @@
 @property (nonatomic, strong) UIView *buttonLineView;
 @property (nonatomic, strong) UIButton *leftHeadButton;
 @property (nonatomic, strong) UIButton *rightHeadButton;
+@property (nonatomic, strong) UIButton *allFinanceButton;
+@property (nonatomic,copy) void(^clickAllFinanceButtonBlock)(UILabel *button);
 @end
 
 
 @implementation HxbMyViewHeaderView
 
+- (void)clickAllFinanceButtonWithBlock: (void(^)(UILabel *button))clickAllFinanceButtonBlock {
+    self.clickAllFinanceButtonBlock = clickAllFinanceButtonBlock;
+}
+///总资产的button
+- (UIButton *)allFinanceButton {
+    if (!_allFinanceButton) {
+        _allFinanceButton = [[UIButton alloc]init];
+    }
+    return _allFinanceButton;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = COR1;
+//        [self addSubview: self.allFinanceButton];//总资产的button
+   
+//        [self setUPFrame];
+//        [self registerEvent];
         [self addSubview:self.allFinanceLabel];
         [self addSubview:self.allFinanceTitleLabel];
         [self addSubview:self.accumulatedProfitTitleLabel];
@@ -46,6 +63,22 @@
         [self addSubview:self.rightHeadButton];
     }
     return self;
+}
+- (void)registerEvent {
+    [self.allFinanceButton addTarget:self action:@selector(clickAllFinanceButton:) forControlEvents:UIControlEventTouchUpInside];
+}
+- (void)clickAllFinanceButton: (UITapGestureRecognizer *)tap {
+    if (self.clickAllFinanceButtonBlock) {
+        
+        self.clickAllFinanceButtonBlock((UILabel *)tap.view);
+    }
+}
+- (void)setUPFrame {
+    [self.allFinanceButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.top.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH(80)));
+    }];
 }
 
 /**
@@ -106,6 +139,9 @@
         _allFinanceLabel.textAlignment = NSTextAlignmentCenter;
         _allFinanceLabel.font = [UIFont systemFontOfSize:40];
         _allFinanceLabel.textColor = [UIColor whiteColor];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickAllFinanceButton:)];
+        [_allFinanceLabel addGestureRecognizer:tap];
+        _allFinanceLabel.userInteractionEnabled = true;
     }
     return _allFinanceLabel;
 }

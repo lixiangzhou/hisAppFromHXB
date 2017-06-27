@@ -18,6 +18,14 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 - (void)defaultMethodRequestSuccessWithRequest:(NYBaseRequest *)request
 {
     
+    switch ([request.responseObject[kResponseStatus] integerValue]) {
+        case kHXBCode_Enum_Captcha://弹出图验、
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowCaptchaVC object:nil];
+            break;
+            
+        default:
+            break;
+    }
 //    DLog(@"请求成功-request：%@",request);
     if ([request.responseObject[kResponseStatus] integerValue]) {
         ///未登录状态 弹出登录框
@@ -25,7 +33,9 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     }else{
         if([request isKindOfClass:[HXBBaseRequest class]]) {
             HXBBaseRequest *requestHxb = (HXBBaseRequest *)request;
-            [self addRequestPage:requestHxb];
+            if (request.responseObject[kResponseData][@"dataList"]) {
+                [self addRequestPage:requestHxb];
+            }
         }
     }
    
@@ -36,18 +46,18 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 #pragma mark - 请求失败
 - (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request
 {
-    if (request.responseStatusCode == 402 || request.responseStatusCode == 401) {
-        [[KeyChainManage sharedInstance] removeAllInfo];
+    switch (request.responseStatusCode) {
         
-        //弹框处理
-        //重复登录，强制下线
-        if (request.responseStatusCode == 402) {
-            [HxbHUDProgress showTextWithMessage:@"您的账户在另外一台设备登录"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-        }
-        return;
+        case kHXBCode_Enum_NotSigin:///没有登录
+             [[KeyChainManage sharedInstance] removeAllInfo];
+            break;
+        case kHXBCode_Enum_TokenNotJurisdiction://没有权限
+             [[KeyChainManage sharedInstance] removeAllInfo];
+             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+            break;
+        default:
+            break;
     }
-//    [NYProgressHUD showToastText:@"网络请求错误"];
     [[NSNotificationCenter defaultCenter] postNotificationName:RequestFailure object:nil userInfo:nil];
 }
 
@@ -66,6 +76,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 //page++
 - (void) addRequestPage: (HXBBaseRequest *)request {
     request.dataPage ++;
+    NSLog(@"%ld",(long)request.dataPage);
 }
 ///对数据进行处理 并返回
 //- (void) handleDataWithRequest: (HXBBaseRequest *)request {

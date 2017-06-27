@@ -13,6 +13,7 @@
 #import "HxbMyTopUpViewController.h"
 #import "HxbWithdrawViewController.h"
 #import "HXBRequestUserInfo.h"
+#import "HXBMY_AllFinanceViewController.h"
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
@@ -67,6 +68,16 @@
         [weakSelf loadData_userInfo];
     };
     [self.view addSubview:self.myView];
+}
+
+///查看总资产
+- (void)clickAllFinanceButton {
+    kWeakSelf
+    [self.myView clickAllFinanceButtonWithBlock:^(UILabel * _Nullable button) {
+        //跳转资产目录
+        HXBMY_AllFinanceViewController *allFinanceViewController = [[HXBMY_AllFinanceViewController alloc]init];
+        [weakSelf.navigationController pushViewController:allFinanceViewController animated:true];
+    }];
 }
 
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel

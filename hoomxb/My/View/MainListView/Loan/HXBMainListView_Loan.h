@@ -13,7 +13,7 @@
 
 #pragma mark - 数据源
 ///资产统计model
-@property (nonatomic,strong) HXBMYModel_AssetStatistics_Loan *loanAssetStatisticsModel;
+@property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel*> *repaying_ViewModelArray;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel*> *bid_ViewModelArray;
 

@@ -23,6 +23,9 @@
 #import "HXBBaseToolBarView.h"//toolBarView
 #import "HXBBaseScrollToolBarView.h"//关于底部几个scrollView需要左右联动，并且顶部的View可以随着底部的偏移量上下移动，中部有一个toolBarView
 #import "HXBBaseTextField.h"///里面有button 和textfield
+#import "HXBBaseView_MoreTopBottomView.h"///上下的view
+#import "HXBBaseView_TwoLable_View.h"//左右或上下的连着的view
+
 
 //MARK: NSObject
 #import "HXBBaseHandDate.h"//关于时间处理的类

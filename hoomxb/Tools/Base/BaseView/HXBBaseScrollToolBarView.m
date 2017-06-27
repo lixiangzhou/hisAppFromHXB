@@ -151,6 +151,7 @@
 //布局topView
 - (void)setupTopView {
     self.topView.frame = CGRectMake(0, 0, self.kScrollToolBarViewW, self.kTopViewH);
+    [self addSubview:self.topView];
 }
 
 //布局中间的toolBarView
