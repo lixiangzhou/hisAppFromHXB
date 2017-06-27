@@ -116,6 +116,7 @@
     }
     self.indicationView.hidden = NO;
     [self resetView];
+    [self.indicationView loadNewDate];
 }
 
 - (void)showSecurityCertificationOrInvest{

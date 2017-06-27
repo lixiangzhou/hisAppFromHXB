@@ -30,11 +30,12 @@
     return [self stringByReplacingOccurrencesOfString:[self substringWithRange:NSMakeRange(0,self.length - 4)]withString:@"**** **** **** "];
 }
 
--(NSString *)replaceStringWithStartLocation:(NSInteger)startLocation lenght:(NSInteger)lenght
+- (NSString *)replaceStringWithStartLocation:(NSInteger)startLocation lenght:(NSInteger)lenght
 {
     
     NSString *newStr = @"";
-    for (NSInteger i = startLocation; i<self.length; i++) {
+    
+    for (NSInteger i = startLocation; i < lenght; i++) {
         newStr = [NSString stringWithFormat:@"%@*",newStr];
     }
     NSRange range = NSMakeRange(startLocation, lenght);

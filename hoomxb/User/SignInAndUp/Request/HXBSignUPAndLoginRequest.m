@@ -155,12 +155,13 @@
     smscodeAPI.requestArgument = @{
                                    @"mobile":mobile,///     是	string	用户名
                                    @"action":actionStr,///     是	string	signup(参照通用短信发送类型)
-                                   @"captchar":captcha///	是	string	校验图片二维码
+                                   @"captcha":captcha///	是	string	校验图片二维码
                                    };
     [smscodeAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
 //        kHXBResponsShowHUD
+        NSLog(@"%@",responseObject);
         BOOL status = responseObject[@"status"];
-        if (!status) {
+        if (status) {
             kNetWorkError(@"发送短信 请求失败");
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) failureBlock(responseObject);
@@ -191,7 +192,7 @@
     NSLog(@"%@",[KeyChain token]);
     [checkMobileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         
-        kHXBResponsShowHUD
+//        kHXBResponsShowHUD
         NSString *status = [responseObject valueForKey:@"status"];
         if(successBlock) successBlock(!status.integerValue);
         
@@ -215,7 +216,7 @@
                                        @"mobile":mobile
                                        };
     [checkMobileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        kHXBResponsShowHUD
+//        kHXBResponsShowHUD
         NSString *status = [responseObject valueForKey:@"status"];
         if(successBlock) successBlock(!status.integerValue);
         

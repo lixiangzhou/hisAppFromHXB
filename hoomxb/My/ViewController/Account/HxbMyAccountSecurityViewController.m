@@ -32,7 +32,7 @@ UITableViewDataSource,UITableViewDelegate
     ///是否安全认证
     HXBUserInfoModel *model = self.userInfoViewModel.userInfoModel;
     if (model.userInfo.isIdPassed) {
-        self.idPassedStr = [NSString stringWithFormat:@"%@%@",[model.userInfo.realName replaceStringWithStartLocation:1 lenght:model.userInfo.realName.length - 1],[model.userInfo.idNo replaceStringWithStartLocation:3 lenght:model.userInfo.idNo.length - 3]];
+        self.idPassedStr = [NSString stringWithFormat:@"%@%@",[model.userInfo.realName replaceStringWithStartLocation:0 lenght:model.userInfo.realName.length - 1],[model.userInfo.idNo replaceStringWithStartLocation:3 lenght:model.userInfo.idNo.length - 3]];
     }else {
         self.idPassedStr = @"去认证";
     }
