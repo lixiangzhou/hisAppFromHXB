@@ -71,6 +71,7 @@
 		4E94B2861ECC2ED2003CCBA7 /* HxbHomePageViewModel_dataList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B2851ECC2ED2003CCBA7 /* HxbHomePageViewModel_dataList.m */; };
 		4E94B28D1ECC4973003CCBA7 /* NSAttributedString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B28C1ECC4973003CCBA7 /* NSAttributedString+Util.m */; };
 		4E94B2901ECC49D2003CCBA7 /* HXBHomePageProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B28F1ECC49D2003CCBA7 /* HXBHomePageProductCell.m */; };
+		4E9982401F022A6400CABA59 /* HXBWithdrawalsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99823F1F022A6400CABA59 /* HXBWithdrawalsRequest.m */; };
 		4EAB3EE01EEA3D3E00E3924E /* HXBModifyTransactionPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAB3EDF1EEA3D3E00E3924E /* HXBModifyTransactionPasswordRequest.m */; };
 		4EAD98D51EB838F80029A3FF /* UITextField+HxbTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98D41EB838F80029A3FF /* UITextField+HxbTextField.m */; };
 		4EAD98E41EB87D290029A3FF /* HXBBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98E31EB87D290029A3FF /* HXBBannerView.m */; };
@@ -405,6 +406,8 @@
 		4E94B28C1ECC4973003CCBA7 /* NSAttributedString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Util.m"; sourceTree = "<group>"; };
 		4E94B28E1ECC49D2003CCBA7 /* HXBHomePageProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBHomePageProductCell.h; sourceTree = "<group>"; };
 		4E94B28F1ECC49D2003CCBA7 /* HXBHomePageProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBHomePageProductCell.m; sourceTree = "<group>"; };
+		4E99823E1F022A6400CABA59 /* HXBWithdrawalsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawalsRequest.h; sourceTree = "<group>"; };
+		4E99823F1F022A6400CABA59 /* HXBWithdrawalsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawalsRequest.m; sourceTree = "<group>"; };
 		4EA93FBC1EA0A59D002F3615 /* HXBFontMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFontMacro.h; sourceTree = "<group>"; };
 		4EA93FBD1EA0A5AB002F3615 /* HXBAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAPI.h; sourceTree = "<group>"; };
 		4EA93FBE1EA0A5B9002F3615 /* MacrosInBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacrosInBusiness.h; sourceTree = "<group>"; };
@@ -1208,6 +1211,15 @@
 				4E94B28C1ECC4973003CCBA7 /* NSAttributedString+Util.m */,
 			);
 			path = NSAttributedString;
+			sourceTree = "<group>";
+		};
+		4E99823D1F022A3900CABA59 /* HXBWithdrawals */ = {
+			isa = PBXGroup;
+			children = (
+				4E99823E1F022A6400CABA59 /* HXBWithdrawalsRequest.h */,
+				4E99823F1F022A6400CABA59 /* HXBWithdrawalsRequest.m */,
+			);
+			path = HXBWithdrawals;
 			sourceTree = "<group>";
 		};
 		4EA93FBB1EA0A591002F3615 /* Macros */ = {
@@ -2396,6 +2408,7 @@
 				E1CC03581ECAD2AD00121D21 /* HXBMYRequest.m */,
 				E1CC03591ECAD2AD00121D21 /* HXBRequestType_MYManager.h */,
 				E1CC035A1ECAD2AD00121D21 /* HXBRequestType_MYManager.m */,
+				4E99823D1F022A3900CABA59 /* HXBWithdrawals */,
 				4E9345551EFE488B00D2886B /* HXBModifyPhoneRequest */,
 				E10CDBC21EEA473D0037F2D0 /* HXBPassword_LoginRequest */,
 				4EAB3EDD1EEA392200E3924E /* HXBTransactionPassword */,
@@ -3061,6 +3074,7 @@
 				E10EB4B81EEFE06F00F16CFA /* HxbMyAboutMeViewController.m in Sources */,
 				E165EAAD1EF8E77500D68763 /* HXBRechargeView.m in Sources */,
 				E18B68AB1EC9D7230047E458 /* HXBMainListView_Plan_TopView.m in Sources */,
+				4E9982401F022A6400CABA59 /* HXBWithdrawalsRequest.m in Sources */,
 				E1270B3B1ECED23F00729BC9 /* HXBMYViewModel_PlanDetailViewModel.m in Sources */,
 				E1B0F4891EC492980071246F /* HXBFinAddRecortdVC_Loan.m in Sources */,
 				E1D048591EE96FC5002A4E28 /* HXBBasePasswordView.m in Sources */,

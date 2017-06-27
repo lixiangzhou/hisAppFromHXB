@@ -7,9 +7,13 @@
 //
 
 #import "HXBBaseViewController.h"
+@class HXBBankCardModel;
 @interface WithdrawBankView : UIView
-
+/**
+ 数据模型
+ */
+@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 @end
 @interface HxbWithdrawViewController : HXBBaseViewController
-
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @end

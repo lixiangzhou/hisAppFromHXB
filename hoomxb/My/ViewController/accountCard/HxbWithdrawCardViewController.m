@@ -9,13 +9,15 @@
 #import "HxbWithdrawCardViewController.h"
 #import "HxbPickerArea.h"
 #import "HxbWithdrawResultViewController.h"
-
+#import "HXBBankCardModel.h"
+#import "HXBWithdrawalsRequest.h"
 @interface HxbWithdrawCardViewController () <UITextFieldDelegate,HxbPickerAreaDelegate>
 
 @property (nonatomic, strong) UITextField *bankCardTextField;
 @property (nonatomic, strong) UITextField *bankNameTetxField;
 @property (nonatomic, strong) UITextField *realNameTextField;
 @property (nonatomic, strong) UITextField *locationTextField;
+@property (nonatomic, strong) UITextField *openingBank;
 @property (nonatomic, strong) UIButton *nextButton;
 @end
 
@@ -23,10 +25,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"确认信息";
     [self.view addSubview:self.bankCardTextField];
     [self.view addSubview:self.bankNameTetxField];
-    [self.view addSubview:self.realNameTextField];
     [self.view addSubview:self.locationTextField];
+    [self.view addSubview:self.openingBank];
+    [self.view addSubview:self.realNameTextField];
     [self.view addSubview:self.nextButton];
 }
 
@@ -39,9 +43,10 @@
          UITextField *passwordTextField = alertController.textFields.firstObject;
         if (passwordTextField.text.length == 0) {
             return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
+            return;
         }
-        HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
-        [self.navigationController pushViewController:withdrawResultVC animated:YES];
+        [self checkWithdrawals:passwordTextField.text];
+        
     }];
     
     UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -55,6 +60,48 @@
     self.locationTextField.text = text;
 }
 
+- (void)checkWithdrawals:(NSString *)paypassword
+{
+    kWeakSelf
+    NSMutableDictionary *requestArgument  = [NSMutableDictionary dictionary];
+    requestArgument[@"bankno"] = self.bankCardModel.bankCode;
+    requestArgument[@"city"] = self.bankCardModel.city;
+    requestArgument[@"bank"] = self.bankCardModel.cardId;
+    requestArgument[@"paypassword"] = paypassword;
+    requestArgument[@"amount"] = self.bankCardModel.amount;
+    HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
+    [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+        HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
+        [weakSelf.navigationController pushViewController:withdrawResultVC animated:YES];
+    } andFailureBlock:^(NSError *error) {
+         NSLog(@"%@",error);
+    }];
+
+}
+
+- (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
+{
+    _bankCardModel = bankCardModel;
+    if (bankCardModel.cardId.length) {
+        //银行卡号
+        self.bankCardTextField.text = bankCardModel.cardId;
+        self.bankCardTextField.enabled = NO;
+        //所属银行
+        self.bankNameTetxField.text = bankCardModel.bankType;
+        self.bankNameTetxField.enabled = NO;
+        //开户地
+        self.locationTextField.text = bankCardModel.deposit;
+        self.locationTextField.enabled = NO;
+        //开户行
+        self.openingBank.text = bankCardModel.bankType;
+        self.openingBank.enabled = NO;
+        //持卡人
+        self.realNameTextField.text = bankCardModel.name;
+        self.realNameTextField.enabled = NO;
+    }
+}
+
 #pragma mark - --- delegate 视图委托 ---
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -66,6 +113,7 @@
 - (UITextField *)bankCardTextField{
     if (!_bankCardTextField) {
         _bankCardTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, 100, SCREEN_WIDTH - 40, 44)];
+        _bankCardTextField.placeholder = @"银行卡号";
     }
     return _bankCardTextField;
 }
@@ -73,29 +121,43 @@
 - (UITextField *)bankNameTetxField{
     if (!_bankNameTetxField) {
         _bankNameTetxField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_bankCardTextField.frame) + 20, SCREEN_WIDTH - 40, 44)];
+        _bankNameTetxField.placeholder = @"所属银行";
     }
     return _bankNameTetxField;
     
 }
-
-- (UITextField *)realNameTextField{
-    if (!_realNameTextField) {
-        _realNameTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_bankNameTetxField.frame) + 20, SCREEN_WIDTH - 40, 44)];
-    }
-    return _realNameTextField;
-}
-
 - (UITextField *)locationTextField{
     if (!_locationTextField) {
-        _locationTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_realNameTextField.frame) + 20, SCREEN_WIDTH - 40, 44)];
+        _locationTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_bankNameTetxField.frame) + 20, SCREEN_WIDTH - 40, 44)];
         _locationTextField.delegate = self;
+        _locationTextField.placeholder = @"开户地";
     }
     return _locationTextField;
 }
 
+- (UITextField *)openingBank
+{
+    if (!_openingBank) {
+        _openingBank = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_locationTextField.frame) + 20, SCREEN_WIDTH - 40, 44)];
+        _openingBank.delegate = self;
+        _openingBank.placeholder = @"开户行";
+    }
+    return _openingBank;
+}
+
+- (UITextField *)realNameTextField{
+    if (!_realNameTextField) {
+        _realNameTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_openingBank.frame) + 20, SCREEN_WIDTH - 40, 44)];
+        _realNameTextField.placeholder = @"持卡人";
+    }
+    return _realNameTextField;
+}
+
+
+
 - (UIButton *)nextButton{
     if (!_nextButton) {
-        _nextButton = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(nextButtonClick:) andFrameByCategory:CGRectMake(20, CGRectGetMaxY(_locationTextField.frame) + 40, SCREEN_WIDTH - 40, 44)];
+        _nextButton = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(nextButtonClick:) andFrameByCategory:CGRectMake(20, CGRectGetMaxY(_realNameTextField.frame) + 40, SCREEN_WIDTH - 40, 44)];
     }
     return _nextButton;
 }

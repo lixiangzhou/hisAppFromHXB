@@ -58,4 +58,9 @@
  userId
  */
 @property (nonatomic, copy) NSString *userId;
+
+/**
+ 提现金额
+ */
+@property (nonatomic, copy) NSString *amount;
 @end

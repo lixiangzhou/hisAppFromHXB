@@ -50,7 +50,7 @@
 
 
 //MARK: ======================= 充值提现 =======================
-
+#define kHXBSetWithdrawals_withdrawURL   @"/account/withdraw"//提现
 
 //MARK: ======================= 购买 ==========================
 #define kHXBFin_Plan_ConfirmBuyReslutURL(planID) [NSString stringWithFormat:@"/plan/%@/result",(planID)]//确认购买

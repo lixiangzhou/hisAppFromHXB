@@ -11,7 +11,7 @@
 @implementation UITextField (HxbTextField)
 
 + (UITextField *)hxb_lineTextFieldWithFrame:(CGRect)frame{
-    UITextField *textField = [[UITextField alloc]initWithFrame:frame];
+    UITextField *textField = [[self alloc]initWithFrame:frame];
     textField.font = [UIFont systemFontOfSize:22];
     textField.tintColor = COR11;
     textField.textColor = COR6;
