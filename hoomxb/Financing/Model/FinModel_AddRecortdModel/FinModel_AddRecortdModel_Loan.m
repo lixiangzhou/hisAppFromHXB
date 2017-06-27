@@ -31,7 +31,8 @@
 }
 ///	int	投资时间
 - (void)setLendTime:(NSString *)lendTime {
-    _lendTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:lendTime andDateFormat:@"yyyy-MM-dd HH:mm"];
+    
+    _lendTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:@(lendTime.floatValue / 1000) andDateFormat:@"yyyy-MM-dd HH:mm"];
 }
 ///": -2,
 -(void)setIndex:(NSString *)index {

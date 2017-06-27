@@ -8,7 +8,7 @@
 
 #import "HXBFinHomePageViewModel_PlanList.h"
 #import "HXBFinHomePageModel_PlanList.h"
-
+#import "HXBBaseHandDate.h"
 #define kExpectedYearRateFont [UIFont systemFontOfSize: kScrAdaptationH(20)]
 
 /**
@@ -42,9 +42,15 @@ typedef enum : NSUInteger {
 
 @implementation HXBFinHomePageViewModel_PlanList
 
+
+
 - (void)setPlanListModel:(HXBFinHomePageModel_PlanList *)planListModel {
     _planListModel = planListModel;
     [self setupExpectedYearRateAttributedStr];// 红利计划列表页的cell里面的年利率
+}
+
+- (void)setCountDownString:(NSString *)countDownString {
+    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm分ss秒"];
 }
 /**
  剩余时间

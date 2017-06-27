@@ -30,6 +30,12 @@ static HXBBaseHandDate *_instancetype;
     return [self.dateFormatter stringFromDate:date];
 }
 
+- (NSString *) millisecond_StringFromDate:(NSString *)dateObj andDateFormat:(NSString *)format {
+    NSObject *dateStr = @(dateObj.integerValue / 1000).description;
+    NSDate *date = [self returnDateWithOBJ:dateStr andDateFormatter:format];
+    return [self.dateFormatter stringFromDate:date];
+}
+
 #pragma mark - 返回较晚(或较早时间)的时间
 + (NSDate *)laterDateWithData: (NSObject *)date andOtherDate: (NSObject *)otherDate andCompareType: (PYHandleCompareType)compareType{
     NSDate *dateOne = [[self sharedHandleDate] returnDateWithOBJ:date andDateFormatter:nil];

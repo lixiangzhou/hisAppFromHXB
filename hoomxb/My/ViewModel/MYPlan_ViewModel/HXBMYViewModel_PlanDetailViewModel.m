@@ -33,8 +33,8 @@ static NSString *kINVEST = @"INVEST";
  */
 - (NSString *) addTime {
     if (!_addTime) {
-        NSString *date = self.planDetailModel.registerTime;
-        _addTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:date andDateFormat:@"yyyy-MM-dd"];
+        NSString *date = @(self.planDetailModel.registerTime.integerValue).description;
+        _addTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:date andDateFormat:@"yyyy-MM-dd"];
     }
     return _addTime;
 }
@@ -169,7 +169,7 @@ static NSString *kINVEST = @"INVEST";
  */
 - (NSString *) endLockingTime {
     if (!_endLockingTime) {
-        _endLockingTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:self.planDetailModel.endLockingTime andDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        _endLockingTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.endLockingTime andDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     }
     return _endLockingTime;
 }

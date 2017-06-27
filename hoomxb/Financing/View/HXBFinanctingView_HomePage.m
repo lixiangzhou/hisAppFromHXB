@@ -36,7 +36,6 @@
 - (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
     _finPlanListVMArray = finPlanListVMArray;
     self.planListTableView.planListViewModelArray = finPlanListVMArray;
-    [self.contDwonManager countDownWithModelArray:finPlanListVMArray andModelDateKey:nil  andModelCountDownKey:nil];
 }
 - (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
     _finLoanListVMArray = finLoanListVMArray;
@@ -121,22 +120,7 @@
     NSMutableArray *arrayM = [[NSMutableArray alloc]init];
     [arrayM addObjectsFromArray:self.finPlanListVMArray];
 //    [arrayM addObjectsFromArray:self.finLoanListVMArray];
-    __weak typeof (self)weakSelf = self;
-    
-    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray: self.finPlanListVMArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
-    [self.contDwonManager countDownWithChangeModelBlock:^(HXBFinHomePageViewModel_PlanList *model, NSIndexPath *index) {
-        if (weakSelf.finPlanListVMArray.count > index.row) {
-            HXBFinancting_PlanListTableViewCell *cell = [weakSelf.planListTableView cellForRowAtIndexPath:index];
-            cell.countDownString = model.countDownString;
-        }
-    }];
-    //要与服务器时间想比较
-//    self.contDwonManager.clientTime = [HXBDate       ]
-//    [self.contDwonManager stopWenScrollViewScrollBottomWithTableView:self.planListTableView];
-    self.contDwonManager.isAutoEnd = true;
-    
-    //开启定时器
-    [self.contDwonManager resumeTimer];
+   
 }
 
 //MARK:红利计划列表
@@ -188,7 +172,6 @@
     [self.loanListTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-        
     }];
     [self.loanListTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         if (weakSelf.loanRefreshHeaderBlock) weakSelf.loanRefreshHeaderBlock();

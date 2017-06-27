@@ -96,7 +96,7 @@
     _bankCardModel = bankCardModel;
     self.bankCardNumberLabel.text = [NSString stringWithFormat:@"尾号 %@",[self.bankCardModel.cardId substringFromIndex:self.bankCardModel.cardId.length - 4]];
     self.withdrawalsNumberLabel.text = [NSString stringWithFormat:@"%@元",self.bankCardModel.amount];
-    self.withdrawalsTimeLabel.text = [[HXBBaseHandDate sharedHandleDate] stringFromDate:self.bankCardModel.arrivalTime andDateFormat:@"yyyy-MM-dd"];
+    self.withdrawalsTimeLabel.text = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.bankCardModel.arrivalTime andDateFormat:@"yyyy-MM-dd"];
 }
 
 - (void)backBttonClick:(UIButton *)sender{

@@ -17,6 +17,7 @@
 #import "HXBFinModel_BuyResoult_PlanModel.h"
 #import "HXBFinModel_Buy_LoanModel.h"
 #import "HXBFinModel_BuyResoult_LoanModel.h"
+#import "HXBFinDatailModel_LoanDetail.h"
 @interface HXBFin_Loan_BuyViewController ()
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan *joinimmediateView_Loan;
 ///个人总资产
@@ -42,13 +43,15 @@
     
     [super viewDidLoad];
     
+    
     //请求 个人数据
-    [[KeyChainManage sharedInstance] assetsTotalWithBlock:^(NSString *assetsTotal) {
-        _assetsTotal = assetsTotal;
+    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        _availablePoint = viewModel.userInfoModel.userAssets.availablePoint;
+        _assetsTotal = viewModel.userInfoModel.userAssets.assetsTotal;
+    } andFailure:^(NSError *error) {
+        
     }];
-    [[KeyChainManage sharedInstance] availablePointWithBlock:^(NSString *availablePoint) {
-        _availablePoint = availablePoint;
-    }];
+  
     //判断是否登录
     [self isLogin];
     
@@ -125,9 +128,15 @@
         
         //是否大于剩余金额
         if (capital.integerValue >= self.assetsTotal.floatValue) {
-            [HxbHUDProgress showTextWithMessage:@"输入金额大于了剩余金额"];
+            [HxbHUDProgress showTextWithMessage:@"输入金额大于了剩余可投金额"];
             return;
         }
+        //是否大于标的剩余金额
+        if (capital.integerValue >= weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount.floatValue) {
+            [HxbHUDProgress showTextWithMessage:@"输入金额大于了标的剩余金额"];
+            return;
+        }
+        
         //判断是否安全认证
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {

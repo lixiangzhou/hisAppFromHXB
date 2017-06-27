@@ -24,4 +24,6 @@
 ///计划id
 @property (nonatomic,copy) NSString *planID;
 @property (nonatomic,strong) HXBFinHomePageViewModel_PlanList *planListViewModel;
+
+@property (nonatomic,copy) NSString *planAddButton;
 @end

@@ -76,16 +76,19 @@
     return _viewModelVM;
 }
 
+
 - (void)setUPViewModelVM: (HXBFin_DetailsViewBase_ViewModelVM* (^)(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM))detailsViewBase_ViewModelVMBlock {
     self.viewModelVM = detailsViewBase_ViewModelVMBlock(self.viewModelVM);
 }
+
+
 
 - (void)setViewModelVM:(HXBFin_DetailsViewBase_ViewModelVM *)viewModelVM {
     _viewModelVM = viewModelVM;
     self.totalInterestStr           = viewModelVM.totalInterestStr;
     self.startInvestmentStr         = viewModelVM.startInvestmentStr;
     self.remainAmount               = viewModelVM.remainAmount;
-    
+
     self.totalInterestStr_const     = viewModelVM.totalInterestStr_const;
     self.remainAmount_const         = viewModelVM.remainAmount_const;
     self.startInvestmentStr_const   = viewModelVM.startInvestmentStr_const;
@@ -94,6 +97,11 @@
     self.lockPeriodStr              = viewModelVM.lockPeriodStr;
     
     [self show];
+}
+
+- (void) setAddButtonStr:(NSString *)addButtonStr {
+    _addButtonStr = addButtonStr;
+    [self.addButton setTitle:addButtonStr forState:UIControlStateNormal];
 }
 - (void)setModelArray:(NSArray<HXBFinDetail_TableViewCellModel *> *)modelArray {
     _modelArray = modelArray;
