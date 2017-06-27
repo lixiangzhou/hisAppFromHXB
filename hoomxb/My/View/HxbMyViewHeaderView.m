@@ -69,7 +69,6 @@
 }
 - (void)clickAllFinanceButton: (UITapGestureRecognizer *)tap {
     if (self.clickAllFinanceButtonBlock) {
-        
         self.clickAllFinanceButtonBlock((UILabel *)tap.view);
     }
 }
