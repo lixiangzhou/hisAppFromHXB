@@ -31,10 +31,12 @@
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
-    [[KeyChainManage sharedInstance] availablePointWithBlock:^(NSString *availablePoint) {
-        _availablePoint = availablePoint;
+    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        _availablePoint = viewModel.availablePoint;
+    } andFailure:^(NSError *error) {
+        
     }];
-    [super viewDidLoad];
+     [super viewDidLoad];
     //判断是否登录
     [self isLogin];
 
@@ -111,7 +113,7 @@
              if (!isVerify) {
                  [HxbHUDProgress showTextWithMessage:@"去安全认证"];
              } else {
-                 [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.planDetailModel.ID andAmount:capital cashType:weakSelf.planViewModel.profitType andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
+                 [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.planDetailModel.ID andAmount:capital cashType:@"INVEST" andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
                      [HxbHUDProgress showTextWithMessage:@"加入成功"];
                      [self.navigationController popToRootViewControllerAnimated:true];
                  } andFailureBlock:^(NSError *error) {
@@ -162,9 +164,13 @@
             ///服务协议 button str
             model.negotiateButtonStr = weakSelf.planViewModel.contractName;
             model.totalInterest = weakSelf.planViewModel.totalInterest;
-            ///加入上线
-            model.upperLimitLabelStr = weakSelf.planViewModel.singleMaxRegisterAmount;
-            ///确认加入的Buttonstr
+            ///加入上线 (min (用户可投， 本期剩余))
+        if (weakSelf.planViewModel.userRemainAmount.floatValue < weakSelf.planViewModel.remainAmount.floatValue) {
+            model.upperLimitLabelStr = weakSelf.planViewModel.userRemainAmount;
+        }else {
+             model.upperLimitLabelStr = weakSelf.planViewModel.remainAmount;
+        }
+        ///确认加入的Buttonstr
             model.addButtonStr = @"确认加入";
             return model;
         }];
