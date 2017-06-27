@@ -24,5 +24,6 @@
 @property (nonatomic,assign) BOOL isStopRefresh_Home;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel * _Nonnull userInfoViewModel;
 @property (nonatomic,weak,nullable) id<MyViewDelegate>delegate;
-
+///点击了 总资产
+- (void)clickAllFinanceButtonWithBlock: (void(^)(UILabel * button))clickAllFinanceButtonBlock;
 @end
