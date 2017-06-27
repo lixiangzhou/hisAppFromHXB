@@ -24,10 +24,17 @@
 
 @implementation HXBAlertVC
 
+- (instancetype)init
+{
+    if (self = [super init]) {
+        self.modalPresentationStyle = UIModalPresentationCustom;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blackColor];
-    self.view.alpha = 0.3;
+    self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     [self.view addSubview:self.contentView];
     [self.contentView addSubview:self.cancelBtn];
     [self.contentView addSubview:self.sureBtn];
@@ -41,38 +48,49 @@
 {
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.view);
-        make.height.equalTo(@100);
-        make.width.equalTo(@200);
+        make.height.equalTo(@150);
+        make.width.equalTo(@250);
     }];
     [self.message mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView.mas_top).offset(20);
         make.centerX.equalTo(self.view);
     }];
-//    [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(@84);
-//        make.centerX.equalTo(self.view);
-//        make.height.with.equalTo(@50);
-//    }];
-//    [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(@84);
-//        make.centerX.equalTo(self.view);
-//        make.height.with.equalTo(@50);
-//    }];
-//    [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(@84);
-//        make.centerX.equalTo(self.view);
-//        make.height.with.equalTo(@50);
-//    }];
-//    [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(@84);
-//        make.centerX.equalTo(self.view);
-//        make.height.with.equalTo(@50);
-//    }];
+    [self.pwdField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.message.mas_bottom).offset(20);
+        make.left.equalTo(self.contentView.mas_left).offset(20);
+        make.right.equalTo(self.contentView.mas_right).offset(-20);
+    }];
+    [self.forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.pwdField.mas_bottom);
+        make.right.equalTo(self.pwdField.mas_right);
+    }];
+    [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.contentView.mas_bottom);
+        make.left.equalTo(self.contentView.mas_left);
+        make.width.equalTo(@125);
+        make.height.with.equalTo(@44);
+    }];
+    [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.contentView.mas_bottom);
+        make.right.equalTo(self.contentView.mas_right);
+        make.width.equalTo(@125);
+        make.height.with.equalTo(@44);
+    }];
     
 }
 - (void)buttonClick:(UIButton *)btn
 {
-    [self dismissViewControllerAnimated:YES completion:^{
+    if ([btn.titleLabel.text isEqualToString:@"确认"]) {
+        if (self.sureBtnClick) {
+            self.sureBtnClick(self.pwdField.text);
+        }
+    }else if ([btn.titleLabel.text isEqualToString:@"忘记密码"])
+    {
+        if (self.forgetBtnClick) {
+            self.forgetBtnClick();
+        }
+    }
+    [self dismissViewControllerAnimated:NO completion:^{
         
     }];
 }
@@ -90,7 +108,11 @@
 {
     if (!_cancelBtn) {
         _cancelBtn = [[UIButton alloc] init];
+        [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [_cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_cancelBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        _cancelBtn.layer.borderWidth = 0.5;
+        _cancelBtn.layer.borderColor = COR12.CGColor;
     }
     return _cancelBtn;
 }
@@ -99,7 +121,11 @@
 {
     if (!_sureBtn) {
         _sureBtn = [[UIButton alloc] init];
+        [_sureBtn setTitle:@"确认" forState:UIControlStateNormal];
+        [_sureBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_sureBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        _sureBtn.layer.borderWidth = 0.5;
+        _sureBtn.layer.borderColor = COR12.CGColor;
     }
     return _sureBtn;
 }
@@ -107,6 +133,9 @@
 {
     if (!_forgetBtn) {
         _forgetBtn = [[UIButton alloc] init];
+        [_forgetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+        _forgetBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [_forgetBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_forgetBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _forgetBtn;
@@ -115,6 +144,7 @@
 {
     if (!_message) {
         _message = [[UILabel alloc] init];
+        _message.text = @"请输入交易密码";
     }
     return _message;
 }
@@ -123,6 +153,9 @@
 {
     if (!_pwdField) {
         _pwdField = [[UITextField alloc] init];
+        _pwdField.placeholder = @"请输入交易密码";
+        _pwdField.layer.borderWidth = 0.5;
+        _pwdField.layer.borderColor = COR12.CGColor;
     }
     return _pwdField;
 }

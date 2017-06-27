@@ -14,4 +14,6 @@
  数据模型
  */
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
+
+@property (nonatomic, strong) HXBUserInfoModel *userInfoModel;
 @end

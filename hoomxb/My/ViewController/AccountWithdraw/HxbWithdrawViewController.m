@@ -12,6 +12,8 @@
 #import "HXBBankCardModel.h"
 #import "HXBWithdrawalsRequest.h"
 #import "HxbWithdrawResultViewController.h"
+#import "HXBAlertVC.h"
+#import "HXBModifyTransactionPasswordViewController.h"
 @interface HxbWithdrawViewController ()
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UILabel *availableBalanceLabel;
@@ -65,24 +67,25 @@
 
 - (void)withdrawals
 {
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"输入交易密码" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        
-    }];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UITextField *passwordTextField = alertController.textFields.firstObject;
-        
-        if (passwordTextField.text.length == 0) {
+    kWeakSelf
+    HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
+    alertVC.sureBtnClick = ^(NSString *pwd){
+        if (pwd.length == 0) {
             return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
             return;
         }
-        [self checkWithdrawals:passwordTextField.text];
+        [weakSelf checkWithdrawals:pwd];
+    };
+    alertVC.forgetBtnClick = ^(){
+        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+        modifyTransactionPasswordVC.title = @"修改交易密码";
+        modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
+        [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+    };
+    [self presentViewController:alertVC animated:NO completion:^{
+        
     }];
-    
-    UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    [alertController addAction:okAction];
-    [alertController addAction:cancalAction];
-    [self presentViewController:alertController animated:YES completion:nil];
+
 }
 
 - (void)checkWithdrawals:(NSString *)paypassword
@@ -106,7 +109,6 @@
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    
 }
 
 - (void)nextButtonClick:(UIButton *)sender{
@@ -137,6 +139,7 @@
             if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
                  withdrawCardViewController.bankCardModel = weakSelf.bankCardModel;
             }
+            withdrawCardViewController.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
             [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
             return;
         }
