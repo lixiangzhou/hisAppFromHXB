@@ -93,5 +93,5 @@
 @property (nonatomic,copy) NSString *lockPeriodStr;
 ///是否可以点击 addbutton
 @property (nonatomic,assign) BOOL isUserInteractionEnabled;
-- (void) addButtonChengeTitleChenge: (void(^)(NSString *))addButtonChengeTitleBlock;
+- (void) addButtonChengeTitleChenge: (void(^)(NSString *title))addButtonChengeTitleBlock;
 @end

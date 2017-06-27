@@ -31,11 +31,11 @@
 }
 ///开始时间
 - (void)setUPBeginSellingTime {
-    self.beginSellingTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:self.planDetailModel.beginSellingTime andDateFormat:@"yyyy-MM-dd"];
+    self.beginSellingTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.beginSellingTime andDateFormat:@"yyyy-MM-dd"];
 }
 ///退出时间
 - (void)setUPFinanceEndTime {
-    self.financeEndTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:self.planDetailModel.financeEndTime andDateFormat:@"yyyy-MM-dd"];
+    self.financeEndTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.financeEndTime andDateFormat:@"yyyy-MM-dd"];
 }
 
 - (NSString *)description {

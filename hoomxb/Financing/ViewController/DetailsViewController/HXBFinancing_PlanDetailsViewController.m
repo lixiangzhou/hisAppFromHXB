@@ -34,20 +34,26 @@
 @property (nonatomic,strong) NSArray <NSString *>* tableViewImageArray;
 ///详情页的ViewMode
 @property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planDetailViewModel;
+///addButtonStr
+@property (nonatomic,weak) HXBFin_DetailsViewBase_ViewModelVM *planDetailVM;
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
+- (void)setPlanAddButton:(NSString *)planAddButton {
+    _planAddButton = planAddButton;
+    self.planDetailVM.addButtonStr = planAddButton;
+}
 
 - (void)setPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)planListViewModel {
     _planListViewModel = planListViewModel;
     self.planID = planListViewModel.planListModel.ID;
-    
 }
 ///设置值
 - (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
     kWeakSelf
     _planDetailViewModel = planDetailViewModel;
     [_planDetailsView setUPViewModelVM:^HXBFin_DetailsViewBase_ViewModelVM *(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM) {
+        self.planDetailVM = viewModelVM;
         viewModelVM.totalInterestStr           = weakSelf.planDetailViewModel.planDetailModel.expectedRate;
         viewModelVM.startInvestmentStr         = weakSelf.planDetailViewModel.minRegisterAmount;
         viewModelVM.remainAmount               = weakSelf.planDetailViewModel.remainAmount;
@@ -62,8 +68,8 @@
         viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
         viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
         viewModelVM.isUserInteractionEnabled   = weakSelf.planDetailViewModel.isAddButtonInteraction;
+    
         if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
-            
         }
         return viewModelVM;
     }];

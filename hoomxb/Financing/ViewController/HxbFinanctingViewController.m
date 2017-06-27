@@ -43,6 +43,12 @@
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList*>* finLoanListVMArray;
 
 @property (nonatomic,strong) HXBToolCountDownButton *countDownButton;
+
+///MARK: ------------ 定时管理 -----------
+@property (nonatomic,strong) HXBBaseContDownManager *contDwonManager;
+/// 记录详情
+@property (nonatomic,weak) HXBFinancing_PlanDetailsViewController *planDetailVC;
+@property (nonatomic,weak) HXBFinancing_LoanDetailsViewController *loanDetailVC;
 @end
 
 
@@ -54,6 +60,7 @@
 - (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
     _finPlanListVMArray = finPlanListVMArray;
     self.homePageView.finPlanListVMArray = finPlanListVMArray;
+    [self.contDwonManager countDownWithModelArray:finPlanListVMArray andModelDateKey:nil  andModelCountDownKey:nil];
 }
 - (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
     _finLoanListVMArray = finLoanListVMArray;
@@ -87,7 +94,30 @@
     //上拉刷新与下拉加载
     [self registerRefresh];
     [self planLoadDateWithIsUpData:true];
+    
+    //创建定时器
+    [self creatCountDownManager];
 }
+- (void)creatCountDownManager {
+    __weak typeof (self)weakSelf = self;
+    
+    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray: self.finPlanListVMArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
+    [self.contDwonManager countDownWithChangeModelBlock:^(HXBFinHomePageViewModel_PlanList *model, NSIndexPath *index) {
+        if (weakSelf.finPlanListVMArray.count > index.row) {
+            UITableView *tableView = (UITableView *)[weakSelf.homePageView valueForKey:@"planListTableView"];
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:index];
+            weakSelf.planDetailVC.planAddButton = model.countDownString;
+            [cell setValue:model.countDownString forKey:@"countDownString"];
+        }
+    }];
+    //要与服务器时间想比较
+    //    self.contDwonManager.clientTime = [HXBDate       ]
+    //    [self.contDwonManager stopWenScrollViewScrollBottomWithTableView:self.planListTableView];
+    self.contDwonManager.isAutoEnd = true;
+    //开启定时器
+    [self.contDwonManager resumeTimer];
+}
+
 - (void)creatProperty {
     self.isFirstLoadNetDataLoan = true;
     self.isFirstLoadNetDataPlan = true;
@@ -114,7 +144,6 @@
         }else if ([title isEqualToString:@"散标列表"] && self.isFirstLoadNetDataLoan) {
             [weakSelf loanLoadDateWithIsUpData:true];
         }
-
     }];
 }
 - (void)clickCell {
@@ -127,6 +156,7 @@
 - (void) clickPlanListCell {
     __weak typeof(self) weakSelf = self;
     [self.homePageView setClickPlanListCellBlock:^(NSIndexPath *index, HXBFinHomePageViewModel_PlanList *model) {
+        
         [weakSelf pushPlanDetailsViewControllerWithModel:model];
     }];
 }
@@ -139,6 +169,8 @@
     planDetailsVC.isFlowChart = true;
     planDetailsVC.hidesBottomBarWhenPushed = true;
     planDetailsVC.planListViewModel = model;
+
+    self.planDetailVC = planDetailsVC;
     [self.navigationController pushViewController:planDetailsVC animated:true];
 }
 //MARK: - 点击了散标列表页的 cell
@@ -149,14 +181,14 @@
     }];
 }
 - (void)pushLoanListCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanList *)model {
-   
-    
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
     loanDetailsVC.loanID = model.loanListModel.loanId;
     loanDetailsVC.loanListViewMode = model;
+    self.loanDetailVC = loanDetailsVC;
     loanDetailsVC.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:loanDetailsVC animated:true];
 }
+
 - (void)clickLeftBarButtonItem {
     [self popoverPresentationController];
 }
@@ -222,12 +254,12 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.homePageView.contDwonManager cancelTimer];
+//    [self.homePageView.contDwonManager cancelTimer];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.homePageView.contDwonManager resumeTimer];
+//    [self.homePageView.contDwonManager resumeTimer];
     [self.homePageView loadData];
 }
 @end

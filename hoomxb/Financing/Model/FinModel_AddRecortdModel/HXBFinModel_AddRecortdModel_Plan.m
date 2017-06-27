@@ -26,7 +26,7 @@
 
 - (void)setJoinTime:(NSString *)joinTime {
     _joinTime = joinTime;
-    _hxb_joinTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:joinTime andDateFormat:@"yyyy-MM-dd  HH:mm"];
+    _hxb_joinTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:joinTime andDateFormat:@"yyyy-MM-dd  HH:mm"];
 }
 - (void)setNickName:(NSString *)nickName {
     _nickName = nickName;
