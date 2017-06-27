@@ -14,6 +14,7 @@
 
 @implementation HXBMY_AllFinanceViewController
 - (HXBMY_AllFinanceView *)allFinanceView {
+    
     if (!_allFinanceView) {
         _allFinanceView = [[HXBMY_AllFinanceView alloc]init];
     }
