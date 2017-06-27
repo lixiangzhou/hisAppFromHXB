@@ -30,6 +30,7 @@
             NSLog(@"修改登录密码失败");
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) failureBlock(nil);
+            return;
         }
         
         if (successDateBlock) successDateBlock();

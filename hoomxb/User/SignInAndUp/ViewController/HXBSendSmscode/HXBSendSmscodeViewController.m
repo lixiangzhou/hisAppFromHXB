@@ -10,6 +10,7 @@
 #import "HXBSendSmscodeView.h"///发送短信的view
 
 #import "HxbSignUpSucceedViewController.h"
+#import "HxbAccountInfoViewController.h"
 ///短信验证 VC
 @interface HXBSendSmscodeViewController ()
 @property (nonatomic,strong) HXBSendSmscodeView *smscodeView;
@@ -48,10 +49,22 @@
     [self.smscodeView clickSendSmscodeButtonWithBlock:^{
        //请求网络数据
         [HXBSignUPAndLoginRequest smscodeRequestWithMobile:weakSelf.phonNumber andAction:weakSelf.type andCaptcha:weakSelf.captcha andSuccessBlock:^(BOOL isSuccessBlock) {
+            [[KeyChainManage sharedInstance] setMobile:weakSelf.phonNumber];
+            [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
+            }];
+            [weakSelf.navigationController popToRootViewControllerAnimated:true];
             NSLog(@"密码设置成功");
+            
             switch (weakSelf.type) {
-                case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:
+                case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
                     NSLog(@"重置登录密码");
+//                    [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                        if ([obj isKindOfClass:[HxbAccountInfoViewController class]]) {
+//                            [self.navigationController popToViewController:obj animated:true];
+//                            *stop = true;
+//                        }
+//                    }];
+                }
                     break;
                 case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
                     NSLog(@"注册");
@@ -70,8 +83,8 @@
         if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             NSLog(@"忘记密码");
             [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:self.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {
-                HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
-                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
+                [[KeyChainManage sharedInstance] setMobile:weakSelf.phonNumber];
+                [self dismissViewControllerAnimated:true completion:nil];
             } andFailureBlock:^(NSError *error) {
                 
             }];

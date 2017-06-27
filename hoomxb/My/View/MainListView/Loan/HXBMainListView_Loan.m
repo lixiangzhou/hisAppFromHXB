@@ -10,7 +10,7 @@
 #import "HXBMainListView_Loan_TopView.h"
 #import "HXBMYViewModel_MainLoanViewModel.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
-
+#import "HXBMainListView_Plan_TopView.h"
 
 
 @interface HXBMainListView_Loan()
@@ -18,7 +18,7 @@
 
 
 //MARK: --------------------------- topView -------------------
-@property (nonatomic,strong) HXBMainListView_Loan_TopView *loanTopView;
+@property (nonatomic,strong) HXBMainListView_Plan_TopView *loanTopView;
 
 
 //MARK: --------------------------- toolBarView -------------------
@@ -73,9 +73,9 @@ static NSString *BID_Title = @"投标中";
 //MARK: 销毁
 kDealloc
 #pragma mark - setter
-- (void)setLoanAssetStatisticsModel:(HXBMYModel_AssetStatistics_Loan *)loanAssetStatisticsModel {
-    _loanAssetStatisticsModel = loanAssetStatisticsModel;
-    self.loanTopView.loanAssetStatisticsModel = loanAssetStatisticsModel;
+- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
+    _userInfoViewModel = userInfoViewModel;
+    self.loanTopView.userInfoViewModel = userInfoViewModel;
 }
 - (void)setRepaying_ViewModelArray:(NSArray<HXBMYViewModel_MainLoanViewModel *> *)repaying_ViewModelArray {
     _repaying_ViewModelArray = repaying_ViewModelArray;
@@ -135,7 +135,7 @@ kDealloc
 
 ///创建顶部的View;
 - (void)createTopView {
-    self.loanTopView = [[HXBMainListView_Loan_TopView alloc]init];
+    self.loanTopView = [[HXBMainListView_Plan_TopView alloc]init];
 }
 ///创建中间的toolBarView
 - (void)createToolBarView {

@@ -56,9 +56,11 @@ kDealloc
 
 ///资产统计网络请求
 - (void)assetStatisticsLoadData {
-    [[HXBMYRequest sharedMYRequest] myLoanAssetStatistics_requestWithSuccessBlock:^(NSArray<HXBMYModel_AssetStatistics_Loan *> *model) {
-        self.loanListView.loanAssetStatisticsModel = model.firstObject;
-    } andFailureBlock:^(NSError *error) {}];
+    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        self.loanListView.userInfoViewModel = viewModel;
+    } andFailure:^(NSError *error) {
+        
+    }];
 }
 
 //搭建UI
@@ -134,6 +136,7 @@ kDealloc
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:false];
     } andUPBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:true];
+        [self assetStatisticsLoadData];
     }];
 }
 - (void) refresh_repying {
@@ -142,6 +145,7 @@ kDealloc
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:false];
     } andUPBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+        [self assetStatisticsLoadData];
     }];
 }
 

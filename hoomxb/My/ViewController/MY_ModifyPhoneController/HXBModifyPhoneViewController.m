@@ -47,7 +47,7 @@
                 [KeyChain setMobile:phoneNumber];
                 
                 __block HxbAccountInfoViewController *accountInfoVC;
-                
+                  
                 [weakSelf.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
                     if ([VC isKindOfClass:[HxbAccountInfoViewController class]]) {
                         accountInfoVC = VC;
@@ -56,6 +56,7 @@
                 [weakSelf.navigationController popToViewController:accountInfoVC animated:YES];
             } andFailureBlock:^(NSError *error) {
                 NSLog(@"%@",error);
+             
             }];
         };
         

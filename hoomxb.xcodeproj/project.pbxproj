@@ -143,6 +143,7 @@
 		E12800EB1F0201250066FB66 /* HXBMY_AllFinanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800EA1F0201250066FB66 /* HXBMY_AllFinanceViewController.m */; };
 		E12800EF1F02015B0066FB66 /* HXBMY_AllFinanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800EE1F02015B0066FB66 /* HXBMY_AllFinanceView.m */; };
 		E12800F21F0204B70066FB66 /* HXBMy_AllFinance_TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800F11F0204B70066FB66 /* HXBMy_AllFinance_TableViewCell.m */; };
+		E12800F91F023AB40066FB66 /* HXBCode.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800F81F023AB40066FB66 /* HXBCode.m */; };
 		E133DCD71EEE3597009466DE /* HxbPickerArea.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DC8F1EEE3597009466DE /* HxbPickerArea.m */; };
 		E133DCD81EEE3597009466DE /* HxbPickerBankSubBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DC911EEE3597009466DE /* HxbPickerBankSubBranch.m */; };
 		E133DCD91EEE3597009466DE /* HxbToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DC931EEE3597009466DE /* HxbToolbar.m */; };
@@ -559,6 +560,8 @@
 		E12800EE1F02015B0066FB66 /* HXBMY_AllFinanceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_AllFinanceView.m; sourceTree = "<group>"; };
 		E12800F01F0204B70066FB66 /* HXBMy_AllFinance_TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMy_AllFinance_TableViewCell.h; sourceTree = "<group>"; };
 		E12800F11F0204B70066FB66 /* HXBMy_AllFinance_TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMy_AllFinance_TableViewCell.m; sourceTree = "<group>"; };
+		E12800F71F023AB40066FB66 /* HXBCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCode.h; sourceTree = "<group>"; };
+		E12800F81F023AB40066FB66 /* HXBCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCode.m; sourceTree = "<group>"; };
 		E133DC8E1EEE3597009466DE /* HxbPickerArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbPickerArea.h; sourceTree = "<group>"; };
 		E133DC8F1EEE3597009466DE /* HxbPickerArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbPickerArea.m; sourceTree = "<group>"; };
 		E133DC901EEE3597009466DE /* HxbPickerBankSubBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbPickerBankSubBranch.h; sourceTree = "<group>"; };
@@ -1251,6 +1254,8 @@
 				4ED2F2821ECAE3C30014E5C7 /* HxbNormalConfig.m */,
 				E173D6631F00D75300D04BDA /* HXBEnumerateTransitionManager.h */,
 				E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */,
+				E12800F71F023AB40066FB66 /* HXBCode.h */,
+				E12800F81F023AB40066FB66 /* HXBCode.m */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -3047,7 +3052,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3186,6 +3191,7 @@
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E122D85A1EA0CAB900DC71ED /* UIImageView+HxbSDWebImage.m in Sources */,
 				E12800EF1F02015B0066FB66 /* HXBMY_AllFinanceView.m in Sources */,
+				E12800F91F023AB40066FB66 /* HXBCode.m in Sources */,
 				E1C9647B1EA5E04F0066DBC4 /* HXBBaseTableViewCell.m in Sources */,
 				4E886FC71EF9201B0056086E /* HXBLockLabel.m in Sources */,
 				E1C10A501EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m in Sources */,

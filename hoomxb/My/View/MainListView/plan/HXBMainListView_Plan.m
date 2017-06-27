@@ -138,6 +138,14 @@ kDealloc
 // 搭建顶部的View信息
 - (void)setupTopView {
     self.topView = [[HXBMainListView_Plan_TopView alloc]init];
+    [self downLoadTopViewData];
+}
+- (void)downLoadTopViewData {
+    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        self.topView.userInfoViewModel = viewModel;
+    } andFailure:^(NSError *error) {
+        
+    }];
 }
 //搭建中部的toolBarView
 - (void)setupToolBarView {

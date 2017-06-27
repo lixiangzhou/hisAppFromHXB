@@ -10,5 +10,5 @@
 @class HXBMYModel_AssetStatistics_Loan;
 @interface HXBMainListView_Loan_TopView : UIView
 ///资产统计model
-@property (nonatomic,strong) HXBMYModel_AssetStatistics_Loan *loanAssetStatisticsModel;
+@property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @end

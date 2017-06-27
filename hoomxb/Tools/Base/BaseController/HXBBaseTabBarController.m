@@ -10,7 +10,7 @@
 #import "HXBBaseNavigationController.h"
 #import "HxbSignInViewController.h"
 #import "HxbMyViewController.h"
-
+#import "HXBCheckCaptchaViewController.h"
 @interface HXBBaseTabBarController ()<UITabBarControllerDelegate>
 
 @end
@@ -44,6 +44,7 @@
 - (void)registerNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentLoginVC:) name:kHXBNotification_ShowLoginVC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMyVC:) name:kHXBNotification_LoginSuccess_PushMYVC object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modalCaptchaVC:) name:kHXBBotification_ShowCaptchaVC object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -143,6 +144,14 @@
 - (void) pushMyVC:(NSNotification *)notification {
     self.selectedViewController = self.viewControllers.lastObject;
 }
+
+////谈图验
+//- (void) modalCaptchaVC: (NSNotification *)notif {
+//    HXBBaseNavigationController *nav =  (HXBBaseNavigationController *)self.selectedViewController;
+//    UIViewController *viewController = nav.viewControllers.firstObject;
+//    HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
+//    [nav presentViewController:checkCaptchaViewController animated:true completion:nil];
+//}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

@@ -19,6 +19,7 @@
 @end
 @implementation HXBMainListView_Plan_TopView
 
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self  = [super initWithFrame: frame]) {
         [self setUP];
@@ -31,11 +32,12 @@
     self.financePlanSumPlanInterestView = [[HXBBaseView_TwoLable_View alloc]init];
     [self addSubview:self.financePlanSumPlanInterestView];
     [self addSubview:self.financePlanAssetsView];
-    
-    [self setUPFrame];
-    [self setValue];
 }
 
+
+- (void) willMoveToSuperview:(UIView *)newSuperview {
+    [self setUPFrame];
+}
 - (void) setUPFrame {
     ///持有资产
     [self.financePlanAssetsView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -54,11 +56,15 @@
     [self.financePlanAssetsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         viewModelVM.leftLabelStr = @"持有资产(元)";
         viewModelVM.rightLabelStr = userInfoViewModel.financePlanAssets;
+        viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
+        viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
         return viewModelVM;
     }];
     [self.financePlanSumPlanInterestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         viewModelVM.leftLabelStr = @"累计收益(元)";
         viewModelVM.rightLabelStr = userInfoViewModel.financePlanSumPlanInterest;
+        viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
+        viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
         return viewModelVM;
     }];
 }

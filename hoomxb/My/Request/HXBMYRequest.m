@@ -388,7 +388,7 @@
                 self.bidPage = 1;
             }
             if (viewModelArray.count) {
-                self.repayingPage ++;
+                self.bidPage ++;
             }
             [self.bid_Loan_array addObjectsFromArray:viewModelArray];
             return self.bid_Loan_array;
@@ -399,7 +399,7 @@
                 self.finishPage = 1;
             }
             if (viewModelArray.count) {
-                self.repayingPage ++;
+                self.finishPage ++;
             }
             [self.finish_Loan_array addObjectsFromArray:viewModelArray];
             return self.finish_Loan_array;

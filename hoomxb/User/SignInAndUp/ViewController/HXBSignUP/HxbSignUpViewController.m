@@ -56,7 +56,26 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     kWeakSelf
     [self.signUPView signUPClickNextButtonFunc:^(NSString *mobile) {
         NSLog(@"点击了下一步");
-        if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {
+        switch (self.type) {
+            case HXBSignUPAndLoginRequest_sendSmscodeType_signup://注册
+                
+                break;
+            case HXBSignUPAndLoginRequest_sendSmscodeType_forgot://忘记密码重置登录密码
+                
+                break;
+            case HXBSignUPAndLoginRequest_sendSmscodeType_tradpwd://重置交易密码
+                
+                break;
+            case HXBSignUPAndLoginRequest_sendSmscodeType_newmobile://绑定手机号
+                
+                break;
+            case HXBSignUPAndLoginRequest_sendSmscodeType_oldmobile://校验老的手机号)
+                
+                break;
+            default:
+                break;
+        }
+        if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {//注册
             if ([weakSelf.signUPView.checkMobileStr isEqualToString:kAlreadyRegistered]) return;
         }else
         {
