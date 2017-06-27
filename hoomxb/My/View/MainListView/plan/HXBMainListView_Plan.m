@@ -67,9 +67,9 @@ kDealloc
 
 
 #pragma mark - setter  数据源
-- (void) setPlanAssetStatisticsModel:(HXBMYModel_AssetStatistics_Plan *)planAssetStatisticsModel {
-    _planAssetStatisticsModel = planAssetStatisticsModel;
-    self.topView.planAssetStatisticsModel = planAssetStatisticsModel;
+- (void) setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
+    _userInfoViewModel = userInfoViewModel;
+    self.topView.userInfoViewModel = userInfoViewModel;
 }
 - (void) setExit_Plan_array:(NSMutableArray<HXBMYViewModel_MianPlanViewModel *> *)exit_Plan_array {
     _exit_Plan_array = exit_Plan_array;
@@ -184,7 +184,7 @@ kDealloc
     
     NSArray *bottomViewSet = [self setupBottomScrollViewArray];
     CGRect frame = CGRectMake(0, 64, self.width, self.height - 64);
-    HXBBaseScrollToolBarView *scrollToolBarView = [HXBBaseScrollToolBarView scrollToolBarViewWithFrame:frame andTopView:self.topView andTopViewH:kScrAdaptationH(60) andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH: kScrAdaptationH(30) andBottomViewSet:bottomViewSet];
+    HXBBaseScrollToolBarView *scrollToolBarView = [HXBBaseScrollToolBarView scrollToolBarViewWithFrame:frame andTopView:self.topView andTopViewH:kScrAdaptationH(100) andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH: kScrAdaptationH(30) andBottomViewSet:bottomViewSet];
     
     [self addSubview:scrollToolBarView];
     

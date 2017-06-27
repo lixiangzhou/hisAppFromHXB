@@ -16,7 +16,7 @@
 
 #pragma mark - 数据源
 ///资产统计
-@property (nonatomic,strong) HXBMYModel_AssetStatistics_Plan *planAssetStatisticsModel;
+@property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 ///持有中
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MianPlanViewModel *>*hold_Plan_array;
 ///plan 推出中

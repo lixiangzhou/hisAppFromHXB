@@ -23,10 +23,14 @@ MyViewHeaderDelegate
 @property (nonatomic, strong) UITableView *mainTableView;
 @property (nonatomic, strong) HxbMyViewHeaderView *headerView;
 @property (nonatomic, strong) UIButton *signOutButton;
+@property (nonatomic, copy) void(^clickAllFinanceButtonWithBlock)(UILabel *button);
 @end
 
 @implementation HxbMyView
-
+///点击了 总资产
+- (void)clickAllFinanceButtonWithBlock: (void(^)(UILabel * button))clickAllFinanceButtonBlock{
+    self.clickAllFinanceButtonWithBlock = clickAllFinanceButtonBlock;
+}
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
@@ -163,6 +167,12 @@ MyViewHeaderDelegate
         _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/3 + 100)];
         _headerView.delegate = self;
         _headerView.userInteractionEnabled = YES;
+        kWeakSelf
+        [_headerView clickAllFinanceButtonWithBlock:^(UILabel * _Nullable button) {
+            if (weakSelf.clickAllFinanceButtonWithBlock) {
+                weakSelf.clickAllFinanceButtonWithBlock(button);
+            }
+        }];
     }
     return _headerView;
 }

@@ -427,6 +427,19 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
         isCashPasswordPassedBlock(_isCashPasswordPassed);
     }
 }
+/// 用户信息的请求
+- (void)downLoadUserInfoWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure{
+    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        [self setValueWithUserInfoModel:viewModel];
+        if (seccessBlock) {
+            seccessBlock(viewModel);
+        }
+    } andFailure:^(NSError *error) {
+        if (failure) {
+            failure (error);
+        }
+    }];
+}
 ///是否绑卡
 - (void)isBindCardWithBlock: (void (^)(NSString *isBindCard))isBindCardBlock {
     if (![_keychain[kIsBindCard] integerValue]) {

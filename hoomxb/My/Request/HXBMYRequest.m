@@ -325,22 +325,28 @@
     [HXBEnumerateTransitionManager myLoan_requestType:LoanRequestType andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
         loanTypeStr = type;
     }];
-    NSInteger page = 1;
+    NSInteger page1 = 1;
     switch (LoanRequestType) {
-        case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN:
-            if (isUPData) self.repayingPage = 1;
-            page = self.repayingPage;
+        case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN:{
+            if (isUPData) {
+                self.repayingPage = 1;
+            }
+          
+            page1 = self.repayingPage;
+            NSLog(@"%d,%d",page1,self.repayingPage);
+        }
             break;
-        case HXBRequestType_MY_LoanRequestType_BID_LOAN:
+        case HXBRequestType_MY_LoanRequestType_BID_LOAN:{
             if (isUPData) self.bidPage = 1;
-            page = self.bidPage;
+            page1 = self.bidPage;
+        }
             break;
         case HXBRequestType_MY_LoanRequestType_FINISH_LOAN:
             break;
     }
     self.loanListAPI.isUPReloadData = isUPData;
     self.loanListAPI.requestArgument = @{
-                                    @"page" : @(page),
+                                    @"page" : @(page1),
                                     @"filter" :  @(LoanRequestType).description,
                                     };
     [self.loanListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
@@ -381,7 +387,9 @@
                 [self.bid_Loan_array removeAllObjects];
                 self.bidPage = 1;
             }
-            self.bidPage ++;
+            if (viewModelArray.count) {
+                self.repayingPage ++;
+            }
             [self.bid_Loan_array addObjectsFromArray:viewModelArray];
             return self.bid_Loan_array;
             break;
@@ -390,7 +398,9 @@
                 [self.finish_Loan_array removeAllObjects];
                 self.finishPage = 1;
             }
-            self.finishPage ++;
+            if (viewModelArray.count) {
+                self.repayingPage ++;
+            }
             [self.finish_Loan_array addObjectsFromArray:viewModelArray];
             return self.finish_Loan_array;
             break;
@@ -399,7 +409,11 @@
                 [self.repaying_Loan_array removeAllObjects];
                 self.repayingPage = 1;
             }
+            
             [self.repaying_Loan_array addObjectsFromArray:viewModelArray];
+            if (viewModelArray.count) {
+                self.repayingPage ++;
+            }
             return self.repaying_Loan_array;
     }
 }

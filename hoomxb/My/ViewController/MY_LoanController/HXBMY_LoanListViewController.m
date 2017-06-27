@@ -171,6 +171,9 @@ kDealloc
         [weakSelf.navigationController pushViewController:planListDetailViewController animated:true];
     }];
     [self.loanListView clickLoan_bid_CellFuncWithBlock:^(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex) {
+        HXBMY_LoanList_DetailViewController *planListDetailViewController = [[HXBMY_LoanList_DetailViewController alloc]init];
+        planListDetailViewController.loanDetailViewModel = loanViewModel;
+        [weakSelf.navigationController pushViewController:planListDetailViewController animated:true];
         NSLog(@"散标列表暂无详情页");
     }];
 }

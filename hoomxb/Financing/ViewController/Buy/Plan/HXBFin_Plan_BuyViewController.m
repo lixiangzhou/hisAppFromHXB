@@ -15,6 +15,7 @@
 @interface HXBFin_Plan_BuyViewController ()
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) HXBJoinImmediateView *joinimmediateView;
+@property (nonatomic,copy) NSString *availablePoint;//可用余额；
 @end
 
 @implementation HXBFin_Plan_BuyViewController
@@ -30,7 +31,9 @@
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
-    
+    [[KeyChainManage sharedInstance] availablePointWithBlock:^(NSString *availablePoint) {
+        _availablePoint = availablePoint;
+    }];
     [super viewDidLoad];
     //判断是否登录
     [self isLogin];
@@ -149,8 +152,8 @@
         model.profitTypeLable_ConstStr = @"收益处理方式";
         ///加入上限
         model.upperLimitLabel_constStr = @"本期计划加入上限";
-        
-        model.balanceLabelStr = weakSelf.planViewModel.userRemainAmount;
+        ///余额 title
+        model.balanceLabelStr = weakSelf.availablePoint;
         ///收益方法
         model.profitTypeLabelStr = weakSelf.planViewModel.profitType_UI;
         /// ￥1000起投，1000递增 placeholder

@@ -67,8 +67,12 @@
 - (void)setHxb_automaticallyAdjustsScrollViewInsets:(BOOL)hxb_automaticallyAdjustsScrollViewInsets {
     _hxb_automaticallyAdjustsScrollViewInsets = hxb_automaticallyAdjustsScrollViewInsets;
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+        
         self.automaticallyAdjustsScrollViewInsets = hxb_automaticallyAdjustsScrollViewInsets;
     };
+    if (hxb_automaticallyAdjustsScrollViewInsets) {
+        self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64);
+    }
 }
 #pragma mark - 隐藏导航条
 - (void)viewWillAppear:(BOOL)animated{

@@ -21,6 +21,9 @@
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan *joinimmediateView_Loan;
 ///个人总资产
 @property (nonatomic,copy) NSString *assetsTotal;
+@property (nonatomic,copy) NSString *availablePoint;
+//可用余额
+
 @end
 
 @implementation HXBFin_Loan_BuyViewController
@@ -42,6 +45,9 @@
     //请求 个人数据
     [[KeyChainManage sharedInstance] assetsTotalWithBlock:^(NSString *assetsTotal) {
         _assetsTotal = assetsTotal;
+    }];
+    [[KeyChainManage sharedInstance] availablePointWithBlock:^(NSString *availablePoint) {
+        _availablePoint = availablePoint;
     }];
     //判断是否登录
     [self isLogin];

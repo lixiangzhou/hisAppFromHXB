@@ -25,7 +25,9 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     }else{
         if([request isKindOfClass:[HXBBaseRequest class]]) {
             HXBBaseRequest *requestHxb = (HXBBaseRequest *)request;
-            [self addRequestPage:requestHxb];
+            if (request.responseObject[kResponseData][@"dataList"]) {
+                [self addRequestPage:requestHxb];
+            }
         }
     }
    
@@ -66,6 +68,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 //page++
 - (void) addRequestPage: (HXBBaseRequest *)request {
     request.dataPage ++;
+    NSLog(@"%ld",(long)request.dataPage);
 }
 ///对数据进行处理 并返回
 //- (void) handleDataWithRequest: (HXBBaseRequest *)request {

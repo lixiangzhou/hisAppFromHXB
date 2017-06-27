@@ -132,6 +132,9 @@
 
 ///信息赋值
 - (void) setValueWithUserInfoModel: (HXBRequestUserInfoViewModel *)userInfoViewModel;
+
+/// 用户信息的请求
+- (void)downLoadUserInfoWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure;
 /*
  储存号码
  */
