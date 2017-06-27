@@ -63,4 +63,8 @@
  提现金额
  */
 @property (nonatomic, copy) NSString *amount;
+/**
+ 到账时间
+ */
+@property (nonatomic, copy) NSString *arrivalTime;
 @end

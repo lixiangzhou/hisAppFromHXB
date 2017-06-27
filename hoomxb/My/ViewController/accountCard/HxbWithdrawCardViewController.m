@@ -16,8 +16,8 @@
 @property (nonatomic, strong) UITextField *bankCardTextField;
 @property (nonatomic, strong) UITextField *bankNameTetxField;
 @property (nonatomic, strong) UITextField *realNameTextField;
-@property (nonatomic, strong) UITextField *locationTextField;
-@property (nonatomic, strong) UITextField *openingBank;
+//@property (nonatomic, strong) UITextField *locationTextField;
+//@property (nonatomic, strong) UITextField *openingBank;
 @property (nonatomic, strong) UIButton *nextButton;
 @end
 
@@ -28,8 +28,8 @@
     self.title = @"确认信息";
     [self.view addSubview:self.bankCardTextField];
     [self.view addSubview:self.bankNameTetxField];
-    [self.view addSubview:self.locationTextField];
-    [self.view addSubview:self.openingBank];
+//    [self.view addSubview:self.locationTextField];
+//    [self.view addSubview:self.openingBank];
     [self.view addSubview:self.realNameTextField];
     [self.view addSubview:self.nextButton];
 }
@@ -37,16 +37,14 @@
 - (void)nextButtonClick:(UIButton *)sender{
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"输入交易密码" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-       
     }];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-         UITextField *passwordTextField = alertController.textFields.firstObject;
+        UITextField *passwordTextField = alertController.textFields.firstObject;
         if (passwordTextField.text.length == 0) {
             return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
             return;
         }
         [self checkWithdrawals:passwordTextField.text];
-        
     }];
     
     UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
@@ -55,13 +53,14 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+
 - (void)pickerArea:(HxbPickerArea *)pickerArea province:(NSString *)province city:(NSString *)city area:(NSString *)area{
-    NSString *text = [NSString stringWithFormat:@"%@ %@ %@", province, city, area];
-    self.locationTextField.text = text;
+//    self.locationTextField.text = [NSString stringWithFormat:@"%@ %@ %@", province, city, area];
 }
 
 - (void)checkWithdrawals:(NSString *)paypassword
 {
+    self.view.userInteractionEnabled = NO;
     kWeakSelf
     NSMutableDictionary *requestArgument  = [NSMutableDictionary dictionary];
     requestArgument[@"bankno"] = self.bankCardModel.bankCode;
@@ -72,7 +71,10 @@
     HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
     [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
         NSLog(@"%@",responseObject);
+        weakSelf.view.userInteractionEnabled = YES;
         HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
+        weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
+        withdrawResultVC.bankCardModel = weakSelf.bankCardModel;
         [weakSelf.navigationController pushViewController:withdrawResultVC animated:YES];
     } andFailureBlock:^(NSError *error) {
          NSLog(@"%@",error);
@@ -90,12 +92,12 @@
         //所属银行
         self.bankNameTetxField.text = bankCardModel.bankType;
         self.bankNameTetxField.enabled = NO;
-        //开户地
-        self.locationTextField.text = bankCardModel.deposit;
-        self.locationTextField.enabled = NO;
-        //开户行
-        self.openingBank.text = bankCardModel.bankType;
-        self.openingBank.enabled = NO;
+//        //开户地
+//        self.locationTextField.text = bankCardModel.deposit;
+//        self.locationTextField.enabled = NO;
+//        //开户行
+//        self.openingBank.text = bankCardModel.bankType;
+//        self.openingBank.enabled = NO;
         //持卡人
         self.realNameTextField.text = bankCardModel.name;
         self.realNameTextField.enabled = NO;
@@ -106,8 +108,8 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    [self.locationTextField resignFirstResponder];
-    [[[HxbPickerArea alloc]initWithDelegate:self]show];
+//    [self.locationTextField resignFirstResponder];
+//    [[[HxbPickerArea alloc]initWithDelegate:self]show];
     
 }
 - (UITextField *)bankCardTextField{
@@ -126,28 +128,28 @@
     return _bankNameTetxField;
     
 }
-- (UITextField *)locationTextField{
-    if (!_locationTextField) {
-        _locationTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_bankNameTetxField.frame) + 20, SCREEN_WIDTH - 40, 44)];
-        _locationTextField.delegate = self;
-        _locationTextField.placeholder = @"开户地";
-    }
-    return _locationTextField;
-}
+//- (UITextField *)locationTextField{
+//    if (!_locationTextField) {
+//        _locationTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_bankNameTetxField.frame) + 20, SCREEN_WIDTH - 40, 44)];
+//        _locationTextField.delegate = self;
+//        _locationTextField.placeholder = @"开户地";
+//    }
+//    return _locationTextField;
+//}
 
-- (UITextField *)openingBank
-{
-    if (!_openingBank) {
-        _openingBank = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_locationTextField.frame) + 20, SCREEN_WIDTH - 40, 44)];
-        _openingBank.delegate = self;
-        _openingBank.placeholder = @"开户行";
-    }
-    return _openingBank;
-}
+//- (UITextField *)openingBank
+//{
+//    if (!_openingBank) {
+//        _openingBank = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_locationTextField.frame) + 20, SCREEN_WIDTH - 40, 44)];
+//        _openingBank.delegate = self;
+//        _openingBank.placeholder = @"开户行";
+//    }
+//    return _openingBank;
+//}
 
 - (UITextField *)realNameTextField{
     if (!_realNameTextField) {
-        _realNameTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_openingBank.frame) + 20, SCREEN_WIDTH - 40, 44)];
+        _realNameTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_bankNameTetxField.frame) + 20, SCREEN_WIDTH - 40, 44)];
         _realNameTextField.placeholder = @"持卡人";
     }
     return _realNameTextField;

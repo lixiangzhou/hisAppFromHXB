@@ -59,9 +59,13 @@
 }
 
 - (void)setupMyView{
+    kWeakSelf
     self.myView = [[HxbMyView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     self.myView.delegate = self;
     self.myView.userInteractionEnabled = YES;
+    self.myView.homeRefreshHeaderBlock = ^(){
+        [weakSelf loadData_userInfo];
+    };
     [self.view addSubview:self.myView];
 }
 
@@ -100,7 +104,9 @@
     kWeakSelf
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.userInfoViewModel = viewModel;
+        weakSelf.myView.isStopRefresh_Home = YES;
     } andFailure:^(NSError *error) {
+        weakSelf.myView.isStopRefresh_Home = YES;
         NSLog(@"%@",self);
     }];
 }

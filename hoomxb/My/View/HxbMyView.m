@@ -81,6 +81,14 @@ MyViewHeaderDelegate
     //    [self.navigationController pushViewController:VC animated:true];
 }
 
+- (void)setIsStopRefresh_Home:(BOOL)isStopRefresh_Home{
+    _isStopRefresh_Home = isStopRefresh_Home;
+    if (isStopRefresh_Home) {
+        [self.mainTableView.mj_footer endRefreshing];
+        [self.mainTableView.mj_header endRefreshing];
+    }
+}
+
 #pragma TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -154,6 +162,12 @@ MyViewHeaderDelegate
         _mainTableView.dataSource = self;
         _mainTableView.tableHeaderView = self.headerView;
         _mainTableView.tableHeaderView.userInteractionEnabled = YES;
+        kWeakSelf
+        [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+            if (weakSelf.homeRefreshHeaderBlock) weakSelf.homeRefreshHeaderBlock();
+        } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
+            
+        }];
     }
     return _mainTableView;
 }
