@@ -12,17 +12,30 @@
 
 @property (nonatomic, strong) UITextView *textView;
 
+@property (nonatomic, strong) UIButton *submitBtn;
 @end
 
 @implementation HXBFeedbackViewController
 
+- (UIButton *)submitBtn
+{
+    if (!_submitBtn) {
+        _submitBtn = [[UIButton alloc] init];
+        [_submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+        [_submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _submitBtn.backgroundColor = [UIColor blueColor];
+        [_submitBtn addTarget:self action:@selector(submitBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _submitBtn;
+}
+
 - (UITextView *)textView
 {
     if (!_textView) {
-        _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+        _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH - 32, 200)];
         //    textView.text = @"请写在自定义属性前面，如果长度大于limitLength设置长度会被自动截断。";
         _textView.placeholder = @"您的声音，我们用心聆听~";
-       
+        _textView.limitLength = @240;
         _textView.layer.borderWidth = 0.5;
         _textView.layer.borderColor = COR12.CGColor;
     }
@@ -32,6 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.textView];
+    [self.view addSubview:self.submitBtn];
     
     [self setupSubViewFrame];
 }
@@ -44,9 +58,17 @@
         make.top.equalTo(@84);
         make.height.equalTo(@200);
     }];
-     self.textView.limitLength = @240;
+    [self.submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@16);
+        make.right.equalTo(self.view.mas_right).offset(-16);
+        make.top.equalTo(self.textView.mas_bottom).offset(50);
+    }];
 }
 
+- (void)submitBtnClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 
 @end

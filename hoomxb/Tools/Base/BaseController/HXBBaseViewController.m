@@ -26,6 +26,30 @@
     self.view.backgroundColor = [UIColor whiteColor];
     //解决侧滑手势失效
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+    
+    [self setupLeftBackBtn];
+}
+
+
+/**
+ 统一设置返回按钮
+ */
+- (void)setupLeftBackBtn
+{
+    UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
+//    [leftBackBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [leftBackBtn setImage:[UIImage imageNamed:@"login_close"] forState:UIControlStateNormal];
+    // 让按钮内部的所有内容左对齐
+    leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [leftBackBtn addTarget:self action:@selector(leftBackBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    [leftBackBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    // 修改导航栏左边的item
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBackBtn];
+}
+
+- (void)leftBackBtnClick
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (UIScrollView *)hxbBaseVCScrollView {
