@@ -43,4 +43,33 @@
         }
     }];
 }
+
+- (void)bankCardListRequestWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+{
+    NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
+    alterLoginPasswordAPI.requestUrl = kHXBSetWithdrawals_banklistURL;
+    alterLoginPasswordAPI.requestMethod = NYRequestMethodGet;
+//    alterLoginPasswordAPI.requestArgument = requestArgument;
+    [alterLoginPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSInteger status =  [responseObject[@"status"] integerValue];
+        if (status != 0) {
+            if (failureBlock) {
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+                failureBlock(responseObject);
+            }
+            return;
+        }
+        if (successDateBlock) {
+            successDateBlock(responseObject);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        [HxbHUDProgress showTextWithMessage:@"请求失败"];
+        if (failureBlock) {
+            failureBlock(error);
+        }
+    }];
+}
+
+
 @end
