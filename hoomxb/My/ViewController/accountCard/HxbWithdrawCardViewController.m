@@ -13,10 +13,11 @@
 #import "HXBWithdrawalsRequest.h"
 #import "HXBAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
+#import "HXBBankCardListViewController.h"
 @interface HxbWithdrawCardViewController () <UITextFieldDelegate,HxbPickerAreaDelegate>
 
 @property (nonatomic, strong) UITextField *bankCardTextField;
-@property (nonatomic, strong) UITextField *bankNameTetxField;
+@property (nonatomic, strong) UIButton *bankNameBtn;
 @property (nonatomic, strong) UITextField *realNameTextField;
 //@property (nonatomic, strong) UITextField *locationTextField;
 //@property (nonatomic, strong) UITextField *openingBank;
@@ -29,7 +30,7 @@
     [super viewDidLoad];
     self.title = @"确认信息";
     [self.view addSubview:self.bankCardTextField];
-    [self.view addSubview:self.bankNameTetxField];
+    [self.view addSubview:self.bankNameBtn];
 //    [self.view addSubview:self.locationTextField];
 //    [self.view addSubview:self.openingBank];
     [self.view addSubview:self.realNameTextField];
@@ -94,8 +95,8 @@
         self.bankCardTextField.text = bankCardModel.cardId;
         self.bankCardTextField.enabled = NO;
         //所属银行
-        self.bankNameTetxField.text = bankCardModel.bankType;
-        self.bankNameTetxField.enabled = NO;
+        [self.bankNameBtn setTitle:bankCardModel.bankType forState:UIControlStateNormal];
+        self.bankNameBtn.enabled = NO;
 //        //开户地
 //        self.locationTextField.text = bankCardModel.deposit;
 //        self.locationTextField.enabled = NO;
@@ -106,6 +107,15 @@
         self.realNameTextField.text = bankCardModel.name;
         self.realNameTextField.enabled = NO;
     }
+}
+
+- (void)bankNameBtnClick
+{
+    HXBBankCardListViewController *bankCardListVC = [[HXBBankCardListViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bankCardListVC];
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
 }
 
 #pragma mark - --- delegate 视图委托 ---
@@ -124,12 +134,14 @@
     return _bankCardTextField;
 }
 
-- (UITextField *)bankNameTetxField{
-    if (!_bankNameTetxField) {
-        _bankNameTetxField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_bankCardTextField.frame) + 20, SCREEN_WIDTH - 40, 44)];
-        _bankNameTetxField.placeholder = @"所属银行";
+- (UIButton *)bankNameBtn{
+    if (!_bankNameBtn) {
+        _bankNameBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_bankCardTextField.frame) + 20, SCREEN_WIDTH - 40, 44)];
+        [_bankNameBtn setTitle:@"所属银行" forState:UIControlStateNormal];
+        [_bankNameBtn setTitleColor:COR11 forState:UIControlStateNormal];
+        [_bankNameBtn addTarget:self action:@selector(bankNameBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _bankNameTetxField;
+    return _bankNameBtn;
     
 }
 //- (UITextField *)locationTextField{
@@ -153,7 +165,7 @@
 
 - (UITextField *)realNameTextField{
     if (!_realNameTextField) {
-        _realNameTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_bankNameTetxField.frame) + 20, SCREEN_WIDTH - 40, 44)];
+        _realNameTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(self.bankNameBtn.frame) + 20, SCREEN_WIDTH - 40, 44)];
         _realNameTextField.placeholder = @"持卡人";
     }
     return _realNameTextField;

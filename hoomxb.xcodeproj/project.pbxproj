@@ -82,6 +82,7 @@
 		4EB45DA51EF7A2BF00C2CF21 /* HxbHomeRequest_dataList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB45DA31EF7A2BF00C2CF21 /* HxbHomeRequest_dataList.m */; };
 		4EB45DA81EF7AC4600C2CF21 /* HXBHomeBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB45DA71EF7AC4600C2CF21 /* HXBHomeBaseModel.m */; };
 		4EB45DAB1EF7ACCE00C2CF21 /* HXBHomeTitleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB45DAA1EF7ACCE00C2CF21 /* HXBHomeTitleModel.m */; };
+		4EB5598C1F03422F00146D62 /* HXBBankCardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5598B1F03422F00146D62 /* HXBBankCardListViewController.m */; };
 		4EC492991EC19A7D00B7DAA2 /* zhaoshang.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC492981EC19A7D00B7DAA2 /* zhaoshang.png */; };
 		4ED2F2781ECAD0BA0014E5C7 /* HXBMyBankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED2F2771ECAD0BA0014E5C7 /* HXBMyBankCell.m */; };
 		4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED2F2791ECAD9810014E5C7 /* homepage_close@2x.png */; };
@@ -439,6 +440,8 @@
 		4EB45DA71EF7AC4600C2CF21 /* HXBHomeBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBHomeBaseModel.m; sourceTree = "<group>"; };
 		4EB45DA91EF7ACCE00C2CF21 /* HXBHomeTitleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBHomeTitleModel.h; sourceTree = "<group>"; };
 		4EB45DAA1EF7ACCE00C2CF21 /* HXBHomeTitleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBHomeTitleModel.m; sourceTree = "<group>"; };
+		4EB5598A1F03422F00146D62 /* HXBBankCardListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBankCardListViewController.h; sourceTree = "<group>"; };
+		4EB5598B1F03422F00146D62 /* HXBBankCardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBankCardListViewController.m; sourceTree = "<group>"; };
 		4EC492981EC19A7D00B7DAA2 /* zhaoshang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhaoshang.png; sourceTree = "<group>"; };
 		4ED2F2761ECAD0BA0014E5C7 /* HXBMyBankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMyBankCell.h; sourceTree = "<group>"; };
 		4ED2F2771ECAD0BA0014E5C7 /* HXBMyBankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyBankCell.m; sourceTree = "<group>"; };
@@ -1369,6 +1372,8 @@
 				E10EB4A81EEFDFE800F16CFA /* HxbWithdrawCardViewController.m */,
 				E10EB4A91EEFDFE800F16CFA /* HxbWithdrawResultViewController.h */,
 				E10EB4AA1EEFDFE800F16CFA /* HxbWithdrawResultViewController.m */,
+				4EB5598A1F03422F00146D62 /* HXBBankCardListViewController.h */,
+				4EB5598B1F03422F00146D62 /* HXBBankCardListViewController.m */,
 			);
 			path = accountCard;
 			sourceTree = "<group>";
@@ -3065,7 +3070,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3306,6 +3311,7 @@
 				4E8198B21EC4502100D668A1 /* BulletinsModel.m in Sources */,
 				E133DCDB1EEE3597009466DE /* HXBLoginManager.m in Sources */,
 				4E94B2771ECBF922003CCBA7 /* HxbHomePageViewModel.m in Sources */,
+				4EB5598C1F03422F00146D62 /* HXBBankCardListViewController.m in Sources */,
 				E1E461391EB98ADD005B1FC6 /* HXBBaseScrollToolBarView.m in Sources */,
 				E1270B461ECED2D000729BC9 /* HXBMyModel_MainLoanModel.m in Sources */,
 				4E81E3FD1EE94FDE006AD3FC /* HXBModifyTransactionPasswordViewController.m in Sources */,

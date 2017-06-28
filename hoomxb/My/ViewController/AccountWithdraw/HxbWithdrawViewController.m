@@ -193,7 +193,7 @@
 {
     if (!_arrivalDateLabel) {
         _arrivalDateLabel = [[UILabel alloc] init];
-        _arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:[NSDate date] andDateFormat:@"yyyy-MM-dd"]];
+        _arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] stringFromDate:[NSDate date] andDateFormat:@"yyyy-MM-dd"]];
     }
     return _arrivalDateLabel;
 }
