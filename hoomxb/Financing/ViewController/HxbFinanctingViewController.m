@@ -46,9 +46,7 @@
 
 ///MARK: ------------ 定时管理 -----------
 @property (nonatomic,strong) HXBBaseContDownManager *contDwonManager;
-/// 记录详情
-@property (nonatomic,weak) HXBFinancing_PlanDetailsViewController *planDetailVC;
-@property (nonatomic,weak) HXBFinancing_LoanDetailsViewController *loanDetailVC;
+
 @end
 
 
@@ -106,7 +104,6 @@
         if (weakSelf.finPlanListVMArray.count > index.row) {
             UITableView *tableView = (UITableView *)[weakSelf.homePageView valueForKey:@"planListTableView"];
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:index];
-            weakSelf.planDetailVC.planAddButton = model.countDownString;
             [cell setValue:model.countDownString forKey:@"countDownString"];
         }
     }];
@@ -170,7 +167,6 @@
     planDetailsVC.hidesBottomBarWhenPushed = true;
     planDetailsVC.planListViewModel = model;
 
-    self.planDetailVC = planDetailsVC;
     [self.navigationController pushViewController:planDetailsVC animated:true];
 }
 //MARK: - 点击了散标列表页的 cell
@@ -184,7 +180,7 @@
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
     loanDetailsVC.loanID = model.loanListModel.loanId;
     loanDetailsVC.loanListViewMode = model;
-    self.loanDetailVC = loanDetailsVC;
+ 
     loanDetailsVC.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:loanDetailsVC animated:true];
 }

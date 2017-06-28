@@ -17,7 +17,7 @@
 @class HXBFinModel_Buy_Plan;
 @class HXBFinModel_BuyResoult_LoanModel;
 @class HXBFinModel_Buy_LoanModel;
-
+@class HXBFin_Plan_BuyViewModel;
 
 static NSString *const HXBFinHomePagePlan_ASC = @"";
 
@@ -70,7 +70,7 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 - (void)plan_buyReslutWithPlanID: (NSString *)planID
                        andAmount: (NSString *)amount
                        cashType : (NSString *)cashType
-                 andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
+                 andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
                  andFailureBlock:(void (^)(NSError *error))failureBlock;
 
 /// loan 购买 确认请求

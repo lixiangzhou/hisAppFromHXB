@@ -12,6 +12,8 @@
 #import "HXBFinanctingRequest.h"
 #import "HXBFinDetailViewModel_PlanDetail.h"
 #import "HXBFinDetailModel_PlanDetail.h"
+#import "HXBFin_Plan_BuyViewModel.h"
+#import "HXBFin_Plan_BuySuccessViewController.h"//购买成功
 @interface HXBFin_Plan_BuyViewController ()
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) HXBJoinImmediateView *joinimmediateView;
@@ -113,9 +115,12 @@
              if (!isVerify) {
                  [HxbHUDProgress showTextWithMessage:@"去安全认证"];
              } else {
-                 [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.planDetailModel.ID andAmount:capital cashType:@"INVEST" andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
+                 [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.planDetailModel.ID andAmount:capital cashType:@"INVEST" andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
                      [HxbHUDProgress showTextWithMessage:@"加入成功"];
-                     [self.navigationController popToRootViewControllerAnimated:true];
+                     HXBFin_Plan_BuySuccessViewController *planBuySuccessVC = [[HXBFin_Plan_BuySuccessViewController alloc]init];
+                     planBuySuccessVC.planModel = model;
+                     [self.navigationController pushViewController:planBuySuccessVC animated:true];
+//                     [self.navigationController popToRootViewControllerAnimated:true];
                  } andFailureBlock:^(NSError *error) {
                      [HxbHUDProgress showTextWithMessage:@"加入失败"];
                  }];

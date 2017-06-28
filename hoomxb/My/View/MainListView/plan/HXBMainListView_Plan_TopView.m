@@ -72,12 +72,12 @@
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
        [self.financePlanAssetsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
             viewModelVM.leftLabelStr = @"持有资产(元)";
-            viewModelVM.rightLabelStr = viewModel.financePlanAssets;
+            viewModelVM.rightLabelStr = viewModel.lenderPrincipal;
            return viewModelVM;
        }];
         [self.financePlanSumPlanInterestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
             viewModelVM.leftLabelStr = @"累计收益(元)";
-            viewModelVM.rightLabelStr = viewModel.financePlanSumPlanInterest;
+            viewModelVM.rightLabelStr = viewModel.lenderEarned;
             return viewModelVM;
         }];
     } andFailure:^(NSError *error) {

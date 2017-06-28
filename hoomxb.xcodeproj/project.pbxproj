@@ -145,6 +145,8 @@
 		E1270B7B1ECEED7C00729BC9 /* HXBMY_PlanInvestmentRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1270B7A1ECEED7C00729BC9 /* HXBMY_PlanInvestmentRecordCell.m */; };
 		E12800EB1F0201250066FB66 /* HXBMY_AllFinanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800EA1F0201250066FB66 /* HXBMY_AllFinanceViewController.m */; };
 		E12800F91F023AB40066FB66 /* HXBCode.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800F81F023AB40066FB66 /* HXBCode.m */; };
+		E12800FC1F0292CF0066FB66 /* HXBFin_Plan_BuySuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800FB1F0292CF0066FB66 /* HXBFin_Plan_BuySuccessViewController.m */; };
+		E12801001F0294270066FB66 /* HXBFin_Plan_BuyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E12800FF1F0294270066FB66 /* HXBFin_Plan_BuyViewModel.m */; };
 		E133DCD71EEE3597009466DE /* HxbPickerArea.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DC8F1EEE3597009466DE /* HxbPickerArea.m */; };
 		E133DCD81EEE3597009466DE /* HxbPickerBankSubBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DC911EEE3597009466DE /* HxbPickerBankSubBranch.m */; };
 		E133DCD91EEE3597009466DE /* HxbToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DC931EEE3597009466DE /* HxbToolbar.m */; };
@@ -565,6 +567,10 @@
 		E12800EA1F0201250066FB66 /* HXBMY_AllFinanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_AllFinanceViewController.m; sourceTree = "<group>"; };
 		E12800F71F023AB40066FB66 /* HXBCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCode.h; sourceTree = "<group>"; };
 		E12800F81F023AB40066FB66 /* HXBCode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCode.m; sourceTree = "<group>"; };
+		E12800FA1F0292CF0066FB66 /* HXBFin_Plan_BuySuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_Plan_BuySuccessViewController.h; sourceTree = "<group>"; };
+		E12800FB1F0292CF0066FB66 /* HXBFin_Plan_BuySuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Plan_BuySuccessViewController.m; sourceTree = "<group>"; };
+		E12800FE1F0294270066FB66 /* HXBFin_Plan_BuyViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_Plan_BuyViewModel.h; sourceTree = "<group>"; };
+		E12800FF1F0294270066FB66 /* HXBFin_Plan_BuyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Plan_BuyViewModel.m; sourceTree = "<group>"; };
 		E133DC8E1EEE3597009466DE /* HxbPickerArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbPickerArea.h; sourceTree = "<group>"; };
 		E133DC8F1EEE3597009466DE /* HxbPickerArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbPickerArea.m; sourceTree = "<group>"; };
 		E133DC901EEE3597009466DE /* HxbPickerBankSubBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbPickerBankSubBranch.h; sourceTree = "<group>"; };
@@ -1688,6 +1694,15 @@
 			path = MY_AllFinanceController;
 			sourceTree = "<group>";
 		};
+		E12800FD1F02940B0066FB66 /* FinViewModel_Buy */ = {
+			isa = PBXGroup;
+			children = (
+				E12800FE1F0294270066FB66 /* HXBFin_Plan_BuyViewModel.h */,
+				E12800FF1F0294270066FB66 /* HXBFin_Plan_BuyViewModel.m */,
+			);
+			path = FinViewModel_Buy;
+			sourceTree = "<group>";
+		};
 		E133DC8B1EEE3597009466DE /* User */ = {
 			isa = PBXGroup;
 			children = (
@@ -2233,6 +2248,8 @@
 				E165EAB51EF8E82F00D68763 /* HXBFin_Plan_BuyViewController.m */,
 				E165EAB61EF8E82F00D68763 /* HXBFinBuy_plan_ViewController.h */,
 				E165EAB71EF8E82F00D68763 /* HXBFinBuy_plan_ViewController.m */,
+				E12800FA1F0292CF0066FB66 /* HXBFin_Plan_BuySuccessViewController.h */,
+				E12800FB1F0292CF0066FB66 /* HXBFin_Plan_BuySuccessViewController.m */,
 			);
 			path = Plan;
 			sourceTree = "<group>";
@@ -2735,6 +2752,7 @@
 		E1D2CA5C1EAB4EFD000099C7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				E12800FD1F02940B0066FB66 /* FinViewModel_Buy */,
 				E163142C1EC0761C0090567E /* FinViewModel_HomePage */,
 				E163142B1EC075FB0090567E /* FinViewModel_Detail */,
 			);
@@ -3224,6 +3242,8 @@
 				E1E5885B1EE165BF0045C4AE /* Animatr.m in Sources */,
 				E11262331EC5A85F0084A22D /* HXBFinAddRecortdTableView_Plan.m in Sources */,
 				4E9345501EFE0FD300D2886B /* HXBModifyPhoneViewController.m in Sources */,
+				E12800FC1F0292CF0066FB66 /* HXBFin_Plan_BuySuccessViewController.m in Sources */,
+				E12801001F0294270066FB66 /* HXBFin_Plan_BuyViewModel.m in Sources */,
 				E1270B381ECED1F300729BC9 /* HXBMYViewModel_MianPlanViewModel.m in Sources */,
 				E122D8521EA0CAB900DC71ED /* NSString+HxbHash.m in Sources */,
 				E18B68A81EC9D3D80047E458 /* HXBMainListView_Plan.m in Sources */,
