@@ -10,9 +10,9 @@
 #pragma  mark ========== plan ======================
 ///计划类型（PURCHASE_END：收益中，PURCHASEING：等待计息)
 ///收益中
-static NSString *const MY_PlanResponsType_PURCHASE_END_Plan = @"PURCHASE_END";
+static NSString *const MY_PlanResponsType_PURCHASE_END_Plan = @"退出";
 ///等待计息
-static NSString *const MY_PlanResponsType_PURCHASEING_Plan = @"PURCHASEING";
+static NSString *const MY_PlanResponsType_PURCHASEING_Plan = @"等待计息";
 
 static NSString *const MY_PlanRequestType_HOLD_PLAN         = @"HOLD_PLAN";
 static NSString *const MY_PlanRequestType_HOLD_PLAN_UI      = @"等待计息";

@@ -48,9 +48,9 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modalCaptchaVC:) name:kHXBBotification_ShowCaptchaVC object:nil];
-    self.title = @"Sign In";
+    self.title = @"登录";
     [self setLeftItemBar];
-    [self setSignView];/// 设置 登录界面
+    [self setSignView];/// 设置登录界面
     [self registerSignViewEvent];///signView事件注册
     [self registerCheckMobileEvent];///请求手机号是否存在
     [self registerSignUPEvent];///注册 点击signUP事件
@@ -116,6 +116,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     kWeakSelf
     [self.signView signUP_clickButtonFunc:^{
         HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
+        
         signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;
         [weakSelf.navigationController pushViewController:signUPVC animated:true];
     }];
