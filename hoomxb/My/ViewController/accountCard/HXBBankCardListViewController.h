@@ -10,4 +10,9 @@
 
 @interface HXBBankCardListViewController : UIViewController
 
+/**
+ 获取银行卡回调
+ */
+@property (nonatomic, copy) void(^bankCardListBlock)(NSString *bankCode, NSString *bankName);
+
 @end

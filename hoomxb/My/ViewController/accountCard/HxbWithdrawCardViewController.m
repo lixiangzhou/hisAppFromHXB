@@ -111,8 +111,14 @@
 
 - (void)bankNameBtnClick
 {
+    kWeakSelf
     HXBBankCardListViewController *bankCardListVC = [[HXBBankCardListViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bankCardListVC];
+    bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
+        [weakSelf.bankNameBtn setTitle:bankName forState:UIControlStateNormal];
+        [weakSelf.bankNameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        weakSelf.bankCardModel.bankCode = bankCode;
+    };
     [self presentViewController:nav animated:YES completion:^{
         
     }];
@@ -140,6 +146,8 @@
         [_bankNameBtn setTitle:@"所属银行" forState:UIControlStateNormal];
         [_bankNameBtn setTitleColor:COR11 forState:UIControlStateNormal];
         [_bankNameBtn addTarget:self action:@selector(bankNameBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _bankNameBtn.layer.borderWidth = 0.5;
+        _bankNameBtn.layer.borderColor = COR12.CGColor;
     }
     return _bankNameBtn;
     
