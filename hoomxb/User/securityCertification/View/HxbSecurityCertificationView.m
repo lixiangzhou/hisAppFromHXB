@@ -37,7 +37,8 @@ UITextFieldDelegate
         if (userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed) {
             self.payPasswordTextField.secureTextEntry = NO;
             self.payPasswordTextField.text = @"已设置";
-            self.hidePwdBtn.enabled = NO;
+            self.hidePwdBtn.hidden = YES;
+            self.securityCertificationButton.hidden = YES;
         }
     }
 }
