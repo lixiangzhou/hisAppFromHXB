@@ -15,6 +15,8 @@
 
 @interface HXBFinModel_BuyResoult_PlanModel : NSObject
 @property (nonatomic,copy) NSString *orderNo;
+///计息开始时间
+@property (nonatomic,copy) NSString *lockStart;
 @property (nonatomic,strong) HXBFinModel_BuyResoult_PlanModel_stateInput *stateInput;
 @property (nonatomic,strong) HXBFinModel_BuyResoult_PlanModel_context *context;
 @end

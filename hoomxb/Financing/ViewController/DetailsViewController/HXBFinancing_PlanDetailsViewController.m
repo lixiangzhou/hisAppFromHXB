@@ -41,19 +41,26 @@
 @implementation HXBFinancing_PlanDetailsViewController
 - (void)setPlanAddButton:(NSString *)planAddButton {
     _planAddButton = planAddButton;
-    self.planDetailVM.addButtonStr = planAddButton;
 }
+
 
 - (void)setPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)planListViewModel {
     _planListViewModel = planListViewModel;
     self.planID = planListViewModel.planListModel.ID;
+    [self.planListViewModel addObserver:self forKeyPath:@"countDownString" options:NSKeyValueObservingOptionNew context:nil];
+}
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"countDownString"]) {
+        NSString *date = change[NSKeyValueChangeNewKey];
+        self.planDetailVM.addButtonStr = date;
+    }
 }
 ///设置值
 - (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
     kWeakSelf
     _planDetailViewModel = planDetailViewModel;
     [_planDetailsView setUPViewModelVM:^HXBFin_DetailsViewBase_ViewModelVM *(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM) {
-        self.planDetailVM = viewModelVM;
+        weakSelf.planDetailVM = viewModelVM;
         viewModelVM.totalInterestStr           = weakSelf.planDetailViewModel.planDetailModel.expectedRate;
         viewModelVM.startInvestmentStr         = weakSelf.planDetailViewModel.minRegisterAmount;
         viewModelVM.remainAmount               = weakSelf.planDetailViewModel.remainAmount;

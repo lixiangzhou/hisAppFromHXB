@@ -16,6 +16,7 @@ extern NSString *const kHXBNotification_IsLoginToReloadTableView;
 extern NSString *const kHXBNotification_LoginSuccess_PushMYVC;
 ///弹出 验证码
 extern NSString *const kHXBBotification_ShowCaptchaVC;
+extern NSString *const kHXBNotification_ShowMyVC;
 @interface HxbNotificationMacros : NSObject
 
 @end

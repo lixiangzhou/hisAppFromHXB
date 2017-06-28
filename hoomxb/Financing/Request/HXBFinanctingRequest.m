@@ -29,6 +29,8 @@
 
 
 //MARK: - 购买
+#import "HXBFin_Plan_BuyViewModel.h"
+
 #import "HXBFinModel_Buy_Plan.h"///购买
 #import "HXBFinModel_BuyResoult_PlanModel.h"///购买结果
 #import "HXBFinModel_Buy_LoanModel.h"//购买
@@ -386,13 +388,13 @@
         [planBuyModel yy_modelSetWithDictionary:dic];
         [request.infoDic setObject:planBuyModel forKey:@"planBuyModel"];
         if (successDateBlock) {
-            [self plan_buyReslutWithPlanID:buyRequest.infoDic[@"planID"]  andAmount:buyRequest.infoDic[@"amount"] cashType:cashType andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
-                 successDateBlock(request.infoDic[@"planBuyModel"],model);
-            } andFailureBlock:^(NSError *error) {
-                if (failureBlock) {
-                    failureBlock(error);
-                }
-            }];
+//            [self plan_buyReslutWithPlanID:buyRequest.infoDic[@"planID"]  andAmount:buyRequest.infoDic[@"amount"] cashType:cashType andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
+//                 successDateBlock(request.infoDic[@"planBuyModel"],model);
+//            } andFailureBlock:^(NSError *error) {
+//                if (failureBlock) {
+//                    failureBlock(error);
+//                }
+//            }];
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         kNetWorkError(@"plan 购买 - 网络请求失败")
@@ -408,7 +410,7 @@
 - (void)plan_buyReslutWithPlanID: (NSString *)planID
                               andAmount: (NSString *)amount
                        cashType : (NSString *)cashType
-                        andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
+                        andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
                         andFailureBlock:(void (^)(NSError *error))failureBlock{
     HXBBaseRequest *confirmBuyReslut = [[HXBBaseRequest alloc]init];
     
@@ -437,9 +439,13 @@
         
         NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
         HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
+        
         [reslut yy_modelSetWithDictionary:dataDic];
+        HXBFin_Plan_BuyViewModel *planViewModel = [[HXBFin_Plan_BuyViewModel alloc]init];
+        planViewModel.buyPlanModel = reslut;
+        
         if (successDateBlock) {
-            successDateBlock(reslut);
+            successDateBlock(planViewModel);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
     }];
@@ -509,6 +515,7 @@
         
         HXBFinModel_BuyResoult_LoanModel *loanBuyResoult = [[HXBFinModel_BuyResoult_LoanModel alloc]init];
         [loanBuyResoult yy_modelSetWithDictionary:responseObject[kResponseData]];
+        
         
         if (successDateBlock) {
             successDateBlock(loanBuyResoult);
