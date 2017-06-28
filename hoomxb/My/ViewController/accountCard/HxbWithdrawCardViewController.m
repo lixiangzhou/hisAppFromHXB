@@ -22,9 +22,25 @@
 //@property (nonatomic, strong) UITextField *locationTextField;
 //@property (nonatomic, strong) UITextField *openingBank;
 @property (nonatomic, strong) UIButton *nextButton;
+/**
+ bankCode
+ */
+@property (nonatomic, copy) NSString *bankCode;
+/**
+ 数据模型
+ */
+@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 @end
 
 @implementation HxbWithdrawCardViewController
+
+- (HXBBankCardModel *)bankCardModel
+{
+    if (!_bankCardModel) {
+        _bankCardModel = [[HXBBankCardModel alloc] init];
+    }
+    return _bankCardModel;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -68,46 +84,50 @@
     self.view.userInteractionEnabled = NO;
     kWeakSelf
     NSMutableDictionary *requestArgument  = [NSMutableDictionary dictionary];
-    requestArgument[@"bankno"] = self.bankCardModel.bankCode;
-    requestArgument[@"city"] = self.bankCardModel.city;
-    requestArgument[@"bank"] = self.bankCardModel.cardId;
+    requestArgument[@"bankno"] = weakSelf.bankCode;
+//    requestArgument[@"city"] = self.bankCardModel.city; 
+    requestArgument[@"bank"] = self.bankCardTextField.text;
     requestArgument[@"paypassword"] = paypassword;
-    requestArgument[@"amount"] = self.bankCardModel.amount;
+    requestArgument[@"amount"] = self.amount;
     HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
     [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
         NSLog(@"%@",responseObject);
         weakSelf.view.userInteractionEnabled = YES;
         HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
         weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
+        weakSelf.bankCardModel.bankType = weakSelf.bankNameBtn.titleLabel.text;
+        weakSelf.bankCardModel.cardId = weakSelf.bankCardTextField.text;
+        weakSelf.bankCardModel.amount = weakSelf.amount;
         withdrawResultVC.bankCardModel = weakSelf.bankCardModel;
         [weakSelf.navigationController pushViewController:withdrawResultVC animated:YES];
     } andFailureBlock:^(NSError *error) {
+        self.view.userInteractionEnabled = YES;
          NSLog(@"%@",error);
     }];
 
 }
 
-- (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
-{
-    _bankCardModel = bankCardModel;
-    if (bankCardModel.cardId.length) {
-        //银行卡号
-        self.bankCardTextField.text = bankCardModel.cardId;
-        self.bankCardTextField.enabled = NO;
-        //所属银行
-        [self.bankNameBtn setTitle:bankCardModel.bankType forState:UIControlStateNormal];
-        self.bankNameBtn.enabled = NO;
-//        //开户地
-//        self.locationTextField.text = bankCardModel.deposit;
-//        self.locationTextField.enabled = NO;
-//        //开户行
-//        self.openingBank.text = bankCardModel.bankType;
-//        self.openingBank.enabled = NO;
-        //持卡人
-        self.realNameTextField.text = bankCardModel.name;
-        self.realNameTextField.enabled = NO;
-    }
-}
+//- (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
+//{
+//    _bankCardModel = bankCardModel;
+//    if (bankCardModel.cardId.length) {
+//        //银行卡号
+//        self.bankCardTextField.text = bankCardModel.cardId;
+//        self.bankCardTextField.enabled = NO;
+//        //所属银行
+//        [self.bankNameBtn setTitle:bankCardModel.bankType forState:UIControlStateNormal];
+//        self.bankNameBtn.enabled = NO;
+////        //开户地
+////        self.locationTextField.text = bankCardModel.deposit;
+////        self.locationTextField.enabled = NO;
+////        //开户行
+////        self.openingBank.text = bankCardModel.bankType;
+////        self.openingBank.enabled = NO;
+//        //持卡人
+//        self.realNameTextField.text = bankCardModel.name;
+//        self.realNameTextField.enabled = NO;
+//    }
+//}
 
 - (void)bankNameBtnClick
 {
@@ -117,7 +137,7 @@
     bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
         [weakSelf.bankNameBtn setTitle:bankName forState:UIControlStateNormal];
         [weakSelf.bankNameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        weakSelf.bankCardModel.bankCode = bankCode;
+        weakSelf.bankCode = bankCode;
     };
     [self presentViewController:nav animated:YES completion:^{
         

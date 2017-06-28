@@ -67,13 +67,13 @@
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_bottom);
         make.left.equalTo(self.contentView.mas_left);
-        make.width.equalTo(@125);
+        make.width.equalTo(self.contentView).multipliedBy(0.5);
         make.height.with.equalTo(@44);
     }];
     [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_bottom);
         make.right.equalTo(self.contentView.mas_right);
-        make.width.equalTo(@125);
+        make.width.equalTo(self.contentView).multipliedBy(0.5);
         make.height.with.equalTo(@44);
     }];
     

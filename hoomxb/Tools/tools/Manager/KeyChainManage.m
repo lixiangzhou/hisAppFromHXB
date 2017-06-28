@@ -536,6 +536,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 {
     KeyChainManage *manager = KeyChain;
     [manager.keychain removeItemForKey:kGesturePwd];
+    [manager.keychain removeItemForKey:kGesturePwdCount];
 }
 
 - (void)removeGesturePwdCount

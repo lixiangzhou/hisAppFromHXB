@@ -52,7 +52,6 @@
             [weakSelf getValidationCode];
         });
         
-        
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -64,13 +63,14 @@
  */
 - (void)getValidationCode
 {
-    kWeakSelf
+    
     HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
     [modifyTransactionPasswordRequest myTransactionPasswordWithSuccessBlock:^(id responseObject) {
         NSLog(@"获取验证码成功%@",responseObject);
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
-        [weakSelf.homeView sendCodeFail];
+        //失败之后立即不去修改获取验证码的状态
+//        [weakSelf.homeView sendCodeFail];
     }];
 }
 

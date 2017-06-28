@@ -10,10 +10,11 @@
 @class HXBBankCardModel;
 ///银行卡绑定
 @interface HxbWithdrawCardViewController : HXBBaseViewController
+
 /**
- 数据模型
+ 提现金额
  */
-@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
+@property (nonatomic, copy) NSString *amount;
 
 @property (nonatomic, strong) HXBUserInfoModel *userInfoModel;
 @end

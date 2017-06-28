@@ -136,9 +136,7 @@
         }else
         {
             HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-            if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-                 withdrawCardViewController.bankCardModel = weakSelf.bankCardModel;
-            }
+            withdrawCardViewController.amount = self.amountTextField.text;
             withdrawCardViewController.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
             [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
             return;
@@ -158,8 +156,8 @@
 - (UITextField *)amountTextField{
     if (!_amountTextField) {
         _amountTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(self.mybankView.frame) + 20, SCREEN_WIDTH - 40, 44)];
-        _amountTextField.placeholder = @"请输入充值金额";
-        
+        _amountTextField.placeholder = @"请输入提现金额";
+        _amountTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _amountTextField;
 }
