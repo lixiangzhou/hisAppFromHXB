@@ -11,4 +11,9 @@
 ///购买成功页
 @interface HXBFin_Plan_BuySuccessViewController : HXBBaseViewController
 @property (nonatomic,strong) HXBFin_Plan_BuyViewModel *planModel;
+@property (nonatomic,copy) NSString *massage;
+@property (nonatomic,copy) NSString *successStr;
+@property (nonatomic,copy) NSString *buttonStr;
+
+- (void) massage: (NSString *)massage andSuccessStr: (NSString *)successStr andButtonStr: (NSString *)buttonStr;
 @end

@@ -18,6 +18,8 @@
 #import "HXBFinModel_Buy_LoanModel.h"
 #import "HXBFinModel_BuyResoult_LoanModel.h"
 #import "HXBFinDatailModel_LoanDetail.h"
+#import "HXBFin_Plan_BugFailViewController.h"
+#import "HXBFin_Plan_BuySuccessViewController.h"
 @interface HXBFin_Loan_BuyViewController ()
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan *joinimmediateView_Loan;
 ///个人总资产
@@ -144,10 +146,27 @@
             }else {
                 [[HXBFinanctingRequest sharedFinanctingRequest]loan_confirmBuyReslutWithLoanID:weakSelf.loanViewModel.loanDetailModel.loanVo.loanId andAmount:capital andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
                     ///加入成功
-                    [HxbHUDProgress showTextWithMessage:@"加入成功"];
-                    [self.navigationController popToRootViewControllerAnimated:true];
-                } andFailureBlock:^(NSError *error) {
-                    NSLog(@"加入失败 %@ error =%@",self,error);
+                    
+                    
+                    HXBFin_Plan_BuySuccessViewController *planBuySuccessVC = [[HXBFin_Plan_BuySuccessViewController alloc]init];
+                    [planBuySuccessVC massage:@"放款前系统将会冻结您的投资资金，放款成功后开始计息" andSuccessStr:@"投标成功" andButtonStr:@"查看我的投资"];
+                    [self.navigationController pushViewController:planBuySuccessVC animated:true];
+                } andFailureBlock:^(NSError *error,NSInteger status) {
+                    HXBFin_Plan_BugFailViewController *failViewController = [[HXBFin_Plan_BugFailViewController alloc]init];
+                    
+                    switch (status) {
+                        case 3408:
+                            failViewController.failLabelStr = @"余额不足";
+                            failViewController.massage = @"请充值后在投资";
+                            break;
+                        case 3100:
+                            failViewController.failLabelStr = @"已售罄";
+                            break;
+                    }
+                    [failViewController clickButtonWithBlcok:^(UIButton *button) {
+                        //跳回理财页面
+                        [self.navigationController popToRootViewControllerAnimated:true];
+                    }];
                 }];
             }
         } andFailure:^(NSError *error) {

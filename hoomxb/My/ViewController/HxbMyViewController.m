@@ -57,6 +57,7 @@
 //MARK: 对controllerView进行布局
 - (void)setupSubView {
     [self setupMyView];
+    [self clickAllFinanceButton];
 }
 
 - (void)setupMyView{

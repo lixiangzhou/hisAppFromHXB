@@ -408,10 +408,10 @@
 ///确认购买 plan
 //cashType 收益方式 HXB(当日提取至红小宝账户),INVEST(收益再投资）
 - (void)plan_buyReslutWithPlanID: (NSString *)planID
-                              andAmount: (NSString *)amount
+                       andAmount: (NSString *)amount
                        cashType : (NSString *)cashType
-                        andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
-                        andFailureBlock:(void (^)(NSError *error))failureBlock{
+                 andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
+                 andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock{
     HXBBaseRequest *confirmBuyReslut = [[HXBBaseRequest alloc]init];
     
     if (!amount) amount = @"";
@@ -425,15 +425,14 @@
     
     [confirmBuyReslut startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        kHXBResponsShowHUD
         if (status == 3408) {
-            [HxbHUDProgress showTextWithMessage:@"余额不足"];
-            if (failureBlock) failureBlock(nil);
+        
+            if (failureBlock) failureBlock(nil,status);
             return;
         }
         if (status == 3100) {
-            [HxbHUDProgress showTextWithMessage:@"已售罄"];
-            if (failureBlock) failureBlock(nil);
+            
+            if (failureBlock) failureBlock(nil,status);
             return;
         }
         
@@ -448,6 +447,7 @@
             successDateBlock(planViewModel);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
+        if (failureBlock) failureBlock(nil,0);
     }];
 }
 
@@ -477,11 +477,11 @@
         [request.infoDic setObject:loanBuyModel forKey:@"loanBuyModel"];
         
         if (successDateBlock) {
-            [self loan_confirmBuyReslutWithLoanID:request.infoDic[@"loanID"] andAmount:request.infoDic[@"amount"] andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
-                successDateBlock(request.infoDic[@"loanBuyModel"],model);
-            } andFailureBlock:^(NSError *error) {
-                if (failureBlock) failureBlock(error);
-            }];
+//            [self loan_confirmBuyReslutWithLoanID:request.infoDic[@"loanID"] andAmount:request.infoDic[@"amount"] andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
+//                successDateBlock(request.infoDic[@"loanBuyModel"],model);
+//            } andFailureBlock:^(NSError *error, NSInteger status) {
+//                if (failureBlock) failureBlock(error, 0);
+//            }];
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);
@@ -492,7 +492,7 @@
 - (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
                               andAmount: (NSString *)amount
                         andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
-                        andFailureBlock:(void (^)(NSError *error))failureBlock {
+                        andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock {
     HXBBaseRequest *loanBuyReslutRequest = [[HXBBaseRequest alloc]init];
     loanBuyReslutRequest.requestMethod = NYRequestMethodPost;
     loanBuyReslutRequest.requestUrl = kHXBFin_BuyReslut_LoanURL(loanID);
@@ -503,13 +503,11 @@
     [loanBuyReslutRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
         if (status == 3408) {
-            [HxbHUDProgress showTextWithMessage:@"余额不足"];
-            if (failureBlock) failureBlock(nil);
+            if (failureBlock) failureBlock(nil,3408);
             return;
         }
         if (status == 3100) {
-            [HxbHUDProgress showTextWithMessage:@"已售罄"];
-            if (failureBlock) failureBlock(nil);
+            if (failureBlock) failureBlock(nil,3100);
             return;
         }
         
@@ -522,7 +520,7 @@
         }
         
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(error);
+        if (failureBlock) failureBlock(error,0);
     }];
 }
 @end

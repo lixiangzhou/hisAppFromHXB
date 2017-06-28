@@ -7,7 +7,13 @@
 //
 
 #import "HXBBaseViewController.h"
-
+////购买失败VC
 @interface HXBFin_Plan_BugFailViewController : HXBBaseViewController
+///信息的字符串
+@property (nonatomic,copy) NSString *massage;
+///购买失败
+@property (nonatomic,copy) NSString *failLabelStr;
+@property (nonatomic,copy) NSString *buttonStr;
 
+- (void)clickButtonWithBlcok: (void(^)(UIButton *button))clickButtonBlcok;
 @end

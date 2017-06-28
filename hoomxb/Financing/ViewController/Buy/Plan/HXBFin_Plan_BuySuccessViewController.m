@@ -53,6 +53,17 @@
     self.button.backgroundColor = [UIColor hxb_randomColor];
 }
 
+- (void) massage: (NSString *)massage andSuccessStr: (NSString *)successStr andButtonStr: (NSString *)buttonStr {
+    [self.twoLableView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+        viewModelVM.leftLabelStr = successStr;
+        viewModelVM.rightLabelStr = massage;
+        viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
+        viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
+        return viewModelVM;
+    }];
+    [self.button setTitle:buttonStr forState:UIControlStateNormal];
+}
+
 - (void) clickButton:(UIButton *)button {
     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:nil];
     [self.navigationController popToRootViewControllerAnimated:true];
