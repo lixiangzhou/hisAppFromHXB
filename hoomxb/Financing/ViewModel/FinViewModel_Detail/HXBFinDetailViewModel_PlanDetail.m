@@ -133,7 +133,6 @@
                 self.isAddButtonInteraction = true;
             }else {
                 self.addButtonStr = @"追加";
-                
                 self.isAddButtonInteraction = true;
             }
             break;

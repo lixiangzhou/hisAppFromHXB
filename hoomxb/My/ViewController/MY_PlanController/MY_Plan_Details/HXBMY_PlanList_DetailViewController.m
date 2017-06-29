@@ -91,6 +91,7 @@
     BuyPlanDetailViewModel.remainAmount = weakSelf.planViewModel.remainAmount;
     //起投
     BuyPlanDetailViewModel.minRegisterAmount = weakSelf.planViewModel.addCondition;
+    BuyPlanDetailViewModel.isAddButtonInteraction = 
     ///加入上线 (min (用户可投， 本期剩余))
     //        if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
     //            BuyPlanDetailViewModel.upperLimitLabelStr = weakSelf.planViewModel.userRemainAmount;
