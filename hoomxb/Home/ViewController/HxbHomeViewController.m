@@ -42,7 +42,8 @@
  */
 - (void)gesturePwdShow
 {
-    if (!KeyChain.gesturePwd.length) {
+
+    if ((!KeyChain.gesturePwd.length) && [KeyChain isLogin]) {
         HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
         gesturePasswordVC.type = GestureViewControllerTypeSetting;
         [self.navigationController pushViewController:gesturePasswordVC animated:YES];
