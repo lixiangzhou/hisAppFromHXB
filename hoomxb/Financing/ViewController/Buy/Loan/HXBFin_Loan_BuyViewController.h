@@ -12,4 +12,5 @@
 @interface HXBFin_Loan_BuyViewController : HXBBaseViewController
 @property (nonatomic,assign) NSInteger ID;
 @property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanViewModel;
+@property (nonatomic,copy) NSString *availablePoint;//可用余额；
 @end

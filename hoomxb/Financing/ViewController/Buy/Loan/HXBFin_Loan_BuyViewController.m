@@ -24,7 +24,7 @@
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan *joinimmediateView_Loan;
 ///个人总资产
 @property (nonatomic,copy) NSString *assetsTotal;
-@property (nonatomic,copy) NSString *availablePoint;
+
 //可用余额
 
 @end
@@ -129,12 +129,12 @@
         }
         
         //是否大于剩余金额
-        if (capital.integerValue >= self.assetsTotal.floatValue) {
+        if (capital.integerValue > self.assetsTotal.floatValue) {
             [HxbHUDProgress showTextWithMessage:@"输入金额大于了剩余可投金额"];
             return;
         }
         //是否大于标的剩余金额
-        if (capital.integerValue >= weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount.floatValue) {
+        if (capital.integerValue > weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount.floatValue) {
             [HxbHUDProgress showTextWithMessage:@"输入金额大于了标的剩余金额"];
             return;
         }

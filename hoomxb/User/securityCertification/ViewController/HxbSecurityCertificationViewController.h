@@ -15,4 +15,6 @@
  */
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
+///要pop到那个控制器
+@property (nonatomic, copy) NSString *popToClass;
 @end

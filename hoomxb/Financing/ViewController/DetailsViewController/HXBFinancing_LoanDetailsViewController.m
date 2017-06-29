@@ -22,6 +22,8 @@
 #import "HXBFinBuy_Loan_ViewController.h"//加入
 #import "HXBFinDetailViewModel_LoanDetail.h"
 #import "HXBFin_Loan_BuyViewController.h"//加入界面
+
+#import "HxbSecurityCertificationViewController.h"//安全认证
 //#import "HXBFinDetailView"
 
 @interface HXBFinancing_LoanDetailsViewController ()
@@ -33,7 +35,8 @@
 @property (nonatomic,strong) NSArray <NSString *>* tableViewTitleArray;
 ///详情底部的tableView的图片数组
 @property (nonatomic,strong) NSArray <NSString *>* tableViewImageArray;
-
+@property (nonatomic,copy) NSString *availablePoint;//可用余额；
+@property (nonatomic,assign) BOOL isIdPassed;
 @end
 
 @implementation HXBFinancing_LoanDetailsViewController
@@ -95,6 +98,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = false;
+    //判断是否风险测评
+    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        _availablePoint = viewModel.availablePoint;
+        _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
+    } andFailure:^(NSError *error) {
+        
+    }];
     [self setup];
     [self downLoadData];
     [self registerEvent];
@@ -142,7 +152,7 @@
         ///  借款记录
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
             HXBFinAddRecortdVC_Loan *loanAddRecordVC = [[HXBFinAddRecortdVC_Loan alloc]init];
-            //            loanAddRecordVC.planDetailModel = self.planDetailViewModel.planDetailModel;
+            //loanAddRecordVC.planDetailModel = self.planDetailViewModel.planDetailModel;
             loanAddRecordVC.loanID = weakSelf.loanID;
             [weakSelf.navigationController pushViewController:loanAddRecordVC animated:true];
         }
@@ -165,13 +175,19 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
-        
-        //判断是否风险测评
-        
+        if(!self.isIdPassed) {
+            ///没有实名
+            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
+            securityCertificationVC.popToClass = NSStringFromClass([self class]);
+            [self.navigationController pushViewController:securityCertificationVC animated:true];
+            return;
+        }
+     
         //跳转加入界面
         HXBFin_Loan_BuyViewController *loanJoinVC = [[HXBFin_Loan_BuyViewController alloc]init];
         loanJoinVC.title = @"散标投资";
         loanJoinVC.loanViewModel = weakSelf.loanDetailViewModel;
+        loanJoinVC.availablePoint = _availablePoint;
         [weakSelf.navigationController pushViewController:loanJoinVC animated:true];
     }];
 }
