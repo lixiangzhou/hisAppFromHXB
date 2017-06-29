@@ -19,6 +19,7 @@
 		4E422CAC1EA736F700C0EB62 /* HxbNotificationMacros.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E422CAB1EA736F700C0EB62 /* HxbNotificationMacros.m */; };
 		4E422CB41EA7386900C0EB62 /* HxbMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E422CB31EA7386900C0EB62 /* HxbMyViewController.m */; };
 		4E422CC51EA7617700C0EB62 /* UIButton+HxbButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E422CC01EA7493900C0EB62 /* UIButton+HxbButton.m */; };
+		4E5003371F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5003361F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m */; };
 		4E6677C21EEA96300064ECCE /* HXBBankCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6677C11EEA96300064ECCE /* HXBBankCardModel.m */; };
 		4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */; };
 		4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D31001EA70DC900598529 /* HxbHomeViewController.m */; };
@@ -332,6 +333,8 @@
 		4E422CBF1EA7493900C0EB62 /* UIButton+HxbButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+HxbButton.h"; sourceTree = "<group>"; };
 		4E422CC01EA7493900C0EB62 /* UIButton+HxbButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+HxbButton.m"; sourceTree = "<group>"; };
 		4E422CC21EA74F3B00C0EB62 /* HxbTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxbTools.h; sourceTree = "<group>"; };
+		4E5003351F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCheckLoginPasswordViewController.h; sourceTree = "<group>"; };
+		4E5003361F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCheckLoginPasswordViewController.m; sourceTree = "<group>"; };
 		4E6677C01EEA96300064ECCE /* HXBBankCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBankCardModel.h; sourceTree = "<group>"; };
 		4E6677C11EEA96300064ECCE /* HXBBankCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBankCardModel.m; sourceTree = "<group>"; };
 		4E6D30FC1EA70D0600598529 /* HxbAdvertiseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbAdvertiseViewController.h; sourceTree = "<group>"; };
@@ -1189,6 +1192,8 @@
 				4E886FB61EF916A30056086E /* HXBGesturePasswordViewController.m */,
 				4E886FCB1EF940010056086E /* HXBModifyGesturePasswordController.h */,
 				4E886FCC1EF940010056086E /* HXBModifyGesturePasswordController.m */,
+				4E5003351F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.h */,
+				4E5003361F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m */,
 			);
 			path = MY_GesturePasswordController;
 			sourceTree = "<group>";
@@ -3356,6 +3361,7 @@
 				E1270B531ECED31F00729BC9 /* HXBMYModel_CapitalRecordDetailModel.m in Sources */,
 				4E8198B21EC4502100D668A1 /* BulletinsModel.m in Sources */,
 				E133DCDB1EEE3597009466DE /* HXBLoginManager.m in Sources */,
+				4E5003371F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m in Sources */,
 				4E94B2771ECBF922003CCBA7 /* HxbHomePageViewModel.m in Sources */,
 				4EB5598C1F03422F00146D62 /* HXBBankCardListViewController.m in Sources */,
 				E1E461391EB98ADD005B1FC6 /* HXBBaseScrollToolBarView.m in Sources */,

@@ -21,6 +21,7 @@
 @property (nonatomic,strong) UILabel *expectedYearRateLable_Const;
 @property (nonatomic,strong) UILabel *lockPeriodLabel_Const;
 @property (nonatomic,strong) UILabel *countDownLable;//倒计时label
+@property (nonatomic, strong) UILabel *tagLabel;//tag标签
 @end
 @implementation HXBFinancting_PlanListTableViewCell
 
@@ -33,6 +34,7 @@
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = finPlanListViewModel.planListModel.lockPeriod;
     self.addStatus.text = finPlanListViewModel.unifyStatus;
+    self.tagLabel.text = finPlanListViewModel.planListModel.tag;
 }
 
 - (void) setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
@@ -117,6 +119,15 @@
     return _countDownLable;
 }
 
+- (UILabel *)tagLabel
+{
+    if (!_tagLabel) {
+        _tagLabel = [[UILabel alloc] init];
+        _tagLabel.font = [UIFont systemFontOfSize:12];
+    }
+    return _tagLabel;
+}
+
 
 #pragma mark - setter
 //MARK: 倒计时的重要传递
@@ -162,6 +173,7 @@
     [self.contentView addSubview:self.preferentialLabel];
     [self.contentView addSubview:self.arrowImageView];
     [self.contentView addSubview:self.countDownLable];
+    [self.contentView addSubview:self.tagLabel];
 }
 ///布局UI
 - (void)layoutSubUI {
@@ -211,6 +223,10 @@
         make.left.equalTo(weakSelf.addStatus);
         make.right.equalTo(weakSelf.addStatus);
         make.height.equalTo(@20);
+    }];
+    [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.nameLabel);
+        make.right.equalTo(weakSelf.contentView.mas_right).offset(-20);
     }];
 }
 
