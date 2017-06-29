@@ -154,6 +154,7 @@
     if (!_pwdField) {
         _pwdField = [[UITextField alloc] init];
         _pwdField.placeholder = @"请输入交易密码";
+        _pwdField.secureTextEntry = YES;
         _pwdField.layer.borderWidth = 0.5;
         _pwdField.layer.borderColor = COR12.CGColor;
     }

@@ -93,12 +93,12 @@
     accountInfoVC.userInfoViewModel = self.userInfoViewModel;
     [self.navigationController pushViewController:accountInfoVC animated:YES];
 }
-/// 提现
+///充值
 - (void)didClickTopUpBtn:(UIButton *)sender{
-    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+//    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+//    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
 }
-
+/// 提现
 - (void)didClickWithdrawBtn:(UIButton *)sender{
     HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
     withdrawViewController.userInfoViewModel = self.userInfoViewModel;

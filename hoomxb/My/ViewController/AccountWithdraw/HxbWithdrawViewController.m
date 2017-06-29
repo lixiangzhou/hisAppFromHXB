@@ -90,7 +90,7 @@
 
 - (void)checkWithdrawals:(NSString *)paypassword
 {
-    self.view.userInteractionEnabled = NO;
+//    self.view.userInteractionEnabled = NO;
     kWeakSelf
     NSMutableDictionary *requestArgument  = [NSMutableDictionary dictionary];
     requestArgument[@"bankno"] = self.bankCardModel.bankCode;
@@ -101,7 +101,7 @@
     HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
     [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
         NSLog(@"%@",responseObject);
-        weakSelf.view.userInteractionEnabled = YES;
+//        weakSelf.view.userInteractionEnabled = YES;
         HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
         weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
         withdrawResultVC.bankCardModel = weakSelf.bankCardModel;
