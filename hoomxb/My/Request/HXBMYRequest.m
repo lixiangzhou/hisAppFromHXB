@@ -479,8 +479,9 @@
                         andFailureBlock: (void(^)(NSError *error))failureBlock{
     HXBBaseRequest *loanRecordAPI = [[HXBBaseRequest alloc]init];
 
-    loanRecordAPI.baseUrl = kHXBFin_loanRecordURL(planID);
+    loanRecordAPI.requestUrl = kHXBFin_loanRecordURL(planID);
     loanRecordAPI.isUPReloadData = isUPData;
+    loanRecordAPI.requestMethod = NYRequestMethodGet;
     loanRecordAPI.requestArgument = @{
                                     @"page" : @(loanRecordAPI.dataPage).description,
                                       };

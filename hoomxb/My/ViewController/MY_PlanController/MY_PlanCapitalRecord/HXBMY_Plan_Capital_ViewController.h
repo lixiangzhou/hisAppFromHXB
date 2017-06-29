@@ -7,7 +7,7 @@
 //
 
 #import "HXBBaseViewController.h"
-
+///投资记录的b
 @interface HXBMY_Plan_Capital_ViewController : HXBBaseViewController
 @property (nonatomic,copy) NSString *planID;
 @end

@@ -42,13 +42,21 @@
 /**
  ￥，1000递
  */
-- (NSString *) addCondition {
+- (NSString *) addConditionStr {
+    if (!_addConditionStr) {
+        _addConditionStr = [NSString stringWithFormat:@"￥%@递增",self.planModelDataList.finalAmount];
+    }
+    return _addConditionStr;
+}
+/**
+ 起投 没有元
+ */
+- (NSString *)addCondition {
     if (!_addCondition) {
-        _addCondition = [NSString stringWithFormat:@"￥%@递增",self.planModelDataList.amount];
+        _addCondition =  self.planModelDataList.finalAmount;
     }
     return _addCondition;
 }
-
 /**
  可用余额 没有元
  */
@@ -76,28 +84,27 @@
  */
 - (NSString *) contractName {
     if (!_contractName) {
+
         _contractName = @"《红利计划服务协议》";
     }
     return _contractName;
 }
 
 /**
- 利率
+ 预期收益比例 计算收益
  */
-//- (NSString *) totalInterest {
-//    if (!_totalInterest) {
-//        _totalInterest = <#obj#>
-//    }
-//    return _totalInterest;
-//}
-//@property (nonatomic,copy) NSString * totalInterest;
-
+- (NSString *) totalInterest {
+    if (!_totalInterest) {
+        _totalInterest = self.planModelDataList.expectedRate;
+    }
+    return _totalInterest;
+}
 /**
  本期余额
  */
 - (NSString *) remainAmount {
     if (!_remainAmount) {
-        _remainAmount = self.planModelDataList.finalAmount;
+        _remainAmount = self.planModelDataList.redProgressLeft;
     }
     return _remainAmount;
 }

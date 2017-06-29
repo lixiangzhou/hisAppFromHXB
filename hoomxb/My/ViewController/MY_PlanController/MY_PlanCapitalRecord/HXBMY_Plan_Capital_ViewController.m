@@ -15,6 +15,8 @@ static NSString *const cellID = @"cellID";
 @property (nonatomic,strong) UITableView *planCapitalTableView;
 
 @property (nonatomic,strong) NSMutableArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *dataArray;
+@property (nonatomic,strong) HXBMY_Plan_Capital_Cell *topView;
+
 @end
 
 @implementation HXBMY_Plan_Capital_ViewController
@@ -24,11 +26,26 @@ static NSString *const cellID = @"cellID";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.topView = [[HXBMY_Plan_Capital_Cell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+    [self.view addSubview: self.topView];
+    self.topView.ID = @"标的ID";
+    self.topView.loanAoumt = @"投资金额(元)";
+    self.topView.time = @"时间";
+    self.topView.type = @"状态";
+    
+    [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.view).offset(64);
+        make.height.equalTo(@(kScrAdaptationH(64)));
+    }];
+    
     self.planCapitalTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     [self.view addSubview:self.planCapitalTableView];
     
     [self.planCapitalTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.bottom.equalTo(self.view);
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(self.topView.mas_bottom);
     }];
     
     self.planCapitalTableView.delegate = self;
@@ -53,22 +70,15 @@ static NSString *const cellID = @"cellID";
     return self.dataArray.count;
 }
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBMY_Plan_Capital_Cell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if (indexPath.section) {
         cell.ID = _dataArray[indexPath.row].loanId;
         cell.loanAoumt = _dataArray[indexPath.row].amount;
         cell.time = _dataArray[indexPath.row].lendTime;
         cell.type = _dataArray[indexPath.row].status;
-    }else {
-        cell.ID = @"标的ID";
-        cell.loanAoumt = @"投资金额(元)";
-        cell.time = @"时间";
-        cell.type = @"状态";
-    }
     return cell;
 }
 
@@ -123,27 +133,34 @@ static NSString *const cellID = @"cellID";
     [self.contentView addSubview:self.amountLabel];
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.typeLabel];
+    NSArray *viewArray = @[
+                          self.planIDLabel,self.amountLabel,self.timeLabel,self.typeLabel
+                           ];
     
-    [self.planIDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.equalTo(self.contentView);
-        make.left.equalTo(self.contentView);
-        make.width.equalTo(self).multipliedBy(1 / 4);
+    [viewArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:0 leadSpacing:0 tailSpacing:0];
+    [viewArray mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(self.contentView);
     }];
-    [self.amountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.equalTo(self.contentView);
-        make.left.equalTo(self.planIDLabel.mas_right);
-        make.width.equalTo(self).multipliedBy(1 / 4);
-    }];
-    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.equalTo(self.contentView);
-        make.left.equalTo(self.amountLabel.mas_right);
-        make.width.equalTo(self).multipliedBy(1 / 4);
-    }];
-    [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.equalTo(self.contentView);
-        make.left.equalTo(self.timeLabel.mas_right);
-        make.width.equalTo(self).multipliedBy(1 / 4);
-    }];
+//    [self.planIDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.top.equalTo(self.contentView);
+//        make.left.equalTo(self.contentView);
+//        make.width.equalTo(self).multipliedBy(1 / 4);
+//    }];
+//    [self.amountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.top.equalTo(self.contentView);
+//        make.left.equalTo(self.planIDLabel.mas_right);
+//        make.width.equalTo(self).multipliedBy(1 / 4);
+//    }];
+//    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.top.equalTo(self.contentView);
+//        make.left.equalTo(self.amountLabel.mas_right);
+//        make.width.equalTo(self).multipliedBy(1 / 4);
+//    }];
+//    [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.top.equalTo(self.contentView);
+//        make.left.equalTo(self.timeLabel.mas_right);
+//        make.width.equalTo(self).multipliedBy(1 / 4);
+//    }];
 }
 
 - (void) setTime:(NSString *)time {
