@@ -103,6 +103,15 @@ static NSString *kINVEST = @"INVEST";
     }
     return _statusInt;
 }
+/**
+ 是否隐藏追加
+ */
+- (BOOL)isAddButtonHidden {
+    if (!_isAddButtonHidden) {
+        [self status];
+    }
+    return _isAddButtonHidden;
+}
 
 /**
  计划状态
@@ -128,6 +137,7 @@ static NSString *kINVEST = @"INVEST";
                     if ([self.planDetailModel.status isEqualToString:MY_PlanResponsType_PURCHASEING_Plan]) {
                         ///等待计息
                         _statusInt = 1;
+                        self.isAddButtonHidden = false;
                         _status = typeUI;
                     }
                 }];

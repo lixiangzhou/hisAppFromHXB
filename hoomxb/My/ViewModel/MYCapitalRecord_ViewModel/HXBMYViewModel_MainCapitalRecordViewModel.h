@@ -29,8 +29,10 @@ typedef enum : NSUInteger {
 @property (nonatomic,copy) NSString *balance;
 ///时间
 @property (nonatomic,copy) NSString *time;
-///支出
-@property (nonatomic,copy) NSString *pay;
+///收入金额 （支出金额为负数）
+@property (nonatomic,copy) NSString *income;
+/// 支出为绿色，收入为红色
+@property (nonatomic,strong) UIColor *inComeStrColor;
 @end
 
 

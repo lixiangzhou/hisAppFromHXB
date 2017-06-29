@@ -63,4 +63,8 @@
  退出时间
  */
 @property (nonatomic,copy) NSString * endLockingTime;
+/**
+ 追加按钮是否显示
+ */
+@property (nonatomic,assign) BOOL isAddButtonHidden;
 @end

@@ -11,7 +11,10 @@
 ///散标投递的详情页的ViewModel
 @interface HXBFinDetailViewModel_LoanDetail : NSObject
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail *loanDetailModel;
-
+/**
+ 已还期数 4/ 12
+ */
+@property (nonatomic,copy) NSString *loanPeriodStr;
 
 /**
  status 标的状态

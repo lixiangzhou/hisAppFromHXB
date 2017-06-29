@@ -16,7 +16,7 @@
 @class HXBFin_DetailsViewBase_ViewModelVM;
 ///详情页的主视图基类
 @interface HXBFin_DetailsViewBase : UIView
-
+- (void)setSubView;
 - (void)setUPViewModelVM: (HXBFin_DetailsViewBase_ViewModelVM* (^)(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM))detailsViewBase_ViewModelVM;
 
 ///赋值_plan

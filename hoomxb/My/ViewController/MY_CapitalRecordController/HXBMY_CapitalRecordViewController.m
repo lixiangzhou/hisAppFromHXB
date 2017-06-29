@@ -11,6 +11,8 @@
 #import "HXBMYCapitalRecord_TableView.h"
 #import "HXBMYViewModel_MainCapitalRecordViewModel.h"
 
+#import "HXBMY_Capital_Sift_ViewController.h"//筛选的控制器
+
 static NSString *const kNAVRightTitle_UI = @"筛选";
 static NSString *const kNAVRightTitle = @"筛选";
 
@@ -32,7 +34,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 
 @interface HXBMY_CapitalRecordViewController ()
 @property (nonatomic,strong) HXBMYCapitalRecord_TableView *tableView;
-@property (nonatomic,assign) HXBRequestType_MY_tradlist screenType;
+@property (nonatomic,copy) NSString *screenType;
 @end
 
 @implementation HXBMY_CapitalRecordViewController
@@ -41,8 +43,8 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     [super viewDidLoad];
     [self setUP];
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
-    self.screenType = HXBRequestType_MY_tradlist_Loan;
-    [self downDataWithScreenType:HXBRequestType_MY_tradlist_Loan andStartDate:nil andEndDate:nil andIsUPData:true];
+    self.screenType = @" ";
+    [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:true];
 }
 
 - (void)setUP {
@@ -68,7 +70,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     }];
 }
 
-- (void)downDataWithScreenType: (HXBRequestType_MY_tradlist)screenType andStartDate:(NSString *)startData andEndDate:(NSString *)endData andIsUPData:(BOOL)isUPData {
+- (void)downDataWithScreenType: (NSString *)screenType andStartDate:(NSString *)startData andEndDate:(NSString *)endData andIsUPData:(BOOL)isUPData {
     [[HXBMYRequest sharedMYRequest] capitalRecord_requestWithScreenType:screenType
                                                            andStartDate:startData
                                                              andEndDate:endData
@@ -85,7 +87,38 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc]initWithTitle:kNAVRightTitle style:UIBarButtonItemStylePlain target:self action:@selector(clickRightItem)];
     self.navigationItem.rightBarButtonItem = rightButtonItem;
 }
+///点击了 交易记录 筛选
 - (void)clickRightItem {
     NSLog(@"点击了NAVRight");
+    HXBMY_Capital_Sift_ViewController *siftVC = [[HXBMY_Capital_Sift_ViewController alloc]init];
+    kWeakSelf
+    ///点击了筛选
+    [siftVC clickCapital_TitleWithBlock:^(NSString *typeStr, kHXBEnum_MY_CapitalRecord_Type type) {
+//        筛选条件 0：充值，1：提现，2：散标债权，3：红利计划
+        NSString *typeString = nil;
+        switch (type) {
+            case 0://全部
+               typeString = @" ";
+                break;
+            case 1://充值
+                typeString = @"0";
+                break;
+            case 2://提现
+                typeString = @"1";
+                break;
+            case 3://散标债权
+                typeString = @"2";
+                break;
+            case 4://红利计划
+                typeString = @"3";
+                break;
+            default:
+                break;
+        }
+        weakSelf.screenType = typeString;
+        [weakSelf downDataWithScreenType:typeString andStartDate:nil andEndDate:nil andIsUPData:true];
+    }];
+    //跳转筛选
+    [self presentViewController:siftVC animated:true completion:nil];
 }
 @end

@@ -31,8 +31,9 @@
  @param topBottomViewNumber 上下一共几层
  @param clas view的类型
  @param topBottomSpace 层级间的间距
+ @param leftProportion  左边占的总体长度的比例 （左 : 全部）
  */
-- (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass: (Class)clas andViewHeight: (CGFloat)viewH andTopBottomSpace: (CGFloat)topBottomSpace;
+- (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass: (Class)clas andViewHeight: (CGFloat)viewH andTopBottomSpace: (CGFloat)topBottomSpace andLeftRightLeftProportion: (CGFloat)leftProportion;
 @end
 
 @interface  HXBBaseView_MoreTopBottomViewManager : NSObject
@@ -58,4 +59,11 @@
  全部的viewArray
  */
 @property (nonatomic,strong,readonly) NSArray <UIView *>    *allViewArray;
+
+
+/**
+ 颜色
+ */
+@property (nonatomic,strong) UIColor *textColor;
+@property (nonatomic,strong) UIColor *viewColor;
 @end

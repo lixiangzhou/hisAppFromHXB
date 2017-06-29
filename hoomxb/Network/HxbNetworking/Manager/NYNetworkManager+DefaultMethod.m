@@ -28,6 +28,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     }
 //    DLog(@"请求成功-request：%@",request);
     if ([request.responseObject[kResponseStatus] integerValue]) {
+        NSLog(@" ---------- %@",request.responseObject[kResponseStatus]);
         ///未登录状态 弹出登录框
         [self showLoginVCWithRequest:request];
     }else{

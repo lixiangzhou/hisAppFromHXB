@@ -17,6 +17,9 @@
 #import "HXBMYModel_PlanDetailModel.h"//红利计划详情的Model
 
 #import "HXBMY_PlanDetailView.h"//详情页的View
+#import "HXBFin_Plan_BuyViewController.h"//购买的planvc
+#import "HXBFinDetailViewModel_PlanDetail.h"//viewMode 购买
+#import "HXBFinDetailModel_PlanDetail.h"//model 购买
 
 @interface HXBMY_PlanList_DetailViewController ()
 @property (nonatomic,strong) HXBMYReqest_DetailRequest *detailRequest;
@@ -41,10 +44,46 @@
     [super viewDidLoad];
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
     [self setUP];
+    [self downLoadData];
+}
+- (void) downLoadData {
+    
 }
 - (void) setUP {
     HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:self.view.frame];
     self.planDetailView = planDetailView;
+    ///点击了投资记录button
+    [self.planDetailView clickLoanRecordViewWithBlock:^(UIView *view) {
+       
+    }];
+    ///点击了立即加入button
+    kWeakSelf
+    [self.planDetailView clickAddButtonWithBlock:^(UIButton *button) {
+        HXBFin_Plan_BuyViewController *planBuyVC = [[HXBFin_Plan_BuyViewController alloc]init];
+        //获取计划信息
+        HXBFinDetailViewModel_PlanDetail *BuyPlanDetailViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
+        ///加入条件加入金额%@元起，%@元的整数倍递增
+        BuyPlanDetailViewModel.addCondition = weakSelf.planViewModel.addCondition;
+        ///余额 title
+//        BuyPlanDetailViewModel.availablePoint = ;
+        ///收益方法
+        BuyPlanDetailViewModel.profitType_UI = weakSelf.planViewModel.profitType_UI;
+        /// ￥1000起投，1000递增 placeholder
+        BuyPlanDetailViewModel.addCondition = weakSelf.planViewModel.addCondition;
+        
+        ///服务协议 button str
+        BuyPlanDetailViewModel.contractName = weakSelf.planViewModel.contractName;
+        BuyPlanDetailViewModel.totalInterest = weakSelf.planViewModel.totalInterest;
+//        ///加入上线 (min (用户可投， 本期剩余))
+//        if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
+//            model.upperLimitLabelStr = weakSelf.planViewModel.userRemainAmount;
+//        }else {
+//            model.upperLimitLabelStr = weakSelf.planViewModel.remainAmount;
+//        }
+
+        planBuyVC.planViewModel = BuyPlanDetailViewModel;
+        [self.navigationController pushViewController:planBuyVC animated:true];
+    }];
     [self.hxbBaseVCScrollView addSubview:planDetailView];
 }
 
@@ -92,6 +131,7 @@
         manager.loanRecordViewManager.leftLabelAlignment = NSTextAlignmentLeft;
         manager.loanRecordViewManager.rightLabelAlignment = NSTextAlignmentRight;
         
+        manager.isHiddenAddButton = viewModel.isAddButtonHidden;
         return manager;
     }];
 }

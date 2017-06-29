@@ -25,6 +25,7 @@
 @property (nonatomic,copy) NSString *amount;
 ///	int	投资时间
 @property (nonatomic,copy) NSString *lendTime;
+
 ///": -2,
 @property (nonatomic,copy) NSString *index;
 ///": "NORMAL_BID",

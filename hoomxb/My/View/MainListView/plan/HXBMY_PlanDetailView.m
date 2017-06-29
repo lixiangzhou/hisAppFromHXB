@@ -70,12 +70,26 @@ UITableViewDataSource
  管理者
  */
 @property (nonatomic,strong) HXBMY_PlanDetailView_Manager *manager;
+/**
+ 追加按钮 只有等待计息 显示
+ */
+@property (nonatomic,strong) UIButton *addButton;
+
+/**
+ 投资记录的点击事件
+ */
+@property (nonatomic,strong) void (^clickLoanRecordView)(UIView *view);
+/**
+ 点击了追加按钮
+ */
+@property (nonatomic,copy) void(^clickAddButton)(UIButton *button);
 @end
 @implementation HXBMY_PlanDetailView
 
 - (void)setUPValueWithViewManagerBlock: (HXBMY_PlanDetailView_Manager *(^)(HXBMY_PlanDetailView_Manager *manager))viewManagerBlock{
     self.manager = viewManagerBlock(_manager);
     self.topStatusLabel.text = _manager.topViewStatusStr;
+    [self.addButton setHidden: _manager.isHiddenAddButton];
     kWeakSelf
 //    [self.topViewMassge setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
 //        return weakSelf.manager.topViewMassgeManager;
@@ -119,11 +133,13 @@ UITableViewDataSource
 - (void)setUPViews_Create {
     self.topView        = [[UIView alloc]init];
     self.topStatusLabel = [[UILabel alloc]init];
+    self.addButton      = [[UIButton alloc]init];
     self.topViewMassge  = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
-    self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:20 andTopBottomSpace:0];
-    self.typeView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0];
-    self.contractView   = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0];
-    self.loanRecordView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0];
+    self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:20 andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
+    self.typeView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
+    self.contractView   = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
+    self.loanRecordView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
+    
     
     [self addSubview:self.topView];
     [self.topView addSubview:self.topViewMassge];
@@ -132,8 +148,32 @@ UITableViewDataSource
     [self addSubview:self.typeView];
     [self addSubview:self.contractView];
     [self addSubview:_loanRecordView];
+    [self addSubview:self.addButton];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickLoanRecord:)];
+    [self.loanRecordView addGestureRecognizer:tap];
+    self.loanRecordView.userInteractionEnabled = true;
+    
+    [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.addButton setTitle:@"追加" forState:UIControlStateNormal];
+    [self.addButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
 }
-
+- (void)clickLoanRecordViewWithBlock:(void (^)(UIView *))clickLoanRecordView {
+    self.clickLoanRecordView = clickLoanRecordView;
+}
+//添加点击事件
+- (void)clickLoanRecord: (UITapGestureRecognizer *)tap {
+    if (self.clickLoanRecordView) {
+        _clickLoanRecordView(tap.view);
+    }
+}
+- (void)clickAddButton: (UIButton *)button {
+    if (self.clickAddButton) {
+        self.clickAddButton(button);
+    }
+}
+- (void)clickAddButtonWithBlock:(void(^)(UIButton *button))clickAddButtonBlock {
+    self.clickAddButton = clickAddButtonBlock;
+}
 - (void)setUPViews_Frame {
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
@@ -175,6 +215,12 @@ UITableViewDataSource
         make.left.equalTo(self);
         make.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(20)));
+    }];
+    [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH(50)));
+        make.width.equalTo(@(kScrAdaptationW(100)));
+        make.centerX.equalTo(self);
     }];
 }
 

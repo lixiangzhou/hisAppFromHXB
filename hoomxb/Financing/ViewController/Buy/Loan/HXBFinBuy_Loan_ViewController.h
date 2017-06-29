@@ -7,7 +7,8 @@
 //
 
 #import "HXBFin_Loan_BuyViewController.h"
-@class HXBFinDetailViewModel_LoanDetail;
+#import "HXBFinDetailViewModel_LoanDetail.h"
+
 @interface HXBFinBuy_Loan_ViewController : HXBFin_Loan_BuyViewController
 @property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanViewModel;
 @end

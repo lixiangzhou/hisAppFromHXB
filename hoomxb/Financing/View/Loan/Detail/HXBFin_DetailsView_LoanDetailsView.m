@@ -8,9 +8,26 @@
 
 #import "HXBFin_DetailsView_LoanDetailsView.h"
 
+
+@interface HXBFin_DetailsView_LoanDetailsView ()
+@property (nonatomic,strong) UILabel *timeLabel;
+@end
 @implementation HXBFin_DetailsView_LoanDetailsView
 
 - (void)setData_LoanWithLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)LoanDetailVieModel {
     
+}
+
+- (void)setSubView {
+    self.timeLabel = [[UILabel alloc]init];
+    [self addSubview:self.timeLabel];
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.equalTo(self);
+        make.height.width.equalTo(@(kScrAdaptationH(80)));
+    }];
+}
+- (void)setTimeStr:(NSString *)timeStr {
+    _timeStr = timeStr;
+    self.timeLabel.text = timeStr;
 }
 @end

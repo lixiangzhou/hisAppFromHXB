@@ -88,12 +88,38 @@ static NSString *const HXBRequestType_MY_BID_LOAN = @"BID_LOAN";
 static NSString *const HXBRequestType_MY_BID_LOAN_UI = @"投标中";
 
 //MARK: loan 列表页 返回的type
-///我的账户内散标（收益中）
+///我的账户内散标（收益中） XYRZ
 static NSString *const HXBRequestType_MY_XYRZ_Loan = @"XYRZ";
-///我的账户内散标（投标中）
+///我的账户内散标（投标中） SDRZ
 static NSString *const HXBRequestType_MY_SDRZ_Loan = @"SDRZ";
 
-
+#pragma mark ================================ MY ===============================
+//MARK:  --------------------------------- 交易记录 - 筛选 ----------------------------
+/**
+ 枚举 - 交易记录筛选
+ */
+typedef enum : NSUInteger {
+    ///全部
+    kHXBEnum_MY_CapitalRecord_Type_All = 0,
+    ///充值
+    kHXBEnum_MY_CapitalRecord_Type_topUP = 1,
+    ///提现
+    kHXBEnum_MY_CapitalRecord_Type_withdraw = 2,
+    ///红利计划
+    kHXBEnum_MY_CapitalRecord_Type_Plan = 3,
+    ///散标债权
+    kHXBEnum_MY_CapitalRecord_Type_Loan = 4
+}kHXBEnum_MY_CapitalRecord_Type;
+///全部
+static NSString *const kHXBString_MY_CapitalRecord_Type_All = @"全部";
+///充值
+static NSString *const kHXBString_MY_CapitalRecord_Type_topUP = @"充值";
+///提现
+static NSString *const kHXBString_MY_CapitalRecord_Type_withdraw = @"提现";
+///红利计划
+static NSString *const kHXBString_MY_CapitalRecord_Type_Plan = @"红利计划";
+///散标债权
+static NSString *const kHXBString_MY_CapitalRecord_Type_Loan = @"散标债权";
 
 
 
@@ -132,4 +158,8 @@ static NSString *const HXBRequestType_MY_SDRZ_Loan = @"SDRZ";
 
 ///根据loan  返回的type （投标中，收益中）的类型，生成枚举类型
 + (HXBRequestType_MY_LoanResponsType)myLoan_ResponsType: (NSString *)responsType;
+
+
+
+
 @end

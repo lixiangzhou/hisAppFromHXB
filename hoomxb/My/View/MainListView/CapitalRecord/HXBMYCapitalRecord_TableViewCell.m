@@ -47,7 +47,8 @@
 - (void)setCapitalRecortdDetailViewModel:(HXBMYViewModel_MainCapitalRecordViewModel *)capitalRecortdDetailViewModel {
     _capitalRecortdDetailViewModel = capitalRecortdDetailViewModel;
     self.pointDisplayType_Label.text = capitalRecortdDetailViewModel.capitalRecordModel.pointDisplayType;
-    self.pay_Label.text = capitalRecortdDetailViewModel.pay;
+    self.pay_Label.text = capitalRecortdDetailViewModel.income;
+    self.pay_Label.textColor = capitalRecortdDetailViewModel.inComeStrColor;
     self.time_Label.text = capitalRecortdDetailViewModel.time;
     self.balance_Label.text = capitalRecortdDetailViewModel.balance;
 }

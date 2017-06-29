@@ -59,7 +59,14 @@
                                  };
     
     [loginAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        kHXBResponsShowHUD;
+//        kHXBResponsShowHUD;
+        if ([responseObject[kResponseStatus] integerValue]) {
+            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            if (failureBlock) {
+                failureBlock(nil);
+            }
+            return;
+        }
         if (successBlock) {
             successBlock(true);
             

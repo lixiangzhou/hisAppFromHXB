@@ -41,5 +41,7 @@
 @property (nonatomic,copy) NSString *nextRepayDate;//1497168004000,
 ///待收本息
 @property (nonatomic,copy) NSString *toRepay;//123956.92
+///投标进度
+@property (nonatomic,copy) NSString *progress;
 - (void)steUPProperty;
 @end

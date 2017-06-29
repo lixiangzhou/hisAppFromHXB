@@ -35,7 +35,7 @@ typedef enum : NSUInteger {
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail_loanVo *loanVo;
 ///协议的url
 @property (nonatomic,copy) NSString *agreementUrl;
-///保持时间
+///剩余时间
 @property (nonatomic,copy) NSString *remainTime;
 ///用户贷款记录
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail_userLoanRecord *userLoanRecord;

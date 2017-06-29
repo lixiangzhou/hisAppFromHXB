@@ -11,7 +11,36 @@
 @implementation HXBMYViewModel_MainLoanViewModel
 - (void)setLoanModel:(HXBMyModel_MainLoanModel *)loanModel {
     _loanModel = loanModel;
-    self.responsType = [HXBEnumerateTransitionManager myLoan_ResponsType:loanModel.loanType];
+    self.status = _status;
+}
+- (void)setStatus:(NSString *)status {
+    _status = status;
+    if (self.status.integerValue == 1) {
+        ///收益中
+        _toRepayCellValue = [NSString hxb_getPerMilWithDouble:self.loanModel.toRepay.floatValue];
+        //下一还款日
+        _nextRepayDateCellValue = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.loanModel.nextRepayDate andDateFormat:@"MM-dd"];
+        ///一换期数
+        _goBackLoanTimeCellValue = [NSString stringWithFormat:@"已还期数%@/%@",self.loanModel.termsLeft,self.loanModel.termsInTotal];
+        
+        self.investmentAmountLable_const = @"投资金额(元)";
+        self.toBeReceived_const = @"待收本息(元)";
+        self.nextRepaymentDay_const = @"下一还款日";
+    }else if (self.status.integerValue == 2){
+        
+        ///   如果是收益中（待收本息） ： 投标中（利率）
+        _toRepayCellValue = [NSString stringWithFormat:@"%ld%@",self.loanModel.interest.integerValue,@"%"];
+       
+        //如果为收益中 （下一还款日） ： 投标中（投资进度）
+        _nextRepayDateCellValue = [NSString stringWithFormat:@"%.2lf%@",self.loanModel.progress.floatValue,@"%"] ;
+        
+        ///如果为收益中 （已还期数） ： 投标中（期限）
+        _goBackLoanTimeCellValue = [NSString stringWithFormat:@"期限  %@个月",self.loanModel.termsInTotal];
+        
+        self.investmentAmountLable_const = @"投资金额(元)";
+        self.toBeReceived_const = @"利率";
+        self.nextRepaymentDay_const = @"投资进度";
+    }
 }
 /**
  待收本息

@@ -20,9 +20,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUPViews];
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(clickLeftBarButtonItem)];
+    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    self.hxbBaseVCScrollView.backgroundColor = [UIColor whiteColor];
 }
 
-
+- (void)clickLeftBarButtonItem {
+    [self.navigationController popToRootViewControllerAnimated:true];
+}
 - (void)setUPViews {
     [self creatViews];
 }

@@ -38,7 +38,8 @@
 
 #define kHXBMY_LoanListURL @"/account/loan"//账户内  loanlist
 #define kHXBMY_LoanAssetsURL @"/account/loanAssets"//loan资金统计
-
+///账户内的plan 交易记录
+#define kHXBFin_loanRecordURL(planID) [NSString stringWithFormat:@"/account/plan/(%@)/loanRecord",(planID)]
 
 
 //MARK: ======================= 账户设置 =======================

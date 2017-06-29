@@ -87,6 +87,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
         [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:pasword andCaptcha:self.checkCaptcha andSuccessBlock:^(BOOL isSuccess) {
             NSLog(@"登录成功");
             self.reuqestSignINNumber = @(0);
+            [KeyChainManage sharedInstance].siginCount = @"0";
             //调到我的界面
             [KeyChain signOut];
             [[KeyChainManage sharedInstance] mobileWithBlock:^(NSString *mobile) {
@@ -94,6 +95,8 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             }];
             
         } andFailureBlock:^(NSError *error) {
+            ///清空
+            self.checkCaptcha = nil;
         }];
     }];
 }

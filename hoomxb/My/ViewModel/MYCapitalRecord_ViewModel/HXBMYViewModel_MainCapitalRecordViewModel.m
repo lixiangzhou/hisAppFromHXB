@@ -12,22 +12,14 @@
 
 - (void)setCapitalRecordModel:(HXBMYModel_CapitalRecordDetailModel *)capitalRecordModel {
     _capitalRecordModel = capitalRecordModel;
-    [self setUPPay];
-    [self setUPTime];
     [self setUPBalance];
 }
 - (void)setUPBalance {
     CGFloat balance = self.capitalRecordModel.balance.floatValue;
     self.balance = [NSString stringWithFormat:@"账户余额%.2f元",balance];
 }
-- (void)setUPTime {
-    HXBBaseHandDate *handDate = [HXBBaseHandDate sharedHandleDate];
-    _time = [handDate stringFromDate:self.capitalRecordModel.time andDateFormat:nil];
-}
-- (void)setUPPay {
-    CGFloat pay = self.capitalRecordModel.pay.floatValue;
-    _pay = [NSString stringWithFormat:@"%.2f元",pay];
-}
+
+
 - (NSString *)balance {
     if (!_balance) {
         [self setUPBalance];
@@ -36,15 +28,36 @@
 }
 - (NSString *)time {
     if (!_time) {
-        [self setUPTime];
+        _time = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.capitalRecordModel.time andDateFormat:@"yy-mm-dd hh:mm"];
     }
     return _time;
 }
 
-- (NSString *)pay {
-    if (!_pay) {
-        [self setUPPay];
+/**
+ 收入金额  （支出金额为负数）
+ */
+- (NSString *) income {
+    if (!_income) {
+        ///	是否是收入
+        if (self.capitalRecordModel.isPlus) {
+            CGFloat inComeFloat = self.capitalRecordModel.income.floatValue;
+            self.inComeStrColor = [UIColor redColor];
+            _income = [NSString stringWithFormat:@"%.2f",inComeFloat];
+        }else {
+            CGFloat pay = self.capitalRecordModel.pay.floatValue;
+            _income = [NSString stringWithFormat:@"%.2f",pay];
+            self.inComeStrColor = [UIColor blueColor];
+        }
     }
-    return _pay;
+    return _income;
+}
+/**
+  income 颜色
+ */
+- (UIColor *)inComeStrColor  {
+    if (!_inComeStrColor) {
+        [self income];
+    }
+    return _inComeStrColor;
 }
 @end

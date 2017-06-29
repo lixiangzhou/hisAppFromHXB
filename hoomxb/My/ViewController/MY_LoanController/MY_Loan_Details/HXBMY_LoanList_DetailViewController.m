@@ -14,6 +14,7 @@
  散标详情
  */
 @property (nonatomic,strong) HXBMY_Loan_DetailView *loanDetailView;
+@property (nonatomic,strong) UILabel *timeLabel;
 @end
 
 @implementation HXBMY_LoanList_DetailViewController
@@ -21,6 +22,7 @@
 - (void) setLoanDetailViewModel:(HXBMYViewModel_MainLoanViewModel *)loanDetailViewModel {
     _loanDetailViewModel = loanDetailViewModel;
     kWeakSelf
+
     [self.loanDetailView setUPValueWithManagerBlock:^HXBMY_Loan_DetailViewManager *(HXBMY_Loan_DetailViewManager *manager) {
         _loanDetailViewModel = loanDetailViewModel;
         
@@ -66,12 +68,23 @@
         manager.contractLabelManager.rightStrArray  = @[@"《借款合同》"];
         manager.contractLabelManager.leftLabelAlignment = NSTextAlignmentLeft;
         manager.contractLabelManager.rightLabelAlignment = NSTextAlignmentRight;
+        
         return manager;
     }];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUPView];
+    self.timeLabel = [[UILabel alloc]init];
+    [self.view addSubview:self.timeLabel];
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view);
+        make.top.equalTo(self.view).offset(kScrAdaptationH(64));
+        make.height.equalTo(@(kScrAdaptationH(80)));
+        make.width.equalTo(@(kScrAdaptationW(150)));
+    }];
+    self.timeLabel.text = self.loanDetailViewModel.goBackLoanTimeCellValue;
+    self.timeLabel.font = [UIFont systemFontOfSize:10];
 }
 
 - (void)setUPView {

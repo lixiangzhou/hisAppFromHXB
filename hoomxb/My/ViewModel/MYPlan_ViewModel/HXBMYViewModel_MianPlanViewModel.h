@@ -30,6 +30,34 @@
  年利率
  */
 @property (nonatomic,copy) NSString * expectedRate;
+/**
+ ￥1000起投，1000递增
+ */
+@property (nonatomic,copy) NSString * addCondition;
+/**
+ 可用余额
+ */
+//@property (nonatomic,copy) NSString * availablePoint;
+/**
+收益方法
+ */
+@property (nonatomic,copy) NSString * profitType_UI;
+/**
+服务协议 button str
+ */
+@property (nonatomic,copy) NSString * contractName;
+/**
+ 利率
+ */
+@property (nonatomic,copy) NSString * totalInterest;
 
+/**
+本期余额
+ */
+@property (nonatomic,copy) NSString * remainAmount;
+/**
+ 用户余额
+ */
+@property (nonatomic,copy) NSString * userRemainAmount;
 
 @end

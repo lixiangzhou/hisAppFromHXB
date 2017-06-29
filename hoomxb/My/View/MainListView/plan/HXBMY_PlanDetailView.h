@@ -13,8 +13,16 @@
 #import "HXBBaseView_MoreTopBottomView.h"///多个topBottomView
 @interface HXBMY_PlanDetailView : UIView
 @property (nonatomic,strong) HXBMYViewModel_PlanDetailViewModel *planDetailViewModel;
-
+/**
+ 投资记录的点击事件
+ */
+- (void)clickLoanRecordViewWithBlock: (void (^)(UIView *view))clickLoanRecordView;
+/**
+ 点击了 追加按钮
+ */
+- (void)clickAddButtonWithBlock:(void(^)(UIButton *button))clickAddButtonBlock;
 - (void)setUPValueWithViewManagerBlock: (HXBMY_PlanDetailView_Manager *(^)(HXBMY_PlanDetailView_Manager *manager))viewManagerBlock;
+
 @end
 
 @interface HXBMY_PlanDetailView_Manager : NSObject
@@ -43,5 +51,9 @@
  投资记录
  */
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager      *loanRecordViewManager;
+/**
+ 是否隐藏 加入按钮
+ */
+@property (nonatomic,assign) BOOL isHiddenAddButton;
 
 @end

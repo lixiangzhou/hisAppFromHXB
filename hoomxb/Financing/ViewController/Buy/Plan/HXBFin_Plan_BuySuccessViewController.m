@@ -20,9 +20,16 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(clickLeftBarButtonItem)];
+    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
+    self.hxbBaseVCScrollView.backgroundColor = [UIColor whiteColor];
+
     [self setUPView];
 }
 
+- (void)clickLeftBarButtonItem {
+    [self.navigationController popToRootViewControllerAnimated:true];
+}
 - (void)setUPView {
     
     kWeakSelf

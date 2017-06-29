@@ -25,7 +25,7 @@
 
 #import "HXBMYModel_CapitalRecordDetailModel.h"//主界面 资产记录Model ViewModel 里面加入了（这里不再添加)
 
-
+#import "HXBMY_PlanViewModel_LoanRecordViewModel.h"//plan交易记录
 
 
 @interface HXBMYRequest ()
@@ -359,6 +359,7 @@
         
         [dataArray enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull dic, NSUInteger idx, BOOL * _Nonnull stop) {
             HXBMYViewModel_MainLoanViewModel *viewModel = [[HXBMYViewModel_MainLoanViewModel alloc]init];
+            viewModel.status = request.requestArgument[@"filter"];
             HXBMyModel_MainLoanModel *loanModel = [[HXBMyModel_MainLoanModel alloc]init];
              [loanModel yy_modelSetWithDictionary:dic];
              viewModel.loanModel = loanModel;
@@ -420,8 +421,8 @@
 
 
 
-#pragma mark - 交易记录 接口
-- (void)capitalRecord_requestWithScreenType: (HXBRequestType_MY_tradlist)screenType
+#pragma mark - plan detail 交易记录 接口
+- (void)capitalRecord_requestWithScreenType: (NSString *)screenType
                                andStartDate: (NSString *)startDate
                                 andEndDate: (NSString *)endDate
                                andIsUPData: (BOOL)isUPData 
@@ -432,14 +433,14 @@
     self.capitalRecordAPI.requestUrl = kHXBMY_CapitalRecordURL;
     self.capitalRecordAPI.isUPReloadData = isUPData;
     self.capitalRecordAPI.requestArgument = @{
-                                              @"page" : @(self.capitalRecordAPI.dataPage).description,
-                                            @"filter" : @(screenType).description
-                                              };
+                                            @"page" : @(self.capitalRecordAPI.dataPage).description,
+                                            @"filter" : screenType
+                                            };
     self.capitalRecordAPI.requestMethod = NYRequestMethodGet;
     
     [self.capitalRecordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD
-        
+
         NSDictionary *data = [responseObject valueForKey:@"data"];
         NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
         
@@ -468,6 +469,52 @@
     self.capitalRecordPage ++;
     [self.capitalRecordViewModel_array addObjectsFromArray:viewModeArray];
     return self.capitalRecordViewModel_array;
+}
+
+
+///plan 详情页的 交易记录
+- (void)loanRecord_my_Plan_WithIsUPData: (BOOL)isUPData
+                              andPlanID: (NSString *)planID
+                        andSuccessBlock: (void(^)(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *>* viewModelArray))successDateBlock
+                        andFailureBlock: (void(^)(NSError *error))failureBlock{
+    HXBBaseRequest *loanRecordAPI = [[HXBBaseRequest alloc]init];
+
+    loanRecordAPI.baseUrl = kHXBFin_loanRecordURL(planID);
+    loanRecordAPI.isUPReloadData = isUPData;
+    loanRecordAPI.requestArgument = @{
+                                    @"page" : @(loanRecordAPI.dataPage).description,
+                                      };
+    [loanRecordAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        
+        if (responseObject[kResponseStatus]) {
+            NSLog(@"%@",self);
+        }
+  
+        NSArray <NSDictionary *>*dataArray = responseObject[kResponseData][@"dataList"];
+        NSMutableArray <HXBMY_PlanViewModel_LoanRecordViewModel *>*viewModelArray = [[NSMutableArray alloc]init];
+        HXBMY_PlanModel_LoanRecordModel *planModel = [[HXBMY_PlanModel_LoanRecordModel alloc]init];
+        [dataArray enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [planModel yy_modelSetWithDictionary:obj];
+            HXBMY_PlanViewModel_LoanRecordViewModel *loanRecordViewModel = [[HXBMY_PlanViewModel_LoanRecordViewModel alloc]init];
+            
+            loanRecordViewModel.planLoanRecordModel = planModel;
+            [viewModelArray addObject:loanRecordViewModel];
+        }];
+        
+        if (successDateBlock) {
+            successDateBlock(viewModelArray.copy);
+        }
+        
+        
+      
+        
+        
+        
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        
+    }];
+    
+    
 }
 kDealloc
 @end

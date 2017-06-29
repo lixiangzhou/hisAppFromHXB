@@ -12,6 +12,7 @@
 #import "HXBMYViewModel_MainCapitalRecordViewModel.h"//主界面 资产记录 ViewMOdel
 @class HXBMYModel_AssetStatistics_Plan;//资金统计的Model plan
 @class HXBMYModel_AssetStatistics_Loan;//资金统计的Model loan
+@class HXBMY_PlanViewModel_LoanRecordViewModel;
 
 ///关于个人主页的红利计划的 （账户内）
 @interface HXBMYRequest : NSObject
@@ -41,10 +42,17 @@
                    andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 /// 资金记录 接口
-- (void)capitalRecord_requestWithScreenType: (HXBRequestType_MY_tradlist)screenType
+- (void)capitalRecord_requestWithScreenType: (NSString *)screenType
                                andStartDate: (NSString *)startDate
                                  andEndDate: (NSString *)endDate
                                 andIsUPData: (BOOL)isUPData 
                             andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *>* viewModelArray))successDateBlock
                             andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+
+///plan 详情页的 交易记录
+- (void)loanRecord_my_Plan_WithIsUPData: (BOOL)isUPData
+                              andPlanID: (NSString *)planID
+                        andSuccessBlock: (void(^)(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *>* viewModelArray))successDateBlock
+                        andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end

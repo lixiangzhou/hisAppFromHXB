@@ -35,28 +35,43 @@
     ///还款期数
     @property (nonatomic,strong) UILabel *theNumberOfPeriods_const;
 
+@property (nonatomic,strong) HXBBaseView_MYList_TableViewCellManager *manager;
+
 @end
 
 @implementation HXBBaseView_MYList_TableViewCell
+
+- (void)setUPValueWithManagerBlock:(HXBBaseView_MYList_TableViewCellManager *(^)(HXBBaseView_MYList_TableViewCellManager *))setUPValueManagerBlock {
+    _manager = setUPValueManagerBlock(self.manager);
+    
+    self.nameLable                  .text = _manager.nameLable;
+    self.investmentAmountLable      .text = _manager.investmentAmountLable;
+    self.toBeReceived               .text = _manager.toBeReceived;
+    self.nextRepaymentDay           .text = _manager.nextRepaymentDay;
+    self.theNumberOfPeriods         .text = _manager.theNumberOfPeriods;
+    self.investmentAmountLable_const.text = _manager.investmentAmountLable_const;
+    self.toBeReceived_const         .text = _manager.toBeReceived_const;
+    self.nextRepaymentDay_const     .text = _manager.nextRepaymentDay_const;
+    
+}
 - (void)setPlanViewMode:(HXBMYViewModel_MianPlanViewModel *)planViewMode {
     _planViewMode = planViewMode;
-    self.nameLable.text = planViewMode.planModelDataList.name;//名字
-    self.investmentAmountLable.text = planViewMode.planModelDataList.redProgressLeft;//左边的
-    self.toBeReceived.text = planViewMode.planModelDataList.earnAmount;//计划的 已获利息
-    self.nextRepaymentDay.text = planViewMode.planModelDataList.expectedRate;//预期年利率
-    self.theNumberOfPeriods.text = planViewMode.planModelDataList.status;//计划状态
+    self.nameLable.text                     = planViewMode.planModelDataList.name;//名字
+    self.investmentAmountLable.text         = planViewMode.planModelDataList.redProgressLeft;//左边的
+    self.toBeReceived.text                  = planViewMode.planModelDataList.earnAmount;//计划的 已获利息
+    self.nextRepaymentDay.text              =        planViewMode.planModelDataList.expectedRate;//预期年利率
+    self.theNumberOfPeriods.text            = planViewMode.planModelDataList.status;//计划状态
+    self.investmentAmountLable_const.text   = @"加入金额(元)";
+    self.toBeReceived_const.text            = @"已获收益（元）";
+    self.nextRepaymentDay_const.text        = @"预期年利率";
 }
 - (void)setLoanViewModel:(HXBMYViewModel_MainLoanViewModel *)loanViewModel {
     _loanViewModel = loanViewModel;
-    self.nameLable.text = loanViewModel.loanModel.loanTitle;//名字
-    self.investmentAmountLable.text = loanViewModel.loanModel.amount;//左边的
-    self.toBeReceived.text = loanViewModel.loanModel.toRepay;// 本息
-    self.nextRepaymentDay.text = loanViewModel.loanModel.nextRepayDate;//预期年利率
-    self.theNumberOfPeriods.text = loanViewModel.loanModel.status;//计划状态
 }
-    
+
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        _manager = [[HXBBaseView_MYList_TableViewCellManager alloc]init];
         [self setup];
     }
     return self;
@@ -65,7 +80,7 @@
 - (void) setup {
     //创建UI 并布局
     [self setUPSubView];
-    [self temp];//测试
+//    [self temp];//测试
 }
 
     //创建布局子控件
@@ -79,7 +94,7 @@
     self.nextRepaymentDay = [[UILabel alloc]init];
     self.nextRepaymentDay_const = [[UILabel alloc]init];
     self.theNumberOfPeriods = [[UILabel alloc]init];
-    self.theNumberOfPeriods_const = [[UILabel alloc]init];
+//    self.theNumberOfPeriods_const = [[UILabel alloc]init];
     
     [self.contentView addSubview:self.nameLable];
 //    [self.contentView addSubview:self.nameLable_const];
@@ -90,7 +105,7 @@
     [self.contentView addSubview:self.nextRepaymentDay];
     [self.contentView addSubview:self.nextRepaymentDay_const];
     [self.contentView addSubview:self.theNumberOfPeriods];
-    [self.contentView addSubview:self.theNumberOfPeriods_const];
+//    [self.contentView addSubview:self.theNumberOfPeriods_const];
     self.investmentAmountLable_const.text = @"加入金额(元)";
     self.toBeReceived_const.text = @"已获收益（元）";
     self.nextRepaymentDay_const.text = @"预期年利率";
@@ -146,17 +161,17 @@
         make.centerX.equalTo(weakSelf.nextRepaymentDay).offset(kScrAdaptationW(0));
     }];
     
-    ///退出
-    [self.theNumberOfPeriods_const mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.centerY.equalTo(weakSelf.nameLable).offset(kScrAdaptationH(0));
-        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW(-20));
-    }];
+//    ///退出
+//    [self.theNumberOfPeriods_const mas_makeConstraints:^(MASConstraintMaker *make) {
+//        
+//        make.centerY.equalTo(weakSelf.nameLable).offset(kScrAdaptationH(0));
+//        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW(-20));
+//    }];
     ///退出日期
     [self.theNumberOfPeriods mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerY.equalTo(weakSelf.nameLable).offset(kScrAdaptationH(0));
-        make.right.equalTo(weakSelf.theNumberOfPeriods_const.mas_left).offset(kScrAdaptationW(-20));
+        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
     }];
 }
 
@@ -175,6 +190,12 @@
     self.theNumberOfPeriods_const.text = @"退出";
 }
 
+
+
+@end
+
+
+@implementation HXBBaseView_MYList_TableViewCellManager
 
 
 @end

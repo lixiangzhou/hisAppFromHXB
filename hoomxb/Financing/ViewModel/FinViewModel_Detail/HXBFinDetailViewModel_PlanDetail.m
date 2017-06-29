@@ -98,13 +98,7 @@
 
 - (void)setAddButtonStrValue {
     self.isAddButtonInteraction = false;
-    if (self.planDetailModel.isFirst.integerValue) {
-        self.addButtonStr = @"立即加入";
-        self.isAddButtonInteraction = true;
-    }else {
-        self.addButtonStr = @"追加";
-        self.isAddButtonInteraction = false;
-    }
+ 
     switch ([self.planDetailModel.unifyStatus integerValue]) {
         case 0:
 //            self.addButtonStr = @"等待预售开始超过30分";
@@ -134,6 +128,14 @@
         case 6:
             self.addButtonStr = @"立即加入";
             self.isAddButtonInteraction = true;
+            if (self.planDetailModel.isFirst.integerValue) {
+                self.addButtonStr = @"立即加入";
+                self.isAddButtonInteraction = true;
+            }else {
+                self.addButtonStr = @"追加";
+                
+                self.isAddButtonInteraction = true;
+            }
             break;
         case 7:
             self.addButtonStr = @"等待计息";

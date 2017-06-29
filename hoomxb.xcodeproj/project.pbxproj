@@ -214,6 +214,10 @@
 		E165EABA1EF8E82F00D68763 /* HXBFin_Plan_BuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E165EAB51EF8E82F00D68763 /* HXBFin_Plan_BuyViewController.m */; };
 		E165EABB1EF8E82F00D68763 /* HXBFinBuy_plan_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E165EAB71EF8E82F00D68763 /* HXBFinBuy_plan_ViewController.m */; };
 		E166C58B1F034DB400AA14F4 /* HXBFin_Plan_BugFailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E166C58A1F034DB400AA14F4 /* HXBFin_Plan_BugFailViewController.m */; };
+		E166C58E1F0375DC00AA14F4 /* HXBMY_Capital_Sift_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E166C58D1F0375DC00AA14F4 /* HXBMY_Capital_Sift_ViewController.m */; };
+		E166C5921F03D0D700AA14F4 /* HXBMY_Plan_Capital_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E166C5911F03D0D700AA14F4 /* HXBMY_Plan_Capital_ViewController.m */; };
+		E166C5961F03D6C200AA14F4 /* HXBMY_PlanModel_LoanRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E166C5951F03D6C200AA14F4 /* HXBMY_PlanModel_LoanRecordModel.m */; };
+		E166C5991F03D80200AA14F4 /* HXBMY_PlanViewModel_LoanRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E166C5981F03D80200AA14F4 /* HXBMY_PlanViewModel_LoanRecordViewModel.m */; };
 		E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */; };
 		E173D6681F0119DD00D04BDA /* HXBMY_Loan_DetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E173D6671F0119DD00D04BDA /* HXBMY_Loan_DetailView.m */; };
 		E17509AF1EC6D58900E17B39 /* HXBBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E17509AE1EC6D58900E17B39 /* HXBBaseWebViewController.m */; };
@@ -709,6 +713,14 @@
 		E165EAB71EF8E82F00D68763 /* HXBFinBuy_plan_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinBuy_plan_ViewController.m; sourceTree = "<group>"; };
 		E166C5891F034DB400AA14F4 /* HXBFin_Plan_BugFailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_Plan_BugFailViewController.h; sourceTree = "<group>"; };
 		E166C58A1F034DB400AA14F4 /* HXBFin_Plan_BugFailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Plan_BugFailViewController.m; sourceTree = "<group>"; };
+		E166C58C1F0375DC00AA14F4 /* HXBMY_Capital_Sift_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_Capital_Sift_ViewController.h; sourceTree = "<group>"; };
+		E166C58D1F0375DC00AA14F4 /* HXBMY_Capital_Sift_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_Capital_Sift_ViewController.m; sourceTree = "<group>"; };
+		E166C5901F03D0D700AA14F4 /* HXBMY_Plan_Capital_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_Plan_Capital_ViewController.h; sourceTree = "<group>"; };
+		E166C5911F03D0D700AA14F4 /* HXBMY_Plan_Capital_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_Plan_Capital_ViewController.m; sourceTree = "<group>"; };
+		E166C5941F03D6C200AA14F4 /* HXBMY_PlanModel_LoanRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_PlanModel_LoanRecordModel.h; sourceTree = "<group>"; };
+		E166C5951F03D6C200AA14F4 /* HXBMY_PlanModel_LoanRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_PlanModel_LoanRecordModel.m; sourceTree = "<group>"; };
+		E166C5971F03D80200AA14F4 /* HXBMY_PlanViewModel_LoanRecordViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_PlanViewModel_LoanRecordViewModel.h; sourceTree = "<group>"; };
+		E166C5981F03D80200AA14F4 /* HXBMY_PlanViewModel_LoanRecordViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_PlanViewModel_LoanRecordViewModel.m; sourceTree = "<group>"; };
 		E173D6631F00D75300D04BDA /* HXBEnumerateTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBEnumerateTransitionManager.h; sourceTree = "<group>"; };
 		E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBEnumerateTransitionManager.m; sourceTree = "<group>"; };
 		E173D6661F0119DD00D04BDA /* HXBMY_Loan_DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_Loan_DetailView.h; sourceTree = "<group>"; };
@@ -1637,6 +1649,8 @@
 				E1270B351ECED1F300729BC9 /* HXBMYViewModel_MianPlanViewModel.m */,
 				E1270B391ECED23F00729BC9 /* HXBMYViewModel_PlanDetailViewModel.h */,
 				E1270B3A1ECED23F00729BC9 /* HXBMYViewModel_PlanDetailViewModel.m */,
+				E166C5971F03D80200AA14F4 /* HXBMY_PlanViewModel_LoanRecordViewModel.h */,
+				E166C5981F03D80200AA14F4 /* HXBMY_PlanViewModel_LoanRecordViewModel.m */,
 			);
 			path = MYPlan_ViewModel;
 			sourceTree = "<group>";
@@ -1674,6 +1688,8 @@
 				E1270B441ECED2D000729BC9 /* HXBMYModel_MainPlanModel.m */,
 				E1270B481ECED2E900729BC9 /* HXBMYModel_PlanDetailModel.h */,
 				E1270B491ECED2E900729BC9 /* HXBMYModel_PlanDetailModel.m */,
+				E166C5941F03D6C200AA14F4 /* HXBMY_PlanModel_LoanRecordModel.h */,
+				E166C5951F03D6C200AA14F4 /* HXBMY_PlanModel_LoanRecordModel.m */,
 			);
 			path = HXBMY_PlanModel;
 			sourceTree = "<group>";
@@ -2271,6 +2287,15 @@
 			path = ContractWebView;
 			sourceTree = "<group>";
 		};
+		E166C58F1F03D0B200AA14F4 /* MY_PlanCapitalRecord */ = {
+			isa = PBXGroup;
+			children = (
+				E166C5901F03D0D700AA14F4 /* HXBMY_Plan_Capital_ViewController.h */,
+				E166C5911F03D0D700AA14F4 /* HXBMY_Plan_Capital_ViewController.m */,
+			);
+			path = MY_PlanCapitalRecord;
+			sourceTree = "<group>";
+		};
 		E17509B01EC6E0BC00E17B39 /* ContractWebView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2318,6 +2343,8 @@
 			children = (
 				E17E6AE51ECDA46B0046888B /* HXBMY_CapitalRecordViewController.h */,
 				E17E6AE61ECDA46B0046888B /* HXBMY_CapitalRecordViewController.m */,
+				E166C58C1F0375DC00AA14F4 /* HXBMY_Capital_Sift_ViewController.h */,
+				E166C58D1F0375DC00AA14F4 /* HXBMY_Capital_Sift_ViewController.m */,
 			);
 			path = MY_CapitalRecordController;
 			sourceTree = "<group>";
@@ -2346,6 +2373,7 @@
 			children = (
 				E189D7551ECAD9F3004DB1DC /* HXBMY_PlanListViewController.h */,
 				E189D7561ECAD9F3004DB1DC /* HXBMY_PlanListViewController.m */,
+				E166C58F1F03D0B200AA14F4 /* MY_PlanCapitalRecord */,
 				E1270B221ECED04D00729BC9 /* MY_Plan_Details */,
 			);
 			path = MY_PlanController;
@@ -3093,7 +3121,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3111,12 +3139,15 @@
 				4E94B2781ECC1B13003CCBA7 /* HXBBaseTableView_MYPlanList_TableView.m in Sources */,
 				E133DCED1EEE3597009466DE /* HXBSign_InAndUPViewModel.m in Sources */,
 				4EB45DAB1EF7ACCE00C2CF21 /* HXBHomeTitleModel.m in Sources */,
+				E166C5961F03D6C200AA14F4 /* HXBMY_PlanModel_LoanRecordModel.m in Sources */,
 				E1CD4BD21ED83064000CC57B /* HXBBaseHandDate.m in Sources */,
 				E1625B2E1EFBE63000FE9ABF /* HXBBaseView_HaveLabel_TopBottomView.m in Sources */,
 				E1270B2C1ECED0CA00729BC9 /* HXBMYReqest_DetailRequest.m in Sources */,
+				E166C5991F03D80200AA14F4 /* HXBMY_PlanViewModel_LoanRecordViewModel.m in Sources */,
 				E133DCE21EEE3597009466DE /* HXBSendSmscodeView.m in Sources */,
 				4EAD98E41EB87D290029A3FF /* HXBBannerView.m in Sources */,
 				E133DD3E1EEEC14C009466DE /* NYNetworkConfig.m in Sources */,
+				E166C5921F03D0D700AA14F4 /* HXBMY_Plan_Capital_ViewController.m in Sources */,
 				E17E6ADA1ECD826D0046888B /* HXBMY_LoanListViewController.m in Sources */,
 				E1247B421ECC2AD000B2CD7C /* HXBMainListView_Loan_TopView.m in Sources */,
 				E165EABB1EF8E82F00D68763 /* HXBFinBuy_plan_ViewController.m in Sources */,
@@ -3185,6 +3216,7 @@
 				E17509C01EC6F38900E17B39 /* HXBFinContract_contraceWebViewVC_Loan.m in Sources */,
 				E10EB4AC1EEFDFE800F16CFA /* HxbWithdrawCardViewController.m in Sources */,
 				E1E5885A1EE165BF0045C4AE /* AnimatedTransition.m in Sources */,
+				E166C58E1F0375DC00AA14F4 /* HXBMY_Capital_Sift_ViewController.m in Sources */,
 				E1270B781ECEEC9D00729BC9 /* HXBMY_PlanDetail_TypeCell.m in Sources */,
 				E1C964771EA5E04F0066DBC4 /* HXBBaseCollectionView.m in Sources */,
 				4E8198AE1EC44BCE00D668A1 /* HXBHomePageModuleView.m in Sources */,

@@ -95,7 +95,6 @@
     self.promptStr                  = viewModelVM.promptStr;
     self.addButtonStr               = viewModelVM.addButtonStr;
     self.lockPeriodStr              = viewModelVM.lockPeriodStr;
-    
     [self show];
 }
 
@@ -112,10 +111,15 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+        [self show];
+        [self setSubView];
     }
     return self;
 }
 
+- (void)setSubView {
+    
+}
 - (void)show {
     //移除子控件，在进行UI布局
     for (UIView *subView in self.subviews) {

@@ -17,7 +17,10 @@
  上下间距
  */
 @property (nonatomic,assign) CGFloat topBottomSpace;
-
+/**
+ 左边占的总体长度的比例 （左 : 全部）
+ */
+@property (nonatomic,assign) CGFloat leftProportion;
 /**
  管理者
  */
@@ -58,12 +61,13 @@
 //        }
 //    }
 //}
-- (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass: (Class)clas andViewHeight: (CGFloat)viewH andTopBottomSpace: (CGFloat)topBottomSpace{
+- (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass: (Class)clas andViewHeight: (CGFloat)viewH andTopBottomSpace: (CGFloat)topBottomSpace andLeftRightLeftProportion: (CGFloat)leftProportion{
     if (self = [super initWithFrame:frame]) {
         _viewManager = [[HXBBaseView_MoreTopBottomViewManager alloc]init];
         [self setUPViewsCreatWithTopBottomViewNumber:topBottomViewNumber andViewClass:clas];
         self.viewH = viewH;
         self.topBottomSpace = topBottomSpace;
+        self.leftProportion = leftProportion;
         [self setUPViews_frame];
     }
     return self;
@@ -121,25 +125,25 @@
         if (i == 0) {
             [self.leftViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.left.equalTo(self);
+                make.width.equalTo(self.mas_width).multipliedBy(self.leftProportion);
                 make.height.equalTo(@(self.viewH));
-                make.right.equalTo(self.mas_centerX);
             }];
             [self.rightViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.bottom.equalTo(self.leftViewArray[i]);
-                make.left.equalTo(self.mas_centerX);
+                make.left.equalTo(self.leftViewArray[i].mas_right);
                 make.right.equalTo(self);
             }];
         } else {
             [self.leftViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.leftViewArray[i - 1].mas_bottom).offset(self.topBottomSpace);
-                make.left.equalTo(self);
-                make.height.equalTo(@(self.viewH));
-                make.right.equalTo(self.leftViewArray[i - 1].mas_right);
+                make.left.equalTo(self.leftViewArray[i - 1]);
+                make.height.equalTo(self.leftViewArray[i - 1]);
+                make.width.equalTo(self.leftViewArray[i - 1]);
             }];
             [self.rightViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.top.equalTo(self.leftViewArray[i]);
                 make.left.equalTo(self.leftViewArray[i].mas_right);
-                make.right.equalTo(self);
+                make.right.equalTo(self.rightViewArray[i - 1]);
             }];
         }
     }

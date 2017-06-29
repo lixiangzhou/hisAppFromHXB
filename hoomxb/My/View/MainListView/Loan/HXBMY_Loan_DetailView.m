@@ -104,12 +104,12 @@
 }
 //中间的infoView
 - (void)setUPInfoView {
-    self.infoView = [[HXBBaseView_MoreTopBottomView alloc] initWithFrame:CGRectZero andTopBottomViewNumber:5 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(30) andTopBottomSpace:0];
+    self.infoView = [[HXBBaseView_MoreTopBottomView alloc] initWithFrame:CGRectZero andTopBottomViewNumber:5 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(30) andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
     [self addSubview:self.infoView];
 }
 //合同
 - (void)setUPContractLabel {
-    self.contractLabel = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0];
+    self.contractLabel = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
     [self addSubview:self.contractLabel];
 }
 //设置frame

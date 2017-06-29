@@ -19,6 +19,16 @@
 - (BOOL)isAddButtonEndEditing {
     return true;
 }
+
+/**
+ 剩余期限
+ */
+//- (NSString *) loanPeriodStr {
+//    if (!_loanPeriodStr) {
+//        _loanPeriodStr = [NSString stringWithFormat:@"%@%@",self.loanDetailModel]
+//    }
+//    return <#obj#>
+//}
 /**
  标的状态
  */

@@ -25,7 +25,7 @@
                                                     };
     
     [mobifyPassword_LoginRequest startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        if ([responseObject valueForKey:@"status"]) {
+        if ([[responseObject valueForKey:@"status"] integerValue]) {
             NSLog(@"%@",responseObject);
             NSLog(@"修改登录密码失败");
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];

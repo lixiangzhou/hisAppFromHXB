@@ -65,7 +65,23 @@ UITableViewDataSource
     if (self.mainPlanViewModelArray) {
         cell.planViewMode = self.mainPlanViewModelArray[indexPath.row];
     }else {
-        cell.loanViewModel = self.mainLoanViewModelArray[indexPath.row];
+        HXBMYViewModel_MainLoanViewModel *loanViewModel = self.mainLoanViewModelArray[indexPath.row];
+        cell.loanViewModel = loanViewModel;
+        [cell setUPValueWithManagerBlock:^HXBBaseView_MYList_TableViewCellManager *(HXBBaseView_MYList_TableViewCellManager *manager) {
+            
+            manager.nameLable = loanViewModel.loanModel.loanTitle;
+            manager.investmentAmountLable_const = loanViewModel.investmentAmountLable_const;
+            manager.investmentAmountLable = loanViewModel.amount;
+            
+            manager.toBeReceived_const = loanViewModel.toBeReceived_const;
+            manager.toBeReceived = loanViewModel.toRepayCellValue;
+            
+            manager.nextRepaymentDay_const = loanViewModel.nextRepaymentDay_const;
+            manager.nextRepaymentDay = loanViewModel.nextRepayDateCellValue;
+            
+            manager.theNumberOfPeriods = loanViewModel.goBackLoanTimeCellValue;
+            return manager;
+        }];
     }
     return cell;
 }

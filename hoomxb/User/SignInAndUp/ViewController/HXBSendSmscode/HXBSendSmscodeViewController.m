@@ -49,15 +49,14 @@
     [self.smscodeView clickSendSmscodeButtonWithBlock:^{
        //请求网络数据
         [HXBSignUPAndLoginRequest smscodeRequestWithMobile:weakSelf.phonNumber andAction:weakSelf.type andCaptcha:weakSelf.captcha andSuccessBlock:^(BOOL isSuccessBlock) {
-            [[KeyChainManage sharedInstance] setMobile:weakSelf.phonNumber];
-            [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
-            }];
+           
             [weakSelf.navigationController popToRootViewControllerAnimated:true];
             NSLog(@"密码设置成功");
             
             switch (weakSelf.type) {
                 case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
                     NSLog(@"重置登录密码");
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
 //                    [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 //                        if ([obj isKindOfClass:[HxbAccountInfoViewController class]]) {
 //                            [self.navigationController popToViewController:obj animated:true];
@@ -68,6 +67,9 @@
                     break;
                 case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
                     NSLog(@"注册");
+                    [[KeyChainManage sharedInstance] setMobile:weakSelf.phonNumber];
+                    [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
+                    }];
                     break;
             }
         } andFailureBlock:^(NSError *error) {

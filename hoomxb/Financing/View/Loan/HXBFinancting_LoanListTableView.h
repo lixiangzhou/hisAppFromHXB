@@ -17,4 +17,6 @@
 @property (nonatomic,strong) NSString *lockPeriodLabel_ConstStr;
 ///数据源
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList *>*loanListViewModelArray;
+
+- (void)setSubView;
 @end
