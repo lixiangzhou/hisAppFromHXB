@@ -182,7 +182,7 @@ kDealloc
 ///搭建scrollToolBarView；
 - (void)createScrollToolBarView {
     kWeakSelf
-    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 64, self.width, self.height - 64) andTopView:self.loanTopView andTopViewH:300 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:30 andBottomViewSet:self.tableViewArray];
+    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 64, self.width, self.height - 64) andTopView:self.loanTopView andTopViewH:150 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:30 andBottomViewSet:self.tableViewArray];
     [self.scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
         weakSelf.switchBottomScrollViewBlock ? weakSelf.switchBottomScrollViewBlock(index,title,option) : nil;
     }];

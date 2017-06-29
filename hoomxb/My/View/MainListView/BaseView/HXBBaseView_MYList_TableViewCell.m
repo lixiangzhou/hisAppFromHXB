@@ -44,7 +44,12 @@
     self.investmentAmountLable.text = planViewMode.planModelDataList.redProgressLeft;//左边的
     self.toBeReceived.text = planViewMode.planModelDataList.earnAmount;//计划的 已获利息
     self.nextRepaymentDay.text = planViewMode.planModelDataList.expectedRate;//预期年利率
-    self.theNumberOfPeriods.text = [NSString stringWithFormat:@"%@%@",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:planViewMode.planModelDataList.endLockingTime andDateFormat:@"yyyy-MM-dd"], planViewMode.status];//计划状态
+    if ([planViewMode.status isEqualToString:@"等待计息"]) {
+        self.theNumberOfPeriods.text = planViewMode.status;//计划状态
+    }else
+    {
+        self.theNumberOfPeriods.text = [NSString stringWithFormat:@"%@%@",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:planViewMode.planModelDataList.endLockingTime andDateFormat:@"yyyy-MM-dd"], planViewMode.status];//计划状态
+    }
     
 }
 - (void)setLoanViewModel:(HXBMYViewModel_MainLoanViewModel *)loanViewModel {
@@ -173,7 +178,7 @@
     self.theNumberOfPeriods.text = @"12.08%";
     self.investmentAmountLable_const.text = @"加入金额(元)";
     self.toBeReceived_const.text = @"已获收益（元）";
-    self.theNumberOfPeriods_const.text = @"退出";
+//    self.theNumberOfPeriods_const.text = @"退出";
 }
 
 

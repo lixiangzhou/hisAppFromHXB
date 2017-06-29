@@ -10,12 +10,12 @@
 #pragma  mark ========== plan ======================
 ///计划类型（PURCHASE_END：收益中，PURCHASEING：等待计息)
 ///收益中
-static NSString *const MY_PlanResponsType_PURCHASE_END_Plan = @"退出";
+static NSString *const MY_PlanResponsType_PURCHASE_END_Plan = @"PURCHASE_END";//收益中
 ///等待计息
-static NSString *const MY_PlanResponsType_PURCHASEING_Plan = @"等待计息";
+static NSString *const MY_PlanResponsType_PURCHASEING_Plan = @"PURCHASEING";//等待计息
 
 static NSString *const MY_PlanRequestType_HOLD_PLAN         = @"HOLD_PLAN";
-static NSString *const MY_PlanRequestType_HOLD_PLAN_UI      = @"等待计息";
+static NSString *const MY_PlanRequestType_HOLD_PLAN_UI      = @"持有中";
 static NSString *const MY_PlanRequestType_EXITING_PLAN      = @"EXITING_PLAN";
 static NSString *const MY_PlanRequestType_EXITING_PLAN_UI   = @"退出中";
 static NSString *const MY_PlanRequestType_EXIT_PLAN         = @"EXIT_PLAN";
@@ -43,9 +43,9 @@ typedef enum : NSUInteger {
  PURCHASE_END：等待计息
  */
 typedef enum : NSUInteger {
-    ///REDEMPTION_PERIOD：收益中，
+    ///REDEMPTION_PERIOD：等待计息，
     HXBRequestType_MY_PlanResponseStatus_REDEMPTION_PERIOD,
-    ///PURCHASE_END：等待计息
+    ///PURCHASE_END：收益中
     HXBRequestType_MY_PlanResponseStatus_PURCHASE_END,
 }HXBRequestType_MY_PlanResponseStatus;
 

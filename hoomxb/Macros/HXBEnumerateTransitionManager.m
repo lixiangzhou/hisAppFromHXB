@@ -52,11 +52,11 @@
     NSString *statusStr = @"";
     switch (status) {
         case HXBRequestType_MY_PlanResponseStatus_PURCHASE_END:
-            statusStr = MY_PlanResponsType_PURCHASE_END_Plan;
+            statusStr = @"退出";
             break;
             
         case HXBRequestType_MY_PlanResponseStatus_REDEMPTION_PERIOD:
-            statusStr = MY_PlanResponsType_PURCHASEING_Plan;
+            statusStr = @"等待计息";
             break;
     }
     if (!statusStr.length) {
@@ -67,8 +67,8 @@
 
 ///把计划状态 变成枚举值
 + (HXBRequestType_MY_PlanResponseStatus)myPlan_ResponsStatusStr: (NSString *)responsStr {
-    if ([responsStr isEqualToString:MY_PlanResponsType_PURCHASE_END_Plan]) return HXBRequestType_MY_PlanResponseStatus_PURCHASE_END;//等待计息
-    if ([responsStr isEqualToString:MY_PlanResponsType_PURCHASEING_Plan]) return HXBRequestType_MY_PlanResponseStatus_REDEMPTION_PERIOD;//收益中
+    if ([responsStr isEqualToString:MY_PlanResponsType_PURCHASE_END_Plan]) return HXBRequestType_MY_PlanResponseStatus_PURCHASE_END;//收益中
+    if ([responsStr isEqualToString:MY_PlanResponsType_PURCHASEING_Plan]) return HXBRequestType_MY_PlanResponseStatus_REDEMPTION_PERIOD;//等待计息
     NSLog(@"%@无法判断 （等待计息 还是 收益中），",self.class);
     return LONG_MAX;
 }
