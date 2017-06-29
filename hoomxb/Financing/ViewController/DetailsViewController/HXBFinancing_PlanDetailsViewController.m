@@ -24,6 +24,8 @@
 #import "HXBFinBuy_plan_ViewController.h"//计划加入
 #import "HXBFin_Plan_BuyViewController.h"//加入 界面
 
+#import "HxbSecurityCertificationViewController.h"///安全认证
+
 @interface HXBFinancing_PlanDetailsViewController ()
 @property(nonatomic,strong) HXBFin_DetailsView_PlanDetailsView *planDetailsView;
 ///底部点的cellModel
@@ -37,6 +39,7 @@
 ///addButtonStr
 @property (nonatomic,weak) HXBFin_DetailsViewBase_ViewModelVM *planDetailVM;
 @property (nonatomic,copy) NSString *availablePoint;//可用余额；
+@property (nonatomic,assign) BOOL isIdPassed;
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
@@ -117,8 +120,10 @@
     [self downLoadData];
     [self registerClickCell];
     [self registerClickAddButton];
+    
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
+        _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
     } andFailure:^(NSError *error) {
         
     }];
@@ -182,15 +187,22 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
+        //判断是否风险测评
+        if(!self.isIdPassed) {
+            ///没有实名
+            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
+            securityCertificationVC.popToClass = NSStringFromClass([self class]);
+            [self.navigationController pushViewController:securityCertificationVC animated:true];
+            return;
+        }
         //跳转加入界面
-        
         HXBFin_Plan_BuyViewController *planJoinVC = [[HXBFin_Plan_BuyViewController alloc]init];
         planJoinVC.title = @"加入计划";
         planJoinVC.planViewModel = weakSelf.planDetailViewModel;
         [planJoinVC setCallBackBlock:^{
             [self.navigationController popoverPresentationController];
         }];
-    
+        
         planJoinVC.availablePoint = _availablePoint;
         [weakSelf.navigationController pushViewController:planJoinVC animated:true];
     }];

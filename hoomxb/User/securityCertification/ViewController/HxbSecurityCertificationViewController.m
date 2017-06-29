@@ -38,7 +38,14 @@
                     HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];
                     [self.navigationController pushViewController:bindCardVC animated:YES];
                 }else {
-                    [self dismissViewControllerAnimated:true completion:nil];
+                    __block UIViewController *viewController = nil;
+                    [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
+                        if ([VC isKindOfClass:NSClassFromString(self.popToClass)]) {
+                            viewController = VC;
+                            * stop = true;
+                        }
+                    }];
+                    [self.navigationController popToViewController:viewController animated:true];
                 }
             } andFailure:^(NSError *error) {
                 
@@ -48,7 +55,6 @@
             
         }];
     }];
-   
 }
 
 - (void)requestSecurityCertification {
