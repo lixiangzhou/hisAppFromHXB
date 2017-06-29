@@ -226,5 +226,10 @@
     }
     return _agreementTitle;
 }
-
+- (NSString *)remainTime {
+    if (!_remainTime) {
+        _remainTime  = self.loanDetailModel.remainTime;
+    }
+    return _remainTime;
+}
 @end

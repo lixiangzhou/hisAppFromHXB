@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HXBFinDatailModel_LoanDetail;
+#import "HXBFinDatailModel_LoanDetail.h"
 ///散标投递的详情页的ViewModel
 @interface HXBFinDetailViewModel_LoanDetail : NSObject
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail *loanDetailModel;
@@ -56,5 +56,8 @@
  addButton是否可以点击
  */
 @property (nonatomic,assign) BOOL isAddButtonEditing;
-
+/**
+ 时间
+ */
+@property (nonatomic,copy) NSString *remainTime;
 @end

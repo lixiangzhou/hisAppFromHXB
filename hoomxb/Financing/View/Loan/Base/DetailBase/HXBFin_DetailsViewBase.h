@@ -74,7 +74,8 @@
 
 ///* 预期收益不代表实际收益投资需谨慎
 @property (nonatomic,copy) NSString *promptStr;
-
+/// title
+@property (nonatomic,copy) NSString *title;
 ///预期计划
 @property (nonatomic,copy) NSString *totalInterestStr;
 ///红利计划为：预期年利率 散标为：年利率
@@ -91,6 +92,12 @@
 @property (nonatomic,copy) NSString *addButtonStr;
 ///期限的string
 @property (nonatomic,copy) NSString *lockPeriodStr;
+/// 倒计时时间
+@property (nonatomic,copy) NSString *countDownStr;
+
+/// 倒计时
+@property (nonatomic,copy) NSString *remainTime;
+
 ///是否可以点击 addbutton
 @property (nonatomic,assign) BOOL isUserInteractionEnabled;
 - (void) addButtonChengeTitleChenge: (void(^)(NSString *title))addButtonChengeTitleBlock;

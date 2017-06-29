@@ -1,4 +1,4 @@
-//
+ //
 //  HXBFin_DetailsViewBase.m
 //  hoomxb
 //
@@ -34,6 +34,8 @@
 @property (nonatomic,strong) HXBFinBase_FlowChartView *flowChartView;
 ///立即加入视图
 @property (nonatomic,strong) UIView *addView;
+///立即加入 倒计时
+@property (nonatomic,strong) UILabel *countDownLabel;
 ///* 预期收益不代表实际收益投资需谨慎
 @property (nonatomic,copy) NSString *promptStr;
 /// 底部的tableView
@@ -79,6 +81,8 @@
 
 - (void)setUPViewModelVM: (HXBFin_DetailsViewBase_ViewModelVM* (^)(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM))detailsViewBase_ViewModelVMBlock {
     self.viewModelVM = detailsViewBase_ViewModelVMBlock(self.viewModelVM);
+    ///倒计时
+    self.countDownLabel.text = _viewModelVM.remainTime;
 }
 
 
@@ -140,7 +144,6 @@
     self.surplusValueView.backgroundColor = [UIColor whiteColor];
     self.flowChartView.backgroundColor = [UIColor darkGrayColor];
     self.addView.backgroundColor = [UIColor grayColor];
-
 }
 
 //MARK: - 预期年化的view
@@ -253,6 +256,16 @@
     self.addButton.backgroundColor = [UIColor blackColor];
     [self.addButton setTitle:self.addButtonStr forState:UIControlStateNormal];
     self.addButton.userInteractionEnabled = self.viewModelVM.isUserInteractionEnabled;
+    
+    self.countDownLabel = [[UILabel alloc]init];
+    [self addSubview: self.countDownLabel];
+    [self.countDownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.addButton.mas_top);
+        make.centerX.equalTo(self.addButton);
+        make.height.equalTo(@(kScrAdaptationH(30)));
+    }];
+    
+    //倒计时时间
 }
 
 - (void)clickAddButton: (UIButton *)button {
@@ -330,6 +343,8 @@
 
 @interface HXBFin_DetailsViewBase_ViewModelVM ()
 @property (nonatomic,copy) void(^addButtonChengeTitleBlock)(NSString *buttonTitle);
+@property (nonatomic,strong) NSTimer *timer;
+@property (nonatomic,copy) NSString *countDownTemp;
 @end
 @implementation HXBFin_DetailsViewBase_ViewModelVM
 - (void)setAddButtonStr:(NSString *)addButtonStr {
@@ -341,4 +356,28 @@
 - (void)addButtonChengeTitleChenge:(void (^)(NSString *))addButtonChengeTitleBlock {
     self.addButtonChengeTitleBlock = addButtonChengeTitleBlock;
 }
+//懒加载
+- (NSTimer *) timer {
+    if (!_timer) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(addTimeFunc) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+        [_timer fire];
+    }
+    return _timer;
+}
+/**
+ 加入时间
+ */
+- (void) addTimeFunc {
+    self.countDownStr = @(self.countDownStr.integerValue - 1000).description;
+}
+- (void)setCountDownStr:(NSString *)countDownStr {
+    _countDownStr = countDownStr;
+    if (self.countDownStr.integerValue < 60 * 60 * 1000) {
+        [self timer];
+    }
+    _countDownStr = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:countDownStr andDateFormat:@"d天h时"];
+    _countDownStr = [NSString stringWithFormat:@"剩余投标时间：%@",_countDownStr];
+}
+
 @end

@@ -19,7 +19,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.securityCertificationButton];
-    
+    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"红利计划##" style:UIBarButtonItemStylePlain target:self action:@selector(clickLeftBarButtonItem:)];
+    self.navigationItem.backBarButtonItem = leftBarButtonItem;
+
+}
+
+- (void)clickLeftBarButtonItem : (UIBarButtonItem *)button {
+    [[NSNotificationCenter defaultCenter]postNotificationName:kHXBBotification_ShowHomeVC object:nil];
 }
 
 - (void)securityCertificationButtonClick:(UIButton *)sender{

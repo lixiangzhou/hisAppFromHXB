@@ -9,5 +9,8 @@
 #import "HXBFin_DetailsViewBase.h"
 
 @interface HXBFin_DetailsView_LoanDetailsView : HXBFin_DetailsViewBase
+///期限
 @property (nonatomic,copy) NSString *timeStr;
+///倒计时label
+@property (nonatomic,copy) NSString *countDownStr;
 @end
