@@ -168,4 +168,9 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
     }
     return self;
 }
+//- (NSString *)balanceLabelStr {
+//    if (!_balanceLabelStr) {
+//        
+//    }
+//}
 @end

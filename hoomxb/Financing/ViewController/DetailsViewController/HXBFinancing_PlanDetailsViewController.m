@@ -36,6 +36,7 @@
 @property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planDetailViewModel;
 ///addButtonStr
 @property (nonatomic,weak) HXBFin_DetailsViewBase_ViewModelVM *planDetailVM;
+@property (nonatomic,copy) NSString *availablePoint;//可用余额；
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
@@ -116,6 +117,11 @@
     [self downLoadData];
     [self registerClickCell];
     [self registerClickAddButton];
+    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        _availablePoint = viewModel.availablePoint;
+    } andFailure:^(NSError *error) {
+        
+    }];
 }
 
 //MARK: ------ setup -------
@@ -184,6 +190,8 @@
         [planJoinVC setCallBackBlock:^{
             [self.navigationController popoverPresentationController];
         }];
+    
+        planJoinVC.availablePoint = _availablePoint;
         [weakSelf.navigationController pushViewController:planJoinVC animated:true];
     }];
 }

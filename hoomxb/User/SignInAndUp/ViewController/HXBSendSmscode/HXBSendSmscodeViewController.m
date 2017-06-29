@@ -23,6 +23,7 @@
     [self setUPView];//视图设置
     [self registerEvent];//事件注册
 //    [self sendSmscode];//
+       [self sendSmscode];
 }
 
 - (void)setUPView {
@@ -42,6 +43,7 @@
     [self registerSendSmscode];
     ///点击确认设置密码
     [self registerPassword];
+ 
 }
 
 
@@ -57,8 +59,7 @@
     //请求网络数据
     [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:self.captcha andSuccessBlock:^(BOOL isSuccessBlock) {
         
-        [self.navigationController popToRootViewControllerAnimated:true];
-        NSLog(@"密码设置成功");
+     
         
         switch (weakSelf.type) {
             case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
@@ -74,7 +75,6 @@
                 break;
             case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
                 NSLog(@"注册");
-                [[KeyChainManage sharedInstance] setMobile:self.phonNumber];
                 [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
                 }];
                 break;
@@ -87,7 +87,7 @@
 - (void)registerPassword {
     __weak typeof(self)weakSelf = self;
     [self.smscodeView clickSetPassWordButtonFunc:^(NSString *password, NSString *smscode,NSString *inviteCode) {
-        
+       
         if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             NSLog(@"忘记密码");
             [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:self.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {
@@ -98,6 +98,8 @@
             }];
         }else {
             [HXBSignUPAndLoginRequest signUPRequetWithMobile:weakSelf.phonNumber andSmscode:smscode andPassword:password andInviteCode:inviteCode andSuccessBlock:^{
+                 NSLog(@"密码设置成功");
+                [[KeyChainManage sharedInstance] setMobile:self.phonNumber];
                 HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
                 [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
             } andFailureBlock:^(NSError *error) {

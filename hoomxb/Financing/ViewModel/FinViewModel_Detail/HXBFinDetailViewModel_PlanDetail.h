@@ -22,7 +22,7 @@
 @property (nonatomic,copy) NSString *lockPeriod;
 ///": "理财计划服务协议",
 @property (nonatomic,copy) NSString *contractName;
-/// 剩余金额
+///剩余金额
 @property (nonatomic,copy) NSString *remainAmount;
 ///剩余金额
 @property (nonatomic,copy) NSString *remainAmount_constStr;

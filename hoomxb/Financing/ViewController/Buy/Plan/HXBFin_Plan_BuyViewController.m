@@ -18,7 +18,7 @@
 @interface HXBFin_Plan_BuyViewController ()
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) HXBJoinImmediateView *joinimmediateView;
-@property (nonatomic,copy) NSString *availablePoint;//可用余额；
+
 @end
 
 @implementation HXBFin_Plan_BuyViewController
@@ -34,11 +34,7 @@
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        _availablePoint = viewModel.availablePoint;
-    } andFailure:^(NSError *error) {
-        
-    }];
+ 
      [super viewDidLoad];
     //判断是否登录
     [self isLogin];
@@ -88,11 +84,15 @@
              [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
              return;
          }
-         ///用户可以追加的金额
-         CGFloat userRemainAmount = [weakSelf.planViewModel.planDetailModel.remainAmount integerValue];
-         
-         CGFloat buyAmount = userRemainAmount < self.planViewModel.planDetailModel.singleMaxRegisterAmount.floatValue? userRemainAmount : userInfo_availablePoint;
-         textField.text = [NSString stringWithFormat:@"%lf",buyAmount];
+    
+         ///加入上线 (min (用户可投， 本期剩余))
+         NSString *str = nil;
+         if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
+             str = weakSelf.planViewModel.planDetailModel.userRemainAmount;
+         }else {
+             str = weakSelf.planViewModel.planDetailModel.remainAmount;
+         }
+         textField.text = [NSString stringWithFormat:@"%.2lf",str.floatValue];
      }];
      ///点击了加入
      [self.joinimmediateView clickAddButtonFunc:^(NSString *capital) {
