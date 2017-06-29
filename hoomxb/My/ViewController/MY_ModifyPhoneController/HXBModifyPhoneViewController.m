@@ -45,15 +45,11 @@
             [modifyPhoneRequest mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(id responseObject) {
                 NSLog(@"%@",responseObject);
                 [KeyChain setMobile:phoneNumber];
+                [KeyChain removeGesture];
+                [HxbHUDProgress showTextWithMessage:@"修改成功，请用用新手机号登录"];
+                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
                 
-                __block HxbAccountInfoViewController *accountInfoVC;
-                  
-                [weakSelf.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([VC isKindOfClass:[HxbAccountInfoViewController class]]) {
-                        accountInfoVC = VC;
-                    }
-                }];
-                [weakSelf.navigationController popToViewController:accountInfoVC animated:YES];
             } andFailureBlock:^(NSError *error) {
                 NSLog(@"%@",error);
              
@@ -82,7 +78,10 @@
     [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
         weakSelf.checkPaptcha = checkPaptcha;
         [weakSelf.homeView getCodeSuccessfully];
-        [weakSelf graphicSuccessWithPhoneNumber:phoneNumber andWithCheckPaptcha:checkPaptcha];
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [weakSelf graphicSuccessWithPhoneNumber:phoneNumber andWithCheckPaptcha:checkPaptcha];
+        });
     }];
 
 }
@@ -95,13 +94,12 @@
  */
 - (void)graphicSuccessWithPhoneNumber:(NSString *)phoneNumber andWithCheckPaptcha:(NSString *)checkPaptcha
 {
-    kWeakSelf
     [HXBSignUPAndLoginRequest smscodeRequestWithMobile:phoneNumber andAction:HXBSignUPAndLoginRequest_sendSmscodeType_newmobile andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
         NSLog(@"%d",isSuccessBlock);
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
-        
-        [weakSelf.homeView sendCodeFail];
+        //请求失败不会将按钮状态改变
+//        [weakSelf.homeView sendCodeFail];
     }];
 }
 

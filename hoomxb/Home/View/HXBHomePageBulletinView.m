@@ -18,7 +18,7 @@
 
 //@property (nonatomic, strong) UIScrollView *contentScrollView;
 
-//@property (nonatomic, strong) UIButton *closeButton;
+@property (nonatomic, strong) UIButton *closeButton;
 
 //@property (nonatomic, strong) NSTimer *timer;
 
@@ -58,7 +58,7 @@
         [self addSubview:self.recommendedTitleLabel];
         [self addSubview:self.promptTagLabel];
 //        [self addSubview:self.trumpetView];
-//        [self addSubview:self.closeButton];
+        [self addSubview:self.closeButton];
 //        [self addSubview:self.contentScrollView];
     }
     return self;

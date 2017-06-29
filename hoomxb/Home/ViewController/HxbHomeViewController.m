@@ -225,8 +225,6 @@
 }
 
 
-
-
 #pragma mark Get Methods
 
 - (HxbHomeView *)homeView{
@@ -239,7 +237,6 @@
         _homeView.purchaseButtonClickBlock = ^(){
             NSLog(@"点击cell中按钮的回调的Block");
         };
-        
         /**
          点击cell中的回调的Block
 

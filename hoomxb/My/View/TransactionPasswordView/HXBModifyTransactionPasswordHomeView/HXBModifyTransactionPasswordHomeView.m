@@ -77,10 +77,19 @@
         make.top.equalTo(self.authenticatedNameTipLabel.mas_bottom).offset(15);
         make.right.equalTo(self).offset(-16);
     }];
-    [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.authenticatedNameTipLabel);
-        make.top.equalTo(self.idCardTextField.mas_bottom).offset(30);
-    }];
+    if ([self.userInfoModel.userInfo.isAllPassed isEqualToString:@"1"]) {
+        [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.authenticatedNameTipLabel);
+            make.top.equalTo(self.idCardTextField.mas_bottom).offset(30);
+        }];
+    }else
+    {
+        [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(@16);
+            make.top.equalTo(self).offset(30);
+        }];
+    }
+    
     [self.phoneNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.authenticatedNameTipLabel);
         make.top.equalTo(self.promptLabel.mas_bottom).offset(8);
@@ -181,8 +190,16 @@
 - (void)setUserInfoModel:(HXBUserInfoModel *)userInfoModel
 {
     _userInfoModel = userInfoModel;
-    self.authenticatedNameLabel.text = [userInfoModel.userInfo.realName hxb_hiddenUserNameWithleft];
-    self.phoneNumberLabel.text = [userInfoModel.userInfo.mobile hxb_hiddenPhonNumberWithMid];
+    if ([userInfoModel.userInfo.isAllPassed isEqualToString:@"1"]) {
+        self.authenticatedNameLabel.text = [userInfoModel.userInfo.realName hxb_hiddenUserNameWithleft];
+        self.phoneNumberLabel.text = [userInfoModel.userInfo.mobile hxb_hiddenPhonNumberWithMid];
+    }else
+    {
+        self.authenticatedNameTipLabel.hidden = YES;
+        self.authenticatedNameLabel.hidden = YES;
+        self.idCardTextField.hidden = YES;
+    }
+
 }
 
 #pragma mark - get方法

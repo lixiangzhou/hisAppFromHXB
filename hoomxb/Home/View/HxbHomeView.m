@@ -38,12 +38,12 @@
 
 
 #pragma mark Private Methods
-- (void)hideBulletinView
-{
-    if (self.headView) {
-        [self.headView hideBulletinView];
-    }
-}
+//- (void)hideBulletinView
+//{
+//    if (self.headView) {
+//        [self.headView hideBulletinView];
+//    }
+//}
 
 - (void)showBulletinView
 {

@@ -7,7 +7,7 @@
 //
 
 #import "HxbMyAboutMeViewController.h"
-
+#import "HXBFeedbackViewController.h"
 
 @interface HxbMyAboutMeViewController ()
 <
@@ -33,8 +33,8 @@ UITableViewDelegate,UITableViewDataSource
     if (indexPath.row == 2) {
   
     }else if (indexPath.row == 3){
-//        HxbFeedbackViewController *feedbackVC = [[HxbFeedbackViewController alloc]init];
-//        [self.navigationController pushViewController:feedbackVC animated:YES];
+        HXBFeedbackViewController *feedbackVC = [[HXBFeedbackViewController alloc]init];
+        [self.navigationController pushViewController:feedbackVC animated:YES];
     }
 }
 

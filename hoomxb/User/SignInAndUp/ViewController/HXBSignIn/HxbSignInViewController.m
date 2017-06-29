@@ -14,7 +14,8 @@
 #import "HXBRequestUserInfo.h"///用户数据的请求
 #import "HXBRequestUserInfoViewModel.h"///userinfo的viewModel
 #import "HXBCheckCaptchaViewController.h"
-
+#import "HXBGesturePasswordViewController.h"//手势密码
+#import "HXBBaseTabBarController.h"
 
 ///手机号存在
 static NSString *const kMobile_IsExist = @"手机号已存在";
@@ -48,9 +49,9 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modalCaptchaVC:) name:kHXBBotification_ShowCaptchaVC object:nil];
-    self.title = @"Sign In";
+    self.title = @"登录";
     [self setLeftItemBar];
-    [self setSignView];/// 设置 登录界面
+    [self setSignView];/// 设置登录界面
     [self registerSignViewEvent];///signView事件注册
     [self registerCheckMobileEvent];///请求手机号是否存在
     [self registerSignUPEvent];///注册 点击signUP事件
@@ -92,6 +93,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             [KeyChain signOut];
             [[KeyChainManage sharedInstance] mobileWithBlock:^(NSString *mobile) {
                 [weakSelf dismiss];
+                
             }];
             
         } andFailureBlock:^(NSError *error) {
@@ -119,6 +121,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     kWeakSelf
     [self.signView signUP_clickButtonFunc:^{
         HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
+        
         signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;
         [weakSelf.navigationController pushViewController:signUPVC animated:true];
     }];
@@ -153,6 +156,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             NSLog(@"登录成功");
         }
     } andFailureBlock:^(NSError *error) {
+        
     }];
 }
 
@@ -164,7 +168,13 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 
 - (void)dismiss{
     [self dismissViewControllerAnimated:YES completion:^{
-        
+        if (!KeyChain.gesturePwd.length) {
+            HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+            gesturePasswordVC.type = GestureViewControllerTypeSetting;
+            [self.navigationController pushViewController:gesturePasswordVC animated:YES];
+            HXBBaseTabBarController *mainTabbarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+            [mainTabbarVC.selectedViewController pushViewController:gesturePasswordVC animated:YES];
+        }
     }];
 }
 

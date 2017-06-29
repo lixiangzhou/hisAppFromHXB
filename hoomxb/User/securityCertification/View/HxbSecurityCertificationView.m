@@ -15,8 +15,9 @@ UITextFieldDelegate
 @property (nonatomic, strong) UITextField *nameTextField;
 @property (nonatomic, strong) UITextField *identityCardNumTextField;
 @property (nonatomic, strong) UITextField *payPasswordTextField;
-@property (nonatomic, strong) UITextField *payPasswordConfirmTextField;
+//@property (nonatomic, strong) UITextField *payPasswordConfirmTextField;
 @property (nonatomic, strong) UIButton *securityCertificationButton;
+@property (nonatomic, strong) UIButton *hidePwdBtn;
 /**安全认证 点击了下一步按钮*/
 @property (nonatomic,copy) void(^clickNextButtonBlock)(NSString *name, NSString *idCard, NSString *transactionPassword);
 @end
@@ -34,7 +35,10 @@ UITextFieldDelegate
         self.identityCardNumTextField.text =  [userInfoViewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:3 lenght:userInfoViewModel.userInfoModel.userInfo.idNo.length - 3];
         self.userInteractionEnabled = NO;
         if (userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed) {
+            self.payPasswordTextField.secureTextEntry = NO;
             self.payPasswordTextField.text = @"已设置";
+            self.hidePwdBtn.hidden = YES;
+            self.securityCertificationButton.hidden = YES;
         }
     }
 }
@@ -46,8 +50,9 @@ UITextFieldDelegate
         [self addSubview:self.nameTextField];
         [self addSubview:self.identityCardNumTextField];
         [self addSubview:self.payPasswordTextField];
-        [self addSubview:self.payPasswordConfirmTextField];
+//        [self addSubview:self.payPasswordConfirmTextField];
         [self addSubview:self.securityCertificationButton];
+        [self addSubview:self.hidePwdBtn];
     }
     return self;
 }
@@ -55,18 +60,18 @@ UITextFieldDelegate
 
 - (void)securityCertificationButtonClick:(UIButton *)sender{
 
-        if (_identityCardNumTextField.text.length == 0|| _nameTextField.text.length == 0 || _payPasswordTextField.text.length == 0 || _payPasswordConfirmTextField.text.length == 0) {
+        if (_identityCardNumTextField.text.length == 0|| _nameTextField.text.length == 0 || _payPasswordTextField.text.length == 0 ) {
             return [HxbHUDProgress showTextWithMessage:@"不能有空"];
         }
 //        if (![NSString validateIDCardNumber:_identityCardNumTextField.text]) {
 //            return [HxbHUDProgress showTextWithMessage:@"请输入正确的身份证号"];
 //        }
-        if (_payPasswordTextField.text.length <8 ||_payPasswordConfirmTextField.text.length <8) {
+        if (_payPasswordTextField.text.length < 8) {
             return [HxbHUDProgress showTextWithMessage:@"交易密码不能小于8位"];
         }
-        if (![_payPasswordTextField.text isEqualToString:_payPasswordConfirmTextField.text]) {
-             return [HxbHUDProgress showTextWithMessage:@"两次输入的密码不一致"];
-        }
+//        if (![_payPasswordTextField.text isEqualToString:_payPasswordConfirmTextField.text]) {
+//             return [HxbHUDProgress showTextWithMessage:@"两次输入的密码不一致"];
+//        }
 //        [KeyChain setRealName:_nameTextField.text];
 //        [KeyChain setRealId:_identityCardNumTextField.text];
 //        [KeyChain setTradePwd:_payPasswordConfirmTextField.text];
@@ -117,29 +122,48 @@ UITextFieldDelegate
         _payPasswordTextField.delegate = self;
         _payPasswordTextField.leftView = leftLable;
         _payPasswordTextField.returnKeyType = UIReturnKeyNext;
+        _payPasswordTextField.secureTextEntry = YES;
+        
     }
     return _payPasswordTextField;
 }
 
-- (UITextField *)payPasswordConfirmTextField{
-    if (!_payPasswordConfirmTextField)
-    {
-        _payPasswordConfirmTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_payPasswordTextField.frame) + 60, SCREEN_WIDTH - 40, 44)];
-        //        [_passwordTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-        UILabel *leftLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,120, 44)];
-        leftLable.text = @"确认交易密码";
-        leftLable.textColor = COR1;
-        _payPasswordConfirmTextField.leftViewMode = UITextFieldViewModeAlways;
-        _payPasswordConfirmTextField.delegate = self;
-        _payPasswordConfirmTextField.leftView = leftLable;
-        _payPasswordConfirmTextField.returnKeyType = UIReturnKeyDone;
+- (UIButton *)hidePwdBtn
+{
+    if (!_hidePwdBtn) {
+        _hidePwdBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 60, CGRectGetMaxY(_identityCardNumTextField.frame) + 60, 40, 40)];
+        _hidePwdBtn.backgroundColor = [UIColor redColor];
+        [_hidePwdBtn addTarget:self action:@selector(hidePwdBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _hidePwdBtn.enabled = YES;
     }
-    return _payPasswordConfirmTextField;
+    return _hidePwdBtn;
 }
+
+- (void)hidePwdBtnClick
+{
+    self.payPasswordTextField.secureTextEntry = self.hidePwdBtn.selected;
+    self.hidePwdBtn.selected = !self.hidePwdBtn.selected;
+}
+
+//- (UITextField *)payPasswordConfirmTextField{
+//    if (!_payPasswordConfirmTextField)
+//    {
+//        _payPasswordConfirmTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_payPasswordTextField.frame) + 60, SCREEN_WIDTH - 40, 44)];
+//        //        [_passwordTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+//        UILabel *leftLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,120, 44)];
+//        leftLable.text = @"确认交易密码";
+//        leftLable.textColor = COR1;
+//        _payPasswordConfirmTextField.leftViewMode = UITextFieldViewModeAlways;
+//        _payPasswordConfirmTextField.delegate = self;
+//        _payPasswordConfirmTextField.leftView = leftLable;
+//        _payPasswordConfirmTextField.returnKeyType = UIReturnKeyDone;
+//    }
+//    return _payPasswordConfirmTextField;
+//}
 
 - (UIButton *)securityCertificationButton{
     if (!_securityCertificationButton) {
-        _securityCertificationButton = [UIButton btnwithTitle:@"安全认证" andTarget:self andAction:@selector(securityCertificationButtonClick:) andFrameByCategory:CGRectMake(20, CGRectGetMaxY(_payPasswordConfirmTextField.frame) + 60, SCREEN_WIDTH - 40, 44)];
+        _securityCertificationButton = [UIButton btnwithTitle:@"安全认证" andTarget:self andAction:@selector(securityCertificationButtonClick:) andFrameByCategory:CGRectMake(20, CGRectGetMaxY(_payPasswordTextField.frame) + 60, SCREEN_WIDTH - 40, 44)];
     }
     return _securityCertificationButton;
 }
