@@ -153,7 +153,6 @@
             //            contractWebViewVC.URL = self.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
             [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
         }
-        
     }];
 }
 

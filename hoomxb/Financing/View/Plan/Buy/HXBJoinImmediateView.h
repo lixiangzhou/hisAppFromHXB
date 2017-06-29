@@ -13,8 +13,9 @@
 
 ///设置值
 - (void)setUPValueWithModelBlock:(HXBJoinImmediateView_Model *(^)(HXBJoinImmediateView_Model *model))setUPValueBlock;
-@property (nonatomic,assign) BOOL isPlan;
 
+@property (nonatomic,copy) NSString *userAomunt;
+@property (nonatomic,assign) BOOL isPlan;
 @property (nonatomic,weak) UITextField *rechargeViewTextField;
 
 

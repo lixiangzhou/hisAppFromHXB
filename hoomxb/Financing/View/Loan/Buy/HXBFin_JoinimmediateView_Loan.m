@@ -202,9 +202,9 @@
     [self.rechargeView clickBuyButtonFunc:^{
         NSString *str = nil;
         if (weakSelf.model.amount.floatValue > weakSelf.model.loanAcountLabelStr.floatValue) {
-            str = weakSelf.model.loanAcountLabelStr;
+            str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.loanAcountLabelStr.floatValue];
         }else {
-            str = weakSelf.model.amount;
+            str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.amount.floatValue];
         }
         weakSelf.rechargeView.textField.text = str;
         if (weakSelf.clickBuyButton) {
