@@ -75,6 +75,7 @@
         viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
         viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
         viewModelVM.isUserInteractionEnabled   = weakSelf.planDetailViewModel.isAddButtonInteraction;
+        viewModelVM.title                      = @"加入计划";
     
         if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
         }
@@ -176,7 +177,9 @@
             return;
         }
         //跳转加入界面
+        
         HXBFin_Plan_BuyViewController *planJoinVC = [[HXBFin_Plan_BuyViewController alloc]init];
+        planJoinVC.title = @"加入计划";
         planJoinVC.planViewModel = weakSelf.planDetailViewModel;
         [planJoinVC setCallBackBlock:^{
             [self.navigationController popoverPresentationController];

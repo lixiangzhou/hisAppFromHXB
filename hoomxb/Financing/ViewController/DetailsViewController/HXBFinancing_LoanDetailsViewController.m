@@ -41,7 +41,6 @@
 - (void) setLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)loanDetailViewModel {
     _loanDetailViewModel = loanDetailViewModel;
     kWeakSelf
-    
     [self.loanDetailsView setUPViewModelVM:^HXBFin_DetailsViewBase_ViewModelVM *(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM) {
         viewModelVM.totalInterestStr           = weakSelf.loanDetailViewModel.totalInterestPer100;///年利率
         viewModelVM.totalInterestStr_const     = @"预期年利率";
@@ -54,6 +53,8 @@
         viewModelVM.remainAmount_const         = weakSelf.loanDetailViewModel.surplusAmount_ConstStr;
         viewModelVM.remainAmount               = weakSelf.loanDetailViewModel.surplusAmount;
         viewModelVM.isUserInteractionEnabled   = weakSelf.loanDetailViewModel.isAddButtonEditing;
+        viewModelVM.remainTime                 = weakSelf.loanDetailViewModel.loanDetailModel.remainTime;
+        viewModelVM.title                      = @"散标投资";
         return viewModelVM;
     }];
 }
@@ -170,6 +171,7 @@
         
         //跳转加入界面
         HXBFin_Loan_BuyViewController *loanJoinVC = [[HXBFin_Loan_BuyViewController alloc]init];
+        loanJoinVC.title = @"散标投资";
         loanJoinVC.loanViewModel = weakSelf.loanDetailViewModel;
         [weakSelf.navigationController pushViewController:loanJoinVC animated:true];
     }];
