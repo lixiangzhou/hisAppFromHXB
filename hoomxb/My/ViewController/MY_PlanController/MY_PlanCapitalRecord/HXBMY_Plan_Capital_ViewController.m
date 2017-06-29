@@ -15,7 +15,7 @@ static NSString *const cellID = @"cellID";
 @property (nonatomic,strong) UITableView *planCapitalTableView;
 
 @property (nonatomic,strong) NSMutableArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *dataArray;
-@property (nonatomic,strong) HXBMY_Plan_Capital_Cell *topView;
+@property (nonatomic,strong) UIView *topView;
 
 @end
 
@@ -26,18 +26,15 @@ static NSString *const cellID = @"cellID";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.topView = [[HXBMY_Plan_Capital_Cell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+    self.title = @"投资记录";
+    self.topView = [self headView];
     [self.view addSubview: self.topView];
-    self.topView.ID = @"标的ID";
-    self.topView.loanAoumt = @"投资金额(元)";
-    self.topView.time = @"时间";
-    self.topView.type = @"状态";
-    
+ 
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(64);
-        make.height.equalTo(@(kScrAdaptationH(64)));
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.top.equalTo(self.view.mas_top).offset(64);
+        make.height.equalTo(@44);
     }];
     
     self.planCapitalTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -52,14 +49,52 @@ static NSString *const cellID = @"cellID";
     self.planCapitalTableView.dataSource = self;
     
     [self.planCapitalTableView registerClass:[HXBMY_Plan_Capital_Cell class] forCellReuseIdentifier:cellID];
-    [self downLoadWithIsUPLoad: true];
+    [self downLoadWithIsUPLoad:true];
+}
+
+
+- (UIView *)headView{
+    UIView *headView = [[UIView alloc] init];
+    UILabel *planIDLabel = [[UILabel alloc]init];
+    UILabel *amountLabel = [[UILabel alloc]init];
+    UILabel *timeLabel = [[UILabel alloc]init];
+    UILabel *typeLabel = [[UILabel alloc]init];
+    
+    
+    [headView addSubview:planIDLabel];
+    [headView addSubview:amountLabel];
+    [headView addSubview:timeLabel];
+    [headView addSubview:typeLabel];
+    NSArray *viewArray = @[
+                           planIDLabel,amountLabel,timeLabel,typeLabel
+                           ];
+    
+    [viewArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:0 leadSpacing:0 tailSpacing:0];
+    [viewArray mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(headView);
+    }];
+    planIDLabel.text =  @"标的ID";
+    amountLabel.text =  @"投资金额(元)";
+    timeLabel.text =  @"时间";
+    typeLabel.text =  @"状态";
+    planIDLabel.textAlignment = NSTextAlignmentCenter;
+    amountLabel.textAlignment = planIDLabel.textAlignment;
+    timeLabel.textAlignment = planIDLabel.textAlignment;
+    typeLabel.textAlignment = planIDLabel.textAlignment;
+    planIDLabel.font = [UIFont systemFontOfSize:12];
+    amountLabel.font = planIDLabel.font;
+    timeLabel.font = planIDLabel.font;
+    typeLabel.font = planIDLabel.font;
+    return headView;
 }
 
 - (void)downLoadWithIsUPLoad: (BOOL)isUPLoad {
+    kWeakSelf
     HXBMYRequest *request = [[HXBMYRequest alloc]init];
     [request loanRecord_my_Plan_WithIsUPData: isUPLoad andPlanID:self.planID andSuccessBlock:^(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *viewModelArray) {
-        [self.dataArray addObjectsFromArray:viewModelArray];
-        self.dataArray = self.dataArray;
+        [weakSelf.dataArray addObjectsFromArray:viewModelArray];
+        [weakSelf.planCapitalTableView reloadData];
+//        self.dataArray = self.dataArray;
     } andFailureBlock:^(NSError *error) {
         
         
@@ -75,10 +110,13 @@ static NSString *const cellID = @"cellID";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBMY_Plan_Capital_Cell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-        cell.ID = _dataArray[indexPath.row].loanId;
-        cell.loanAoumt = _dataArray[indexPath.row].amount;
-        cell.time = _dataArray[indexPath.row].lendTime;
-        cell.type = _dataArray[indexPath.row].status;
+    if (cell == nil) {
+        cell = [[HXBMY_Plan_Capital_Cell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+    }
+    cell.ID = _dataArray[indexPath.row].loanId;
+    cell.loanAoumt = _dataArray[indexPath.row].amount;
+    cell.time = _dataArray[indexPath.row].lendTime;
+    cell.type = _dataArray[indexPath.row].status;
     return cell;
 }
 

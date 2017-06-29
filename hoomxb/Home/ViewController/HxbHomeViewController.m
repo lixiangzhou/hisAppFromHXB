@@ -14,6 +14,7 @@
 #import "HXBHomeBaseModel.h"
 #import "HXBFinancing_PlanDetailsViewController.h"
 #import "HxbHomePageModel_DataList.h"
+#import "HXBGesturePasswordViewController.h"
 @interface HxbHomeViewController ()
 
 @end
@@ -32,8 +33,20 @@
     
     [self registerRefresh];
     
+    [self gesturePwdShow];
+}
 
-    
+
+/**
+ 手势密码逻辑
+ */
+- (void)gesturePwdShow
+{
+    if (!KeyChain.gesturePwd.length) {
+        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+        gesturePasswordVC.type = GestureViewControllerTypeSetting;
+        [self.navigationController pushViewController:gesturePasswordVC animated:YES];
+    }
 }
 
 /**
@@ -259,7 +272,8 @@
                 //跳转登录注册
                 [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             }else
-            {                
+            {
+                
                 [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
                     NSLog(@"%@",isVerify);
                     if ([KeyChain isLogin] && [isVerify isEqualToString:@"1"])

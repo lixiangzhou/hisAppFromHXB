@@ -147,6 +147,7 @@
             detail_DetailPlanVC.planDetailModel = weakSelf.planDetailViewModel;
             [weakSelf.navigationController pushViewController:detail_DetailPlanVC animated:true];
         }
+    
         ///  加入记录
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
             HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
@@ -159,6 +160,7 @@
             //跳转一个webView
             HXBFinPlanContract_contraceWebViewVC * contractWebViewVC = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
             contractWebViewVC.URL = weakSelf.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
+            
             [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
         }
     }];

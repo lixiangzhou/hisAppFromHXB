@@ -56,7 +56,6 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [self setup];
-        [self setupSubViewFrame];
     }
     return self;
 }
@@ -199,7 +198,7 @@
         self.authenticatedNameLabel.hidden = YES;
         self.idCardTextField.hidden = YES;
     }
-
+    [self setupSubViewFrame];
 }
 
 #pragma mark - get方法

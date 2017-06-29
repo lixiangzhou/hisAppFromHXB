@@ -29,6 +29,7 @@ static NSString *CELLID = @"CELLID";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"加入记录";
     [self setUP];
     [self downDoadDataWithISUPLoad:true];
 }

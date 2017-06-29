@@ -14,8 +14,7 @@
 #import "HXBRequestUserInfo.h"///用户数据的请求
 #import "HXBRequestUserInfoViewModel.h"///userinfo的viewModel
 #import "HXBCheckCaptchaViewController.h"
-#import "HXBGesturePasswordViewController.h"//手势密码
-#import "HXBBaseTabBarController.h"
+
 
 ///手机号存在
 static NSString *const kMobile_IsExist = @"手机号已存在";
@@ -168,13 +167,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 
 - (void)dismiss{
     [self dismissViewControllerAnimated:YES completion:^{
-        if (!KeyChain.gesturePwd.length) {
-            HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-            gesturePasswordVC.type = GestureViewControllerTypeSetting;
-            [self.navigationController pushViewController:gesturePasswordVC animated:YES];
-            HXBBaseTabBarController *mainTabbarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-            [mainTabbarVC.selectedViewController pushViewController:gesturePasswordVC animated:YES];
-        }
+    
     }];
 }
 

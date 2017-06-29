@@ -480,6 +480,7 @@
     HXBBaseRequest *loanRecordAPI = [[HXBBaseRequest alloc]init];
 
     loanRecordAPI.requestUrl = kHXBFin_loanRecordURL(planID);
+    
     loanRecordAPI.isUPReloadData = isUPData;
     loanRecordAPI.requestMethod = NYRequestMethodGet;
     loanRecordAPI.requestArgument = @{

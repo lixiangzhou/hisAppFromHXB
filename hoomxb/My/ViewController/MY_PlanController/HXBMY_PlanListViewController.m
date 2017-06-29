@@ -36,6 +36,7 @@ kDealloc
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    self.title  = @"红利计划";
     [self setUP];
     ///网络请求
     [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
