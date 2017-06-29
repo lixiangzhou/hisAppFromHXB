@@ -57,6 +57,8 @@
     self.homeView.homeRefreshHeaderBlock = ^(){
         NSLog(@"首页下来加载数据");
         [weakSelf getData];
+        [weakSelf.homeView changeIndicationView];
+        [weakSelf.homeView showSecurityCertificationOrInvest];
     };
 }
 //- (void)pushToAd {

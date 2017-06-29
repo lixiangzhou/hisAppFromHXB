@@ -107,7 +107,7 @@
  */
 - (void)ciphertextButtonClick
 {
-   
+        
     if (self.ciphertextButton.selected) {
         self.availableAmountLabel.text = [NSString stringWithFormat:@"可用金额(元):%@",self.userInfoViewModel.userInfoModel.userAssets.availablePoint];
         self.accumulatedIncomeLabel.text = [NSString stringWithFormat:@"累计收益(元):%@",self.userInfoViewModel.userInfoModel.userAssets.earnTotal];

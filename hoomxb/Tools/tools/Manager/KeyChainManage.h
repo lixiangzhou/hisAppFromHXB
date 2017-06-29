@@ -26,6 +26,9 @@
 ///记录修改登录密码的次数
 @property (nonatomic, copy) NSString *siginCount;
 
+///统一密文
+@property (nonatomic, strong) NSString *ciphertext;
+
 
 /*
 @property (nonatomic, copy) NSString  *token;
@@ -154,6 +157,8 @@
 - (void)removeToken;        //!< 移除token
 
 - (BOOL)removeAllInfo;
+
+- (void)removeCiphertext; //!< 移除密文
 
 - (void)signOut;      //!< 退出登录
 

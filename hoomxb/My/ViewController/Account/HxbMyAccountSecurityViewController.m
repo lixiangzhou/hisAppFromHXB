@@ -142,15 +142,16 @@ UITableViewDataSource,UITableViewDelegate
        if (indexPath.section == 0){
 
         if (indexPath.row == 0) {
-             if (self.userInfoViewModel.userInfoModel.userInfo.isIdPassed)
+             if ([self.userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"])
              {
                  cell.textLabel.text = @"身份信息";
+                 cell.detailTextLabel.text = self.idPassedStr;
              }else
              {
                  cell.textLabel.text = @"安全认证";
              }
             
-            cell.detailTextLabel.text = self.idPassedStr;
+           
         }else if (indexPath.row == 1){
             cell.textLabel.text = @"绑定手机号";
             cell.detailTextLabel.text = self.phonNumber;

@@ -37,18 +37,29 @@ UITableViewDataSource
     if (indexPath.section == 0) {
         
     }else if(indexPath.section == 1){
-        
-        if (indexPath.row == 0) {
-            //账户安全
-            HxbMyBankCardViewController *myBankCardViewVC = [[HxbMyBankCardViewController alloc]init];
-            [self.navigationController pushViewController:myBankCardViewVC animated:YES];
-        }else if (indexPath.row == 1){
-            HxbMyAccountSecurityViewController *myAccountSecurityVC = [[HxbMyAccountSecurityViewController alloc]init];
-             myAccountSecurityVC.userInfoViewModel = self.userInfoViewModel;
-            [self.navigationController pushViewController:myAccountSecurityVC animated:YES];
-        }else{
-
+        if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]){
+            if (indexPath.row == 0) {
+                //银行卡
+                HxbMyBankCardViewController *myBankCardViewVC = [[HxbMyBankCardViewController alloc]init];
+                [self.navigationController pushViewController:myBankCardViewVC animated:YES];
+            }else if (indexPath.row == 1){
+                HxbMyAccountSecurityViewController *myAccountSecurityVC = [[HxbMyAccountSecurityViewController alloc]init];
+                myAccountSecurityVC.userInfoViewModel = self.userInfoViewModel;
+                [self.navigationController pushViewController:myAccountSecurityVC animated:YES];
+            }else{
+                NSLog(@"点击了风险评测");
+            }
+        }else
+        {
+            if (indexPath.row == 0) {
+                HxbMyAccountSecurityViewController *myAccountSecurityVC = [[HxbMyAccountSecurityViewController alloc]init];
+                myAccountSecurityVC.userInfoViewModel = self.userInfoViewModel;
+                [self.navigationController pushViewController:myAccountSecurityVC animated:YES];
+            }else if (indexPath.row == 1){
+                NSLog(@"点击了风险评测");
+            }
         }
+        
         
     }else{
         HxbMyAboutMeViewController *myAboutMeViewController = [[HxbMyAboutMeViewController alloc]init];
@@ -87,13 +98,23 @@ UITableViewDataSource
 
     }else if (indexPath.section == 1){
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        if (indexPath.row == 0) {
-           cell.textLabel.text = @"银行卡";
-        }else if (indexPath.row == 1){
-           cell.textLabel.text = @"账户安全";
-        }else{
-           cell.textLabel.text = @"风险评测";
+        if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+            if (indexPath.row == 0) {
+                cell.textLabel.text = @"银行卡";
+            }else if (indexPath.row == 1){
+                cell.textLabel.text = @"账户安全";
+            }else{
+                cell.textLabel.text = @"风险评测";
+            }
+        }else
+        {
+            if (indexPath.row == 0) {
+                cell.textLabel.text = @"账户安全";
+            }else if (indexPath.row == 1){
+                cell.textLabel.text = @"风险评测";
+            }
         }
+        
     }else{
         cell.textLabel.text = @"关于我们";
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -102,7 +123,29 @@ UITableViewDataSource
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  (section == 0)? 1 : (section == 1)? 3:1;;
+//    return  (section == 0)? 1 : (section == 1)? 3:1;
+    switch (section) {
+        case 0:
+            return 1;
+            break;
+        case 1:
+        {
+            if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+                return 3;
+            }else
+            {
+                return 2;
+            }
+        }
+            break;
+        case 2:
+            return 1;
+            break;
+ 
+        default:
+            break;
+    }
+    return 0;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

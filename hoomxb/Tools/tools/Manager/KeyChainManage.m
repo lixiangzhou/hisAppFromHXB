@@ -35,6 +35,8 @@ static NSString * const kBankNumArr = @"bankNumArr";
 static NSString * const kAvatarImageURL = @"avatarImageURL";
 static NSString * const kLocalAvatarImageData = @"kLocalAvatarImageData";
 
+//统一密文处理
+static NSString * const kCiphertext = @"ciphertext";
 
 
 ///错误
@@ -112,6 +114,8 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 @property (nonatomic,copy) NSString *realName;
 ///idNo
 @property (nonatomic,copy) NSString *idNo;
+
+
 @end
 
 @implementation KeyChainManage
@@ -143,6 +147,8 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 
 - (void) setValueWithUserInfoModel: (HXBRequestUserInfoViewModel *)userInfoViewModel {
     
+    
+   
     //是否实名
     _isVerify = userInfoViewModel.userInfoModel.userInfo.isAllPassed;
     _keychain[kIsAllPassed] = _isVerify;
@@ -521,6 +527,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     [manager.keychain removeItemForKey:kTradePwd];
     [manager.keychain removeItemForKey:kToken];
     [manager.keychain removeItemForKey:kMobile];
+    [manager.keychain removeItemForKey:kCiphertext];
 }
 
 - (void)removePassword
@@ -555,6 +562,13 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     KeyChainManage *manager = KeyChain;
     [manager.keychain removeItemForKey:kMobile];
 }
+
+- (void)removeCiphertext
+{
+    KeyChainManage *manager = KeyChain;
+    [manager.keychain removeItemForKey:kCiphertext];
+}
+
 - (void)printAllInfo
 {
     /*
@@ -670,6 +684,17 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 {
     NSString *loginPwd = self.keychain[kLoginPwd];
     return loginPwd?:@"";
+}
+
+- (NSString *)ciphertext
+{
+    NSString *ciphertext = self.keychain[kCiphertext];
+    return ciphertext?:@"";
+}
+
+- (void)setCiphertext:(NSString *)ciphertext
+{
+    self.keychain[kCiphertext] = ciphertext;
 }
 
 - (void)setTradePwd:(NSString *)tradePwd
