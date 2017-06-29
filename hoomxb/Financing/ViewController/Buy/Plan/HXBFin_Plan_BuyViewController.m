@@ -89,10 +89,10 @@
              return;
          }
          ///用户可以追加的金额
-         CGFloat userRemainAmount = weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue;
+         CGFloat userRemainAmount = [weakSelf.planViewModel.planDetailModel.remainAmount integerValue];
          
-         CGFloat buyAmount = userRemainAmount < userInfo_availablePoint? userRemainAmount : userInfo_availablePoint;
-         textField.text = [NSString stringWithFormat:@"%.2lf",buyAmount];
+         CGFloat buyAmount = userRemainAmount < self.planViewModel.planDetailModel.singleMaxRegisterAmount.floatValue? userRemainAmount : userInfo_availablePoint;
+         textField.text = [NSString stringWithFormat:@"%lf",buyAmount];
      }];
      ///点击了加入
      [self.joinimmediateView clickAddButtonFunc:^(NSString *capital) {
