@@ -185,7 +185,7 @@ kDealloc
     self.hold_Plan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.exiting_Plan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.exit_Plan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    return @[self.hold_Plan_TableView,self.exit_Plan_TableView,self.exiting_Plan_TableView];
+    return @[self.hold_Plan_TableView,self.exiting_Plan_TableView,self.exit_Plan_TableView];
 }
 
 - (void)setupScrollToolBarView {
@@ -221,6 +221,7 @@ kDealloc
     [self downLoadRefresh];
     [self upDataRefresh];
 }
+
 ///下拉刷新
 - (void)downLoadRefresh {
     __weak typeof (self)weakSelf = self;
@@ -236,6 +237,7 @@ kDealloc
         if (weakSelf.exit_Plan_DownRefresh) weakSelf.exiting_Plan_UPRefresh();
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {}];
 }
+
 //上啦加载
 - (void) upDataRefresh {
     __weak typeof(self) weakSelf = self;

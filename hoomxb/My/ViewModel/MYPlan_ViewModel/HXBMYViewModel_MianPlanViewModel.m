@@ -22,13 +22,50 @@
     }];
     //相应类型
     self.responseStatus = [HXBEnumerateTransitionManager myPlan_ResponsStatusStr:planModelDataList.status];
-    //红利计划的状态
-    self.status = [HXBEnumerateTransitionManager myPlan_ResponsStatus:self.responseStatus];
 }
 - (NSString *)description {
     return [self yy_modelDescription];
 }
 
+/**
+//红利计划的状态
+ */
+- (NSString *) status {
+    if (!_status) {
+        
+     NSString *statusStr = @"";
+    switch (self.requestType) {
+        case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:
+            statusStr = [self setStatus_HOLD_PLAN];
+            break;
+        case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:
+            
+            break;
+        case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
+            statusStr = [NSString stringWithFormat:@"%@退出",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planModelDataList.endLockingTime andDateFormat:@"yyyy-MM-dd"]];//计划状态
+            break;
+            
+        default:
+            break;
+        }
+        _status = statusStr;
+    }
+    return _status;
+}
+
+- (NSString *)setStatus_HOLD_PLAN {
+    NSString *statusStr = @"";
+    switch (self.responseStatus) {
+        case HXBRequestType_MY_PlanResponseStatus_PURCHASE_END:
+            statusStr = [NSString stringWithFormat:@"%@退出",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planModelDataList.endLockingTime andDateFormat:@"yyyy-MM-dd"]];//计划状态
+            break;
+            
+        case HXBRequestType_MY_PlanResponseStatus_REDEMPTION_PERIOD:
+            statusStr = @"等待计息";
+            break;
+    }
+            return statusStr;
+}
 /**
  预期年利率
  */
