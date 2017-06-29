@@ -44,7 +44,7 @@
 - (void)registerNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentLoginVC:) name:kHXBNotification_ShowLoginVC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMyVC:) name:kHXBNotification_LoginSuccess_PushMYVC object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modalCaptchaVC:) name:kHXBBotification_ShowCaptchaVC object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showHomeVC:) name:kHXBBotification_ShowHomeVC object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMyVC:) name:kHXBNotification_ShowMyVC object:nil];
 }
 
@@ -148,6 +148,9 @@
 //显示我的界面
 - (void) showMyVC: (NSNotification *)notification {
     self.selectedViewController = self.viewControllers.lastObject;
+}
+- (void) showHomeVC: (NSNotification *)notification {
+    self.selectedViewController = self.viewControllers.firstObject;
 }
 ////谈图验
 //- (void) modalCaptchaVC: (NSNotification *)notif {

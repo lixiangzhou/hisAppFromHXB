@@ -167,7 +167,7 @@
     [smscodeAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
 //        kHXBResponsShowHUD
         NSLog(@"%@",responseObject);
-        BOOL status = responseObject[@"status"];
+        BOOL status = [responseObject[@"status"] integerValue];
         if (status) {
             kNetWorkError(@"发送短信 请求失败");
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];

@@ -80,6 +80,10 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self addButtonTarget];
 }
 
+- (void)didMoveToSuperview {
+    [self clickSendButton:self.sendButton];
+}
+
 - (NSTimer *) timer {
     if (!_timer) {
         _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(addTime) userInfo:nil repeats:YES];
@@ -226,8 +230,13 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 ///点击了发送按钮
 - (void)clickSendButton: (UIButton *)button {
-    self.sendButton.userInteractionEnabled = false;
+    [self setSendButtonStatus];
     if (self.clickSendSmscodeButtonBlock) self.clickSendSmscodeButtonBlock();
+    
+}
+
+- (void) setSendButtonStatus {
+    self.sendButton.userInteractionEnabled = false;
     [self.timer fire];
 }
 
