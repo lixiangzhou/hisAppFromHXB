@@ -1,15 +1,14 @@
 //
-//  HXBFin_Detail_DetailVC_Loan.h
+//  HXBLoanInformation.h
 //  hoomxb
 //
-//  Created by HXB on 2017/5/13.
+//  Created by HXB-C on 2017/6/30.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBBaseViewController.h"
+#import <UIKit/UIKit.h>
 @class HXBFinDetailViewModel_LoanDetail;
-///贷款信息
-@interface HXBFin_Detail_DetailVC_Loan : HXBBaseViewController
+@interface HXBLoanInformation : UIView
 ///用户信息
 @property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanDetailViewModel;
 @end

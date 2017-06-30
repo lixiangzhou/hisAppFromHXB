@@ -188,8 +188,6 @@ typedef enum : NSUInteger {
 ///	string	公司职位
 @property (nonatomic,copy) NSString *contractCode;
 ///	string	合同号码
-@property (nonatomic,copy) NSString *description;
-///	string	标的描述
 @property (nonatomic,copy) NSString *graduation;
 ///	string	最高学历
 @property (nonatomic,copy) NSString *hasCar;

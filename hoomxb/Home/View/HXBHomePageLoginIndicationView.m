@@ -91,8 +91,17 @@
 {
     kWeakSelf
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.availableAmountLabel.text = [NSString stringWithFormat:@"可用金额(元):%@",viewModel.userInfoModel.userAssets.availablePoint];
-        weakSelf.accumulatedIncomeLabel.text = [NSString stringWithFormat:@"累计收益(元):%@",viewModel.userInfoModel.userAssets.earnTotal];
+        if ([KeyChain.ciphertext isEqualToString:@"0"]) {
+            weakSelf.ciphertextButton.selected = NO;
+            weakSelf.availableAmountLabel.text = [NSString stringWithFormat:@"可用金额(元):%@",viewModel.userInfoModel.userAssets.availablePoint];
+            weakSelf.accumulatedIncomeLabel.text = [NSString stringWithFormat:@"累计收益(元):%@",viewModel.userInfoModel.userAssets.earnTotal];
+        }else
+        {
+            weakSelf.ciphertextButton.selected = YES;
+            weakSelf.availableAmountLabel.text = [[NSString stringWithFormat:@"可用金额(元):%@",viewModel.userInfoModel.userAssets.availablePoint] replaceStringWithStartLocation:8 lenght:viewModel.userInfoModel.userAssets.availablePoint.length?:1];
+            
+            weakSelf.accumulatedIncomeLabel.text = [[NSString stringWithFormat:@"累计收益(元):%@",viewModel.userInfoModel.userAssets.earnTotal] replaceStringWithStartLocation:8 lenght:viewModel.userInfoModel.userAssets.earnTotal.length?:1];
+        }
         weakSelf.userNameLabel.text = viewModel.userInfoModel.userInfo.username;
         weakSelf.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
@@ -107,15 +116,20 @@
  */
 - (void)ciphertextButtonClick
 {
-        
-    if (self.ciphertextButton.selected) {
-        self.availableAmountLabel.text = [NSString stringWithFormat:@"可用金额(元):%@",self.userInfoViewModel.userInfoModel.userAssets.availablePoint];
-        self.accumulatedIncomeLabel.text = [NSString stringWithFormat:@"累计收益(元):%@",self.userInfoViewModel.userInfoModel.userAssets.earnTotal];
-    }else{
+    if ([KeyChain.ciphertext isEqualToString:@"0"]) {
+        KeyChain.ciphertext = @"1";
+        self.ciphertextButton.selected = YES;
         self.accumulatedIncomeLabel.text = [self.accumulatedIncomeLabel.text replaceStringWithStartLocation:8 lenght:self.userInfoViewModel.userInfoModel.userAssets.earnTotal.length?:1];
         self.availableAmountLabel.text = [self.availableAmountLabel.text replaceStringWithStartLocation:8 lenght:self.userInfoViewModel.userInfoModel.userAssets.availablePoint.length?:1];
+    }else
+    {
+        KeyChain.ciphertext = @"0";
+        self.ciphertextButton.selected = NO;
+        self.availableAmountLabel.text = [NSString stringWithFormat:@"可用金额(元):%@",self.userInfoViewModel.userInfoModel.userAssets.availablePoint];
+        self.accumulatedIncomeLabel.text = [NSString stringWithFormat:@"累计收益(元):%@",self.userInfoViewModel.userInfoModel.userAssets.earnTotal];
+        
     }
-    self.ciphertextButton.selected = !self.ciphertextButton.selected;
+    
 }
 
 

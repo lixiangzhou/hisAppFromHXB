@@ -110,13 +110,13 @@
 
 - (void)showAlreadyInvestedView
 {
+    [self.indicationView loadNewDate];
     self.afterLoginView.hidden = YES;
     if (self.indicationView.hidden == NO) {
         return;
     }
     self.indicationView.hidden = NO;
     [self resetView];
-    [self.indicationView loadNewDate];
 }
 
 - (void)showSecurityCertificationOrInvest{

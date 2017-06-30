@@ -89,10 +89,25 @@
 {
     _userInfoViewModel = userInfoViewModel;
     
-    self.allFinanceLabel.text = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.assetsTotal doubleValue]]?:@"0.00";
-    self.accumulatedProfitLabel.text = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
-    self.balanceLabel.text = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
-//    userInfoViewModel.userInfoModel.userAssets.availablePoint?:@"0.00";
+    NSString *allFinanceStr = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.assetsTotal doubleValue]]?:@"0.00";
+    NSString *accumulatedProfitStr = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
+    NSString *balance = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
+    if ([KeyChain.ciphertext isEqualToString:@"0"])
+    {
+        self.rightHeadButton.selected = NO;
+        self.allFinanceLabel.text = allFinanceStr;
+        self.accumulatedProfitLabel.text = accumulatedProfitStr;
+        self.balanceLabel.text = balance;
+    }else
+    {
+         self.rightHeadButton.selected = YES;
+        
+        self.allFinanceLabel.text = [allFinanceStr replaceStringWithStartLocation:0 lenght:allFinanceStr.length];
+        
+        self.accumulatedProfitLabel.text = [accumulatedProfitStr replaceStringWithStartLocation:0 lenght:accumulatedProfitStr.length];
+        
+        self.balanceLabel.text = [balance replaceStringWithStartLocation:0 lenght:balance.length];
+    }
 }
 
 
@@ -105,17 +120,24 @@
 
 - (void)rightHeadButtonClick:(UIButton *)rightHeadBtn
 {
-    if (rightHeadBtn.selected) {
-        self.allFinanceLabel.text = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.assetsTotal doubleValue]]?:@"0.00";
-        self.accumulatedProfitLabel.text = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
-        self.balanceLabel.text = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
+    NSString *allFinanceStr = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.assetsTotal doubleValue]]?:@"0.00";
+    NSString *accumulatedProfitStr = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
+    NSString *balance = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
+    
+    if ([KeyChain.ciphertext isEqualToString:@"0"]){
+        KeyChain.ciphertext = @"1";
+        self.rightHeadButton.selected = YES;
+        self.allFinanceLabel.text = [allFinanceStr replaceStringWithStartLocation:0 lenght:allFinanceStr.length];
+        self.accumulatedProfitLabel.text = [accumulatedProfitStr replaceStringWithStartLocation:0 lenght:accumulatedProfitStr.length];
+        self.balanceLabel.text = [balance replaceStringWithStartLocation:0 lenght:balance.length];
     }else
     {
-        self.allFinanceLabel.text = [self.allFinanceLabel.text replaceStringWithStartLocation:0 lenght:self.allFinanceLabel.text.length];
-        self.accumulatedProfitLabel.text = [self.accumulatedProfitLabel.text replaceStringWithStartLocation:0 lenght:self.accumulatedProfitLabel.text.length];
-        self.balanceLabel.text = [self.balanceLabel.text replaceStringWithStartLocation:0 lenght:self.balanceLabel.text.length];
+        KeyChain.ciphertext = @"0";
+        self.rightHeadButton.selected = NO;
+        self.allFinanceLabel.text = allFinanceStr;
+        self.accumulatedProfitLabel.text = accumulatedProfitStr;
+        self.balanceLabel.text = balance;
     }
-    rightHeadBtn.selected = !rightHeadBtn.selected;
 }
 
 

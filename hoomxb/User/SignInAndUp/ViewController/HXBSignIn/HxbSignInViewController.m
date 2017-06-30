@@ -91,6 +91,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             //调到我的界面
             [KeyChain signOut];
             [[KeyChainManage sharedInstance] mobileWithBlock:^(NSString *mobile) {
+                
                 [weakSelf dismiss];
                 
             }];
@@ -166,8 +167,9 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 }
 
 - (void)dismiss{
+    KeyChain.ciphertext = @"0";
     [self dismissViewControllerAnimated:YES completion:^{
-        KeyChain.ciphertext = @"0";
+        
     }];
 }
 

@@ -131,6 +131,7 @@
         //实名认证
         if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
             HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
+            securityCertificationVC.userInfoViewModel = viewModel;
             [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
             return;
         }else

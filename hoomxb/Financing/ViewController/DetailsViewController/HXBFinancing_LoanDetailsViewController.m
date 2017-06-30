@@ -137,6 +137,7 @@
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0]]) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             //            detail_DetailLoanVC. = self.planDetailViewModel;
+            detail_DetailLoanVC.loanDetailViewModel = self.loanDetailViewModel;
             [weakSelf.navigationController pushViewController:detail_DetailLoanVC animated:true];
         }
         ///  借款记录

@@ -19,6 +19,9 @@
 		4E422CAC1EA736F700C0EB62 /* HxbNotificationMacros.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E422CAB1EA736F700C0EB62 /* HxbNotificationMacros.m */; };
 		4E422CB41EA7386900C0EB62 /* HxbMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E422CB31EA7386900C0EB62 /* HxbMyViewController.m */; };
 		4E422CC51EA7617700C0EB62 /* UIButton+HxbButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E422CC01EA7493900C0EB62 /* UIButton+HxbButton.m */; };
+		4E4ACC911F05FBBB0031B326 /* HXBLoanInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */; };
+		4E4ACC941F060F550031B326 /* HXBLoanInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC931F060F550031B326 /* HXBLoanInstructionView.m */; };
+		4E4ACC9A1F061F3D0031B326 /* HXBHXBBorrowUserinforView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC991F061F3D0031B326 /* HXBHXBBorrowUserinforView.m */; };
 		4E5003371F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5003361F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m */; };
 		4E6677C21EEA96300064ECCE /* HXBBankCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6677C11EEA96300064ECCE /* HXBBankCardModel.m */; };
 		4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */; };
@@ -337,6 +340,12 @@
 		4E422CBF1EA7493900C0EB62 /* UIButton+HxbButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+HxbButton.h"; sourceTree = "<group>"; };
 		4E422CC01EA7493900C0EB62 /* UIButton+HxbButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+HxbButton.m"; sourceTree = "<group>"; };
 		4E422CC21EA74F3B00C0EB62 /* HxbTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxbTools.h; sourceTree = "<group>"; };
+		4E4ACC8F1F05FBBB0031B326 /* HXBLoanInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBLoanInformation.h; sourceTree = "<group>"; };
+		4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLoanInformation.m; sourceTree = "<group>"; };
+		4E4ACC921F060F550031B326 /* HXBLoanInstructionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBLoanInstructionView.h; sourceTree = "<group>"; };
+		4E4ACC931F060F550031B326 /* HXBLoanInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLoanInstructionView.m; sourceTree = "<group>"; };
+		4E4ACC981F061F3D0031B326 /* HXBHXBBorrowUserinforView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBHXBBorrowUserinforView.h; sourceTree = "<group>"; };
+		4E4ACC991F061F3D0031B326 /* HXBHXBBorrowUserinforView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBHXBBorrowUserinforView.m; sourceTree = "<group>"; };
 		4E5003351F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCheckLoginPasswordViewController.h; sourceTree = "<group>"; };
 		4E5003361F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCheckLoginPasswordViewController.m; sourceTree = "<group>"; };
 		4E6677C01EEA96300064ECCE /* HXBBankCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBankCardModel.h; sourceTree = "<group>"; };
@@ -1074,6 +1083,19 @@
 				4E422CC01EA7493900C0EB62 /* UIButton+HxbButton.m */,
 			);
 			path = UIButton;
+			sourceTree = "<group>";
+		};
+		4E4ACC8E1F05FB6A0031B326 /* BorrowingInformation */ = {
+			isa = PBXGroup;
+			children = (
+				4E4ACC8F1F05FBBB0031B326 /* HXBLoanInformation.h */,
+				4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */,
+				4E4ACC921F060F550031B326 /* HXBLoanInstructionView.h */,
+				4E4ACC931F060F550031B326 /* HXBLoanInstructionView.m */,
+				4E4ACC981F061F3D0031B326 /* HXBHXBBorrowUserinforView.h */,
+				4E4ACC991F061F3D0031B326 /* HXBHXBBorrowUserinforView.m */,
+			);
+			path = BorrowingInformation;
 			sourceTree = "<group>";
 		};
 		4E6677BF1EEA961B0064ECCE /* HXBMY_BankCard */ = {
@@ -2876,6 +2898,7 @@
 			children = (
 				E1FDF6281EC329F100FF98AC /* HXBFinancting_LoanListTableView.h */,
 				E1FDF6291EC329F100FF98AC /* HXBFinancting_LoanListTableView.m */,
+				4E4ACC8E1F05FB6A0031B326 /* BorrowingInformation */,
 				E165EABC1EF8E88300D68763 /* ContractWebView */,
 				E165EA9C1EF8E71100D68763 /* Detail */,
 				E165EA941EF8E69000D68763 /* Buy */,
@@ -3170,6 +3193,7 @@
 				E133DCE21EEE3597009466DE /* HXBSendSmscodeView.m in Sources */,
 				4EAD98E41EB87D290029A3FF /* HXBBannerView.m in Sources */,
 				E133DD3E1EEEC14C009466DE /* NYNetworkConfig.m in Sources */,
+				4E4ACC941F060F550031B326 /* HXBLoanInstructionView.m in Sources */,
 				E166C5921F03D0D700AA14F4 /* HXBMY_Plan_Capital_ViewController.m in Sources */,
 				E17E6ADA1ECD826D0046888B /* HXBMY_LoanListViewController.m in Sources */,
 				E1247B421ECC2AD000B2CD7C /* HXBMainListView_Loan_TopView.m in Sources */,
@@ -3319,6 +3343,7 @@
 				4E6677C21EEA96300064ECCE /* HXBBankCardModel.m in Sources */,
 				E11262371EC5A9200084A22D /* HXBFinModel_AddRecortdModel_Plan.m in Sources */,
 				E17509BA1EC6E52900E17B39 /* HXBFinPlanContract_contraceWebViewVC.m in Sources */,
+				4E4ACC911F05FBBB0031B326 /* HXBLoanInformation.m in Sources */,
 				E133DCE41EEE3597009466DE /* HXBSignUPView.m in Sources */,
 				E133DCDD1EEE3597009466DE /* LoginModel.m in Sources */,
 				E1C964741EA5E04F0066DBC4 /* HXBBaseNavigationController.m in Sources */,
@@ -3367,6 +3392,7 @@
 				E1270B751ECEEC6300729BC9 /* HXBMY_PlanDetail_InfoCell.m in Sources */,
 				E1C964781EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.m in Sources */,
 				E133DCE91EEE3597009466DE /* HxbSignInViewController.m in Sources */,
+				4E4ACC9A1F061F3D0031B326 /* HXBHXBBorrowUserinforView.m in Sources */,
 				E122D85D1EA0CAB900DC71ED /* UIView+HxbView.m in Sources */,
 				E1CB561A1ED2D1F500D962CA /* HXBMYModel_AssetStatistics_Plan.m in Sources */,
 				4EAD98D51EB838F80029A3FF /* UITextField+HxbTextField.m in Sources */,
