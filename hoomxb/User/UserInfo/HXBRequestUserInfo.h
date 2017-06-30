@@ -11,4 +11,5 @@
 @interface HXBRequestUserInfo : NSObject
 ///请求数据
 + (void) downLoadUserInfoWithSeccessBlock: (void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure:(void(^)( NSError *error))failureBlock;
++ (void) signOut;
 @end

@@ -19,6 +19,7 @@
     [super viewDidLoad];
     [self setUPViews];
     [self downLoadData];
+    self.title = @"投标记录";
 }
 
 - (void)downLoadData {

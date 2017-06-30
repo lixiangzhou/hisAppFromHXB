@@ -17,7 +17,7 @@
  */
 + (instancetype)sharedInstance;
 @property (nonatomic, copy) NSString  *token;
-@property (nonatomic, assign, readonly) BOOL isLogin;
+@property (nonatomic, assign) BOOL isLogin;
 ///手势密码
 @property (nonatomic, copy) NSString  *gesturePwd;
 ///手势密码输入的次数
