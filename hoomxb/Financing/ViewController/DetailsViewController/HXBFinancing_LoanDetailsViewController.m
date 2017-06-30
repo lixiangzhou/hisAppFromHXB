@@ -177,20 +177,23 @@
 //            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
-        if(!self.isIdPassed) {
-            ///没有实名
-            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
-            securityCertificationVC.popToClass = NSStringFromClass([self class]);
-            [self.navigationController pushViewController:securityCertificationVC animated:true];
-            return;
-        }
-     
-        //跳转加入界面
-        HXBFin_Loan_BuyViewController *loanJoinVC = [[HXBFin_Loan_BuyViewController alloc]init];
-        loanJoinVC.title = @"散标投资";
-        loanJoinVC.loanViewModel = weakSelf.loanDetailViewModel;
-        loanJoinVC.availablePoint = _availablePoint;
-        [weakSelf.navigationController pushViewController:loanJoinVC animated:true];
+       
+        [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
+            if(!isVerify) {
+                ///没有实名
+                HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
+                securityCertificationVC.popToClass = NSStringFromClass([self class]);
+                [self.navigationController pushViewController:securityCertificationVC animated:true];
+                return;
+            }
+            //跳转加入界面
+            HXBFin_Loan_BuyViewController *loanJoinVC = [[HXBFin_Loan_BuyViewController alloc]init];
+            loanJoinVC.title = @"散标投资";
+            loanJoinVC.loanViewModel = weakSelf.loanDetailViewModel;
+            loanJoinVC.availablePoint = _availablePoint;
+            [weakSelf.navigationController pushViewController:loanJoinVC animated:true];
+        }];
+        
     }];
 }
 
