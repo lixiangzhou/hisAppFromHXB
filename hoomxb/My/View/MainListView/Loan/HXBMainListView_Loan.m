@@ -11,7 +11,7 @@
 #import "HXBMYViewModel_MainLoanViewModel.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
 #import "HXBMainListView_Plan_TopView.h"
-
+#import "HXBMYModel_Loan_LoanRequestModel.h"
 
 @interface HXBMainListView_Loan()
 
@@ -73,6 +73,11 @@ static NSString *BID_Title = @"投标中";
 //MARK: 销毁
 kDealloc
 #pragma mark - setter
+- (void)setLoanAccountModel:(HXBMYModel_Loan_LoanRequestModel *)loanAccountModel {
+    _loanAccountModel = loanAccountModel;
+    self.REPAYING_Lable.text =  [self  formatStrWithTypeStr:REPAYING_Title andCountStr:loanAccountModel.rePayingTotalCount.integerValue];
+    self.BID_Lable.text = [self  formatStrWithTypeStr:REPAYING_Title andCountStr:loanAccountModel.BIDTotalCount.integerValue];
+}
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
     _userInfoViewModel = userInfoViewModel;
     self.loanTopView.userInfoViewModel = userInfoViewModel;
@@ -80,12 +85,12 @@ kDealloc
 - (void)setRepaying_ViewModelArray:(NSArray<HXBMYViewModel_MainLoanViewModel *> *)repaying_ViewModelArray {
     _repaying_ViewModelArray = repaying_ViewModelArray;
     self.erpaying_Loan_TableView.mainLoanViewModelArray = repaying_ViewModelArray;
-    self.REPAYING_Lable.text = [self  formatStrWithTypeStr:REPAYING_Title andCountStr:repaying_ViewModelArray.count];
+//    self.REPAYING_Lable.text = [self  formatStrWithTypeStr:REPAYING_Title andCountStr:repaying_ViewModelArray.count];
 }
 - (void)setBid_ViewModelArray:(NSArray<HXBMYViewModel_MainLoanViewModel *> *)bid_ViewModelArray {
     _bid_ViewModelArray = bid_ViewModelArray;
     self.bid_Loan_TableView.mainLoanViewModelArray = bid_ViewModelArray;
-    self.BID_Lable.text = [self formatStrWithTypeStr:BID_Title andCountStr:bid_ViewModelArray.count];
+//    self.BID_Lable.text = [self formatStrWithTypeStr:BID_Title andCountStr:bid_ViewModelArray.count];
 }
 
 - (NSString *)formatStrWithTypeStr: (NSString *)typeStr andCountStr: (NSInteger)count {

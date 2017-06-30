@@ -13,12 +13,14 @@
 #import "HXBMY_PlanList_DetailViewController.h"
 #import "HXBMYModel_AssetStatistics_Loan.h"
 #import "HXBMY_LoanList_DetailViewController.h"
+#import "HXBMYModel_Loan_LoanRequestModel.h"///资产
 @interface HXBMY_LoanListViewController ()
 
 @property (nonatomic,strong) HXBMainListView_Loan *loanListView;
 
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel *>*loan_BID_ViewModelArray;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel *>*loan_REPAYING_ViewModelArray;
+@property (nonatomic,strong) HXBMYModel_Loan_LoanRequestModel *loanAccountModel;
 @end
 
 @implementation HXBMY_LoanListViewController
@@ -55,7 +57,7 @@ kDealloc
     [self registerSwichScrollViewCallBack];
 }
 
-///资产统计网络请求
+/// userinfo 数据请求
 - (void)assetStatisticsLoadData {
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         self.loanListView.userInfoViewModel = viewModel;
@@ -71,6 +73,15 @@ kDealloc
 }
 #pragma mark - 下载数据
 - (void)downLoadDataWitRequestType: (HXBRequestType_MY_LoanRequestType) requestType andIsUpData: (BOOL)isUpData{
+    //资产统计网络请求
+    HXBMYRequest *request = [[HXBMYRequest alloc]init];
+    [request loanAssets_AccountRequestSuccessBlock:^(HXBMYModel_Loan_LoanRequestModel *viewModel) {
+        self.loanListView.loanAccountModel = viewModel;
+        self.loanAccountModel = viewModel;
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
+    
     ///这里面没有产生循环引用 block里面不能用weakSelf
     [[HXBMYRequest sharedMYRequest] myLoan_requestWithLoanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MainLoanViewModel *> *viewModelArray) {
         //数据的分发

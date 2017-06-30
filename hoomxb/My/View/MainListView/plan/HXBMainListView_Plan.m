@@ -11,7 +11,7 @@
 #import "HXBBaseToolBarView.h"
 #import "HXBBaseScrollToolBarView.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
-
+#import "HXBMYModel_Plan_planRequestModel.h"
 static NSString *const holdTitle = @"持有中";
 static NSString *const exitTingTitle = @"退出中";
 static NSString *const exitTitle = @"已退出";
@@ -56,6 +56,8 @@ static NSString *const exitTitle = @"已退出";
 @implementation HXBMainListView_Plan
 //MARK: 销毁
 kDealloc
+
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -67,6 +69,13 @@ kDealloc
 
 
 #pragma mark - setter  数据源
+- (void)setPlanAccountModel:(HXBMYModel_Plan_planRequestModel *)planAccountModel {
+    _planAccountModel = planAccountModel;
+    self.exitLabel.text = [self formatStrWithTypeStr:exitTitle andCountStr:planAccountModel.exitCount.integerValue];
+    self.exitingLabel.text = [self formatStrWithTypeStr:exitTingTitle andCountStr:planAccountModel.exitingCount.integerValue];
+    self.holdLabel.text = [self formatStrWithTypeStr:holdTitle andCountStr:planAccountModel.currentPlanCount.integerValue];
+}
+
 - (void) setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
     _userInfoViewModel = userInfoViewModel;
     self.topView.userInfoViewModel = userInfoViewModel;
@@ -74,18 +83,18 @@ kDealloc
 - (void) setExit_Plan_array:(NSMutableArray<HXBMYViewModel_MianPlanViewModel *> *)exit_Plan_array {
     _exit_Plan_array = exit_Plan_array;
     self.exit_Plan_TableView.mainPlanViewModelArray = exit_Plan_array;
-    self.exitLabel.text = [self formatStrWithTypeStr:exitTitle andCountStr:exit_Plan_array.count];
+//    self.exitLabel.text = [self formatStrWithTypeStr:exitTitle andCountStr:exit_Plan_array.count];
 
 }
 - (void)setExiting_Plan_array:(NSMutableArray<HXBMYViewModel_MianPlanViewModel *> *)exiting_Plan_array {
     _exiting_Plan_array = exiting_Plan_array;
     self.exiting_Plan_TableView.mainPlanViewModelArray = exiting_Plan_array;
-    self.exitingLabel.text = [self formatStrWithTypeStr:exitTingTitle andCountStr:exiting_Plan_array.count];
+//    self.exitingLabel.text = [self formatStrWithTypeStr:exitTingTitle andCountStr:exiting_Plan_array.count];
 }
 - (void)setHold_Plan_array:(NSMutableArray<HXBMYViewModel_MianPlanViewModel *> *)hold_Plan_array {
     _hold_Plan_array = hold_Plan_array;
     self.hold_Plan_TableView.mainPlanViewModelArray = hold_Plan_array;
-    self.holdLabel.text = [self formatStrWithTypeStr:holdTitle andCountStr:hold_Plan_array.count];
+//    self.holdLabel.text = [self formatStrWithTypeStr:holdTitle andCountStr:hold_Plan_array.count];
 }
 - (NSString *)formatStrWithTypeStr: (NSString *)typeStr andCountStr: (NSInteger)count {
     if (count) {

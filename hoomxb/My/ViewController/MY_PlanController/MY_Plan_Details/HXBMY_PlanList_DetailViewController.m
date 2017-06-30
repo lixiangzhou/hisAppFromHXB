@@ -70,6 +70,10 @@
     [self.navigationController pushViewController:capitalVC animated:true];
 }
 - (void)clickAddButton {
+    if (!KeyChain.isLogin) {
+        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+        return;
+    }
     kWeakSelf
     HXBFin_Plan_BuyViewController *planBuyVC = [[HXBFin_Plan_BuyViewController alloc]init];
     //获取计划信息

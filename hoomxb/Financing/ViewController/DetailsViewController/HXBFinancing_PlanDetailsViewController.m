@@ -184,7 +184,8 @@
     [self.planDetailsView clickAddButtonFunc:^{
         //如果不是登录 那么就登录
         if (![KeyChainManage sharedInstance].isLogin) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
         //判断是否风险测评

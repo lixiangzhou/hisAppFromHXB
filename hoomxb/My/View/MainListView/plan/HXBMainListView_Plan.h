@@ -10,11 +10,13 @@
 @class HXBMYModel_AssetStatistics_Plan;
 
 #import "HXBMYViewModel_MianPlanViewModel.h"
-
+@class HXBMYModel_Plan_planRequestModel;
 /// 我的 plan listView
 @interface HXBMainListView_Plan : UIView
 
 #pragma mark - 数据源
+///资产
+@property (nonatomic,strong) HXBMYModel_Plan_planRequestModel *planAccountModel;
 ///资产统计
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 ///持有中

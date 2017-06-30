@@ -13,7 +13,7 @@
 #import "HXBMYModel_MainPlanModel.h"//plan model
 #import "HXBMainListView_Plan.h"
 #import "HXBMYRequest.h"
-
+#import "HXBMYModel_Plan_planRequestModel.h"
 @interface HXBMY_PlanListViewController ()
 #pragma mark - view
 @property (nonatomic,strong) HXBMainListView_Plan *planListView;//里面有toolblarView
@@ -27,6 +27,7 @@
 ///plan 已退出
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MianPlanViewModel *>*exit_Plan_array;
 
+@property (nonatomic,strong) HXBMYModel_Plan_planRequestModel *planAccountModel;
 @end
 
 @implementation HXBMY_PlanListViewController
@@ -44,6 +45,8 @@ kDealloc
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     };
+    
+ 
 }
 
 //设置
@@ -81,6 +84,13 @@ kDealloc
 #pragma mark - 下载数据
 - (void)downLoadDataWitRequestType: (HXBRequestType_MY_PlanRequestType) requestType andIsUpData: (BOOL)isUpData{
     __weak typeof (self)weakSelf = self;
+    //请求资产数据
+    HXBMYRequest *request = [[HXBMYRequest alloc]init];
+    [request planAssets_AccountRequestSuccessBlock:^(HXBMYModel_Plan_planRequestModel *viewModel) {
+        self.planAccountModel = viewModel;
+        self.planListView.planAccountModel = viewModel;
+    } andFailureBlock:^(NSError *error) {
+    }];
     [[HXBMYRequest sharedMYRequest] myPlan_requestWithPlanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MianPlanViewModel *> *viewModelArray) {
         //数据的分发
         [weakSelf handleViewModelArrayWithViewModelArray:viewModelArray];

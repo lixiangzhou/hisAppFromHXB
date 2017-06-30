@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "HXBMYViewModel_MainLoanViewModel.h"
 @class HXBMYModel_AssetStatistics_Loan;
+@class HXBMYModel_Loan_LoanRequestModel;
 @interface HXBMainListView_Loan : UIView
 
 #pragma mark - 数据源
 ///资产统计model
+@property (nonatomic,strong) HXBMYModel_Loan_LoanRequestModel *loanAccountModel;
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel*> *repaying_ViewModelArray;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel*> *bid_ViewModelArray;

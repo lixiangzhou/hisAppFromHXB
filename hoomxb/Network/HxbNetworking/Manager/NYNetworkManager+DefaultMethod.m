@@ -17,17 +17,22 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 
 - (void)defaultMethodRequestSuccessWithRequest:(NYBaseRequest *)request
 {
+    NSLog(@"-");NSLog(@"-");NSLog(@"-");NSLog(@"-");
     NSLog(@"👌开始================================================================");
     NSLog(@"=>>> URL: %@,  Code =>%ld  ",request.requestUrl,(long)request.responseStatusCode);
     NSLog(@"----------------------------------------------------------------");
     NSLog(@"%@",request.responseObject);
     NSLog(@"👌================================================================");
+    NSLog(@"-");NSLog(@"-");NSLog(@"-");NSLog(@"-");
     switch ([request.responseObject[kResponseStatus] integerValue]) {
         case kHXBCode_Enum_Captcha://弹出图验、
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowCaptchaVC object:nil];
             break;
-            
-        default:
+        case kHXBCode_Enum_NotSigin:///没有登录{
+            KeyChain.isLogin = false;
+            break;
+        case kHXBCode_Enum_TokenNotJurisdiction://没有权限
+            KeyChain.isLogin = false;
             break;
     }
 //    DLog(@"请求成功-request：%@",request);
@@ -48,21 +53,22 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 #pragma mark - 请求失败
 - (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request
 {
+    NSLog(@"-");NSLog(@"-");NSLog(@"-");NSLog(@"-");
     NSLog(@"🌶开始================================================================");
     NSLog(@"=>>> URL: %@,  Code =>%ld  ",request.requestUrl,(long)request.responseStatusCode);
     NSLog(@"----------------------------------------------------------------");
     NSLog(@"%@",request.responseObject);
     NSLog(@"🌶  ================================================================");
+    NSLog(@"-");NSLog(@"-");NSLog(@"-");NSLog(@"-");
     switch (request.responseStatusCode) {
             
         case kHXBCode_Enum_NotSigin:///没有登录
             if (KeyChain.isLogin) {
                 //弹出是否 登录
-//                [[KeyChainManage sharedInstance] signOut];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                [[KeyChainManage sharedInstance] signOut];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             }
             [[KeyChainManage sharedInstance] removeAllInfo];
-            
             break;
         case kHXBCode_Enum_TokenNotJurisdiction://没有权限
             /**
@@ -70,10 +76,9 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
              */
             if (KeyChain.isLogin) {
                 //弹出是否 登录
-//                [[KeyChainManage sharedInstance] signOut];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                [[KeyChainManage sharedInstance] signOut];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             }
-            
             break;
         default:
             break;
@@ -91,19 +96,10 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     }
 }
 
-
 //MARK: status == 0
 //page++
 - (void) addRequestPage: (HXBBaseRequest *)request {
     request.dataPage ++;
     NSLog(@"%ld",(long)request.dataPage);
 }
-///对数据进行处理 并返回
-//- (void) handleDataWithRequest: (HXBBaseRequest *)request {
-//    NSDictionary *dataDic = [request.responseObject valueForKey:kResponseData];
-//    NSObject *viewModel = [[request.viewModelClass alloc]init];
-//    [request.class yy_modelWithDictionary:dataDic];
-//    
-//    request.successBlock(<#NSArray *dataArray#>)
-//}
 @end
