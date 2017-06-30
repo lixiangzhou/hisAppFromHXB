@@ -71,16 +71,21 @@
   
     [self.view addSubview:self.myView];
     if (KeyChain.isLogin) {
-        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+//        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
         return;
     }
 }
 
 ///查看总资产
 - (void)clickAllFinanceButton {
+   
     kWeakSelf
     [self.myView clickAllFinanceButtonWithBlock:^(UILabel * _Nullable button) {
         //跳转资产目录
+        if (KeyChain.isLogin) {
+            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+            return;
+        }
         HXBMY_AllFinanceViewController *allFinanceViewController = [[HXBMY_AllFinanceViewController alloc]init];
         [weakSelf.navigationController pushViewController:allFinanceViewController animated:true];
     }];
@@ -105,7 +110,12 @@
 }
 /// 提现
 - (void)didClickWithdrawBtn:(UIButton *)sender{
+   
     HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+    if (KeyChain.isLogin) {
+        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+        return;
+    }
     withdrawViewController.userInfoViewModel = self.userInfoViewModel;
     [self.navigationController pushViewController:withdrawViewController animated:YES];
 }
