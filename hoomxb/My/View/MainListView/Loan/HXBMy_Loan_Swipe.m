@@ -99,16 +99,16 @@
 
     switch (index) {
         case 0:
-            
-            // 获取当前index下item的数据，进行数据刷新
-            //刷新数据
-            
-            [self.erpaying_Loan_TableView setMainLoanViewModelArray:<#(NSArray<HXBMYViewModel_MainLoanViewModel *> *)#>
-            ///收益中
-             view = HXBBaseTableView_MYPlanList_TableView
-            ///投标中
-            @property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *bid_Loan_TableView;
-            break;
+//            
+//            // 获取当前index下item的数据，进行数据刷新
+//            //刷新数据
+//            
+//            [self.erpaying_Loan_TableView setMainLoanViewModelArray:<#(NSArray<HXBMYViewModel_MainLoanViewModel *> *)#>
+//            ///收益中
+//             view = HXBBaseTableView_MYPlanList_TableView
+//            ///投标中
+//            @property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *bid_Loan_TableView;
+//            break;
             
         default:
             break;
@@ -117,7 +117,7 @@
     
     
     // 在没有设定下拉刷新宏的条件下，自定义的下拉刷新需要做 refreshheader 的 frame 处理
-    [self configRefreshHeaderForItem:view];
+//    [self configRefreshHeaderForItem:view];
     
     return view;
 }
