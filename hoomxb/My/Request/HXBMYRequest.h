@@ -12,6 +12,8 @@
 #import "HXBMYViewModel_MainCapitalRecordViewModel.h"//主界面 资产记录 ViewMOdel
 @class HXBMYModel_AssetStatistics_Plan;//资金统计的Model plan
 @class HXBMYModel_AssetStatistics_Loan;//资金统计的Model loan
+@class HXBMYModel_Plan_planRequestModel;///plan 资产目录
+@class HXBMYModel_Loan_LoanRequestModel;///loan 资产目录
 @class HXBMY_PlanViewModel_LoanRecordViewModel;
 
 ///关于个人主页的红利计划的 （账户内）
@@ -55,4 +57,15 @@
                               andPlanID: (NSString *)planID
                         andSuccessBlock: (void(^)(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *>* viewModelArray))successDateBlock
                         andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+/**
+ loan  账户内散标资产
+ */
+- (void)loanAssets_AccountRequestSuccessBlock: (void(^)(HXBMYModel_Loan_LoanRequestModel *viewModel))successDateBlock
+                              andFailureBlock: (void(^)(NSError *error))failureBlock;
+/**
+ plan 账户内计划资产
+ */
+- (void)planAssets_AccountRequestSuccessBlock: (void(^)(HXBMYModel_Plan_planRequestModel *viewModel))successDateBlock
+                              andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end

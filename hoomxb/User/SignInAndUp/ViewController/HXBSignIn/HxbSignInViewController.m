@@ -95,7 +95,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
                 [weakSelf dismiss];
                 
             }];
-            
+             [weakSelf dismiss];
         } andFailureBlock:^(NSError *error) {
             ///清空
             self.checkCaptcha = nil;

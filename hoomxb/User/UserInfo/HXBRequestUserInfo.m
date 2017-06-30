@@ -8,7 +8,19 @@
 
 #import "HXBRequestUserInfo.h"
 #import "HXBBaseRequest.h"
+
+#define kHXBUser_signOutURL @"/logout"
 @implementation HXBRequestUserInfo
+
++ (void)signOut {
+    HXBBaseRequest *request = [[HXBBaseRequest alloc]init];
+    request.requestUrl = kHXBUser_signOutURL;
+    request.requestMethod = NYRequestMethodPost;
+    [request startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+    }];
+}
+
 ///数据请求
 + (void) downLoadUserInfoWithSeccessBlock: (void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure:(void(^)(NSError *error))failureBlock {
     HXBBaseRequest *userInfoAPI = [[HXBBaseRequest alloc]init];

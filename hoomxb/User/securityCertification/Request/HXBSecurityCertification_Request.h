@@ -19,4 +19,8 @@ tradpwd	否	string	交易密码
                                    andTradpwd: (NSString *)tradpwd
                               andSuccessBlock: (void(^)(BOOL isExist))successBlock
                               andFailureBlock: (void(^)(NSError *error,NSString *message))failureBlock;
+/**
+退出
+ */
++ (void)signOut;
 @end

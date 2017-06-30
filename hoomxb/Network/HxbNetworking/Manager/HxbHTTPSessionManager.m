@@ -1,4 +1,4 @@
-//
+        //
 //  HxbHTTPSessionManager.m
 //  hoomxb
 //
@@ -45,7 +45,6 @@
                     NSLog(@"request >>>>>>>>    %@",newRequest.allHTTPHeaderFields);
                     
                     NSURLSessionDataTask *originalTask = [super dataTaskWithRequest:newRequest uploadProgress:uploadProgressBlock downloadProgress:downloadProgressBlock completionHandler:completionHandler];
-                    
                     [originalTask resume];
                 }];
             });

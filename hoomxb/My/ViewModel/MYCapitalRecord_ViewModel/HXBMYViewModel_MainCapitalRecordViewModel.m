@@ -15,8 +15,8 @@
     [self setUPBalance];
 }
 - (void)setUPBalance {
-    CGFloat balance = self.capitalRecordModel.balance.floatValue;
-    self.balance = [NSString stringWithFormat:@"账户余额%.2f元",balance];
+    NSString *balance = self.capitalRecordModel.balance;
+    self.balance = [NSString stringWithFormat:@"账户余额%@元",balance];
 }
 
 
@@ -40,12 +40,12 @@
     if (!_income) {
         ///	是否是收入
         if (self.capitalRecordModel.isPlus) {
-            CGFloat inComeFloat = self.capitalRecordModel.income.floatValue;
+            CGFloat inComeFloat = self.capitalRecordModel.pay.floatValue;
             self.inComeStrColor = [UIColor redColor];
-            _income = [NSString stringWithFormat:@"%.2f",inComeFloat];
+            _income = [NSString stringWithFormat:@"- %.2f",inComeFloat];
         }else {
             CGFloat pay = self.capitalRecordModel.pay.floatValue;
-            _income = [NSString stringWithFormat:@"%.2f",pay];
+            _income = [NSString stringWithFormat:@"+ %.2f",pay];
             self.inComeStrColor = [UIColor blueColor];
         }
     }

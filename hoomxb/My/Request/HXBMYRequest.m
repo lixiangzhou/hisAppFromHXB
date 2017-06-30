@@ -27,6 +27,8 @@
 
 #import "HXBMY_PlanViewModel_LoanRecordViewModel.h"//plan交易记录
 
+#import "HXBMYModel_Plan_planRequestModel.h"///plan 账户内计划资产
+#import "HXBMYModel_Loan_LoanRequestModel.h"/// loan 账户内散标资产
 
 @interface HXBMYRequest ()
 ///planAPI
@@ -491,7 +493,6 @@
         if (responseObject[kResponseStatus]) {
             NSLog(@"%@",self);
         }
-  
         NSArray <NSDictionary *>*dataArray = responseObject[kResponseData][@"dataList"];
         NSMutableArray <HXBMY_PlanViewModel_LoanRecordViewModel *>*viewModelArray = [[NSMutableArray alloc]init];
         HXBMY_PlanModel_LoanRecordModel *planModel = [[HXBMY_PlanModel_LoanRecordModel alloc]init];
@@ -506,17 +507,59 @@
         if (successDateBlock) {
             successDateBlock(viewModelArray.copy);
         }
-        
-        
-      
-        
-        
-        
     } failure:^(HXBBaseRequest *request, NSError *error) {
         
     }];
-    
-    
 }
+
+/**
+  loan  账户内散标资产
+  */
+- (void)loanAssets_AccountRequestSuccessBlock: (void(^)(HXBMYModel_Loan_LoanRequestModel *viewModelArray))successDateBlock
+                              andFailureBlock: (void(^)(NSError *error))failureBlock {
+    HXBBaseRequest *account_LoanRequest = [[HXBBaseRequest alloc]init];
+    account_LoanRequest.requestUrl = kHXBMY_LoanAccountRequestURL;
+    account_LoanRequest.requestMethod = NYRequestMethodGet;
+    [account_LoanRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        if([responseObject[kResponseStatus] integerValue]) {
+            kNetWorkError(@" Loan 账户内散标资产");
+        }
+        HXBMYModel_Loan_LoanRequestModel *loanAcccountModel = [[HXBMYModel_Loan_LoanRequestModel alloc]init];
+        NSDictionary *dataDic = responseObject[kResponseData];
+        [loanAcccountModel yy_modelSetWithDictionary:dataDic];
+        if (successDateBlock) {
+            successDateBlock(loanAcccountModel);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        
+    }];
+}
+
+
+
+/**
+ plan 账户内计划资产
+ */
+- (void)planAssets_AccountRequestSuccessBlock: (void(^)(HXBMYModel_Plan_planRequestModel *viewModelArray))successDateBlock
+                              andFailureBlock: (void(^)(NSError *error))failureBlock {
+
+    HXBBaseRequest *account_PlanRequest = [[HXBBaseRequest alloc]init];
+    account_PlanRequest.requestUrl = kHXBMY_PlanAccountRequestURL;
+    account_PlanRequest.requestMethod = NYRequestMethodGet;
+    [account_PlanRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        if([responseObject[kResponseStatus] integerValue]) {
+            kNetWorkError(@" Plan 账户内计划资产");
+        }
+        HXBMYModel_Plan_planRequestModel *planAcccountModel = [[HXBMYModel_Plan_planRequestModel alloc]init];
+        NSDictionary *dataDic = responseObject[kResponseData];
+        [planAcccountModel yy_modelSetWithDictionary:dataDic];
+        if (successDateBlock) {
+            successDateBlock(planAcccountModel);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        
+    }];
+}
+
 kDealloc
 @end

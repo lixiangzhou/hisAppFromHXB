@@ -68,7 +68,12 @@
     self.myView.homeRefreshHeaderBlock = ^(){
         [weakSelf loadData_userInfo];
     };
+  
     [self.view addSubview:self.myView];
+    if (KeyChain.isLogin) {
+        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+        return;
+    }
 }
 
 ///查看总资产

@@ -26,9 +26,9 @@
 + (NSString *) hiddenStr: (NSString *)string MidWithFistLenth: (NSInteger)fistLenth andLastLenth: (NSInteger)lastLenth {
     if (string.length >= fistLenth + lastLenth) {
         NSString *str = [string substringWithRange:NSMakeRange(0, fistLenth)];
-        NSString *strLast = [string substringWithRange:NSMakeRange(str.length - lastLenth, lastLenth)];
+        NSString *strLast = [string substringWithRange:NSMakeRange(string.length - lastLenth, lastLenth)];
         NSMutableString *strMid = @"".mutableCopy;
-        for (NSInteger i = (str.length - fistLenth - lastLenth); i > 0; i --) {
+        for (NSInteger i = (string.length - fistLenth - lastLenth); i > 0; i --) {
             [strMid appendString:@"*"];
         }
         string = [NSString stringWithFormat:@"%@%@%@",str,strMid,strLast];

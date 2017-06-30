@@ -71,6 +71,9 @@ static NSString *const kLenderEarned = @"kLenderEarned";
 static NSString *const kAvailablePoint = @"kAvailablePoint";
 ///	double	冻结余额
 static NSString *const kFrozenPoint = @"kFrozenPoint";
+/// 是否登录
+static NSString *const kIsLogin = @"kIsLogin";
+
 
 @interface KeyChainManage ()
 
@@ -523,6 +526,8 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 - (void)signOut
 {
     KeyChainManage *manager = KeyChain;
+    self.isLogin = false;
+    [HXBRequestUserInfo signOut];
     [manager.keychain removeItemForKey:kLoginPwd];
     [manager.keychain removeItemForKey:kTradePwd];
     [manager.keychain removeItemForKey:kToken];
@@ -589,10 +594,16 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 #pragma mark - getter/setter
 -(BOOL)isLogin
 {
-    BOOL isLogin = self.token.length && self.mobile.length;
     NSLog(@"token = %@",self.token);
     NSLog(@"phone = %@",self.mobile);
-    return isLogin;
+//    BOOL isLogin = self.mobile.length;
+    return [self.keychain[kIsLogin] integerValue];
+
+//    return isLogin;
+}
+
+- (void)setIsLogin:(BOOL)isLogin {
+    self.keychain[kIsLogin] = @(isLogin).description;
 }
 
 - (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock {
@@ -601,7 +612,7 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
     }
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         if (isLoginInRealTimeBlock) {
-            [self setValueWithUserInfoModel:viewModel];
+            [self setValueWithUserInfoModel: viewModel];
             isLoginInRealTimeBlock(true);
         }
     } andFailure:^(NSError *error) {
