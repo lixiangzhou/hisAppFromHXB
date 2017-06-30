@@ -189,9 +189,9 @@
 - (void)setUserInfoModel:(HXBUserInfoModel *)userInfoModel
 {
     _userInfoModel = userInfoModel;
+    self.phoneNumberLabel.text = [userInfoModel.userInfo.mobile hxb_hiddenPhonNumberWithMid];
     if ([userInfoModel.userInfo.isAllPassed isEqualToString:@"1"]) {
         self.authenticatedNameLabel.text = [userInfoModel.userInfo.realName hxb_hiddenUserNameWithleft];
-        self.phoneNumberLabel.text = [userInfoModel.userInfo.mobile hxb_hiddenPhonNumberWithMid];
     }else
     {
         self.authenticatedNameTipLabel.hidden = YES;
