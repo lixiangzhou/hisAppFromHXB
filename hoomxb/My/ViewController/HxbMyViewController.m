@@ -82,7 +82,7 @@
     kWeakSelf
     [self.myView clickAllFinanceButtonWithBlock:^(UILabel * _Nullable button) {
         //跳转资产目录
-        if (KeyChain.isLogin) {
+        if (!KeyChain.isLogin) {
             [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
             return;
         }
@@ -112,7 +112,7 @@
 - (void)didClickWithdrawBtn:(UIButton *)sender{
    
     HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
-    if (KeyChain.isLogin) {
+    if (!KeyChain.isLogin) {
         [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
         return;
     }
