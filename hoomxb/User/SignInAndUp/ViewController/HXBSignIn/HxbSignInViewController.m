@@ -89,13 +89,10 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             self.reuqestSignINNumber = @(0);
             [KeyChainManage sharedInstance].siginCount = @"0";
             //调到我的界面
-            [KeyChain signOut];
-            [[KeyChainManage sharedInstance] mobileWithBlock:^(NSString *mobile) {
-                
+            [KeyChainManage sharedInstance].isLogin = true;
+            [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
                 [weakSelf dismiss];
-                
             }];
-             [weakSelf dismiss];
         } andFailureBlock:^(NSError *error) {
             ///清空
             self.checkCaptcha = nil;
