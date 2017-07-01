@@ -27,10 +27,10 @@
     [self.view addSubview:securityCertificationView];
     
     ///点击了next
-    [securityCertificationView clickNextButtonFuncWithBlock:^(NSString *name, NSString *idCard, NSString *transactionPassword) {
+    [securityCertificationView clickNextButtonFuncWithBlock:^(NSString *name, NSString *idCard, NSString *transactionPassword,NSString *url) {
         
         //安全认证请求
-        [HXBSecurityCertification_Request securityCertification_RequestWithName:name andIdCardNo:idCard andTradpwd:transactionPassword andSuccessBlock:^(BOOL isExist) {
+        [HXBSecurityCertification_Request securityCertification_RequestWithName:name andIdCardNo:idCard andTradpwd:transactionPassword andURL:url andSuccessBlock:^(BOOL isExist) {
             //（获取用户信息）
             [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
                 //是否绑卡

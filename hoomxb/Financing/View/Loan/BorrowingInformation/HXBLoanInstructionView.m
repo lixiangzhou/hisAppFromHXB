@@ -32,7 +32,7 @@
 {
     _loanDetailViewModel = loanDetailViewModel;
     self.loanContentLabel.text = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO;
-    
+    self.height = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO_height + 60;
 }
 
 - (void)setupSubViewframe
@@ -46,13 +46,15 @@
         make.left.equalTo(@20);
         make.right.equalTo(self.mas_right).offset(-20);
     }];
-
+    
+   
+    
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.height = self.loanContentLabel.bottom + 10;
+//    self.height = self.loanContentLabel.bottom + 10;
 }
 
 #pragma mark - 懒加载

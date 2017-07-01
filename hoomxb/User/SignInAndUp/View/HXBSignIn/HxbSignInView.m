@@ -190,6 +190,12 @@ UITextFieldDelegate
 }
 ///点击了 登录按钮
 - (void)clickSignInButton: (UIButton *)signInButton {
+    
+    NSString * message = [NSString isOrNoPasswordStyle:self.phoneTextField.text];
+    if (message.length > 0) {
+        [HxbHUDProgress showTextWithMessage:message];
+        return;
+    }
     ///有未填写的信息，或者有手机号不正确 就返回
     if ([self notFillInThoseInformation]) {
         NSLog(@"填写手机号");

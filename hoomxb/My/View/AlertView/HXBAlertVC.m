@@ -81,8 +81,15 @@
 - (void)buttonClick:(UIButton *)btn
 {
     if ([btn.titleLabel.text isEqualToString:@"确认"]) {
-        if (self.sureBtnClick) {
-            self.sureBtnClick(self.pwdField.text);
+        NSString *message = [NSString isOrNoPasswordStyle:self.pwdField.text];
+        if (message.length > 0) {
+            [HxbHUDProgress showTextWithMessage:message];
+            return;
+        }else
+        {
+            if (self.sureBtnClick) {
+                self.sureBtnClick(self.pwdField.text);
+            }
         }
     }else if ([btn.titleLabel.text isEqualToString:@"忘记密码"])
     {
@@ -160,5 +167,10 @@
     }
     return _pwdField;
 }
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self dismissViewControllerAnimated:NO completion:^{
+        
+    }];
+}
 @end

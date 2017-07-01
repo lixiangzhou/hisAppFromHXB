@@ -30,7 +30,11 @@ UITableViewDelegate,UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    
-    if (indexPath.row == 2) {
+    if (indexPath.row == 1) {
+        UIWebView * callWebview = [[UIWebView alloc] init];
+        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"tel:400-1551-888"]]];
+        [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
+    }else if (indexPath.row == 2) {
   
     }else if (indexPath.row == 3){
         HXBFeedbackViewController *feedbackVC = [[HXBFeedbackViewController alloc]init];

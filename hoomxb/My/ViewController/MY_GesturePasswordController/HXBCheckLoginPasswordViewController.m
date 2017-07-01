@@ -43,6 +43,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"设置手势密码";
     [self.view addSubview:self.loginPasswordTextField];
     [self.view addSubview:self.checkLoginBtn];
     [self setupSubViewFrame];
@@ -66,9 +67,15 @@
 
 - (void)checkLoginPassword
 {
-    HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-    gesturePasswordVC.type = GestureViewControllerTypeSetting;
-    [self.navigationController pushViewController:gesturePasswordVC animated:YES];
+    NSString * message = [NSString isOrNoPasswordStyle:self.loginPasswordTextField.text];
+    if (message.length > 0) {
+        [HxbHUDProgress showTextWithMessage:message];
+        return;
+    }else{
+        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+        gesturePasswordVC.type = GestureViewControllerTypeSetting;
+        [self.navigationController pushViewController:gesturePasswordVC animated:YES];
+    }
 }
 
 @end
