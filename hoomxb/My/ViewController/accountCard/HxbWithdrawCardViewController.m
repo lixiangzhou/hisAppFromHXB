@@ -44,7 +44,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"确认信息";
+    
     [self.view addSubview:self.bankCardTextField];
     [self.view addSubview:self.bankNameBtn];
 //    [self.view addSubview:self.locationTextField];

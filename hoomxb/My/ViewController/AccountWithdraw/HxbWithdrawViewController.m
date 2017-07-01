@@ -137,6 +137,7 @@
         }else
         {
             HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+            withdrawCardViewController.title = @"确认信息";
             withdrawCardViewController.amount = self.amountTextField.text;
             withdrawCardViewController.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
             [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];

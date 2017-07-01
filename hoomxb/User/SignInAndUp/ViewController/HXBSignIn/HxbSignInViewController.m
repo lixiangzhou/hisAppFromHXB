@@ -14,7 +14,7 @@
 #import "HXBRequestUserInfo.h"///用户数据的请求
 #import "HXBRequestUserInfoViewModel.h"///userinfo的viewModel
 #import "HXBCheckCaptchaViewController.h"
-
+#import "HXBBaseTabBarController.h"
 
 ///手机号存在
 static NSString *const kMobile_IsExist = @"手机号已存在";
@@ -91,7 +91,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             //调到我的界面
             [KeyChainManage sharedInstance].isLogin = true;
             [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
-                [weakSelf dismiss];
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }];
         } andFailureBlock:^(NSError *error) {
             ///清空
@@ -165,6 +165,8 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 
 - (void)dismiss{
     KeyChain.ciphertext = @"0";
+    HXBBaseTabBarController *baseTabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    baseTabBarVC.selectedIndex = [self.selectedIndexVC integerValue];
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];

@@ -8,9 +8,10 @@
 
 #import "HxbSecurityCertificationViewController.h"
 #import "HxbSecurityCertificationView.h"
-#import "HxbBindCardViewController.h"
+//#import "HxbBindCardViewController.h"
 #import "HXBSignUPAndLoginRequest.h"//网络请求
 #import "HXBSecurityCertification_Request.h"
+#import "HxbWithdrawCardViewController.h"//绑卡
 @interface HxbSecurityCertificationViewController ()
 @end
 
@@ -35,8 +36,14 @@
             [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
                 //是否绑卡
                 if (!viewModel.userInfoModel.userInfo.hasBindCard.integerValue) {
-                    HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];
-                    [self.navigationController pushViewController:bindCardVC animated:YES];
+//                    HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];
+//                    [self.navigationController pushViewController:bindCardVC animated:YES];
+                    
+                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                    withdrawCardViewController.title = @"绑定银行卡";
+//                    withdrawCardViewController.amount = self.amountTextField.text;
+//                    withdrawCardViewController.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
+                    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
                 }else {
                     __block UIViewController *viewController = nil;
                     [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
