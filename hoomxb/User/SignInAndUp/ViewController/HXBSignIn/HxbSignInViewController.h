@@ -10,4 +10,7 @@
 
 @interface HxbSignInViewController : HXBBaseViewController
 
+
+@property (nonatomic, copy) NSString *selectedIndexVC;
+
 @end

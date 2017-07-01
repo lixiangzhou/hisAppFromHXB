@@ -125,13 +125,18 @@
         self.afterLoginView.tipString = @"登录/注册";
     }else
     {
-        [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-            if ([KeyChain isLogin] && [isVerify isEqualToString:@"1"])
-            {
-                weakSelf.afterLoginView.tipString = @"立即投资啦！";
-            }else{
+        [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+            
+            if ([viewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"0"]) {
+                //没有投资显示的界面
                 weakSelf.afterLoginView.tipString = @"安全认证";
+            }else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
+                //已经投资显示的界面
+                weakSelf.afterLoginView.tipString = @"立即投资啦！";
             }
+            
+        } andFailure:^(NSError *error) {
+            
         }];
     }
     
