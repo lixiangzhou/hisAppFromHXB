@@ -17,7 +17,6 @@
                                        andURL: (NSString *)URL
                               andSuccessBlock: (void(^)(BOOL isExist))successBlock
                               andFailureBlock: (void(^)(NSError *error,NSString *message))failureBlock {
-    
     HXBBaseRequest *request = [[HXBBaseRequest alloc]init];
     request.requestUrl = URL;
     request.requestMethod = NYRequestMethodPost;

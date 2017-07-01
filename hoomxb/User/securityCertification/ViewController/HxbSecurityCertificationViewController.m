@@ -57,8 +57,7 @@
     }];
 }
 
-- (void)requestSecurityCertification {
-}
+
 
 
 - (void)didClickSecurityCertificationButton{

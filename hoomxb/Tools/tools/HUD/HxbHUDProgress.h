@@ -15,4 +15,9 @@
 - (void)showAnimationWithText:(NSString *)text;
 - (void)showAnimation;
 - (void)hide;
+/**
+ 自定义HUD加载
+ */
++ (void)showLoadDataHUD:(UIView *)showView;
++ (void)hidenHUD:(UIView *)hidenView;
 @end

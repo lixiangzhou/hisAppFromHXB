@@ -90,5 +90,9 @@ typedef enum{
 
 // 初始化方法（设置view的相关类型、参数）
 - (instancetype)initWithType:(CircleViewType)type clip:(BOOL)clip arrow:(BOOL)arrow;
+/**
+ 重置手势密码
+ */
+- (void)resetGesturePassword;
 
 @end

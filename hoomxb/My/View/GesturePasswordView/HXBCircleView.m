@@ -615,5 +615,11 @@
     return centerCircle; // 注意：可能返回的是nil，就是当前点不在圆内
 }
 
-
+/**
+ 重置手势密码
+ */
+- (void)resetGesturePassword
+{
+    self.firstGesturePwd = nil;
+}
 @end

@@ -237,6 +237,7 @@ static NSString *const my = @"我的";
             // 4.清除之前存储的密码
 //            [HXBCircleViewConst saveGesture:nil Key:gestureOneSaveKey];
             KeyChain.gesturePwd = nil;
+            [self.lockView  resetGesturePassword];
         }
             break;
         case buttonTagManager:
