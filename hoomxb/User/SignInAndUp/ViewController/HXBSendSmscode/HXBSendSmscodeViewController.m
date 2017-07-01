@@ -99,10 +99,7 @@
         if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             NSLog(@"忘记密码");
             [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:self.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {
-//                [[KeyChainManage sharedInstance] setMobile:weakSelf.phonNumber];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-                [self dismissViewControllerAnimated:true completion:^{
-                }];
+                [self.navigationController popToRootViewControllerAnimated:false];
             } andFailureBlock:^(NSError *error) {
                 
             }];

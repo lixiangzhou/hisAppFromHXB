@@ -144,7 +144,7 @@
 - (void) presentLoginVC:(NSNotification *)notification {
     HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
-    [self presentViewController:navi animated:YES completion:nil];
+    [self.selectedViewController presentViewController:navi animated:YES completion:nil];
 }
 //跳转 myVC
 - (void) pushMyVC:(NSNotification *)notification {
