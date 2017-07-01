@@ -65,6 +65,7 @@ UITextFieldDelegate
 }
 
 - (void)setModel{
+    kWeakSelf
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         self.userInfoViewModel = viewModel;
         if ([viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
@@ -79,7 +80,7 @@ UITextFieldDelegate
         if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
             self.securityCertificationButton.hidden = YES;
         }
-
+        [weakSelf judgeURL];
     } andFailure:^(NSError *error) {
         
     }];
@@ -112,9 +113,14 @@ UITextFieldDelegate
 //        if (![NSString validateIDCardNumber:_identityCardNumTextField.text]) {
 //            return [HxbHUDProgress showTextWithMessage:@"请输入正确的身份证号"];
 //        }
-        if (_payPasswordTextField.text.length < 8) {
-            return [HxbHUDProgress showTextWithMessage:@"交易密码不能小于8位"];
+    if (![_payPasswordTextField.text isEqualToString:@"已设置"]) {
+        NSString * message = [NSString isOrNoPasswordStyle:_payPasswordTextField.text];
+        if (message.length > 0) {
+            [HxbHUDProgress showTextWithMessage:message];
+            return;
         }
+    }
+    
 //        if (![_payPasswordTextField.text isEqualToString:_payPasswordConfirmTextField.text]) {
 //             return [HxbHUDProgress showTextWithMessage:@"两次输入的密码不一致"];
 //        }

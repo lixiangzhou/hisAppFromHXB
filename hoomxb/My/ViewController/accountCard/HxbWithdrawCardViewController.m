@@ -156,6 +156,7 @@
     if (!_bankCardTextField) {
         _bankCardTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, 100, SCREEN_WIDTH - 40, 44)];
         _bankCardTextField.placeholder = @"银行卡号";
+        _bankCardTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _bankCardTextField;
 }

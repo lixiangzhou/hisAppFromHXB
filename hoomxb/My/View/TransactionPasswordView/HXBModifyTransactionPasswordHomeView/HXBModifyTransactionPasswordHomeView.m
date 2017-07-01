@@ -45,6 +45,8 @@
 
 @property (nonatomic, weak) NSTimer *timer;
 
+@property (nonatomic, assign) int count;
+
 @end
 
 @implementation HXBModifyTransactionPasswordHomeView
@@ -147,19 +149,22 @@
 - (void)idcardWasSuccessfully
 {
     self.getValidationCodeButton.enabled = NO;
-    __block int count = 60;
-    [self.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%d秒",count] forState:UIControlStateNormal];
-    kWeakSelf
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
-        count--;
-        [weakSelf.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%d秒",count] forState:UIControlStateNormal];
-        if (count == -1) {
-            weakSelf.getValidationCodeButton.enabled = YES;
-            [weakSelf.timer invalidate];
-            weakSelf.timer = nil;
-            [weakSelf.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-        }
-    }];
+    self.count = 60;
+    [self.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%d秒",self.count] forState:UIControlStateNormal];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:nil];
+   }
+
+- (void)timeDown
+{
+    self.count--;
+    [self.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%d秒",self.count] forState:UIControlStateNormal];
+    if (self.count == -1) {
+        self.getValidationCodeButton.enabled = YES;
+        [self.timer invalidate];
+        self.timer = nil;
+        [self.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+    }
+
 }
 
 /**

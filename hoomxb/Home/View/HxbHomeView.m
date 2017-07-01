@@ -63,33 +63,24 @@
         [weakSelf.headView showNotValidatedView];
         return;
     }
-    [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-        if ([isVerify isEqualToString:@"1"] && [KeyChain isInvest]) {
-            
-            [KeyChain assetsTotalWithBlock:^(NSString *assetsTotal) {
-                if ([assetsTotal integerValue]>0) {
-                    //已经投资显示的界面
-                    [weakSelf.headView showAlreadyInvestedView];
-                }else
-                {
-                    //没有投资显示的界面
-                    [weakSelf.headView showNotValidatedView];
-                }
-            }];
+    
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        
+        if ([viewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"0"]) {
+            //没有投资显示的界面
+            [weakSelf.headView showNotValidatedView];
+        }else if ([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
+            //已经投资显示的界面
+             [weakSelf.headView showAlreadyInvestedView];
         }else
         {
             //没有投资显示的界面
             [weakSelf.headView showNotValidatedView];
         }
+        
+    } andFailure:^(NSError *error) {
+        
     }];
-//    if ([KeyChain isVerify] && [KeyChain isInvest]) {
-//        //已经投资显示的界面
-//        [self.headView showAlreadyInvestedView];
-//    }else
-//    {
-//         //没有投资显示的界面
-//        [self.headView showNotValidatedView];
-//    }
 
 }
 
