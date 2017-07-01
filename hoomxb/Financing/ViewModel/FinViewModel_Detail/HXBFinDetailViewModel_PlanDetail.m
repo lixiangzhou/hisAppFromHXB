@@ -11,9 +11,7 @@
 @implementation HXBFinDetailViewModel_PlanDetail
 - (void)setPlanDetailModel:(HXBFinDetailModel_PlanDetail *)planDetailModel {
     _planDetailModel = planDetailModel;
- 
-    [self setUPBeginSellingTime];///开始时间
-    [self setUPFinanceEndTime];///退出时间
+
     [self setUPLockPeriod];///计划期限
     [self setUPUserRemainAmount];///剩余可追加金额
     [self setUPhxb_SingleMaxRegisterAmount];///本期计划加入上限
@@ -32,18 +30,34 @@
 //加入上线
 - (NSString *)singleMaxRegisterAmount {
     if (!_singleMaxRegisterAmount) {
-        _singleMaxRegisterAmount = [NSString hxb_getPerMilWithDouble: self.planDetailModel.singleMaxRegisterAmount.floatValue];
+//        _singleMaxRegisterAmount = [NSString hxb_getPerMilWithDouble: self.planDetailModel.singleMaxRegisterAmount.floatValue];
+        _singleMaxRegisterAmount = self.planDetailModel.remainAmount < self.planDetailModel.userRemainAmount ? self.planDetailModel.remainAmount : self.planDetailModel.userRemainAmount;
     }
     return _singleMaxRegisterAmount;
 }
 
 ///开始时间
-- (void)setUPBeginSellingTime {
-    self.beginSellingTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.beginSellingTime andDateFormat:@"yyyy-MM-dd"];
+/**
+ 开始时间
+ */
+- (NSString *) beginSellingTime {
+    if (!_beginSellingTime) {
+        NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planDetailModel.beginSellingTime andDateFormatter: @"yyyy-MM-dd HH:mm:ss"];
+        _beginSellingTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:date andDateFormat:@"yyyy-MM-dd"];
+    }
+    return _beginSellingTime;
 }
+
 ///退出时间
-- (void)setUPFinanceEndTime {
-    self.financeEndTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.financeEndTime andDateFormat:@"yyyy-MM-dd"];
+/**
+ 推出时间
+ */
+- (NSString *) financeEndTime {
+    if (!_financeEndTime) {
+        NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planDetailModel.endLockingTime andDateFormatter: @"yyyy-MM-dd HH:mm:ss"];
+        _financeEndTime = self.financeEndTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:date andDateFormat:@"yyyy-MM-dd"];
+    }
+    return _financeEndTime;
 }
 
 - (NSString *)description {
@@ -184,7 +198,7 @@
 - (NSString *)addCondition {
     if (!_addCondition) {
         if (self.planDetailModel.isFirst.integerValue) {
-            _addCondition = [NSString stringWithFormat:@"加入金额%@元起，%@元的整数倍递增",self.minRegisterAmount,self.planDetailModel.minRegisterAmount];
+            _addCondition = [NSString stringWithFormat:@"加入金额%@元起，%@元的整数倍递增",self.minRegisterAmount,self.planDetailModel.registerMultipleAmount];
         }else{
             _addCondition = [NSString stringWithFormat:@"%@元的整数倍递增",self.planDetailModel.minRegisterAmount];
         }

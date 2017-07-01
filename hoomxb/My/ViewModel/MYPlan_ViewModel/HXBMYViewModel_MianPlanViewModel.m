@@ -136,9 +136,7 @@
  */
 - (NSString *) userRemainAmount {
     if (!_userRemainAmount) {
-        [[KeyChainManage sharedInstance] availablePointWithBlock:^(NSString *availablePoint) {
-            _userRemainAmount = availablePoint;
-        }];
+        _remainAmount = self.planModelDataList.userRemainAmount;
     }
     return _userRemainAmount;
 }

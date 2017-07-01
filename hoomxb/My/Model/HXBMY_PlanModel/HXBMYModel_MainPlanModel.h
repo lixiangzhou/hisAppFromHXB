@@ -30,7 +30,8 @@ redProgressLeft:待转让金额
 
 ///我的红利计划的 主界面的Model 里的 dataList属性
 @interface HXBMYModel_MainPlanModel_DataList : NSObject
-
+///
+@property (nonatomic,copy) NSString *userRemainAmount;
 ///: 计划名称，
 @property (nonatomic,copy) NSString *name;
 ///:加入金额，

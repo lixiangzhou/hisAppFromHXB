@@ -12,6 +12,10 @@
 
 /// 我的 界面的 红利计划详情页的Model
 @interface HXBMYModel_PlanDetailModel : NSObject
+///
+@property (nonatomic,copy) NSString *remainAmount;
+///用户的可投金额
+@property (nonatomic,copy) NSString *userRemainAmount;
 ///递增
 @property (nonatomic,copy) NSString *registerMultipleAmount;
 /**

@@ -197,7 +197,7 @@
         model.totalInterest = weakSelf.planViewModel.totalInterest;
         
         ///加入上线 (min (用户可投， 本期剩余))
-        if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
+        if (weakSelf.planViewModel.userRemainAmount.floatValue < weakSelf.planViewModel.remainAmount.floatValue) {
             model.upperLimitLabelStr = weakSelf.planViewModel.userRemainAmount;
         }else {
              model.upperLimitLabelStr = weakSelf.planViewModel.remainAmount;

@@ -93,24 +93,25 @@
     ///加入条件加入金额%@元起，%@元的整数倍递增
     BuyPlanDetailViewModel.addCondition = [NSString stringWithFormat:@"%@元的整数倍递增",weakSelf.viewModel.planDetailModel.registerMultipleAmount];
     ///余额 title
-    //        BuyPlanDetailViewModel.availablePoint = ;
     ///收益方法
     BuyPlanDetailViewModel.profitType_UI = weakSelf.planViewModel.profitType_UI;
     ///待转金额
-    BuyPlanDetailViewModel.remainAmount = weakSelf.viewModel.redProgressLeft;
+    BuyPlanDetailViewModel.remainAmount = weakSelf.viewModel.planDetailModel.remainAmount;
     ///服务协议 button str
     BuyPlanDetailViewModel.contractName = weakSelf.viewModel.contractName;
     BuyPlanDetailViewModel.totalInterest = weakSelf.planViewModel.totalInterest;
-    ///用户可用余额
-    BuyPlanDetailViewModel.userRemainAmount = weakSelf.planViewModel.userRemainAmount;
-    ///计划余额
-    BuyPlanDetailViewModel.remainAmount = weakSelf.planViewModel.remainAmount;
-    //起投
-    BuyPlanDetailViewModel.minRegisterAmount = weakSelf.viewModel.planDetailModel.registerMultipleAmount;
     
+    ///用户可用余额
+    BuyPlanDetailViewModel.userRemainAmount = weakSelf.viewModel.planDetailModel.userRemainAmount;
+    ///计划余额
+    BuyPlanDetailViewModel.remainAmount = weakSelf.viewModel.planDetailModel.remainAmount;
+    //递增金额
+    BuyPlanDetailViewModel.planDetailModel.registerMultipleAmount = weakSelf.viewModel.planDetailModel.registerMultipleAmount;
     planBuyVC.planViewModel = BuyPlanDetailViewModel;
     planBuyVC.ID = weakSelf.viewModel.planDetailModel.ID.integerValue;
     planBuyVC.planViewModel.ID = weakSelf.viewModel.planDetailModel.ID;
+    
+
     
     [planBuyVC clickLookMYInfoButtonWithBlock:^{
         __block UIViewController *vc = nil;
