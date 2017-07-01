@@ -35,6 +35,7 @@ UITextFieldDelegate
 @implementation HXBSignUPView
 
 #pragma mark - setter 
+
 - (void)setCheckMobileStr:(NSString *)checkMobileStr {
     _checkMobileStr = checkMobileStr;
     self.checkMobileLabel.text = checkMobileStr;

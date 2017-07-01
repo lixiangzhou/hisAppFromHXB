@@ -18,10 +18,14 @@
 @interface HXBFin_Plan_BuyViewController ()
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) HXBJoinImmediateView *joinimmediateView;
-
+@property (nonatomic,copy) void (^clickLookMYInfoButtonBlock)();
 @end
 
 @implementation HXBFin_Plan_BuyViewController
+
+- (void)clickLookMYInfoButtonWithBlock: (void(^)())clickLoockMYInfoButton {
+    self.clickLookMYInfoButtonBlock = clickLoockMYInfoButton;
+}
 
 - (void)setIsPlan:(BOOL)isPlan {
     _isPlan = isPlan;
@@ -111,16 +115,22 @@
              return;
          }
          //判断是否安全认证
+         kWeakSelf
          [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
              if (!isVerify) {
                  [HxbHUDProgress showTextWithMessage:@"去安全认证"];
              } else {
-                 [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.planDetailModel.ID andAmount:capital cashType:@"INVEST" andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
+                 [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.ID andAmount:capital cashType:self.planViewModel.profitType andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
     
                      HXBFin_Plan_BuySuccessViewController *planBuySuccessVC = [[HXBFin_Plan_BuySuccessViewController alloc]init];
                      planBuySuccessVC.planModel = model;
-                     [self.navigationController pushViewController:planBuySuccessVC animated:true];
-//                     [self.navigationController popToRootViewControllerAnimated:true];
+                     [planBuySuccessVC clickLookMYInfo:^{
+                         if (weakSelf.clickLookMYInfoButtonBlock) {
+                             weakSelf.clickLookMYInfoButtonBlock();
+                         }
+                     }];
+                     [weakSelf.navigationController pushViewController:planBuySuccessVC animated:true];
+// [self.navigationController popToRootViewControllerAnimated:true];
                  } andFailureBlock:^(NSError *error, NSInteger status) {
                      
                      HXBFin_Plan_BugFailViewController *failViewController = [[HXBFin_Plan_BugFailViewController alloc]init];
@@ -137,7 +147,7 @@
                      }
                      [failViewController clickButtonWithBlcok:^(UIButton *button) {
                          //跳回理财页面
-                         [self.navigationController popToRootViewControllerAnimated:true];
+                         [weakSelf.navigationController popToRootViewControllerAnimated:true];
                      }];
                  }];
              }
@@ -176,24 +186,26 @@
         ///加入上限
         model.upperLimitLabel_constStr = @"本期计划加入上限";
         ///余额 title
-        model.balanceLabelStr = weakSelf.availablePoint;
+        model.balanceLabelStr = [NSString hxb_getPerMilWithDouble:weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue];
         ///收益方法
         model.profitTypeLabelStr = weakSelf.planViewModel.profitType_UI;
         /// ￥1000起投，1000递增 placeholder
         model.rechargeViewTextField_placeholderStr = weakSelf.planViewModel.addCondition;
         
-            ///服务协议 button str
-            model.negotiateButtonStr = weakSelf.planViewModel.contractName;
-            model.totalInterest = weakSelf.planViewModel.totalInterest;
-            ///加入上线 (min (用户可投， 本期剩余))
+        ///服务协议 button str
+        model.negotiateButtonStr = weakSelf.planViewModel.contractName;
+        model.totalInterest = weakSelf.planViewModel.totalInterest;
+        
+        ///加入上线 (min (用户可投， 本期剩余))
         if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
             model.upperLimitLabelStr = weakSelf.planViewModel.userRemainAmount;
         }else {
              model.upperLimitLabelStr = weakSelf.planViewModel.remainAmount;
         }
+        
         ///确认加入的Buttonstr
-            model.addButtonStr = @"确认加入";
-            return model;
+        model.addButtonStr = @"确认加入";
+        return model;
         }];
 }
 

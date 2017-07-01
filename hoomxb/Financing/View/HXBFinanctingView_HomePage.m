@@ -71,7 +71,6 @@
 
 
 - (void)setupSubView {
-    
     self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表"];
     
     
@@ -122,6 +121,7 @@
 //    [arrayM addObjectsFromArray:self.finLoanListVMArray];
    
 }
+
 
 //MARK:红利计划列表
 - (void)setupPlanListTableView {
@@ -178,6 +178,11 @@
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
         
     }];
+}
+
+//MARK: 债转
+- (void)setUPLoanTransferTableView {
+    
 }
 
 //搭建ScrollToolBarView

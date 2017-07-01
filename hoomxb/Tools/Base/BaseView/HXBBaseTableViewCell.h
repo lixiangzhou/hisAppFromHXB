@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface HXBBaseTableViewCell : UITableViewCell
-
+@property (nonatomic,strong) id cellModel;
 @end

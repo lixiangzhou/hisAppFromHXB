@@ -16,4 +16,5 @@
 @property (nonatomic,copy) NSString *buttonStr;
 
 - (void) massage: (NSString *)massage andSuccessStr: (NSString *)successStr andButtonStr: (NSString *)buttonStr;
+- (void) clickLookMYInfo: (void(^)())clickLookMyInfoBlock;
 @end

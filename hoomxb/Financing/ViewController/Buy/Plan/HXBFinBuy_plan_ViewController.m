@@ -20,6 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
 }
 
 
@@ -48,7 +49,6 @@
     model.balanceLabelStr = weakSelf.planViewModel.userRemainAmount;
     
     ///预计收益 在 加入计划的 view 内部计算
-    
     ///服务协议 button str
     model.negotiateButtonStr = weakSelf.planViewModel.contractName;
     model.totalInterest = weakSelf.planViewModel.totalInterest;

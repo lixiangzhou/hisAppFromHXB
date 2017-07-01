@@ -19,13 +19,18 @@
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"您已经被强迫下线，请重新登录" message:@"" preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        ///退出登录
-        [[KeyChainManage sharedInstance] signOut];
         //到登录界面
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        ///退出登录
+        [KeyChainManage sharedInstance].isLogin = false;
+//        [[KeyChainManage sharedInstance] signOut];
     }];
     
-    UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
+        ///退出登录
+         [KeyChainManage sharedInstance].isLogin = false;
+    }];
     
     [alertController addAction:okAction];
     [alertController addAction:cancalAction];

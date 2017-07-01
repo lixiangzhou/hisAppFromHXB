@@ -150,6 +150,10 @@
                     
                     HXBFin_Plan_BuySuccessViewController *planBuySuccessVC = [[HXBFin_Plan_BuySuccessViewController alloc]init];
                     [planBuySuccessVC massage:@"放款前系统将会冻结您的投资资金，放款成功后开始计息" andSuccessStr:@"投标成功" andButtonStr:@"查看我的投资"];
+                    [planBuySuccessVC clickLookMYInfo:^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
+                          [self.navigationController popToRootViewControllerAnimated:true];
+                    }];
                     [self.navigationController pushViewController:planBuySuccessVC animated:true];
                 } andFailureBlock:^(NSError *error,NSInteger status) {
                     HXBFin_Plan_BugFailViewController *failViewController = [[HXBFin_Plan_BugFailViewController alloc]init];

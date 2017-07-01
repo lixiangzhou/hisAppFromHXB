@@ -153,7 +153,6 @@
 - (void) clickPlanListCell {
     __weak typeof(self) weakSelf = self;
     [self.homePageView setClickPlanListCellBlock:^(NSIndexPath *index, HXBFinHomePageViewModel_PlanList *model) {
-        
         [weakSelf pushPlanDetailsViewControllerWithModel:model];
     }];
 }

@@ -150,8 +150,6 @@ static NSString *const kIsLogin = @"kIsLogin";
 
 - (void) setValueWithUserInfoModel: (HXBRequestUserInfoViewModel *)userInfoViewModel {
     
-    
-   
     //是否实名
     _isVerify = userInfoViewModel.userInfoModel.userInfo.isAllPassed;
     _keychain[kIsAllPassed] = _isVerify;

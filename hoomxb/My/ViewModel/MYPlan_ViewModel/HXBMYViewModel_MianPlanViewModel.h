@@ -30,14 +30,8 @@
  年利率
  */
 @property (nonatomic,copy) NSString * expectedRate;
-/**
- ￥1000起投，
- */
-@property (nonatomic,copy) NSString * addCondition;
-/**
- ￥1000起投，
- */
-@property (nonatomic,copy) NSString * addConditionStr;
+
+
 
 /**
  可用余额

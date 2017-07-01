@@ -122,6 +122,7 @@ static NSString *kINVEST = @"INVEST";
             case HXBRequestType_MY_PlanRequestType_EXIT_PLAN: {
                 //已经退出
                 self.statusInt = 4;
+                _isAddButtonHidden = true;
                [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
                    _status = typeUI;
                 }];
@@ -133,6 +134,7 @@ static NSString *kINVEST = @"INVEST";
                         ///受益中
                         _statusInt = 2;
                         _status = [NSString stringWithFormat:@"距离退出%@天",self.planDetailModel.lastDays];
+                        _isAddButtonHidden = true;
                     }
                     if ([self.planDetailModel.status isEqualToString:MY_PlanResponsType_PURCHASEING_Plan]) {
                         ///等待计息
@@ -144,6 +146,7 @@ static NSString *kINVEST = @"INVEST";
             }
                 break;
             case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:{
+                _isAddButtonHidden = true;
                 [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
                     _statusInt = 3;
                     _status = typeUI;
@@ -155,12 +158,13 @@ static NSString *kINVEST = @"INVEST";
     }
     return _status;
 }
+
 /**
  加入金额
  */
 - (NSString *) addAuomt {
     if (!_addAuomt) {
-        _addAuomt = [NSString hxb_getPerMilWithDouble:self.planDetailModel.finalAmount.floatValue];
+        _addAuomt = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount.floatValue];
     }
     return _addAuomt;
 }

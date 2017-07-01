@@ -83,7 +83,7 @@
     [self.myView clickAllFinanceButtonWithBlock:^(UILabel * _Nullable button) {
         //跳转资产目录
         if (!KeyChain.isLogin) {
-            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+//            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
             return;
         }
         HXBMY_AllFinanceViewController *allFinanceViewController = [[HXBMY_AllFinanceViewController alloc]init];
@@ -113,7 +113,7 @@
    
     HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
     if (!KeyChain.isLogin) {
-        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+//        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
         return;
     }
     withdrawViewController.userInfoViewModel = self.userInfoViewModel;

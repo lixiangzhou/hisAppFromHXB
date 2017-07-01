@@ -11,6 +11,8 @@
 #import "HxbSignInViewController.h"
 #import "HxbMyViewController.h"
 #import "HXBCheckCaptchaViewController.h"
+#import "HXBBaseViewController.h"
+
 @interface HXBBaseTabBarController ()<UITabBarControllerDelegate>
 
 @end
@@ -45,7 +47,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentLoginVC:) name:kHXBNotification_ShowLoginVC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMyVC:) name:kHXBNotification_LoginSuccess_PushMYVC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showHomeVC:) name:kHXBBotification_ShowHomeVC object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMyVC:) name:kHXBNotification_ShowMyVC object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMyVC:) name:kHXBNotification_ShowMyVC object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMYVC_PlanList:) name:kHXBNotification_ShowMYVC_PlanList object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMyVC_LoanList:) name:kHXBNotification_ShowMYVC_LoanList object:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -151,6 +156,21 @@
 }
 - (void) showHomeVC: (NSNotification *)notification {
     self.selectedViewController = self.viewControllers.firstObject;
+    [self.viewControllers enumerateObjectsUsingBlock:^(__kindof UINavigationController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj popToRootViewControllerAnimated:NO];
+    }];
+}
+- (void)showMYVC_PlanList:(NSNotification *)notification {
+    Class obj = NSClassFromString(@"HXBMY_PlanListViewController");
+    UINavigationController *myPlanListViewController = [[obj alloc]init];
+    [self.viewControllers.lastObject pushViewController:myPlanListViewController animated:YES];
+    self.selectedViewController = self.viewControllers.lastObject;
+}
+- (void)showMyVC_LoanList:(NSNotification *)notification {
+    Class obj = NSClassFromString(@"HXBMY_LoanListViewController");
+    UINavigationController *myPlanListViewController = [[obj alloc]init];
+    [self.viewControllers.lastObject pushViewController:myPlanListViewController animated:YES];
+    self.selectedViewController = self.viewControllers.lastObject;
 }
 ////谈图验
 //- (void) modalCaptchaVC: (NSNotification *)notif {

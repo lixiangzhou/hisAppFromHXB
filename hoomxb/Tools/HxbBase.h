@@ -25,7 +25,7 @@
 #import "HXBBaseTextField.h"///里面有button 和textfield
 #import "HXBBaseView_MoreTopBottomView.h"///上下的view
 #import "HXBBaseView_TwoLable_View.h"//左右或上下的连着的view
-
+#import "UITableViewCell+HXBTableViewCell.h"///cell
 
 //MARK: NSObject
 #import "HXBBaseHandDate.h"//关于时间处理的类

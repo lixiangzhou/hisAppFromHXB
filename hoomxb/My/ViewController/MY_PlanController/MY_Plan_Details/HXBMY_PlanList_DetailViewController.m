@@ -52,17 +52,18 @@
     
 }
 - (void) setUP {
+    kWeakSelf
     HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:self.view.frame];
     self.planDetailView = planDetailView;
     ///点击了投资记录button
     [self.planDetailView clickLoanRecordViewWithBlock:^(UIView *view) {
-        [self clickLoanRecord];
+        [weakSelf clickLoanRecord];
     }];
     ///点击了立即加入button
     [self.planDetailView clickAddButtonWithBlock:^(UIButton *button) {
-        [self clickAddButton];
+        [weakSelf clickAddButton];
     }];
-    [self.hxbBaseVCScrollView addSubview:planDetailView];
+    [weakSelf.hxbBaseVCScrollView addSubview:planDetailView];
 }
 - (void)clickLoanRecord {
     HXBMY_Plan_Capital_ViewController *capitalVC = [[HXBMY_Plan_Capital_ViewController alloc]init];
@@ -71,40 +72,58 @@
 }
 - (void)clickAddButton {
     if (!KeyChain.isLogin) {
-        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         return;
     }
+    
+    /*
+     PlanDetailModel planDetailModel = new PlanDetailModel();
+     planDetailModel.setId(privatePlanDetailModel.getId());//计划id
+     planDetailModel.setRegisterMultipleAmount(privatePlanDetailModel.getRegisterMultipleAmount());//注册递增
+     planDetailModel.setUserRemainAmount(privatePlanDetailModel.getUserRemainAmount());//用户剩余
+     planDetailModel.setRemainAmount(privatePlanDetailModel.getRemainAmount());//计划剩余
+     planDetailModel.setTotalInterest(privatePlanDetailModel.getTotalInterest());//收益率
+     planDetailModel.setDiffTime((long) 0);//倒计时 由于
+     planDetailModel.setIsFirst("0");//倒计时 由于
+     */
     kWeakSelf
     HXBFin_Plan_BuyViewController *planBuyVC = [[HXBFin_Plan_BuyViewController alloc]init];
     //获取计划信息
     HXBFinDetailViewModel_PlanDetail *BuyPlanDetailViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
     ///加入条件加入金额%@元起，%@元的整数倍递增
-    BuyPlanDetailViewModel.addCondition = weakSelf.planViewModel.addCondition;
+    BuyPlanDetailViewModel.addCondition = [NSString stringWithFormat:@"%@元的整数倍递增",weakSelf.viewModel.planDetailModel.registerMultipleAmount];
     ///余额 title
     //        BuyPlanDetailViewModel.availablePoint = ;
     ///收益方法
     BuyPlanDetailViewModel.profitType_UI = weakSelf.planViewModel.profitType_UI;
-    /// ￥1000递增 placeholder
-    BuyPlanDetailViewModel.addCondition = weakSelf.planViewModel.addConditionStr;
     ///待转金额
     BuyPlanDetailViewModel.remainAmount = weakSelf.viewModel.redProgressLeft;
     ///服务协议 button str
     BuyPlanDetailViewModel.contractName = weakSelf.viewModel.contractName;
     BuyPlanDetailViewModel.totalInterest = weakSelf.planViewModel.totalInterest;
+    ///用户可用余额
     BuyPlanDetailViewModel.userRemainAmount = weakSelf.planViewModel.userRemainAmount;
+    ///计划余额
     BuyPlanDetailViewModel.remainAmount = weakSelf.planViewModel.remainAmount;
     //起投
-    BuyPlanDetailViewModel.minRegisterAmount = weakSelf.planViewModel.addCondition;
-    BuyPlanDetailViewModel.isAddButtonInteraction = 
-    ///加入上线 (min (用户可投， 本期剩余))
-    //        if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
-    //            BuyPlanDetailViewModel.upperLimitLabelStr = weakSelf.planViewModel.userRemainAmount;
-    //        }else {
-    //            BuyPlanDetailViewModel.upperLimitLabelStr = weakSelf.planViewModel.remainAmount;
-    //        }
+    BuyPlanDetailViewModel.minRegisterAmount = weakSelf.viewModel.planDetailModel.registerMultipleAmount;
     
     planBuyVC.planViewModel = BuyPlanDetailViewModel;
-    [self.navigationController pushViewController:planBuyVC animated:true];
+    planBuyVC.ID = weakSelf.viewModel.planDetailModel.ID.integerValue;
+    planBuyVC.planViewModel.ID = weakSelf.viewModel.planDetailModel.ID;
+    
+    [planBuyVC clickLookMYInfoButtonWithBlock:^{
+        __block UIViewController *vc = nil;
+        [weakSelf.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:NSClassFromString(@"HXBMY_PlanListViewController")]) {
+                vc = obj;
+                *stop = true;
+            }
+        }];
+        [weakSelf.navigationController popToViewController:vc animated:true];
+//        [[NSNotificationCenter defaultCenter]postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
+    }];
+    [weakSelf.navigationController pushViewController:planBuyVC animated:true];
 
 }
 
@@ -120,6 +139,7 @@
 
 - (void)dispatchValueWithDetailViewModel: (HXBMYViewModel_PlanDetailViewModel *)viewModel {
     self.viewModel = viewModel;
+    kWeakSelf
     [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
         
         manager.topViewStatusStr = viewModel.status;
@@ -129,7 +149,7 @@
         manager.topViewMassgeManager.rightLabelAlignment = NSTextAlignmentCenter;
         
         ///判断到底是哪种
-        [self judgementStatusWithStauts: viewModel.statusInt andManager:manager andHXBMYViewModel_PlanDetailViewModel:viewModel];
+        [weakSelf judgementStatusWithStauts: viewModel.statusInt andManager:manager andHXBMYViewModel_PlanDetailViewModel:viewModel];
  
         manager.infoViewManager.leftLabelAlignment = NSTextAlignmentLeft;
         manager.infoViewManager.rightLabelAlignment = NSTextAlignmentRight;

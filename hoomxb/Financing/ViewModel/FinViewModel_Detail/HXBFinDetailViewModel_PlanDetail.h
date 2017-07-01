@@ -64,4 +64,6 @@
 @property (nonatomic,copy) NSString *remainAmount_const;
 /// 计划期限
 @property (nonatomic,copy) NSString *lockPeriodStr;
+///planID
+@property (nonatomic,copy) NSString *ID;
 @end

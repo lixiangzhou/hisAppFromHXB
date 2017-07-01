@@ -17,18 +17,24 @@
 @end
 
 @implementation HXBSendSmscodeViewController
-
+- (void)setType:(HXBSignUPAndLoginRequest_sendSmscodeType)type {
+    _type = type;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUPView];//视图设置
     [self registerEvent];//事件注册
-//    [self sendSmscode];//
-       [self sendSmscode];
+//    [self sendSmscode];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self sendSmscode];
+    [super viewDidAppear:animated];
 }
 
 - (void)setUPView {
-    
     self.smscodeView = [[HXBSendSmscodeView alloc] initWithFrame:self.view.frame];
+    self.smscodeView.type = self.type;
     kWeakSelf
     [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
         [weakSelf.smscodeView endEditing:true];
@@ -58,25 +64,22 @@
     kWeakSelf
     //请求网络数据
     [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:self.captcha andSuccessBlock:^(BOOL isSuccessBlock) {
-        
-     
-        
         switch (weakSelf.type) {
             case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
-                NSLog(@"重置登录密码");
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-                //                    [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                //                        if ([obj isKindOfClass:[HxbAccountInfoViewController class]]) {
-                //                            [self.navigationController popToViewController:obj animated:true];
-                //                            *stop = true;
-                //                        }
+                NSLog(@"发送 验证码");
+//                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+//                                    [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+//                                        if ([obj isKindOfClass:[HxbAccountInfoViewController class]]) {
+//                                            [self.navigationController popToViewController:obj animated:true];
+//                                            *stop = true;
+//                                        }
                 //                    }];
             }
                 break;
             case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
                 NSLog(@"注册");
-                [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
-                }];
+//                [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
+//                }];
                 break;
         }
     } andFailureBlock:^(NSError *error) {
@@ -91,8 +94,10 @@
         if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             NSLog(@"忘记密码");
             [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:self.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {
-                [[KeyChainManage sharedInstance] setMobile:weakSelf.phonNumber];
-                [self dismissViewControllerAnimated:true completion:nil];
+//                [[KeyChainManage sharedInstance] setMobile:weakSelf.phonNumber];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                [self dismissViewControllerAnimated:true completion:^{
+                }];
             } andFailureBlock:^(NSError *error) {
                 
             }];

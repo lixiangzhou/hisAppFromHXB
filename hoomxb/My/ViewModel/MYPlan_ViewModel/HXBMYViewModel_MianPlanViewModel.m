@@ -76,24 +76,9 @@
     return _expectedRate;
 }
 
-/**
- ￥，1000递
- */
-- (NSString *) addConditionStr {
-    if (!_addConditionStr) {
-        _addConditionStr = [NSString stringWithFormat:@"￥%@递增",self.planModelDataList.finalAmount];
-    }
-    return _addConditionStr;
-}
-/**
- 起投 没有元
- */
-- (NSString *)addCondition {
-    if (!_addCondition) {
-        _addCondition =  self.planModelDataList.finalAmount;
-    }
-    return _addCondition;
-}
+
+
+
 /**
  可用余额 没有元
  */

@@ -14,6 +14,8 @@ extern NSString *const kHXBNotification_ShowLoginVC;
 extern NSString *const kHXBNotification_IsLoginToReloadTableView;
 ///跳转我的界面
 extern NSString *const kHXBNotification_LoginSuccess_PushMYVC;
+extern NSString *const kHXBNotification_ShowMYVC_LoanList;
+extern NSString *const kHXBNotification_ShowMYVC_PlanList;
 ///弹出 验证码
 extern NSString *const kHXBBotification_ShowCaptchaVC;
 extern NSString *const kHXBNotification_ShowMyVC;

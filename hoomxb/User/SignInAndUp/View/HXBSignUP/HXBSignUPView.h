@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HXBSignUPAndLoginRequest_EnumManager.h"
 ///关于 注册的view
 @interface HXBSignUPView : UIView
 - (void)signUPClickNextButtonFunc: (void(^)(NSString *mobile))clickNextButtonBlock;
@@ -16,4 +17,5 @@
 @property (nonatomic, copy) NSString *checkMobileStr;
 ///点击了已有账号，去登陆按钮
 - (void) clickHaveAccountButtonFunc: (void(^)())clickHaveAccountButtonBlock;
+@property (nonatomic,assign) HXBSignUPAndLoginRequest_sendSmscodeType type;
 @end

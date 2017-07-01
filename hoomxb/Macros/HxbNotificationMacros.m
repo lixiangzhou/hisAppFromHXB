@@ -11,6 +11,8 @@
 NSString *const kHXBNotification_ShowLoginVC = @"kHXBNotification_ShowLoginVC";
 NSString *const kHXBNotification_IsLoginToReloadTableView = @"kHXBNotification_IsLoginToReloadTableView";
 NSString *const kHXBNotification_LoginSuccess_PushMYVC = @"kHXBNotification_LoginSuccess_PushMYVC";
+NSString *const kHXBNotification_ShowMYVC_LoanList = @"kHXBNotification_ShowMYVC_LoanList";
+NSString *const kHXBNotification_ShowMYVC_PlanList = @"kHXBNotification_ShowMYVC_PlanList";
 NSString *const kHXBBotification_ShowCaptchaVC = @"kHXBBotification_ShowCaptchaVC";
 NSString *const kHXBNotification_ShowMyVC = @"kHXBNotification_ShowMyVC";
 NSString *const kHXBBotification_ShowHomeVC = @"kHXBBotification_ShowHomeVC";

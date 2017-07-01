@@ -1,4 +1,4 @@
-//
+    //
 //  NYNetworkManager+DefaultMethod.m
 //  NYNetwork
 //
@@ -17,13 +17,13 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 
 - (void)defaultMethodRequestSuccessWithRequest:(NYBaseRequest *)request
 {
-    NSLog(@"-");NSLog(@"-");NSLog(@"-");NSLog(@"-");
+
     NSLog(@"👌开始================================================================");
     NSLog(@"=>>> URL: %@,  Code =>%ld  ",request.requestUrl,(long)request.responseStatusCode);
     NSLog(@"----------------------------------------------------------------");
     NSLog(@"%@",request.responseObject);
     NSLog(@"👌================================================================");
-    NSLog(@"-");NSLog(@"-");NSLog(@"-");NSLog(@"-");
+
     switch ([request.responseObject[kResponseStatus] integerValue]) {
         case kHXBCode_Enum_Captcha://弹出图验、
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowCaptchaVC object:nil];
@@ -53,31 +53,33 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 #pragma mark - 请求失败
 - (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request
 {
-    NSLog(@"-");NSLog(@"-");NSLog(@"-");NSLog(@"-");
     NSLog(@"🌶开始================================================================");
     NSLog(@"=>>> URL: %@,  Code =>%ld  ",request.requestUrl,(long)request.responseStatusCode);
     NSLog(@"----------------------------------------------------------------");
     NSLog(@"%@",request.responseObject);
     NSLog(@"🌶  ================================================================");
-    NSLog(@"-");NSLog(@"-");NSLog(@"-");NSLog(@"-");
+
     switch (request.responseStatusCode) {
-            
         case kHXBCode_Enum_NotSigin:///没有登录
             if (KeyChain.isLogin) {
                 //弹出是否 登录
-                [[KeyChainManage sharedInstance] signOut];
-//                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+//                [[KeyChainManage sharedInstance] signOut];
+                UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                UINavigationController *NAV = tbVC.selectedViewController;
+                UIViewController *VC = NAV.viewControllers.lastObject;
+                [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
             }
-            [[KeyChainManage sharedInstance] removeAllInfo];
+//            [[KeyChainManage sharedInstance] removeAllInfo];
             break;
         case kHXBCode_Enum_TokenNotJurisdiction://没有权限
             /**
              先判断是否为登录状态，如果是，就登出，不是，就显示页面权限
              */
             if (KeyChain.isLogin) {
-                //弹出是否 登录
-                [[KeyChainManage sharedInstance] signOut];
-//                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                UINavigationController *NAV = tbVC.selectedViewController;
+                UIViewController *VC = NAV.viewControllers.lastObject;
+                [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
             }
             break;
         default:

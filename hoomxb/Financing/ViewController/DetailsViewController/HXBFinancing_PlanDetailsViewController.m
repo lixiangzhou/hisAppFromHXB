@@ -40,6 +40,7 @@
 @property (nonatomic,weak) HXBFin_DetailsViewBase_ViewModelVM *planDetailVM;
 @property (nonatomic,copy) NSString *availablePoint;//可用余额；
 @property (nonatomic,assign) BOOL isIdPassed;
+@property (nonatomic,assign) BOOL isVerify;
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
@@ -183,32 +184,37 @@
     kWeakSelf
     [self.planDetailsView clickAddButtonFunc:^{
         //如果不是登录 那么就登录
-        if (![KeyChainManage sharedInstance].isLogin) {
-            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
+            _isVerify = isVerify.integerValue;
+        }];
+        
+        if(![KeyChainManage sharedInstance].isLogin) {
+            //            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
         //判断是否风险测评
-        [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-            if(!isVerify) {
-                ///没有实名
-                HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
-                securityCertificationVC.popToClass = NSStringFromClass([self class]);
-                [self.navigationController pushViewController:securityCertificationVC animated:true];
-                return;
-            }
-            //跳转加入界面
-            HXBFin_Plan_BuyViewController *planJoinVC = [[HXBFin_Plan_BuyViewController alloc]init];
-            planJoinVC.title = @"加入计划";
-            planJoinVC.planViewModel = weakSelf.planDetailViewModel;
-            [planJoinVC setCallBackBlock:^{
-                [self.navigationController popoverPresentationController];
-            }];
-            
-            planJoinVC.availablePoint = _availablePoint;
-            [weakSelf.navigationController pushViewController:planJoinVC animated:true];
+        if(!weakSelf.isVerify) {
+            ///没有实名
+            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
+            securityCertificationVC.popToClass = NSStringFromClass([weakSelf class]);
+            [weakSelf.navigationController pushViewController:securityCertificationVC animated:true];
+            return;
+        }
+        //跳转加入界面
+        HXBFin_Plan_BuyViewController *planJoinVC = [[HXBFin_Plan_BuyViewController alloc]init];
+        planJoinVC.title = @"加入计划";
+        planJoinVC.planViewModel = weakSelf.planDetailViewModel;
+        [planJoinVC clickLookMYInfoButtonWithBlock:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
+            [weakSelf.navigationController popToRootViewControllerAnimated:false];
         }];
-     
+        [planJoinVC setCallBackBlock:^{
+            [weakSelf.navigationController popoverPresentationController];
+        }];
+        
+        planJoinVC.availablePoint = _availablePoint;
+        [weakSelf.navigationController pushViewController:planJoinVC animated:true];
     }];
 }
 
@@ -217,7 +223,7 @@
     __weak typeof (self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
         weakSelf.planDetailViewModel = viewModel;
-        weakSelf.planDetailsView.modelArray = self.tableViewModelArray;
+        weakSelf.planDetailsView.modelArray = weakSelf.tableViewModelArray;
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
         [weakSelf.hxbBaseVCScrollView endRefresh];

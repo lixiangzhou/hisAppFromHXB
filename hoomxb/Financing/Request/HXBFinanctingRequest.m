@@ -436,6 +436,11 @@
             return;
         }
         
+        if (status) {
+            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            return;
+        }
+        
         NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
         HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
         

@@ -147,7 +147,7 @@
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0]]) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             //            detail_DetailLoanVC. = self.planDetailViewModel;
-            detail_DetailLoanVC.loanDetailViewModel = self.loanDetailViewModel;
+            detail_DetailLoanVC.loanDetailViewModel = weakSelf.loanDetailViewModel;
             [weakSelf.navigationController pushViewController:detail_DetailLoanVC animated:true];
         }
         ///  借款记录
@@ -173,13 +173,13 @@
     [self.loanDetailsView clickAddButtonFunc:^{
         //如果不是登录 那么就登录
         if (![KeyChainManage sharedInstance].isLogin) {
-            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+//            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
        
         [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-            if(!isVerify) {
+            if(!isVerify.integerValue) {
                 ///没有实名
                 HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
                 securityCertificationVC.popToClass = NSStringFromClass([self class]);
@@ -190,6 +190,7 @@
             HXBFin_Loan_BuyViewController *loanJoinVC = [[HXBFin_Loan_BuyViewController alloc]init];
             loanJoinVC.title = @"散标投资";
             loanJoinVC.loanViewModel = weakSelf.loanDetailViewModel;
+            
             loanJoinVC.availablePoint = _availablePoint;
             [weakSelf.navigationController pushViewController:loanJoinVC animated:true];
         }];

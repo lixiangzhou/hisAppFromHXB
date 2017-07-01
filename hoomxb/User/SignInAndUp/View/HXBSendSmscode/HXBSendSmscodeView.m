@@ -58,6 +58,19 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 @end
 
 @implementation HXBSendSmscodeView
+- (void)setType:(HXBSignUPAndLoginRequest_sendSmscodeType)type {
+    _type = type;
+    switch (type) {
+        case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:
+            [self.inviteCodeTextField setHidden:true];
+            [self.inviteCodeLabel_const setHidden:true];
+            [self.negotiateButton setHidden:true];
+            break;
+            
+        default:
+            break;
+    }
+}
 - (void)setPhonNumber:(NSString *)phonNumber {
     _phonNumber = phonNumber;
     self.phonNumberLabel.text = phonNumber;

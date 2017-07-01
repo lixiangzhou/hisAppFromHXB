@@ -110,7 +110,6 @@ MyViewHeaderDelegate
         HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
         HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
         [VC.navigationController pushViewController:capitalRecordViewController animated:true];
-        
     }
 }
 

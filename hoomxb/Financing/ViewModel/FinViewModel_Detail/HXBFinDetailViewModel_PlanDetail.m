@@ -20,15 +20,23 @@
     [self setAddButtonStrValue];
 }
 
-
- //加入上线
-
+/**
+ id
+ */
+- (NSString *) ID {
+    if (!_ID) {
+        _ID = self.planDetailModel.ID;
+    }
+    return _ID;
+}
+//加入上线
 - (NSString *)singleMaxRegisterAmount {
     if (!_singleMaxRegisterAmount) {
         _singleMaxRegisterAmount = [NSString hxb_getPerMilWithDouble: self.planDetailModel.singleMaxRegisterAmount.floatValue];
     }
     return _singleMaxRegisterAmount;
 }
+
 ///开始时间
 - (void)setUPBeginSellingTime {
     self.beginSellingTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.beginSellingTime andDateFormat:@"yyyy-MM-dd"];
@@ -187,10 +195,10 @@
  加入方式
  */
 - (NSString *) profitType_UI {
-    if (!_profitType) {
-        _profitType = @"收益再投资";
+    if (!_profitType_UI) {
+        _profitType_UI = @"收益再投资";
     }
-    return _profitType;
+    return _profitType_UI;
 }
 /**
   ///	string	处理方式 （HXB：当日提取至红小宝账户，INVEST：收益再投资）

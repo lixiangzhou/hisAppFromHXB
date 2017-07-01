@@ -11,12 +11,12 @@
 @interface HXBFin_Plan_BuySuccessViewController ()
 @property (nonatomic,strong) HXBBaseView_TwoLable_View *twoLableView;
 @property (nonatomic,strong) UIButton *button;
+@property (nonatomic,copy) void(^clickButtonBlock)();
 @end
 
 @implementation HXBFin_Plan_BuySuccessViewController
 - (void)setPlanModel:(HXBFin_Plan_BuyViewModel *)planModel {
     _planModel = planModel;
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,8 +72,14 @@
 }
 
 - (void) clickButton:(UIButton *)button {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:nil];
-    [self.navigationController popToRootViewControllerAnimated:true];
+    if (self.clickButtonBlock) {
+        self.clickButtonBlock();
+    }
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:nil];
+//    [self.navigationController popToRootViewControllerAnimated:true];
+}
+- (void)clickLookMYInfo:(void (^)())clickLookMyInfoBlock {
+    self.clickButtonBlock = clickLookMyInfoBlock;
 }
 
 - (void)didReceiveMemoryWarning {

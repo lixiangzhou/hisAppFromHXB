@@ -11,13 +11,14 @@
 @property (nonatomic,copy) void (^clickCellBlock)(NSIndexPath *index, id model);
 @end
 @implementation HXBBaseTableView
+- (void)clickCellWithBlock:(void (^)(id, NSIndexPath *))clickCellBlock {
+    self.clickCellBlock = clickCellBlock;
+}
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         self.tableFooterView = [[UIView alloc]init];
     }
     return self;
 }
-- (void)clickCellBlockFunc:(void (^)(NSIndexPath *, id))clickCellBlock {
-    self.clickCellBlock = clickCellBlock;
-}
+
 @end

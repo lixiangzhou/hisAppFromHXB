@@ -9,5 +9,5 @@
 #import "HXBFin_Plan_BuyViewController.h"
 @class HXBFinDetailViewModel_PlanDetail;
 @interface HXBFinBuy_plan_ViewController : HXBFin_Plan_BuyViewController;
-@property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planViewModel;
+
 @end
