@@ -191,7 +191,7 @@ UITextFieldDelegate
 ///点击了 登录按钮
 - (void)clickSignInButton: (UIButton *)signInButton {
     
-    NSString * message = [NSString isOrNoPasswordStyle:self.phoneTextField.text];
+    NSString * message = [NSString isOrNoPasswordStyle:self.passwordTextField.text];
     if (message.length > 0) {
         [HxbHUDProgress showTextWithMessage:message];
         return;

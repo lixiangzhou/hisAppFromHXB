@@ -34,6 +34,8 @@
     [self registerRefresh];
     
     [self gesturePwdShow];
+    
+    
 }
 
 

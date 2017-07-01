@@ -30,16 +30,36 @@ UITableViewDelegate,UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
    
-    if (indexPath.row == 1) {
-        UIWebView * callWebview = [[UIWebView alloc] init];
-        [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"tel:400-1551-888"]]];
-        [[UIApplication sharedApplication].keyWindow addSubview:callWebview];
-    }else if (indexPath.row == 2) {
-  
-    }else if (indexPath.row == 3){
-        HXBFeedbackViewController *feedbackVC = [[HXBFeedbackViewController alloc]init];
-        [self.navigationController pushViewController:feedbackVC animated:YES];
+    switch (indexPath.row) {
+        case 0:
+        {
+            NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/hong-xiao-bao/id1119411654?mt=8"];
+            [[UIApplication sharedApplication] openURL:url];
+        }
+            break;
+        case 1:
+        {
+            NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4001551888"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            HXBFeedbackViewController *feedbackVC = [[HXBFeedbackViewController alloc]init];
+            [self.navigationController pushViewController:feedbackVC animated:YES];
+        }
+            break;
+        default:
+            break;
     }
+    
+    
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

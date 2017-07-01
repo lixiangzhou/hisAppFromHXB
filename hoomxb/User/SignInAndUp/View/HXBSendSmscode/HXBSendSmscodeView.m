@@ -246,8 +246,10 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         //合格 请求数据
         if (self.clickSetPassWordButtonBlock) self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,nil);
     }else {
+        NSString * message = [NSString isOrNoPasswordStyle:self.password_TextField.text];
+            [HxbHUDProgress showTextWithMessage:message];
         NSLog(@"🌶密码不合格");
-        [HxbHUDProgress showTextWithMessage:@"🌶密码不合格"];
+//        [HxbHUDProgress showTextWithMessage:@"🌶密码不合格"];
     }
 }
 
