@@ -88,9 +88,14 @@
 
 }
 - (void)registerPassword {
+    
     __weak typeof(self)weakSelf = self;
     [self.smscodeView clickSetPassWordButtonFunc:^(NSString *password, NSString *smscode,NSString *inviteCode) {
-       
+        NSString * message = [NSString isOrNoPasswordStyle:password];
+        if (message.length > 0) {
+            [HxbHUDProgress showTextWithMessage:message];
+            return;
+        }
         if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             NSLog(@"忘记密码");
             [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:self.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {

@@ -245,13 +245,13 @@
     
     return isContentNumber && (!isContentChiness) && (!isContentSpecialCharact) && isContentChar;
 }
-///6-20位数字和字母组成 密码
+///8-20位数字和字母组成 密码
 + (BOOL)checkPassWordWithString: (NSString *)str
 {
     if ([NSString isIncludeSpecialCharact:str]) return NO;
     
-    //6-20位数字和字母组成
-    NSString *regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$";
+    //8-20位数字和字母组成
+    NSString *regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
     if ([pred evaluateWithObject:str]) {
         return YES ;
@@ -259,7 +259,44 @@
         return NO;
     }
 }
+/**
+ 密码不对的提示信息
 
+ @param passWordName 密码
+ @return  提示信息
+ */
++ (NSString*)isOrNoPasswordStyle:(NSString *)passWordName
+{
+    NSString * message;
+    if (passWordName.length<8) {
+        message=@" 密码不能少于8位，请您重新输入";
+        
+    }
+    else if (passWordName.length>20)
+    {
+        message=@"密码最大长度为20位，请您重新输入";
+    }
+    else if ([self JudgeTheillegalCharacter:passWordName])
+    {
+        message=@"密码不能包含特殊字符，请您重新输入";
+        
+    }
+    else if (![self checkPassWordWithString:passWordName])
+    {
+        message=@"密码必须同时包含字母和数字";
+    }
+    return message;
+}
+//判断特殊字符
++(BOOL)JudgeTheillegalCharacter:(NSString *)content{
+    //提示标签不能输入特殊字符
+    NSString *str =@"^[A-Za-z0-9\\u4e00-\u9fa5]+$";
+    NSPredicate* emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", str];
+    if (![emailTest evaluateWithObject:content]) {
+        return YES;
+    }
+    return NO;
+}
 //根据身份证号获取生日
 + (NSString *)birthdayStrFromIdentityCard:(NSString *)numberStr
 {

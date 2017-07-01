@@ -27,6 +27,7 @@ kWeakSelf
     [self.view addSubview:self.alterLoginPasswordView];
     self.alterLoginPasswordView.frame = self.view.frame;
     self.edgesForExtendedLayout = false;
+    
     [self.alterLoginPasswordView clickAlterButtonWithBlock:^(NSString *password_Original, NSString *password_New) {
         //验证密码
         if ([KeyChainManage sharedInstance].siginCount.integerValue == 4) {
@@ -34,6 +35,11 @@ kWeakSelf
         }
         if ([KeyChainManage sharedInstance].siginCount.integerValue > 5) {
             [self alertVC_5];
+        }
+        NSString * message = [NSString isOrNoPasswordStyle:password_New];
+        if (message.length > 0) {
+            [HxbHUDProgress showTextWithMessage:message];
+            return;
         }
         [HXBMobifyPassword_LoginRequest mobifyPassword_LoginRequest_requestWithOldPwd:password_Original andNewPwd:password_New andSuccessBlock:^{
             [KeyChainManage sharedInstance].siginCount = @(0).description;

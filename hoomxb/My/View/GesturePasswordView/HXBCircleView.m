@@ -21,6 +21,10 @@
 // 数组清空标志
 @property (nonatomic, assign) BOOL hasClean;
 
+/**
+ 存储第一次手势密码
+ */
+@property (nonatomic, copy) NSString *firstGesturePwd;
 @end
 
 @implementation HXBCircleView
@@ -325,12 +329,13 @@
         
     } else {// 连接多于最少个数 （>=4个）
         
-        NSString *gestureOne = KeyChain.gesturePwd;
+        NSString *gestureOne = self.firstGesturePwd;
         
         if ([gestureOne length] < CircleSetCountLeast) { // 接收并存储第一个密码
             // 记录第一次密码
 //            [HXBCircleViewConst saveGesture:gesture Key:gestureOneSaveKey];
-            KeyChain.gesturePwd = gesture;
+//            KeyChain.gesturePwd = gesture;
+            self.firstGesturePwd = gesture;
             // 通知代理
             if ([self.delegate respondsToSelector:@selector(circleView:type:didCompleteSetFirstGesture:)]) {
                 [self.delegate circleView:self type:self.type didCompleteSetFirstGesture:gesture];
@@ -338,7 +343,7 @@
             
         } else { // 接受第二个密码并与第一个密码匹配，一致后存储起来
             
-            BOOL equal = [gesture isEqual:KeyChain.gesturePwd]; // 匹配两次手势
+            BOOL equal = [gesture isEqual:self.firstGesturePwd]; // 匹配两次手势
             
             // 通知代理
             if ([self.delegate respondsToSelector:@selector(circleView:type:didCompleteSetSecondGesture:result:)]) {

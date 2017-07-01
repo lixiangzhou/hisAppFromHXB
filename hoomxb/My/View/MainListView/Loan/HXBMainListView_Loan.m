@@ -76,7 +76,7 @@ kDealloc
 - (void)setLoanAccountModel:(HXBMYModel_Loan_LoanRequestModel *)loanAccountModel {
     _loanAccountModel = loanAccountModel;
     self.REPAYING_Lable.text =  [self  formatStrWithTypeStr:REPAYING_Title andCountStr:loanAccountModel.rePayingTotalCount.integerValue];
-    self.BID_Lable.text = [self  formatStrWithTypeStr:REPAYING_Title andCountStr:loanAccountModel.BIDTotalCount.integerValue];
+    self.BID_Lable.text = [self  formatStrWithTypeStr:BID_Title andCountStr:loanAccountModel.BIDTotalCount.integerValue];
 }
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
     _userInfoViewModel = userInfoViewModel;

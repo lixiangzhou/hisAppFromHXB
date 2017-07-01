@@ -27,6 +27,14 @@
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"description_loanVO" : @"description"};
 }
+
+- (void)setDescription_loanVO:(NSString *)description_loanVO
+{
+    _description_loanVO = description_loanVO;
+    CGFloat height = [description_loanVO boundingRectWithSize:CGSizeMake((SCREEN_WIDTH - 40.0f), MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.height;
+    self.description_loanVO_height = height;
+}
+
 @end
 
 

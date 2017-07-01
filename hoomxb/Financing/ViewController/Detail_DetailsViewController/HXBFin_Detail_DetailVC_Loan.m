@@ -10,6 +10,7 @@
 #import "HXBLoanInformation.h"
 #import "HXBLoanInstructionView.h"
 #import "HXBHXBBorrowUserinforView.h"
+#import "HXBFinDetailViewModel_LoanDetail.h"
 @interface HXBFin_Detail_DetailVC_Loan ()
 @property (nonatomic, strong) UIScrollView *scrollView;
 
@@ -41,7 +42,7 @@
 - (HXBHXBBorrowUserinforView *)borrowUserinforView
 {
     if (!_borrowUserinforView) {
-        _borrowUserinforView = [[HXBHXBBorrowUserinforView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0)];
+        _borrowUserinforView = [[HXBHXBBorrowUserinforView alloc] initWithFrame:CGRectMake(0,0, kScreenWidth, 0)];
     }
     return _borrowUserinforView;
 }
@@ -52,10 +53,15 @@
     self.view = self.scrollView;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.borrowUserinforView.y = CGRectGetMaxY(self.loanInstructionView.frame) + 20;
+}
+
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.borrowUserinforView.y = self.loanInstructionView.bottom + 20;
     self.scrollView.contentSize = CGSizeMake(0, self.borrowUserinforView.bottom);
 }
 
@@ -66,7 +72,6 @@
     [self.scrollView addSubview:self.loanInformation];
     [self.scrollView addSubview:self.loanInstructionView];
     [self.scrollView addSubview:self.borrowUserinforView];
-    
     self.loanInformation.loanDetailViewModel = self.loanDetailViewModel;
     self.loanInstructionView.loanDetailViewModel = self.loanDetailViewModel;
     self.borrowUserinforView.loanDetailViewModel = self.loanDetailViewModel;

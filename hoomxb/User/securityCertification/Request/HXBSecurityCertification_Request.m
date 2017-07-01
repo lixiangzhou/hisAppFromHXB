@@ -14,16 +14,21 @@
 + (void)securityCertification_RequestWithName: (NSString *)name
                                   andIdCardNo: (NSString *)idCardNo
                                    andTradpwd: (NSString *)tradpwd
+                                       andURL: (NSString *)URL
                               andSuccessBlock: (void(^)(BOOL isExist))successBlock
                               andFailureBlock: (void(^)(NSError *error,NSString *message))failureBlock {
     
     HXBBaseRequest *request = [[HXBBaseRequest alloc]init];
-    request.requestUrl = kHXBUser_SecureURL;
+    request.requestUrl = URL;
     request.requestMethod = NYRequestMethodPost;
     request.requestArgument = @{
+                                @"username" : name,
                                 @"name" : name,
                                 @"idCardNo" : idCardNo,
-                                @"tradpwd" : tradpwd
+                                @"identityCard" : idCardNo,
+                                @"tradpwd" : tradpwd,
+                                @"password" : tradpwd,
+                                @"cashPassword" : tradpwd
                                 };
     [request startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         

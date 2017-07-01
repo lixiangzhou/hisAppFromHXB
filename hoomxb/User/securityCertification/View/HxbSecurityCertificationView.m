@@ -19,30 +19,34 @@ UITextFieldDelegate
 @property (nonatomic, strong) UIButton *securityCertificationButton;
 @property (nonatomic, strong) UIButton *hidePwdBtn;
 /**安全认证 点击了下一步按钮*/
-@property (nonatomic,copy) void(^clickNextButtonBlock)(NSString *name, NSString *idCard, NSString *transactionPassword);
+@property (nonatomic,copy) void(^clickNextButtonBlock)(NSString *name, NSString *idCard, NSString *transactionPassword,NSString *url);
+/**
+ url
+ */
+@property (nonatomic, copy) NSString *url;
 @end
 
 @implementation HxbSecurityCertificationView
 
 
 
-- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
-{
-    _userInfoViewModel = userInfoViewModel;
-    if ([userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
-        self.nameTextField.text = [userInfoViewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:userInfoViewModel.userInfoModel.userInfo.realName.length - 1];
-        
-        self.identityCardNumTextField.text =  [userInfoViewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:3 lenght:userInfoViewModel.userInfoModel.userInfo.idNo.length - 3];
-    }
-    if ([userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-        self.payPasswordTextField.secureTextEntry = NO;
-        self.payPasswordTextField.text = @"已设置";
-        self.hidePwdBtn.hidden = YES;
-    }
-    if ([userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
-        self.securityCertificationButton.hidden = YES;
-    }
-}
+//- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
+//{
+//    _userInfoViewModel = userInfoViewModel;
+//    if ([userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+//        self.nameTextField.text = [userInfoViewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:userInfoViewModel.userInfoModel.userInfo.realName.length - 1];
+//        
+//        self.identityCardNumTextField.text =  [userInfoViewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:3 lenght:userInfoViewModel.userInfoModel.userInfo.idNo.length - 3];
+//    }
+//    if ([userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
+//        self.payPasswordTextField.secureTextEntry = NO;
+//        self.payPasswordTextField.text = @"已设置";
+//        self.hidePwdBtn.hidden = YES;
+//    }
+//    if ([userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+//        self.securityCertificationButton.hidden = YES;
+//    }
+//}
 
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -54,10 +58,52 @@ UITextFieldDelegate
 //        [self addSubview:self.payPasswordConfirmTextField];
         [self addSubview:self.securityCertificationButton];
         [self addSubview:self.hidePwdBtn];
+        
+        [self setModel];
     }
     return self;
 }
 
+- (void)setModel{
+    
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        self.userInfoViewModel = viewModel;
+        if ([viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+            self.nameTextField.text = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
+            self.identityCardNumTextField.text =  [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:3 lenght:viewModel.userInfoModel.userInfo.idNo.length - 3];
+        }
+        if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
+            self.payPasswordTextField.secureTextEntry = NO;
+            self.payPasswordTextField.text = @"已设置";
+            self.hidePwdBtn.hidden = YES;
+        }
+        if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+            self.securityCertificationButton.hidden = YES;
+        }
+        
+    } andFailure:^(NSError *error) {
+        
+    }];
+    
+}
+
+- (void)judgeURL
+{
+    ///	是否实名
+    BOOL isIdPassed = [self.userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"];
+    ///	是否有交易密码
+    BOOL isCashPasswordPassed = [self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"];
+    if (isIdPassed && (!isCashPasswordPassed)) {
+        self.url = @"/account/tradCashPwd";
+    }else if ((!isIdPassed) && isCashPasswordPassed){
+        self.url =  @"/account/authentication";
+    }else if ((!isIdPassed) && (!isCashPasswordPassed)){
+        self.url = @"/user/realname";
+    }else
+    {
+        self.url = @"/user/realname";
+    }
+}
 
 - (void)securityCertificationButtonClick:(UIButton *)sender{
 
@@ -78,7 +124,7 @@ UITextFieldDelegate
 //        [KeyChain setTradePwd:_payPasswordConfirmTextField.text];
         ///点击了安全认证按钮
         if (self.clickNextButtonBlock) {
-            self.clickNextButtonBlock(self.nameTextField.text, self.identityCardNumTextField.text, self.payPasswordTextField.text);
+            self.clickNextButtonBlock(self.nameTextField.text, self.identityCardNumTextField.text, self.payPasswordTextField.text,self.url);
         }
 }
 
@@ -170,7 +216,7 @@ UITextFieldDelegate
 }
 
 ///点击了 下一步按钮
-- (void)clickNextButtonFuncWithBlock: (void(^)(NSString *name, NSString *idCard, NSString *transactionPassword))clickNextButtonBlock {
+- (void)clickNextButtonFuncWithBlock: (void(^)(NSString *name, NSString *idCard, NSString *transactionPassword,NSString *url))clickNextButtonBlock {
     self.clickNextButtonBlock = clickNextButtonBlock;
 }
 

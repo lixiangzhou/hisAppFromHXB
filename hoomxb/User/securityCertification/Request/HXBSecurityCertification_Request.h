@@ -17,6 +17,7 @@ tradpwd	否	string	交易密码
 + (void)securityCertification_RequestWithName: (NSString *)name
                                   andIdCardNo: (NSString *)idCardNo
                                    andTradpwd: (NSString *)tradpwd
+                                       andURL: (NSString *)URL
                               andSuccessBlock: (void(^)(BOOL isExist))successBlock
                               andFailureBlock: (void(^)(NSError *error,NSString *message))failureBlock;
 /**

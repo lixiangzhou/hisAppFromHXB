@@ -106,6 +106,11 @@ typedef enum : NSUInteger {
 ///": "2016-10-03"
 @property (nonatomic,copy) NSString *nextRepayDate;
 
+/**
+ 根据返回内容动态获取高度
+ */
+@property (nonatomic, assign) CGFloat description_loanVO_height;
+
 @end
 
 // --------------------- idCardInfo ---------------------

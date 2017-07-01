@@ -17,5 +17,5 @@
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 /**安全认证 点击了下一步按钮*/
-- (void)clickNextButtonFuncWithBlock: (void(^)(NSString *name, NSString *idCard, NSString *transactionPassword))clickNextButtonBlock;
+- (void)clickNextButtonFuncWithBlock: (void(^)(NSString *name, NSString *idCard, NSString *transactionPassword,NSString *url))clickNextButtonBlock;
 @end

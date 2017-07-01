@@ -83,7 +83,6 @@ UITableViewDataSource,UITableViewDelegate
             [self.navigationController pushViewController: signUPVC animated:true];
         }else if (indexPath.row == 1){
             NSLog(@"click 设置交易密码");
-            
             [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
                 if ([isVerify isEqualToString:@"1"]) {
                     HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
@@ -101,7 +100,7 @@ UITableViewDataSource,UITableViewDelegate
         }else{
             HXBCheckLoginPasswordViewController *checkLoginPasswordVC = [[HXBCheckLoginPasswordViewController alloc] init];
             [self.navigationController pushViewController:checkLoginPasswordVC animated:YES];
-//            NSLog(@"click 设置手势密码");
+            NSLog(@"click 设置手势密码");
 //            if (KeyChain.gesturePwd.length)
 //            {
 //                HXBModifyGesturePasswordController *modifyGesturePasswordVC = [[HXBModifyGesturePasswordController alloc] init];
