@@ -134,6 +134,33 @@
 }
 
 /**
+ 自定义HUD加载
+ */
++ (void)showLoadDataHUD:(UIView *)showView{
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    if (showView == nil) {
+        showView = keyWindow;
+    }
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:showView animated:YES];
+    //    hud.backgroundColor = [UIColor colorWithRed:125/255.0f green:125/255.0f blue:125/255.0f alpha:1.f];
+    hud.bezelView.backgroundColor = [UIColor colorWithRed:125/255.0f green:125/255.0f blue:125/255.0f alpha:1.f];
+    hud.label.text = NSLocalizedString(@"加载中...", @"HUD loading title");
+    hud.label.textColor = [UIColor whiteColor];
+    hud.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
+    //加载完成
+    //    [hud hideAnimated:YES];
+}
+
++ (void)hidenHUD:(UIView *)hidenView
+{
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    if (hidenView == nil) {
+        hidenView = keyWindow;
+    }
+    [MBProgressHUD hideHUDForView:hidenView animated:YES];
+}
+
+/**
 // 自定义HUD
 // */
 //- (void)customViewExampleWithView:(UIView *)view andImage: (UIImage *) {

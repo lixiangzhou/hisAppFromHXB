@@ -46,7 +46,7 @@
     [super viewDidLoad];
     [self.view addSubview:self.textView];
     [self.view addSubview:self.submitBtn];
-    
+    self.title = @"意见反馈";
     [self setupSubViewFrame];
 }
 
@@ -69,6 +69,9 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 
 @end

@@ -65,7 +65,6 @@ UITextFieldDelegate
 }
 
 - (void)setModel{
-    
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         self.userInfoViewModel = viewModel;
         if ([viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
@@ -80,7 +79,7 @@ UITextFieldDelegate
         if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
             self.securityCertificationButton.hidden = YES;
         }
-        
+
     } andFailure:^(NSError *error) {
         
     }];
