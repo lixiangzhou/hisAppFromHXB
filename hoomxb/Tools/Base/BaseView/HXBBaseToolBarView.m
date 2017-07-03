@@ -234,8 +234,11 @@
         CGFloat barAnimaViewW = self.frame.size.width/self.optionStrArray.count;
         
 
-        self.itemBarAnimaView = [[UIView alloc]initWithFrame:CGRectMake( barAnimaViewX, barAnimaViewY, barAnimaViewW, barAnimaViewH)];
-        
+        self.itemBarAnimaView = [[UIView alloc]initWithFrame: CGRectZero];
+
+    self.itemBarAnimaView.center = CGPointMake(barAnimaViewX, barAnimaViewY);
+    self.itemBarAnimaView.bounds = CGRectMake(0, 0, barAnimaViewW, barAnimaViewH);
+    
         if (!self.itemBarAnimaViewColor) {
             self.itemBarAnimaViewColor = [UIColor yellowColor];
         }
@@ -259,6 +262,8 @@
 
 #pragma mark - 懒加载 对某些属性做了默认值处理
 //设置初始值
+
+
 
 //MARK: 设置----------------lien---------------------
 - (CGFloat)lienWidth {
@@ -343,6 +348,14 @@
         _itemTextFont = [UIFont systemFontOfSize:20];
     }
     return _itemTextFont;
+}
+
+//MARK: ------------------动画的item-----------------------
+- (UIView *)itemBarAnimaView  {
+    if (!_itemBarAnimaView) {
+        _itemBarAnimaView = [[UIView alloc]init];
+    }
+    return _itemBarAnimaView;
 }
 
 //MARK: ------------------选中的item------------------------

@@ -14,9 +14,10 @@
 #import "HXBMYModel_AssetStatistics_Loan.h"
 #import "HXBMY_LoanList_DetailViewController.h"
 #import "HXBMYModel_Loan_LoanRequestModel.h"///资产
+#import "HXBMy_Loan_Swipe.h"
 @interface HXBMY_LoanListViewController ()
 
-@property (nonatomic,strong) HXBMainListView_Loan *loanListView;
+@property (nonatomic,strong) HXBMy_Loan_Swipe *loanListView;
 
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel *>*loan_BID_ViewModelArray;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel *>*loan_REPAYING_ViewModelArray;
@@ -68,7 +69,7 @@ kDealloc
 
 //搭建UI
 - (void)setupView {
-    self.loanListView = [[HXBMainListView_Loan alloc]initWithFrame:self.view.frame];
+    self.loanListView = [[HXBMy_Loan_Swipe alloc]initWithFrame:self.view.frame];
     [self.view addSubview:self.loanListView];
 }
 #pragma mark - 下载数据

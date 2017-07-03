@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIColor *backgroundColor;
 @property (nonatomic, strong) UIColor *selectionIndicatorColor;
 @property (nonatomic, assign) NSInteger selectedSegmentIndex;
+@property (nonatomic, strong, readonly) NSDictionary <NSString *, UIButton * >*itemSet;
 @property (nonatomic, copy) void (^IndexChangeBlock)(NSInteger index);
 
 - (instancetype)initWithItems:(NSArray<NSString *> *)items;
