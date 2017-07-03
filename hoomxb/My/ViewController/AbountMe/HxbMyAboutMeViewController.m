@@ -8,7 +8,9 @@
 
 #import "HxbMyAboutMeViewController.h"
 #import "HXBFeedbackViewController.h"
-
+#import "HXBVersionUpdateRequest.h"//版本更新的数据请求
+#import "HXBVersionUpdateViewModel.h"
+#import "HXBVersionUpdateModel.h"//版本更新的model
 @interface HxbMyAboutMeViewController ()
 <
 UITableViewDelegate,UITableViewDataSource
@@ -33,8 +35,18 @@ UITableViewDelegate,UITableViewDataSource
     switch (indexPath.row) {
         case 0:
         {
-            NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/hong-xiao-bao/id1119411654?mt=8"];
-            [[UIApplication sharedApplication] openURL:url];
+            NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+            HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
+            [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
+                HXBVersionUpdateViewModel *versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
+                versionUpdateVM.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
+                
+            } andFailureBlock:^(NSError *error) {
+                
+            }];
+            
+//            NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/hong-xiao-bao/id1119411654?mt=8"];
+//            [[UIApplication sharedApplication] openURL:url];
         }
             break;
         case 1:

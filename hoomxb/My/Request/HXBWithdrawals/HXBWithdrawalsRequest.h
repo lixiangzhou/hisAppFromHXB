@@ -25,4 +25,13 @@
  @param failureBlock 失败回调
  */
 - (void)bankCardListRequestWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+
+/**
+ 获取到账时间
+ 
+ @param successDateBlock 成功回调
+ @param failureBlock 失败回调
+ */
+- (void)paymentDateRequestWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end

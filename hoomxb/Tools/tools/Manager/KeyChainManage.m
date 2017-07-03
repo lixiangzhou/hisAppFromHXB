@@ -107,8 +107,7 @@ static NSString *const kIsLogin = @"kIsLogin";
 @property (nonatomic,copy) NSString *isIdPassed;
 ///是否手机号
 @property (nonatomic,copy) NSString *isMobilePassed;
-///用户手机号
-@property (nonatomic,copy) NSString *mobile;
+
 ///用户id
 @property (nonatomic,copy) NSString *userId;
 ///username	String	用户名称
@@ -529,7 +528,6 @@ static NSString *const kIsLogin = @"kIsLogin";
     [manager.keychain removeItemForKey:kLoginPwd];
     [manager.keychain removeItemForKey:kTradePwd];
     [manager.keychain removeItemForKey:kToken];
-    [manager.keychain removeItemForKey:kMobile];
     [manager.keychain removeItemForKey:kCiphertext];
 }
 

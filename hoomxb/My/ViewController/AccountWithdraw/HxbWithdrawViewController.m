@@ -39,8 +39,22 @@
     [self.view addSubview:self.tipLabel];
     [self.view addSubview:self.arrivalDateLabel];
     [self setCardViewFrame];
-    
+    [self getpaymentDate];
 }
+/**
+ 回去到账时间
+ */
+- (void)getpaymentDate
+{
+    HXBWithdrawalsRequest *paymentDate = [[HXBWithdrawalsRequest alloc] init];
+    [paymentDate paymentDateRequestWithSuccessBlock:^(id responseObject) {
+        
+        self.arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:responseObject[@"data"][@"arrivalTime"] andDateFormat:@"yyyy-MM-dd"]];
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
+}
+
 - (void)setCardViewFrame{
     
     if (![self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
@@ -109,6 +123,8 @@
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
+    
+    
 }
 
 - (void)nextButtonClick:(UIButton *)sender{
@@ -193,7 +209,7 @@
 {
     if (!_arrivalDateLabel) {
         _arrivalDateLabel = [[UILabel alloc] init];
-        _arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] stringFromDate:[NSDate date] andDateFormat:@"yyyy-MM-dd"]];
+//        _arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] stringFromDate:[NSDate date] andDateFormat:@"yyyy-MM-dd"]];
     }
     return _arrivalDateLabel;
 }

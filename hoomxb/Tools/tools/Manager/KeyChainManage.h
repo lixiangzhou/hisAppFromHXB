@@ -29,6 +29,8 @@
 ///统一密文
 @property (nonatomic, strong) NSString *ciphertext;
 
+///用户手机号
+@property (nonatomic,copy) NSString *mobile;
 
 /*
 @property (nonatomic, copy) NSString  *token;

@@ -51,10 +51,13 @@
 #define kHXBSetTransaction_MobifyPassword_CashpwdEditURL @"/account/cashpwd/edit"//修改交易密码--修改交易密码接口
 #define kHXBSetTransaction_MobifyPhoneNumber_CashMobileEditURL @"/account/mobile"//修改手机号--修改手机号接口
 
+#define kHXBMY_VersionUpdateURL @"/update"//版本更新
+
 
 //MARK: ======================= 充值提现 =======================
 #define kHXBSetWithdrawals_withdrawURL   @"/account/withdraw"//提现
 #define kHXBSetWithdrawals_banklistURL   @"/banklist"//提现
+#define kHXBSetWithdrawals_withdrawTimeURL   @"/account/withdraw/time"//到账时间
 
 
 //MARK: ======================= 购买 ==========================

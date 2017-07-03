@@ -72,6 +72,11 @@
 @property (nonatomic,copy) NSString *realName;
 /// 身份证 640121197904299980
 @property (nonatomic,copy) NSString *idNo;
+/**
+ 是否评估
+ */
+@property (nonatomic, copy) NSString *riskType;
+
 @property (nonatomic,copy) NSString *ip;
 @property (nonatomic,copy) NSString *hasRecharge;
 

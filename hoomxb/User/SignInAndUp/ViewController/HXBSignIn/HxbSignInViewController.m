@@ -90,7 +90,9 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             [KeyChainManage sharedInstance].siginCount = @"0";
             //调到我的界面
             [KeyChainManage sharedInstance].isLogin = true;
+            KeyChain.ciphertext = @"0";
             [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
+                
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }];
         } andFailureBlock:^(NSError *error) {
@@ -164,9 +166,11 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 }
 
 - (void)dismiss{
-    KeyChain.ciphertext = @"0";
+    
     HXBBaseTabBarController *baseTabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    baseTabBarVC.selectedIndex = [self.selectedIndexVC integerValue];
+    if (self.selectedIndexVC != nil) {
+        baseTabBarVC.selectedIndex = [self.selectedIndexVC integerValue];
+    }
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];

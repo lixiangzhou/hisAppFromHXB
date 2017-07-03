@@ -26,6 +26,9 @@
 		4E6677C21EEA96300064ECCE /* HXBBankCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6677C11EEA96300064ECCE /* HXBBankCardModel.m */; };
 		4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */; };
 		4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D31001EA70DC900598529 /* HxbHomeViewController.m */; };
+		4E739B571F0A356A000A4D1E /* HXBVersionUpdateRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E739B561F0A356A000A4D1E /* HXBVersionUpdateRequest.m */; };
+		4E739B5B1F0A388B000A4D1E /* HXBVersionUpdateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E739B5A1F0A388B000A4D1E /* HXBVersionUpdateModel.m */; };
+		4E739B5F1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E739B5E1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m */; };
 		4E7CCF471EBC1B5B00F7BDB3 /* banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3A1EBC1B5B00F7BDB3 /* banner@2x.png */; };
 		4E7CCF481EBC1B5B00F7BDB3 /* banner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3B1EBC1B5B00F7BDB3 /* banner@3x.png */; };
 		4E7CCF491EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3C1EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png */; };
@@ -366,6 +369,12 @@
 		4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbAdvertiseViewController.m; sourceTree = "<group>"; };
 		4E6D30FF1EA70DC900598529 /* HxbHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHomeViewController.h; sourceTree = "<group>"; };
 		4E6D31001EA70DC900598529 /* HxbHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHomeViewController.m; sourceTree = "<group>"; };
+		4E739B551F0A356A000A4D1E /* HXBVersionUpdateRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBVersionUpdateRequest.h; sourceTree = "<group>"; };
+		4E739B561F0A356A000A4D1E /* HXBVersionUpdateRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBVersionUpdateRequest.m; sourceTree = "<group>"; };
+		4E739B591F0A388B000A4D1E /* HXBVersionUpdateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBVersionUpdateModel.h; sourceTree = "<group>"; };
+		4E739B5A1F0A388B000A4D1E /* HXBVersionUpdateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBVersionUpdateModel.m; sourceTree = "<group>"; };
+		4E739B5D1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBVersionUpdateViewModel.h; sourceTree = "<group>"; };
+		4E739B5E1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBVersionUpdateViewModel.m; sourceTree = "<group>"; };
 		4E7CCF3A1EBC1B5B00F7BDB3 /* banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@2x.png"; sourceTree = "<group>"; };
 		4E7CCF3B1EBC1B5B00F7BDB3 /* banner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@3x.png"; sourceTree = "<group>"; };
 		4E7CCF3C1EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bannerplaceholder@2x.png"; sourceTree = "<group>"; };
@@ -1141,6 +1150,33 @@
 				4E6677C11EEA96300064ECCE /* HXBBankCardModel.m */,
 			);
 			path = HXBMY_BankCard;
+			sourceTree = "<group>";
+		};
+		4E739B541F0A3516000A4D1E /* HXBVersionUpdate */ = {
+			isa = PBXGroup;
+			children = (
+				4E739B551F0A356A000A4D1E /* HXBVersionUpdateRequest.h */,
+				4E739B561F0A356A000A4D1E /* HXBVersionUpdateRequest.m */,
+			);
+			path = HXBVersionUpdate;
+			sourceTree = "<group>";
+		};
+		4E739B581F0A386D000A4D1E /* HXBMY_VersionUpdateModel */ = {
+			isa = PBXGroup;
+			children = (
+				4E739B591F0A388B000A4D1E /* HXBVersionUpdateModel.h */,
+				4E739B5A1F0A388B000A4D1E /* HXBVersionUpdateModel.m */,
+			);
+			path = HXBMY_VersionUpdateModel;
+			sourceTree = "<group>";
+		};
+		4E739B5C1F0A3E0E000A4D1E /* HXBMY_VersionUpdate_ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4E739B5D1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.h */,
+				4E739B5E1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m */,
+			);
+			path = HXBMY_VersionUpdate_ViewModel;
 			sourceTree = "<group>";
 		};
 		4E73BBCE1EC2EFC3001B8357 /* Plist */ = {
@@ -2652,6 +2688,7 @@
 				E1CC03581ECAD2AD00121D21 /* HXBMYRequest.m */,
 				E1CC03591ECAD2AD00121D21 /* HXBRequestType_MYManager.h */,
 				E1CC035A1ECAD2AD00121D21 /* HXBRequestType_MYManager.m */,
+				4E739B541F0A3516000A4D1E /* HXBVersionUpdate */,
 				4E99823D1F022A3900CABA59 /* HXBWithdrawals */,
 				4E9345551EFE488B00D2886B /* HXBModifyPhoneRequest */,
 				E10CDBC21EEA473D0037F2D0 /* HXBPassword_LoginRequest */,
@@ -2837,6 +2874,7 @@
 		E1D2CA501EAB4D6B000099C7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4E739B581F0A386D000A4D1E /* HXBMY_VersionUpdateModel */,
 				4E6677BF1EEA961B0064ECCE /* HXBMY_BankCard */,
 				E1270B421ECED2D000729BC9 /* HXBMY_PlanModel */,
 				E1270B3F1ECED2D000729BC9 /* HXBMY_LoanModel */,
@@ -2868,6 +2906,7 @@
 		E1D2CA521EAB4D6B000099C7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4E739B5C1F0A3E0E000A4D1E /* HXBMY_VersionUpdate_ViewModel */,
 				E1270B331ECED1F300729BC9 /* MYPlan_ViewModel */,
 				E1270B301ECED1F300729BC9 /* MYLoan_ViewModel */,
 				E1270B2D1ECED1F300729BC9 /* MYCapitalRecord_ViewModel */,
@@ -3370,6 +3409,7 @@
 				4E81E3FE1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m in Sources */,
 				4E886FB71EF916A30056086E /* HXBGesturePasswordViewController.m in Sources */,
 				E16314431EC076F40090567E /* HXBFinDetailModel_PlanDetail.m in Sources */,
+				4E739B571F0A356A000A4D1E /* HXBVersionUpdateRequest.m in Sources */,
 				E133DCE71EEE3597009466DE /* HxbPhoneVerifyViewController.m in Sources */,
 				E165EABA1EF8E82F00D68763 /* HXBFin_Plan_BuyViewController.m in Sources */,
 				E122D84E1EA0CAB900DC71ED /* NSObject+HxbRunTime.m in Sources */,
@@ -3390,6 +3430,7 @@
 				4E9345581EFE48C300D2886B /* HXBModifyPhoneRequest.m in Sources */,
 				4E99824E1F026C3600CABA59 /* HXBMY_AllFinanceView.m in Sources */,
 				E18CF0D01F07931B004F7998 /* UITableViewCell+HXBTableViewCell.m in Sources */,
+				4E739B5F1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m in Sources */,
 				E133DCEE1EEE3597009466DE /* HXBRequestUserInfo.m in Sources */,
 				E165EAA91EF8E74600D68763 /* HXBFinDetail_TableView.m in Sources */,
 				E133DCEB1EEE3597009466DE /* HxbSignUpSucceedViewController.m in Sources */,
@@ -3498,6 +3539,7 @@
 				E133DCE91EEE3597009466DE /* HxbSignInViewController.m in Sources */,
 				4E4ACC9A1F061F3D0031B326 /* HXBHXBBorrowUserinforView.m in Sources */,
 				E122D85D1EA0CAB900DC71ED /* UIView+HxbView.m in Sources */,
+				4E739B5B1F0A388B000A4D1E /* HXBVersionUpdateModel.m in Sources */,
 				E1CB561A1ED2D1F500D962CA /* HXBMYModel_AssetStatistics_Plan.m in Sources */,
 				4EAD98D51EB838F80029A3FF /* UITextField+HxbTextField.m in Sources */,
 				E122D8571EA0CAB900DC71ED /* UIResponder+FindNext.m in Sources */,

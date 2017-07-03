@@ -81,6 +81,7 @@ UITextFieldDelegate
 ///创建自控制器
 - (void)setUPSubViews_Creat {
     self.phoneTextField = [[UITextField alloc]init];
+    self.phoneTextField.text = KeyChain.mobile;
     self.passwordTextField = [[UITextField alloc]init];
     self.signInButton = [[UIButton alloc]init];
     self.signUpbutton = [[UIButton alloc]init];
