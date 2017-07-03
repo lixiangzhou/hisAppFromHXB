@@ -72,7 +72,7 @@
         
         viewModelVM.totalInterestStr_const     = @"年利率";
         
-        viewModelVM.remainAmount_const         = @"剩余金额";
+        viewModelVM.remainAmount_const         = weakSelf.planDetailViewModel.remainAmount_constStr;
         
         viewModelVM.startInvestmentStr_const   = @"起投";
         viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";

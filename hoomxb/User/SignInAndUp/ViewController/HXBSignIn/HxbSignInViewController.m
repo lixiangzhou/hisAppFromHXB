@@ -47,7 +47,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modalCaptchaVC:) name:kHXBBotification_ShowCaptchaVC object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modalCaptchaVC:) name:kHXBBotification_ShowCaptchaVC object:nil];
     self.title = @"登录";
     [self setLeftItemBar];
     [self setSignView];/// 设置登录界面
@@ -82,10 +82,11 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     kWeakSelf
     [self.signView signIN_ClickButtonFunc:^(NSString *pasword, NSString *mobile) {
 
-        [weakSelf userInfo_DownLoadData];//请求用户信息
+    
         //用户登录请求
         [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:pasword andCaptcha:self.checkCaptcha andSuccessBlock:^(BOOL isSuccess) {
             NSLog(@"登录成功");
+            [weakSelf userInfo_DownLoadData];//请求用户信息
             self.reuqestSignINNumber = @(0);
             [KeyChainManage sharedInstance].siginCount = @"0";
             //调到我的界面
@@ -93,7 +94,23 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
             [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }];
-        } andFailureBlock:^(NSError *error) {
+        } andFailureBlock:^(NSError *error, id responseObject) {
+            if ([responseObject[kResponseStatus] integerValue]) {
+                
+                [HxbHUDProgress showTextWithMessage: responseObject[kResponseMessage]];
+                if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {
+//                    [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+                    if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {//谈图验
+                        HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
+                        [checkCaptchaViewController checkCaptchaSucceedFunc:^(NSString *checkPaptcha) {
+                            //                    self.checkCaptcha = checkPaptcha;
+                            
+                            [self signIn_downLoadDataWithCaptcha:checkPaptcha andPassword:pasword andMobile:mobile];
+                        }];
+                        [self presentViewController:checkCaptchaViewController animated:true completion:nil];
+                    }
+                }
+            }
             ///清空
             self.checkCaptcha = nil;
         }];
@@ -108,7 +125,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
           ///通过这个方法吧要展示的信息，和是否可以点击登录按钮进行设定
           [weakSelf.signView checkMobileResultFuncWithCheckMobileResultStr:existStr andIsEditLoginButton:isExist];
       } andFailureBlock:^(NSError *error) {
-          
+
       }];
     }];
 }
@@ -148,11 +165,29 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 
 ///登录 数据的请求
 - (void)signIn_downLoadDataWithCaptcha: (NSString *)captcha andPassword: (NSString *)password andMobile: (NSString *)mobile{
+    kWeakSelf
     [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:password andCaptcha:captcha andSuccessBlock:^(BOOL isSuccess) {
-        if (isSuccess) {
-            NSLog(@"登录成功");
+        NSLog(@"登录成功");
+        [self userInfo_DownLoadData];//请求用户信息
+        self.reuqestSignINNumber = @(0);
+        [KeyChainManage sharedInstance].siginCount = @"0";
+        //调到我的界面
+        [KeyChainManage sharedInstance].isLogin = true;
+        [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+        }];
+    } andFailureBlock:^(NSError *error, id responseObject) {
+        if ([responseObject[kResponseStatus] integerValue]) {
+            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {//谈图验
+                HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
+                [checkCaptchaViewController checkCaptchaSucceedFunc:^(NSString *checkPaptcha) {
+//                    self.checkCaptcha = checkPaptcha;
+                    [self signIn_downLoadDataWithCaptcha:checkPaptcha andPassword:password andMobile:mobile];
+                }];
+                [self presentViewController:checkCaptchaViewController animated:true completion:nil];
+            }
         }
-    } andFailureBlock:^(NSError *error) {
         
     }];
 }

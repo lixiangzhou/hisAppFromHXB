@@ -189,6 +189,7 @@ kDealloc
     label.frame = button.bounds;
     button.titleLabel.text = @"";
 }
+
 //搭建底部的ScrollView
 - (NSArray *)setupBottomScrollViewArray {
     self.hold_Plan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];

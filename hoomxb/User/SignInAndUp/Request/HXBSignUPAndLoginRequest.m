@@ -47,7 +47,7 @@
                    andPassword: (NSString *)password
                     andCaptcha: (NSString *)captcha
                andSuccessBlock: (void(^)(BOOL isSuccess))successBlock
-               andFailureBlock: (void(^)(NSError *error))failureBlock {
+               andFailureBlock: (void(^)(NSError *error, id responseObject))failureBlock {
     HXBBaseRequest *loginAPI = [[HXBBaseRequest alloc]init];
     loginAPI.requestMethod = NYRequestMethodPost;
     loginAPI.requestUrl = kHXBUser_LoginURL;
@@ -63,18 +63,17 @@
         if ([responseObject[kResponseStatus] integerValue]) {
             [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             if (failureBlock) {
-                failureBlock(nil);
+                failureBlock(nil,responseObject);
             }
             return;
         }
         if (successBlock) {
             successBlock(true);
-            
             [KeyChain setMobile:mobile];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {
-            failureBlock(error);
+            failureBlock(error,nil);
         }
         kNetWorkError(@"登录请求失败");
     }];

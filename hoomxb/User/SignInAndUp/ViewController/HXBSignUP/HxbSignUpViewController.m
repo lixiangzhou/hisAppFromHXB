@@ -83,7 +83,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
             if([weakSelf.signUPView.checkMobileStr isEqualToString:@"该手机号暂未注册"]) return;
         }
       
-        //1. modal一个控制器
+        //1. modal一个图验控制器
         ///1. 如果要是已经图验过了，那就不需要图验了
         HXBCheckCaptchaViewController *checkCaptchVC = [[HXBCheckCaptchaViewController alloc]init];
         [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){

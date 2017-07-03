@@ -516,6 +516,12 @@
             return;
         }
         
+        if (status) {
+            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            if (failureBlock) failureBlock(nil,status);
+            return;
+        }
+        
         HXBFinModel_BuyResoult_LoanModel *loanBuyResoult = [[HXBFinModel_BuyResoult_LoanModel alloc]init];
         [loanBuyResoult yy_modelSetWithDictionary:responseObject[kResponseData]];
         

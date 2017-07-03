@@ -26,7 +26,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 
     switch ([request.responseObject[kResponseStatus] integerValue]) {
         case kHXBCode_Enum_Captcha://弹出图验、
-            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowCaptchaVC object:nil];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowCaptchaVC object:nil];
             break;
         case kHXBCode_Enum_NotSigin:///没有登录{
             KeyChain.isLogin = false;
