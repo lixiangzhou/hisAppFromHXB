@@ -26,9 +26,9 @@
     [alterLoginPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
-        [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
         if (status != 0) {
             if (failureBlock) {
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
                 failureBlock(responseObject);
             }
             return;
@@ -71,5 +71,38 @@
     }];
 }
 
+/**
+ 获取到账时间
+
+ @param successDateBlock 成功回调
+ @param failureBlock 失败回调
+ */
+- (void)paymentDateRequestWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+{
+    NYBaseRequest *paymentDateAPI = [[NYBaseRequest alloc] init];
+    paymentDateAPI.requestUrl = kHXBSetWithdrawals_withdrawTimeURL;
+    paymentDateAPI.requestMethod = NYRequestMethodPost;
+    //    alterLoginPasswordAPI.requestArgument = requestArgument;
+    [paymentDateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSInteger status =  [responseObject[@"status"] integerValue];
+        if (status != 0) {
+            if (failureBlock) {
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+                failureBlock(responseObject);
+            }
+            return;
+        }
+        if (successDateBlock) {
+            successDateBlock(responseObject);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        [HxbHUDProgress showTextWithMessage:@"请求失败"];
+        if (failureBlock) {
+            failureBlock(error);
+        }
+    }];
+
+}
 
 @end

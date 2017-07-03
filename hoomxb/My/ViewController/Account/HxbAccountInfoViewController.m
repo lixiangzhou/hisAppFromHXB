@@ -105,6 +105,7 @@ UITableViewDataSource
                 cell.textLabel.text = @"账户安全";
             }else{
                 cell.textLabel.text = @"风险评测";
+                cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
             }
         }else
         {
@@ -112,6 +113,7 @@ UITableViewDataSource
                 cell.textLabel.text = @"账户安全";
             }else if (indexPath.row == 1){
                 cell.textLabel.text = @"风险评测";
+                cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
             }
         }
         
