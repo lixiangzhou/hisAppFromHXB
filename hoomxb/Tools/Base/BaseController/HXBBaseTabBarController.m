@@ -141,6 +141,7 @@
     return YES;
 }
 
+
 // modal 登录控制器
 - (void) presentLoginVC:(NSNotification *)notification {
     HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
