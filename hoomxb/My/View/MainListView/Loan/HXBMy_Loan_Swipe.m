@@ -11,12 +11,17 @@
 #import "HXBMainListView_Loan_TopView.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
+#import "HXBMainListView_Plan_TopView.h"
 
 #define RGBColorAlpha(r,g,b,f)   [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:f]
 #define RGBColor(r,g,b)          RGBColorAlpha(r,g,b,1)
 
 @interface HXBMy_Loan_Swipe ()<SwipeTableViewDataSource,SwipeTableViewDelegate,UIGestureRecognizerDelegate,UIViewControllerTransitioningDelegate>
 @property (nonatomic, strong) SwipeTableView * swipeTableView;
+//MARK: --------------------------- topView -------------------
+@property (nonatomic,strong) HXBMainListView_Plan_TopView *loanTopView;
+//MARK: --------------------------- toolBarView -------------------
+@property (nonatomic,strong) HXBBaseToolBarView *toolBarView;
 @property (nonatomic, strong) CustomSegmentControl *segmentBar;
 ///收益中
 @property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *erpaying_Loan_TableView;
@@ -25,6 +30,19 @@
 
 @end
 @implementation HXBMy_Loan_Swipe
+- (SwipeTableView *)swipeTableView {
+    if (!_swipeTableView) {
+        _swipeTableView = [[SwipeTableView alloc]initWithFrame:self.bounds];
+        _swipeTableView.delegate = self;
+        _swipeTableView.dataSource = self;
+        _swipeTableView.shouldAdjustContentSize = YES;
+        _swipeTableView.swipeHeaderView = self.loanTopView;
+        _swipeTableView.swipeHeaderBar = self.toolBarView;
+        _swipeTableView.swipeHeaderBarScrollDisabled = true;
+        
+    }
+    return _swipeTableView;
+}
 - (HXBBaseTableView_MYPlanList_TableView *)erpaying_Loan_TableView {
     if (!_erpaying_Loan_TableView) {
         _erpaying_Loan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];

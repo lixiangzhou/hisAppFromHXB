@@ -30,8 +30,8 @@
 //加入上线
 - (NSString *)singleMaxRegisterAmount {
     if (!_singleMaxRegisterAmount) {
-//        _singleMaxRegisterAmount = [NSString hxb_getPerMilWithDouble: self.planDetailModel.singleMaxRegisterAmount.floatValue];
-        _singleMaxRegisterAmount = self.planDetailModel.remainAmount < self.planDetailModel.userRemainAmount ? self.planDetailModel.remainAmount : self.planDetailModel.userRemainAmount;
+        _singleMaxRegisterAmount = [NSString hxb_getPerMilWithDouble: self.planDetailModel.singleMaxRegisterAmount.floatValue];
+//        _singleMaxRegisterAmount = self.planDetailModel.remainAmount < self.planDetailModel.userRemainAmount ? self.planDetailModel.remainAmount : self.planDetailModel.userRemainAmount;
     }
     return _singleMaxRegisterAmount;
 }

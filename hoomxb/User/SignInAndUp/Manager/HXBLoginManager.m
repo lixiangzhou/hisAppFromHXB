@@ -102,7 +102,7 @@ andGreaterThan_LoginTotalNumberBlock: (void(^)())GreaterThan_LoginTotalNumberBlo
             NSLog(@"登录成功");
             self.reuqestSignINNumber = @(0);
         }
-    } andFailureBlock:^(NSError *error) {
+    } andFailureBlock:^(NSError *error, id responseObject) {
         //请求不成功就 计数器就加一
         self.reuqestSignINNumber = @([self.reuqestSignINNumber integerValue] + 1);
     }];

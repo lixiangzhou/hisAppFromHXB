@@ -46,7 +46,7 @@
                    andPassword: (NSString *)password
                     andCaptcha: (NSString *)captcha
                andSuccessBlock: (void(^)(BOOL isSuccess))successBlock
-               andFailureBlock: (void(^)(NSError *error))failureBlock;
+               andFailureBlock: (void(^)(NSError *error, id responseObject))failureBlock ;
 
 
 /**
