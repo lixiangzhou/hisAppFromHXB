@@ -18,6 +18,14 @@
 {
     NSTimer *timer;
 }
++ (void)showTextWithMessage: (NSString *)message andView: (UIView *)view {
+    MBProgressHUD *HUD = [MBProgressHUD  HUDForView:view];
+    HUD.bezelView.backgroundColor = [UIColor colorWithRed:125/255.0f green:125/255.0f blue:125/255.0f alpha:1.f];
+    HUD.label.text = message;
+    HUD.label.textColor = [UIColor whiteColor];
+    HUD.mode = MBProgressHUDModeText;
+}
+
 + (void)showTextWithMessage:(NSString *)message{
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     MBProgressHUD *HUD = [[MBProgressHUD alloc]initWithView:keyWindow];
@@ -191,4 +199,171 @@
 //    //加载完成
 //    //    [hud hideAnimated:YES];
 //}
+
+
+//  提示类型
+typedef NS_ENUM(NSInteger, LCProgressHUDType){
+    LCProgressHUDTypeJHLoading,                 //菊花
+    LCProgressHUDTypeOnlyText,                  //文字底部显示
+    LCProgressHUDTypeOnlyTextCenter,            //文字中间显示
+    LCProgressHUDTypeSuccess,                   //成功
+    LCProgressHUDTypeError,                     //失败
+    LCProgressHUDTypeCustomAnimation,           //自定义加载动画（序列帧实现）
+};
+
+
+
++ (instancetype)shareInstance{
+    
+    static HxbHUDProgress *instance = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        instance = [[HxbHUDProgress alloc] init];
+    });
+    return instance;
+}
+
+
++ (void)show:(NSString *)msg inView:(UIView *)view type:(LCProgressHUDType) mytype{
+    
+    [self show:msg inView:view type:mytype customImgView:nil];
+}
+
+
++ (void)show:(NSString *)msg inView:(UIView *)view type:(LCProgressHUDType)mytype customImgView:(UIImageView *)customImgView{
+    
+    if ([HxbHUDProgress shareInstance].HUD != nil) {
+        [[HxbHUDProgress shareInstance].HUD hideAnimated:NO];
+        [HxbHUDProgress shareInstance].HUD = nil;
+    }
+    
+    if ([UIScreen mainScreen].bounds.size.height == 480) {
+        [view endEditing:YES];
+    }
+    
+    if (view == nil) view = [UIApplication sharedApplication].keyWindow;
+    [HxbHUDProgress shareInstance].HUD = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    [HxbHUDProgress shareInstance].HUD.backgroundColor = [UIColor clearColor];
+    
+    //  是否设置黑色背景
+    [HxbHUDProgress shareInstance].HUD.bezelView.backgroundColor = [UIColor blackColor];
+    [HxbHUDProgress shareInstance].HUD.contentColor = [UIColor whiteColor];
+    
+    [[HxbHUDProgress shareInstance].HUD setRemoveFromSuperViewOnHide:YES];
+    if(msg)[HxbHUDProgress shareInstance].HUD.detailsLabel.text = msg;
+    [HxbHUDProgress shareInstance].HUD.detailsLabel.font = [UIFont systemFontOfSize:16];
+    
+    switch (mytype) {
+            
+        case LCProgressHUDTypeOnlyText:
+            [HxbHUDProgress shareInstance].HUD.mode = MBProgressHUDModeText;
+            [[HxbHUDProgress shareInstance].HUD setMargin:15];
+            [HxbHUDProgress shareInstance].HUD.offset = CGPointMake(0.f, MBProgressMaxOffset);
+            break;
+            
+        case LCProgressHUDTypeJHLoading:
+            [HxbHUDProgress shareInstance].HUD.mode = MBProgressHUDModeIndeterminate;
+            break;
+            
+        case LCProgressHUDTypeSuccess:
+            [HxbHUDProgress shareInstance].HUD.mode = MBProgressHUDModeCustomView;
+            [HxbHUDProgress shareInstance].HUD.customView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"success"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+            break;
+            
+        case LCProgressHUDTypeError:
+            [HxbHUDProgress shareInstance].HUD.mode = MBProgressHUDModeCustomView;
+            [HxbHUDProgress shareInstance].HUD.customView = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"error"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+            break;
+            
+        case LCProgressHUDTypeOnlyTextCenter:
+            [HxbHUDProgress shareInstance].HUD.mode = MBProgressHUDModeCustomView;
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+
+
++ (void)show{
+    [self show:nil inView:nil type:LCProgressHUDTypeJHLoading];
+}
+
+
++ (void)showInView:(UIView *)view{
+    [self show:nil inView:view type:LCProgressHUDTypeJHLoading];
+}
+
+
++ (void)showProgress:(NSString *)msg{
+    [self show:msg inView:nil type:LCProgressHUDTypeJHLoading];
+}
+
+
++ (void)showMessage:(NSString *) msg{
+    [self show:msg inView:nil type:LCProgressHUDTypeOnlyText];
+    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1];
+}
+
+
++ (void)showMessageCenter:(NSString *) msg{
+    [self show:msg inView:nil type:LCProgressHUDTypeOnlyTextCenter];
+    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1];
+}
+
+
++ (void)showProgress:(NSString *)msg inView:(UIView *)view{
+    [self show:msg inView:view type:LCProgressHUDTypeJHLoading];
+}
+
+
++ (void)hide{
+    if ([HxbHUDProgress shareInstance].HUD != nil) {
+        [[HxbHUDProgress shareInstance].HUD hideAnimated:YES];
+    }
+}
+
+
++ (void)hideDelayTime:(NSInteger)delay{
+    if ([HxbHUDProgress shareInstance].HUD != nil) {
+        [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:delay];
+    }
+}
+
+
++ (void)showMessage:(NSString *)msg inView:(UIView *)view{
+    [self show:msg inView:view type:LCProgressHUDTypeOnlyText];
+    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1];
+}
+
+
++ (void)showMessageCenter:(NSString *) msg inView:(UIView *)view{
+    [self show:msg inView:view type:LCProgressHUDTypeOnlyTextCenter];
+    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1];
+}
+
++ (void)showSuccess:(NSString *)msg{
+    [self show:msg inView:nil type:LCProgressHUDTypeSuccess];
+    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1.0];
+}
+
+
++ (void)showSuccess:(NSString *)msg inview:(UIView *)view{
+    [self show:msg inView:view type:LCProgressHUDTypeSuccess];
+    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1.0];
+}
+
+
++ (void)showError:(NSString *)msg{
+    [self show:msg inView:nil type:LCProgressHUDTypeError];
+    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1.0];
+}
+
+
++ (void)showError:(NSString *)msg inview:(UIView *)view{
+    [self show:msg inView:view type:LCProgressHUDTypeError];
+    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1.0];
+}
 @end

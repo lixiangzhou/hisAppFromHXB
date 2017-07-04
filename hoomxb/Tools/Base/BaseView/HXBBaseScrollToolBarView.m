@@ -25,7 +25,7 @@
 @property (nonatomic,assign) CGFloat kBottomScrollViewY;//self.bottomScrollView.Y
 @property (nonatomic,assign) BOOL isSetupSubView;//是否布局子控件
 @property (nonatomic,assign) CGFloat offsetY;//当前的scrollView 与self的偏移量的差值
-
+@property (nonatomic,assign) CGFloat kInsertffsetY;
 //MARK: subView
 @property (nonatomic,strong) UIView *topView;///顶部的展示view
 @property (nonatomic,strong) HXBBaseToolBarView *midToolBarView;///中间的工具栏
@@ -175,6 +175,8 @@
     self.bottomScrollView = [[UIScrollView alloc]init];
     
     self.bottomScrollView.frame = CGRectMake(0, self.kBottomScrollViewY, self.kScrollToolBarViewW, self.kBottomScrollViewH);
+//    self.bottomScrollView.frame = CGRectMake(0, 0, _kScrollToolBarViewW, _kScrollToolBarViewH);
+//      self.bottomScrollView.frame = CGRectMake(0, 0, self.kScrollToolBarViewW, self.kScrollToolBarViewH);
     CGFloat bottomScrollViewContentSizeX = self.bottomViewSet.count * self.kScrollToolBarViewW;
     self.bottomScrollView.contentSize = CGSizeMake(bottomScrollViewContentSizeX, self.kBottomScrollViewH);
 
@@ -214,6 +216,11 @@
         CGPoint newContentOffset = newContentOffsetNum.CGPointValue;
         NSNumber *oldContentOffsetNum = [change valueForKey:NSKeyValueChangeOldKey];
         CGPoint oldContentOffset = oldContentOffsetNum.CGPointValue;
+        
+        BOOL isDown = oldContentOffset.y > newContentOffset.y;
+        BOOL isScrollBottom = scrollView.contentSize.height - scrollView.contentOffset.y <= scrollView.frame.size.height;
+       
+        
         //改变scrollView偏移的位置
 //        if (self.contentOffset.y <= 0){
 //            if (newContentOffset.y < 0) self.offsetY = 0;
@@ -227,12 +234,14 @@
 //            self.contentOffset = kToolBarViewOffsetTop;
 //        }
         
+        
         //偏移量的计算
         //向下拉
-        BOOL isDown = oldContentOffset.y > newContentOffset.y;
+//        BOOL isDown = oldContentOffset.y > newContentOffset.y;
 //        BOOL isScrollViewNotScroll = scrollView.contentSize.height < scrollView.frame.size.height;
 //        BOOL isTracking = scrollView.dragging && scrollView.tracking && !scrollView.decelerating;
 //        BOOL isGreater = self.contentOffset.y > newContentOffset.y;
+        
         if (isDown && (newContentOffset.y <= 0)) {
             self.offsetY = 0;
         }
@@ -246,7 +255,13 @@
             self.offsetY = self.contentOffset.y;
         } else {
             self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
+            if (isScrollBottom) {
+                self.contentOffset = kToolBarViewOffsetTop;
+                return;
+            }
         }
+//        NSLog(@"|| self.offsetY ->%lf",self.offsetY);
+//        NSLog(@"|| newContentOffset.y ->%lf",newContentOffset.y);
 //        self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
 ////        if (self.contentOffset.y <= 0 && newContentOffset.y <= 0) {
 ////            self.offsetY = 0;
@@ -262,6 +277,8 @@
 ////        }else {
 //            self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
 ////        }
+        //是否滑到了底部
+        
         if (self.contentOffset.y <= 0) {
             self.contentOffset = kToolBarViewOffsetBottom;
         }

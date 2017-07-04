@@ -15,7 +15,7 @@ static NSString *const MY_PlanResponsType_PURCHASE_END_Plan = @"PURCHASE_END";//
 static NSString *const MY_PlanResponsType_PURCHASEING_Plan = @"PURCHASEING";//等待计息
 
 static NSString *const MY_PlanRequestType_HOLD_PLAN         = @"HOLD_PLAN";
-static NSString *const MY_PlanRequestType_HOLD_PLAN_UI      = @"持有中";
+static NSString *const MY_PlanRequestType_HOLD_PLAN_UI      = @"等待计息";
 static NSString *const MY_PlanRequestType_EXITING_PLAN      = @"EXITING_PLAN";
 static NSString *const MY_PlanRequestType_EXITING_PLAN_UI   = @"退出中";
 static NSString *const MY_PlanRequestType_EXIT_PLAN         = @"EXIT_PLAN";

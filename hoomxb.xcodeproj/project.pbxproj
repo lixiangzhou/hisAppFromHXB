@@ -206,6 +206,9 @@
 		E133DD411EEEC14C009466DE /* HXBRequestEnumAndStatic.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD331EEEC14C009466DE /* HXBRequestEnumAndStatic.m */; };
 		E133DD421EEEC14C009466DE /* HXBTokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD371EEEC14C009466DE /* HXBTokenManager.m */; };
 		E13A53451F0A44E1002C3416 /* HXBMy_Plan_Swipe.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A53441F0A44E1002C3416 /* HXBMy_Plan_Swipe.m */; };
+		E13A534D1F0A65E9002C3416 /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = E13A53471F0A65E9002C3416 /* github.png */; };
+		E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */; };
+		E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
 		E16017671EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E16017661EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.m */; };
 		E160176B1EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = E160176A1EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.m */; };
@@ -719,6 +722,12 @@
 		E133DD431EEEC191009466DE /* NYNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetwork.h; sourceTree = "<group>"; };
 		E13A53431F0A44E1002C3416 /* HXBMy_Plan_Swipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMy_Plan_Swipe.h; sourceTree = "<group>"; };
 		E13A53441F0A44E1002C3416 /* HXBMy_Plan_Swipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMy_Plan_Swipe.m; sourceTree = "<group>"; };
+		E13A53471F0A65E9002C3416 /* github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = github.png; sourceTree = "<group>"; };
+		E13A53481F0A65E9002C3416 /* STRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRefresh.h; sourceTree = "<group>"; };
+		E13A53491F0A65E9002C3416 /* STRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRefreshHeader.h; sourceTree = "<group>"; };
+		E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STRefreshHeader.m; sourceTree = "<group>"; };
+		E13A534B1F0A65E9002C3416 /* UIScrollView+STRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+STRefresh.h"; sourceTree = "<group>"; };
+		E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+STRefresh.m"; sourceTree = "<group>"; };
 		E157A8941EE67A1F002BF6AC /* HXBToolCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBToolCountDownButton.h; sourceTree = "<group>"; };
 		E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBToolCountDownButton.m; sourceTree = "<group>"; };
 		E16017651EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_Detail_Detail_PlanWebViewController.h; sourceTree = "<group>"; };
@@ -2209,6 +2218,19 @@
 			path = TokenManager;
 			sourceTree = "<group>";
 		};
+		E13A53461F0A65E9002C3416 /* STRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				E13A53471F0A65E9002C3416 /* github.png */,
+				E13A53481F0A65E9002C3416 /* STRefresh.h */,
+				E13A53491F0A65E9002C3416 /* STRefreshHeader.h */,
+				E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */,
+				E13A534B1F0A65E9002C3416 /* UIScrollView+STRefresh.h */,
+				E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */,
+			);
+			path = STRefresh;
+			sourceTree = "<group>";
+		};
 		E157A8921EE679FC002BF6AC /* UIView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2738,6 +2760,7 @@
 		E1CD4BB41ED83064000CC57B /* MY */ = {
 			isa = PBXGroup;
 			children = (
+				E13A53461F0A65E9002C3416 /* STRefresh */,
 				E1D048411EE8F60D002A4E28 /* Frame */,
 				E157A89A1EE6AFF8002BF6AC /* ViewController */,
 				E157A8921EE679FC002BF6AC /* UIView */,
@@ -3224,6 +3247,7 @@
 				4E7CCF4F1EBC1B5B00F7BDB3 /* 4.png in Resources */,
 				E1C9647D1EA600C20066DBC4 /* Assets.xcassets in Resources */,
 				4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
+				E13A534D1F0A65E9002C3416 /* github.png in Resources */,
 				4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */,
 				4E7CCF4E1EBC1B5B00F7BDB3 /* pageControl_select@3x.png in Resources */,
 				4E7CCF471EBC1B5B00F7BDB3 /* banner@2x.png in Resources */,
@@ -3525,6 +3549,7 @@
 				E122D8511EA0CAB900DC71ED /* NSString+HxbGeneral.m in Sources */,
 				4E81E4071EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.m in Sources */,
 				E1CD4BDD1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m in Sources */,
+				E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */,
 				E17509BD1EC6F2A100E17B39 /* HXBFin_Detail_DetailVC_Loan.m in Sources */,
 				E1DD667C1EFCD84400A4C01D /* HXBBaseView_MoreTopBottomView.m in Sources */,
 				E133DCDC1EEE3597009466DE /* HXBSingnUPEventManager.m in Sources */,
@@ -3574,6 +3599,7 @@
 				4E5003371F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m in Sources */,
 				4E94B2771ECBF922003CCBA7 /* HxbHomePageViewModel.m in Sources */,
 				4EB5598C1F03422F00146D62 /* HXBBankCardListViewController.m in Sources */,
+				E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */,
 				E1E461391EB98ADD005B1FC6 /* HXBBaseScrollToolBarView.m in Sources */,
 				E1270B461ECED2D000729BC9 /* HXBMyModel_MainLoanModel.m in Sources */,
 				4E81E3FD1EE94FDE006AD3FC /* HXBModifyTransactionPasswordViewController.m in Sources */,

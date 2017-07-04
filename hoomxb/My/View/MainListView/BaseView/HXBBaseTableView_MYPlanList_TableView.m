@@ -49,6 +49,7 @@ UITableViewDataSource
     self.delegate = self;
     self.dataSource = self;
     [self registerClass:[HXBBaseView_MYList_TableViewCell class] forCellReuseIdentifier:CELLID];
+    
     self.rowHeight = 130;
 }
 
@@ -105,4 +106,14 @@ UITableViewDataSource
 - (void)clickPlanCellFuncWithBlock: (void(^)(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickPlanCellIndex))clickPlanCellBlock{
     self.clickPlanCellBlock = clickPlanCellBlock;
 }
+
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//#if !defined(ST_PULLTOREFRESH_HEADER_HEIGHT)
+//    STRefreshHeader * header = self.header;
+//    CGFloat orginY = - (header.height + self.swipeTableView.swipeHeaderView.st_height + self.swipeTableView.swipeHeaderBar.st_height);
+//    if (header.st_y != orginY) {
+//        header.st_y = orginY;
+//    }
+//#endif
+//}
 @end

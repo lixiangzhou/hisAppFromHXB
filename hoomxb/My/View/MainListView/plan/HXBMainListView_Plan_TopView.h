@@ -10,7 +10,7 @@
 @class HXBMYModel_AssetStatistics_Plan;
 @class HXBMainListView_Plan_TopViewManager;
 ///顶部的View
-@interface HXBMainListView_Plan_TopView : STHeaderView
+@interface HXBMainListView_Plan_TopView : UIView
 - (void)setUPValueWithManagerBlock: (HXBMainListView_Plan_TopViewManager *(^)(HXBMainListView_Plan_TopViewManager *manager))managerBlock;
 @property (nonatomic,strong) HXBMainListView_Plan_TopViewManager *manager;
 ///资产统计

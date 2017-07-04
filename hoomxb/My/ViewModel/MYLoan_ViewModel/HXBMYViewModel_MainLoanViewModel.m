@@ -16,12 +16,15 @@
 - (void)setStatus:(NSString *)status {
     _status = status;
     if (self.status.integerValue == 1) {
+       
         ///收益中
         _toRepayCellValue = [NSString hxb_getPerMilWithDouble:self.loanModel.toRepay.floatValue];
         //下一还款日
         _nextRepayDateCellValue = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.loanModel.nextRepayDate andDateFormat:@"MM-dd"];
         ///一换期数
-        _goBackLoanTimeCellValue = [NSString stringWithFormat:@"已还期数%@/%@",self.loanModel.termsLeft,self.loanModel.termsInTotal];
+        NSInteger terms = [self.loanModel.termsInTotal integerValue]  - [self.loanModel.termsLeft integerValue];
+        NSInteger termsInTotal = [self.loanModel.termsInTotal integerValue];
+        _goBackLoanTimeCellValue = [NSString stringWithFormat:@"已还期数%ld/%ld",(long)terms,(long)termsInTotal];
         
         self.investmentAmountLable_const = @"投资金额(元)";
         self.toBeReceived_const = @"待收本息(元)";
