@@ -81,7 +81,8 @@
     self.nameLabel.text = [loanDetailViewModel.loanDetailModel.idCardInfo.name replaceStringWithStartLocation:0 lenght:loanDetailViewModel.loanDetailModel.idCardInfo.name.length - 1];
     self.idCardNoLabel.text = [loanDetailViewModel.loanDetailModel.idCardInfo.idNo replaceStringWithStartLocation:2 lenght:loanDetailViewModel.loanDetailModel.idCardInfo.idNo.length - 2];
     self.ageLabel.text = [NSString stringWithFormat:@"年龄 %@岁",loanDetailViewModel.loanDetailModel.idCardInfo.age];
-    self.nativePlaceLabel.text = [NSString stringWithFormat:@"籍贯 %@",loanDetailViewModel.loanDetailModel.idCardInfo.address];
+    
+    self.nativePlaceLabel.text = [NSString stringWithFormat:@"籍贯 %@",loanDetailViewModel.loanDetailModel.userVo.homeTown];
     self.academicLabel.text = [NSString stringWithFormat:@"学历 %@",loanDetailViewModel.loanDetailModel.userVo.university];
     if ([loanDetailViewModel.loanDetailModel.userVo.marriageStatus isEqualToString:@"MARRIED"]) {
         
@@ -133,7 +134,7 @@
     self.companyLabel.text = [NSString stringWithFormat:@"公司类别 %@",loanDetailViewModel.loanDetailModel.userVo.companyCategory];
     self.industryLabel.text = [NSString stringWithFormat:@"工作行业 %@",loanDetailViewModel.loanDetailModel.userVo.companyIndustry];
     self.positionLabel.text = [NSString stringWithFormat:@"职位 %@",loanDetailViewModel.loanDetailModel.userVo.companyPost];
-    self.cityLabel.text = [NSString stringWithFormat:@"工作城市 %@",loanDetailViewModel.loanDetailModel.userVo.accountLocation];
+    self.cityLabel.text = [NSString stringWithFormat:@"工作城市 %@",loanDetailViewModel.loanDetailModel.userVo.companyLocation];
 }
 - (void)setupSubViewFrame
 {

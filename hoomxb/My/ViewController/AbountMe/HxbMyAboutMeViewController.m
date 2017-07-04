@@ -44,9 +44,6 @@ UITableViewDelegate,UITableViewDataSource
             } andFailureBlock:^(NSError *error) {
                 
             }];
-            
-//            NSURL *url = [NSURL URLWithString:@"https://itunes.apple.com/cn/app/hong-xiao-bao/id1119411654?mt=8"];
-//            [[UIApplication sharedApplication] openURL:url];
         }
             break;
         case 1:

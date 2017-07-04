@@ -63,6 +63,8 @@
 		4E886FC71EF9201B0056086E /* HXBLockLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FC61EF9201B0056086E /* HXBLockLabel.m */; };
 		4E886FCA1EF9205E0056086E /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FC91EF9205E0056086E /* CALayer+Anim.m */; };
 		4E886FCD1EF940010056086E /* HXBModifyGesturePasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FCC1EF940010056086E /* HXBModifyGesturePasswordController.m */; };
+		4E8AAE9C1F0B7A4400655544 /* HXBRiskAssessmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAE9B1F0B7A4400655544 /* HXBRiskAssessmentViewController.m */; };
+		4E8AAEA01F0B866C00655544 /* HXBSetGesturePasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAE9F1F0B866C00655544 /* HXBSetGesturePasswordRequest.m */; };
 		4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */; };
 		4E9127551EFA69FB007F8C13 /* HXBFinModel_BuyResoult_PlanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1757AFC1EFA3E1B009C0BC8 /* HXBFinModel_BuyResoult_PlanModel.m */; };
 		4E9345501EFE0FD300D2886B /* HXBModifyPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93454F1EFE0FD300D2886B /* HXBModifyPhoneViewController.m */; };
@@ -433,6 +435,10 @@
 		4E886FC91EF9205E0056086E /* CALayer+Anim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Anim.m"; sourceTree = "<group>"; };
 		4E886FCB1EF940010056086E /* HXBModifyGesturePasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyGesturePasswordController.h; sourceTree = "<group>"; };
 		4E886FCC1EF940010056086E /* HXBModifyGesturePasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyGesturePasswordController.m; sourceTree = "<group>"; };
+		4E8AAE9A1F0B7A4400655544 /* HXBRiskAssessmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRiskAssessmentViewController.h; sourceTree = "<group>"; };
+		4E8AAE9B1F0B7A4400655544 /* HXBRiskAssessmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRiskAssessmentViewController.m; sourceTree = "<group>"; };
+		4E8AAE9E1F0B866C00655544 /* HXBSetGesturePasswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSetGesturePasswordRequest.h; sourceTree = "<group>"; };
+		4E8AAE9F1F0B866C00655544 /* HXBSetGesturePasswordRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSetGesturePasswordRequest.m; sourceTree = "<group>"; };
 		4E8CD0781EBB571A00DCDC5A /* HxbMyViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbMyViewHeaderView.h; sourceTree = "<group>"; };
 		4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbMyViewHeaderView.m; sourceTree = "<group>"; };
 		4E93454E1EFE0FD300D2886B /* HXBModifyPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyPhoneViewController.h; sourceTree = "<group>"; };
@@ -1096,6 +1102,7 @@
 			children = (
 				4E422CB21EA7386900C0EB62 /* HxbMyViewController.h */,
 				4E422CB31EA7386900C0EB62 /* HxbMyViewController.m */,
+				4E8AAE961F0B79C500655544 /* MY_RiskAssessmentController */,
 				E12800E81F02010D0066FB66 /* MY_AllFinanceController */,
 				4E93454D1EFE0FD300D2886B /* MY_ModifyPhoneController */,
 				4E886FB41EF916590056086E /* MY_GesturePasswordController */,
@@ -1321,6 +1328,24 @@
 				4E886FC91EF9205E0056086E /* CALayer+Anim.m */,
 			);
 			path = GesturePasswordView;
+			sourceTree = "<group>";
+		};
+		4E8AAE961F0B79C500655544 /* MY_RiskAssessmentController */ = {
+			isa = PBXGroup;
+			children = (
+				4E8AAE9A1F0B7A4400655544 /* HXBRiskAssessmentViewController.h */,
+				4E8AAE9B1F0B7A4400655544 /* HXBRiskAssessmentViewController.m */,
+			);
+			path = MY_RiskAssessmentController;
+			sourceTree = "<group>";
+		};
+		4E8AAE9D1F0B847600655544 /* HXBSetGesturePassword */ = {
+			isa = PBXGroup;
+			children = (
+				4E8AAE9E1F0B866C00655544 /* HXBSetGesturePasswordRequest.h */,
+				4E8AAE9F1F0B866C00655544 /* HXBSetGesturePasswordRequest.m */,
+			);
+			path = HXBSetGesturePassword;
 			sourceTree = "<group>";
 		};
 		4E93454D1EFE0FD300D2886B /* MY_ModifyPhoneController */ = {
@@ -2688,6 +2713,7 @@
 				E1CC03581ECAD2AD00121D21 /* HXBMYRequest.m */,
 				E1CC03591ECAD2AD00121D21 /* HXBRequestType_MYManager.h */,
 				E1CC035A1ECAD2AD00121D21 /* HXBRequestType_MYManager.m */,
+				4E8AAE9D1F0B847600655544 /* HXBSetGesturePassword */,
 				4E739B541F0A3516000A4D1E /* HXBVersionUpdate */,
 				4E99823D1F022A3900CABA59 /* HXBWithdrawals */,
 				4E9345551EFE488B00D2886B /* HXBModifyPhoneRequest */,
@@ -3359,6 +3385,7 @@
 				4E886FC11EF91B1E0056086E /* HXBCircleView.m in Sources */,
 				E133DD391EEEC14C009466DE /* HXBTokenModel.m in Sources */,
 				E16017791EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m in Sources */,
+				4E8AAE9C1F0B7A4400655544 /* HXBRiskAssessmentViewController.m in Sources */,
 				E1CB561D1ED2D20D00D962CA /* HXBMYModel_AssetStatistics_Loan.m in Sources */,
 				E1E4613F1EB98CF2005B1FC6 /* HXBFinanctingView_HomePage.m in Sources */,
 				E1FBADBD1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m in Sources */,
@@ -3566,6 +3593,7 @@
 				4E8198B21EC4502100D668A1 /* BulletinsModel.m in Sources */,
 				E133DCDB1EEE3597009466DE /* HXBLoginManager.m in Sources */,
 				4E5003371F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m in Sources */,
+				4E8AAEA01F0B866C00655544 /* HXBSetGesturePasswordRequest.m in Sources */,
 				4E94B2771ECBF922003CCBA7 /* HxbHomePageViewModel.m in Sources */,
 				4EB5598C1F03422F00146D62 /* HXBBankCardListViewController.m in Sources */,
 				E1E461391EB98ADD005B1FC6 /* HXBBaseScrollToolBarView.m in Sources */,

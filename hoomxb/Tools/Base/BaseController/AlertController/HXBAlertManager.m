@@ -7,7 +7,7 @@
 //
 
 #import "HXBAlertManager.h"
-
+#import "HXBVersionUpdateModel.h"
 @implementation HXBAlertManager
 + (void)alertManager_loginAgainAlertWithView: (UIView *)view {
     UIViewController *vc = [self getCurrentViewControllerWithView:view];
@@ -48,4 +48,18 @@
     } while (next != nil);
     return nil;
 }
+
++ (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel
+{
+    if ([versionUpdateModel.force isEqualToString:@"1"]) {
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"更新提示" message:versionUpdateModel.updateinfo preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
+            [[UIApplication sharedApplication] openURL:url];
+        }];
+        [alertController addAction:okAction];
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+    }
+}
+
 @end

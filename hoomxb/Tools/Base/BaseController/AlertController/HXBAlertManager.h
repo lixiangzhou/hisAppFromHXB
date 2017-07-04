@@ -7,10 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class HXBVersionUpdateModel;
 @interface HXBAlertManager : NSObject
 /**
  重新登录的alert
  */
 + (void)alertManager_loginAgainAlertWithView: (UIView *)view;
+
+/**
+ 强制更新
+ */
++ (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel;
 @end

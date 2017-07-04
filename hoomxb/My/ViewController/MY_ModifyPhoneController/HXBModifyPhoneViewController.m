@@ -47,6 +47,7 @@
                 [KeyChain setMobile:phoneNumber];
                 [KeyChain removeGesture];
                 [KeyChain signOut];
+                weakSelf.tabBarController.selectedIndex = 0;
                 [HxbHUDProgress showTextWithMessage:@"修改成功，请用用新手机号登录"];
                 [weakSelf.navigationController popToRootViewControllerAnimated:NO];
                 [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
@@ -64,7 +65,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"确认绑定手机号";
+    self.title = @"确认修改绑定手机号";
     self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.view addSubview:self.homeView];
 }

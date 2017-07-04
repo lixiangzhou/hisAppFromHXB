@@ -24,6 +24,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.imageName = @"1";
     //防止跳转的时候，tableView向上或者向下移动
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
@@ -43,6 +44,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.view.hidden = ![KeyChain isLogin];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     //加载用户数据

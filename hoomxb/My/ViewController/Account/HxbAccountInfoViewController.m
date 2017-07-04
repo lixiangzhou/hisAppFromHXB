@@ -11,6 +11,7 @@
 #import "HxbMyAccountSecurityViewController.h"
 #import "HxbMyAboutMeViewController.h"
 #import "HXBRequestUserInfo.h"
+#import "HXBRiskAssessmentViewController.h"
 @interface HxbAccountInfoViewController ()
 <
 UITableViewDelegate,
@@ -48,6 +49,8 @@ UITableViewDataSource
                 [self.navigationController pushViewController:myAccountSecurityVC animated:YES];
             }else{
                 NSLog(@"点击了风险评测");
+                
+                [self entryRiskAssessment];
             }
         }else
         {
@@ -57,6 +60,7 @@ UITableViewDataSource
                 [self.navigationController pushViewController:myAccountSecurityVC animated:YES];
             }else if (indexPath.row == 1){
                 NSLog(@"点击了风险评测");
+                [self entryRiskAssessment];
             }
         }
         
@@ -65,6 +69,12 @@ UITableViewDataSource
         HxbMyAboutMeViewController *myAboutMeViewController = [[HxbMyAboutMeViewController alloc]init];
         [self.navigationController pushViewController:myAboutMeViewController animated:YES];
     }
+}
+
+- (void)entryRiskAssessment
+{
+    HXBRiskAssessmentViewController *riskAssessmentVC = [[HXBRiskAssessmentViewController alloc] init];
+    [self.navigationController pushViewController:riskAssessmentVC animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -105,7 +115,12 @@ UITableViewDataSource
                 cell.textLabel.text = @"账户安全";
             }else{
                 cell.textLabel.text = @"风险评测";
-                cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
+                if ([self.userInfoViewModel.userInfoModel.userInfo.riskType isEqualToString:@"未评测"]) {
+                    cell.detailTextLabel.text = @"立即评测";
+                }else
+                {
+                    cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
+                }
             }
         }else
         {
@@ -113,7 +128,12 @@ UITableViewDataSource
                 cell.textLabel.text = @"账户安全";
             }else if (indexPath.row == 1){
                 cell.textLabel.text = @"风险评测";
-                cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
+                if ([self.userInfoViewModel.userInfoModel.userInfo.riskType isEqualToString:@"未评测"]) {
+                    cell.detailTextLabel.text = @"立即评测";
+                }else
+                {
+                    cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
+                }
             }
         }
         

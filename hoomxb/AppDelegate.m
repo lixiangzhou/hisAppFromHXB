@@ -15,6 +15,9 @@
 #import "HxbAdvertiseViewController.h"///广告的VC
 #import "HXBGesturePasswordViewController.h"//手势面膜控制器
 
+#import "HXBVersionUpdateRequest.h"//版本更新的请求
+#import "HXBVersionUpdateModel.h"//版本更新的Model
+
 static NSString *const home = @"首页";
 static NSString *const financing = @"理财";
 static NSString *const my = @"我的";
@@ -23,6 +26,7 @@ static NSString *const my = @"我的";
 
 @property (nonatomic, strong) NSDate *exitTime;
 
+@property (nonatomic, strong) HXBVersionUpdateModel *versionUpdateModel;
 @end
 
 @implementation AppDelegate
@@ -63,9 +67,24 @@ static NSString *const my = @"我的";
     
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
+    
     return YES;
 }
 
+
+- (void)checkversionUpdate
+{
+    kWeakSelf
+    NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+    HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
+    [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
+//        HXBVersionUpdateViewModel *versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
+        weakSelf.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
+//        versionUpdateVM.versionUpdateModel =  weakSelf.versionUpdateModel;
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
+}
 
 
 #pragma mark - 判断app是否第一次启动，以及版本是否需要更新
@@ -101,10 +120,13 @@ static NSString *const my = @"我的";
         HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
         gesturePasswordVC.type = GestureViewControllerTypeLogin;
          _window.rootViewController = gesturePasswordVC;
+        
     }else
     {
         _window.rootViewController = self.mainTabbarVC;
     }
+    //检测版本更新
+    [self checkversionUpdate];
 }
 
 //根据服务器时间计算与本地时间的时间差
@@ -134,6 +156,9 @@ static NSString *const my = @"我的";
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
+    
+    [HXBAlertManager checkversionUpdateWith:self.versionUpdateModel];
+    
     NSDate *nowTime = [NSDate date];
     NSTimeInterval timeDifference = [nowTime timeIntervalSinceDate: self.exitTime];
     if (timeDifference>300) {

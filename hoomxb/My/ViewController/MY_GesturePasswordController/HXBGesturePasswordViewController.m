@@ -83,10 +83,13 @@ static NSString *const my = @"我的";
         [self.navigationController setNavigationBarHidden:YES animated:animated];
     }
     
+    
     // 进来先清空存的第一个密码
 //    [HXBCircleViewConst saveGesture:nil Key:gestureOneSaveKey];
 //    KeyChain.gesturePwd = nil;
 }
+
+
 
 - (instancetype)init
 {

@@ -48,6 +48,8 @@
 #define kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL @"/checkIdentityAuth"//修改交易密码--验证用户身份信息接口
 #define kHXBSetTransaction_MobifyPassword_SendSmscodeURL @"/send/smscode/base"//修改交易密码--发送验证码
 #define kHXBSetTransaction_MobifyPassword_CheckIdentitySmsURL @"/account/checkIdentitySms"//修改交易密码--校验身份证和短信接口
+
+#define kHXBSetGesturePasswordRequest_CheckLoginPasswordURL @"/user/checkLoginPassword"//校验登录密码
 #define kHXBSetTransaction_MobifyPassword_CashpwdEditURL @"/account/cashpwd/edit"//修改交易密码--修改交易密码接口
 #define kHXBSetTransaction_MobifyPhoneNumber_CashMobileEditURL @"/account/mobile"//修改手机号--修改手机号接口
 
@@ -57,7 +59,7 @@
 //MARK: ======================= 充值提现 =======================
 #define kHXBSetWithdrawals_withdrawURL   @"/account/withdraw"//提现
 #define kHXBSetWithdrawals_banklistURL   @"/banklist"//提现
-#define kHXBSetWithdrawals_withdrawTimeURL   @"/account/withdraw/time"//到账时间
+#define kHXBSetWithdrawals_withdrawArriveTimeURL   @"/account/withdraw/arriveTime"//到账时间
 
 
 //MARK: ======================= 购买 ==========================

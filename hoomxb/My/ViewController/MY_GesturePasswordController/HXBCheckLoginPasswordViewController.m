@@ -8,6 +8,7 @@
 
 #import "HXBCheckLoginPasswordViewController.h"
 #import "HXBGesturePasswordViewController.h"//手势密码
+#import "HXBSetGesturePasswordRequest.h"
 @interface HXBCheckLoginPasswordViewController ()
 
 @property (nonatomic, strong) UITextField *loginPasswordTextField;
@@ -34,6 +35,7 @@
 {
     if (!_loginPasswordTextField) {
         _loginPasswordTextField = [[UITextField alloc] init];
+        _loginPasswordTextField.secureTextEntry = YES;
         _loginPasswordTextField.placeholder = @"登录密码";
         _loginPasswordTextField.layer.borderWidth = 0.5;
         _loginPasswordTextField.layer.borderColor = COR12.CGColor;
@@ -67,14 +69,21 @@
 
 - (void)checkLoginPassword
 {
+    kWeakSelf
     NSString * message = [NSString isOrNoPasswordStyle:self.loginPasswordTextField.text];
     if (message.length > 0) {
         [HxbHUDProgress showTextWithMessage:message];
         return;
     }else{
-        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-        gesturePasswordVC.type = GestureViewControllerTypeSetting;
-        [self.navigationController pushViewController:gesturePasswordVC animated:YES];
+        HXBSetGesturePasswordRequest *setGesturePasswordAPI =[[HXBSetGesturePasswordRequest alloc] init];
+        [setGesturePasswordAPI setGesturePasswordRequestWithPassword:self.loginPasswordTextField.text andSuccessBlock:^(id responseObject) {
+            HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+            gesturePasswordVC.type = GestureViewControllerTypeSetting;
+            [weakSelf.navigationController pushViewController:gesturePasswordVC animated:YES];
+        } andFailureBlock:^(NSError *error) {
+            
+        }];
+        
     }
 }
 

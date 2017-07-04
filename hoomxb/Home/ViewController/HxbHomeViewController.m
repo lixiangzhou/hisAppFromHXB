@@ -15,7 +15,13 @@
 #import "HXBFinancing_PlanDetailsViewController.h"
 #import "HxbHomePageModel_DataList.h"
 #import "HXBGesturePasswordViewController.h"
+
+#import "HXBVersionUpdateRequest.h"//版本更新的请求
+#import "HXBVersionUpdateViewModel.h"//版本更新的viewModel
+#import "HXBVersionUpdateModel.h"//版本更新的Model
 @interface HxbHomeViewController ()
+
+@property (nonatomic, assign) BOOL isVersionUpdate;
 
 @end
 
@@ -33,6 +39,8 @@
     
     [self registerRefresh];
     
+    
+    //判断是否显示设置手势密码
     [self gesturePwdShow];
     
     
@@ -84,8 +92,23 @@
 {
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:true animated:false];
+    
 }
 
+/**
+ 检测版本更新
+ */
+- (void)checkVersionUpdate
+{
+    NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+    HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
+    [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
+        HXBVersionUpdateViewModel *versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
+         versionUpdateVM.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
+}
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.navigationController setNavigationBarHidden:false animated:false];
@@ -93,6 +116,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    if (!self.isVersionUpdate) {
+        self.isVersionUpdate = YES;
+        [self checkVersionUpdate];
+    }
     //    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 

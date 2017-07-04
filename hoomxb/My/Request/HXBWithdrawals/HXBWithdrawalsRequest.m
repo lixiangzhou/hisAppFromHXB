@@ -80,7 +80,7 @@
 - (void)paymentDateRequestWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     NYBaseRequest *paymentDateAPI = [[NYBaseRequest alloc] init];
-    paymentDateAPI.requestUrl = kHXBSetWithdrawals_withdrawTimeURL;
+    paymentDateAPI.requestUrl = kHXBSetWithdrawals_withdrawArriveTimeURL;
     paymentDateAPI.requestMethod = NYRequestMethodPost;
     //    alterLoginPasswordAPI.requestArgument = requestArgument;
     [paymentDateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {

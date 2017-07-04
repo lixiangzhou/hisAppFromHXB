@@ -136,6 +136,7 @@
     if (isMYController && ![KeyChain isLogin]) {
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{@"selectedIndex" : [NSString stringWithFormat:@"%lu",(unsigned long)tabBarController.selectedIndex]}];
+        
         return YES;
     }
     return YES;

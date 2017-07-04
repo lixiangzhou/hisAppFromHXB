@@ -1,32 +1,31 @@
 //
-//  HXBVersionUpdateRequest.m
+//  HXBSetGesturePasswordRequest.m
 //  hoomxb
 //
-//  Created by HXB-C on 2017/7/3.
+//  Created by HXB-C on 2017/7/4.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBVersionUpdateRequest.h"
+#import "HXBSetGesturePasswordRequest.h"
 
-@implementation HXBVersionUpdateRequest
-
+@implementation HXBSetGesturePasswordRequest
 
 
 /**
  版本更新
-
- @param versionCode app当前版本号
+ 
+ @param password 登录密码
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-- (void)versionUpdateRequestWitversionCode:(NSString *)versionCode andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)setGesturePasswordRequestWithPassword:(NSString *)password andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
-    versionUpdateAPI.requestUrl = kHXBMY_VersionUpdateURL;
+    versionUpdateAPI.requestUrl = kHXBSetGesturePasswordRequest_CheckLoginPasswordURL;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{
-                                            @"versionCode" : versionCode
-                                        };
+                                         @"password" : password
+                                         };
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
@@ -46,5 +45,6 @@
             failureBlock(error);
         }
     }];
+
 }
 @end
