@@ -14,9 +14,10 @@
 #import "HXBMainListView_Plan.h"
 #import "HXBMYRequest.h"
 #import "HXBMYModel_Plan_planRequestModel.h"
+#import "HXBMy_Plan_Swipe.h"
 @interface HXBMY_PlanListViewController ()
 #pragma mark - view
-@property (nonatomic,strong) HXBMainListView_Plan *planListView;//里面有toolblarView
+@property (nonatomic,strong) HXBMy_Plan_Swipe *planListView;//里面有toolblarView
 
 
 #pragma mark -  关于plan list 的 数据
@@ -76,7 +77,7 @@ kDealloc
 
 //搭建UI
 - (void)setupView {
-    self.planListView = [[HXBMainListView_Plan alloc]initWithFrame:self.view.frame];
+    self.planListView = [[HXBMy_Plan_Swipe alloc]initWithFrame:self.view.frame];
     [self.view addSubview:self.planListView];
 }
 

@@ -57,8 +57,10 @@
     
     _contentView.backgroundColor = _backgroundColor;
     _contentView.frame = self.bounds;
+    NSMutableDictionary *itemSetM = [[NSMutableDictionary alloc]init];
     for (int i = 0; i < _items.count; i ++) {
         UIButton * itemBt = [UIButton buttonWithType:UIButtonTypeCustom];
+        [itemSetM setObject:itemBt forKey:self.items[i]];
         itemBt.tag = 666 + i;
         [itemBt setTitleColor:_textColor forState:UIControlStateNormal];
         [itemBt setTitleColor:_selectedTextColor forState:UIControlStateSelected];
@@ -76,6 +78,7 @@
         [itemBt addTarget:self action:@selector(didSelectedSegment:) forControlEvents:UIControlEventTouchUpInside];
         [_contentView addSubview:itemBt];
     }
+    [self setValue:itemSetM.copy forKey:@"itemSet"];
 }
 
 - (void)setSelectedSegmentIndex:(NSInteger)selectedSegmentIndex {

@@ -8,6 +8,8 @@
 
 #import "HXBMainListView_Plan_TopView.h"
 @interface HXBMainListView_Plan_TopView ()
+
+
 /**
  持有资产(元)
  */
@@ -19,10 +21,30 @@
 @end
 @implementation HXBMainListView_Plan_TopView
 
+- (void)setUPValueWithManagerBlock: (HXBMainListView_Plan_TopViewManager *(^)(HXBMainListView_Plan_TopViewManager *manager))managerBlock {
+    self.manager = managerBlock(_manager);
+}
+- (void)setManager:(HXBMainListView_Plan_TopViewManager *)manager {
+    [self.financePlanAssetsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+        viewModelVM.leftLabelStr = @"持有资产(元)";
+        viewModelVM.rightLabelStr = manager.finance;
+        viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
+        viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
+        return viewModelVM;
+    }];
+    [self.financePlanSumPlanInterestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+        viewModelVM.leftLabelStr = @"累计收益(元)";
+        viewModelVM.rightLabelStr = manager.interest;
+        viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
+        viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
+        return viewModelVM;
+    }];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self  = [super initWithFrame: frame]) {
         [self setUP];
+        _manager = [[HXBMainListView_Plan_TopViewManager alloc]init];
     }
     return self;
 }
@@ -83,4 +105,7 @@
     } andFailure:^(NSError *error) {
     }];
 }
+@end
+@implementation HXBMainListView_Plan_TopViewManager
+
 @end
