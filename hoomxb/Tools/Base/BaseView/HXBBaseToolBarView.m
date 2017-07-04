@@ -228,16 +228,17 @@
 }
 
 - (void)setupAnimaBarView {
-        CGFloat barAnimaViewH = 2;
-        CGFloat barAnimaViewX = self.frame.size.width/self.optionStrArray.count * self.selectItemIndex;
-        CGFloat barAnimaViewY = self.frame.size.height - barAnimaViewH;
-        CGFloat barAnimaViewW = self.frame.size.width/self.optionStrArray.count;
-        
+    if (!_barAnimaViewH) {
+        _barAnimaViewH = 2;
+    }
+    CGFloat barAnimaViewCenterY = self.frame.size.height - _barAnimaViewH + _barAnimaViewH/2;
+    CGFloat barAnimaViewW = self.frame.size.width/self.optionStrArray.count - _barAnimaViewSpacing * 2;
+    CGFloat barAnimaViewCenterX = self.frame.size.width/self.optionStrArray.count/2 +  self.selectItemIndex * self.frame.size.width/self.optionStrArray.count;
 
-        self.itemBarAnimaView = [[UIView alloc]initWithFrame: CGRectZero];
+    self.itemBarAnimaView = [[UIView alloc]initWithFrame: CGRectZero];
 
-    self.itemBarAnimaView.center = CGPointMake(barAnimaViewX, barAnimaViewY);
-    self.itemBarAnimaView.bounds = CGRectMake(0, 0, barAnimaViewW, barAnimaViewH);
+    self.itemBarAnimaView.center = CGPointMake(barAnimaViewCenterX, barAnimaViewCenterY);
+    self.itemBarAnimaView.bounds = CGRectMake(0, 0, barAnimaViewW, _barAnimaViewH);
     
         if (!self.itemBarAnimaViewColor) {
             self.itemBarAnimaViewColor = [UIColor yellowColor];

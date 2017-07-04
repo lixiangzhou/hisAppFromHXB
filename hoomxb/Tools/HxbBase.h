@@ -12,8 +12,6 @@
 #import "HXBBaseNavigationController.h"
 
 
-
-
 //MARK: UIView
 #import "HXBBaseTableView.h"//tableView
 #import "HXBBaseTableViewCell.h"//tableViewCell
@@ -35,3 +33,4 @@
 #import "Animatr.h"//转场动画的工具类
 #import "HXBKeyBoardManager.h"///键盘观察者
 #import "HXBAlertManager.h"///弹框管理者
+#import "STRefresh.h"///刷新

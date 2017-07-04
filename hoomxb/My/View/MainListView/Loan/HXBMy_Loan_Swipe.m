@@ -116,7 +116,7 @@ kDealloc
     if (!_loanTopView) {
         // swipe header
         _loanTopView = [[HXBMainListView_Plan_TopView alloc]init];
-        _loanTopView.frame = CGRectMake(0, 0, kScreenWidth, 100);
+        _loanTopView.frame = CGRectMake(0, 0, kScreenWidth, 120);
         _loanTopView.backgroundColor = [UIColor whiteColor];
         _loanTopView.layer.masksToBounds = YES;
       

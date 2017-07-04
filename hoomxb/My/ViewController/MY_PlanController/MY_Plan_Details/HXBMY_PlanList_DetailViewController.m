@@ -100,7 +100,7 @@
     ///服务协议 button str
     BuyPlanDetailViewModel.contractName = weakSelf.viewModel.contractName;
     BuyPlanDetailViewModel.totalInterest = weakSelf.planViewModel.totalInterest;
-    
+    BuyPlanDetailViewModel.minRegisterAmount = weakSelf.viewModel.planDetailModel.registerMultipleAmount;
     ///用户可用余额
     BuyPlanDetailViewModel.userRemainAmount = weakSelf.viewModel.planDetailModel.userRemainAmount;
     ///计划余额

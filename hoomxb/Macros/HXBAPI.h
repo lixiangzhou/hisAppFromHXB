@@ -25,8 +25,13 @@
 //#define BASEURL                                       @"http://10.1.80.11:9001"
 
 //叶
-//#define BASEURL                                       @"http://192.168.1.133:3000"//pc 端测试
+
 #define BASEURL                                       @"http://192.168.1.21:3000"//后台
+
+
+//#define BASEURL                                       @"http://192.168.1.133:3000"//王鹏 端测试
+//#define BASEURL                                       @"http://192.168.1.186:3000"//杜宇 测试
+
 //http://192.168.1.133:3000
 //http://192.168.1.21:3000
 //#define BASEURL                                       @"http://120.25.102.84:9001"

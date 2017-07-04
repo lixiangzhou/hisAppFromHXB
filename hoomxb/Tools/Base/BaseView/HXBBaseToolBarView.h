@@ -89,6 +89,10 @@
 
 
 #pragma mark - itemBottomBarView 带动画
+//高度
+@property (nonatomic,assign) CGFloat barAnimaViewH;
+//间距
+@property (nonatomic,assign) CGFloat barAnimaViewSpacing;
 /**是否动画*/
 @property (nonatomic,assign) BOOL isAnima_ItemBottomBarView;
 /**动画的时长*/
