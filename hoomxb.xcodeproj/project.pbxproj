@@ -206,7 +206,6 @@
 		E133DD411EEEC14C009466DE /* HXBRequestEnumAndStatic.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD331EEEC14C009466DE /* HXBRequestEnumAndStatic.m */; };
 		E133DD421EEEC14C009466DE /* HXBTokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD371EEEC14C009466DE /* HXBTokenManager.m */; };
 		E13A53451F0A44E1002C3416 /* HXBMy_Plan_Swipe.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A53441F0A44E1002C3416 /* HXBMy_Plan_Swipe.m */; };
-		E13A534D1F0A65E9002C3416 /* github.png in Resources */ = {isa = PBXBuildFile; fileRef = E13A53471F0A65E9002C3416 /* github.png */; };
 		E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */; };
 		E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
@@ -722,7 +721,6 @@
 		E133DD431EEEC191009466DE /* NYNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetwork.h; sourceTree = "<group>"; };
 		E13A53431F0A44E1002C3416 /* HXBMy_Plan_Swipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMy_Plan_Swipe.h; sourceTree = "<group>"; };
 		E13A53441F0A44E1002C3416 /* HXBMy_Plan_Swipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMy_Plan_Swipe.m; sourceTree = "<group>"; };
-		E13A53471F0A65E9002C3416 /* github.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = github.png; sourceTree = "<group>"; };
 		E13A53481F0A65E9002C3416 /* STRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRefresh.h; sourceTree = "<group>"; };
 		E13A53491F0A65E9002C3416 /* STRefreshHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRefreshHeader.h; sourceTree = "<group>"; };
 		E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STRefreshHeader.m; sourceTree = "<group>"; };
@@ -2221,7 +2219,6 @@
 		E13A53461F0A65E9002C3416 /* STRefresh */ = {
 			isa = PBXGroup;
 			children = (
-				E13A53471F0A65E9002C3416 /* github.png */,
 				E13A53481F0A65E9002C3416 /* STRefresh.h */,
 				E13A53491F0A65E9002C3416 /* STRefreshHeader.h */,
 				E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */,
@@ -3247,7 +3244,6 @@
 				4E7CCF4F1EBC1B5B00F7BDB3 /* 4.png in Resources */,
 				E1C9647D1EA600C20066DBC4 /* Assets.xcassets in Resources */,
 				4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
-				E13A534D1F0A65E9002C3416 /* github.png in Resources */,
 				4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */,
 				4E7CCF4E1EBC1B5B00F7BDB3 /* pageControl_select@3x.png in Resources */,
 				4E7CCF471EBC1B5B00F7BDB3 /* banner@2x.png in Resources */,
