@@ -53,7 +53,7 @@
             return @"开放加入";
             break;
         case 7:
-            return @"加入满额";
+            return @"销售结束";
             break;
         case 8:
             return @"收益中";
