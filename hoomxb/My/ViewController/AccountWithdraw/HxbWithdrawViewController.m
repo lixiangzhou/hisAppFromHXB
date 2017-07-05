@@ -176,7 +176,7 @@
     if (!_amountTextField) {
         _amountTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(self.mybankView.frame) + 20, SCREEN_WIDTH - 40, 44)];
         _amountTextField.placeholder = @"请输入提现金额";
-        _amountTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _amountTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     }
     return _amountTextField;
 }

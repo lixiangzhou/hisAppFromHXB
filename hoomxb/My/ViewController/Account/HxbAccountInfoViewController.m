@@ -115,12 +115,7 @@ UITableViewDataSource
                 cell.textLabel.text = @"账户安全";
             }else{
                 cell.textLabel.text = @"风险评测";
-                if ([self.userInfoViewModel.userInfoModel.userInfo.riskType isEqualToString:@"未评测"]) {
-                    cell.detailTextLabel.text = @"立即评测";
-                }else
-                {
-                    cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
-                }
+                cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
             }
         }else
         {
@@ -128,12 +123,7 @@ UITableViewDataSource
                 cell.textLabel.text = @"账户安全";
             }else if (indexPath.row == 1){
                 cell.textLabel.text = @"风险评测";
-                if ([self.userInfoViewModel.userInfoModel.userInfo.riskType isEqualToString:@"未评测"]) {
-                    cell.detailTextLabel.text = @"立即评测";
-                }else
-                {
-                    cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
-                }
+                cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
             }
         }
         

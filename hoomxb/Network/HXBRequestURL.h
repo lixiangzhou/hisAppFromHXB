@@ -29,6 +29,7 @@
 #define kHXBUser_CheckMobileURL @"/checkMobile"///校验手机号
 #define kHXBUser_CheckExistMobileURL @"/checkExistMobile"///忘记密码校验手机号
 #define kHXBUser_realnameURL @"/user/realname"///实名认证
+#define kHXBUser_riskModifyScoreURL @"/user/riskModifyScore"///风险评测
 
 //MARK: ======================= 账户内 =======================
 #define kHXBMY_CapitalRecordURL @"/account/tradlist"///交易记录

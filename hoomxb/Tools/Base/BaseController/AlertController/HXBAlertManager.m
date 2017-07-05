@@ -48,7 +48,9 @@
     } while (next != nil);
     return nil;
 }
-
+/**
+ 强制更新
+ */
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel
 {
     if ([versionUpdateModel.force isEqualToString:@"1"]) {
@@ -61,5 +63,7 @@
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
     }
 }
+
+
 
 @end

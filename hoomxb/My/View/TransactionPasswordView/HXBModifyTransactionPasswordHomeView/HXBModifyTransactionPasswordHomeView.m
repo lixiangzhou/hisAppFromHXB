@@ -151,7 +151,7 @@
     self.getValidationCodeButton.enabled = NO;
     self.count = 60;
     [self.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%d秒",self.count] forState:UIControlStateNormal];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:nil];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
    }
 
 - (void)timeDown

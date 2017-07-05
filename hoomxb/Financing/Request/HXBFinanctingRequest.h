@@ -84,5 +84,8 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
                               andAmount: (NSString *)amount
                         andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
                         andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock;
+
+
+
 @end
 
