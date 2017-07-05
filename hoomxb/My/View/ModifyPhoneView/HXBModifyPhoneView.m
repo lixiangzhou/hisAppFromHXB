@@ -7,6 +7,7 @@
 //
 
 #import "HXBModifyPhoneView.h"
+#import "HXBSignUPAndLoginRequest.h"
 
 @interface HXBModifyPhoneView ()
 
@@ -137,13 +138,23 @@
 #pragma mark - 事件处理
 - (void)getCodeBtnClick
 {
-    if (self.phoneTextField.text.length != 11) {
+    
+    if (![NSString isMobileNumber:self.phoneTextField.text]) {
         [HxbHUDProgress showTextWithMessage:@"请输入正确的手机号"];
         return;
     }
-    if (self.getValidationCodeButtonClickBlock) {
-        self.getValidationCodeButtonClickBlock(self.phoneTextField.text);
-    }
+    [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:self.phoneTextField.text andSuccessBlock:^(BOOL isExist) {
+        if (isExist) {
+            [HxbHUDProgress showTextWithMessage:@"手机号已经被绑定"];
+        }else
+        {
+            if (self.getValidationCodeButtonClickBlock) {
+                self.getValidationCodeButtonClickBlock(self.phoneTextField.text);
+            }
+        }
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (void)sureChangeBtnClick
