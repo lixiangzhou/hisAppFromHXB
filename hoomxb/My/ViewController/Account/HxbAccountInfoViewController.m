@@ -28,8 +28,12 @@ UITableViewDataSource
     self.title = @"账户信息";
     [self.view addSubview:self.tableView];
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
-//    [self loadData_userInfo];///加载用户数据
     
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadData_userInfo];///加载用户数据
 }
 
 #pragma TableViewDelegate
@@ -174,13 +178,14 @@ UITableViewDataSource
 }
 
 #pragma mark - 加载数据
-//- (void)loadData_userInfo {
-//    kWeakSelf
-//    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-//        weakSelf.userInfoViewModel = viewModel;
-//    } andFailure:^(NSError *error) {
-//        NSLog(@"%@",self);
-//    }];
-//}
+- (void)loadData_userInfo {
+    kWeakSelf
+    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        weakSelf.userInfoViewModel = viewModel;
+        [weakSelf.tableView reloadData];
+    } andFailure:^(NSError *error) {
+        NSLog(@"%@",self);
+    }];
+}
 
 @end

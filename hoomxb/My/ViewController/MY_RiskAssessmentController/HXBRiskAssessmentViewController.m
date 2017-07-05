@@ -27,11 +27,7 @@
         _webView.scalesPageToFit = YES;
         _webView.scrollView.showsHorizontalScrollIndicator = NO;
         _webView.scrollView.bounces = NO;
-        NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"ExampleApp" ofType:@"html"];
-        NSString* appHtml = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
-        NSURL *baseURL = [NSURL fileURLWithPath:htmlPath];
-        [_webView loadHTMLString:appHtml baseURL:baseURL];
-        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.1.21:3300/riskvail"]]];
+        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kHXBH5_RiskEvaluationURL]]];
     }
     return _webView;
 }
