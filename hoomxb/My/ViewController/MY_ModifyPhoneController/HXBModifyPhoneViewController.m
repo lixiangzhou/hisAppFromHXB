@@ -81,10 +81,10 @@
     [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
         weakSelf.checkPaptcha = checkPaptcha;
         [weakSelf.homeView getCodeSuccessfully];
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [weakSelf graphicSuccessWithPhoneNumber:phoneNumber andWithCheckPaptcha:checkPaptcha];
-        });
+        [weakSelf graphicSuccessWithPhoneNumber:phoneNumber andWithCheckPaptcha:checkPaptcha];
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        });
     }];
 
 }

@@ -24,11 +24,16 @@
     [super viewDidLoad];
     [self setUPView];//视图设置
     [self registerEvent];//事件注册
-//    [self sendSmscode];
+//    [self sendSmscode];//
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC);
+//        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//        });
+//    });
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self sendSmscode];
+//    [self sendSmscode];
     [super viewDidAppear:animated];
 }
 
@@ -49,7 +54,6 @@
     [self registerSendSmscode];
     ///点击确认设置密码
     [self registerPassword];
- 
 }
 
 

@@ -9,6 +9,7 @@
 #import "HXBFinHomePageViewModel_PlanList.h"
 #import "HXBFinHomePageModel_PlanList.h"
 #import "HXBBaseHandDate.h"
+#import "HXBServerAndClientTime.h"
 #define kExpectedYearRateFont [UIFont systemFontOfSize: kScrAdaptationH(20)]
 
 /**
@@ -76,6 +77,7 @@ typedef enum : NSUInteger {
 
 //红利计划状态
 - (NSString *)setupUnifyStatus {
+   
     switch (self.planListModel.unifyStatus.integerValue) {
         case 0:
 //            return @"等待预售开始超过30分";
@@ -93,7 +95,22 @@ typedef enum : NSUInteger {
         case 6:
             return @"立即加入";
         case 7:
-            return @"等待计息";
+            
+        {
+            NSString *str = nil;
+            /*
+             账户外：
+             1、	销售截止时间之前，如果满额：【已满额】。
+             2、	到销售截止时间之后，锁定期之前：【销售结束】。
+             */
+            CGFloat millisecond = [[HXBServerAndClientTime getCurrentTime_Millisecond] floatValue];
+            if (self.planListModel.endSellingTime.floatValue >= millisecond) {
+                str = @"已满额";
+            }else {
+                str = @"销售结束";
+            }
+            return str;
+        }
         case 8:
             return @"收益中";
         case 9:

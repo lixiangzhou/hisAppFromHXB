@@ -14,6 +14,8 @@
 
 @implementation HXBServerAndClientTime
 
+
+
 + (instancetype) sharedServerAndClientTime {
     static dispatch_once_t onceToken;
     static HXBServerAndClientTime *_instance;
@@ -28,6 +30,14 @@
     HXBServerAndClientTime *serverAndClientTime = [HXBServerAndClientTime sharedServerAndClientTime];
     serverAndClientTime.serverTime = serverTime;
     return serverAndClientTime;
+}
+
+//MARK:时间戳 对应毫秒级别
++ (NSString *)getCurrentTime_Millisecond {
+    NSTimeInterval nowtime = [[NSDate date] timeIntervalSince1970]*1000;
+    long long theTime = [[NSNumber numberWithDouble:nowtime] longLongValue];
+    NSString *curTime = [NSString stringWithFormat:@"%llu",theTime];
+    return curTime;
 }
 
 

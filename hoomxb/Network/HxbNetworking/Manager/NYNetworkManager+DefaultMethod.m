@@ -17,13 +17,12 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 
 - (void)defaultMethodRequestSuccessWithRequest:(NYBaseRequest *)request
 {
-
-    NSLog(@"👌开始================================================================");
-    NSLog(@"=>>> URL: %@,  Code =>%ld  ",request.requestUrl,(long)request.responseStatusCode);
-    NSLog(@"----------------------------------------------------------------");
-    NSLog(@"%@",request.responseObject);
-    NSLog(@"👌================================================================");
-
+    NSLog(@"======================👌👌 开始 👌👌====================================");
+    NSLog(@"👌👌URL: %@,  Code =>%ld  ",request.requestUrl,(long)request.responseStatusCode);
+    NSLog(@"👌👌请求 体 ----- %@",request.requestArgument);
+    NSLog(@"👌👌相应 体 ------%@",request.responseObject);
+    NSLog(@"======================👌👌 结束 👌👌====================================");
+    
     switch ([request.responseObject[kResponseStatus] integerValue]) {
         case kHXBCode_Enum_Captcha://弹出图验、
 //            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowCaptchaVC object:nil];
@@ -53,12 +52,13 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 #pragma mark - 请求失败
 - (void)defaultMethodRequestFaulureWithRequest:(NYBaseRequest *)request
 {
-    NSLog(@"🌶开始================================================================");
-    NSLog(@"=>>> URL: %@,  Code =>%ld  ",request.requestUrl,(long)request.responseStatusCode);
-    NSLog(@"----------------------------------------------------------------");
-    NSLog(@"%@",request.responseObject);
-    NSLog(@"🌶  ================================================================");
-
+    NSLog(@"===================🌶🌶 开始 🌶🌶=====================================");
+    NSLog(@"🌶🌶URL: %@,  Code =>%ld  ",request.requestUrl,(long)request.responseStatusCode);
+    NSLog(@"🌶🌶请求 体 ----- %@",request.requestArgument);
+    NSLog(@"🌶🌶相应 体 ------%@",request.responseObject);
+    NSLog(@"======================🌶🌶 结束 🌶🌶====================================");
+    
+    
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:///没有登录
             if (KeyChain.isLogin) {

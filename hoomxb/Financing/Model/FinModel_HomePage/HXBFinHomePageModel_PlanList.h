@@ -78,7 +78,13 @@
 @property (nonatomic,copy) NSString *subPointCount;
 ///string	计划倒计时
 @property (nonatomic,copy) NSString *diffTime;
-
+/**
+ 销售截止时间
+ 账户外：
+ 1、	销售截止时间之前，如果满额：【已满额】。
+ 2、	到销售截止时间之后，锁定期之前：【销售结束】。
+ */
+@property (nonatomic,copy) NSString * endSellingTime;
 
 //MARK: -====================== 未知字段 ============================
 ///财务状况

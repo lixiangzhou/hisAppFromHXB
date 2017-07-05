@@ -55,9 +55,14 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 - (void) registerEvent_ClickNextButton {
     kWeakSelf
     [self.signUPView signUPClickNextButtonFunc:^(NSString *mobile) {
-       
+        if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {//注册
+            if ([weakSelf.signUPView.checkMobileStr isEqualToString:kAlreadyRegistered]) return;
+        }else
+        {
+            if([weakSelf.signUPView.checkMobileStr isEqualToString:@"该手机号暂未注册"]) return;
+        }
         NSLog(@"点击了下一步");
-        switch (self.type) {
+        switch (weakSelf.type) {
             case HXBSignUPAndLoginRequest_sendSmscodeType_signup://注册
                 
                 break;
@@ -76,35 +81,29 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
             default:
                 break;
         }
-        if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {//注册
-            if ([weakSelf.signUPView.checkMobileStr isEqualToString:kAlreadyRegistered]) return;
-        }else
-        {
-            if([weakSelf.signUPView.checkMobileStr isEqualToString:@"该手机号暂未注册"]) return;
-        }
+   
       
         //1. modal一个图验控制器
         ///1. 如果要是已经图验过了，那就不需要图验了
         HXBCheckCaptchaViewController *checkCaptchVC = [[HXBCheckCaptchaViewController alloc]init];
         [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
             weakSelf.checkPaptchaStr = checkPaptcha;
-            
-            [HXBSignUPAndLoginRequest smscodeRequestWithMobile:mobile andAction:self.type andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
-                
-                //发送短信vc
-                HXBSendSmscodeViewController *sendSmscodeVC = [[HXBSendSmscodeViewController alloc]init];
-                sendSmscodeVC.phonNumber = mobile;
-                sendSmscodeVC.captcha = self.checkPaptchaStr;
-                sendSmscodeVC.type = self.type;
-                
-                [weakSelf.navigationController pushViewController:sendSmscodeVC animated:true];
-            } andFailureBlock:^(NSError *error) {
-                kNetWorkError(@"短信发送失败");
-                [HxbHUDProgress showMessageCenter:@"短信发送失败" inView:self.view];
-            }];
-
-            
-            
+            NSLog(@"发送 验证码");
+//            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.5 * NSEC_PER_SEC);
+//                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    [HXBSignUPAndLoginRequest smscodeRequestWithMobile:mobile andAction:self.type andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
+                        //发送短信vc
+                        HXBSendSmscodeViewController *sendSmscodeVC = [[HXBSendSmscodeViewController alloc]init];
+                        sendSmscodeVC.phonNumber = mobile;
+                        sendSmscodeVC.captcha = self.checkPaptchaStr;
+                        sendSmscodeVC.type = self.type;
+                        [weakSelf.navigationController pushViewController:sendSmscodeVC animated:true];
+                    } andFailureBlock:^(NSError *error) {
+                        [HxbHUDProgress showMessageCenter:@"短信发送失败" inView:self.view];
+                    }];
+//                });
+//            });
            
         }];
         if (!weakSelf.isCheckCaptchaSucceed) {

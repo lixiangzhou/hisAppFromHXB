@@ -84,19 +84,20 @@
 /**
  剩余可投
  */
-- (NSString *) remainAmount  {
-    //剩余金额：不为0时显示剩余金额，为0时或状态不为可加入时，该字段变为【计划总金额：XXXXXX】
-    if (!_remainAmount) {
-        if (self.planDetailModel.remainAmount.floatValue <= 0) {
-            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount.floatValue];
-            _remainAmount_constStr = @"计划总金额";
-        } else {
-            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.remainAmount.floatValue];
-            _remainAmount_constStr = @"剩余金额";
-        }
-    }
-    return _remainAmount;
-}
+//- (NSString *) remainAmount  {
+//    //剩余金额：不为0时显示剩余金额，为0时或状态不为可加入时，该字段变为【计划总金额：XXXXXX】
+//    if (!_remainAmount) {
+//     
+//        if (self.planDetailModel.remainAmount.floatValue <= 0) {
+//            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount.floatValue];
+//            _remainAmount_constStr = @"计划总金额";
+//        } else {
+//            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.remainAmount.floatValue];
+//            _remainAmount_constStr = @"剩余金额";
+//        }
+//    }
+//    return _remainAmount;
+//}
 
 
 
@@ -173,6 +174,23 @@
         case 10:
             self.addButtonStr = @"已退出";
             self.isAddButtonInteraction = false;
+            break;
+    }
+    switch ([self.planDetailModel.unifyStatus integerValue]) {
+        case 6://立即加入或者  追加
+        case 5:
+            if (self.planDetailModel.remainAmount.floatValue <= 0) {
+                _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount.floatValue];
+                _remainAmount_constStr = @"计划总金额";
+            } else {
+                _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.remainAmount.floatValue];
+                _remainAmount_constStr = @"剩余金额";
+            }
+            break;
+            
+        default:
+            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount.floatValue];
+            _remainAmount_constStr = @"计划总金额";
             break;
     }
 }

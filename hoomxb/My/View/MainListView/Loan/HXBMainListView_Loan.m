@@ -73,6 +73,9 @@ static NSString *BID_Title = @"投标中";
 //MARK: 销毁
 kDealloc
 #pragma mark - setter
+
+
+#pragma mark - setter
 - (void)setLoanAccountModel:(HXBMYModel_Loan_LoanRequestModel *)loanAccountModel {
     _loanAccountModel = loanAccountModel;
     self.REPAYING_Lable.text =  [self  formatStrWithTypeStr:REPAYING_Title andCountStr:loanAccountModel.rePayingTotalCount.integerValue];
@@ -80,7 +83,11 @@ kDealloc
 }
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
     _userInfoViewModel = userInfoViewModel;
-    self.loanTopView.userInfoViewModel = userInfoViewModel;
+    [_loanTopView setUPValueWithManagerBlock:^HXBMainListView_Plan_TopViewManager *(HXBMainListView_Plan_TopViewManager *manager) {
+        manager.interest = userInfoViewModel.lenderEarned;
+        manager.finance = userInfoViewModel.lenderPrincipal;
+        return manager;
+    }];
 }
 - (void)setRepaying_ViewModelArray:(NSArray<HXBMYViewModel_MainLoanViewModel *> *)repaying_ViewModelArray {
     _repaying_ViewModelArray = repaying_ViewModelArray;

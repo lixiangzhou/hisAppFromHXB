@@ -44,6 +44,8 @@
 ///内部创建了sharedServerAndClientTime对象
 + (instancetype) hxbSerVerAndClientTimeWithServerTime: (NSString *)serverTime;
 
+///时间戳 对应毫秒级别
++ (NSString *)getCurrentTime_Millisecond;
 
 ///服务器的时间戳
 @property (nonatomic,copy) NSString *serverTime;

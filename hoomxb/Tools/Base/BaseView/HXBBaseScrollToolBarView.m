@@ -256,7 +256,7 @@
         } else {
             self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
             if (isScrollBottom) {
-                self.contentOffset = kToolBarViewOffsetTop;
+                [self setContentOffset:kToolBarViewOffsetTop animated:false];
                 return;
             }
         }

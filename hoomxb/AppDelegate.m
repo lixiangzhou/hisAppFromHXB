@@ -47,7 +47,7 @@ static NSString *const my = @"我的";
         NSArray *imageArray = @[@"1",@"1",@"1"];
         //选中下的图片前缀
         NSString *commonName = @"1";
-        
+         
         [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
 
     }
@@ -141,7 +141,6 @@ static NSString *const my = @"我的";
 - (void)applicationWillResignActive:(UIApplication *)application {
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
-    
 }
 
 

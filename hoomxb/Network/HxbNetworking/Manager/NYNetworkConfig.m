@@ -57,16 +57,14 @@ static NSString *const X_HxbAuth_Token = @"X-HxbAuth-Token";
 //MARK: 设置请求基本信息
 - (NSDictionary *)additionalHeaderFields
 {
-    
-    NSDate *datenow = [NSDate date];
-    NSString *timeSp = [NSString stringWithFormat:@"%ld", (long)[datenow timeIntervalSince1970] * 1000];
-    
+    //毫秒时间戳
+    NSString *curTime =  [HXBServerAndClientTime getCurrentTime_Millisecond];
     NSDictionary *dict = @{
                            X_HxbAuth_Token:[KeyChain token],
                            User_Agent:self.userAgent,
                            @"IDFA":[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString],
                            @"X-Request-Id":[[[UIDevice currentDevice] identifierForVendor] UUIDString],
-                           @"X-HxbAuth-Timestamp":timeSp
+                           @"X-HxbAuth-Timestamp":curTime
                            };
 
     return dict;

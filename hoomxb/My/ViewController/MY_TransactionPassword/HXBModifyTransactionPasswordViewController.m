@@ -48,11 +48,11 @@
             
             NSLog(@"%@",responseObject);
             [weakSelf.homeView idcardWasSuccessfully];
-            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
-            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [weakSelf getValidationCode];
-            });
-            
+//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
+//            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+//            });
+         [weakSelf getValidationCode];
+         
         } andFailureBlock:^(NSError *error) {
             NSLog(@"%@",error);
         }];

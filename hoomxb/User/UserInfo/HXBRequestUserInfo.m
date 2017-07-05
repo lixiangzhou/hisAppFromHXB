@@ -31,8 +31,8 @@
         if ([responseObject[kResponseStatus] integerValue]) {
             kHXBResponsShowHUD
         }
-        NSLog(@"%@",responseObject);
-        NSLog(@"%@",[KeyChain token]);
+//        NSLog(@"%@",responseObject);
+//        NSLog(@"%@",[KeyChain token]);
         HXBUserInfoModel *userInfoModel = [[HXBUserInfoModel alloc]init];
         
         [userInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];

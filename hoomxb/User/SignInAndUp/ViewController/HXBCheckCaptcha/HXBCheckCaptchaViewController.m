@@ -114,8 +114,11 @@
             //正确就dismiss
             if (isSuccessBlock) {
                 ///通知控制器 图验通过
-                [weakSelf dismissViewControllerAnimated:true completion:nil];
-                if(weakSelf.isCheckCaptchaSucceedBlock) weakSelf.isCheckCaptchaSucceedBlock(checkCaptChaStr);
+                [weakSelf dismissViewControllerAnimated:true completion:^{
+                    
+                }];
+                 if(weakSelf.isCheckCaptchaSucceedBlock) weakSelf.isCheckCaptchaSucceedBlock(checkCaptChaStr);
+              
             }else{
                 weakSelf.checkCaptcha.isCorrect = false;
             }
