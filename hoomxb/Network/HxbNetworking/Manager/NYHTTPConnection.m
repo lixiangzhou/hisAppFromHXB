@@ -151,6 +151,7 @@
         case NYRequestMethodPost:
         {
 //            HxbHTTPSessionManager *manager = [HxbHTTPSessionManager manager];
+            
             task = [manager POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 [self requestHandleSuccess:request responseObject:responseObject];
                 [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];

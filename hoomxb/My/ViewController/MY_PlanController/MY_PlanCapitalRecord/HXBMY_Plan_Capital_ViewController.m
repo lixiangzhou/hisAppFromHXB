@@ -16,7 +16,7 @@ static NSString *const cellID = @"cellID";
 
 @property (nonatomic,strong) NSMutableArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *dataArray;
 @property (nonatomic,strong) UIView *topView;
-
+@property (nonatomic,strong) HXBMYRequest *request;
 @end
 
 
@@ -29,6 +29,12 @@ static NSString *const cellID = @"cellID";
 //    [self.planCapitalTableView reloadData];
 //}
 
+- (HXBMYRequest *)request {
+    if (!_request) {
+        _request = [[HXBMYRequest alloc]init];
+    }
+    return _request;
+}
 - (NSMutableArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *)dataArray {
     if (!_dataArray) {
         _dataArray = [[NSMutableArray alloc]init];
@@ -55,6 +61,15 @@ static NSString *const cellID = @"cellID";
     [self.planCapitalTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.top.equalTo(self.topView.mas_bottom);
+    }];
+    kWeakSelf
+    [self.planCapitalTableView hxb_FooterWithRefreshBlock:^{
+        [weakSelf downLoadWithIsUPLoad:false];
+    } andSetUpGifFooterBlock:^(MJRefreshBackNormalFooter *footer) {
+    }];
+    [self.planCapitalTableView hxb_HeaderWithHeaderRefreshCallBack:^{
+        [weakSelf downLoadWithIsUPLoad:true];
+    } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
     
     self.planCapitalTableView.delegate = self;
@@ -102,14 +117,13 @@ static NSString *const cellID = @"cellID";
 
 - (void)downLoadWithIsUPLoad: (BOOL)isUPLoad {
     kWeakSelf
-    HXBMYRequest *request = [[HXBMYRequest alloc]init];
-    [request loanRecord_my_Plan_WithIsUPData: isUPLoad andPlanID:self.planID andSuccessBlock:^(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *viewModelArray) {
+    [self.request loanRecord_my_Plan_WithIsUPData: isUPLoad andPlanID:self.planID andSuccessBlock:^(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *viewModelArray) {
         [weakSelf.dataArray addObjectsFromArray:viewModelArray];
+        
         [weakSelf.planCapitalTableView reloadData];
-//        self.dataArray = self.dataArray;
+        [weakSelf.planCapitalTableView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        
-        
+        [weakSelf.planCapitalTableView endRefresh];
     }];
 }
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
