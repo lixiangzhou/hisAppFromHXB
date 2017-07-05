@@ -61,7 +61,7 @@
             break;
             
         case HXBRequestType_MY_PlanResponseStatus_REDEMPTION_PERIOD:
-            statusStr = @"等待计息";
+            statusStr = @"债权转让中";
             break;
     }
             return statusStr;

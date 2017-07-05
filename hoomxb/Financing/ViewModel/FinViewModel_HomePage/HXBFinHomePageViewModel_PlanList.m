@@ -95,7 +95,6 @@ typedef enum : NSUInteger {
         case 6:
             return @"立即加入";
         case 7:
-            
         {
             NSString *str = nil;
             /*
