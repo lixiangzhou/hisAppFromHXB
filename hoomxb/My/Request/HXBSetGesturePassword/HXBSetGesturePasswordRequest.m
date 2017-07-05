@@ -47,4 +47,41 @@
     }];
 
 }
+
+/**
+ 风险测评
+
+ @param score 测评分数
+ @param successDateBlock 成功回调
+ @param failureBlock 失败回调
+ */
+- (void)riskModifyScoreRequestWithScore:(NSString *)score andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+{
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    versionUpdateAPI.requestUrl = kHXBUser_riskModifyScoreURL;
+    versionUpdateAPI.requestMethod = NYRequestMethodPost;
+    versionUpdateAPI.requestArgument = @{
+                                         @"score" : score
+                                         };
+    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSInteger status =  [responseObject[@"status"] integerValue];
+        if (status != 0) {
+            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            if (failureBlock) {
+                failureBlock(responseObject);
+            }
+            return;
+        }
+        if (successDateBlock) {
+            successDateBlock(responseObject);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        [HxbHUDProgress showTextWithMessage:@"请求失败"];
+        if (failureBlock) {
+            failureBlock(error);
+        }
+    }];
+
+}
 @end

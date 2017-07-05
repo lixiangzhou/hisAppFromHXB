@@ -18,4 +18,6 @@
  强制更新
  */
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel;
+
+
 @end

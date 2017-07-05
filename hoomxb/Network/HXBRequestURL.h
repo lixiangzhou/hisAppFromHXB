@@ -9,6 +9,10 @@
 #ifndef HXBRequestURL_h
 #define HXBRequestURL_h
 
+//MARK: ======================= 所有H5 界面 =======================
+#define kHXBH5_BaseURL @"http://192.168.1.21:3300"///用户信息
+#define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",kHXBH5_BaseURL]//风险评测
+
 //MARK: ======================= 理财资产 界面 =======================
 //plan
 #define kHXBFinanc_PlanLisetURL(planListPage) [NSString stringWithFormat:@"/plan?page=%ld",(planListPage)]//红利计划列表
@@ -29,6 +33,7 @@
 #define kHXBUser_CheckMobileURL @"/checkMobile"///校验手机号
 #define kHXBUser_CheckExistMobileURL @"/checkExistMobile"///忘记密码校验手机号
 #define kHXBUser_realnameURL @"/user/realname"///实名认证
+#define kHXBUser_riskModifyScoreURL @"/user/riskModifyScore"///风险评测
 
 //MARK: ======================= 账户内 =======================
 #define kHXBMY_CapitalRecordURL @"/account/tradlist"///交易记录

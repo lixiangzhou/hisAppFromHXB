@@ -28,8 +28,12 @@ UITableViewDataSource
     self.title = @"账户信息";
     [self.view addSubview:self.tableView];
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
-//    [self loadData_userInfo];///加载用户数据
     
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self loadData_userInfo];///加载用户数据
 }
 
 #pragma TableViewDelegate
@@ -115,12 +119,7 @@ UITableViewDataSource
                 cell.textLabel.text = @"账户安全";
             }else{
                 cell.textLabel.text = @"风险评测";
-                if ([self.userInfoViewModel.userInfoModel.userInfo.riskType isEqualToString:@"未评测"]) {
-                    cell.detailTextLabel.text = @"立即评测";
-                }else
-                {
-                    cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
-                }
+                cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
             }
         }else
         {
@@ -128,12 +127,7 @@ UITableViewDataSource
                 cell.textLabel.text = @"账户安全";
             }else if (indexPath.row == 1){
                 cell.textLabel.text = @"风险评测";
-                if ([self.userInfoViewModel.userInfoModel.userInfo.riskType isEqualToString:@"未评测"]) {
-                    cell.detailTextLabel.text = @"立即评测";
-                }else
-                {
-                    cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
-                }
+                cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
             }
         }
         
@@ -184,13 +178,14 @@ UITableViewDataSource
 }
 
 #pragma mark - 加载数据
-//- (void)loadData_userInfo {
-//    kWeakSelf
-//    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-//        weakSelf.userInfoViewModel = viewModel;
-//    } andFailure:^(NSError *error) {
-//        NSLog(@"%@",self);
-//    }];
-//}
+- (void)loadData_userInfo {
+    kWeakSelf
+    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        weakSelf.userInfoViewModel = viewModel;
+        [weakSelf.tableView reloadData];
+    } andFailure:^(NSError *error) {
+        NSLog(@"%@",self);
+    }];
+}
 
 @end

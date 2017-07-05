@@ -17,4 +17,14 @@
  @param failureBlock 失败回调
  */
 - (void)setGesturePasswordRequestWithPassword:(NSString *)password andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+/**
+ 风险测评
+ 
+ @param score 测评分数
+ @param successDateBlock 成功回调
+ @param failureBlock 失败回调
+ */
+- (void)riskModifyScoreRequestWithScore:(NSString *)score andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
 @end
