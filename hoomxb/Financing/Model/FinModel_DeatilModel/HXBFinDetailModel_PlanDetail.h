@@ -26,6 +26,7 @@
 
 ///post /financeplan/financeplandetail.action 红利计划详情Model
 @interface HXBFinDetailModel_PlanDetail : NSObject
+
 ///曾信地址
 @property (nonatomic,copy) NSString *contractUrl;
 ///本金余额合约名称
@@ -108,7 +109,7 @@
 @property (nonatomic,copy) NSString *desc3;///": "05月13日 16:56 开放加入",
 @property (nonatomic,copy) NSString *desc4;///": "05月13日 16:56",
 @property (nonatomic,copy) NSString *lockPeriodStr;///": "2021年06月17日(1个月)",
-@property (nonatomic,copy) NSString *amount;///": "7000.0",
+@property (nonatomic,assign) double amount;///": "7000.0",
 @property (nonatomic,copy) NSString *financeStatus;//": "3",
 @property (nonatomic,copy) NSString *beginSelling;//Time": "2021-05-13 16:56:00",
 @property (nonatomic,copy) NSString *interestRate;//": "0.0",

@@ -158,16 +158,16 @@
 
 ///设置展示网络数据的label的值
 - (void)setUPStr {
-//    HXBFinDetailModel_PlanDetail_DataList *dataList = self.planDetailModel.planDetailModel.dataList.firstObject;
+    //HXBFinDetailModel_PlanDetail_DataList *dataList = self.planDetailModel.planDetailModel.dataList.firstObject;
     HXBFinDetailModel_PlanDetail *detailData = self.planDetailModel.planDetailModel;
-    self.planAmountLabel.text = detailData.amount; //@"测试加入原因";//计化金额
+    self.planAmountLabel.text = [NSString hxb_getPerMilWithDouble:detailData.amount];//@"测试加入原因";//计化金额
     self.joinConditionLabel.text = self.planDetailModel.addCondition;//加入条件
     self.joinedOnTheLineLabel.text = self.planDetailModel.singleMaxRegisterAmount;//加入上线
     self.startByDateLabel.text = self.planDetailModel.beginSellingTime;//开始时间
     self.exitDateLabel.text = self.planDetailModel.financeEndTime;//结束时间
     self.theTermLabel.text = self.planDetailModel.lockPeriod;//期限
     self.expiredExitMethodLabel.text = @"系统通过债权转让的方式自动完成退出";
-//    self.securityLabel.text = detailData.principalBalanceContractName;//安全保障
+    //self.securityLabel.text = detailData.principalBalanceContractName;//安全保障
     self.revenueApproachLabel.text = @"收益再投资";//收益处理方式
     //协议
     self.serviceChargeLabel.text = self.planDetailModel.contractName;
@@ -229,7 +229,7 @@
 - (void)setUP_constStr {
     self.planAmountLabel_const.text = @"计划金额";
     self.joinConditionLabel_const.text = @"加入条件";
-    self.joinedOnTheLineLabel_const.text = @"加入上线";
+    self.joinedOnTheLineLabel_const.text = @"加入上限";
     self.startByDateLabel_const.text = @"开始加入日期";
     self.exitDateLabel_const.text = @"退出日期";
     self.theTermLabel_const.text = @"期限";

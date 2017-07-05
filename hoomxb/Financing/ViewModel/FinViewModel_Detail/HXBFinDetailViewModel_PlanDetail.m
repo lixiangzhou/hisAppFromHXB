@@ -17,7 +17,24 @@
     [self setUPhxb_SingleMaxRegisterAmount];///本期计划加入上限
     [self setAddButtonStrValue];
 }
-
+///**
+// 用户余额
+// */
+//- (NSString *) userRemainAmount {
+//    if (!_userRemainAmount) {
+//        _userRemainAmount = self.planDetailModel.userRemainAmount;
+//    }
+//    return _userRemainAmount;
+//}
+///**
+// 剩余金额
+// */
+//- (NSString *) remainAmount {
+//    if (!_remainAmount) {
+//        _remainAmount = self.planDetailModel.remainAmount;
+//    }
+//    return _remainAmount;
+//}
 /**
  id
  */
@@ -159,9 +176,20 @@
                 self.isAddButtonInteraction = true;
             }
             break;
-        case 7:
-            self.addButtonStr = @"等待计息";
+        case 7:{
+            /*
+             账户外：
+             1、	销售截止时间之前，如果满额：【已满额】。
+             2、	到销售截止时间之后，锁定期之前：【销售结束】。
+             */
+            CGFloat millisecond = [[HXBServerAndClientTime getCurrentTime_Millisecond] floatValue];
+//            if (self.planDetailModel.endSellingTime.floatValue >= millisecond) {
+//                self.addButtonStr = @"已满额";
+//            }else {//需求更改
+                self.addButtonStr = @"销售结束";
+//            }
             self.isAddButtonInteraction = false;
+        }
             break;
         case 8:
             self.addButtonStr = @"收益中";
@@ -180,7 +208,7 @@
         case 6://立即加入或者  追加
         case 5:
             if (self.planDetailModel.remainAmount.floatValue <= 0) {
-                _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount.floatValue];
+                _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount];
                 _remainAmount_constStr = @"计划总金额";
             } else {
                 _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.remainAmount.floatValue];
@@ -189,7 +217,7 @@
             break;
             
         default:
-            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount.floatValue];
+            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount];
             _remainAmount_constStr = @"计划总金额";
             break;
     }

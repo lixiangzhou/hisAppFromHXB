@@ -19,13 +19,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.securityCertificationButton];
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"红利计划##" style:UIBarButtonItemStylePlain target:self action:@selector(clickLeftBarButtonItem:)];
-    self.navigationItem.backBarButtonItem = leftBarButtonItem;
-
+    UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
+    //    [leftBackBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [leftBackBtn setImage:[UIImage imageNamed:@"login_close"] forState:UIControlStateNormal];
+    // 让按钮内部的所有内容左对齐
+    leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [leftBackBtn addTarget:self action:@selector(clickLeftBarButtonItem:) forControlEvents:UIControlEventTouchUpInside];
+    [leftBackBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    // 修改导航栏左边的item
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBackBtn];
 }
 
 - (void)clickLeftBarButtonItem : (UIBarButtonItem *)button {
-    [[NSNotificationCenter defaultCenter]postNotificationName:kHXBBotification_ShowHomeVC object:nil];
+//    [[NSNotificationCenter defaultCenter]postNotificationName:kHXBBotification_ShowHomeVC object:nil];
+    [self dismissViewControllerAnimated:false completion:nil];
+    
 }
 
 - (void)securityCertificationButtonClick:(UIButton *)sender{

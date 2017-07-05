@@ -43,6 +43,9 @@ kWeakSelf
         }
         [HXBMobifyPassword_LoginRequest mobifyPassword_LoginRequest_requestWithOldPwd:password_Original andNewPwd:password_New andSuccessBlock:^{
             [KeyChainManage sharedInstance].siginCount = @(0).description;
+            UIView *view = self.navigationController.viewControllers.firstObject.view;
+            [HxbHUDProgress showTextWithMessage:@"密码修改成功"];
+//            [HxbHUDProgress showTextWithMessage:@"密码修改成功" andView:view];
             [weakSelf.navigationController popToRootViewControllerAnimated:true];
         } andFailureBlock:^(NSError *error) {
             if (error) {

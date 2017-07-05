@@ -19,13 +19,25 @@ static NSString *const cellID = @"cellID";
 
 @end
 
+
+
 @implementation HXBMY_Plan_Capital_ViewController
-- (void)setDataArray:(NSMutableArray *)dataArray {
-    _dataArray = dataArray;
-    [self.planCapitalTableView reloadData];
+
+@synthesize dataArray = _dataArray;
+//- (void)setDataArray:(NSMutableArray <HXBMY_PlanViewModel_LoanRecordViewModel *>*)dataArray {
+//    _dataArray = dataArray;
+//    [self.planCapitalTableView reloadData];
+//}
+
+- (NSMutableArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *)dataArray {
+    if (!_dataArray) {
+        _dataArray = [[NSMutableArray alloc]init];
+    }
+    return _dataArray;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+     
     self.title = @"投资记录";
     self.topView = [self headView];
     [self.view addSubview: self.topView];
@@ -100,14 +112,12 @@ static NSString *const cellID = @"cellID";
         
     }];
 }
-
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
 }
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBMY_Plan_Capital_Cell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
@@ -119,11 +129,6 @@ static NSString *const cellID = @"cellID";
     cell.type = _dataArray[indexPath.row].status;
     return cell;
 }
-
-
-
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

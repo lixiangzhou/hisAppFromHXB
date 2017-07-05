@@ -97,17 +97,17 @@ typedef enum : NSUInteger {
         case 7:
         {
             NSString *str = nil;
-            /*
-             账户外：
-             1、	销售截止时间之前，如果满额：【已满额】。
-             2、	到销售截止时间之后，锁定期之前：【销售结束】。
-             */
-            CGFloat millisecond = [[HXBServerAndClientTime getCurrentTime_Millisecond] floatValue];
-            if (self.planListModel.endSellingTime.floatValue >= millisecond) {
-                str = @"已满额";
-            }else {
-                str = @"销售结束";
-            }
+//            /*
+//             账户外：
+//             1、	销售截止时间之前，如果满额：【已满额】。
+//             2、	到销售截止时间之后，锁定期之前：【销售结束】。
+//             */
+//            CGFloat millisecond = [[HXBServerAndClientTime getCurrentTime_Millisecond] floatValue];
+//            if (self.planListModel.endSellingTime.floatValue >= millisecond) {
+//                str = @"已满额";
+//            }else {
+                str = @"销售结束";//需求换了
+//            }
             return str;
         }
         case 8:

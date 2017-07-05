@@ -28,7 +28,7 @@
 }
 
 /**
-//红利计划的状态
+   红利计划的状态
  */
 - (NSString *) status {
     if (!_status) {
@@ -61,7 +61,7 @@
             break;
             
         case HXBRequestType_MY_PlanResponseStatus_REDEMPTION_PERIOD:
-            statusStr = @"债权转让中";
+            statusStr = @"债权匹配中";
             break;
     }
             return statusStr;
@@ -96,7 +96,7 @@
  */
 - (NSString *) profitType_UI {
     if (!_profitType_UI) {
-        _profitType_UI = @"等待计息";
+        _profitType_UI = @"收益再投资";
     }
     return _profitType_UI;
 }

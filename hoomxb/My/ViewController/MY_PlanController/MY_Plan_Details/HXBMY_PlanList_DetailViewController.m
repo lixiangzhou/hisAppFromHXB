@@ -90,6 +90,7 @@
     HXBFin_Plan_BuyViewController *planBuyVC = [[HXBFin_Plan_BuyViewController alloc]init];
     //获取计划信息
     HXBFinDetailViewModel_PlanDetail *BuyPlanDetailViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
+    BuyPlanDetailViewModel.planDetailModel = [[HXBFinDetailModel_PlanDetail alloc]init];
     ///加入条件加入金额%@元起，%@元的整数倍递增
     BuyPlanDetailViewModel.addCondition = [NSString stringWithFormat:@"%@元的整数倍递增",weakSelf.viewModel.planDetailModel.registerMultipleAmount];
     ///余额 title
@@ -102,9 +103,9 @@
     BuyPlanDetailViewModel.totalInterest = weakSelf.planViewModel.totalInterest;
     BuyPlanDetailViewModel.minRegisterAmount = weakSelf.viewModel.planDetailModel.registerMultipleAmount;
     ///用户可用余额
-    BuyPlanDetailViewModel.userRemainAmount = weakSelf.viewModel.planDetailModel.userRemainAmount;
+    BuyPlanDetailViewModel.planDetailModel.userRemainAmount = weakSelf.viewModel.planDetailModel.userRemainAmount;
     ///计划余额
-    BuyPlanDetailViewModel.remainAmount = weakSelf.viewModel.planDetailModel.remainAmount;
+    BuyPlanDetailViewModel.planDetailModel.remainAmount = weakSelf.viewModel.planDetailModel.remainAmount;
     //递增金额
     BuyPlanDetailViewModel.planDetailModel.registerMultipleAmount = weakSelf.viewModel.planDetailModel.registerMultipleAmount;
     planBuyVC.planViewModel = BuyPlanDetailViewModel;
