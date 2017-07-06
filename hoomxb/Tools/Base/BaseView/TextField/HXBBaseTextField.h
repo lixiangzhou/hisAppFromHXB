@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
+/**
+ 左边一个textField
+ 右边一个button
+ 底部有一个lien
+ */
 @interface HXBBaseTextField : UIView
 
-@property (nonatomic,strong) UITextField *textField;
-@property (nonatomic,strong) UIButton *button;
-
+@property (nonatomic,strong,readonly) UITextField *textField;
+@property (nonatomic,strong,readonly) UIButton *button;
+@property (nonatomic,assign) BOOL isSecureTextEntry;
 /**
  
  左边textField，右边button
@@ -25,6 +29,8 @@
                andRightButtonW: (CGFloat) rightButtonWidth;
 
 - (void) lienColorWithRed:(CGFloat)red andGreen: (CGFloat)green andBlue: (CGFloat)blue andAlpha: (CGFloat)alpha;
-- (void)show;
+- (void) show;
+///点击事件的回调
+- (void) clickButtonWithBlock: (void (^)(UIButton *button,UITextField *textField))clickButton;
 @end
 

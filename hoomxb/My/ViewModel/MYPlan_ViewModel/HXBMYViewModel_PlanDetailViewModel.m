@@ -147,7 +147,7 @@ static NSString *kINVEST = @"INVEST";
                 break;
             case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:{
                 _isAddButtonHidden = true;
-                [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
+                [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
                     _statusInt = 3;
                     _status = typeUI;
                 }];

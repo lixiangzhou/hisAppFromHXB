@@ -239,8 +239,12 @@
         //向下拉
 //        BOOL isDown = oldContentOffset.y > newContentOffset.y;
 //        BOOL isScrollViewNotScroll = scrollView.contentSize.height < scrollView.frame.size.height;
-//        BOOL isTracking = scrollView.dragging && scrollView.tracking && !scrollView.decelerating;
+        BOOL isTracking = scrollView.dragging && scrollView.tracking && !scrollView.decelerating;
 //        BOOL isGreater = self.contentOffset.y > newContentOffset.y;
+        
+        if (self.contentOffset.y >= kToolBarViewOffsetTop.y - 1 && !isTracking) {
+            return;
+        }
         
         if (isDown && (newContentOffset.y <= 0)) {
             self.offsetY = 0;
@@ -252,6 +256,7 @@
         if (scrollView.contentSize.height < scrollView.frame.size.height) {
             CGPoint point = [scrollView.panGestureRecognizer translationInView:self];
             self.contentOffset = CGPointMake(0, -point.y + self.contentOffset.y);
+//            [scrollView.panGestureRecognizer setTranslation:CGPointMake(0, 0) inView:scrollView];
             self.offsetY = self.contentOffset.y;
         } else {
             self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);

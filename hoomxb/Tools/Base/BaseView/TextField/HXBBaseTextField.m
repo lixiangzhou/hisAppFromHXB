@@ -14,6 +14,7 @@
 @property (nonatomic,assign) CGFloat buttonWidth;
 @property (nonatomic,assign) CGFloat space;
 @property (nonatomic,assign) BOOL isDrawLine;
+@property (nonatomic,copy) void (^clickButton)(UIButton *button,UITextField *textField);
 @end
 
 @implementation HXBBaseTextField {
@@ -22,7 +23,13 @@
     CGFloat _blue;
     CGFloat _alpha;
 }
-
+- (void)setIsSecureTextEntry:(BOOL)isSecureTextEntry {
+    _isSecureTextEntry = isSecureTextEntry;
+    [self show];
+}
+- (void)clickButtonWithBlock: (void (^)(UIButton *button,UITextField *textField))clickButton {
+    self.clickButton = clickButton;
+}
 - (void)setTextFieldDelegate:(id<UITextFieldDelegate>)textFieldDelegate {
     self.textField.delegate = textFieldDelegate;
 }
@@ -41,6 +48,9 @@
 }
 
 - (void) show {
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
      [self setUP];
 }
 - (void) setUP {
@@ -49,10 +59,20 @@
 }
 
 - (void)creatViews {
-    self.textField = [[UITextField alloc]init];
-    self.button = [[UIButton alloc]init];
+    [self setValue: [[UITextField alloc]init] forKey:@"textField"];
+    [self setValue: [[UIButton alloc]init] forKey:@"button"];
     self.textField.returnKeyType = UIReturnKeyDone;
+    self.textField.secureTextEntry = self.isSecureTextEntry;
     [self.textField becomeFirstResponder];
+    [self.button addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+}
+- (void) clickButton: (UIButton *)button {
+    if (_isSecureTextEntry) {
+        self.textField.secureTextEntry = !self.textField.secureTextEntry;
+    }
+    if (self.clickButton) {
+        self.clickButton(button,self.textField);
+    }
 }
 
 - (void)layoutViews {
@@ -74,8 +94,6 @@
 
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
-    
-
     if (!self.isDrawLine) return;
     
     CGContextRef context = UIGraphicsGetCurrentContext();

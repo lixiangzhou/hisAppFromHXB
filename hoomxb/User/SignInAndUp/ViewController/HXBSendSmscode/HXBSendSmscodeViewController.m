@@ -109,7 +109,7 @@
             }];
         }else {
             [HXBSignUPAndLoginRequest signUPRequetWithMobile:weakSelf.phonNumber andSmscode:smscode andPassword:password andInviteCode:inviteCode andSuccessBlock:^{
-                 NSLog(@"密码设置成功");
+                 NSLog(@"注册设置成功");
                 [[KeyChainManage sharedInstance] setMobile:self.phonNumber];
                 [KeyChainManage sharedInstance].isLogin = true;
                 HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];

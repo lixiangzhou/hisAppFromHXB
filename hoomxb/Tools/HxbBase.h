@@ -24,7 +24,7 @@
 #import "HXBBaseView_MoreTopBottomView.h"///上下的view
 #import "HXBBaseView_TwoLable_View.h"//左右或上下的连着的view
 #import "UITableViewCell+HXBTableViewCell.h"///cell
-
+#import "HXBBaseTextField.h"///右边一个textField 右边一个
 //MARK: NSObject
 #import "HXBBaseHandDate.h"//关于时间处理的类
 #import "HXBServerAndClientTime.h"//与服务器时间协调

@@ -28,7 +28,7 @@
 }
 - (NSString *)time {
     if (!_time) {
-        _time = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.capitalRecordModel.time andDateFormat:@"yy-mm-dd hh:mm"];
+        _time = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.capitalRecordModel.time andDateFormat:@"yy-MM-dd HH:mm"];
     }
     return _time;
 }
