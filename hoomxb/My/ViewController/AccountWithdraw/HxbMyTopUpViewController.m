@@ -9,28 +9,32 @@
 #import "HxbMyTopUpViewController.h"
 #import "HxbSecurityCertificationViewController.h"
 #import "HxbBindCardViewController.h"
-
+#import "HXBMyTopUpBankView.h"
 @interface HxbMyTopUpViewController ()
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIButton *nextButton;
-@property (nonatomic, strong) MyTopUpBankView *mybankView;
+@property (nonatomic, strong) HXBMyTopUpBankView *mybankView;
 @end
 
 @implementation HxbMyTopUpViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"充值";
     [self.view addSubview:self.mybankView];
     [self.view addSubview:self.amountTextField];
     [self.view addSubview:self.nextButton];
     [self setCardViewFrame];
 }
 - (void)setCardViewFrame{
-    if (![KeyChain hasBindBankcard]) {
-        _mybankView.hidden = YES;
-        [_amountTextField setY:64];
-        [_nextButton setY:CGRectGetMaxY(_amountTextField.frame) + 20];
-    }
+    [KeyChain isBindCardWithBlock:^(NSString *isBindCard) {
+        if (![isBindCard isEqualToString:@"1"]) {
+            _mybankView.hidden = YES;
+            [_amountTextField setY:64];
+            [_nextButton setY:CGRectGetMaxY(_amountTextField.frame) + 20];
+        }
+    }];
+    
 }
 
 - (void)nextButtonClick:(UIButton *)sender{
@@ -59,10 +63,10 @@
    
 }
 
-- (MyTopUpBankView *)mybankView{
+- (HXBMyTopUpBankView *)mybankView{
     if (!_mybankView) {
-        _mybankView = [[MyTopUpBankView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 80)];
-        _mybankView.backgroundColor = COR11;
+        _mybankView = [[HXBMyTopUpBankView alloc]initWithFrame:CGRectMake(0, 84, SCREEN_WIDTH, 80)];
+        _mybankView.backgroundColor = COR12;
     }
     return _mybankView;
 }
@@ -85,62 +89,4 @@
 
 @end
 
-@interface MyTopUpBankView ()
-@property (nonatomic, strong) UIImageView *bankLogoImageView;
-@property (nonatomic, strong) UILabel *bankNameLabel;
-@property (nonatomic, strong) UILabel *bankCardNumLabel;
-@property (nonatomic, strong) UILabel *amountLimitLabel;
-@end
 
-@implementation MyTopUpBankView
-
-- (instancetype)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self addSubview:self.bankLogoImageView];
-        [self addSubview:self.bankNameLabel];
-        [self addSubview:self.bankCardNumLabel];
-        [self addSubview:self.amountLimitLabel];
-        [self setContentViewFrame];
-    }
-    return self;
-}
-
-- (void)setContentViewFrame{
-    [self.bankLogoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-     make.left.equalTo(self.mas_left).offset(20);
-     make.top.equalTo(self.mas_top).offset(100);
-     make.size.mas_equalTo(CGSizeMake(40, 40));
- }];
-    
-}
-
-- (UIImageView *)bankLogoImageView{
-    if (!_bankLogoImageView) {
-        _bankLogoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"zhaoshang"]];
-        _bankLogoImageView.backgroundColor = [UIColor redColor];
-    }
-    return _bankLogoImageView;
-}
-
-- (UILabel *)bankNameLabel{
-    if (!_bankNameLabel) {
-        
-    }
-    return _bankNameLabel;
-}
-
-- (UILabel *)bankCardNumLabel{
-    if (!_bankCardNumLabel) {
-        
-    }
-    return _bankCardNumLabel;
-}
-
-- (UILabel *)amountLimitLabel{
-    if (!_amountLimitLabel) {
-        
-    }
-    return _amountLimitLabel;
-}
-@end
