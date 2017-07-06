@@ -19,5 +19,8 @@
  */
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel;
 
-
+/**
+ 判断是否风险测评
+ */
++ (void)checkOutRiskAssessmentWithSuperVC:(UIViewController *)vc andWithPushBlock:(void(^)())pushBlock;
 @end

@@ -259,6 +259,15 @@
         return NO;
     }
 }
+
+///限制UITextfield两位小数的输入
++ (BOOL)checkBothDecimalPlaces: (NSString *)str
+{
+    NSString *regex = @"^\\-?([1-9]\\d*|0)(\\.\\d{0,2})?$";
+    NSPredicate *predicte = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [predicte evaluateWithObject:str];
+}
+
 /**
  密码不对的提示信息
 

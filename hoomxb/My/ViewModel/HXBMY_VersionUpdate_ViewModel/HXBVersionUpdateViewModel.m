@@ -14,9 +14,7 @@
 {
     _versionUpdateModel = versionUpdateModel;
     if ([versionUpdateModel.force isEqualToString:@"0"]) return;
-    
     UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"更新提示" message:versionUpdateModel.updateinfo preferredStyle:UIAlertControllerStyleAlert];
-    
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
         [[UIApplication sharedApplication] openURL:url];

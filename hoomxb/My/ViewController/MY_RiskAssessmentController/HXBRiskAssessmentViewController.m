@@ -27,6 +27,8 @@
         _webView.scalesPageToFit = YES;
         _webView.scrollView.showsHorizontalScrollIndicator = NO;
         _webView.scrollView.bounces = NO;
+        // UIWebView 滚动的比较慢，这里设置为正常速度
+        _webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
         [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kHXBH5_RiskEvaluationURL]]];
     }
     return _webView;

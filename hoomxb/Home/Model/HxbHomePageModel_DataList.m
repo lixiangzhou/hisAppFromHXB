@@ -32,22 +32,22 @@
 {
     switch ([unifyStatus integerValue]) {
         case 0:
-            return @"等待预售开始超过30分";
+            return @"等待开放";//等待预售开始超过30分
             break;
         case 1:
-            return @"等待预售开始小于30分钟";
+            return @"等待开放";//等待预售开始小于30分钟
             break;
         case 2:
-            return @"预定";
+            return @"预定";//预定
             break;
         case 3:
-            return @"预定满额";
+            return @"预定满额";//预定满额
             break;
         case 4:
-            return @"等待开放购买大于30分钟";
+            return @"等待开放";//等待开放购买大于30分钟
             break;
         case 5:
-            return @"等待开放购买小于30分钟";
+            return @"等待开放";//等待开放购买小于30分钟
             break;
         case 6:
             return @"开放加入";

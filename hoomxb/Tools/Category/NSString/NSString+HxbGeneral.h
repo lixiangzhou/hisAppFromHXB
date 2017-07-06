@@ -41,4 +41,6 @@
  @return  提示信息
  */
 + (NSString*)isOrNoPasswordStyle:(NSString *)passWordName;
+///限制UITextfield两位小数的输入
++ (BOOL)checkBothDecimalPlaces: (NSString *)str;
 @end

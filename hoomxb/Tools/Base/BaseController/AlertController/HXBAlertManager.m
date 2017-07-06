@@ -8,6 +8,11 @@
 
 #import "HXBAlertManager.h"
 #import "HXBVersionUpdateModel.h"
+
+#import "HxbSecurityCertificationViewController.h"
+#import "HXBSetGesturePasswordRequest.h"
+#import "HXBRiskAssessmentViewController.h"
+
 @implementation HXBAlertManager
 + (void)alertManager_loginAgainAlertWithView: (UIView *)view {
     UIViewController *vc = [self getCurrentViewControllerWithView:view];
@@ -62,6 +67,60 @@
         [alertController addAction:okAction];
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
     }
+}
+
+/**
+ 判断是否风险测评
+ */
++ (void)checkOutRiskAssessmentWithSuperVC:(UIViewController *)vc andWithPushBlock:(void(^)())pushBlock
+{
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        //判断是否安全认证
+        if([viewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"0"]) {
+            ///没有实名
+            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
+            securityCertificationVC.popToClass = NSStringFromClass([weakSelf class]);
+            [vc.navigationController pushViewController:securityCertificationVC animated:true];
+            return;
+        }
+        if ([viewModel.userInfoModel.userInfo.riskType isEqualToString:@"立即评测"]) {
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"您尚未进行风险评估，请评估后再进行投资" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"我是保守型" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                HXBSetGesturePasswordRequest *riskModifyScore = [[HXBSetGesturePasswordRequest alloc] init];
+                [riskModifyScore riskModifyScoreRequestWithScore:@"0" andSuccessBlock:^(id responseObject) {
+                    
+//                    [weakSelf enterLoanBuyViewController];
+                    if (pushBlock) {
+                        pushBlock();
+                    }
+                    
+                } andFailureBlock:^(NSError *error) {
+                    
+                }];
+                
+            }];
+            UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"立即评估" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                HXBRiskAssessmentViewController *riskAssessmentVC = [[HXBRiskAssessmentViewController alloc] init];
+                [vc.navigationController pushViewController:riskAssessmentVC animated:YES];
+            }];
+            
+            [alertController addAction:okAction];
+            [alertController addAction:cancalAction];
+            
+            [vc.navigationController presentViewController:alertController animated:YES completion:nil];
+        }else
+        {
+//            [weakSelf enterLoanBuyViewController];
+            if (pushBlock) {
+                pushBlock();
+            }
+            
+        }
+    } andFailure:^(NSError *error) {
+        
+    }];
 }
 
 

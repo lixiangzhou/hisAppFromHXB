@@ -42,6 +42,7 @@
     if (!_phoneTextField) {
         _phoneTextField = [[UITextField alloc] init];
         _phoneTextField.placeholder = @"新手机号";
+        _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _phoneTextField;
 }

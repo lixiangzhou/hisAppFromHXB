@@ -23,8 +23,7 @@
 #import "HXBFinDetailViewModel_LoanDetail.h"
 #import "HXBFin_Loan_BuyViewController.h"//加入界面
 
-#import "HxbSecurityCertificationViewController.h"//安全认证
-//#import "HXBFinDetailView"
+
 
 @interface HXBFinancing_LoanDetailsViewController ()
 
@@ -177,27 +176,21 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
-       
-        [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-            if(!isVerify.integerValue) {
-                ///没有实名
-                HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
-                securityCertificationVC.popToClass = NSStringFromClass([self class]);
-                [self.navigationController pushViewController:securityCertificationVC animated:true];
-                return;
-            }
-            //跳转加入界面
-            HXBFin_Loan_BuyViewController *loanJoinVC = [[HXBFin_Loan_BuyViewController alloc]init];
-            loanJoinVC.title = @"散标投资";
-            loanJoinVC.loanViewModel = weakSelf.loanDetailViewModel;
-            
-            loanJoinVC.availablePoint = _availablePoint;
-            [weakSelf.navigationController pushViewController:loanJoinVC animated:true];
+        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^{
+            [weakSelf enterLoanBuyViewController];
         }];
-        
     }];
 }
 
+- (void)enterLoanBuyViewController
+{
+    //跳转加入界面
+    HXBFin_Loan_BuyViewController *loanJoinVC = [[HXBFin_Loan_BuyViewController alloc]init];
+    loanJoinVC.title = @"散标投资";
+    loanJoinVC.loanViewModel = self.loanDetailViewModel;
+    loanJoinVC.availablePoint = _availablePoint;
+    [self.navigationController pushViewController:loanJoinVC animated:true];
+}
 
 //MARK: 网络数据请求
 - (void)downLoadData {

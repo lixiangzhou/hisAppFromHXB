@@ -14,7 +14,7 @@
 #import "HxbWithdrawResultViewController.h"
 #import "HXBAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
-@interface HxbWithdrawViewController ()
+@interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UILabel *availableBalanceLabel;
 @property (nonatomic, strong) UILabel *tipLabel;
@@ -177,9 +177,22 @@
         _amountTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(self.mybankView.frame) + 20, SCREEN_WIDTH - 40, 44)];
         _amountTextField.placeholder = @"请输入提现金额";
         _amountTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        _amountTextField.delegate = self;
     }
     return _amountTextField;
 }
+
+//参数一：range,要被替换的字符串的range，如果是新键入的那么就没有字符串被替换，range.lenth=0,第二个参数：替换的字符串，即键盘即将键入或者即将粘贴到textfield的string
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
+{
+    if (string.length == 0) {
+        return YES;
+    }
+    //第一个参数，被替换字符串的range，第二个参数，即将键入或者粘贴的string，返回的是改变过后的新str，即textfield的新的文本内容
+    NSString *checkStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    return [NSString checkBothDecimalPlaces:checkStr];
+}
+
 
 - (UIButton *)nextButton{
     if (!_nextButton) {
