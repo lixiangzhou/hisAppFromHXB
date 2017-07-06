@@ -13,6 +13,12 @@
 #import "HXBSetGesturePasswordRequest.h"
 #import "HXBRiskAssessmentViewController.h"
 
+@interface HXBAlertManager ()
+
+@property (nonatomic, strong) UIAlertController * alertController;
+
+@end
+
 @implementation HXBAlertManager
 + (void)alertManager_loginAgainAlertWithView: (UIView *)view {
     UIViewController *vc = [self getCurrentViewControllerWithView:view];
@@ -122,7 +128,43 @@
         
     }];
 }
+/**
+ 初始化警告视图
+ 
+ @param title title
+ @param message message
+ @return 创建的对象
+ */
++ (instancetype)alertViewWithTitle:(NSString *)title andMessage:(NSString *)message
+{
+    HXBAlertManager *alertManager =  [[self alloc] init];
+    alertManager.alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    return alertManager;
+}
+/**
+ 添加一个按钮
+ 
+ @param btnName 按钮的名字
+ @param handler 处理的事件
+ */
 
-
+- (void)addButtonWithBtnName:(NSString *)btnName andWitHandler:(void(^)())handler
+{
+    UIAlertAction *actionBtn = [UIAlertAction actionWithTitle:btnName style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (handler) {
+            handler();
+        }
+    }];
+    [self.alertController addAction:actionBtn];
+}
+/**
+ 显示
+ 
+ @param vc 显示在哪个VC
+ */
+- (void)showWithVC:(UIViewController *)vc
+{
+    [vc presentViewController:self.alertController animated:YES completion:nil];
+}
 
 @end
