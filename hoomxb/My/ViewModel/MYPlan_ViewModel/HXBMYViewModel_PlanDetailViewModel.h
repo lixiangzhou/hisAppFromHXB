@@ -25,6 +25,8 @@
  4: 表示已退出
  */
 @property (nonatomic,assign) int statusInt;
+///状态 （与账户外的一致）
+@property (nonatomic,assign) kHXBEnum_Fin_Plan_UnifyStatus unifyStatus;
 /**
  ///红利计划 的种类 （收益中还是退出中 还是已退出）
  */

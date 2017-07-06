@@ -12,6 +12,8 @@
 
 /// 我的 界面的 红利计划详情页的Model
 @interface HXBMYModel_PlanDetailModel : NSObject
+///对应的账户外的详情的状态 (能不能购买)
+@property (nonatomic,assign) kHXBEnum_Fin_Plan_UnifyStatus unifyStatus;
 ///
 @property (nonatomic,copy) NSString *remainAmount;
 ///用户的可投金额

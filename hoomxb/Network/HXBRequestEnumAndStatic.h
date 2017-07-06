@@ -21,7 +21,31 @@ return;\
 
 
 //MARK: ======================= 理财资产 界面 =======================
-
+/**计划状态*/
+typedef enum : NSUInteger {
+    /// 等待预售开始超过30分
+    kHXBEnum_Fin_Plan_UnifyStatus_0 = 0,
+    ///等待预售开始小于30分钟
+    kHXBEnum_Fin_Plan_UnifyStatus_1 = 1,
+    ///预定
+    kHXBEnum_Fin_Plan_UnifyStatus_2,
+    ///预定满额
+    kHXBEnum_Fin_Plan_UnifyStatus_3,
+    ///等待开放购买大于30分钟
+    kHXBEnum_Fin_Plan_UnifyStatus_4,
+    ///	等待开放购买小于30分钟 (立即加入)
+    kHXBEnum_Fin_Plan_UnifyStatus_5,
+    /// 开放加入
+    kHXBEnum_Fin_Plan_UnifyStatus_6,
+    /// 加入满额
+    kHXBEnum_Fin_Plan_UnifyStatus_7,
+    ///	收益中
+    kHXBEnum_Fin_Plan_UnifyStatus_8,
+    ///	开放期
+    kHXBEnum_Fin_Plan_UnifyStatus_9,
+    ///已退出
+    kHXBEnum_Fin_Plan_UnifyStatus_10
+} kHXBEnum_Fin_Plan_UnifyStatus;
 
 
 
