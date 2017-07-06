@@ -57,6 +57,7 @@
     self.planID = planListViewModel.planListModel.ID;
     [self.planListViewModel addObserver:self forKeyPath:@"countDownString" options:NSKeyValueObservingOptionNew context:nil];
 }
+
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"countDownString"]) {
         NSString *date = change[NSKeyValueChangeNewKey];
@@ -84,7 +85,8 @@
         viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
         viewModelVM.isUserInteractionEnabled   = weakSelf.planDetailViewModel.isAddButtonInteraction;
         viewModelVM.title                      = @"加入计划";
-    
+        viewModelVM.diffTime                   = weakSelf.planDetailViewModel.planDetailModel.diffTime;
+        viewModelVM.isCountDown                = weakSelf.planListViewModel.isCountDown;
         if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
         }
         return viewModelVM;

@@ -51,6 +51,11 @@ typedef enum : NSUInteger {
 }
 
 - (void)setCountDownString:(NSString *)countDownString {
+    if (!countDownString.integerValue) {
+        self.isHidden = true;
+    }else {
+        self.isHidden = false;
+    }
     _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm分ss秒"];
 }
 /**
@@ -91,6 +96,7 @@ typedef enum : NSUInteger {
 //            return @"等待开放购买大于30分钟";
         case 5:
 //            return @"等待开放购买小于30分钟";
+            _isCountDown = true;
             return @"等待加入";
         case 6:
             return @"立即加入";

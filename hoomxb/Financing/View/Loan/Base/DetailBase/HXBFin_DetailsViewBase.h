@@ -94,10 +94,12 @@
 @property (nonatomic,copy) NSString *lockPeriodStr;
 /// 倒计时时间
 @property (nonatomic,copy) NSString *countDownStr;
-
-/// 倒计时
+///剩余时间
 @property (nonatomic,copy) NSString *remainTime;
-
+/// 倒计时
+@property (nonatomic,copy) NSString *diffTime;
+///是否倒计时
+@property (nonatomic,assign) BOOL isCountDown;
 ///是否可以点击 addbutton
 @property (nonatomic,assign) BOOL isUserInteractionEnabled;
 - (void) addButtonChengeTitleChenge: (void(^)(NSString *title))addButtonChengeTitleBlock;

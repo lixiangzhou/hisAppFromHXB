@@ -133,8 +133,8 @@
 //MARK: 倒计时的重要传递
 - (void)setCountDownString:(NSString *)countDownString {
     _countDownString = countDownString;
-    [self.countDownLable setHidden:!countDownString.integerValue];
     self.countDownLable.text = countDownString;
+    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
 }
 - (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
     _lockPeriodLabel_ConstStr = lockPeriodLabel_ConstStr;
