@@ -52,6 +52,7 @@
     if (!_verificationCodeTextField) {
         _verificationCodeTextField = [[UITextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
+        _verificationCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _verificationCodeTextField;
 }

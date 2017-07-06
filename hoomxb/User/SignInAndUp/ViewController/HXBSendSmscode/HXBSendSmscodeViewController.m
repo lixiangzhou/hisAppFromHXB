@@ -112,6 +112,7 @@
                  NSLog(@"注册设置成功");
                 [[KeyChainManage sharedInstance] setMobile:self.phonNumber];
                 [KeyChainManage sharedInstance].isLogin = true;
+                KeyChain.ciphertext = @"0";
                 HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
                 [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
             } andFailureBlock:^(NSError *error) {

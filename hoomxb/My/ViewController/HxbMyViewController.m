@@ -107,8 +107,20 @@
 }
 ///充值
 - (void)didClickTopUpBtn:(UIButton *)sender{
-//    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-//    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    HXBAlertManager *alertManager = [HXBAlertManager alertViewWithTitle:@"" andMessage:@"红小宝与恒丰银行完成对接平台与用户资金安全隔离"];
+    
+    [alertManager addButtonWithBtnName:@"立即开通恒丰银行存管账户" andWitHandler:^{
+        NSLog(@"立即开通恒丰银行存管账户");
+        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    }];
+    
+    [alertManager addButtonWithBtnName:@"取消" andWitHandler:^{
+        
+    }];
+    
+    [alertManager showWithVC:self];
+    
 }
 /// 提现
 - (void)didClickWithdrawBtn:(UIButton *)sender{
