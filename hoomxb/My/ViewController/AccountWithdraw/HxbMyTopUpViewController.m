@@ -107,9 +107,9 @@
 }
 
 - (void)setContentViewFrame{
- [_bankLogoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.bankLogoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
      make.left.equalTo(self.mas_left).offset(20);
-     make.top.equalTo(self.mas_top).offset(20);
+     make.top.equalTo(self.mas_top).offset(100);
      make.size.mas_equalTo(CGSizeMake(40, 40));
  }];
     
@@ -118,7 +118,7 @@
 - (UIImageView *)bankLogoImageView{
     if (!_bankLogoImageView) {
         _bankLogoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"zhaoshang"]];
-        
+        _bankLogoImageView.backgroundColor = [UIColor redColor];
     }
     return _bankLogoImageView;
 }
