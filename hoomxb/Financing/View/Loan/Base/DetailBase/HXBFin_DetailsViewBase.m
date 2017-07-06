@@ -61,19 +61,48 @@
 @property (nonatomic,copy) void (^clickAddButtonBlock)();
 ///加入的button
 @property (nonatomic,strong) UIButton *addButton;
+///倒计时
+@property (nonatomic,copy) NSString *diffTime;
+/// 是否倒计时
+@property (nonatomic,assign) BOOL isContDown;
+
+///倒计时管理
+@property (nonatomic,strong) HXBBaseCountDownManager_lightweight *countDownManager;
 
 @end
 
 @implementation HXBFin_DetailsViewBase
 @synthesize viewModelVM = _viewModelVM;
-
+- (HXBBaseCountDownManager_lightweight *)countDownManager {
+    if (!_countDownManager) {
+        _countDownManager = [[HXBBaseCountDownManager_lightweight alloc]initWithCountDownEndTime:self.diffTime.floatValue /1000 andCountDownEndTimeType:HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType_Now andCountDownDuration:360000 andCountDownUnit:1];
+    }
+    return _countDownManager;
+}
+- (void)setIsContDown:(BOOL)isContDown {
+    _isContDown = isContDown;
+    if (isContDown) {
+        kWeakSelf
+        [self.countDownManager resumeTimer];
+    [self.countDownManager countDownCallBackFunc:^(CGFloat countDownValue) {
+        NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒"];
+        [weakSelf.addButton setTitle:str forState:UIControlStateNormal];
+        if (countDownValue < 0) {
+            [weakSelf.countDownManager stopTimer];
+        }
+    }];
+    }
+}
+- (void)setDiffTime:(NSString *)diffTime {
+    _diffTime = diffTime;
+}
 - (HXBFin_DetailsViewBase_ViewModelVM *) viewModelVM {
     if (!_viewModelVM) {
-        kWeakSelf
+//        kWeakSelf
         _viewModelVM = [[HXBFin_DetailsViewBase_ViewModelVM alloc]init];
-        [_viewModelVM addButtonChengeTitleChenge:^(NSString * buttonStr) {
-            [weakSelf.addButton setTitle:buttonStr forState:UIControlStateNormal];
-        }];
+//        [_viewModelVM addButtonChengeTitleChenge:^(NSString * buttonStr) {
+//            [weakSelf.addButton setTitle:buttonStr forState:UIControlStateNormal];
+//        }];
     }
     return _viewModelVM;
 }
@@ -82,7 +111,9 @@
 - (void)setUPViewModelVM: (HXBFin_DetailsViewBase_ViewModelVM* (^)(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM))detailsViewBase_ViewModelVMBlock {
     self.viewModelVM = detailsViewBase_ViewModelVMBlock(self.viewModelVM);
     ///倒计时
-    self.countDownLabel.text = _viewModelVM.remainTime;
+    self.diffTime = _viewModelVM.diffTime;
+    //是否倒计时
+    self.isContDown = _viewModelVM.isCountDown;
 }
 
 

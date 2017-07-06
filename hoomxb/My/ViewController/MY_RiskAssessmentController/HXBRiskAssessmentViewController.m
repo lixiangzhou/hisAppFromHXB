@@ -13,7 +13,6 @@
 @property (nonatomic, strong) UIWebView *webView;
 
 @property WebViewJavascriptBridge* bridge;
-
 @end
 
 @implementation HXBRiskAssessmentViewController
@@ -48,7 +47,13 @@
     /****** OC端注册一个方法 (测试)******/
     [_bridge registerHandler:@"riskEvaluation" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"testObjcCallback called: %@", data);
-        [weakSelf.navigationController popViewControllerAnimated:YES];
+        __block UIViewController *vc = nil;
+        [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [obj isKindOfClass:NSClassFromString(@"HxbAccountInfoViewController")];
+            vc = obj;
+            *stop = true;
+        }];
+        [weakSelf.navigationController popToViewController:vc animated:true];
     }];
 }
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
@@ -62,7 +67,7 @@
     // 判断请求头是否已包含，如果不判断该字段会导致webview加载时死循环
 
     if (requestHeaders[@"X-HxbAuth-Token"] && requestHeaders[@"User-Agent"]) {
-        
+
         return YES;
         
     } else {

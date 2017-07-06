@@ -16,7 +16,10 @@
 @property (nonatomic,copy) NSAttributedString *expectedYearRateAttributedStr;
 ///红利计划待出售状态
 @property (nonatomic,copy) NSString *unifyStatus;
-
+///是否隐藏倒计时
+@property (nonatomic,assign) BOOL isHidden;
+///是否需要倒计时
+@property (nonatomic,assign) BOOL isCountDown;
 ///倒计时的String
 @property (nonatomic,copy) NSString *countDownLastStr;
 ///储存倒计时时间的string

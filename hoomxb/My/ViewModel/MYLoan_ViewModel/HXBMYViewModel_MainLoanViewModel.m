@@ -35,7 +35,7 @@
         _toRepayCellValue = [NSString stringWithFormat:@"%ld%@",self.loanModel.interest.integerValue,@"%"];
        
         //如果为收益中 （下一还款日） ： 投标中（投资进度）
-        _nextRepayDateCellValue = [NSString stringWithFormat:@"%.2lf%@",self.loanModel.progress.floatValue,@"%"] ;
+        _nextRepayDateCellValue = [NSString stringWithFormat:@"%.0lf%@",self.loanModel.progress.floatValue,@"%"] ;
         
         ///如果为收益中 （已还期数） ： 投标中（期限）
         _goBackLoanTimeCellValue = [NSString stringWithFormat:@"期限  %@个月",self.loanModel.termsInTotal];

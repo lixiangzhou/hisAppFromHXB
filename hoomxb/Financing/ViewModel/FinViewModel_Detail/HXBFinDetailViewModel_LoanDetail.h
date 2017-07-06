@@ -57,7 +57,7 @@
  */
 @property (nonatomic,assign) BOOL isAddButtonEditing;
 /**
- 时间
+ 剩余时间
  */
 @property (nonatomic,copy) NSString *remainTime;
 @end

@@ -35,7 +35,7 @@ typedef enum : NSUInteger {
  * @param countDownEndTime 停止时间
  * @param endTimeCompareType 倒计时停止时间是基于 哪个时间节点，默认1970
  * @param countDownDuration 倒计时时长
- * @param countDownUnint 倒计时单位
+ * @param countDownUnint 倒计时单位 秒为单位
  */
 - (instancetype) initWithCountDownEndTime: (CGFloat)countDownEndTime
                   andCountDownEndTimeType: (HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType) endTimeCompareType

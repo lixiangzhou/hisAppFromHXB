@@ -11,6 +11,8 @@
 ///红利计划详情页ViewModel
 @interface HXBFinDetailViewModel_PlanDetail : NSObject
 @property (nonatomic,strong) HXBFinDetailModel_PlanDetail *planDetailModel;
+///倒计时时间
+@property (nonatomic,copy) NSString *diffTime;
 ///String	单笔加入上线
 @property (nonatomic,copy) NSString *singleMaxRegisterAmount;
 ///String	开始销售时间
@@ -42,7 +44,8 @@
 @property (nonatomic,copy) NSString *addButtonStr;
 /// 倒计时的 string
 @property (nonatomic,copy) NSString *countDownStr;
-
+///是否倒计时
+@property (nonatomic,assign) BOOL isContDown;
 ///加入按钮是否置灰
 @property (nonatomic,assign) BOOL isAddButtonInteraction;
 

@@ -16,6 +16,8 @@ typedef void(^block) (NSString *countDownValue);
 @property (nonatomic,strong) dispatch_queue_t countDownManager_lightweightQueue;
 
 @property (nonatomic,strong) dispatch_source_t timer;
+///类型
+@property (nonatomic,assign) HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType type;
 ///定时单位
 @property (nonatomic,assign) CGFloat countDownUnit;
 ///定时结束时间
@@ -59,9 +61,11 @@ typedef void(^block) (NSString *countDownValue);
 
 {
     if (self = [super init]) {
+        self.type = endTimeCompareType;
         self.countDownEndTime = countDownEndTime;
         self.countDownDuration = countDownDuration;
         self.countDownUnit = countDownUnint;
+        self.isAutoStopTimer = true;
     }
     return self;
 }
@@ -99,7 +103,17 @@ typedef void(^block) (NSString *countDownValue);
 
 - (void)setUP {
     //当前在子线程
-    CGFloat actualDuration = self.countDownEndTime - self.countDownResumeTime;
+    CGFloat actualDuration = 0.0;
+    switch (self.type) {
+        case HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType_Now:
+            actualDuration = self.countDownEndTime --;
+            break;
+        case HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType_1970:
+            actualDuration = self.countDownEndTime - self.countDownResumeTime;
+            break;
+        default:
+            break;
+    }
     if (actualDuration <= self.countDownDuration) {
         self.countDownValue =  actualDuration;
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -107,8 +121,11 @@ typedef void(^block) (NSString *countDownValue);
                 self.countDownCallBack(self.countDownValue);
             }
         });
+        return;
     }
-    if (self.isAutoStopTimer && self.countDownValue <= 0) [self stopTimer];
+    if (self.isAutoStopTimer && self.countDownValue < 0) {
+        [self stopTimer];
+    }
 }
 
 ///countDown 回调

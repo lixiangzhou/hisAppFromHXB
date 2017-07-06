@@ -163,6 +163,7 @@
         case 5:
 //            self.addButtonStr = @"等待开放购买小于30分钟";
             self.isAddButtonInteraction = false;
+            self.isContDown = true;
             self.addButtonStr = @"等待加入";
             break;
         case 6:
