@@ -34,6 +34,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         ///退出登录
         [KeyChainManage sharedInstance].isLogin = false;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
 //        [[KeyChainManage sharedInstance] signOut];
     }];
     
