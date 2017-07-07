@@ -176,6 +176,7 @@
         [weakSelf pushLoanListCellViewControllerWithModel:[model mutableCopy]];
     }];
 }
+
 - (void)pushLoanListCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanList *)model {
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
     loanDetailsVC.loanID = model.loanListModel.loanId;
