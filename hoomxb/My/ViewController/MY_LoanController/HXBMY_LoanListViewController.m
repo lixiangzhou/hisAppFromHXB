@@ -60,8 +60,9 @@ kDealloc
 
 /// userinfo 数据请求
 - (void)assetStatisticsLoadData {
+    kWeakSelf
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        self.loanListView.userInfoViewModel = viewModel;
+        weakSelf.loanListView.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
         
     }];
@@ -82,14 +83,14 @@ kDealloc
     } andFailureBlock:^(NSError *error) {
         
     }];
-    
+    kWeakSelf
     ///这里面没有产生循环引用 block里面不能用weakSelf
     [[HXBMYRequest sharedMYRequest] myLoan_requestWithLoanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MainLoanViewModel *> *viewModelArray) {
         //数据的分发
-        [self handleViewModelArrayWithViewModelArray:viewModelArray];
-        [self.loanListView endRefresh];
+        [weakSelf handleViewModelArrayWithViewModelArray:viewModelArray];
+        [weakSelf.loanListView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        [self.loanListView endRefresh];
+        [weakSelf.loanListView endRefresh];
     }];
 }
 ///网络数据请求数据处理
@@ -149,7 +150,7 @@ kDealloc
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:false];
     } andUPBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:true];
-        [self assetStatisticsLoadData];
+        [weakSelf assetStatisticsLoadData];
     }];
 }
 - (void) refresh_repying {
@@ -158,7 +159,7 @@ kDealloc
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:false];
     } andUPBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
-        [self assetStatisticsLoadData];
+        [weakSelf assetStatisticsLoadData];
     }];
 }
 

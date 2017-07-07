@@ -17,7 +17,9 @@ NSString *const a = @"tong";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-
+    HXBBaseTextField *textField  = [[HXBBaseTextField alloc]initWithFrame:self.view.frame andBottomLienSpace:0 andBottomLienHeight:2 andRightButtonW:2];
+    [self.view addSubview:textField];
+    textField.isSecureTextEntry = true;
 }
 
 

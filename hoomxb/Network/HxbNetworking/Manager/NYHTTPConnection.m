@@ -41,7 +41,7 @@
 
 @property (strong, nonatomic) NSMutableDictionary<NSNumber *, NSURLSessionTask *> *dispatchTable;
 
-//@property (nonatomic, strong) HxbHTTPSessionManager *manager;
+@property (nonatomic, strong) HxbHTTPSessionManager *manager;
 @end
 
 @implementation NYHTTPConnection
@@ -66,21 +66,25 @@
     }];
     return headers;
 }
-
+- (void)cancelStak {
+    [self.manager.operationQueue cancelAllOperations];
+}
 //配置及处理sessionManager
 - (void)connectWithRequest:(NYBaseRequest *)request success:(ConnectionSuccessBlock)success failure:(ConnectionFailureBlock)failure
 {
     self.success = success;
     self.failture = failure;
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelStak) name:kHXBNotification_StopAllRequest object:nil];
     HxbHTTPSessionManager *manager = [HxbHTTPSessionManager manager];
+    
 //-------------------------------------------request----------------------------------------
 //    if (request.requestSerializerType == NYRequestSerializerTypeHTTP) {
         manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    self.manager = manager;
 //    }else if (request.requestSerializerType == NYRequestSerializerTypeJson){
 //        manager.requestSerializer = [AFJSONRequestSerializer serializer];
 //    }
-
+    NSLog(@"manager = %@",manager);
     manager.requestSerializer.timeoutInterval = request.timeoutInterval ?: Config.defaultTimeOutInterval ?: 30;
     
     NSDictionary *headers = [self headerFieldsValueWithRequest:request];
@@ -232,5 +236,8 @@
     }
     return _dispatchTable;
 }
-
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 @end

@@ -20,6 +20,7 @@ extern NSString *const kHXBNotification_ShowMYVC_PlanList;
 extern NSString *const kHXBBotification_ShowCaptchaVC;
 extern NSString *const kHXBNotification_ShowMyVC;
 extern NSString *const kHXBBotification_ShowHomeVC;
+extern NSString *const kHXBNotification_StopAllRequest;
 @interface HxbNotificationMacros : NSObject
 
 @end

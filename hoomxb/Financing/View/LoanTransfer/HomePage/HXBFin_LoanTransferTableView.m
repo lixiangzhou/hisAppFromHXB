@@ -7,7 +7,8 @@
 //
 
 #import "HXBFin_LoanTransferTableView.h"
-
+#import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
+#import "HXBFin_TableViewCell_LoanTransfer.h"
 static NSString *const kcellClass = @"HXBFin_TableViewCell_LoanTransfer";
 
 
@@ -35,6 +36,7 @@ UITableViewDelegate,UITableViewDataSource
     
     [self registerClass:NSClassFromString(kcellClass) forCellReuseIdentifier:kcellClass];
     self.tableFooterView = [[UIView alloc]init];
+    self.rowHeight = 80;
 }
 
 #pragma mark - tableViewDelegate
@@ -53,7 +55,9 @@ UITableViewDelegate,UITableViewDataSource
     return 100;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kcellClass forIndexPath:indexPath];
+    HXBFin_TableViewCell_LoanTransfer *cell = [tableView dequeueReusableCellWithIdentifier:kcellClass forIndexPath:indexPath];
+    HXBFinHomePageViewModel_LoanTruansferViewModel *viewModel = [[HXBFinHomePageViewModel_LoanTruansferViewModel alloc]init];
+    cell.LoanTruansferViewModel = viewModel;
     return cell;
 }
 

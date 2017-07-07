@@ -32,7 +32,7 @@
     }else if (self.status.integerValue == 2){
         
         ///   如果是收益中（待收本息） ： 投标中（利率）
-        _toRepayCellValue = [NSString stringWithFormat:@"%ld%@",self.loanModel.interest.integerValue,@"%"];
+        _toRepayCellValue = [NSString stringWithFormat:@"%.2lf%@",self.loanModel.interest.floatValue,@"%"];
        
         //如果为收益中 （下一还款日） ： 投标中（投资进度）
         _nextRepayDateCellValue = [NSString stringWithFormat:@"%.0lf%@",self.loanModel.progress.floatValue,@"%"] ;

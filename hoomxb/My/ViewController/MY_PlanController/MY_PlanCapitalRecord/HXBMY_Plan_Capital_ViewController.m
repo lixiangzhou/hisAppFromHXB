@@ -14,7 +14,7 @@ static NSString *const cellID = @"cellID";
 @interface HXBMY_Plan_Capital_ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *planCapitalTableView;
 
-@property (nonatomic,strong) NSMutableArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *dataArray;
+@property (nonatomic,strong) NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *dataArray;
 @property (nonatomic,strong) UIView *topView;
 @property (nonatomic,strong) HXBMYRequest *request;
 @end
@@ -24,10 +24,10 @@ static NSString *const cellID = @"cellID";
 @implementation HXBMY_Plan_Capital_ViewController
 
 @synthesize dataArray = _dataArray;
-//- (void)setDataArray:(NSMutableArray <HXBMY_PlanViewModel_LoanRecordViewModel *>*)dataArray {
-//    _dataArray = dataArray;
-//    [self.planCapitalTableView reloadData];
-//}
+- (void)setDataArray:(NSMutableArray <HXBMY_PlanViewModel_LoanRecordViewModel *>*)dataArray {
+    _dataArray = dataArray;
+    [self.planCapitalTableView reloadData];
+}
 
 - (HXBMYRequest *)request {
     if (!_request) {
@@ -35,9 +35,9 @@ static NSString *const cellID = @"cellID";
     }
     return _request;
 }
-- (NSMutableArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *)dataArray {
+- (NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *)dataArray {
     if (!_dataArray) {
-        _dataArray = [[NSMutableArray alloc]init];
+        _dataArray = [[NSArray alloc]init];
     }
     return _dataArray;
 }
@@ -118,10 +118,8 @@ static NSString *const cellID = @"cellID";
 - (void)downLoadWithIsUPLoad: (BOOL)isUPLoad {
     kWeakSelf
     [self.request loanRecord_my_Plan_WithIsUPData: isUPLoad andPlanID:self.planID andSuccessBlock:^(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *viewModelArray) {
-        [weakSelf.dataArray addObjectsFromArray:viewModelArray];
-        
-        [weakSelf.planCapitalTableView reloadData];
-        [weakSelf.planCapitalTableView endRefresh];
+        weakSelf.dataArray= viewModelArray;
+       
     } andFailureBlock:^(NSError *error) {
         [weakSelf.planCapitalTableView endRefresh];
     }];

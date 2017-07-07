@@ -1,5 +1,5 @@
 //
-//  HXBFin_TableViewCell_LoanTransfer.h
+//  HXBFin_LoanTransferTableView.h
 //  hoomxb
 //
 //  Created by HXB on 2017/7/1.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HXBFin_TableViewCell_LoanTransfer : HXBBaseTableViewCell
+@interface HXBFin_LoanTransferTableView : HXBBaseTableView
 
 @end

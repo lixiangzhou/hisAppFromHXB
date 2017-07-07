@@ -118,6 +118,7 @@ static NSString *kINVEST = @"INVEST";
  */
 - (NSString *)status {
     if (!_status) {
+        _isAddButtonHidden = true;
         switch ([HXBEnumerateTransitionManager myPlan_requestTypeStr:self.planDetailModel.type]) {
             case HXBRequestType_MY_PlanRequestType_EXIT_PLAN: {
                 //已经退出
@@ -134,12 +135,11 @@ static NSString *kINVEST = @"INVEST";
                         ///受益中
                         _statusInt = 2;
                         _status = [NSString stringWithFormat:@"距离退出%@天",self.planDetailModel.lastDays];
-                        _isAddButtonHidden = true;
                     }
                     if ([self.planDetailModel.status isEqualToString:MY_PlanResponsType_PURCHASEING_Plan]) {
                         ///等待计息
                         _statusInt = 1;
-                        self.isAddButtonHidden = false;
+//                        self.isAddButtonHidden = false;
                         _status = typeUI;
                     }
                 }];
@@ -147,7 +147,7 @@ static NSString *kINVEST = @"INVEST";
                 break;
             case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:{
                 _isAddButtonHidden = true;
-                [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
+                [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
                     _statusInt = 3;
                     _status = typeUI;
                 }];
@@ -155,8 +155,18 @@ static NSString *kINVEST = @"INVEST";
                 
                 break;
         }
+        if (self.planDetailModel.unifyStatus == kHXBEnum_Fin_Plan_UnifyStatus_6) {
+            _isAddButtonHidden = false;
+        }
     }
     return _status;
+}
+
+/**
+ 状态
+ */
+- (kHXBEnum_Fin_Plan_UnifyStatus)unifyStatus {
+    return self.planDetailModel.unifyStatus;
 }
 
 /**

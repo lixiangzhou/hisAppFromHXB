@@ -117,7 +117,6 @@
 }
 
 
-
 - (void)setViewModelVM:(HXBFin_DetailsViewBase_ViewModelVM *)viewModelVM {
     _viewModelVM = viewModelVM;
     self.totalInterestStr           = viewModelVM.totalInterestStr;

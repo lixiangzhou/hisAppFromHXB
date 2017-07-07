@@ -114,6 +114,18 @@
              [HxbHUDProgress showTextWithMessage:message];
              return;
          }
+         ///查看是否大于上线
+         NSString *str = nil;
+         if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
+             str = weakSelf.planViewModel.planDetailModel.userRemainAmount;
+         }else {
+             str = weakSelf.planViewModel.planDetailModel.remainAmount;
+         }
+         /// 加入上线  为0
+         if (!str.floatValue) {
+             [HxbHUDProgress showTextWithMessage:@"提示信息为加入金额已达上限" andView:self.view];
+         }
+         
          //判断是否安全认证
          kWeakSelf
          [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {

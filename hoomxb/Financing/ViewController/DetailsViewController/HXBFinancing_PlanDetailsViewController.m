@@ -191,7 +191,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
-        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^{
+        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^{
             [weakSelf enterPlanBuyViewController];
         }];
     }];
@@ -224,15 +224,19 @@
 - (void)downLoadData {
     __weak typeof (self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
-        weakSelf.planDetailViewModel = viewModel;
-        weakSelf.planDetailsView.modelArray = weakSelf.tableViewModelArray;
-        [weakSelf.hxbBaseVCScrollView endRefresh];
+        self.planDetailViewModel = viewModel;
+        self.planDetailsView.modelArray = weakSelf.tableViewModelArray;
+        [self.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        [weakSelf.hxbBaseVCScrollView endRefresh];
+        [self.hxbBaseVCScrollView endRefresh];
     }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_StopAllRequest object:nil];
 }
 @end

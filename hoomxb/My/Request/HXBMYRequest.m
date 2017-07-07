@@ -30,6 +30,7 @@
 #import "HXBMYModel_Plan_planRequestModel.h"///plan 账户内计划资产
 #import "HXBMYModel_Loan_LoanRequestModel.h"/// loan 账户内散标资产
 
+
 @interface HXBMYRequest ()
 ///planAPI
 @property (nonatomic,strong) HXBBaseRequest *planListAPI;
@@ -65,6 +66,10 @@
 @property (nonatomic,strong) HXBBaseRequest *capitalRecordAPI;
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainCapitalRecordViewModel *>*capitalRecordViewModel_array;
 @property (nonatomic,assign) NSInteger capitalRecordPage;
+
+///投资记录
+@property (nonatomic,strong) NSMutableArray <HXBMY_PlanViewModel_LoanRecordViewModel *> *planLoanRecordViewModel_array;
+@property (nonatomic,assign) NSInteger planLoanRecordPage;
 @end
 
 
@@ -148,7 +153,20 @@
     }
     return _capitalRecordPage;
 }
+- (NSInteger)planLoanRecordPage {
+    if (_planLoanRecordPage < 1) {
+        _planLoanRecordPage = 1;
+    }
+    return _planLoanRecordPage;
+}
 
+//资产统计
+- (NSMutableArray <HXBMY_PlanViewModel_LoanRecordViewModel *> *)planLoanRecordViewModel_array {
+    if (!_planLoanRecordViewModel_array) {
+        _planLoanRecordViewModel_array = [[NSMutableArray alloc]init];
+    }
+    return _planLoanRecordViewModel_array;
+}
 #pragma mark - 主要页面的网络请求
 
 ///MARK: - 资金统计网络请求
@@ -484,28 +502,41 @@
     loanRecordAPI.requestUrl = kHXBFin_loanRecordURL(planID);
     
     loanRecordAPI.isUPReloadData = isUPData;
+    if (isUPData) {
+        self.planLoanRecordPage = 1;
+    }
     loanRecordAPI.requestMethod = NYRequestMethodGet;
     loanRecordAPI.requestArgument = @{
-                                    @"page" : @(loanRecordAPI.dataPage).description,
+                                    @"page" : @(self.planLoanRecordPage).description,
                                       };
     [loanRecordAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         
-        if (responseObject[kResponseStatus]) {
+        if (![responseObject[kResponseStatus] integerValue]) {
             NSLog(@"%@",self);
+            if (failureBlock) {
+                failureBlock(nil);
+            }
         }
         NSArray <NSDictionary *>*dataArray = responseObject[kResponseData][@"dataList"];
         NSMutableArray <HXBMY_PlanViewModel_LoanRecordViewModel *>*viewModelArray = [[NSMutableArray alloc]init];
-        HXBMY_PlanModel_LoanRecordModel *planModel = [[HXBMY_PlanModel_LoanRecordModel alloc]init];
+       
         [dataArray enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            HXBMY_PlanModel_LoanRecordModel *planModel = [[HXBMY_PlanModel_LoanRecordModel alloc]init];
             [planModel yy_modelSetWithDictionary:obj];
             HXBMY_PlanViewModel_LoanRecordViewModel *loanRecordViewModel = [[HXBMY_PlanViewModel_LoanRecordViewModel alloc]init];
             
             loanRecordViewModel.planLoanRecordModel = planModel;
             [viewModelArray addObject:loanRecordViewModel];
         }];
+        if (request.isUPReloadData) {
+            [self.planLoanRecordViewModel_array removeAllObjects];
+            
+        }
+        [self.planLoanRecordViewModel_array addObjectsFromArray:viewModelArray];
         
         if (successDateBlock) {
-            successDateBlock(viewModelArray.copy);
+            self.planLoanRecordPage ++;
+            successDateBlock(_planLoanRecordViewModel_array.copy);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         

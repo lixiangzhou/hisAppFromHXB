@@ -139,6 +139,7 @@
             return;
         }
         
+        
         //判断是否安全认证
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
