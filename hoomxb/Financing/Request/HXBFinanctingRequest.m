@@ -255,11 +255,11 @@
 #define kHXBFinanc_PlanDetaileURL(planID) [NSString stringWithFormat:@"/plan/%ld",(planID)]
 #pragma mark - 详情页 数据请求
 - (void)planDetaileWithPlanID: (NSString *)financePlanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_PlanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
+    HXBBaseRequest *planDetaileAPI = [[HXBBaseRequest alloc]init];
+    planDetaileAPI.requestUrl = kHXBFinanc_PlanDetaileURL(financePlanId.integerValue);
+    planDetaileAPI.requestMethod = NYRequestMethodGet;
     
-    self.planDetaileAPI.requestUrl = kHXBFinanc_PlanDetaileURL(financePlanId.integerValue);
-    self.planDetaileAPI.requestMethod = NYRequestMethodGet;
-    
-    [self.planDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [planDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         ///数据是否出错
         NSString *status = responseObject[kResponseStatus];
         if (status.integerValue) {

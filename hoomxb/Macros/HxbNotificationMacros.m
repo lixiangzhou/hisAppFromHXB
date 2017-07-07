@@ -16,3 +16,7 @@ NSString *const kHXBNotification_ShowMYVC_PlanList = @"kHXBNotification_ShowMYVC
 NSString *const kHXBBotification_ShowCaptchaVC = @"kHXBBotification_ShowCaptchaVC";
 NSString *const kHXBNotification_ShowMyVC = @"kHXBNotification_ShowMyVC";
 NSString *const kHXBBotification_ShowHomeVC = @"kHXBBotification_ShowHomeVC";
+
+
+///停止请求
+NSString *const kHXBNotification_StopAllRequest = @"kHXBNotification_StopAllRequest";
