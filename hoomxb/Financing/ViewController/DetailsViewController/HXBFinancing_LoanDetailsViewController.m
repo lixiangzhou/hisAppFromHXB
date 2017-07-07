@@ -176,7 +176,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
-        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^{
+        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^{
             [weakSelf enterLoanBuyViewController];
         }];
     }];

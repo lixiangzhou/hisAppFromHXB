@@ -160,7 +160,7 @@
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0]]) {
             HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc]init];
             detail_DetailPlanVC.planDetailModel = weakSelf.planDetailViewModel;
-            [weakSelf.navigationController pushViewController:detail_DetailPlanVC animated:true];
+            [self.navigationController pushViewController:detail_DetailPlanVC animated:true];
         }
     
         ///  加入记录
@@ -224,19 +224,15 @@
 - (void)downLoadData {
     __weak typeof (self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
-        self.planDetailViewModel = viewModel;
-        self.planDetailsView.modelArray = weakSelf.tableViewModelArray;
-        [self.hxbBaseVCScrollView endRefresh];
+        weakSelf.planDetailViewModel = viewModel;
+        weakSelf.planDetailsView.modelArray = weakSelf.tableViewModelArray;
+        [weakSelf.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        [self.hxbBaseVCScrollView endRefresh];
+        [weakSelf.hxbBaseVCScrollView endRefresh];
     }];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_StopAllRequest object:nil];
 }
 @end
