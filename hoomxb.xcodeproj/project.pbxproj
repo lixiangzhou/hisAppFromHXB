@@ -256,8 +256,6 @@
 		E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E18330AB1EF23D75009807A9 /* HXBKeyBoardManager.m */; };
 		E18B68A81EC9D3D80047E458 /* HXBMainListView_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B68A71EC9D3D80047E458 /* HXBMainListView_Plan.m */; };
 		E18B68AB1EC9D7230047E458 /* HXBMainListView_Plan_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B68AA1EC9D7230047E458 /* HXBMainListView_Plan_TopView.m */; };
-		E18CF0C91F078D97004F7998 /* HXBFin_LoanTransferTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E18CF0C81F078D97004F7998 /* HXBFin_LoanTransferTableView.m */; };
-		E18CF0CD1F078E8B004F7998 /* HXBFin_TableViewCell_LoanTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = E18CF0CC1F078E8B004F7998 /* HXBFin_TableViewCell_LoanTransfer.m */; };
 		E18CF0D01F07931B004F7998 /* UITableViewCell+HXBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E18CF0CF1F07931B004F7998 /* UITableViewCell+HXBTableViewCell.m */; };
 		E1B0F4861EC492160071246F /* HXBFinAddRecordVC_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B0F4851EC492160071246F /* HXBFinAddRecordVC_Plan.m */; };
 		E1B0F4891EC492980071246F /* HXBFinAddRecortdVC_Loan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B0F4881EC492980071246F /* HXBFinAddRecortdVC_Loan.m */; };
@@ -313,6 +311,13 @@
 		E1FBADB71EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADB61EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m */; };
 		E1FBADBD1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADBA1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m */; };
 		E1FBADBE1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADBC1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m */; };
+		E1FF8ED81F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FF8EC91F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m */; };
+		E1FF8ED91F0F66A100C7F1AC /* HXBFin_LoanTruansfer_AddTrustworthinessView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FF8ECC1F0F66A100C7F1AC /* HXBFin_LoanTruansfer_AddTrustworthinessView.m */; };
+		E1FF8EDA1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetail_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FF8ECE1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetail_TopView.m */; };
+		E1FF8EDB1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FF8ED01F0F66A100C7F1AC /* HXBFin_LoanTruansferDetailView.m */; };
+		E1FF8EDC1F0F66A100C7F1AC /* HXBFin_TableViewCell_LoanTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FF8ED41F0F66A100C7F1AC /* HXBFin_TableViewCell_LoanTransfer.m */; };
+		E1FF8EDD1F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FF8ED61F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m */; };
+		E1FF8EE01F0F675900C7F1AC /* HXBFinHomePageViewModel_LoanTruansferViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FF8EDF1F0F675900C7F1AC /* HXBFinHomePageViewModel_LoanTruansferViewModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -831,10 +836,6 @@
 		E18B68A71EC9D3D80047E458 /* HXBMainListView_Plan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMainListView_Plan.m; sourceTree = "<group>"; };
 		E18B68A91EC9D7230047E458 /* HXBMainListView_Plan_TopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMainListView_Plan_TopView.h; sourceTree = "<group>"; };
 		E18B68AA1EC9D7230047E458 /* HXBMainListView_Plan_TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMainListView_Plan_TopView.m; sourceTree = "<group>"; };
-		E18CF0C71F078D97004F7998 /* HXBFin_LoanTransferTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanTransferTableView.h; sourceTree = "<group>"; };
-		E18CF0C81F078D97004F7998 /* HXBFin_LoanTransferTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanTransferTableView.m; sourceTree = "<group>"; };
-		E18CF0CB1F078E8B004F7998 /* HXBFin_TableViewCell_LoanTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_TableViewCell_LoanTransfer.h; sourceTree = "<group>"; };
-		E18CF0CC1F078E8B004F7998 /* HXBFin_TableViewCell_LoanTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_TableViewCell_LoanTransfer.m; sourceTree = "<group>"; };
 		E18CF0CE1F07931B004F7998 /* UITableViewCell+HXBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+HXBTableViewCell.h"; sourceTree = "<group>"; };
 		E18CF0CF1F07931B004F7998 /* UITableViewCell+HXBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+HXBTableViewCell.m"; sourceTree = "<group>"; };
 		E1B0F4841EC492160071246F /* HXBFinAddRecordVC_Plan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinAddRecordVC_Plan.h; sourceTree = "<group>"; };
@@ -945,6 +946,20 @@
 		E1FBADBC1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancing_PlanDetailsViewController.m; sourceTree = "<group>"; };
 		E1FDF6281EC329F100FF98AC /* HXBFinancting_LoanListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancting_LoanListTableView.h; sourceTree = "<group>"; };
 		E1FDF6291EC329F100FF98AC /* HXBFinancting_LoanListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancting_LoanListTableView.m; sourceTree = "<group>"; };
+		E1FF8EC81F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanTransferTableView.h; sourceTree = "<group>"; };
+		E1FF8EC91F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanTransferTableView.m; sourceTree = "<group>"; };
+		E1FF8ECB1F0F66A100C7F1AC /* HXBFin_LoanTruansfer_AddTrustworthinessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanTruansfer_AddTrustworthinessView.h; sourceTree = "<group>"; };
+		E1FF8ECC1F0F66A100C7F1AC /* HXBFin_LoanTruansfer_AddTrustworthinessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanTruansfer_AddTrustworthinessView.m; sourceTree = "<group>"; };
+		E1FF8ECD1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetail_TopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanTruansferDetail_TopView.h; sourceTree = "<group>"; };
+		E1FF8ECE1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetail_TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanTruansferDetail_TopView.m; sourceTree = "<group>"; };
+		E1FF8ECF1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanTruansferDetailView.h; sourceTree = "<group>"; };
+		E1FF8ED01F0F66A100C7F1AC /* HXBFin_LoanTruansferDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanTruansferDetailView.m; sourceTree = "<group>"; };
+		E1FF8ED31F0F66A100C7F1AC /* HXBFin_TableViewCell_LoanTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_TableViewCell_LoanTransfer.h; sourceTree = "<group>"; };
+		E1FF8ED41F0F66A100C7F1AC /* HXBFin_TableViewCell_LoanTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_TableViewCell_LoanTransfer.m; sourceTree = "<group>"; };
+		E1FF8ED51F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanTransferTableView.h; sourceTree = "<group>"; };
+		E1FF8ED61F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanTransferTableView.m; sourceTree = "<group>"; };
+		E1FF8EDE1F0F675900C7F1AC /* HXBFinHomePageViewModel_LoanTruansferViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinHomePageViewModel_LoanTruansferViewModel.h; sourceTree = "<group>"; };
+		E1FF8EDF1F0F675900C7F1AC /* HXBFinHomePageViewModel_LoanTruansferViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinHomePageViewModel_LoanTruansferViewModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2378,6 +2393,8 @@
 				E163142E1EC0761C0090567E /* HXBFinHomePageViewModel_LoanList.m */,
 				E163142F1EC0761C0090567E /* HXBFinHomePageViewModel_PlanList.h */,
 				E16314301EC0761C0090567E /* HXBFinHomePageViewModel_PlanList.m */,
+				E1FF8EDE1F0F675900C7F1AC /* HXBFinHomePageViewModel_LoanTruansferViewModel.h */,
+				E1FF8EDF1F0F675900C7F1AC /* HXBFinHomePageViewModel_LoanTruansferViewModel.m */,
 			);
 			path = FinViewModel_HomePage;
 			sourceTree = "<group>";
@@ -2619,20 +2636,12 @@
 		E18CF0C61F078D35004F7998 /* LoanTransfer */ = {
 			isa = PBXGroup;
 			children = (
-				E18CF0C71F078D97004F7998 /* HXBFin_LoanTransferTableView.h */,
-				E18CF0C81F078D97004F7998 /* HXBFin_LoanTransferTableView.m */,
-				E18CF0CA1F078E64004F7998 /* HXBFin_LoanTransferCell */,
+				E1FF8EC81F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.h */,
+				E1FF8EC91F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m */,
+				E1FF8ECA1F0F66A100C7F1AC /* Detail */,
+				E1FF8ED11F0F66A100C7F1AC /* HomePage */,
 			);
 			path = LoanTransfer;
-			sourceTree = "<group>";
-		};
-		E18CF0CA1F078E64004F7998 /* HXBFin_LoanTransferCell */ = {
-			isa = PBXGroup;
-			children = (
-				E18CF0CB1F078E8B004F7998 /* HXBFin_TableViewCell_LoanTransfer.h */,
-				E18CF0CC1F078E8B004F7998 /* HXBFin_TableViewCell_LoanTransfer.m */,
-			);
-			path = HXBFin_LoanTransferCell;
 			sourceTree = "<group>";
 		};
 		E1975FB91EA776FA00A0123F /* BaseObject */ = {
@@ -3140,6 +3149,38 @@
 			path = AddRecord;
 			sourceTree = "<group>";
 		};
+		E1FF8ECA1F0F66A100C7F1AC /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				E1FF8ECB1F0F66A100C7F1AC /* HXBFin_LoanTruansfer_AddTrustworthinessView.h */,
+				E1FF8ECC1F0F66A100C7F1AC /* HXBFin_LoanTruansfer_AddTrustworthinessView.m */,
+				E1FF8ECD1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetail_TopView.h */,
+				E1FF8ECE1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetail_TopView.m */,
+				E1FF8ECF1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetailView.h */,
+				E1FF8ED01F0F66A100C7F1AC /* HXBFin_LoanTruansferDetailView.m */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		E1FF8ED11F0F66A100C7F1AC /* HomePage */ = {
+			isa = PBXGroup;
+			children = (
+				E1FF8ED21F0F66A100C7F1AC /* HXBFin_LoanTransferCell */,
+				E1FF8ED51F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.h */,
+				E1FF8ED61F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m */,
+			);
+			path = HomePage;
+			sourceTree = "<group>";
+		};
+		E1FF8ED21F0F66A100C7F1AC /* HXBFin_LoanTransferCell */ = {
+			isa = PBXGroup;
+			children = (
+				E1FF8ED31F0F66A100C7F1AC /* HXBFin_TableViewCell_LoanTransfer.h */,
+				E1FF8ED41F0F66A100C7F1AC /* HXBFin_TableViewCell_LoanTransfer.m */,
+			);
+			path = HXBFin_LoanTransferCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3361,6 +3402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4E9127551EFA69FB007F8C13 /* HXBFinModel_BuyResoult_PlanModel.m in Sources */,
+				E1FF8EDA1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetail_TopView.m in Sources */,
 				E1CD4BD61ED83156000CC57B /* HXBBaseAdvertiseViewController.m in Sources */,
 				4E94B27A1ECC1B3D003CCBA7 /* HXBMY_PlanListViewController.m in Sources */,
 				4E94B2791ECC1B23003CCBA7 /* HXBBaseView_MYList_TableViewCell.m in Sources */,
@@ -3368,6 +3410,7 @@
 				4E94B2781ECC1B13003CCBA7 /* HXBBaseTableView_MYPlanList_TableView.m in Sources */,
 				E133DCED1EEE3597009466DE /* HXBSign_InAndUPViewModel.m in Sources */,
 				4EB45DAB1EF7ACCE00C2CF21 /* HXBHomeTitleModel.m in Sources */,
+				E1FF8EDD1F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m in Sources */,
 				E166C5961F03D6C200AA14F4 /* HXBMY_PlanModel_LoanRecordModel.m in Sources */,
 				E1CD4BD21ED83064000CC57B /* HXBBaseHandDate.m in Sources */,
 				E1625B2E1EFBE63000FE9ABF /* HXBBaseView_HaveLabel_TopBottomView.m in Sources */,
@@ -3421,6 +3464,7 @@
 				E1757B041EFA3E57009C0BC8 /* HXBFinModel_Buy_LoanModel.m in Sources */,
 				E10EB4B81EEFE06F00F16CFA /* HxbMyAboutMeViewController.m in Sources */,
 				E165EAAD1EF8E77500D68763 /* HXBRechargeView.m in Sources */,
+				E1FF8EDB1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetailView.m in Sources */,
 				E18B68AB1EC9D7230047E458 /* HXBMainListView_Plan_TopView.m in Sources */,
 				4E9982401F022A6400CABA59 /* HXBWithdrawalsRequest.m in Sources */,
 				E1270B3B1ECED23F00729BC9 /* HXBMYViewModel_PlanDetailViewModel.m in Sources */,
@@ -3446,7 +3490,6 @@
 				E13A53451F0A44E1002C3416 /* HXBMy_Plan_Swipe.m in Sources */,
 				E1B0F4861EC492160071246F /* HXBFinAddRecordVC_Plan.m in Sources */,
 				4E94B2861ECC2ED2003CCBA7 /* HxbHomePageViewModel_dataList.m in Sources */,
-				E18CF0C91F078D97004F7998 /* HXBFin_LoanTransferTableView.m in Sources */,
 				E165EA971EF8E69000D68763 /* HXBFin_JoinimmediateView_Loan.m in Sources */,
 				E16314321EC0761C0090567E /* HXBFinHomePageViewModel_PlanList.m in Sources */,
 				E1CC035C1ECAD2AD00121D21 /* HXBRequestType_MYManager.m in Sources */,
@@ -3462,6 +3505,7 @@
 				4E81E3FE1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m in Sources */,
 				4E886FB71EF916A30056086E /* HXBGesturePasswordViewController.m in Sources */,
 				E16314431EC076F40090567E /* HXBFinDetailModel_PlanDetail.m in Sources */,
+				E1FF8ED91F0F66A100C7F1AC /* HXBFin_LoanTruansfer_AddTrustworthinessView.m in Sources */,
 				4E739B571F0A356A000A4D1E /* HXBVersionUpdateRequest.m in Sources */,
 				E133DCE71EEE3597009466DE /* HxbPhoneVerifyViewController.m in Sources */,
 				E165EABA1EF8E82F00D68763 /* HXBFin_Plan_BuyViewController.m in Sources */,
@@ -3494,6 +3538,7 @@
 				E122D8581EA0CAB900DC71ED /* UIScreen+Hxb.m in Sources */,
 				E129A00B1F0625FA0051ADA0 /* HXBAlertManager.m in Sources */,
 				E133DCE01EEE3597009466DE /* HXBSignUPAndLoginRequest_EnumManager.m in Sources */,
+				E1FF8ED81F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m in Sources */,
 				E1C964761EA5E04F0066DBC4 /* HXBBaseViewController.m in Sources */,
 				E1CD4BDA1ED85266000CC57B /* PYFullScreenGesturePOPManager.m in Sources */,
 				4E8198AC1EC44BCE00D668A1 /* HXBHomePageHeadView.m in Sources */,
@@ -3506,6 +3551,7 @@
 				E165EAA81EF8E74600D68763 /* HXBFinBase_FlowChartView.m in Sources */,
 				E16017671EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.m in Sources */,
 				E133DCE61EEE3597009466DE /* HXBCheckCaptchaViewController.m in Sources */,
+				E1FF8EE01F0F675900C7F1AC /* HXBFinHomePageViewModel_LoanTruansferViewModel.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E122D85A1EA0CAB900DC71ED /* UIImageView+HxbSDWebImage.m in Sources */,
 				E12800F91F023AB40066FB66 /* HXBCode.m in Sources */,
@@ -3583,7 +3629,6 @@
 				E10EB4BE1EEFE0B500F16CFA /* HxbMyTopUpViewController.m in Sources */,
 				E165EA9B1EF8E6D500D68763 /* HXBJoinImmediateView.m in Sources */,
 				4EB45DA51EF7A2BF00C2CF21 /* HxbHomeRequest_dataList.m in Sources */,
-				E18CF0CD1F078E8B004F7998 /* HXBFin_TableViewCell_LoanTransfer.m in Sources */,
 				4E9345541EFE102500D2886B /* HXBModifyPhoneView.m in Sources */,
 				E1270B251ECED07100729BC9 /* HXBMY_PlanList_DetailViewController.m in Sources */,
 				4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */,
@@ -3618,6 +3663,7 @@
 				E165EA9F1EF8E71100D68763 /* HXBFin_DetailsView_LoanDetailsView.m in Sources */,
 				E1270B531ECED31F00729BC9 /* HXBMYModel_CapitalRecordDetailModel.m in Sources */,
 				4E8198B21EC4502100D668A1 /* BulletinsModel.m in Sources */,
+				E1FF8EDC1F0F66A100C7F1AC /* HXBFin_TableViewCell_LoanTransfer.m in Sources */,
 				E133DCDB1EEE3597009466DE /* HXBLoginManager.m in Sources */,
 				4E5003371F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m in Sources */,
 				4E8AAEA01F0B866C00655544 /* HXBSetGesturePasswordRequest.m in Sources */,
