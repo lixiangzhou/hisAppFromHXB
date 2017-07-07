@@ -48,19 +48,11 @@
     _planAddButton = planAddButton;
 }
 
-
 - (void)setPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)planListViewModel {
     _planListViewModel = planListViewModel;
     self.planID = planListViewModel.planListModel.ID;
-    [self.planListViewModel addObserver:self forKeyPath:@"countDownString" options:NSKeyValueObservingOptionNew context:nil];
 }
 
-- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"countDownString"]) {
-        NSString *date = change[NSKeyValueChangeNewKey];
-        self.planDetailVM.addButtonStr = date;
-    }
-}
 ///设置值
 - (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
     kWeakSelf
@@ -160,7 +152,7 @@
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0]]) {
             HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc]init];
             detail_DetailPlanVC.planDetailModel = weakSelf.planDetailViewModel;
-            [self.navigationController pushViewController:detail_DetailPlanVC animated:true];
+            [weakSelf.navigationController pushViewController:detail_DetailPlanVC animated:true];
         }
     
         ///  加入记录
@@ -224,11 +216,11 @@
 - (void)downLoadData {
     __weak typeof (self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
-        weakSelf.planDetailViewModel = viewModel;
-        weakSelf.planDetailsView.modelArray = weakSelf.tableViewModelArray;
-        [weakSelf.hxbBaseVCScrollView endRefresh];
+        self.planDetailViewModel = viewModel;
+        self.planDetailsView.modelArray = self.tableViewModelArray;
+        [self.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        [weakSelf.hxbBaseVCScrollView endRefresh];
+        [self.hxbBaseVCScrollView endRefresh];
     }];
 }
 

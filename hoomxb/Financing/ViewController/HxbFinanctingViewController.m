@@ -151,7 +151,7 @@
 }
 //MARK: - 点击了红利计划列表页的 cell
 - (void) clickPlanListCell {
-    __weak typeof(self) weakSelf = self;
+    __weak typeof(self)weakSelf = self;
     [self.homePageView setClickPlanListCellBlock:^(NSIndexPath *index, HXBFinHomePageViewModel_PlanList *model) {
         [weakSelf pushPlanDetailsViewControllerWithModel:model];
     }];
@@ -173,7 +173,7 @@
 - (void) clickLoanListCell {
     __weak typeof (self) weakSelf = self;
     [self.homePageView setClickLoanListCellBlock:^(NSIndexPath *index, id model) {
-        [weakSelf pushLoanListCellViewControllerWithModel:model];
+        [weakSelf pushLoanListCellViewControllerWithModel:[model mutableCopy]];
     }];
 }
 - (void)pushLoanListCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanList *)model {
