@@ -173,7 +173,7 @@
 - (void) clickLoanListCell {
     __weak typeof (self) weakSelf = self;
     [self.homePageView setClickLoanListCellBlock:^(NSIndexPath *index, id model) {
-        [weakSelf pushLoanListCellViewControllerWithModel:[model mutableCopy]];
+        [weakSelf pushLoanListCellViewControllerWithModel:model];
     }];
 }
 

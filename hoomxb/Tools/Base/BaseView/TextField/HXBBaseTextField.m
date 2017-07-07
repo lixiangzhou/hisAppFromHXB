@@ -43,6 +43,7 @@
         self.space = space;
         self.buttonWidth = rightButtonWidth;
         self.backgroundColor = [UIColor whiteColor];
+        [self creatViews];
     }
     return self;
 }
@@ -54,7 +55,6 @@
      [self setUP];
 }
 - (void) setUP {
-    [self creatViews];
     [self layoutViews];
 }
 
@@ -98,11 +98,12 @@
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, nil, self.space, self.frame.size.height - self.lienHeight);
-    CGPathAddLineToPoint(path, nil, self.frame.size.width - self.space, self.frame.size.height - self.lienHeight);
+    CGPathMoveToPoint(path, nil, self.space, self.frame.size.height - self.lienHeight/2.0);
+    CGPathAddLineToPoint(path, nil, self.frame.size.width - self.space, self.frame.size.height - self.lienHeight/2.0);
     CGContextAddPath(context, path);
     CGContextSetLineWidth(context, self.lienHeight);
-    CGContextSetRGBFillColor(context, _red, _green, _blue, _alpha);
+    CGContextSetRGBStrokeColor(context, _red, _green, _blue, _alpha);
+    CGContextDrawPath(context, kCGPathStroke);
 }
 
 - (void) lienColorWithRed:(CGFloat)red andGreen: (CGFloat)green andBlue: (CGFloat)blue andAlpha: (CGFloat)alpha {
