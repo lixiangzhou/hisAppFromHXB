@@ -243,5 +243,6 @@
     CGFloat arr[] = {3,1};
     //下面最后一个参数“2”代表排列的个数。
     CGContextSetLineDash(currentContext, 0, arr, 2);
-    CGContextDrawPath(currentContext, kCGPathStroke); }
+    CGContextDrawPath(currentContext, kCGPathStroke);
+}
 @end

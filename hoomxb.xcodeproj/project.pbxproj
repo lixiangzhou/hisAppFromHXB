@@ -17,6 +17,7 @@
 		4E294F241EB9E73A007D5042 /* HxbMyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E294F231EB9E73A007D5042 /* HxbMyView.m */; };
 		4E35C6C71F0E46DA0022C8E6 /* HXBMyTopUpBankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E35C6C61F0E46DA0022C8E6 /* HXBMyTopUpBankView.m */; };
 		4E35C6CA1F0E47CB0022C8E6 /* HXBMyTopUpHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E35C6C91F0E47CB0022C8E6 /* HXBMyTopUpHeaderView.m */; };
+		4E35C6CD1F0E660D0022C8E6 /* HXBMyTopUpBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E35C6CC1F0E660D0022C8E6 /* HXBMyTopUpBaseView.m */; };
 		4E3C1D031EA6286400C8BD36 /* HxbWelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E3C1D021EA6286400C8BD36 /* HxbWelcomeView.m */; };
 		4E422CAC1EA736F700C0EB62 /* HxbNotificationMacros.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E422CAB1EA736F700C0EB62 /* HxbNotificationMacros.m */; };
 		4E422CB41EA7386900C0EB62 /* HxbMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E422CB31EA7386900C0EB62 /* HxbMyViewController.m */; };
@@ -81,6 +82,9 @@
 		4E94B2861ECC2ED2003CCBA7 /* HxbHomePageViewModel_dataList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B2851ECC2ED2003CCBA7 /* HxbHomePageViewModel_dataList.m */; };
 		4E94B28D1ECC4973003CCBA7 /* NSAttributedString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B28C1ECC4973003CCBA7 /* NSAttributedString+Util.m */; };
 		4E94B2901ECC49D2003CCBA7 /* HXBHomePageProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B28F1ECC49D2003CCBA7 /* HXBHomePageProductCell.m */; };
+		4E94E3791F0F5E2500746973 /* HXBBindBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E3781F0F5E2500746973 /* HXBBindBankCardViewController.m */; };
+		4E94E37C1F0F619400746973 /* HXBCardholderInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E37B1F0F619400746973 /* HXBCardholderInformationView.m */; };
+		4E94E3821F0F63D300746973 /* HXBWithdrawCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E3811F0F63D300746973 /* HXBWithdrawCardView.m */; };
 		4E9982401F022A6400CABA59 /* HXBWithdrawalsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99823F1F022A6400CABA59 /* HXBWithdrawalsRequest.m */; };
 		4E9982471F02677B00CABA59 /* HXBAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9982461F02677B00CABA59 /* HXBAlertVC.m */; };
 		4E99824D1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99824A1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m */; };
@@ -356,6 +360,8 @@
 		4E35C6C61F0E46DA0022C8E6 /* HXBMyTopUpBankView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyTopUpBankView.m; sourceTree = "<group>"; };
 		4E35C6C81F0E47CB0022C8E6 /* HXBMyTopUpHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMyTopUpHeaderView.h; sourceTree = "<group>"; };
 		4E35C6C91F0E47CB0022C8E6 /* HXBMyTopUpHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyTopUpHeaderView.m; sourceTree = "<group>"; };
+		4E35C6CB1F0E660D0022C8E6 /* HXBMyTopUpBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMyTopUpBaseView.h; sourceTree = "<group>"; };
+		4E35C6CC1F0E660D0022C8E6 /* HXBMyTopUpBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyTopUpBaseView.m; sourceTree = "<group>"; };
 		4E3C1D011EA6286400C8BD36 /* HxbWelcomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbWelcomeView.h; sourceTree = "<group>"; };
 		4E3C1D021EA6286400C8BD36 /* HxbWelcomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbWelcomeView.m; sourceTree = "<group>"; };
 		4E3C1D111EA6446600C8BD36 /* HxbThirdTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxbThirdTools.h; sourceTree = "<group>"; };
@@ -468,6 +474,12 @@
 		4E94B28C1ECC4973003CCBA7 /* NSAttributedString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Util.m"; sourceTree = "<group>"; };
 		4E94B28E1ECC49D2003CCBA7 /* HXBHomePageProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBHomePageProductCell.h; sourceTree = "<group>"; };
 		4E94B28F1ECC49D2003CCBA7 /* HXBHomePageProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBHomePageProductCell.m; sourceTree = "<group>"; };
+		4E94E3771F0F5E2500746973 /* HXBBindBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBindBankCardViewController.h; sourceTree = "<group>"; };
+		4E94E3781F0F5E2500746973 /* HXBBindBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBindBankCardViewController.m; sourceTree = "<group>"; };
+		4E94E37A1F0F619400746973 /* HXBCardholderInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCardholderInformationView.h; sourceTree = "<group>"; };
+		4E94E37B1F0F619400746973 /* HXBCardholderInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCardholderInformationView.m; sourceTree = "<group>"; };
+		4E94E3801F0F63D300746973 /* HXBWithdrawCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawCardView.h; sourceTree = "<group>"; };
+		4E94E3811F0F63D300746973 /* HXBWithdrawCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawCardView.m; sourceTree = "<group>"; };
 		4E99823E1F022A6400CABA59 /* HXBWithdrawalsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawalsRequest.h; sourceTree = "<group>"; };
 		4E99823F1F022A6400CABA59 /* HXBWithdrawalsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawalsRequest.m; sourceTree = "<group>"; };
 		4E9982451F02677B00CABA59 /* HXBAlertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAlertVC.h; sourceTree = "<group>"; };
@@ -1056,10 +1068,14 @@
 		4E35C6C41F0E46C50022C8E6 /* MyTopUpBankView */ = {
 			isa = PBXGroup;
 			children = (
+				4E35C6CB1F0E660D0022C8E6 /* HXBMyTopUpBaseView.h */,
+				4E35C6CC1F0E660D0022C8E6 /* HXBMyTopUpBaseView.m */,
 				4E35C6C51F0E46DA0022C8E6 /* HXBMyTopUpBankView.h */,
 				4E35C6C61F0E46DA0022C8E6 /* HXBMyTopUpBankView.m */,
 				4E35C6C81F0E47CB0022C8E6 /* HXBMyTopUpHeaderView.h */,
 				4E35C6C91F0E47CB0022C8E6 /* HXBMyTopUpHeaderView.m */,
+				4E94E37A1F0F619400746973 /* HXBCardholderInformationView.h */,
+				4E94E37B1F0F619400746973 /* HXBCardholderInformationView.m */,
 			);
 			path = MyTopUpBankView;
 			sourceTree = "<group>";
@@ -1561,6 +1577,8 @@
 				E10EB4AA1EEFDFE800F16CFA /* HxbWithdrawResultViewController.m */,
 				4EB5598A1F03422F00146D62 /* HXBBankCardListViewController.h */,
 				4EB5598B1F03422F00146D62 /* HXBBankCardListViewController.m */,
+				4E94E3771F0F5E2500746973 /* HXBBindBankCardViewController.h */,
+				4E94E3781F0F5E2500746973 /* HXBBindBankCardViewController.m */,
 			);
 			path = accountCard;
 			sourceTree = "<group>";
@@ -2903,6 +2921,8 @@
 			children = (
 				E1D048551EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.h */,
 				E1D048541EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.m */,
+				4E94E3801F0F63D300746973 /* HXBWithdrawCardView.h */,
+				4E94E3811F0F63D300746973 /* HXBWithdrawCardView.m */,
 			);
 			path = HXBAccountView;
 			sourceTree = "<group>";
@@ -3406,6 +3426,7 @@
 				4E886FC41EF91EBA0056086E /* HXBCircleInfoView.m in Sources */,
 				E1CD4BCC1ED83064000CC57B /* KeyChainManage.m in Sources */,
 				4E886FCD1EF940010056086E /* HXBModifyGesturePasswordController.m in Sources */,
+				4E94E37C1F0F619400746973 /* HXBCardholderInformationView.m in Sources */,
 				E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */,
 				E129A0171F0630460051ADA0 /* SwipeTableView.m in Sources */,
 				E1D7883E1EC32AE000566AC1 /* HXBFinancting_LoanListTableView.m in Sources */,
@@ -3459,6 +3480,7 @@
 				E165EAB91EF8E82F00D68763 /* HXBFinBuy_Loan_ViewController.m in Sources */,
 				E1270B361ECED1F300729BC9 /* HXBMYViewModel_MainCapitalRecordViewModel.m in Sources */,
 				E1270B371ECED1F300729BC9 /* HXBMYViewModel_MainLoanViewModel.m in Sources */,
+				4E94E3821F0F63D300746973 /* HXBWithdrawCardView.m in Sources */,
 				E10EB4B41EEFE04400F16CFA /* HxbMyAccountSecurityViewController.m in Sources */,
 				E1757B001EFA3E1B009C0BC8 /* HXBFinModel_Buy_Plan.m in Sources */,
 				E13A53451F0A44E1002C3416 /* HXBMy_Plan_Swipe.m in Sources */,
@@ -3467,6 +3489,7 @@
 				E18CF0C91F078D97004F7998 /* HXBFin_LoanTransferTableView.m in Sources */,
 				E165EA971EF8E69000D68763 /* HXBFin_JoinimmediateView_Loan.m in Sources */,
 				E16314321EC0761C0090567E /* HXBFinHomePageViewModel_PlanList.m in Sources */,
+				4E35C6CD1F0E660D0022C8E6 /* HXBMyTopUpBaseView.m in Sources */,
 				E1CC035C1ECAD2AD00121D21 /* HXBRequestType_MYManager.m in Sources */,
 				E17509C01EC6F38900E17B39 /* HXBFinContract_contraceWebViewVC_Loan.m in Sources */,
 				E10EB4AC1EEFDFE800F16CFA /* HxbWithdrawCardViewController.m in Sources */,
@@ -3582,6 +3605,7 @@
 				E17509B61EC6E22600E17B39 /* HXBFinPlanContract_ContractWebView.m in Sources */,
 				E133DCE51EEE3597009466DE /* HXBSignUPRealnameView.m in Sources */,
 				E1270B591ECED38200729BC9 /* HXBMYViewModel_LoanDetailViewModel.m in Sources */,
+				4E94E3791F0F5E2500746973 /* HXBBindBankCardViewController.m in Sources */,
 				4E422CAC1EA736F700C0EB62 /* HxbNotificationMacros.m in Sources */,
 				4E422CB41EA7386900C0EB62 /* HxbMyViewController.m in Sources */,
 				4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */,
