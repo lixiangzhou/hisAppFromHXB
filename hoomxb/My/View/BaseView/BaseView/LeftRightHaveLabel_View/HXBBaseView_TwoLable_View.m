@@ -25,12 +25,12 @@
 }
 - (void) setUP_TwoViewVMFunc: (HXBBaseView_TwoLable_View_ViewModel *(^)(HXBBaseView_TwoLable_View_ViewModel *viewModelVM))setUP_ToViewViewVMBlock {
     self.ViewVM = setUP_ToViewViewVMBlock(self.ViewVM);
+    
     [self setUPViewValue];
 }
 
 - (void)setViewModelVM:(HXBBaseView_TwoLable_View_ViewModel *)ViewVM {
     _ViewVM = ViewVM;
-    
 }
 
 
