@@ -19,8 +19,8 @@
 #define kScreenAdaptation_Height_7 (kScreenHeight/667.0)
 #define kScreenAdaptation_Width_7 (kScreenWidth/375.0)
 
-#define kScreenAdaptation_Width_7P (kScreenHeight/736.0)
-#define kScreenAdaptation_Height_7P (kScreenWidth/414.0)
+//#define kScreenAdaptation_Width_7P (kScreenHeight/736.0)
+//#define kScreenAdaptation_Height_7P (kScreenWidth/414.0)
 
 
 //所有的都用这个，如果改就直接改成7p或者添加别的

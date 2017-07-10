@@ -48,19 +48,11 @@
     _planAddButton = planAddButton;
 }
 
-
 - (void)setPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)planListViewModel {
     _planListViewModel = planListViewModel;
     self.planID = planListViewModel.planListModel.ID;
-    [self.planListViewModel addObserver:self forKeyPath:@"countDownString" options:NSKeyValueObservingOptionNew context:nil];
 }
 
-- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"countDownString"]) {
-        NSString *date = change[NSKeyValueChangeNewKey];
-        self.planDetailVM.addButtonStr = date;
-    }
-}
 ///设置值
 - (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
     kWeakSelf
@@ -225,7 +217,7 @@
     __weak typeof (self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
         self.planDetailViewModel = viewModel;
-        self.planDetailsView.modelArray = weakSelf.tableViewModelArray;
+        self.planDetailsView.modelArray = self.tableViewModelArray;
         [self.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
         [self.hxbBaseVCScrollView endRefresh];
@@ -234,9 +226,5 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_StopAllRequest object:nil];
 }
 @end

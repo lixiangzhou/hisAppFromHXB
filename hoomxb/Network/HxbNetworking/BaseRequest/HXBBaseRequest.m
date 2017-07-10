@@ -8,10 +8,22 @@
 
 #import "HXBBaseRequest.h"
 #import "NYNetworkManager.h"
+#import "NYHTTPConnection.h"
 @interface HXBBaseRequest ()
 
 @end
 @implementation HXBBaseRequest
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cancelRequest:) name:kHXBNotification_StopAllRequest object:nil];
+    }
+    return self;
+}
+- (void)cancelRequest : (NSNotification *)noit {
+    [self.connection.task cancel];
+}
 - (NSMutableDictionary *)infoDic {
     if (!_infoDic) {
         _infoDic = [[NSMutableDictionary alloc]init];
