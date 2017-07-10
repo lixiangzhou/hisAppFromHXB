@@ -89,10 +89,14 @@
     [self.leftLabel sizeToFit];
 }
 - (void)setUPViewValue {
-    self.leftLabel.text =   _ViewVM.leftLabelStr;
-    self.rightLabel.text = _ViewVM.rightLabelStr;
-    self.leftLabel.textAlignment = _ViewVM.leftLabelAlignment;
-    self.rightLabel.textAlignment = _ViewVM.rightLabelAlignment;
+    self.leftLabel.text             = _ViewVM.leftLabelStr;
+    self.rightLabel.text            = _ViewVM.rightLabelStr;
+    self.leftLabel.textAlignment    = _ViewVM.leftLabelAlignment;
+    self.rightLabel.textAlignment   = _ViewVM.rightLabelAlignment;
+    self.leftLabel.textColor        = _ViewVM.leftViewColor;
+    self.rightLabel.textColor       = _ViewVM.rightViewColor;
+    self.leftLabel.font             = _ViewVM.leftFont;
+    self.rightLabel.font            = _ViewVM.rightFont;
 }
 @end
 
