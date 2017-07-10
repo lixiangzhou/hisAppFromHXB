@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "HXBFinHomePageModel_LoanTruansferList.h"
 @interface HXBFinHomePageViewModel_LoanTruansferViewModel : NSObject
-
+@property (nonatomic,strong) HXBFinHomePageModel_LoanTruansferList *loanTruansferListModel;
 @end

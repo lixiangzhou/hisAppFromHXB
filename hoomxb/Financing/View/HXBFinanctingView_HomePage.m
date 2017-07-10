@@ -14,6 +14,8 @@
 #import "HXBFinancing_PlanDetailsViewController.h"//红利详情页
 #import "HXBFinHomePageViewModel_PlanList.h"//红利计划的Viewmodel
 #import "HXBFinancting_PlanListTableViewCell.h"//红利计划的cell
+#import "HXBFin_LoanTransferTableView.h"//债转
+
 
 @interface HXBFinanctingView_HomePage()
 //ScrollToolBarView
@@ -28,6 +30,8 @@
 @property (nonatomic,strong) HXBFinancting_PlanListTableView *planListTableView;
 //bottomViewArray里面的散标列表View
 @property (nonatomic,strong) HXBFinancting_LoanListTableView *loanListTableView;
+//债转
+@property (nonatomic,strong) HXBFin_LoanTransferTableView *loanTruansferTableView;
 @end
 
 @implementation HXBFinanctingView_HomePage
@@ -71,7 +75,7 @@
 
 
 - (void)setupSubView {
-    self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表"];
+    self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表",@"债权转让"];
     
     
 //设置toolBarVie
@@ -106,11 +110,13 @@
     [self setupPlanListTableView];
     //散标列表
     [self setupLoanListTableView];
-    
+    //债权
+    [self setUPLoanTransferTableView];
 
     self.bottomViewArray = @[
                              self.planListTableView,
-                             self.loanListTableView
+                             self.loanListTableView,
+                             self.loanTruansferTableView
                             ];
 }
 
@@ -182,7 +188,18 @@
 
 //MARK: 债转
 - (void)setUPLoanTransferTableView {
-    
+    self.loanTruansferTableView = [[HXBFin_LoanTransferTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+
+    //上拉刷新，下拉加载
+    [self.loanTruansferTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+//        if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
+    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+    }];
+    [self.loanTruansferTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+//        if (weakSelf.loanRefreshHeaderBlock) weakSelf.loanRefreshHeaderBlock();
+    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
+        
+    }];
 }
 
 //搭建ScrollToolBarView

@@ -13,18 +13,17 @@
 @interface HXBBaseView_TwoLable_View ()
 @property (nonatomic,strong) UILabel *leftLabel;
 @property (nonatomic,strong) UILabel *rightLabel;
-@property (nonatomic,strong) HXBBaseView_TwoLable_View_ViewModel *ViewVM;
 @end
 @implementation HXBBaseView_TwoLable_View
 
 - (void) setUP_TwoViewVMFunc: (HXBBaseView_TwoLable_View_ViewModel *(^)(HXBBaseView_TwoLable_View_ViewModel *viewModelVM))setUP_ToViewViewVMBlock {
     self.ViewVM = setUP_ToViewViewVMBlock(self.ViewVM);
+
     [self setUPViewValue];
 }
 
 - (void)setViewModelVM:(HXBBaseView_TwoLable_View_ViewModel *)ViewVM {
     _ViewVM = ViewVM;
-    
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -73,8 +72,18 @@
 - (void)setUPViewValue {
     self.leftLabel.text =   _ViewVM.leftLabelStr;
     self.rightLabel.text = _ViewVM.rightLabelStr;
+    
     self.leftLabel.textAlignment = _ViewVM.leftLabelAlignment;
     self.rightLabel.textAlignment = _ViewVM.rightLabelAlignment;
+    
+    self.leftLabelStr = self.ViewVM.leftLabelStr;
+    self.rightLabelStr = self.ViewVM.rightLabelStr;
+    
+    self.rightLabel.textColor = self.ViewVM.rightViewColor;
+    self.leftLabel.textColor = self.ViewVM.leftViewColor;
+    
+    self.rightLabel.font = self.ViewVM.rightViewFont;
+    self.leftLabel.font = self.ViewVM.leftViewFont;
 }
 @end
 

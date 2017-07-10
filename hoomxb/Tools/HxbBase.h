@@ -25,6 +25,9 @@
 #import "HXBBaseView_TwoLable_View.h"//左右或上下的连着的view
 #import "UITableViewCell+HXBTableViewCell.h"///cell
 #import "HXBBaseTextField.h"///右边一个textField 右边一个
+
+
+
 //MARK: NSObject
 #import "HXBBaseHandDate.h"//关于时间处理的类
 #import "HXBServerAndClientTime.h"//与服务器时间协调
@@ -34,3 +37,4 @@
 #import "HXBKeyBoardManager.h"///键盘观察者
 #import "HXBAlertManager.h"///弹框管理者
 #import "STRefresh.h"///刷新
+#import "HXBBaseModel.h"///viewModel

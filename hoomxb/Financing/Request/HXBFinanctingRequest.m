@@ -12,6 +12,8 @@
 //MARK: - 列表页
 #import "HXBFinHomePageViewModel_PlanList.h"//红利计划的的ViewModel
 #import "HXBFinHomePageViewModel_LoanList.h"//散标列表的ViewModel
+#import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"///债转列表
+
 #import "HXBFinHomePageModel_PlanList.h"//红利计划列表页的Model
 #import "HXBFinHomePageModel_LoanList.h"//散标列表的model
 
@@ -46,6 +48,7 @@
 @property (nonatomic,strong) HXBBaseRequest *planAddRecortdAPI;
 
 
+
 #pragma mark - Loan
 ///散标 列表的API
 @property (nonatomic,strong) HXBBaseRequest *loanListAPI;
@@ -54,9 +57,16 @@
 ///散标 加入记录API
 @property (nonatomic,strong) HXBBaseRequest *loanAddRecortdAPI;
 
+
+#pragma mark - loanTruansfer
+@property (nonatomic,strong) HXBBaseRequest *loanTruansferAPI;
+
 //红利计划列表的数据数组
 @property (nonatomic,strong) NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray;
 @property (nonatomic,strong) NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanListViewModelArray;
+
+//
+@property (nonatomic,strong) NSMutableArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*loanTruansferViewModel;
 @end
 
 
@@ -103,10 +113,18 @@
     return _loanAddRecortdAPI;
 }
 
+- (HXBBaseRequest *)loanTruansferAPI {
+    if (!_loanTruansferAPI) {
+        _loanTruansferAPI = [[HXBBaseRequest alloc]init];
+    }
+    return _loanTruansferAPI;
+}
+
 - (instancetype)init {
     if (self = [super init]){
         self.planListViewModelArray = [[NSMutableArray alloc]init];
         self.loanListViewModelArray = [[NSMutableArray alloc]init];
+        self.loanTruansferViewModel = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -252,7 +270,45 @@
     }
 }
 
-#define kHXBFinanc_PlanDetaileURL(planID) [NSString stringWithFormat:@"/plan/%ld",(planID)]
+
+///MARK: 债转列表
+- (void)loanTruansferListWithIsUPData:(BOOL)isUPData andSuccessBlock:(void (^)(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *))successDateBlock andFailureBlock:(void (^)(NSError *error, id responseObject))failureBlock {
+    self.loanTruansferAPI.isUPReloadData = isUPData;
+    self.loanTruansferAPI.requestMethod = NYRequestMethodGet;
+    self.loanTruansferAPI.requestUrl = kHXBFin_LoanTruansferURL;
+    [self.loanTruansferAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        if ([responseObject[kResponseStatus] integerValue]) {
+            if (failureBlock) {
+                failureBlock(nil,responseObject);
+            }
+        }
+        
+        NSArray *data = responseObject[kResponseData][kResponseDataList];
+        NSMutableArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*arrayM = [[NSMutableArray alloc]init];
+        [data enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            HXBFinHomePageViewModel_LoanTruansferViewModel *viewModel = [[HXBFinHomePageViewModel_LoanTruansferViewModel alloc]init];
+            HXBFinHomePageModel_LoanTruansferList *model = [[HXBFinHomePageModel_LoanTruansferList alloc]init];
+            [model yy_modelSetWithDictionary:obj];
+            viewModel.loanTruansferListModel = model;
+        }];
+        
+        if (successDateBlock) {
+            if (request.isUPReloadData) {
+                [self.loanTruansferViewModel removeAllObjects];
+            }
+            [self.loanTruansferViewModel addObjectsFromArray:arrayM];
+            successDateBlock(self.loanTruansferViewModel);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+            if (failureBlock) {
+                failureBlock(error,nil);
+            }
+    }];
+    
+}
+
+
+
 #pragma mark - 详情页 数据请求
 - (void)planDetaileWithPlanID: (NSString *)financePlanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_PlanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
     HXBBaseRequest *planDetaileAPI = [[HXBBaseRequest alloc]init];

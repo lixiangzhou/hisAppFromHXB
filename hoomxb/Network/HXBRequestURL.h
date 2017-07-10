@@ -21,7 +21,8 @@
 #define kHXBFinanc_LoanListURL(loanListPage) [NSString stringWithFormat:@"/loan?page=%ld",(loanListPage)]//标的列表
 #define kHXBFinanc_LoanDetaileURL(loanID) [NSString stringWithFormat:@"loan/%ld",(loanID)]//散标详情
 #define kHXBFinanc_Loan_AddRecortdURL(loanID) [NSString stringWithFormat:@"/loan/%@/record",(loanID)]//加入记录
-
+#define kHXBFin_LoanTruansferURL @"/transfer"///债转列表
+#define kHXBFinanc_PlanDetaileURL(planID) [NSString stringWithFormat:@"/plan/%ld",(planID)]///计划详情
 
 //MARK: ======================= 用户 =======================
 #define kHXBUser_UserInfoURL @"/user/info"///用户信息

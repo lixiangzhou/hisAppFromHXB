@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HXBBaseView_TwoLable_View_ViewModel,HXBFin_LoanTruansferDetail_TopViewManager;
+@class
+HXBBaseView_TwoLable_View_ViewModel,
+HXBFin_LoanTruansferDetail_TopViewManager;
 @interface HXBFin_LoanTruansferDetail_TopView : UIView
 - (void)setUPValueWithManager: (HXBFin_LoanTruansferDetail_TopViewManager *(^)(HXBFin_LoanTruansferDetail_TopViewManager *manager))setUPValueManagerBlock;
 @end
