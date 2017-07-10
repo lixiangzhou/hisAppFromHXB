@@ -24,8 +24,9 @@
 }
 - (void) setUP_TwoViewVMFunc: (HXBBaseView_TwoLable_View_ViewModel *(^)(HXBBaseView_TwoLable_View_ViewModel *viewModelVM))setUP_ToViewViewVMBlock {
     self.ViewVM = setUP_ToViewViewVMBlock(self.ViewVM);
-    [self setUP];
-    
+    if (self.ViewVM.isLeftRight) {
+        [self setUP];
+    }
     [self setUPViewValue];
 }
 
