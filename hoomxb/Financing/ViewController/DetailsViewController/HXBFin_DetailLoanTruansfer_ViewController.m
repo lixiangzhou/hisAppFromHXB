@@ -25,7 +25,7 @@
     self.detailView = [[HXBFin_LoanTruansferDetailView alloc]init];
     self.detailView.frame = self.view.bounds;
     [self.view addSubview:self.detailView];
-    HXBBaseView_TwoLable_View
+    
 }
 
 - (void) setData {
