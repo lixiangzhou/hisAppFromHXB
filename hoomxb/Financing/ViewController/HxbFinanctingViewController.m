@@ -14,6 +14,8 @@
 #import "HXBFinanctingView_HomePage.h"//最主要的view
 #import "HXBFinancing_PlanDetailsViewController.h"//红利计划详情页
 #import "HXBFinancing_LoanDetailsViewController.h"//散标详情页
+#import "HXBFin_DetailLoanTruansfer_ViewController.h"//债转的详情页
+
 #import "HXBFinanctingRequest.h"//网络请求工具类
 #import "HXBFinHomePageViewModel_PlanList.h"//红利计划列表viewmodel
 #import "HXBFinHomePageViewModel_LoanList.h"//散标列表的ViewModel
@@ -26,7 +28,7 @@
 
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划的Model
 #import "HXBFinDatailModel_LoanDetail.h"//散标详情的MOdel
-
+#import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
 @interface HxbFinanctingViewController ()
 @property (nonatomic,strong) HXBFinanctingView_HomePage *homePageView;//最主要的view
 
@@ -148,6 +150,8 @@
     [self clickPlanListCell];
     //点击了散标列表页测cell， 跳转详情页
     [self clickLoanListCell];
+    //点击了债转列表页测cell， 跳转详情页
+    [self clickLoanTruansferCell];
 }
 //MARK: - 点击了红利计划列表页的 cell
 - (void) clickPlanListCell {
@@ -176,7 +180,20 @@
         [weakSelf pushLoanListCellViewControllerWithModel:model];
     }];
 }
+//MARK:- 点击了债转的 cell
+- (void)clickLoanTruansferCell {
+    kWeakSelf
+    [self.homePageView setClickLoanTruansferCellBlock:^(NSIndexPath *index, id model){
+        [weakSelf pushLoanTruansferCellViewControllerWithModel:model];
+    }];
+}
 
+- (void)pushLoanTruansferCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanTruansferViewModel *)cellModel {
+    HXBFin_DetailLoanTruansfer_ViewController *loanTruansfer_VC = [[HXBFin_DetailLoanTruansfer_ViewController alloc]init];
+    loanTruansfer_VC.loanTransfer_ViewModel = cellModel;
+    [self.navigationController pushViewController:loanTruansfer_VC animated:true];
+    
+}
 - (void)pushLoanListCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanList *)model {
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
     loanDetailsVC.loanID = model.loanListModel.loanId;
@@ -222,6 +239,16 @@
     }];
 }
 
+//MARK: 债转的刷新加载
+- (void)setUPLoanTruansferRefresh {
+    kWeakSelf
+    [self.homePageView setLoanTruansferFooterBlock:^{
+        
+    }];
+    [self.homePageView setLoanTruansferHeaderBlock:^{
+        
+    }];
+}
 
 #pragma mark - 网络数据请求
 - (void)planLoadDateWithIsUpData: (BOOL)isUPData {
@@ -248,7 +275,11 @@
         weakSelf.homePageView.isStopRefresh_loan = true;
     }];
 }
-
+/// 债转的数据请求
+- (void)loanTruansferLoandDataWithIsUPData: (BOOL)isUPData {
+    kWeakSelf
+    
+}
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 //    [self.homePageView.contDwonManager cancelTimer];

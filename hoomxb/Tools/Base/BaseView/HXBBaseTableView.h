@@ -10,8 +10,4 @@
 
 @interface HXBBaseTableView : UITableView
 @property (nonatomic,assign) BOOL isOpenRefresh;
-/**
- 点击了cell
- */
-- (void)clickCellWithBlock: (void (^)(id cellModel,NSIndexPath *index))clickCellBlock;
 @end

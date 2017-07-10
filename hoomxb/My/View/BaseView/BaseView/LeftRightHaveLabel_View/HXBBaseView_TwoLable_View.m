@@ -106,7 +106,6 @@
     
     self.rightLabel.font            = self.ViewVM.rightFont;
     self.leftLabel.font             = self.ViewVM.leftFont;
-
 }
 @end
 

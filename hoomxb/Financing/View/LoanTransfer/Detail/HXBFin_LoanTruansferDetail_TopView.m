@@ -40,16 +40,15 @@
     self.manager = setUPValueManagerBlock(self.manager);
 }
 - (void)setManager:(HXBFin_LoanTruansferDetail_TopViewManager *)manager {
-    kWeakSelf
     self.nextOneLabel.text = manager.nextOneLabel;
     [self.interestLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        return weakSelf.manager.interestLabelManager;
+        return manager.interestLabelManager;
     }];
     [self.remainTimeLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        return weakSelf.manager.remainTimeLabelManager;
+        return manager.remainTimeLabelManager;
     }];
     [self.truansferAmountLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        return weakSelf.manager.truansferAmountLabelManager;
+        return manager.truansferAmountLabelManager;
     }];
 }
 - (instancetype)initWithFrame:(CGRect)frame
@@ -88,29 +87,53 @@
     }];
     [self.nextOneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(kScrAdaptationH(20));
-        make.right.equalTo(self).offset(kScrAdaptationH(20));
+        make.right.equalTo(self).offset(kScrAdaptationH(-20));
+        make.left.equalTo(self).offset(kScrAdaptationH(20));
         make.height.equalTo(@(kScrAdaptationH(20)));
     }];
-    [self.nextOneLabel sizeToFit];
+//    [self.nextOneLabel sizeToFit];
     
     [self.interestLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@(kScrAdaptationH(40)));
-        make.centerX.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(50)));
+        make.right.equalTo(self).offset(kScrAdaptationH(-20));
+        make.left.equalTo(self).offset(kScrAdaptationH(20));
     }];
     
     [self.remainTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topMaskView.mas_bottom);
+        make.top.equalTo(self.topMaskView.mas_bottom).offset(kScrAdaptationH(2));
         make.left.equalTo(self);
-        make.width.equalTo(self).multipliedBy(1/2.0);
+        make.width.equalTo(self).multipliedBy(1/2.0).offset(kScrAdaptationW(1));
     }];
     
     [self.truansferAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topMaskView.mas_bottom);
-        make.left.equalTo(self.remainTimeLabel.mas_right);
+        make.top.equalTo(self.topMaskView.mas_bottom).offset(kScrAdaptationH(2));
+        make.left.equalTo(self.remainTimeLabel.mas_right).offset(kScrAdaptationW(2));
         make.width.equalTo(self.remainTimeLabel);
     }];
 }
 @end
 @implementation HXBFin_LoanTruansferDetail_TopViewManager
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        /**
+         年利率 label
+         品字形 上
+         */
+        self.interestLabelManager = [[HXBBaseView_TwoLable_View_ViewModel alloc] init];
+        /**
+         剩余期限
+         品字形 左
+         */
+        self.remainTimeLabelManager = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
+        /**
+         待转让金额
+         品字形 右
+         */
+        self.truansferAmountLabelManager = [[HXBBaseView_TwoLable_View_ViewModel alloc] init];
+    }
+    return self;
+}
 @end
