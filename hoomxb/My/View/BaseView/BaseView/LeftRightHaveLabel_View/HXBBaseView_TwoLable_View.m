@@ -24,7 +24,8 @@
 }
 - (void) setUP_TwoViewVMFunc: (HXBBaseView_TwoLable_View_ViewModel *(^)(HXBBaseView_TwoLable_View_ViewModel *viewModelVM))setUP_ToViewViewVMBlock {
     self.ViewVM = setUP_ToViewViewVMBlock(self.ViewVM);
-
+    [self setUP];
+    
     [self setUPViewValue];
 }
 
@@ -39,7 +40,6 @@
         _ViewVM = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
         self.proportion = proportion;
         [self setUP];
-        [self setUPViewFrame];
     }
     return self;
 }
@@ -49,16 +49,19 @@
     if (self) {
         _ViewVM = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
         [self setUP];
-        [self setUPViewFrame];
     }
     return self;
 }
 
 - (void) setUP {
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
     self.leftLabel = [[UILabel alloc]init];
     self.rightLabel = [[UILabel alloc]init];
     [self addSubview:self.leftLabel];
     [self addSubview:self.rightLabel];
+    [self setUPViewFrame];
 }
 
 - (void)setUPViewFrame {

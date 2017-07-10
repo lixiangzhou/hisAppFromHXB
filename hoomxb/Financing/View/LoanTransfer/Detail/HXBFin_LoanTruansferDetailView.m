@@ -36,11 +36,16 @@
  加入按钮
  */
 @property (nonatomic,strong) UIButton *addButton;
-
-@property (nonatomic,strong) HXBFin_LoanTruansferDetailViewManger *manager;
+/**
+ 点击事件
+ */
+@property (nonatomic,copy) void (^clickAddButtonBlock)(UIButton *button);
 @end
 
 @implementation HXBFin_LoanTruansferDetailView
+- (void)clickAddButtonBlock:(void (^)(UIButton *))clickAddButtonBlock {
+    self.clickAddButtonBlock = clickAddButtonBlock;
+}
 - (void)setUPValueWithManager:(HXBFin_LoanTruansferDetailViewManger *(^)(HXBFin_LoanTruansferDetailViewManger *))loanTruansferDetailViewManagerBlock {
     self.manager = loanTruansferDetailViewManagerBlock(_manager);
 }
@@ -57,6 +62,14 @@
     self.detailTableView.tableViewCellModelArray = self.manager.detailTableViewArray;
     self.promptLabel.text = self.manager.promptLabelStr;
     [self.addButton setTitle:self.manager.addButtonStr forState:UIControlStateNormal];
+    [self.addButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+}
+///点击了债转的加入按钮
+- (void)clickButton:(UIButton *)button {
+    if (self.clickAddButtonBlock) {
+        self.clickAddButtonBlock(button);
+    }
+    NSLog(@"点击了债转的加入按钮");
 }
 - (instancetype)initWithFrame:(CGRect)frame
 {

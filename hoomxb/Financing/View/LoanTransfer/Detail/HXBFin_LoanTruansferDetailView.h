@@ -14,10 +14,14 @@ HXBFin_LoanTruansferDetail_TopViewManager,
 HXBFinDetail_TableViewCellModel;
 
 @interface HXBFin_LoanTruansferDetailView : UIView
+/**
+ 点击事件
+ */
+- (void)clickAddButtonBlock:(void(^)(UIButton *button))clickAddButtonBlock;
+
+@property (nonatomic,strong) HXBFin_LoanTruansferDetailViewManger *manager;
 
 - (void)setUPValueWithManager: (HXBFin_LoanTruansferDetailViewManger *(^)(HXBFin_LoanTruansferDetailViewManger *manager))loanTruansferDetailViewManagerBlock;
-
-
 @end
 
 
@@ -25,20 +29,20 @@ HXBFinDetail_TableViewCellModel;
 /**
  顶部的品字形
  */
-@property (nonatomic,strong) HXBFin_LoanTruansferDetail_TopViewManager *topViewManager;
+@property (nonatomic,strong) HXBFin_LoanTruansferDetail_TopViewManager      *topViewManager;
 /**
  曾信
  */
-@property (nonatomic,strong) HXBFin_LoanTruansfer_AddTrustworthinessView *addTrustworthinessManager;
+@property (nonatomic,strong) HXBFin_LoanTruansfer_AddTrustworthinessView    *addTrustworthinessManager;
 /**
  还款方式
  提前还款费率
  */
-@property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager *loanType_InterestLabelManager;
+@property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager           *loanType_InterestLabelManager;
 /**
  图片- 文字- 图片 的tableView
  */
-@property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*detailTableViewArray;
+@property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>    *detailTableViewArray;
 /**
  * 预期收益不代表实际收益，投资需谨慎
  */
