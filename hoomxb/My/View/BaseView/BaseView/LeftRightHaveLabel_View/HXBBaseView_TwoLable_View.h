@@ -21,8 +21,8 @@
 @property (nonatomic,copy) NSString *           rightLabelStr;
 @property (nonatomic,assign) NSTextAlignment    leftLabelAlignment;
 @property (nonatomic,assign) NSTextAlignment    rightLabelAlignment;
-@property (nonatomic,strong) UIColor *leftViewColor;
-@property (nonatomic,strong) UIColor *rightViewColor;
-@property (nonatomic,strong) UIFont *leftViewFont;
-@property (nonatomic,strong) UIFont *rightViewFont;
+@property (nonatomic,strong) UIColor *          leftViewColor;
+@property (nonatomic,strong) UIColor *          rightViewColor;
+@property (nonatomic,strong) UIFont  *          leftFont;
+@property (nonatomic,strong) UIFont  *          rightFont;
 @end
