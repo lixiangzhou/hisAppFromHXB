@@ -17,7 +17,7 @@
 #import "HXBWithdrawCardView.h"
 
 #import "HXBBindBankCardViewController.h"//ZCC需要修改逻辑
-@interface HxbWithdrawCardViewController () <UITextFieldDelegate,HxbPickerAreaDelegate>
+@interface HxbWithdrawCardViewController () <UITextFieldDelegate>
 
 /**
  bankCode
