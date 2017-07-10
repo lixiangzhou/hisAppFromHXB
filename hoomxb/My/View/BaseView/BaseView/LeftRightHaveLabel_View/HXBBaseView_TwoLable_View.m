@@ -13,7 +13,6 @@
 @interface HXBBaseView_TwoLable_View ()
 @property (nonatomic,strong) UILabel *leftLabel;
 @property (nonatomic,strong) UILabel *rightLabel;
-@property (nonatomic,strong) HXBBaseView_TwoLable_View_ViewModel *ViewVM;
 @property (nonatomic,assign) CGFloat proportion;
 @end
 @implementation HXBBaseView_TwoLable_View
@@ -25,7 +24,11 @@
 }
 - (void) setUP_TwoViewVMFunc: (HXBBaseView_TwoLable_View_ViewModel *(^)(HXBBaseView_TwoLable_View_ViewModel *viewModelVM))setUP_ToViewViewVMBlock {
     self.ViewVM = setUP_ToViewViewVMBlock(self.ViewVM);
-    
+
+    if (self.ViewVM.isLeftRight) {
+        [self setUP];
+    }
+
     [self setUPViewValue];
 }
 
@@ -40,7 +43,6 @@
         _ViewVM = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
         self.proportion = proportion;
         [self setUP];
-        [self setUPViewFrame];
     }
     return self;
 }
@@ -50,16 +52,19 @@
     if (self) {
         _ViewVM = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
         [self setUP];
-        [self setUPViewFrame];
     }
     return self;
 }
 
 - (void) setUP {
+    [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [obj removeFromSuperview];
+    }];
     self.leftLabel = [[UILabel alloc]init];
     self.rightLabel = [[UILabel alloc]init];
     [self addSubview:self.leftLabel];
     [self addSubview:self.rightLabel];
+    [self setUPViewFrame];
 }
 
 - (void)setUPViewFrame {
@@ -89,14 +94,21 @@
     [self.leftLabel sizeToFit];
 }
 - (void)setUPViewValue {
-    self.leftLabel.text             = _ViewVM.leftLabelStr;
+    self.leftLabel.text             =   _ViewVM.leftLabelStr;
     self.rightLabel.text            = _ViewVM.rightLabelStr;
+    
     self.leftLabel.textAlignment    = _ViewVM.leftLabelAlignment;
     self.rightLabel.textAlignment   = _ViewVM.rightLabelAlignment;
-    self.leftLabel.textColor        = _ViewVM.leftViewColor;
-    self.rightLabel.textColor       = _ViewVM.rightViewColor;
-    self.leftLabel.font             = _ViewVM.leftFont;
-    self.rightLabel.font            = _ViewVM.rightFont;
+    
+    self.leftLabelStr               = self.ViewVM.leftLabelStr;
+    self.rightLabelStr              = self.ViewVM.rightLabelStr;
+    
+    self.rightLabel.textColor       = self.ViewVM.rightViewColor;
+    self.leftLabel.textColor        = self.ViewVM.leftViewColor;
+    
+    self.rightLabel.font            = self.ViewVM.rightFont;
+    self.leftLabel.font             = self.ViewVM.leftFont;
+
 }
 @end
 

@@ -12,12 +12,13 @@
 @class HXBFinDetailViewModel_PlanDetail;//红利计划详情页ViewModel
 @class HXBFinDetailViewModel_LoanDetail;//散标投递的详情页的ViewModel
 @class HXBFinModel_AddRecortdModel_Plan;//理财模块的加入记录接口
-@class FinModel_AddRecortdModel_Loan;//加入记录model
+@class FinModel_AddRecortdModel_Loan;   //加入记录model
 @class HXBFinModel_BuyResoult_PlanModel;//购买
 @class HXBFinModel_Buy_Plan;
 @class HXBFinModel_BuyResoult_LoanModel;
 @class HXBFinModel_Buy_LoanModel;
 @class HXBFin_Plan_BuyViewModel;
+@class HXBFinHomePageViewModel_LoanTruansferViewModel;///债转viewmodel
 
 static NSString *const HXBFinHomePagePlan_ASC = @"";
 
@@ -32,7 +33,7 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 
 
 #pragma mark - 理财一级界面的数据请求
-//MAKR: 红利计划列表的网络请求
+//MARK: 红利计划列表的网络请求
 ///红利计划-数据请求- 一级界面首页
 - (void)planBuyListWithIsUpData: (BOOL)isUPData
                 andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray))successDateBlock
@@ -41,6 +42,11 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 //MARK: 散标列表的网络数据请求
 ///散标列表-数据请求- 一级界面首页
 - (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+//MARK:债权转让 列表
+///债权转让列表页
+- (void)loanTruansferListWithIsUPData: (BOOL)isUPData andSuccessBlock: (void (^)(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error,id responsObject))failureBlock;
+
 
 
 
