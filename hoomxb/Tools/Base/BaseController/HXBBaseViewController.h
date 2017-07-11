@@ -14,7 +14,9 @@
 ///自动把scrollView向下平移64
 @property (nonatomic,assign) BOOL hxb_automaticallyAdjustsScrollViewInsets;
 ///懒加载 scrollView，作为了垫底的scrollView
-@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,strong) UIScrollView *hxbBaseVCScrollView;
+///是否可以滑动
+@property (nonatomic,assign) BOOL isScroll;
 ///tracking ScrollView
 - (void) trackingScrollViewBlock: (void(^)(UIScrollView *scrollView)) trackingScrollViewBlock;
 @end

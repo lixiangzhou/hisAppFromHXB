@@ -37,8 +37,8 @@
 @end
 
 @interface  HXBBaseView_MoreTopBottomViewManager : NSObject
-@property (nonatomic,assign) NSTextAlignment leftLabelAlignment;
-@property (nonatomic,assign) NSTextAlignment rightLabelAlignment;
+@property (nonatomic,assign) NSTextAlignment                leftLabelAlignment;
+@property (nonatomic,assign) NSTextAlignment                rightLabelAlignment;
 /**
  左侧的stringArray
  */

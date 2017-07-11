@@ -14,6 +14,7 @@
 @property (nonatomic,strong) HXBBaseView_TwoLable_View_ViewModel *ViewVM;
 ///赋值的viewModel
 - (void) setUP_TwoViewVMFunc: (HXBBaseView_TwoLable_View_ViewModel *(^)(HXBBaseView_TwoLable_View_ViewModel *viewModelVM))setUP_ToViewViewVMBlock;
+
 @end
 @interface HXBBaseView_TwoLable_View_ViewModel : NSObject
 @property (nonatomic,assign) BOOL               isLeftRight;
@@ -25,4 +26,6 @@
 @property (nonatomic,strong) UIColor *          rightViewColor;
 @property (nonatomic,strong) UIFont  *          leftFont;
 @property (nonatomic,strong) UIFont  *          rightFont;
+@property (nonatomic,copy) NSAttributedString * leftAttributedString;
+@property (nonatomic,copy) NSAttributedString * rightAttributedString;
 @end
