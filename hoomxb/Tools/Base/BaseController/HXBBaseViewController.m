@@ -47,20 +47,30 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBackBtn];
 }
 
+
+
 - (void)leftBackBtnClick
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+- (void)setIsScroll:(BOOL)isScroll {
+    _isScroll = isScroll;
+    if (isScroll) {
+        _hxbBaseVCScrollView.contentSize = CGSizeMake(kScreenWidth, kScreenHeight);
+    }
+}
 - (UIScrollView *)hxbBaseVCScrollView {
     if (!_hxbBaseVCScrollView) {
-//        self.automaticallyAdjustsScrollViewInsets = NO;
-//        self.edgesForExtendedLayout = UIRectEdgeNone;
-        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-        _hxbBaseVCScrollView.contentSize = CGSizeMake(kScreenWidth, kScreenHeight + 64);
+        self.automaticallyAdjustsScrollViewInsets = true;
+        self.edgesForExtendedLayout = UIRectEdgeAll;
+        _hxbBaseVCScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight -64)];
+        
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
+        self.view.frame = _hxbBaseVCScrollView.bounds;
         [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
+//        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
     }
     return _hxbBaseVCScrollView;
 }

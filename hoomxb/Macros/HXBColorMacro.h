@@ -8,6 +8,15 @@
 
 #ifndef HXBColorMacro_h
 #define HXBColorMacro_h
+/**
+红色系
+*/
+/// 橘红（渐变色浅）(r:0.99 g:0.40 b:0.30 a:1.00)
+#define HXBC_Red_Light    [UIColor colorWithRed:0.99 green:0.40 blue:0.30 alpha:1.00]// 橘红（渐变色浅）
+/// 大红（渐变色深）(r:1.00 g:0.24 b:0.31 a:1.00)
+#define HXBC_Red_Deep     [UIColor colorWithRed:1.00 green:0.24 blue:0.31 alpha:1.00]// 大红（渐变色深）
+
+
 
 /**
  *  返回一个RGBA格式的UIColor对象
