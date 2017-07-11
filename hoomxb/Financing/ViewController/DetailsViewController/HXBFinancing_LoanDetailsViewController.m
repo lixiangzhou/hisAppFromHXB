@@ -122,9 +122,8 @@
     UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(clickLeftBarButtonItem)];
     self.navigationItem.leftBarButtonItem = leftBarButtonItem;
     self.hxbBaseVCScrollView.backgroundColor = [UIColor whiteColor];
-    self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:self.view.frame];
+    self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:self.hxbBaseVCScrollView.bounds];
     [self.hxbBaseVCScrollView addSubview:self.loanDetailsView];
-    
     
     //是否为计划界面
     self.loanDetailsView.isPlan = false;

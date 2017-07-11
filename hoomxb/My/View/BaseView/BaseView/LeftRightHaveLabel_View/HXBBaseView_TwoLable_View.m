@@ -14,6 +14,7 @@
 @property (nonatomic,strong) UILabel *leftLabel;
 @property (nonatomic,strong) UILabel *rightLabel;
 @property (nonatomic,assign) CGFloat proportion;
+@property (nonatomic,assign) CGFloat spacing;
 @end
 @implementation HXBBaseView_TwoLable_View
 - (CGFloat) proportion {
@@ -31,6 +32,8 @@
 
     [self setUPViewValue];
 }
+
+
 
 - (void)setViewModelVM:(HXBBaseView_TwoLable_View_ViewModel *)ViewVM {
     _ViewVM = ViewVM;
@@ -80,18 +83,28 @@
         }];
         
     } else { //上下结构
+        [self layoutIfNeeded];
+        [self.leftLabel sizeToFit];
+        [self.leftLabel sizeToFit];
+        CGFloat leftHeight = [self.ViewVM.leftLabelStr boundingRectWithSize:CGSizeMake(self.frame.size.width, self.frame.size.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.height;
+        
         [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.left.top.equalTo(self);
             make.bottom.equalTo(self.mas_centerY);
-            
         }];
+        if (_spacing) {
+            [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.left.bottom.equalTo(self);
+                make.top.equalTo(self.leftLabel.mas_bottom).offset(self.spacing);
+            }];
+            return;
+        }
         [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.left.bottom.equalTo(self);
             make.top.equalTo(self.mas_centerY);
         }];
     }
-    [self.leftLabel sizeToFit];
-    [self.leftLabel sizeToFit];
+
 }
 - (void)setUPViewValue {
     self.leftLabel.text             =   _ViewVM.leftLabelStr;
@@ -108,9 +121,19 @@
     
     self.rightLabel.font            = self.ViewVM.rightFont;
     self.leftLabel.font             = self.ViewVM.leftFont;
-
 }
 @end
 
 @implementation HXBBaseView_TwoLable_View_ViewModel
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.leftFont = [UIFont systemFontOfSize:20];
+        self.rightFont = [UIFont systemFontOfSize:20];
+        self.leftLabelAlignment = NSTextAlignmentCenter;
+        self.rightLabelAlignment = NSTextAlignmentCenter;
+    }
+    return self;
+}
 @end
