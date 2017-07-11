@@ -40,6 +40,17 @@
 		4E7CCF4F1EBC1B5B00F7BDB3 /* 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF431EBC1B5B00F7BDB3 /* 4.png */; };
 		4E7CCF501EBC1B5B00F7BDB3 /* login_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF451EBC1B5B00F7BDB3 /* login_close@2x.png */; };
 		4E7CCF511EBC1B5B00F7BDB3 /* login_close@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF461EBC1B5B00F7BDB3 /* login_close@3x.png */; };
+		4E7E5B691F14705700771C07 /* home_Selected.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B671F14705700771C07 /* home_Selected.svg */; };
+		4E7E5B6A1F14705700771C07 /* home_Unselected.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B681F14705700771C07 /* home_Unselected.svg */; };
+		4E7E5B6D1F1478C100771C07 /* investment_Unselected.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B6B1F1478C100771C07 /* investment_Unselected.svg */; };
+		4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B6C1F1478C100771C07 /* investment_Selected.svg */; };
+		4E7E5B711F14792B00771C07 /* my_Selected.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B6F1F14792B00771C07 /* my_Selected.svg */; };
+		4E7E5B721F14792B00771C07 /* my_Unselected.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B701F14792B00771C07 /* my_Unselected.svg */; };
+		4E7E5B791F14A33F00771C07 /* SCAdCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7E5B751F14A33F00771C07 /* SCAdCollectionViewLayout.m */; };
+		4E7E5B7A1F14A33F00771C07 /* SCAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7E5B771F14A33F00771C07 /* SCAdView.m */; };
+		4E7E5B7E1F14A3A400771C07 /* HXBBannerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7E5B7C1F14A3A400771C07 /* HXBBannerCollectionViewCell.m */; };
+		4E7E5B7F1F14A3A400771C07 /* HXBBannerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B7D1F14A3A400771C07 /* HXBBannerCollectionViewCell.xib */; };
+		4E7E5B811F14DFE900771C07 /* package.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B801F14DFE900771C07 /* package.svg */; };
 		4E81989C1EC4383600D668A1 /* HxbHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81989B1EC4383600D668A1 /* HxbHomeView.m */; };
 		4E81989F1EC442CA00D668A1 /* HxbBannerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81989E1EC442CA00D668A1 /* HxbBannerViewModel.m */; };
 		4E8198AA1EC44BCE00D668A1 /* HXBHomePageAfterLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8198A11EC44BCE00D668A1 /* HXBHomePageAfterLoginView.m */; };
@@ -398,6 +409,21 @@
 		4E7CCF431EBC1B5B00F7BDB3 /* 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 4.png; sourceTree = "<group>"; };
 		4E7CCF451EBC1B5B00F7BDB3 /* login_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_close@2x.png"; sourceTree = "<group>"; };
 		4E7CCF461EBC1B5B00F7BDB3 /* login_close@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_close@3x.png"; sourceTree = "<group>"; };
+		4E7E5B671F14705700771C07 /* home_Selected.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = home_Selected.svg; sourceTree = "<group>"; };
+		4E7E5B681F14705700771C07 /* home_Unselected.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = home_Unselected.svg; sourceTree = "<group>"; };
+		4E7E5B6B1F1478C100771C07 /* investment_Unselected.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = investment_Unselected.svg; sourceTree = "<group>"; };
+		4E7E5B6C1F1478C100771C07 /* investment_Selected.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = investment_Selected.svg; sourceTree = "<group>"; };
+		4E7E5B6F1F14792B00771C07 /* my_Selected.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = my_Selected.svg; sourceTree = "<group>"; };
+		4E7E5B701F14792B00771C07 /* my_Unselected.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = my_Unselected.svg; sourceTree = "<group>"; };
+		4E7E5B741F14A33F00771C07 /* SCAdCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdCollectionViewLayout.h; sourceTree = "<group>"; };
+		4E7E5B751F14A33F00771C07 /* SCAdCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdCollectionViewLayout.m; sourceTree = "<group>"; };
+		4E7E5B761F14A33F00771C07 /* SCAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdView.h; sourceTree = "<group>"; };
+		4E7E5B771F14A33F00771C07 /* SCAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdView.m; sourceTree = "<group>"; };
+		4E7E5B781F14A33F00771C07 /* SCAdViewRenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdViewRenderDelegate.h; sourceTree = "<group>"; };
+		4E7E5B7B1F14A3A400771C07 /* HXBBannerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBannerCollectionViewCell.h; sourceTree = "<group>"; };
+		4E7E5B7C1F14A3A400771C07 /* HXBBannerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBannerCollectionViewCell.m; sourceTree = "<group>"; };
+		4E7E5B7D1F14A3A400771C07 /* HXBBannerCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HXBBannerCollectionViewCell.xib; sourceTree = "<group>"; };
+		4E7E5B801F14DFE900771C07 /* package.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = package.svg; sourceTree = "<group>"; };
 		4E81989A1EC4383600D668A1 /* HxbHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHomeView.h; sourceTree = "<group>"; };
 		4E81989B1EC4383600D668A1 /* HxbHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHomeView.m; sourceTree = "<group>"; };
 		4E81989D1EC442CA00D668A1 /* HxbBannerViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbBannerViewModel.h; sourceTree = "<group>"; };
@@ -1083,6 +1109,7 @@
 		4E3C1D0B1EA6421B00C8BD36 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4E7E5B731F14A33F00771C07 /* SCAdView */,
 				4E94B28E1ECC49D2003CCBA7 /* HXBHomePageProductCell.h */,
 				4E94B28F1ECC49D2003CCBA7 /* HXBHomePageProductCell.m */,
 				4E8198A01EC44BCE00D668A1 /* HXBHomePageAfterLoginView.h */,
@@ -1238,6 +1265,7 @@
 			isa = PBXGroup;
 			children = (
 				4EC492981EC19A7D00B7DAA2 /* zhaoshang.png */,
+				4E7E5B661F146F3C00771C07 /* SVG */,
 				4EC492961EC19A7900B7DAA2 /* My */,
 				4E7CCF391EBC1B5B00F7BDB3 /* Home */,
 				4E7CCF421EBC1B5B00F7BDB3 /* launch */,
@@ -1280,6 +1308,35 @@
 				4E7CCF461EBC1B5B00F7BDB3 /* login_close@3x.png */,
 			);
 			path = signIn;
+			sourceTree = "<group>";
+		};
+		4E7E5B661F146F3C00771C07 /* SVG */ = {
+			isa = PBXGroup;
+			children = (
+				4E7E5B801F14DFE900771C07 /* package.svg */,
+				4E7E5B6F1F14792B00771C07 /* my_Selected.svg */,
+				4E7E5B701F14792B00771C07 /* my_Unselected.svg */,
+				4E7E5B6B1F1478C100771C07 /* investment_Unselected.svg */,
+				4E7E5B6C1F1478C100771C07 /* investment_Selected.svg */,
+				4E7E5B671F14705700771C07 /* home_Selected.svg */,
+				4E7E5B681F14705700771C07 /* home_Unselected.svg */,
+			);
+			path = SVG;
+			sourceTree = "<group>";
+		};
+		4E7E5B731F14A33F00771C07 /* SCAdView */ = {
+			isa = PBXGroup;
+			children = (
+				4E7E5B741F14A33F00771C07 /* SCAdCollectionViewLayout.h */,
+				4E7E5B751F14A33F00771C07 /* SCAdCollectionViewLayout.m */,
+				4E7E5B761F14A33F00771C07 /* SCAdView.h */,
+				4E7E5B771F14A33F00771C07 /* SCAdView.m */,
+				4E7E5B781F14A33F00771C07 /* SCAdViewRenderDelegate.h */,
+				4E7E5B7B1F14A3A400771C07 /* HXBBannerCollectionViewCell.h */,
+				4E7E5B7C1F14A3A400771C07 /* HXBBannerCollectionViewCell.m */,
+				4E7E5B7D1F14A3A400771C07 /* HXBBannerCollectionViewCell.xib */,
+			);
+			path = SCAdView;
 			sourceTree = "<group>";
 		};
 		4E8198B31EC450B500D668A1 /* UILabel */ = {
@@ -3309,19 +3366,27 @@
 				4EC492991EC19A7D00B7DAA2 /* zhaoshang.png in Resources */,
 				4E7CCF511EBC1B5B00F7BDB3 /* login_close@3x.png in Resources */,
 				4E7CCF491EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png in Resources */,
+				4E7E5B691F14705700771C07 /* home_Selected.svg in Resources */,
 				4E7CCF501EBC1B5B00F7BDB3 /* login_close@2x.png in Resources */,
 				4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */,
+				4E7E5B721F14792B00771C07 /* my_Unselected.svg in Resources */,
 				4E7CCF4A1EBC1B5B00F7BDB3 /* bannerplaceholder@3x.png in Resources */,
 				4ED2F27F1ECADC960014E5C7 /* introductionplaceholder@2x.png in Resources */,
 				4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */,
+				4E7E5B811F14DFE900771C07 /* package.svg in Resources */,
+				4E7E5B6A1F14705700771C07 /* home_Unselected.svg in Resources */,
 				4ED2F2801ECADC960014E5C7 /* introductionplaceholder@3x.png in Resources */,
 				4E7CCF4C1EBC1B5B00F7BDB3 /* pageControl@3x.png in Resources */,
 				4E7CCF4D1EBC1B5B00F7BDB3 /* pageControl_select@2x.png in Resources */,
 				4ED2F27C1ECAD9810014E5C7 /* homepage_close@3x.png in Resources */,
 				4E7CCF4F1EBC1B5B00F7BDB3 /* 4.png in Resources */,
+				4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */,
 				E1C9647D1EA600C20066DBC4 /* Assets.xcassets in Resources */,
+				4E7E5B6D1F1478C100771C07 /* investment_Unselected.svg in Resources */,
+				4E7E5B711F14792B00771C07 /* my_Selected.svg in Resources */,
 				4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
 				4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */,
+				4E7E5B7F1F14A3A400771C07 /* HXBBannerCollectionViewCell.xib in Resources */,
 				4E7CCF4E1EBC1B5B00F7BDB3 /* pageControl_select@3x.png in Resources */,
 				4E7CCF471EBC1B5B00F7BDB3 /* banner@2x.png in Resources */,
 			);
@@ -3401,7 +3466,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3508,6 +3573,7 @@
 				E1E5885A1EE165BF0045C4AE /* AnimatedTransition.m in Sources */,
 				E166C58E1F0375DC00AA14F4 /* HXBMY_Capital_Sift_ViewController.m in Sources */,
 				E1270B781ECEEC9D00729BC9 /* HXBMY_PlanDetail_TypeCell.m in Sources */,
+				4E7E5B791F14A33F00771C07 /* SCAdCollectionViewLayout.m in Sources */,
 				E1C964771EA5E04F0066DBC4 /* HXBBaseCollectionView.m in Sources */,
 				4E8198AE1EC44BCE00D668A1 /* HXBHomePageModuleView.m in Sources */,
 				E129A0211F06324F0051ADA0 /* CustomSegmentControl.m in Sources */,
@@ -3665,9 +3731,11 @@
 				4E81E4061EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m in Sources */,
 				E16314381EC076820090567E /* HXBFinDetailViewModel_LoanDetail.m in Sources */,
 				E1CD4BD51ED83064000CC57B /* HXBBaseWaveView.m in Sources */,
+				4E7E5B7A1F14A33F00771C07 /* SCAdView.m in Sources */,
 				E1CD4BCB1ED83064000CC57B /* HxbFileManager.m in Sources */,
 				E173D6681F0119DD00D04BDA /* HXBMY_Loan_DetailView.m in Sources */,
 				E1270B281ECED08800729BC9 /* HXBMY_LoanList_DetailViewController.m in Sources */,
+				4E7E5B7E1F14A3A400771C07 /* HXBBannerCollectionViewCell.m in Sources */,
 				4E8198B91EC459AF00D668A1 /* HxbHomePageFreshCustomerView.m in Sources */,
 				E1270B721ECEEC3200729BC9 /* HXBMY_PlanDtetail_Topcell.m in Sources */,
 				E122D85C1EA0CAB900DC71ED /* UITableView+HxbTableView.m in Sources */,

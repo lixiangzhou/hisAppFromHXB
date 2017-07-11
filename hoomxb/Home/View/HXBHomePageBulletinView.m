@@ -60,11 +60,26 @@
 //        [self addSubview:self.trumpetView];
         [self addSubview:self.closeButton];
 //        [self addSubview:self.contentScrollView];
+        
+        [self setupSubViewFrame];
     }
     return self;
 }
 
 #pragma mark Private Methods
+
+- (void)setupSubViewFrame
+{
+    [self.recommendedTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.mas_bottom);
+        make.left.equalTo(self.mas_left).offset(kScrAdaptationW(17));
+    }];
+    [self.promptTagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.recommendedTitleLabel);
+        make.right.equalTo(self.mas_right).offset(kScrAdaptationW(-15));
+    }];
+}
+
 ////点击bulletin
 //- (void)bulletinClick
 //{
@@ -171,9 +186,9 @@
 {
     if (!_recommendedTitleLabel) {
         _recommendedTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, 120, self.height)];
-        _recommendedTitleLabel.textColor = [UIColor blackColor];
+        _recommendedTitleLabel.textColor = COR6;
         _recommendedTitleLabel.text = @"推荐-红利计划";
-        _recommendedTitleLabel.font = [UIFont systemFontOfSize:12];
+        _recommendedTitleLabel.font = PINGFANG_REGULAR(15);
     }
     return _recommendedTitleLabel;
 }
@@ -185,7 +200,7 @@
         _promptTagLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width - promptTagLabelWidth, 0, promptTagLabelWidth, self.height)];
         _promptTagLabel.textColor = COR10;
 //        _promptTagLabel.text = @"1000元投起，整存整取";
-        _promptTagLabel.font = [UIFont systemFontOfSize:12];
+        _promptTagLabel.font = PINGFANG_REGULAR(13);
         _promptTagLabel.textAlignment = NSTextAlignmentRight;
     }
     return _promptTagLabel;
@@ -226,22 +241,23 @@
 //    }
 //    return _contentScrollView;
 //}
-#pragma mark - 重写父类的方法
--  (void)drawRect:(CGRect)rect
-{
-    [super drawRect:rect];
-    CGContextRef currentContext = UIGraphicsGetCurrentContext();
-    //设置虚线颜色
-    CGContextSetStrokeColorWithColor(currentContext, [UIColor blackColor].CGColor);
-    //设置虚线宽度
-    CGContextSetLineWidth(currentContext, 1);
-    //设置虚线绘制起点
-    CGContextMoveToPoint(currentContext, self.recommendedTitleLabel.x, self.height - 1);
-    //设置虚线绘制终点
-    CGContextAddLineToPoint(currentContext, self.width - self.x, self.height - 1);
-    //设置虚线排列的宽度间隔:下面的arr中的数字表示先绘制3个点再绘制1个点
-    CGFloat arr[] = {3,1};
-    //下面最后一个参数“2”代表排列的个数。
-    CGContextSetLineDash(currentContext, 0, arr, 2);
-    CGContextDrawPath(currentContext, kCGPathStroke); }
+//#pragma mark - 重写父类的方法
+//-  (void)drawRect:(CGRect)rect
+//{
+//    [super drawRect:rect];
+//    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+//    //设置虚线颜色
+//    CGContextSetStrokeColorWithColor(currentContext, [UIColor blackColor].CGColor);
+//    //设置虚线宽度
+//    CGContextSetLineWidth(currentContext, 1);
+//    //设置虚线绘制起点
+//    CGContextMoveToPoint(currentContext, self.recommendedTitleLabel.x, self.height - 1);
+//    //设置虚线绘制终点
+//    CGContextAddLineToPoint(currentContext, self.width - self.x, self.height - 1);
+//    //设置虚线排列的宽度间隔:下面的arr中的数字表示先绘制3个点再绘制1个点
+//    CGFloat arr[] = {3,1};
+//    //下面最后一个参数“2”代表排列的个数。
+//    CGContextSetLineDash(currentContext, 0, arr, 2);
+//    CGContextDrawPath(currentContext, kCGPathStroke);
+//}
 @end

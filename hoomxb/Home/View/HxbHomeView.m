@@ -106,7 +106,10 @@
 - (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
 {
     _homeBaseModel = homeBaseModel;
-    _footerLabel.text = homeBaseModel.homeTitle.baseTitle;
+    if (homeBaseModel.homeTitle.baseTitle.length) {
+        _footerLabel.text = [NSString stringWithFormat:@" %@ ",homeBaseModel.homeTitle.baseTitle];
+    }
+    
     self.headView.homeBaseModel = homeBaseModel;
     [self.mainTableView reloadData];
 }
@@ -155,13 +158,20 @@
 //    {
 //    NSLog(@"%lu",(unsigned long)_homeDataListViewModelArray.count);
 //    return _homeDataListViewModelArray.count;
-    return self.homeBaseModel.homePlanRecommend.count;
+    return 1;
 //    }
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.homeBaseModel.homePlanRecommend.count;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 116;
+    if (indexPath.section == 0) {
+        return kScrAdaptationH(225);
+    }
+    return kScrAdaptationH(255);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -177,7 +187,7 @@
                 if (!cell) {
                     cell = [[HXBHomePageProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
                     }
-                   cell.homePageModel_DataList = self.homeBaseModel.homePlanRecommend[indexPath.row];
+                   cell.homePageModel_DataList = self.homeBaseModel.homePlanRecommend[indexPath.section];
                    kWeakSelf
                    cell.purchaseButtonClickBlock = ^(){
                        weakSelf.purchaseButtonClickBlock();
@@ -236,7 +246,20 @@
 //        }
 //    }
 }
-
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footer = [[UIView alloc] init];
+    footer.backgroundColor = [UIColor clearColor];
+    return footer;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return kScrAdaptationH(10);
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01;
+}
 #pragma mark SET/GET METHODS
 //- (void)setBannersModel:(NSArray *)bannersModel
 //{
@@ -270,7 +293,7 @@
 {
     if (!_headView) {
         kWeakSelf
-        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_WIDTH *9/16 + 110 + 33)];//199
+        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(302))];//199
         _headView.delegate = self;
         _headView.tipButtonClickBlock_homePageHeadView = ^(){
             if (weakSelf.tipButtonClickBlock_homeView) {
@@ -285,18 +308,30 @@
 {
     if (!_footerView) {
         _footerView = [UIView new];
-        _footerView.backgroundColor = BACKGROUNDCOLOR;
-        _footerView.frame = CGRectMake(0, 0, _mainTableView.width, 48);
+        _footerView.backgroundColor = [UIColor clearColor];
+        _footerView.frame = CGRectMake(0, 0, _mainTableView.width, kScrAdaptationH(55));
         
         _footerLabel = [UILabel new];
         _footerLabel.frame = CGRectMake(0, 0, _footerView.width, _footerView.height);
         _footerLabel.text = @"预期年利率不等于实际收益，投资需谨慎";
-        _footerLabel.font = HXB_Text_Font(SIZ15);
-        _footerLabel.textColor = COR11;
-        _footerLabel.textAlignment = NSTextAlignmentCenter;
-        _footerLabel.backgroundColor = CLEARCOLOR;
+        _footerLabel.font = PINGFANG_REGULAR(12);
+        _footerLabel.textColor = RGB(184, 184, 184);
+        _footerLabel.backgroundColor = RGB(245, 245, 245);
         
+        UIView *line = [[UIView alloc] init];
+        line.backgroundColor = RGB(184, 184, 184);
+        [_footerView addSubview:line];
         [_footerView addSubview:_footerLabel];
+        [_footerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(_footerView);
+        }];
+        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(_footerView);
+            make.left.equalTo(_footerLabel.mas_left).offset(-kScrAdaptationW(10));
+            make.right.equalTo(_footerLabel.mas_right).offset(kScrAdaptationW(10));
+            make.height.equalTo(@0.5);
+        }];
+        
     }
     return _footerView;
 }
@@ -304,10 +339,10 @@
 - (UITableView *)mainTableView
 {
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49)];
+        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49) style:UITableViewStyleGrouped];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
-        _mainTableView.backgroundColor = RGB(242, 242, 242);
+        _mainTableView.backgroundColor = RGB(245, 245, 245);
         _mainTableView.showsVerticalScrollIndicator = NO;
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.tableHeaderView = self.headView;
@@ -329,15 +364,7 @@
 {
     if (!_bannerView) {
         _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
-        _bannerView.backgroundColor = COR1;
-
-//        BannerModel *bannerModel = [[BannerModel alloc] init];
-//        bannerModel.title = @"banner";
-//        bannerModel.picUrl = @"http://dl.bizhi.sogou.com/images/2012/03/14/124196.jpg";
-//        bannerModel.linkUrl = @"http://blog.csdn.net/lkxasdfg/article/details/8660827";
-//    
-//        _bannerView.bannersModel = @[bannerModel,bannerModel,bannerModel];
-
+        _bannerView.backgroundColor = [UIColor clearColor];
     }
     return _bannerView;
 }

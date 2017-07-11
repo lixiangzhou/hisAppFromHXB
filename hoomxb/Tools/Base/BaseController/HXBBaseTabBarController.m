@@ -12,7 +12,7 @@
 #import "HxbMyViewController.h"
 #import "HXBCheckCaptchaViewController.h"
 #import "HXBBaseViewController.h"
-
+#import "SVGKImage.h"
 @interface HXBBaseTabBarController ()<UITabBarControllerDelegate>
 
 @end
@@ -65,7 +65,7 @@
 
 #pragma mark - 封装的方法
 //MARK: 根据subVC名创建subVC并加入到self.childViewControllers里面
-- (void)subViewControllerNames: (NSArray <NSString *> *)subViewControllerNameArray andNavigationControllerTitleArray: (NSArray<NSString *>*)titleArray andImageNameArray: (NSArray<NSString *>*)imageNameArray andSelectImageCommonName: (NSString *)selectImageCommonName{
+- (void)subViewControllerNames: (NSArray <NSString *> *)subViewControllerNameArray andNavigationControllerTitleArray: (NSArray<NSString *>*)titleArray andImageNameArray: (NSArray<NSString *>*)imageNameArray andSelectImageCommonName: (NSArray<NSString *>*)selectImageCommonNameArray{
     
     for (int i = 0; i < subViewControllerNameArray.count; i ++) {
         UIViewController *VC = [self ctratSubControllerWithName:subViewControllerNameArray[i]];
@@ -82,10 +82,11 @@
         [NAV.tabBarItem setTitleTextAttributes:@{NSForegroundColorAttributeName : self.selectColor} forState:UIControlStateSelected];
         
         // 设置image 及渲染模式
-        UIImage *image = [UIImage imageNamed:imageNameArray[i]];
-        image = [image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        SVGKImage *svgImage = [SVGKImage imageNamed:imageNameArray[i]];
+        UIImage *image = [svgImage.UIImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         NAV.tabBarItem.image = image;
-        UIImage *selectImage = [UIImage imageNamed: [NSString stringWithFormat:@"%@%@",selectImageCommonName,imageNameArray[i]]];
+        svgImage = [SVGKImage imageNamed:selectImageCommonNameArray[i]];
+        UIImage *selectImage = svgImage.UIImage;
         selectImage = [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         NAV.tabBarItem.selectedImage = selectImage;
         [self addChildViewController:NAV];
