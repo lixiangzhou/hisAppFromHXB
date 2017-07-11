@@ -9,6 +9,9 @@
 #import "HXBRechargeCompletedViewController.h"
 #import "HXBRechargesuccessView.h"
 #import "HXBRechargeFailView.h"
+
+
+#import "HXBSetTransactionPasswordViewController.h"//ZCC需要修改逻辑;
 @interface HXBRechargeCompletedViewController ()
 
 @property (nonatomic, strong) HXBRechargesuccessView *rechargesuccessView;
@@ -38,7 +41,12 @@
 - (HXBRechargeFailView *)rechargeFailView
 {
     if (!_rechargeFailView) {
+        kWeakSelf
         _rechargeFailView = [[HXBRechargeFailView alloc] initWithFrame:self.view.bounds];
+        _rechargeFailView.investmentBtnClickBlock = ^{
+            HXBSetTransactionPasswordViewController *setTransactionPasswordVC = [[HXBSetTransactionPasswordViewController alloc] init];
+            [weakSelf.navigationController pushViewController:setTransactionPasswordVC animated:YES];
+        };
     }
     return _rechargeFailView;
 }

@@ -12,7 +12,6 @@
 #import "HXBMyTopUpBaseView.h"
 
 
-#import "HxbWithdrawCardViewController.h"//ZCC需要修改逻辑
 #import "HXBQuickRechargeViewController.h"//ZCC需要修改逻辑
 @interface HxbMyTopUpViewController ()
 
@@ -46,10 +45,7 @@
 {
     HXBQuickRechargeViewController *quickRechargeVC = [[HXBQuickRechargeViewController alloc] init];
     [self.navigationController pushViewController:quickRechargeVC animated:YES];
-//    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-//    withdrawCardViewController.title = @"绑卡";
-//    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-    
+
 }
 
 @end

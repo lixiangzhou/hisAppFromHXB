@@ -10,4 +10,9 @@
 
 @interface HXBRechargeFailView : UIView
 
+/**
+ investmentBtnClick
+ */
+@property (nonatomic, copy) void(^investmentBtnClickBlock)();
+
 @end

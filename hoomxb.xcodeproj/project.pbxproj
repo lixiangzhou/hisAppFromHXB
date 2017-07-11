@@ -61,7 +61,6 @@
 		4E81E3FD1EE94FDE006AD3FC /* HXBModifyTransactionPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E3FA1EE94FDE006AD3FC /* HXBModifyTransactionPasswordViewController.m */; };
 		4E81E3FE1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E3FC1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m */; };
 		4E81E4061EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E4021EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m */; };
-		4E81E4071EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E4051EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.m */; };
 		4E886FB71EF916A30056086E /* HXBGesturePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FB61EF916A30056086E /* HXBGesturePasswordViewController.m */; };
 		4E886FBB1EF9194E0056086E /* HXBCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FBA1EF9194E0056086E /* HXBCircle.m */; };
 		4E886FBE1EF91A4E0056086E /* HXBCircleViewConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FBD1EF91A4E0056086E /* HXBCircleViewConst.m */; };
@@ -95,6 +94,9 @@
 		4E99824E1F026C3600CABA59 /* HXBMY_AllFinanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99824C1F026C3600CABA59 /* HXBMY_AllFinanceView.m */; };
 		4EAA301A1F134DA2003F2AF3 /* HXBQuickRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAA30191F134DA2003F2AF3 /* HXBQuickRechargeViewController.m */; };
 		4EAA301D1F134E11003F2AF3 /* HXBQuickRechargeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAA301C1F134E11003F2AF3 /* HXBQuickRechargeView.m */; };
+		4EAA30201F136DD8003F2AF3 /* HXBSetTransactionPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAA301F1F136DD8003F2AF3 /* HXBSetTransactionPasswordViewController.m */; };
+		4EAA30241F136E79003F2AF3 /* HXBTransactionPasswordConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAA30231F136E79003F2AF3 /* HXBTransactionPasswordConfirmationView.m */; };
+		4EAA30281F136EC8003F2AF3 /* HXBSetTransactionPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAA30271F136EC8003F2AF3 /* HXBSetTransactionPasswordView.m */; };
 		4EAB3EE01EEA3D3E00E3924E /* HXBModifyTransactionPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAB3EDF1EEA3D3E00E3924E /* HXBModifyTransactionPasswordRequest.m */; };
 		4EAD98D51EB838F80029A3FF /* UITextField+HxbTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98D41EB838F80029A3FF /* UITextField+HxbTextField.m */; };
 		4EAD98E41EB87D290029A3FF /* HXBBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98E31EB87D290029A3FF /* HXBBannerView.m */; };
@@ -453,8 +455,6 @@
 		4E81E3FC1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTransactionPasswordConfirmationViewController.m; sourceTree = "<group>"; };
 		4E81E4011EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyTransactionPasswordHomeView.h; sourceTree = "<group>"; };
 		4E81E4021EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyTransactionPasswordHomeView.m; sourceTree = "<group>"; };
-		4E81E4041EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTransactionPasswordConfirmationView.h; sourceTree = "<group>"; };
-		4E81E4051EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTransactionPasswordConfirmationView.m; sourceTree = "<group>"; };
 		4E886FB51EF916A30056086E /* HXBGesturePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGesturePasswordViewController.h; sourceTree = "<group>"; };
 		4E886FB61EF916A30056086E /* HXBGesturePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGesturePasswordViewController.m; sourceTree = "<group>"; };
 		4E886FB91EF9194E0056086E /* HXBCircle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCircle.h; sourceTree = "<group>"; };
@@ -518,6 +518,12 @@
 		4EAA30191F134DA2003F2AF3 /* HXBQuickRechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBQuickRechargeViewController.m; sourceTree = "<group>"; };
 		4EAA301B1F134E11003F2AF3 /* HXBQuickRechargeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBQuickRechargeView.h; sourceTree = "<group>"; };
 		4EAA301C1F134E11003F2AF3 /* HXBQuickRechargeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBQuickRechargeView.m; sourceTree = "<group>"; };
+		4EAA301E1F136DD8003F2AF3 /* HXBSetTransactionPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSetTransactionPasswordViewController.h; sourceTree = "<group>"; };
+		4EAA301F1F136DD8003F2AF3 /* HXBSetTransactionPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSetTransactionPasswordViewController.m; sourceTree = "<group>"; };
+		4EAA30221F136E79003F2AF3 /* HXBTransactionPasswordConfirmationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTransactionPasswordConfirmationView.h; sourceTree = "<group>"; };
+		4EAA30231F136E79003F2AF3 /* HXBTransactionPasswordConfirmationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTransactionPasswordConfirmationView.m; sourceTree = "<group>"; };
+		4EAA30261F136EC8003F2AF3 /* HXBSetTransactionPasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSetTransactionPasswordView.h; sourceTree = "<group>"; };
+		4EAA30271F136EC8003F2AF3 /* HXBSetTransactionPasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSetTransactionPasswordView.m; sourceTree = "<group>"; };
 		4EAB3EDE1EEA3D3E00E3924E /* HXBModifyTransactionPasswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyTransactionPasswordRequest.h; sourceTree = "<group>"; };
 		4EAB3EDF1EEA3D3E00E3924E /* HXBModifyTransactionPasswordRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyTransactionPasswordRequest.m; sourceTree = "<group>"; };
 		4EAD98D31EB838F80029A3FF /* UITextField+HxbTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+HxbTextField.h"; sourceTree = "<group>"; };
@@ -1357,6 +1363,8 @@
 				4E81E3FA1EE94FDE006AD3FC /* HXBModifyTransactionPasswordViewController.m */,
 				4E81E3FB1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.h */,
 				4E81E3FC1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m */,
+				4EAA301E1F136DD8003F2AF3 /* HXBSetTransactionPasswordViewController.h */,
+				4EAA301F1F136DD8003F2AF3 /* HXBSetTransactionPasswordViewController.m */,
 			);
 			path = MY_TransactionPassword;
 			sourceTree = "<group>";
@@ -1364,8 +1372,9 @@
 		4E81E3FF1EE95036006AD3FC /* TransactionPasswordView */ = {
 			isa = PBXGroup;
 			children = (
+				4EAA30251F136EB0003F2AF3 /* HXBSetTransactionPasswordView */,
 				4E81E4001EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView */,
-				4E81E4031EE95036006AD3FC /* HXBModifyTransactionPasswordViewController */,
+				4EAA30211F136E79003F2AF3 /* HXBModifyTransactionPasswordView */,
 			);
 			path = TransactionPasswordView;
 			sourceTree = "<group>";
@@ -1377,15 +1386,6 @@
 				4E81E4021EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m */,
 			);
 			path = HXBModifyTransactionPasswordHomeView;
-			sourceTree = "<group>";
-		};
-		4E81E4031EE95036006AD3FC /* HXBModifyTransactionPasswordViewController */ = {
-			isa = PBXGroup;
-			children = (
-				4E81E4041EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.h */,
-				4E81E4051EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.m */,
-			);
-			path = HXBModifyTransactionPasswordViewController;
 			sourceTree = "<group>";
 		};
 		4E886FB41EF916590056086E /* MY_GesturePasswordController */ = {
@@ -1525,6 +1525,24 @@
 				E12800F81F023AB40066FB66 /* HXBCode.m */,
 			);
 			path = Macros;
+			sourceTree = "<group>";
+		};
+		4EAA30211F136E79003F2AF3 /* HXBModifyTransactionPasswordView */ = {
+			isa = PBXGroup;
+			children = (
+				4EAA30221F136E79003F2AF3 /* HXBTransactionPasswordConfirmationView.h */,
+				4EAA30231F136E79003F2AF3 /* HXBTransactionPasswordConfirmationView.m */,
+			);
+			path = HXBModifyTransactionPasswordView;
+			sourceTree = "<group>";
+		};
+		4EAA30251F136EB0003F2AF3 /* HXBSetTransactionPasswordView */ = {
+			isa = PBXGroup;
+			children = (
+				4EAA30261F136EC8003F2AF3 /* HXBSetTransactionPasswordView.h */,
+				4EAA30271F136EC8003F2AF3 /* HXBSetTransactionPasswordView.m */,
+			);
+			path = HXBSetTransactionPasswordView;
 			sourceTree = "<group>";
 		};
 		4EAB3EDD1EEA392200E3924E /* HXBTransactionPassword */ = {
@@ -3469,7 +3487,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -3491,6 +3509,7 @@
 				4EB45DAB1EF7ACCE00C2CF21 /* HXBHomeTitleModel.m in Sources */,
 				E1FF8EDD1F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m in Sources */,
 				E166C5961F03D6C200AA14F4 /* HXBMY_PlanModel_LoanRecordModel.m in Sources */,
+				4EAA30281F136EC8003F2AF3 /* HXBSetTransactionPasswordView.m in Sources */,
 				E1CD4BD21ED83064000CC57B /* HXBBaseHandDate.m in Sources */,
 				E1625B2E1EFBE63000FE9ABF /* HXBBaseView_HaveLabel_TopBottomView.m in Sources */,
 				E1270B2C1ECED0CA00729BC9 /* HXBMYReqest_DetailRequest.m in Sources */,
@@ -3543,6 +3562,7 @@
 				E1625B2B1EFBDAB200FE9ABF /* HXBBaseView_TwoLable_View.m in Sources */,
 				4EB45DA81EF7AC4600C2CF21 /* HXBHomeBaseModel.m in Sources */,
 				E1757B041EFA3E57009C0BC8 /* HXBFinModel_Buy_LoanModel.m in Sources */,
+				4EAA30201F136DD8003F2AF3 /* HXBSetTransactionPasswordViewController.m in Sources */,
 				E10EB4B81EEFE06F00F16CFA /* HxbMyAboutMeViewController.m in Sources */,
 				E165EAAD1EF8E77500D68763 /* HXBRechargeView.m in Sources */,
 				E1FF8EDB1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetailView.m in Sources */,
@@ -3550,6 +3570,7 @@
 				4E9982401F022A6400CABA59 /* HXBWithdrawalsRequest.m in Sources */,
 				E1270B3B1ECED23F00729BC9 /* HXBMYViewModel_PlanDetailViewModel.m in Sources */,
 				E1B0F4891EC492980071246F /* HXBFinAddRecortdVC_Loan.m in Sources */,
+				4EAA30241F136E79003F2AF3 /* HXBTransactionPasswordConfirmationView.m in Sources */,
 				E12800EB1F0201250066FB66 /* HXBMY_AllFinanceViewController.m in Sources */,
 				E1D048591EE96FC5002A4E28 /* HXBBasePasswordView.m in Sources */,
 				E1CD4BD41ED83064000CC57B /* HXBBaseVersionUpdateManager.m in Sources */,
@@ -3705,7 +3726,6 @@
 				E1C9647A1EA5E04F0066DBC4 /* HXBBaseTableView.m in Sources */,
 				E17E6AE71ECDA46B0046888B /* HXBMY_CapitalRecordViewController.m in Sources */,
 				E122D8511EA0CAB900DC71ED /* NSString+HxbGeneral.m in Sources */,
-				4E81E4071EE95036006AD3FC /* HXBTransactionPasswordConfirmationView.m in Sources */,
 				E1CD4BDD1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m in Sources */,
 				E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */,
 				E17509BD1EC6F2A100E17B39 /* HXBFin_Detail_DetailVC_Loan.m in Sources */,

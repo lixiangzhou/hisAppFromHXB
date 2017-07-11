@@ -54,6 +54,13 @@
 
 }
 
+- (void)investmentBtnClick
+{
+    if (self.investmentBtnClickBlock) {
+        self.investmentBtnClickBlock();
+    }
+}
+
 #pragma mark - 懒加载
 - (UILabel *)rechargeFailLabel
 {
@@ -83,6 +90,7 @@
         _investmentBtn = [[UIButton alloc] init];
         [_investmentBtn setTitle:@"重新充值" forState:UIControlStateNormal];
         [_investmentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_investmentBtn addTarget:self action:@selector(investmentBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _investmentBtn.layer.borderColor = COR12.CGColor;
         _investmentBtn.layer.borderWidth = 0.5;
     }

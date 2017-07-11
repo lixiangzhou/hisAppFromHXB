@@ -1,5 +1,5 @@
 //
-//  HXBQuickRechargeView.h
+//  HXBSetTransactionPasswordView.h
 //  hoomxb
 //
 //  Created by HXB-C on 2017/7/10.
@@ -8,11 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface HXBQuickRechargeView : UIView
-
-/**
- 充值完成Block
- */
-@property (nonatomic, copy) void(^rechargeBtnClickBlock)();
+@interface HXBSetTransactionPasswordView : UIView
 
 @end

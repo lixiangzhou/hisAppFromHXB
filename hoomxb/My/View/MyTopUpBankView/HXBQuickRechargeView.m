@@ -56,6 +56,7 @@
         [self addSubview:self.bankCardNumberLabel];
         [self addSubview:self.phoneNumberlabel];
         [self addSubview:self.getValidationCodeView];
+        [self addSubview:self.rechargeBtn];
         [self setCardViewFrame];
     }
     return self;
@@ -95,11 +96,19 @@
         make.top.equalTo(self.phoneNumberlabel.mas_bottom).offset(20);
         make.height.equalTo(@44);
     }];
+    [self.rechargeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(20);
+        make.right.equalTo(self.mas_right).offset(-20);
+        make.top.equalTo(self.getValidationCodeView.mas_bottom).offset(20);
+        make.height.equalTo(@44);
+    }];
 }
 
 - (void)rechargeBtnClick
 {
-    
+    if (self.rechargeBtnClickBlock) {
+        self.rechargeBtnClickBlock();
+    }
 }
 
 #pragma mark - 懒加载
@@ -120,6 +129,8 @@
             viewModelVM.leftLabelStr = @"充值";
             viewModelVM.rightLabelStr = @"789456元";
             viewModelVM.isLeftRight = YES;
+            viewModelVM.leftViewColor = COR12;
+            viewModelVM.rightViewColor = COR12;
             return viewModelVM;
         }];
     }
@@ -133,6 +144,8 @@
         [_cardholderLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
             viewModelVM.leftLabelStr = @"持卡人";
             viewModelVM.isLeftRight = YES;
+            viewModelVM.leftViewColor = COR12;
+            viewModelVM.rightViewColor = COR12;
             return viewModelVM;
         }];
     }
@@ -147,6 +160,8 @@
             viewModelVM.leftLabelStr = @"银行卡号";
             viewModelVM.rightLabelStr = @"****6789";
             viewModelVM.isLeftRight = YES;
+            viewModelVM.leftViewColor = COR12;
+            viewModelVM.rightViewColor = COR12;
             return viewModelVM;
         }];
     }
@@ -161,6 +176,8 @@
             viewModelVM.leftLabelStr = @"预留手机号";
             viewModelVM.rightLabelStr = @"185****6789";
             viewModelVM.isLeftRight = YES;
+            viewModelVM.leftViewColor = COR12;
+            viewModelVM.rightViewColor = COR12;
             return viewModelVM;
         }];
     }
