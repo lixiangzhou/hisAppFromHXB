@@ -216,6 +216,11 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"login_close"] style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
     leftItem.tintColor = [UIColor colorWithRed:131/255.0f green:131/255.0f blue:131/255.0f alpha:1];
     self.navigationItem.leftBarButtonItem = leftItem;
+    [self.navigationController.navigationBar setValue:@(0)forKeyPath:@"backgroundView.alpha"];
+    self.navigationController.navigationBar.barStyle=UIBarStyleBlackTranslucent;
+    self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
+    HXBColourGradientView *colourGradientView = [[HXBColourGradientView alloc] initWithFrame:CGRectMake(0, -20, kScreenWidth, 64)];
+    [self.navigationController.navigationBar insertSubview:colourGradientView atIndex:0];
 }
 - (void)didClickSignInBtn{
     

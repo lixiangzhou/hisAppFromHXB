@@ -14,6 +14,7 @@
 
 #import "BannerModel.h"
 #import "HXBHomeBaseModel.h"
+#import "SVGKImage.h"
 @interface HXBHomePageHeadView () 
 
 @property (nonatomic, strong) HXBHomePageBulletinView *bulletinView;
@@ -23,6 +24,8 @@
 @property (nonatomic, strong) HXBHomePageLoginIndicationView *indicationView;
 
 @property (nonatomic, strong) HXBHomePageAfterLoginView *afterLoginView;
+
+@property (nonatomic, strong) UIButton *noticeBtn;
 
 @end
 
@@ -37,7 +40,7 @@
 //        [self addSubview:self.moduleView];
         [self addSubview:self.bannerView];
         [self addSubview:self.bulletinView];
-
+        [self addSubview:self.noticeBtn];
 //        [self.moduleView setTopLine];
     }
     return self;
@@ -73,26 +76,26 @@
 //    [self closeButtonView];
 //}
 
-- (void)showBulletinView
-{
-    if (!self.bulletinView || self.bulletinView.hidden == YES) {
-        [self addSubview:self.bulletinView];
-        self.bulletinView.hidden = NO;
-        // set frame
-        if ([KeyChain isLogin]) {
-            self.afterLoginView.y = self.afterLoginView.y + self.bulletinView.height;
-//            self.moduleView.y = self.moduleView.y + self.bulletinView.height;
-            self.height = self.height + self.bulletinView.height;
-        }else
-        {
-            self.indicationView.y = self.indicationView.y + self.bulletinView.height;
-//            self.moduleView.y = self.moduleView.y + self.bulletinView.height;
-            self.height = self.height + self.bulletinView.height;
-        }
-        
-        [self resetView];
-    }
-}
+//- (void)showBulletinView
+//{
+//    if (!self.bulletinView || self.bulletinView.hidden == YES) {
+//        [self addSubview:self.bulletinView];
+//        self.bulletinView.hidden = NO;
+//        // set frame
+//        if ([KeyChain isLogin]) {
+//            self.afterLoginView.y = self.afterLoginView.y + self.bulletinView.height;
+////            self.moduleView.y = self.moduleView.y + self.bulletinView.height;
+//            self.height = self.height + self.bulletinView.height;
+//        }else
+//        {
+//            self.indicationView.y = self.indicationView.y + self.bulletinView.height;
+////            self.moduleView.y = self.moduleView.y + self.bulletinView.height;
+//            self.height = self.height + self.bulletinView.height;
+//        }
+//        
+//        [self resetView];
+//    }
+//}
 
 - (void)showNotValidatedView
 {
@@ -122,7 +125,7 @@
 - (void)showSecurityCertificationOrInvest{
     kWeakSelf
     if (![KeyChain isLogin]) {
-        self.afterLoginView.tipString = @"登录/注册";
+        self.afterLoginView.tipString = @"注册／登录";
     }else
     {
         [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
@@ -187,7 +190,7 @@
 {
     kWeakSelf
     if (!_afterLoginView) {
-        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 105)];
+        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(137))];
         _afterLoginView.tipButtonClickBlock_homePageAfterLoginView = ^(){
             if (weakSelf.tipButtonClickBlock_homePageHeadView) {
                 weakSelf.tipButtonClickBlock_homePageHeadView();
@@ -211,8 +214,8 @@
 - (HXBBannerView *)bannerView
 {
     if (!_bannerView) {
-        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
-        _bannerView.backgroundColor = [UIColor blueColor];
+        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kScrAdaptationH(110))];
+//        _bannerView.backgroundColor = [UIColor greenColor];
 //        BannerModel *bannerModel = [[BannerModel alloc] init];
 //        bannerModel.title = @"banner";
 //        bannerModel.image = @"http://img05.tooopen.com/images/20150531/tooopen_sy_127457023651.jpg";
@@ -228,13 +231,21 @@
 - (HXBHomePageBulletinView *)bulletinView
 {
     if (!_bulletinView) {
-        _bulletinView = [[HXBHomePageBulletinView alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(_bannerView.frame), SCREEN_WIDTH, 40)];
+        _bulletinView = [[HXBHomePageBulletinView alloc]initWithFrame:CGRectMake(0,self.height - kScrAdaptationH(35), SCREEN_WIDTH, kScrAdaptationH(35))];
 //        _bulletinView.delegete = self;
     }
     return _bulletinView;
 }
 
-
+- (UIButton *)noticeBtn
+{
+    if (!_noticeBtn) {
+        _noticeBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), kScrAdaptationH(34), kScrAdaptationW(20), kScrAdaptationH(17))];
+        SVGKImage *svgImage = [SVGKImage imageNamed:@"notice"];
+        [_noticeBtn setImage:svgImage.UIImage forState:UIControlStateNormal];
+    }
+    return _noticeBtn;
+}
 
 
 @end

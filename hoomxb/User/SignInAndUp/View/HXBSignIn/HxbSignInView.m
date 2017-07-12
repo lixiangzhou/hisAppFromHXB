@@ -44,7 +44,7 @@ UITextFieldDelegate
 ///密码
 @property (nonatomic, strong) UILabel *passwordLabel;
 ///显示手机号的信息的label (是否为手机号，手机号是否已注册)
-@property (nonatomic, strong) UILabel *isPhoneNumberLabel;
+//@property (nonatomic, strong) UILabel *isPhoneNumberLabel;
 ///手机号是否存在
 @property (nonatomic, copy) void(^checkMobileBlock)(NSString *mobile);
 ///是否已经注册
@@ -61,7 +61,10 @@ UITextFieldDelegate
 
 ///李鹏跃 ： 禁止用 登录按钮
 - (void)checkMobileResultFuncWithCheckMobileResultStr:(NSString *)checkMobileResultStr andIsEditLoginButton:(BOOL)isEditLoginButton {
-    self.isPhoneNumberLabel.text = checkMobileResultStr;
+//    self.isPhoneNumberLabel.text = checkMobileResultStr;
+    if (!isEditLoginButton) {
+        [HxbHUDProgress showError:checkMobileResultStr inview:self];
+    }
     self.signInButton.userInteractionEnabled = isEditLoginButton;
 }
 
@@ -91,7 +94,7 @@ UITextFieldDelegate
     self.phoneNumberLabel = [[UILabel alloc]init];///关于手机号的Label
     self.passwordLabel = [[UILabel alloc]init];///关于密码的label
     
-    self.isPhoneNumberLabel = [[UILabel alloc]init];///显示手机号的信息的label (是否为手机号，手机号是否已注册)
+//    self.isPhoneNumberLabel = [[UILabel alloc]init];///显示手机号的信息的label (是否为手机号，手机号是否已注册)
     self.passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;
     self.passwordTextField.secureTextEntry = true;
     
@@ -104,7 +107,7 @@ UITextFieldDelegate
     [self addSubview:self.phoneNumberLabel];
     [self addSubview:self.passwordLabel];
     
-    [self addSubview:self.isPhoneNumberLabel];
+//    [self addSubview:self.isPhoneNumberLabel];
     [self addSubview:self.forgetPasswordButton];
     
     
@@ -142,10 +145,10 @@ UITextFieldDelegate
         make.right.left.equalTo(weakSelf.signInButton);
     }];
     
-    [self.isPhoneNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(80));
-        make.width.equalTo(weakSelf);
-    }];
+//    [self.isPhoneNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(weakSelf).offset(kScrAdaptationH(80));
+//        make.width.equalTo(weakSelf);
+//    }];
     [self.forgetPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.passwordTextField.mas_bottom).offset(kScrAdaptationH(20));
         make.right.equalTo(weakSelf.passwordTextField);
@@ -158,7 +161,7 @@ UITextFieldDelegate
     self.signUpbutton.backgroundColor = [UIColor hxb_randomColor];
     self.passwordTextField.backgroundColor = [UIColor hxb_randomColor];
     self.phoneTextField.backgroundColor = [UIColor hxb_randomColor];
-    self.isPhoneNumberLabel.backgroundColor = [UIColor hxb_randomColor];
+//    self.isPhoneNumberLabel.backgroundColor = [UIColor hxb_randomColor];
     self.forgetPasswordButton.backgroundColor = [UIColor hxb_randomColor];
     
 }
@@ -300,10 +303,10 @@ UITextFieldDelegate
     BOOL isTrue = [NSString isMobileNumber:str];
     NSLog(@"电话号码-- %d",isTrue);
     if (!isTrue) {//不是真的，提示输入正确的密码
-        self.isPhoneNumberLabel.text = kPhoneText_Error;
+//        self.isPhoneNumberLabel.text = kPhoneText_Error;
         return;
     }
-    self.isPhoneNumberLabel.text = @"";
+//    self.isPhoneNumberLabel.text = @"";
     ///请求手机号是否存在
     if (self.checkMobileBlock) {
         self.checkMobileBlock(str);

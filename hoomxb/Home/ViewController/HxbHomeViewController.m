@@ -208,7 +208,6 @@
 ///登录
 - (void)loginOrSignUp
 {
-    
     [[NSNotificationCenter defaultCenter]postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:nil];
     
 }
@@ -290,7 +289,7 @@
             HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
             UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"红利计划##" style:UIBarButtonItemStylePlain target:nil action:nil];
             weakSelf.navigationItem.backBarButtonItem = leftBarButtonItem;
-            HxbHomePageModel_DataList *homePageModel = weakSelf.homeView.homeBaseModel.homePlanRecommend[indexPath.row];
+            HxbHomePageModel_DataList *homePageModel = weakSelf.homeView.homeBaseModel.homePlanRecommend[indexPath.section];
             planDetailsVC.planID = homePageModel.ID;
             planDetailsVC.isPlan = true;
             planDetailsVC.isFlowChart = true;

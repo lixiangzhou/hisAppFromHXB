@@ -241,7 +241,6 @@
 
 //MARK: 债转的刷新加载
 - (void)setUPLoanTruansferRefresh {
-    kWeakSelf
     [self.homePageView setLoanTruansferFooterBlock:^{
         
     }];
