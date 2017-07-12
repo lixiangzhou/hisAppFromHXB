@@ -33,6 +33,7 @@
 @property (nonatomic, strong) UIImageView *icon;
 //@property (nonatomic, strong) CategoryLabel *categoryLabel;
 //@property (nonatomic, strong) UIView *bottomLine;
+@property (nonatomic, strong) HXBColourGradientView *colourGradientView;
 @end
 
 @implementation HXBHomePageProductCell
@@ -89,6 +90,14 @@
         make.right.equalTo(self.backView.mas_right).offset(-kScrAdaptationW(20));
         make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(153));
         make.height.equalTo(@kScrAdaptationH(38));
+        
+    }];
+    [self.colourGradientView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.purchaseButton.mas_left);
+        make.right.equalTo(self.purchaseButton.mas_right);
+        make.top.equalTo(self.purchaseButton.mas_top);
+        make.bottom.equalTo(self.purchaseButton.mas_bottom);
+        
     }];
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backView.mas_left).offset(kScrAdaptationW(33));
@@ -199,7 +208,7 @@
 {
     if (!_promptLabel) {
         _promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 110, 0, 110, 14)];
-        _promptLabel.font = PINGFANG_REGULAR(13);
+        _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(13);
         _promptLabel.text = @"喜迎国庆，立加息啦";
         _promptLabel.textColor = RGB(94, 149, 255);
     }
@@ -233,7 +242,7 @@
         _expectAnnualizedRatesLabel = [[UILabel alloc]initWithFrame:CGRectMake(16, 50, 120, 22)];
         _expectAnnualizedRatesLabel.textColor = COR10;
         _expectAnnualizedRatesLabel.text = @"预期年利率";
-        _expectAnnualizedRatesLabel.font = PINGFANG_REGULAR(14);
+        _expectAnnualizedRatesLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
     }
     return _expectAnnualizedRatesLabel;
 }
@@ -241,7 +250,7 @@
     if (!_investmentPeriodTitleLabel) {
         _investmentPeriodTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake( RightItemPercent*SCREEN_WIDTH, 80, 80, 11)];
         _investmentPeriodTitleLabel.text = @"3个月";
-        _investmentPeriodTitleLabel.font = PINGFANG_REGULAR(14);
+        _investmentPeriodTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         _investmentPeriodTitleLabel.textColor = COR10;
     }
     return _investmentPeriodTitleLabel;
@@ -277,8 +286,8 @@
 {
     if (!_purchaseButton) {
         _purchaseButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) + 10, 0, SCREEN_WIDTH - CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) - 20, 36)];
-        _purchaseButton.titleLabel.font = PINGFANG_REGULAR(16);
-        [_purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
+        _purchaseButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
+        [_purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
         [_purchaseButton setTitle:@"加入" forState:UIControlStateNormal];
         [_purchaseButton addTarget:self action:@selector(purchaseButtonClick) forControlEvents:UIControlEventTouchUpInside];
         _purchaseButton.enabled = NO;
@@ -286,6 +295,8 @@
         _purchaseButton.layer.borderColor = RGB(255, 133, 133).CGColor;
         _purchaseButton.layer.cornerRadius = 4.0f;
         _purchaseButton.backgroundColor = RGB(255, 247, 247);
+        self.colourGradientView = [[HXBColourGradientView alloc] init];
+        [_purchaseButton insertSubview:self.colourGradientView atIndex:0];
     }
     return _purchaseButton;
 }
@@ -322,7 +333,11 @@
     }
 }
 
-
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+}
 
 @end
 

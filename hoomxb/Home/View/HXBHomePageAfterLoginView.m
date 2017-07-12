@@ -138,7 +138,7 @@
     if (!_userTitleLabel) {
         _userTitleLabel = [[UILabel alloc]init];
         _userTitleLabel.textColor = COR15;
-        _userTitleLabel.font = PINGFANG_REGULAR(15);
+        _userTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         _userTitleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _userTitleLabel;
@@ -159,7 +159,7 @@
     if (!_tipButton) {
         _tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [_tipButton setTitleColor:COR15 forState:UIControlStateNormal];
-        _tipButton.titleLabel.font =  PINGFANG_REGULAR(17);
+        _tipButton.titleLabel.font =  kHXBFont_PINGFANGSC_REGULAR(17);
         _tipButton.backgroundColor = [UIColor clearColor];
         [_tipButton addTarget:self action:@selector(tipButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }

@@ -294,6 +294,8 @@
     if (!_headView) {
         kWeakSelf
         _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(302))];//199
+        HXBColourGradientView *ColourGradientView = [[HXBColourGradientView alloc] initWithFrame:_headView.bounds];
+        [_headView insertSubview:ColourGradientView atIndex:0];
         _headView.delegate = self;
         _headView.tipButtonClickBlock_homePageHeadView = ^(){
             if (weakSelf.tipButtonClickBlock_homeView) {
@@ -314,7 +316,7 @@
         _footerLabel = [UILabel new];
         _footerLabel.frame = CGRectMake(0, 0, _footerView.width, _footerView.height);
         _footerLabel.text = @"预期年利率不等于实际收益，投资需谨慎";
-        _footerLabel.font = PINGFANG_REGULAR(12);
+        _footerLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _footerLabel.textColor = RGB(184, 184, 184);
         _footerLabel.backgroundColor = RGB(245, 245, 245);
         

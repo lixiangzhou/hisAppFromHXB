@@ -49,15 +49,15 @@
         _bannerView = [[SCAdView alloc] initWithBuilder:^(SCAdViewBuilder *builder) {
             builder.adArray = weakSelf.bannersModel;
             builder.viewFrame = self.bounds;
-            builder.adItemSize = (CGSize){kScrAdaptationW(220),kScrAdaptationH(110)};
-            builder.minimumLineSpacing = kScrAdaptationW(43);
             builder.minimumInteritemSpacing = 0;
             builder.secondaryItemMinAlpha = 1.0;
-            builder.threeDimensionalScale = 1.45;
+            builder.threeDimensionalScale = 1.1;
+            builder.adItemSize = (CGSize){kScrAdaptationW(325)/builder.threeDimensionalScale,kScrAdaptationH(110)/builder.threeDimensionalScale};
+            builder.minimumLineSpacing = kScrAdaptationW(15) * builder.threeDimensionalScale;
             builder.infiniteCycle = 2.0;
             builder.itemCellNibName = @"HXBBannerCollectionViewCell";
         }];
-        _bannerView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:0.2];
+        _bannerView.backgroundColor = [UIColor clearColor];
         _bannerView.delegate = self;
     }
     return _bannerView;

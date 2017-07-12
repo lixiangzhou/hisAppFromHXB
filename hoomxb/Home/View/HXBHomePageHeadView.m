@@ -14,6 +14,7 @@
 
 #import "BannerModel.h"
 #import "HXBHomeBaseModel.h"
+#import "SVGKImage.h"
 @interface HXBHomePageHeadView () 
 
 @property (nonatomic, strong) HXBHomePageBulletinView *bulletinView;
@@ -23,6 +24,8 @@
 @property (nonatomic, strong) HXBHomePageLoginIndicationView *indicationView;
 
 @property (nonatomic, strong) HXBHomePageAfterLoginView *afterLoginView;
+
+@property (nonatomic, strong) UIButton *noticeBtn;
 
 @end
 
@@ -37,7 +40,7 @@
 //        [self addSubview:self.moduleView];
         [self addSubview:self.bannerView];
         [self addSubview:self.bulletinView];
-
+        [self addSubview:self.noticeBtn];
 //        [self.moduleView setTopLine];
     }
     return self;
@@ -212,7 +215,7 @@
 {
     if (!_bannerView) {
         _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kScrAdaptationH(110))];
-        _bannerView.backgroundColor = [UIColor greenColor];
+//        _bannerView.backgroundColor = [UIColor greenColor];
 //        BannerModel *bannerModel = [[BannerModel alloc] init];
 //        bannerModel.title = @"banner";
 //        bannerModel.image = @"http://img05.tooopen.com/images/20150531/tooopen_sy_127457023651.jpg";
@@ -234,7 +237,15 @@
     return _bulletinView;
 }
 
-
+- (UIButton *)noticeBtn
+{
+    if (!_noticeBtn) {
+        _noticeBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), kScrAdaptationH(34), kScrAdaptationW(20), kScrAdaptationH(17))];
+        SVGKImage *svgImage = [SVGKImage imageNamed:@"notice"];
+        [_noticeBtn setImage:svgImage.UIImage forState:UIControlStateNormal];
+    }
+    return _noticeBtn;
+}
 
 
 @end

@@ -188,7 +188,7 @@
         _recommendedTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, 120, self.height)];
         _recommendedTitleLabel.textColor = COR6;
         _recommendedTitleLabel.text = @"推荐-红利计划";
-        _recommendedTitleLabel.font = PINGFANG_REGULAR(15);
+        _recommendedTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     }
     return _recommendedTitleLabel;
 }
@@ -200,7 +200,7 @@
         _promptTagLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width - promptTagLabelWidth, 0, promptTagLabelWidth, self.height)];
         _promptTagLabel.textColor = COR10;
 //        _promptTagLabel.text = @"1000元投起，整存整取";
-        _promptTagLabel.font = PINGFANG_REGULAR(13);
+        _promptTagLabel.font = kHXBFont_PINGFANGSC_REGULAR(13);
         _promptTagLabel.textAlignment = NSTextAlignmentRight;
     }
     return _promptTagLabel;
