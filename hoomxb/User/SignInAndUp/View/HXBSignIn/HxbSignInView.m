@@ -8,12 +8,12 @@
 //
 
 #import "HxbSignInView.h"
-
+#import "SVGKImage.h"
 static NSString *const kForgetPasswordText = @"忘记密码";
 static NSString *const kPhoneText = @"手机号";
 static NSString *const kPasswordText = @"密码";
 static NSString *const kSignInText = @"同意用户协议并登陆";
-static NSString *const kSignUPText = @"还没有账户，去注册";
+static NSString *const kSignUPText = @"立即注册";
 
 static NSString *const kPhoneText_Error = @"请输入正确的手机号码";
 static NSString *const kPhoneText_Nil = @"手机号码不能为空";
@@ -40,9 +40,14 @@ UITextFieldDelegate
 ///注册按钮
 @property (nonatomic, strong) UIButton *signUpbutton;
 ///手机号
-@property (nonatomic, strong) UILabel *phoneNumberLabel;
+//@property (nonatomic, strong) UILabel *phoneNumberLabel;
+@property (nonatomic, strong) UIImageView *phoneImageView;
+@property (nonatomic, strong) UIView *phoneline;
 ///密码
-@property (nonatomic, strong) UILabel *passwordLabel;
+//@property (nonatomic, strong) UILabel *passwordLabel;
+@property (nonatomic, strong) UIImageView *passwordImageView;
+@property (nonatomic, strong) UIView *passwordline;
+@property (nonatomic, strong) UIButton *password_eye_btn;
 ///显示手机号的信息的label (是否为手机号，手机号是否已注册)
 //@property (nonatomic, strong) UILabel *isPhoneNumberLabel;
 ///手机号是否存在
@@ -51,6 +56,10 @@ UITextFieldDelegate
 @property (nonatomic, assign) BOOL isRegisterWithMobile;
 ///忘记密码按钮
 @property (nonatomic,strong) UIButton *forgetPasswordButton;
+/**
+ 用户协议
+ */
+@property (nonatomic, strong) UIButton *userAgreementBtn;
 ///点击了忘记密码 button
 @property (nonatomic,copy) void(^forgetPasswordButtonBlock)();
 @end
@@ -83,109 +92,180 @@ UITextFieldDelegate
 
 ///创建自控制器
 - (void)setUPSubViews_Creat {
+    self.phoneline = [[UIView alloc] init];
+    self.passwordline = [[UIView alloc] init];
+    self.phoneline.backgroundColor = RGB(221, 221, 221);
+    self.passwordline.backgroundColor = RGB(221, 221, 221);
     self.phoneTextField = [[UITextField alloc]init];
     self.phoneTextField.text = KeyChain.mobile;
     self.passwordTextField = [[UITextField alloc]init];
     self.signInButton = [[UIButton alloc]init];
     self.signUpbutton = [[UIButton alloc]init];
     self.forgetPasswordButton = [[UIButton alloc]init];
+    self.userAgreementBtn = [[UIButton alloc] init];
+    self.password_eye_btn = [[UIButton alloc] init];
+    
+    [self.password_eye_btn setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateNormal];
+    [self.password_eye_btn setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateSelected];
+    [self.password_eye_btn addTarget:self action:@selector(passwordEyeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     
     
-    self.phoneNumberLabel = [[UILabel alloc]init];///关于手机号的Label
-    self.passwordLabel = [[UILabel alloc]init];///关于密码的label
+//    self.phoneNumberLabel = [[UILabel alloc]init];///关于手机号的Label
+    SVGKImage *phonesvgImage = [SVGKImage imageNamed:@"mobile_number.svg"];
+    self.phoneImageView = [[UIImageView alloc] initWithImage:phonesvgImage.UIImage];
+    
+    SVGKImage *passwordsvgImage = [SVGKImage imageNamed:@"password.svg"];
+    self.passwordImageView = [[UIImageView alloc] initWithImage:passwordsvgImage.UIImage];///关于密码的label
     
 //    self.isPhoneNumberLabel = [[UILabel alloc]init];///显示手机号的信息的label (是否为手机号，手机号是否已注册)
+    NSMutableAttributedString *phoneAttrStr = [[NSMutableAttributedString alloc] initWithString:kPhoneText];
+    // 设置字体和设置字体的范围
+    [phoneAttrStr addAttribute:NSForegroundColorAttributeName
+                            value:COR10
+                            range:NSMakeRange(0, kPhoneText.length)];
+    self.phoneTextField.attributedPlaceholder = phoneAttrStr;
     self.passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;
     self.passwordTextField.secureTextEntry = true;
+    NSMutableAttributedString *passwordAttrStr = [[NSMutableAttributedString alloc] initWithString:kPasswordText];
+    // 设置字体和设置字体的范围
+    [passwordAttrStr addAttribute:NSForegroundColorAttributeName
+                    value:COR10
+                    range:NSMakeRange(0, kPasswordText.length)];
+    self.passwordTextField.attributedPlaceholder = passwordAttrStr;
     
+    self.passwordTextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
     
     [self addSubview:self.phoneTextField];
     [self addSubview:self.passwordTextField];
     [self addSubview:self.signInButton];
     [self addSubview:self.signUpbutton];
     
-    [self addSubview:self.phoneNumberLabel];
-    [self addSubview:self.passwordLabel];
+    [self addSubview:self.phoneImageView];
+    [self addSubview:self.passwordImageView];
     
 //    [self addSubview:self.isPhoneNumberLabel];
     [self addSubview:self.forgetPasswordButton];
-    
-    
+    [self addSubview:self.userAgreementBtn];
+    [self addSubview:self.phoneline];
+    [self addSubview:self.passwordline];
+    [self addSubview:self.password_eye_btn];
     kWeakSelf
-    [self.phoneNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(120));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.width.equalTo(@(kScrAdaptationW(80)));
-        make.height.offset(kScrAdaptationH(40));
+    [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(176));
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(21));
+        make.width.equalTo(@(kScrAdaptationW(12)));
+        make.height.offset(kScrAdaptationH(19));
     }];
-    [self.passwordLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.phoneNumberLabel.mas_bottom).offset(kScrAdaptationH(20));
-        make.width.equalTo(weakSelf.phoneNumberLabel.mas_width);
-        make.left.equalTo(weakSelf.phoneNumberLabel);
-        make.height.equalTo(weakSelf.phoneNumberLabel);
+    [self.passwordImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.phoneImageView.mas_bottom).offset(kScrAdaptationH(43));
+        make.width.equalTo(@(kScrAdaptationW(14)));
+        make.left.equalTo(@(kScrAdaptationW(21)));
+        make.height.equalTo(@(kScrAdaptationW(18)));
     }];
     [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weakSelf.phoneNumberLabel);
-        make.left.equalTo(weakSelf.phoneNumberLabel.mas_right).offset(kScrAdaptationW(0));
+        make.centerY.equalTo(weakSelf.phoneImageView);
+        make.left.equalTo(weakSelf.phoneImageView.mas_right).offset(kScrAdaptationW(14));
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
-        make.height.equalTo(@(kScrAdaptationH(40)));
+    }];
+    [self.phoneline mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.phoneImageView.mas_bottom).offset(kScrAdaptationH(15));;
+        make.left.equalTo(weakSelf.phoneImageView.mas_left);
+        make.right.equalTo(weakSelf.phoneTextField.mas_right);
+        make.height.equalTo(@0.5);
     }];
     [self.passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weakSelf.passwordLabel);
+        make.centerY.equalTo(weakSelf.passwordImageView);
         make.right.left.equalTo(weakSelf.phoneTextField);
         make.width.height.centerX.equalTo(weakSelf.phoneTextField);
     }];
+    [self.password_eye_btn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.passwordTextField);
+        make.right.equalTo(weakSelf.phoneTextField.mas_right);
+        make.width.equalTo(@(kScrAdaptationW(20)));
+        make.height.equalTo(@(kScrAdaptationH(12)));
+    }];
+    
+    [self.passwordline mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.passwordImageView.mas_bottom).offset(kScrAdaptationH(15));;
+        make.left.equalTo(weakSelf.passwordImageView.mas_left);
+        make.right.equalTo(weakSelf.passwordTextField.mas_right);
+        make.height.equalTo(@0.5);
+    }];
     [self.signInButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.passwordTextField.mas_bottom).offset(kScrAdaptationH(120));
+        make.top.equalTo(weakSelf.passwordline.mas_bottom).offset(kScrAdaptationH(50));
         make.right.equalTo(weakSelf).offset(-20);
         make.left.equalTo(weakSelf).offset(20);
+        make.height.equalTo(@(kScrAdaptationH(41)));
     }];
     [self.signUpbutton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.signInButton.mas_bottom).offset(20);
-        make.right.left.equalTo(weakSelf.signInButton);
+        make.top.equalTo(weakSelf.signInButton.mas_bottom).offset(kScrAdaptationH(10));
+        make.right.equalTo(@(kScrAdaptationW(-20)));
+        make.height.equalTo(@(kScrAdaptationH(15)));
     }];
     
 //    [self.isPhoneNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(weakSelf).offset(kScrAdaptationH(80));
 //        make.width.equalTo(weakSelf);
 //    }];
+    [self.userAgreementBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakSelf.mas_bottom).offset(kScrAdaptationH(32));
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(120));
+    }];
     [self.forgetPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.passwordTextField.mas_bottom).offset(kScrAdaptationH(20));
+        make.bottom.equalTo(weakSelf.mas_bottom).offset(kScrAdaptationH(32));
         make.right.equalTo(weakSelf.passwordTextField);
         make.height.equalTo(@(kScrAdaptationH(30)));
         make.width.equalTo(@(kScrAdaptationW(60)));
     }];
     
-    
-    self.signInButton.backgroundColor = [UIColor hxb_randomColor];
-    self.signUpbutton.backgroundColor = [UIColor hxb_randomColor];
-    self.passwordTextField.backgroundColor = [UIColor hxb_randomColor];
-    self.phoneTextField.backgroundColor = [UIColor hxb_randomColor];
+//    self.signInButton.backgroundColor = [UIColor hxb_randomColor];
+//    self.signUpbutton.backgroundColor = [UIColor hxb_randomColor];
+//    self.passwordTextField.backgroundColor = [UIColor hxb_randomColor];
+//    self.phoneTextField.backgroundColor = [UIColor hxb_randomColor];
 //    self.isPhoneNumberLabel.backgroundColor = [UIColor hxb_randomColor];
-    self.forgetPasswordButton.backgroundColor = [UIColor hxb_randomColor];
+//    self.forgetPasswordButton.backgroundColor = [UIColor hxb_randomColor];
     
+}
+
+- (void)passwordEyeBtnClick
+{
+    self.passwordTextField.secureTextEntry = self.password_eye_btn.selected;
+    self.password_eye_btn.selected = !self.password_eye_btn.selected;
 }
 
 ///设置子控件
 - (void)setUPSubViews_SetUP {
     //赋值
-    self.phoneNumberLabel.text = kPhoneText;//手机号
-    self.passwordLabel.text = kPasswordText;//密码
-    self.phoneNumberLabel.textColor = [UIColor redColor];
-    self.passwordLabel.textColor = [UIColor redColor];
+//    self.phoneNumberLabel.text = kPhoneText;//手机号
+//    self.passwordLabel.text = kPasswordText;//密码
+////    self.phoneNumberLabel.textColor = [UIColor redColor];
+//    self.passwordLabel.textColor = [UIColor redColor];
     
     self.phoneTextField.delegate = self;
     self.passwordTextField.delegate = self;
     self.phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
-
+    self.phoneTextField.clearsOnBeginEditing = NO;
+    self.phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     //button 的设置
     [self.signInButton setTitle:kSignInText forState:UIControlStateNormal];
+    self.signInButton.layer.cornerRadius = kScrAdaptationW(4);
+    self.signInButton.layer.masksToBounds = YES;
+    self.signInButton.backgroundColor = RGB(245, 81, 81);
     [self.signUpbutton setTitle:kSignUPText forState:UIControlStateNormal];
+    [self.signUpbutton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
+    self.signUpbutton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     [self.forgetPasswordButton setTitle:kForgetPasswordText forState:UIControlStateNormal];
     
     self.signUpbutton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.signInButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     
+    
+    [self.forgetPasswordButton setTitleColor:COR10 forState:UIControlStateNormal];
+    self.forgetPasswordButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(13);
+    [self.userAgreementBtn setTitle:@"用户协议" forState:UIControlStateNormal];
+    [self.userAgreementBtn setTitleColor:COR10 forState:UIControlStateNormal];
+    self.userAgreementBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(13);
+
     //点击事件的添加
     [self.signInButton addTarget:self action:@selector(clickSignInButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.signUpbutton addTarget:self action:@selector(clickSignUPButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -264,8 +344,8 @@ UITextFieldDelegate
     }
     
     //是否展示清除按钮
-    UITextFieldViewMode model = str.length ? UITextFieldViewModeAlways : UITextFieldViewModeNever;
-    textField.clearButtonMode = model;
+//    UITextFieldViewMode model = str.length ? UITextFieldViewModeAlways : UITextFieldViewModeNever;
+//    textField.clearButtonMode = model;
     
     //如果是号码textField 那么就直接返回true
     if (textField == self.passwordTextField) return true;

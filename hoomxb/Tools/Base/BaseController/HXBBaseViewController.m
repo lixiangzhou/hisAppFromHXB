@@ -11,7 +11,7 @@
 
 #import "HXBBaseViewController.h"
 #import <WebKit/WebKit.h>
-
+#import "SVGKImage.h"
 @interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate>
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @end
@@ -38,7 +38,7 @@
 {
     UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
 //    [leftBackBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [leftBackBtn setImage:[UIImage imageNamed:@"login_close"] forState:UIControlStateNormal];
+    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
     // 让按钮内部的所有内容左对齐
     leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [leftBackBtn addTarget:self action:@selector(leftBackBtnClick) forControlEvents:UIControlEventTouchUpInside];

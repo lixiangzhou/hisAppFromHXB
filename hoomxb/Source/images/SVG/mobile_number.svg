@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="21px" viewBox="0 0 15 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>手机</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="注册1" transform="translate(-19.000000, -115.000000)">
+            <g id="手机" transform="translate(20.000000, 116.000000)">
+                <path d="M1,-0.5 L12,-0.5 C12.8284271,-0.5 13.5,0.171572875 13.5,1 L13.5,18 C13.5,18.8284271 12.8284271,19.5 12,19.5 L1,19.5 C0.171572875,19.5 -0.5,18.8284271 -0.5,18 L-0.5,1 C-0.5,0.171572875 0.171572875,-0.5 1,-0.5 Z M3,3.5 C2.72385763,3.5 2.5,3.72385763 2.5,4 L2.5,14 C2.5,14.2761424 2.72385763,14.5 3,14.5 L10,14.5 C10.2761424,14.5 10.5,14.2761424 10.5,14 L10.5,4 C10.5,3.72385763 10.2761424,3.5 10,3.5 L3,3.5 Z" id="Combined-Shape" stroke="#FD3636"></path>
+                <rect id="Rectangle-13" fill="#FD3636" x="5" y="1.5" width="3" height="1" rx="0.5"></rect>
+                <circle id="Oval-7" fill="#FD3636" cx="6.5" cy="17" r="1"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -15,7 +15,7 @@
 #import "HXBRequestUserInfoViewModel.h"///userinfo的viewModel
 #import "HXBCheckCaptchaViewController.h"
 #import "HXBBaseTabBarController.h"
-
+#import "SVGKImage.h"
 ///手机号存在
 static NSString *const kMobile_IsExist = @"手机号已存在";
 static NSString *const kMobile_NotExis = @"手机号不存在";
@@ -67,8 +67,8 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 /// 设置 登录界面
 - (void)setSignView{
     kWeakSelf
-
-    self.signView = [[HxbSignInView alloc]initWithFrame:self.view.frame];
+    
+    self.signView = [[HxbSignInView alloc]initWithFrame:self.view.bounds];
     self.hxb_automaticallyAdjustsScrollViewInsets = false;
     [self.hxbBaseVCScrollView addSubview:self.signView];
     [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
@@ -213,9 +213,15 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 
 - (void)setLeftItemBar{
     
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"login_close"] style:UIBarButtonItemStyleDone target:self action:@selector(dismiss)];
-    leftItem.tintColor = [UIColor colorWithRed:131/255.0f green:131/255.0f blue:131/255.0f alpha:1];
-    self.navigationItem.leftBarButtonItem = leftItem;
+    UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
+    //    [leftBackBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
+    // 让按钮内部的所有内容左对齐
+    leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [leftBackBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    [leftBackBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    // 修改导航栏左边的item
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBackBtn];
     [self.navigationController.navigationBar setValue:@(0)forKeyPath:@"backgroundView.alpha"];
     self.navigationController.navigationBar.barStyle=UIBarStyleBlackTranslucent;
     self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
