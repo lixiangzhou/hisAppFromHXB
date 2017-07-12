@@ -70,8 +70,10 @@
     CGFloat lineWidth = (self.frame.size.width - (self.circularCount * self.circularDiameter)) / (self.circularCount - 1);
     CGFloat Y = self.frame.size.height / 2;
     for (int i = 0; i < self.circularCount; i ++) {
-//        CGFloat X = i * (lineWidth + self.circularDiameter);
-//        CGRectMake(X, Y, lineWidth, <#CGFloat height#>)
+        CGFloat X = i * (lineWidth + self.circularDiameter);
+        CGRect rect = CGRectMake(X, Y, lineWidth, self.lineHeight);
+        NSValue *rectNumber = [NSValue valueWithCGRect:rect];
+        [arrayM addObject:rectNumber];
     }
     
 }

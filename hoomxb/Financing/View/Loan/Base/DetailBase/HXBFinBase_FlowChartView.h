@@ -52,4 +52,6 @@ static NSString *kHXB_FinPlan_Leave = @"到期退出";
 @property (nonatomic,assign) CGFloat insideCircularDiameter;
 ///同心圆的个数
 @property (nonatomic,assign) NSInteger circularCount;
+///线高
+@property (nonatomic,assign) CGFloat lineHeight;
 @end
