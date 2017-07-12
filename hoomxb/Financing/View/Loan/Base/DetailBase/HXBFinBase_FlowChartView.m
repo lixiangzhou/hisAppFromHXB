@@ -61,13 +61,18 @@
     if (!self.concentricCircles_spacing) {
         self.concentricCircles_spacing = self.circularDiameter - self.insideCircularDiameter;
     }
+    ///直线的位置
     NSMutableArray *arrayM = [[NSMutableArray alloc]init];
+    ///圆形的位置
+    NSMutableArray *arrayM_Circular = [[NSMutableArray alloc]init];
     
-    CGFloat circular_Spacing = self.frame.size.width / (self.circularCount - 1);
-//    for (int i = 0; i < self.circularCount; i ++) {
-//        
-//        CGRectMake(i, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
-//    }
+    
+    CGFloat lineWidth = (self.frame.size.width - (self.circularCount * self.circularDiameter)) / (self.circularCount - 1);
+    CGFloat Y = self.frame.size.height / 2;
+    for (int i = 0; i < self.circularCount; i ++) {
+//        CGFloat X = i * (lineWidth + self.circularDiameter);
+//        CGRectMake(X, Y, lineWidth, <#CGFloat height#>)
+    }
     
 }
 - (void)drawRect:(CGRect)rect {
