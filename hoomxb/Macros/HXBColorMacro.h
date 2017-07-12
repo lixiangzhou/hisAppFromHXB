@@ -20,6 +20,10 @@
 // 浅灰
 #define kHXBColor_heightGrey    [UIColor colorWithRed:224/255.0f green:224/255.0f blue:224/255.0f alpha:1]    // 色
 
+//深灰（字体颜色）(r:0.20 g:0.20 b:0.20 a:1.00)
+#define kHXBColor_Grey_Font [UIColor colorWithRed:0.20 green:0.20 blue:0.20 alpha:1.00]//
+//浅灰 （字体颜色）(r:0.40 g:0.40 b:0.40 a:1.00)
+#define kHXBColor_HeightGrey_Font [UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.00]//
 
 /**
  *  返回一个RGBA格式的UIColor对象

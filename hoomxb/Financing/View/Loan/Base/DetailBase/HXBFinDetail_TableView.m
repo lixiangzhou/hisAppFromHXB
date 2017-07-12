@@ -80,6 +80,7 @@ static NSString *CELLID = @"CELLID";
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        self.separatorInset = UIEdgeInsetsMake(kScrAdaptationH(1), kScrAdaptationW(15), 0, kScrAdaptationW(15));
         [self setup];
     }
     return self;
@@ -87,22 +88,23 @@ static NSString *CELLID = @"CELLID";
 - (void)setup {
     kWeakSelf
     self.optionLabel = [[UILabel alloc]init];
+    self.optionLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+    self.optionLabel.textColor = kHXBColor_RGB(0.2, 0.2, 0.2, 1);
     self.iconImageView = [[UIImageView alloc]init];
     
     [self.contentView addSubview:self.optionLabel];
     [self.contentView addSubview:self.iconImageView];
     
-    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weakSelf.contentView);
-        make.left.equalTo(weakSelf.contentView).offset(10);
-        make.height.width.equalTo(@10);
-    }];
+//    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(weakSelf.contentView);
+//        make.left.equalTo(weakSelf.contentView).offset(10);
+//        make.height.width.equalTo(@10);
+//    }];
     [self.optionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.contentView);
         make.right.equalTo(weakSelf.contentView);
-        make.left.equalTo(weakSelf.iconImageView.mas_right).offset(10);
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
     }];
-  
 }
 @end
 

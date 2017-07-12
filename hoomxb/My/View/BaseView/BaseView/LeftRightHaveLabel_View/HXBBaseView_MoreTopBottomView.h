@@ -41,6 +41,7 @@
 @property (nonatomic,assign) NSTextAlignment                rightLabelAlignment;
 /**
  左侧的stringArray
+如果用富文本那么必须从这个数组中取出
  */
 @property (nonatomic,strong) NSArray <NSString *>           *leftStrArray;
 /**
@@ -64,6 +65,12 @@
 /**
  颜色
  */
-@property (nonatomic,strong) UIColor *textColor;
-@property (nonatomic,strong) UIColor *viewColor;
+@property (nonatomic,strong) UIColor *leftTextColor;
+@property (nonatomic,strong) UIColor *rightTextColor;
+
+@property (nonatomic,strong) UIColor *leftViewColor;
+@property (nonatomic,strong) UIColor *rightViewColor;
+
+@property (nonatomic,strong) UIFont *leftFont;
+@property (nonatomic,strong) UIFont *rightFont;
 @end

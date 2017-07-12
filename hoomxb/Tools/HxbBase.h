@@ -25,7 +25,7 @@
 #import "HXBBaseView_TwoLable_View.h"//左右或上下的连着的view
 #import "UITableViewCell+HXBTableViewCell.h"///cell
 #import "HXBBaseTextField.h"///右边一个textField 右边一个
-
+#import "HXBBaseViewConcentricCirclesView.h"///画出同心圆
 
 
 //MARK: NSObject

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 ///颜色渐变的View工具
 @interface HXBColourGradientView : UIView
+
 ///开始位置
 @property (nonatomic,assign) CGPoint startPoint;
 ///终止位置
@@ -21,5 +22,5 @@
  @param locations 颜色所在位置（范围0~1），这个数组的个数不小于components中存放颜色的个数
  count:渐变个数，等于locations的个数
  */
-- (void)colorArray: (CGFloat *)components andLength: (NSInteger)componentsLength andColorLocation: (CGFloat *)locations;
+- (void)colorArray: (NSArray <NSNumber*> *)components andLength: (NSInteger)componentsLength andColorLocation: (NSArray <NSNumber*> *)locations;
 @end

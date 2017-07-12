@@ -11,7 +11,7 @@
 /**
  颜色数组
  */
-@property (nonatomic,assign)  CGFloat *components;
+@property (nonatomic,strong)  NSArray<NSNumber *> *components;
 /**
  颜色长度
  */
@@ -19,8 +19,9 @@
 /**
  颜色渐变的位置
  */
-@property (nonatomic,assign) CGFloat *locations;
+@property (nonatomic,strong) NSArray <NSNumber *>*locations;
 @end
+
 @implementation HXBColourGradientView
 
 
@@ -35,14 +36,15 @@
 - (void)setUPValue {
     self.endPoint = CGPointMake(kScreenWidth, 64);
     self.startPoint = CGPointMake(0, 0);
-    CGFloat colorArrayTemp[8] = {
-        0.99,0.40,0.30,1.00,
-        1.00,0.24,0.31,1.00
-    };
+    NSArray *colorArrayTemp = @[
+        @0.99,@0.40,@0.30,@1.00,
+        @1.00,@0.24,@0.31,@1.00
+    ];
+
     self.components = colorArrayTemp;
-    CGFloat colorLocationTemp[2] = {
-        0,1
-    };
+    NSArray <NSNumber *>*colorLocationTemp = @[
+        @0,@1
+    ];
     self.locations = colorLocationTemp;
     self.componentsLength = 2;
 }
@@ -61,7 +63,7 @@
 }
 
 ///颜色数组
-- (void)setComponents:(CGFloat *)components {
+- (void)setComponents:(NSArray <NSNumber *>*)components {
     _components = components;
     [self setNeedsDisplay];
 }
@@ -74,7 +76,7 @@
  @param locations 颜色所在位置（范围0~1），这个数组的个数不小于components中存放颜色的个数
  count:渐变个数，等于locations的个数
  */
-- (void)colorArray: (CGFloat *)components andLength: (NSInteger)componentsLength andColorLocation: (CGFloat *)locations {
+- (void)colorArray: (NSArray <NSNumber*> *)components andLength: (NSInteger)componentsLength andColorLocation: (NSArray <NSNumber*> *)locations {
     self.components = components;
     self.componentsLength = componentsLength;
     self.locations = locations;
@@ -99,13 +101,15 @@
      locations:颜色所在位置（范围0~1），这个数组的个数不小于components中存放颜色的个数
      count:渐变个数，等于locations的个数
      */
-     CGFloat components[8] = {
-        0.99,0.40,0.30,1.00,
-        1.00,0.24,0.31,1.00
-    };
+    CGFloat components[100] = {0};
     CGFloat locations[2] = {
         0,1
     };
+    for (int i = 0; i < self.componentsLength * 4; i ++) {
+        CGFloat value = self.components[i].floatValue;
+        components[i] = value;
+    }
+    
     CGGradientRef gradient= CGGradientCreateWithColorComponents(colorSpace, components, locations, self.componentsLength);
 
     /*绘制线性渐变
@@ -122,5 +126,4 @@
     //释放颜色空间
     CGColorSpaceRelease(colorSpace);
 }
-
 @end

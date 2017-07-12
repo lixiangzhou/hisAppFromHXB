@@ -22,22 +22,88 @@
  */
 @property (nonatomic,strong) HXBBaseView_TwoLable_View *levaeView;
 /**
- 同心圆位置
+ 同心圆的view
  */
-@property (nonatomic,strong) NSMutableArray *concentricCirclesLocationArray;
+@property (nonatomic,strong) HXBBaseViewConcentricCirclesView *concentricCirclesView;
+/**
+ 渐变的View
+ */
+@property (nonatomic,strong) HXBColourGradientView *colourGradientView_profiting;
+/**
+ 渐变的View 加入中
+ */
+@property (nonatomic,strong) HXBColourGradientView *colourGradientView_adding;
+/**
+ 收益中
+ 加入中
+ */
+@property (nonatomic,strong) HXBBaseView_MoreTopBottomView *statusLableView;
 @end
+
+
 @implementation HXBFinBase_FlowChartView
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self setUP];
     }
     return self;
 }
 
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+    kWeakSelf
+    [self.addView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+       
+        viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(12);
+        viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(12);
+        viewModelVM.leftLabelAlignment = NSTextAlignmentLeft;
+        viewModelVM.rightLabelAlignment = NSTextAlignmentLeft;
+        viewModelVM.leftViewColor = kHXBColor_Grey_Font;
+        viewModelVM.rightViewColor = kHXBColor_HeightGrey_Font;
+        
+        viewModelVM.leftLabelStr = weakSelf.addTime;
+        viewModelVM.rightLabelStr = @"加入";
+        return viewModelVM;
+    }];
+    [self.beginView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+        
+        viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(12);
+        viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(12);
+        viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
+        viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
+        if (weakSelf.stage == HXBFinBase_FlowChartView_Plan_Stage_Begin) {
+            viewModelVM.leftViewColor = kHXBColor_HeightGrey_Font;
+        }else {
+            viewModelVM.leftViewColor = kHXBColor_Grey_Font;
+        }
+        viewModelVM.rightViewColor = kHXBColor_HeightGrey_Font;
+        
+        viewModelVM.leftLabelStr = weakSelf.beginTime;
+        viewModelVM.rightLabelStr = @"开始收益";
+        return viewModelVM;
+    }];
+    [self.levaeView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+        viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(12);
+        viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(12);
+        viewModelVM.leftLabelAlignment = NSTextAlignmentRight;
+        viewModelVM.rightLabelAlignment = NSTextAlignmentRight;
+        if (weakSelf.stage == HXBFinBase_FlowChartView_Plan_Stage_Leave) {
+            viewModelVM.leftViewColor = kHXBColor_HeightGrey_Font;
+        }else {
+            viewModelVM.leftViewColor = kHXBColor_Grey_Font;
+        }
+        viewModelVM.rightViewColor = kHXBColor_HeightGrey_Font;
+        viewModelVM.leftLabelStr = weakSelf.leaveTime;
+        viewModelVM.rightLabelStr = @"到期退出";
+        return viewModelVM;
+    }];
+}
+
 - (void)setUP {
-    self.color = HXBC_Red_Light;
+ 
     [self.addView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW(20));
         make.top.equalTo(self).offset(kScrAdaptationH(15));
@@ -53,53 +119,47 @@
         make.top.equalTo(self.addView);
         make.height.equalTo(@(kScrAdaptationH(35)));
     }];
+    [self.colourGradientView_profiting mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.concentricCirclesView.mas_centerY);
+        make.left.equalTo(self.concentricCirclesView.mas_centerX);
+        make.right.equalTo(self.concentricCirclesView).offset(kScrAdaptationW(-5));
+        make.height.equalTo(@(kScrAdaptationH(18)));
+    }];
+    [self.colourGradientView_adding mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.concentricCirclesView.mas_centerY);
+        make.right.equalTo(self.concentricCirclesView.mas_centerX);
+        make.left.equalTo(self.concentricCirclesView).offset(kScrAdaptationW(5));
+        make.height.equalTo(@(kScrAdaptationH(18)));
+    }];
+    [self.concentricCirclesView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.mas_top).offset(kScrAdaptationH(63));
+        make.left.equalTo(self.addView);
+        make.right.equalTo(self.levaeView);
+        make.height.equalTo(@(kScrAdaptationH(15)));
+    }];
+  
+    [self.statusLableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self).offset(kScrAdaptationH(-15));
+        make.top.equalTo(self).offset(kScrAdaptationH(76));
+        make.left.equalTo(self.colourGradientView_adding);
+        make.right.equalTo(self.colourGradientView_profiting);
+    }];
+    NSArray <NSNumber*> *components = @[
+                                        @0.96,@0.32,@0.32,@0.14,
+                                        @0.96,@0.32,@0.32,@0.00
+                                        ];
+    NSArray <NSNumber*> *locations = @[
+                                       @0,@0.5
+                                       ];
+    
+    [self.colourGradientView_profiting colorArray:components andLength:2 andColorLocation: locations];
+    [self.colourGradientView_adding colorArray:components andLength:2 andColorLocation:locations];
+    self.colourGradientView_profiting.endPoint = CGPointMake(0, kScrAdaptationH(18));
+    self.colourGradientView_adding.endPoint = CGPointMake(0, kScrAdaptationH(18));
+    self.concentricCirclesView.stage = self.stage;
+    
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (self.concentricCirclesLocationArray) return;
-    if (!self.concentricCircles_spacing) {
-        self.concentricCircles_spacing = self.circularDiameter - self.insideCircularDiameter;
-    }
-    ///直线的位置
-    NSMutableArray *arrayM = [[NSMutableArray alloc]init];
-    ///圆形的位置
-    NSMutableArray *arrayM_Circular = [[NSMutableArray alloc]init];
-    
-    
-    CGFloat lineWidth = (self.frame.size.width - (self.circularCount * self.circularDiameter)) / (self.circularCount - 1);
-    CGFloat Y = self.frame.size.height / 2;
-    for (int i = 0; i < self.circularCount; i ++) {
-        CGFloat X = i * (lineWidth + self.circularDiameter);
-        CGRect rect = CGRectMake(X, Y, lineWidth, self.lineHeight);
-        NSValue *rectNumber = [NSValue valueWithCGRect:rect];
-        [arrayM addObject:rectNumber];
-    }
-    
-}
-- (void)drawRect:(CGRect)rect {
-    
-    
-}
-///画一个圆形，是否为同心圆
-- (void)drawRectArcWithIsMedicine:(BOOL)isConcentricCircles andContext:(CGContextRef)context andRect:(CGRect)rect{
-    //MARK:画有线圈的圆饼
-    CGContextSetStrokeColorWithColor(context, self.color.CGColor);//设置填充颜色
-    CGContextAddEllipseInRect(context, rect); //画一个椭圆或者圆
-    CGContextDrawPath(context, kCGPathStroke);
-    
-    if (!isConcentricCircles) return;
-    
-    CGFloat X,Y,H,W;
-    X = rect.origin.x + self.concentricCircles_spacing;
-    Y = rect.origin.y + self.concentricCircles_spacing;
-    W = rect.size.width - self.concentricCircles_spacing;
-    H = rect.size.height - self.concentricCircles_spacing;
-    CGContextSetFillColorWithColor(context, self.color.CGColor);
-    CGRect insideEllipseLocation = CGRectMake(X, Y, W, H);
-    CGContextAddEllipseInRect(context, insideEllipseLocation);
-    CGContextDrawPath(context, kCGPathFill);
-}
 
 /**
  加入
@@ -130,5 +190,54 @@
         [self addSubview:_levaeView];
     }
     return _levaeView;
+}
+/**
+ 同心圆的view
+ */
+- (HXBBaseViewConcentricCirclesView *)concentricCirclesView {
+    if (!_concentricCirclesView) {
+        _concentricCirclesView = [[HXBBaseViewConcentricCirclesView alloc]init];
+        [self addSubview:_concentricCirclesView];
+        ///同心圆 外圆直径
+        _concentricCirclesView.circularDiameter = kScrAdaptationH(10);
+        ///同心圆 内圆直径
+        _concentricCirclesView.insideCircularDiameter = kScrAdaptationH(5);
+        ///同心圆的个数
+        _concentricCirclesView.circularCount = 3;
+        ///线高
+        _concentricCirclesView.lineHeight = kScrAdaptationH(1);
+    }
+    return _concentricCirclesView;
+}
+/**
+ 渐变色
+ */
+- (HXBColourGradientView *)colourGradientView_profiting {
+    if (!_colourGradientView_profiting) {
+        _colourGradientView_profiting = [[HXBColourGradientView alloc]initWithFrame:CGRectZero];
+        [self insertSubview:_colourGradientView_profiting atIndex:0];
+    }
+    return _colourGradientView_profiting;
+}
+/**
+ 渐变色
+ */
+- (HXBColourGradientView *)colourGradientView_adding {
+    if (!_colourGradientView_adding) {
+        _colourGradientView_adding = [[HXBColourGradientView alloc]initWithFrame:CGRectZero];
+        [self addSubview:_colourGradientView_adding];
+        [self insertSubview:_colourGradientView_adding atIndex:0];
+    }
+    return _colourGradientView_adding;
+}
+/**
+ 状态
+ */
+-(HXBBaseView_MoreTopBottomView *)statusLableView {
+    if (!_statusLableView) {
+        _statusLableView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(19) andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
+        [self addSubview:_statusLableView];
+    }
+    return _statusLableView;
 }
 @end
