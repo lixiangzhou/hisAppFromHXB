@@ -130,12 +130,23 @@
     [self.hxbBaseVCScrollView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         [weakSelf downLoadData];
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
+        gifHeader.stateLabel.text = @"";
+        [gifHeader setTitle:@"" forState:MJRefreshStateIdle];
+        [gifHeader setTitle:@"" forState:MJRefreshStatePulling];
+        [gifHeader setTitle:@"" forState:MJRefreshStateRefreshing];
+        [gifHeader setTitle:@"" forState:MJRefreshStateWillRefresh];
+        [gifHeader setTitle:@"" forState:MJRefreshStateNoMoreData];
     }];
     
     
-    self.view.backgroundColor = [UIColor whiteColor];
+//    self.hxb_automaticallyAdjustsScrollViewInsets = false;
+    self.isTransparentNavigationBar = true;
+//    self.isColourGradientNavigationBar = true;
+    
+//    self.view.backgroundColor = kHXBColor_heightGrey;
     self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:self.view.frame];
     [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
+    
     //是否为计划界面
     _planDetailsView.isPlan = true;
     _planDetailsView.isFlowChart = true;
@@ -204,6 +215,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
         [weakSelf.navigationController popToRootViewControllerAnimated:false];
     }];
+    
     [planJoinVC setCallBackBlock:^{
         [weakSelf.navigationController popoverPresentationController];
     }];
