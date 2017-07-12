@@ -14,6 +14,7 @@
 
 @interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate>
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+@property (nonatomic,strong) HXBColourGradientView *colorGradientView;
 @end
 
 @implementation HXBBaseViewController{
@@ -65,15 +66,16 @@
     if (!_hxbBaseVCScrollView) {
         self.automaticallyAdjustsScrollViewInsets = true;
         self.edgesForExtendedLayout = UIRectEdgeAll;
-        _hxbBaseVCScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight -64)];
+        _hxbBaseVCScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
-        self.view.frame = _hxbBaseVCScrollView.bounds;
+//        self.view.frame = _hxbBaseVCScrollView.bounds;
         [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
 //        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
     }
     return _hxbBaseVCScrollView;
 }
+
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     
@@ -82,9 +84,16 @@
         if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
             self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
         }
-    }else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+        return;
     }
+    if ([keyPath isEqualToString:@"contentOffset"]) {
+        NSNumber *offsetNumb = change[NSKeyValueChangeNewKey];
+        CGPoint offsetPoint = [offsetNumb CGPointValue];
+        self.colorGradientView.frame = CGRectMake(0, 0, kScreenWidth, self.colorGradientView.height + offsetPoint.y);
+        self.colorGradientView.endPoint = CGPointMake(kScreenWidth, self.colorGradientView.frame.size.height);
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
 }
 
 //MARK: 销毁
@@ -99,6 +108,25 @@
     _isHiddenNavigationBar = isHiddenNavigationBar;
     self.navigationController.navigationBarHidden = isHiddenNavigationBar;
 }
+
+///透明naveBar
+- (void)setIsTransparentNavigationBar:(BOOL)isTransparentNavigationBar {
+    if (isTransparentNavigationBar) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    }
+}
+- (void)setIsColourGradientNavigationBar:(BOOL)isColourGradientNavigationBar {
+    if (isColourGradientNavigationBar) {
+        UIView * barBackgroundView = [[HXBColourGradientView alloc]init];
+        barBackgroundView.tag = 100;
+        barBackgroundView.frame = CGRectMake(0, -20, [UIScreen mainScreen].bounds.size.width, 64);
+        barBackgroundView.backgroundColor = [[UIColor redColor]colorWithAlphaComponent:0.3];
+        [self.navigationController.navigationBar insertSubview:barBackgroundView atIndex:0];
+        barBackgroundView.userInteractionEnabled = NO;  // 关键之处
+    }
+}
+
 ///是否禁止scrollView自动向下平移64
 - (void)setHxb_automaticallyAdjustsScrollViewInsets:(BOOL)hxb_automaticallyAdjustsScrollViewInsets {
     _hxb_automaticallyAdjustsScrollViewInsets = hxb_automaticallyAdjustsScrollViewInsets;

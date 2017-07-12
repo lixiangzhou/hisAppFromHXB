@@ -11,12 +11,21 @@
 
 
 @interface HXBBaseView_TwoLable_View ()
-@property (nonatomic,strong) UILabel *leftLabel;
-@property (nonatomic,strong) UILabel *rightLabel;
 @property (nonatomic,assign) CGFloat proportion;
 @property (nonatomic,assign) CGFloat spacing;
 @end
 @implementation HXBBaseView_TwoLable_View
+
+- (instancetype)initWithFrame:(CGRect)frame andSpacing: (CGFloat)spacing
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _ViewVM = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
+        self.spacing = spacing;
+        [self setUP];
+    }
+    return self;
+}
 - (CGFloat) proportion {
     if (!_proportion) {
         _proportion = 0.5;
@@ -49,6 +58,9 @@
     }
     return self;
 }
+
+
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -63,8 +75,8 @@
     [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj removeFromSuperview];
     }];
-    self.leftLabel = [[UILabel alloc]init];
-    self.rightLabel = [[UILabel alloc]init];
+    self.leftLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+    self.rightLabel = [[UILabel alloc]initWithFrame:CGRectZero];
     [self addSubview:self.leftLabel];
     [self addSubview:self.rightLabel];
     [self setUPViewFrame];
@@ -83,10 +95,8 @@
         }];
         
     } else { //上下结构
-        [self layoutIfNeeded];
         [self.leftLabel sizeToFit];
         [self.leftLabel sizeToFit];
-        CGFloat leftHeight = [self.ViewVM.leftLabelStr boundingRectWithSize:CGSizeMake(self.frame.size.width, self.frame.size.height) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil].size.height;
         
         [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.left.top.equalTo(self);
@@ -107,8 +117,16 @@
 
 }
 - (void)setUPViewValue {
-    self.leftLabel.text             =   _ViewVM.leftLabelStr;
-    self.rightLabel.text            = _ViewVM.rightLabelStr;
+    if (self.ViewVM.leftAttributedString) {
+        self.leftLabel.attributedText = _ViewVM.leftAttributedString;
+    }else {
+        self.leftLabel.text             =   _ViewVM.leftLabelStr;
+    }
+    if (self.ViewVM.rightAttributedString) {
+        self.rightLabel.attributedText = _ViewVM.rightAttributedString;
+    }else {
+        self.rightLabel.text            = _ViewVM.rightLabelStr;
+    }
     
     self.leftLabel.textAlignment    = _ViewVM.leftLabelAlignment;
     self.rightLabel.textAlignment   = _ViewVM.rightLabelAlignment;

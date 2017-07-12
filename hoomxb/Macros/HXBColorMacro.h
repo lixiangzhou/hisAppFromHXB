@@ -17,6 +17,9 @@
 #define HXBC_Red_Deep     [UIColor colorWithRed:1.00 green:0.24 blue:0.31 alpha:1.00]// 大红（渐变色深）
 
 
+// 浅灰
+#define kHXBColor_heightGrey    [UIColor colorWithRed:224/255.0f green:224/255.0f blue:224/255.0f alpha:1]    // 色
+
 
 /**
  *  返回一个RGBA格式的UIColor对象
@@ -46,6 +49,7 @@
 #define COR11    [UIColor colorWithRed:197/255.0f green:197/255.0f blue:197/255.0f alpha:1]    // 色
 // 浅灰
 #define COR12    [UIColor colorWithRed:224/255.0f green:224/255.0f blue:224/255.0f alpha:1]    // 色
+
 #define COR13    [UIColor colorWithRed:232/255.0f green:232/255.0f blue:232/255.0f alpha:1]    // 色
 #define COR14    [UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1]    // 色
 

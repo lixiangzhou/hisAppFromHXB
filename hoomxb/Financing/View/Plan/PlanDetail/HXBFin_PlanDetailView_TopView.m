@@ -22,12 +22,8 @@
 }
 - (void)setManager:(HXBFin_PlanDetailView_TopViewManager *)manager {
     _manager = manager;
+    
     [self.topView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        NSString *str = manager.topViewManager.leftLabelStr;
-        NSRange range = NSMakeRange(str.length - 1, 1);
-        UIColor *color = [UIColor whiteColor];
-        UIFont *font = kHXBFont_PINGFANGSC_REGULAR(20);
-       manager.topViewManager.leftAttributedString = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:color andAttributeFont:font];
         return manager.topViewManager;
     }];
     [self.leftView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
@@ -39,7 +35,12 @@
     [self.rightView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         return manager.rightViewManager;
     }];
-    
+    NSString *str = manager.topViewManager.leftLabelStr;
+    NSRange range = NSMakeRange(str.length - 1, 1);
+    UIColor *color = [UIColor whiteColor];
+    UIFont *font = kHXBFont_PINGFANGSC_REGULAR(20);
+    NSMutableAttributedString *attrM = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:color andAttributeFont:font];
+    self.topView.leftLabel.attributedText = attrM;
 }
 
 /**
@@ -47,28 +48,28 @@
  */
 - (HXBBaseView_TwoLable_View *) topView {
     if (!_topView) {
-        _topView = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero];
+        _topView = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(15)];
         [self addSubview:_topView];
     }
     return _topView;
 }
 - (HXBBaseView_TwoLable_View *) leftView {
     if (!_leftView) {
-        _leftView = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero];
+        _leftView = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(3)];
         [self addSubview:_leftView];
     }
     return _leftView;
 }
 - (HXBBaseView_TwoLable_View *) midView {
     if (!_midView) {
-        _midView = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero];
+        _midView = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(3)];
         [self addSubview:_midView];
     }
     return _midView;
 }
 - (HXBBaseView_TwoLable_View *) rightView {
     if (!_rightView) {
-        _rightView = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero];
+        _rightView = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(3)];
         [self addSubview:_rightView];
     }
     return _rightView;
@@ -86,7 +87,7 @@
 - (void)setUP {
     [self layoutIfNeeded];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(44);
+        make.top.equalTo(self).offset(kScrAdaptationH(44 + 64));
         make.left.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(72)));
     }];
@@ -118,27 +119,27 @@
 }
 - (void)setUPValue {
     self.topViewManager    = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];//预期年化
-    self.topViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(40);
+    self.topViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(45);
     self.topViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(17);
     self.topViewManager.leftViewColor = [UIColor whiteColor];
     self.topViewManager.rightViewColor = [UIColor whiteColor];
     
  
     self.leftViewManager   = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];//期限
-    self.leftViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(21);
-    self.leftViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(17);
+    self.leftViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(20);
+    self.leftViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(15);
     self.leftViewManager.leftViewColor = [UIColor whiteColor];
     self.leftViewManager.rightViewColor = [UIColor whiteColor];
     
     self.midViewManager    = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];//起头
-    self.midViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(21);
-    self.midViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(17);
+    self.midViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(20);
+    self.midViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(15);
     self.midViewManager.leftViewColor = [UIColor whiteColor];
     self.midViewManager.rightViewColor = [UIColor whiteColor];
     
     self.rightViewManager  = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];//剩余金额
-    self.rightViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(21);
-    self.rightViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(17);
+    self.rightViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(20);
+    self.rightViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(15);
     self.rightViewManager.rightViewColor = [UIColor whiteColor];
     self.rightViewManager.leftViewColor = [UIColor whiteColor];
 }

@@ -131,6 +131,8 @@
     self.promptStr                  = viewModelVM.promptStr;
     self.addButtonStr               = viewModelVM.addButtonStr;
     self.lockPeriodStr              = viewModelVM.lockPeriodStr;
+    self.addButton.userInteractionEnabled = self.viewModelVM.isUserInteractionEnabled;
+    [self.addButton setTitle:viewModelVM.addButtonStr forState:UIControlStateNormal];
     kWeakSelf
     [self.topView setUPValueWithManager:^HXBFin_PlanDetailView_TopViewManager *(HXBFin_PlanDetailView_TopViewManager *manager) {
         manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%@%@",weakSelf.viewModelVM.totalInterestStr,@"%"];
@@ -176,8 +178,6 @@
 }
 - (void)setupSubView {
     
-//    [self setupExpectedYearRateView];///预期年化的view
-//    [self setupSurplusValueView]; ///剩余可投里面
     [self setUPTopView];
     [self setupAddTrustView];//曾信view（内部对是否分为左右进行了判断）
     [self setupFlowChartView];///流程引导视图
@@ -191,6 +191,7 @@
 
 - (void)setUPTopView {
     self.topView = [[HXBFin_PlanDetailView_TopView alloc]initWithFrame:CGRectZero];
+    self.topView.backgroundColor = [UIColor clearColor];
     [self addSubview: self.topView];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
@@ -198,84 +199,15 @@
         make.height.equalTo(@(kScrAdaptationH(248)));
     }];
 }
-//MARK: - 预期年化的view
-- (void)setupExpectedYearRateView {
-        self.expectedYearRateView = [[HXBColourGradientView alloc]init];
-    self.expectedYearRateView.frame = CGRectMake(0, -64, self.width, kScrAdaptationH(248));
-    self.expectedYearRateView.endPoint = CGPointMake(kScreenWidth, kScrAdaptationH(248));
-    //期限
-    UILabel *lockPeriodLabel = [[UILabel alloc]init];
-    [self addSubview:self.expectedYearRateView];
-   
-    UIFont *fistFont = kHXBFont_PINGFANGSC_REGULAR(40);
-    UIFont *secondFont = kHXBFont_PINGFANGSC_REGULAR(17);
-    
-    [self upDownLableWithView:self.expectedYearRateView andDistance:kScrAdaptationH(15) andFirstFont:fistFont andSecondFont:secondFont andFirstStr:[NSString stringWithFormat:@"%@%@",self.totalInterestStr,@"%"]  andSecondStr:[NSString stringWithFormat:@"%@",self.totalInterestStr_const]];
-    
-    [self.expectedYearRateView addSubview:lockPeriodLabel];
-    [lockPeriodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.expectedYearRateView);
-        make.top.equalTo(self).offset(64);
-        make.height.width.equalTo(@(kScrAdaptationH(50)));
-    }];
-    lockPeriodLabel.text = self.viewModelVM.lockPeriodStr;
-}
 
-//MARK: - 剩余可投view
-- (void)setupSurplusValueView {
-    self.surplusValueView = [[UIView alloc]init];
-    [self addSubview:self.surplusValueView];
-    
-    __weak typeof (self) weakSelf = self;
-    [self.surplusValueView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.expectedYearRateView.mas_bottom).offset(1);
-        make.right.left.equalTo(weakSelf);
-        make.height.equalTo(@80);
-    }];
-    //是否分为左右两个（起投，剩余金额）
-    [self setupSurplusValueViewWithTowView];
- 
-}
-
-//剩余投资（起投，剩余金额
-- (void)setupSurplusValueViewWithTowView {
-    __weak typeof (self) weakSelf = self;
-    UIView *leftView = [[UIView alloc]init];//起头金额
-    [self.surplusValueView addSubview:leftView];
-    UIView *rightView = [[UIView alloc]init];///剩余金额
-    [self.surplusValueView addSubview:rightView];
-    UIView *midView = [[UIView alloc]init];//期限
-    [self.surplusValueView addSubview:midView];
-    
-    [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.surplusValueView).multipliedBy(1/3.0);
-        make.height.left.top.equalTo(weakSelf.surplusValueView);
-    }];
-    [midView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.surplusValueView).multipliedBy(1/3.0);
-        make.height.left.top.equalTo(weakSelf.surplusValueView);
-    }];
-
-    [rightView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(leftView);
-        make.height.right.top.equalTo(weakSelf.surplusValueView);
-    }];
-    
-    UIFont *fistFont = kHXBFont_PINGFANGSC_REGULAR(21);
-    UIFont *secondFont = kHXBFont_PINGFANGSC_REGULAR(17);
-    [self upDownLableWithView:leftView andDistance:kScrAdaptationH(4) andFirstFont:fistFont andSecondFont:secondFont andFirstStr:self.startInvestmentStr andSecondStr:self.startInvestmentStr_const];
-    [self upDownLableWithView:rightView andDistance:kScrAdaptationH(4) andFirstFont:fistFont andSecondFont:secondFont andFirstStr:self.remainAmount andSecondStr:self.remainAmount_const];
-    [self upDownLableWithView:midView andDistance:kScrAdaptationH(4) andFirstFont:fistFont andSecondFont:secondFont andFirstStr:self.viewModelVM.lockPeriodStr andSecondStr:@"期限"];
-}
 //MARK: - 增信
 - (void)setupAddTrustView {
-    kWeakSelf
     self.trustView = [[UIView alloc]init];
     [self addSubview: self.trustView];
     [self.trustView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.topView.mas_bottom).offset(1);
-        make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@80);
+        make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(10));
+        make.left.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH(80)));
     }];
 }
 
@@ -314,7 +246,7 @@
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     self.addButton.backgroundColor = [UIColor blackColor];
     [self.addButton setTitle:self.addButtonStr forState:UIControlStateNormal];
-    self.addButton.userInteractionEnabled = self.viewModelVM.isUserInteractionEnabled;
+
     
     self.countDownLabel = [[UILabel alloc]init];
     [self addSubview: self.countDownLabel];
@@ -323,13 +255,12 @@
         make.centerX.equalTo(self.addButton);
         make.height.equalTo(@(kScrAdaptationH(30)));
     }];
-    
+    self.addButton.userInteractionEnabled = true;
 }
 
 - (void)clickAddButton: (UIButton *)button {
     NSLog(@" - 立即加入 - ");
     //a)	先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍”
-    
     if (self.clickAddButtonBlock) {
         self.clickAddButtonBlock();
     }
@@ -382,7 +313,11 @@
         make.height.equalTo(@120);
     }];
     //cell的点击事件
-    [self.bottomTableView clickBottomTableViewCellBloakFunc:self.clickBottomTabelViewCellBlock];
+    [self.bottomTableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
+        if (self.clickBottomTabelViewCellBlock) {
+            self.clickBottomTabelViewCellBlock(index,model);
+        }
+    }];
     self.bottomTableView.rowHeight = 40;
     UILabel *lable = [[UILabel alloc]init];
     [self addSubview:lable];

@@ -3888,7 +3888,7 @@
 				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
 				INFOPLIST_FILE = hoomxb/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -3907,7 +3907,7 @@
 				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
 				INFOPLIST_FILE = hoomxb/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
