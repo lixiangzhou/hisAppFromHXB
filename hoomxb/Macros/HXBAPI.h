@@ -26,7 +26,7 @@
 
 //叶
 
-#define BASEURL                                       @"http://192.168.1.186:3000"//后台
+#define BASEURL                                       @"http://192.168.1.21:3000"//后台
 
 
 //#define BASEURL                                       @"http://192.168.1.133:3000"//王鹏 端测试
