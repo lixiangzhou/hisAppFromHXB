@@ -60,6 +60,10 @@ UITextFieldDelegate
  用户协议
  */
 @property (nonatomic, strong) UIButton *userAgreementBtn;
+/**
+ 分割线
+ */
+@property (nonatomic, strong) UIView *partingLine;
 ///点击了忘记密码 button
 @property (nonatomic,copy) void(^forgetPasswordButtonBlock)();
 @end
@@ -104,6 +108,7 @@ UITextFieldDelegate
     self.forgetPasswordButton = [[UIButton alloc]init];
     self.userAgreementBtn = [[UIButton alloc] init];
     self.password_eye_btn = [[UIButton alloc] init];
+    self.partingLine = [[UIView alloc] init];
     
     [self.password_eye_btn setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateNormal];
     [self.password_eye_btn setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateSelected];
@@ -149,9 +154,10 @@ UITextFieldDelegate
     [self addSubview:self.phoneline];
     [self addSubview:self.passwordline];
     [self addSubview:self.password_eye_btn];
+    [self addSubview:self.partingLine];
     kWeakSelf
     [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(176));
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(107));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(21));
         make.width.equalTo(@(kScrAdaptationW(12)));
         make.height.offset(kScrAdaptationH(19));
@@ -207,15 +213,19 @@ UITextFieldDelegate
 //        make.top.equalTo(weakSelf).offset(kScrAdaptationH(80));
 //        make.width.equalTo(weakSelf);
 //    }];
+    [self.partingLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakSelf.mas_bottom).offset(kScrAdaptationH(-31));
+        make.centerX.equalTo(weakSelf);
+        make.height.equalTo(@(kScrAdaptationH(14)));
+        make.width.equalTo(@(kScrAdaptationW(0.5)));
+    }];
     [self.userAgreementBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.mas_bottom).offset(kScrAdaptationH(32));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(120));
+        make.centerY.equalTo(weakSelf.partingLine);
+        make.right.equalTo(weakSelf.partingLine.mas_left).offset(kScrAdaptationW(-13));
     }];
     [self.forgetPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.mas_bottom).offset(kScrAdaptationH(32));
-        make.right.equalTo(weakSelf.passwordTextField);
-        make.height.equalTo(@(kScrAdaptationH(30)));
-        make.width.equalTo(@(kScrAdaptationW(60)));
+        make.centerY.equalTo(weakSelf.partingLine);
+        make.left.equalTo(weakSelf.partingLine.mas_right).offset(kScrAdaptationW(13));
     }];
     
 //    self.signInButton.backgroundColor = [UIColor hxb_randomColor];
@@ -265,7 +275,7 @@ UITextFieldDelegate
     [self.userAgreementBtn setTitle:@"用户协议" forState:UIControlStateNormal];
     [self.userAgreementBtn setTitleColor:COR10 forState:UIControlStateNormal];
     self.userAgreementBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(13);
-
+    self.partingLine.backgroundColor = RGB(151, 151, 151);
     //点击事件的添加
     [self.signInButton addTarget:self action:@selector(clickSignInButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.signUpbutton addTarget:self action:@selector(clickSignUPButton:) forControlEvents:UIControlEventTouchUpInside];

@@ -21,7 +21,9 @@ static NSString *const kTrueButtonTitle = @"确定";
 @property (nonatomic,strong) UILabel *promptLabel;
 @property (nonatomic,strong) UIImageView *checkCaptchaImageView;
 @property (nonatomic,strong) UITextField *checkCaptchaTextField;
+@property (nonatomic, strong) UIView *line;
 @property (nonatomic,strong) UIButton *trueButton;
+@property (nonatomic, strong) UIButton *cancelBtn;
 @end
 
 
@@ -41,6 +43,9 @@ static NSString *const kTrueButtonTitle = @"确定";
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.layer.cornerRadius = kScrAdaptationW(5);
+        self.layer.masksToBounds = YES;
+        self.backgroundColor = [UIColor whiteColor];
         [self setUP];
     }
     return self;
@@ -58,39 +63,59 @@ static NSString *const kTrueButtonTitle = @"确定";
     self.checkCaptchaImageView = [[UIImageView alloc]init];
     self.checkCaptchaTextField = [[UITextField alloc]init];
     self.trueButton = [[UIButton alloc]init];
+    self.line = [[UIView alloc] init];
+    self.cancelBtn = [[UIButton alloc] init];
     
     [self addSubview: self.promptLabel];
     [self addSubview: self.checkCaptchaImageView];
     [self addSubview: self.checkCaptchaTextField];
     [self addSubview: self.trueButton];
+    [self addSubview:self.line];
+    [self addSubview:self.cancelBtn];
+    [self.checkCaptchaTextField becomeFirstResponder];
 }
 
 - (void) layoutSubViewS_checkCaptcha {
     kWeakSelf
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.equalTo(weakSelf);
-        make.height.offset(kScrAdaptationH(40));
-    }];
-    [self.checkCaptchaTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.promptLabel.mas_bottom).offset(kScrAdaptationH(20));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.width.offset(kScrAdaptationW(80));
+        make.centerX.equalTo(weakSelf);
+        make.top.offset(kScrAdaptationH(40));
     }];
     [self.checkCaptchaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weakSelf.checkCaptchaTextField);
-        make.left.equalTo(weakSelf.checkCaptchaTextField.mas_right).offset(kScrAdaptationW(20));
-        make.height.offset(kScrAdaptationH(40));
-        make.width.offset(kScrAdaptationW(50));
+        make.top.equalTo(weakSelf.promptLabel.mas_bottom).offset(kScrAdaptationW(25));
+        make.right.equalTo(@(kScrAdaptationW(-43)));
+        make.height.offset(kScrAdaptationH(33));
+        make.width.offset(kScrAdaptationW(90));
+    }];
+    [self.checkCaptchaTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.checkCaptchaImageView);
+        make.right.equalTo(weakSelf.checkCaptchaImageView.mas_left).offset(kScrAdaptationW(-20));
+        make.width.offset(kScrAdaptationW(100));
+    }];
+    [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.checkCaptchaImageView.mas_bottom);
+        make.right.equalTo(weakSelf.checkCaptchaTextField.mas_right);
+        make.left.equalTo(weakSelf.checkCaptchaTextField.mas_left);
+        make.height.offset(0.5);
     }];
     [self.trueButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.right.left.equalTo(weakSelf);
-        make.height.offset(kScrAdaptationH(40));
+        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
+        make.top.equalTo(weakSelf.checkCaptchaImageView.mas_bottom).offset(kScrAdaptationH(30));
+        make.height.offset(kScrAdaptationH(35));
+        make.width.offset(kScrAdaptationW(115));
+    }];
+    [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
+        make.top.equalTo(weakSelf.checkCaptchaImageView.mas_bottom).offset(kScrAdaptationH(30));
+        make.height.offset(kScrAdaptationH(35));
+        make.width.offset(kScrAdaptationW(115));
     }];
     
-    self.promptLabel.backgroundColor = [UIColor hxb_randomColor];
-    self.checkCaptchaTextField.backgroundColor = [UIColor hxb_randomColor];
-    self.checkCaptchaImageView.backgroundColor = [UIColor grayColor];
-    self.trueButton.backgroundColor = [UIColor hxb_randomColor];
+    
+//    self.promptLabel.backgroundColor = [UIColor hxb_randomColor];
+//    self.checkCaptchaTextField.backgroundColor = [UIColor hxb_randomColor];
+//    self.checkCaptchaImageView.backgroundColor = [UIColor grayColor];
+//    self.trueButton.backgroundColor = [UIColor hxb_randomColor];
 }
 
 - (void)setUPSubVeiwValue {
@@ -100,6 +125,38 @@ static NSString *const kTrueButtonTitle = @"确定";
     [tap addTarget:self action:@selector(clickCheckCaptchaImageView:)];
     self.checkCaptchaImageView.userInteractionEnabled = true;
     [self.checkCaptchaImageView addGestureRecognizer:tap];
+    
+    self.checkCaptchaTextField.font = kHXBFont_PINGFANGSC_REGULAR(16);
+    self.checkCaptchaTextField.textColor = RGB(51, 51, 51);
+    self.checkCaptchaTextField.textAlignment = NSTextAlignmentCenter;
+    
+    self.line.backgroundColor = RGB(222, 222, 222);
+    
+    self.trueButton.backgroundColor = RGB(245, 81, 81);
+    self.trueButton.layer.cornerRadius = kScrAdaptationW(4);
+    self.trueButton.layer.masksToBounds = YES;
+    self.trueButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+    
+    [self.cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+    self.cancelBtn.layer.cornerRadius = kScrAdaptationW(4);
+    self.cancelBtn.layer.masksToBounds = YES;
+    self.cancelBtn.layer.borderColor = RGB(253, 54, 54).CGColor;
+    self.cancelBtn.layer.borderWidth = 0.5;
+    self.cancelBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+    [self.cancelBtn setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
+    [self.cancelBtn addTarget:self action:@selector(cancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self endEditing:YES];
+}
+
+- (void)cancelBtnClick
+{
+    if (self.cancelBlock) {
+        self.cancelBlock();
+    }
 }
 
 - (void)registerEvent {
@@ -123,7 +180,6 @@ static NSString *const kTrueButtonTitle = @"确定";
 
 ///点击了图形验证码 tap
 - (void)clickCheckCaptchaImageView: (UITapGestureRecognizer *)tap {
-    self.promptLabel.text = @"";
     if (self.clickCheckCaptchaImageViewBlock) self.clickCheckCaptchaImageViewBlock();
 }
 

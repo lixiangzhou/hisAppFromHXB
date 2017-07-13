@@ -73,6 +73,7 @@
     [self.recommendedTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom);
         make.left.equalTo(self.mas_left).offset(kScrAdaptationW(17));
+        make.height.offset(kScrAdaptationH(15));
     }];
     [self.promptTagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.recommendedTitleLabel);

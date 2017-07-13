@@ -118,12 +118,8 @@
 }
 - (void)setIsColourGradientNavigationBar:(BOOL)isColourGradientNavigationBar {
     if (isColourGradientNavigationBar) {
-        UIView * barBackgroundView = [[HXBColourGradientView alloc]init];
-        barBackgroundView.tag = 100;
-        barBackgroundView.frame = CGRectMake(0, -20, [UIScreen mainScreen].bounds.size.width, 64);
-        barBackgroundView.backgroundColor = [[UIColor redColor]colorWithAlphaComponent:0.3];
-        [self.navigationController.navigationBar insertSubview:barBackgroundView atIndex:0];
-        barBackgroundView.userInteractionEnabled = NO;  // 关键之处
+        self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:UIBarMetricsDefault];
     }
 }
 

@@ -8,7 +8,7 @@
 
 #import "HXBSignUPView.h"
 #import "HxbSignUpViewController.h"
-
+#import "SVGKImage.h"
 static NSString *const kNextButtonTitle = @"下一步";
 static NSString *const kHavedAccountTitle = @"已有账户，去登录";
 static NSString *const kPhoneTitle = @"手机号";
@@ -21,7 +21,12 @@ UITextFieldDelegate
 @property (nonatomic, strong) UITextField *phoneTextField;
 @property (nonatomic, strong) UILabel *checkMobileLabel;
 ///手机号
-@property (nonatomic, strong) UILabel *phoneLabel;
+//@property (nonatomic, strong) UILabel *phoneLabel;
+@property (nonatomic, strong) UIImageView *phoneImageView;
+/**
+ 手机号分割线
+ */
+@property (nonatomic, strong) UIView *phoneLine;
 ///下一步button
 @property (nonatomic, strong) UIButton *nextButton;
 ///点击了下一步的button
@@ -36,27 +41,52 @@ UITextFieldDelegate
 
 #pragma mark - setter 
 
+
+
 - (void)setCheckMobileStr:(NSString *)checkMobileStr {
     _checkMobileStr = checkMobileStr;
     self.checkMobileLabel.text = checkMobileStr;
 }
 
 #pragma mark - getter 
+
+- (UIView *)phoneLine
+{
+    if (!_phoneLine) {
+        _phoneLine = [[UIView alloc] init];
+        _phoneLine.backgroundColor = RGB(221, 221, 221);
+    }
+    return _phoneLine;
+}
 - (UITextField *)phoneTextField{
     if (!_phoneTextField) {
         _phoneTextField = [[UITextField alloc]init];
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTextField.delegate = self;
+        _phoneTextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
+        NSMutableAttributedString *phoneAttrStr = [[NSMutableAttributedString alloc] initWithString:kPhoneTitle];
+        // 设置字体和设置字体的范围
+        [phoneAttrStr addAttribute:NSForegroundColorAttributeName
+                             value:COR10
+                             range:NSMakeRange(0, kPhoneTitle.length)];
+        _phoneTextField.attributedPlaceholder = phoneAttrStr;
     }
     return _phoneTextField;
 }
-- (UILabel *)phoneLabel {
-    if (!_phoneLabel) {
-        _phoneLabel = [[UILabel alloc]init];
-        _phoneLabel.textColor = COR1;
-        _phoneLabel.text = kPhoneTitle;
+//- (UILabel *)phoneLabel {
+//    if (!_phoneLabel) {
+//        _phoneLabel = [[UILabel alloc]init];
+//        _phoneLabel.textColor = COR1;
+//        _phoneLabel.text = kPhoneTitle;
+//    }
+//    return _phoneLabel;
+//}
+- (UIImageView *)phoneImageView
+{
+    if (!_phoneImageView) {
+        _phoneImageView = [[UIImageView alloc] initWithImage:[SVGKImage imageNamed:@"mobile_number.svg"].UIImage];
     }
-    return _phoneLabel;
+    return _phoneImageView;
 }
 
 - (UIButton *)nextButton{
@@ -64,6 +94,11 @@ UITextFieldDelegate
         _nextButton = [[UIButton alloc]init];
         [_nextButton setTitle:kNextButtonTitle forState:UIControlStateNormal];
         [_nextButton addTarget:self action:@selector(clickNextButton:) forControlEvents:UIControlEventTouchUpInside];
+        _nextButton.layer.cornerRadius = kScrAdaptationW(4);
+        _nextButton.layer.masksToBounds = YES;
+        _nextButton.backgroundColor = RGB(245, 81, 81);
+        [_nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _nextButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
     }
     return _nextButton;
 }
@@ -93,43 +128,52 @@ UITextFieldDelegate
 }
 
 - (void) setUP {
-    [self addSubview:self.phoneLabel];
+    [self addSubview:self.phoneImageView];
     [self addSubview:self.phoneTextField];
     [self addSubview:self.nextButton];
     [self addSubview:self.havedAccountButton];
     [self addSubview:self.checkMobileLabel];
+    [self addSubview:self.phoneLine];
     
     kWeakSelf
-    [self.phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(80));
+    [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(50));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.height.equalTo(@(kScrAdaptationW(50)));
-        make.width.equalTo(@(kScrAdaptationH(80)));
+        make.width.equalTo(@(kScrAdaptationW(13)));
+        make.height.equalTo(@(kScrAdaptationH(19)));
     }];
     [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weakSelf.phoneLabel);
-        make.left.equalTo(weakSelf.phoneLabel.mas_right).offset(kScrAdaptationW(0));
+        make.centerY.equalTo(weakSelf.phoneImageView);
+        make.left.equalTo(weakSelf.phoneImageView.mas_right).offset(kScrAdaptationW(15));
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
-        make.height.equalTo(weakSelf.phoneLabel);
     }];
-    [self.checkMobileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.phoneTextField.mas_bottom).offset(kScrAdaptationH(10));
-        make.height.offset(kScrAdaptationH(20));
-        make.left.right.equalTo(weakSelf.phoneTextField);
-    }];
-    [self.havedAccountButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf).offset(kScrAdaptationH(-50));
-        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
+    [self.phoneLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.phoneImageView.mas_bottom).offset(kScrAdaptationH(15));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
+        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
+        make.height.offset(0.5);
     }];
     [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.havedAccountButton.mas_top).offset(kScrAdaptationH(-20));
-        make.right.left.height.equalTo(weakSelf.havedAccountButton);
+        make.top.equalTo(weakSelf.phoneLine.mas_top).offset(kScrAdaptationH(50));
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
+        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
+        make.height.offset(kScrAdaptationH(41));
     }];
-    self.phoneLabel.backgroundColor = [UIColor hxb_randomColor];
-    self.phoneTextField.backgroundColor = [UIColor hxb_randomColor];
-    self.havedAccountButton.backgroundColor = [UIColor hxb_randomColor];
-    self.nextButton.backgroundColor = [UIColor hxb_randomColor];
+//    [self.checkMobileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(weakSelf.phoneTextField.mas_bottom).offset(kScrAdaptationH(10));
+//        make.height.offset(kScrAdaptationH(20));
+//        make.left.right.equalTo(weakSelf.phoneTextField);
+//    }];
+//    [self.havedAccountButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(weakSelf).offset(kScrAdaptationH(-50));
+//        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
+//        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
+//    }];
+
+
+//    self.phoneTextField.backgroundColor = [UIColor hxb_randomColor];
+//    self.havedAccountButton.backgroundColor = [UIColor hxb_randomColor];
+//    self.nextButton.backgroundColor = [UIColor hxb_randomColor];
     self.checkMobileLabel.backgroundColor = [UIColor hxb_randomColor];
 }
 

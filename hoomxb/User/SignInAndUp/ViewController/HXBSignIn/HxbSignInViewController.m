@@ -48,14 +48,21 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modalCaptchaVC:) name:kHXBBotification_ShowCaptchaVC object:nil];
+    self.isColourGradientNavigationBar = YES;
     self.title = @"登录";
     [self setLeftItemBar];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self setSignView];/// 设置登录界面
     [self registerSignViewEvent];///signView事件注册
     [self registerCheckMobileEvent];///请求手机号是否存在
     [self registerSignUPEvent];///注册 点击signUP事件
     [self registerClickforgetPasswordButton];///忘记密码
 }
+
 //谈图验
 - (void) modalCaptchaVC: (NSNotification *)notif {
     HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
@@ -212,7 +219,6 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 }
 
 - (void)setLeftItemBar{
-    
     UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
     //    [leftBackBtn setTitle:@"返回" forState:UIControlStateNormal];
     [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
@@ -222,11 +228,10 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     [leftBackBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     // 修改导航栏左边的item
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBackBtn];
-    [self.navigationController.navigationBar setValue:@(0)forKeyPath:@"backgroundView.alpha"];
-    self.navigationController.navigationBar.barStyle=UIBarStyleBlackTranslucent;
-    self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
-    HXBColourGradientView *colourGradientView = [[HXBColourGradientView alloc] initWithFrame:CGRectMake(0, -20, kScreenWidth, 64)];
-    [self.navigationController.navigationBar insertSubview:colourGradientView atIndex:0];
+//    self.navigationController.navigationBar.barStyle=UIBarStyleBlackTranslucent;
+//    self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:UIBarMetricsDefault];
+//    [self.navigationController.navigationBar setValue:@(0)forKeyPath:@"backgroundView.alpha"];
 }
 - (void)didClickSignInBtn{
     
