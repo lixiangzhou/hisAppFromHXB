@@ -45,6 +45,10 @@
     _finLoanListVMArray = finLoanListVMArray;
     self.loanListTableView.loanListViewModelArray =finLoanListVMArray;
 }
+- (void)setFinLoanTruansferVMArray:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)finLoanTruansferVMArray {
+    _finLoanTruansferVMArray = finLoanTruansferVMArray;
+    self.loanTruansferTableView.loanTruansferViewModel = finLoanTruansferVMArray;
+}
 
 
 //MARK: - 关于刷新 停止
@@ -81,7 +85,7 @@
 
 
 - (void)setupSubView {
-    self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表"];
+    self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表",@"债权转让"];
     
     
 //设置toolBarVie
@@ -121,7 +125,8 @@
 
     self.bottomViewArray = @[
                              self.planListTableView,
-                             self.loanListTableView
+                             self.loanListTableView,
+                             self.loanTruansferTableView
                             ];
 }
 

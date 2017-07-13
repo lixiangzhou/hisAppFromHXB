@@ -22,6 +22,14 @@ UITableViewDelegate,UITableViewDataSource
 @end
 
 @implementation HXBFin_LoanTransferTableView
+- (void)setLoanTruansferViewModel:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)loanTruansferViewModel {
+    _loanTruansferViewModel = loanTruansferViewModel;
+    if (!loanTruansferViewModel.count) {
+        NSLog(@"没有数据");
+    }
+    [self reloadData];
+}
+
 - (void)clickCellWithBlock:(void (^)(HXBFinHomePageViewModel_LoanTruansferViewModel *model, NSIndexPath *index))clickCellBlock
 {
     self.clickCellBlock = clickCellBlock;
@@ -53,13 +61,14 @@ UITableViewDelegate,UITableViewDataSource
 
 #pragma mark - tableViewDatasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSLog(@"🌶，测试数据");
-    return 100;
+//    NSLog(@"🌶，测试数据");
+//    return 100;
+    return self.loanTruansferViewModel.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFin_TableViewCell_LoanTransfer *cell = [tableView dequeueReusableCellWithIdentifier:kcellClass forIndexPath:indexPath];
-    HXBFinHomePageViewModel_LoanTruansferViewModel *viewModel = [[HXBFinHomePageViewModel_LoanTruansferViewModel alloc]init];
-    cell.LoanTruansferViewModel = viewModel;
+    
+    cell.LoanTruansferViewModel = self.loanTruansferViewModel[indexPath.row];
     return cell;
 }
 

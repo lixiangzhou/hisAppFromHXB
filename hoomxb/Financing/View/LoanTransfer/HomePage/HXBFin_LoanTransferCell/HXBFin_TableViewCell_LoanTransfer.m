@@ -29,6 +29,9 @@
  消费借款icon
  */
 @property (nonatomic,strong) UIImageView *loanImageView;
+
+@property (nonatomic,strong) HXBFinHomePageViewModel_LoanTruansferViewModel *manager;
+
 @property (nonatomic,copy) void (^clickCellBlock)(NSIndexPath *index, id model);
 @end
 @implementation HXBFin_TableViewCell_LoanTransfer
@@ -38,6 +41,7 @@
 }
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        
         [self setUP];
     }
     return self;
@@ -102,21 +106,21 @@
 - (void) setLoanTruansferViewModel:(HXBFinHomePageViewModel_LoanTruansferViewModel *)LoanTruansferViewModel {
     _LoanTruansferViewModel = LoanTruansferViewModel;
     [self.interestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        viewModelVM.leftLabelStr = @"0.0%";
+//        viewModelVM.leftLabelStr = LoanTruansferViewModel.interest;
         viewModelVM.rightLabelStr = @"年利率";
         viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
         return viewModelVM;
     }];
     [self.remainMonthsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        viewModelVM.leftLabelStr = @"0.0个月";
+        viewModelVM.leftLabelStr = LoanTruansferViewModel.leftMonths;
         viewModelVM.rightLabelStr = @"剩余期限";
         viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
         return viewModelVM;
     }];
     [self.amountTransferView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        viewModelVM.leftLabelStr = @"0.0";
+        viewModelVM.leftLabelStr = LoanTruansferViewModel.leftTransAmount;
         viewModelVM.rightLabelStr = @"待转让金额(元)";
         viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
@@ -124,5 +128,6 @@
     }];
     self.loanLable.text = @"000000000";
     self.loanImageView.image = [UIImage imageNamed:@"1"];
+    self.interestView.leftLabel.attributedText = LoanTruansferViewModel.interest;
 }
 @end

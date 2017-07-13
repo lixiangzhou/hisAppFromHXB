@@ -290,6 +290,7 @@
             HXBFinHomePageModel_LoanTruansferList *model = [[HXBFinHomePageModel_LoanTruansferList alloc]init];
             [model yy_modelSetWithDictionary:obj];
             viewModel.loanTruansferListModel = model;
+            [arrayM addObject:viewModel];
         }];
         
         if (successDateBlock) {
