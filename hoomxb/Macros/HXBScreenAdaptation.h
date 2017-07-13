@@ -32,4 +32,11 @@
 #define kScrAdaptationH(H) ((H) * kScreenAdaptation_Height)
 ///计算比例后的宽度
 #define kScrAdaptationW(W) ((W) * kScreenAdaptation_Width)
+
+
+//MARK: 计算好的尺寸比例
+///计算比例后的高度
+#define kScrAdaptationH750(H) ((H) * kScreenAdaptation_Height * 0.5)
+///计算比例后的宽度
+#define kScrAdaptationW750(W) ((W) * kScreenAdaptation_Width * 0.5)
 #endif /* HXBScreenAdaptation_h */

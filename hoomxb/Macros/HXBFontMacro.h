@@ -22,8 +22,15 @@
 #define BLACK_TEXT_COLOR                RGB(66,66,66)
 #define BIG_TEXT_FONT(s)                       ([UIFont fontWithName:@"Helvetica" size:s])  //大字体用最细的字体
 //label.font = [UIFont fontWithName:@"Helvetica" size:15.f];
+
 //pingfang 普通
 #define kHXBFont_PINGFANGSC_REGULAR(s)        ([UIFont fontWithName:@"PingFangSC-Regular" size:kScrAdaptationH(s)])
+//pingfang 750 普通
+#define kHXBFont_PINGFANGSC_REGULAR_750(s)        ([UIFont fontWithName:@"PingFangSC-Regular" size:kScrAdaptationH750(s)])
+
+
+
+
 //pingfang light
 #define PINGFANG_LIGHT(s)        ([UIFont fontWithName:@"PingFangSC-Light" size:s])
 
