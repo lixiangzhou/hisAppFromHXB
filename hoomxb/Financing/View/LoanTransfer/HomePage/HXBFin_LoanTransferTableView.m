@@ -53,8 +53,8 @@ UITableViewDelegate,UITableViewDataSource
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.clickCellBlock) {
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        self.clickCellBlock(cell.cellModel, indexPath);
+        HXBFin_TableViewCell_LoanTransfer *cell = [tableView cellForRowAtIndexPath:indexPath];
+        self.clickCellBlock(cell.LoanTruansferViewModel, indexPath);
     }
 }
 

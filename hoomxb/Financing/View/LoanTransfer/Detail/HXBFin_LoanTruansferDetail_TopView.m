@@ -50,6 +50,10 @@
     [self.truansferAmountLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         return manager.truansferAmountLabelManager;
     }];
+    
+    NSString *interestStr = [NSString stringWithFormat:@"%.2lf%@", manager.interestLabelManager.leftLabelStr.floatValue,@"%"];
+    NSRange range = NSMakeRange(interestStr.length - 1, 1);
+    self.interestLabel.leftLabel.attributedText = [NSAttributedString setupAttributeStringWithString:interestStr WithRange:range andAttributeColor:[UIColor whiteColor] andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(20)];
 }
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -81,35 +85,35 @@
 }
 
 - (void)setUPFrame {
-    [self.topMaskView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(80)));
-    }];
-    [self.nextOneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationH(20));
-        make.right.equalTo(self).offset(kScrAdaptationH(-20));
-        make.left.equalTo(self).offset(kScrAdaptationH(20));
-        make.height.equalTo(@(kScrAdaptationH(20)));
-    }];
+//    [self.topMaskView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.equalTo(self);
+//        make.top.equalTo(self).offset(kScrAdaptationH(44));
+//        make.height.equalTo(@(kScrAdaptationH(72)));
+//    }];
+//    [self.nextOneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self).offset(kScrAdaptationH(23));
+//        make.right.equalTo(self).offset(kScrAdaptationH(-20));
+//        make.left.equalTo(self).offset(0);
+//        make.height.equalTo(@(kScrAdaptationH(38)));
+//    }];
 //    [self.nextOneLabel sizeToFit];
     
     [self.interestLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(kScrAdaptationH(40)));
-        make.height.equalTo(@(kScrAdaptationH(50)));
-        make.right.equalTo(self).offset(kScrAdaptationH(-20));
-        make.left.equalTo(self).offset(kScrAdaptationH(20));
+        make.left.right.equalTo(self);
+        make.top.equalTo(self).offset(kScrAdaptationH(44));
+        make.height.equalTo(@(kScrAdaptationH(72)));
     }];
     
     [self.remainTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topMaskView.mas_bottom).offset(kScrAdaptationH(2));
+        make.top.equalTo(self.interestLabel.mas_bottom).offset(kScrAdaptationH(23));
         make.left.equalTo(self);
         make.width.equalTo(self).multipliedBy(1/2.0).offset(kScrAdaptationW(1));
     }];
     
     [self.truansferAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topMaskView.mas_bottom).offset(kScrAdaptationH(2));
-        make.left.equalTo(self.remainTimeLabel.mas_right).offset(kScrAdaptationW(2));
-        make.width.equalTo(self.remainTimeLabel);
+        make.top.equalTo(self.remainTimeLabel);
+        make.left.equalTo(self.remainTimeLabel.mas_right).offset(kScrAdaptationW(0));
+        make.right.equalTo(self);
     }];
 }
 @end
@@ -123,16 +127,29 @@
          品字形 上
          */
         self.interestLabelManager = [[HXBBaseView_TwoLable_View_ViewModel alloc] init];
+        self.interestLabelManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(45);
+        self.interestLabelManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(17);
+        self.interestLabelManager.leftViewColor = [UIColor whiteColor];
+        self.interestLabelManager.rightViewColor = [UIColor whiteColor];
         /**
          剩余期限
          品字形 左
          */
         self.remainTimeLabelManager = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
+        self.remainTimeLabelManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(20);
+        self.remainTimeLabelManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(15);
+        self.remainTimeLabelManager.leftViewColor = [UIColor whiteColor];
+        self.remainTimeLabelManager.rightViewColor = [UIColor whiteColor];
+
         /**
          待转让金额
          品字形 右
          */
         self.truansferAmountLabelManager = [[HXBBaseView_TwoLable_View_ViewModel alloc] init];
+        self.truansferAmountLabelManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(20);
+        self.truansferAmountLabelManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(15);
+        self.truansferAmountLabelManager.leftViewColor = [UIColor whiteColor];
+        self.truansferAmountLabelManager.rightViewColor = [UIColor whiteColor];
     }
     return self;
 }

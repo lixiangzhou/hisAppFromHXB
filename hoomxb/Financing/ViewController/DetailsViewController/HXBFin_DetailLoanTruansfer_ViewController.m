@@ -7,6 +7,7 @@
 //
 
 #import "HXBFin_DetailLoanTruansfer_ViewController.h"
+#import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
 ///详情的VIEW
 #import "HXBFin_LoanTruansferDetailView.h"
 #import "HXBFinDetail_TableView.h"
@@ -24,8 +25,8 @@
 #pragma mark - setUP
 - (void) setUP {
     self.detailView = [[HXBFin_LoanTruansferDetailView alloc]init];
-    self.detailView.frame = self.hxbBaseVCScrollView.bounds;
-//    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+    self.detailView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64);
+    self.hxb_automaticallyAdjustsScrollViewInsets = true;
     [self.hxbBaseVCScrollView addSubview:self.detailView];
     [self.hxbBaseVCScrollView hxb_HeaderWithHeaderRefreshCallBack:^{
         
@@ -35,9 +36,11 @@
     [self.detailView clickAddButtonBlock:^(UIButton *button) {
        
     }];
+    
+}
+- (void)setLoanTransfer_ViewModel:(HXBFinHomePageViewModel_LoanTruansferViewModel *)loanTransfer_ViewModel {
     [self setData];
 }
-
 
 #pragma mark - downLoadData 
 - (void) downLoadData {
@@ -57,50 +60,33 @@
          年利率 label
          品字形 上
          */
-        manager.topViewManager.interestLabelManager.leftLabelStr = @"年利率";
-        manager.topViewManager.interestLabelManager.rightLabelStr = @"0.0%";
-        manager.topViewManager.interestLabelManager.leftLabelAlignment = NSTextAlignmentCenter;
-        manager.topViewManager.interestLabelManager.rightLabelAlignment = NSTextAlignmentCenter;
-        manager.topViewManager.interestLabelManager.leftViewColor = [UIColor grayColor];
-        manager.topViewManager.interestLabelManager.rightViewColor = [UIColor grayColor];
-//        manager.topViewManager.interestLabelManager.leftFont = ;
-//        manager.topViewManager.interestLabelManager.rightFont;;
+        manager.topViewManager.interestLabelManager.rightLabelStr = @"年利率";
+        manager.topViewManager.interestLabelManager.leftLabelStr = weakSelf.loanTransfer_ViewModel.loanTruansferListModel.interest;
+
         /**
          剩余期限
          品字形 左
          */
-        manager.topViewManager.remainTimeLabelManager.leftLabelStr = @"剩余期限";
-        manager.topViewManager.remainTimeLabelManager.rightLabelStr = @"0.0个月";
-        manager.topViewManager.remainTimeLabelManager.leftLabelAlignment = NSTextAlignmentCenter;
-        manager.topViewManager.remainTimeLabelManager.rightLabelAlignment = NSTextAlignmentCenter;
-        manager.topViewManager.remainTimeLabelManager.leftViewColor = [UIColor grayColor];
-        manager.topViewManager.remainTimeLabelManager.rightViewColor = [UIColor grayColor];
+        manager.topViewManager.remainTimeLabelManager.rightLabelStr = @"剩余期限";
+        manager.topViewManager.remainTimeLabelManager.leftLabelStr = @"0.0个月";
         /**
          待转让金额
          品字形 右
          */
-        manager.topViewManager.truansferAmountLabelManager.leftLabelStr = @"待转让金额";
-        manager.topViewManager.truansferAmountLabelManager.rightLabelStr = @"0.0元";
-        manager.topViewManager.truansferAmountLabelManager.leftLabelAlignment = NSTextAlignmentCenter;
-        manager.topViewManager.truansferAmountLabelManager.rightLabelAlignment = NSTextAlignmentCenter;
-        manager.topViewManager.truansferAmountLabelManager.leftViewColor = [UIColor grayColor];
-        manager.topViewManager.truansferAmountLabelManager.rightViewColor = [UIColor grayColor];
+        manager.topViewManager.truansferAmountLabelManager.rightLabelStr = @"待转让金额";
+        manager.topViewManager.truansferAmountLabelManager.leftLabelStr = @"0.0元";
         /**
          曾信
          */
-//        manager.addTrustworthinessManager;
-        
-         ///还款方式 提前还款费率
-        manager.loanType_InterestLabelManager.leftLabelAlignment = NSTextAlignmentCenter;
-        manager.loanType_InterestLabelManager.rightLabelAlignment = NSTextAlignmentCenter;
+
         /**
          左侧的stringArray
          */
-        manager.loanType_InterestLabelManager.leftStrArray = @[@"还款方式",@"提前还款费率"];
+        manager.loanType_InterestLabelManager.leftStrArray = @[@"下一个还款日",@"还款方式"];
         /**
          右侧的stringArray
          */
-        manager.loanType_InterestLabelManager.rightStrArray = @[@"按月等额本息",@"0.00%"];
+        manager.loanType_InterestLabelManager.rightStrArray = @[@"00-00",@"按月等额本息"];
 //        /**
 //         左侧的viewArray
 //         */
@@ -118,7 +104,7 @@
         /**
          颜色
          */
-        manager.loanType_InterestLabelManager.leftTextColor = [UIColor grayColor];
+//        manager.loanType_InterestLabelManager.leftTextColor = [UIColor grayColor];
 //        manager.loanType_InterestLabelManager.viewColor = [UIColor blueColor];
         
         

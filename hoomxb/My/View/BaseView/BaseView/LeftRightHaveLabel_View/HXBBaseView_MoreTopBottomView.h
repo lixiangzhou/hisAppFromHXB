@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class HXBBaseView_MoreTopBottomViewManager;
+typedef enum : NSUInteger {
+    HXBBaseView_MoreTopBottomViewManager_Alignment_LeftRight = 1,
+    HXBBaseView_MoreTopBottomViewManager_Alignment_center,
+} HXBBaseView_MoreTopBottomViewManager_Alignment;
 @interface HXBBaseView_MoreTopBottomView : UIView
+
 
 - (void)setUPViewManagerWithBlock: (HXBBaseView_MoreTopBottomViewManager *(^)(HXBBaseView_MoreTopBottomViewManager *viewManager))setUPViewManagerBlock;
 /**
@@ -34,6 +39,20 @@
  @param leftProportion  左边占的总体长度的比例 （左 : 全部）
  */
 - (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass: (Class)clas andViewHeight: (CGFloat)viewH andTopBottomSpace: (CGFloat)topBottomSpace andLeftRightLeftProportion: (CGFloat)leftProportion;
+
+//嵌入一个大的背景的view
+/**
+ 创建方法
+ @param topBottomViewNumber 上下一共几层
+ @param clas view的类型
+ @param topBottomSpace 层级间的间距
+ @param leftProportion  左边占的总体长度的比例 （左 : 全部）
+ @param space 上下左右的间距
+ */
+- (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass: (Class)clas andViewHeight: (CGFloat)viewH andTopBottomSpace: (CGFloat)topBottomSpace andLeftRightLeftProportion: (CGFloat)leftProportion Space:(UIEdgeInsets)space;
+
+
+
 @end
 
 @interface  HXBBaseView_MoreTopBottomViewManager : NSObject
@@ -60,7 +79,10 @@
  全部的viewArray
  */
 @property (nonatomic,strong,readonly) NSArray <UIView *>    *allViewArray;
-
+/**
+ 对其方式
+ */
+@property (nonatomic,assign) HXBBaseView_MoreTopBottomViewManager_Alignment alignment;
 
 /**
  颜色
