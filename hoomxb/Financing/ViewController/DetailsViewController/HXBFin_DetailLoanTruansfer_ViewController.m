@@ -118,8 +118,8 @@
         /**
          颜色
          */
-        manager.loanType_InterestLabelManager.textColor = [UIColor grayColor];
-        manager.loanType_InterestLabelManager.viewColor = [UIColor blueColor];
+        manager.loanType_InterestLabelManager.leftTextColor = [UIColor grayColor];
+//        manager.loanType_InterestLabelManager.viewColor = [UIColor blueColor];
         
         
         /**

@@ -43,7 +43,7 @@
 - (void) setLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)loanDetailViewModel {
     _loanDetailViewModel = loanDetailViewModel;
     kWeakSelf
-    [self.loanDetailsView setUPViewModelVM:^HXBFin_DetailsViewBase_ViewModelVM *(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM) {
+    [self.loanDetailsView setUPViewModelVM:^HXBFin_DetailsView_LoanDetailsView_ViewModelVM *(HXBFin_DetailsView_LoanDetailsView_ViewModelVM *viewModelVM) {
         viewModelVM.totalInterestStr           = weakSelf.loanDetailViewModel.totalInterestPer100;///年利率
         viewModelVM.totalInterestStr_const     = @"预期年利率";
         viewModelVM.remainAmount               = weakSelf.loanDetailViewModel.surplusAmount;
@@ -124,10 +124,6 @@
     self.hxbBaseVCScrollView.backgroundColor = [UIColor whiteColor];
     self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:self.hxbBaseVCScrollView.bounds];
     [self.hxbBaseVCScrollView addSubview:self.loanDetailsView];
-    
-    //是否为计划界面
-    self.loanDetailsView.isPlan = false;
-    self.loanDetailsView.isFlowChart = true;
 }
 
 

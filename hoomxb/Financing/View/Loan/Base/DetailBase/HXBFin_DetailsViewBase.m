@@ -183,13 +183,13 @@
     //期限
     UILabel *lockPeriodLabel = [[UILabel alloc]init];
     [self addSubview:self.expectedYearRateView];
-    [self upDownLableWithView:self.expectedYearRateView andDistance:20 andFirstFont:[UIFont systemFontOfSize:40] andFirstStr:[NSString stringWithFormat:@"%@%@",self.totalInterestStr,@"%"]  andSecondStr:[NSString stringWithFormat:@"%@",self.totalInterestStr_const]];
+    [self upDownLableWithView:self.expectedYearRateView andDistance:kScrAdaptationH(15) andFirstFont:kHXBFont_PINGFANGSC_REGULAR(40) andSecondFont: kHXBFont_PINGFANGSC_REGULAR(12) andFirstStr:[NSString stringWithFormat:@"%@%@",self.totalInterestStr,@"%"]  andSecondStr:[NSString stringWithFormat:@"%@",self.totalInterestStr_const]];
     
     [self.expectedYearRateView addSubview:lockPeriodLabel];
     [lockPeriodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.expectedYearRateView);
-        make.top.equalTo(self).offset(64);
-        make.height.width.equalTo(@(kScrAdaptationH(50)));
+        make.top.equalTo(self).offset(kScrAdaptationH(44)+ 64);
+        make.height.width.equalTo(@(kScrAdaptationH(80)));
     }];
     lockPeriodLabel.text = self.viewModelVM.lockPeriodStr;
 }
@@ -203,27 +203,23 @@
     [self.surplusValueView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.expectedYearRateView.mas_bottom).offset(1);
         make.right.left.equalTo(weakSelf);
-        make.height.equalTo(@80);
+        make.height.equalTo(@(kScrAdaptationH(38)));
     }];
     
     //是否分为左右两个（起投，剩余金额）
     if (self.isFlowChart) {
         [self setupSurplusValueViewWithTowView];
     }else{
-        [self upDownLableWithView:self.surplusValueView andDistance:10 andFirstFont:[UIFont systemFontOfSize:30] andFirstStr:self.remainAmount andSecondStr:self.remainAmount_const];
+        [self upDownLableWithView:self.surplusValueView andDistance:10 andFirstFont:kHXBFont_PINGFANGSC_REGULAR(15) andSecondFont:kHXBFont_PINGFANGSC_REGULAR(12) andFirstStr:self.remainAmount andSecondStr:self.remainAmount_const];
     }
 }
 
-//剩余投资（起投，剩余金额
+//剩余投资（起投，剩余金额 （散标标的期限，剩余金额）
 - (void)setupSurplusValueViewWithTowView {
     __weak typeof (self) weakSelf = self;
     UIView *leftView = [[UIView alloc]init];
-    leftView.layer.borderWidth = 0.5;
-    leftView.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:1].CGColor;
     [self.surplusValueView addSubview:leftView];
     UIView *rightView = [[UIView alloc]init];
-    rightView.layer.borderWidth = 0.5;
-    rightView.layer.borderColor = [UIColor colorWithWhite:0.8 alpha:1].CGColor;
     [self.surplusValueView addSubview:rightView];
     
     [leftView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -235,8 +231,8 @@
         make.height.right.top.equalTo(weakSelf.surplusValueView);
     }];
     
-    [self upDownLableWithView:leftView andDistance:10 andFirstFont:[UIFont systemFontOfSize:30] andFirstStr:self.startInvestmentStr andSecondStr:self.startInvestmentStr_const];
-    [self upDownLableWithView:rightView andDistance:10 andFirstFont:[UIFont systemFontOfSize:30] andFirstStr:self.remainAmount andSecondStr:self.remainAmount_const];
+    [self upDownLableWithView:leftView andDistance:kScrAdaptationH(5) andFirstFont:kHXBFont_PINGFANGSC_REGULAR(15) andSecondFont:kHXBFont_PINGFANGSC_REGULAR(12)  andFirstStr:self.startInvestmentStr andSecondStr:self.startInvestmentStr_const];
+    [self upDownLableWithView:rightView andDistance:10 andFirstFont:kHXBFont_PINGFANGSC_REGULAR(15) andSecondFont:kHXBFont_PINGFANGSC_REGULAR(12)   andFirstStr:self.remainAmount andSecondStr:self.remainAmount_const];
 }
 //MARK: - 增信
 - (void)setupAddTrustView {
@@ -309,7 +305,7 @@
 
 
 //生成一上一下lable
-- (void)upDownLableWithView: (UIView *)view andDistance: (CGFloat)distance andFirstFont: (UIFont *)font andFirstStr: (NSString *)firstStr andSecondStr: (NSString *)secondStr{
+- (void)upDownLableWithView: (UIView *)view andDistance: (CGFloat)distance andFirstFont: (UIFont *)font andSecondFont: (UIFont *)secondFont andFirstStr: (NSString *)firstStr andSecondStr: (NSString *)secondStr{
     
     //预期年化的数字部分
     UILabel *firstLable = [[UILabel alloc]init];

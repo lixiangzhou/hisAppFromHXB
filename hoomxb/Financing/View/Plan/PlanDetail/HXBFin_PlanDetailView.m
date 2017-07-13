@@ -163,7 +163,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
+         self.backgroundColor = kHXBColor_heightGrey;
         [self show];
     }
     return self;
@@ -185,8 +185,8 @@
     [self setupAddView];///立即加入视图
     
     self.surplusValueView.backgroundColor = [UIColor whiteColor];
-    self.flowChartView.backgroundColor = [UIColor darkGrayColor];
-    self.addView.backgroundColor = [UIColor grayColor];
+    self.flowChartView.backgroundColor = [UIColor whiteColor];
+    self.addView.backgroundColor = HXBC_Red_Deep;
 }
 
 - (void)setUPTopView {
@@ -196,7 +196,7 @@
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(248)));
+        make.height.equalTo(@(kScrAdaptationH(265)));
     }];
 }
 
@@ -213,17 +213,12 @@
 
 //MARK: - 引导视图
 - (void)setupFlowChartView {
-    kWeakSelf
-    if (!self.isPlan) return;
-    
-    //如果是 则用增信view 不是则用剩余可投view作为约束参考
-    UIView *view = self.isFlowChart ? self.trustView : self.surplusValueView;
     self.flowChartView = [[HXBFinBase_FlowChartView alloc]init];
     [self addSubview:self.flowChartView];
     [self.flowChartView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(view.mas_bottom);
-        make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@100);
+        make.top.equalTo(self.trustView.mas_bottom).offset(kScrAdaptationH(10));
+        make.left.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH(108)));
     }];
 }
 //MARK: - 立即加入按钮的添加
@@ -267,38 +262,6 @@
 }
 
 
-//生成一上一下lable
-- (void)upDownLableWithView: (UIView *)view andDistance: (CGFloat)distance andFirstFont: (UIFont *)font andSecondFont:(UIFont *)secondFont andFirstStr: (NSString *)firstStr andSecondStr: (NSString *)secondStr{
-    
-    //预期年化的数字部分
-    UILabel *firstLable = [[UILabel alloc]init];
-  
-    [view addSubview:firstLable];
-    [firstLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(view);
-        make.height.equalTo(@(font.lineHeight));
-        make.centerX.equalTo(view.mas_centerX);
-    }];
-
-    //预期年化
-    UILabel *secondLable = [[UILabel alloc]init];
-    [view addSubview:secondLable];
-    [secondLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(firstLable.mas_bottom).offset((distance / 2));
-        make.height.equalTo(@(secondFont.lineHeight));
-        make.centerX.equalTo(firstLable.mas_centerX);
-    }];
-    firstLable.font = font;
-    secondLable.font = secondFont;
-    firstLable.text = firstStr;
-    secondLable.text = secondStr;
-    firstLable.textColor = [UIColor whiteColor];
-    secondLable.textColor = [UIColor whiteColor];
-    [firstLable sizeToFit];
-    [secondLable sizeToFit];
-}
-
-
 //MARK: - 展示计划详情等的 tableView
 - (void)setupTableView {
     kWeakSelf
@@ -306,11 +269,10 @@
     self.bottomTableView.tableViewCellModelArray = self.modelArray;
     self.bottomTableView.bounces = false;
     [self addSubview:self.bottomTableView];
-    UIView *view = self.isPlan? self.flowChartView : self.trustView;
     [self.bottomTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(view.mas_bottom).offset(1);
+        make.top.equalTo(self.flowChartView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@120);
+        make.height.equalTo(@(kScrAdaptationH(138)));
     }];
     //cell的点击事件
     [self.bottomTableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {

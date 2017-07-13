@@ -38,8 +38,19 @@
 - (void)setUPViewManagerWithBlock: (HXBBaseView_MoreTopBottomViewManager *(^)(HXBBaseView_MoreTopBottomViewManager *viewManager))setUPViewManagerBlock {
     self.viewManager = setUPViewManagerBlock(self.viewManager);
     for (NSInteger i = 0; i < self.leftViewArray.count; i++) {
-        BOOL isSetUPViewValue_Left = [self setValueWithView:self.leftViewArray[i] andStr:self.viewManager.leftStrArray[i] andAlignment: self.viewManager.leftLabelAlignment];
-        BOOL isSetUPViewValue_right = [self setValueWithView:self.rightViewArray[i] andStr:self.viewManager.rightStrArray[i] andAlignment: self.viewManager.rightLabelAlignment];
+        BOOL isSetUPViewValue_Left = [self setValueWithView:self.leftViewArray[i]
+                                                     andStr:self.viewManager.leftStrArray[i]
+                                               andAlignment: self.viewManager.leftLabelAlignment
+                                               andTextColor:self.viewManager.leftTextColor
+                                         andBackGroundColor:self.viewManager.leftViewColor
+                                                    andFont: self.viewManager.leftFont];
+       
+        BOOL isSetUPViewValue_right = [self setValueWithView:self.rightViewArray[i]
+                                                      andStr:self.viewManager.rightStrArray[i]
+                                                andAlignment: self.viewManager.rightLabelAlignment
+                                                andTextColor:self.viewManager.rightTextColor
+                                          andBackGroundColor:self.viewManager.rightViewColor
+                                                     andFont:self.viewManager.rightFont];
         if(!isSetUPViewValue_Left) {
             NSLog(@"%@，左边的第 %ld个view赋值失败",self,i);
         }
@@ -104,16 +115,22 @@
     [self.viewManager setValue:self.leftViewArray forKey:@"allViewArray"];
 }
 ///给view 赋值，并且返回是否赋值成功
-- (BOOL) setValueWithView: (UIView *)view andStr: (NSString *)value andAlignment: (NSTextAlignment)alignment {
+- (BOOL) setValueWithView: (UIView *)view andStr: (NSString *)value andAlignment: (NSTextAlignment)alignment andTextColor:(UIColor *)textColor andBackGroundColor: (UIColor *)backGroundColor andFont: (UIFont *)font{
     if ([view isKindOfClass:[UILabel class]]) {
         UILabel *label = (UILabel *)view;
         label.text = value;
         label.textAlignment = alignment;
+        label.textColor = textColor;
+        label.backgroundColor = backGroundColor;
+        label.font = font;
         return true;
     }
     if ([view isKindOfClass:[UIButton class]]) {
         UIButton *button = (UIButton *)view;
         [button setTitle:value forState:UIControlStateNormal];
+        [button setTitleColor:textColor forState:UIControlStateNormal];
+        button.backgroundColor = backGroundColor;
+        button.titleLabel.font = font;
         return true;
     }
     return false;
