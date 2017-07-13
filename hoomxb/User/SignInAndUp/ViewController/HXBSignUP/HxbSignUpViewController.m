@@ -104,7 +104,6 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
                     }];
 //                });
 //            });
-           
         }];
         if (!weakSelf.isCheckCaptchaSucceed) {
             [weakSelf presentViewController:checkCaptchVC animated:true completion:nil];

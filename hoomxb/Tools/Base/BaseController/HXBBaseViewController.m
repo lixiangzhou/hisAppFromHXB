@@ -11,7 +11,7 @@
 
 #import "HXBBaseViewController.h"
 #import <WebKit/WebKit.h>
-
+#import "SVGKImage.h"
 @interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate>
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @property (nonatomic,strong) HXBColourGradientView *colorGradientView;
@@ -39,7 +39,7 @@
 {
     UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
 //    [leftBackBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [leftBackBtn setImage:[UIImage imageNamed:@"login_close"] forState:UIControlStateNormal];
+    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
     // 让按钮内部的所有内容左对齐
     leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [leftBackBtn addTarget:self action:@selector(leftBackBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -118,12 +118,8 @@
 }
 - (void)setIsColourGradientNavigationBar:(BOOL)isColourGradientNavigationBar {
     if (isColourGradientNavigationBar) {
-        UIView * barBackgroundView = [[HXBColourGradientView alloc]init];
-        barBackgroundView.tag = 100;
-        barBackgroundView.frame = CGRectMake(0, -20, [UIScreen mainScreen].bounds.size.width, 64);
-        barBackgroundView.backgroundColor = [[UIColor redColor]colorWithAlphaComponent:0.3];
-        [self.navigationController.navigationBar insertSubview:barBackgroundView atIndex:0];
-        barBackgroundView.userInteractionEnabled = NO;  // 关键之处
+        self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:UIBarMetricsDefault];
     }
 }
 

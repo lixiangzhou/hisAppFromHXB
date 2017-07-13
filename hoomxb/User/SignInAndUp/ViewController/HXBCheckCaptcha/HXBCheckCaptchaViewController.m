@@ -50,7 +50,7 @@
     [self.animatrManager presentAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
         [UIView animateWithDuration:.0 animations:^{
             toView.center = [UIApplication sharedApplication].keyWindow.center;
-            toView.bounds = CGRectMake(0, 0, kScrAdaptationW(300), kScrAdaptationW(300));
+            toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(221));
             weakSelf.checkCaptcha.frame = toView.bounds;
         } completion:^(BOOL finished) {
             weakSelf.animatrManager.isAccomplishAnima = true;
@@ -78,10 +78,10 @@
 
 //设置
 - (void) setUP {
-    self.hxbBaseVCScrollView.backgroundColor = [UIColor clearColor];
-    [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
-        [self.hxbBaseVCScrollView endEditing:true];
-    }];
+//    self.hxbBaseVCScrollView.backgroundColor = [UIColor clearColor];
+//    [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
+//        [self.hxbBaseVCScrollView endEditing:true];
+//    }];
     [self setUPSubView];//设置图层
     [self downCheckCaptcha];//请求图验
     [self clickTrueButtonEvent];//点击了确认按钮
@@ -89,10 +89,9 @@
 }
 - (void)setUPSubView {
     self.checkCaptcha = [[HXBCheckCaptcha alloc]init];
-    [self.hxbBaseVCScrollView addSubview:self.checkCaptcha];
+    [self.view addSubview:self.checkCaptcha];
+    self.view.backgroundColor = [UIColor clearColor];
     self.checkCaptcha.frame = self.view.frame;
-    
-    
 }
 ///请求数据 图验图片
 - (void)downCheckCaptcha {
@@ -126,6 +125,10 @@
             weakSelf.checkCaptcha.isCorrect = false;
         }];
     }];
+    
+    self.checkCaptcha.cancelBlock = ^{
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
+    };
 }
 
 ///点击了图验图片

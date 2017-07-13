@@ -56,8 +56,7 @@
 //        [self.backView addSubview:self.purchaseLabel];
         [self.backView addSubview:self.purchaseButton];
         [self.backView addSubview:self.icon];
-        //设置子控件的位置
-        [self setupSubViewFrame];
+        
     }
     return self;
 }
@@ -73,22 +72,44 @@
         make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH(20));
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-kScrAdaptationH(20));
     }];
-    [self.expectAnnualizedRatesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.backView);
-        make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(48));
+    [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.backView.mas_left).offset(kScrAdaptationW(33));
+        make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(13));
+        make.height.with.equalTo(@13);
     }];
+    [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.backView.mas_left).offset(kScrAdaptationW(15));
+        make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(14));
+        make.height.with.equalTo(@13);
+    }];
+    if (!self.homePageModel_DataList.tag.length) {
+        [self.expectAnnualizedRatesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.backView);
+            make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(27));
+            make.height.offset(kScrAdaptationH(14));
+        }];
+    }else
+    {
+        [self.expectAnnualizedRatesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.backView);
+            make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(48));
+            make.height.offset(kScrAdaptationH(14));
+        }];
+    }
     [self.expectAnnualizedRatesTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.backView);
-        make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(68));
+        make.top.equalTo(self.expectAnnualizedRatesLabel.mas_bottom).offset(kScrAdaptationH(5));
+        make.height.offset(kScrAdaptationH(40));
     }];
     [self.investmentPeriodTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.backView);
-        make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(122));
+        make.top.equalTo(self.expectAnnualizedRatesTitleLabel.mas_bottom).offset(kScrAdaptationH(14));
+        make.height.offset(kScrAdaptationH(14));
     }];
     [self.purchaseButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backView.mas_left).offset(kScrAdaptationW(20));
         make.right.equalTo(self.backView.mas_right).offset(-kScrAdaptationW(20));
-        make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(153));
+        make.top.equalTo(self.investmentPeriodTitleLabel.mas_bottom).offset(kScrAdaptationH(17));
         make.height.equalTo(@kScrAdaptationH(38));
         
     }];
@@ -99,15 +120,7 @@
         make.bottom.equalTo(self.purchaseButton.mas_bottom);
         
     }];
-    [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.backView.mas_left).offset(kScrAdaptationW(33));
-        make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(13));
-    }];
-    [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.backView.mas_left).offset(kScrAdaptationW(15));
-        make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(14));
-        make.height.with.equalTo(@13);
-    }];
+    
 }
 
 -(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
@@ -150,6 +163,8 @@
         self.icon.hidden = YES;
     }
     self.promptLabel.text = homePageModel_DataList.tag;
+    //设置子控件的位置
+    [self setupSubViewFrame];
     
 }
 //- (void)setModel:(TopProductModel *)model

@@ -168,10 +168,13 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        return kScrAdaptationH(225);
+    HxbHomePageModel_DataList *homePageModel_DataList = self.homeBaseModel.homePlanRecommend[indexPath.section];
+    if (!homePageModel_DataList.tag.length) {
+        return kScrAdaptationH(235);
+    }else
+    {
+        return kScrAdaptationH(255);
     }
-    return kScrAdaptationH(255);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -294,8 +297,7 @@
     if (!_headView) {
         kWeakSelf
         _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(302))];//199
-        HXBColourGradientView *ColourGradientView = [[HXBColourGradientView alloc] initWithFrame:_headView.bounds];
-        [_headView insertSubview:ColourGradientView atIndex:0];
+        
         _headView.delegate = self;
         _headView.tipButtonClickBlock_homePageHeadView = ^(){
             if (weakSelf.tipButtonClickBlock_homeView) {
