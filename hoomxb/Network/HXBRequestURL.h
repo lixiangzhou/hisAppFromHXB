@@ -73,4 +73,8 @@
 #define kHXBFin_Buy_PlanURL(planID) [NSString stringWithFormat:@"/plan/%@/confirm",(planID)]//购买
 #define kHXBFin_Buy_LoanURL(LoanID) [NSString stringWithFormat:@"/loan/%@/confirm",(LoanID)]
 #define kHXBFin_BuyReslut_LoanURL(loanID) [NSString stringWithFormat:@"/loan/%@/result",(loanID)]
+
+//MARK: ======================= 公告 ==========================
+#define kHXBHome_AnnounceURL @"/announce"//公告
+
 #endif

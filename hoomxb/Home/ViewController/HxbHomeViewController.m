@@ -19,6 +19,7 @@
 #import "HXBVersionUpdateRequest.h"//版本更新的请求
 #import "HXBVersionUpdateViewModel.h"//版本更新的viewModel
 #import "HXBVersionUpdateModel.h"//版本更新的Model
+#import "HXBNoticeViewController.h"//公告界面
 @interface HxbHomeViewController ()
 
 @property (nonatomic, assign) BOOL isVersionUpdate;
@@ -319,6 +320,11 @@
                 }];
             }
             
+        };
+        //公告的点击
+        _homeView.noticeBlock = ^{
+            HXBNoticeViewController *noticeVC = [[HXBNoticeViewController alloc] init];
+            [weakSelf.navigationController pushViewController:noticeVC animated:YES];
         };
     }
     return _homeView;

@@ -20,7 +20,7 @@
 - (UIWebView *)webView
 {
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
         _webView.delegate = self;
         _webView.backgroundColor = [UIColor redColor];
         _webView.scalesPageToFit = YES;
@@ -34,8 +34,12 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"风险评测";
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    self.isColourGradientNavigationBar = YES;
     [self.view addSubview:self.webView];
+    [self setupRightBarBtn];
     
     /****** 加载桥梁对象 ******/
     [WebViewJavascriptBridge enableLogging];
@@ -55,6 +59,29 @@
         }];
         [weakSelf.navigationController popToViewController:vc animated:true];
     }];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+}
+
+- (void)setupRightBarBtn
+{
+    UIButton *rightBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
+    [rightBackBtn setTitle:@"跳过" forState:UIControlStateNormal];
+    // 让按钮内部的所有内容左对齐
+    rightBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [rightBackBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    [rightBackBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    // 修改导航栏左边的item
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBackBtn];
+}
+
+- (void)dismiss
+{
+    [_bridge callHandler:@"skipTest" data:nil];
 }
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSString *urlString = [[request URL]  absoluteString];
@@ -88,5 +115,7 @@
 
     return YES;
 }
+
+
 
 @end

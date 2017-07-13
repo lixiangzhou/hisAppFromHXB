@@ -15,9 +15,9 @@
  */
 @property (nonatomic, copy) void(^sureBtnClick)(NSString *pwd);
 
-/**
- 确认按钮
- */
-@property (nonatomic, copy) void(^forgetBtnClick)();
+///**
+// 确认按钮
+// */
+//@property (nonatomic, copy) void(^forgetBtnClick)();
 
 @end

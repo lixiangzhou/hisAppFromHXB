@@ -63,12 +63,12 @@
         }
         [weakSelf checkWithdrawals:pwd];
     };
-    alertVC.forgetBtnClick = ^(){
-        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-        modifyTransactionPasswordVC.title = @"修改交易密码";
-        modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoModel;
-        [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-    };
+//    alertVC.forgetBtnClick = ^(){
+//        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+//        modifyTransactionPasswordVC.title = @"修改交易密码";
+//        modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoModel;
+//        [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+//    };
     [self presentViewController:alertVC animated:NO completion:^{
         
     }];
