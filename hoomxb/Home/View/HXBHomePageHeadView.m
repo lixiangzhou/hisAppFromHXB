@@ -27,14 +27,26 @@
 
 @property (nonatomic, strong) UIButton *noticeBtn;
 
+@property (nonatomic, strong) UIImageView *backgroundImageView;
 @end
 
 @implementation HXBHomePageHeadView
+
+
+- (UIImageView *)backgroundImageView
+{
+    if (!_backgroundImageView) {
+        _backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Group 15"]];
+        _backgroundImageView.frame = CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(257));
+    }
+    return _backgroundImageView;
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self addSubview:self.backgroundImageView];
         [self addSubview:self.indicationView];
         [self addSubview:self.afterLoginView];
 //        [self addSubview:self.moduleView];

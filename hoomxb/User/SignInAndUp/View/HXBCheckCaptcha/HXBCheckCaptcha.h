@@ -12,6 +12,12 @@
 @property (nonatomic, strong) UIImage *checkCaptchaImage;
 ///验证码是否正确
 @property (nonatomic, assign) BOOL isCorrect;
+
+/**
+ 点击了取消
+ */
+@property (nonatomic, copy) void(^cancelBlock)();
+
 ///点击了确认按钮
 - (void)clickTrueButtonFunc:(void (^)(NSString *checkCaptChaStr))clickTrueButtonBlock;
 ///点击了图形验证码

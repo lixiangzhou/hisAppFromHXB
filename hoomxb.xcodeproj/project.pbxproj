@@ -75,6 +75,12 @@
 		4E886FC71EF9201B0056086E /* HXBLockLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FC61EF9201B0056086E /* HXBLockLabel.m */; };
 		4E886FCA1EF9205E0056086E /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FC91EF9205E0056086E /* CALayer+Anim.m */; };
 		4E886FCD1EF940010056086E /* HXBModifyGesturePasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FCC1EF940010056086E /* HXBModifyGesturePasswordController.m */; };
+		4E88A51F1F15B78900BBDF11 /* mobile_number.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A51E1F15B78900BBDF11 /* mobile_number.svg */; };
+		4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5201F15B79000BBDF11 /* password_eye_close.svg */; };
+		4E88A5231F15B79700BBDF11 /* password_eye_open.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5221F15B79700BBDF11 /* password_eye_open.svg */; };
+		4E88A5251F15B7A500BBDF11 /* password.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5241F15B7A500BBDF11 /* password.svg */; };
+		4E88A5271F15CBC500BBDF11 /* back.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5261F15CBC500BBDF11 /* back.svg */; };
+		4E88A5291F1600CB00BBDF11 /* security_code.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5281F1600CB00BBDF11 /* security_code.svg */; };
 		4E8AAE9C1F0B7A4400655544 /* HXBRiskAssessmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAE9B1F0B7A4400655544 /* HXBRiskAssessmentViewController.m */; };
 		4E8AAEA01F0B866C00655544 /* HXBSetGesturePasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAE9F1F0B866C00655544 /* HXBSetGesturePasswordRequest.m */; };
 		4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */; };
@@ -478,6 +484,12 @@
 		4E886FC91EF9205E0056086E /* CALayer+Anim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Anim.m"; sourceTree = "<group>"; };
 		4E886FCB1EF940010056086E /* HXBModifyGesturePasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyGesturePasswordController.h; sourceTree = "<group>"; };
 		4E886FCC1EF940010056086E /* HXBModifyGesturePasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyGesturePasswordController.m; sourceTree = "<group>"; };
+		4E88A51E1F15B78900BBDF11 /* mobile_number.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mobile_number.svg; sourceTree = "<group>"; };
+		4E88A5201F15B79000BBDF11 /* password_eye_close.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = password_eye_close.svg; sourceTree = "<group>"; };
+		4E88A5221F15B79700BBDF11 /* password_eye_open.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = password_eye_open.svg; sourceTree = "<group>"; };
+		4E88A5241F15B7A500BBDF11 /* password.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = password.svg; sourceTree = "<group>"; };
+		4E88A5261F15CBC500BBDF11 /* back.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = back.svg; sourceTree = "<group>"; };
+		4E88A5281F1600CB00BBDF11 /* security_code.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = security_code.svg; sourceTree = "<group>"; };
 		4E8AAE9A1F0B7A4400655544 /* HXBRiskAssessmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRiskAssessmentViewController.h; sourceTree = "<group>"; };
 		4E8AAE9B1F0B7A4400655544 /* HXBRiskAssessmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRiskAssessmentViewController.m; sourceTree = "<group>"; };
 		4E8AAE9E1F0B866C00655544 /* HXBSetGesturePasswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSetGesturePasswordRequest.h; sourceTree = "<group>"; };
@@ -1330,6 +1342,12 @@
 		4E7E5B661F146F3C00771C07 /* SVG */ = {
 			isa = PBXGroup;
 			children = (
+				4E88A5281F1600CB00BBDF11 /* security_code.svg */,
+				4E88A5261F15CBC500BBDF11 /* back.svg */,
+				4E88A5241F15B7A500BBDF11 /* password.svg */,
+				4E88A5221F15B79700BBDF11 /* password_eye_open.svg */,
+				4E88A5201F15B79000BBDF11 /* password_eye_close.svg */,
+				4E88A51E1F15B78900BBDF11 /* mobile_number.svg */,
 				4E1D90991F14F62D00D29EA7 /* notice.svg */,
 				4E7E5B801F14DFE900771C07 /* package.svg */,
 				4E7E5B6F1F14792B00771C07 /* my_Selected.svg */,
@@ -1587,13 +1605,6 @@
 			path = bank;
 			sourceTree = "<group>";
 		};
-		4EC492A41EC1CAB800B7DAA2 /* UINavigationController */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UINavigationController;
-			sourceTree = "<group>";
-		};
 		4ED2F2751ECAD0BA0014E5C7 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1727,7 +1738,6 @@
 				4EB5598D1F037EFA00146D62 /* UITextView */,
 				4E94B28A1ECC496C003CCBA7 /* NSAttributedString */,
 				4E8198B31EC450B500D668A1 /* UILabel */,
-				4EC492A41EC1CAB800B7DAA2 /* UINavigationController */,
 				4E422CBE1EA7491700C0EB62 /* UIButton */,
 				4E422CBD1EA7458200C0EB62 /* UITextField */,
 				E122D8411EA0CAB900DC71ED /* UIViewController */,
@@ -3420,6 +3430,7 @@
 				4E7CCF511EBC1B5B00F7BDB3 /* login_close@3x.png in Resources */,
 				4E7CCF491EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png in Resources */,
 				4E7E5B691F14705700771C07 /* home_Selected.svg in Resources */,
+				4E88A5231F15B79700BBDF11 /* password_eye_open.svg in Resources */,
 				4E7CCF501EBC1B5B00F7BDB3 /* login_close@2x.png in Resources */,
 				4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */,
 				4E7E5B721F14792B00771C07 /* my_Unselected.svg in Resources */,
@@ -3430,16 +3441,21 @@
 				4E7E5B6A1F14705700771C07 /* home_Unselected.svg in Resources */,
 				4ED2F2801ECADC960014E5C7 /* introductionplaceholder@3x.png in Resources */,
 				4E7CCF4C1EBC1B5B00F7BDB3 /* pageControl@3x.png in Resources */,
+				4E88A51F1F15B78900BBDF11 /* mobile_number.svg in Resources */,
 				4E7CCF4D1EBC1B5B00F7BDB3 /* pageControl_select@2x.png in Resources */,
+				4E88A5271F15CBC500BBDF11 /* back.svg in Resources */,
 				4ED2F27C1ECAD9810014E5C7 /* homepage_close@3x.png in Resources */,
 				4E7CCF4F1EBC1B5B00F7BDB3 /* 4.png in Resources */,
 				4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */,
 				E1C9647D1EA600C20066DBC4 /* Assets.xcassets in Resources */,
+				4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */,
 				4E7E5B6D1F1478C100771C07 /* investment_Unselected.svg in Resources */,
 				4E7E5B711F14792B00771C07 /* my_Selected.svg in Resources */,
 				4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
 				4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */,
+				4E88A5291F1600CB00BBDF11 /* security_code.svg in Resources */,
 				4E7E5B7F1F14A3A400771C07 /* HXBBannerCollectionViewCell.xib in Resources */,
+				4E88A5251F15B7A500BBDF11 /* password.svg in Resources */,
 				4E7CCF4E1EBC1B5B00F7BDB3 /* pageControl_select@3x.png in Resources */,
 				4E7CCF471EBC1B5B00F7BDB3 /* banner@2x.png in Resources */,
 			);
