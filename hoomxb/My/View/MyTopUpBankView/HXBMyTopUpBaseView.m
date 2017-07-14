@@ -103,12 +103,9 @@
 - (HXBLeftLabelTextView *)amountTextField{
     if (!_amountTextField) {
         _amountTextField = [[HXBLeftLabelTextView alloc] init];
-        _amountTextField.placeholder = @"请输入充值金额"
+        _amountTextField.placeholder = @"请输入充值金额";
         _amountTextField.leftStr = @"充值金额:";
-        _amountTextField.leftViewMode = UITextFieldViewModeAlways;
-        _amountTextField.leftView = amounttipLabel;
-        _amountTextField.delegate = self;
-        _amountTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        
     }
     return _amountTextField;
 }
