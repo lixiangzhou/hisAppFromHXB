@@ -37,6 +37,8 @@
 		4E739B571F0A356A000A4D1E /* HXBVersionUpdateRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E739B561F0A356A000A4D1E /* HXBVersionUpdateRequest.m */; };
 		4E739B5B1F0A388B000A4D1E /* HXBVersionUpdateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E739B5A1F0A388B000A4D1E /* HXBVersionUpdateModel.m */; };
 		4E739B5F1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E739B5E1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m */; };
+		4E7BDEB41F18627D002A3E18 /* HXBFin_PlanDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BE21F1482D100450692 /* HXBFin_PlanDetailView.m */; };
+		4E7BDEB51F1862AD002A3E18 /* HXBNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8EAA0D1F179664003834D4 /* HXBNoticeViewController.m */; };
 		4E7CCF471EBC1B5B00F7BDB3 /* banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3A1EBC1B5B00F7BDB3 /* banner@2x.png */; };
 		4E7CCF481EBC1B5B00F7BDB3 /* banner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3B1EBC1B5B00F7BDB3 /* banner@3x.png */; };
 		4E7CCF491EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3C1EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png */; };
@@ -91,7 +93,6 @@
 		4E8AAEA01F0B866C00655544 /* HXBSetGesturePasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAE9F1F0B866C00655544 /* HXBSetGesturePasswordRequest.m */; };
 		4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */; };
 		4E8EAA0A1F176B3D003834D4 /* close.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E8EAA091F176B3D003834D4 /* close.svg */; };
-		4E8EAA0E1F179664003834D4 /* HXBNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8EAA0D1F179664003834D4 /* HXBNoticeViewController.m */; };
 		4E8EAA121F17A0E4003834D4 /* HXBNoticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8EAA111F17A0E4003834D4 /* HXBNoticModel.m */; };
 		4E9127551EFA69FB007F8C13 /* HXBFinModel_BuyResoult_PlanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1757AFC1EFA3E1B009C0BC8 /* HXBFinModel_BuyResoult_PlanModel.m */; };
 		4E9345501EFE0FD300D2886B /* HXBModifyPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93454F1EFE0FD300D2886B /* HXBModifyPhoneViewController.m */; };
@@ -246,7 +247,6 @@
 		E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */; };
 		E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */; };
 		E14B9BDF1F14731400450692 /* HXBColourGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BDE1F14731400450692 /* HXBColourGradientView.m */; };
-		E14B9BE31F1482D100450692 /* HXBFin_PlanDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BE21F1482D100450692 /* HXBFin_PlanDetailView.m */; };
 		E14B9BE61F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BE51F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
 		E16017671EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E16017661EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.m */; };
@@ -3661,6 +3661,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E7BDEB51F1862AD002A3E18 /* HXBNoticeViewController.m in Sources */,
+				4E7BDEB41F18627D002A3E18 /* HXBFin_PlanDetailView.m in Sources */,
 				4E9127551EFA69FB007F8C13 /* HXBFinModel_BuyResoult_PlanModel.m in Sources */,
 				E1FF8EDA1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetail_TopView.m in Sources */,
 				E1CD4BD61ED83156000CC57B /* HXBBaseAdvertiseViewController.m in Sources */,
