@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isColourGradientNavigationBar = YES;
     self.title = @"充值";
     [self.view addSubview:self.myTopUpBaseView];
 }
@@ -32,7 +33,7 @@
 {
     if (!_myTopUpBaseView) {
         kWeakSelf
-        _myTopUpBaseView = [[HXBMyTopUpBaseView alloc] initWithFrame:self.view.bounds];
+        _myTopUpBaseView = [[HXBMyTopUpBaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
         _myTopUpBaseView.rechargeBlock = ^{
             [weakSelf enterRecharge];
         };

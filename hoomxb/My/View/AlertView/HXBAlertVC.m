@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) UIButton *sureBtn;
 
-//@property (nonatomic, strong) UIButton *forgetBtn;
+@property (nonatomic, strong) UIButton *forgetBtn;
 
 @property (nonatomic, strong) UIView *contentView;
 
@@ -46,7 +46,7 @@
     [self.view addSubview:self.contentView];
     [self.view addSubview:self.cancelBtn];
     [self.contentView addSubview:self.sureBtn];
-//    [self.contentView addSubview:self.forgetBtn];
+    [self.contentView addSubview:self.forgetBtn];
     [self.contentView addSubview:self.message];
     [self.contentView addSubview:self.pwdField];
     [self.contentView addSubview:self.lineView];
@@ -93,10 +93,10 @@
         make.height.offset(kScrAdaptationH750(1));
     }];
     
-//    [self.forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.pwdField.mas_bottom);
-//        make.right.equalTo(self.pwdField.mas_right);
-//    }];
+    [self.forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lineView.mas_bottom).offset(kScrAdaptationH750(10));
+        make.right.equalTo(self.pwdField.mas_right);
+    }];
     
     [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lineView.mas_bottom).offset(kScrAdaptationH750(60));
@@ -127,9 +127,9 @@
         }
     }else if ([btn.titleLabel.text isEqualToString:@"忘记密码"])
     {
-//        if (self.forgetBtnClick) {
-//            self.forgetBtnClick();
-//        }
+        if (self.forgetBtnClick) {
+            self.forgetBtnClick();
+        }
     }
     [self dismissViewControllerAnimated:NO completion:^{
         
@@ -189,17 +189,17 @@
     self.pwdField.secureTextEntry = self.eyeBtn.selected;
     self.eyeBtn.selected = !self.eyeBtn.selected;
 }
-//- (UIButton *)forgetBtn
-//{
-//    if (!_forgetBtn) {
-//        _forgetBtn = [[UIButton alloc] init];
-//        [_forgetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
-//        _forgetBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-//        [_forgetBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//        [_forgetBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-//    }
-//    return _forgetBtn;
-//}
+- (UIButton *)forgetBtn
+{
+    if (!_forgetBtn) {
+        _forgetBtn = [[UIButton alloc] init];
+        [_forgetBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
+        _forgetBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+        [_forgetBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_forgetBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _forgetBtn;
+}
 - (UILabel *)message
 {
     if (!_message) {

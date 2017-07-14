@@ -9,8 +9,10 @@
 #import "HXBMyTopUpBaseView.h"
 #import "HXBMyTopUpBankView.h"
 #import "HXBMyTopUpHeaderView.h"
+#import "HXBLeftLabelTextView.h"
 @interface HXBMyTopUpBaseView ()<UITextFieldDelegate>
-@property (nonatomic, strong) UITextField *amountTextField;
+//@property (nonatomic, strong) UITextField *amountTextField;
+@property (nonatomic, strong) HXBLeftLabelTextView *amountTextField;
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) UILabel *availableBalanceLabel;
 @property (nonatomic, strong) HXBMyTopUpBankView *mybankView;
@@ -24,6 +26,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        self.backgroundColor = BACKGROUNDCOLOR;
         [self addSubview:self.mybankView];
         [self addSubview:self.availableBalanceLabel];
         [self addSubview:self.amountTextField];
@@ -41,19 +44,19 @@
     [self.myTopUpHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
-        make.top.equalTo(self.mas_top).offset(64);
-        make.height.equalTo(@44);
+        make.top.equalTo(self.mas_top);
+        make.height.offset(kScrAdaptationH750(80));
     }];
     [self.mybankView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(10);
-        make.right.equalTo(self.mas_right).offset(-10);
-        make.top.equalTo(self.myTopUpHeaderView.mas_bottom).offset(10);
-        make.height.equalTo(@80);
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.top.equalTo(self.myTopUpHeaderView.mas_bottom);
+        make.height.offset(kScrAdaptationH750(160));
     }];
     [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(20);
-        make.right.equalTo(self.mas_right).offset(-20);
-        make.top.equalTo(self.mybankView.mas_bottom).offset(10);
+        make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(30));
+        make.top.equalTo(self.mybankView.mas_bottom).offset(kScrAdaptationH750(20));
+        make.height.offset(kScrAdaptationH750(33));
     }];
     
     [self.amountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,17 +96,15 @@
 - (HXBMyTopUpBankView *)mybankView{
     if (!_mybankView) {
         _mybankView = [[HXBMyTopUpBankView alloc]initWithFrame:CGRectMake(10, 113, SCREEN_WIDTH - 20, 80)];
-        _mybankView.layer.borderColor = COR13.CGColor;
-        _mybankView.layer.borderWidth = 0.5f;
+        _mybankView.backgroundColor = [UIColor whiteColor];
     }
     return _mybankView;
 }
-- (UITextField *)amountTextField{
+- (HXBLeftLabelTextView *)amountTextField{
     if (!_amountTextField) {
-        _amountTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_mybankView.frame), SCREEN_WIDTH - 40, 44)];
-        _amountTextField.placeholder = @"请输入充值金额";
-        UILabel *amounttipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 85, 44)];
-        amounttipLabel.text = @"充值金额:";
+        _amountTextField = [[HXBLeftLabelTextView alloc] init];
+        _amountTextField.placeholder = @"请输入充值金额"
+        _amountTextField.leftStr = @"充值金额:";
         _amountTextField.leftViewMode = UITextFieldViewModeAlways;
         _amountTextField.leftView = amounttipLabel;
         _amountTextField.delegate = self;
@@ -117,6 +118,8 @@
     if (!_availableBalanceLabel) {
         _availableBalanceLabel = [[UILabel alloc] init];
         _availableBalanceLabel.text = @"可用金额：123.78元";
+        _availableBalanceLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        _availableBalanceLabel.textColor = RGB(51, 51, 51);
     }
     return _availableBalanceLabel;
 }

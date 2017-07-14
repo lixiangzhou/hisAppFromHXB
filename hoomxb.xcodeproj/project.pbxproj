@@ -39,6 +39,11 @@
 		4E739B5F1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E739B5E1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m */; };
 		4E7BDEB41F18627D002A3E18 /* HXBFin_PlanDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BE21F1482D100450692 /* HXBFin_PlanDetailView.m */; };
 		4E7BDEB51F1862AD002A3E18 /* HXBNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8EAA0D1F179664003834D4 /* HXBNoticeViewController.m */; };
+		4E7BDEB71F187771002A3E18 /* bankcard.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BDEB61F187771002A3E18 /* bankcard.svg */; };
+		4E7BDEBA1F187923002A3E18 /* HXBCustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BDEB91F187923002A3E18 /* HXBCustomTextField.m */; };
+		4E7BDEBC1F189F02002A3E18 /* bank.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BDEBB1F189F02002A3E18 /* bank.svg */; };
+		4E7BDEBE1F189F11002A3E18 /* arrow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BDEBD1F189F11002A3E18 /* arrow.svg */; };
+		4E7BDEC11F18B650002A3E18 /* HXBLeftLabelTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BDEC01F18B650002A3E18 /* HXBLeftLabelTextView.m */; };
 		4E7CCF471EBC1B5B00F7BDB3 /* banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3A1EBC1B5B00F7BDB3 /* banner@2x.png */; };
 		4E7CCF481EBC1B5B00F7BDB3 /* banner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3B1EBC1B5B00F7BDB3 /* banner@3x.png */; };
 		4E7CCF491EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3C1EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png */; };
@@ -442,6 +447,13 @@
 		4E739B5A1F0A388B000A4D1E /* HXBVersionUpdateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBVersionUpdateModel.m; sourceTree = "<group>"; };
 		4E739B5D1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBVersionUpdateViewModel.h; sourceTree = "<group>"; };
 		4E739B5E1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBVersionUpdateViewModel.m; sourceTree = "<group>"; };
+		4E7BDEB61F187771002A3E18 /* bankcard.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = bankcard.svg; sourceTree = "<group>"; };
+		4E7BDEB81F187923002A3E18 /* HXBCustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCustomTextField.h; sourceTree = "<group>"; };
+		4E7BDEB91F187923002A3E18 /* HXBCustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCustomTextField.m; sourceTree = "<group>"; };
+		4E7BDEBB1F189F02002A3E18 /* bank.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = bank.svg; sourceTree = "<group>"; };
+		4E7BDEBD1F189F11002A3E18 /* arrow.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arrow.svg; sourceTree = "<group>"; };
+		4E7BDEBF1F18B650002A3E18 /* HXBLeftLabelTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBLeftLabelTextView.h; sourceTree = "<group>"; };
+		4E7BDEC01F18B650002A3E18 /* HXBLeftLabelTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLeftLabelTextView.m; sourceTree = "<group>"; };
 		4E7CCF3A1EBC1B5B00F7BDB3 /* banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@2x.png"; sourceTree = "<group>"; };
 		4E7CCF3B1EBC1B5B00F7BDB3 /* banner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@3x.png"; sourceTree = "<group>"; };
 		4E7CCF3C1EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bannerplaceholder@2x.png"; sourceTree = "<group>"; };
@@ -1416,6 +1428,9 @@
 		4E7E5B661F146F3C00771C07 /* SVG */ = {
 			isa = PBXGroup;
 			children = (
+				4E7BDEBD1F189F11002A3E18 /* arrow.svg */,
+				4E7BDEBB1F189F02002A3E18 /* bank.svg */,
+				4E7BDEB61F187771002A3E18 /* bankcard.svg */,
 				4E8EAA091F176B3D003834D4 /* close.svg */,
 				4E88A5281F1600CB00BBDF11 /* security_code.svg */,
 				4E88A5261F15CBC500BBDF11 /* back.svg */,
@@ -2586,6 +2601,8 @@
 			children = (
 				E1625B2C1EFBE63000FE9ABF /* HXBBaseView_HaveLabel_TopBottomView.h */,
 				E1625B2D1EFBE63000FE9ABF /* HXBBaseView_HaveLabel_TopBottomView.m */,
+				4E7BDEBF1F18B650002A3E18 /* HXBLeftLabelTextView.h */,
+				4E7BDEC01F18B650002A3E18 /* HXBLeftLabelTextView.m */,
 			);
 			path = TopBottomHaveLabelView;
 			sourceTree = "<group>";
@@ -3134,6 +3151,8 @@
 				E1D048541EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.m */,
 				4E94E3801F0F63D300746973 /* HXBWithdrawCardView.h */,
 				4E94E3811F0F63D300746973 /* HXBWithdrawCardView.m */,
+				4E7BDEB81F187923002A3E18 /* HXBCustomTextField.h */,
+				4E7BDEB91F187923002A3E18 /* HXBCustomTextField.m */,
 			);
 			path = HXBAccountView;
 			sourceTree = "<group>";
@@ -3545,6 +3564,7 @@
 				4E7CCF511EBC1B5B00F7BDB3 /* login_close@3x.png in Resources */,
 				4E7CCF491EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png in Resources */,
 				4E7E5B691F14705700771C07 /* home_Selected.svg in Resources */,
+				4E7BDEBC1F189F02002A3E18 /* bank.svg in Resources */,
 				4E88A5231F15B79700BBDF11 /* password_eye_open.svg in Resources */,
 				4E7CCF501EBC1B5B00F7BDB3 /* login_close@2x.png in Resources */,
 				4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */,
@@ -3554,6 +3574,7 @@
 				4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */,
 				4E7E5B811F14DFE900771C07 /* package.svg in Resources */,
 				4E7E5B6A1F14705700771C07 /* home_Unselected.svg in Resources */,
+				4E7BDEBE1F189F11002A3E18 /* arrow.svg in Resources */,
 				4ED2F2801ECADC960014E5C7 /* introductionplaceholder@3x.png in Resources */,
 				4E7CCF4C1EBC1B5B00F7BDB3 /* pageControl@3x.png in Resources */,
 				4E8EAA0A1F176B3D003834D4 /* close.svg in Resources */,
@@ -3563,6 +3584,7 @@
 				4ED2F27C1ECAD9810014E5C7 /* homepage_close@3x.png in Resources */,
 				4E7CCF4F1EBC1B5B00F7BDB3 /* 4.png in Resources */,
 				4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */,
+				4E7BDEB71F187771002A3E18 /* bankcard.svg in Resources */,
 				E1C9647D1EA600C20066DBC4 /* Assets.xcassets in Resources */,
 				4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */,
 				4E7E5B6D1F1478C100771C07 /* investment_Unselected.svg in Resources */,
@@ -3788,6 +3810,7 @@
 				E133DD3A1EEEC14C009466DE /* HXBBaseRequest.m in Sources */,
 				E122D85E1EA0CAB900DC71ED /* UIViewController+HxbViewController.m in Sources */,
 				E1C964751EA5E04F0066DBC4 /* HXBBaseTabBarController.m in Sources */,
+				4E7BDEBA1F187923002A3E18 /* HXBCustomTextField.m in Sources */,
 				E133DD421EEEC14C009466DE /* HXBTokenManager.m in Sources */,
 				4EAB3EE01EEA3D3E00E3924E /* HXBModifyTransactionPasswordRequest.m in Sources */,
 				E10CDBC51EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m in Sources */,
@@ -3898,6 +3921,7 @@
 				E17E6AE71ECDA46B0046888B /* HXBMY_CapitalRecordViewController.m in Sources */,
 				E122D8511EA0CAB900DC71ED /* NSString+HxbGeneral.m in Sources */,
 				E1CD4BDD1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m in Sources */,
+				4E7BDEC11F18B650002A3E18 /* HXBLeftLabelTextView.m in Sources */,
 				E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */,
 				E17509BD1EC6F2A100E17B39 /* HXBFin_Detail_DetailVC_Loan.m in Sources */,
 				E1DD667C1EFCD84400A4C01D /* HXBBaseView_MoreTopBottomView.m in Sources */,

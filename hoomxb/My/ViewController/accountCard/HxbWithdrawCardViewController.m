@@ -44,7 +44,7 @@
 {
     if (!_withdrawCardView) {
         kWeakSelf
-        _withdrawCardView = [[HXBWithdrawCardView alloc] initWithFrame:self.view.bounds];
+        _withdrawCardView = [[HXBWithdrawCardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
         
         _withdrawCardView.bankNameBtnClickBlock = ^(UIButton *bankNameBtn) {
             
@@ -78,6 +78,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isColourGradientNavigationBar = YES;
     [self.view addSubview:self.withdrawCardView];
 
 }

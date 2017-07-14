@@ -19,7 +19,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = COR3;
+        self.backgroundColor = BACKGROUNDCOLOR;
         [self addSubview:self.tipLabel];
         [self sutupSubViewFrame];
     }

@@ -51,17 +51,13 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     self.isColourGradientNavigationBar = YES;
     self.title = @"登录";
     [self setLeftItemBar];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     [self setSignView];/// 设置登录界面
     [self registerSignViewEvent];///signView事件注册
     [self registerCheckMobileEvent];///请求手机号是否存在
     [self registerSignUPEvent];///注册 点击signUP事件
     [self registerClickforgetPasswordButton];///忘记密码
 }
+
 
 //谈图验
 - (void) modalCaptchaVC: (NSNotification *)notif {
@@ -75,7 +71,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 - (void)setSignView{
     kWeakSelf
     
-    self.signView = [[HxbSignInView alloc]initWithFrame:self.view.bounds];
+    self.signView = [[HxbSignInView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     self.hxb_automaticallyAdjustsScrollViewInsets = false;
     [self.hxbBaseVCScrollView addSubview:self.signView];
     [self trackingScrollViewBlock:^(UIScrollView *scrollView) {

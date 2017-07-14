@@ -18,6 +18,6 @@
 ///**
 // 确认按钮
 // */
-//@property (nonatomic, copy) void(^forgetBtnClick)();
+@property (nonatomic, copy) void(^forgetBtnClick)();
 
 @end
