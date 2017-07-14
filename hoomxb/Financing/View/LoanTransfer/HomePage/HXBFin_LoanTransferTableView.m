@@ -19,24 +19,15 @@ UITableViewDelegate,UITableViewDataSource
  点击了cell
  */
 @property (nonatomic,copy) void(^clickCellBlock)(id cellModel, NSIndexPath *index);
+
+@property (nonatomic,strong) HXBNoDataView *nodataView;
 @end
 
 @implementation HXBFin_LoanTransferTableView
-- (void)setLoanTruansferViewModel:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)loanTruansferViewModel {
-    _loanTruansferViewModel = loanTruansferViewModel;
-    if (!loanTruansferViewModel.count) {
-        NSLog(@"没有数据");
-    }
-    [self reloadData];
-}
-
-- (void)clickCellWithBlock:(void (^)(HXBFinHomePageViewModel_LoanTruansferViewModel *model, NSIndexPath *index))clickCellBlock
-{
-    self.clickCellBlock = clickCellBlock;
-}
 - (instancetype) initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setUPViews];
+        self.backgroundColor = kHXBColor_BackGround;
     }
     return self;
 }
@@ -48,6 +39,17 @@ UITableViewDelegate,UITableViewDataSource
     self.tableFooterView = [[UIView alloc]init];
     self.rowHeight = kScrAdaptationH(120);
 }
+- (void)setLoanTruansferViewModel:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)loanTruansferViewModel {
+    _loanTruansferViewModel = loanTruansferViewModel;
+    self.nodataView.hidden = loanTruansferViewModel.count;
+    [self reloadData];
+}
+
+- (void)clickCellWithBlock:(void (^)(HXBFinHomePageViewModel_LoanTruansferViewModel *model, NSIndexPath *index))clickCellBlock
+{
+    self.clickCellBlock = clickCellBlock;
+}
+
 
 #pragma mark - tableViewDelegate
 
@@ -70,6 +72,21 @@ UITableViewDelegate,UITableViewDataSource
     
     cell.LoanTruansferViewModel = self.loanTruansferViewModel[indexPath.row];
     return cell;
+}
+- (HXBNoDataView *)nodataView {
+    if (!_nodataView) {
+        _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
+        [self addSubview: _nodataView];
+        _nodataView.imageName = @"Fin_NotData";
+        _nodataView.noDataMassage = @"暂无转让中的债权";
+        _nodataView.downPULLMassage = @"下拉进行刷新";
+        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(kScrAdaptationH(139));
+            make.height.width.equalTo(@(kScrAdaptationH(184)));
+            make.centerX.equalTo(self);
+        }];
+    }
+    return _nodataView;
 }
 
 @end

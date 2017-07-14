@@ -10,22 +10,19 @@
 static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
 
 @interface HXBRechargeView () <UITextFieldDelegate>
-@property (nonatomic,strong) HXBRechargeView_Model *model;
+///金额labelconst
+@property (nonatomic,strong) UILabel *amountLabel_counst;
+
 @property (nonatomic,strong) HXBBaseTextField *buyTextField;
-///余额 title
-@property (nonatomic,strong) UILabel *balanceLabel_const;
-///余额展示
-@property (nonatomic,strong) UILabel *balanceLabel;
-///充值的button
-@property (nonatomic,strong) UIButton *rechargeButton;
+
+
 
 ///点击了一键购买
 @property (nonatomic,copy) void (^clickBuyButton)();
-///点击了充值
-@property (nonatomic,copy) void (^clickRechargeButton)();
+
 @end
 @implementation HXBRechargeView
-@synthesize model = _model;
+
 
 - (void)setIsEndEditing:(BOOL)isEndEditing {
     _isEndEditing = isEndEditing;
@@ -34,24 +31,11 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
     [self.buyTextField.textField endEditing:isEndEditing];
 }
 
-- (HXBRechargeView_Model *)model {
-    if (!_model) {
-        _model = [[HXBRechargeView_Model alloc]init];
-    }
-    return _model;
-}
 
-- (void) setUPValueWithModel: (HXBRechargeView_Model *(^)(HXBRechargeView_Model *model))setUPValueBlock {
-    self.model = setUPValueBlock(self.model);
-}
+
 
 - (void) setModel:(HXBRechargeView_Model *)model {
-    ///余额 title
-    self.balanceLabel.text = model.balanceLabelStr;
-    ///余额展示
-     self.balanceLabel_const.text = model.balanceLabel_constStr;
-    ///充值的button
-    [self.rechargeButton setTitle: model.rechargeButtonStr forState:UIControlStateNormal];
+
 }
 
 - (UITextField *)textField {
@@ -61,6 +45,7 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
 - (UIButton *)button {
     return self.buyTextField.button;
 }
+
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -76,48 +61,40 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
 - (void)setUPViews {
     self.buyTextField = [[HXBBaseTextField alloc]initWithFrame:CGRectZero andBottomLienSpace:0 andBottomLienHeight:kScrAdaptationH(2) andRightButtonW:kScrAdaptationW(80)];
     
-    self.rechargeButton = [[UIButton alloc]init];
-    self.balanceLabel = [[UILabel alloc]init];
-    self.balanceLabel_const = [[UILabel alloc]init];
-    [self addSubview: self.buyTextField];
-    [self addSubview: self.rechargeButton];
-    [self addSubview: self.balanceLabel_const];
-    [self addSubview: self.balanceLabel];
     
+    self.amountLabel_counst = [[UILabel alloc]init];
+  
+    
+    [self addSubview:self.amountLabel_counst];
+    [self addSubview: self.buyTextField];
+    
+ 
+    [self.amountLabel_counst mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
+        make.left.equalTo(self).offset(kScrAdaptationW(30));
+        make.height.equalTo(@(kScrAdaptationH(40)));
+        make.width.equalTo(@(kScrAdaptationW(112)));
+    }];
+  
+  
     [self.buyTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationH(0));
-        make.left.equalTo(self).offset(kScrAdaptationW(20));
-        make.height.equalTo(@(kScrAdaptationH(50)));
-        make.right.equalTo(@(kScrAdaptationW(-20)));
+        make.bottom.top.equalTo(self.amountLabel_counst).offset(kScrAdaptationH(0));
+        make.left.equalTo(self.amountLabel_counst).offset(kScrAdaptationW(0));
+        make.right.equalTo(self.rechargeButton.mas_left).offset(kScrAdaptationW(78));
     }];
-    [self.balanceLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.buyTextField.mas_bottom).offset(kScrAdaptationH(5));
-        make.left.equalTo(self.buyTextField);
-        make.height.equalTo(self.buyTextField);
-    }];
-    [self.balanceLabel_const sizeToFit];
-    [self.balanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.equalTo(self.balanceLabel_const);
-        make.left.equalTo(self.balanceLabel_const.mas_right).offset(kScrAdaptationW(20));
-    }];
-    [self.balanceLabel sizeToFit];
-    [self.rechargeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.balanceLabel);
-        make.right.equalTo(self.buyTextField);
-        make.width.equalTo(@(kScrAdaptationW(50)));
-    }];
+   
+ 
     
     [self.buyTextField show];
     self.buyTextField.textField.placeholder = self.placeholder;
-    
     self.buyTextField.textField.delegate = self;
-    self.buyTextField.textField.borderStyle = UITextBorderStyleRoundedRect;
-//    [self.buyTextField.button setTitle:@"一键购买" forState:UIControlStateNormal];
     [self.buyTextField.button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-//    self.balanceLabel_const.text = kHXBPlan_JoinbalanceLabel_constStr;
-//    [self.rechargeButton setTitle:@"充值" forState:UIControlStateNormal];
-    [self.rechargeButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-//    self.balanceLabel.text = @"111111";
+    
+   
+  
+    self.amountLabel_counst.font = kHXBFont_PINGFANGSC_REGULAR(40);
+    self.amountLabel_counst.textColor = kHXBColor_Grey_Font0_2;
+    
 }
 
 - (void)setPlaceholder:(NSString *)placeholder {

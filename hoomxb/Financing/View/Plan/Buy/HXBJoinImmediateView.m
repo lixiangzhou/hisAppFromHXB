@@ -13,9 +13,11 @@
 
 @interface HXBJoinImmediateView ()<UITextFieldDelegate>
 @property (nonatomic,strong) HXBJoinImmediateView_Model *model;
+//一键购买
 @property (nonatomic,strong) HXBRechargeView *rechargeView;
 ///加入上线
 @property (nonatomic,strong) UILabel *upperLimitLabel;
+@property (nonatomic,strong) UIImageView *upperLimitImageView;
 @property (nonatomic,strong) UILabel *upperLimitLabel_const;
 
 @property (nonatomic,strong) UIView  *profitView;
@@ -122,6 +124,7 @@
     self.rechargeView.textField.keyboardType = UIKeyboardTypeNumberPad;
     
     self.upperLimitLabel = [[UILabel alloc]init];
+    self.upperLimitImageView = [[UIImageView alloc]init];
     self.upperLimitLabel_const = [[UILabel alloc]init];
   
     self.profitView = [[UIView alloc]init];
@@ -139,6 +142,8 @@
 
 - (void)layoutViews {
     [self addSubview:self.rechargeView];
+    
+    [self addSubview:self.upperLimitImageView];
     [self addSubview:_upperLimitLabel];
     [self addSubview:self.upperLimitLabel_const];
     
@@ -159,14 +164,28 @@
         make.right.left.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(150)));
     }];
+    [self.upperLimitImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(kScrAdaptationH(30));
+        make.left.equalTo(self).offset(kScrAdaptationW(30));
+        make.height.with.equalTo(@(kScrAdaptationH(30)));
+    }];
+    _upperLimitImageView.svgImageString = @"BUYtips";
+    
     [self.upperLimitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.rechargeView.mas_bottom).offset(kScrAdaptationH(7));
-        make.left.equalTo(self.upperLimitLabel_const.mas_right).offset(kScrAdaptationW(7));
+        make.centerY.equalTo(self.upperLimitLabel_const);
+        make.left.equalTo(self.upperLimitLabel_const.mas_right).offset(kScrAdaptationW(2));
+        make.height.equalTo(@(kScrAdaptationH(28)));
     }];
     [self.upperLimitLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.rechargeView.mas_bottom).offset(kScrAdaptationH(7));
-        make.left.equalTo(self).offset(kScrAdaptationW(30));
+        make.centerY.equalTo(self.upperLimitImageView);
+        make.left.equalTo(self.upperLimitLabel.mas_right).offset(kScrAdaptationW(10));
+        make.height.equalTo(@(kScrAdaptationH(28)));
     }];
+    self.upperLimitLabel.font = kHXBFont_PINGFANGSC_REGULAR(28);
+    self.upperLimitLabel.textColor = kHXBColor_Font0_6;
+    self.upperLimitLabel_const.font = kHXBFont_PINGFANGSC_REGULAR(28);
+    self.upperLimitLabel_const.textColor = kHXBColor_Font0_6;
+    
     [self.profitView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.upperLimitLabel.mas_bottom).offset(kScrAdaptationH(20));
         make.left.right.equalTo(self);

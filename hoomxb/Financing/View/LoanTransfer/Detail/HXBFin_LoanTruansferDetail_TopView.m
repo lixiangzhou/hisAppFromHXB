@@ -36,6 +36,21 @@
 @property (nonatomic,strong) HXBFin_LoanTruansferDetail_TopViewManager *manager;
 @end
 @implementation HXBFin_LoanTruansferDetail_TopView
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setUP];
+        _manager = [[HXBFin_LoanTruansferDetail_TopViewManager alloc]init];
+    }
+    return self;
+}
+
+- (void)setUP {
+    [self creatViews];
+    [self setUPFrame];
+}
 - (void)setUPValueWithManager: (HXBFin_LoanTruansferDetail_TopViewManager *(^)(HXBFin_LoanTruansferDetail_TopViewManager *manager))setUPValueManagerBlock {
     self.manager = setUPValueManagerBlock(self.manager);
 }
@@ -55,20 +70,7 @@
     NSRange range = NSMakeRange(interestStr.length - 1, 1);
     self.interestLabel.leftLabel.attributedText = [NSAttributedString setupAttributeStringWithString:interestStr WithRange:range andAttributeColor:[UIColor whiteColor] andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(20)];
 }
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self setUP];
-        _manager = [[HXBFin_LoanTruansferDetail_TopViewManager alloc]init];
-    }
-    return self;
-}
 
-- (void)setUP {
-    [self creatViews];
-    [self setUPFrame];
-}
 
 - (void)creatViews {
     self.topMaskView = [[UIView alloc]init];
@@ -100,12 +102,12 @@
     
     [self.interestLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self);
-        make.top.equalTo(self).offset(kScrAdaptationH(44));
+        make.bottom.equalTo(self).offset(kScrAdaptationH(-81));
         make.height.equalTo(@(kScrAdaptationH(72)));
     }];
     
     [self.remainTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.interestLabel.mas_bottom).offset(kScrAdaptationH(23));
+        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(20));
         make.left.equalTo(self);
         make.width.equalTo(self).multipliedBy(1/2.0).offset(kScrAdaptationW(1));
     }];

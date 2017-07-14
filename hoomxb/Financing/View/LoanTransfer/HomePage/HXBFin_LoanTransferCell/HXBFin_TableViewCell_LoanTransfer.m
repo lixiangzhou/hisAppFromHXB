@@ -63,7 +63,7 @@
     _stutasButton = [[UIButton  alloc]init];
     _stutasButton.layer.cornerRadius = kScrAdaptationW(2.5);
     _stutasButton.layer.masksToBounds = true;
-    _stutasButton.backgroundColor = HXBC_Red_Light;
+    _stutasButton.backgroundColor = kHXBColor_Red_090303;
     _stutasButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
     
     _loanLable = [[UILabel alloc]init];
@@ -125,7 +125,7 @@
         make.right.equalTo(self.contentView.mas_right).offset(kScrAdaptationW(-15));
         make.centerY.equalTo(self.contentView);
         make.height.equalTo(@(kScrAdaptationH(30)));
-        make.width.equalTo(self.remainMonthsView);
+        make.width.equalTo(@(kScrAdaptationW(85)));
     }];
     //转让中的button
     
@@ -145,7 +145,7 @@
         viewModelVM.rightLabelAlignment = NSTextAlignmentLeft;
         viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
         viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(24);
-        viewModelVM.leftViewColor = HXBC_Red_Light;
+        viewModelVM.leftViewColor = kHXBColor_Red_090202;
         viewModelVM.rightViewColor = kHXBColor_Font0_6;
         return viewModelVM;
     }];

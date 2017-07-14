@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>倒计时</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="列表页等" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="红利计划" transform="translate(-289.000000, -395.000000)">
+            <g id="Group-3" transform="translate(0.000000, 84.000000)">
+                <g id="Group-2-Copy-5" transform="translate(15.000000, 245.000000)">
+                    <g id="倒计时" transform="translate(274.000000, 65.000000)">
+                        <g transform="translate(0.000000, 1.000000)">
+                            <circle id="Oval-3" stroke="#FD3636" cx="6.5" cy="6.5" r="6"></circle>
+                            <rect id="Rectangle-3" stroke="#FD3636" stroke-width="0.5" x="6.25" y="3.25" width="1" height="3.5" rx="0.5"></rect>
+                            <rect id="Rectangle-4" fill="#FD3636" x="6" y="6" width="4" height="1" rx="0.5"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

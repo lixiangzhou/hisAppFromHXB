@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 @class HXBRechargeView_Model;
 @interface HXBRechargeView : UIView
-- (void) setUPValueWithModel: (HXBRechargeView_Model *(^)(HXBRechargeView_Model *model))setUPValueBlock;
+
 
 @property (nonatomic,assign) BOOL isEndEditing;
 

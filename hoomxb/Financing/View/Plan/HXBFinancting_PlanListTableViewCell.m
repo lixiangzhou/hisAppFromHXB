@@ -11,6 +11,7 @@
 #import "HXBFinHomePageModel_PlanList.h"
 #import "HXBFinHomePageViewModel_LoanList.h"
 #import "HXBFinHomePageModel_LoanList.h"
+#import "SVGKImage.h"
 @interface HXBFinancting_PlanListTableViewCell ()
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *expectedYearRateLable;//语气年化
@@ -22,6 +23,7 @@
 @property (nonatomic,strong) UILabel *lockPeriodLabel_Const;
 @property (nonatomic,strong) UILabel *countDownLable;//倒计时label
 @property (nonatomic, strong) UILabel *tagLabel;//tag标签
+@property (nonatomic,strong) UIImageView *tagLableImageView;
 @end
 @implementation HXBFinancting_PlanListTableViewCell
 
@@ -30,11 +32,17 @@
     HXBFinHomePageModel_PlanList *model = finPlanListViewModel.planListModel;
     self.nameLabel.text = model.name;
     [self.countDownLable setHidden: !finPlanListViewModel.countDownString.integerValue];
+    [self.arrowImageView setHidden: !finPlanListViewModel.countDownString.integerValue];
+   
     self.countDownLable.text = finPlanListViewModel.countDownString;
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = finPlanListViewModel.planListModel.lockPeriod;
     self.addStatus.text = finPlanListViewModel.unifyStatus;
-    self.tagLabel.text = finPlanListViewModel.planListModel.tag;
+    
+    if (finPlanListViewModel.planListModel.tag.length) {
+        self.tagLabel.text = finPlanListViewModel.planListModel.tag;
+        [self.tagLableImageView setHidden:false];
+    }
 }
 
 - (void) setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
@@ -45,7 +53,6 @@
     self.expectedYearRateLable.attributedText = loanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = model.months;
     self.addStatus.text = loanListViewModel.status;
-
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -107,6 +114,7 @@
 - (UIImageView *)arrowImageView {
     if (!_arrowImageView) {
         _arrowImageView = [[UIImageView alloc]init];
+        _arrowImageView.image = [SVGKImage imageNamed:@"FinPlanList_CountDown.svg"].UIImage;
     }
     return _arrowImageView;
 }
@@ -127,7 +135,14 @@
     }
     return _tagLabel;
 }
-
+- (UIImageView *)tagLableImageView {
+    if (!_tagLableImageView) {
+        _tagLableImageView = [[UIImageView alloc]init];
+        _tagLableImageView.image = [SVGKImage imageNamed:@"FinPlanList_present.svg"].UIImage;
+        [_tagLableImageView setHidden:true];
+    }
+    return _tagLableImageView;
+}
 
 #pragma mark - setter
 //MARK: 倒计时的重要传递
@@ -135,6 +150,7 @@
     _countDownString = countDownString;
     self.countDownLable.text = countDownString;
     [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
+    [self.arrowImageView setHighlighted:self.finPlanListViewModel.isHidden];
 }
 - (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
     _lockPeriodLabel_ConstStr = lockPeriodLabel_ConstStr;
@@ -149,8 +165,6 @@
 //    [self Tests];//测试数据
     [self addSubUI];//添加子控件
     [self layoutSubUI];//布局UI
-    self.countDownLable.backgroundColor = [UIColor redColor];
-   
     }
 - (void)Tests {
     self.nameLabel.text = @"11111期";
@@ -174,6 +188,7 @@
     [self.contentView addSubview:self.arrowImageView];
     [self.contentView addSubview:self.countDownLable];
     [self.contentView addSubview:self.tagLabel];
+    [self.contentView addSubview:self.tagLableImageView];
 }
 ///布局UI
 - (void)layoutSubUI {
@@ -184,20 +199,25 @@
         make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
         make.height.equalTo(@(kScrAdaptationH(15)));
     }];
-    [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.tagLableImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.nameLabel);
         make.left.equalTo(weakSelf.nameLabel.mas_right).offset(10);
+        make.height.with.equalTo(@(kScrAdaptationH(12)));
+    }];
+    [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.tagLableImageView);
+        make.left.equalTo(weakSelf.tagLableImageView.mas_right).offset(4);
     }];
     [self.nameLabel sizeToFit];
     [self.expectedYearRateLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.contentView.mas_centerY).offset(kScrAdaptationH(-12));
-        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
+        make.centerY.equalTo(weakSelf.contentView.mas_centerY);
+        make.left.equalTo(weakSelf.nameLabel);
         make.height.equalTo(@(kScrAdaptationH(24)));
     }];
     [self.expectedYearRateLable_Const mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.expectedYearRateLable);
         make.top.equalTo(weakSelf.expectedYearRateLable.mas_bottom).offset(kScrAdaptationH(10));
-        make.height.equalTo(@(kScrAdaptationH(10)));
+        make.height.equalTo(@(kScrAdaptationH(13)));
     }];
     [self.lockPeriodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.height.equalTo(weakSelf.expectedYearRateLable);
@@ -220,38 +240,45 @@
         make.height.equalTo(@20);
     }];
     [self.countDownLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.addStatus.mas_bottom).offset(kScrAdaptationH(5));
-        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW(31));
+        make.top.equalTo(weakSelf.addStatus.mas_bottom).offset(kScrAdaptationH(13));
+        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW(-31));
         make.width.equalTo(@(kScrAdaptationW(36)));
         make.height.equalTo(@(kScrAdaptationH(14)));
     }];
+
     //时间的图标
     [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.countDownLable).offset(kScrAdaptationW(6));
-        make.top.equalTo(self.countDownLable);
-        make.height.width.equalTo(@20);
+        make.right.equalTo(self.countDownLable.mas_left).offset(kScrAdaptationW(-6));
+        make.height.top.equalTo(self.countDownLable);
     }];
     
-    self.nameLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+    
+    [self.countDownLable setHidden: true];
+    [self.arrowImageView setHidden: true];
+    
+    self.nameLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.nameLabel.textColor = kHXBColor_Grey_Font0_2;
     
     self.tagLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.tagLabel.textColor = kHXBColor_RGB(0.45, 0.68, 1.00, 1.00);
     
     self.expectedYearRateLable.font = kHXBFont_PINGFANGSC_REGULAR(24);
-    self.expectedYearRateLable.textColor = HXBC_Red_Light;
+    self.expectedYearRateLable.textColor = kHXBColor_Red_090202;
     self.expectedYearRateLable_Const.font = kHXBFont_PINGFANGSC_REGULAR(13);
     self.expectedYearRateLable_Const.textColor = kHXBColor_Font0_6;
     
     self.lockPeriodLabel.font = kHXBFont_PINGFANGSC_REGULAR(24);
     self.lockPeriodLabel.textColor = kHXBColor_Grey_Font0_3;
-    self.lockPeriodLabel_Const.font = kHXBFont_PINGFANGSC_REGULAR(13);
+    self.lockPeriodLabel_Const.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.lockPeriodLabel_Const.textColor = kHXBColor_Font0_6;
     
+    self.countDownLable.text = @"59:02";
+    self.countDownLable.textColor = HXBC_Red_Deep;
+    self.countDownLable.font = kHXBFont_PINGFANGSC_REGULAR(13);
     
     self.addStatus.layer.cornerRadius = kScrAdaptationW(2.5);
     self.addStatus.layer.masksToBounds = true;
-    self.addStatus.backgroundColor = HXBC_Red_Deep;
+    self.addStatus.backgroundColor = kHXBColor_Red_090303;
     self.addStatus.font = kHXBFont_PINGFANGSC_REGULAR(14);
     self.addStatus.textColor = [UIColor whiteColor];
     self.addStatus.textAlignment = NSTextAlignmentCenter;
