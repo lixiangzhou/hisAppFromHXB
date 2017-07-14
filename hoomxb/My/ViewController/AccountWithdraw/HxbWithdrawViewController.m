@@ -16,11 +16,16 @@
 #import "HXBModifyTransactionPasswordViewController.h"
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
+@property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UILabel *availableBalanceLabel;
-@property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UIButton *nextButton;
-@property (nonatomic, strong) UILabel *arrivalDateLabel;
+
 @property (nonatomic, strong) WithdrawBankView *mybankView;
+
+@property (nonatomic, strong) UILabel *tipLabel;
+@property (nonatomic, strong) UILabel *promptLabel;
+@property (nonatomic, strong) UILabel *tiedCardLabel;
+@property (nonatomic, strong) UILabel *reminderLabel;
 /**
  数据模型
  */
@@ -32,52 +37,75 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"提现";
+    self.isColourGradientNavigationBar = YES;
+    self.view.backgroundColor = BACKGROUNDCOLOR;
+    [self.view addSubview:self.backView];
     [self.view addSubview:self.mybankView];
     [self.view addSubview:self.amountTextField];
     [self.view addSubview:self.nextButton];
     [self.view addSubview:self.availableBalanceLabel];
     [self.view addSubview:self.tipLabel];
-    [self.view addSubview:self.arrivalDateLabel];
+    [self.view addSubview:self.promptLabel];
+    [self.view addSubview:self.tiedCardLabel];
+    [self.view addSubview:self.reminderLabel];
     [self setCardViewFrame];
-    [self getpaymentDate];
+
 }
-/**
- 回去到账时间
- */
-- (void)getpaymentDate
-{
-    kWeakSelf
-    HXBWithdrawalsRequest *paymentDate = [[HXBWithdrawalsRequest alloc] init];
-    [paymentDate paymentDateRequestWithSuccessBlock:^(id responseObject) {
-        
-        weakSelf.arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:responseObject[@"data"][@"arrivalTime"] andDateFormat:@"yyyy-MM-dd"]];
-    } andFailureBlock:^(NSError *error) {
-        
-    }];
-}
+
 
 - (void)setCardViewFrame{
     
     if (![self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
         self.mybankView.hidden = YES;
-        [_amountTextField setY:100];
-        
+        [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.offset(kScrAdaptationH750(30));
+            make.top.equalTo(self.view).offset(kScrAdaptationH750(20));
+        }];
     }else
     {
         [self loadBankCard];
+        [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.offset(kScrAdaptationH750(30));
+            make.top.equalTo(self.mybankView.mas_bottom).offset(kScrAdaptationH750(20));
+        }];
     }
-    [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@20);
-        make.top.equalTo(self.amountTextField.mas_bottom).offset(20);
+    
+    [self.amountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(kScrAdaptationH750(20));
+        make.left.equalTo(self.view).offset(kScrAdaptationW750(30));
+        make.right.equalTo(self.view);
+        make.height.offset(kScrAdaptationH750(100));
+    }];
+    [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(kScrAdaptationH750(20));
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.height.offset(kScrAdaptationH750(100));
+    }];
+    
+    [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.amountTextField.mas_bottom).offset(kScrAdaptationH750(100));
+        make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
+        make.right.equalTo(self.view).offset(kScrAdaptationW750(-40));
+        make.height.offset(kScrAdaptationH750(82));
     }];
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view.mas_right).offset(-20);
-        make.centerY.equalTo(self.availableBalanceLabel);
+        make.bottom.equalTo(self.view).offset(kScrAdaptationH750(-100));
+        make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
     }];
-    [self.arrivalDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@20);
-        make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(50);
+    [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.tipLabel.mas_top).offset(kScrAdaptationH750(-10));
+        make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
     }];
+    [self.tiedCardLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.promptLabel.mas_top).offset(kScrAdaptationH750(-10));
+        make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
+    }];
+    [self.reminderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.tiedCardLabel.mas_top).offset(kScrAdaptationH750(-20));
+        make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
+    }];
+
 }
 
 - (void)withdrawals
@@ -168,16 +196,34 @@
 
 - (WithdrawBankView *)mybankView{
     if (!_mybankView) {
-        _mybankView = [[WithdrawBankView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 80)];
+        _mybankView = [[WithdrawBankView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH750(160))];
     }
     return _mybankView;
 }
+
+- (UIView *)backView
+{
+    if (!_backView) {
+        _backView = [[UIView alloc] init];
+        _backView.backgroundColor = [UIColor whiteColor];
+    }
+    return _backView;
+}
 - (UITextField *)amountTextField{
     if (!_amountTextField) {
-        _amountTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(self.mybankView.frame) + 20, SCREEN_WIDTH - 40, 44)];
-        _amountTextField.placeholder = @"请输入提现金额";
+        _amountTextField = [[UITextField alloc] init];
+//        _amountTextField.placeholder = @"请输入提现金额";
         _amountTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
         _amountTextField.delegate = self;
+        _amountTextField.backgroundColor = [UIColor whiteColor];
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(150), kScrAdaptationH750(42))];
+        tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        tipLabel.textColor = RGB(51, 51, 51);
+        tipLabel.text = @"提现金额:";
+        _amountTextField.leftViewMode = UITextFieldViewModeAlways;
+        _amountTextField.leftView = tipLabel;
+        _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _amountTextField.textColor = RGB(51, 51, 51);
     }
     return _amountTextField;
 }
@@ -196,7 +242,7 @@
 
 - (UIButton *)nextButton{
     if (!_nextButton) {
-        _nextButton = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(nextButtonClick:) andFrameByCategory:  CGRectMake(20,self.view.height - 100, SCREEN_WIDTH - 40,44)];
+        _nextButton = [UIButton btnwithTitle:@"提现" andTarget:self andAction:@selector(nextButtonClick:) andFrameByCategory:  CGRectMake(20,self.view.height - 100, SCREEN_WIDTH - 40,44)];
     }
     return _nextButton;
 }
@@ -206,7 +252,8 @@
     if (!_availableBalanceLabel) {
         _availableBalanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.amountTextField.bottom + 20, 0, 0)];
         _availableBalanceLabel.text = @"可用余额 : 0.00元";
-        
+        _availableBalanceLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        _availableBalanceLabel.textColor = RGB(102, 102, 102);
     }
     return _availableBalanceLabel;
 }
@@ -214,18 +261,41 @@
 {
     if (!_tipLabel) {
         _tipLabel = [[UILabel alloc] init];
-        _tipLabel.text = @"提现免手续费";
-        _tipLabel.textColor = COR12;
+        _tipLabel.text = @"3、禁止恶意提现";
+        _tipLabel.textColor = RGB(153, 153, 153);
+        _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     }
     return _tipLabel;
 }
-- (UILabel *)arrivalDateLabel
+- (UILabel *)promptLabel
 {
-    if (!_arrivalDateLabel) {
-        _arrivalDateLabel = [[UILabel alloc] init];
-        _arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] stringFromDate:[NSDate date] andDateFormat:@"yyyy-MM-dd"]];
+    if (!_promptLabel) {
+        _promptLabel = [[UILabel alloc] init];
+        _promptLabel.text = @"2、提现手续费为0";
+        _promptLabel.textColor = RGB(153, 153, 153);
+        _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     }
-    return _arrivalDateLabel;
+    return _promptLabel;
+}
+- (UILabel *)tiedCardLabel
+{
+    if (!_tiedCardLabel) {
+        _tiedCardLabel = [[UILabel alloc] init];
+        _tiedCardLabel.text = @"1、提现到已绑定的银行卡上";
+        _tiedCardLabel.textColor = RGB(153, 153, 153);
+        _tiedCardLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+    }
+    return _tiedCardLabel;
+}
+- (UILabel *)reminderLabel
+{
+    if (!_reminderLabel) {
+        _reminderLabel = [[UILabel alloc] init];
+        _reminderLabel.text = @"温馨提示：";
+        _reminderLabel.textColor = RGB(115, 173, 255);
+        _reminderLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+    }
+    return _reminderLabel;
 }
 /**
  设置数据
@@ -233,7 +303,7 @@
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
 {   
     _userInfoViewModel = userInfoViewModel;
-    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用余额 : %@元",userInfoViewModel.userInfoModel.userAssets.availablePoint];
+    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可提金额: %@元",userInfoViewModel.userInfoModel.userAssets.availablePoint];
 }
 
 - (void)loadBankCard
@@ -269,6 +339,7 @@
 @property (nonatomic, strong) UILabel *bankNameLabel;
 @property (nonatomic, strong) UILabel *bankCardNumLabel;
 @property (nonatomic, strong) UILabel *amountLimitLabel;
+@property (nonatomic, strong) UILabel *arrivalDateLabel;
 @end
 
 @implementation WithdrawBankView
@@ -276,45 +347,76 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.bankLogoImageView];
         [self addSubview:self.bankNameLabel];
         [self addSubview:self.bankCardNumLabel];
         [self addSubview:self.amountLimitLabel];
-        
+        [self addSubview:self.arrivalDateLabel];
+        [self getpaymentDate];
         [self setContentViewFrame];
     }
     return self;
+}
+
+/**
+ 回去到账时间
+ */
+- (void)getpaymentDate
+{
+    kWeakSelf
+    HXBWithdrawalsRequest *paymentDate = [[HXBWithdrawalsRequest alloc] init];
+    [paymentDate paymentDateRequestWithSuccessBlock:^(id responseObject) {
+        
+        weakSelf.arrivalDateLabel.text = [NSString stringWithFormat:@"今日提现预计%@到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:responseObject[@"data"][@"arrivalTime"] andDateFormat:@"yyyy-MM-dd"]];
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
 }
 
 - (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
 {
     _bankCardModel = bankCardModel;
     self.bankNameLabel.text = self.bankCardModel.bankType;
-    self.bankCardNumLabel.text = [NSString stringWithFormat:@"尾号 %@",[self.bankCardModel.cardId substringFromIndex:self.bankCardModel.cardId.length - 4]];
+    self.bankCardNumLabel.text = [NSString stringWithFormat:@"(尾号%@)",[self.bankCardModel.cardId substringFromIndex:self.bankCardModel.cardId.length - 4]];
 
 }
 
 
 - (void)setContentViewFrame{
     [self.bankLogoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(20);
-        make.top.equalTo(self.mas_top).offset(20);
-        make.size.mas_equalTo(CGSizeMake(40, 40));
+        make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(30));
+        make.top.equalTo(self.mas_top).offset(kScrAdaptationH750(40));
+        make.size.mas_equalTo(CGSizeMake(kScrAdaptationW750(80), kScrAdaptationH750(80)));
     }];
     [self.bankNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.bankLogoImageView.mas_right).offset(20);
-        make.centerY.equalTo(self);
+        make.left.equalTo(self.bankLogoImageView.mas_right).offset(kScrAdaptationW750(36));
+        make.top.equalTo(self).offset(kScrAdaptationH750(44));
+        make.height.offset(kScrAdaptationH750(28));
     }];
     [self.bankCardNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.mas_right).offset(-20);
-        make.centerY.equalTo(self);
+        make.left.equalTo(self.bankNameLabel.mas_right);
+        make.centerY.equalTo(self.bankNameLabel);
+    }];
+    [self.arrivalDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.bankNameLabel.mas_left);
+        make.top.equalTo(self.bankNameLabel.mas_bottom).offset(kScrAdaptationH750(20));
     }];
 }
-
+- (UILabel *)arrivalDateLabel
+{
+    if (!_arrivalDateLabel) {
+        _arrivalDateLabel = [[UILabel alloc] init];
+        _arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] stringFromDate:[NSDate date] andDateFormat:@"yyyy-MM-dd"]];
+        _arrivalDateLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        _arrivalDateLabel.textColor = RGB(153, 153, 153);
+    }
+    return _arrivalDateLabel;
+}
 - (UIImageView *)bankLogoImageView{
     if (!_bankLogoImageView) {
         _bankLogoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"zhaoshang"]];
-        
+        _bankLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _bankLogoImageView;
 }
@@ -322,7 +424,8 @@
 - (UILabel *)bankNameLabel{
     if (!_bankNameLabel) {
         _bankNameLabel = [[UILabel alloc] init];
-        
+        _bankNameLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _bankNameLabel.textColor = RGB(51, 51, 51);
     }
     return _bankNameLabel;
 }
@@ -330,6 +433,8 @@
 - (UILabel *)bankCardNumLabel{
     if (!_bankCardNumLabel) {
         _bankCardNumLabel = [[UILabel alloc] init];
+        _bankCardNumLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _bankCardNumLabel.textColor = RGB(51, 51, 51);
     }
     return _bankCardNumLabel;
 }

@@ -14,14 +14,11 @@
 #import "HXBAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBBankCardListViewController.h"
-@interface HxbWithdrawCardViewController () <UITextFieldDelegate,HxbPickerAreaDelegate>
+#import "HXBWithdrawCardView.h"
 
-@property (nonatomic, strong) UITextField *bankCardTextField;
-@property (nonatomic, strong) UIButton *bankNameBtn;
-@property (nonatomic, strong) UITextField *realNameTextField;
-//@property (nonatomic, strong) UITextField *locationTextField;
-//@property (nonatomic, strong) UITextField *openingBank;
-@property (nonatomic, strong) UIButton *nextButton;
+#import "HXBBindBankCardViewController.h"//ZCC需要修改逻辑
+@interface HxbWithdrawCardViewController () <UITextFieldDelegate>
+
 /**
  bankCode
  */
@@ -30,9 +27,46 @@
  数据模型
  */
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
+
+@property (nonatomic, strong) HXBWithdrawCardView *withdrawCardView;
+
+/**
+ bankName
+ */
+@property (nonatomic, strong) NSString *bankName;
+
+
 @end
 
 @implementation HxbWithdrawCardViewController
+
+- (HXBWithdrawCardView *)withdrawCardView
+{
+    if (!_withdrawCardView) {
+        kWeakSelf
+        _withdrawCardView = [[HXBWithdrawCardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
+        
+        _withdrawCardView.bankNameBtnClickBlock = ^(UIButton *bankNameBtn) {
+            
+            weakSelf.bankName = bankNameBtn.titleLabel.text;
+            HXBBankCardListViewController *bankCardListVC = [[HXBBankCardListViewController alloc] init];
+            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bankCardListVC];
+            bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
+                [bankNameBtn setTitle:bankName forState:UIControlStateNormal];
+                [bankNameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                weakSelf.bankCode = bankCode;
+            };
+            [weakSelf presentViewController:nav animated:YES completion:nil];
+        };
+        
+        
+        _withdrawCardView.nextButtonClickBlock = ^(NSString *bankCard){
+            [weakSelf nextButtonClick:bankCard];
+        };
+        
+    }
+    return _withdrawCardView;
+}
 
 - (HXBBankCardModel *)bankCardModel
 {
@@ -44,169 +78,70 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isColourGradientNavigationBar = YES;
+    [self.view addSubview:self.withdrawCardView];
+
+}
+
+- (void)nextButtonClick:(NSString *)bankCard{
     
-    [self.view addSubview:self.bankCardTextField];
-    [self.view addSubview:self.bankNameBtn];
-//    [self.view addSubview:self.locationTextField];
-//    [self.view addSubview:self.openingBank];
-    [self.view addSubview:self.realNameTextField];
-    [self.view addSubview:self.nextButton];
-}
-
-- (void)nextButtonClick:(UIButton *)sender{
-    kWeakSelf
-    HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
-    alertVC.sureBtnClick = ^(NSString *pwd){
-        if (pwd.length == 0) {
-            return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
-            return;
-        }
-        [weakSelf checkWithdrawals:pwd];
-    };
-    alertVC.forgetBtnClick = ^(){
-        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-        modifyTransactionPasswordVC.title = @"修改交易密码";
-        modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoModel;
-        [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-    };
-    [self presentViewController:alertVC animated:NO completion:^{
-        
-    }];
+    HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
+    bindBankCardVC.title = @"绑卡";
+    [self.navigationController pushViewController:bindBankCardVC animated:YES];
+//    kWeakSelf
+//    HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
+//    alertVC.sureBtnClick = ^(NSString *pwd){
+//        if (pwd.length == 0) {
+//            return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
+//            return;
+//        }
+//        [weakSelf checkWithdrawals:pwd andWithBankCard:bankCard];
+//    };
+//    alertVC.forgetBtnClick = ^(){
+//        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+//        modifyTransactionPasswordVC.title = @"修改交易密码";
+//        modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoModel;
+//        [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+//    };
+//    [self presentViewController:alertVC animated:NO completion:^{
+//        
+//    }];
+    
 }
 
 
-- (void)pickerArea:(HxbPickerArea *)pickerArea province:(NSString *)province city:(NSString *)city area:(NSString *)area{
-//    self.locationTextField.text = [NSString stringWithFormat:@"%@ %@ %@", province, city, area];
-}
-
-- (void)checkWithdrawals:(NSString *)paypassword
-{
-    self.view.userInteractionEnabled = NO;
-    kWeakSelf
-    NSMutableDictionary *requestArgument  = [NSMutableDictionary dictionary];
-    requestArgument[@"bankno"] = weakSelf.bankCode;
-//    requestArgument[@"city"] = self.bankCardModel.city; 
-    requestArgument[@"bank"] = self.bankCardTextField.text;
-    requestArgument[@"paypassword"] = paypassword;
-    requestArgument[@"amount"] = self.amount;
-    HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
-    [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
-        NSLog(@"%@",responseObject);
-        weakSelf.view.userInteractionEnabled = YES;
-        HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
-        weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
-        weakSelf.bankCardModel.bankType = weakSelf.bankNameBtn.titleLabel.text;
-        weakSelf.bankCardModel.cardId = weakSelf.bankCardTextField.text;
-        weakSelf.bankCardModel.amount = weakSelf.amount;
-        withdrawResultVC.bankCardModel = weakSelf.bankCardModel;
-        [weakSelf.navigationController pushViewController:withdrawResultVC animated:YES];
-    } andFailureBlock:^(NSError *error) {
-        self.view.userInteractionEnabled = YES;
-         NSLog(@"%@",error);
-    }];
-
-}
-
-//- (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
+//- (void)checkWithdrawals:(NSString *)paypassword andWithBankCard:(NSString *)bankCard
 //{
-//    _bankCardModel = bankCardModel;
-//    if (bankCardModel.cardId.length) {
-//        //银行卡号
-//        self.bankCardTextField.text = bankCardModel.cardId;
-//        self.bankCardTextField.enabled = NO;
-//        //所属银行
-//        [self.bankNameBtn setTitle:bankCardModel.bankType forState:UIControlStateNormal];
-//        self.bankNameBtn.enabled = NO;
-////        //开户地
-////        self.locationTextField.text = bankCardModel.deposit;
-////        self.locationTextField.enabled = NO;
-////        //开户行
-////        self.openingBank.text = bankCardModel.bankType;
-////        self.openingBank.enabled = NO;
-//        //持卡人
-//        self.realNameTextField.text = bankCardModel.name;
-//        self.realNameTextField.enabled = NO;
-//    }
+//    self.view.userInteractionEnabled = NO;
+//    kWeakSelf
+//    NSMutableDictionary *requestArgument  = [NSMutableDictionary dictionary];
+//    requestArgument[@"bankno"] = weakSelf.bankCode;
+////    requestArgument[@"city"] = self.bankCardModel.city; 
+//    requestArgument[@"bank"] = bankCard;
+//    requestArgument[@"paypassword"] = paypassword;
+//    requestArgument[@"amount"] = self.amount;
+//    HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
+//    [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
+//        NSLog(@"%@",responseObject);
+//        weakSelf.view.userInteractionEnabled = YES;
+//        HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
+//        weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
+//        weakSelf.bankCardModel.bankType = weakSelf.bankName;
+//        weakSelf.bankCardModel.cardId = bankCard;
+//        weakSelf.bankCardModel.amount = weakSelf.amount;
+//        withdrawResultVC.bankCardModel = weakSelf.bankCardModel;
+//        [weakSelf.navigationController pushViewController:withdrawResultVC animated:YES];
+//    } andFailureBlock:^(NSError *error) {
+//        self.view.userInteractionEnabled = YES;
+//         NSLog(@"%@",error);
+//    }];
 //}
 
-- (void)bankNameBtnClick
-{
-    kWeakSelf
-    HXBBankCardListViewController *bankCardListVC = [[HXBBankCardListViewController alloc] init];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bankCardListVC];
-    bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
-        [weakSelf.bankNameBtn setTitle:bankName forState:UIControlStateNormal];
-        [weakSelf.bankNameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        weakSelf.bankCode = bankCode;
-    };
-    [self presentViewController:nav animated:YES completion:^{
-        
-    }];
-}
+
+
+
 
 #pragma mark - --- delegate 视图委托 ---
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-//    [self.locationTextField resignFirstResponder];
-//    [[[HxbPickerArea alloc]initWithDelegate:self]show];
-    
-}
-- (UITextField *)bankCardTextField{
-    if (!_bankCardTextField) {
-        _bankCardTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, 100, SCREEN_WIDTH - 40, 44)];
-        _bankCardTextField.placeholder = @"银行卡号";
-        _bankCardTextField.keyboardType = UIKeyboardTypeNumberPad;
-    }
-    return _bankCardTextField;
-}
-
-- (UIButton *)bankNameBtn{
-    if (!_bankNameBtn) {
-        _bankNameBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_bankCardTextField.frame) + 20, SCREEN_WIDTH - 40, 44)];
-        [_bankNameBtn setTitle:@"所属银行" forState:UIControlStateNormal];
-        [_bankNameBtn setTitleColor:COR11 forState:UIControlStateNormal];
-        [_bankNameBtn addTarget:self action:@selector(bankNameBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        _bankNameBtn.layer.borderWidth = 0.5;
-        _bankNameBtn.layer.borderColor = COR12.CGColor;
-    }
-    return _bankNameBtn;
-    
-}
-//- (UITextField *)locationTextField{
-//    if (!_locationTextField) {
-//        _locationTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_bankNameTetxField.frame) + 20, SCREEN_WIDTH - 40, 44)];
-//        _locationTextField.delegate = self;
-//        _locationTextField.placeholder = @"开户地";
-//    }
-//    return _locationTextField;
-//}
-
-//- (UITextField *)openingBank
-//{
-//    if (!_openingBank) {
-//        _openingBank = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_locationTextField.frame) + 20, SCREEN_WIDTH - 40, 44)];
-//        _openingBank.delegate = self;
-//        _openingBank.placeholder = @"开户行";
-//    }
-//    return _openingBank;
-//}
-
-- (UITextField *)realNameTextField{
-    if (!_realNameTextField) {
-        _realNameTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(self.bankNameBtn.frame) + 20, SCREEN_WIDTH - 40, 44)];
-        _realNameTextField.placeholder = @"持卡人";
-    }
-    return _realNameTextField;
-}
-
-
-
-- (UIButton *)nextButton{
-    if (!_nextButton) {
-        _nextButton = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(nextButtonClick:) andFrameByCategory:CGRectMake(20, CGRectGetMaxY(_realNameTextField.frame) + 40, SCREEN_WIDTH - 40, 44)];
-    }
-    return _nextButton;
-}
 @end
 

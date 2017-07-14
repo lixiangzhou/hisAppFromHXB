@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="33px" viewBox="0 0 35 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>bank</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="充值提现购买" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="绑卡" transform="translate(-40.000000, -251.000000)">
+            <g id="Group-Copy" transform="translate(0.000000, 208.000000)">
+                <g id="bank" transform="translate(40.000000, 43.000000)">
+                    <path d="M18.4447029,1.40967835 C17.8940338,0.963189845 17.1059662,0.963189845 16.5552971,1.40967835 L1.50623307,13.6116221 C1.38914283,13.7065602 1.32113405,13.8492573 1.32113405,14 C1.32113405,14.2761424 1.54499167,14.5 1.82113405,14.5 L33.178866,14.5 C33.3296086,14.5 33.4723058,14.4319912 33.5672438,14.314901 C33.7411588,14.1004058 33.7082621,13.7855371 33.4937669,13.6116221 L18.4447029,1.40967835 Z" id="Triangle" stroke="#FD3636"></path>
+                    <rect id="Rectangle-16" fill="#FD3636" x="4" y="14" width="1" height="19"></rect>
+                    <rect id="Rectangle-3" fill="#FD3636" x="14" y="17" width="7" height="5"></rect>
+                    <rect id="Rectangle-16-Copy" fill="#FD3636" x="30" y="14" width="1" height="19"></rect>
+                    <rect id="Rectangle-16-Copy-2" fill="#FD3636" x="21" y="14" width="1" height="19"></rect>
+                    <rect id="Rectangle-16-Copy-3" fill="#FD3636" x="13" y="14" width="1" height="19"></rect>
+                    <rect id="Rectangle-15" fill="#FD3636" x="1" y="32" width="33" height="1" rx="0.5"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -9,138 +9,46 @@
 #import "HxbMyTopUpViewController.h"
 #import "HxbSecurityCertificationViewController.h"
 #import "HxbBindCardViewController.h"
+#import "HXBMyTopUpBaseView.h"
 
+
+#import "HXBQuickRechargeViewController.h"//ZCC需要修改逻辑
 @interface HxbMyTopUpViewController ()
-@property (nonatomic, strong) UITextField *amountTextField;
-@property (nonatomic, strong) UIButton *nextButton;
-@property (nonatomic, strong) MyTopUpBankView *mybankView;
+
+@property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
+
 @end
 
 @implementation HxbMyTopUpViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addSubview:self.mybankView];
-    [self.view addSubview:self.amountTextField];
-    [self.view addSubview:self.nextButton];
-    [self setCardViewFrame];
-}
-- (void)setCardViewFrame{
-    if (![KeyChain hasBindBankcard]) {
-        _mybankView.hidden = YES;
-        [_amountTextField setY:64];
-        [_nextButton setY:CGRectGetMaxY(_amountTextField.frame) + 20];
-    }
+    self.isColourGradientNavigationBar = YES;
+    self.title = @"充值";
+    [self.view addSubview:self.myTopUpBaseView];
 }
 
-- (void)nextButtonClick:(UIButton *)sender{
-    if ([_amountTextField.text doubleValue] < 1) {
-        [HxbHUDProgress showTextWithMessage:@"金额不能小于1"];
-        return;
+
+- (HXBMyTopUpBaseView *)myTopUpBaseView
+{
+    if (!_myTopUpBaseView) {
+        kWeakSelf
+        _myTopUpBaseView = [[HXBMyTopUpBaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
+        _myTopUpBaseView.rechargeBlock = ^{
+            [weakSelf enterRecharge];
+        };
     }
-//实名认证
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        //是否实名
-        if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
-            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
-            [self.navigationController pushViewController:securityCertificationVC animated:YES];
-            return;
-        }
-        //是否绑卡
-        if (!viewModel.userInfoModel.userInfo.hasBindCard.integerValue) {
-            HxbBindCardViewController *bindCardViewController = [[HxbBindCardViewController alloc]init];
-            [self.navigationController pushViewController:bindCardViewController animated:YES];
-            return;
-        }
-    } andFailure:^(NSError *error) {
-        
-    }];
-    
-   
+    return _myTopUpBaseView;
 }
 
-- (MyTopUpBankView *)mybankView{
-    if (!_mybankView) {
-        _mybankView = [[MyTopUpBankView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 80)];
-        _mybankView.backgroundColor = COR11;
-    }
-    return _mybankView;
-}
-- (UITextField *)amountTextField{
-    if (!_amountTextField) {
-        _amountTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, CGRectGetMaxY(_mybankView.frame), SCREEN_WIDTH - 40, 44)];
-        _amountTextField.placeholder = @"请输入充值金额";
 
-    }
-    return _amountTextField;
-}
+- (void)enterRecharge
+{
+    HXBQuickRechargeViewController *quickRechargeVC = [[HXBQuickRechargeViewController alloc] init];
+    [self.navigationController pushViewController:quickRechargeVC animated:YES];
 
-- (UIButton *)nextButton{
-    if (!_nextButton) {
-        _nextButton = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(nextButtonClick:) andFrameByCategory:  CGRectMake(20,CGRectGetMaxY(_amountTextField.frame) + 20, SCREEN_WIDTH - 40,44)];
-    }
-    return _nextButton;
 }
-
 
 @end
 
-@interface MyTopUpBankView ()
-@property (nonatomic, strong) UIImageView *bankLogoImageView;
-@property (nonatomic, strong) UILabel *bankNameLabel;
-@property (nonatomic, strong) UILabel *bankCardNumLabel;
-@property (nonatomic, strong) UILabel *amountLimitLabel;
-@end
 
-@implementation MyTopUpBankView
-
-- (instancetype)initWithFrame:(CGRect)frame{
-    self = [super initWithFrame:frame];
-    if (self) {
-        [self addSubview:self.bankLogoImageView];
-        [self addSubview:self.bankNameLabel];
-        [self addSubview:self.bankCardNumLabel];
-        [self addSubview:self.amountLimitLabel];
-        [self setContentViewFrame];
-    }
-    return self;
-}
-
-- (void)setContentViewFrame{
- [_bankLogoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-     make.left.equalTo(self.mas_left).offset(20);
-     make.top.equalTo(self.mas_top).offset(20);
-     make.size.mas_equalTo(CGSizeMake(40, 40));
- }];
-    
-}
-
-- (UIImageView *)bankLogoImageView{
-    if (!_bankLogoImageView) {
-        _bankLogoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"zhaoshang"]];
-        
-    }
-    return _bankLogoImageView;
-}
-
-- (UILabel *)bankNameLabel{
-    if (!_bankNameLabel) {
-        
-    }
-    return _bankNameLabel;
-}
-
-- (UILabel *)bankCardNumLabel{
-    if (!_bankCardNumLabel) {
-        
-    }
-    return _bankCardNumLabel;
-}
-
-- (UILabel *)amountLimitLabel{
-    if (!_amountLimitLabel) {
-        
-    }
-    return _amountLimitLabel;
-}
-@end

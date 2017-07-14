@@ -17,4 +17,12 @@
  @param failureBlock 失败回调
  */
 - (void)versionUpdateRequestWitversionCode:(NSString *)versionCode andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+/**
+ 公告
+
+ @param successDateBlock 成功回调
+ @param failureBlock 失败回调
+ */
+- (void)noticeRequestWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end

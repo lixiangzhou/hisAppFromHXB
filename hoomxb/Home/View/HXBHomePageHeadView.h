@@ -36,6 +36,10 @@
 @property (nonatomic, copy) void(^tipButtonClickBlock_homePageHeadView)();
 
 /**
+ 公告的回调
+ */
+@property (nonatomic, copy) void (^noticeBlock)();
+/**
  未投资显示的页面
  */
 - (void)showNotValidatedView;

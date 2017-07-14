@@ -304,6 +304,12 @@
                 weakSelf.tipButtonClickBlock_homeView();
             }
         };
+        
+        _headView.noticeBlock = ^{
+            if (weakSelf.noticeBlock) {
+                weakSelf.noticeBlock();
+            }
+        };
     }
     return _headView;
 }

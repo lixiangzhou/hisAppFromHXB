@@ -63,17 +63,17 @@
 
 +(UIButton *)btnwithTitle:(NSString *)title andTarget:(id)target andAction:(SEL)action andFrameByCategory:(CGRect)rect{
     UIButton *button = [[UIButton alloc]initWithFrame:rect];
-    button.titleLabel.font = HXB_Text_Font(17);
-    button.layer.cornerRadius = 3;
+    button.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
+    button.layer.cornerRadius = kScrAdaptationW750(8);
     //    [button setImage:[UIImage imageNamed:@"button-blue03.png"] forState:UIControlStateNormal];
     //    [button setImage:[UIImage imageNamed:@"button-blue04.png"] forState:UIControlStateHighlighted];
     //    UILabel *titleLabel = [UILabel labelViewFrameByCategory:CGRectMake(0, 0, button.frame.size.width, button.frame.size.height)];
     //    titleLabel.textColor = [UIColor whiteColor];
     //    titleLabel.text = title;
-    [button setBackgroundColor:COR1];
+    [button setBackgroundColor:RGB(254, 81, 81)];
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [button setTitleColor:[[UIColor alloc]initWithRed:151/255.0f green:151/255.0f blue:151/255.0f alpha:1] forState:UIControlStateHighlighted];
+//    [button setTitleColor:[[UIColor alloc]initWithRed:151/255.0f green:151/255.0f blue:151/255.0f alpha:1] forState:UIControlStateHighlighted];
     //[button addSubview:titleLabel];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     return button;
