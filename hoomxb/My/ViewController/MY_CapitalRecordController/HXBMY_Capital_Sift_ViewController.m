@@ -58,7 +58,6 @@
             }
         }];
         viewManager.leftLabelAlignment = NSTextAlignmentCenter;
-        viewManager.viewColor = [UIColor colorWithWhite:0.8 alpha:1];
         return viewManager;
     }];
 }

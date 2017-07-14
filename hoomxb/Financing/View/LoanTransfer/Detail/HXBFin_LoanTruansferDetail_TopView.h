@@ -15,10 +15,7 @@ HXBFin_LoanTruansferDetail_TopViewManager;
 @end
 
 @interface HXBFin_LoanTruansferDetail_TopViewManager : NSObject
-/**
- 顶部的后面的遮罩
- */
-@property (nonatomic,copy) NSString *topMaskView;
+
 /**
  下个还款日 05-31
  品字形 上右

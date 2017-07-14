@@ -13,14 +13,16 @@
 - (void)setVersionUpdateModel:(HXBVersionUpdateModel *)versionUpdateModel
 {
     _versionUpdateModel = versionUpdateModel;
-    if ([versionUpdateModel.force isEqualToString:@"0"]) return;
-    
     
     HXBAlertManager *alertManager = [HXBAlertManager alertViewWithTitle:@"更新提示" andMessage:@""];
     
-    [alertManager addButtonWithBtnName:@"取消" andWitHandler:^{
-        
-    }];
+    if ([versionUpdateModel.force isEqualToString:@"0"]) return;
+    
+    if ([versionUpdateModel.force isEqualToString:@"2"]) {
+        [alertManager addButtonWithBtnName:@"取消" andWitHandler:^{
+            
+        }];
+    }
     
     [alertManager addButtonWithBtnName:@"确认" andWitHandler:^{
         NSURL *url = [NSURL URLWithString:versionUpdateModel.url];

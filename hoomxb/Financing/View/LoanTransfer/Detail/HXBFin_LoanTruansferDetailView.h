@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HXBFin_LoanTruansferDetail_TopView.h"
+#import "HXBFin_LoanTruansfer_AddTrustworthinessView.h"
 @class
 HXBFin_LoanTruansferDetailViewManger,
-HXBFin_LoanTruansfer_AddTrustworthinessView,
-HXBFin_LoanTruansferDetail_TopViewManager,
 HXBFinDetail_TableViewCellModel;
 
 @interface HXBFin_LoanTruansferDetailView : UIView

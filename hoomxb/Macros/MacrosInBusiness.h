@@ -82,7 +82,7 @@ typedef enum {
 }ProductType;
 //颜色
 //#define BACKGROUNDCOLOR [UIColor colorWithRed:247/255.0f green:248/255.0f blue:249/255.0f alpha:1]
-#define BACKGROUNDCOLOR COR14
+#define BACKGROUNDCOLOR [UIColor colorWithRed:245/255.0f green:245/255.0f blue:249/255.0f alpha:1]
 #define DETAIL_TEXT_COLOR [[UIColor alloc]initWithRed:131/255.0f green:131/255.0f blue:131/255.0f alpha:1]
 #define BACKITEM_COLOR  [UIColor colorWithRed:131/255.0f green:131/255.0f blue:131/255.0f alpha:1]
 #define TITLE_COLOR [UIColor colorWithRed:57/255.0f green:57/255.0f blue:57/255.0f alpha:1]

@@ -11,9 +11,10 @@
 
 #import "HXBBaseViewController.h"
 #import <WebKit/WebKit.h>
-
+#import "SVGKImage.h"
 @interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate>
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+@property (nonatomic,strong) HXBColourGradientView *colorGradientView;
 @end
 
 @implementation HXBBaseViewController{
@@ -38,7 +39,7 @@
 {
     UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
 //    [leftBackBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [leftBackBtn setImage:[UIImage imageNamed:@"login_close"] forState:UIControlStateNormal];
+    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
     // 让按钮内部的所有内容左对齐
     leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [leftBackBtn addTarget:self action:@selector(leftBackBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -47,23 +48,34 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBackBtn];
 }
 
+
+
 - (void)leftBackBtnClick
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+- (void)setIsScroll:(BOOL)isScroll {
+    _isScroll = isScroll;
+    if (isScroll) {
+        _hxbBaseVCScrollView.contentSize = CGSizeMake(kScreenWidth, kScreenHeight);
+    }
+}
 - (UIScrollView *)hxbBaseVCScrollView {
     if (!_hxbBaseVCScrollView) {
-        self.automaticallyAdjustsScrollViewInsets = NO;
-//        self.edgesForExtendedLayout = UIRectEdgeNone;
-        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-        _hxbBaseVCScrollView.contentSize = CGSizeMake(kScreenWidth, kScreenHeight + 64);
+        self.automaticallyAdjustsScrollViewInsets = true;
+        self.edgesForExtendedLayout = UIRectEdgeAll;
+        _hxbBaseVCScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
+//        self.view.frame = _hxbBaseVCScrollView.bounds;
         [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
+//        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
     }
     return _hxbBaseVCScrollView;
 }
+
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     
@@ -72,9 +84,16 @@
         if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
             self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
         }
-    }else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+        return;
     }
+    if ([keyPath isEqualToString:@"contentOffset"]) {
+        NSNumber *offsetNumb = change[NSKeyValueChangeNewKey];
+        CGPoint offsetPoint = [offsetNumb CGPointValue];
+        self.colorGradientView.frame = CGRectMake(0, 0, kScreenWidth, self.colorGradientView.height + offsetPoint.y);
+        self.colorGradientView.endPoint = CGPointMake(kScreenWidth, self.colorGradientView.frame.size.height);
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
 }
 
 //MARK: 销毁
@@ -89,15 +108,29 @@
     _isHiddenNavigationBar = isHiddenNavigationBar;
     self.navigationController.navigationBarHidden = isHiddenNavigationBar;
 }
+
+///透明naveBar
+- (void)setIsTransparentNavigationBar:(BOOL)isTransparentNavigationBar {
+    if (isTransparentNavigationBar) {
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    }
+}
+- (void)setIsColourGradientNavigationBar:(BOOL)isColourGradientNavigationBar {
+    if (isColourGradientNavigationBar) {
+        self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:UIBarMetricsDefault];
+    }
+}
+
 ///是否禁止scrollView自动向下平移64
 - (void)setHxb_automaticallyAdjustsScrollViewInsets:(BOOL)hxb_automaticallyAdjustsScrollViewInsets {
     _hxb_automaticallyAdjustsScrollViewInsets = hxb_automaticallyAdjustsScrollViewInsets;
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
-        
         self.automaticallyAdjustsScrollViewInsets = hxb_automaticallyAdjustsScrollViewInsets;
     };
     if (hxb_automaticallyAdjustsScrollViewInsets) {
-        self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64);
+        self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     }
 }
 #pragma mark - 隐藏导航条

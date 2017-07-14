@@ -8,7 +8,6 @@
 
 #import "HXBFin_LoanTruansferDetailView.h"
 #import "HXBFinDetail_TableView.h"
-#import "HXBFin_LoanTruansferDetail_TopView.h"
 #import "HXBFin_LoanTruansfer_AddTrustworthinessView.h"//曾信
 @interface HXBFin_LoanTruansferDetailView()
 /**
@@ -84,6 +83,7 @@
 
 - (void)setup {
     [self creatViews];
+    [self setUPFrame];
 }
 
 - (void) creatViews {
@@ -100,21 +100,34 @@
     [self addSubview:self.detailTableView];
     [self addSubview:self.promptLabel];
     [self addSubview:self.addButton];
+    
+    
+    self.topView.backgroundColor = [UIColor whiteColor];
+    self.addTrustworthiness.backgroundColor = [UIColor whiteColor];
+    self.loanType_InterestLabel.backgroundColor = [UIColor whiteColor];
+    self.promptLabel.textAlignment = NSTextAlignmentCenter;
+//    self.promptLabel.textColor = [UIColor]
+    self.detailTableView.scrollEnabled = false;
 }
 - (void)setUPFrame {
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(@(kScrAdaptationH(0)));
-        make.height.equalTo(@(kScrAdaptationH(150)));
+        make.top.left.right.equalTo(self).offset(kScrAdaptationH(0));
+        make.height.equalTo(@(kScrAdaptationH(250)));
     }];
     [self.addTrustworthiness mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(8));
         make.left.right.equalTo(self.topView);
         make.height.equalTo(@(kScrAdaptationH(50)));
     }];
-    [self.detailTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.loanType_InterestLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.addTrustworthiness.mas_bottom).offset(kScrAdaptationH(8));
         make.left.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(80)));
+    }];
+    [self.detailTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.loanType_InterestLabel.mas_bottom).offset(kScrAdaptationH(8));
+        make.left.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH(120)));
     }];
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.detailTableView.mas_bottom);
@@ -124,10 +137,35 @@
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.promptLabel.mas_bottom).offset(kScrAdaptationH(30));
         make.centerX.equalTo(self);
-        make.bottom.equalTo(self).offset(kScrAdaptationH(20));
-        make.width.equalTo(@(kScrAdaptationW(50)));
+        make.bottom.equalTo(self).offset(kScrAdaptationH(-20));
+        make.width.equalTo(@(kScrAdaptationW(100)));
     }];
 }
 @end
 @implementation HXBFin_LoanTruansferDetailViewManger
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+       
+        /**
+         顶部的品字形
+         */
+         self.topViewManager = [[HXBFin_LoanTruansferDetail_TopViewManager alloc]init];
+        /**
+         曾信
+         */
+         self.addTrustworthinessManager = [[HXBFin_LoanTruansfer_AddTrustworthinessView alloc]init];
+        /**
+         还款方式
+         提前还款费率
+         */
+         self.loanType_InterestLabelManager = [[HXBBaseView_MoreTopBottomViewManager alloc] init];
+        /**
+         图片- 文字- 图片 的tableView
+         */
+         self.detailTableViewArray = @[];
+    }
+    return self;
+}
 @end

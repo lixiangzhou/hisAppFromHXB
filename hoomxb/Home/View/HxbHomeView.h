@@ -40,7 +40,10 @@
  各种认证按钮的点击回调Block
  */
 @property (nonatomic, copy) void(^tipButtonClickBlock_homeView)();
-
+/**
+ 公告的回调
+ */
+@property (nonatomic, copy) void (^noticeBlock)();
 /**
  是否停止刷新
  */

@@ -61,7 +61,13 @@
         [self.planListTableView.mj_header endRefreshing];
     }
 }
-
+- (void)setIsStopRefresh_LoanTruansfer:(BOOL)isStopRefresh_LoanTruansfer {
+    _isStopRefresh_LoanTruansfer = isStopRefresh_LoanTruansfer;
+    if (isStopRefresh_LoanTruansfer) {
+        [self.loanTruansferTableView.mj_footer endRefreshing];
+        [self.loanTruansferTableView.mj_header endRefreshing];
+    }
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -75,7 +81,7 @@
 
 
 - (void)setupSubView {
-    self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表",@"债权转让"];
+    self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表"];
     
     
 //设置toolBarVie
@@ -115,8 +121,7 @@
 
     self.bottomViewArray = @[
                              self.planListTableView,
-                             self.loanListTableView,
-                             self.loanTruansferTableView
+                             self.loanListTableView
                             ];
 }
 
@@ -188,17 +193,25 @@
 
 //MARK: 债转
 - (void)setUPLoanTransferTableView {
+    kWeakSelf
     self.loanTruansferTableView = [[HXBFin_LoanTransferTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
 
     //上拉刷新，下拉加载
     [self.loanTruansferTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-//        if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
+        if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
     }];
     [self.loanTruansferTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-//        if (weakSelf.loanRefreshHeaderBlock) weakSelf.loanRefreshHeaderBlock();
+        if (weakSelf.loanTruansferHeaderBlock) weakSelf.loanTruansferHeaderBlock();
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
         
+    }];
+    
+    //cell的点击
+    [self.loanTruansferTableView clickCellWithBlock:^(id cellModel, NSIndexPath *index) {
+        if (weakSelf.clickLoanTruansferCellBlock) {
+            weakSelf.clickLoanTruansferCellBlock(cellModel, index);
+        }
     }];
 }
 

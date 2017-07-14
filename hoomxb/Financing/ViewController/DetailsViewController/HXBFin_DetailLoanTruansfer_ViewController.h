@@ -7,7 +7,7 @@
 //
 
 #import "HXBBaseViewController.h"
-
+@class HXBFinHomePageViewModel_LoanTruansferViewModel;
 @interface HXBFin_DetailLoanTruansfer_ViewController : HXBBaseViewController
-
+@property (nonatomic,strong) HXBFinHomePageViewModel_LoanTruansferViewModel *loanTransfer_ViewModel;
 @end

@@ -11,11 +11,21 @@
 
 
 @interface HXBBaseView_TwoLable_View ()
-@property (nonatomic,strong) UILabel *leftLabel;
-@property (nonatomic,strong) UILabel *rightLabel;
 @property (nonatomic,assign) CGFloat proportion;
+@property (nonatomic,assign) CGFloat spacing;
 @end
 @implementation HXBBaseView_TwoLable_View
+
+- (instancetype)initWithFrame:(CGRect)frame andSpacing: (CGFloat)spacing
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        _ViewVM = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
+        self.spacing = spacing;
+        [self setUP];
+    }
+    return self;
+}
 - (CGFloat) proportion {
     if (!_proportion) {
         _proportion = 0.5;
@@ -32,6 +42,8 @@
     [self setUPViewValue];
 }
 
+
+
 - (void)setViewModelVM:(HXBBaseView_TwoLable_View_ViewModel *)ViewVM {
     _ViewVM = ViewVM;
 }
@@ -46,6 +58,9 @@
     }
     return self;
 }
+
+
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -60,8 +75,8 @@
     [self.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj removeFromSuperview];
     }];
-    self.leftLabel = [[UILabel alloc]init];
-    self.rightLabel = [[UILabel alloc]init];
+    self.leftLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+    self.rightLabel = [[UILabel alloc]initWithFrame:CGRectZero];
     [self addSubview:self.leftLabel];
     [self addSubview:self.rightLabel];
     [self setUPViewFrame];
@@ -80,22 +95,38 @@
         }];
         
     } else { //上下结构
+        [self.leftLabel sizeToFit];
+        [self.leftLabel sizeToFit];
+        
         [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.left.top.equalTo(self);
             make.bottom.equalTo(self.mas_centerY);
-            
         }];
+        if (_spacing) {
+            [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.left.bottom.equalTo(self);
+                make.top.equalTo(self.leftLabel.mas_bottom).offset(self.spacing);
+            }];
+            return;
+        }
         [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.left.bottom.equalTo(self);
             make.top.equalTo(self.mas_centerY);
         }];
     }
-    [self.leftLabel sizeToFit];
-    [self.leftLabel sizeToFit];
+
 }
 - (void)setUPViewValue {
-    self.leftLabel.text             =   _ViewVM.leftLabelStr;
-    self.rightLabel.text            = _ViewVM.rightLabelStr;
+    if (self.ViewVM.leftAttributedString) {
+        self.leftLabel.attributedText = _ViewVM.leftAttributedString;
+    }else {
+        self.leftLabel.text             =   _ViewVM.leftLabelStr;
+    }
+    if (self.ViewVM.rightAttributedString) {
+        self.rightLabel.attributedText = _ViewVM.rightAttributedString;
+    }else {
+        self.rightLabel.text            = _ViewVM.rightLabelStr;
+    }
     
     self.leftLabel.textAlignment    = _ViewVM.leftLabelAlignment;
     self.rightLabel.textAlignment   = _ViewVM.rightLabelAlignment;
@@ -108,9 +139,19 @@
     
     self.rightLabel.font            = self.ViewVM.rightFont;
     self.leftLabel.font             = self.ViewVM.leftFont;
-
 }
 @end
 
 @implementation HXBBaseView_TwoLable_View_ViewModel
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.leftFont = [UIFont systemFontOfSize:20];
+        self.rightFont = [UIFont systemFontOfSize:20];
+        self.leftLabelAlignment = NSTextAlignmentCenter;
+        self.rightLabelAlignment = NSTextAlignmentCenter;
+    }
+    return self;
+}
 @end

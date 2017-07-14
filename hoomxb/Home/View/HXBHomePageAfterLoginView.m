@@ -36,10 +36,8 @@
 
 - (void)setContentFrame{
     [self.userTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self);
-        make.top.equalTo(self).offset(HxbMarginBig + 10);
-        make.right.equalTo(self);
-        make.height.equalTo(@11);
+        make.centerX.equalTo(self);
+        make.top.equalTo(@kScrAdaptationH(66));
     }];
     
 //    [_tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -50,9 +48,10 @@
 //    }];
     
     [self.tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self).offset(-10);
+        make.top.equalTo(@kScrAdaptationH(97));
         make.centerX.equalTo(self);
-        make.size.mas_equalTo(CGSizeMake(kScrAdaptationH(170), 25));
+        make.height.equalTo(@kScrAdaptationH(17));
+        
 //        make.right.equalTo(self);
 //        make.left.equalTo(self);
 //        make.height.equalTo(@25);
@@ -103,14 +102,15 @@
 }
 
 - (void)loadData{
-    NSString *userName = @"5层安全防护保护资金安全";
-//   _userTitleLabel.text = [NSString stringWithFormat:@"您好，%@",userName];
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:userName];
-    // 设置字体和设置字体的范围
-    [attrStr addAttribute:NSFontAttributeName
-                    value:[UIFont systemFontOfSize:30.0f]
-                    range:NSMakeRange(0, 1)];
-    _userTitleLabel.attributedText = attrStr;
+//    NSString *userName = @"5层安全防护保护资金安全";
+////   _userTitleLabel.text = [NSString stringWithFormat:@"您好，%@",userName];
+//    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:userName];
+//    // 设置字体和设置字体的范围
+//    [attrStr addAttribute:NSFontAttributeName
+//                    value:[UIFont systemFontOfSize:30.0f]
+//                    range:NSMakeRange(0, 1)];
+//    _userTitleLabel.attributedText = attrStr;
+    self.userTitleLabel.text = @"生活再苦，也要踮起脚尖翩翩起舞";
     
 }
 
@@ -137,8 +137,8 @@
 - (UILabel *)userTitleLabel{
     if (!_userTitleLabel) {
         _userTitleLabel = [[UILabel alloc]init];
-        _userTitleLabel.textColor = COR10;
-        _userTitleLabel.font = HXB_Text_Font(SIZ17);
+        _userTitleLabel.textColor = COR15;
+        _userTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         _userTitleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _userTitleLabel;
@@ -158,11 +158,9 @@
 {
     if (!_tipButton) {
         _tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_tipButton setTitleColor:COR7 forState:UIControlStateNormal];
-        _tipButton.titleLabel.font =  [UIFont systemFontOfSize:14];
-        _tipButton.layer.borderWidth = 1.0f;
-        _tipButton.layer.borderColor = COR10.CGColor;
-        _tipButton.backgroundColor = [UIColor whiteColor];
+        [_tipButton setTitleColor:COR15 forState:UIControlStateNormal];
+        _tipButton.titleLabel.font =  kHXBFont_PINGFANGSC_REGULAR(17);
+        _tipButton.backgroundColor = [UIColor clearColor];
         [_tipButton addTarget:self action:@selector(tipButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _tipButton;

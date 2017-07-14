@@ -8,6 +8,22 @@
 
 #ifndef HXBColorMacro_h
 #define HXBColorMacro_h
+/**
+红色系
+*/
+/// 橘红（渐变色浅）(r:0.99 g:0.40 b:0.30 a:1.00)
+#define HXBC_Red_Light    [UIColor colorWithRed:0.99 green:0.40 blue:0.30 alpha:1.00]// 橘红（渐变色浅）
+/// 大红（渐变色深）(r:1.00 g:0.24 b:0.31 a:1.00)
+#define HXBC_Red_Deep     [UIColor colorWithRed:1.00 green:0.24 blue:0.31 alpha:1.00]// 大红（渐变色深）
+
+
+// 浅灰
+#define kHXBColor_heightGrey    [UIColor colorWithRed:224/255.0f green:224/255.0f blue:224/255.0f alpha:1]    // 色
+
+//深灰（字体颜色）(r:0.20 g:0.20 b:0.20 a:1.00)
+#define kHXBColor_Grey_Font [UIColor colorWithRed:0.20 green:0.20 blue:0.20 alpha:1.00]//
+//浅灰 （字体颜色）(r:0.40 g:0.40 b:0.40 a:1.00)
+#define kHXBColor_HeightGrey_Font [UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.00]//
 
 /**
  *  返回一个RGBA格式的UIColor对象
@@ -37,6 +53,7 @@
 #define COR11    [UIColor colorWithRed:197/255.0f green:197/255.0f blue:197/255.0f alpha:1]    // 色
 // 浅灰
 #define COR12    [UIColor colorWithRed:224/255.0f green:224/255.0f blue:224/255.0f alpha:1]    // 色
+
 #define COR13    [UIColor colorWithRed:232/255.0f green:232/255.0f blue:232/255.0f alpha:1]    // 色
 #define COR14    [UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1]    // 色
 

@@ -8,7 +8,7 @@
 
 #import "HXBFinancing_PlanDetailsViewController.h"
 
-#import "HXBFin_DetailsView_PlanDetailsView.h"///红利计划详情页的主视图
+#import "HXBFin_PlanDetailView.h"///红利计划详情页的主视图
 #import "HXBFinanctingRequest.h"//请求类
 #import "HXBFinDetailViewModel_PlanDetail.h"//红利计划详情页Viewmodel
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划详情model
@@ -27,7 +27,7 @@
 
 
 @interface HXBFinancing_PlanDetailsViewController ()
-@property(nonatomic,strong) HXBFin_DetailsView_PlanDetailsView *planDetailsView;
+@property(nonatomic,strong) HXBFin_PlanDetailView *planDetailsView;
 ///底部点的cellModel
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewModelArray;
 ///tableView的tatile
@@ -37,7 +37,7 @@
 ///详情页的ViewMode
 @property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planDetailViewModel;
 ///addButtonStr
-@property (nonatomic,weak) HXBFin_DetailsViewBase_ViewModelVM *planDetailVM;
+@property (nonatomic,weak) HXBFin_PlanDetailView_ViewModelVM *planDetailVM;
 @property (nonatomic,copy) NSString *availablePoint;//可用余额；
 @property (nonatomic,assign) BOOL isIdPassed;
 @property (nonatomic,assign) BOOL isVerify;
@@ -57,7 +57,7 @@
 - (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
     kWeakSelf
     _planDetailViewModel = planDetailViewModel;
-    [_planDetailsView setUPViewModelVM:^HXBFin_DetailsViewBase_ViewModelVM *(HXBFin_DetailsViewBase_ViewModelVM *viewModelVM) {
+    [_planDetailsView setUPViewModelVM:^HXBFin_PlanDetailView_ViewModelVM *(HXBFin_PlanDetailView_ViewModelVM *viewModelVM) {
         weakSelf.planDetailVM = viewModelVM;
         viewModelVM.totalInterestStr           = weakSelf.planDetailViewModel.planDetailModel.expectedRate;
         viewModelVM.startInvestmentStr         = weakSelf.planDetailViewModel.minRegisterAmount;
@@ -130,12 +130,23 @@
     [self.hxbBaseVCScrollView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         [weakSelf downLoadData];
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
+        gifHeader.stateLabel.text = @"";
+        [gifHeader setTitle:@"" forState:MJRefreshStateIdle];
+        [gifHeader setTitle:@"" forState:MJRefreshStatePulling];
+        [gifHeader setTitle:@"" forState:MJRefreshStateRefreshing];
+        [gifHeader setTitle:@"" forState:MJRefreshStateWillRefresh];
+        [gifHeader setTitle:@"" forState:MJRefreshStateNoMoreData];
     }];
     
     
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.planDetailsView = [[HXBFin_DetailsView_PlanDetailsView alloc]initWithFrame:self.view.frame];
+//    self.hxb_automaticallyAdjustsScrollViewInsets = false;
+    self.isTransparentNavigationBar = true;
+//    self.isColourGradientNavigationBar = true;
+    
+//    self.view.backgroundColor = kHXBColor_heightGrey;
+    self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:self.view.frame];
     [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
+    
     //是否为计划界面
     _planDetailsView.isPlan = true;
     _planDetailsView.isFlowChart = true;
@@ -204,6 +215,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
         [weakSelf.navigationController popToRootViewControllerAnimated:false];
     }];
+    
     [planJoinVC setCallBackBlock:^{
         [weakSelf.navigationController popoverPresentationController];
     }];

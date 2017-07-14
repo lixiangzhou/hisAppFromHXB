@@ -15,7 +15,6 @@ static NSString *const kcellClass = @"HXBFin_TableViewCell_LoanTransfer";
 @interface HXBFin_LoanTransferTableView()<
 UITableViewDelegate,UITableViewDataSource
 >
-
 /**
  点击了cell
  */
@@ -23,7 +22,10 @@ UITableViewDelegate,UITableViewDataSource
 @end
 
 @implementation HXBFin_LoanTransferTableView
-
+- (void)clickCellWithBlock:(void (^)(HXBFinHomePageViewModel_LoanTruansferViewModel *model, NSIndexPath *index))clickCellBlock
+{
+    self.clickCellBlock = clickCellBlock;
+}
 - (instancetype) initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setUPViews];

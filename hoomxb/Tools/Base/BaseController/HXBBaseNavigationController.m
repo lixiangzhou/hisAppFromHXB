@@ -49,6 +49,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self.navigationBar setValue:@(0)forKeyPath:@"backgroundView.alpha"];
+//    self.navigationBar.barStyle=UIBarStyleBlackTranslucent;
+//    self.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
+//    HXBColourGradientView *colourGradientView = [[HXBColourGradientView alloc] initWithFrame:CGRectMake(0, -20, kScreenWidth, 64)];
+//    [self.navigationBar insertSubview:colourGradientView atIndex:0];
+    
     //侧滑手势开启
 //    PYFullScreenGesturePOPManager *popManager = [[PYFullScreenGesturePOPManager alloc]initWithViewController:self andTransitionanimationType:PYFullScreenGestureManager_TransitionanimationType_Runtime];
 //    self.popManager = popManager;

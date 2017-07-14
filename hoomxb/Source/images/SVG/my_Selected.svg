@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="18px" viewBox="0 0 17 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>我的</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="98.4427083%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#FE654D" offset="0%"></stop>
+            <stop stop-color="#FF3D4F" offset="98.4853316%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="列表页等" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="导航图标-copy-2" transform="translate(-254.000000, -2.000000)">
+            <g id="我的" transform="translate(252.000000, 1.000000)">
+                <path d="M13.6435128,12.0680058 C15.3844749,11.021096 16.5369927,9.12431873 16.5369927,6.99966433 C16.5369927,3.69984895 13.8060262,1 10.4681782,1 C7.13033019,1 4.39936364,3.69984895 4.39936364,6.99966433 C4.39936364,9.16393961 5.60132066,11.0311495 7.33243001,12.0839641 C4.50136293,13.2120134 2.42122607,15.8097379 2,19 C2.56768583,18.9563715 18.4137208,19 19,19 C18.5625146,15.8075124 16.4816736,13.190656 13.6435128,12.0680058 Z" id="friend" fill="url(#linearGradient-1)"></path>
+                <rect id="Rectangle-15-Copy" fill="#D8D8D8" opacity="0" x="0" y="0" width="20" height="20"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

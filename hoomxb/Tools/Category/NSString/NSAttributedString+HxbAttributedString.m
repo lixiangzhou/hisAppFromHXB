@@ -39,6 +39,7 @@
 
 
 + (NSMutableAttributedString *)setupAttributeStringWithString:(NSString *)string WithRange: (NSRange)range andAttributeColor: (UIColor *)color andAttributeFont: (UIFont *)font{
+
     //添加字符串
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
     //设置字体

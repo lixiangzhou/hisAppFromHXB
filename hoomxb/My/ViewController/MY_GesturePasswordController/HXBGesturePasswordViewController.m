@@ -24,7 +24,14 @@ static NSString *const my = @"我的";
  *  重设按钮
  */
 @property (nonatomic, strong) UIButton *resetBtn;
-
+/**
+ *  提示Title
+ */
+@property (nonatomic, strong) UILabel *titleLabel;
+/**
+ *  提示Title
+ */
+@property (nonatomic, strong) UILabel *phoneLabel;
 /**
  *  提示Label
  */
@@ -63,9 +70,9 @@ static NSString *const my = @"我的";
                                          @"HxbMyViewController"];//我的
         //title 集合
         NSArray *controllerTitleArray = @[home,financing,my];
-        NSArray *imageArray = @[@"1",@"1",@"1"];
+        NSArray *imageArray = @[@"home_Unselected.svg",@"investment_Unselected.svg",@"my_Unselected.svg"];
         //选中下的图片前缀
-        NSString *commonName = @"1";
+        NSArray *commonName = @[@"home_Selected.svg",@"investment_Selected.svg",@"my_Selected.svg"];
         
         [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
         
@@ -73,7 +80,15 @@ static NSString *const my = @"我的";
     return _mainTabbarVC;
 }
 
-
+- (UILabel *)titleLabel
+{
+    if (!_titleLabel) {
+        _titleLabel = [[UILabel alloc] init];
+        _titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(19);
+        _titleLabel.textColor = rgba(51, 51, 51, 1.0);
+    }
+    return _titleLabel;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -114,21 +129,19 @@ static NSString *const my = @"我的";
 }
 
 #pragma mark - 创建UIBarButtonItem
-- (UIBarButtonItem *)itemWithTitle:(NSString *)title target:(id)target action:(SEL)action tag:(NSInteger)tag
+- (UIButton *)resetBtn
 {
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitle:title forState:UIControlStateNormal];
-    [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
-    button.frame = (CGRect){CGPointZero, {100, 20}};
-    [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    button.titleLabel.font = [UIFont systemFontOfSize:17];
-    button.tag = tag;
-    [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentRight];
-    [button setHidden:YES];
-    self.resetBtn = button;
-    return [[UIBarButtonItem alloc] initWithCustomView:button];
+    if (!_resetBtn) {
+        _resetBtn = [[UIButton alloc] init];
+        [_resetBtn setTitle:@"重新绘制" forState:UIControlStateNormal];
+        [_resetBtn addTarget:self action:@selector(didClickBtn:) forControlEvents:UIControlEventTouchUpInside];
+        _resetBtn.titleLabel.font =kHXBFont_PINGFANGSC_REGULAR(15);
+        _resetBtn.tag = buttonTagReset;
+        [_resetBtn setHidden:YES];
+        [_resetBtn setTitleColor:RGB(115, 173, 255) forState:UIControlStateNormal];
+    }
+    return _resetBtn;
 }
-
 #pragma mark - 界面不同部分生成器
 - (void)setupDifferentUI
 {
@@ -147,60 +160,90 @@ static NSString *const my = @"我的";
 #pragma mark - 界面相同部分生成器
 - (void)setupSameUI
 {
-    // 创建导航栏右边按钮
-    self.navigationItem.rightBarButtonItem = [self itemWithTitle:@"重设" target:self action:@selector(didClickBtn:) tag:buttonTagReset];
-    
+
     // 解锁界面
     HXBCircleView *lockView = [[HXBCircleView alloc] init];
     lockView.delegate = self;
-    lockView.arrow = YES;
+    lockView.arrow = NO;
     lockView.isDisplayTrajectory = YES;
     self.lockView = lockView;
     [self.view addSubview:lockView];
+    
+
+    
     HXBLockLabel *msgLabel = [[HXBLockLabel alloc] init];
     msgLabel.frame = CGRectMake(0, 0, kScreenW, 14);
-    msgLabel.center = CGPointMake(kScreenW/2, CGRectGetMinY(lockView.frame) - 30);
+//    msgLabel.center = CGPointMake(kScreenW/2, CGRectGetMinY(lockView.frame) - 30);
+    
+    msgLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     self.msgLabel = msgLabel;
     [self.view addSubview:msgLabel];
+    [self.view addSubview:self.titleLabel];
+    [self.view addSubview:self.resetBtn];
+    [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.offset(kScrAdaptationH(82));
+    }];
+    
+    [self.resetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view.mas_bottom).offset(kScrAdaptationH(-70));
+        make.centerX.equalTo(self.view);
+        make.height.offset(kScrAdaptationH(15));
+        make.width.offset(kScrAdaptationW(74));
+    }];
 }
 
 #pragma mark - 设置手势密码界面
 - (void)setupSubViewsSettingVc
 {
+    [self.msgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.titleLabel.mas_bottom).offset(kScrAdaptationH(10));
+    }];
     [self.lockView setType:CircleViewTypeSetting];
     
     self.title = @"设置手势密码";
+    self.titleLabel.text = gestureTextBeforeSet;
+    [self.msgLabel showNormalMsg:gestureTextConnectLess];
     
-    [self.msgLabel showNormalMsg:gestureTextBeforeSet];
-    
-    HXBCircleInfoView *infoView = [[HXBCircleInfoView alloc] init];
-    infoView.frame = CGRectMake(0, 0, CircleRadius * 2 * 0.6, CircleRadius * 2 * 0.6);
-    infoView.center = CGPointMake(kScreenW/2, CGRectGetMinY(self.msgLabel.frame) - CGRectGetHeight(infoView.frame)/2 - 10);
-    self.infoView = infoView;
-    [self.view addSubview:infoView];
+//    HXBCircleInfoView *infoView = [[HXBCircleInfoView alloc] init];
+//    infoView.frame = CGRectMake(0, 0, CircleRadius * 2 * 0.6, CircleRadius * 2 * 0.6);
+//    infoView.center = CGPointMake(kScreenW/2, CGRectGetMinY(self.msgLabel.frame) - CGRectGetHeight(infoView.frame)/2 - 10);
+//    self.infoView = infoView;
+//    [self.view addSubview:infoView];
 }
 
 #pragma mark - 登陆手势密码界面
 - (void)setupSubViewsLoginVc
 {
+   
+    self.titleLabel.text = @"您好";
     [self.lockView setType:CircleViewTypeLogin];
     
     // 头像
-    UIImageView  *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(0, 0, 65, 65);
-    imageView.center = CGPointMake(kScreenW/2, kScreenH/5);
-    [imageView setImage:[UIImage imageNamed:@"head"]];
-    [self.view addSubview:imageView];
-    
+    UILabel *phoneLabel = [[UILabel alloc] init];
+    phoneLabel.text = [KeyChain.mobile replaceStringWithStartLocation:3 lenght:4];
+    phoneLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+    phoneLabel.textColor = RGB(51, 51, 51);
+    self.phoneLabel = phoneLabel;
+    [self.view addSubview:self.phoneLabel];
     // 管理手势密码
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self creatButton:leftBtn frame:CGRectMake(CircleViewEdgeMargin + 20, kScreenH - 60, kScreenW/2, 20) title:@"账号密码登录" alignment:UIControlContentHorizontalAlignmentCenter tag:buttonTagManager];
-    [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@16);
-        make.right.equalTo(self.view).offset(-16);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-60);
-    }];
     
+    [leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_bottom).offset(kScrAdaptationH(-70));
+    }];
+    [self.phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.titleLabel.mas_bottom).offset(kScrAdaptationH(10));
+        make.height.offset(kScrAdaptationH(16));
+    }];
+    [self.msgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.phoneLabel.mas_bottom).offset(kScrAdaptationH(10));
+    }];
     // 登录其他账户
 //    UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    [self creatButton:rightBtn frame:CGRectMake(kScreenW/2 - CircleViewEdgeMargin - 20, kScreenH - 60, kScreenW/2, 20) title:@"登陆其他账户" alignment:UIControlContentHorizontalAlignmentRight tag:buttonTagForget];
@@ -216,6 +259,8 @@ static NSString *const my = @"我的";
     [btn setContentHorizontalAlignment:alignment];
     [btn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
     [btn addTarget:self action:@selector(didClickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    btn.titleLabel.font =kHXBFont_PINGFANGSC_REGULAR(15);
+    [btn setTitleColor:RGB(115, 173, 255) forState:UIControlStateNormal];
     [self.view addSubview:btn];
 }
 
@@ -235,8 +280,8 @@ static NSString *const my = @"我的";
             [self infoViewDeselectedSubviews];
             
             // 3.msgLabel提示文字复位
-            [self.msgLabel showNormalMsg:gestureTextBeforeSet];
-            
+            [self.msgLabel showNormalMsg:gestureTextConnectLess];
+            self.titleLabel.text = gestureTextBeforeSet;
             // 4.清除之前存储的密码
 //            [HXBCircleViewConst saveGesture:nil Key:gestureOneSaveKey];
             KeyChain.gesturePwd = nil;
@@ -281,6 +326,7 @@ static NSString *const my = @"我的";
     NSLog(@"获得第一个手势密码%@", gesture);
     
     self.title = @"确认手势密码";
+    self.titleLabel.text = gestureTextDrawAgain;
     [self.resetBtn setHidden:NO];
     
     [self.msgLabel showWarnMsg:gestureTextDrawAgain];

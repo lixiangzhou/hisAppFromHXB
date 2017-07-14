@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
 @interface HXBFin_LoanTransferTableView : HXBBaseTableView
+/**
+ 点击了cell
+ */
+- (void)clickCellWithBlock:(void (^)(HXBFinHomePageViewModel_LoanTruansferViewModel *loanTruansferViewModel, NSIndexPath *indexPath))clickCellBlock;
 
 @end

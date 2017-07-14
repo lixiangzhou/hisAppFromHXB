@@ -60,11 +60,27 @@
 //        [self addSubview:self.trumpetView];
         [self addSubview:self.closeButton];
 //        [self addSubview:self.contentScrollView];
+        
+        [self setupSubViewFrame];
     }
     return self;
 }
 
 #pragma mark Private Methods
+
+- (void)setupSubViewFrame
+{
+    [self.recommendedTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.mas_bottom);
+        make.left.equalTo(self.mas_left).offset(kScrAdaptationW(17));
+        make.height.offset(kScrAdaptationH(15));
+    }];
+    [self.promptTagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.recommendedTitleLabel);
+        make.right.equalTo(self.mas_right).offset(kScrAdaptationW(-15));
+    }];
+}
+
 ////点击bulletin
 //- (void)bulletinClick
 //{
@@ -171,9 +187,9 @@
 {
     if (!_recommendedTitleLabel) {
         _recommendedTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 0, 120, self.height)];
-        _recommendedTitleLabel.textColor = [UIColor blackColor];
+        _recommendedTitleLabel.textColor = COR6;
         _recommendedTitleLabel.text = @"推荐-红利计划";
-        _recommendedTitleLabel.font = [UIFont systemFontOfSize:12];
+        _recommendedTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     }
     return _recommendedTitleLabel;
 }
@@ -185,7 +201,7 @@
         _promptTagLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.width - promptTagLabelWidth, 0, promptTagLabelWidth, self.height)];
         _promptTagLabel.textColor = COR10;
 //        _promptTagLabel.text = @"1000元投起，整存整取";
-        _promptTagLabel.font = [UIFont systemFontOfSize:12];
+        _promptTagLabel.font = kHXBFont_PINGFANGSC_REGULAR(13);
         _promptTagLabel.textAlignment = NSTextAlignmentRight;
     }
     return _promptTagLabel;
