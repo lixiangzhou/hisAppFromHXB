@@ -12,7 +12,6 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
 @interface HXBRechargeView () <UITextFieldDelegate>
 ///金额labelconst
 @property (nonatomic,strong) UILabel *amountLabel_counst;
-
 @property (nonatomic,strong) HXBBaseTextField *buyTextField;
 
 
@@ -29,13 +28,6 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
     [self.textField endEditing:isEndEditing];
     [self.buyTextField endEditing:isEndEditing];
     [self.buyTextField.textField endEditing:isEndEditing];
-}
-
-
-
-
-- (void) setModel:(HXBRechargeView_Model *)model {
-
 }
 
 - (UITextField *)textField {
@@ -72,15 +64,15 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
     [self.amountLabel_counst mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.left.equalTo(self).offset(kScrAdaptationW(30));
-        make.height.equalTo(@(kScrAdaptationH(40)));
-        make.width.equalTo(@(kScrAdaptationW(112)));
+        make.height.equalTo(@(kScrAdaptationH750(40)));
+        make.width.equalTo(@(kScrAdaptationW750(112)));
     }];
   
   
     [self.buyTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.top.equalTo(self.amountLabel_counst).offset(kScrAdaptationH(0));
-        make.left.equalTo(self.amountLabel_counst).offset(kScrAdaptationW(0));
-        make.right.equalTo(self.rechargeButton.mas_left).offset(kScrAdaptationW(78));
+        make.right.equalTo(self).offset(kScrAdaptationW750(-30));
+        make.left.equalTo(self.amountLabel_counst.mas_right).offset(kScrAdaptationW750(78));
     }];
    
  
@@ -92,7 +84,7 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
     
    
   
-    self.amountLabel_counst.font = kHXBFont_PINGFANGSC_REGULAR(40);
+    self.amountLabel_counst.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
     self.amountLabel_counst.textColor = kHXBColor_Grey_Font0_2;
     
 }
@@ -105,7 +97,6 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
 ///事件注册
 - (void)registerEvent {
     [self.buyTextField.button addTarget:self action:@selector(clickBuyButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.rechargeButton addTarget:self action:@selector(clickRechargeButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 ///点击了 购买按钮
@@ -115,20 +106,13 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
         self.clickBuyButton();
     }
 }
-///点击了 充值按钮
-- (void)clickRechargeButton: (UIButton *)button {
-    NSLog(@"%@ 充值",self);
-    self.clickRechargeButton();
-}
+
 
 ///点击了一键购买
 - (void)clickBuyButtonFunc:(void(^)())clickBuyButtonBlock {
     self.clickBuyButton = clickBuyButtonBlock;
 }
-///点击了充值
-- (void)clickRechargeFunc: (void(^)())clickRechageButtonBlock {
-    self.clickRechargeButton = clickRechageButtonBlock;
-}
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
@@ -136,18 +120,3 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
 }
 @end
 
-@implementation HXBRechargeView_Model
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
-}
-//- (NSString *)balanceLabelStr {
-//    if (!_balanceLabelStr) {
-//        
-//    }
-//}
-@end

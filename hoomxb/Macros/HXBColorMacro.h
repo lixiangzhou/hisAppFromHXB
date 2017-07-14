@@ -37,6 +37,9 @@
 #define kHXBColor_Font0_6 [UIColor colorWithRed:0.60 green:0.60 blue:0.60 alpha:1.00]//
 
 
+//-------- 蓝色
+#define kHXBColor_Blue040610 kHXBColor_RGB(0.45, 0.68, 1.0, 1.0 )
+
 /**
  *  返回一个RGBA格式的UIColor对象
  */

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HXBRechargeView_Model;
+
 @interface HXBRechargeView : UIView
 
 
@@ -19,17 +19,4 @@
 @property (nonatomic,copy)NSString *placeholder;
 ///点击了一键购买
 - (void)clickBuyButtonFunc:(void(^)())clickBuyButtonBlock;
-///点击了充值
-- (void)clickRechargeFunc: (void(^)())clickRechageButtonBlock;
-@end
-
-
-@interface HXBRechargeView_Model : NSObject
-
-///余额 title
-@property (nonatomic,copy) NSString *balanceLabel_constStr;
-///余额展示
-@property (nonatomic,copy) NSString *balanceLabelStr;
-///充值的button
-@property (nonatomic,copy) NSString *rechargeButtonStr;
 @end

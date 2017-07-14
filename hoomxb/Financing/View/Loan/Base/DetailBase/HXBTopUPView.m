@@ -27,50 +27,21 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        _manager = [[HXBTopUPViewManager alloc]init];
         [self setUP];
     }
     return self;
 }
 
 - (void)setUP {
-    self.balanceLabel = [[UILabel alloc]init];
-    self.balanceLabel_const = [[UILabel alloc]init];
-    self.rechargeButton = [[UIButton alloc]init];
-    self.rechargeImageView = [[UIImageView alloc]init];
-    
-    
-    [self addSubview: self.balanceLabel_const];
-    [self addSubview: self.balanceLabel];
-    [self addSubview: self.rechargeButton];
-    [self.rechargeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.right.equalTo(self).offset(kScrAdaptationW(-31));
-        make.height.width.equalTo(@(kScrAdaptationH(24)));
-    }];
-    [self.rechargeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.right.equalTo(self.rechargeImageView.mas_left);
-        make.width.equalTo(@(kScrAdaptationW(60)));
-        make.height.equalTo(@(kScrAdaptationH(30)));
-    }];
-    [self.rechargeButton setTitleColor: kHXBColor_RGB(0.45, 0.68, 1.00, 1.00) forState:UIControlStateNormal];
-    self.rechargeButton.layer.borderColor = kHXBColor_RGB(0.45, 0.68, 1.00, 1.00).CGColor;//(r:0.45 g:0.68 b:1.00 a:1.00)
-    self.rechargeButton.layer.borderWidth = kScrAdaptationW(3);
-    self.rechargeImageView.svgImageString = @"arrow";
-    
-    [self.balanceLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self).offset(0);
-        make.left.equalTo(self).offset(kScrAdaptationW(10));
-        make.height.equalTo(@(kScrAdaptationH(30)));
-    }];
-
-    [self.balanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.equalTo(self.balanceLabel_const);
-        make.left.equalTo(self.balanceLabel_const.mas_right).offset(kScrAdaptationW(5));
-    }];
-    [self.balanceLabel sizeToFit];
-    [self.balanceLabel_const sizeToFit];
+    [self setUPSubViewsFrame];
 }
+
+
+- (void)setUPValueWithModel:(HXBTopUPViewManager *(^)(HXBTopUPViewManager *manager))setUPValueBlock {
+    self.manager = setUPValueBlock(self.manager);
+}
+
 - (void)setManager:(HXBTopUPViewManager *)manager {
     _manager = manager;
     ///余额 title
@@ -79,5 +50,72 @@
     self.balanceLabel_const.text = manager.balanceLabel_constStr;
     ///充值的button
     [self.rechargeButton setTitle: manager.rechargeButtonStr forState:UIControlStateNormal];
+}
+
+///事件注册
+- (void)registerEvent {
+    [self.rechargeButton addTarget:self action:@selector(clickRechargeButton:)forControlEvents:UIControlEventTouchUpInside];
+}
+
+///点击了 充值按钮
+- (void)clickRechargeButton: (UIButton *)button {
+    NSLog(@"%@ 充值",self);
+    self.clickRechargeButton();
+}
+
+///点击了充值
+- (void)clickRechargeFunc: (void(^)())clickRechageButtonBlock {
+    self.clickRechargeButton = clickRechageButtonBlock;
+}
+
+- (void)setUPSubViewsFrame {
+    self.balanceLabel = [[UILabel alloc]init];
+    self.balanceLabel_const = [[UILabel alloc]init];
+    self.rechargeButton = [[UIButton alloc]init];
+    self.rechargeImageView = [[UIImageView alloc]init];
+    
+    [self addSubview:self.rechargeImageView];
+    [self addSubview: self.balanceLabel_const];
+    [self addSubview: self.balanceLabel];
+    [self addSubview: self.rechargeButton];
+    [self.rechargeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
+        make.right.equalTo(self).offset(kScrAdaptationW750(-31));
+        make.height.width.equalTo(@(kScrAdaptationH750(24)));
+    }];
+    [self.rechargeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self);
+        make.right.equalTo(self.rechargeImageView.mas_left);
+        make.width.equalTo(@(kScrAdaptationW750(60)));
+        make.height.equalTo(@(kScrAdaptationH750(30)));
+    }];
+    [self.rechargeButton setTitleColor: kHXBColor_RGB(0.45, 0.68, 1.00, 1.00) forState:UIControlStateNormal];
+    self.rechargeButton.layer.borderColor = kHXBColor_RGB(0.45, 0.68, 1.00, 1.00).CGColor;//(r:0.45 g:0.68 b:1.00 a:1.00)
+    self.rechargeButton.layer.borderWidth = kScrAdaptationW750(6);
+    self.rechargeImageView.svgImageString = @"arrow";
+    
+    [self.balanceLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self).offset(0);
+        make.left.equalTo(self).offset(kScrAdaptationW750(10));
+        make.height.equalTo(@(kScrAdaptationH750(30)));
+    }];
+    
+    [self.balanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.top.equalTo(self.balanceLabel_const);
+        make.left.equalTo(self.balanceLabel_const.mas_right).offset(kScrAdaptationW(5));
+    }];
+    [self.balanceLabel sizeToFit];
+    [self.balanceLabel_const sizeToFit];
+}
+
+@end
+@implementation HXBTopUPViewManager
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
 }
 @end

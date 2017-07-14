@@ -10,11 +10,16 @@
 #import "HXBFin_JoinimmediateView_Loan.h"
 #import "HXBRechargeView.h"
 #import "HXBJoinImmediateView.h"
+#import "HXBTopUPView.h"//充值的view
 @interface HXBFin_JoinimmediateView_Loan()<UITextFieldDelegate>
 
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan_ViewModel *model;
-@property (nonatomic,strong) HXBRechargeView *rechargeView;
-
+@property (nonatomic,strong) HXBRechargeView *rechargeView;//一键购买
+@property (nonatomic,strong) HXBTopUPView *topUPView;
+//加入上线
+@property (nonatomic,strong) UIImageView *topLineLabelImageView;
+@property (nonatomic,strong) UILabel *topLineLabel;
+@property (nonatomic,strong) UILabel *topLineLabel_Const;
 
 
 ///预计收益
@@ -63,15 +68,15 @@
     self.rechargeView.placeholder = model.JoinImmediateView_Model.rechargeViewTextField_placeholderStr;
     [self.rechargeView.button setTitle:model.JoinImmediateView_Model.buyButtonStr forState:UIControlStateNormal];
     kWeakSelf
-    [self.rechargeView setUPValueWithModel:^HXBRechargeView_Model *(HXBRechargeView_Model *model) {
-        ///余额 title
-        model.balanceLabel_constStr = weakSelf.model.JoinImmediateView_Model.balanceLabel_constStr;
-        ///余额展示
-        model.balanceLabelStr = weakSelf.model.JoinImmediateView_Model.balanceLabelStr;
-        ///充值的button
-        model.rechargeButtonStr = weakSelf.model.JoinImmediateView_Model.rechargeButtonStr;
-        return model;
-    }];
+//    [self.rechargeView setUPValueWithModel:^HXBRechargeView_Model *(HXBRechargeView_Model *model) {
+//        ///余额 title
+//        model.balanceLabel_constStr = weakSelf.model.JoinImmediateView_Model.balanceLabel_constStr;
+//        ///余额展示
+//        model.balanceLabelStr = weakSelf.model.JoinImmediateView_Model.balanceLabelStr;
+//        ///充值的button
+//        model.rechargeButtonStr = weakSelf.model.JoinImmediateView_Model.rechargeButtonStr;
+//        return model;
+//    }];
 }
 
 - (void)setIsPlan:(BOOL)isPlan {
@@ -107,10 +112,16 @@
 
 ///设置ViewS
 - (void)creatViews {
+    self.topLineLabelImageView = [[UIImageView alloc]init];
+    self.topLineLabel = [[UILabel alloc]init];
+    self.topLineLabel_Const = [[UILabel alloc]init];
+    
     self.rechargeView = [[HXBRechargeView alloc]init];
     self.rechargeViewTextField = self.rechargeView.textField;
     self.rechargeView.textField.delegate = self;
     self.rechargeView.textField.keyboardType = UIKeyboardTypeNumberPad;
+    
+    self.topUPView = [[HXBTopUPView alloc]initWithFrame:CGRectZero];
     
     self.loanAcountLable_Const = [[UILabel alloc]init];
     self.loanAcountLabel = [[UILabel alloc]init];
@@ -125,7 +136,12 @@
 }
 
 - (void)layoutViews {
+    [self addSubview:_topLineLabelImageView];
+    [self addSubview:_topLineLabel];
+    [self addSubview:_topLineLabel_Const];
+    
     [self addSubview:self.rechargeView];
+    [self addSubview:self.topUPView];
     
     [self addSubview:self.loanAcountLabel];
     [self addSubview:self.loanAcountLable_Const];
@@ -138,6 +154,27 @@
     
     [self addSubview:self.addButton];
     
+    [self.topLineLabelImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.equalTo(@(kScrAdaptationH750(30)));
+        make.height.width.equalTo(@(kScrAdaptationH750(30)));
+    }];
+    
+    [self.topLineLabel_Const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.topLineLabelImageView);
+        make.height.equalTo(@(kScrAdaptationH750(28)));
+        make.left.equalTo(self.topLineLabelImageView.mas_right).offset(kScrAdaptationW750(10));
+    }];
+    [self.topLineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.topLineLabel_Const.mas_right).offset(kScrAdaptationW750(5));
+        make.height.equalTo(self.topLineLabel_Const);
+        make.centerY.equalTo(self.topLineLabel_Const);
+    }];
+    self.topLineLabelImageView.svgImageString = @"BUYtips";
+    self.topLineLabel_Const.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+    self.topLineLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+    self.topLineLabel.textColor = kHXBColor_Font0_6;
+    
+    //一键购买
     [self.rechargeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(kScrAdaptationH(80));
         make.right.left.equalTo(self);
@@ -194,7 +231,7 @@
 
 - (void)registerEvent {
     __weak typeof(self) weakSelf = self;
-    [self.rechargeView clickRechargeFunc:^{
+    [self.topUPView clickRechargeFunc:^{
         if (weakSelf.clickRechargeButton) {
             weakSelf.clickRechargeButton();
         }

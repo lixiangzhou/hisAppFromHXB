@@ -11,6 +11,8 @@
 ///充值
 @interface HXBTopUPView : UIView
 - (void) setUPValueWithModel: (HXBTopUPViewManager *(^)(HXBTopUPViewManager *manager))setUPValueBlock;
+///点击了充值
+- (void)clickRechargeFunc: (void(^)())clickRechageButtonBlock;
 @end
 
 
