@@ -180,19 +180,24 @@
     __weak typeof (self)weakSelf = self;
     //布局
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.contentView).offset(20);
-        make.left.equalTo(weakSelf.contentView).offset(20);
-        make.right.equalTo(weakSelf.contentView).offset(-20);
+        make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH(20));
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
+        make.height.equalTo(@(kScrAdaptationH(15)));
     }];
+    [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.nameLabel);
+        make.left.equalTo(weakSelf.nameLabel.mas_right).offset(10);
+    }];
+    [self.nameLabel sizeToFit];
     [self.expectedYearRateLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.nameLabel.mas_bottom).offset(20);
-        make.left.equalTo(weakSelf.contentView).offset(20);
-        make.height.equalTo(@20);
+        make.top.equalTo(weakSelf.contentView.mas_centerY).offset(kScrAdaptationH(-12));
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
+        make.height.equalTo(@(kScrAdaptationH(24)));
     }];
     [self.expectedYearRateLable_Const mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf.expectedYearRateLable);
-        make.top.equalTo(weakSelf.expectedYearRateLable.mas_bottom).offset(20);
-        make.height.equalTo(@20);
+        make.left.equalTo(weakSelf.expectedYearRateLable);
+        make.top.equalTo(weakSelf.expectedYearRateLable.mas_bottom).offset(kScrAdaptationH(10));
+        make.height.equalTo(@(kScrAdaptationH(10)));
     }];
     [self.lockPeriodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.height.equalTo(weakSelf.expectedYearRateLable);
@@ -204,30 +209,53 @@
     }];
     [self.addStatus mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.contentView);
-        make.right.equalTo(@(-80));
-        make.height.equalTo(@20);
+        make.right.equalTo(@(kScrAdaptationW(-14)));
+        make.height.equalTo(@(kScrAdaptationH(30)));
+        make.width.equalTo(@(kScrAdaptationW(85)));
     }];
-    [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(@(-20));
-        make.centerY.equalTo(weakSelf.contentView);
-        make.height.width.equalTo(@20);
-    }];
+  
     [self.preferentialLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.contentView).offset(20);
         make.right.equalTo(weakSelf.arrowImageView);
         make.height.equalTo(@20);
     }];
-    self.countDownLable.backgroundColor = [UIColor hxb_randomColor];
     [self.countDownLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.addStatus.mas_bottom).offset(10);
-        make.left.equalTo(weakSelf.addStatus);
-        make.right.equalTo(weakSelf.addStatus);
-        make.height.equalTo(@20);
+        make.top.equalTo(weakSelf.addStatus.mas_bottom).offset(kScrAdaptationH(5));
+        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW(31));
+        make.width.equalTo(@(kScrAdaptationW(36)));
+        make.height.equalTo(@(kScrAdaptationH(14)));
     }];
-    [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weakSelf.nameLabel);
-        make.right.equalTo(weakSelf.contentView.mas_right).offset(-20);
+    //时间的图标
+    [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.countDownLable).offset(kScrAdaptationW(6));
+        make.top.equalTo(self.countDownLable);
+        make.height.width.equalTo(@20);
     }];
+    
+    self.nameLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+    self.nameLabel.textColor = kHXBColor_Grey_Font0_2;
+    
+    self.tagLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    self.tagLabel.textColor = kHXBColor_RGB(0.45, 0.68, 1.00, 1.00);
+    
+    self.expectedYearRateLable.font = kHXBFont_PINGFANGSC_REGULAR(24);
+    self.expectedYearRateLable.textColor = HXBC_Red_Light;
+    self.expectedYearRateLable_Const.font = kHXBFont_PINGFANGSC_REGULAR(13);
+    self.expectedYearRateLable_Const.textColor = kHXBColor_Font0_6;
+    
+    self.lockPeriodLabel.font = kHXBFont_PINGFANGSC_REGULAR(24);
+    self.lockPeriodLabel.textColor = kHXBColor_Grey_Font0_3;
+    self.lockPeriodLabel_Const.font = kHXBFont_PINGFANGSC_REGULAR(13);
+    self.lockPeriodLabel_Const.textColor = kHXBColor_Font0_6;
+    
+    
+    self.addStatus.layer.cornerRadius = kScrAdaptationW(2.5);
+    self.addStatus.layer.masksToBounds = true;
+    self.addStatus.backgroundColor = HXBC_Red_Deep;
+    self.addStatus.font = kHXBFont_PINGFANGSC_REGULAR(14);
+    self.addStatus.textColor = [UIColor whiteColor];
+    self.addStatus.textAlignment = NSTextAlignmentCenter;
+    
 }
 
 

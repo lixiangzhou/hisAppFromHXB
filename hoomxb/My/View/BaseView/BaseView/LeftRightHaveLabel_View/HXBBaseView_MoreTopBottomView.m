@@ -176,10 +176,12 @@
 - (void)setUPViews_frameWithSpace:(UIEdgeInsets)space {
     
     for (NSInteger i = 0; i < self.leftViewArray.count; i++) {
+        [self.leftViewArray[i] sizeToFit];
+        [self.rightViewArray[i] sizeToFit];
         if (i == 0) {
             [self.leftViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.left.equalTo(self).offset(space.top);
-                make.width.equalTo(self.mas_width).multipliedBy(self.leftProportion).offset(-space.left - space.right);
+                make.top.equalTo(self).offset(space.top);
+                make.left.equalTo(self).offset(space.left);
                 make.height.equalTo(@(self.viewH));
             }];
             [self.rightViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {

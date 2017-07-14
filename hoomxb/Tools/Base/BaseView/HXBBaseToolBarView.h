@@ -30,6 +30,9 @@
 /**选中的item索引*/
 @property (nonatomic,assign) NSInteger selectItemIndex;
 
+@property (nonatomic,strong) UIColor *itemBackgroundColor;
+@property (nonatomic,strong) UIColor *itemTitleColor_select;
+@property (nonatomic,strong) UIColor *itemTitleColor_Normal;
 
 #pragma mark - lien参数
 //--------------------------------------线----------------------
@@ -108,4 +111,6 @@
 /**动画view的颜色*/
 @property (nonatomic,strong) UIColor *itemBarAnimaViewColor;
 
+/**背景红色渐变*/
+@property (nonatomic,assign) BOOL isColorChange;
 @end

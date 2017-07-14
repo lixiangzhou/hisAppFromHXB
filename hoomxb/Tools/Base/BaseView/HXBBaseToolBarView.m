@@ -9,10 +9,12 @@
 #import "HXBBaseToolBarView.h"
 
 @interface HXBBaseToolBarView ()
+
 @property(nonatomic,assign) CGFloat spacing;//
 @property (nonatomic,strong) NSArray <NSValue *>*lienArray;//线的集合（位置大小）
 @property (nonatomic,strong) NSMutableArray <NSDictionary *>*optionArray;//button的位置及名称集合
 @property (nonatomic,strong) NSMutableArray <NSValue *>*optionRectArrayM;
+@property (nonatomic,strong) HXBColourGradientView *colourGradientView;
 //记忆选中的Button
 @property (nonatomic,strong) UIButton *selectItem;
 //点击选项按钮的事件回调
@@ -22,7 +24,7 @@
 @end
 
 @implementation HXBBaseToolBarView
-
+@synthesize itemBottomBarViewHeight = _itemBottomBarViewHeight;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
@@ -63,7 +65,7 @@
     
     //创建动画的view
    
-    //[self setupAnimaBarView];
+//    [self setupAnimaBarView];
     
     //重绘
     [self setNeedsDisplay];
@@ -129,6 +131,7 @@
 //添加button
 - (void)setSubButton {
     //如果有子控件那么移除
+    
     //MAKR: 注意，这里的self.subviews是动态的获取子控件，别管坐标了。直接给0
     if (self.subviews.count) {
         //记录子控件的个数，不要直接去取
@@ -138,7 +141,7 @@
             [self.subviews[0] removeFromSuperview];
         }
     }
-    
+    [self layoutSubviews];
     NSMutableArray <UIButton *>*optionItemInfoM = [[NSMutableArray alloc]init];
     for (NSInteger i = 0; i < self.optionStrArray.count; i ++) {
         
@@ -150,7 +153,7 @@
         [button setTitle:self.optionStrArray[i] forState:UIControlStateSelected];
 
         [button setTitleColor:self.itemTextColor_Normal forState:UIControlStateNormal];
-        [button setTitleColor:self.itemTextColor_Select forState:UIControlStateSelected];
+        [button setTitleColor:self.itemTitleColor_select forState:UIControlStateSelected];
         [button setTitleColor:self.itemTextColor_Highlighted forState:UIControlStateHighlighted];
         
         //字体大小
@@ -358,6 +361,14 @@
     }
     return _itemBarAnimaView;
 }
+- (void)setItemBottomBarViewWidth:(CGFloat)itemBottomBarViewWidth {
+    _itemBottomBarViewWidth = itemBottomBarViewWidth;
+    [self setSubButton];
+}
+- (void)setItemBottomBarViewHeight:(CGFloat)itemBottomBarViewHeight {
+    _itemBottomBarViewHeight = itemBottomBarViewHeight;
+    [self setSubButton];
+}
 
 //MARK: ------------------选中的item------------------------
 - (void)setIsAnima_ItemBottomBarView:(BOOL)isAnima_ItemBottomBarView {
@@ -393,7 +404,20 @@
     }
     _selectItem.selected = YES;
 }
-
+- (void)setIsColorChange:(BOOL)isColorChange {
+    _isColorChange = isColorChange;
+ 
+}
+- (void)layoutSubviews {
+    
+    if (_isColorChange && !self.colourGradientView) {
+        self.colourGradientView = [[HXBColourGradientView alloc]initWithFrame:CGRectZero];
+        [self insertSubview:self.colourGradientView atIndex:0];
+        [self.colourGradientView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+    }
+}
 //MARK: - 销毁
 - (void) dealloc  {
     NSLog(@"%@ - ✅被销毁",self.class);

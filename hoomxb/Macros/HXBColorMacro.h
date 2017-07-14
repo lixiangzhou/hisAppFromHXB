@@ -8,6 +8,10 @@
 
 #ifndef HXBColorMacro_h
 #define HXBColorMacro_h
+///背景色
+#define kHXBColor_BackGround  [UIColor colorWithRed:245/255.0f green:245/255.0f blue:249/255.0f alpha:1]
+
+
 /**
 红色系
 */
@@ -22,8 +26,13 @@
 
 //深灰（字体颜色）(r:0.20 g:0.20 b:0.20 a:1.00)
 #define kHXBColor_Grey_Font0_2 [UIColor colorWithRed:0.20 green:0.20 blue:0.20 alpha:1.00]//
+//0.3
+#define kHXBColor_Grey_Font0_3 [UIColor colorWithRed:0.30 green:0.30 blue:0.30 alpha:1.00]//
 //浅灰 （字体颜色）(r:0.40 g:0.40 b:0.40 a:1.00)
 #define kHXBColor_HeightGrey_Font0_4 [UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.00]//
+//浅灰 
+#define kHXBColor_Font0_6 [UIColor colorWithRed:0.60 green:0.60 blue:0.60 alpha:1.00]//
+
 
 /**
  *  返回一个RGBA格式的UIColor对象

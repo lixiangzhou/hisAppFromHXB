@@ -106,9 +106,16 @@
 //设置toolBarView
 - (void)setupToolBarView {
     self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:self.toolBarViewOptionStrArray];
+    self.toolBarView.barAnimaViewSpacing = kScrAdaptationW(57);
+    self.toolBarView.barAnimaViewH = kScrAdaptationH(2);
     self.toolBarView.isAnima_ItemBottomBarView = true;
+    self.toolBarView.isColorChange = true;
     self.toolBarView.animaTime_ItemBottomBarView = .5;
-    self.toolBarView.itemBarAnimaViewColor = [UIColor blueColor];
+   
+    self.toolBarView.itemBarAnimaViewColor = [UIColor whiteColor];
+    
+    self.toolBarView.itemTitleColor_select = [UIColor whiteColor];
+    self.toolBarView.itemTextColor_Normal = [UIColor colorWithWhite:1 alpha:0.5];
     //边框
     self.toolBarView.layer.borderWidth = .2;
     self.toolBarView.layer.borderColor = [UIColor grayColor].CGColor;
@@ -222,7 +229,7 @@
 
 //搭建ScrollToolBarView
 - (void)setupScrollToolBarView {
-    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) andTopView:nil andTopViewH:0 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:30 andBottomViewSet:self.bottomViewArray];
+    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) andTopView:nil andTopViewH:0 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:64 andBottomViewSet:self.bottomViewArray];
     [self addSubview:self.scrollToolBarView];
     //点击事件的分发
     kWeakSelf

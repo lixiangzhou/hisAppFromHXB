@@ -46,7 +46,7 @@ UITableViewDelegate,UITableViewDataSource
     
     [self registerClass:NSClassFromString(kcellClass) forCellReuseIdentifier:kcellClass];
     self.tableFooterView = [[UIView alloc]init];
-    self.rowHeight = 80;
+    self.rowHeight = kScrAdaptationH(120);
 }
 
 #pragma mark - tableViewDelegate

@@ -64,8 +64,8 @@
 }
 - (UIScrollView *)hxbBaseVCScrollView {
     if (!_hxbBaseVCScrollView) {
-        self.automaticallyAdjustsScrollViewInsets = true;
-        self.edgesForExtendedLayout = UIRectEdgeAll;
+//        self.automaticallyAdjustsScrollViewInsets = true;
+//        self.edgesForExtendedLayout = UIRectEdgeAll;
         _hxbBaseVCScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];

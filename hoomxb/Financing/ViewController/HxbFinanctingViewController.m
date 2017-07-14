@@ -152,7 +152,7 @@
             [weakSelf planLoadDateWithIsUpData:true];
         }else if ([title isEqualToString:@"散标列表"] && weakSelf.isFirstLoadNetDataLoan) {
             [weakSelf loanLoadDateWithIsUpData:true];
-        }else if (index == 3 && weakSelf.isFirstLoadNetDataLoanTruansfer) {
+        }else if (index == 2 && weakSelf.isFirstLoadNetDataLoanTruansfer) {
             [weakSelf loanTruansferLoandDataWithIsUPData:true];
         }
     }];
@@ -195,7 +195,7 @@
 //MARK:- 点击了债转的 cell
 - (void)clickLoanTruansferCell {
     kWeakSelf
-    [self.homePageView setClickLoanTruansferCellBlock:^(NSIndexPath *index, id model){
+    [self.homePageView setClickLoanTruansferCellBlock:^(HXBFinHomePageViewModel_LoanTruansferViewModel* model,NSIndexPath *index){
         [weakSelf pushLoanTruansferCellViewControllerWithModel:model];
     }];
 }

@@ -21,17 +21,27 @@
 - (NSString *) title {
     return  self.loanTruansferListModel.title;
 }
+
 /**
  利率
  */
-- (NSAttributedString *) interest {
+- (NSString *) interest {
     if (!_interest) {
-        NSString *interestStr = [NSString stringWithFormat:@"%.2lf%@",self.loanTruansferListModel.interest.floatValue,@"%"];
-        NSRange range = NSMakeRange(interestStr.length - 1, 1);
-        _interest = [NSAttributedString setupAttributeStringWithString:interestStr WithRange:range andAttributeColor:[UIColor whiteColor] andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(20)];
-        
+        _interest = [NSString stringWithFormat:@"%.2lf%@",self.loanTruansferListModel.interest.floatValue,@"%"];
     }
     return _interest;
+}
+/**
+ 利率
+ */
+- (NSAttributedString *) interestAttibute {
+    if (!_interestAttibute) {
+        NSString *interestStr = [NSString stringWithFormat:@"%.2lf%@",self.loanTruansferListModel.interest.floatValue,@"%"];
+        NSRange range = NSMakeRange(interestStr.length - 1, 1);
+        _interestAttibute = [NSAttributedString setupAttributeStringWithString:interestStr WithRange:range andAttributeColor:[UIColor whiteColor] andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(20)];
+        
+    }
+    return _interestAttibute;
 }
 /**
  剩余期数 (包含  汉字 个月)
@@ -61,13 +71,22 @@
     return _transAmount;
 }
 /**
- 剩余金额
+转让金额
  */
 - (NSString *) leftTransAmount {
     if (!_leftTransAmount) {
         _leftTransAmount = [NSString hxb_getPerMilWithDouble:self.loanTruansferListModel.transAmount.floatValue];
     }
     return _leftTransAmount;
+}
+/**
+剩余金额 (元)
+ */
+- (NSString *) leftTransAmount_YUAN {
+    if (!_leftTransAmount_YUAN) {
+         _leftTransAmount_YUAN = [NSString stringWithFormat:@"待转让金额：%@",self.leftTransAmount];
+    }
+    return _leftTransAmount_YUAN;
 }
 /**
  状态

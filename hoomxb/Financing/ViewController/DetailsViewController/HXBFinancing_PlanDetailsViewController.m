@@ -44,6 +44,22 @@
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.isHiddenNavigationBar = false;
+    [self setup];
+    [self downLoadData];
+    [self registerClickCell];
+    [self registerClickAddButton];
+    
+    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        _availablePoint = viewModel.availablePoint;
+        _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
+    } andFailure:^(NSError *error) {
+        
+    }];
+}
+
 - (void)setPlanAddButton:(NSString *)planAddButton {
     _planAddButton = planAddButton;
 }
@@ -107,21 +123,6 @@
         _tableViewModelArray = tableViewModelArrayM.copy;
     }
     return _tableViewModelArray;
-}
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.isHiddenNavigationBar = false;
-    [self setup];
-    [self downLoadData];
-    [self registerClickCell];
-    [self registerClickAddButton];
-    
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        _availablePoint = viewModel.availablePoint;
-        _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
-    } andFailure:^(NSError *error) {
-        
-    }];
 }
 
 //MARK: ------ setup -------

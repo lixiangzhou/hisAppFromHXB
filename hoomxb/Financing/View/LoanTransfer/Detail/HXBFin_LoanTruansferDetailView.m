@@ -97,6 +97,7 @@
                                                            andLeftRightLeftProportion:0.5
                                                                                 Space:edgeinsets];
     self.detailTableView = [[HXBFinDetail_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.detailTableView.rowHeight = kScrAdaptationH(45);
     self.promptLabel = [[UILabel alloc]init];
     self.addButton = [[UIButton alloc]init];
     
@@ -117,7 +118,7 @@
 - (void)setUPFrame {
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self).offset(kScrAdaptationH(0));
-        make.height.equalTo(@(kScrAdaptationH(248)- 64));
+        make.height.equalTo(@(kScrAdaptationH(248 - 14)));
     }];
     [self.addTrustworthiness mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(10));

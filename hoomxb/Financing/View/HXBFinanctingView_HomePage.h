@@ -30,7 +30,7 @@
 ///点击散标列表后回调，跳转详情页
 @property (nonatomic,copy) void(^clickLoanListCellBlock)(NSIndexPath *index, id model);
 ///点击债转的cell 跳转详情页
-@property (nonatomic,copy) void(^clickLoanTruansferCellBlock)(NSIndexPath *index, id Model);
+@property (nonatomic,copy) void(^clickLoanTruansferCellBlock)(HXBFinHomePageViewModel_LoanTruansferViewModel* model,NSIndexPath *index);
 
 
 //MARK: - --------- 关于刷新 -----------------

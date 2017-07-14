@@ -22,7 +22,11 @@
 /**
  利率
  */
-@property (nonatomic,copy) NSAttributedString * interest;
+@property (nonatomic,copy) NSString * interest;
+/**
+ 详情用的利率 富文本
+ */
+@property (nonatomic,copy) NSAttributedString *interestAttibute;
 /**
  剩余期数
  */
@@ -36,9 +40,14 @@
  */
 @property (nonatomic,copy) NSString * transAmount;
 /**
- 剩余金额
+ 剩余金额 （元）
  */
 @property (nonatomic,copy) NSString * leftTransAmount;
+/**
+ 剩余金额 (带了 待转让金额：000元)
+ */
+@property (nonatomic,copy) NSString * leftTransAmount_YUAN;
+
 /**
  状态
  TRANSFERING：正在转让，

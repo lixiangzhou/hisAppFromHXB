@@ -20,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUP];
+    [self setData];
 }
 
 #pragma mark - setUP
@@ -39,7 +40,7 @@
     
 }
 - (void)setLoanTransfer_ViewModel:(HXBFinHomePageViewModel_LoanTruansferViewModel *)loanTransfer_ViewModel {
-    [self setData];
+    _loanTransfer_ViewModel = loanTransfer_ViewModel;
 }
 
 #pragma mark - downLoadData 
