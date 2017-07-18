@@ -95,6 +95,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
                     [HXBSignUPAndLoginRequest smscodeRequestWithMobile:mobile andAction:self.type andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
                         //发送短信vc
                         HXBSendSmscodeViewController *sendSmscodeVC = [[HXBSendSmscodeViewController alloc]init];
+                        sendSmscodeVC.title = self.title;
                         sendSmscodeVC.phonNumber = mobile;
                         sendSmscodeVC.captcha = self.checkPaptchaStr;
                         sendSmscodeVC.type = self.type;

@@ -32,8 +32,9 @@
 - (void)setupSubViewFrame
 {
     [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
         make.left.equalTo(self).offset(kScrAdaptationW750(30));
+        make.centerY.equalTo(self);
+        make.width.offset(kScrAdaptationW750(150));
     }];
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
@@ -46,7 +47,8 @@
 - (void)setLeftStr:(NSString *)leftStr
 {
     _leftStr = leftStr;
-    _leftLabel.text = leftStr;
+    self.leftLabel.text = leftStr;
+    [self.leftLabel sizeToFit];
 }
 
 - (NSString *)text
@@ -55,7 +57,8 @@
 }
 - (void)setPlaceholder:(NSString *)placeholder
 {
-    
+    _placeholder = placeholder;
+    self.textField.placeholder = placeholder;
 }
 #pragma mark - 懒加载
 - (UILabel *)leftLabel

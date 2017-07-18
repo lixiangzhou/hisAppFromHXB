@@ -39,6 +39,8 @@
     if (!_tipLabel) {
         _tipLabel = [[UILabel alloc] init];
         _tipLabel.text = @"充值金额会进入恒丰银行个人存管账户";
+        _tipLabel.textColor = COR10;
+        _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
     }
     return _tipLabel;
 }

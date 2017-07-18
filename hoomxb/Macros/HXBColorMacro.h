@@ -46,13 +46,13 @@
 #define COR7    [UIColor colorWithRed:85/255.0f green:85/255.0f blue:85/255.0f alpha:1]    // 色
 
 // 深灰
-#define COR8    [UIColor colorWithRed:119/255.0f green:119/255.0f blue:119/255.0f alpha:1]    // 色
+#define COR8    [UIColor colorWithRed:102/255.0f green:102/255.0f blue:102/255.0f alpha:1]    // 色
 #define COR9    [UIColor colorWithRed:136/255.0f green:136/255.0f blue:136/255.0f alpha:1]    // 色
 #define COR10    [UIColor colorWithRed:153/255.0f green:153/255.0f blue:153/255.0f alpha:1]    // 色
 // 中灰
 #define COR11    [UIColor colorWithRed:197/255.0f green:197/255.0f blue:197/255.0f alpha:1]    // 色
 // 浅灰
-#define COR12    [UIColor colorWithRed:224/255.0f green:224/255.0f blue:224/255.0f alpha:1]    // 色
+#define COR12    [UIColor colorWithRed:221/255.0f green:221/255.0f blue:221/255.0f alpha:1]    // 色
 
 #define COR13    [UIColor colorWithRed:232/255.0f green:232/255.0f blue:232/255.0f alpha:1]    // 色
 #define COR14    [UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1]    // 色
@@ -65,7 +65,7 @@
 
 #define COR18    [UIColor colorWithRed:229/255.0f green:64/255.0f blue:64/255.0f alpha:1]    // 红色
 
-#define COR19    [UIColor colorWithRed:37/255.0f green:152/255.0f blue:230/255.0f alpha:1]    // 蓝色
+#define COR19    [UIColor colorWithRed:0/255.0f green:61/255.0f blue:126/255.0f alpha:1]    // 蓝色
 
 #define COR20    [UIColor colorWithRed:255/255.0f green:141/255.0f blue:25/255.0f alpha:1]  // 首页消息背景橙色
 
@@ -75,5 +75,6 @@
 
 #define COR23    [UIColor colorWithRed:221/255.0f green:58/255.0f blue:22/255.0f alpha:1]
 
+#define COR24    [UIColor colorWithRed:227/255.0f green:191/255.0f blue:128/255.0f alpha:1]
 
 #endif /* HXBColorMacro_h */

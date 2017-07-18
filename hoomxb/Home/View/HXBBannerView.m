@@ -67,9 +67,9 @@
 -(void)sc_didClickAd:(id)adModel{
     NSLog(@"sc_didClickAd-->%@",adModel);
 }
--(void)sc_scrollToIndex:(NSInteger)index{
-    NSLog(@"sc_scrollToIndex-->%ld",index);
-}
+//-(void)sc_scrollToIndex:(NSInteger)index{
+//    NSLog(@"sc_scrollToIndex-->%ld",index);
+//}
 //- (SDCycleScrollView *)bannerScrollView
 //{
 //    if (!_bannerScrollView) {

@@ -9,89 +9,98 @@
 #import "HXBBindBankCardViewController.h"
 #import "HXBCardholderInformationView.h"
 #import "HXBGetValidationCodeView.h"
-#import "HXBRechargeCompletedViewController.h"
+#import "HxbMyTopUpViewController.h"
 @interface HXBBindBankCardViewController ()
 
-/**
- 持卡人信息
- */
-@property (nonatomic, strong) HXBCardholderInformationView *cardholderInformationView;
+@property (nonatomic, strong) UIImageView *iconView;
 
-/**
- 获取验证码
- */
-@property (nonatomic, strong) HXBGetValidationCodeView *getValidationCodeView;
-
+@property (nonatomic, strong) UILabel *promptLabel;
 /**
  完成按钮
  */
-@property (nonatomic, strong) UIButton *completeBtn;
+@property (nonatomic, strong) UIButton *openAccountBtn;
 @end
 
 @implementation HXBBindBankCardViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"开通恒丰银行存管账户";
     
-    [self.view addSubview:self.cardholderInformationView];
-    [self.view addSubview:self.getValidationCodeView];
-    [self.view addSubview:self.completeBtn];
-    
+    self.automaticallyAdjustsScrollViewInsets = YES;
+    [self.view addSubview:self.iconView];
+    [self.view addSubview:self.promptLabel];
+    [self.view addSubview:self.openAccountBtn];
     [self setSubViewFrame];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isBlueGradientNavigationBar = YES;
 }
 
 - (void)setSubViewFrame
 {
-    [self.cardholderInformationView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.top.equalTo(self.view.mas_top).offset(64);
-        make.height.equalTo(@kScrAdaptationH(80));
+    [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.view).offset(kScrAdaptationH(46) + 64);
+        make.height.offset(kScrAdaptationH(216));
+        make.width.offset(kScrAdaptationW(250));
     }];
-    [self.getValidationCodeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(20);
-        make.right.equalTo(self.view.mas_right).offset(-20);
-        make.top.equalTo(self.cardholderInformationView.mas_bottom).offset(20);
-        make.height.equalTo(@44);
+    [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.iconView.mas_bottom).offset(kScrAdaptationH(40));
+        make.width.equalTo(self.iconView.mas_width);
     }];
-    [self.completeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(20);
-        make.right.equalTo(self.view.mas_right).offset(-20);
-        make.top.equalTo(self.getValidationCodeView.mas_bottom).offset(50);
-        make.height.equalTo(@kScrAdaptationH(44));
+    [self.openAccountBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(kScrAdaptationW(20));
+        make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
+        make.top.equalTo(self.promptLabel.mas_bottom).offset(kScrAdaptationH(40));
+        make.height.offset(kScrAdaptationH(41));
     }];
 }
 
-- (void)completeBtnClick
+- (void)openAccountBtnClick
 {
-    HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
-    [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
+
+    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    //充值结果
+//    #import "HXBRechargeCompletedViewController.h"
+//    HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
+//    [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
 }
 
 #pragma mark - 懒加载
-- (HXBCardholderInformationView *)cardholderInformationView
+
+- (UILabel *)promptLabel
 {
-    if (!_cardholderInformationView) {
-        _cardholderInformationView = [[HXBCardholderInformationView alloc] init];
+    if (!_promptLabel) {
+        _promptLabel = [[UILabel alloc] init];
+        _promptLabel.numberOfLines = 0;
+        _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
+        _promptLabel.textColor = COR8;
+        _promptLabel.text = @"红小宝与恒丰银行完成存管对接用户资金安全隔离";
+        _promptLabel.textAlignment = NSTextAlignmentCenter;
     }
-    return _cardholderInformationView;
-}
-- (HXBGetValidationCodeView *)getValidationCodeView
-{
-    if (!_getValidationCodeView) {
-        _getValidationCodeView = [[HXBGetValidationCodeView alloc] init];
-    }
-    return _getValidationCodeView;
+    return _promptLabel;
 }
 
-- (UIButton *)completeBtn
+- (UIImageView *)iconView
 {
-    if (!_completeBtn) {
-        _completeBtn = [[UIButton alloc] init];
-        [_completeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [_completeBtn setTitle:@"完成" forState:UIControlStateNormal];
-        [_completeBtn addTarget:self action:@selector(completeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    if (!_iconView) {
+        _iconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bank"]];
     }
-    return _completeBtn;
+    return _iconView;
+}
+
+- (UIButton *)openAccountBtn
+{
+    if (!_openAccountBtn) {
+        _openAccountBtn = [UIButton btnwithTitle:@"立即开通恒丰银行存管账户" andTarget:self andAction:@selector(openAccountBtnClick) andFrameByCategory:CGRectZero];
+        [_openAccountBtn setBackgroundColor:COR24];
+    }
+    return _openAccountBtn;
 }
 @end

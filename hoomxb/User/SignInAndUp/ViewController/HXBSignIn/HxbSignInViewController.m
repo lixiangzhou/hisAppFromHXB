@@ -70,7 +70,6 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 /// 设置 登录界面
 - (void)setSignView{
     kWeakSelf
-    
     self.signView = [[HxbSignInView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     self.hxb_automaticallyAdjustsScrollViewInsets = false;
     [self.hxbBaseVCScrollView addSubview:self.signView];
@@ -140,7 +139,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     kWeakSelf
     [self.signView signUP_clickButtonFunc:^{
         HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
-        
+        signUPVC.title = @"注册";
         signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;
         [weakSelf.navigationController pushViewController:signUPVC animated:true];
     }];
@@ -151,6 +150,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     kWeakSelf
     [self.signView clickforgetPasswordButtonFunc:^{
         HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc] init];
+        signUPVC.title = @"重置登录密码";
         signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
         [weakSelf.navigationController pushViewController:signUPVC animated:true];
     }];

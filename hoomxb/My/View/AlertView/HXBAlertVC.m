@@ -8,6 +8,7 @@
 
 #import "HXBAlertVC.h"
 #import "SVGKImage.h"
+#import "HXBVerificationCodeAlertView.h"
 @interface HXBAlertVC ()
 @property (nonatomic, strong) UIButton *cancelBtn;
 
@@ -26,6 +27,8 @@
 @property (nonatomic, strong) UIButton *eyeBtn;
 
 @property (nonatomic, strong) UIButton *backBtn;
+
+@property (nonatomic, strong) HXBVerificationCodeAlertView *verificationCodeAlertView;
 
 @end
 
@@ -46,11 +49,25 @@
     [self.view addSubview:self.contentView];
     [self.view addSubview:self.cancelBtn];
     [self.contentView addSubview:self.sureBtn];
-    [self.contentView addSubview:self.forgetBtn];
     [self.contentView addSubview:self.message];
-    [self.contentView addSubview:self.pwdField];
-    [self.contentView addSubview:self.lineView];
-    [self.contentView addSubview:self.eyeBtn];
+    
+    
+    
+   
+}
+
+- (void)setIsCode:(BOOL)isCode
+{
+    _isCode = isCode;
+    if (isCode) {
+        [self.contentView addSubview:self.verificationCodeAlertView];
+    }else
+    {
+        [self.contentView addSubview:self.forgetBtn];
+        [self.contentView addSubview:self.pwdField];
+        [self.contentView addSubview:self.lineView];
+        [self.contentView addSubview:self.eyeBtn];
+    }
     [self setupSubViewFrame];
 }
 
@@ -59,7 +76,7 @@
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(self.view).offset(kScrAdaptationH750(385));
-        make.height.offset(kScrAdaptationH750(438));
+        make.height.offset(kScrAdaptationH750(440));
         make.width.offset(kScrAdaptationW750(590));
     }];
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -73,6 +90,29 @@
         make.centerX.equalTo(self.contentView);
         make.height.offset(kScrAdaptationH750(34));
     }];
+    [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(kScrAdaptationH750(-80));
+        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(40));
+        make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(40));
+        make.height.offset(kScrAdaptationH750(70));
+    }];
+    [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_top);
+        make.left.equalTo(self.view.mas_left);
+        make.right.equalTo(self.view.mas_right);
+        make.bottom.equalTo(self.view.mas_bottom);
+    }];
+
+    if (self.isCode) {
+        [self.verificationCodeAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.message.mas_bottom);
+            make.bottom.equalTo(self.sureBtn.mas_top);
+            make.left.equalTo(self.contentView).offset(kScrAdaptationW750(90));
+            make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-90));
+        }];
+        return;
+    }
+    
     [self.pwdField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.message.mas_bottom).offset(kScrAdaptationH750(60));
         make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(40));
@@ -98,32 +138,52 @@
         make.right.equalTo(self.pwdField.mas_right);
     }];
     
-    [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lineView.mas_bottom).offset(kScrAdaptationH750(60));
-        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(40));
-        make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(40));
-        make.height.offset(kScrAdaptationH750(70));
-    }];
-    [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top);
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.bottom.equalTo(self.view.mas_bottom);
-    }];
+}
+
+- (void)setMessageTitle:(NSString *)messageTitle
+{
+    _messageTitle = messageTitle;
+    self.message.text = messageTitle;
+}
+
+- (void)buttonClick:(UIButton *)btn
+{
+    if (!self.isCode) {
+        //校验交易密码
+        [self checkTransactionPasswordWithBtn:btn];
+    }else
+    {
+        //校验验证码
+        [self checkVerificationCode];
+    }
     
 }
-- (void)buttonClick:(UIButton *)btn
+/**
+ 校验验证码
+ */
+- (void)checkVerificationCode
+{
+    if (self.verificationCodeAlertView.verificationCode.length <= 0) {
+        [HxbHUDProgress showMessage:@"验证码不能为空" inView:self.contentView];
+        return;
+    }
+    self.sureBtnClick(self.verificationCodeAlertView.verificationCode);
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
+
+/**
+ 校验交易密码
+ */
+- (void)checkTransactionPasswordWithBtn:(UIButton *)btn
 {
     if ([btn.titleLabel.text isEqualToString:@"确定"]) {
         NSString *message = [NSString isOrNoPasswordStyle:self.pwdField.text];
         if (message.length > 0) {
-            [HxbHUDProgress showTextWithMessage:message];
+            [HxbHUDProgress showMessage:message inView:self.contentView];
             return;
         }else
         {
-            if (self.sureBtnClick) {
-                self.sureBtnClick(self.pwdField.text);
-            }
+            self.sureBtnClick(self.pwdField.text);
         }
     }else if ([btn.titleLabel.text isEqualToString:@"忘记密码"])
     {
@@ -131,10 +191,9 @@
             self.forgetBtnClick();
         }
     }
-    [self dismissViewControllerAnimated:NO completion:^{
-        
-    }];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
+
 - (UIView *)lineView
 {
     if (!_lineView) {
@@ -164,7 +223,7 @@
         [_cancelBtn setImage:[SVGKImage imageNamed:@"close.svg"].UIImage forState:UIControlStateNormal];
         [_cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _cancelBtn.backgroundColor = [UIColor clearColor];
-        [_cancelBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        [_cancelBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancelBtn;
 }
@@ -204,7 +263,6 @@
 {
     if (!_message) {
         _message = [[UILabel alloc] init];
-        _message.text = @"请输入您的交易密码";
     }
     return _message;
 }
@@ -240,6 +298,15 @@
         [_backBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;
+}
+
+- (HXBVerificationCodeAlertView *)verificationCodeAlertView
+{
+    if (!_verificationCodeAlertView) {
+        _verificationCodeAlertView = [[HXBVerificationCodeAlertView alloc] init];
+        _verificationCodeAlertView.backgroundColor = [UIColor whiteColor];
+    }
+    return _verificationCodeAlertView;
 }
 
 - (void)dismiss

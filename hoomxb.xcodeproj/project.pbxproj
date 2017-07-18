@@ -26,6 +26,8 @@
 		4E4ACC911F05FBBB0031B326 /* HXBLoanInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */; };
 		4E4ACC941F060F550031B326 /* HXBLoanInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC931F060F550031B326 /* HXBLoanInstructionView.m */; };
 		4E4ACC9A1F061F3D0031B326 /* HXBHXBBorrowUserinforView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC991F061F3D0031B326 /* HXBHXBBorrowUserinforView.m */; };
+		4E4D07231F1C60B6003E8FB9 /* invitation_code.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E4D07221F1C60B6003E8FB9 /* invitation_code.svg */; };
+		4E4D07261F1C8D45003E8FB9 /* HXBBankListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D07251F1C8D45003E8FB9 /* HXBBankListCell.m */; };
 		4E5003371F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5003361F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m */; };
 		4E559B4B1F0F8B67003D9982 /* HXBGetValidationCodeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E559B4A1F0F8B67003D9982 /* HXBGetValidationCodeView.m */; };
 		4E559B4E1F0FAFFC003D9982 /* HXBRechargeCompletedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E559B4D1F0FAFFC003D9982 /* HXBRechargeCompletedViewController.m */; };
@@ -44,6 +46,7 @@
 		4E7BDEBC1F189F02002A3E18 /* bank.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BDEBB1F189F02002A3E18 /* bank.svg */; };
 		4E7BDEBE1F189F11002A3E18 /* arrow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BDEBD1F189F11002A3E18 /* arrow.svg */; };
 		4E7BDEC11F18B650002A3E18 /* HXBLeftLabelTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BDEC01F18B650002A3E18 /* HXBLeftLabelTextView.m */; };
+		4E7BDEC41F18D0B2002A3E18 /* HXBVerificationCodeAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BDEC31F18D0B2002A3E18 /* HXBVerificationCodeAlertView.m */; };
 		4E7CCF471EBC1B5B00F7BDB3 /* banner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3A1EBC1B5B00F7BDB3 /* banner@2x.png */; };
 		4E7CCF481EBC1B5B00F7BDB3 /* banner@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3B1EBC1B5B00F7BDB3 /* banner@3x.png */; };
 		4E7CCF491EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E7CCF3C1EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png */; };
@@ -425,6 +428,9 @@
 		4E4ACC931F060F550031B326 /* HXBLoanInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLoanInstructionView.m; sourceTree = "<group>"; };
 		4E4ACC981F061F3D0031B326 /* HXBHXBBorrowUserinforView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBHXBBorrowUserinforView.h; sourceTree = "<group>"; };
 		4E4ACC991F061F3D0031B326 /* HXBHXBBorrowUserinforView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBHXBBorrowUserinforView.m; sourceTree = "<group>"; };
+		4E4D07221F1C60B6003E8FB9 /* invitation_code.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = invitation_code.svg; sourceTree = "<group>"; };
+		4E4D07241F1C8D45003E8FB9 /* HXBBankListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBankListCell.h; sourceTree = "<group>"; };
+		4E4D07251F1C8D45003E8FB9 /* HXBBankListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBankListCell.m; sourceTree = "<group>"; };
 		4E5003351F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCheckLoginPasswordViewController.h; sourceTree = "<group>"; };
 		4E5003361F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCheckLoginPasswordViewController.m; sourceTree = "<group>"; };
 		4E559B491F0F8B67003D9982 /* HXBGetValidationCodeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBGetValidationCodeView.h; sourceTree = "<group>"; };
@@ -454,6 +460,8 @@
 		4E7BDEBD1F189F11002A3E18 /* arrow.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = arrow.svg; sourceTree = "<group>"; };
 		4E7BDEBF1F18B650002A3E18 /* HXBLeftLabelTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBLeftLabelTextView.h; sourceTree = "<group>"; };
 		4E7BDEC01F18B650002A3E18 /* HXBLeftLabelTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLeftLabelTextView.m; sourceTree = "<group>"; };
+		4E7BDEC21F18D0B2002A3E18 /* HXBVerificationCodeAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBVerificationCodeAlertView.h; sourceTree = "<group>"; };
+		4E7BDEC31F18D0B2002A3E18 /* HXBVerificationCodeAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBVerificationCodeAlertView.m; sourceTree = "<group>"; };
 		4E7CCF3A1EBC1B5B00F7BDB3 /* banner@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@2x.png"; sourceTree = "<group>"; };
 		4E7CCF3B1EBC1B5B00F7BDB3 /* banner@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner@3x.png"; sourceTree = "<group>"; };
 		4E7CCF3C1EBC1B5B00F7BDB3 /* bannerplaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bannerplaceholder@2x.png"; sourceTree = "<group>"; };
@@ -1428,6 +1436,7 @@
 		4E7E5B661F146F3C00771C07 /* SVG */ = {
 			isa = PBXGroup;
 			children = (
+				4E4D07221F1C60B6003E8FB9 /* invitation_code.svg */,
 				4E7BDEBD1F189F11002A3E18 /* arrow.svg */,
 				4E7BDEBB1F189F02002A3E18 /* bank.svg */,
 				4E7BDEB61F187771002A3E18 /* bankcard.svg */,
@@ -1624,6 +1633,8 @@
 			children = (
 				4E9982451F02677B00CABA59 /* HXBAlertVC.h */,
 				4E9982461F02677B00CABA59 /* HXBAlertVC.m */,
+				4E7BDEC21F18D0B2002A3E18 /* HXBVerificationCodeAlertView.h */,
+				4E7BDEC31F18D0B2002A3E18 /* HXBVerificationCodeAlertView.m */,
 			);
 			path = AlertView;
 			sourceTree = "<group>";
@@ -3153,6 +3164,8 @@
 				4E94E3811F0F63D300746973 /* HXBWithdrawCardView.m */,
 				4E7BDEB81F187923002A3E18 /* HXBCustomTextField.h */,
 				4E7BDEB91F187923002A3E18 /* HXBCustomTextField.m */,
+				4E4D07241F1C8D45003E8FB9 /* HXBBankListCell.h */,
+				4E4D07251F1C8D45003E8FB9 /* HXBBankListCell.m */,
 			);
 			path = HXBAccountView;
 			sourceTree = "<group>";
@@ -3577,6 +3590,7 @@
 				4E7BDEBE1F189F11002A3E18 /* arrow.svg in Resources */,
 				4ED2F2801ECADC960014E5C7 /* introductionplaceholder@3x.png in Resources */,
 				4E7CCF4C1EBC1B5B00F7BDB3 /* pageControl@3x.png in Resources */,
+				4E4D07231F1C60B6003E8FB9 /* invitation_code.svg in Resources */,
 				4E8EAA0A1F176B3D003834D4 /* close.svg in Resources */,
 				4E88A51F1F15B78900BBDF11 /* mobile_number.svg in Resources */,
 				4E7CCF4D1EBC1B5B00F7BDB3 /* pageControl_select@2x.png in Resources */,
@@ -3831,6 +3845,7 @@
 				E165EAA91EF8E74600D68763 /* HXBFinDetail_TableView.m in Sources */,
 				E133DCEB1EEE3597009466DE /* HxbSignUpSucceedViewController.m in Sources */,
 				E16314351EC076750090567E /* HXBFinDetailViewModel_PlanDetail.m in Sources */,
+				4E7BDEC41F18D0B2002A3E18 /* HXBVerificationCodeAlertView.m in Sources */,
 				E1FBADB71EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m in Sources */,
 				4E35C6CA1F0E47CB0022C8E6 /* HXBMyTopUpHeaderView.m in Sources */,
 				E112623A1EC5A9290084A22D /* FinModel_AddRecortdModel_Loan.m in Sources */,
@@ -3934,6 +3949,7 @@
 				E165EA9B1EF8E6D500D68763 /* HXBJoinImmediateView.m in Sources */,
 				4EB45DA51EF7A2BF00C2CF21 /* HxbHomeRequest_dataList.m in Sources */,
 				4E9345541EFE102500D2886B /* HXBModifyPhoneView.m in Sources */,
+				4E4D07261F1C8D45003E8FB9 /* HXBBankListCell.m in Sources */,
 				E1270B251ECED07100729BC9 /* HXBMY_PlanList_DetailViewController.m in Sources */,
 				4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */,
 				E1D048531EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m in Sources */,

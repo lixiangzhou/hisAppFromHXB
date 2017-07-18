@@ -16,7 +16,7 @@
 #import "HXBBankCardListViewController.h"
 #import "HXBWithdrawCardView.h"
 
-#import "HXBBindBankCardViewController.h"//ZCC需要修改逻辑
+
 @interface HxbWithdrawCardViewController () <UITextFieldDelegate>
 
 /**
@@ -84,10 +84,7 @@
 }
 
 - (void)nextButtonClick:(NSString *)bankCard{
-    
-    HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
-    bindBankCardVC.title = @"绑卡";
-    [self.navigationController pushViewController:bindBankCardVC animated:YES];
+   
 //    kWeakSelf
 //    HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
 //    alertVC.sureBtnClick = ^(NSString *pwd){

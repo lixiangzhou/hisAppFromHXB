@@ -123,6 +123,14 @@
     }
 }
 
+- (void)setIsBlueGradientNavigationBar:(BOOL)isBlueGradientNavigationBar
+{
+    if (isBlueGradientNavigationBar) {
+        self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
+        self.navigationController.navigationBar.barTintColor = COR19;
+    }
+}
+
 ///是否禁止scrollView自动向下平移64
 - (void)setHxb_automaticallyAdjustsScrollViewInsets:(BOOL)hxb_automaticallyAdjustsScrollViewInsets {
     _hxb_automaticallyAdjustsScrollViewInsets = hxb_automaticallyAdjustsScrollViewInsets;

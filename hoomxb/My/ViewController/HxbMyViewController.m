@@ -10,10 +10,10 @@
 #import "AppDelegate.h"
 #import "HxbMyView.h"
 #import "HxbAccountInfoViewController.h"
-#import "HxbMyTopUpViewController.h"
 #import "HxbWithdrawViewController.h"
 #import "HXBRequestUserInfo.h"
 #import "HXBMY_AllFinanceViewController.h"
+#import "HXBBindBankCardViewController.h"
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
@@ -107,20 +107,11 @@
 }
 ///充值
 - (void)didClickTopUpBtn:(UIButton *)sender{
-    HXBAlertManager *alertManager = [HXBAlertManager alertViewWithTitle:@"" andMessage:@"红小宝与恒丰银行完成对接平台与用户资金安全隔离"];
-    
-    [alertManager addButtonWithBtnName:@"立即开通恒丰银行存管账户" andWitHandler:^{
-        NSLog(@"立即开通恒丰银行存管账户");
-        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-    }];
-    
-    [alertManager addButtonWithBtnName:@"取消" andWitHandler:^{
-        
-    }];
-    
-    [alertManager showWithVC:self];
-    
+    //        #import "HxbMyTopUpViewController.h"
+    //        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+    //        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
+    [self.navigationController pushViewController:bindBankCardVC animated:YES];
 }
 /// 提现
 - (void)didClickWithdrawBtn:(UIButton *)sender{

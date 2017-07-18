@@ -15,6 +15,8 @@
 @property (nonatomic,assign) BOOL isTransparentNavigationBar;
 ///导航条是否为红色渐变
 @property (nonatomic,assign) BOOL isColourGradientNavigationBar;
+///导航条是否为蓝色
+@property (nonatomic,assign) BOOL isBlueGradientNavigationBar;
 ///自动把scrollView向下平移64
 @property (nonatomic,assign) BOOL hxb_automaticallyAdjustsScrollViewInsets;
 ///懒加载 scrollView，作为了垫底的scrollView

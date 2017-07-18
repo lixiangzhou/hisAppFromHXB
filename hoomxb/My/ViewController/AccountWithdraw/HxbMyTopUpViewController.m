@@ -13,6 +13,7 @@
 
 
 #import "HXBQuickRechargeViewController.h"//ZCC需要修改逻辑
+#import "HXBAlertVC.h"
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
@@ -26,6 +27,7 @@
     self.isColourGradientNavigationBar = YES;
     self.title = @"充值";
     [self.view addSubview:self.myTopUpBaseView];
+    
 }
 
 
@@ -44,8 +46,15 @@
 
 - (void)enterRecharge
 {
-    HXBQuickRechargeViewController *quickRechargeVC = [[HXBQuickRechargeViewController alloc] init];
-    [self.navigationController pushViewController:quickRechargeVC animated:YES];
+    HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
+    alertVC.isCode = YES;
+    alertVC.messageTitle = @"请输入您的短信验证码";
+    alertVC.sureBtnClick = ^(NSString *pwd){
+        HXBQuickRechargeViewController *quickRechargeVC = [[HXBQuickRechargeViewController alloc] init];
+        [self.navigationController pushViewController:quickRechargeVC animated:YES];
+    };
+
+    [self presentViewController:alertVC animated:NO completion:nil];
 
 }
 
