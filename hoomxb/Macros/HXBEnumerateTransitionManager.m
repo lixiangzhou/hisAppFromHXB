@@ -108,4 +108,25 @@
             break;
     }
 }
+
+#pragma mark =========================== loanTruansfer =========================
+/**
+ 状态
+ TRANSFERING：正在转让，
+ TRANSFERED：转让完毕，
+ CANCLE：已取消，
+ CLOSED_CANCLE：结标取消，
+ OVERDUE_CANCLE：逾期取消，
+ PRESALE：转让预售
+ */
++ (NSString *)Fin_LoanTruansfer_StatusWith_request:(NSString *)request {
+    if ([request isEqualToString:@"TRANSFERING"])       return @"正在转让";
+    if ([request isEqualToString:@"TRANSFERED"])        return @"转让完毕";
+    if ([request isEqualToString:@"CANCLE"])            return @"已取消";
+    if ([request isEqualToString:@"CLOSED_CANCLE"])     return @"结标取消";
+    if ([request isEqualToString:@"OVERDUE_CANCLE"])    return @"逾期取消";
+    if ([request isEqualToString:@"PRESALE"])           return @"转让预售";
+    NSLog(@"🌶 loanTruansfer 数据错误%@",self);
+    return @"数据错误";
+}
 @end

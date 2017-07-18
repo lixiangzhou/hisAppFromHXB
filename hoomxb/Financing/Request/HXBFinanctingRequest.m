@@ -25,6 +25,8 @@
 #import "HXBFinDetailViewModel_LoanDetail.h"//散标详情ViewModel
 #import "HXBFinDatailModel_LoanDetail.h"//散标Model
 
+#import "HXBFinDetailViewModel_LoanTruansferDetail.h"//债转的viewModel
+
 //MARK: - 加入记录
 #import "HXBFinModel_AddRecortdModel_Plan.h"//加入记录的model
 #import "FinModel_AddRecortdModel_Loan.h"//加入记录的model loan
@@ -389,7 +391,7 @@
                 failureBlock(nil,responseObject);
             }
         }
-        
+        NSDictionary *dataDic = responseObject[kResponseData][kResponseDataList];
         
     } failure:^(HXBBaseRequest *request, NSError *error) {
         

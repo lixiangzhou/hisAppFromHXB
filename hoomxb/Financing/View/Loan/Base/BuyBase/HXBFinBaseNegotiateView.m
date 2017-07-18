@@ -99,4 +99,8 @@
     }
     [self.negotiateButton setTitle:_negotiateStr  forState: UIControlStateNormal];
 }
+
+- (void)clickNegotiateWithBlock:(void (^)())clickNegotiateBlock {
+    self.clickNegotiateBlock = clickNegotiateBlock;
+}
 @end

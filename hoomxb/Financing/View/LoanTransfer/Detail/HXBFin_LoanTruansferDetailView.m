@@ -76,7 +76,7 @@
     if (self) {
         _manager = [[HXBFin_LoanTruansferDetailViewManger alloc]init];
         [self setup];
-        self.backgroundColor = [UIColor colorWithWhite:0.8 alpha:1];
+        self.backgroundColor = kHXBColor_BackGround;
     }
     return self;
 }
