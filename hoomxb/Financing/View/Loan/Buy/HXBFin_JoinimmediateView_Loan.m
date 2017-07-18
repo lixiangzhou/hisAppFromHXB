@@ -58,13 +58,13 @@
     
     
     _model = model;
-    self.remainAmountLabel.text = model.loanAcountLabelStr;
-    self.remainAmount_Const.text = model.loanAcountLable_ConstStr;
-    self.loanAcountLable_Const.text = model.loanAcountLable_ConstStr;// @"标的剩余可投金额";
-    self.loanAcountLabel.text = model.loanAcountLabelStr;//
+    self.remainAmountLabel.text = model.remainAmountLabelStr;
+    self.remainAmount_Const.text = model.remainAmountLabel_ConstStr;// @"标的剩余可投金额";
 //    self.profitLabel_const.text = model.JoinImmediateView_Model.profitLabel_consttStr;//@"预计收益";
     self.negotiateView.negotiateStr = model.JoinImmediateView_Model.negotiateLabelStr;///@"我已阅读并同意";
+    
     [self.addButton setTitle:model.JoinImmediateView_Model.addButtonStr forState:UIControlStateNormal];
+    
     self.rechargeView.placeholder = model.JoinImmediateView_Model.rechargeViewTextField_placeholderStr;
     [self.rechargeView.button setTitle:model.JoinImmediateView_Model.buyButtonStr forState:UIControlStateNormal];
     [self changeAddButtonWihtUserInteractionEnabled:model.addButtonEndEditing];//button是否可以点击
