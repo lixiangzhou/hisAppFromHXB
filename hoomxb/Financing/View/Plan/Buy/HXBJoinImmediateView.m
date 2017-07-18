@@ -7,26 +7,31 @@
 //
 
 #import "HXBJoinImmediateView.h"
-#import "HXBRechargeView.h"///充值
-
-
+#import "HXBRechargeView.h"///购买
+#import "HXBtopUPView.h"///充值
+#import "HXBFinBaseNegotiateView.h"///服务协议
 
 @interface HXBJoinImmediateView ()<UITextFieldDelegate>
 @property (nonatomic,strong) HXBJoinImmediateView_Model *model;
-@property (nonatomic,strong) HXBRechargeView *rechargeView;
 ///加入上线
 @property (nonatomic,strong) UILabel *upperLimitLabel;
+@property (nonatomic,strong) UIImageView *upperLimitImageView;
 @property (nonatomic,strong) UILabel *upperLimitLabel_const;
+//一键购买
+@property (nonatomic,strong) HXBRechargeView *rechargeView;
+///预计收益
+@property (nonatomic,strong) UILabel *profitLabel;
+@property (nonatomic,strong) UILabel *profitLabel_count;
+///充值
+@property (nonatomic,strong) HXBTopUPView *topUPView;
 
 @property (nonatomic,strong) UIView  *profitView;
 ///收益方式
 @property (nonatomic,strong) UILabel *profitTypeLable_Const;
 ///收益方法
 @property (nonatomic,strong) UILabel *profitTypeLabel;
+@property (nonatomic,strong) HXBFinBaseNegotiateView *negotiateView;
 
-///预计收益
-@property (nonatomic,strong) UILabel *profitLabel;
-@property (nonatomic,strong) UILabel *profitLabel_count;
 
 
 ///确定加入
@@ -40,10 +45,8 @@
 @property (nonatomic,copy) void (^clickNegotiateButton)();
 ///点击了加入
 @property (nonatomic,copy) void (^clickAddButton)(NSString *capital);
-///服务协议
-@property (nonatomic,strong) UILabel *negotiateLabel;
-///服务协议 button
-@property (nonatomic,strong) UIButton *negotiateButton;
+
+
 @end
 
 @implementation HXBJoinImmediateView
@@ -64,14 +67,14 @@
     self.profitLabel_count.text = model.profitLabel_consttStr;//@"预计收益";
     self.upperLimitLabel.text = model.upperLimitLabelStr;///@"本期计划加入上线 50,000元";
     self.upperLimitLabel_const.text = model.upperLimitLabel_constStr;
-    self.negotiateLabel.text = model.negotiateLabelStr;///@"我已阅读并同意";
-    [self.negotiateButton setTitle: model.negotiateButtonStr forState: UIControlStateNormal];
+  
     [self.addButton setTitle:model.addButtonStr forState:UIControlStateNormal];
+
     self.profitTypeLabel.text = model.profitTypeLabelStr;
     self.rechargeView.placeholder = model.rechargeViewTextField_placeholderStr;
     [self.rechargeView.button setTitle:model.buyButtonStr forState:UIControlStateNormal];
     kWeakSelf
-    [self.rechargeView setUPValueWithModel:^HXBRechargeView_Model *(HXBRechargeView_Model *model) {
+    [self.topUPView setUPValueWithModel:^HXBTopUPViewManager *(HXBTopUPViewManager *model) {
         ///余额 title
         model.balanceLabel_constStr = weakSelf.model.balanceLabel_constStr;
         ///余额展示
@@ -80,6 +83,7 @@
         model.rechargeButtonStr = weakSelf.model.rechargeButtonStr;
         return model;
     }];
+    self.negotiateView.negotiateStr = model.negotiateLabelStr;
 }
 
 - (void)setIsPlan:(BOOL)isPlan {
@@ -104,10 +108,7 @@
     return self;
 }
 - (void)setUPViews {
-    [self.negotiateButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     self.addButton.backgroundColor = [UIColor blueColor];
-    
-    [self.negotiateButton addTarget:self action:@selector(clickNegotiateButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -115,108 +116,131 @@
 
 ///设置ViewS
 - (void)creatViews {
+    //上限
+    self.upperLimitLabel = [[UILabel alloc]init];
+    self.upperLimitImageView = [[UIImageView alloc]init];
+    self.upperLimitLabel_const = [[UILabel alloc]init];
+    
+    //一键购买
     self.rechargeView = [[HXBRechargeView alloc]init];
     self.rechargeView.backgroundColor = [UIColor whiteColor];
     self.rechargeViewTextField = self.rechargeView.textField;
     self.rechargeView.textField.delegate = self;
     self.rechargeView.textField.keyboardType = UIKeyboardTypeNumberPad;
     
-    self.upperLimitLabel = [[UILabel alloc]init];
-    self.upperLimitLabel_const = [[UILabel alloc]init];
-  
-    self.profitView = [[UIView alloc]init];
-    self.profitTypeLable_Const = [[UILabel alloc]init];
-    self.profitTypeLabel = [[UILabel alloc]init];
+    //充值
+    self.topUPView = [[HXBTopUPView alloc]init];
     
+    // 预期收益
+    self.profitView = [[UIView alloc]init];
     self.profitLabel = [[UILabel alloc]init];
     self.profitLabel_count = [[UILabel alloc]init];
-    
-    self.negotiateButton = [[UIButton alloc]init];
-    self.negotiateLabel = [[UILabel alloc]init];
-    
+  
+    ///服务协议
+    self.negotiateView = [[HXBFinBaseNegotiateView alloc]init];
+
     self.addButton = [[UIButton alloc]init];
 }
 
 - (void)layoutViews {
-    [self addSubview:self.rechargeView];
+    [self addSubview:self.upperLimitImageView];
     [self addSubview:_upperLimitLabel];
     [self addSubview:self.upperLimitLabel_const];
+
+    //一键购买
+    [self addSubview:self.rechargeView];
     
+    //预期收益
     [self addSubview:_profitView];
-    [self.profitView addSubview:self.profitTypeLable_Const];
-    [self.profitView addSubview:self.profitTypeLabel];
+    [self.profitView addSubview:self.profitLabel_count];
+    [self.profitView addSubview:self.profitLabel];
+    [self.profitView addSubview:self.topUPView];
     
-    [self addSubview:self.profitLabel_count];
-    [self addSubview:self.profitLabel];
-    
-    [self addSubview:self.negotiateLabel];
-    [self addSubview:self.negotiateButton];
+    ///服务协议
+    [self addSubview:self.negotiateView];
     
     [self addSubview:self.addButton];
     
-    [self.rechargeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationH(80));
-        make.right.left.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(150)));
-    }];
-    [self.upperLimitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.rechargeView.mas_bottom).offset(kScrAdaptationH(7));
-        make.left.equalTo(self.upperLimitLabel_const.mas_right).offset(kScrAdaptationW(7));
+    
+    //上线
+    [self.upperLimitImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(kScrAdaptationH750(30));
+        make.left.equalTo(self).offset(kScrAdaptationW750(30));
+        make.height.width.equalTo(@(kScrAdaptationH750(30)));
     }];
     [self.upperLimitLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.rechargeView.mas_bottom).offset(kScrAdaptationH(7));
-        make.left.equalTo(self).offset(kScrAdaptationW(30));
+        make.centerY.equalTo(self.upperLimitImageView);
+        make.left.equalTo(self.upperLimitImageView.mas_right).offset(kScrAdaptationW750(10));
+        make.height.equalTo(@(kScrAdaptationH750(28)));
     }];
+    [self.upperLimitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.upperLimitLabel_const);
+        make.left.equalTo(self.upperLimitLabel_const.mas_right).offset(kScrAdaptationW750(2));
+        make.height.equalTo(@(kScrAdaptationH750(28)));
+    }];
+  
+    _upperLimitImageView.svgImageString = @"BUYtips";
+    self.upperLimitLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+    self.upperLimitLabel.textColor = kHXBColor_Font0_6;
+    self.upperLimitLabel_const.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+    self.upperLimitLabel_const.textColor = kHXBColor_Font0_6;
+
+    
+    [self.rechargeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.upperLimitLabel.mas_bottom).offset(kScrAdaptationH750(30));
+        make.right.left.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH750(140)));
+    }];
+    
+    //充值这一组
     [self.profitView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.upperLimitLabel.mas_bottom).offset(kScrAdaptationH(20));
-        make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(50)));
-    }];
-    [self.profitTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.profitView);
-        make.right.equalTo(self.profitView).offset(kScrAdaptationW(-20));
-        make.height.equalTo(@(kScrAdaptationH(30)));
-    }];
-    [self.profitTypeLable_Const mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.profitView);
-        make.left.equalTo(self.profitView).offset(kScrAdaptationW(20));
-        make.height.equalTo(self.profitTypeLabel);
+        make.top.equalTo(self.rechargeView.mas_bottom).offset(kScrAdaptationH750(20));
+        make.height.equalTo(@(kScrAdaptationH750(190)));
+        make.right.left.equalTo(self);
     }];
     [self.profitLabel_count mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(kScrAdaptationW(20));
-        make.height.equalTo(@(kScrAdaptationH(20)));
-        make.top.equalTo(self.profitView.mas_bottom).offset(10);
+        make.top.equalTo(self.profitView).offset(kScrAdaptationH750(50));
+        make.left.equalTo(self).offset(kScrAdaptationW750(30));
+        make.height.equalTo(@(kScrAdaptationH750(30)));
     }];
-    [self.profitLabel_count sizeToFit];
+    self.profitLabel_count.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+    self.profitLabel_count.textColor = kHXBColor_Grey_Font0_2;
     [self.profitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.profitLabel_count);
-        make.left.equalTo(self.profitLabel_count.mas_right).offset(10);
-        make.height.equalTo(self.profitLabel_count);
+        make.left.equalTo(self.profitLabel_count.mas_right).offset(kScrAdaptationW750(8));
+    }];
+    self.profitLabel.text = @"0.0元";
+    self.profitLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+    self.profitLabel.textColor = kHXBColor_Grey_Font0_2;
+    
+    [self.topUPView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.profitLabel.mas_bottom).offset(kScrAdaptationH750(30));
+        make.left.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH750(30)));
+    }];
+ 
+    [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.profitView.mas_bottom).offset(kScrAdaptationH750(20));
+        make.left.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH750(26)));
     }];
     
-    
-    [self.negotiateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(kScrAdaptationW(50));
-        make.height.equalTo(@(kScrAdaptationH(30)));
-        make.top.equalTo(self.profitLabel_count.mas_bottom).offset(20);
-    }];
-    [self.negotiateButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.negotiateLabel.mas_right).offset(0);
-        make.height.bottom.equalTo(self.negotiateLabel);
-    }];
-    
+    //加入
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.negotiateButton.mas_bottom).offset(50);
-        make.width.equalTo(@(kScrAdaptationW(60)));
-        make.height.equalTo(@(kScrAdaptationH(50)));
-        make.centerX.equalTo(self);
+        make.top.equalTo(self.negotiateView.mas_bottom).offset(kScrAdaptationH750(100));
+        make.left.equalTo(self).offset(kScrAdaptationW750(40));
+        make.right.equalTo(self).offset(kScrAdaptationW750(-40));
+        make.height.equalTo(@(kScrAdaptationH750(82)));
     }];
+    self.addButton.backgroundColor = kHXBColor_Red_090303;
+    self.addButton.layer.cornerRadius = kScrAdaptationH750(5);
+    self.addButton.layer.masksToBounds = true;
 }
 
 
 - (void)registerEvent {
     __weak typeof(self) weakSelf = self;
-    [self.rechargeView clickRechargeFunc:^{
+    [self.topUPView clickRechargeFunc:^{
         if (weakSelf.clickRechargeButton) {
             weakSelf.clickRechargeButton();
         }
@@ -224,6 +248,7 @@
     [self.rechargeView clickBuyButtonFunc:^{
         if (weakSelf.clickBuyButton) {
             weakSelf.clickBuyButton(weakSelf.rechargeView.textField.text,weakSelf.rechargeView.textField);
+            weakSelf.profitLabel.text = [weakSelf.model totalInterestWithAmount:weakSelf.rechargeView.textField.text.floatValue];
         }
     }];
 }

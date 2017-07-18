@@ -38,7 +38,7 @@
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
- 
+    self.isColourGradientNavigationBar = true;
      [super viewDidLoad];
     //判断是否登录
     [self isLogin];

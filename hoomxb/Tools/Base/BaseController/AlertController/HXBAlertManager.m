@@ -92,13 +92,17 @@
             return;
         }
         if ([viewModel.userInfoModel.userInfo.riskType isEqualToString:@"立即评测"]) {
-            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"您尚未进行风险评估，请评估后再进行投资" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"我是保守型" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    
+            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未进行风险评估请评估后在进行投资" andLeftButtonMassage:@"立即评估" andRightButtonMassage:@"我是保守型"];
+            [alertVC setClickLeftButtonBlock:^{
+                HXBRiskAssessmentViewController *riskAssessmentVC = [[HXBRiskAssessmentViewController alloc] init];
+                [vc.navigationController pushViewController:riskAssessmentVC animated:YES];
+            }];
+            [alertVC setClickRightButtonBlock:^{
                 HXBSetGesturePasswordRequest *riskModifyScore = [[HXBSetGesturePasswordRequest alloc] init];
                 [riskModifyScore riskModifyScoreRequestWithScore:@"0" andSuccessBlock:^(id responseObject) {
                     
-//                    [weakSelf enterLoanBuyViewController];
+                    //                    [weakSelf enterLoanBuyViewController];
                     if (pushBlock) {
                         pushBlock();
                     }
@@ -106,17 +110,8 @@
                 } andFailureBlock:^(NSError *error) {
                     
                 }];
-                
             }];
-            UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"立即评估" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                HXBRiskAssessmentViewController *riskAssessmentVC = [[HXBRiskAssessmentViewController alloc] init];
-                [vc.navigationController pushViewController:riskAssessmentVC animated:YES];
-            }];
-            
-            [alertController addAction:okAction];
-            [alertController addAction:cancalAction];
-            
-            [vc.navigationController presentViewController:alertController animated:YES completion:nil];
+            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
         }else
         {
 //            [weakSelf enterLoanBuyViewController];

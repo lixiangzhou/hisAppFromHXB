@@ -172,10 +172,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     
     [self.negotiateButton addTarget:self action:@selector(clickNegotiateButton:) forControlEvents:UIControlEventTouchUpInside];
 }
-//用户协议
-- (void)clickNegotiateButton: (UIButton *)button {
-    [HxbHUDProgress showTextWithMessage:@"还没接口"];
-}
+
 - (void)layoutSubView_sendSmscode {
     kWeakSelf
     [self.phonNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {

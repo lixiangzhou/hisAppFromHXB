@@ -163,7 +163,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-         self.backgroundColor = kHXBColor_heightGrey;
+         self.backgroundColor = kHXBColor_BackGround;
         [self show];
     }
     return self;
@@ -196,7 +196,7 @@
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(265)));
+        make.height.equalTo(@(kScrAdaptationH(248) - 64));
     }];
 }
 
@@ -232,14 +232,18 @@
         make.height.equalTo(@60);
     }];
     self.addButton = [[UIButton alloc]init];
-    [self.addView addSubview:_addButton];
+    
+    [self addSubview:_addButton];
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.centerY.equalTo(weakSelf.addView);
-        make.left.top.equalTo(weakSelf.addView).offset(20);
-        make.bottom.right.equalTo(weakSelf.addView).offset(-20);
+//        make.centerX.centerY.equalTo(weakSelf.addView);
+//        make.left.top.equalTo(weakSelf.addView).offset(20);
+//        make.bottom.right.equalTo(weakSelf.addView).offset(-20);
+        make.bottom.equalTo(weakSelf);
+        make.left.right.equalTo(weakSelf);
+        make.height.equalTo(@60);
     }];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
-    self.addButton.backgroundColor = [UIColor blackColor];
+    self.addButton.backgroundColor = [UIColor clearColor];
     [self.addButton setTitle:self.addButtonStr forState:UIControlStateNormal];
 
     

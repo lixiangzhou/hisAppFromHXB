@@ -45,6 +45,10 @@
     _finLoanListVMArray = finLoanListVMArray;
     self.loanListTableView.loanListViewModelArray =finLoanListVMArray;
 }
+- (void)setFinLoanTruansferVMArray:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)finLoanTruansferVMArray {
+    _finLoanTruansferVMArray = finLoanTruansferVMArray;
+    self.loanTruansferTableView.loanTruansferViewModel = finLoanTruansferVMArray;
+}
 
 
 //MARK: - 关于刷新 停止
@@ -81,7 +85,7 @@
 
 
 - (void)setupSubView {
-    self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表"];
+    self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表",@"债权转让"];
     
     
 //设置toolBarVie
@@ -102,12 +106,20 @@
 //设置toolBarView
 - (void)setupToolBarView {
     self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:self.toolBarViewOptionStrArray];
+    self.toolBarView.barAnimaViewSpacing = kScrAdaptationW(50);
+    self.toolBarView.barAnimaViewH = kScrAdaptationH(2);
     self.toolBarView.isAnima_ItemBottomBarView = true;
+    self.toolBarView.isColorChange = true;
     self.toolBarView.animaTime_ItemBottomBarView = .5;
-    self.toolBarView.itemBarAnimaViewColor = [UIColor blueColor];
+    self.toolBarView.barAnimaViewBottomSpacing = 9;
+    
+   
+    self.toolBarView.itemBarAnimaViewColor = [UIColor whiteColor];
+    self.toolBarView.itemTitleColor_select = [UIColor whiteColor];
+    self.toolBarView.itemTextColor_Normal = [UIColor colorWithWhite:1 alpha:0.5];
     //边框
-    self.toolBarView.layer.borderWidth = .2;
-    self.toolBarView.layer.borderColor = [UIColor grayColor].CGColor;
+//    self.toolBarView.layer.borderWidth = .2;
+//    self.toolBarView.layer.borderColor = [UIColor grayColor].CGColor;
 }
 
 //设置底部的scrollView数组
@@ -121,7 +133,8 @@
 
     self.bottomViewArray = @[
                              self.planListTableView,
-                             self.loanListTableView
+                             self.loanListTableView,
+                             self.loanTruansferTableView
                             ];
 }
 
@@ -217,7 +230,7 @@
 
 //搭建ScrollToolBarView
 - (void)setupScrollToolBarView {
-    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) andTopView:nil andTopViewH:0 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:30 andBottomViewSet:self.bottomViewArray];
+    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) andTopView:nil andTopViewH:0 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:64 andBottomViewSet:self.bottomViewArray];
     [self addSubview:self.scrollToolBarView];
     //点击事件的分发
     kWeakSelf

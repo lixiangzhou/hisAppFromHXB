@@ -8,7 +8,23 @@
 
 #import "UIButton+HxbButton.h"
 
+
+const NSString *const kIsColourGradientView = @"isColourGradientView";
+
 @implementation UIButton (HxbButton)
+- (void)setIsColourGradientView:(BOOL)isColourGradientView {
+    if(isColourGradientView) {
+        HXBColourGradientView *view = [[HXBColourGradientView alloc]initWithFrame:self.frame];
+        view.endPoint = CGPointMake(0, 41);
+        [self addSubview:view];
+    }
+    objc_setAssociatedObject(self, &kIsColourGradientView, @(isColourGradientView), OBJC_ASSOCIATION_ASSIGN);
+}
+- (BOOL)isColourGradientView {
+   return objc_getAssociatedObject(self, &kIsColourGradientView);
+}
+
+
 //快速创建
 + (instancetype)hxb_textButton:(NSString *)title fontSize:(CGFloat)fontSize normalColor:(UIColor *)normalColor selectedColor:(UIColor *)selectedColor {
     

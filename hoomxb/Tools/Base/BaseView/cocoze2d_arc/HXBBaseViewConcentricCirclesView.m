@@ -2,10 +2,9 @@
 //  HXBBaseViewConcentricCirclesView.m
 //  hoomxb
 //
-//  Created by HXB on 2017/7/12.
-//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
+//  Created by 李鹏跃 on 17/7/15.
+//  Copyright © 2017年 13lipengyue. All rights reserved.
 //
-
 #import "HXBBaseViewConcentricCirclesView.h"
 @interface HXBBaseViewConcentricCirclesView ()
 /**
@@ -16,6 +15,14 @@
  线的位置
  */
 @property (nonatomic,strong) NSMutableArray *lineLocationArray;
+/**
+ 中间圆的直径
+ */
+@property (nonatomic,assign) CGFloat midDiameter;
+/**
+ 两个外切圆之间的距离
+ */
+@property (nonatomic,assign) CGFloat excircleSpacing;
 @end
 @implementation HXBBaseViewConcentricCirclesView
 
@@ -24,16 +31,29 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setUP];
         self.backgroundColor = [UIColor clearColor];
+        [self setUP];
     }
     return self;
 }
 
 - (void)setUP {
-    self.circularWidth = kScrAdaptationW(2);
-    self.lineColor = HXBC_Red_Light;
-    self.circularColor = HXBC_Red_Light;
+    /**
+     圆线的宽度
+     */
+    _excircleLineWidth = 2;
+    ///同心圆 外圆直径
+    _excircleDiameter = 30;
+    ///同心圆 内圆直径
+    _insideCircularDiameter = 20;
+    ///线高
+    _lineHeight = 2;
+    
+    _excircleColor = [UIColor whiteColor];
+    _inscribedCircleColor = [UIColor whiteColor];
+    _lineColor = [UIColor redColor];
+    _inscribedCircleColor = [UIColor whiteColor];
+    _excircleLineColor = [UIColor redColor];
 }
 
 - (void)layoutSubviews {
@@ -42,10 +62,12 @@
 }
 
 
+
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     CGContextRef context = UIGraphicsGetCurrentContext();
-    [self layoutIfNeeded];
+    //    [self layoutIfNeeded];
+    NSAssert(self.stage < self.circularCount,@"🌶注意，同心圆的个数不能为负数stage = %ld，circularCount = %ld",(long)self.stage,(long)self.circularCount);
     for (int i = 0; i < self.concentricCirclesLocationArray.count; i ++) {
         //画圆
         BOOL isConcentricCircles = NO;
@@ -62,31 +84,35 @@
 }
 ///画线
 - (void)drawLineWithContext: (CGContextRef)context andLineRect: (CGRect)lineRect {
-    CGContextFillRect(context, lineRect);
+    ///划线
+    CGContextSetLineWidth(context, self.excircleLineWidth); //设置线的宽度
     CGContextSetFillColorWithColor(context, self.lineColor.CGColor);
+    CGContextAddRect(context, lineRect);
     CGContextDrawPath(context, kCGPathFill);
 }
 
 
 ///画一个圆形，是否为同心圆
 - (void)drawRectArcWithIsConcentricCircles:(BOOL)isConcentricCircles andContext:(CGContextRef)context andRect:(CGRect)rect{
-    CGContextSetStrokeColorWithColor(context, self.circularColor.CGColor);//设置填充颜色
-    CGContextAddEllipseInRect(context, rect); //画一个椭圆或者圆
-    CGContextDrawPath(context, kCGPathStroke);
-    CGContextSetFillColorWithColor(context, self.circularColor.CGColor);
-    CGContextSetLineWidth(context, self.circularWidth); //设置线的宽度
-    CGContextAddEllipseInRect(context, CGRectMake(10, 30, 60, 60)); //画一个椭圆或者圆
-    CGContextDrawPath(context, kCGPathFillStroke);
-
     
+    ///画最外层的圆
+    [self draw_Arc_Outside_WihtContext:context andRect:rect andConcentricCircles_spacing:0 andArcColor:self.excircleLineColor];
+    
+    ///画 外切圆与内切圆中间的圆
+    [self draw_Arc_Outside_WihtContext:context andRect:rect andConcentricCircles_spacing:self.excircleLineWidth andArcColor:self.excircleColor];
+    ///话内切圆
     if (!isConcentricCircles) return;
-    
+    [self draw_Arc_Outside_WihtContext:context andRect: rect andConcentricCircles_spacing:self.concentricCircles_spacing andArcColor:self.inscribedCircleColor];
+}
+
+///话内切圆
+- (void) draw_Arc_Outside_WihtContext:(CGContextRef)context andRect:(CGRect)rect andConcentricCircles_spacing:(CGFloat)concentricCircles_spacing andArcColor:(UIColor *)color{
     CGFloat X,Y,H,W;
-    X = rect.origin.x + self.concentricCircles_spacing;
-    Y = rect.origin.y + self.concentricCircles_spacing;
-    W = rect.size.width - self.concentricCircles_spacing;
-    H = rect.size.height - self.concentricCircles_spacing;
-    CGContextSetFillColorWithColor(context, self.circularColor.CGColor);
+    X = rect.origin.x + concentricCircles_spacing;
+    Y = rect.origin.y + concentricCircles_spacing;
+    W = rect.size.width - concentricCircles_spacing * 2;
+    H = rect.size.height - concentricCircles_spacing * 2;
+    CGContextSetFillColorWithColor(context, color.CGColor);
     CGRect insideEllipseLocation = CGRectMake(X, Y, W, H);
     CGContextAddEllipseInRect(context, insideEllipseLocation);
     CGContextDrawPath(context, kCGPathFill);
@@ -98,27 +124,22 @@
     NSMutableArray *arrayM_line = [[NSMutableArray alloc]init];
     ///圆形的位置
     NSMutableArray *arrayM_Circular = [[NSMutableArray alloc]init];
+    //计算两个外切圆之间的距离
+    [self setUP_excircleSpacing];
     
-    
-    CGFloat lineWidth = (self.frame.size.width - 2 - (self.circularCount * self.circularDiameter)) / (self.circularCount - 1);
     CGFloat lineY = self.frame.size.height / 2 - self.lineHeight / 2;
-    CGFloat circularY = self.frame.size.height / 2 - self.circularDiameter / 2;
+    CGFloat circularY = self.frame.size.height / 2 - self.excircleDiameter / 2;
     for (int i = 0; i < self.circularCount; i ++) {
         ///圆形的位置
-        CGFloat circularX;
-        if (i == 0) {
-            circularX = 1;
-        }else {
-            circularX = i * (lineWidth + self.circularDiameter);
-        }
-        CGRect circularRect = CGRectMake(circularX, circularY, self.circularDiameter, self.circularDiameter);
+        CGFloat circularX = i * (self.excircleSpacing + self.excircleDiameter);
+        CGRect circularRect = CGRectMake(circularX, circularY, self.excircleDiameter, self.excircleDiameter);
         NSValue *circularRect_Number = [NSValue valueWithCGRect:circularRect];
         [arrayM_Circular addObject: circularRect_Number];
         
         ///线的位置 (注意 线比圆总是少一个)
         if (i == self.circularCount - 1) continue;
-        CGFloat lineX = i * (lineWidth + self.circularDiameter) + self.circularDiameter;
-        CGRect rect = CGRectMake(lineX, lineY, lineWidth, self.lineHeight);
+        CGFloat lineX = i * (self.excircleSpacing + self.excircleDiameter) + self.excircleDiameter - self.excircleLineWidth;
+        CGRect rect = CGRectMake(lineX, lineY, self.excircleSpacing + self.excircleLineWidth * 2, self.lineHeight);
         NSValue *rectNumber = [NSValue valueWithCGRect:rect];
         [arrayM_line addObject:rectNumber];
     }
@@ -129,19 +150,16 @@
     _lineColor = lineColor;
     [self setNeedsDisplay];
 }
-- (void) setCircularColor:(UIColor *)circularColor {
-    _circularColor = circularColor;
+//外圆颜色
+- (void)setExcircleColor:(UIColor *)excircleColor {
+    _excircleColor = excircleColor;
     [self setNeedsDisplay];
 }
-///同心圆的内间距
-- (void) setConcentricCircles_spacing:(CGFloat)concentricCircles_spacing {
-    _concentricCircles_spacing = concentricCircles_spacing;
-    [self calculateLocation];
-    [self setNeedsDisplay];
-}
+
 ///同心圆 外圆直径
-- (void) setCircularDiameter:(CGFloat)circularDiameter {
-    _circularDiameter = circularDiameter;
+- (void)setExcircleDiameter:(CGFloat)excircleDiameter {
+    _excircleDiameter = excircleDiameter;
+    [self setUP_excircleSpacing];
     [self calculateLocation];
     [self setNeedsDisplay];
 }
@@ -154,6 +172,7 @@
 ///同心圆的个数
 - (void) setCircularCount:(NSInteger)circularCount {
     _circularCount = circularCount;
+    [self setUP_excircleSpacing];
     [self calculateLocation];
     [self setNeedsDisplay];
 }
@@ -163,8 +182,34 @@
     [self calculateLocation];
     [self setNeedsDisplay];
 }
-- (void)setCircularWidth:(CGFloat)circularWidth {
-    _circularWidth = circularWidth;
+- (void)setExcircleLineWidth:(CGFloat)excircleLineWidth {
+    _excircleLineWidth = excircleLineWidth;
     [self setNeedsDisplay];
+}
+
+///到底几个view 后面的都是空心圆
+- (void)setStage:(NSInteger)stage {
+    _stage = stage;
+}
+
+- (CGFloat) concentricCircles_spacing {
+    return self.excircleDiameter - self.insideCircularDiameter;
+}
+- (CGFloat) midDiameter {
+    return self.excircleDiameter - self.concentricCircles_spacing;
+}
+
+/**
+ 两个外切圆之间的距离
+ */
+- (CGFloat)excircleSpacing {
+    if (_excircleSpacing) {
+        [self setUP_excircleSpacing];
+    }
+    return _excircleSpacing;
+}
+//计算两个外切圆之间的距离
+- (void)setUP_excircleSpacing {
+    _excircleSpacing = (self.frame.size.width - self.circularCount * self.excircleDiameter) / (self.circularCount - 1);
 }
 @end

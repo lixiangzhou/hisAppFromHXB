@@ -17,6 +17,7 @@
 UITableViewDelegate,
 UITableViewDataSource
 >
+@property (nonatomic,strong) HXBNoDataView *nodataView;
 @end
 
 
@@ -29,6 +30,7 @@ static NSString *CELLID = @"CELLID";
 
 - (void)setPlanListViewModelArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)planListViewModelArray {
     _planListViewModelArray = planListViewModelArray;
+    self.nodataView.hidden = planListViewModelArray.count;
     [self reloadData];
 }
 
@@ -44,11 +46,13 @@ static NSString *CELLID = @"CELLID";
 - (void)setup {
     self.delegate = self;
     self.dataSource = self;
+    self.backgroundColor = kHXBColor_BackGround;
     
     [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
     self.separatorInset = UIEdgeInsetsMake(0, -50, 0, 0);
-    
-    self.rowHeight = 200;
+    self.backgroundColor = kHXBColor_BackGround;
+    self.rowHeight = kScrAdaptationH(121);
+    self.nodataView.hidden = false;
 }
 
 #pragma mark - datesource
@@ -74,5 +78,20 @@ static NSString *CELLID = @"CELLID";
     if (self.clickPlanListCellBlock) {
         self.clickPlanListCellBlock(indexPath, cell.finPlanListViewModel);
     }
+}
+- (HXBNoDataView *)nodataView {
+    if (!_nodataView) {
+        _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
+        [self addSubview:_nodataView];
+        _nodataView.imageName = @"Fin_NotData";
+        _nodataView.noDataMassage = @"暂无数据";
+        _nodataView.downPULLMassage = @"下拉进行刷新";
+        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(kScrAdaptationH(139));
+            make.height.width.equalTo(@(kScrAdaptationH(184)));
+            make.centerX.equalTo(self);
+        }];
+    }
+    return _nodataView;
 }
 @end

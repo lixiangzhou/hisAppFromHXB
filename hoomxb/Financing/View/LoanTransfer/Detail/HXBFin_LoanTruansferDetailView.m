@@ -84,13 +84,20 @@
 - (void)setup {
     [self creatViews];
     [self setUPFrame];
+    [self setUPViews];
 }
 
 - (void) creatViews {
     self.topView = [[HXBFin_LoanTruansferDetail_TopView alloc]init];
     self.addTrustworthiness = [[HXBFin_LoanTruansfer_AddTrustworthinessView alloc]init];
-    self.loanType_InterestLabel = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:2 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:10 andLeftRightLeftProportion:0.5];
+    UIEdgeInsets edgeinsets = UIEdgeInsetsMake(kScrAdaptationH(15), kScrAdaptationW(15), 0, kScrAdaptationW(15));
+    self.loanType_InterestLabel = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero
+                                                               andTopBottomViewNumber:2 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15)
+                                                                    andTopBottomSpace:kScrAdaptationH(20)
+                                                           andLeftRightLeftProportion:0.5
+                                                                                Space:edgeinsets];
     self.detailTableView = [[HXBFinDetail_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.detailTableView.rowHeight = kScrAdaptationH(45);
     self.promptLabel = [[UILabel alloc]init];
     self.addButton = [[UIButton alloc]init];
     
@@ -100,7 +107,6 @@
     [self addSubview:self.detailTableView];
     [self addSubview:self.promptLabel];
     [self addSubview:self.addButton];
-    
     
     self.topView.backgroundColor = [UIColor whiteColor];
     self.addTrustworthiness.backgroundColor = [UIColor whiteColor];
@@ -112,34 +118,39 @@
 - (void)setUPFrame {
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self).offset(kScrAdaptationH(0));
-        make.height.equalTo(@(kScrAdaptationH(250)));
+        make.height.equalTo(@(kScrAdaptationH(248 - 64)));
     }];
     [self.addTrustworthiness mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(8));
+        make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self.topView);
-        make.height.equalTo(@(kScrAdaptationH(50)));
+        make.height.equalTo(@(kScrAdaptationH(80)));
     }];
     [self.loanType_InterestLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.addTrustworthiness.mas_bottom).offset(kScrAdaptationH(8));
+        make.top.equalTo(self.addTrustworthiness.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(80)));
     }];
     [self.detailTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.loanType_InterestLabel.mas_bottom).offset(kScrAdaptationH(8));
+        make.top.equalTo(self.loanType_InterestLabel.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(120)));
+        make.height.equalTo(@(kScrAdaptationH(135)));
     }];
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.detailTableView.mas_bottom);
+        make.top.equalTo(self.detailTableView.mas_bottom).offset(kScrAdaptationH(20));
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(30)));
+        make.height.equalTo(@(kScrAdaptationH(17)));
     }];
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.promptLabel.mas_bottom).offset(kScrAdaptationH(30));
-        make.centerX.equalTo(self);
-        make.bottom.equalTo(self).offset(kScrAdaptationH(-20));
-        make.width.equalTo(@(kScrAdaptationW(100)));
+        make.height.equalTo (@(kScrAdaptationH(49)));
+        make.bottom.equalTo(self).offset(kScrAdaptationH(0));
+        make.left.right.equalTo(self);
     }];
+    
+}
+- (void)setUPViews {
+    self.addButton.backgroundColor = kHXBColor_Red_090303;
+    self.promptLabel.textColor = kHXBColor_Font0_6;
+    self.promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
 }
 @end
 @implementation HXBFin_LoanTruansferDetailViewManger
@@ -160,7 +171,13 @@
          还款方式
          提前还款费率
          */
-         self.loanType_InterestLabelManager = [[HXBBaseView_MoreTopBottomViewManager alloc] init];
+        self.loanType_InterestLabelManager = [[HXBBaseView_MoreTopBottomViewManager alloc] init];
+        self.loanType_InterestLabelManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(15);
+        self.loanType_InterestLabelManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(15);
+        self.loanType_InterestLabelManager.leftTextColor = kHXBColor_Grey_Font0_2;
+        self.loanType_InterestLabelManager.rightTextColor = kHXBColor_HeightGrey_Font0_4;
+        self.loanType_InterestLabelManager.leftLabelAlignment = NSTextAlignmentLeft;
+        self.loanType_InterestLabelManager.rightLabelAlignment = NSTextAlignmentRight;
         /**
          图片- 文字- 图片 的tableView
          */

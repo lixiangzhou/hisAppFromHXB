@@ -25,6 +25,11 @@
  管理者
  */
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager *viewManager;
+/**
+ 对其方式
+ */
+@property (nonatomic,assign) HXBBaseView_MoreTopBottomViewManager_Alignment alignment;
+
 @end
 
 @implementation HXBBaseView_MoreTopBottomView
@@ -37,6 +42,7 @@
 }
 - (void)setUPViewManagerWithBlock: (HXBBaseView_MoreTopBottomViewManager *(^)(HXBBaseView_MoreTopBottomViewManager *viewManager))setUPViewManagerBlock {
     self.viewManager = setUPViewManagerBlock(self.viewManager);
+    self.alignment = self.viewManager.alignment;
     for (NSInteger i = 0; i < self.leftViewArray.count; i++) {
         BOOL isSetUPViewValue_Left = [self setValueWithView:self.leftViewArray[i]
                                                      andStr:self.viewManager.leftStrArray[i]
@@ -72,6 +78,20 @@
 //        }
 //    }
 //}
+
+- (void)setAlignment:(HXBBaseView_MoreTopBottomViewManager_Alignment)alignment {
+    if (alignment) {
+        switch (alignment) {
+                //左右模式 左-》左边，右边-》右边
+            case HXBBaseView_MoreTopBottomViewManager_Alignment_LeftRight:
+                
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
 - (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass: (Class)clas andViewHeight: (CGFloat)viewH andTopBottomSpace: (CGFloat)topBottomSpace andLeftRightLeftProportion: (CGFloat)leftProportion{
     if (self = [super initWithFrame:frame]) {
         _viewManager = [[HXBBaseView_MoreTopBottomViewManager alloc]init];
@@ -79,10 +99,24 @@
         self.viewH = viewH;
         self.topBottomSpace = topBottomSpace;
         self.leftProportion = leftProportion;
-        [self setUPViews_frame];
+        UIEdgeInsets space = UIEdgeInsetsMake(0, 0, 0, 0);
+        [self setUPViews_frameWithSpace:space];
     }
     return self;
 }
+
+- (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass:(Class)clas andViewHeight:(CGFloat)viewH andTopBottomSpace:(CGFloat)topBottomSpace andLeftRightLeftProportion:(CGFloat)leftProportion Space:(UIEdgeInsets)space {
+    if (self = [super initWithFrame:frame]) {
+        _viewManager = [[HXBBaseView_MoreTopBottomViewManager alloc]init];
+        [self setUPViewsCreatWithTopBottomViewNumber:topBottomViewNumber andViewClass:clas];
+        self.viewH = viewH;
+        self.topBottomSpace = topBottomSpace;
+        self.leftProportion = leftProportion;
+        [self setUPViews_frameWithSpace:space];
+    }
+    return self;
+}
+
 
 - (void)setUPViewsCreatWithTopBottomViewNumber: (NSInteger)topBottomViewNumber andViewClass: (Class)class {
     NSMutableArray <UIView *>*leftViewArray = [[NSMutableArray alloc]init];
@@ -116,6 +150,9 @@
 }
 ///给view 赋值，并且返回是否赋值成功
 - (BOOL) setValueWithView: (UIView *)view andStr: (NSString *)value andAlignment: (NSTextAlignment)alignment andTextColor:(UIColor *)textColor andBackGroundColor: (UIColor *)backGroundColor andFont: (UIFont *)font{
+    if(!backGroundColor) {
+        backGroundColor = [UIColor whiteColor];
+    }
     if ([view isKindOfClass:[UILabel class]]) {
         UILabel *label = (UILabel *)view;
         label.text = value;
@@ -136,19 +173,21 @@
     return false;
 }
 //正在进行
-- (void)setUPViews_frame {
-   
+- (void)setUPViews_frameWithSpace:(UIEdgeInsets)space {
+    
     for (NSInteger i = 0; i < self.leftViewArray.count; i++) {
+        [self.leftViewArray[i] sizeToFit];
+        [self.rightViewArray[i] sizeToFit];
         if (i == 0) {
             [self.leftViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.left.equalTo(self);
-                make.width.equalTo(self.mas_width).multipliedBy(self.leftProportion);
+                make.top.equalTo(self).offset(space.top);
+                make.left.equalTo(self).offset(space.left);
                 make.height.equalTo(@(self.viewH));
             }];
             [self.rightViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.bottom.equalTo(self.leftViewArray[i]);
                 make.left.equalTo(self.leftViewArray[i].mas_right);
-                make.right.equalTo(self);
+                make.right.equalTo(self).offset(-space.right);
             }];
         } else {
             [self.leftViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -175,5 +214,7 @@
     }
     _rightStrArray = rightStrArray;
 }
+
+
 
 @end

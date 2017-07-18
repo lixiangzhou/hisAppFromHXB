@@ -10,7 +10,7 @@
 @class
 HXBBaseView_TwoLable_View_ViewModel,
 HXBFin_LoanTruansferDetail_TopViewManager;
-@interface HXBFin_LoanTruansferDetail_TopView : UIView
+@interface HXBFin_LoanTruansferDetail_TopView : HXBColourGradientView
 - (void)setUPValueWithManager: (HXBFin_LoanTruansferDetail_TopViewManager *(^)(HXBFin_LoanTruansferDetail_TopViewManager *manager))setUPValueManagerBlock;
 @end
 

@@ -18,6 +18,7 @@
 UITableViewDelegate,
 UITableViewDataSource
 >
+@property (nonatomic,strong) HXBNoDataView *nodataView;
 @end
 
 
@@ -28,13 +29,14 @@ static NSString *CELLID = @"CELLID";
 #pragma mark - setter
 - (void)setLoanListViewModelArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)loanListViewModelArray {
     _loanListViewModelArray = loanListViewModelArray;
+    self.nodataView.hidden = loanListViewModelArray.count;
     [self reloadData];
 }
 
 - (instancetype) initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setup];
-  
+        
     }
     return self;
 }
@@ -43,10 +45,11 @@ static NSString *CELLID = @"CELLID";
 - (void)setup {
     self.delegate = self;
     self.dataSource = self;
-    
+    self.backgroundColor = kHXBColor_BackGround;
     [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
     self.separatorInset = UIEdgeInsetsMake(0, -50, 0, 0);
-    self.rowHeight = 200;
+    self.rowHeight = kScrAdaptationH(121);
+    self.nodataView.hidden = false;
 }
 
 #pragma mark - datesource
@@ -75,5 +78,19 @@ static NSString *CELLID = @"CELLID";
         self.clickLoanListCellBlock(indexPath, cell.loanListViewModel);
     }
 }
-
+- (HXBNoDataView *)nodataView {
+    if (!_nodataView) {
+        _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
+        _nodataView.imageName = @"Fin_NotData";
+        _nodataView.noDataMassage = @"暂无数据";
+        _nodataView.downPULLMassage = @"下拉进行刷新";
+        [self addSubview:_nodataView];
+        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(kScrAdaptationH(139));
+            make.height.width.equalTo(@(kScrAdaptationH(184)));
+            make.centerX.equalTo(self);
+        }];
+    }
+    return _nodataView;
+}
 @end

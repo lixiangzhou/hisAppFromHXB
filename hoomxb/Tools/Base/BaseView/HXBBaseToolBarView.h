@@ -30,6 +30,9 @@
 /**选中的item索引*/
 @property (nonatomic,assign) NSInteger selectItemIndex;
 
+@property (nonatomic,strong) UIColor *itemBackgroundColor;
+@property (nonatomic,strong) UIColor *itemTitleColor_select;
+@property (nonatomic,strong) UIColor *itemTitleColor_Normal;
 
 #pragma mark - lien参数
 //--------------------------------------线----------------------
@@ -91,8 +94,10 @@
 #pragma mark - itemBottomBarView 带动画
 //高度
 @property (nonatomic,assign) CGFloat barAnimaViewH;
-//间距
+///左边的间距 （同右边的间距）
 @property (nonatomic,assign) CGFloat barAnimaViewSpacing;
+///与底部的间距
+@property (nonatomic,assign) CGFloat barAnimaViewBottomSpacing;
 /**是否动画*/
 @property (nonatomic,assign) BOOL isAnima_ItemBottomBarView;
 /**动画的时长*/
@@ -108,4 +113,6 @@
 /**动画view的颜色*/
 @property (nonatomic,strong) UIColor *itemBarAnimaViewColor;
 
+/**背景红色渐变*/
+@property (nonatomic,assign) BOOL isColorChange;
 @end

@@ -41,7 +41,7 @@
     [super viewDidLoad];
     ///setUP
     [self setUP];
-    ///请求数据
+    ///
     [self setUPAnimater];
 }
 

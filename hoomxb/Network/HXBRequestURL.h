@@ -14,15 +14,17 @@
 #define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",kHXBH5_BaseURL]//风险评测
 
 //MARK: ======================= 理财资产 界面 =======================
-//plan
+//列表
 #define kHXBFinanc_PlanLisetURL(planListPage) [NSString stringWithFormat:@"/plan?page=%ld",(planListPage)]//红利计划列表
-#define kHXBFinanc_Plan_AddRecortdURL(planID) [NSString stringWithFormat:@"/plan/%@/record",(planID)]//红利计划 加入记录
-//loan
 #define kHXBFinanc_LoanListURL(loanListPage) [NSString stringWithFormat:@"/loan?page=%ld",(loanListPage)]//标的列表
-#define kHXBFinanc_LoanDetaileURL(loanID) [NSString stringWithFormat:@"loan/%ld",(loanID)]//散标详情
-#define kHXBFinanc_Loan_AddRecortdURL(loanID) [NSString stringWithFormat:@"/loan/%@/record",(loanID)]//加入记录
 #define kHXBFin_LoanTruansferURL @"/transfer"///债转列表
+//详情
 #define kHXBFinanc_PlanDetaileURL(planID) [NSString stringWithFormat:@"/plan/%ld",(planID)]///计划详情
+#define kHXBFinanc_LoanDetaileURL(loanID) [NSString stringWithFormat:@"loan/%ld",(loanID)]//散标详情
+#define kHXBFin_LoanTruansfer_DetailURL(loanTruansferID) [NSString stringWithFormat:@"/transfer/%ld",(loanTruansferID)]//债转详情
+//加入记录
+#define kHXBFinanc_Loan_AddRecortdURL(loanID) [NSString stringWithFormat:@"/loan/%@/record",(loanID)]//加入记录
+#define kHXBFinanc_Plan_AddRecortdURL(planID) [NSString stringWithFormat:@"/plan/%@/record",(planID)]//红利计划 加入记录
 
 //MARK: ======================= 用户 =======================
 #define kHXBUser_UserInfoURL @"/user/info"///用户信息

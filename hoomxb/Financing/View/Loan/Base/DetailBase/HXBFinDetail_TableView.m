@@ -30,6 +30,8 @@ static NSString *CELLID = @"CELLID";
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setup];
+        self.rowHeight = kScrAdaptationH(45);
+        self.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
     }
     return self;
 }

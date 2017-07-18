@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @class HXBFinHomePageViewModel_PlanList;
 @class HXBFinHomePageViewModel_LoanList;
+@class HXBFinHomePageViewModel_LoanTruansferViewModel;
 
 @interface HXBFinanctingView_HomePage : UIView
 ///MARK: ----------  model的数组 （数据源） ---------------
@@ -16,7 +17,8 @@
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList *>* finPlanListVMArray;
 //散标列表的数据数组
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList *>* finLoanListVMArray;
-
+///债转的数据
+@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>* finLoanTruansferVMArray;
 
 //MARK: ----------  点击了中间的toolBarView按钮 ---------------
 @property (nonatomic,copy) void(^switchBottomScrollViewBlock)(NSInteger index, NSString *title, UIButton *option);
@@ -28,7 +30,7 @@
 ///点击散标列表后回调，跳转详情页
 @property (nonatomic,copy) void(^clickLoanListCellBlock)(NSIndexPath *index, id model);
 ///点击债转的cell 跳转详情页
-@property (nonatomic,copy) void(^clickLoanTruansferCellBlock)(NSIndexPath *index, id Model);
+@property (nonatomic,copy) void(^clickLoanTruansferCellBlock)(HXBFinHomePageViewModel_LoanTruansferViewModel* model,NSIndexPath *index);
 
 
 //MARK: - --------- 关于刷新 -----------------

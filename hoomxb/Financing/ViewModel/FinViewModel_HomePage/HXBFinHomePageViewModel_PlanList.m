@@ -10,8 +10,9 @@
 #import "HXBFinHomePageModel_PlanList.h"
 #import "HXBBaseHandDate.h"
 #import "HXBServerAndClientTime.h"
-#define kExpectedYearRateFont [UIFont systemFontOfSize: kScrAdaptationH(20)]
-
+#import "HXBColorMacro.h"
+#import "HXBFontMacro.h"
+#import "HXBScreenAdaptation.h"
 /**
  * 关于代售状态的枚举
  */
@@ -69,6 +70,7 @@ typedef enum : NSUInteger {
             NSLog(@"%@",_countDownLastStr);
         }
     }
+    
     return _countDownLastStr;
 }
 
@@ -127,20 +129,24 @@ typedef enum : NSUInteger {
 }
 //红利计划列表的年利率计算
 - (void)setupExpectedYearRateAttributedStr {
-    NSString *expectedYearRateStr = [NSString stringWithFormat:@"%.2lf%@",self.planListModel.expectedRate.floatValue,@"%"];
-//    NSLog(@"%@",expectedYearRateStr);
-    
-    NSString *numberStr = [NSString stringWithFormat:@"%.2lf",self.planListModel.expectedRate.floatValue];
+
+    NSString *numberStr = [NSString stringWithFormat:@"%.1lf%@",self.planListModel.expectedRate.floatValue,@"%"];
     NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
-    NSInteger startRange = numberStr.length - 3;
-    NSRange range = NSMakeRange(0, startRange);
-    
-    [numberAttributeString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
-    [numberAttributeString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:20] range:range];
-    
-    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc]initWithString:@"%"];
-    [numberAttributeString appendAttributedString:attributedStr];
+
+    //加息利率
+    if (self.planListModel.extraInterestRate.length) {
+        NSString *extraInterestRateStr = [NSString stringWithFormat:@"%@%@%@",@"+",self.planListModel.extraInterestRate,@"%"];
+        NSMutableAttributedString *extraInterestRate = [[NSMutableAttributedString alloc]initWithString:extraInterestRateStr];
+        NSRange range = NSMakeRange(0, extraInterestRateStr.length);
+        UIFont *font = kHXBFont_PINGFANGSC_REGULAR(14);
+        [extraInterestRate addAttribute:NSFontAttributeName value:font range:range];
+        
+        //合并
+        [numberAttributeString appendAttributedString:extraInterestRate];
+        self.expectedYearRateAttributedStr = numberAttributeString;
+    }
     self.expectedYearRateAttributedStr = numberAttributeString;
+   
 }
 
 ///监听是否倒计时了

@@ -245,7 +245,7 @@
 - (NSString *)addCondition {
     if (!_addCondition) {
         if (self.planDetailModel.isFirst.integerValue) {
-            _addCondition = [NSString stringWithFormat:@"加入金额%@元起，%@元的整数倍递增",self.minRegisterAmount,self.planDetailModel.registerMultipleAmount];
+            _addCondition = [NSString stringWithFormat:@"%@起投，%@递增",self.minRegisterAmount,self.planDetailModel.registerMultipleAmount];
         }else{
             _addCondition = [NSString stringWithFormat:@"%@元的整数倍递增",self.planDetailModel.minRegisterAmount];
         }

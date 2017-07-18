@@ -281,6 +281,7 @@
             if (failureBlock) {
                 failureBlock(nil,responseObject);
             }
+            return;
         }
         
         NSArray *data = responseObject[kResponseData][kResponseDataList];
@@ -290,6 +291,7 @@
             HXBFinHomePageModel_LoanTruansferList *model = [[HXBFinHomePageModel_LoanTruansferList alloc]init];
             [model yy_modelSetWithDictionary:obj];
             viewModel.loanTruansferListModel = model;
+            [arrayM addObject:viewModel];
         }];
         
         if (successDateBlock) {
@@ -373,8 +375,27 @@
             failureBlock(error);
         }
     }];
+    
 }
 
+/// 债转的详情页
+- (void)loanTruansferDetileRequestWithLoanID:(NSString *)loanID andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error,NSDictionary *respons))failureBlock {
+    HXBBaseRequest *loanTruansferRequest = [[HXBBaseRequest alloc]init];
+    loanTruansferRequest.requestUrl = kHXBFin_LoanTruansfer_DetailURL(loanID.integerValue);
+    loanTruansferRequest.requestMethod = NYRequestMethodGet;
+    [loanTruansferRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        if ([responseObject[kResponseStatus] integerValue]) {
+            if (failureBlock) {
+                failureBlock(nil,responseObject);
+            }
+        }
+        
+        
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        
+    }];
+    
+}
 
 #pragma mark - 红利计划详情页 - 加入记录
 - (void)planAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinancePlanId: (NSString *)financePlanId andOrder: (NSString *)order andSuccessBlock: (void(^)(HXBFinModel_AddRecortdModel_Plan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {

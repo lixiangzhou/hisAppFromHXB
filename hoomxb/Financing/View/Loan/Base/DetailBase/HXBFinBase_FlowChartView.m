@@ -61,8 +61,8 @@
         viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(12);
         viewModelVM.leftLabelAlignment = NSTextAlignmentLeft;
         viewModelVM.rightLabelAlignment = NSTextAlignmentLeft;
-        viewModelVM.leftViewColor = kHXBColor_Grey_Font;
-        viewModelVM.rightViewColor = kHXBColor_HeightGrey_Font;
+        viewModelVM.leftViewColor = kHXBColor_Grey_Font0_2;
+        viewModelVM.rightViewColor = kHXBColor_HeightGrey_Font0_4;
         
         viewModelVM.leftLabelStr = weakSelf.addTime;
         viewModelVM.rightLabelStr = @"加入";
@@ -75,11 +75,11 @@
         viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
         if (weakSelf.stage == HXBFinBase_FlowChartView_Plan_Stage_Begin) {
-            viewModelVM.leftViewColor = kHXBColor_HeightGrey_Font;
+            viewModelVM.leftViewColor = kHXBColor_HeightGrey_Font0_4;
         }else {
-            viewModelVM.leftViewColor = kHXBColor_Grey_Font;
+            viewModelVM.leftViewColor = kHXBColor_Grey_Font0_2;
         }
-        viewModelVM.rightViewColor = kHXBColor_HeightGrey_Font;
+        viewModelVM.rightViewColor = kHXBColor_HeightGrey_Font0_4;
         
         viewModelVM.leftLabelStr = weakSelf.beginTime;
         viewModelVM.rightLabelStr = @"开始收益";
@@ -91,11 +91,11 @@
         viewModelVM.leftLabelAlignment = NSTextAlignmentRight;
         viewModelVM.rightLabelAlignment = NSTextAlignmentRight;
         if (weakSelf.stage == HXBFinBase_FlowChartView_Plan_Stage_Leave) {
-            viewModelVM.leftViewColor = kHXBColor_HeightGrey_Font;
+            viewModelVM.leftViewColor = kHXBColor_HeightGrey_Font0_4;
         }else {
-            viewModelVM.leftViewColor = kHXBColor_Grey_Font;
+            viewModelVM.leftViewColor = kHXBColor_Grey_Font0_2;
         }
-        viewModelVM.rightViewColor = kHXBColor_HeightGrey_Font;
+        viewModelVM.rightViewColor = kHXBColor_HeightGrey_Font0_4;
         viewModelVM.leftLabelStr = weakSelf.leaveTime;
         viewModelVM.rightLabelStr = @"到期退出";
         return viewModelVM;
@@ -199,7 +199,7 @@
         _concentricCirclesView = [[HXBBaseViewConcentricCirclesView alloc]init];
         [self addSubview:_concentricCirclesView];
         ///同心圆 外圆直径
-        _concentricCirclesView.circularDiameter = kScrAdaptationH(10);
+        _concentricCirclesView.excircleDiameter = kScrAdaptationH(10);
         ///同心圆 内圆直径
         _concentricCirclesView.insideCircularDiameter = kScrAdaptationH(5);
         ///同心圆的个数

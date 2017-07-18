@@ -36,6 +36,8 @@
 @property (nonatomic,assign) BOOL isFirstLoadNetDataLoan;
 //红利计划是否为第一次加载
 @property (nonatomic,assign) BOOL isFirstLoadNetDataPlan;
+//散标第一次加载
+@property (nonatomic,assign) BOOL isFirstLoadNetDataLoanTruansfer;
 
 //首页的网络请求类
 @property (nonatomic,strong) HXBFinanctingRequest *finantingRequest;
@@ -43,6 +45,8 @@
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList*>* finPlanListVMArray;
 //散标列表的数据数组
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList*>* finLoanListVMArray;
+//债转的数据列表
+@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*finloanTruansferVMArray;
 
 @property (nonatomic,strong) HXBToolCountDownButton *countDownButton;
 
@@ -66,6 +70,11 @@
     _finLoanListVMArray = finLoanListVMArray;
     self.homePageView.finLoanListVMArray = finLoanListVMArray;
 }
+- (void)setFinloanTruansferVMArray:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)finloanTruansferVMArray {
+    _finloanTruansferVMArray = finloanTruansferVMArray;
+    self.homePageView.finLoanTruansferVMArray = finloanTruansferVMArray;
+}
+
 - (void) pan: (UIPanGestureRecognizer *)pan {
     NSLog(@"%@",pan);
 }
@@ -120,6 +129,7 @@
 - (void)creatProperty {
     self.isFirstLoadNetDataLoan = true;
     self.isFirstLoadNetDataPlan = true;
+    self.isFirstLoadNetDataLoanTruansfer = true;
     self.finantingRequest = [HXBFinanctingRequest sharedFinanctingRequest];
 }
 - (void)setup {
@@ -138,10 +148,12 @@
     kWeakSelf
     [self.homePageView setSwitchBottomScrollViewBlock:^(NSInteger index, NSString *title, UIButton *button) {
         //网络数据请求
-        if ([title isEqualToString:@"红利计划"] && self.isFirstLoadNetDataPlan) {
+        if ([title isEqualToString:@"红利计划"] && weakSelf.isFirstLoadNetDataPlan) {
             [weakSelf planLoadDateWithIsUpData:true];
-        }else if ([title isEqualToString:@"散标列表"] && self.isFirstLoadNetDataLoan) {
+        }else if ([title isEqualToString:@"散标列表"] && weakSelf.isFirstLoadNetDataLoan) {
             [weakSelf loanLoadDateWithIsUpData:true];
+        }else if (index == 2 && weakSelf.isFirstLoadNetDataLoanTruansfer) {
+            [weakSelf loanTruansferLoandDataWithIsUPData:true];
         }
     }];
 }
@@ -183,7 +195,7 @@
 //MARK:- 点击了债转的 cell
 - (void)clickLoanTruansferCell {
     kWeakSelf
-    [self.homePageView setClickLoanTruansferCellBlock:^(NSIndexPath *index, id model){
+    [self.homePageView setClickLoanTruansferCellBlock:^(HXBFinHomePageViewModel_LoanTruansferViewModel* model,NSIndexPath *index){
         [weakSelf pushLoanTruansferCellViewControllerWithModel:model];
     }];
 }
@@ -213,6 +225,9 @@
     
     //散标上拉刷新与下拉加载
     [self setupLoanRefresh];
+    
+    //债转的刷新加载
+    [self setUPLoanTruansferRefresh];
 }
 //MARK:  红利计划上啦刷新
 - (void)setupPlanRefresh {
@@ -241,11 +256,12 @@
 
 //MARK: 债转的刷新加载
 - (void)setUPLoanTruansferRefresh {
+    kWeakSelf
     [self.homePageView setLoanTruansferFooterBlock:^{
-        
+        [weakSelf loanTruansferLoandDataWithIsUPData:false];
     }];
     [self.homePageView setLoanTruansferHeaderBlock:^{
-        
+        [weakSelf loanTruansferLoandDataWithIsUPData:true];
     }];
 }
 
@@ -259,6 +275,7 @@
         weakSelf.isFirstLoadNetDataPlan = false;
     } andFailureBlock:^(NSError *error) {
         weakSelf.homePageView.isStopRefresh_Plan = true;
+        weakSelf.finPlanListVMArray = weakSelf.finPlanListVMArray;
     }];
 } 
 
@@ -272,12 +289,20 @@
     } andFailureBlock:^(NSError *error) {
         //结束下拉刷新与上拉刷新
         weakSelf.homePageView.isStopRefresh_loan = true;
+        weakSelf.finLoanListVMArray =  weakSelf.finLoanListVMArray;
     }];
 }
 /// 债转的数据请求
 - (void)loanTruansferLoandDataWithIsUPData: (BOOL)isUPData {
     kWeakSelf
-    
+    [self.finantingRequest loanTruansferListWithIsUPData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *viewModelArray) {
+        weakSelf.finloanTruansferVMArray = viewModelArray;
+        weakSelf.homePageView.isStopRefresh_LoanTruansfer = true;
+        weakSelf.isFirstLoadNetDataLoanTruansfer = false;
+    } andFailureBlock:^(NSError *error, id responsObject) {
+        weakSelf.homePageView.isStopRefresh_LoanTruansfer = true;
+        weakSelf.finloanTruansferVMArray =  weakSelf.finloanTruansferVMArray;
+    }];
 }
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];

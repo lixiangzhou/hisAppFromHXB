@@ -11,6 +11,13 @@
 @interface UIImageView (HxbSDWebImage)
 
 /**
+ * 设置这个属性后，将添加svg图片给self.Image
+ */
+@property (nonatomic,copy) NSString *svgImageString;
+
+
+
+/**
  *  异步加载图片
  *
  *  @param urlStr    图片地址
@@ -35,4 +42,8 @@
  * @param capImageName 图片的名字
  */
 - (void)hxb_capImageWithName: (NSString *)capImageName;
+/**
+ *设置SVG图片
+ */
+- (void)hxb_SVGImageWihtName: (NSString *)svgImageName;
 @end

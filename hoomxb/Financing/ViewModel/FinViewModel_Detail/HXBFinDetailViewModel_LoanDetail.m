@@ -201,7 +201,7 @@
  */
 - (NSString *) addCondition {
     if (!_addCondition) {
-        _addCondition = [NSString stringWithFormat:@"￥ %@元起投，%@递增",self.loanDetailModel.minInverst,self.loanDetailModel.minInverst];
+        _addCondition = [NSString stringWithFormat:@"%@起投，%@递增",self.loanDetailModel.minInverst,self.loanDetailModel.minInverst];
     }
     return _addCondition;
 }
