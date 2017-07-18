@@ -9,5 +9,7 @@
 #import "HXBFinDetailModel_LoanTruansferDetail.h"
 
 @implementation HXBFinDetailModel_LoanTruansferDetail
-
++ (NSDictionary *)modelCustomPropertyMapper {
+    return @{@"creatTransAmount" : @"initTransAmount"};
+}
 @end

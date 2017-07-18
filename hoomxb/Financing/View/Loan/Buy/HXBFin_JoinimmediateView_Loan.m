@@ -67,16 +67,17 @@
     [self.addButton setTitle:model.JoinImmediateView_Model.addButtonStr forState:UIControlStateNormal];
     self.rechargeView.placeholder = model.JoinImmediateView_Model.rechargeViewTextField_placeholderStr;
     [self.rechargeView.button setTitle:model.JoinImmediateView_Model.buyButtonStr forState:UIControlStateNormal];
+    [self changeAddButtonWihtUserInteractionEnabled:model.addButtonEndEditing];//button是否可以点击
     kWeakSelf
-//    [self.rechargeView setUPValueWithModel:^HXBRechargeView_Model *(HXBRechargeView_Model *model) {
-//        ///余额 title
-//        model.balanceLabel_constStr = weakSelf.model.JoinImmediateView_Model.balanceLabel_constStr;
-//        ///余额展示
-//        model.balanceLabelStr = weakSelf.model.JoinImmediateView_Model.balanceLabelStr;
-//        ///充值的button
-//        model.rechargeButtonStr = weakSelf.model.JoinImmediateView_Model.rechargeButtonStr;
-//        return model;
-//    }];
+    [self.topUPView setUPValueWithModel:^HXBTopUPViewManager *(HXBTopUPViewManager *model) {
+        ///余额 title
+        model.balanceLabel_constStr = weakSelf.model.JoinImmediateView_Model.balanceLabel_constStr;
+        ///余额展示
+        model.balanceLabelStr = weakSelf.model.JoinImmediateView_Model.balanceLabelStr;
+        ///充值的button
+        model.rechargeButtonStr = weakSelf.model.JoinImmediateView_Model.rechargeButtonStr;
+        return model;
+    }];
 }
 
 - (void)setIsPlan:(BOOL)isPlan {
@@ -99,16 +100,6 @@
         [self registerEvent];
     }
     return self;
-}
-- (void)setUPViews {
-    [self.negotiateView clickNegotiateWithBlock:^{
-        NSLog(@"点击了 红利假话服务协议》");
-        if (self.clickNegotiateButton) {
-            self.clickNegotiateButton();
-        }
-    }];
-    self.addButton.backgroundColor = [UIColor blueColor];
-    [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 
@@ -136,7 +127,8 @@
     
     ///服务协议
     self.negotiateView = [[HXBFinBaseNegotiateView alloc]init];
-    self.addButton = [[UIButton alloc]init];
+    ///加入button
+    self.addButton = [UIButton btnwithTitle:@"确认加入" andTarget:self andAction:@selector(clickAddButton:) andFrameByCategory:CGRectZero];
 }
 
 - (void)layoutViews {
@@ -149,18 +141,17 @@
     
     [self addSubview:self.loanAcountLabel];
     [self addSubview:self.loanAcountLable_Const];
-    
-//    [self addSubview:self.profitLabel_const];
-//    [self addSubview:self.profitLabel];
+
     [self addSubview:self.negotiateView];
-    
     [self addSubview:self.addButton];
+    
+    //    [self addSubview:self.profitLabel_const];
+    //    [self addSubview:self.profitLabel];
     
     [self.remainAmountLabelImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(@(kScrAdaptationH750(30)));
         make.height.width.equalTo(@(kScrAdaptationH750(30)));
     }];
-    
     [self.remainAmount_Const mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.remainAmountLabelImageView);
         make.height.equalTo(@(kScrAdaptationH750(28)));
@@ -179,9 +170,9 @@
     
     //一键购买
     [self.rechargeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.remainAmount_Const.mas_bottom).offset(kScrAdaptationH(30));
+        make.top.equalTo(self.remainAmount_Const.mas_bottom).offset(kScrAdaptationH750(30));
         make.right.left.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(140)));
+        make.height.equalTo(@(kScrAdaptationH750(140)));
     }];
     
     [self.topUPView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -200,6 +191,7 @@
         make.left.equalTo(@(kScrAdaptationW750(40)));
         make.right.equalTo(@(kScrAdaptationW750(-40)));
     }];
+    [self.loanAcountLable_Const sizeToFit];
 //    //预计收益
 //    [self.profitLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.equalTo(self).offset(kScrAdaptationW(8));
@@ -213,18 +205,15 @@
 //    }];
     //    [self.profitLabel sizeToFit];
     //    [self.profitLabel_const sizeToFit];
-    
-    [self.loanAcountLable_Const sizeToFit];
 }
-
+- (void)setUPViews {
+    self.rechargeView.backgroundColor = [UIColor whiteColor];
+    self.topUPView.backgroundColor = [UIColor whiteColor];
+}
 
 - (void)registerEvent {
     __weak typeof(self) weakSelf = self;
-    [self.topUPView clickRechargeFunc:^{
-        if (weakSelf.clickRechargeButton) {
-            weakSelf.clickRechargeButton();
-        }
-    }];
+    //一键购买
     [self.rechargeView clickBuyButtonFunc:^{
         NSString *str = nil;
         if (weakSelf.model.amount.floatValue > weakSelf.model.loanAcountLabelStr.floatValue) {
@@ -237,9 +226,37 @@
             weakSelf.clickBuyButton(weakSelf.rechargeView.textField.text,weakSelf.rechargeView.textField);
         }
     }];
+    
+    //充值
+    [self.topUPView clickRechargeFunc:^{
+        if (weakSelf.clickRechargeButton) {
+            weakSelf.clickRechargeButton();
+        }
+    }];
+
+    //协议
+    [self.negotiateView clickNegotiateWithBlock:^{
+        NSLog(@"点击了 《红利假话服务协议》");
+        if (self.clickNegotiateButton) {
+            self.clickNegotiateButton();
+        }
+    }];
+    [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
+        [weakSelf changeAddButtonWihtUserInteractionEnabled:isSelected];
+    }];
 }
 
-
+- (void)changeAddButtonWihtUserInteractionEnabled:(BOOL)userInteractionEnabled {
+    _addButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
+    _addButton.userInteractionEnabled = userInteractionEnabled;
+    if (!userInteractionEnabled) {
+        _addButton.backgroundColor = kHXBColor_Font0_6;
+        [_addButton setTitleColor:kHXBColor_Grey_Font0_2 forState:UIControlStateNormal];
+        return;
+    }
+    _addButton.backgroundColor = kHXBColor_Red_090303;
+    [_addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+}
 
 ///点击了加入
 - (void)clickAddButton: (UIButton *)button {
