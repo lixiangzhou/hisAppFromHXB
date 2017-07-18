@@ -315,12 +315,12 @@ UITextFieldDelegate
     //电话号码未填写
     if (!self.phoneTextField.text.length) {
         NSLog(@"%@",kPhoneText_Nil);
-        [HxbHUDProgress showProgress:kPhoneText_Nil inView:self];
+        [HxbHUDProgress showMessageCenter:kPhoneText_Nil inView:self];
         return true;
     }
     if (!self.passwordTextField.text.length) {
         NSLog(@"%@",kPassword_Nil);
-        [HxbHUDProgress showProgress:kPassword_Nil inView:self];
+        [HxbHUDProgress showMessageCenter:kPassword_Nil inView:self];
         return true;
     }
     return false;
@@ -396,7 +396,6 @@ UITextFieldDelegate
     NSLog(@"电话号码-- %d",isTrue);
     if (!isTrue) {//不是真的，提示输入正确的密码
 //        self.isPhoneNumberLabel.text = kPhoneText_Error;
-        [HxbHUDProgress showProgress:kPhoneText_Error inView:self];
         return;
     }
 //    self.isPhoneNumberLabel.text = @"";

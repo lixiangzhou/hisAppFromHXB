@@ -16,7 +16,7 @@
 #import "HXBBankCardListViewController.h"
 #import "HXBWithdrawCardView.h"
 
-
+#import "HXBRechargeCompletedViewController.h"//ZCC需要修改
 @interface HxbWithdrawCardViewController () <UITextFieldDelegate>
 
 /**
@@ -84,7 +84,12 @@
 }
 
 - (void)nextButtonClick:(NSString *)bankCard{
-   
+    //充值结果
+
+    HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
+    [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
+    
+    
 //    kWeakSelf
 //    HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
 //    alertVC.sureBtnClick = ^(NSString *pwd){

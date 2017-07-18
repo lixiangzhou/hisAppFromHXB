@@ -255,7 +255,7 @@
 
 //点击了 服务协议
 - (void)clickNegotiateButton: (UIButton *)button {
-    NSLog(@"点击了 红利假话服务协议》");
+    NSLog(@"点击了《红利服务协议》");
     if (self.clickNegotiateButton) {
         self.clickNegotiateButton();
     }
