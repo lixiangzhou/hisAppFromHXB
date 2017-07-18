@@ -42,9 +42,12 @@
 ///预计收益
 @property (nonatomic,copy) NSString *profitLabel_constStr;
 ///散标投资标的剩余可投金额
-@property (nonatomic,copy) NSString *loanAcountLable_ConstStr;
+@property (nonatomic,copy) NSString *remainAmountLabel_ConstStr;
 ///散标投资标的剩余可投金额
-@property (nonatomic,copy) NSString *loanAcountLabelStr;
+@property (nonatomic,copy) NSString *remainAmountLabelStr;
+///button的文字
+@property (nonatomic,copy) NSString *addButtonStr;
+///
 /**
  addButton是否可以点击
  */

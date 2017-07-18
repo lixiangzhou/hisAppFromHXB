@@ -197,11 +197,11 @@
             ///服务协议
             model.JoinImmediateView_Model.negotiateLabelStr = @"我已阅读并同意";
             ///余额 title
-            model.loanAcountLable_ConstStr = @"散标剩余金额：";
+            model.remainAmountLabel_ConstStr = @"散标剩余金额：";
             ///充值的button str
             model.JoinImmediateView_Model.rechargeButtonStr = @"充值";
             model.JoinImmediateView_Model.balanceLabel_constStr = @"可用余额";
-            model.loanAcountLabelStr = weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount;
+            model.remainAmountLabelStr = weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount;
             ///一键购买的str
             model.JoinImmediateView_Model.buyButtonStr = @"一键购买";
     
@@ -225,7 +225,6 @@
             model.addButtonEndEditing = weakSelf.loanViewModel.isAddButtonEditing;
             return model;
         }];
-
     } andFailure:^(NSError *error) {
         
     }];
