@@ -182,6 +182,17 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         NSLog(@"点击了红小宝注册协议");
         [HxbHUDProgress showProgress:@"点击了红小宝注册协议" inView:self];
     }];
+    kWeakSelf
+    [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
+        if (isSelected) {
+            weakSelf.setPassWordButton.enabled = YES;
+            weakSelf.setPassWordButton.backgroundColor = RGB(245, 81, 81);
+        }else
+        {
+            weakSelf.setPassWordButton.enabled = NO;
+            weakSelf.setPassWordButton.backgroundColor = RGB(218, 218, 223);
+        }
+    }];
 }
 
 - (void)layoutSubView_sendSmscode {

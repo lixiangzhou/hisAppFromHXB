@@ -127,7 +127,7 @@
 {
     if (isBlueGradientNavigationBar) {
         self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
-        self.navigationController.navigationBar.barTintColor = COR19;
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_top_blue"] forBarMetrics:UIBarMetricsDefault];
     }
 }
 

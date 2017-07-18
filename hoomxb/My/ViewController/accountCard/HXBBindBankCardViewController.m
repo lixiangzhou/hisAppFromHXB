@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"开通恒丰银行存管账户";
-    self.isBlueGradientNavigationBar = YES;
+    
     self.automaticallyAdjustsScrollViewInsets = YES;
     [self.view addSubview:self.iconView];
     [self.view addSubview:self.promptLabel];
@@ -34,6 +34,11 @@
     [self setSubViewFrame];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isBlueGradientNavigationBar = YES;
+}
 
 - (void)setSubViewFrame
 {
