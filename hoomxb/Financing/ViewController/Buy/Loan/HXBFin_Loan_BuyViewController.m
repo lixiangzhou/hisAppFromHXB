@@ -75,9 +75,9 @@
 ///UI搭建
 - (void)setUPViews {
     kWeakSelf
-    self.joinimmediateView_Loan = [[HXBFin_JoinimmediateView_Loan alloc] init];
+    self.joinimmediateView_Loan = [[HXBFin_JoinimmediateView_Loan alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     [self.hxbBaseVCScrollView addSubview:self.joinimmediateView_Loan];
-    
+    self.hxb_automaticallyAdjustsScrollViewInsets = true;
     [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
         weakSelf.joinimmediateView_Loan.isEndEditing = true;
     }];
@@ -197,17 +197,14 @@
             ///服务协议
             model.JoinImmediateView_Model.negotiateLabelStr = @"我已阅读并同意";
             ///余额 title
-            model.loanAcountLable_ConstStr = @"标的剩余可投金额";
+            model.loanAcountLable_ConstStr = @"散标剩余金额：";
             ///充值的button str
             model.JoinImmediateView_Model.rechargeButtonStr = @"充值";
             model.JoinImmediateView_Model.balanceLabel_constStr = @"可用余额";
             model.loanAcountLabelStr = weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount;
             ///一键购买的str
             model.JoinImmediateView_Model.buyButtonStr = @"一键购买";
-            ///收益方式
-            //    model.profitTypeLable_ConstStr = @"收益处理方式";
-            ///加入上限
-            //    model.upperLimitLabel_constStr = @"本期计划加入上限";
+    
             /// ￥1000起投，1000递增 placeholder
             model.profitLabelStr = weakSelf.loanViewModel.addCondition;
             model.amount = weakSelf.loanViewModel.loanDetailModel.loanVo.amount;//可用余额

@@ -27,6 +27,7 @@
 #import "HXBBaseTextField.h"///右边一个textField 右边一个
 #import "HXBBaseViewConcentricCirclesView.h"///画出同心圆
 #import "HXBNoDataView.h"//没有数据的View
+#import "HXBFinBaseNegotiateView.h"///用户协议
 
 //MARK: NSObject
 #import "HXBBaseHandDate.h"//关于时间处理的类

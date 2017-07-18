@@ -75,7 +75,7 @@
 - (void)creatViews {
     self.topMaskView = [[UIView alloc]init];
     self.nextOneLabel = [[UILabel alloc]init];
-    self.interestLabel = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
+    self.interestLabel = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero andSpacing:15];
     self.remainTimeLabel = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
     self.truansferAmountLabel = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
 
@@ -107,9 +107,9 @@
     }];
     
     [self.remainTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(20));
+        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(-20));
         make.left.equalTo(self);
-        make.width.equalTo(self).multipliedBy(1/2.0).offset(kScrAdaptationW(1));
+        make.width.equalTo(self).multipliedBy(1/2.0).offset(kScrAdaptationW(0));
     }];
     
     [self.truansferAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -130,28 +130,28 @@
          */
         self.interestLabelManager = [[HXBBaseView_TwoLable_View_ViewModel alloc] init];
         self.interestLabelManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(45);
-        self.interestLabelManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(17);
+        self.interestLabelManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(12);
         self.interestLabelManager.leftViewColor = [UIColor whiteColor];
-        self.interestLabelManager.rightViewColor = [UIColor whiteColor];
+        self.interestLabelManager.rightViewColor =  [UIColor colorWithWhite:1 alpha:0.6];
         /**
          剩余期限
          品字形 左
          */
         self.remainTimeLabelManager = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
-        self.remainTimeLabelManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(20);
-        self.remainTimeLabelManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(15);
+        self.remainTimeLabelManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(15);
+        self.remainTimeLabelManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(12);
         self.remainTimeLabelManager.leftViewColor = [UIColor whiteColor];
-        self.remainTimeLabelManager.rightViewColor = [UIColor whiteColor];
+        self.remainTimeLabelManager.rightViewColor = [UIColor colorWithWhite:1 alpha:0.6];
 
         /**
          待转让金额
          品字形 右
          */
         self.truansferAmountLabelManager = [[HXBBaseView_TwoLable_View_ViewModel alloc] init];
-        self.truansferAmountLabelManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(20);
-        self.truansferAmountLabelManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(15);
+        self.truansferAmountLabelManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(15);
+        self.truansferAmountLabelManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(12);
         self.truansferAmountLabelManager.leftViewColor = [UIColor whiteColor];
-        self.truansferAmountLabelManager.rightViewColor = [UIColor whiteColor];
+        self.truansferAmountLabelManager.rightViewColor = [UIColor colorWithWhite:1 alpha:0.6];
     }
     return self;
 }

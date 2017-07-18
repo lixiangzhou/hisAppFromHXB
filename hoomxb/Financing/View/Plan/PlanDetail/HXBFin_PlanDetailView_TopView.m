@@ -87,7 +87,7 @@
 - (void)setUP {
     [self layoutIfNeeded];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationH(44 + 64));
+        make.top.equalTo(self).offset(kScrAdaptationH(42));
         make.left.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(72)));
     }];

@@ -199,7 +199,7 @@
         _concentricCirclesView = [[HXBBaseViewConcentricCirclesView alloc]init];
         [self addSubview:_concentricCirclesView];
         ///同心圆 外圆直径
-        _concentricCirclesView.circularDiameter = kScrAdaptationH(10);
+        _concentricCirclesView.excircleDiameter = kScrAdaptationH(10);
         ///同心圆 内圆直径
         _concentricCirclesView.insideCircularDiameter = kScrAdaptationH(5);
         ///同心圆的个数

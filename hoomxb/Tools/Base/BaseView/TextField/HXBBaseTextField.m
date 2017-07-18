@@ -65,8 +65,12 @@
     self.textField.secureTextEntry = self.isSecureTextEntry;
     [self.textField becomeFirstResponder];
     [self.button addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+    self.button.layer.cornerRadius = kScrAdaptationW750(5);
+    self.button.layer.masksToBounds = true;
     self.button.layer.borderColor = kHXBColor_Blue040610.CGColor;//(r:0.45 g:0.68 b:0.68 a:1.00)
     self.button.layer.borderWidth = kScrAdaptationW750(2);
+    [self.button setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
+    self.button.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
 }
 - (void) clickButton: (UIButton *)button {
     if (_isSecureTextEntry) {

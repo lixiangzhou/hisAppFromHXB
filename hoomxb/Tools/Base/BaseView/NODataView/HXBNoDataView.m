@@ -24,9 +24,9 @@
     }
     return self;
 }
-- (void)setUP {
+- (void)setUP {//179
     [self.notDataImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationH(139));
+        make.top.equalTo(self).offset(kScrAdaptationH(0));
         make.centerX.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(101)));
         make.width.equalTo(@(kScrAdaptationW(128)));
@@ -49,16 +49,18 @@
         _noDataLabel = [[UILabel alloc]init];
         _noDataLabel.font = kHXBFont_PINGFANGSC_REGULAR(19);
         _noDataLabel.textColor = kHXBColor_Grey_Font0_2;
+        _noDataLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview: _noDataLabel];
     }
     return _noDataLabel;
 }
 - (UILabel *)downPULabel {
     if (!_downPULabel) {
-        _downPULabel.contentMode = UIViewContentModeScaleAspectFit;
+        _downPULabel = [[UILabel alloc]initWithFrame:CGRectZero];
         [self addSubview:_downPULabel];
         _downPULabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         _downPULabel.textColor = kHXBColor_Font0_6;
+        _noDataLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _downPULabel;
 }

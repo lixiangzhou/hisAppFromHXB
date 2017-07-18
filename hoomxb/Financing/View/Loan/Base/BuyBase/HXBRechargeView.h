@@ -15,6 +15,8 @@
 
 @property (nonatomic,strong) UITextField *textField;
 @property (nonatomic,strong) UIButton *button;
+@property (nonatomic,strong) UILabel *leftLabel;
+@property (nonatomic,copy) NSString *leftLabelStr;
 ///placeholder
 @property (nonatomic,copy)NSString *placeholder;
 ///点击了一键购买

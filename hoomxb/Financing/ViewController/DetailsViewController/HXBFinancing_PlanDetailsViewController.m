@@ -88,7 +88,9 @@
         
         viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
         viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
-        viewModelVM.isUserInteractionEnabled   = weakSelf.planDetailViewModel.isAddButtonInteraction;
+//        viewModelVM.isUserInteractionEnabled   = weakSelf.planDetailViewModel.isAddButtonInteraction;
+        //调试李鹏跃
+        viewModelVM.isUserInteractionEnabled = true;
         viewModelVM.title                      = @"加入计划";
         viewModelVM.diffTime                   = weakSelf.planDetailViewModel.planDetailModel.diffTime;
         viewModelVM.isCountDown                = weakSelf.planListViewModel.isCountDown;
@@ -140,12 +142,12 @@
     }];
     
     
-//    self.hxb_automaticallyAdjustsScrollViewInsets = false;
+    self.hxb_automaticallyAdjustsScrollViewInsets = true;
     self.isTransparentNavigationBar = true;
 //    self.isColourGradientNavigationBar = true;
     
 //    self.view.backgroundColor = kHXBColor_heightGrey;
-    self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:self.view.frame];
+    self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
     
     //是否为计划界面

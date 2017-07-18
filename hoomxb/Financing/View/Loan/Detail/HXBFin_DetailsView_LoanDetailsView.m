@@ -192,7 +192,7 @@
     [self setLoantypView];///流程引导视图
     [self setupTableView];///展示计划详情等的 tableView
     [self setupAddView];///立即加入视图
-    [self setUPPromptLablel];
+    [self setUPPromptLablel];///预期收益不代表实际收益，投资需谨慎
     
     self.surplusValueView.backgroundColor = [UIColor whiteColor];
     self.flowChartView.backgroundColor = [UIColor whiteColor];
@@ -206,7 +206,7 @@
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(265)));
+        make.height.equalTo(@(kScrAdaptationH(248) - 64));
     }];
 }
 

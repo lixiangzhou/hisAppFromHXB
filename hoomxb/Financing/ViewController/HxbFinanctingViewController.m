@@ -275,6 +275,7 @@
         weakSelf.isFirstLoadNetDataPlan = false;
     } andFailureBlock:^(NSError *error) {
         weakSelf.homePageView.isStopRefresh_Plan = true;
+        weakSelf.finPlanListVMArray = weakSelf.finPlanListVMArray;
     }];
 } 
 
@@ -288,6 +289,7 @@
     } andFailureBlock:^(NSError *error) {
         //结束下拉刷新与上拉刷新
         weakSelf.homePageView.isStopRefresh_loan = true;
+        weakSelf.finLoanListVMArray =  weakSelf.finLoanListVMArray;
     }];
 }
 /// 债转的数据请求
@@ -299,6 +301,7 @@
         weakSelf.isFirstLoadNetDataLoanTruansfer = false;
     } andFailureBlock:^(NSError *error, id responsObject) {
         weakSelf.homePageView.isStopRefresh_LoanTruansfer = true;
+        weakSelf.finloanTruansferVMArray =  weakSelf.finloanTruansferVMArray;
     }];
 }
 - (void)viewDidDisappear:(BOOL)animated {

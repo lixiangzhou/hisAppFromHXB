@@ -20,6 +20,7 @@
  颜色渐变的位置
  */
 @property (nonatomic,strong) NSArray <NSNumber *>*locations;
+@property (nonatomic,copy) void(^clickBlock)(UIView *view);
 @end
 
 @implementation HXBColourGradientView
@@ -47,6 +48,18 @@
     ];
     self.locations = colorLocationTemp;
     self.componentsLength = 2;
+}
+
+- (void)setClickBlock:(void (^)(UIView *))clickBlock {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickView:)];
+    [self addGestureRecognizer:tap];
+    _clickBlock = clickBlock;
+}
+- (void)clickView: (UITapGestureRecognizer*)tap
+{
+    if (self.clickBlock) {
+        self.clickBlock(tap.view);
+    }
 }
 
 ///开始位置
@@ -125,5 +138,8 @@
     CGContextDrawLinearGradient(context, gradient, start, end, kCGGradientDrawsAfterEndLocation);
     //释放颜色空间
     CGColorSpaceRelease(colorSpace);
+}
+- (void)clickEvent: (void(^)(UIView *view))clickBlock {
+    self.clickBlock = clickBlock;
 }
 @end

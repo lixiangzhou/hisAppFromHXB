@@ -7,14 +7,10 @@
 //
 
 #import "HXBRechargeView.h"
-static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
 
 @interface HXBRechargeView () <UITextFieldDelegate>
 ///金额labelconst
-@property (nonatomic,strong) UILabel *amountLabel_counst;
 @property (nonatomic,strong) HXBBaseTextField *buyTextField;
-
-
 
 ///点击了一键购买
 @property (nonatomic,copy) void (^clickBuyButton)();
@@ -54,44 +50,48 @@ static NSString *const kHXBPlan_JoinbalanceLabel_constStr = @"可用余额";
     self.buyTextField = [[HXBBaseTextField alloc]initWithFrame:CGRectZero andBottomLienSpace:0 andBottomLienHeight:kScrAdaptationH(2) andRightButtonW:kScrAdaptationW(80)];
     
     
-    self.amountLabel_counst = [[UILabel alloc]init];
+    self.leftLabel = [[UILabel alloc]init];
   
     
-    [self addSubview:self.amountLabel_counst];
+    [self addSubview:self.leftLabel];
     [self addSubview: self.buyTextField];
     
  
-    [self.amountLabel_counst mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
-        make.left.equalTo(self).offset(kScrAdaptationW(30));
+        make.left.equalTo(self).offset(kScrAdaptationW750(30));
         make.height.equalTo(@(kScrAdaptationH750(40)));
         make.width.equalTo(@(kScrAdaptationW750(112)));
     }];
   
   
     [self.buyTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.top.equalTo(self.amountLabel_counst).offset(kScrAdaptationH(0));
+        make.bottom.top.equalTo(self.leftLabel).offset(kScrAdaptationH750(0));
         make.right.equalTo(self).offset(kScrAdaptationW750(-30));
-        make.left.equalTo(self.amountLabel_counst.mas_right).offset(kScrAdaptationW750(78));
+        make.left.equalTo(self.leftLabel.mas_right).offset(kScrAdaptationW750(0));
     }];
    
- 
-    
     [self.buyTextField show];
+    
     self.buyTextField.textField.placeholder = self.placeholder;
     self.buyTextField.textField.delegate = self;
-    [self.buyTextField.button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    
-   
-  
-    self.amountLabel_counst.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
-    self.amountLabel_counst.textColor = kHXBColor_Grey_Font0_2;
-    
+    self.buyTextField.textField.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
+    [self.buyTextField.button setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
+
+    self.leftLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(36);
+    self.leftLabel.textColor = kHXBColor_Grey_Font0_2;
+    self.leftLabel.text = @"金额：";
 }
+
 
 - (void)setPlaceholder:(NSString *)placeholder {
     _placeholder = placeholder;
-    self.buyTextField.textField.placeholder = self.placeholder;
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:self.placeholder];
+    // 设置字体和设置字体的范围
+    [attrStr addAttribute:NSForegroundColorAttributeName
+                    value:COR10
+                    range:NSMakeRange(0, self.placeholder.length)];
+    self.buyTextField.textField.attributedPlaceholder = attrStr;
 }
 
 ///事件注册

@@ -11,20 +11,21 @@
 #import "HXBRechargeView.h"
 #import "HXBJoinImmediateView.h"
 #import "HXBTopUPView.h"//充值的view
+#import "HXBFinBaseNegotiateView.h"//协议
 @interface HXBFin_JoinimmediateView_Loan()<UITextFieldDelegate>
 
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan_ViewModel *model;
 @property (nonatomic,strong) HXBRechargeView *rechargeView;//一键购买
 @property (nonatomic,strong) HXBTopUPView *topUPView;
 //加入上线
-@property (nonatomic,strong) UIImageView *topLineLabelImageView;
-@property (nonatomic,strong) UILabel *topLineLabel;
-@property (nonatomic,strong) UILabel *topLineLabel_Const;
+@property (nonatomic,strong) UIImageView *remainAmountLabelImageView;
+@property (nonatomic,strong) UILabel *remainAmountLabel;
+@property (nonatomic,strong) UILabel *remainAmount_Const;
 
 
-///预计收益
-@property (nonatomic,strong) UILabel *profitLabel;
-@property (nonatomic,strong) UILabel *profitLabel_const;
+/////预计收益
+//@property (nonatomic,strong) UILabel *profitLabel;
+//@property (nonatomic,strong) UILabel *profitLabel_const;
 ///散标投资标的剩余可投金额
 @property (nonatomic,strong) UILabel *loanAcountLable_Const;
 @property (nonatomic,strong) UILabel *loanAcountLabel;
@@ -39,10 +40,7 @@
 @property (nonatomic,copy) void (^clickNegotiateButton)();
 ///点击了加入
 @property (nonatomic,copy) void (^clickAddButton)(NSString *capital);
-///服务协议
-@property (nonatomic,strong) UILabel *negotiateLabel;
-///服务协议 button
-@property (nonatomic,strong) UIButton *negotiateButton;
+@property (nonatomic,strong) HXBFinBaseNegotiateView *negotiateView;
 @end
 @implementation HXBFin_JoinimmediateView_Loan
 
@@ -58,12 +56,14 @@
 
 - (void)setModel:(HXBFin_JoinimmediateView_Loan_ViewModel *)model {
     
+    
     _model = model;
+    self.remainAmountLabel.text = model.loanAcountLabelStr;
+    self.remainAmount_Const.text = model.loanAcountLable_ConstStr;
     self.loanAcountLable_Const.text = model.loanAcountLable_ConstStr;// @"标的剩余可投金额";
     self.loanAcountLabel.text = model.loanAcountLabelStr;//
-    self.profitLabel_const.text = model.JoinImmediateView_Model.profitLabel_consttStr;//@"预计收益";
-    self.negotiateLabel.text = model.JoinImmediateView_Model.negotiateLabelStr;///@"我已阅读并同意";
-    [self.negotiateButton setTitle: model.JoinImmediateView_Model.negotiateButtonStr forState: UIControlStateNormal];
+//    self.profitLabel_const.text = model.JoinImmediateView_Model.profitLabel_consttStr;//@"预计收益";
+    self.negotiateView.negotiateStr = model.JoinImmediateView_Model.negotiateLabelStr;///@"我已阅读并同意";
     [self.addButton setTitle:model.JoinImmediateView_Model.addButtonStr forState:UIControlStateNormal];
     self.rechargeView.placeholder = model.JoinImmediateView_Model.rechargeViewTextField_placeholderStr;
     [self.rechargeView.button setTitle:model.JoinImmediateView_Model.buyButtonStr forState:UIControlStateNormal];
@@ -101,10 +101,13 @@
     return self;
 }
 - (void)setUPViews {
-    [self.negotiateButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [self.negotiateView clickNegotiateWithBlock:^{
+        NSLog(@"点击了 红利假话服务协议》");
+        if (self.clickNegotiateButton) {
+            self.clickNegotiateButton();
+        }
+    }];
     self.addButton.backgroundColor = [UIColor blueColor];
-    
-    [self.negotiateButton addTarget:self action:@selector(clickNegotiateButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -112,9 +115,9 @@
 
 ///设置ViewS
 - (void)creatViews {
-    self.topLineLabelImageView = [[UIImageView alloc]init];
-    self.topLineLabel = [[UILabel alloc]init];
-    self.topLineLabel_Const = [[UILabel alloc]init];
+    self.remainAmountLabelImageView = [[UIImageView alloc]init];
+    self.remainAmountLabel = [[UILabel alloc]init];
+    self.remainAmount_Const = [[UILabel alloc]init];
     
     self.rechargeView = [[HXBRechargeView alloc]init];
     self.rechargeViewTextField = self.rechargeView.textField;
@@ -126,19 +129,20 @@
     self.loanAcountLable_Const = [[UILabel alloc]init];
     self.loanAcountLabel = [[UILabel alloc]init];
     
-    self.profitLabel = [[UILabel alloc]init];
-    self.profitLabel_const = [[UILabel alloc]init];
+//    self.profitLabel = [[UILabel alloc]init];
+//    self.profitLabel_const = [[UILabel alloc]init];
+    //充值
+    self.topUPView = [[HXBTopUPView alloc]init];
     
-    self.negotiateButton = [[UIButton alloc]init];
-    self.negotiateLabel = [[UILabel alloc]init];
-    
+    ///服务协议
+    self.negotiateView = [[HXBFinBaseNegotiateView alloc]init];
     self.addButton = [[UIButton alloc]init];
 }
 
 - (void)layoutViews {
-    [self addSubview:_topLineLabelImageView];
-    [self addSubview:_topLineLabel];
-    [self addSubview:_topLineLabel_Const];
+    [self addSubview:_remainAmountLabelImageView];
+    [self addSubview:_remainAmountLabel];
+    [self addSubview:_remainAmount_Const];
     
     [self addSubview:self.rechargeView];
     [self addSubview:self.topUPView];
@@ -146,86 +150,71 @@
     [self addSubview:self.loanAcountLabel];
     [self addSubview:self.loanAcountLable_Const];
     
-    [self addSubview:self.profitLabel_const];
-    [self addSubview:self.profitLabel];
-    
-    [self addSubview:self.negotiateLabel];
-    [self addSubview:self.negotiateButton];
+//    [self addSubview:self.profitLabel_const];
+//    [self addSubview:self.profitLabel];
+    [self addSubview:self.negotiateView];
     
     [self addSubview:self.addButton];
     
-    [self.topLineLabelImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.remainAmountLabelImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.equalTo(@(kScrAdaptationH750(30)));
         make.height.width.equalTo(@(kScrAdaptationH750(30)));
     }];
     
-    [self.topLineLabel_Const mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.topLineLabelImageView);
+    [self.remainAmount_Const mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.remainAmountLabelImageView);
         make.height.equalTo(@(kScrAdaptationH750(28)));
-        make.left.equalTo(self.topLineLabelImageView.mas_right).offset(kScrAdaptationW750(10));
+        make.left.equalTo(self.remainAmountLabelImageView.mas_right).offset(kScrAdaptationW750(10));
     }];
-    [self.topLineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.topLineLabel_Const.mas_right).offset(kScrAdaptationW750(5));
-        make.height.equalTo(self.topLineLabel_Const);
-        make.centerY.equalTo(self.topLineLabel_Const);
+    [self.remainAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.remainAmount_Const.mas_right).offset(kScrAdaptationW750(5));
+        make.height.equalTo(self.remainAmount_Const);
+        make.centerY.equalTo(self.remainAmount_Const);
     }];
-    self.topLineLabelImageView.svgImageString = @"BUYtips";
-    self.topLineLabel_Const.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
-    self.topLineLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
-    self.topLineLabel.textColor = kHXBColor_Font0_6;
+    self.remainAmountLabelImageView.svgImageString = @"BUYtips";
+    self.remainAmount_Const.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+    self.remainAmountLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+    self.remainAmountLabel.textColor = kHXBColor_Font0_6;
+    self.remainAmount_Const.textColor = kHXBColor_Font0_6;
     
     //一键购买
     [self.rechargeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationH(80));
+        make.top.equalTo(self.remainAmount_Const.mas_bottom).offset(kScrAdaptationH(30));
         make.right.left.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(150)));
+        make.height.equalTo(@(kScrAdaptationH(140)));
     }];
     
-    //预计收益
-    [self.profitLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(kScrAdaptationW(8));
-        make.top.equalTo(self.rechargeView.mas_bottom).offset(kScrAdaptationH(8));
-        make.height.equalTo(@(kScrAdaptationH(20)));
+    [self.topUPView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.rechargeView.mas_bottom).offset(kScrAdaptationH750(23));
+        make.left.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH750(120)));
     }];
-    [self.profitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.profitLabel_const.mas_right).offset(kScrAdaptationW(8));
-        make.height.equalTo(self.profitLabel_const);
-        make.top.equalTo(self.profitLabel_const);
+    [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.topUPView.mas_bottom).offset(kScrAdaptationH750(20));
+        make.left.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH750(26)));
     }];
-    
-    ///标的剩余可投金额
-    [self.loanAcountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.profitLabel_const);
-        make.right.equalTo(self).offset(-8);
-        make.width.equalTo(@(kScrAdaptationW(80)));
-    }];
-    [self.loanAcountLable_Const mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.loanAcountLabel.mas_left).offset(kScrAdaptationW(-8));
-        make.top.bottom.equalTo(self.profitLabel_const).offset(0);
-        make.width.equalTo(@(kScrAdaptationW(80)));
-    }];
-    
-//    [self.loanAcountLabel sizeToFit];
-    [self.loanAcountLable_Const sizeToFit];
-    [self.profitLabel sizeToFit];
-    [self.profitLabel_const sizeToFit];
-    
-    [self.negotiateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(kScrAdaptationW(50));
-        make.height.equalTo(@(kScrAdaptationH(30)));
-        make.top.equalTo(self.profitLabel_const.mas_bottom).offset(20);
-    }];
-    [self.negotiateButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.negotiateLabel.mas_right).offset(0);
-        make.height.bottom.equalTo(self.negotiateLabel);
-    }];
-    
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.negotiateButton.mas_bottom).offset(50);
-        make.width.equalTo(@(kScrAdaptationW(60)));
-        make.height.equalTo(@(kScrAdaptationH(50)));
-        make.centerX.equalTo(self);
+        make.top.equalTo(self.negotiateView.mas_bottom).offset(kScrAdaptationH750(100));
+        make.height.equalTo(@(kScrAdaptationH750(80)));
+        make.left.equalTo(@(kScrAdaptationW750(40)));
+        make.right.equalTo(@(kScrAdaptationW750(-40)));
     }];
+//    //预计收益
+//    [self.profitLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self).offset(kScrAdaptationW(8));
+//        make.top.equalTo(self.rechargeView.mas_bottom).offset(kScrAdaptationH(8));
+//        make.height.equalTo(@(kScrAdaptationH(20)));
+//    }];
+//    [self.profitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.profitLabel_const.mas_right).offset(kScrAdaptationW(8));
+//        make.height.equalTo(self.profitLabel_const);
+//        make.top.equalTo(self.profitLabel_const);
+//    }];
+    //    [self.profitLabel sizeToFit];
+    //    [self.profitLabel_const sizeToFit];
+    
+    [self.loanAcountLable_Const sizeToFit];
 }
 
 
@@ -250,13 +239,7 @@
     }];
 }
 
-//点击了 服务协议
-- (void)clickNegotiateButton: (UIButton *)button {
-    NSLog(@"点击了 红利假话服务协议》");
-    if (self.clickNegotiateButton) {
-        self.clickNegotiateButton();
-    }
-}
+
 
 ///点击了加入
 - (void)clickAddButton: (UIButton *)button {
@@ -293,12 +276,13 @@
     return YES;
 }
 
+///计算预计收益
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if ([textField isEqual:self.rechargeView.textField]) {
         
         NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
         
-        self.profitLabel.text = [self.model.JoinImmediateView_Model totalInterestWithAmount:amount.floatValue];
+//        self.profitLabel.text = [self.model.JoinImmediateView_Model totalInterestWithAmount:amount.floatValue];
     }
     return true;
 }
@@ -317,7 +301,7 @@
 //        }
         //        self.profitLabel.text = self.model.
         
-        self.profitLabel.text = [self.model.JoinImmediateView_Model totalInterestWithAmount:textField.text.integerValue];
+//        self.profitLabel.text = [self.model.JoinImmediateView_Model totalInterestWithAmount:textField.text.integerValue];
     }
     return true;
 }

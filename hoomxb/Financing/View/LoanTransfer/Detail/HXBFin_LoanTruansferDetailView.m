@@ -84,7 +84,7 @@
 - (void)setup {
     [self creatViews];
     [self setUPFrame];
-    [self setUPType];
+    [self setUPViews];
 }
 
 - (void) creatViews {
@@ -145,10 +145,12 @@
         make.bottom.equalTo(self).offset(kScrAdaptationH(0));
         make.left.right.equalTo(self);
     }];
-}
-- (void) setUPType {
-    self.addButton.backgroundColor = HXBC_Red_Light;
     
+}
+- (void)setUPViews {
+    self.addButton.backgroundColor = kHXBColor_Red_090303;
+    self.promptLabel.textColor = kHXBColor_Font0_6;
+    self.promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
 }
 @end
 @implementation HXBFin_LoanTruansferDetailViewManger

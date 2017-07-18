@@ -102,17 +102,17 @@
             make.right.left.top.equalTo(self);
             make.bottom.equalTo(self.mas_centerY);
         }];
-        if (_spacing) {
+//        if (_spacing) {
             [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.right.left.bottom.equalTo(self);
                 make.top.equalTo(self.leftLabel.mas_bottom).offset(self.spacing);
             }];
-            return;
-        }
-        [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.left.bottom.equalTo(self);
-            make.top.equalTo(self.mas_centerY);
-        }];
+//            return;
+//        }
+//        [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.right.left.bottom.equalTo(self);
+//            make.top.equalTo(self.mas_centerY);
+//        }];
     }
 
 }

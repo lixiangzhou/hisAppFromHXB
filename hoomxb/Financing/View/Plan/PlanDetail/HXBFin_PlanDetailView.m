@@ -196,7 +196,7 @@
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(248)));
+        make.height.equalTo(@(kScrAdaptationH(248) - 64));
     }];
 }
 

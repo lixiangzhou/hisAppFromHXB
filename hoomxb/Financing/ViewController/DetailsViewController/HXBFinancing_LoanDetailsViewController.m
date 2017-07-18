@@ -119,10 +119,14 @@
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
         
     }];
-    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"<返回" style:UIBarButtonItemStylePlain target:self action:@selector(clickLeftBarButtonItem)];
-    self.navigationItem.leftBarButtonItem = leftBarButtonItem;
-    self.hxbBaseVCScrollView.backgroundColor = [UIColor whiteColor];
-    self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:self.hxbBaseVCScrollView.bounds];
+    
+    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+    self.isTransparentNavigationBar = true;
+    //    self.isColourGradientNavigationBar = true;
+    
+    //    self.view.backgroundColor = kHXBColor_heightGrey;
+    self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+    self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     [self.hxbBaseVCScrollView addSubview:self.loanDetailsView];
 }
 

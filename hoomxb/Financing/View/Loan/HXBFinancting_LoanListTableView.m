@@ -36,7 +36,7 @@ static NSString *CELLID = @"CELLID";
 - (instancetype) initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setup];
-  
+        
     }
     return self;
 }
@@ -45,10 +45,11 @@ static NSString *CELLID = @"CELLID";
 - (void)setup {
     self.delegate = self;
     self.dataSource = self;
-    
+    self.backgroundColor = kHXBColor_BackGround;
     [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
     self.separatorInset = UIEdgeInsetsMake(0, -50, 0, 0);
     self.rowHeight = kScrAdaptationH(121);
+    self.nodataView.hidden = false;
 }
 
 #pragma mark - datesource

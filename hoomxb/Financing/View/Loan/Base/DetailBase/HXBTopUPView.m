@@ -35,6 +35,7 @@
 
 - (void)setUP {
     [self setUPSubViewsFrame];
+    [self registerEvent];
 }
 
 
@@ -48,6 +49,7 @@
     self.balanceLabel.text = manager.balanceLabelStr;
     ///余额展示
     self.balanceLabel_const.text = manager.balanceLabel_constStr;
+    self.rechargeButton.userInteractionEnabled = true;
     ///充值的button
     [self.rechargeButton setTitle: manager.rechargeButtonStr forState:UIControlStateNormal];
 }
@@ -81,22 +83,25 @@
     [self.rechargeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.right.equalTo(self).offset(kScrAdaptationW750(-31));
-        make.height.width.equalTo(@(kScrAdaptationH750(24)));
+        make.height.equalTo(@(kScrAdaptationH750(24)));
+        make.width.equalTo(@(kScrAdaptationH750(18)));
     }];
     [self.rechargeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
-        make.right.equalTo(self.rechargeImageView.mas_left);
-        make.width.equalTo(@(kScrAdaptationW750(60)));
+        make.right.equalTo(self);
+        make.width.equalTo(@(kScrAdaptationW750(115)));
         make.height.equalTo(@(kScrAdaptationH750(30)));
     }];
     [self.rechargeButton setTitleColor: kHXBColor_RGB(0.45, 0.68, 1.00, 1.00) forState:UIControlStateNormal];
-    self.rechargeButton.layer.borderColor = kHXBColor_RGB(0.45, 0.68, 1.00, 1.00).CGColor;//(r:0.45 g:0.68 b:1.00 a:1.00)
-    self.rechargeButton.layer.borderWidth = kScrAdaptationW750(6);
     self.rechargeImageView.svgImageString = @"arrow";
+    self.rechargeButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+    [self.rechargeButton.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.left.bottom.equalTo(self.rechargeButton);
+    }];
     
     [self.balanceLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self).offset(0);
-        make.left.equalTo(self).offset(kScrAdaptationW750(10));
+        make.left.equalTo(self).offset(kScrAdaptationW750(30));
         make.height.equalTo(@(kScrAdaptationH750(30)));
     }];
     
@@ -104,6 +109,10 @@
         make.bottom.top.equalTo(self.balanceLabel_const);
         make.left.equalTo(self.balanceLabel_const.mas_right).offset(kScrAdaptationW(5));
     }];
+    self.balanceLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+    self.balanceLabel_const.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+    self.balanceLabel.textColor = kHXBColor_Grey_Font0_2;
+    self.balanceLabel_const.textColor = kHXBColor_Grey_Font0_2;
     [self.balanceLabel sizeToFit];
     [self.balanceLabel_const sizeToFit];
 }
