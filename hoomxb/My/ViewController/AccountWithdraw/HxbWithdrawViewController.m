@@ -112,6 +112,8 @@
 {
     kWeakSelf
     HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
+    alertVC.isCode = NO;
+    alertVC.messageTitle = @"请输入您的交易密码";
     alertVC.sureBtnClick = ^(NSString *pwd){
         if (pwd.length == 0) {
             return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];

@@ -112,6 +112,12 @@
     
     self.headView.homeBaseModel = homeBaseModel;
     [self.mainTableView reloadData];
+    NSLog(@"%@",self.mainTableView.subviews);
+    [self.mainTableView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subView, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([subView isKindOfClass:[UIImageView class]]) {
+            [subView removeFromSuperview];
+        }
+    }];
 }
 
 //- (void)setHomeDataListViewModelArray:(NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
@@ -319,7 +325,7 @@
     if (!_footerView) {
         _footerView = [UIView new];
         _footerView.backgroundColor = [UIColor clearColor];
-        _footerView.frame = CGRectMake(0, 0, _mainTableView.width, kScrAdaptationH(55));
+        _footerView.frame = CGRectMake(0, 0, _mainTableView.width, kScrAdaptationH(40));
         
         _footerLabel = [UILabel new];
         _footerLabel.frame = CGRectMake(0, 0, _footerView.width, _footerView.height);

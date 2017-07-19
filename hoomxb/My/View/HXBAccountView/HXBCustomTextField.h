@@ -19,4 +19,9 @@
 @property (nonatomic, strong) UIImage *rightImage;
 @property (nonatomic, assign) BOOL isHidenLine;
 
+/**
+ 背景按钮点击
+ */
+@property (nonatomic, copy) void(^btnClick)();
+
 @end

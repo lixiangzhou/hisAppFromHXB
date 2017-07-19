@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="15px" viewBox="0 0 20 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 6</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编辑个人信息" transform="translate(-15.000000, -442.000000)">
+            <g id="Group-6" transform="translate(15.000000, 442.000000)">
+                <polygon id="Rectangle-8" fill="#5E95FF" opacity="0.5" points="14 9 18 9 17 12 13 12"></polygon>
+                <rect id="Rectangle-6" fill="#5E95FF" x="1" y="3" width="18" height="2"></rect>
+                <rect id="Rectangle-3" stroke="#5E95FF" x="0.5" y="0.5" width="19" height="14" rx="1"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

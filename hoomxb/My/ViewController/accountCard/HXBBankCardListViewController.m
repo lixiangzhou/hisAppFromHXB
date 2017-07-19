@@ -8,6 +8,8 @@
 
 #import "HXBBankCardListViewController.h"
 #import "HXBWithdrawalsRequest.h"
+#import "HXBBankListCell.h"
+#import "SVGKImage.h"
 @interface HXBBankCardListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *mainTableView;
@@ -42,6 +44,7 @@
         _mainTableView = [[UITableView alloc] initWithFrame:self.view.bounds];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
+        _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _mainTableView;
 }
@@ -49,14 +52,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = YES;
+    self.title = @"选择银行卡";
     [self.view addSubview:self.mainTableView];
+    [self settupNav];
     [self setupNavLeftBtn];
     [self loadData];
 }
 
+- (void)settupNav
+{
+    self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
+    self.navigationController.navigationBar.barTintColor = COR19;
+}
+
 - (void)setupNavLeftBtn {
     UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
-    [button setTitle:@"返回" forState:UIControlStateNormal];
+    [button setImage:[SVGKImage imageNamed:@"back"].UIImage forState:UIControlStateNormal];
     // 让按钮内部的所有内容左对齐
     button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [button addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
@@ -66,10 +77,7 @@
 }
 - (void)back
 {
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)loadData
@@ -100,11 +108,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *identifier = @"bankCardList";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    HXBBankListCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell = [[HXBBankListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     cell.textLabel.text = self.objArr[indexPath.row];
+    cell.detailTextLabel.text = @"单笔10万";
+    cell.imageView.image = [UIImage imageNamed:@"zhaoshang"];
     return cell;
 
 }
@@ -116,5 +126,12 @@
     }
     [self back];
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return kScrAdaptationH(70);
+}
+- (void)dealloc
+{
+    NSLog(@"被释放");
+}
 @end

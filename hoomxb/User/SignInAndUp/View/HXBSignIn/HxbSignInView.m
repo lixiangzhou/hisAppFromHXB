@@ -12,7 +12,7 @@
 static NSString *const kForgetPasswordText = @"忘记密码";
 static NSString *const kPhoneText = @"手机号";
 static NSString *const kPasswordText = @"密码";
-static NSString *const kSignInText = @"同意用户协议并登陆";
+static NSString *const kSignInText = @"同意用户协议并登录";
 static NSString *const kSignUPText = @"立即注册";
 
 static NSString *const kPhoneText_Error = @"请输入正确的手机号码";
@@ -315,10 +315,12 @@ UITextFieldDelegate
     //电话号码未填写
     if (!self.phoneTextField.text.length) {
         NSLog(@"%@",kPhoneText_Nil);
+        [HxbHUDProgress showMessageCenter:kPhoneText_Nil inView:self];
         return true;
     }
     if (!self.passwordTextField.text.length) {
         NSLog(@"%@",kPassword_Nil);
+        [HxbHUDProgress showMessageCenter:kPassword_Nil inView:self];
         return true;
     }
     return false;

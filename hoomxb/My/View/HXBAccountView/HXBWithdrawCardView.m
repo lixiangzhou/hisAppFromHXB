@@ -12,7 +12,7 @@
 #import "HXBCustomTextField.h"
 @interface HXBWithdrawCardView ()
 //@property (nonatomic, strong) UITextField *bankCardTextField;
-@property (nonatomic, strong) UIButton *bankNameBtn;
+//@property (nonatomic, strong) UIButton *bankNameBtn;
 //@property (nonatomic, strong) UITextField *phoneNumberTextField;
 @property (nonatomic, strong) UIButton *nextButton;
 //@property (nonatomic, strong) UILabel *cardholderTipLabel;
@@ -32,7 +32,6 @@
         self.backgroundColor = BACKGROUNDCOLOR;
         [self addSubview:self.bankCardTextField];
         [self addSubview:self.bankNameTextField];
-        [self addSubview:self.bankNameBtn];
         [self addSubview:self.phoneNumberTextField];
         [self addSubview:self.nextButton];
         [self addSubview:self.cardholderLabel];
@@ -56,12 +55,7 @@
 //        make.centerX.equalTo(self);
 //        make.top.equalTo(self.cardholderLabel.mas_bottom).offset(-10);
 //    }];
-    [self.bankNameBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left);
-        make.right.equalTo(self.mas_right);
-        make.top.equalTo(self.cardholderLabel.mas_bottom);
-        make.height.offset(kScrAdaptationH750(100));
-    }];
+
     [self.bankNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
@@ -93,9 +87,7 @@
 
 - (void)bankNameBtnClick
 {
-    if (self.bankNameBtnClickBlock) {
-        self.bankNameBtnClickBlock(self.bankNameBtn);
-    }
+    
 }
 
 - (void)nextButtonClick
@@ -104,23 +96,11 @@
         self.nextButtonClickBlock(self.bankCardTextField.text);
     }
 }
-//- (void)drawRect:(CGRect)rect {
-//    [super drawRect:rect];
-//    CGContextRef currentContext = UIGraphicsGetCurrentContext();
-//    //设置虚线颜色
-//    CGContextSetStrokeColorWithColor(currentContext, COR11.CGColor);
-//    //设置虚线宽度
-//    CGContextSetLineWidth(currentContext, 1);
-//    //设置虚线绘制起点
-//    CGContextMoveToPoint(currentContext, 0, self.cardholderLabel.bottom);
-//    //设置虚线绘制终点
-//    CGContextAddLineToPoint(currentContext, self.width, self.cardholderLabel.bottom);
-//    //设置虚线排列的宽度间隔:下面的arr中的数字表示先绘制3个点再绘制1个点
-//    CGFloat arr[] = {3,1};
-//    //下面最后一个参数“2”代表排列的个数。
-//    CGContextSetLineDash(currentContext, 0, arr, 2);
-//    CGContextDrawPath(currentContext, kCGPathStroke);
-//}
+- (void)setBankName:(NSString *)bankName
+{
+    _bankName = bankName;
+    self.bankNameTextField.text = bankName;
+}
 
 #pragma mark - 懒加载
 - (HXBCustomTextField *)bankCardTextField{
@@ -135,23 +115,21 @@
 - (HXBCustomTextField *)bankNameTextField
 {
     if (!_bankNameTextField) {
+        kWeakSelf
         _bankNameTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectZero];
         _bankNameTextField.placeholder = @"银行名称";
         _bankNameTextField.leftImage = [SVGKImage imageNamed:@"bank.svg"].UIImage;
-        _bankNameTextField.rightImage = [SVGKImage imageNamed:@"arrow.svg"].UIImage;
+        _bankNameTextField.rightImage = [SVGKImage imageNamed:@"more.svg"].UIImage;
+        _bankNameTextField.btnClick = ^{
+            if (weakSelf.bankNameBtnClickBlock) {
+                weakSelf.bankNameBtnClickBlock();
+            }
+        };
+        
     }
     return _bankNameTextField;
 }
 
-- (UIButton *)bankNameBtn{
-    if (!_bankNameBtn) {
-        _bankNameBtn = [[UIButton alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(_bankCardTextField.frame) + 20, SCREEN_WIDTH - 40, 44)];
-        [_bankNameBtn setBackgroundColor:[UIColor clearColor]];
-        [_bankNameBtn addTarget:self action:@selector(bankNameBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _bankNameBtn;
-    
-}
 
 
 - (HXBCustomTextField *)phoneNumberTextField{

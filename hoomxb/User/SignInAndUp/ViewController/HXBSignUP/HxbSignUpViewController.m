@@ -56,10 +56,18 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     kWeakSelf
     [self.signUPView signUPClickNextButtonFunc:^(NSString *mobile) {
         if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {//注册
-            if ([weakSelf.signUPView.checkMobileStr isEqualToString:kAlreadyRegistered]) return;
-        }else
+            if ([weakSelf.signUPView.checkMobileStr isEqualToString:kAlreadyRegistered])
+            {
+                [HxbHUDProgress showMessageCenter:kAlreadyRegistered inView:self.view];
+                return;
+            }
+        }else if(self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot)
         {
-            if([weakSelf.signUPView.checkMobileStr isEqualToString:@"该手机号暂未注册"]) return;
+            if([weakSelf.signUPView.checkMobileStr isEqualToString:@"该手机号暂未注册"])
+            {
+                [HxbHUDProgress showMessageCenter:weakSelf.signUPView.checkMobileStr inView:self.view];
+                return;
+            }
         }
         NSLog(@"点击了下一步");
         switch (weakSelf.type) {
@@ -95,6 +103,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
                     [HXBSignUPAndLoginRequest smscodeRequestWithMobile:mobile andAction:self.type andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
                         //发送短信vc
                         HXBSendSmscodeViewController *sendSmscodeVC = [[HXBSendSmscodeViewController alloc]init];
+                        sendSmscodeVC.title = self.title;
                         sendSmscodeVC.phonNumber = mobile;
                         sendSmscodeVC.captcha = self.checkPaptchaStr;
                         sendSmscodeVC.type = self.type;

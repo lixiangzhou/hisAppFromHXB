@@ -16,13 +16,13 @@
 #import "HXBBankCardListViewController.h"
 #import "HXBWithdrawCardView.h"
 
-#import "HXBBindBankCardViewController.h"//ZCC需要修改逻辑
+#import "HXBRechargeCompletedViewController.h"//ZCC需要修改
 @interface HxbWithdrawCardViewController () <UITextFieldDelegate>
 
 /**
  bankCode
  */
-@property (nonatomic, copy) NSString *bankCode;
+//@property (nonatomic, copy) NSString *bankCode;
 /**
  数据模型
  */
@@ -33,7 +33,7 @@
 /**
  bankName
  */
-@property (nonatomic, strong) NSString *bankName;
+//@property (nonatomic, strong) NSString *bankName;
 
 
 @end
@@ -46,17 +46,8 @@
         kWeakSelf
         _withdrawCardView = [[HXBWithdrawCardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
         
-        _withdrawCardView.bankNameBtnClickBlock = ^(UIButton *bankNameBtn) {
-            
-            weakSelf.bankName = bankNameBtn.titleLabel.text;
-            HXBBankCardListViewController *bankCardListVC = [[HXBBankCardListViewController alloc] init];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bankCardListVC];
-            bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
-                [bankNameBtn setTitle:bankName forState:UIControlStateNormal];
-                [bankNameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                weakSelf.bankCode = bankCode;
-            };
-            [weakSelf presentViewController:nav animated:YES completion:nil];
+        _withdrawCardView.bankNameBtnClickBlock = ^() {
+            [weakSelf enterBankCardListVC];
         };
         
         
@@ -83,11 +74,25 @@
 
 }
 
+- (void)enterBankCardListVC
+{
+    kWeakSelf
+    HXBBankCardListViewController *bankCardListVC = [[HXBBankCardListViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bankCardListVC];
+    bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
+        weakSelf.withdrawCardView.bankCode = bankCode;
+        weakSelf.withdrawCardView.bankName = bankName;
+    };
+    [weakSelf presentViewController:nav animated:YES completion:nil];
+}
+
 - (void)nextButtonClick:(NSString *)bankCard{
+    //充值结果
+
+    HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
+    [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
     
-    HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
-    bindBankCardVC.title = @"绑卡";
-    [self.navigationController pushViewController:bindBankCardVC animated:YES];
+    
 //    kWeakSelf
 //    HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
 //    alertVC.sureBtnClick = ^(NSString *pwd){
