@@ -10,6 +10,7 @@
 #import "HXBFinanctingRequest.h"
 #import "HXBFinAddRecortdTableView_Plan.h"
 #import "HXBFinModel_AddRecortdModel_LoanTruansfer.h"
+#import "FinModel_AddRecortdModel_Loan.h"
 @interface HXBFinAddRecordVC_LoanTruansfer ()
 @property (nonatomic,strong) HXBFinAddRecortdTableView_Plan *addRecortdTableView;
 @end
@@ -24,9 +25,8 @@
 }
 
 - (void)downLoadDataWihtIsUPLoad:(BOOL)isUPLoad{
-    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansferAddRecortdWithISUPLoad:isUPLoad andFinanceLoanId:self.loanTruansferID andOrder:nil andSuccessBlock:^(NSArray<HXBFinModel_AddRecortdModel_LoanTruansfer *> *loanTruansferAddRecortdModelArray) {
-        
-        
+    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansferAddRecortdWithISUPLoad:isUPLoad andFinanceLoanId:self.loanTruansferID andOrder:nil andSuccessBlock:^(FinModel_AddRecortdModel_Loan *loanTruansferRecortdModel) {
+        self.addRecortdTableView.loanModel = loanTruansferRecortdModel;
     } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
         NSString *massage = request.responseObject[kResponseMessage] ? request.responseObject[kResponseMessage] : @"请求失败";
         [HxbHUDProgress showMessageCenter:massage inView:self.view];

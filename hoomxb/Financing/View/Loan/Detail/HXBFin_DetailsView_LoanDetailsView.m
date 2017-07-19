@@ -261,7 +261,7 @@
     self.promptLablel = [[UILabel alloc]init];
     [self addSubview: self.promptLablel];
     self.promptLablel.textAlignment = NSTextAlignmentCenter;
-    self.promptLablel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+    self.promptLablel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.promptLablel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
     self.promptLablel.text = @"预期收益不代表实际收益，投资需谨慎";
     [self.promptLablel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -285,11 +285,10 @@
     [self.addView addSubview:_addButton];
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.equalTo(weakSelf.addView);
-        make.left.top.equalTo(weakSelf.addView).offset(20);
-        make.bottom.right.equalTo(weakSelf.addView).offset(-20);
+        make.left.top.equalTo(weakSelf.addView).offset(0);
+        make.bottom.right.equalTo(weakSelf.addView).offset(0);
     }];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
-    self.addButton.backgroundColor = [UIColor blackColor];
     [self.addButton setTitle:self.addButtonStr forState:UIControlStateNormal];
     
     
@@ -321,7 +320,7 @@
     [self.bottomTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.loanTypeViewContentView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@(kScrAdaptationH(138)));
+        make.height.equalTo(@(kScrAdaptationH(134)));
     }];
     //cell的点击事件
     [self.bottomTableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
@@ -329,7 +328,6 @@
             self.clickBottomTabelViewCellBlock(index,model);
         }
     }];
-    self.bottomTableView.rowHeight = 40;
     UILabel *lable = [[UILabel alloc]init];
     [self addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {

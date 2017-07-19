@@ -3501,10 +3501,10 @@
 		E1FBADB81EC45DE800F74D86 /* DetailsViewController */ = {
 			isa = PBXGroup;
 			children = (
-				E1FBADB91EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.h */,
-				E1FBADBA1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m */,
 				E1FBADBB1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.h */,
 				E1FBADBC1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m */,
+				E1FBADB91EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.h */,
+				E1FBADBA1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m */,
 				E1B517BA1F134EAF001C9878 /* HXBFin_DetailLoanTruansfer_ViewController.h */,
 				E1B517BB1F134EAF001C9878 /* HXBFin_DetailLoanTruansfer_ViewController.m */,
 			);

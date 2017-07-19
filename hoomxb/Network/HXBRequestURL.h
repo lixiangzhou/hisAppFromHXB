@@ -25,7 +25,7 @@
 //加入记录
 #define kHXBFinanc_Loan_AddRecortdURL(loanID) [NSString stringWithFormat:@"/loan/%@/record",(loanID)]//加入记录
 #define kHXBFinanc_Plan_AddRecortdURL(planID) [NSString stringWithFormat:@"/plan/%@/record",(planID)]//红利计划 加入记录
-#define kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserID) [NSString stringWithFormat:@"/transfer/%@/record",(loanTruanserID)];//债转加入记录
+#define kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(loanTruanserID)];//债转加入记录
 
 //MARK: ======================= 用户 =======================
 #define kHXBUser_UserInfoURL @"/user/info"///用户信息

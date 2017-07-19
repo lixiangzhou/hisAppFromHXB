@@ -22,11 +22,11 @@
 @end
 
 @implementation HXBFin_Detail_DetailVC_Loan
-
+///借款说明
 - (HXBLoanInstructionView *)loanInstructionView
 {
     if (!_loanInstructionView) {
-        _loanInstructionView = [[HXBLoanInstructionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.loanInformation.frame) + 20, kScreenWidth, 0)];
+        _loanInstructionView = [[HXBLoanInstructionView alloc] initWithFrame:CGRectZero];
     }
     return _loanInstructionView;
 }
@@ -34,22 +34,22 @@
 - (HXBLoanInformation *)loanInformation
 {
     if (!_loanInformation) {
-        _loanInformation = [[HXBLoanInformation alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, 166.5)];
+        _loanInformation = [[HXBLoanInformation alloc] initWithFrame:CGRectZero];
     }
     return _loanInformation;
 }
-
+///用户信息
 - (HXBHXBBorrowUserinforView *)borrowUserinforView
 {
     if (!_borrowUserinforView) {
-        _borrowUserinforView = [[HXBHXBBorrowUserinforView alloc] initWithFrame:CGRectMake(0,0, kScreenWidth, 0)];
+        _borrowUserinforView = [[HXBHXBBorrowUserinforView alloc] initWithFrame:CGRectZero];
     }
     return _borrowUserinforView;
 }
 
 -(void)loadView {
     [super loadView];
-    self.scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
     self.view = self.scrollView;
 }
 
@@ -72,16 +72,21 @@
     [self.scrollView addSubview:self.loanInformation];
     [self.scrollView addSubview:self.loanInstructionView];
     [self.scrollView addSubview:self.borrowUserinforView];
+    
+    [self.loanInstructionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.scrollView).offset(kScrAdaptationH(10));
+        make.left.equalTo(self.scrollView);
+        make.width.equalTo(self.scrollView);
+    }];
+    [self.borrowUserinforView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.loanInstructionView.mas_bottom).offset(kScrAdaptationH(10));
+        make.left.equalTo(self.scrollView);
+        make.width.equalTo(self.scrollView);
+        make.height.equalTo(@(kScrAdaptationH(744)));
+    }];
     self.loanInformation.loanDetailViewModel = self.loanDetailViewModel;
     self.loanInstructionView.loanDetailViewModel = self.loanDetailViewModel;
     self.borrowUserinforView.loanDetailViewModel = self.loanDetailViewModel;
-    
-//    kWeakSelf
-//    [self.scrollView hxb_HeaderWithHeaderRefreshCallBack:^{
-//        [weakSelf.scrollView endRefresh];
-//    } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
-//        
-//    }];
 }
 
 

@@ -141,7 +141,7 @@
     [self.detailTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.loanType_InterestLabel.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(135)));
+        make.height.equalTo(@(kScrAdaptationH(134)));
     }];
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.detailTableView.mas_bottom).offset(kScrAdaptationH(20));

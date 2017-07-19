@@ -55,6 +55,7 @@ UITableViewDelegate,UITableViewDataSource
 #pragma mark - tableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     if (self.clickCellBlock) {
         HXBFin_TableViewCell_LoanTransfer *cell = [tableView cellForRowAtIndexPath:indexPath];
         self.clickCellBlock(cell.LoanTruansferViewModel, indexPath);

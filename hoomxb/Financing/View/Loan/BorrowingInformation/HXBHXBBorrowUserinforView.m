@@ -11,6 +11,7 @@
 @interface HXBHXBBorrowUserinforView ()
 
 @property (nonatomic, strong) UILabel *borrowUserinforTitleLabel;
+@property (nonatomic, strong) UILabel *borrowUserTypeLabel;
 @property (nonatomic, strong) UILabel *nameTipLabel;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *idCardNoTipLabel;
@@ -139,12 +140,11 @@
 - (void)setupSubViewFrame
 {
     [self.borrowUserinforTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@20);
-        make.left.equalTo(@20);
+        make.top.left.equalTo(@(kScrAdaptationH(15)));
     }];
     [self.nameTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.borrowUserinforTitleLabel.mas_bottom).offset(8);
-        make.left.equalTo(@20);
+        make.top.equalTo(self.borrowUserinforTitleLabel.mas_bottom).offset(kScrAdaptationH(15));
+        make.left.equalTo(self.borrowUserinforTitleLabel);
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameTipLabel.mas_bottom).offset(8);
@@ -242,6 +242,16 @@
         _borrowUserinforTitleLabel.text = @"借款人信息";
     }
     return _borrowUserinforTitleLabel;
+}
+- (UILabel *)borrowUserTypeLabel {
+    if (!_borrowUserTypeLabel) {
+        _borrowUserTypeLabel = [[UILabel alloc] init];
+        _borrowUserTypeLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        _borrowUserTypeLabel.textColor = kHXBColor_HeightGrey_Font0_4;
+        _borrowUserTypeLabel.text = @"借款人审核状态";
+        
+    }
+    return _borrowUserTypeLabel;
 }
 - (UILabel *)nameTipLabel
 {

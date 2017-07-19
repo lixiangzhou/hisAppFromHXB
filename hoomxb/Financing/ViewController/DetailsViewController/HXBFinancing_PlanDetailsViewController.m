@@ -138,11 +138,9 @@
         [gifHeader setTitle:@"" forState:MJRefreshStateWillRefresh];
         [gifHeader setTitle:@"" forState:MJRefreshStateNoMoreData];
     }];
-    
-    
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
     self.isTransparentNavigationBar = true;
-//    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = true;
     
 //    self.view.backgroundColor = kHXBColor_heightGrey;
     self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];

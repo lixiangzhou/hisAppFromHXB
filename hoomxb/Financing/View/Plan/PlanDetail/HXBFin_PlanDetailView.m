@@ -276,7 +276,7 @@
     [self.bottomTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.flowChartView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@(kScrAdaptationH(138)));
+        make.height.equalTo(@(kScrAdaptationH(134)));
     }];
     //cell的点击事件
     [self.bottomTableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
@@ -284,7 +284,6 @@
             self.clickBottomTabelViewCellBlock(index,model);
         }
     }];
-    self.bottomTableView.rowHeight = 40;
     UILabel *lable = [[UILabel alloc]init];
     [self addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {

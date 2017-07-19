@@ -122,7 +122,7 @@
     
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
     self.isTransparentNavigationBar = true;
-    //    self.isColourGradientNavigationBar = true;
+        self.isColourGradientNavigationBar = true;
     
     //    self.view.backgroundColor = kHXBColor_heightGrey;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
