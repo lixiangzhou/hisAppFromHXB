@@ -60,25 +60,27 @@
     }];
     
     [self.amountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(20);
-        make.right.equalTo(self.mas_right).offset(-20);
-        make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(20);
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(kScrAdaptationH750(20));
+        make.height.offset(kScrAdaptationH750(100));
     }];
     [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(20);
-        make.right.equalTo(self.mas_right).offset(-20);
-        make.top.equalTo(self.amountTextField.mas_bottom).offset(50);
-        make.height.equalTo(@44);
+        make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(40));
+        make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
+        make.top.equalTo(self.amountTextField.mas_bottom).offset(kScrAdaptationH750(100));
+        make.height.offset(kScrAdaptationH750(80));
     }];
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(20);
-        make.right.equalTo(self.mas_right).offset(-20);
-        make.bottom.equalTo(self.mas_bottom).offset(-20);
+        make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(40));
+        make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
+        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH750(-100));
     }];
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(20);
-        make.right.equalTo(self.mas_right).offset(-20);
-        make.bottom.equalTo(self.tipLabel.mas_top).offset(-5);
+        make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(40));
+        make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
+        make.bottom.equalTo(self.tipLabel.mas_top).offset(kScrAdaptationH750(-20));
+        make.height.offset(kScrAdaptationH750(24));
     }];
 }
 
@@ -105,7 +107,7 @@
         _amountTextField = [[HXBLeftLabelTextView alloc] init];
         _amountTextField.placeholder = @"请输入充值金额";
         _amountTextField.leftStr = @"充值金额:";
-        
+        _amountTextField.backgroundColor = [UIColor whiteColor];
     }
     return _amountTextField;
 }
@@ -139,10 +141,10 @@
 {
     if (!_tipLabel) {
         _tipLabel = [[UILabel alloc] init];
-        _tipLabel.text = @"1、红小宝充值仅限储蓄卡，不可使用信用卡，一旦发现恶意充值，套现等行为，将对账户做出严肃处理。";
-        _tipLabel.font = [UIFont systemFontOfSize:12];
+        _tipLabel.text = @"红小宝充值仅限储蓄卡，不可使用信用卡，一旦发现恶意充值，套现等行为，将对账户做出严肃处理。";
+        _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _tipLabel.numberOfLines = 0;
-        _tipLabel.textColor = COR12;
+        _tipLabel.textColor = RGB(102, 102, 102);
     }
     return _tipLabel;
 }
@@ -151,7 +153,8 @@
     if (!_promptLabel) {
         _promptLabel = [[UILabel alloc] init];
         _promptLabel.text = @"温馨提示：";
-        _promptLabel.font = [UIFont systemFontOfSize:12];
+        _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        _promptLabel.textColor = RGB(115, 173, 255);
     }
     return _promptLabel;
 }

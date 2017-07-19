@@ -11,9 +11,19 @@
 @interface HXBWithdrawCardView : UIView
 
 /**
+ bankName
+ */
+@property (nonatomic, copy) NSString *bankName;
+
+/**
+ bankCode
+ */
+@property (nonatomic, copy) NSString *bankCode;
+
+/**
  bankNameBtnClickBlock
  */
-@property (nonatomic, copy) void(^bankNameBtnClickBlock)(UIButton *bankNameBtn);
+@property (nonatomic, copy) void(^bankNameBtnClickBlock)();
 
 /**
  nextButtonClickBlcok

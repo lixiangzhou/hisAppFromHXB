@@ -51,7 +51,7 @@
             builder.viewFrame = self.bounds;
             builder.minimumInteritemSpacing = 0;
             builder.secondaryItemMinAlpha = 1.0;
-            builder.threeDimensionalScale = 1.1;
+            builder.threeDimensionalScale = 1.12;
             builder.adItemSize = (CGSize){kScrAdaptationW(325)/builder.threeDimensionalScale,kScrAdaptationH(110)/builder.threeDimensionalScale};
             builder.minimumLineSpacing = kScrAdaptationW(15) * builder.threeDimensionalScale;
             builder.infiniteCycle = 2.0;
@@ -67,9 +67,9 @@
 -(void)sc_didClickAd:(id)adModel{
     NSLog(@"sc_didClickAd-->%@",adModel);
 }
--(void)sc_scrollToIndex:(NSInteger)index{
-    NSLog(@"sc_scrollToIndex-->%ld",index);
-}
+//-(void)sc_scrollToIndex:(NSInteger)index{
+//    NSLog(@"sc_scrollToIndex-->%ld",index);
+//}
 //- (SDCycleScrollView *)bannerScrollView
 //{
 //    if (!_bannerScrollView) {

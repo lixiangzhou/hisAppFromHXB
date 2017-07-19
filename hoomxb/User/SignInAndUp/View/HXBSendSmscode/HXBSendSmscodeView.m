@@ -8,6 +8,8 @@
 
 #import "HXBSendSmscodeView.h"
 #import "SVGKImage.h"
+#import "HXBCustomTextField.h"
+#import "HXBFinBaseNegotiateView.h"
 static NSString *const kSmscode_ConstLableTitle = @"验证码";
 static NSString *const kPassword_constLableTitle = @"设置登录密码";
 static NSString *const kSetPassWordButtonTitle = @"确认设置登录密码";
@@ -44,19 +46,16 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 @property (nonatomic, strong) UIView *passwordLine;
 ///确认设置密码按钮
 @property (nonatomic, strong) UIButton      *setPassWordButton;
-
-/**
- 邀请码const
- */
-@property (nonatomic,strong) UILabel *inviteCodeLabel_const;
 /**
  邀请码
  */
-@property (nonatomic,strong) UITextField *inviteCodeTextField;
+@property (nonatomic, strong) HXBCustomTextField *inviteCodeTextField;
+//@property (nonatomic,strong) UITextField *inviteCodeTextField;
 /**
  用户协议
  */
-@property (nonatomic,strong) UIButton *negotiateButton;
+@property (nonatomic, strong) HXBFinBaseNegotiateView *negotiateView;
+//@property (nonatomic,strong) UIButton *negotiateButton;
 /// 密码是否合格 （字符，数字不能有特殊字符）
 @property (nonatomic, assign) BOOL isPasswordQualified;
 ///点击了确认
@@ -70,11 +69,35 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     _type = type;
     switch (type) {
         case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:
+        {
             [self.inviteCodeTextField setHidden:true];
-            [self.inviteCodeLabel_const setHidden:true];
-            [self.negotiateButton setHidden:true];
+            [self.negotiateView setHidden:true];
+            [self.setPassWordButton setTitle:@"确认登录密码" forState:UIControlStateNormal];
+            [self.setPassWordButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.passwordLine.mas_bottom).offset(kScrAdaptationH(50));
+                make.left.equalTo(self).offset(kScrAdaptationW(20));
+                make.right.equalTo(self).offset(kScrAdaptationW(-20));
+                make.height.offset(kScrAdaptationH(41));
+            }];
+        }
             break;
-            
+        case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
+        {
+            [self.setPassWordButton setTitle:@"注册" forState:UIControlStateNormal];
+            [self.setPassWordButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.inviteCodeTextField.mas_bottom).offset(kScrAdaptationH(50));
+                make.left.equalTo(self).offset(kScrAdaptationW(20));
+                make.right.equalTo(self).offset(kScrAdaptationW(-20));
+                make.height.offset(kScrAdaptationH(41));
+            }];
+            [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.setPassWordButton.mas_bottom).offset(kScrAdaptationH(10));
+                make.left.right.equalTo(self).offset(kScrAdaptationW(65));
+                make.right.equalTo(self).offset(kScrAdaptationW(-80));
+                make.height.offset(kScrAdaptationH(14));
+            }];
+        }
+            break;
         default:
             break;
     }
@@ -130,9 +153,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     self.passwordImageView = [[UIImageView alloc]init];
     self.eyeButton = [[UIButton alloc]init];
     self.setPassWordButton = [[UIButton alloc]init];
-    self.inviteCodeLabel_const = [[UILabel alloc]init];
-    self.inviteCodeTextField = [[UITextField alloc]init];
-    self.negotiateButton = [[UIButton alloc]init];
+    self.inviteCodeTextField = [[HXBCustomTextField alloc]init];
+    self.negotiateView = [[HXBFinBaseNegotiateView alloc]init];
     self.codeLine = [[UIView alloc] init];
     self.passwordLine = [[UIView alloc] init];
     
@@ -144,22 +166,33 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self addSubview : self.passwordImageView];
     [self addSubview : self.eyeButton];
     [self addSubview : self.setPassWordButton];
-    [self addSubview:self.inviteCodeLabel_const];
     [self addSubview:self.inviteCodeTextField];
-    [self addSubview:self.negotiateButton];
+    [self addSubview:self.negotiateView];
     [self addSubview:self.codeLine];
     [self addSubview:self.passwordLine];
     
     [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
     
     self.password_TextField.placeholder = @"8-20位数组大小写字母组成";
-    self.inviteCodeLabel_const.text = @"邀请码";
-    self.inviteCodeTextField.placeholder = @"选填";
- 
-    [self.setPassWordButton setTitle:@"确认登录密码" forState:UIControlStateNormal];
-   
-    [self.negotiateButton setTitle:@"用户协议" forState:UIControlStateNormal];
-    [self.negotiateButton addTarget:self action:@selector(clickNegotiateButton:) forControlEvents:UIControlEventTouchUpInside];
+    self.inviteCodeTextField.placeholder = @"请输入邀请码";
+    self.inviteCodeTextField.leftImage = [SVGKImage imageNamed:@"invitation_code.svg"].UIImage;
+    
+    self.negotiateView.negotiateStr = @"红小宝注册协议";
+    [self.negotiateView clickNegotiateWithBlock:^{
+        NSLog(@"点击了红小宝注册协议");
+        [HxbHUDProgress showProgress:@"点击了红小宝注册协议" inView:self];
+    }];
+    kWeakSelf
+    [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
+        if (isSelected) {
+            weakSelf.setPassWordButton.enabled = YES;
+            weakSelf.setPassWordButton.backgroundColor = RGB(245, 81, 81);
+        }else
+        {
+            weakSelf.setPassWordButton.enabled = NO;
+            weakSelf.setPassWordButton.backgroundColor = RGB(218, 218, 223);
+        }
+    }];
 }
 
 - (void)layoutSubView_sendSmscode {
@@ -215,29 +248,16 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
         make.height.offset(0.5);
     }];
-    [self.setPassWordButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.passwordLine.mas_bottom).offset(kScrAdaptationH(50));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
-        make.height.offset(kScrAdaptationH(41));
-    }];
     
-    [self.inviteCodeLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.passwordLine.mas_bottom).offset(kScrAdaptationH(20));
-        make.left.equalTo(weakSelf.passwordImageView);
-        make.height.equalTo(weakSelf.passwordImageView);
-    }];
-    [self.inviteCodeLabel_const sizeToFit];
+    
     [self.inviteCodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(weakSelf.inviteCodeLabel_const);
-        make.left.equalTo(weakSelf.inviteCodeLabel_const.mas_right).offset(kScrAdaptationW(0));
-        make.right.equalTo(weakSelf);
+        make.top.equalTo(weakSelf.passwordLine.mas_bottom);
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.height.offset(kScrAdaptationH(60));
     }];
 
-    [self.negotiateButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.setPassWordButton.mas_bottom).offset(kScrAdaptationH(6));
-        make.height.left.right.equalTo(weakSelf.setPassWordButton);
-    }];
+   
 //    self.phonNumberLabel.backgroundColor = [UIColor hxb_randomColor];
 //    self.smscode_TextField.backgroundColor = [UIColor hxb_randomColor];
 //    self.smscode_constLabel.backgroundColor = [UIColor hxb_randomColor];
@@ -245,8 +265,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 //    self.password_TextField.backgroundColor = [UIColor hxb_randomColor];
 //    self.password_constLable.backgroundColor = [UIColor hxb_randomColor];
 //    self.eyeButton.backgroundColor = [UIColor hxb_randomColor];
-    self.setPassWordButton.backgroundColor = [UIColor hxb_randomColor];
-    self.negotiateButton.backgroundColor = [UIColor hxb_randomColor];
+//    self.setPassWordButton.backgroundColor = [UIColor hxb_randomColor];
 }
 
 ///设置
@@ -341,6 +360,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self.sendButton setTitle:@(self.timeNumber).description forState:UIControlStateNormal];
     if (self.timeNumber <= 0) {
         [self.sendButton setTitle:kSendSmscodeAgainTitle forState:UIControlStateNormal];
+        [self.sendButton setBackgroundColor:RGB(245, 81, 81)];
         [self deleteTimer];
         self.timeNumber = self.totalTimeNumber;
         self.sendButton.userInteractionEnabled = true;

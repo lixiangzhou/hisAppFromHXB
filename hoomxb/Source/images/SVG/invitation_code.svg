@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 3</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="2" y="0" width="11" height="13" rx="1"></rect>
+        <path d="M1.47358551,6.45523982 L7.02641449,9.44104256 L7.02641449,9.44104256 C7.32211914,9.60004544 7.67788086,9.60004544 7.97358551,9.44104256 L13.5264145,6.45523982 L13.5264145,6.45523982 C14.0128381,6.19368577 14.6191938,6.37597855 14.8807478,6.86240216 C14.9590275,7.00798226 15,7.1706962 15,7.33598766 L15,14 L15,14 C15,14.5522847 14.5522847,15 14,15 L1,15 L1,15 C0.44771525,15 6.76353751e-17,14.5522847 0,14 L0,7.33598766 L4.4408921e-16,7.33598766 C3.76453835e-16,6.78370291 0.44771525,6.33598766 1,6.33598766 C1.16529146,6.33598766 1.32800541,6.37696018 1.47358551,6.45523982 Z" id="path-2"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="注册2-copy" transform="translate(-20.000000, -284.000000)">
+            <g id="Group-3" transform="translate(20.000000, 284.000000)">
+                <g id="Rectangle-2">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <rect stroke="#F22A29" stroke-width="1" x="2.5" y="0.5" width="10" height="12" rx="1"></rect>
+                </g>
+                <g id="Rectangle-14">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <path stroke="#F22A29" stroke-width="1" d="M1.23679275,6.89561374 C1.1640027,6.85647392 1.08264573,6.83598766 1,6.83598766 C0.723857625,6.83598766 0.5,7.05984529 0.5,7.33598766 L0.5,14 C0.5,14.2761424 0.723857625,14.5 1,14.5 L14,14.5 C14.2761424,14.5 14.5,14.2761424 14.5,14 L14.5,7.33598766 C14.5,7.25334193 14.4795137,7.17198496 14.4403739,7.09919491 C14.3095969,6.85598311 14.006419,6.76483671 13.7632072,6.89561374 L8.21037826,9.88141649 C7.76682128,10.1199208 7.23317872,10.1199208 6.78962174,9.88141649 L1.23679275,6.89561374 Z"></path>
+                </g>
+                <rect id="Rectangle-17-Copy" fill="#F22A29" x="4" y="3" width="7" height="1" rx="0.5"></rect>
+                <rect id="Rectangle-17-Copy-2" fill="#F22A29" x="4" y="6" width="7" height="1" rx="0.5"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
