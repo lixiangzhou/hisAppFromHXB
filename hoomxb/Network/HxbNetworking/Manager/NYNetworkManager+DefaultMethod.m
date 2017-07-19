@@ -101,7 +101,8 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
 //MARK: status == 0
 //page++
 - (void) addRequestPage: (HXBBaseRequest *)request {
-    request.dataPage ++;
-    NSLog(@"%ld",(long)request.dataPage);
+    NSArray *dataArray = request.responseObject[kResponseData][kResponseDataList];
+    if(dataArray.count) request.dataPage ++;
+    NSLog(@"%@ 🐯page ++ %ld",request,(long)request.dataPage);
 }
 @end

@@ -57,7 +57,7 @@ typedef enum : NSUInteger {
     }else {
         self.isHidden = false;
     }
-    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm分ss秒"];
+    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm:ss"];
 }
 /**
  剩余时间

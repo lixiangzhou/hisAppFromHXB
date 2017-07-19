@@ -25,6 +25,7 @@
 //加入记录
 #define kHXBFinanc_Loan_AddRecortdURL(loanID) [NSString stringWithFormat:@"/loan/%@/record",(loanID)]//加入记录
 #define kHXBFinanc_Plan_AddRecortdURL(planID) [NSString stringWithFormat:@"/plan/%@/record",(planID)]//红利计划 加入记录
+#define kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserID) [NSString stringWithFormat:@"/transfer/%@/record",(loanTruanserID)];//债转加入记录
 
 //MARK: ======================= 用户 =======================
 #define kHXBUser_UserInfoURL @"/user/info"///用户信息
@@ -75,6 +76,7 @@
 #define kHXBFin_Buy_PlanURL(planID) [NSString stringWithFormat:@"/plan/%@/confirm",(planID)]//购买
 #define kHXBFin_Buy_LoanURL(LoanID) [NSString stringWithFormat:@"/loan/%@/confirm",(LoanID)]
 #define kHXBFin_BuyReslut_LoanURL(loanID) [NSString stringWithFormat:@"/loan/%@/result",(loanID)]
+#define kHXBFin_BuyReslut_LoanTruansferURL(loanTruansferID) [NSString stringWithFormat:@"/transfer/%@/result",(loanTruansferID)]///债权购买
 
 //MARK: ======================= 公告 ==========================
 #define kHXBHome_AnnounceURL @"/announce"//公告

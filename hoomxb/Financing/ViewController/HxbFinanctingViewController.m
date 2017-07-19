@@ -52,7 +52,6 @@
 
 ///MARK: ------------ 定时管理 -----------
 @property (nonatomic,strong) HXBBaseContDownManager *contDwonManager;
-
 @end
 
 
@@ -139,7 +138,7 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     };
     //创建自视图
-    self.homePageView = [[HXBFinanctingView_HomePage alloc]initWithFrame:CGRectMake(0, HxbNaVigationStatusBarY, self.view.width, self.view.height - HxbNaVigationStatusBarY - HxbTabBarHeight)];
+    self.homePageView = [[HXBFinanctingView_HomePage alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - HxbTabBarHeight)];
     [self.view addSubview:self.homePageView];
 }
 
@@ -203,6 +202,7 @@
 - (void)pushLoanTruansferCellViewControllerWithModel: (HXBFinHomePageViewModel_LoanTruansferViewModel *)cellModel {
     HXBFin_DetailLoanTruansfer_ViewController *loanTruansfer_VC = [[HXBFin_DetailLoanTruansfer_ViewController alloc]init];
     loanTruansfer_VC.loanTransfer_ViewModel = cellModel;
+    loanTruansfer_VC.loanID = cellModel.loanTruansferListModel.transferId;
     [self.navigationController pushViewController:loanTruansfer_VC animated:true];
     
 }

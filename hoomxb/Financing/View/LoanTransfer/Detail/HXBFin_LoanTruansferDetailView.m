@@ -39,6 +39,7 @@
  点击事件
  */
 @property (nonatomic,copy) void (^clickAddButtonBlock)(UIButton *button);
+@property (nonatomic,copy)void (^clickBottomTabelViewCellBlock)(NSIndexPath *, HXBFinDetail_TableViewCellModel *);
 @end
 
 @implementation HXBFin_LoanTruansferDetailView
@@ -86,7 +87,14 @@
     [self setUPFrame];
     [self setUPViews];
 }
-
+//MARK: 事件的传递
+- (void)clickBottomTableViewCellBloakFunc:(void (^)(NSIndexPath *, HXBFinDetail_TableViewCellModel *))clickBottomTabelViewCellBlock {
+    self.clickBottomTabelViewCellBlock = clickBottomTabelViewCellBlock;
+}
+/// 点击了立即加入的button
+- (void) clickAddButtonFunc: (void(^)())clickAddButtonBlock {
+    self.clickAddButtonBlock = clickAddButtonBlock;
+}
 - (void) creatViews {
     self.topView = [[HXBFin_LoanTruansferDetail_TopView alloc]init];
     self.addTrustworthiness = [[HXBFin_LoanTruansfer_AddTrustworthinessView alloc]init];
@@ -151,6 +159,14 @@
     self.addButton.backgroundColor = kHXBColor_Red_090303;
     self.promptLabel.textColor = kHXBColor_Font0_6;
     self.promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    
+    //cell的点击事件
+    [self.detailTableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
+        if (self.clickBottomTabelViewCellBlock) {
+            self.clickBottomTabelViewCellBlock(index,model);
+        }
+    }];
+
 }
 @end
 @implementation HXBFin_LoanTruansferDetailViewManger
