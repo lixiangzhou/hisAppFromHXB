@@ -38,7 +38,6 @@ static NSString * const kLocalAvatarImageData = @"kLocalAvatarImageData";
 //统一密文处理
 static NSString * const kCiphertext = @"ciphertext";
 
-
 ///错误
 static NSString * const kNo = @"0";
 ///是否实名认证
@@ -73,7 +72,8 @@ static NSString *const kAvailablePoint = @"kAvailablePoint";
 static NSString *const kFrozenPoint = @"kFrozenPoint";
 /// 是否登录
 static NSString *const kIsLogin = @"kIsLogin";
-
+///isEscrow	int	是否开通存管账户 1：已开通， 0：未开通
+static NSString *const kISEscrow = @"kISEscrow";
 
 @interface KeyChainManage ()
 
@@ -116,7 +116,8 @@ static NSString *const kIsLogin = @"kIsLogin";
 @property (nonatomic,copy) NSString *realName;
 ///idNo
 @property (nonatomic,copy) NSString *idNo;
-
+///是否开通存管账户
+@property (nonatomic,copy) NSString *isEscrow;
 
 @end
 
@@ -170,6 +171,9 @@ static NSString *const kIsLogin = @"kIsLogin";
     _isMobilePassed = userInfoViewModel.userInfoModel.userInfo.isMobilePassed;
     _keychain[kIsMobilePassed] = _isMobilePassed;
     
+    ///isEscrow 是否开通存管
+    _isEscrow = userInfoViewModel.userInfoModel.userInfo.isEscrow;
+    _keychain[kISEscrow] = _isEscrow;
     
     ///用户手机号
     _mobile = userInfoViewModel.userInfoModel.userInfo.mobile;

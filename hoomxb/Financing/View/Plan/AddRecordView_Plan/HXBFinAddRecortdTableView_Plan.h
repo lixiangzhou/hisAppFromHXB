@@ -17,6 +17,22 @@
 
 @class HXBFinModel_AddRecortdModel_Plan_dataList;
 @interface HXBFinAddRecortdTableViewCell_Plan : HXBBaseTableViewCell
+///**
+// 序号
+// */
+//@property (nonatomic,copy) NSString * numberStr;
+///**
+// id
+// */
+//@property (nonatomic,copy) NSString * IDStr;
+///**
+// 时间
+// */
+//@property (nonatomic,copy) NSString * dateStr;
+///**
+// 金额
+// */
+//@property (nonatomic,copy) NSString * amountStr;
 @property (nonatomic,strong) HXBFinModel_AddRecortdModel_Plan_dataList *addRecortdModel_plan_dataList;
 @property (nonatomic,strong) HXBFinModel_AddRecortdModel_loanLenderRecord_list_Loan *loanModel;
 @end

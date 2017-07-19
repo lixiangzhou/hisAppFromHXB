@@ -68,6 +68,8 @@
 @property (nonatomic,copy) NSString *hasEverInvestFinancePlan;
 ///	int	是否绑卡 1：已绑卡， 0：未绑卡
 @property (nonatomic,copy) NSString *hasBindCard;
+///是否开同存管
+@property (nonatomic,copy) NSString *isEscrow;
 /// 真实姓名
 @property (nonatomic,copy) NSString *realName;
 /// 身份证 640121197904299980

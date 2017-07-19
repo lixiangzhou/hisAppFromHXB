@@ -65,8 +65,8 @@ UITableViewDelegate,UITableViewDataSource
 #pragma mark - tableViewDatasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //    NSLog(@"🌶，测试数据");
-    return 100;
-//    return self.loanTruansferViewModel.count;
+//    return 100;
+    return self.loanTruansferViewModel.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFin_TableViewCell_LoanTransfer *cell = [tableView dequeueReusableCellWithIdentifier:kcellClass forIndexPath:indexPath];

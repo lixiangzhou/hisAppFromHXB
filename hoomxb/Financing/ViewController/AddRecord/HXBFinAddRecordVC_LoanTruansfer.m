@@ -1,33 +1,36 @@
 //
-//  HXBFinAddRecortdVC_Loan.m
+//  HXBFinAddRecordVC_LoanTruansfer.m
 //  hoomxb
 //
-//  Created by HXB on 2017/5/11.
+//  Created by HXB on 2017/7/19.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFinAddRecortdVC_Loan.h"
+#import "HXBFinAddRecordVC_LoanTruansfer.h"
 #import "HXBFinanctingRequest.h"
 #import "HXBFinAddRecortdTableView_Plan.h"
-@interface HXBFinAddRecortdVC_Loan ()
+#import "HXBFinModel_AddRecortdModel_LoanTruansfer.h"
+@interface HXBFinAddRecordVC_LoanTruansfer ()
 @property (nonatomic,strong) HXBFinAddRecortdTableView_Plan *addRecortdTableView;
 @end
 
-@implementation HXBFinAddRecortdVC_Loan
+@implementation HXBFinAddRecordVC_LoanTruansfer
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUPViews];
-    [self downLoadData];
-    self.title = @"投标记录";
+    [self downLoadDataWihtIsUPLoad:true];
+    self.title = @"转让记录";
 }
 
-- (void)downLoadData {
-      [[HXBFinanctingRequest sharedFinanctingRequest] loanAddRecortdWithISUPLoad:true andFinanceLoanId:self.loanID andOrder:nil andSuccessBlock:^(FinModel_AddRecortdModel_Loan *model) {
-          self.addRecortdTableView.loanModel = model;
-      } andFailureBlock:^(NSError *error) {
-          
-      }];
+- (void)downLoadDataWihtIsUPLoad:(BOOL)isUPLoad{
+    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansferAddRecortdWithISUPLoad:isUPLoad andFinanceLoanId:self.loanTruansferID andOrder:nil andSuccessBlock:^(NSArray<HXBFinModel_AddRecortdModel_LoanTruansfer *> *loanTruansferAddRecortdModelArray) {
+        
+        
+    } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
+        NSString *massage = request.responseObject[kResponseMessage] ? request.responseObject[kResponseMessage] : @"请求失败";
+        [HxbHUDProgress showMessageCenter:massage inView:self.view];
+    }];
 }
 
 - (void)setUPViews {
@@ -40,7 +43,7 @@
 
 - (void) footerRefresh {
     [self.addRecortdTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        
+        [self downLoadDataWihtIsUPLoad:false];
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
         
     }];
@@ -48,10 +51,10 @@
 
 - (void)headerRefresh {
     [self.addRecortdTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        [self downLoadData];
+        [self downLoadDataWihtIsUPLoad:true];
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-        
     }];
+    
 }
 
 - (void)didReceiveMemoryWarning {

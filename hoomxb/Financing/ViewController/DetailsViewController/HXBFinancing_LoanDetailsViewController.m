@@ -159,7 +159,7 @@
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2]]) {
             //跳转一个webView
             HXBFinContract_contraceWebViewVC_Loan * contractWebViewVC = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
-            //            contractWebViewVC.URL = self.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
+            //contractWebViewVC.URL = self.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
             [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
         }
     }];

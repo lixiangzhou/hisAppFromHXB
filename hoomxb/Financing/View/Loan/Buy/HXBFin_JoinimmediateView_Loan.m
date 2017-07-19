@@ -41,6 +41,7 @@
 ///点击了加入
 @property (nonatomic,copy) void (^clickAddButton)(NSString *capital);
 @property (nonatomic,strong) HXBFinBaseNegotiateView *negotiateView;
+@property (nonatomic,assign) BOOL addButtonEndEditing;
 @end
 @implementation HXBFin_JoinimmediateView_Loan
 
@@ -67,6 +68,7 @@
     
     self.rechargeView.placeholder = model.JoinImmediateView_Model.rechargeViewTextField_placeholderStr;
     [self.rechargeView.button setTitle:model.JoinImmediateView_Model.buyButtonStr forState:UIControlStateNormal];
+    self.addButtonEndEditing = model.addButtonEndEditing;
     [self changeAddButtonWihtUserInteractionEnabled:model.addButtonEndEditing];//button是否可以点击
     kWeakSelf
     [self.topUPView setUPValueWithModel:^HXBTopUPViewManager *(HXBTopUPViewManager *model) {
@@ -216,8 +218,8 @@
     //一键购买
     [self.rechargeView clickBuyButtonFunc:^{
         NSString *str = nil;
-        if (weakSelf.model.amount.floatValue > weakSelf.model.loanAcountLabelStr.floatValue) {
-            str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.loanAcountLabelStr.floatValue];
+        if (weakSelf.model.amount.floatValue > weakSelf.model.remainAmountLabelStr.floatValue) {
+            str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.remainAmountLabelStr.floatValue];
         }else {
             str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.amount.floatValue];
         }
@@ -249,7 +251,8 @@
 - (void)changeAddButtonWihtUserInteractionEnabled:(BOOL)userInteractionEnabled {
     _addButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
     _addButton.userInteractionEnabled = userInteractionEnabled;
-    if (!userInteractionEnabled) {
+    if (!userInteractionEnabled || !self.addButtonEndEditing) {
+        _addButton.userInteractionEnabled = false;
         _addButton.backgroundColor = kHXBColor_Font0_6;
         [_addButton setTitleColor:kHXBColor_Grey_Font0_2 forState:UIControlStateNormal];
         return;

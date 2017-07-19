@@ -32,8 +32,6 @@
 @property (nonatomic,strong) UILabel *profitTypeLabel;
 @property (nonatomic,strong) HXBFinBaseNegotiateView *negotiateView;
 
-
-
 ///确定加入
 @property (nonatomic,strong) UIButton *addButton;
 
@@ -69,7 +67,7 @@
     self.upperLimitLabel_const.text = model.upperLimitLabel_constStr;
   
     [self.addButton setTitle:model.addButtonStr forState:UIControlStateNormal];
-
+    [self setUPAddButtonValueWithSelecter:true];///设置button 为可以点击
     self.profitTypeLabel.text = model.profitTypeLabelStr;
     self.rechargeView.placeholder = model.rechargeViewTextField_placeholderStr;
     [self.rechargeView.button setTitle:model.buyButtonStr forState:UIControlStateNormal];
@@ -100,18 +98,30 @@
         [self layoutViews];
         /// setUPViews
         [self setUPViews];
-        self.profitView.backgroundColor = [UIColor whiteColor];
-        self.backgroundColor = [UIColor colorWithWhite:.95 alpha:1];
         /// 添加事件
         [self registerEvent];
     }
     return self;
 }
 - (void)setUPViews {
-    self.addButton.backgroundColor = [UIColor blueColor];
+    self.profitView.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor colorWithWhite:.95 alpha:1];
+    self.addButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
+    self.addButton.userInteractionEnabled = false;
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
 }
-
+- (void)setUPAddButtonValueWithSelecter:(BOOL) userInteractionEnabled {
+    _addButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
+    _addButton.userInteractionEnabled = userInteractionEnabled;
+    if (!userInteractionEnabled) {
+        _addButton.userInteractionEnabled = false;
+        _addButton.backgroundColor = kHXBColor_Font0_6;
+        [_addButton setTitleColor:kHXBColor_Grey_Font0_2 forState:UIControlStateNormal];
+        return;
+    }
+    _addButton.backgroundColor = kHXBColor_Red_090303;
+    [_addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+}
 
 
 ///设置ViewS
@@ -250,6 +260,9 @@
             weakSelf.clickBuyButton(weakSelf.rechargeView.textField.text,weakSelf.rechargeView.textField);
             weakSelf.profitLabel.text = [weakSelf.model totalInterestWithAmount:weakSelf.rechargeView.textField.text.floatValue];
         }
+    }];
+    [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
+        [weakSelf setUPAddButtonValueWithSelecter:!isSelected];
     }];
 }
 
