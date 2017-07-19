@@ -13,7 +13,7 @@
     NSString *_text;
 }
 @property (nonatomic, strong) UITextField *textField;
-
+@property (nonatomic, strong) UIButton *bankNameBtn;
 @property (nonatomic, strong) UIImageView *leftImageView;
 @property (nonatomic, strong) UIImageView *rightImageView;
 @property (nonatomic, strong) UIView *line;
@@ -34,6 +34,8 @@
         [self addSubview:self.textField];
         [self addSubview:self.line];
         [self addSubview:self.rightImageView];
+        [self addSubview:self.bankNameBtn];
+        self.bankNameBtn.hidden = YES;
         [self setupSubViewFrame];
     }
     return self;
@@ -82,6 +84,10 @@
         make.right.equalTo(self.textField.mas_right);
         make.height.offset(kScrAdaptationH750(30));
         make.width.offset(kScrAdaptationW750(16));
+    }];
+    self.bankNameBtn.hidden = NO;
+    [self.bankNameBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.equalTo(self);
     }];
 }
 
@@ -147,5 +153,20 @@
         _line.backgroundColor = RGB(221, 221, 221);
     }
     return _line;
+}
+- (UIButton *)bankNameBtn{
+    if (!_bankNameBtn) {
+        _bankNameBtn = [[UIButton alloc] init];
+        [_bankNameBtn setBackgroundColor:[UIColor clearColor]];
+        [_bankNameBtn addTarget:self action:@selector(bankNameBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _bankNameBtn;
+    
+}
+- (void)bankNameBtnClick
+{
+    if (self.btnClick) {
+        self.btnClick();
+    }
 }
 @end

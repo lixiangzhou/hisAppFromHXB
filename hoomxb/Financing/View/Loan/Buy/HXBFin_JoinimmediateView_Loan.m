@@ -216,8 +216,8 @@
     //一键购买
     [self.rechargeView clickBuyButtonFunc:^{
         NSString *str = nil;
-        if (weakSelf.model.amount.floatValue > weakSelf.model.loanAcountLabelStr.floatValue) {
-            str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.loanAcountLabelStr.floatValue];
+        if (weakSelf.model.amount.floatValue > weakSelf.model.remainAmountLabelStr.floatValue) {
+            str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.remainAmountLabelStr.floatValue];
         }else {
             str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.amount.floatValue];
         }

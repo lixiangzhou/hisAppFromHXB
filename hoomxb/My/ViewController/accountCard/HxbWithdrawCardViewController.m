@@ -22,7 +22,7 @@
 /**
  bankCode
  */
-@property (nonatomic, copy) NSString *bankCode;
+//@property (nonatomic, copy) NSString *bankCode;
 /**
  数据模型
  */
@@ -33,7 +33,7 @@
 /**
  bankName
  */
-@property (nonatomic, strong) NSString *bankName;
+//@property (nonatomic, strong) NSString *bankName;
 
 
 @end
@@ -46,17 +46,8 @@
         kWeakSelf
         _withdrawCardView = [[HXBWithdrawCardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
         
-        _withdrawCardView.bankNameBtnClickBlock = ^(UIButton *bankNameBtn) {
-            
-            weakSelf.bankName = bankNameBtn.titleLabel.text;
-            HXBBankCardListViewController *bankCardListVC = [[HXBBankCardListViewController alloc] init];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bankCardListVC];
-            bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
-                [bankNameBtn setTitle:bankName forState:UIControlStateNormal];
-                [bankNameBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                weakSelf.bankCode = bankCode;
-            };
-            [weakSelf presentViewController:nav animated:YES completion:nil];
+        _withdrawCardView.bankNameBtnClickBlock = ^() {
+            [weakSelf enterBankCardListVC];
         };
         
         
@@ -81,6 +72,18 @@
     self.isColourGradientNavigationBar = YES;
     [self.view addSubview:self.withdrawCardView];
 
+}
+
+- (void)enterBankCardListVC
+{
+    kWeakSelf
+    HXBBankCardListViewController *bankCardListVC = [[HXBBankCardListViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bankCardListVC];
+    bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
+        weakSelf.withdrawCardView.bankCode = bankCode;
+        weakSelf.withdrawCardView.bankName = bankName;
+    };
+    [weakSelf presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)nextButtonClick:(NSString *)bankCard{

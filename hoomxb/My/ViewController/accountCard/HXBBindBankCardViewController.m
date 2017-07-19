@@ -9,7 +9,7 @@
 #import "HXBBindBankCardViewController.h"
 #import "HXBCardholderInformationView.h"
 #import "HXBGetValidationCodeView.h"
-#import "HxbMyTopUpViewController.h"
+#import "HXBOpenDepositAccountViewController.h"
 @interface HXBBindBankCardViewController ()
 
 @property (nonatomic, strong) UIImageView *iconView;
@@ -63,9 +63,12 @@
 
 - (void)openAccountBtnClick
 {
+    HXBOpenDepositAccountViewController *openDepositAccountViewController = [[HXBOpenDepositAccountViewController alloc] init];
+    openDepositAccountViewController.title = @"开通存管账户";
+    [self.navigationController pushViewController:openDepositAccountViewController animated:YES];
     
-    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+//    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+//    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
     //充值结果
 //    #import "HXBRechargeCompletedViewController.h"
 //    HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];

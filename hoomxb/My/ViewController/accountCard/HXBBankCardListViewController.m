@@ -130,4 +130,8 @@
 {
     return kScrAdaptationH(70);
 }
+- (void)dealloc
+{
+    NSLog(@"被释放");
+}
 @end

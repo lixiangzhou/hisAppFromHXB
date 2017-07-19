@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="15px" viewBox="0 0 8 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>返回 copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="债权转让" transform="translate(-352.000000, -453.000000)" fill="#9B9B9B">
+            <path d="M353.238497,460.501088 L359.842638,453.921782 C360.048629,453.716566 360.051548,453.371149 359.839487,453.159907 C359.625956,452.947178 359.285053,452.947262 359.074735,453.156789 L352.157376,460.048114 C352.037713,460.167306 351.986588,460.33381 352.00629,460.493827 C351.981085,460.657129 352.031664,460.828802 352.157376,460.954041 L359.074735,467.845387 C359.280726,468.050603 359.627447,468.053512 359.839487,467.842269 C360.053018,467.629541 360.052934,467.289899 359.842638,467.080393 L353.238497,460.501088 Z" id="返回-copy" transform="translate(356.000000, 460.500000) scale(-1, 1) translate(-356.000000, -460.500000) "></path>
+        </g>
+    </g>
+</svg>

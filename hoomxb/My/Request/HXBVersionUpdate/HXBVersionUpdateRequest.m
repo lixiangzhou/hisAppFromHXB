@@ -7,7 +7,7 @@
 //
 
 #import "HXBVersionUpdateRequest.h"
-
+#import "HXBBaseRequest.h"
 @implementation HXBVersionUpdateRequest
 
 
@@ -48,11 +48,15 @@
     }];
 }
 
-- (void)noticeRequestWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)noticeRequestWithpage:(int)page andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBHome_AnnounceURL;
     versionUpdateAPI.requestMethod = NYRequestMethodGet;
+    versionUpdateAPI.requestArgument = @{
+                                         @"page" : @(page),
+                                         @"pageSize" : @20
+                                         };
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];

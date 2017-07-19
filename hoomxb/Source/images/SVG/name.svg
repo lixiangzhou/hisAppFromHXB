@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="20px" viewBox="0 0 21 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 7</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="7.5" cy="6.5" r="6.5"></circle>
+        <circle id="path-2" cx="14" cy="14" r="6"></circle>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编辑个人信息" transform="translate(-14.000000, -142.000000)">
+            <g id="Group-7" transform="translate(15.000000, 142.000000)">
+                <g id="Oval-4">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <circle stroke="#5E95FF" stroke-width="1" cx="7.5" cy="6.5" r="6"></circle>
+                </g>
+                <rect id="Rectangle-19" fill="#FFFFFF" x="9" y="9" width="5" height="5"></rect>
+                <g id="Oval-4-Copy">
+                    <use fill-opacity="0.2" fill="#5E95FF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <circle stroke="#5E95FF" stroke-width="1" cx="14" cy="14" r="5.5"></circle>
+                </g>
+                <path d="M4.28429037,12 C1.02045574,14.6274414 -0.378551423,16.9370117 0.0872688894,18.9287109" id="Path-3" stroke="#5E95FF" stroke-linecap="round"></path>
+                <path d="M11.8086317,14.037301 L11.8086317,14.037301 L11.8086317,14.037301 C11.9806555,13.844086 12.2767401,13.8269072 12.4699551,13.998931 C12.4797185,14.0076237 12.4891138,14.0167212 12.4981162,14.0261997 L13.695798,15.2872218 L16.3347789,12.323101 L16.3347789,12.323101 C16.5245201,12.1099825 16.8511023,12.0910314 17.0642208,12.2807725 C17.0705592,12.2864156 17.0767576,12.292214 17.0828103,12.2981625 L17.0828103,12.2981625 L17.0828103,12.2981625 C17.2996247,12.5112412 17.3111498,12.8569447 17.1090082,13.0839906 L14.4426615,16.0788382 L14.4426615,16.0788382 C14.0754159,16.4913295 13.4433142,16.5280083 13.0308229,16.1607627 C13.0019604,16.1350661 12.9746116,16.107718 12.9489143,16.0788561 L11.8086382,14.7981566 L11.8086382,14.7981566 C11.6155502,14.5812901 11.6155473,14.2541709 11.8086317,14.037301 Z" id="Path" fill="#5E95FF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

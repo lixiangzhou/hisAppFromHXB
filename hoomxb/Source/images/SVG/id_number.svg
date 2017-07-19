@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="15px" viewBox="0 0 20 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 8</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="20" height="15" rx="1"></rect>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编辑个人信息" transform="translate(-15.000000, -198.000000)">
+            <g id="Group-8" transform="translate(15.000000, 198.000000)">
+                <g id="Rectangle-14">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <rect stroke="#5E95FF" stroke-width="1" x="0.5" y="0.5" width="19" height="14" rx="1"></rect>
+                </g>
+                <circle id="Oval-3" fill="#5E95FF" opacity="0.5" cx="6" cy="6" r="2"></circle>
+                <circle id="Oval-3-Copy" fill="#5E95FF" opacity="0.5" cx="6" cy="11" r="3"></circle>
+                <rect id="Rectangle-17" fill="#FFFFFF" x="2" y="11" width="8" height="3"></rect>
+                <rect id="Rectangle-18" fill="#5E95FF" x="11" y="4" width="7" height="1" rx="0.5"></rect>
+                <rect id="Rectangle-18-Copy" fill="#5E95FF" x="11" y="7" width="7" height="1" rx="0.5"></rect>
+                <rect id="Rectangle-18-Copy-2" fill="#5E95FF" x="11" y="10" width="7" height="1" rx="0.5"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
