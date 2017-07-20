@@ -325,6 +325,7 @@
 		E17A32BF1F1F10CA0079DBAE /* HXBFin_LoanTruansfer_BuyResoutViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A32BE1F1F10CA0079DBAE /* HXBFin_LoanTruansfer_BuyResoutViewModel.m */; };
 		E17A32C21F1F33B10079DBAE /* HXBFinAddRecordVC_LoanTruansfer.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A32C11F1F33B10079DBAE /* HXBFinAddRecordVC_LoanTruansfer.m */; };
 		E17A32C51F1F36990079DBAE /* HXBFinModel_AddRecortdModel_LoanTruansfer.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A32C41F1F36990079DBAE /* HXBFinModel_AddRecortdModel_LoanTruansfer.m */; };
+		E17A32CB1F1F6ED70079DBAE /* HXBFin_LoanDetail_LoanInfoCertifyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A32CA1F1F6ED70079DBAE /* HXBFin_LoanDetail_LoanInfoCertifyButton.m */; };
 		E17E61A61F1C87B1004D5883 /* HXBFinBaseNegotiateView.m in Sources */ = {isa = PBXBuildFile; fileRef = E17E61A51F1C87B1004D5883 /* HXBFinBaseNegotiateView.m */; };
 		E17E6ADA1ECD826D0046888B /* HXBMY_LoanListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E189D7531ECAD9F3004DB1DC /* HXBMY_LoanListViewController.m */; };
 		E17E6AE71ECDA46B0046888B /* HXBMY_CapitalRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E17E6AE61ECDA46B0046888B /* HXBMY_CapitalRecordViewController.m */; };
@@ -1019,6 +1020,8 @@
 		E17A32C11F1F33B10079DBAE /* HXBFinAddRecordVC_LoanTruansfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinAddRecordVC_LoanTruansfer.m; sourceTree = "<group>"; };
 		E17A32C31F1F36990079DBAE /* HXBFinModel_AddRecortdModel_LoanTruansfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinModel_AddRecortdModel_LoanTruansfer.h; sourceTree = "<group>"; };
 		E17A32C41F1F36990079DBAE /* HXBFinModel_AddRecortdModel_LoanTruansfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinModel_AddRecortdModel_LoanTruansfer.m; sourceTree = "<group>"; };
+		E17A32C91F1F6ED70079DBAE /* HXBFin_LoanDetail_LoanInfoCertifyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanDetail_LoanInfoCertifyButton.h; sourceTree = "<group>"; };
+		E17A32CA1F1F6ED70079DBAE /* HXBFin_LoanDetail_LoanInfoCertifyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanDetail_LoanInfoCertifyButton.m; sourceTree = "<group>"; };
 		E17E61A41F1C87B1004D5883 /* HXBFinBaseNegotiateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinBaseNegotiateView.h; sourceTree = "<group>"; };
 		E17E61A51F1C87B1004D5883 /* HXBFinBaseNegotiateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinBaseNegotiateView.m; sourceTree = "<group>"; };
 		E17E6AE51ECDA46B0046888B /* HXBMY_CapitalRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_CapitalRecordViewController.h; sourceTree = "<group>"; };
@@ -1408,6 +1411,8 @@
 				4E4ACC931F060F550031B326 /* HXBLoanInstructionView.m */,
 				4E4ACC981F061F3D0031B326 /* HXBHXBBorrowUserinforView.h */,
 				4E4ACC991F061F3D0031B326 /* HXBHXBBorrowUserinforView.m */,
+				E17A32C91F1F6ED70079DBAE /* HXBFin_LoanDetail_LoanInfoCertifyButton.h */,
+				E17A32CA1F1F6ED70079DBAE /* HXBFin_LoanDetail_LoanInfoCertifyButton.m */,
 			);
 			path = BorrowingInformation;
 			sourceTree = "<group>";
@@ -3886,7 +3891,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -4108,6 +4113,7 @@
 				E11262331EC5A85F0084A22D /* HXBFinAddRecortdTableView_Plan.m in Sources */,
 				4E9345501EFE0FD300D2886B /* HXBModifyPhoneViewController.m in Sources */,
 				E12800FC1F0292CF0066FB66 /* HXBFin_Plan_BuySuccessViewController.m in Sources */,
+				E17A32CB1F1F6ED70079DBAE /* HXBFin_LoanDetail_LoanInfoCertifyButton.m in Sources */,
 				E12801001F0294270066FB66 /* HXBFin_Plan_BuyViewModel.m in Sources */,
 				E1270B381ECED1F300729BC9 /* HXBMYViewModel_MianPlanViewModel.m in Sources */,
 				E122D8521EA0CAB900DC71ED /* NSString+HxbHash.m in Sources */,

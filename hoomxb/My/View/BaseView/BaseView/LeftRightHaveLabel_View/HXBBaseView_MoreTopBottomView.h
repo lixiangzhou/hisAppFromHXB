@@ -46,7 +46,7 @@ typedef enum : NSUInteger {
  @param topBottomViewNumber 上下一共几层
  @param clas view的类型
  @param topBottomSpace 层级间的间距
- @param leftProportion  左边占的总体长度的比例 （左 : 全部）
+ @param leftProportion  左右 的间距
  @param space 上下左右的间距
  */
 - (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass: (Class)clas andViewHeight: (CGFloat)viewH andTopBottomSpace: (CGFloat)topBottomSpace andLeftRightLeftProportion: (CGFloat)leftProportion Space:(UIEdgeInsets)space;

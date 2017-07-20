@@ -117,7 +117,7 @@
 @property (nonatomic,copy) NSString *category;//": "A",
 @property (nonatomic,copy) NSString *lockStart;///": "05-17 16:56",
 @property (nonatomic,copy) NSString *beginResellingTime;//": "2021-05-13 16:56:00",
-@property (nonatomic,copy) NSString *contractName;//": "理财计划服务协议",
+@property (nonatomic,copy) NSString *contractName;//": "理财计划服务协议 UI",
 
 
 

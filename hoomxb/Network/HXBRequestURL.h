@@ -81,4 +81,18 @@
 //MARK: ======================= 公告 ==========================
 #define kHXBHome_AnnounceURL @"/announce"//公告
 
+
+//MARK: ======================= 协议 ==========================
+//协议或合同名	端口号后链接	状态	账户内连接
+#define kHXB_Negotiate_SginUPURL @"/agreement/signup"///《注册服务协议》
+#define kHXB_Negotiate_CertificationURL @"/agreement/realname"///《红小宝认证服务协议》
+#define kHXB_Negotiate_ServePlanURL @"/agreement/plan"///《红利计划服务协议书》
+#define kHXB_Negotiate_ServePlan_AccountURL(productID) [NSString stringWithFormat: @"/acount/plan/%@/agreement",(productID)]///账户内服务协议 plan
+#define kHXB_Negotiate_ServeLoan_AccountURL(productID) [NSString stringWithFormat: @"/acount/loan/%@/agreement/",(productID)]///账户内《借款协议》
+#define kHXB_Negotiate_ServeLoanURL @"/agreement/loan"///《借款服务协议书》
+#define kHXB_Anti_MoneyLaunderingURL @"/agreement/antimoney"///《反洗钱告知暨客户出借承诺书》
+#define kHXB_LoanTruansferURL @"/agreement/debts"///《债权转让及受让协议》
+///#define kHXB_///《存管开户协议》
+#define kHXB_AddTrustURL @"/agreement/trust"///增信页
+#define kHXB_LoandingPageURL @"/landing"///落地页
 #endif

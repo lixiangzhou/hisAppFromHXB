@@ -94,6 +94,12 @@
     }
     return _contractName;
 }
+- (NSString *) contractURL {
+    if (!_contractURL) {
+        _contractURL = kHXB_Negotiate_ServePlanURL;
+    }
+    return _contractURL;
+}
 /**
  剩余金额 const
  */
