@@ -20,14 +20,14 @@
 
 #import "HXBFinHomePageModel_PlanList.h"
 #import "HXBFin_PlanDetailView_TopView.h"
-
+#import "HXBFinPlanContract_ContractWebView.h"///曾信是一个h5
 @interface HXBFin_PlanDetailView()
 @property (nonatomic,strong) HXBFin_PlanDetailView_ViewModelVM *viewModelVM;
 ///预期年化的view
 @property (nonatomic,strong) HXBColourGradientView *expectedYearRateView;
 @property (nonatomic,strong) HXBFin_PlanDetailView_TopView *topView;
 ///曾信View
-@property (nonnull,strong) UIView *trustView;
+@property (nonnull,strong) UIImageView *trustView;
 ///剩余可投
 @property (nonatomic,strong) UIView *surplusValueView;
 ///流程引导视图
@@ -58,6 +58,7 @@
 ///底部的tableView被点击
 @property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
 @property (nonatomic,copy) void (^clickAddButtonBlock)();
+@property (nonatomic,copy) void (^clickAddTrustBlock) ();
 ///加入的button
 @property (nonatomic,strong) UIButton *addButton;
 ///倒计时
@@ -74,7 +75,23 @@
 @implementation HXBFin_PlanDetailView
 
 @synthesize viewModelVM = _viewModelVM;
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        self.backgroundColor = kHXBColor_BackGround;
+        [self show];
+    }
+    return self;
+}
 
+- (void)show {
+    //移除子控件，在进行UI布局
+    for (UIView *subView in self.subviews) {
+        [subView removeFromSuperview];
+    }
+    [self setupSubView];
+}
 - (HXBBaseCountDownManager_lightweight *)countDownManager {
     if (!_countDownManager) {
         _countDownManager = [[HXBBaseCountDownManager_lightweight alloc]initWithCountDownEndTime:self.diffTime.floatValue /1000 andCountDownEndTimeType:HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType_Now andCountDownDuration:360000 andCountDownUnit:1];
@@ -87,11 +104,13 @@
         kWeakSelf
         [self.countDownManager resumeTimer];
         [self.countDownManager countDownCallBackFunc:^(CGFloat countDownValue) {
+            if (countDownValue < 0) {
+                [self.addButton setTitle:weakSelf.viewModelVM.addButtonStr forState:UIControlStateNormal];
+                [self.countDownManager stopTimer];
+                return;
+            }
             NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒"];
             [weakSelf.addButton setTitle:str forState:UIControlStateNormal];
-            if (countDownValue < 0) {
-                [weakSelf.countDownManager stopTimer];
-            }
         }];
     }
 }
@@ -148,7 +167,6 @@
         manager.rightViewManager.leftLabelStr = weakSelf.remainAmount;
         return manager;
     }];
-
 }
 
 - (void) setAddButtonStr:(NSString *)addButtonStr {
@@ -159,22 +177,10 @@
     _modelArray = modelArray;
     self.bottomTableView.tableViewCellModelArray = modelArray;
 }
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-         self.backgroundColor = kHXBColor_BackGround;
-        [self show];
-    }
-    return self;
-}
 
-- (void)show {
-    //移除子控件，在进行UI布局
-    for (UIView *subView in self.subviews) {
-        [subView removeFromSuperview];
-    }
-    [self setupSubView];
+- (void)willMoveToSuperview:(UIView *)newSuperview {
+    [super willMoveToSuperview:newSuperview];
+   
 }
 - (void)setupSubView {
     
@@ -202,13 +208,24 @@
 
 //MARK: - 增信
 - (void)setupAddTrustView {
-    self.trustView = [[UIView alloc]init];
+    self.trustView = [[UIImageView alloc]init];
+    self.trustView.backgroundColor = [UIColor whiteColor];
+    self.trustView.userInteractionEnabled = true;
     [self addSubview: self.trustView];
     [self.trustView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(80)));
     }];
+    ///落地页
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+    [tap addTarget:self action:@selector(clickAddTrust:)];
+    [self.trustView addGestureRecognizer: tap];
+}
+- (void)clickAddTrust:(UITapGestureRecognizer *)tap {
+    if (self.clickAddTrustBlock) {
+        self.clickAddTrustBlock();
+    }
 }
 
 //MARK: - 引导视图
@@ -229,18 +246,15 @@
     [self.addView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf);
         make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@60);
+        make.height.equalTo(@(kScrAdaptationH(60)));
     }];
     self.addButton = [[UIButton alloc]init];
     
     [self addSubview:_addButton];
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.centerY.equalTo(weakSelf.addView);
-//        make.left.top.equalTo(weakSelf.addView).offset(20);
-//        make.bottom.right.equalTo(weakSelf.addView).offset(-20);
         make.bottom.equalTo(weakSelf);
         make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@60);
+        make.height.equalTo(@(kScrAdaptationH(60)));
     }];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     self.addButton.backgroundColor = [UIColor clearColor];
@@ -303,49 +317,15 @@
 - (void) clickAddButtonFunc: (void(^)())clickAddButtonBlock {
     self.clickAddButtonBlock = clickAddButtonBlock;
 }
+
+///点击了增信
+- (void)clickAddTrustWithBlock:(void(^)())clickAddTrustBlock{
+    self.clickAddTrustBlock = clickAddTrustBlock;
+}
 @end
 
 
 
-
-
-@interface HXBFin_PlanDetailView_ViewModelVM ()
-@property (nonatomic,copy) void(^addButtonChengeTitleBlock)(NSString *buttonTitle);
-@property (nonatomic,strong) NSTimer *timer;
-@property (nonatomic,copy) NSString *countDownTemp;
-@end
 
 @implementation HXBFin_PlanDetailView_ViewModelVM
-- (void)setAddButtonStr:(NSString *)addButtonStr {
-    _addButtonStr = addButtonStr;
-    if (self.addButtonChengeTitleBlock) {
-        self.addButtonChengeTitleBlock(addButtonStr);
-    }
-}
-- (void)addButtonChengeTitleChenge:(void (^)(NSString *))addButtonChengeTitleBlock {
-    self.addButtonChengeTitleBlock = addButtonChengeTitleBlock;
-}
-//懒加载
-- (NSTimer *) timer {
-    if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(addTimeFunc) userInfo:nil repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
-        [_timer fire];
-    }
-    return _timer;
-}
-/**
- 加入时间
- */
-- (void) addTimeFunc {
-    self.countDownStr = @(self.countDownStr.integerValue - 1000).description;
-}
-- (void)setCountDownStr:(NSString *)countDownStr {
-    _countDownStr = countDownStr;
-    if (self.countDownStr.integerValue < 60 * 60 * 1000) {
-        [self timer];
-    }
-    _countDownStr = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:countDownStr andDateFormat:@"d天h时"];
-    _countDownStr = [NSString stringWithFormat:@"剩余投标时间：%@",_countDownStr];
-}
 @end

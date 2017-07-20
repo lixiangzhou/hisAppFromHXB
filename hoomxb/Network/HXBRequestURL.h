@@ -10,7 +10,7 @@
 #define HXBRequestURL_h
 
 //MARK: ======================= 所有H5 界面 =======================
-#define kHXBH5_BaseURL @"http://192.168.1.21:3300"///用户信息
+#define kHXBH5_BaseURL @"http://192.168.1.166:3000"///用户信息
 #define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",kHXBH5_BaseURL]//风险评测
 
 //MARK: ======================= 理财资产 界面 =======================
@@ -90,9 +90,9 @@
 #define kHXB_Negotiate_ServePlan_AccountURL(productID) [NSString stringWithFormat: @"/acount/plan/%@/agreement",(productID)]///账户内服务协议 plan
 #define kHXB_Negotiate_ServeLoan_AccountURL(productID) [NSString stringWithFormat: @"/acount/loan/%@/agreement/",(productID)]///账户内《借款协议》
 #define kHXB_Negotiate_ServeLoanURL @"/agreement/loan"///《借款服务协议书》
-#define kHXB_Anti_MoneyLaunderingURL @"/agreement/antimoney"///《反洗钱告知暨客户出借承诺书》
-#define kHXB_LoanTruansferURL @"/agreement/debts"///《债权转让及受让协议》
-///#define kHXB_///《存管开户协议》
-#define kHXB_AddTrustURL @"/agreement/trust"///增信页
-#define kHXB_LoandingPageURL @"/landing"///落地页
+#define kHXB_Negotiate_Anti_MoneyLaunderingURL @"/agreement/antimoney"///《反洗钱告知暨客户出借承诺书》
+#define kHXB_Negotiate_LoanTruansferURL @"/agreement/debts"///《债权转让及受让协议》
+#define kHXB_Negotiate_depository @"/agreement/depository" ///《存管开户协议》
+#define kHXB_Negotiate_AddTrustURL @"/agreement/trust"///增信页
+#define kHXB_Negotiate_LoandingPageURL @"/landing"///落地页
 #endif

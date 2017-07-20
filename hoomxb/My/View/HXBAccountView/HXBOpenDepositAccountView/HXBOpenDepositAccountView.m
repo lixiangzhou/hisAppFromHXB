@@ -23,6 +23,10 @@
 @property (nonatomic, strong) HXBCustomTextField *phoneTextField;
 @property (nonatomic, strong) HXBFinBaseNegotiateView *negotiateView;
 @property (nonatomic, strong) UIButton *bottomBtn;
+/**
+ 存管协议
+ */
+@property (nonatomic,copy) void(^clickTrustAgreement)();
 @end
 
 @implementation HXBOpenDepositAccountView
@@ -201,6 +205,9 @@
         _negotiateView = [[HXBFinBaseNegotiateView alloc] init];
         [_negotiateView clickNegotiateWithBlock:^{
             NSLog(@"点击了协议");
+            if (self.clickTrustAgreement) {
+                self.clickTrustAgreement();
+            }
         }];
         kWeakSelf
         [_negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
@@ -227,6 +234,9 @@
         [_bottomBtn addTarget:self action:@selector(bottomBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _bottomBtn;
+}
+- (void)clickTrustAgreementWithBlock:(void (^)())clickTrustAgreement {
+    self.clickTrustAgreement = clickTrustAgreement;
 }
 
 @end

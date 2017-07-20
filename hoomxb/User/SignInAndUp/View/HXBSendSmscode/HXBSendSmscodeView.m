@@ -62,6 +62,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 @property (nonatomic, copy) void(^clickSetPassWordButtonBlock)(NSString *password, NSString *smscode,NSString *inviteCode);
 ///点击了发送短信验证码按钮
 @property (nonatomic, copy) void(^clickSendSmscodeButtonBlock)();
+///点击了服务协议
+@property (nonatomic, copy) void(^clickAgreementSignUPBlock)();
 @end
 
 @implementation HXBSendSmscodeView
@@ -178,11 +180,11 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     self.inviteCodeTextField.leftImage = [SVGKImage imageNamed:@"invitation_code.svg"].UIImage;
     
     self.negotiateView.negotiateStr = @"红小宝注册协议";
+    kWeakSelf
     [self.negotiateView clickNegotiateWithBlock:^{
         NSLog(@"点击了红小宝注册协议");
-        [HxbHUDProgress showProgress:@"点击了红小宝注册协议" inView:self];
+        if (weakSelf.clickAgreementSignUPBlock) weakSelf.clickAgreementSignUPBlock();
     }];
-    kWeakSelf
     [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
         if (isSelected) {
             weakSelf.setPassWordButton.enabled = YES;
@@ -256,16 +258,6 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         make.right.equalTo(self.mas_right);
         make.height.offset(kScrAdaptationH(60));
     }];
-
-   
-//    self.phonNumberLabel.backgroundColor = [UIColor hxb_randomColor];
-//    self.smscode_TextField.backgroundColor = [UIColor hxb_randomColor];
-//    self.smscode_constLabel.backgroundColor = [UIColor hxb_randomColor];
-//    self.sendButton.backgroundColor = [UIColor hxb_randomColor];
-//    self.password_TextField.backgroundColor = [UIColor hxb_randomColor];
-//    self.password_constLable.backgroundColor = [UIColor hxb_randomColor];
-//    self.eyeButton.backgroundColor = [UIColor hxb_randomColor];
-//    self.setPassWordButton.backgroundColor = [UIColor hxb_randomColor];
 }
 
 ///设置
@@ -349,7 +341,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         if (self.clickSetPassWordButtonBlock) self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,nil);
     }else {
         NSString * message = [NSString isOrNoPasswordStyle:self.password_TextField.text];
-            [HxbHUDProgress showTextWithMessage:message];
+        [HxbHUDProgress showMessage:message inView:self];
         NSLog(@"🌶密码不合格");
 //        [HxbHUDProgress showTextWithMessage:@"🌶密码不合格"];
     }
@@ -400,5 +392,10 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///点击了发送短信验证码按钮
 - (void)clickSendSmscodeButtonWithBlock: (void(^)())clickSendSmscodeButtonBlock {
     self.clickSendSmscodeButtonBlock = clickSendSmscodeButtonBlock;
+}
+
+///点击了服务协议
+- (void)clickAgreementSignUPWithBlock:(void (^)())clickAgreementSignUPBlock {
+    self.clickAgreementSignUPBlock = clickAgreementSignUPBlock;
 }
 @end

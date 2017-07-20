@@ -24,7 +24,7 @@
 #import "HXBFinBuy_plan_ViewController.h"//计划加入
 #import "HXBFin_Plan_BuyViewController.h"//加入 界面
 
-
+#import "HXBFinAddTruastWebViewVC.h"
 
 @interface HXBFinancing_PlanDetailsViewController ()
 @property(nonatomic,strong) HXBFin_PlanDetailView *planDetailsView;
@@ -51,6 +51,7 @@
     [self downLoadData];
     [self registerClickCell];
     [self registerClickAddButton];
+    [self registerAddTrust];
     
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
@@ -176,8 +177,7 @@
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2]]) {
             //跳转一个webView
             HXBFinPlanContract_contraceWebViewVC * contractWebViewVC = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
-            contractWebViewVC.URL = weakSelf.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
-            
+            contractWebViewVC.URL = weakSelf.planDetailViewModel.contractURL;
             [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
         }
     }];
@@ -199,6 +199,14 @@
     }];
 }
 
+- (void)registerAddTrust {
+    kWeakSelf
+    [self.planDetailsView clickAddTrustWithBlock:^{
+        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+        vc.URL = kHXB_Negotiate_AddTrustURL;
+        [weakSelf.navigationController pushViewController:vc animated:true];
+    }];
+}
 
 /**
  跳转加入界面

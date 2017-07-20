@@ -22,7 +22,7 @@
 #import "HXBFinBuy_Loan_ViewController.h"//加入
 #import "HXBFinDetailViewModel_LoanDetail.h"
 #import "HXBFin_Loan_BuyViewController.h"//加入界面
-
+#import "HXBFinAddTruastWebViewVC.h"
 
 
 @interface HXBFinancing_LoanDetailsViewController ()
@@ -134,6 +134,7 @@
 - (void) registerEvent {
     [self registerClickCell];
     [self registerClickAddButton];
+    [self registerAddTrust];
 }
 
 - (void)registerClickCell {
@@ -159,7 +160,7 @@
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2]]) {
             //跳转一个webView
             HXBFinContract_contraceWebViewVC_Loan * contractWebViewVC = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
-            //contractWebViewVC.URL = self.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
+            contractWebViewVC.URL = self.loanDetailViewModel.agreementURL;
             [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
         }
     }];
@@ -181,6 +182,14 @@
     }];
 }
 
+- (void)registerAddTrust {
+    kWeakSelf
+    [self.loanDetailsView clickAddTrustWithBlock:^{
+        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+        vc.URL = kHXB_Negotiate_AddTrustURL;
+        [weakSelf.navigationController pushViewController:vc animated:true];
+    }];
+}
 - (void)enterLoanBuyViewController
 {
     //跳转加入界面

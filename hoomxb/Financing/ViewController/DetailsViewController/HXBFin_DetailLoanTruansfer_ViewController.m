@@ -16,10 +16,12 @@
 #import "HXBFin_LoanTruansferDetailViewController.h"
 #import "HXBMYViewModel_MainLoanViewModel.h"///借款信息
 #import "HXBFinAddRecortdVC_Loan.h"///转让记录
-#import "HXBFinContract_contraceWebViewVC_Loan.h"//转让协议
+#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"//转让协议
 #import "HXBFin_LoanTruansfer_BuyViewController.h"///转让购买
 #import "HXBFinDetailViewModel_LoanTruansferDetail.h"//详情的viewModel
 #import "HXBFinAddRecordVC_LoanTruansfer.h"//转让记录
+#import "HXBFinAddTruastWebViewVC.h"///曾信页
+
 @interface HXBFin_DetailLoanTruansfer_ViewController ()
 @property (nonatomic,strong) HXBFin_LoanTruansferDetailView *detailView;
 ///底部的tableView被点击
@@ -67,6 +69,7 @@
 - (void) registerEvent {
     [self registerClickCell];
     [self registerClickAddButton];
+    [self registerAddTrust];
 }
 
 - (void)registerClickCell {
@@ -90,8 +93,8 @@
         ///合同
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2].optionTitle]) {
             //跳转一个webView
-            HXBFinContract_contraceWebViewVC_Loan * contractWebViewVC = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
-//            contractWebViewVC.URL = self.planDetailViewModel.planDetailModel.principalBalanceContractNameUrl;
+            HXBFinLoanTruansfer_ContraceWebViewVC * contractWebViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc]init];
+            contractWebViewVC.URL = self.loanTruansferDetailViewModel.agreementURL;
             [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
         }
     }];
@@ -124,7 +127,14 @@
     [self.navigationController pushViewController:loanJoinVC animated:true];
 }
 
-
+- (void)registerAddTrust {
+    kWeakSelf
+    [self.detailView clickAddTrustWithBlock:^{
+        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+        vc.URL = kHXB_Negotiate_AddTrustURL;
+        [weakSelf.navigationController pushViewController:vc animated:true];
+    }];
+}
 #pragma mark - downLoadData
 
 //MARK: 网络数据请求

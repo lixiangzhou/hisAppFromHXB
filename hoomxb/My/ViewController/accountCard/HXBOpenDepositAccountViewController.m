@@ -10,6 +10,7 @@
 #import "HXBBankCardListViewController.h"
 #import "HxbMyTopUpViewController.h"
 #import "HXBOpenDepositAccountView.h"
+#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"///存管的服务协议
 @interface HXBOpenDepositAccountViewController ()
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
@@ -60,6 +61,13 @@
         _mainView.openAccountBlock = ^{
             [weakSelf bottomBtnClick];
         };
+        [_mainView clickTrustAgreementWithBlock:^{
+            NSLog(@"《存管开户协议》");
+            HXBFinLoanTruansfer_ContraceWebViewVC *webViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc] init];
+            webViewVC.URL = kHXB_Negotiate_depository;
+            [weakSelf.navigationController pushViewController:webViewVC animated:true];
+            
+        }];
     }
     return _mainView;
 }

@@ -31,6 +31,8 @@ HXBFinDetail_TableViewCellModel;
 
 /// 点击了立即加入的button
 - (void) clickAddButtonFunc: (void(^)())clickAddButtonBlock;
+///点击了增信
+- (void)clickAddTrustWithBlock:(void(^)())clickAddTrustBlock;
 @end
 
 

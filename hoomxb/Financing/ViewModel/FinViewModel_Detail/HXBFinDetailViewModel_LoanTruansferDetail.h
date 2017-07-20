@@ -59,4 +59,8 @@
  是否可以点击确认投资
  */
 @property (nonatomic,assign) BOOL isAddButtonEditing;
+/**
+ 协议URL
+ */
+@property (nonatomic,copy) NSString * agreementURL;
 @end

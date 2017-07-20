@@ -28,4 +28,8 @@
  开通账户
  */
 @property (nonatomic, copy)  void(^openAccountBlock)();
+/**
+ 存管协议
+ */
+- (void)clickTrustAgreementWithBlock:(void(^)())clickTrustAgreement;
 @end

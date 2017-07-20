@@ -11,6 +11,7 @@
 
 #import "HxbSignUpSucceedViewController.h"
 #import "HxbAccountInfoViewController.h"
+#import "HXBSignUPAgreementWebViewVC.h"
 ///短信验证 VC
 @interface HXBSendSmscodeViewController ()
 @property (nonatomic,strong) HXBSendSmscodeView *smscodeView;
@@ -54,6 +55,8 @@
     [self registerSendSmscode];
     ///点击确认设置密码
     [self registerPassword];
+    ///服务协议
+    [self registerAgreementSignUP];
 }
 
 
@@ -122,25 +125,14 @@
     }];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)registerAgreementSignUP {
+    kWeakSelf
+    [self.smscodeView clickAgreementSignUPWithBlock:^{
+        HXBSignUPAgreementWebViewVC *signUPAgreementWebViewVC = [[HXBSignUPAgreementWebViewVC alloc]init];
+        signUPAgreementWebViewVC.URL = kHXB_Negotiate_SginUPURL;
+        [weakSelf.navigationController pushViewController:signUPAgreementWebViewVC animated:true];
+    }];
 }
 
 kDealloc
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end
