@@ -141,6 +141,7 @@
     }];
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
     self.isTransparentNavigationBar = true;
+    self.isHiddenNavigationBar = true;
     self.isColourGradientNavigationBar = true;
     
 //    self.view.backgroundColor = kHXBColor_heightGrey;
