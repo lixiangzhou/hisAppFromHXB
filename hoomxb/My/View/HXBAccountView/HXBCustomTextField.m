@@ -7,7 +7,7 @@
 //
 
 #import "HXBCustomTextField.h"
-
+#import "SVGKImage.h"
 @interface HXBCustomTextField ()
 {
     NSString *_text;
@@ -16,6 +16,7 @@
 @property (nonatomic, strong) UIButton *bankNameBtn;
 @property (nonatomic, strong) UIImageView *leftImageView;
 @property (nonatomic, strong) UIImageView *rightImageView;
+@property (nonatomic, strong) UIButton *eyeBtn;
 @property (nonatomic, strong) UIView *line;
 
 
@@ -35,6 +36,7 @@
         [self addSubview:self.line];
         [self addSubview:self.rightImageView];
         [self addSubview:self.bankNameBtn];
+        [self addSubview:self.eyeBtn];
         self.bankNameBtn.hidden = YES;
         [self setupSubViewFrame];
     }
@@ -61,10 +63,28 @@
         make.right.equalTo(self).offset(kScrAdaptationW750(-40));
         make.height.offset(1);
     }];
+    [self.eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.textField);
+        make.right.equalTo(self.textField.mas_right);
+        make.height.offset(kScrAdaptationH750(23.9));
+        make.width.offset(kScrAdaptationW750(40));
+    }];
    
 }
-
+- (void)eyeBtnClick
+{
+    self.textField.secureTextEntry = self.eyeBtn.selected;
+    self.eyeBtn.selected = !self.eyeBtn.selected;
+}
 #pragma mark - set方法
+
+- (void)setSecureTextEntry:(BOOL)secureTextEntry
+{
+    _secureTextEntry = secureTextEntry;
+    self.textField.secureTextEntry = secureTextEntry;
+    self.eyeBtn.hidden = !secureTextEntry;
+}
+
 - (void)setIsHidenLine:(BOOL )isHidenLine
 {
     _isHidenLine = isHidenLine;
@@ -120,6 +140,17 @@
 }
 
 #pragma mark - 懒加载
+- (UIButton *)eyeBtn
+{
+    if (!_eyeBtn) {
+        _eyeBtn = [[UIButton alloc] init];
+        [_eyeBtn setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateNormal];
+        [_eyeBtn setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateSelected];
+        [_eyeBtn addTarget:self action:@selector(eyeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _eyeBtn.hidden = YES;
+    }
+    return _eyeBtn;
+}
 - (UITextField *)textField
 {
     if (!_textField) {

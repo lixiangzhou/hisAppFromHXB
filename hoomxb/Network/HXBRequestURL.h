@@ -80,6 +80,10 @@
 
 //MARK: ======================= 公告 ==========================
 #define kHXBHome_AnnounceURL @"/announce"//公告
+//MARK: ======================= 存管 ==========================
+#define kHXBOpenDepositAccount_Escrow @"/user/escrow" //用户绑定银行卡
+#define kHXBUserInfo_BankCard @"/account/user/card" //用户绑定银行卡
+
 
 
 //MARK: ======================= 协议 ==========================

@@ -142,14 +142,17 @@
     {
         [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             
-            if ([viewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"0"]) {
+            if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 //没有投资显示的界面
-                weakSelf.afterLoginView.tipString = @"安全认证";
-            }else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
+                weakSelf.afterLoginView.tipString = @"开通存管银行账户";
+             } else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
+             {
+                  weakSelf.afterLoginView.tipString = @"完善存管信息";
+             }else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
                 //已经投资显示的界面
-                weakSelf.afterLoginView.tipString = @"立即投资啦！";
+                weakSelf.afterLoginView.tipString = @"立即投资啦";
             }
-            
+           
         } andFailure:^(NSError *error) {
             
         }];
@@ -236,7 +239,7 @@
 //        _bannerView.backgroundColor = [UIColor greenColor];
 //        BannerModel *bannerModel = [[BannerModel alloc] init];
 //        bannerModel.title = @"banner";
-//        bannerModel.image = @"http://img05.tooopen.com/images/20150531/tooopen_sy_127457023651.jpg";
+//        bannerModel.image = @"http://img.zcool.cn/community/01320457c129440000012e7e7b7e99.gif";
 //        bannerModel.url = @"http://blog.csdn.net/lkxasdfg/article/details/8660827";
 //        _bannerView.bannersModel = @[bannerModel,bannerModel,bannerModel,bannerModel];
         _bannerView.clickBannerImageBlock = ^(BannerModel *model){

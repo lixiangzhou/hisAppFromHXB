@@ -18,6 +18,7 @@
 @property (nonatomic, strong) UIImage *leftImage;
 @property (nonatomic, strong) UIImage *rightImage;
 @property (nonatomic, assign) BOOL isHidenLine;
+@property (nonatomic, assign) BOOL secureTextEntry;
 
 /**
  背景按钮点击

@@ -38,15 +38,31 @@
         
 //        [self addSubview:self.tieOnCard];
         [self setupSubViewFrame];
+        
+        [self loadUserInfoData];
     }
     return self;
 }
 
+- (void)loadUserInfoData
+{
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        [self.cardholderLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+            viewModelVM.leftLabelStr = [NSString stringWithFormat:@"持卡人：%@",[viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1]];
+            viewModelVM.rightLabelStr = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:3 lenght:viewModel.userInfoModel.userInfo.idNo.length - 6];
+            return viewModelVM;
+        }];
+    } andFailure:^(NSError *error) {
+        
+    }];
+}
+
+
 - (void)setupSubViewFrame
 {
     [self.cardholderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(164));
-        make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-164));
+        make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(150));
+        make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-150));
         make.height.offset(kScrAdaptationH750(80));
         make.top.equalTo(self);
     }];
@@ -85,10 +101,6 @@
     
 }
 
-- (void)bankNameBtnClick
-{
-    
-}
 
 - (void)nextButtonClick
 {

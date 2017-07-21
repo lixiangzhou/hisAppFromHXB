@@ -216,6 +216,7 @@
 {
     if (!_tipView) {
         _tipView = [[HXBTipView alloc] init];
+        _tipView.text = @"如遇法定节假日，会顺延。";
     }
     return _tipView;
 }
