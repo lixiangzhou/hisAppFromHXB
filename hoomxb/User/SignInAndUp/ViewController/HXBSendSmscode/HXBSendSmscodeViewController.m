@@ -12,6 +12,7 @@
 //#import "HxbSignUpSucceedViewController.h"
 #import "HxbAccountInfoViewController.h"
 #import "HXBBindBankCardViewController.h"
+#import "HXBSignUPAgreementWebViewVC.h"
 ///短信验证 VC
 @interface HXBSendSmscodeViewController ()
 @property (nonatomic,strong) HXBSendSmscodeView *smscodeView;

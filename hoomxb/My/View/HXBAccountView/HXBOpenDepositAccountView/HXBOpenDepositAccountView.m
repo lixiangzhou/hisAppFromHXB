@@ -27,6 +27,10 @@
 @property (nonatomic, strong) UIButton *bottomBtn;
 
 
+/**
+ 存管协议
+ */
+@property (nonatomic,copy) void(^clickTrustAgreement)();
 @end
 
 @implementation HXBOpenDepositAccountView

@@ -183,7 +183,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     kWeakSelf
     [self.negotiateView clickNegotiateWithBlock:^{
         NSLog(@"点击了红小宝注册协议");
-        [HxbHUDProgress showMessageCenter:@"点击了红小宝注册协议" inView:self];
+        if (weakSelf.clickAgreementSignUPBlock) weakSelf.clickAgreementSignUPBlock();
     }];
     [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
         if (isSelected) {

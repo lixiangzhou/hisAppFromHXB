@@ -28,4 +28,8 @@
  开通账户
  */
 @property (nonatomic, copy)  void(^openAccountBlock)(NSDictionary *dic);
+/**
+ 存管协议
+ */
+- (void)clickTrustAgreementWithBlock:(void(^)())clickTrustAgreement;
 @end

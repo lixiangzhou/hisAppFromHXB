@@ -11,6 +11,7 @@
 #import "HxbMyTopUpViewController.h"
 #import "HXBOpenDepositAccountView.h"
 #import "HXBOpenDepositAccountRequest.h"
+#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"///存管的服务协议
 @interface HXBOpenDepositAccountViewController ()
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
