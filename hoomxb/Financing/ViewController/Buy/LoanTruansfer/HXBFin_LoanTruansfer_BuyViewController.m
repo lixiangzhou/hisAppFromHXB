@@ -24,6 +24,7 @@
 #import "HXBFin_Plan_BuySuccessViewController.h"
 #import "HXBFinDetailModel_LoanTruansferDetail.h"
 #import "HXBFinDetailViewModel_LoanTruansferDetail.h"
+#import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
 @interface HXBFin_LoanTruansfer_BuyViewController ()
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan *joinimmediateView_Loan;
 ///个人总资产
@@ -150,29 +151,48 @@
             }else {
                 [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansfer_confirmBuyReslutWithLoanID:weakSelf.loanTruansferViewModel.loanTruansferDetailModel.loanId andSuccessBlock:^(HXBFin_LoanTruansfer_BuyResoutViewModel *model) {
                     ///加入成功
-                    HXBFin_Plan_BuySuccessViewController *planBuySuccessVC = [[HXBFin_Plan_BuySuccessViewController alloc]init];
-                    [planBuySuccessVC massage:@"放款前系统将会冻结您的投资资金，放款成功后开始计息" andSuccessStr:@"投标成功" andButtonStr:@"查看我的投资"];
-                    [planBuySuccessVC clickLookMYInfo:^{
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-                        [self.navigationController popToRootViewControllerAnimated:true];
-                    }];
+                    HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+                    planBuySuccessVC.imageName = @"successful";
+                    planBuySuccessVC.buy_title = @"购买成功";
+                    planBuySuccessVC.massage_Left_StrArray = @[
+                                                               @"下一个还款日",
+                                                               @"投资金额",
+                                                               @"实际买入本金",
+                                                               @"公允利息"
+                                                               ];
+                    planBuySuccessVC.massage_Right_StrArray = @[
+                                                                @"0000-00-00",
+                                                                model.buyAmount,
+                                                                model.principal,
+                                                                model.interest
+                                                                ];
+                    planBuySuccessVC.buy_description = @"公允利息为您垫付的转让人持有天利息，还款人将会在下个还款日予以返回";
+                    planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
                     [self.navigationController pushViewController:planBuySuccessVC animated:true];
+                    
                 } andFailureBlock:^(NSError *error, NSDictionary *response) {
                     NSInteger status = [response[kResponseStatus] integerValue];
-                    HXBFin_Plan_BugFailViewController *failViewController = [[HXBFin_Plan_BugFailViewController alloc]init];
+                    HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
                     switch (status) {
                         case 3408:
-                            failViewController.failLabelStr = @"余额不足";
-                            failViewController.massage = @"请充值后在投资";
+                            failViewController.imageName = @"yuebuzu";
+                            failViewController.buy_title = @"可用余额不足，请重新购买";
+                            failViewController.buy_ButtonTitle = @"重新投资";
                             break;
                         case 3100:
-                            failViewController.failLabelStr = @"已售罄";
+                            failViewController.imageName = @"shouqin";
+                            failViewController.buy_title = @"手慢了，已售罄";
+                            failViewController.buy_ButtonTitle = @"重新投资";
                             break;
+                        default:
+                            failViewController.imageName = @"failure";
+                            failViewController.buy_title = @"加入失败";
+                            failViewController.buy_ButtonTitle = @"重新投资";
                     }
-                    [failViewController clickButtonWithBlcok:^(UIButton *button) {
-                        //跳回理财页面
-                        [self.navigationController popToRootViewControllerAnimated:true];
+                    [failViewController clickButtonWithBlock:^{
+                        [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
                     }];
+                    [weakSelf.navigationController pushViewController:failViewController animated:true];
                 }];
             }
         } andFailure:^(NSError *error) {

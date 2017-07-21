@@ -9,6 +9,8 @@
 #import "HXBBaseViewController.h"
 ////购买失败VC
 @interface HXBFin_Plan_BugFailViewController : HXBBaseViewController
+///image
+@property (nonatomic,copy) NSString *image;
 ///信息的字符串
 @property (nonatomic,copy) NSString *massage;
 ///购买失败
