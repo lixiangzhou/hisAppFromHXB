@@ -11,6 +11,13 @@
 @interface HXBHXBBorrowUserinforView ()
 
 @property (nonatomic, strong) UILabel *borrowUserinforTitleLabel;
+@property (nonatomic, strong) UILabel *borrowUserTypeLabel;
+//认证
+@property (nonatomic, strong) UIButton *incomButton;///收入认证
+@property (nonatomic, strong) UIButton *identityButton;///身份认证
+@property (nonatomic, strong) UIButton *individualTrustworthinessButton;//个人信用报告
+@property (nonatomic, strong) UIButton *jobButton;//工作认证
+
 @property (nonatomic, strong) UILabel *nameTipLabel;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *idCardNoTipLabel;
@@ -46,6 +53,11 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.borrowUserinforTitleLabel];
+        [self addSubview:self.borrowUserTypeLabel];
+        
+        //四个 图片 加 label
+        [self addSubview:self.incomButton];
+        
         [self addSubview:self.nameTipLabel];
         [self addSubview:self.nameLabel];
         [self addSubview:self.idCardNoTipLabel];
@@ -139,12 +151,20 @@
 - (void)setupSubViewFrame
 {
     [self.borrowUserinforTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@20);
-        make.left.equalTo(@20);
+        make.top.left.equalTo(@(kScrAdaptationH(15)));
     }];
+    [self.borrowUserTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.borrowUserinforTitleLabel.mas_bottom).offset(kScrAdaptationH(15));
+        make.left.equalTo(self.borrowUserinforTitleLabel);
+    }];
+    [self.incomButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.borrowUserTypeLabel.mas_bottom).offset(kScrAdaptationH(9));
+        make.left.equalTo(self.borrowUserTypeLabel);
+    }];
+    
     [self.nameTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.borrowUserinforTitleLabel.mas_bottom).offset(8);
-        make.left.equalTo(@20);
+        make.top.equalTo(self.incomButton.mas_bottom).offset(kScrAdaptationH(15));
+        make.left.equalTo(self.incomButton);
     }];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nameTipLabel.mas_bottom).offset(8);
@@ -243,6 +263,79 @@
     }
     return _borrowUserinforTitleLabel;
 }
+- (UILabel *)borrowUserTypeLabel {
+    if (!_borrowUserTypeLabel) {
+        _borrowUserTypeLabel = [[UILabel alloc] init];
+        _borrowUserTypeLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        _borrowUserTypeLabel.textColor = kHXBColor_HeightGrey_Font0_4;
+        _borrowUserTypeLabel.text = @"借款人审核状态";
+    }
+    return _borrowUserTypeLabel;
+}
+///收入认证
+- (UIButton *) incomButton {
+    if (!_incomButton) {
+        _incomButton = [[UIButton alloc]init];
+        [_incomButton setTitle:@"收入认证" forState: UIControlStateNormal];
+        [_incomButton setImage:[UIImage imageNamed:@"duigou"] forState:UIControlStateNormal];
+        _incomButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
+        _incomButton.imageView.layer.borderWidth = kScrAdaptationH(1);
+        _incomButton.imageView.layer.masksToBounds = true;
+        _incomButton.imageView.layer.cornerRadius = kScrAdaptationH(10);
+        _incomButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        [_incomButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
+        
+    }
+    return _incomButton;
+}
+
+///身份认证
+- (UIButton *)identityButton {
+    if (!_identityButton) {
+        _identityButton = [[UIButton alloc]init];
+        [_identityButton setTitle:@"收入认证" forState: UIControlStateNormal];
+        _identityButton.imageView.image = [UIImage imageNamed:@"duigou"];
+        _identityButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
+        _identityButton.imageView.layer.borderWidth = kScrAdaptationH(1);
+        _identityButton.imageView.layer.masksToBounds = true;
+        _identityButton.imageView.layer.cornerRadius = kScrAdaptationH(10);
+        _identityButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        [_identityButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
+        
+    }
+    return _incomButton;
+}
+
+//个人信用报告
+- (UIButton *)individualTrustworthinessButton {
+    if (!_individualTrustworthinessButton) {
+        _individualTrustworthinessButton = [[UIButton alloc]init];
+        [_individualTrustworthinessButton setTitle:@"收入认证" forState: UIControlStateNormal];
+        _individualTrustworthinessButton.imageView.image = [UIImage imageNamed:@"duigou"];
+        _individualTrustworthinessButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
+        _individualTrustworthinessButton.imageView.layer.borderWidth = kScrAdaptationH(1);
+        _individualTrustworthinessButton.imageView.layer.masksToBounds = true;
+        _individualTrustworthinessButton.imageView.layer.cornerRadius = kScrAdaptationH(10);
+        _individualTrustworthinessButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        [_individualTrustworthinessButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
+    }
+    return _individualTrustworthinessButton;
+}
+//工作认证
+- (UIButton *)jobButton{
+    if (!_jobButton) {
+        _jobButton = [[UIButton alloc]init];
+        [_jobButton setTitle:@"收入认证" forState: UIControlStateNormal];
+        _jobButton.imageView.image = [UIImage imageNamed:@"duigou"];
+        _jobButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
+        _jobButton.imageView.layer.borderWidth = kScrAdaptationH(1);
+        _jobButton.imageView.layer.masksToBounds = true;
+        _jobButton.imageView.layer.cornerRadius = kScrAdaptationH(10);
+        _jobButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        [_jobButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
+    }
+    return _jobButton;
+}
 - (UILabel *)nameTipLabel
 {
     if (!_nameTipLabel) {
@@ -292,6 +385,7 @@
     }
     return _baseUserinforTitleLabel;
 }
+
 
 - (UILabel *)ageLabel
 {
@@ -443,4 +537,5 @@
     }
     return _cityLabel;
 }
+
 @end

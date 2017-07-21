@@ -16,4 +16,6 @@
 - (void)clickSetPassWordButtonFunc: (void(^)(NSString *password, NSString *smscode,NSString *inviteCode))clickSetPassWordButtonBlock;
 ///点击了发送短信验证码按钮
 - (void)clickSendSmscodeButtonWithBlock: (void(^)())clickSendSmscodeButtonBlock;
+///点击了服务协议
+- (void)clickAgreementSignUPWithBlock: (void(^)())clickAgreementSignUPBlock;
 @end

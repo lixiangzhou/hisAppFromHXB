@@ -147,8 +147,6 @@
             }else {
                 [[HXBFinanctingRequest sharedFinanctingRequest]loan_confirmBuyReslutWithLoanID:weakSelf.loanViewModel.loanDetailModel.loanVo.loanId andAmount:capital andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
                     ///加入成功
-                    
-                    
                     HXBFin_Plan_BuySuccessViewController *planBuySuccessVC = [[HXBFin_Plan_BuySuccessViewController alloc]init];
                     [planBuySuccessVC massage:@"放款前系统将会冻结您的投资资金，放款成功后开始计息" andSuccessStr:@"投标成功" andButtonStr:@"查看我的投资"];
                     [planBuySuccessVC clickLookMYInfo:^{
@@ -212,7 +210,6 @@
             ///余额展示
             model.JoinImmediateView_Model.balanceLabelStr = viewModel.availablePoint;
             
-            
             ///服务协议 button str
             model.JoinImmediateView_Model.negotiateButtonStr = weakSelf.loanViewModel.agreementTitle;
             model.JoinImmediateView_Model.totalInterest = weakSelf.loanViewModel.totalInterestPer100;
@@ -220,6 +217,7 @@
             model.JoinImmediateView_Model.upperLimitLabelStr = weakSelf.loanViewModel.unRepaid;
             ///确认加入的Buttonstr
             model.JoinImmediateView_Model.addButtonStr = @"确认加入";
+           
             ///预期收益
             model.profitLabelStr = [NSString hxb_getPerMilWithDouble:0.0];
             model.addButtonEndEditing = weakSelf.loanViewModel.isAddButtonEditing;
@@ -234,15 +232,4 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

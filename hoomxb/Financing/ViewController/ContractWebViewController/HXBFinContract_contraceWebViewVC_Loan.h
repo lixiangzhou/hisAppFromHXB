@@ -9,5 +9,5 @@
 #import "HXBBaseViewController.h"
 
 @interface HXBFinContract_contraceWebViewVC_Loan : HXBBaseViewController
-
+@property (nonatomic,copy) NSString *URL;
 @end

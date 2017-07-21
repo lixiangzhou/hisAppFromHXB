@@ -22,6 +22,8 @@
 
 ///计划期限（锁定期）
 @property (nonatomic,copy) NSString *lockPeriod;
+///服务协议
+@property (nonatomic,copy) NSString *contractURL;
 ///": "理财计划服务协议",
 @property (nonatomic,copy) NSString *contractName;
 ///剩余金额

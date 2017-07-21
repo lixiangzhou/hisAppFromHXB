@@ -22,6 +22,17 @@ HXBFinDetail_TableViewCellModel;
 @property (nonatomic,strong) HXBFin_LoanTruansferDetailViewManger *manager;
 
 - (void)setUPValueWithManager: (HXBFin_LoanTruansferDetailViewManger *(^)(HXBFin_LoanTruansferDetailViewManger *manager))loanTruansferDetailViewManagerBlock;
+
+///底部的tableView的模型数组
+@property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>* modelArray;
+
+///点击了 详情页底部的tableView的cell
+- (void)clickBottomTableViewCellBloakFunc: (void(^)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model))clickBottomTabelViewCellBlock;
+
+/// 点击了立即加入的button
+- (void) clickAddButtonFunc: (void(^)())clickAddButtonBlock;
+///点击了增信
+- (void)clickAddTrustWithBlock:(void(^)())clickAddTrustBlock;
 @end
 
 

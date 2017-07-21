@@ -7,12 +7,31 @@
 //
 
 #import "HXBFin_DetailLoanTruansfer_ViewController.h"
+#import "HXBFinanctingRequest.h"
 #import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
+#import "HXBFin_Detail_DetailVC_Loan.h"
 ///详情的VIEW
 #import "HXBFin_LoanTruansferDetailView.h"
 #import "HXBFinDetail_TableView.h"
+#import "HXBFin_LoanTruansferDetailViewController.h"
+#import "HXBMYViewModel_MainLoanViewModel.h"///借款信息
+#import "HXBFinAddRecortdVC_Loan.h"///转让记录
+#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"//转让协议
+#import "HXBFin_LoanTruansfer_BuyViewController.h"///转让购买
+#import "HXBFinDetailViewModel_LoanTruansferDetail.h"//详情的viewModel
+#import "HXBFinAddRecordVC_LoanTruansfer.h"//转让记录
+#import "HXBFinAddTruastWebViewVC.h"///曾信页
+
 @interface HXBFin_DetailLoanTruansfer_ViewController ()
 @property (nonatomic,strong) HXBFin_LoanTruansferDetailView *detailView;
+///底部的tableView被点击
+@property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
+@property (nonatomic,copy) void (^clickAddButtonBlock)();
+
+///tableView的tatile
+@property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewTitleArray;
+///详情的viewModel
+@property (nonatomic,strong) HXBFinDetailViewModel_LoanTruansferDetail *loanTruansferDetailViewModel;
 @end
 
 @implementation HXBFin_DetailLoanTruansfer_ViewController
@@ -20,38 +39,121 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUP];
-    [self setData];
+    [self downLoadData];
+    [self registerEvent];
 }
 
 #pragma mark - setUP
 - (void) setUP {
+    kWeakSelf
+    self.title = @"消费债权";
+    self.isColourGradientNavigationBar = true;
     self.detailView = [[HXBFin_LoanTruansferDetailView alloc]init];
     self.detailView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64);
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
     [self.hxbBaseVCScrollView addSubview:self.detailView];
     [self.hxbBaseVCScrollView hxb_HeaderWithHeaderRefreshCallBack:^{
-        
+        [weakSelf downLoadData];
     } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
-        
+        [weakSelf.hxbBaseVCScrollView endRefresh];
     }];
     [self.detailView clickAddButtonBlock:^(UIButton *button) {
        
     }];
-    
 }
 - (void)setLoanTransfer_ViewModel:(HXBFinHomePageViewModel_LoanTruansferViewModel *)loanTransfer_ViewModel {
     _loanTransfer_ViewModel = loanTransfer_ViewModel;
 }
 
-#pragma mark - downLoadData 
-- (void) downLoadData {
-    
+
+- (void) registerEvent {
+    [self registerClickCell];
+    [self registerClickAddButton];
+    [self registerAddTrust];
 }
+
+- (void)registerClickCell {
+    __weak typeof (self)weakSelf = self;
+    [self.detailView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
+        //跳转相应的页面
+        NSLog(@"%@",model.optionTitle);
+        ///点击了借款信息
+        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0].optionTitle]) {
+            HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
+            //            detail_DetailLoanVC. = self.planDetailViewModel;
+//            detail_DetailLoanVC.loanDetailViewModel = weakSelf.loanDetailViewModel;
+            [weakSelf.navigationController pushViewController:detail_DetailLoanVC animated:true];
+        }
+        ///  转让记录
+        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1].optionTitle]) {
+            HXBFinAddRecordVC_LoanTruansfer *loanAddRecordVC = [[HXBFinAddRecordVC_LoanTruansfer alloc]init];
+            loanAddRecordVC.loanTruansferID = weakSelf.loanID;
+            [weakSelf.navigationController pushViewController:loanAddRecordVC animated:true];
+        }
+        ///合同
+        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2].optionTitle]) {
+            //跳转一个webView
+            HXBFinLoanTruansfer_ContraceWebViewVC * contractWebViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc]init];
+            contractWebViewVC.URL = self.loanTruansferDetailViewModel.agreementURL;
+            [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
+        }
+    }];
+}
+
+///点击了立即加入
+- (void)registerClickAddButton {
+    kWeakSelf
+    [self.detailView clickAddButtonFunc:^{
+        //如果不是登录 那么就登录
+        if (![KeyChainManage sharedInstance].isLogin) {
+            //            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+            return;
+        }
+        ///判断是否实名。。。。
+        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^{
+            [weakSelf enterLoanBuyViewController];
+        }];
+    }];
+}
+
+- (void)enterLoanBuyViewController
+{
+    //跳转加入界面
+    HXBFin_LoanTruansfer_BuyViewController *loanJoinVC = [[HXBFin_LoanTruansfer_BuyViewController alloc]init];
+    loanJoinVC.title = @"散标投资";
+    loanJoinVC.loanTruansferViewModel = self.loanTruansferDetailViewModel;
+//    loanJoinVC.availablePoint = _availablePoint;
+    [self.navigationController pushViewController:loanJoinVC animated:true];
+}
+
+- (void)registerAddTrust {
+    kWeakSelf
+    [self.detailView clickAddTrustWithBlock:^{
+        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+        vc.URL = kHXB_Negotiate_AddTrustURL;
+        [weakSelf.navigationController pushViewController:vc animated:true];
+    }];
+}
+#pragma mark - downLoadData
+
+//MARK: 网络数据请求
+- (void)downLoadData {
+    __weak typeof(self)weakSelf = self;
+    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansferDetileRequestWithLoanID:self.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanTruansferDetail *viewModel) {
+        self.loanTruansferDetailViewModel = viewModel;
+        [self setData];
+        [weakSelf.hxbBaseVCScrollView endRefresh];
+    } andFailureBlock:^(NSError *error, NSDictionary *respons) {
+        [weakSelf.hxbBaseVCScrollView endRefresh];
+        [HxbHUDProgress showMessageCenter:respons[kResponseMessage] inView:self.view];
+    }];
+}
+
 - (void) setData {
     kWeakSelf
     [self.detailView setUPValueWithManager:^HXBFin_LoanTruansferDetailViewManger *(HXBFin_LoanTruansferDetailViewManger *manager) {
         ///顶部的品字形
-
         /**
          下个还款日 05-31
          品字形 上右
@@ -69,16 +171,13 @@
          品字形 左
          */
         manager.topViewManager.remainTimeLabelManager.rightLabelStr = @"剩余期限";
-        manager.topViewManager.remainTimeLabelManager.leftLabelStr = @"0.0个月";
+        manager.topViewManager.remainTimeLabelManager.leftLabelStr = weakSelf.loanTruansferDetailViewModel.leftMonths;
         /**
          待转让金额
          品字形 右
          */
         manager.topViewManager.truansferAmountLabelManager.rightLabelStr = @"待转让金额";
-        manager.topViewManager.truansferAmountLabelManager.leftLabelStr = @"0.0元";
-        /**
-         曾信
-         */
+        manager.topViewManager.truansferAmountLabelManager.leftLabelStr = weakSelf.loanTruansferDetailViewModel.leftTransAmount;
 
         /**
          左侧的stringArray
@@ -87,32 +186,12 @@
         /**
          右侧的stringArray
          */
-        manager.loanType_InterestLabelManager.rightStrArray = @[@"00-00",@"按月等额本息"];
-//        /**
-//         左侧的viewArray
-//         */
-//        manager.loanType_InterestLabelManager.leftViewArray;
-//        /**
-//         右侧的viewArray
-//         */
-//        manager.loanType_InterestLabelManager.rightViewArray;
-//        /**
-//         全部的viewArray
-//         */
-//        manager.loanType_InterestLabelManager.allViewArray;
-        
-        
-        /**
-         颜色
-         */
-//        manager.loanType_InterestLabelManager.leftTextColor = [UIColor grayColor];
-//        manager.loanType_InterestLabelManager.viewColor = [UIColor blueColor];
-        
-        
+        manager.loanType_InterestLabelManager.rightStrArray = @[@"00-00",
+                                                                weakSelf.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.repaymentType];
         /**
          图片- 文字- 图片 的tableView
          */
-        manager.detailTableViewArray = [weakSelf modelArray];
+        manager.detailTableViewArray = weakSelf.tableViewTitleArray;
         /**
          * 预期收益不代表实际收益，投资需谨慎
          */
@@ -120,17 +199,20 @@
         /**
          加入按钮
          */
-        manager.addButtonStr = @"立即加入";
+        manager.addButtonStr = @"确认购买";
         return manager;
     }];
 }
-- (NSArray <HXBFinDetail_TableViewCellModel *> *)modelArray {
-    HXBFinDetail_TableViewCellModel *model1 = [[HXBFinDetail_TableViewCellModel alloc]initWithImageName:@"1" andOptionIitle:@"借款信息"];
-    HXBFinDetail_TableViewCellModel *model2 = [[HXBFinDetail_TableViewCellModel alloc]initWithImageName:@"1" andOptionIitle:@"转让记录"];
-    HXBFinDetail_TableViewCellModel *model3 = [[HXBFinDetail_TableViewCellModel alloc]initWithImageName:@"1" andOptionIitle:@"《债权转让及受让协议》及《反洗钱及出借风险提示书》"];
-    return @[model1,model2,model3];
-}
 
+- (NSArray <HXBFinDetail_TableViewCellModel *> *) tableViewTitleArray {
+    if (!_tableViewTitleArray) {
+        HXBFinDetail_TableViewCellModel *model1 = [[HXBFinDetail_TableViewCellModel alloc]initWithImageName:@"1" andOptionIitle:@"借款信息"];
+        HXBFinDetail_TableViewCellModel *model2 = [[HXBFinDetail_TableViewCellModel alloc]initWithImageName:@"1" andOptionIitle:@"转让记录"];
+        HXBFinDetail_TableViewCellModel *model3 = [[HXBFinDetail_TableViewCellModel alloc]initWithImageName:@"1" andOptionIitle:@"《债权转让及受让协议》及《反洗钱及出借风险提示书》"];
+        _tableViewTitleArray = @[model1,model2,model3];
+    }
+    return _tableViewTitleArray;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }

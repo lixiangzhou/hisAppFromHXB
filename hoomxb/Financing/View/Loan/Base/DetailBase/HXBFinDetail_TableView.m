@@ -31,7 +31,7 @@ static NSString *CELLID = @"CELLID";
     if (self = [super initWithFrame:frame style:style]) {
         [self setup];
         self.rowHeight = kScrAdaptationH(45);
-        self.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
+        self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
     }
     return self;
 }
@@ -41,7 +41,7 @@ static NSString *CELLID = @"CELLID";
     self.dataSource = self;
     
     [self registerClass:[HXBFinDetail_TableViewCell class] forCellReuseIdentifier:CELLID];
-    self.rowHeight = 40;
+    self.rowHeight = kScrAdaptationH(45);
 }
 
 

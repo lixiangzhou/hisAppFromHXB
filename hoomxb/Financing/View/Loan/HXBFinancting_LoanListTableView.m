@@ -65,11 +65,13 @@ static NSString *CELLID = @"CELLID";
     
     cell.lockPeriodLabel_ConstStr = self.lockPeriodLabel_ConstStr;
     cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;
+//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 #pragma mark - delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
     //拿到cell的model
     HXBFinancting_PlanListTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
   

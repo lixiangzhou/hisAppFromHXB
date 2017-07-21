@@ -60,4 +60,8 @@
  剩余时间
  */
 @property (nonatomic,copy) NSString *remainTime;
+/**
+  URL赋予协议
+ */
+@property (nonatomic,copy) NSString *agreementURL;
 @end

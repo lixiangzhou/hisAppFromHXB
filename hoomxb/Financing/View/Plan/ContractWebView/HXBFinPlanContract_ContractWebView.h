@@ -10,4 +10,6 @@
 
 @interface HXBFinPlanContract_ContractWebView : WKWebView
 - (void)loadURL: (NSString *)URL;
+@property (nonatomic,assign) BOOL isHiddenHUD;
+//- (void)clickEventWithBlock:(void(^)(HXBFinPlanContract_ContractWebView *webView))clickEventBlock;
 @end

@@ -40,6 +40,7 @@ UITableViewDataSource
 - (void)setUP {
     self.delegate = self;
     self.dataSource = self;
+    self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
     [self registerClass:[HXBFinAddRecortdTableViewCell_Plan class] forCellReuseIdentifier:CELLID];
     self.rowHeight = kScrAdaptationH(60);
 }
@@ -75,7 +76,7 @@ UITableViewDataSource
 
 - (void)setAddRecortdModel_plan_dataList:(HXBFinModel_AddRecortdModel_Plan_dataList *)addRecortdModel_plan_dataList {
     _addRecortdModel_plan_dataList = addRecortdModel_plan_dataList;
-    
+
     _numberLabel.text   = addRecortdModel_plan_dataList.index;
     _IDLabel.text       = addRecortdModel_plan_dataList.hxb_nickName;
     _dateLabel.text     = addRecortdModel_plan_dataList.hxb_joinTime;
@@ -122,28 +123,28 @@ UITableViewDataSource
         make.centerY.equalTo(weakSelf.contentView);
         make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
     }];
-    _numberLabel.font = kHXBFont_PINGFANGSC_REGULAR(20);
+    _numberLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
     _numberLabel.textColor = kHXBColor_HeightGrey_Font0_4;
     
     [_IDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf.contentView.mas_centerY).offset(kScrAdaptationH(-1.5));
         make.left.equalTo(_numberLabel.mas_right).offset(20);
     }];
-    _IDLabel.font = kHXBFont_PINGFANGSC_REGULAR(20);
+    _IDLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
     _IDLabel.textColor = kHXBColor_Grey_Font0_2;
     
     [_dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(_IDLabel);
         make.top.equalTo(_IDLabel.mas_bottom).offset(3);
     }];
-    _dateLabel.font = kHXBFont_PINGFANGSC_REGULAR(17);
+    _dateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     _dateLabel.textColor = kHXBColor_Font0_6;
     
     [_YUANLable mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.contentView);
-        make.right.equalTo(weakSelf.contentView).offset(-10);
+        make.right.equalTo(weakSelf.contentView).offset(-15);
     }];
-    _YUANLable.font = kHXBFont_PINGFANGSC_REGULAR(20);
+    _YUANLable.font = kHXBFont_PINGFANGSC_REGULAR(14);
     _YUANLable.textColor = kHXBColor_HeightGrey_Font0_4;
 }
 @end

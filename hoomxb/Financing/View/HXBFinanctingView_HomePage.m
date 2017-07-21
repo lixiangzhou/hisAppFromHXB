@@ -211,7 +211,7 @@
 
     //上拉刷新，下拉加载
     [self.loanTruansferTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
+        if (weakSelf.loanTruansferFooterBlock) weakSelf.loanTruansferFooterBlock();
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
     }];
     [self.loanTruansferTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{

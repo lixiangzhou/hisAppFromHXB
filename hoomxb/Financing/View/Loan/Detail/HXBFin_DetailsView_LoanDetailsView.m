@@ -15,14 +15,15 @@
 #import "HXBFinHomePageViewModel_LoanList.h"///散标列表页的Viewmodel\
 #import "HXBFinHomePageModel_LoanList.h"
 #import "HXBFin_LoanDetailView_TopView.h"
-
+#import "HXBFinPlanContract_ContractWebView.h"///曾信任服务协议
+#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"
 @interface HXBFin_DetailsView_LoanDetailsView ()
 @property (nonatomic,strong) HXBFin_DetailsView_LoanDetailsView_ViewModelVM *viewModelVM;
 ///预期年化的view
 @property (nonatomic,strong) HXBColourGradientView *expectedYearRateView;
 @property (nonatomic,strong) HXBFin_LoanDetailView_TopView *topView;
 ///曾信View
-@property (nonnull,strong) UIView *trustView;
+@property (nonnull,strong) UIImageView *trustView;
 ///剩余可投
 @property (nonatomic,strong) UIView *surplusValueView;
 ///流程引导视图
@@ -56,6 +57,7 @@
 ///底部的tableView被点击
 @property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
 @property (nonatomic,copy) void (^clickAddButtonBlock)();
+@property (nonatomic,copy) void (^clickAddTrustBlock) ();
 ///加入的button
 @property (nonatomic,strong) UIButton *addButton;
 ///倒计时
@@ -212,15 +214,26 @@
 
 //MARK: - 增信
 - (void)setupAddTrustView {
-    self.trustView = [[UIView alloc]init];
+    self.trustView = [[UIImageView alloc]init];
     self.trustView.backgroundColor = [UIColor whiteColor];
+    self.trustView.userInteractionEnabled = true;
     [self addSubview: self.trustView];
     [self.trustView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(80)));
     }];
+    ///落地页
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+    [tap addTarget:self action:@selector(clickAddTrust:)];
+    [self.trustView addGestureRecognizer: tap];
 }
+- (void)clickAddTrust:(UITapGestureRecognizer *)tap {
+    if (self.clickAddTrustBlock) {
+        self.clickAddTrustBlock();
+    }
+}
+
 
 //MARK: - 还款方式
 //- (void)setupFlowChartView {
@@ -261,7 +274,7 @@
     self.promptLablel = [[UILabel alloc]init];
     [self addSubview: self.promptLablel];
     self.promptLablel.textAlignment = NSTextAlignmentCenter;
-    self.promptLablel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+    self.promptLablel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.promptLablel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
     self.promptLablel.text = @"预期收益不代表实际收益，投资需谨慎";
     [self.promptLablel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -285,11 +298,10 @@
     [self.addView addSubview:_addButton];
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.equalTo(weakSelf.addView);
-        make.left.top.equalTo(weakSelf.addView).offset(20);
-        make.bottom.right.equalTo(weakSelf.addView).offset(-20);
+        make.left.top.equalTo(weakSelf.addView).offset(0);
+        make.bottom.right.equalTo(weakSelf.addView).offset(0);
     }];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
-    self.addButton.backgroundColor = [UIColor blackColor];
     [self.addButton setTitle:self.addButtonStr forState:UIControlStateNormal];
     
     
@@ -321,7 +333,7 @@
     [self.bottomTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.loanTypeViewContentView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@(kScrAdaptationH(138)));
+        make.height.equalTo(@(kScrAdaptationH(134)));
     }];
     //cell的点击事件
     [self.bottomTableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
@@ -329,7 +341,6 @@
             self.clickBottomTabelViewCellBlock(index,model);
         }
     }];
-    self.bottomTableView.rowHeight = 40;
     UILabel *lable = [[UILabel alloc]init];
     [self addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -349,7 +360,9 @@
 - (void) clickAddButtonFunc: (void(^)())clickAddButtonBlock {
     self.clickAddButtonBlock = clickAddButtonBlock;
 }
-
+- (void)clickAddTrustWithBlock:(void(^)())clickAddTrustBlock {
+    self.clickAddTrustBlock = clickAddTrustBlock;
+}
 
 //---------------
 - (void)setData_LoanWithLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)LoanDetailVieModel {
@@ -377,43 +390,7 @@
     self.timeLabel.text = timeStr;
 }
 @end
-@interface HXBFin_DetailsView_LoanDetailsView_ViewModelVM()
 
-@end
 
 @implementation HXBFin_DetailsView_LoanDetailsView_ViewModelVM
-- (void)setAddButtonStr:(NSString *)addButtonStr {
-    _addButtonStr = addButtonStr;
-    if (self.addButtonChengeTitleBlock) {
-        self.addButtonChengeTitleBlock(addButtonStr);
-    }
-}
-- (void)addButtonChengeTitleChenge:(void (^)(NSString *))addButtonChengeTitleBlock {
-    self.addButtonChengeTitleBlock = addButtonChengeTitleBlock;
-}
-//懒加载
-- (NSTimer *) timer {
-    if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(addTimeFunc) userInfo:nil repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
-        [_timer fire];
-    }
-    return _timer;
-}
-/**
- 加入时间
- */
-- (void) addTimeFunc {
-    self.countDownStr = @(self.countDownStr.integerValue - 1000).description;
-}
-- (void)setCountDownStr:(NSString *)countDownStr {
-    _countDownStr = countDownStr;
-    if (self.countDownStr.integerValue < 60 * 60 * 1000) {
-        [self timer];
-    }
-    _countDownStr = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:countDownStr andDateFormat:@"d天h时"];
-    _countDownStr = [NSString stringWithFormat:@"剩余投标时间：%@",_countDownStr];
-}
-
-
 @end

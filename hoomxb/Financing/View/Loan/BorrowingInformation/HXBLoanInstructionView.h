@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class HXBFinDetailViewModel_LoanDetail;
+///借款说明
 @interface HXBLoanInstructionView : UIView
 ///用户信息
 @property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanDetailViewModel;

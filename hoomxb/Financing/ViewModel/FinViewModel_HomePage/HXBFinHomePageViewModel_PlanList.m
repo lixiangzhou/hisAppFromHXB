@@ -57,7 +57,7 @@ typedef enum : NSUInteger {
     }else {
         self.isHidden = false;
     }
-    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm分ss秒"];
+    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm:ss"];
 }
 /**
  剩余时间
@@ -134,7 +134,7 @@ typedef enum : NSUInteger {
     NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
 
     //加息利率
-    if (self.planListModel.extraInterestRate.length) {
+    if (self.planListModel.extraInterestRate.floatValue) {
         NSString *extraInterestRateStr = [NSString stringWithFormat:@"%@%@%@",@"+",self.planListModel.extraInterestRate,@"%"];
         NSMutableAttributedString *extraInterestRate = [[NSMutableAttributedString alloc]initWithString:extraInterestRateStr];
         NSRange range = NSMakeRange(0, extraInterestRateStr.length);

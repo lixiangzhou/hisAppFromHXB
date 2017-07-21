@@ -32,23 +32,24 @@
 {
     _loanDetailViewModel = loanDetailViewModel;
     self.loanContentLabel.text = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO;
-    self.height = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO_height + 60;
+//    self.height = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO_height + 60;
 }
 
 - (void)setupSubViewframe
 {
+    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.loanInstructionLabel.mas_top).offset(kScrAdaptationH(-15));
+        make.bottom.equalTo(self.loanContentLabel.mas_bottom).offset(kScrAdaptationH(15));
+    }];
     [self.loanInstructionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@20);
-        make.left.equalTo(@20);
+        make.top.equalTo(@(kScrAdaptationH(15)));
+        make.left.equalTo(@(kScrAdaptationW(15)));
     }];
     [self.loanContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.loanInstructionLabel.mas_bottom).offset(10);
-        make.left.equalTo(@20);
-        make.right.equalTo(self.mas_right).offset(-20);
+        make.top.equalTo(self.loanInstructionLabel.mas_bottom).offset(kScrAdaptationH(15));
+        make.left.equalTo(@(kScrAdaptationW(15)));
+        make.right.equalTo(self.mas_right).offset(kScrAdaptationW(-15));
     }];
-    
-   
-    
 }
 
 - (void)layoutSubviews
@@ -63,8 +64,8 @@
 {
     if (!_loanInstructionLabel) {
         _loanInstructionLabel = [[UILabel alloc] init];
-        _loanInstructionLabel.font = [UIFont systemFontOfSize:15];
-        _loanInstructionLabel.textColor = COR11;
+        _loanInstructionLabel.font = kHXBFont_PINGFANGSC_REGULAR(21);
+        _loanInstructionLabel.textColor = kHXBColor_Grey_Font0_2;
         _loanInstructionLabel.text = @"借款说明";
     }
     return _loanInstructionLabel;
@@ -74,7 +75,8 @@
 {
     if (!_loanContentLabel) {
         _loanContentLabel = [[UILabel alloc] init];
-        _loanContentLabel.font = [UIFont systemFontOfSize:13];
+        _loanContentLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        _loanContentLabel.textColor = kHXBColor_Font0_6;
         _loanContentLabel.numberOfLines = 0;
         _loanContentLabel.text = @"借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明";
     }

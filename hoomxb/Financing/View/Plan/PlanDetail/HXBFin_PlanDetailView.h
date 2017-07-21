@@ -58,6 +58,8 @@
 
 /// 点击了立即加入的button
 - (void) clickAddButtonFunc: (void(^)())clickAddButtonBlock;
+///点击了增信
+- (void)clickAddTrustWithBlock:(void(^)())clickAddTrustBlock;
 @end
 
 
@@ -102,5 +104,4 @@
 @property (nonatomic,assign) BOOL isCountDown;
 ///是否可以点击 addbutton
 @property (nonatomic,assign) BOOL isUserInteractionEnabled;
-- (void) addButtonChengeTitleChenge: (void(^)(NSString *title))addButtonChengeTitleBlock;
 @end

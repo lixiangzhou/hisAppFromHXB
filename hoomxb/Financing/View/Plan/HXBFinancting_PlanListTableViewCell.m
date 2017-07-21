@@ -33,7 +33,6 @@
     self.nameLabel.text = model.name;
     [self.countDownLable setHidden: !finPlanListViewModel.countDownString.integerValue];
     [self.arrowImageView setHidden: !finPlanListViewModel.countDownString.integerValue];
-   
     self.countDownLable.text = finPlanListViewModel.countDownString;
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = finPlanListViewModel.planListModel.lockPeriod;
@@ -150,7 +149,7 @@
     _countDownString = countDownString;
     self.countDownLable.text = countDownString;
     [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
-    [self.arrowImageView setHighlighted:self.finPlanListViewModel.isHidden];
+    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
 }
 - (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
     _lockPeriodLabel_ConstStr = lockPeriodLabel_ConstStr;
@@ -233,7 +232,11 @@
         make.height.equalTo(@(kScrAdaptationH(30)));
         make.width.equalTo(@(kScrAdaptationW(85)));
     }];
-  
+    //时间的图标
+    [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.countDownLable.mas_left).offset(kScrAdaptationW(-6));
+        make.height.top.equalTo(self.countDownLable);
+    }];
     [self.preferentialLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.contentView).offset(20);
         make.right.equalTo(weakSelf.arrowImageView);
@@ -246,11 +249,7 @@
         make.height.equalTo(@(kScrAdaptationH(14)));
     }];
 
-    //时间的图标
-    [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.countDownLable.mas_left).offset(kScrAdaptationW(-6));
-        make.height.top.equalTo(self.countDownLable);
-    }];
+   
     
     
     [self.countDownLable setHidden: true];

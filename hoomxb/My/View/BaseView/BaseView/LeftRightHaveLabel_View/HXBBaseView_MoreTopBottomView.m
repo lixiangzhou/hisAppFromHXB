@@ -186,7 +186,7 @@
             }];
             [self.rightViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.bottom.equalTo(self.leftViewArray[i]);
-                make.left.equalTo(self.leftViewArray[i].mas_right);
+                make.left.equalTo(self.leftViewArray[i].mas_right).offset(self.leftProportion);
                 make.right.equalTo(self).offset(-space.right);
             }];
         } else {

@@ -10,7 +10,7 @@
 #define HXBRequestURL_h
 
 //MARK: ======================= 所有H5 界面 =======================
-#define kHXBH5_BaseURL @"http://192.168.1.21:3300"///用户信息
+#define kHXBH5_BaseURL @"http://192.168.1.166:3000"///用户信息
 #define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",kHXBH5_BaseURL]//风险评测
 
 //MARK: ======================= 理财资产 界面 =======================
@@ -25,6 +25,7 @@
 //加入记录
 #define kHXBFinanc_Loan_AddRecortdURL(loanID) [NSString stringWithFormat:@"/loan/%@/record",(loanID)]//加入记录
 #define kHXBFinanc_Plan_AddRecortdURL(planID) [NSString stringWithFormat:@"/plan/%@/record",(planID)]//红利计划 加入记录
+#define kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(loanTruanserID)];//债转加入记录
 
 //MARK: ======================= 用户 =======================
 #define kHXBUser_UserInfoURL @"/user/info"///用户信息
@@ -75,6 +76,7 @@
 #define kHXBFin_Buy_PlanURL(planID) [NSString stringWithFormat:@"/plan/%@/confirm",(planID)]//购买
 #define kHXBFin_Buy_LoanURL(LoanID) [NSString stringWithFormat:@"/loan/%@/confirm",(LoanID)]
 #define kHXBFin_BuyReslut_LoanURL(loanID) [NSString stringWithFormat:@"/loan/%@/result",(loanID)]
+#define kHXBFin_BuyReslut_LoanTruansferURL(loanTruansferID) [NSString stringWithFormat:@"/transfer/%@/result",(loanTruansferID)]///债权购买
 
 //MARK: ======================= 公告 ==========================
 #define kHXBHome_AnnounceURL @"/announce"//公告
@@ -83,4 +85,18 @@
 #define kHXBUserInfo_BankCard @"/account/user/card" //用户绑定银行卡
 
 
+
+//MARK: ======================= 协议 ==========================
+//协议或合同名	端口号后链接	状态	账户内连接
+#define kHXB_Negotiate_SginUPURL @"/agreement/signup"///《注册服务协议》
+#define kHXB_Negotiate_CertificationURL @"/agreement/realname"///《红小宝认证服务协议》
+#define kHXB_Negotiate_ServePlanURL @"/agreement/plan"///《红利计划服务协议书》
+#define kHXB_Negotiate_ServePlan_AccountURL(productID) [NSString stringWithFormat: @"/acount/plan/%@/agreement",(productID)]///账户内服务协议 plan
+#define kHXB_Negotiate_ServeLoan_AccountURL(productID) [NSString stringWithFormat: @"/acount/loan/%@/agreement/",(productID)]///账户内《借款协议》
+#define kHXB_Negotiate_ServeLoanURL @"/agreement/loan"///《借款服务协议书》
+#define kHXB_Negotiate_Anti_MoneyLaunderingURL @"/agreement/antimoney"///《反洗钱告知暨客户出借承诺书》
+#define kHXB_Negotiate_LoanTruansferURL @"/agreement/debts"///《债权转让及受让协议》
+#define kHXB_Negotiate_depository @"/agreement/depository" ///《存管开户协议》
+#define kHXB_Negotiate_AddTrustURL @"/agreement/trust"///增信页
+#define kHXB_Negotiate_LoandingPageURL @"/landing"///落地页
 #endif

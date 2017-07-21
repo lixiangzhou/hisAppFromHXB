@@ -31,16 +31,14 @@
 
 /// 点击了立即加入的button
 - (void) clickAddButtonFunc: (void(^)())clickAddButtonBlock;
+
+///点击了增信
+- (void)clickAddTrustWithBlock:(void(^)())clickAddTrustBlock;
 @end
 
 
 
 @interface HXBFin_DetailsView_LoanDetailsView_ViewModelVM : NSObject
-@property (nonatomic,copy) void(^addButtonChengeTitleBlock)(NSString *buttonTitle);
-@property (nonatomic,strong) NSTimer *timer;
-@property (nonatomic,copy) NSString *countDownTemp;
-
-
 ///* 预期收益不代表实际收益投资需谨慎
 @property (nonatomic,copy) NSString *promptStr;
 /// title
@@ -71,5 +69,4 @@
 @property (nonatomic,assign) BOOL isCountDown;
 ///是否可以点击 addbutton
 @property (nonatomic,assign) BOOL isUserInteractionEnabled;
-- (void) addButtonChengeTitleChenge: (void(^)(NSString *title))addButtonChengeTitleBlock;
 @end

@@ -30,7 +30,7 @@
 //MARK: - 加入记录
 #import "HXBFinModel_AddRecortdModel_Plan.h"//加入记录的model
 #import "FinModel_AddRecortdModel_Loan.h"//加入记录的model loan
-
+#import "HXBFinModel_AddRecortdModel_LoanTruansfer.h"
 
 //MARK: - 购买
 #import "HXBFin_Plan_BuyViewModel.h"
@@ -39,6 +39,7 @@
 #import "HXBFinModel_BuyResoult_PlanModel.h"///购买结果
 #import "HXBFinModel_Buy_LoanModel.h"//购买
 #import "HXBFinModel_BuyResoult_LoanModel.h"///购买结果
+#import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"//债转的购买结果
 
 @interface HXBFinanctingRequest ()
 #pragma mark - Plan
@@ -58,7 +59,8 @@
 @property (nonatomic,strong) HXBBaseRequest *loanDetaileAPI;
 ///散标 加入记录API
 @property (nonatomic,strong) HXBBaseRequest *loanAddRecortdAPI;
-
+///债转 加入记录
+@property (nonatomic,strong) HXBBaseRequest *loanTruansferAddRecortdAPI;
 
 #pragma mark - loanTruansfer
 @property (nonatomic,strong) HXBBaseRequest *loanTruansferAPI;
@@ -69,6 +71,8 @@
 
 //
 @property (nonatomic,strong) NSMutableArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*loanTruansferViewModel;
+//加入记录的数组
+@property (nonatomic,strong) NSMutableArray <HXBFinModel_AddRecortdModel_LoanTruansfer *>*loanTruansferAddRecortdModelArray;
 @end
 
 
@@ -113,6 +117,13 @@
         _loanAddRecortdAPI = [[HXBBaseRequest alloc]init];
     }
     return _loanAddRecortdAPI;
+}
+
+- (HXBBaseRequest *)loanTruansferAddRecortdAPI {
+    if (!_loanTruansferAddRecortdAPI) {
+        _loanTruansferAddRecortdAPI = [[HXBBaseRequest alloc]init];
+    }
+    return _loanTruansferAddRecortdAPI;
 }
 
 - (HXBBaseRequest *)loanTruansferAPI {
@@ -278,6 +289,9 @@
     self.loanTruansferAPI.isUPReloadData = isUPData;
     self.loanTruansferAPI.requestMethod = NYRequestMethodGet;
     self.loanTruansferAPI.requestUrl = kHXBFin_LoanTruansferURL;
+    self.loanTruansferAPI.requestArgument = @{
+                                              @"page":@(self.loanTruansferAPI.dataPage),//int	当前页
+                                              };
     [self.loanTruansferAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue]) {
             if (failureBlock) {
@@ -381,7 +395,7 @@
 }
 
 /// 债转的详情页
-- (void)loanTruansferDetileRequestWithLoanID:(NSString *)loanID andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error,NSDictionary *respons))failureBlock {
+- (void)loanTruansferDetileRequestWithLoanID:(NSString *)loanID andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanTruansferDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error,NSDictionary *respons))failureBlock {
     HXBBaseRequest *loanTruansferRequest = [[HXBBaseRequest alloc]init];
     loanTruansferRequest.requestUrl = kHXBFin_LoanTruansfer_DetailURL(loanID.integerValue);
     loanTruansferRequest.requestMethod = NYRequestMethodGet;
@@ -390,11 +404,24 @@
             if (failureBlock) {
                 failureBlock(nil,responseObject);
             }
+            kNetWorkError(@"债转详情");
+            return;
         }
-        NSDictionary *dataDic = responseObject[kResponseData][kResponseDataList];
+        NSDictionary *dataDic = responseObject[kResponseData];
+        
+        HXBFinDetailViewModel_LoanTruansferDetail *viewModel = [[HXBFinDetailViewModel_LoanTruansferDetail alloc]init];
+        HXBFinDetailModel_LoanTruansferDetail *loanTruansferModel = [[HXBFinDetailModel_LoanTruansferDetail alloc]init];
+        [loanTruansferModel yy_modelSetWithDictionary:dataDic];
+        viewModel.loanTruansferDetailModel = loanTruansferModel;
+
+        if (successDateBlock) {
+            successDateBlock(viewModel);
+        }
         
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        
+        if (failureBlock) {
+            failureBlock(error,nil);
+        }
     }];
     
 }
@@ -440,7 +467,37 @@
         }
     }];
 }
-
+/// 债转详情  加入记录
+- (void)loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)loanTruanserId andOrder: (NSString *)order andSuccessBlock: (void(^)(FinModel_AddRecortdModel_Loan * loanTruansferRecortdModel))successDateBlock andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock {
+    self.loanTruansferAddRecortdAPI.requestMethod = NYRequestMethodGet;
+    self.loanTruansferAddRecortdAPI.isUPReloadData = isUPLoad;
+    self.loanTruansferAddRecortdAPI.requestArgument = @{
+                                              @"page":@(self.loanTruansferAddRecortdAPI.dataPage)
+                                              };
+    self.loanTruansferAddRecortdAPI.requestUrl = kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserId);
+    
+    [self.loanTruansferAddRecortdAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        if ([responseObject[kResponseStatus] integerValue]) {
+            if (failureBlock) {
+                failureBlock(nil,request);
+            }
+            return;
+        }
+        
+        FinModel_AddRecortdModel_Loan *model = [[FinModel_AddRecortdModel_Loan alloc]init];
+        NSDictionary *dic = [responseObject valueForKey:@"data"];
+        [model yy_modelSetWithDictionary:dic];
+        
+        if (successDateBlock) {
+            successDateBlock(model);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        kNetWorkError(@"loan 加入计划 - 网络请求失败")
+        if (error) {
+            failureBlock(error,nil);
+        }
+    }];
+}
 
 #pragma mark - 购买
 /// 计划购买
@@ -613,4 +670,41 @@
         if (failureBlock) failureBlock(error,0);
     }];
 }
+
+///债转的购买
+- (void)loanTruansfer_confirmBuyReslutWithLoanID: (NSString *)loanTruansferID
+                        andSuccessBlock:(void (^)(HXBFin_LoanTruansfer_BuyResoutViewModel *model))successDateBlock
+                                 andFailureBlock:(void (^)(NSError *error, NSDictionary *response))failureBlock {
+    HXBBaseRequest *loanTruansferAPI = [[HXBBaseRequest alloc]init];
+    loanTruansferAPI.requestUrl = kHXBFin_BuyReslut_LoanTruansferURL(loanTruansferID);
+    loanTruansferAPI.requestMethod = NYRequestMethodGet;
+    
+    [loanTruansferAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        if ([responseObject[kResponseStatus] integerValue]) {
+            if (failureBlock) {
+                failureBlock(nil,responseObject);
+            }
+            return;
+        }
+        
+        HXBFin_LoanTruansfer_BuyResoutViewModel *loantruansferViewModel = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc]init];
+        HXBFinModel_BuyResout_LoanTruansferModel *loantruansferModel = [[HXBFinModel_BuyResout_LoanTruansferModel alloc]init];
+        NSDictionary *dataDic = responseObject[kResponseData];
+        BOOL isSuccess = [loantruansferViewModel yy_modelSetWithDictionary:dataDic];
+        if (!isSuccess) {
+            NSLog(@"🌶字典转模型失败%@",self);
+            return;
+        }
+        loantruansferViewModel.loanTruansferModel = loantruansferModel;
+        if (successDateBlock) {
+            successDateBlock(loantruansferViewModel);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        
+    }];
+    
+}
+
+
+
 @end

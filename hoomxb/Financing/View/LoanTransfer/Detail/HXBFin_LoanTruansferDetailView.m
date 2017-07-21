@@ -17,7 +17,7 @@
 /**
  曾信
  */
-@property (nonatomic,strong) HXBFin_LoanTruansfer_AddTrustworthinessView *addTrustworthiness;
+@property (nonatomic,strong) UIImageView *addTrustworthiness;
 /**
  还款方式
  提前还款费率
@@ -39,12 +39,12 @@
  点击事件
  */
 @property (nonatomic,copy) void (^clickAddButtonBlock)(UIButton *button);
+@property (nonatomic,copy)void (^clickBottomTabelViewCellBlock)(NSIndexPath *, HXBFinDetail_TableViewCellModel *);
+@property (nonatomic,copy) void (^clickAddTrustBlock) ();
 @end
 
 @implementation HXBFin_LoanTruansferDetailView
-- (void)clickAddButtonBlock:(void (^)(UIButton *))clickAddButtonBlock {
-    self.clickAddButtonBlock = clickAddButtonBlock;
-}
+
 - (void)setUPValueWithManager:(HXBFin_LoanTruansferDetailViewManger *(^)(HXBFin_LoanTruansferDetailViewManger *))loanTruansferDetailViewManagerBlock {
     self.manager = loanTruansferDetailViewManagerBlock(_manager);
 }
@@ -86,10 +86,24 @@
     [self setUPFrame];
     [self setUPViews];
 }
+//MARK: 事件的传递
+- (void)clickBottomTableViewCellBloakFunc:(void (^)(NSIndexPath *, HXBFinDetail_TableViewCellModel *))clickBottomTabelViewCellBlock {
+    self.clickBottomTabelViewCellBlock = clickBottomTabelViewCellBlock;
+}
+/// 点击了立即加入的button
+- (void) clickAddButtonFunc: (void(^)())clickAddButtonBlock {
+    self.clickAddButtonBlock = clickAddButtonBlock;
+}
+- (void)clickAddButtonBlock:(void (^)(UIButton *))clickAddButtonBlock {
+    self.clickAddButtonBlock = clickAddButtonBlock;
+}
+- (void)clickAddTrustWithBlock:(void (^)())clickAddTrustBlock {
+    self.clickAddTrustBlock = clickAddTrustBlock;
+}
 
 - (void) creatViews {
     self.topView = [[HXBFin_LoanTruansferDetail_TopView alloc]init];
-    self.addTrustworthiness = [[HXBFin_LoanTruansfer_AddTrustworthinessView alloc]init];
+    self.addTrustworthiness = [[UIImageView alloc]init];
     UIEdgeInsets edgeinsets = UIEdgeInsetsMake(kScrAdaptationH(15), kScrAdaptationW(15), 0, kScrAdaptationW(15));
     self.loanType_InterestLabel = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero
                                                                andTopBottomViewNumber:2 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15)
@@ -133,7 +147,7 @@
     [self.detailTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.loanType_InterestLabel.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(135)));
+        make.height.equalTo(@(kScrAdaptationH(134)));
     }];
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.detailTableView.mas_bottom).offset(kScrAdaptationH(20));
@@ -151,7 +165,30 @@
     self.addButton.backgroundColor = kHXBColor_Red_090303;
     self.promptLabel.textColor = kHXBColor_Font0_6;
     self.promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    
+    //cell的点击事件
+    [self.detailTableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
+        if (self.clickBottomTabelViewCellBlock) {
+            self.clickBottomTabelViewCellBlock(index,model);
+        }
+    }];
+    [self setupAddTrustView];
 }
+//MARK: - 增信
+- (void)setupAddTrustView {
+    self.addTrustworthiness.backgroundColor = [UIColor whiteColor];
+    self.addTrustworthiness.userInteractionEnabled = true;
+    ///落地页
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] init];
+    [tap addTarget:self action:@selector(clickAddTrust:)];
+    [self.addTrustworthiness addGestureRecognizer: tap];
+}
+- (void)clickAddTrust:(UITapGestureRecognizer *)tap {
+    if (self.clickAddTrustBlock) {
+        self.clickAddTrustBlock();
+    }
+}
+
 @end
 @implementation HXBFin_LoanTruansferDetailViewManger
 - (instancetype)init
