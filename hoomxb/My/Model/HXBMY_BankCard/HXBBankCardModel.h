@@ -43,6 +43,10 @@
  */
 @property (nonatomic, copy) NSString *name;
 /**
+ mobile
+ */
+@property (nonatomic, copy) NSString *mobile;
+/**
  province
  */
 @property (nonatomic, copy) NSString *province;

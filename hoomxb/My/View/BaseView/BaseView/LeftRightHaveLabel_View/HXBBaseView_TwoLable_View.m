@@ -87,7 +87,7 @@
         [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.bottom.equalTo(self);
             make.left.equalTo(self);
-            make.width.equalTo(self).multipliedBy(self.proportion);
+//            make.width.equalTo(self).multipliedBy(self.proportion);
         }];
         
         [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -27,5 +27,5 @@
 /**
  开通账户
  */
-@property (nonatomic, copy)  void(^openAccountBlock)();
+@property (nonatomic, copy)  void(^openAccountBlock)(NSDictionary *dic);
 @end

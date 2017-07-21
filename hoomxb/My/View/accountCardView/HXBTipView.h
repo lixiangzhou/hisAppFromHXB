@@ -10,4 +10,9 @@
 
 @interface HXBTipView : UIView
 
+/**
+ 提示文字
+ */
+@property (nonatomic, copy) NSString *text;
+
 @end

@@ -12,6 +12,8 @@
 #import "UILabel+Util.h"
 #import "HXBRequestUserInfo.h"
 
+#import "HXBBaseTabBarController.h"
+
 @interface HXBHomePageLoginIndicationView ()
 
 
@@ -132,7 +134,11 @@
     
 }
 
-
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    HXBBaseTabBarController *tabBarController = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    tabBarController.selectedIndex = 2;
+}
 
 #pragma mark Get Methdos
 

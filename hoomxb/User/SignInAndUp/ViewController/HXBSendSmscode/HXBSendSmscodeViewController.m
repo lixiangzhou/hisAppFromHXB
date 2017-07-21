@@ -9,8 +9,9 @@
 #import "HXBSendSmscodeViewController.h"
 #import "HXBSendSmscodeView.h"///发送短信的view
 
-#import "HxbSignUpSucceedViewController.h"
+//#import "HxbSignUpSucceedViewController.h"
 #import "HxbAccountInfoViewController.h"
+#import "HXBBindBankCardViewController.h"
 ///短信验证 VC
 @interface HXBSendSmscodeViewController ()
 @property (nonatomic,strong) HXBSendSmscodeView *smscodeView;
@@ -113,8 +114,10 @@
                 [[KeyChainManage sharedInstance] setMobile:self.phonNumber];
                 [KeyChainManage sharedInstance].isLogin = true;
                 KeyChain.ciphertext = @"0";
-                HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
-                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
+//                HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
+//                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
+                HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
+                [self.navigationController pushViewController:bindBankCardVC animated:YES];
             } andFailureBlock:^(NSError *error) {
             }];
         }

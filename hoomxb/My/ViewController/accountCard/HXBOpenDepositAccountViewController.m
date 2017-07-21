@@ -10,6 +10,7 @@
 #import "HXBBankCardListViewController.h"
 #import "HxbMyTopUpViewController.h"
 #import "HXBOpenDepositAccountView.h"
+#import "HXBOpenDepositAccountRequest.h"
 @interface HXBOpenDepositAccountViewController ()
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
@@ -42,10 +43,16 @@
     [weakSelf presentViewController:nav animated:YES completion:nil];
 }
 //开通账户
-- (void)bottomBtnClick
+- (void)bottomBtnClick:(NSDictionary *)dic
 {
-    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+    [openDepositAccountRequest openDepositAccountRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
+        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
+    
 }
 
 #pragma mark - 懒加载
@@ -57,8 +64,8 @@
         _mainView.bankNameBlock = ^{
             [weakSelf enterBankCardListVC];
         };
-        _mainView.openAccountBlock = ^{
-            [weakSelf bottomBtnClick];
+        _mainView.openAccountBlock = ^(NSDictionary *dic) {
+            [weakSelf bottomBtnClick:dic];
         };
     }
     return _mainView;

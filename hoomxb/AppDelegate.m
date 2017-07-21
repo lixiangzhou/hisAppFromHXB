@@ -18,6 +18,7 @@
 #import "HXBVersionUpdateRequest.h"//版本更新的请求
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 
+#import "IQKeyboardManager.h"//设置键盘
 static NSString *const home = @"首页";
 static NSString *const financing = @"理财";
 static NSString *const my = @"我的";
@@ -67,10 +68,21 @@ static NSString *const my = @"我的";
     
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
+
+    //设置键盘
+    [self keyboardManager];
     
     return YES;
 }
 
+- (void)keyboardManager
+{
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enable = YES;
+    manager.shouldResignOnTouchOutside = YES;
+    manager.shouldToolbarUsesTextFieldTintColor = YES;
+    manager.enableAutoToolbar = NO;
+}
 
 - (void)checkversionUpdate
 {
