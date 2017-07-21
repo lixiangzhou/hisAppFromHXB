@@ -23,5 +23,6 @@
  count:渐变个数，等于locations的个数
  */
 - (void)colorArray: (NSArray <NSNumber*> *)components andLength: (NSInteger)componentsLength andColorLocation: (NSArray <NSNumber*> *)locations;
+
 - (void)clickEvent: (void(^)(UIView *view))clickBlock;
 @end

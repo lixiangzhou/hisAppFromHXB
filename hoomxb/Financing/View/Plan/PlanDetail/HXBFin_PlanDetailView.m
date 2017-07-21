@@ -183,7 +183,7 @@
    
 }
 - (void)setupSubView {
-    
+    [self setUPBackGroundImageView];
     [self setUPTopView];
     [self setupAddTrustView];//曾信view（内部对是否分为左右进行了判断）
     [self setupFlowChartView];///流程引导视图
