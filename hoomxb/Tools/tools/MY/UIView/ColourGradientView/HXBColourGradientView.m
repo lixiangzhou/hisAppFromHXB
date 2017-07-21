@@ -115,14 +115,14 @@
      count:渐变个数，等于locations的个数
      */
     CGFloat components[100] = {0};
-    CGFloat locations[2] = {
-        0,1
-    };
+    CGFloat locations[100] = {0};
     for (int i = 0; i < self.componentsLength * 4; i ++) {
         CGFloat value = self.components[i].floatValue;
         components[i] = value;
     }
-    
+    for (int i = 0; i < self.locations.count; i ++) {
+        locations[i] = self.locations[i].floatValue;
+    }
     CGGradientRef gradient= CGGradientCreateWithColorComponents(colorSpace, components, locations, self.componentsLength);
 
     /*绘制线性渐变

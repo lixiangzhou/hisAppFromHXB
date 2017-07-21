@@ -11,6 +11,8 @@
 #import "HXBBaseViewController.h"//控制器的基类
 #import "HXBBaseNavigationController.h"
 #import "HXBBaseAlertViewController.h"//alert
+#import "HXBFBase_BuyResult_VC.h"///购买结果页
+
 
 //MARK: UIView
 #import "HXBBaseTableView.h"//tableView

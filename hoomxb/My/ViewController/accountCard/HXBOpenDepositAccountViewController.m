@@ -73,7 +73,6 @@
             HXBFinLoanTruansfer_ContraceWebViewVC *webViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc] init];
             webViewVC.URL = kHXB_Negotiate_depository;
             [weakSelf.navigationController pushViewController:webViewVC animated:true];
-            
         }];
     }
     return _mainView;

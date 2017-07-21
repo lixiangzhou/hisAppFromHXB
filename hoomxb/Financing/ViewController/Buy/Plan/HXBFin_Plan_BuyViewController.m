@@ -133,34 +133,44 @@
                  [HxbHUDProgress showTextWithMessage:@"去安全认证"];
              } else {
                  [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.ID andAmount:capital cashType:self.planViewModel.profitType andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
-    
-                     HXBFin_Plan_BuySuccessViewController *planBuySuccessVC = [[HXBFin_Plan_BuySuccessViewController alloc]init];
-                     planBuySuccessVC.planModel = model;
-                     [planBuySuccessVC clickLookMYInfo:^{
-                         if (weakSelf.clickLookMYInfoButtonBlock) {
-                             weakSelf.clickLookMYInfoButtonBlock();
-                         }
+                     ///加入成功
+                     HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+                     planBuySuccessVC.imageName = @"successful";
+                     planBuySuccessVC.buy_title = @"加入成功";
+                     planBuySuccessVC.buy_description = model.lockStart;
+                     planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
+                     planBuySuccessVC.title = @"投资成功";
+                     [planBuySuccessVC clickButtonWithBlock:^{
+                         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
+                         [self.navigationController popToRootViewControllerAnimated:true];
                      }];
-                     [weakSelf.navigationController pushViewController:planBuySuccessVC animated:true];
+                     
+                     [self.navigationController pushViewController:planBuySuccessVC animated:true];
 // [self.navigationController popToRootViewControllerAnimated:true];
                  } andFailureBlock:^(NSError *error, NSInteger status) {
                      
-                     HXBFin_Plan_BugFailViewController *failViewController = [[HXBFin_Plan_BugFailViewController alloc]init];
-                     failViewController.failLabelStr = @"加入失败";
-    
+                     HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
+                     failViewController.title = @"投资结果";
                      switch (status) {
                          case 3408:
-                             failViewController.failLabelStr = @"余额不足";
-                             failViewController.massage = @"请充值后再投资";
+                             failViewController.imageName = @"yuebuzu";
+                             failViewController.buy_title = @"可用余额不足，请重新购买";
+                             failViewController.buy_ButtonTitle = @"重新投资";
                              break;
                          case 3100:
-                             failViewController.failLabelStr = @"已售罄";
+                             failViewController.imageName = @"shouqin";
+                             failViewController.buy_title = @"手慢了，已售罄";
+                             failViewController.buy_ButtonTitle = @"重新投资";
                              break;
+                         default:
+                             failViewController.imageName = @"failure";
+                             failViewController.buy_title = @"加入失败";
+                             failViewController.buy_ButtonTitle = @"重新投资";
                      }
-                     [failViewController clickButtonWithBlcok:^(UIButton *button) {
-                         //跳回理财页面
-                         [weakSelf.navigationController popToRootViewControllerAnimated:true];
+                     [failViewController clickButtonWithBlock:^{
+                         [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
                      }];
+                     [weakSelf.navigationController pushViewController:failViewController animated:true];
                  }];
              }
          }];
