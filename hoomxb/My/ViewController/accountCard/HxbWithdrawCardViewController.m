@@ -86,6 +86,11 @@
     [weakSelf presentViewController:nav animated:YES completion:nil];
 }
 
+- (void)setUserInfoModel:(HXBUserInfoModel *)userInfoModel
+{
+    
+}
+
 - (void)nextButtonClick:(NSString *)bankCard{
     //充值结果
 

@@ -78,6 +78,10 @@
  是否评估
  */
 @property (nonatomic, copy) NSString *riskType;
+/**
+ 是否开通存管账户
+ */
+@property (nonatomic, assign) BOOL isCreateEscrowAcc;
 
 @property (nonatomic,copy) NSString *ip;
 @property (nonatomic,copy) NSString *hasRecharge;

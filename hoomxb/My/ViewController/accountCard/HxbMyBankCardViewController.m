@@ -35,7 +35,7 @@
 {
     kWeakSelf
     NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
-    bankCardAPI.requestUrl = @"/account/user/card";
+    bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
     bankCardAPI.requestMethod = NYRequestMethodGet;
     [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);

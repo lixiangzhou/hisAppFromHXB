@@ -10,7 +10,7 @@
 #import "HxbAdvertiseViewController.h"
 #import "HxbHomeRequest.h"
 #import "HxbHomeRequest_dataList.h"
-#import "HxbSecurityCertificationViewController.h"
+//#import "HxbSecurityCertificationViewController.h"
 #import "HXBHomeBaseModel.h"
 #import "HXBFinancing_PlanDetailsViewController.h"
 #import "HxbHomePageModel_DataList.h"
@@ -20,6 +20,8 @@
 #import "HXBVersionUpdateViewModel.h"//版本更新的viewModel
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 #import "HXBNoticeViewController.h"//公告界面
+#import "HXBOpenDepositAccountViewController.h"//开通存管账户
+#import "HxbWithdrawCardViewController.h"//绑卡界面
 @interface HxbHomeViewController ()
 
 @property (nonatomic, assign) BOOL isVersionUpdate;
@@ -305,19 +307,47 @@
             }else
             {
                 
-                [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-                    NSLog(@"%@",isVerify);
-                    if ([KeyChain isLogin] && [isVerify isEqualToString:@"1"])
+                [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+                     HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                    
+                    if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+                        //开通存管银行账户
+                        openDepositAccountVC.title = @"开通存管账户";
+                        [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+                        
+                    } else if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
                     {
+                        //进入绑卡界面
+                        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                        withdrawCardViewController.title = @"绑卡";
+                        [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+                    }else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
+                    {
+                        //完善信息
+                        openDepositAccountVC.title = @"完善信息";
+                        [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+                    }else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
                         //跳转立即投资
                         weakSelf.tabBarController.selectedIndex = 1;
-                    }else{
-                        //跳转安全认证
-                        HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
-                        [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
                     }
                     
+                } andFailure:^(NSError *error) {
+                    
                 }];
+                
+//                [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
+//                    NSLog(@"%@",isVerify);
+//                    if ([KeyChain isLogin] && [isVerify isEqualToString:@"1"])
+//                    {
+//                        //跳转立即投资
+//                        weakSelf.tabBarController.selectedIndex = 1;
+//                    }else{
+//                        //跳转安全认证
+//                        HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
+//                        [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
+//                    }
+//                    
+//                }];
             }
             
         };

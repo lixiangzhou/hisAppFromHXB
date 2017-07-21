@@ -130,7 +130,7 @@
         make.top.equalTo(self.pwdField.mas_bottom).offset(kScrAdaptationH750(20));
         make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(40));
-        make.height.offset(kScrAdaptationH750(1));
+        make.height.offset(0.5);
     }];
     
     [self.forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {

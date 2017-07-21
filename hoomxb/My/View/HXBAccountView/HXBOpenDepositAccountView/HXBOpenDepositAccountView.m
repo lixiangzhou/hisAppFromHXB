@@ -11,6 +11,7 @@
 #import "HXBCustomTextField.h"
 #import "HXBFinBaseNegotiateView.h"
 #import "SVGKImage.h"
+#import "HXBBankCardModel.h"
 
 @interface HXBOpenDepositAccountView ()
 @property (nonatomic, strong) HXBDepositoryHeaderView *headerTipView;
@@ -22,7 +23,10 @@
 @property (nonatomic, strong) HXBCustomTextField *bankNumberTextField;
 @property (nonatomic, strong) HXBCustomTextField *phoneTextField;
 @property (nonatomic, strong) HXBFinBaseNegotiateView *negotiateView;
+
 @property (nonatomic, strong) UIButton *bottomBtn;
+
+
 /**
  存管协议
  */
@@ -45,9 +49,60 @@
         [self addSubview:self.negotiateView];
         [self addSubview:self.bottomBtn];
         [self setupSubViewFrame];
+        [self loadUserInfo];
+       
     }
     return self;
 }
+
+- (void)loadUserInfo
+{
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) return;
+        
+        if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+            //已经绑卡
+            NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
+            bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
+            bankCardAPI.requestMethod = NYRequestMethodGet;
+            [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+                NSLog(@"%@",responseObject);
+                NSInteger status =  [responseObject[@"status"] integerValue];
+                if (status != 0) {
+                    [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+                    return;
+                }
+                HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+                [weakSelf setupBankCardData:bankCardModel];
+            } failure:^(NYBaseRequest *request, NSError *error) {
+                NSLog(@"%@",error);
+                [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+            }];
+        }
+        
+    } andFailure:^(NSError *error) {
+        
+    }];
+}
+
+- (void)setupBankCardData:(HXBBankCardModel *)bankCardModel
+{
+    self.bankNameTextField.text = bankCardModel.bankType;
+    self.bankNameTextField.isHidenLine = YES;
+    self.bankNameTextField.userInteractionEnabled = NO;
+    self.bankCode = bankCardModel.bankCode;
+    
+    self.bankNumberTextField.text = [bankCardModel.cardId replaceStringWithStartLocation:0 lenght:bankCardModel.cardId.length - 4];
+    self.bankNumberTextField.isHidenLine = YES;
+    self.bankNumberTextField.userInteractionEnabled = NO;
+    
+    
+    self.phoneTextField.text = bankCardModel.mobile;
+    self.phoneTextField.isHidenLine = YES;
+    self.phoneTextField.userInteractionEnabled = NO;
+}
+
 - (void)setupSubViewFrame
 {
     [self.headerTipView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -112,9 +167,56 @@
 - (void)bottomBtnClick
 {
     if (self.openAccountBlock) {
-        self.openAccountBlock();
+        if ([self judgeIsNull]) return;
+        NSDictionary *dic = @{
+                              @"realName" : self.nameTextField.text,
+                              @"identityCard" : self.idCardTextField.text,
+                              @"password" : self.pwdTextField.text,
+                              @"bankCard" : self.bankNumberTextField.text,
+                              @"bankReservedMobile" : self.phoneTextField.text,
+                              @"bankCode" : self.bankCode
+                              };
+        self.openAccountBlock(dic);
     }
 }
+
+- (BOOL)judgeIsNull
+{
+    BOOL isNull = NO;
+    if (!(self.nameTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"真实姓名没有填写" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.idCardTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"身份证号没有填写" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.pwdTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"交易密码没有填写" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.bankCode.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"没有选择银行" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.bankNumberTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"银行卡号没有填写" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.phoneTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"预留手机号没有填写" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    return isNull;
+}
+
+
 
 #pragma mark - 懒加载
 - (HXBDepositoryHeaderView *)headerTipView
@@ -151,6 +253,7 @@
         _pwdTextField = [[HXBCustomTextField alloc] init];
         _pwdTextField.leftImage = [SVGKImage imageNamed:@"transaction_password.svg"].UIImage;
         _pwdTextField.placeholder = @"交易密码";
+        _pwdTextField.secureTextEntry = YES;
     }
     return _pwdTextField;
 }
@@ -223,6 +326,8 @@
     }
     return _negotiateView;
 }
+
+
 - (UIButton *)bottomBtn
 {
     if (!_bottomBtn) {
@@ -237,6 +342,11 @@
 }
 - (void)clickTrustAgreementWithBlock:(void (^)())clickTrustAgreement {
     self.clickTrustAgreement = clickTrustAgreement;
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self endEditing:YES];
 }
 
 @end

@@ -112,7 +112,6 @@
     
     self.headView.homeBaseModel = homeBaseModel;
     [self.mainTableView reloadData];
-    NSLog(@"%@",self.mainTableView.subviews);
     [self.mainTableView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subView, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([subView isKindOfClass:[UIImageView class]]) {
             [subView removeFromSuperview];

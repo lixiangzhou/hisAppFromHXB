@@ -97,9 +97,12 @@
 {
     _bannersModel = bannersModel;
      [self.bannerView reloadWithDataArray:bannersModel];
-    if (bannersModel.count) {
-        [self.bannerView play];
-    }
+    //banner是否自动滚动打开下面三行代码
+//    if (bannersModel.count) {
+//        [self.bannerView play];
+//    }
+    
+    
 //    NSMutableArray *titlesGroup = [NSMutableArray array];
 //    NSMutableArray *imageURLStringsGroup = [NSMutableArray array];
 //    for (BannerModel *bannerModel in bannersModel) {
