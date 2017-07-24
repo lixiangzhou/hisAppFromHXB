@@ -27,6 +27,8 @@
 #import "HXBFinAddTruastWebViewVC.h"
 
 @interface HXBFinancing_PlanDetailsViewController ()
+//假的navigationBar
+@property (nonatomic,strong) UIImageView *topImageView;
 @property(nonatomic,strong) HXBFin_PlanDetailView *planDetailsView;
 ///底部点的cellModel
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewModelArray;
@@ -135,17 +137,19 @@
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
         
     }];
-    
-    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+    [self setUPTopImageView];
+
     self.isTransparentNavigationBar = true;
-    self.isColourGradientNavigationBar = true;
-    
-    //    self.view.backgroundColor = kHXBColor_heightGrey;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
     self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
 }
-
+- (void)setUPTopImageView {
+    self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    self.topImageView.image = [UIImage imageNamed:@"NavigationBar"];
+    [self.view addSubview:self.topImageView];
+}
 
 ///MARK: 事件注册
 - (void)registerClickCell {
