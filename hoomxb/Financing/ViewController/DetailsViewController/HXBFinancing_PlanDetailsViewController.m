@@ -128,29 +128,22 @@
 
 //MARK: ------ setup -------
 - (void)setup {
+    
     kWeakSelf
     [self.hxbBaseVCScrollView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         [weakSelf downLoadData];
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-        gifHeader.stateLabel.text = @"";
-        [gifHeader setTitle:@"" forState:MJRefreshStateIdle];
-        [gifHeader setTitle:@"" forState:MJRefreshStatePulling];
-        [gifHeader setTitle:@"" forState:MJRefreshStateRefreshing];
-        [gifHeader setTitle:@"" forState:MJRefreshStateWillRefresh];
-        [gifHeader setTitle:@"" forState:MJRefreshStateNoMoreData];
+        
     }];
+    
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
     self.isTransparentNavigationBar = true;
-    self.isHiddenNavigationBar = true;
     self.isColourGradientNavigationBar = true;
     
-//    self.view.backgroundColor = kHXBColor_heightGrey;
+    //    self.view.backgroundColor = kHXBColor_heightGrey;
+    self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
-    
-    //是否为计划界面
-    _planDetailsView.isPlan = true;
-    _planDetailsView.isFlowChart = true;
 }
 
 

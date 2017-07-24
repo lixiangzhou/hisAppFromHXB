@@ -7,6 +7,7 @@
 //
 
 #import "HXBMyTopUpBankView.h"
+#import "HXBBankCardModel.h"
 
 @interface HXBMyTopUpBankView()
 
@@ -27,9 +28,36 @@
         [self addSubview:self.bankCardNumLabel];
         [self addSubview:self.amountLimitLabel];
         [self setContentViewFrame];
+        
+        [self loadBankCard];
     }
     return self;
 }
+
+
+- (void)loadBankCard
+{
+    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
+    bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
+    bankCardAPI.requestMethod = NYRequestMethodGet;
+    [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSInteger status =  [responseObject[@"status"] integerValue];
+        if (status != 0) {
+            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            return;
+        }
+        HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+        //设置绑卡信息
+        self.bankNameLabel.text = bankCardModel.bankType;
+        self.bankCardNumLabel.text = [NSString stringWithFormat:@"（尾号%@）",[bankCardModel.cardId substringFromIndex:bankCardModel.cardId.length - 4]];
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        NSLog(@"%@",error);
+        [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+    }];
+    
+}
+
 
 - (void)setContentViewFrame{
     [self.bankLogoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -66,7 +94,7 @@
 - (UILabel *)bankNameLabel{
     if (!_bankNameLabel) {
         _bankNameLabel = [[UILabel alloc] init];
-        _bankNameLabel.text = @"招商银行";
+//        _bankNameLabel.text = @"招商银行";
         _bankNameLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _bankNameLabel.textColor = RGB(51, 51, 51);
     }
@@ -76,7 +104,7 @@
 - (UILabel *)bankCardNumLabel{
     if (!_bankCardNumLabel) {
         _bankCardNumLabel = [[UILabel alloc] init];
-        _bankCardNumLabel.text = @"(尾号1234)";
+//        _bankCardNumLabel.text = @"(尾号1234)";
         _bankCardNumLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _bankCardNumLabel.textColor = RGB(51, 51, 51);
     }

@@ -60,6 +60,8 @@
     kWeakSelf
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) return;
+        //设置用户信息
+        [self setupUserIfoData:viewModel];
         
         if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
             //已经绑卡
@@ -74,6 +76,7 @@
                     return;
                 }
                 HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+                //设置绑卡信息
                 [weakSelf setupBankCardData:bankCardModel];
             } failure:^(NYBaseRequest *request, NSError *error) {
                 NSLog(@"%@",error);
@@ -84,6 +87,17 @@
     } andFailure:^(NSError *error) {
         
     }];
+}
+
+- (void)setupUserIfoData:(HXBRequestUserInfoViewModel *)viewModel
+{
+    self.nameTextField.text = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
+    self.nameTextField.isHidenLine = YES;
+    self.nameTextField.userInteractionEnabled = NO;
+    
+    self.idCardTextField.text = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:2 lenght:viewModel.userInfoModel.userInfo.realName.length - 3];
+    self.idCardTextField.isHidenLine = YES;
+    self.idCardTextField.userInteractionEnabled = NO;
 }
 
 - (void)setupBankCardData:(HXBBankCardModel *)bankCardModel
@@ -169,8 +183,8 @@
     if (self.openAccountBlock) {
         if ([self judgeIsNull]) return;
         NSDictionary *dic = @{
-                              @"realName" : self.nameTextField.text,
-                              @"identityCard" : self.idCardTextField.text,
+//                              @"realName" : self.nameTextField.text,
+//                              @"identityCard" : self.idCardTextField.text,
                               @"password" : self.pwdTextField.text,
                               @"bankCard" : self.bankNumberTextField.text,
                               @"bankReservedMobile" : self.phoneTextField.text,
@@ -183,16 +197,16 @@
 - (BOOL)judgeIsNull
 {
     BOOL isNull = NO;
-    if (!(self.nameTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"真实姓名没有填写" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if (!(self.idCardTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"身份证号没有填写" inView:self];
-        isNull = YES;
-        return isNull;
-    }
+//    if (!(self.nameTextField.text.length > 0)) {
+//        [HxbHUDProgress showMessageCenter:@"真实姓名没有填写" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
+//    if (!(self.idCardTextField.text.length > 0)) {
+//        [HxbHUDProgress showMessageCenter:@"身份证号没有填写" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
     if (!(self.pwdTextField.text.length > 0)) {
         [HxbHUDProgress showMessageCenter:@"交易密码没有填写" inView:self];
         isNull = YES;
