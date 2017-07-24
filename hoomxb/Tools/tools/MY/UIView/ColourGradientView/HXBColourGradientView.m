@@ -138,6 +138,7 @@
     CGContextDrawLinearGradient(context, gradient, start, end, kCGGradientDrawsAfterEndLocation);
     //释放颜色空间
     CGColorSpaceRelease(colorSpace);
+    CGGradientRelease(gradient);
 }
 - (void)clickEvent: (void(^)(UIView *view))clickBlock {
     self.clickBlock = clickBlock;
