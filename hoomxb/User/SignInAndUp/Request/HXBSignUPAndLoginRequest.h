@@ -93,7 +93,7 @@
  */
 + (void)checkExistMobileRequestWithMobile: (NSString *)mobile
                           andSuccessBlock: (void(^)(BOOL isExist))successBlock
-                          andFailureBlock: (void(^)(NSError *error))failureBlock;
+                          andFailureBlock: (void(^)(NSError *error,NYBaseRequest *request))failureBlock ;
 
 /**
  * 安全认证
@@ -105,7 +105,7 @@
                     andIdentityCard: (NSString *)identityCard
                         andPassword: (NSString *)password
                     andSuccessBlock: (void(^)(BOOL isExist))successBlock
-                    andFailureBlock: (void(^)(NSError *error))failureBlock;
+                    andFailureBlock: (void(^)(NSError *error,NYBaseRequest *request))failureBlock;
 
 /**
  * 忘记密码

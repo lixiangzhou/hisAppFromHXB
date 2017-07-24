@@ -17,8 +17,20 @@ failureBlock(nil);\
 return;\
 }\
 }
+/// 请求下来后返回给vc
+#define kHXBRespons_returnVCError if ([responseObject[kResponseStatus] integerValue]) {\
+    if (failureBlock) {\
+        failureBlock(nil,request);\
+    }\
+}\
 
 
+#define  kHXBRespons_ShowHUDWithError(view) if (request) {\
+    if ((view)){\
+        [HxbHUDProgress showMessage:request.responseObject[kResponseMessage] inView:(view)];\
+    }else\
+        [HxbHUDProgress showMessage:request.responseObject[kResponseMessage]];\
+}
 
 //MARK: ======================= 理财资产 界面 =======================
 /**计划状态*/

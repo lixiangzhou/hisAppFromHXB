@@ -212,7 +212,7 @@
 #pragma mark - 忘记密码校验手机号
 + (void)checkExistMobileRequestWithMobile: (NSString *)mobile
                      andSuccessBlock: (void(^)(BOOL isExist))successBlock
-                     andFailureBlock: (void(^)(NSError *error))failureBlock {
+                     andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock {
     
     HXBBaseRequest *checkMobileAPI = [[HXBBaseRequest alloc]init];
     checkMobileAPI.requestMethod = NYRequestMethodPost;
@@ -227,7 +227,7 @@
         if(successBlock) successBlock(!status.integerValue);
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(error);
+        if (failureBlock) failureBlock(error,nil);
         kNetWorkError(@"校验手机号 请求失败");
     }];
 }
@@ -237,7 +237,7 @@
                     andIdentityCard: (NSString *)identityCard
                         andPassword: (NSString *)password
                     andSuccessBlock: (void(^)(BOOL isExist))successBlock
-                    andFailureBlock: (void(^)(NSError *error))failureBlock {
+                    andFailureBlock: (void(^)(NSError *error,NYBaseRequest *request))failureBlock {
     
     NYBaseRequest *realnameApi = [[NYBaseRequest alloc]init];
     realnameApi.requestUrl = kHXBUser_realnameURL;
@@ -249,13 +249,12 @@
                                     };
     [realnameApi startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         ///判断是否成功
-        kHXBResponsShowHUD
+        kHXBRespons_returnVCError
         if (successBlock) {
             successBlock(true);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(nil);
-        [HxbHUDProgress showTextWithMessage:@"实名认证 请求失败"];
+        if (failureBlock) failureBlock(error,nil);
          kNetWorkError(@"实名认证 请求失败")
     }];
     
