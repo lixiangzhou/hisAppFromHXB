@@ -26,7 +26,8 @@
 
 
 @interface HXBFinancing_LoanDetailsViewController ()
-
+//假的navigationBar
+@property (nonatomic,strong) UIImageView *topImageView;
 @property(nonatomic,strong) HXBFin_DetailsView_LoanDetailsView *loanDetailsView;
 @property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanDetailViewModel;
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewModelArray;
@@ -120,16 +121,19 @@
         
     }];
     
-    self.hxb_automaticallyAdjustsScrollViewInsets = true;
-    self.isTransparentNavigationBar = true;
-        self.isColourGradientNavigationBar = true;
+    [self setUPTopImageView];
     
-    //    self.view.backgroundColor = kHXBColor_heightGrey;
+    self.isTransparentNavigationBar = true;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
     self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     [self.hxbBaseVCScrollView addSubview:self.loanDetailsView];
 }
-
+- (void)setUPTopImageView {
+    self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    self.topImageView.image = [UIImage imageNamed:@"NavigationBar"];
+    [self.view addSubview:self.topImageView];
+}
 
 - (void) registerEvent {
     [self registerClickCell];

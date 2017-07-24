@@ -143,6 +143,8 @@
 }
 #pragma mark - 隐藏导航条
 - (void)viewWillAppear:(BOOL)animated{
+    //设置电池栏的颜色
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [super viewWillAppear:animated];
     self.automaticallyAdjustsScrollViewInsets = self.hxb_automaticallyAdjustsScrollViewInsets;
     [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:false];
@@ -160,5 +162,10 @@
 ///tracking ScrollView
 - (void) trackingScrollViewBlock: (void(^)(UIScrollView *scrollView)) trackingScrollViewBlock {
     self.trackingScrollViewBlock = trackingScrollViewBlock;
+}
+///白色的电池栏
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 @end

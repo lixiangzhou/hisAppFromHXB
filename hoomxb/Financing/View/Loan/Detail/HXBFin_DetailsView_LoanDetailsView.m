@@ -131,7 +131,7 @@
     self.startInvestmentStr_const   = viewModelVM.startInvestmentStr_const;
     self.promptStr                  = viewModelVM.promptStr;
     self.addButtonStr               = viewModelVM.addButtonStr;
-    self.lockPeriodStr              = viewModelVM.lockPeriodStr;
+    self.lockPeriodStr              = viewModelVM.startInvestmentStr;
     
     self.addButton.userInteractionEnabled = self.viewModelVM.isUserInteractionEnabled;
     [self.loanTypeView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
