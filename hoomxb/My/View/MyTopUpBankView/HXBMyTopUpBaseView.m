@@ -35,8 +35,20 @@
         [self addSubview:self.tipLabel];
         [self addSubview:self.promptLabel];
         [self setCardViewFrame];
+        
+        [self loadUserinfoData];
     }
     return self;
+}
+
+- (void)loadUserinfoData
+{
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        weakSelf.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@元",viewModel.userInfoModel.userAssets.availablePoint];
+    } andFailure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)setCardViewFrame{
@@ -116,7 +128,7 @@
 {
     if (!_availableBalanceLabel) {
         _availableBalanceLabel = [[UILabel alloc] init];
-        _availableBalanceLabel.text = @"可用金额：123.78元";
+//        _availableBalanceLabel.text = @"可用金额：123.78元";
         _availableBalanceLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _availableBalanceLabel.textColor = RGB(51, 51, 51);
     }

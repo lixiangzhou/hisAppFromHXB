@@ -154,9 +154,24 @@
                 self.getValidationCodeButtonClickBlock(self.phoneTextField.text);
             }
         }
-    } andFailureBlock:^(NSError *error) {
+    } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
         
+        if (request) {
+            UIView *view = nil;
+            if([self isKindOfClass:[UIViewController class]]) {
+                UIViewController *vc = (UIViewController *)self;
+                view = vc.view;
+            }
+            if ([self isKindOfClass:[UIView class]]) {
+                view = self;
+            }
+            if (view){
+                [HxbHUDProgress showMessage:request.responseObject[kResponseMessage] inView:view];
+            }else
+                [HxbHUDProgress showMessage:request.responseObject[kResponseMessage]];
+        }
     }];
+
 }
 
 - (void)sureChangeBtnClick

@@ -14,6 +14,9 @@
 #import "HXBRequestUserInfo.h"
 #import "HXBMY_AllFinanceViewController.h"
 #import "HXBBindBankCardViewController.h"
+#import "HXBOpenDepositAccountViewController.h"
+#import "HxbWithdrawCardViewController.h"
+#import "HxbMyTopUpViewController.h"
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
@@ -110,8 +113,32 @@
     //        #import "HxbMyTopUpViewController.h"
     //        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
     //        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-    HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
-    [self.navigationController pushViewController:bindBankCardVC animated:YES];
+    
+    if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+        //开通存管银行账户
+        HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
+        [self.navigationController pushViewController:bindBankCardVC animated:YES];
+        
+    } else if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
+    {
+        //进入绑卡界面
+        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+        withdrawCardViewController.title = @"绑卡";
+        [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+    }else if (!([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
+    {
+        //完善信息
+        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+        openDepositAccountVC.title = @"完善信息";
+        [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+    }else
+    {
+        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    }
+    
+    
+    
 }
 /// 提现
 - (void)didClickWithdrawBtn:(UIButton *)sender{

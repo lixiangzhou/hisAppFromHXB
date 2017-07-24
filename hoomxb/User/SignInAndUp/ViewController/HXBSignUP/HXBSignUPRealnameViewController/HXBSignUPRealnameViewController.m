@@ -111,10 +111,9 @@
             NSLog(@"认证成功");
             [self dismissViewControllerAnimated:true completion:nil];
         }
-    } andFailureBlock:^(NSError *error) {
-        NSLog(@"认证失败");
+    } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
+        kHXBRespons_ShowHUDWithError(self.view);
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning {

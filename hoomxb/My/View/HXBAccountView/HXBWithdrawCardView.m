@@ -49,7 +49,7 @@
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         [self.cardholderLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
             viewModelVM.leftLabelStr = [NSString stringWithFormat:@"持卡人：%@",[viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1]];
-            viewModelVM.rightLabelStr = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:3 lenght:viewModel.userInfoModel.userInfo.idNo.length - 6];
+            viewModelVM.rightLabelStr = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:2 lenght:viewModel.userInfoModel.userInfo.idNo.length - 3];
             return viewModelVM;
         }];
     } andFailure:^(NSError *error) {

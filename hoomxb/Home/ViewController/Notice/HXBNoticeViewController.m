@@ -9,6 +9,7 @@
 #import "HXBNoticeViewController.h"
 #import "HXBVersionUpdateRequest.h"
 #import "HXBNoticModel.h"
+#import "HXBFinAddTruastWebViewVC.h"
 @interface HXBNoticeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *mainTabelView;
 
@@ -89,6 +90,17 @@
     cell.detailTextLabel.text = [[HXBBaseHandDate sharedHandleDate] stringFromDate:noticModel.date andDateFormat:@"yyyy-MM-dd"];
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    HXBNoticModel *noticModel = self.modelArrs[indexPath.row];
+    NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",kHXBH5_BaseURL,noticModel.ID];
+    HXBFinAddTruastWebViewVC *finAddTruastWebViewVC = [[HXBFinAddTruastWebViewVC alloc] init];
+    finAddTruastWebViewVC.URL = str;
+    finAddTruastWebViewVC.title = @"公告详情";
+    [self.navigationController pushViewController:finAddTruastWebViewVC animated:YES];
+}
+
 #pragma mark - 懒加载
 - (UITableView *)mainTabelView
 {
