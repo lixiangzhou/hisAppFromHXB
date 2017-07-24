@@ -24,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUP];
-    self.title = @"增信页";
 }
 
 
