@@ -334,6 +334,7 @@
 		E190EFA01F25A61B001E0B14 /* SCAdCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E190EF9A1F25A61B001E0B14 /* SCAdCollectionViewLayout.m */; };
 		E190EFA11F25A61B001E0B14 /* SCAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = E190EF9C1F25A61B001E0B14 /* SCAdView.m */; };
 		E190EFA41F25D16E001E0B14 /* HXBNavWaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E190EFA31F25D16E001E0B14 /* HXBNavWaterView.m */; };
+		E190EFA71F25DB59001E0B14 /* HXBSignInWaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E190EFA61F25DB59001E0B14 /* HXBSignInWaterView.m */; };
 		E1AAF3071F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAF3061F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.m */; };
 		E1B0F4861EC492160071246F /* HXBFinAddRecordVC_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B0F4851EC492160071246F /* HXBFinAddRecordVC_Plan.m */; };
 		E1B0F4891EC492980071246F /* HXBFinAddRecortdVC_Loan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B0F4881EC492980071246F /* HXBFinAddRecortdVC_Loan.m */; };
@@ -1049,6 +1050,8 @@
 		E190EF9D1F25A61B001E0B14 /* SCAdViewRenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdViewRenderDelegate.h; sourceTree = "<group>"; };
 		E190EFA21F25D16E001E0B14 /* HXBNavWaterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBNavWaterView.h; sourceTree = "<group>"; };
 		E190EFA31F25D16E001E0B14 /* HXBNavWaterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBNavWaterView.m; sourceTree = "<group>"; };
+		E190EFA51F25DB59001E0B14 /* HXBSignInWaterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignInWaterView.h; sourceTree = "<group>"; };
+		E190EFA61F25DB59001E0B14 /* HXBSignInWaterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSignInWaterView.m; sourceTree = "<group>"; };
 		E1AAF3051F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanDetailView_TopView.h; sourceTree = "<group>"; };
 		E1AAF3061F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanDetailView_TopView.m; sourceTree = "<group>"; };
 		E1B0F4841EC492160071246F /* HXBFinAddRecordVC_Plan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinAddRecordVC_Plan.h; sourceTree = "<group>"; };
@@ -2413,6 +2416,8 @@
 			children = (
 				E133DCAF1EEE3597009466DE /* HxbSignInView.h */,
 				E133DCB01EEE3597009466DE /* HxbSignInView.m */,
+				E190EFA51F25DB59001E0B14 /* HXBSignInWaterView.h */,
+				E190EFA61F25DB59001E0B14 /* HXBSignInWaterView.m */,
 			);
 			path = HXBSignIn;
 			sourceTree = "<group>";
@@ -4170,6 +4175,7 @@
 				E17A32CB1F1F6ED70079DBAE /* HXBFin_LoanDetail_LoanInfoCertifyButton.m in Sources */,
 				E12801001F0294270066FB66 /* HXBFin_Plan_BuyViewModel.m in Sources */,
 				E1270B381ECED1F300729BC9 /* HXBMYViewModel_MianPlanViewModel.m in Sources */,
+				E190EFA71F25DB59001E0B14 /* HXBSignInWaterView.m in Sources */,
 				E122D8521EA0CAB900DC71ED /* NSString+HxbHash.m in Sources */,
 				E18B68A81EC9D3D80047E458 /* HXBMainListView_Plan.m in Sources */,
 				4ED2F2781ECAD0BA0014E5C7 /* HXBMyBankCell.m in Sources */,
