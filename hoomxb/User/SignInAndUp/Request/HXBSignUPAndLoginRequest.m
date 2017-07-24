@@ -227,7 +227,7 @@
         if(successBlock) successBlock(!status.integerValue);
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(error);
+        if (failureBlock) failureBlock(error,nil);
         kNetWorkError(@"校验手机号 请求失败");
     }];
 }
