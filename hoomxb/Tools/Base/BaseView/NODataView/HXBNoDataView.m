@@ -77,7 +77,7 @@
     _imageName = imageName;
     self.notDataImageView.image = [UIImage imageNamed:self.imageName];
     if (!_notDataImageView.image) {
-        _notDataImageView.svgImageString = self.imageName;
+        _notDataImageView.image = [UIImage imageNamed: self.imageName];
     }
 }
 - (void)setNoDataMassage:(NSString *)noDataMassage {
