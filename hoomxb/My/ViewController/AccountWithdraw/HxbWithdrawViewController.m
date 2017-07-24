@@ -166,7 +166,7 @@
         return;
     }
     if ([_amountTextField.text doubleValue] > [self.userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]) {
-        [HxbHUDProgress showTextWithMessage:@"金额不能大于余额"];
+        [HxbHUDProgress showTextWithMessage:@"余额不足"];
         return;
     }
     

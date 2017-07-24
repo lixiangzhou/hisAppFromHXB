@@ -7,7 +7,7 @@
 //
 
 #import "HxbMyViewHeaderView.h"
-
+#import "SVGKImage.h"
 @interface HxbMyViewHeaderView ()
 @property (nonatomic, strong) UILabel *allFinanceTitleLabel;
 @property (nonatomic, strong) UILabel *allFinanceLabel;
@@ -282,7 +282,8 @@
 - (UIButton *)rightHeadButton{
     if (!_rightHeadButton) {
         _rightHeadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.width - 40 - 20, 40, 40, 40)];
-        [_rightHeadButton setImage:[UIImage imageNamed:@"1"] forState:UIControlStateNormal];
+        [_rightHeadButton setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateNormal];
+        [_rightHeadButton setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateSelected];
         [_rightHeadButton addTarget:self action:@selector(rightHeadButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rightHeadButton;
