@@ -157,6 +157,10 @@ UITextFieldDelegate
     [self addSubview:self.partingLine];
     
     kWeakSelf
+    
+    
+    
+    
     [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf).offset(kScrAdaptationH(107));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(21));
