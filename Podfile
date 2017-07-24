@@ -15,5 +15,5 @@ pod 'UICKeyChainStore'
 pod 'MBProgressHUD'
 pod 'SDCycleScrollView','~> 1.64'
 pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '2.x'
-pod 'IQKeyboardManager'
+#pod 'IQKeyboardManager'
 end
