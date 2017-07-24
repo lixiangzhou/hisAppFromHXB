@@ -23,6 +23,9 @@
 #import "HXBFinAddTruastWebViewVC.h"///曾信页
 
 @interface HXBFin_DetailLoanTruansfer_ViewController ()
+
+//假的navigationBar
+@property (nonatomic,strong) UIImageView *topImageView;
 @property (nonatomic,strong) HXBFin_LoanTruansferDetailView *detailView;
 ///底部的tableView被点击
 @property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
@@ -47,20 +50,26 @@
 - (void) setUP {
     kWeakSelf
     self.title = @"消费债权";
-    self.isColourGradientNavigationBar = true;
-    self.detailView = [[HXBFin_LoanTruansferDetailView alloc]init];
-    self.detailView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64);
-    self.hxb_automaticallyAdjustsScrollViewInsets = true;
-    [self.hxbBaseVCScrollView addSubview:self.detailView];
     [self.hxbBaseVCScrollView hxb_HeaderWithHeaderRefreshCallBack:^{
         [weakSelf downLoadData];
     } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
         [weakSelf.hxbBaseVCScrollView endRefresh];
     }];
-    [self.detailView clickAddButtonBlock:^(UIButton *button) {
-       
-    }];
+    
+    [self setUPTopImageView];
+    
+    self.isTransparentNavigationBar = true;
+    self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
+    self.detailView = [[HXBFin_LoanTruansferDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
+    [self.hxbBaseVCScrollView addSubview:self.detailView];
 }
+- (void)setUPTopImageView {
+    self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    self.topImageView.image = [UIImage imageNamed:@"NavigationBar"];
+    [self.view addSubview:self.topImageView];
+}
+
 - (void)setLoanTransfer_ViewModel:(HXBFinHomePageViewModel_LoanTruansferViewModel *)loanTransfer_ViewModel {
     _loanTransfer_ViewModel = loanTransfer_ViewModel;
 }
@@ -103,7 +112,7 @@
 ///点击了立即加入
 - (void)registerClickAddButton {
     kWeakSelf
-    [self.detailView clickAddButtonFunc:^{
+    [self.detailView clickAddButtonBlock:^(UIButton *button) {
         //如果不是登录 那么就登录
         if (![KeyChainManage sharedInstance].isLogin) {
             //            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];

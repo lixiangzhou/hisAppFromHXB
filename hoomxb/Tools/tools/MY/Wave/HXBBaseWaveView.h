@@ -31,8 +31,6 @@ typedef enum : NSUInteger {
 @property (nonatomic,strong) UIColor *waveViewBackgroundColor;
 
 
-
-
 #pragma mark - 常用的方法
 /**
  * 冲浪视图的类构造方法
@@ -46,8 +44,6 @@ typedef enum : NSUInteger {
  * @param progress 高度或进度，占self.frame.size.height得百分比
  */
 - (instancetype)initWithFrame:(CGRect)frame andColorSet: (NSMutableArray <UIColor *>*)colorMutableArray andProgress: (CGFloat)progress;
-
-
 
 
 #pragma mark - 自定义水波参数 （内部有默认值设置）
@@ -67,5 +63,4 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) UIBezierPath *bazierPath;
 ///形状类型，默认是圆形（分为矩形和圆形两种，如果设置了bazierPath属性，则优先按照bazierPath路径获取形状）
 @property (nonatomic,assign) HXBBaseWaveViewPathType pathType;
-
 @end

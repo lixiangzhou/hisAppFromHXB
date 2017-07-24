@@ -107,20 +107,20 @@
 - (void)setUP {
     self.topViewManager    = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];//预期年化
     self.topViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(45);
-    self.topViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(17);
+    self.topViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(12);
     self.topViewManager.leftViewColor = [UIColor whiteColor];
-    self.topViewManager.rightViewColor = [UIColor whiteColor];
+    self.topViewManager.rightViewColor = [UIColor colorWithWhite:1 alpha:0.6];
 
     self.leftViewManager   = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];//期限
-    self.leftViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(20);
-    self.leftViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(15);
+    self.leftViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(15);
+    self.leftViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(12);
     self.leftViewManager.leftViewColor = [UIColor whiteColor];
-    self.leftViewManager.rightViewColor = [UIColor whiteColor];
+    self.leftViewManager.rightViewColor = [UIColor colorWithWhite:1 alpha:0.6];
 
     self.rightViewManager  = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];//剩余金额
-    self.rightViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(20);
-    self.rightViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(15);
-    self.rightViewManager.rightViewColor = [UIColor whiteColor];
+    self.rightViewManager.leftFont= kHXBFont_PINGFANGSC_REGULAR(15);
+    self.rightViewManager.rightFont= kHXBFont_PINGFANGSC_REGULAR(12);
     self.rightViewManager.leftViewColor = [UIColor whiteColor];
+    self.rightViewManager.rightViewColor = [UIColor colorWithWhite:1 alpha:0.6];
 }
 @end

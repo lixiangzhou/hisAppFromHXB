@@ -22,6 +22,7 @@
 #import "HXBFin_PlanDetailView_TopView.h"
 #import "HXBFinPlanContract_ContractWebView.h"///曾信是一个h5
 @interface HXBFin_PlanDetailView()
+
 @property (nonatomic,strong) HXBFin_PlanDetailView_ViewModelVM *viewModelVM;
 ///预期年化的view
 @property (nonatomic,strong) HXBColourGradientView *expectedYearRateView;
@@ -184,6 +185,7 @@
 }
 - (void)setupSubView {
 //    [self setUPBackGroundImageView];
+    
     [self setUPTopView];
     [self setupAddTrustView];//曾信view（内部对是否分为左右进行了判断）
     [self setupFlowChartView];///流程引导视图

@@ -125,8 +125,8 @@
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
-//#warning 屏蔽了点击 我的 跳转 登录页
-//    return true;
+//   #warning 屏蔽了点击 我的 跳转 登录页
+//   return true;
     //获取当前的导航控制器的跟控制器
     UIViewController *vc = ((HXBBaseNavigationController *)viewController).viewControllers.firstObject;
     
