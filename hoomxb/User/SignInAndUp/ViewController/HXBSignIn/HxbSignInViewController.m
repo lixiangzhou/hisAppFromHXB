@@ -128,8 +128,8 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
           NSString *existStr = isExist? kMobile_IsExist : kMobile_NotExis;
           ///通过这个方法吧要展示的信息，和是否可以点击登录按钮进行设定
           [weakSelf.signView checkMobileResultFuncWithCheckMobileResultStr:existStr andIsEditLoginButton:isExist];
-      } andFailureBlock:^(NSError *error) {
-
+      } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
+          kHXBRespons_ShowHUDWithError(self.signView)
       }];
     }];
 }

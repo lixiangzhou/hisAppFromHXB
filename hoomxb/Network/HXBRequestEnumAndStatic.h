@@ -25,6 +25,13 @@ return;\
 }\
 
 
+#define  kHXBRespons_ShowHUDWithError(view) if (request) {\
+    if ((view)){\
+        [HxbHUDProgress showMessage:request.responseObject[kResponseMessage] inView:(view)];\
+    }else\
+        [HxbHUDProgress showMessage:request.responseObject[kResponseMessage]];\
+}
+
 //MARK: ======================= 理财资产 界面 =======================
 /**计划状态*/
 typedef enum : NSUInteger {
