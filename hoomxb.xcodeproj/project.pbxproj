@@ -64,10 +64,6 @@
 		4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B6C1F1478C100771C07 /* investment_Selected.svg */; };
 		4E7E5B711F14792B00771C07 /* my_Selected.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B6F1F14792B00771C07 /* my_Selected.svg */; };
 		4E7E5B721F14792B00771C07 /* my_Unselected.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B701F14792B00771C07 /* my_Unselected.svg */; };
-		4E7E5B791F14A33F00771C07 /* SCAdCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7E5B751F14A33F00771C07 /* SCAdCollectionViewLayout.m */; };
-		4E7E5B7A1F14A33F00771C07 /* SCAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7E5B771F14A33F00771C07 /* SCAdView.m */; };
-		4E7E5B7E1F14A3A400771C07 /* HXBBannerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7E5B7C1F14A3A400771C07 /* HXBBannerCollectionViewCell.m */; };
-		4E7E5B7F1F14A3A400771C07 /* HXBBannerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B7D1F14A3A400771C07 /* HXBBannerCollectionViewCell.xib */; };
 		4E7E5B811F14DFE900771C07 /* package.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7E5B801F14DFE900771C07 /* package.svg */; };
 		4E81989C1EC4383600D668A1 /* HxbHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81989B1EC4383600D668A1 /* HxbHomeView.m */; };
 		4E81989F1EC442CA00D668A1 /* HxbBannerViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81989E1EC442CA00D668A1 /* HxbBannerViewModel.m */; };
@@ -333,6 +329,10 @@
 		E18B68A81EC9D3D80047E458 /* HXBMainListView_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B68A71EC9D3D80047E458 /* HXBMainListView_Plan.m */; };
 		E18B68AB1EC9D7230047E458 /* HXBMainListView_Plan_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B68AA1EC9D7230047E458 /* HXBMainListView_Plan_TopView.m */; };
 		E18CF0D01F07931B004F7998 /* UITableViewCell+HXBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E18CF0CF1F07931B004F7998 /* UITableViewCell+HXBTableViewCell.m */; };
+		E190EF9E1F25A61B001E0B14 /* HXBBannerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E190EF971F25A61B001E0B14 /* HXBBannerCollectionViewCell.m */; };
+		E190EF9F1F25A61B001E0B14 /* HXBBannerCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E190EF981F25A61B001E0B14 /* HXBBannerCollectionViewCell.xib */; };
+		E190EFA01F25A61B001E0B14 /* SCAdCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E190EF9A1F25A61B001E0B14 /* SCAdCollectionViewLayout.m */; };
+		E190EFA11F25A61B001E0B14 /* SCAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = E190EF9C1F25A61B001E0B14 /* SCAdView.m */; };
 		E1AAF3071F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAF3061F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.m */; };
 		E1B0F4861EC492160071246F /* HXBFinAddRecordVC_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B0F4851EC492160071246F /* HXBFinAddRecordVC_Plan.m */; };
 		E1B0F4891EC492980071246F /* HXBFinAddRecortdVC_Loan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B0F4881EC492980071246F /* HXBFinAddRecortdVC_Loan.m */; };
@@ -515,14 +515,6 @@
 		4E7E5B6C1F1478C100771C07 /* investment_Selected.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = investment_Selected.svg; sourceTree = "<group>"; };
 		4E7E5B6F1F14792B00771C07 /* my_Selected.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = my_Selected.svg; sourceTree = "<group>"; };
 		4E7E5B701F14792B00771C07 /* my_Unselected.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = my_Unselected.svg; sourceTree = "<group>"; };
-		4E7E5B741F14A33F00771C07 /* SCAdCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdCollectionViewLayout.h; sourceTree = "<group>"; };
-		4E7E5B751F14A33F00771C07 /* SCAdCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdCollectionViewLayout.m; sourceTree = "<group>"; };
-		4E7E5B761F14A33F00771C07 /* SCAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdView.h; sourceTree = "<group>"; };
-		4E7E5B771F14A33F00771C07 /* SCAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdView.m; sourceTree = "<group>"; };
-		4E7E5B781F14A33F00771C07 /* SCAdViewRenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdViewRenderDelegate.h; sourceTree = "<group>"; };
-		4E7E5B7B1F14A3A400771C07 /* HXBBannerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBannerCollectionViewCell.h; sourceTree = "<group>"; };
-		4E7E5B7C1F14A3A400771C07 /* HXBBannerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBannerCollectionViewCell.m; sourceTree = "<group>"; };
-		4E7E5B7D1F14A3A400771C07 /* HXBBannerCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HXBBannerCollectionViewCell.xib; sourceTree = "<group>"; };
 		4E7E5B801F14DFE900771C07 /* package.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = package.svg; sourceTree = "<group>"; };
 		4E81989A1EC4383600D668A1 /* HxbHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHomeView.h; sourceTree = "<group>"; };
 		4E81989B1EC4383600D668A1 /* HxbHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHomeView.m; sourceTree = "<group>"; };
@@ -1046,6 +1038,14 @@
 		E18B68AA1EC9D7230047E458 /* HXBMainListView_Plan_TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMainListView_Plan_TopView.m; sourceTree = "<group>"; };
 		E18CF0CE1F07931B004F7998 /* UITableViewCell+HXBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+HXBTableViewCell.h"; sourceTree = "<group>"; };
 		E18CF0CF1F07931B004F7998 /* UITableViewCell+HXBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+HXBTableViewCell.m"; sourceTree = "<group>"; };
+		E190EF961F25A61B001E0B14 /* HXBBannerCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBannerCollectionViewCell.h; sourceTree = "<group>"; };
+		E190EF971F25A61B001E0B14 /* HXBBannerCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBannerCollectionViewCell.m; sourceTree = "<group>"; };
+		E190EF981F25A61B001E0B14 /* HXBBannerCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HXBBannerCollectionViewCell.xib; sourceTree = "<group>"; };
+		E190EF991F25A61B001E0B14 /* SCAdCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdCollectionViewLayout.h; sourceTree = "<group>"; };
+		E190EF9A1F25A61B001E0B14 /* SCAdCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdCollectionViewLayout.m; sourceTree = "<group>"; };
+		E190EF9B1F25A61B001E0B14 /* SCAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdView.h; sourceTree = "<group>"; };
+		E190EF9C1F25A61B001E0B14 /* SCAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAdView.m; sourceTree = "<group>"; };
+		E190EF9D1F25A61B001E0B14 /* SCAdViewRenderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAdViewRenderDelegate.h; sourceTree = "<group>"; };
 		E1AAF3051F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanDetailView_TopView.h; sourceTree = "<group>"; };
 		E1AAF3061F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanDetailView_TopView.m; sourceTree = "<group>"; };
 		E1B0F4841EC492160071246F /* HXBFinAddRecordVC_Plan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinAddRecordVC_Plan.h; sourceTree = "<group>"; };
@@ -1328,7 +1328,6 @@
 		4E3C1D0B1EA6421B00C8BD36 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4E7E5B731F14A33F00771C07 /* SCAdView */,
 				4E94B28E1ECC49D2003CCBA7 /* HXBHomePageProductCell.h */,
 				4E94B28F1ECC49D2003CCBA7 /* HXBHomePageProductCell.m */,
 				4E8198A01EC44BCE00D668A1 /* HXBHomePageAfterLoginView.h */,
@@ -1567,21 +1566,6 @@
 				4E7E5B681F14705700771C07 /* home_Unselected.svg */,
 			);
 			path = SVG;
-			sourceTree = "<group>";
-		};
-		4E7E5B731F14A33F00771C07 /* SCAdView */ = {
-			isa = PBXGroup;
-			children = (
-				4E7E5B741F14A33F00771C07 /* SCAdCollectionViewLayout.h */,
-				4E7E5B751F14A33F00771C07 /* SCAdCollectionViewLayout.m */,
-				4E7E5B761F14A33F00771C07 /* SCAdView.h */,
-				4E7E5B771F14A33F00771C07 /* SCAdView.m */,
-				4E7E5B781F14A33F00771C07 /* SCAdViewRenderDelegate.h */,
-				4E7E5B7B1F14A3A400771C07 /* HXBBannerCollectionViewCell.h */,
-				4E7E5B7C1F14A3A400771C07 /* HXBBannerCollectionViewCell.m */,
-				4E7E5B7D1F14A3A400771C07 /* HXBBannerCollectionViewCell.xib */,
-			);
-			path = SCAdView;
 			sourceTree = "<group>";
 		};
 		4E8198B31EC450B500D668A1 /* UILabel */ = {
@@ -3096,6 +3080,21 @@
 			path = LoanTransfer;
 			sourceTree = "<group>";
 		};
+		E190EF951F25A61B001E0B14 /* SCAdView */ = {
+			isa = PBXGroup;
+			children = (
+				E190EF961F25A61B001E0B14 /* HXBBannerCollectionViewCell.h */,
+				E190EF971F25A61B001E0B14 /* HXBBannerCollectionViewCell.m */,
+				E190EF981F25A61B001E0B14 /* HXBBannerCollectionViewCell.xib */,
+				E190EF991F25A61B001E0B14 /* SCAdCollectionViewLayout.h */,
+				E190EF9A1F25A61B001E0B14 /* SCAdCollectionViewLayout.m */,
+				E190EF9B1F25A61B001E0B14 /* SCAdView.h */,
+				E190EF9C1F25A61B001E0B14 /* SCAdView.m */,
+				E190EF9D1F25A61B001E0B14 /* SCAdViewRenderDelegate.h */,
+			);
+			path = SCAdView;
+			sourceTree = "<group>";
+		};
 		E1975FB91EA776FA00A0123F /* BaseObject */ = {
 			isa = PBXGroup;
 			children = (
@@ -3228,6 +3227,7 @@
 		E1CD4BA91ED83064000CC57B /* tools */ = {
 			isa = PBXGroup;
 			children = (
+				E190EF951F25A61B001E0B14 /* SCAdView */,
 				E1CD4BAA1ED83064000CC57B /* HUD */,
 				E1CD4BAD1ED83064000CC57B /* Manager */,
 				E1CD4BB41ED83064000CC57B /* MY */,
@@ -3852,11 +3852,11 @@
 				4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */,
 				4E9215711F1DFC8800C8CECB /* bank_name.svg in Resources */,
 				4E88A5291F1600CB00BBDF11 /* security_code.svg in Resources */,
-				4E7E5B7F1F14A3A400771C07 /* HXBBannerCollectionViewCell.xib in Resources */,
 				4E88A5251F15B7A500BBDF11 /* password.svg in Resources */,
 				4E7CCF4E1EBC1B5B00F7BDB3 /* pageControl_select@3x.png in Resources */,
 				4E7CCF471EBC1B5B00F7BDB3 /* banner@2x.png in Resources */,
 				4E9215611F1DE2D900C8CECB /* FinPlanList_present.svg in Resources */,
+				E190EF9F1F25A61B001E0B14 /* HXBBannerCollectionViewCell.xib in Resources */,
 				4E92155F1F1DBCC200C8CECB /* BUYtips.svg in Resources */,
 				4E92155D1F1DBCA800C8CECB /* FinPlanList_CountDown.svg in Resources */,
 			);
@@ -4006,6 +4006,7 @@
 				E1270B6B1ECEE93700729BC9 /* HXBMY_PlanDetailView.m in Sources */,
 				4E886FC11EF91B1E0056086E /* HXBCircleView.m in Sources */,
 				E133DD391EEEC14C009466DE /* HXBTokenModel.m in Sources */,
+				E190EF9E1F25A61B001E0B14 /* HXBBannerCollectionViewCell.m in Sources */,
 				E16017791EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m in Sources */,
 				E1C2AB901F15FC11003A31E2 /* HXBBaseViewConcentricCirclesView.m in Sources */,
 				4E8AAE9C1F0B7A4400655544 /* HXBRiskAssessmentViewController.m in Sources */,
@@ -4062,7 +4063,6 @@
 				E1E5885A1EE165BF0045C4AE /* AnimatedTransition.m in Sources */,
 				E166C58E1F0375DC00AA14F4 /* HXBMY_Capital_Sift_ViewController.m in Sources */,
 				E1270B781ECEEC9D00729BC9 /* HXBMY_PlanDetail_TypeCell.m in Sources */,
-				4E7E5B791F14A33F00771C07 /* SCAdCollectionViewLayout.m in Sources */,
 				E1C964771EA5E04F0066DBC4 /* HXBBaseCollectionView.m in Sources */,
 				4E8198AE1EC44BCE00D668A1 /* HXBHomePageModuleView.m in Sources */,
 				E1659C061F175F07000073BF /* HXBBaseAlertViewController.m in Sources */,
@@ -4217,6 +4217,7 @@
 				E10EB4BE1EEFE0B500F16CFA /* HxbMyTopUpViewController.m in Sources */,
 				E165EA9B1EF8E6D500D68763 /* HXBJoinImmediateView.m in Sources */,
 				4EB45DA51EF7A2BF00C2CF21 /* HxbHomeRequest_dataList.m in Sources */,
+				E190EFA01F25A61B001E0B14 /* SCAdCollectionViewLayout.m in Sources */,
 				4E9345541EFE102500D2886B /* HXBModifyPhoneView.m in Sources */,
 				4E4D07261F1C8D45003E8FB9 /* HXBBankListCell.m in Sources */,
 				E1F630791F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m in Sources */,
@@ -4246,11 +4247,9 @@
 				4E81E4061EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m in Sources */,
 				E16314381EC076820090567E /* HXBFinDetailViewModel_LoanDetail.m in Sources */,
 				E1CD4BD51ED83064000CC57B /* HXBBaseWaveView.m in Sources */,
-				4E7E5B7A1F14A33F00771C07 /* SCAdView.m in Sources */,
 				E1CD4BCB1ED83064000CC57B /* HxbFileManager.m in Sources */,
 				E173D6681F0119DD00D04BDA /* HXBMY_Loan_DetailView.m in Sources */,
 				E1270B281ECED08800729BC9 /* HXBMY_LoanList_DetailViewController.m in Sources */,
-				4E7E5B7E1F14A3A400771C07 /* HXBBannerCollectionViewCell.m in Sources */,
 				4E8198B91EC459AF00D668A1 /* HxbHomePageFreshCustomerView.m in Sources */,
 				E1270B721ECEEC3200729BC9 /* HXBMY_PlanDtetail_Topcell.m in Sources */,
 				E122D85C1EA0CAB900DC71ED /* UITableView+HxbTableView.m in Sources */,
@@ -4276,6 +4275,7 @@
 				E1FD28EA1F18994F0032C9CE /* HXBNoDataView.m in Sources */,
 				E14B9BE61F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m in Sources */,
 				E122D8561EA0CAB900DC71ED /* UIColor+HxbColor.m in Sources */,
+				E190EFA11F25A61B001E0B14 /* SCAdView.m in Sources */,
 				E1E5885C1EE165BF0045C4AE /* PYPresentationController.m in Sources */,
 				E133DCF91EEE35D7009466DE /* HxbSecurityCertificationView.m in Sources */,
 				4E9215791F1E138C00C8CECB /* HXBOpenDepositAccountView.m in Sources */,
