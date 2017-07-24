@@ -17,7 +17,12 @@ failureBlock(nil);\
 return;\
 }\
 }
-
+/// 请求下来后返回给vc
+#define kHXBRespons_returnVCError if ([responseObject[kResponseStatus] integerValue]) {\
+    if (failureBlock) {\
+        failureBlock(nil,request);\
+    }\
+}\
 
 
 //MARK: ======================= 理财资产 界面 =======================
