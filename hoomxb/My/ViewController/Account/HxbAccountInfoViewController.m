@@ -33,6 +33,7 @@ UITableViewDataSource
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
     [self loadData_userInfo];///加载用户数据
 }
 

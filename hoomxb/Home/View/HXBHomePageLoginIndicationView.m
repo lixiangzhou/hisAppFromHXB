@@ -14,6 +14,7 @@
 
 #import "HXBBaseTabBarController.h"
 
+#import "SVGKImage.h"
 @interface HXBHomePageLoginIndicationView ()
 
 
@@ -175,7 +176,9 @@
 {
     if (!_ciphertextButton) {
         _ciphertextButton = [[UIButton alloc] init];
-        _ciphertextButton.backgroundColor = [UIColor redColor];
+//        _ciphertextButton.backgroundColor = [UIColor redColor];
+        [_ciphertextButton setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateNormal];
+        [_ciphertextButton setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateSelected];
         [_ciphertextButton addTarget:self action:@selector(ciphertextButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _ciphertextButton;

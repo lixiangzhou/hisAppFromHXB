@@ -23,4 +23,14 @@
  placeholder
  */
 @property (nonatomic, copy) NSString *placeholder;
+
+/**
+ 是否限制输入2位小数
+ */
+@property (nonatomic, assign) BOOL isDecimalPlaces;
+
+/**
+ 键盘类型
+ */
+@property(nonatomic) UIKeyboardType keyboardType;
 @end
