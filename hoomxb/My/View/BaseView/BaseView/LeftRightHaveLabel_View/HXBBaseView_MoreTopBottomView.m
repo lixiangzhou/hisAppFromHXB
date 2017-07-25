@@ -150,6 +150,7 @@
 }
 ///给view 赋值，并且返回是否赋值成功
 - (BOOL) setValueWithView: (UIView *)view andStr: (NSString *)value andAlignment: (NSTextAlignment)alignment andTextColor:(UIColor *)textColor andBackGroundColor: (UIColor *)backGroundColor andFont: (UIFont *)font{
+    view.userInteractionEnabled = true;
     if(!backGroundColor) {
         backGroundColor = [UIColor whiteColor];
     }
