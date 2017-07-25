@@ -30,4 +30,9 @@
  */
 @property (nonatomic, copy) NSString *bankCode;
 
+/**
+ 对限额字符串处理
+ */
+@property (nonatomic, copy) NSString *quota;
+
 @end

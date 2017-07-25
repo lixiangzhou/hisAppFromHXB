@@ -260,7 +260,7 @@ UITextFieldDelegate
     
     self.phoneTextField.delegate = self;
     self.passwordTextField.delegate = self;
-    self.phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
+    self.phoneTextField.keyboardType = UIKeyboardTypeDecimalPad;
     self.phoneTextField.clearsOnBeginEditing = NO;
     self.phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     //button 的设置

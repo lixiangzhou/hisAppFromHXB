@@ -215,7 +215,7 @@
     if (!_amountTextField) {
         _amountTextField = [[UITextField alloc] init];
 //        _amountTextField.placeholder = @"请输入提现金额";
-        _amountTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
         _amountTextField.delegate = self;
         _amountTextField.backgroundColor = [UIColor whiteColor];
         UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(150), kScrAdaptationH750(42))];

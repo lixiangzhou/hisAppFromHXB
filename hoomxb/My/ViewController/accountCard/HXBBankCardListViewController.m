@@ -106,7 +106,7 @@
     }
     HXBBankList *bankModel  = self.bankListModels[indexPath.row];
     cell.textLabel.text = bankModel.name;
-    cell.detailTextLabel.text = @"单笔10万";
+    cell.detailTextLabel.text = bankModel.quota;
     cell.imageView.image = [UIImage imageNamed:@"zhaoshang"];
     return cell;
 

@@ -61,7 +61,7 @@ UITextFieldDelegate
 - (UITextField *)phoneTextField{
     if (!_phoneTextField) {
         _phoneTextField = [[UITextField alloc]init];
-        _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneTextField.keyboardType = UIKeyboardTypeDecimalPad;
         _phoneTextField.delegate = self;
         _phoneTextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
         NSMutableAttributedString *phoneAttrStr = [[NSMutableAttributedString alloc] initWithString:kPhoneTitle];

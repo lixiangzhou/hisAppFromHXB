@@ -126,7 +126,7 @@
         _amountTextField.leftStr = @"充值金额:";
         _amountTextField.backgroundColor = [UIColor whiteColor];
         _amountTextField.isDecimalPlaces = YES;
-        _amountTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+        _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _amountTextField;
 }

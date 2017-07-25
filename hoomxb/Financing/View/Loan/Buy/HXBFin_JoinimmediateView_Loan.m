@@ -114,7 +114,7 @@
     self.rechargeView = [[HXBRechargeView alloc]init];
     self.rechargeViewTextField = self.rechargeView.textField;
     self.rechargeView.textField.delegate = self;
-    self.rechargeView.textField.keyboardType = UIKeyboardTypeNumberPad;
+    self.rechargeView.textField.keyboardType = UIKeyboardTypeDecimalPad;
     
     self.topUPView = [[HXBTopUPView alloc]initWithFrame:CGRectZero];
     

@@ -239,7 +239,7 @@
         _idCardTextField = [[UITextField alloc] init];
         _idCardTextField.placeholder = @"认证姓名对应的身份证号码";
         _idCardTextField.font = [UIFont systemFontOfSize:15];
-        _idCardTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _idCardTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _idCardTextField;
 }
@@ -278,7 +278,7 @@
         _verificationCodeTextField = [[UITextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
         _verificationCodeTextField.font = [UIFont systemFontOfSize:15];
-        _verificationCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _verificationCodeTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _verificationCodeTextField;
 }

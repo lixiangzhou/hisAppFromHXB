@@ -136,7 +136,7 @@
     self.rechargeView.backgroundColor = [UIColor whiteColor];
     self.rechargeViewTextField = self.rechargeView.textField;
     self.rechargeView.textField.delegate = self;
-    self.rechargeView.textField.keyboardType = UIKeyboardTypeNumberPad;
+    self.rechargeView.textField.keyboardType = UIKeyboardTypeDecimalPad;
     
     //充值
     self.topUPView = [[HXBTopUPView alloc]init];

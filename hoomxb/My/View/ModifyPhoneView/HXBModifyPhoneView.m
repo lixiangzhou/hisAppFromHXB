@@ -42,7 +42,7 @@
     if (!_phoneTextField) {
         _phoneTextField = [[UITextField alloc] init];
         _phoneTextField.placeholder = @"新手机号";
-        _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _phoneTextField;
 }
@@ -52,7 +52,7 @@
     if (!_verificationCodeTextField) {
         _verificationCodeTextField = [[UITextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
-        _verificationCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _verificationCodeTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _verificationCodeTextField;
 }
