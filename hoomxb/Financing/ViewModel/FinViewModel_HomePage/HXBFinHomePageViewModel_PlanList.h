@@ -24,4 +24,13 @@
 @property (nonatomic,copy) NSString *countDownLastStr;
 ///储存倒计时时间的string
 @property (nonatomic,copy) NSString *countDownString;
+/// 等待加入的时候，剩余时间大于一小时
+@property (nonatomic,copy) NSString *remainTimeString;
+/// 加入按钮的颜色
+@property (nonatomic,strong) UIColor *addButtonBackgroundColor;
+///加入按钮的字体颜色
+@property (nonatomic,strong) UIColor *addButtonTitleColor;
+///addbutton 边缘的颜色
+@property (nonatomic,strong) UIColor *addButtonBorderColor;
+
 @end

@@ -8,6 +8,7 @@
 
 #import "HXBFin_Plan_BuyViewController.h"
 @class HXBFinDetailViewModel_PlanDetail;
+///不用这个类
 @interface HXBFinBuy_plan_ViewController : HXBFin_Plan_BuyViewController;
 
 @end

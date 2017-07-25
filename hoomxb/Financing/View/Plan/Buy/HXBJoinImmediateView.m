@@ -105,7 +105,7 @@
 }
 - (void)setUPViews {
     self.profitView.backgroundColor = [UIColor whiteColor];
-    self.backgroundColor = [UIColor colorWithWhite:.95 alpha:1];
+    self.backgroundColor = kHXBColor_BackGround;
     self.addButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
     self.addButton.userInteractionEnabled = false;
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];

@@ -57,7 +57,6 @@
 
 - (void)setModel:(HXBFin_JoinimmediateView_Loan_ViewModel *)model {
     
-    
     _model = model;
     self.remainAmountLabel.text = model.remainAmountLabelStr;
     self.remainAmount_Const.text = model.remainAmountLabel_ConstStr;// @"标的剩余可投金额";
@@ -97,7 +96,7 @@
         [self layoutViews];
         /// setUPViews
         [self setUPViews];
-        self.backgroundColor = [UIColor colorWithWhite:.95 alpha:1];
+        self.backgroundColor = kHXBColor_BackGround;
         /// 添加事件
         [self registerEvent];
     }
@@ -308,14 +307,14 @@
 }
 - (BOOL) textFieldShouldEndEditing:(UITextField *)textField {
     if ([textField isEqual:self.rechargeView.textField]) {
-        // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
+//        先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
 //        if (!(textField.text.floatValue >= 1000)) {
 //            NSLog(@"请输入大于等于1000");
 //            [HxbHUDProgress showTextWithMessage:@"起投金额1000元"];
 //            return false;
 //        }
 //        if ((textField.text.integerValue % 1000) != 0) {
-//            NSLog(@"1000的整数倍");
+//            NSLog(@"1000的整数倍");
 //            [HxbHUDProgress showTextWithMessage:@"投资金额应为1000的整数倍"];
 //            return false;
 //        }

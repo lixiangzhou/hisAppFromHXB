@@ -70,7 +70,8 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 /// 设置 登录界面
 - (void)setSignView{
     kWeakSelf
-    self.signView = [[HxbSignInView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
+    self.isTransparentNavigationBar = true;
+    self.signView = [[HxbSignInView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.hxb_automaticallyAdjustsScrollViewInsets = false;
     [self.hxbBaseVCScrollView addSubview:self.signView];
     [self trackingScrollViewBlock:^(UIScrollView *scrollView) {

@@ -56,6 +56,13 @@
  addButton是否可以点击
  */
 @property (nonatomic,assign) BOOL isAddButtonEditing;
+/// 加入按钮的颜色
+@property (nonatomic,strong) UIColor *addButtonBackgroundColor;
+///加入按钮的字体颜色
+@property (nonatomic,strong) UIColor *addButtonTitleColor;
+///addbutton 边缘的颜色
+@property (nonatomic,strong) UIColor *addButtonBorderColor;
+
 /**
  剩余时间
  */

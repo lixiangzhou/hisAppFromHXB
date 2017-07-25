@@ -9,6 +9,7 @@
 
 #import "HxbSignInView.h"
 #import "SVGKImage.h"
+#import "HXBSignInWaterView.h"//波浪式图
 static NSString *const kForgetPasswordText = @"忘记密码";
 static NSString *const kPhoneText = @"手机号";
 static NSString *const kPasswordText = @"密码";
@@ -25,6 +26,8 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
 <
 UITextFieldDelegate
 >
+///波浪视图
+@property (nonatomic,strong) HXBSignInWaterView *waterView;
 
 ///点击了登录按钮
 @property (nonatomic,copy) void(^clickSignInButtonBlock)(NSString *pasword,NSString *mobile);
@@ -70,6 +73,8 @@ UITextFieldDelegate
 
 @implementation HxbSignInView
 
+
+
 #pragma mark - 参数的传递
 
 ///李鹏跃 ： 禁止用 登录按钮
@@ -96,6 +101,7 @@ UITextFieldDelegate
 
 ///创建自控制器
 - (void)setUPSubViews_Creat {
+    self.waterView = [[HXBSignInWaterView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(111))];
     self.phoneline = [[UIView alloc] init];
     self.passwordline = [[UIView alloc] init];
     self.phoneline.backgroundColor = RGB(221, 221, 221);
@@ -139,7 +145,7 @@ UITextFieldDelegate
     self.passwordTextField.attributedPlaceholder = passwordAttrStr;
     
     self.passwordTextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
-    
+    [self addSubview:self.waterView];
     [self addSubview:self.phoneTextField];
     [self addSubview:self.passwordTextField];
     [self addSubview:self.signInButton];
@@ -157,12 +163,8 @@ UITextFieldDelegate
     [self addSubview:self.partingLine];
     
     kWeakSelf
-    
-    
-    
-    
     [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(107));
+        make.top.equalTo(self.waterView.mas_bottom).offset(kScrAdaptationH(64));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(21));
         make.width.equalTo(@(kScrAdaptationW(12)));
         make.height.offset(kScrAdaptationH(19));

@@ -137,15 +137,16 @@
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = hxb_automaticallyAdjustsScrollViewInsets;
     };
-    if (hxb_automaticallyAdjustsScrollViewInsets) {
-        self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    }
+//    if (hxb_automaticallyAdjustsScrollViewInsets) {
+//        self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+//    }
 }
 #pragma mark - 隐藏导航条
 - (void)viewWillAppear:(BOOL)animated{
     //设置电池栏的颜色
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [super viewWillAppear:animated];
+    self.isTransparentNavigationBar = _isTransparentNavigationBar;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.automaticallyAdjustsScrollViewInsets = self.hxb_automaticallyAdjustsScrollViewInsets;
     [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:false];
 }

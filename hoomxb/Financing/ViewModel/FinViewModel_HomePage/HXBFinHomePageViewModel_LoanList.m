@@ -52,8 +52,12 @@ typedef enum : NSUInteger {
 
 ///状态的处理
 - (void)setupStatusWithLoanListModelStatus: (NSString *) status{
+    [self setUPAddButtonColorWithType:true];
+    if ([status isEqualToString:@"OPEN"]) {
+        self.status = @"投标中";//投标中
+        [self setUPAddButtonColorWithType:false];
+    }
     
-   if ([status isEqualToString:@"OPEN"]) self.status = @"投标中";//投标中
     if ([status isEqualToString:@"READY"]) self.status = @"已满标";//已满标
     if ([status isEqualToString:@"FAILED"]) self.status = @"已流标";//已流标
     if ([status isEqualToString:@"IN_PROGRESS"]) self.status = @"收益中";//收益中
@@ -66,6 +70,18 @@ typedef enum : NSUInteger {
     if ([status isEqualToString:@"WAIT_OPEN"]) self.status = @"等待招标";//等待招标
     if ([status isEqualToString:@"FANGBIAO_PROCESSING"]) self.status = @"放款中";//放款中
     if ([status isEqualToString:@"LIUBIAO_PROCESSING"]) self.status = @"流标中";//流标中
+}
+- (void)setUPAddButtonColorWithType:(BOOL) isSelected {
+    if (isSelected) {
+        self.addButtonTitleColor = kHXBColor_Font0_6;
+        self.addButtonBackgroundColor = kHXBColor_Grey090909;
+        self.addButtonBorderColor = kHXBColor_Font0_6;
+        return;
+    }
+    self.addButtonTitleColor = [UIColor whiteColor];
+    self.addButtonBackgroundColor = kHXBColor_Red_090303;
+    self.addButtonBorderColor = kHXBColor_Red_090303;
+    
 }
 
 - (NSMutableAttributedString *)setupExpectedYearRateAttributedStrWithStr: (NSString *)str WithFont: (UIFont *)font andColor: (UIColor *)color andRange: (NSRange)range{
