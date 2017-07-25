@@ -10,4 +10,5 @@
 
 @interface HXBRiskAssessmentViewController : HXBBaseViewController
 
+- (void)popWithBlock:(void(^)(NSString *type))popBlock;
 @end

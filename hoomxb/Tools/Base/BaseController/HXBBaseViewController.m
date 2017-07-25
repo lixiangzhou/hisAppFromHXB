@@ -111,7 +111,9 @@
 
 ///透明naveBar
 - (void)setIsTransparentNavigationBar:(BOOL)isTransparentNavigationBar {
+    _isTransparentNavigationBar = isTransparentNavigationBar;
     if (isTransparentNavigationBar) {
+        self.view.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
         [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     }
