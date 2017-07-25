@@ -10,6 +10,11 @@
 
 @interface HXBMyTopUpBaseView : UIView
 
+
+/**
+ 充值金额
+ */
+@property (nonatomic, copy) NSString *amount;
 /**
  点击充值按钮的block
  */

@@ -10,4 +10,18 @@
 
 @interface HXBRechargesuccessView : UIView
 
+/**
+ 充值金额
+ */
+@property (nonatomic, copy) NSString *amount;
+
+/**
+ 继续充值
+ */
+@property (nonatomic, copy) void(^continueRechargeBlock)();
+
+/**
+ 立即投资
+ */
+@property (nonatomic, copy) void(^immediateInvestmentBlock)();
 @end

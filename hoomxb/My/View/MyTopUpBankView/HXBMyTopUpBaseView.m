@@ -107,6 +107,11 @@
     
 }
 
+- (NSString *)amount
+{
+    return self.amountTextField.text;
+}
+
 - (HXBMyTopUpBankView *)mybankView{
     if (!_mybankView) {
         _mybankView = [[HXBMyTopUpBankView alloc]initWithFrame:CGRectMake(10, 113, SCREEN_WIDTH - 20, 80)];
