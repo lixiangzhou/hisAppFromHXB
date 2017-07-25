@@ -10,6 +10,7 @@
 @interface HxbSignInView : UIView
 //事件的传递
 
+
 ///点击了登录按钮
 - (void)signIN_ClickButtonFunc:(void (^)(NSString *pasword,NSString *mobile))clickSignInButtonBlock;
 ///点击了注册按钮

@@ -73,6 +73,8 @@ UITextFieldDelegate
 
 @implementation HxbSignInView
 
+
+
 #pragma mark - 参数的传递
 
 ///李鹏跃 ： 禁止用 登录按钮
@@ -81,7 +83,6 @@ UITextFieldDelegate
     if (!isEditLoginButton) {
         [HxbHUDProgress showError:checkMobileResultStr inview:self];
     }
-    
     self.signInButton.userInteractionEnabled = isEditLoginButton;
 }
 
