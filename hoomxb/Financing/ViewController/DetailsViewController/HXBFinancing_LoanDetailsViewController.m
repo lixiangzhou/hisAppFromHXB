@@ -57,6 +57,8 @@
         viewModelVM.remainAmount               = weakSelf.loanDetailViewModel.surplusAmount;
         viewModelVM.isUserInteractionEnabled   = weakSelf.loanDetailViewModel.isAddButtonEditing;
         viewModelVM.remainTime                 = weakSelf.loanDetailViewModel.loanDetailModel.remainTime;
+        viewModelVM.addButtonTitleColor        = weakSelf.loanDetailViewModel.addButtonTitleColor;
+        viewModelVM.addButtonBackgroundColor   = weakSelf.loanDetailViewModel.addButtonBackgroundColor;
         viewModelVM.title                      = @"散标投资";
         return viewModelVM;
     }];

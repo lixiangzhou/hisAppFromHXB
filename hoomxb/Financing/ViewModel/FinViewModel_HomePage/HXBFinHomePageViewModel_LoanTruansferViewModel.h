@@ -58,4 +58,12 @@
  PRESALE：转让预售
  */
 @property (nonatomic,copy) NSString * status;
+/// 加入按钮的颜色
+@property (nonatomic,strong) UIColor *addButtonBackgroundColor;
+///加入按钮的字体颜色
+@property (nonatomic,strong) UIColor *addButtonTitleColor;
+///addbutton 边缘的颜色
+@property (nonatomic,strong) UIColor *addButtonBorderColor;
+//addButton可否被点击
+@property (nonatomic,assign) BOOL isUserInteractionEnabled;
 @end

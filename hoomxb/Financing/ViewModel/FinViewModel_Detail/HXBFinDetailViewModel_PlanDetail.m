@@ -144,7 +144,7 @@
 
 - (void)setAddButtonStrValue {
     self.isAddButtonInteraction = false;
- 
+    [self setUPAddButtonColorWithType:true];
     switch ([self.planDetailModel.unifyStatus integerValue]) {
         case 0:
 //            self.addButtonStr = @"等待预售开始超过30分";
@@ -173,6 +173,7 @@
             self.addButtonStr = @"等待加入";
             break;
         case 6:
+            [self setUPAddButtonColorWithType:false];
             self.addButtonStr = @"立即加入";
             self.isAddButtonInteraction = true;
             if (self.planDetailModel.isFirst.integerValue) {
@@ -229,7 +230,20 @@
             break;
     }
 }
-
+- (void)setUPAddButtonColorWithType:(BOOL) isSelected {
+    if (isSelected) {
+        ///设置addbutton的颜色
+        self.isAddButtonInteraction = true;
+        self.addButtonTitleColor = kHXBColor_Grey_Font0_2;
+        self.addButtonBackgroundColor = kHXBColor_Font0_6;
+        self.addButtonBorderColor = kHXBColor_Grey_Font0_2;
+        return;
+    }
+    self.isAddButtonInteraction = false;
+    self.addButtonTitleColor = [UIColor whiteColor];
+    self.addButtonBackgroundColor = kHXBColor_Red_090303;
+    self.addButtonBorderColor = kHXBColor_Red_090303;
+}
 
 - (NSString *)countDownStr {
     return self.planDetailModel.diffTime;

@@ -30,6 +30,7 @@
 #import "HXBBaseViewConcentricCirclesView.h"///画出同心圆
 #import "HXBNoDataView.h"//没有数据的View
 #import "HXBFinBaseNegotiateView.h"///用户协议
+#import "HXBBaseView_Button.h"//左边一个image 右边一个title的button
 
 //MARK: NSObject
 #import "HXBBaseHandDate.h"//关于时间处理的类
