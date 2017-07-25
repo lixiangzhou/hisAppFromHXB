@@ -113,9 +113,9 @@
             [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
             return;
         }
-        if (<#condition#>) {
-            <#statements#>
-        }
+//        if (<#condition#>) {
+//            <#statements#>
+//        }
         
             if (pushBlock) {
                 pushBlock();

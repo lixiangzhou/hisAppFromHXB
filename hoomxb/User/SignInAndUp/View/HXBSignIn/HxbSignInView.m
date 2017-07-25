@@ -28,6 +28,7 @@ UITextFieldDelegate
 >
 ///波浪视图
 @property (nonatomic,strong) HXBSignInWaterView *waterView;
+
 ///点击了登录按钮
 @property (nonatomic,copy) void(^clickSignInButtonBlock)(NSString *pasword,NSString *mobile);
 ///点击了注册按钮
@@ -80,6 +81,7 @@ UITextFieldDelegate
     if (!isEditLoginButton) {
         [HxbHUDProgress showError:checkMobileResultStr inview:self];
     }
+    
     self.signInButton.userInteractionEnabled = isEditLoginButton;
 }
 
