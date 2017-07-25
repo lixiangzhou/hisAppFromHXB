@@ -101,8 +101,7 @@
             [alertVC setClickRightButtonBlock:^{
                 HXBSetGesturePasswordRequest *riskModifyScore = [[HXBSetGesturePasswordRequest alloc] init];
                 [riskModifyScore riskModifyScoreRequestWithScore:@"0" andSuccessBlock:^(id responseObject) {
-                    
-                    //                    [weakSelf enterLoanBuyViewController];
+                    //[weakSelf enterLoanBuyViewController];
                     if (pushBlock) {
                         pushBlock();
                     }
@@ -112,12 +111,14 @@
                 }];
             }];
             [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
-        }else
-        {
-//            [weakSelf enterLoanBuyViewController];
+            return;
+        }
+        if (<#condition#>) {
+            <#statements#>
+        }
+        
             if (pushBlock) {
                 pushBlock();
-            }
             
         }
     } andFailure:^(NSError *error) {
