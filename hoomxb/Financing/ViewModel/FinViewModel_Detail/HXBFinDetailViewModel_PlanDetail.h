@@ -71,4 +71,11 @@
 @property (nonatomic,copy) NSString *lockPeriodStr;
 ///planID
 @property (nonatomic,copy) NSString *ID;
+
+/// 加入按钮的颜色
+@property (nonatomic,strong) UIColor *addButtonBackgroundColor;
+///加入按钮的字体颜色
+@property (nonatomic,strong) UIColor *addButtonTitleColor;
+///addbutton 边缘的颜色
+@property (nonatomic,strong) UIColor *addButtonBorderColor;
 @end

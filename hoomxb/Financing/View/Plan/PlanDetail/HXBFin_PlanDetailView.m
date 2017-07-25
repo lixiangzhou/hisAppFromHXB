@@ -151,8 +151,13 @@
     self.promptStr                  = viewModelVM.promptStr;
     self.addButtonStr               = viewModelVM.addButtonStr;
     self.lockPeriodStr              = viewModelVM.lockPeriodStr;
+    
+    //加入button设置 数据
     self.addButton.userInteractionEnabled = self.viewModelVM.isUserInteractionEnabled;
     [self.addButton setTitle:viewModelVM.addButtonStr forState:UIControlStateNormal];
+    [self.addButton setTitleColor:viewModelVM.addButtonTitleColor forState:UIControlStateNormal];
+    self.addButton.backgroundColor = viewModelVM.addButtonBackgroundColor;
+    
     kWeakSelf
     [self.topView setUPValueWithManager:^HXBFin_PlanDetailView_TopViewManager *(HXBFin_PlanDetailView_TopViewManager *manager) {
         manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%@%@",weakSelf.viewModelVM.totalInterestStr,@"%"];

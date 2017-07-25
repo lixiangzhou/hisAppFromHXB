@@ -52,7 +52,7 @@ typedef enum : NSUInteger {
 }
 
 - (void)setCountDownString:(NSString *)countDownString {
-    if (!countDownString.integerValue) {
+    if (!countDownString.integerValue && !self.remainTimeString) {
         self.isHidden = true;
     }else {
         self.isHidden = false;
@@ -64,10 +64,14 @@ typedef enum : NSUInteger {
  */
 - (NSString *) countDownLastStr {
     if (!_countDownLastStr) {
-        _countDownLastStr = @(self.planListModel.diffTime.integerValue / 1000).description;
-        NSLog(@"%@",self.planListModel.diffTime);
+        _countDownLastStr = @(self.planListModel.diffTime.integerValue / 1000.0).description;
         if (_countDownLastStr.integerValue <= 3600 && _countDownLastStr.integerValue >= 0) {
-            NSLog(@"%@",_countDownLastStr);
+            NSLog(@"%@倒计时",_countDownLastStr);
+            self.isCountDown = true;
+            //会有倒计时
+        }else if (_countDownLastStr.integerValue > 3600) {
+            //显示的是数字 12日12：12
+            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:_countDownLastStr andDateFormat:@"dd日 HH:mm"];
         }
     }
     
@@ -84,7 +88,7 @@ typedef enum : NSUInteger {
 
 //红利计划状态
 - (NSString *)setupUnifyStatus {
-   
+   [self setUPAddButtonColorWithType:true];
     switch (self.planListModel.unifyStatus.integerValue) {
         case 0:
 //            return @"等待预售开始超过30分";
@@ -99,8 +103,10 @@ typedef enum : NSUInteger {
         case 5:
 //            return @"等待开放购买小于30分钟";
             _isCountDown = true;
+            [self setUPAddButtonColorWithType:true];
             return @"等待加入";
         case 6:
+            [self setUPAddButtonColorWithType:false];
             return @"立即加入";
         case 7:
         {
@@ -114,18 +120,33 @@ typedef enum : NSUInteger {
 //            if (self.planListModel.endSellingTime.floatValue >= millisecond) {
 //                str = @"已满额";
 //            }else {
-                str = @"销售结束";//需求换了
+                str = @"销售结束";//需求换了,现在只有销售结束
+            [self setUPAddButtonColorWithType:true];
 //            }
             return str;
         }
         case 8:
+            [self setUPAddButtonColorWithType:true];
             return @"收益中";
         case 9:
             return @"开放期";
         case 10:
+            [self setUPAddButtonColorWithType:true];
             return @"已退出";
     }
     return nil;
+}
+- (void)setUPAddButtonColorWithType:(BOOL) isSelected {
+    if (isSelected) {
+        self.addButtonTitleColor = kHXBColor_Font0_6;
+        self.addButtonBackgroundColor = kHXBColor_Grey090909;
+        self.addButtonBorderColor = kHXBColor_Font0_6;
+        return;
+    }
+    self.addButtonTitleColor = [UIColor whiteColor];
+    self.addButtonBackgroundColor = kHXBColor_Red_090303;
+    self.addButtonBorderColor = kHXBColor_Red_090303;
+
 }
 //红利计划列表的年利率计算
 - (void)setupExpectedYearRateAttributedStr {

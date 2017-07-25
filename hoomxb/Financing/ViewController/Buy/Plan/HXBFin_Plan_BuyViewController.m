@@ -34,12 +34,13 @@
 
 - (void)viewDidLoad {
     kWeakSelf
+    [super viewDidLoad];
     [self.hxbBaseVCScrollView hxb_HeaderWithHeaderRefreshCallBack:^{
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
+    self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.isColourGradientNavigationBar = true;
-     [super viewDidLoad];
     //判断是否登录
     [self isLogin];
 

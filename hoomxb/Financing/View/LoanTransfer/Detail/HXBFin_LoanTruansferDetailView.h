@@ -62,5 +62,12 @@ HXBFinDetail_TableViewCellModel;
  加入按钮
  */
 @property (nonatomic,copy) NSString *addButtonStr;
-
+///addbutton可否被点击
+@property (nonatomic,assign) BOOL isAddButtonClick;
+/// 加入按钮的颜色
+@property (nonatomic,strong) UIColor *addButtonBackgroundColor;
+///加入按钮的字体颜色
+@property (nonatomic,strong) UIColor *addButtonTitleColor;
+///addbutton 边缘的颜色
+@property (nonatomic,strong) UIColor *addButtonBorderColor;
 @end

@@ -38,6 +38,12 @@
     self.lockPeriodLabel.text = finPlanListViewModel.planListModel.lockPeriod;
     self.addStatus.text = finPlanListViewModel.unifyStatus;
     
+    self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
+    self.addStatus.textColor = finPlanListViewModel.addButtonTitleColor;
+    self.addStatus.layer.borderColor = finPlanListViewModel.addButtonBorderColor.CGColor;
+    self.addStatus.layer.borderWidth = kScrAdaptationH(1);
+    
+    self.countDownLable.text = _finPlanListViewModel.remainTimeString;
     if (finPlanListViewModel.planListModel.tag.length) {
         self.tagLabel.text = finPlanListViewModel.planListModel.tag;
         [self.tagLableImageView setHidden:false];
@@ -48,6 +54,12 @@
     _loanListViewModel = loanListViewModel;
     HXBFinHomePageModel_LoanList *model = loanListViewModel.loanListModel;
     self.nameLabel.text = model.title;
+    
+    self.addStatus.backgroundColor = loanListViewModel.addButtonBackgroundColor;
+    self.addStatus.textColor = loanListViewModel.addButtonTitleColor;
+    self.addStatus.layer.borderColor = loanListViewModel.addButtonBorderColor.CGColor;
+    self.addStatus.layer.borderWidth = kScrAdaptationH(1);
+
     
     self.expectedYearRateLable.attributedText = loanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = model.months;
@@ -147,6 +159,10 @@
 //MARK: 倒计时的重要传递
 - (void)setCountDownString:(NSString *)countDownString {
     _countDownString = countDownString;
+    if (self.finPlanListViewModel.remainTimeString.length) {
+        self.countDownLable.text = _finPlanListViewModel.remainTimeString;
+        return;
+    }
     self.countDownLable.text = countDownString;
     [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
     [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
@@ -236,6 +252,7 @@
     [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.countDownLable.mas_left).offset(kScrAdaptationW(-6));
         make.height.top.equalTo(self.countDownLable);
+        make.width.equalTo(self.countDownLable.mas_height);
     }];
     [self.preferentialLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.contentView).offset(20);

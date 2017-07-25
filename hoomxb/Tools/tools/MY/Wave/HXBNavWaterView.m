@@ -47,11 +47,11 @@
 {
     _waterWaveWidth = self.frame.size.width;
     _waterWaveHeight = self.frame.size.height;
-    _waveColor = COLOR(100, 100, 100,0.1);
+//    _waveColor = COLOR(100, 100, 100,0.1);
     _waveSpeed = (0.05+((arc4random() % 100)/1000.0 - 0.05)*0.5)/M_PI;
     _waveOffsetX = 0;
     _waveAmplitude = 20;
-    _waveCycle =  1.29 * M_PI / _waterWaveWidth;
+    _waveCycle =  M_PI / _waterWaveWidth * 2;
     _randomPar = ((arc4random() % 100)/100.0 - 0.5) * 20;
 }
 
@@ -100,7 +100,7 @@
     if (!_gradientLayer) {
         _gradientLayer = [[CAGradientLayer alloc]init];
         _gradientLayer.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-        _gradientLayer.colors = @[(__bridge id)COLOR(255, 126, 55, 1.0).CGColor,(__bridge id)COLOR(235, 68, 56, 1.0).CGColor];
+        _gradientLayer.colors = @[(__bridge id)COLOR(254, 101, 77, 1.0).CGColor,(__bridge id)COLOR(255, 61, 79, 1.0).CGColor];
         _gradientLayer.locations = @[@0.0, @1.0];
         _gradientLayer.startPoint = CGPointMake(0, 0);
         _gradientLayer.endPoint = CGPointMake(1.0, 0);

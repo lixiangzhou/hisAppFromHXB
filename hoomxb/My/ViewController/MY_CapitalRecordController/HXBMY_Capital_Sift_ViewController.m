@@ -25,6 +25,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isColourGradientNavigationBar = true;
+    self.view.backgroundColor = kHXBColor_BackGround;
     HXBBaseView_MoreTopBottomView *topBottomView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:5 andViewClass:[UIButton class] andViewHeight:30 andTopBottomSpace:6 andLeftRightLeftProportion:1];
     //上下的列表页
     [self.hxbBaseVCScrollView addSubview:topBottomView];
@@ -57,6 +59,7 @@
                 [button addTarget:self action:@selector(clickCapitalButton:) forControlEvents:UIControlEventTouchUpInside];
             }
         }];
+        viewManager.leftTextColor = kHXBColor_Grey_Font0_2;
         viewManager.leftLabelAlignment = NSTextAlignmentCenter;
         return viewManager;
     }];

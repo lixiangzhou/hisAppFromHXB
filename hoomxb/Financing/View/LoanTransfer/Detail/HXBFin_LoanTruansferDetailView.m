@@ -61,7 +61,10 @@
     self.detailTableView.tableViewCellModelArray = self.manager.detailTableViewArray;
     self.promptLabel.text = self.manager.promptLabelStr;
     [self.addButton setTitle:self.manager.addButtonStr forState:UIControlStateNormal];
+    [self.addButton setUserInteractionEnabled:manager.isAddButtonClick];
     [self.addButton addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.addButton setTitleColor:manager.addButtonTitleColor forState:UIControlStateNormal];
+    self.addButton.backgroundColor = manager.addButtonBackgroundColor;
 }
 ///点击了债转的加入按钮
 - (void)clickButton:(UIButton *)button {

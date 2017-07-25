@@ -49,11 +49,11 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 }
 
 - (void)setUP {
+    self.view.backgroundColor = kHXBColor_BackGround;
     self.tableView = [[HXBMYCapitalRecord_TableView alloc]init];
     self.tableView.frame = self.view.frame;
     [self refresh];
     [self.view addSubview:self.tableView];
-    
     [self setUPNAVItem];
 }
 

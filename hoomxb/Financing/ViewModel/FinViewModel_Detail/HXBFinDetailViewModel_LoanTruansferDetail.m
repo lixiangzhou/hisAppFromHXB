@@ -10,12 +10,55 @@
 
 @implementation HXBFinDetailViewModel_LoanTruansferDetail
 
+- (void)setLoanTruansferDetailModel:(HXBFinDetailModel_LoanTruansferDetail *)loanTruansferDetailModel {
+    _loanTruansferDetailModel = loanTruansferDetailModel;
+    [self status];
+}
+- (NSString *)status {
+    if (!_status) {
+        [self setUPAddButtonColorWithType:true];
+        if ([self.loanTruansferDetailModel.transferDetail.status isEqualToString:@"TRANSFERING"]) {
+            _status = @"转让中";
+            [self setUPAddButtonColorWithType:false];
+        }
+        if ([self.loanTruansferDetailModel.transferDetail.status isEqualToString:@"TRANSFERED"]) {
+            _status = @"转让完毕";
+        }
+        if ([self.loanTruansferDetailModel.transferDetail.status isEqualToString:@"CANCLE"]) {
+            _status = @"已取消";
+        }
+        if ([self.loanTruansferDetailModel.transferDetail.status isEqualToString:@"CLOSED_CANCLE"]) {
+            _status = @"结标取消";
+        }
+        if ([self.loanTruansferDetailModel.transferDetail.status isEqualToString:@"OVERDUE_CANCLE"]) {
+            _status = @"逾期取消";
+        }
+        if ([self.loanTruansferDetailModel.transferDetail.status isEqualToString:@"PRESALE"]) {
+            _status = @"转让预售";
+        }
+    }
+    return _status;
+}
+- (void)setUPAddButtonColorWithType:(BOOL) isSelected {
+    if (isSelected) {
+        ///设置addbutton的颜色
+        self.isUserInteractionEnabled = false;
+        self.addButtonTitleColor = kHXBColor_Grey_Font0_2;
+        self.addButtonBackgroundColor = kHXBColor_Font0_6;
+        self.addButtonBorderColor = kHXBColor_Grey_Font0_2;
+        return;
+    }
+    self.isUserInteractionEnabled = true;
+    self.addButtonTitleColor = [UIColor whiteColor];
+    self.addButtonBackgroundColor = kHXBColor_Red_090303;
+    self.addButtonBorderColor = kHXBColor_Red_090303;
+}
 /**
  1000 起投 1000递增
  */
 - (NSString *)startIncrease_Amount {
     if (!_startIncrease_Amount) {
-        _startIncrease_Amount = [NSString stringWithFormat:@"%@起投%@递增",self.loanTruansferDetailModel.creatTransAmount,self.loanTruansferDetailModel.loanVo.finishedRatio];
+        _startIncrease_Amount = [NSString stringWithFormat:@"%@起投%@递增",self.loanTruansferDetailModel.minInverst,self.loanTruansferDetailModel.loanVo.finishedRatio];
     }
     return _startIncrease_Amount;
 }
@@ -28,22 +71,14 @@
     }
     return _status_UI;
 }
-/**
- 状态
- */
-- (NSString *) status {
-    if (!_status) {
-        _status = self.loanTruansferDetailModel.status;
-    }
-    return _status;
-}
+
 
 /**
  剩余期数
  */
 - (NSString *) leftMonths {
     if (!_leftMonths) {
-        _leftMonths = [NSString stringWithFormat:@"%@个月",self.loanTruansferDetailModel.leftMonths];
+        _leftMonths = [NSString stringWithFormat:@"%@个月",self.loanTruansferDetailModel.loanVo.months];
     }
     return _leftMonths;
 }
@@ -101,4 +136,14 @@
     }
     return _isAddButtonEditing;
 }
+
+- (NSString *) repaymentType {
+    if (!_repaymentType) {
+        _repaymentType = self.loanTruansferDetailModel.loanVo.repaymentType;
+    }
+    return _repaymentType;
+}
+
+
+
 @end

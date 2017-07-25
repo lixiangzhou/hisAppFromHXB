@@ -42,9 +42,8 @@
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
-    
-    [super viewDidLoad];
-    
+    self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+    self.isColourGradientNavigationBar = true;
     
     //请求 个人数据
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {

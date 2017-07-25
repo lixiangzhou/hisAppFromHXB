@@ -95,6 +95,7 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 
 /// loanTruansfer 购买结果
 - (void)loanTruansfer_confirmBuyReslutWithLoanID: (NSString *)loanTruansferID
+                                andInvestAmount :(NSString *)investAmount
                                  andSuccessBlock:(void (^)(HXBFin_LoanTruansfer_BuyResoutViewModel *model))successDateBlock
                                  andFailureBlock:(void (^)(NSError *error, NSDictionary *response))failureBlock;
 

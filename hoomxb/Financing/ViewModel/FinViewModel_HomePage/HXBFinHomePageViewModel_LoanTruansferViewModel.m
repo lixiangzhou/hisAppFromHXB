@@ -9,6 +9,11 @@
 #import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
 
 @implementation HXBFinHomePageViewModel_LoanTruansferViewModel
+
+- (void)setLoanTruansferListModel:(HXBFinHomePageModel_LoanTruansferList *)loanTruansferListModel {
+    _loanTruansferListModel = loanTruansferListModel;
+    [self status];
+}
 /**
  transferId	int	转让id
  */
@@ -99,8 +104,10 @@
  */
 - (NSString *) status {
     if (!_status) {
+        [self setUPAddButtonColorWithType:true];
         if ([self.loanTruansferListModel.status isEqualToString:@"TRANSFERING"]) {
-            _status = @"正在转让";
+            _status = @"转让中";
+            [self setUPAddButtonColorWithType:false];
         }
         if ([self.loanTruansferListModel.status isEqualToString:@"TRANSFERED"]) {
             _status = @"转让完毕";
@@ -119,5 +126,17 @@
         }
     }
     return _status;
+}
+- (void)setUPAddButtonColorWithType:(BOOL) isSelected {
+    if (isSelected) {
+        self.addButtonTitleColor = kHXBColor_Font0_6;
+        self.addButtonBackgroundColor = kHXBColor_Grey090909;
+        self.addButtonBorderColor = kHXBColor_Font0_6;
+        return;
+    }
+    self.addButtonTitleColor = [UIColor whiteColor];
+    self.addButtonBackgroundColor = kHXBColor_Red_090303;
+    self.addButtonBorderColor = kHXBColor_Red_090303;
+    
 }
 @end
