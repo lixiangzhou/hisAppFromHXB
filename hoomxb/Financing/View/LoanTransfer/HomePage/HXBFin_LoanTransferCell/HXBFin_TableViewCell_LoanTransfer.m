@@ -138,6 +138,12 @@
 
 - (void) setLoanTruansferViewModel:(HXBFinHomePageViewModel_LoanTruansferViewModel *)LoanTruansferViewModel {
     _LoanTruansferViewModel = LoanTruansferViewModel;
+    [self.stutasButton setTitleColor:LoanTruansferViewModel.addButtonTitleColor forState:UIControlStateNormal];
+    self.stutasButton.backgroundColor = LoanTruansferViewModel.addButtonBackgroundColor;
+    self.stutasButton.layer.borderColor = LoanTruansferViewModel.addButtonBorderColor.CGColor;
+    self.stutasButton.layer.borderWidth = kScrAdaptationH(1);
+    [self.stutasButton setTitle:LoanTruansferViewModel.status forState:UIControlStateNormal];
+    
     [self.interestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         viewModelVM.leftLabelStr = LoanTruansferViewModel.interest;
         viewModelVM.rightLabelStr = @"年利率";
@@ -162,10 +168,10 @@
     }];
 
     self.amountTransferLabel.text = LoanTruansferViewModel.leftTransAmount_YUAN;
-    self.loanLable.text = @"消费借款";
+    self.loanLable.text = LoanTruansferViewModel.title;
     self.loanImageView.image = [SVGKImage imageNamed:@"LoanTruansfer"].UIImage;
     
-    [self.stutasButton setTitle:@"转让中" forState:UIControlStateNormal];
+//    [self.stutasButton setTitle:@"转让中" forState:UIControlStateNormal];
 //    self.interestView.leftLabel.text = LoanTruansferViewModel.interest;
 }
 @end

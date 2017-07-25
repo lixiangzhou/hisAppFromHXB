@@ -8,7 +8,7 @@
 
 #import "HXBFin_Loan_BuyViewController.h"
 #import "HXBFinDetailViewModel_LoanDetail.h"
-
+///不用这个类
 @interface HXBFinBuy_Loan_ViewController : HXBFin_Loan_BuyViewController
 @property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanViewModel;
 @property (nonatomic,copy) NSString *availablePoint;//可用余额；

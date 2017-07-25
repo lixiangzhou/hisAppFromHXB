@@ -34,9 +34,9 @@
         make.height.equalTo(@(kScrAdaptationH(72)));
     }];
     [self.leftView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(24));
+        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(-20));
         make.left.equalTo(self);
-        make.width.equalTo(self.mas_width).multipliedBy(1.0/3.0);
+        make.width.equalTo(self.mas_width).multipliedBy(1.0/2.0);
         make.height.equalTo(@(kScrAdaptationH(42)));
     }];
 

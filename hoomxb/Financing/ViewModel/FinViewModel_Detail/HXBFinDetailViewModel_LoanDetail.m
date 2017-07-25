@@ -36,8 +36,10 @@
     if (!_status) {
         NSString *status = self.loanDetailModel.loanVo.status;
         ///String	投标中
+        [self setUPAddButtonColorWithType:true];
         if ( [status isEqualToString:@"OPEN"]){
             self.addButtonStr = @"立即投标";
+            [self setUPAddButtonColorWithType:false];
              _surplusAmount_ConstStr = @"剩余金额";
             _isAddButtonEditing = true;
             _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.surplusAmount.floatValue];
@@ -135,6 +137,21 @@
 
     }
     return _status;
+}
+
+- (void)setUPAddButtonColorWithType:(BOOL) isSelected {
+    if (isSelected) {
+        ///设置addbutton的颜色
+        self.isAddButtonEditing = false;
+        self.addButtonTitleColor = kHXBColor_Grey_Font0_2;
+        self.addButtonBackgroundColor = kHXBColor_Font0_6;
+        self.addButtonBorderColor = kHXBColor_Grey_Font0_2;
+        return;
+    }
+    self.isAddButtonEditing = true;
+    self.addButtonTitleColor = [UIColor whiteColor];
+    self.addButtonBackgroundColor = kHXBColor_Red_090303;
+    self.addButtonBorderColor = kHXBColor_Red_090303;
 }
 ///预期年利率
 - (void)setUP_totalInterestPer100 {

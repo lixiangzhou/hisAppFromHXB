@@ -134,6 +134,9 @@
     self.lockPeriodStr              = viewModelVM.startInvestmentStr;
     
     self.addButton.userInteractionEnabled = self.viewModelVM.isUserInteractionEnabled;
+    self.addButton.backgroundColor = self.viewModelVM.addButtonBackgroundColor;
+    [self.addButton setTitleColor:self.viewModelVM.addButtonTitleColor forState:UIControlStateNormal];
+    
     [self.loanTypeView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
        
         viewManager.leftStrArray = @[@"还款方式"];

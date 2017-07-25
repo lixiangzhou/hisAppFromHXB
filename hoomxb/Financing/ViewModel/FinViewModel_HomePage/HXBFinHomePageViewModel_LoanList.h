@@ -39,4 +39,10 @@ typedef enum : NSUInteger {
 @property (nonatomic,copy) NSString *status;
 ///红利计划列表页的年计划利率
 @property (nonatomic,copy) NSAttributedString *expectedYearRateAttributedStr;
+/// 加入按钮的颜色
+@property (nonatomic,strong) UIColor *addButtonBackgroundColor;
+///加入按钮的字体颜色
+@property (nonatomic,strong) UIColor *addButtonTitleColor;
+///addbutton 边缘的颜色
+@property (nonatomic,strong) UIColor *addButtonBorderColor;
 @end

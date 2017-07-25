@@ -71,24 +71,27 @@
     }
     if (self.buy_description) {
         self.iconImageView = [[UIImageView alloc]init];
-        self.iconImageView.image = [UIImage imageNamed:@"itp"];
-        [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(view.mas_left);
-            make.top.equalTo(view.mas_bottom).offset(kScrAdaptationH750(29));
-            make.height.with.equalTo(@(kScrAdaptationH750(26)));
-        }];
-        view = self.iconImageView;
+        self.iconImageView.image = [UIImage imageNamed:@"tip"];
+        [self.view addSubview:self.iconImageView];
+        self.buy_descriptionLabel.text = self.buy_description;
         [self.buy_descriptionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(view.mas_right).offset(0);
-            make.right.equalTo(self.view).offset(kScrAdaptationW750(-40));
+            make.centerX.equalTo(view.mas_centerX).offset(kScrAdaptationH750(26));
+            make.top.equalTo(view.mas_bottom).offset(kScrAdaptationW750(40));
+            make.height.equalTo(@(kScrAdaptationH750(30)));
         }];
         view = self.buy_descriptionLabel;
+        [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(view.mas_left).offset(kScrAdaptationW750(-26));
+            make.centerY.equalTo(view);
+            make.height.width.equalTo(@(kScrAdaptationH750(26)));
+        }];
     }
     if(self.midStr) {
         self.midLabel = [[UILabel alloc]init];
         self.midLabel.text = self.midStr;
         self.midLabel.textColor = kHXBColor_Font0_6;
         self.midLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
+        [self.view addSubview:self.midLabel];
         [self.midLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(view.mas_bottom).offset(kScrAdaptationH750(16));
             make.centerX.equalTo(view);
@@ -98,11 +101,12 @@
     
     [self.buy_ButtonTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(view.mas_bottom).offset(kScrAdaptationH750(100));
-        make.centerX.equalTo(view);
+        make.centerX.equalTo(self.view);
         make.width.equalTo(@(kScrAdaptationW750(670)));
         make.height.equalTo(@(kScrAdaptationH750(82)));
     }];
     [self.buy_ButtonTitleLabel addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.buy_ButtonTitleLabel setTitle:self.buy_ButtonTitle forState:UIControlStateNormal];
     kWeakSelf
     [_buy_massageLabel setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
         viewManager.leftStrArray = weakSelf.massage_Left_StrArray;
@@ -113,6 +117,7 @@
         viewManager.rightTextColor = kHXBColor_Font0_6;
         return viewManager;
     }];
+    
 }
 - (void)clickButton: (UIButton *)button {
     if (self.clickButtonBlock) {
@@ -147,6 +152,7 @@
     if (!_buy_massageLabel) {
         UIEdgeInsets edge = UIEdgeInsetsMake(0, kScrAdaptationW750(40), 0, kScrAdaptationW750(40));
         _buy_massageLabel = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:self.buy_massageCount andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(28) andLeftRightLeftProportion:0 Space:edge];
+        [self.view addSubview:_buy_massageLabel];
     }
     return _buy_massageLabel;
 }
@@ -157,12 +163,14 @@
         _buy_descriptionLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
         _buy_descriptionLabel.textColor = kHXBColor_Font0_6;
         _buy_descriptionLabel.numberOfLines = 0;
+        [self.view addSubview:_buy_descriptionLabel];
     }
     return _buy_descriptionLabel;
 }
 - (UIButton *) buy_ButtonTitleLabel {
     if (!_buy_ButtonTitleLabel) {
         _buy_ButtonTitleLabel = [[UIButton alloc]init];
+        [self.view addSubview: _buy_ButtonTitleLabel];
         _buy_ButtonTitleLabel.layer.masksToBounds = true;
         _buy_ButtonTitleLabel.layer.cornerRadius = kScrAdaptationW750(5);
         _buy_ButtonTitleLabel.backgroundColor = kHXBColor_Red_090303;

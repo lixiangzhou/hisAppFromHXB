@@ -15,10 +15,14 @@
 #import "HXBFin_Plan_BuyViewModel.h"
 #import "HXBFin_Plan_BuySuccessViewController.h"//购买成功
 #import "HXBFin_Plan_BugFailViewController.h" //购买失败
+#import"HxbMyTopUpViewController.h"///充值
 @interface HXBFin_Plan_BuyViewController ()
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) HXBJoinImmediateView *joinimmediateView;
 @property (nonatomic,copy) void (^clickLookMYInfoButtonBlock)();
+
+///个人总资产
+@property (nonatomic,copy) NSString *assetsTotal;
 @end
 
 @implementation HXBFin_Plan_BuyViewController
@@ -34,12 +38,22 @@
 
 - (void)viewDidLoad {
     kWeakSelf
+    [super viewDidLoad];
     [self.hxbBaseVCScrollView hxb_HeaderWithHeaderRefreshCallBack:^{
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
+    self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.isColourGradientNavigationBar = true;
-     [super viewDidLoad];
+    
+    //请求 个人数据
+    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        _availablePoint = viewModel.userInfoModel.userAssets.availablePoint;
+        _assetsTotal = viewModel.userInfoModel.userAssets.assetsTotal;
+    } andFailure:^(NSError *error) {
+        
+    }];
+    
     //判断是否登录
     [self isLogin];
 
@@ -51,6 +65,12 @@
     
     //事件的传递
     [self registerEvent];
+}
+- (void) registerEvent {
+    [self regisgerTopUP];//充值
+    [self registerBuy];//一键购买
+    [self registerAdd];//加入
+    [self registerNegotiate];//点击了 服务协议
 }
 
 ///判断是否登录
@@ -72,114 +92,136 @@
     
     self.joinimmediateView.frame = self.view.frame;
 }
-
- - (void) registerEvent {
-     __weak typeof(self) weakSelf = self;
-     ///点击了充值
-     [self.joinimmediateView clickRechargeFunc:^{
-         [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
-     }];
-     ///点击了一键购买
-     [self.joinimmediateView clickBuyButtonFunc:^(NSString *capitall, UITextField *textField) {
-         ///用户余额，
-         CGFloat userInfo_availablePoint = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue;
-         if (!userInfo_availablePoint) {
-             [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
-             return;
-         }
-    
-         ///加入上线 (min (用户可投， 本期剩余))
-         NSString *str = nil;
-         if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
-             str = weakSelf.planViewModel.planDetailModel.userRemainAmount;
-         }else {
-             str = weakSelf.planViewModel.planDetailModel.remainAmount;
-         }
-         textField.text = [NSString stringWithFormat:@"%.2lf",str.floatValue];
-     }];
-     ///点击了加入
-     [self.joinimmediateView clickAddButtonFunc:^(NSString *capital) {
-         // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
-         CGFloat minRegisterAmount = weakSelf.planViewModel.minRegisterAmount.floatValue;
-         if ((capital.floatValue < minRegisterAmount)) {
-             NSLog(@"请输入大于等于1000");
-             [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"起投金额%.2lf元",minRegisterAmount]];
-             return;
-         }
-         
-         NSInteger minRegisterAmountInteger = minRegisterAmount;
-         if ((capital.integerValue % minRegisterAmountInteger) != 0) {
-             NSLog(@"1000的整数倍");
-             NSString *message = [NSString stringWithFormat:@"投资金额应为%ld的整数倍",(long)minRegisterAmountInteger];
-             [HxbHUDProgress showTextWithMessage:message];
-             return;
-         }
-         ///查看是否大于上线
-         NSString *str = nil;
-         if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
-             str = weakSelf.planViewModel.planDetailModel.userRemainAmount;
-         }else {
-             str = weakSelf.planViewModel.planDetailModel.remainAmount;
-         }
-         /// 加入上线  为0
-         if (!str.floatValue) {
-             [HxbHUDProgress showTextWithMessage:@"提示信息为加入金额已达上限" andView:self.view];
-         }
-         
-         //判断是否安全认证
-         kWeakSelf
-         [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
-             if (!isVerify) {
-                 [HxbHUDProgress showTextWithMessage:@"去安全认证"];
-             } else {
-                 [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.ID andAmount:capital cashType:self.planViewModel.profitType andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
-                     ///加入成功
-                     HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-                     planBuySuccessVC.imageName = @"successful";
-                     planBuySuccessVC.buy_title = @"加入成功";
-                     planBuySuccessVC.buy_description = model.lockStart;
-                     planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
-                     planBuySuccessVC.title = @"投资成功";
-                     [planBuySuccessVC clickButtonWithBlock:^{
-                         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-                         [self.navigationController popToRootViewControllerAnimated:true];
-                     }];
-                     
-                     [self.navigationController pushViewController:planBuySuccessVC animated:true];
-// [self.navigationController popToRootViewControllerAnimated:true];
-                 } andFailureBlock:^(NSError *error, NSInteger status) {
-                     
-                     HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-                     failViewController.title = @"投资结果";
-                     switch (status) {
-                         case 3408:
-                             failViewController.imageName = @"yuebuzu";
-                             failViewController.buy_title = @"可用余额不足，请重新购买";
-                             failViewController.buy_ButtonTitle = @"重新投资";
-                             break;
-                         case 3100:
-                             failViewController.imageName = @"shouqin";
-                             failViewController.buy_title = @"手慢了，已售罄";
-                             failViewController.buy_ButtonTitle = @"重新投资";
-                             break;
-                         default:
-                             failViewController.imageName = @"failure";
-                             failViewController.buy_title = @"加入失败";
-                             failViewController.buy_ButtonTitle = @"重新投资";
-                     }
-                     [failViewController clickButtonWithBlock:^{
-                         [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
-                     }];
-                     [weakSelf.navigationController pushViewController:failViewController animated:true];
-                 }];
-             }
-         }];
-     }];
-     //点击了 服务协议
-     [self.joinimmediateView clickNegotiateButtonFunc:^{
-         
-     }];
+- (void) pushTopUPViewControllerWithAmount:(NSString *)amount {
+    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+    hxbMyTopUpViewController.amount = amount;
+    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
 }
+
+
+- (void) regisgerTopUP {
+    ///点击了充值
+    [self.joinimmediateView clickRechargeFunc:^{
+        [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
+    }];
+}
+- (void) registerBuy {
+    kWeakSelf
+    [self.joinimmediateView clickBuyButtonFunc:^(NSString *capitall, UITextField *textField) {
+        ///用户余额，
+        CGFloat userInfo_availablePoint = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue;
+        if (!userInfo_availablePoint) {
+            [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
+            return;
+        }
+        
+        ///加入上线 (min (用户可投， 本期剩余))
+        NSString *str = nil;
+        if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
+            str = weakSelf.planViewModel.planDetailModel.userRemainAmount;
+        }else {
+            str = weakSelf.planViewModel.planDetailModel.remainAmount;
+        }
+        textField.text = [NSString stringWithFormat:@"%.2lf",str.floatValue];
+    }];
+}
+- (void)registerAdd {
+    kWeakSelf
+    ///点击了加入
+    [self.joinimmediateView clickAddButtonFunc:^(NSString *capital) {
+        // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
+        CGFloat minRegisterAmount = weakSelf.planViewModel.minRegisterAmount.floatValue;
+        if ((capital.floatValue < minRegisterAmount)) {
+            NSLog(@"请输入大于等于1000");
+            [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"起投金额%.2lf元",minRegisterAmount] inView:self.view];
+            return;
+        }
+        
+        NSInteger minRegisterAmountInteger = minRegisterAmount;
+        if ((capital.integerValue % minRegisterAmountInteger) != 0) {
+            NSLog(@"1000的整数倍");
+            NSString *message = [NSString stringWithFormat:@"投资金额应为%ld的整数倍",(long)minRegisterAmountInteger];
+            [HxbHUDProgress showMessageCenter:message inView:self.view];
+            return;
+        }
+        ///查看是否大于上线
+        NSString *str = nil;
+        if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
+            str = weakSelf.planViewModel.planDetailModel.userRemainAmount;
+        }else {
+            str = weakSelf.planViewModel.planDetailModel.remainAmount;
+        }
+        /// 加入上线  为0
+        if (!str.floatValue) {
+            [HxbHUDProgress showTextWithMessage:@"加入金额已达上限" andView:self.view];
+        }
+        
+        //是否大于剩余金额
+        if (capital.integerValue > self.assetsTotal.floatValue) {
+            NSLog(@"%@",@"输入金额大于了剩余可投金额");
+            NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
+            [self pushTopUPViewControllerWithAmount: amount];
+            return;
+        }
+        
+        //判断是否安全认证
+        kWeakSelf
+//        [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
+//            if (!isVerify) {
+//                [HxbHUDProgress showTextWithMessage:@"去安全认证"];
+//            } else {
+                [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.ID andAmount:capital cashType:self.planViewModel.profitType andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
+                    ///加入成功
+                    HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+                    planBuySuccessVC.imageName = @"successful";
+                    planBuySuccessVC.buy_title = @"加入成功";
+                    planBuySuccessVC.buy_description = model.lockStart;
+                    planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
+                    planBuySuccessVC.title = @"投资成功";
+                    [planBuySuccessVC clickButtonWithBlock:^{
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
+                        [self.navigationController popToRootViewControllerAnimated:true];
+                    }];
+                    
+                    [self.navigationController pushViewController:planBuySuccessVC animated:true];
+                    // [self.navigationController popToRootViewControllerAnimated:true];
+                } andFailureBlock:^(NSError *error, NSInteger status) {
+                    
+                    HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
+                    failViewController.title = @"投资结果";
+                    switch (status) {
+                        case 3408:
+                            failViewController.imageName = @"yuebuzu";
+                            failViewController.buy_title = @"可用余额不足，请重新购买";
+                            failViewController.buy_ButtonTitle = @"重新投资";
+                            break;
+                        case 3100:
+                            failViewController.imageName = @"shouqin";
+                            failViewController.buy_title = @"手慢了，已售罄";
+                            failViewController.buy_ButtonTitle = @"重新投资";
+                            break;
+                        default:
+                            failViewController.imageName = @"failure";
+                            failViewController.buy_title = @"加入失败";
+                            failViewController.buy_ButtonTitle = @"重新投资";
+                    }
+                    [failViewController clickButtonWithBlock:^{
+                        [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
+                    }];
+                    [weakSelf.navigationController pushViewController:failViewController animated:true];
+                }];
+//            }
+//        }];
+    }];
+}
+//点击了 服务协议
+- (void)registerNegotiate {
+    kWeakSelf
+    [self.joinimmediateView clickNegotiateButtonFunc:^{
+        
+    }];
+}
+
 
 - (void)setValue {
     [self setUPModel];

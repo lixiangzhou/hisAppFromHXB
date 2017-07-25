@@ -13,6 +13,8 @@
 @property (nonatomic, strong) UIWebView *webView;
 
 @property WebViewJavascriptBridge* bridge;
+
+@property (nonatomic,copy) void(^popBlock)(NSString *type);
 @end
 
 @implementation HXBRiskAssessmentViewController
@@ -51,6 +53,12 @@
     /****** OC端注册一个方法 (测试)******/
     [_bridge registerHandler:@"riskEvaluation" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"testObjcCallback called: %@", data);
+        //如果外部实现了这个方法，那就直接执行这个block
+        if (self.popBlock) {
+            NSString *type = data[@"riskType"];
+            self.popBlock(type);
+            return;
+        }
         __block UIViewController *vc = nil;
         [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [obj isKindOfClass:NSClassFromString(@"HxbAccountInfoViewController")];
@@ -120,5 +128,7 @@
 {
     [HxbHUDProgress hidenHUD:self.webView];
 }
-
+- (void)popWithBlock:(void (^)(NSString *type))popBlock {
+    self.popBlock = popBlock;
+}
 @end

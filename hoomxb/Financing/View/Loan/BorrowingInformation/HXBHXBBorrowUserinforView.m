@@ -13,7 +13,7 @@
 @property (nonatomic, strong) UILabel *borrowUserinforTitleLabel;
 @property (nonatomic, strong) UILabel *borrowUserTypeLabel;
 //认证
-@property (nonatomic, strong) UIButton *incomButton;///收入认证
+@property (nonatomic, strong) HXBBaseView_Button *incomButton;///收入认证
 @property (nonatomic, strong) UIButton *identityButton;///身份认证
 @property (nonatomic, strong) UIButton *individualTrustworthinessButton;//个人信用报告
 @property (nonatomic, strong) UIButton *jobButton;//工作认证
@@ -273,16 +273,19 @@
     return _borrowUserTypeLabel;
 }
 ///收入认证
-- (UIButton *) incomButton {
+- (HXBBaseView_Button *) incomButton {
     if (!_incomButton) {
-        _incomButton = [[UIButton alloc]init];
+        _incomButton = [[HXBBaseView_Button alloc]init];
         [_incomButton setTitle:@"收入认证" forState: UIControlStateNormal];
-        [_incomButton setImage:[UIImage imageNamed:@"duigou"] forState:UIControlStateNormal];
-        _incomButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
-        _incomButton.imageView.layer.borderWidth = kScrAdaptationH(1);
-        _incomButton.imageView.layer.masksToBounds = true;
-        _incomButton.imageView.layer.cornerRadius = kScrAdaptationH(10);
+//        [_incomButton setImage:[UIImage imageNamed:@"duigou"] forState:UIControlStateNormal];
+        _incomButton.imageName = @"duigou";
+        
+//        _incomButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
+//        _incomButton.imageView.layer.borderWidth = kScrAdaptationH(1);
+//        _incomButton.imageView.layer.masksToBounds = true;
+//        _incomButton.imageView.layer.cornerRadius = kScrAdaptationH(5);
         _incomButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        _incomButton.imageRect = CGRectMake(0, kScrAdaptationH(5), kScrAdaptationH(10), kScrAdaptationH(10));
         [_incomButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
         
     }

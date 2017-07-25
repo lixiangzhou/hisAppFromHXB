@@ -63,4 +63,16 @@
  协议URL
  */
 @property (nonatomic,copy) NSString * agreementURL;
+/**
+ 按月等额本息
+ */
+@property (nonatomic,copy) NSString * repaymentType;
+//addButton可否被点击
+@property (nonatomic,assign) BOOL isUserInteractionEnabled;
+/// 加入按钮的颜色
+@property (nonatomic,strong) UIColor *addButtonBackgroundColor;
+///加入按钮的字体颜色
+@property (nonatomic,strong) UIColor *addButtonTitleColor;
+///addbutton 边缘的颜色
+@property (nonatomic,strong) UIColor *addButtonBorderColor;
 @end

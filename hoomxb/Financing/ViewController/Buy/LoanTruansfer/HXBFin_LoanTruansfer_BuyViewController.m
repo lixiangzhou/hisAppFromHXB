@@ -25,6 +25,7 @@
 #import "HXBFinDetailModel_LoanTruansferDetail.h"
 #import "HXBFinDetailViewModel_LoanTruansferDetail.h"
 #import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
+#import "hxbMyTopUpViewController.h"//充值
 @interface HXBFin_LoanTruansfer_BuyViewController ()
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan *joinimmediateView_Loan;
 ///个人总资产
@@ -46,8 +47,8 @@
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
-    
-    [super viewDidLoad];
+    self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+    self.isColourGradientNavigationBar = true;
     
     
     //请求 个人数据
@@ -106,6 +107,11 @@
         [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
     }];
 }
+- (void) pushTopUPViewControllerWithAmount:(NSString *)amount {
+    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+    hxbMyTopUpViewController.amount = amount;
+    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+}
 ///点击了一键购买
 - (void)registerClickBuyButton {
     [self.joinimmediateView_Loan clickBuyButtonFunc:^(NSString *capitall, UITextField *textField) {
@@ -116,7 +122,7 @@
 - (void)registerClickAddButton {
     kWeakSelf
     [self.joinimmediateView_Loan clickAddButtonFunc:^(NSString *capital) {
-        // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
+//         先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
         CGFloat minRegisterAmount = weakSelf.loanTruansferViewModel.loanTruansferDetailModel.transferDetail.creatTransAmount.floatValue;
         if ((capital.floatValue < minRegisterAmount)) {
             NSLog(@"请输入大于等于1000");
@@ -134,7 +140,9 @@
         
         //是否大于剩余金额
         if (capital.integerValue > self.assetsTotal.floatValue) {
-            [HxbHUDProgress showMessageCenter:@"输入金额大于了剩余可投金额" inView:self.view];
+            NSLog(@"%@",@"输入金额大于了剩余可投金额");
+            NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
+            [self pushTopUPViewControllerWithAmount: amount];
             return;
         }
         //是否大于标的剩余金额
@@ -142,14 +150,14 @@
             [HxbHUDProgress showMessageCenter:@"输入金额大于了标的剩余金额" inView:self.view];
             return;
         }
-        
+//
 
-        //判断是否安全认证
-        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
-                [HxbHUDProgress showMessageCenter:@"去安全认证"inView:self.view];
-            }else {
-                [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansfer_confirmBuyReslutWithLoanID:weakSelf.loanTruansferViewModel.loanTruansferDetailModel.loanId andSuccessBlock:^(HXBFin_LoanTruansfer_BuyResoutViewModel *model) {
+//        //判断是否安全认证
+//        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+//            if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
+//                [HxbHUDProgress showMessageCenter:@"去安全认证"inView:self.view];
+//            }else {
+                [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansfer_confirmBuyReslutWithLoanID:weakSelf.loanTruansferViewModel.loanTruansferDetailModel.transferId andInvestAmount:capital andSuccessBlock:^(HXBFin_LoanTruansfer_BuyResoutViewModel *model) {
                     ///加入成功
                     HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
                     planBuySuccessVC.imageName = @"successful";
@@ -194,13 +202,14 @@
                     }];
                     [weakSelf.navigationController pushViewController:failViewController animated:true];
                 }];
-            }
-        } andFailure:^(NSError *error) {
-            [HxbHUDProgress showMessageCenter:@"加入失败" inView:self.view];
-        }];
+//            }
+//        } andFailure:^(NSError *error) {
+//            [HxbHUDProgress showMessageCenter:@"加入失败" inView:self.view];
+//        }];
     }];
 }
 
+/// --------------------------- 数据的传递 ----------------------
 
 ///点击了 服务协议
 - (void)registerClickNegotiateButton {
@@ -222,7 +231,7 @@
             ///充值的button str
             model.JoinImmediateView_Model.rechargeButtonStr = @"充值";
             model.JoinImmediateView_Model.balanceLabel_constStr = @"可用余额";
-            model.remainAmountLabelStr = viewModel.availablePoint;
+            model.remainAmountLabelStr = weakSelf.loanTruansferViewModel.leftTransAmount;
             ///一键购买的str
             model.JoinImmediateView_Model.buyButtonStr = @"一键购买";
             
@@ -231,7 +240,7 @@
             model.amount = weakSelf.loanTruansferViewModel.loanTruansferDetailModel.loanVo.amount;//可用余额
             NSString *str = weakSelf.loanTruansferViewModel.startIncrease_Amount;
             model.JoinImmediateView_Model.rechargeViewTextField_placeholderStr = str;
-            ///余额展示
+            ///可用余额展示
             model.JoinImmediateView_Model.balanceLabelStr = viewModel.availablePoint;
             
             

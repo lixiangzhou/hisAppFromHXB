@@ -89,12 +89,17 @@
         viewModelVM.startInvestmentStr_const   = @"起投";
         viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
         
-        viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
+       
         viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
         viewModelVM.isUserInteractionEnabled   = weakSelf.planDetailViewModel.isAddButtonInteraction;
         viewModelVM.title                      = @"加入计划";
         viewModelVM.diffTime                   = weakSelf.planDetailViewModel.planDetailModel.diffTime;
+        //倒计时
         viewModelVM.isCountDown                = weakSelf.planListViewModel.isCountDown;
+        //加入按钮
+        viewModelVM.addButtonBackgroundColor   = weakSelf.planDetailViewModel.addButtonBackgroundColor;
+        viewModelVM.addButtonTitleColor        = weakSelf.planDetailViewModel.addButtonTitleColor;
+        viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
         if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
         }
         return viewModelVM;

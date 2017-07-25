@@ -63,6 +63,7 @@
     self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
     self.detailView = [[HXBFin_LoanTruansferDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     [self.hxbBaseVCScrollView addSubview:self.detailView];
+    self.hxb_automaticallyAdjustsScrollViewInsets = false;
 }
 - (void)setUPTopImageView {
     self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
@@ -186,7 +187,7 @@
          品字形 右
          */
         manager.topViewManager.truansferAmountLabelManager.rightLabelStr = @"待转让金额";
-        manager.topViewManager.truansferAmountLabelManager.leftLabelStr = weakSelf.loanTruansferDetailViewModel.leftTransAmount;
+        manager.topViewManager.truansferAmountLabelManager.leftLabelStr = weakSelf.loanTruansferDetailViewModel.creatTransAmount;
 
         /**
          左侧的stringArray
@@ -208,7 +209,10 @@
         /**
          加入按钮
          */
-        manager.addButtonStr = @"确认购买";
+        manager.addButtonStr = weakSelf.loanTruansferDetailViewModel.status;
+        manager.isAddButtonClick = weakSelf.loanTruansferDetailViewModel.isUserInteractionEnabled;
+        manager.addButtonBackgroundColor = weakSelf.loanTruansferDetailViewModel.addButtonBackgroundColor;
+        manager.addButtonTitleColor = weakSelf.loanTruansferDetailViewModel.addButtonTitleColor;
         return manager;
     }];
 }
