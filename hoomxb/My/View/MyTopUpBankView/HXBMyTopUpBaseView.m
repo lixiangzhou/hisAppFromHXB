@@ -22,7 +22,7 @@
 @end
 
 @implementation HXBMyTopUpBaseView
-
+@synthesize amount = _amount;
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -98,15 +98,17 @@
 
 - (void)nextButtonClick:(UIButton *)sender{
     if ([_amountTextField.text doubleValue] < 1) {
-        [HxbHUDProgress showTextWithMessage:@"金额不能小于1"];
+        [HxbHUDProgress showMessageCenter:@"金额不能小于1" inView:self];
         return;
     }
     if (self.rechargeBlock) {
         self.rechargeBlock();
     }
-    
 }
-
+- (void)setAmount:(NSString *)amount {
+    _amount = amount;
+    self.amountTextField.text = amount;
+}
 - (NSString *)amount
 {
     return self.amountTextField.text;
