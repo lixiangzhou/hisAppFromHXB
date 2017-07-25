@@ -40,6 +40,9 @@
         _myTopUpBaseView.rechargeBlock = ^{
             [weakSelf enterRecharge];
         };
+        if (self.amount) {
+            _myTopUpBaseView.amount = _amount;
+        }
     }
     return _myTopUpBaseView;
 }

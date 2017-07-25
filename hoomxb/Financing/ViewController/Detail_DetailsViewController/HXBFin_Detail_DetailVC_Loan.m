@@ -49,6 +49,7 @@
 
 -(void)loadView {
     [super loadView];
+    self.isTransparentNavigationBar = true;
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
     self.view = self.scrollView;
 }

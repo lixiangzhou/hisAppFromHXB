@@ -10,5 +10,6 @@
 
 ///提现
 @interface HxbMyTopUpViewController : HXBBaseViewController
-
+///金额
+@property (nonatomic,copy) NSString *amount;
 @end
