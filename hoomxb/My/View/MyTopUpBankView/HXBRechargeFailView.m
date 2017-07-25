@@ -32,6 +32,12 @@
     return self;
 }
 
+- (void)setFailureReasonText:(NSString *)failureReasonText
+{
+    _failureReasonText = failureReasonText;
+    self.rechargePromptLabel.text = failureReasonText;
+}
+
 - (void)setupSubViewFrame
 {
     [self.rechargeFailLabel mas_makeConstraints:^(MASConstraintMaker *make) {

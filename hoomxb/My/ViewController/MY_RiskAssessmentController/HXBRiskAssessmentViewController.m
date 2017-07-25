@@ -64,7 +64,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [HxbHUDProgress showLoadDataHUD:self.webView];
 }
 
 - (void)setupRightBarBtn
@@ -116,6 +116,9 @@
     return YES;
 }
 
-
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [HxbHUDProgress hidenHUD:self.webView];
+}
 
 @end

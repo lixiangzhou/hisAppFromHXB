@@ -15,4 +15,9 @@
  */
 @property (nonatomic, copy) void(^investmentBtnClickBlock)();
 
+/**
+ 失败原因
+ */
+@property (nonatomic, copy) NSString *failureReasonText;
+
 @end

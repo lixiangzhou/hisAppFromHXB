@@ -81,9 +81,10 @@
 //MARK: ======================= 公告 ==========================
 #define kHXBHome_AnnounceURL @"/announce"//公告
 //MARK: ======================= 存管 ==========================
-#define kHXBOpenDepositAccount_Escrow @"/user/escrow" //用户绑定银行卡
+#define kHXBOpenDepositAccount_Escrow @"/user/escrow" //用户开通存管账户
 #define kHXBUserInfo_BankCard @"/account/user/card" //用户绑定银行卡
-
+#define kHXBAccount_Recharge @"/account/recharge" //快捷充值
+#define kHXBAccount_Recharge_Result @"/account/recharge/result" //快捷充值确认
 
 
 //MARK: ======================= 协议 ==========================

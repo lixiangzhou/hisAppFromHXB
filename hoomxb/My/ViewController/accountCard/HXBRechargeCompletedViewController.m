@@ -11,7 +11,7 @@
 #import "HXBRechargeFailView.h"
 
 
-#import "HXBSetTransactionPasswordViewController.h"//ZCC需要修改逻辑;
+
 @interface HXBRechargeCompletedViewController ()
 
 @property (nonatomic, strong) HXBRechargesuccessView *rechargesuccessView;
@@ -24,16 +24,33 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"充值结果";
-    [self.view addSubview:self.rechargesuccessView];
-    
-    [self.view addSubview:self.rechargeFailView];
-    
+    NSInteger status =  [self.responseObject[@"status"] integerValue];
+    if (status != 0) {
+        //充值失败
+        [self.view addSubview:self.rechargeFailView];
+        self.rechargeFailView.failureReasonText = self.responseObject[@"message"];
+    }else
+    {
+        //充值成功
+        [self.view addSubview:self.rechargesuccessView];
+        self.rechargesuccessView.amount = self.amount;
+    }
 }
 
 - (HXBRechargesuccessView *)rechargesuccessView
 {
     if (!_rechargesuccessView) {
+        kWeakSelf
         _rechargesuccessView = [[HXBRechargesuccessView alloc] initWithFrame:self.view.bounds];
+        //继续充值Block
+        _rechargesuccessView.continueRechargeBlock = ^{
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        };
+        //立即投资
+        _rechargesuccessView.immediateInvestmentBlock = ^{
+            weakSelf.tabBarController.selectedIndex = 1;
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        };
     }
     return _rechargesuccessView;
 }
@@ -44,8 +61,7 @@
         kWeakSelf
         _rechargeFailView = [[HXBRechargeFailView alloc] initWithFrame:self.view.bounds];
         _rechargeFailView.investmentBtnClickBlock = ^{
-            HXBSetTransactionPasswordViewController *setTransactionPasswordVC = [[HXBSetTransactionPasswordViewController alloc] init];
-            [weakSelf.navigationController pushViewController:setTransactionPasswordVC animated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
         };
     }
     return _rechargeFailView;

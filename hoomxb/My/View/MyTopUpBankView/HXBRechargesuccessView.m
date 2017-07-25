@@ -39,6 +39,12 @@
     return self;
 }
 
+- (void)setAmount:(NSString *)amount
+{
+    _amount = amount;
+    self.rechargeNumLabel.text = [NSString stringWithFormat:@"成功充值 %@元",amount];
+}
+
 - (void)setupSubViewFrame
 {
     [self.rechargesuccessLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -67,6 +73,22 @@
         make.height.equalTo(@kScrAdaptationH(44));
         make.width.equalTo(@kScrAdaptationH(100));
     }];
+}
+
+- (void)rechargeBtnClick
+{
+    //继续充值
+    if (self.continueRechargeBlock) {
+        self.continueRechargeBlock();
+    }
+}
+
+- (void)investmentBtnClick
+{
+    //立即投资
+    if (self.immediateInvestmentBlock) {
+        self.immediateInvestmentBlock();
+    }
 }
 
 
@@ -109,6 +131,7 @@
         [_investmentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _investmentBtn.layer.borderColor = COR12.CGColor;
         _investmentBtn.layer.borderWidth = 0.5;
+        [_investmentBtn addTarget:self action:@selector(investmentBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _investmentBtn;
 }
@@ -119,6 +142,7 @@
         _rechargeBtn = [[UIButton alloc] init];
         [_rechargeBtn setTitle:@"继续充值" forState:UIControlStateNormal];
         [_rechargeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_rechargeBtn addTarget:self action:@selector(rechargeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rechargeBtn;
 }

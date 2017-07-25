@@ -12,8 +12,9 @@
 #import "HXBMyTopUpBaseView.h"
 
 
-#import "HXBQuickRechargeViewController.h"//ZCC需要修改逻辑
+#import "HXBRechargeCompletedViewController.h"
 #import "HXBAlertVC.h"
+#import "HXBOpenDepositAccountRequest.h"
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
@@ -44,18 +45,43 @@
 }
 
 
+/**
+ 快捷充值请求
+ */
 - (void)enterRecharge
 {
+    kWeakSelf
+    HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+    [accountRequest accountRechargeRequestWithRechargeAmount:self.myTopUpBaseView.amount andSuccessBlock:^(id responseObject) {
+        [weakSelf requestRechargeResult:responseObject[@"data"][@"origin_order_no"]];
+    } andFailureBlock:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+/**
+ 快捷充值确认
+ */
+- (void)requestRechargeResult:(NSString *)rechargeOrderNum
+{
+   
+    kWeakSelf
     HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
     alertVC.isCode = YES;
     alertVC.messageTitle = @"请输入您的短信验证码";
     alertVC.sureBtnClick = ^(NSString *pwd){
-        HXBQuickRechargeViewController *quickRechargeVC = [[HXBQuickRechargeViewController alloc] init];
-        [self.navigationController pushViewController:quickRechargeVC animated:YES];
+        HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+        [accountRequest accountRechargeResultRequestWithSmscode:pwd andWithRechargeOrderNum:rechargeOrderNum andSuccessBlock:^(id responseObject) {
+            HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
+            rechargeCompletedVC.responseObject = responseObject;
+            rechargeCompletedVC.amount = weakSelf.myTopUpBaseView.amount;
+            [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
+            
+        } andFailureBlock:^(NSError *error) {
+            
+        }];
     };
-
     [self presentViewController:alertVC animated:NO completion:nil];
-
 }
 
 @end

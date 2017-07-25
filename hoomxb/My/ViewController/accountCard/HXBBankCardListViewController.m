@@ -10,32 +10,25 @@
 #import "HXBWithdrawalsRequest.h"
 #import "HXBBankListCell.h"
 #import "SVGKImage.h"
+#import "HXBBankList.h"
 @interface HXBBankCardListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *mainTableView;
 
-@property (nonatomic, strong) NSMutableArray *keyArr;
 
-@property (nonatomic, strong) NSMutableArray *objArr;
+@property (nonatomic, strong) NSMutableArray *bankListModels;
 
 @end
 
 @implementation HXBBankCardListViewController
 
-- (NSMutableArray *)keyArr
-{
-    if (!_keyArr) {
-        _keyArr = [NSMutableArray array];
-    }
-    return _keyArr;
-}
 
-- (NSMutableArray *)objArr
+- (NSMutableArray *)bankListModels
 {
-    if (!_objArr) {
-        _objArr = [NSMutableArray array];
+    if (!_bankListModels) {
+        _bankListModels = [NSMutableArray array];
     }
-    return _objArr;
+    return _bankListModels;
 }
 
 - (UITableView *)mainTableView
@@ -88,8 +81,7 @@
     [bankCardList bankCardListRequestWithSuccessBlock:^(id responseObject) {
         NSArray *bankArr = responseObject[@"data"][@"dataList"];
         [bankArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [weakSelf.keyArr addObject:obj[@"bankCode"]];
-            [weakSelf.objArr addObject:obj[@"bankName"]];
+            [weakSelf.bankListModels addObject:[HXBBankList yy_modelWithJSON:obj]];
         }];
         
         [weakSelf.mainTableView reloadData];
@@ -102,7 +94,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.objArr.count;
+    return self.bankListModels.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -112,7 +104,8 @@
     if (!cell) {
         cell = [[HXBBankListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
-    cell.textLabel.text = self.objArr[indexPath.row];
+    HXBBankList *bankModel  = self.bankListModels[indexPath.row];
+    cell.textLabel.text = bankModel.name;
     cell.detailTextLabel.text = @"单笔10万";
     cell.imageView.image = [UIImage imageNamed:@"zhaoshang"];
     return cell;
@@ -122,7 +115,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.bankCardListBlock) {
-        self.bankCardListBlock(self.keyArr[indexPath.row],self.objArr[indexPath.row]);
+        HXBBankList *bankModel  = self.bankListModels[indexPath.row];
+        self.bankCardListBlock(bankModel.bankCode,bankModel.name);
     }
     [self back];
 }
