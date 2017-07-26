@@ -11,6 +11,7 @@
 #import "HXBFinDetailModel_PlanDetail.h"
 #import "HXBFin_Detail_Detail_PlanWebViewController.h"
 #import "HXBFinPlanDetail_DetailView.h"//详情中的详情 plan
+#import "HXBFinPlanContract_contraceWebViewVC.h"
 @interface HXBFin_Detail_DetailsVC_Plan ()
 //// ------ view
 //@property (nonatomic,strong) UIView *addView;
@@ -128,17 +129,16 @@
         manager.serverViewManager.rightStrArray = @[
                                                 weakSelf.planDetailModel.contractName
                                                 ];
-        NSString *str = weakSelf.planDetailModel.contractName;
-        
+        NSString *str = [NSString stringWithFormat:@"参见%@",weakSelf.planDetailModel.contractName];
         NSRange range = NSMakeRange(2, str.length - 2);
-        manager.serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:weakSelf.planDetailModel.contractName WithRange:range andAttributeColor:kHXBColor_RGB(115/250.0, 163.0/255.0, 1, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(13)];
+        manager.serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:kHXBColor_RGB(115/250.0, 163.0/255.0, 1, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(13)];
         return manager;
     }];
     
-    [self.planDetail_DetailView clickServerButtonWithBlock:^(UIButton *button) {
+    [self.planDetail_DetailView clickServerButtonWithBlock:^(UILabel *button) {
         //跳转 协议
-        HXBFin_Detail_Detail_PlanWebViewController *planWebViewController = [[HXBFin_Detail_Detail_PlanWebViewController alloc]init];
-        
+        HXBFinPlanContract_contraceWebViewVC *planWebViewController = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
+        planWebViewController.URL = kHXB_Negotiate_ServePlanURL;
         [self.navigationController pushViewController:planWebViewController animated:true];
     }];
     

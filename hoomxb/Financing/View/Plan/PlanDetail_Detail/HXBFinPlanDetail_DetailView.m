@@ -34,7 +34,7 @@
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *serverView;
 
 ///点击了红利计划服务协议
-@property (nonatomic,copy) void(^clickServerButtonBlock)(UIButton *button);
+@property (nonatomic,copy) void(^clickServerButtonBlock)(UILabel *button);
 @end
 
 @implementation HXBFinPlanDetail_DetailView
@@ -72,8 +72,8 @@
         return manager.serverViewManager;
     }];
     /// 设置服务协议富文本
-    UIButton *button = (UIButton *)self.serverView.rightViewArray.firstObject;
-    [button  setAttributedTitle: manager.serverViewAttributedStr forState:UIControlStateNormal];
+    UILabel *label = (UILabel *)self.serverView.rightViewArray.firstObject;
+    label.attributedText = manager.serverViewAttributedStr;
 }
 
 
@@ -85,22 +85,24 @@
     
     self.typeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets];
     
-    self.serverView =  [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UIButton class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets];
-    UIButton *button = (UIButton *)self.serverView.rightViewArray.firstObject;
-    [button addTarget:self action:@selector(clickServerButton:) forControlEvents:UIControlEventTouchUpInside];
+    self.serverView =  [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets];
+    UILabel *button = (UILabel *)self.serverView.rightViewArray.firstObject;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickServerButton:)];
+    [button addGestureRecognizer:tap];
     
     self.addView.backgroundColor = [UIColor whiteColor];
     self.dateView.backgroundColor = [UIColor whiteColor];
     self.typeView.backgroundColor = [UIColor whiteColor];
     self.serverView.backgroundColor = [UIColor whiteColor];
 }
-- (void)clickServerButton : (UIButton *)button {
+- (void)clickServerButton : (UITapGestureRecognizer *)tap
+{
     if (self.clickServerButtonBlock) {
-        self.clickServerButtonBlock(button);
+        self.clickServerButtonBlock((UILabel *)tap.view);
     }
 }
 //点击事件
-- (void)clickServerButtonWithBlock:(void (^)(UIButton *))clickServerButtonBlock {
+- (void)clickServerButtonWithBlock:(void (^)(UILabel *))clickServerButtonBlock {
     self.clickServerButtonBlock = clickServerButtonBlock;
 }
 
