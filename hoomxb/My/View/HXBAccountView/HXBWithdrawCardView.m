@@ -105,9 +105,36 @@
 - (void)nextButtonClick
 {
     if (self.nextButtonClickBlock) {
-        self.nextButtonClickBlock(self.bankCardTextField.text);
+        if ([self judgeIsNull]) return;
+        NSDictionary *dic = @{
+                              @"bankCard" : self.bankCardTextField.text,
+                              @"bankReservedMobile" : self.phoneNumberTextField.text,
+                              @"bankCode" : self.bankCode
+                              };
+        self.nextButtonClickBlock(dic);
     }
 }
+- (BOOL)judgeIsNull
+{
+    BOOL isNull = NO;
+    if (!(self.bankCode.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"没有选择银行" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.bankCardTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"银行卡号没有填写" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.phoneNumberTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"预留手机号没有填写" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    return isNull;
+}
+
 - (void)setBankName:(NSString *)bankName
 {
     _bankName = bankName;

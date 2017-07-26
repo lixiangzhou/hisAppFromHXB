@@ -21,7 +21,7 @@
     if ((self.day.length>0) && ![self.day isEqualToString:@"无"]) {
         _quota = [NSString stringWithFormat:@"%@单日限额：%@，",_quota,self.day];
     }
-    if ([self.single isEqualToString:@"无"]) {
+    if ([self.day isEqualToString:@"无"]) {
         _quota = [NSString stringWithFormat:@"%@单日限额：%@限额，",_quota,self.day];
     }
     if (_quota.length <= 0) {

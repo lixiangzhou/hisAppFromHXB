@@ -71,4 +71,18 @@
  到账时间
  */
 @property (nonatomic, copy) NSString *arrivalTime;
+
+/**
+ 单日限额
+ */
+@property (nonatomic, copy) NSString *day;
+/**
+ 单笔限额
+ */
+@property (nonatomic, copy) NSString *single;
+
+/**
+ 限额提示
+ */
+@property (nonatomic, copy) NSString *quota;
 @end

@@ -16,7 +16,8 @@
 #import "HXBBankCardListViewController.h"
 #import "HXBWithdrawCardView.h"
 
-#import "HXBRechargeCompletedViewController.h"//ZCC需要修改
+#import "HxbMyTopUpViewController.h"
+#import "HXBOpenDepositAccountRequest.h"
 @interface HxbWithdrawCardViewController () <UITextFieldDelegate>
 
 /**
@@ -51,8 +52,8 @@
         };
         
         
-        _withdrawCardView.nextButtonClickBlock = ^(NSString *bankCard){
-            [weakSelf nextButtonClick:bankCard];
+        _withdrawCardView.nextButtonClickBlock = ^(NSDictionary *dic){
+            [weakSelf nextButtonClick:dic];
         };
         
     }
@@ -91,62 +92,21 @@
     
 }
 
-- (void)nextButtonClick:(NSString *)bankCard{
-    //充值结果
-
-    HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
-    [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
+- (void)nextButtonClick:(NSDictionary *)dic{
+    //充值界面
+    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
     
     
-//    kWeakSelf
-//    HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
-//    alertVC.sureBtnClick = ^(NSString *pwd){
-//        if (pwd.length == 0) {
-//            return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
-//            return;
-//        }
-//        [weakSelf checkWithdrawals:pwd andWithBankCard:bankCard];
-//    };
-//    alertVC.forgetBtnClick = ^(){
-//        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-//        modifyTransactionPasswordVC.title = @"修改交易密码";
-//        modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoModel;
-//        [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-//    };
-//    [self presentViewController:alertVC animated:NO completion:^{
-//        
-//    }];
+    HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+    [openDepositAccountRequest openDepositAccountRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
+        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
     
 }
-
-
-//- (void)checkWithdrawals:(NSString *)paypassword andWithBankCard:(NSString *)bankCard
-//{
-//    self.view.userInteractionEnabled = NO;
-//    kWeakSelf
-//    NSMutableDictionary *requestArgument  = [NSMutableDictionary dictionary];
-//    requestArgument[@"bankno"] = weakSelf.bankCode;
-////    requestArgument[@"city"] = self.bankCardModel.city; 
-//    requestArgument[@"bank"] = bankCard;
-//    requestArgument[@"paypassword"] = paypassword;
-//    requestArgument[@"amount"] = self.amount;
-//    HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
-//    [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
-//        NSLog(@"%@",responseObject);
-//        weakSelf.view.userInteractionEnabled = YES;
-//        HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
-//        weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
-//        weakSelf.bankCardModel.bankType = weakSelf.bankName;
-//        weakSelf.bankCardModel.cardId = bankCard;
-//        weakSelf.bankCardModel.amount = weakSelf.amount;
-//        withdrawResultVC.bankCardModel = weakSelf.bankCardModel;
-//        [weakSelf.navigationController pushViewController:withdrawResultVC animated:YES];
-//    } andFailureBlock:^(NSError *error) {
-//        self.view.userInteractionEnabled = YES;
-//         NSLog(@"%@",error);
-//    }];
-//}
-
 
 
 

@@ -28,7 +28,8 @@
     if (status != 0) {
         //充值失败
         [self.view addSubview:self.rechargeFailView];
-        self.rechargeFailView.failureReasonText = self.responseObject[@"message"];
+        NSArray *smscode = self.responseObject[@"data"][@"smscode"];
+        self.rechargeFailView.failureReasonText = [smscode firstObject];
     }else
     {
         //充值成功

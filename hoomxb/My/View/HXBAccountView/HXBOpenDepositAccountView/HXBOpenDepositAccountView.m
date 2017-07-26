@@ -183,8 +183,8 @@
     if (self.openAccountBlock) {
         if ([self judgeIsNull]) return;
         NSDictionary *dic = @{
-//                              @"realName" : self.nameTextField.text,
-//                              @"identityCard" : self.idCardTextField.text,
+                              @"realName" : self.nameTextField.text,
+                              @"identityCard" : self.idCardTextField.text,
                               @"password" : self.pwdTextField.text,
                               @"bankCard" : self.bankNumberTextField.text,
                               @"bankReservedMobile" : self.phoneTextField.text,
@@ -197,16 +197,16 @@
 - (BOOL)judgeIsNull
 {
     BOOL isNull = NO;
-//    if (!(self.nameTextField.text.length > 0)) {
-//        [HxbHUDProgress showMessageCenter:@"真实姓名没有填写" inView:self];
-//        isNull = YES;
-//        return isNull;
-//    }
-//    if (!(self.idCardTextField.text.length > 0)) {
-//        [HxbHUDProgress showMessageCenter:@"身份证号没有填写" inView:self];
-//        isNull = YES;
-//        return isNull;
-//    }
+    if (!(self.nameTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"真实姓名没有填写" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.idCardTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"身份证号没有填写" inView:self];
+        isNull = YES;
+        return isNull;
+    }
     if (!(self.pwdTextField.text.length > 0)) {
         [HxbHUDProgress showMessageCenter:@"交易密码没有填写" inView:self];
         isNull = YES;

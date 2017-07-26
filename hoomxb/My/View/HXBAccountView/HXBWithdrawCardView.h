@@ -28,7 +28,7 @@
 /**
  nextButtonClickBlcok
  */
-@property (nonatomic, copy) void(^nextButtonClickBlock)(NSString *bankCard);
+@property (nonatomic, copy) void(^nextButtonClickBlock)(NSDictionary *dic);
 
 
 

@@ -51,6 +51,7 @@
         //设置绑卡信息
         self.bankNameLabel.text = bankCardModel.bankType;
         self.bankCardNumLabel.text = [NSString stringWithFormat:@"（尾号%@）",[bankCardModel.cardId substringFromIndex:bankCardModel.cardId.length - 4]];
+        self.amountLimitLabel.text = bankCardModel.quota;
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);
         [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
