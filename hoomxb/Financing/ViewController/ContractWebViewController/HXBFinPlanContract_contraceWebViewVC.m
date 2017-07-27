@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUP];
+    self.isColourGradientNavigationBar = YES;
     self.title = @"红利计划服务协议";
 }
 

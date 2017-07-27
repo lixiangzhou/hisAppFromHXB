@@ -44,7 +44,11 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     self.automaticallyAdjustsScrollViewInsets = YES;
     [self registerEvent];
 }
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
+}
 - (void)registerEvent {
     [self registerEvent_ClickNextButton];///点击了下一步按钮
     [self registerEvent_checkMobile];///校验手机号事件注册

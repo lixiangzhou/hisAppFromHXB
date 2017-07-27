@@ -17,6 +17,7 @@
 #import "HXBOpenDepositAccountViewController.h"
 #import "HxbWithdrawCardViewController.h"
 #import "HxbMyTopUpViewController.h"
+#import "HXBSignUPAndLoginRequest_EnumManager.h"
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
@@ -113,7 +114,18 @@
     //        #import "HxbMyTopUpViewController.h"
     //        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
     //        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    [self logicalJudgment:HXBRechargeAndWithdrawalsLogicalJudgment_Recharge];
+}
+/// 提现
+- (void)didClickWithdrawBtn:(UIButton *)sender{
     
+    [self logicalJudgment:HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals];
+}
+/**
+ 逻辑判断
+ */
+- (void)logicalJudgment:(HXBRechargeAndWithdrawalsLogicalJudgment)type
+{
     if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
         //开通存管银行账户
         HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
@@ -133,24 +145,20 @@
         [self.navigationController pushViewController:openDepositAccountVC animated:YES];
     }else
     {
-        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+        if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
+            HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+            [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+        }else if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
+            HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+            if (!KeyChain.isLogin)  return;
+            withdrawViewController.userInfoViewModel = self.userInfoViewModel;
+            [self.navigationController pushViewController:withdrawViewController animated:YES];
+        }
     }
-    
-    
-    
 }
-/// 提现
-- (void)didClickWithdrawBtn:(UIButton *)sender{
-   
-    HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
-    if (!KeyChain.isLogin) {
-//        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
-        return;
-    }
-    withdrawViewController.userInfoViewModel = self.userInfoViewModel;
-    [self.navigationController pushViewController:withdrawViewController animated:YES];
-}
+
+
+
 - (void)clickBarButtonItem {
     NSLog(@"点击了返回按钮");
 }

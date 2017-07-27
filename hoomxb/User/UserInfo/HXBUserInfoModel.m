@@ -18,6 +18,15 @@
 @end
 
 @implementation HXBRequestUserInfoAPI_UserAssets
+
+- (void)setEarnTotal:(NSString *)earnTotal
+{
+    _earnTotal = earnTotal;
+    if ([_earnTotal doubleValue]<0) {
+        _earnTotal = @"0.00";
+    }
+}
+
 @end
 @implementation HXBRequestUserInfoAPI_UserInfo
 @end

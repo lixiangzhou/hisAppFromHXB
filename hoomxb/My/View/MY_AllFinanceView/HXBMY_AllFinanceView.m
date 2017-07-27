@@ -108,21 +108,21 @@ static NSString *const cellID = @"CELLID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
     HXBMy_AllFinance_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     if (indexPath.section == 0) {
-        [cell setUPValueWithLeftStr:@"资产总额（元）" andRightStr:self.viewModel.assetsTotal andTypeStr:nil];
+        [cell setUPValueWithLeftStr:@"资产总额（元）" andRightStr:self.viewModel.userInfoModel.userAssets.assetsTotal andTypeStr:nil];
     }
     if (indexPath.section == 1) {
         switch (indexPath.row) {
             case 0:
-                [cell setUPValueWithLeftStr:@"红利计划资产（元）"andRightStr:self.viewModel.financePlanAssets andTypeStr:nil];
+                [cell setUPValueWithLeftStr:@"红利计划资产（元）"andRightStr:self.viewModel.userInfoModel.userAssets.financePlanAssets andTypeStr:nil];
                 break;
             case 1:
-                [cell setUPValueWithLeftStr:@"散标资产（元）" andRightStr:self.viewModel.lenderPrincipal andTypeStr:nil];
+                [cell setUPValueWithLeftStr:@"散标资产（元）" andRightStr:self.viewModel.userInfoModel.userAssets.lenderPrincipal andTypeStr:nil];
                 break;
             case 2:
-                [cell setUPValueWithLeftStr:@"可用金额（元）" andRightStr:self.viewModel.availablePoint andTypeStr:nil];
+                [cell setUPValueWithLeftStr:@"可用金额（元）" andRightStr:self.viewModel.userInfoModel.userAssets.availablePoint andTypeStr:nil];
                 break;
             case 3:
-                [cell setUPValueWithLeftStr:@"冻结金额 (元)" andRightStr:self.viewModel.frozenPoint andTypeStr:nil];
+                [cell setUPValueWithLeftStr:@"冻结金额 (元)" andRightStr:self.viewModel.userInfoModel.userAssets.frozenPoint andTypeStr:nil];
                 break;
                 
             default:
@@ -130,7 +130,7 @@ static NSString *const cellID = @"CELLID";
         }
     }
     if (indexPath.section == 2) {
-         [cell setUPValueWithLeftStr:@"累计收益 (元)" andRightStr:self.viewModel.earnTotal andTypeStr:nil];
+         [cell setUPValueWithLeftStr:@"累计收益 (元)" andRightStr:self.viewModel.userInfoModel.userAssets.earnTotal andTypeStr:nil];
     }
     return cell;
 }

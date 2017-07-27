@@ -130,6 +130,7 @@
 		4E94E37C1F0F619400746973 /* HXBCardholderInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E37B1F0F619400746973 /* HXBCardholderInformationView.m */; };
 		4E94E3821F0F63D300746973 /* HXBWithdrawCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E3811F0F63D300746973 /* HXBWithdrawCardView.m */; };
 		4E964FCA1F20BE9A001DF2C0 /* HXBOpenDepositAccountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E964FC91F20BE9A001DF2C0 /* HXBOpenDepositAccountRequest.m */; };
+		4E96E2D51F28829D00C4AF27 /* HXBNoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96E2D41F28829D00C4AF27 /* HXBNoticeCell.m */; };
 		4E9982401F022A6400CABA59 /* HXBWithdrawalsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99823F1F022A6400CABA59 /* HXBWithdrawalsRequest.m */; };
 		4E9982471F02677B00CABA59 /* HXBAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9982461F02677B00CABA59 /* HXBAlertVC.m */; };
 		4E99824D1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99824A1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m */; };
@@ -627,6 +628,8 @@
 		4E94E3811F0F63D300746973 /* HXBWithdrawCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawCardView.m; sourceTree = "<group>"; };
 		4E964FC81F20BE9A001DF2C0 /* HXBOpenDepositAccountRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBOpenDepositAccountRequest.h; sourceTree = "<group>"; };
 		4E964FC91F20BE9A001DF2C0 /* HXBOpenDepositAccountRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBOpenDepositAccountRequest.m; sourceTree = "<group>"; };
+		4E96E2D31F28829D00C4AF27 /* HXBNoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBNoticeCell.h; sourceTree = "<group>"; };
+		4E96E2D41F28829D00C4AF27 /* HXBNoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBNoticeCell.m; sourceTree = "<group>"; };
 		4E99823E1F022A6400CABA59 /* HXBWithdrawalsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawalsRequest.h; sourceTree = "<group>"; };
 		4E99823F1F022A6400CABA59 /* HXBWithdrawalsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawalsRequest.m; sourceTree = "<group>"; };
 		4E9982451F02677B00CABA59 /* HXBAlertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAlertVC.h; sourceTree = "<group>"; };
@@ -1359,6 +1362,8 @@
 				4E81989B1EC4383600D668A1 /* HxbHomeView.m */,
 				4E8198B71EC459AF00D668A1 /* HxbHomePageFreshCustomerView.h */,
 				4E8198B81EC459AF00D668A1 /* HxbHomePageFreshCustomerView.m */,
+				4E96E2D31F28829D00C4AF27 /* HXBNoticeCell.h */,
+				4E96E2D41F28829D00C4AF27 /* HXBNoticeCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4240,6 +4245,7 @@
 				4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */,
 				E1270B451ECED2D000729BC9 /* HXBMYModel_MainCapitalRecordModel.m in Sources */,
 				E1C9647A1EA5E04F0066DBC4 /* HXBBaseTableView.m in Sources */,
+				4E96E2D51F28829D00C4AF27 /* HXBNoticeCell.m in Sources */,
 				E190EFAA1F25EB16001E0B14 /* HXBBaseView_Button.m in Sources */,
 				E17E6AE71ECDA46B0046888B /* HXBMY_CapitalRecordViewController.m in Sources */,
 				E122D8511EA0CAB900DC71ED /* NSString+HxbGeneral.m in Sources */,

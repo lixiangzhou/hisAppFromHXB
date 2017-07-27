@@ -10,6 +10,7 @@
 #import "HXBVersionUpdateRequest.h"
 #import "HXBNoticModel.h"
 #import "HXBFinAddTruastWebViewVC.h"
+#import "HXBNoticeCell.h"
 @interface HXBNoticeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *mainTabelView;
 
@@ -81,13 +82,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *identifier = @"HXBNoticeViewControllerCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    HXBNoticeCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell = [[HXBNoticeCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     HXBNoticModel *noticModel = self.modelArrs[indexPath.row];
     cell.textLabel.text = noticModel.title;
-    cell.detailTextLabel.text = [[HXBBaseHandDate sharedHandleDate] stringFromDate:noticModel.date andDateFormat:@"yyyy-MM-dd"];
+    cell.detailTextLabel.text = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:noticModel.date andDateFormat:@"yyyy-MM-dd"];
     return cell;
 }
 
@@ -101,6 +102,10 @@
     [self.navigationController pushViewController:finAddTruastWebViewVC animated:YES];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 100;
+}
 #pragma mark - 懒加载
 - (UITableView *)mainTabelView
 {

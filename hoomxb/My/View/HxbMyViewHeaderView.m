@@ -91,6 +91,9 @@
     
     NSString *allFinanceStr = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.assetsTotal doubleValue]]?:@"0.00";
     NSString *accumulatedProfitStr = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
+    if ([userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]<0) {
+        accumulatedProfitStr = @"0.00元";
+    }
     NSString *balance = [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
     if ([KeyChain.ciphertext isEqualToString:@"0"])
     {

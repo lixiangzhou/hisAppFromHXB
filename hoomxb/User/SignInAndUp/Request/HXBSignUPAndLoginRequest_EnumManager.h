@@ -39,6 +39,14 @@ typedef enum : NSUInteger {
     HXBSignUPAndLoginRequest_sendSmscodeType_newmobile,
 } HXBSignUPAndLoginRequest_sendSmscodeType;
 
+/**通用短信发送类型*/
+typedef enum : NSUInteger {
+    ///充值
+    HXBRechargeAndWithdrawalsLogicalJudgment_Recharge,
+    ///提现
+    HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals,
+} HXBRechargeAndWithdrawalsLogicalJudgment;
+
 ///枚举管理类
 @interface HXBSignUPAndLoginRequest_EnumManager : NSObject
 + (NSString *)getKeyWithHXBSignUPAndLoginRequest_sendSmscodeType: (HXBSignUPAndLoginRequest_sendSmscodeType) type;

@@ -12,6 +12,7 @@
 #import "HXBOpenDepositAccountView.h"
 #import "HXBOpenDepositAccountRequest.h"
 #import "HXBFinLoanTruansfer_ContraceWebViewVC.h"///存管的服务协议
+#import "HxbWithdrawViewController.h"
 @interface HXBOpenDepositAccountViewController ()
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
@@ -46,10 +47,17 @@
 //开通账户
 - (void)bottomBtnClick:(NSDictionary *)dic
 {
+    kWeakSelf
     HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [openDepositAccountRequest openDepositAccountRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
-        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+        if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
+            HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+            [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+        }else if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
+            HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+            if (!KeyChain.isLogin)  return;
+            [self.navigationController pushViewController:withdrawViewController animated:YES];
+        }
     } andFailureBlock:^(NSError *error) {
         
     }];
