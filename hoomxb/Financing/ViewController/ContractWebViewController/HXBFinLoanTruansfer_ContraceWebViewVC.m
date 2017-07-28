@@ -22,7 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUP];
-    self.title = @"借款协议";
+    if (self.title.length <= 0) {
+        self.title = @"借款协议";
+    }
 }
 
 

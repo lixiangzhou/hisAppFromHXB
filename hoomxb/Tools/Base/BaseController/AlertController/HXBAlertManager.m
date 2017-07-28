@@ -98,11 +98,23 @@
             [alertVC setClickLeftButtonBlock:^{
                 HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
                 openDepositAccountVC.title = @"开通存管账户";
+                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
             }];
             return;
         }
-
+        ///完善信息
+        if (![viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])
+        {
+            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未完善信息请完善信息后在进行投资" andLeftButtonMassage:@"立即完善" andRightButtonMassage:@"取消"];
+            [alertVC setClickLeftButtonBlock:^{
+                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                openDepositAccountVC.title = @"完善信息";
+                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
+            }];
+            return;
+        }
         ///风险评测
         if ([viewModel.userInfoModel.userInfo.riskType isEqualToString:@"立即评测"]) {
             HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未进行风险评估请评估后在进行投资" andLeftButtonMassage:@"立即评估" andRightButtonMassage:@"我是保守型"];
@@ -128,17 +140,7 @@
         }
         
         
-//        ///完善信息
-//        if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
-//        {
-//             HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未完善信息请完善信息后在进行投资" andLeftButtonMassage:@"立即完善" andRightButtonMassage:@"取消"];
-//            [alertVC setClickLeftButtonBlock:^{
-//                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-//                openDepositAccountVC.title = @"完善信息";
-//                [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
-//            }];
-//            return;
-//        }
+
 //        
         ///条件全部满足
         if (pushBlock) {

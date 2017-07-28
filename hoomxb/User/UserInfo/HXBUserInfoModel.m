@@ -27,6 +27,30 @@
     }
 }
 
+- (void)setLenderEarned:(NSString *)lenderEarned
+{
+    _lenderEarned = lenderEarned;
+    if ([_lenderEarned doubleValue]<0) {
+        _lenderEarned = @"0.00";
+    }
+}
+
+- (void)setFinancePlanAssets:(NSString *)financePlanAssets
+{
+    _financePlanAssets = financePlanAssets;
+    if ([_financePlanAssets doubleValue]<0) {
+        _financePlanAssets = @"0.00";
+    }
+}
+
+- (void)setFinancePlanSumPlanInterest:(NSString *)financePlanSumPlanInterest
+{
+    _financePlanSumPlanInterest = financePlanSumPlanInterest;
+    if ([_financePlanSumPlanInterest doubleValue]<0) {
+        _financePlanSumPlanInterest = @"0.00";
+    }
+}
+
 @end
 @implementation HXBRequestUserInfoAPI_UserInfo
 @end

@@ -7,10 +7,16 @@
 //
 
 #import "HXBBaseViewController.h"
+#import "HXBSignUPAndLoginRequest_EnumManager.h"
 @class HXBBankCardModel;
 ///银行卡绑定
 @interface HxbWithdrawCardViewController : HXBBaseViewController
 
+
+/**
+ type
+ */
+@property (nonatomic, assign) HXBRechargeAndWithdrawalsLogicalJudgment type;
 /**
  提现金额
  */

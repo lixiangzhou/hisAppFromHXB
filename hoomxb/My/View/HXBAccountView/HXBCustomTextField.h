@@ -19,7 +19,7 @@
 @property (nonatomic, strong) UIImage *rightImage;
 @property (nonatomic, assign) BOOL isHidenLine;
 @property (nonatomic, assign) BOOL secureTextEntry;
-
+@property(nonatomic) UIKeyboardType keyboardType;
 /**
  背景按钮点击
  */

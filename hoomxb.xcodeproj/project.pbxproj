@@ -93,6 +93,7 @@
 		4E88A5251F15B7A500BBDF11 /* password.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5241F15B7A500BBDF11 /* password.svg */; };
 		4E88A5271F15CBC500BBDF11 /* back.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5261F15CBC500BBDF11 /* back.svg */; };
 		4E88A5291F1600CB00BBDF11 /* security_code.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5281F1600CB00BBDF11 /* security_code.svg */; };
+		4E8A50291F29CE1400DE1C7D /* HXBUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8A50281F29CE1400DE1C7D /* HXBUserInfoView.m */; };
 		4E8AAE9C1F0B7A4400655544 /* HXBRiskAssessmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAE9B1F0B7A4400655544 /* HXBRiskAssessmentViewController.m */; };
 		4E8AAEA01F0B866C00655544 /* HXBSetGesturePasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAE9F1F0B866C00655544 /* HXBSetGesturePasswordRequest.m */; };
 		4E8CC3141F1F3CAB003DD51F /* HXBPresentInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8CC3131F1F3CAB003DD51F /* HXBPresentInformationView.m */; };
@@ -572,6 +573,8 @@
 		4E88A5241F15B7A500BBDF11 /* password.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = password.svg; sourceTree = "<group>"; };
 		4E88A5261F15CBC500BBDF11 /* back.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = back.svg; sourceTree = "<group>"; };
 		4E88A5281F1600CB00BBDF11 /* security_code.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = security_code.svg; sourceTree = "<group>"; };
+		4E8A50271F29CE1400DE1C7D /* HXBUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBUserInfoView.h; sourceTree = "<group>"; };
+		4E8A50281F29CE1400DE1C7D /* HXBUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBUserInfoView.m; sourceTree = "<group>"; };
 		4E8AAE9A1F0B7A4400655544 /* HXBRiskAssessmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRiskAssessmentViewController.h; sourceTree = "<group>"; };
 		4E8AAE9B1F0B7A4400655544 /* HXBRiskAssessmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRiskAssessmentViewController.m; sourceTree = "<group>"; };
 		4E8AAE9E1F0B866C00655544 /* HXBSetGesturePasswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSetGesturePasswordRequest.h; sourceTree = "<group>"; };
@@ -1898,6 +1901,8 @@
 		4ED2F2751ECAD0BA0014E5C7 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				4E8A50271F29CE1400DE1C7D /* HXBUserInfoView.h */,
+				4E8A50281F29CE1400DE1C7D /* HXBUserInfoView.m */,
 				4ED2F2761ECAD0BA0014E5C7 /* HXBMyBankCell.h */,
 				4ED2F2771ECAD0BA0014E5C7 /* HXBMyBankCell.m */,
 			);
@@ -4305,6 +4310,7 @@
 				4E8198B21EC4502100D668A1 /* BulletinsModel.m in Sources */,
 				E1FF8EDC1F0F66A100C7F1AC /* HXBFin_TableViewCell_LoanTransfer.m in Sources */,
 				E133DCDB1EEE3597009466DE /* HXBLoginManager.m in Sources */,
+				4E8A50291F29CE1400DE1C7D /* HXBUserInfoView.m in Sources */,
 				4E5003371F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m in Sources */,
 				4E8AAEA01F0B866C00655544 /* HXBSetGesturePasswordRequest.m in Sources */,
 				4E94B2771ECBF922003CCBA7 /* HxbHomePageViewModel.m in Sources */,

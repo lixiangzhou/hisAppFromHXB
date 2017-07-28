@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+
 @end

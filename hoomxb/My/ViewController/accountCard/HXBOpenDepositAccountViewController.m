@@ -57,6 +57,9 @@
             HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
             if (!KeyChain.isLogin)  return;
             [self.navigationController pushViewController:withdrawViewController animated:YES];
+        }else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
+        {
+            [self.navigationController popViewControllerAnimated:YES];
         }
     } andFailureBlock:^(NSError *error) {
         
@@ -80,6 +83,7 @@
             NSLog(@"《存管开户协议》");
             HXBFinLoanTruansfer_ContraceWebViewVC *webViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc] init];
             webViewVC.URL = kHXB_Negotiate_depository;
+            webViewVC.title = @"存管协议";
             [weakSelf.navigationController pushViewController:webViewVC animated:true];
         }];
     }

@@ -45,6 +45,8 @@ typedef enum : NSUInteger {
     HXBRechargeAndWithdrawalsLogicalJudgment_Recharge,
     ///提现
     HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals,
+    ///其他的
+    HXBRechargeAndWithdrawalsLogicalJudgment_Other
 } HXBRechargeAndWithdrawalsLogicalJudgment;
 
 ///枚举管理类

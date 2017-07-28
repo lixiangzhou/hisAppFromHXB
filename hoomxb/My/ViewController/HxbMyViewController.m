@@ -136,12 +136,14 @@
         //进入绑卡界面
         HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
         withdrawCardViewController.title = @"绑卡";
+        withdrawCardViewController.type = type;
         [self.navigationController pushViewController:withdrawCardViewController animated:YES];
     }else if (!([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
     {
         //完善信息
         HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
         openDepositAccountVC.title = @"完善信息";
+        openDepositAccountVC.type = type;
         [self.navigationController pushViewController:openDepositAccountVC animated:YES];
     }else
     {
