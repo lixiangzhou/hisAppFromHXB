@@ -124,7 +124,7 @@
     NSMutableArray <UIView *>*allViewArray = [[NSMutableArray alloc]init];
     
     if (![class isSubclassOfClass:[UIView class]]) {
-        NSLog(@"%@ 🌶 不能创建非 view类型",self);
+        NSLog(@"%@ 🌶 不能创建非 view类型  - setUPViewsCreatWithTopBottomViewNumber -",self);
         return;
     }
     for (NSInteger i = 1; i < topBottomViewNumber * 2 + 1; i ++) {
@@ -210,12 +210,9 @@
 
 @implementation HXBBaseView_MoreTopBottomViewManager
 - (void)setRightStrArray:(NSArray<NSString *> *)rightStrArray {
-    if (!rightStrArray) {
+    if (!rightStrArray.count) {
         NSLog(@"🌶 没有数据 -- %@",self);
     }
     _rightStrArray = rightStrArray;
 }
-
-
-
 @end

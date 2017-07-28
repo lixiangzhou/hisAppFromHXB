@@ -31,6 +31,10 @@
 
 ///左边的月数
 @property (nonatomic,copy) NSString *leftMonths;
+/**
+ 标的期限
+ */
+@property (nonatomic,copy) NSString *months;
 
 ///收益方法
 @property (nonatomic,copy) NSString *loanType;
@@ -46,7 +50,6 @@
  标的期限
  */
 @property (nonatomic,copy) NSString * lockPeriodStr;
-
 /**
  ///确认加入的Buttonstr
  */

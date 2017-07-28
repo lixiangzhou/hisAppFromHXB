@@ -40,8 +40,7 @@
 @end
 
 @implementation HXBFBase_BuyResult_VC
-
-
+@synthesize buy_massageCount = _buy_massageCount;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUP];
@@ -77,14 +76,15 @@
         [self.buy_descriptionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(view.mas_centerX).offset(kScrAdaptationH750(26));
             make.top.equalTo(view.mas_bottom).offset(kScrAdaptationW750(40));
-            make.height.equalTo(@(kScrAdaptationH750(30)));
+            make.left.lessThanOrEqualTo(self.view).offset(kScrAdaptationW750(26 + 8 + 40));
+            make.right.lessThanOrEqualTo(self.view).offset(kScrAdaptationW750(-40));
         }];
-        view = self.buy_descriptionLabel;
         [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(view.mas_left).offset(kScrAdaptationW750(-26));
-            make.centerY.equalTo(view);
+            make.top.equalTo(self.buy_descriptionLabel).offset(kScrAdaptationH750(6));
+            make.right.equalTo(self.buy_descriptionLabel.mas_left).offset(kScrAdaptationW750(-8));
             make.height.width.equalTo(@(kScrAdaptationH750(26)));
         }];
+        view = self.buy_descriptionLabel;
     }
     if(self.midStr) {
         self.midLabel = [[UILabel alloc]init];
@@ -115,6 +115,9 @@
         viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
         viewManager.leftTextColor = kHXBColor_Grey_Font0_2;
         viewManager.rightTextColor = kHXBColor_Font0_6;
+        viewManager.leftLabelAlignment = NSTextAlignmentLeft;
+        viewManager.rightLabelAlignment = NSTextAlignmentRight;
+        
         return viewManager;
     }];
     
@@ -156,7 +159,12 @@
     }
     return _buy_massageLabel;
 }
-
+- (NSInteger) buy_massageCount {
+    if(!_buy_massageCount) {
+        _buy_massageCount = self.massage_Left_StrArray.count;
+    }
+    return _buy_massageCount;
+}
 - (UILabel *)buy_descriptionLabel {
     if (!_buy_descriptionLabel) {
         _buy_descriptionLabel = [[UILabel alloc]init];

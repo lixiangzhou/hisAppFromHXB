@@ -23,6 +23,10 @@ static NSString *kHXB_FinPlan_Leave = @"到期退出";
 
 @interface HXBFinBase_FlowChartView : UIView
 /**
+
+ */
+@property (nonatomic,copy) NSString * isDontDrowLastArt;
+/**
  第几个阶段
  加入中，开始收益，到期退出
  */

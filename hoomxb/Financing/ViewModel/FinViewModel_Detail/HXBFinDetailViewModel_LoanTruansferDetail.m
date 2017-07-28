@@ -58,7 +58,7 @@
  */
 - (NSString *)startIncrease_Amount {
     if (!_startIncrease_Amount) {
-        _startIncrease_Amount = [NSString stringWithFormat:@"%@起投%@递增",self.loanTruansferDetailModel.minInverst,self.loanTruansferDetailModel.loanVo.finishedRatio];
+        _startIncrease_Amount = [NSString stringWithFormat:@"%.0lf起投%.0lf递增",self.loanTruansferDetailModel.minInverst.floatValue,self.loanTruansferDetailModel.loanVo.finishedRatio.floatValue];
     }
     return _startIncrease_Amount;
 }
@@ -78,7 +78,7 @@
  */
 - (NSString *) leftMonths {
     if (!_leftMonths) {
-        _leftMonths = [NSString stringWithFormat:@"%@个月",self.loanTruansferDetailModel.loanVo.months];
+        _leftMonths = [NSString stringWithFormat:@"%@个月",self.loanTruansferDetailModel.loanVo.leftMonths];
     }
     return _leftMonths;
 }
@@ -144,6 +144,12 @@
     return _repaymentType;
 }
 
-
+- (NSString *)nextRepayDate {
+    if (!_nextRepayDate) {
+        NSDate *nextDate = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.loanTruansferDetailModel.loanVo.nextRepayDate andDateFormatter:@"yyyy-MM-dd"];
+        _nextRepayDate = [[HXBBaseHandDate sharedHandleDate] stringFromDate:nextDate andDateFormat:@"MM-dd"];
+    }
+    return _nextRepayDate;
+}
 
 @end

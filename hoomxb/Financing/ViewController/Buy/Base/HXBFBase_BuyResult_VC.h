@@ -35,14 +35,15 @@
  */
 @property (nonatomic,copy) NSArray *massage_Left_StrArray;
 /**
+ 右边的string Array
+ */
+@property (nonatomic,copy) NSArray *massage_Right_StrArray;
+/**
  (可能没有，在button的顶部 100的地方)
  居中的label
  */
 @property (nonatomic,copy) NSString *midStr;
 
-/**
- 右边的string Array
- */
-@property (nonatomic,copy) NSArray *massage_Right_StrArray;
+
 - (void)clickButtonWithBlock:(void(^)())clickButtonBlock;
 @end

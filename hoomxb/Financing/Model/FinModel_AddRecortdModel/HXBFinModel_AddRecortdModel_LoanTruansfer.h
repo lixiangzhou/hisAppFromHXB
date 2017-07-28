@@ -10,13 +10,21 @@
 
 @interface HXBFinModel_AddRecortdModel_LoanTruansfer : HXBBaseModel
 /**
- 用户名
+债权出售人
  */
-@property (nonatomic,copy) NSString * userName;
-@property (nonatomic,copy) NSString *userName_Hidden;
+@property (nonatomic,copy) NSString *fromUserId;
 /**
- 待收本金
+债权购买人
  */
-@property (nonatomic,copy) NSString * principal;
-@property (nonatomic,copy) NSString * principal_YUAN;
+@property (nonatomic,copy) NSString *toUserId;
+/**
+交易金额
+ */
+@property (nonatomic,copy) NSString *amount;
+/**
+转让时间
+ */
+@property (nonatomic,copy) NSString *createTime;
+
+@property (nonatomic,copy) NSString *index;
 @end

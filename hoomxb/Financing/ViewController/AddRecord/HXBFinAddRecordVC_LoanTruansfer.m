@@ -25,8 +25,8 @@
 }
 
 - (void)downLoadDataWihtIsUPLoad:(BOOL)isUPLoad{
-    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansferAddRecortdWithISUPLoad:isUPLoad andFinanceLoanId:self.loanTruansferID andOrder:nil andSuccessBlock:^(FinModel_AddRecortdModel_Loan *loanTruansferRecortdModel) {
-        self.addRecortdTableView.loanModel = loanTruansferRecortdModel;
+    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansferAddRecortdWithISUPLoad:isUPLoad andFinanceLoanId:self.loanTruansferID andOrder:nil andSuccessBlock:^(NSArray<HXBFinModel_AddRecortdModel_LoanTruansfer *> *loanTruansferRecortdModelArray) {
+        self.addRecortdTableView.loanTruansferModelArray = loanTruansferRecortdModelArray;
     } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
         NSString *massage = request.responseObject[kResponseMessage] ? request.responseObject[kResponseMessage] : @"请求失败";
         [HxbHUDProgress showMessageCenter:massage inView:self.view];
@@ -57,6 +57,13 @@
     
 }
 
+
+//- (HXBFinAddRecortdTableView_Plan *)addRecortdTableView {
+//    if (!_addRecortdTableView) {
+//        _addRecortdTableView = [[HXBFinAddRecortdTableView_Plan alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
+//    }
+//    return _addRecortdTableView;
+//}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

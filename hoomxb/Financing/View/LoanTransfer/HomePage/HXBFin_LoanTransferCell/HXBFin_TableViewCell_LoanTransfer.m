@@ -37,6 +37,7 @@
 @property (nonatomic,strong) HXBFinHomePageViewModel_LoanTruansferViewModel *manager;
 
 @property (nonatomic,copy) void (^clickCellBlock)(NSIndexPath *index, id model);
+
 @end
 @implementation HXBFin_TableViewCell_LoanTransfer
 
@@ -65,11 +66,18 @@
     _stutasButton.layer.masksToBounds = true;
     _stutasButton.backgroundColor = kHXBColor_Red_090303;
     _stutasButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
-    
+    [_stutasButton addTarget:self action:@selector(clickStutasButton:) forControlEvents:UIControlEventTouchUpInside];
     _loanLable = [[UILabel alloc]init];
     _loanImageView = [[UIImageView alloc]init];
 }
 
+- (void)clickStutasButton:(UIButton *)button {
+    NSLog(@"转让中按钮被点击");
+    if (self.clickStutasButtonBlock) {
+        self.clickStutasButtonBlock(self.LoanTruansferViewModel);
+        return;
+    }
+}
 - (void)setUPFrames {
     NSArray <UIView *>*array = @[
                                  _interestView,
@@ -157,7 +165,7 @@
     }];
     [self.remainMonthsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         viewModelVM.leftLabelStr = LoanTruansferViewModel.loanTruansferListModel.leftMonths;
-        viewModelVM.rightLabelStr = @"剩余期限";
+        viewModelVM.rightLabelStr = @"剩余期限(月)";
         viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);

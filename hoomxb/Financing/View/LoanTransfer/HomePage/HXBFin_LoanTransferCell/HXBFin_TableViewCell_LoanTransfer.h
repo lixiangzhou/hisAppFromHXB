@@ -13,4 +13,5 @@
  债转模型
  */
 @property (nonatomic,strong) HXBFinHomePageViewModel_LoanTruansferViewModel *LoanTruansferViewModel;
+@property (nonatomic,copy) void(^clickStutasButtonBlock)(id model);
 @end
