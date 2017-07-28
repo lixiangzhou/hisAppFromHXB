@@ -15,6 +15,7 @@
 #import "HXBModifyGesturePasswordController.h"//修改手势密码
 #import "HxbSecurityCertificationViewController.h"//安全认证
 #import "HXBCheckLoginPasswordViewController.h"//验证登录密码
+#import "HXBOpenDepositAccountViewController.h"
 @interface HxbMyAccountSecurityViewController ()
 <
 UITableViewDataSource,UITableViewDelegate
@@ -56,24 +57,15 @@ UITableViewDataSource,UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     kWeakSelf
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {//表示安全认证
-            //跳转安全认证
-            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
-            securityCertificationVC.userInfoViewModel = self.userInfoViewModel;
-            [self.navigationController pushViewController:securityCertificationVC animated:YES];
-        }
-        if (indexPath.row == 1) {//点击绑定手机号
-            [KeyChain isMobilePassedWithBlock:^(NSString *mobilePassed) {
-                if ([mobilePassed isEqualToString:@"1"]) {
-                    HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-                    modifyTransactionPasswordVC.title = @"修改绑定手机号";
-                    modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
-                    [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-                }
-            }];
-            NSLog(@"click 绑定手机号");
-            
-        }
+        [KeyChain isMobilePassedWithBlock:^(NSString *mobilePassed) {
+            if ([mobilePassed isEqualToString:@"1"]) {
+                HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+                modifyTransactionPasswordVC.title = @"修改绑定手机号";
+                modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
+                [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+            }
+        }];
+        NSLog(@"click 绑定手机号");
     }else if(indexPath.section == 1){
         
         if (indexPath.row == 0) {
@@ -83,18 +75,31 @@ UITableViewDataSource,UITableViewDelegate
             [self.navigationController pushViewController: signUPVC animated:true];
         }else if (indexPath.row == 1){
             NSLog(@"click 设置交易密码");
-            [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-                if ([isVerify isEqualToString:@"1"]) {
+            //                    //跳转安全认证
+            //                    HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
+            //                    [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
+            
+            [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+                if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
                     HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
                     modifyTransactionPasswordVC.title = @"修改交易密码";
                     modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
                     [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
                 }else
                 {
-                    //跳转安全认证
-                    HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
-                    [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
+                    HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                    if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+                        //开通存管银行账户
+                        openDepositAccountVC.title = @"开通存管账户";
+                    }else
+                    {
+                        openDepositAccountVC.title = @"完善信息";
+                    }
+                    openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                    [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
                 }
+            } andFailure:^(NSError *error) {
+                
             }];
             
         }else{
@@ -139,36 +144,22 @@ UITableViewDataSource,UITableViewDelegate
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
        if (indexPath.section == 0){
-
-        if (indexPath.row == 0) {
-             if ([self.userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"])
-             {
-                 cell.textLabel.text = @"身份信息";
-                 cell.detailTextLabel.text = self.idPassedStr;
-             }else
-             {
-                 cell.textLabel.text = @"安全认证";
-             }
-            
-           
-        }else if (indexPath.row == 1){
-            cell.textLabel.text = @"绑定手机号";
-            cell.detailTextLabel.text = self.phonNumber;
-        }
+           cell.textLabel.text = @"绑定手机号";
+           cell.detailTextLabel.text = self.phonNumber;
     }else{
         if (indexPath.row == 0) {
             cell.textLabel.text = @"登录密码";
-            cell.detailTextLabel.text = @"修改";
+//            cell.detailTextLabel.text = @"修改";
         }else if (indexPath.row == 1){
             cell.textLabel.text = @"交易密码";
-            cell.detailTextLabel.text = @"修改";
+//            cell.detailTextLabel.text = @"修改";
         }else{
-            if (KeyChain.gesturePwd.length) {
-                cell.detailTextLabel.text = @"修改";
-            }else
-            {
-                cell.detailTextLabel.text = @"设置";
-            }
+//            if (KeyChain.gesturePwd.length) {
+//                cell.detailTextLabel.text = @"修改";
+//            }else
+//            {
+//                cell.detailTextLabel.text = @"设置";
+//            }
             cell.textLabel.text = @"手势密码";
         }
 
@@ -177,7 +168,7 @@ UITableViewDataSource,UITableViewDelegate
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  (section == 0)? 2 : 3;
+    return  (section == 0)? 1 : 3;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

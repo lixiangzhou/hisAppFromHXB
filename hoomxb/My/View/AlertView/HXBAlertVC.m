@@ -178,9 +178,8 @@
 - (void)checkTransactionPasswordWithBtn:(UIButton *)btn
 {
     if ([btn.titleLabel.text isEqualToString:@"确定"]) {
-        NSString *message = [NSString isOrNoPasswordStyle:self.pwdField.text];
-        if (message.length > 0) {
-            [HxbHUDProgress showMessage:message inView:self.contentView];
+        if (self.pwdField.text.length != 6) {
+            [HxbHUDProgress showMessage:@"交易密码为6位数字" inView:self.contentView];
             return;
         }else
         {
@@ -274,6 +273,7 @@
         _pwdField = [[UITextField alloc] init];
         _pwdField.placeholder = @"请输入交易密码";
         _pwdField.secureTextEntry = YES;
+        _pwdField.keyboardType = UIKeyboardTypeNumberPad;
 //        _pwdField.layer.borderWidth = 0.5;
 //        _pwdField.layer.borderColor = COR12.CGColor;
     }

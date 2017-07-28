@@ -11,14 +11,10 @@
 
 @interface HXBMyBankCell ()
 
-@property (nonatomic, strong) UIImageView *bankImageView;
-@property (nonatomic, strong) UIView *bankImageContainer;
 
-@property (nonatomic, strong) UILabel *bankTitleLabel;
-@property (nonatomic, strong) UILabel *cardTypeLabel;
-@property (nonatomic, strong) UILabel *cardNumLabel;
-@property (nonatomic, strong) UIView *cornerView;
 @property (nonatomic, strong) UIView *backView;
+
+@property (nonatomic, strong) HXBBaseView_MoreTopBottomView *moreTopBottomView;
 
 @end
 
@@ -31,16 +27,10 @@
         self.contentView.backgroundColor = [UIColor clearColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        //        [self.contentView addSubview:self.cornerView];
         [self.contentView addSubview:self.backView];
-        
-        [self.backView addSubview:self.bankImageContainer];
-        [self.bankImageContainer addSubview:self.bankImageView];
-        
-        [self.backView addSubview:self.bankTitleLabel];
-        [self.backView addSubview:self.cardTypeLabel];
-        [self.backView addSubview:self.cardNumLabel];
+        [self.backView addSubview:self.moreTopBottomView];
 //        [self.cardNumLabel setLabelSpace:2 font:HXB_Text_Font(SIZ11) str:[model bankStrWithHiddenNum]];
+        
     }
     return self;
 }
@@ -49,20 +39,23 @@
 - (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
 {
     _bankCardModel = bankCardModel;
-    self.bankTitleLabel.text = bankCardModel.bankType;
-    self.cardNumLabel.text = [bankCardModel.cardId hxb_hiddenBankCard];
-    
+    [self.moreTopBottomView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+        viewManager.leftStrArray = @[@"安全认证",@"姓名",@"身份证",@"存管开通协议"];
+        return viewManager;
+    }];
+}
+
+- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
+{
+    _userInfoViewModel = userInfoViewModel;
+    [self.moreTopBottomView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+        viewManager.leftStrArray = @[@"安全认证",@"姓名",@"身份证",@"存管开通协议"];
+        return viewManager;
+    }];
 }
 
 #pragma mark Get
-- (UIView *)cornerView
-{
-    if (!_cornerView) {
-        _cornerView = [[UIView alloc]initWithFrame:CGRectMake(12, 0, SCREEN_WIDTH - 24, 24)];
-        _cornerView.layer.cornerRadius = 12.f;
-    }
-    return _cornerView;
-}
+
 
 - (UIView *)backView
 {
@@ -74,56 +67,17 @@
     return _backView;
 }
 
-- (UIView *)bankImageContainer
+- (HXBBaseView_MoreTopBottomView *)moreTopBottomView
 {
-    if (!_bankImageContainer) {
-        
-        _bankImageContainer = [UIView new];
-        _bankImageContainer.backgroundColor = [UIColor whiteColor];
-        _bankImageContainer.frame = CGRectMake(16, 16, 30, 30);
-        _bankImageContainer.layer.cornerRadius = _bankImageContainer.width/2;
+    if (!_moreTopBottomView) {
+        _moreTopBottomView = [[HXBBaseView_MoreTopBottomView alloc] initWithFrame:self.backView.bounds andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:12 andTopBottomSpace:10 andLeftRightLeftProportion:10 Space:UIEdgeInsetsMake(10, 10, 10, 10)];
         
     }
-    return _bankImageContainer;
+    return _moreTopBottomView;
 }
 
-- (UIImageView *)bankImageView
-{
-    if (!_bankImageView) {
-        _bankImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 24, 24)];
-        _bankImageView.center = CGPointMake(_bankImageContainer.width/2, _bankImageContainer.height/2);
-        
-    }
-    return _bankImageView;
-}
 
-- (UILabel *)bankTitleLabel
-{
-    if (!_bankTitleLabel) {
-        _bankTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_bankImageContainer.frame) + 16, 16, SCREEN_WIDTH - 70, SIZ12)];
-        _bankTitleLabel.font = HXB_Text_Font(SIZ12);
-        _bankTitleLabel.textColor = [UIColor blackColor];
-    }
-    return _bankTitleLabel;
-}
 
-- (UILabel *)cardTypeLabel
-{
-    if (!_cardTypeLabel) {
-        _cardTypeLabel = [[UILabel alloc]initWithFrame:CGRectMake(_bankTitleLabel.x, CGRectGetMaxY(_bankTitleLabel.frame) + 10, 100, SIZ15)];
-        _cardTypeLabel.textColor = COR15;
-        _cardTypeLabel.font = HXB_Text_Font(SIZ15);
-    }
-    return _cardTypeLabel;
-}
 
-- (UILabel *)cardNumLabel
-{
-    if (!_cardNumLabel) {
-        _cardNumLabel = [[UILabel alloc]initWithFrame:CGRectMake(_bankTitleLabel.x, _backView.height - 40.5, SCREEN_WIDTH - 70, SIZ11)];
-        _cardNumLabel.textColor = [UIColor blackColor];
-    }
-    return _cardNumLabel;
-}
 
 @end

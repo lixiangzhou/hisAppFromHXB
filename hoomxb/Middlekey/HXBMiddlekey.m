@@ -27,6 +27,7 @@
             if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 //开通存管银行账户
                 openDepositAccountVC.title = @"开通存管账户";
+                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [nav pushViewController:openDepositAccountVC animated:YES];
                 
             } else if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
@@ -34,11 +35,13 @@
                 //进入绑卡界面
                 HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
                 withdrawCardViewController.title = @"绑卡";
+                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [nav pushViewController:withdrawCardViewController animated:YES];
             }else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
             {
                 //完善信息
                 openDepositAccountVC.title = @"完善信息";
+                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [nav pushViewController:openDepositAccountVC animated:YES];
             }else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
                 //跳转立即投资

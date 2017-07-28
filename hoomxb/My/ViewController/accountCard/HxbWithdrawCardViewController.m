@@ -18,6 +18,7 @@
 
 #import "HxbMyTopUpViewController.h"
 #import "HXBOpenDepositAccountRequest.h"
+#import "HxbWithdrawViewController.h"
 @interface HxbWithdrawCardViewController () <UITextFieldDelegate>
 
 /**
@@ -93,15 +94,20 @@
 }
 
 - (void)nextButtonClick:(NSDictionary *)dic{
-    //充值界面
-    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-    
-    
+    kWeakSelf
     HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [openDepositAccountRequest openDepositAccountRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
-        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+        if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
+            HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+            [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+        }else if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
+            HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+            if (!KeyChain.isLogin)  return;
+            [self.navigationController pushViewController:withdrawViewController animated:YES];
+        }else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
+        {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }
     } andFailureBlock:^(NSError *error) {
         
     }];

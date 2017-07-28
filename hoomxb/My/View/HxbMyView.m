@@ -14,6 +14,7 @@
 #import "HXBMY_LoanListViewController.h"///散标 列表的VC
 #import "HXBMY_CapitalRecordViewController.h"//资产记录
 
+
 @interface HxbMyView ()
 <
 UITableViewDelegate,
@@ -22,7 +23,7 @@ MyViewHeaderDelegate
 >
 @property (nonatomic, strong) UITableView *mainTableView;
 @property (nonatomic, strong) HxbMyViewHeaderView *headerView;
-@property (nonatomic, strong) UIButton *signOutButton;
+//@property (nonatomic, strong) UIButton *signOutButton;
 @property (nonatomic, copy) void(^clickAllFinanceButtonWithBlock)(UILabel *button);
 @end
 
@@ -35,7 +36,6 @@ MyViewHeaderDelegate
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.mainTableView];
-        [self.mainTableView addSubview:self.signOutButton];
 
     }
     return self;
@@ -65,25 +65,25 @@ MyViewHeaderDelegate
 - (void)didClickRightHeadBtn{
     
 }
-//登出按钮事件
-- (void)signOutButtonButtonClick:(UIButton *)sender{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您确定要退出登录吗？" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        NSLog(@"%@",action.title);
-    }];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        [KeyChain signOut];
-        [(HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController setSelectedIndex:0];
-    }];
-    [alertController addAction:cancelAction];
-    [alertController addAction:okAction];
-     HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-    [vc presentViewController:alertController animated:YES completion:nil];
-    
-    //    UIViewController *VC =[[UIViewController alloc]init];
-    //    VC.view.backgroundColor = [UIColor redColor];
-    //    [self.navigationController pushViewController:VC animated:true];
-}
+////登出按钮事件
+//- (void)signOutButtonButtonClick:(UIButton *)sender{
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您确定要退出登录吗？" preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+//        NSLog(@"%@",action.title);
+//    }];
+//    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//        [KeyChain signOut];
+//        [(HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController setSelectedIndex:0];
+//    }];
+//    [alertController addAction:cancelAction];
+//    [alertController addAction:okAction];
+//     HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+//    [vc presentViewController:alertController animated:YES completion:nil];
+//    
+//    //    UIViewController *VC =[[UIViewController alloc]init];
+//    //    VC.view.backgroundColor = [UIColor redColor];
+//    //    [self.navigationController pushViewController:VC animated:true];
+//}
 
 - (void)setIsStopRefresh_Home:(BOOL)isStopRefresh_Home{
     _isStopRefresh_Home = isStopRefresh_Home;
@@ -190,12 +190,12 @@ MyViewHeaderDelegate
     return _headerView;
 }
 
-//登出按钮
-- (UIButton *)signOutButton{
-    if (!_signOutButton) {
-        _signOutButton = [UIButton btnwithTitle:@"Sign Out" andTarget:self andAction:@selector(signOutButtonButtonClick:) andFrameByCategory:CGRectMake(20, SCREEN_HEIGHT - 100, SCREEN_WIDTH - 40, 44)];
-    }
-    return _signOutButton;
-}
+////登出按钮
+//- (UIButton *)signOutButton{
+//    if (!_signOutButton) {
+//        _signOutButton = [UIButton btnwithTitle:@"Sign Out" andTarget:self andAction:@selector(signOutButtonButtonClick:) andFrameByCategory:CGRectMake(20, SCREEN_HEIGHT - 100, SCREEN_WIDTH - 40, 44)];
+//    }
+//    return _signOutButton;
+//}
 
 @end

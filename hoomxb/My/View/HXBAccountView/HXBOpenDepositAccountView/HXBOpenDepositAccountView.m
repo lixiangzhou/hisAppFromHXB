@@ -207,8 +207,8 @@
         isNull = YES;
         return isNull;
     }
-    if (!(self.pwdTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"交易密码没有填写" inView:self];
+    if (self.pwdTextField.text.length != 6) {
+        [HxbHUDProgress showMessageCenter:@"交易密码为6位数字" inView:self];
         isNull = YES;
         return isNull;
     }
@@ -267,6 +267,7 @@
         _pwdTextField = [[HXBCustomTextField alloc] init];
         _pwdTextField.leftImage = [SVGKImage imageNamed:@"transaction_password.svg"].UIImage;
         _pwdTextField.placeholder = @"交易密码";
+        _pwdTextField.keyboardType = UIKeyboardTypeNumberPad;
         _pwdTextField.secureTextEntry = YES;
     }
     return _pwdTextField;

@@ -139,6 +139,11 @@
     return self.textField.text;
 }
 
+- (void)setKeyboardType:(UIKeyboardType)keyboardType
+{
+    _keyboardType = keyboardType;
+    _textField.keyboardType = keyboardType;
+}
 #pragma mark - 懒加载
 - (UIButton *)eyeBtn
 {
