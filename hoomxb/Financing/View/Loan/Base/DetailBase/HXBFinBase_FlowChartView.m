@@ -25,6 +25,9 @@
  同心圆的view
  */
 @property (nonatomic,strong) HXBBaseViewConcentricCirclesView *concentricCirclesView;
+@property (nonatomic,strong) HXBBaseViewConcentricCirclesView *concentricCirclesView_red;
+///收益中
+@property (nonatomic,strong) UILabel *profitLabel;
 /**
  渐变的View
  */
@@ -38,6 +41,7 @@
  加入中
  */
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *statusLableView;
+
 @end
 
 
@@ -125,19 +129,23 @@
         make.right.equalTo(self.concentricCirclesView).offset(kScrAdaptationW(-5));
         make.height.equalTo(@(kScrAdaptationH(18)));
     }];
-    [self.colourGradientView_adding mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.concentricCirclesView.mas_centerY);
-        make.right.equalTo(self.concentricCirclesView.mas_centerX);
-        make.left.equalTo(self.concentricCirclesView).offset(kScrAdaptationW(5));
-        make.height.equalTo(@(kScrAdaptationH(18)));
-    }];
+//    [self.colourGradientView_adding mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.concentricCirclesView.mas_centerY);
+//        make.right.equalTo(self.concentricCirclesView.mas_centerX);
+//        make.left.equalTo(self.concentricCirclesView).offset(kScrAdaptationW(5));
+//        make.height.equalTo(@(kScrAdaptationH(18)));
+//    }];
     [self.concentricCirclesView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_top).offset(kScrAdaptationH(63));
         make.left.equalTo(self.addView);
         make.right.equalTo(self.levaeView);
         make.height.equalTo(@(kScrAdaptationH(15)));
     }];
-  
+  [self.profitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+      make.bottom.equalTo(self).offset(kScrAdaptationH(-15));
+      make.centerX.equalTo(self.colourGradientView_profiting);
+      make.top.equalTo(self.mas_centerY).offset(kScrAdaptationH(13));
+  }];
     [self.statusLableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).offset(kScrAdaptationH(-15));
         make.top.equalTo(self).offset(kScrAdaptationH(76));
@@ -157,7 +165,7 @@
     self.colourGradientView_profiting.endPoint = CGPointMake(0, kScrAdaptationH(18));
     self.colourGradientView_adding.endPoint = CGPointMake(0, kScrAdaptationH(18));
     self.concentricCirclesView.stage = self.stage;
-    
+    self.concentricCirclesView.isDontDrowLastArt = self.isDontDrowLastArt;
 }
 
 
@@ -197,17 +205,45 @@
 - (HXBBaseViewConcentricCirclesView *)concentricCirclesView {
     if (!_concentricCirclesView) {
         _concentricCirclesView = [[HXBBaseViewConcentricCirclesView alloc]init];
+        ///第几个为空心圆
+        _concentricCirclesView.stage = 1;
         [self addSubview:_concentricCirclesView];
         ///同心圆 外圆直径
-        _concentricCirclesView.excircleDiameter = kScrAdaptationH(10);
+        _concentricCirclesView.excircleDiameter = 10;
         ///同心圆 内圆直径
-        _concentricCirclesView.insideCircularDiameter = kScrAdaptationH(5);
+        _concentricCirclesView.insideCircularDiameter = 5;
         ///同心圆的个数
         _concentricCirclesView.circularCount = 3;
+        _concentricCirclesView.excircleLineWidth = 0.5;
         ///线高
-        _concentricCirclesView.lineHeight = kScrAdaptationH(1);
+        _concentricCirclesView.excircleLineWidth = 0.5;
+        _concentricCirclesView.lineHeight = 0.3;
+        ///灰色颜色 线、外切圆、内切圆
+        _concentricCirclesView.lineColor = RGBA(216, 216, 216, 1);
+        _concentricCirclesView.excircleLineColor = RGBA(216, 216, 216, 1);
+        _concentricCirclesView.inscribedCircleColor = RGBA(245, 81, 81, 1);
     }
     return _concentricCirclesView;
+}
+/**
+ 同心圆的view
+ */
+- (HXBBaseViewConcentricCirclesView *)concentricCirclesView_red {
+    if (!_concentricCirclesView) {
+        _concentricCirclesView = [[HXBBaseViewConcentricCirclesView alloc]init];
+        [self addSubview:_concentricCirclesView];
+        ///同心圆 外圆直径
+        _concentricCirclesView.excircleDiameter = 10;
+        ///同心圆 内圆直径
+        _concentricCirclesView.insideCircularDiameter = 5;
+        ///同心圆的个数
+        _concentricCirclesView.circularCount = 3;
+        _concentricCirclesView.excircleLineWidth = 0.5;
+        ///线高
+        _concentricCirclesView.lineHeight = 0.3;
+    }
+    return _concentricCirclesView;
+   
 }
 /**
  渐变色
@@ -229,6 +265,16 @@
         [self insertSubview:_colourGradientView_adding atIndex:0];
     }
     return _colourGradientView_adding;
+}
+- (UILabel *)profitLabel {
+    if (!_profitLabel) {
+        _profitLabel = [[UILabel alloc]init];
+        [self addSubview:_profitLabel];
+        _profitLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        _profitLabel.textColor = kHXBColor_Grey_Font0_2;
+        _profitLabel.text = @"收益中";
+    }
+    return _profitLabel;
 }
 /**
  状态

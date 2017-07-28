@@ -9,6 +9,7 @@
 #import "HXBFinAddRecortdTableView_Plan.h"
 #import "FinModel_AddRecortdModel_Loan.h"
 ///红利计划加入记录的model
+#import "HXBFinModel_AddRecortdModel_LoanTruansfer.h"
 #import "HXBFinModel_AddRecortdModel_Plan.h"
 static NSString *CELLID = @"CELLID";
 @interface HXBFinAddRecortdTableView_Plan ()
@@ -30,6 +31,12 @@ UITableViewDataSource
     _loanModel = loanModel;
     [self reloadData];
 }
+
+- (void)setLoanTruansferModelArray:(NSArray<HXBFinModel_AddRecortdModel_LoanTruansfer *> *)loanTruansferModelArray{
+    _loanTruansferModelArray = loanTruansferModelArray;
+    [self reloadData];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setUP];
@@ -49,6 +56,8 @@ UITableViewDataSource
     if (self.addRecortdModel_Plan.dataList.count) {
         return self.addRecortdModel_Plan.dataList.count;
     }
+    if (self.loanTruansferModelArray.count) return self.loanTruansferModelArray.count;
+    
     return self.loanModel.loanLenderRecord_list.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -59,7 +68,10 @@ UITableViewDataSource
     if (self.loanModel.loanLenderRecord_list.count) {
         planCell.loanModel = self.loanModel.loanLenderRecord_list[indexPath.row];
     }
-    
+    if (self.loanTruansferModelArray.count) {
+        HXBFinModel_AddRecortdModel_LoanTruansfer *loanTruansferModel = self.loanTruansferModelArray[indexPath.row];
+        [planCell showWithNumber:loanTruansferModel.index andID:loanTruansferModel.toUserId andDate:loanTruansferModel.createTime andAmount:loanTruansferModel.amount];
+    }
     return planCell;
 }
 @end
@@ -73,7 +85,12 @@ UITableViewDataSource
     UILabel *_dateLabel;
     UILabel *_YUANLable;
 }
-
+- (void)showWithNumber: (NSString *)number andID:(NSString *)ID andDate:(NSString *)date andAmount:(NSString *)amount {
+    _numberLabel.text   = number;
+    _IDLabel.text       = ID;
+    _dateLabel.text     = date;
+    _YUANLable.text     = amount;
+}
 - (void)setAddRecortdModel_plan_dataList:(HXBFinModel_AddRecortdModel_Plan_dataList *)addRecortdModel_plan_dataList {
     _addRecortdModel_plan_dataList = addRecortdModel_plan_dataList;
 
@@ -90,6 +107,7 @@ UITableViewDataSource
     _dateLabel.text     = loanModel.lendTime;
     _YUANLable.text     = loanModel.amount;
 }
+
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {

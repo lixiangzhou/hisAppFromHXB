@@ -67,11 +67,11 @@
     [super drawRect:rect];
     CGContextRef context = UIGraphicsGetCurrentContext();
     //    [self layoutIfNeeded];
-    NSAssert(self.stage < self.circularCount,@"🌶注意，同心圆的个数不能为负数stage = %ld，circularCount = %ld",(long)self.stage,(long)self.circularCount);
-    for (int i = 0; i < self.concentricCirclesLocationArray.count; i ++) {
+//    NSAssert(self.stage < self.circularCount,@"🌶注意，同心圆的个数不能为负数stage = %ld，circularCount = %ld",(long)self.stage,(long)self.circularCount);
+    for (int i = 0; i < self.concentricCirclesLocationArray.count - self.isDontDrowLastArt; i ++) {
         //画圆
         BOOL isConcentricCircles = NO;
-        if (i < _stage) {
+        if (i < self.stage) {
             isConcentricCircles = true;
         }
         CGRect location_Arc = [self.concentricCirclesLocationArray[i] CGRectValue];
@@ -100,6 +100,7 @@
     
     ///画 外切圆与内切圆中间的圆
     [self draw_Arc_Outside_WihtContext:context andRect:rect andConcentricCircles_spacing:self.excircleLineWidth andArcColor:self.excircleColor];
+    
     ///话内切圆
     if (!isConcentricCircles) return;
     [self draw_Arc_Outside_WihtContext:context andRect: rect andConcentricCircles_spacing:self.concentricCircles_spacing andArcColor:self.inscribedCircleColor];
@@ -190,10 +191,11 @@
 ///到底几个view 后面的都是空心圆
 - (void)setStage:(NSInteger)stage {
     _stage = stage;
+    [self setNeedsDisplay];
 }
 
 - (CGFloat) concentricCircles_spacing {
-    return self.excircleDiameter - self.insideCircularDiameter;
+    return (self.excircleDiameter - self.insideCircularDiameter)/2;
 }
 - (CGFloat) midDiameter {
     return self.excircleDiameter - self.concentricCircles_spacing;

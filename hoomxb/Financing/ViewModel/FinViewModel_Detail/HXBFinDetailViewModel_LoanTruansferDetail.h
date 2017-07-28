@@ -10,6 +10,9 @@
 #import "HXBFinDetailModel_LoanTruansferDetail.h"
 @interface HXBFinDetailViewModel_LoanTruansferDetail : HXBBaseViewModel
 @property (nonatomic,strong) HXBFinDetailModel_LoanTruansferDetail *loanTruansferDetailModel;
+
+///下一个还款日
+@property (nonatomic,copy) NSString *nextRepayDate;
 /**
  1000 起投 1000递增
  */

@@ -35,7 +35,7 @@
 ///点击了一键购买
 @property (nonatomic,copy) void (^clickBuyButton)(NSString *capitall,UITextField *textField);
 ///点击了充值
-@property (nonatomic,copy) void (^clickRechargeButton)();
+@property (nonatomic,copy) void (^clickRechargeButton)(UITextField *textField);
 //点击了 服务协议clickNegotiateButton
 @property (nonatomic,copy) void (^clickNegotiateButton)();
 ///点击了加入
@@ -66,6 +66,9 @@
     [self.addButton setTitle:model.JoinImmediateView_Model.addButtonStr forState:UIControlStateNormal];
     
     self.rechargeView.placeholder = model.JoinImmediateView_Model.rechargeViewTextField_placeholderStr;
+    if (model.buyTextFieldText.length) {
+        self.rechargeView.textField.text = model.buyTextFieldText;
+    }
     [self.rechargeView.button setTitle:model.JoinImmediateView_Model.buyButtonStr forState:UIControlStateNormal];
     self.addButtonEndEditing = model.addButtonEndEditing;
     [self changeAddButtonWihtUserInteractionEnabled:model.addButtonEndEditing];//button是否可以点击
@@ -217,11 +220,11 @@
     //一键购买
     [self.rechargeView clickBuyButtonFunc:^{
         NSString *str = nil;
-        if (weakSelf.model.amount.floatValue > weakSelf.model.remainAmountLabelStr.floatValue) {
-            str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.remainAmountLabelStr.floatValue];
-        }else {
-            str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.amount.floatValue];
-        }
+//        if (weakSelf.model.amount.floatValue > weakSelf.model.remainAmountLabelStr.floatValue) {
+        str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.remainAmountLabelStr.floatValue];
+//        }else {
+//            str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.amount.floatValue];
+//        }
         weakSelf.rechargeView.textField.text = str;
         if (weakSelf.clickBuyButton) {
             weakSelf.clickBuyButton(weakSelf.rechargeView.textField.text,weakSelf.rechargeView.textField);
@@ -231,7 +234,7 @@
     //充值
     [self.topUPView clickRechargeFunc:^{
         if (weakSelf.clickRechargeButton) {
-            weakSelf.clickRechargeButton();
+            weakSelf.clickRechargeButton(self.rechargeViewTextField);
         }
     }];
 
@@ -283,7 +286,7 @@
     self.clickBuyButton = clickBuyButtonBlock;
 }
 ///点击了充值
-- (void)clickRechargeFunc: (void(^)())clickRechageButtonBlock {
+- (void)clickRechargeFunc: (void(^)(UITextField *textField))clickRechageButtonBlock {
     self.clickRechargeButton = clickRechageButtonBlock;
 }
 

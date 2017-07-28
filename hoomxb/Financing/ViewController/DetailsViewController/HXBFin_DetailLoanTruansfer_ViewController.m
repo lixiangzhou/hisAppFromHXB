@@ -97,7 +97,7 @@
         ///  转让记录
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1].optionTitle]) {
             HXBFinAddRecordVC_LoanTruansfer *loanAddRecordVC = [[HXBFinAddRecordVC_LoanTruansfer alloc]init];
-            loanAddRecordVC.loanTruansferID = weakSelf.loanID;
+            loanAddRecordVC.loanTruansferID = weakSelf.loanTransfer_ViewModel.transferId;
             [weakSelf.navigationController pushViewController:loanAddRecordVC animated:true];
         }
         ///合同
@@ -187,7 +187,7 @@
          品字形 右
          */
         manager.topViewManager.truansferAmountLabelManager.rightLabelStr = @"待转让金额";
-        manager.topViewManager.truansferAmountLabelManager.leftLabelStr = weakSelf.loanTruansferDetailViewModel.creatTransAmount;
+        manager.topViewManager.truansferAmountLabelManager.leftLabelStr = weakSelf.loanTruansferDetailViewModel.leftTransAmount;
 
         /**
          左侧的stringArray
@@ -196,7 +196,7 @@
         /**
          右侧的stringArray
          */
-        manager.loanType_InterestLabelManager.rightStrArray = @[@"00-00",
+        manager.loanType_InterestLabelManager.rightStrArray = @[weakSelf.loanTruansferDetailViewModel.nextRepayDate,
                                                                 weakSelf.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.repaymentType];
         /**
          图片- 文字- 图片 的tableView

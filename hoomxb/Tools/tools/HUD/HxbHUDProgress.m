@@ -366,4 +366,13 @@ typedef NS_ENUM(NSInteger, LCProgressHUDType){
     [self show:msg inView:view type:LCProgressHUDTypeError];
     [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1.0];
 }
+
+///有回调的方法
++ (void)showMessageCenter:(NSString *) msg inView:(UIView *)view andBlock:(void(^)())block{
+    [self show:msg inView:view type:LCProgressHUDTypeOnlyTextCenter];
+    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        block();
+    });
+}
 @end

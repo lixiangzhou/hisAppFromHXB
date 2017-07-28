@@ -71,5 +71,6 @@
 
 //  显示失败提示,指定显示视图
 + (void)showError:(NSString *)msg inview:(UIView *)view;
-
+///有回调的方法
++ (void)showMessageCenter:(NSString *) msg inView:(UIView *)view andBlock:(void(^)())block;
 @end

@@ -151,8 +151,9 @@
 - (void)setupPlanListTableView {
     kWeakSelf
     self.planListTableView = [[HXBFinancting_PlanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.planListTableView.expectedYearRateLable_ConstStr = @"预期年化";
-    self.planListTableView.lockPeriodLabel_ConstStr = @"计划期限";
+    self.planListTableView.expectedYearRateLable_ConstStr = @"平均历史年化收益";
+    self.planListTableView.lockPeriodLabel_ConstStr = @"期限(月)";
+    
     //监听contentOffset
     [self.planListTableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
@@ -184,7 +185,7 @@
 - (void)setupLoanListTableView {
     self.loanListTableView = [[HXBFinancting_LoanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.loanListTableView.expectedYearRateLable_ConstStr = @"年利率";
-    self.loanListTableView.lockPeriodLabel_ConstStr = @"期限";
+    self.loanListTableView.lockPeriodLabel_ConstStr = @"期限(月)";
     kWeakSelf
     [self.loanListTableView setClickLoanListCellBlock:^(NSIndexPath *index, id model) {
         if (weakSelf.clickLoanListCellBlock) {

@@ -73,6 +73,12 @@ UITableViewDelegate,UITableViewDataSource
     HXBFin_TableViewCell_LoanTransfer *cell = [tableView dequeueReusableCellWithIdentifier:kcellClass forIndexPath:indexPath];
     
     cell.LoanTruansferViewModel = self.loanTruansferViewModel[indexPath.row];
+    
+    cell.clickStutasButtonBlock = ^(id model) {
+        if (self.clickCellBlock) {
+            self.clickCellBlock(self.loanTruansferViewModel[indexPath.row], indexPath);
+        }
+    };
     return cell;
 }
 - (HXBNoDataView *)nodataView {

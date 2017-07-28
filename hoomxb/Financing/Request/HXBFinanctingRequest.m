@@ -307,8 +307,11 @@
             HXBFinHomePageModel_LoanTruansferList *model = [[HXBFinHomePageModel_LoanTruansferList alloc]init];
             [model yy_modelSetWithDictionary:obj];
             viewModel.loanTruansferListModel = model;
-            [arrayM addObject:viewModel];
+            if (model.leftTransAmount.floatValue) {
+                [arrayM addObject:viewModel];
+            }
         }];
+        
         
         if (successDateBlock) {
             if (request.isUPReloadData) {
@@ -468,7 +471,7 @@
     }];
 }
 /// 债转详情  加入记录
-- (void)loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)loanTruanserId andOrder: (NSString *)order andSuccessBlock: (void(^)(FinModel_AddRecortdModel_Loan * loanTruansferRecortdModel))successDateBlock andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock {
+- (void)loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)loanTruanserId andOrder: (NSString *)order andSuccessBlock: (void(^)( NSArray< HXBFinModel_AddRecortdModel_LoanTruansfer *> * loanTruansferRecortdModel))successDateBlock andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock {
     self.loanTruansferAddRecortdAPI.requestMethod = NYRequestMethodGet;
     self.loanTruansferAddRecortdAPI.isUPReloadData = isUPLoad;
     self.loanTruansferAddRecortdAPI.requestArgument = @{
@@ -484,12 +487,18 @@
             return;
         }
         
-        FinModel_AddRecortdModel_Loan *model = [[FinModel_AddRecortdModel_Loan alloc]init];
-        NSDictionary *dic = [responseObject valueForKey:@"data"];
-        [model yy_modelSetWithDictionary:dic];
+        NSArray *array = responseObject[kResponseData][kResponseDataList];
+        NSMutableArray *dataArray = [[NSMutableArray alloc]init];
+        
+        [array enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            HXBFinModel_AddRecortdModel_LoanTruansfer *model = [[HXBFinModel_AddRecortdModel_LoanTruansfer alloc]init];
+            [model yy_modelSetWithDictionary:obj];
+            model.index = @(array.count - idx).description;
+            [dataArray addObject:model];
+        }];
         
         if (successDateBlock) {
-            successDateBlock(model);
+            successDateBlock(dataArray);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         kNetWorkError(@"loan 加入计划 - 网络请求失败")

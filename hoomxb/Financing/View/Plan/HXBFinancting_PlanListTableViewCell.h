@@ -18,6 +18,6 @@
 
 ///年利率文字
 @property (nonatomic,strong) NSString *expectedYearRateLable_ConstStr;
-///期限
+///期限——UI
 @property (nonatomic,strong) NSString *lockPeriodLabel_ConstStr;
 @end
