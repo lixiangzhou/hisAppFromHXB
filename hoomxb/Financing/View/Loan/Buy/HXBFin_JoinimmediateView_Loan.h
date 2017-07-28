@@ -22,7 +22,7 @@
 ///点击了一键购买
 - (void)clickBuyButtonFunc:(void(^)(NSString *capitall,UITextField *textField))clickBuyButtonBlock;
 ///点击了充值
-- (void)clickRechargeFunc: (void(^)())clickRechageButtonBlock;
+- (void)clickRechargeFunc: (void(^)(UITextField *textField))clickRechageButtonBlock;
 //点击了 服务协议
 - (void)clickNegotiateButtonFunc: (void(^)())clickNegotiateButtonBlock;
 /**
@@ -52,4 +52,6 @@
  addButton是否可以点击
  */
 @property (nonatomic,assign) BOOL addButtonEndEditing;
+///最小的投资金额
+@property (nonatomic,copy) NSString *buyTextFieldText;
 @end

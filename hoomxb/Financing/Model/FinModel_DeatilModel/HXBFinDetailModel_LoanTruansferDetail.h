@@ -122,6 +122,8 @@ HXBFinDetailModel_LoanTruansferDetail_userVo;
 @property (nonatomic,copy) NSString * borrowerLevel;
 ///": "758922"
 @property (nonatomic,copy) NSString * loanId;
+///下一个还款日
+@property (nonatomic,copy) NSString *nextRepayDate;
 @end
 
 @interface HXBFinDetailModel_LoanTruansferDetail_transferDetail : HXBBaseModel

@@ -9,19 +9,30 @@
 #import "HXBFinModel_AddRecortdModel_LoanTruansfer.h"
 
 @implementation HXBFinModel_AddRecortdModel_LoanTruansfer
-- (void)setUserName:(NSString *)userName {
-    _userName = userName;
+/**
+ 债权出售人
+ */
+
+/**
+ 债权购买人
+ */
+- (void)setToUserId:(NSString *)toUserId {
+    _toUserId = [NSString hiddenStr:toUserId MidWithFistLenth:3 andLastLenth:2];
 }
-- (NSString *)userName_Hidden {
-    if (!_userName_Hidden) {
-        _userName_Hidden = [NSString hiddenStr:self.userName MidWithFistLenth:3 andLastLenth:2];
-    }
-    return _userName_Hidden;
+/**
+ 交易金额
+ */
+///	int	投资金额
+- (void) setAmount:(NSString *)amount {
+    _amount = amount;
+    _amount = [NSString hxb_getPerMilWithDouble:amount.floatValue];
 }
-- (NSString *)principal_YUAN {
-    if (!_principal_YUAN) {
-        _principal_YUAN = [NSString hxb_getPerMilWithDouble:self.principal.floatValue];
-    }
-    return _principal_YUAN;
+/**
+ 转让时间
+ */
+///	int	投资时间
+- (void)setCreateTime:(NSString *)createTime {
+    
+    _createTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:createTime andDateFormat:@"yyyy-MM-dd HH:mm"];
 }
 @end

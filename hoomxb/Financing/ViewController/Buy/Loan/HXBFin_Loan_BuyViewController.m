@@ -97,9 +97,9 @@
 
 ///点击了充值
 - (void)registerClickRecharge {
-    [self.joinimmediateView_Loan clickRechargeFunc:^{
+    [self.joinimmediateView_Loan clickRechargeFunc:^(UITextField *textField) {
 //        [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
-        [self pushTopUPViewControllerWithAmount: nil];
+        [self pushTopUPViewControllerWithAmount: textField.text];
     }];
 }
 - (void) pushTopUPViewControllerWithAmount:(NSString *)amount {

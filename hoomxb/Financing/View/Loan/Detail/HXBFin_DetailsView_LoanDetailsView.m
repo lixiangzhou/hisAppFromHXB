@@ -153,12 +153,12 @@
     kWeakSelf
     [self.topView setUPValueWithManager:^HXBFin_LoanDetailView_TopViewManager *(HXBFin_LoanDetailView_TopViewManager *manager) {
         manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%@%@",weakSelf.viewModelVM.totalInterestStr,@"%"];
-        manager.topViewManager.rightLabelStr = @"年利率";
+        manager.topViewManager.rightLabelStr = viewModelVM.totalInterestStr_const;
         
         manager.leftViewManager.leftLabelStr = weakSelf.lockPeriodStr;
-        manager.leftViewManager.rightLabelStr = @"标的期限";
+        manager.leftViewManager.rightLabelStr = viewModelVM.startInvestmentStr_const;
         
-        manager.rightViewManager.rightLabelStr = @"剩余可投";
+        manager.rightViewManager.rightLabelStr = viewModelVM.remainAmount_const;
         manager.rightViewManager.leftLabelStr = weakSelf.remainAmount;
         return manager;
     }];

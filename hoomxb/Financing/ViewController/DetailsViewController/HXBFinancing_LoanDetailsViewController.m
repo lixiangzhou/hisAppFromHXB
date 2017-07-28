@@ -46,10 +46,10 @@
     kWeakSelf
     [self.loanDetailsView setUPViewModelVM:^HXBFin_DetailsView_LoanDetailsView_ViewModelVM *(HXBFin_DetailsView_LoanDetailsView_ViewModelVM *viewModelVM) {
         viewModelVM.totalInterestStr           = weakSelf.loanDetailViewModel.totalInterestPer100;///年利率
-        viewModelVM.totalInterestStr_const     = @"预期年利率";
+        viewModelVM.totalInterestStr_const     = @"年利率";
         viewModelVM.remainAmount               = weakSelf.loanDetailViewModel.surplusAmount;
-        viewModelVM.remainAmount_const         = @"剩余可投";
-        viewModelVM.startInvestmentStr         = weakSelf.loanDetailViewModel.leftMonths;
+        viewModelVM.remainAmount_const         = weakSelf.loanDetailViewModel.surplusAmount_ConstStr;
+        viewModelVM.startInvestmentStr         = weakSelf.loanDetailViewModel.months;
         viewModelVM.startInvestmentStr_const   = @"标的期限";
         viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
         viewModelVM.addButtonStr               = weakSelf.loanDetailViewModel.addButtonStr;

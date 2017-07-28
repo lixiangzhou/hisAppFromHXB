@@ -43,6 +43,8 @@
 @property (nonatomic,assign) CGFloat insideCircularDiameter;
 ///线高
 @property (nonatomic,assign) CGFloat lineHeight;
-///同心圆的个数
+///圆的个数
 @property (nonatomic,assign) NSInteger circularCount;
+///画不画最后一个圆形
+@property (nonatomic,assign) BOOL isDontDrowLastArt;
 @end

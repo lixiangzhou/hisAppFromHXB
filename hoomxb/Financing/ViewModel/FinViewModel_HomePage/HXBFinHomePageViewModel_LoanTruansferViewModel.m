@@ -80,7 +80,7 @@
  */
 - (NSString *) leftTransAmount {
     if (!_leftTransAmount) {
-        _leftTransAmount = [NSString hxb_getPerMilWithDouble:self.loanTruansferListModel.transAmount.floatValue];
+        _leftTransAmount = [NSString hxb_getPerMilWithDouble:self.loanTruansferListModel.leftTransAmount.floatValue];
     }
     return _leftTransAmount;
 }
