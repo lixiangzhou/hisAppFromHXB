@@ -23,6 +23,9 @@
 
 @property (nonatomic, strong) HXBUserInfoView *bankView;
 
+@property (nonatomic, strong) UILabel *tipLabel;
+
+@property (nonatomic, strong) UIButton *phoneBtn;
 
 @end
 
@@ -35,6 +38,8 @@
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.userInfoView];
     [self.view addSubview:self.bankView];
+    [self.view addSubview:self.tipLabel];
+    [self.view addSubview:self.phoneBtn];
     [self setupSubViewFrame];
     
 }
@@ -52,6 +57,15 @@
         make.right.equalTo(self.view).offset(kScrAdaptationW750(-20));
         make.top.equalTo(self.userInfoView.mas_bottom).offset(kScrAdaptationH750(20));
         make.height.offset(120);
+    }];
+    [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(kScrAdaptationW750(20));
+        make.top.equalTo(self.bankView.mas_bottom).offset(kScrAdaptationH750(20));
+    }];
+    [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.tipLabel.mas_right);
+        make.right.equalTo(self.view).offset(kScrAdaptationW750(-20));
+        make.centerY.equalTo(self.tipLabel);
     }];
 }
 
@@ -123,8 +137,13 @@
 
 }
 
-#pragma mark - UITableViewDelegate
+#pragma mark - 事件处理
 
+- (void)phoneBtnClick
+{
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4001551888"];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+}
 
 
 #pragma mark - getter/setter
@@ -149,6 +168,28 @@
         _bankView = [[HXBUserInfoView alloc] initWithFrame:CGRectZero];
     }
     return _bankView;
+}
+
+- (UILabel *)tipLabel
+{
+    if (!_tipLabel) {
+        _tipLabel = [[UILabel alloc] init];
+        _tipLabel.text = @"如需解绑，请联系红小宝客服：";
+        _tipLabel.textColor = COR6;
+        _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+    }
+    return _tipLabel;
+}
+
+- (UIButton *)phoneBtn
+{
+    if (!_phoneBtn) {
+        _phoneBtn  = [[UIButton alloc] init];
+        [_phoneBtn setTitle:@"400-1551-888" forState:UIControlStateNormal];
+        [_phoneBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_phoneBtn addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _phoneBtn;
 }
 
 @end
