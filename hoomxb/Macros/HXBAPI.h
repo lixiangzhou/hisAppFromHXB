@@ -26,9 +26,9 @@
 
 //叶
 
-//#define BASEURL                                       @"http://192.168.1.21:3000"//后台
+#define BASEURL                                       @"http://192.168.1.21:3000"//后台
 //#define BASEURL                                       @"http://192.168.1.133:3000"//王鹏 端测试
-#define BASEURL                                       @"http://192.168.1.186:3000"//杜宇 测试
+//#define BASEURL                                       @"http://192.168.1.186:3000"//杜宇 测试
 
 #define kHXBH5_BaseURL                                @"http://192.168.1.21:3300"//后台 测试 （协议测试）
 //#define kHXBH5_BaseURL                                @"http://192.168.1.235:3000"//欧朋 测试 （协议测试）

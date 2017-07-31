@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class HXBFinDetailViewModel_LoanDetail;
-@interface HXBFin_LoanInfoView : UIView
+@interface HXBFin_LoanInfoView : UIScrollView
 @property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loan_finDatailModel;
 @end
 

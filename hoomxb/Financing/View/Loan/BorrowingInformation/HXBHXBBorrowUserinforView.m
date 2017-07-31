@@ -277,15 +277,15 @@
     if (!_incomButton) {
         _incomButton = [[HXBBaseView_Button alloc]init];
         [_incomButton setTitle:@"收入认证" forState: UIControlStateNormal];
-//        [_incomButton setImage:[UIImage imageNamed:@"duigou"] forState:UIControlStateNormal];
-        _incomButton.imageName = @"duigou";
+        [_incomButton setImage:[UIImage imageNamed:@"duigou"] forState:UIControlStateNormal];
+        
         
 //        _incomButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
 //        _incomButton.imageView.layer.borderWidth = kScrAdaptationH(1);
 //        _incomButton.imageView.layer.masksToBounds = true;
 //        _incomButton.imageView.layer.cornerRadius = kScrAdaptationH(5);
         _incomButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
-        _incomButton.imageRect = CGRectMake(0, kScrAdaptationH(5), kScrAdaptationH(10), kScrAdaptationH(10));
+        
         [_incomButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
         
     }

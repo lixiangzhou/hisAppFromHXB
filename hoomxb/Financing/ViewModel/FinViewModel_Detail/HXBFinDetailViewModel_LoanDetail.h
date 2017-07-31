@@ -74,4 +74,45 @@
   URL赋予协议
  */
 @property (nonatomic,copy) NSString *agreementURL;
+
+
+// MARK ----- 标的详情-- 详情
+/**
+ 身份证号
+ */
+@property (nonatomic,copy) NSString *idNo;
+/**
+ 名字
+ */
+@property (nonatomic,copy) NSString * name;
+/**
+ 婚姻状态
+ */
+@property (nonatomic,copy) NSString *marriageStatus;
+/**
+ 年龄
+ */
+@property (nonatomic,copy) NSString * age;
+
+/**
+ 月收入
+ */
+@property (nonatomic,copy) NSString * monthlyIncome;
+
+/**
+房产
+*/
+@property (nonatomic,copy) NSString *hasHouse;
+/**
+ 房贷
+ */
+@property (nonatomic,copy) NSString *hasHouseLoan;
+/**
+ 是否有 车贷
+ */
+@property (nonatomic,copy) NSString *hasCar;
+/**
+ 是否有 车贷
+ */
+@property (nonatomic,copy) NSString *hasCarLoan;
 @end

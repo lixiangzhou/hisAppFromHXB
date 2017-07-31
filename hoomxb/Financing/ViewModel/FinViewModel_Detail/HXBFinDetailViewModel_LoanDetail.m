@@ -257,4 +257,123 @@
     }
     return _remainTime;
 }
+
+/**
+婚姻状态
+ */
+- (NSString *) marriageStatus {
+    if (!_marriageStatus) {
+        if ([self.loanDetailModel.userVo.marriageStatus isEqualToString:@"MARRIED"]) {
+            
+            _marriageStatus = @"已婚";
+            
+        }else if ([self.loanDetailModel.userVo.marriageStatus isEqualToString:@"UNMARRIED"]){
+            
+            _marriageStatus = @"未婚";
+            
+        }else if ([self.loanDetailModel.userVo.marriageStatus isEqualToString:@"DIVORCED"]){
+            
+            _marriageStatus = @"离异";
+            
+        }else if ([self.loanDetailModel.userVo.marriageStatus isEqualToString:@"WIDOWED"]){
+            
+            _marriageStatus = @"丧偶";
+        }
+    }
+    return _marriageStatus;
+}
+
+/**
+ 年龄
+ */
+- (NSString *)age {
+    if (!_age) {
+        _age = [NSString stringWithFormat:@"年龄 %@岁",self.loanDetailModel.idCardInfo.age];
+    }
+    return _age;
+}
+/**
+ 名字
+ */
+- (NSString *) name {
+    if (!_name) {
+        _name = [self.loanDetailModel.idCardInfo.name replaceStringWithStartLocation:0 lenght:self.loanDetailModel.idCardInfo.name.length - 1];
+    }
+    return _name;
+}
+/**
+ 月收入
+ */
+- (NSString *) monthlyIncome {
+    if (!_monthlyIncome) {
+        _monthlyIncome = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.userVo.monthlyIncome.floatValue];
+    }
+    return _monthlyIncome;
+}
+/**
+ 是否有房产
+ */
+- (NSString *) hasHouse {
+    if (!_hasHouse) {
+        if (self.loanDetailModel.userVo.hasHouse.integerValue) {
+            _hasHouse = @"房产 有房产";
+        }else
+        {
+            _hasHouse = @"房产 无房产";
+        }
+    }
+    return _hasHouse;
+}
+/**
+ 是否有房贷
+ */
+- (NSString *) hasHouseLoan {
+    if (!_hasHouseLoan) {
+        if (self.loanDetailModel.userVo.hasHouseLoan.integerValue) {
+            _hasHouseLoan = @"房贷 有房贷";
+        }else
+        {
+            _hasHouseLoan = @"房贷 无房贷";
+        }
+    }
+    return _hasHouseLoan;
+}
+/**
+ 是否有 车贷
+ */
+- (NSString *) hasCar {
+    if (!_hasCar) {
+        if (self.loanDetailModel.userVo.hasCar.integerValue) {
+            
+             _hasCar = @"车产 有车产";
+        }else
+        {
+             _hasCar = @"车产 无车产";
+        }
+    }
+    return _hasCar;
+}
+/**
+ 是否有 车贷
+ */
+- (NSString *) hasCarLoan {
+    if (!_hasCarLoan) {
+        if (self.loanDetailModel.userVo.hasCarLoan.integerValue) {
+            _hasCarLoan = @"车贷 有车贷";
+        }else
+        {
+            _hasCarLoan = @"车贷 无车贷";
+        }
+    }
+    return _hasCarLoan;
+}
+/**
+ 身份证号
+ */
+- (NSString *) idNo {
+    if (!_idNo) {
+        _idNo = [self.loanDetailModel.idCardInfo.idNo replaceStringWithStartLocation:3 lenght:self.loanDetailModel.idCardInfo.idNo.length - 4];
+    }
+    return _idNo;
+}
 @end

@@ -32,6 +32,7 @@
 {
     _loanDetailViewModel = loanDetailViewModel;
     self.loanContentLabel.text = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO;
+//    _loanContentLabel.text = @"借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明";
 //    self.height = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO_height + 60;
 }
 

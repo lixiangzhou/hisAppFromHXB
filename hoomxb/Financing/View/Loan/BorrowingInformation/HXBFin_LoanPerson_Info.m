@@ -50,28 +50,37 @@
     self.jobButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
 }
 - (void)setUPFrame {
+    //借款人信息
     [self.borrowUserinforTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(@(kScrAdaptationH(15)));
+        make.top.left.equalTo(self).offset(kScrAdaptationH(15));
+        make.height.equalTo(@(kScrAdaptationH(21)));
     }];
+    //借款人审核状态
     [self.borrowUserTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.borrowUserinforTitleLabel.mas_bottom).offset(kScrAdaptationH(15));
         make.left.equalTo(self.borrowUserinforTitleLabel);
+        make.height.equalTo(@(kScrAdaptationH(20)));
     }];
+    //收入
     [self.incomButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.borrowUserTypeLabel.mas_bottom).offset(kScrAdaptationH(9));
         make.left.equalTo(self.borrowUserTypeLabel);
-        make.width.equalTo(self).multipliedBy(1.0/2);
+        make.height.equalTo(@(kScrAdaptationH(20)));
+        make.right.equalTo(self.mas_centerX);
     }];
-
+    //身份
     [self.identityButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.width.equalTo(self.mas_width).multipliedBy(1.0/2);
+        make.left.equalTo(self.incomButton.mas_right);
+        make.height.equalTo(@(kScrAdaptationH(20)));
         make.top.bottom.equalTo(self.incomButton);
         make.right.equalTo(self);
     }];
+    //个人信用报告
     [self.individualTrustworthinessButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.incomButton.mas_bottom).offset(kScrAdaptationH(5));
         make.left.right.height.equalTo(self.incomButton);
     }];
+    //工作
     [self.jobButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.identityButton);
         make.bottom.top.equalTo(self.individualTrustworthinessButton);
@@ -85,8 +94,8 @@
 {
     if (!_borrowUserinforTitleLabel) {
         _borrowUserinforTitleLabel = [[UILabel alloc] init];
-        _borrowUserinforTitleLabel.font = [UIFont systemFontOfSize:15];
-        _borrowUserinforTitleLabel.textColor = COR11;
+        _borrowUserinforTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+        _borrowUserinforTitleLabel.textColor = kHXBColor_Grey_Font0_2;
         _borrowUserinforTitleLabel.text = @"借款人信息";
     }
     return _borrowUserinforTitleLabel;
@@ -105,10 +114,8 @@
     if (!_incomButton) {
         _incomButton = [[HXBBaseView_Button alloc]init];
         [_incomButton setTitle:@"收入认证" forState: UIControlStateNormal];
-        _incomButton.imageName = @"duigou";
-        _incomButton.isReduce = true;
+        _incomButton.imageName = @"audit_status";
         _incomButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
-        _incomButton.imageRect = CGRectMake(0, kScrAdaptationH(5), kScrAdaptationH(10), kScrAdaptationH(10));
         [_incomButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
         
     }
@@ -120,46 +127,32 @@
     if (!_identityButton) {
         _identityButton = [[HXBBaseView_Button alloc]init];
         [_identityButton setTitle:@"身份认证" forState: UIControlStateNormal];
-        _identityButton.isReduce = true;
-        _identityButton.imageView.image = [UIImage imageNamed:@"duigou"];
-        _identityButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
-        _identityButton.imageView.layer.borderWidth = kScrAdaptationH(1);
-        _identityButton.imageView.layer.masksToBounds = true;
-        _identityButton.imageView.layer.cornerRadius = kScrAdaptationH(10);
+        _identityButton.imageName = @"audit_status";
         _identityButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         [_identityButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
         
     }
-    return _incomButton;
+    return _identityButton;
 }
 
 //个人信用报告
 - (UIButton *)individualTrustworthinessButton {
     if (!_individualTrustworthinessButton) {
         _individualTrustworthinessButton = [[HXBBaseView_Button alloc]init];
-        _individualTrustworthinessButton.isReduce = true;
         [_individualTrustworthinessButton setTitle:@"个人信用报告" forState: UIControlStateNormal];
-        _individualTrustworthinessButton.imageView.image = [UIImage imageNamed:@"duigou"];
-        _individualTrustworthinessButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
-        _individualTrustworthinessButton.imageView.layer.borderWidth = kScrAdaptationH(1);
-        _individualTrustworthinessButton.imageView.layer.masksToBounds = true;
-        _individualTrustworthinessButton.imageView.layer.cornerRadius = kScrAdaptationH(10);
+//        [_individualTrustworthinessButton setImage:[UIImage imageNamed:@"duigou"]  forState:UIControlStateNormal];
+        _individualTrustworthinessButton.imageName = @"audit_status";
         _individualTrustworthinessButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         [_individualTrustworthinessButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
     }
     return _individualTrustworthinessButton;
 }
 //工作认证
-- (UIButton *)jobButton{
+- (HXBBaseView_Button *)jobButton{
     if (!_jobButton) {
         _jobButton = [[HXBBaseView_Button alloc]init];
         [_jobButton setTitle:@"工作认证" forState: UIControlStateNormal];
-        _jobButton.isReduce = true;
-        _jobButton.imageView.image = [UIImage imageNamed:@"duigou"];
-        _jobButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
-        _jobButton.imageView.layer.borderWidth = kScrAdaptationH(1);
-        _jobButton.imageView.layer.masksToBounds = true;
-        _jobButton.imageView.layer.cornerRadius = kScrAdaptationH(10);
+        _jobButton.imageName = @"audit_status";
         _jobButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         [_jobButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
     }
