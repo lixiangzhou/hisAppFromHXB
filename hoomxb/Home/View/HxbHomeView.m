@@ -66,12 +66,21 @@
     
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         
-        if ([viewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"0"]) {
-            //没有投资显示的界面
-            [weakSelf.headView showNotValidatedView];
-        }else if ([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
+//        if ([viewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"0"]) {
+//            //没有投资显示的界面
+//            [weakSelf.headView showNotValidatedView];
+//        }else if ([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
+//            //已经投资显示的界面
+//             [weakSelf.headView showAlreadyInvestedView];
+//        }else
+//        {
+//            //没有投资显示的界面
+//            [weakSelf.headView showNotValidatedView];
+//        }
+        
+        if (viewModel.userInfoModel.userInfo.isCreateEscrowAcc && [viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
             //已经投资显示的界面
-             [weakSelf.headView showAlreadyInvestedView];
+            [weakSelf.headView showAlreadyInvestedView];
         }else
         {
             //没有投资显示的界面

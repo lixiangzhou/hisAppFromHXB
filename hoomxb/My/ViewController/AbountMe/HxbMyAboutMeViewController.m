@@ -48,8 +48,9 @@ UITableViewDelegate,UITableViewDataSource
             break;
         case 1:
         {
-            NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4001551888"];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+//            NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4001551888"];
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"联系客服"];
         }
             break;
         case 2:

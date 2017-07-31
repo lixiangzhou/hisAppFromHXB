@@ -92,6 +92,12 @@
 //            [vc.navigationController pushViewController:securityCertificationVC animated:true];
 //            return;
 //        }
+        
+        if (viewModel.userInfoModel.userInfo.isUnbundling) {
+            [self callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
+            return;
+        }
+        
         //开通存管银行账户
         if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
             HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
@@ -188,5 +194,22 @@
 {
     [vc presentViewController:self.alertController animated:YES completion:nil];
 }
+/**
+ 拨打电话封装
+ 
+ @param phoneNumber 电话号
+ */
++ (void)callupWithphoneNumber:(NSString *)phoneNumber andWithMessage:(NSString *)message
+{
+    NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@",phoneNumber];
+    NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
+    if (compare == NSOrderedDescending || compare == NSOrderedSame) {
+        /// 大于等于10.0系统使用此openURL方法
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
+    }
+}
+
 
 @end
