@@ -131,11 +131,21 @@
 
 
 - (void)setUPViewModelVM: (HXBFin_PlanDetailView_ViewModelVM* (^)(HXBFin_PlanDetailView_ViewModelVM *viewModelVM))detailsViewBase_ViewModelVMBlock {
+    kWeakSelf
     self.viewModelVM = detailsViewBase_ViewModelVMBlock(self.viewModelVM);
     ///倒计时
     self.diffTime = _viewModelVM.diffTime;
     //是否倒计时
     self.isContDown = _viewModelVM.isCountDown;
+    self.flowChartView.stage = self.viewModelVM.unifyStatus;
+    [self.flowChartView setUPFlowChartViewManagerWithManager:^HXBFinBase_FlowChartView_Manager *(HXBFinBase_FlowChartView_Manager *manager) {
+        manager.stage = weakSelf.viewModelVM.unifyStatus;
+        manager.addTime = weakSelf.viewModelVM.addTime;
+        manager.beginTime = weakSelf.viewModelVM.beginProfitTime;
+        manager.leaveTime = weakSelf.viewModelVM.leaveTime;
+        return manager;
+    }];
+    
 }
 
 
@@ -151,6 +161,7 @@
     self.promptStr                  = viewModelVM.promptStr;
     self.addButtonStr               = viewModelVM.addButtonStr;
     self.lockPeriodStr              = viewModelVM.lockPeriodStr;
+    
     
     //加入button设置 数据
     self.addButton.userInteractionEnabled = self.viewModelVM.isUserInteractionEnabled;

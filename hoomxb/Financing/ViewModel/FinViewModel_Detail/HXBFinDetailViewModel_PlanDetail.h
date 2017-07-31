@@ -78,4 +78,13 @@
 @property (nonatomic,strong) UIColor *addButtonTitleColor;
 ///addbutton 边缘的颜色
 @property (nonatomic,strong) UIColor *addButtonBorderColor;
+
+
+///流程的时间
+///开始加入时间
+@property (nonatomic,copy) NSString *beginSellingTime_flow;
+///开始收益时间
+@property (nonatomic,copy) NSString *financeEndTime_flow;
+///退出时间
+@property (nonatomic,copy) NSString *endLockingTime_flow;
 @end

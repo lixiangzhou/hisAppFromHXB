@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface HXBBaseView_Button : UIButton
+
+///是否裁剪
+@property (nonatomic,assign) BOOL isReduce;
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic,copy) NSString *selectImageName;
 ///对image的大小的调整

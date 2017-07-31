@@ -10,6 +10,7 @@
 @interface HXBBaseView_Button ()
 @property (nonatomic,strong) UIImageView *hxb_imageView;
 @property (nonatomic,strong) UIImageView *hxb_imageView_Selected;
+
 @end
 @implementation HXBBaseView_Button
 
@@ -44,6 +45,7 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
     CGFloat X, W;
     CGFloat titleX,titleY,titleW,titleH,centerY;
  
@@ -65,6 +67,7 @@
     
     self.titleLabel.frame = CGRectMake(titleX + X + W, titleY, titleW, titleH);
     self.selected = false;
+    self.isReduce = self.isReduce;
 }
 
 + (void)load {
@@ -100,4 +103,15 @@
     self.hxb_imageView_Selected.hidden = self.selected;
     self.hxb_imageView.hidden = !self.selected;
 }
+
+-(void)setIsReduce:(BOOL)isReduce {
+    _isReduce = isReduce;
+    if (isReduce) {
+        self.hxb_imageView.layer.cornerRadius = self.hxb_imageView.frame.size.height/2.0;
+        self.hxb_imageView.layer.masksToBounds = true;
+        self.hxb_imageView_Selected.layer.cornerRadius = self.hxb_imageView.frame.size.height/2.0;
+        self.hxb_imageView_Selected.layer.masksToBounds = true;
+    }
+}
+
 @end

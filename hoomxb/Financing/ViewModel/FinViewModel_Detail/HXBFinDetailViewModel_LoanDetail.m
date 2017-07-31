@@ -27,7 +27,7 @@
 //    if (!_loanPeriodStr) {
 //        _loanPeriodStr = [NSString stringWithFormat:@"%@%@",self.loanDetailModel]
 //    }
-//    return <#obj#>
+//    return obj
 //}
 /**
  标的状态
@@ -40,6 +40,7 @@
         if ( [status isEqualToString:@"OPEN"]){
             self.addButtonStr = @"立即投标";
             [self setUPAddButtonColorWithType:false];
+            
             _isAddButtonEditing = true;
             _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.surplusAmount.floatValue];
         }
@@ -161,6 +162,7 @@
             _surplusAmount_ConstStr = @"标的金额";
             _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
         }else {
+            _surplusAmount_ConstStr = @"剩余可投";
             [self status];
         }    
     }
@@ -175,6 +177,7 @@
             _surplusAmount_ConstStr = @"标的金额";
             _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
         }else {
+            _surplusAmount_ConstStr = @"剩余可投";
             [self status];
         }
     }

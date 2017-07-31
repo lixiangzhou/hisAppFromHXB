@@ -28,6 +28,8 @@
 #define kHXBColor_heightGrey    [UIColor colorWithRed:224/255.0f green:224/255.0f blue:224/255.0f alpha:1]    // 色
 
 #define kHXBColor_Grey090909 [UIColor colorWithRed:0.98 green:0.97 blue:0.97 alpha:1.00]//
+#define kHXBColor_Grey093 [UIColor colorWithRed:0.93 green:0.93 blue:0.93 alpha:1.00]//
+
 
 //深灰（字体颜色）(r:0.20 g:0.20 b:0.20 a:1.00)
 #define kHXBColor_Grey_Font0_2 [UIColor colorWithRed:0.20 green:0.20 blue:0.20 alpha:1.00]//
