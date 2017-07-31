@@ -36,19 +36,15 @@
         [self addSubview:self.promptLabel];
         [self setCardViewFrame];
         
-        [self loadUserinfoData];
     }
     return self;
 }
 
-- (void)loadUserinfoData
+
+
+- (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
 {
-    kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@元",viewModel.userInfoModel.userAssets.availablePoint];
-    } andFailure:^(NSError *error) {
-        
-    }];
+    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@元",viewModel.userInfoModel.userAssets.availablePoint];
 }
 
 - (void)setCardViewFrame{

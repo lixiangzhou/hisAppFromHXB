@@ -78,6 +78,12 @@
 }
 #pragma mark - set方法
 
+- (void)setDelegate:(id<UITextFieldDelegate>)delegate
+{
+    _delegate = delegate;
+    self.textField.delegate = delegate;
+}
+
 - (void)setSecureTextEntry:(BOOL)secureTextEntry
 {
     _secureTextEntry = secureTextEntry;

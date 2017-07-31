@@ -120,6 +120,7 @@
 //                HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
 //                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
                 HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
+                bindBankCardVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_signup;
                 [self.navigationController pushViewController:bindBankCardVC animated:YES];
             } andFailureBlock:^(NSError *error) {
             }];

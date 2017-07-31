@@ -28,7 +28,6 @@
     self.isColourGradientNavigationBar = YES;
     self.title = @"充值";
     [self.view addSubview:self.myTopUpBaseView];
-    
 }
 
 
@@ -47,6 +46,16 @@
     return _myTopUpBaseView;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        weakSelf.myTopUpBaseView.viewModel = viewModel;
+    } andFailure:^(NSError *error) {
+        
+    }];
+}
 
 /**
  快捷充值请求

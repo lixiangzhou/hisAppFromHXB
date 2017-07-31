@@ -61,6 +61,12 @@
 {
     return self.textField.text;
 }
+
+- (void)setText:(NSString *)text
+{
+    self.textField.text = text;
+}
+
 - (void)setPlaceholder:(NSString *)placeholder
 {
     _placeholder = placeholder;

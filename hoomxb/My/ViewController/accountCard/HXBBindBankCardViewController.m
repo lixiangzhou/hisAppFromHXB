@@ -65,6 +65,7 @@
 {
     HXBOpenDepositAccountViewController *openDepositAccountViewController = [[HXBOpenDepositAccountViewController alloc] init];
     openDepositAccountViewController.title = @"开通存管账户";
+    openDepositAccountViewController.type = self.type;
     [self.navigationController pushViewController:openDepositAccountViewController animated:YES];
     
 //    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
@@ -105,5 +106,14 @@
         [_openAccountBtn setBackgroundColor:COR24];
     }
     return _openAccountBtn;
+}
+- (void)leftBackBtnClick
+{
+    if (self.type == HXBRechargeAndWithdrawalsLogicalJudgment_signup) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else
+    {
+        [super leftBackBtnClick];
+    }
 }
 @end

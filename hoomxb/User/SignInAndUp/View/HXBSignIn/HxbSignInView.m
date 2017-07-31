@@ -124,9 +124,10 @@ UITextFieldDelegate
 //    self.phoneNumberLabel = [[UILabel alloc]init];///关于手机号的Label
     SVGKImage *phonesvgImage = [SVGKImage imageNamed:@"mobile_number.svg"];
     self.phoneImageView = [[UIImageView alloc] initWithImage:phonesvgImage.UIImage];
-    
+    self.phoneImageView.contentMode = UIViewContentModeScaleAspectFit;
     SVGKImage *passwordsvgImage = [SVGKImage imageNamed:@"password.svg"];
     self.passwordImageView = [[UIImageView alloc] initWithImage:passwordsvgImage.UIImage];///关于密码的label
+    self.passwordImageView.contentMode = UIViewContentModeScaleAspectFit;
     
 //    self.isPhoneNumberLabel = [[UILabel alloc]init];///显示手机号的信息的label (是否为手机号，手机号是否已注册)
     NSMutableAttributedString *phoneAttrStr = [[NSMutableAttributedString alloc] initWithString:kPhoneText];
@@ -166,14 +167,14 @@ UITextFieldDelegate
     [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.waterView.mas_bottom).offset(kScrAdaptationH(64));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(21));
-        make.width.equalTo(@(kScrAdaptationW(12)));
+        make.width.equalTo(@(kScrAdaptationW(13)));
         make.height.offset(kScrAdaptationH(19));
     }];
     [self.passwordImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.phoneImageView.mas_bottom).offset(kScrAdaptationH(43));
-        make.width.equalTo(@(kScrAdaptationW(14)));
         make.left.equalTo(@(kScrAdaptationW(21)));
-        make.height.equalTo(@(kScrAdaptationW(18)));
+        make.width.equalTo(@(kScrAdaptationW(14)));
+        make.height.equalTo(@(kScrAdaptationH(18)));
     }];
     [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.phoneImageView);
@@ -357,7 +358,7 @@ UITextFieldDelegate
         [strM deleteCharactersInRange:range];
         str = strM.copy;
     }
-    if (str.length > 11) {//防止了重复请求数据 以及\n换行的错误
+    if (str.length > 20) {//防止了重复请求数据 以及\n换行的错误
         [self firstResponderChenge];
         return false;
     }

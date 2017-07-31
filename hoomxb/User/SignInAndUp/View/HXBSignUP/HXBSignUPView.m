@@ -85,6 +85,7 @@ UITextFieldDelegate
 {
     if (!_phoneImageView) {
         _phoneImageView = [[UIImageView alloc] initWithImage:[SVGKImage imageNamed:@"mobile_number.svg"].UIImage];
+        _phoneImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _phoneImageView;
 }
