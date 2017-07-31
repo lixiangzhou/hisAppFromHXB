@@ -60,6 +60,9 @@
         }else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
         {
             [self.navigationController popViewControllerAnimated:YES];
+        }else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_signup)
+        {
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     } andFailureBlock:^(NSError *error) {
         
@@ -88,5 +91,14 @@
         }];
     }
     return _mainView;
+}
+- (void)leftBackBtnClick
+{
+    if (self.type == HXBRechargeAndWithdrawalsLogicalJudgment_signup) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else
+    {
+        [super leftBackBtnClick];
+    }
 }
 @end

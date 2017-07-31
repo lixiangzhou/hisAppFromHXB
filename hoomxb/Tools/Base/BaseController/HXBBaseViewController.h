@@ -28,5 +28,6 @@
 
 ///颜色渐变
 - (void) addColourGradientWithHeight:(CGFloat)height;
-
+///可以重写返回方法
+- (void)leftBackBtnClick;
 @end

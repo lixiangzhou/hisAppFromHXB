@@ -12,7 +12,6 @@
 
 
 @property (nonatomic, copy) NSString *text;
-
 @property (nonatomic, copy) NSString *placeholder;
 @property (nonatomic, copy) NSAttributedString *attributedPlaceholder;
 @property (nonatomic, strong) UIImage *leftImage;
@@ -20,6 +19,9 @@
 @property (nonatomic, assign) BOOL isHidenLine;
 @property (nonatomic, assign) BOOL secureTextEntry;
 @property(nonatomic) UIKeyboardType keyboardType;
+
+@property(nullable, nonatomic,weak)   id<UITextFieldDelegate> delegate;
+
 /**
  背景按钮点击
  */

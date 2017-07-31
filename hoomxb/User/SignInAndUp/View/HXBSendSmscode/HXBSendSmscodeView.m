@@ -50,6 +50,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
  邀请码
  */
 @property (nonatomic, strong) HXBCustomTextField *inviteCodeTextField;
+
+
 //@property (nonatomic,strong) UITextField *inviteCodeTextField;
 /**
  用户协议
@@ -177,6 +179,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     
     self.password_TextField.placeholder = @"8-20位数组大小写字母组成";
     self.inviteCodeTextField.placeholder = @"请输入邀请码";
+    self.inviteCodeTextField.delegate = self;
     self.inviteCodeTextField.leftImage = [SVGKImage imageNamed:@"invitation_code.svg"].UIImage;
     
     self.negotiateView.negotiateStr = @"红小宝注册协议";
@@ -262,9 +265,9 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 ///设置
 - (void)setSubView {
-    self.password_TextField.delegate = self;
+//    self.password_TextField.delegate = self;
     self.password_TextField.secureTextEntry = true;
-    self.smscode_TextField.delegate = self;
+//    self.smscode_TextField.delegate = self;
     
     self.phonNumberLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     self.phonNumberLabel.textColor = RGB(51, 51, 51);
@@ -338,7 +341,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)clickSetPassWordButton: (UIButton *)button {
     if([self isPasswordQualifiedFunWithStr:self.password_TextField.text]) {
         //合格 请求数据
-        if (self.clickSetPassWordButtonBlock) self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,nil);
+        if (self.clickSetPassWordButtonBlock) self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,self.inviteCodeTextField.text);
     }else {
         NSString * message = [NSString isOrNoPasswordStyle:self.password_TextField.text];
         [HxbHUDProgress showMessage:message inView:self];
@@ -368,7 +371,10 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 #pragma mark - textField delegate
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    return true;
+    if ([NSString isChinese:string] || [NSString isIncludeSpecialCharact:string] || [string isEqualToString:@" "]) {
+        return NO;
+    }
+    return YES;
 }
 
 - (BOOL)isPasswordQualifiedFunWithStr: (NSString *)password {
@@ -398,4 +404,6 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)clickAgreementSignUPWithBlock:(void (^)())clickAgreementSignUPBlock {
     self.clickAgreementSignUPBlock = clickAgreementSignUPBlock;
 }
+#pragma make UITextFieldDelegate
+
 @end

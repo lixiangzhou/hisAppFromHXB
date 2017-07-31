@@ -15,6 +15,11 @@
  充值金额
  */
 @property (nonatomic, copy) NSString *amount;
+
+/**
+ 可用金额
+ */
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *viewModel;
 /**
  点击充值按钮的block
  */
