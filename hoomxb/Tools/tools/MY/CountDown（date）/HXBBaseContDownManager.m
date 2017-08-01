@@ -114,11 +114,11 @@
 {
     self = [super init];
     if (self) {
+        self.modelDateKey = modelDateKey;
+        self.modelCountDownKey = modelCountDownKey;
         self.countDownStartTime = countDownStartTime;
         self.countDownUnit = countDownUnit;
         self.modelArray = modelArray;
-        self.modelDateKey = modelDateKey;
-        self.modelCountDownKey = modelCountDownKey;
         self.modelDateType = modelDateType;
         if (!self.timer){
             [self createTimer];
