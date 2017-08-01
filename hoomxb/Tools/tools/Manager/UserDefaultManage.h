@@ -10,6 +10,7 @@
 
 #define UserDefault [UserDefaultManage sharedInstance]
 #define kUserDefaults [NSUserDefaults standardUserDefaults]
+#define kHXBGesturePWD @"HXBGesturePWD"
 @interface UserDefaultManage : NSObject
 
 /**

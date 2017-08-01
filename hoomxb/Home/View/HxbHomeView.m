@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UILabel *footerLabel;
 @property (nonatomic, strong) HxbHomePageViewModel *dataViewModel;
 
+@property (nonatomic, strong) HXBBaseContDownManager *contDwonManager;
 @end
 
 @implementation HxbHomeView
@@ -126,6 +127,27 @@
             [subView removeFromSuperview];
         }
     }];
+    
+    [self creatCountDownManager];
+}
+
+- (void)creatCountDownManager {
+    __weak typeof (self)weakSelf = self;
+    
+    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray:self.homeBaseModel.homePlanRecommend andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
+    
+    [self.contDwonManager countDownWithChangeModelBlock:^(HxbHomePageModel_DataList *model, NSIndexPath *index) {
+        if (weakSelf.homeBaseModel.homePlanRecommend.count > index.row) {
+            HXBHomePageProductCell *cell = [self.mainTableView cellForRowAtIndexPath:index];
+            [cell setValue:model.countDownString forKey:@"countDownString"];
+        }
+    }];
+    //要与服务器时间想比较
+    //    self.contDwonManager.clientTime = [HXBDate       ]
+    //    [self.contDwonManager stopWenScrollViewScrollBottomWithTableView:self.planListTableView];
+    self.contDwonManager.isAutoEnd = true;
+    //开启定时器
+    [self.contDwonManager resumeTimer];
 }
 
 //- (void)setHomeDataListViewModelArray:(NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
@@ -204,7 +226,9 @@
                 if (!cell) {
                     cell = [[HXBHomePageProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
                     }
+    
                    cell.homePageModel_DataList = self.homeBaseModel.homePlanRecommend[indexPath.section];
+    
                    kWeakSelf
                    cell.purchaseButtonClickBlock = ^(){
                        weakSelf.purchaseButtonClickBlock();

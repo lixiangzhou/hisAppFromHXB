@@ -28,6 +28,33 @@
     }
 }
 
+/**
+ 剩余时间
+ */
+- (NSString *) countDownLastStr {
+    if (!_countDownLastStr) {
+        _countDownLastStr = @(self.diffTime.integerValue / 1000.0).description;
+        if (_countDownLastStr.integerValue <= 3600 && _countDownLastStr.integerValue >= 0) {
+            NSLog(@"%@倒计时",_countDownLastStr);
+            self.isCountDown = true;
+            //会有倒计时
+        }else if (_countDownLastStr.integerValue > 3600) {
+            //显示的是数字 12日12：12
+            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:_countDownLastStr andDateFormat:@"dd日 HH:mm"];
+        }
+    }
+    return _countDownLastStr;
+}
+
+- (void)setCountDownString:(NSString *)countDownString {
+    if (!countDownString.integerValue && !self.remainTimeString) {
+        self.isHidden = true;
+    }else {
+        self.isHidden = false;
+    }
+    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm:ss"];
+}
+
 - (NSString *)judgmentStateValue:(NSString *)unifyStatus
 {
     switch ([unifyStatus integerValue]) {

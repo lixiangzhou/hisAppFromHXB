@@ -158,7 +158,10 @@
     {
          self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.2f%@",[homePageModel_DataList.baseInterestRate doubleValue],@"%"];
     }
+    
+    
     [self.purchaseButton setTitle:homePageModel_DataList.unifyStatus forState:UIControlStateNormal];
+    
     if (!homePageModel_DataList.tag.length) {
         self.icon.hidden = YES;
     }
@@ -166,6 +169,12 @@
     //设置子控件的位置
     [self setupSubViewFrame];
     
+}
+
+- (void)setCountDownString:(NSString *)countDownString
+{
+    _countDownString = countDownString;
+    [self.purchaseButton setTitle:countDownString forState:UIControlStateNormal];
 }
 //- (void)setModel:(TopProductModel *)model
 //{

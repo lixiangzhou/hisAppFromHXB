@@ -67,6 +67,9 @@
     [self.codeBtn setBackgroundColor:RGB(222, 222, 222)];
     [self.codeBtn setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
+    if (self.getVerificationCodeBlock) {
+        self.getVerificationCodeBlock();
+    }
 }
 
 - (void)timeDown
