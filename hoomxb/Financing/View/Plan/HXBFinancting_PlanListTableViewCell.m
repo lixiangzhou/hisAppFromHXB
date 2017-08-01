@@ -60,7 +60,6 @@
     self.addStatus.layer.borderColor = loanListViewModel.addButtonBorderColor.CGColor;
     self.addStatus.layer.borderWidth = kScrAdaptationH(1);
 
-    
     self.expectedYearRateLable.attributedText = loanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = model.months;
     self.addStatus.text = loanListViewModel.status;

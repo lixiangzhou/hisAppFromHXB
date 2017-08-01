@@ -173,6 +173,11 @@
     }
     return false;
 }
+
+- (void) setUPViewsFrameWithRightViewNotTitle {
+    
+}
+
 //正在进行
 - (void)setUPViews_frameWithSpace:(UIEdgeInsets)space {
     

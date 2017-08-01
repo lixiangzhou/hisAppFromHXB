@@ -21,7 +21,7 @@
 
 
 #import "HXBMyModel_MainLoanModel.h"//主界面的 loanModel
-
+#import "HXBMY_LoanTruansferViewModel.h"//转让中
 
 #import "HXBMYModel_CapitalRecordDetailModel.h"//主界面 资产记录Model ViewModel 里面加入了（这里不再添加)
 
@@ -56,9 +56,11 @@
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainLoanViewModel *>*repaying_Loan_array;
 @property (nonatomic,assign) NSInteger repayingPage;
 /// loan 投标中
-
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainLoanViewModel *>*bid_Loan_array;
 @property (nonatomic,assign) NSInteger bidPage;
+///转让中
+@property (nonatomic,strong) NSMutableArray <HXBMY_LoanTruansferViewModel *>* loanTruanfserViewModelArray;
+@property (nonatomic,strong) HXBBaseRequest *loanTruansferRequestApi;
 /// loan 已结清
 @property (nonatomic,strong) NSMutableArray <HXBMYViewModel_MainLoanViewModel *>*finish_Loan_array;
 @property (nonatomic,assign) NSInteger finishPage;
@@ -103,6 +105,7 @@
 }
 ///创建api
 - (void)creatAPI {
+    self.loanTruansferRequestApi = [[HXBBaseRequest alloc]init];
     self.loanListAPI = [[HXBBaseRequest alloc]init];
     self.planListAPI = [[HXBBaseRequest alloc]init];
     self.planAssetsAPI = [[HXBBaseRequest alloc]init];
@@ -361,7 +364,7 @@
             page1 = self.bidPage;
         }
             break;
-        case HXBRequestType_MY_LoanRequestType_FINISH_LOAN:
+        case HXBRequestType_MY_LoanRequestType_Truansfer:
             break;
     }
     self.loanListAPI.isUPReloadData = isUPData;
@@ -414,7 +417,7 @@
             [self.bid_Loan_array addObjectsFromArray:viewModelArray];
             return self.bid_Loan_array;
             break;
-        case HXBRequestType_MY_LoanRequestType_FINISH_LOAN://已结清
+        case HXBRequestType_MY_LoanRequestType_Truansfer://已结清
             if (isUPdata) {
                 [self.finish_Loan_array removeAllObjects];
                 self.finishPage = 1;
@@ -439,7 +442,44 @@
     }
 }
 
-
+#pragma mark - loanTruansfer 转让中 
+///转让中 列表的网络数据的请求
+- (void)myLoanTruansfer_requestWithLoanTruansferWithIsUPData: (BOOL)isUPData
+                                             andSuccessBlock: (void(^)(NSArray<HXBMY_LoanTruansferViewModel *>* viewModelArray))successDateBlock
+                                             andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock{
+    
+    self.loanTruansferRequestApi.requestUrl = kHXBMY_LoanTruansferListURL;
+    self.loanTruansferRequestApi.isUPReloadData = isUPData;
+    self.loanTruansferRequestApi.requestMethod = NYRequestMethodGet;
+    self.loanTruansferRequestApi.requestArgument = @{
+                                                     @"page": @(self.loanTruansferRequestApi.dataPage),
+                                                     @"type": @"TRANSFERING_LOAN"
+                                                     };
+    
+    [self.loanTruansferRequestApi startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        if (![responseObject[kResponseStatus] integerValue]) {
+            if (failureBlock) {
+                failureBlock(nil,request);
+            }
+        }
+        NSArray <NSDictionary *>*dataArray = responseObject[kResponseData][kResponseDataList];
+        
+        [dataArray enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            HXBMY_LoanTruansferModel *model = [[HXBMY_LoanTruansferModel alloc] init];
+            [model yy_modelSetWithDictionary:obj];
+            HXBMY_LoanTruansferViewModel *viewModel = [[HXBMY_LoanTruansferViewModel alloc]init];
+            [self.loanTruanfserViewModelArray addObject:viewModel];
+        }];
+        if (successDateBlock) {
+            successDateBlock(self.loanTruanfserViewModelArray);
+        }
+        
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        if (failureBlock) {
+            failureBlock(error,request);
+        }
+    }];
+}
 
 #pragma mark - plan detail 交易记录 接口
 - (void)capitalRecord_requestWithScreenType: (NSString *)screenType

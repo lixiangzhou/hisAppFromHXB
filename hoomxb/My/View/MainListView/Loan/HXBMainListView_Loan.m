@@ -12,7 +12,7 @@
 #import "HXBBaseTableView_MYPlanList_TableView.h"
 #import "HXBMainListView_Plan_TopView.h"
 #import "HXBMYModel_Loan_LoanRequestModel.h"
-
+#import "HXBMY_LoanTruansferTableView.h"
 @interface HXBMainListView_Loan()
 
 
@@ -29,6 +29,8 @@
 @property (nonatomic,strong) UILabel *REPAYING_Lable;
 ///投标中的label
 @property (nonatomic,strong) UILabel *BID_Lable;
+///转让中的label
+@property (nonatomic,strong) UILabel *truansferLabel;
 ///loan 的toolbarView的中间的点击
 @property (nonatomic,copy) void(^changeMidSelectOptionBlock)(UIButton *button, NSString *title, NSInteger index, HXBRequestType_MY_LoanRequestType requestType);
 
@@ -42,15 +44,20 @@
 @property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *erpaying_Loan_TableView;
 ///投标中
 @property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *bid_Loan_TableView;
+///转让中
+@property (nonatomic,strong) HXBMY_LoanTruansferTableView *loanTruansferTableView;
 ///投标中是否第一次加载
 
 //MARK: ------------------------- 刷新 ----------------------------
 ///plan 上拉刷新与下拉加载的block
 @property (nonatomic,copy) void(^repaying_Loan_DownRefresh)();
 @property (nonatomic,copy) void(^bid_Loan_DownRefresh)();
+@property (nonatomic,copy) void(^loanTruansfer_DownRefresh)();
 
 @property (nonatomic,copy) void(^repaying_Loan_UPRefresh)();
 @property (nonatomic,copy) void(^bid_Loan_UPRefresh)();
+@property (nonatomic,copy) void(^loanTruansfer_UPRefresh)();
+
 ///将要切换底部视图的时候调用
 @property (nonatomic,copy) void(^switchBottomScrollViewBlock)(NSInteger index, NSString *title, UIButton *option);
 
@@ -58,7 +65,6 @@
 ///cell的点击事件的传递
 @property (nonatomic,copy) void(^clickLoan_BIDCellBlock)(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex);
 @property (nonatomic,copy) void(^clickLoan_RepayingCellBlock)(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex);
-
 
 ///资产统计的事件注册
 @property (nonatomic,copy) void (^assetStatisticsWithBlock)();
@@ -80,6 +86,7 @@ kDealloc
     _loanAccountModel = loanAccountModel;
     self.REPAYING_Lable.text =  [self  formatStrWithTypeStr:REPAYING_Title andCountStr:loanAccountModel.rePayingTotalCount.integerValue];
     self.BID_Lable.text = [self  formatStrWithTypeStr:BID_Title andCountStr:loanAccountModel.BIDTotalCount.integerValue];
+    self.truansferLabel.text = [self formatStrWithTypeStr:@"转让中(测试中)" andCountStr:0000];
 }
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
     _userInfoViewModel = userInfoViewModel;
@@ -126,7 +133,8 @@ kDealloc
     //这个数组决定了tableView在bottom里面的位置，是左边还是右边
     self.tableViewArray = @[
                             self.erpaying_Loan_TableView,//收益中
-                            self.bid_Loan_TableView//投标中
+                            self.bid_Loan_TableView,//投标中
+                            self.loanTruansferTableView//转让中
                             ].mutableCopy;
     [self createScrollToolBarView];///搭建scrollToolBarView；
     [self refresh];///刷新
@@ -138,11 +146,13 @@ kDealloc
 - (void)createProperty {
     self.toolBarViewOptionTitleStrArray = @[
                                             REPAYING_Title,
-                                            BID_Title
+                                            BID_Title,
+                                            @"转让中"
                                             ];
    
     self.REPAYING_Lable = [self creatLableWithTitle:REPAYING_Title];
     self.BID_Lable = [self creatLableWithTitle:BID_Title];
+    self.truansferLabel = [self creatLableWithTitle:@"转让中"];
 }
 
 ///创建顶部的View;
@@ -170,6 +180,9 @@ kDealloc
         if ([button.titleLabel.text isEqualToString:BID_Title]) {
             [weakSelf addLableWithButton:button andLable:weakSelf.BID_Lable];
         }
+        if ([button.titleLabel.text isEqualToString:@"转让中"]) {
+            [weakSelf addLableWithButton:button andLable:weakSelf.truansferLabel];
+        }
         
     }];
 }
@@ -190,6 +203,7 @@ kDealloc
 - (void)creatBottomScrollView {
     self.erpaying_Loan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.bid_Loan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.loanTruansferTableView = [[HXBMY_LoanTruansferTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
 }
 ///搭建scrollToolBarView；
 - (void)createScrollToolBarView {
@@ -223,6 +237,10 @@ kDealloc
     [self.erpaying_Loan_TableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         if (weakSelf.repaying_Loan_UPRefresh) weakSelf.repaying_Loan_UPRefresh();
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {}];
+
+    [self.loanTruansferTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        if(weakSelf.loanTruansfer_UPRefresh) weakSelf.loanTruansfer_UPRefresh();
+    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {}];
 }
 
 //上啦加载
@@ -235,6 +253,12 @@ kDealloc
     [self.erpaying_Loan_TableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         if(weakSelf.repaying_Loan_DownRefresh) weakSelf.repaying_Loan_DownRefresh();
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
+    
+    [self.loanTruansferTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        if (weakSelf.loanTruansfer_DownRefresh) {
+            weakSelf.loanTruansfer_DownRefresh();
+        }
+    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
 }
 
 //停止刷新
@@ -243,6 +267,8 @@ kDealloc
     [self.erpaying_Loan_TableView.mj_footer endRefreshing];
     [self.bid_Loan_TableView.mj_header endRefreshing];
     [self.bid_Loan_TableView.mj_footer endRefreshing];
+    [self.loanTruansferTableView.mj_header endRefreshing];
+    [self.loanTruansferTableView.mj_footer endRefreshing];
 }
 
 //MARK: 刷新的传递
@@ -254,6 +280,11 @@ kDealloc
     self.bid_Loan_UPRefresh = UPBlock;
     self.bid_Loan_DownRefresh = downBlock;
 }
+- (void)loanTruansfer_RefreashWithDownBlock:(void (^)())downBlock andUPBlock:(void (^)())UPBlock {
+    self.loanTruansfer_UPRefresh = UPBlock;
+    self.loanTruansfer_DownRefresh = downBlock;
+}
+
 
 //MARK: cell的点击
 - (void)registerClickCellEvent {
@@ -279,7 +310,6 @@ kDealloc
 - (void)switchBottomScrollViewCallBackFunc:(void (^)(NSInteger, NSString *, UIButton *))switchBottomScrollViewBlock {
     self.switchBottomScrollViewBlock = switchBottomScrollViewBlock;
 }
-
 
 ///MARK: 开始刷新资产统计
 - (void)requestAssetStatisticsWithBlockFunc:(void (^)())assetStatisticsWithBlock {

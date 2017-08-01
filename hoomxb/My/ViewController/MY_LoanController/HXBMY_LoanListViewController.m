@@ -21,6 +21,7 @@
 
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel *>*loan_BID_ViewModelArray;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel *>*loan_REPAYING_ViewModelArray;
+@property (nonatomic,strong) NSArray <HXBMY_LoanTruansferViewModel *>*loanTruansferViewModelArray;
 @property (nonatomic,strong) HXBMYModel_Loan_LoanRequestModel *loanAccountModel;
 @end
 
@@ -93,6 +94,19 @@ kDealloc
         [weakSelf.loanListView endRefresh];
     }];
 }
+
+///转让中的网络请求
+- (void)downLoadDataLoantruansferIsUPData:(BOOL)isUPData  {
+   [[HXBMYRequest sharedMYRequest] myLoanTruansfer_requestWithLoanTruansferWithIsUPData:isUPData andSuccessBlock:^(NSArray<HXBMY_LoanTruansferViewModel *> *viewModelArray) {
+       self.loanTruansferViewModelArray = viewModelArray;
+       [self.loanListView endRefresh];
+   } andFailureBlock:^(NSError *error, HXBBaseRequest *request) {
+       NSLog(@"🌶 债转请求错误");
+       [self.loanListView endRefresh];
+       self.loanTruansferViewModelArray = [[NSArray alloc]init];
+   }];
+}
+
 ///网络数据请求数据处理
 - (void)handleViewModelArrayWithViewModelArray: (NSArray<HXBMYViewModel_MainLoanViewModel *>*)loanViewModelArray{
     switch (loanViewModelArray.firstObject.requestType) {
@@ -104,7 +118,7 @@ kDealloc
             self.loanListView.bid_ViewModelArray = loanViewModelArray;
             self.loan_BID_ViewModelArray = loanViewModelArray;
             break;
-        case HXBRequestType_MY_LoanRequestType_FINISH_LOAN: //已结清 预留字段
+        case HXBRequestType_MY_LoanRequestType_Truansfer: //转让中
             break;
     }
 }
@@ -113,8 +127,6 @@ kDealloc
 - (void) registerEvent {
     // 中部的toolBarView的选中的option变化时候调用
     [self setupMidToolBarViewChangeSelect];
-    
-    //点击cell的时候调用
 }
 //MARK:  中部的toolBarView的选中的option变化时候调用
 - (void) setupMidToolBarViewChangeSelect {
@@ -127,13 +139,14 @@ kDealloc
                 if (!weakSelf.loan_REPAYING_ViewModelArray.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
                 break;
                 
-                
-            case HXBRequestType_MY_LoanRequestType_FINISH_LOAN:
-                break;
-                
-                
             case HXBRequestType_MY_LoanRequestType_BID_LOAN:
                 if (!weakSelf.loan_BID_ViewModelArray.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:true];
+                break;
+                //转让中
+            case HXBRequestType_MY_LoanRequestType_Truansfer:
+                if (!weakSelf.loanTruansferViewModelArray.count) {
+                    [weakSelf downLoadDataLoantruansferIsUPData:true];
+                }
                 break;
         }
     }];
@@ -143,6 +156,7 @@ kDealloc
 - (void) registerRefresh {
     [self refresh_bid];
     [self refresh_repying];
+    [self refresh_loanTruansfer];
 }
 - (void) refresh_bid {
     __weak typeof(self)weakSelf = self;
@@ -162,7 +176,13 @@ kDealloc
         [weakSelf assetStatisticsLoadData];
     }];
 }
-
+- (void) refresh_loanTruansfer {
+    [self.loanListView loanTruansfer_RefreashWithDownBlock:^{
+        [self downLoadDataLoantruansferIsUPData:false];
+    } andUPBlock:^{
+        [self downLoadDataLoantruansferIsUPData:true];
+    }];
+}
 ///切换底部的ScrollView的时候调用
 - (void)registerSwichScrollViewCallBack {
     __weak typeof(self)weakSelf = self;
@@ -175,6 +195,12 @@ kDealloc
         if ([title isEqualToString:HXBRequestType_MY_BID_LOAN_UI]) {///投标中刷新
             if (!weakSelf.loan_BID_ViewModelArray.count) {
                 [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:true];
+            }
+        }
+        //转让中
+        if (index == 2) {
+            if (!weakSelf.loanTruansferViewModelArray.count) {
+                [weakSelf downLoadDataLoantruansferIsUPData:true];
             }
         }
     }];

@@ -3,7 +3,7 @@
 //  hoomxb
 //
 //  Created by HXB on 2017/4/14.
-//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
+//  Copyright © 2017年 李鹏跃. All rights reserved.
 //
 
 
@@ -31,6 +31,7 @@
 #import "HXBNoDataView.h"//没有数据的View
 #import "HXBFinBaseNegotiateView.h"///用户协议
 #import "HXBBaseView_Button.h"//左边一个image 右边一个title的button
+
 
 //MARK: NSObject
 #import "HXBBaseHandDate.h"//关于时间处理的类

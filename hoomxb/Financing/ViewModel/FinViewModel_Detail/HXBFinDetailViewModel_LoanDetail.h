@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HXBFinDatailModel_LoanDetail.h"
+@class HXBFin_Detail_DetailVC_LoanManager;
 ///散标投递的详情页的ViewModel
 @interface HXBFinDetailViewModel_LoanDetail : NSObject
 @property (nonatomic,strong) HXBFinDatailModel_LoanDetail *loanDetailModel;
@@ -115,4 +116,21 @@
  是否有 车贷
  */
 @property (nonatomic,copy) NSString *hasCarLoan;
+/**
+ 学历
+ */
+@property (nonatomic,copy) NSString *university;
+/**
+ 籍贯
+ */
+@property (nonatomic,copy) NSString *homeTown;
+///@"公司类别：",
+@property (nonatomic,copy) NSString *companyCategory;
+///@"职位：",
+@property (nonatomic,copy) NSString *companyPost;
+///@"工作行业：",
+@property (nonatomic,copy) NSString *companyIndustry;
+///@"工作城市："
+@property (nonatomic,copy) NSString *companyLocation;
+@property (nonatomic,strong) HXBFin_Detail_DetailVC_LoanManager *fin_LoanInfoView_Manager;
 @end

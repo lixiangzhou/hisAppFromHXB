@@ -704,7 +704,7 @@
         HXBFin_LoanTruansfer_BuyResoutViewModel *loantruansferViewModel = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc]init];
         HXBFinModel_BuyResout_LoanTruansferModel *loantruansferModel = [[HXBFinModel_BuyResout_LoanTruansferModel alloc]init];
         NSDictionary *dataDic = responseObject[kResponseData];
-        BOOL isSuccess = [loantruansferViewModel yy_modelSetWithDictionary:dataDic];
+        BOOL isSuccess = [loantruansferModel yy_modelSetWithDictionary:dataDic];
         if (!isSuccess) {
             NSLog(@"🌶字典转模型失败%@",self);
             return;

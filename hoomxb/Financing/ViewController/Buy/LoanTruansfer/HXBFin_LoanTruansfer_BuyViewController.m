@@ -184,24 +184,28 @@
     //            }else {
     [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansfer_confirmBuyReslutWithLoanID:weakSelf.loanTruansferViewModel.loanTruansferDetailModel.transferId andInvestAmount:capital andSuccessBlock:^(HXBFin_LoanTruansfer_BuyResoutViewModel *model) {
         ///加入成功
-        HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-        planBuySuccessVC.imageName = @"successful";
-        planBuySuccessVC.buy_title = @"购买成功";
-        planBuySuccessVC.massage_Left_StrArray = @[
+        HXBFBase_BuyResult_VC *loanTruansferBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+        [loanTruansferBuySuccessVC clickButtonWithBlock:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
+            [self.navigationController popToRootViewControllerAnimated:true];
+        }];
+        loanTruansferBuySuccessVC.imageName = @"successful";
+        loanTruansferBuySuccessVC.buy_title = @"购买成功";
+        loanTruansferBuySuccessVC.massage_Left_StrArray = @[
                                                    @"下一个还款日",
                                                    @"投资金额",
                                                    @"实际买入本金",
                                                    @"公允利息"
                                                    ];
-        planBuySuccessVC.massage_Right_StrArray = @[
-                                                    @"0000-00-00",
+        loanTruansferBuySuccessVC.massage_Right_StrArray = @[
+                                                    model.nextRepayDate,
                                                     model.buyAmount,
                                                     model.principal,
                                                     model.interest
                                                     ];
-        planBuySuccessVC.buy_description = @"公允利息为您垫付的转让人持有天利息，还款人将会在下个还款日予以返回";
-        planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
-        [self.navigationController pushViewController:planBuySuccessVC animated:true];
+        loanTruansferBuySuccessVC.buy_description = @"公允利息为您垫付的转让人持有天利息，还款人将会在下个还款日予以返回";
+        loanTruansferBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
+        [self.navigationController pushViewController:loanTruansferBuySuccessVC animated:true];
         
     } andFailureBlock:^(NSError *error, NSDictionary *response) {
         NSInteger status = [response[kResponseStatus] integerValue];

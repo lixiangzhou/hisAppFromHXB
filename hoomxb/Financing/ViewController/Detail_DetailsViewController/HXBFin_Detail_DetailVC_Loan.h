@@ -8,15 +8,19 @@
 
 #import "HXBBaseViewController.h"
 @class HXBFinDetailViewModel_LoanDetail;
+@class HXBFin_Detail_DetailVC_LoanManager;
+@class HXBFin_LoanInfoView_Manager;
 ///贷款信息
 @interface HXBFin_Detail_DetailVC_Loan : HXBBaseViewController
 ///用户信息
 @property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanDetailViewModel;
-
+@property (nonatomic,strong) HXBFin_Detail_DetailVC_LoanManager *fin_Detail_DetailVC_LoanManager;
 @end
 
 
 @interface HXBFin_Detail_DetailVC_LoanManager : NSObject
+///借款说明
+@property (nonatomic,copy) NSString *loanInstruction;
 
 #pragma mark     ------------ @"基础信息" ----------------
 ///@"姓名：",
@@ -53,4 +57,6 @@
 @property (nonatomic,copy) NSString *companyIndustry;
 ///@"工作城市："
 @property (nonatomic,copy) NSString *companyLocation;
+
+
 @end

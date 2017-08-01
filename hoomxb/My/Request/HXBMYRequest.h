@@ -10,6 +10,8 @@
 #import "HXBMYViewModel_MianPlanViewModel.h"//主界面 planViewModel
 #import "HXBMYViewModel_MainLoanViewModel.h"//主界面的 loanViewModel
 #import "HXBMYViewModel_MainCapitalRecordViewModel.h"//主界面 资产记录 ViewMOdel
+#import "HXBBaseRequest.h"
+#import "HXBMY_LoanTruansferViewModel.h"
 @class HXBMYModel_AssetStatistics_Plan;//资金统计的Model plan
 @class HXBMYModel_AssetStatistics_Loan;//资金统计的Model loan
 @class HXBMYModel_Plan_planRequestModel;///plan 资产目录
@@ -42,6 +44,12 @@
                          andUpData: (BOOL)isUPData
                    andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainLoanViewModel *>* viewModelArray))successDateBlock
                    andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+///转让中 列表的网络数据的请求
+- (void)myLoanTruansfer_requestWithLoanTruansferWithIsUPData: (BOOL)isUPData
+                                             andSuccessBlock: (void(^)(NSArray<HXBMY_LoanTruansferViewModel *>* viewModelArray))successDateBlock
+                                             andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock;
+
 
 /// 资金记录 接口
 - (void)capitalRecord_requestWithScreenType: (NSString *)screenType

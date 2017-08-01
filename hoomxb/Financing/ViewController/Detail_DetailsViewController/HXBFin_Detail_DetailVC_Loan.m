@@ -45,16 +45,103 @@
     self.scrollView.backgroundColor = kHXBColor_BackGround;
     self.isColourGradientNavigationBar = true;
     
-    self.loanInfo = [[HXBFin_LoanInfoView alloc] init];
-    [self.view addSubview: self.loanInfo];
-    
-    [self.loanInfo mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
-    self.loanInfo.loan_finDatailModel = self.loanDetailViewModel;
+//    self.loanInfo = [[HXBFin_LoanInfoView alloc] init];
+//    [self.view addSubview: self.loanInfo];
 //    
-//    [self setUPFrame];
-//    [self setUPValue];
+//    [self.loanInfo mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.edges.equalTo(self.view);
+//    }];
+//    self.loanInfo.loan_finDatailModel = self.loanDetailViewModel;
+    
+    [self setUPFrame];
+    [self setUPValue];
+    [self setUPManager];
+}
+
+- (void)setUPManager {
+    if (!self.fin_Detail_DetailVC_LoanManager) {
+        NSLog(@"%@数据为空",self);
+        return;
+    }
+    /////借款说
+    self.loanInstuctionView.loanInstruction = self.fin_Detail_DetailVC_LoanManager.loanInstruction;
+    ///借款人信息(预留接口)
+    //    self.loanPerson_infoView
+    kWeakSelf
+    [self.loanInfoView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+        viewManager.leftStrArray = @[
+                                     @"基础信息",
+                                     @"姓名：",
+                                     @"年龄：",
+                                     @"婚姻：",
+                                     @"身份证号：",
+                                     @"学历：",
+                                     @"籍贯：",
+                                     ];
+        viewManager.rightStrArray = @[      @" ",
+                                            weakSelf.fin_Detail_DetailVC_LoanManager.name,
+                                            weakSelf.fin_Detail_DetailVC_LoanManager.age,
+                                            weakSelf.fin_Detail_DetailVC_LoanManager.marriageStatus,
+                                            weakSelf.fin_Detail_DetailVC_LoanManager.idNo,
+                                            weakSelf.fin_Detail_DetailVC_LoanManager.university,
+                                            weakSelf.fin_Detail_DetailVC_LoanManager.homeTown
+                                            ];
+        
+        viewManager.leftFont        = kHXBFont_PINGFANGSC_REGULAR(14);
+        viewManager.rightFont       = kHXBFont_PINGFANGSC_REGULAR(14);
+        viewManager.leftTextColor   = kHXBColor_HeightGrey_Font0_4;
+        viewManager.rightTextColor  = kHXBColor_Font0_6;
+        viewManager.rightLabelAlignment = NSTextAlignmentLeft;
+        return viewManager;
+    }];
+    
+    [self.loanFinView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+        viewManager.leftStrArray = @[
+                                     @"财务信息",
+                                     @"车产：",
+                                     @"房产：",
+                                     @"房贷：",
+                                     @"月收入（月）："
+                                     ];
+        viewManager.rightStrArray = @[
+                                      @" ",
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.hasCar,
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.hasHouse,
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.hasHouseLoan,
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.monthlyIncome
+                                      ];
+        
+        viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(14);
+        viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(14);
+        viewManager.leftTextColor = kHXBColor_HeightGrey_Font0_4;
+        viewManager.rightTextColor = kHXBColor_Font0_6;
+        viewManager.rightLabelAlignment = NSTextAlignmentLeft;
+        return viewManager;
+    }];
+    
+    [self.workInfoView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+        viewManager.leftStrArray = @[
+                                     @"工作信息",
+                                     @"公司类别：",
+                                     @"职位：",
+                                     @"工作行业：",
+                                     @"工作城市："
+                                     ];
+        viewManager.rightStrArray = @[
+                                      @" ",
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.companyCategory,
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.companyPost,
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.companyIndustry,
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.companyLocation
+                                      ];
+        viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(14);
+        viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(14);
+        viewManager.leftTextColor = kHXBColor_HeightGrey_Font0_4;
+        viewManager.rightTextColor = kHXBColor_Font0_6;
+        viewManager.rightLabelAlignment = NSTextAlignmentLeft;
+        return viewManager;
+    }];
+
 }
 - (void)setUPValue {
     if (!self.loanDetailViewModel) {

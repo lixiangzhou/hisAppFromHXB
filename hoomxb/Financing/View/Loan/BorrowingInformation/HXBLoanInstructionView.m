@@ -35,7 +35,10 @@
 //    _loanContentLabel.text = @"借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明";
 //    self.height = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO_height + 60;
 }
-
+- (void)setLoanInstruction:(NSString *)loanInstruction {
+    _loanInstruction = loanInstruction;
+    self.loanContentLabel.text = loanInstruction;
+}
 - (void)setupSubViewframe
 {
     [self mas_makeConstraints:^(MASConstraintMaker *make) {

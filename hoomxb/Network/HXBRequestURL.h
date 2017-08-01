@@ -46,7 +46,9 @@
 #define kHXBMY_PlanAssetsURL @"/account/plan"// plan 资金统计
 
 #define kHXBMY_LoanListURL @"/account/loan"//账户内  loanlist
+#define kHXBMY_LoanTruansferListURL @"/account/transfer"//账户内 loanTruansfer
 #define kHXBMY_LoanAssetsURL @"/account/loanAssets"//loan资金统计
+
 ///账户内的plan 交易记录
 #define kHXBFin_loanRecordURL(planID) [NSString stringWithFormat:@"/account/plan/%@/loanRecord",(planID)]
 #define kHXBMY_LoanAccountRequestURL @"/account/loanAssets"///账户内 账户内Loan资产
