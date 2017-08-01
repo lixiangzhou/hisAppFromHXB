@@ -160,18 +160,18 @@
 //            }else {
         [[HXBFinanctingRequest sharedFinanctingRequest]loan_confirmBuyReslutWithLoanID:weakSelf.loanViewModel.loanDetailModel.loanVo.loanId andAmount:capital andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
             ///加入成功
-            HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-            planBuySuccessVC.imageName = @"successful";
-            planBuySuccessVC.buy_title = @"投标成功";
-            planBuySuccessVC.buy_description = @"放款前系统将会冻结您的投资金额，放款成功后开始计息";
-            planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
-            planBuySuccessVC.title = @"投资成功";
-            [planBuySuccessVC clickButtonWithBlock:^{
+            HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+            loanBuySuccessVC.imageName = @"successful";
+            loanBuySuccessVC.buy_title = @"投标成功";
+            loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的投资金额，放款成功后开始计息";
+            loanBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
+            loanBuySuccessVC.title = @"投资成功";
+            [loanBuySuccessVC clickButtonWithBlock:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
                 [self.navigationController popToRootViewControllerAnimated:true];
             }];
             
-            [self.navigationController pushViewController:planBuySuccessVC animated:true];
+            [self.navigationController pushViewController:loanBuySuccessVC animated:true];
         } andFailureBlock:^(NSError *error,NSInteger status) {
             HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
             failViewController.title = @"投资结果";

@@ -53,7 +53,9 @@
     return _singleMaxRegisterAmount;
 }
 
-///开始时间
+/**
+ 开始收益
+ */
 /**
  开始时间
  */
@@ -67,14 +69,48 @@
 
 ///退出时间
 /**
- 推出时间
+开始收益时间
  */
 - (NSString *) financeEndTime {
     if (!_financeEndTime) {
         NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planDetailModel.endLockingTime andDateFormatter: @"yyyy-MM-dd HH:mm:ss"];
-        _financeEndTime = self.financeEndTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:date andDateFormat:@"yyyy-MM-dd"];
+        _financeEndTime = [[HXBBaseHandDate sharedHandleDate] stringFromDate:date andDateFormat:@"yyyy-MM-dd"];
     }
     return _financeEndTime;
+}
+
+/**
+ 退出时间
+ */
+- (NSString *) endLockingTime_flow {
+    if (!_endLockingTime_flow) {
+        NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planDetailModel.endLockingTime andDateFormatter: @"yyyy-MM-dd HH:mm:ss"];
+        _endLockingTime_flow = [[HXBBaseHandDate sharedHandleDate] stringFromDate:date andDateFormat:@"yyyy-MM-dd"];
+    }
+    return _endLockingTime_flow;
+}
+
+/*
+ 开始收益时间 流程
+ **/
+- (NSString *) financeEndTime_flow {
+    if (!_financeEndTime_flow) {
+        NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planDetailModel.endLockingTime andDateFormatter: @"yyyy-MM-dd HH:mm:ss"];
+        _financeEndTime_flow  = [[HXBBaseHandDate sharedHandleDate] stringFromDate:date andDateFormat:@"MM-dd HH:mm"];
+    }
+    return _financeEndTime_flow;
+}
+
+
+/**
+ 开始加入时间
+ */
+- (NSString *) beginSellingTime_flow {
+    if (!_beginSellingTime_flow) {
+        NSDate *date =  [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planDetailModel.beginSellingTime andDateFormatter: @"yyyy-MM-dd HH:mm:ss"];
+       _beginSellingTime_flow = [[HXBBaseHandDate sharedHandleDate] stringFromDate:date andDateFormat:@"MM-dd HH:mm"];
+    }
+    return _beginSellingTime_flow;
 }
 
 - (NSString *)description {

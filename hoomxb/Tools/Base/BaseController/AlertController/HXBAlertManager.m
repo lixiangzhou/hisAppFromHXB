@@ -127,10 +127,10 @@
             [alertVC setClickLeftButtonBlock:^{
                 HXBRiskAssessmentViewController *riskAssessmentVC = [[HXBRiskAssessmentViewController alloc] init];
                 [vc.navigationController pushViewController:riskAssessmentVC animated:YES];
+                __weak typeof(riskAssessmentVC) weakRiskAssessmentVC = riskAssessmentVC;
                 [riskAssessmentVC popWithBlock:^(NSString *type) {
                     if (type) {
-                        NSString *string = [NSString stringWithFormat:@"您是%@用户",type];
-                        [HxbHUDProgress showMessageCenter:string inView:vc.view];
+                        [weakRiskAssessmentVC.navigationController popToViewController:vc animated:true];
                     }
                 }];
             }];
@@ -144,9 +144,6 @@
             }];
             [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
         }
-        
-        
-
 //        
         ///条件全部满足
         if (pushBlock) {

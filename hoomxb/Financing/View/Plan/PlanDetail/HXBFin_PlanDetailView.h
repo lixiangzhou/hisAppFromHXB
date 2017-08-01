@@ -91,6 +91,13 @@
 @property (nonatomic,copy) NSString *remainAmount;
 @property (nonatomic,copy) NSString *remainAmount_const;
 
+//开始加入时间
+@property (nonatomic,copy) NSString *addTime;
+///开始收益时间
+@property (nonatomic,copy) NSString *beginProfitTime;
+///到期退出时间
+@property (nonatomic,copy) NSString *leaveTime;
+
 @property (nonatomic,copy) NSString *addButtonStr;
 ///期限的string
 @property (nonatomic,copy) NSString *lockPeriodStr;
@@ -100,6 +107,8 @@
 @property (nonatomic,copy) NSString *remainTime;
 /// 倒计时
 @property (nonatomic,copy) NSString *diffTime;
+///阶段
+@property (nonatomic,assign) NSInteger unifyStatus;
 ///是否倒计时
 @property (nonatomic,assign) BOOL isCountDown;
 ///是否可以点击 addbutton

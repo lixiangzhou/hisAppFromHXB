@@ -80,7 +80,7 @@
 #pragma mark -  loan 界面
 /// 根据枚举值返回对应的请求参数字符串 ———— 我的Loan界面
 + (HXBRequestType_MY_LoanRequestType)myLoan_RequestTypeStr: (NSString *)typeStr {
-    if ([typeStr isEqualToString:HXBRequestType_MY_FINISH_LOAN]) return HXBRequestType_MY_LoanRequestType_FINISH_LOAN;
+//    if ([typeStr isEqualToString:HXBRequestType_MY_FINISH_LOAN]) return HXBRequestType_MY_LoanRequestType_BID_LOAN;
     if ([typeStr isEqualToString:HXBRequestType_MY_BID_LOAN]) return HXBRequestType_MY_LoanRequestType_BID_LOAN;
     if ([typeStr isEqualToString:HXBRequestType_MY_REPAYING_LOAN]) return HXBRequestType_MY_LoanRequestType_REPAYING_LOAN;
     NSLog(@"%@， - 我的Loan主界面 -- 对应的相应参数字符串 输入错误，",self.class);
@@ -100,7 +100,7 @@
         case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN:
             returnParamBlock(HXBRequestType_MY_REPAYING_LOAN,HXBRequestType_MY_REPAYING_LOAN_UI);
             break;
-        case HXBRequestType_MY_LoanRequestType_FINISH_LOAN:
+        case HXBRequestType_MY_LoanRequestType_Truansfer:
             returnParamBlock(HXBRequestType_MY_FINISH_LOAN,HXBRequestType_MY_FINISH_LOAN_UI);
             break;
         case HXBRequestType_MY_LoanRequestType_BID_LOAN:

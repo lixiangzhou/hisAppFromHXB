@@ -173,6 +173,11 @@
     }
     return false;
 }
+
+- (void) setUPViewsFrameWithRightViewNotTitle {
+    
+}
+
 //正在进行
 - (void)setUPViews_frameWithSpace:(UIEdgeInsets)space {
     
@@ -195,11 +200,11 @@
                 make.top.equalTo(self.leftViewArray[i - 1].mas_bottom).offset(self.topBottomSpace);
                 make.left.equalTo(self.leftViewArray[i - 1]);
                 make.height.equalTo(self.leftViewArray[i - 1]);
-                make.width.equalTo(self.leftViewArray[i - 1]);
+//                make.width.equalTo(self.leftViewArray[i - 1]);
             }];
             [self.rightViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.bottom.top.equalTo(self.leftViewArray[i]);
-                make.left.equalTo(self.leftViewArray[i].mas_right);
+                make.left.equalTo(self.leftViewArray[i].mas_right).offset(self.leftProportion);
                 make.right.equalTo(self.rightViewArray[i - 1]);
             }];
         }

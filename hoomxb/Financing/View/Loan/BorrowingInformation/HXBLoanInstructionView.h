@@ -12,4 +12,6 @@
 @interface HXBLoanInstructionView : UIView
 ///用户信息
 @property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanDetailViewModel;
+///借款说明
+@property (nonatomic,copy) NSString *loanInstruction;
 @end

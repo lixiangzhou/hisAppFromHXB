@@ -45,4 +45,14 @@
 - (BOOL)isRepayed {
     return self.loanTruansferModel.isRepayed;
 }
+/**
+ 下一个还款日
+ */
+
+- (NSString *) nextRepayDate {
+    if (!_nextRepayDate) {
+        _nextRepayDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.loanTruansferModel.nextRepayDate andDateFormat:@"yyyy-MM-dd"];
+    }
+    return _nextRepayDate;
+}
 @end

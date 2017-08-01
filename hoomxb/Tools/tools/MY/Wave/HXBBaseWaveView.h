@@ -14,8 +14,6 @@ typedef enum : NSUInteger {
 } HXBBaseWaveViewPathType;
 
 
-
-
 @interface HXBBaseWaveView : UIView
 
 #pragma mark - 必备参数

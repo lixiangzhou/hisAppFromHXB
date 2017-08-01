@@ -11,8 +11,4 @@
 @interface HXBBaseView_Button : UIButton
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic,copy) NSString *selectImageName;
-///对image的大小的调整
-@property (nonatomic,assign) CGRect imageRect;
-//@property (nonatomic,strong) UIImageView *imageView;
-//@property (nonatomic,strong) UIImageView *selectImageView;
 @end

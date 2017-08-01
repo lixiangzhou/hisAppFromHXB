@@ -8,6 +8,7 @@
 
 #import "HXBFinDetailViewModel_LoanDetail.h"
 #import "HXBFinDatailModel_LoanDetail.h"
+#import "HXBFin_Detail_DetailVC_Loan.h"
 @implementation HXBFinDetailViewModel_LoanDetail
 - (void)setLoanDetailModel:(HXBFinDatailModel_LoanDetail *)loanDetailModel {
     _loanDetailModel = loanDetailModel;
@@ -27,7 +28,7 @@
 //    if (!_loanPeriodStr) {
 //        _loanPeriodStr = [NSString stringWithFormat:@"%@%@",self.loanDetailModel]
 //    }
-//    return <#obj#>
+//    return obj
 //}
 /**
  标的状态
@@ -40,6 +41,7 @@
         if ( [status isEqualToString:@"OPEN"]){
             self.addButtonStr = @"立即投标";
             [self setUPAddButtonColorWithType:false];
+            
             _isAddButtonEditing = true;
             _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.surplusAmount.floatValue];
         }
@@ -161,6 +163,7 @@
             _surplusAmount_ConstStr = @"标的金额";
             _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
         }else {
+            _surplusAmount_ConstStr = @"剩余可投";
             [self status];
         }    
     }
@@ -175,6 +178,7 @@
             _surplusAmount_ConstStr = @"标的金额";
             _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
         }else {
+            _surplusAmount_ConstStr = @"剩余可投";
             [self status];
         }
     }
@@ -253,5 +257,206 @@
         _remainTime  = self.loanDetailModel.remainTime;
     }
     return _remainTime;
+}
+
+/**
+婚姻状态
+ */
+- (NSString *) marriageStatus {
+    if (!_marriageStatus) {
+        if ([self.loanDetailModel.userVo.marriageStatus isEqualToString:@"MARRIED"]) {
+            
+            _marriageStatus = @"已婚";
+            
+        }else if ([self.loanDetailModel.userVo.marriageStatus isEqualToString:@"UNMARRIED"]){
+            
+            _marriageStatus = @"未婚";
+            
+        }else if ([self.loanDetailModel.userVo.marriageStatus isEqualToString:@"DIVORCED"]){
+            
+            _marriageStatus = @"离异";
+            
+        }else if ([self.loanDetailModel.userVo.marriageStatus isEqualToString:@"WIDOWED"]){
+            
+            _marriageStatus = @"丧偶";
+        }
+    }
+    return _marriageStatus;
+}
+
+/**
+ 年龄
+ */
+- (NSString *)age {
+    if (!_age) {
+        _age = [NSString stringWithFormat:@"年龄 %@岁",self.loanDetailModel.idCardInfo.age];
+    }
+    return _age;
+}
+/**
+ 名字
+ */
+- (NSString *) name {
+    if (!_name) {
+        _name = self.loanDetailModel.idCardInfo.name;
+    }
+    return _name;
+}
+/**
+ 月收入
+ */
+- (NSString *) monthlyIncome {
+    if (!_monthlyIncome) {
+        _monthlyIncome = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.userVo.monthlyIncome.floatValue];
+    }
+    return _monthlyIncome;
+}
+/**
+ 是否有房产
+ */
+- (NSString *) hasHouse {
+    if (!_hasHouse) {
+        if (self.loanDetailModel.userVo.hasHouse.integerValue) {
+            _hasHouse = @"有房产";
+        }else
+        {
+            _hasHouse = @"无房产";
+        }
+    }
+    return _hasHouse;
+}
+/**
+ 是否有房贷
+ */
+- (NSString *) hasHouseLoan {
+    if (!_hasHouseLoan) {
+        if (self.loanDetailModel.userVo.hasHouseLoan.integerValue) {
+            _hasHouseLoan = @"有房贷";
+        }else
+        {
+            _hasHouseLoan = @"无房贷";
+        }
+    }
+    return _hasHouseLoan;
+}
+/**
+ 是否有 车贷
+ */
+- (NSString *) hasCar {
+    if (!_hasCar) {
+        if (self.loanDetailModel.userVo.hasCar.integerValue) {
+            
+             _hasCar = @"有车产";
+        }else
+        {
+             _hasCar = @"无车产";
+        }
+    }
+    return _hasCar;
+}
+/**
+ 是否有 车贷
+ */
+- (NSString *) hasCarLoan {
+    if (!_hasCarLoan) {
+        if (self.loanDetailModel.userVo.hasCarLoan.integerValue) {
+            _hasCarLoan = @"有车贷";
+        }else
+        {
+            _hasCarLoan = @"无车贷";
+        }
+    }
+    return _hasCarLoan;
+}
+/**
+ 身份证号
+ */
+- (NSString *) idNo {
+    if (!_idNo) {
+        _idNo = self.loanDetailModel.idCardInfo.idNo;
+    }
+    return _idNo;
+}
+/**
+学历
+*/
+- (NSString *)university {
+    if (!_university) {
+        _university = [self string:self.loanDetailModel.userVo.university componentsSeparatedByString:@"-"];
+    }
+    return _university;
+}
+/**
+///@"籍贯：",
+ */
+- (NSString *)homeTown {
+    if (!_homeTown) {
+        _homeTown = [self string:self.loanDetailModel.userVo.homeTown componentsSeparatedByString:@"-"];
+    }
+    return _homeTown;
+}
+
+///@"公司类别：",
+- (NSString *)companyCategory {
+    if (!_companyCategory) {
+        _companyCategory = [self string:self.loanDetailModel.userVo.companyCategory componentsSeparatedByString:@"-"];
+    }
+    return _companyCategory;
+}
+///@"职位：",
+- (NSString *)companyPost {
+    if (!_companyPost) {
+        _companyPost = [self string:self.loanDetailModel.userVo.companyPost componentsSeparatedByString:@"-"];
+    }
+    return _companyPost;
+}
+///@"工作行业：",
+- (NSString *)companyIndustry {
+    if (!_companyIndustry) {
+        _companyIndustry = [self string:self.loanDetailModel.userVo.companyIndustry componentsSeparatedByString:@"-"];
+    }
+    return _companyIndustry;
+}
+///@"工作城市："
+- (NSString *)companyLocation {
+    if (!_companyLocation) {
+        _companyLocation = [self string:self.loanDetailModel.userVo.companyLocation componentsSeparatedByString:@"-"];
+    }
+    return _companyLocation;
+}
+
+-(HXBFin_Detail_DetailVC_LoanManager *)fin_LoanInfoView_Manager {
+    if (!_fin_LoanInfoView_Manager) {
+        _fin_LoanInfoView_Manager = [[HXBFin_Detail_DetailVC_LoanManager alloc] init];
+        _fin_LoanInfoView_Manager.name = self.name;
+        _fin_LoanInfoView_Manager.age = self.age;
+        _fin_LoanInfoView_Manager.marriageStatus = self.marriageStatus;
+        _fin_LoanInfoView_Manager.idNo = self.idNo;
+        ///@"学历："
+        _fin_LoanInfoView_Manager.university = self.university;
+        _fin_LoanInfoView_Manager.homeTown = self.homeTown;
+
+        _fin_LoanInfoView_Manager.hasCar = self.hasCar;
+        _fin_LoanInfoView_Manager.hasHouse = self.hasHouse;
+        _fin_LoanInfoView_Manager.hasHouseLoan = self.hasHouseLoan;
+        _fin_LoanInfoView_Manager.monthlyIncome = self.monthlyIncome;
+        
+        _fin_LoanInfoView_Manager.companyCategory = self.companyCategory;
+        _fin_LoanInfoView_Manager.companyPost = self.companyPost;
+        _fin_LoanInfoView_Manager.companyIndustry = self.companyIndustry;
+        _fin_LoanInfoView_Manager.companyLocation = self.companyLocation;
+    }
+    return _fin_LoanInfoView_Manager;
+}
+
+- (NSString *)string:(NSString *)string componentsSeparatedByString: (NSString *)str {
+    NSArray *strArray = [string componentsSeparatedByString:str];
+    NSString *_string = @"";
+    if (strArray.count) {
+        _string = strArray.lastObject;
+    }else {
+        _string = string;
+    }
+    return _string;
 }
 @end

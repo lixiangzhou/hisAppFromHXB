@@ -67,8 +67,12 @@
     [super drawRect:rect];
     CGContextRef context = UIGraphicsGetCurrentContext();
     //    [self layoutIfNeeded];
-//    NSAssert(self.stage < self.circularCount,@"🌶注意，同心圆的个数不能为负数stage = %ld，circularCount = %ld",(long)self.stage,(long)self.circularCount);
-    for (int i = 0; i < self.concentricCirclesLocationArray.count - self.isDontDrowLastArt; i ++) {
+//    NSAssert(self.stage <= self.circularCount,@"🌶注意，同心圆的个数不能为负数stage = %ld，circularCount = %ld",(long)self.stage,(long)self.circularCount);
+    if (!self.concentricCirclesLocationArray.count) {
+        NSLog(@"🌶注意  没有同心圆位置");
+        return;
+    }
+    for (int i = 0; i < self.concentricCirclesLocationArray.count - self.dontDrowArtCount - self.isDontDrowLastArtCount; i ++) {
         //画圆
         BOOL isConcentricCircles = NO;
         if (i < self.stage) {
@@ -77,7 +81,7 @@
         CGRect location_Arc = [self.concentricCirclesLocationArray[i] CGRectValue];
         [self drawRectArcWithIsConcentricCircles:isConcentricCircles andContext:context andRect:location_Arc];
         //画线
-        if (i == self.circularCount - 1) continue;
+        if (i == self.circularCount - 1  - self.dontDrowArtCount) continue;
         CGRect location_Line = [self.lineLocationArray[i] CGRectValue];
         [self drawLineWithContext:context andLineRect:location_Line];
     }

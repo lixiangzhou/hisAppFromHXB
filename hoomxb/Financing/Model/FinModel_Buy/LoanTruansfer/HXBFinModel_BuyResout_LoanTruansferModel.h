@@ -31,4 +31,8 @@
  0为未还
  */
 @property (nonatomic,assign) BOOL isRepayed;
+/**
+ 下一个还款日
+ */
+@property (nonatomic,copy) NSString *nextRepayDate;
 @end

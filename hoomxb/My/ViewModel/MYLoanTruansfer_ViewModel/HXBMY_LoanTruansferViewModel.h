@@ -1,26 +1,17 @@
 //
-//  HXBFin_TableViewCell_LoanTransfer.h
+//  HXBMY_LoanTruansferViewModel.h
 //  hoomxb
 //
-//  Created by HXB on 2017/7/1.
+//  Created by HXB on 2017/8/1.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-@class HXBFinHomePageViewModel_LoanTruansferViewModel;
-@class HXBFin_TableViewCell_LoanTransferManager;
-@interface HXBFin_TableViewCell_LoanTransfer : HXBBaseTableViewCell
+#import "HXBBaseViewModel.h"
+#import "HXBMY_LoanTruansferModel.h"
+@interface HXBMY_LoanTruansferViewModel : HXBBaseViewModel
+@property (nonatomic,strong)HXBMY_LoanTruansferModel *my_truanfserModel;
 /**
- 债转模型
- */
-@property (nonatomic,strong) HXBFinHomePageViewModel_LoanTruansferViewModel *LoanTruansferViewModel;
-@property (nonatomic,copy) void(^clickStutasButtonBlock)(id model);
-
-@property (nonatomic,strong) HXBFin_TableViewCell_LoanTransferManager*manager;
-@end
-@interface HXBFin_TableViewCell_LoanTransferManager : NSObject
-/**
-  @"剩余期限(月)"
+ @"剩余期限(月)"
  */
 @property (nonatomic,copy) NSString * remainMonthStr;
 /**

@@ -68,8 +68,10 @@ typedef enum : NSUInteger {
     HXBRequestType_MY_LoanRequestType_REPAYING_LOAN = 1,
     ///投标中
     HXBRequestType_MY_LoanRequestType_BID_LOAN,
-    ///已结清
-    HXBRequestType_MY_LoanRequestType_FINISH_LOAN
+//    ///已结清
+//    HXBRequestType_MY_LoanRequestType_FINISH_LOAN
+///转让中
+    HXBRequestType_MY_LoanRequestType_Truansfer
 }HXBRequestType_MY_LoanRequestType;
 
 
@@ -77,7 +79,7 @@ typedef enum : NSUInteger {
 ///已结清
 static NSString *const HXBRequestType_MY_FINISH_LOAN = @"FINISH_LOAN";
 ///已结清的UI 显示
-static NSString *const HXBRequestType_MY_FINISH_LOAN_UI = @"已结清";
+static NSString *const HXBRequestType_MY_FINISH_LOAN_UI = @"转让中";
 ///收益中
 static NSString *const HXBRequestType_MY_REPAYING_LOAN = @"REPAYING_LOAN";
 ///收益中的UI显示

@@ -31,6 +31,7 @@
 //MARK: 刷新的传递
 - (void)erpaying_RefreashWithDownBlock:(void (^)())downBlock andUPBlock:(void (^)())UPBlock;
 - (void)bid_RefreashWithDownBlock:(void (^)())downBlock andUPBlock:(void (^)())UPBlock;
+- (void)loanTruansfer_RefreashWithDownBlock:(void (^)())downBlock andUPBlock:(void (^)())UPBlock;
 - (void)endRefresh;
 
 ///资产统计的刷新

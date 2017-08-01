@@ -102,6 +102,11 @@
         viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
         if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
         }
+        //流程的数据
+        viewModelVM.unifyStatus                = weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue;
+        viewModelVM.addTime                    = weakSelf.planDetailViewModel.beginSellingTime_flow;
+        viewModelVM.beginProfitTime            = weakSelf.planDetailViewModel.financeEndTime_flow;
+        viewModelVM.leaveTime                  = weakSelf.planDetailViewModel.endLockingTime_flow;
         return viewModelVM;
     }];
 }

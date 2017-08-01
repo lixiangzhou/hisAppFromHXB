@@ -121,7 +121,10 @@
 - (void)setIsColourGradientNavigationBar:(BOOL)isColourGradientNavigationBar {
     if (isColourGradientNavigationBar) {
         self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:UIBarMetricsDefault];
+        self.isTransparentNavigationBar = true;
+        UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"top"]];
+        [self.view addSubview:imageView];
+        imageView.frame = CGRectMake(0, 0, kScreenWidth, 64);
     }
 }
 
@@ -129,7 +132,10 @@
 {
     if (isBlueGradientNavigationBar) {
         self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
-        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_top_blue"] forBarMetrics:UIBarMetricsDefault];
+        self.isTransparentNavigationBar = true;
+        UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nav_top_blue"]];
+        [self.view addSubview:imageView];
+        imageView.frame = CGRectMake(0, 0, kScreenWidth, 64);
     }
 }
 

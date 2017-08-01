@@ -46,5 +46,7 @@
 ///圆的个数
 @property (nonatomic,assign) NSInteger circularCount;
 ///画不画最后一个圆形
-@property (nonatomic,assign) BOOL isDontDrowLastArt;
+@property (nonatomic,assign) BOOL isDontDrowLastArtCount;
+///后面有几个圆与线不画
+@property (nonatomic,assign) NSInteger dontDrowArtCount;
 @end

@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hoomxb/Financing/View/Loan/Detail/HXBFin_DetailsView_LoanDetailsView.m"
-            timestampString = "522823846.88066"
+            filePath = "hoomxb/Financing/ViewModel/FinViewModel_Buy/HXBFin_LoanTruansfer_BuyResoutViewModel.m"
+            timestampString = "523264954.691351"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "-setViewModelVM:"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "-principal"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,13 +35,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hoomxb/Financing/Request/HXBFinanctingRequest.m"
-            timestampString = "522842906.691287"
+            filePath = "hoomxb/Financing/ViewModel/FinViewModel_Buy/HXBFin_LoanTruansfer_BuyResoutViewModel.m"
+            timestampString = "523264956.597139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "500"
-            endingLineNumber = "500"
-            landmarkName = "-loanTruansferAddRecortdWithISUPLoad:andFinanceLoanId:andOrder:andSuccessBlock:andFailureBlock:"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "-buyAmount"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -51,109 +51,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hoomxb/Financing/View/Plan/AddRecordView_Plan/HXBFinAddRecortdTableView_Plan.m"
-            timestampString = "522832478.270683"
+            filePath = "hoomxb/Financing/ViewModel/FinViewModel_Buy/HXBFin_LoanTruansfer_BuyResoutViewModel.m"
+            timestampString = "523264958.811148"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/Financing/View/Plan/AddRecordView_Plan/HXBFinAddRecortdTableView_Plan.m"
-            timestampString = "522832478.270683"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/Financing/View/Plan/AddRecordView_Plan/HXBFinAddRecortdTableView_Plan.m"
-            timestampString = "522832396.645253"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
-            landmarkName = "-setLoanTruansferModelArray:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/Financing/Request/HXBFinanctingRequest.m"
-            timestampString = "522842906.691287"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "501"
-            endingLineNumber = "501"
-            landmarkName = "-loanTruansferAddRecortdWithISUPLoad:andFinanceLoanId:andOrder:andSuccessBlock:andFailureBlock:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/Financing/ViewController/Buy/Loan/HXBFin_Loan_BuyViewController.m"
-            timestampString = "522905194.857111"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "101"
-            endingLineNumber = "101"
-            landmarkName = "-registerClickRecharge"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/Financing/ViewController/Buy/Loan/HXBFin_Loan_BuyViewController.m"
-            timestampString = "522905227.266163"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "-pushTopUPViewControllerWithAmount:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/My/ViewController/AccountWithdraw/HxbMyTopUpViewController.m"
-            timestampString = "522905515.505588"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "-myTopUpBaseView"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "-nextRepayDate"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

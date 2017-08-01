@@ -91,7 +91,7 @@
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0].optionTitle]) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             //            detail_DetailLoanVC. = self.planDetailViewModel;
-//            detail_DetailLoanVC.loanDetailViewModel = weakSelf.loanDetailViewModel;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = weakSelf.loanTruansferDetailViewModel.fin_LoanInfoView_Manager;
             [weakSelf.navigationController pushViewController:detail_DetailLoanVC animated:true];
         }
         ///  转让记录

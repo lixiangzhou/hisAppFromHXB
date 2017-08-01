@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 typedef enum : NSUInteger {
+    ///没有加入
+    HXBFinBase_FlowChartView_Plan_Stage_Null,
     ///加入中
     HXBFinBase_FlowChartView_Plan_Stage_Add,
     ///开始收益
@@ -20,17 +22,24 @@ typedef enum : NSUInteger {
 static NSString *kHXB_FinPlan_Add = @"加入";
 static NSString *kHXB_FinPlan_Begin = @"开始收益";
 static NSString *kHXB_FinPlan_Leave = @"到期退出";
-
+@class HXBFinBase_FlowChartView_Manager;
 @interface HXBFinBase_FlowChartView : UIView
-/**
-
- */
-@property (nonatomic,copy) NSString * isDontDrowLastArt;
 /**
  第几个阶段
  加入中，开始收益，到期退出
  */
-@property (nonatomic,assign) HXBFinBase_FlowChartView_Plan_Stage stage;
+@property (nonatomic,assign) NSInteger stage;
+///设置值
+- (void)setUPFlowChartViewManagerWithManager: (HXBFinBase_FlowChartView_Manager *(^)(HXBFinBase_FlowChartView_Manager *manager))flowChartViewManagerBlock;
+
+@end
+
+@interface HXBFinBase_FlowChartView_Manager : NSObject
+/**
+ 第几个阶段
+ 加入中，开始收益，到期退出
+ */
+@property (nonatomic,assign) NSInteger stage;
 /**
  加入时间
  */

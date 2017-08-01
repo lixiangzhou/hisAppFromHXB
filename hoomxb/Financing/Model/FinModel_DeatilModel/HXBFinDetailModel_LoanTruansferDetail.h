@@ -263,10 +263,14 @@ HXBFinDetailModel_LoanTruansferDetail_userVo;
 @property (nonatomic,copy) NSString *createTime;
 ///": "公司职员，现居北京市，从事批发和零售业行业，工作收入稳定",
 @property (nonatomic,copy) NSString *description;
+///行业
+@property (nonatomic,copy) NSString *companyIndustry;
 ///": "大专",
 @property (nonatomic,copy) NSString *graduation;
 ///": true,
 @property (nonatomic,copy) NSString *hasCar;
+///车贷
+@property (nonatomic,copy) NSString *hasCarLoan;
 ///": true,
 @property (nonatomic,copy) NSString *hasChild;
 ///": false,
