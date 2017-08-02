@@ -99,6 +99,7 @@ kDealloc
 - (void)downLoadDataLoantruansferIsUPData:(BOOL)isUPData  {
    [[HXBMYRequest sharedMYRequest] myLoanTruansfer_requestWithLoanTruansferWithIsUPData:isUPData andSuccessBlock:^(NSArray<HXBMY_LoanTruansferViewModel *> *viewModelArray) {
        self.loanTruansferViewModelArray = viewModelArray;
+       self.loanListView.loanTruansferViewModelArray = viewModelArray;
        [self.loanListView endRefresh];
    } andFailureBlock:^(NSError *error, HXBBaseRequest *request) {
        NSLog(@"🌶 债转请求错误");

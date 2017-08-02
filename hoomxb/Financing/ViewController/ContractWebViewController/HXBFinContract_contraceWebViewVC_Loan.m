@@ -22,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUP];
+    self.isColourGradientNavigationBar = YES;
     self.title = @"借款协议";
 }
 
@@ -29,7 +30,7 @@
 - (void)setUP {
     self.contractWebVeiw = [[HXBFinPlanContract_ContractWebView alloc]init];
     [self.view addSubview:self.contractWebVeiw];
-    self.contractWebVeiw.frame = CGRectMake(0, 0, self.view.width, self.view.height);
+    self.contractWebVeiw.frame = CGRectMake(0, 64, self.view.width, self.view.height - 64);
     [self.contractWebVeiw loadURL: self.URL];
 }
 

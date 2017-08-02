@@ -94,7 +94,7 @@
 //        }
         
         if (viewModel.userInfoModel.userInfo.isUnbundling) {
-            [self callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
+            [self callupWithphoneNumber:@"4001551888" andWithMessage:@" "];
             return;
         }
         

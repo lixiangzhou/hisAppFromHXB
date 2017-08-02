@@ -102,6 +102,7 @@
     self.bid_Loan_array = [[NSMutableArray alloc]init];
     self.repaying_Loan_array = [[NSMutableArray alloc]init];
     self.capitalRecordViewModel_array = [[NSMutableArray alloc]init];
+    self.loanTruanfserViewModelArray = [[NSMutableArray alloc]init];
 }
 ///创建api
 - (void)creatAPI {
@@ -455,12 +456,15 @@
                                                      @"page": @(self.loanTruansferRequestApi.dataPage),
                                                      @"type": @"TRANSFERING_LOAN"
                                                      };
-    
+    kWeakSelf
     [self.loanTruansferRequestApi startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         if (![responseObject[kResponseStatus] integerValue]) {
             if (failureBlock) {
                 failureBlock(nil,request);
             }
+        }
+        if (request.isUPReloadData) {
+            [weakSelf.loanTruanfserViewModelArray removeAllObjects];
         }
         NSArray <NSDictionary *>*dataArray = responseObject[kResponseData][kResponseDataList];
         
@@ -468,10 +472,11 @@
             HXBMY_LoanTruansferModel *model = [[HXBMY_LoanTruansferModel alloc] init];
             [model yy_modelSetWithDictionary:obj];
             HXBMY_LoanTruansferViewModel *viewModel = [[HXBMY_LoanTruansferViewModel alloc]init];
-            [self.loanTruanfserViewModelArray addObject:viewModel];
+            viewModel.my_truanfserModel = model;
+            [weakSelf.loanTruanfserViewModelArray addObject:viewModel];
         }];
         if (successDateBlock) {
-            successDateBlock(self.loanTruanfserViewModelArray);
+            successDateBlock(weakSelf.loanTruanfserViewModelArray);
         }
         
     } failure:^(HXBBaseRequest *request, NSError *error) {

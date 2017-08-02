@@ -33,7 +33,11 @@ static NSString *const CELLID = @"CELLID";
     self.rowHeight = kScrAdaptationH(121);
     self.nodataView.hidden = false;
 }
-
+- (void)setLoanTruansferViewModelArray:(NSArray<HXBMY_LoanTruansferViewModel *> *)loanTruansferViewModelArray {
+    _loanTruansferViewModelArray = loanTruansferViewModelArray;
+    self.nodataView.hidden = loanTruansferViewModelArray.count;
+    [self reloadData];
+}
 #pragma mark - datesource
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -71,7 +75,7 @@ static NSString *const CELLID = @"CELLID";
     manager.addButtonBorderColor = self.loanTruansferViewModelArray[indexPath.row].addButtonTitleColor;
     //addButton可否被点击
     manager.isUserInteractionEnabled = self.loanTruansferViewModelArray[indexPath.row].isAccessibilityElement;
-
+    cell.manager = manager;
     return cell;
 }
 

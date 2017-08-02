@@ -62,16 +62,17 @@
         _hxbBaseVCScrollView.contentSize = CGSizeMake(kScreenWidth, kScreenHeight);
     }
 }
-- (UIScrollView *)hxbBaseVCScrollView {
+- (UITableView *)hxbBaseVCScrollView {
     if (!_hxbBaseVCScrollView) {
 //        self.automaticallyAdjustsScrollViewInsets = true;
 //        self.edgesForExtendedLayout = UIRectEdgeAll;
-        _hxbBaseVCScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
 //        self.view.frame = _hxbBaseVCScrollView.bounds;
         [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-//        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
+        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
+        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     }
     return _hxbBaseVCScrollView;
 }
