@@ -37,6 +37,7 @@ kDealloc
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isColourGradientNavigationBar = true;
     self.view.backgroundColor = [UIColor whiteColor];
     self.title  = @"红利计划";
     [self setUP];
