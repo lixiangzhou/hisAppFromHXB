@@ -83,13 +83,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hoomxb/Tools/Base/BaseController/AlertController/HXBAlertManager.m"
-            timestampString = "523337323.392932"
+            filePath = "hoomxb/Financing/ViewController/AddRecord/HXBFinAddRecortdVC_Loan.m"
+            timestampString = "523345534.022479"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "+checkOutRiskAssessmentWithSuperVC:andWithPushBlock:"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "-setUPViews"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

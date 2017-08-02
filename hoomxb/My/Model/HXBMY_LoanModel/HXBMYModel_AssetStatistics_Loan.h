@@ -14,5 +14,5 @@
 @property (nonatomic,copy) NSString *rePayingTotalCount;
 @property (nonatomic,copy) NSString *BIDTotalCount;
 @property (nonatomic,copy) NSString *finishTotalCount;
-
+@property (nonatomic,copy) NSString *transferingCount;
 @end

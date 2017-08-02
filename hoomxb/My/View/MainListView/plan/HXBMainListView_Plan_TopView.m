@@ -34,6 +34,9 @@
     }];
     [self.financePlanSumPlanInterestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         viewModelVM.leftLabelStr = @"累计收益(元)";
+        if ([manager.interest containsString:@"-"]) {
+            manager.interest = @"0.00元";
+        }
         viewModelVM.rightLabelStr = manager.interest;
         viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
@@ -84,6 +87,9 @@
     }];
     [self.financePlanSumPlanInterestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         viewModelVM.leftLabelStr = @"累计收益(元)";
+        if ([userInfoViewModel.financePlanSumPlanInterest containsString:@"-"]) {
+            userInfoViewModel.financePlanSumPlanInterest = @"0.00元";
+        }
         viewModelVM.rightLabelStr = userInfoViewModel.financePlanSumPlanInterest;
         viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;

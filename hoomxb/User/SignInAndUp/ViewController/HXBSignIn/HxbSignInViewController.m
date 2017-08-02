@@ -48,7 +48,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modalCaptchaVC:) name:kHXBBotification_ShowCaptchaVC object:nil];
-    self.isColourGradientNavigationBar = YES;
+//    self.isColourGradientNavigationBar = YES;
     self.title = @"登录";
     [self setLeftItemBar];
     [self setSignView];/// 设置登录界面

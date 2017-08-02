@@ -35,8 +35,7 @@
 
 - (void)setUPViews {
     self.isColourGradientNavigationBar = true;
-    self.hxb_automaticallyAdjustsScrollViewInsets = true;
-    self.addRecortdTableView = [[HXBFinAddRecortdTableView_Plan alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64) style:UITableViewStylePlain];
+    self.addRecortdTableView = [[HXBFinAddRecortdTableView_Plan alloc]initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height - 64) style:UITableViewStylePlain];
     [self.view addSubview:self.addRecortdTableView];
 }
 

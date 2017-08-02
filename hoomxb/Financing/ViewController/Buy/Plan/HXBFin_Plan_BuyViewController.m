@@ -90,7 +90,7 @@
         weakSelf.joinimmediateView.isEndEditing = true;
     }];
     
-    self.joinimmediateView.frame = self.view.frame;
+    self.joinimmediateView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
 }
 - (void) pushTopUPViewControllerWithAmount:(NSString *)amount {
     HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
