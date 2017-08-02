@@ -53,7 +53,6 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     //加载用户数据
     [self loadData_userInfo];
-    self.isColourGradientNavigationBar
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
