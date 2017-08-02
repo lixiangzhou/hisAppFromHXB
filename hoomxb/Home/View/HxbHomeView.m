@@ -32,6 +32,7 @@
 //        [self.mainTableView addSubview:self.refreshControl];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIndicationView) name:IsLoginToReloadTableView object:nil];
 //        [self addSubview:self.navigationBar];
+        [self creatCountDownManager];
 
     }
     return self;
@@ -121,14 +122,14 @@
     }
     
     self.headView.homeBaseModel = homeBaseModel;
-    [self.mainTableView reloadData];
+   
     [self.mainTableView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subView, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([subView isKindOfClass:[UIImageView class]]) {
             [subView removeFromSuperview];
         }
     }];
-    
-    [self creatCountDownManager];
+    self.contDwonManager.modelArray = self.homeBaseModel.homePlanRecommend;
+    [self.mainTableView reloadData];
 }
 
 - (void)creatCountDownManager {
@@ -138,7 +139,8 @@
     
     [self.contDwonManager countDownWithChangeModelBlock:^(HxbHomePageModel_DataList *model, NSIndexPath *index) {
         if (weakSelf.homeBaseModel.homePlanRecommend.count > index.row) {
-            HXBHomePageProductCell *cell = [self.mainTableView cellForRowAtIndexPath:index];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index.row];
+            UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:indexPath];
             [cell setValue:model.countDownString forKey:@"countDownString"];
         }
     }];

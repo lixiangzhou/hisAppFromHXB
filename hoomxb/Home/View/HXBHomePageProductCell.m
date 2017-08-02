@@ -159,6 +159,14 @@
          self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.2f%@",[homePageModel_DataList.baseInterestRate doubleValue],@"%"];
     }
     
+    if (![homePageModel_DataList.unifyStatus isEqualToString:@"立即加入"]) {
+        self.colourGradientView.hidden = YES;
+        [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
+    }else
+    {
+        self.colourGradientView.hidden = NO;
+        [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
+    }
     
     [self.purchaseButton setTitle:homePageModel_DataList.unifyStatus forState:UIControlStateNormal];
     
@@ -174,7 +182,16 @@
 - (void)setCountDownString:(NSString *)countDownString
 {
     _countDownString = countDownString;
-    [self.purchaseButton setTitle:countDownString forState:UIControlStateNormal];
+    if (self.homePageModel_DataList.isCountDown) {
+        [self.purchaseButton setTitle:countDownString forState:UIControlStateNormal];
+        [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
+        self.colourGradientView.hidden = YES;
+    }else
+    {
+        [self.purchaseButton setTitle:@"立即加入" forState:UIControlStateNormal];
+        self.colourGradientView.hidden = NO;
+        [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
+    }
 }
 //- (void)setModel:(TopProductModel *)model
 //{

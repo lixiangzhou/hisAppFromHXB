@@ -52,7 +52,7 @@
     }else {
         self.isHidden = false;
     }
-    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm:ss"];
+    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm分ss秒后可加入"];
 }
 
 - (NSString *)judgmentStateValue:(NSString *)unifyStatus
@@ -77,7 +77,7 @@
             return @"等待开放";//等待开放购买小于30分钟
             break;
         case 6:
-            return @"开放加入";
+            return @"立即加入";
             break;
         case 7:
             return @"销售结束";
