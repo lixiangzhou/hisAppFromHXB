@@ -15,4 +15,10 @@
  */
 @property (nonatomic, copy) NSString *verificationCode;
 
+
+/**
+ getVerificationCode再次获取验证码
+ */
+@property (nonatomic, copy) void (^getVerificationCodeBlock)();
+
 @end

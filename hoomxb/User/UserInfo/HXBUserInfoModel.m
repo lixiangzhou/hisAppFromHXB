@@ -53,4 +53,13 @@
 
 @end
 @implementation HXBRequestUserInfoAPI_UserInfo
+
+- (BOOL)isUnbundling
+{
+    if (self.isCreateEscrowAcc && ![self.isIdPassed isEqualToString:@"1"]) {
+        return YES;
+    }
+    return NO;
+}
+
 @end

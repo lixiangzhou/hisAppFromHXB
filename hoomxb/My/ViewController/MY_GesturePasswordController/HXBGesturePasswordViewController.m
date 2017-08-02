@@ -285,7 +285,7 @@ static NSString *const my = @"我的";
             self.titleLabel.text = gestureTextBeforeSet;
             // 4.清除之前存储的密码
 //            [HXBCircleViewConst saveGesture:nil Key:gestureOneSaveKey];
-            KeyChain.gesturePwd = nil;
+//            KeyChain.gesturePwd = nil;
             [self.lockView  resetGesturePassword];
         }
             break;
@@ -310,10 +310,10 @@ static NSString *const my = @"我的";
 #pragma mark - circleView - delegate - setting
 - (void)circleView:(HXBCircleView *)view type:(CircleViewType)type connectCirclesLessThanNeedWithGesture:(NSString *)gesture
 {
-    NSString *gestureOne = KeyChain.gesturePwd;
+    NSString *gestureOne = gesture;
     
     // 看是否存在第一个密码
-    if ([gestureOne length]) {
+    if ([gestureOne length] > CircleSetCountLeast) {
         [self.resetBtn setHidden:NO];
         [self.msgLabel showWarnMsgAndShake:gestureTextDrawAgainError];
     } else {
@@ -347,6 +347,7 @@ static NSString *const my = @"我的";
 //        [HXBCircleViewConst saveGesture:gesture Key:gestureFinalSaveKey];
         KeyChain.gesturePwd = gesture;
         KeyChain.gesturePwdCount = @"5";
+        [kUserDefaults setBool:YES forKey:kHXBGesturePWD];
         [self.navigationController popToRootViewControllerAnimated:YES];
         
     } else {

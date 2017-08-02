@@ -80,6 +80,12 @@ UITableViewDataSource,UITableViewDelegate
             //                    [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
             
             [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+                
+                if (viewModel.userInfoModel.userInfo.isUnbundling) {
+                    [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
+                    return;
+                }
+                
                 if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
                     HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
                     modifyTransactionPasswordVC.title = @"修改交易密码";
@@ -87,6 +93,7 @@ UITableViewDataSource,UITableViewDelegate
                     [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
                 }else
                 {
+                    
                     HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
                     if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                         //开通存管银行账户

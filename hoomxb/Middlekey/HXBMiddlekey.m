@@ -22,8 +22,13 @@
     {
         
         [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
             
+            if (viewModel.userInfoModel.userInfo.isUnbundling) {
+                [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
+                return;
+            }
+            
+            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
             if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 //开通存管银行账户
                 openDepositAccountVC.title = @"开通存管账户";
@@ -64,6 +69,12 @@
     {
         
         [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+            
+            if (viewModel.userInfoModel.userInfo.isUnbundling) {
+                [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
+                return;
+            }
+            
             HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
             
             if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
