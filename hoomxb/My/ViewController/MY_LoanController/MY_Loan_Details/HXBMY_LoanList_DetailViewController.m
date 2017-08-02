@@ -75,6 +75,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUPView];
+    self.isColourGradientNavigationBar = true;
     self.timeLabel = [[UILabel alloc]init];
     [self.view addSubview:self.timeLabel];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {

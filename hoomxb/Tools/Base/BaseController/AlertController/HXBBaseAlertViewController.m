@@ -15,11 +15,15 @@
 @property (nonatomic,copy) NSString *leftButtonMassage;
 @property (nonatomic,copy) NSString *rightButtonMassage;
 
-
+/**
+ Title
+ */
+@property (nonatomic,strong) UILabel *mainTitle;
 /**
  massageLabel
  */
 @property (nonatomic,strong) UILabel *massageLabel;
+
 /**
  leftButton
  */
@@ -28,6 +32,8 @@
  rightButton
  */
 @property (nonatomic,strong) UIButton *rightButton;
+@property (nonatomic,strong) UIView *containerView;
+@property (nonatomic,strong) NSMutableArray *buttonArray;
 @end
 
 @implementation HXBBaseAlertViewController
@@ -101,6 +107,12 @@
     self.view.frame = CGRectMake(kScrAdaptationW(40), kScrAdaptationH(260), kScrAdaptationW(295), kScrAdaptationH(145));
     self.view.layer.cornerRadius = kScrAdaptationW(5);
     self.view.layer.masksToBounds = true;
+    UIView *containerView = [[UIView alloc]init];
+    [self.view addSubview:containerView];
+    [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.massageLabel).offset(kScrAdaptationH(30));
+        make.bottom.equalTo(self.buttonArray.lastObject).offset(kScrAdaptationH(30));
+    }];
     
     [self.massageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(kScrAdaptationH(30));
@@ -130,6 +142,7 @@
         _massageLabel = [[UILabel alloc]init];
         _massageLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         _massageLabel.textColor = kHXBColor_Grey_Font0_2;
+        _massageLabel.numberOfLines = 0;
         [self.view addSubview:_massageLabel];
     }
     return _massageLabel;
@@ -174,5 +187,11 @@
     if (self.clickRightButtonBlock) {
         self.clickRightButtonBlock();
     }
+}
+
+- (void)addButtonWithTitle:(NSString *)title andEvent:(void(^)(UIButton *button))eventBlock {
+    UIButton *button = [[UIButton alloc]init];
+    [self.containerView addSubview:button];
+    [self.buttonArray addObject:button];
 }
 @end

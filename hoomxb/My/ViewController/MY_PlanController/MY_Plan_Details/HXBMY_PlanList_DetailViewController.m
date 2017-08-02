@@ -44,8 +44,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+//    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+    self.isColourGradientNavigationBar = true;
     [self setUP];
+    self.title = @"计划详情";
     [self downLoadData];
 }
 - (void) downLoadData {
@@ -53,7 +55,7 @@
 }
 - (void) setUP {
     kWeakSelf
-    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:self.view.frame];
+    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:kVCViewFrame_64];
     self.planDetailView = planDetailView;
     ///点击了投资记录button
     [self.planDetailView clickLoanRecordViewWithBlock:^(UIView *view) {
