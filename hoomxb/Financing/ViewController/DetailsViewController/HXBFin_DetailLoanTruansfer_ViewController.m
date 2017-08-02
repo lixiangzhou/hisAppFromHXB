@@ -104,7 +104,7 @@
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2].optionTitle]) {
             //跳转一个webView
             HXBFinLoanTruansfer_ContraceWebViewVC * contractWebViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc]init];
-            contractWebViewVC.URL = self.loanTruansferDetailViewModel.agreementURL;
+            contractWebViewVC.URL = weakSelf.loanTruansferDetailViewModel.agreementURL;
             [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
         }
     }];
@@ -150,13 +150,13 @@
 //MARK: 网络数据请求
 - (void)downLoadData {
     __weak typeof(self)weakSelf = self;
-    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansferDetileRequestWithLoanID:self.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanTruansferDetail *viewModel) {
-        self.loanTruansferDetailViewModel = viewModel;
-        [self setData];
+    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansferDetileRequestWithLoanID:weakSelf.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanTruansferDetail *viewModel) {
+        weakSelf.loanTruansferDetailViewModel = viewModel;
+        [weakSelf setData];
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error, NSDictionary *respons) {
         [weakSelf.hxbBaseVCScrollView endRefresh];
-        [HxbHUDProgress showMessageCenter:respons[kResponseMessage] inView:self.view];
+        [HxbHUDProgress showMessageCenter:respons[kResponseMessage] inView:weakSelf.view];
     }];
 }
 

@@ -107,6 +107,7 @@
                 openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
             }];
+            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
             return;
         }
         ///完善信息
@@ -119,6 +120,7 @@
                 openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
             }];
+            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
             return;
         }
         ///风险评测

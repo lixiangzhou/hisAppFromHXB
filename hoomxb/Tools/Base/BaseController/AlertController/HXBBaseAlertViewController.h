@@ -19,4 +19,6 @@
 ///点击了右边的button
 @property (nonatomic,copy) void(^clickRightButtonBlock)();
 
+
+- (void)addButtonWithTitle:(NSString *)title andEvent:(void(^)(UIButton *button))eventBlock;
 @end

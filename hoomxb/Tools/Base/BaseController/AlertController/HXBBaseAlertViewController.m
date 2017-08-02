@@ -15,11 +15,15 @@
 @property (nonatomic,copy) NSString *leftButtonMassage;
 @property (nonatomic,copy) NSString *rightButtonMassage;
 
-
+/**
+ Title
+ */
+@property (nonatomic,strong) UILabel *mainTitle;
 /**
  massageLabel
  */
 @property (nonatomic,strong) UILabel *massageLabel;
+
 /**
  leftButton
  */
@@ -28,6 +32,8 @@
  rightButton
  */
 @property (nonatomic,strong) UIButton *rightButton;
+@property (nonatomic,strong) UIView *containerView;
+@property (nonatomic,strong) NSMutableArray *buttonArray;
 @end
 
 @implementation HXBBaseAlertViewController
@@ -98,22 +104,33 @@
     
 }
 - (void)setUPViewsFrame {
-    self.view.frame = CGRectMake(kScrAdaptationW(40), kScrAdaptationH(260), kScrAdaptationW(295), kScrAdaptationH(145));
+//    self.view.frame = CGRectMake(kScrAdaptationW(40), kScrAdaptationH(260), kScrAdaptationW(295), kScrAdaptationH(145));
     self.view.layer.cornerRadius = kScrAdaptationW(5);
     self.view.layer.masksToBounds = true;
+    self.containerView = [[UIView alloc]init];
+    [self.view addSubview:self.containerView];
+    
+    [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.massageLabel).offset(kScrAdaptationH(-30));
+        make.bottom.equalTo(self.rightButton).offset(kScrAdaptationH(30));
+        make.left.right.equalTo(self.view);
+        make.center.equalTo(self.view);
+    }];
     
     [self.massageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(kScrAdaptationH(30));
-        make.left.equalTo(self.view).offset(kScrAdaptationW(20));
-        make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
-        make.height.equalTo(@(kScrAdaptationH(20)));
+        make.top.equalTo(self.containerView).offset(kScrAdaptationH(30));
+        make.left.equalTo(self.containerView).offset(kScrAdaptationW(20));
+        make.right.equalTo(self.containerView).offset(kScrAdaptationW(-20));
     }];
+    
     [self.leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.massageLabel);
         make.top.equalTo(self.massageLabel.mas_bottom).offset(kScrAdaptationH(30));
-        make.height.equalTo(@(kScrAdaptationW(35)));
+//        make.height.equalTo(@(kScrAdaptationW(35)));
         make.width.equalTo(@(kScrAdaptationW(115)));
+        make.bottom.equalTo(self.containerView.mas_bottom).offset(kScrAdaptationH(-30));
     }];
+    
     [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.massageLabel);
         make.top.width.height.equalTo(self.leftButton);
@@ -130,6 +147,8 @@
         _massageLabel = [[UILabel alloc]init];
         _massageLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         _massageLabel.textColor = kHXBColor_Grey_Font0_2;
+        _massageLabel.numberOfLines = 0;
+        _massageLabel.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:_massageLabel];
     }
     return _massageLabel;
@@ -137,7 +156,7 @@
 - (UIButton*)leftButton {
     if (!_leftButton) {
         _leftButton = [[UIButton alloc]init];
-        _leftButton.layer.cornerRadius = kScrAdaptationW(2.5);
+        _leftButton.layer.cornerRadius = kScrAdaptationW(5);
         _leftButton.layer.masksToBounds = true;
         _leftButton.backgroundColor = HXBC_Red_Light;
         [_leftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -150,10 +169,10 @@
     if (!_rightButton) {
         _rightButton = [[UIButton alloc]init];
        
-        _rightButton.layer.cornerRadius = kScrAdaptationW(2.5);
+        _rightButton.layer.cornerRadius = kScrAdaptationW(5);
         _rightButton.layer.masksToBounds = true;
-        _rightButton.layer.borderWidth = kScrAdaptationW(1);
-        _rightButton.layer.borderColor = HXBC_Red_Light.CGColor;
+        _rightButton.layer.borderWidth =  0.5;
+        _rightButton.layer.borderColor = kHXBColor_Red_090303.CGColor;
         _rightButton.backgroundColor = [UIColor whiteColor];
         [_rightButton setTitleColor:HXBC_Red_Light forState:UIControlStateNormal];
         _rightButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(20);
@@ -174,5 +193,11 @@
     if (self.clickRightButtonBlock) {
         self.clickRightButtonBlock();
     }
+}
+
+- (void)addButtonWithTitle:(NSString *)title andEvent:(void(^)(UIButton *button))eventBlock {
+    UIButton *button = [[UIButton alloc]init];
+    [self.containerView addSubview:button];
+    [self.buttonArray addObject:button];
 }
 @end

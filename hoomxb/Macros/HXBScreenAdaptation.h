@@ -39,4 +39,6 @@
 #define kScrAdaptationH750(H) ((H) * kScreenAdaptation_Height * 0.5)
 ///计算比例后的宽度
 #define kScrAdaptationW750(W) ((W) * kScreenAdaptation_Width * 0.5)
+
+#define kVCViewFrame_64 CGRectMake(0, 64, kScreenWidth, kScreenHeight-64)
 #endif /* HXBScreenAdaptation_h */
