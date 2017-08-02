@@ -52,6 +52,16 @@
  */
 @property (nonatomic, copy) NSString *diffTime;
 
+///倒计时的String
+@property (nonatomic,copy) NSString *countDownLastStr;
+///是否需要倒计时
+@property (nonatomic,assign) BOOL isCountDown;
+/// 等待加入的时候，剩余时间大于一小时
+@property (nonatomic,copy) NSString *remainTimeString;
+///储存倒计时时间的string
+@property (nonatomic,copy) NSString *countDownString;
+///是否隐藏倒计时
+@property (nonatomic,assign) BOOL isHidden;
 /**
  id
  */

@@ -47,4 +47,11 @@
  @param vc 显示在哪个VC
  */
 - (void)showWithVC:(UIViewController *)vc;
+/**
+ 拨打电话封装
+ 
+ @param phoneNumber 电话号
+ @param message 提示信息
+ */
++ (void)callupWithphoneNumber:(NSString *)phoneNumber andWithMessage:(NSString *)message;
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class HXBHomeTitleModel;
+@class HXBHomeTitleModel,HxbHomePageModel_DataList;
 @interface HXBHomeBaseModel : NSObject
 
 /**
@@ -19,7 +19,7 @@
 /**
  homePlanRecommend
  */
-@property (nonatomic, strong) NSArray *homePlanRecommend;
+@property (nonatomic, strong) NSArray <HxbHomePageModel_DataList *>*homePlanRecommend;
 
 /**
  homeTitle

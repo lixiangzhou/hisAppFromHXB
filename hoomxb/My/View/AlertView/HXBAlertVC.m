@@ -304,8 +304,14 @@
 - (HXBVerificationCodeAlertView *)verificationCodeAlertView
 {
     if (!_verificationCodeAlertView) {
+        kWeakSelf
         _verificationCodeAlertView = [[HXBVerificationCodeAlertView alloc] init];
         _verificationCodeAlertView.backgroundColor = [UIColor whiteColor];
+        _verificationCodeAlertView.getVerificationCodeBlock = ^{
+            if (weakSelf.getVerificationCodeBlock) {
+                weakSelf.getVerificationCodeBlock();
+            }
+        };
     }
     return _verificationCodeAlertView;
 }

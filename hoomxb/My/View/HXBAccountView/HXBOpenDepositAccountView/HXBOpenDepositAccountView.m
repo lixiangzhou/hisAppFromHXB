@@ -91,13 +91,15 @@
 
 - (void)setupUserIfoData:(HXBRequestUserInfoViewModel *)viewModel
 {
-    self.nameTextField.text = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
-    self.nameTextField.isHidenLine = YES;
-    self.nameTextField.userInteractionEnabled = NO;
-    
-    self.idCardTextField.text = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:2 lenght:viewModel.userInfoModel.userInfo.realName.length - 3];
-    self.idCardTextField.isHidenLine = YES;
-    self.idCardTextField.userInteractionEnabled = NO;
+    if ([viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+        self.nameTextField.text = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
+        self.nameTextField.isHidenLine = YES;
+        self.nameTextField.userInteractionEnabled = NO;
+        
+        self.idCardTextField.text = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:2 lenght:viewModel.userInfoModel.userInfo.realName.length - 3];
+        self.idCardTextField.isHidenLine = YES;
+        self.idCardTextField.userInteractionEnabled = NO;
+    }
 }
 
 - (void)setupBankCardData:(HXBBankCardModel *)bankCardModel

@@ -35,21 +35,22 @@ UITableViewDelegate,UITableViewDataSource
     switch (indexPath.row) {
         case 0:
         {
-            NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-            HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
-            [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
-                HXBVersionUpdateViewModel *versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
-                versionUpdateVM.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
-                
-            } andFailureBlock:^(NSError *error) {
-                
-            }];
+//            NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+//            HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
+//            [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
+//                HXBVersionUpdateViewModel *versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
+//                versionUpdateVM.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
+//                
+//            } andFailureBlock:^(NSError *error) {
+//                
+//            }];
         }
             break;
         case 1:
         {
-            NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4001551888"];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+//            NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4001551888"];
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"联系客服"];
         }
             break;
         case 2:

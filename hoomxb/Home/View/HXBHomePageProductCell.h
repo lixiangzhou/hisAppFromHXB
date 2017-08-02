@@ -16,6 +16,12 @@
 @property (nonatomic, strong) NSString *titleString;
 //@property (nonatomic, strong) HxbHomePageViewModel_dataList *homeDataListViewModel;
 @property (nonatomic, strong) HxbHomePageModel_DataList *homePageModel_DataList;
+
+/**
+ 倒计时labeltest
+ */
+@property (nonatomic, copy) NSString *countDownString;
+
 /**
  cell点击按钮回调的Block
  */
