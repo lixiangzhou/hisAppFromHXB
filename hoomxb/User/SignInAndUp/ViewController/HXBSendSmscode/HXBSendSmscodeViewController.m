@@ -34,9 +34,10 @@
 //    });
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-//    [self sendSmscode];
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
 }
 
 - (void)setUPView {

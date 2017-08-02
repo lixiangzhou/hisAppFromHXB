@@ -31,7 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.edgesForExtendedLayout = UIRectEdgeNone;
+//    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.isColourGradientNavigationBar = YES;
 }
 
 /**
@@ -117,7 +118,7 @@
 {
     if (!_homeView) {
         kWeakSelf
-        _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:self.view.bounds];
+        _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
         
         _homeView.getValidationCodeButtonClickBlock = ^(NSString *IDCard){
             [weakSelf authenticationWithIDCard:IDCard];

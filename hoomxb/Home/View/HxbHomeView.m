@@ -140,7 +140,7 @@
     [self.contDwonManager countDownWithChangeModelBlock:^(HxbHomePageModel_DataList *model, NSIndexPath *index) {
         if (weakSelf.homeBaseModel.homePlanRecommend.count > index.row) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index.row];
-            UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:indexPath];
+            HXBHomePageProductCell *cell = [self.mainTableView cellForRowAtIndexPath:indexPath];
             [cell setValue:model.countDownString forKey:@"countDownString"];
         }
     }];

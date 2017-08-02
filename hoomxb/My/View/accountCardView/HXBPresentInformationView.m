@@ -46,7 +46,7 @@
 - (void)setupSubViewFrame
 {
     [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationH750(150));
+        make.top.equalTo(self).offset(kScrAdaptationH750(150) + 64);
         make.centerX.equalTo(self);
         make.height.offset(kScrAdaptationH750(198));
         make.width.offset(kScrAdaptationW750(310));

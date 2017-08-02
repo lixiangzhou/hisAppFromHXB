@@ -26,13 +26,11 @@
 @implementation HXBModifyPhoneViewController
 
 
-
-
 - (HXBModifyPhoneView *)homeView
 {
     if (!_homeView) {
         kWeakSelf
-        _homeView = [[HXBModifyPhoneView alloc] initWithFrame:self.view.bounds];
+        _homeView = [[HXBModifyPhoneView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
         
         //获取图形验证码
         _homeView.getValidationCodeButtonClickBlock = ^(NSString *phoneNumber){
@@ -66,8 +64,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"确认修改绑定手机号";
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.view addSubview:self.homeView];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
 }
 
 /**

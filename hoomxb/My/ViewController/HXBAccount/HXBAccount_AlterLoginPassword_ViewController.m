@@ -21,12 +21,17 @@
     [self setUPView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
+}
+
 - (void)setUPView {
 kWeakSelf
     self.alterLoginPasswordView = [[HXBAccount_AlterLoginPassword_View alloc]init];
     [self.view addSubview:self.alterLoginPasswordView];
-    self.alterLoginPasswordView.frame = self.view.frame;
-    self.edgesForExtendedLayout = false;
+    self.alterLoginPasswordView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
     
     [self.alterLoginPasswordView clickAlterButtonWithBlock:^(NSString *password_Original, NSString *password_New) {
         //验证密码
@@ -43,7 +48,6 @@ kWeakSelf
         }
         [HXBMobifyPassword_LoginRequest mobifyPassword_LoginRequest_requestWithOldPwd:password_Original andNewPwd:password_New andSuccessBlock:^{
             [KeyChainManage sharedInstance].siginCount = @(0).description;
-            UIView *view = self.navigationController.viewControllers.firstObject.view;
             [HxbHUDProgress showTextWithMessage:@"密码修改成功"];
 //            [HxbHUDProgress showTextWithMessage:@"密码修改成功" andView:view];
             [weakSelf.navigationController popToRootViewControllerAnimated:true];

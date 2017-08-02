@@ -22,7 +22,7 @@
 - (UIWebView *)webView
 {
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
         _webView.delegate = self;
         _webView.backgroundColor = [UIColor redColor];
         _webView.scalesPageToFit = YES;
@@ -38,8 +38,7 @@
     [super viewDidLoad];
     self.title = @"风险评测";
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    self.isColourGradientNavigationBar = YES;
+    self.hxb_automaticallyAdjustsScrollViewInsets = true;
     [self.view addSubview:self.webView];
     [self setupRightBarBtn];
     
@@ -73,6 +72,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
     [HxbHUDProgress showLoadDataHUD:self.webView];
 }
 

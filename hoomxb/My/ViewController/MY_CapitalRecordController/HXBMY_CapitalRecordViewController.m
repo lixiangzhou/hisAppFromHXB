@@ -46,12 +46,13 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
     self.screenType = @" ";
     [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:true];
+    self.isColourGradientNavigationBar = YES;
 }
 
 - (void)setUP {
     self.view.backgroundColor = kHXBColor_BackGround;
     self.tableView = [[HXBMYCapitalRecord_TableView alloc]init];
-    self.tableView.frame = self.view.frame;
+    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
     [self refresh];
     [self.view addSubview:self.tableView];
     [self setUPNAVItem];

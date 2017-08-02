@@ -42,6 +42,12 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
+}
+
 - (HXBRechargesuccessView *)rechargesuccessView
 {
     if (!_rechargesuccessView) {

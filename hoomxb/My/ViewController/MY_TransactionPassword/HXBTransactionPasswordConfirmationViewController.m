@@ -27,10 +27,14 @@
 - (void)setupSubView
 {
     self.title = @"确认交易密码";
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.view addSubview:self.homeView];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
+}
 /**
  确认修改交易密码
 
@@ -54,7 +58,7 @@
 - (HXBTransactionPasswordConfirmationView *)homeView
 {
     if (!_homeView) {
-        _homeView = [[HXBTransactionPasswordConfirmationView alloc] initWithFrame:self.view.bounds];
+        _homeView = [[HXBTransactionPasswordConfirmationView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
         kWeakSelf
         _homeView.confirmChangeButtonClickBlock = ^(NSString *surePassword){
             [weakSelf confirmTransactionWithPassword:surePassword];

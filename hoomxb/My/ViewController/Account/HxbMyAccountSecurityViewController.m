@@ -50,6 +50,7 @@ UITableViewDataSource,UITableViewDelegate
 {
     [super viewWillAppear:animated];
     [self.tableView reloadData];
+    self.isColourGradientNavigationBar = YES;
 }
 
 #pragma TableViewDelegate

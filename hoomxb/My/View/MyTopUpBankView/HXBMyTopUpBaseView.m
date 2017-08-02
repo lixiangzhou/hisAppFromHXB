@@ -52,7 +52,7 @@
     [self.myTopUpHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
-        make.top.equalTo(self.mas_top);
+        make.top.equalTo(self.mas_top).offset(64);
         make.height.offset(kScrAdaptationH750(80));
     }];
     [self.mybankView mas_makeConstraints:^(MASConstraintMaker *make) {

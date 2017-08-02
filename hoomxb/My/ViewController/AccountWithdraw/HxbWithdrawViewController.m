@@ -198,7 +198,7 @@
 
 - (WithdrawBankView *)mybankView{
     if (!_mybankView) {
-        _mybankView = [[WithdrawBankView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH750(160))];
+        _mybankView = [[WithdrawBankView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, kScrAdaptationH750(160))];
     }
     return _mybankView;
 }
