@@ -75,7 +75,7 @@
 {
     if (!_mainView) {
         kWeakSelf
-        _mainView = [[HXBOpenDepositAccountView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
+        _mainView = [[HXBOpenDepositAccountView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
         _mainView.bankNameBlock = ^{
             [weakSelf enterBankCardListVC];
         };

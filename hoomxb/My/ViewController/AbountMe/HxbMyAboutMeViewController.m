@@ -27,6 +27,11 @@ UITableViewDelegate,UITableViewDataSource
     [self.view addSubview:self.tableView];
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
+}
 
 #pragma TableViewDelegate
 
@@ -123,7 +128,7 @@ UITableViewDelegate,UITableViewDataSource
 
 - (UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView  alloc]initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH , SCREEN_HEIGHT) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView  alloc]initWithFrame:CGRectMake(0, 0,kScreenWidth , kScreenHeight) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableHeaderView = self.headerView;

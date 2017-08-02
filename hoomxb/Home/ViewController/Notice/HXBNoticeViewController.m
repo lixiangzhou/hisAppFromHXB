@@ -40,8 +40,8 @@
     [self.view addSubview:self.mainTabelView];
     self.page = 1;
     [self loadData];
- 
 }
+
 
 - (void)loadData
 {
@@ -111,7 +111,7 @@
 {
     if (!_mainTabelView) {
         kWeakSelf
-        _mainTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
+        _mainTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
         _mainTabelView.delegate = self;
         _mainTabelView.dataSource = self;
         _mainTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;

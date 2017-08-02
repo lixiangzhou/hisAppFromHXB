@@ -25,6 +25,11 @@
     self.presentInformationView.bankCardModel = self.bankCardModel;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
+}
 
 - (HXBPresentInformationView *)presentInformationView
 {

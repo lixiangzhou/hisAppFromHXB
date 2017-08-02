@@ -138,7 +138,7 @@ UITextFieldDelegate
     
     kWeakSelf
     [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(50));
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(50) + 64);
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
         make.width.equalTo(@(kScrAdaptationW(13)));
         make.height.equalTo(@(kScrAdaptationH(19)));

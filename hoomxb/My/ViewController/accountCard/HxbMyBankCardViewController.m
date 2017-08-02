@@ -44,12 +44,14 @@
     
 }
 
+
+
 - (void)setupSubViewFrame
 {
     [self.userInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(kScrAdaptationW750(20));
         make.right.equalTo(self.view).offset(kScrAdaptationW750(-20));
-        make.top.equalTo(self.view).offset(kScrAdaptationH750(20));
+        make.top.equalTo(self.view).offset(kScrAdaptationH750(20) + 64);
         make.height.offset(120);
     }];
     [self.bankView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,6 +74,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
     [self loadUserInfo];
 }
 

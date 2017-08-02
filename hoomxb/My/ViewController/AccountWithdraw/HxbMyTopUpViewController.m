@@ -35,7 +35,7 @@
 {
     if (!_myTopUpBaseView) {
         kWeakSelf
-        _myTopUpBaseView = [[HXBMyTopUpBaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
+        _myTopUpBaseView = [[HXBMyTopUpBaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _myTopUpBaseView.rechargeBlock = ^{
             [weakSelf enterRecharge];
         };
@@ -49,6 +49,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
     kWeakSelf
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.myTopUpBaseView.viewModel = viewModel;

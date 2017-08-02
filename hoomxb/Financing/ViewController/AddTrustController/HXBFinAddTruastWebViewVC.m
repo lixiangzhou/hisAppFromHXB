@@ -19,11 +19,13 @@
 - (void) setURL:(NSString *)URL {
     _URL = URL;
     [self.contractWebVeiw loadURL:URL];
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUP];
+    self.isColourGradientNavigationBar = YES;
 }
 
 
@@ -31,7 +33,7 @@
     self.isTransparentNavigationBar = false;
     self.contractWebVeiw = [[HXBFinPlanContract_ContractWebView alloc]init];
     [self.view addSubview:self.contractWebVeiw];
-    self.contractWebVeiw.frame = CGRectMake(0, 0, self.view.width, kScreenHeight - 64);
+    self.contractWebVeiw.frame = CGRectMake(0, 64, self.view.width, kScreenHeight - 64);
     [self.contractWebVeiw loadURL: self.URL];
 }
 

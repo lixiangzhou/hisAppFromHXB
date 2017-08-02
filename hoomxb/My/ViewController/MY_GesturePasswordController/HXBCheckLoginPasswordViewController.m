@@ -51,6 +51,12 @@
     [self setupSubViewFrame];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
+}
+
 - (void)setupSubViewFrame
 {
     [self.loginPasswordTextField mas_makeConstraints:^(MASConstraintMaker *make) {

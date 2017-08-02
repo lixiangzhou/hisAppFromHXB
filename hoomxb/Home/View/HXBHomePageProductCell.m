@@ -158,18 +158,18 @@
     {
          self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.2f%@",[homePageModel_DataList.baseInterestRate doubleValue],@"%"];
     }
-    
-    if (![homePageModel_DataList.unifyStatus isEqualToString:@"立即加入"]) {
-        self.colourGradientView.hidden = YES;
-        [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
-    }else
-    {
-        self.colourGradientView.hidden = NO;
-        [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
+    if (self.homePageModel_DataList.isHidden) {
+        if (![self.homePageModel_DataList.unifyStatus isEqualToString:@"立即加入"]) {
+            self.colourGradientView.hidden = YES;
+            [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
+        }else
+        {
+            self.colourGradientView.hidden = NO;
+            [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
+        }
+        
+        [self.purchaseButton setTitle:self.homePageModel_DataList.unifyStatus forState:UIControlStateNormal];
     }
-    
-    [self.purchaseButton setTitle:homePageModel_DataList.unifyStatus forState:UIControlStateNormal];
-    
     if (!homePageModel_DataList.tag.length) {
         self.icon.hidden = YES;
     }
@@ -182,7 +182,7 @@
 - (void)setCountDownString:(NSString *)countDownString
 {
     _countDownString = countDownString;
-    if (self.homePageModel_DataList.isCountDown) {
+    if (!self.homePageModel_DataList.isHidden) {
         [self.purchaseButton setTitle:countDownString forState:UIControlStateNormal];
         [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
         self.colourGradientView.hidden = YES;
@@ -329,7 +329,7 @@
         _purchaseButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) + 10, 0, SCREEN_WIDTH - CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) - 20, 36)];
         _purchaseButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
         [_purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
-        [_purchaseButton setTitle:@"加入" forState:UIControlStateNormal];
+//        [_purchaseButton setTitle:@"加入" forState:UIControlStateNormal];
         [_purchaseButton addTarget:self action:@selector(purchaseButtonClick) forControlEvents:UIControlEventTouchUpInside];
         _purchaseButton.enabled = NO;
         _purchaseButton.layer.borderWidth = 0.5;

@@ -203,7 +203,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)layoutSubView_sendSmscode {
     kWeakSelf
     [self.phonNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.offset(kScrAdaptationH(30));
+        make.top.offset(kScrAdaptationH(30) + 64);
         make.centerX.equalTo(weakSelf);
     }];
     
