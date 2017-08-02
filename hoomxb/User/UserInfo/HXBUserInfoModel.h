@@ -82,6 +82,10 @@
  是否开通存管账户
  */
 @property (nonatomic, assign) BOOL isCreateEscrowAcc;
+/**
+ 是否解绑身份证
+ */
+@property (nonatomic, assign) BOOL isUnbundling;
 
 @property (nonatomic,copy) NSString *ip;
 @property (nonatomic,copy) NSString *hasRecharge;

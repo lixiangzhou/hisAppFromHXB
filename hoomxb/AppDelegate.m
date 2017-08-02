@@ -128,7 +128,7 @@ static NSString *const my = @"我的";
  */
 - (void)enterTheGesturePasswordVC
 {
-    if ((KeyChain.gesturePwd.length >= 4) && [KeyChain isLogin]) {
+    if ((KeyChain.gesturePwd.length >= 4) && [KeyChain isLogin] && [kUserDefaults boolForKey:kHXBGesturePWD]) {
         HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
         gesturePasswordVC.type = GestureViewControllerTypeLogin;
          _window.rootViewController = gesturePasswordVC;

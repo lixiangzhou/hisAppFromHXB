@@ -126,9 +126,14 @@
  */
 - (void)logicalJudgment:(HXBRechargeAndWithdrawalsLogicalJudgment)type
 {
+    if (self.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
+        [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
+        return;
+    }
     if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
         //开通存管银行账户
         HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
+        bindBankCardVC.type = type;
         [self.navigationController pushViewController:bindBankCardVC animated:YES];
         
     } else if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])

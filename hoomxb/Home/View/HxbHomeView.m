@@ -17,6 +17,7 @@
 @property (nonatomic, strong) UILabel *footerLabel;
 @property (nonatomic, strong) HxbHomePageViewModel *dataViewModel;
 
+@property (nonatomic, strong) HXBBaseContDownManager *contDwonManager;
 @end
 
 @implementation HxbHomeView
@@ -31,6 +32,7 @@
 //        [self.mainTableView addSubview:self.refreshControl];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIndicationView) name:IsLoginToReloadTableView object:nil];
 //        [self addSubview:self.navigationBar];
+        [self creatCountDownManager];
 
     }
     return self;
@@ -66,12 +68,21 @@
     
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         
-        if ([viewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"0"]) {
-            //没有投资显示的界面
-            [weakSelf.headView showNotValidatedView];
-        }else if ([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
+//        if ([viewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"0"]) {
+//            //没有投资显示的界面
+//            [weakSelf.headView showNotValidatedView];
+//        }else if ([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
+//            //已经投资显示的界面
+//             [weakSelf.headView showAlreadyInvestedView];
+//        }else
+//        {
+//            //没有投资显示的界面
+//            [weakSelf.headView showNotValidatedView];
+//        }
+        
+        if (viewModel.userInfoModel.userInfo.isCreateEscrowAcc && [viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
             //已经投资显示的界面
-             [weakSelf.headView showAlreadyInvestedView];
+            [weakSelf.headView showAlreadyInvestedView];
         }else
         {
             //没有投资显示的界面
@@ -111,12 +122,34 @@
     }
     
     self.headView.homeBaseModel = homeBaseModel;
-    [self.mainTableView reloadData];
+   
     [self.mainTableView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subView, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([subView isKindOfClass:[UIImageView class]]) {
             [subView removeFromSuperview];
         }
     }];
+    self.contDwonManager.modelArray = self.homeBaseModel.homePlanRecommend;
+    [self.mainTableView reloadData];
+}
+
+- (void)creatCountDownManager {
+    __weak typeof (self)weakSelf = self;
+    
+    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray:self.homeBaseModel.homePlanRecommend andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
+    
+    [self.contDwonManager countDownWithChangeModelBlock:^(HxbHomePageModel_DataList *model, NSIndexPath *index) {
+        if (weakSelf.homeBaseModel.homePlanRecommend.count > index.row) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index.row];
+            UITableViewCell *cell = [self.mainTableView cellForRowAtIndexPath:indexPath];
+            [cell setValue:model.countDownString forKey:@"countDownString"];
+        }
+    }];
+    //要与服务器时间想比较
+    //    self.contDwonManager.clientTime = [HXBDate       ]
+    //    [self.contDwonManager stopWenScrollViewScrollBottomWithTableView:self.planListTableView];
+    self.contDwonManager.isAutoEnd = true;
+    //开启定时器
+    [self.contDwonManager resumeTimer];
 }
 
 //- (void)setHomeDataListViewModelArray:(NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
@@ -195,7 +228,9 @@
                 if (!cell) {
                     cell = [[HXBHomePageProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
                     }
+    
                    cell.homePageModel_DataList = self.homeBaseModel.homePlanRecommend[indexPath.section];
+    
                    kWeakSelf
                    cell.purchaseButtonClickBlock = ^(){
                        weakSelf.purchaseButtonClickBlock();

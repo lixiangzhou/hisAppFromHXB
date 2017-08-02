@@ -30,6 +30,9 @@
 // */
 @property (nonatomic, copy) void(^forgetBtnClick)();
 
-
+/**
+ getVerificationCodeBlock
+ */
+@property (nonatomic, copy) void(^getVerificationCodeBlock)();
 
 @end

@@ -76,14 +76,22 @@
  */
 - (void)requestRechargeResult:(NSString *)rechargeOrderNum
 {
-   
+    HXBAlertVC *alertVC = nil;
+   if (self.presentedViewController)
+   {
+       alertVC = (HXBAlertVC *)self.presentedViewController;
+   }else
+   {
+       alertVC = [[HXBAlertVC alloc] init];
+       [self presentViewController:alertVC animated:NO completion:nil];
+   }
     kWeakSelf
-    HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
     alertVC.isCode = YES;
     alertVC.messageTitle = @"请输入您的短信验证码";
     alertVC.sureBtnClick = ^(NSString *pwd){
         HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
         [accountRequest accountRechargeResultRequestWithSmscode:pwd andWithRechargeOrderNum:rechargeOrderNum andSuccessBlock:^(id responseObject) {
+            
             HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
             rechargeCompletedVC.responseObject = responseObject;
             rechargeCompletedVC.amount = weakSelf.myTopUpBaseView.amount;
@@ -93,7 +101,10 @@
             
         }];
     };
-    [self presentViewController:alertVC animated:NO completion:nil];
+    alertVC.getVerificationCodeBlock = ^{
+        [weakSelf enterRecharge];
+    };
+    
 }
 
 @end
