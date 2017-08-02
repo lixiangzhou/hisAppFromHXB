@@ -82,11 +82,12 @@ kDealloc
 
 
 #pragma mark - setter
+///改变toolBar 个数
 - (void)setLoanAccountModel:(HXBMYModel_Loan_LoanRequestModel *)loanAccountModel {
     _loanAccountModel = loanAccountModel;
     self.REPAYING_Lable.text =  [self  formatStrWithTypeStr:REPAYING_Title andCountStr:loanAccountModel.rePayingTotalCount.integerValue];
     self.BID_Lable.text = [self  formatStrWithTypeStr:BID_Title andCountStr:loanAccountModel.BIDTotalCount.integerValue];
-    self.truansferLabel.text = [self formatStrWithTypeStr:@"转让中(测试中)" andCountStr:0000];
+    self.truansferLabel.text = [self formatStrWithTypeStr:@"转让中" andCountStr:loanAccountModel.transferingCount.integerValue];
 }
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
     _userInfoViewModel = userInfoViewModel;
@@ -106,7 +107,10 @@ kDealloc
     self.bid_Loan_TableView.mainLoanViewModelArray = bid_ViewModelArray;
 //    self.BID_Lable.text = [self formatStrWithTypeStr:BID_Title andCountStr:bid_ViewModelArray.count];
 }
-
+- (void)setLoanTruansferViewModelArray:(NSArray<HXBMY_LoanTruansferViewModel *> *)loanTruansferViewModelArray {
+    _loanTruansferViewModelArray = loanTruansferViewModelArray;
+    self.loanTruansferTableView.loanTruansferViewModelArray = loanTruansferViewModelArray;
+}
 - (NSString *)formatStrWithTypeStr: (NSString *)typeStr andCountStr: (NSInteger)count {
     if (count) {
         NSString *countStr = @(count).description;
@@ -183,7 +187,6 @@ kDealloc
         if ([button.titleLabel.text isEqualToString:@"转让中"]) {
             [weakSelf addLableWithButton:button andLable:weakSelf.truansferLabel];
         }
-        
     }];
 }
 - (UILabel *)creatLableWithTitle: (NSString *)title {

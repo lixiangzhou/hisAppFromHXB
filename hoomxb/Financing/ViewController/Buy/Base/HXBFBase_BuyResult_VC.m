@@ -73,11 +73,12 @@
         self.iconImageView.image = [UIImage imageNamed:@"tip"];
         [self.view addSubview:self.iconImageView];
         self.buy_descriptionLabel.text = self.buy_description;
+        self.buy_descriptionLabel.preferredMaxLayoutWidth = kScreenWidth - kScrAdaptationH750(114);
         [self.buy_descriptionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(view.mas_centerX).offset(kScrAdaptationH750(26));
             make.top.equalTo(view.mas_bottom).offset(kScrAdaptationW750(40));
-            make.left.lessThanOrEqualTo(self.view).offset(kScrAdaptationW750(26 + 8 + 40));
-            make.right.lessThanOrEqualTo(self.view).offset(kScrAdaptationW750(-40));
+//            make.left.lessThanOrEqualTo(self.view).offset(kScrAdaptationW750(26 + 8 + 40));
+//            make.right.lessThanOrEqualTo(self.view).offset(kScrAdaptationW750(-40));
         }];
         [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.buy_descriptionLabel).offset(kScrAdaptationH750(6));

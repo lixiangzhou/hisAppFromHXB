@@ -51,6 +51,9 @@
  */
 - (NSString *) financePlanSumPlanInterest {
     if (!_financePlanSumPlanInterest) {
+        if (self.userInfoModel.userAssets.financePlanSumPlanInterest.floatValue < 0) {
+            self.userInfoModel.userAssets.financePlanSumPlanInterest = 0;
+        }
         _financePlanSumPlanInterest = [NSString hxb_getPerMilWithDouble:self.userInfoModel.userAssets.financePlanSumPlanInterest.floatValue];
     }
     return _financePlanSumPlanInterest;
@@ -69,6 +72,9 @@
  */
 - (NSString *) lenderEarned {
     if (!_lenderEarned) {
+        if (self.userInfoModel.userAssets.lenderEarned.floatValue < 0) {
+            self.userInfoModel.userAssets.lenderEarned = 0;
+        }
         _lenderEarned = [NSString hxb_getPerMilWithDouble:self.userInfoModel.userAssets.lenderEarned.floatValue];
     }
     return _lenderEarned;

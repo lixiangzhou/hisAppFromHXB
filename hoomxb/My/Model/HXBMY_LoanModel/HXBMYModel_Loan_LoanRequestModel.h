@@ -29,4 +29,8 @@
  	已结清;
  */
 @property (nonatomic,copy) NSString * finishTotalCount;
+/**
+ 转让中
+ */
+@property (nonatomic,copy) NSString *transferingCount;
 @end

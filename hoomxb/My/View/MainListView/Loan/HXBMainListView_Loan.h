@@ -10,6 +10,7 @@
 #import "HXBMYViewModel_MainLoanViewModel.h"
 @class HXBMYModel_AssetStatistics_Loan;
 @class HXBMYModel_Loan_LoanRequestModel;
+@class HXBMY_LoanTruansferViewModel;
 @interface HXBMainListView_Loan : UIView
 
 #pragma mark - 数据源
@@ -18,6 +19,7 @@
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel*> *repaying_ViewModelArray;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel*> *bid_ViewModelArray;
+@property (nonatomic,strong) NSArray <HXBMY_LoanTruansferViewModel *>* loanTruansferViewModelArray;
 
 #pragma mark - 事件的传递
 ///中间的toolBarView 的 select将要改变的时候
