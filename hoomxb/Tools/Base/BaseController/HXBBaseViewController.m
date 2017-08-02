@@ -15,6 +15,7 @@
 @interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate>
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @property (nonatomic,strong) HXBColourGradientView *colorGradientView;
+@property (nonatomic,strong) UIImageView *nacigationBarImageView;
 @end
 
 @implementation HXBBaseViewController{
@@ -123,9 +124,8 @@
     if (isColourGradientNavigationBar) {
         self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
         self.isTransparentNavigationBar = true;
-        UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"top"]];
-        [self.view addSubview:imageView];
-        imageView.frame = CGRectMake(0, 0, kScreenWidth, 64);
+        self.nacigationBarImageView.image = [UIImage imageNamed:@"top"];
+        [self.view addSubview:self.nacigationBarImageView];
     }
 }
 
@@ -134,9 +134,7 @@
     if (isBlueGradientNavigationBar) {
         self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
         self.isTransparentNavigationBar = true;
-        UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"nav_top_blue"]];
-        [self.view addSubview:imageView];
-        imageView.frame = CGRectMake(0, 0, kScreenWidth, 64);
+        self.nacigationBarImageView.image = [UIImage imageNamed:@"nav_top_blue"];
     }
 }
 
@@ -177,5 +175,14 @@
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
+}
+- (UIImageView *)nacigationBarImageView {
+    if (!_nacigationBarImageView) {
+        _nacigationBarImageView = [[UIImageView alloc]init];
+        _nacigationBarImageView.frame = CGRectMake(0, 0, kScreenWidth, 64);
+        [self.view addSubview:_nacigationBarImageView];
+        [self.view insertSubview:_nacigationBarImageView atIndex:self.view.subviews.count-1];
+    }
+    return _nacigationBarImageView;
 }
 @end
