@@ -94,7 +94,7 @@
 //        }
         
         if (viewModel.userInfoModel.userInfo.isUnbundling) {
-            [self callupWithphoneNumber:@"4001551888" andWithMessage:@" "];
+            [self callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
             return;
         }
         
@@ -198,14 +198,19 @@
  */
 + (void)callupWithphoneNumber:(NSString *)phoneNumber andWithMessage:(NSString *)message
 {
-    NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@",phoneNumber];
-    NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
-    if (compare == NSOrderedDescending || compare == NSOrderedSame) {
-        /// 大于等于10.0系统使用此openURL方法
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
-    } else {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
-    }
+    HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:[NSString stringWithFormat:@"%@%@",message,phoneNumber] andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
+    [alertVC setClickRightButtonBlock:^{
+        NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@",phoneNumber];
+        NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
+        if (compare == NSOrderedDescending || compare == NSOrderedSame) {
+            /// 大于等于10.0系统使用此openURL方法
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
+        }
+    }];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+    
 }
 
 

@@ -6,6 +6,8 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
+#define kHXBCallPhone_title @"您已经在后台解绑身份证请联系客服"
+
 #import <Foundation/Foundation.h>
 @class HXBVersionUpdateModel;
 @interface HXBAlertManager : NSObject
