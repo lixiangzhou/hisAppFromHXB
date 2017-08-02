@@ -83,7 +83,7 @@ UITableViewDataSource,UITableViewDelegate
             [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
                 
                 if (viewModel.userInfoModel.userInfo.isUnbundling) {
-                    [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
+                    [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
                     return;
                 }
                 

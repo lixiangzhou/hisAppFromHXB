@@ -35,7 +35,7 @@
         
         if (successDateBlock) successDateBlock();
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(nil);
+        if (failureBlock) failureBlock(error);
         
     }];
     

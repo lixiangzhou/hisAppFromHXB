@@ -88,6 +88,7 @@ kWeakSelf
     //
     //            }];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
         ///退出登录
         [[KeyChainManage sharedInstance] signOut];
         //到登录界面
