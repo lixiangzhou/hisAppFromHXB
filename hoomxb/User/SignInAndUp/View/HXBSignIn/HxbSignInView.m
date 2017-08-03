@@ -83,7 +83,7 @@ UITextFieldDelegate
     if (!isEditLoginButton) {
         [HxbHUDProgress showError:checkMobileResultStr inview:self];
     }
-    self.signInButton.userInteractionEnabled = isEditLoginButton;
+//    self.signInButton.userInteractionEnabled = isEditLoginButton;
 }
 
 

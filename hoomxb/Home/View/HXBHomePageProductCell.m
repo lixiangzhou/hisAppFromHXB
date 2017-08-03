@@ -169,6 +169,9 @@
         }
         
         [self.purchaseButton setTitle:self.homePageModel_DataList.unifyStatus forState:UIControlStateNormal];
+    }else
+    {
+        [self.purchaseButton setTitle:[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.homePageModel_DataList.diffTime andDateFormat:@"mm分ss秒后可加入"] forState:UIControlStateNormal];
     }
     if (!homePageModel_DataList.tag.length) {
         self.icon.hidden = YES;
@@ -337,6 +340,7 @@
         _purchaseButton.layer.cornerRadius = 4.0f;
         _purchaseButton.backgroundColor = RGB(255, 247, 247);
         self.colourGradientView = [[HXBColourGradientView alloc] init];
+        self.colourGradientView.hidden = YES;
         [_purchaseButton insertSubview:self.colourGradientView atIndex:0];
     }
     return _purchaseButton;
