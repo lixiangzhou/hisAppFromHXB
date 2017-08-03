@@ -8,6 +8,15 @@
 
 #import "HXBVersionUpdateRequest.h"
 #import "HXBBaseRequest.h"
+#import "HXBNoticModel.h"
+@interface HXBVersionUpdateRequest ()
+
+@property (nonatomic, strong) HXBBaseRequest *versionUpdateAPI;
+
+@property (nonatomic, strong) NSMutableArray <HXBNoticModel *>*noticModelArr;
+
+@end
+
 @implementation HXBVersionUpdateRequest
 
 
@@ -50,14 +59,15 @@
 
 - (void)noticeRequestWithpage:(int)page andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
-    versionUpdateAPI.requestUrl = kHXBHome_AnnounceURL;
-    versionUpdateAPI.requestMethod = NYRequestMethodGet;
-    versionUpdateAPI.requestArgument = @{
-                                         @"page" : @(page),
+    self.versionUpdateAPI.isUPReloadData = YES;
+    self.versionUpdateAPI.requestUrl = kHXBHome_AnnounceURL;
+    self.versionUpdateAPI.requestMethod = NYRequestMethodGet;
+    self.versionUpdateAPI.requestArgument = @{
+                                         @"page" : @(self.versionUpdateAPI.dataPage),
                                          @"pageSize" : @20
                                          };
-    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    kWeakSelf
+    [self.versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
@@ -68,7 +78,12 @@
             return;
         }
         if (successDateBlock) {
-            successDateBlock(responseObject);
+             NSArray *modelarr = [NSArray yy_modelArrayWithClass:[HXBNoticModel class] json:responseObject[@"data"][@"dataList"]];
+            if (weakSelf.versionUpdateAPI.isUPReloadData) {
+                [self.noticModelArr removeAllObjects];
+            }
+            [self.noticModelArr addObjectsFromArray:modelarr];
+            successDateBlock(self.noticModelArr);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         [HxbHUDProgress showTextWithMessage:@"请求失败"];
@@ -77,5 +92,19 @@
         }
     }];
 
+}
+- (HXBBaseRequest *)versionUpdateAPI
+{
+    if (!_versionUpdateAPI) {
+        _versionUpdateAPI = [[HXBBaseRequest alloc] init];
+    }
+    return _versionUpdateAPI;
+}
+- (NSMutableArray<HXBNoticModel *> *)noticModelArr
+{
+    if (!_noticModelArr) {
+        _noticModelArr = [NSMutableArray array];
+    }
+    return _noticModelArr;
 }
 @end
