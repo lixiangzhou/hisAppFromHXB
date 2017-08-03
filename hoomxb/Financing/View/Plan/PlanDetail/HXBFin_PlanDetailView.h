@@ -18,12 +18,13 @@
 ///详情页的主视图基类
 @interface HXBFin_PlanDetailView : UIView
 
-- (void)setSubView;
 - (void)setUPViewModelVM: (HXBFin_PlanDetailView_ViewModelVM* (^)(HXBFin_PlanDetailView_ViewModelVM *viewModelVM))detailsViewBase_ViewModelVM;
+
+///倒计时完成刷新数据
+- (void)downLoadDataWithBlock:(void(^)())downLodaDataBlock;
 
 ///赋值_plan
 - (void)setData_PlanWithPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailVieModel;
-
 
 ///显示视图，在给相关的属性赋值后，一定要调用show方法
 - (void)show;
@@ -34,24 +35,8 @@
 ///是否为红利计划
 @property (nonatomic,assign) BOOL isPlan;
 
-
 ///底部的tableView的模型数组
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*modelArray;
-
-
-/////planListViewModel
-//@property (nonatomic,strong) HXBFinHomePageViewModel_LoanList *loanListViewModel;
-//
-/////loanListViewModel
-//@property (nonatomic,strong) HXBFinHomePageViewModel_PlanList *planListViewModel;
-//
-/////计划详情的ViewModel
-//@property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planDetailViewModel;
-//
-/////散标的ViewModel
-//@property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanDetailViewModel;
-
-
 
 ///点击了 详情页底部的tableView的cell
 - (void)clickBottomTableViewCellBloakFunc: (void(^)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model))clickBottomTabelViewCellBlock;
@@ -63,17 +48,9 @@
 @end
 
 
-@interface HXBFin_PlanDetailView_ViewModelVM: NSObject
-//
-///**
-// 剩余可投
-// */
-//@property (nonatomic,copy) NSString * surplusAmount;
-///**
-// 剩余可投的const
-// */
-//@property (nonatomic,copy) NSString * surplusAmount_const;
 
+
+@interface HXBFin_PlanDetailView_ViewModelVM: NSObject
 ///* 预期收益不代表实际收益投资需谨慎
 @property (nonatomic,copy) NSString *promptStr;
 /// title

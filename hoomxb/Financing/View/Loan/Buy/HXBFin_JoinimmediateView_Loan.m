@@ -246,7 +246,7 @@
         }
     }];
     [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
-        [weakSelf changeAddButtonWihtUserInteractionEnabled:isSelected];
+        [weakSelf changeAddButtonWihtUserInteractionEnabled:!isSelected];
     }];
 }
 

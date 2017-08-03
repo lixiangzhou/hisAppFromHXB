@@ -111,7 +111,7 @@
     self.toolBarView.isAnima_ItemBottomBarView = true;
     self.toolBarView.isColorChange = true;
     self.toolBarView.animaTime_ItemBottomBarView = .5;
-    self.toolBarView.barAnimaViewBottomSpacing = 9;
+    self.toolBarView.barAnimaViewBottomSpacing = kScrAdaptationH(5);
     
    
     self.toolBarView.itemBarAnimaViewColor = [UIColor whiteColor];

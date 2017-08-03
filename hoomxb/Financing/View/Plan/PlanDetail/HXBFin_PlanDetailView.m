@@ -69,7 +69,8 @@
 
 ///倒计时管理
 @property (nonatomic,strong) HXBBaseCountDownManager_lightweight *countDownManager;
-
+///倒计时完成刷新数据
+@property (nonatomic,copy) void(^downLodaDataBlock)();
 @end
 
 
@@ -99,6 +100,7 @@
     }
     return _countDownManager;
 }
+///MARK: 倒计时的判断
 - (void)setIsContDown:(BOOL)isContDown {
     _isContDown = isContDown;
     if (isContDown) {
@@ -106,8 +108,8 @@
         [self.countDownManager resumeTimer];
         [self.countDownManager countDownCallBackFunc:^(CGFloat countDownValue) {
             if (countDownValue < 0) {
-                [self.addButton setTitle:weakSelf.viewModelVM.addButtonStr forState:UIControlStateNormal];
-                [self.countDownManager stopTimer];
+                if (weakSelf.downLodaDataBlock) weakSelf.downLodaDataBlock();
+                [weakSelf.countDownManager stopTimer];
                 return;
             }
             NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒"];
@@ -120,16 +122,10 @@
 }
 - (HXBFin_PlanDetailView_ViewModelVM *) viewModelVM {
     if (!_viewModelVM) {
-        //        kWeakSelf
         _viewModelVM = [[HXBFin_PlanDetailView_ViewModelVM alloc]init];
-        //        [_viewModelVM addButtonChengeTitleChenge:^(NSString * buttonStr) {
-        //            [weakSelf.addButton setTitle:buttonStr forState:UIControlStateNormal];
-        //        }];
     }
     return _viewModelVM;
 }
-
-
 - (void)setUPViewModelVM: (HXBFin_PlanDetailView_ViewModelVM* (^)(HXBFin_PlanDetailView_ViewModelVM *viewModelVM))detailsViewBase_ViewModelVMBlock {
     kWeakSelf
     self.viewModelVM = detailsViewBase_ViewModelVMBlock(self.viewModelVM);
@@ -339,6 +335,10 @@
 ///点击了增信
 - (void)clickAddTrustWithBlock:(void(^)())clickAddTrustBlock{
     self.clickAddTrustBlock = clickAddTrustBlock;
+}
+///刷新数据
+- (void)downLoadDataWithBlock:(void (^)())downLodaDataBlock {
+    self.downLodaDataBlock = downLodaDataBlock;
 }
 @end
 

@@ -93,36 +93,36 @@
 //            return;
 //        }
         
-        if (viewModel.userInfoModel.userInfo.isUnbundling) {
-            [self callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
-            return;
-        }
-        
-        //开通存管银行账户
-        if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
-            [alertVC setClickLeftButtonBlock:^{
-                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-                openDepositAccountVC.title = @"开通存管账户";
-                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
-            }];
-            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
-            return;
-        }
-        ///完善信息
-        if (![viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])
-        {
-            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未完善信息请完善信息后在进行投资" andLeftButtonMassage:@"立即完善" andRightButtonMassage:@"取消"];
-            [alertVC setClickLeftButtonBlock:^{
-                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-                openDepositAccountVC.title = @"完善信息";
-                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
-            }];
-            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
-            return;
-        }
+//        if (viewModel.userInfoModel.userInfo.isUnbundling) {
+//            [self callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
+//            return;
+//        }
+//        
+//        //开通存管银行账户
+//        if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+//            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
+//            [alertVC setClickLeftButtonBlock:^{
+//                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+//                openDepositAccountVC.title = @"开通存管账户";
+//                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//                [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
+//            }];
+//            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
+//            return;
+//        }
+//        ///完善信息
+//        if (![viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])
+//        {
+//            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未完善信息请完善信息后在进行投资" andLeftButtonMassage:@"立即完善" andRightButtonMassage:@"取消"];
+//            [alertVC setClickLeftButtonBlock:^{
+//                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+//                openDepositAccountVC.title = @"完善信息";
+//                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//                [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
+//            }];
+//            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
+//            return;
+//        }
         ///风险评测
         if ([viewModel.userInfoModel.userInfo.riskType isEqualToString:@"立即评测"]) {
             HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未进行风险评估请评估后在进行投资" andLeftButtonMassage:@"立即评估" andRightButtonMassage:@"我是保守型"];
@@ -131,9 +131,7 @@
                 [vc.navigationController pushViewController:riskAssessmentVC animated:YES];
                 __weak typeof(riskAssessmentVC) weakRiskAssessmentVC = riskAssessmentVC;
                 [riskAssessmentVC popWithBlock:^(NSString *type) {
-                    if (type) {
-                        [weakRiskAssessmentVC.navigationController popToViewController:vc animated:true];
-                    }
+                    [weakRiskAssessmentVC.navigationController popToViewController:vc animated:true];
                 }];
             }];
             [alertVC setClickRightButtonBlock:^{
@@ -146,7 +144,7 @@
             }];
             [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
         }
-//        
+        
         ///条件全部满足
         if (pushBlock) {
             pushBlock();

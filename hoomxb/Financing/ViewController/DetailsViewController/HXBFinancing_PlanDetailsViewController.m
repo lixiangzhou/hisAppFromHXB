@@ -53,7 +53,7 @@
     [self downLoadData];
     [self registerClickCell];
     [self registerClickAddButton];
-    [self registerAddTrust];
+    [self registerAddTrust];//增信
     
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
@@ -72,7 +72,7 @@
     self.planID = planListViewModel.planListModel.ID;
 }
 
-///设置值
+///MARK: 设置值
 - (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
     kWeakSelf
     _planDetailViewModel = planDetailViewModel;
@@ -140,7 +140,6 @@
 
 //MARK: ------ setup -------
 - (void)setup {
-    
     kWeakSelf
     [self.hxbBaseVCScrollView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         [weakSelf downLoadData];
@@ -207,12 +206,21 @@
     }];
 }
 
+///曾欣事件
 - (void)registerAddTrust {
     kWeakSelf
     [self.planDetailsView clickAddTrustWithBlock:^{
         HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
         vc.URL = kHXB_Negotiate_AddTrustURL;
         [weakSelf.navigationController pushViewController:vc animated:true];
+    }];
+}
+
+///注册刷新事件
+- (void)registerLoadData {
+    kWeakSelf
+    [self.planDetailsView downLoadDataWithBlock:^{
+        [weakSelf downLoadData];
     }];
 }
 
@@ -241,7 +249,7 @@
 
 //MARK: 网络数据请求
 - (void)downLoadData {
-    __weak typeof (self)weakSelf = self;
+//    __weak typeof (self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
         self.planDetailViewModel = viewModel;
         self.planDetailsView.modelArray = self.tableViewModelArray;

@@ -99,13 +99,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hoomxb/Tools/Base/BaseController/AlertController/HXBAlertManager.m"
-            timestampString = "523358929.063436"
+            filePath = "hoomxb/Financing/ViewController/DetailsViewController/HXBFinancing_PlanDetailsViewController.m"
+            timestampString = "523423077.733123"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
-            landmarkName = "+checkOutRiskAssessmentWithSuperVC:andWithPushBlock:"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "-setPlanDetailViewModel:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "hoomxb/Financing/View/Loan/Buy/HXBFin_JoinimmediateView_Loan.m"
+            timestampString = "523426044.712224"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
+            landmarkName = "-registerEvent"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
