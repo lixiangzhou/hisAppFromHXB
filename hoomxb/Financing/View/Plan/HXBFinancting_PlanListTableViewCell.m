@@ -58,7 +58,7 @@
     self.addStatus.backgroundColor = loanListViewModel.addButtonBackgroundColor;
     self.addStatus.textColor = loanListViewModel.addButtonTitleColor;
     self.addStatus.layer.borderColor = loanListViewModel.addButtonBorderColor.CGColor;
-    self.addStatus.layer.borderWidth = kScrAdaptationH(1);
+    self.addStatus.layer.borderWidth = 0.5;
 
     self.expectedYearRateLable.attributedText = loanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = model.months;
@@ -158,13 +158,15 @@
 //MARK: 倒计时的重要传递
 - (void)setCountDownString:(NSString *)countDownString {
     _countDownString = countDownString;
+    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
+    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
+    if (self.finPlanListViewModel.isCountDown) {
+        self.countDownLable.text = countDownString;
+    }
     if (self.finPlanListViewModel.remainTimeString.length) {
         self.countDownLable.text = _finPlanListViewModel.remainTimeString;
         return;
     }
-    self.countDownLable.text = countDownString;
-    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
-    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
 }
 - (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
     _lockPeriodLabel_ConstStr = lockPeriodLabel_ConstStr;

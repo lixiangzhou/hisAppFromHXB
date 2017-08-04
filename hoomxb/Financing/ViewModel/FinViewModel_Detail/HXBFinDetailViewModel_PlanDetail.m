@@ -205,7 +205,7 @@
         case 5:
 //            self.addButtonStr = @"等待开放购买小于30分钟";
             self.isAddButtonInteraction = false;
-            self.isContDown = true;
+//            self.isContDown = true;
             self.addButtonStr = @"等待加入";
             break;
         case 6:
@@ -281,9 +281,6 @@
     self.addButtonBorderColor = kHXBColor_Red_090303;
 }
 
-- (NSString *)countDownStr {
-    return self.planDetailModel.diffTime;
-}
 
 
 /**
@@ -354,4 +351,25 @@
     }
     return _lockPeriod;
 }
+/**
+ 剩余时间
+ */
+- (NSString *) countDownStr {
+    if (!_countDownStr) {
+        _countDownStr = @(self.planDetailModel.diffTime.integerValue / 1000.0).description;
+        if (_countDownStr.integerValue <= 3600 && _countDownStr.integerValue >= 0) {
+            NSLog(@"%@倒计时",_countDownStr);
+            self.isContDown = true;
+            //会有倒计时
+        }else if (_countDownStr.integerValue > 3600) {
+//            显示的是数字 12日12：12
+            self.isContDown = false;
+            NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planDetailModel.beginSellingTime  andDateFormatter:nil];
+            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:date andDateFormat:@"MM月dd日 HH:mm开售"];
+        }
+    }
+    
+    return _countDownStr;
+}
+
 @end

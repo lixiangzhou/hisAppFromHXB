@@ -29,7 +29,7 @@
  ///点击了加入
  @param clickAddButtonBlock 加入金额block
  */
-- (void)clickAddButtonFunc: (void(^)(NSString *capital))clickAddButtonBlock;
+- (void)clickAddButtonFunc: (void(^)(UITextField *textField,NSString *capital))clickAddButtonBlock;
 @end
 
 

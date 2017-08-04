@@ -39,7 +39,7 @@
 //点击了 服务协议clickNegotiateButton
 @property (nonatomic,copy) void (^clickNegotiateButton)();
 ///点击了加入
-@property (nonatomic,copy) void (^clickAddButton)(NSString *capital);
+@property (nonatomic,copy) void (^clickAddButton)(UITextField *textField,NSString *capital);
 @property (nonatomic,strong) HXBFinBaseNegotiateView *negotiateView;
 @property (nonatomic,assign) BOOL addButtonEndEditing;
 @end
@@ -246,7 +246,7 @@
         }
     }];
     [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
-        [weakSelf changeAddButtonWihtUserInteractionEnabled:!isSelected];
+        [weakSelf changeAddButtonWihtUserInteractionEnabled:isSelected];
     }];
 }
 
@@ -254,7 +254,6 @@
     _addButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
     _addButton.userInteractionEnabled = userInteractionEnabled;
     if (!userInteractionEnabled || !self.addButtonEndEditing) {
-        _addButton.userInteractionEnabled = false;
         _addButton.backgroundColor = kHXBColor_Font0_6;
         [_addButton setTitleColor:kHXBColor_Grey_Font0_2 forState:UIControlStateNormal];
         return;
@@ -267,7 +266,7 @@
 - (void)clickAddButton: (UIButton *)button {
     NSLog(@"点了确认加入");
     if (self.clickAddButton) {
-        self.clickAddButton(self.rechargeView.textField.text);
+        self.clickAddButton(self.rechargeView.textField,self.rechargeView.textField.text);
     }
 }
 
@@ -277,7 +276,7 @@
 }
 
 ///点击了加入
-- (void)clickAddButtonFunc: (void(^)(NSString *capital))clickAddButtonBlock{
+- (void)clickAddButtonFunc: (void(^)(UITextField *textField,NSString *capital))clickAddButtonBlock{
     self.clickAddButton = clickAddButtonBlock;
 }
 

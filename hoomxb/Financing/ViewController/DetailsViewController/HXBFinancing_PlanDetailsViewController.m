@@ -93,15 +93,17 @@
         viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
         viewModelVM.isUserInteractionEnabled   = weakSelf.planDetailViewModel.isAddButtonInteraction;
         viewModelVM.title                      = @"加入计划";
-        viewModelVM.diffTime                   = weakSelf.planDetailViewModel.planDetailModel.diffTime;
+        viewModelVM.diffTime                   = weakSelf.planDetailViewModel.countDownStr;
         //倒计时
-        viewModelVM.isCountDown                = weakSelf.planListViewModel.isCountDown;
+        viewModelVM.isCountDown                = weakSelf.planDetailViewModel.isContDown;
         //加入按钮
         viewModelVM.addButtonBackgroundColor   = weakSelf.planDetailViewModel.addButtonBackgroundColor;
         viewModelVM.addButtonTitleColor        = weakSelf.planDetailViewModel.addButtonTitleColor;
         viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
         if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
         }
+        ///如果是小于5的情况，那么就是等待加入， 那么如果小于1小时，那么久显示这个参数
+        viewModelVM.remainTimeString           = weakSelf.planDetailViewModel.remainTimeString;
         //流程的数据
         viewModelVM.unifyStatus                = weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue;
         viewModelVM.addTime                    = weakSelf.planDetailViewModel.beginSellingTime_flow;

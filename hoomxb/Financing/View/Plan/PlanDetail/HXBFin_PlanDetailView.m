@@ -96,15 +96,15 @@
 }
 - (HXBBaseCountDownManager_lightweight *)countDownManager {
     if (!_countDownManager) {
-        _countDownManager = [[HXBBaseCountDownManager_lightweight alloc]initWithCountDownEndTime:self.diffTime.floatValue /1000 andCountDownEndTimeType:HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType_Now andCountDownDuration:360000 andCountDownUnit:1];
+        _countDownManager = [[HXBBaseCountDownManager_lightweight alloc]initWithCountDownEndTime:self.diffTime.floatValue  andCountDownEndTimeType:HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType_Now andCountDownDuration:3600 andCountDownUnit:1];
     }
     return _countDownManager;
 }
 ///MARK: 倒计时的判断
 - (void)setIsContDown:(BOOL)isContDown {
+    kWeakSelf
     _isContDown = isContDown;
     if (isContDown) {
-        kWeakSelf
         [self.countDownManager resumeTimer];
         [self.countDownManager countDownCallBackFunc:^(CGFloat countDownValue) {
             if (countDownValue < 0) {
@@ -115,6 +115,10 @@
             NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒"];
             [weakSelf.addButton setTitle:str forState:UIControlStateNormal];
         }];
+    }else {
+        if (_viewModelVM.unifyStatus <= 5) {//等待加入
+            [weakSelf.addButton setTitle:self.viewModelVM.remainTimeString forState:UIControlStateNormal];
+        }
     }
 }
 - (void)setDiffTime:(NSString *)diffTime {

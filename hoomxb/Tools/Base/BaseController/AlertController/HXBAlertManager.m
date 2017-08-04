@@ -82,7 +82,6 @@
  */
 + (void)checkOutRiskAssessmentWithSuperVC:(UIViewController *)vc andWithPushBlock:(void(^)())pushBlock
 {
-    kWeakSelf
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
 //        //判断是否安全认证
 //        if([viewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"0"]) {
@@ -93,36 +92,39 @@
 //            return;
 //        }
         
-//        if (viewModel.userInfoModel.userInfo.isUnbundling) {
-//            [self callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
-//            return;
-//        }
-//        
-//        //开通存管银行账户
-//        if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-//            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
-//            [alertVC setClickLeftButtonBlock:^{
-//                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-//                openDepositAccountVC.title = @"开通存管账户";
-//                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-//                [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
-//            }];
-//            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
-//            return;
-//        }
-//        ///完善信息
-//        if (![viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])
-//        {
+        if (viewModel.userInfoModel.userInfo.isUnbundling) {
+            [self callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
+            return;
+        }
+
+        //开通存管银行账户
+        if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
+            [alertVC setClickLeftButtonBlock:^{
+                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                openDepositAccountVC.title = @"开通存管账户";
+                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
+            }];
+            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
+            return;
+        }
+        ///完善信息
+        if (![viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])
+        {
+            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+            openDepositAccountVC.title = @"完善信息";
+            openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
 //            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未完善信息请完善信息后在进行投资" andLeftButtonMassage:@"立即完善" andRightButtonMassage:@"取消"];
 //            [alertVC setClickLeftButtonBlock:^{
 //                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
 //                openDepositAccountVC.title = @"完善信息";
 //                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-//                [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
+            [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
 //            }];
 //            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
-//            return;
-//        }
+            return;
+        }
         ///风险评测
         if ([viewModel.userInfoModel.userInfo.riskType isEqualToString:@"立即评测"]) {
             HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未进行风险评估请评估后在进行投资" andLeftButtonMassage:@"立即评估" andRightButtonMassage:@"我是保守型"];
@@ -139,8 +141,8 @@
                 [riskModifyScore riskModifyScoreRequestWithScore:@"0" andSuccessBlock:^(id responseObject) {
                 } andFailureBlock:^(NSError *error) {
                 }];
-                NSString *string = [NSString stringWithFormat:@"您是保守型用户"];
-                [HxbHUDProgress showMessageCenter:string inView:vc.view];
+//                NSString *string = [NSString stringWithFormat:@"您是保守型用户"];
+//                [HxbHUDProgress showMessageCenter:string inView:vc.view];
             }];
             [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
         }

@@ -68,8 +68,10 @@
 @property (nonatomic,copy) NSString *remainAmount;
 @property (nonatomic,copy) NSString *remainAmount_const;
 
-//开始加入时间
+//开始加入时间 MM-dd hh：mm
 @property (nonatomic,copy) NSString *addTime;
+/// MM月 dd日 hh：mm 开售时间
+@property (nonatomic,copy) NSString *remainTimeString;
 ///开始收益时间
 @property (nonatomic,copy) NSString *beginProfitTime;
 ///到期退出时间

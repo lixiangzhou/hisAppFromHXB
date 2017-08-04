@@ -128,7 +128,7 @@
 - (void)registerAdd {
     kWeakSelf
     ///点击了加入
-    [self.joinimmediateView clickAddButtonFunc:^(NSString *capital) {
+    [self.joinimmediateView clickAddButtonFunc:^(UITextField *textField,NSString *capital) {
         // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
         CGFloat minRegisterAmount = weakSelf.planViewModel.minRegisterAmount.floatValue;
         if ((capital.floatValue < minRegisterAmount)) {
@@ -156,14 +156,21 @@
             [HxbHUDProgress showTextWithMessage:@"加入金额已达上限" andView:self.view];
         }
         
-        //是否大于剩余金额
+        //是否大于用户剩余金额
         if (capital.integerValue > self.assetsTotal.floatValue) {
             NSLog(@"%@",@"输入金额大于了剩余可投金额");
             NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
             [self pushTopUPViewControllerWithAmount: amount];
             return;
         }
-        
+        //是否大于计划剩余金额
+        if (capital.integerValue > weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
+            NSLog(@"%@",@"输入金额大于了剩余可投金额");
+//            NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
+            [HxbHUDProgress showMessageCenter:@"输入金额大于了剩余可投金额" inView:self.view];
+            textField.text = [NSString stringWithFormat:@"%.2lf",weakSelf.planViewModel.planDetailModel.remainAmount.floatValue];
+            return;
+        }
         //判断是否安全认证
         kWeakSelf
 //        [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {

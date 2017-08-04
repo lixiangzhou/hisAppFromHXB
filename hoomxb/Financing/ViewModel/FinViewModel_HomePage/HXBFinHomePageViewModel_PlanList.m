@@ -71,7 +71,9 @@ typedef enum : NSUInteger {
             //会有倒计时
         }else if (_countDownLastStr.integerValue > 3600) {
             //显示的是数字 12日12：12
-            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:_countDownLastStr andDateFormat:@"dd日 HH:mm"];
+            NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planListModel.beginSellingTime  andDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
+            NSString *datestr = @(date.timeIntervalSince1970).description;
+            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"dd日HH:mm"];
         }
     }
     
@@ -102,7 +104,7 @@ typedef enum : NSUInteger {
 //            return @"等待开放购买大于30分钟";
         case 5:
 //            return @"等待开放购买小于30分钟";
-            _isCountDown = true;
+//            _isCountDown = true;
             [self setUPAddButtonColorWithType:true];
             return @"等待加入";
         case 6:
