@@ -20,7 +20,7 @@ NSString *const a = @"tong";
     HXBBaseTextField *textField  = [[HXBBaseTextField alloc]initWithFrame:self.view.frame andBottomLienSpace:0 andBottomLienHeight:2 andRightButtonW:2];
     [self.view addSubview:textField];
     textField.isSecureTextEntry = true;
-}
+} 
 
 
 - (void)didReceiveMemoryWarning {

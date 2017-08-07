@@ -267,6 +267,7 @@
 		E133DD401EEEC14C009466DE /* NYNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD301EEEC14C009466DE /* NYNetworkManager.m */; };
 		E133DD411EEEC14C009466DE /* HXBRequestEnumAndStatic.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD331EEEC14C009466DE /* HXBRequestEnumAndStatic.m */; };
 		E133DD421EEEC14C009466DE /* HXBTokenManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD371EEEC14C009466DE /* HXBTokenManager.m */; };
+		E1398F521F345EC20094441F /* HXBDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1398F511F345EC20094441F /* HXBDataManager.m */; };
 		E13A53451F0A44E1002C3416 /* HXBMy_Plan_Swipe.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A53441F0A44E1002C3416 /* HXBMy_Plan_Swipe.m */; };
 		E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */; };
 		E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */; };
@@ -916,6 +917,8 @@
 		E133DD361EEEC14C009466DE /* HXBTokenManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTokenManager.h; sourceTree = "<group>"; };
 		E133DD371EEEC14C009466DE /* HXBTokenManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTokenManager.m; sourceTree = "<group>"; };
 		E133DD431EEEC191009466DE /* NYNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetwork.h; sourceTree = "<group>"; };
+		E1398F501F345EC20094441F /* HXBDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBDataManager.h; sourceTree = "<group>"; };
+		E1398F511F345EC20094441F /* HXBDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBDataManager.m; sourceTree = "<group>"; };
 		E13A53431F0A44E1002C3416 /* HXBMy_Plan_Swipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMy_Plan_Swipe.h; sourceTree = "<group>"; };
 		E13A53441F0A44E1002C3416 /* HXBMy_Plan_Swipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMy_Plan_Swipe.m; sourceTree = "<group>"; };
 		E13A53481F0A65E9002C3416 /* STRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STRefresh.h; sourceTree = "<group>"; };
@@ -2680,6 +2683,15 @@
 			path = TokenManager;
 			sourceTree = "<group>";
 		};
+		E1398F4F1F345EB20094441F /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				E1398F501F345EC20094441F /* HXBDataManager.h */,
+				E1398F511F345EC20094441F /* HXBDataManager.m */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
 		E13A53461F0A65E9002C3416 /* STRefresh */ = {
 			isa = PBXGroup;
 			children = (
@@ -3353,6 +3365,7 @@
 		E1CD4BB41ED83064000CC57B /* MY */ = {
 			isa = PBXGroup;
 			children = (
+				E1398F4F1F345EB20094441F /* DataManager */,
 				E13A53461F0A65E9002C3416 /* STRefresh */,
 				E1D048411EE8F60D002A4E28 /* Frame */,
 				E157A89A1EE6AFF8002BF6AC /* ViewController */,
@@ -4282,6 +4295,7 @@
 				E1C964741EA5E04F0066DBC4 /* HXBBaseNavigationController.m in Sources */,
 				E1B517BC1F134EAF001C9878 /* HXBFin_DetailLoanTruansfer_ViewController.m in Sources */,
 				E133DD401EEEC14C009466DE /* NYNetworkManager.m in Sources */,
+				E1398F521F345EC20094441F /* HXBDataManager.m in Sources */,
 				E133DCDF1EEE3597009466DE /* HXBSignUPAndLoginRequest.m in Sources */,
 				E1CB56271ED3E9A800D962CA /* HXBMYCapitalRecord_TableViewCell.m in Sources */,
 				E1CD4BCA1ED83064000CC57B /* HxbHUDProgress.m in Sources */,
