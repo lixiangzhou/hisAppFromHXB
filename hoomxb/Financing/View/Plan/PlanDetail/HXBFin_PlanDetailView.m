@@ -69,7 +69,8 @@
 
 ///倒计时管理
 @property (nonatomic,strong) HXBBaseCountDownManager_lightweight *countDownManager;
-
+///倒计时完成刷新数据
+@property (nonatomic,copy) void(^downLodaDataBlock)();
 @end
 
 
@@ -95,24 +96,29 @@
 }
 - (HXBBaseCountDownManager_lightweight *)countDownManager {
     if (!_countDownManager) {
-        _countDownManager = [[HXBBaseCountDownManager_lightweight alloc]initWithCountDownEndTime:self.diffTime.floatValue /1000 andCountDownEndTimeType:HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType_Now andCountDownDuration:360000 andCountDownUnit:1];
+        _countDownManager = [[HXBBaseCountDownManager_lightweight alloc]initWithCountDownEndTime:self.diffTime.floatValue  andCountDownEndTimeType:HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType_Now andCountDownDuration:3600 andCountDownUnit:1];
     }
     return _countDownManager;
 }
+///MARK: 倒计时的判断
 - (void)setIsContDown:(BOOL)isContDown {
+    kWeakSelf
     _isContDown = isContDown;
     if (isContDown) {
-        kWeakSelf
         [self.countDownManager resumeTimer];
         [self.countDownManager countDownCallBackFunc:^(CGFloat countDownValue) {
             if (countDownValue < 0) {
-                [self.addButton setTitle:weakSelf.viewModelVM.addButtonStr forState:UIControlStateNormal];
-                [self.countDownManager stopTimer];
+                if (weakSelf.downLodaDataBlock) weakSelf.downLodaDataBlock();
+                [weakSelf.countDownManager stopTimer];
                 return;
             }
             NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒"];
             [weakSelf.addButton setTitle:str forState:UIControlStateNormal];
         }];
+    }else {
+        if (_viewModelVM.unifyStatus <= 5) {//等待加入
+            [weakSelf.addButton setTitle:self.viewModelVM.remainTimeString forState:UIControlStateNormal];
+        }
     }
 }
 - (void)setDiffTime:(NSString *)diffTime {
@@ -120,16 +126,10 @@
 }
 - (HXBFin_PlanDetailView_ViewModelVM *) viewModelVM {
     if (!_viewModelVM) {
-        //        kWeakSelf
         _viewModelVM = [[HXBFin_PlanDetailView_ViewModelVM alloc]init];
-        //        [_viewModelVM addButtonChengeTitleChenge:^(NSString * buttonStr) {
-        //            [weakSelf.addButton setTitle:buttonStr forState:UIControlStateNormal];
-        //        }];
     }
     return _viewModelVM;
 }
-
-
 - (void)setUPViewModelVM: (HXBFin_PlanDetailView_ViewModelVM* (^)(HXBFin_PlanDetailView_ViewModelVM *viewModelVM))detailsViewBase_ViewModelVMBlock {
     kWeakSelf
     self.viewModelVM = detailsViewBase_ViewModelVMBlock(self.viewModelVM);
@@ -339,6 +339,10 @@
 ///点击了增信
 - (void)clickAddTrustWithBlock:(void(^)())clickAddTrustBlock{
     self.clickAddTrustBlock = clickAddTrustBlock;
+}
+///刷新数据
+- (void)downLoadDataWithBlock:(void (^)())downLodaDataBlock {
+    self.downLodaDataBlock = downLodaDataBlock;
 }
 @end
 

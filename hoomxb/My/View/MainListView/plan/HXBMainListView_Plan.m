@@ -195,9 +195,14 @@ kDealloc
     self.hold_Plan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.exiting_Plan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.exit_Plan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    return @[self.hold_Plan_TableView,self.exiting_Plan_TableView,self.exit_Plan_TableView];
+    return @[
+             self.hold_Plan_TableView,
+             self.exiting_Plan_TableView,
+             self.exit_Plan_TableView
+             ];
 }
 
+//上 中下 view
 - (void)setupScrollToolBarView {
     
     NSArray *bottomViewSet = [self setupBottomScrollViewArray];
@@ -221,7 +226,7 @@ kDealloc
 }
 
 #pragma mark - 事件的传递
-///中间的toolBarView 的 select将要改变的时候
+///中间的toolBarView 的 select将要改变的时候 左右滑动的时候
 - (void)changeMidSelectOptionFuncWithBlock:(void (^)(UIButton *button, NSString *title, NSInteger index, HXBRequestType_MY_PlanRequestType requestType))changeMidSelectOptionBlock {
     self.changeMidSelectOptionBlock = changeMidSelectOptionBlock;
 }

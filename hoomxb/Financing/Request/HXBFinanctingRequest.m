@@ -158,9 +158,15 @@
 
 //MARK: 红利计划列表api
 - (void)planBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
-    //是否为上拉刷新
-    self.planListAPI.isUPReloadData = isUPData;///这里一定要 在前面  否则
     
+    //如果 内存缓存的planlist没有数据那么就从沙河中获取缓存数据
+    if (!self.planListViewModelArray.count) {
+       if (successDateBlock) successDateBlock( [HXBDataManager getFin_PlanListViewModelArray]);
+    }
+    
+    
+    //是否为上拉刷新
+    self.planListAPI.isUPReloadData = isUPData;///这里一定要 在前面  否则 api的page不会++ 或变为1
     self.planListAPI.requestUrl = kHXBFinanc_PlanLisetURL(self.planListAPI.dataPage);
     self.planListAPI.requestMethod = NYRequestMethodGet;
     [self.planListAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
@@ -183,16 +189,30 @@
         //数据的处理
         [self plan_handleDataWithIsUPData:request.isUPReloadData andData:planListViewModelArray];
         
-        if(!self.planListViewModelArray.count) {
+        ///数据的存储
+        if(!self.planListViewModelArray.count && [HXBDataManager getFin_PlanListViewModelArray].count) {
             kNetWorkError(@"计划列表 没有数据");
             if(failureBlock) failureBlock(nil);
             return;
         }
-        if (successDateBlock) successDateBlock(self.planListViewModelArray);
+        if (successDateBlock) {
+            if (!self.planListViewModelArray.count) {
+                self.planListViewModelArray = [HXBDataManager getFin_PlanListViewModelArray];
+            }
+            successDateBlock(self.planListViewModelArray);
+            [HXBDataManager setFin_PlanListViewModelArrayWithArray:self.planListViewModelArray];///缓存数据
+        }
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (error && failureBlock) {
             kNetWorkError(@"");
+            if (!self.planListViewModelArray.count) {
+                self.planListViewModelArray = [HXBDataManager getFin_PlanListViewModelArray];
+                if (self.planListViewModelArray.count) {
+                     successDateBlock(self.planListViewModelArray);
+                    return;
+                }
+            }
+        if (failureBlock) {
             failureBlock(error);
         }
     }];

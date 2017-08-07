@@ -46,6 +46,8 @@
 @property (nonatomic,copy) NSString *addButtonStr;
 /// 倒计时的 string
 @property (nonatomic,copy) NSString *countDownStr;
+/// 开售时间 dd日 HH:mm
+@property (nonatomic,copy) NSString *remainTimeString;
 ///是否倒计时
 @property (nonatomic,assign) BOOL isContDown;
 ///加入按钮是否置灰

@@ -117,7 +117,7 @@
 ///点击了加入
 - (void)registerClickAddButton {
     kWeakSelf
-    [self.joinimmediateView_Loan clickAddButtonFunc:^(NSString *capital) {
+    [self.joinimmediateView_Loan clickAddButtonFunc:^(UITextField *textField,NSString *capital) {
         // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
         CGFloat minRegisterAmount = weakSelf.loanViewModel.loanDetailModel.minInverst.floatValue;
         if ((capital.floatValue < minRegisterAmount)) {
@@ -134,19 +134,21 @@
             return;
         }
         
+        //是否大于标的剩余金额
+        if (capital.floatValue > weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount.floatValue) {
+            textField.text = [NSString stringWithFormat:@"%.2lf",weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount.floatValue];
+            [HxbHUDProgress showMessageCenter:@"输入金额大于了标的剩余金额" inView:self.view];
+            return;
+        }
+        
         //是否大于剩余金额
-        if (capital.integerValue > self.assetsTotal.floatValue) {
+        if (capital.floatValue > self.assetsTotal.floatValue) {
             NSLog(@"%@",@"输入金额大于了剩余可投金额");
             NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
             [self pushTopUPViewControllerWithAmount: amount];
             return;
         }
-        //是否大于标的剩余金额
-        if (capital.integerValue > weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount.floatValue) {
-
-            [HxbHUDProgress showMessageCenter:@"输入金额大于了标的剩余金额" inView:self.view];
-            return;
-        }
+      
         
         //标的剩余金额小于最低投资金额
 //        if ( weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount.floatValue - capital.integerValue < minRegisterAmount) {

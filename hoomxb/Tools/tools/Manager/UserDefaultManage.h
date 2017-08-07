@@ -23,4 +23,7 @@
 
 -(void)setAppVersion:(NSString *)version;
 
+
+- (NSArray *) fin_LoanListViewModelArray;
+- (NSArray *) fin_PlanListViewModelArray;
 @end

@@ -42,7 +42,7 @@
 //点击了 服务协议clickNegotiateButton
 @property (nonatomic,copy) void (^clickNegotiateButton)();
 ///点击了加入
-@property (nonatomic,copy) void (^clickAddButton)(NSString *capital);
+@property (nonatomic,copy) void (^clickAddButton)(UITextField *textField,NSString *capital);
 
 
 @end
@@ -114,7 +114,6 @@
     _addButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
     _addButton.userInteractionEnabled = userInteractionEnabled;
     if (!userInteractionEnabled) {
-        _addButton.userInteractionEnabled = false;
         _addButton.backgroundColor = kHXBColor_Font0_6;
         [_addButton setTitleColor:kHXBColor_Grey_Font0_2 forState:UIControlStateNormal];
         return;
@@ -262,7 +261,7 @@
         }
     }];
     [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
-        [weakSelf setUPAddButtonValueWithSelecter:!isSelected];
+        [weakSelf setUPAddButtonValueWithSelecter:isSelected];
     }];
 }
 
@@ -279,7 +278,7 @@
     NSLog(@"点了确认加入");
     // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
     if (self.clickAddButton) {
-        self.clickAddButton(self.rechargeView.textField.text);
+        self.clickAddButton(self.rechargeView.textField,self.rechargeView.textField.text);
     }
 }
 
@@ -289,7 +288,7 @@
 }
 
 ///点击了加入
-- (void)clickAddButtonFunc: (void(^)(NSString *capital))clickAddButtonBlock{
+- (void)clickAddButtonFunc: (void(^)(UITextField *textField,NSString *capital))clickAddButtonBlock{
     self.clickAddButton = clickAddButtonBlock;
 }
 

@@ -125,16 +125,16 @@
 ///点击了加入
 - (void)registerClickAddButton {
     kWeakSelf
-    [self.joinimmediateView_Loan clickAddButtonFunc:^(NSString *capital) {
+    [self.joinimmediateView_Loan clickAddButtonFunc:^(UITextField *textField,NSString *capital) {
         //先判断
         [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^{
-            [weakSelf buyWithCapital:capital];
+            [weakSelf buyWithCapital:capital andTextField: textField];
         }];
     }];
 }
 
 //购买的逻辑
-- (void)buyWithCapital:(NSString *)capital {
+- (void)buyWithCapital:(NSString *)capital andTextField:(UITextField *)textField{
     kWeakSelf
     ///债转剩余金额
     CGFloat truansferRemainAmount = weakSelf.loanTruansferViewModel.loanTruansferDetailModel.transferDetail.leftTransAmount.floatValue;
@@ -168,6 +168,7 @@
     }
     //是否大于标的剩余金额
     if (capital.floatValue > truansferRemainAmount) {
+        textField.text = [NSString stringWithFormat:@"%.2lf",truansferRemainAmount];
         [HxbHUDProgress showMessageCenter:@"输入金额大于了标的剩余金额" inView:self.view];
         return;
     }

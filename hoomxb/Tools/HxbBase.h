@@ -43,3 +43,4 @@
 #import "HXBAlertManager.h"///弹框管理者
 #import "STRefresh.h"///刷新
 #import "HXBBaseModel.h"///viewModel
+#import "HXBDataManager.h"//数据存储
