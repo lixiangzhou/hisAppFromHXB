@@ -78,7 +78,7 @@
         make.top.equalTo(self.authenticatedNameTipLabel.mas_bottom).offset(15);
         make.right.equalTo(self).offset(-16);
     }];
-    if ([self.userInfoModel.userInfo.isAllPassed isEqualToString:@"1"]) {
+    if ([self.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
         [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.authenticatedNameTipLabel);
             make.top.equalTo(self.idCardTextField.mas_bottom).offset(30);
@@ -194,7 +194,7 @@
 {
     _userInfoModel = userInfoModel;
     self.phoneNumberLabel.text = [userInfoModel.userInfo.mobile hxb_hiddenPhonNumberWithMid];
-    if ([userInfoModel.userInfo.isAllPassed isEqualToString:@"1"]) {
+    if ([userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
         self.authenticatedNameLabel.text = [userInfoModel.userInfo.realName hxb_hiddenUserNameWithleft];
     }else
     {

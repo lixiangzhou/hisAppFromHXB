@@ -57,9 +57,9 @@
     }];
 }
 
-- (void)noticeRequestWithpage:(int)page andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    self.versionUpdateAPI.isUPReloadData = YES;
+    self.versionUpdateAPI.isUPReloadData = isUPReloadData;
     self.versionUpdateAPI.requestUrl = kHXBHome_AnnounceURL;
     self.versionUpdateAPI.requestMethod = NYRequestMethodGet;
     self.versionUpdateAPI.requestArgument = @{

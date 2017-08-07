@@ -54,7 +54,7 @@
         return viewManager;
     }];
     UILabel *label = (UILabel *)[self.moreTopBottomView.rightViewArray lastObject];
-    if ([label.text isEqualToString:@"协议"]) {
+    if ([label.text isEqualToString:@"《恒丰银行股份有限公司杭州分行网络交易资金账户三方协议》"]) {
         UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(agreementClick)];
         [label addGestureRecognizer:labelTapGestureRecognizer];
         label.userInteractionEnabled = YES;
@@ -73,7 +73,11 @@
 - (HXBBaseView_MoreTopBottomView *)moreTopBottomView
 {
     if (!_moreTopBottomView) {
-        _moreTopBottomView = [[HXBBaseView_MoreTopBottomView alloc] initWithFrame:self.bounds andTopBottomViewNumber:self.leftStrArr.count andViewClass:[UILabel class] andViewHeight:12 andTopBottomSpace:10 andLeftRightLeftProportion:10 Space:UIEdgeInsetsMake(10, 10, 10, 10)];
+        _moreTopBottomView = [[HXBBaseView_MoreTopBottomView alloc] initWithFrame:self.bounds andTopBottomViewNumber:self.leftStrArr.count andViewClass:[UILabel class] andViewHeight:12 andTopBottomSpace:18 andLeftRightLeftProportion:0 Space:UIEdgeInsetsMake(10, 10, 10, 20)];
+        [_moreTopBottomView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+            viewManager.rightLabelAlignment = NSTextAlignmentRight;
+            return viewManager;
+        }];
     }
     return _moreTopBottomView;
 }

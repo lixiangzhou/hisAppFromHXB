@@ -43,7 +43,7 @@
 - (void)authenticationWithIDCard:(NSString *)IDCard
 {
     kWeakSelf
-    if ([self.userInfoModel.userInfo.isAllPassed isEqualToString:@"1"]) {
+    if ([self.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
         HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
         [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andSuccessBlock:^(id responseObject) {
             

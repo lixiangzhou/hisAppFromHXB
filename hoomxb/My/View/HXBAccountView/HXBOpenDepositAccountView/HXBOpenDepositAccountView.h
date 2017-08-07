@@ -31,5 +31,5 @@
 /**
  存管协议
  */
-- (void)clickTrustAgreementWithBlock:(void(^)())clickTrustAgreement;
+- (void)clickTrustAgreementWithBlock:(void(^)(BOOL isThirdpart))clickTrustAgreement;
 @end

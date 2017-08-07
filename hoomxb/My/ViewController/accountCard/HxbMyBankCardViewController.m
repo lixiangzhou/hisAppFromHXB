@@ -85,7 +85,7 @@
         weakSelf.userInfoView.leftStrArr = @[@"安全认证",@"姓名",@"身份证",@"存管开通协议"];
         NSString *realName = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
         NSString *idCard = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:2 lenght:viewModel.userInfoModel.userInfo.idNo.length - 4];
-        weakSelf.userInfoView.rightArr = @[@"已认证",realName,idCard,@"协议"];
+        weakSelf.userInfoView.rightArr = @[@"已认证",realName,idCard,@"《恒丰银行股份有限公司杭州分行网络交易资金账户三方协议》"];
         
         if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
             [weakSelf loadBankCardData];

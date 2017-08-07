@@ -158,21 +158,17 @@
     {
          self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.2f%@",[homePageModel_DataList.baseInterestRate doubleValue],@"%"];
     }
-    if (self.homePageModel_DataList.isHidden) {
-        if (![self.homePageModel_DataList.unifyStatus isEqualToString:@"立即加入"]) {
-            self.colourGradientView.hidden = YES;
-            [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
-        }else
-        {
-            self.colourGradientView.hidden = NO;
-            [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
-        }
-        
-        [self.purchaseButton setTitle:self.homePageModel_DataList.unifyStatus forState:UIControlStateNormal];
+    
+    if (![self.homePageModel_DataList.unifyStatus isEqualToString:@"立即加入"]) {
+        self.colourGradientView.hidden = YES;
+        [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
     }else
     {
-        [self.purchaseButton setTitle:[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.homePageModel_DataList.diffTime andDateFormat:@"mm分ss秒后可加入"] forState:UIControlStateNormal];
+        self.colourGradientView.hidden = NO;
+        [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
     }
+    [self.purchaseButton setTitle:self.homePageModel_DataList.cellBtnTitle forState:UIControlStateNormal];
+    
     if (!homePageModel_DataList.tag.length) {
         self.icon.hidden = YES;
     }
@@ -181,6 +177,7 @@
     [self setupSubViewFrame];
     
 }
+
 
 - (void)setCountDownString:(NSString *)countDownString
 {

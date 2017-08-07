@@ -47,6 +47,11 @@
  加息利率
  */
 @property (nonatomic, copy) NSString *extraInterestRate;
+
+/**
+ 红利计划开始时间
+ */
+@property (nonatomic, copy) NSString *beginSellingTime;
 /**
  倒计时时间差
  */
@@ -62,6 +67,16 @@
 @property (nonatomic,copy) NSString *countDownString;
 ///是否隐藏倒计时
 @property (nonatomic,assign) BOOL isHidden;
+
+/**
+ 是否大于一小时
+ */
+@property (nonatomic, assign) BOOL isremainTime;
+/**
+ 按钮显示的文字
+ */
+@property (nonatomic, copy) NSString *cellBtnTitle;
+
 /**
  id
  */

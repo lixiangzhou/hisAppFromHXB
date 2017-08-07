@@ -136,6 +136,7 @@
 		4E9982471F02677B00CABA59 /* HXBAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9982461F02677B00CABA59 /* HXBAlertVC.m */; };
 		4E99824D1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99824A1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m */; };
 		4E99824E1F026C3600CABA59 /* HXBMY_AllFinanceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99824C1F026C3600CABA59 /* HXBMY_AllFinanceView.m */; };
+		4E9D206C1F342166003DF3C3 /* HXBAgreementView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9D206B1F342166003DF3C3 /* HXBAgreementView.m */; };
 		4EAA301D1F134E11003F2AF3 /* HXBQuickRechargeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAA301C1F134E11003F2AF3 /* HXBQuickRechargeView.m */; };
 		4EAA30201F136DD8003F2AF3 /* HXBSetTransactionPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAA301F1F136DD8003F2AF3 /* HXBSetTransactionPasswordViewController.m */; };
 		4EAA30241F136E79003F2AF3 /* HXBTransactionPasswordConfirmationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAA30231F136E79003F2AF3 /* HXBTransactionPasswordConfirmationView.m */; };
@@ -647,6 +648,8 @@
 		4E99824A1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMy_AllFinance_TableViewCell.m; sourceTree = "<group>"; };
 		4E99824B1F026C3600CABA59 /* HXBMY_AllFinanceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_AllFinanceView.h; sourceTree = "<group>"; };
 		4E99824C1F026C3600CABA59 /* HXBMY_AllFinanceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_AllFinanceView.m; sourceTree = "<group>"; };
+		4E9D206A1F342166003DF3C3 /* HXBAgreementView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAgreementView.h; sourceTree = "<group>"; };
+		4E9D206B1F342166003DF3C3 /* HXBAgreementView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAgreementView.m; sourceTree = "<group>"; };
 		4EA93FBC1EA0A59D002F3615 /* HXBFontMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFontMacro.h; sourceTree = "<group>"; };
 		4EA93FBD1EA0A5AB002F3615 /* HXBAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAPI.h; sourceTree = "<group>"; };
 		4EA93FBE1EA0A5B9002F3615 /* MacrosInBusiness.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MacrosInBusiness.h; sourceTree = "<group>"; };
@@ -1736,6 +1739,8 @@
 			children = (
 				4E9215771F1E138C00C8CECB /* HXBOpenDepositAccountView.h */,
 				4E9215781F1E138C00C8CECB /* HXBOpenDepositAccountView.m */,
+				4E9D206A1F342166003DF3C3 /* HXBAgreementView.h */,
+				4E9D206B1F342166003DF3C3 /* HXBAgreementView.m */,
 			);
 			path = HXBOpenDepositAccountView;
 			sourceTree = "<group>";
@@ -4095,6 +4100,7 @@
 				E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */,
 				E1B0F48D1EC4950A0071246F /* HXBFin_Detail_DetailsVC_Plan.m in Sources */,
 				E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */,
+				4E9D206C1F342166003DF3C3 /* HXBAgreementView.m in Sources */,
 				E1CB56241ED3E82700D962CA /* HXBMYCapitalRecord_TableView.m in Sources */,
 				E133DCD71EEE3597009466DE /* HxbPickerArea.m in Sources */,
 				E133DD3B1EEEC14C009466DE /* NYBaseRequest.m in Sources */,
