@@ -12,6 +12,7 @@
 #import "HXBFinBaseNegotiateView.h"
 #import "SVGKImage.h"
 #import "HXBBankCardModel.h"
+#import "HXBAgreementView.h"
 
 @interface HXBOpenDepositAccountView ()
 @property (nonatomic, strong) HXBDepositoryHeaderView *headerTipView;
@@ -22,7 +23,8 @@
 @property (nonatomic, strong) HXBCustomTextField *bankNameTextField;
 @property (nonatomic, strong) HXBCustomTextField *bankNumberTextField;
 @property (nonatomic, strong) HXBCustomTextField *phoneTextField;
-@property (nonatomic, strong) HXBFinBaseNegotiateView *negotiateView;
+//@property (nonatomic, strong) HXBFinBaseNegotiateView *negotiateView;
+@property (nonatomic, strong) HXBAgreementView *negotiateView;
 
 @property (nonatomic, strong) UIButton *bottomBtn;
 
@@ -30,7 +32,7 @@
 /**
  存管协议
  */
-@property (nonatomic,copy) void(^clickTrustAgreement)();
+@property (nonatomic,copy) void(^clickTrustAgreement)(BOOL isThirdpart);
 @end
 
 @implementation HXBOpenDepositAccountView
@@ -169,8 +171,9 @@
     [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.bottomBtn.mas_top).offset(kScrAdaptationH(-20));
         make.centerX.equalTo(self);
-        make.height.offset(kScrAdaptationH(14));
-        make.width.offset(kScrAdaptationW(217));
+        make.left.equalTo(self).offset(kScrAdaptationW(18));
+        make.right.equalTo(self).offset(kScrAdaptationW(-18));
+
     }];
 }
 
@@ -319,27 +322,37 @@
     return _phoneTextField;
 }
 
-- (HXBFinBaseNegotiateView *)negotiateView
+- (HXBAgreementView *)negotiateView
 {
     if (!_negotiateView) {
-        _negotiateView = [[HXBFinBaseNegotiateView alloc] init];
-        [_negotiateView clickNegotiateWithBlock:^{
-            NSLog(@"点击了协议");
-            if (self.clickTrustAgreement) {
-                self.clickTrustAgreement();
+        kWeakSelf
+        NSAttributedString *attString = [[NSAttributedString alloc] initWithString:@"我已查看并同意《红小宝平台授权协议》,《恒丰银行股份有限公司杭州分行网络交易资金账户三方协议》"];
+        
+        NSDictionary *linkAttributes = @{
+                                         NSForegroundColorAttributeName:kHXBColor_Blue040610,
+                                         NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(12)
+                                         };
+        NSMutableAttributedString *attributedString = [HXBAgreementView configureLinkAttributedString:attString withString:@"《红小宝平台授权协议》" sameStringEnable:NO linkAttributes:linkAttributes activeLinkAttributes:linkAttributes parameter:nil clickLinkBlock:^{
+            if (weakSelf.clickTrustAgreement) {
+                weakSelf.clickTrustAgreement(NO);
             }
         }];
-        kWeakSelf
-        [_negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
-            if (isSelected) {
+        attributedString = [HXBAgreementView configureLinkAttributedString:attributedString withString:@"《恒丰银行股份有限公司杭州分行网络交易资金账户三方协议》" sameStringEnable:NO linkAttributes:linkAttributes activeLinkAttributes:linkAttributes parameter:nil clickLinkBlock:^{
+            if (weakSelf.clickTrustAgreement) {
+                weakSelf.clickTrustAgreement(YES);
+            }
+        }];
+        _negotiateView = [[HXBAgreementView alloc] initWithFrame:CGRectZero];
+        _negotiateView.text = attributedString;
+        _negotiateView.agreeBtnBlock = ^{
+            weakSelf.bottomBtn.enabled = !weakSelf.bottomBtn.enabled;
+            if (weakSelf.bottomBtn.enabled) {
                 weakSelf.bottomBtn.backgroundColor = COR24;
             }else
             {
                 weakSelf.bottomBtn.backgroundColor = COR26;
             }
-            weakSelf.bottomBtn.enabled = isSelected;
-        }];
-        _negotiateView.negotiateStr = @"存管服务协议";
+        };
     }
     return _negotiateView;
 }
@@ -357,7 +370,7 @@
     }
     return _bottomBtn;
 }
-- (void)clickTrustAgreementWithBlock:(void (^)())clickTrustAgreement {
+- (void)clickTrustAgreementWithBlock:(void (^)(BOOL isThirdpart))clickTrustAgreement {
     self.clickTrustAgreement = clickTrustAgreement;
 }
 

@@ -17,9 +17,9 @@
 @property (nonatomic, strong) NSMutableArray<HXBNoticModel *> *modelArrs;
 
 /**
- 页码
+ 请求
  */
-//@property (nonatomic, assign) int page;
+@property (nonatomic, strong) HXBVersionUpdateRequest *versionUpdateRequest;
 @end
 
 @implementation HXBNoticeViewController
@@ -38,16 +38,15 @@
     self.title = @"公告";
     self.isColourGradientNavigationBar = YES;
     [self.view addSubview:self.mainTabelView];
-    [self loadData];
+    [self loadDataWithIsUPReloadData:YES];
 }
 
 
-- (void)loadData
+- (void)loadDataWithIsUPReloadData:(BOOL)isUPReloadData
 {
     kWeakSelf
-    HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
     //公告请求接口
-    [versionUpdateRequest noticeRequestWithpage:1 andSuccessBlock:^(id responseObject) {
+    [self.versionUpdateRequest noticeRequestWithisUPReloadData:isUPReloadData andSuccessBlock:^(id responseObject) {
         weakSelf.modelArrs = responseObject;
 
         [weakSelf.mainTabelView reloadData];
@@ -101,12 +100,12 @@
         _mainTabelView.dataSource = self;
         _mainTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_mainTabelView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-            [weakSelf loadData];
+            [weakSelf loadDataWithIsUPReloadData:YES];
         } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
             
         }];
         [_mainTabelView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-            [weakSelf loadData];
+            [weakSelf loadDataWithIsUPReloadData:NO];
         } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
             
         }];
@@ -114,6 +113,12 @@
     return _mainTabelView;
 }
 
-
+- (HXBVersionUpdateRequest *)versionUpdateRequest
+{
+    if (!_versionUpdateRequest) {
+        _versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
+    }
+    return _versionUpdateRequest;
+}
 
 @end

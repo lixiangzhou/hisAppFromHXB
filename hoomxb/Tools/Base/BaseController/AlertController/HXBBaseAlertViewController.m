@@ -62,12 +62,9 @@
 - (void)setUPAnimater{
     __weak typeof (self)weakSelf = self;
     [self.animatr presentAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
-        [UIView animateWithDuration:.0 animations:^{
-            toView.center = [UIApplication sharedApplication].keyWindow.center;
-            toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(145));
-        } completion:^(BOOL finished) {
-            weakSelf.animatr.isAccomplishAnima = true;
-        }];
+        toView.center = [UIApplication sharedApplication].keyWindow.center;
+        toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(145));
+        weakSelf.animatr.isAccomplishAnima = true;
     }];
     [self.animatr dismissAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
         [UIView animateWithDuration:0 animations:^{

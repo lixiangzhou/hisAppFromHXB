@@ -100,6 +100,9 @@
 #define kHXB_Negotiate_Anti_MoneyLaunderingURL @"/agreement/antimoney"///《反洗钱告知暨客户出借承诺书》
 #define kHXB_Negotiate_LoanTruansferURL @"/agreement/debts"///《债权转让及受让协议》
 #define kHXB_Negotiate_depository @"/agreement/depository" ///《存管开户协议》
+#define kHXB_Negotiate_thirdpart @"/agreement/thirdpart" ///《恒丰银行股份有限公司杭州分行网络交易资金账户三方协议》
+#define kHXB_Negotiate_authorize @"/agreement/authorize" ///《红小宝平台授权协议》
+
 #define kHXB_Negotiate_AddTrustURL @"/agreement/trust"///增信页
 #define kHXB_Negotiate_LoandingPageURL @"/landing"///落地页
 #endif

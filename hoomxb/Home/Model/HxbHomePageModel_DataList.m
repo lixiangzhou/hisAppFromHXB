@@ -45,6 +45,28 @@
     }
     return _countDownLastStr;
 }
+- (BOOL)isremainTime
+{
+    if ((self.diffTime.integerValue / 1000.0) > 3600) {
+        return YES;
+    }
+    return NO;
+}
+
+- (NSString *)cellBtnTitle
+{
+    if (self.diffTime.intValue < 0) {
+        _cellBtnTitle = self.unifyStatus;
+    }else if (self.isremainTime)
+    {
+        _cellBtnTitle = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.beginSellingTime andDateFormat:@"MM-dd HH:mm开始加入"];
+    }else
+    {
+        _cellBtnTitle = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.diffTime andDateFormat:@"mm分ss秒后可加入"];
+    }
+
+    return _cellBtnTitle;
+}
 
 - (void)setCountDownString:(NSString *)countDownString {
     if (!countDownString.integerValue && !self.remainTimeString) {
@@ -54,6 +76,8 @@
     }
     _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm分ss秒后可加入"];
 }
+
+
 
 - (NSString *)judgmentStateValue:(NSString *)unifyStatus
 {

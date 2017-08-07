@@ -131,10 +131,18 @@
         return;
     }
     if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-        //开通存管银行账户
-        HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
-        bindBankCardVC.type = type;
-        [self.navigationController pushViewController:bindBankCardVC animated:YES];
+        HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
+        [alertVC setClickLeftButtonBlock:^{
+            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+            openDepositAccountVC.title = @"开通存管账户";
+            openDepositAccountVC.type = type;
+            [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+        }];
+        [self.navigationController presentViewController:alertVC animated:YES completion:nil];
+//        //开通存管银行账户
+//        HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
+//        bindBankCardVC.type = type;
+//        [self.navigationController pushViewController:bindBankCardVC animated:YES];
         
     } else if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
     {

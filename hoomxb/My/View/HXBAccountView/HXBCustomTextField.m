@@ -29,7 +29,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor whiteColor];
+       
         
         [self addSubview:self.leftImageView];
         [self addSubview:self.textField];
@@ -42,6 +42,7 @@
     }
     return self;
 }
+
 
 - (void)setupSubViewFrame
 {

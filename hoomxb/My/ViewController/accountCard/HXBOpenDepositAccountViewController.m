@@ -82,13 +82,20 @@
         _mainView.openAccountBlock = ^(NSDictionary *dic) {
             [weakSelf bottomBtnClick:dic];
         };
-        [_mainView clickTrustAgreementWithBlock:^{
+        [_mainView clickTrustAgreementWithBlock:^(BOOL isThirdpart) {
             NSLog(@"《存管开户协议》");
             HXBFinLoanTruansfer_ContraceWebViewVC *webViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc] init];
-            webViewVC.URL = kHXB_Negotiate_depository;
-            webViewVC.title = @"存管协议";
+            if (isThirdpart) {
+                webViewVC.URL = kHXB_Negotiate_thirdpart;
+                webViewVC.title = @"恒丰银行股份有限公司杭州分行网络交易资金账户三方协议";
+            }else
+            {
+                webViewVC.URL = kHXB_Negotiate_authorize;
+                webViewVC.title = @"红小宝平台授权协议";
+            }
             [weakSelf.navigationController pushViewController:webViewVC animated:true];
         }];
+        
     }
     return _mainView;
 }
