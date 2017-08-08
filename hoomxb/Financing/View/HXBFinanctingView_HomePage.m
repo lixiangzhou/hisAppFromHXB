@@ -85,7 +85,11 @@
 
 
 - (void)setupSubView {
-    self.toolBarViewOptionStrArray = @[@"红利计划",@"散标列表",@"债权转让"];
+    self.toolBarViewOptionStrArray = @[
+                                       @"红利计划",
+                                       @"散标列表",
+//                                       @"债权转让" //债权转让，以后打开
+                                       ];
     
     
 //设置toolBarVie
@@ -134,7 +138,7 @@
     self.bottomViewArray = @[
                              self.planListTableView,
                              self.loanListTableView,
-                             self.loanTruansferTableView
+//                             self.loanTruansferTableView //债权转让，以后打开
                             ];
 }
 

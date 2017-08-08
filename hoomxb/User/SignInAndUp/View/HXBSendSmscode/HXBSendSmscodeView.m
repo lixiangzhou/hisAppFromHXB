@@ -328,6 +328,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///点击了发送按钮
 - (void)clickSendButton: (UIButton *)button {
     [self setSendButtonStatus];
+    self.sendButton.backgroundColor = RGB(222, 222, 222);
     if (self.clickSendSmscodeButtonBlock) self.clickSendSmscodeButtonBlock();
     
 }

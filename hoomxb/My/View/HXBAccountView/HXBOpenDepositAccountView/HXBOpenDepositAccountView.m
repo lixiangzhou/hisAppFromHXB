@@ -62,6 +62,11 @@
     kWeakSelf
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) return;
+        
+        if (viewModel.userInfoModel.userInfo.escrowTime.intValue >= 3) {
+            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在开通三次，如需继续开通联系客服"];
+            return;
+        }
         //设置用户信息
         [self setupUserIfoData:viewModel];
         

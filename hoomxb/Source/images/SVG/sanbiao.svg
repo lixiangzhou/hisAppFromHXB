@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="96.9516278%" y2="98.4853316%" id="linearGradient-1">
+            <stop stop-color="#FE654D" offset="0%"></stop>
+            <stop stop-color="#FF5B4D" offset="25.2839555%"></stop>
+            <stop stop-color="#FF3D4F" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.6831154%" id="linearGradient-2">
+            <stop stop-color="#FE654D" offset="0%"></stop>
+            <stop stop-color="#FF3D4F" offset="100%"></stop>
+        </linearGradient>
+        <path d="M0.802818877,4.51963962 C-1.02656573,8.05137363 0.37601682,12.3887297 3.9380291,14.2036826 C7.49858552,16.0185778 11.8710209,14.6262638 13.7011043,11.0938366 C14.4435384,9.6619534 14.645904,8.09897214 14.3944757,6.62390947 L6.42569867,8.07043614 L7.23641293,0.619565958 C4.61291095,0.626151188 2.08537973,2.04558599 0.802818877,4.51963962 Z" id="path-3"></path>
+    </defs>
+    <g id="敲定页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="资产首页" transform="translate(-15.000000, -346.000000)">
+            <g id="Group-4" transform="translate(15.000000, 346.000000)">
+                <rect id="Rectangle-8" x="0" y="0" width="15" height="15"></rect>
+                <path d="M7.73562983,6.79307479 L8.39904402,0.834579841 C8.39904402,0.834579841 12.909111,0.625123972 14.108851,5.63648107 L7.73562983,6.79304945 L7.73562983,6.79307479" id="Path" fill="url(#linearGradient-1)"></path>
+                <g id="Path">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    <path stroke="url(#linearGradient-2)" stroke-width="1" d="M13.9679053,7.20951335 L5.8562063,8.68198385 L6.67640666,1.14393173 C4.38823999,1.33736613 2.32465019,2.67043011 1.2467168,4.74975836 L1.24679293,4.74961144 C-0.455102533,8.0352202 0.850463759,12.0693105 4.16509398,13.7582149 C7.48142734,15.4486241 11.553837,14.1515617 13.257224,10.8636839 C13.8490667,9.72223628 14.0859154,8.46236144 13.9679053,7.20951335 Z"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

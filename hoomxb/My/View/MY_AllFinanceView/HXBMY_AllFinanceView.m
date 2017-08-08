@@ -7,39 +7,31 @@
 //
 
 #import "HXBMY_AllFinanceView.h"
-#import "HXBMy_AllFinance_TableViewCell.h"
-static NSString *const cellID = @"CELLID";
-@interface HXBMY_AllFinanceView ()<UITableViewDelegate,UITableViewDataSource>
+#import "HXBProportionalBarView.h"
+#import "HXBAssetsCustomVIew.h"
+@interface HXBMY_AllFinanceView ()
 
-@property (nonatomic,strong) UITableView *allFinanceTableView;
-///散标债券收益
-@property (nonatomic,strong) HXBBaseView_TwoLable_View *loanFinanceView;
-///计划收益
-@property (nonatomic,strong) HXBBaseView_TwoLable_View *planFinanceView;
-/**
- 数据源
- */
-@property (nonatomic,strong) HXBRequestUserInfoViewModel *viewModel;
+@property (nonatomic, strong) UILabel *totalAssetsLabel;
+@property (nonatomic, strong) UILabel *totalAssetsNumberLabel;
+@property (nonatomic, strong) HXBProportionalBarView *proportionalBarView;
+@property (nonatomic, strong) HXBAssetsCustomVIew *plainView;
+
 @end
 @implementation HXBMY_AllFinanceView
-- (void) setViewModel:(HXBRequestUserInfoViewModel *)viewModel {
+
+
+- (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
+{
     _viewModel = viewModel;
-    [self.loanFinanceView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        viewModelVM.leftLabelStr = @"红利计划累计收益（元）";
-        viewModelVM.rightLabelStr = viewModel.financePlanSumPlanInterest;
-        return viewModelVM;
-    }];
-    [self.planFinanceView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-        viewModelVM.leftLabelStr = @"散标债权累计收益（元）";
-        viewModelVM.rightLabelStr = viewModel.lenderEarned;
-        return viewModelVM;
-    }];
-    [self.allFinanceTableView reloadData];
+     [self.proportionalBarView drawLineWithRatioArr:@[@"0.2",@"0.5",@"0.1",@"0.2"] andWithColorArr:@[RGB(255, 126, 127),RGB(161, 147, 249),RGB(128, 218, 255),RGB(255, 197, 162)]];
+    [self.plainView circularViewColor:RGB(255, 126, 127) andTextStr:@"红利计划" andNumStr:@"345.67"];
 }
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self setUPViews];
     }
     return self;
@@ -48,132 +40,81 @@ static NSString *const cellID = @"CELLID";
 - (void)setUPViews {
     [self creatViews];
     [self setUPFrames];
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        self.viewModel = viewModel;
-    } andFailure:^(NSError *error) {
-        
-    }];
+
 }
 
 - (void)creatViews {
-    self.allFinanceTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.allFinanceTableView.delegate = self;
-    self.allFinanceTableView.dataSource = self;
-    
-    [self.allFinanceTableView registerClass:[HXBMy_AllFinance_TableViewCell class] forCellReuseIdentifier:cellID];
-    self.allFinanceTableView.tableFooterView = [[UIView alloc]init];
-    
-    self.planFinanceView = [[HXBBaseView_TwoLable_View alloc]init];
-    self.loanFinanceView = [[HXBBaseView_TwoLable_View alloc]init];
-    
-    [self addSubview:self.allFinanceTableView];
-    [self addSubview:self.planFinanceView];
-    [self addSubview:self.loanFinanceView];
-    
+    [self addSubview:self.totalAssetsLabel];
+    [self addSubview:self.totalAssetsNumberLabel];
+    [self addSubview:self.proportionalBarView];
+    [self addSubview:self.plainView];
 }
+
+
 
 - (void)setUPFrames {
-    [self.allFinanceTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(500)));
+    [self.totalAssetsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(kScrAdaptationW(20));
+        make.top.equalTo(self).offset(kScrAdaptationH(30));
+        make.height.offset(kScrAdaptationH(17));
     }];
-    [self.planFinanceView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.allFinanceTableView.mas_bottom);
-        make.left.equalTo(self);
-        make.right.equalTo(self.mas_centerX);
-        make.bottom.equalTo(self);
+    [self.totalAssetsNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.totalAssetsLabel.mas_left);
+        make.top.equalTo(self.totalAssetsLabel.mas_bottom).offset(kScrAdaptationH(10));
+        make.height.offset(kScrAdaptationH(28));
     }];
-    [self.loanFinanceView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.allFinanceTableView.mas_bottom);
-        make.left.equalTo(self.mas_centerX);
-        make.right.equalTo(self);
-        make.bottom.equalTo(self);
+    [self.proportionalBarView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.totalAssetsLabel.mas_left);
+        make.right.equalTo(self).offset(kScrAdaptationW(-20));
+        make.top.equalTo(self.totalAssetsNumberLabel.mas_bottom).offset(kScrAdaptationH(30));
+        make.height.offset(kScrAdaptationH(15));
+    }];
+    [self.plainView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.totalAssetsLabel.mas_left);
+        make.top.equalTo(self.proportionalBarView.mas_bottom).offset(kScrAdaptationH(30));
+        make.height.offset(kScrAdaptationH(16));
     }];
 }
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+#pragma mark - 懒加载
+
+- (HXBAssetsCustomVIew *)plainView
+{
+    if (!_plainView) {
+        _plainView = [[HXBAssetsCustomVIew alloc] init];
+    }
+    return _plainView;
 }
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    switch (section) {
-        case 0:
-            return 1;
-        case 1:
-            return 4;
-        case 2:
-            return 1;
+
+- (UILabel *)totalAssetsLabel
+{
+    if (!_totalAssetsLabel) {
+        _totalAssetsLabel = [[UILabel alloc] init];
+        _totalAssetsLabel.text = @"总资产(元)";
+        _totalAssetsLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        _totalAssetsLabel.textColor = COR28;
     }
-    return 0;
+    return _totalAssetsLabel;
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath  {
-    HXBMy_AllFinance_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
-    if (indexPath.section == 0) {
-        [cell setUPValueWithLeftStr:@"资产总额（元）" andRightStr:self.viewModel.userInfoModel.userAssets.assetsTotal andTypeStr:nil];
+
+- (UILabel *)totalAssetsNumberLabel
+{
+    if (!_totalAssetsNumberLabel) {
+        _totalAssetsNumberLabel = [[UILabel alloc] init];
+        _totalAssetsNumberLabel.text = @"10000000";
+        _totalAssetsNumberLabel.font = kHXBFont_HelveticaNeue_Medium_REGULAR(24);
+        _totalAssetsNumberLabel.textColor = COR8;
     }
-    if (indexPath.section == 1) {
-        switch (indexPath.row) {
-            case 0:
-                [cell setUPValueWithLeftStr:@"红利计划资产（元）"andRightStr:self.viewModel.userInfoModel.userAssets.financePlanAssets andTypeStr:nil];
-                break;
-            case 1:
-                [cell setUPValueWithLeftStr:@"散标资产（元）" andRightStr:self.viewModel.userInfoModel.userAssets.lenderPrincipal andTypeStr:nil];
-                break;
-            case 2:
-                [cell setUPValueWithLeftStr:@"可用金额（元）" andRightStr:self.viewModel.userInfoModel.userAssets.availablePoint andTypeStr:nil];
-                break;
-            case 3:
-                [cell setUPValueWithLeftStr:@"冻结金额 (元)" andRightStr:self.viewModel.userInfoModel.userAssets.frozenPoint andTypeStr:nil];
-                break;
-                
-            default:
-                break;
-        }
-    }
-    if (indexPath.section == 2) {
-         [cell setUPValueWithLeftStr:@"累计收益 (元)" andRightStr:self.viewModel.userInfoModel.userAssets.earnTotal andTypeStr:nil];
-    }
-    return cell;
+    return _totalAssetsNumberLabel;
 }
-- (CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    CGFloat height = 0.0;
-    if (section == 0) {
-        height = 30;
+- (HXBProportionalBarView *)proportionalBarView
+{
+    if (!_proportionalBarView) {
+        _proportionalBarView = [[HXBProportionalBarView alloc] initWithFrame:CGRectMake(20, 100, self.width - 40, kScrAdaptationH(15))];
+        _proportionalBarView.layer.cornerRadius = _proportionalBarView.frame.size.height * 0.5;
+        _proportionalBarView.layer.masksToBounds = YES;
     }
-    if (section == 1) {
-        height = 120;
-    }
-    if (section == 2) {
-        height = 30;
-    }
-    return height;
+    return _proportionalBarView;
 }
-- (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = 0.0;
-    if (indexPath.section == 0) {
-        height = 30;
-    }
-    if (indexPath.section == 1) {
-        switch (indexPath.row) {
-            case 0:
-                height = 30;
-                break;
-            case 1:
-                height = 30;
-                break;
-            case 2:
-                height = 30;
-                break;
-            case 3:
-                height = 30;
-                break;
-                
-            default:
-                break;
-        }
-    }
-    if (indexPath.section == 2) {
-        height = 30;
-    }
-    return height;
-}
+
 @end
