@@ -24,13 +24,16 @@
     [super viewDidLoad];
     [self setUP];
     self.title = @"注册服务协议";
+    self.isColourGradientNavigationBar = YES;
+    
 }
 
 
 - (void)setUP {
     self.contractWebVeiw = [[HXBFinPlanContract_ContractWebView alloc]init];
+    self.contractWebVeiw.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     [self.view addSubview:self.contractWebVeiw];
-    self.contractWebVeiw.frame = CGRectMake(0, 0, self.view.width, self.view.height - 64);
+    self.contractWebVeiw.frame = CGRectMake(0, 64, self.view.width, kScreenHeight - 64);
     [self.contractWebVeiw loadURL: self.URL];
 }
 

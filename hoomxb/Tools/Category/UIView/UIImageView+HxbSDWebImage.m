@@ -17,7 +17,10 @@ static NSString *const kHXBSVGImage = @"kHXBSVGImage";
 @implementation UIImageView (HxbSDWebImage)
 
 - (void)setSvgImageString:(NSString *)svgImageString {
-    self.image = [SVGKImage imageNamed:svgImageString].UIImage;
+    self.image = [UIImage imageNamed:svgImageString];
+    if (self.image == nil) {
+        self.image = [SVGKImage imageNamed:svgImageString].UIImage;
+    }
     objc_setAssociatedObject(self, &kHXBSVGImageName, svgImageString, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 - (NSString *)svgImageString {

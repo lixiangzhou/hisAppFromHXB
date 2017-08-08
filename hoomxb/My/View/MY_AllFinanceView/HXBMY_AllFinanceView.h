@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface HXBMY_AllFinanceView : UIView
-
+/**
+ 数据源
+ */
+@property (nonatomic,strong) HXBRequestUserInfoViewModel *viewModel;
 @end

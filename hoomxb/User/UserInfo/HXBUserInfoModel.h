@@ -75,6 +75,10 @@
 /// 身份证 640121197904299980
 @property (nonatomic,copy) NSString *idNo;
 /**
+ 开通存管账户次数
+ */
+@property (nonatomic, copy) NSString *escrowTime;
+/**
  是否评估
  */
 @property (nonatomic, copy) NSString *riskType;

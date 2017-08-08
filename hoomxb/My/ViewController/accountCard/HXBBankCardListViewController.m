@@ -107,9 +107,9 @@
     HXBBankList *bankModel  = self.bankListModels[indexPath.row];
     cell.textLabel.text = bankModel.name;
     cell.detailTextLabel.text = bankModel.quota;
-    cell.imageView.image = [UIImage imageNamed:@"zhaoshang"];
+    NSLog(@"==name:%@ %@--",bankModel.name,bankModel.quota);
+    cell.imageView.svgImageString = [NSString stringWithFormat:@"%@.svg",bankModel.bankCode];
     return cell;
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

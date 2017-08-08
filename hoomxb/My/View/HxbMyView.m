@@ -13,7 +13,7 @@
 #import "HXBMY_PlanListViewController.h"///plan 列表的VC
 #import "HXBMY_LoanListViewController.h"///散标 列表的VC
 #import "HXBMY_CapitalRecordViewController.h"//资产记录
-
+#import "HXBMyHomeViewCell.h"
 
 @interface HxbMyView ()
 <
@@ -97,16 +97,18 @@ MyViewHeaderDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {//第一组： plan
-        HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-        HXBMY_PlanListViewController *myPlanViewController = [[HXBMY_PlanListViewController alloc]init];
-        [vc.navigationController pushViewController:myPlanViewController animated:YES];
+        if (indexPath.row == 0) {
+            HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+            HXBMY_PlanListViewController *myPlanViewController = [[HXBMY_PlanListViewController alloc]init];
+            [vc.navigationController pushViewController:myPlanViewController animated:YES];
+        }else
+        {
+            HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+            HXBMY_LoanListViewController *loanListViewController = [[HXBMY_LoanListViewController alloc]init];
+            [VC.navigationController pushViewController:loanListViewController animated:true];
+        }
     }
     if (indexPath.section == 1) {
-        HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-        HXBMY_LoanListViewController *loanListViewController = [[HXBMY_LoanListViewController alloc]init];
-        [VC.navigationController pushViewController:loanListViewController animated:true];
-    }
-    if (indexPath.section == 2) {
         HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
         HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
         [VC.navigationController pushViewController:capitalRecordViewController animated:true];
@@ -117,11 +119,7 @@ MyViewHeaderDelegate
     return 44;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return 20;
-    }else{
-        return 10;
-    }
+    return kScrAdaptationH(10);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -133,38 +131,52 @@ MyViewHeaderDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *celledStr = @"celled";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr ];
+    HXBMyHomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
+        cell = [[HXBMyHomeViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
-        cell.textLabel.text = @"红利计划";
+        if (indexPath.row == 0) {
+            cell.textLabel.text = @"红利计划资产";
+            cell.imageView.svgImageString = @"hongli.svg";
+            cell.isShowLine = YES;
+        }else
+        {
+            cell.textLabel.text = @"散标债权资产";
+            cell.imageView.svgImageString = @"sanbiao.svg";
+        }
+        
     }else if (indexPath.section == 1){
-        cell.textLabel.text = @"散标";
-    }else{
         cell.textLabel.text = @"交易记录";
+        cell.imageView.svgImageString = @"trading_record.svg";
     }
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    if (section == 0) {
+        return 2;
+    }else
+    {
+        return 1;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 2;
 }
 
 - (UITableView *)mainTableView{
     if (!_mainTableView) {
         _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
+        _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.tableHeaderView = self.headerView;
         _mainTableView.tableHeaderView.userInteractionEnabled = YES;
+        _mainTableView.backgroundColor = kHXBColor_BackGround;
         kWeakSelf
         [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
             if (weakSelf.homeRefreshHeaderBlock) weakSelf.homeRefreshHeaderBlock();
@@ -177,7 +189,7 @@ MyViewHeaderDelegate
 
 - (HxbMyViewHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT/3 + 100)];
+        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(276))];
         _headerView.delegate = self;
         _headerView.userInteractionEnabled = YES;
         kWeakSelf
