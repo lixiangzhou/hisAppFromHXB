@@ -98,14 +98,15 @@ kDealloc
 
 ///转让中的网络请求
 - (void)downLoadDataLoantruansferIsUPData:(BOOL)isUPData  {
+    kWeakSelf
    [[HXBMYRequest sharedMYRequest] myLoanTruansfer_requestWithLoanTruansferWithIsUPData:isUPData andSuccessBlock:^(NSArray<HXBMY_LoanTruansferViewModel *> *viewModelArray) {
-       self.loanTruansferViewModelArray = viewModelArray;
-       self.loanListView.loanTruansferViewModelArray = viewModelArray;
-       [self.loanListView endRefresh];
+       weakSelf.loanTruansferViewModelArray = viewModelArray;
+       weakSelf.loanListView.loanTruansferViewModelArray = viewModelArray;
+       [weakSelf.loanListView endRefresh];
    } andFailureBlock:^(NSError *error, HXBBaseRequest *request) {
        NSLog(@"🌶 债转请求错误");
-       [self.loanListView endRefresh];
-       self.loanTruansferViewModelArray = [[NSArray alloc]init];
+       [weakSelf.loanListView endRefresh];
+       weakSelf.loanTruansferViewModelArray = [[NSArray alloc]init];
    }];
 }
 
@@ -179,10 +180,11 @@ kDealloc
     }];
 }
 - (void) refresh_loanTruansfer {
+    kWeakSelf
     [self.loanListView loanTruansfer_RefreashWithDownBlock:^{
-        [self downLoadDataLoantruansferIsUPData:false];
+        [weakSelf downLoadDataLoantruansferIsUPData:false];
     } andUPBlock:^{
-        [self downLoadDataLoantruansferIsUPData:true];
+        [weakSelf downLoadDataLoantruansferIsUPData:true];
     }];
 }
 ///切换底部的ScrollView的时候调用

@@ -158,8 +158,9 @@ kDealloc
     [self downLoadTopViewData];
 }
 - (void)downLoadTopViewData {
+    kWeakSelf
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        self.topView.userInfoViewModel = viewModel;
+        weakSelf.topView.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
         
     }];
@@ -236,7 +237,7 @@ kDealloc
                 index = weakSelf.toolBarOptionTitleArray.count - 1;
             }
             UILabel *label = [option viewWithTag:10086111];
-            [self setColorWithLabel:label];
+            [weakSelf setColorWithLabel:label];
             HXBRequestType_MY_PlanRequestType type = index + 1;
             weakSelf.changeMidSelectOptionBlock(option, title, index, type);
         }

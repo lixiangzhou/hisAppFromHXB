@@ -70,8 +70,9 @@ kDealloc
 
 ///资产统计网络请求
 - (void)assetStatisticsLoadData {
+    kWeakSelf
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        self.planListView.userInfoViewModel = viewModel;
+        weakSelf.planListView.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
     }];
 }

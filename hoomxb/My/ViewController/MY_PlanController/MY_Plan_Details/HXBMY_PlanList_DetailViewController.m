@@ -55,7 +55,11 @@
 }
 - (void) setUP {
     kWeakSelf
-    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:kVCViewFrame_64];
+    int cake = 4;
+    if (self.isLeave) {
+        cake = 5;
+    }
+    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:kVCViewFrame_64 andInfoHaveCake:cake];
     self.planDetailView = planDetailView;
     //tableView 的点击
     [self.planDetailView clickBottomTableViewCellBloakFunc:^(NSInteger index) {
@@ -211,7 +215,7 @@
         case 2:
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
-                                                     @"预期年利率",
+                                                     @"平均历史年化收益",
                                                      @"期限",
                                                      @"加入日期",
                                                      ];
@@ -226,7 +230,7 @@
         case 3:
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
-                                                     @"预期年利率",
+                                                     @"平均历史年化收益",
                                                      @"期限",
                                                      @"加入日期",
                                                      @"待转出金额"
@@ -243,7 +247,7 @@
         case 4:
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
-                                                     @"预期年利率",
+                                                     @"平均历史年化收益",
                                                      @"实际退出日期",
                                                      @"期限",
                                                      ];

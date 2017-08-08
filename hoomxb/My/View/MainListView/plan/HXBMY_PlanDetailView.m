@@ -89,9 +89,17 @@ UITableViewDataSource
  红利计划服务协议 投资记录的点击事件
  */
 @property (nonatomic,strong) void(^clickBottomTableViewCell) (NSInteger index);
+
 @end
 @implementation HXBMY_PlanDetailView
-
+- (instancetype)initWithFrame:(CGRect)frame andInfoHaveCake:(NSInteger)cake {
+    self = [super initWithFrame:frame];
+    if (self) {
+        _manager = [[HXBMY_PlanDetailView_Manager alloc]init];
+        self.cake = cake;
+    }
+    return self;
+}
 - (void)setUPValueWithViewManagerBlock: (HXBMY_PlanDetailView_Manager *(^)(HXBMY_PlanDetailView_Manager *manager))viewManagerBlock{
     self.manager = viewManagerBlock(_manager);
     self.topStatusLabel.text = _manager.topViewStatusStr;
@@ -135,11 +143,12 @@ UITableViewDataSource
     self.topStatusLabel = [[UILabel alloc]init];
     self.topStatusLabel.textColor = [UIColor whiteColor];
     self.addButton      = [[UIButton alloc]init];
+    self.addButton.hidden = true;
     self.topViewMassge  = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
     self.tableView = [[HXBFinDetail_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     UIEdgeInsets infoView_insets = UIEdgeInsetsMake(kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30));
-    self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:infoView_insets];
+    self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:self.cake andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:infoView_insets];
     
      self.typeView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets];
     
@@ -183,7 +192,7 @@ UITableViewDataSource
         make.width.equalTo(self);
     }];
     [self.topStatusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.equalTo(self.topView);
+        make.top.right.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH750(10));
         make.height.equalTo(@(kScrAdaptationH750(90)));
     }];
     [self.topStatusLabel sizeToFit];
