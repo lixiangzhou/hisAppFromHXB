@@ -458,10 +458,11 @@
                                                      };
     kWeakSelf
     [self.loanTruansferRequestApi startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        if (![responseObject[kResponseStatus] integerValue]) {
+        if ([responseObject[kResponseStatus] integerValue]) {
             if (failureBlock) {
                 failureBlock(nil,request);
             }
+            return;
         }
         if (request.isUPReloadData) {
             [weakSelf.loanTruanfserViewModelArray removeAllObjects];
