@@ -1658,6 +1658,7 @@
 				4EECDFCE1F380E8B00301758 /* hongli.svg */,
 				4EECDFCF1F380E8B00301758 /* sanbiao.svg */,
 				4EECDFD01F380E8B00301758 /* trading_record.svg */,
+				E1A1BEF11F386C080006BAA7 /* explain.svg */,
 				E18986CD1F2F048B00FAA054 /* audit_status.svg */,
 				4E9215721F1DFC9E00C8CECB /* card.svg */,
 				4E9215701F1DFC8800C8CECB /* bank_name.svg */,
