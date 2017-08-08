@@ -128,7 +128,15 @@
         [self.view addSubview:self.nacigationBarImageView];
     }
 }
-
+- (void)setIsReadColorWithNavigationBar: (BOOL) isReadColorWithNavigationBar {
+    
+    if (isReadColorWithNavigationBar) {
+        self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
+        self.isTransparentNavigationBar = true;
+        self.nacigationBarImageView.image = [UIImage imageNamed:@"NavigationBar"];
+        [self.view addSubview:self.nacigationBarImageView];
+    }
+}
 - (void)setIsBlueGradientNavigationBar:(BOOL)isBlueGradientNavigationBar
 {
     if (isBlueGradientNavigationBar) {

@@ -77,8 +77,6 @@
         [self.buy_descriptionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(view.mas_centerX).offset(kScrAdaptationH750(26));
             make.top.equalTo(view.mas_bottom).offset(kScrAdaptationW750(40));
-//            make.left.lessThanOrEqualTo(self.view).offset(kScrAdaptationW750(26 + 8 + 40));
-//            make.right.lessThanOrEqualTo(self.view).offset(kScrAdaptationW750(-40));
         }];
         [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.buy_descriptionLabel).offset(kScrAdaptationH750(6));

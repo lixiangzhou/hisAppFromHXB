@@ -50,7 +50,7 @@ UITableViewDataSource
     self.dataSource = self;
     [self registerClass:[HXBBaseView_MYList_TableViewCell class] forCellReuseIdentifier:CELLID];
     
-    self.rowHeight = 130;
+    self.rowHeight = kScrAdaptationH(140);
 }
 
 

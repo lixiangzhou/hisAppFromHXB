@@ -89,7 +89,28 @@
 @property (nonatomic,assign) HXBRequestType_MY_LoanRequestType requestType;
 ///相应的类型
 //@property (nonatomic,copy) NSString *responsStatus;
+/**
+ 加入金额 (没有拼接（元）)
+ */
+@property (nonatomic,copy) NSString * finalAmount_NOTYUAN;
+@property (nonatomic,copy) NSString * amount_NOTYUAN;
+/**
+ 已获收益
+ */
+@property (nonatomic,copy) NSString * earnAmount_NOTYUAN;
 
+/** 
+ 剩余期数: 4/12(收益中使用)
+ */
+@property (nonatomic,copy) NSString *title_RemainTime;
+/**
+期限：12个月（投标中用）
+ */
+@property (nonatomic,copy) NSString *title_TermsInTotal_YUE;
+/**
+ （债权匹配中 || 2017-08-01退出） 债转中使用
+ */
+@property (nonatomic,copy) NSString *title_Truansfer;
 @end
 
 
