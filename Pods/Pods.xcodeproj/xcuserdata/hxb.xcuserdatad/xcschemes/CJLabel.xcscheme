@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'FDE4A1EF8D791543C9274B6992BC5918'
-               BlueprintName = 'SVGKit'
+               BlueprintIdentifier = 'A8F2F0BF0B749ACB31DD7EB11A0864A9'
+               BlueprintName = 'CJLabel'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libSVGKit.a'>
+               BuildableName = 'libCJLabel.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

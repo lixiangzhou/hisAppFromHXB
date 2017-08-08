@@ -83,6 +83,7 @@
 #pragma mark - 画线
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
+    if (self.isHiddenLien) return;
     if(!self.optionStrArray.count) return;//没数据有返回
     for (int i = 0; i < self.lienArray.count; i++) {
         //划线

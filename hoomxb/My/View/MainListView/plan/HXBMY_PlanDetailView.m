@@ -15,6 +15,7 @@
 #import "HXBMY_PlanInvestmentRecordCell.h"//投资记录
 #import "HXBBaseView_TwoLable_View.h"///两个label的组件
 #import "HXBBaseView_MoreTopBottomView.h"///多个topBottomView
+#import "HXBFinDetail_TableView.h"///tableView
 ///红利详情 顶部的cell
 static NSString *kTOPCELLID = @"kTOPCELLID";
 ///中部的信息的Cell
@@ -41,7 +42,7 @@ UITableViewDataSource
 /**
  顶部的VIew
  */
-@property (nonatomic,strong) UIView                         *topView;
+@property (nonatomic,strong) HXBColourGradientView          *topView;
 /**
  状态的Label
  */
@@ -58,14 +59,14 @@ UITableViewDataSource
  type view
  */
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView      *typeView;
-/**
- 合同view
- */
-@property (nonatomic,strong) HXBBaseView_MoreTopBottomView      *contractView;
-/**
- 投资记录
- */
-@property (nonatomic,strong) HXBBaseView_MoreTopBottomView      *loanRecordView;
+///**
+// 合同view
+// */
+//@property (nonatomic,strong) HXBBaseView_MoreTopBottomView      *contractView;
+///**
+// 投资记录
+// */
+//@property (nonatomic,strong) HXBBaseView_MoreTopBottomView      *loanRecordView;
 /**
  管理者
  */
@@ -76,13 +77,18 @@ UITableViewDataSource
 @property (nonatomic,strong) UIButton *addButton;
 
 /**
- 投资记录的点击事件
- */
-@property (nonatomic,strong) void (^clickLoanRecordView)(UIView *view);
-/**
  点击了追加按钮
  */
 @property (nonatomic,copy) void(^clickAddButton)(UIButton *button);
+/**
+ 投资记录
+ 红利计划服务协议
+ */
+@property (nonatomic,strong) HXBFinDetail_TableView *tableView;
+/**
+ 红利计划服务协议 投资记录的点击事件
+ */
+@property (nonatomic,strong) void(^clickBottomTableViewCell) (NSInteger index);
 @end
 @implementation HXBMY_PlanDetailView
 
@@ -91,9 +97,6 @@ UITableViewDataSource
     self.topStatusLabel.text = _manager.topViewStatusStr;
     [self.addButton setHidden: _manager.isHiddenAddButton];
     kWeakSelf
-//    [self.topViewMassge setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
-//        return weakSelf.manager.topViewMassgeManager;
-//    }];
     [self.topViewMassge setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         return weakSelf.manager.topViewMassgeManager;
     }];
@@ -103,12 +106,8 @@ UITableViewDataSource
     [self.typeView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
         return weakSelf.manager.typeViewManager;
     }];
-    [self.contractView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
-        return weakSelf.manager.contractViewManager;
-    }];
-    [self.loanRecordView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
-        return weakSelf.manager.loanRecordViewManager;
-    }];
+    self.tableView.strArray = _manager.strArray;
+    self.tableView.contentSize = CGSizeMake(kScreenWidth, _manager.strArray.count * kScrAdaptationH(45));
 }
 
 - (void)setPlanDetailViewModel:(HXBMYViewModel_PlanDetailViewModel *)planDetailViewModel {
@@ -128,17 +127,21 @@ UITableViewDataSource
 }
 - (void)setUPViews {
     [self setUPViews_Create];
+    [self setUPValue];
     [self setUPViews_Frame];
 }
 - (void)setUPViews_Create {
-    self.topView        = [[UIView alloc]init];
+    self.topView        = [[HXBColourGradientView alloc]init];
     self.topStatusLabel = [[UILabel alloc]init];
+    self.topStatusLabel.textColor = [UIColor whiteColor];
     self.addButton      = [[UIButton alloc]init];
     self.topViewMassge  = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
-    self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:20 andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
-    self.typeView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
-    self.contractView   = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
-    self.loanRecordView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:30 andTopBottomSpace:0 andLeftRightLeftProportion:0.5];
+    self.tableView = [[HXBFinDetail_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    
+    UIEdgeInsets infoView_insets = UIEdgeInsetsMake(kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30));
+    self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:infoView_insets];
+    
+     self.typeView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets];
     
     
     [self addSubview:self.topView];
@@ -146,26 +149,18 @@ UITableViewDataSource
     [self.topView addSubview:self.topStatusLabel];
     [self addSubview:self.infoView];
     [self addSubview:self.typeView];
-    [self addSubview:self.contractView];
-    [self addSubview:_loanRecordView];
     [self addSubview:self.addButton];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickLoanRecord:)];
-    [self.loanRecordView addGestureRecognizer:tap];
-    self.loanRecordView.userInteractionEnabled = true;
+    [self addSubview:self.tableView];
     
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.addButton setTitle:@"追加" forState:UIControlStateNormal];
     [self.addButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
 }
-- (void)clickLoanRecordViewWithBlock:(void (^)(UIView *))clickLoanRecordView {
-    self.clickLoanRecordView = clickLoanRecordView;
+
+- (void)clickBottomTableViewCellBloakFunc:(void(^)(NSInteger index))clickBottomTableViewCell {
+    self.clickBottomTableViewCell = clickBottomTableViewCell;
 }
-//添加点击事件
-- (void)clickLoanRecord: (UITapGestureRecognizer *)tap {
-    if (self.clickLoanRecordView) {
-        _clickLoanRecordView(tap.view);
-    }
-}
+
 - (void)clickAddButton: (UIButton *)button {
     if (self.clickAddButton) {
         self.clickAddButton(button);
@@ -179,42 +174,36 @@ UITableViewDataSource
         make.top.equalTo(self);
         make.left.equalTo(self);
         make.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(80)));
+        make.height.equalTo(@(kScrAdaptationH750(375)));
     }];
     [self.topViewMassge mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.topView.mas_centerX);
         make.centerY.equalTo(self.topView.mas_centerY);
-        make.height.equalTo(@(kScrAdaptationH(80)));
+        make.height.equalTo(@(kScrAdaptationH750(143)));
         make.width.equalTo(self);
     }];
     [self.topStatusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.equalTo(self.topView);
-        make.height.equalTo(@(kScrAdaptationH(90)));
+        make.height.equalTo(@(kScrAdaptationH750(90)));
     }];
     [self.topStatusLabel sizeToFit];
     [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(8));
+        make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH750(10));
         make.left.equalTo(self);
         make.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(80)));
+        make.height.equalTo(@(kScrAdaptationH750(300)));
     }];
     [self.typeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.infoView.mas_bottom).offset(kScrAdaptationH(8));
+        make.top.equalTo(self.infoView.mas_bottom).offset(kScrAdaptationH750(20));
         make.left.equalTo(self);
         make.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(40)));
+        make.height.equalTo(@(kScrAdaptationH750(90)));
     }];
-    [self.contractView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.typeView.mas_bottom).offset(kScrAdaptationH(8));
         make.left.equalTo(self);
         make.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(20)));
-    }];
-    [self.loanRecordView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contractView.mas_bottom).offset(kScrAdaptationH(8));
-        make.left.equalTo(self);
-        make.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(20)));
+        make.height.equalTo(@(kScrAdaptationH750(180)));
     }];
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self);
@@ -225,95 +214,15 @@ UITableViewDataSource
 }
 
 - (void)setUPValue{
-
+    self.infoView.backgroundColor = [UIColor whiteColor];
+    self.typeView.backgroundColor = [UIColor whiteColor];
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    [self.tableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
+        if (self.clickBottomTableViewCell) {
+            self.clickBottomTableViewCell(index.row);
+        }
+    }];
 }
-
-
-//- (void)setUP {
-//    self.dataSource = self;
-//    self.delegate = self;
-//    
-//    [self registerClass:[HXBMY_PlanDtetail_Topcell class] forCellReuseIdentifier:kTOPCELLID];
-//    [self registerClass:[HXBMY_PlanDetail_InfoCell class] forCellReuseIdentifier:kINFOCELLID];
-//    [self registerClass:[HXBMY_PlanDetail_TypeCell class] forCellReuseIdentifier:kTYPECELLID];
-//    [self registerClass:[HXBMY_PlanInvestmentRecordCell class] forCellReuseIdentifier:kINVESTMENTRECORD];
-//}
-//
-//- (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
-//    return 2;
-//}
-//- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    if (!self.planDetailViewModel) {
-//        return 0;
-//    }
-//    switch (section) {
-//        case 0:
-//            return 1;
-//            break;
-//        case 1:
-//            return 4;
-//            break;
-//    }
-//    return 0;
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return [self handleTableViewCellWithTableView:tableView andIndetfier:indexPath];
-//}
-//
-//- (UITableViewCell *)handleTableViewCellWithTableView: (UITableView *)tableView andIndetfier: (NSIndexPath *)indexPath {
-//    if (!indexPath.section) {
-//        HXBMY_PlanDtetail_Topcell *cell = [tableView dequeueReusableCellWithIdentifier:kTOPCELLID forIndexPath:indexPath];
-//        cell.planDetailViewModel = self.planDetailViewModel;
-//        return cell;
-//    }
-//    return  [self handleIndexPathTwoSctionWithTableView:tableView andRow:indexPath];
-//}
-//- (UITableViewCell *)handleIndexPathTwoSctionWithTableView:(UITableView *)tableView andRow: (NSIndexPath*)indexPath {
-//    switch (indexPath.row) {
-//        case 0:{
-//            HXBMY_PlanDetail_InfoCell *cell = [tableView dequeueReusableCellWithIdentifier:kINFOCELLID forIndexPath:indexPath];
-//            cell.planDetailViewModel = self.planDetailViewModel;
-//            return cell;
-//        }
-//        case 1: {
-//            HXBMY_PlanDetail_TypeCell *typeCell = [tableView dequeueReusableCellWithIdentifier:kTYPECELLID forIndexPath:indexPath];
-//            [typeCell setupValueWithModel:self.planDetailViewModel andLeftStr:kTYPECELLID_INCOMETYPE andRightStr:self.planDetailViewModel.cashType andRightColor:[UIColor blueColor]];
-//            return typeCell;
-//        }
-//        case 2:{
-//            HXBMY_PlanDetail_TypeCell *typeCell = [tableView dequeueReusableCellWithIdentifier:kTYPECELLID forIndexPath:indexPath];
-//            [typeCell setupValueWithModel:self.planDetailViewModel andLeftStr:kTYPTCELLID_CONTRACT andRightStr:self.planDetailViewModel.contractName andRightColor:[UIColor blueColor]];
-//            return typeCell;
-//        }
-//        case 3:{
-//            HXBMY_PlanInvestmentRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:kINVESTMENTRECORD forIndexPath:indexPath];
-//            cell.textLabel.text = kINVESTMENTRECORDCELL_INVESTMENTRECORD;
-//            cell.accessibilityNavigationStyle = UIAccessibilityNavigationStyleAutomatic;
-//            return cell;
-//        }
-//    }
-//    return [tableView dequeueReusableCellWithIdentifier:kINVESTMENTRECORD forIndexPath:indexPath];;
-//}
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (indexPath.section == 0) {
-//        return 80;
-//    }
-//    switch (indexPath.row) {
-//        case 0:
-//            return 100;
-//            case 1:
-//            return 80;
-//            case 2:
-//            return 40;
-//        default:
-//            return 20;
-//    }
-//}
-//
-//
-//
-
 @end
 
 @implementation HXBMY_PlanDetailView_Manager
@@ -323,10 +232,28 @@ UITableViewDataSource
     self = [super init];
     if (self) {
         self.topViewMassgeManager   = [[HXBBaseView_TwoLable_View_ViewModel alloc]init];
-        self.infoViewManager        = [[HXBBaseView_MoreTopBottomViewManager alloc] init];
+        self.topViewMassgeManager.leftLabelAlignment = NSTextAlignmentCenter;
+        self.topViewMassgeManager.rightLabelAlignment = NSTextAlignmentCenter;
+        self.topViewMassgeManager.leftFont = kHXBFont_PINGFANGSC_REGULAR_750(110);
+        self.topViewMassgeManager.rightFont = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        self.topViewMassgeManager.leftViewColor = [UIColor whiteColor];
+        self.topViewMassgeManager.rightViewColor = [UIColor colorWithWhite:1 alpha:0.6];
+        
         self.typeViewManager        = [[HXBBaseView_MoreTopBottomViewManager alloc]init];;
-        self.contractViewManager    = [[HXBBaseView_MoreTopBottomViewManager alloc]init];
-        self.loanRecordViewManager  = [[HXBBaseView_MoreTopBottomViewManager alloc]init];;
+        self.typeViewManager.leftLabelAlignment = NSTextAlignmentLeft;
+        self.typeViewManager.rightLabelAlignment = NSTextAlignmentRight;
+        self.typeViewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        self.typeViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        self.typeViewManager.leftTextColor = kHXBColor_Grey_Font0_2;
+        self.typeViewManager.rightTextColor = kHXBColor_HeightGrey_Font0_4;
+        
+        self.infoViewManager        = [[HXBBaseView_MoreTopBottomViewManager alloc] init];
+        self.infoViewManager.leftLabelAlignment = NSTextAlignmentLeft;
+        self.infoViewManager.rightLabelAlignment = NSTextAlignmentRight;
+        self.infoViewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        self.infoViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        self.infoViewManager.leftTextColor = kHXBColor_Grey_Font0_2;
+        self.infoViewManager.rightTextColor = kHXBColor_HeightGrey_Font0_4;
     }
     return self;
 }

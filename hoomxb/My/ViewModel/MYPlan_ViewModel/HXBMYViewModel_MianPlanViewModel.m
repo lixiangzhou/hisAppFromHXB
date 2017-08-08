@@ -140,4 +140,33 @@
     }
     return _userRemainAmount;
 }
+
+/**
+ amount_NOTYUAN
+ */
+- (NSString *) amount_NOTYUAN {
+    if (!_amount_NOTYUAN) {
+        _amount_NOTYUAN = [NSString GetPerMilWithDouble:self.planModelDataList.amount.floatValue];
+    }
+    return _amount_NOTYUAN;
+}
+/**
+ 加入金额
+ */
+
+- (NSString *) finalAmount_NOTYUAN {
+    if (!_finalAmount_NOTYUAN) {
+        _finalAmount_NOTYUAN = [NSString GetPerMilWithDouble:self.planModelDataList.finalAmount.floatValue];
+    }
+    return _finalAmount_NOTYUAN;
+}
+/**
+ 已获收益
+ */
+- (NSString *) earnAmount_NOTYUAN {
+    if (!_earnAmount_NOTYUAN) {
+        _earnAmount_NOTYUAN = [NSString GetPerMilWithDouble:self.planModelDataList.earnAmount.floatValue];
+    }
+    return _earnAmount_NOTYUAN;
+}
 @end

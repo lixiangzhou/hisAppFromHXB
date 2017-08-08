@@ -44,6 +44,8 @@
 @property (nonatomic,assign) CGFloat *lienColorArray;
 /**线的颜色**/
 @property (nonatomic,strong) UIColor *lienColor;
+/**线是否隐藏*/
+@property (nonatomic,assign) BOOL isHiddenLien;
 
 
 #pragma mark - item参数

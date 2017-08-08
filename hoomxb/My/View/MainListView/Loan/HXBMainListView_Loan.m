@@ -13,6 +13,8 @@
 #import "HXBMainListView_Plan_TopView.h"
 #import "HXBMYModel_Loan_LoanRequestModel.h"
 #import "HXBMY_LoanTruansferTableView.h"
+#import "HXBMY_Loan_TableView.h"
+
 @interface HXBMainListView_Loan()
 
 
@@ -41,9 +43,9 @@
 ///scrollViewToolBarView的 底部的TableView
 @property (nonatomic,strong) NSMutableArray <HXBBaseTableView_MYPlanList_TableView*> *tableViewArray;
 ///收益中
-@property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *erpaying_Loan_TableView;
+@property (nonatomic,strong) HXBMY_Loan_TableView *erpaying_Loan_TableView;
 ///投标中
-@property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *bid_Loan_TableView;
+@property (nonatomic,strong) HXBMY_Loan_TableView *bid_Loan_TableView;
 ///转让中
 @property (nonatomic,strong) HXBMY_LoanTruansferTableView *loanTruansferTableView;
 ///投标中是否第一次加载
@@ -68,6 +70,8 @@
 
 ///资产统计的事件注册
 @property (nonatomic,copy) void (^assetStatisticsWithBlock)();
+
+@property (nonatomic,strong) NSArray *toolBarTitleArray;
 @end
 
 ///收益中
@@ -157,6 +161,12 @@ kDealloc
     self.REPAYING_Lable = [self creatLableWithTitle:REPAYING_Title];
     self.BID_Lable = [self creatLableWithTitle:BID_Title];
     self.truansferLabel = [self creatLableWithTitle:@"转让中"];
+    self.toolBarTitleArray = @[
+                              self.REPAYING_Lable,
+                              self.BID_Lable,
+                              self.truansferLabel
+                               ];
+    [self setColorWithLabel:self.REPAYING_Lable];
 }
 
 ///创建顶部的View;
@@ -167,11 +177,15 @@ kDealloc
 - (void)createToolBarView {
     kWeakSelf
     self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:self.toolBarViewOptionTitleStrArray];
-    self.toolBarView.itemTextColor_Normal = [UIColor whiteColor];
-    self.toolBarView.itemTextColor_Select = [UIColor whiteColor];
-    self.toolBarView.itemTextColor_Select = [UIColor whiteColor];
-    
+    //开启动画
     self.toolBarView.isAnima_ItemBottomBarView = true;
+    self.toolBarView.animaTime_ItemBottomBarView = 0.5;
+    
+    ///改变底部的提示线条颜色' && '高度
+    self.toolBarView.itemBarAnimaViewColor = kHXBColor_Red_255_64_79;
+    self.toolBarView.barAnimaViewH = 2;
+    self.toolBarView.isHiddenLien = true;
+    
     
     // 对item 进行自定义
     [self.toolBarView setUpsetUpBarViewItemBlockFuncWithBlcok:^(UIButton *button, UIView *buttonBottomView) {
@@ -193,6 +207,7 @@ kDealloc
     UILabel *label = [[UILabel alloc] init];
     label.textAlignment = NSTextAlignmentCenter;
     label.text = title;
+    label.tag = 1008611;
     return label;
 }
 - (void)addLableWithButton: (UIButton *)button andLable: (UILabel *)label{
@@ -204,16 +219,19 @@ kDealloc
 ///底部的scrollView的搭建
 //- (NSMutableArray <HXBBaseTableView_MYPlanList_TableView*> *)creatBottomScrollView {
 - (void)creatBottomScrollView {
-    self.erpaying_Loan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.bid_Loan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.erpaying_Loan_TableView = [[HXBMY_Loan_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.bid_Loan_TableView = [[HXBMY_Loan_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.loanTruansferTableView = [[HXBMY_LoanTruansferTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
 }
 ///搭建scrollToolBarView；
 - (void)createScrollToolBarView {
     kWeakSelf
     self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 64, self.width, self.height - 64) andTopView:self.loanTopView andTopViewH:150 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:30 andBottomViewSet:self.tableViewArray];
+    
     [self.scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
         weakSelf.switchBottomScrollViewBlock ? weakSelf.switchBottomScrollViewBlock(index,title,option) : nil;
+        UILabel *label = [option viewWithTag:1008611];
+        [weakSelf setColorWithLabel:label];
     }];
     [self addSubview:self.scrollToolBarView];
 }
@@ -222,7 +240,19 @@ kDealloc
 ///中间的toolBarView 的 select将要改变的时候
 - (void)changeMidSelectOptionFuncWithBlock:(void (^)(UIButton *button, NSString *title, NSInteger index, HXBRequestType_MY_LoanRequestType requestType))changeMidSelectOptionBlock {
     self.changeMidSelectOptionBlock = changeMidSelectOptionBlock;
+    
 }
+
+- (void)setColorWithLabel:(UILabel *)label {
+    [self.toolBarTitleArray enumerateObjectsUsingBlock:^(UILabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([label isEqual:obj]) {
+            obj.textColor = kHXBColor_Red_255_64_79;
+        }else {
+            obj.textColor = kHXBColor_Font0_6;
+        }
+    }];
+}
+
 
 ///上啦刷新下拉加载
 - (void)refresh {

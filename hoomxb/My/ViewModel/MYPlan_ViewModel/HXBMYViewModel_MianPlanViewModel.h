@@ -25,13 +25,15 @@
 @property (nonatomic,assign) HXBRequestType_MY_PlanResponseStatus responseStatus;
 /// 红利计划 的状态
 @property (nonatomic,copy) NSString *status;
-
+/**
+ 加入金额 (没有拼接（元）)
+ */
+@property (nonatomic,copy) NSString * finalAmount_NOTYUAN;
+@property (nonatomic,copy) NSString * amount_NOTYUAN;
 /**
  年利率
  */
 @property (nonatomic,copy) NSString * expectedRate;
-
-
 
 /**
  可用余额
@@ -58,5 +60,8 @@
  用户余额
  */
 @property (nonatomic,copy) NSString * userRemainAmount;
-
+/**
+ 已获收益
+ */
+@property (nonatomic,copy) NSString * earnAmount_NOTYUAN;
 @end

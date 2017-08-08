@@ -15,14 +15,15 @@
 @property (nonatomic,strong) HXBMYViewModel_PlanDetailViewModel *planDetailViewModel;
 /**
  投资记录的点击事件
+ 协议
  */
-- (void)clickLoanRecordViewWithBlock: (void (^)(UIView *view))clickLoanRecordView;
+- (void)clickBottomTableViewCellBloakFunc:(void(^)(NSInteger index))clickBottomTableViewCell;
+
 /**
  点击了 追加按钮
  */
 - (void)clickAddButtonWithBlock:(void(^)(UIButton *button))clickAddButtonBlock;
 - (void)setUPValueWithViewManagerBlock: (HXBMY_PlanDetailView_Manager *(^)(HXBMY_PlanDetailView_Manager *manager))viewManagerBlock;
-
 @end
 
 @interface HXBMY_PlanDetailView_Manager : NSObject
@@ -43,17 +44,18 @@
  type view
  */
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager      *typeViewManager;
-/**
- 合同view
- */
-@property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager      *contractViewManager;
-/**
- 投资记录
- */
-@property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager      *loanRecordViewManager;
+///**
+// // 投资记录
+// */
+//@property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager      *contractViewManager;
+///**
+// 投资记录
+// */
+//@property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager      *loanRecordViewManager;
+/// 投资记录 ||  投资记录 str array
+@property (nonatomic,strong) NSArray *strArray;
 /**
  是否隐藏 加入按钮
  */
 @property (nonatomic,assign) BOOL isHiddenAddButton;
-
 @end

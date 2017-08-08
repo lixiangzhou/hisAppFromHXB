@@ -27,9 +27,14 @@ static NSString *CELLID = @"CELLID";
     _tableViewCellModelArray = tableViewCellModelArray;
     [self reloadData];
 }
+- (void)setStrArray:(NSArray<NSString *> *)strArray {
+    _strArray = strArray;
+    [self reloadData];
+}
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setup];
+        self.bounces = false;
         self.rowHeight = kScrAdaptationH(45);
         self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
     }
@@ -55,11 +60,14 @@ static NSString *CELLID = @"CELLID";
 }
 #pragma mark - datesource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return  self.strArray.count ? self.strArray.count:self.tableViewCellModelArray.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinDetail_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
     cell.model = self.tableViewCellModelArray[indexPath.row];
+    if (self.strArray.count) {
+        cell.textLabel.text = self.strArray[indexPath.row];
+    }
     return cell;
 }
 @end
