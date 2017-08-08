@@ -90,10 +90,10 @@ UITableViewDataSource
 
 - (void)entryRiskAssessment
 {
-    if (self.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
-        [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
-        return;
-    }
+//    if (self.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
+//        [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
+//        return;
+//    }
     if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
         HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
         [alertVC setClickLeftButtonBlock:^{

@@ -36,11 +36,23 @@
     [self.circularView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self);
         make.left.equalTo(self);
-        make.height.with.offset(kScrAdaptationW(10));
+        make.height.offset(kScrAdaptationW(10));
+        make.width.offset(kScrAdaptationW(10));
     }];
-//    [self.testLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.
-//    }];
+    [self.testLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.circularView.mas_right).offset(kScrAdaptationW(10));
+        make.centerY.equalTo(self);
+    }];
+    [self.numLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.testLabel.mas_right).offset(kScrAdaptationW(10));
+        make.centerY.equalTo(self);
+    }];
+    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.circularView.mas_left);
+        make.right.equalTo(self.numLabel.mas_right);
+        make.top.equalTo(self.testLabel.mas_top);
+        make.bottom.equalTo(self.testLabel.mas_bottom);
+    }];
 }
 
 

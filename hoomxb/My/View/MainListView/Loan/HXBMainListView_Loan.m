@@ -142,7 +142,7 @@ kDealloc
     self.tableViewArray = @[
                             self.erpaying_Loan_TableView,//收益中
                             self.bid_Loan_TableView,//投标中
-                            self.loanTruansferTableView//转让中
+                            self.loanTruansferTableView//转让中，以后打开
                             ].mutableCopy;
     [self createScrollToolBarView];///搭建scrollToolBarView；
     [self refresh];///刷新
@@ -155,7 +155,7 @@ kDealloc
     self.toolBarViewOptionTitleStrArray = @[
                                             REPAYING_Title,
                                             BID_Title,
-                                            @"转让中"
+                                            @"转让中"//转让中，以后打开
                                             ];
    
     self.REPAYING_Lable = [self creatLableWithTitle:REPAYING_Title];
