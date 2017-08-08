@@ -31,13 +31,18 @@
     _finPlanListViewModel = finPlanListViewModel;
     HXBFinHomePageModel_PlanList *model = finPlanListViewModel.planListModel;
     self.nameLabel.text = model.name;
-    [self.countDownLable setHidden: !finPlanListViewModel.countDownString.integerValue];
-    [self.arrowImageView setHidden: !finPlanListViewModel.countDownString.integerValue];
+//    [self.countDownLable setHidden: !finPlanListViewModel.countDownString.integerValue];
+//    [self.arrowImageView setHidden: !finPlanListViewModel.countDownString.integerValue];
     self.countDownLable.text = finPlanListViewModel.countDownString;
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = finPlanListViewModel.planListModel.lockPeriod;
     self.addStatus.text = finPlanListViewModel.unifyStatus;
     
+    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
+    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
+    if (self.finPlanListViewModel.remainTimeString.length) {
+        self.countDownLable.text = _finPlanListViewModel.remainTimeString;
+    }
     self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
     self.addStatus.textColor = finPlanListViewModel.addButtonTitleColor;
     self.addStatus.layer.borderColor = finPlanListViewModel.addButtonBorderColor.CGColor;
@@ -160,13 +165,15 @@
     _countDownString = countDownString;
     [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
     [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
-    if (self.finPlanListViewModel.isCountDown) {
-        self.countDownLable.text = countDownString;
-    }
+    
     if (self.finPlanListViewModel.remainTimeString.length) {
         self.countDownLable.text = _finPlanListViewModel.remainTimeString;
         return;
     }
+    if (self.finPlanListViewModel.isCountDown) {
+        self.countDownLable.text = countDownString;
+    }
+  
 }
 - (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
     _lockPeriodLabel_ConstStr = lockPeriodLabel_ConstStr;
@@ -264,11 +271,8 @@
         make.top.equalTo(weakSelf.addStatus.mas_bottom).offset(kScrAdaptationH(13));
         make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW(-31));
         make.width.equalTo(@(kScrAdaptationW(36)));
-        make.height.equalTo(@(kScrAdaptationH(14)));
+        make.height.equalTo(@(kScrAdaptationH(13)));
     }];
-
-   
-    
     
     [self.countDownLable setHidden: true];
     [self.arrowImageView setHidden: true];

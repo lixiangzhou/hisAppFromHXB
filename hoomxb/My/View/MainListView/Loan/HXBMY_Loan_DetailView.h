@@ -13,6 +13,11 @@
 @class HXBMY_Loan_DetailViewManager;
 @interface HXBMY_Loan_DetailView : UIView
 - (void)setUPValueWithManagerBlock: (HXBMY_Loan_DetailViewManager *(^)(HXBMY_Loan_DetailViewManager *manager))managerBlock;
+/**
+ 投资记录的点击事件
+ 协议
+ */
+- (void)clickBottomTableViewCellBloakFunc:(void(^)(NSInteger index))clickBottomTableViewCell;
 @end
 
 @interface HXBMY_Loan_DetailViewManager : NSObject
@@ -32,6 +37,7 @@
  已还期数
  */
 @property (nonatomic,copy) NSString *termsLeftStr;
+@property (nonatomic,copy) NSString *statusImageName;
 
 /**
  中间的展示信息的view
@@ -41,4 +47,6 @@
  合同
  */
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager *contractLabelManager;
+///一个cell只有一个字符串的
+@property (nonatomic,strong) NSArray <NSString *>*strArray;
 @end

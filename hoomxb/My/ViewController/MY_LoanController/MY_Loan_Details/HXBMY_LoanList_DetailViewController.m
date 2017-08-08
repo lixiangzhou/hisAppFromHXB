@@ -9,12 +9,14 @@
 #import "HXBMY_LoanList_DetailViewController.h"
 #import "HXBMY_Loan_DetailView.h"
 #import "HXBMYViewModel_MainLoanViewModel.h"
+#import "HXBFinDetail_TableView.h"
+#import "HXBFinContract_contraceWebViewVC_Loan.h"
 @interface HXBMY_LoanList_DetailViewController ()
 /**
  散标详情
  */
 @property (nonatomic,strong) HXBMY_Loan_DetailView *loanDetailView;
-@property (nonatomic,strong) UILabel *timeLabel;
+
 @end
 
 @implementation HXBMY_LoanList_DetailViewController
@@ -26,11 +28,13 @@
     [self.loanDetailView setUPValueWithManagerBlock:^HXBMY_Loan_DetailViewManager *(HXBMY_Loan_DetailViewManager *manager) {
         _loanDetailViewModel = loanDetailViewModel;
         
-        manager.termsLeftStr = weakSelf.loanDetailViewModel.goBackLoanTime;
+        manager.termsLeftStr = weakSelf.loanDetailViewModel.goBackLoanTimeCellValue;
+        manager.statusImageName = @"yihuanqishu";
+        manager.strArray = @[@"借款合同"];
         
         manager.toRepayLableManager.isLeftRight         = false;
-        manager.toRepayLableManager.leftLabelStr        = @"待收金额（元）";
-        manager.toRepayLableManager.rightLabelStr       = weakSelf.loanDetailViewModel.toRepay;
+        manager.toRepayLableManager.rightLabelStr       = @"待收金额（元）";
+        manager.toRepayLableManager.leftLabelStr        = weakSelf.loanDetailViewModel.toRepay;
         manager.toRepayLableManager.leftLabelAlignment  = NSTextAlignmentCenter;
         manager.toRepayLableManager.rightLabelAlignment = NSTextAlignmentCenter;
         
@@ -76,16 +80,6 @@
     [super viewDidLoad];
     [self setUPView];
     self.isColourGradientNavigationBar = true;
-    self.timeLabel = [[UILabel alloc]init];
-    [self.view addSubview:self.timeLabel];
-    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(kScrAdaptationH(64));
-        make.height.equalTo(@(kScrAdaptationH(80)));
-        make.width.equalTo(@(kScrAdaptationW(150)));
-    }];
-    self.timeLabel.text = self.loanDetailViewModel.goBackLoanTimeCellValue;
-    self.timeLabel.font = [UIFont systemFontOfSize:10];
 }
 
 - (void)setUPView {
@@ -94,5 +88,24 @@
     [self.hxbBaseVCScrollView addSubview:self.loanDetailView];
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
     self.loanDetailViewModel = _loanDetailViewModel;
-    }
+    [self.loanDetailView clickBottomTableViewCellBloakFunc:^(NSInteger index) {
+        switch (index) {
+            case 0:
+                [self clickContrace];
+                break;
+                
+            default:
+                break;
+        }
+    }];
+}
+///服务协议
+- (void)clickContrace {
+    HXBFinContract_contraceWebViewVC_Loan *vc = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
+    [self.navigationController pushViewController:vc animated:true];
+    
+    vc.URL = kHXB_Negotiate_ServeLoan_AccountURL(self.loanDetailViewModel.loanModel.loanId);
+    vc.title = @"借款合同";
+}
+
 @end

@@ -165,7 +165,7 @@ UITableViewDataSource
     [self.topView addSubview:self.topViewMassge];
     [self.topView addSubview: self.topStatusView];
     [self.topStatusView addSubview:self.topStatusLabel];
-    [self addSubview: self.topStatusImageView];
+    [self.topView addSubview: self.topStatusImageView];
     [self addSubview:self.infoView];
     [self addSubview:self.typeView];
     [self addSubview:self.addButton];
@@ -215,7 +215,7 @@ UITableViewDataSource
     }];
     [self.topStatusImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.topStatusLabel);
-        make.right.equalTo(self.topStatusLabel.mas_left).offset(kScrAdaptationW750(13));
+        make.right.equalTo(self.topStatusLabel.mas_left).offset(kScrAdaptationW750(-13));
         make.height.width.equalTo(@(kScrAdaptationW750(22)));
     }];
     [self.topStatusLabel sizeToFit];
