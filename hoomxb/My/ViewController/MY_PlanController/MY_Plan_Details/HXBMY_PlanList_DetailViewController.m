@@ -210,6 +210,7 @@
                                                       viewModel.lockTime,
                                                       viewModel.addTime
                                                       ];
+            manager.typeImageName = @"zhaiquanpipei";
             break;
             //2: 表示受益中
         case 2:
@@ -225,6 +226,7 @@
                                                       viewModel.lockTime,
                                                       viewModel.addTime
                                                       ];
+            manager.typeImageName = @"jutuichu";
             break;
             //3: 表示退出中
         case 3:
@@ -242,6 +244,7 @@
                                                       viewModel.addTime,
                                                       viewModel.redProgressLeft
                                                       ];
+            manager.typeImageName = @"tuichu";
             break;
             //4: 表示已退出
         case 4:
@@ -257,6 +260,7 @@
                                                       viewModel.endLockingTime,
                                                       viewModel.lockTime
                                                       ];
+            manager.typeImageName = @"tuichu";
             break;
         default:
             break;

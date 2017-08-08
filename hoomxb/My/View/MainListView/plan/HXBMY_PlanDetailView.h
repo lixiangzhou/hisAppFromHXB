@@ -34,7 +34,7 @@
 @end
 
 @interface HXBMY_PlanDetailView_Manager : NSObject
-
+@property (nonatomic,copy) NSString                                 *typeImageName;
 /**
  顶部的VIew状态
  */
