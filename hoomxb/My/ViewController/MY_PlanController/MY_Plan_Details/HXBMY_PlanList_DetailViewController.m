@@ -55,7 +55,11 @@
 }
 - (void) setUP {
     kWeakSelf
-    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:kVCViewFrame_64];
+    int cake = 4;
+    if (self.isLeave) {
+        cake = 5;
+    }
+    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:kVCViewFrame_64 andInfoHaveCake:cake];
     self.planDetailView = planDetailView;
     //tableView 的点击
     [self.planDetailView clickBottomTableViewCellBloakFunc:^(NSInteger index) {
@@ -206,12 +210,13 @@
                                                       viewModel.lockTime,
                                                       viewModel.addTime
                                                       ];
+            manager.typeImageName = @"zhaiquanpipei";
             break;
             //2: 表示受益中
         case 2:
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
-                                                     @"预期年利率",
+                                                     @"平均历史年化收益",
                                                      @"期限",
                                                      @"加入日期",
                                                      ];
@@ -221,12 +226,13 @@
                                                       viewModel.lockTime,
                                                       viewModel.addTime
                                                       ];
+            manager.typeImageName = @"jutuichu";
             break;
             //3: 表示退出中
         case 3:
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
-                                                     @"预期年利率",
+                                                     @"平均历史年化收益",
                                                      @"期限",
                                                      @"加入日期",
                                                      @"待转出金额"
@@ -238,12 +244,13 @@
                                                       viewModel.addTime,
                                                       viewModel.redProgressLeft
                                                       ];
+            manager.typeImageName = @"tuichu";
             break;
             //4: 表示已退出
         case 4:
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
-                                                     @"预期年利率",
+                                                     @"平均历史年化收益",
                                                      @"实际退出日期",
                                                      @"期限",
                                                      ];
@@ -253,6 +260,7 @@
                                                       viewModel.endLockingTime,
                                                       viewModel.lockTime
                                                       ];
+            manager.typeImageName = @"tuichu";
             break;
         default:
             break;

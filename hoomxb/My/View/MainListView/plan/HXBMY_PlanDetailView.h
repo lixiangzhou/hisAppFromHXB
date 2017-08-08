@@ -12,6 +12,13 @@
 #import "HXBBaseView_TwoLable_View.h"///两个label的组件
 #import "HXBBaseView_MoreTopBottomView.h"///多个topBottomView
 @interface HXBMY_PlanDetailView : UIView
+/**
+ 加入金额 
+ ....
+ 的层数
+ */
+@property (nonatomic,assign) NSInteger cake;
+- (instancetype) initWithFrame:(CGRect)frame andInfoHaveCake:(NSInteger)cake;
 @property (nonatomic,strong) HXBMYViewModel_PlanDetailViewModel *planDetailViewModel;
 /**
  投资记录的点击事件
@@ -27,7 +34,7 @@
 @end
 
 @interface HXBMY_PlanDetailView_Manager : NSObject
-
+@property (nonatomic,copy) NSString                                 *typeImageName;
 /**
  顶部的VIew状态
  */

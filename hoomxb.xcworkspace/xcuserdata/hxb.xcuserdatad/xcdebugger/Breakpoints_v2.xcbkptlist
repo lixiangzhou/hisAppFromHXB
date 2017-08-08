@@ -19,6 +19,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "hoomxb/My/View/MainListView/plan/HXBMY_PlanDetailView.m"
             timestampString = "523871675.137582"
             startingColumnNumber = "9223372036854775807"
@@ -35,6 +36,8 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+=======
+>>>>>>> develop_lipengyue_LoanTruansfer
             filePath = "hoomxb/My/ViewController/MY_PlanController/MY_Plan_Details/HXBMY_PlanList_DetailViewController.m"
             timestampString = "523871670.145748"
             startingColumnNumber = "9223372036854775807"
@@ -57,7 +60,11 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "157"
             endingLineNumber = "157"
+<<<<<<< HEAD
             landmarkName = "-dispatchValueWithDetailViewModel:"
+=======
+            landmarkName = "-downData"
+>>>>>>> develop_lipengyue_LoanTruansfer
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
