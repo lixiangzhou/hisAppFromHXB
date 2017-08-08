@@ -186,7 +186,7 @@
                     planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
                     planBuySuccessVC.title = @"投资成功";
                     [planBuySuccessVC clickButtonWithBlock:^{
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
                         [self.navigationController popToRootViewControllerAnimated:true];
                     }];
                     
