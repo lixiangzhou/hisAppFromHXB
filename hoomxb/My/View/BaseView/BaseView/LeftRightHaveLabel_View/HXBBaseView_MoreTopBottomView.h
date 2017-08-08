@@ -20,15 +20,15 @@ typedef enum : NSUInteger {
 /**
  左边的viewArray
  */
-@property (nonatomic,strong,readonly) NSArray <UIView *> *leftViewArray;
+@property (nonatomic,strong) NSArray <UIView *> *leftViewArray;
 /**
  右边的viewArray
  */
-@property (nonatomic,strong,readonly) NSArray <UIView *> *rightViewArray;
+@property (nonatomic,strong) NSArray <UIView *> *rightViewArray;
 /**
  所有的viewArray
  */
-@property (nonatomic,strong,readonly) NSArray <UIView *> *allViewArray;
+@property (nonatomic,strong) NSArray <UIView *> *allViewArray;
 
 
 /**
@@ -42,7 +42,7 @@ typedef enum : NSUInteger {
 
 //嵌入一个大的背景的view
 /**
- 创建方法
+ 创建方法 (尽量用这个比较好)
  @param topBottomViewNumber 上下一共几层
  @param clas view的类型
  @param topBottomSpace 层级间的间距
@@ -70,15 +70,15 @@ typedef enum : NSUInteger {
 /**
  左侧的viewArray
  */
-@property (nonatomic,strong,readonly) NSArray <UIView *>    *leftViewArray;
+@property (nonatomic,strong) NSArray <UIView *>    *leftViewArray;
 /**
  右侧的viewArray
  */
-@property (nonatomic,strong,readonly) NSArray <UIView *>    *rightViewArray;
+@property (nonatomic,strong) NSArray <UIView *>    *rightViewArray;
 /**
  全部的viewArray
  */
-@property (nonatomic,strong,readonly) NSArray <UIView *>    *allViewArray;
+@property (nonatomic,strong) NSArray <UIView *>    *allViewArray;
 /**
  对其方式
  */

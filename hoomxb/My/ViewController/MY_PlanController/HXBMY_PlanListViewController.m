@@ -37,7 +37,7 @@ kDealloc
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isColourGradientNavigationBar = true;
+    self.isTransparentNavigationBar = true;
     self.view.backgroundColor = [UIColor whiteColor];
     self.title  = @"红利计划";
     [self setUP];
@@ -53,7 +53,7 @@ kDealloc
 
 //设置
 - (void)setUP {
-    
+    self.isReadColorWithNavigationBar = true;
     ///请求资产统计的网络请求
     [self assetStatisticsLoadData];
     ///view的创建
@@ -78,7 +78,7 @@ kDealloc
 
 //搭建UI
 - (void)setupView {
-    self.planListView = [[HXBMainListView_Plan alloc]initWithFrame:self.view.frame];
+    self.planListView = [[HXBMainListView_Plan alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
     [self.view addSubview:self.planListView];
 }
 

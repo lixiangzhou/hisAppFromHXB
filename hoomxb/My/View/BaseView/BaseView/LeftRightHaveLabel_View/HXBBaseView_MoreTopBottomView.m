@@ -42,6 +42,9 @@
 }
 - (void)setUPViewManagerWithBlock: (HXBBaseView_MoreTopBottomViewManager *(^)(HXBBaseView_MoreTopBottomViewManager *viewManager))setUPViewManagerBlock {
     self.viewManager = setUPViewManagerBlock(self.viewManager);
+}
+- (void)setViewManager:(HXBBaseView_MoreTopBottomViewManager *)viewManager {
+    _viewManager = viewManager;
     self.alignment = self.viewManager.alignment;
     for (NSInteger i = 0; i < self.leftViewArray.count; i++) {
         BOOL isSetUPViewValue_Left = [self setValueWithView:self.leftViewArray[i]
@@ -50,7 +53,7 @@
                                                andTextColor:self.viewManager.leftTextColor
                                          andBackGroundColor:self.viewManager.leftViewColor
                                                     andFont: self.viewManager.leftFont];
-       
+        
         BOOL isSetUPViewValue_right = [self setValueWithView:self.rightViewArray[i]
                                                       andStr:self.viewManager.rightStrArray[i]
                                                 andAlignment: self.viewManager.rightLabelAlignment
@@ -65,19 +68,6 @@
         }
     }
 }
-//- (void)setViewManager:(HXBBaseView_MoreTopBottomViewManager *)viewManager {
-//    _viewManager = viewManager;
-//    for (NSInteger i = 0; i < self.leftViewArray.count; i++) {
-//        BOOL isSetUPViewValue_Left = [self setValueWithView:self.leftViewArray[i] andStr:self.viewManager.leftStrArray[i]];
-//        BOOL isSetUPViewValue_right = [self setValueWithView:self.rightViewArray[i] andStr:self.viewManager.rightStrArray[i]];
-//        if(!isSetUPViewValue_Left) {
-//            NSLog(@"%@，左边的第 %ld个view赋值失败",self,i);
-//        }
-//        if (!isSetUPViewValue_right) {
-//            NSLog(@"%@, 右边的第 %ld个view赋值失败",self,i);
-//        }
-//    }
-//}
 
 - (void)setAlignment:(HXBBaseView_MoreTopBottomViewManager_Alignment)alignment {
     if (alignment) {

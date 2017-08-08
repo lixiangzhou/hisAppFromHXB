@@ -37,7 +37,6 @@
 @property (nonatomic,copy) NSString * toBeReceived_const;
 ///@"预期年利率";
 @property (nonatomic,copy) NSString * nextRepaymentDay_const;
-
 @end
 
 

@@ -21,6 +21,10 @@
 ///理财详情页的tableView  cell里面有一个图片一个title
 @interface HXBFinDetail_TableView : UITableView
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewCellModelArray;
+
+///一个cell只有一个字符串的
+@property (nonatomic,strong) NSArray <NSString *>*strArray;
+
 ///点击了 详情页底部的tableView的cell
 - (void)clickBottomTableViewCellBloakFunc: (void(^)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model))clickBottomTabelViewCellBlock;
 @end
@@ -29,5 +33,7 @@
 
 @interface HXBFinDetail_TableViewCell : UITableViewCell
 @property (nonatomic,strong) HXBFinDetail_TableViewCellModel *model;
+///一个cell只有一个字符串的
+@property (nonatomic,strong) NSArray <NSString *>*strArray;
 @end
 

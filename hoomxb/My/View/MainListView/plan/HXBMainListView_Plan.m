@@ -12,6 +12,8 @@
 #import "HXBBaseScrollToolBarView.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
 #import "HXBMYModel_Plan_planRequestModel.h"
+
+#import "HXBMYList_plan_Hold_TableView.h"
 static NSString *const holdTitle = @"持有中";
 static NSString *const exitTingTitle = @"退出中";
 static NSString *const exitTitle = @"已退出";
@@ -22,13 +24,14 @@ static NSString *const exitTitle = @"已退出";
 @property (nonatomic,strong) NSMutableArray <NSString *>*toolBarOptionTitleArray;
 @property (nonatomic,strong) HXBBaseScrollToolBarView *scorllToolBarView;
 
+@property (nonatomic,strong) NSArray *toolBarTitleArray;
 @property (nonatomic,strong) UILabel *exitLabel;
 @property (nonatomic,strong) UILabel *exitingLabel;
 @property (nonatomic,strong) UILabel *holdLabel;
 
-@property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *exit_Plan_TableView;///退出后
-@property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *exiting_Plan_TableView;///退出中
-@property (nonatomic,strong) HXBBaseTableView_MYPlanList_TableView *hold_Plan_TableView;///持有中
+@property (nonatomic,strong) HXBMYList_plan_Hold_TableView *exit_Plan_TableView;///退出后
+@property (nonatomic,strong) HXBMYList_plan_Hold_TableView *exiting_Plan_TableView;///退出中
+@property (nonatomic,strong) HXBMYList_plan_Hold_TableView *hold_Plan_TableView;///持有中
 
 ///plan 的toolbarView的中间的点击
 @property (nonatomic,copy) void(^changeMidSelectOptionBlock)(UIButton *button, NSString *title, NSInteger index, HXBRequestType_MY_PlanRequestType requestType);
@@ -133,6 +136,11 @@ kDealloc
     self.holdLabel = [self creatLableWithTitle:holdTitle];
     self.exitingLabel = [self creatLableWithTitle:exitTingTitle];
     self.exitLabel = [self creatLableWithTitle:exitTitle];
+    self.toolBarTitleArray = @[
+                               self.holdLabel,
+                               self.exitingLabel,
+                               self.exitLabel
+                               ];
     [self setupSubView];
 }
 
@@ -162,6 +170,13 @@ kDealloc
     self.toolBarView = [HXBBaseToolBarView toolBarViewWithFrame:CGRectZero andOptionStrArray:self.toolBarOptionTitleArray];
     //开启动画
     self.toolBarView.isAnima_ItemBottomBarView = true;
+    self.toolBarView.animaTime_ItemBottomBarView = 0.5;
+    
+    ///改变底部的提示线条颜色' && '高度
+    self.toolBarView.itemBarAnimaViewColor = kHXBColor_Red_255_64_79;
+    self.toolBarView.barAnimaViewH = 2;
+    self.toolBarView.isHiddenLien = true;
+
     // 对item 进行自定义
     [self.toolBarView setUpsetUpBarViewItemBlockFuncWithBlcok:^(UIButton *button, UIView *buttonBottomView) {
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -186,15 +201,17 @@ kDealloc
 }
 - (void)addLableWithButton: (UIButton *)button andLable: (UILabel *)label{
     [button addSubview:label];
+    label.tag = 10086111;
+    label.font = kHXBFont_PINGFANGSC_REGULAR(15);
     label.frame = button.bounds;
     button.titleLabel.text = @"";
 }
 
 //搭建底部的ScrollView
 - (NSArray *)setupBottomScrollViewArray {
-    self.hold_Plan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.exiting_Plan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.exit_Plan_TableView = [[HXBBaseTableView_MYPlanList_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.hold_Plan_TableView = [[HXBMYList_plan_Hold_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.exiting_Plan_TableView = [[HXBMYList_plan_Hold_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.exit_Plan_TableView = [[HXBMYList_plan_Hold_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     return @[
              self.hold_Plan_TableView,
              self.exiting_Plan_TableView,
@@ -206,11 +223,11 @@ kDealloc
 - (void)setupScrollToolBarView {
     
     NSArray *bottomViewSet = [self setupBottomScrollViewArray];
-    CGRect frame = CGRectMake(0, 64, self.width, self.height - 64);
-    HXBBaseScrollToolBarView *scrollToolBarView = [HXBBaseScrollToolBarView scrollToolBarViewWithFrame:frame andTopView:self.topView andTopViewH:kScrAdaptationH(100) andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH: kScrAdaptationH(30) andBottomViewSet:bottomViewSet];
+    CGRect frame = CGRectMake(0, 0, self.width, self.height);
+    HXBBaseScrollToolBarView *scrollToolBarView = [HXBBaseScrollToolBarView scrollToolBarViewWithFrame:frame andTopView:self.topView andTopViewH:kScrAdaptationH(200) - 64 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH: kScrAdaptationH(45) andBottomViewSet:bottomViewSet];
     
     [self addSubview:scrollToolBarView];
-    
+    [self setColorWithLabel:self.holdLabel];
     ///事件的传递
     kWeakSelf
     [scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
@@ -218,11 +235,22 @@ kDealloc
             if (index >= weakSelf.toolBarOptionTitleArray.count) {
                 index = weakSelf.toolBarOptionTitleArray.count - 1;
             }
+            UILabel *label = [option viewWithTag:10086111];
+            [self setColorWithLabel:label];
             HXBRequestType_MY_PlanRequestType type = index + 1;
             weakSelf.changeMidSelectOptionBlock(option, title, index, type);
         }
     }];
     
+}
+- (void)setColorWithLabel:(UILabel *)label {
+  [self.toolBarTitleArray enumerateObjectsUsingBlock:^(UILabel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      if ([label isEqual:obj]) {
+          obj.textColor = kHXBColor_Red_255_64_79;
+      }else {
+          obj.textColor = kHXBColor_Font0_6;
+      }
+  }];
 }
 
 #pragma mark - 事件的传递

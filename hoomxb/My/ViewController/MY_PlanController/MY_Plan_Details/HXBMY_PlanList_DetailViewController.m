@@ -57,21 +57,35 @@
     kWeakSelf
     HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:kVCViewFrame_64];
     self.planDetailView = planDetailView;
-    ///点击了投资记录button
-    [self.planDetailView clickLoanRecordViewWithBlock:^(UIView *view) {
-        [weakSelf clickLoanRecord];
+    //tableView 的点击
+    [self.planDetailView clickBottomTableViewCellBloakFunc:^(NSInteger index) {
+        switch (index) {
+            case 0: ///点击了投资记录button
+                [weakSelf clickLoanRecord];
+                break;
+            case 1://服务协议
+                [weakSelf clickNegotiate];
+                break;
+        }
     }];
+
     ///点击了立即加入button
     [self.planDetailView clickAddButtonWithBlock:^(UIButton *button) {
         [weakSelf clickAddButton];
     }];
     [weakSelf.hxbBaseVCScrollView addSubview:planDetailView];
 }
+//服务协议
+- (void)clickNegotiate {
+    NSLog(@"点击了服务协议%@",self);
+}
+//投资记录
 - (void)clickLoanRecord {
     HXBMY_Plan_Capital_ViewController *capitalVC = [[HXBMY_Plan_Capital_ViewController alloc]init];
     capitalVC.planID = self.planViewModel.planModelDataList.ID;
     [self.navigationController pushViewController:capitalVC animated:true];
 }
+//加入按钮
 - (void)clickAddButton {
     if (!KeyChain.isLogin) {
          [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
@@ -147,36 +161,23 @@
     [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
         
         manager.topViewStatusStr = viewModel.status;
-        manager.topViewMassgeManager.leftLabelStr = @"已获受益（元）";
-        manager.topViewMassgeManager.rightLabelStr = viewModel.earnAmount;
-        manager.topViewMassgeManager.leftLabelAlignment = NSTextAlignmentCenter;
-        manager.topViewMassgeManager.rightLabelAlignment = NSTextAlignmentCenter;
+        manager.topViewMassgeManager.rightLabelStr = @"已获受益（元）";
+        manager.topViewMassgeManager.leftLabelStr = viewModel.earnAmount;
         
         ///判断到底是哪种
         [weakSelf judgementStatusWithStauts: viewModel.statusInt andManager:manager andHXBMYViewModel_PlanDetailViewModel:viewModel];
- 
-        manager.infoViewManager.leftLabelAlignment = NSTextAlignmentLeft;
-        manager.infoViewManager.rightLabelAlignment = NSTextAlignmentRight;
-        
 
         manager.typeViewManager.leftStrArray = @[
                                                  @"收益处理方式"
                                                  ];
         manager.typeViewManager.rightStrArray = @[viewModel.cashType];
-        manager.typeViewManager.leftLabelAlignment = NSTextAlignmentLeft;
-        manager.typeViewManager.rightLabelAlignment = NSTextAlignmentRight;
+   
 
 
-        manager.contractViewManager.leftStrArray = @[@"合同"];
-        manager.contractViewManager.rightStrArray = @[viewModel.contractName];
-        manager.contractViewManager.leftLabelAlignment = NSTextAlignmentLeft;
-        manager.contractViewManager.rightLabelAlignment = NSTextAlignmentRight;
-
-        manager.loanRecordViewManager.leftStrArray = @[@"投资记录"];
-        manager.loanRecordViewManager.rightStrArray = @[@">"];
-        manager.loanRecordViewManager.leftLabelAlignment = NSTextAlignmentLeft;
-        manager.loanRecordViewManager.rightLabelAlignment = NSTextAlignmentRight;
-        
+        manager.strArray = @[
+                             @"投资记录",
+                             @"红利计划服务协议"
+                             ];
         manager.isHiddenAddButton = viewModel.isAddButtonHidden;
         return manager;
     }];
@@ -195,7 +196,7 @@
         case 1:
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
-                                                     @"预期年利率",
+                                                     @"平均历史年化收益",
                                                      @"期限",
                                                      @"加入日期",
                                                      ];

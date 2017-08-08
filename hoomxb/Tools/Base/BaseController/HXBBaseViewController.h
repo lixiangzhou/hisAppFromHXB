@@ -15,6 +15,7 @@
 @property (nonatomic,assign) BOOL isTransparentNavigationBar;
 ///导航条是否为红色渐变
 @property (nonatomic,assign) BOOL isColourGradientNavigationBar;
+@property (nonatomic,assign) BOOL isReadColorWithNavigationBar;
 ///导航条是否为蓝色
 @property (nonatomic,assign) BOOL isBlueGradientNavigationBar;
 ///自动把scrollView向下平移64

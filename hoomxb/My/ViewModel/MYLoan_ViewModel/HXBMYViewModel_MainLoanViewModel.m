@@ -147,4 +147,61 @@
     }
     return _requestType;
 }
+/**
+ amount_NOTYUAN
+ */
+- (NSString *) amount_NOTYUAN {
+    if (!_amount_NOTYUAN) {
+        _amount_NOTYUAN = [NSString GetPerMilWithDouble:self.loanModel.amount.floatValue];
+    }
+    return _amount_NOTYUAN;
+}
+/**
+ 加入金额
+ */
+
+- (NSString *) finalAmount_NOTYUAN {
+    if (!_finalAmount_NOTYUAN) {
+        _finalAmount_NOTYUAN = [NSString GetPerMilWithDouble:self.loanModel.transferable.floatValue];
+    }
+    return _finalAmount_NOTYUAN;
+}
+/**
+ 已获收益
+ */
+- (NSString *) earnAmount_NOTYUAN {
+    if (!_earnAmount_NOTYUAN) {
+        _earnAmount_NOTYUAN = [NSString GetPerMilWithDouble:self.loanModel.repaid.floatValue];
+    }
+    return _earnAmount_NOTYUAN;
+}
+/**
+ 剩余期数: 4/12(收益中使用)
+ */
+- (NSString *)title_RemainTime {
+    if (!_title_RemainTime) {
+        _title_RemainTime = [NSString stringWithFormat:@"剩余期数:%@/%@",self.loanModel.termsLeft,self.loanModel.termsInTotal];
+    }
+    return _title_RemainTime;
+}
+/**
+ 期限：12个月（投标中用）
+ */
+- (NSString *) title_TermsInTotal_YUE {
+    if (!_title_TermsInTotal_YUE) {
+        _title_TermsInTotal_YUE = [NSString stringWithFormat:@"期限:%@个月",self.loanModel.termsInTotal];
+    }
+    return _title_TermsInTotal_YUE;
+}
+/**
+ （债权匹配中 || 2017-08-01退出） 债转中使用
+ */
+- (NSString *) title_Truansfer {
+    if (!_title_Truansfer) {
+        _title_Truansfer = [NSString stringWithFormat:@"  "];
+    }
+    return _title_Truansfer;
+}
+
+
 @end
