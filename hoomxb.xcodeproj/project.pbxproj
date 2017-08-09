@@ -299,6 +299,7 @@
 		E13A53451F0A44E1002C3416 /* HXBMy_Plan_Swipe.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A53441F0A44E1002C3416 /* HXBMy_Plan_Swipe.m */; };
 		E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */; };
 		E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */; };
+		E13B6D3D1F3AA747000A6AE6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E13B6D3C1F3AA747000A6AE6 /* Assets.xcassets */; };
 		E14B9BDF1F14731400450692 /* HXBColourGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BDE1F14731400450692 /* HXBColourGradientView.m */; };
 		E14B9BE61F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BE51F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
@@ -435,7 +436,6 @@
 		E1F630791F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F630781F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m */; };
 		E1F6307D1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F6307C1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m */; };
 		E1F630811F20A38400FC0122 /* HXBFBase_BuyResult_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F630801F20A38400FC0122 /* HXBFBase_BuyResult_VC.m */; };
-		E1F630831F20B4F100FC0122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F630821F20B4F100FC0122 /* Assets.xcassets */; };
 		E1FBADB71EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADB61EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m */; };
 		E1FBADBD1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADBA1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m */; };
 		E1FBADBE1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADBC1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m */; };
@@ -991,6 +991,7 @@
 		E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STRefreshHeader.m; sourceTree = "<group>"; };
 		E13A534B1F0A65E9002C3416 /* UIScrollView+STRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+STRefresh.h"; sourceTree = "<group>"; };
 		E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+STRefresh.m"; sourceTree = "<group>"; };
+		E13B6D3C1F3AA747000A6AE6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E14B9BDD1F14731400450692 /* HXBColourGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBColourGradientView.h; sourceTree = "<group>"; };
 		E14B9BDE1F14731400450692 /* HXBColourGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBColourGradientView.m; sourceTree = "<group>"; };
 		E14B9BE11F1482D100450692 /* HXBFin_PlanDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_PlanDetailView.h; sourceTree = "<group>"; };
@@ -1269,7 +1270,6 @@
 		E1F6307C1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinAddTruastWebViewVC.m; sourceTree = "<group>"; };
 		E1F6307F1F20A38400FC0122 /* HXBFBase_BuyResult_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFBase_BuyResult_VC.h; sourceTree = "<group>"; };
 		E1F630801F20A38400FC0122 /* HXBFBase_BuyResult_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFBase_BuyResult_VC.m; sourceTree = "<group>"; };
-		E1F630821F20B4F100FC0122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1FBADB51EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinDatailModel_LoanDetail.h; sourceTree = "<group>"; };
 		E1FBADB61EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinDatailModel_LoanDetail.m; sourceTree = "<group>"; };
 		E1FBADB91EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancing_LoanDetailsViewController.h; sourceTree = "<group>"; };
@@ -1373,7 +1373,7 @@
 		4E16D82D1E9CD0FE002A1881 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E1F630821F20B4F100FC0122 /* Assets.xcassets */,
+				E13B6D3C1F3AA747000A6AE6 /* Assets.xcassets */,
 				4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */,
 				4E16D83E1E9CD0FE002A1881 /* Info.plist */,
 				4EA93FBF1EA0A5FB002F3615 /* PrefixHeader.pch */,
@@ -4105,6 +4105,7 @@
 				4EECDFD21F380E8B00301758 /* sanbiao.svg in Resources */,
 				4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */,
 				4E7BDEB71F187771002A3E18 /* bankcard.svg in Resources */,
+				E13B6D3D1F3AA747000A6AE6 /* Assets.xcassets in Resources */,
 				4EECE0221F3842EC00301758 /* personal_center.svg in Resources */,
 				4EECE0111F38177000301758 /* 0220.svg in Resources */,
 				4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */,
@@ -4116,7 +4117,6 @@
 				4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
 				4E9215691F1DFC4600C8CECB /* transaction_password.svg in Resources */,
 				4EECE00F1F38177000301758 /* 0201.svg in Resources */,
-				E1F630831F20B4F100FC0122 /* Assets.xcassets in Resources */,
 				4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */,
 				4E9215711F1DFC8800C8CECB /* bank_name.svg in Resources */,
 				4E88A5291F1600CB00BBDF11 /* security_code.svg in Resources */,
