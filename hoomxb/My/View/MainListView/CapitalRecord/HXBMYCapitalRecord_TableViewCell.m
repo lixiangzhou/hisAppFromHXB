@@ -81,21 +81,29 @@
     
     __weak typeof (self)weakSelf = self;
     [self.pointDisplayType_Label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.contentView);
-        make.bottom.equalTo(weakSelf.contentView.mas_centerY).offset(-kScrAdaptationH(5));
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(30));
+        make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH750(28));
     }];
     [self.pay_Label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH(10));
-        make.right.equalTo(weakSelf.contentView).offset(-kScrAdaptationH(10));
+        make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH750(28));
+        make.right.equalTo(weakSelf.contentView).offset(-kScrAdaptationW750(30));
     }];
     [self.time_Label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.contentView.mas_centerY).offset(-kScrAdaptationH(5));
-        make.left.equalTo(weakSelf.pointDisplayType_Label);
+        make.bottom.equalTo(weakSelf.contentView).offset(-kScrAdaptationH750(28));
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(30));
     }];
     [self.balance_Label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.time_Label);
-        make.right.equalTo(weakSelf.pay_Label);
+        make.bottom.equalTo(weakSelf.contentView).offset(-kScrAdaptationH750(28));
+        make.right.equalTo(weakSelf.contentView).offset(-kScrAdaptationW750(30));
     }];
+    
+    self.pointDisplayType_Label.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+    self.pointDisplayType_Label.textColor = COLOR(51, 51, 51, 1);
+    self.pay_Label.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+    self.time_Label.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+    self.time_Label.textColor = kHXBColor_Font0_6;
+    self.balance_Label.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+    self.balance_Label.textColor = kHXBColor_Font0_6;
 }
 ///测试
 - (void) temp {

@@ -433,6 +433,7 @@
 		E1E5885A1EE165BF0045C4AE /* AnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588551EE165BF0045C4AE /* AnimatedTransition.m */; };
 		E1E5885B1EE165BF0045C4AE /* Animatr.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588571EE165BF0045C4AE /* Animatr.m */; };
 		E1E5885C1EE165BF0045C4AE /* PYPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588591EE165BF0045C4AE /* PYPresentationController.m */; };
+		E1F0D80C1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F0D80B1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m */; };
 		E1F630761F207B9900FC0122 /* HXBFinLoanTruansfer_ContraceWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F630751F207B9900FC0122 /* HXBFinLoanTruansfer_ContraceWebViewVC.m */; };
 		E1F630791F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F630781F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m */; };
 		E1F6307D1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F6307C1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m */; };
@@ -1267,6 +1268,8 @@
 		E1E588571EE165BF0045C4AE /* Animatr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animatr.m; sourceTree = "<group>"; };
 		E1E588581EE165BF0045C4AE /* PYPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPresentationController.h; sourceTree = "<group>"; };
 		E1E588591EE165BF0045C4AE /* PYPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPresentationController.m; sourceTree = "<group>"; };
+		E1F0D80A1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYCapitalRecord_TableViewHeaderView.h; sourceTree = "<group>"; };
+		E1F0D80B1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMYCapitalRecord_TableViewHeaderView.m; sourceTree = "<group>"; };
 		E1F630741F207B9900FC0122 /* HXBFinLoanTruansfer_ContraceWebViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinLoanTruansfer_ContraceWebViewVC.h; sourceTree = "<group>"; };
 		E1F630751F207B9900FC0122 /* HXBFinLoanTruansfer_ContraceWebViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinLoanTruansfer_ContraceWebViewVC.m; sourceTree = "<group>"; };
 		E1F630771F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPAgreementWebViewVC.h; sourceTree = "<group>"; };
@@ -3448,6 +3451,8 @@
 		E1CB56211ED3E7FA00D962CA /* CapitalRecord */ = {
 			isa = PBXGroup;
 			children = (
+				E1F0D80A1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.h */,
+				E1F0D80B1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m */,
 				E1CB56221ED3E82700D962CA /* HXBMYCapitalRecord_TableView.h */,
 				E1CB56231ED3E82700D962CA /* HXBMYCapitalRecord_TableView.m */,
 				E1CB56251ED3E9A800D962CA /* HXBMYCapitalRecord_TableViewCell.h */,
@@ -4486,6 +4491,7 @@
 				E1E461491EB9AB74005B1FC6 /* HXBFinanctingRequest.m in Sources */,
 				E1E4613C1EB98B5C005B1FC6 /* HXBBaseToolBarView.m in Sources */,
 				E1D3D0D21ED6B526003F1DBA /* HXBAdvertisementManager.m in Sources */,
+				E1F0D80C1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m in Sources */,
 				E122D8501EA0CAB900DC71ED /* NSString+CopiesTransfer.m in Sources */,
 				E122D8541EA0CAB900DC71ED /* NSString+HxbPerMilMoney.m in Sources */,
 				E17509B61EC6E22600E17B39 /* HXBFinPlanContract_ContractWebView.m in Sources */,
