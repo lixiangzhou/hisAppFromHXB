@@ -43,12 +43,10 @@
             
             CGFloat pay = self.capitalRecordModel.pay.floatValue;
             _income = [NSString stringWithFormat:@"- %.2f",pay];
-            self.inComeStrColor = [UIColor blueColor];
-
+            self.inComeStrColor = COLOR(113,203,97,1);
         }else {
-            
             CGFloat inComeFloat = self.capitalRecordModel.income.floatValue;
-            self.inComeStrColor = [UIColor redColor];
+            self.inComeStrColor = COLOR(245, 81, 81, 1);
             _income = [NSString stringWithFormat:@"+ %.2f",inComeFloat];
         }
     }
