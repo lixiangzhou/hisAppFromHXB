@@ -176,7 +176,7 @@
         barView.frame = CGRectMake(barViewX, barViewY, button.frame.size.width - self.itemBottomBarViewWidth * 2, self.itemBottomBarViewHeight);
         barView.backgroundColor = self.itemBottomBarViewColor;
         [button insertSubview:barView atIndex:0];
-        
+        button.titleEdgeInsets = UIEdgeInsetsMake(self.label_Item_CenterY_Difference, 0, 0, 0);
         barView.hidden = YES;
         barView.tag = 2000;
         //设置默认的选中的item
@@ -324,7 +324,12 @@
     }
     return _itemTextColor_Select;
 }
-
+- (void)setLabel_Item_CenterY_Difference:(CGFloat)label_Item_CenterY_Difference {
+    _label_Item_CenterY_Difference = label_Item_CenterY_Difference;
+    [self.optionItemInfo enumerateObjectsUsingBlock:^(UIButton * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        obj.titleEdgeInsets = UIEdgeInsetsMake(label_Item_CenterY_Difference, 0, 0, 0);
+    }];
+}
 
 //MARK: 设置----------------itemButtom---------------------
 - (CGFloat)itemBottomBarViewHeight {

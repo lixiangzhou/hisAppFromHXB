@@ -35,5 +35,6 @@
 @property (nonatomic,strong) HXBFinDetail_TableViewCellModel *model;
 ///一个cell只有一个字符串的
 @property (nonatomic,strong) NSArray <NSString *>*strArray;
+@property (nonatomic,assign) BOOL isHiddenLastCellBottomLine;
 @end
 

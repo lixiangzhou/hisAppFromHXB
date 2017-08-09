@@ -70,7 +70,8 @@
 @property (nonatomic,strong) UIColor *itemTextColor_Highlighted;
 /**item的text font*/
 @property (nonatomic,strong) UIFont *itemTextFont;
-
+/**label.centerY - item.centerY的差值*/
+@property (nonatomic,assign) CGFloat label_Item_CenterY_Difference;
 
 #pragma mark - 其他设置
 /**button是否可以重复点击*/
