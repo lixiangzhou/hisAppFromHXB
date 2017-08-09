@@ -42,7 +42,8 @@
     self = [super initWithFrame:frame];
     if (self) {
 //        [self addSubview: self.allFinanceButton];//总资产的button
-   
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickAllFinanceButton:)];
+        [self addGestureRecognizer:tap];
 //        [self registerEvent];
         [self addSubview:self.backgroundImage];
         [self addSubview:self.allFinanceLabel];
@@ -182,9 +183,9 @@
 
 - (void)rightHeadButtonClick:(UIButton *)rightHeadBtn
 {
-    NSString *allFinanceStr = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.assetsTotal doubleValue]]?:@"0.00";
-    NSString *accumulatedProfitStr = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
-    NSString *balance = [NSString hxb_getPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
+    NSString *allFinanceStr = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.assetsTotal doubleValue]]?:@"0.00";
+    NSString *accumulatedProfitStr = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
+    NSString *balance = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
     
     if ([KeyChain.ciphertext isEqualToString:@"0"]){
         KeyChain.ciphertext = @"1";
@@ -311,7 +312,7 @@
         [_topupButton setTitle:@"充值" forState:UIControlStateNormal];
         [_topupButton setTitleColor:COR15 forState:UIControlStateNormal];
         [_topupButton addTarget:self action:@selector(topupButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        
+        _topupButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         _topupButton.layer.cornerRadius = kScrAdaptationW(4);
         _topupButton.layer.masksToBounds = YES;
         

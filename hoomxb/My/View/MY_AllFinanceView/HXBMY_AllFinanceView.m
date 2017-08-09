@@ -170,6 +170,7 @@
         _proportionalBarView = [[HXBProportionalBarView alloc] initWithFrame:CGRectMake(20, 100, self.width - 40, kScrAdaptationH(15))];
         _proportionalBarView.layer.cornerRadius = _proportionalBarView.frame.size.height * 0.5;
         _proportionalBarView.layer.masksToBounds = YES;
+        _proportionalBarView.backgroundColor = BACKGROUNDCOLOR;
     }
     return _proportionalBarView;
 }

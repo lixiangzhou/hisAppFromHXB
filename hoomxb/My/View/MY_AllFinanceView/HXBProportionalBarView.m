@@ -21,8 +21,6 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-//        [self drawing];
-        self.backgroundColor = [UIColor clearColor];
         
     }
     return self;
@@ -69,40 +67,5 @@
 }
 
 
-- (void)drawing
-{
-    //创建一个路径对象
-    UIBezierPath *linePath = [UIBezierPath bezierPath];
-    //  起点
-    [linePath moveToPoint:(CGPoint){0,0}];
-    // 其他点
-    [linePath addLineToPoint:(CGPoint){self.frame.size.width,0}];
-    
-    //  设置路径画布
-    //    CAGradientLayer *lineLayer = [CAGradientLayer layer];
-    //    lineLayer.bounds = (CGRect){0,0,200,200};
-    //    lineLayer.position = CGPointMake(0, 0);
-    //    lineLayer.anchorPoint = CGPointMake(0, 0);
-    
-    
-    CAShapeLayer *lineLayer = [CAShapeLayer layer];
-    lineLayer.bounds = (CGRect){0,0,200,200};
-    lineLayer.position = CGPointMake(0, 0);
-    lineLayer.anchorPoint = CGPointMake(0, 0);
-    lineLayer.lineWidth = 15.0;
-    lineLayer.strokeColor = [UIColor orangeColor].CGColor; //   边线颜色
-    lineLayer.strokeStart = 0;
-    lineLayer.strokeEnd = 1;
-    lineLayer.path = linePath.CGPath;
-    lineLayer.fillColor  = nil;   //  默认是black
-    
-    //  添加到图层上
-    [self.layer addSublayer:lineLayer];
-//    CABasicAnimation *checkAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-//    checkAnimation.duration = 1.0f;
-//    checkAnimation.fromValue = @(0.0f);
-//    checkAnimation.toValue = @(1.0f);
-//    [lineLayer addAnimation:checkAnimation forKey:@"checkAnimation"];
-}
 
 @end

@@ -35,6 +35,22 @@
 - (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
 {
     _viewModel = viewModel;
+    self.accumulatedNumLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.earnTotal.doubleValue];
+    self.planAccumulatedLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.financePlanSumPlanInterest.doubleValue];
+    self.loanAccumulatedLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.lenderEarned.doubleValue];
+    if (viewModel.userInfoModel.userAssets.earnTotal.doubleValue == 0) {
+        self.planProgressView.progress = 0.0;
+        self.loanProgressView.progress = 0.0;
+    }else
+    {
+        double planProgress = viewModel.userInfoModel.userAssets.financePlanSumPlanInterest.doubleValue/viewModel.userInfoModel.userAssets.earnTotal.doubleValue;
+        self.planProgressView.progress = planProgress;
+        double loanProgress = viewModel.userInfoModel.userAssets.lenderEarned.doubleValue/viewModel.userInfoModel.userAssets.earnTotal.doubleValue;
+        self.loanProgressView.progress = loanProgress;
+    }
+    
+    
+    
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -130,7 +146,7 @@
 {
     if (!_accumulatedNumLabel) {
         _accumulatedNumLabel = [[UILabel alloc] init];
-        _accumulatedNumLabel.text = @"10000000.00";
+//        _accumulatedNumLabel.text = @"10000000.00";
         _accumulatedNumLabel.font = kHXBFont_PINGFANGSC_REGULAR(24);
         _accumulatedNumLabel.textColor = COR8;
     }
@@ -141,7 +157,7 @@
 {
     if (!_planProgressView) {
         _planProgressView = [[HXBProgressView alloc] init];
-        _planProgressView.progress = 0.8;
+//        _planProgressView.progress = 0.8;
         _planProgressView.progressColor = RGB(255, 126, 127);
     }
     return _planProgressView;
@@ -151,7 +167,7 @@
 {
     if (!_loanProgressView) {
         _loanProgressView = [[HXBProgressView alloc] init];
-        _loanProgressView.progress = 0.6;
+//        _loanProgressView.progress = 0.6;
         _loanProgressView.progressColor = RGB(255, 197, 162);
     }
     return _loanProgressView;
@@ -160,7 +176,7 @@
 {
     if (!_planAccumulatedLabel) {
         _planAccumulatedLabel = [[UILabel alloc] init];
-        _planAccumulatedLabel.text = @"345.67";
+//        _planAccumulatedLabel.text = @"345.67";
         _planAccumulatedLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _planAccumulatedLabel.textColor = COR8;
     }
@@ -170,7 +186,7 @@
 {
     if (!_loanAccumulatedLabel) {
         _loanAccumulatedLabel = [[UILabel alloc] init];
-        _loanAccumulatedLabel.text = @"345.67";
+//        _loanAccumulatedLabel.text = @"345.67";
         _loanAccumulatedLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _loanAccumulatedLabel.textColor = COR8;
     }
