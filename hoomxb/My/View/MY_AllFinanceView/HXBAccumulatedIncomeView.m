@@ -34,7 +34,7 @@
 
 - (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
 {
-    
+    _viewModel = viewModel;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
