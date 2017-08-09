@@ -155,7 +155,7 @@
         _leftButton = [[UIButton alloc]init];
         _leftButton.layer.cornerRadius = kScrAdaptationW(5);
         _leftButton.layer.masksToBounds = true;
-        _leftButton.backgroundColor = HXBC_Red_Light;
+        _leftButton.backgroundColor = kHXBColor_Red_090303;
         [_leftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _leftButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(20);
         [self.view addSubview:_leftButton];
