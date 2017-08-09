@@ -8,22 +8,21 @@
 
 #import "HXBMY_AllFinanceViewController.h"
 #import "HXBMY_AllFinanceView.h"
+#import "HXBAccumulatedIncomeView.h"
 @interface HXBMY_AllFinanceViewController ()
 @property (nonatomic,strong) HXBMY_AllFinanceView *allFinanceView;
+@property (nonatomic, strong) HXBAccumulatedIncomeView *accumulatedIncomeView;
 @end
 
 @implementation HXBMY_AllFinanceViewController
-- (HXBMY_AllFinanceView *)allFinanceView {
-    if (!_allFinanceView) {
-        _allFinanceView = [[HXBMY_AllFinanceView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScrAdaptationH(242))];
-    }
-    return _allFinanceView;
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isColourGradientNavigationBar = YES;
     self.title = @"资产总额";
-    [self.hxbBaseVCScrollView addSubview:self.allFinanceView];
+    self.view.backgroundColor = BACKGROUNDCOLOR;
+    [self.view addSubview:self.allFinanceView];
+    [self.view addSubview:self.accumulatedIncomeView];
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         self.allFinanceView.viewModel = viewModel;
     } andFailure:^(NSError *error) {
@@ -31,6 +30,21 @@
     }];
 }
 
+#pragma mark - 懒加载
 
+- (HXBAccumulatedIncomeView *)accumulatedIncomeView
+{
+    if (!_accumulatedIncomeView) {
+        _accumulatedIncomeView = [[HXBAccumulatedIncomeView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.allFinanceView.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(291))];
+    }
+    return _accumulatedIncomeView;
+}
+
+- (HXBMY_AllFinanceView *)allFinanceView {
+    if (!_allFinanceView) {
+        _allFinanceView = [[HXBMY_AllFinanceView alloc]initWithFrame:CGRectMake(0, 64 + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(242))];
+    }
+    return _allFinanceView;
+}
 
 @end

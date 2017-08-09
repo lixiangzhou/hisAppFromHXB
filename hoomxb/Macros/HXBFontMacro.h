@@ -25,9 +25,9 @@
 
 //pingfang 普通
 #define kHXBFont_PINGFANGSC_REGULAR(s)        ([UIFont fontWithName:@"PingFangSC-Regular" size:kScrAdaptationH(s)])
-#define kHXBFont_HelveticaNeue_Medium_REGULAR(s)        ([UIFont fontWithName:@"HelveticaNeue-Medium" size:kScrAdaptationH(s)])
-#define kHXBFont_HelveticaNeue_REGULAR(s)        ([UIFont fontWithName:@"HelveticaNeue" size:kScrAdaptationH(s)])
-#define kHXBFont_MicrosoftYaHei_REGULAR(s)        ([UIFont fontWithName:@"MicrosoftYaHei" size:kScrAdaptationH(s)])
+//#define kHXBFont_HelveticaNeue_Medium_REGULAR(s)        ([UIFont fontWithName:@"HelveticaNeue-Medium" size:kScrAdaptationH(s)])
+//#define kHXBFont_HelveticaNeue_REGULAR(s)        ([UIFont fontWithName:@"HelveticaNeue" size:kScrAdaptationH(s)])
+//#define kHXBFont_MicrosoftYaHei_REGULAR(s)        ([UIFont fontWithName:@"MicrosoftYaHei" size:kScrAdaptationH(s)])
 //pingfang 750 普通
 #define kHXBFont_PINGFANGSC_REGULAR_750(s)        ([UIFont fontWithName:@"PingFangSC-Regular" size:kScrAdaptationH750(s)])
 

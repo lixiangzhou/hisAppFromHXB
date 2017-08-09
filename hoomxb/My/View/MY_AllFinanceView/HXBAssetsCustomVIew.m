@@ -79,7 +79,7 @@
 {
     if (!_testLabel) {
         _testLabel = [[UILabel alloc] init];
-        _testLabel.font = kHXBFont_HelveticaNeue_REGULAR(12);
+        _testLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _testLabel.textColor = COR8;
     }
     return _testLabel;
@@ -89,7 +89,7 @@
 {
     if (!_numLabel) {
         _numLabel = [[UILabel alloc] init];
-        _numLabel.font = kHXBFont_HelveticaNeue_REGULAR(12);
+        _numLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _numLabel.textColor = COR6;
     }
     return _numLabel;
