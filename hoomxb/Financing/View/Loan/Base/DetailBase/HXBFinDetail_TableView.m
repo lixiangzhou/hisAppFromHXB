@@ -78,6 +78,7 @@ static NSString *CELLID = @"CELLID";
 @interface HXBFinDetail_TableViewCell ()
 @property (nonatomic,strong) UILabel *optionLabel;
 @property (nonatomic,strong) UIImageView *iconImageView;
+@property (nonatomic,strong) UIView *lineView;
 @end
 
 @implementation HXBFinDetail_TableViewCell
@@ -101,6 +102,9 @@ static NSString *CELLID = @"CELLID";
     self.optionLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     self.optionLabel.textColor = kHXBColor_RGB(0.2, 0.2, 0.2, 1);
     self.iconImageView = [[UIImageView alloc]init];
+    self.lineView   = [[UIView alloc]init];
+    self.lineView.backgroundColor = COLOR(87, 87, 87, 1);
+    
     
     [self.contentView addSubview:self.optionLabel];
     [self.contentView addSubview:self.iconImageView];

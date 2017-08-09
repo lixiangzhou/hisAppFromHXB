@@ -291,7 +291,7 @@ UITableViewDataSource
         self.infoViewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
         self.infoViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
         self.infoViewManager.leftTextColor = kHXBColor_Grey_Font0_2;
-        self.infoViewManager.rightTextColor = kHXBColor_HeightGrey_Font0_4;
+        self.infoViewManager.rightTextColor = RGB(153, 153, 153);
     }
     return self;
 }
