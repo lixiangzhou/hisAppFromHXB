@@ -116,7 +116,8 @@
     self.toolBarView.isColorChange = true;
     self.toolBarView.animaTime_ItemBottomBarView = .5;
     self.toolBarView.barAnimaViewBottomSpacing = kScrAdaptationH(5);
-    
+    self.toolBarView.itemTextFont = kHXBFont_PINGFANGSC_REGULAR(17);
+    self.toolBarView.label_Item_CenterY_Difference = kScrAdaptationH(15);
    
     self.toolBarView.itemBarAnimaViewColor = [UIColor whiteColor];
     self.toolBarView.itemTitleColor_select = [UIColor whiteColor];

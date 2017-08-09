@@ -177,7 +177,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = kHXBColor_heightGrey;
+        self.backgroundColor = kHXBColor_BackGround;
         [self show];
     }
     return self;
@@ -336,7 +336,7 @@
     [self.bottomTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.loanTypeViewContentView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@(kScrAdaptationH(134)));
+        make.height.equalTo(@(kScrAdaptationH(135)));
     }];
     //cell的点击事件
     [self.bottomTableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {

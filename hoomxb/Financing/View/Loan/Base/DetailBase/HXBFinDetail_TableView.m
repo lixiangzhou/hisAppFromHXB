@@ -35,6 +35,7 @@ static NSString *CELLID = @"CELLID";
     if (self = [super initWithFrame:frame style:style]) {
         [self setup];
         self.bounces = false;
+        self.scrollEnabled = false;
         self.rowHeight = kScrAdaptationH(45);
         self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
     }
@@ -44,7 +45,7 @@ static NSString *CELLID = @"CELLID";
 - (void) setup {
     self.delegate = self;
     self.dataSource = self;
-    
+    self.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self registerClass:[HXBFinDetail_TableViewCell class] forCellReuseIdentifier:CELLID];
     self.rowHeight = kScrAdaptationH(45);
 }
@@ -65,6 +66,9 @@ static NSString *CELLID = @"CELLID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinDetail_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
     cell.model = self.tableViewCellModelArray[indexPath.row];
+    if (indexPath.row == self.strArray.count-1 || indexPath.row == self.tableViewCellModelArray.count-1) {
+        cell.isHiddenLastCellBottomLine = true;
+    }
     if (self.strArray.count) {
         cell.textLabel.text = self.strArray[indexPath.row];
     }
@@ -103,9 +107,9 @@ static NSString *CELLID = @"CELLID";
     self.optionLabel.textColor = kHXBColor_RGB(0.2, 0.2, 0.2, 1);
     self.iconImageView = [[UIImageView alloc]init];
     self.lineView   = [[UIView alloc]init];
-    self.lineView.backgroundColor = COLOR(87, 87, 87, 1);
+    self.lineView.backgroundColor = COLOR(87, 87, 87, 0.3);
     
-    
+    [self.contentView addSubview:self.lineView];
     [self.contentView addSubview:self.optionLabel];
     [self.contentView addSubview:self.iconImageView];
     
@@ -119,6 +123,16 @@ static NSString *CELLID = @"CELLID";
         make.right.equalTo(weakSelf.contentView);
         make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
     }];
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.contentView).offset(kScrAdaptationW(15));
+        make.right.equalTo(self).offset(kScrAdaptationW(-15));
+        make.height.equalTo(@([UIScreen mainScreen].scale * 0.1));
+    }];
+}
+- (void)setIsHiddenLastCellBottomLine:(BOOL)isHiddenLastCellBottomLine {
+    _isHiddenLastCellBottomLine = isHiddenLastCellBottomLine;
+    self.lineView.hidden = isHiddenLastCellBottomLine;
 }
 @end
 
