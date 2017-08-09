@@ -41,6 +41,8 @@
         [self addSubview:self.loanProgressView];
         [self addSubview:self.planAssetsView];
         [self addSubview:self.loanAssetsView];
+        [self addSubview:self.planAccumulatedLabel];
+        [self addSubview:self.loanAccumulatedLabel];
         [self setupSubViewFrame];
     }
     return self;
@@ -78,6 +80,12 @@
     [self.loanAssetsView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.loanProgressView);
         make.top.equalTo(self.loanProgressView.mas_bottom).offset(kScrAdaptationH(30));
+    }];
+    [self.planAccumulatedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.planProgressView);
+    }];
+    [self.loanAccumulatedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.loanProgressView);
     }];
 }
 
@@ -142,5 +150,24 @@
     }
     return _loanProgressView;
 }
-
+- (UILabel *)planAccumulatedLabel
+{
+    if (!_planAccumulatedLabel) {
+        _planAccumulatedLabel = [[UILabel alloc] init];
+        _planAccumulatedLabel.text = @"345.67";
+        _planAccumulatedLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        _planAccumulatedLabel.textColor = COR8;
+    }
+    return _planAccumulatedLabel;
+}
+- (UILabel *)loanAccumulatedLabel
+{
+    if (!_loanAccumulatedLabel) {
+        _loanAccumulatedLabel = [[UILabel alloc] init];
+        _loanAccumulatedLabel.text = @"345.67";
+        _loanAccumulatedLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        _loanAccumulatedLabel.textColor = COR8;
+    }
+    return _loanAccumulatedLabel;
+}
 @end
