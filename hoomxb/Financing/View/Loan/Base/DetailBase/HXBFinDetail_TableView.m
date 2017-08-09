@@ -67,6 +67,8 @@ static NSString *CELLID = @"CELLID";
     cell.model = self.tableViewCellModelArray[indexPath.row];
     if (self.strArray.count) {
         cell.textLabel.text = self.strArray[indexPath.row];
+        cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        cell.textLabel.textColor = COR6;
     }
     return cell;
 }

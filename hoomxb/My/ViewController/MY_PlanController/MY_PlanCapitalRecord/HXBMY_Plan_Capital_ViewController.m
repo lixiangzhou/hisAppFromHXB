@@ -45,6 +45,7 @@ static NSString *const cellID = @"cellID";
     [super viewDidLoad];
      
     self.title = @"投资记录";
+    self.isColourGradientNavigationBar = YES;
     self.topView = [self headView];
     [self.view addSubview: self.topView];
  
@@ -82,6 +83,7 @@ static NSString *const cellID = @"cellID";
 
 - (UIView *)headView{
     UIView *headView = [[UIView alloc] init];
+    headView.backgroundColor = BACKGROUNDCOLOR;
     UILabel *planIDLabel = [[UILabel alloc]init];
     UILabel *amountLabel = [[UILabel alloc]init];
     UILabel *timeLabel = [[UILabel alloc]init];
@@ -108,10 +110,14 @@ static NSString *const cellID = @"cellID";
     amountLabel.textAlignment = planIDLabel.textAlignment;
     timeLabel.textAlignment = planIDLabel.textAlignment;
     typeLabel.textAlignment = planIDLabel.textAlignment;
-    planIDLabel.font = [UIFont systemFontOfSize:12];
+    planIDLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
     amountLabel.font = planIDLabel.font;
     timeLabel.font = planIDLabel.font;
     typeLabel.font = planIDLabel.font;
+    planIDLabel.textColor = COR10;
+    amountLabel.textColor = planIDLabel.textColor;
+    timeLabel.textColor = planIDLabel.textColor;
+    typeLabel.textColor = planIDLabel.textColor;
     return headView;
 }
 

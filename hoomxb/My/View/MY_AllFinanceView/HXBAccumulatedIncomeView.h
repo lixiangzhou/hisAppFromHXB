@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface HXBAccumulatedIncomeView : UIView
-
+/**
+ 数据源
+ */
+@property (nonatomic,strong) HXBRequestUserInfoViewModel *viewModel;
 @end

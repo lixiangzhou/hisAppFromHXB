@@ -31,6 +31,12 @@
 
 @implementation HXBAccumulatedIncomeView
 
+
+- (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
+{
+    
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {

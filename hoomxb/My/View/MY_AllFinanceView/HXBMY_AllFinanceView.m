@@ -26,12 +26,25 @@
 - (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
 {
     _viewModel = viewModel;
-     [self.proportionalBarView drawLineWithRatioArr:@[@"0.2",@"0.5",@"0.1",@"0.2"] andWithColorArr:@[RGB(255, 126, 127),RGB(161, 147, 249),RGB(128, 218, 255),RGB(255, 197, 162)]];
-    [self.plainView circularViewColor:RGB(255, 126, 127) andTextStr:@"红利计划" andNumStr:@"345.67"];
-    [self.loanView circularViewColor:RGB(128, 218, 255) andTextStr:@"散标债权" andNumStr:@"345.67"];
-    [self.availableView circularViewColor:RGB(161, 147, 249) andTextStr:@"可用金额" andNumStr:@"345.67"];
-    [self.frozenView circularViewColor:RGB(255, 192, 162) andTextStr:@"冻结金额" andNumStr:@"345.67"];
+    self.totalAssetsNumberLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.assetsTotal.doubleValue];
+    [self calculateProportionValue];
+    [self.plainView circularViewColor:RGB(255, 126, 127) andTextStr:@"红利计划" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.financePlanAssets.doubleValue]];
+    [self.loanView circularViewColor:RGB(128, 218, 255) andTextStr:@"散标债权" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.lenderPrincipal.doubleValue]];
+    [self.availableView circularViewColor:RGB(161, 147, 249) andTextStr:@"可用金额" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue]];
+    [self.frozenView circularViewColor:RGB(255, 192, 162) andTextStr:@"冻结金额" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.frozenPoint.doubleValue]];
 }
+/**
+ 计算比例值
+ */
+- (void)calculateProportionValue
+{
+    NSString *financePlanAssets = [NSString stringWithFormat:@"%f",self.viewModel.userInfoModel.userAssets.financePlanAssets.doubleValue/self.viewModel.userInfoModel.userAssets.assetsTotal.doubleValue];
+    NSString *lenderPrincipal = [NSString stringWithFormat:@"%f",self.viewModel.userInfoModel.userAssets.lenderPrincipal.doubleValue/self.viewModel.userInfoModel.userAssets.assetsTotal.doubleValue];
+    NSString *availablePoint = [NSString stringWithFormat:@"%f",self.viewModel.userInfoModel.userAssets.availablePoint.doubleValue/self.viewModel.userInfoModel.userAssets.assetsTotal.doubleValue];
+    NSString *frozenPoint = [NSString stringWithFormat:@"%f",self.viewModel.userInfoModel.userAssets.frozenPoint.doubleValue/self.viewModel.userInfoModel.userAssets.assetsTotal.doubleValue];
+    [self.proportionalBarView drawLineWithRatioArr:@[financePlanAssets,availablePoint,lenderPrincipal,frozenPoint] andWithColorArr:@[RGB(255, 126, 127),RGB(161, 147, 249),RGB(128, 218, 255),RGB(255, 197, 162)]];
+}
+
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -89,12 +102,12 @@
         make.height.offset(kScrAdaptationH(16));
     }];
     [self.availableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.plainView.mas_right).offset(kScrAdaptationW(80));
+        make.left.equalTo(self).offset(kScrAdaptationW(215));
         make.centerY.equalTo(self.plainView);
         make.height.offset(kScrAdaptationH(16));
     }];
     [self.frozenView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.loanView.mas_right).offset(kScrAdaptationW(80));
+        make.left.equalTo(self.availableView.mas_left);
         make.centerY.equalTo(self.loanView);
         make.height.offset(kScrAdaptationH(16));
     }];
@@ -145,7 +158,7 @@
 {
     if (!_totalAssetsNumberLabel) {
         _totalAssetsNumberLabel = [[UILabel alloc] init];
-        _totalAssetsNumberLabel.text = @"10000000";
+//        _totalAssetsNumberLabel.text = @"10000000";
         _totalAssetsNumberLabel.font = kHXBFont_PINGFANGSC_REGULAR(24);
         _totalAssetsNumberLabel.textColor = COR8;
     }
