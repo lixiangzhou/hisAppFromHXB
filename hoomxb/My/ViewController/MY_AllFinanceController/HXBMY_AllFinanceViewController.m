@@ -23,8 +23,10 @@
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.allFinanceView];
     [self.view addSubview:self.accumulatedIncomeView];
+    kWeakSelf
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        self.allFinanceView.viewModel = viewModel;
+        weakSelf.allFinanceView.viewModel = viewModel;
+        weakSelf.accumulatedIncomeView.viewModel = viewModel;
     } andFailure:^(NSError *error) {
         
     }];

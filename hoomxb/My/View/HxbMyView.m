@@ -135,6 +135,8 @@ MyViewHeaderDelegate
     if (cell == nil) {
         cell = [[HXBMyHomeViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+        cell.textLabel.textColor = COR6;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {

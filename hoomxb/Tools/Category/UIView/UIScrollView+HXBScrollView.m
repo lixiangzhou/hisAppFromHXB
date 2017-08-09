@@ -21,6 +21,10 @@
     MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
         if (headerRefreshCallBack) headerRefreshCallBack();
     }];
+    header.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    header.stateLabel.textColor = COR6;
+    header.lastUpdatedTimeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    header.lastUpdatedTimeLabel.textColor = COR6;
     //设置header
     if (gifHeaderBlock) gifHeaderBlock(header);
     
@@ -45,6 +49,8 @@
     MJRefreshBackGifFooter *footer = [MJRefreshBackGifFooter footerWithRefreshingBlock:^{
         if (footerRefreshCallBack) footerRefreshCallBack();
     }];
+    footer.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    footer.stateLabel.textColor = COR6;
     //设置header
     if (gifFooterBlock) gifFooterBlock(footer);
     
@@ -66,7 +72,10 @@
     MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         if(headerRefreshCallBack) headerRefreshCallBack();
     }];
-    
+    header.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    header.stateLabel.textColor = COR6;
+    header.lastUpdatedTimeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    header.lastUpdatedTimeLabel.textColor = COR6;
     if (headerBlock) headerBlock(header);
     self.mj_header = header;
 }
@@ -77,6 +86,8 @@
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         if (footerRefreshCallBack) footerRefreshCallBack();
     }];
+    footer.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    footer.stateLabel.textColor = COR6;
     if (footerBlock) footerBlock(footer);
     footer.automaticallyHidden = true;
     self.mj_footer = footer;
