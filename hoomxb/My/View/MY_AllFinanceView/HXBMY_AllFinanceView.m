@@ -14,7 +14,10 @@
 @property (nonatomic, strong) UILabel *totalAssetsLabel;
 @property (nonatomic, strong) UILabel *totalAssetsNumberLabel;
 @property (nonatomic, strong) HXBProportionalBarView *proportionalBarView;
-@property (nonatomic, strong) HXBAssetsCustomVIew *plainView;
+@property (nonatomic, strong) HXBAssetsCustomVIew *plainView;//计划
+@property (nonatomic, strong) HXBAssetsCustomVIew *loanView;//散标
+@property (nonatomic, strong) HXBAssetsCustomVIew *availableView;//可用金额
+@property (nonatomic, strong) HXBAssetsCustomVIew *frozenView;//冻结金额
 
 @end
 @implementation HXBMY_AllFinanceView
@@ -25,6 +28,9 @@
     _viewModel = viewModel;
      [self.proportionalBarView drawLineWithRatioArr:@[@"0.2",@"0.5",@"0.1",@"0.2"] andWithColorArr:@[RGB(255, 126, 127),RGB(161, 147, 249),RGB(128, 218, 255),RGB(255, 197, 162)]];
     [self.plainView circularViewColor:RGB(255, 126, 127) andTextStr:@"红利计划" andNumStr:@"345.67"];
+    [self.loanView circularViewColor:RGB(128, 218, 255) andTextStr:@"散标债权" andNumStr:@"345.67"];
+    [self.availableView circularViewColor:RGB(161, 147, 249) andTextStr:@"可用金额" andNumStr:@"345.67"];
+    [self.frozenView circularViewColor:RGB(255, 192, 162) andTextStr:@"冻结金额" andNumStr:@"345.67"];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -48,6 +54,9 @@
     [self addSubview:self.totalAssetsNumberLabel];
     [self addSubview:self.proportionalBarView];
     [self addSubview:self.plainView];
+    [self addSubview:self.loanView];
+    [self addSubview:self.availableView];
+    [self addSubview:self.frozenView];
 }
 
 
@@ -74,16 +83,51 @@
         make.top.equalTo(self.proportionalBarView.mas_bottom).offset(kScrAdaptationH(30));
         make.height.offset(kScrAdaptationH(16));
     }];
+    [self.loanView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.totalAssetsLabel.mas_left);
+        make.top.equalTo(self.plainView.mas_bottom).offset(kScrAdaptationH(20));
+        make.height.offset(kScrAdaptationH(16));
+    }];
+    [self.availableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.plainView.mas_right).offset(kScrAdaptationW(80));
+        make.centerY.equalTo(self.plainView);
+        make.height.offset(kScrAdaptationH(16));
+    }];
+    [self.frozenView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.loanView.mas_right).offset(kScrAdaptationW(80));
+        make.centerY.equalTo(self.loanView);
+        make.height.offset(kScrAdaptationH(16));
+    }];
 }
 
 #pragma mark - 懒加载
-
+- (HXBAssetsCustomVIew *)loanView
+{
+    if (!_loanView) {
+        _loanView = [[HXBAssetsCustomVIew alloc] init];
+    }
+    return _loanView;
+}
 - (HXBAssetsCustomVIew *)plainView
 {
     if (!_plainView) {
         _plainView = [[HXBAssetsCustomVIew alloc] init];
     }
     return _plainView;
+}
+- (HXBAssetsCustomVIew *)availableView
+{
+    if (!_availableView) {
+        _availableView = [[HXBAssetsCustomVIew alloc] init];
+    }
+    return _availableView;
+}
+- (HXBAssetsCustomVIew *)frozenView
+{
+    if (!_frozenView) {
+        _frozenView = [[HXBAssetsCustomVIew alloc] init];
+    }
+    return _frozenView;
 }
 
 - (UILabel *)totalAssetsLabel
@@ -116,5 +160,4 @@
     }
     return _proportionalBarView;
 }
-
 @end
