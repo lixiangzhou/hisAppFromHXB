@@ -52,7 +52,7 @@ typedef enum : NSUInteger {
 }
 
 - (void)setCountDownString:(NSString *)countDownString {
-    if (!countDownString.integerValue && !self.remainTimeString) {
+    if (!countDownString.integerValue && !self.remainTimeString.length) {
         self.isHidden = true;
     }else {
         self.isHidden = false;
@@ -73,7 +73,8 @@ typedef enum : NSUInteger {
             //显示的是数字 12日12：12
             NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planListModel.beginSellingTime  andDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
             NSString *datestr = @(date.timeIntervalSince1970).description;
-            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"dd日HH:mm"];
+            self.isHidden = false;
+            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"HH:mm"];
         }
     }
     

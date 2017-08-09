@@ -253,7 +253,6 @@ kDealloc
     }];
 }
 
-
 ///上啦刷新下拉加载
 - (void)refresh {
     [self downLoadRefresh];

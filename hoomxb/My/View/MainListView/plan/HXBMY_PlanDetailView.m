@@ -44,6 +44,11 @@ UITableViewDataSource
  */
 @property (nonatomic,strong) HXBColourGradientView          *topView;
 /**
+ 状态的 view
+ */
+@property (nonatomic,strong) UIView                         *topStatusView;
+@property (nonatomic,strong) UIImageView                    *topStatusImageView;
+/**
  状态的Label
  */
 @property (nonatomic,strong) UILabel                        *topStatusLabel;
@@ -89,13 +94,22 @@ UITableViewDataSource
  红利计划服务协议 投资记录的点击事件
  */
 @property (nonatomic,strong) void(^clickBottomTableViewCell) (NSInteger index);
+
 @end
 @implementation HXBMY_PlanDetailView
-
+- (instancetype)initWithFrame:(CGRect)frame andInfoHaveCake:(NSInteger)cake {
+    self = [super initWithFrame:frame];
+    if (self) {
+        _manager = [[HXBMY_PlanDetailView_Manager alloc]init];
+        self.cake = cake;
+    }
+    return self;
+}
 - (void)setUPValueWithViewManagerBlock: (HXBMY_PlanDetailView_Manager *(^)(HXBMY_PlanDetailView_Manager *manager))viewManagerBlock{
     self.manager = viewManagerBlock(_manager);
     self.topStatusLabel.text = _manager.topViewStatusStr;
     [self.addButton setHidden: _manager.isHiddenAddButton];
+    self.topStatusImageView.svgImageString = _manager.typeImageName;
     kWeakSelf
     [self.topViewMassge setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         return weakSelf.manager.topViewMassgeManager;
@@ -133,20 +147,25 @@ UITableViewDataSource
 - (void)setUPViews_Create {
     self.topView        = [[HXBColourGradientView alloc]init];
     self.topStatusLabel = [[UILabel alloc]init];
+    self.topStatusView  = [[UIView alloc]init];
+    self.topStatusImageView = [[UIImageView alloc]init];
     self.topStatusLabel.textColor = [UIColor whiteColor];
     self.addButton      = [[UIButton alloc]init];
+    self.addButton.hidden = true;
     self.topViewMassge  = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
     self.tableView = [[HXBFinDetail_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     
     UIEdgeInsets infoView_insets = UIEdgeInsetsMake(kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30));
-    self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:infoView_insets];
+    self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:self.cake andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:infoView_insets];
     
      self.typeView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets];
     
     
     [self addSubview:self.topView];
     [self.topView addSubview:self.topViewMassge];
-    [self.topView addSubview:self.topStatusLabel];
+    [self.topView addSubview: self.topStatusView];
+    [self.topStatusView addSubview:self.topStatusLabel];
+    [self.topView addSubview: self.topStatusImageView];
     [self addSubview:self.infoView];
     [self addSubview:self.typeView];
     [self addSubview:self.addButton];
@@ -182,9 +201,22 @@ UITableViewDataSource
         make.height.equalTo(@(kScrAdaptationH750(143)));
         make.width.equalTo(self);
     }];
+    [self.topStatusView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.topView).offset(kScrAdaptationH750(60));
+        make.right.equalTo(self.topView).offset(40);
+        make.height.equalTo(@(kScrAdaptationH750(54)));
+        make.right.equalTo(self.topStatusLabel).offset(kScrAdaptationW750(100));
+        make.left.equalTo(self.topStatusLabel).offset(kScrAdaptationW750(-73));
+    }];
     [self.topStatusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.equalTo(self.topView);
-        make.height.equalTo(@(kScrAdaptationH750(90)));
+        make.top.bottom.equalTo(self.topStatusView);
+        make.right.equalTo(self.topStatusView).offset(kScrAdaptationH750(-100));
+        make.left.equalTo(self.topStatusView).offset(kScrAdaptationW750(73));
+    }];
+    [self.topStatusImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.topStatusLabel);
+        make.right.equalTo(self.topStatusLabel.mas_left).offset(kScrAdaptationW750(-13));
+        make.height.width.equalTo(@(kScrAdaptationW750(22)));
     }];
     [self.topStatusLabel sizeToFit];
     [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -217,6 +249,12 @@ UITableViewDataSource
     self.infoView.backgroundColor = [UIColor whiteColor];
     self.typeView.backgroundColor = [UIColor whiteColor];
     self.tableView.backgroundColor = [UIColor whiteColor];
+    self.topStatusView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.8].CGColor;
+    self.topStatusView.layer.borderWidth = 1;
+    self.topStatusView.layer.masksToBounds = true;
+    self.topStatusLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+    self.topStatusLabel.textColor = [UIColor colorWithWhite:1 alpha:0.8];
+    self.topStatusView.layer.cornerRadius = kScrAdaptationH750(54)/2.0;
     [self.tableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
         if (self.clickBottomTableViewCell) {
             self.clickBottomTableViewCell(index.row);

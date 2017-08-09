@@ -109,6 +109,7 @@ static NSString *kINVEST = @"INVEST";
 - (BOOL)isAddButtonHidden {
     if (!_isAddButtonHidden) {
         [self status];
+        _isAddButtonHidden = true;
     }
     return _isAddButtonHidden;
 }
