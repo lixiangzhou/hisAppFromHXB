@@ -14,6 +14,7 @@
 @property (nonatomic, assign,getter=isGradual) BOOL gradual;
 
 
+@property (nonatomic, strong) UIColor *progressColor;
 /**
  @param gradual 开启渐变,默认关闭;
  */

@@ -63,7 +63,7 @@ static const CGFloat kFrontLineWidth = 5.0f;
             shapeLayer.path = self.circleBezierPath.CGPath;
             shapeLayer.fillColor = [UIColor clearColor].CGColor;
             shapeLayer.lineWidth = kLineWidth;
-            shapeLayer.strokeColor = [UIColor colorWithWhite:0.886 alpha:1.000].CGColor;
+            shapeLayer.strokeColor = BACKGROUNDCOLOR.CGColor;
             shapeLayer.lineCap = kCALineCapRound;
             [self.layer addSublayer:shapeLayer];
             shapeLayer;
@@ -78,7 +78,7 @@ static const CGFloat kFrontLineWidth = 5.0f;
             shapeLayer.fillColor = [UIColor clearColor].CGColor;
             shapeLayer.lineWidth = kFrontLineWidth;
             //颜色设置
-            shapeLayer.strokeColor = [UIColor colorWithRed:0.906 green:0.769 blue:0.125 alpha:1.000].CGColor;
+            shapeLayer.strokeColor = self.progressColor.CGColor;
             shapeLayer;
         });
         if (self.gradual) {

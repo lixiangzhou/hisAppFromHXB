@@ -16,6 +16,10 @@
 
 @property (nonatomic, strong) UILabel *accumulatedNumLabel;
 
+@property (nonatomic, strong) UILabel *planAccumulatedLabel;
+
+@property (nonatomic, strong) UILabel *loanAccumulatedLabel;
+
 @property (nonatomic, strong) HXBProgressView *planProgressView;
 
 @property (nonatomic, strong) HXBProgressView *loanProgressView;
@@ -113,7 +117,7 @@
     if (!_accumulatedNumLabel) {
         _accumulatedNumLabel = [[UILabel alloc] init];
         _accumulatedNumLabel.text = @"10000000.00";
-        _accumulatedNumLabel.font = kHXBFont_HelveticaNeue_Medium_REGULAR(24);
+        _accumulatedNumLabel.font = kHXBFont_PINGFANGSC_REGULAR(24);
         _accumulatedNumLabel.textColor = COR8;
     }
     return _accumulatedNumLabel;
@@ -124,6 +128,7 @@
     if (!_planProgressView) {
         _planProgressView = [[HXBProgressView alloc] init];
         _planProgressView.progress = 0.8;
+        _planProgressView.progressColor = RGB(255, 126, 127);
     }
     return _planProgressView;
 }
@@ -133,6 +138,7 @@
     if (!_loanProgressView) {
         _loanProgressView = [[HXBProgressView alloc] init];
         _loanProgressView.progress = 0.6;
+        _loanProgressView.progressColor = RGB(255, 197, 162);
     }
     return _loanProgressView;
 }

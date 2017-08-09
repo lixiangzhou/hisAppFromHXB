@@ -146,7 +146,7 @@
     if (!_totalAssetsNumberLabel) {
         _totalAssetsNumberLabel = [[UILabel alloc] init];
         _totalAssetsNumberLabel.text = @"10000000";
-        _totalAssetsNumberLabel.font = kHXBFont_HelveticaNeue_Medium_REGULAR(24);
+        _totalAssetsNumberLabel.font = kHXBFont_PINGFANGSC_REGULAR(24);
         _totalAssetsNumberLabel.textColor = COR8;
     }
     return _totalAssetsNumberLabel;
