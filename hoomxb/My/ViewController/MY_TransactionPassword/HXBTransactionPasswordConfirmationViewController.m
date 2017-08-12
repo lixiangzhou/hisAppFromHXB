@@ -26,7 +26,7 @@
 
 - (void)setupSubView
 {
-    self.title = @"确认交易密码";
+    self.title = @"设置新交易密码";
     [self.view addSubview:self.homeView];
 }
 

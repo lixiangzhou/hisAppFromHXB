@@ -50,6 +50,7 @@
     kWeakSelf
     HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [openDepositAccountRequest openDepositAccountRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
+        
         if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
             HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
             [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];

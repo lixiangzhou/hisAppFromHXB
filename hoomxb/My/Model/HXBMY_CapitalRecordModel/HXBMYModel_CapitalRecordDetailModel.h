@@ -36,4 +36,8 @@
 @property (nonatomic,strong) NSString *financePlanName;
 ///理财计划子账户id
 @property (nonatomic,strong) NSString *financePlanSubPointId;
+/**
+ 按月分组标签
+ */
+@property (nonatomic, copy) NSString *tag;
 @end

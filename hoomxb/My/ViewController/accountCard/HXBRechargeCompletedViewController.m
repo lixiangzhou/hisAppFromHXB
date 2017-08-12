@@ -23,31 +23,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"充值结果";
-    NSInteger status =  [self.responseObject[@"status"] integerValue];
-    if (status != 0) {
-        //充值失败
-        [self.view addSubview:self.rechargeFailView];
-        self.rechargeFailView.failureReasonText = self.responseObject[@"message"];
-    }else
-    {
-        //充值成功
-        [self.view addSubview:self.rechargesuccessView];
-        self.rechargesuccessView.amount = self.amount;
-    }
+    //充值成功
+    self.isColourGradientNavigationBar = YES;
+    self.title = @"充值成功";
+    [self.view addSubview:self.rechargesuccessView];
+    self.rechargesuccessView.amount = self.amount;
+
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.isColourGradientNavigationBar = YES;
-}
+
 
 - (HXBRechargesuccessView *)rechargesuccessView
 {
     if (!_rechargesuccessView) {
         kWeakSelf
-        _rechargesuccessView = [[HXBRechargesuccessView alloc] initWithFrame:self.view.bounds];
+        _rechargesuccessView = [[HXBRechargesuccessView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
         //继续充值Block
         _rechargesuccessView.continueRechargeBlock = ^{
             [weakSelf.navigationController popViewControllerAnimated:YES];

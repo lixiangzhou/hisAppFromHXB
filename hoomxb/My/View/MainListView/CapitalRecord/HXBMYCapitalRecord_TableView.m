@@ -13,17 +13,25 @@
 #import "HXBMYCapitalRecord_TableViewHeaderView.h"///
 static NSString * const CELLID = @"CELLID";
 static NSString * const HeaderID = @"HeaderID";
-@interface HXBMYCapitalRecord_TableView ()
-<
-UITableViewDelegate,
-UITableViewDataSource
->
+@interface HXBMYCapitalRecord_TableView ()<UITableViewDelegate,UITableViewDataSource>
+/**
+ 按月份组
+ */
+@property (nonatomic, strong) NSMutableArray *tagArr;
+
 @end
 
 @implementation HXBMYCapitalRecord_TableView
 
 - (void)setCapitalRecortdDetailViewModelArray:(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *> *)capitalRecortdDetailViewModelArray {
     _capitalRecortdDetailViewModelArray = capitalRecortdDetailViewModelArray;
+    
+    for (int i = 0; i < capitalRecortdDetailViewModelArray.count; i++) {
+        HXBMYViewModel_MainCapitalRecordViewModel *mainCapitalRecordViewModel = capitalRecortdDetailViewModelArray[i];
+        if (![[self.tagArr lastObject] isEqualToString:mainCapitalRecordViewModel.capitalRecordModel.tag]) {
+            [self.tagArr addObject:mainCapitalRecordViewModel.capitalRecordModel.tag];
+        }
+    }
     [self reloadData];
     self.tableFooterView = [[UIView alloc]init];
 }
@@ -47,6 +55,10 @@ UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.capitalRecortdDetailViewModelArray.count;
 }
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.tagArr.count;
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBMYCapitalRecord_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
@@ -57,11 +69,7 @@ UITableViewDataSource
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     HXBMYCapitalRecord_TableViewHeaderView *header = (HXBMYCapitalRecord_TableViewHeaderView *)[tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderID ];
     // 覆盖文字
-    if (section) {
-        header.title = @"最热评论";
-    } else {
-        header.title = @"最新评论";
-    }
+     header.title = self.tagArr[section];
     return header;
 }
 
@@ -69,4 +77,11 @@ UITableViewDataSource
     return kScrAdaptationH750(60);
 }
 
+- (NSMutableArray *)tagArr
+{
+    if (!_tagArr) {
+        _tagArr = [NSMutableArray array];
+    }
+    return _tagArr;
+}
 @end

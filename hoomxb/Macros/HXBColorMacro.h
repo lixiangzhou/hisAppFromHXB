@@ -75,7 +75,7 @@
 #define COR9    [UIColor colorWithRed:136/255.0f green:136/255.0f blue:136/255.0f alpha:1]    // 色
 #define COR10    [UIColor colorWithRed:153/255.0f green:153/255.0f blue:153/255.0f alpha:1]    // 色
 // 中灰
-#define COR11    [UIColor colorWithRed:197/255.0f green:197/255.0f blue:197/255.0f alpha:1]    // 色
+#define COR11    [UIColor colorWithRed:155/255.0f green:155/255.0f blue:155/255.0f alpha:1]    // 色
 // 浅灰
 #define COR12    [UIColor colorWithRed:221/255.0f green:221/255.0f blue:221/255.0f alpha:1]    // 色
 
@@ -107,5 +107,11 @@
 #define COR26    [UIColor colorWithRed:218/255.0f green:218/255.0f blue:223/255.0f alpha:1] //按钮不能点击状态
 #define COR27    [UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.6] //按钮不能点击状态
 #define COR28    [UIColor colorWithRed:74/255.0f green:74/255.0f blue:74/255.0f alpha:1] 
+
+#define COR29    [UIColor colorWithRed:245/255.0f green:81/255.0f blue:81/255.0f alpha:1]
+
+#define COR30    [UIColor colorWithRed:114/255.0f green:176/255.0f blue:255/255.0f alpha:1]
+
+#define COR31    [UIColor colorWithRed:63/255.0f green:63/255.0f blue:63/255.0f alpha:1]
 
 #endif /* HXBColorMacro_h */

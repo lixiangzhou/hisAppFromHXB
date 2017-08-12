@@ -35,7 +35,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"风险评测";
+    self.title = @"风险测评";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
     [self setupRightBarBtn];

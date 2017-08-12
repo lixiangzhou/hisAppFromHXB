@@ -42,10 +42,10 @@
  快捷充值确认
 
  @param smscode 短信验证码
- @param rechargeOrderNum 原快捷支付申请订单号
+ @param amount 充值金额
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-- (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithRechargeOrderNum:(NSString *)rechargeOrderNum andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 @end

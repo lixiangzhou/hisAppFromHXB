@@ -15,6 +15,7 @@
 #import "HXBRechargeCompletedViewController.h"
 #import "HXBAlertVC.h"
 #import "HXBOpenDepositAccountRequest.h"
+#import "HXBFBase_BuyResult_VC.h"
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
@@ -66,7 +67,7 @@
     kWeakSelf
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [accountRequest accountRechargeRequestWithRechargeAmount:self.myTopUpBaseView.amount andSuccessBlock:^(id responseObject) {
-        [weakSelf requestRechargeResult:responseObject[@"data"][@"origin_order_no"]];
+        [weakSelf requestRechargeResult];
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
@@ -75,7 +76,7 @@
 /**
  快捷充值确认
  */
-- (void)requestRechargeResult:(NSString *)rechargeOrderNum
+- (void)requestRechargeResult
 {
     HXBAlertVC *alertVC = nil;
    if (self.presentedViewController)
@@ -91,12 +92,25 @@
     alertVC.messageTitle = @"请输入您的短信验证码";
     alertVC.sureBtnClick = ^(NSString *pwd){
         HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-        [accountRequest accountRechargeResultRequestWithSmscode:pwd andWithRechargeOrderNum:rechargeOrderNum andSuccessBlock:^(id responseObject) {
+        [accountRequest accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:self.myTopUpBaseView.amount andSuccessBlock:^(id responseObject) {
             
-            HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
-            rechargeCompletedVC.responseObject = responseObject;
-            rechargeCompletedVC.amount = weakSelf.myTopUpBaseView.amount;
-            [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
+            NSInteger status =  [responseObject[@"status"] integerValue];
+            if (status != 0)
+            {
+                HXBFBase_BuyResult_VC *result = [[HXBFBase_BuyResult_VC alloc] init];
+                result.title = @"充值失败";
+                result.imageName = @"failure";
+                result.buy_title = @"充值失败";
+                result.buy_description = responseObject[@"message"];
+                result.buy_ButtonTitle = @"重新充值";
+                [self.navigationController pushViewController:result animated:YES];
+            }else
+            {
+                HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
+                rechargeCompletedVC.responseObject = responseObject;
+                rechargeCompletedVC.amount = weakSelf.myTopUpBaseView.amount;
+                [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
+            }
             
         } andFailureBlock:^(NSError *error) {
             

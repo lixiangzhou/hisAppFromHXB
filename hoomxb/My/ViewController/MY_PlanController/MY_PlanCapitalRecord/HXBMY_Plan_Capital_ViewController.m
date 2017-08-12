@@ -10,6 +10,8 @@
 #import "HXBFinanctingRequest.h"
 #import "HXBMYRequest.h"
 #import "HXBMY_PlanViewModel_LoanRecordViewModel.h"
+#import "HXBNoDataView.h"
+
 static NSString *const cellID = @"cellID";
 @interface HXBMY_Plan_Capital_ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *planCapitalTableView;
@@ -17,6 +19,10 @@ static NSString *const cellID = @"cellID";
 @property (nonatomic,strong) NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *dataArray;
 @property (nonatomic,strong) UIView *topView;
 @property (nonatomic,strong) HXBMYRequest *request;
+/**
+ 没有数据
+ */
+@property (nonatomic, strong) HXBNoDataView *noDataView;
 @end
 
 
@@ -48,7 +54,7 @@ static NSString *const cellID = @"cellID";
     self.isColourGradientNavigationBar = YES;
     self.topView = [self headView];
     [self.view addSubview: self.topView];
- 
+    
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
@@ -125,7 +131,12 @@ static NSString *const cellID = @"cellID";
     kWeakSelf
     [self.request loanRecord_my_Plan_WithIsUPData: isUPLoad andPlanID:self.planID andSuccessBlock:^(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *viewModelArray) {
         weakSelf.dataArray= viewModelArray;
-       
+        if (weakSelf.dataArray.count) {
+             [self.planCapitalTableView reloadData];
+        }else
+        {
+            self.noDataView.hidden = NO;
+        }
     } andFailureBlock:^(NSError *error) {
         [weakSelf.planCapitalTableView endRefresh];
     }];
@@ -153,7 +164,18 @@ static NSString *const cellID = @"cellID";
     // Dispose of any resources that can be recreated.
 }
 
-
+- (HXBNoDataView *)noDataView
+{
+    if (!_noDataView) {
+         _noDataView = [[HXBNoDataView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        _noDataView.imageName = @"Fin_NotData";
+        _noDataView.noDataMassage = @"暂无投资记录";
+        _noDataView.hidden = YES;
+        _noDataView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:_noDataView];
+    }
+    return _noDataView;
+}
 
 
 @end

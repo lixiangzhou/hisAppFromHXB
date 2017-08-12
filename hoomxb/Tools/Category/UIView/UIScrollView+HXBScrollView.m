@@ -63,6 +63,11 @@
     [footer setImages:idleImages duration:durations[2].longValue forState:MJRefreshStateRefreshing];
     footer.automaticallyHidden = true;
     self.mj_footer = footer;
+    if (!idleImages.count) {
+        self.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            if (footerRefreshCallBack) footerRefreshCallBack();
+        }];
+    }
 }
 
 

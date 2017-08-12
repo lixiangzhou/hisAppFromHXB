@@ -86,7 +86,7 @@ const NSString *const kIsColourGradientView = @"isColourGradientView";
     //    UILabel *titleLabel = [UILabel labelViewFrameByCategory:CGRectMake(0, 0, button.frame.size.width, button.frame.size.height)];
     //    titleLabel.textColor = [UIColor whiteColor];
     //    titleLabel.text = title;
-    [button setBackgroundColor:RGB(254, 81, 81)];
+    [button setBackgroundColor:COR29];
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //    [button setTitleColor:[[UIColor alloc]initWithRed:151/255.0f green:151/255.0f blue:151/255.0f alpha:1] forState:UIControlStateHighlighted];

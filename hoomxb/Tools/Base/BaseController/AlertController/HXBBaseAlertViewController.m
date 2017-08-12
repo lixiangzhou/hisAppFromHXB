@@ -121,16 +121,17 @@
     }];
     
     [self.leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.massageLabel);
+        make.left.equalTo(self.view).offset(kScrAdaptationW(20));
         make.top.equalTo(self.massageLabel.mas_bottom).offset(kScrAdaptationH(30));
 //        make.height.equalTo(@(kScrAdaptationW(35)));
-        make.width.equalTo(@(kScrAdaptationW(115)));
-        make.bottom.equalTo(self.containerView.mas_bottom).offset(kScrAdaptationH(-30));
+        make.width.offset(kScrAdaptationW(115));
+        make.height.offset(kScrAdaptationH(35));
     }];
     
     [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.massageLabel);
-        make.top.width.height.equalTo(self.leftButton);
+        make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
+        make.centerY.equalTo(self.leftButton);
+        make.height.width.equalTo(self.leftButton);
     }];
 }
 - (void)didReceiveMemoryWarning {
@@ -153,11 +154,11 @@
 - (UIButton*)leftButton {
     if (!_leftButton) {
         _leftButton = [[UIButton alloc]init];
-        _leftButton.layer.cornerRadius = kScrAdaptationW(5);
-        _leftButton.layer.masksToBounds = true;
-        _leftButton.backgroundColor = kHXBColor_Red_090303;
+        _leftButton.layer.cornerRadius = kScrAdaptationW(4);
+        _leftButton.layer.masksToBounds = YES;
+        _leftButton.backgroundColor = COR29;
         [_leftButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _leftButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(20);
+        _leftButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         [self.view addSubview:_leftButton];
     }
     return _leftButton;
@@ -166,13 +167,13 @@
     if (!_rightButton) {
         _rightButton = [[UIButton alloc]init];
        
-        _rightButton.layer.cornerRadius = kScrAdaptationW(5);
-        _rightButton.layer.masksToBounds = true;
+        _rightButton.layer.cornerRadius = kScrAdaptationW(4);
+        _rightButton.layer.masksToBounds = YES;
         _rightButton.layer.borderWidth =  0.5;
-        _rightButton.layer.borderColor = kHXBColor_Red_090303.CGColor;
+        _rightButton.layer.borderColor = COR29.CGColor;
         _rightButton.backgroundColor = [UIColor whiteColor];
-        [_rightButton setTitleColor:HXBC_Red_Light forState:UIControlStateNormal];
-        _rightButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(20);
+        [_rightButton setTitleColor:COR29 forState:UIControlStateNormal];
+        _rightButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         [self.view addSubview:_rightButton];
     }
     return _rightButton;

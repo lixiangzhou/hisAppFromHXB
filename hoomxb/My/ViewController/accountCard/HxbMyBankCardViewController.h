@@ -11,4 +11,9 @@
 ///账户安全
 @interface HxbMyBankCardViewController : HXBBaseViewController
 
+/**
+ 是否显示银行卡界面
+ */
+@property (nonatomic, assign) BOOL isBank;
+
 @end

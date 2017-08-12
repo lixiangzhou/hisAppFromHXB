@@ -32,7 +32,12 @@
                                   @"inviteCode" : inviteCode///    否	string	邀请码
                                   };
     [signUPAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        kHXBResponsShowHUD;
+        if ([responseObject[@"status"] intValue]) {
+            if (failureBlock) {
+                failureBlock(responseObject);
+                return;
+            }
+        }
         if (successBlock) successBlock();
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);

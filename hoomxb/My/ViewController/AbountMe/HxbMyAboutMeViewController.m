@@ -11,12 +11,15 @@
 #import "HXBVersionUpdateRequest.h"//版本更新的数据请求
 #import "HXBVersionUpdateViewModel.h"
 #import "HXBVersionUpdateModel.h"//版本更新的model
+#import "HXBAgreementView.h"
 @interface HxbMyAboutMeViewController ()
 <
 UITableViewDelegate,UITableViewDataSource
 >
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) UIImageView *logoImageView;
+@property (nonatomic, strong) UIImageView *backgroundImageView;
 @end
 
 @implementation HxbMyAboutMeViewController
@@ -25,12 +28,20 @@ UITableViewDelegate,UITableViewDataSource
     [super viewDidLoad];
     self.title = @"关于我们";
     [self.view addSubview:self.tableView];
-    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+    [self setupSubViewFrame];
 }
-- (void)viewWillAppear:(BOOL)animated
+
+- (void)setupSubViewFrame
 {
-    [super viewWillAppear:animated];
-    self.isColourGradientNavigationBar = YES;
+    [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.equalTo(self.headerView);
+    }];
+    [self.logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.headerView).offset(kScrAdaptationH750(220));
+        make.centerX.equalTo(self.headerView);
+        make.width.offset(kScrAdaptationW750(260));
+        make.height.offset(kScrAdaptationW750(260));
+    }];
 }
 
 #pragma TableViewDelegate
@@ -49,13 +60,14 @@ UITableViewDelegate,UITableViewDataSource
 //            } andFailureBlock:^(NSError *error) {
 //                
 //            }];
+            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"联系客服"];
         }
             break;
         case 1:
         {
 //            NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4001551888"];
 //            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"联系客服"];
+            
         }
             break;
         case 2:
@@ -65,6 +77,7 @@ UITableViewDelegate,UITableViewDataSource
             break;
         case 3:
         {
+            //意见反馈
             HXBFeedbackViewController *feedbackVC = [[HXBFeedbackViewController alloc]init];
             [self.navigationController pushViewController:feedbackVC animated:YES];
         }
@@ -78,15 +91,15 @@ UITableViewDelegate,UITableViewDataSource
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
+    return kScrAdaptationH750(90);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 10;
+    return kScrAdaptationH750(20);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 0.1;
+    return 0.01;
 }
 
 #pragma TableViewDataSource
@@ -96,17 +109,21 @@ UITableViewDelegate,UITableViewDataSource
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr ];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
-    
+        cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        cell.textLabel.textColor = COR6;
+        cell.detailTextLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        cell.detailTextLabel.textColor = COR8;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         if (indexPath.row == 0) {
+            cell.textLabel.attributedText = [self call];
+            cell.detailTextLabel.text = @"400-1551-888";
+           
+        }else if (indexPath.row == 1){
             cell.textLabel.text = @"版本";
             NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-            cell.detailTextLabel.text = version;
-        }else if (indexPath.row == 1){
-            cell.textLabel.text = @"客服人热线";
-            cell.detailTextLabel.text = @"400-1551-888";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"v%@",version];
         }else if (indexPath.row == 2){
             cell.textLabel.text = @"常见问题";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -118,8 +135,28 @@ UITableViewDelegate,UITableViewDataSource
     return cell;
 }
 
+- (NSMutableAttributedString *)call
+{
+    NSString *str = @"客服热线 (周一至周五9:00-19:00)";
+    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc]initWithString:str];
+    
+    [attributedStr addAttribute:NSFontAttributeName
+     
+                          value:kHXBFont_PINGFANGSC_REGULAR_750(24)
+     
+                          range:NSMakeRange(5, str.length - 5)];
+    
+    [attributedStr addAttribute:NSForegroundColorAttributeName
+     
+                          value:COR31
+     
+                          range:NSMakeRange(5, str.length - 5)];
+
+    return attributedStr;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  4;
+    return  2;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -138,13 +175,28 @@ UITableViewDelegate,UITableViewDataSource
 
 - (UIView *)headerView{
     if (!_headerView) {
-        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , SCREEN_WIDTH , SCREEN_HEIGHT/2 - 150)];
-        _headerView.backgroundColor = COR1;
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
-        imageView.center = CGPointMake(SCREEN_WIDTH/2, _headerView.height/2);
-        imageView.backgroundColor = [UIColor whiteColor];
-        [_headerView addSubview:imageView];
+        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , SCREEN_WIDTH , kScrAdaptationH750(600))];
+       
+        [_headerView addSubview:self.backgroundImageView];
+        [_headerView addSubview:self.logoImageView];
     }
     return _headerView;
+}
+- (UIImageView *)logoImageView
+{
+    if (!_logoImageView) {
+        _logoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(260), kScrAdaptationW750(260))];
+        _logoImageView.svgImageString = @"logo";
+    }
+    return _logoImageView;
+}
+
+- (UIImageView *)backgroundImageView
+{
+    if (!_backgroundImageView) {
+        _backgroundImageView = [[UIImageView alloc]initWithFrame:CGRectZero];
+        _backgroundImageView.svgImageString = @"bj";
+    }
+    return _backgroundImageView;
 }
 @end

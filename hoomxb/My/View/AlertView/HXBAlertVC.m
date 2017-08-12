@@ -9,7 +9,8 @@
 #import "HXBAlertVC.h"
 #import "SVGKImage.h"
 #import "HXBVerificationCodeAlertView.h"
-@interface HXBAlertVC ()
+#import "HBAlertPasswordView.h"
+@interface HXBAlertVC ()<HBAlertPasswordViewDelegate>
 @property (nonatomic, strong) UIButton *cancelBtn;
 
 @property (nonatomic, strong) UIButton *sureBtn;
@@ -20,11 +21,16 @@
 
 @property (nonatomic, strong) UILabel *message;
 
-@property (nonatomic, strong) UITextField *pwdField;
+@property (nonatomic, strong) HBAlertPasswordView *pwdField;
 
-@property (nonatomic, strong) UIView *lineView;
+//@property (nonatomic, strong) UIView *lineView;
 
-@property (nonatomic, strong) UIButton *eyeBtn;
+//@property (nonatomic, strong) UIButton *eyeBtn;
+
+/**
+ 交易密码
+ */
+@property (nonatomic, copy) NSString *transactionPassword;
 
 @property (nonatomic, strong) UIButton *backBtn;
 
@@ -65,8 +71,8 @@
     {
         [self.contentView addSubview:self.forgetBtn];
         [self.contentView addSubview:self.pwdField];
-        [self.contentView addSubview:self.lineView];
-        [self.contentView addSubview:self.eyeBtn];
+//        [self.contentView addSubview:self.lineView];
+//        [self.contentView addSubview:self.eyeBtn];
     }
     [self setupSubViewFrame];
 }
@@ -114,27 +120,27 @@
     }
     
     [self.pwdField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.message.mas_bottom).offset(kScrAdaptationH750(60));
-        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(40));
-        make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(40));
-        make.height.offset(kScrAdaptationH750(32));
+        make.top.equalTo(self.message.mas_bottom).offset(kScrAdaptationH750(40));
+        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(45));
+        make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(45));
+        make.height.offset(kScrAdaptationH750(80));
     }];
-    [self.eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.pwdField);
-        make.right.equalTo(self.pwdField.mas_right);
-        make.height.offset(kScrAdaptationH750(23.9));
-        make.width.offset(kScrAdaptationW750(40));
-    }];
+//    [self.eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(self.pwdField);
+//        make.right.equalTo(self.pwdField.mas_right);
+//        make.height.offset(kScrAdaptationH750(23.9));
+//        make.width.offset(kScrAdaptationW750(40));
+//    }];
     
-    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.pwdField.mas_bottom).offset(kScrAdaptationH750(20));
-        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(40));
-        make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(40));
-        make.height.offset(0.5);
-    }];
+//    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.pwdField.mas_bottom).offset(kScrAdaptationH750(20));
+//        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(40));
+//        make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(40));
+//        make.height.offset(0.5);
+//    }];
     
     [self.forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lineView.mas_bottom).offset(kScrAdaptationH750(20));
+        make.top.equalTo(self.pwdField.mas_bottom).offset(kScrAdaptationH750(20));
         make.right.equalTo(self.contentView.mas_right).offset(kScrAdaptationW750(-27));
         make.height.offset(kScrAdaptationH750(24));
     }];
@@ -178,12 +184,12 @@
 - (void)checkTransactionPasswordWithBtn:(UIButton *)btn
 {
     if ([btn.titleLabel.text isEqualToString:@"确定"]) {
-        if (self.pwdField.text.length != 6) {
+        if (self.transactionPassword.length != 6) {
             [HxbHUDProgress showMessage:@"交易密码为6位数字" inView:self.contentView];
             return;
         }else
         {
-            self.sureBtnClick(self.pwdField.text);
+            self.sureBtnClick(self.transactionPassword);
         }
     }else if ([btn.titleLabel.text isEqualToString:@"忘记密码?"])
     {
@@ -194,14 +200,14 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
-- (UIView *)lineView
-{
-    if (!_lineView) {
-        _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = RGB(221, 221, 221);
-    }
-    return _lineView;
-}
+//- (UIView *)lineView
+//{
+//    if (!_lineView) {
+//        _lineView = [[UIView alloc] init];
+//        _lineView.backgroundColor = RGB(221, 221, 221);
+//    }
+//    return _lineView;
+//}
 
 - (UIView *)contentView
 {
@@ -243,11 +249,11 @@
     return _sureBtn;
 }
 
-- (void)eyeBtnClick
-{
-    self.pwdField.secureTextEntry = self.eyeBtn.selected;
-    self.eyeBtn.selected = !self.eyeBtn.selected;
-}
+//- (void)eyeBtnClick
+//{
+//    self.pwdField.secureTextEntry = self.eyeBtn.selected;
+//    self.eyeBtn.selected = !self.eyeBtn.selected;
+//}
 - (UIButton *)forgetBtn
 {
     if (!_forgetBtn) {
@@ -263,33 +269,36 @@
 {
     if (!_message) {
         _message = [[UILabel alloc] init];
+        _message.font = kHXBFont_PINGFANGSC_REGULAR_750(34);
     }
     return _message;
 }
 
-- (UITextField *)pwdField
+- (HBAlertPasswordView *)pwdField
 {
     if (!_pwdField) {
-        _pwdField = [[UITextField alloc] init];
-        _pwdField.placeholder = @"请输入交易密码";
-        _pwdField.secureTextEntry = YES;
-        _pwdField.keyboardType = UIKeyboardTypeNumberPad;
+        _pwdField = [[HBAlertPasswordView alloc] initWithFrame:CGRectMake(100, 100, kScrAdaptationW750(500), kScrAdaptationH750(80))];
+        _pwdField.delegate = self;
+//        _pwdField = [[HBAlertPasswordView alloc] init];
+//        _pwdField.placeholder = @"请输入交易密码";
+//        _pwdField.secureTextEntry = YES;
+//        _pwdField.keyboardType = UIKeyboardTypeNumberPad;
 //        _pwdField.layer.borderWidth = 0.5;
 //        _pwdField.layer.borderColor = COR12.CGColor;
     }
     return _pwdField;
 }
 
-- (UIButton *)eyeBtn
-{
-    if (!_eyeBtn) {
-        _eyeBtn = [[UIButton alloc] init];
-        [_eyeBtn setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateNormal];
-        [_eyeBtn setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateSelected];
-        [_eyeBtn addTarget:self action:@selector(eyeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _eyeBtn;
-}
+//- (UIButton *)eyeBtn
+//{
+//    if (!_eyeBtn) {
+//        _eyeBtn = [[UIButton alloc] init];
+//        [_eyeBtn setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateNormal];
+//        [_eyeBtn setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateSelected];
+//        [_eyeBtn addTarget:self action:@selector(eyeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+//    }
+//    return _eyeBtn;
+//}
 
 - (UIButton *)backBtn
 {
@@ -322,5 +331,13 @@
         
     }];
 }
+#pragma mark - <HBAlertPasswordViewDelegate>
+- (void)sureActionWithAlertPasswordView:(HBAlertPasswordView *)alertPasswordView password:(NSString *)password {
+    
+//    [alertPasswordView removeFromSuperview];
+    self.transactionPassword = password;
+    NSLog(@"%@",[NSString stringWithFormat:@"输入的密码为:%@", password]);
+}
+
 
 @end

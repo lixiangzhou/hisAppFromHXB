@@ -7,19 +7,15 @@
 //
 
 #import "HXBTransactionPasswordConfirmationView.h"
-@interface HXBTransactionPasswordConfirmationView ()
+#import "HBAlertPasswordView.h"
+@interface HXBTransactionPasswordConfirmationView ()<HBAlertPasswordViewDelegate>
+
+@property (nonatomic, strong) UILabel *tipLabel;
 /**
- 确认密码输入的TextField
+ 输入密码框
  */
-@property (nonatomic, strong) UITextField *passwordConfirmationTextField;
-/**
- 是否明文的按钮
- */
-@property (nonatomic, strong) UIButton *expressButton;
-/**
- 确认修改按钮
- */
-@property (nonatomic, strong) UIButton *confirmChangeButton;
+@property (nonatomic, strong) HBAlertPasswordView *passwordView;
+
 
 @end
 
@@ -37,20 +33,16 @@
 
 - (void)setupSubViewFrame
 {
-    [self.passwordConfirmationTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@16);
-        make.top.equalTo(@30);
+    [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(self).offset(kScrAdaptationH750(260));
+        make.height.offset(kScrAdaptationH750(34));
     }];
-    [self.expressButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.passwordConfirmationTextField.mas_right);
-        make.centerY.equalTo(self.passwordConfirmationTextField);
-        make.width.height.equalTo(@15);
-    }];
-    [self.confirmChangeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@16);
-        make.right.equalTo(self).offset(-16);
-        make.top.equalTo(self.passwordConfirmationTextField.mas_bottom).offset(100);
-        make.height.equalTo(@35);
+    [self.passwordView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(self.tipLabel.mas_bottom).offset(kScrAdaptationH750(60));
+        make.height.offset(kScrAdaptationH750(90));
+        make.width.offset(kScrAdaptationW750(570));
     }];
 }
 
@@ -59,75 +51,41 @@
  */
 - (void)setup
 {
-    [self addSubview:self.passwordConfirmationTextField];
-    [self addSubview:self.expressButton];
-    [self addSubview:self.confirmChangeButton];
+    [self addSubview:self.tipLabel];
+    [self addSubview:self.passwordView];
 }
 
-/**
- 是非明文按钮的点击
- */
-- (void)expressButtonClick
+#pragma mark - HBAlertPasswordViewDelegate
+- (void)sureActionWithAlertPasswordView:(HBAlertPasswordView *)alertPasswordView password:(NSString *)password
 {
-    self.passwordConfirmationTextField.secureTextEntry = self.expressButton.selected;
-    self.expressButton.selected = !self.expressButton.selected;
-}
-
-/**
- 确认密码按钮的点击
- */
-- (void)confirmChangeButtonClick
-{
-    if (self.confirmChangeButtonClickBlock) {
-        self.confirmChangeButtonClickBlock(self.passwordConfirmationTextField.text);
+    if (password.length == 6) {
+        if (self.confirmChangeButtonClickBlock) {
+            self.confirmChangeButtonClickBlock(password);
+        }
     }
 }
 
 #pragma mark - get方法（懒加载）
-/**
- 新交易密码输入框
- */
-- (UITextField *)passwordConfirmationTextField
+- (UILabel *)tipLabel
 {
-    if (!_passwordConfirmationTextField) {
-        _passwordConfirmationTextField = [[UITextField alloc] init];
-        _passwordConfirmationTextField.placeholder = @"新交易密码（8-20位数字大小写字母组合）";
-        _passwordConfirmationTextField.font = [UIFont systemFontOfSize:15];
-        _passwordConfirmationTextField.secureTextEntry = YES;
+    if (!_tipLabel) {
+        _tipLabel = [[UILabel alloc] init];
+        _tipLabel.text = @"请设置新的交易密码";
+        _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(34);
+        _tipLabel.textColor = COR6;
     }
-    return _passwordConfirmationTextField;
+    return _tipLabel;
 }
 
-/**
- 是否明文的按钮
- */
-- (UIButton *)expressButton
+- (HBAlertPasswordView *)passwordView
 {
-    if (!_expressButton) {
-        _expressButton = [[UIButton alloc] init];
-        _expressButton.backgroundColor = [UIColor redColor];
-        [_expressButton addTarget:self action:@selector(expressButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    if (!_passwordView) {
+        _passwordView = [[HBAlertPasswordView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(570), kScrAdaptationH750(90))];
+        _passwordView.delegate = self;
     }
-    return _expressButton;
+    return _passwordView;
 }
 
-/**
- 确认修改按钮
- */
-- (UIButton *)confirmChangeButton
-{
-    if (!_confirmChangeButton) {
-        _confirmChangeButton = [[UIButton alloc] init];
-        _confirmChangeButton.backgroundColor = [UIColor blueColor];
-        _confirmChangeButton.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_confirmChangeButton setTitle:@"确认修改" forState:UIControlStateNormal];
-        [_confirmChangeButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_confirmChangeButton addTarget:self action:@selector(confirmChangeButtonClick) forControlEvents:UIControlEventTouchUpInside];
-        _confirmChangeButton.layer.masksToBounds = YES;
-        _confirmChangeButton.layer.cornerRadius = 5;
-    }
-    return _confirmChangeButton;
-}
 
 
 @end

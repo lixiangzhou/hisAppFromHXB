@@ -38,6 +38,16 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     if ([request.responseObject[kResponseStatus] integerValue]) {
         NSLog(@" ---------- %@",request.responseObject[kResponseStatus]);
         ///未登录状态 弹出登录框
+        NSString *status = request.responseObject[kResponseStatus];
+        if (status.integerValue == 104) {
+            NSDictionary *dic = request.responseObject[kResponseData];
+            __block NSString *error = @"";
+            [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                NSArray *arr = obj;
+                error = [NSString stringWithFormat:@"%@%@",error,arr[0]];
+            }];
+            [HxbHUDProgress showTextWithMessage:error];
+        }
     }else{
         if([request isKindOfClass:[HXBBaseRequest class]]) {
             HXBBaseRequest *requestHxb = (HXBBaseRequest *)request;

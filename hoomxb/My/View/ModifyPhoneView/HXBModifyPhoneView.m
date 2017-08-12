@@ -8,18 +8,19 @@
 
 #import "HXBModifyPhoneView.h"
 #import "HXBSignUPAndLoginRequest.h"
-
+#import "HXBCustomTextField.h"
+#import "SVGKImage.h"
 @interface HXBModifyPhoneView ()
 
 /**
  新手机号输入框
  */
-@property (nonatomic, strong) UITextField *phoneTextField;
+@property (nonatomic, strong) HXBCustomTextField *phoneTextField;
 
 /**
  短信验证码输入框
  */
-@property (nonatomic, strong) UITextField *verificationCodeTextField;
+@property (nonatomic, strong) HXBCustomTextField *verificationCodeTextField;
 
 /**
  获取验证码按钮
@@ -37,21 +38,23 @@
 @implementation HXBModifyPhoneView
 
 #pragma mark - 懒加载
-- (UITextField *)phoneTextField
+- (HXBCustomTextField *)phoneTextField
 {
     if (!_phoneTextField) {
-        _phoneTextField = [[UITextField alloc] init];
+        _phoneTextField = [[HXBCustomTextField alloc] init];
         _phoneTextField.placeholder = @"新手机号";
+        _phoneTextField.leftImage = [SVGKImage imageNamed:@"mobile_number.svg"].UIImage;
         _phoneTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _phoneTextField;
 }
 
-- (UITextField *)verificationCodeTextField
+- (HXBCustomTextField *)verificationCodeTextField
 {
     if (!_verificationCodeTextField) {
-        _verificationCodeTextField = [[UITextField alloc] init];
+        _verificationCodeTextField = [[HXBCustomTextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
+        _verificationCodeTextField.leftImage = [SVGKImage imageNamed:@"security_code.svg"].UIImage;
         _verificationCodeTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _verificationCodeTextField;
@@ -60,26 +63,16 @@
 - (UIButton *)getCodeBtn
 {
     if (!_getCodeBtn) {
-        _getCodeBtn = [[UIButton alloc] init];
-        _getCodeBtn.backgroundColor = [UIColor whiteColor];
-        _getCodeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-        [_getCodeBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [_getCodeBtn addTarget:self action:@selector(getCodeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _getCodeBtn = [UIButton btnwithTitle:@"获取验证码" andTarget:self andAction:@selector(getCodeBtnClick) andFrameByCategory:CGRectZero];
+        _getCodeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+
     }
     return _getCodeBtn;
 }
 
 - (UIButton *)sureChangeBtn{
     if (!_sureChangeBtn) {
-        _sureChangeBtn = [[UIButton alloc] init];
-        _sureChangeBtn.backgroundColor = [UIColor blueColor];
-        _sureChangeBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_sureChangeBtn setTitle:@"确认修改" forState:UIControlStateNormal];
-        [_sureChangeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_sureChangeBtn addTarget:self action:@selector(sureChangeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        _sureChangeBtn.layer.masksToBounds = YES;
-        _sureChangeBtn.layer.cornerRadius = 5;
+        _sureChangeBtn = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(sureChangeBtnClick) andFrameByCategory:CGRectZero];
     }
     return _sureChangeBtn;
 }
@@ -114,26 +107,28 @@
 {
     kWeakSelf
     [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@16);
-        make.right.equalTo(self).offset(-16);
-        make.top.equalTo(@20);
-//        make.height.equalTo(@35);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.top.offset(kScrAdaptationH750(12));
+        make.height.offset(kScrAdaptationH750(120));
     }];
     [self.getCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-16);
-        make.top.equalTo(weakSelf.phoneTextField.mas_bottom).offset(16);
+        make.right.equalTo(self).offset(kScrAdaptationW750(-40));
+        make.centerY.equalTo(weakSelf.verificationCodeTextField);
+        make.width.offset(kScrAdaptationW750(170));
+        make.height.offset(kScrAdaptationH750(60));
     }];
     [self.verificationCodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@16);
-        make.right.equalTo(weakSelf.getCodeBtn.mas_left);
-        make.centerY.equalTo(weakSelf.getCodeBtn);
-        //        make.height.equalTo(@35);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.top.equalTo(self.phoneTextField.mas_bottom);
+        make.height.offset(kScrAdaptationH750(120));
     }];
     [self.sureChangeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@16);
-        make.right.equalTo(self).offset(-16);
-        make.top.equalTo(self.verificationCodeTextField.mas_bottom).offset(40);
-        make.height.equalTo(@35);
+        make.left.equalTo(self).offset(kScrAdaptationW750(40));
+        make.right.equalTo(self).offset(kScrAdaptationW750(-40));
+        make.top.equalTo(self.verificationCodeTextField.mas_bottom).offset(kScrAdaptationH750(92));
+        make.height.offset(kScrAdaptationH750(82));
     }];
 }
 

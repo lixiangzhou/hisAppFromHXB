@@ -11,7 +11,7 @@
 #import "HXBBankCardModel.h"
 #import "HXBUserInfoView.h"
 #import "HXBFinLoanTruansfer_ContraceWebViewVC.h"
-#import "HxbWithdrawCardViewController.h"
+#import "HXBBankView.h"
 @interface HxbMyBankCardViewController ()
 
 /**
@@ -21,9 +21,9 @@
 
 @property (nonatomic, strong) HXBUserInfoView *userInfoView;
 
-@property (nonatomic, strong) HXBUserInfoView *bankView;
-
 @property (nonatomic, strong) UILabel *tipLabel;
+
+@property (nonatomic, strong) HXBBankView *bankView;
 
 @property (nonatomic, strong) UIButton *phoneBtn;
 
@@ -34,41 +34,69 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"开通存管账户";
+    
     self.view.backgroundColor = BACKGROUNDCOLOR;
-    [self.view addSubview:self.userInfoView];
-    [self.view addSubview:self.bankView];
     [self.view addSubview:self.tipLabel];
-    [self.view addSubview:self.phoneBtn];
-    [self setupSubViewFrame];
+    if (self.isBank) {
+        self.title = @"银行卡信息";
+        self.tipLabel.text = @"您在红小宝平台已绑定银行卡，充值、提现均使用该卡";
+        [self.view addSubview:self.bankView];
+        [self.view addSubview:self.phoneBtn];
+        [self setupBankViewFrame];
+    }else
+    {
+        self.title = @"开户信息";
+        self.tipLabel.text = @"您在红小宝已成功开通恒丰银行存管账户";
+        [self.view addSubview:self.userInfoView];
+        [self setupUserInfoViewFrame];
+    }
     
 }
 
-
-
-- (void)setupSubViewFrame
+- (void)setupBankViewFrame
 {
-    [self.userInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(kScrAdaptationW750(20));
-        make.right.equalTo(self.view).offset(kScrAdaptationW750(-20));
-        make.top.equalTo(self.view).offset(kScrAdaptationH750(20) + 64);
-        make.height.offset(120);
+    [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.view).offset(64);
+        make.height.offset(kScrAdaptationH(45));
     }];
     [self.bankView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(kScrAdaptationW750(20));
-        make.right.equalTo(self.view).offset(kScrAdaptationW750(-20));
-        make.top.equalTo(self.userInfoView.mas_bottom).offset(kScrAdaptationH750(20));
-        make.height.offset(120);
-    }];
-    [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(kScrAdaptationW750(20));
-        make.top.equalTo(self.bankView.mas_bottom).offset(kScrAdaptationH750(20));
+        make.left.equalTo(self.view).offset(kScrAdaptationW(15));
+        make.right.equalTo(self.view).offset(kScrAdaptationW(-15));
+        make.top.equalTo(self.tipLabel.mas_bottom);
+        make.height.offset(kScrAdaptationH(162));
     }];
     [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.tipLabel.mas_right);
-        make.right.equalTo(self.view).offset(kScrAdaptationW750(-20));
-        make.centerY.equalTo(self.tipLabel);
+        make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.view).offset(kScrAdaptationH(-30));
     }];
+}
+
+
+- (void)setupUserInfoViewFrame
+{
+    [self.userInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.top.equalTo(self.view).offset(kScrAdaptationH(45) + 64);
+        make.height.offset(kScrAdaptationH(135));
+    }];
+    [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.view).offset(64);
+        make.bottom.equalTo(self.userInfoView.mas_top);
+    }];
+//    [self.bankView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.view).offset(kScrAdaptationW750(20));
+//        make.right.equalTo(self.view).offset(kScrAdaptationW750(-20));
+//        make.top.equalTo(self.userInfoView.mas_bottom).offset(kScrAdaptationH750(20));
+//        make.height.offset(120);
+//    }];
+//    [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.tipLabel.mas_right);
+//        make.right.equalTo(self.view).offset(kScrAdaptationW750(-20));
+//        make.centerY.equalTo(self.tipLabel);
+//    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -82,63 +110,24 @@
 {
     kWeakSelf
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.userInfoView.leftStrArr = @[@"安全认证",@"姓名",@"身份证",@"存管开通协议"];
+        weakSelf.userInfoView.leftStrArr = @[@"真实姓名",@"身份证号",@"存管协议"];
         NSString *realName = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
         NSString *idCard = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:2 lenght:viewModel.userInfoModel.userInfo.idNo.length - 4];
-        weakSelf.userInfoView.rightArr = @[@"已认证",realName,idCard,@"《恒丰银行股份有限公司杭州分行网络交易资金账户三方协议》"];
-        
-        if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-            [weakSelf loadBankCardData];
-        }else
-        {
-            weakSelf.bankView.leftStrArr = @[@"银行卡"];
-            UITapGestureRecognizer *bankViewTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bindBankCardClick)];
-            [weakSelf.bankView addGestureRecognizer:bankViewTapGestureRecognizer];
-            weakSelf.bankView.userInteractionEnabled = YES;
-        }
+        weakSelf.userInfoView.rightArr = @[realName,idCard,@"《恒丰银行协议》"];
         
     } andFailure:^(NSError *error) {
         
     }];
 }
 
-- (void)bindBankCardClick
-{
-    //进入绑卡界面
-    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-    withdrawCardViewController.title = @"绑卡";
-    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-}
-
-- (void)loadBankCardData
-{
-    kWeakSelf
-    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
-    bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
-    bankCardAPI.requestMethod = NYRequestMethodGet;
-    [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            return;
-        }
-        weakSelf.bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
-        
-        weakSelf.bankView.leftStrArr = @[@"银行卡",@"银行",@"卡号"];
-        NSString *bankCard = [NSString stringWithFormat:@"（尾号%@）",[weakSelf.bankCardModel.cardId substringFromIndex:weakSelf.bankCardModel.cardId.length - 4]];
-        if (!weakSelf.bankCardModel.bankType) {
-            weakSelf.bankCardModel.bankType = @"";
-        }
-        weakSelf.bankView.rightArr = @[@"已绑定",weakSelf.bankCardModel.bankType,bankCard];
-        
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        NSLog(@"%@",error); 
-        [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
-    }];
-
-}
+//- (void)bindBankCardClick
+//{
+//    //进入绑卡界面
+//    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+//    withdrawCardViewController.title = @"绑卡";
+//    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+//}
 
 #pragma mark - 事件处理
 
@@ -166,10 +155,11 @@
     }
     return _userInfoView;
 }
-- (HXBUserInfoView *)bankView
+- (HXBBankView *)bankView
 {
     if (!_bankView) {
-        _bankView = [[HXBUserInfoView alloc] initWithFrame:CGRectZero];
+        _bankView = [[HXBBankView alloc] initWithFrame:CGRectZero];
+        _bankView.backgroundColor = [UIColor whiteColor];
     }
     return _bankView;
 }
@@ -178,9 +168,10 @@
 {
     if (!_tipLabel) {
         _tipLabel = [[UILabel alloc] init];
-        _tipLabel.text = @"如需解绑，请联系红小宝客服：";
-        _tipLabel.textColor = COR6;
-        _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        
+        _tipLabel.textColor = COR11;
+        _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        _tipLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _tipLabel;
 }
@@ -189,9 +180,10 @@
 {
     if (!_phoneBtn) {
         _phoneBtn  = [[UIButton alloc] init];
-        [_phoneBtn setTitle:@"400-1551-888" forState:UIControlStateNormal];
-        [_phoneBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_phoneBtn setTitle:@"如需解绑，请联系红小宝客服：400-1551-888" forState:UIControlStateNormal];
+        [_phoneBtn setTitleColor:COR11 forState:UIControlStateNormal];
         [_phoneBtn addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _phoneBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     }
     return _phoneBtn;
 }

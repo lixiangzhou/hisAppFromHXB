@@ -7,12 +7,14 @@
 //
 
 #import "HXBAccount_AlterLoginPassword_View.h"
-#import "HXBBasePasswordView.h"///密码的View
+#import "HXBCustomTextField.h"///密码的View
+#import "SVGKImage.h"
 @interface HXBAccount_AlterLoginPassword_View ()
 ///原始的密码的textField
-@property (nonatomic,strong) UITextField *password_Original;
+@property (nonatomic,strong) HXBCustomTextField *password_Original;
 ///新密码的textField
-@property (nonatomic,strong) HXBBasePasswordView *password_New;
+//@property (nonatomic,strong) HXBBasePasswordView *password_New;
+@property (nonatomic, strong) HXBCustomTextField *password_New;
 ///确认修改密码
 @property (nonatomic,strong) UIButton *alterButton;
 
@@ -33,46 +35,61 @@
 ///设置UI
 - (void)setUPView {
     kWeakSelf
-    self.password_New = [[HXBBasePasswordView alloc]initWithFrame:CGRectZero layoutSubView_WithPassword_constLableEdgeInsets:UIEdgeInsetsZero andPassword_TextFieldEdgeInsets:UIEdgeInsetsZero andEyeButtonEdgeInsets:UIEdgeInsetsZero andPassword_constW:kScrAdaptationW(30) andEyeButtonW:kScrAdaptationW(10)];
-    self.password_Original = [[UITextField alloc]init];
-    self.alterButton = [[UIButton alloc]init];
+
+
+    self.alterButton = [UIButton btnwithTitle:@"确认修改" andTarget:self andAction:@selector(clickAlterButton:) andFrameByCategory:CGRectZero];
+    
     
     [self addSubview: self.password_Original];
     [self addSubview:self.password_New];
     [self addSubview:self.alterButton];
-    
     [self.password_Original mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(40));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
-        make.height.equalTo(@(kScrAdaptationH(40)));
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(28));
+        make.left.equalTo(weakSelf);
+        make.right.equalTo(weakSelf);
+        make.height.equalTo(@(kScrAdaptationH(60)));
     }];
     [self.password_New mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.password_Original.mas_bottom).offset(kScrAdaptationH(20));
-        make.left.right.height.equalTo(weakSelf.password_Original);
+        make.top.equalTo(self.password_Original.mas_bottom);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(60));
     }];
     [self.alterButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.password_New.mas_bottom).offset(kScrAdaptationH(20));
-        make.centerX.equalTo(weakSelf);
-        make.height.equalTo(@(kScrAdaptationH(40)));
-        make.width.equalTo(@(kScrAdaptationW(80)));
+        make.top.equalTo(weakSelf.password_New.mas_bottom).offset(kScrAdaptationH(50));
+        make.left.equalTo(self).offset(kScrAdaptationW(20));
+        make.right.equalTo(self).offset(kScrAdaptationW(-20));
+        make.height.equalTo(@(kScrAdaptationH(41)));
     }];
-    
-    self.password_Original.placeholder = @"原始登录密码";
-    self.password_New.placeholder = @"设置登录密码";
-    self.password_Original.borderStyle = UITextBorderStyleRoundedRect;
-    
-    self.alterButton.backgroundColor = [UIColor hxb_randomColor];
-    
-    [self.alterButton setTitle:@"确认修改" forState:UIControlStateNormal];
-    [self.alterButton addTarget:self action:@selector(clickAlterButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 ///点击了确认修改按钮
 - (void)clickAlterButton: (UIButton *)button {
     NSLog(@"点击了确认修改按钮");
-    if (self.clickAlterButtonBlock) self.clickAlterButtonBlock(self.password_Original.text,self.password_New.passwordString);
+    if (self.clickAlterButtonBlock) self.clickAlterButtonBlock(self.password_Original.text,self.password_New.text);
 }
 - (void)clickAlterButtonWithBlock:(void (^)(NSString *password_Original, NSString *password_New))clickAlterButtonBlock {
     self.clickAlterButtonBlock = clickAlterButtonBlock;
 }
+#pragma mark - 懒加载
+
+- (HXBCustomTextField *)password_New
+{
+    if (!_password_New) {
+        _password_New = [[HXBCustomTextField alloc] init];
+        _password_New.leftImage = [SVGKImage imageNamed:@"password.svg"].UIImage;
+        _password_New.placeholder = @"请设置8-20位数字+字母组合的密码";
+    }
+    return _password_New;
+}
+
+- (HXBCustomTextField *)password_Original
+{
+    if (!_password_Original) {
+        _password_Original = [[HXBCustomTextField alloc] init];
+        _password_Original.leftImage = [SVGKImage imageNamed:@"password.svg"].UIImage;
+        _password_Original.placeholder = @"原登录密码";
+    }
+    return _password_Original;
+}
+
 @end

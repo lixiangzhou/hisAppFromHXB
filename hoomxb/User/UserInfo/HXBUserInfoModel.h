@@ -77,7 +77,7 @@
 /**
  开通存管账户次数
  */
-@property (nonatomic, copy) NSString *escrowTime;
+//@property (nonatomic, copy) NSString *escrowTime;
 /**
  是否评估
  */

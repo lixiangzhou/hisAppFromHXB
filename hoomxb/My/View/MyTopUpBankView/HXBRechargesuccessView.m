@@ -10,6 +10,8 @@
 
 @interface HXBRechargesuccessView ()
 
+@property (nonatomic, strong) UIImageView *iconView;
+
 @property (nonatomic, strong) UILabel *rechargesuccessLabel;
 
 @property (nonatomic, strong) UILabel *rechargeNumLabel;
@@ -28,6 +30,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
+        [self addSubview:self.iconView];
         [self addSubview:self.rechargesuccessLabel];
         [self addSubview:self.rechargeNumLabel];
         [self addSubview:self.rechargePromptLabel];
@@ -47,31 +50,37 @@
 
 - (void)setupSubViewFrame
 {
+    [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(self).offset(kScrAdaptationH750(130));
+        make.height.offset(kScrAdaptationH750(182));
+        make.width.offset(kScrAdaptationW750(295));
+    }];
     [self.rechargesuccessLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(@130);
+        make.top.equalTo(self.iconView.mas_bottom).offset(kScrAdaptationH750(70));
+        make.height.offset(kScrAdaptationH750(38));
     }];
     [self.rechargeNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(self.rechargesuccessLabel.mas_bottom).offset(kScrAdaptationH(8));
+        make.top.equalTo(self.rechargesuccessLabel.mas_bottom).offset(kScrAdaptationH750(14));
     }];
     [self.rechargePromptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.left.equalTo(self.mas_left).offset(kScrAdaptationH(20));
         make.right.equalTo(self.mas_right).offset(-kScrAdaptationH(20));
-        make.top.equalTo(self.rechargeNumLabel.mas_bottom).offset(30);
+        make.top.equalTo(self.rechargeNumLabel.mas_bottom);
     }];
     [self.investmentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(kScrAdaptationH(20));
-        make.right.equalTo(self.mas_right).offset(-kScrAdaptationH(20));
-        make.top.equalTo(self.rechargePromptLabel.mas_bottom).offset(50);
-        make.height.equalTo(@kScrAdaptationH(44));
+        make.left.equalTo(self.mas_left).offset(kScrAdaptationW(20));
+        make.right.equalTo(self.mas_right).offset(-kScrAdaptationW(20));
+        make.top.equalTo(self.rechargePromptLabel.mas_bottom).offset(kScrAdaptationH750(103));
+        make.height.offset(kScrAdaptationH750(82));
     }];
     [self.rechargeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self);
-        make.top.equalTo(self.investmentBtn.mas_bottom).offset(30);
-        make.height.equalTo(@kScrAdaptationH(44));
-        make.width.equalTo(@kScrAdaptationH(100));
+        make.top.equalTo(self.investmentBtn.mas_bottom).offset(kScrAdaptationH750(40));
+        make.height.offset(kScrAdaptationH750(82));
+        make.right.equalTo(self.investmentBtn.mas_right);
     }];
 }
 
@@ -93,12 +102,24 @@
 
 
 #pragma mark - 懒加载
+
+- (UIImageView *)iconView
+{
+    if (!_iconView) {
+        _iconView = [[UIImageView alloc] init];
+        _iconView.svgImageString = @"successful";
+        _iconView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _iconView;
+}
+
 - (UILabel *)rechargesuccessLabel
 {
     if (!_rechargesuccessLabel) {
         _rechargesuccessLabel = [[UILabel alloc] init];
         _rechargesuccessLabel.text = @"充值成功";
-        _rechargesuccessLabel.font = [UIFont systemFontOfSize:kScrAdaptationH(15)];
+        _rechargesuccessLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(38);
+        _rechargesuccessLabel.textColor = COR6;
     }
     return _rechargesuccessLabel;
 }
@@ -108,7 +129,8 @@
     if (!_rechargeNumLabel) {
         _rechargeNumLabel = [[UILabel alloc] init];
         _rechargeNumLabel.text = @"成功充值 xx元";
-        _rechargeNumLabel.font = [UIFont systemFontOfSize:kScrAdaptationH(12)];
+        _rechargeNumLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _rechargeNumLabel.textColor = COR10;
     }
     return _rechargeNumLabel;
 }
@@ -119,19 +141,15 @@
         _rechargePromptLabel.textAlignment = NSTextAlignmentCenter;
         _rechargePromptLabel.text = @"您的充值金额已到账至恒丰银行存管账户";
         _rechargePromptLabel.numberOfLines = 0;
-        _rechargePromptLabel.font = [UIFont systemFontOfSize:kScrAdaptationH(12)];
+        _rechargePromptLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _rechargePromptLabel.textColor = COR10;
     }
     return _rechargePromptLabel;
 }
 - (UIButton *)investmentBtn
 {
     if (!_investmentBtn) {
-        _investmentBtn = [[UIButton alloc] init];
-        [_investmentBtn setTitle:@"立即投资" forState:UIControlStateNormal];
-        [_investmentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _investmentBtn.layer.borderColor = COR12.CGColor;
-        _investmentBtn.layer.borderWidth = 0.5;
-        [_investmentBtn addTarget:self action:@selector(investmentBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _investmentBtn = [UIButton btnwithTitle:@"立即投资" andTarget:self andAction:@selector(investmentBtnClick) andFrameByCategory:CGRectZero];
     }
     return _investmentBtn;
 }
@@ -141,7 +159,7 @@
     if (!_rechargeBtn) {
         _rechargeBtn = [[UIButton alloc] init];
         [_rechargeBtn setTitle:@"继续充值" forState:UIControlStateNormal];
-        [_rechargeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_rechargeBtn setTitleColor:COR29 forState:UIControlStateNormal];
         [_rechargeBtn addTarget:self action:@selector(rechargeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _rechargeBtn;

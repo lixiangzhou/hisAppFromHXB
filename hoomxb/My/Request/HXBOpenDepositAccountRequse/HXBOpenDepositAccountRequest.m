@@ -19,8 +19,11 @@
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
+        if (status == 5068) {
+            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您今日开通存管错误已超限，请明日再试！请联系客服 400-1551-888"];
+            return;
+        }
         if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) {
                 failureBlock(responseObject);
             }
@@ -70,7 +73,7 @@
 - (void)accountRechargeRequestWithRechargeAmount:(NSString *)amount andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
-    versionUpdateAPI.requestUrl = kHXBAccount_Recharge;
+    versionUpdateAPI.requestUrl = kHXBAccount_quickpay_smscode;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{
                                          @"amount" : amount
@@ -97,14 +100,14 @@
     
 }
 
-- (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithRechargeOrderNum:(NSString *)rechargeOrderNum andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
-    versionUpdateAPI.requestUrl = kHXBAccount_Recharge_Result;
+    versionUpdateAPI.requestUrl = kHXBAccount_quickpay;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{
                                          @"smscode" : smscode,
-                                         @"rechargeOrderNum" : rechargeOrderNum
+                                         @"amount" : amount
                                          };
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);

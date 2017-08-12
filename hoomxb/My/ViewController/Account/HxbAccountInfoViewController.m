@@ -15,13 +15,16 @@
 #import "HXBOpenDepositAccountViewController.h"
 #import "HXBBaseTabBarController.h"
 #import "HxbMyViewController.h"
+#import "HxbWithdrawCardViewController.h"
+#import "HXBMiddlekey.h"
 @interface HxbAccountInfoViewController ()
 <
 UITableViewDelegate,
 UITableViewDataSource
 >
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) UIButton *signOutButton;
+@property (nonatomic, strong) UILabel *signOutLabel;
+//@property (nonatomic, strong) UIButton *signOutButton;
 //@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @end
 
@@ -31,7 +34,6 @@ UITableViewDataSource
     [super viewDidLoad];
     self.title = @"账户信息";
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.signOutButton];
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
     
 }
@@ -49,51 +51,99 @@ UITableViewDataSource
         
     }else if(indexPath.section == 1){
         if (indexPath.row == 0) {
-            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-            
-            if (self.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
-                [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
-                return;
-            }
-            
-            if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-                //开通存管银行账户
-                openDepositAccountVC.title = @"开通存管账户";
-                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [self.navigationController pushViewController:openDepositAccountVC animated:YES];
-            }else if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])
-            {
-                //已开通
-                HxbMyBankCardViewController *myBankCardViewVC = [[HxbMyBankCardViewController alloc]init];
-                [self.navigationController pushViewController:myBankCardViewVC animated:YES];
-            }else{
-                //完善信息
-                openDepositAccountVC.title = @"完善信息";
-                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [self.navigationController pushViewController:openDepositAccountVC animated:YES];
-            }
+            //进入存管账户
+            [self entryDepositoryAccount:NO];
             
         }else if (indexPath.row == 1){
-            HxbMyAccountSecurityViewController *myAccountSecurityVC = [[HxbMyAccountSecurityViewController alloc]init];
-            myAccountSecurityVC.userInfoViewModel = self.userInfoViewModel;
-            [self.navigationController pushViewController:myAccountSecurityVC animated:YES];
+            if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+                //进入银行卡
+                [self entryDepositoryAccount:YES];
+            }else{
+                //进入绑卡页面
+                [self bindBankCardClick];
+            }
+            
         }else{
-            NSLog(@"点击了风险评测");
-            [self entryRiskAssessment];
+            
         }
         
-    }else{
-        HxbMyAboutMeViewController *myAboutMeViewController = [[HxbMyAboutMeViewController alloc]init];
-        [self.navigationController pushViewController:myAboutMeViewController animated:YES];
+    }else if(indexPath.section == 2){
+        switch (indexPath.row) {
+            case 0:
+            {
+                //风险测评
+                NSLog(@"点击了风险评测");
+                [self entryRiskAssessment];
+            }
+                break;
+            case 1:
+            {
+                //账户安全
+                HxbMyAccountSecurityViewController *myAccountSecurityVC = [[HxbMyAccountSecurityViewController alloc]init];
+                myAccountSecurityVC.userInfoViewModel = self.userInfoViewModel;
+                [self.navigationController pushViewController:myAccountSecurityVC animated:YES];
+            }
+                break;
+            case 2:
+            {
+                //关于我们
+                HxbMyAboutMeViewController *myAboutMeViewController = [[HxbMyAboutMeViewController alloc]init];
+                [self.navigationController pushViewController:myAboutMeViewController animated:YES];
+            }
+                break;
+            default:
+                break;
+        }
+    }else if (indexPath.section == 3)
+    {
+        [self signOutButtonButtonClick];
     }
 }
+//进入绑卡界面
+- (void)bindBankCardClick
+{
+    [HXBMiddlekey rechargePurchaseJumpLogicWithNAV:self.navigationController];    
+//    //进入绑卡界面
+//    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+//    withdrawCardViewController.title = @"绑卡";
+//    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+}
 
+/**
+ 进入存管账户
+ */
+- (void)entryDepositoryAccount:(BOOL)isbankView
+{
+    HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+    if (self.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
+        [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
+        return;
+    }
+    if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+        //开通存管银行账户
+        openDepositAccountVC.title = @"开通存管账户";
+        openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+        [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+    }else if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])
+    {
+        //已开通
+        HxbMyBankCardViewController *myBankCardViewVC = [[HxbMyBankCardViewController alloc]init];
+        myBankCardViewVC.isBank = isbankView;
+        [self.navigationController pushViewController:myBankCardViewVC animated:YES];
+    }else{
+        //完善信息
+        openDepositAccountVC.title = @"完善信息";
+        openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+        [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+    }
+
+}
+/**
+ 进入风险评测
+ */
 - (void)entryRiskAssessment
 {
-//    if (self.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
-//        [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在后台解绑身份证请联系客服"];
-//        return;
-//    }
     if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
         HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
         [alertVC setClickLeftButtonBlock:^{
@@ -110,19 +160,22 @@ UITableViewDataSource
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return (indexPath.section == 0)?64:(indexPath.section == 1)?44:44;
+    switch (indexPath.section) {
+        case 0:
+            return kScrAdaptationH(50);
+            break;
+        default:
+            return kScrAdaptationH(45);
+            break;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    if (section == 0) {
-        return 20;
-    }else{
-        return 10;
-    }
+    return kScrAdaptationH(10);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     
-    return 0.1;
+    return 0.01;
 }
 
 #pragma TableViewDataSource
@@ -132,12 +185,15 @@ UITableViewDataSource
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
+        cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+        cell.textLabel.textColor = COR6;
+        cell.detailTextLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        cell.detailTextLabel.textColor = COR29;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
         cell.textLabel.text = self.userInfoViewModel.userInfoModel.userInfo.username;
-        cell.imageView.image = [UIImage imageNamed:@"1"];
-
+        cell.imageView.image = [UIImage imageNamed:@"default_avatar"];
     }else if (indexPath.section == 1){
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.row == 0) {
@@ -148,21 +204,36 @@ UITableViewDataSource
             }else if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])
             {
                 //已开通
-                 cell.detailTextLabel.text = @"已开通";
+                cell.detailTextLabel.text = @"已开通";
+                cell.detailTextLabel.textColor = COR30;
             }else{
                 //完善信息
                  cell.detailTextLabel.text = @"完善信息";
             }
             
         }else if (indexPath.row == 1){
-            cell.textLabel.text = @"账户安全";
+            cell.textLabel.text = @"银行卡";
+            if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+                cell.detailTextLabel.text = @"已绑定";
+                cell.detailTextLabel.textColor = COR30;
+            }else{
+                cell.detailTextLabel.text = @"未绑定";
+            }
         }else{
             cell.textLabel.text = @"风险评测";
             cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
         }
-    }else{
-        cell.textLabel.text = @"关于我们";
+    }else if (indexPath.section == 2){
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        NSArray *arr = @[@"风险测评",@"账户安全",@"关于我们"];
+        cell.textLabel.text = arr[indexPath.row];
+        if (indexPath.row == 0) {
+            cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
+            cell.detailTextLabel.textColor = COR30;
+        }
+    }else if (indexPath.section == 3){
+        self.signOutLabel.frame = cell.bounds;
+        [cell.contentView addSubview:self.signOutLabel];
     }
     return cell;
 }
@@ -175,13 +246,15 @@ UITableViewDataSource
             break;
         case 1:
         {
-            return 3;
+            return 2;
         }
             break;
         case 2:
+            return 3;
+            break;
+        case 3:
             return 1;
             break;
- 
         default:
             break;
     }
@@ -189,7 +262,7 @@ UITableViewDataSource
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return 4;
 }
 
 - (UITableView *)tableView{
@@ -201,7 +274,7 @@ UITableViewDataSource
     return _tableView;
 }
 //登出按钮事件
-- (void)signOutButtonButtonClick:(UIButton *)sender{
+- (void)signOutButtonButtonClick{
     kWeakSelf
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您确定要退出登录吗？" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -222,12 +295,25 @@ UITableViewDataSource
     //    [self.navigationController pushViewController:VC animated:true];
 }
 
-//登出按钮
-- (UIButton *)signOutButton{
-    if (!_signOutButton) {
-        _signOutButton = [UIButton btnwithTitle:@"退出当前账号" andTarget:self andAction:@selector(signOutButtonButtonClick:) andFrameByCategory:CGRectMake(20, SCREEN_HEIGHT - 64 - 44 - 20, SCREEN_WIDTH - 40, 44)];
+////登出按钮
+//- (UIButton *)signOutButton{
+//    if (!_signOutButton) {
+//        _signOutButton = [UIButton btnwithTitle:@"退出当前账号" andTarget:self andAction:@selector(signOutButtonButtonClick:) andFrameByCategory:CGRectMake(20, SCREEN_HEIGHT - 64 - 44 - 20, SCREEN_WIDTH - 40, 44)];
+//    }
+//    return _signOutButton;
+//}
+
+- (UILabel *)signOutLabel
+{
+    if (!_signOutLabel) {
+        _signOutLabel = [[UILabel alloc] init];
+        _signOutLabel.text = @"退出当前账号";
+        _signOutLabel.textColor = COR29;
+        _signOutLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+        _signOutLabel.textAlignment = NSTextAlignmentCenter;
+        
     }
-    return _signOutButton;
+    return _signOutLabel;
 }
 
 #pragma mark - 加载数据

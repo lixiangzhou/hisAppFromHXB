@@ -18,6 +18,7 @@
 #import "HxbWithdrawCardViewController.h"
 #import "HxbMyTopUpViewController.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
+#import "HXBDepositoryAlertViewController.h"
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
@@ -126,50 +127,68 @@
  */
 - (void)logicalJudgment:(HXBRechargeAndWithdrawalsLogicalJudgment)type
 {
-    if (self.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
-        [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
-        return;
-    }
-    if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-        HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
-        [alertVC setClickLeftButtonBlock:^{
-            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-            openDepositAccountVC.title = @"开通存管账户";
-            openDepositAccountVC.type = type;
-            [self.navigationController pushViewController:openDepositAccountVC animated:YES];
-        }];
-        [self.navigationController presentViewController:alertVC animated:YES completion:nil];
-//        //开通存管银行账户
-//        HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
-//        bindBankCardVC.type = type;
-//        [self.navigationController pushViewController:bindBankCardVC animated:YES];
-        
-    } else if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
-    {
-        //进入绑卡界面
-        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-        withdrawCardViewController.title = @"绑卡";
-        withdrawCardViewController.type = type;
-        [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-    }else if (!([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
-    {
-        //完善信息
-        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-        openDepositAccountVC.title = @"完善信息";
-        openDepositAccountVC.type = type;
-        [self.navigationController pushViewController:openDepositAccountVC animated:YES];
-    }else
-    {
-        if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
-            HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-            [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-        }else if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
-            HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
-            if (!KeyChain.isLogin)  return;
-            withdrawViewController.userInfoViewModel = self.userInfoViewModel;
-            [self.navigationController pushViewController:withdrawViewController animated:YES];
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        weakSelf.userInfoViewModel = viewModel;
+        if (weakSelf.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
+            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
+            return;
         }
-    }
+        if (!weakSelf.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+            
+            HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
+            alertVC.immediateOpenBlock = ^{
+                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                openDepositAccountVC.title = @"开通存管账户";
+                openDepositAccountVC.type = type;
+                [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+            };
+            [weakSelf presentViewController:alertVC animated:NO completion:nil];
+            
+//            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
+//            [alertVC setClickLeftButtonBlock:^{
+//                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+//                openDepositAccountVC.title = @"开通存管账户";
+//                openDepositAccountVC.type = type;
+//                [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+//            }];
+//            [weakSelf.navigationController presentViewController:alertVC animated:YES completion:nil];
+            //        //开通存管银行账户
+            //        HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
+            //        bindBankCardVC.type = type;
+            //        [self.navigationController pushViewController:bindBankCardVC animated:YES];
+            
+        } else if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
+        {
+            //进入绑卡界面
+            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+            withdrawCardViewController.title = @"绑卡";
+            withdrawCardViewController.type = type;
+            [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+        }else if (!([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
+        {
+            //完善信息
+            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+            openDepositAccountVC.title = @"完善信息";
+            openDepositAccountVC.type = type;
+            [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+        }else
+        {
+            if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
+                HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+                [weakSelf.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+            }else if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
+                HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+                if (!KeyChain.isLogin)  return;
+                withdrawViewController.userInfoViewModel = self.userInfoViewModel;
+                [weakSelf.navigationController pushViewController:withdrawViewController animated:YES];
+            }
+        }
+
+        
+    } andFailure:^(NSError *error) {
+        
+    }];
 }
 
 

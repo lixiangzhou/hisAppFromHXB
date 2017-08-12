@@ -61,4 +61,6 @@
     }
     return _inComeStrColor;
 }
+
+
 @end

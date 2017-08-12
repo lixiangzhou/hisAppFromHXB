@@ -8,6 +8,8 @@
 
 #import "HXBModifyTransactionPasswordHomeView.h"
 #import "HXBUserInfoModel.h"
+#import "HXBCustomTextField.h"
+#import "SVGKImage.h"
 @interface HXBModifyTransactionPasswordHomeView()
 
 /**
@@ -21,7 +23,7 @@
 /**
  输入身份证号码TextField
  */
-@property (nonatomic, strong) UITextField *idCardTextField;
+@property (nonatomic, strong) HXBCustomTextField *idCardTextField;
 /**
  提示标签
  */
@@ -33,7 +35,7 @@
 /**
  输入验证码TextField
  */
-@property (nonatomic, strong) UITextField *verificationCodeTextField;
+@property (nonatomic, strong) HXBCustomTextField *verificationCodeTextField;
 /**
  获取验证码的按钮
  */
@@ -74,9 +76,10 @@
         make.centerY.equalTo(self.authenticatedNameTipLabel);
     }];
     [self.idCardTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.authenticatedNameTipLabel);
-        make.top.equalTo(self.authenticatedNameTipLabel.mas_bottom).offset(15);
-        make.right.equalTo(self).offset(-16);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.top.equalTo(self.authenticatedNameTipLabel.mas_bottom);
+        make.height.offset(kScrAdaptationH750(110));
     }];
     if ([self.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
         [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -92,25 +95,28 @@
     }
     
     [self.phoneNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.authenticatedNameTipLabel);
-        make.top.equalTo(self.promptLabel.mas_bottom).offset(8);
+        make.left.equalTo(self.promptLabel.mas_right);
+        make.centerY.equalTo(self.promptLabel);
         make.right.equalTo(self).offset(-16);
-        make.height.equalTo(@20);
+        make.height.offset(kScrAdaptationH(30));
     }];
     [self.verificationCodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.authenticatedNameTipLabel);
-        make.top.equalTo(self.phoneNumberLabel.mas_bottom).offset(30);
-        make.width.equalTo(@100);
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.top.equalTo(self.phoneNumberLabel.mas_bottom);
+        make.height.offset(kScrAdaptationH750(110));
     }];
     [self.getValidationCodeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-16);
+        make.right.equalTo(self).offset(kScrAdaptationW750(-40));
         make.centerY.equalTo(self.verificationCodeTextField);
+        make.width.offset(kScrAdaptationW750(170));
+        make.height.offset(kScrAdaptationH750(60));
     }];
     [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@16);
-        make.right.equalTo(self).offset(-16);
-        make.top.equalTo(self.verificationCodeTextField.mas_bottom).offset(40);
-        make.height.equalTo(@35);
+        make.left.equalTo(self).offset(kScrAdaptationW750(40));
+        make.right.equalTo(self).offset(kScrAdaptationW750(-40));
+        make.top.equalTo(self.verificationCodeTextField.mas_bottom).offset(kScrAdaptationH750(100));
+        make.height.offset(kScrAdaptationH750(82));
     }];
 
 }
@@ -213,8 +219,9 @@
 {
     if (!_authenticatedNameTipLabel) {
         _authenticatedNameTipLabel = [[UILabel alloc] init];
-        _authenticatedNameTipLabel.text = @"认证姓名:";
-        _authenticatedNameTipLabel.font = [UIFont systemFontOfSize:15];
+        _authenticatedNameTipLabel.text = @"认证姓名：";
+        _authenticatedNameTipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _authenticatedNameTipLabel.textColor = COR6;
     }
     return _authenticatedNameTipLabel;
 }
@@ -225,6 +232,8 @@
 {
     if (!_authenticatedNameLabel) {
         _authenticatedNameLabel = [[UILabel alloc] init];
+        _authenticatedNameLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _authenticatedNameLabel.textColor = COR6;
         _authenticatedNameLabel.text = @"***";
         _authenticatedNameLabel.font = [UIFont systemFontOfSize:15];
     }
@@ -233,12 +242,12 @@
 /**
  输入身份证号码TextField
  */
-- (UITextField *)idCardTextField
+- (HXBCustomTextField *)idCardTextField
 {
     if (!_idCardTextField) {
-        _idCardTextField = [[UITextField alloc] init];
-        _idCardTextField.placeholder = @"认证姓名对应的身份证号码";
-        _idCardTextField.font = [UIFont systemFontOfSize:15];
+        _idCardTextField = [[HXBCustomTextField alloc] init];
+        _idCardTextField.leftImage = [SVGKImage imageNamed:@"bankcard.svg"].UIImage;
+        _idCardTextField.placeholder = @"请输入身份证号码";
         _idCardTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _idCardTextField;
@@ -250,7 +259,9 @@
 {
     if (!_promptLabel) {
         _promptLabel = [[UILabel alloc] init];
-        _promptLabel.text = @"点击获取验证码向一下手机号发送验证码";
+        _promptLabel.text = @"短信会发送到";
+        _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _promptLabel.textColor = COR6;
         _promptLabel.font = [UIFont systemFontOfSize:15];
     }
     return _promptLabel;
@@ -264,6 +275,8 @@
     if (!_phoneNumberLabel) {
         _phoneNumberLabel = [[UILabel alloc] init];
         _phoneNumberLabel.text = @"153****1111";
+        _phoneNumberLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _phoneNumberLabel.textColor = COR6;
         _phoneNumberLabel.font = [UIFont systemFontOfSize:18];
     }
     return _phoneNumberLabel;
@@ -272,12 +285,12 @@
 /**
  输入验证码TextField
  */
-- (UITextField *)verificationCodeTextField
+- (HXBCustomTextField *)verificationCodeTextField
 {
     if (!_verificationCodeTextField) {
-        _verificationCodeTextField = [[UITextField alloc] init];
+        _verificationCodeTextField = [[HXBCustomTextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
-        _verificationCodeTextField.font = [UIFont systemFontOfSize:15];
+        _verificationCodeTextField.leftImage = [SVGKImage imageNamed:@"security_code.svg"].UIImage;
         _verificationCodeTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _verificationCodeTextField;
@@ -288,12 +301,9 @@
 - (UIButton *)getValidationCodeButton
 {
     if (!_getValidationCodeButton) {
-        _getValidationCodeButton = [[UIButton alloc] init];
-        _getValidationCodeButton.backgroundColor = [UIColor whiteColor];
-        _getValidationCodeButton.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-        [_getValidationCodeButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-        [_getValidationCodeButton addTarget:self action:@selector(getValidationCodeButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        _getValidationCodeButton = [UIButton btnwithTitle:@"获取验证码" andTarget:self andAction:@selector(getValidationCodeButtonClick) andFrameByCategory:CGRectZero];
+        _getValidationCodeButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
+
     }
     return _getValidationCodeButton;
 }
@@ -304,14 +314,7 @@
 - (UIButton *)nextButton
 {
     if (!_nextButton) {
-        _nextButton = [[UIButton alloc] init];
-        _nextButton.backgroundColor = [UIColor blueColor];
-        _nextButton.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_nextButton setTitle:@"下一步" forState:UIControlStateNormal];
-        [_nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_nextButton addTarget:self action:@selector(nextButtonClick) forControlEvents:UIControlEventTouchUpInside];
-        _nextButton.layer.masksToBounds = YES;
-        _nextButton.layer.cornerRadius = 5;
+        _nextButton = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(nextButtonClick) andFrameByCategory:CGRectZero];
     }
     return _nextButton;
 }
