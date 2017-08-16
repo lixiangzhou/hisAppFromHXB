@@ -234,6 +234,7 @@
 
 - (HXBBannerView *)bannerView
 {
+    kWeakSelf
     if (!_bannerView) {
         _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kScrAdaptationH(110))];
 //        _bannerView.backgroundColor = [UIColor greenColor];
@@ -244,6 +245,9 @@
 //        _bannerView.bannersModel = @[bannerModel,bannerModel,bannerModel,bannerModel];
         _bannerView.clickBannerImageBlock = ^(BannerModel *model){
             NSLog(@"%@%@",model.image,model.title);
+            if (weakSelf.clickBannerImageBlock) {
+                weakSelf.clickBannerImageBlock(model);
+            }
         };
     }
     return _bannerView;
@@ -261,10 +265,11 @@
 - (UIButton *)noticeBtn
 {
     if (!_noticeBtn) {
-        _noticeBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), kScrAdaptationH(34), kScrAdaptationW(20), kScrAdaptationH(17))];
+        _noticeBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), kScrAdaptationH(34), kScrAdaptationW(40), kScrAdaptationH(20))];
         SVGKImage *svgImage = [SVGKImage imageNamed:@"notice"];
         [_noticeBtn setImage:svgImage.UIImage forState:UIControlStateNormal];
         [_noticeBtn addTarget:self action:@selector(noticeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _noticeBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _noticeBtn;
 }

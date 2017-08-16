@@ -219,6 +219,7 @@
     if (isUPData) {
         page = 1;
     }
+    
     self.planListAPI.isUPReloadData = isUPData;
     self.planListAPI.requestArgument = @{
                                     @"filter" : pageNumberStr,
@@ -618,11 +619,13 @@
  plan 账户内计划资产
  */
 - (void)planAssets_AccountRequestSuccessBlock: (void(^)(HXBMYModel_Plan_planRequestModel *viewModelArray))successDateBlock
-                              andFailureBlock: (void(^)(NSError *error))failureBlock {
+                              andFailureBlock: (void(^)(NSError *error))failureBlock
+                                    andUpData: (BOOL)isUPData{
 
     HXBBaseRequest *account_PlanRequest = [[HXBBaseRequest alloc]init];
     account_PlanRequest.requestUrl = kHXBMY_PlanAccountRequestURL;
     account_PlanRequest.requestMethod = NYRequestMethodGet;
+    account_PlanRequest.isUPReloadData = YES;
     [account_PlanRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         if([responseObject[kResponseStatus] integerValue]) {
             kNetWorkError(@" Plan 账户内计划资产");

@@ -57,10 +57,9 @@ static NSString *const exitTitle = @"已退出";
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBBaseViewCell_MYListCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     kWeakSelf;
     HXBMYViewModel_MainLoanViewModel *viewModel = weakSelf.mainLoanViewModelArray[indexPath.section];
-    
-
     NSArray *titleArray = @[
                             @"",
                             @"",

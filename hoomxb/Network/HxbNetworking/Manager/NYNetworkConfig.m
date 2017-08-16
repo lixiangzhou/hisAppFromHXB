@@ -93,9 +93,12 @@ static NSString *const X_HxbAuth_Token = @"X-HxbAuth-Token";
         if(status ==AFNetworkReachabilityStatusReachableViaWWAN || status == AFNetworkReachabilityStatusReachableViaWiFi)
         {
             NSLog(@"🐯有网");
+            KeyChain.ishaveNet = YES;
         }else
         {
+            KeyChain.ishaveNet = NO;
             NSLog(@"🐯没有网");
+            [HxbHUDProgress showMessageCenter:@"当前网络不可用" inView:nil];
         }
     }];
 }

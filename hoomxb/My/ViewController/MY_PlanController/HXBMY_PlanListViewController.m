@@ -66,6 +66,10 @@ kDealloc
     [self registerRefresh];
     //cell 点击的加载
     [self registerClickCell];
+    kWeakSelf
+    baseNAV.getNetworkAgainBlock = ^{
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
+    };
 }
 
 ///资产统计网络请求
@@ -93,7 +97,7 @@ kDealloc
         self.planAccountModel = viewModel;
         self.planListView.planAccountModel = viewModel;
     } andFailureBlock:^(NSError *error) {
-    }];
+    } andUpData:isUpData];
     [[HXBMYRequest sharedMYRequest] myPlan_requestWithPlanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MianPlanViewModel *> *viewModelArray) {
         //数据的分发
         [weakSelf handleViewModelArrayWithViewModelArray:viewModelArray];
@@ -165,9 +169,9 @@ kDealloc
     __weak typeof(self)weakSelf = self;
     [self.planListView hold_RefreashWithDownBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:false];
-        [weakSelf assetStatisticsLoadData];
     } andUPBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
+//        [weakSelf assetStatisticsLoadData];
     }];
 }
 - (void) refresh_exiting {

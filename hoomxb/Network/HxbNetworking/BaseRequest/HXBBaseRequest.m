@@ -43,7 +43,11 @@
 
 
 - (void)start{
-    [self startWithHUD:nil];
+    NSString *str = @"正在加载数据";
+    if (self.isUPReloadData || self.dataPage > 1) {
+        str = nil;
+    }
+    [self startWithHUD:str];
 }
 
 - (void)startWithHUD:(NSString *)str

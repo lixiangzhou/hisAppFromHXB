@@ -15,4 +15,7 @@
 }
 
 #define kNetWorkError(some) NSLog(@"🌶%@ - %@ -网络数据出错", (some) ,self.class);
+
+#define baseNAV ((HXBBaseNavigationController *)self.navigationController)
+
 #endif /* HXMacros_BLog_h */

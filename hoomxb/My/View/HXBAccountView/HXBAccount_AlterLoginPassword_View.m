@@ -77,7 +77,7 @@
     if (!_password_New) {
         _password_New = [[HXBCustomTextField alloc] init];
         _password_New.leftImage = [SVGKImage imageNamed:@"password.svg"].UIImage;
-        _password_New.placeholder = @"请设置8-20位数字+字母组合的密码";
+        _password_New.placeholder = @"请设置8-20位数字和字母组合的密码";
     }
     return _password_New;
 }

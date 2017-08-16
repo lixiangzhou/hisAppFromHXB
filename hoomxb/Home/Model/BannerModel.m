@@ -13,4 +13,10 @@
     return @{@"ID" : @"id"};
 }
 
+//- (void)setImage:(NSString *)image
+//{
+//    _image = image;
+//    _image = [NSString stringWithFormat:@"%@%@",kHXB_Banner_BaseURL,image];
+//}
+
 @end

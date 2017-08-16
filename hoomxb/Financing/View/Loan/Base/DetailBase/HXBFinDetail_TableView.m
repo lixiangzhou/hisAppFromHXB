@@ -109,7 +109,7 @@ static NSString *CELLID = @"CELLID";
     self.optionLabel.textColor = kHXBColor_RGB(0.2, 0.2, 0.2, 1);
     self.iconImageView = [[UIImageView alloc]init];
     self.lineView   = [[UIView alloc]init];
-    self.lineView.backgroundColor = COLOR(87, 87, 87, 0.3);
+    self.lineView.backgroundColor = [UIColor clearColor];
     
     [self.contentView addSubview:self.lineView];
     [self.contentView addSubview:self.optionLabel];

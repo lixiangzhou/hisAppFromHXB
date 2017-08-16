@@ -17,6 +17,8 @@
 #import "HxbMyViewController.h"
 #import "HxbWithdrawCardViewController.h"
 #import "HXBMiddlekey.h"
+#import "HXBMyHomeViewCell.h"
+#import "HXBDepositoryAlertViewController.h"
 @interface HxbAccountInfoViewController ()
 <
 UITableViewDelegate,
@@ -42,6 +44,10 @@ UITableViewDataSource
     [super viewWillAppear:animated];
     self.isColourGradientNavigationBar = YES;
     [self loadData_userInfo];///加载用户数据
+    kWeakSelf
+    baseNAV.getNetworkAgainBlock = ^{
+        [weakSelf loadData_userInfo];
+    };
 }
 
 #pragma TableViewDelegate
@@ -145,14 +151,24 @@ UITableViewDataSource
 - (void)entryRiskAssessment
 {
     if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-        HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
-        [alertVC setClickLeftButtonBlock:^{
+        HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
+        kWeakSelf
+        alertVC.immediateOpenBlock = ^{
             HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
             openDepositAccountVC.title = @"开通存管账户";
             openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-            [self.navigationController pushViewController:openDepositAccountVC animated:YES];
-        }];
-        [self.navigationController presentViewController:alertVC animated:YES completion:nil];
+            [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+        };
+        [self presentViewController:alertVC animated:NO completion:nil];
+
+//        HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
+//        [alertVC setClickLeftButtonBlock:^{
+//            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+//            openDepositAccountVC.title = @"开通存管账户";
+//            openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//            [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+//        }];
+//        [self.navigationController presentViewController:alertVC animated:YES completion:nil];
         return;
     }
     HXBRiskAssessmentViewController *riskAssessmentVC = [[HXBRiskAssessmentViewController alloc] init];
@@ -182,13 +198,15 @@ UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *celledStr = @"celled";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
+    HXBMyHomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
+        cell = [[HXBMyHomeViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         cell.textLabel.textColor = COR6;
         cell.detailTextLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         cell.detailTextLabel.textColor = COR29;
+        
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
@@ -233,6 +251,7 @@ UITableViewDataSource
         }
     }else if (indexPath.section == 3){
         self.signOutLabel.frame = cell.bounds;
+        self.signOutLabel.width = kScreenWidth;
         [cell.contentView addSubview:self.signOutLabel];
     }
     return cell;

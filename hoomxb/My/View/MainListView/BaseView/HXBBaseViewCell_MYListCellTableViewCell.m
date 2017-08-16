@@ -13,6 +13,7 @@
 @property (nonatomic,strong) UILabel *title_LeftLabel;
 @property (nonatomic,strong) UILabel *title_RightLabel;
 
+@property (nonatomic, weak) UIView *title_RightBGView;
 ///中间的分割线 rgb：87，87，87，1
 @property (nonatomic,strong) UIView *lineview;
 
@@ -50,6 +51,13 @@
     }
     self.title_LeftLabel.text = myListCellManager.title_LeftLabelStr;
     self.title_RightLabel.text = myListCellManager.title_RightLabelStr;
+    if (self.title_RightLabel.text.length) {
+        self.title_RightBGView.hidden = NO;
+    }else
+    {
+        self.title_RightBGView.hidden = YES;
+    }
+    
     
     [self.bottomTopBottomView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager * (HXBBaseView_MoreTopBottomViewManager *viewManager) {
         myListCellManager.bottomViewManager.leftViewArray = viewManager.leftViewArray;
@@ -157,6 +165,7 @@
     view.layer.borderWidth = 1;
     view.layer.cornerRadius = kScrAdaptationH(22 / 2.0);
     view.layer.masksToBounds = true;
+    self.title_RightBGView = view;
     [view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView).offset(kScrAdaptationW(-15));
         make.height.equalTo(@(kScrAdaptationH(22)));

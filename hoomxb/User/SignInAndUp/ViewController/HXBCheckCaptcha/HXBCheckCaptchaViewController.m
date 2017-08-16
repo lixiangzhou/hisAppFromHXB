@@ -48,13 +48,7 @@
 - (void)setUPAnimater{
     __weak typeof (self)weakSelf = self;
     [self.animatrManager presentAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
-        [UIView animateWithDuration:.0 animations:^{
-            toView.center = [UIApplication sharedApplication].keyWindow.center;
-            toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(221));
-            weakSelf.checkCaptcha.frame = toView.bounds;
-        } completion:^(BOOL finished) {
-            weakSelf.animatrManager.isAccomplishAnima = true;
-        }];
+        weakSelf.animatrManager.isAccomplishAnima = true;
     }];
     [self.animatrManager dismissAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
         [UIView animateWithDuration:0 animations:^{
@@ -91,7 +85,11 @@
     self.checkCaptcha = [[HXBCheckCaptcha alloc]init];
     [self.view addSubview:self.checkCaptcha];
     self.view.backgroundColor = [UIColor clearColor];
-    self.checkCaptcha.frame = self.view.frame;
+    [self.checkCaptcha mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.view);
+        make.height.offset(kScrAdaptationH(221));
+        make.width.offset(kScrAdaptationW(295));
+    }];
 }
 ///请求数据 图验图片
 - (void)downCheckCaptcha {

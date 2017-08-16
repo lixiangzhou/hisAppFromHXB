@@ -11,9 +11,12 @@
 #import "HXBTransactionPasswordConfirmationViewController.h"
 #import "HXBModifyTransactionPasswordRequest.h"
 #import "HXBModifyPhoneViewController.h"
+#import "HXBCallPhone_BottomView.h"
 @interface HXBModifyTransactionPasswordViewController ()
 
 @property (nonatomic, strong) HXBModifyTransactionPasswordHomeView *homeView;
+
+@property (nonatomic, strong) HXBCallPhone_BottomView *callPhoneView;
 
 @end
 
@@ -33,6 +36,16 @@
     // Do any additional setup after loading the view.
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.isColourGradientNavigationBar = YES;
+    [self.homeView addSubview:self.callPhoneView];
+    [self setupSubViewFrame];
+}
+
+- (void)setupSubViewFrame
+{
+    [self.callPhoneView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.homeView);
+        make.bottom.equalTo(self.homeView).offset(kScrAdaptationH750(-100));
+    }];
 }
 
 /**
@@ -132,7 +145,16 @@
     return _homeView;
 }
 
-
+- (HXBCallPhone_BottomView *)callPhoneView
+{
+    if (!_callPhoneView) {
+        _callPhoneView = [[HXBCallPhone_BottomView alloc] init];
+        _callPhoneView.leftTitle = @"如有疑问，请联系客服";
+        _callPhoneView.phoneNumber = @"400-1551-888";
+        _callPhoneView.supplementText = @"(周一至周五 9:00-19:00)";
+    }
+    return _callPhoneView;
+}
 
 #pragma mark - set方法
 - (void)setUserInfoModel:(HXBUserInfoModel *)userInfoModel

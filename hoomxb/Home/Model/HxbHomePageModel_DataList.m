@@ -40,7 +40,7 @@
             //会有倒计时
         }else if (_countDownLastStr.integerValue > 3600) {
             //显示的是数字 12日12：12
-            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:_countDownLastStr andDateFormat:@"dd日 HH:mm"];
+            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:_countDownLastStr andDateFormat:@"MM-dd HH:mm开始加入"];
         }
     }
     return _countDownLastStr;

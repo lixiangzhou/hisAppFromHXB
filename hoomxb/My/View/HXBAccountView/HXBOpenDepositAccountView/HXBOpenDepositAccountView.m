@@ -227,13 +227,13 @@
         isNull = YES;
         return isNull;
     }
-    if (!(self.bankNumberTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"银行卡号没有填写" inView:self];
+    if (!(self.bankNumberTextField.text.length > 10 && self.bankNumberTextField.text.length <= 21)) {
+        [HxbHUDProgress showMessageCenter:@"请输入正确的卡号" inView:self];
         isNull = YES;
         return isNull;
     }
-    if (!(self.phoneTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"预留手机号没有填写" inView:self];
+    if (self.phoneTextField.text.length != 11) {
+        [HxbHUDProgress showMessageCenter:@"请输入正确的预留手机号" inView:self];
         isNull = YES;
         return isNull;
     }

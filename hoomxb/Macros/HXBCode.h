@@ -20,6 +20,8 @@ typedef enum : NSUInteger {
     kHXBCode_Enum_NotSigin = 402,
     ///请求超时
     kHXBCode_Enum_RequestOverrun = 412,
+    //没有连接网络
+    kHXBCode_Enum_NoConnectionNetwork = -1009,
 } kHXBCode_Enum;
 @interface HXBCode : NSObject
 

@@ -19,7 +19,10 @@
 - (void) setURL:(NSString *)URL {
     _URL = URL;
     [self.contractWebVeiw loadURL:URL];
-    
+    kWeakSelf
+    baseNAV.getNetworkAgainBlock = ^{
+        [weakSelf.contractWebVeiw loadURL:URL];
+    };
 }
 
 - (void)viewDidLoad {

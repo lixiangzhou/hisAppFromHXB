@@ -43,7 +43,7 @@
     if (self) {
 //        [self addSubview: self.allFinanceButton];//总资产的button
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickAllFinanceButton:)];
-        [self addGestureRecognizer:tap];
+        [self.backgroundImage addGestureRecognizer:tap];
 //        [self registerEvent];
         [self addSubview:self.backgroundImage];
         [self addSubview:self.allFinanceLabel];
@@ -221,6 +221,7 @@
 {
     if (!_backgroundImage) {
         _backgroundImage =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top_bg"]];
+        _backgroundImage.userInteractionEnabled = YES;
     }
     return _backgroundImage;
 }
@@ -348,9 +349,10 @@
 
 - (UIButton *)leftHeadButton{
     if (!_leftHeadButton) {
-        _leftHeadButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW(15), kScrAdaptationW(32), kScrAdaptationW(20), kScrAdaptationW(20))];
+        _leftHeadButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW(15), kScrAdaptationW(32), kScrAdaptationW(40), kScrAdaptationW(40))];
         [_leftHeadButton setImage:[SVGKImage imageNamed:@"personal_center.svg"].UIImage forState:UIControlStateNormal];
         [_leftHeadButton addTarget:self action:@selector(leftHeaderButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        _leftHeadButton.imageView.contentMode = UIViewContentModeCenter;
     }
     return _leftHeadButton;
 }

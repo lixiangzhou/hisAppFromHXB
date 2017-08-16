@@ -14,6 +14,7 @@
 #import "HXBRiskAssessmentViewController.h"
 #import "HXBMiddlekey.h"
 #import "HXBOpenDepositAccountViewController.h"
+#import "HXBDepositoryAlertViewController.h"
 @interface HXBAlertManager ()
 
 @property (nonatomic, strong) UIAlertController * alertController;
@@ -99,14 +100,22 @@
 
         //开通存管银行账户
         if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
-            [alertVC setClickLeftButtonBlock:^{
+            HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
+            alertVC.immediateOpenBlock = ^{
                 HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
                 openDepositAccountVC.title = @"开通存管账户";
                 openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
-            }];
-            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
+            };
+            [vc.navigationController presentViewController:alertVC animated:NO completion:nil];
+//            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
+//            [alertVC setClickLeftButtonBlock:^{
+//                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+//                openDepositAccountVC.title = @"开通存管账户";
+//                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//                [vc.navigationController pushViewController:openDepositAccountVC animated:YES];
+//            }];
+//            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
             return;
         }
         ///完善信息
@@ -202,7 +211,8 @@
 {
     HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:[NSString stringWithFormat:@"%@%@",message,phoneNumber] andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
     [alertVC setClickRightButtonBlock:^{
-        NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@",phoneNumber];
+        NSString *newPhone = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
+        NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@",newPhone];
         NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
         if (compare == NSOrderedDescending || compare == NSOrderedSame) {
             /// 大于等于10.0系统使用此openURL方法

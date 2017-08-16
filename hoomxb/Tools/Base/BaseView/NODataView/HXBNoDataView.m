@@ -26,7 +26,7 @@
 }
 - (void)setUP {//179
     [self.notDataImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationH750(278));
+        make.top.equalTo(self);
         make.centerX.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(101)));
         make.width.equalTo(@(kScrAdaptationW(128)));

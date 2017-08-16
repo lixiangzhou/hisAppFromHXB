@@ -82,7 +82,7 @@
 //        manager.requestSerializer = [AFJSONRequestSerializer serializer];
 //    }
     NSLog(@"manager = %@",manager);
-    manager.requestSerializer.timeoutInterval = request.timeoutInterval ?: Config.defaultTimeOutInterval ?: 30;
+    manager.requestSerializer.timeoutInterval = request.timeoutInterval ?: Config.defaultTimeOutInterval ?: 20;
     
     NSDictionary *headers = [self headerFieldsValueWithRequest:request];
       [manager.requestSerializer setHTTPShouldHandleCookies:NO];

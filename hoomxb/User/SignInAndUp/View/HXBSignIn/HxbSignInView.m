@@ -81,7 +81,8 @@ UITextFieldDelegate
 - (void)checkMobileResultFuncWithCheckMobileResultStr:(NSString *)checkMobileResultStr andIsEditLoginButton:(BOOL)isEditLoginButton {
 //    self.isPhoneNumberLabel.text = checkMobileResultStr;
     if (!isEditLoginButton) {
-        [HxbHUDProgress showError:checkMobileResultStr inview:self];
+//        [HxbHUDProgress showError:checkMobileResultStr inview:self];
+        [HxbHUDProgress showMessageCenter:checkMobileResultStr inView:self];
     }
 //    self.signInButton.userInteractionEnabled = isEditLoginButton;
 }
@@ -292,24 +293,8 @@ UITextFieldDelegate
 }
 ///点击了 登录按钮
 - (void)clickSignInButton: (UIButton *)signInButton {
-    
-    NSString * message = [NSString isOrNoPasswordStyle:self.passwordTextField.text];
-    if (message.length > 0) {
-        [HxbHUDProgress showTextWithMessage:message];
-        return;
-    }
-    ///有未填写的信息，或者有手机号不正确 就返回
-    if ([self notFillInThoseInformation]) {
-        NSLog(@"填写手机号");
-        return;
-    }
-    ///填写的不是手机号码
-    if (![NSString isMobileNumber:self.phoneTextField.text]) {
-        NSLog(@"填写 正确的 手机号");
-        return;
-    }
-    ///可以登录
-    if (self.clickSignInButtonBlock)
+       ///可以登录
+    if (self.clickSignInButtonBlock && ![self notFillInThoseInformation])
     {
         self.clickSignInButtonBlock(self.passwordTextField.text,self.phoneTextField.text);
     }
@@ -326,10 +311,21 @@ UITextFieldDelegate
         [HxbHUDProgress showMessageCenter:kPhoneText_Nil inView:self];
         return true;
     }
+    ///填写的不是手机号码
+    if (![NSString isMobileNumber:self.phoneTextField.text]) {
+        NSLog(@"填写正确的手机号");
+        [HxbHUDProgress showMessageCenter:@"填写正确的手机号" inView:self];
+        return YES;
+    }
     if (!self.passwordTextField.text.length) {
         NSLog(@"%@",kPassword_Nil);
         [HxbHUDProgress showMessageCenter:kPassword_Nil inView:self];
         return true;
+    }
+    NSString * message = [NSString isOrNoPasswordStyle:self.passwordTextField.text];
+    if (message.length > 0) {
+        [HxbHUDProgress showTextWithMessage:message];
+        return YES;
     }
     return false;
 }
