@@ -41,9 +41,9 @@
     }];
     
     UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
         ///退出登录
-         [KeyChainManage sharedInstance].isLogin = false;
+        [KeyChainManage sharedInstance].isLogin = false;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
     }];
     
     [alertController addAction:okAction];
