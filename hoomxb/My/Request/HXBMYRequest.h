@@ -75,5 +75,6 @@
  plan 账户内计划资产
  */
 - (void)planAssets_AccountRequestSuccessBlock: (void(^)(HXBMYModel_Plan_planRequestModel *viewModel))successDateBlock
-                              andFailureBlock: (void(^)(NSError *error))failureBlock;
+                              andFailureBlock: (void(^)(NSError *error))failureBlock
+                                    andUpData: (BOOL)isUPData;
 @end

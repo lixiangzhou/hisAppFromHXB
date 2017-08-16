@@ -47,6 +47,10 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     self.screenType = @" ";
     [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:true];
     self.isColourGradientNavigationBar = YES;
+    kWeakSelf
+    baseNAV.getNetworkAgainBlock = ^{
+        [weakSelf downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:true];
+    };
 }
 
 - (void)setUP {
@@ -86,8 +90,8 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     }];
 }
 - (void)setUPNAVItem {
-    UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc]initWithTitle:kNAVRightTitle style:UIBarButtonItemStylePlain target:self action:@selector(clickRightItem)];
-    self.navigationItem.rightBarButtonItem = rightButtonItem;
+//    UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc]initWithTitle:kNAVRightTitle style:UIBarButtonItemStylePlain target:self action:@selector(clickRightItem)];
+//    self.navigationItem.rightBarButtonItem = rightButtonItem;
 }
 ///点击了 交易记录 筛选
 - (void)clickRightItem {

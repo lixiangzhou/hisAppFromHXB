@@ -66,6 +66,9 @@
 
 -(void)sc_didClickAd:(id)adModel{
     NSLog(@"sc_didClickAd-->%@",adModel);
+    if (self.clickBannerImageBlock) {
+        self.clickBannerImageBlock(adModel);
+    }
 }
 //-(void)sc_scrollToIndex:(NSInteger)index{
 //    NSLog(@"sc_scrollToIndex-->%ld",index);

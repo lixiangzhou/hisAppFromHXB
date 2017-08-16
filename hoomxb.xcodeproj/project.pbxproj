@@ -15,6 +15,7 @@
 		4E16D8481E9CD0FE002A1881 /* hoomxbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */; };
 		4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */; };
 		4E1D909A1F14F62D00D29EA7 /* notice.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E1D90991F14F62D00D29EA7 /* notice.svg */; };
+		4E2642EA1F41AB6800181C98 /* HXBNoNetworkStatusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2642E91F41AB6800181C98 /* HXBNoNetworkStatusView.m */; };
 		4E294F241EB9E73A007D5042 /* HxbMyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E294F231EB9E73A007D5042 /* HxbMyView.m */; };
 		4E35C6C71F0E46DA0022C8E6 /* HXBMyTopUpBankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E35C6C61F0E46DA0022C8E6 /* HXBMyTopUpBankView.m */; };
 		4E35C6CA1F0E47CB0022C8E6 /* HXBMyTopUpHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E35C6C91F0E47CB0022C8E6 /* HXBMyTopUpHeaderView.m */; };
@@ -133,6 +134,7 @@
 		4E94E3791F0F5E2500746973 /* HXBBindBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E3781F0F5E2500746973 /* HXBBindBankCardViewController.m */; };
 		4E94E37C1F0F619400746973 /* HXBCardholderInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E37B1F0F619400746973 /* HXBCardholderInformationView.m */; };
 		4E94E3821F0F63D300746973 /* HXBWithdrawCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E3811F0F63D300746973 /* HXBWithdrawCardView.m */; };
+		4E954B171F43016C00D743D8 /* HXBCallPhone_BottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E954B161F43016C00D743D8 /* HXBCallPhone_BottomView.m */; };
 		4E964FCA1F20BE9A001DF2C0 /* HXBOpenDepositAccountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E964FC91F20BE9A001DF2C0 /* HXBOpenDepositAccountRequest.m */; };
 		4E96E2D51F28829D00C4AF27 /* HXBNoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E96E2D41F28829D00C4AF27 /* HXBNoticeCell.m */; };
 		4E9982401F022A6400CABA59 /* HXBWithdrawalsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E99823F1F022A6400CABA59 /* HXBWithdrawalsRequest.m */; };
@@ -491,6 +493,8 @@
 		4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hoomxbUITests.m; sourceTree = "<group>"; };
 		4E16D8541E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E1D90991F14F62D00D29EA7 /* notice.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = notice.svg; sourceTree = "<group>"; };
+		4E2642E81F41AB6800181C98 /* HXBNoNetworkStatusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBNoNetworkStatusView.h; sourceTree = "<group>"; };
+		4E2642E91F41AB6800181C98 /* HXBNoNetworkStatusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBNoNetworkStatusView.m; sourceTree = "<group>"; };
 		4E294F221EB9E73A007D5042 /* HxbMyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbMyView.h; sourceTree = "<group>"; };
 		4E294F231EB9E73A007D5042 /* HxbMyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbMyView.m; sourceTree = "<group>"; };
 		4E35C6C51F0E46DA0022C8E6 /* HXBMyTopUpBankView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMyTopUpBankView.h; sourceTree = "<group>"; };
@@ -680,6 +684,8 @@
 		4E94E37B1F0F619400746973 /* HXBCardholderInformationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCardholderInformationView.m; sourceTree = "<group>"; };
 		4E94E3801F0F63D300746973 /* HXBWithdrawCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawCardView.h; sourceTree = "<group>"; };
 		4E94E3811F0F63D300746973 /* HXBWithdrawCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawCardView.m; sourceTree = "<group>"; };
+		4E954B151F43016C00D743D8 /* HXBCallPhone_BottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCallPhone_BottomView.h; sourceTree = "<group>"; };
+		4E954B161F43016C00D743D8 /* HXBCallPhone_BottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCallPhone_BottomView.m; sourceTree = "<group>"; };
 		4E964FC81F20BE9A001DF2C0 /* HXBOpenDepositAccountRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBOpenDepositAccountRequest.h; sourceTree = "<group>"; };
 		4E964FC91F20BE9A001DF2C0 /* HXBOpenDepositAccountRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBOpenDepositAccountRequest.m; sourceTree = "<group>"; };
 		4E96E2D31F28829D00C4AF27 /* HXBNoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBNoticeCell.h; sourceTree = "<group>"; };
@@ -1419,6 +1425,15 @@
 			path = hoomxbUITests;
 			sourceTree = "<group>";
 		};
+		4E2642E71F41AB4A00181C98 /* NONetworkStatus */ = {
+			isa = PBXGroup;
+			children = (
+				4E2642E81F41AB6800181C98 /* HXBNoNetworkStatusView.h */,
+				4E2642E91F41AB6800181C98 /* HXBNoNetworkStatusView.m */,
+			);
+			path = NONetworkStatus;
+			sourceTree = "<group>";
+		};
 		4E35C6C41F0E46C50022C8E6 /* MyTopUpBankView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1877,6 +1892,15 @@
 				4E94B28C1ECC4973003CCBA7 /* NSAttributedString+Util.m */,
 			);
 			path = NSAttributedString;
+			sourceTree = "<group>";
+		};
+		4E954B141F43012900D743D8 /* CallPhoneView */ = {
+			isa = PBXGroup;
+			children = (
+				4E954B151F43016C00D743D8 /* HXBCallPhone_BottomView.h */,
+				4E954B161F43016C00D743D8 /* HXBCallPhone_BottomView.m */,
+			);
+			path = CallPhoneView;
 			sourceTree = "<group>";
 		};
 		4E964FC71F20BE3F001DF2C0 /* HXBOpenDepositAccountRequse */ = {
@@ -2949,9 +2973,9 @@
 		E1625B251EFBDA7500FE9ABF /* BaseView */ = {
 			isa = PBXGroup;
 			children = (
+				4E954B141F43012900D743D8 /* CallPhoneView */,
 				E1625B261EFBDA7500FE9ABF /* LeftRightHaveLabel_View */,
 				E1625B271EFBDA7500FE9ABF /* TopBottomHaveLabelView */,
-				E1625B281EFBDA7500FE9ABF /* TopView */,
 			);
 			name = BaseView;
 			path = BaseView/BaseView;
@@ -2977,13 +3001,6 @@
 				4E7BDEC01F18B650002A3E18 /* HXBLeftLabelTextView.m */,
 			);
 			path = TopBottomHaveLabelView;
-			sourceTree = "<group>";
-		};
-		E1625B281EFBDA7500FE9ABF /* TopView */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TopView;
 			sourceTree = "<group>";
 		};
 		E163142B1EC075FB0090567E /* FinViewModel_Detail */ = {
@@ -3437,6 +3454,7 @@
 		E1C964691EA5E04F0066DBC4 /* BaseView */ = {
 			isa = PBXGroup;
 			children = (
+				4E2642E71F41AB4A00181C98 /* NONetworkStatus */,
 				E1FD28E71F1899320032C9CE /* NODataView */,
 				E1C2AB8D1F15FBE5003A31E2 /* cocoze2d_arc */,
 				E129A00C1F0630460051ADA0 /* SwipeTableView */,
@@ -4492,6 +4510,7 @@
 				E133DCE41EEE3597009466DE /* HXBSignUPView.m in Sources */,
 				E133DCDD1EEE3597009466DE /* LoginModel.m in Sources */,
 				E1C964741EA5E04F0066DBC4 /* HXBBaseNavigationController.m in Sources */,
+				4E954B171F43016C00D743D8 /* HXBCallPhone_BottomView.m in Sources */,
 				E1B517BC1F134EAF001C9878 /* HXBFin_DetailLoanTruansfer_ViewController.m in Sources */,
 				E133DD401EEEC14C009466DE /* NYNetworkManager.m in Sources */,
 				E1398F521F345EC20094441F /* HXBDataManager.m in Sources */,
@@ -4539,6 +4558,7 @@
 				E10EB4BE1EEFE0B500F16CFA /* HxbMyTopUpViewController.m in Sources */,
 				E165EA9B1EF8E6D500D68763 /* HXBJoinImmediateView.m in Sources */,
 				4EB45DA51EF7A2BF00C2CF21 /* HxbHomeRequest_dataList.m in Sources */,
+				4E2642EA1F41AB6800181C98 /* HXBNoNetworkStatusView.m in Sources */,
 				E190EFA01F25A61B001E0B14 /* SCAdCollectionViewLayout.m in Sources */,
 				4E9345541EFE102500D2886B /* HXBModifyPhoneView.m in Sources */,
 				4E4D07261F1C8D45003E8FB9 /* HXBBankListCell.m in Sources */,
@@ -4770,7 +4790,7 @@
 				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
 				INFOPLIST_FILE = hoomxb/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4790,7 +4810,7 @@
 				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
 				INFOPLIST_FILE = hoomxb/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";

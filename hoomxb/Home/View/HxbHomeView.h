@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "HXBBannerView.h"
+//#import "HXBBannerView.h"
 #import "HxbHomePageViewModel.h"
 #import "HxbHomePageViewModel_dataList.h"
-@class HXBHomeBaseModel;
+@class HXBHomeBaseModel,BannerModel;
 @interface HxbHomeView : UIView
-@property (nonatomic,strong)HXBBannerView *bannerView;
+//@property (nonatomic,strong)HXBBannerView *bannerView;
 
 @property (nonatomic, strong) UITableView *mainTableView;
 
@@ -44,6 +44,12 @@
  公告的回调
  */
 @property (nonatomic, copy) void (^noticeBlock)();
+
+/*
+ 点击banner的回调
+ */
+@property (nonatomic, copy) void (^clickBannerImageBlock)(BannerModel *model);
+
 /**
  是否停止刷新
  */

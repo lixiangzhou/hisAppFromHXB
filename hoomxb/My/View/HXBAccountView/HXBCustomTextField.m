@@ -53,10 +53,9 @@
         make.height.offset(kScrAdaptationH750(38));
     }];
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.leftImageView);
         make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
         make.right.equalTo(self).offset(kScrAdaptationW750(-40));
-        make.height.offset(kScrAdaptationH750(30));
+        make.top.bottom.equalTo(self);
     }];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom);
@@ -65,10 +64,11 @@
         make.height.offset(1);
     }];
     [self.eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.textField);
+//        make.centerY.equalTo(self.textField);
         make.right.equalTo(self.textField.mas_right);
-        make.height.offset(kScrAdaptationH750(23.9));
+//        make.height.offset(kScrAdaptationH750(23.9));
         make.width.offset(kScrAdaptationW750(40));
+        make.top.bottom.equalTo(self);
     }];
    
 }

@@ -350,6 +350,12 @@
                 weakSelf.noticeBlock();
             }
         };
+        
+        _headView.clickBannerImageBlock = ^(BannerModel *model) {
+            if (weakSelf.clickBannerImageBlock) {
+                weakSelf.clickBannerImageBlock(model);
+            }
+        };
     }
     return _headView;
 }
@@ -410,14 +416,14 @@
     return _mainTableView;
 }
 
-- (HXBBannerView *)bannerView
-{
-    if (!_bannerView) {
-        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
-        _bannerView.backgroundColor = [UIColor clearColor];
-    }
-    return _bannerView;
-}
+//- (HXBBannerView *)bannerView
+//{
+//    if (!_bannerView) {
+//        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
+//        _bannerView.backgroundColor = [UIColor clearColor];
+//    }
+//    return _bannerView;
+//}
 
 //- (NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
 //    if (!_homeDataListViewModelArray) {

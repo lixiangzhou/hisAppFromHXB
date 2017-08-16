@@ -16,6 +16,9 @@ static NSString *const CELLID = @"CELLID";
 UITableViewDelegate,
 UITableViewDataSource
 >
+
+@property (nonatomic, strong) HXBNoDataView *nodataView;
+
 ///cell的点击事件的传递
 @property (nonatomic,copy) void(^clickLoanCellBlock)(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex);
 @property (nonatomic,copy) void(^clickPlanCellBlock)(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickPlanCellIndex);
@@ -26,6 +29,12 @@ UITableViewDataSource
 #pragma mark - setter
 - (void)setMainPlanViewModelArray:(NSArray<HXBMYViewModel_MianPlanViewModel *> *)mainPlanViewModelArray {
     _mainPlanViewModelArray = mainPlanViewModelArray;
+    if (mainPlanViewModelArray.count) {
+        self.nodataView.hidden = YES;
+    }else
+    {
+        self.nodataView.hidden = NO;
+    }
     [self reloadData];
 }
 
@@ -39,6 +48,7 @@ UITableViewDataSource
 - (void)setup {
     self.delegate = self;
     self.dataSource = self;
+    self.nodataView.hidden = NO;
     [self registerClass:[HXBBaseViewCell_MYListCellTableViewCell class] forCellReuseIdentifier:CELLID];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.rowHeight = kScrAdaptationH(140);
@@ -59,6 +69,7 @@ static NSString *const exitTitle = @"已退出";
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBBaseViewCell_MYListCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     kWeakSelf;
     HXBMYViewModel_MianPlanViewModel *viewModel = weakSelf.mainPlanViewModelArray[indexPath.section];
     NSArray *titleArray = @[
@@ -124,6 +135,20 @@ static NSString *const exitTitle = @"已退出";
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return kScrAdaptationH(10);
 }
-    
 
+- (HXBNoDataView *)nodataView {
+    if (!_nodataView) {
+        _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
+        _nodataView.imageName = @"Fin_NotData";
+        _nodataView.noDataMassage = @"暂无数据";
+        _nodataView.downPULLMassage = @"下拉进行刷新";
+        [self addSubview:_nodataView];
+        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(kScrAdaptationH(139));
+            make.height.width.equalTo(@(kScrAdaptationH(184)));
+            make.centerX.equalTo(self);
+        }];
+    }
+    return _nodataView;
+}
 @end

@@ -35,6 +35,11 @@
  */
 @property (nonatomic, copy) void(^tipButtonClickBlock_homePageHeadView)();
 
+/*
+点击banner的回调
+*/
+@property (nonatomic, copy) void (^clickBannerImageBlock)(BannerModel *model);
+
 /**
  公告的回调
  */

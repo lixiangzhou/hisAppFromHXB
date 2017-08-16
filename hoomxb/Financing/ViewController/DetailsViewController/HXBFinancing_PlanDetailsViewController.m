@@ -155,6 +155,10 @@
     self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
     self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
+    
+    baseNAV.getNetworkAgainBlock = ^{
+        [weakSelf downLoadData];
+    };
 }
 - (void)setUPTopImageView {
     self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];

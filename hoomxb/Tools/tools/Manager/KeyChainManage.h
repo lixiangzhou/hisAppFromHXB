@@ -31,6 +31,10 @@
 
 ///用户手机号
 @property (nonatomic,copy) NSString *mobile;
+/**
+ 是否有网
+ */
+@property (nonatomic, assign) BOOL ishaveNet;
 
 /*
 @property (nonatomic, copy) NSString  *token;

@@ -20,6 +20,7 @@
 #import "HXBVersionUpdateViewModel.h"//版本更新的viewModel
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 #import "HXBNoticeViewController.h"//公告界面
+#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"//H5的Banner页面
 //#import "HXBOpenDepositAccountViewController.h"//开通存管账户
 //#import "HxbWithdrawCardViewController.h"//绑卡界面
 #import "HXBMiddlekey.h"
@@ -35,7 +36,7 @@
     [super viewDidLoad];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAd) name:@"pushtoad" object:nil];
     [self.view addSubview:self.homeView];
-    [self getData];
+    [self getData:YES];
 //    [self.homeView changeIndicationView];
 //    [self.homeView showSecurityCertificationOrInvest];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -70,7 +71,7 @@
     kWeakSelf
     self.homeView.homeRefreshHeaderBlock = ^(){
         NSLog(@"首页下来加载数据");
-        [weakSelf getData];
+        [weakSelf getData:YES];
         [weakSelf.homeView changeIndicationView];
         [weakSelf.homeView showSecurityCertificationOrInvest];
     };
@@ -88,7 +89,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:true animated:false];
-    [self getData];
+    [self getData:NO];
     [self.homeView changeIndicationView];
     [self.homeView showSecurityCertificationOrInvest];
 }
@@ -129,10 +130,10 @@
 }
 
 #pragma mark Request
-- (void)getData{
+- (void)getData:(BOOL)isUPReloadData{
     kWeakSelf
     HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
-    [request homePlanRecommendWithSuccessBlock:^(HxbHomePageViewModel *viewModel) {
+    [request homePlanRecommendWithIsUPReloadData:isUPReloadData andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
         weakSelf.homeView.homeBaseModel = viewModel.homeBaseModel;
         weakSelf.homeView.isStopRefresh_Home = YES;
     } andFailureBlock:^(NSError *error) {
@@ -309,49 +310,8 @@
                 [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             }else
             {
+                //判断首页的header各种逻辑
                 [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController];
-//                [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-//                     HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-//                    
-//                    if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-//                        //开通存管银行账户
-//                        openDepositAccountVC.title = @"开通存管账户";
-//                        [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-//                        
-//                    } else if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
-//                    {
-//                        //进入绑卡界面
-//                        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-//                        withdrawCardViewController.title = @"绑卡";
-//                        [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-//                    }else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
-//                    {
-//                        //完善信息
-//                        openDepositAccountVC.title = @"完善信息";
-//                        [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-//                    }else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
-//                        //跳转立即投资
-//                        weakSelf.tabBarController.selectedIndex = 1;
-//                    }
-//                    
-//                } andFailure:^(NSError *error) {
-//                    
-//                }];
-
-                
-//                [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-//                    NSLog(@"%@",isVerify);
-//                    if ([KeyChain isLogin] && [isVerify isEqualToString:@"1"])
-//                    {
-//                        //跳转立即投资
-//                        weakSelf.tabBarController.selectedIndex = 1;
-//                    }else{
-//                        //跳转安全认证
-//                        HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc] init];
-//                        [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
-//                    }
-//                    
-//                }];
             }
             
         };
@@ -359,6 +319,13 @@
         _homeView.noticeBlock = ^{
             HXBNoticeViewController *noticeVC = [[HXBNoticeViewController alloc] init];
             [weakSelf.navigationController pushViewController:noticeVC animated:YES];
+        };
+        
+        _homeView.clickBannerImageBlock = ^(BannerModel *model) {
+            HXBFinLoanTruansfer_ContraceWebViewVC *webViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc] init];
+            webViewVC.URL = model.url;
+            webViewVC.title = @"👌banner";
+            [weakSelf.navigationController pushViewController:webViewVC animated:true];
         };
     }
     return _homeView;

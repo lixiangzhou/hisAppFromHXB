@@ -60,7 +60,7 @@ static NSString *const kTrueButtonTitle = @"确定";
 
 - (void) creatSubView {
     self.promptLabel = [[UILabel alloc]init];
-    self.checkCaptchaImageView = [[UIImageView alloc]init];
+    self.checkCaptchaImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"captcha"]];
     self.checkCaptchaTextField = [[UITextField alloc]init];
     self.trueButton = [[UIButton alloc]init];
     self.line = [[UIView alloc] init];

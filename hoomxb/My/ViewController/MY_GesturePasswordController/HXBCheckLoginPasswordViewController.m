@@ -9,9 +9,11 @@
 #import "HXBCheckLoginPasswordViewController.h"
 #import "HXBGesturePasswordViewController.h"//手势密码
 #import "HXBSetGesturePasswordRequest.h"
+#import "HXBCustomTextField.h"
+#import "SVGKImageView.h"
 @interface HXBCheckLoginPasswordViewController ()
 
-@property (nonatomic, strong) UITextField *loginPasswordTextField;
+@property (nonatomic, strong) HXBCustomTextField *loginPasswordTextField;
 
 @property (nonatomic, strong) UIButton *checkLoginBtn;
 
@@ -22,23 +24,18 @@
 - (UIButton *)checkLoginBtn
 {
     if (!_checkLoginBtn) {
-        _checkLoginBtn = [[UIButton alloc] init];
-        [_checkLoginBtn setTitle:@"下一步" forState:UIControlStateNormal];
-        [_checkLoginBtn addTarget:self action:@selector(checkLoginPassword) forControlEvents:UIControlEventTouchUpInside];
-        _checkLoginBtn.backgroundColor = [UIColor blueColor];
-        [_checkLoginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _checkLoginBtn = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(checkLoginPassword) andFrameByCategory:CGRectZero];
     }
     return _checkLoginBtn;
 }
 
-- (UITextField *)loginPasswordTextField
+- (HXBCustomTextField *)loginPasswordTextField
 {
     if (!_loginPasswordTextField) {
-        _loginPasswordTextField = [[UITextField alloc] init];
+        _loginPasswordTextField = [[HXBCustomTextField alloc] init];
         _loginPasswordTextField.secureTextEntry = YES;
         _loginPasswordTextField.placeholder = @"登录密码";
-        _loginPasswordTextField.layer.borderWidth = 0.5;
-        _loginPasswordTextField.layer.borderColor = COR12.CGColor;
+        _loginPasswordTextField.leftImage = [SVGKImage imageNamed:@"password"].UIImage;
     }
     return _loginPasswordTextField;
 }
@@ -60,16 +57,16 @@
 - (void)setupSubViewFrame
 {
     [self.loginPasswordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@84);
-        make.left.equalTo(@20);
-        make.right.equalTo(self.view.mas_right).offset(-20);
-        make.height.equalTo(@44);
+        make.top.equalTo(self.view).offset(kScrAdaptationH750(12)+ 64);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.height.offset(kScrAdaptationH750(120));
     }];
     [self.checkLoginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@20);
-        make.right.equalTo(self.view.mas_right).offset(-20);
-        make.top.equalTo(self.loginPasswordTextField.mas_bottom).offset(20);
-        make.height.equalTo(@35);
+        make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
+        make.right.equalTo(self.view).offset(-kScrAdaptationW750(40));
+        make.top.equalTo(self.loginPasswordTextField.mas_bottom).offset(kScrAdaptationH750(92));
+        make.height.offset(kScrAdaptationH750(82));
     }];
 }
 

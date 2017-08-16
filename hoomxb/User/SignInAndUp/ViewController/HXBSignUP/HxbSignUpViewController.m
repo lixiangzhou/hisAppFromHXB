@@ -155,7 +155,9 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
         {
             ///已有账号
             weakSelf.signUPView.checkMobileStr = kAlreadyRegistered;
+            [HxbHUDProgress showMessageCenter:kAlreadyRegistered inView:self.view];
         }
+        
         ///已有账号
 //        weakSelf.signUPView.checkMobileStr = @"该手机号暂未注册";
     } andFailureBlock:^(NSError *error) {

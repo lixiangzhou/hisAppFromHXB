@@ -38,10 +38,10 @@
     return _detailRequest;
 }
 
-- (void)setPlanViewModel:(HXBMYViewModel_MianPlanViewModel *)planViewModel {
-    _planViewModel = planViewModel;
-    [self downData];
-}
+//- (void)setPlanViewModel:(HXBMYViewModel_MianPlanViewModel *)planViewModel {
+//    _planViewModel = planViewModel;
+//    [self downData];
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,11 +49,9 @@
     self.isColourGradientNavigationBar = true;
     [self setUP];
     self.title = @"计划详情";
-    [self downLoadData];
+    [self downData];
 }
-- (void) downLoadData {
-    
-}
+
 - (void) setUP {
     kWeakSelf
     int cake = 4;

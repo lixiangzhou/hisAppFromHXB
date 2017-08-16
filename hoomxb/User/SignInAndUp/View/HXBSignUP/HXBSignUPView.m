@@ -218,7 +218,7 @@ UITextFieldDelegate
 - (void)clickNextButton:(UIButton *)sender{
     //判断是否为手机号，不是不让图验
     if (![NSString isMobileNumber: self.phoneTextField.text]) {
-        self.checkMobileLabel.text = @"手机号不正确";
+        [HxbHUDProgress showMessageCenter:@"手机号不正确" inView:self];
         return;
     }
     if (self.clickNextButtonBlock) self.clickNextButtonBlock(self.phoneTextField.text);

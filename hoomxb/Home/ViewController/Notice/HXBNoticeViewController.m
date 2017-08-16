@@ -6,6 +6,8 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
+
+
 #import "HXBNoticeViewController.h"
 #import "HXBVersionUpdateRequest.h"
 #import "HXBNoticModel.h"
@@ -20,6 +22,8 @@
  请求
  */
 @property (nonatomic, strong) HXBVersionUpdateRequest *versionUpdateRequest;
+
+@property (nonatomic, strong) HXBNoDataView *nodataView;
 @end
 
 @implementation HXBNoticeViewController
@@ -39,6 +43,10 @@
     self.isColourGradientNavigationBar = YES;
     [self.view addSubview:self.mainTabelView];
     [self loadDataWithIsUPReloadData:YES];
+    kWeakSelf
+    baseNAV.getNetworkAgainBlock = ^{
+        [weakSelf loadDataWithIsUPReloadData:YES];
+    };
 }
 
 
@@ -48,7 +56,12 @@
     //公告请求接口
     [self.versionUpdateRequest noticeRequestWithisUPReloadData:isUPReloadData andSuccessBlock:^(id responseObject) {
         weakSelf.modelArrs = responseObject;
-
+        if (!weakSelf.modelArrs.count) {
+            weakSelf.nodataView.hidden = NO;
+        }else
+        {
+            weakSelf.nodataView.hidden = YES;
+        }
         [weakSelf.mainTabelView reloadData];
         [weakSelf.mainTabelView.mj_footer endRefreshing];
         [self.mainTabelView.mj_header endRefreshing];
@@ -120,5 +133,19 @@
     }
     return _versionUpdateRequest;
 }
-
+- (HXBNoDataView *)nodataView {
+    if (!_nodataView) {
+        _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
+        _nodataView.imageName = @"Fin_NotData";
+        _nodataView.noDataMassage = @"暂无数据";
+        _nodataView.downPULLMassage = @"下拉进行刷新";
+        [self.mainTabelView addSubview:_nodataView];
+        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.mainTabelView).offset(kScrAdaptationH(139));
+            make.height.width.equalTo(@(kScrAdaptationH(184)));
+            make.centerX.equalTo(self.mainTabelView);
+        }];
+    }
+    return _nodataView;
+}
 @end

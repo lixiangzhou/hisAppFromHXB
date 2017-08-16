@@ -40,4 +40,5 @@
  更新时间
  */
 @property (nonatomic, copy) NSString *updateTime;
+
 @end

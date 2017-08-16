@@ -19,6 +19,8 @@
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 
 #import "IQKeyboardManager.h"//设置键盘
+
+#import "UMMobClick/MobClick.h"//友盟统计
 static NSString *const home = @"首页";
 static NSString *const financing = @"理财";
 static NSString *const my = @"我的";
@@ -72,7 +74,20 @@ static NSString *const my = @"我的";
     //设置键盘
     [self keyboardManager];
     
+    //设置友盟统计
+    [self setupUmeng];
+    
     return YES;
+}
+//设置UI友盟统计信息
+- (void)setupUmeng
+{
+    UMConfigInstance.appKey = @"596359ca5312dd05b4001381";
+    UMConfigInstance.channelId = @"App Store";
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setEncryptEnabled:YES];// 设置是否对日志信息进行加密, 默认NO(不加密).
+    [MobClick setAppVersion:version];
+    [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
 }
 
 - (void)keyboardManager

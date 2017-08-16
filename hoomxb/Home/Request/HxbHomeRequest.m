@@ -40,12 +40,14 @@
     }];
 }
 
-- (void)homePlanRecommendWithSuccessBlock:(void (^)(HxbHomePageViewModel *))successDateBlock andFailureBlock:(void (^)(NSError *))failureBlock
+- (void)homePlanRecommendWithIsUPReloadData:(BOOL)isUPReloadData
+                            andSuccessBlock: (void(^)(HxbHomePageViewModel *viewModel))successDateBlock
+                            andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     HXBBaseRequest *homePlanRecommendAPI = [[HXBBaseRequest alloc] init];
     homePlanRecommendAPI.requestMethod = NYRequestMethodGet;
     homePlanRecommendAPI.requestUrl = @"/home";
-    
+    homePlanRecommendAPI.isUPReloadData = isUPReloadData;
     [homePlanRecommendAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
          NSDictionary *baseDic = [responseObject valueForKey:@"data"];
         HxbHomePageViewModel *homePageViewModel = [[HxbHomePageViewModel alloc] init];

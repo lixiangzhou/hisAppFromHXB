@@ -13,7 +13,7 @@
 @property (nonatomic,assign) BOOL isJudgeLogin;
 
 @property (nonatomic, strong) NSMutableDictionary *infoDic;
-///是否是上啦刷新
+///是否是下拉刷新
 @property (nonatomic, assign) BOOL isUPReloadData;
 ///当前页数
 @property (nonatomic,assign) NSInteger dataPage;

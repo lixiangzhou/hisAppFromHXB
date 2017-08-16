@@ -23,6 +23,15 @@
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.allFinanceView];
     [self.view addSubview:self.accumulatedIncomeView];
+    [self loadData_userInfo];
+    kWeakSelf
+    baseNAV.getNetworkAgainBlock = ^{
+        [weakSelf loadData_userInfo];
+    };
+}
+
+- (void)loadData_userInfo
+{
     kWeakSelf
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.allFinanceView.viewModel = viewModel;
