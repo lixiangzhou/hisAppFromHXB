@@ -37,6 +37,7 @@
 
 - (void)loadBankCard
 {
+    kWeakSelf
     NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
     bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
     bankCardAPI.requestMethod = NYRequestMethodGet;
@@ -49,9 +50,10 @@
         }
         HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
         //设置绑卡信息
-        self.bankNameLabel.text = bankCardModel.bankType;
-        self.bankCardNumLabel.text = [NSString stringWithFormat:@"（尾号%@）",[bankCardModel.cardId substringFromIndex:bankCardModel.cardId.length - 4]];
-        self.amountLimitLabel.text = bankCardModel.quota;
+        weakSelf.bankNameLabel.text = bankCardModel.bankType;
+        weakSelf.bankCardNumLabel.text = [NSString stringWithFormat:@"（尾号%@）",[bankCardModel.cardId substringFromIndex:bankCardModel.cardId.length - 4]];
+        weakSelf.amountLimitLabel.text = bankCardModel.quota;
+        weakSelf.bankLogoImageView.svgImageString = bankCardModel.bankCode;
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);
         [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
@@ -86,7 +88,7 @@
 
 - (UIImageView *)bankLogoImageView{
     if (!_bankLogoImageView) {
-        _bankLogoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"zhaoshang"]];
+        _bankLogoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"默认"]];
         _bankLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _bankLogoImageView;

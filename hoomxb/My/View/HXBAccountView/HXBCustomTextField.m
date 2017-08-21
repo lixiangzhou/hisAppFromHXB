@@ -48,7 +48,7 @@
 {
     [self.leftImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW750(40));
-        make.top.equalTo(self).offset(kScrAdaptationH750(43));
+        make.centerY.equalTo(self);
         make.width.offset(kScrAdaptationW750(36));
         make.height.offset(kScrAdaptationH750(38));
     }];

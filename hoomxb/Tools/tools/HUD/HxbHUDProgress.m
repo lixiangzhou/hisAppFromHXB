@@ -32,17 +32,22 @@
     [keyWindow addSubview:HUD];
     HUD.removeFromSuperViewOnHide = YES;
         NSString *text = message;
-        HUD.detailsLabel.text = text;
-        HUD.detailsLabel.font = [UIFont systemFontOfSize:16];
-        HUD.mode = MBProgressHUDModeText;
-        
-        int sec = text.length > 6? 2:1;
+//        HUD.detailsLabel.text = text;
+//        HUD.detailsLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
+    HUD.mode = MBProgressHUDModeText;
+    HUD.bezelView.backgroundColor = [UIColor blackColor];
+    HUD.label.text = NSLocalizedString(text, @"HUD loading title");
+    HUD.label.font = kHXBFont_PINGFANGSC_REGULAR(14);
+    HUD.label.textColor = [UIColor whiteColor];
+    HUD.backgroundColor = [UIColor clearColor];
+    HUD.offset = CGPointMake(0, - kScrAdaptationH(100));
+    int sec = text.length > 6? 2:1;
     
-        [HUD showAnimated:YES whileExecutingBlock:^{
-            sleep(sec);
-        } completionBlock:^{
-            [HUD removeFromSuperview];
-        }];
+    [HUD showAnimated:YES whileExecutingBlock:^{
+        sleep(sec);
+    } completionBlock:^{
+        [HUD removeFromSuperview];
+    }];
 }
 
 + (void)errorWithErrorCode:(NSInteger)errorCode{
@@ -102,10 +107,12 @@
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     _HUD = [[MBProgressHUD alloc]initWithView:keyWindow];
     _HUD.removeFromSuperViewOnHide = YES;
+    _HUD.contentColor = [UIColor whiteColor];
+    _HUD.bezelView.backgroundColor = [UIColor blackColor];
     [keyWindow addSubview:_HUD];
     _HUD.label.text = text;
+    _HUD.label.textColor = [UIColor whiteColor];
     _HUD.delegate = self;//添加代理
-    
     [_HUD showAnimated:YES];
     self.mTime =0;
     timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFired:) userInfo:nil repeats:30];
@@ -277,6 +284,7 @@ typedef NS_ENUM(NSInteger, LCProgressHUDType){
             
         case LCProgressHUDTypeOnlyTextCenter:
             [HxbHUDProgress shareInstance].HUD.mode = MBProgressHUDModeCustomView;
+        
             break;
             
         default:
@@ -342,6 +350,7 @@ typedef NS_ENUM(NSInteger, LCProgressHUDType){
 + (void)showMessageCenter:(NSString *) msg inView:(UIView *)view{
     [self show:msg inView:view type:LCProgressHUDTypeOnlyTextCenter];
     [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1];
+    [HxbHUDProgress shareInstance].HUD.offset = CGPointMake(0, - kScrAdaptationH(100));
 }
 
 + (void)showSuccess:(NSString *)msg{

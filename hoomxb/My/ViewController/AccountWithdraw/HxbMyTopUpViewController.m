@@ -95,14 +95,19 @@
         [accountRequest accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:self.myTopUpBaseView.amount andSuccessBlock:^(id responseObject) {
             
             NSInteger status =  [responseObject[@"status"] integerValue];
+            if (status == 104) return;
             if (status != 0)
             {
+                kWeakSelf
                 HXBFBase_BuyResult_VC *result = [[HXBFBase_BuyResult_VC alloc] init];
                 result.title = @"充值失败";
                 result.imageName = @"failure";
                 result.buy_title = @"充值失败";
                 result.buy_description = responseObject[@"message"];
                 result.buy_ButtonTitle = @"重新充值";
+                [result clickButtonWithBlock:^{
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                }];
                 [self.navigationController pushViewController:result animated:YES];
             }else
             {

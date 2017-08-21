@@ -94,7 +94,7 @@
 {    
     if (request.failure) {
         [self defaultMethodRequestFaulureWithRequest:request];
-        if (request.error.code == kHXBCode_Enum_NoConnectionNetwork) return;
+//        if (request.error.code == kHXBCode_Enum_NoConnectionNetwork) return;
         request.failure(request,request.error);
     }
     if ([request.delegate respondsToSelector:@selector(requestFailed:)]) {

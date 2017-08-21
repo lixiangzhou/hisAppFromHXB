@@ -202,6 +202,18 @@
     }
     return _title_Truansfer;
 }
-
+- (NSString *)progress
+{
+    if (self.loanModel.progress.doubleValue>0 && self.loanModel.progress.doubleValue < 1) {
+        _progress = @"1%";
+    }else if(self.loanModel.progress.doubleValue > 99 && self.loanModel.progress.doubleValue < 100)
+    {
+        _progress = @"99%";
+    }else
+    {
+        _progress = [NSString stringWithFormat:@"%1.f%%",self.loanModel.progress.doubleValue];
+    }
+    return _progress;
+}
 
 @end

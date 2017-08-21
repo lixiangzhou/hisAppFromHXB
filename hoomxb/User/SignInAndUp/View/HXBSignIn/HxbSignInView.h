@@ -19,7 +19,8 @@
 - (void) checkMobileRequestBlockFunc: (void(^)(NSString *mobile))checkMobileBlock;
 ///点击了忘记密码
 - (void) clickforgetPasswordButtonFunc: (void(^)())forgetPasswordButtonBlock;
-
+///点击了用户协议
+- (void) clickUserAgreementBtnFunc: (void(^)())userAgreementBtnBlock;
 /**
  * 请求到手机号是否存在后 把结果放在这个函数中
  * @param checkMobileResultStr 展示结果的label 的内容

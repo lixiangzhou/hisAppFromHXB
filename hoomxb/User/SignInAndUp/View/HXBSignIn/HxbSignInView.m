@@ -69,6 +69,8 @@ UITextFieldDelegate
 @property (nonatomic, strong) UIView *partingLine;
 ///点击了忘记密码 button
 @property (nonatomic,copy) void(^forgetPasswordButtonBlock)();
+///点击了用户协议
+@property (nonatomic, copy) void(^userAgreementBtnBlock)();
 @end
 
 @implementation HxbSignInView
@@ -226,7 +228,7 @@ UITextFieldDelegate
         make.bottom.equalTo(weakSelf.mas_bottom).offset(kScrAdaptationH(-31));
         make.centerX.equalTo(weakSelf);
         make.height.equalTo(@(kScrAdaptationH(14)));
-        make.width.equalTo(@(kScrAdaptationW(0.5)));
+        make.width.offset(0.5);
     }];
     [self.userAgreementBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.partingLine);
@@ -289,8 +291,19 @@ UITextFieldDelegate
     [self.signInButton addTarget:self action:@selector(clickSignInButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.signUpbutton addTarget:self action:@selector(clickSignUPButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.forgetPasswordButton addTarget:self action:@selector(clickForgetPasswordButton:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [self.userAgreementBtn addTarget:self action:@selector(clickUserAgreementBtn) forControlEvents:UIControlEventTouchUpInside];
 }
+
+/**
+ 点击了用户协议
+ */
+- (void)clickUserAgreementBtn
+{
+    if (self.userAgreementBtnBlock) {
+        self.userAgreementBtnBlock();
+    }
+}
+
 ///点击了 登录按钮
 - (void)clickSignInButton: (UIButton *)signInButton {
        ///可以登录
@@ -429,6 +442,11 @@ UITextFieldDelegate
 ///点击了忘记密码
 - (void) clickforgetPasswordButtonFunc: (void(^)())forgetPasswordButtonBlock {
     self.forgetPasswordButtonBlock = forgetPasswordButtonBlock;
+}
+///点击了用户协议
+- (void)clickUserAgreementBtnFunc:(void (^)())userAgreementBtnBlock
+{
+    self.userAgreementBtnBlock = userAgreementBtnBlock;
 }
 @end
 

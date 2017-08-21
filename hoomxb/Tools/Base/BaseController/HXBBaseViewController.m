@@ -12,7 +12,7 @@
 #import "HXBBaseViewController.h"
 #import <WebKit/WebKit.h>
 #import "SVGKImage.h"
-@interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate>
+@interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate,UIScrollViewDelegate>
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @property (nonatomic,strong) HXBColourGradientView *colorGradientView;
 @property (nonatomic,strong) UIImageView *nacigationBarImageView;
@@ -68,7 +68,6 @@
 //        self.automaticallyAdjustsScrollViewInsets = true;
 //        self.edgesForExtendedLayout = UIRectEdgeAll;
         _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
-        
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
 //        self.view.frame = _hxbBaseVCScrollView.bounds;
         [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];

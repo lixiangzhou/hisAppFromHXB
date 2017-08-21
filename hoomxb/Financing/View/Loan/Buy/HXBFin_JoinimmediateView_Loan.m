@@ -299,6 +299,7 @@
 
 ///计算预计收益
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string isEqualToString:@"."]) return NO;
     if ([textField isEqual:self.rechargeView.textField]) {
         
         NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];

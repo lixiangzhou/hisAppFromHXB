@@ -371,6 +371,7 @@
     [paymentDate paymentDateRequestWithSuccessBlock:^(id responseObject) {
         
         weakSelf.arrivalDateLabel.text = [NSString stringWithFormat:@"今日提现预计%@到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:responseObject[@"data"][@"arrivalTime"] andDateFormat:@"yyyy-MM-dd"]];
+        
     } andFailureBlock:^(NSError *error) {
         
     }];
@@ -381,7 +382,7 @@
     _bankCardModel = bankCardModel;
     self.bankNameLabel.text = self.bankCardModel.bankType;
     self.bankCardNumLabel.text = [NSString stringWithFormat:@"(尾号%@)",[self.bankCardModel.cardId substringFromIndex:self.bankCardModel.cardId.length - 4]];
-
+    self.bankLogoImageView.svgImageString = self.bankCardModel.bankCode;
 }
 
 
@@ -417,7 +418,7 @@
 }
 - (UIImageView *)bankLogoImageView{
     if (!_bankLogoImageView) {
-        _bankLogoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"zhaoshang"]];
+        _bankLogoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"默认"]];
         _bankLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _bankLogoImageView;

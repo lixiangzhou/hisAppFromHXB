@@ -10,4 +10,9 @@
 
 @implementation HXBMYModel_CapitalRecordDetailModel
 
+- (NSString *)tag
+{
+    return _tag?:@" ";
+}
+
 @end

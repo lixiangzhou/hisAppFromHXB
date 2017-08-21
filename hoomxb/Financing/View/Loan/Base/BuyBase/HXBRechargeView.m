@@ -72,7 +72,6 @@
     }];
    
     [self.buyTextField show];
-    
     self.buyTextField.textField.placeholder = self.placeholder;
     self.buyTextField.textField.delegate = self;
     self.buyTextField.textField.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
