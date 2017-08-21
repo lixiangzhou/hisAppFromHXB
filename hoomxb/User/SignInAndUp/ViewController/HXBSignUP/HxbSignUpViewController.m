@@ -47,7 +47,6 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.isColourGradientNavigationBar = YES;
 }
 - (void)registerEvent {
     [self registerEvent_ClickNextButton];///点击了下一步按钮
@@ -113,7 +112,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
                         sendSmscodeVC.type = self.type;
                         [weakSelf.navigationController pushViewController:sendSmscodeVC animated:true];
                     } andFailureBlock:^(NSError *error) {
-                        [HxbHUDProgress showMessageCenter:@"短信发送失败" inView:self.view];
+//                        [HxbHUDProgress showMessageCenter:@"短信发送失败" inView:self.view];
                     }];
 //                });
 //            });

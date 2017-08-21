@@ -358,7 +358,7 @@
             }
           
             page1 = self.repayingPage;
-            NSLog(@"%d,%d",page1,self.repayingPage);
+            NSLog(@"%d,%ld",page1,(long)self.repayingPage);
         }
             break;
         case HXBRequestType_MY_LoanRequestType_BID_LOAN:{

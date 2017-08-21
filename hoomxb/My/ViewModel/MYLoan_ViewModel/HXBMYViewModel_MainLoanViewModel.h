@@ -111,6 +111,10 @@
  （债权匹配中 || 2017-08-01退出） 债转中使用
  */
 @property (nonatomic,copy) NSString *title_Truansfer;
+/**
+ 投标进度
+ */
+@property (nonatomic, copy) NSString *progress;
 @end
 
 

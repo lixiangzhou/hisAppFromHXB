@@ -10,6 +10,7 @@
 #import "SVGKImage.h"
 #import "HXBCustomTextField.h"
 #import "HXBFinBaseNegotiateView.h"
+#import "HXBSignInWaterView.h"
 static NSString *const kSmscode_ConstLableTitle = @"验证码";
 static NSString *const kPassword_constLableTitle = @"设置登录密码";
 static NSString *const kSetPassWordButtonTitle = @"确认设置登录密码";
@@ -66,6 +67,9 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 @property (nonatomic, copy) void(^clickSendSmscodeButtonBlock)();
 ///点击了服务协议
 @property (nonatomic, copy) void(^clickAgreementSignUPBlock)();
+///波浪视图
+@property (nonatomic, strong) HXBSignInWaterView *waterView;
+
 @end
 
 @implementation HXBSendSmscodeView
@@ -138,7 +142,13 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)didMoveToSuperview {
     [self clickSendButton:self.sendButton];
 }
-
+- (HXBSignInWaterView *)waterView
+{
+    if (!_waterView) {
+        _waterView = [[HXBSignInWaterView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(111))];
+    }
+    return _waterView;
+}
 - (NSTimer *) timer {
     if (!_timer) {
         _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(addTime) userInfo:nil repeats:YES];
@@ -174,7 +184,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self addSubview:self.negotiateView];
     [self addSubview:self.codeLine];
     [self addSubview:self.passwordLine];
-    
+    [self addSubview:self.waterView];
     [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
     
     self.password_TextField.placeholder = @"8-20位数组大小写字母组成";
@@ -203,7 +213,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)layoutSubView_sendSmscode {
     kWeakSelf
     [self.phonNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.offset(kScrAdaptationH(30) + 64);
+        make.top.equalTo(self.waterView.mas_bottom).offset(kScrAdaptationH(30));
         make.centerX.equalTo(weakSelf);
     }];
     

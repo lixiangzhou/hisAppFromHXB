@@ -9,6 +9,7 @@
 #import "HXBSignUPView.h"
 #import "HxbSignUpViewController.h"
 #import "SVGKImage.h"
+#import "HXBSignInWaterView.h"//波浪式图
 static NSString *const kNextButtonTitle = @"下一步";
 static NSString *const kHavedAccountTitle = @"已有账户，去登录";
 static NSString *const kPhoneTitle = @"手机号";
@@ -35,6 +36,8 @@ UITextFieldDelegate
 @property (nonatomic, copy) void(^checkMobileBlock)(NSString *mobile);
 ///点击了已有账号，去登陆按钮
 @property (nonatomic, copy) void(^clickHaveAccountButtonBlock)();
+///波浪视图
+@property (nonatomic, strong) HXBSignInWaterView *waterView;
 @end
 
 @implementation HXBSignUPView
@@ -119,6 +122,15 @@ UITextFieldDelegate
     }
     return _checkMobileLabel;
 }
+
+- (HXBSignInWaterView *)waterView
+{
+    if (!_waterView) {
+        _waterView = [[HXBSignInWaterView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(111))];
+    }
+    return _waterView;
+}
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -135,10 +147,10 @@ UITextFieldDelegate
     [self addSubview:self.havedAccountButton];
     [self addSubview:self.checkMobileLabel];
     [self addSubview:self.phoneLine];
-    
+    [self addSubview:self.waterView];
     kWeakSelf
     [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(50) + 64);
+        make.top.equalTo(weakSelf.waterView.mas_bottom).offset(kScrAdaptationH(50));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
         make.width.equalTo(@(kScrAdaptationW(13)));
         make.height.equalTo(@(kScrAdaptationH(19)));

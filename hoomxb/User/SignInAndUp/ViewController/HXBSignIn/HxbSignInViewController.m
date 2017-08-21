@@ -16,6 +16,7 @@
 #import "HXBCheckCaptchaViewController.h"
 #import "HXBBaseTabBarController.h"
 #import "SVGKImage.h"
+#import "HXBSignUPAgreementWebViewVC.h"
 ///手机号存在
 static NSString *const kMobile_IsExist = @"手机号已存在";
 static NSString *const kMobile_NotExis = @"手机号不存在";
@@ -56,6 +57,7 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
     [self registerCheckMobileEvent];///请求手机号是否存在
     [self registerSignUPEvent];///注册 点击signUP事件
     [self registerClickforgetPasswordButton];///忘记密码
+    [self registerClickUserAgreementBtn];///用户协议
 }
 
 
@@ -154,6 +156,16 @@ static NSString *const kMobile_NotExis = @"手机号不存在";
         signUPVC.title = @"重置登录密码";
         signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
         [weakSelf.navigationController pushViewController:signUPVC animated:true];
+    }];
+   
+}
+
+- (void)registerClickUserAgreementBtn
+{
+    [self.signView clickUserAgreementBtnFunc:^{
+        HXBSignUPAgreementWebViewVC *signUPAgreementWebViewVC = [[HXBSignUPAgreementWebViewVC alloc]init];
+        signUPAgreementWebViewVC.URL = kHXB_Negotiate_SginUPURL;
+        [self.navigationController pushViewController:signUPAgreementWebViewVC animated:true];
     }];
 }
 

@@ -16,6 +16,7 @@
 #import "HXBFin_Plan_BuySuccessViewController.h"//购买成功
 #import "HXBFin_Plan_BugFailViewController.h" //购买失败
 #import"HxbMyTopUpViewController.h"///充值
+#import "HXBFinAddTruastWebViewVC.h"//协议
 @interface HXBFin_Plan_BuyViewController ()
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) HXBJoinImmediateView *joinimmediateView;
@@ -100,20 +101,23 @@
 
 
 - (void) regisgerTopUP {
+    kWeakSelf
     ///点击了充值
     [self.joinimmediateView clickRechargeFunc:^{
-        [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
+//        [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
+        
+        [self pushTopUPViewControllerWithAmount: weakSelf.joinimmediateView.rechargeViewTextField.text];
     }];
 }
 - (void) registerBuy {
     kWeakSelf
     [self.joinimmediateView clickBuyButtonFunc:^(NSString *capitall, UITextField *textField) {
         ///用户余额，
-        CGFloat userInfo_availablePoint = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue;
-        if (!userInfo_availablePoint) {
-            [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
-            return;
-        }
+//        CGFloat userInfo_availablePoint = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue;
+//        if (!userInfo_availablePoint) {
+//            [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
+//            return;
+//        }
         
         ///加入上线 (min (用户可投， 本期剩余))
         NSString *str = nil;
@@ -148,19 +152,25 @@
         NSString *str = nil;
         if (weakSelf.planViewModel.planDetailModel.userRemainAmount.floatValue < weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
             str = weakSelf.planViewModel.planDetailModel.userRemainAmount;
+            
         }else {
             str = weakSelf.planViewModel.planDetailModel.remainAmount;
         }
         /// 加入上线  为0
-        if (!str.floatValue) {
-            [HxbHUDProgress showTextWithMessage:@"加入金额已达上限" andView:self.view];
+        if (capital.doubleValue > str.doubleValue) {
+            [HxbHUDProgress showTextWithMessage:@"加入金额超过上限"];
+            textField.text = [NSString stringWithFormat:@"%.2lf",str.doubleValue];
+            return;
         }
         
         //是否大于用户剩余金额
-        if (capital.integerValue > self.assetsTotal.floatValue) {
+        if (capital.integerValue > weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue) {
             NSLog(@"%@",@"输入金额大于了剩余可投金额");
-            NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
-            [self pushTopUPViewControllerWithAmount: amount];
+            [HxbHUDProgress showMessageCenter:@"余额不足，请先充值" inView:self.view andBlock:^{
+                NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
+                [self pushTopUPViewControllerWithAmount: amount];
+            }];
+            
             return;
         }
         //是否大于计划剩余金额
@@ -225,7 +235,10 @@
 - (void)registerNegotiate {
     kWeakSelf
     [self.joinimmediateView clickNegotiateButtonFunc:^{
-        
+        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+        vc.URL = kHXB_Negotiate_ServePlanURL;
+        vc.title = @"红利计划服务协议";
+        [weakSelf.navigationController pushViewController:vc animated:true];
     }];
 }
 
@@ -245,7 +258,7 @@
         ///预计收益Const
         model.profitLabel_consttStr = @"预期收益";
         ///服务协议
-        model.negotiateLabelStr = @"我已阅读并同意";
+        model.negotiateLabelStr = @"红利计划服务协议";
         ///余额 title
         model.balanceLabel_constStr = @"可用余额";
         ///充值的button str

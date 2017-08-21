@@ -96,14 +96,8 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             break;
     }
     
-    switch (request.error.code) {
-        case kHXBCode_Enum_NoConnectionNetwork:
-        {
-            [HxbHUDProgress showMessageCenter:@"网络连接失败，请检查您的网络" inView:nil];
-        }
-            break;
-        default:
-            break;
+    if (!KeyChain.ishaveNet) {
+        [HxbHUDProgress showMessageCenter:@"网络连接失败，请检查您的网络" inView:nil];
     }
     
     

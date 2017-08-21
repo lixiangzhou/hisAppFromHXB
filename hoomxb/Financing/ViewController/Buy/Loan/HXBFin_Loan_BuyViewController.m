@@ -21,6 +21,7 @@
 #import "HXBFin_Plan_BugFailViewController.h"
 #import "HXBFin_Plan_BuySuccessViewController.h"
 #import "HxbMyTopUpViewController.h"//充值
+#import "HXBFinAddTruastWebViewVC.h"//协议服务
 @interface HXBFin_Loan_BuyViewController ()
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan *joinimmediateView_Loan;
 ///个人总资产
@@ -142,10 +143,12 @@
         }
         
         //是否大于剩余金额
-        if (capital.floatValue > self.assetsTotal.floatValue) {
+        if (capital.floatValue > self.availablePoint.floatValue) {
             NSLog(@"%@",@"输入金额大于了剩余可投金额");
-            NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
-            [self pushTopUPViewControllerWithAmount: amount];
+            [HxbHUDProgress showMessageCenter:@"余额不足，请先充值" inView:self.view andBlock:^{
+                NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
+                [self pushTopUPViewControllerWithAmount: amount];
+            }];
             return;
         }
       
@@ -208,8 +211,12 @@
 
 ///点击了 服务协议
 - (void)registerClickNegotiateButton {
+    kWeakSelf
     [self.joinimmediateView_Loan clickNegotiateButtonFunc:^{
-        
+        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+        vc.URL = kHXB_Negotiate_ServePlanURL;
+        vc.title = @"借款协议";
+        [weakSelf.navigationController pushViewController:vc animated:true];
     }];
 }
 
@@ -220,7 +227,7 @@
             ///预计收益ConstprofitLabel_consttStr
             model.JoinImmediateView_Model.profitLabel_consttStr = @"预期收益";
             ///服务协议
-            model.JoinImmediateView_Model.negotiateLabelStr = @"我已阅读并同意";
+            model.JoinImmediateView_Model.negotiateLabelStr = @"借款协议";
             ///余额 title
             model.remainAmountLabel_ConstStr = @"散标剩余金额：";
             ///充值的button str

@@ -147,7 +147,7 @@
   
     ///服务协议
     self.negotiateView = [[HXBFinBaseNegotiateView alloc]init];
-
+    [self clickNegotiateBtn];
     self.addButton = [[UIButton alloc]init];
 }
 
@@ -266,11 +266,15 @@
 }
 
 //点击了 服务协议
-- (void)clickNegotiateButton: (UIButton *)button {
+- (void)clickNegotiateBtn{
     NSLog(@"点击了《红利服务协议》");
-    if (self.clickNegotiateButton) {
-        self.clickNegotiateButton();
-    }
+    kWeakSelf
+    [self.negotiateView clickNegotiateWithBlock:^{
+        if (weakSelf.clickNegotiateButton) {
+            weakSelf.clickNegotiateButton();
+        }
+    }];
+    
 }
 
 ///点击了加入
@@ -279,6 +283,7 @@
     // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
     if (self.clickAddButton) {
         self.clickAddButton(self.rechargeView.textField,self.rechargeView.textField.text);
+        self.profitLabel.text = [self.model totalInterestWithAmount:self.rechargeView.textField.text.floatValue];
     }
 }
 
@@ -310,6 +315,7 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if ([string isEqualToString:@"."]) return NO;
     if ([textField isEqual:self.rechargeView.textField]) {
         NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
         self.profitLabel.text = [self.model totalInterestWithAmount:amount.floatValue];
