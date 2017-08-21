@@ -27,14 +27,17 @@
 {
 
     [self.textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW(18));
-        make.right.equalTo(self.contentView.mas_right).offset(kScrAdaptationW(-18));
-        make.top.equalTo(self.contentView).offset(kScrAdaptationH(17));
+        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(30));
+        make.top.equalTo(self.contentView).offset(kScrAdaptationH750(30));
+        make.width.offset(kScrAdaptationW750(526));
+        make.height.offset(kScrAdaptationH750(30));
+        
     }];
     [self.detailTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.textLabel.mas_left);
-        make.top.equalTo(self.textLabel.mas_bottom).offset(kScrAdaptationH(10));
-        make.height.offset(kScrAdaptationH(12));
+        make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-30));
+        make.width.offset(kScrAdaptationW750(70));
+        make.top.equalTo(self.contentView).offset(kScrAdaptationH750(30));
+        make.height.offset(kScrAdaptationH750(28));
     }];
 }
 
