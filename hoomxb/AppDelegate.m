@@ -47,10 +47,11 @@ static NSString *const my = @"我的";
                                          @"HxbMyViewController"];//我的
         //title 集合
         NSArray *controllerTitleArray = @[home,financing,my];
-        NSArray *imageArray = @[@"hom¡vg",@"investment_Unselected.svg",@"my_Unselected.svg"];
+        NSArray *imageArray = @[@"home_Unselected.svg",@"investment_Unselected.svg",@"my_Unselected.svg"];
         //选中下的图片前缀
         NSArray *commonName = @[@"home_Selected.svg",@"investment_Selected.svg",@"my_Selected.svg"];
-         
+        
+        
         [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
 
     }
