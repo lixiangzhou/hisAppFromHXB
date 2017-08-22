@@ -1,4 +1,4 @@
-//
+ //
 //  HXBHomePageProductCell.m
 //  HongXiaoBao
 //
@@ -151,12 +151,12 @@
                        value:RGB(253, 54, 54)
                        range:[str rangeOfString:homePageModel_DataList.lockPeriod]];
     self.investmentPeriodTitleLabel.attributedText = attrStr;
-    
-    if (![homePageModel_DataList.extraInterestRate isEqualToString:@"0"]) {
-        self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.2f%@%@",[homePageModel_DataList.baseInterestRate doubleValue],@"%",homePageModel_DataList.extraInterestRate];
+
+    if (![homePageModel_DataList.fixExtraInterestRate isEqualToString:@"0"]) {
+        self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],homePageModel_DataList.fixExtraInterestRate];
     }else
     {
-         self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.2f%@",[homePageModel_DataList.baseInterestRate doubleValue],@"%"];
+         self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%",[homePageModel_DataList.baseInterestRate doubleValue]];
     }
     
     if (![self.homePageModel_DataList.unifyStatus isEqualToString:@"立即加入"]) {
@@ -259,7 +259,7 @@
 -(UILabel *)expectAnnualizedRatesTitleLabel{
     if (!_expectAnnualizedRatesTitleLabel) {
         _expectAnnualizedRatesTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 80, 100, 15)];
-        _expectAnnualizedRatesTitleLabel.text = @"8.00%";
+        _expectAnnualizedRatesTitleLabel.text = @"8.0%";
         _expectAnnualizedRatesTitleLabel.font = PINGFANG_Medium(40);
         _expectAnnualizedRatesTitleLabel.textColor = RGB(253, 54, 54);
     }
