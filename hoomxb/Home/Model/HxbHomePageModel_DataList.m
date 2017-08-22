@@ -11,8 +11,7 @@
 @implementation HxbHomePageModel_DataList
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"ID" : @"id",
-             @"fixExtraInterestRate": @"extraInterestRate"};
+    return @{@"ID" : @"id"};
 }
 
 - (void)setUnifyStatus:(NSString *)unifyStatus
@@ -20,20 +19,14 @@
     _unifyStatus = [self judgmentStateValue:unifyStatus];
 }
 
-
-- (void)setExtraInterestRate:(NSString *)extraInterestRate
-{
-    _extraInterestRate = extraInterestRate;
-    if ([extraInterestRate doubleValue] > 0) {
-        _extraInterestRate = [NSString stringWithFormat:@"+%.2f%@",[extraInterestRate doubleValue],@"%"];
+- (NSString *)fixExtraInterestRate {
+    
+    if ([self.extraInterestRate doubleValue] > 0) {
+        _fixExtraInterestRate = [NSString stringWithFormat:@"+%.1f%%",[self.extraInterestRate doubleValue]];
     }
+    return _fixExtraInterestRate;
 }
 
-//- (void)setValue:(id)value forUndefinedKey:(NSString *)key {
-//    if ([key isEqualToString:@"extraInterestRate"]) {
-//        self.fixExtraInterestRate = value;
-//    }
-//}
 /**
  剩余时间
  */
