@@ -67,7 +67,6 @@
 @property (nonatomic,copy) NSString *countDownString;
 ///是否隐藏倒计时
 @property (nonatomic,assign) BOOL isHidden;
-
 /**
  是否大于一小时
  */
@@ -76,6 +75,10 @@
  按钮显示的文字
  */
 @property (nonatomic, copy) NSString *cellBtnTitle;
+/**
+ 加息利率
+ */
+@property (nonatomic, copy) NSString *fixExtraInterestRate;
 
 /**
  id
