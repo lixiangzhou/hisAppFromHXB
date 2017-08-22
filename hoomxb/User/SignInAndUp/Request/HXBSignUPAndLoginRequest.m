@@ -32,12 +32,7 @@
                                   @"inviteCode" : inviteCode///    否	string	邀请码
                                   };
     [signUPAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        if ([responseObject[@"status"] intValue]) {
-            if (failureBlock) {
-                failureBlock(responseObject);
-                return;
-            }
-        }
+        kHXBResponsShowHUD
         if (successBlock) successBlock();
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);
@@ -169,6 +164,7 @@
                                    @"captcha":captcha///	是	string	校验图片二维码
                                    };
     [smscodeAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        
 //        kHXBResponsShowHUD
         NSLog(@"%@",responseObject);
         BOOL status = [responseObject[@"status"] integerValue];

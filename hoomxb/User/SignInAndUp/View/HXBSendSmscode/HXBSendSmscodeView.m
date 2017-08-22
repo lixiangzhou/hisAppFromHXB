@@ -350,14 +350,18 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 ///点击了确定设置按钮
 - (void)clickSetPassWordButton: (UIButton *)button {
-    if([self isPasswordQualifiedFunWithStr:self.password_TextField.text]) {
-        //合格 请求数据
-        if (self.clickSetPassWordButtonBlock) self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,self.inviteCodeTextField.text);
-    }else {
-        NSString * message = [NSString isOrNoPasswordStyle:self.password_TextField.text];
-        [HxbHUDProgress showMessage:message inView:self];
-        NSLog(@"🌶密码不合格");
-//        [HxbHUDProgress showTextWithMessage:@"🌶密码不合格"];
+    if (self.smscode_TextField.text.length != 6) {
+        [HxbHUDProgress showTextWithMessage:@"请输入6位数的验证码"];
+    } else {
+        if([self isPasswordQualifiedFunWithStr:self.password_TextField.text]) {
+            //合格 请求数据
+            if (self.clickSetPassWordButtonBlock) self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,self.inviteCodeTextField.text);
+        }else {
+            NSString * message = [NSString isOrNoPasswordStyle:self.password_TextField.text];
+            [HxbHUDProgress showTextWithMessage:message];
+            NSLog(@"🌶密码不合格");
+            //        [HxbHUDProgress showTextWithMessage:@"🌶密码不合格"];
+        }
     }
 }
 

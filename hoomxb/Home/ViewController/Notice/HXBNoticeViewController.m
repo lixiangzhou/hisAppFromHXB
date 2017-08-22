@@ -39,7 +39,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"公告";
+    self.title = @"红小宝公告";
     self.isColourGradientNavigationBar = YES;
     [self.view addSubview:self.mainTabelView];
     [self loadDataWithIsUPReloadData:YES];
