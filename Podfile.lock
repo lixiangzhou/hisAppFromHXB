@@ -15,11 +15,11 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - CJLabel (2.1.3)
-  - CocoaLumberjack (3.2.0):
-    - CocoaLumberjack/Default (= 3.2.0)
-    - CocoaLumberjack/Extensions (= 3.2.0)
-  - CocoaLumberjack/Default (3.2.0)
-  - CocoaLumberjack/Extensions (3.2.0):
+  - CocoaLumberjack (3.2.1):
+    - CocoaLumberjack/Default (= 3.2.1)
+    - CocoaLumberjack/Extensions (= 3.2.1)
+  - CocoaLumberjack/Default (3.2.1)
+  - CocoaLumberjack/Extensions (3.2.1):
     - CocoaLumberjack/Default
   - IQKeyboardManager (4.0.12)
   - Masonry (1.0.2)
@@ -67,7 +67,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   CJLabel: adff5c773bd79b4a52c1bd40fe0692c2ce97bb77
-  CocoaLumberjack: 9b4aed7073d242f29cc2f62068d995faf67f703a
+  CocoaLumberjack: 2800c03334042fe80589423c8d80e582dcaec482
   IQKeyboardManager: feb4562ba22266c179801a76228017f7a3c0d111
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -83,4 +83,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 50e08d38a732dcc8575ef7ad3b8f0fba1e93bfaa
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.2.1.beta.1
