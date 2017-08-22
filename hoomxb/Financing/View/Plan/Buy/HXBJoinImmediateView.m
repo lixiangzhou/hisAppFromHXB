@@ -63,7 +63,7 @@
     self.profitTypeLable_Const.text = model.profitTypeLable_ConstStr;// @"收益处理方式";
     self.profitTypeLabel.text = model.profitTypeLabelStr;//@"收益在投资";
     self.profitLabel_count.text = model.profitLabel_consttStr;//@"预计收益";
-    self.upperLimitLabel.text = model.upperLimitLabelStr;///@"本期计划加入上线 50,000元";
+    self.upperLimitLabel.text = [NSString GetPerMilWithDouble:model.upperLimitLabelStr.doubleValue];///@"本期计划加入上线 50,000元";
     self.upperLimitLabel_const.text = model.upperLimitLabel_constStr;
   
     [self.addButton setTitle:model.addButtonStr forState:UIControlStateNormal];
@@ -315,7 +315,9 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (range.location == 0 && [string isEqualToString:@"0"]) return NO;
     if ([string isEqualToString:@"."]) return NO;
+    if (range.location == 8) return NO;
     if ([textField isEqual:self.rechargeView.textField]) {
         NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
         self.profitLabel.text = [self.model totalInterestWithAmount:amount.floatValue];

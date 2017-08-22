@@ -17,6 +17,8 @@
 #import "HXBFin_Plan_BugFailViewController.h" //购买失败
 #import"HxbMyTopUpViewController.h"///充值
 #import "HXBFinAddTruastWebViewVC.h"//协议
+#import "HXBMiddlekey.h"
+#import "HxbWithdrawCardViewController.h"
 @interface HXBFin_Plan_BuyViewController ()
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) HXBJoinImmediateView *joinimmediateView;
@@ -94,9 +96,23 @@
     self.joinimmediateView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
 }
 - (void) pushTopUPViewControllerWithAmount:(NSString *)amount {
-    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-    hxbMyTopUpViewController.amount = amount;
-    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
+        {
+            //进入绑卡界面
+            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+            withdrawCardViewController.title = @"绑卡";
+            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+            [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+        }else
+        {
+            HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+            hxbMyTopUpViewController.amount = amount;
+            [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+        }
+    }andFailure:^(NSError *error) {
+    }];
 }
 
 

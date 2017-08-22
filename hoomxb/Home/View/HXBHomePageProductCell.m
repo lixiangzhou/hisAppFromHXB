@@ -159,14 +159,9 @@
          self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%",[homePageModel_DataList.baseInterestRate doubleValue]];
     }
     
-    if (![self.homePageModel_DataList.unifyStatus isEqualToString:@"立即加入"]) {
-        self.colourGradientView.hidden = YES;
-        [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
-    }else
-    {
-        self.colourGradientView.hidden = NO;
-        [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
-    }
+    //根据数据返回
+    [self setupBtnStyle];
+    
     [self.purchaseButton setTitle:self.homePageModel_DataList.cellBtnTitle forState:UIControlStateNormal];
     
     if (!homePageModel_DataList.tag.length) {
@@ -188,38 +183,25 @@
         self.colourGradientView.hidden = YES;
     }else
     {
-        [self.purchaseButton setTitle:@"立即加入" forState:UIControlStateNormal];
+        //根据数据返回
+        [self setupBtnStyle];
+    }
+}
+
+/**
+ 根据数据返回
+ */
+- (void)setupBtnStyle
+{
+    if (![self.homePageModel_DataList.unifyStatus isEqualToString:@"立即加入"]) {
+        self.colourGradientView.hidden = YES;
+        [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
+    }else
+    {
         self.colourGradientView.hidden = NO;
         [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
     }
 }
-//- (void)setModel:(TopProductModel *)model
-//{
-//    _model = model;
-//    self.purchaseLabel.text = model.getProductStatusString;
-//    self.expectAnnualizedRatesLabel.attributedText = [NSMutableAttributedString transferWithString:model.interestStr rightLength:1 leftFont:HXB_Text_Font(22) rightFont:HXB_Text_Font(11)];
-//    self.investmentPeriodLabel.attributedText = [NSMutableAttributedString transferWithString:model.periodStr rightLength:2 leftFont:HXB_Text_Font(22) rightFont:HXB_Text_Font(11)];
-//    self.titleLabel.text = model.name;
-//    [self.titleLabel sizeToFit];
-//
-//    
-//    [self.backView addSubview:self.categoryLabel];
-//    if (model.category == 0 || model.category == 3) {  //优质债券、定期理财
-//        _expectAnnualizedRatesTitleLabel.text = @"年利率";
-//        _investmentPeriodTitleLabel.text = @"还款期限";
-//        self.categoryLabel.hidden = YES;
-//    }else if (model.category ==1 ){     //债转
-//        _expectAnnualizedRatesTitleLabel.text = @"年利率";
-//        _investmentPeriodTitleLabel.text = @"剩余期限";
-//        self.categoryLabel.hidden = NO;
-//    }else if(model.category ==2){      //计划类
-//        _expectAnnualizedRatesTitleLabel.text = @"预期年化";
-//        _investmentPeriodTitleLabel.text = @"计划期限";
-//        self.categoryLabel.hidden = YES;
-//    }
-//
-//}
-
 
 #pragma mark Get Methods
 - (UIView *)backView

@@ -15,7 +15,7 @@
  */
 - (NSString *) lockStart {
     if (!_lockStart) {
-        _lockStart = [[HXBBaseHandDate sharedHandleDate] stringFromDate:self.buyPlanModel.lockStart andDateFormat:@"MM月dd日"];
+        _lockStart = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.buyPlanModel.lockStart andDateFormat:@"MM月dd日"];
         _lockStart = [NSString stringWithFormat:@"预计%@开始计息",_lockStart];  
     }
     return _lockStart;
