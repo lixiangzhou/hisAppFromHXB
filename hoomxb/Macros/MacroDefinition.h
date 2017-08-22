@@ -168,7 +168,8 @@
 //释放一个对象
 #define SAFE_DELETE(P) if(P) { [P release], P = nil; }
 
-
+// 分页数组的个数
+#define kPageCount 20
 
 //----------------------内存----------------------------
 

@@ -17,7 +17,7 @@
 @property (nonatomic, strong) UITableView *mainTabelView;
 
 @property (nonatomic, strong) NSMutableArray<HXBNoticModel *> *modelArrs;
-
+@property (nonatomic, assign) NSInteger totalCount;
 /**
  请求
  */
@@ -54,15 +54,20 @@
 {
     kWeakSelf
     //公告请求接口
-    [self.versionUpdateRequest noticeRequestWithisUPReloadData:isUPReloadData andSuccessBlock:^(id responseObject) {
+    [self.versionUpdateRequest noticeRequestWithisUPReloadData:isUPReloadData andSuccessBlock:^(id responseObject, NSInteger totalCount) {
+        NSLog(@"%@,\n %ld", responseObject, totalCount);
         weakSelf.modelArrs = responseObject;
+        weakSelf.totalCount = totalCount;
         if (!weakSelf.modelArrs.count) {
             weakSelf.nodataView.hidden = NO;
         }else
         {
             weakSelf.nodataView.hidden = YES;
         }
+        weakSelf.mainTabelView.hidden = NO;
         [weakSelf.mainTabelView reloadData];
+        weakSelf.mainTabelView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        [weakSelf setTableFooterView:weakSelf.mainTabelView];
         [weakSelf.mainTabelView.mj_footer endRefreshing];
         [self.mainTabelView.mj_header endRefreshing];
     } andFailureBlock:^(NSError *error) {
@@ -81,16 +86,19 @@
     static NSString *identifier = @"HXBNoticeViewControllerCell";
     HXBNoticeCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[HXBNoticeCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell = [[HXBNoticeCell alloc]initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:identifier];
+        cell.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
     }
+    
     HXBNoticModel *noticModel = self.modelArrs[indexPath.row];
     cell.textLabel.text = noticModel.title;
-    cell.detailTextLabel.text = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:noticModel.date andDateFormat:@"yyyy-MM-dd"];
+    cell.detailTextLabel.text = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:noticModel.date andDateFormat:@"MM-dd"];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     HXBNoticModel *noticModel = self.modelArrs[indexPath.row];
     NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",kHXBH5_BaseURL,noticModel.ID];
     HXBFinAddTruastWebViewVC *finAddTruastWebViewVC = [[HXBFinAddTruastWebViewVC alloc] init];
@@ -99,10 +107,7 @@
     [self.navigationController pushViewController:finAddTruastWebViewVC animated:YES];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 100;
-}
+
 #pragma mark - 懒加载
 - (UITableView *)mainTabelView
 {
@@ -111,20 +116,37 @@
         _mainTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
         _mainTabelView.delegate = self;
         _mainTabelView.dataSource = self;
+        _mainTabelView.hidden = YES;
+        _mainTabelView.rowHeight = kScrAdaptationH750(90);
+        // _mainTabelView.tableFooterView = [self tableViewFootView];
         _mainTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_mainTabelView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
             [weakSelf loadDataWithIsUPReloadData:YES];
         } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
             
         }];
-        [_mainTabelView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-            [weakSelf loadDataWithIsUPReloadData:NO];
-        } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-            
-        }];
+        if (self.totalCount >= kPageCount) {
+            [_mainTabelView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+                [weakSelf loadDataWithIsUPReloadData:NO];
+            } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+                
+            }];
+        }
+        
     }
     return _mainTabelView;
 }
+
+- (void)setTableFooterView:(UITableView *)tb {
+    if (!tb) {
+        return;
+    }
+    
+    UIView *view = [[UIView alloc]init];
+    view.backgroundColor = [UIColor whiteColor];
+    [tb setTableFooterView:view];
+}
+
 
 - (HXBVersionUpdateRequest *)versionUpdateRequest
 {

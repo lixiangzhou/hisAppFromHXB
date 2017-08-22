@@ -25,5 +25,5 @@
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andSuccessBlock: (void(^)(id responseObject, NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end

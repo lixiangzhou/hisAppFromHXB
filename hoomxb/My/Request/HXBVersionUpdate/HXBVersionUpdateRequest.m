@@ -59,7 +59,7 @@
     }];
 }
 
-- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andSuccessBlock: (void(^)(id responseObject, NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     self.versionUpdateAPI.isUPReloadData = isUPReloadData;
     self.versionUpdateAPI.requestUrl = kHXBHome_AnnounceURL;
@@ -71,6 +71,7 @@
     kWeakSelf
     [self.versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
+        NSInteger totalcount = [responseObject[@"data"][@"totalCount"] integerValue];
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
@@ -85,7 +86,7 @@
                 [self.noticModelArr removeAllObjects];
             }
             [self.noticModelArr addObjectsFromArray:modelarr];
-            successDateBlock(self.noticModelArr);
+            successDateBlock(self.noticModelArr, totalcount);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         [HxbHUDProgress showTextWithMessage:@"请求失败"];
