@@ -23,7 +23,6 @@
 #import "HXBFinPlanContract_contraceWebViewVC.h"//协议
 #import "HXBFinBuy_plan_ViewController.h"//计划加入
 #import "HXBFin_Plan_BuyViewController.h"//加入 界面
-
 #import "HXBFinAddTruastWebViewVC.h"
 
 @interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -162,22 +161,27 @@
     self.isTransparentNavigationBar = true;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - 60);
-//    self.hxbBaseVCScrollView.delegate = self;
-//    self.hxbBaseVCScrollView.dataSource = self;
+    self.hxbBaseVCScrollView.delegate = self;
+    self.hxbBaseVCScrollView.dataSource = self;
     self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64 - 60)];
-    [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
+//    [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
     
     baseNAV.getNetworkAgainBlock = ^{
         [weakSelf downLoadData];
     };
 }
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return 3;
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"cell"];
+    }
+    return cell;
+}
 
 
 - (void)setUPTopImageView {
