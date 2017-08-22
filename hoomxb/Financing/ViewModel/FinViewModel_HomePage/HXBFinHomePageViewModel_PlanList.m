@@ -154,17 +154,16 @@ typedef enum : NSUInteger {
 //红利计划列表的年利率计算
 - (void)setupExpectedYearRateAttributedStr {
 
-    NSString *numberStr = [NSString stringWithFormat:@"%.1lf%@",self.planListModel.expectedRate.floatValue,@"%"];
+    NSString *numberStr = [NSString stringWithFormat:@"%.1lf%%",self.planListModel.baseInterestRate.floatValue];
     NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
 
     //加息利率
     if (self.planListModel.extraInterestRate.floatValue) {
-        NSString *extraInterestRateStr = [NSString stringWithFormat:@"%@%@%@",@"+",self.planListModel.extraInterestRate,@"%"];
+        NSString *extraInterestRateStr = [NSString stringWithFormat:@"+%@%%",self.planListModel.extraInterestRate];
         NSMutableAttributedString *extraInterestRate = [[NSMutableAttributedString alloc]initWithString:extraInterestRateStr];
         NSRange range = NSMakeRange(0, extraInterestRateStr.length);
         UIFont *font = kHXBFont_PINGFANGSC_REGULAR(14);
         [extraInterestRate addAttribute:NSFontAttributeName value:font range:range];
-        
         //合并
         [numberAttributeString appendAttributedString:extraInterestRate];
         self.expectedYearRateAttributedStr = numberAttributeString;

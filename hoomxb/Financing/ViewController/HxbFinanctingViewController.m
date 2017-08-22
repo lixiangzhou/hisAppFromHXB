@@ -277,7 +277,7 @@
         weakSelf.homePageView.isStopRefresh_Plan = true;
         weakSelf.finPlanListVMArray = weakSelf.finPlanListVMArray;
     }];
-} 
+}
 
 - (void)loanLoadDateWithIsUpData: (BOOL)isUpData {
     __weak typeof(self)weakSelf = self;
