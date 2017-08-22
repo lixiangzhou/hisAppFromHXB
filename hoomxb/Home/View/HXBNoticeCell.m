@@ -19,6 +19,7 @@
         self.textLabel.numberOfLines = 2;
         self.detailTextLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         self.detailTextLabel.textColor = COR10;
+        self.detailTextLabel.textAlignment = NSTextAlignmentRight;
         [self setupSubViewFrame];
     }
     return self;
@@ -27,17 +28,17 @@
 {
 
     [self.textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(30));
-        make.top.equalTo(self.contentView).offset(kScrAdaptationH750(30));
-        make.width.offset(kScrAdaptationW750(526));
-        make.height.offset(kScrAdaptationH750(30));
+        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW(15));
+        make.top.equalTo(self.contentView).offset(kScrAdaptationH(15));
+        make.width.offset(kScrAdaptationW(263));
+        make.height.offset(kScrAdaptationH(15));
         
     }];
     [self.detailTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-30));
-        make.width.offset(kScrAdaptationW750(70));
-        make.top.equalTo(self.contentView).offset(kScrAdaptationH750(30));
-        make.height.offset(kScrAdaptationH750(28));
+        make.right.equalTo(self.contentView).offset(kScrAdaptationW(-15));
+        make.width.offset(kScrAdaptationW(70));
+        make.top.equalTo(self.contentView).offset(kScrAdaptationH(16));
+        make.height.offset(kScrAdaptationH(14));
     }];
 }
 

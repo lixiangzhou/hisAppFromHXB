@@ -19,7 +19,7 @@
 #import "HXBSignUPAgreementWebViewVC.h"
 ///手机号存在
 static NSString *const kMobile_IsExist = @"手机号已存在";
-static NSString *const kMobile_NotExis = @"手机号不存在";
+static NSString *const kMobile_NotExis = @"手机号尚未注册";
 
 
 

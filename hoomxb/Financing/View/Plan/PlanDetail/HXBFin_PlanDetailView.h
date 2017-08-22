@@ -31,7 +31,8 @@
 
 ///剩余可投是否分为左右两个
 @property (nonatomic,assign) BOOL isFlowChart;
-
+///加入的button
+@property (nonatomic,strong) UIButton *addButton;
 ///是否为红利计划
 @property (nonatomic,assign) BOOL isPlan;
 

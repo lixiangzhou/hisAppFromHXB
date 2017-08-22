@@ -33,8 +33,7 @@
 @property (nonatomic,strong) UIView *surplusValueView;
 ///流程引导视图
 @property (nonatomic,strong) HXBFinBase_FlowChartView *flowChartView;
-///立即加入视图
-@property (nonatomic,strong) UIView *addView;
+
 ///立即加入 倒计时
 @property (nonatomic,strong) UILabel *countDownLabel;
 ///* 预期收益不代表实际收益投资需谨慎
@@ -60,8 +59,7 @@
 @property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
 @property (nonatomic,copy) void (^clickAddButtonBlock)();
 @property (nonatomic,copy) void (^clickAddTrustBlock) ();
-///加入的button
-@property (nonatomic,strong) UIButton *addButton;
+
 ///倒计时
 @property (nonatomic,copy) NSString *diffTime;
 /// 是否倒计时
@@ -109,6 +107,10 @@
         [self.countDownManager countDownCallBackFunc:^(CGFloat countDownValue) {
             if (countDownValue < 0) {
                 if (weakSelf.downLodaDataBlock) weakSelf.downLodaDataBlock();
+                [weakSelf.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
+                [weakSelf.addButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+                weakSelf.addButton.backgroundColor = COR29;
+                weakSelf.addButton.userInteractionEnabled = true;
                 [weakSelf.countDownManager stopTimer];
                 return;
             }
@@ -201,7 +203,7 @@
 }
 - (void)setupSubView {
 //    [self setUPBackGroundImageView];
-    
+
     [self setUPTopView];
     [self setupAddTrustView];//曾信view（内部对是否分为左右进行了判断）
     [self setupFlowChartView];///流程引导视图
@@ -210,8 +212,9 @@
     
     self.surplusValueView.backgroundColor = [UIColor whiteColor];
     self.flowChartView.backgroundColor = [UIColor whiteColor];
-    self.addView.backgroundColor = HXBC_Red_Deep;
+
 }
+
 
 - (void)setUPTopView {
     self.topView = [[HXBFin_PlanDetailView_TopView alloc]initWithFrame:CGRectZero];
@@ -259,15 +262,9 @@
 //MARK: - 立即加入按钮的添加
 - (void)setupAddView {
     kWeakSelf
-    self.addView = [[UIView alloc]init];
-    [self addSubview:self.addView];
-    [self.addView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf);
-        make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@(kScrAdaptationH(60)));
-    }];
+
     self.addButton = [[UIButton alloc]init];
-    
+    self.addButton.hidden = YES;
     [self addSubview:_addButton];
     [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf);
@@ -308,7 +305,7 @@
     [self.bottomTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.flowChartView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@(kScrAdaptationH(134)));
+        make.height.equalTo(@(kScrAdaptationH(135) + 54));
     }];
     //cell的点击事件
     [self.bottomTableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
@@ -316,16 +313,18 @@
             self.clickBottomTabelViewCellBlock(index,model);
         }
     }];
-    UILabel *lable = [[UILabel alloc]init];
-    [self addSubview:lable];
-    [lable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.bottomTableView.mas_bottom);
-        make.left.right.equalTo(weakSelf);
-        make.centerX.equalTo(weakSelf);
-    }];
-    lable.text = self.promptStr;
-    lable.textAlignment = NSTextAlignmentCenter;
-    lable.textColor = [UIColor grayColor];
+//    UILabel *lable = [[UILabel alloc] init];
+//    lable.text = self.promptStr;
+//    lable.textAlignment = NSTextAlignmentCenter;
+//    lable.textColor = [UIColor grayColor];
+//    lable.backgroundColor = [UIColor redColor];
+//    [self addSubview:lable];
+//    [lable mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(weakSelf.bottomTableView.mas_bottom);
+//        make.left.right.equalTo(weakSelf);
+//        make.centerX.equalTo(weakSelf);
+//    }];
+    
 }
 //MARK: 事件的传递
 - (void)clickBottomTableViewCellBloakFunc:(void (^)(NSIndexPath *, HXBFinDetail_TableViewCellModel *))clickBottomTabelViewCellBlock {

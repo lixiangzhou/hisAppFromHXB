@@ -26,7 +26,7 @@
 
 #import "HXBFinAddTruastWebViewVC.h"
 
-@interface HXBFinancing_PlanDetailsViewController ()
+@interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 //假的navigationBar
 @property (nonatomic,strong) UIImageView *topImageView;
 @property(nonatomic,strong) HXBFin_PlanDetailView *planDetailsView;
@@ -61,7 +61,16 @@
     } andFailure:^(NSError *error) {
         
     }];
+    [self.view addSubview:_planDetailsView.addButton];
+    [_planDetailsView.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.view).offset(0);
+        make.width.offset(kScrAdaptationW(375));
+        make.height.offset(kScrAdaptationH(60));
+    }];
+    _planDetailsView.addButton.hidden = NO;
 }
+
 
 - (void)setPlanAddButton:(NSString *)planAddButton {
     _planAddButton = planAddButton;
@@ -87,7 +96,7 @@
         viewModelVM.remainAmount_const         = weakSelf.planDetailViewModel.remainAmount_constStr;
         
         viewModelVM.startInvestmentStr_const   = @"起投";
-        viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
+        viewModelVM.promptStr                  = @"* 预期收益不代表实际收益，投资需谨慎";
         
        
         viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
@@ -152,14 +161,25 @@
 
     self.isTransparentNavigationBar = true;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
-    self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
+    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - 60);
+//    self.hxbBaseVCScrollView.delegate = self;
+//    self.hxbBaseVCScrollView.dataSource = self;
+    self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64 - 60)];
     [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
     
     baseNAV.getNetworkAgainBlock = ^{
         [weakSelf downLoadData];
     };
 }
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    return 3;
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    
+//}
+
+
 - (void)setUPTopImageView {
     self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
     self.topImageView.image = [UIImage imageNamed:@"NavigationBar"];

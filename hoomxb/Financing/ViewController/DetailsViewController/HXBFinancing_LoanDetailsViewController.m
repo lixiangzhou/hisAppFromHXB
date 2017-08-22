@@ -51,7 +51,7 @@
         viewModelVM.remainAmount_const         = weakSelf.loanDetailViewModel.surplusAmount_ConstStr;
         viewModelVM.startInvestmentStr         = weakSelf.loanDetailViewModel.months;
         viewModelVM.startInvestmentStr_const   = @"标的期限";
-        viewModelVM.promptStr                  = @"* 预期收益不代表实际收益投资需谨慎";
+        viewModelVM.promptStr                  = @"* 预期收益不代表实际收益，投资需谨慎";
         viewModelVM.addButtonStr               = weakSelf.loanDetailViewModel.addButtonStr;
         viewModelVM.remainAmount_const         = weakSelf.loanDetailViewModel.surplusAmount_ConstStr;
         viewModelVM.remainAmount               = weakSelf.loanDetailViewModel.surplusAmount;
