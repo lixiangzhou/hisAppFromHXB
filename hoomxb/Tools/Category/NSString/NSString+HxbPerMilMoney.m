@@ -9,6 +9,14 @@
 #import "NSString+HxbPerMilMoney.h"
 
 @implementation NSString (HxbPerMilMoney)
+///没有小数点
++ (NSString *)hxb_getPerMilWithDoubleNum:(double)number
+{
+    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    [numberFormatter setPositiveFormat:@"###,##0;"];
+    NSString *formattedNumberString = [numberFormatter stringFromNumber:[NSNumber numberWithDouble:number]];
+    return formattedNumberString;
+}
 
 +(NSString *)GetPerMilWithDouble:(double)number
 {

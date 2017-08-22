@@ -24,6 +24,7 @@
 //#import "HXBOpenDepositAccountViewController.h"//开通存管账户
 //#import "HxbWithdrawCardViewController.h"//绑卡界面
 #import "HXBMiddlekey.h"
+
 @interface HxbHomeViewController ()
 
 @property (nonatomic, assign) BOOL isVersionUpdate;
@@ -131,12 +132,19 @@
 
 #pragma mark Request
 - (void)getData:(BOOL)isUPReloadData{
+    
+
     kWeakSelf
     HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
     [request homePlanRecommendWithIsUPReloadData:isUPReloadData andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
         weakSelf.homeView.homeBaseModel = viewModel.homeBaseModel;
         weakSelf.homeView.isStopRefresh_Home = YES;
     } andFailureBlock:^(NSError *error) {
+        id responseObject = [PPNetworkCache httpCacheForURL:kHXBHome_HomeURL parameters:nil];
+        if (responseObject) {
+            NSDictionary *baseDic = [responseObject valueForKey:@"data"];
+            weakSelf.homeView.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
+        }
         weakSelf.homeView.isStopRefresh_Home = YES;
         NSLog(@"%@",error);
     }];

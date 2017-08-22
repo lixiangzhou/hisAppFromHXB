@@ -218,7 +218,8 @@
  */
 - (NSString *) addCondition {
     if (!_addCondition) {
-        _addCondition = [NSString stringWithFormat:@"%@起投，%@递增",self.loanDetailModel.minInverst,self.loanDetailModel.minInverst];
+        _addCondition = [NSString stringWithFormat:@"%@起投，%@递增",[NSString hxb_getPerMilWithDoubleNum:self.loanDetailModel.minInverst.doubleValue],[NSString hxb_getPerMilWithDoubleNum:self.loanDetailModel.minInverst.doubleValue]];
+        
     }
     return _addCondition;
 }

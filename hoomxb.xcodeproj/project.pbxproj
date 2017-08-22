@@ -151,6 +151,11 @@
 		4EAEBF021F398E8400729389 /* HXBAssetsCustomVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAEBF011F398E8400729389 /* HXBAssetsCustomVIew.m */; };
 		4EAEBF051F39CC9D00729389 /* HXBProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAEBF041F39CC9D00729389 /* HXBProgressView.m */; };
 		4EAEBF081F39CCD500729389 /* HXBAccumulatedIncomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAEBF071F39CCD500729389 /* HXBAccumulatedIncomeView.m */; };
+		4EB29C4F1F4A7AD800E33CDF /* YYCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB29C481F4A7AD800E33CDF /* YYCache.m */; };
+		4EB29C501F4A7AD800E33CDF /* YYDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB29C4A1F4A7AD800E33CDF /* YYDiskCache.m */; };
+		4EB29C511F4A7AD800E33CDF /* YYKVStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB29C4C1F4A7AD800E33CDF /* YYKVStorage.m */; };
+		4EB29C521F4A7AD800E33CDF /* YYMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB29C4E1F4A7AD800E33CDF /* YYMemoryCache.m */; };
+		4EB29C551F4A81C300E33CDF /* PPNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB29C541F4A81C300E33CDF /* PPNetworkCache.m */; };
 		4EB420901F25FCDC00631A25 /* HXBMiddlekey.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB4208F1F25FCDC00631A25 /* HXBMiddlekey.m */; };
 		4EB420941F26051A00631A25 /* HXBBankList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB420931F26051A00631A25 /* HXBBankList.m */; };
 		4EB45DA41EF7A2BF00C2CF21 /* HxbHomeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB45DA11EF7A2BF00C2CF21 /* HxbHomeRequest.m */; };
@@ -723,6 +728,16 @@
 		4EAEBF041F39CC9D00729389 /* HXBProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBProgressView.m; sourceTree = "<group>"; };
 		4EAEBF061F39CCD500729389 /* HXBAccumulatedIncomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAccumulatedIncomeView.h; sourceTree = "<group>"; };
 		4EAEBF071F39CCD500729389 /* HXBAccumulatedIncomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAccumulatedIncomeView.m; sourceTree = "<group>"; };
+		4EB29C471F4A7AD800E33CDF /* YYCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCache.h; sourceTree = "<group>"; };
+		4EB29C481F4A7AD800E33CDF /* YYCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCache.m; sourceTree = "<group>"; };
+		4EB29C491F4A7AD800E33CDF /* YYDiskCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYDiskCache.h; sourceTree = "<group>"; };
+		4EB29C4A1F4A7AD800E33CDF /* YYDiskCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYDiskCache.m; sourceTree = "<group>"; };
+		4EB29C4B1F4A7AD800E33CDF /* YYKVStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYKVStorage.h; sourceTree = "<group>"; };
+		4EB29C4C1F4A7AD800E33CDF /* YYKVStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYKVStorage.m; sourceTree = "<group>"; };
+		4EB29C4D1F4A7AD800E33CDF /* YYMemoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYMemoryCache.h; sourceTree = "<group>"; };
+		4EB29C4E1F4A7AD800E33CDF /* YYMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYMemoryCache.m; sourceTree = "<group>"; };
+		4EB29C531F4A81C300E33CDF /* PPNetworkCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNetworkCache.h; sourceTree = "<group>"; };
+		4EB29C541F4A81C300E33CDF /* PPNetworkCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNetworkCache.m; sourceTree = "<group>"; };
 		4EB4208E1F25FCDC00631A25 /* HXBMiddlekey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMiddlekey.h; sourceTree = "<group>"; };
 		4EB4208F1F25FCDC00631A25 /* HXBMiddlekey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMiddlekey.m; sourceTree = "<group>"; };
 		4EB420921F26051A00631A25 /* HXBBankList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBankList.h; sourceTree = "<group>"; };
@@ -1994,6 +2009,23 @@
 			path = HXBTransactionPassword;
 			sourceTree = "<group>";
 		};
+		4EB29C461F4A7AD800E33CDF /* YYCache */ = {
+			isa = PBXGroup;
+			children = (
+				4EB29C531F4A81C300E33CDF /* PPNetworkCache.h */,
+				4EB29C541F4A81C300E33CDF /* PPNetworkCache.m */,
+				4EB29C471F4A7AD800E33CDF /* YYCache.h */,
+				4EB29C481F4A7AD800E33CDF /* YYCache.m */,
+				4EB29C491F4A7AD800E33CDF /* YYDiskCache.h */,
+				4EB29C4A1F4A7AD800E33CDF /* YYDiskCache.m */,
+				4EB29C4B1F4A7AD800E33CDF /* YYKVStorage.h */,
+				4EB29C4C1F4A7AD800E33CDF /* YYKVStorage.m */,
+				4EB29C4D1F4A7AD800E33CDF /* YYMemoryCache.h */,
+				4EB29C4E1F4A7AD800E33CDF /* YYMemoryCache.m */,
+			);
+			path = YYCache;
+			sourceTree = "<group>";
+		};
 		4EB4208D1F25FC3E00631A25 /* Middlekey */ = {
 			isa = PBXGroup;
 			children = (
@@ -2784,6 +2816,7 @@
 				E133DD341EEEC14C009466DE /* HXBRequestURL.h */,
 				E133DD321EEEC14C009466DE /* HXBRequestEnumAndStatic.h */,
 				E133DD331EEEC14C009466DE /* HXBRequestEnumAndStatic.m */,
+				4EB29C461F4A7AD800E33CDF /* YYCache */,
 				E133DD1B1EEEC14C009466DE /* HxbModel */,
 				E133DD201EEEC14C009466DE /* HxbNetworking */,
 				E133DD351EEEC14C009466DE /* TokenManager */,
@@ -4267,6 +4300,7 @@
 				4E559B4B1F0F8B67003D9982 /* HXBGetValidationCodeView.m in Sources */,
 				4E94B2781ECC1B13003CCBA7 /* HXBBaseTableView_MYPlanList_TableView.m in Sources */,
 				E133DCED1EEE3597009466DE /* HXBSign_InAndUPViewModel.m in Sources */,
+				4EB29C521F4A7AD800E33CDF /* YYMemoryCache.m in Sources */,
 				4EB45DAB1EF7ACCE00C2CF21 /* HXBHomeTitleModel.m in Sources */,
 				E1FF8EDD1F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m in Sources */,
 				E166C5961F03D6C200AA14F4 /* HXBMY_PlanModel_LoanRecordModel.m in Sources */,
@@ -4340,6 +4374,7 @@
 				4E9982401F022A6400CABA59 /* HXBWithdrawalsRequest.m in Sources */,
 				E1270B3B1ECED23F00729BC9 /* HXBMYViewModel_PlanDetailViewModel.m in Sources */,
 				E1B0F4891EC492980071246F /* HXBFinAddRecortdVC_Loan.m in Sources */,
+				4EB29C511F4A7AD800E33CDF /* YYKVStorage.m in Sources */,
 				4EAA30241F136E79003F2AF3 /* HXBTransactionPasswordConfirmationView.m in Sources */,
 				E12800EB1F0201250066FB66 /* HXBMY_AllFinanceViewController.m in Sources */,
 				E1D048591EE96FC5002A4E28 /* HXBBasePasswordView.m in Sources */,
@@ -4405,6 +4440,7 @@
 				E1CD4BD11ED83064000CC57B /* HXBBaseContDownManager.m in Sources */,
 				E1FF8EEA1F0FB33B00C7F1AC /* HXBFinHomePageModel_LoanTruansferList.m in Sources */,
 				E1CC035B1ECAD2AD00121D21 /* HXBMYRequest.m in Sources */,
+				4EB29C551F4A81C300E33CDF /* PPNetworkCache.m in Sources */,
 				4EB420941F26051A00631A25 /* HXBBankList.m in Sources */,
 				E16D7EDD1F2B371000C5FBF5 /* HXBFin_LoanInfoView.m in Sources */,
 				4E9215641F1DEE7400C8CECB /* HXBOpenDepositAccountViewController.m in Sources */,
@@ -4448,6 +4484,7 @@
 				E133DCE61EEE3597009466DE /* HXBCheckCaptchaViewController.m in Sources */,
 				4E87284E1F3D9B5900137398 /* HBAlertPasswordView.m in Sources */,
 				E17E61A61F1C87B1004D5883 /* HXBFinBaseNegotiateView.m in Sources */,
+				4EB29C4F1F4A7AD800E33CDF /* YYCache.m in Sources */,
 				E1FF8EE01F0F675900C7F1AC /* HXBFinHomePageViewModel_LoanTruansferViewModel.m in Sources */,
 				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E122D85A1EA0CAB900DC71ED /* UIImageView+HxbSDWebImage.m in Sources */,
@@ -4495,6 +4532,7 @@
 				E17509BA1EC6E52900E17B39 /* HXBFinPlanContract_contraceWebViewVC.m in Sources */,
 				E1AAF3071F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.m in Sources */,
 				4E4ACC911F05FBBB0031B326 /* HXBLoanInformation.m in Sources */,
+				4EB29C501F4A7AD800E33CDF /* YYDiskCache.m in Sources */,
 				E133DCE41EEE3597009466DE /* HXBSignUPView.m in Sources */,
 				E133DCDD1EEE3597009466DE /* LoginModel.m in Sources */,
 				E1C964741EA5E04F0066DBC4 /* HXBBaseNavigationController.m in Sources */,

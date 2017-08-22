@@ -10,6 +10,8 @@
 #define HXBRequestURL_h
 
 //MARK: ======================= 所有H5 界面 =======================
+#define kHXBHome_HomeURL @"/home"///用户信息
+//MARK: ======================= 所有H5 界面 =======================
 
 #define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",kHXBH5_BaseURL]//风险评测
 

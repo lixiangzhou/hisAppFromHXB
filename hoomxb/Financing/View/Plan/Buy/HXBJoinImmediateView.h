@@ -36,7 +36,7 @@ static NSString *const loanNegotiateStr = @"《散标合同》";
 static NSString *const planAddButtonStr = @"确认加入";
 static NSString *const loanAddButtonStr = @"确认投标";
 static NSString *const loanStart = @"￥ 100起投，100递增";
-static NSString *const planStart = @"￥ 1000起投，1000递增";
+static NSString *const planStart = @"￥ 1,000起投，1,000递增";
 static NSString *const loanProfitTypeLabel = @"标的剩余可投金额";
 
 @interface HXBJoinImmediateView_Model : NSObject

@@ -172,52 +172,61 @@
     [self.planListAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         ///数据是否出错
         kHXBResponsShowHUD
-        
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [[NSMutableArray alloc]init];
-        
-        [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-           HXBFinHomePageModel_PlanList *financtingPlanListModel = [[HXBFinHomePageModel_PlanList alloc]init];
-            //创建viewModel
-            HXBFinHomePageViewModel_PlanList *financtingPlanListViewModel = [[HXBFinHomePageViewModel_PlanList alloc]init];
-            //字典转模型
-            [financtingPlanListModel yy_modelSetWithDictionary:obj];
-            //给viewModel赋值MODEL
-            financtingPlanListViewModel.planListModel = financtingPlanListModel;
-            [planListViewModelArray addObject:financtingPlanListViewModel];
-        }];
+        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
         //数据的处理
         [self plan_handleDataWithIsUPData:request.isUPReloadData andData:planListViewModelArray];
         
-        ///数据的存储
-        if(!self.planListViewModelArray.count && [HXBDataManager getFin_PlanListViewModelArray].count) {
-            kNetWorkError(@"计划列表 没有数据");
-            if(failureBlock) failureBlock(nil);
-            return;
-        }
         if (successDateBlock) {
-            if (!self.planListViewModelArray.count) {
-                self.planListViewModelArray = [HXBDataManager getFin_PlanListViewModelArray];
+            ///数据的存储
+            if(isUPData) {
+                [PPNetworkCache setHttpCache:responseObject URL:@"/plan" parameters:nil];
             }
             successDateBlock(self.planListViewModelArray);
             [HXBDataManager setFin_PlanListViewModelArrayWithArray:self.planListViewModelArray];///缓存数据
         }
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-            kNetWorkError(@"");
-            if (!self.planListViewModelArray.count) {
-                self.planListViewModelArray = [HXBDataManager getFin_PlanListViewModelArray];
-                if (self.planListViewModelArray.count) {
-                     successDateBlock(self.planListViewModelArray);
-                    return;
-                }
+        [self.planListViewModelArray removeAllObjects];
+        id responseObject = [PPNetworkCache httpCacheForURL:@"/plan" parameters:nil];
+        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
+        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
+        //数据的处理
+        [self plan_handleDataWithIsUPData:isUPData andData:planListViewModelArray];
+        if (responseObject) {
+            if (self.planListViewModelArray.count) {
+                successDateBlock(self.planListViewModelArray);
+                return;
             }
+        }
         if (failureBlock) {
             failureBlock(error);
         }
     }];
 }
 
+/**
+ 将数据转为模型
+
+ @param dataList 数据数组
+ @return 模型数组
+ */
+- (NSMutableArray <HXBFinHomePageViewModel_PlanList *>*)plan_dataProcessingWitharr:(NSArray *)dataList
+{
+    NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [[NSMutableArray alloc]init];
+    
+    [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        HXBFinHomePageModel_PlanList *financtingPlanListModel = [[HXBFinHomePageModel_PlanList alloc]init];
+        //创建viewModel
+        HXBFinHomePageViewModel_PlanList *financtingPlanListViewModel = [[HXBFinHomePageViewModel_PlanList alloc]init];
+        //字典转模型
+        [financtingPlanListModel yy_modelSetWithDictionary:obj];
+        //给viewModel赋值MODEL
+        financtingPlanListViewModel.planListModel = financtingPlanListModel;
+        [planListViewModelArray addObject:financtingPlanListViewModel];
+    }];
+    return planListViewModelArray;
+}
 ///数据的处理
 - (void)plan_handleDataWithIsUPData: (BOOL)isUPData andData: (NSArray<HXBFinHomePageViewModel_PlanList *>*)viewModelArray {
     if (isUPData) {
@@ -248,23 +257,10 @@
         kHXBResponsShowHUD
         //数据
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-        
         if (!responseObject || !dataList.count) {
             NSLog(@"✘散标列表请求没有数据");
         }
-        NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [[NSMutableArray alloc]init];
-        
-        [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            
-            HXBFinHomePageModel_LoanList *financtingLoanListModel = [[HXBFinHomePageModel_LoanList alloc]init];
-            //创建viewModel
-            HXBFinHomePageViewModel_LoanList *financtingLoanListViewModel = [[HXBFinHomePageViewModel_LoanList alloc]init];
-            //字典转模型
-            [financtingLoanListModel yy_modelSetWithDictionary:obj];
-            //给viewModel赋值MODEL
-            financtingLoanListViewModel.loanListModel = financtingLoanListModel;
-            [loanDataListModelArray addObject:financtingLoanListViewModel];
-        }];
+        NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [self loan_dataProcessingWithArr:dataList];
         //回调
         [self loan_handleDataWithIsUPData:self.loanListAPI.isUPReloadData andViewModel:loanDataListModelArray];
         
@@ -276,8 +272,19 @@
         }
         ///请求成功
         if (successDateBlock) successDateBlock(self.loanListViewModelArray);
+        [PPNetworkCache setHttpCache:responseObject URL:@"/loan" parameters:nil];
         
     } failure:^(NYBaseRequest *request, NSError *error) {
+        [self.loanListViewModelArray removeAllObjects];
+        id responseObject = [PPNetworkCache httpCacheForURL:@"/loan" parameters:nil];
+        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
+        NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [self loan_dataProcessingWithArr:dataList];
+        //回调
+        [self loan_handleDataWithIsUPData:self.loanListAPI.isUPReloadData andViewModel:loanDataListModelArray];
+        if (responseObject) {
+            successDateBlock(self.loanListViewModelArray);
+            return;
+        }
         if (error && failureBlock) {
              NSLog(@"✘散标购买请求没有数据");
             failureBlock(error);
@@ -285,6 +292,32 @@
     }];
 }
 
+/**
+ 模型转换
+
+ @param dataList 数据数组
+ @return 模型数组
+ */
+- (NSMutableArray <HXBFinHomePageViewModel_LoanList *>*)loan_dataProcessingWithArr:(NSArray *)dataList
+{
+    NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [[NSMutableArray alloc]init];
+    [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        HXBFinHomePageModel_LoanList *financtingLoanListModel = [[HXBFinHomePageModel_LoanList alloc]init];
+        //创建viewModel
+        HXBFinHomePageViewModel_LoanList *financtingLoanListViewModel = [[HXBFinHomePageViewModel_LoanList alloc]init];
+        //字典转模型
+        [financtingLoanListModel yy_modelSetWithDictionary:obj];
+        //给viewModel赋值MODEL
+        financtingLoanListViewModel.loanListModel = financtingLoanListModel;
+        [loanDataListModelArray addObject:financtingLoanListViewModel];
+    }];
+    return loanDataListModelArray;
+}
+
+/**
+ 数据处理
+ */
 - (void)loan_handleDataWithIsUPData: (BOOL)isUPData andViewModel: (NSArray <HXBFinHomePageViewModel_LoanList *>*)loan_viewModelArray {
     if (isUPData) {
         [self.loanListViewModelArray removeAllObjects];

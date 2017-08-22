@@ -46,7 +46,7 @@
 {
     HXBBaseRequest *homePlanRecommendAPI = [[HXBBaseRequest alloc] init];
     homePlanRecommendAPI.requestMethod = NYRequestMethodGet;
-    homePlanRecommendAPI.requestUrl = @"/home";
+    homePlanRecommendAPI.requestUrl = kHXBHome_HomeURL;
     homePlanRecommendAPI.isUPReloadData = isUPReloadData;
     [homePlanRecommendAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
          NSDictionary *baseDic = [responseObject valueForKey:@"data"];
@@ -55,6 +55,8 @@
         if (successDateBlock) {
             successDateBlock(homePageViewModel);
         }
+        //对数据进行异步缓存
+        [PPNetworkCache setHttpCache:responseObject URL:kHXBHome_HomeURL parameters:nil];
     } failure:^(HXBBaseRequest *request, NSError *error) {
         if (error && failureBlock) {
             NSLog(@"✘ 首页计划列表 - 请求没有数据");

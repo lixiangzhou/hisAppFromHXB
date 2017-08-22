@@ -14,7 +14,7 @@
 #import "SVGKImage.h"
 @interface HXBFinancting_PlanListTableViewCell ()
 @property (nonatomic,strong) UILabel *nameLabel;
-@property (nonatomic,strong) UILabel *expectedYearRateLable;//语气年化
+@property (nonatomic,strong) UILabel *expectedYearRateLable;//预期年化
 @property (nonatomic,strong) UILabel *lockPeriodLabel;//计划期限
 @property (nonatomic,strong) UILabel *addStatus;//加入的状态
 @property (nonatomic,strong) UILabel *preferentialLabel;//打折的label

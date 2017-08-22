@@ -58,10 +58,11 @@
     
  
     [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
+        make.top.equalTo(self).offset(kScrAdaptationH750(40));
+        make.bottom.equalTo(self).offset(kScrAdaptationH750(-40));
         make.left.equalTo(self).offset(kScrAdaptationW750(30));
-        make.height.equalTo(@(kScrAdaptationH750(40)));
         make.width.equalTo(@(kScrAdaptationW750(112)));
+        
     }];
   
   
@@ -74,7 +75,7 @@
     [self.buyTextField show];
     self.buyTextField.textField.placeholder = self.placeholder;
     self.buyTextField.textField.delegate = self;
-    self.buyTextField.textField.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
+    self.buyTextField.textField.font = kHXBFont_PINGFANGSC_REGULAR_750(36);
     [self.buyTextField.button setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
 
     self.leftLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(36);

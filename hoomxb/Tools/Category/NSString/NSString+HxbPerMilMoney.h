@@ -13,6 +13,8 @@
 +(NSString *)GetPerMilWithDouble:(double)number;
 ///后面拼接了 元
 + (NSString *)hxb_getPerMilWithDouble:(double)number;
+///没有小数点
++ (NSString *)hxb_getPerMilWithDoubleNum:(double)number;
 
 ///隐藏了中间的字段 为 *
 + (NSString *) hiddenStr: (NSString *)string MidWithFistLenth: (NSInteger)fistLenth andLastLenth: (NSInteger)lastLenth;
