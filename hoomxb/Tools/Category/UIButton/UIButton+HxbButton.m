@@ -9,7 +9,7 @@
 #import "UIButton+HxbButton.h"
 
 
-const NSString *const kIsColourGradientView = @"isColourGradientView";
+static NSString *const kIsColourGradientView = @"isColourGradientView";
 
 @implementation UIButton (HxbButton)
 - (void)setIsColourGradientView:(BOOL)isColourGradientView {
