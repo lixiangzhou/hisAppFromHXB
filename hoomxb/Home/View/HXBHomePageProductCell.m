@@ -1,4 +1,4 @@
-//
+ //
 //  HXBHomePageProductCell.m
 //  HongXiaoBao
 //
@@ -152,9 +152,8 @@
                        range:[str rangeOfString:homePageModel_DataList.lockPeriod]];
     self.investmentPeriodTitleLabel.attributedText = attrStr;
 
-//    NSString *compantString = [homePageModel_DataList.extraInterestRate substringWithRange:NSMakeRange(1, 4)];
-    if (![homePageModel_DataList.extraInterestRate isEqualToString:@"0"]) {
-        self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%+%.1f%%",[homePageModel_DataList.baseInterestRate doubleValue],[homePageModel_DataList.fixExtraInterestRate floatValue]];
+    if (![homePageModel_DataList.fixExtraInterestRate isEqualToString:@"0"]) {
+        self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],homePageModel_DataList.fixExtraInterestRate];
     }else
     {
          self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%",[homePageModel_DataList.baseInterestRate doubleValue]];
