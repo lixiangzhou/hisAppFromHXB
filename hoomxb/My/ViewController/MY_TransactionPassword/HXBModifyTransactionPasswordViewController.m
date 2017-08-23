@@ -150,7 +150,7 @@
     if (!_callPhoneView) {
         _callPhoneView = [[HXBCallPhone_BottomView alloc] init];
         _callPhoneView.leftTitle = @"如有疑问，请联系客服";
-        _callPhoneView.phoneNumber = @"400-1551-888";
+        _callPhoneView.phoneNumber = kServiceMobile;
         _callPhoneView.supplementText = @"(周一至周五 9:00-19:00)";
     }
     return _callPhoneView;

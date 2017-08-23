@@ -131,7 +131,7 @@
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.userInfoViewModel = viewModel;
         if (weakSelf.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
-            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
+            [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:kHXBCallPhone_title];
             return;
         }
         if (!weakSelf.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {

@@ -58,8 +58,7 @@
 @property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
 @property (nonatomic,copy) void (^clickAddButtonBlock)();
 @property (nonatomic,copy) void (^clickAddTrustBlock) ();
-///加入的button
-@property (nonatomic,strong) UIButton *addButton;
+
 ///倒计时
 @property (nonatomic,copy) NSString *diffTime;
 /// 是否倒计时
@@ -290,31 +289,31 @@
 //MARK: - 立即加入按钮的添加
 - (void)setupAddView {
     kWeakSelf
-    self.addView = [[UIView alloc]init];
-    [self addSubview:self.addView];
-    [self.addView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf);
-        make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@60);
-    }];
+//    self.addView = [[UIView alloc]init];
+//    [self addSubview:self.addView];
+//    [self.addView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(weakSelf);
+//        make.left.right.equalTo(weakSelf);
+//        make.height.equalTo(@60);
+//    }];
     self.addButton = [[UIButton alloc]init];
-    [self.addView addSubview:_addButton];
-    [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.centerY.equalTo(weakSelf.addView);
-        make.left.top.equalTo(weakSelf.addView).offset(0);
-        make.bottom.right.equalTo(weakSelf.addView).offset(0);
-    }];
+//    [self.addView addSubview:_addButton];
+//    [self.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.centerY.equalTo(weakSelf.addView);
+//        make.left.top.equalTo(weakSelf.addView).offset(0);
+//        make.bottom.right.equalTo(weakSelf.addView).offset(0);
+//    }];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.addButton setTitle:self.addButtonStr forState:UIControlStateNormal];
     
     
-    self.countDownLabel = [[UILabel alloc]init];
+    self.countDownLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(60))];
     [self addSubview: self.countDownLabel];
-    [self.countDownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.addButton.mas_top);
-        make.centerX.equalTo(self.addButton);
-        make.height.equalTo(@(kScrAdaptationH(30)));
-    }];
+//    [self.countDownLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(self.addButton.mas_top);
+//        make.centerX.equalTo(self.addButton);
+//        make.height.equalTo(@(kScrAdaptationH(30)));
+//    }];
 }
 
 - (void)clickAddButton: (UIButton *)button {

@@ -20,7 +20,8 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status == 5068) {
-            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您今日开通存管错误已超限，请明日再试！请联系客服 400-1551-888"];
+            NSString *string = [NSString stringWithFormat:@"您今日开通存管错误已超限，请明日再试！请联系客服：%@", kServiceMobile];
+            [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:string];
             return;
         }
         if (status != 0) {

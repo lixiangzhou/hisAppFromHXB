@@ -105,7 +105,7 @@ typedef enum {
 #define kWindow   [UIApplication sharedApplication].keyWindow
 
 //一般的业务常量
-#define CusSerTel                       @"400-1551-888"
+#define CusSerTel                       @"400-1552-888"
 
 
 //#define FAQUrl                          @"http://www.hoomxb.com/app-files/questions.html" //

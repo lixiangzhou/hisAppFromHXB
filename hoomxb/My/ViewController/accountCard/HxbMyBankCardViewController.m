@@ -135,7 +135,7 @@
 {
 //    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4001551888"];
 //    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-    [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"请联系客服"];
+    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:@"请联系客服"];
 }
 
 
@@ -180,7 +180,8 @@
 {
     if (!_phoneBtn) {
         _phoneBtn  = [[UIButton alloc] init];
-        [_phoneBtn setTitle:@"如需解绑，请联系红小宝客服：400-1551-888" forState:UIControlStateNormal];
+        NSString *string = [NSString stringWithFormat:@"如需解绑，请联系红小宝客服：%@", kServiceMobile];
+        [_phoneBtn setTitle:string forState:UIControlStateNormal];
         [_phoneBtn setTitleColor:COR11 forState:UIControlStateNormal];
         [_phoneBtn addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _phoneBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
