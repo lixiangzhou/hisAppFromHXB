@@ -22,6 +22,7 @@
 #import "HXBFin_Plan_BuySuccessViewController.h"
 #import "HxbMyTopUpViewController.h"//充值
 #import "HXBFinAddTruastWebViewVC.h"//协议服务
+#import "HxbWithdrawCardViewController.h"//绑卡页面
 @interface HXBFin_Loan_BuyViewController ()
 @property (nonatomic,strong) HXBFin_JoinimmediateView_Loan *joinimmediateView_Loan;
 ///个人总资产
@@ -104,9 +105,27 @@
     }];
 }
 - (void) pushTopUPViewControllerWithAmount:(NSString *)amount {
-    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-    hxbMyTopUpViewController.amount = amount;
-    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        if (viewModel.userInfoModel.userInfo.isUnbundling) {
+            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
+            return;
+        }
+        if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
+        {
+            //进入绑卡界面
+            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+            withdrawCardViewController.title = @"绑卡";
+            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+            [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+        }else
+        {
+            HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+            hxbMyTopUpViewController.amount = amount;
+            [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+        }
+    }andFailure:^(NSError *error) {
+    }];
 }
 
 ///点击了一键购买

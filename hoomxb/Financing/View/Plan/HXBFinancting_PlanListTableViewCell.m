@@ -173,7 +173,13 @@
     if (self.finPlanListViewModel.isCountDown) {
         self.countDownLable.text = countDownString;
     }
-  
+    if ([self.addStatus.text isEqualToString:@"等待加入"] && self.finPlanListViewModel.isHidden) {
+        self.addStatus.text = @"立即加入";
+        self.addStatus.backgroundColor = kHXBColor_Red_090303;
+        self.addStatus.textColor = [UIColor whiteColor];
+        self.addStatus.layer.borderColor = kHXBColor_Red_090303.CGColor;
+        self.addStatus.layer.borderWidth = kScrAdaptationH(1);
+    }
 }
 - (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
     _lockPeriodLabel_ConstStr = lockPeriodLabel_ConstStr;

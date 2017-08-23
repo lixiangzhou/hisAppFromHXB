@@ -264,7 +264,7 @@
     if (!_expectAnnualizedRatesLabel) {
         _expectAnnualizedRatesLabel = [[UILabel alloc]initWithFrame:CGRectMake(16, 50, 120, 22)];
         _expectAnnualizedRatesLabel.textColor = COR10;
-        _expectAnnualizedRatesLabel.text = @"预期年利率";
+        _expectAnnualizedRatesLabel.text = @"平均历史年化收益";
         _expectAnnualizedRatesLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
     }
     return _expectAnnualizedRatesLabel;

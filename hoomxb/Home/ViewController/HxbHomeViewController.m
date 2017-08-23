@@ -20,7 +20,7 @@
 #import "HXBVersionUpdateViewModel.h"//版本更新的viewModel
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 #import "HXBNoticeViewController.h"//公告界面
-#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"//H5的Banner页面
+#import "HXBBannerWebViewController.h"//H5的Banner页面
 //#import "HXBOpenDepositAccountViewController.h"//开通存管账户
 //#import "HxbWithdrawCardViewController.h"//绑卡界面
 #import "HXBMiddlekey.h"
@@ -330,9 +330,9 @@
         };
         
         _homeView.clickBannerImageBlock = ^(BannerModel *model) {
-            HXBFinLoanTruansfer_ContraceWebViewVC *webViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc] init];
-            webViewVC.URL = model.url;
-            webViewVC.title = @"👌banner";
+            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+            webViewVC.url = model.url;
+//            webViewVC.title = model.title;//mgmt标题
             [weakSelf.navigationController pushViewController:webViewVC animated:true];
         };
     }

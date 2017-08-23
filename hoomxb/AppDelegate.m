@@ -118,7 +118,8 @@ static NSString *const my = @"我的";
 #pragma mark - 判断app是否第一次启动，以及版本是否需要更新
 - (void)judgementApplication {
     if([HXBBaseVersionUpdateManager isFirstStartUPAPP]) {
-        
+        NSLog(@"第一次登录程序");
+        [KeyChain removeAllInfo];
     }
 }
 #pragma mark - 创建并设置根视图控制器

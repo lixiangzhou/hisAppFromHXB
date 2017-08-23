@@ -115,7 +115,7 @@
     HXBFinDetailViewModel_PlanDetail *BuyPlanDetailViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
     BuyPlanDetailViewModel.planDetailModel = [[HXBFinDetailModel_PlanDetail alloc]init];
     ///加入条件加入金额%@元起，%@元的整数倍递增
-    BuyPlanDetailViewModel.addCondition = [NSString stringWithFormat:@"%@元的整数倍递增",weakSelf.viewModel.planDetailModel.registerMultipleAmount];
+    BuyPlanDetailViewModel.addCondition = [NSString stringWithFormat:@"%@元的整数倍递增",[NSString hxb_getPerMilWithDoubleNum:weakSelf.viewModel.planDetailModel.registerMultipleAmount.doubleValue]];
     ///余额 title
     ///收益方法
     BuyPlanDetailViewModel.profitType_UI = weakSelf.planViewModel.profitType_UI;

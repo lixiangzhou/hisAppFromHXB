@@ -100,6 +100,10 @@
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
         {
+            if (viewModel.userInfoModel.userInfo.isUnbundling) {
+                [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
+                return;
+            }
             //进入绑卡界面
             HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
             withdrawCardViewController.title = @"绑卡";
