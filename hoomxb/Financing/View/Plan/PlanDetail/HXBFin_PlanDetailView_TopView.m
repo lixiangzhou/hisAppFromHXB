@@ -36,9 +36,10 @@
         return manager.rightViewManager;
     }];
     NSString *str = manager.topViewManager.leftLabelStr;
-    NSRange range = NSMakeRange(str.length - 1, 1);
+    NSRange range = NSMakeRange(str.length - _attributeStringLength, _attributeStringLength);
+//    NSRange range = NSMakeRange(str.length, 0);
     UIColor *color = [UIColor whiteColor];
-    UIFont *font = kHXBFont_PINGFANGSC_REGULAR(20);
+    UIFont *font = kHXBFont_PINGFANGSC_REGULAR(30);
     NSMutableAttributedString *attrM = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:color andAttributeFont:font];
     self.topView.leftLabel.attributedText = attrM;
 }

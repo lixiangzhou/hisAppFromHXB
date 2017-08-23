@@ -426,6 +426,8 @@
 		E1D048531EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D048511EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m */; };
 		E1D048561EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D048541EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.m */; };
 		E1D048591EE96FC5002A4E28 /* HXBBasePasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D048581EE96FC5002A4E28 /* HXBBasePasswordView.m */; };
+		E1D143CB1F4D215E00EB05CC /* HXBFinanctingDetail_imageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D143CA1F4D215E00EB05CC /* HXBFinanctingDetail_imageCell.m */; };
+		E1D143CE1F4D219300EB05CC /* HXBFinanctingDetail_progressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D143CD1F4D219300EB05CC /* HXBFinanctingDetail_progressCell.m */; };
 		E1D2CA631EAB4F26000099C7 /* HxbFinanctingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D2CA621EAB4F26000099C7 /* HxbFinanctingViewController.m */; };
 		E1D3D0D21ED6B526003F1DBA /* HXBAdvertisementManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1D3D0D11ED6B526003F1DBA /* HXBAdvertisementManager.m */; };
 		E1D7883E1EC32AE000566AC1 /* HXBFinancting_LoanListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FDF6291EC329F100FF98AC /* HXBFinancting_LoanListTableView.m */; };
@@ -1266,6 +1268,10 @@
 		E1D048551EE96F7B002A4E28 /* HXBAccount_AlterLoginPassword_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAccount_AlterLoginPassword_View.h; sourceTree = "<group>"; };
 		E1D048571EE96FC5002A4E28 /* HXBBasePasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBasePasswordView.h; sourceTree = "<group>"; };
 		E1D048581EE96FC5002A4E28 /* HXBBasePasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBasePasswordView.m; sourceTree = "<group>"; };
+		E1D143C91F4D215E00EB05CC /* HXBFinanctingDetail_imageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinanctingDetail_imageCell.h; sourceTree = "<group>"; };
+		E1D143CA1F4D215E00EB05CC /* HXBFinanctingDetail_imageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinanctingDetail_imageCell.m; sourceTree = "<group>"; };
+		E1D143CC1F4D219300EB05CC /* HXBFinanctingDetail_progressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinanctingDetail_progressCell.h; sourceTree = "<group>"; };
+		E1D143CD1F4D219300EB05CC /* HXBFinanctingDetail_progressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinanctingDetail_progressCell.m; sourceTree = "<group>"; };
 		E1D2CA611EAB4F26000099C7 /* HxbFinanctingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbFinanctingViewController.h; sourceTree = "<group>"; };
 		E1D2CA621EAB4F26000099C7 /* HxbFinanctingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbFinanctingViewController.m; sourceTree = "<group>"; };
 		E1D3D0D01ED6B526003F1DBA /* HXBAdvertisementManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAdvertisementManager.h; sourceTree = "<group>"; };
@@ -3801,6 +3807,10 @@
 			children = (
 				E1E4613D1EB98CF2005B1FC6 /* HXBFinanctingView_HomePage.h */,
 				E1E4613E1EB98CF2005B1FC6 /* HXBFinanctingView_HomePage.m */,
+				E1D143C91F4D215E00EB05CC /* HXBFinanctingDetail_imageCell.h */,
+				E1D143CA1F4D215E00EB05CC /* HXBFinanctingDetail_imageCell.m */,
+				E1D143CC1F4D219300EB05CC /* HXBFinanctingDetail_progressCell.h */,
+				E1D143CD1F4D219300EB05CC /* HXBFinanctingDetail_progressCell.m */,
 				E1C10A511EBC818D00C21984 /* Base */,
 				E1E4617C1EB9BDE9005B1FC6 /* Plan */,
 				E1E4617B1EB9BDE9005B1FC6 /* Loan */,
@@ -4277,7 +4287,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -4386,6 +4396,7 @@
 				4E9982471F02677B00CABA59 /* HXBAlertVC.m in Sources */,
 				E1CD4BCE1ED83064000CC57B /* HxbAdvertiseView.m in Sources */,
 				E10EB4AD1EEFDFE800F16CFA /* HxbWithdrawResultViewController.m in Sources */,
+				E1D143CB1F4D215E00EB05CC /* HXBFinanctingDetail_imageCell.m in Sources */,
 				E122D85B1EA0CAB900DC71ED /* UILabel+HxbLabel.m in Sources */,
 				E1270B4D1ECED2FC00729BC9 /* HXBMYModel_LoanDetailModel.m in Sources */,
 				4E559B511F0FB066003D9982 /* HXBRechargesuccessView.m in Sources */,
@@ -4553,6 +4564,7 @@
 				4E94B28D1ECC4973003CCBA7 /* NSAttributedString+Util.m in Sources */,
 				E1E461491EB9AB74005B1FC6 /* HXBFinanctingRequest.m in Sources */,
 				E1E4613C1EB98B5C005B1FC6 /* HXBBaseToolBarView.m in Sources */,
+				E1D143CE1F4D219300EB05CC /* HXBFinanctingDetail_progressCell.m in Sources */,
 				E1D3D0D21ED6B526003F1DBA /* HXBAdvertisementManager.m in Sources */,
 				E1F0D80C1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m in Sources */,
 				E122D8501EA0CAB900DC71ED /* NSString+CopiesTransfer.m in Sources */,

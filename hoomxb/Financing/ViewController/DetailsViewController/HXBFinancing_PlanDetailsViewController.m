@@ -25,10 +25,20 @@
 #import "HXBFin_Plan_BuyViewController.h"//加入 界面
 #import "HXBFinAddTruastWebViewVC.h"
 
+
+#pragma mark --- 新改
+
+#import "HXBFinanctingDetail_imageCell.h"
+#import "HXBFinanctingDetail_progressCell.h"
+#import "HXBFin_PlanDetailView_TopView.h"
+#import "HXBFinBase_FlowChartView.h"
+#import "HXBFin_DetailsViewBase.h"
+
+
 @interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 //假的navigationBar
 @property (nonatomic,strong) UIImageView *topImageView;
-@property(nonatomic,strong) HXBFin_PlanDetailView *planDetailsView;
+//@property(nonatomic,strong) HXBFin_PlanDetailView *planDetailsView;
 ///底部点的cellModel
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewModelArray;
 ///tableView的tatile
@@ -42,17 +52,43 @@
 @property (nonatomic,copy) NSString *availablePoint;//可用余额；
 @property (nonatomic,assign) BOOL isIdPassed;
 @property (nonatomic,assign) BOOL isVerify;
+/// 表头视图
+@property (nonatomic,strong) HXBFin_PlanDetailView_TopView *topView;
+@property (nonatomic,copy) NSString *lockPeriodStr;
+///红利计划：（起投 固定值1000） 散标：（标的期限）
+@property (nonatomic,copy) NSString *startInvestmentStr;
+@property (nonatomic,copy) NSString *startInvestmentStr_const;
+///红利计划：剩余金额 散标列表是（剩余金额）
+@property (nonatomic,copy) NSString *remainAmount;
+@property (nonatomic,copy) NSString *remainAmount_const;
+
+@property (nonatomic,copy) NSString *addButtonStr;
+///加入的button
+@property (nonatomic,strong) UIButton *addButton;
+///倒计时
+@property (nonatomic,copy) NSString *diffTime;
+/// 是否倒计时
+@property (nonatomic,assign) BOOL isContDown;
+///立即加入 倒计时
+@property (nonatomic,strong) UILabel *countDownLabel;
+///倒计时管理
+@property (nonatomic,strong) HXBBaseCountDownManager_lightweight *countDownManager;
+///倒计时完成刷新数据
+@property (nonatomic,copy) void(^downLodaDataBlock)();
+
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //    [self registerClickCell];
+    //    [self registerAddTrust];//增信
     self.isHiddenNavigationBar = false;
     [self setup];
     [self downLoadData];
-    [self registerClickCell];
-    [self registerClickAddButton];
-    [self registerAddTrust];//增信
+    [self tableViewModelArray];
+    [self setupAddView];
+//    [self registerClickAddButton];
     
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
@@ -60,16 +96,75 @@
     } andFailure:^(NSError *error) {
         
     }];
-    [self.view addSubview:_planDetailsView.addButton];
-    [_planDetailsView.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(0);
-        make.bottom.equalTo(self.view).offset(0);
-        make.width.offset(kScrAdaptationW(375));
-        make.height.offset(kScrAdaptationH(60));
-    }];
-    _planDetailsView.addButton.hidden = NO;
+//    [self.view addSubview:_planDetailsView.addButton];
+//    [_planDetailsView.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.view).offset(0);
+//        make.bottom.equalTo(self.view).offset(0);
+//        make.width.offset(kScrAdaptationW(375));
+//        make.height.offset(kScrAdaptationH(60));
+//    }];
+//    _planDetailsView.addButton.hidden = NO;
 }
 
+//MARK: - 立即加入按钮的添加
+- (void)setupAddView {
+    self.addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    self.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(60), kScreenWidth, kScrAdaptationH(60));
+    [self.view addSubview:_addButton];
+    [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
+    self.addButton.backgroundColor = [UIColor clearColor];
+    [self.addButton setTitle:self.addButtonStr forState:UIControlStateNormal];
+    
+    self.countDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, self.addButton.height)];
+    self.countDownLabel.textAlignment = NSTextAlignmentCenter;
+    [self.addButton addSubview: self.countDownLabel];
+    self.addButton.userInteractionEnabled = true;
+}
+
+- (void)clickAddButton: (UIButton *)button {
+    if(![KeyChainManage sharedInstance].isLogin) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        return;
+    }
+    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^{
+        [self enterPlanBuyViewController];
+    }];
+}
+
+- (void) setAddButtonStr:(NSString *)addButtonStr {
+    _addButtonStr = addButtonStr;
+    [self.addButton setTitle:addButtonStr forState:UIControlStateNormal];
+}
+
+///MARK: 倒计时的判断
+- (void)setIsContDown:(BOOL)isContDown {
+    kWeakSelf
+    _isContDown = isContDown;
+    if (isContDown) {
+        [self.countDownManager resumeTimer];
+        [self.countDownManager countDownCallBackFunc:^(CGFloat countDownValue) {
+            if (countDownValue < 0) {
+                if (weakSelf.downLodaDataBlock) weakSelf.downLodaDataBlock();
+                [weakSelf.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
+                [weakSelf.addButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+                weakSelf.addButton.backgroundColor = COR29;
+                weakSelf.addButton.userInteractionEnabled = true;
+                [weakSelf.countDownManager stopTimer];
+                return;
+            }
+            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒"];
+            [weakSelf.addButton setTitle:str forState:UIControlStateNormal];
+        }];
+    }else {
+        if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue <= 5) {//等待加入
+            [weakSelf.addButton setTitle:weakSelf.planDetailViewModel.remainTimeString forState:UIControlStateNormal];
+        }
+    }
+}
+
+- (void)setDiffTime:(NSString *)diffTime {
+    _diffTime = diffTime;
+}
 
 - (void)setPlanAddButton:(NSString *)planAddButton {
     _planAddButton = planAddButton;
@@ -84,41 +179,67 @@
 - (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
     kWeakSelf
     _planDetailViewModel = planDetailViewModel;
-    [_planDetailsView setUPViewModelVM:^HXBFin_PlanDetailView_ViewModelVM *(HXBFin_PlanDetailView_ViewModelVM *viewModelVM) {
-        weakSelf.planDetailVM = viewModelVM;
-        viewModelVM.totalInterestStr           = weakSelf.planDetailViewModel.planDetailModel.expectedRate;
-        viewModelVM.startInvestmentStr         = weakSelf.planDetailViewModel.minRegisterAmount;
-        viewModelVM.remainAmount               = weakSelf.planDetailViewModel.remainAmount;
-        
-        viewModelVM.totalInterestStr_const     = @"年利率";
-        
-        viewModelVM.remainAmount_const         = weakSelf.planDetailViewModel.remainAmount_constStr;
-        
-        viewModelVM.startInvestmentStr_const   = @"起投";
-        viewModelVM.promptStr                  = @"* 预期收益不代表实际收益，投资需谨慎";
-        
-       
-        viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
-        viewModelVM.isUserInteractionEnabled   = weakSelf.planDetailViewModel.isAddButtonInteraction;
-        viewModelVM.title                      = @"加入计划";
-        viewModelVM.diffTime                   = weakSelf.planDetailViewModel.countDownStr;
-        //倒计时
-        viewModelVM.isCountDown                = weakSelf.planDetailViewModel.isContDown;
-        //加入按钮
-        viewModelVM.addButtonBackgroundColor   = weakSelf.planDetailViewModel.addButtonBackgroundColor;
-        viewModelVM.addButtonTitleColor        = weakSelf.planDetailViewModel.addButtonTitleColor;
-        viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
-        if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
+    [self.topView setUPValueWithManager:^HXBFin_PlanDetailView_TopViewManager *(HXBFin_PlanDetailView_TopViewManager *manager) {
+        if ([weakSelf.planDetailViewModel.planDetailModel.extraInterestRate floatValue] != 0) {
+            weakSelf.topView.attributeStringLength = weakSelf.planDetailViewModel.planDetailModel.extraInterestRate.length + 2;
+            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%@%%+%@%%",weakSelf.planDetailViewModel.planDetailModel.baseInterestRate, weakSelf.planDetailViewModel.planDetailModel.extraInterestRate];
+        } else {
+            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%@%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate];
         }
-        ///如果是小于5的情况，那么就是等待加入， 那么如果小于1小时，那么久显示这个参数
-        viewModelVM.remainTimeString           = weakSelf.planDetailViewModel.remainTimeString;
-        //流程的数据
-        viewModelVM.unifyStatus                = weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue;
-        viewModelVM.addTime                    = weakSelf.planDetailViewModel.beginSellingTime_flow;
-        viewModelVM.beginProfitTime            = weakSelf.planDetailViewModel.financeEndTime_flow;
-        viewModelVM.leaveTime                  = weakSelf.planDetailViewModel.endLockingTime_flow;
-        return viewModelVM;
+        manager.topViewManager.rightLabelStr = @"平均历史年化收益";
+        manager.leftViewManager.leftLabelStr = weakSelf.planDetailViewModel.lockPeriodStr;
+        manager.leftViewManager.rightLabelStr = @"期限";
+        manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithDouble:[weakSelf.planDetailViewModel.minRegisterAmount doubleValue]];
+        manager.midViewManager.rightLabelStr = @"起投";
+        manager.rightViewManager.rightLabelStr = weakSelf.planDetailViewModel.remainAmount_constStr;
+        manager.rightViewManager.leftLabelStr = weakSelf.planDetailViewModel.remainAmount;
+        return manager;
     }];
+    self.diffTime = weakSelf.planDetailViewModel.countDownStr;
+    self.isContDown = weakSelf.planDetailViewModel.isContDown;
+    
+    //加入button设置 数据
+    self.addButton.userInteractionEnabled = self.planDetailViewModel.isAddButtonInteraction;
+    [self.addButton setTitle:self.planDetailViewModel.addButtonStr forState:UIControlStateNormal];
+    [self.addButton setTitleColor:self.planDetailViewModel.addButtonTitleColor forState:UIControlStateNormal];
+    self.addButton.backgroundColor = self.planDetailViewModel.addButtonBackgroundColor;
+    
+    
+//    [_planDetailsView setUPViewModelVM:^HXBFin_PlanDetailView_ViewModelVM *(HXBFin_PlanDetailView_ViewModelVM *viewModelVM) {
+//        weakSelf.planDetailVM = viewModelVM;
+//        viewModelVM.totalInterestStr           = weakSelf.planDetailViewModel.planDetailModel.expectedRate;
+//        viewModelVM.startInvestmentStr         = weakSelf.planDetailViewModel.minRegisterAmount;
+//        viewModelVM.remainAmount               = weakSelf.planDetailViewModel.remainAmount;
+//        
+//        viewModelVM.totalInterestStr_const     = @"年利率";
+//        
+//        viewModelVM.remainAmount_const         = weakSelf.planDetailViewModel.remainAmount_constStr;
+//        
+//        viewModelVM.startInvestmentStr_const   = @"起投";
+//        viewModelVM.promptStr                  = @"* 预期收益不代表实际收益，投资需谨慎";
+//        
+//       
+//        viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
+//        viewModelVM.isUserInteractionEnabled   = weakSelf.planDetailViewModel.isAddButtonInteraction;
+//        viewModelVM.title                      = @"加入计划";
+//        viewModelVM.diffTime                   = weakSelf.planDetailViewModel.countDownStr;
+//        //倒计时
+//        viewModelVM.isCountDown                = weakSelf.planDetailViewModel.isContDown;
+//        //加入按钮
+//        viewModelVM.addButtonBackgroundColor   = weakSelf.planDetailViewModel.addButtonBackgroundColor;
+//        viewModelVM.addButtonTitleColor        = weakSelf.planDetailViewModel.addButtonTitleColor;
+//        viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
+//        if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
+//        }
+//        ///如果是小于5的情况，那么就是等待加入， 那么如果小于1小时，那么久显示这个参数
+//        viewModelVM.remainTimeString           = weakSelf.planDetailViewModel.remainTimeString;
+//        //流程的数据
+//        viewModelVM.unifyStatus                = weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue;
+//        viewModelVM.addTime                    = weakSelf.planDetailViewModel.beginSellingTime_flow;
+//        viewModelVM.beginProfitTime            = weakSelf.planDetailViewModel.financeEndTime_flow;
+//        viewModelVM.leaveTime                  = weakSelf.planDetailViewModel.endLockingTime_flow;
+//        return viewModelVM;
+//    }];
 }
 
 - (void) setupTableViewArray {
@@ -133,6 +254,7 @@
                                  @"红利计划服务协议"
                                  ];
 }
+
 - (NSArray<HXBFinDetail_TableViewCellModel *> *)tableViewModelArray {
     if (!_tableViewModelArray) {
         [self setupTableViewArray];
@@ -161,26 +283,122 @@
     self.isTransparentNavigationBar = true;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - 60);
+    self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.hxbBaseVCScrollView.delegate = self;
     self.hxbBaseVCScrollView.dataSource = self;
-    self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64 - 60)];
+    self.hxbBaseVCScrollView.hidden = YES;
+//    self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64 - 60)];
 //    [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
-    
+    self.hxbBaseVCScrollView.tableHeaderView = [self tableViewHeadView];
+    self.hxbBaseVCScrollView.tableFooterView = [self tableViewFootView];
     baseNAV.getNetworkAgainBlock = ^{
         [weakSelf downLoadData];
     };
 }
 
+// 表头
+- (UIView *)tableViewHeadView {
+    self.topView = [[HXBFin_PlanDetailView_TopView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(248) - 64)];
+    self.topView.backgroundColor = [UIColor greenColor];
+    return self.topView;
+}
+
+- (UIView *)tableViewFootView {
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(57))];
+    footView.backgroundColor = [UIColor clearColor];
+    UILabel *promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(20), kScreenWidth, kScrAdaptationH(17))];
+    promptLabel.text = @"预期收益不代表实际收益，投资需谨慎";
+    promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    promptLabel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
+    promptLabel.textAlignment = NSTextAlignmentCenter;
+    [footView addSubview:promptLabel];
+    return footView;
+}
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (section == 0 || section == 1) {
+        return 1;
+    } else {
+        return self.tableViewTitleArray.count;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"cell"];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return kScrAdaptationH(80);
+    } else if (indexPath.section == 1) {
+        return kScrAdaptationH(108);
+    } else {
+        return kScrAdaptationH(44.5);
     }
-    return cell;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        HXBFinanctingDetail_imageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"trustCell"];
+        if (!cell) {
+            cell = [[HXBFinanctingDetail_imageCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"trustCell"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        return cell;
+    } else if (indexPath.section == 1) {
+        HXBFinanctingDetail_progressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"flowChartCell"];
+        if (!cell) {
+            cell = [[HXBFinanctingDetail_progressCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"flowChartCell"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        kWeakSelf
+        [cell.flowChartView setUPFlowChartViewManagerWithManager:^HXBFinBase_FlowChartView_Manager *(HXBFinBase_FlowChartView_Manager *manager) {
+            manager.stage = weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue;;
+            manager.addTime = weakSelf.planDetailViewModel.beginSellingTime_flow;
+            manager.beginTime = weakSelf.planDetailViewModel.financeEndTime_flow;
+            manager.leaveTime = weakSelf.planDetailViewModel.endLockingTime_flow;
+            return manager;
+        }];
+        return cell;
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"cell"];
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.text = self.tableViewTitleArray[indexPath.row];
+        return cell;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0) {
+        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+        vc.URL = kHXB_Negotiate_AddTrustURL;
+        [self.navigationController pushViewController:vc animated:true];
+    } else if (indexPath.section == 2) {
+        if (indexPath.row == 0) {
+            HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc] init];
+            detail_DetailPlanVC.planDetailModel = self.planDetailViewModel;
+            [self.navigationController pushViewController:detail_DetailPlanVC animated:true];
+        } else if (indexPath.row == 1) {
+            HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
+            planAddRecordVC.planListViewModel = self.planListViewModel;
+            planAddRecordVC.planID = self.planID;
+            [self.navigationController pushViewController:planAddRecordVC animated:true];
+        } else {
+            HXBFinPlanContract_contraceWebViewVC * contractWebViewVC = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
+            contractWebViewVC.URL = self.planDetailViewModel.contractURL;
+            [self.navigationController pushViewController:contractWebViewVC animated:true];
+        }
+    }
 }
 
 
@@ -191,74 +409,74 @@
 }
 
 ///MARK: 事件注册
-- (void)registerClickCell {
-    __weak typeof (self)weakSelf = self;
-    [self.planDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
-        //跳转相应的页面
-        NSLog(@"%@",model.optionTitle);
-        ///点击了计划详情
-        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0]]) {
-            HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc]init];
-            detail_DetailPlanVC.planDetailModel = weakSelf.planDetailViewModel;
-            [weakSelf.navigationController pushViewController:detail_DetailPlanVC animated:true];
-        }
-    
-        ///  加入记录
-        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
-            HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
-            planAddRecordVC.planListViewModel = weakSelf.planListViewModel;
-            planAddRecordVC.planID = weakSelf.planID;
-            [weakSelf.navigationController pushViewController:planAddRecordVC animated:true];
-        }
-        ///红利计划服务
-        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2]]) {
-            //跳转一个webView
-            HXBFinPlanContract_contraceWebViewVC * contractWebViewVC = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
-            contractWebViewVC.URL = weakSelf.planDetailViewModel.contractURL;
-            [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
-        }
-    }];
-}
+//- (void)registerClickCell {
+//    __weak typeof (self)weakSelf = self;
+//    [self.planDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
+//        //跳转相应的页面
+//        NSLog(@"%@",model.optionTitle);
+//        ///点击了计划详情
+//        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0]]) {
+//            HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc]init];
+//            detail_DetailPlanVC.planDetailModel = weakSelf.planDetailViewModel;
+//            [weakSelf.navigationController pushViewController:detail_DetailPlanVC animated:true];
+//        }
+//    
+//        ///  加入记录
+//        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
+//            HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
+//            planAddRecordVC.planListViewModel = weakSelf.planListViewModel;
+//            planAddRecordVC.planID = weakSelf.planID;
+//            [weakSelf.navigationController pushViewController:planAddRecordVC animated:true];
+//        }
+//        ///红利计划服务
+//        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2]]) {
+//            //跳转一个webView
+//            HXBFinPlanContract_contraceWebViewVC * contractWebViewVC = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
+//            contractWebViewVC.URL = weakSelf.planDetailViewModel.contractURL;
+//            [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
+//        }
+//    }];
+//}
 
 ///注册 addButton点击事件
-- (void)registerClickAddButton {
-    kWeakSelf
-    [self.planDetailsView clickAddButtonFunc:^{
-        //如果不是登录 那么就登录
-        if(![KeyChainManage sharedInstance].isLogin) {
-            //            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-            return;
-        }
-        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^{
-            [weakSelf enterPlanBuyViewController];
-        }];
-    }];
-}
+//- (void)registerClickAddButton {
+//    kWeakSelf
+//    [self.planDetailsView clickAddButtonFunc:^{
+//        //如果不是登录 那么就登录
+//        if(![KeyChainManage sharedInstance].isLogin) {
+//            //            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+//            return;
+//        }
+//        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^{
+//            [weakSelf enterPlanBuyViewController];
+//        }];
+//    }];
+//}
 
 ///曾欣事件
-- (void)registerAddTrust {
-    kWeakSelf
-    [self.planDetailsView clickAddTrustWithBlock:^{
-        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-        vc.URL = kHXB_Negotiate_AddTrustURL;
-        [weakSelf.navigationController pushViewController:vc animated:true];
-    }];
-}
+//- (void)registerAddTrust {
+//    kWeakSelf
+//    [self.planDetailsView clickAddTrustWithBlock:^{
+//        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+//        vc.URL = kHXB_Negotiate_AddTrustURL;
+//        [weakSelf.navigationController pushViewController:vc animated:true];
+//    }];
+//}
 
 ///注册刷新事件
 - (void)registerLoadData {
-    kWeakSelf
-    [self.planDetailsView downLoadDataWithBlock:^{
-        [weakSelf downLoadData];
-    }];
+    [self downLoadData];
+//    kWeakSelf
+//    [self.planDetailsView downLoadDataWithBlock:^{
+//        [weakSelf downLoadData];
+//    }];
 }
 
 /**
  跳转加入界面
  */
-- (void)enterPlanBuyViewController
-{
+- (void)enterPlanBuyViewController {
     kWeakSelf
     //跳转加入界面
     HXBFin_Plan_BuyViewController *planJoinVC = [[HXBFin_Plan_BuyViewController alloc]init];
@@ -277,12 +495,19 @@
     [weakSelf.navigationController pushViewController:planJoinVC animated:true];
 }
 
+- (HXBBaseCountDownManager_lightweight *)countDownManager {
+    if (!_countDownManager) {
+        _countDownManager = [[HXBBaseCountDownManager_lightweight alloc]initWithCountDownEndTime:self.diffTime.floatValue  andCountDownEndTimeType:HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType_Now andCountDownDuration:3600 andCountDownUnit:1];
+    }
+    return _countDownManager;
+}
+
 //MARK: 网络数据请求
 - (void)downLoadData {
-//    __weak typeof (self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
         self.planDetailViewModel = viewModel;
-        self.planDetailsView.modelArray = self.tableViewModelArray;
+        self.hxbBaseVCScrollView.hidden = NO;
+        [self.hxbBaseVCScrollView reloadData];
         [self.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
         [self.hxbBaseVCScrollView endRefresh];
