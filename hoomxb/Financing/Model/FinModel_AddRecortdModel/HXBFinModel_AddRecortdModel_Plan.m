@@ -32,9 +32,9 @@
     _nickName = nickName;
     if (nickName.length >= 6) {
         NSString *str = [nickName substringWithRange:NSMakeRange(0, 3)];
-        NSString *strLast = [nickName substringWithRange:NSMakeRange(nickName.length - 2, 2)];
+        NSString *strLast = [nickName substringWithRange:NSMakeRange(nickName.length - 4, 4)];
         NSMutableString *strMid = @"".mutableCopy;
-        for (NSInteger i = (nickName.length - 5); i > 0; i --) {
+        for (NSInteger i = (nickName.length - 7); i > 0; i --) {
             [strMid appendString:@"*"];
         }
         _hxb_nickName = [NSString stringWithFormat:@"%@%@%@",str,strMid,strLast];

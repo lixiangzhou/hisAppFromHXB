@@ -60,7 +60,7 @@ UITableViewDelegate,UITableViewDataSource
 //            } andFailureBlock:^(NSError *error) {
 //                
 //            }];
-            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"联系客服"];
+            [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:@"联系客服"];
         }
             break;
         case 1:
@@ -118,7 +118,7 @@ UITableViewDelegate,UITableViewDataSource
 
         if (indexPath.row == 0) {
             cell.textLabel.attributedText = [self call];
-            cell.detailTextLabel.text = @"400-1551-888";
+            cell.detailTextLabel.text = kServiceMobile;
            
         }else if (indexPath.row == 1){
             cell.textLabel.text = @"版本";
@@ -137,7 +137,7 @@ UITableViewDelegate,UITableViewDataSource
 
 - (NSMutableAttributedString *)call
 {
-    NSString *str = @"客服热线 (周一至周五9:00-19:00)";
+    NSString *str = @"  (周一至周五9:00-19:00)";
     NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc]initWithString:str];
     
     [attributedStr addAttribute:NSFontAttributeName
