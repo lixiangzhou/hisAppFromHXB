@@ -26,9 +26,14 @@
     
     return formattedNumberString;
 }
-///后面拼接了 元
+///后面拼接了 小数点 元
 + (NSString *)hxb_getPerMilWithDouble:(double)number {
     return [NSString stringWithFormat:@"%@元", [self GetPerMilWithDouble: number]];
+}
+
+///后面拼接了 元
++ (NSString *)hxb_getPerMilWithIntegetNumber:(double)number {
+    return [NSString stringWithFormat:@"%@元", [self hxb_getPerMilWithDoubleNum: number]];
 }
 
 + (NSString *) hiddenStr: (NSString *)string MidWithFistLenth: (NSInteger)fistLenth andLastLenth: (NSInteger)lastLenth {

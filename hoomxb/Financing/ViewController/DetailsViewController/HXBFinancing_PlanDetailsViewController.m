@@ -357,13 +357,16 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
         kWeakSelf
-        [cell.flowChartView setUPFlowChartViewManagerWithManager:^HXBFinBase_FlowChartView_Manager *(HXBFinBase_FlowChartView_Manager *manager) {
-            manager.stage = weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue;;
-            manager.addTime = weakSelf.planDetailViewModel.beginSellingTime_flow;
-            manager.beginTime = weakSelf.planDetailViewModel.financeEndTime_flow;
-            manager.leaveTime = weakSelf.planDetailViewModel.endLockingTime_flow;
-            return manager;
-        }];
+        if (self.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
+            cell.flowChartView.stage = self.planDetailViewModel.planDetailModel.unifyStatus.integerValue;
+            [cell.flowChartView setUPFlowChartViewManagerWithManager:^HXBFinBase_FlowChartView_Manager *(HXBFinBase_FlowChartView_Manager *manager) {
+                manager.stage = weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue;;
+                manager.addTime = weakSelf.planDetailViewModel.beginSellingTime_flow;
+                manager.beginTime = weakSelf.planDetailViewModel.financeEndTime_flow;
+                manager.leaveTime = weakSelf.planDetailViewModel.endLockingTime_flow;
+                return manager;
+            }];
+        }
         return cell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];

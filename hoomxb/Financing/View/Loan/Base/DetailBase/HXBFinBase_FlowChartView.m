@@ -70,7 +70,6 @@
 - (void)setManager:(HXBFinBase_FlowChartView_Manager *)manager {
     _manager = manager;
     kWeakSelf
-    
     [self.addView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         viewModelVM.leftFont = kHXBFont_PINGFANGSC_REGULAR(12);
         viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(12);

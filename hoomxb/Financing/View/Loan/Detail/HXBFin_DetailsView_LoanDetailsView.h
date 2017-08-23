@@ -13,7 +13,8 @@
 @property (nonatomic,copy) NSString *timeStr;
 ///倒计时label
 @property (nonatomic,copy) NSString *countDownStr;
-
+///加入的button
+@property (nonatomic,strong) UIButton *addButton;
 - (void)setSubView;
 - (void)setUPViewModelVM: (HXBFin_DetailsView_LoanDetailsView_ViewModelVM * (^)(HXBFin_DetailsView_LoanDetailsView_ViewModelVM *viewModelVM))detailsViewBase_ViewModelVM;
 

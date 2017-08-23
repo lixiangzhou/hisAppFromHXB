@@ -94,7 +94,7 @@
 //        }
         
         if (viewModel.userInfoModel.userInfo.isUnbundling) {
-            [self callupWithphoneNumber:@"4001551888" andWithMessage:kHXBCallPhone_title];
+            [self callupWithphoneNumber:kServiceMobile andWithMessage:kHXBCallPhone_title];
             return;
         }
 

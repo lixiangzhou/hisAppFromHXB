@@ -45,7 +45,7 @@
     _loanDetailViewModel = loanDetailViewModel;
     kWeakSelf
     [self.loanDetailsView setUPViewModelVM:^HXBFin_DetailsView_LoanDetailsView_ViewModelVM *(HXBFin_DetailsView_LoanDetailsView_ViewModelVM *viewModelVM) {
-        viewModelVM.totalInterestStr           = weakSelf.loanDetailViewModel.totalInterestPer100;///年利率
+        viewModelVM.totalInterestStr           = [NSString stringWithFormat:@"%.1f", [weakSelf.loanDetailViewModel.totalInterestPer100 floatValue]];///年利率
         viewModelVM.totalInterestStr_const     = @"年利率";
         viewModelVM.remainAmount               = weakSelf.loanDetailViewModel.surplusAmount;
         viewModelVM.remainAmount_const         = weakSelf.loanDetailViewModel.surplusAmount_ConstStr;
@@ -130,6 +130,9 @@
     self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
     self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     [self.hxbBaseVCScrollView addSubview:self.loanDetailsView];
+    
+    [self.view addSubview:self.loanDetailsView.addButton];
+    self.loanDetailsView.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(60), kScreenWidth, kScrAdaptationH(60));
 }
 - (void)setUPTopImageView {
     self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
