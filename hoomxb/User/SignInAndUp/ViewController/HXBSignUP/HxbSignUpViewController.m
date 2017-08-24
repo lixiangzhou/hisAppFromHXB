@@ -58,6 +58,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 - (void) registerEvent_ClickNextButton {
     kWeakSelf
     [self.signUPView signUPClickNextButtonFunc:^(NSString *mobile) {
+        [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_registFirst];
         if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {//注册
             if ([weakSelf.signUPView.checkMobileStr isEqualToString:kAlreadyRegistered])
             {

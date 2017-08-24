@@ -48,6 +48,7 @@
 - (void)bottomBtnClick:(NSDictionary *)dic
 {
     kWeakSelf
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_commitBtn];
     HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [openDepositAccountRequest openDepositAccountRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
         

@@ -121,7 +121,7 @@
     self.bankNumberTextField.userInteractionEnabled = NO;
     
     
-    self.phoneTextField.text = bankCardModel.mobile;
+    self.phoneTextField.text = bankCardModel.securyMobile;
     self.phoneTextField.isHidenLine = YES;
     self.phoneTextField.userInteractionEnabled = NO;
 }

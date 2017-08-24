@@ -45,7 +45,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self addSubview:self.userNameLabel];
+//        [self addSubview:self.userNameLabel];
         [self addSubview:self.accumulatedIncomeLabel];
         [self addSubview:self.availableAmountLabel];
         [self addSubview:self.ciphertextButton];
@@ -59,18 +59,18 @@
 
 #pragma mark Action Methods
 - (void)setupSubViewFrame{
-    [self.userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self);
-        make.right.equalTo(self);
-        make.top.equalTo(@16);
-    }];
+//    [self.userNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self);
+//        make.right.equalTo(self);
+//        make.top.equalTo(@16);
+//    }];
     [self.accumulatedIncomeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(self.userNameLabel).offset(30);
+        make.top.equalTo(self).offset(kScrAdaptationH(50));
     }];
     [self.availableAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(self.accumulatedIncomeLabel).offset(30);
+        make.top.equalTo(self.accumulatedIncomeLabel).offset(kScrAdaptationH(30));
     }];
     [self.ciphertextButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.accumulatedIncomeLabel.mas_right);

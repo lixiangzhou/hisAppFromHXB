@@ -63,7 +63,7 @@
     self.profitTypeLable_Const.text = model.profitTypeLable_ConstStr;// @"收益处理方式";
     self.profitTypeLabel.text = model.profitTypeLabelStr;//@"收益在投资";
     self.profitLabel_count.text = model.profitLabel_consttStr;//@"预计收益";
-    self.upperLimitLabel.text = [NSString GetPerMilWithDouble:model.upperLimitLabelStr.doubleValue];///@"本期计划加入上线 50,000元";
+    self.upperLimitLabel.text = [NSString hxb_getPerMilWithIntegetNumber:model.upperLimitLabelStr.doubleValue];///@"本期计划加入上线 50,000元";
     self.upperLimitLabel_const.text = model.upperLimitLabel_constStr;
   
     [self.addButton setTitle:model.addButtonStr forState:UIControlStateNormal];
@@ -218,7 +218,7 @@
         make.top.bottom.equalTo(self.profitLabel_count);
         make.left.equalTo(self.profitLabel_count.mas_right).offset(kScrAdaptationW750(8));
     }];
-    self.profitLabel.text = @"0.0元";
+    self.profitLabel.text = @"0.00元";
     self.profitLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
     self.profitLabel.textColor = kHXBColor_Grey_Font0_2;
     
