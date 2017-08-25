@@ -90,7 +90,7 @@
         weakSelf.iconView.svgImageString = bankCardModel.bankCode;
         weakSelf.bankName.text = bankCardModel.bankType;
         weakSelf.realName.text = [NSString stringWithFormat:@"持卡人：%@",[bankCardModel.name replaceStringWithStartLocation:0 lenght:bankCardModel.name.length - 1]];
-        weakSelf.bankNum.text = [bankCardModel.cardId replaceStringWithStartLocation:1 lenght:bankCardModel.cardId.length - 4];
+        weakSelf.bankNum.text = [bankCardModel.cardId replaceStringWithStartLocation:0 lenght:bankCardModel.cardId.length - 4];
         weakSelf.bankTip.text = bankCardModel.quota;
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);

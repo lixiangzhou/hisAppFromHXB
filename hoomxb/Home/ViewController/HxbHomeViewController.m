@@ -25,6 +25,8 @@
 //#import "HxbWithdrawCardViewController.h"//绑卡界面
 #import "HXBMiddlekey.h"
 
+
+
 @interface HxbHomeViewController ()
 
 @property (nonatomic, assign) BOOL isVersionUpdate;
@@ -35,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAd) name:@"pushtoad" object:nil];
     [self.view addSubview:self.homeView];
     [self getData:YES];

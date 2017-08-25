@@ -14,6 +14,9 @@
             andLeftButtonMassage:(NSString *)leftButtonMassage
            andRightButtonMassage:(NSString *)rightButtonMassage;
 
+
+
+
 ///点击了左边的button
 @property (nonatomic,copy) void(^clickLeftButtonBlock)();
 ///点击了右边的button
