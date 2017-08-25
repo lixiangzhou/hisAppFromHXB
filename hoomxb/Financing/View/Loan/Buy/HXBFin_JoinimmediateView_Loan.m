@@ -58,7 +58,7 @@
 - (void)setModel:(HXBFin_JoinimmediateView_Loan_ViewModel *)model {
     
     _model = model;
-    self.remainAmountLabel.text = model.remainAmountLabelStr;
+    self.remainAmountLabel.text = [NSString hxb_getPerMilWithIntegetNumber:[model.remainAmountLabelStr floatValue]];
     self.remainAmount_Const.text = model.remainAmountLabel_ConstStr;// @"标的剩余可投金额";
 //    self.profitLabel_const.text = model.JoinImmediateView_Model.profitLabel_consttStr;//@"预计收益";
     self.negotiateView.negotiateStr = model.JoinImmediateView_Model.negotiateLabelStr;///@"我已阅读并同意";

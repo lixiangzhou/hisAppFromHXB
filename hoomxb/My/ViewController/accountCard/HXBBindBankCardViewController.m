@@ -63,6 +63,7 @@
 
 - (void)openAccountBtnClick
 {
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_registSuccess_lead];
     HXBOpenDepositAccountViewController *openDepositAccountViewController = [[HXBOpenDepositAccountViewController alloc] init];
     openDepositAccountViewController.title = @"开通存管账户";
     openDepositAccountViewController.type = self.type;
@@ -109,6 +110,7 @@
 }
 - (void)leftBackBtnClick
 {
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_registSuccess_return];
     if (self.type == HXBRechargeAndWithdrawalsLogicalJudgment_signup) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }else

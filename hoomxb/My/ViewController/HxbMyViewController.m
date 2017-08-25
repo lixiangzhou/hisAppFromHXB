@@ -115,11 +115,12 @@
     //        #import "HxbMyTopUpViewController.h"
     //        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
     //        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_topup_money];
     [self logicalJudgment:HXBRechargeAndWithdrawalsLogicalJudgment_Recharge];
 }
 /// 提现
 - (void)didClickWithdrawBtn:(UIButton *)sender{
-    
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_withdraw_money];
     [self logicalJudgment:HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals];
 }
 /**
@@ -138,6 +139,7 @@
             
             HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
             alertVC.immediateOpenBlock = ^{
+                [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_alertBtn];
                 HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
                 openDepositAccountVC.title = @"开通存管账户";
                 openDepositAccountVC.type = type;

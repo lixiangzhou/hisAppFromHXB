@@ -26,8 +26,7 @@
 #import "HXBFinAddTruastWebViewVC.h"
 
 
-#pragma mark --- 新改
-
+#pragma mark --- 新改（肖扬 红利计划 详情）
 #import "HXBFinanctingDetail_imageCell.h"
 #import "HXBFinanctingDetail_progressCell.h"
 #import "HXBFin_PlanDetailView_TopView.h"
@@ -189,7 +188,7 @@
         manager.topViewManager.rightLabelStr = @"平均历史年化收益";
         manager.leftViewManager.leftLabelStr = weakSelf.planDetailViewModel.lockPeriodStr;
         manager.leftViewManager.rightLabelStr = @"期限";
-        manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithDouble:[weakSelf.planDetailViewModel.minRegisterAmount doubleValue]];
+        manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithIntegetNumber:[weakSelf.planDetailViewModel.minRegisterAmount doubleValue]];
         manager.midViewManager.rightLabelStr = @"起投";
         manager.rightViewManager.rightLabelStr = weakSelf.planDetailViewModel.remainAmount_constStr;
         manager.rightViewManager.leftLabelStr = weakSelf.planDetailViewModel.remainAmount;
@@ -307,7 +306,7 @@
     UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(57))];
     footView.backgroundColor = [UIColor clearColor];
     UILabel *promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(20), kScreenWidth, kScrAdaptationH(17))];
-    promptLabel.text = @"预期收益不代表实际收益，投资需谨慎";
+    promptLabel.text = @"* 预期收益不代表实际收益，投资需谨慎";
     promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     promptLabel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
     promptLabel.textAlignment = NSTextAlignmentCenter;

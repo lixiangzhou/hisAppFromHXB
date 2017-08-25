@@ -43,13 +43,13 @@
             [self setUPAddButtonColorWithType:false];
             
             _isAddButtonEditing = true;
-            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.surplusAmount.floatValue];
+            _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.surplusAmount.floatValue];
         }
         ///	String	已满标
         if ([status isEqualToString:@"READY"]){
             self.addButtonStr = @"已满标";
             _isAddButtonEditing = false;
-            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+            _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
             
         }
         ///	String	已流标
@@ -61,68 +61,68 @@
         if ([status isEqualToString:@"IN_PROGRESS"]){
             self.addButtonStr = @"收益中";
             _isAddButtonEditing = false;
-            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+            _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         ///	String	逾期
         if ([status isEqualToString:@"OVER_DUE"]){
             self.addButtonStr = @"逾期";
             _isAddButtonEditing = false;
-              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+              _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
             
         }
         ///	String	坏账
         if ([status isEqualToString:@"BAD_DEBT"]){
             self.addButtonStr = @"坏账";
              _isAddButtonEditing = false;
-              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+              _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	已结清
         if ([status isEqualToString:@"CLOSED"]){
             self.addButtonStr = @"已结清";
              _isAddButtonEditing = false;
-              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+              _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	新申请
         if ([status isEqualToString:@"FIRST_APPLY"]){
             self.addButtonStr = @"立即投标";
              _isAddButtonEditing = false;
-              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+              _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	已满标
         if ([status isEqualToString:@"FIRST_READY"]){
             self.addButtonStr = @"已满标";
              _isAddButtonEditing = false;
-            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+            _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	预售
         if ([status isEqualToString:@"PRE_SALES"]){
             self.addButtonStr = @"立即投标";
             _isAddButtonEditing = true;
-              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+              _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	等待招标
         if ([status isEqualToString:@"WAIT_OPEN"]){
             self.addButtonStr = @"立即投标";
             _isAddButtonEditing = true;
-              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+              _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	放款中
         if ([status isEqualToString:@"FANGBIAO_PROCESSING"]){
             self.addButtonStr = @"立即投标";
             _isAddButtonEditing = true;
-              _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+              _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	流标中
         if ([status isEqualToString:@"LIUBIAO_PROCESSING"]){
             self.addButtonStr = @"立即投标";
-            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+            _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
 
     }
@@ -161,7 +161,7 @@
     if (!_surplusAmount) {
         if (self.loanDetailModel.loanVo.surplusAmount.floatValue <= 0) {
             _surplusAmount_ConstStr = @"标的金额";
-            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+            _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }else {
             _surplusAmount_ConstStr = @"剩余可投";
             [self status];
@@ -176,7 +176,7 @@
     if (!_surplusAmount_ConstStr) {
         if (self.loanDetailModel.loanVo.surplusAmount.floatValue <= 0) {
             _surplusAmount_ConstStr = @"标的金额";
-            _surplusAmount = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.loanVo.amount.floatValue];
+            _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }else {
             _surplusAmount_ConstStr = @"剩余可投";
             [self status];
@@ -218,7 +218,7 @@
  */
 - (NSString *) addCondition {
     if (!_addCondition) {
-        _addCondition = [NSString stringWithFormat:@"%@起投，%@递增",[NSString hxb_getPerMilWithDoubleNum:self.loanDetailModel.minInverst.doubleValue],[NSString hxb_getPerMilWithDoubleNum:self.loanDetailModel.minInverst.doubleValue]];
+        _addCondition = [NSString stringWithFormat:@"%@起投，%@递增",[NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.minInverst.doubleValue],[NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.minInverst.doubleValue]];
         
     }
     return _addCondition;
@@ -308,7 +308,7 @@
  */
 - (NSString *) monthlyIncome {
     if (!_monthlyIncome) {
-        _monthlyIncome = [NSString hxb_getPerMilWithDouble:self.loanDetailModel.userVo.monthlyIncome.floatValue];
+        _monthlyIncome = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.userVo.monthlyIncome.floatValue];
     }
     return _monthlyIncome;
 }
