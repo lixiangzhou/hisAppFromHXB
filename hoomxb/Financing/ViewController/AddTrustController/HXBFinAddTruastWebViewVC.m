@@ -38,6 +38,22 @@
     [self.view addSubview:self.contractWebVeiw];
     self.contractWebVeiw.frame = CGRectMake(0, 64, self.view.width, kScreenHeight - 64);
     [self.contractWebVeiw loadURL: self.URL];
+    self.title = self.contractWebVeiw.title;
+    
+    [self.contractWebVeiw addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
+    
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (object == self.contractWebVeiw) {
+        self.title = self.contractWebVeiw.title;
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+- (void)dealloc {
+    [self.contractWebVeiw removeObserver:self forKeyPath:@"title"];
 }
 
 - (void)didReceiveMemoryWarning {

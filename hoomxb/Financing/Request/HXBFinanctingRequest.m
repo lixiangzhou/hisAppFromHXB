@@ -419,6 +419,7 @@
     self.loanDetaileAPI.requestMethod = NYRequestMethodGet;
     
     [self.loanDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"responseObject = %@", responseObject);
         
         ///数据是否出错
         NSString *status = responseObject[kResponseStatus];

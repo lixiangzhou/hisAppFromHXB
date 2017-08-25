@@ -10,8 +10,7 @@
 
 @interface HXBFinanctingDetail_imageCell ()
 
-///曾信View
-@property (nonnull,strong) UIImageView *trustView;
+
 
 @end
 
