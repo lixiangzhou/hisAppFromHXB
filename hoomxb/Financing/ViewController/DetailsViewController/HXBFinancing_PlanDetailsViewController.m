@@ -144,14 +144,14 @@
         [self.countDownManager countDownCallBackFunc:^(CGFloat countDownValue) {
             if (countDownValue < 0) {
                 if (weakSelf.downLodaDataBlock) weakSelf.downLodaDataBlock();
-                [weakSelf.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
+                [weakSelf.addButton setTitle:@"" forState:UIControlStateNormal];
                 [weakSelf.addButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
                 weakSelf.addButton.backgroundColor = COR29;
                 weakSelf.addButton.userInteractionEnabled = true;
                 [weakSelf.countDownManager stopTimer];
                 return;
             }
-            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒"];
+            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒后开始加入"];
             [weakSelf.addButton setTitle:str forState:UIControlStateNormal];
         }];
     }else {
@@ -281,7 +281,7 @@
 
     self.isTransparentNavigationBar = true;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - 50);
+    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - kScrAdaptationH(50));
     self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.hxbBaseVCScrollView.delegate = self;
     self.hxbBaseVCScrollView.dataSource = self;
@@ -509,6 +509,12 @@
 - (void)downLoadData {
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
         self.planDetailViewModel = viewModel;
+        if (viewModel.isContDown) {
+            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@([viewModel.countDownStr floatValue]) andDateFormat:@"mm分ss秒后开始加入"];
+            [self.addButton setTitle:str forState:UIControlStateNormal];
+        } else {
+            [self.addButton setTitle:viewModel.addButtonStr forState:UIControlStateNormal];
+        }
         self.hxbBaseVCScrollView.hidden = NO;
         self.title = viewModel.planDetailModel.name;
         [self.hxbBaseVCScrollView reloadData];

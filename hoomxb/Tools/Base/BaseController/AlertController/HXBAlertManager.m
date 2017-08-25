@@ -68,6 +68,20 @@
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel
 {
     if ([versionUpdateModel.force isEqualToString:@"1"]) {
+//        HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:versionUpdateModel.updateinfo andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
+//        [alertVC setClickRightButtonBlock:^{
+//            NSString *newPhone = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
+//            NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@",newPhone];
+//            NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
+//            if (compare == NSOrderedDescending || compare == NSOrderedSame) {
+//                /// 大于等于10.0系统使用此openURL方法
+//                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
+//            } else {
+//                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
+//            }
+//        }];
+//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+        
         UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"更新提示" message:versionUpdateModel.updateinfo preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
@@ -75,7 +89,7 @@
         }];
         [alertController addAction:okAction];
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-    }
+    } 
 }
 
 /**

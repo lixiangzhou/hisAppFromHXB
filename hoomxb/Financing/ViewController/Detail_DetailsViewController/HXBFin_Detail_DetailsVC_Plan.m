@@ -135,7 +135,6 @@
         manager.serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:kHXBColor_RGB(115/250.0, 163.0/255.0, 1, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(13)];
         return manager;
     }];
-    
     [self.planDetail_DetailView clickServerButtonWithBlock:^(UILabel *button) {
         //跳转 协议
         HXBFinPlanContract_contraceWebViewVC *planWebViewController = [[HXBFinPlanContract_contraceWebViewVC alloc]init];

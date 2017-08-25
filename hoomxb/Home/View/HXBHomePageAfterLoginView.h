@@ -12,6 +12,7 @@
 @interface HXBHomePageAfterLoginView : UIView
 //@property (nonatomic,strong)AssetOverviewModel * profitModel;
 @property (nonatomic, strong) NSString *tipString;
+@property (nonatomic, strong) NSString *headTipString;
 
 /**
  各种认证按钮的点击回调Block
