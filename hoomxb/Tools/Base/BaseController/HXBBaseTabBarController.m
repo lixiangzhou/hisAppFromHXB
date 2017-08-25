@@ -149,7 +149,7 @@
     HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
     vc.selectedIndexVC = notification.object[@"selectedIndex"];
-    [self.selectedViewController presentViewController:navi animated:YES completion:nil];
+    [self.selectedViewController presentViewController:navi animated:NO completion:nil];
 }
 //跳转 myVC
 - (void) pushMyVC:(NSNotification *)notification {

@@ -10,12 +10,13 @@
 #import "HXBCheckCaptcha.h"
 #import "HXBSignUPAndLoginRequest.h"
 #import   "UIImageView+WebCache.h"
-
+#import "SVGKImage.h"
 
 @interface HXBCheckCaptchaViewController ()
 @property (nonatomic, strong) Animatr *animatrManager;
 @property (nonatomic, strong) HXBCheckCaptcha *checkCaptcha;
 @property (nonatomic, strong) HXBSignUPAndLoginRequest *request;
+@property (nonatomic, strong) UIButton *cancelBtn;
 @property (nonatomic, copy) void (^isCheckCaptchaSucceedBlock)(NSString *captcha);
 @end
 
@@ -84,11 +85,20 @@
 - (void)setUPSubView {
     self.checkCaptcha = [[HXBCheckCaptcha alloc]init];
     [self.view addSubview:self.checkCaptcha];
+    [self.view addSubview:self.cancelBtn];
     self.view.backgroundColor = [UIColor clearColor];
     [self.checkCaptcha mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.view);
-        make.height.offset(kScrAdaptationH(221));
+//        make.center.equalTo(self.view);
+        make.height.offset(kScrAdaptationH750(440));
         make.width.offset(kScrAdaptationW(295));
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.view).offset(kScrAdaptationH750(385));
+    }];
+    [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.checkCaptcha.mas_top);
+        make.right.equalTo(self.checkCaptcha.mas_right);
+        make.width.offset(kScrAdaptationW750(50));
+        make.height.offset(kScrAdaptationH750(95));
     }];
 }
 ///请求数据 图验图片
@@ -121,12 +131,34 @@
             }
         } andFailureBlock:^(NSError *error) {
             weakSelf.checkCaptcha.isCorrect = false;
+            [weakSelf downCheckCaptcha];
         }];
     }];
     
     self.checkCaptcha.cancelBlock = ^{
         [weakSelf dismissViewControllerAnimated:YES completion:nil];
     };
+}
+
+/**
+ 取消按钮的懒加载
+ */
+- (UIButton *)cancelBtn
+{
+    if (!_cancelBtn) {
+        _cancelBtn = [[UIButton alloc] init];
+        //        [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [_cancelBtn setImage:[SVGKImage imageNamed:@"close.svg"].UIImage forState:UIControlStateNormal];
+        [_cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _cancelBtn.backgroundColor = [UIColor clearColor];
+        [_cancelBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _cancelBtn;
+}
+
+- (void)dismiss
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 ///点击了图验图片

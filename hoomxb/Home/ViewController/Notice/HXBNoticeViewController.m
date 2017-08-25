@@ -100,7 +100,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     HXBNoticModel *noticModel = self.modelArrs[indexPath.row];
-    NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",kHXBH5_BaseURL,noticModel.ID];
+    NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],noticModel.ID];
     HXBFinAddTruastWebViewVC *finAddTruastWebViewVC = [[HXBFinAddTruastWebViewVC alloc] init];
     finAddTruastWebViewVC.URL = str;
     finAddTruastWebViewVC.title = @"公告详情";

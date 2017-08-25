@@ -18,8 +18,8 @@
     if (!_isHiddenHUD) {
         [HxbHUDProgress showLoadDataHUD:self];
     }
-    if (![URL containsString:kHXBH5_BaseURL]) {
-        URL = [NSString stringWithFormat:@"%@%@",kHXBH5_BaseURL,URL];
+    if (![URL containsString:[KeyChain h5host]]) {
+        URL = [NSString stringWithFormat:@"%@%@",[KeyChain h5host],URL];
     }
     
     NSURL *url = [NSURL URLWithString:URL];

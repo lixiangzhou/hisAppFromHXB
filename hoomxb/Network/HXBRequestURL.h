@@ -13,7 +13,7 @@
 #define kHXBHome_HomeURL @"/home"///用户信息
 //MARK: ======================= 所有H5 界面 =======================
 
-#define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",kHXBH5_BaseURL]//风险评测
+#define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",[KeyChain h5host]]//风险评测
 
 //MARK: ======================= 理财资产 界面 =======================
 //列表

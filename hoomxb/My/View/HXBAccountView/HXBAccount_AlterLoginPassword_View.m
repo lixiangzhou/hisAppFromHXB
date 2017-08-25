@@ -78,6 +78,7 @@
         _password_New = [[HXBCustomTextField alloc] init];
         _password_New.leftImage = [SVGKImage imageNamed:@"password.svg"].UIImage;
         _password_New.placeholder = @"请设置8-20位数字和字母组合的密码";
+        _password_New.secureTextEntry = YES;
     }
     return _password_New;
 }
@@ -88,6 +89,7 @@
         _password_Original = [[HXBCustomTextField alloc] init];
         _password_Original.leftImage = [SVGKImage imageNamed:@"password.svg"].UIImage;
         _password_Original.placeholder = @"原登录密码";
+        _password_Original.secureTextEntry = YES;
     }
     return _password_Original;
 }

@@ -31,7 +31,7 @@
 //#define BASEURL                                       @"http://192.168.1.186:3000"//杜宇 测试
 //#define BASEURL                                       @"http://192.168.1.31:3100"//后台、
 
-#define kHXBH5_BaseURL                                @"http://192.168.1.21:3300"//后台 测试 （协议测试）
+//#define kHXBH5_BaseURL                                @"http://192.168.1.21:3300"//后台 测试 （协议测试）
 //#define kHXBH5_BaseURL                                @"http://192.168.1.235:3000"//欧朋 测试 （协议测试）
 //#define kHXB_Banner_BaseURL                             @"http://192.168.1.31:4001"//后台
 

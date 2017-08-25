@@ -10,4 +10,11 @@
 
 @implementation HXBVersionUpdateModel
 
+
+- (void)setH5host:(NSString *)h5host
+{
+    KeyChain.h5host = h5host;
+    _h5host = h5host;
+}
+
 @end

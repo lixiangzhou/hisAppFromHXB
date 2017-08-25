@@ -48,13 +48,13 @@
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.isColourGradientNavigationBar = true;
     
-    //请求 个人数据
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        _availablePoint = viewModel.userInfoModel.userAssets.availablePoint;
-        _assetsTotal = viewModel.userInfoModel.userAssets.assetsTotal;
-    } andFailure:^(NSError *error) {
-        
-    }];
+//    //请求 个人数据
+//    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+//        _availablePoint = viewModel.userInfoModel.userAssets.availablePoint;
+//        _assetsTotal = viewModel.userInfoModel.userAssets.assetsTotal;
+//    } andFailure:^(NSError *error) {
+//        
+//    }];
   
     //判断是否登录
     [self isLogin];
@@ -67,6 +67,19 @@
     //事件的传递
     [self registerEvent];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //请求 个人数据
+    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        _availablePoint = viewModel.userInfoModel.userAssets.availablePoint;
+        _assetsTotal = viewModel.userInfoModel.userAssets.assetsTotal;
+    } andFailure:^(NSError *error) {
+        
+    }];
+}
+
 ///判断是否登录
 - (void)isLogin {
     if (!KeyChain.isLogin) {
@@ -122,6 +135,7 @@
         {
             HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
             hxbMyTopUpViewController.amount = amount;
+            hxbMyTopUpViewController.popVC = self;
             [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
         }
     }andFailure:^(NSError *error) {

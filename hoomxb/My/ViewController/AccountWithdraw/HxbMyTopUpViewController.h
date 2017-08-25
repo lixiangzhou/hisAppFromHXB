@@ -7,9 +7,10 @@
 //
 
 #import "HXBBaseViewController.h"
-
-///提现
+///充值
 @interface HxbMyTopUpViewController : HXBBaseViewController
 ///金额
 @property (nonatomic,copy) NSString *amount;
+
+@property (nonatomic, strong) UIViewController *popVC;
 @end

@@ -89,7 +89,7 @@
         make.bottom.equalTo(self.contentView.mas_top);
         make.right.equalTo(self.contentView.mas_right);
         make.width.offset(kScrAdaptationW750(50));
-        make.height.offset(kScrAdaptationH750(90));
+        make.height.offset(kScrAdaptationH750(95));
     }];
     [self.message mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(80));

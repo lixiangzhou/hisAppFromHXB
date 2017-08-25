@@ -11,7 +11,7 @@
 static NSString *const kPromptTetle = @"请输入下面的图形验证码";
 static NSString *const kTrueButtonTitle = @"确定";
 
-@interface HXBCheckCaptcha ()
+@interface HXBCheckCaptcha ()<UITextFieldDelegate>
 ///点击了确认按钮
 @property (nonatomic, copy) void(^clickTrueButtonBlock)(NSString *checkCaptChaStr);
 
@@ -100,9 +100,9 @@ static NSString *const kTrueButtonTitle = @"确定";
     }];
     [self.trueButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
         make.top.equalTo(weakSelf.checkCaptchaImageView.mas_bottom).offset(kScrAdaptationH(30));
         make.height.offset(kScrAdaptationH(35));
-        make.width.offset(kScrAdaptationW(115));
     }];
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
@@ -129,7 +129,8 @@ static NSString *const kTrueButtonTitle = @"确定";
     self.checkCaptchaTextField.font = kHXBFont_PINGFANGSC_REGULAR(16);
     self.checkCaptchaTextField.textColor = RGB(51, 51, 51);
     self.checkCaptchaTextField.textAlignment = NSTextAlignmentCenter;
-    
+    self.checkCaptchaTextField.delegate = self;
+    self.checkCaptchaTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     self.line.backgroundColor = RGB(222, 222, 222);
     
     self.trueButton.backgroundColor = RGB(245, 81, 81);
@@ -143,6 +144,7 @@ static NSString *const kTrueButtonTitle = @"确定";
     self.cancelBtn.layer.borderColor = RGB(253, 54, 54).CGColor;
     self.cancelBtn.layer.borderWidth = 0.5;
     self.cancelBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+    self.cancelBtn.hidden = YES;
     [self.cancelBtn setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
     [self.cancelBtn addTarget:self action:@selector(cancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -165,10 +167,10 @@ static NSString *const kTrueButtonTitle = @"确定";
 
 - (void)clickTrueButton: (UIButton *)button {
     ///请求验证码 是否争正确
-    if (self.checkCaptchaTextField.text.length != 4) {
-        self.promptLabel.text = @"请输入正确的验证码";
-        return;
-    }
+//    if (self.checkCaptchaTextField.text.length != 4) {
+//        self.promptLabel.text = @"请输入正确的验证码";
+//        return;
+//    }
     if (self.clickTrueButtonBlock) {
         self.clickTrueButtonBlock(self.checkCaptchaTextField.text);
     }
@@ -186,5 +188,12 @@ static NSString *const kTrueButtonTitle = @"确定";
 ///点击了图形验证码
 - (void)clickCheckCaptchaImageViewFunc: (void(^)())clickCheckCaptchaImageViewBlock {
     self.clickCheckCaptchaImageViewBlock = clickCheckCaptchaImageViewBlock;
+}
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (textField.text.length >= 6 && ![string isEqualToString:@""]) {
+        return NO;
+    }
+    return YES;
 }
 @end

@@ -8,14 +8,14 @@
 
 #define kRegisterVC @"/account/register"//注册页面
 #define kRechargeVC @"/cash/recharge"//充值页面
-#define kEscrowActivityVC @"/escrow/EscrowActivity"//存管开户页面
+#define kEscrowActivityVC @"/home/EscrowActivity"//存管开户页面
 #define kPlanDetailVC @"/plan/detail"//某个计划的详情页
 #define kLoanDetailVC @"/loan/detail"//某个散标的详情页
 #define kLoginVC @"/account/login"//登录页面
 #define kHomeVC @"/home/main"//主页
 #define kPlan_fragment @"/home/plan_fragment"//红利计划列表页
 #define kLoan_fragment @"/home/loan_fragment"//散标列表页
-#define kLoantransferfragment @"/home/loantransferfragment	"//债权转让列表页
+#define kLoantransferfragment @"/home/loan_transfer_fragment"//债权转让列表页
 
 #import "HXBBannerWebViewController.h"
 #import "WebViewJavascriptBridge.h"
@@ -54,7 +54,6 @@
 
 - (void)logicalJumpWithData:(id)data
 {
-    
     //跳转立即投资
     HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     
@@ -71,6 +70,7 @@
     }else if ([data[@"path"] isEqualToString:kEscrowActivityVC]){
         //存管开户页面
         HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+        openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         openDepositAccountVC.title = @"开通存管账户";
         [baseVC.navigationController pushViewController:openDepositAccountVC animated:YES];
     }else if ([data[@"path"] isEqualToString:kPlanDetailVC]){

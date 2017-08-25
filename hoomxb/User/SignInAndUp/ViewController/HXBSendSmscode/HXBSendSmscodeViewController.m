@@ -40,6 +40,7 @@
 }
 
 - (void)setUPView {
+    self.hxbBaseVCScrollView.bounces = NO;
     self.smscodeView = [[HXBSendSmscodeView alloc] initWithFrame:self.view.frame];
     self.smscodeView.type = self.type;
     kWeakSelf

@@ -31,4 +31,8 @@
  app版本号
  */
 @property (nonatomic, copy) NSString *versionCode;
+/**
+ H5页的根地址
+ */
+@property (nonatomic, copy) NSString *h5host;
 @end

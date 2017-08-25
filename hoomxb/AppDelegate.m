@@ -133,7 +133,6 @@ static NSString *const my = @"我的";
     if ([currentVersion isEqualToString:lastVersion]) {//没有最新的版本号
         
         [self enterTheGesturePasswordVC];
-        
     }else
     {//有新特性界面
         //如果有新特性，进入新特性界面

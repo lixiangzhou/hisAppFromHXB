@@ -46,7 +46,7 @@ static CGFloat const kAnimateDuration = 1;
 
 - (void)initialization
 {
-    self.backgroundColor = [UIColor purpleColor];
+    self.backgroundColor = COR26;
 }
 
 
@@ -63,7 +63,7 @@ static CGFloat const kAnimateDuration = 1;
 - (void)animateToActiveState
 {
     [UIView animateWithDuration:kAnimateDuration delay:0 usingSpringWithDamping:.5 initialSpringVelocity:-20 options:UIViewAnimationOptionCurveLinear animations:^{
-        self.backgroundColor = [UIColor yellowColor];
+        self.backgroundColor = COR29;
         CGAffineTransform transform = CGAffineTransformMakeScale(2, 1);
         self.transform = transform;
     } completion:nil];
@@ -74,7 +74,7 @@ static CGFloat const kAnimateDuration = 1;
     self.transform = CGAffineTransformIdentity;
 
     [UIView animateWithDuration:kAnimateDuration delay:0 usingSpringWithDamping:.5 initialSpringVelocity:0 options:UIViewAnimationOptionCurveLinear animations:^{
-        self.backgroundColor = [UIColor purpleColor];
+        self.backgroundColor = COR26;
     } completion:nil];
 }
 

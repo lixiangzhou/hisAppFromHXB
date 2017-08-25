@@ -71,6 +71,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 }
 /// 设置 登录界面
 - (void)setSignView{
+    self.hxbBaseVCScrollView.bounces = NO;
     kWeakSelf
     self.isTransparentNavigationBar = true;
     self.signView = [[HxbSignInView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];

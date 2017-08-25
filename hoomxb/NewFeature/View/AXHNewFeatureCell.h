@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong) UIImage *image;
 
-// 判断是否是最后一页
-- (void)setIndexPath:(int)indexPath count:(int)count;
+
 
 @end

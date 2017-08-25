@@ -111,10 +111,15 @@
                 [self.navigationController pushViewController:result animated:YES];
             }else
             {
-                HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
-                rechargeCompletedVC.responseObject = responseObject;
-                rechargeCompletedVC.amount = weakSelf.myTopUpBaseView.amount;
-                [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
+                if (self.popVC) {
+                    [self.navigationController popToViewController:self.popVC animated:YES];
+                }else
+                {                    
+                    HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
+                    rechargeCompletedVC.responseObject = responseObject;
+                    rechargeCompletedVC.amount = weakSelf.myTopUpBaseView.amount;
+                    [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
+                }
             }
             
         } andFailureBlock:^(NSError *error) {

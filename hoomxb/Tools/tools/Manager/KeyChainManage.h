@@ -35,6 +35,10 @@
  是否有网
  */
 @property (nonatomic, assign) BOOL ishaveNet;
+/**
+ h5根地址
+ */
+@property (nonatomic, copy) NSString *h5host;
 
 /*
 @property (nonatomic, copy) NSString  *token;
