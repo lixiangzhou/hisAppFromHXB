@@ -29,7 +29,7 @@
         [self addSubview:self.profitLabel];
 //        [self addSubview:self.selectEyeButton];
         [self setContentFrame];
-        [self loadData];
+//        [self loadData];
     }
     return self;
 }
@@ -101,17 +101,22 @@
     }
 }
 
-- (void)loadData{
-//    NSString *userName = @"5层安全防护保护资金安全";
-////   _userTitleLabel.text = [NSString stringWithFormat:@"您好，%@",userName];
-//    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:userName];
-//    // 设置字体和设置字体的范围
-//    [attrStr addAttribute:NSFontAttributeName
-//                    value:[UIFont systemFontOfSize:30.0f]
-//                    range:NSMakeRange(0, 1)];
-//    _userTitleLabel.attributedText = attrStr;
-    self.userTitleLabel.text = @"生活再苦，也要踮起脚尖翩翩起舞";
-    
+//- (void)loadData{
+////    NSString *userName = @"5层安全防护保护资金安全";
+//////   _userTitleLabel.text = [NSString stringWithFormat:@"您好，%@",userName];
+////    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:userName];
+////    // 设置字体和设置字体的范围
+////    [attrStr addAttribute:NSFontAttributeName
+////                    value:[UIFont systemFontOfSize:30.0f]
+////                    range:NSMakeRange(0, 1)];
+////    _userTitleLabel.attributedText = attrStr;
+//    self.userTitleLabel.text = self.headTipString;;
+//    
+//}
+
+- (void)setHeadTipString:(NSString *)headTipString {
+    _headTipString = headTipString;
+    self.userTitleLabel.text = self.headTipString;;
 }
 
 - (void)setAmountString:(NSString *)amountString{

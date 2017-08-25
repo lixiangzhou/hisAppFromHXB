@@ -66,7 +66,7 @@
 //    }];
     [self.accumulatedIncomeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(self).offset(kScrAdaptationH(50));
+        make.top.equalTo(self).offset(kScrAdaptationH(60));
     }];
     [self.availableAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
@@ -96,14 +96,14 @@
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         if ([KeyChain.ciphertext isEqualToString:@"0"]) {
             weakSelf.ciphertextButton.selected = NO;
-            weakSelf.availableAmountLabel.text = [NSString stringWithFormat:@"可用金额(元):%@",viewModel.userInfoModel.userAssets.availablePoint];
-            weakSelf.accumulatedIncomeLabel.text = [NSString stringWithFormat:@"累计收益(元):%@",viewModel.userInfoModel.userAssets.earnTotal];
+            weakSelf.availableAmountLabel.text = [NSString stringWithFormat:@"可用金额(元)：%@",viewModel.userInfoModel.userAssets.availablePoint];
+            weakSelf.accumulatedIncomeLabel.text = [NSString stringWithFormat:@"累计收益(元)：%@",viewModel.userInfoModel.userAssets.earnTotal];
         }else
         {
             weakSelf.ciphertextButton.selected = YES;
-            weakSelf.availableAmountLabel.text = [[NSString stringWithFormat:@"可用金额(元):%@",viewModel.userInfoModel.userAssets.availablePoint] replaceStringWithStartLocation:8 lenght:viewModel.userInfoModel.userAssets.availablePoint.length?:1];
+            weakSelf.availableAmountLabel.text = [[NSString stringWithFormat:@"可用金额(元)：%@",viewModel.userInfoModel.userAssets.availablePoint] replaceStringWithStartLocation:8 lenght:viewModel.userInfoModel.userAssets.availablePoint.length?:1];
             
-            weakSelf.accumulatedIncomeLabel.text = [[NSString stringWithFormat:@"累计收益(元):%@",viewModel.userInfoModel.userAssets.earnTotal] replaceStringWithStartLocation:8 lenght:viewModel.userInfoModel.userAssets.earnTotal.length?:1];
+            weakSelf.accumulatedIncomeLabel.text = [[NSString stringWithFormat:@"累计收益(元)：%@",viewModel.userInfoModel.userAssets.earnTotal] replaceStringWithStartLocation:8 lenght:viewModel.userInfoModel.userAssets.earnTotal.length?:1];
         }
         weakSelf.userNameLabel.text = viewModel.userInfoModel.userInfo.username;
         weakSelf.userInfoViewModel = viewModel;
@@ -156,10 +156,12 @@
 
 - (UILabel *)accumulatedIncomeLabel
 {
+    
     if (!_accumulatedIncomeLabel) {
         _accumulatedIncomeLabel = [[UILabel alloc] init];
 //        _accumulatedIncomeLabel.text = @"累计收益(元):789.76";
-        _accumulatedIncomeLabel.font = [UIFont systemFontOfSize:12];
+        _accumulatedIncomeLabel.font = kHXBFont_PINGFANGSC_REGULAR(15.0f);
+        _accumulatedIncomeLabel.textColor = [UIColor whiteColor];
     }
     return _accumulatedIncomeLabel;
 }
@@ -168,7 +170,8 @@
 {
     if (!_availableAmountLabel) {
         _availableAmountLabel = [[UILabel alloc] init];
-        _availableAmountLabel.font = [UIFont systemFontOfSize:12];
+        _availableAmountLabel.font = kHXBFont_PINGFANGSC_REGULAR(17.0f);
+        _availableAmountLabel.textColor = [UIColor whiteColor];
     }
     return _availableAmountLabel;
 }

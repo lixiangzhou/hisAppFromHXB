@@ -25,7 +25,7 @@
 #import "AXHNewFeatureController.h"//引导页
 
 static NSString *const home = @"首页";
-static NSString *const financing = @"理财";
+static NSString *const financing = @"投资";
 static NSString *const my = @"我的";
 
 @interface AppDelegate ()

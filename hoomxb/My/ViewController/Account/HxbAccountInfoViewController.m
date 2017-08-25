@@ -212,6 +212,7 @@ UITableViewDataSource
     if (indexPath.section == 0) {
         cell.textLabel.text = self.userInfoViewModel.userInfoModel.userInfo.username;
         cell.imageView.image = [UIImage imageNamed:@"default_avatar"];
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }else if (indexPath.section == 1){
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.row == 0) {
