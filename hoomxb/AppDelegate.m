@@ -5,7 +5,7 @@
 //  Created by HXB-C on 2017/4/11.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
-
+#define AXHVersionKey @"version"
 #import "AppDelegate.h"
 #import "NYNetwork.h"//网络请求的kit
 #import "HxbAdvertiseView.h"//弹窗
@@ -21,6 +21,9 @@
 #import "IQKeyboardManager.h"//设置键盘
 
 #import "UMMobClick/MobClick.h"//友盟统计
+
+#import "AXHNewFeatureController.h"//引导页
+
 static NSString *const home = @"首页";
 static NSString *const financing = @"理财";
 static NSString *const my = @"我的";
@@ -127,21 +130,50 @@ static NSString *const my = @"我的";
         NSLog(@"第一次登录程序");
         [KeyChain removeAllInfo];
     }
+    
 }
+
+// 选择一个跟控制器
+- (void)chooseRootViewController
+{
+    //1.获取当前的版本号
+    NSString *currentVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+    //2.获取上一次的版本号
+    NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:AXHVersionKey];
+    // v1.0
+    //判断当前是否有新的版本
+    if ([currentVersion isEqualToString:lastVersion]) {//没有最新的版本号
+        
+        [self enterTheGesturePasswordVC];
+        
+    }else
+    {//有新特性界面
+        //如果有新特性，进入新特性界面
+        AXHNewFeatureController *VC = [[AXHNewFeatureController alloc] init];
+        self.window.rootViewController = VC;
+        //保存当前版本，用偏好设置
+        [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:AXHVersionKey];
+    }
+}
+
+
 #pragma mark - 创建并设置根视图控制器
 - (void)creatRootViewController {
     
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
 //HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
     
-    //数据
-    __weak typeof(self) weakSelf = self;
-    HxbAdvertiseViewController *advertiseViewControllre = [[HxbAdvertiseViewController alloc]init];
-    _window.rootViewController = advertiseViewControllre;
-    [advertiseViewControllre dismissAdvertiseViewControllerFunc:^{
-        [weakSelf enterTheGesturePasswordVC];
-    }];
-    _window.backgroundColor = [UIColor whiteColor];
+    
+    [self chooseRootViewController];
+    //广告页打开就能用
+//    __weak typeof(self) weakSelf = self;
+//    HxbAdvertiseViewController *advertiseViewControllre = [[HxbAdvertiseViewController alloc]init];
+//    _window.rootViewController = advertiseViewControllre;
+//    [advertiseViewControllre dismissAdvertiseViewControllerFunc:^{
+//        [weakSelf enterTheGesturePasswordVC];
+//    }];
+//    _window.backgroundColor = [UIColor whiteColor];
+    
     [_window makeKeyAndVisible];
 }
 
