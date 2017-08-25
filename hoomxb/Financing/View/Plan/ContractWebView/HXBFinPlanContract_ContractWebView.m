@@ -35,9 +35,8 @@
     request = [request copy];
     [self loadRequest:request];
     self.webViewLoadURL = url;
+    
 }
-
-
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {

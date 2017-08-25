@@ -220,6 +220,7 @@
     self.trustView.backgroundColor = [UIColor whiteColor];
     self.trustView.userInteractionEnabled = true;
     [self addSubview: self.trustView];
+    self.trustView.image = [UIImage imageNamed:@"hxb_增信"];
     [self.trustView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);

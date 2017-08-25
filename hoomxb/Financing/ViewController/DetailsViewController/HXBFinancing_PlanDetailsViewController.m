@@ -108,7 +108,7 @@
 //MARK: - 立即加入按钮的添加
 - (void)setupAddView {
     self.addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(60), kScreenWidth, kScrAdaptationH(60));
+    self.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(50), kScreenWidth, kScrAdaptationH(50));
     [self.view addSubview:_addButton];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     self.addButton.backgroundColor = [UIColor clearColor];
@@ -281,7 +281,7 @@
 
     self.isTransparentNavigationBar = true;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - 60);
+    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - 50);
     self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.hxbBaseVCScrollView.delegate = self;
     self.hxbBaseVCScrollView.dataSource = self;
@@ -348,6 +348,7 @@
             cell = [[HXBFinanctingDetail_imageCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"trustCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
+        cell.trustView.image = [UIImage imageNamed:@"hxb_增信"];
         return cell;
     } else if (indexPath.section == 1) {
         HXBFinanctingDetail_progressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"flowChartCell"];
