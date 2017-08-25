@@ -10,4 +10,5 @@
 
 @interface HXBFinAddTruastWebViewVC : HXBBaseViewController
 @property (nonatomic,copy) NSString *URL;
+
 @end

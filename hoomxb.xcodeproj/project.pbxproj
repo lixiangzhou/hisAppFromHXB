@@ -451,6 +451,8 @@
 		E1F6307D1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F6307C1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m */; };
 		E1F630811F20A38400FC0122 /* HXBFBase_BuyResult_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F630801F20A38400FC0122 /* HXBFBase_BuyResult_VC.m */; };
 		E1F630831F20B4F100FC0122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F630821F20B4F100FC0122 /* Assets.xcassets */; };
+		E1FB2FB61F4FC43D008E2501 /* hxb_startImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FB2FB41F4FC43D008E2501 /* hxb_startImage@2x.png */; };
+		E1FB2FB71F4FC43D008E2501 /* hxb_startImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1FB2FB51F4FC43D008E2501 /* hxb_startImage@3x.png */; };
 		E1FBADB71EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADB61EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m */; };
 		E1FBADBD1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADBA1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m */; };
 		E1FBADBE1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADBC1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m */; };
@@ -1318,6 +1320,8 @@
 		E1F6307F1F20A38400FC0122 /* HXBFBase_BuyResult_VC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFBase_BuyResult_VC.h; sourceTree = "<group>"; };
 		E1F630801F20A38400FC0122 /* HXBFBase_BuyResult_VC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFBase_BuyResult_VC.m; sourceTree = "<group>"; };
 		E1F630821F20B4F100FC0122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E1FB2FB41F4FC43D008E2501 /* hxb_startImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hxb_startImage@2x.png"; sourceTree = "<group>"; };
+		E1FB2FB51F4FC43D008E2501 /* hxb_startImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hxb_startImage@3x.png"; sourceTree = "<group>"; };
 		E1FBADB51EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinDatailModel_LoanDetail.h; sourceTree = "<group>"; };
 		E1FBADB61EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinDatailModel_LoanDetail.m; sourceTree = "<group>"; };
 		E1FBADB91EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancing_LoanDetailsViewController.h; sourceTree = "<group>"; };
@@ -1689,6 +1693,8 @@
 			isa = PBXGroup;
 			children = (
 				4E7CCF431EBC1B5B00F7BDB3 /* 4.png */,
+				E1FB2FB41F4FC43D008E2501 /* hxb_startImage@2x.png */,
+				E1FB2FB51F4FC43D008E2501 /* hxb_startImage@3x.png */,
 			);
 			path = launch;
 			sourceTree = "<group>";
@@ -4240,6 +4246,7 @@
 				4E9215711F1DFC8800C8CECB /* bank_name.svg in Resources */,
 				4E88A5291F1600CB00BBDF11 /* security_code.svg in Resources */,
 				4EECE01D1F38177000301758 /* 5012.svg in Resources */,
+				E1FB2FB61F4FC43D008E2501 /* hxb_startImage@2x.png in Resources */,
 				4E88A5251F15B7A500BBDF11 /* password.svg in Resources */,
 				4E7CCF4E1EBC1B5B00F7BDB3 /* pageControl_select@3x.png in Resources */,
 				E1A1BEF21F386C080006BAA7 /* explain.svg in Resources */,
@@ -4247,6 +4254,7 @@
 				E190EF9F1F25A61B001E0B14 /* HXBBannerCollectionViewCell.xib in Resources */,
 				4EECE00D1F38177000301758 /* 0160.svg in Resources */,
 				4E92155F1F1DBCC200C8CECB /* BUYtips.svg in Resources */,
+				E1FB2FB71F4FC43D008E2501 /* hxb_startImage@3x.png in Resources */,
 				4E92155D1F1DBCA800C8CECB /* FinPlanList_CountDown.svg in Resources */,
 				4EECE01A1F38177000301758 /* 5008.svg in Resources */,
 			);

@@ -83,18 +83,6 @@ static NSString *const my = @"我的";
 //设置UI友盟统计信息
 - (void)setupUmeng {
     [HXBUmengManagar HXB_umengStart];
-    Class cls = NSClassFromString(@"UMANUtil");
-    SEL deviceIDSelector = @selector(openUDIDString);
-    NSString *deviceID = nil;
-    if(cls && [cls respondsToSelector:deviceIDSelector]){
-        deviceID = [cls performSelector:deviceIDSelector];
-    }
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:@{@"oid" : deviceID}
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:nil];
-    
-    NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
-    
 }
 
 - (void)keyboardManager
