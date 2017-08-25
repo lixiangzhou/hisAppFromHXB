@@ -12,7 +12,7 @@
 ///通用接口Header必传字段 userAgent
 static NSString *const User_Agent = @"User-Agent";
 ///通用接口Header必传字段 token
-static NSString *const X_HxbAuth_Token = @"X-HxbAuth-Token";
+static NSString *const X_HxbAuth_Token = @"X-Hxb-Auth-Token";
 
 ///网络数据的基本数据类
 @interface NYNetworkConfig ()
@@ -64,7 +64,7 @@ static NSString *const X_HxbAuth_Token = @"X-HxbAuth-Token";
                            User_Agent:self.userAgent,
                            @"IDFA":[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString],
                            @"X-Request-Id":[[[UIDevice currentDevice] identifierForVendor] UUIDString],
-                           @"X-HxbAuth-Timestamp":curTime
+                           @"X-Hxb-Auth-Timestamp":curTime
                            };
 
     return dict;

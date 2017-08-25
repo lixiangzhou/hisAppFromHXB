@@ -214,6 +214,7 @@
     __weak typeof(self)weakSelf = self;
     [[HXBFinanctingRequest sharedFinanctingRequest] loanDetaileWithLoanID:self.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanDetail *viewModel) {
         weakSelf.loanDetailViewModel = viewModel;
+        weakSelf.title = viewModel.loanDetailModel.loanVo.title;
         weakSelf.loanDetailsView.modelArray = weakSelf.tableViewModelArray;
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {

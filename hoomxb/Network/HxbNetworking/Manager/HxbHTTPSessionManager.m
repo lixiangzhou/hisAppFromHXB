@@ -40,7 +40,7 @@
                     
                     NSURLRequest *newRequest = request;
                     NSMutableURLRequest *mutableRequest = [request mutableCopy];    //拷贝request
-                    [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-HxbAuth-Token"];
+                    [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
                     newRequest = [mutableRequest copy];
                     NSLog(@"request >>>>>>>>    %@",newRequest.allHTTPHeaderFields);
                     

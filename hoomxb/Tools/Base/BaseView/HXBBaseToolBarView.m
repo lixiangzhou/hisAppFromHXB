@@ -200,7 +200,24 @@
         [optionItemInfoM addObject:button];
     }
     _optionItemInfo = optionItemInfoM.copy;
+    [self selectedPlanAndLoanNotice];
 }
+
+- (void)selectedPlanAndLoanNotice
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedItem:) name:kHXBNotification_PlanAndLoan_Fragment object:nil];
+}
+/**
+ 选择理财页的那个标签
+ */
+- (void)selectedItem:(NSNotification *)notification
+{
+    //计算偏移量，并且给midToolBarView的selectIndex赋值
+    NSInteger index = [notification.object[@"selectedIndex"] integerValue];
+    [self clickOptionItem:self.optionItemInfo[index]];
+}
+
+
 
 //MARK:button的点击事件
 - (void)tapButton: (UITapGestureRecognizer *) tap {

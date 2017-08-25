@@ -21,6 +21,8 @@ extern NSString *const kHXBBotification_ShowCaptchaVC;
 extern NSString *const kHXBNotification_ShowMyVC;
 extern NSString *const kHXBBotification_ShowHomeVC;
 extern NSString *const kHXBNotification_StopAllRequest;
+//跳转理财页面
+extern NSString *const kHXBNotification_PlanAndLoan_Fragment;
 @interface HxbNotificationMacros : NSObject
 
 @end

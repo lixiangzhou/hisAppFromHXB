@@ -325,6 +325,8 @@
     }
 }
 
+
+
 - (void)dealloc{
     //销毁观察者：
     [self.bottomViewSet enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

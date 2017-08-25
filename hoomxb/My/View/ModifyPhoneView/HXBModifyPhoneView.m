@@ -196,6 +196,7 @@
     self.getCodeBtn.enabled = NO;
     __block int count = 60;
     [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%d秒",count] forState:UIControlStateNormal];
+    self.getCodeBtn.backgroundColor = COR26;
     kWeakSelf
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
         count--;
@@ -205,6 +206,7 @@
             [weakSelf.timer invalidate];
             weakSelf.timer = nil;
             [weakSelf.getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+            weakSelf.getCodeBtn.backgroundColor = COR29;
         }
     }];
 }

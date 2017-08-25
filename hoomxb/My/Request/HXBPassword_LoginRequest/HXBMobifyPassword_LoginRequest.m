@@ -8,7 +8,7 @@
 
 
 #import "HXBMobifyPassword_LoginRequest.h"
-#import "NYBaseRequest.h"//请求工具类
+#import "HXBBaseRequest.h"//请求工具类
 @implementation HXBMobifyPassword_LoginRequest
 + (void)mobifyPassword_LoginRequest_requestWithOldPwd: (NSString *)oldPassword
                                             andNewPwd: (NSString *)newPassword
@@ -16,7 +16,7 @@
                                       andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     ///请求信息配置
-    NYBaseRequest *mobifyPassword_LoginRequest = [[NYBaseRequest alloc]init];
+    HXBBaseRequest *mobifyPassword_LoginRequest = [[HXBBaseRequest alloc]init];
     mobifyPassword_LoginRequest.requestUrl = kHXBSetUPAccount_MobifyPassword_LoginRequestURL;
     mobifyPassword_LoginRequest.requestMethod = NYRequestMethodPost;
     mobifyPassword_LoginRequest.requestArgument = @{

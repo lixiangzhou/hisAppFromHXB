@@ -13,10 +13,17 @@
 #define kLoanDetailVC @"/loan/detail"//某个散标的详情页
 #define kLoginVC @"/account/login"//登录页面
 #define kHomeVC @"/home/main"//主页
-
+#define kPlan_fragment @"/home/plan_fragment"//红利计划列表页
+#define kLoan_fragment @"/home/loan_fragment"//散标列表页
+#define kLoantransferfragment @"/home/loantransferfragment	"//债权转让列表页
 
 #import "HXBBannerWebViewController.h"
 #import "WebViewJavascriptBridge.h"
+#import "HxbMyTopUpViewController.h"//充值
+#import "HXBOpenDepositAccountViewController.h"//开通存管用户
+#import "HXBFinancing_PlanDetailsViewController.h"//红利计划详情
+#import "HXBFinancing_LoanDetailsViewController.h"//散标详情页
+#import "HXBBaseTabBarController.h"//红利计划
 @interface HXBBannerWebViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView *webView;
 @property WebViewJavascriptBridge* bridge;
@@ -42,34 +49,73 @@
         NSLog(@"%@",data);
         [weakSelf logicalJumpWithData:data];
     }];
+    
 }
 
 - (void)logicalJumpWithData:(id)data
 {
+    
+    //跳转立即投资
+    HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    UIViewController *baseVC = [self.navigationController.viewControllers firstObject];
+    [self.navigationController popViewControllerAnimated:NO];
     if ([data[@"path"] isEqualToString:kRegisterVC]) {
         //注册
         //跳转登录注册
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
     }else if ([data[@"path"] isEqualToString:kRechargeVC]){
         //充值页面
-        
+        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+        [baseVC.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
     }else if ([data[@"path"] isEqualToString:kEscrowActivityVC]){
         //存管开户页面
-        
+        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+        openDepositAccountVC.title = @"开通存管账户";
+        [baseVC.navigationController pushViewController:openDepositAccountVC animated:YES];
     }else if ([data[@"path"] isEqualToString:kPlanDetailVC]){
         //某个计划的详情页
-        
+        HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
+        NSString *productId = data[@"productId"];
+        if (productId != nil) {
+            planDetailsVC.planID = productId;
+            planDetailsVC.isPlan = true;
+            planDetailsVC.isFlowChart = true;
+            planDetailsVC.hidesBottomBarWhenPushed = true;
+            [baseVC.navigationController pushViewController:planDetailsVC animated:true];
+        }
     }else if ([data[@"path"] isEqualToString:kLoanDetailVC]){
         //某个散标的详情页
+        HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
+        NSString *productId = data[@"productId"];
+        if (productId != nil) {
+            
+            loanDetailsVC.loanID = productId;
+            
+            loanDetailsVC.hidesBottomBarWhenPushed = true;
+            [baseVC.navigationController pushViewController:loanDetailsVC animated:true];
+        }
         
     }else if ([data[@"path"] isEqualToString:kLoginVC]){
         //登录页面
-        
+        //跳转登录注册
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
     }else if ([data[@"path"] isEqualToString:kHomeVC]){
         //主页
        
+    }else if ([data[@"path"] isEqualToString:kPlan_fragment]){
+        //红利计划列表页
+        tabBarVC.selectedIndex = 1;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
+    }else if ([data[@"path"] isEqualToString:kLoan_fragment]){
+        //散标列表页
+        tabBarVC.selectedIndex = 1;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @1}];
+    }else if ([data[@"path"] isEqualToString:kLoantransferfragment]){
+        //主页债权转让列表页
+        tabBarVC.selectedIndex = 1;
     }
-    [self popoverPresentationController];
+   
 }
 
 
@@ -87,7 +133,7 @@
     
     // 判断请求头是否已包含，如果不判断该字段会导致webview加载时死循环
     
-    if (requestHeaders[@"X-HxbAuth-Token"] && requestHeaders[@"User-Agent"]) {
+    if (requestHeaders[@"X-Hxb-Auth-Token"] && requestHeaders[@"User-Agent"]) {
         
         return YES;
         
@@ -97,7 +143,7 @@
         NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
         NSString *userAgent = [NSString stringWithFormat:@"iphone/%@/%@" ,systemVision,version];
         NSLog(@"%@",[KeyChain token]);
-        [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-HxbAuth-Token"];
+        [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
         [mutableRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];
         
         request = [mutableRequest copy];

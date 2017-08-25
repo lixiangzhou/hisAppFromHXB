@@ -69,6 +69,7 @@
          
         } andFailureBlock:^(NSError *error) {
             NSLog(@"%@",error);
+            [weakSelf.homeView sendCodeFail];
         }];
     }else
     {

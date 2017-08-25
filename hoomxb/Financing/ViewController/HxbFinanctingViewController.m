@@ -76,6 +76,7 @@
 
 - (void) pan: (UIPanGestureRecognizer *)pan {
     NSLog(@"%@",pan);
+   
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

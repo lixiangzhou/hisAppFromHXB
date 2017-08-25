@@ -17,6 +17,7 @@ NSString *const kHXBBotification_ShowCaptchaVC = @"kHXBBotification_ShowCaptchaV
 NSString *const kHXBNotification_ShowMyVC = @"kHXBNotification_ShowMyVC";
 NSString *const kHXBBotification_ShowHomeVC = @"kHXBBotification_ShowHomeVC";
 
+NSString *const kHXBNotification_PlanAndLoan_Fragment = @"kHXBNotification_PlanAndLoan_fragment";
 
 ///停止请求
 NSString *const kHXBNotification_StopAllRequest = @"kHXBNotification_StopAllRequest";

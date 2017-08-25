@@ -268,7 +268,7 @@
                             andPassword: (NSString *)password
                         andSuccessBlock: (void(^)(BOOL isExist))successBlock
                         andFailureBlock: (void(^)(NSError *error))failureBlock {
-    NYBaseRequest *forgotPasswordAPI = [[NYBaseRequest alloc]init];
+    HXBBaseRequest *forgotPasswordAPI = [[HXBBaseRequest alloc]init];
     forgotPasswordAPI.requestUrl = HXBAccount_ForgotPasswordURL;
     forgotPasswordAPI.requestArgument = @{
                                           @"mobile" : mobile,

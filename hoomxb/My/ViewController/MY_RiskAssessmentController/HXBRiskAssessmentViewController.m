@@ -100,7 +100,7 @@
     
     // 判断请求头是否已包含，如果不判断该字段会导致webview加载时死循环
 
-    if (requestHeaders[@"X-HxbAuth-Token"] && requestHeaders[@"User-Agent"]) {
+    if (requestHeaders[@"X-Hxb-Auth-Token"] && requestHeaders[@"User-Agent"]) {
 
         return YES;
         
@@ -110,7 +110,7 @@
         NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
         NSString *userAgent = [NSString stringWithFormat:@"iphone/%@/%@" ,systemVision,version];
         NSLog(@"%@",[KeyChain token]);
-        [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-HxbAuth-Token"];
+        [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
         [mutableRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];
         
         request = [mutableRequest copy];

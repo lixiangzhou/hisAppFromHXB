@@ -107,7 +107,7 @@
             //进入绑卡界面
             HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
             withdrawCardViewController.title = @"绑卡";
-            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Recharge;
             [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
         }else
         {

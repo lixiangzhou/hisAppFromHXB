@@ -9,6 +9,7 @@
 #import "HXBModifyTransactionPasswordRequest.h"
 #import "NYBaseRequest.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
+#import "HXBBaseRequest.h"
 @implementation HXBModifyTransactionPasswordRequest
 
 /**
@@ -22,7 +23,7 @@
 {
 
     
-    NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
+    HXBBaseRequest *alterLoginPasswordAPI = [[HXBBaseRequest alloc] init];
     alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     alterLoginPasswordAPI.requestArgument = @{
@@ -59,7 +60,7 @@
  */
 - (void)myTransactionPasswordWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
+    HXBBaseRequest *alterLoginPasswordAPI = [[HXBBaseRequest alloc] init];
     alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPassword_SendSmscodeURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     NSLog(@"%@",kTypeKey_tradpwd);
@@ -99,7 +100,7 @@
  */
 - (void)myTransactionPasswordWithIDcard:(NSString *)IDcard andWithCode:(NSString *)code andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
+    HXBBaseRequest *alterLoginPasswordAPI = [[HXBBaseRequest alloc] init];
     alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPassword_CheckIdentitySmsURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     alterLoginPasswordAPI.requestArgument = @{
@@ -139,7 +140,7 @@
  */
 - (void)myTransactionPasswordWithIDcard:(NSString *)IDcard andWithCode:(NSString *)code  andWithPassword:(NSString *)password andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
+    HXBBaseRequest *alterLoginPasswordAPI = [[HXBBaseRequest alloc] init];
     alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPassword_CashpwdEditURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     alterLoginPasswordAPI.requestArgument = @{

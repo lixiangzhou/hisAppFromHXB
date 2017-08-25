@@ -510,6 +510,7 @@
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
         self.planDetailViewModel = viewModel;
         self.hxbBaseVCScrollView.hidden = NO;
+        self.title = viewModel.planDetailModel.name;
         [self.hxbBaseVCScrollView reloadData];
         [self.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {

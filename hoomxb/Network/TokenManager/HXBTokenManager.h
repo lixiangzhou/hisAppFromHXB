@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 ///token的key
-static NSString *const kHXBToken_X_HxbAuth_Token = @"X-HxbAuth-Token";
+static NSString *const kHXBToken_X_HxbAuth_Token = @"X-Hxb-Auth-Token";
 ///请求下数据后的字典中的key
 static NSString *const kHXBDownLoadTokenKey = @"data";
 ///token 默认的URL string

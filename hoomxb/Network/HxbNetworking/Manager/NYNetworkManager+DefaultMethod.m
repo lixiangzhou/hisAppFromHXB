@@ -23,6 +23,10 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     NSLog(@"👌👌相应 体 ------%@",request.responseObject);
     NSLog(@"======================👌👌 结束 👌👌====================================");
     
+    if ([request.responseObject[@"code"]  isEqual: @"ESOCKETTIMEDOUT"]) {
+        [HxbHUDProgress showTextWithMessage:@"请求超时"];
+    }
+    
     switch ([request.responseObject[kResponseStatus] integerValue]) {
         case kHXBCode_Enum_Captcha://弹出图验、
 //            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowCaptchaVC object:nil];

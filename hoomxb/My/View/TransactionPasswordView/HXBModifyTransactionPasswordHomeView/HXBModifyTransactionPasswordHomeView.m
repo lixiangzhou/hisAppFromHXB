@@ -143,6 +143,7 @@
  */
 - (void)getValidationCodeButtonClick
 {
+    self.getValidationCodeButton.backgroundColor = COR26;
     if (self.getValidationCodeButtonClickBlock) {
         self.getValidationCodeButtonClickBlock(self.idCardTextField.text);
     }
@@ -169,6 +170,7 @@
         [self.timer invalidate];
         self.timer = nil;
         [self.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [self.getValidationCodeButton setBackgroundColor:COR29];
     }
 }
 
@@ -181,6 +183,7 @@
     [self.timer invalidate];
     self.timer = nil;
     [self.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+    [self.getValidationCodeButton setBackgroundColor:COR29];
 
 }
 

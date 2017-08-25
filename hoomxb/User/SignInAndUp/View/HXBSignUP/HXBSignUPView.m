@@ -51,6 +51,12 @@ UITextFieldDelegate
     self.checkMobileLabel.text = checkMobileStr;
 }
 
+
+- (void)signUpClick
+{
+    
+}
+
 #pragma mark - getter 
 
 - (UIView *)phoneLine
@@ -64,7 +70,7 @@ UITextFieldDelegate
 - (UITextField *)phoneTextField{
     if (!_phoneTextField) {
         _phoneTextField = [[UITextField alloc]init];
-        _phoneTextField.keyboardType = UIKeyboardTypeDecimalPad;
+        _phoneTextField.keyboardType = UIKeyboardTypePhonePad;
         _phoneTextField.delegate = self;
         _phoneTextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
         NSMutableAttributedString *phoneAttrStr = [[NSMutableAttributedString alloc] initWithString:kPhoneTitle];
@@ -100,18 +106,22 @@ UITextFieldDelegate
         [_nextButton addTarget:self action:@selector(clickNextButton:) forControlEvents:UIControlEventTouchUpInside];
         _nextButton.layer.cornerRadius = kScrAdaptationW(4);
         _nextButton.layer.masksToBounds = YES;
-        _nextButton.backgroundColor = RGB(245, 81, 81);
+        _nextButton.backgroundColor = COR26;
+        _nextButton.userInteractionEnabled = NO;
         [_nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _nextButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
     }
     return _nextButton;
 }
+
+
 - (UIButton *)havedAccountButton {
     if (!_havedAccountButton) {
         _havedAccountButton = [[UIButton alloc]init];
         [_havedAccountButton setTitle:kHavedAccountTitle forState:UIControlStateNormal];
-        [_havedAccountButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_havedAccountButton setTitleColor:COR10 forState:UIControlStateNormal];
         [_havedAccountButton addTarget:self action:@selector(clickHavedAccountButton:) forControlEvents:UIControlEventTouchUpInside];
+        _havedAccountButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     }
     return _havedAccountButton;
 }
@@ -177,11 +187,11 @@ UITextFieldDelegate
 //        make.height.offset(kScrAdaptationH(20));
 //        make.left.right.equalTo(weakSelf.phoneTextField);
 //    }];
-//    [self.havedAccountButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.equalTo(weakSelf).offset(kScrAdaptationH(-50));
-//        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
-//        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-//    }];
+    [self.havedAccountButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.nextButton.mas_bottom).offset(kScrAdaptationH(10));
+        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
+    }];
 
 
 //    self.phoneTextField.backgroundColor = [UIColor hxb_randomColor];
@@ -196,7 +206,7 @@ UITextFieldDelegate
     
     //删除按钮
     self.phoneTextField.clearButtonMode = textField.text.length > 0? UITextFieldViewModeAlways : UITextFieldViewModeNever;
-    
+   
     //如果到达11 个字符就请求数据
     NSString *str = nil;
     if (string.length) {
@@ -224,6 +234,16 @@ UITextFieldDelegate
     }
     UITextFieldViewMode model = str.length > 0? UITextFieldViewModeAlways : UITextFieldViewModeNever;
     self.phoneTextField.clearButtonMode = model;
+    
+    if (str.length) {
+        self.nextButton.backgroundColor = COR29;
+        self.nextButton.userInteractionEnabled = YES;
+    }else
+    {
+        self.nextButton.backgroundColor = COR26;
+        self.nextButton.userInteractionEnabled = NO;
+    }
+    
     return str.length <= 11;
 }
 - (void)textFieldDidChange1:(UITextField *)textField{

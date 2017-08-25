@@ -29,7 +29,7 @@
     NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
     NSString *userAgent = [NSString stringWithFormat:@"iphone/%@/%@" ,systemVision,version];
     NSLog(@"%@",[KeyChain token]);
-    [request setValue:[KeyChain token] forHTTPHeaderField:@"X-HxbAuth-Token"];
+    [request setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
     [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
     
     request = [request copy];
