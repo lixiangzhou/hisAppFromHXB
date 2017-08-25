@@ -15,6 +15,15 @@
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"ID" : @"id"};
 }
+
+//- (NSString *)potRemainAmount {
+//    return [NSString hxb_getPerMilWithIntegetNumber:[self.remainAmount floatValue]];
+//}
+//
+//-(NSString *)potUserRemainAmount {
+//    return [NSString hxb_getPerMilWithIntegetNumber:[self.userRemainAmount floatValue]];
+//}
+
 @end
 
 @implementation HXBFinDetailModel_PlanDetail_DataList

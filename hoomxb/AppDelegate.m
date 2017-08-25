@@ -81,14 +81,20 @@ static NSString *const my = @"我的";
     return YES;
 }
 //设置UI友盟统计信息
-- (void)setupUmeng
-{
-    UMConfigInstance.appKey = @"596359ca5312dd05b4001381";
-    UMConfigInstance.channelId = @"App Store";
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    [MobClick setEncryptEnabled:YES];// 设置是否对日志信息进行加密, 默认NO(不加密).
-    [MobClick setAppVersion:version];
-    [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
+- (void)setupUmeng {
+    [HXBUmengManagar HXB_umengStart];
+    Class cls = NSClassFromString(@"UMANUtil");
+    SEL deviceIDSelector = @selector(openUDIDString);
+    NSString *deviceID = nil;
+    if(cls && [cls respondsToSelector:deviceIDSelector]){
+        deviceID = [cls performSelector:deviceIDSelector];
+    }
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:@{@"oid" : deviceID}
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:nil];
+    
+    NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+    
 }
 
 - (void)keyboardManager

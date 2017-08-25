@@ -85,4 +85,9 @@
  限额提示
  */
 @property (nonatomic, copy) NSString *quota;
+/**
+ 密文手机号
+ */
+@property (nonatomic, copy) NSString *securyMobile;
+
 @end

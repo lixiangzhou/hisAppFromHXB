@@ -350,6 +350,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 ///点击了确定设置按钮
 - (void)clickSetPassWordButton: (UIButton *)button {
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_registSuccess];
     if (self.smscode_TextField.text.length != 6) {
         [HxbHUDProgress showTextWithMessage:@"请输入6位数的验证码"];
     } else {

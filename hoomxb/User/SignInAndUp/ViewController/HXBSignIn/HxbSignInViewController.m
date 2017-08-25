@@ -86,8 +86,6 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 - (void)registerSignViewEvent {
     kWeakSelf
     [self.signView signIN_ClickButtonFunc:^(NSString *pasword, NSString *mobile) {
-
-    
         //用户登录请求
         [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:pasword andCaptcha:self.checkCaptcha andSuccessBlock:^(BOOL isSuccess) {
             NSLog(@"登录成功");
@@ -141,6 +139,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 - (void)registerSignUPEvent {
     kWeakSelf
     [self.signView signUP_clickButtonFunc:^{
+        [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_loginToRegist];
         HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
         signUPVC.title = @"注册";
         signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;

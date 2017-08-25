@@ -24,6 +24,7 @@
 #import "HXBFin_Loan_BuyViewController.h"//加入界面
 #import "HXBFinAddTruastWebViewVC.h"
 
+#pragma mark --- (肖扬 散标计划详情)
 
 @interface HXBFinancing_LoanDetailsViewController ()
 //假的navigationBar

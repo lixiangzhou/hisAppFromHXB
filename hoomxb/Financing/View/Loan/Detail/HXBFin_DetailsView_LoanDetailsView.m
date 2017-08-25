@@ -278,7 +278,7 @@
     self.promptLablel.textAlignment = NSTextAlignmentCenter;
     self.promptLablel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.promptLablel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
-    self.promptLablel.text = @"预期收益不代表实际收益，投资需谨慎";
+    self.promptLablel.text = @"* 预期收益不代表实际收益，投资需谨慎";
     [self.promptLablel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bottomTableView.mas_bottom).offset(20);
         make.left.right.equalTo(self);
@@ -288,7 +288,7 @@
 
 //MARK: - 立即加入按钮的添加
 - (void)setupAddView {
-    kWeakSelf
+//    kWeakSelf
 //    self.addView = [[UIView alloc]init];
 //    [self addSubview:self.addView];
 //    [self.addView mas_makeConstraints:^(MASConstraintMaker *make) {

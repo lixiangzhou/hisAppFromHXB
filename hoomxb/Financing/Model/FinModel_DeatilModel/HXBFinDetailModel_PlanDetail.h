@@ -100,6 +100,12 @@
 @property (nonatomic,copy) NSString *userRemainAmount;
 ///String	剩余可投
 @property (nonatomic,copy) NSString *remainAmount;
+
+///String	剩余可追加金额
+@property (nonatomic,copy) NSString *potUserRemainAmount;
+///String	剩余可投
+@property (nonatomic,copy) NSString *potRemainAmount;
+
 ///String	倒计时时间戳
 @property (nonatomic,copy) NSString *diffTime;
 @property (nonatomic,copy) NSString *rsvCount;///": "0",

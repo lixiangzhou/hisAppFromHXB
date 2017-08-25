@@ -47,7 +47,7 @@
 //加入上线
 - (NSString *)singleMaxRegisterAmount {
     if (!_singleMaxRegisterAmount) {
-        _singleMaxRegisterAmount = [NSString hxb_getPerMilWithDouble: self.planDetailModel.singleMaxRegisterAmount.floatValue];
+        _singleMaxRegisterAmount = [NSString hxb_getPerMilWithIntegetNumber: self.planDetailModel.singleMaxRegisterAmount.floatValue];
 //        _singleMaxRegisterAmount = self.planDetailModel.remainAmount < self.planDetailModel.userRemainAmount ? self.planDetailModel.remainAmount : self.planDetailModel.userRemainAmount;
     }
     return _singleMaxRegisterAmount;
@@ -252,16 +252,16 @@
         case 6://立即加入或者  追加
         case 5:
             if (self.planDetailModel.remainAmount.floatValue <= 0) {
-                _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount];
+                _remainAmount = [NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.amount];
                 _remainAmount_constStr = @"计划总金额";
             } else {
-                _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.remainAmount.floatValue];
+                _remainAmount = [NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.remainAmount.floatValue];
                 _remainAmount_constStr = @"剩余金额";
             }
             break;
             
         default:
-            _remainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.amount];
+            _remainAmount = [NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.amount];
             _remainAmount_constStr = @"计划总金额";
             break;
     }
@@ -298,9 +298,9 @@
 - (NSString *)addCondition {
     if (!_addCondition) {
         if (self.planDetailModel.isFirst.integerValue) {
-            _addCondition = [NSString stringWithFormat:@"%@起投，%@递增",[NSString hxb_getPerMilWithDoubleNum:self.minRegisterAmount.doubleValue],[NSString hxb_getPerMilWithDoubleNum:self.planDetailModel.registerMultipleAmount.doubleValue]];
+            _addCondition = [NSString stringWithFormat:@"%@起投，%@递增",[NSString hxb_getPerMilWithIntegetNumber:self.minRegisterAmount.doubleValue],[NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.registerMultipleAmount.doubleValue]];
         }else{
-            _addCondition = [NSString stringWithFormat:@"%@元的倍数递增",[NSString hxb_getPerMilWithDoubleNum:self.planDetailModel.minRegisterAmount.doubleValue]];
+            _addCondition = [NSString stringWithFormat:@"%@的倍数递增",[NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.minRegisterAmount.doubleValue]];
             
         }
     }
