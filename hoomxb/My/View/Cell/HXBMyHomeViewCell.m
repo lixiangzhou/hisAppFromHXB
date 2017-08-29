@@ -22,6 +22,10 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self.contentView addSubview:self.lineView];
         [self setupSubViewFrame];
+        [self.textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.imageView.mas_right).offset(kScrAdaptationW(10));
+            make.centerY.equalTo(self.contentView);
+        }];
     }
     return self;
 }

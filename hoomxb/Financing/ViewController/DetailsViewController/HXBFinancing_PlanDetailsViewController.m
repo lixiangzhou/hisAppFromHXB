@@ -282,7 +282,14 @@
     self.isTransparentNavigationBar = true;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - kScrAdaptationH(50));
-    self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.hxbBaseVCScrollView.separatorColor = COR12;
+    if ([self.hxbBaseVCScrollView respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self.hxbBaseVCScrollView setSeparatorInset:UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15))];
+    }
+    if ([self.hxbBaseVCScrollView respondsToSelector:@selector(setLayoutMargins:)]) {
+        [self.hxbBaseVCScrollView setLayoutMargins:UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15))];
+    }
     self.hxbBaseVCScrollView.delegate = self;
     self.hxbBaseVCScrollView.dataSource = self;
     self.hxbBaseVCScrollView.hidden = YES;
@@ -297,16 +304,16 @@
 
 // 表头
 - (UIView *)tableViewHeadView {
-    self.topView = [[HXBFin_PlanDetailView_TopView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(248) - 64)];
+    self.topView = [[HXBFin_PlanDetailView_TopView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(268) - 64)];
     self.topView.backgroundColor = [UIColor greenColor];
     return self.topView;
 }
 
 - (UIView *)tableViewFootView {
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(57))];
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(37))];
     footView.backgroundColor = [UIColor clearColor];
-    UILabel *promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(20), kScreenWidth, kScrAdaptationH(17))];
-    promptLabel.text = @"* 预期收益不代表实际收益，投资需谨慎";
+    UILabel *promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(17))];
+    promptLabel.text = @"- 预期收益不代表实际收益，投资需谨慎 -";
     promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     promptLabel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
     promptLabel.textAlignment = NSTextAlignmentCenter;
@@ -335,7 +342,16 @@
     if (indexPath.section == 0) {
         return kScrAdaptationH(80);
     } else if (indexPath.section == 1) {
-        return kScrAdaptationH(108);
+        switch (self.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
+            case 8:
+            case 9:
+                return kScrAdaptationH(108);
+                break;
+                
+            default:
+                return kScrAdaptationH(83);
+                break;
+        }
     } else {
         return kScrAdaptationH(44.5);
     }
@@ -347,6 +363,7 @@
         if (!cell) {
             cell = [[HXBFinanctingDetail_imageCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"trustCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//            cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 100);
         }
         cell.trustView.image = [UIImage imageNamed:@"hxb_增信"];
         return cell;
@@ -376,6 +393,7 @@
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = self.tableViewTitleArray[indexPath.row];
+        cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         return cell;
     }
 }

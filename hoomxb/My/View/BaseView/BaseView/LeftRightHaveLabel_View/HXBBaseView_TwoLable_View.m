@@ -104,7 +104,7 @@
         
         [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.left.equalTo(self);
-            make.top.equalTo(self.leftLabel.mas_bottom).offset(self.spacing);
+            make.top.equalTo(self.leftLabel.mas_bottom);
         }];
     }
 

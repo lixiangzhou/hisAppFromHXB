@@ -203,7 +203,6 @@
 		4EECE01C1F38177000301758 /* 5010.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE00A1F38177000301758 /* 5010.svg */; };
 		4EECE01D1F38177000301758 /* 5012.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE00B1F38177000301758 /* 5012.svg */; };
 		4EECE0201F383ABE00301758 /* HXBMyHomeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EECE01F1F383ABE00301758 /* HXBMyHomeViewCell.m */; };
-		4EECE0221F3842EC00301758 /* personal_center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0211F3842EC00301758 /* personal_center.svg */; };
 		4EECE0241F3843A200301758 /* eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0231F3843A200301758 /* eye.svg */; };
 		4EECE0261F38548100301758 /* close_eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0251F38548100301758 /* close_eye.svg */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
@@ -817,7 +816,6 @@
 		4EECE00B1F38177000301758 /* 5012.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 5012.svg; sourceTree = "<group>"; };
 		4EECE01E1F383ABE00301758 /* HXBMyHomeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMyHomeViewCell.h; sourceTree = "<group>"; };
 		4EECE01F1F383ABE00301758 /* HXBMyHomeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyHomeViewCell.m; sourceTree = "<group>"; };
-		4EECE0211F3842EC00301758 /* personal_center.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = personal_center.svg; sourceTree = "<group>"; };
 		4EECE0231F3843A200301758 /* eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = eye.svg; sourceTree = "<group>"; };
 		4EECE0251F38548100301758 /* close_eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = close_eye.svg; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
@@ -1779,7 +1777,6 @@
 			isa = PBXGroup;
 			children = (
 				4EECDFF91F38177000301758 /* 银行icon */,
-				4EECE0211F3842EC00301758 /* personal_center.svg */,
 				4EECE0251F38548100301758 /* close_eye.svg */,
 				4EECE0231F3843A200301758 /* eye.svg */,
 				4EECDFCE1F380E8B00301758 /* hongli.svg */,
@@ -4279,7 +4276,6 @@
 				4EECDFD21F380E8B00301758 /* sanbiao.svg in Resources */,
 				4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */,
 				4E7BDEB71F187771002A3E18 /* bankcard.svg in Resources */,
-				4EECE0221F3842EC00301758 /* personal_center.svg in Resources */,
 				4EECE0111F38177000301758 /* 0220.svg in Resources */,
 				4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */,
 				4E92156F1F1DFC8100C8CECB /* id_number.svg in Resources */,

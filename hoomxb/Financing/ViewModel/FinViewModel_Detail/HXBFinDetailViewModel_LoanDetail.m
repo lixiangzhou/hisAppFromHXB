@@ -133,8 +133,8 @@
     if (isSelected) {
         ///设置addbutton的颜色
         self.isAddButtonEditing = false;
-        self.addButtonTitleColor = kHXBColor_Grey_Font0_2;
-        self.addButtonBackgroundColor = kHXBColor_Font0_6;
+        self.addButtonTitleColor = [UIColor whiteColor];
+        self.addButtonBackgroundColor = COR26;
         self.addButtonBorderColor = kHXBColor_Grey_Font0_2;
         return;
     }

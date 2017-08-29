@@ -275,6 +275,7 @@ UITextFieldDelegate
     self.signInButton.layer.cornerRadius = kScrAdaptationW(4);
     self.signInButton.layer.masksToBounds = YES;
     self.signInButton.backgroundColor = RGB(245, 81, 81);
+    self.signInButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
     [self.signUpbutton setTitle:kSignUPText forState:UIControlStateNormal];
     [self.signUpbutton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
     self.signUpbutton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);

@@ -198,9 +198,9 @@ UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *celledStr = @"celled";
-    HXBMyHomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
     if (cell == nil) {
-        cell = [[HXBMyHomeViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         cell.textLabel.textColor = COR6;
@@ -254,6 +254,7 @@ UITableViewDataSource
         self.signOutLabel.frame = cell.bounds;
         self.signOutLabel.width = kScreenWidth;
         [cell.contentView addSubview:self.signOutLabel];
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     return cell;
 }

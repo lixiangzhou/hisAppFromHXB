@@ -90,7 +90,7 @@
         make.height.offset(kScrAdaptationH(17));
     }];
     [self.rightHeadButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.allFinanceTitleLabel.mas_right);
+        make.left.equalTo(self.allFinanceTitleLabel.mas_right).offset(kScrAdaptationW(5));
         make.centerY.equalTo(self.allFinanceTitleLabel);
         make.height.width.offset(kScrAdaptationH(15));
     }];
@@ -349,10 +349,15 @@
 
 - (UIButton *)leftHeadButton{
     if (!_leftHeadButton) {
-        _leftHeadButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW(15), kScrAdaptationW(32), kScrAdaptationW(40), kScrAdaptationW(40))];
-        [_leftHeadButton setImage:[SVGKImage imageNamed:@"personal_center.svg"].UIImage forState:UIControlStateNormal];
+        _leftHeadButton = [[UIButton alloc]initWithFrame:CGRectMake(0, kScrAdaptationH(25), kScrAdaptationW(53), kScrAdaptationW(53))];
         [_leftHeadButton addTarget:self action:@selector(leftHeaderButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        _leftHeadButton.imageView.contentMode = UIViewContentModeCenter;
+        UIImageView *btnImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"personal_center"]];
+        btnImage.contentMode = UIViewContentModeScaleAspectFit;
+        [_leftHeadButton addSubview:btnImage];
+        [btnImage mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.center.equalTo(_leftHeadButton);
+            make.width.height.offset(kScrAdaptationW(23));
+        }];
     }
     return _leftHeadButton;
 }

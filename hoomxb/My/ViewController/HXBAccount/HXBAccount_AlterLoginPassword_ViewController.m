@@ -48,9 +48,11 @@ kWeakSelf
         }
         [HXBMobifyPassword_LoginRequest mobifyPassword_LoginRequest_requestWithOldPwd:password_Original andNewPwd:password_New andSuccessBlock:^{
             [KeyChainManage sharedInstance].siginCount = @(0).description;
-            [HxbHUDProgress showTextWithMessage:@"密码修改成功"];
-//            [HxbHUDProgress showTextWithMessage:@"密码修改成功" andView:view];
-            [weakSelf.navigationController popToRootViewControllerAnimated:true];
+            [KeyChain signOut];
+            weakSelf.tabBarController.selectedIndex = 0;
+            [HxbHUDProgress showTextWithMessage:@"密码修改成功，请用新密码号登录"];
+            [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         } andFailureBlock:^(NSError *error) {
             if (error) {
                 NSLog(@"%@",error);
