@@ -121,7 +121,7 @@
     if (!_setTransactionBtn) {
         _setTransactionBtn = [[UIButton alloc] init];
         _setTransactionBtn.layer.borderColor = COR12.CGColor;
-        _setTransactionBtn.layer.borderWidth = 0.5;
+        _setTransactionBtn.layer.borderWidth = kXYBorderWidth;
         _setTransactionBtn.layer.cornerRadius = 2.0;
         _setTransactionBtn.layer.masksToBounds = YES;
         [_setTransactionBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

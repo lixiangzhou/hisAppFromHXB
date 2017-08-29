@@ -54,7 +54,7 @@
         passwordTextField.delegate = self;
         passwordTextField.keyboardType = UIKeyboardTypeNumberPad;
         passwordTextField.layer.borderColor = kBorderColor.CGColor;
-        passwordTextField.layer.borderWidth = 1;
+        passwordTextField.layer.borderWidth = kXYBorderWidth;
         passwordTextField.layer.cornerRadius = kScrAdaptationW750(8);
         passwordTextField.layer.masksToBounds = YES;
         [passwordTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];

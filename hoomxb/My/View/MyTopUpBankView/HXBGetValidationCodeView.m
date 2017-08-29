@@ -106,7 +106,7 @@
         [_button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
         [_button addTarget:self action:@selector(buttonClick) forControlEvents:UIControlEventTouchUpInside];
         _button.layer.borderColor = COR12.CGColor;
-        _button.layer.borderWidth = 0.5;
+        _button.layer.borderWidth = kXYBorderWidth;
     }
     return _button;
 }

@@ -149,7 +149,7 @@
     [self.stutasButton setTitleColor:LoanTruansferViewModel.addButtonTitleColor forState:UIControlStateNormal];
     self.stutasButton.backgroundColor = LoanTruansferViewModel.addButtonBackgroundColor;
     self.stutasButton.layer.borderColor = LoanTruansferViewModel.addButtonBorderColor.CGColor;
-    self.stutasButton.layer.borderWidth = kScrAdaptationH(1);
+    self.stutasButton.layer.borderWidth = kScrAdaptationH(0.8f);
     [self.stutasButton setTitle:LoanTruansferViewModel.status forState:UIControlStateNormal];
     
     [self.interestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
@@ -187,7 +187,7 @@
     [self.stutasButton setTitleColor:manager.addButtonTitleColor forState:UIControlStateNormal];
     self.stutasButton.backgroundColor = manager.addButtonBackgroundColor;
     self.stutasButton.layer.borderColor = manager.addButtonBorderColor.CGColor;
-    self.stutasButton.layer.borderWidth = kScrAdaptationH(1);
+    self.stutasButton.layer.borderWidth = kScrAdaptationH(0.8f);
     [self.stutasButton setTitle:@"转让中" forState:UIControlStateNormal];
     
     [self.interestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {

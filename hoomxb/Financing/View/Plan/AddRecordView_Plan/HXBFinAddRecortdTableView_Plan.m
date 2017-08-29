@@ -62,6 +62,7 @@ UITableViewDataSource
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinAddRecortdTableViewCell_Plan *planCell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
+    planCell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (self.addRecortdModel_Plan.dataList.count) {
         planCell.addRecortdModel_plan_dataList = self.addRecortdModel_Plan.dataList[indexPath.row];
     }

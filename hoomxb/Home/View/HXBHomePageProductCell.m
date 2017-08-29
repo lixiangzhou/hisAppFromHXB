@@ -215,7 +215,7 @@
     if (!_backView) {
         _backView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0)];
         _backView.backgroundColor = [UIColor whiteColor];
-        _backView.layer.borderWidth = 0.5;
+        _backView.layer.borderWidth = kXYBorderWidth;
         _backView.layer.borderColor = RGBA(229, 229, 229, 1).CGColor;
     }
     return _backView;
@@ -320,7 +320,7 @@
 //        [_purchaseButton setTitle:@"加入" forState:UIControlStateNormal];
         [_purchaseButton addTarget:self action:@selector(purchaseButtonClick) forControlEvents:UIControlEventTouchUpInside];
         _purchaseButton.enabled = NO;
-        _purchaseButton.layer.borderWidth = 0.5;
+        _purchaseButton.layer.borderWidth = kXYBorderWidth;
         _purchaseButton.layer.borderColor = RGB(255, 133, 133).CGColor;
         _purchaseButton.layer.cornerRadius = 4.0f;
         _purchaseButton.layer.masksToBounds = YES;

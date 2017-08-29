@@ -201,7 +201,7 @@ UITableViewDataSource
         make.width.equalTo(self);
     }];
     [self.topStatusView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topView).offset(kScrAdaptationH750(60));
+        make.top.equalTo(self.topView).offset(kScrAdaptationH750(30));
         make.right.equalTo(self.topView).offset(40);
         make.height.equalTo(@(kScrAdaptationH750(54)));
         make.right.equalTo(self.topStatusLabel).offset(kScrAdaptationW750(100));
@@ -249,8 +249,10 @@ UITableViewDataSource
     self.typeView.backgroundColor = [UIColor whiteColor];
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.topStatusView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.8].CGColor;
-    self.topStatusView.layer.borderWidth = 1;
+    self.topStatusView.layer.borderWidth = kXYBorderWidth;
     self.topStatusView.layer.masksToBounds = true;
+#pragma mark - 肖扬
+    self.topStatusView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.07 ];
     self.topStatusLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     self.topStatusLabel.textColor = [UIColor colorWithWhite:1 alpha:0.8];
     self.topStatusView.layer.cornerRadius = kScrAdaptationH750(54)/2.0;

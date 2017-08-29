@@ -259,7 +259,9 @@ kDealloc
 ///上啦刷新下拉加载
 - (void)refresh {
     [self downLoadRefresh];
-    [self upDataRefresh];
+    if (self.totalCount > 20) {
+        [self upDataRefresh];
+    }
 }
 
 ///下拉刷新

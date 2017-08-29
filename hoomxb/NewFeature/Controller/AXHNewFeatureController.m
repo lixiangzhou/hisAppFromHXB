@@ -142,7 +142,7 @@ static NSString *ID = @"collectionCell";
         _startButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
         _startButton.layer.cornerRadius = kScrAdaptationW750(8);
         _startButton.layer.masksToBounds = YES;
-        _startButton.layer.borderWidth = 0.5;
+        _startButton.layer.borderWidth = kXYBorderWidth;
         _startButton.layer.borderColor = COR29.CGColor;
         _startButton.hidden = YES;
         

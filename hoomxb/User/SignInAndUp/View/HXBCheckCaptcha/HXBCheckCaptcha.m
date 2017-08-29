@@ -142,7 +142,7 @@ static NSString *const kTrueButtonTitle = @"确定";
     self.cancelBtn.layer.cornerRadius = kScrAdaptationW(4);
     self.cancelBtn.layer.masksToBounds = YES;
     self.cancelBtn.layer.borderColor = RGB(253, 54, 54).CGColor;
-    self.cancelBtn.layer.borderWidth = 0.5;
+    self.cancelBtn.layer.borderWidth = kXYBorderWidth;
     self.cancelBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
     self.cancelBtn.hidden = YES;
     [self.cancelBtn setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];

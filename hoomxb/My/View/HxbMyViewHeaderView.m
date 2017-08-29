@@ -329,7 +329,7 @@
         [_withdrawButton setTitleColor:RGB(255, 64, 79) forState:UIControlStateNormal];
         [_withdrawButton setTitle:@"提现" forState:UIControlStateNormal];
         [_withdrawButton addTarget:self action:@selector(withdrawButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        _withdrawButton.layer.borderWidth = 0.5;
+        _withdrawButton.layer.borderWidth = kXYBorderWidth;
         _withdrawButton.layer.borderColor = RGB(255, 133, 133).CGColor;
         _withdrawButton.layer.cornerRadius = kScrAdaptationW(4);
         _withdrawButton.layer.masksToBounds = YES;

@@ -196,7 +196,7 @@
 //MARK: ========= 红利计划 主界面的网络数据请求 =========
 - (void)myPlan_requestWithPlanType: (HXBRequestType_MY_PlanRequestType)planRequestType
                          andUpData: (BOOL)isUPData
-                   andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MianPlanViewModel *>* viewModelArray))successDateBlock
+                   andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MianPlanViewModel *>* viewModelArray, NSInteger totalCount))successDateBlock
                    andFailureBlock: (void(^)(NSError *error))failureBlock {
     __weak typeof(self)weakSelf = self;
     self.planListAPI.requestUrl = kHXBMY_PlanListURL;
@@ -229,6 +229,8 @@
     
     
     [self.planListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@", responseObject);
+
         kHXBResponsShowHUD;
         NSDictionary *responseDic = responseObject[@"data"];
     
@@ -247,7 +249,7 @@
         NSArray *handleData = [weakSelf handleResponseArrayWithIsupData:weakSelf.planListAPI.isUPReloadData andTypeStr:typeStr andViewModel:planViewModelArray];
         //向外回调
         if (successDateBlock) {
-            successDateBlock(handleData);
+            successDateBlock(handleData, [[responseDic valueForKey:@"totalCount"] integerValue]);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {
@@ -341,7 +343,7 @@
 /// 散标列表的 请求
 - (void)myLoan_requestWithLoanType: (HXBRequestType_MY_LoanRequestType)LoanRequestType
                          andUpData: (BOOL)isUPData
-                   andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainLoanViewModel *>* viewModelArray))successDateBlock
+                   andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainLoanViewModel *>* viewModelArray, NSInteger totalCount))successDateBlock
                    andFailureBlock: (void(^)(NSError *error))failureBlock{
     self.loanListAPI.requestUrl = kHXBMY_LoanListURL;
     self.loanListAPI.requestMethod = NYRequestMethodGet;
@@ -397,7 +399,7 @@
             HXBRequestType_MY_LoanRequestType loanRequestType = type.integerValue;
             //对数据的处理（里面进行了对page的处理，与ViewModelArray 种类 的处理）
             NSArray <HXBMYViewModel_MainLoanViewModel *>*viewModelArray = [self loan_handleLoanViewModelArrayWithIsUPData:self.loanListAPI.isUPReloadData andRequestType:loanRequestType andLoanViewModelArray:loanViewModelArray];
-            successDateBlock(viewModelArray);
+            successDateBlock(viewModelArray, [[[responseObject valueForKey:@"data"] valueForKey:@"totalCount"] integerValue]);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {

@@ -252,7 +252,8 @@
     if (!_barAnimaViewH) {
         _barAnimaViewH = 2;
     }
-    CGFloat barAnimaViewCenterY = self.frame.size.height - _barAnimaViewH + _barAnimaViewH/2 - self.barAnimaViewBottomSpacing - 2.0;
+#pragma mark - 肖扬修改
+    CGFloat barAnimaViewCenterY = self.frame.size.height - _barAnimaViewH + _barAnimaViewH/2 - self.barAnimaViewBottomSpacing;
     CGFloat barAnimaViewW = self.frame.size.width/self.optionStrArray.count - _barAnimaViewSpacing * 2;
     CGFloat barAnimaViewCenterX = self.frame.size.width/self.optionStrArray.count/2 +  self.selectItemIndex * self.frame.size.width/self.optionStrArray.count;
 

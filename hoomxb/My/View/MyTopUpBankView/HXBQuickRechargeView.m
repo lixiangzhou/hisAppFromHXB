@@ -199,7 +199,7 @@
         [_rechargeBtn setTitle:@"充值" forState:UIControlStateNormal];
         [_rechargeBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_rechargeBtn addTarget:self action:@selector(rechargeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-        _rechargeBtn.layer.borderWidth = 0.5;
+        _rechargeBtn.layer.borderWidth = kXYBorderWidth;
         _rechargeBtn.layer.borderColor = COR5.CGColor;
         _rechargeBtn.layer.cornerRadius = 3;
         _rechargeBtn.layer.masksToBounds = YES;
