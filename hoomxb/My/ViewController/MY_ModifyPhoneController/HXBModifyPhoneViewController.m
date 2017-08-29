@@ -46,7 +46,7 @@
                 [KeyChain removeGesture];
                 [KeyChain signOut];
                 weakSelf.tabBarController.selectedIndex = 0;
-                [HxbHUDProgress showTextWithMessage:@"修改成功，请用用新手机号登录"];
+                [HxbHUDProgress showTextWithMessage:@"修改成功，请用新手机号登录"];
                 [weakSelf.navigationController popToRootViewControllerAnimated:NO];
                 [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
                 

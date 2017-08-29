@@ -22,7 +22,6 @@
 }
 - (void)setManager:(HXBFin_PlanDetailView_TopViewManager *)manager {
     _manager = manager;
-    
     [self.topView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         return manager.topViewManager;
     }];
@@ -88,12 +87,13 @@
 - (void)setUP {
     [self layoutIfNeeded];
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self).offset(kScrAdaptationH(-81));
+        make.bottom.equalTo(self).offset(kScrAdaptationH(-100));
         make.left.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(78)));
     }];
+
     [self.leftView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(24));
+        make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(44));
         make.left.equalTo(self);
         make.width.equalTo(self.mas_width).multipliedBy(1.0/3.0);
         make.height.equalTo(@(kScrAdaptationH(42)));

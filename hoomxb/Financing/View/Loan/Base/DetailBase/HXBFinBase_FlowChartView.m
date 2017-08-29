@@ -198,7 +198,7 @@
         make.top.equalTo(self.concentricCirclesView.mas_centerY);
         make.left.equalTo(self.concentricCirclesView.mas_centerX);
         make.right.equalTo(self.concentricCirclesView).offset(kScrAdaptationW(-5));
-        make.height.equalTo(@(kScrAdaptationH(18)));
+        make.height.offset(kScrAdaptationH(18));
     }];
     
 //    [self.colourGradientView_adding mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -217,12 +217,12 @@
         make.centerY.equalTo(self.mas_top).offset(kScrAdaptationH(63));
         make.left.equalTo(self.addView);
         make.right.equalTo(self.levaeView);
-        make.height.equalTo(@(kScrAdaptationH(15)));
+        make.height.equalTo(@(kScrAdaptationH(36)));
     }];
   [self.profitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
       make.bottom.equalTo(self).offset(kScrAdaptationH(-15));
       make.centerX.equalTo(self.colourGradientView_profiting);
-      make.top.equalTo(self.mas_centerY).offset(kScrAdaptationH(13));
+//      make.top.equalTo(self.mas_centerY).offset(kScrAdaptationH(13));
   }];
     [self.statusLableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self).offset(kScrAdaptationH(-15));
@@ -235,7 +235,7 @@
                                         @0.96,@0.32,@0.32,@0.00
                                         ];
     NSArray <NSNumber*> *locations = @[
-                                       @0,@0.5
+                                       @0,@1.0
                                        ];
     
     [self.colourGradientView_profiting colorArray:components andLength:2 andColorLocation: locations];

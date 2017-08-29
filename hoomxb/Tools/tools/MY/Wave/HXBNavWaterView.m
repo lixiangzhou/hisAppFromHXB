@@ -48,7 +48,7 @@
     _waterWaveWidth = self.frame.size.width;
     _waterWaveHeight = self.frame.size.height;
 //    _waveColor = COLOR(100, 100, 100,0.1);
-    _waveSpeed = (0.05+((arc4random() % 100)/1000.0 - 0.05)*0.5)/M_PI;
+    _waveSpeed = (0.05+((arc4random() % 100)/1000.0 - 0.05)*0.5)/M_PI * 1.3;
     _waveOffsetX = 0;
     _waveAmplitude = 20;
     _waveCycle =  M_PI / _waterWaveWidth * 2;
@@ -65,7 +65,7 @@
 #pragma mark 帧刷新事件
 - (void)getCurrentWave
 {
-    _waveOffsetX += _waveSpeed;
+    _waveOffsetX -= _waveSpeed;
     [self setwaveLayerPath];
 }
 

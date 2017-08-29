@@ -39,6 +39,7 @@ static NSString *CELLID = @"CELLID";
         self.rowHeight = kScrAdaptationH(45);
         self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
         self.tableFooterView = [self footView];
+
     }
     return self;
 }
@@ -50,11 +51,11 @@ static NSString *CELLID = @"CELLID";
     [foot addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(foot).offset(0);
-        make.top.equalTo(foot).offset(20);
+        make.top.equalTo(foot).offset(kScrAdaptationH(10));
         make.width.offset(kScrAdaptationW(375));
         make.height.offset(kScrAdaptationH(17));
     }];
-    label.text = @"预期收益不代表实际收益，投资需谨慎";
+    label.text = @"- 预期收益不代表实际收益，投资需谨慎 -";
     label.font = kHXBFont_PINGFANGSC_REGULAR(12);
     label.textAlignment = NSTextAlignmentCenter;
     label.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
@@ -66,7 +67,14 @@ static NSString *CELLID = @"CELLID";
 - (void) setup {
     self.delegate = self;
     self.dataSource = self;
-    self.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.separatorColor = COR12;
+    if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self setSeparatorInset:UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15))];
+    }
+    if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
+        [self setLayoutMargins:UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15))];
+    }
     [self registerClass:[HXBFinDetail_TableViewCell class] forCellReuseIdentifier:CELLID];
     self.rowHeight = kScrAdaptationH(45);
 }

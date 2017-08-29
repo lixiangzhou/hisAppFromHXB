@@ -205,7 +205,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         }else
         {
             weakSelf.setPassWordButton.enabled = NO;
-            weakSelf.setPassWordButton.backgroundColor = RGB(218, 218, 223);
+            weakSelf.setPassWordButton.backgroundColor = COR26;
         }
     }];
 }

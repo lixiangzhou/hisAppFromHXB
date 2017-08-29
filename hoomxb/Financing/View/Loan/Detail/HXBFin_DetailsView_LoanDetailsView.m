@@ -210,7 +210,7 @@
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(248) - 64));
+        make.height.equalTo(@(kScrAdaptationH(268) - 64));
     }];
 }
 
@@ -279,9 +279,9 @@
     self.promptLablel.textAlignment = NSTextAlignmentCenter;
     self.promptLablel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.promptLablel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
-    self.promptLablel.text = @"* 预期收益不代表实际收益，投资需谨慎";
+    self.promptLablel.text = @"- 预期收益不代表实际收益，投资需谨慎 -";
     [self.promptLablel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bottomTableView.mas_bottom).offset(20);
+        make.top.equalTo(self.bottomTableView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(17)));
     }];
@@ -329,6 +329,7 @@
 //MARK: - 展示计划详情等的 tableView
 - (void)setupTableView {
     kWeakSelf
+    self.bottomTableView.hidden = YES;
     self.bottomTableView = [[HXBFinDetail_TableView alloc]init];
     self.bottomTableView.tableViewCellModelArray = self.modelArray;
     self.bottomTableView.bounces = false;
