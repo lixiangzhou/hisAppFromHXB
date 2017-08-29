@@ -138,7 +138,7 @@
 - (void)setTipString:(NSString *)tipString{
     _tipString = tipString;
     [self.tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        CGFloat width = [HXB_XYTools WidthWithString:_tipString labelFont:kHXBFont_PINGFANGSC_REGULAR(17) addWidth:30];
+        CGFloat width = [[HXB_XYTools shareHandle] WidthWithString:_tipString labelFont:kHXBFont_PINGFANGSC_REGULAR(17) addWidth:30];
         make.width.offset(width);
     }];
     [self.tipButton setTitle:tipString forState:UIControlStateNormal];
