@@ -20,6 +20,15 @@
     return image;
 }
 
+// 自适应宽度的方法
++ (CGFloat)WidthWithString:(NSString *)string labelFont:(UIFont *)labelFont addWidth:(CGFloat)width
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:labelFont forKey:NSFontAttributeName];
+    //2. 计算320宽16字号的label的高度
+    CGRect frame = [string boundingRectWithSize:CGSizeMake(1000, 15) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:dic context:nil];
+    return frame.size.width + width;
+}
+
 
 
 @end

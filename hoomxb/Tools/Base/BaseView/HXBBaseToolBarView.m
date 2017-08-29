@@ -252,7 +252,7 @@
     if (!_barAnimaViewH) {
         _barAnimaViewH = 2;
     }
-    CGFloat barAnimaViewCenterY = self.frame.size.height - _barAnimaViewH + _barAnimaViewH/2 - self.barAnimaViewBottomSpacing;
+    CGFloat barAnimaViewCenterY = self.frame.size.height - _barAnimaViewH + _barAnimaViewH/2 - self.barAnimaViewBottomSpacing - 2.0;
     CGFloat barAnimaViewW = self.frame.size.width/self.optionStrArray.count - _barAnimaViewSpacing * 2;
     CGFloat barAnimaViewCenterX = self.frame.size.width/self.optionStrArray.count/2 +  self.selectItemIndex * self.frame.size.width/self.optionStrArray.count;
 
@@ -261,13 +261,15 @@
     self.itemBarAnimaView.center = CGPointMake(barAnimaViewCenterX, barAnimaViewCenterY);
     self.itemBarAnimaView.bounds = CGRectMake(0, 0, barAnimaViewW, _barAnimaViewH);
     
-        if (!self.itemBarAnimaViewColor) {
-            self.itemBarAnimaViewColor = [UIColor yellowColor];
-        }
-        
-        self.itemBarAnimaView.backgroundColor = self.itemBarAnimaViewColor;
-        //下部的view （参与动画）
-        [self addSubview: self.itemBarAnimaView];
+    if (!self.itemBarAnimaViewColor) {
+        self.itemBarAnimaViewColor = [UIColor yellowColor];
+    }
+    
+    self.itemBarAnimaView.backgroundColor = self.itemBarAnimaViewColor;
+    //下部的view （参与动画）
+    [self addSubview: self.itemBarAnimaView];
+    self.itemBarAnimaView.layer.cornerRadius = 1.0f;
+    self.itemBarAnimaView.layer.masksToBounds = YES;
 }
 
 - (void)clickOptionItemBLockFuncWithClickOptionItemBlock:(void (^)(UIButton *, NSString *, NSInteger))clickOptionItemBlock {

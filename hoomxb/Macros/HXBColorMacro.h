@@ -44,8 +44,8 @@
 //浅灰 （字体颜色）(r:0.40 g:0.40 b:0.40 a:1.00)
 #define kHXBColor_HeightGrey_Font0_4 [UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.00]//
 //浅灰 
-#define kHXBColor_Font0_6 [UIColor colorWithRed:0.60 green:0.60 blue:0.60 alpha:1.00]//
-
+#define kHXBColor_Font0_5 [UIColor colorWithRed:221/256.0 green:221/256.0 blue:221/256.0 alpha:1.00]//
+#define kHXBColor_Font0_6 [UIColor colorWithRed:153/256.0 green:153/256.0 blue:153/256.0 alpha:1.00]
 
 //-------- 蓝色
 #define kHXBColor_Blue040610 kHXBColor_RGB(0.45, 0.68, 1.0, 1.0 )

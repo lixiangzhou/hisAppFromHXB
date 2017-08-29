@@ -70,7 +70,7 @@ UITextFieldDelegate
         self.userInfoViewModel = viewModel;
         if ([viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
             self.nameTextField.text = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
-            self.identityCardNumTextField.text =  [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:3 lenght:viewModel.userInfoModel.userInfo.idNo.length - 3];
+            self.identityCardNumTextField.text =  [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:viewModel.userInfoModel.userInfo.idNo.length - 2];
             self.nameTextField.enabled = NO;
             self.identityCardNumTextField.enabled = NO;
         }

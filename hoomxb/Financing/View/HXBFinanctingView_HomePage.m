@@ -110,7 +110,7 @@
 //设置toolBarView
 - (void)setupToolBarView {
     self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:self.toolBarViewOptionStrArray];
-    self.toolBarView.barAnimaViewSpacing = kScrAdaptationW(50);
+    self.toolBarView.barAnimaViewSpacing = kScrAdaptationW(83);
     self.toolBarView.barAnimaViewH = kScrAdaptationH(2);
     self.toolBarView.isAnima_ItemBottomBarView = true;
     self.toolBarView.isColorChange = true;
@@ -122,6 +122,7 @@
     self.toolBarView.itemBarAnimaViewColor = [UIColor whiteColor];
     self.toolBarView.itemTitleColor_select = [UIColor whiteColor];
     self.toolBarView.itemTextColor_Normal = [UIColor colorWithWhite:1 alpha:0.5];
+    
     //边框
 //    self.toolBarView.layer.borderWidth = .2;
 //    self.toolBarView.layer.borderColor = [UIColor grayColor].CGColor;

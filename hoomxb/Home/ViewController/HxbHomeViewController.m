@@ -27,6 +27,7 @@
 
 
 
+
 @interface HxbHomeViewController ()
 
 @property (nonatomic, assign) BOOL isVersionUpdate;
@@ -37,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//    [self hiddenTabBarHine];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToAd) name:@"pushtoad" object:nil];
     [self.view addSubview:self.homeView];
     [self getData:YES];
@@ -51,10 +52,7 @@
     
     //判断是否显示设置手势密码
     [self gesturePwdShow];
-    
-    
 }
-
 
 /**
  手势密码逻辑
@@ -105,6 +103,8 @@
     
 }
 
+
+
 /**
  检测版本更新
  */
@@ -115,6 +115,7 @@
     [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
         HXBVersionUpdateViewModel *versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
          versionUpdateVM.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
+        [HXBAlertManager checkversionUpdateWith: versionUpdateVM.versionUpdateModel];
     } andFailureBlock:^(NSError *error) {
         
     }];
@@ -135,8 +136,6 @@
 
 #pragma mark Request
 - (void)getData:(BOOL)isUPReloadData{
-    
-
     kWeakSelf
     HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
     [request homePlanRecommendWithIsUPReloadData:isUPReloadData andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
