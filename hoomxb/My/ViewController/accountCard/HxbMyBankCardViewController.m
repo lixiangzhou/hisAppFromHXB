@@ -39,7 +39,7 @@
     [self.view addSubview:self.tipLabel];
     if (self.isBank) {
         self.title = @"银行卡信息";
-        self.tipLabel.text = @"您在红小宝平台已绑定银行卡，充值、提现均使用该卡";
+        self.tipLabel.text = @"您在红小宝平台充值，提现均会使用该卡";
         [self.view addSubview:self.bankView];
         [self.view addSubview:self.phoneBtn];
         [self setupBankViewFrame];
@@ -57,12 +57,12 @@
 {
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(64);
+        make.top.equalTo(self.view).offset(69);
         make.height.offset(kScrAdaptationH(45));
     }];
     [self.bankView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(kScrAdaptationW(15));
-        make.right.equalTo(self.view).offset(kScrAdaptationW(-15));
+        make.left.equalTo(self.view).offset(kScrAdaptationW(10));
+        make.right.equalTo(self.view).offset(kScrAdaptationW(-10));
         make.top.equalTo(self.tipLabel.mas_bottom);
         make.height.offset(kScrAdaptationH(162));
     }];
@@ -159,7 +159,6 @@
 {
     if (!_bankView) {
         _bankView = [[HXBBankView alloc] initWithFrame:CGRectZero];
-        _bankView.backgroundColor = [UIColor whiteColor];
     }
     return _bankView;
 }
@@ -181,7 +180,9 @@
     if (!_phoneBtn) {
         _phoneBtn  = [[UIButton alloc] init];
         NSString *string = [NSString stringWithFormat:@"如需解绑，请联系红小宝客服：%@", kServiceMobile];
-        [_phoneBtn setTitle:string forState:UIControlStateNormal];
+        NSAttributedString *str = [NSMutableAttributedString setupAttributeStringWithString:string WithRange:NSMakeRange(string.length - kServiceMobile.length, kServiceMobile.length) andAttributeColor:COR30];
+//        [_phoneBtn setTitle:string forState:UIControlStateNormal];
+        [_phoneBtn setAttributedTitle:str forState:(UIControlStateNormal)];
         [_phoneBtn setTitleColor:COR11 forState:UIControlStateNormal];
         [_phoneBtn addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _phoneBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);

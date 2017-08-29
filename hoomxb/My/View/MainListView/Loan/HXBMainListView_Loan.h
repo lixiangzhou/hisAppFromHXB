@@ -13,6 +13,7 @@
 @class HXBMY_LoanTruansferViewModel;
 @interface HXBMainListView_Loan : UIView
 
+@property (nonatomic, assign) NSInteger totalCount;
 #pragma mark - 数据源
 ///资产统计model
 @property (nonatomic,strong) HXBMYModel_Loan_LoanRequestModel *loanAccountModel;

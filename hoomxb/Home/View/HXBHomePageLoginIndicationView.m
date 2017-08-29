@@ -117,7 +117,7 @@ static CGFloat const xyWidth = 8.0f;
             weakSelf.ciphertextButton.selected = NO;
             weakSelf.availableLabel.text = viewModel.userInfoModel.userAssets.availablePoint;
             [self.ciphertextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                _availableWidth = [HXB_XYTools WidthWithString:weakSelf.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
+                _availableWidth = [[HXB_XYTools shareHandle] WidthWithString:weakSelf.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
                 make.left.equalTo(self).offset(kScreenWidth / 2 + _availableWidth + 2);
                 make.centerY.equalTo(self.availableLabel);
                 make.size.mas_equalTo(CGSizeMake(kScrAdaptationH(25), kScrAdaptationH(25)));
@@ -129,7 +129,7 @@ static CGFloat const xyWidth = 8.0f;
             if (viewModel.userInfoModel.userAssets.availablePoint.length > 0) {
                 weakSelf.availableLabel.text = [viewModel.userInfoModel.userAssets.availablePoint replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userAssets.availablePoint.length?:1];
                 [self.ciphertextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                    _availableWidth = [HXB_XYTools WidthWithString:weakSelf.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
+                    _availableWidth = [[HXB_XYTools shareHandle] WidthWithString:weakSelf.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
                     make.left.equalTo(self).offset(kScreenWidth / 2 + _availableWidth + 2);
                     make.centerY.equalTo(self.availableLabel);
                     make.size.mas_equalTo(CGSizeMake(kScrAdaptationH(25), kScrAdaptationH(25)));
@@ -156,18 +156,18 @@ static CGFloat const xyWidth = 8.0f;
         self.accumulatedLabel.text = [self.accumulatedLabel.text replaceStringWithStartLocation:0 lenght:self.userInfoViewModel.userInfoModel.userAssets.earnTotal.length?:1];
         self.availableLabel.text = [self.availableLabel.text replaceStringWithStartLocation:0 lenght:self.userInfoViewModel.userInfoModel.userAssets.availablePoint.length?:1];
         [self.ciphertextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            _availableWidth = [HXB_XYTools WidthWithString:self.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
+            _availableWidth = [[HXB_XYTools shareHandle] WidthWithString:self.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
             make.left.equalTo(self).offset(kScreenWidth / 2 + _availableWidth + 2);
             make.centerY.equalTo(self.availableLabel);
             make.size.mas_equalTo(CGSizeMake(kScrAdaptationH(25), kScrAdaptationH(25)));
         }];
-        _availableWidth = [HXB_XYTools WidthWithString:self.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
+        _availableWidth = [[HXB_XYTools shareHandle] WidthWithString:self.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
     } else {
         KeyChain.ciphertext = @"0";
         self.ciphertextButton.selected = NO;
         self.availableLabel.text = self.userInfoViewModel.userInfoModel.userAssets.availablePoint;
         [self.ciphertextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            _availableWidth = [HXB_XYTools WidthWithString:self.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
+            _availableWidth = [[HXB_XYTools shareHandle] WidthWithString:self.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
             make.left.equalTo(self).offset(kScreenWidth / 2 + _availableWidth + 5);
             make.centerY.equalTo(self.availableLabel);
             make.size.mas_equalTo(CGSizeMake(kScrAdaptationH(25), kScrAdaptationH(25)));

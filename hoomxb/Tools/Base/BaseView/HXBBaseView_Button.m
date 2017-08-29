@@ -38,7 +38,7 @@
     self.imageView.bounds = CGRectMake(0, 0, kScrAdaptationH(10), kScrAdaptationH(10));
     self.titleLabel.frame = CGRectMake(kScrAdaptationH(10) * 2, 0, self.titleLabel.frame.size.width, self.titleLabel.frame.size.height);
     self.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
-    self.imageView.layer.borderWidth = 0.5;
+    self.imageView.layer.borderWidth = kXYBorderWidth;
     self.imageView.layer.masksToBounds = true;
     self.imageView.layer.cornerRadius = kScrAdaptationH(10)/2.0;
 

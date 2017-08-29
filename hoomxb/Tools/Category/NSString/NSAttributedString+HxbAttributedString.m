@@ -48,4 +48,12 @@
     [attr addAttribute:NSForegroundColorAttributeName value:color range:range];
     return attr;
 }
+
++ (NSMutableAttributedString *)setupAttributeStringWithString:(NSString *)string WithRange: (NSRange)range andAttributeColor: (UIColor *)color {
+    //添加字符串
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
+    //设置颜色
+    [attr addAttribute:NSForegroundColorAttributeName value:color range:range];
+    return attr;
+}
 @end

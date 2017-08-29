@@ -15,5 +15,8 @@
 #import "HXBColourGradientView.h"///颜色渐变的View
 #import "PPNetworkCache.h"//数据缓存
 #import "HXBUmengManagar.h" // 友盟统计
+#import "HXB_XYTools.h" // 工具类
+#import "HXBXYAlertViewController.h" // 更新的弹框
+
 
 #endif /* HxbTools_h */

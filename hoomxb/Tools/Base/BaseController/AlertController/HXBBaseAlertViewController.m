@@ -169,7 +169,7 @@
        
         _rightButton.layer.cornerRadius = kScrAdaptationW(4);
         _rightButton.layer.masksToBounds = YES;
-        _rightButton.layer.borderWidth =  0.5;
+        _rightButton.layer.borderWidth =  kXYBorderWidth;
         _rightButton.layer.borderColor = COR29.CGColor;
         _rightButton.backgroundColor = [UIColor whiteColor];
         [_rightButton setTitleColor:COR29 forState:UIControlStateNormal];

@@ -46,7 +46,7 @@
     self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
     self.addStatus.textColor = finPlanListViewModel.addButtonTitleColor;
     self.addStatus.layer.borderColor = finPlanListViewModel.addButtonBorderColor.CGColor;
-    self.addStatus.layer.borderWidth = kScrAdaptationH(0.5f);
+    self.addStatus.layer.borderWidth = kScrAdaptationH(0.8f);
     
     self.countDownLable.text = _finPlanListViewModel.remainTimeString;
     if (finPlanListViewModel.planListModel.tag.length) {
@@ -63,7 +63,7 @@
     self.addStatus.backgroundColor = loanListViewModel.addButtonBackgroundColor;
     self.addStatus.textColor = loanListViewModel.addButtonTitleColor;
     self.addStatus.layer.borderColor = loanListViewModel.addButtonBorderColor.CGColor;
-    self.addStatus.layer.borderWidth = 0.5;
+    self.addStatus.layer.borderWidth = kXYBorderWidth;
 
     self.expectedYearRateLable.attributedText = loanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = model.months;
@@ -178,7 +178,7 @@
         self.addStatus.backgroundColor = kHXBColor_Red_090303;
         self.addStatus.textColor = [UIColor whiteColor];
         self.addStatus.layer.borderColor = kHXBColor_Red_090303.CGColor;
-        self.addStatus.layer.borderWidth = kScrAdaptationH(0.5f);
+        self.addStatus.layer.borderWidth = kXYBorderWidth;
     }
 }
 - (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {

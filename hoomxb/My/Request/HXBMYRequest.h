@@ -31,7 +31,7 @@
 ///红利计划 列表的网络数据请求
 - (void)myPlan_requestWithPlanType: (HXBRequestType_MY_PlanRequestType)planRequestType
                          andUpData: (BOOL)isUPData
-                   andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MianPlanViewModel *>* viewModelArray))successDateBlock
+                   andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MianPlanViewModel *>* viewModelArray, NSInteger totalCount))successDateBlock
                    andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
@@ -42,7 +42,7 @@
 ///散标 列表的网络数据请求
 - (void)myLoan_requestWithLoanType: (HXBRequestType_MY_LoanRequestType)LoanRequestType
                          andUpData: (BOOL)isUPData
-                   andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainLoanViewModel *>* viewModelArray))successDateBlock
+                   andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainLoanViewModel *>* viewModelArray, NSInteger totalCount))successDateBlock
                    andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 ///转让中 列表的网络数据的请求

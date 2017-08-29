@@ -19,7 +19,6 @@
 #pragma mark - view
 @property (nonatomic,strong) HXBMainListView_Plan *planListView;//里面有toolblarView
 
-
 #pragma mark -  关于plan list 的 数据
 ///持有中
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MianPlanViewModel *>*hold_Plan_array;
@@ -98,7 +97,8 @@ kDealloc
         self.planListView.planAccountModel = viewModel;
     } andFailureBlock:^(NSError *error) {
     } andUpData:isUpData];
-    [[HXBMYRequest sharedMYRequest] myPlan_requestWithPlanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MianPlanViewModel *> *viewModelArray) {
+    [[HXBMYRequest sharedMYRequest] myPlan_requestWithPlanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MianPlanViewModel *> *viewModelArray, NSInteger totalCount) {
+        self.planListView.totalCount = totalCount;
         //数据的分发
         [weakSelf handleViewModelArrayWithViewModelArray:viewModelArray];
         [weakSelf.planListView endRefresh];

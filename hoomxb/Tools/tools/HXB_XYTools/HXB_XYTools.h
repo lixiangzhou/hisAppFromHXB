@@ -10,10 +10,12 @@
 
 @interface HXB_XYTools : NSObject
 
++ (HXB_XYTools *)shareHandle;
 
 - (UIImage*)convertViewToImage:(UIView*)view;
 
-+ (CGFloat)WidthWithString:(NSString *)string labelFont:(UIFont *)labelFont addWidth:(CGFloat)width;
+- (CGFloat)WidthWithString:(NSString *)string labelFont:(UIFont *)labelFont addWidth:(CGFloat)width;
 
+- (void)createViewShadDow:(UIView*)view;
 
 @end

@@ -27,7 +27,7 @@
 
 - (NSString *)hxb_hiddenBankCard
 {
-    return [self stringByReplacingOccurrencesOfString:[self substringWithRange:NSMakeRange(0,self.length - 4)]withString:@"**** **** **** "];
+    return [self stringByReplacingOccurrencesOfString:[self substringWithRange:NSMakeRange(0,self.length - 4)]withString:@"****  ****  ****  "];
 }
 
 - (NSString *)replaceStringWithStartLocation:(NSInteger)startLocation lenght:(NSInteger)lenght

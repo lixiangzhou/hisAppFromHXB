@@ -204,7 +204,7 @@ UITableViewDataSource
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         cell.textLabel.textColor = COR6;
-        cell.detailTextLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        cell.detailTextLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         cell.detailTextLabel.textColor = COR29;
         
     }

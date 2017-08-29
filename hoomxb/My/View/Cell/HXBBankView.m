@@ -10,6 +10,8 @@
 #import "HXBBankCardModel.h"
 @interface HXBBankView ()
 
+@property (nonatomic, strong) UIImageView *backImageView;
+
 @property (nonatomic, strong) UIImageView *iconView;
 
 @property (nonatomic, strong) UILabel *bankName;
@@ -28,23 +30,26 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        [self addSubview:self.iconView];
-        [self addSubview:self.bankName];
-        [self addSubview:self.realName];
-        [self addSubview:self.bankNum];
-        [self addSubview:self.bankTip];
+        self.backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW(355), kScrAdaptationH(170))];
+        self.backImageView.image = [UIImage imageNamed:@"hxb_card_bg"];
+        [self addSubview:self.backImageView];
+
+        [self.backImageView addSubview:self.iconView];
+        [self.backImageView addSubview:self.bankName];
+        [self.backImageView addSubview:self.realName];
+        [self.backImageView addSubview:self.bankNum];
+        [self.backImageView addSubview:self.bankTip];
         [self setupSubViewFrame];
         [self loadBankData];
     }
     return self;
 }
 
-
 - (void)setupSubViewFrame
 {
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW(20));
-        make.top.equalTo(self).offset(kScrAdaptationH(15));
+        make.top.equalTo(self).offset(kScrAdaptationH(20));
         make.width.offset(kScrAdaptationW(40));
         make.height.offset(kScrAdaptationW(40));
     }];
@@ -88,9 +93,10 @@
         HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
         //设置绑卡信息
         weakSelf.iconView.svgImageString = bankCardModel.bankCode;
+        
         weakSelf.bankName.text = bankCardModel.bankType;
         weakSelf.realName.text = [NSString stringWithFormat:@"持卡人：%@",[bankCardModel.name replaceStringWithStartLocation:0 lenght:bankCardModel.name.length - 1]];
-        weakSelf.bankNum.text = [bankCardModel.cardId replaceStringWithStartLocation:0 lenght:bankCardModel.cardId.length - 4];
+        weakSelf.bankNum.text = [bankCardModel.cardId hxb_hiddenBankCard];
         weakSelf.bankTip.text = bankCardModel.quota;
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);

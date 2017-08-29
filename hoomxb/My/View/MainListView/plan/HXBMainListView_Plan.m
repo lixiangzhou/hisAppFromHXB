@@ -95,6 +95,7 @@ kDealloc
 //    self.exitingLabel.text = [self formatStrWithTypeStr:exitTingTitle andCountStr:exiting_Plan_array.count];
 }
 - (void)setHold_Plan_array:(NSMutableArray<HXBMYViewModel_MianPlanViewModel *> *)hold_Plan_array {
+    
     _hold_Plan_array = hold_Plan_array;
     self.hold_Plan_TableView.mainPlanViewModelArray = hold_Plan_array;
 //    self.holdLabel.text = [self formatStrWithTypeStr:holdTitle andCountStr:hold_Plan_array.count];
@@ -263,7 +264,9 @@ kDealloc
 ///上啦刷新下拉加载
 - (void)refresh {
     [self downLoadRefresh];
-    [self upDataRefresh];
+    if (self.totalCount > 20) {
+        [self upDataRefresh];
+    }
 }
 
 ///下拉刷新
