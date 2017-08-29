@@ -91,7 +91,7 @@
     _loanDetailViewModel = loanDetailViewModel;
 //    self.loanContentLabel.text = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO;
     self.nameLabel.text = [loanDetailViewModel.loanDetailModel.idCardInfo.name replaceStringWithStartLocation:0 lenght:loanDetailViewModel.loanDetailModel.idCardInfo.name.length - 1];
-    self.idCardNoLabel.text = [loanDetailViewModel.loanDetailModel.idCardInfo.idNo replaceStringWithStartLocation:2 lenght:loanDetailViewModel.loanDetailModel.idCardInfo.idNo.length - 2];
+    self.idCardNoLabel.text = [loanDetailViewModel.loanDetailModel.idCardInfo.idNo replaceStringWithStartLocation:1 lenght:loanDetailViewModel.loanDetailModel.idCardInfo.idNo.length - 2];
     self.ageLabel.text = [NSString stringWithFormat:@"年龄 %@岁",loanDetailViewModel.loanDetailModel.idCardInfo.age];
     
     self.nativePlaceLabel.text = [NSString stringWithFormat:@"籍贯 %@",loanDetailViewModel.loanDetailModel.userVo.homeTown];

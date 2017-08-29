@@ -369,7 +369,7 @@
         
         _footerLabel = [UILabel new];
         _footerLabel.frame = CGRectMake(0, 0, _footerView.width, _footerView.height);
-        _footerLabel.text = @"预期年利率不等于实际收益，投资需谨慎";
+        _footerLabel.text = @" 预期年利率不等于实际收益，投资需谨慎 ";
         _footerLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _footerLabel.textColor = RGB(184, 184, 184);
         _footerLabel.backgroundColor = RGB(245, 245, 245);

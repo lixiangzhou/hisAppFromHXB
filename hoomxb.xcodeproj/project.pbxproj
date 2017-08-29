@@ -364,6 +364,7 @@
 		E1757B001EFA3E1B009C0BC8 /* HXBFinModel_Buy_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1757AFE1EFA3E1B009C0BC8 /* HXBFinModel_Buy_Plan.m */; };
 		E1757B041EFA3E57009C0BC8 /* HXBFinModel_Buy_LoanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1757B031EFA3E57009C0BC8 /* HXBFinModel_Buy_LoanModel.m */; };
 		E1757B071EFA40DF009C0BC8 /* HXBFinModel_BuyResoult_LoanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1757B061EFA40DF009C0BC8 /* HXBFinModel_BuyResoult_LoanModel.m */; };
+		E17723001F53BF5300916E9F /* HXBXYAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E17722FF1F53BF5300916E9F /* HXBXYAlertViewController.m */; };
 		E17A095E1F1DB823006564B8 /* HXBFinDetailModel_LoanTruansferDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A095D1F1DB823006564B8 /* HXBFinDetailModel_LoanTruansferDetail.m */; };
 		E17A09611F1DB867006564B8 /* HXBBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A09601F1DB867006564B8 /* HXBBaseViewModel.m */; };
 		E17A09671F1DB8B5006564B8 /* HXBFinDetailViewModel_LoanTruansferDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A09661F1DB8B5006564B8 /* HXBFinDetailViewModel_LoanTruansferDetail.m */; };
@@ -1146,6 +1147,8 @@
 		E1757B031EFA3E57009C0BC8 /* HXBFinModel_Buy_LoanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinModel_Buy_LoanModel.m; sourceTree = "<group>"; };
 		E1757B051EFA40DF009C0BC8 /* HXBFinModel_BuyResoult_LoanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinModel_BuyResoult_LoanModel.h; sourceTree = "<group>"; };
 		E1757B061EFA40DF009C0BC8 /* HXBFinModel_BuyResoult_LoanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinModel_BuyResoult_LoanModel.m; sourceTree = "<group>"; };
+		E17722FE1F53BF5300916E9F /* HXBXYAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBXYAlertViewController.h; sourceTree = "<group>"; };
+		E17722FF1F53BF5300916E9F /* HXBXYAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBXYAlertViewController.m; sourceTree = "<group>"; };
 		E17A095C1F1DB823006564B8 /* HXBFinDetailModel_LoanTruansferDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinDetailModel_LoanTruansferDetail.h; sourceTree = "<group>"; };
 		E17A095D1F1DB823006564B8 /* HXBFinDetailModel_LoanTruansferDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinDetailModel_LoanTruansferDetail.m; sourceTree = "<group>"; };
 		E17A095F1F1DB867006564B8 /* HXBBaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HXBBaseViewModel.h; path = hoomxb/Financing/Model/FinModel_DeatilModel/HXBBaseViewModel.h; sourceTree = SOURCE_ROOT; };
@@ -1602,6 +1605,8 @@
 			children = (
 				4E45F4241F4FC05C009708B7 /* HXB_XYTools.h */,
 				4E45F4251F4FC05C009708B7 /* HXB_XYTools.m */,
+				E17722FE1F53BF5300916E9F /* HXBXYAlertViewController.h */,
+				E17722FF1F53BF5300916E9F /* HXBXYAlertViewController.m */,
 			);
 			path = HXB_XYTools;
 			sourceTree = "<group>";
@@ -4377,7 +4382,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -4523,6 +4528,7 @@
 				E16314431EC076F40090567E /* HXBFinDetailModel_PlanDetail.m in Sources */,
 				E1FF8ED91F0F66A100C7F1AC /* HXBFin_LoanTruansfer_AddTrustworthinessView.m in Sources */,
 				4E739B571F0A356A000A4D1E /* HXBVersionUpdateRequest.m in Sources */,
+				E17723001F53BF5300916E9F /* HXBXYAlertViewController.m in Sources */,
 				E133DCE71EEE3597009466DE /* HxbPhoneVerifyViewController.m in Sources */,
 				E165EABA1EF8E82F00D68763 /* HXBFin_Plan_BuyViewController.m in Sources */,
 				E122D84E1EA0CAB900DC71ED /* NSObject+HxbRunTime.m in Sources */,

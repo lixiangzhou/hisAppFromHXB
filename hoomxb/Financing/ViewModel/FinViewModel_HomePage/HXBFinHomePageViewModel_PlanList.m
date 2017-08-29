@@ -143,7 +143,7 @@ typedef enum : NSUInteger {
     if (isSelected) {
         self.addButtonTitleColor = kHXBColor_Font0_6;
         self.addButtonBackgroundColor = kHXBColor_Grey090909;
-        self.addButtonBorderColor = kHXBColor_Font0_6;
+        self.addButtonBorderColor = kHXBColor_Font0_5;
         return;
     }
     self.addButtonTitleColor = [UIColor whiteColor];

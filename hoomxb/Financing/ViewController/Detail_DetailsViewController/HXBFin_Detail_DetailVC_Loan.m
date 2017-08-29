@@ -69,6 +69,7 @@
     //    self.loanPerson_infoView
     kWeakSelf
     [self.loanInfoView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+        NSLog(@"viewmanager = %@", viewManager);
         viewManager.leftStrArray = @[
                                      @"基础信息",
                                      @"姓名：",

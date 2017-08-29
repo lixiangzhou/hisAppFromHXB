@@ -93,7 +93,7 @@ UITextFieldDelegate
 - (UIImageView *)phoneImageView
 {
     if (!_phoneImageView) {
-        _phoneImageView = [[UIImageView alloc] initWithImage:[SVGKImage imageNamed:@"mobile_number.svg"].UIImage];
+        _phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hxb_手机"]];
         _phoneImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _phoneImageView;
@@ -145,6 +145,7 @@ UITextFieldDelegate
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self setUP];
     }
     return self;
@@ -190,7 +191,7 @@ UITextFieldDelegate
     [self.havedAccountButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.nextButton.mas_bottom).offset(kScrAdaptationH(10));
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
+        make.height.offset(kScrAdaptationW(15));
     }];
 
 

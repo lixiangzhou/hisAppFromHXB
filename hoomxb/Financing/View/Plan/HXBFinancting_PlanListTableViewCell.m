@@ -46,7 +46,7 @@
     self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
     self.addStatus.textColor = finPlanListViewModel.addButtonTitleColor;
     self.addStatus.layer.borderColor = finPlanListViewModel.addButtonBorderColor.CGColor;
-    self.addStatus.layer.borderWidth = kScrAdaptationH(1);
+    self.addStatus.layer.borderWidth = kScrAdaptationH(0.5f);
     
     self.countDownLable.text = _finPlanListViewModel.remainTimeString;
     if (finPlanListViewModel.planListModel.tag.length) {
@@ -178,7 +178,7 @@
         self.addStatus.backgroundColor = kHXBColor_Red_090303;
         self.addStatus.textColor = [UIColor whiteColor];
         self.addStatus.layer.borderColor = kHXBColor_Red_090303.CGColor;
-        self.addStatus.layer.borderWidth = kScrAdaptationH(1);
+        self.addStatus.layer.borderWidth = kScrAdaptationH(0.5f);
     }
 }
 - (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
@@ -283,7 +283,7 @@
     [self.countDownLable setHidden: true];
     [self.arrowImageView setHidden: true];
     
-    self.nameLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    self.nameLabel.font = kHXBFont_PINGFANGSC_REGULAR(13);
     self.nameLabel.textColor = kHXBColor_Grey_Font0_2;
     
     self.tagLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
@@ -296,7 +296,7 @@
     
     self.lockPeriodLabel.font = kHXBFont_PINGFANGSC_REGULAR(24);
     self.lockPeriodLabel.textColor = kHXBColor_Grey_Font0_3;
-    self.lockPeriodLabel_Const.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    self.lockPeriodLabel_Const.font = kHXBFont_PINGFANGSC_REGULAR(13);
     self.lockPeriodLabel_Const.textColor = kHXBColor_Font0_6;
     
     self.countDownLable.text = @"59:02";

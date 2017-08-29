@@ -11,6 +11,9 @@
 @interface HXB_XYTools : NSObject
 
 
--(UIImage*)convertViewToImage:(UIView*)view;
+- (UIImage*)convertViewToImage:(UIView*)view;
+
++ (CGFloat)WidthWithString:(NSString *)string labelFont:(UIFont *)labelFont addWidth:(CGFloat)width;
+
 
 @end
