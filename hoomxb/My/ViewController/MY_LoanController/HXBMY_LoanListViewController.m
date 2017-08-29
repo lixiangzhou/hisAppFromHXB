@@ -18,7 +18,6 @@
 @interface HXBMY_LoanListViewController ()
 
 @property (nonatomic,strong) HXBMainListView_Loan *loanListView;
-
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel *>*loan_BID_ViewModelArray;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel *>*loan_REPAYING_ViewModelArray;
 @property (nonatomic,strong) NSArray <HXBMY_LoanTruansferViewModel *>*loanTruansferViewModelArray;
@@ -91,7 +90,8 @@ kDealloc
     }];
     kWeakSelf
     ///这里面没有产生循环引用 block里面不能用weakSelf
-    [[HXBMYRequest sharedMYRequest] myLoan_requestWithLoanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MainLoanViewModel *> *viewModelArray) {
+    [[HXBMYRequest sharedMYRequest] myLoan_requestWithLoanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MainLoanViewModel *> *viewModelArray, NSInteger totalCount) {
+        weakSelf.loanListView.totalCount = totalCount;
         //数据的分发
         [weakSelf handleViewModelArrayWithViewModelArray:viewModelArray];
         [weakSelf.loanListView endRefresh];

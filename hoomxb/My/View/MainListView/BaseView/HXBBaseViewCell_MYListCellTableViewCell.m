@@ -117,11 +117,11 @@
     self.lineview = [[UIView alloc]init];
     [self.contentView addSubview:self.lineview];
     [self.lineview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(1));
+        make.height.equalTo(@(0.5));
         make.left.right.equalTo(self.contentView);
         make.top.equalTo(self.contentView).offset(kScrAdaptationH(44));
     }];
-    self.lineview.backgroundColor = kHXBColor_Grey878787;
+    self.lineview.backgroundColor = kHXBColor_Font0_5;
 }
 
 /// setUPImageView
@@ -162,7 +162,7 @@
     self.title_RightLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.title_RightLabel.textColor = kHXBColor_Blue040610;
     view.layer.borderColor = kHXBColor_Blue040610.CGColor;
-    view.layer.borderWidth = 1;
+    view.layer.borderWidth = kScrAdaptationH(0.8f);
     view.layer.cornerRadius = kScrAdaptationH(22 / 2.0);
     view.layer.masksToBounds = true;
     self.title_RightBGView = view;

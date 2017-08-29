@@ -169,7 +169,7 @@
     if (!_tipButton) {
         _tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
         _tipButton.layer.borderColor = [UIColor whiteColor].CGColor;
-        _tipButton.layer.borderWidth = 0.5f;
+        _tipButton.layer.borderWidth = kXYBorderWidth;
         _tipButton.layer.cornerRadius = kScrAdaptationH(15.0f);
         _tipButton.titleEdgeInsets = UIEdgeInsetsMake(10, 12, 10, 12);
         [_tipButton setBackgroundColor:[UIColor orangeColor]];

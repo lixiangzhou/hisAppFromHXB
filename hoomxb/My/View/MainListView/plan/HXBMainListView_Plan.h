@@ -13,7 +13,7 @@
 @class HXBMYModel_Plan_planRequestModel;
 /// 我的 plan listView
 @interface HXBMainListView_Plan : UIView
-
+@property (nonatomic, assign) NSInteger totalCount;
 #pragma mark - 数据源
 ///资产
 @property (nonatomic,strong) HXBMYModel_Plan_planRequestModel *planAccountModel;

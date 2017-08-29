@@ -36,7 +36,7 @@
         //    textView.text = @"请写在自定义属性前面，如果长度大于limitLength设置长度会被自动截断。";
         _textView.placeholder = @"您的声音，我们用心聆听~";
         _textView.limitLength = @240;
-        _textView.layer.borderWidth = 0.5;
+        _textView.layer.borderWidth = kXYBorderWidth;
         _textView.layer.borderColor = COR12.CGColor;
     }
     return _textView;

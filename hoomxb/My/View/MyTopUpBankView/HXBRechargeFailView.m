@@ -98,7 +98,7 @@
         [_investmentBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [_investmentBtn addTarget:self action:@selector(investmentBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _investmentBtn.layer.borderColor = COR12.CGColor;
-        _investmentBtn.layer.borderWidth = 0.5;
+        _investmentBtn.layer.borderWidth = kXYBorderWidth;
     }
     return _investmentBtn;
 }

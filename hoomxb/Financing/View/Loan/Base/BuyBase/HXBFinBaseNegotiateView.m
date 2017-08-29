@@ -69,7 +69,7 @@
     }];
     self.negotiateImageViewBackgroundButton.backgroundColor = [UIColor whiteColor];
     self.negotiateImageViewBackgroundButton.layer.borderColor = kHXBColor_Blue040610.CGColor;
-    self.negotiateImageViewBackgroundButton.layer.borderWidth = kScrAdaptationW750(1);
+    self.negotiateImageViewBackgroundButton.layer.borderWidth = kXYBorderWidth;
     self.negotiateImageViewBackgroundButton.layer.cornerRadius = kScrAdaptationH750(6);
     self.negotiateImageViewBackgroundButton.layer.masksToBounds = true;
     self.negotiateImageView.image = [UIImage imageNamed:@"duigou"];

@@ -170,6 +170,7 @@
 
 // 肖扬 分页数组的个数
 #define kPageCount 20
+#define kXYBorderWidth kScrAdaptationH(0.8f)
 #define kServiceMobile @"400-1552-888"
 
 //----------------------内存----------------------------
