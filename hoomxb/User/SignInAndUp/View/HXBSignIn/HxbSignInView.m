@@ -94,6 +94,7 @@ UITextFieldDelegate
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         ///创建自控制器
         [self setUPSubViews_Creat];
         ///设置子控件
@@ -125,11 +126,13 @@ UITextFieldDelegate
     
     
 //    self.phoneNumberLabel = [[UILabel alloc]init];///关于手机号的Label
-    SVGKImage *phonesvgImage = [SVGKImage imageNamed:@"mobile_number.svg"];
-    self.phoneImageView = [[UIImageView alloc] initWithImage:phonesvgImage.UIImage];
+//    SVGKImage *phonesvgImage = [SVGKImage imageNamed:@"mobile_number.svg"];
+//    self.phoneImageView = [[UIImageView alloc] initWithImage:phonesvgImage.UIImage];
+    self.phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hxb_手机"]];
     self.phoneImageView.contentMode = UIViewContentModeScaleAspectFit;
-    SVGKImage *passwordsvgImage = [SVGKImage imageNamed:@"password.svg"];
-    self.passwordImageView = [[UIImageView alloc] initWithImage:passwordsvgImage.UIImage];///关于密码的label
+//    SVGKImage *passwordsvgImage = [SVGKImage imageNamed:@"password.svg"];
+//    self.passwordImageView = [[UIImageView alloc] initWithImage:passwordsvgImage.UIImage];///关于密码的label
+    self.passwordImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hxb_解锁"]];
     self.passwordImageView.contentMode = UIViewContentModeScaleAspectFit;
     
 //    self.isPhoneNumberLabel = [[UILabel alloc]init];///显示手机号的信息的label (是否为手机号，手机号是否已注册)

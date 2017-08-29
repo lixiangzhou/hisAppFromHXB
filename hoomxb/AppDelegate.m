@@ -54,6 +54,15 @@ static NSString *const my = @"我的";
         //选中下的图片前缀
         NSArray *commonName = @[@"home_Selected.svg",@"investment_Selected.svg",@"my_Selected.svg"];
         
+        for (UIView *view in self.mainTabbarVC.tabBar.subviews) {
+            NSLog(@"view = %@", view);
+            if ([view isKindOfClass:[UIImageView class]] && view.bounds.size.height <= 1) {
+                UIImageView *ima = (UIImageView *)view;
+                ima.height = 0.000001;
+                //            ima.backgroundColor = [UIColor redColor];
+                ima.hidden = YES;
+            }
+        }
         
         [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
 
@@ -86,6 +95,7 @@ static NSString *const my = @"我的";
 //设置UI友盟统计信息
 - (void)setupUmeng {
     [HXBUmengManagar HXB_umengStart];
+    
 }
 
 - (void)keyboardManager

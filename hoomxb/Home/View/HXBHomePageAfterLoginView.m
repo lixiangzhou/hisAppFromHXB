@@ -7,6 +7,8 @@
 //
 
 #import "HXBHomePageAfterLoginView.h"
+#import "HXB_XYTools.h"
+
 @interface HXBHomePageAfterLoginView ()
 @property (nonatomic, strong) UILabel *userTitleLabel;
 //@property (nonatomic, strong) UILabel *tipLabel;
@@ -37,7 +39,7 @@
 - (void)setContentFrame{
     [self.userTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(@kScrAdaptationH(66));
+        make.top.equalTo(@kScrAdaptationH(55));
     }];
     
 //    [_tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -48,10 +50,9 @@
 //    }];
     
     [self.tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@kScrAdaptationH(97));
+        make.top.equalTo(@kScrAdaptationH(86));
         make.centerX.equalTo(self);
-        make.height.equalTo(@kScrAdaptationH(17));
-        
+        make.height.equalTo(@kScrAdaptationH(30));
 //        make.right.equalTo(self);
 //        make.left.equalTo(self);
 //        make.height.equalTo(@25);
@@ -136,6 +137,10 @@
 
 - (void)setTipString:(NSString *)tipString{
     _tipString = tipString;
+    [self.tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        CGFloat width = [HXB_XYTools WidthWithString:_tipString labelFont:kHXBFont_PINGFANGSC_REGULAR(17) addWidth:30];
+        make.width.offset(width);
+    }];
     [self.tipButton setTitle:tipString forState:UIControlStateNormal];
 }
 
@@ -163,6 +168,11 @@
 {
     if (!_tipButton) {
         _tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _tipButton.layer.borderColor = [UIColor whiteColor].CGColor;
+        _tipButton.layer.borderWidth = 0.5f;
+        _tipButton.layer.cornerRadius = kScrAdaptationH(15.0f);
+        _tipButton.titleEdgeInsets = UIEdgeInsetsMake(10, 12, 10, 12);
+        [_tipButton setBackgroundColor:[UIColor orangeColor]];
         [_tipButton setTitleColor:COR15 forState:UIControlStateNormal];
         _tipButton.titleLabel.font =  kHXBFont_PINGFANGSC_REGULAR(17);
         _tipButton.backgroundColor = [UIColor clearColor];

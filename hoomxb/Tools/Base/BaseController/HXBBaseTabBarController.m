@@ -50,7 +50,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMyVC:) name:kHXBNotification_ShowMyVC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMYVC_PlanList:) name:kHXBNotification_ShowMYVC_PlanList object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMyVC_LoanList:) name:kHXBNotification_ShowMYVC_LoanList object:nil];
-    
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -184,6 +184,7 @@
 //    HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
 //    [nav presentViewController:checkCaptchaViewController animated:true completion:nil];
 //}
+
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

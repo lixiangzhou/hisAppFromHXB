@@ -268,7 +268,7 @@
 - (UIButton *)noticeBtn
 {
     if (!_noticeBtn) {
-        _noticeBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), kScrAdaptationH(34), kScrAdaptationW(40), kScrAdaptationH(20))];
+        _noticeBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScrAdaptationW(5), kScrAdaptationH(34), kScrAdaptationW(40), kScrAdaptationH(20))];
         SVGKImage *svgImage = [SVGKImage imageNamed:@"notice"];
         [_noticeBtn setImage:svgImage.UIImage forState:UIControlStateNormal];
         [_noticeBtn addTarget:self action:@selector(noticeBtnClick) forControlEvents:UIControlEventTouchUpInside];

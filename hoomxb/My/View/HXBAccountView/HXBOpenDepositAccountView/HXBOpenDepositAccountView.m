@@ -103,7 +103,7 @@
         self.nameTextField.isHidenLine = YES;
         self.nameTextField.userInteractionEnabled = NO;
         
-        self.idCardTextField.text = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:2 lenght:viewModel.userInfoModel.userInfo.idNo.length - 3];
+        self.idCardTextField.text = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:viewModel.userInfoModel.userInfo.idNo.length - 2];
         self.idCardTextField.isHidenLine = YES;
         self.idCardTextField.userInteractionEnabled = NO;
     }

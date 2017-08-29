@@ -50,6 +50,7 @@ static NSString *CELLID = @"CELLID";
     
     [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
     self.separatorInset = UIEdgeInsetsMake(0, -50, 0, 0);
+    self.separatorColor = kHXBColor_Font0_5;
     self.backgroundColor = kHXBColor_BackGround;
     self.rowHeight = kScrAdaptationH(121);
     self.nodataView.hidden = false;
