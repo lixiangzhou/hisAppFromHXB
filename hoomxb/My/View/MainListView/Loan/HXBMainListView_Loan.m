@@ -90,8 +90,11 @@ kDealloc
 - (void)setLoanAccountModel:(HXBMYModel_Loan_LoanRequestModel *)loanAccountModel {
     _loanAccountModel = loanAccountModel;
     self.REPAYING_Lable.text =  [self  formatStrWithTypeStr:REPAYING_Title andCountStr:loanAccountModel.rePayingTotalCount.integerValue];
+    self.REPAYING_Lable.font = kHXBFont_PINGFANGSC_REGULAR(15);
     self.BID_Lable.text = [self  formatStrWithTypeStr:BID_Title andCountStr:loanAccountModel.BIDTotalCount.integerValue];
+    self.BID_Lable.font = kHXBFont_PINGFANGSC_REGULAR(15);
     self.truansferLabel.text = [self formatStrWithTypeStr:@"转让中" andCountStr:loanAccountModel.transferingCount.integerValue];
+    self.truansferLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
 }
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
     _userInfoViewModel = userInfoViewModel;
@@ -116,11 +119,11 @@ kDealloc
     self.loanTruansferTableView.loanTruansferViewModelArray = loanTruansferViewModelArray;
 }
 - (NSString *)formatStrWithTypeStr: (NSString *)typeStr andCountStr: (NSInteger)count {
-    if (count) {
-        NSString *countStr = @(count).description;
-        return [NSString stringWithFormat:@"%@(%@)",typeStr,countStr];
-    }
-    return typeStr;
+//    if (count) {
+    NSString *countStr = @(count).description;
+    return [NSString stringWithFormat:@"%@(%@)",typeStr,countStr];
+//    }
+//    return typeStr;
 }
 
 
@@ -226,7 +229,7 @@ kDealloc
 ///搭建scrollToolBarView；
 - (void)createScrollToolBarView {
     kWeakSelf
-    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 64, self.width, self.height - 64) andTopView:self.loanTopView andTopViewH:150 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:30 andBottomViewSet:self.tableViewArray];
+    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 64, self.width, self.height - 64) andTopView:self.loanTopView andTopViewH:150 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:kScrAdaptationH(45) andBottomViewSet:self.tableViewArray];
     
     [self.scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
         weakSelf.switchBottomScrollViewBlock ? weakSelf.switchBottomScrollViewBlock(index,title,option) : nil;

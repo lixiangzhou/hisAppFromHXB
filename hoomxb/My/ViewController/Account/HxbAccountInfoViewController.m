@@ -17,7 +17,7 @@
 #import "HxbMyViewController.h"
 #import "HxbWithdrawCardViewController.h"
 #import "HXBMiddlekey.h"
-#import "HXBMyHomeViewCell.h"
+#import "HXBBottomLineTableViewCell.h"
 #import "HXBDepositoryAlertViewController.h"
 @interface HxbAccountInfoViewController ()
 <
@@ -77,7 +77,7 @@ UITableViewDataSource
         switch (indexPath.row) {
             case 0:
             {
-                //风险测评
+                //风险评测
                 NSLog(@"点击了风险评测");
                 [self entryRiskAssessment];
             }
@@ -193,14 +193,25 @@ UITableViewDataSource
     
     return 0.01;
 }
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+//{
+//    UIView *fotterView = [[UIView alloc] init];
+//    fotterView.backgroundColor = [UIColor whiteColor];
+//    return [[UIView alloc] init];
+//}
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    return [UIView new];
+//}
+
 
 #pragma TableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *celledStr = @"celled";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
+    HXBBottomLineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
+        cell = [[HXBBottomLineTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         cell.textLabel.textColor = COR6;
@@ -213,6 +224,7 @@ UITableViewDataSource
         cell.textLabel.text = self.userInfoViewModel.userInfoModel.userInfo.username;
         cell.imageView.image = [UIImage imageNamed:@"default_avatar"];
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.hiddenLine = YES;
     }else if (indexPath.section == 1){
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.row == 0) {
@@ -229,9 +241,9 @@ UITableViewDataSource
                 //完善信息
                  cell.detailTextLabel.text = @"完善信息";
             }
-            
         }else if (indexPath.row == 1){
             cell.textLabel.text = @"银行卡";
+            cell.hiddenLine = YES;
             if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
                 cell.detailTextLabel.text = @"已绑定";
                 cell.detailTextLabel.textColor = COR30;
@@ -244,17 +256,21 @@ UITableViewDataSource
         }
     }else if (indexPath.section == 2){
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        NSArray *arr = @[@"风险测评",@"账户安全",@"关于我们"];
+        NSArray *arr = @[@"风险评测",@"账户安全",@"关于我们"];
         cell.textLabel.text = arr[indexPath.row];
         if (indexPath.row == 0) {
             cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
             cell.detailTextLabel.textColor = COR30;
+        }else if(indexPath.row == 2)
+        {
+            cell.hiddenLine = YES;
         }
     }else if (indexPath.section == 3){
         self.signOutLabel.frame = cell.bounds;
         self.signOutLabel.width = kScreenWidth;
         [cell.contentView addSubview:self.signOutLabel];
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.hiddenLine = YES;
     }
     return cell;
 }
@@ -291,6 +307,7 @@ UITableViewDataSource
         _tableView = [[UITableView  alloc]initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH , SCREEN_HEIGHT) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _tableView;
 }

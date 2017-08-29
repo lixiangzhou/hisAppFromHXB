@@ -118,7 +118,7 @@
 {
     _homeBaseModel = homeBaseModel;
     if (homeBaseModel.homeTitle.baseTitle.length) {
-        _footerLabel.text = [NSString stringWithFormat:@" %@ ",homeBaseModel.homeTitle.baseTitle];
+        _footerLabel.text = [NSString stringWithFormat:@"- %@ -",homeBaseModel.homeTitle.baseTitle];
     }
     
     self.headView.homeBaseModel = homeBaseModel;
@@ -365,27 +365,18 @@
     if (!_footerView) {
         _footerView = [UIView new];
         _footerView.backgroundColor = [UIColor clearColor];
-        _footerView.frame = CGRectMake(0, 0, _mainTableView.width, kScrAdaptationH(40));
+        _footerView.frame = CGRectMake(0, 0, _mainTableView.width, kScrAdaptationH(20));
         
         _footerLabel = [UILabel new];
         _footerLabel.frame = CGRectMake(0, 0, _footerView.width, _footerView.height);
-        _footerLabel.text = @" 预期年利率不等于实际收益，投资需谨慎 ";
+        _footerLabel.text = @"- 预期年利率不等于实际收益，投资需谨慎 -";
         _footerLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _footerLabel.textColor = RGB(184, 184, 184);
         _footerLabel.backgroundColor = RGB(245, 245, 245);
         
-        UIView *line = [[UIView alloc] init];
-        line.backgroundColor = RGB(184, 184, 184);
-        [_footerView addSubview:line];
         [_footerView addSubview:_footerLabel];
         [_footerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(_footerView);
-        }];
-        [line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(_footerView);
-            make.left.equalTo(_footerLabel.mas_left).offset(-kScrAdaptationW(10));
-            make.right.equalTo(_footerLabel.mas_right).offset(kScrAdaptationW(10));
-            make.height.equalTo(@0.5);
         }];
         
     }

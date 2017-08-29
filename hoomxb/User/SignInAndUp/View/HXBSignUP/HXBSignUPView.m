@@ -93,7 +93,7 @@ UITextFieldDelegate
 - (UIImageView *)phoneImageView
 {
     if (!_phoneImageView) {
-        _phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hxb_手机"]];
+        _phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mobile_number"]];
         _phoneImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _phoneImageView;

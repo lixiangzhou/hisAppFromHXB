@@ -54,6 +54,9 @@
         weakSelf.bankCardNumLabel.text = [NSString stringWithFormat:@"（尾号%@）",[bankCardModel.cardId substringFromIndex:bankCardModel.cardId.length - 4]];
         weakSelf.amountLimitLabel.text = bankCardModel.quota;
         weakSelf.bankLogoImageView.svgImageString = bankCardModel.bankCode;
+        if (weakSelf.bankLogoImageView.image == nil) {
+            weakSelf.bankLogoImageView.svgImageString = @"默认";
+        }
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);
         [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];

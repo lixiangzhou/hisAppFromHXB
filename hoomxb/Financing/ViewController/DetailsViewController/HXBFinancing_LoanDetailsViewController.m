@@ -109,7 +109,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = false;
-    //判断是否风险测评
+    //判断是否风险评测
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
         _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;

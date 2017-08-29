@@ -12,6 +12,7 @@
 #import "HXBVersionUpdateViewModel.h"
 #import "HXBVersionUpdateModel.h"//版本更新的model
 #import "HXBAgreementView.h"
+#import "HXBBottomLineTableViewCell.h"
 @interface HxbMyAboutMeViewController ()
 <
 UITableViewDelegate,UITableViewDataSource
@@ -106,9 +107,9 @@ UITableViewDelegate,UITableViewDataSource
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *celledStr = @"celled";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr ];
+    HXBBottomLineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr ];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
+        cell = [[HXBBottomLineTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
         cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         cell.textLabel.textColor = COR6;
         cell.detailTextLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
@@ -124,6 +125,7 @@ UITableViewDelegate,UITableViewDataSource
             cell.textLabel.text = @"版本";
             NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"v%@",version];
+            cell.hiddenLine = YES;
         }else if (indexPath.row == 2){
             cell.textLabel.text = @"常见问题";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -137,20 +139,20 @@ UITableViewDelegate,UITableViewDataSource
 
 - (NSMutableAttributedString *)call
 {
-    NSString *str = @"  (周一至周五9:00-19:00)";
+    NSString *str = @"客服热线（周一至周五9:00-19:00）";
     NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc]initWithString:str];
     
     [attributedStr addAttribute:NSFontAttributeName
      
                           value:kHXBFont_PINGFANGSC_REGULAR_750(24)
      
-                          range:NSMakeRange(5, str.length - 5)];
+                          range:NSMakeRange(4, str.length - 4)];
     
     [attributedStr addAttribute:NSForegroundColorAttributeName
      
-                          value:COR31
+                          value:COR10
      
-                          range:NSMakeRange(5, str.length - 5)];
+                          range:NSMakeRange(4, str.length - 4)];
 
     return attributedStr;
 }
@@ -166,6 +168,7 @@ UITableViewDelegate,UITableViewDataSource
 - (UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView  alloc]initWithFrame:CGRectMake(0, 0,kScreenWidth , kScreenHeight) style:UITableViewStyleGrouped];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableHeaderView = self.headerView;

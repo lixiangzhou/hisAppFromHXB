@@ -67,14 +67,14 @@ static NSString *CELLID = @"CELLID";
 - (void) setup {
     self.delegate = self;
     self.dataSource = self;
-//    self.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.separatorColor = COR12;
-    if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
-        [self setSeparatorInset:UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15))];
-    }
-    if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
-        [self setLayoutMargins:UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15))];
-    }
+    self.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.separatorColor = COR12;
+//    if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
+//        [self setSeparatorInset:UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15))];
+//    }
+//    if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
+//        [self setLayoutMargins:UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15))];
+//    }
     [self registerClass:[HXBFinDetail_TableViewCell class] forCellReuseIdentifier:CELLID];
     self.rowHeight = kScrAdaptationH(45);
 }
@@ -139,11 +139,11 @@ static NSString *CELLID = @"CELLID";
     self.optionLabel.textColor = kHXBColor_RGB(0.2, 0.2, 0.2, 1);
     self.iconImageView = [[UIImageView alloc]init];
     self.lineView   = [[UIView alloc]init];
-    self.lineView.backgroundColor = [UIColor clearColor];
+    self.lineView.backgroundColor = COR12;
     
-    [self.contentView addSubview:self.lineView];
     [self.contentView addSubview:self.optionLabel];
     [self.contentView addSubview:self.iconImageView];
+    [self addSubview:self.lineView];
     
 //    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.centerY.equalTo(weakSelf.contentView);
@@ -156,10 +156,10 @@ static NSString *CELLID = @"CELLID";
         make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
     }];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView);
-        make.left.equalTo(self.contentView).offset(kScrAdaptationW(15));
+        make.bottom.equalTo(self);
+        make.left.equalTo(self).offset(kScrAdaptationW(15));
         make.right.equalTo(self).offset(kScrAdaptationW(-15));
-        make.height.equalTo(@([UIScreen mainScreen].scale * 0.1));
+        make.height.offset(0.5);
     }];
 }
 - (void)setIsHiddenLastCellBottomLine:(BOOL)isHiddenLastCellBottomLine {

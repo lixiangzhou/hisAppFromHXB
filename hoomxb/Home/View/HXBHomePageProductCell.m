@@ -75,12 +75,12 @@
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backView.mas_left).offset(kScrAdaptationW(33));
         make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(13));
-        make.height.with.equalTo(@13);
+        make.height.offset(kScrAdaptationH(13));
     }];
     [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backView.mas_left).offset(kScrAdaptationW(15));
         make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(14));
-        make.height.with.equalTo(@13);
+        make.height.with.offset(kScrAdaptationH(13));
     }];
     if (!self.homePageModel_DataList.tag.length) {
         [self.expectAnnualizedRatesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -181,6 +181,8 @@
         [self.purchaseButton setTitle:countDownString forState:UIControlStateNormal];
         [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
         self.colourGradientView.hidden = YES;
+        self.purchaseButton.layer.borderColor = RGB(255, 133, 133).CGColor;
+        self.purchaseButton.backgroundColor = RGB(255, 247, 247);
     }else
     {
         //根据数据返回
@@ -193,12 +195,15 @@
  */
 - (void)setupBtnStyle
 {
-    if (![self.homePageModel_DataList.unifyStatus isEqualToString:@"立即加入"]) {
+    if (![self.homePageModel_DataList.unifyStatus isEqualToString:@"立即加入"] && self.homePageModel_DataList.isHidden) {
         self.colourGradientView.hidden = YES;
         [self.purchaseButton setTitleColor:kHXBColor_Font0_6 forState:UIControlStateNormal];
         self.purchaseButton.layer.borderColor = kHXBColor_Font0_5.CGColor;
         self.purchaseButton.backgroundColor = kHXBColor_Grey090909;
-    }else {
+    }else if(!self.homePageModel_DataList.isHidden){
+        [self setCountDownString:self.countDownString];
+    }else
+    {
         self.colourGradientView.hidden = NO;
         [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
     }

@@ -111,6 +111,7 @@ UITextFieldDelegate
     self.phoneline.backgroundColor = RGB(221, 221, 221);
     self.passwordline.backgroundColor = RGB(221, 221, 221);
     self.phoneTextField = [[UITextField alloc]init];
+    self.phoneTextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
     self.phoneTextField.text = KeyChain.mobile;
     self.passwordTextField = [[UITextField alloc]init];
     self.signInButton = [[UIButton alloc]init];
@@ -128,11 +129,11 @@ UITextFieldDelegate
 //    self.phoneNumberLabel = [[UILabel alloc]init];///关于手机号的Label
 //    SVGKImage *phonesvgImage = [SVGKImage imageNamed:@"mobile_number.svg"];
 //    self.phoneImageView = [[UIImageView alloc] initWithImage:phonesvgImage.UIImage];
-    self.phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hxb_手机"]];
+    self.phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mobile_number"]];
     self.phoneImageView.contentMode = UIViewContentModeScaleAspectFit;
 //    SVGKImage *passwordsvgImage = [SVGKImage imageNamed:@"password.svg"];
 //    self.passwordImageView = [[UIImageView alloc] initWithImage:passwordsvgImage.UIImage];///关于密码的label
-    self.passwordImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"hxb_解锁"]];
+    self.passwordImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"password"]];
     self.passwordImageView.contentMode = UIViewContentModeScaleAspectFit;
     
 //    self.isPhoneNumberLabel = [[UILabel alloc]init];///显示手机号的信息的label (是否为手机号，手机号是否已注册)

@@ -35,7 +35,7 @@
         _loginPasswordTextField = [[HXBCustomTextField alloc] init];
         _loginPasswordTextField.secureTextEntry = YES;
         _loginPasswordTextField.placeholder = @"登录密码";
-        _loginPasswordTextField.leftImage = [SVGKImage imageNamed:@"password"].UIImage;
+        _loginPasswordTextField.leftImage = [UIImage imageNamed:@"password"];
     }
     return _loginPasswordTextField;
 }

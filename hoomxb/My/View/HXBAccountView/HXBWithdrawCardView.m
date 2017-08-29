@@ -175,7 +175,7 @@
     if (!_phoneNumberTextField) {
         _phoneNumberTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectZero];
         _phoneNumberTextField.placeholder = @"预留手机号";
-        _phoneNumberTextField.leftImage = [SVGKImage imageNamed:@"mobile_number"].UIImage;
+        _phoneNumberTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
         _phoneNumberTextField.isHidenLine = YES;
     }
     return _phoneNumberTextField;

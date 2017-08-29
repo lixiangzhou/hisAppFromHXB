@@ -27,7 +27,7 @@
     
     NSString *systemVision = [[UIDevice currentDevice] systemVersion];
     NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    NSString *userAgent = [NSString stringWithFormat:@"iphone/%@/%@" ,systemVision,version];
+    NSString *userAgent = [NSString stringWithFormat:@"Iphone/IOS %@/v%@" ,systemVision,version];
     NSLog(@"%@",[KeyChain token]);
     [request setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
     [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];

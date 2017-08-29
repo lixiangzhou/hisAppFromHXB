@@ -35,7 +35,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"风险测评";
+    self.title = @"风险评测";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
     [self setupRightBarBtn];
@@ -76,14 +76,17 @@
 
 - (void)setupRightBarBtn
 {
-    UIButton *rightBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
+    UIButton *rightBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW(50), 35)];
     [rightBackBtn setTitle:@"跳过" forState:UIControlStateNormal];
     // 让按钮内部的所有内容左对齐
     rightBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [rightBackBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    [rightBackBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [rightBackBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    rightBackBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
     // 修改导航栏左边的item
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBackBtn];
+    rightBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    
 }
 
 - (void)dismiss
@@ -108,7 +111,7 @@
         
         NSString *systemVision = [[UIDevice currentDevice] systemVersion];
         NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-        NSString *userAgent = [NSString stringWithFormat:@"iphone/%@/%@" ,systemVision,version];
+        NSString *userAgent = [NSString stringWithFormat:@"Iphone/IOS %@/v%@" ,systemVision,version];
         NSLog(@"%@",[KeyChain token]);
         [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
         [mutableRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];

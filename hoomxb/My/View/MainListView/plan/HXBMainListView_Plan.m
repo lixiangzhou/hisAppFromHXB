@@ -100,11 +100,9 @@ kDealloc
 //    self.holdLabel.text = [self formatStrWithTypeStr:holdTitle andCountStr:hold_Plan_array.count];
 }
 - (NSString *)formatStrWithTypeStr: (NSString *)typeStr andCountStr: (NSInteger)count {
-    if (count) {
-        NSString *countStr = @(count).description;
-        return [NSString stringWithFormat:@"%@(%@)",typeStr,countStr];
-    }
-    return typeStr;
+    NSString *countStr = @(count).description;
+    return [NSString stringWithFormat:@"%@(%@)",typeStr,countStr];
+//    return typeStr;
 }
 #pragma mark - getter 
 - (NSArray *)exit_Plan_arrayAtIndexes:(NSIndexSet *)indexes {
@@ -210,9 +208,9 @@ kDealloc
 
 //搭建底部的ScrollView
 - (NSArray *)setupBottomScrollViewArray {
-    self.hold_Plan_TableView = [[HXBMYList_plan_Hold_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.exiting_Plan_TableView = [[HXBMYList_plan_Hold_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.exit_Plan_TableView = [[HXBMYList_plan_Hold_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.hold_Plan_TableView = [[HXBMYList_plan_Hold_TableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.exiting_Plan_TableView = [[HXBMYList_plan_Hold_TableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.exit_Plan_TableView = [[HXBMYList_plan_Hold_TableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     return @[
              self.hold_Plan_TableView,
              self.exiting_Plan_TableView,

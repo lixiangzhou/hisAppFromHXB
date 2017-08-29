@@ -18,7 +18,9 @@ static NSString *const kHXBSVGImage = @"kHXBSVGImage";
 
 - (void)setSvgImageString:(NSString *)svgImageString {
     self.image = [UIImage imageNamed:svgImageString];
-    if (self.image == nil) {
+    NSArray *array = [svgImageString componentsSeparatedByString:@"."]; //从字符A中分隔成2个元素的数组
+    NSString* path =  [[NSBundle mainBundle] pathForResource:[array firstObject] ofType:@"svg"];
+    if (self.image == nil && path != nil) {
         self.image = [SVGKImage imageNamed:svgImageString].UIImage;
     }
     objc_setAssociatedObject(self, &kHXBSVGImageName, svgImageString, OBJC_ASSOCIATION_COPY_NONATOMIC);

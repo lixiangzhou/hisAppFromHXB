@@ -349,7 +349,7 @@
 
 - (UIButton *)leftHeadButton{
     if (!_leftHeadButton) {
-        _leftHeadButton = [[UIButton alloc]initWithFrame:CGRectMake(0, kScrAdaptationH(25), kScrAdaptationW(53), kScrAdaptationW(53))];
+        _leftHeadButton = [[UIButton alloc]initWithFrame:CGRectMake(0, kScrAdaptationH(20), kScrAdaptationW(53), kScrAdaptationW(53))];
         [_leftHeadButton addTarget:self action:@selector(leftHeaderButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         UIImageView *btnImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"personal_center"]];
         btnImage.contentMode = UIViewContentModeScaleAspectFit;

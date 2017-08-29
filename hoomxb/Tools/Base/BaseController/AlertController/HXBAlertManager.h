@@ -22,7 +22,7 @@
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel;
 
 /**
- 判断是否风险测评 开通存管银行账户 ///完善信息
+ 判断是否风险评测 开通存管银行账户 ///完善信息
  */
 + (void)checkOutRiskAssessmentWithSuperVC:(UIViewController *)vc andWithPushBlock:(void(^)())pushBlock;
 

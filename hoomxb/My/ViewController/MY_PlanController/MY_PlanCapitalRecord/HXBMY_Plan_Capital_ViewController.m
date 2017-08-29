@@ -59,10 +59,11 @@ static NSString *const cellID = @"cellID";
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.top.equalTo(self.view.mas_top).offset(64);
-        make.height.equalTo(@44);
+        make.height.offset(kScrAdaptationH750(100));
     }];
     
     self.planCapitalTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.planCapitalTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.planCapitalTableView];
     
     [self.planCapitalTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -133,9 +134,11 @@ static NSString *const cellID = @"cellID";
         weakSelf.dataArray= viewModelArray;
         if (weakSelf.dataArray.count) {
              [self.planCapitalTableView reloadData];
+            self.planCapitalTableView.hidden = NO;
         }else
         {
             self.noDataView.hidden = NO;
+            self.planCapitalTableView.hidden = YES;
         }
     } andFailureBlock:^(NSError *error) {
         [weakSelf.planCapitalTableView endRefresh];
@@ -167,10 +170,11 @@ static NSString *const cellID = @"cellID";
 - (HXBNoDataView *)noDataView
 {
     if (!_noDataView) {
-         _noDataView = [[HXBNoDataView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+         _noDataView = [[HXBNoDataView alloc] initWithFrame:CGRectMake(0, 64 + kScrAdaptationH750(278), kScreenWidth, kScreenHeight - 64)];
+        
         _noDataView.imageName = @"Fin_NotData";
         _noDataView.noDataMassage = @"暂无投资记录";
-        _noDataView.hidden = YES;
+//        _noDataView.hidden = YES;
         _noDataView.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:_noDataView];
     }

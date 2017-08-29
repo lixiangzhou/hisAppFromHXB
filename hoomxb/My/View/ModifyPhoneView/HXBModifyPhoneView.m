@@ -43,7 +43,7 @@
     if (!_phoneTextField) {
         _phoneTextField = [[HXBCustomTextField alloc] init];
         _phoneTextField.placeholder = @"新手机号";
-        _phoneTextField.leftImage = [SVGKImage imageNamed:@"mobile_number.svg"].UIImage;
+        _phoneTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
         _phoneTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _phoneTextField;

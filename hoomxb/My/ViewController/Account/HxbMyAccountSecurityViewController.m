@@ -17,6 +17,7 @@
 #import "HXBCheckLoginPasswordViewController.h"//验证登录密码
 #import "HXBOpenDepositAccountViewController.h"
 #import "HxbWithdrawCardViewController.h"
+#import "HXBBottomLineTableViewCell.h"
 @interface HxbMyAccountSecurityViewController ()
 <
 UITableViewDataSource,UITableViewDelegate
@@ -167,9 +168,9 @@ UITableViewDataSource,UITableViewDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *celledStr = @"celled";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr ];
+    HXBBottomLineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr ];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
+        cell = [[HXBBottomLineTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
@@ -183,6 +184,7 @@ UITableViewDataSource,UITableViewDelegate
         cell.textLabel.text = @"交易密码";
     }else if(indexPath.row == 3){
         cell.textLabel.text = @"手势密码";
+        cell.hiddenLine = YES;
     }
     return cell;
 }
@@ -198,6 +200,7 @@ UITableViewDataSource,UITableViewDelegate
 - (UITableView *)tableView{
     if (!_tableView) {
         _tableView = [[UITableView  alloc]initWithFrame:CGRectMake(0, 0,SCREEN_WIDTH , SCREEN_HEIGHT) style:UITableViewStyleGrouped];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
     }

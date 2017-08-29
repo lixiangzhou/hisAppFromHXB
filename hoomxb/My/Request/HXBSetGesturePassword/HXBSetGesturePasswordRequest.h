@@ -19,7 +19,7 @@
 - (void)setGesturePasswordRequestWithPassword:(NSString *)password andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 /**
- 风险测评
+ 风险评测
  
  @param score 测评分数
  @param successDateBlock 成功回调

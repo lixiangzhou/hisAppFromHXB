@@ -154,7 +154,6 @@ UITableViewDataSource
     self.addButton.hidden = true;
     self.topViewMassge  = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
     self.tableView = [[HXBFinDetail_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    
     UIEdgeInsets infoView_insets = UIEdgeInsetsMake(kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30));
     self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:self.cake andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:infoView_insets];
     
@@ -220,7 +219,7 @@ UITableViewDataSource
     }];
     [self.topStatusLabel sizeToFit];
     [self.infoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH750(10));
+        make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH750(20));
         make.left.equalTo(self);
         make.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH750(300)));

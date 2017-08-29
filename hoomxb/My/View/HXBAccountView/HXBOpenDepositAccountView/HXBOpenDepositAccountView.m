@@ -275,7 +275,7 @@
 {
     if (!_pwdTextField) {
         _pwdTextField = [[HXBCustomTextField alloc] init];
-        _pwdTextField.leftImage = [SVGKImage imageNamed:@"transaction_password.svg"].UIImage;
+        _pwdTextField.leftImage = [UIImage imageNamed:@"transaction_password"];
         _pwdTextField.placeholder = @"交易密码";
         _pwdTextField.keyboardType = UIKeyboardTypeNumberPad;
         _pwdTextField.secureTextEntry = YES;

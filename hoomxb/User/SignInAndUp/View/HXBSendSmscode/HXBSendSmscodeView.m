@@ -190,7 +190,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     self.password_TextField.placeholder = @"8-20位数组大小写字母组成";
     self.inviteCodeTextField.placeholder = @"请输入邀请码";
     self.inviteCodeTextField.delegate = self;
-    self.inviteCodeTextField.leftImage = [SVGKImage imageNamed:@"invitation_code.svg"].UIImage;
+    self.inviteCodeTextField.leftImage = [UIImage imageNamed:@"invitation_code"];
     
     self.negotiateView.negotiateStr = @"红小宝注册协议";
     kWeakSelf
@@ -310,7 +310,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     self.codeLine.backgroundColor = RGB(221, 221, 221);
     self.passwordLine.backgroundColor = RGB(221, 221, 221);
     
-    self.passwordImageView.image = [SVGKImage imageNamed:@"password.svg"].UIImage;
+    self.passwordImageView.svgImageString = @"password";
     
     [self.eyeButton setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateNormal];
     [self.eyeButton setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateSelected];

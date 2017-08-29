@@ -53,6 +53,17 @@
         self.tagLabel.text = finPlanListViewModel.planListModel.tag;
         [self.tagLableImageView setHidden:false];
     }
+    [self setupAddStatus];
+}
+//设置等待加入label的背景颜色
+- (void)setupAddStatus
+{
+    if ([self.addStatus.text isEqualToString:@"等待加入"]) {
+        self.addStatus.backgroundColor = RGB(255, 247, 247);
+        self.addStatus.textColor = RGB(253, 54, 54);
+        self.addStatus.layer.borderColor = RGB(255, 133, 133).CGColor;
+        self.addStatus.layer.borderWidth = kScrAdaptationH(0.5f);
+    }
 }
 
 - (void) setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
