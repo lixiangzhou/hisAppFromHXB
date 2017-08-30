@@ -89,7 +89,7 @@ static NSString *CELLID = @"CELLID";
         _nodataView.downPULLMassage = @"下拉进行刷新";
         [self addSubview:_nodataView];
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).offset(kScrAdaptationH(139));
+            make.top.equalTo(self).offset(kScrAdaptationH(100));
             make.height.width.equalTo(@(kScrAdaptationH(184)));
             make.centerX.equalTo(self);
         }];

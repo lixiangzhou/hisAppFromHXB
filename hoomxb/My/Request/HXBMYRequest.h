@@ -56,7 +56,7 @@
                                andStartDate: (NSString *)startDate
                                  andEndDate: (NSString *)endDate
                                 andIsUPData: (BOOL)isUPData 
-                            andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *>* viewModelArray))successDateBlock
+                            andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *>* viewModelArray, NSInteger totalCount))successDateBlock
                             andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 

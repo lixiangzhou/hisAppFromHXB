@@ -121,9 +121,11 @@
     
     self.topStatusLabel.textColor = [UIColor whiteColor];
     self.topStatusView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.8].CGColor;
+    self.topStatusView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.07 ];
     self.topStatusView.layer.borderWidth = kXYBorderWidth;
     self.topStatusView.layer.masksToBounds = true;
     self.topStatusLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+//    self.topStatusLabel.backgroundColor = [UIColor colorWithWhite:1 alpha:0.07];
     self.topStatusLabel.textColor = [UIColor colorWithWhite:1 alpha:0.8];
     self.topStatusView.layer.cornerRadius = kScrAdaptationH750(54)/2.0;
 
@@ -160,7 +162,7 @@
     }];
     
     [self.topStatusView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topView).offset(kScrAdaptationH750(60));
+        make.top.equalTo(self.topView).offset(kScrAdaptationH750(30));
         make.right.equalTo(self.topView).offset(40);
         make.height.equalTo(@(kScrAdaptationH750(54)));
         make.right.equalTo(self.topStatusLabel).offset(kScrAdaptationW750(100));

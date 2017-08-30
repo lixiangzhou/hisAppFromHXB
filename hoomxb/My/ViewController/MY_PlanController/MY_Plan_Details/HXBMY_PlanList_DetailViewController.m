@@ -48,7 +48,7 @@
 //    self.hxb_automaticallyAdjustsScrollViewInsets = true;
     self.isColourGradientNavigationBar = true;
     [self setUP];
-    self.title = @"计划详情";
+    self.title = self.planViewModel.planModelDataList.name;
     [self downData];
 }
 

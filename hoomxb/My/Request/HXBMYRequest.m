@@ -377,6 +377,7 @@
                                     @"filter" :  @(LoanRequestType).description,
                                     };
     [self.loanListAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        
         kHXBResponsShowHUD;
         
         NSMutableArray <HXBMYViewModel_MainLoanViewModel*> *loanViewModelArray = [[NSMutableArray alloc]init];
@@ -495,7 +496,7 @@
                                andStartDate: (NSString *)startDate
                                 andEndDate: (NSString *)endDate
                                andIsUPData: (BOOL)isUPData 
-                           andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *>* viewModelArray))successDateBlock
+                           andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *>* viewModelArray, NSInteger totalCount))successDateBlock
                            andFailureBlock: (void(^)(NSError *error))failureBlock {
     
     __weak typeof(self)weakSelf = self;
@@ -525,7 +526,7 @@
        
         if (successDateBlock) {
             NSMutableArray <HXBMYViewModel_MainCapitalRecordViewModel *>*capitalRecordViewModelArray = [self capitalRecord_handleDataWithIsUPData:weakSelf.capitalRecordAPI.isUPReloadData andViewModelArray:viewModelArray];
-            successDateBlock(capitalRecordViewModelArray);
+            successDateBlock(capitalRecordViewModelArray, [[data valueForKey:@"totalCount"] integerValue]);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
     }];

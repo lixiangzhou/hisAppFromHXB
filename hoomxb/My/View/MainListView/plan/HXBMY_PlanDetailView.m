@@ -254,6 +254,7 @@ UITableViewDataSource
 #pragma mark - 肖扬
     self.topStatusView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.07 ];
     self.topStatusLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+//    self.topStatusLabel.backgroundColor = [UIColor colorWithWhite:1 alpha:0.07];
     self.topStatusLabel.textColor = [UIColor colorWithWhite:1 alpha:0.8];
     self.topStatusView.layer.cornerRadius = kScrAdaptationH750(54)/2.0;
     [self.tableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
