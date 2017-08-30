@@ -65,7 +65,13 @@ static NSString * const HeaderID = @"HeaderID";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBMYCapitalRecord_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.capitalRecortdDetailViewModel = self.capitalRecortdDetailViewModelArray[indexPath.row];
+    if (self.totalCount > 0) {
+        if (indexPath.row == self.totalCount - 1) {
+            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        }
+    }
     return cell;
 }
 
@@ -95,7 +101,7 @@ static NSString * const HeaderID = @"HeaderID";
         _nodataView.noDataMassage = @"暂无数据";
         _nodataView.downPULLMassage = @"下拉进行刷新";
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).offset(kScrAdaptationH(139));
+            make.top.equalTo(self).offset(kScrAdaptationH(100));
             make.height.width.equalTo(@(kScrAdaptationH(184)));
             make.centerX.equalTo(self);
         }];

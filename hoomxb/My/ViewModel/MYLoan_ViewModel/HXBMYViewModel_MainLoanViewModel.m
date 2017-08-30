@@ -175,6 +175,15 @@
     }
     return _earnAmount_NOTYUAN;
 }
+
+- (NSString *)loanTitle {
+    if (!_loanTitle) {
+        _loanTitle = self.loanModel.loanTitle;
+    }
+    return _loanTitle;
+}
+
+
 /**
  剩余期数: 4/12(收益中使用)
  */

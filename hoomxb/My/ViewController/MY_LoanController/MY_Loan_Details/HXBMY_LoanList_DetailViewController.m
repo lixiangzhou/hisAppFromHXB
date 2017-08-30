@@ -78,6 +78,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = self.loanDetailViewModel.loanTitle;
     [self setUPView];
     self.isColourGradientNavigationBar = true;
 }
