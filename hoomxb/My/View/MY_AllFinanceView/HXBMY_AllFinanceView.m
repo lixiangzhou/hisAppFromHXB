@@ -29,9 +29,9 @@
     self.totalAssetsNumberLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.assetsTotal.doubleValue];
     [self calculateProportionValue];
     [self.plainView circularViewColor:RGB(255, 126, 127) andTextStr:@"红利计划" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.financePlanAssets.doubleValue]];
-    [self.loanView circularViewColor:RGB(128, 218, 255) andTextStr:@"散标债权" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.lenderPrincipal.doubleValue]];
+    [self.loanView circularViewColor:RGB(255, 192, 162) andTextStr:@"散标债权" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.lenderPrincipal.doubleValue]];
     [self.availableView circularViewColor:RGB(161, 147, 249) andTextStr:@"可用金额" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue]];
-    [self.frozenView circularViewColor:RGB(255, 192, 162) andTextStr:@"冻结金额" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.frozenPoint.doubleValue]];
+    [self.frozenView circularViewColor:RGB(128, 218, 255) andTextStr:@"冻结金额" andNumStr:[NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.frozenPoint.doubleValue]];
 }
 /**
  计算比例值
@@ -42,7 +42,7 @@
     NSString *lenderPrincipal = [NSString stringWithFormat:@"%f",self.viewModel.userInfoModel.userAssets.lenderPrincipal.doubleValue/self.viewModel.userInfoModel.userAssets.assetsTotal.doubleValue];
     NSString *availablePoint = [NSString stringWithFormat:@"%f",self.viewModel.userInfoModel.userAssets.availablePoint.doubleValue/self.viewModel.userInfoModel.userAssets.assetsTotal.doubleValue];
     NSString *frozenPoint = [NSString stringWithFormat:@"%f",self.viewModel.userInfoModel.userAssets.frozenPoint.doubleValue/self.viewModel.userInfoModel.userAssets.assetsTotal.doubleValue];
-    [self.proportionalBarView drawLineWithRatioArr:@[financePlanAssets,availablePoint,lenderPrincipal,frozenPoint] andWithColorArr:@[RGB(255, 126, 127),RGB(161, 147, 249),RGB(128, 218, 255),RGB(255, 197, 162)]];
+    [self.proportionalBarView drawLineWithRatioArr:@[financePlanAssets,availablePoint,lenderPrincipal,frozenPoint] andWithColorArr:@[RGB(255, 126, 127),RGB(161, 147, 249),RGB(255, 192, 162),RGB(128, 218, 255)]];
 }
 
 

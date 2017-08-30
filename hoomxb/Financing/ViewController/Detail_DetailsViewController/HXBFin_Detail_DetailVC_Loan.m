@@ -239,7 +239,7 @@
     }];
     
     [self.loanInstuctionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scrollView).offset(kScrAdaptationH(15));
+        make.top.equalTo(self.scrollView).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self.view);
     }];
     

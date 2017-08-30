@@ -68,7 +68,7 @@
 {
     if (!_loanInstructionLabel) {
         _loanInstructionLabel = [[UILabel alloc] init];
-        _loanInstructionLabel.font = kHXBFont_PINGFANGSC_REGULAR(21);
+        _loanInstructionLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         _loanInstructionLabel.textColor = kHXBColor_Grey_Font0_2;
         _loanInstructionLabel.text = @"借款说明";
     }

@@ -264,7 +264,7 @@
     if (!_tipLabel) {
         _tipLabel = [[UILabel alloc] init];
         _tipLabel.text = @"3、禁止恶意提现";
-        _tipLabel.textColor = RGB(153, 153, 153);
+        _tipLabel.textColor = COR8;
         _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     }
     return _tipLabel;
@@ -274,7 +274,7 @@
     if (!_promptLabel) {
         _promptLabel = [[UILabel alloc] init];
         _promptLabel.text = @"2、提现手续费为0";
-        _promptLabel.textColor = RGB(153, 153, 153);
+        _promptLabel.textColor = COR8;
         _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     }
     return _promptLabel;
@@ -284,7 +284,7 @@
     if (!_tiedCardLabel) {
         _tiedCardLabel = [[UILabel alloc] init];
         _tiedCardLabel.text = @"1、提现到已绑定的银行卡上";
-        _tiedCardLabel.textColor = RGB(153, 153, 153);
+        _tiedCardLabel.textColor = COR8;
         _tiedCardLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     }
     return _tiedCardLabel;

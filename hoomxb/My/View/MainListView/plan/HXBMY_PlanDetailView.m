@@ -231,7 +231,7 @@ UITableViewDataSource
         make.height.equalTo(@(kScrAdaptationH750(90)));
     }];
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.typeView.mas_bottom).offset(kScrAdaptationH(8));
+        make.top.equalTo(self.typeView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.equalTo(self);
         make.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH750(180)));

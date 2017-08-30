@@ -41,6 +41,7 @@
     UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
 //    [leftBackBtn setTitle:@"返回" forState:UIControlStateNormal];
     [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
+    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateHighlighted];
     // 让按钮内部的所有内容左对齐
     leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [leftBackBtn addTarget:self action:@selector(leftBackBtnClick) forControlEvents:UIControlEventTouchUpInside];

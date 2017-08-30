@@ -222,9 +222,9 @@ kDealloc
 ///底部的scrollView的搭建
 //- (NSMutableArray <HXBBaseTableView_MYPlanList_TableView*> *)creatBottomScrollView {
 - (void)creatBottomScrollView {
-    self.erpaying_Loan_TableView = [[HXBMY_Loan_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.bid_Loan_TableView = [[HXBMY_Loan_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-    self.loanTruansferTableView = [[HXBMY_LoanTruansferTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.erpaying_Loan_TableView = [[HXBMY_Loan_TableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.bid_Loan_TableView = [[HXBMY_Loan_TableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.loanTruansferTableView = [[HXBMY_LoanTruansferTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
 }
 ///搭建scrollToolBarView；
 - (void)createScrollToolBarView {

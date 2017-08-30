@@ -179,4 +179,9 @@ static NSString *const exitTitle = @"已退出";
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return kScrAdaptationH(10);
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
 @end

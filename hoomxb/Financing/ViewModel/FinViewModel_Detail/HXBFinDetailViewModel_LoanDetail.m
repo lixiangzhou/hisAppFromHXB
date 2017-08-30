@@ -446,6 +446,7 @@
         _fin_LoanInfoView_Manager.companyPost = self.companyPost;
         _fin_LoanInfoView_Manager.companyIndustry = self.companyIndustry;
         _fin_LoanInfoView_Manager.companyLocation = self.companyLocation;
+        _fin_LoanInfoView_Manager.loanInstruction = self.loanDetailModel.userVo.description_userVO;
     }
     return _fin_LoanInfoView_Manager;
 }

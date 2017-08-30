@@ -161,7 +161,7 @@
         _tipLabel.text = @"红小宝充值仅限储蓄卡，不可使用信用卡，一旦发现恶意充值，套现等行为，将对账户做出严肃处理。";
         _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _tipLabel.numberOfLines = 0;
-        _tipLabel.textColor = RGB(102, 102, 102);
+        _tipLabel.textColor = COR8;
     }
     return _tipLabel;
 }
