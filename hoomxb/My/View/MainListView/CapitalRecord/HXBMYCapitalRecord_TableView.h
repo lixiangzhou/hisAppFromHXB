@@ -12,4 +12,6 @@
 ///资金统计的列表
 @interface HXBMYCapitalRecord_TableView : HXBBaseTableView
 @property (nonatomic,strong)NSArray <HXBMYViewModel_MainCapitalRecordViewModel *>*capitalRecortdDetailViewModelArray;
+@property (nonatomic, assign) NSInteger totalCount;
+
 @end

@@ -35,17 +35,19 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 @interface HXBMY_CapitalRecordViewController ()
 @property (nonatomic,strong) HXBMYCapitalRecord_TableView *tableView;
 @property (nonatomic,copy) NSString *screenType;
+@property (nonatomic, assign) NSInteger totalCount;
+
 @end
 
 @implementation HXBMY_CapitalRecordViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUP];
     self.title = @"交易记录";
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
     self.screenType = @" ";
     [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:true];
+    [self setUP];
     self.isColourGradientNavigationBar = YES;
     kWeakSelf
     baseNAV.getNetworkAgainBlock = ^{
@@ -54,9 +56,10 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 }
 
 - (void)setUP {
-    self.view.backgroundColor = kHXBColor_BackGround;
+//    self.view.backgroundColor = kHXBColor_BackGround;
     self.tableView = [[HXBMYCapitalRecord_TableView alloc]init];
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    self.tableView.backgroundColor = kHXBColor_BackGround;
     [self refresh];
     [self.view addSubview:self.tableView];
     [self setUPNAVItem];
@@ -64,12 +67,6 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 
 - (void)refresh {
     kWeakSelf
-    [self.tableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        [weakSelf downDataWithScreenType:weakSelf.screenType andStartDate:nil andEndDate:nil andIsUPData:false];
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-    }];
-    
-    
     [self.tableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         [weakSelf downDataWithScreenType:weakSelf.screenType andStartDate:nil andEndDate:nil andIsUPData:true];
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
@@ -81,9 +78,17 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
                                                            andStartDate:startData
                                                              andEndDate:endData
                                                             andIsUPData:isUPData
-                                                        andSuccessBlock:^(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *> *viewModelArray)
+                                                        andSuccessBlock:^(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *> *viewModelArray, NSInteger totalCount)
     {
+        self.totalCount = totalCount;
+        if (self.totalCount > 20) {
+            [self.tableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+                [self downDataWithScreenType:self.screenType andStartDate:nil andEndDate:nil andIsUPData:false];
+            } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+            }];
+        }
         self.tableView.capitalRecortdDetailViewModelArray = viewModelArray;
+        self.tableView.totalCount = self.totalCount;
         [self.tableView endRefresh];
     } andFailureBlock:^(NSError *error) {
         [self.tableView endRefresh];

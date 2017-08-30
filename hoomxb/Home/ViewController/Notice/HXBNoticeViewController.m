@@ -163,7 +163,7 @@
         _nodataView.downPULLMassage = @"下拉进行刷新";
         [self.mainTabelView addSubview:_nodataView];
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.mainTabelView).offset(kScrAdaptationH(139));
+            make.top.equalTo(self.mainTabelView).offset(kScrAdaptationH(100));
             make.height.width.equalTo(@(kScrAdaptationH(184)));
             make.centerX.equalTo(self.mainTabelView);
         }];

@@ -24,6 +24,8 @@
 @property (nonatomic,copy) NSString * toRepay;
 ///@"已获收益（元）"
 @property (nonatomic,copy) NSString * toBeReceived_const;
+@property (nonatomic, copy) NSString * loanTitle;
+
 /**
  已还期数
  */
