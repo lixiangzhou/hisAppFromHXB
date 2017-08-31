@@ -49,9 +49,10 @@ static NSString * const HeaderID = @"HeaderID";
 - (void)setUP {
     self.delegate = self;
     self.dataSource = self;
+    self.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self registerClass:[HXBMYCapitalRecord_TableViewCell class] forCellReuseIdentifier:CELLID];
     [self registerClass:[HXBMYCapitalRecord_TableViewHeaderView class] forHeaderFooterViewReuseIdentifier:HeaderID];
-    self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW750(30), 0, kScrAdaptationW750(30));
+//    self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW750(30), 0, kScrAdaptationW750(30));
     self.rowHeight = kScrAdaptationH750(132);
 }
 
@@ -69,7 +70,9 @@ static NSString * const HeaderID = @"HeaderID";
     cell.capitalRecortdDetailViewModel = self.capitalRecortdDetailViewModelArray[indexPath.row];
     if (self.totalCount > 0) {
         if (indexPath.row == self.totalCount - 1) {
-            tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+            cell.isShowCellLine = NO;
+        } else {
+            cell.isShowCellLine = YES;
         }
     }
     return cell;

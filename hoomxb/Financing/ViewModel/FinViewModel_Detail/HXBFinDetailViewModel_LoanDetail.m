@@ -290,7 +290,7 @@
  */
 - (NSString *)age {
     if (!_age) {
-        _age = [NSString stringWithFormat:@"年龄 %@岁",self.loanDetailModel.idCardInfo.age];
+        _age = [NSString stringWithFormat:@"%@岁",self.loanDetailModel.idCardInfo.age];
     }
     return _age;
 }
@@ -434,7 +434,7 @@
         _fin_LoanInfoView_Manager.marriageStatus = self.marriageStatus;
         _fin_LoanInfoView_Manager.idNo = self.idNo;
         ///@"学历："
-        _fin_LoanInfoView_Manager.university = self.university;
+        _fin_LoanInfoView_Manager.graduation = self.loanDetailModel.userVo.graduation;
         _fin_LoanInfoView_Manager.homeTown = self.homeTown;
 
         _fin_LoanInfoView_Manager.hasCar = self.hasCar;

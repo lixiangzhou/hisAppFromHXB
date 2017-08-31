@@ -32,6 +32,7 @@ static NSString *const kTrueButtonTitle = @"确定";
     _isCorrect = isCorrect;
     if(!isCorrect) {
         self.promptLabel.text = @"验证码输入错误";
+        self.checkCaptchaTextField.text = @"";
     }
 }
 - (void)setCheckCaptchaImage:(UIImage *)checkCaptchaImage {
@@ -130,7 +131,7 @@ static NSString *const kTrueButtonTitle = @"确定";
     self.checkCaptchaTextField.textColor = RGB(51, 51, 51);
     self.checkCaptchaTextField.textAlignment = NSTextAlignmentCenter;
     self.checkCaptchaTextField.delegate = self;
-    self.checkCaptchaTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+    self.checkCaptchaTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.line.backgroundColor = RGB(222, 222, 222);
     
     self.trueButton.backgroundColor = RGB(245, 81, 81);

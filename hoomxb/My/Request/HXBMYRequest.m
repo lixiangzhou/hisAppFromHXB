@@ -507,7 +507,6 @@
                                             @"filter" : screenType
                                             };
     self.capitalRecordAPI.requestMethod = NYRequestMethodGet;
-    
     [self.capitalRecordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD
 

@@ -130,11 +130,20 @@ UITableViewDataSource,UITableViewDelegate
                 }
             }else
             {
-                //进入绑卡界面
-                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                withdrawCardViewController.title = @"绑卡";
-                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+                
+                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"您还没有绑定银行卡" force:2 andLeftButtonMassage:@"暂不绑定" andRightButtonMassage:@"绑卡银行卡"];
+                [alertVC setClickXYRightButtonBlock:^{
+                    //进入绑卡界面
+                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                    withdrawCardViewController.title = @"绑卡";
+                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                    [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+                }];
+                [alertVC setClickXYLeftButtonBlock:^{
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }];
+                alertVC.messageHeight = 40;
+                [self presentViewController:alertVC animated:YES completion:nil];
             }
         }
         

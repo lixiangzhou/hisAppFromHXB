@@ -45,7 +45,7 @@
 - (void)setAmount:(NSString *)amount
 {
     _amount = amount;
-    self.rechargeNumLabel.text = [NSString stringWithFormat:@"成功充值 %@元",amount];
+    self.rechargeNumLabel.text = [NSString stringWithFormat:@"成功充值 %.2f元",[amount floatValue]];
 }
 
 - (void)setupSubViewFrame

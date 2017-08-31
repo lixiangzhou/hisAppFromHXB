@@ -52,7 +52,7 @@
 /**
  学历
  */
-@property (nonatomic,copy) NSString *university;
+@property (nonatomic,copy) NSString *graduation;
 /**
  籍贯
  */
@@ -338,11 +338,11 @@
 /**
  学历
  */
-- (NSString *)university {
-    if (!_university) {
-        _university = [self string:self.loanTruansferDetailModel.userVo.university componentsSeparatedByString:@"-"];
+- (NSString *)graduation {
+    if (!_graduation) {
+        _graduation = [self string:self.loanTruansferDetailModel.userVo.graduation componentsSeparatedByString:@"-"];
     }
-    return _university;
+    return _graduation;
 }
 /**
  ///@"籍贯：",
@@ -391,7 +391,7 @@
         _fin_LoanInfoView_Manager.marriageStatus = self.marriageStatus;
         _fin_LoanInfoView_Manager.idNo = self.idNo;
         ///@"学历："
-        _fin_LoanInfoView_Manager.university = self.university;
+        _fin_LoanInfoView_Manager.graduation = self.graduation;
         _fin_LoanInfoView_Manager.homeTown = self.homeTown;
         
         _fin_LoanInfoView_Manager.hasCar = self.hasCar;

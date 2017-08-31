@@ -77,6 +77,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.tabBarItem setTitlePositionAdjustment:UIOffsetMake(-3, -3)];
+    
 //    [self.navigationBar setValue:@(0)forKeyPath:@"backgroundView.alpha"];
 //    self.navigationBar.barStyle=UIBarStyleBlackTranslucent;
 //    self.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};

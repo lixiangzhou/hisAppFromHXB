@@ -30,14 +30,6 @@ static HXB_XYTools * handle = nil;
     return image;
 }
 
-// 自适应宽度的方法
-- (CGFloat)WidthWithString:(NSString *)string labelFont:(UIFont *)labelFont addWidth:(CGFloat)width
-{
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:labelFont forKey:NSFontAttributeName];
-    //2. 计算320宽16字号的label的高度
-    CGRect frame = [string boundingRectWithSize:CGSizeMake(1000, 15) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:dic context:nil];
-    return frame.size.width + width;
-}
 
 //创建阴影
 - (void)createViewShadDow:(UIImageView*)imageView {
@@ -48,6 +40,16 @@ static HXB_XYTools * handle = nil;
     imageView.layer.shadowOpacity = 0.8f;
     imageView.layer.shadowRadius = 3.0f;
     
+}
+
+
+// 自适应宽度的方法
+- (CGFloat)WidthWithString:(NSString *)string labelFont:(UIFont *)labelFont addWidth:(CGFloat)width
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObject:labelFont forKey:NSFontAttributeName];
+    //2. 计算320宽16字号的label的高度
+    CGRect frame = [string boundingRectWithSize:CGSizeMake(1000, 15) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:dic context:nil];
+    return frame.size.width + width;
 }
 
 @end

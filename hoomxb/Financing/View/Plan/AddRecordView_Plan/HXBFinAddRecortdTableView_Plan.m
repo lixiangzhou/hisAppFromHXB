@@ -10,13 +10,12 @@
 #import "FinModel_AddRecortdModel_Loan.h"
 ///红利计划加入记录的model
 #import "HXBFinModel_AddRecortdModel_LoanTruansfer.h"
-#import "HXBFinModel_AddRecortdModel_Plan.h"
+#import "HXBFinModel_AddRecortdModel_Plan.h" 
+
 static NSString *CELLID = @"CELLID";
-@interface HXBFinAddRecortdTableView_Plan ()
-<
-UITableViewDelegate,
-UITableViewDataSource
->
+@interface HXBFinAddRecortdTableView_Plan ()<UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic,strong) HXBNoDataView *nodataView;
 
 @end
 
@@ -24,11 +23,13 @@ UITableViewDataSource
 
 - (void)setAddRecortdModel_Plan:(HXBFinModel_AddRecortdModel_Plan *)addRecortdModel_Plan {
     _addRecortdModel_Plan = addRecortdModel_Plan;
+    self.nodataView.hidden = addRecortdModel_Plan.dataList.count;
     [self reloadData];
 }
 
 - (void)setLoanModel:(FinModel_AddRecortdModel_Loan *)loanModel {
     _loanModel = loanModel;
+    self.nodataView.hidden = loanModel.loanLenderRecord_list.count;
     [self reloadData];
 }
 
@@ -40,6 +41,7 @@ UITableViewDataSource
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setUP];
+//        self.backgroundColor = kHXBColor_BackGround;
     }
     return self;
 }
@@ -74,6 +76,21 @@ UITableViewDataSource
         [planCell showWithNumber:loanTruansferModel.index andID:loanTruansferModel.toUserId andDate:loanTruansferModel.createTime andAmount:loanTruansferModel.amount];
     }
     return planCell;
+}
+
+- (HXBNoDataView *)nodataView {
+    if (!_nodataView) {
+        _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
+        [self addSubview: _nodataView];
+        _nodataView.imageName = @"Fin_NotData";
+        _nodataView.noDataMassage = @"暂无记录";
+        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(kScrAdaptationH(100));
+            make.height.width.equalTo(@(kScrAdaptationH(184)));
+            make.centerX.equalTo(self);
+        }];
+    }
+    return _nodataView;
 }
 @end
 
@@ -166,4 +183,7 @@ UITableViewDataSource
     _YUANLable.font = kHXBFont_PINGFANGSC_REGULAR(14);
     _YUANLable.textColor = kHXBColor_HeightGrey_Font0_4;
 }
+
+
+
 @end
