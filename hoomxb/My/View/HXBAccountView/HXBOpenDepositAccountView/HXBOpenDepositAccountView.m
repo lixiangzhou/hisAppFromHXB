@@ -14,7 +14,7 @@
 #import "HXBBankCardModel.h"
 #import "HXBAgreementView.h"
 
-@interface HXBOpenDepositAccountView ()
+@interface HXBOpenDepositAccountView ()<UITextFieldDelegate>
 @property (nonatomic, strong) HXBDepositoryHeaderView *headerTipView;
 @property (nonatomic, strong) HXBCustomTextField *nameTextField;
 @property (nonatomic, strong) HXBCustomTextField *idCardTextField;
@@ -26,7 +26,10 @@
 //@property (nonatomic, strong) HXBFinBaseNegotiateView *negotiateView;
 @property (nonatomic, strong) HXBAgreementView *negotiateView;
 
-@property (nonatomic, strong) UIButton *bottomBtn;
+/**
+ 是否同意协议
+ */
+@property (nonatomic, assign) BOOL isAgree;
 
 
 /**
@@ -40,6 +43,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.headerTipView];
         [self addSubview:self.nameTextField];
         [self addSubview:self.idCardTextField];
@@ -49,57 +53,27 @@
         [self addSubview:self.bankNumberTextField];
         [self addSubview:self.phoneTextField];
         [self addSubview:self.negotiateView];
-        [self addSubview:self.bottomBtn];
+//        [self addSubview:self.bottomBtn];
         [self setupSubViewFrame];
-        [self loadUserInfo];
+        self.isAgree = YES;
        
     }
     return self;
 }
 
-- (void)loadUserInfo
-{
-    kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-//        if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) return;
-        
-//        if (viewModel.userInfoModel.userInfo.escrowTime.intValue >= 3) {
-//            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在开通三次，如需继续开通联系客服"];
-//            return;
-//        }
-        //设置用户信息
-        [self setupUserIfoData:viewModel];
-        
-        if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-            //已经绑卡
-            NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
-            bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
-            bankCardAPI.requestMethod = NYRequestMethodGet;
-            [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-                NSLog(@"%@",responseObject);
-                NSInteger status =  [responseObject[@"status"] integerValue];
-                if (status != 0) {
-                    [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-                    return;
-                }
-                HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
-                //设置绑卡信息
-                [weakSelf setupBankCardData:bankCardModel];
-            } failure:^(NYBaseRequest *request, NSError *error) {
-                NSLog(@"%@",error);
-                [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
-            }];
-        }
-        
-    } andFailure:^(NSError *error) {
-        
-    }];
-}
 
 - (void)setUserModel:(HXBRequestUserInfoViewModel *)userModel
 {
     _userModel = userModel;
 
+    if (userModel.userInfoModel.userInfo.isCreateEscrowAcc)
+    {
+        [self.bottomBtn setTitle:@"提交" forState:UIControlStateNormal];
+    }else
+    {
+        [self.bottomBtn setTitle:@"开通恒丰银行存管账户" forState:UIControlStateNormal];
+    }
+    
     //设置用户信息
     [self setupUserIfoData:userModel];
     
@@ -200,16 +174,12 @@
         make.height.offset(kScrAdaptationH(50));
     }];
     
-    [self.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.offset(kScrAdaptationH(49));
-    }];
+ 
     [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.bottomBtn.mas_top).offset(kScrAdaptationH(-20));
+        make.top.equalTo(self.phoneTextField.mas_bottom).offset(kScrAdaptationH(40));
         make.centerX.equalTo(self);
         make.left.equalTo(self).offset(kScrAdaptationW(18));
         make.right.equalTo(self).offset(kScrAdaptationW(-18));
-
     }];
 }
 
@@ -222,7 +192,7 @@
 - (void)bottomBtnClick
 {
     if (self.openAccountBlock) {
-        if ([self judgeIsNull]) return;
+        if ([self judgeIsTure]) return;
         NSDictionary *dic = @{
                               @"realName" : self.nameTextField.text,
                               @"identityCard" : self.idCardTextField.text,
@@ -235,7 +205,7 @@
     }
 }
 
-- (BOOL)judgeIsNull
+- (BOOL)judgeIsTure
 {
     BOOL isNull = NO;
     if (!(self.nameTextField.text.length > 0)) {
@@ -271,8 +241,53 @@
     return isNull;
 }
 
+- (BOOL)isjudgeIsNull
+{
+    BOOL isNull = NO;
+    if (!(self.nameTextField.text.length > 0)) {
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.idCardTextField.text.length > 0)) {
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.pwdTextField.text.length > 0)) {
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.bankCode.length > 0)) {
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.bankNumberTextField.text.length > 0)) {
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.phoneTextField.text.length > 0)) {
+        isNull = YES;
+        return isNull;
+    }
+    return isNull;
+}
 
-
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if (range.location == 0 && [string isEqualToString:@""]) {
+        self.isAgree = NO;
+    }else
+    {
+        self.isAgree = YES;
+    }
+    self.bottomBtn.enabled = ![self isjudgeIsNull];
+    if (![self isjudgeIsNull] && self.isAgree) {
+        self.bottomBtn.backgroundColor = COR24;
+    }else
+    {
+        self.bottomBtn.backgroundColor = COR26;
+    }
+    return YES;
+}
 #pragma mark - 懒加载
 - (HXBDepositoryHeaderView *)headerTipView
 {
@@ -289,6 +304,7 @@
         _nameTextField = [[HXBCustomTextField alloc] init];
         _nameTextField.leftImage = [SVGKImage imageNamed:@"name.svg"].UIImage;
         _nameTextField.placeholder = @"真实姓名";
+        _nameTextField.delegate = self;
     }
     return _nameTextField;
 }
@@ -299,6 +315,7 @@
         _idCardTextField = [[HXBCustomTextField alloc] init];
         _idCardTextField.leftImage = [SVGKImage imageNamed:@"id_number.svg"].UIImage;
         _idCardTextField.placeholder = @"身份证号";
+        _idCardTextField.delegate = self;
     }
     return _idCardTextField;
 }
@@ -310,6 +327,7 @@
         _pwdTextField.placeholder = @"交易密码";
         _pwdTextField.keyboardType = UIKeyboardTypeNumberPad;
         _pwdTextField.secureTextEntry = YES;
+        _pwdTextField.delegate = self;
     }
     return _pwdTextField;
 }
@@ -330,6 +348,7 @@
         _bankNameTextField.leftImage = [SVGKImage imageNamed:@"bank_name.svg"].UIImage;
         _bankNameTextField.placeholder = @"银行名称";
         _bankNameTextField.rightImage = [SVGKImage imageNamed:@"more.svg"].UIImage;
+        _bankNameTextField.delegate = self;
         _bankNameTextField.btnClick = ^{
             if (weakSelf.bankNameBlock) {
                 weakSelf.bankNameBlock();
@@ -344,6 +363,7 @@
         _bankNumberTextField = [[HXBCustomTextField alloc] init];
         _bankNumberTextField.leftImage = [SVGKImage imageNamed:@"card.svg"].UIImage;
         _bankNumberTextField.placeholder = @"银行卡号";
+        _bankNumberTextField.delegate = self;
     }
     return _bankNumberTextField;
 }
@@ -354,6 +374,7 @@
         _phoneTextField = [[HXBCustomTextField alloc] init];
         _phoneTextField.leftImage = [SVGKImage imageNamed:@"mobile.svg"].UIImage;
         _phoneTextField.placeholder = @"预留手机号码";
+        _phoneTextField.delegate = self;
     }
     return _phoneTextField;
 }
@@ -380,13 +401,15 @@
         }];
         _negotiateView = [[HXBAgreementView alloc] initWithFrame:CGRectZero];
         _negotiateView.text = attributedString;
-        _negotiateView.agreeBtnBlock = ^{
-            weakSelf.bottomBtn.enabled = !weakSelf.bottomBtn.enabled;
-            if (weakSelf.bottomBtn.enabled) {
+        _negotiateView.agreeBtnBlock = ^(BOOL isSelected){
+            weakSelf.isAgree = isSelected;
+            if (isSelected && ![weakSelf isjudgeIsNull] ) {
                 weakSelf.bottomBtn.backgroundColor = COR24;
+                weakSelf.bottomBtn.enabled = YES;
             }else
             {
                 weakSelf.bottomBtn.backgroundColor = COR26;
+                weakSelf.bottomBtn.enabled = NO;
             }
         };
     }
@@ -398,7 +421,8 @@
 {
     if (!_bottomBtn) {
         _bottomBtn = [[UIButton alloc] init];
-        _bottomBtn.backgroundColor = COR24;
+        _bottomBtn.backgroundColor = COR26;
+        _bottomBtn.enabled = NO;
         [_bottomBtn setTitle:@"开通恒丰银行存管账户" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _bottomBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);

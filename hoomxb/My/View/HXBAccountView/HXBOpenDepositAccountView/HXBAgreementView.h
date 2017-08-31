@@ -20,7 +20,7 @@
 /**
  点击对号按钮回调的Block
  */
-@property (nonatomic, copy) void (^agreeBtnBlock)();
+@property (nonatomic, copy) void (^agreeBtnBlock)(BOOL isSelceted);
 /**
  对文本中跟withString相同的文字配置富文本，指定的文字为可点击链点！！！
  

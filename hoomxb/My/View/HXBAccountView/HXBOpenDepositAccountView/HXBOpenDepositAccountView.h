@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HXBBankCardModel;
 @interface HXBOpenDepositAccountView : UIView
 
 //用户信息
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userModel;
+
 /**
  bankCode
  */
@@ -25,7 +26,8 @@
  bankNameBlock
  */
 @property (nonatomic, copy) void(^bankNameBlock)();
-
+//底部按钮
+@property (nonatomic, strong) UIButton *bottomBtn;
 /**
  开通账户
  */
@@ -34,4 +36,8 @@
  存管协议
  */
 - (void)clickTrustAgreementWithBlock:(void(^)(BOOL isThirdpart))clickTrustAgreement;
+//设置用户
+- (void)setupUserIfoData:(HXBRequestUserInfoViewModel *)viewModel;
+//设置银行卡信息
+- (void)setupBankCardData:(HXBBankCardModel *)bankCardModel;
 @end

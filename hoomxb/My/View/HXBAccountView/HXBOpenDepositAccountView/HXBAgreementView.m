@@ -105,7 +105,7 @@
 {
     self.agreeBtn.selected = !self.agreeBtn.selected;
     if (self.agreeBtnBlock) {
-        self.agreeBtnBlock();
+        self.agreeBtnBlock(self.agreeBtn.selected);
     }
 }
 

@@ -175,7 +175,7 @@
         return;
     }
     self.sureBtnClick(self.verificationCodeAlertView.verificationCode);
-    [self dismissViewControllerAnimated:NO completion:nil];
+//    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 /**

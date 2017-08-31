@@ -12,5 +12,4 @@
 ///金额
 @property (nonatomic,copy) NSString *amount;
 
-@property (nonatomic, strong) UIViewController *popVC;
 @end

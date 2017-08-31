@@ -39,7 +39,7 @@
             //会有倒计时
         }else if (_countDownLastStr.integerValue > 3600) {
             //显示的是数字 12日12：12
-            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:_countDownLastStr andDateFormat:@"MM月dd日 HH:mm开始加入"];
+            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:_countDownLastStr andDateFormat:@"MM月dd日 HH:mm开售"];
         }
     }
     return _countDownLastStr;
@@ -58,10 +58,10 @@
         _cellBtnTitle = self.unifyStatus;
     }else if (self.isremainTime)
     {
-        _cellBtnTitle = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.beginSellingTime andDateFormat:@"MM月dd日 HH:mm开始加入"];
+        _cellBtnTitle = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.beginSellingTime andDateFormat:@"MM月dd日 HH:mm开售"];
     }else
     {
-        _cellBtnTitle = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.diffTime andDateFormat:@"mm分ss秒后可加入"];
+        _cellBtnTitle = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.diffTime andDateFormat:@"mm分ss秒后开售"];
     }
 
     return _cellBtnTitle;
@@ -85,7 +85,7 @@
         case 1:
         case 4:
         case 5:
-            return [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.beginSellingTime andDateFormat:@"MM月dd日 HH:mm开始加入"];//等待预售开始超过30分
+            return [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.beginSellingTime andDateFormat:@"MM月dd日 HH:mm开售"];//等待预售开始超过30分
             break;
 //        case 1:
 //            return @"等待开放";//等待预售开始小于30分钟

@@ -90,6 +90,7 @@
     kWeakSelf
     alertVC.isCode = YES;
     alertVC.messageTitle = @"请输入您的短信验证码";
+    __weak typeof(alertVC) weakAlertVC = alertVC;
     alertVC.sureBtnClick = ^(NSString *pwd){
         HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
         [accountRequest accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:self.myTopUpBaseView.amount andSuccessBlock:^(id responseObject) {
@@ -108,18 +109,16 @@
                 [result clickButtonWithBlock:^{
                     [weakSelf.navigationController popViewControllerAnimated:YES];
                 }];
+                [weakAlertVC dismissViewControllerAnimated:NO completion:nil];
                 [self.navigationController pushViewController:result animated:YES];
+                
             }else
             {
-                if (self.popVC) {
-                    [self.navigationController popToViewController:self.popVC animated:YES];
-                }else
-                {                    
-                    HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
-                    rechargeCompletedVC.responseObject = responseObject;
-                    rechargeCompletedVC.amount = weakSelf.myTopUpBaseView.amount;
-                    [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
-                }
+                [weakAlertVC dismissViewControllerAnimated:NO completion:nil];
+                HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
+                rechargeCompletedVC.responseObject = responseObject;
+                rechargeCompletedVC.amount = weakSelf.myTopUpBaseView.amount;
+                [self.navigationController pushViewController:rechargeCompletedVC animated:YES];
             }
             
         } andFailureBlock:^(NSError *error) {
