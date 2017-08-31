@@ -42,8 +42,8 @@
     [self registerNotification];
 //    self.tabBar.hidden = YES;
     self.delegate = self;
-    // 去除tabBar上面的横线
-    [self hiddenTabbarLine];
+    [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
+    [[UITabBar appearance] setShadowImage:[UIImage new]];
 }
 
 
