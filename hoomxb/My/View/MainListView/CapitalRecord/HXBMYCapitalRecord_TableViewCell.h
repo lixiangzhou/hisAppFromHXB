@@ -13,4 +13,7 @@
 @interface HXBMYCapitalRecord_TableViewCell : UITableViewCell
 ///资金统计的列表
 @property (nonatomic,strong) HXBMYViewModel_MainCapitalRecordViewModel *capitalRecortdDetailViewModel;
+// 是否显示横线
+@property (nonatomic, assign) int isShowCellLine;
+
 @end

@@ -47,7 +47,7 @@
     //    [self getBannersWithCompletion:^{}];
     
     [self registerRefresh];
-    
+    [self hiddenTabbarLine];
     
     //判断是否显示设置手势密码
     [self gesturePwdShow];
@@ -64,6 +64,7 @@
 //    [self.tabBarController.tabBar setBackgroundColor:[UIColor whiteColor]];
 //    [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
 //}
+
 
 /**
  手势密码逻辑

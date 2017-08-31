@@ -40,6 +40,7 @@
     [super viewDidLoad];
     ///注册通知
     [self registerNotification];
+//    self.tabBar.hidden = YES;
     self.delegate = self;
     // 去除tabBar上面的横线
     [self hiddenTabbarLine];
@@ -84,7 +85,8 @@
     
     for (int i = 0; i < subViewControllerNameArray.count; i ++) {
         UIViewController *VC = [self ctratSubControllerWithName:subViewControllerNameArray[i]];
-        
+        UIEdgeInsets insets = UIEdgeInsetsMake(8, 0, -8, 0);
+        self.tabBar.items[i].imageInsets = insets;
         //设置字体
         VC.title = titleArray[i];
         HXBBaseNavigationController *NAV = [self creatNavigationControllerBySubViewController:VC];
@@ -108,6 +110,8 @@
     }
 }
 
+
+
 //MARK: 创建导航控制器
 - (HXBBaseNavigationController *)creatNavigationControllerBySubViewController: (UIViewController *)VC {
     HXBBaseNavigationController *NAV = [[HXBBaseNavigationController alloc]initWithRootViewController:VC];
@@ -121,6 +125,7 @@
     UIViewController *controller = [[class alloc]init];
     return controller;
 }
+
 
 
 - (void)realShowLogin

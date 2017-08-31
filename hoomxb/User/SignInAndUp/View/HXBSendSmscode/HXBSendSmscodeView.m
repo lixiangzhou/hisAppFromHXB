@@ -190,6 +190,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     
     self.password_TextField.placeholder = @"8-20位数组大小写字母组成";
     self.inviteCodeTextField.placeholder = @"请输入邀请码";
+    self.inviteCodeTextField.keyboardType = UIKeyboardTypeDefault;
     self.inviteCodeTextField.delegate = self;
     self.inviteCodeTextField.leftImage = [UIImage imageNamed:@"invitation_code"];
     
@@ -287,6 +288,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     self.smscode_TextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:kSmscode_ConstLableTitle];
     // 设置字体和设置字体的范围
+    self.smscode_TextField.delegate = self;
+    self.smscode_TextField.keyboardType = UIKeyboardTypeNumberPad;
     [attrStr addAttribute:NSForegroundColorAttributeName
                     value:COR10
                     range:NSMakeRange(0, kSmscode_ConstLableTitle.length)];
@@ -354,12 +357,19 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///点击了确定设置按钮
 - (void)clickSetPassWordButton: (UIButton *)button {
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_registSuccess];
-    if (self.smscode_TextField.text.length != 6) {
-        [HxbHUDProgress showTextWithMessage:@"请输入6位数的验证码"];
+    if (self.smscode_TextField.text.length == 0) {
+        [HxbHUDProgress showTextWithMessage:@"请输入验证码"];
+    } else if (self.smscode_TextField.text.length != 6) {
+        [HxbHUDProgress showTextWithMessage:@"请输入正确的验证码"];
     } else {
         if([self isPasswordQualifiedFunWithStr:self.password_TextField.text]) {
-            //合格 请求数据
-            if (self.clickSetPassWordButtonBlock) self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,self.inviteCodeTextField.text);
+            if (self.inviteCodeTextField.text.length == 0) {
+                [HxbHUDProgress showTextWithMessage:@"请输入正确的邀请码"];
+            } else {
+                //合格 请求数据
+                if (self.clickSetPassWordButtonBlock)
+                    self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,self.inviteCodeTextField.text);
+            }
         }else {
             NSString * message = [NSString isOrNoPasswordStyle:self.password_TextField.text];
             [HxbHUDProgress showTextWithMessage:message];
@@ -391,11 +401,39 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 #pragma mark - textField delegate
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField == self.smscode_TextField) {
+        if (textField.text.length > 5 && ![string isEqualToString: @""]) {
+            return NO;
+        }
+    }
     if ([NSString isChinese:string] || [NSString isIncludeSpecialCharact:string] || [string isEqualToString:@" "]) {
         return NO;
     }
+    
     return YES;
 }
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    if (textField != _smscode_TextField && textField != _password_TextField) {
+        [UIView animateWithDuration:0.4 animations:^{
+            if (kScreenWidth == 320) {
+                self.y = -70;
+            } else {
+                self.y = -40;
+            }
+        }];
+    }
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    if (textField != _smscode_TextField && textField != _password_TextField) {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.y = 0;
+        }];
+    }
+}
+
+
 
 - (BOOL)isPasswordQualifiedFunWithStr: (NSString *)password {
     ///判断字符串是否包含数字

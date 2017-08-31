@@ -70,7 +70,7 @@ UITextFieldDelegate
 - (UITextField *)phoneTextField{
     if (!_phoneTextField) {
         _phoneTextField = [[UITextField alloc]init];
-        _phoneTextField.keyboardType = UIKeyboardTypePhonePad;
+        _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTextField.delegate = self;
         _phoneTextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
         NSMutableAttributedString *phoneAttrStr = [[NSMutableAttributedString alloc] initWithString:kPhoneTitle];
@@ -195,7 +195,7 @@ UITextFieldDelegate
     }];
 
 
-//    self.phoneTextField.backgroundColor = [UIColor hxb_randomColor];
+//    self.phoneTextField.backgrqoundColor = [UIColor hxb_randomColor];
 //    self.havedAccountButton.backgroundColor = [UIColor hxb_randomColor];
 //    self.nextButton.backgroundColor = [UIColor hxb_randomColor];
     self.checkMobileLabel.backgroundColor = [UIColor hxb_randomColor];
@@ -247,8 +247,17 @@ UITextFieldDelegate
     
     return str.length <= 11;
 }
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    if (textField == _phoneTextField) {
+        self.nextButton.backgroundColor = COR26;
+        self.nextButton.userInteractionEnabled = NO;
+    }
+    return YES;
+}
+
+
 - (void)textFieldDidChange1:(UITextField *)textField{
-   
    
 }
 

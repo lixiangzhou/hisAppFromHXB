@@ -70,6 +70,8 @@
     kWeakSelf
     [self.loanInfoView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
         NSLog(@"viewmanager = %@", viewManager);
+        
+        
         viewManager.leftStrArray = @[
                                      @"基础信息",
                                      @"姓名：",
@@ -84,7 +86,7 @@
                                             weakSelf.fin_Detail_DetailVC_LoanManager.age,
                                             weakSelf.fin_Detail_DetailVC_LoanManager.marriageStatus,
                                             weakSelf.fin_Detail_DetailVC_LoanManager.idNo,
-                                            weakSelf.fin_Detail_DetailVC_LoanManager.university,
+                                            weakSelf.fin_Detail_DetailVC_LoanManager.graduation,
                                             weakSelf.fin_Detail_DetailVC_LoanManager.homeTown
                                             ];
         

@@ -40,6 +40,9 @@
 @property (nonatomic,strong) UILabel *pay_Label;
 ///摘要
 @property (nonatomic,strong) UILabel *notes_Label;
+
+@property (nonatomic, strong) UIView *cellLineView;
+
 @end
 
 @implementation HXBMYCapitalRecord_TableViewCell
@@ -52,6 +55,18 @@
     self.time_Label.text = capitalRecortdDetailViewModel.time;
     self.balance_Label.text = capitalRecortdDetailViewModel.balance;
 }
+
+- (void)setIsShowCellLine:(int)isShowCellLine {
+    _isShowCellLine = isShowCellLine;
+    NSLog(@"_+_+_+_+_+%d", isShowCellLine);
+    if (_isShowCellLine) {
+        self.cellLineView.hidden = NO;
+    } else {
+        self.cellLineView.hidden = YES;
+    }
+}
+
+
 - (instancetype) initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setUP];
@@ -70,7 +85,8 @@
     self.balance_Label = [[UILabel alloc]init];
     self.time_Label = [[UILabel alloc]init];
     self.notes_Label = [[UILabel alloc]init];
-
+    self.cellLineView = [[UIView alloc] init];
+    self.cellLineView.backgroundColor = kHXBColor_Font0_5;
     [self.contentView addSubview:self.pointDisplayType_Label];
 //    [self.contentView addSubview:self.amount_Label];
     [self.contentView addSubview:self.balance_Label];
@@ -78,7 +94,7 @@
 //    [self.contentView addSubview:self.isPlus_Label];
     [self.contentView addSubview:self.pay_Label];
 //    [self.contentView addSubview:self.notes_Label];
-    
+    [self.contentView addSubview:self.cellLineView];
     __weak typeof (self)weakSelf = self;
     [self.pointDisplayType_Label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(30));
@@ -96,7 +112,12 @@
         make.bottom.equalTo(weakSelf.contentView).offset(-kScrAdaptationH750(28));
         make.right.equalTo(weakSelf.contentView).offset(-kScrAdaptationW750(30));
     }];
-    
+    [self.cellLineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(weakSelf.contentView).offset(-kScrAdaptationH(0.5));
+        make.width.offset(kScreenWidth - kScrAdaptationW(30));
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
+        make.height.offset(kScrAdaptationH(0.5));
+    }];
     self.pointDisplayType_Label.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
     self.pointDisplayType_Label.textColor = COLOR(51, 51, 51, 1);
     self.pay_Label.font = kHXBFont_PINGFANGSC_REGULAR_750(28);

@@ -32,7 +32,7 @@
 ///@"身份证号：",
 @property (nonatomic,copy) NSString *idNo;
 ///@"学历：",
-@property (nonatomic,copy) NSString *university;
+@property (nonatomic,copy) NSString *graduation;
 ///@"籍贯：",
 @property (nonatomic,copy) NSString *homeTown;
 

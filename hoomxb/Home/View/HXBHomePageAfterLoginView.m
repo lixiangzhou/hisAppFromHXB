@@ -11,12 +11,12 @@
 
 @interface HXBHomePageAfterLoginView ()
 @property (nonatomic, strong) UILabel *userTitleLabel;
-//@property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UIButton *tipButton;
-@property (nonatomic, strong) UILabel *profitLabel;
+//@property (nonatomic, strong) UILabel *tipLabel;
+//@property (nonatomic, strong) UILabel *profitLabel;
 //@property (nonatomic, strong) UIButton *selectEyeButton;
-@property (nonatomic, strong) NSString *amountString;
-@property (nonatomic, strong) NSString *profitString;
+//@property (nonatomic, strong) NSString *amountString;
+//@property (nonatomic, strong) NSString *profitString;
 
 @end
 
@@ -28,7 +28,7 @@
 //        self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.userTitleLabel];
         [self addSubview:self.tipButton];
-        [self addSubview:self.profitLabel];
+//        [self addSubview:self.profitLabel];
 //        [self addSubview:self.selectEyeButton];
         [self setContentFrame];
 //        [self loadData];
@@ -41,29 +41,6 @@
         make.centerX.equalTo(self);
         make.top.equalTo(@kScrAdaptationH(55));
     }];
-    
-//    [_tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self);
-//        make.bottom.equalTo(self).offset(-10);
-//        make.right.equalTo(self);
-//        make.height.equalTo(@25);
-//    }];
-    
-    [self.tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@kScrAdaptationH(86));
-        make.centerX.equalTo(self);
-        make.height.equalTo(@kScrAdaptationH(30));
-//        make.right.equalTo(self);
-//        make.left.equalTo(self);
-//        make.height.equalTo(@25);
-//        make.width.equalTo(@90);
-    }];
-    
-//    [self.selectEyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(self).offset(-8);
-//        make.centerY.equalTo(self);
-//        make.size.mas_equalTo(CGSizeMake(40, 40));
-//    }];
 }
 
 //- (void)selectEyeButtonClicked:(UIButton *)sender
@@ -120,29 +97,28 @@
     self.userTitleLabel.text = self.headTipString;;
 }
 
-- (void)setAmountString:(NSString *)amountString{
-    _amountString = amountString;
-    if (_amountString.length != 0) {
-    _tipButton.titleLabel.text = amountString;
-    }
-}
-
-- (void)setProfitAndAmountData{
-    _amountString = @"3000.00";
-}
-
-- (void)setProfitString:(NSString *)profitString{
-    _profitString = profitString;
-}
-
 - (void)setTipString:(NSString *)tipString{
     _tipString = tipString;
-    [self.tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        CGFloat width = [[HXB_XYTools shareHandle] WidthWithString:_tipString labelFont:kHXBFont_PINGFANGSC_REGULAR(17) addWidth:30];
-        make.width.offset(width);
-    }];
     [self.tipButton setTitle:tipString forState:UIControlStateNormal];
+    CGFloat width = [[HXB_XYTools shareHandle] WidthWithString:_tipString labelFont:kHXBFont_PINGFANGSC_REGULAR(17) addWidth:30];
+    self.tipButton.frame = CGRectMake(kScreenWidth / 2 - kScrAdaptationW(width) / 2, kScrAdaptationH(86), kScrAdaptationW(width), kScrAdaptationH(30));
 }
+
+//- (void)setAmountString:(NSString *)amountString{
+//    _amountString = amountString;
+//    if (_amountString.length != 0) {
+//    _tipButton.titleLabel.text = amountString;
+//    }
+//}
+
+//- (void)setProfitAndAmountData{
+//    _amountString = @"3000.00";
+//}
+
+//- (void)setProfitString:(NSString *)profitString{
+//    _profitString = profitString;
+//}
+
 
 - (UILabel *)userTitleLabel{
     if (!_userTitleLabel) {
@@ -168,36 +144,26 @@
 {
     if (!_tipButton) {
         _tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _tipButton.frame = CGRectMake(0, 86, 10, 10);
         _tipButton.layer.borderColor = [UIColor whiteColor].CGColor;
         _tipButton.layer.borderWidth = kXYBorderWidth;
         _tipButton.layer.cornerRadius = kScrAdaptationH(15.0f);
-        _tipButton.titleEdgeInsets = UIEdgeInsetsMake(10, 12, 10, 12);
-        [_tipButton setBackgroundColor:[UIColor orangeColor]];
         [_tipButton setTitleColor:COR15 forState:UIControlStateNormal];
         _tipButton.titleLabel.font =  kHXBFont_PINGFANGSC_REGULAR(17);
-        _tipButton.backgroundColor = [UIColor clearColor];
+        _tipButton.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.07];
         [_tipButton addTarget:self action:@selector(tipButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _tipButton;
 }
 
-- (UILabel *)profitLabel{
-    if (!_profitLabel) {
-        _profitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_userTitleLabel.frame) + 5, SCREEN_WIDTH, 15)];
-    }
-    return _profitLabel;
-}
-
-//- (UIButton *)selectEyeButton
-//{
-//    if (!_selectEyeButton) {
-//        _selectEyeButton = [[UIButton alloc]init];
-//        [_selectEyeButton setImage:[UIImage imageNamed:@"hoomEye_open"] forState:UIControlStateNormal];
-//        [_selectEyeButton setImage:[UIImage imageNamed:@"hoomEye_close"] forState:UIControlStateSelected];
-//        [_selectEyeButton addTarget:self action:@selector(selectEyeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+//- (UILabel *)profitLabel{
+//    if (!_profitLabel) {
+//        _profitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_userTitleLabel.frame) + 5, SCREEN_WIDTH, 15)];
 //    }
-//    return _selectEyeButton;
+//    return _profitLabel;
 //}
+
+
 
 
 @end

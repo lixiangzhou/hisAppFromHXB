@@ -74,12 +74,12 @@
 //    [self dismissViewControllerAnimated:true completion:nil];
 }
 
-
 - (void)setUPAnimater{
     __weak typeof (self)weakSelf = self;
+    
     [self.animatr presentAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
         toView.center = [UIApplication sharedApplication].keyWindow.center;
-        toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(200));
+        toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(_messageHeight + 105));
         weakSelf.animatr.isAccomplishAnima = true;
     }];
     [self.animatr dismissAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
@@ -131,7 +131,7 @@
     
     [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(0);
-        make.height.offset(kScrAdaptationH(200));
+        make.height.offset(kScrAdaptationH(_messageHeight + 105));
         make.width.offset(self.view.width);
         make.center.equalTo(self.view);
     }];
@@ -147,19 +147,19 @@
         make.top.equalTo(self.view).offset(kScrAdaptationH(45));
         make.left.equalTo(self.view).offset(kScrAdaptationW(10));
         make.right.equalTo(self.view).offset(kScrAdaptationW(-10));
-        make.height.offset(kScrAdaptationH(95));
+        make.height.offset(kScrAdaptationH(_messageHeight));
     }];
     
     [self.leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(kScrAdaptationW(20));
-        make.top.equalTo(self.mainTitle).offset(kScrAdaptationH(150));
+        make.top.equalTo(self.mainTitle).offset(kScrAdaptationH(_messageHeight + 50));
         make.width.offset(kScrAdaptationW(115));
         make.height.offset(kScrAdaptationH(35));
     }];
     
     [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
-        make.top.equalTo(self.mainTitle).offset(kScrAdaptationH(150));
+        make.top.equalTo(self.mainTitle).offset(kScrAdaptationH(_messageHeight + 50));
         make.width.offset(kScrAdaptationW(115));
         make.height.offset(kScrAdaptationH(35));
     }];
