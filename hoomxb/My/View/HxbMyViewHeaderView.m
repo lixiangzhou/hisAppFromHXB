@@ -26,6 +26,7 @@
 //@property (nonatomic, strong) UIView *buttonLineView;
 @property (nonatomic, strong) UIButton *leftHeadButton;
 @property (nonatomic, strong) UIButton *rightHeadButton;
+@property (nonatomic, assign) float holdMoney;
 //@property (nonatomic, strong) UIButton *allFinanceButton;
 @property (nonatomic,copy) void(^clickAllFinanceButtonBlock)(UILabel *button);
 @end
@@ -148,8 +149,8 @@
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
 {
     _userInfoViewModel = userInfoViewModel;
-    
-    NSString *allFinanceStr = userInfoViewModel.userInfoModel.userAssets.assetsTotal.intValue? [NSString GetPerMilWithDouble:userInfoViewModel.userInfoModel.userAssets.assetsTotal.doubleValue]:@"0.00";
+    _holdMoney = [userInfoViewModel.userInfoModel.userAssets.financePlanAssets floatValue] + [userInfoViewModel.userInfoModel.userAssets.lenderPrincipal floatValue];
+    NSString *allFinanceStr = _holdMoney? [NSString GetPerMilWithDouble:_holdMoney]:@"0.00";
     
     NSString *accumulatedProfitStr = userInfoViewModel.userInfoModel.userAssets.earnTotal.intValue? [NSString GetPerMilWithDouble:userInfoViewModel.userInfoModel.userAssets.earnTotal.doubleValue]: @"0.00";
     
@@ -183,7 +184,7 @@
 
 - (void)rightHeadButtonClick:(UIButton *)rightHeadBtn
 {
-    NSString *allFinanceStr = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.assetsTotal doubleValue]]?:@"0.00";
+    NSString *allFinanceStr = [NSString GetPerMilWithDouble:_holdMoney]?:@"0.00";
     NSString *accumulatedProfitStr = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
     NSString *balance = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
     

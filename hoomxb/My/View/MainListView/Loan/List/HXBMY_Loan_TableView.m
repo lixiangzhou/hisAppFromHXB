@@ -120,7 +120,7 @@ static NSString *const exitTitle = @"已退出";
             titleArray = @[
                            @"投标金额(元)",
                            @"投标进度",
-                           @"平均历史年化收益"
+                           @"年利率"
                            ];
             exiTingImageViewName = @"explain.svg";
             title_rightSTR = viewModel.title_TermsInTotal_YUE;

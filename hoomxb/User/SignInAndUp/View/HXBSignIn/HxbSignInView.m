@@ -145,6 +145,7 @@ UITextFieldDelegate
     self.phoneTextField.attributedPlaceholder = phoneAttrStr;
     self.passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;
     self.passwordTextField.secureTextEntry = true;
+    
     NSMutableAttributedString *passwordAttrStr = [[NSMutableAttributedString alloc] initWithString:kPasswordText];
     // 设置字体和设置字体的范围
     [passwordAttrStr addAttribute:NSForegroundColorAttributeName
@@ -196,8 +197,8 @@ UITextFieldDelegate
     }];
     [self.passwordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.passwordImageView);
-        make.right.left.equalTo(weakSelf.phoneTextField);
-        make.width.height.centerX.equalTo(weakSelf.phoneTextField);
+        make.right.equalTo(weakSelf.phoneTextField).offset(-kScrAdaptationW(30));
+        make.left.equalTo(weakSelf.phoneTextField);
     }];
     [self.password_eye_btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.passwordTextField);
@@ -209,7 +210,7 @@ UITextFieldDelegate
     [self.passwordline mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.passwordImageView.mas_bottom).offset(kScrAdaptationH(15));;
         make.left.equalTo(weakSelf.passwordImageView.mas_left);
-        make.right.equalTo(weakSelf.passwordTextField.mas_right);
+        make.right.equalTo(weakSelf.phoneTextField.mas_right);
         make.height.equalTo(@0.5);
     }];
     [self.signInButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -268,7 +269,8 @@ UITextFieldDelegate
     
     self.phoneTextField.delegate = self;
     self.passwordTextField.delegate = self;
-    self.phoneTextField.keyboardType = UIKeyboardTypeDecimalPad;
+    self.passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneTextField.clearsOnBeginEditing = NO;
     self.phoneTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     //button 的设置

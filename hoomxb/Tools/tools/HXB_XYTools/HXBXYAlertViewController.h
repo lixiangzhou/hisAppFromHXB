@@ -16,6 +16,8 @@
           andLeftButtonMassage:(NSString *)leftButtonMassage
          andRightButtonMassage:(NSString *)rightButtonMassage;
 
+@property (nonatomic, assign) CGFloat messageHeight;
+
 ///点击了左边按钮
 @property (nonatomic,copy) void(^clickXYLeftButtonBlock)();
 ///点击了右边按钮

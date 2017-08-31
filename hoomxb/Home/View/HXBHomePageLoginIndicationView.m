@@ -15,9 +15,7 @@
 #import "HXBBaseTabBarController.h"
 
 #import "SVGKImage.h"
-#import "HXB_XYTools.h"
 
-static CGFloat const xyWidth = 8.0f;
 
 @interface HXBHomePageLoginIndicationView ()
 
@@ -25,25 +23,25 @@ static CGFloat const xyWidth = 8.0f;
 /**
  累计收益金额
  */
-@property (nonatomic, strong) UILabel *accumulatedLabel;
-/**
- 可用金额
- */
-@property (nonatomic, strong) UILabel *availableLabel;
-
+@property (nonatomic, strong) UILabel *allProfitLabel;
 /**
  累计收益
  */
-@property (nonatomic, strong) UILabel *accumulatedIncomeLabel;
+@property (nonatomic, strong) UILabel *allProfitTitleLabel;
 /**
  可用金额
  */
 @property (nonatomic, strong) UILabel *availableAmountLabel;
 /**
+ 可用金额
+ */
+@property (nonatomic, strong) UILabel *availableAmountTitleLabel;
+@property (nonatomic, strong) UIView *lineView;
+
+/**
  是否显示密文的按钮
  */
-@property (nonatomic, strong) UIButton *ciphertextButton;
-@property (nonatomic, assign) CGFloat availableWidth;
+@property (nonatomic, strong) UIButton *eyeButton;
 
 
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
@@ -56,12 +54,12 @@ static CGFloat const xyWidth = 8.0f;
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self addSubview:self.accumulatedIncomeLabel];
+        [self addSubview:self.lineView];
+        [self addSubview:self.allProfitLabel];
+        [self addSubview:self.allProfitTitleLabel];
         [self addSubview:self.availableAmountLabel];
-        [self addSubview:self.accumulatedLabel];
-        [self addSubview:self.availableLabel];
-        [self addSubview:self.ciphertextButton];
-        
+        [self addSubview:self.availableAmountTitleLabel];
+        [self addSubview:self.eyeButton];
         [self setupSubViewFrame];
         [self loadNewDate];
         
@@ -71,28 +69,41 @@ static CGFloat const xyWidth = 8.0f;
 
 #pragma mark Action Methods
 - (void)setupSubViewFrame{
-    
-    [self.accumulatedIncomeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(0);
-        make.right.equalTo(self).offset(-kScreenWidth / 2);
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self);
+        make.top.equalTo(self).offset(kScrAdaptationH(73));
+        make.width.offset(0.5);
+        make.height.offset(kScrAdaptationH(30));
+    }];
+    [self.allProfitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self);
+        make.right.equalTo(self.lineView.mas_left);
         make.top.equalTo(self).offset(kScrAdaptationH(60));
+        make.height.offset(kScrAdaptationH(33));
+    }];
+    [self.allProfitTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.allProfitLabel);
+        make.top.equalTo(self.allProfitLabel.mas_bottom);
+        make.height.offset(kScrAdaptationH(17));
+    }];
+    [self.eyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.allProfitTitleLabel.mas_right).offset(kScrAdaptationW(5));
+        make.centerY.equalTo(self.allProfitTitleLabel);
+        make.height.width.offset(kScrAdaptationH(15));
     }];
     [self.availableAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(0);
-        make.right.equalTo(self).offset(-kScreenWidth / 2);
-        make.top.equalTo(self.accumulatedIncomeLabel).offset(kScrAdaptationH(30));
-    }];
-    
-    [self.accumulatedLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(kScreenWidth / 2 + 5);
+        make.left.equalTo(self.lineView.mas_right);
         make.right.equalTo(self);
-        make.top.equalTo(self).offset(kScrAdaptationH(60));
+        make.centerY.equalTo(self.allProfitLabel);
+        make.height.offset(kScrAdaptationH(33));
     }];
-    [self.availableLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(kScreenWidth / 2 + 5);
-        make.right.equalTo(self);
-        make.top.equalTo(self.accumulatedIncomeLabel).offset(kScrAdaptationH(30));
+    [self.availableAmountTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.availableAmountLabel);
+        make.top.equalTo(self.availableAmountLabel.mas_bottom);
+        make.height.offset(kScrAdaptationH(17));
+        
     }];
+
     
     
 }
@@ -112,37 +123,21 @@ static CGFloat const xyWidth = 8.0f;
 {
     kWeakSelf
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        
         if ([KeyChain.ciphertext isEqualToString:@"0"]) {
-            weakSelf.ciphertextButton.selected = NO;
-            weakSelf.availableLabel.text = viewModel.userInfoModel.userAssets.availablePoint;
-            [self.ciphertextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                _availableWidth = [[HXB_XYTools shareHandle] WidthWithString:weakSelf.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
-                make.left.equalTo(self).offset(kScreenWidth / 2 + _availableWidth + 2);
-                make.centerY.equalTo(self.availableLabel);
-                make.size.mas_equalTo(CGSizeMake(kScrAdaptationH(25), kScrAdaptationH(25)));
-            }];
-            weakSelf.accumulatedLabel.text = viewModel.userInfoModel.userAssets.earnTotal;
-        }else
-        {
-            weakSelf.ciphertextButton.selected = YES;
+            weakSelf.eyeButton.selected = NO;
+            weakSelf.availableAmountLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue];
+            weakSelf.allProfitLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.earnTotal.doubleValue];
+        } else {
+            weakSelf.eyeButton.selected = YES;
             if (viewModel.userInfoModel.userAssets.availablePoint.length > 0) {
-                weakSelf.availableLabel.text = [viewModel.userInfoModel.userAssets.availablePoint replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userAssets.availablePoint.length?:1];
-                [self.ciphertextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                    _availableWidth = [[HXB_XYTools shareHandle] WidthWithString:weakSelf.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
-                    make.left.equalTo(self).offset(kScreenWidth / 2 + _availableWidth + 2);
-                    make.centerY.equalTo(self.availableLabel);
-                    make.size.mas_equalTo(CGSizeMake(kScrAdaptationH(25), kScrAdaptationH(25)));
-                }];
-                weakSelf.accumulatedLabel.text = [viewModel.userInfoModel.userAssets.earnTotal replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userAssets.earnTotal.length?:1];
+                weakSelf.availableAmountLabel.text = [viewModel.userInfoModel.userAssets.availablePoint replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userAssets.availablePoint.length?:1];
+                weakSelf.allProfitLabel.text = [viewModel.userInfoModel.userAssets.earnTotal replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userAssets.earnTotal.length?:1];
             }
         }
         weakSelf.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
         
     }];
-
-    
 }
 
 /**
@@ -152,30 +147,15 @@ static CGFloat const xyWidth = 8.0f;
 {
     if ([KeyChain.ciphertext isEqualToString:@"0"]) {
         KeyChain.ciphertext = @"1";
-        self.ciphertextButton.selected = YES;
-        self.accumulatedLabel.text = [self.accumulatedLabel.text replaceStringWithStartLocation:0 lenght:self.userInfoViewModel.userInfoModel.userAssets.earnTotal.length?:1];
-        self.availableLabel.text = [self.availableLabel.text replaceStringWithStartLocation:0 lenght:self.userInfoViewModel.userInfoModel.userAssets.availablePoint.length?:1];
-        [self.ciphertextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            _availableWidth = [[HXB_XYTools shareHandle] WidthWithString:self.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
-            make.left.equalTo(self).offset(kScreenWidth / 2 + _availableWidth + 2);
-            make.centerY.equalTo(self.availableLabel);
-            make.size.mas_equalTo(CGSizeMake(kScrAdaptationH(25), kScrAdaptationH(25)));
-        }];
-        _availableWidth = [[HXB_XYTools shareHandle] WidthWithString:self.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
+        self.eyeButton.selected = YES;
+        self.allProfitLabel.text = [self.allProfitLabel.text replaceStringWithStartLocation:0 lenght:[NSString GetPerMilWithDouble:self.userInfoViewModel.userInfoModel.userAssets.earnTotal.doubleValue].length?:1];
+        self.availableAmountLabel.text = [self.availableAmountLabel.text replaceStringWithStartLocation:0 lenght:[NSString GetPerMilWithDouble:self.userInfoViewModel.userInfoModel.userAssets.availablePoint.doubleValue].length?:1];
     } else {
         KeyChain.ciphertext = @"0";
-        self.ciphertextButton.selected = NO;
-        self.availableLabel.text = self.userInfoViewModel.userInfoModel.userAssets.availablePoint;
-        [self.ciphertextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            _availableWidth = [[HXB_XYTools shareHandle] WidthWithString:self.availableLabel.text labelFont:kHXBFont_PINGFANGSC_REGULAR(15.0f) addWidth:xyWidth];
-            make.left.equalTo(self).offset(kScreenWidth / 2 + _availableWidth + 5);
-            make.centerY.equalTo(self.availableLabel);
-            make.size.mas_equalTo(CGSizeMake(kScrAdaptationH(25), kScrAdaptationH(25)));
-        }];
-        self.accumulatedLabel.text = self.userInfoViewModel.userInfoModel.userAssets.earnTotal;
-        
+        self.eyeButton.selected = NO;
+        self.availableAmountLabel.text = [NSString GetPerMilWithDouble:self.userInfoViewModel.userInfoModel.userAssets.availablePoint.doubleValue];
+        self.allProfitLabel.text = [NSString GetPerMilWithDouble:self.userInfoViewModel.userInfoModel.userAssets.earnTotal.doubleValue];
     }
-    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -185,60 +165,65 @@ static CGFloat const xyWidth = 8.0f;
 }
 
 #pragma mark Get Methdos
-
-- (UILabel *)accumulatedLabel
-{
-    if (!_accumulatedLabel) {
-        _accumulatedLabel = [[UILabel alloc] init];
-        _accumulatedLabel.textAlignment = NSTextAlignmentLeft;
-        _accumulatedLabel.font = kHXBFont_PINGFANGSC_REGULAR(17.0f);
-        _accumulatedLabel.textColor = [UIColor whiteColor];
+- (UIView *)lineView{
+    if (!_lineView) {
+        _lineView = [[UIView alloc]initWithFrame:CGRectMake(self.width/2, kScrAdaptationH(50), 0.5, 40)];
+        _lineView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2];
     }
-    return _accumulatedLabel;
-}
-- (UILabel *)availableLabel
-{
-    if (!_availableLabel) {
-        _availableLabel = [[UILabel alloc] init];
-        _availableLabel.textAlignment = NSTextAlignmentLeft;
-        _availableLabel.font = kHXBFont_PINGFANGSC_REGULAR(15.0f);
-        _availableLabel.textColor = [UIColor whiteColor];
-    }
-    return _availableLabel;
+    return _lineView;
 }
 
-
-- (UILabel *)accumulatedIncomeLabel
-{
-    if (!_accumulatedIncomeLabel) {
-        _accumulatedIncomeLabel = [[UILabel alloc] init];
-        _accumulatedIncomeLabel.text = @"累计收益 (元) : ";
-        _accumulatedIncomeLabel.font = kHXBFont_PINGFANGSC_REGULAR(17.0f);
-        _accumulatedIncomeLabel.textColor = [UIColor whiteColor];
-        _accumulatedIncomeLabel.textAlignment = NSTextAlignmentRight;
+- (UILabel *)allProfitLabel{
+    if (!_allProfitLabel) {
+        _allProfitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.height/2 - 60, self.width, 40)];
+        _allProfitLabel.textAlignment = NSTextAlignmentCenter;
+        _allProfitLabel.font = kHXBFont_PINGFANGSC_REGULAR(20);
+        _allProfitLabel.textColor = COR15;
     }
-    return _accumulatedIncomeLabel;
+    return _allProfitLabel;
 }
 
-- (UILabel *)availableAmountLabel
-{
+- (UILabel *)allProfitTitleLabel{
+    if (!_allProfitTitleLabel) {
+        _allProfitTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.width/2, 40)];
+        _allProfitTitleLabel.text = @"累计收益(元)";
+        _allProfitTitleLabel.center = CGPointMake(self.width/2, 60);
+        _allProfitTitleLabel.textAlignment = NSTextAlignmentCenter;
+        _allProfitTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        _allProfitTitleLabel.textColor = COR27;
+    }
+    return _allProfitTitleLabel;
+}
+
+- (UILabel *)availableAmountTitleLabel{
+    if (!_availableAmountTitleLabel) {
+        _availableAmountTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(_allProfitLabel.frame) + 60, self.width/2, 20)];
+        _availableAmountTitleLabel.text = @"可用金额(元)";
+        _availableAmountTitleLabel.textAlignment = NSTextAlignmentCenter;
+        _availableAmountTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        _availableAmountTitleLabel.textColor = COR27;
+    }
+    return _availableAmountTitleLabel;
+}
+
+- (UILabel *)availableAmountLabel{
     if (!_availableAmountLabel) {
-        _availableAmountLabel = [[UILabel alloc] init];
-        _availableAmountLabel.text = @"可用金额 (元) : ";
-        _availableAmountLabel.font = kHXBFont_PINGFANGSC_REGULAR(15.0f);
-        _availableAmountLabel.textColor = [UIColor whiteColor];
-        _availableAmountLabel.textAlignment = NSTextAlignmentRight;
+        _availableAmountLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(_allProfitTitleLabel.frame) + 30, self.width/2, 20)];
+        _availableAmountLabel.textAlignment = NSTextAlignmentCenter;
+        _availableAmountLabel.font = kHXBFont_PINGFANGSC_REGULAR(20);
+        _availableAmountLabel.textColor = COR15;
     }
     return _availableAmountLabel;
 }
-- (UIButton *)ciphertextButton
-{
-    if (!_ciphertextButton) {
-        _ciphertextButton = [[UIButton alloc] init];
-        [_ciphertextButton setImage:[SVGKImage imageNamed:@"eye.svg"].UIImage forState:UIControlStateNormal];
-        [_ciphertextButton setImage:[SVGKImage imageNamed:@"close_eye.svg"].UIImage forState:UIControlStateSelected];
-        [_ciphertextButton addTarget:self action:@selector(ciphertextButtonClick) forControlEvents:UIControlEventTouchUpInside];
+
+- (UIButton *)eyeButton{
+    if (!_eyeButton) {
+        _eyeButton = [[UIButton alloc]initWithFrame:CGRectMake(self.width - 40 - 20, 40, 40, 40)];
+        [_eyeButton setImage:[SVGKImage imageNamed:@"eye.svg"].UIImage forState:UIControlStateNormal];
+        [_eyeButton setImage:[SVGKImage imageNamed:@"close_eye.svg"].UIImage forState:UIControlStateSelected];
+        [_eyeButton addTarget:self action:@selector(ciphertextButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
-    return _ciphertextButton;
+    return _eyeButton;
 }
+
 @end

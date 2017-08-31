@@ -14,8 +14,9 @@
 
 - (UIImage*)convertViewToImage:(UIView*)view;
 
+- (void)createViewShadDow:(UIView*)view;
+
 - (CGFloat)WidthWithString:(NSString *)string labelFont:(UIFont *)labelFont addWidth:(CGFloat)width;
 
-- (void)createViewShadDow:(UIView*)view;
 
 @end

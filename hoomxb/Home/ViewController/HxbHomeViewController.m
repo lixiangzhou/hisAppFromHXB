@@ -47,23 +47,23 @@
     //    [self getBannersWithCompletion:^{}];
     
     [self registerRefresh];
-    
+    [self hiddenTabbarLine];
     
     //判断是否显示设置手势密码
     [self gesturePwdShow];
-    [self hiddenTabbarLine];
 }
 
 // 去除tabBar上面的横线
 - (void)hiddenTabbarLine {
     UIImageView *shadowImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.3)];
     shadowImage.backgroundColor = [UIColor colorWithWhite:0.952 alpha:0.8];
-    [[HXB_XYTools shareHandle] createViewShadDow:shadowImage];    
+    [[HXB_XYTools shareHandle] createViewShadDow:shadowImage];
     [[UITabBar appearance] setShadowImage:[UIImage new]];
-    [self.tabBarController.tabBar addSubview:shadowImage];
-    [self.tabBarController.tabBar setBackgroundColor:[UIColor whiteColor]];
+    [[UITabBar appearance] addSubview:shadowImage];
+    [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
 }
+
 
 /**
  手势密码逻辑

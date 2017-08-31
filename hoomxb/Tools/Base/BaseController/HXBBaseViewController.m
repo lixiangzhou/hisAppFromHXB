@@ -28,7 +28,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     //解决侧滑手势失效
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
-    
     [self setupLeftBackBtn];
 }
 
@@ -96,6 +95,17 @@
     }
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+}
+
+// 去除tabBar上面的横线
+- (void)hiddenTabbarLine {
+    UIImageView *shadowImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.3)];
+    shadowImage.backgroundColor = [UIColor colorWithWhite:0.952 alpha:0.8];
+    [[HXB_XYTools shareHandle] createViewShadDow:shadowImage];
+    [[UITabBar appearance] setShadowImage:[UIImage new]];
+    [self.tabBarController.tabBar addSubview:shadowImage];
+    [self.tabBarController.tabBar setBackgroundColor:[UIColor whiteColor]];
+    [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
 }
 
 //MARK: 销毁

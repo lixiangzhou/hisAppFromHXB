@@ -114,7 +114,7 @@
         _textField = [[UITextField alloc] init];
         _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
         _textField.textColor = RGB(51, 51, 51);
-        _textField.keyboardType = UIKeyboardTypeDecimalPad;
+        _textField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _textField;
 }
