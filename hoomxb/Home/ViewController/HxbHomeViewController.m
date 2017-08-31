@@ -47,7 +47,6 @@
     //    [self getBannersWithCompletion:^{}];
     
     [self registerRefresh];
-    [self hiddenTabbarLine];
     
     //判断是否显示设置手势密码
     [self gesturePwdShow];
