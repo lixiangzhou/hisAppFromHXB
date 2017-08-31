@@ -52,7 +52,6 @@
             [weakSelf enterBankCardListVC];
         };
         
-        
         _withdrawCardView.nextButtonClickBlock = ^(NSDictionary *dic){
             [weakSelf nextButtonClick:dic];
         };

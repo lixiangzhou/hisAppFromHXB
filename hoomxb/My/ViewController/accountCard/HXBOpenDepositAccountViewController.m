@@ -14,9 +14,11 @@
 #import "HXBFinLoanTruansfer_ContraceWebViewVC.h"///存管的服务协议
 #import "HxbWithdrawViewController.h"
 #import "HXBModifyTransactionPasswordViewController.h"//修改手机号
+#import "HXBBankCardModel.h"
 @interface HXBOpenDepositAccountViewController ()
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
+
 
 @end
 
@@ -24,7 +26,69 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addSubview:self.mainView];
+    [self.hxbBaseVCScrollView addSubview:self.mainView];
+    [self setupSubView];
+    [self loadUserInfo];
+}
+
+- (void)setupSubView
+{
+    kWeakSelf
+    [self.hxbBaseVCScrollView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [weakSelf loadUserInfo];
+        [weakSelf.hxbBaseVCScrollView.mj_header endRefreshing];
+    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
+        
+    }];
+    [self.view addSubview:self.mainView.bottomBtn];
+    [self.mainView.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.offset(kScrAdaptationH(49));
+    }];
+}
+
+- (void)loadUserInfo
+{
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+
+        if (viewModel.userInfoModel.userInfo.isCreateEscrowAcc)
+        {
+            [weakSelf.mainView.bottomBtn setTitle:@"提交" forState:UIControlStateNormal];
+        }else
+        {
+            [weakSelf.mainView.bottomBtn setTitle:@"开通恒丰银行存管账户" forState:UIControlStateNormal];
+        }
+        //设置用户信息
+        [weakSelf.mainView setupUserIfoData:viewModel];
+        
+        weakSelf.mainView.userModel = viewModel;
+        
+//        if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+//            //已经绑卡
+//            NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
+//            bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
+//            bankCardAPI.requestMethod = NYRequestMethodGet;
+//            [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+//                NSLog(@"%@",responseObject);
+//                NSInteger status =  [responseObject[@"status"] integerValue];
+//                if (status != 0) {
+//                    [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+//                    return;
+//                }
+//                HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+//                //设置绑卡信息
+//                [weakSelf.mainView setupBankCardData:bankCardModel];
+//            } failure:^(NYBaseRequest *request, NSError *error) {
+//                NSLog(@"%@",error);
+//                [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+//            }];
+//        }
+        
+    } andFailure:^(NSError *error) {
+        
+    }];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,7 +116,11 @@
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_commitBtn];
     HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [openDepositAccountRequest openDepositAccountRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
-        
+        if ([self.title isEqualToString:@"完善信息"]) {
+            [HxbHUDProgress showTextWithMessage:@"提交成功"];
+        }else{
+            [HxbHUDProgress showTextWithMessage:@"开户成功"];
+        }
         if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
             HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
             [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];

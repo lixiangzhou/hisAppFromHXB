@@ -54,7 +54,7 @@
     if (!_verificationCodeTextField) {
         _verificationCodeTextField = [[HXBCustomTextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
-        _verificationCodeTextField.leftImage = [SVGKImage imageNamed:@"security_code.svg"].UIImage;
+        _verificationCodeTextField.leftImage = [UIImage imageNamed:@"security_code"];
         _verificationCodeTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _verificationCodeTextField;

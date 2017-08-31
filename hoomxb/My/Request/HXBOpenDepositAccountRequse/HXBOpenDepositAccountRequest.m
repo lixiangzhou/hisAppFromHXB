@@ -31,7 +31,6 @@
             return;
         }
         if (successDateBlock) {
-            [HxbHUDProgress showTextWithMessage:@"开户成功"];
             successDateBlock(responseObject);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {

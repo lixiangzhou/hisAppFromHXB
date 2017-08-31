@@ -135,7 +135,6 @@
         {
             HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
             hxbMyTopUpViewController.amount = amount;
-            hxbMyTopUpViewController.popVC = self;
             [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
         }
     }andFailure:^(NSError *error) {

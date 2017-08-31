@@ -151,7 +151,7 @@
                 [weakSelf.countDownManager stopTimer];
                 return;
             }
-            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒后开始加入"];
+            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒后开售"];
             [weakSelf.addButton setTitle:str forState:UIControlStateNormal];
         }];
     }else {
@@ -199,8 +199,14 @@
     
     //加入button设置 数据
     self.addButton.userInteractionEnabled = self.planDetailViewModel.isAddButtonInteraction;
-    [self.addButton setTitle:self.planDetailViewModel.addButtonStr forState:UIControlStateNormal];
-    [self.addButton setTitleColor:self.planDetailViewModel.addButtonTitleColor forState:UIControlStateNormal];
+        [self.addButton setTitleColor:self.planDetailViewModel.addButtonTitleColor forState:UIControlStateNormal];
+    if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue <= 5) {//等待加入
+        [self.addButton setTitle:self.planDetailViewModel.remainTimeString forState:UIControlStateNormal];
+    }else
+    {
+        [self.addButton setTitle:self.planDetailViewModel.addButtonStr forState:UIControlStateNormal];
+
+    }
     self.addButton.backgroundColor = self.planDetailViewModel.addButtonBackgroundColor;
     
     
@@ -532,10 +538,16 @@
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
         self.planDetailViewModel = viewModel;
         if (viewModel.isContDown) {
-            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@([viewModel.countDownStr floatValue]) andDateFormat:@"mm分ss秒后开始加入"];
+            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@([viewModel.countDownStr floatValue]) andDateFormat:@"mm分ss秒后开售"];
             [self.addButton setTitle:str forState:UIControlStateNormal];
         } else {
-            [self.addButton setTitle:viewModel.addButtonStr forState:UIControlStateNormal];
+            
+            if (self.planDetailViewModel.planDetailModel.unifyStatus.integerValue <= 5) {//等待加入
+                [self.addButton setTitle:self.planDetailViewModel.remainTimeString forState:UIControlStateNormal];
+            }else
+            {
+                [self.addButton setTitle:viewModel.addButtonStr forState:UIControlStateNormal];
+            }
         }
         self.hxbBaseVCScrollView.hidden = NO;
         self.title = viewModel.planDetailModel.name;

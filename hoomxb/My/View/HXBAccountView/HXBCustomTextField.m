@@ -8,7 +8,7 @@
 
 #import "HXBCustomTextField.h"
 #import "SVGKImage.h"
-@interface HXBCustomTextField ()<UITextFieldDelegate>
+@interface HXBCustomTextField ()
 {
     NSString *_text;
 }
@@ -78,17 +78,17 @@
     self.eyeBtn.selected = !self.eyeBtn.selected;
 }
 #pragma mark - UITextFieldDelegate
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    NSLog(@"%ld",textField.text.length);
-    if (range.location) {
-        self.line.backgroundColor = COR29;
-    }else
-    {
-        self.line.backgroundColor = COR12;
-    }
-    return YES;
-}
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    NSLog(@"%ld",textField.text.length);
+//    if (range.location) {
+//        self.line.backgroundColor = COR29;
+//    }else
+//    {
+//        self.line.backgroundColor = COR12;
+//    }
+//    return YES;
+//}
 
 #pragma mark - set方法
 
@@ -181,7 +181,6 @@
     if (!_textField) {
         _textField = [[UITextField alloc] init];
         _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
-        _textField.delegate = self;
     }
     return _textField;
 }
