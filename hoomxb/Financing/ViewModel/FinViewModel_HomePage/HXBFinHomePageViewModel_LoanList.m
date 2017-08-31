@@ -45,7 +45,7 @@ typedef enum : NSUInteger {
     _loanListModel = loanListModel;
     //状态的处理
     [self setupStatusWithLoanListModelStatus:loanListModel.status];
-    NSString *str = [NSString stringWithFormat:@"%.1lf%@",loanListModel.interest.floatValue,@"%"];
+    NSString *str = [NSString stringWithFormat:@"%.2f%@",loanListModel.interest.floatValue,@"%"];
     self.expectedYearRateAttributedStr = [self setupExpectedYearRateAttributedStrWithStr:str  WithFont:kHXBFont_PINGFANGSC_REGULAR(24) andColor:kHXBColor_Red_090202 andRange:NSMakeRange(0, loanListModel.interest.length)];
 }
 
@@ -55,7 +55,7 @@ typedef enum : NSUInteger {
 - (void)setupStatusWithLoanListModelStatus: (NSString *) status{
     [self setUPAddButtonColorWithType:true];
     if ([status isEqualToString:@"OPEN"]) {
-        self.status = @"投标中";//投标中
+        self.status = @"立即投标";//投标中
         [self setUPAddButtonColorWithType:false];
     }
     

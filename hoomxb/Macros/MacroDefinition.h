@@ -172,6 +172,7 @@
 #define kPageCount 20
 #define kXYBorderWidth kScrAdaptationH(0.8f)
 #define kServiceMobile @"400-1552-888"
+#define kSecuryText @"****"
 
 //----------------------内存----------------------------
 

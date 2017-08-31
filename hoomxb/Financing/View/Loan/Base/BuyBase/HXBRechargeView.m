@@ -48,7 +48,7 @@
 ///设置ViewS
 - (void)setUPViews {
     self.buyTextField = [[HXBBaseTextField alloc]initWithFrame:CGRectZero andBottomLienSpace:0 andBottomLienHeight:kScrAdaptationH(2) andRightButtonW:kScrAdaptationW(80)];
-    
+    self.buyTextField.textField.keyboardType = UIKeyboardTypeNumberPad;
     
     self.leftLabel = [[UILabel alloc]init];
   
@@ -94,7 +94,8 @@
 //    [attrStr addAttribute:NSForegroundColorAttributeName
 //                    value:COR10
 //                    range:NSMakeRange(0, self.placeholder.length)];
-    self.buyTextField.textField.attributedPlaceholder = [NSAttributedString setupAttributeStringWithString:self.placeholder WithRange:NSMakeRange(0, self.placeholder.length) andAttributeColor:kHXBColor_Font0_6 andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(14)];;
+//    self.buyTextField.textField.placeholder = self.placeholder;
+    self.buyTextField.textField.attributedPlaceholder = [NSAttributedString setupAttributeStringWithString:self.placeholder WithRange:NSMakeRange(0, self.placeholder.length) andAttributeColor:kHXBColor_Font0_6 andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(14)];
 }
 
 ///事件注册

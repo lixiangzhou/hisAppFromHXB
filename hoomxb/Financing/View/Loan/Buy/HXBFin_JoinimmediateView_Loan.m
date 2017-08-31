@@ -212,6 +212,7 @@
 }
 - (void)setUPViews {
     self.rechargeView.backgroundColor = [UIColor whiteColor];
+    self.rechargeViewTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.topUPView.backgroundColor = [UIColor whiteColor];
 }
 
@@ -299,14 +300,23 @@
 
 ///计算预计收益
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (range.location == 0 && [string isEqualToString:@"0"]) return NO;
     if ([string isEqualToString:@"."]) return NO;
+    if (range.location == 11) return NO;
     if ([textField isEqual:self.rechargeView.textField]) {
-        
-        NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
-        
-//        self.profitLabel.text = [self.model.JoinImmediateView_Model totalInterestWithAmount:amount.floatValue];
+//        NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
+//        self.profitLabel.text = [self.model totalInterestWithAmount:amount.floatValue];
     }
     return true;
+    
+//    if ([string isEqualToString:@"."]) return NO;
+//    if ([textField isEqual:self.rechargeView.textField]) {
+//        
+//        NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
+//        
+////        self.profitLabel.text = [self.model.JoinImmediateView_Model totalInterestWithAmount:amount.floatValue];
+//    }
+//    return true;
 }
 - (BOOL) textFieldShouldEndEditing:(UITextField *)textField {
     if ([textField isEqual:self.rechargeView.textField]) {

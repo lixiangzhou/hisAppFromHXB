@@ -19,13 +19,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hoomxb/My/View/HXBAccountView/HXBOpenDepositAccountView/HXBOpenDepositAccountView.m"
-            timestampString = "525580405.35431"
+            filePath = "hoomxb/My/View/MainListView/BaseView/HXBBaseView_MYList_TableViewCell.m"
+            timestampString = "525685111.594598"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "-setupUserIfoData:"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "-temp"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -35,14 +35,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hoomxb/My/View/MainListView/BaseView/HXBBaseView_MYList_TableViewCell.m"
-            timestampString = "525685111.594598"
+            filePath = "hoomxb/Tools/tools/HXB_XYTools/HXBXYAlertViewController.m"
+            timestampString = "525839794.309028"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "-temp"
-            landmarkType = "7">
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "@interface HXBXYAlertViewController()"
+            landmarkType = "2">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

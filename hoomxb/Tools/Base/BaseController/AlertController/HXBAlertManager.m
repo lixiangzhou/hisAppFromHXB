@@ -222,7 +222,7 @@
             [[UIApplication sharedApplication] openURL:url];
         }];
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
-    } else {
+    } else if ([versionUpdateModel.force isEqualToString:@"2"] ) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝又更新咯！" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
         alertVC.messageHeight = 95;
         [alertVC setClickXYRightButtonBlock:^{
@@ -233,6 +233,7 @@
             [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
         }];
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+    } else {
     }
 }
 
