@@ -118,8 +118,7 @@ UITableViewDataSource,UITableViewDelegate
             if ([viewModel.userInfoModel.userInfo.isMobilePassed isEqualToString:@"1"]) {
                 [weakSelf getintoModifyPhone];
             }
-        }else
-        {
+        } else {
             if (viewModel.userInfoModel.userInfo.isUnbundling) {
                 [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:kHXBCallPhone_title];
                 return;
@@ -128,38 +127,42 @@ UITableViewDataSource,UITableViewDelegate
                 if ([viewModel.userInfoModel.userInfo.isMobilePassed isEqualToString:@"1"]) {
                     [weakSelf getintoModifyPhone];
                 }
-            }else
-            {
+            } else {
+                if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
+                    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"您还没有绑定银行卡" force:2 andLeftButtonMassage:@"暂不绑定" andRightButtonMassage:@"绑卡银行卡"];
+                    alertVC.messageHeight = 40;
+                    [alertVC setClickXYRightButtonBlock:^{
+                        //进入绑卡界面
+                        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                        withdrawCardViewController.title = @"绑卡";
+                        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                        [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+                    }];
+                    [alertVC setClickXYLeftButtonBlock:^{
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }];
+                    [self presentViewController:alertVC animated:YES completion:nil];
+                } else {
+                    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"信息不完善" force:2 andLeftButtonMassage:@"暂不完善" andRightButtonMassage:@"去完善信息"];
+                    alertVC.messageHeight = 40;
+                    [alertVC setClickXYRightButtonBlock:^{
+                    //完善信息
+                    HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                    openDepositAccountVC.title = @"完善信息";
+                    openDepositAccountVC.type = HXBChangePhone;
+                    openDepositAccountVC.userModel = self.userInfoViewModel;
+                    [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+                    }];
+                    [alertVC setClickXYLeftButtonBlock:^{
+                        [self dismissViewControllerAnimated:YES completion:nil];
+                    }];
+                    [self presentViewController:alertVC animated:YES completion:nil];
+                }
                 
-//                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"您还没有绑定银行卡" force:2 andLeftButtonMassage:@"暂不绑定" andRightButtonMassage:@"绑卡银行卡"];
-//                [alertVC setClickXYRightButtonBlock:^{
-//                if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-//                    //进入绑卡界面
-//                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-//                    withdrawCardViewController.title = @"绑卡";
-//                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-//                    [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-//                }];
-//                [alertVC setClickXYLeftButtonBlock:^{
-//                    [self dismissViewControllerAnimated:YES completion:nil];
-//                }];
-//                alertVC.messageHeight = 40;
-//                [self presentViewController:alertVC animated:YES completion:nil];
-//                }else
-//                {
-//                    //完善信息
-//                    HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-//                    openDepositAccountVC.title = @"完善信息";
-//                    openDepositAccountVC.type = HXBChangePhone;
-//                    openDepositAccountVC.userModel = self.userInfoViewModel;
-//                    [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-//                }
-//               
             }
         }
         
     } andFailure:^(NSError *error) {
-        
     }];
     
 }

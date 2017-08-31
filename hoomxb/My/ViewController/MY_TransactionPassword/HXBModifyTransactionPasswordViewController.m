@@ -101,15 +101,19 @@
  */
 - (void)verifyWithIDCard:(NSString *)IDCard andCode:(NSString *)code
 {
-    kWeakSelf
-    HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
-    [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andWithCode:code andSuccessBlock:^(id responseObject) {
-        
-        [weakSelf checkIdentitySmsSuccessWithIDCard:IDCard andCode:code];
-        
-    } andFailureBlock:^(NSError *error) {
-        NSLog(@"%@",error);
-    }];
+    if (code.length == 0) {
+        [HxbHUDProgress showTextWithMessage:@"短信验证码不能为空"];
+    } else {
+        kWeakSelf
+        HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
+        [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andWithCode:code andSuccessBlock:^(id responseObject) {
+            
+            [weakSelf checkIdentitySmsSuccessWithIDCard:IDCard andCode:code];
+            
+        } andFailureBlock:^(NSError *error) {
+            NSLog(@"%@",error);
+        }];
+    }
 }
 
 - (void)checkIdentitySmsSuccessWithIDCard:(NSString *)IDCard andCode:(NSString *)code

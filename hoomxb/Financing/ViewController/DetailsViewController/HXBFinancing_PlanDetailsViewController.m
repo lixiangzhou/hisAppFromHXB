@@ -303,6 +303,7 @@
 //    [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
     self.hxbBaseVCScrollView.tableHeaderView = [self tableViewHeadView];
     self.hxbBaseVCScrollView.tableFooterView = [self tableViewFootView];
+    [self.hxbBaseVCScrollView reloadData];
     baseNAV.getNetworkAgainBlock = ^{
         [weakSelf downLoadData];
     };
@@ -348,16 +349,18 @@
     if (indexPath.section == 0) {
         return kScrAdaptationH(80);
     } else if (indexPath.section == 1) {
-        switch (self.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
-            case 8:
-            case 9:
-                return kScrAdaptationH(108);
-                break;
-                
-            default:
-                return kScrAdaptationH(83);
-                break;
-        }
+
+        return kScrAdaptationH(108);
+//        switch (self.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
+//            case 8:
+//            case 9:
+//                return kScrAdaptationH(108);
+//                break;
+        
+//            default:
+//                return kScrAdaptationH(83);
+//                break;
+//        }
     } else {
         return kScrAdaptationH(44.5);
     }
@@ -504,6 +507,7 @@
  跳转加入界面
  */
 - (void)enterPlanBuyViewController {
+    
     kWeakSelf
     //跳转加入界面
     HXBFin_Plan_BuyViewController *planJoinVC = [[HXBFin_Plan_BuyViewController alloc]init];

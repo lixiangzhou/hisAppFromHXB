@@ -47,8 +47,13 @@ static NSString *CELLID = @"CELLID";
     self.dataSource = self;
     self.backgroundColor = kHXBColor_BackGround;
     [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
-    self.separatorInset = UIEdgeInsetsMake(0, -50, 0, 0);
     self.separatorColor = kHXBColor_Font0_5;
+    if ([self respondsToSelector:@selector(setSeparatorInset:)]) {
+        [self setSeparatorInset:UIEdgeInsetsZero];
+    }
+    if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
+        [self setLayoutMargins:UIEdgeInsetsZero];
+    }
     self.rowHeight = kScrAdaptationH(121);
     self.nodataView.hidden = false;
 }

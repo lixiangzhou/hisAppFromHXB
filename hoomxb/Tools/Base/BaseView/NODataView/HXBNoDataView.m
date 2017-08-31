@@ -47,7 +47,7 @@
 - (UILabel *)noDataLabel {
     if (!_noDataLabel) {
         _noDataLabel = [[UILabel alloc]init];
-        _noDataLabel.font = kHXBFont_PINGFANGSC_REGULAR(19);
+        _noDataLabel.font = kHXBFont_PINGFANGSC_REGULAR(18);
         _noDataLabel.textColor = kHXBColor_Grey_Font0_2;
         _noDataLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview: _noDataLabel];
@@ -58,7 +58,7 @@
     if (!_downPULabel) {
         _downPULabel = [[UILabel alloc]initWithFrame:CGRectZero];
         [self addSubview:_downPULabel];
-        _downPULabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+        _downPULabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         _downPULabel.textColor = kHXBColor_Font0_6;
         _noDataLabel.textAlignment = NSTextAlignmentCenter;
     }

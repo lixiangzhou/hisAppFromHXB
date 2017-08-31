@@ -100,7 +100,7 @@
 
 }
 
-
+#warning 肖扬
 - (void)setupUserIfoData:(HXBRequestUserInfoViewModel *)viewModel
 {
     if ([viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {

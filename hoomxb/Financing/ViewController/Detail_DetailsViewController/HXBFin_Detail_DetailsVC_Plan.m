@@ -116,12 +116,10 @@
         
         manager.typeViewManager.leftStrArray = @[
                                                 @"到期退出方式",
-                                                @"安全保障",
                                                 @"收益处理方式"
                                                 ];
         manager.typeViewManager.rightStrArray = @[
                                                  @"系统通过债权转让的方式自动完成退出",
-                                                 @"适用于用户保障计划",//安全保障
                                                  @"收益再投资"//收益处理方式
                                                 ];
         manager.serverViewManager.leftStrArray = @[

@@ -88,6 +88,13 @@
 - (void)dismiss:(UIButton *)btn
 {
     if (btn == self.immediateOpenBtn) {
+        if (![KeyChain isLogin]) {
+            [self dismissViewControllerAnimated:NO completion:nil];
+            //跳转登录注册
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+            
+            return;
+        }
         if (self.immediateOpenBlock) {
             self.immediateOpenBlock();
         }

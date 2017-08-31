@@ -339,6 +339,7 @@
     if (!_icon) {
         _icon = [[UIImageView alloc] init];
         SVGKImage *svgImage = [SVGKImage imageNamed:@"package.svg"];
+        _icon.contentMode = UIViewContentModeScaleAspectFit;
         _icon.image = svgImage.UIImage;
     }
     return _icon;

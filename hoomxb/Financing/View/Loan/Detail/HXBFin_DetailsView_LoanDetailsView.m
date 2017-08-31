@@ -151,7 +151,7 @@
     [self.addButton setTitle:viewModelVM.addButtonStr forState:UIControlStateNormal];
     kWeakSelf
     [self.topView setUPValueWithManager:^HXBFin_LoanDetailView_TopViewManager *(HXBFin_LoanDetailView_TopViewManager *manager) {
-        manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%@%@",weakSelf.viewModelVM.totalInterestStr,@"%"];
+        manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.2f%%",[weakSelf.viewModelVM.totalInterestStr floatValue]];
         manager.topViewManager.rightLabelStr = viewModelVM.totalInterestStr_const;
         
         manager.leftViewManager.leftLabelStr = weakSelf.lockPeriodStr;

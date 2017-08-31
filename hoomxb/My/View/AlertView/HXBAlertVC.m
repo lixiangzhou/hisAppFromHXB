@@ -241,7 +241,8 @@
         [_sureBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_sureBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_sureBtn setBackgroundColor:RGB(245, 81, 81)];
+        [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
+        _sureBtn.userInteractionEnabled = NO;
         _sureBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
         _sureBtn.layer.cornerRadius = kScrAdaptationW750(10);
         _sureBtn.layer.masksToBounds = YES;
@@ -337,6 +338,13 @@
 //    [alertPasswordView removeFromSuperview];
     self.transactionPassword = password;
     NSLog(@"%@",[NSString stringWithFormat:@"输入的密码为:%@", password]);
+    if (password.length == 6) {
+        [_sureBtn setBackgroundColor:RGB(245, 81, 81)];
+        _sureBtn.userInteractionEnabled = YES;
+    } else {
+        [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
+        _sureBtn.userInteractionEnabled = NO;;
+    }
 }
 
 

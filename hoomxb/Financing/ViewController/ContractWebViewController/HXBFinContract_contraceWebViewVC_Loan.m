@@ -24,7 +24,7 @@
     [self setUP];
     self.isColourGradientNavigationBar = YES;
     if (!self.title.length) {
-        self.title = @"借款合同";
+        self.title = @"借款协议";
     }
 }
 
