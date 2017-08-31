@@ -130,8 +130,8 @@
         } else {
             weakSelf.eyeButton.selected = YES;
             if (viewModel.userInfoModel.userAssets.availablePoint.length > 0) {
-                weakSelf.availableAmountLabel.text = [viewModel.userInfoModel.userAssets.availablePoint replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userAssets.availablePoint.length?:1];
-                weakSelf.allProfitLabel.text = [viewModel.userInfoModel.userAssets.earnTotal replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userAssets.earnTotal.length?:1];
+                weakSelf.availableAmountLabel.text = kSecuryText;
+                weakSelf.allProfitLabel.text = kSecuryText;
             }
         }
         weakSelf.userInfoViewModel = viewModel;
@@ -148,8 +148,8 @@
     if ([KeyChain.ciphertext isEqualToString:@"0"]) {
         KeyChain.ciphertext = @"1";
         self.eyeButton.selected = YES;
-        self.allProfitLabel.text = [self.allProfitLabel.text replaceStringWithStartLocation:0 lenght:[NSString GetPerMilWithDouble:self.userInfoViewModel.userInfoModel.userAssets.earnTotal.doubleValue].length?:1];
-        self.availableAmountLabel.text = [self.availableAmountLabel.text replaceStringWithStartLocation:0 lenght:[NSString GetPerMilWithDouble:self.userInfoViewModel.userInfoModel.userAssets.availablePoint.doubleValue].length?:1];
+        self.allProfitLabel.text = kSecuryText;
+        self.availableAmountLabel.text = kSecuryText;
     } else {
         KeyChain.ciphertext = @"0";
         self.eyeButton.selected = NO;
@@ -177,6 +177,7 @@
     if (!_allProfitLabel) {
         _allProfitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.height/2 - 60, self.width, 40)];
         _allProfitLabel.textAlignment = NSTextAlignmentCenter;
+        _allProfitLabel.text = @"--";
         _allProfitLabel.font = kHXBFont_PINGFANGSC_REGULAR(20);
         _allProfitLabel.textColor = COR15;
     }
@@ -209,6 +210,7 @@
 - (UILabel *)availableAmountLabel{
     if (!_availableAmountLabel) {
         _availableAmountLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(_allProfitTitleLabel.frame) + 30, self.width/2, 20)];
+        _availableAmountLabel.text = @"--";
         _availableAmountLabel.textAlignment = NSTextAlignmentCenter;
         _availableAmountLabel.font = kHXBFont_PINGFANGSC_REGULAR(20);
         _availableAmountLabel.textColor = COR15;

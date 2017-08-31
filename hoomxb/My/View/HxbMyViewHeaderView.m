@@ -165,11 +165,11 @@
     {
          self.rightHeadButton.selected = YES;
         
-        self.allFinanceLabel.text = [allFinanceStr replaceStringWithStartLocation:0 lenght:allFinanceStr.length];
+        self.allFinanceLabel.text = kSecuryText;
         
-        self.accumulatedProfitLabel.text = [accumulatedProfitStr replaceStringWithStartLocation:0 lenght:accumulatedProfitStr.length];
+        self.accumulatedProfitLabel.text = kSecuryText;
         
-        self.balanceLabel.text = [balance replaceStringWithStartLocation:0 lenght:balance.length];
+        self.balanceLabel.text = kSecuryText;
     }
     
 }
@@ -191,9 +191,9 @@
     if ([KeyChain.ciphertext isEqualToString:@"0"]){
         KeyChain.ciphertext = @"1";
         self.rightHeadButton.selected = YES;
-        self.allFinanceLabel.text = [allFinanceStr replaceStringWithStartLocation:0 lenght:allFinanceStr.length];
-        self.accumulatedProfitLabel.text = [accumulatedProfitStr replaceStringWithStartLocation:0 lenght:accumulatedProfitStr.length];
-        self.balanceLabel.text = [balance replaceStringWithStartLocation:0 lenght:balance.length];
+        self.allFinanceLabel.text = kSecuryText;
+        self.accumulatedProfitLabel.text = kSecuryText;
+        self.balanceLabel.text = kSecuryText;
     }else
     {
         KeyChain.ciphertext = @"0";
@@ -234,6 +234,7 @@
         _allFinanceLabel.textAlignment = NSTextAlignmentCenter;
         _allFinanceLabel.font = kHXBFont_PINGFANGSC_REGULAR(24);
         _allFinanceLabel.textColor = COR15;
+        _allFinanceLabel.text = @"--";
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickAllFinanceButton:)];
         [_allFinanceLabel addGestureRecognizer:tap];
         _allFinanceLabel.userInteractionEnabled = true;
@@ -267,6 +268,7 @@
 - (UILabel *)accumulatedProfitLabel{
     if (!_accumulatedProfitLabel) {
         _accumulatedProfitLabel = [[UILabel alloc]initWithFrame:CGRectMake(0,CGRectGetMaxY(_accumulatedProfitTitleLabel.frame) + 30, self.width/2, 20)];
+        _accumulatedProfitLabel.text = @"--";
 //        _accumulatedProfitLabel.text = @"30.8";
         _accumulatedProfitLabel.textAlignment = NSTextAlignmentCenter;
         _accumulatedProfitLabel.font = kHXBFont_PINGFANGSC_REGULAR(24);
@@ -291,6 +293,7 @@
     if (!_balanceLabel) {
     _balanceLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.width/2,CGRectGetMaxY(_balanceTitleLabel.frame) - 30, self.width/2, 20)];
 //    _balanceLabel.text = @"38.00";
+        _balanceLabel.text = @"--";
     _balanceLabel.textAlignment = NSTextAlignmentCenter;
     _balanceLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     _balanceLabel.textColor = COR6;

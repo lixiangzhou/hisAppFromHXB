@@ -134,8 +134,7 @@
     self.rechargeView.backgroundColor = [UIColor whiteColor];
     self.rechargeViewTextField = self.rechargeView.textField;
     self.rechargeView.textField.delegate = self;
-    self.rechargeView.textField.keyboardType = UIKeyboardTypeDecimalPad;
-    
+    self.rechargeViewTextField.keyboardType = UIKeyboardTypeNumberPad;
     //充值
     self.topUPView = [[HXBTopUPView alloc]init];
     
@@ -316,7 +315,7 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (range.location == 0 && [string isEqualToString:@"0"]) return NO;
     if ([string isEqualToString:@"."]) return NO;
-    if (range.location == 8) return NO;
+    if (range.location == 11) return NO;
     if ([textField isEqual:self.rechargeView.textField]) {
         NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
         self.profitLabel.text = [self.model totalInterestWithAmount:amount.floatValue];

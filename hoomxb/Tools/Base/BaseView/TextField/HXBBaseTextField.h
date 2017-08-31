@@ -14,7 +14,7 @@
  */
 @interface HXBBaseTextField : UIView
 
-@property (nonatomic,strong,readonly) UITextField *textField;
+@property (nonatomic,strong) UITextField *textField;
 @property (nonatomic,strong,readonly) UIButton *button;
 @property (nonatomic,assign) BOOL isSecureTextEntry;
 /**

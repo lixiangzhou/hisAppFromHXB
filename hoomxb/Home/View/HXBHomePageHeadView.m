@@ -47,8 +47,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.backgroundImageView];
-        [self addSubview:self.indicationView];
         [self addSubview:self.afterLoginView];
+        [self addSubview:self.indicationView];
 //        [self addSubview:self.moduleView];
         [self addSubview:self.bannerView];
         [self addSubview:self.bulletinView];

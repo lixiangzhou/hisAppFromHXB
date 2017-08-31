@@ -143,6 +143,10 @@ UITableViewDataSource
             openDepositAccountVC.title = @"完善信息";
             openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
             [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+        } else if (self.userInfoViewModel.userInfoModel.userInfo.isAllPassed) {
+            HxbMyBankCardViewController *myBankCardViewVC = [[HxbMyBankCardViewController alloc]init];
+            myBankCardViewVC.isBank = isbankView;
+            [self.navigationController pushViewController:myBankCardViewVC animated:YES];
         }
         
     }else{
@@ -240,14 +244,13 @@ UITableViewDataSource
             if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 //开通存管银行账户
                 cell.detailTextLabel.text = @"未开通";
-            }else if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])
-            {
+            }else if (!([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])) {
+                //完善信息
+                cell.detailTextLabel.text = @"完善信息";
+            }else{
                 //已开通
                 cell.detailTextLabel.text = @"已开通";
                 cell.detailTextLabel.textColor = COR30;
-            }else{
-                //完善信息
-                 cell.detailTextLabel.text = @"完善信息";
             }
         }else if (indexPath.row == 1){
             cell.textLabel.text = @"银行卡";

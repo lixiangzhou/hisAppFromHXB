@@ -12,6 +12,8 @@
 #import "TAExampleDotView.h"
 #import "HXBBaseTabBarController.h"
 #import "HXBGesturePasswordViewController.h"
+#import "HXBDepositoryAlertViewController.h"
+#import "HXBOpenDepositAccountViewController.h"
 
 static NSString *const home = @"首页";
 static NSString *const financing = @"理财";
@@ -166,8 +168,26 @@ static NSString *ID = @"collectionCell";
     {
         KeyWindow.rootViewController = self.mainTabbarVC;
     }
+    [self showNewAlert];
     
 }
+
+// 展示开户弹框
+- (void)showNewAlert {
+    HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
+    alertVC.immediateOpenBlock = ^{
+        [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_alertBtn];
+        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+//        openDepositAccountVC.userModel = viewModel;
+        openDepositAccountVC.title = @"开通存管账户";
+        openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//        KeyWindow.rootViewController = self.mainTabbarVC;
+        [self.mainTabbarVC.childViewControllers[0] pushViewController:openDepositAccountVC animated:YES];
+    };
+    [KeyWindow.rootViewController presentViewController:alertVC animated:NO completion:nil];
+}
+
+
 ///懒加载主界面Tabbar
 - (HXBBaseTabBarController *)mainTabbarVC
 {

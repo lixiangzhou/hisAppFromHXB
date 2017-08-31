@@ -24,6 +24,9 @@
 @property (nonatomic,strong) UILabel *countDownLable;//倒计时label
 @property (nonatomic, strong) UILabel *tagLabel;//tag标签
 @property (nonatomic,strong) UIImageView *tagLableImageView;
+
+@property (nonatomic, strong) UIView *lineView;
+
 @end
 @implementation HXBFinancting_PlanListTableViewCell
 
@@ -141,6 +144,7 @@
     if (!_arrowImageView) {
         _arrowImageView = [[UIImageView alloc]init];
         _arrowImageView.image = [SVGKImage imageNamed:@"FinPlanList_CountDown.svg"].UIImage;
+        _arrowImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _arrowImageView;
 }
@@ -161,10 +165,21 @@
     }
     return _tagLabel;
 }
+
+- (UIView *)lineView
+{
+    if (!_lineView) {
+        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(120.5), kScreenWidth, kScrAdaptationH(0.5))];
+        _lineView.backgroundColor = kHXBColor_Font0_5;
+    }
+    return _lineView;
+}
+
 - (UIImageView *)tagLableImageView {
     if (!_tagLableImageView) {
         _tagLableImageView = [[UIImageView alloc]init];
         _tagLableImageView.image = [SVGKImage imageNamed:@"FinPlanList_present.svg"].UIImage;
+        _tagLableImageView.contentMode = UIViewContentModeScaleAspectFit;
         [_tagLableImageView setHidden:true];
     }
     return _tagLableImageView;
@@ -229,6 +244,7 @@
     [self.contentView addSubview:self.countDownLable];
     [self.contentView addSubview:self.tagLabel];
     [self.contentView addSubview:self.tagLableImageView];
+    [self.contentView addSubview:self.lineView];
 }
 ///布局UI
 - (void)layoutSubUI {
