@@ -73,7 +73,6 @@
     [super viewDidLoad];
     self.isColourGradientNavigationBar = YES;
     [self.view addSubview:self.withdrawCardView];
-
 }
 
 - (void)enterBankCardListVC

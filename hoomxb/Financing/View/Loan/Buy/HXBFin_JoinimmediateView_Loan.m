@@ -254,8 +254,8 @@
     _addButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
     _addButton.userInteractionEnabled = userInteractionEnabled;
     if (!userInteractionEnabled || !self.addButtonEndEditing) {
-        _addButton.backgroundColor = kHXBColor_Font0_6;
-        [_addButton setTitleColor:kHXBColor_Grey_Font0_2 forState:UIControlStateNormal];
+        _addButton.backgroundColor = kHXBColor_Font0_5;
+//        [_addButton setTitleColor:kHXBColor_Grey_Font0_2 forState:UIControlStateNormal];
         return;
     }
     _addButton.backgroundColor = kHXBColor_Red_090303;

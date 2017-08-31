@@ -105,6 +105,7 @@ static NSString *const my = @"我的";
     manager.shouldResignOnTouchOutside = YES;
     manager.shouldToolbarUsesTextFieldTintColor = YES;
     manager.enableAutoToolbar = NO;
+    manager.keyboardDistanceFromTextField = 100;
 }
 
 - (void)checkversionUpdate
@@ -220,7 +221,9 @@ static NSString *const my = @"我的";
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
     
-    [HXBAlertManager checkversionUpdateWith:self.versionUpdateModel];
+    if ([self.versionUpdateModel.force isEqualToString:@"1"]) {
+        [HXBAlertManager checkversionUpdateWith:self.versionUpdateModel];
+    }
     
     NSDate *nowTime = [NSDate date];
     NSTimeInterval timeDifference = [nowTime timeIntervalSinceDate: self.exitTime];

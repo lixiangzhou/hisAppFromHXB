@@ -10,6 +10,8 @@
 
 @interface HXBOpenDepositAccountView : UIView
 
+//用户信息
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userModel;
 /**
  bankCode
  */

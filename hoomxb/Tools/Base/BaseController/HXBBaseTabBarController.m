@@ -41,7 +41,22 @@
     ///注册通知
     [self registerNotification];
     self.delegate = self;
+    // 去除tabBar上面的横线
+    [self hiddenTabbarLine];
 }
+
+
+// 去除tabBar上面的横线
+- (void)hiddenTabbarLine {
+    UIImageView *shadowImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.3)];
+    shadowImage.backgroundColor = [UIColor colorWithWhite:0.952 alpha:0.8];
+    [[HXB_XYTools shareHandle] createViewShadDow:shadowImage];
+    [[UITabBar appearance] setShadowImage:[UIImage new]];
+    [self.tabBar addSubview:shadowImage];
+    [self.tabBar setBackgroundColor:[UIColor whiteColor]];
+    [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
+}
+
 ///注册通知
 - (void)registerNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentLoginVC:) name:kHXBNotification_ShowLoginVC object:nil];

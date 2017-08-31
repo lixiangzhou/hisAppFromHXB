@@ -130,11 +130,22 @@ UITableViewDataSource,UITableViewDelegate
                 }
             }else
             {
-                //进入绑卡界面
-                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                withdrawCardViewController.title = @"绑卡";
-                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+                if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
+                    //进入绑卡界面
+                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                    withdrawCardViewController.title = @"绑卡";
+                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                    [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+                }else
+                {
+                    //完善信息
+                    HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                    openDepositAccountVC.title = @"完善信息";
+                    openDepositAccountVC.type = HXBChangePhone;
+                    openDepositAccountVC.userModel = self.userInfoViewModel;
+                    [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+                }
+               
             }
         }
         

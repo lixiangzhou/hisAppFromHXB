@@ -139,9 +139,9 @@ static NSString *const cellID = @"cellID";
             self.noDataView.hidden = YES;
         }else
         {
-            self.noDataView.hidden = YES;
-            self.planCapitalTableView.hidden = NO;
-            self.topView.hidden = NO;
+            self.noDataView.hidden = NO;
+            self.planCapitalTableView.hidden = YES;
+            self.topView.hidden = YES;
         }
     } andFailureBlock:^(NSError *error) {
         [weakSelf.planCapitalTableView endRefresh];

@@ -111,6 +111,7 @@
 {
     if (!_iconView) {
         _iconView = [[UIImageView alloc] init];
+        _iconView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _iconView;
 }

@@ -61,7 +61,7 @@
 {
     kWeakSelf
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) return;
+//        if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) return;
         
 //        if (viewModel.userInfoModel.userInfo.escrowTime.intValue >= 3) {
 //            [HXBAlertManager callupWithphoneNumber:@"4001551888" andWithMessage:@"您已经在开通三次，如需继续开通联系客服"];
@@ -95,6 +95,37 @@
         
     }];
 }
+
+- (void)setUserModel:(HXBRequestUserInfoViewModel *)userModel
+{
+    _userModel = userModel;
+
+    //设置用户信息
+    [self setupUserIfoData:userModel];
+    
+    if ([userModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+        //已经绑卡
+        NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
+        bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
+        bankCardAPI.requestMethod = NYRequestMethodGet;
+        [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+            NSLog(@"%@",responseObject);
+            NSInteger status =  [responseObject[@"status"] integerValue];
+            if (status != 0) {
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+                return;
+            }
+            HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+            //设置绑卡信息
+            [self setupBankCardData:bankCardModel];
+        } failure:^(NYBaseRequest *request, NSError *error) {
+            NSLog(@"%@",error);
+            [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+        }];
+    }
+
+}
+
 
 - (void)setupUserIfoData:(HXBRequestUserInfoViewModel *)viewModel
 {

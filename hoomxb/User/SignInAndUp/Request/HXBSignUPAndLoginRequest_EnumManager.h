@@ -47,6 +47,8 @@ typedef enum : NSUInteger {
     HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals,
     //注册
     HXBRechargeAndWithdrawalsLogicalJudgment_signup,
+    //修改手机号
+    HXBChangePhone,
     ///其他的
     HXBRechargeAndWithdrawalsLogicalJudgment_Other
 } HXBRechargeAndWithdrawalsLogicalJudgment;

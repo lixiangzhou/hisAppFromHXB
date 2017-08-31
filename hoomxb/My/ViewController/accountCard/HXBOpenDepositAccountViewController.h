@@ -14,5 +14,7 @@
  用来判断是充值还是提现
  */
 @property (nonatomic, assign) HXBRechargeAndWithdrawalsLogicalJudgment type;
+//用户信息
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userModel;
 
 @end

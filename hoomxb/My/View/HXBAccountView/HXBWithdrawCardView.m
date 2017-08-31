@@ -29,7 +29,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = BACKGROUNDCOLOR;
+        self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.bankCardTextField];
         [self addSubview:self.bankNameTextField];
         [self addSubview:self.phoneNumberTextField];
@@ -146,7 +146,7 @@
     if (!_bankCardTextField) {
         _bankCardTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectZero];
         _bankCardTextField.placeholder = @"银行卡号";
-        _bankCardTextField.leftImage = [SVGKImage imageNamed:@"bankcard.svg"].UIImage;
+        _bankCardTextField.leftImage = [UIImage imageNamed:@"bankcard"];
     }
     return _bankCardTextField;
 }
@@ -176,7 +176,7 @@
         _phoneNumberTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectZero];
         _phoneNumberTextField.placeholder = @"预留手机号";
         _phoneNumberTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
-        _phoneNumberTextField.isHidenLine = YES;
+//        _phoneNumberTextField.isHidenLine = YES;
     }
     return _phoneNumberTextField;
 }

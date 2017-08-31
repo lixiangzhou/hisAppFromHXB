@@ -125,6 +125,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self setUP];
         self.totalTimeNumber = 60;
         self.timeNumber = self.totalTimeNumber;
@@ -201,11 +202,12 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
         if (isSelected) {
             weakSelf.setPassWordButton.enabled = YES;
-            weakSelf.setPassWordButton.backgroundColor = RGB(245, 81, 81);
+            weakSelf.setPassWordButton.backgroundColor = COR29;
         }else
         {
             weakSelf.setPassWordButton.enabled = NO;
-            weakSelf.setPassWordButton.backgroundColor = COR26;
+            weakSelf.setPassWordButton.backgroundColor = kHXBColor_Font0_5;
+            [weakSelf.setPassWordButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         }
     }];
 }
@@ -220,8 +222,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self.smscode_constImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.phonNumberLabel.mas_bottom).offset(kScrAdaptationH(45));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.width.offset(kScrAdaptationW(15));
-        make.height.offset(kScrAdaptationH(13));
+        make.width.offset(kScrAdaptationW750(36));
+        make.height.offset(kScrAdaptationH750(38));
     }];
     [self.codeLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.smscode_constImageView.mas_bottom).offset(kScrAdaptationH(17));
@@ -232,7 +234,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self.smscode_TextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakSelf.sendButton.mas_left);
         make.centerY.height.equalTo(weakSelf.smscode_constImageView);
-        make.left.equalTo(weakSelf.smscode_constImageView.mas_right).offset(kScrAdaptationW(15));
+        make.left.equalTo(weakSelf.smscode_constImageView.mas_right).offset(kScrAdaptationW(10));
     }];
     [self.sendButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.smscode_constImageView);
@@ -243,12 +245,12 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self.passwordImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.codeLine.mas_bottom).offset(kScrAdaptationH(27));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.height.offset(kScrAdaptationH(18));
-        make.width.offset(kScrAdaptationW(14));
+        make.width.offset(kScrAdaptationW750(36));
+        make.height.offset(kScrAdaptationH750(45));
     }];
     [self.password_TextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.height.equalTo(weakSelf.passwordImageView);
-        make.left.equalTo(weakSelf.passwordImageView.mas_right).offset(kScrAdaptationW(14));
+        make.left.equalTo(weakSelf.passwordImageView.mas_right).offset(kScrAdaptationW(10));
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
     }];
     [self.eyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -299,7 +301,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
                     range:NSMakeRange(0, kPassword_constLableTitle.length)];
     self.password_TextField.attributedPlaceholder = passwordattrStr;
     
-    self.smscode_constImageView.image = [SVGKImage imageNamed:@"security_code.svg"].UIImage;
+    self.smscode_constImageView.svgImageString = @"security_code";
+    self.smscode_constImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     self.sendButton.backgroundColor = RGB(222, 222, 222);
     self.sendButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
@@ -311,7 +314,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     self.passwordLine.backgroundColor = RGB(221, 221, 221);
     
     self.passwordImageView.svgImageString = @"password";
-    
+    self.passwordImageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.eyeButton setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateNormal];
     [self.eyeButton setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateSelected];
     
@@ -368,7 +371,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 - (void)addTime {
     self.timeNumber --;
-    [self.sendButton setTitle:@(self.timeNumber).description forState:UIControlStateNormal];
+    
+    [self.sendButton setTitle:[NSString stringWithFormat:@"%@s",@(self.timeNumber).description] forState:UIControlStateNormal];
     if (self.timeNumber <= 0) {
         [self.sendButton setTitle:kSendSmscodeAgainTitle forState:UIControlStateNormal];
         [self.sendButton setBackgroundColor:RGB(245, 81, 81)];

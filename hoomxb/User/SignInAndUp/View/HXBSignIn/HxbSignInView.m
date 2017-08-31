@@ -174,14 +174,14 @@ UITextFieldDelegate
     [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.waterView.mas_bottom).offset(kScrAdaptationH(64));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(21));
-        make.width.equalTo(@(kScrAdaptationW(13)));
-        make.height.offset(kScrAdaptationH(19));
+        make.width.offset(kScrAdaptationW750(36));
+        make.height.offset(kScrAdaptationH750(45));
     }];
     [self.passwordImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.phoneImageView.mas_bottom).offset(kScrAdaptationH(43));
         make.left.equalTo(@(kScrAdaptationW(21)));
-        make.width.equalTo(@(kScrAdaptationW(14)));
-        make.height.equalTo(@(kScrAdaptationH(18)));
+        make.width.offset(kScrAdaptationW750(36));
+        make.height.offset(kScrAdaptationH750(45));
     }];
     [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.phoneImageView);

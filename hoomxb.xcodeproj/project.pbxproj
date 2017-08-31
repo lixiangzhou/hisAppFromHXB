@@ -51,7 +51,6 @@
 		4E77C4201F3E9D4C004257E6 /* HXBDepositoryAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E77C41F1F3E9D4C004257E6 /* HXBDepositoryAlertViewController.m */; };
 		4E7BDEB41F18627D002A3E18 /* HXBFin_PlanDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BE21F1482D100450692 /* HXBFin_PlanDetailView.m */; };
 		4E7BDEB51F1862AD002A3E18 /* HXBNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8EAA0D1F179664003834D4 /* HXBNoticeViewController.m */; };
-		4E7BDEB71F187771002A3E18 /* bankcard.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BDEB61F187771002A3E18 /* bankcard.svg */; };
 		4E7BDEBA1F187923002A3E18 /* HXBCustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7BDEB91F187923002A3E18 /* HXBCustomTextField.m */; };
 		4E7BDEBC1F189F02002A3E18 /* bank.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BDEBB1F189F02002A3E18 /* bank.svg */; };
 		4E7BDEBE1F189F11002A3E18 /* arrow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E7BDEBD1F189F11002A3E18 /* arrow.svg */; };
@@ -97,7 +96,6 @@
 		4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5201F15B79000BBDF11 /* password_eye_close.svg */; };
 		4E88A5231F15B79700BBDF11 /* password_eye_open.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5221F15B79700BBDF11 /* password_eye_open.svg */; };
 		4E88A5271F15CBC500BBDF11 /* back.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5261F15CBC500BBDF11 /* back.svg */; };
-		4E88A5291F1600CB00BBDF11 /* security_code.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5281F1600CB00BBDF11 /* security_code.svg */; };
 		4E8A50291F29CE1400DE1C7D /* HXBUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8A50281F29CE1400DE1C7D /* HXBUserInfoView.m */; };
 		4E8AAE9C1F0B7A4400655544 /* HXBRiskAssessmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAE9B1F0B7A4400655544 /* HXBRiskAssessmentViewController.m */; };
 		4E8AAEA01F0B866C00655544 /* HXBSetGesturePasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAE9F1F0B866C00655544 /* HXBSetGesturePasswordRequest.m */; };
@@ -570,7 +568,6 @@
 		4E739B5E1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBVersionUpdateViewModel.m; sourceTree = "<group>"; };
 		4E77C41E1F3E9D4C004257E6 /* HXBDepositoryAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBDepositoryAlertViewController.h; sourceTree = "<group>"; };
 		4E77C41F1F3E9D4C004257E6 /* HXBDepositoryAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBDepositoryAlertViewController.m; sourceTree = "<group>"; };
-		4E7BDEB61F187771002A3E18 /* bankcard.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = bankcard.svg; sourceTree = "<group>"; };
 		4E7BDEB81F187923002A3E18 /* HXBCustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCustomTextField.h; sourceTree = "<group>"; };
 		4E7BDEB91F187923002A3E18 /* HXBCustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCustomTextField.m; sourceTree = "<group>"; };
 		4E7BDEBB1F189F02002A3E18 /* bank.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = bank.svg; sourceTree = "<group>"; };
@@ -644,7 +641,6 @@
 		4E88A5201F15B79000BBDF11 /* password_eye_close.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = password_eye_close.svg; sourceTree = "<group>"; };
 		4E88A5221F15B79700BBDF11 /* password_eye_open.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = password_eye_open.svg; sourceTree = "<group>"; };
 		4E88A5261F15CBC500BBDF11 /* back.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = back.svg; sourceTree = "<group>"; };
-		4E88A5281F1600CB00BBDF11 /* security_code.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = security_code.svg; sourceTree = "<group>"; };
 		4E8A50271F29CE1400DE1C7D /* HXBUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBUserInfoView.h; sourceTree = "<group>"; };
 		4E8A50281F29CE1400DE1C7D /* HXBUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBUserInfoView.m; sourceTree = "<group>"; };
 		4E8AAE9A1F0B7A4400655544 /* HXBRiskAssessmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRiskAssessmentViewController.h; sourceTree = "<group>"; };
@@ -1794,9 +1790,7 @@
 				4E92155A1F1DBC6600C8CECB /* LoanTruansfer.svg */,
 				4E7BDEBD1F189F11002A3E18 /* arrow.svg */,
 				4E7BDEBB1F189F02002A3E18 /* bank.svg */,
-				4E7BDEB61F187771002A3E18 /* bankcard.svg */,
 				4E8EAA091F176B3D003834D4 /* close.svg */,
-				4E88A5281F1600CB00BBDF11 /* security_code.svg */,
 				4E88A5261F15CBC500BBDF11 /* back.svg */,
 				4E88A5221F15B79700BBDF11 /* password_eye_open.svg */,
 				4E88A5201F15B79000BBDF11 /* password_eye_close.svg */,
@@ -4269,7 +4263,6 @@
 				4ED2F27C1ECAD9810014E5C7 /* homepage_close@3x.png in Resources */,
 				4EECDFD21F380E8B00301758 /* sanbiao.svg in Resources */,
 				4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */,
-				4E7BDEB71F187771002A3E18 /* bankcard.svg in Resources */,
 				4EECE0111F38177000301758 /* 0220.svg in Resources */,
 				4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */,
 				4E92156F1F1DFC8100C8CECB /* id_number.svg in Resources */,
@@ -4284,7 +4277,6 @@
 				E1F630831F20B4F100FC0122 /* Assets.xcassets in Resources */,
 				4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */,
 				4E9215711F1DFC8800C8CECB /* bank_name.svg in Resources */,
-				4E88A5291F1600CB00BBDF11 /* security_code.svg in Resources */,
 				4EECE01D1F38177000301758 /* 5012.svg in Resources */,
 				4E7CCF4E1EBC1B5B00F7BDB3 /* pageControl_select@3x.png in Resources */,
 				E1A1BEF21F386C080006BAA7 /* explain.svg in Resources */,
@@ -4371,7 +4363,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

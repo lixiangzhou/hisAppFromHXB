@@ -298,7 +298,7 @@
     self.nameLabel.textColor = kHXBColor_Grey_Font0_2;
     
     self.tagLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-    self.tagLabel.textColor = kHXBColor_RGB(0.45, 0.68, 1.00, 1.00);
+    self.tagLabel.textColor = RGB(94, 149, 255);
     
     self.expectedYearRateLable.font = kHXBFont_PINGFANGSC_REGULAR(24);
     self.expectedYearRateLable.textColor = kHXBColor_Red_090202;

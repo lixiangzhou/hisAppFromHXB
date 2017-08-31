@@ -249,7 +249,7 @@
 {
     if (!_idCardTextField) {
         _idCardTextField = [[HXBCustomTextField alloc] init];
-        _idCardTextField.leftImage = [SVGKImage imageNamed:@"bankcard.svg"].UIImage;
+        _idCardTextField.leftImage = [UIImage imageNamed:@"bankcard"];
         _idCardTextField.placeholder = @"请输入身份证号码";
         _idCardTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
@@ -293,7 +293,7 @@
     if (!_verificationCodeTextField) {
         _verificationCodeTextField = [[HXBCustomTextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
-        _verificationCodeTextField.leftImage = [SVGKImage imageNamed:@"security_code.svg"].UIImage;
+        _verificationCodeTextField.leftImage = [UIImage imageNamed:@"security_code"];
         _verificationCodeTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _verificationCodeTextField;

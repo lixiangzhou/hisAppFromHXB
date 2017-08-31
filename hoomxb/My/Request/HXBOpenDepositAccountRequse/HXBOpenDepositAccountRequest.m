@@ -7,12 +7,12 @@
 //
 
 #import "HXBOpenDepositAccountRequest.h"
-
+#import "HXBBaseRequest.h"
 @implementation HXBOpenDepositAccountRequest
 
 - (void)openDepositAccountRequestWithArgument:(NSDictionary *)requestArgument andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBOpenDepositAccount_Escrow;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
@@ -31,6 +31,7 @@
             return;
         }
         if (successDateBlock) {
+            [HxbHUDProgress showTextWithMessage:@"开户成功"];
             successDateBlock(responseObject);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -44,7 +45,7 @@
 
 - (void)bindBankCardRequestWithArgument:(NSDictionary *)requestArgument andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBAccount_Bindcard;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
@@ -73,7 +74,7 @@
 
 - (void)accountRechargeRequestWithRechargeAmount:(NSString *)amount andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBAccount_quickpay_smscode;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{
@@ -103,7 +104,7 @@
 
 - (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBAccount_quickpay;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{

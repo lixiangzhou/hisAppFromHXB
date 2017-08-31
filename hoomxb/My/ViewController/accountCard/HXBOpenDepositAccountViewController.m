@@ -13,6 +13,7 @@
 #import "HXBOpenDepositAccountRequest.h"
 #import "HXBFinLoanTruansfer_ContraceWebViewVC.h"///存管的服务协议
 #import "HxbWithdrawViewController.h"
+#import "HXBModifyTransactionPasswordViewController.h"//修改手机号
 @interface HXBOpenDepositAccountViewController ()
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
@@ -65,6 +66,11 @@
         }else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_signup)
         {
             [self dismissViewControllerAnimated:YES completion:nil];
+        }else if (weakSelf.type == HXBChangePhone){
+            HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+            modifyTransactionPasswordVC.title = @"修改绑定手机号";
+            modifyTransactionPasswordVC.userInfoModel = self.userModel.userInfoModel;
+            [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
         }
     } andFailureBlock:^(NSError *error) {
         
@@ -78,6 +84,9 @@
     if (!_mainView) {
         kWeakSelf
         _mainView = [[HXBOpenDepositAccountView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        
+        _mainView.userModel = self.userModel;
+        
         _mainView.bankNameBlock = ^{
             [weakSelf enterBankCardListVC];
         };

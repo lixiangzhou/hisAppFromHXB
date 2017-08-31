@@ -196,7 +196,8 @@ static NSString *const my = @"我的";
 #pragma mark - 设置手势密码界面
 - (void)setupSubViewsSettingVc
 {
-    self.isColourGradientNavigationBar = YES;
+    self.isWhiteColourGradientNavigationBar = YES;
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[[UIButton alloc] init]];
     [self.msgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.top.equalTo(self.titleLabel.mas_bottom).offset(kScrAdaptationH(10));

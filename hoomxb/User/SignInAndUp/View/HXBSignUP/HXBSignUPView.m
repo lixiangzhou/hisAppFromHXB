@@ -163,8 +163,8 @@ UITextFieldDelegate
     [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.waterView.mas_bottom).offset(kScrAdaptationH(50));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.width.equalTo(@(kScrAdaptationW(13)));
-        make.height.equalTo(@(kScrAdaptationH(19)));
+        make.width.offset(kScrAdaptationW750(36));
+        make.height.offset(kScrAdaptationH750(45));
     }];
     [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.phoneImageView);

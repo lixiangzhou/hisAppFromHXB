@@ -23,7 +23,9 @@
     [super viewDidLoad];
     [self setUP];
     self.isColourGradientNavigationBar = YES;
-    self.title = @"借款合同";
+    if (!self.title.length) {
+        self.title = @"借款合同";
+    }
 }
 
 

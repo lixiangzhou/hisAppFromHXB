@@ -141,6 +141,7 @@
             alertVC.immediateOpenBlock = ^{
                 [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_alertBtn];
                 HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                openDepositAccountVC.userModel = viewModel;
                 openDepositAccountVC.title = @"开通存管账户";
                 openDepositAccountVC.type = type;
                 [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];

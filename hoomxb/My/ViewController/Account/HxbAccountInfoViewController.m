@@ -131,12 +131,20 @@ UITableViewDataSource
         openDepositAccountVC.title = @"开通存管账户";
         openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         [self.navigationController pushViewController:openDepositAccountVC animated:YES];
-    }else if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])
+    }else if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])
     {
-        //已开通
-        HxbMyBankCardViewController *myBankCardViewVC = [[HxbMyBankCardViewController alloc]init];
-        myBankCardViewVC.isBank = isbankView;
-        [self.navigationController pushViewController:myBankCardViewVC animated:YES];
+        if (isbankView) {
+            //已开通
+            HxbMyBankCardViewController *myBankCardViewVC = [[HxbMyBankCardViewController alloc]init];
+            myBankCardViewVC.isBank = isbankView;
+            [self.navigationController pushViewController:myBankCardViewVC animated:YES];
+        }else if(![self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]){
+            //完善信息
+            openDepositAccountVC.title = @"完善信息";
+            openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+            [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+        }
+        
     }else{
         //完善信息
         openDepositAccountVC.title = @"完善信息";

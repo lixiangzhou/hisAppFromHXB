@@ -75,7 +75,7 @@
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backView.mas_left).offset(kScrAdaptationW(33));
         make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(13));
-        make.height.offset(kScrAdaptationH(13));
+        make.height.offset(kScrAdaptationH(15));
     }];
     [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.backView.mas_left).offset(kScrAdaptationW(15));
@@ -166,8 +166,10 @@
     
     if (!homePageModel_DataList.tag.length) {
         self.icon.hidden = YES;
+    }else
+    {
+        self.promptLabel.text = homePageModel_DataList.tag;
     }
-    self.promptLabel.text = homePageModel_DataList.tag;
     //设置子控件的位置
     [self setupSubViewFrame];
     
@@ -238,7 +240,7 @@
     if (!_promptLabel) {
         _promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 110, 0, 110, 14)];
         _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(13);
-        _promptLabel.text = @"喜迎国庆，立加息啦";
+//        _promptLabel.text = @"喜迎国庆，立加息啦";
         _promptLabel.textColor = RGB(94, 149, 255);
     }
     return _promptLabel;

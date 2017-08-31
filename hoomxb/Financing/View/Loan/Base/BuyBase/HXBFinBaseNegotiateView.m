@@ -55,8 +55,7 @@
     }];
     [self.negotiateImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.negotiateImageViewBackgroundButton);
-        make.height.equalTo(@(kScrAdaptationH750(17)));
-        make.width.equalTo(@(kScrAdaptationW750(19)));
+        make.height.width.equalTo(@(kScrAdaptationW750(28)));
     }];
     [self.negotiateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.negotiateImageViewBackgroundButton.mas_right).offset(kScrAdaptationW750(10));
@@ -89,7 +88,14 @@
 - (void)clickNegotiateImageViewBackgroundButton: (UIButton *)button {
     NSLog(@"点击了协议确认对勾%@",self);
     button.selected = !button.selected;
-    self.negotiateImageView.hidden = button.selected;
+//    self.negotiateImageView.hidden = button.selected;
+    if (button.selected) {
+        self.negotiateImageView.image = [UIImage imageNamed:@"Rectangle"];
+    }else
+    {
+        self.negotiateImageView.image = [UIImage imageNamed:@"duigou"];
+        
+    }
     if (self.clickCheckMarkBlock) {
         self.clickCheckMarkBlock(!button.selected);
     }

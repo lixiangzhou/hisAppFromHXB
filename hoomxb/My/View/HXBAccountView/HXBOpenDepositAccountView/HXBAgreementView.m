@@ -87,13 +87,14 @@
     if (!_agreeBtn) {
         _agreeBtn = [[UIButton alloc] init];
         _agreeBtn.backgroundColor = [UIColor whiteColor];
-        _agreeBtn.layer.borderColor = COR10.CGColor;
-        _agreeBtn.layer.borderWidth = kXYBorderWidth;
-        _agreeBtn.layer.cornerRadius = kScrAdaptationW(3);
-        _agreeBtn.layer.masksToBounds = YES;
+//        _agreeBtn.layer.borderColor = COR10.CGColor;
+//        _agreeBtn.layer.borderWidth = kXYBorderWidth;
+//        _agreeBtn.layer.cornerRadius = kScrAdaptationW(3);
+//        _agreeBtn.layer.masksToBounds = YES;
         _agreeBtn.selected = YES;
         _agreeBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_agreeBtn setImage:[UIImage imageNamed:@"duigou"] forState:UIControlStateSelected];
+        [_agreeBtn setImage:[UIImage imageNamed:@"Rectangle"] forState:(UIControlStateNormal)];
         [_agreeBtn addTarget:self action:@selector(agreeBtnClick) forControlEvents:UIControlEventTouchUpInside];
         
     }
