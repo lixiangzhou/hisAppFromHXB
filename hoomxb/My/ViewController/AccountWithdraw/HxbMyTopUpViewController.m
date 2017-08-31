@@ -95,9 +95,8 @@
         [accountRequest accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:self.myTopUpBaseView.amount andSuccessBlock:^(id responseObject) {
             
             NSInteger status =  [responseObject[@"status"] integerValue];
-            if (status == 104) return;
-            if (status != 0)
-            {
+            if (status == 104) return ;
+            if (status != 0) {
                 kWeakSelf
                 HXBFBase_BuyResult_VC *result = [[HXBFBase_BuyResult_VC alloc] init];
                 result.title = @"充值失败";
