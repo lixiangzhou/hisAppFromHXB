@@ -241,18 +241,18 @@
     return isNull;
 }
 
-- (BOOL)isjudgeIsNull
+- (BOOL)isjudgeIsNull:(UIView *)textField
 {
     BOOL isNull = NO;
-    if (!(self.nameTextField.text.length > 0)) {
+    if (!(self.nameTextField.text.length > 0) && textField != self.nameTextField) {
         isNull = YES;
         return isNull;
     }
-    if (!(self.idCardTextField.text.length > 0)) {
+    if (!(self.idCardTextField.text.length > 0) && textField != self.idCardTextField) {
         isNull = YES;
         return isNull;
     }
-    if (!(self.pwdTextField.text.length > 0)) {
+    if (!(self.pwdTextField.text.length > 0) && textField != self.pwdTextField) {
         isNull = YES;
         return isNull;
     }
@@ -260,11 +260,11 @@
         isNull = YES;
         return isNull;
     }
-    if (!(self.bankNumberTextField.text.length > 0)) {
+    if (!(self.bankNumberTextField.text.length > 0) && textField != self.bankNumberTextField) {
         isNull = YES;
         return isNull;
     }
-    if (!(self.phoneTextField.text.length > 0)) {
+    if (!(self.phoneTextField.text.length > 0) && textField != self.phoneTextField) {
         isNull = YES;
         return isNull;
     }
@@ -273,21 +273,53 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (range.location == 0 && [string isEqualToString:@""]) {
-        self.isAgree = NO;
-    }else
-    {
-        self.isAgree = YES;
-    }
-    self.bottomBtn.enabled = ![self isjudgeIsNull];
-    if (![self isjudgeIsNull] && self.isAgree) {
-        self.bottomBtn.backgroundColor = COR24;
+//    if (range.location == 0 && [string isEqualToString:@""]) {
+////        self.isAgree = NO;
+//    }else
+//    {
+////        self.isAgree = YES;
+//        textField.text = string;
+//    }
+    if (self.isAgree) {
+        if (range.location == 0 && [string isEqualToString:@""]) {
+            self.bottomBtn.backgroundColor = COR26;
+            self.bottomBtn.enabled = NO;
+        }else
+        {
+            if (![self isjudgeIsNull:textField.superview])
+            {
+                self.bottomBtn.backgroundColor = COR24;
+                self.bottomBtn.enabled = YES;
+            }
+        }
     }else
     {
         self.bottomBtn.backgroundColor = COR26;
+        self.bottomBtn.enabled = NO;
     }
+//    if (![self isjudgeIsNull:textField.superview] && self.isAgree) {
+//        self.bottomBtn.backgroundColor = COR24;
+//        self.bottomBtn.enabled = YES;
+//    }else
+//    {
+//        
+//    }
     return YES;
 }
+
+- (void)setBankCode:(NSString *)bankCode
+{
+    _bankCode = bankCode;
+    if (self.isAgree && ![self isjudgeIsNull:nil]) {
+        self.bottomBtn.backgroundColor = COR24;
+        self.bottomBtn.enabled = YES;
+    }else
+    {
+        self.bottomBtn.backgroundColor = COR26;
+        self.bottomBtn.enabled = NO;
+    }
+}
+
 #pragma mark - 懒加载
 - (HXBDepositoryHeaderView *)headerTipView
 {
@@ -403,7 +435,7 @@
         _negotiateView.text = attributedString;
         _negotiateView.agreeBtnBlock = ^(BOOL isSelected){
             weakSelf.isAgree = isSelected;
-            if (isSelected && ![weakSelf isjudgeIsNull] ) {
+            if (isSelected && ![weakSelf isjudgeIsNull:nil]) {
                 weakSelf.bottomBtn.backgroundColor = COR24;
                 weakSelf.bottomBtn.enabled = YES;
             }else
