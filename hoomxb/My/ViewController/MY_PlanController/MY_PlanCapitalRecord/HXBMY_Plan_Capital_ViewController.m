@@ -157,6 +157,7 @@ static NSString *const cellID = @"cellID";
     HXBMY_Plan_Capital_Cell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[HXBMY_Plan_Capital_Cell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.ID = _dataArray[indexPath.row].loanId;
     cell.loanAoumt = _dataArray[indexPath.row].amount;
@@ -218,6 +219,15 @@ static NSString *const cellID = @"cellID";
     self.timeLabel = [[UILabel alloc]init];
     self.typeLabel = [[UILabel alloc]init];
     
+    self.planIDLabel.textAlignment = NSTextAlignmentCenter;
+    self.amountLabel.textAlignment = NSTextAlignmentCenter;
+    self.timeLabel.textAlignment = NSTextAlignmentCenter;
+    self.typeLabel.textAlignment = NSTextAlignmentCenter;
+    
+    self.planIDLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    self.amountLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    self.timeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    self.typeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     
     [self.contentView addSubview:self.planIDLabel];
     [self.contentView addSubview:self.amountLabel];
@@ -227,7 +237,7 @@ static NSString *const cellID = @"cellID";
                           self.planIDLabel,self.amountLabel,self.timeLabel,self.typeLabel
                            ];
     
-    [viewArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:0 leadSpacing:0 tailSpacing:0];
+    [viewArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:5 leadSpacing:5 tailSpacing:5];
     [viewArray mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.contentView);
     }];

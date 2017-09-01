@@ -44,7 +44,7 @@
         _phoneTextField = [[HXBCustomTextField alloc] init];
         _phoneTextField.placeholder = @"新手机号";
         _phoneTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
-        _phoneTextField.keyboardType = UIKeyboardTypeDecimalPad;
+        _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _phoneTextField;
 }
@@ -55,7 +55,7 @@
         _verificationCodeTextField = [[HXBCustomTextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
         _verificationCodeTextField.leftImage = [UIImage imageNamed:@"security_code"];
-        _verificationCodeTextField.keyboardType = UIKeyboardTypeDecimalPad;
+        _verificationCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _verificationCodeTextField;
 }
@@ -171,8 +171,16 @@
 
 - (void)sureChangeBtnClick
 {
-    if (self.sureChangeBtnClickBlock) {
-        self.sureChangeBtnClickBlock(self.phoneTextField.text,self.verificationCodeTextField.text);
+    if (self.phoneTextField.text.length == 0) {
+        [HxbHUDProgress showTextWithMessage:@"新手机号不能为空"];
+    } else if (![NSString isMobileNumber:self.phoneTextField.text]) {
+        [HxbHUDProgress showTextWithMessage:@"请输入正确的手机号"];
+    } else if (self.verificationCodeTextField.text.length == 0) {
+        [HxbHUDProgress showTextWithMessage:@"请输入正确的验证码"];
+    } else {
+        if (self.sureChangeBtnClickBlock) {
+            self.sureChangeBtnClickBlock(self.phoneTextField.text,self.verificationCodeTextField.text);
+        }
     }
 }
 
