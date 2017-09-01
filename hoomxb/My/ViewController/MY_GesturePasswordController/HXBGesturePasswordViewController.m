@@ -118,7 +118,7 @@ static NSString *const my = @"我的";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self.view setBackgroundColor:CircleViewBackgroundColor];
     
     // 1.界面相同部分生成器
