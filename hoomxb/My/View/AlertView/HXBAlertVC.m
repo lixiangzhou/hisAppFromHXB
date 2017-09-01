@@ -10,7 +10,7 @@
 #import "SVGKImage.h"
 #import "HXBVerificationCodeAlertView.h"
 #import "HBAlertPasswordView.h"
-@interface HXBAlertVC ()<HBAlertPasswordViewDelegate>
+@interface HXBAlertVC ()<HBAlertPasswordViewDelegate, UITextFieldDelegate>
 @property (nonatomic, strong) UIButton *cancelBtn;
 
 @property (nonatomic, strong) UIButton *sureBtn;
@@ -316,6 +316,7 @@
     if (!_verificationCodeAlertView) {
         kWeakSelf
         _verificationCodeAlertView = [[HXBVerificationCodeAlertView alloc] init];
+        _verificationCodeAlertView.delegate = self;
         _verificationCodeAlertView.backgroundColor = [UIColor whiteColor];
         _verificationCodeAlertView.getVerificationCodeBlock = ^{
             if (weakSelf.getVerificationCodeBlock) {
@@ -335,7 +336,6 @@
 #pragma mark - <HBAlertPasswordViewDelegate>
 - (void)sureActionWithAlertPasswordView:(HBAlertPasswordView *)alertPasswordView password:(NSString *)password {
     
-//    [alertPasswordView removeFromSuperview];
     self.transactionPassword = password;
     NSLog(@"%@",[NSString stringWithFormat:@"输入的密码为:%@", password]);
     if (password.length == 6) {
@@ -345,6 +345,17 @@
         [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
         _sureBtn.userInteractionEnabled = NO;;
     }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (range.location == 0 && [string isEqualToString:@""]) {
+        [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
+        _sureBtn.userInteractionEnabled = NO;;
+    } else {
+        [_sureBtn setBackgroundColor:RGB(245, 81, 81)];
+        _sureBtn.userInteractionEnabled = YES;
+    }
+    return YES;
 }
 
 

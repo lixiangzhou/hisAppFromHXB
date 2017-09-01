@@ -60,6 +60,11 @@
     }];
 }
 
+- (void)setDelegate:(id<UITextFieldDelegate>)delegate
+{
+    _delegate = delegate;
+    self.textField.delegate = delegate;
+}
 - (void)getVerificationCode
 {
     self.codeBtn.enabled = NO;
