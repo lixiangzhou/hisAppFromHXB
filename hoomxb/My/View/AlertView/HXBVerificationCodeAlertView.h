@@ -21,4 +21,7 @@
  */
 @property (nonatomic, copy) void (^getVerificationCodeBlock)();
 
+/** 协议 */
+@property (nonatomic, assign) id<UITextFieldDelegate> delegate;
+
 @end
