@@ -43,8 +43,10 @@
 @synthesize buy_massageCount = _buy_massageCount;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self setUP];
 }
+
 - (void)setUP {
     self.isReadColorWithNavigationBar = true;
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -198,4 +200,12 @@
     CGFloat spacing_TotalHeight = (_buy_massageCount - 1) * kScrAdaptationH750(28);
     return label_TotalHeight + spacing_TotalHeight;
 }
+
+- (void)leftBackBtnClick {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+
+}
+
+
+
 @end

@@ -222,7 +222,7 @@
     [self.rechargeView clickBuyButtonFunc:^{
         NSString *str = nil;
 //        if (weakSelf.model.amount.floatValue > weakSelf.model.remainAmountLabelStr.floatValue) {
-        str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.remainAmountLabelStr.floatValue];
+        str = [NSString stringWithFormat:@"%ld",weakSelf.model.remainAmountLabelStr.integerValue];
 //        }else {
 //            str = [NSString stringWithFormat:@"%.2lf",weakSelf.model.amount.floatValue];
 //        }

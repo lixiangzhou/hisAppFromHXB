@@ -304,7 +304,7 @@
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
 {   
     _userInfoViewModel = userInfoViewModel;
-    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可提金额: %@元",userInfoViewModel.userInfoModel.userAssets.availablePoint];
+    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可提金额: %.2f元",[userInfoViewModel.userInfoModel.userAssets.availablePoint floatValue]];
 }
 
 - (void)loadBankCard

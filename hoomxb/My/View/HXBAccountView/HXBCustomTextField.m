@@ -13,6 +13,7 @@
     NSString *_text;
 }
 @property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) BXTextField *idTextField;
 @property (nonatomic, strong) UIButton *bankNameBtn;
 @property (nonatomic, strong) UIImageView *leftImageView;
 @property (nonatomic, strong) UIImageView *rightImageView;
@@ -33,6 +34,7 @@
         
         [self addSubview:self.leftImageView];
         [self addSubview:self.textField];
+        [self addSubview:self.idTextField];
         [self addSubview:self.line];
         [self addSubview:self.rightImageView];
         [self addSubview:self.bankNameBtn];
@@ -41,6 +43,16 @@
         [self setupSubViewFrame];
     }
     return self;
+}
+
+- (void)setIsIDCardTextField:(BOOL)isIDCardTextField {
+    if (isIDCardTextField) {
+        self.textField.hidden = YES;
+        self.idTextField.hidden = NO;
+    } else {
+        self.textField.hidden = NO;
+        self.idTextField.hidden = YES;
+    }
 }
 
 
@@ -57,11 +69,16 @@
         make.right.equalTo(self).offset(kScrAdaptationW750(-40));
         make.top.bottom.equalTo(self);
     }];
+    [self.idTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
+        make.right.equalTo(self).offset(kScrAdaptationW750(-40));
+        make.top.bottom.equalTo(self);
+    }];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.mas_bottom);
         make.left.equalTo(self.leftImageView.mas_left);
         make.right.equalTo(self).offset(kScrAdaptationW750(-40));
-        make.height.offset(1);
+        make.height.offset(kScrAdaptationH(0.8));
     }];
     [self.eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.centerY.equalTo(self.textField);
@@ -96,6 +113,7 @@
 {
     _delegate = delegate;
     self.textField.delegate = delegate;
+    self.idTextField.delegate = delegate;
 }
 
 - (void)setSecureTextEntry:(BOOL)secureTextEntry
@@ -140,23 +158,31 @@
                     value:COR10
                     range:NSMakeRange(0, placeholder.length)];
     self.textField.attributedPlaceholder = attrStr;
+    self.idTextField.attributedPlaceholder = attrStr;
 }
 
 - (void)setAttributedPlaceholder:(NSAttributedString *)attributedPlaceholder
 {
     _attributedPlaceholder = attributedPlaceholder;
     self.textField.attributedPlaceholder = attributedPlaceholder;
+    self.idTextField.attributedPlaceholder = attributedPlaceholder;
 }
 
 - (void)setText:(NSString *)text
 {
     _text = text;
     self.textField.text = text;
+    self.idTextField.text = text;
 }
 
 - (NSString *)text
 {
-    return self.textField.text;
+    if (self.isIDCardTextField) {
+        return self.idTextField.text;
+    } else {
+        return self.textField.text;
+    }
+    
 }
 
 - (void)setKeyboardType:(UIKeyboardType)keyboardType
@@ -181,8 +207,19 @@
     if (!_textField) {
         _textField = [[UITextField alloc] init];
         _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
     return _textField;
+}
+
+- (BXTextField *)idTextField {
+    if (!_idTextField) {
+        _idTextField = [[BXTextField alloc] init];
+        _idTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _idTextField.hidden = YES;
+        _idTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    }
+    return _idTextField;
 }
 
 - (UIImageView *)leftImageView

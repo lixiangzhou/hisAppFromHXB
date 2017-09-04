@@ -16,7 +16,7 @@
 
 - (NSString *) amount {
     if (!_amount) {
-        _amount = [NSString hxb_getPerMilWithDouble:self.planLoanRecordModel.amount.floatValue];
+        _amount = [NSString GetPerMilWithDouble:self.planLoanRecordModel.amount.floatValue];
     }
     return _amount;
 }

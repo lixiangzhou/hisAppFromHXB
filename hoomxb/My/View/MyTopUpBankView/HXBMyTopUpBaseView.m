@@ -44,7 +44,7 @@
 
 - (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
 {
-    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@元",viewModel.userInfoModel.userAssets.availablePoint];
+    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@元",viewModel.availablePoint_NOTYUAN];
 }
 
 - (void)setCardViewFrame{

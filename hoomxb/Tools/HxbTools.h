@@ -17,6 +17,7 @@
 #import "HXBUmengManagar.h" // 友盟统计
 #import "HXB_XYTools.h" // 工具类
 #import "HXBXYAlertViewController.h" // 更新的弹框
+#import "BXTextField.h" // 身份证键盘
 
 
 #endif /* HxbTools_h */
