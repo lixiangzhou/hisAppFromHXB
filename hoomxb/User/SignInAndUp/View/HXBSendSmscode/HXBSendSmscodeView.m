@@ -364,7 +364,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     } else {
         if([self isPasswordQualifiedFunWithStr:self.password_TextField.text]) {
             if (self.inviteCodeTextField.text.length == 0) {
-                [HxbHUDProgress showTextWithMessage:@"请输入正确的邀请码"];
+                [HxbHUDProgress showTextWithMessage:@"请输入邀请码"];
             } else {
                 //合格 请求数据
                 if (self.clickSetPassWordButtonBlock)

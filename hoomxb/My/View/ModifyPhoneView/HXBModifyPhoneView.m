@@ -10,7 +10,7 @@
 #import "HXBSignUPAndLoginRequest.h"
 #import "HXBCustomTextField.h"
 #import "SVGKImage.h"
-@interface HXBModifyPhoneView ()
+@interface HXBModifyPhoneView ()<UITextFieldDelegate>
 
 /**
  新手机号输入框
@@ -21,7 +21,7 @@
  短信验证码输入框
  */
 @property (nonatomic, strong) HXBCustomTextField *verificationCodeTextField;
-
+@property (nonatomic, strong) UIView *lineView;
 /**
  获取验证码按钮
  */
@@ -43,6 +43,7 @@
     if (!_phoneTextField) {
         _phoneTextField = [[HXBCustomTextField alloc] init];
         _phoneTextField.placeholder = @"新手机号";
+        _phoneTextField.delegate = self;
         _phoneTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
@@ -54,6 +55,8 @@
     if (!_verificationCodeTextField) {
         _verificationCodeTextField = [[HXBCustomTextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
+        _verificationCodeTextField.delegate = self;
+        _verificationCodeTextField.isHidenLine = YES;
         _verificationCodeTextField.leftImage = [UIImage imageNamed:@"security_code"];
         _verificationCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
@@ -64,6 +67,8 @@
 {
     if (!_getCodeBtn) {
         _getCodeBtn = [UIButton btnwithTitle:@"获取验证码" andTarget:self andAction:@selector(getCodeBtnClick) andFrameByCategory:CGRectZero];
+        _getCodeBtn.backgroundColor = COR26;
+        _getCodeBtn.userInteractionEnabled = NO;
         _getCodeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
 
     }
@@ -98,7 +103,9 @@
     [self addSubview:self.verificationCodeTextField];
     [self addSubview:self.getCodeBtn];
     [self addSubview:self.sureChangeBtn];
-    
+    self.lineView = [[UIView alloc] initWithFrame:CGRectMake(kScrAdaptationW750(40), kScrAdaptationH750(250.4), kScreenWidth - kScrAdaptationW750(80), kScrAdaptationH750(1.6))];
+    self.lineView.backgroundColor = COR12;
+    [self addSubview:self.lineView];
 }
 /**
  设置子视图frame
@@ -120,7 +127,7 @@
     }];
     [self.verificationCodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
-        make.right.equalTo(self);
+        make.right.equalTo(self).offset(-kScrAdaptationW750(210));
         make.top.equalTo(self.phoneTextField.mas_bottom);
         make.height.offset(kScrAdaptationH750(120));
     }];
@@ -168,6 +175,53 @@
     }];
 
 }
+//参数一：range,要被替换的字符串的range，如果是新键入的那么就没有字符串被替换，range.lenth=0,第二个参数：替换的字符串，即键盘即将键入或者即将粘贴到textfield的string
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField.superview == _phoneTextField) {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        } else if(!string.length) {
+            NSInteger length = self.phoneTextField.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = self.phoneTextField.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if (str.length == 11) {
+            [_phoneTextField resignFirstResponder];
+            if (![NSString isMobileNumber:str]) {
+                [HxbHUDProgress showTextWithMessage:@"请输入正确的手机号"];
+            } else {
+                _getCodeBtn.backgroundColor = COR29;
+                _getCodeBtn.userInteractionEnabled = YES;
+            }
+        } else if (str.length > 11) {
+            return NO;
+        } else {
+            _getCodeBtn.backgroundColor = COR26;
+            _getCodeBtn.userInteractionEnabled = NO;
+        }
+    } else {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        } else if(!string.length) {
+            NSInteger length = self.verificationCodeTextField.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = self.verificationCodeTextField.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if (str.length > 6) {
+            return NO;
+        }
+    }
+    
+    return YES;
+    
+}
+
 
 - (void)sureChangeBtnClick
 {

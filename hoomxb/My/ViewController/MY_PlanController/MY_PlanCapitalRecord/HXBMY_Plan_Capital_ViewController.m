@@ -174,7 +174,7 @@ static NSString *const cellID = @"cellID";
 - (HXBNoDataView *)noDataView
 {
     if (!_noDataView) {
-         _noDataView = [[HXBNoDataView alloc] initWithFrame:CGRectMake(0, 64 + kScrAdaptationH750(278), kScreenWidth, kScreenHeight - 64)];
+         _noDataView = [[HXBNoDataView alloc] initWithFrame:CGRectMake(0, 64 + kScrAdaptationH750(100), kScreenWidth, kScreenHeight - 64)];
         
         _noDataView.imageName = @"Fin_NotData";
         _noDataView.noDataMassage = @"暂无投资记录";
@@ -220,9 +220,10 @@ static NSString *const cellID = @"cellID";
     self.typeLabel = [[UILabel alloc]init];
     
     self.planIDLabel.textAlignment = NSTextAlignmentCenter;
-    self.amountLabel.textAlignment = NSTextAlignmentCenter;
+    self.amountLabel.textAlignment = NSTextAlignmentRight;
     self.timeLabel.textAlignment = NSTextAlignmentCenter;
     self.typeLabel.textAlignment = NSTextAlignmentCenter;
+
     
     self.planIDLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.amountLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
@@ -237,7 +238,7 @@ static NSString *const cellID = @"cellID";
                           self.planIDLabel,self.amountLabel,self.timeLabel,self.typeLabel
                            ];
     
-    [viewArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:5 leadSpacing:5 tailSpacing:5];
+    [viewArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:10 leadSpacing:10 tailSpacing:10];
     [viewArray mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self.contentView);
     }];

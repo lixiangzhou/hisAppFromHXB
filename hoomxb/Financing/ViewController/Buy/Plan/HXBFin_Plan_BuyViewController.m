@@ -159,7 +159,12 @@
         }else {
             str = weakSelf.planViewModel.planDetailModel.remainAmount;
         }
-        textField.text = [NSString stringWithFormat:@"%.2lf",str.floatValue];
+        if (str.integerValue == 0) {
+            [HxbHUDProgress showTextWithMessage:@"本期加入已达上限"];
+        } else {
+            textField.text = [NSString stringWithFormat:@"%ld",str.integerValue];
+            
+        }
     }];
 }
 - (void)registerAdd {
@@ -168,6 +173,10 @@
     [self.joinimmediateView clickAddButtonFunc:^(UITextField *textField,NSString *capital) {
         // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
         CGFloat minRegisterAmount = weakSelf.planViewModel.minRegisterAmount.floatValue;
+        if (capital.length == 0) {
+            [HxbHUDProgress showMessageCenter:@"请输入投资金额" inView:self.view];
+            return ;
+        }
         if ((capital.floatValue < minRegisterAmount)) {
             NSLog(@"请输入大于等于1000");
             [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"起投金额%.2lf元",minRegisterAmount] inView:self.view];

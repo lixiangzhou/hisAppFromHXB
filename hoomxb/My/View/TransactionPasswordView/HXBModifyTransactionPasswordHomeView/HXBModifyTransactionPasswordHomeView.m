@@ -10,7 +10,7 @@
 #import "HXBUserInfoModel.h"
 #import "HXBCustomTextField.h"
 #import "SVGKImage.h"
-@interface HXBModifyTransactionPasswordHomeView()
+@interface HXBModifyTransactionPasswordHomeView()<UITextFieldDelegate>
 
 /**
  提示标签（认证姓名）
@@ -251,6 +251,8 @@
         _idCardTextField = [[HXBCustomTextField alloc] init];
         _idCardTextField.leftImage = [UIImage imageNamed:@"bankcard"];
         _idCardTextField.placeholder = @"请输入身份证号码";
+        _idCardTextField.isIDCardTextField = YES;
+        _idCardTextField.delegate = self;
         _idCardTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _idCardTextField;
@@ -293,8 +295,9 @@
     if (!_verificationCodeTextField) {
         _verificationCodeTextField = [[HXBCustomTextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
+        _verificationCodeTextField.delegate = self;
         _verificationCodeTextField.leftImage = [UIImage imageNamed:@"security_code"];
-        _verificationCodeTextField.keyboardType = UIKeyboardTypeDecimalPad;
+        _verificationCodeTextField.keyboardType = UIKeyboardTypeNumberPad; 
     }
     return _verificationCodeTextField;
 }
@@ -320,6 +323,40 @@
         _nextButton = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(nextButtonClick) andFrameByCategory:CGRectZero];
     }
     return _nextButton;
+}
+
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField.superview == _idCardTextField) {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        } else if(!string.length) {
+            NSInteger length = self.idCardTextField.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = self.idCardTextField.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if (str.length > 18) {
+            return NO;
+        }
+    } else {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        } else if(!string.length) {
+            NSInteger length = self.verificationCodeTextField.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = self.verificationCodeTextField.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if (str.length > 6) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 - (void)dealloc

@@ -37,7 +37,7 @@ UITextFieldDelegate
 - (UITextField *)phoneTextField{
     if (!_phoneTextField) {
         _phoneTextField = [UITextField hxb_lineTextFieldWithFrame:CGRectMake(20, SCREEN_HEIGHT/3, SCREEN_WIDTH - 40, 44)];
-        _phoneTextField.keyboardType = UIKeyboardTypeDecimalPad;
+        _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
         [_phoneTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
         UILabel *leftLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,70, 44)];
         leftLable.text = @"手机号";
