@@ -74,7 +74,7 @@ typedef enum : NSUInteger {
             NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planListModel.beginSellingTime  andDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
             NSString *datestr = @(date.timeIntervalSince1970).description;
             self.isHidden = false;
-            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"HH:mm"];
+            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"dd日HH:mm"];
         }
     }
     

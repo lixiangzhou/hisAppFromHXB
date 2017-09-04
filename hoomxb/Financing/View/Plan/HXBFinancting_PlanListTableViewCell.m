@@ -27,6 +27,7 @@
 
 @property (nonatomic, strong) UIView *lineView;
 
+@property (nonatomic, strong) UIView *countDownView;//承载倒计时的View
 @end
 @implementation HXBFinancting_PlanListTableViewCell
 
@@ -240,8 +241,9 @@
     [self.contentView addSubview:self.lockPeriodLabel];
     [self.contentView addSubview:self.addStatus];
     [self.contentView addSubview:self.preferentialLabel];
-    [self.contentView addSubview:self.arrowImageView];
-    [self.contentView addSubview:self.countDownLable];
+    [self.contentView addSubview:self.countDownView];
+    [self.countDownView addSubview:self.arrowImageView];
+    [self.countDownView addSubview:self.countDownLable];
     [self.contentView addSubview:self.tagLabel];
     [self.contentView addSubview:self.tagLableImageView];
     [self.contentView addSubview:self.lineView];
@@ -289,21 +291,28 @@
         make.height.equalTo(@(kScrAdaptationH(30)));
         make.width.equalTo(@(kScrAdaptationW(85)));
     }];
+    [self.countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.addStatus.mas_bottom).offset(kScrAdaptationH(13));
+        make.centerX.equalTo(weakSelf.addStatus);
+        make.left.equalTo(weakSelf.arrowImageView.mas_left);
+        make.right.equalTo(weakSelf.countDownLable.mas_right);
+        make.bottom.equalTo(weakSelf.countDownLable.mas_bottom);
+    }];
     //时间的图标
     [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.countDownLable.mas_left).offset(kScrAdaptationW(-6));
+        make.left.equalTo(self.countDownView.mas_left);
         make.height.top.equalTo(self.countDownLable);
         make.width.equalTo(self.countDownLable.mas_height);
     }];
     [self.preferentialLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.contentView).offset(20);
+        make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH750(20));
         make.right.equalTo(weakSelf.arrowImageView);
-        make.height.equalTo(@20);
+        make.height.offset(kScrAdaptationH750(20));
     }];
     [self.countDownLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.addStatus.mas_bottom).offset(kScrAdaptationH(13));
-        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW(-31));
-        make.width.equalTo(@(kScrAdaptationW(36)));
+        make.top.bottom.equalTo(weakSelf.countDownView);
+        make.left.equalTo(weakSelf.arrowImageView.mas_right).offset(kScrAdaptationW(6));
+//        make.width.equalTo(@(kScrAdaptationW(36)));
         make.height.equalTo(@(kScrAdaptationH(13)));
     }];
     
@@ -336,6 +345,16 @@
     self.addStatus.font = kHXBFont_PINGFANGSC_REGULAR(14);
     self.addStatus.textColor = [UIColor whiteColor];
     self.addStatus.textAlignment = NSTextAlignmentCenter;
+    
+}
+
+- (UIView *)countDownView
+{
+    if (!_countDownView) {
+        _countDownView = [[UIView alloc] init];
+        _countDownView.backgroundColor = [UIColor clearColor];
+    }
+    return _countDownView;
     
 }
 

@@ -95,7 +95,7 @@
  **/
 - (NSString *) financeEndTime_flow {
     if (!_financeEndTime_flow) {
-        NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planDetailModel.endLockingTime andDateFormatter: @"yyyy-MM-dd HH:mm:ss"];
+        NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planDetailModel.financeEndTime andDateFormatter: @"yyyy-MM-dd HH:mm:ss"];
         _financeEndTime_flow  = [[HXBBaseHandDate sharedHandleDate] stringFromDate:date andDateFormat:@"MM-dd HH:mm"];
     }
     return _financeEndTime_flow;

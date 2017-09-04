@@ -49,11 +49,13 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.view.hidden = ![KeyChain isLogin];
+//    self.view.hidden = ![KeyChain isLogin];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     //加载用户数据
-    [self loadData_userInfo];
+    if ([KeyChain isLogin]) {
+        [self loadData_userInfo];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

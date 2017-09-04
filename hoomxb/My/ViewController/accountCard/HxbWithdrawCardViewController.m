@@ -104,7 +104,7 @@
             [self.navigationController pushViewController:withdrawViewController animated:YES];
         }else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
         {
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
         }
     } andFailureBlock:^(NSError *error) {
         

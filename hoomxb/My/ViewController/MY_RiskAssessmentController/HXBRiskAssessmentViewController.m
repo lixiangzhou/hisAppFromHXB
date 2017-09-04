@@ -35,7 +35,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"风险评测";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
     [self setupRightBarBtn];
@@ -128,7 +127,9 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     [HxbHUDProgress hidenHUD:self.webView];
+    
 }
 - (void)popWithBlock:(void (^)(NSString *type))popBlock {
     self.popBlock = popBlock;

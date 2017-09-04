@@ -48,7 +48,7 @@
 @property (nonatomic,copy) NSString *username;
 ///	用户手机
 @property (nonatomic,copy) NSString *mobile;
-///	是否安全认证
+///	是否安全认证-(不在使用)
 @property (nonatomic,copy) NSString *isAllPassed;
 ///	String	是否手机号
 @property (nonatomic,copy) NSString *isMobilePassed;

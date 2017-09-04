@@ -247,7 +247,6 @@
     [self.joinimmediateView_Loan clickNegotiateButtonFunc:^{
         HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
         vc.URL = kHXB_Negotiate_ServeLoanURL;
-        vc.title = @"借款协议";
         [weakSelf.navigationController pushViewController:vc animated:true];
     }];
 }

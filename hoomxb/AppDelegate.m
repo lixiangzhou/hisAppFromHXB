@@ -83,12 +83,12 @@ static NSString *const my = @"我的";
     
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
-
-    //设置键盘
-    [self keyboardManager];
     
     //设置友盟统计
     [self setupUmeng];
+    
+    //设置键盘
+    [self keyboardManager];
     
     return YES;
 }
@@ -105,7 +105,6 @@ static NSString *const my = @"我的";
     manager.shouldResignOnTouchOutside = YES;
     manager.shouldToolbarUsesTextFieldTintColor = YES;
     manager.enableAutoToolbar = NO;
-    manager.keyboardDistanceFromTextField = 100;
 }
 
 - (void)checkversionUpdate

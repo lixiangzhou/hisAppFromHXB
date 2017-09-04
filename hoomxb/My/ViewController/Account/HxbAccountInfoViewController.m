@@ -108,13 +108,17 @@ UITableViewDataSource
 //进入绑卡界面
 - (void)bindBankCardClick
 {
-    [HXBMiddlekey rechargePurchaseJumpLogicWithNAV:self.navigationController];    
+//    [HXBMiddlekey rechargePurchaseJumpLogicWithNAV:self.navigationController];    
 //    //进入绑卡界面
-//    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-//    withdrawCardViewController.title = @"绑卡";
-//    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-//    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+    withdrawCardViewController.title = @"绑卡";
+    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
 }
+
+
+
+
 
 /**
  进入存管账户
@@ -126,11 +130,23 @@ UITableViewDataSource
         [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:@"您已经在后台解绑身份证请联系客服"];
         return;
     }
+    
     if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
         //开通存管银行账户
-        openDepositAccountVC.title = @"开通存管账户";
-        openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-        [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+//        openDepositAccountVC.title = @"开通存管账户";
+//        openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//        [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+        HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
+        alertVC.immediateOpenBlock = ^{
+            [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_alertBtn];
+            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+            openDepositAccountVC.userModel = self.userInfoViewModel;
+            openDepositAccountVC.title = @"开通存管账户";
+            openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+            [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+        };
+        [self presentViewController:alertVC animated:NO completion:nil];
+        
     }else if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])
     {
         if (isbankView) {
@@ -143,19 +159,27 @@ UITableViewDataSource
             openDepositAccountVC.title = @"完善信息";
             openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
             [self.navigationController pushViewController:openDepositAccountVC animated:YES];
-        } else if (self.userInfoViewModel.userInfoModel.userInfo.isAllPassed) {
+        } else {
             HxbMyBankCardViewController *myBankCardViewVC = [[HxbMyBankCardViewController alloc]init];
             myBankCardViewVC.isBank = isbankView;
             [self.navigationController pushViewController:myBankCardViewVC animated:YES];
         }
-        
+    }else if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
+    {
+////        //进入绑卡界面
+//        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+//        withdrawCardViewController.title = @"绑卡";
+//        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//        [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+        HxbMyBankCardViewController *myBankCardViewVC = [[HxbMyBankCardViewController alloc]init];
+        myBankCardViewVC.isBank = isbankView;
+        [self.navigationController pushViewController:myBankCardViewVC animated:YES];
     }else{
         //完善信息
         openDepositAccountVC.title = @"完善信息";
         openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         [self.navigationController pushViewController:openDepositAccountVC animated:YES];
     }
-
 }
 /**
  进入风险评测
@@ -244,7 +268,7 @@ UITableViewDataSource
             if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 //开通存管银行账户
                 cell.detailTextLabel.text = @"未开通";
-            }else if (!([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])) {
+            }else if (![self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
                 //完善信息
                 cell.detailTextLabel.text = @"完善信息";
             }else{

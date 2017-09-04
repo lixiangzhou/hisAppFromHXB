@@ -270,7 +270,6 @@
     [self.joinimmediateView clickNegotiateButtonFunc:^{
         HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
         vc.URL = kHXB_Negotiate_ServePlanURL;
-        vc.title = @"红利计划服务协议";
         [weakSelf.navigationController pushViewController:vc animated:true];
     }];
 }

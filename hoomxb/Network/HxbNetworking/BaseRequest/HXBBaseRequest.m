@@ -43,7 +43,7 @@
 
 
 - (void)start{
-    NSString *str = @"正在加载数据";
+    NSString *str = @"加载中...";
     if (self.isUPReloadData || self.dataPage > 1) {
         str = nil;
     }

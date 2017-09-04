@@ -26,7 +26,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.hxbBaseVCScrollView addSubview:self.mainView];
+//    [self.hxbBaseVCScrollView addSubview:self.mainView];
+    self.hxbBaseVCScrollView.tableHeaderView = self.mainView;
+    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
     [self setupSubView];
     [self loadUserInfo];
 }
@@ -166,11 +168,11 @@
             HXBFinLoanTruansfer_ContraceWebViewVC *webViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc] init];
             if (isThirdpart) {
                 webViewVC.URL = kHXB_Negotiate_thirdpart;
-                webViewVC.title = @"恒丰银行股份有限公司杭州分行网络交易资金账户三方协议";
+//                webViewVC.title = @"恒丰银行股份有限公司杭州分行网络交易资金账户三方协议";
             }else
             {
                 webViewVC.URL = kHXB_Negotiate_authorize;
-                webViewVC.title = @"红小宝平台授权协议";
+//                webViewVC.title = @"红小宝平台授权协议";
             }
             [weakSelf.navigationController pushViewController:webViewVC animated:true];
         }];
