@@ -31,35 +31,38 @@
     if (!_homeView) {
         kWeakSelf
         _homeView = [[HXBModifyPhoneView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
-        
         //获取图形验证码
-        _homeView.getValidationCodeButtonClickBlock = ^(NSString *phoneNumber){
+        weakSelf.homeView.getValidationCodeButtonClickBlock = ^(NSString *phoneNumber){
             [weakSelf enterGraphicsCodeViewWithPhoneNumber:phoneNumber];
         };
         
+        
         //点击确认修改
         _homeView.sureChangeBtnClickBlock = ^(NSString *phoneNumber,NSString *verificationCode){
-            HXBModifyPhoneRequest *modifyPhoneRequest = [[HXBModifyPhoneRequest alloc] init];
-            [modifyPhoneRequest mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(id responseObject) {
-                NSLog(@"%@",responseObject);
-                [KeyChain setMobile:phoneNumber];
-                [KeyChain removeGesture];
-                [KeyChain signOut];
-                weakSelf.tabBarController.selectedIndex = 0;
-                [HxbHUDProgress showTextWithMessage:@"修改成功，请用新手机号登录"];
-                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-                
-            } andFailureBlock:^(NSError *error) {
-                NSLog(@"%@",error);
-             
-            }];
+            if (weakSelf.checkPaptcha.length == 0) {
+                [HxbHUDProgress showTextWithMessage:@"请获取验证码"];
+            } else {
+                HXBModifyPhoneRequest *modifyPhoneRequest = [[HXBModifyPhoneRequest alloc] init];
+                [modifyPhoneRequest mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(id responseObject) {
+                    NSLog(@"%@",responseObject);
+                    [KeyChain setMobile:phoneNumber];
+                    [KeyChain removeGesture];
+                    [KeyChain signOut];
+                    weakSelf.tabBarController.selectedIndex = 0;
+                    [HxbHUDProgress showTextWithMessage:@"修改成功，请用新手机号登录"];
+                    [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                    
+                } andFailureBlock:^(NSError *error) {
+                    NSLog(@"%@",error);
+                    
+                }];
+            }
         };
-        
+    
     }
     return _homeView;
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];

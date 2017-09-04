@@ -19,7 +19,7 @@
 @property (nonatomic, assign) BOOL isHidenLine;
 @property (nonatomic, assign) BOOL secureTextEntry;
 @property(nonatomic) UIKeyboardType keyboardType;
-
+@property (nonatomic, assign) BOOL isIDCardTextField;
 @property(nullable, nonatomic,weak)   id<UITextFieldDelegate> delegate;
 
 /**
