@@ -213,8 +213,9 @@
         isNull = YES;
         return isNull;
     }
-    if (!(self.idCardTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"身份证号没有填写" inView:self];
+    
+    if (![NSString validateIDCardNumber:self.idCardTextField.text]) {
+        [HxbHUDProgress showMessageCenter:@"身份证号不合法" inView:self];
         isNull = YES;
         return isNull;
     }
@@ -228,12 +229,13 @@
         isNull = YES;
         return isNull;
     }
-    if (!(self.bankNumberTextField.text.length > 10 && self.bankNumberTextField.text.length <= 21)) {
+    if (!(self.bankNumberTextField.text.length >= 10 && self.bankNumberTextField.text.length <= 25)) {
         [HxbHUDProgress showMessageCenter:@"请输入正确的卡号" inView:self];
         isNull = YES;
         return isNull;
     }
-    if (self.phoneTextField.text.length != 11) {
+    
+    if (![NSString isMobileNumber:self.phoneTextField.text]) {
         [HxbHUDProgress showMessageCenter:@"请输入正确的预留手机号" inView:self];
         isNull = YES;
         return isNull;
@@ -273,13 +275,7 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-//    if (range.location == 0 && [string isEqualToString:@""]) {
-////        self.isAgree = NO;
-//    }else
-//    {
-////        self.isAgree = YES;
-//        textField.text = string;
-//    }
+    /*下面代码为所有输入textField响应底部按钮
     if (self.isAgree) {
         if (range.location == 0 && [string isEqualToString:@""]) {
             self.bottomBtn.backgroundColor = COR26;
@@ -297,28 +293,47 @@
         self.bottomBtn.backgroundColor = COR26;
         self.bottomBtn.enabled = NO;
     }
-//    if (![self isjudgeIsNull:textField.superview] && self.isAgree) {
+    */
+    
+    if ([string isEqualToString:@""]) {
+        return YES;
+    }else
+    {
+        return [self limitNumberCount:textField.superview];
+    }
+}
+
+
+- (BOOL)limitNumberCount:(UIView *)textField
+{
+    
+    if (self.idCardTextField.text.length > 18 && self.idCardTextField == textField) {
+        return NO;
+    }
+    if (self.pwdTextField.text.length > 6 && self.pwdTextField == textField) {
+        return NO;
+    }
+    if (self.bankNumberTextField.text.length > 25 && self.bankNumberTextField == textField) {
+        return NO;
+    }
+    if (self.phoneTextField.text.length > 11 && self.phoneTextField == textField) {
+        return NO;
+    }
+    return YES;
+}
+
+//- (void)setBankCode:(NSString *)bankCode
+//{
+//    _bankCode = bankCode;
+//    if (self.isAgree && ![self isjudgeIsNull:nil]) {
 //        self.bottomBtn.backgroundColor = COR24;
 //        self.bottomBtn.enabled = YES;
 //    }else
 //    {
-//        
+//        self.bottomBtn.backgroundColor = COR26;
+//        self.bottomBtn.enabled = NO;
 //    }
-    return YES;
-}
-
-- (void)setBankCode:(NSString *)bankCode
-{
-    _bankCode = bankCode;
-    if (self.isAgree && ![self isjudgeIsNull:nil]) {
-        self.bottomBtn.backgroundColor = COR24;
-        self.bottomBtn.enabled = YES;
-    }else
-    {
-        self.bottomBtn.backgroundColor = COR26;
-        self.bottomBtn.enabled = NO;
-    }
-}
+//}
 
 #pragma mark - 懒加载
 - (HXBDepositoryHeaderView *)headerTipView
@@ -348,6 +363,7 @@
         _idCardTextField.leftImage = [SVGKImage imageNamed:@"id_number.svg"].UIImage;
         _idCardTextField.placeholder = @"身份证号";
         _idCardTextField.delegate = self;
+        _idCardTextField.isIDCardTextField = YES;
     }
     return _idCardTextField;
 }
@@ -435,7 +451,7 @@
         _negotiateView.text = attributedString;
         _negotiateView.agreeBtnBlock = ^(BOOL isSelected){
             weakSelf.isAgree = isSelected;
-            if (isSelected && ![weakSelf isjudgeIsNull:nil]) {
+            if (isSelected) {
                 weakSelf.bottomBtn.backgroundColor = COR24;
                 weakSelf.bottomBtn.enabled = YES;
             }else
@@ -453,8 +469,7 @@
 {
     if (!_bottomBtn) {
         _bottomBtn = [[UIButton alloc] init];
-        _bottomBtn.backgroundColor = COR26;
-        _bottomBtn.enabled = NO;
+        _bottomBtn.backgroundColor = COR24;
         [_bottomBtn setTitle:@"开通恒丰银行存管账户" forState:UIControlStateNormal];
         [_bottomBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _bottomBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);

@@ -46,6 +46,8 @@
 }
 
 - (void)setIsIDCardTextField:(BOOL)isIDCardTextField {
+    
+    _isIDCardTextField = isIDCardTextField;
     if (isIDCardTextField) {
         self.textField.hidden = YES;
         self.idTextField.hidden = NO;

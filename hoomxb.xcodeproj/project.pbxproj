@@ -121,6 +121,9 @@
 		4E9345501EFE0FD300D2886B /* HXBModifyPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E93454F1EFE0FD300D2886B /* HXBModifyPhoneViewController.m */; };
 		4E9345541EFE102500D2886B /* HXBModifyPhoneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9345531EFE102500D2886B /* HXBModifyPhoneView.m */; };
 		4E9345581EFE48C300D2886B /* HXBModifyPhoneRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9345571EFE48C300D2886B /* HXBModifyPhoneRequest.m */; };
+		4E94A86A1F5D4FE90001BE94 /* BXTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94A8651F5D4FE90001BE94 /* BXTextField.m */; };
+		4E94A86B1F5D4FE90001BE94 /* UITextField+BXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94A8671F5D4FE90001BE94 /* UITextField+BXExtension.m */; };
+		4E94A86C1F5D4FE90001BE94 /* UIView+BXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94A8691F5D4FE90001BE94 /* UIView+BXExtension.m */; };
 		4E94B2741ECBF8C1003CCBA7 /* HxbHomePageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B2731ECBF8C1003CCBA7 /* HxbHomePageModel.m */; };
 		4E94B2771ECBF922003CCBA7 /* HxbHomePageViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B2761ECBF922003CCBA7 /* HxbHomePageViewModel.m */; };
 		4E94B2781ECC1B13003CCBA7 /* HXBBaseTableView_MYPlanList_TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E107203F1ECAE7B1002C59B1 /* HXBBaseTableView_MYPlanList_TableView.m */; };
@@ -360,9 +363,6 @@
 		E1757B001EFA3E1B009C0BC8 /* HXBFinModel_Buy_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1757AFE1EFA3E1B009C0BC8 /* HXBFinModel_Buy_Plan.m */; };
 		E1757B041EFA3E57009C0BC8 /* HXBFinModel_Buy_LoanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1757B031EFA3E57009C0BC8 /* HXBFinModel_Buy_LoanModel.m */; };
 		E1757B071EFA40DF009C0BC8 /* HXBFinModel_BuyResoult_LoanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1757B061EFA40DF009C0BC8 /* HXBFinModel_BuyResoult_LoanModel.m */; };
-		E177B49E1F5D3EDC0008175F /* BXTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E177B4991F5D3EDC0008175F /* BXTextField.m */; };
-		E177B49F1F5D3EDC0008175F /* UITextField+BXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E177B49B1F5D3EDC0008175F /* UITextField+BXExtension.m */; };
-		E177B4A01F5D3EDC0008175F /* UIView+BXExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = E177B49D1F5D3EDC0008175F /* UIView+BXExtension.m */; };
 		E17A095E1F1DB823006564B8 /* HXBFinDetailModel_LoanTruansferDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A095D1F1DB823006564B8 /* HXBFinDetailModel_LoanTruansferDetail.m */; };
 		E17A09611F1DB867006564B8 /* HXBBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A09601F1DB867006564B8 /* HXBBaseViewModel.m */; };
 		E17A09671F1DB8B5006564B8 /* HXBFinDetailViewModel_LoanTruansferDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A09661F1DB8B5006564B8 /* HXBFinDetailViewModel_LoanTruansferDetail.m */; };
@@ -682,6 +682,12 @@
 		4E9345531EFE102500D2886B /* HXBModifyPhoneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyPhoneView.m; sourceTree = "<group>"; };
 		4E9345561EFE48C300D2886B /* HXBModifyPhoneRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyPhoneRequest.h; sourceTree = "<group>"; };
 		4E9345571EFE48C300D2886B /* HXBModifyPhoneRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyPhoneRequest.m; sourceTree = "<group>"; };
+		4E94A8641F5D4FE90001BE94 /* BXTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BXTextField.h; sourceTree = "<group>"; };
+		4E94A8651F5D4FE90001BE94 /* BXTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BXTextField.m; sourceTree = "<group>"; };
+		4E94A8661F5D4FE90001BE94 /* UITextField+BXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+BXExtension.h"; sourceTree = "<group>"; };
+		4E94A8671F5D4FE90001BE94 /* UITextField+BXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+BXExtension.m"; sourceTree = "<group>"; };
+		4E94A8681F5D4FE90001BE94 /* UIView+BXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BXExtension.h"; sourceTree = "<group>"; };
+		4E94A8691F5D4FE90001BE94 /* UIView+BXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BXExtension.m"; sourceTree = "<group>"; };
 		4E94B2721ECBF8C1003CCBA7 /* HxbHomePageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHomePageModel.h; sourceTree = "<group>"; };
 		4E94B2731ECBF8C1003CCBA7 /* HxbHomePageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHomePageModel.m; sourceTree = "<group>"; };
 		4E94B2751ECBF922003CCBA7 /* HxbHomePageViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHomePageViewModel.h; sourceTree = "<group>"; };
@@ -1143,12 +1149,6 @@
 		E1757B031EFA3E57009C0BC8 /* HXBFinModel_Buy_LoanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinModel_Buy_LoanModel.m; sourceTree = "<group>"; };
 		E1757B051EFA40DF009C0BC8 /* HXBFinModel_BuyResoult_LoanModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinModel_BuyResoult_LoanModel.h; sourceTree = "<group>"; };
 		E1757B061EFA40DF009C0BC8 /* HXBFinModel_BuyResoult_LoanModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinModel_BuyResoult_LoanModel.m; sourceTree = "<group>"; };
-		E177B4981F5D3EDC0008175F /* BXTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BXTextField.h; sourceTree = "<group>"; };
-		E177B4991F5D3EDC0008175F /* BXTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BXTextField.m; sourceTree = "<group>"; };
-		E177B49A1F5D3EDC0008175F /* UITextField+BXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+BXExtension.h"; sourceTree = "<group>"; };
-		E177B49B1F5D3EDC0008175F /* UITextField+BXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+BXExtension.m"; sourceTree = "<group>"; };
-		E177B49C1F5D3EDC0008175F /* UIView+BXExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+BXExtension.h"; sourceTree = "<group>"; };
-		E177B49D1F5D3EDC0008175F /* UIView+BXExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+BXExtension.m"; sourceTree = "<group>"; };
 		E17A095C1F1DB823006564B8 /* HXBFinDetailModel_LoanTruansferDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinDetailModel_LoanTruansferDetail.h; sourceTree = "<group>"; };
 		E17A095D1F1DB823006564B8 /* HXBFinDetailModel_LoanTruansferDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinDetailModel_LoanTruansferDetail.m; sourceTree = "<group>"; };
 		E17A095F1F1DB867006564B8 /* HXBBaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HXBBaseViewModel.h; path = hoomxb/Financing/Model/FinModel_DeatilModel/HXBBaseViewModel.h; sourceTree = SOURCE_ROOT; };
@@ -1971,6 +1971,19 @@
 				4E9345571EFE48C300D2886B /* HXBModifyPhoneRequest.m */,
 			);
 			path = HXBModifyPhoneRequest;
+			sourceTree = "<group>";
+		};
+		4E94A8631F5D4FE90001BE94 /* JYJKeyBoard */ = {
+			isa = PBXGroup;
+			children = (
+				4E94A8641F5D4FE90001BE94 /* BXTextField.h */,
+				4E94A8651F5D4FE90001BE94 /* BXTextField.m */,
+				4E94A8661F5D4FE90001BE94 /* UITextField+BXExtension.h */,
+				4E94A8671F5D4FE90001BE94 /* UITextField+BXExtension.m */,
+				4E94A8681F5D4FE90001BE94 /* UIView+BXExtension.h */,
+				4E94A8691F5D4FE90001BE94 /* UIView+BXExtension.m */,
+			);
+			path = JYJKeyBoard;
 			sourceTree = "<group>";
 		};
 		4E94B28A1ECC496C003CCBA7 /* NSAttributedString */ = {
@@ -3324,19 +3337,6 @@
 			path = Loan;
 			sourceTree = "<group>";
 		};
-		E177B4971F5D3EDC0008175F /* JYJKeyBoard */ = {
-			isa = PBXGroup;
-			children = (
-				E177B4981F5D3EDC0008175F /* BXTextField.h */,
-				E177B4991F5D3EDC0008175F /* BXTextField.m */,
-				E177B49A1F5D3EDC0008175F /* UITextField+BXExtension.h */,
-				E177B49B1F5D3EDC0008175F /* UITextField+BXExtension.m */,
-				E177B49C1F5D3EDC0008175F /* UIView+BXExtension.h */,
-				E177B49D1F5D3EDC0008175F /* UIView+BXExtension.m */,
-			);
-			path = JYJKeyBoard;
-			sourceTree = "<group>";
-		};
 		E17A09681F1DE65C006564B8 /* Buy */ = {
 			isa = PBXGroup;
 			children = (
@@ -3647,7 +3647,7 @@
 		E1CD4BA91ED83064000CC57B /* tools */ = {
 			isa = PBXGroup;
 			children = (
-				E177B4971F5D3EDC0008175F /* JYJKeyBoard */,
+				4E94A8631F5D4FE90001BE94 /* JYJKeyBoard */,
 				4E45F4231F4FC05C009708B7 /* HXB_XYTools */,
 				4E45F4261F4FC05C009708B7 /* HXBUmengManagar */,
 				E190EF951F25A61B001E0B14 /* SCAdView */,
@@ -4386,7 +4386,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -4657,7 +4657,7 @@
 				E1398F521F345EC20094441F /* HXBDataManager.m in Sources */,
 				E133DCDF1EEE3597009466DE /* HXBSignUPAndLoginRequest.m in Sources */,
 				E1CB56271ED3E9A800D962CA /* HXBMYCapitalRecord_TableViewCell.m in Sources */,
-				E177B4A01F5D3EDC0008175F /* UIView+BXExtension.m in Sources */,
+				4E94A86C1F5D4FE90001BE94 /* UIView+BXExtension.m in Sources */,
 				4EAEBF081F39CCD500729389 /* HXBAccumulatedIncomeView.m in Sources */,
 				E1CD4BCA1ED83064000CC57B /* HxbHUDProgress.m in Sources */,
 				E133DCE31EEE3597009466DE /* HxbSignInView.m in Sources */,
@@ -4729,7 +4729,7 @@
 				E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */,
 				E133DD3C1EEEC14C009466DE /* HxbHTTPSessionManager.m in Sources */,
 				E1E0DE6A1EF117A400AF7C87 /* HXBBaseTextField.m in Sources */,
-				E177B49E1F5D3EDC0008175F /* BXTextField.m in Sources */,
+				4E94A86A1F5D4FE90001BE94 /* BXTextField.m in Sources */,
 				4E96671C1F4D520F00342A2E /* HXBBannerWebViewController.m in Sources */,
 				E17CCEEE1F30683400D6E98E /* HXBMY_LoanTruansferTableView.m in Sources */,
 				E133DCD91EEE3597009466DE /* HxbToolbar.m in Sources */,
@@ -4762,7 +4762,7 @@
 				E1270B461ECED2D000729BC9 /* HXBMyModel_MainLoanModel.m in Sources */,
 				E1FF8EED1F0FB52000C7F1AC /* HXBBaseModel.m in Sources */,
 				4E81E3FD1EE94FDE006AD3FC /* HXBModifyTransactionPasswordViewController.m in Sources */,
-				E177B49F1F5D3EDC0008175F /* UITextField+BXExtension.m in Sources */,
+				4E94A86B1F5D4FE90001BE94 /* UITextField+BXExtension.m in Sources */,
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
 				E1270B4A1ECED2E900729BC9 /* HXBMYModel_PlanDetailModel.m in Sources */,
 				E1270B471ECED2D000729BC9 /* HXBMYModel_MainPlanModel.m in Sources */,

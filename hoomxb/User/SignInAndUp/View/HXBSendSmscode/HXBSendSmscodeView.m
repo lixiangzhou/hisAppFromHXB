@@ -189,6 +189,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
     
     self.password_TextField.placeholder = @"8-20位数组大小写字母组成";
+    self.password_TextField.delegate = self;
     self.inviteCodeTextField.placeholder = @"请输入邀请码";
     self.inviteCodeTextField.keyboardType = UIKeyboardTypeDefault;
     self.inviteCodeTextField.delegate = self;
@@ -414,23 +415,16 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    if (textField != _smscode_TextField && textField != _password_TextField) {
-        [UIView animateWithDuration:0.4 animations:^{
-            if (kScreenWidth == 320) {
-                self.y = -70;
-            } else {
-                self.y = -40;
-            }
-        }];
-    }
+    [UIView animateWithDuration:0.4 animations:^{
+        self.y = - 90;
+    }];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    if (textField != _smscode_TextField && textField != _password_TextField) {
-        [UIView animateWithDuration:0.2 animations:^{
-            self.y = 0;
-        }];
-    }
+    [UIView animateWithDuration:0.4 animations:^{
+        self.y = 0;
+    }];
+
 }
 
 
