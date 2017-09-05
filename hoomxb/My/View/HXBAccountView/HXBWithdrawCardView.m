@@ -10,7 +10,7 @@
 #import "HXBBankCardListViewController.h"
 #import "SVGKImage.h"
 #import "HXBCustomTextField.h"
-@interface HXBWithdrawCardView ()
+@interface HXBWithdrawCardView ()<UITextFieldDelegate>
 //@property (nonatomic, strong) UITextField *bankCardTextField;
 //@property (nonatomic, strong) UIButton *bankNameBtn;
 //@property (nonatomic, strong) UITextField *phoneNumberTextField;
@@ -123,12 +123,13 @@
         return isNull;
     }
     if (!(self.bankCardTextField.text.length > 10 && self.bankCardTextField.text.length <= 21)) {
+        
         [HxbHUDProgress showMessageCenter:@"请输入正确的卡号" inView:self];
         isNull = YES;
         return isNull;
     }
-    if (self.phoneNumberTextField.text.length != 11) {
-        [HxbHUDProgress showMessageCenter:@"请输入正确的预留手机号" inView:self];
+    if (![NSString isMobileNumber:self.bankCardTextField.text]) {
+        [HxbHUDProgress showMessageCenter:@"请输入正确手机号" inView:self];
         isNull = YES;
         return isNull;
     }
@@ -146,6 +147,8 @@
     if (!_bankCardTextField) {
         _bankCardTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectZero];
         _bankCardTextField.placeholder = @"银行卡号";
+        _bankCardTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _bankCardTextField.delegate = self;
         _bankCardTextField.leftImage = [UIImage imageNamed:@"bankcard"];
     }
     return _bankCardTextField;
@@ -175,12 +178,46 @@
     if (!_phoneNumberTextField) {
         _phoneNumberTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectZero];
         _phoneNumberTextField.placeholder = @"预留手机号";
+        _phoneNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneNumberTextField.delegate = self;
         _phoneNumberTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
-//        _phoneNumberTextField.isHidenLine = YES;
     }
     return _phoneNumberTextField;
 }
 
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField.superview == _phoneNumberTextField) {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        } else if(!string.length) {
+            NSInteger length = self.phoneNumberTextField.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = self.phoneNumberTextField.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if (str.length > 11) {
+            return NO;
+        }
+    } else {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        } else if(!string.length) {
+            NSInteger length = self.bankCardTextField.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = self.bankCardTextField.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if (str.length > 25) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
 
 
 - (UIButton *)nextButton{

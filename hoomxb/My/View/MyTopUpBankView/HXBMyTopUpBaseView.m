@@ -177,11 +177,18 @@
 }
 #pragma make UITextFieldDelegate
 //参数一：range,要被替换的字符串的range，如果是新键入的那么就没有字符串被替换，range.lenth=0,第二个参数：替换的字符串，即键盘即将键入或者即将粘贴到textfield的string
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
-{
-    if (string.length == 0) {
-        return YES;
-    }
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+//    NSString *str = nil;
+//    if (string.length) {
+//        str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+//    } else if(!string.length) {
+//        NSInteger length = self.amountTextField.text.length;
+//        NSRange range = NSMakeRange(length - 1, 1);
+//        NSMutableString *strM = self.amountTextField.text.mutableCopy;
+//        [strM deleteCharactersInRange:range];
+//        str = strM.copy;
+//    }
+
     //第一个参数，被替换字符串的range，第二个参数，即将键入或者粘贴的string，返回的是改变过后的新str，即textfield的新的文本内容
     NSString *checkStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
     return [NSString checkBothDecimalPlaces:checkStr];
