@@ -363,11 +363,10 @@ UITextFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 
     //1、textField 输入string后的值
-    NSString *str = nil;
+    NSMutableString *str = [[NSMutableString alloc] initWithString:textField.text];
     if (string.length) {
-        str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-    }
-    else if(!string.length) {
+        [str insertString:string atIndex:range.location];
+    }else if(!string.length) {
         NSInteger length = self.phoneTextField.text.length;
         NSRange range = NSMakeRange(length - 1, 1);
         NSMutableString *strM = self.phoneTextField.text.mutableCopy;

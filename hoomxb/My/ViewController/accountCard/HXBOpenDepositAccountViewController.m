@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
 
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userModel;
 
 @end
 
@@ -29,8 +30,8 @@
 //    [self.hxbBaseVCScrollView addSubview:self.mainView];
     self.hxbBaseVCScrollView.tableHeaderView = self.mainView;
     self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
-    [self setupSubView];
     [self loadUserInfo];
+    [self setupSubView];
 }
 
 - (void)setupSubView

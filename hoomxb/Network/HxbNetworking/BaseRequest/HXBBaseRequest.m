@@ -22,7 +22,7 @@
     return self;
 }
 - (void)cancelRequest : (NSNotification *)noit {
-    [self.connection.task cancel];
+//    [self.connection.task cancel];
 }
 - (NSMutableDictionary *)infoDic {
     if (!_infoDic) {

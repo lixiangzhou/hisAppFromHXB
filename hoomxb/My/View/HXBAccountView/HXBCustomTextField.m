@@ -20,8 +20,6 @@
 @property (nonatomic, strong) UIButton *eyeBtn;
 @property (nonatomic, strong) UIView *line;
 
-
-
 @end
 
 
@@ -30,8 +28,6 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-       
-        
         [self addSubview:self.leftImageView];
         [self addSubview:self.textField];
         [self addSubview:self.idTextField];
@@ -41,6 +37,14 @@
         [self addSubview:self.eyeBtn];
         self.bankNameBtn.hidden = YES;
         [self setupSubViewFrame];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textFieldDidChangeValue:)
+                                                     name:UITextFieldTextDidChangeNotification
+                                                   object:self.textField];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textFieldDidChangeValue:)
+                                                     name:UITextFieldTextDidChangeNotification
+                                                   object:self.idTextField];
     }
     return self;
 }
@@ -68,12 +72,12 @@
     }];
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
-        make.right.equalTo(self).offset(kScrAdaptationW750(-40));
+        make.right.equalTo(self.eyeBtn.mas_left);
         make.top.bottom.equalTo(self);
     }];
     [self.idTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
-        make.right.equalTo(self).offset(kScrAdaptationW750(-40));
+        make.right.equalTo(self.eyeBtn.mas_left);
         make.top.bottom.equalTo(self);
     }];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -84,7 +88,7 @@
     }];
     [self.eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.centerY.equalTo(self.textField);
-        make.right.equalTo(self.textField.mas_right);
+        make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
 //        make.height.offset(kScrAdaptationH750(23.9));
         make.width.offset(kScrAdaptationW750(40));
         make.top.bottom.equalTo(self);
@@ -108,7 +112,17 @@
 //    }
 //    return YES;
 //}
-
+//这里可以通过发送object消息获取注册时指定的UITextField对象
+- (void)textFieldDidChangeValue:(NSNotification *)notification
+{
+    UITextField *sender = (UITextField *)[notification object];
+    if (sender.text.length > 0) {
+        self.line.backgroundColor = COR29;
+    }else
+    {
+        self.line.backgroundColor = COR12;
+    }
+}
 #pragma mark - set方法
 
 - (void)setDelegate:(id<UITextFieldDelegate>)delegate
@@ -213,6 +227,7 @@
     }
     return _textField;
 }
+
 
 - (BXTextField *)idTextField {
     if (!_idTextField) {
