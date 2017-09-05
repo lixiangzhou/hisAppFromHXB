@@ -35,7 +35,7 @@
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
             
-            [HxbHUDProgress showTextWithMessage:@"身份证号码不对"];
+            [HxbHUDProgress showTextWithMessage:@"请输入正确的身份证号"];
             if (failureBlock) {
                 failureBlock(nil);
             }
@@ -46,7 +46,7 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);
-        [HxbHUDProgress showTextWithMessage:@"身份证号码不对"];
+        [HxbHUDProgress showTextWithMessage:@"请输入正确的身份证号"];
         if (failureBlock) {
             failureBlock(error);
         }
