@@ -15,6 +15,6 @@
  */
 @property (nonatomic, assign) HXBRechargeAndWithdrawalsLogicalJudgment type;
 //用户信息
-@property (nonatomic, strong) HXBRequestUserInfoViewModel *userModel;
+//@property (nonatomic, strong) HXBRequestUserInfoViewModel *userModel;
 
 @end

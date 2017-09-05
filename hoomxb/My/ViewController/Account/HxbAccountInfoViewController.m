@@ -61,14 +61,16 @@ UITableViewDataSource
             [self entryDepositoryAccount:NO];
             
         }else if (indexPath.row == 1){
-            if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-                //进入银行卡
-                [self entryDepositoryAccount:YES];
-            }else{
-                //进入绑卡页面
-                [self bindBankCardClick];
-            }
             
+            [self entryDepositoryAccount:YES];
+            
+//            if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+//                //进入银行卡
+//                [self entryDepositoryAccount:YES];
+//            }else{
+//                //进入绑卡页面
+////                [self bindBankCardClick];
+//            }
         }else{
             
         }
@@ -140,7 +142,7 @@ UITableViewDataSource
         alertVC.immediateOpenBlock = ^{
             [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_alertBtn];
             HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-            openDepositAccountVC.userModel = self.userInfoViewModel;
+//            openDepositAccountVC.userModel = self.userInfoViewModel;
             openDepositAccountVC.title = @"开通存管账户";
             openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
             [self.navigationController pushViewController:openDepositAccountVC animated:YES];
@@ -191,6 +193,7 @@ UITableViewDataSource
         kWeakSelf
         alertVC.immediateOpenBlock = ^{
             HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+//            openDepositAccountVC.userModel = self.userInfoViewModel;
             openDepositAccountVC.title = @"开通存管账户";
             openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
             [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
@@ -318,7 +321,12 @@ UITableViewDataSource
             break;
         case 1:
         {
-            return 2;
+            if (self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+                return 2;
+            }else
+            {
+                return 1;
+            }
         }
             break;
         case 2:

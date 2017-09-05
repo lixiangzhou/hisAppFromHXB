@@ -91,6 +91,7 @@
             HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
             alertVC.immediateOpenBlock = ^{
                 HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+//                openDepositAccountVC.userModel = viewModel;
                 openDepositAccountVC.title = @"开通存管账户";
                 openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [vc.navigationController pushViewController:openDepositAccountVC animated:YES];

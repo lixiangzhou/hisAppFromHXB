@@ -18,6 +18,7 @@
 #import "HXBOpenDepositAccountViewController.h"
 #import "HxbWithdrawCardViewController.h"
 #import "HXBBottomLineTableViewCell.h"
+#import "HXBDepositoryAlertViewController.h"
 @interface HxbMyAccountSecurityViewController ()
 <
 UITableViewDataSource,UITableViewDelegate
@@ -85,17 +86,24 @@ UITableViewDataSource,UITableViewDelegate
                 [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
             }else
             {
-                
-                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
                 if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-                    //开通存管银行账户
-                    openDepositAccountVC.title = @"开通存管账户";
+                    HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
+                    kWeakSelf
+                    alertVC.immediateOpenBlock = ^{
+                        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                        openDepositAccountVC.title = @"开通存管账户";
+//                        openDepositAccountVC.userModel = viewModel;
+                        openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                        [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+                    };
+                    [weakSelf presentViewController:alertVC animated:NO completion:nil];
                 }else
                 {
+                    HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
                     openDepositAccountVC.title = @"完善信息";
+                    openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                    [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
                 }
-                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
             }
         } andFailure:^(NSError *error) {
             
@@ -150,7 +158,7 @@ UITableViewDataSource,UITableViewDelegate
                     HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
                     openDepositAccountVC.title = @"完善信息";
                     openDepositAccountVC.type = HXBChangePhone;
-                    openDepositAccountVC.userModel = self.userInfoViewModel;
+//                    openDepositAccountVC.userModel = self.userInfoViewModel;
                     [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
                     }];
                     [alertVC setClickXYLeftButtonBlock:^{
