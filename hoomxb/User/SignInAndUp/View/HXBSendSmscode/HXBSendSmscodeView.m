@@ -11,10 +11,10 @@
 #import "HXBCustomTextField.h"
 #import "HXBFinBaseNegotiateView.h"
 #import "HXBSignInWaterView.h"
-static NSString *const kSmscode_ConstLableTitle = @"验证码";
-static NSString *const kPassword_constLableTitle = @"设置登录密码";
+static NSString *const kSmscode_ConstLableTitle = @"请输入验证码";
+static NSString *const kPassword_constLableTitle = @"密码为8-20位数字与字母组合";
 static NSString *const kSetPassWordButtonTitle = @"确认设置登录密码";
-static NSString *const kSendSmscodeAgainTitle = @"再次发送";
+static NSString *const kSendSmscodeAgainTitle = @"获取验证码";
 static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 @interface HXBSendSmscodeView () <UITextFieldDelegate>
@@ -188,7 +188,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self addSubview:self.waterView];
     [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
     
-    self.password_TextField.placeholder = @"8-20位数组大小写字母组成";
+    self.password_TextField.placeholder = @"密码为8-20位数字与字母组合";
     self.password_TextField.delegate = self;
     self.inviteCodeTextField.placeholder = @"请输入邀请码";
     self.inviteCodeTextField.keyboardType = UIKeyboardTypeDefault;
@@ -386,10 +386,17 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self.sendButton setTitle:[NSString stringWithFormat:@"%@s",@(self.timeNumber).description] forState:UIControlStateNormal];
     if (self.timeNumber <= 0) {
         [self.sendButton setTitle:kSendSmscodeAgainTitle forState:UIControlStateNormal];
-        [self.sendButton setBackgroundColor:RGB(245, 81, 81)];
+//        [self.sendButton setBackgroundColor:RGB(245, 81, 81)];
+        [self.sendButton setBackgroundColor:[UIColor whiteColor]];
+        [self.sendButton setTitleColor:COR29 forState:(UIControlStateNormal)];
+        self.sendButton.layer.borderWidth = kXYBorderWidth;
+        self.sendButton.layer.borderColor = COR29.CGColor;
         [self deleteTimer];
         self.timeNumber = self.totalTimeNumber;
         self.sendButton.userInteractionEnabled = true;
+    } else {
+        [self.sendButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        self.sendButton.layer.borderWidth = 0;
     }
 }
 ///销毁定时器

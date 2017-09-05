@@ -277,6 +277,15 @@ UITextFieldDelegate
     }
 }
 
+- (void)setIsHiddenLoginBtn:(BOOL)isHiddenLoginBtn {
+    _isHiddenLoginBtn = isHiddenLoginBtn;
+    if (_isHiddenLoginBtn) {
+        self.havedAccountButton.hidden = YES;
+    } else {
+        self.havedAccountButton.hidden = NO;
+    }
+}
+
 //事件的传递
 - (void)signUPClickNextButtonFunc:(void (^)(NSString *mobile))clickNextButtonBlock {
     self.clickNextButtonBlock = clickNextButtonBlock;

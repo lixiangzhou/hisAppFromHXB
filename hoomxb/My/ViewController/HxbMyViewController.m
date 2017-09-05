@@ -39,6 +39,7 @@
 
 //    对controllerView进行布局
     [self setupSubView];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMyDate) name:@"提现充值" object:nil];
     //对controllerView进行布局
     //    [self setupSubView];
 
@@ -46,6 +47,11 @@
 //    //散标列表 红利计划的Button
 //    [self setupBUTTON];
 }
+
+//- (void)reloadMyDate {
+//    [self loadData_userInfo];
+//}
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -56,6 +62,7 @@
     if ([KeyChain isLogin]) {
         [self loadData_userInfo];
     }
+    [self loadData_userInfo];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
