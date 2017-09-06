@@ -97,6 +97,17 @@
         make.bottom.equalTo(self.tipLabel.mas_top).offset(kScrAdaptationH750(-20));
         make.height.offset(kScrAdaptationH750(24));
     }];
+    _amountTextField.haveStr = ^(BOOL haveStr) {
+        NSLog(@"%d", haveStr);
+        if (haveStr) {
+            _nextButton.backgroundColor = COR29;
+            _nextButton.userInteractionEnabled = YES;
+        } else {
+            _nextButton.backgroundColor = COR26;
+            _nextButton.userInteractionEnabled = NO;
+        }
+    };
+    
 }
 - (void)phoneBtnClick
 {
@@ -130,7 +141,6 @@
 - (HXBLeftLabelTextView *)amountTextField{
     if (!_amountTextField) {
         _amountTextField = [[HXBLeftLabelTextView alloc] init];
-        _amountTextField.placeholder = @"请输入充值金额";
         _amountTextField.leftStr = @"充值金额:";
         _amountTextField.backgroundColor = [UIColor whiteColor];
         _amountTextField.isDecimalPlaces = YES;
@@ -154,6 +164,8 @@
     if (!_nextButton) {
         _nextButton = [UIButton btnwithTitle:@"充值" andTarget:self andAction:@selector(nextButtonClick:) andFrameByCategory:  CGRectMake(20,CGRectGetMaxY(_amountTextField.frame) + 20, SCREEN_WIDTH - 40,44)];
     }
+    _nextButton.backgroundColor = COR26;
+    _nextButton.userInteractionEnabled = NO;
     return _nextButton;
 }
 
@@ -199,24 +211,6 @@
         _promptLabel.textColor = RGB(115, 173, 255);
     }
     return _promptLabel;
-}
-#pragma make UITextFieldDelegate
-//参数一：range,要被替换的字符串的range，如果是新键入的那么就没有字符串被替换，range.lenth=0,第二个参数：替换的字符串，即键盘即将键入或者即将粘贴到textfield的string
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-//    NSString *str = nil;
-//    if (string.length) {
-//        str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-//    } else if(!string.length) {
-//        NSInteger length = self.amountTextField.text.length;
-//        NSRange range = NSMakeRange(length - 1, 1);
-//        NSMutableString *strM = self.amountTextField.text.mutableCopy;
-//        [strM deleteCharactersInRange:range];
-//        str = strM.copy;
-//    }
-
-    //第一个参数，被替换字符串的range，第二个参数，即将键入或者粘贴的string，返回的是改变过后的新str，即textfield的新的文本内容
-    NSString *checkStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
-    return [NSString checkBothDecimalPlaces:checkStr];
 }
 
 @end

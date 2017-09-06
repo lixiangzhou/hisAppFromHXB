@@ -52,7 +52,6 @@
         // 输入框光标的颜色为白色
         passwordTextField.tintColor = [UIColor whiteColor];
         passwordTextField.delegate = self;
-        passwordTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         passwordTextField.keyboardType = UIKeyboardTypeNumberPad;
         passwordTextField.layer.borderColor = kBorderColor.CGColor;
         passwordTextField.layer.borderWidth = kXYBorderWidth;

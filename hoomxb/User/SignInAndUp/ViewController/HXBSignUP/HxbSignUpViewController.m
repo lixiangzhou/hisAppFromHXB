@@ -44,6 +44,9 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     }];
     self.automaticallyAdjustsScrollViewInsets = YES;
     [self registerEvent];
+    if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
+        _signUPView.isHiddenLoginBtn = YES;
+    }
 }
 - (void)viewWillAppear:(BOOL)animated
 {

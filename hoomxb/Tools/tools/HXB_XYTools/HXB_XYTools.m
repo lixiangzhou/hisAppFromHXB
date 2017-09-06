@@ -52,4 +52,48 @@ static HXB_XYTools * handle = nil;
     return frame.size.width + width;
 }
 
+- (BOOL)limitEditTopupMoneyWithTextField:(UITextField *)textField Range:(NSRange)range replacementString:(NSString *)string {
+    NSString *updatedText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    if (range.location == 0 && [string isEqualToString:@"0"]) return NO;
+    if (range.location == 0 && [string isEqualToString:@""]) return YES;
+    if (range.location == 11) return NO;
+#pragma mark --- 谓词控制小数点限制两位
+    NSString *regex = @"^\\-?([1-9]\\d*|0)(\\.\\d{0,2})?$";
+    NSPredicate *predicte = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
+    return [predicte evaluateWithObject:updatedText];
+    
+#pragma mark --- 代码控制小数点限制两位
+    
+//    NSArray *stringsArray = [updatedText componentsSeparatedByString:@"."];
+//    
+//    if (stringsArray.count > 0) {
+//        NSString *dollarAmount = stringsArray[0];
+//        // 小数点前面最多多少位
+//        if (dollarAmount.length > 11) return NO;
+//    }
+//    if (stringsArray.count > 1) {
+//        NSString *centAmount = stringsArray[1];
+//        // 小数点后限制的位数
+//        if (centAmount.length > 2) return NO;
+//    }
+//    if (stringsArray.count > 2) return NO;
+//    // 限制的总个数,  一共7位: 小数点也在计算中  6666.12
+//    if (textField.text.length < 14) {
+//        NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:@"0123456789."] invertedSet];
+//        NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
+//        return [string isEqualToString:filtered];
+//    } else {
+//        if (range.length > 0) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//    return YES;
+}
+
+
+
+
+
 @end

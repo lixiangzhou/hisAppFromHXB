@@ -237,6 +237,7 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
 {
     if (range.location == 0 && [string isEqualToString:@"0"]) return NO;
+    if (range.location == 0 && [string isEqualToString:@""]) return YES;
     if (range.location == 11) return NO;
     //第一个参数，被替换字符串的range，第二个参数，即将键入或者粘贴的string，返回的是改变过后的新str，即textfield的新的文本内容
     NSString *checkStr = [textField.text stringByReplacingCharactersInRange:range withString:string];

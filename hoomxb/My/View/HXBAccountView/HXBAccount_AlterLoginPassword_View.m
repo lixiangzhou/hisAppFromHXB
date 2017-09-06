@@ -9,7 +9,7 @@
 #import "HXBAccount_AlterLoginPassword_View.h"
 #import "HXBCustomTextField.h"///密码的View
 #import "SVGKImage.h"
-@interface HXBAccount_AlterLoginPassword_View ()
+@interface HXBAccount_AlterLoginPassword_View ()<UITextFieldDelegate>
 ///原始的密码的textField
 @property (nonatomic,strong) HXBCustomTextField *password_Original;
 ///新密码的textField
@@ -35,18 +35,17 @@
 ///设置UI
 - (void)setUPView {
     kWeakSelf
-
-
     self.alterButton = [UIButton btnwithTitle:@"确认修改" andTarget:self andAction:@selector(clickAlterButton:) andFrameByCategory:CGRectZero];
-    
+    self.alterButton.backgroundColor = COR12;
+    self.alterButton.userInteractionEnabled = NO;
     
     [self addSubview: self.password_Original];
     [self addSubview:self.password_New];
     [self addSubview:self.alterButton];
     [self.password_Original mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(28));
-        make.left.equalTo(weakSelf);
-        make.right.equalTo(weakSelf);
+        make.top.equalTo(self).offset(kScrAdaptationH(28));
+        make.left.equalTo(self);
+        make.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(60)));
     }];
     [self.password_New mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -77,6 +76,7 @@
     if (!_password_New) {
         _password_New = [[HXBCustomTextField alloc] init];
         _password_New.leftImage = [UIImage imageNamed:@"password"];
+        _password_New.delegate = self;
         _password_New.placeholder = @"请设置8-20位数字和字母组合的密码";
         _password_New.secureTextEntry = YES;
     }
@@ -88,10 +88,61 @@
     if (!_password_Original) {
         _password_Original = [[HXBCustomTextField alloc] init];
         _password_Original.leftImage = [UIImage imageNamed:@"password"];
+        _password_Original.delegate = self;
         _password_Original.placeholder = @"原登录密码";
         _password_Original.secureTextEntry = YES;
     }
     return _password_Original;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+
+    if (textField.superview == _password_Original) {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        } else if(!string.length) {
+            NSInteger length = _password_Original.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = _password_Original.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if (str.length > 0 && _password_New.text.length > 0 && ![string isEqualToString:@""]) {
+            self.alterButton.backgroundColor = COR29;
+            self.alterButton.userInteractionEnabled = YES;
+        } else {
+            self.alterButton.backgroundColor = COR12;
+            self.alterButton.userInteractionEnabled = NO;
+        }
+        if (str.length > 20) return NO;
+    } else {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        } else if(!string.length) {
+            NSInteger length = self.password_New.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = self.password_New.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if (str.length > 0 && _password_Original.text.length > 0 && ![string isEqualToString:@""]) {
+            self.alterButton.backgroundColor = COR29;
+            self.alterButton.userInteractionEnabled = YES;
+        } else {
+            self.alterButton.backgroundColor = COR12;
+            self.alterButton.userInteractionEnabled = NO;
+        }
+        if (str.length > 20) return NO;
+    }
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    self.alterButton.backgroundColor = COR12;
+    self.alterButton.userInteractionEnabled = NO;
+    return YES;
 }
 
 @end
