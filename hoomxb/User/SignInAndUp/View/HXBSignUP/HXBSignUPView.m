@@ -265,7 +265,7 @@ UITextFieldDelegate
 - (void)clickNextButton:(UIButton *)sender{
     //判断是否为手机号，不是不让图验
     if (![NSString isMobileNumber:self.phoneTextField.text]) {
-        [HxbHUDProgress showMessageCenter:@"手机号不正确" inView:self];
+        [HxbHUDProgress showMessageCenter:@"手机号格式不正确" inView:self];
         return;
     }
     if (self.clickNextButtonBlock) self.clickNextButtonBlock(self.phoneTextField.text);
@@ -274,6 +274,15 @@ UITextFieldDelegate
 - (void)clickHavedAccountButton: (UIButton *)button {
     if (self.clickHaveAccountButtonBlock) {
         self.clickHaveAccountButtonBlock();
+    }
+}
+
+- (void)setIsHiddenLoginBtn:(BOOL)isHiddenLoginBtn {
+    _isHiddenLoginBtn = isHiddenLoginBtn;
+    if (_isHiddenLoginBtn) {
+        self.havedAccountButton.hidden = YES;
+    } else {
+        self.havedAccountButton.hidden = NO;
     }
 }
 

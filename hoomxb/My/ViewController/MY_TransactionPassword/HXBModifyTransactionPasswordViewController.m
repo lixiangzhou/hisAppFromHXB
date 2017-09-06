@@ -123,7 +123,7 @@
         transactionPasswordVC.idcard = IDCard;
         transactionPasswordVC.code = code;
         [self.navigationController pushViewController:transactionPasswordVC animated:YES];
-    }else if ([self.title isEqualToString:@"修改绑定手机号"]){
+    }else if ([self.title isEqualToString:@"解绑原手机号"]){
         HXBModifyPhoneViewController *modifyPhoneVC = [[HXBModifyPhoneViewController alloc] init];
         [self.navigationController pushViewController:modifyPhoneVC animated:YES];
     }

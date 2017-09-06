@@ -33,4 +33,9 @@
  键盘类型
  */
 @property(nonatomic) UIKeyboardType keyboardType;
+/**
+ 输入框block
+ */
+@property (nonatomic, copy) void(^haveStr)(BOOL haveStr);
+
 @end

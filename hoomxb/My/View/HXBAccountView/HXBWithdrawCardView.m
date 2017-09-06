@@ -128,7 +128,7 @@
         isNull = YES;
         return isNull;
     }
-    if (![NSString isMobileNumber:self.bankCardTextField.text]) {
+    if (![NSString isMobileNumber:self.phoneNumberTextField.text]) {
         [HxbHUDProgress showMessageCenter:@"请输入正确手机号" inView:self];
         isNull = YES;
         return isNull;

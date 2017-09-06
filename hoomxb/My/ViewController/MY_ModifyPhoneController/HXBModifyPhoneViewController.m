@@ -66,7 +66,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"确认修改绑定手机号";
+    self.title = @"绑定新手机号";
     [self.view addSubview:self.homeView];
 }
 

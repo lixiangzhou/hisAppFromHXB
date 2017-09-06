@@ -16,7 +16,7 @@
 #import "HXBOpenDepositAccountViewController.h"
 
 static NSString *const home = @"首页";
-static NSString *const financing = @"理财";
+static NSString *const financing = @"投资";
 static NSString *const my = @"我的";
 
 
