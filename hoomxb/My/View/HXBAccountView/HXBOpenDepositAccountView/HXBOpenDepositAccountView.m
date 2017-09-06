@@ -214,7 +214,7 @@
         return isNull;
     }
     
-    if (![NSString validateIDCardNumber:self.idCardTextField.text]) {
+    if (!(self.idCardTextField.text.length > 0)) {
         [HxbHUDProgress showMessageCenter:@"身份证号不合法" inView:self];
         isNull = YES;
         return isNull;

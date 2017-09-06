@@ -14,7 +14,8 @@
  验证码
  */
 @property (nonatomic, copy) NSString *verificationCode;
-
+//线的颜色
+@property(nonatomic,copy) UIColor *lineColor;
 
 /**
  getVerificationCode再次获取验证码

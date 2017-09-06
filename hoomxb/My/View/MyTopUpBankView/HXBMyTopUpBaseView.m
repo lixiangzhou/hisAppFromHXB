@@ -19,6 +19,7 @@
 @property (nonatomic, strong) HXBMyTopUpHeaderView *myTopUpHeaderView;
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UILabel *promptLabel;
+@property (nonatomic, strong) UIButton *phoneBtn;
 @end
 
 @implementation HXBMyTopUpBaseView
@@ -34,6 +35,7 @@
         [self addSubview:self.myTopUpHeaderView];
         [self addSubview:self.tipLabel];
         [self addSubview:self.promptLabel];
+        [self addSubview:self.phoneBtn];
         [self setCardViewFrame];
         
     }
@@ -84,6 +86,11 @@
         make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
         make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH750(-100));
     }];
+    [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.tipLabel.mas_bottom);
+//        make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
+        make.left.equalTo(self.tipLabel.mas_left);
+    }];
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
@@ -91,7 +98,10 @@
         make.height.offset(kScrAdaptationH750(24));
     }];
 }
-
+- (void)phoneBtnClick
+{
+    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:@"请联系客服"];
+}
 - (void)nextButtonClick:(UIButton *)sender{
     if ([_amountTextField.text doubleValue] < 1) {
         [HxbHUDProgress showMessageCenter:@"金额不能小于1" inView:self];
@@ -158,13 +168,28 @@
 {
     if (!_tipLabel) {
         _tipLabel = [[UILabel alloc] init];
-        _tipLabel.text = @"红小宝充值仅限储蓄卡，不可使用信用卡，一旦发现恶意充值，套现等行为，将对账户做出严肃处理。";
+        _tipLabel.text = @"1、禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。";
         _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _tipLabel.numberOfLines = 0;
         _tipLabel.textColor = COR8;
     }
     return _tipLabel;
 }
+
+- (UIButton *)phoneBtn
+{
+    if (!_phoneBtn) {
+        _phoneBtn  = [[UIButton alloc] init];
+        NSString *string = [NSString stringWithFormat:@"2、如有疑问，请联系客服：%@", kServiceMobile];
+        NSMutableAttributedString *str = [NSMutableAttributedString setupAttributeStringWithString:string WithRange:NSMakeRange(string.length - kServiceMobile.length, kServiceMobile.length) andAttributeColor:COR30];
+        [str addAttribute:NSForegroundColorAttributeName value:COR8 range:NSMakeRange(0, string.length - kServiceMobile.length)];
+        [_phoneBtn setAttributedTitle:str forState:(UIControlStateNormal)];
+        [_phoneBtn addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _phoneBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    }
+    return _phoneBtn;
+}
+
 - (UILabel *)promptLabel
 {
     if (!_promptLabel) {

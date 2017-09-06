@@ -56,10 +56,6 @@
     [self.view addSubview:self.cancelBtn];
     [self.contentView addSubview:self.sureBtn];
     [self.contentView addSubview:self.message];
-    
-    
-    
-   
 }
 
 - (void)setIsCode:(BOOL)isCode
@@ -339,10 +335,12 @@
     self.transactionPassword = password;
     NSLog(@"%@",[NSString stringWithFormat:@"输入的密码为:%@", password]);
     if (password.length == 6) {
-        [_sureBtn setBackgroundColor:RGB(245, 81, 81)];
+        [_sureBtn setBackgroundColor:COR29];
+       
         _sureBtn.userInteractionEnabled = YES;
     } else {
         [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
+        
         _sureBtn.userInteractionEnabled = NO;;
     }
 }
@@ -350,9 +348,11 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (range.location == 0 && [string isEqualToString:@""]) {
         [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
+        self.verificationCodeAlertView.lineColor = kHXBColor_Font0_5;
         _sureBtn.userInteractionEnabled = NO;;
     } else {
-        [_sureBtn setBackgroundColor:RGB(245, 81, 81)];
+        [_sureBtn setBackgroundColor:COR29];
+         self.verificationCodeAlertView.lineColor = COR29;
         _sureBtn.userInteractionEnabled = YES;
     }
     return YES;

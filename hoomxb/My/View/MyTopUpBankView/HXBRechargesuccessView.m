@@ -139,7 +139,7 @@
     if (!_rechargePromptLabel) {
         _rechargePromptLabel = [[UILabel alloc] init];
         _rechargePromptLabel.textAlignment = NSTextAlignmentCenter;
-        _rechargePromptLabel.text = @"您的充值金额已到账至恒丰银行存管账户";
+//        _rechargePromptLabel.text = @"您的充值金额已到账至恒丰银行存管账户";
         _rechargePromptLabel.numberOfLines = 0;
         _rechargePromptLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _rechargePromptLabel.textColor = COR10;

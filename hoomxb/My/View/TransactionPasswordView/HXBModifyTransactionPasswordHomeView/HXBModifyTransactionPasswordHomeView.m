@@ -202,7 +202,7 @@
 - (void)setUserInfoModel:(HXBUserInfoModel *)userInfoModel
 {
     _userInfoModel = userInfoModel;
-    self.phoneNumberLabel.text = [userInfoModel.userInfo.mobile hxb_hiddenPhonNumberWithMid];
+    self.phoneNumberLabel.text = [userInfoModel.userInfo.mobile replaceStringWithStartLocation:3 lenght:userInfoModel.userInfo.mobile.length - 7];
     if ([userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
         self.authenticatedNameLabel.text = [userInfoModel.userInfo.realName hxb_hiddenUserNameWithleft];
     }else

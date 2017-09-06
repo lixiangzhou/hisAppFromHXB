@@ -137,7 +137,7 @@ UITableViewDataSource,UITableViewDelegate
                 }
             } else {
                 if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-                    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"您还没有绑定银行卡" force:2 andLeftButtonMassage:@"暂不绑定" andRightButtonMassage:@"绑卡银行卡"];
+                    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"修改手机号，需先绑定银行卡。" force:2 andLeftButtonMassage:@"暂不绑定" andRightButtonMassage:@"立即绑定"];
                     alertVC.messageHeight = 40;
                     [alertVC setClickXYRightButtonBlock:^{
                         //进入绑卡界面

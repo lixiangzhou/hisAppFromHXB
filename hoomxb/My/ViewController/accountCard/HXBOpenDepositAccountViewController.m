@@ -15,7 +15,7 @@
 #import "HxbWithdrawViewController.h"
 #import "HXBModifyTransactionPasswordViewController.h"//修改手机号
 #import "HXBBankCardModel.h"
-@interface HXBOpenDepositAccountViewController ()
+@interface HXBOpenDepositAccountViewController ()<UITableViewDelegate>
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
 
@@ -30,6 +30,7 @@
 //    [self.hxbBaseVCScrollView addSubview:self.mainView];
     self.hxbBaseVCScrollView.tableHeaderView = self.mainView;
     self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
+    self.hxbBaseVCScrollView.delegate = self;
     [self loadUserInfo];
     [self setupSubView];
 }
@@ -49,7 +50,10 @@
         make.height.offset(kScrAdaptationH(49));
     }];
 }
-
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.hxbBaseVCScrollView endEditing:YES];
+}
 - (void)loadUserInfo
 {
     kWeakSelf

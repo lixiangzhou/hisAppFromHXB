@@ -89,7 +89,7 @@
     if (!_leftTipLabel) {
         _leftTipLabel = [[UILabel alloc] init];
         _leftTipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
-        _leftTipLabel.textColor = COR10;
+        _leftTipLabel.textColor = COR8;
     }
     return _leftTipLabel;
 }
@@ -110,7 +110,7 @@
     if (!_bottomTipLabel) {
         _bottomTipLabel = [[UILabel alloc] init];
         _bottomTipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
-        _bottomTipLabel.textColor = COR10;
+        _bottomTipLabel.textColor = COR8;
     }
     return _bottomTipLabel;
 }

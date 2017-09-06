@@ -33,6 +33,8 @@
 @property (nonatomic, strong) UIButton *sureChangeBtn;
 
 @property (nonatomic, weak) NSTimer *timer;
+
+@property (nonatomic, assign) int timeCount;
 @end
 
 @implementation HXBModifyPhoneView
@@ -256,22 +258,27 @@
 - (void)getCodeSuccessfully
 {
     self.getCodeBtn.enabled = NO;
-    __block int count = 60;
-    [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%d秒",count] forState:UIControlStateNormal];
+    self.timeCount = 60;
+    [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ds",self.timeCount] forState:UIControlStateNormal];
     self.getCodeBtn.backgroundColor = COR26;
-    kWeakSelf
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
-        count--;
-        [weakSelf.getCodeBtn setTitle:[NSString stringWithFormat:@"%d秒",count] forState:UIControlStateNormal];
-        if (count == -1) {
-            weakSelf.getCodeBtn.enabled = YES;
-            [weakSelf.timer invalidate];
-            weakSelf.timer = nil;
-            [weakSelf.getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-            weakSelf.getCodeBtn.backgroundColor = COR29;
-        }
-    }];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
+
 }
+
+- (void)timeDown
+{
+    self.timeCount--;
+    [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ds",self.timeCount] forState:UIControlStateNormal];
+    if (self.timeCount <= -1) {
+        self.getCodeBtn.enabled = YES;
+        [self.timer invalidate];
+        self.timer = nil;
+        self.getCodeBtn.backgroundColor = COR29;
+        [self.getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+    }
+    
+}
+
 - (void)dealloc
 {
     [self.timer invalidate];

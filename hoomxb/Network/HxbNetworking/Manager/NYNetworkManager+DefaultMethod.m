@@ -101,7 +101,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     }
     
     if (!KeyChain.ishaveNet) {
-        [HxbHUDProgress showMessageCenter:@"网络连接失败，请检查您的网络" inView:nil];
+        [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
     }
     
     

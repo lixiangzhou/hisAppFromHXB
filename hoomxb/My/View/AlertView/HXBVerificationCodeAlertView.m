@@ -60,6 +60,12 @@
     }];
 }
 
+- (void)setLineColor:(UIColor *)lineColor
+{
+    _lineColor = lineColor;
+    self.line.backgroundColor = lineColor;
+}
+
 - (void)setDelegate:(id<UITextFieldDelegate>)delegate
 {
     _delegate = delegate;

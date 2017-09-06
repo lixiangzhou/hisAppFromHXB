@@ -14,6 +14,7 @@
 #import "HxbWithdrawResultViewController.h"
 #import "HXBAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
+#import "HXBCallPhone_BottomView.h"
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIView *backView;
@@ -22,7 +23,7 @@
 
 @property (nonatomic, strong) WithdrawBankView *mybankView;
 
-@property (nonatomic, strong) UILabel *tipLabel;
+@property (nonatomic, strong) HXBCallPhone_BottomView *callPhoneView;
 @property (nonatomic, strong) UILabel *promptLabel;
 @property (nonatomic, strong) UILabel *tiedCardLabel;
 @property (nonatomic, strong) UILabel *reminderLabel;
@@ -44,7 +45,7 @@
     [self.view addSubview:self.amountTextField];
     [self.view addSubview:self.nextButton];
     [self.view addSubview:self.availableBalanceLabel];
-    [self.view addSubview:self.tipLabel];
+    [self.view addSubview:self.callPhoneView];
     [self.view addSubview:self.promptLabel];
     [self.view addSubview:self.tiedCardLabel];
     [self.view addSubview:self.reminderLabel];
@@ -89,17 +90,19 @@
         make.right.equalTo(self.view).offset(kScrAdaptationW750(-40));
         make.height.offset(kScrAdaptationH750(82));
     }];
-    [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.callPhoneView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).offset(kScrAdaptationH750(-100));
         make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
     }];
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.tipLabel.mas_top).offset(kScrAdaptationH750(-10));
+        make.bottom.equalTo(self.callPhoneView.mas_top).offset(kScrAdaptationH750(-10));
         make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
+        make.right.equalTo(self.view).offset(-kScrAdaptationW750(40));
     }];
     [self.tiedCardLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.promptLabel.mas_top).offset(kScrAdaptationH750(-10));
         make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
+        make.right.equalTo(self.view).offset(-kScrAdaptationW750(40));
     }];
     [self.reminderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.tiedCardLabel.mas_top).offset(kScrAdaptationH750(-20));
@@ -258,23 +261,36 @@
     }
     return _availableBalanceLabel;
 }
-- (UILabel *)tipLabel
+//- (UILabel *)tipLabel
+//{
+//    if (!_tipLabel) {
+//        _tipLabel = [[UILabel alloc] init];
+//        _tipLabel.text = @"3、禁止恶意提现";
+//        _tipLabel.textColor = COR8;
+//        _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+//    }
+//    return _tipLabel;
+//}
+
+- (HXBCallPhone_BottomView *)callPhoneView
 {
-    if (!_tipLabel) {
-        _tipLabel = [[UILabel alloc] init];
-        _tipLabel.text = @"3、禁止恶意提现";
-        _tipLabel.textColor = COR8;
-        _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+    if (!_callPhoneView) {
+        _callPhoneView = [[HXBCallPhone_BottomView alloc] init];
+        _callPhoneView.leftTitle = @"3、如提现过程中有疑问，请联系客服：";
+        _callPhoneView.phoneNumber = kServiceMobile;
+//        _callPhoneView.supplementText = @"(周一至周五 9:00-19:00)";
     }
-    return _tipLabel;
+    return _callPhoneView;
 }
+
 - (UILabel *)promptLabel
 {
     if (!_promptLabel) {
         _promptLabel = [[UILabel alloc] init];
-        _promptLabel.text = @"2、提现手续费为0";
+        _promptLabel.text = @"2、禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用";
         _promptLabel.textColor = COR8;
         _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        _promptLabel.numberOfLines = 0;
     }
     return _promptLabel;
 }
@@ -282,9 +298,10 @@
 {
     if (!_tiedCardLabel) {
         _tiedCardLabel = [[UILabel alloc] init];
-        _tiedCardLabel.text = @"1、提现到已绑定的银行卡上";
+        _tiedCardLabel.text = @"1、预计到账时间为两个工作日，双休日和法定节假日顺延处理。";
         _tiedCardLabel.textColor = COR8;
         _tiedCardLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        _tiedCardLabel.numberOfLines = 0;
     }
     return _tiedCardLabel;
 }
@@ -381,7 +398,7 @@
     HXBWithdrawalsRequest *paymentDate = [[HXBWithdrawalsRequest alloc] init];
     [paymentDate paymentDateRequestWithSuccessBlock:^(id responseObject) {
         
-        weakSelf.arrivalDateLabel.text = [NSString stringWithFormat:@"今日提现预计%@到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:responseObject[@"data"][@"arrivalTime"] andDateFormat:@"yyyy-MM-dd"]];
+        weakSelf.arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:responseObject[@"data"][@"arrivalTime"] andDateFormat:@"yyyy-MM-dd"]];
         
     } andFailureBlock:^(NSError *error) {
         

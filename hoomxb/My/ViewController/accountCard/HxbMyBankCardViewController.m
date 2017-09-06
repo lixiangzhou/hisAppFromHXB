@@ -180,10 +180,10 @@
     if (!_phoneBtn) {
         _phoneBtn  = [[UIButton alloc] init];
         NSString *string = [NSString stringWithFormat:@"如需解绑，请联系红小宝客服：%@", kServiceMobile];
-        NSAttributedString *str = [NSMutableAttributedString setupAttributeStringWithString:string WithRange:NSMakeRange(string.length - kServiceMobile.length, kServiceMobile.length) andAttributeColor:COR30];
-//        [_phoneBtn setTitle:string forState:UIControlStateNormal];
+        NSMutableAttributedString *str = [NSMutableAttributedString setupAttributeStringWithString:string WithRange:NSMakeRange(string.length - kServiceMobile.length, kServiceMobile.length) andAttributeColor:COR30];
+        
+        [str addAttribute:NSForegroundColorAttributeName value:COR8 range:NSMakeRange(0, string.length - kServiceMobile.length)];
         [_phoneBtn setAttributedTitle:str forState:(UIControlStateNormal)];
-        [_phoneBtn setTitleColor:COR11 forState:UIControlStateNormal];
         [_phoneBtn addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _phoneBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     }

@@ -20,7 +20,7 @@
 @property (nonatomic, strong) UILabel *withdrawalsTimeTipLabel;//提现到账时间标签
 @property (nonatomic, strong) UILabel *withdrawalsTimeLabel;//提现到账时间
 @property (nonatomic, strong) UIButton *backButton;
-@property (nonatomic, strong) HXBTipView *tipView;
+//@property (nonatomic, strong) HXBTipView *tipView;
 @end
 
 @implementation HXBPresentInformationView
@@ -37,7 +37,7 @@
         [self.backView addSubview:self.withdrawalsNumberLabel];
         [self.backView addSubview:self.withdrawalsTimeTipLabel];
         [self.backView addSubview:self.withdrawalsTimeLabel];
-        [self addSubview:self.tipView];
+//        [self addSubview:self.tipView];
         [self addSubview:self.backButton];
         [self setupSubViewFrame];
     }
@@ -92,11 +92,11 @@
         make.centerY.equalTo(self.withdrawalsTimeTipLabel);
         make.height.offset(kScrAdaptationH750(30));
     }];
-    [self.tipView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.backView.mas_bottom).offset(kScrAdaptationH750(30));
-        make.right.equalTo(self.backView.mas_right).offset(-marginal);
-        make.left.equalTo(self.backView).offset(marginal);
-    }];
+//    [self.tipView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.backView.mas_bottom).offset(kScrAdaptationH750(30));
+//        make.right.equalTo(self.backView.mas_right).offset(-marginal);
+//        make.left.equalTo(self.backView).offset(marginal);
+//    }];
     [self.backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(marginal);
         make.right.equalTo(self.mas_right).offset(-marginal);
@@ -109,7 +109,7 @@
 {
     _bankCardModel = bankCardModel;
     self.bankCardNumberLabel.text = [NSString stringWithFormat:@"%@ 尾号 %@",self.bankCardModel.bankType,[self.bankCardModel.cardId substringFromIndex:self.bankCardModel.cardId.length - 4]];
-    self.withdrawalsNumberLabel.text = [NSString stringWithFormat:@"%@元",self.bankCardModel.amount];
+    self.withdrawalsNumberLabel.text = [NSString stringWithFormat:@"%.2f元",[self.bankCardModel.amount doubleValue]];
     self.withdrawalsTimeLabel.text = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.bankCardModel.arrivalTime andDateFormat:@"yyyy-MM-dd"];
 
 }
@@ -212,12 +212,12 @@
     }
     return _backButton;
 }
-- (HXBTipView *)tipView
-{
-    if (!_tipView) {
-        _tipView = [[HXBTipView alloc] init];
-        _tipView.text = @"如遇法定节假日，会顺延。";
-    }
-    return _tipView;
-}
+//- (HXBTipView *)tipView
+//{
+//    if (!_tipView) {
+//        _tipView = [[HXBTipView alloc] init];
+//        _tipView.text = @"如遇法定节假日，会顺延。";
+//    }
+//    return _tipView;
+//}
 @end
