@@ -90,6 +90,17 @@
         make.bottom.equalTo(self.tipLabel.mas_top).offset(kScrAdaptationH750(-20));
         make.height.offset(kScrAdaptationH750(24));
     }];
+    _amountTextField.haveStr = ^(BOOL haveStr) {
+        NSLog(@"%d", haveStr);
+        if (haveStr) {
+            _nextButton.backgroundColor = COR29;
+            _nextButton.userInteractionEnabled = YES;
+        } else {
+            _nextButton.backgroundColor = COR26;
+            _nextButton.userInteractionEnabled = NO;
+        }
+    };
+    
 }
 
 - (void)nextButtonClick:(UIButton *)sender{
@@ -143,6 +154,8 @@
     if (!_nextButton) {
         _nextButton = [UIButton btnwithTitle:@"充值" andTarget:self andAction:@selector(nextButtonClick:) andFrameByCategory:  CGRectMake(20,CGRectGetMaxY(_amountTextField.frame) + 20, SCREEN_WIDTH - 40,44)];
     }
+    _nextButton.backgroundColor = COR26;
+    _nextButton.userInteractionEnabled = NO;
     return _nextButton;
 }
 

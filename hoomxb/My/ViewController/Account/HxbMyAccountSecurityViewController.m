@@ -178,7 +178,7 @@ UITableViewDataSource,UITableViewDelegate
 - (void)getintoModifyPhone
 {
     HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-    modifyTransactionPasswordVC.title = @"修改绑定手机号";
+    modifyTransactionPasswordVC.title = @"解绑原手机号";
     modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
     [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
 }

@@ -24,36 +24,20 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///展示手机号的label
 @property (nonatomic, strong) UILabel       *phonNumberLabel;
 ///验证码的textField
-@property (nonatomic, strong) UITextField   *smscode_TextField;
-///验证码
-//@property (nonatomic, strong) UILabel       *smscode_constLabel;
-@property (nonatomic, strong) UIImageView *smscode_constImageView;
+@property (nonatomic, strong) HXBCustomTextField   *smscode_TextField;
 ///发送按钮
 @property (nonatomic, strong) UIButton      *sendButton;
-/**
- 下划线
- */
-@property (nonatomic, strong) UIView *codeLine;
+
 ///定时器
 @property (nonatomic, strong) NSTimer       *timer;
 ///密码输入框
-@property (nonatomic, strong) UITextField   *password_TextField;
-///输入密码说明
-//@property (nonatomic, strong) UILabel       *password_constLable;
-@property (nonatomic, strong) UIImageView *passwordImageView;
-///眼睛按钮
-@property (nonatomic, strong) UIButton    *eyeButton;
+@property (nonatomic, strong) HXBCustomTextField   *password_TextField;
 
-@property (nonatomic, strong) UIView *passwordLine;
 ///确认设置密码按钮
 @property (nonatomic, strong) UIButton      *setPassWordButton;
-/**
- 邀请码
- */
+
 @property (nonatomic, strong) HXBCustomTextField *inviteCodeTextField;
 
-
-//@property (nonatomic,strong) UITextField *inviteCodeTextField;
 /**
  用户协议
  */
@@ -82,7 +66,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
             [self.negotiateView setHidden:true];
             [self.setPassWordButton setTitle:@"确认登录密码" forState:UIControlStateNormal];
             [self.setPassWordButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.passwordLine.mas_bottom).offset(kScrAdaptationH(50));
+                make.top.equalTo(self.password_TextField.mas_bottom).offset(kScrAdaptationH(50));
                 make.left.equalTo(self).offset(kScrAdaptationW(20));
                 make.right.equalTo(self).offset(kScrAdaptationW(-20));
                 make.height.offset(kScrAdaptationH(41));
@@ -161,39 +145,36 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///创建对象
 - (void)creatSubView {
     self.phonNumberLabel = [[UILabel alloc]init];
-    self.smscode_TextField = [[UITextField alloc]init];
-    self.smscode_constImageView = [[UIImageView alloc]init];
+    self.smscode_TextField = [[HXBCustomTextField alloc]init];
     self.sendButton = [[UIButton alloc]init];
-    self.password_TextField = [[UITextField alloc]init];
-    self.passwordImageView = [[UIImageView alloc]init];
-    self.eyeButton = [[UIButton alloc]init];
+    self.password_TextField = [[HXBCustomTextField alloc]init];
     self.setPassWordButton = [[UIButton alloc]init];
     self.inviteCodeTextField = [[HXBCustomTextField alloc]init];
     self.negotiateView = [[HXBFinBaseNegotiateView alloc]init];
-    self.codeLine = [[UIView alloc] init];
-    self.passwordLine = [[UIView alloc] init];
+    
+    self.smscode_TextField.leftImage = [UIImage imageNamed:@"security_code"];
+    self.password_TextField.leftImage = [UIImage imageNamed:@"password"];
+    self.inviteCodeTextField.leftImage = [UIImage imageNamed:@"invitation_code"];
+    self.password_TextField.secureTextEntry = YES;
+    self.smscode_TextField.delegate = self;
+    self.password_TextField.delegate = self;
+    self.inviteCodeTextField.delegate = self;
     
     [self addSubview : self.phonNumberLabel];
     [self addSubview : self.smscode_TextField];
-    [self addSubview : self.smscode_constImageView];
     [self addSubview : self.sendButton];
     [self addSubview : self.password_TextField];
-    [self addSubview : self.passwordImageView];
-    [self addSubview : self.eyeButton];
     [self addSubview : self.setPassWordButton];
     [self addSubview:self.inviteCodeTextField];
     [self addSubview:self.negotiateView];
-    [self addSubview:self.codeLine];
-    [self addSubview:self.passwordLine];
     [self addSubview:self.waterView];
     [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
     
     self.password_TextField.placeholder = @"密码为8-20位数字与字母组合";
-    self.password_TextField.delegate = self;
     self.inviteCodeTextField.placeholder = @"请输入邀请码";
     self.inviteCodeTextField.keyboardType = UIKeyboardTypeDefault;
-    self.inviteCodeTextField.delegate = self;
-    self.inviteCodeTextField.leftImage = [UIImage imageNamed:@"invitation_code"];
+    
+
     
     self.negotiateView.negotiateStr = @"红小宝注册协议";
     kWeakSelf
@@ -220,57 +201,27 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         make.top.equalTo(self.waterView.mas_bottom).offset(kScrAdaptationH(30));
         make.centerX.equalTo(weakSelf);
     }];
-    
-    [self.smscode_constImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.phonNumberLabel.mas_bottom).offset(kScrAdaptationH(45));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.width.offset(kScrAdaptationW750(36));
-        make.height.offset(kScrAdaptationH750(38));
-    }];
-    [self.codeLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.smscode_constImageView.mas_bottom).offset(kScrAdaptationH(17));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
-        make.height.offset(0.5);
-    }];
     [self.smscode_TextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf.sendButton.mas_left);
-        make.centerY.height.equalTo(weakSelf.smscode_constImageView);
-        make.left.equalTo(weakSelf.smscode_constImageView.mas_right).offset(kScrAdaptationW(10));
+        make.top.equalTo(weakSelf.phonNumberLabel.mas_bottom).offset(kScrAdaptationH(10));
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.height.offset(kScrAdaptationH(60));
     }];
     [self.sendButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weakSelf.smscode_constImageView);
+        make.centerY.equalTo(weakSelf.smscode_TextField);
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
         make.width.equalTo(@(kScrAdaptationW(80)));
         make.height.equalTo(@(kScrAdaptationH(30)));
     }];
-    [self.passwordImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.codeLine.mas_bottom).offset(kScrAdaptationH(27));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.width.offset(kScrAdaptationW750(36));
-        make.height.offset(kScrAdaptationH750(45));
-    }];
+
     [self.password_TextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.height.equalTo(weakSelf.passwordImageView);
-        make.left.equalTo(weakSelf.passwordImageView.mas_right).offset(kScrAdaptationW(10));
-        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
+        make.top.equalTo(weakSelf.smscode_TextField.mas_bottom);
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.height.offset(kScrAdaptationH(60));
     }];
-    [self.eyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weakSelf.passwordImageView);
-        make.right.equalTo(weakSelf.password_TextField.mas_right);
-        make.width.offset(kScrAdaptationW(20));
-        make.height.offset(kScrAdaptationH(12));
-    }];
-    [self.passwordLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.passwordImageView.mas_bottom).offset(kScrAdaptationH(17));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
-        make.height.offset(0.5);
-    }];
-    
-    
     [self.inviteCodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.passwordLine.mas_bottom);
+        make.top.equalTo(weakSelf.password_TextField.mas_bottom);
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
         make.height.offset(kScrAdaptationH(60));
@@ -279,14 +230,14 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 ///设置
 - (void)setSubView {
-//    self.password_TextField.delegate = self;
+    self.password_TextField.delegate = self;
     self.password_TextField.secureTextEntry = true;
-//    self.smscode_TextField.delegate = self;
+    self.smscode_TextField.delegate = self;
     
     self.phonNumberLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     self.phonNumberLabel.textColor = RGB(51, 51, 51);
     
-    self.smscode_TextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
+//    self.smscode_TextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:kSmscode_ConstLableTitle];
     // 设置字体和设置字体的范围
     self.smscode_TextField.delegate = self;
@@ -297,7 +248,6 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     self.smscode_TextField.attributedPlaceholder = attrStr;
     
     
-    self.password_TextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
     NSMutableAttributedString *passwordattrStr = [[NSMutableAttributedString alloc] initWithString:kPassword_constLableTitle];
     // 设置字体和设置字体的范围
     [passwordattrStr addAttribute:NSForegroundColorAttributeName
@@ -305,26 +255,16 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
                     range:NSMakeRange(0, kPassword_constLableTitle.length)];
     self.password_TextField.attributedPlaceholder = passwordattrStr;
     
-    self.smscode_constImageView.svgImageString = @"security_code";
-    self.smscode_constImageView.contentMode = UIViewContentModeScaleAspectFit;
-    
     self.sendButton.backgroundColor = RGB(222, 222, 222);
     self.sendButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
     [self.sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.sendButton.layer.cornerRadius = kScrAdaptationW(4);
     self.sendButton.layer.masksToBounds = YES;
-    
-    self.codeLine.backgroundColor = RGB(221, 221, 221);
-    self.passwordLine.backgroundColor = RGB(221, 221, 221);
-    
-    self.passwordImageView.svgImageString = @"password";
-    self.passwordImageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.eyeButton setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateNormal];
-    [self.eyeButton setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateSelected];
-    
+
     self.setPassWordButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
     [self.setPassWordButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.setPassWordButton.backgroundColor = RGB(245, 81, 81);
+    self.setPassWordButton.backgroundColor = COR12;
+    self.setPassWordButton.userInteractionEnabled = NO;
     self.setPassWordButton.layer.cornerRadius = kScrAdaptationW(4);
     self.setPassWordButton.layer.masksToBounds = YES;
 }
@@ -333,13 +273,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///事件
 - (void) addButtonTarget {
     [self.sendButton addTarget:self action:@selector(clickSendButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.eyeButton addTarget:self action:@selector(clickEyeButton:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.eyeButton addTarget:self action:@selector(clickEyeButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.setPassWordButton addTarget:self action:@selector(clickSetPassWordButton:) forControlEvents:UIControlEventTouchUpInside];
-}
-///点击了眼睛的按钮
-- (void)clickEyeButton: (UIButton *)button {
-    self.eyeButton.selected = !self.eyeButton.selected;
-    self.password_TextField.secureTextEntry = !self.eyeButton.selected;
 }
 
 ///点击了发送按钮
@@ -409,15 +344,73 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 #pragma mark - textField delegate
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField == self.smscode_TextField) {
-        if (textField.text.length > 5 && ![string isEqualToString: @""]) {
-            return NO;
+    if (textField.superview == _smscode_TextField) {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+            
+        }else if(!string.length) {
+            NSInteger length = _smscode_TextField.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = _smscode_TextField.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if (str.length > 6) return NO;
+        if (str.length > 0 && _password_TextField.text.length > 0 && _inviteCodeTextField.text.length > 0) {
+            self.setPassWordButton.backgroundColor = COR29;
+            self.setPassWordButton.userInteractionEnabled = YES;
+        } else {
+            self.setPassWordButton.backgroundColor = COR12;
+            self.setPassWordButton.userInteractionEnabled = NO;
+        }
+        
+    } else if (textField.superview == _password_TextField){
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+            
+        }else if(!string.length) {
+            NSInteger length = _password_TextField.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = _password_TextField.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if (str.length > 20) return NO;
+        if (str.length > 0 && _smscode_TextField.text.length > 0 && _inviteCodeTextField.text.length > 0) {
+            self.setPassWordButton.backgroundColor = COR29;
+            self.setPassWordButton.userInteractionEnabled = YES;
+        } else {
+            self.setPassWordButton.backgroundColor = COR12;
+            self.setPassWordButton.userInteractionEnabled = NO;
+        }
+    } else {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+            
+        }else if(!string.length) {
+            NSInteger length = _inviteCodeTextField.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = _inviteCodeTextField.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if (str.length > 20) return NO;
+        if (str.length > 0 && _password_TextField.text.length > 0 && _smscode_TextField.text.length > 0) {
+            self.setPassWordButton.backgroundColor = COR29;
+            self.setPassWordButton.userInteractionEnabled = YES;
+        } else {
+            self.setPassWordButton.backgroundColor = COR12;
+            self.setPassWordButton.userInteractionEnabled = NO;
         }
     }
-    if ([NSString isChinese:string] || [NSString isIncludeSpecialCharact:string] || [string isEqualToString:@" "]) {
-        return NO;
-    }
-    
+    return YES;
+}
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    self.setPassWordButton.backgroundColor = COR12;
+    self.setPassWordButton.userInteractionEnabled = NO;
     return YES;
 }
 
@@ -431,11 +424,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [UIView animateWithDuration:0.4 animations:^{
         self.y = 0;
     }];
-
 }
-
-
-
 - (BOOL)isPasswordQualifiedFunWithStr: (NSString *)password {
     ///判断字符串是否包含数字
     BOOL isContentNumber = [NSString isStringContainNumberWith:password];

@@ -11,7 +11,7 @@
 #import "HXBSetGesturePasswordRequest.h"
 #import "HXBCustomTextField.h"
 #import "SVGKImageView.h"
-@interface HXBCheckLoginPasswordViewController ()
+@interface HXBCheckLoginPasswordViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) HXBCustomTextField *loginPasswordTextField;
 
@@ -26,6 +26,8 @@
     if (!_checkLoginBtn) {
         _checkLoginBtn = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(checkLoginPassword) andFrameByCategory:CGRectZero];
     }
+    _checkLoginBtn.backgroundColor = COR26;
+    _checkLoginBtn.userInteractionEnabled = NO;
     return _checkLoginBtn;
 }
 
@@ -34,6 +36,7 @@
     if (!_loginPasswordTextField) {
         _loginPasswordTextField = [[HXBCustomTextField alloc] init];
         _loginPasswordTextField.secureTextEntry = YES;
+        _loginPasswordTextField.delegate = self;
         _loginPasswordTextField.placeholder = @"登录密码";
         _loginPasswordTextField.leftImage = [UIImage imageNamed:@"password"];
     }
@@ -89,5 +92,33 @@
         
     }
 }
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString *str = nil;
+    if (string.length) {
+        str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+    } else if(!string.length) {
+        NSInteger length = self.loginPasswordTextField.text.length;
+        NSRange range = NSMakeRange(length - 1, 1);
+        NSMutableString *strM = self.loginPasswordTextField.text.mutableCopy;
+        [strM deleteCharactersInRange:range];
+        str = strM.copy;
+    }
+    if (str.length > 0) {
+        _checkLoginBtn.backgroundColor = COR29;
+        _checkLoginBtn.userInteractionEnabled = YES;
+    } else {
+        _checkLoginBtn.backgroundColor = COR26;
+        _checkLoginBtn.userInteractionEnabled = NO;
+    }
+    if (str.length > 20) return NO;
+    return YES;
+}
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    _checkLoginBtn.backgroundColor = COR26;
+    _checkLoginBtn.userInteractionEnabled = NO;
+    return YES;
+}
+
 
 @end

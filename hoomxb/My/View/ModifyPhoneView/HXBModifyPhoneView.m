@@ -21,7 +21,7 @@
  短信验证码输入框
  */
 @property (nonatomic, strong) HXBCustomTextField *verificationCodeTextField;
-@property (nonatomic, strong) UIView *lineView;
+//@property (nonatomic, strong) UIView *lineView;
 /**
  获取验证码按钮
  */
@@ -56,7 +56,6 @@
         _verificationCodeTextField = [[HXBCustomTextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
         _verificationCodeTextField.delegate = self;
-        _verificationCodeTextField.isHidenLine = YES;
         _verificationCodeTextField.leftImage = [UIImage imageNamed:@"security_code"];
         _verificationCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
@@ -79,6 +78,8 @@
     if (!_sureChangeBtn) {
         _sureChangeBtn = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(sureChangeBtnClick) andFrameByCategory:CGRectZero];
     }
+    [_sureChangeBtn setBackgroundColor:COR12];
+    _sureChangeBtn.userInteractionEnabled = NO;
     return _sureChangeBtn;
 }
 
@@ -103,9 +104,9 @@
     [self addSubview:self.verificationCodeTextField];
     [self addSubview:self.getCodeBtn];
     [self addSubview:self.sureChangeBtn];
-    self.lineView = [[UIView alloc] initWithFrame:CGRectMake(kScrAdaptationW750(40), kScrAdaptationH750(250.4), kScreenWidth - kScrAdaptationW750(80), kScrAdaptationH750(1.6))];
-    self.lineView.backgroundColor = COR12;
-    [self addSubview:self.lineView];
+//    self.lineView = [[UIView alloc] initWithFrame:CGRectMake(kScrAdaptationW750(40), kScrAdaptationH750(250.4), kScreenWidth - kScrAdaptationW750(80), kScrAdaptationH750(1.6))];
+//    self.lineView.backgroundColor = COR12;
+//    [self addSubview:self.lineView];
 }
 /**
  设置子视图frame
@@ -127,7 +128,7 @@
     }];
     [self.verificationCodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
-        make.right.equalTo(self).offset(-kScrAdaptationW750(210));
+        make.right.equalTo(self);
         make.top.equalTo(self.phoneTextField.mas_bottom);
         make.height.offset(kScrAdaptationH750(120));
     }];
@@ -140,16 +141,14 @@
 }
 
 #pragma mark - 事件处理
-- (void)getCodeBtnClick
-{
-    
+- (void)getCodeBtnClick {
     if (![NSString isMobileNumber:self.phoneTextField.text]) {
-        [HxbHUDProgress showTextWithMessage:@"请输入正确的手机号"];
+        [HxbHUDProgress showTextWithMessage:@"手机号格式有误"];
         return;
     }
     [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:self.phoneTextField.text andSuccessBlock:^(BOOL isExist) {
         if (isExist) {
-            [HxbHUDProgress showTextWithMessage:@"手机号已经被绑定"];
+            [HxbHUDProgress showTextWithMessage:@"该手机号已使用"];
         }else
         {
             if (self.getValidationCodeButtonClickBlock) {
@@ -191,9 +190,12 @@
         if (str.length == 11) {
             [_phoneTextField resignFirstResponder];
             if (![NSString isMobileNumber:str]) {
-                [HxbHUDProgress showTextWithMessage:@"请输入正确的手机号"];
+                [HxbHUDProgress showTextWithMessage:@"手机号格式有误"];
             } else {
-                _getCodeBtn.backgroundColor = COR29;
+                _getCodeBtn.backgroundColor = [UIColor whiteColor];
+                _getCodeBtn.layer.borderWidth = kXYBorderWidth;
+                _getCodeBtn.layer.borderColor = COR29.CGColor;
+                [_getCodeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
                 _getCodeBtn.userInteractionEnabled = YES;
             }
         } else if (str.length > 11) {
@@ -201,6 +203,15 @@
         } else {
             _getCodeBtn.backgroundColor = COR26;
             _getCodeBtn.userInteractionEnabled = NO;
+            _getCodeBtn.layer.borderWidth = 0;
+            [_getCodeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        }
+        if (str.length > 0 && _verificationCodeTextField.text.length > 0) {
+            [_sureChangeBtn setBackgroundColor:COR29];
+            _sureChangeBtn.userInteractionEnabled = YES;
+        } else {
+            [_sureChangeBtn setBackgroundColor:COR12];
+            _sureChangeBtn.userInteractionEnabled = NO;
         }
     } else {
         NSString *str = nil;
@@ -216,12 +227,28 @@
         if (str.length > 6) {
             return NO;
         }
+        if (str.length > 0 && _phoneTextField.text.length > 0) {
+            [_sureChangeBtn setBackgroundColor:COR29];
+            _sureChangeBtn.userInteractionEnabled = YES;
+        } else {
+            [_sureChangeBtn setBackgroundColor:COR12];
+            _sureChangeBtn.userInteractionEnabled = NO;
+        }
     }
     
     return YES;
-    
 }
 
+- (BOOL)textFieldShouldClear:(UITextField *)textField {
+    _getCodeBtn.backgroundColor = COR26;
+    _getCodeBtn.userInteractionEnabled = NO;
+    _getCodeBtn.layer.borderWidth = 0;
+    _getCodeBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+    [_sureChangeBtn setBackgroundColor:COR12];
+    _sureChangeBtn.userInteractionEnabled = NO;
+    
+    return YES;
+}
 
 - (void)sureChangeBtnClick
 {
@@ -257,18 +284,22 @@
 {
     self.getCodeBtn.enabled = NO;
     __block int count = 60;
-    [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%d秒",count] forState:UIControlStateNormal];
+    [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ds",count] forState:UIControlStateNormal];
     self.getCodeBtn.backgroundColor = COR26;
     kWeakSelf
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 repeats:YES block:^(NSTimer * _Nonnull timer) {
         count--;
-        [weakSelf.getCodeBtn setTitle:[NSString stringWithFormat:@"%d秒",count] forState:UIControlStateNormal];
+        [weakSelf.getCodeBtn setTitle:[NSString stringWithFormat:@"%ds",count] forState:UIControlStateNormal];
         if (count == -1) {
             weakSelf.getCodeBtn.enabled = YES;
             [weakSelf.timer invalidate];
             weakSelf.timer = nil;
             [weakSelf.getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-            weakSelf.getCodeBtn.backgroundColor = COR29;
+            _getCodeBtn.backgroundColor = [UIColor whiteColor];
+            _getCodeBtn.layer.borderWidth = kXYBorderWidth;
+            _getCodeBtn.layer.borderColor = COR29.CGColor;
+            [_getCodeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
+            _getCodeBtn.userInteractionEnabled = YES;
         }
     }];
 }

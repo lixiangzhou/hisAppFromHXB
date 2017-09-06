@@ -292,7 +292,7 @@
     }
     else if (![self checkPassWordWithString:passWordName])
     {
-        message=@"密码必须同时包含字母和数字";
+        message=@"密码为8-20位数字与字母组合";
     }
     return message;
 }

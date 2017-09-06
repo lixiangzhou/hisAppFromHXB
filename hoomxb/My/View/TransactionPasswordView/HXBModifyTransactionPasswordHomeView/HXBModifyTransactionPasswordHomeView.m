@@ -143,7 +143,6 @@
  */
 - (void)getValidationCodeButtonClick
 {
-    self.getValidationCodeButton.backgroundColor = COR26;
     if (self.getValidationCodeButtonClickBlock) {
         self.getValidationCodeButtonClickBlock(self.idCardTextField.text);
     }
@@ -156,6 +155,9 @@
 - (void)idcardWasSuccessfully
 {
     self.getValidationCodeButton.enabled = NO;
+    _getValidationCodeButton.layer.borderWidth = 0;
+    [_getValidationCodeButton setBackgroundColor:COR26];
+    [_getValidationCodeButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     self.count = 60;
     [self.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
@@ -182,8 +184,8 @@
     self.getValidationCodeButton.enabled = YES;
     [self.timer invalidate];
     self.timer = nil;
-    [self.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-    [self.getValidationCodeButton setBackgroundColor:COR29];
+//    [self.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+//    [self.getValidationCodeButton setBackgroundColor:COR29];
 
 }
 
@@ -264,7 +266,7 @@
 {
     if (!_promptLabel) {
         _promptLabel = [[UILabel alloc] init];
-        _promptLabel.text = @"短信会发送到";
+        _promptLabel.text = @"短信会发送到手机号为";
         _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _promptLabel.textColor = COR6;
         _promptLabel.font = [UIFont systemFontOfSize:15];
@@ -308,6 +310,10 @@
 {
     if (!_getValidationCodeButton) {
         _getValidationCodeButton = [UIButton btnwithTitle:@"获取验证码" andTarget:self andAction:@selector(getValidationCodeButtonClick) andFrameByCategory:CGRectZero];
+        _getValidationCodeButton.layer.borderColor = COR29.CGColor;
+        _getValidationCodeButton.layer.borderWidth = kXYBorderWidth;
+        [_getValidationCodeButton setBackgroundColor:[UIColor whiteColor]];
+        [_getValidationCodeButton setTitleColor:COR29 forState:(UIControlStateNormal)];
         _getValidationCodeButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
 
     }
@@ -322,6 +328,8 @@
     if (!_nextButton) {
         _nextButton = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(nextButtonClick) andFrameByCategory:CGRectZero];
     }
+    [_nextButton setBackgroundColor:COR12];
+    _nextButton.userInteractionEnabled = NO;
     return _nextButton;
 }
 
@@ -338,7 +346,16 @@
             [strM deleteCharactersInRange:range];
             str = strM.copy;
         }
+        if (str.length > 0 && _verificationCodeTextField.text.length > 0) {
+            [_nextButton setBackgroundColor:COR29];
+            _nextButton.userInteractionEnabled = YES;
+        } else {
+            [_nextButton setBackgroundColor:COR12];
+            _nextButton.userInteractionEnabled = NO;
+        }
         if (str.length > 18) {
+#warning 肖扬
+            self.getValidationCodeButtonClickBlock(str);
             return NO;
         }
     } else {
@@ -352,10 +369,22 @@
             [strM deleteCharactersInRange:range];
             str = strM.copy;
         }
+        if (str.length > 0 && _idCardTextField.text.length > 0) {
+            [_nextButton setBackgroundColor:COR29];
+            _nextButton.userInteractionEnabled = YES;
+        } else {
+            [_nextButton setBackgroundColor:COR12];
+            _nextButton.userInteractionEnabled = NO;
+        }
         if (str.length > 6) {
             return NO;
         }
     }
+    return YES;
+}
+-(BOOL)textFieldShouldClear:(UITextField *)textField {
+    [_nextButton setBackgroundColor:COR12];
+    _nextButton.userInteractionEnabled = NO;
     return YES;
 }
 

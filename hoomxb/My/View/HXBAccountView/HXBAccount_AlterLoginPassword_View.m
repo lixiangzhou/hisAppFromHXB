@@ -115,6 +115,7 @@
             self.alterButton.backgroundColor = COR12;
             self.alterButton.userInteractionEnabled = NO;
         }
+        if (str.length > 20) return NO;
     } else {
         NSString *str = nil;
         if (string.length) {
@@ -133,6 +134,7 @@
             self.alterButton.backgroundColor = COR12;
             self.alterButton.userInteractionEnabled = NO;
         }
+        if (str.length > 20) return NO;
     }
     return YES;
 }

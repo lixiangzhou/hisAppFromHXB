@@ -72,12 +72,12 @@
     }];
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
-        make.right.equalTo(self.eyeBtn.mas_left);
+         make.right.equalTo(self).offset(-kScrAdaptationW750(40));
         make.top.bottom.equalTo(self);
     }];
     [self.idTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
-        make.right.equalTo(self.eyeBtn.mas_left);
+        make.right.equalTo(self).offset(-kScrAdaptationW750(40));
         make.top.bottom.equalTo(self);
     }];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -93,6 +93,7 @@
         make.width.offset(kScrAdaptationW750(40));
         make.top.bottom.equalTo(self);
     }];
+
    
 }
 - (void)eyeBtnClick
@@ -137,6 +138,13 @@
     _secureTextEntry = secureTextEntry;
     self.textField.secureTextEntry = secureTextEntry;
     self.eyeBtn.hidden = !secureTextEntry;
+    if (secureTextEntry) {
+        [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
+            make.right.equalTo(self).offset(-kScrAdaptationW(50));
+            make.top.bottom.equalTo(self);
+        }];
+    }
 }
 
 - (void)setIsHidenLine:(BOOL )isHidenLine
