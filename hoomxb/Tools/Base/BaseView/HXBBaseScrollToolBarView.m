@@ -203,6 +203,10 @@
             UIScrollView *scrollView = (UIScrollView *)view;
             //添加观察者
             [scrollView addObserver:weakSelf forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+        } else {
+            //添加观察者
+#warning 肖扬（待处理）
+            [self addObserver:weakSelf forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         }
     }];
 }

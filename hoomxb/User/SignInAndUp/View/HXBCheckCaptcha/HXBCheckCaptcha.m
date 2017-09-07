@@ -131,6 +131,7 @@ static NSString *const kTrueButtonTitle = @"确定";
     self.checkCaptchaTextField.textColor = RGB(51, 51, 51);
     self.checkCaptchaTextField.textAlignment = NSTextAlignmentCenter;
     self.checkCaptchaTextField.delegate = self;
+    self.checkCaptchaTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.checkCaptchaTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.line.backgroundColor = RGB(222, 222, 222);
     
@@ -192,7 +193,16 @@ static NSString *const kTrueButtonTitle = @"确定";
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (textField.text.length >= 6 && ![string isEqualToString:@""]) {
+    NSString *str = nil;
+    if (string.length) {
+        str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+    }
+    if (str.length) {
+        self.line.backgroundColor = COR29;
+    } else {
+        self.line.backgroundColor = COR12;
+    }
+    if (str.length > 6 && ![string isEqualToString:@""]) {
         return NO;
     }
     return YES;

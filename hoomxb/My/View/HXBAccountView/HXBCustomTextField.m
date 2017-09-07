@@ -8,7 +8,7 @@
 
 #import "HXBCustomTextField.h"
 #import "SVGKImage.h"
-@interface HXBCustomTextField ()
+@interface HXBCustomTextField ()<UITextFieldDelegate>
 {
     NSString *_text;
 }
@@ -45,6 +45,24 @@
                                                  selector:@selector(textFieldDidChangeValue:)
                                                      name:UITextFieldTextDidChangeNotification
                                                    object:self.idTextField];
+//
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textFieldDidEndEditing1:)
+                                                     name:UITextFieldTextDidEndEditingNotification
+                                                   object:self.textField];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textFieldDidEndEditing1:)
+                                                     name:UITextFieldTextDidEndEditingNotification
+                                                   object:self.idTextField];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textFieldDidBeginEditing:)
+                                                     name:UITextFieldTextDidBeginEditingNotification
+                                                   object:self.textField];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(textFieldDidBeginEditing:)
+                                                     name:UITextFieldTextDidBeginEditingNotification
+                                                   object:self.idTextField];
+        
     }
     return self;
 }
@@ -102,28 +120,39 @@
     self.eyeBtn.selected = !self.eyeBtn.selected;
 }
 #pragma mark - UITextFieldDelegate
-//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-//{
-//    NSLog(@"%ld",textField.text.length);
-//    if (range.location) {
-//        self.line.backgroundColor = COR29;
-//    }else
-//    {
-//        self.line.backgroundColor = COR12;
-//    }
-//    return YES;
-//}
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    self.line.backgroundColor = COR12;
+}
+
+
 //这里可以通过发送object消息获取注册时指定的UITextField对象
-- (void)textFieldDidChangeValue:(NSNotification *)notification
-{
-    UITextField *sender = (UITextField *)[notification object];
-    if (sender.text.length > 0) {
-        self.line.backgroundColor = COR29;
-    }else
-    {
-        self.line.backgroundColor = COR12;
+- (void)textFieldDidBeginEditing:(NSNotification *)notification {
+    self.line.backgroundColor = COR29;
+}
+
+- (void)textFieldDidEndEditing1:(NSNotification *)notification {
+    self.line.backgroundColor = COR12;
+}
+
+- (void)textFieldDidChangeValue:(NSNotification *)notification {
+    if (self.number == 1) {
+        NSString *text = nil;
+        UITextField *sender = (UITextField *)[notification object];
+        text = sender.text;
+        self.block(text);
+    } else if (self.number == 2) {
+        NSString *text = nil;
+        UITextField *sender = (UITextField *)[notification object];
+        text = sender.text;
+        self.block(text);
+    } else if (self.number == 3) {
+        NSString *text = nil;
+        UITextField *sender = (UITextField *)[notification object];
+        text = sender.text;
+        self.block(text);
     }
 }
+
 #pragma mark - set方法
 
 - (void)setDelegate:(id<UITextFieldDelegate>)delegate
@@ -146,6 +175,19 @@
         }];
     }
 }
+
+- (void)setIsGetCode:(BOOL)isGetCode {
+    _isGetCode = isGetCode;
+    if (_isGetCode) {
+        [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
+            make.right.equalTo(self).offset(-kScrAdaptationW(110));
+            make.top.bottom.equalTo(self);
+        }];
+    }
+}
+
+
 
 - (void)setIsHidenLine:(BOOL )isHidenLine
 {
@@ -232,6 +274,7 @@
         _textField = [[UITextField alloc] init];
         _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _textField.delegate = self;
     }
     return _textField;
 }
@@ -242,6 +285,7 @@
         _idTextField = [[BXTextField alloc] init];
         _idTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _idTextField.hidden = YES;
+        _idTextField.delegate = self;
         _idTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     }
     return _idTextField;

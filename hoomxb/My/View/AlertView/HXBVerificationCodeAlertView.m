@@ -8,7 +8,7 @@
 
 #import "HXBVerificationCodeAlertView.h"
 
-@interface HXBVerificationCodeAlertView ()
+@interface HXBVerificationCodeAlertView ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *textField;
 
@@ -32,7 +32,7 @@
         [self addSubview:self.codeBtn];
         [self addSubview:self.line];
         [self setupSubViewFrame];
-        
+        self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         [self getVerificationCode];
     }
     return self;
@@ -92,7 +92,7 @@
         [self.timer invalidate];
         self.timer = nil;
         [self.codeBtn setBackgroundColor:RGB(245, 81, 81)];
-        [self.codeBtn setTitle:@"再次获取" forState:UIControlStateNormal];
+        [self.codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     }
 }
 

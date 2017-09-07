@@ -172,14 +172,14 @@
     ///点击了加入
     [self.joinimmediateView clickAddButtonFunc:^(UITextField *textField,NSString *capital) {
         // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
-        CGFloat minRegisterAmount = weakSelf.planViewModel.minRegisterAmount.floatValue;
+        NSInteger minRegisterAmount = weakSelf.planViewModel.minRegisterAmount.integerValue;
         if (capital.length == 0) {
             [HxbHUDProgress showMessageCenter:@"请输入投资金额" inView:self.view];
             return ;
         }
         if ((capital.floatValue < minRegisterAmount)) {
             NSLog(@"请输入大于等于1000");
-            [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"起投金额%.2lf元",minRegisterAmount] inView:self.view];
+            [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"起投金额%ld元",minRegisterAmount] inView:self.view];
             return;
         }
         
@@ -201,7 +201,7 @@
         /// 加入上线  为0
         if (capital.doubleValue > str.doubleValue) {
             [HxbHUDProgress showTextWithMessage:@"加入金额超过上限"];
-            textField.text = [NSString stringWithFormat:@"%.2lf",str.doubleValue];
+            textField.text = [NSString stringWithFormat:@"%ld",str.integerValue];
             return;
         }
         
@@ -209,7 +209,7 @@
         if (capital.integerValue > weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue) {
             NSLog(@"%@",@"输入金额大于了剩余可投金额");
             [HxbHUDProgress showMessageCenter:@"余额不足，请先充值" inView:self.view andBlock:^{
-                NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
+                NSString *amount = [NSString stringWithFormat:@"%ld",(capital.integerValue - self.assetsTotal.integerValue)];
                 [self pushTopUPViewControllerWithAmount: amount];
             }];
             
@@ -217,10 +217,9 @@
         }
         //是否大于计划剩余金额
         if (capital.integerValue > weakSelf.planViewModel.planDetailModel.remainAmount.floatValue) {
-            NSLog(@"%@",@"输入金额大于了剩余可投金额");
 //            NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
             [HxbHUDProgress showMessageCenter:@"输入金额大于了剩余可投金额" inView:self.view];
-            textField.text = [NSString stringWithFormat:@"%.2lf",weakSelf.planViewModel.planDetailModel.remainAmount.floatValue];
+            textField.text = [NSString stringWithFormat:@"%ld",weakSelf.planViewModel.planDetailModel.remainAmount.integerValue];
             return;
         }
         //判断是否安全认证

@@ -43,7 +43,6 @@
         
         // 背景颜色
         self.backgroundColor = [UIColor clearColor];
-        
         // 密码框
         UITextField *passwordTextField = [[UITextField alloc] initWithFrame:CGRectMake(0, 0 , kPasswordCount * kBorderWidth, self.height)];
         passwordTextField.backgroundColor = [UIColor whiteColor];

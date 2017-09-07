@@ -146,7 +146,7 @@
             if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 //没有开户
                 weakSelf.afterLoginView.headTipString = @"红小宝携手恒丰银行资金存管已上线";
-                weakSelf.afterLoginView.tipString = @"开通存管银行账户";
+                weakSelf.afterLoginView.tipString = @"立即开通存管账户";
              } else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])) {
                  // 没有实名
                  weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
@@ -154,7 +154,7 @@
              }else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]) {
                 //已经投资显示的界面
                 weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
-                weakSelf.afterLoginView.tipString = @"立即投资啦";
+                weakSelf.afterLoginView.tipString = @"立即投资";
             }
         } andFailure:^(NSError *error) {
             
