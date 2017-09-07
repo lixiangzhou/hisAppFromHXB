@@ -96,7 +96,6 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-
     if (textField.superview == _password_Original) {
         NSString *str = nil;
         if (string.length) {
@@ -137,6 +136,7 @@
         if (str.length > 20) return NO;
     }
     return YES;
+
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {

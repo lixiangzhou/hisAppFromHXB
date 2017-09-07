@@ -82,6 +82,7 @@
         make.centerX.equalTo(self.view);
         make.top.equalTo(self.contentView.mas_bottom).offset(kScrAdaptationH(60));
         make.height.with.offset(kScrAdaptationW(30));
+        make.width.with.offset(kScrAdaptationW(30));
     }];
 }
 
@@ -164,6 +165,7 @@
         [_closeBtn setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [_closeBtn addTarget:self action:@selector(dismiss:) forControlEvents:UIControlEventTouchUpInside];
     }
+    _closeBtn.contentMode = UIViewContentModeScaleAspectFit;
     return _closeBtn;
 }
 

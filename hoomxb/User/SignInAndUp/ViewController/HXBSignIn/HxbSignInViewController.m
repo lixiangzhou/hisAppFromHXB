@@ -110,7 +110,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
                         HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
                         [checkCaptchaViewController checkCaptchaSucceedFunc:^(NSString *checkPaptcha) {
                             //                    self.checkCaptcha = checkPaptcha;
-                            
+                            self.signView.isDeletePassword = YES;
                             [self signIn_downLoadDataWithCaptcha:checkPaptcha andPassword:pasword andMobile:mobile];
                         }];
                         [self presentViewController:checkCaptchaViewController animated:true completion:nil];
@@ -183,6 +183,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 
 ///登录 数据的请求
 - (void)signIn_downLoadDataWithCaptcha: (NSString *)captcha andPassword: (NSString *)password andMobile: (NSString *)mobile{
+
     kWeakSelf
     [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:password andCaptcha:captcha andSuccessBlock:^(BOOL isSuccess) {
         NSLog(@"登录成功");

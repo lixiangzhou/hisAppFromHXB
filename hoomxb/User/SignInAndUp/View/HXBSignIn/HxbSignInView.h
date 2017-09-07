@@ -10,6 +10,7 @@
 @interface HxbSignInView : UIView
 //事件的传递
 
+@property (nonatomic, assign) BOOL isDeletePassword;
 
 ///点击了登录按钮
 - (void)signIN_ClickButtonFunc:(void (^)(NSString *pasword,NSString *mobile))clickSignInButtonBlock;

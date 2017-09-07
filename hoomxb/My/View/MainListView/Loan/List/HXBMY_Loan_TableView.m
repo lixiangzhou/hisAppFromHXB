@@ -95,7 +95,7 @@ static NSString *const exitTitle = @"已退出";
         {
             titleArray = @[
                            @"投资金额(元)",
-                           @"待收收益(元)",
+                           @"待收本息(元)",
                            @"下一还款日"
                            ];
             lastValue = viewModel.nextRepayDate;
@@ -106,7 +106,7 @@ static NSString *const exitTitle = @"已退出";
                 manager.bottomViewManager.leftStrArray = titleArray;
                 manager.bottomViewManager.rightStrArray = @[
                                                             viewModel.amount_NOTYUAN,
-                                                            viewModel.earnAmount_NOTYUAN,
+                                                            viewModel.toRepay,
                                                             lastValue
                                                             ];
                 manager.wenHaoImageName = exiTingImageViewName;

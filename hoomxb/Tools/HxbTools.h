@@ -18,6 +18,7 @@
 #import "HXB_XYTools.h" // 工具类
 #import "HXBXYAlertViewController.h" // 更新的弹框
 #import "BXTextField.h" // 身份证键盘
+#import "HXBCustomTextField.h" // 红小宝的输入框
 
 
 #endif /* HxbTools_h */

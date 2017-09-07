@@ -51,6 +51,7 @@
     }
 }
 
+
 @end
 @implementation HXBRequestUserInfoAPI_UserInfo
 

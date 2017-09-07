@@ -19,15 +19,15 @@ UITextFieldDelegate
 ///已有账户的button
 @property (nonatomic, strong) UIButton *havedAccountButton;
 ///手机号
-@property (nonatomic, strong) UITextField *phoneTextField;
+@property (nonatomic, strong) HXBCustomTextField *phoneTextField;
 @property (nonatomic, strong) UILabel *checkMobileLabel;
 ///手机号
 //@property (nonatomic, strong) UILabel *phoneLabel;
-@property (nonatomic, strong) UIImageView *phoneImageView;
+//@property (nonatomic, strong) UIImageView *phoneImageView;
 /**
  手机号分割线
  */
-@property (nonatomic, strong) UIView *phoneLine;
+//@property (nonatomic, strong) UIView *phoneLine;
 ///下一步button
 @property (nonatomic, strong) UIButton *nextButton;
 ///点击了下一步的button
@@ -59,44 +59,20 @@ UITextFieldDelegate
 
 #pragma mark - getter 
 
-- (UIView *)phoneLine
-{
-    if (!_phoneLine) {
-        _phoneLine = [[UIView alloc] init];
-        _phoneLine.backgroundColor = RGB(221, 221, 221);
-    }
-    return _phoneLine;
-}
-- (UITextField *)phoneTextField{
+
+- (HXBCustomTextField *)phoneTextField{
     if (!_phoneTextField) {
-        _phoneTextField = [[UITextField alloc]init];
+        _phoneTextField = [[HXBCustomTextField alloc]init];
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
         _phoneTextField.delegate = self;
-        _phoneTextField.font = kHXBFont_PINGFANGSC_REGULAR(15);
+        _phoneTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
         NSMutableAttributedString *phoneAttrStr = [[NSMutableAttributedString alloc] initWithString:kPhoneTitle];
-        // 设置字体和设置字体的范围
         [phoneAttrStr addAttribute:NSForegroundColorAttributeName
                              value:COR10
                              range:NSMakeRange(0, kPhoneTitle.length)];
         _phoneTextField.attributedPlaceholder = phoneAttrStr;
     }
     return _phoneTextField;
-}
-//- (UILabel *)phoneLabel {
-//    if (!_phoneLabel) {
-//        _phoneLabel = [[UILabel alloc]init];
-//        _phoneLabel.textColor = COR1;
-//        _phoneLabel.text = kPhoneTitle;
-//    }
-//    return _phoneLabel;
-//}
-- (UIImageView *)phoneImageView
-{
-    if (!_phoneImageView) {
-        _phoneImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"mobile_number"]];
-        _phoneImageView.contentMode = UIViewContentModeScaleAspectFit;
-    }
-    return _phoneImageView;
 }
 
 - (UIButton *)nextButton{
@@ -152,63 +128,54 @@ UITextFieldDelegate
 }
 
 - (void) setUP {
-    [self addSubview:self.phoneImageView];
     [self addSubview:self.phoneTextField];
     [self addSubview:self.nextButton];
     [self addSubview:self.havedAccountButton];
     [self addSubview:self.checkMobileLabel];
-    [self addSubview:self.phoneLine];
     [self addSubview:self.waterView];
     kWeakSelf
-    [self.phoneImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.waterView.mas_bottom).offset(kScrAdaptationH(50));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.width.offset(kScrAdaptationW750(36));
-        make.height.offset(kScrAdaptationH750(45));
-    }];
     [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weakSelf.phoneImageView);
-        make.left.equalTo(weakSelf.phoneImageView.mas_right).offset(kScrAdaptationW(15));
-        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
+        make.top.equalTo(weakSelf.waterView.mas_bottom).offset(kScrAdaptationH(50));
+        make.left.equalTo(weakSelf);
+        make.right.equalTo(weakSelf);
+        make.height.offset(kScrAdaptationH(60));
     }];
-    [self.phoneLine mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.phoneImageView.mas_bottom).offset(kScrAdaptationH(15));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
-        make.height.offset(0.5);
-    }];
+    _phoneTextField.number = 1;
+    _phoneTextField.block = ^(NSString *text) {
+        if (text.length == 11) {
+            if (weakSelf.checkMobileBlock) {
+                //判断是否为手机号，不是不让图验
+                if (![NSString isMobileNumber:text]) {
+                    [HxbHUDProgress showTextWithMessage:@"填写正确的手机号"];
+                }
+                weakSelf.checkMobileBlock(text);
+            }
+        }
+        if (text.length > 0) {
+            weakSelf.nextButton.backgroundColor = COR29;
+            weakSelf.nextButton.userInteractionEnabled = YES;
+        } else {
+            weakSelf.nextButton.backgroundColor = COR26;
+            weakSelf.nextButton.userInteractionEnabled = NO;
+        }
+    };
     [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.phoneLine.mas_top).offset(kScrAdaptationH(50));
+        make.top.equalTo(weakSelf.phoneTextField.mas_bottom).offset(kScrAdaptationH(50));
         make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
         make.height.offset(kScrAdaptationH(41));
     }];
-//    [self.checkMobileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(weakSelf.phoneTextField.mas_bottom).offset(kScrAdaptationH(10));
-//        make.height.offset(kScrAdaptationH(20));
-//        make.left.right.equalTo(weakSelf.phoneTextField);
-//    }];
     [self.havedAccountButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.nextButton.mas_bottom).offset(kScrAdaptationH(10));
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
         make.height.offset(kScrAdaptationW(15));
     }];
 
-
-//    self.phoneTextField.backgrqoundColor = [UIColor hxb_randomColor];
-//    self.havedAccountButton.backgroundColor = [UIColor hxb_randomColor];
-//    self.nextButton.backgroundColor = [UIColor hxb_randomColor];
     self.checkMobileLabel.backgroundColor = [UIColor hxb_randomColor];
 }
 
 #pragma mark - textfield delegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (![self.phoneTextField isEqual:textField]) return true;
-    
-    //删除按钮
-    self.phoneTextField.clearButtonMode = textField.text.length > 0? UITextFieldViewModeAlways : UITextFieldViewModeNever;
-   
-    //如果到达11 个字符就请求数据
     NSString *str = nil;
     if (string.length) {
         str = [NSString stringWithFormat:@"%@%@",self.phoneTextField.text,string];
@@ -219,42 +186,19 @@ UITextFieldDelegate
         [strM deleteCharactersInRange:range];
         str = strM.copy;
     }
-    
-    if (str.length == 11) {
-        if (self.checkMobileBlock) {
-            //判断是否为手机号，不是不让图验
-            if (![NSString isMobileNumber:str]) {
-                [HxbHUDProgress showMessageCenter:@"手机号不正确" inView:self];
-                return YES;
-            }
-            self.checkMobileBlock(str);
-        }
-    }
-    if (str.length != 11) {
-        self.checkMobileLabel.text = @"";
-    }
-    UITextFieldViewMode model = str.length > 0? UITextFieldViewModeAlways : UITextFieldViewModeNever;
-    self.phoneTextField.clearButtonMode = model;
-    
-    if (str.length) {
-        self.nextButton.backgroundColor = COR29;
-        self.nextButton.userInteractionEnabled = YES;
-    }else
-    {
-        self.nextButton.backgroundColor = COR26;
-        self.nextButton.userInteractionEnabled = NO;
-    }
-    
-    return str.length <= 11;
-}
-
-- (BOOL)textFieldShouldClear:(UITextField *)textField {
-    if (textField == _phoneTextField) {
-        self.nextButton.backgroundColor = COR26;
-        self.nextButton.userInteractionEnabled = NO;
+    if (str.length > 11) {
+        return NO;
     }
     return YES;
 }
+//
+//- (BOOL)textFieldShouldClear:(UITextField *)textField {
+//    if (textField == _phoneTextField) {
+//        self.nextButton.backgroundColor = COR26;
+//        self.nextButton.userInteractionEnabled = NO;
+//    }
+//    return YES;
+//}
 
 
 - (void)textFieldDidChange1:(UITextField *)textField{
