@@ -64,7 +64,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         {
             [self.inviteCodeTextField setHidden:true];
             [self.negotiateView setHidden:true];
-            [self.setPassWordButton setTitle:@"确认登录密码" forState:UIControlStateNormal];
+            [self.setPassWordButton setTitle:@"确认重置密码" forState:UIControlStateNormal];
             [self.setPassWordButton mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.password_TextField.mas_bottom).offset(kScrAdaptationH(50));
                 make.left.equalTo(self).offset(kScrAdaptationW(20));

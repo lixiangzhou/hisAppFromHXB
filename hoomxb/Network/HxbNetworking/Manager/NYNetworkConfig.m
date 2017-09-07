@@ -98,7 +98,7 @@ static NSString *const X_HxbAuth_Token = @"X-Hxb-Auth-Token";
         {
             KeyChain.ishaveNet = NO;
             NSLog(@"🐯没有网");
-            [HxbHUDProgress showMessageCenter:@"当前网络不可用" inView:nil];
+            [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
         }
     }];
 }

@@ -209,34 +209,48 @@
 {
     BOOL isNull = NO;
     if (!(self.nameTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"真实姓名没有填写" inView:self];
+        [HxbHUDProgress showMessageCenter:@"真实姓名不能为空" inView:self];
         isNull = YES;
         return isNull;
     }
-    
     if (!(self.idCardTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"身份证号不合法" inView:self];
+        [HxbHUDProgress showMessageCenter:@"身份证号不能为空" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if(self.idCardTextField.text.length != 18)
+    {
+        [HxbHUDProgress showMessageCenter:@"身份证号输入有误" inView:self];
         isNull = YES;
         return isNull;
     }
     if (self.pwdTextField.text.length != 6) {
-        [HxbHUDProgress showMessageCenter:@"交易密码为6位数字" inView:self];
+        [HxbHUDProgress showMessageCenter:@"请设置6位纯数字的交易密码" inView:self];
         isNull = YES;
         return isNull;
     }
     if (!(self.bankCode.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"没有选择银行" inView:self];
+        [HxbHUDProgress showMessageCenter:@"银行名称不能为空" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.bankNumberTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"银行卡号不能为空" inView:self];
         isNull = YES;
         return isNull;
     }
     if (!(self.bankNumberTextField.text.length >= 10 && self.bankNumberTextField.text.length <= 25)) {
-        [HxbHUDProgress showMessageCenter:@"请输入正确的卡号" inView:self];
+        [HxbHUDProgress showMessageCenter:@"银行卡号输入有误" inView:self];
         isNull = YES;
         return isNull;
     }
-    
-    if (![NSString isMobileNumber:self.phoneTextField.text]) {
-        [HxbHUDProgress showMessageCenter:@"请输入正确的预留手机号" inView:self];
+    if (!(self.phoneTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"预留手机号不能为空" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (self.phoneTextField.text.length != 11) {
+        [HxbHUDProgress showMessageCenter:@"预留手机号有误" inView:self];
         isNull = YES;
         return isNull;
     }
@@ -306,17 +320,19 @@
 
 - (BOOL)limitNumberCount:(UIView *)textField
 {
-    
-    if (self.idCardTextField.text.length > 18 && self.idCardTextField == textField) {
+    if (self.nameTextField.text.length > 14 && self.nameTextField == textField) {
         return NO;
     }
-    if (self.pwdTextField.text.length > 6 && self.pwdTextField == textField) {
+    if (self.idCardTextField.text.length > 17 && self.idCardTextField == textField) {
         return NO;
     }
-    if (self.bankNumberTextField.text.length > 25 && self.bankNumberTextField == textField) {
+    if (self.pwdTextField.text.length > 5 && self.pwdTextField == textField) {
         return NO;
     }
-    if (self.phoneTextField.text.length > 11 && self.phoneTextField == textField) {
+    if (self.bankNumberTextField.text.length > 24 && self.bankNumberTextField == textField) {
+        return NO;
+    }
+    if (self.phoneTextField.text.length > 10 && self.phoneTextField == textField) {
         return NO;
     }
     return YES;
@@ -372,7 +388,7 @@
     if (!_pwdTextField) {
         _pwdTextField = [[HXBCustomTextField alloc] init];
         _pwdTextField.leftImage = [UIImage imageNamed:@"transaction_password"];
-        _pwdTextField.placeholder = @"交易密码";
+        _pwdTextField.placeholder = @"请设置6位纯数字的交易密码";
         _pwdTextField.keyboardType = UIKeyboardTypeNumberPad;
         _pwdTextField.secureTextEntry = YES;
         _pwdTextField.delegate = self;
@@ -412,6 +428,7 @@
         _bankNumberTextField.leftImage = [SVGKImage imageNamed:@"card.svg"].UIImage;
         _bankNumberTextField.placeholder = @"银行卡号";
         _bankNumberTextField.delegate = self;
+        _bankNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _bankNumberTextField;
 }
@@ -423,6 +440,7 @@
         _phoneTextField.leftImage = [SVGKImage imageNamed:@"mobile.svg"].UIImage;
         _phoneTextField.placeholder = @"预留手机号码";
         _phoneTextField.delegate = self;
+        _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _phoneTextField;
 }

@@ -47,8 +47,10 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             NSDictionary *dic = request.responseObject[kResponseData];
             __block NSString *error = @"";
             [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                NSArray *arr = obj;
-                error = [NSString stringWithFormat:@"%@%@",error,arr[0]];
+                if (!(error.length > 0)) {
+                    NSArray *arr = obj;
+                    error = [NSString stringWithFormat:@"%@%@",error,arr[0]];
+                }
             }];
             [HxbHUDProgress showTextWithMessage:error];
         }
@@ -89,12 +91,13 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             /**
              先判断是否为登录状态，如果是，就登出，不是，就显示页面权限
              */
-            if (KeyChain.isLogin) {
-                UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-                UINavigationController *NAV = tbVC.selectedViewController;
-                UIViewController *VC = NAV.viewControllers.lastObject;
-                [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
-            }
+            //跳转登录注册
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+            
+            case kHXBCode_Enum_RequestOverrun:
+        {
+            [HxbHUDProgress showMessageCenter:@"系统时间与服务器时间相差过大" inView:nil];
+        }
             break;
         default:
             break;

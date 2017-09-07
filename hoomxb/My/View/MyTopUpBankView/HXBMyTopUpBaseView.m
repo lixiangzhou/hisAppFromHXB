@@ -20,6 +20,7 @@
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UILabel *promptLabel;
 @property (nonatomic, strong) UIButton *phoneBtn;
+@property (nonatomic, strong) UILabel *freeTipLabel;
 @end
 
 @implementation HXBMyTopUpBaseView
@@ -30,6 +31,7 @@
         self.backgroundColor = BACKGROUNDCOLOR;
         [self addSubview:self.mybankView];
         [self addSubview:self.availableBalanceLabel];
+        [self addSubview:self.freeTipLabel];
         [self addSubview:self.amountTextField];
         [self addSubview:self.nextButton];
         [self addSubview:self.myTopUpHeaderView];
@@ -68,7 +70,10 @@
         make.top.equalTo(self.mybankView.mas_bottom).offset(kScrAdaptationH750(20));
         make.height.offset(kScrAdaptationH750(33));
     }];
-    
+    [self.freeTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.offset(-kScrAdaptationH750(30));
+        make.centerY.equalTo(self.availableBalanceLabel);
+    }];
     [self.amountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
@@ -212,5 +217,17 @@
     }
     return _promptLabel;
 }
+
+- (UILabel *)freeTipLabel
+{
+    if (!_freeTipLabel) {
+        _freeTipLabel = [[UILabel alloc] init];
+        _freeTipLabel.text = @"充值免手续费";
+        _freeTipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        _freeTipLabel.textColor = COR11;
+    }
+    return _freeTipLabel;
+}
+
 
 @end

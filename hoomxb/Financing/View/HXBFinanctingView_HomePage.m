@@ -253,7 +253,7 @@
 
 // 刷新UI
 - (void)loadData {
-    [self.loanListTableView reloadData];
-    [self.planListTableView reloadData];
+    [self.loanListTableView.mj_header beginRefreshing];
+    [self.planListTableView.mj_header beginRefreshing];
 }
 @end

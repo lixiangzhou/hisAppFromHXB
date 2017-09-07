@@ -161,7 +161,7 @@
     hud.bezelView.backgroundColor = [UIColor colorWithRed:125/255.0f green:125/255.0f blue:125/255.0f alpha:1.f];
     hud.label.text = NSLocalizedString(@"加载中...", @"HUD loading title");
     hud.label.textColor = [UIColor whiteColor];
-    hud.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
+    hud.backgroundColor = [UIColor clearColor];
     //加载完成
     //    [hud hideAnimated:YES];
 }

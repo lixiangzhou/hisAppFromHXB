@@ -107,6 +107,8 @@
     //创建定时器
     [self creatCountDownManager];
 }
+
+
 - (void)creatCountDownManager {
     __weak typeof (self)weakSelf = self;
     

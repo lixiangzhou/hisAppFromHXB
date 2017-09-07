@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UILabel *availableBalanceLabel;
+@property (nonatomic, strong) UILabel *freeTipLabel;
 @property (nonatomic, strong) UIButton *nextButton;
 
 @property (nonatomic, strong) WithdrawBankView *mybankView;
@@ -45,6 +46,7 @@
     [self.view addSubview:self.amountTextField];
     [self.view addSubview:self.nextButton];
     [self.view addSubview:self.availableBalanceLabel];
+    [self.view addSubview:self.freeTipLabel];
     [self.view addSubview:self.callPhoneView];
     [self.view addSubview:self.promptLabel];
     [self.view addSubview:self.tiedCardLabel];
@@ -68,6 +70,10 @@
         [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.offset(kScrAdaptationH750(30));
             make.top.equalTo(self.mybankView.mas_bottom).offset(kScrAdaptationH750(20));
+        }];
+        [self.freeTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.offset(-kScrAdaptationH750(30));
+            make.centerY.equalTo(self.availableBalanceLabel);
         }];
     }
     
@@ -258,10 +264,22 @@
         _availableBalanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.amountTextField.bottom + 20, 0, 0)];
         _availableBalanceLabel.text = @"可用余额 : 0.00元";
         _availableBalanceLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
-        _availableBalanceLabel.textColor = RGB(102, 102, 102);
+        _availableBalanceLabel.textColor = COR8;
     }
     return _availableBalanceLabel;
 }
+
+- (UILabel *)freeTipLabel
+{
+    if (!_freeTipLabel) {
+        _freeTipLabel = [[UILabel alloc] init];
+        _freeTipLabel.text = @"提现免手续费";
+        _freeTipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        _freeTipLabel.textColor = COR11;
+    }
+    return _freeTipLabel;
+}
+
 //- (UILabel *)tipLabel
 //{
 //    if (!_tipLabel) {

@@ -438,6 +438,15 @@ static NSString *const kISEscrow = @"kISEscrow";
         isCashPasswordPassedBlock(_isCashPasswordPassed);
     }
 }
+
+- (NSString *)h5host
+{
+    if (_h5host == nil) {
+        return @"https://m.hoomxb.com";
+    }
+    return _h5host;
+}
+
 /// 用户信息的请求
 - (void)downLoadUserInfoWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure{
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {

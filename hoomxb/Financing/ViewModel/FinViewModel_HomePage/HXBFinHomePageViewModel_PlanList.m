@@ -159,7 +159,7 @@ typedef enum : NSUInteger {
 
     //加息利率
     if (self.planListModel.extraInterestRate.floatValue) {
-        NSString *extraInterestRateStr = [NSString stringWithFormat:@"+%@%%",self.planListModel.extraInterestRate];
+        NSString *extraInterestRateStr = [NSString stringWithFormat:@"+%.1f%%",self.planListModel.extraInterestRate.doubleValue];
         NSMutableAttributedString *extraInterestRate = [[NSMutableAttributedString alloc]initWithString:extraInterestRateStr];
         NSRange range = NSMakeRange(0, extraInterestRateStr.length);
         UIFont *font = kHXBFont_PINGFANGSC_REGULAR(14);

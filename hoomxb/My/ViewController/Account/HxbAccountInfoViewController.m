@@ -62,15 +62,13 @@ UITableViewDataSource
             
         }else if (indexPath.row == 1){
             
-            [self entryDepositoryAccount:YES];
-            
-//            if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-//                //进入银行卡
-//                [self entryDepositoryAccount:YES];
-//            }else{
-//                //进入绑卡页面
-////                [self bindBankCardClick];
-//            }
+            if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+                //进入银行卡
+                [self entryDepositoryAccount:YES];
+            }else{
+                //进入绑卡页面
+                [self bindBankCardClick];
+            }
         }else{
             
         }

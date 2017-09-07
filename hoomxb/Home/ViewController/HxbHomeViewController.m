@@ -104,7 +104,7 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:true animated:false];
 //    [self.homeView.mainTableView.mj_header beginRefreshing];
-    [self getData:NO];
+    
     [self.homeView changeIndicationView];
     [self.homeView showSecurityCertificationOrInvest];
 }

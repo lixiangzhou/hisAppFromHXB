@@ -82,17 +82,18 @@
         make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(14));
         make.height.with.offset(kScrAdaptationH(13));
     }];
-    if (!self.homePageModel_DataList.tag.length) {
+    if (self.homePageModel_DataList.tag.length > 0) {
         [self.expectAnnualizedRatesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.backView);
-            make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(22));
+            make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(48));
             make.height.offset(kScrAdaptationH(14));
         }];
+        
     }else
     {
         [self.expectAnnualizedRatesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.backView);
-            make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(48));
+            make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(22));
             make.height.offset(kScrAdaptationH(14));
         }];
     }
@@ -166,8 +167,10 @@
     
     if (!homePageModel_DataList.tag.length) {
         self.icon.hidden = YES;
+        self.promptLabel.hidden = YES;
     }else
     {
+        self.icon.hidden = NO;
         self.promptLabel.text = homePageModel_DataList.tag;
     }
     //设置子控件的位置

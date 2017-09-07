@@ -146,6 +146,8 @@
                 if (weakSelf.downLodaDataBlock) weakSelf.downLodaDataBlock();
                 [weakSelf.addButton setTitle:@"" forState:UIControlStateNormal];
                 [weakSelf.addButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+                weakSelf.countDownLabel.text = @"立即加入";
+                weakSelf.countDownLabel.textColor = [UIColor whiteColor];
                 weakSelf.addButton.backgroundColor = COR29;
                 weakSelf.addButton.userInteractionEnabled = true;
                 [weakSelf.countDownManager stopTimer];
@@ -181,9 +183,9 @@
     [self.topView setUPValueWithManager:^HXBFin_PlanDetailView_TopViewManager *(HXBFin_PlanDetailView_TopViewManager *manager) {
         if ([weakSelf.planDetailViewModel.planDetailModel.extraInterestRate floatValue] != 0) {
             weakSelf.topView.attributeStringLength = weakSelf.planDetailViewModel.planDetailModel.extraInterestRate.length + 2;
-            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%@%%+%@%%",weakSelf.planDetailViewModel.planDetailModel.baseInterestRate, weakSelf.planDetailViewModel.planDetailModel.extraInterestRate];
+            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%+%.1f%%",weakSelf.planDetailViewModel.planDetailModel.baseInterestRate.doubleValue, weakSelf.planDetailViewModel.planDetailModel.extraInterestRate.doubleValue];
         } else {
-            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%@%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate];
+            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate.doubleValue];
         }
         manager.topViewManager.rightLabelStr = @"平均历史年化收益";
         manager.leftViewManager.leftLabelStr = weakSelf.planDetailViewModel.lockPeriodStr;

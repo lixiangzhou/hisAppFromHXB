@@ -53,9 +53,14 @@
     self.addStatus.layer.borderWidth = kScrAdaptationH(0.8f);
     
     self.countDownLable.text = _finPlanListViewModel.remainTimeString;
-    if (finPlanListViewModel.planListModel.tag.length) {
+    if (finPlanListViewModel.planListModel.tag.length > 0) {
         self.tagLabel.text = finPlanListViewModel.planListModel.tag;
-        [self.tagLableImageView setHidden:false];
+        self.tagLableImageView.hidden = NO;
+        self.tagLabel.hidden = NO;
+    }else
+    {
+        self.tagLabel.hidden = YES;
+        [self.tagLableImageView setHidden:YES];
     }
     [self setupAddStatus];
 }
@@ -122,7 +127,6 @@
 - (UILabel *)preferentialLabel {
     if (!_preferentialLabel) {
         _preferentialLabel = [[UILabel alloc]init];
-        
     }
     return _preferentialLabel;
 }
@@ -154,6 +158,7 @@
         _countDownLable = [[UILabel alloc]init];
         _countDownLable.textColor = [UIColor blueColor];
         _countDownLable.text = @"a11111";
+
     }
     return _countDownLable;
 }

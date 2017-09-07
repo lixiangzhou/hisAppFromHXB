@@ -139,7 +139,7 @@
     [self.joinimmediateView clickRechargeFunc:^{
 //        [HxbHUDProgress showTextWithMessage:@"余额不足，请先到官网充值后再进行投资"];
         
-        [self pushTopUPViewControllerWithAmount: weakSelf.joinimmediateView.rechargeViewTextField.text];
+        [self pushTopUPViewControllerWithAmount: [NSString stringWithFormat:@"%@.00",weakSelf.joinimmediateView.rechargeViewTextField.text]];
     }];
 }
 - (void) registerBuy {
@@ -201,7 +201,7 @@
         /// 加入上线  为0
         if (capital.doubleValue > str.doubleValue) {
             [HxbHUDProgress showTextWithMessage:@"加入金额超过上限"];
-            textField.text = [NSString stringWithFormat:@"%.2lf",str.doubleValue];
+            textField.text = [NSString stringWithFormat:@"%.lf",str.doubleValue];
             return;
         }
         
@@ -209,8 +209,8 @@
         if (capital.integerValue > weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue) {
             NSLog(@"%@",@"输入金额大于了剩余可投金额");
             [HxbHUDProgress showMessageCenter:@"余额不足，请先充值" inView:self.view andBlock:^{
-                NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
-                [self pushTopUPViewControllerWithAmount: amount];
+                
+                [self pushTopUPViewControllerWithAmount: [NSString stringWithFormat:@"%@.00",capital]];
             }];
             
             return;
