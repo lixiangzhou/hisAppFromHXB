@@ -201,7 +201,7 @@
         /// 加入上线  为0
         if (capital.doubleValue > str.doubleValue) {
             [HxbHUDProgress showTextWithMessage:@"加入金额超过上限"];
-            textField.text = [NSString stringWithFormat:@"%.lf",str.doubleValue];
+            textField.text = [NSString stringWithFormat:@"%ld",str.integerValue];
             return;
         }
         
