@@ -49,6 +49,10 @@
 - (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
 {
     self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@元",viewModel.availablePoint_NOTYUAN];
+    if (_amountTextField.text.length > 0) {
+        _nextButton.backgroundColor = COR29;
+        _nextButton.userInteractionEnabled = YES;
+    }
 }
 
 - (void)setCardViewFrame{

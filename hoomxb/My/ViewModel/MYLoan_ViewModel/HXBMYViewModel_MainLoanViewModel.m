@@ -70,7 +70,7 @@
  */
 - (NSString *) nextRepayDate {
     if (!_nextRepayDate) {
-        _nextRepayDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.loanModel.nextRepayDate andDateFormat:@"MM-dd"];
+        _nextRepayDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.loanModel.nextRepayDate andDateFormat:@"YYYY-MM-dd"];
     }
     return _nextRepayDate;
 }

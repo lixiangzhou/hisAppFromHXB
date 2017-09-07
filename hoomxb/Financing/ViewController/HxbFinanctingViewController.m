@@ -152,7 +152,7 @@
         //网络数据请求
         if ([title isEqualToString:@"红利计划"] && weakSelf.isFirstLoadNetDataPlan) {
             [weakSelf planLoadDateWithIsUpData:true];
-        }else if ([title isEqualToString:@"散标列表"] && weakSelf.isFirstLoadNetDataLoan) {
+        }else if ([title isEqualToString:@"散标"] && weakSelf.isFirstLoadNetDataLoan) {
             [weakSelf loanLoadDateWithIsUpData:true];
         }else if (index == 2 && weakSelf.isFirstLoadNetDataLoanTruansfer) {
             [weakSelf loanTruansferLoandDataWithIsUPData:true];

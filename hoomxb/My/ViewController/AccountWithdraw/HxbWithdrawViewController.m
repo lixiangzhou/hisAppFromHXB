@@ -223,7 +223,6 @@
 - (UITextField *)amountTextField{
     if (!_amountTextField) {
         _amountTextField = [[UITextField alloc] init];
-//        _amountTextField.placeholder = @"请输入提现金额";
         _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
         _amountTextField.delegate = self;
         _amountTextField.backgroundColor = [UIColor whiteColor];
@@ -243,6 +242,24 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
 {
     if (range.location == 0 && [string isEqualToString:@"0"]) return NO;
+    if (range.location == 0 && [string isEqualToString:@"."]) return NO;
+    NSString *str = nil;
+    if (string.length) {
+        str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+    } else if(!string.length) {
+        NSInteger length = textField.text.length;
+        NSRange range = NSMakeRange(length - 1, 1);
+        NSMutableString *strM = textField.text.mutableCopy;
+        [strM deleteCharactersInRange:range];
+        str = strM.copy;
+    }
+    if (str.length > 0) {
+        _nextButton.backgroundColor = COR29;
+        _nextButton.userInteractionEnabled = YES;
+    } else {
+        _nextButton.backgroundColor = COR12;
+        _nextButton.userInteractionEnabled = NO;
+    }
     if (range.location == 0 && [string isEqualToString:@""]) return YES;
     if (range.location == 11) return NO;
     //第一个参数，被替换字符串的range，第二个参数，即将键入或者粘贴的string，返回的是改变过后的新str，即textfield的新的文本内容
@@ -255,6 +272,8 @@
     if (!_nextButton) {
         _nextButton = [UIButton btnwithTitle:@"提现" andTarget:self andAction:@selector(nextButtonClick:) andFrameByCategory:  CGRectMake(20,self.view.height - 100, SCREEN_WIDTH - 40,44)];
     }
+    _nextButton.backgroundColor = COR12;
+    _nextButton.userInteractionEnabled = NO;
     return _nextButton;
 }
 

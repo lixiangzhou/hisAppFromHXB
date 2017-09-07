@@ -198,8 +198,9 @@
  */
 + (void)callupWithphoneNumber:(NSString *)phoneNumber andWithMessage:(NSString *)message
 {
-    HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:[NSString stringWithFormat:@"%@%@",message,phoneNumber] andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
-    [alertVC setClickRightButtonBlock:^{
+    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝客服电话" Massage:phoneNumber force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
+    alertVC.messageHeight = 40;
+    [alertVC setClickXYRightButtonBlock:^{
         NSString *newPhone = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
         NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@",newPhone];
         NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
@@ -210,7 +211,24 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
         }
     }];
+    [alertVC setClickXYLeftButtonBlock:^{
+        [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
+    }];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+    
+//    HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:[NSString stringWithFormat:@"%@%@",message,phoneNumber] andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
+//    [alertVC setClickRightButtonBlock:^{
+//        NSString *newPhone = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
+//        NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@",newPhone];
+//        NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
+//        if (compare == NSOrderedDescending || compare == NSOrderedSame) {
+//            /// 大于等于10.0系统使用此openURL方法
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
+//        } else {
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
+//        }
+//    }];
+//    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
     
 }
 

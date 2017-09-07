@@ -346,14 +346,31 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (range.location == 0 && [string isEqualToString:@""]) {
-        [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
-        self.verificationCodeAlertView.lineColor = kHXBColor_Font0_5;
-        _sureBtn.userInteractionEnabled = NO;;
+    if (textField.superview == _verificationCodeAlertView) {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        }
+        if (range.location == 0 && [string isEqualToString:@""]) {
+            [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
+            self.verificationCodeAlertView.lineColor = kHXBColor_Font0_5;
+            _sureBtn.userInteractionEnabled = NO;;
+        } else {
+            [_sureBtn setBackgroundColor:COR29];
+            self.verificationCodeAlertView.lineColor = COR29;
+            _sureBtn.userInteractionEnabled = YES;
+        }
+        if (str.length > 6) return NO;
     } else {
-        [_sureBtn setBackgroundColor:COR29];
-         self.verificationCodeAlertView.lineColor = COR29;
-        _sureBtn.userInteractionEnabled = YES;
+        if (range.location == 0 && [string isEqualToString:@""]) {
+            [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
+            self.verificationCodeAlertView.lineColor = kHXBColor_Font0_5;
+            _sureBtn.userInteractionEnabled = NO;;
+        } else {
+            [_sureBtn setBackgroundColor:COR29];
+            self.verificationCodeAlertView.lineColor = COR29;
+            _sureBtn.userInteractionEnabled = YES;
+        }
     }
     return YES;
 }

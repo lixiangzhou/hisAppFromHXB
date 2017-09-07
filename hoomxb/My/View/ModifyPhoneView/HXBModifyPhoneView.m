@@ -57,6 +57,7 @@
     if (!_verificationCodeTextField) {
         _verificationCodeTextField = [[HXBCustomTextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
+        _verificationCodeTextField.isGetCode = YES;
         _verificationCodeTextField.delegate = self;
         _verificationCodeTextField.leftImage = [UIImage imageNamed:@"security_code"];
         _verificationCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
@@ -275,6 +276,9 @@
     self.getCodeBtn.enabled = YES;
     [self.timer invalidate];
     self.timer = nil;
+    self.getCodeBtn.backgroundColor = COR29;
+    self.getCodeBtn.layer.borderWidth = kXYBorderWidth;
+    [self.getCodeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
     [self.getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     
 }
@@ -288,6 +292,8 @@
     self.timeCount = 60;
     [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ds",self.timeCount] forState:UIControlStateNormal];
     self.getCodeBtn.backgroundColor = COR26;
+    self.getCodeBtn.layer.borderWidth = 0;
+    [self.getCodeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
 
 }
@@ -296,12 +302,16 @@
 {
     self.timeCount--;
     [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ds",self.timeCount] forState:UIControlStateNormal];
-    if (self.timeCount <= -1) {
+    if (self.timeCount <= 0) {
         self.getCodeBtn.enabled = YES;
         [self.timer invalidate];
         self.timer = nil;
         self.getCodeBtn.backgroundColor = COR29;
+        self.getCodeBtn.layer.borderWidth = kXYBorderWidth;
+        [self.getCodeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
         [self.getCodeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+    } else {
+        
     }
     
 }

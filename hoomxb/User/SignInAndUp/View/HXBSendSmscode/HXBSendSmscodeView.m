@@ -37,7 +37,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 @property (nonatomic, strong) UIButton      *setPassWordButton;
 
 @property (nonatomic, strong) HXBCustomTextField *inviteCodeTextField;
-
+@property (nonatomic, assign) BOOL isSelect;
 /**
  用户协议
  */
@@ -97,7 +97,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)setPhonNumber:(NSString *)phonNumber {
     _phonNumber = phonNumber;
     NSString *str = [NSString hiddenStr:phonNumber MidWithFistLenth:3 andLastLenth:4];
-    NSString *strLabel = [NSString stringWithFormat:@"已向手机%@发送短息",str];
+    NSString *strLabel = [NSString stringWithFormat:@"已向手机%@发送短信",str];
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:strLabel];
     // 设置字体和设置字体的范围
     [attrStr addAttribute:NSForegroundColorAttributeName
@@ -146,28 +146,86 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)creatSubView {
     self.phonNumberLabel = [[UILabel alloc]init];
     self.smscode_TextField = [[HXBCustomTextField alloc]init];
+    
+    self.smscode_TextField.isGetCode = YES;
+    self.smscode_TextField.number = 1;
+    _isSelect = YES;
     self.sendButton = [[UIButton alloc]init];
     self.password_TextField = [[HXBCustomTextField alloc]init];
+    self.password_TextField.number = 2;
     self.setPassWordButton = [[UIButton alloc]init];
     self.inviteCodeTextField = [[HXBCustomTextField alloc]init];
+    self.inviteCodeTextField.number = 3;
     self.negotiateView = [[HXBFinBaseNegotiateView alloc]init];
     
     self.smscode_TextField.leftImage = [UIImage imageNamed:@"security_code"];
     self.password_TextField.leftImage = [UIImage imageNamed:@"password"];
     self.inviteCodeTextField.leftImage = [UIImage imageNamed:@"invitation_code"];
     self.password_TextField.secureTextEntry = YES;
+    
     self.smscode_TextField.delegate = self;
     self.password_TextField.delegate = self;
     self.inviteCodeTextField.delegate = self;
+    kWeakSelf
+    self.smscode_TextField.block = ^(NSString *text) {
+        if (_type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot ) {
+            if (text.length > 0 && _password_TextField.text.length > 0) {
+                weakSelf.setPassWordButton.backgroundColor = COR29;
+                weakSelf.setPassWordButton.userInteractionEnabled = YES;
+            } else {
+                weakSelf.setPassWordButton.backgroundColor = COR12;
+                weakSelf.setPassWordButton.userInteractionEnabled = NO;
+            }
+        } else {
+            if (text.length > 0 && _password_TextField.text.length > 0 && _inviteCodeTextField.text.length > 0 && _isSelect) {
+                NSLog(@"%d", weakSelf.isSelect);
+                weakSelf.setPassWordButton.backgroundColor = COR29;
+                weakSelf.setPassWordButton.userInteractionEnabled = YES;
+            } else {
+                weakSelf.setPassWordButton.backgroundColor = COR12;
+                weakSelf.setPassWordButton.userInteractionEnabled = NO;
+            }
+        }
+    };
+    self.password_TextField.block = ^(NSString *text) {
+        if (_type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot ) {
+            if (text.length > 0 && _smscode_TextField.text.length > 0) {
+                weakSelf.setPassWordButton.backgroundColor = COR29;
+                weakSelf.setPassWordButton.userInteractionEnabled = YES;
+            } else {
+                weakSelf.setPassWordButton.backgroundColor = COR12;
+                weakSelf.setPassWordButton.userInteractionEnabled = NO;
+            }
+        } else {
+            if (text.length > 0 && _smscode_TextField.text.length > 0 && _inviteCodeTextField.text.length > 0 && _isSelect) {
+                weakSelf.setPassWordButton.backgroundColor = COR29;
+                weakSelf.setPassWordButton.userInteractionEnabled = YES;
+            } else {
+                weakSelf.setPassWordButton.backgroundColor = COR12;
+                weakSelf.setPassWordButton.userInteractionEnabled = NO;
+            }
+        }
+        
+    };
+    
+    self.inviteCodeTextField.block = ^(NSString *text) {
+        if (text.length > 0 && _password_TextField.text.length > 0 && _smscode_TextField.text.length > 0 && _isSelect) {
+            weakSelf.setPassWordButton.backgroundColor = COR29;
+            weakSelf.setPassWordButton.userInteractionEnabled = YES;
+        } else {
+            weakSelf.setPassWordButton.backgroundColor = COR12;
+            weakSelf.setPassWordButton.userInteractionEnabled = NO;
+        }
+    };
     
     [self addSubview : self.phonNumberLabel];
     [self addSubview : self.smscode_TextField];
     [self addSubview : self.sendButton];
     [self addSubview : self.password_TextField];
     [self addSubview : self.setPassWordButton];
-    [self addSubview:self.inviteCodeTextField];
-    [self addSubview:self.negotiateView];
-    [self addSubview:self.waterView];
+    [self addSubview : self.inviteCodeTextField];
+    [self addSubview : self.negotiateView];
+    [self addSubview : self.waterView];
     [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
     
     self.password_TextField.placeholder = @"密码为8-20位数字与字母组合";
@@ -177,18 +235,17 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
     
     self.negotiateView.negotiateStr = @"红小宝注册协议";
-    kWeakSelf
     [self.negotiateView clickNegotiateWithBlock:^{
         NSLog(@"点击了红小宝注册协议");
         if (weakSelf.clickAgreementSignUPBlock) weakSelf.clickAgreementSignUPBlock();
     }];
     [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
+        _isSelect = isSelected;
         if (isSelected) {
-            weakSelf.setPassWordButton.enabled = YES;
+            weakSelf.setPassWordButton.userInteractionEnabled = YES;
             weakSelf.setPassWordButton.backgroundColor = COR29;
-        }else
-        {
-            weakSelf.setPassWordButton.enabled = NO;
+        } else {
+            weakSelf.setPassWordButton.userInteractionEnabled = NO;
             weakSelf.setPassWordButton.backgroundColor = kHXBColor_Font0_5;
             [weakSelf.setPassWordButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         }
@@ -357,14 +414,6 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
             str = strM.copy;
         }
         if (str.length > 6) return NO;
-        if (str.length > 0 && _password_TextField.text.length > 0 && _inviteCodeTextField.text.length > 0) {
-            self.setPassWordButton.backgroundColor = COR29;
-            self.setPassWordButton.userInteractionEnabled = YES;
-        } else {
-            self.setPassWordButton.backgroundColor = COR12;
-            self.setPassWordButton.userInteractionEnabled = NO;
-        }
-        
     } else if (textField.superview == _password_TextField){
         NSString *str = nil;
         if (string.length) {
@@ -378,13 +427,6 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
             str = strM.copy;
         }
         if (str.length > 20) return NO;
-        if (str.length > 0 && _smscode_TextField.text.length > 0 && _inviteCodeTextField.text.length > 0) {
-            self.setPassWordButton.backgroundColor = COR29;
-            self.setPassWordButton.userInteractionEnabled = YES;
-        } else {
-            self.setPassWordButton.backgroundColor = COR12;
-            self.setPassWordButton.userInteractionEnabled = NO;
-        }
     } else {
         NSString *str = nil;
         if (string.length) {
@@ -398,19 +440,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
             str = strM.copy;
         }
         if (str.length > 20) return NO;
-        if (str.length > 0 && _password_TextField.text.length > 0 && _smscode_TextField.text.length > 0) {
-            self.setPassWordButton.backgroundColor = COR29;
-            self.setPassWordButton.userInteractionEnabled = YES;
-        } else {
-            self.setPassWordButton.backgroundColor = COR12;
-            self.setPassWordButton.userInteractionEnabled = NO;
-        }
     }
-    return YES;
-}
-- (BOOL)textFieldShouldClear:(UITextField *)textField {
-    self.setPassWordButton.backgroundColor = COR12;
-    self.setPassWordButton.userInteractionEnabled = NO;
     return YES;
 }
 

@@ -249,7 +249,6 @@
 + (BOOL)checkPassWordWithString: (NSString *)str
 {
     if ([NSString isIncludeSpecialCharact:str]) return NO;
-    
     //8-20位数字和字母组成
     NSString *regex = @"^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$";
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];

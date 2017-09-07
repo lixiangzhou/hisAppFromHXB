@@ -298,6 +298,7 @@
         _verificationCodeTextField = [[HXBCustomTextField alloc] init];
         _verificationCodeTextField.placeholder = @"短信验证码";
         _verificationCodeTextField.delegate = self;
+        _verificationCodeTextField.isGetCode = YES;
         _verificationCodeTextField.leftImage = [UIImage imageNamed:@"security_code"];
         _verificationCodeTextField.keyboardType = UIKeyboardTypeNumberPad; 
     }
@@ -353,9 +354,10 @@
             [_nextButton setBackgroundColor:COR12];
             _nextButton.userInteractionEnabled = NO;
         }
-        if (str.length > 18) {
-#warning 肖扬
+        if (str.length == 18) {
             self.getValidationCodeButtonClickBlock(str);
+        }
+        if (str.length > 18) {
             return NO;
         }
     } else {
@@ -369,12 +371,22 @@
             [strM deleteCharactersInRange:range];
             str = strM.copy;
         }
-        if (str.length > 0 && _idCardTextField.text.length > 0) {
-            [_nextButton setBackgroundColor:COR29];
-            _nextButton.userInteractionEnabled = YES;
+        if ([self.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+            if (str.length > 0 && _idCardTextField.text.length > 0) {
+                [_nextButton setBackgroundColor:COR29];
+                _nextButton.userInteractionEnabled = YES;
+            } else {
+                [_nextButton setBackgroundColor:COR12];
+                _nextButton.userInteractionEnabled = NO;
+            }
         } else {
-            [_nextButton setBackgroundColor:COR12];
-            _nextButton.userInteractionEnabled = NO;
+            if (str.length > 0) {
+                [_nextButton setBackgroundColor:COR29];
+                _nextButton.userInteractionEnabled = YES;
+            } else {
+                [_nextButton setBackgroundColor:COR12];
+                _nextButton.userInteractionEnabled = NO;
+            }
         }
         if (str.length > 6) {
             return NO;
