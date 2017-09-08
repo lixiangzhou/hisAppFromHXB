@@ -536,6 +536,7 @@
         [self.capitalRecordViewModel_array removeAllObjects];
     }
     self.capitalRecordPage ++;
+    [self.capitalRecordViewModel_array removeAllObjects];
     [self.capitalRecordViewModel_array addObjectsFromArray:viewModeArray];
     return self.capitalRecordViewModel_array;
 }

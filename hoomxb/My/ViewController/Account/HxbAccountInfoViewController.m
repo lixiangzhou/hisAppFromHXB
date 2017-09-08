@@ -56,23 +56,26 @@ UITableViewDataSource
     if (indexPath.section == 0) {
         
     }else if(indexPath.section == 1){
-        if (indexPath.row == 0) {
-            //进入存管账户
-            [self entryDepositoryAccount:NO];
-            
-        }else if (indexPath.row == 1){
-            
-            if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-                //进入银行卡
-                [self entryDepositoryAccount:YES];
-            }else{
-                //进入绑卡页面
-                [self bindBankCardClick];
+        [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+            self.userInfoViewModel = viewModel;
+            if (indexPath.row == 0) {
+                //进入存管账户
+                [self entryDepositoryAccount:NO];
+                
+            }else if (indexPath.row == 1){
+                
+                if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+                    //进入银行卡
+                    [self entryDepositoryAccount:YES];
+                }else{
+                    //进入绑卡页面
+                    [self bindBankCardClick];
+                }
             }
-        }else{
+        } andFailure:^(NSError *error) {
             
-        }
-        
+        }];
+       
     }else if(indexPath.section == 2){
         switch (indexPath.row) {
             case 0:
@@ -108,12 +111,21 @@ UITableViewDataSource
 //进入绑卡界面
 - (void)bindBankCardClick
 {
-//    [HXBMiddlekey rechargePurchaseJumpLogicWithNAV:self.navigationController];    
-//    //进入绑卡界面
-    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-    withdrawCardViewController.title = @"绑卡";
-    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+//    [HXBMiddlekey rechargePurchaseJumpLogicWithNAV:self.navigationController];
+    if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])  {
+        //    //进入绑卡界面
+        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+        withdrawCardViewController.title = @"绑卡";
+        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+        [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+    }else
+    {
+        //完善信息
+        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+        openDepositAccountVC.title = @"完善信息";
+        openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+        [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+    }
 }
 
 
@@ -297,6 +309,9 @@ UITableViewDataSource
         if (indexPath.row == 0) {
             cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
             cell.detailTextLabel.textColor = COR30;
+            if ([cell.detailTextLabel.text isEqualToString:@"立即评测"]) {
+                cell.detailTextLabel.textColor = COR29;
+            }
         }else if(indexPath.row == 2)
         {
             cell.hiddenLine = YES;

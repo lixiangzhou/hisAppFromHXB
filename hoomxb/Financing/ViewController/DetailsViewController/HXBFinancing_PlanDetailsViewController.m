@@ -153,7 +153,7 @@
                 [weakSelf.countDownManager stopTimer];
                 return;
             }
-            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒后开售"];
+            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒后开始加入"];
             [weakSelf.addButton setTitle:str forState:UIControlStateNormal];
         }];
     }else {
@@ -540,7 +540,7 @@
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
         self.planDetailViewModel = viewModel;
         if (viewModel.isContDown) {
-            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@([viewModel.countDownStr floatValue]) andDateFormat:@"mm分ss秒后开售"];
+            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@([viewModel.countDownStr floatValue]) andDateFormat:@"mm分ss秒后开始加入"];
             [self.addButton setTitle:str forState:UIControlStateNormal];
         } else {
             

@@ -101,14 +101,28 @@ static NSString *const cellID = @"cellID";
     [headView addSubview:amountLabel];
     [headView addSubview:timeLabel];
     [headView addSubview:typeLabel];
-    NSArray *viewArray = @[
-                           planIDLabel,amountLabel,timeLabel,typeLabel
-                           ];
     
-    [viewArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:0 leadSpacing:0 tailSpacing:0];
-    [viewArray mas_makeConstraints:^(MASConstraintMaker *make) {
+    [planIDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(headView);
+        make.left.equalTo(headView).offset(kScrAdaptationH750(30));
+        make.width.offset(kScrAdaptationW750(84));
     }];
+    [amountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(headView);
+        make.right.equalTo(headView).offset(-kScrAdaptationW750(413));
+    }];
+    [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(headView);
+        make.left.equalTo(amountLabel.mas_right).offset(kScrAdaptationW750(128));
+//        make.right.equalTo(typeLabel.mas_left);
+    }];
+    [typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(headView);
+        make.right.equalTo(headView).offset(-kScrAdaptationH750(30));
+        make.width.offset(kScrAdaptationW750(57));
+    }];
+    
+    
     planIDLabel.text =  @"标的ID";
     amountLabel.text =  @"投资金额(元)";
     timeLabel.text =  @"时间";
@@ -204,6 +218,8 @@ static NSString *const cellID = @"cellID";
  状态
  */
 @property (nonatomic,strong) UILabel *typeLabel;
+//line
+@property (nonatomic, strong) UIView *line;
 @end
 
 @implementation HXBMY_Plan_Capital_Cell
@@ -223,7 +239,7 @@ static NSString *const cellID = @"cellID";
     self.amountLabel.textAlignment = NSTextAlignmentRight;
     self.timeLabel.textAlignment = NSTextAlignmentCenter;
     self.typeLabel.textAlignment = NSTextAlignmentCenter;
-
+    self.planIDLabel.textColor = self.amountLabel.textColor = self.timeLabel.textColor = self.typeLabel.textColor = COR6;
     
     self.planIDLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.amountLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
@@ -234,34 +250,41 @@ static NSString *const cellID = @"cellID";
     [self.contentView addSubview:self.amountLabel];
     [self.contentView addSubview:self.timeLabel];
     [self.contentView addSubview:self.typeLabel];
-    NSArray *viewArray = @[
-                          self.planIDLabel,self.amountLabel,self.timeLabel,self.typeLabel
-                           ];
-    
-    [viewArray mas_distributeViewsAlongAxis:MASAxisTypeHorizontal withFixedSpacing:10 leadSpacing:10 tailSpacing:10];
-    [viewArray mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.contentView);
+    [self.contentView addSubview:self.line];
+
+    [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.contentView.mas_bottom);
+        make.left.equalTo(self.contentView).offset(kScrAdaptationW750(30));
+        make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-30));
+        make.height.offset(0.5);
     }];
-//    [self.planIDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.top.equalTo(self.contentView);
-//        make.left.equalTo(self.contentView);
-//        make.width.equalTo(self).multipliedBy(1 / 4);
-//    }];
-//    [self.amountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.top.equalTo(self.contentView);
-//        make.left.equalTo(self.planIDLabel.mas_right);
-//        make.width.equalTo(self).multipliedBy(1 / 4);
-//    }];
-//    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.top.equalTo(self.contentView);
-//        make.left.equalTo(self.amountLabel.mas_right);
-//        make.width.equalTo(self).multipliedBy(1 / 4);
-//    }];
-//    [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.top.equalTo(self.contentView);
-//        make.left.equalTo(self.timeLabel.mas_right);
-//        make.width.equalTo(self).multipliedBy(1 / 4);
-//    }];
+    [self.planIDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.top.equalTo(self.contentView);
+        make.left.equalTo(self.contentView).offset(kScrAdaptationH750(30));
+    }];
+    [self.amountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.top.equalTo(self.contentView);
+        make.right.equalTo(self.contentView).offset(-kScrAdaptationW750(413));
+    }];
+    [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.top.equalTo(self.contentView);
+        make.right.equalTo(self.contentView).offset(-kScrAdaptationH750(30));
+    }];
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.top.equalTo(self.contentView);
+        make.left.equalTo(self.amountLabel.mas_right);
+        make.right.equalTo(self.typeLabel.mas_left);
+    }];
+   
+}
+
+- (UIView *)line
+{
+    if (!_line) {
+        _line = [[UIView alloc] init];
+        _line.backgroundColor = COR12;
+    }
+    return _line;
 }
 
 - (void) setTime:(NSString *)time {

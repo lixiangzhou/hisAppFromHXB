@@ -56,7 +56,7 @@
     for (UILabel *label in self.moreTopBottomView.rightViewArray) {
         label.textColor = COR10;
         label.font = kHXBFont_PINGFANGSC_REGULAR(12);
-        if ([label.text isEqualToString:@"《恒丰银行协议》"]) {
+        if ([label.text isEqualToString:@"《恒丰银行…协议》"]) {
             UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(agreementClick)];
             [label addGestureRecognizer:labelTapGestureRecognizer];
             label.userInteractionEnabled = YES;

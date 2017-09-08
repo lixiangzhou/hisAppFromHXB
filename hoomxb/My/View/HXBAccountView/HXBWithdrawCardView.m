@@ -234,8 +234,8 @@
     if (!_cardholderLabel) {
         _cardholderLabel = [[HXBBaseView_TwoLable_View alloc] init];
         [_cardholderLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-            viewModelVM.leftLabelStr = @"持卡人：*惠";
-            viewModelVM.rightLabelStr = @"210********029";
+//            viewModelVM.leftLabelStr = @"持卡人：*惠";
+//            viewModelVM.rightLabelStr = @"210********029";
             viewModelVM.isLeftRight = YES;
             viewModelVM.leftLabelAlignment = NSTextAlignmentLeft;
             viewModelVM.rightLabelAlignment = NSTextAlignmentRight;

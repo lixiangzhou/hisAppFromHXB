@@ -315,6 +315,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 //    [self.homePageView.contDwonManager resumeTimer];
-    [self.homePageView loadData];
+//    [self.homePageView loadData];
+    [self planLoadDateWithIsUpData:true];
+    [self loanLoadDateWithIsUpData:true];
+    [self loanTruansferLoandDataWithIsUPData:true];
 }
 @end

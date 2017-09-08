@@ -13,9 +13,12 @@
 #import "HxbAccountInfoViewController.h"
 #import "HXBBindBankCardViewController.h"
 #import "HXBSignUPAgreementWebViewVC.h"
+#import "HXBSignInWaterView.h"
 ///短信验证 VC
 @interface HXBSendSmscodeViewController ()
 @property (nonatomic,strong) HXBSendSmscodeView *smscodeView;
+///波浪视图
+@property (nonatomic, strong) HXBSignInWaterView *waterView;
 @end
 
 @implementation HXBSendSmscodeViewController
@@ -49,6 +52,8 @@
     }];
     self.smscodeView.phonNumber = self.phonNumber;
     [self.hxbBaseVCScrollView addSubview: self.smscodeView];
+    [self.view addSubview:self.waterView];
+    
 }
 
 #pragma mark - 点击事件的注册
@@ -138,6 +143,13 @@
         signUPAgreementWebViewVC.URL = kHXB_Negotiate_SginUPURL;
         [weakSelf.navigationController pushViewController:signUPAgreementWebViewVC animated:true];
     }];
+}
+- (HXBSignInWaterView *)waterView
+{
+    if (!_waterView) {
+        _waterView = [[HXBSignInWaterView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(111))];
+    }
+    return _waterView;
 }
 
 kDealloc

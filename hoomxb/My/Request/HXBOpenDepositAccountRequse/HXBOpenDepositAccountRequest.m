@@ -26,6 +26,7 @@
         }
         if (status != 0) {
             if (failureBlock) {
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
                 failureBlock(responseObject);
             }
             return;

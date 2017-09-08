@@ -62,7 +62,6 @@
     if ([KeyChain isLogin]) {
         [self loadData_userInfo];
     }
-    [self loadData_userInfo];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

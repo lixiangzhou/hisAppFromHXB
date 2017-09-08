@@ -65,7 +65,7 @@
 //            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
 //            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 //            });
-         [weakSelf getValidationCode];
+//         [weakSelf getValidationCode];
          
         } andFailureBlock:^(NSError *error) {
             NSLog(@"%@",error);
@@ -139,7 +139,8 @@
         _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
         
         _homeView.getValidationCodeButtonClickBlock = ^(NSString *IDCard){
-            [weakSelf authenticationWithIDCard:IDCard];
+//            [weakSelf authenticationWithIDCard:IDCard];
+            [weakSelf getValidationCode];
         };
         //点击下一步回调
         _homeView.nextButtonClickBlock = ^(NSString *idCardNo,NSString *verificationCode){

@@ -10,7 +10,7 @@
 #import "SVGKImage.h"
 #import "HXBCustomTextField.h"
 #import "HXBFinBaseNegotiateView.h"
-#import "HXBSignInWaterView.h"
+
 static NSString *const kSmscode_ConstLableTitle = @"请输入验证码";
 static NSString *const kPassword_constLableTitle = @"密码为8-20位数字与字母组合";
 static NSString *const kSetPassWordButtonTitle = @"确认设置登录密码";
@@ -51,8 +51,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 @property (nonatomic, copy) void(^clickSendSmscodeButtonBlock)();
 ///点击了服务协议
 @property (nonatomic, copy) void(^clickAgreementSignUPBlock)();
-///波浪视图
-@property (nonatomic, strong) HXBSignInWaterView *waterView;
+
 
 @end
 
@@ -127,13 +126,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)didMoveToSuperview {
     [self clickSendButton:self.sendButton];
 }
-- (HXBSignInWaterView *)waterView
-{
-    if (!_waterView) {
-        _waterView = [[HXBSignInWaterView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(111))];
-    }
-    return _waterView;
-}
+
 - (NSTimer *) timer {
     if (!_timer) {
         _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(addTime) userInfo:nil repeats:YES];
@@ -225,7 +218,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self addSubview : self.setPassWordButton];
     [self addSubview : self.inviteCodeTextField];
     [self addSubview : self.negotiateView];
-    [self addSubview : self.waterView];
+   
     [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
     
     self.password_TextField.placeholder = @"密码为8-20位数字与字母组合";
@@ -255,7 +248,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)layoutSubView_sendSmscode {
     kWeakSelf
     [self.phonNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.waterView.mas_bottom).offset(kScrAdaptationH(30));
+        make.top.equalTo(self).offset(kScrAdaptationH(140));
         make.centerX.equalTo(weakSelf);
     }];
     [self.smscode_TextField mas_makeConstraints:^(MASConstraintMaker *make) {

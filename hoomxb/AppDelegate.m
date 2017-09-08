@@ -229,7 +229,7 @@ static NSString *const my = @"我的";
     if (timeDifference>300) {
         [self enterTheGesturePasswordVC];
     }
-
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_starCountDown object:nil];
 }
 
 

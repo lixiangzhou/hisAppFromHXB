@@ -18,6 +18,8 @@ static NSString * const HeaderID = @"HeaderID";
  按月份组
  */
 @property (nonatomic, strong) NSMutableArray *tagArr;
+//每月存放的内容
+@property (nonatomic, strong) NSMutableArray *transactionArr;
 
 @property (nonatomic, strong) HXBNoDataView *nodataView;
 
@@ -34,6 +36,17 @@ static NSString * const HeaderID = @"HeaderID";
             [self.tagArr addObject:mainCapitalRecordViewModel.capitalRecordModel.tag];
         }
     }
+    for (int j = 0; j < self.tagArr.count ; j++) {
+        NSMutableArray *arr = [NSMutableArray array];
+        for (int i = 0; i < capitalRecortdDetailViewModelArray.count; i++){
+            HXBMYViewModel_MainCapitalRecordViewModel *mainCapitalRecordViewModel = capitalRecortdDetailViewModelArray[i];
+            if ([mainCapitalRecordViewModel.capitalRecordModel.tag isEqualToString:self.tagArr[j]]) {
+                [arr addObject:mainCapitalRecordViewModel];
+            }
+        }
+        [self.transactionArr addObject:arr];
+    }
+    
     [self reloadData];
     self.tableFooterView = [[UIView alloc]init];
 }
@@ -57,7 +70,8 @@ static NSString * const HeaderID = @"HeaderID";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.capitalRecortdDetailViewModelArray.count;
+    NSArray *arr = self.transactionArr[section];
+    return arr.count;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -67,7 +81,7 @@ static NSString * const HeaderID = @"HeaderID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBMYCapitalRecord_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.capitalRecortdDetailViewModel = self.capitalRecortdDetailViewModelArray[indexPath.row];
+    cell.capitalRecortdDetailViewModel = self.transactionArr[indexPath.section][indexPath.row];
     if (self.totalCount > 0) {
         if (indexPath.row == self.totalCount - 1) {
             cell.isShowCellLine = NO;
@@ -95,6 +109,14 @@ static NSString * const HeaderID = @"HeaderID";
         _tagArr = [NSMutableArray array];
     }
     return _tagArr;
+}
+
+- (NSMutableArray *)transactionArr
+{
+    if (!_transactionArr) {
+        _transactionArr = [NSMutableArray array];
+    }
+    return _transactionArr;
 }
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {

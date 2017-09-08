@@ -40,7 +40,7 @@
     [super viewDidLoad];
 //    [self hiddenTabbarLine];
     [self.view addSubview:self.homeView];
-    [self getData:YES];
+//    [self getData:YES];
 //    [self.homeView changeIndicationView];
 //    [self.homeView showSecurityCertificationOrInvest];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -89,7 +89,14 @@
         [weakSelf.homeView changeIndicationView];
         [weakSelf.homeView showSecurityCertificationOrInvest];
     };
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_starCountDown object:nil];
 }
+//后台进入进入倒计时
+- (void)starCountDown
+{
+     [self getData:YES];
+}
+
 //- (void)pushToAd {
 //    HxbAdvertiseViewController *adVc = [[HxbAdvertiseViewController alloc] init];
 //    [self.navigationController pushViewController:adVc animated:YES];
@@ -103,8 +110,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:true animated:false];
-//    [self.homeView.mainTableView.mj_header beginRefreshing];
-    
+    [self getData:YES];
     [self.homeView changeIndicationView];
     [self.homeView showSecurityCertificationOrInvest];
 }
@@ -114,8 +120,6 @@
     [super viewWillDisappear:animated];
     [self.navigationController setNavigationBarHidden:true animated:false];
 }
-
-
 
 /**
  检测版本更新

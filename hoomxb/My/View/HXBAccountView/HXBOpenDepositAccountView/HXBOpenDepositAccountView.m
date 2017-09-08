@@ -224,8 +224,14 @@
         isNull = YES;
         return isNull;
     }
+    if(!(self.pwdTextField.text.length > 0))
+    {
+        [HxbHUDProgress showMessageCenter:@"交易密码不能为空" inView:self];
+        isNull = YES;
+        return isNull;
+    }
     if (self.pwdTextField.text.length != 6) {
-        [HxbHUDProgress showMessageCenter:@"请设置6位纯数字的交易密码" inView:self];
+        [HxbHUDProgress showMessageCenter:@"交易密码需6位纯数字" inView:self];
         isNull = YES;
         return isNull;
     }

@@ -24,7 +24,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     NSLog(@"======================👌👌 结束 👌👌====================================");
     
     if ([request.responseObject[@"code"]  isEqual: @"ESOCKETTIMEDOUT"]) {
-        [HxbHUDProgress showTextWithMessage:@"请求超时"];
+        [HxbHUDProgress showTextWithMessage:@"请求超时,请稍后重试"];
     }
     
     switch ([request.responseObject[kResponseStatus] integerValue]) {
@@ -77,6 +77,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:///没有登录
+        case kHXBCode_Enum_TokenNotJurisdiction://没有权限
             if (KeyChain.isLogin) {
                 //弹出是否 登录
 //                [[KeyChainManage sharedInstance] signOut];
@@ -87,12 +88,13 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             }
 //            [[KeyChainManage sharedInstance] removeAllInfo];
             break;
-        case kHXBCode_Enum_TokenNotJurisdiction://没有权限
+       
             /**
              先判断是否为登录状态，如果是，就登出，不是，就显示页面权限
              */
             //跳转登录注册
-            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+//            break;
             
             case kHXBCode_Enum_RequestOverrun:
         {
@@ -106,7 +108,9 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     if (!KeyChain.ishaveNet) {
         [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
     }
-    
+    if (!request.responseStatusCode) {
+         [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
+    }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:RequestFailure object:nil userInfo:nil];
 }

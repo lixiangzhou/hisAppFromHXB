@@ -21,3 +21,6 @@ NSString *const kHXBNotification_PlanAndLoan_Fragment = @"kHXBNotification_PlanA
 
 ///停止请求
 NSString *const kHXBNotification_StopAllRequest = @"kHXBNotification_StopAllRequest";
+
+//从后台进入程序唤醒倒计时
+NSString *const kHXBNotification_starCountDown = @"kHXBNotification_starCountDown";
