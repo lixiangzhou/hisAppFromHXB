@@ -135,21 +135,26 @@
 }
 
 - (void)textFieldDidChangeValue:(NSNotification *)notification {
-    if (self.number == 1) {
-        NSString *text = nil;
-        UITextField *sender = (UITextField *)[notification object];
-        text = sender.text;
-        self.block(text);
-    } else if (self.number == 2) {
-        NSString *text = nil;
-        UITextField *sender = (UITextField *)[notification object];
-        text = sender.text;
-        self.block(text);
-    } else if (self.number == 3) {
-        NSString *text = nil;
-        UITextField *sender = (UITextField *)[notification object];
-        text = sender.text;
-        self.block(text);
+    NSString *text = nil;
+    UITextField *sender = (UITextField *)[notification object];
+    text = sender.text;
+    NSLog(@"%@", text);
+    if (_secureTextEntry) {
+        if (text.length > 0) {
+            NSString *str = [text substringFromIndex:text.length - 1];
+            NSUInteger lengthOfString = str.length;  //lengthOfString的值始终为1
+            for (NSInteger loopIndex = 0; loopIndex < lengthOfString; loopIndex++) {
+                unichar character = [str characterAtIndex:loopIndex]; //将输入的值转化为ASCII值（即内部索引值），可以参考ASCII表
+                // 48-57;{0,9};65-90;{A..Z};97-122:{a..z}
+                if (character < 48) sender.text = [sender.text substringToIndex:text.length - 1]; // 48 unichar for 0
+                if (character > 57 && character < 65) sender.text = [sender.text substringToIndex:text.length - 1]; //
+                if (character > 90 && character < 97) sender.text = [sender.text substringToIndex:text.length - 1];
+                if (character > 122) sender.text = [sender.text substringToIndex:text.length - 1];
+            }
+        }
+    }
+    if (self.block) {
+        self.block(sender.text);
     }
 }
 

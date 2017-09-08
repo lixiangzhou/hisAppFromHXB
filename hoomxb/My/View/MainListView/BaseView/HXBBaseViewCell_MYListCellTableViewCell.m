@@ -46,6 +46,7 @@
             image = imageView.image;
         }
         self.title_ImageView.image = image;
+        self.title_ImageView.hidden = YES;
     }else {///没有imageView 那么跟新约束
         [self hxb_updateConstraints_imageView];
     }

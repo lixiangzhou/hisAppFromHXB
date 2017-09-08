@@ -144,7 +144,7 @@ static NSString *const exitTitle = @"已退出";
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
         _nodataView.imageName = @"Fin_NotData";
         _nodataView.noDataMassage = @"暂无数据";
-        _nodataView.downPULLMassage = @"下拉进行刷新";
+//        _nodataView.downPULLMassage = @"下拉进行刷新";
         [self addSubview:_nodataView];
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(kScrAdaptationH(100));

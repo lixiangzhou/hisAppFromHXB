@@ -73,7 +73,7 @@
  */
 - (NSString *) expectedRate {
     if (!_expectedRate) {
-        _expectedRate = [NSString stringWithFormat:@"%.2lf%@",self.planModelDataList.expectedRate.floatValue,@"%"];
+        _expectedRate = [NSString stringWithFormat:@"%.1lf%%",self.planModelDataList.expectedRate.floatValue];
     }
     return _expectedRate;
 }

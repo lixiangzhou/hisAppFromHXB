@@ -92,6 +92,9 @@ static HXB_XYTools * handle = nil;
 //    return YES;
 }
 
+- (BOOL)limitTextCharactorWithString:(NSString *)string {
+    return YES;
+}
 
 
 

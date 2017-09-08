@@ -60,7 +60,7 @@
         manager.infoViewManager.rightStrArray = @[
                                                   weakSelf.loanDetailViewModel.amount,
                                                   weakSelf.loanDetailViewModel.interest,
-                                                  weakSelf.loanDetailViewModel.termsInTotal,
+                                                  [NSString stringWithFormat:@"%@个月", weakSelf.loanDetailViewModel.termsInTotal],
                                                   weakSelf.loanDetailViewModel.loanType,
                                                   weakSelf.loanDetailViewModel.repaid
                                                   ];
