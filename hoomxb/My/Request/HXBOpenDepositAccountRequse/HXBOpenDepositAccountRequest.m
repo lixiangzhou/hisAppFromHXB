@@ -26,8 +26,10 @@
         }
         if (status != 0) {
             if (failureBlock) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
                 failureBlock(responseObject);
+            }
+            if (status == 1) {
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
             return;
         }

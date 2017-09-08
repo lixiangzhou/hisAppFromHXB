@@ -41,13 +41,13 @@
     [super pushViewController:viewController animated:animated];
     
     [self getNetworkAgain:viewController];
-    kWeakSelf
-    self.noNetworkStatusView.getNetworkAgainBlock = ^{
-        [weakSelf getNetworkAgain:viewController];
-        if (weakSelf.getNetworkAgainBlock) {
-            weakSelf.getNetworkAgainBlock();
-        }
-    };
+//    kWeakSelf
+//    self.noNetworkStatusView.getNetworkAgainBlock = ^{
+//        [weakSelf getNetworkAgain:viewController];
+//        if (weakSelf.getNetworkAgainBlock) {
+//            weakSelf.getNetworkAgainBlock();
+//        }
+//    };
 }
 
 - (void)getNetworkAgain:(UIViewController *)viewController
