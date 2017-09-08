@@ -309,8 +309,8 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
 }
 ///当textField 的值将要改变的时候调用
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
     if (textField.superview == _phoneTextField) {
-        
         NSMutableString *str = [[NSMutableString alloc] initWithString:textField.text];
         if (string.length) {
             [str insertString:string atIndex:range.location];

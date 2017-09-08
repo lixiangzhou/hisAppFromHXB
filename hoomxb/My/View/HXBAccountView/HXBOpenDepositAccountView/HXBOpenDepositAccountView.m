@@ -438,7 +438,7 @@
     if (!_phoneTextField) {
         _phoneTextField = [[HXBCustomTextField alloc] init];
         _phoneTextField.leftImage = [SVGKImage imageNamed:@"mobile.svg"].UIImage;
-        _phoneTextField.placeholder = @"预留手机号码";
+        _phoneTextField.placeholder = @"银行预留手机号";
         _phoneTextField.delegate = self;
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     }

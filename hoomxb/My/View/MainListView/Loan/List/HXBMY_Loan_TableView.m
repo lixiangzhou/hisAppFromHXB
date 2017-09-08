@@ -53,7 +53,7 @@ UITableViewDataSource
         [self addSubview:_nodataView];
         _nodataView.imageName = @"Fin_NotData";
         _nodataView.noDataMassage = @"暂无数据";
-        _nodataView.downPULLMassage = @"下拉进行刷新";
+//        _nodataView.downPULLMassage = @"下拉进行刷新";
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(kScrAdaptationH(100));
             make.height.width.equalTo(@(kScrAdaptationH(184)));
@@ -118,11 +118,11 @@ static NSString *const exitTitle = @"已退出";
         case HXBRequestType_MY_LoanRequestType_BID_LOAN:
         {
             titleArray = @[
-                           @"投标金额(元)",
-                           @"投标进度",
+                           @"投资金额(元)",
+                           @"投资进度",
                            @"年利率"
                            ];
-            exiTingImageViewName = @"explain.svg";
+//            exiTingImageViewName = @"explain.svg";
             title_rightSTR = viewModel.title_TermsInTotal_YUE;
             [cell setUPValueWithListCellManager:^HXBBaseViewCell_MYListCellTableViewCellManager *(HXBBaseViewCell_MYListCellTableViewCellManager *manager) {
                 manager.title_LeftLabelStr = viewModel.loanModel.loanTitle;

@@ -168,11 +168,14 @@
     self.count--;
     [self.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
     if (self.count == -1) {
-        self.getValidationCodeButton.enabled = YES;
         [self.timer invalidate];
         self.timer = nil;
         [self.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-        [self.getValidationCodeButton setBackgroundColor:COR29];
+        self.getValidationCodeButton.enabled = YES;
+        [self.getValidationCodeButton setBackgroundColor:[UIColor whiteColor]];
+        _getValidationCodeButton.layer.borderWidth = kXYBorderWidth;
+        _getValidationCodeButton.layer.borderColor = COR29.CGColor;
+        [_getValidationCodeButton setTitleColor:COR29 forState:(UIControlStateNormal)];
     }
 }
 
@@ -184,8 +187,12 @@
     self.getValidationCodeButton.enabled = YES;
     [self.timer invalidate];
     self.timer = nil;
-//    [self.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
-//    [self.getValidationCodeButton setBackgroundColor:COR29];
+    [self.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+    self.getValidationCodeButton.enabled = YES;
+    [self.getValidationCodeButton setBackgroundColor:[UIColor whiteColor]];
+    _getValidationCodeButton.layer.borderWidth = kXYBorderWidth;
+    _getValidationCodeButton.layer.borderColor = COR29.CGColor;
+    [_getValidationCodeButton setTitleColor:COR29 forState:(UIControlStateNormal)];
 
 }
 

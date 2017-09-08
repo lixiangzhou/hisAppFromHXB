@@ -169,7 +169,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     kWeakSelf
     self.smscode_TextField.block = ^(NSString *text) {
         if (_type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot ) {
-            if (text.length > 0 && _password_TextField.text.length > 0) {
+            if (text.length > 0 && _password_TextField.text.length > 0 && _isSelect) {
                 weakSelf.setPassWordButton.backgroundColor = COR29;
                 weakSelf.setPassWordButton.userInteractionEnabled = YES;
             } else {
@@ -178,7 +178,6 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
             }
         } else {
             if (text.length > 0 && _password_TextField.text.length > 0 && _inviteCodeTextField.text.length > 0 && _isSelect) {
-                NSLog(@"%d", weakSelf.isSelect);
                 weakSelf.setPassWordButton.backgroundColor = COR29;
                 weakSelf.setPassWordButton.userInteractionEnabled = YES;
             } else {
@@ -189,7 +188,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     };
     self.password_TextField.block = ^(NSString *text) {
         if (_type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot ) {
-            if (text.length > 0 && _smscode_TextField.text.length > 0) {
+            if (text.length > 0 && _smscode_TextField.text.length > 0 && _isSelect) {
                 weakSelf.setPassWordButton.backgroundColor = COR29;
                 weakSelf.setPassWordButton.userInteractionEnabled = YES;
             } else {
@@ -207,7 +206,6 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         }
         
     };
-    
     self.inviteCodeTextField.block = ^(NSString *text) {
         if (text.length > 0 && _password_TextField.text.length > 0 && _smscode_TextField.text.length > 0 && _isSelect) {
             weakSelf.setPassWordButton.backgroundColor = COR29;
@@ -356,12 +354,19 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         [HxbHUDProgress showTextWithMessage:@"请输入正确的验证码"];
     } else {
         if([self isPasswordQualifiedFunWithStr:self.password_TextField.text]) {
-            if (self.inviteCodeTextField.text.length == 0) {
-                [HxbHUDProgress showTextWithMessage:@"请输入邀请码"];
-            } else {
+            if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
                 //合格 请求数据
-                if (self.clickSetPassWordButtonBlock)
+                if (self.clickSetPassWordButtonBlock) {
                     self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,self.inviteCodeTextField.text);
+                }
+            } else {
+                if (self.inviteCodeTextField.text.length == 0) {
+                    [HxbHUDProgress showTextWithMessage:@"请输入邀请码"];
+                } else {
+                    //合格 请求数据
+                    if (self.clickSetPassWordButtonBlock)
+                        self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,self.inviteCodeTextField.text);
+                }
             }
         }else {
             NSString * message = [NSString isOrNoPasswordStyle:self.password_TextField.text];

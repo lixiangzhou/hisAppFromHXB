@@ -33,6 +33,7 @@
 
 @interface HXBFinDetail_TableViewCell : UITableViewCell
 @property (nonatomic,strong) HXBFinDetail_TableViewCellModel *model;
+@property (nonatomic,strong) UILabel *optionLabel;
 ///一个cell只有一个字符串的
 @property (nonatomic,strong) NSArray <NSString *>*strArray;
 @property (nonatomic,assign) BOOL isHiddenLastCellBottomLine;

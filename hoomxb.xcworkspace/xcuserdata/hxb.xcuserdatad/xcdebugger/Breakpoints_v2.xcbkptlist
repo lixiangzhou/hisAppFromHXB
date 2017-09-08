@@ -19,30 +19,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "hoomxb/My/View/MainListView/BaseView/HXBBaseView_MYList_TableViewCell.m"
-            timestampString = "525685111.594598"
+            filePath = "hoomxb/My/View/MainListView/plan/DetailCell/HXBMY_PlanDtetail_Topcell.m"
+            timestampString = "526463000.253177"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "201"
-            endingLineNumber = "201"
-            landmarkName = "-temp"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "-setUP"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/Tools/tools/HXB_XYTools/HXBXYAlertViewController.m"
-            timestampString = "525839794.309028"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "@interface HXBXYAlertViewController()"
-            landmarkType = "2">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

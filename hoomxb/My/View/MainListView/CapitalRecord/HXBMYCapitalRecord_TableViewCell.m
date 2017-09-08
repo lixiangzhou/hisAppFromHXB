@@ -58,7 +58,6 @@
 
 - (void)setIsShowCellLine:(int)isShowCellLine {
     _isShowCellLine = isShowCellLine;
-    NSLog(@"_+_+_+_+_+%d", isShowCellLine);
     if (_isShowCellLine) {
         self.cellLineView.hidden = NO;
     } else {

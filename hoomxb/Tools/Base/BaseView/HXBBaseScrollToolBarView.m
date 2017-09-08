@@ -203,10 +203,6 @@
             UIScrollView *scrollView = (UIScrollView *)view;
             //添加观察者
             [scrollView addObserver:weakSelf forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-        } else {
-            //添加观察者
-#warning 肖扬（待处理）
-            [self addObserver:weakSelf forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         }
     }];
 }
@@ -332,12 +328,19 @@
 
 
 - (void)dealloc{
-    //销毁观察者：
-    [self.bottomViewSet enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj isKindOfClass: [UIScrollView class]]) {
-            [obj removeObserver:self forKeyPath:@"contentOffset"];
-        }
-    }];
-    NSLog(@"%@ - ✅被销毁",self.class);
+    @try {
+        //销毁观察者：
+        [self.bottomViewSet enumerateObjectsUsingBlock:^(UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass: [UIScrollView class]] && self.kTopViewH) {
+                [obj removeObserver:self forKeyPath:@"contentOffset"];
+            }
+        }];
+    } @catch (NSException *exception) {
+        NSLog(@"%@--观察者异常被销毁", exception);
+    } @finally {
+        NSLog(@"");
+    }
+    
+    
 }
 @end
