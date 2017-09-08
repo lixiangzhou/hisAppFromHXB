@@ -7,6 +7,7 @@
 //
 
 #import "HXBFinDetail_TableView.h"
+#import "HXBBottomLineTableViewCell.h"
 
 
 @interface HXBFinDetail_TableView ()
@@ -37,7 +38,7 @@ static NSString *CELLID = @"CELLID";
         self.bounces = false;
         self.scrollEnabled = false;
         self.rowHeight = kScrAdaptationH(45);
-        self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
+//        self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
         self.tableFooterView = [self footView];
 
     }
@@ -99,8 +100,8 @@ static NSString *CELLID = @"CELLID";
         cell.isHiddenLastCellBottomLine = true;
     }
     if (self.strArray.count) {
-        cell.textLabel.text = self.strArray[indexPath.row];
-        cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        cell.optionLabel.text = self.strArray[indexPath.row];
+        cell.optionLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         cell.textLabel.textColor = COR6;
     }
     return cell;
@@ -112,7 +113,6 @@ static NSString *CELLID = @"CELLID";
 
 
 @interface HXBFinDetail_TableViewCell ()
-@property (nonatomic,strong) UILabel *optionLabel;
 @property (nonatomic,strong) UIImageView *iconImageView;
 @property (nonatomic,strong) UIView *lineView;
 @end
@@ -127,7 +127,6 @@ static NSString *CELLID = @"CELLID";
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        self.separatorInset = UIEdgeInsetsMake(kScrAdaptationH(1), kScrAdaptationW(15), 0, kScrAdaptationW(15));
         [self setup];
     }
     return self;
@@ -137,12 +136,11 @@ static NSString *CELLID = @"CELLID";
     self.optionLabel = [[UILabel alloc]init];
     self.optionLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     self.optionLabel.textColor = kHXBColor_RGB(0.2, 0.2, 0.2, 1);
-    self.iconImageView = [[UIImageView alloc]init];
+//    self.iconImageView = [[UIImageView alloc]init];
     self.lineView   = [[UIView alloc]init];
     self.lineView.backgroundColor = COR12;
-    
     [self.contentView addSubview:self.optionLabel];
-    [self.contentView addSubview:self.iconImageView];
+//    [self.contentView addSubview:self.iconImageView];
     [self addSubview:self.lineView];
     
 //    [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -154,6 +152,7 @@ static NSString *CELLID = @"CELLID";
         make.centerY.equalTo(weakSelf.contentView);
         make.right.equalTo(weakSelf.contentView);
         make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
+        make.height.offset(kScrAdaptationH(30));
     }];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self);
@@ -164,7 +163,8 @@ static NSString *CELLID = @"CELLID";
 }
 - (void)setIsHiddenLastCellBottomLine:(BOOL)isHiddenLastCellBottomLine {
     _isHiddenLastCellBottomLine = isHiddenLastCellBottomLine;
-    self.lineView.hidden = isHiddenLastCellBottomLine;
+//    self.lineView.hidden = isHiddenLastCellBottomLine;
+    self.lineView.hidden = YES;
 }
 @end
 

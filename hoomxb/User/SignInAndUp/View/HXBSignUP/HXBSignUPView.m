@@ -21,13 +21,6 @@ UITextFieldDelegate
 ///手机号
 @property (nonatomic, strong) HXBCustomTextField *phoneTextField;
 @property (nonatomic, strong) UILabel *checkMobileLabel;
-///手机号
-//@property (nonatomic, strong) UILabel *phoneLabel;
-//@property (nonatomic, strong) UIImageView *phoneImageView;
-/**
- 手机号分割线
- */
-//@property (nonatomic, strong) UIView *phoneLine;
 ///下一步button
 @property (nonatomic, strong) UIButton *nextButton;
 ///点击了下一步的button
@@ -43,8 +36,6 @@ UITextFieldDelegate
 @implementation HXBSignUPView
 
 #pragma mark - setter 
-
-
 
 - (void)setCheckMobileStr:(NSString *)checkMobileStr {
     _checkMobileStr = checkMobileStr;

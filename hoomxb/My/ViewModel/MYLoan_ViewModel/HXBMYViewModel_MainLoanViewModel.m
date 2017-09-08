@@ -21,10 +21,10 @@
         _toRepayCellValue = [NSString hxb_getPerMilWithDouble:self.loanModel.toRepay.floatValue];
         //下一还款日
         _nextRepayDateCellValue = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.loanModel.nextRepayDate andDateFormat:@"MM-dd"];
-        ///一换期数
-        NSInteger terms = [self.loanModel.termsInTotal integerValue]  - [self.loanModel.termsLeft integerValue];
+        ///剩余期数
+        NSInteger terms = [self.loanModel.termsLeft integerValue];
         NSInteger termsInTotal = [self.loanModel.termsInTotal integerValue];
-        _goBackLoanTimeCellValue = [NSString stringWithFormat:@"已还期数%ld/%ld",(long)terms,(long)termsInTotal];
+        _goBackLoanTimeCellValue = [NSString stringWithFormat:@"剩余期数%ld/%ld",(long)terms,(long)termsInTotal];
         
         self.investmentAmountLable_const = @"投资金额(元)";
         self.toBeReceived_const = @"待收本息(元)";
@@ -100,7 +100,7 @@
  */
 - (NSString *) interest {
     if (!_interest) {
-        _interest = [NSString stringWithFormat:@"%.2lf%@",self.loanModel.interest.floatValue,@"%"];
+        _interest = [NSString stringWithFormat:@"%.1lf%@",self.loanModel.interest.floatValue,@"%"];
     }
     return _interest;
 }
@@ -125,7 +125,7 @@
 //        [HXBEnumerateTransitionManager myLoan_requestType:type andReturnParamBlock:^(NSString *type, NSString *UI_Type) {
 //            _loanType = UI_Type;
 //        }];
-        _loanType = @"等额本息";
+        _loanType = @"按月等额本息";
     }
     return _loanType;
 }

@@ -24,4 +24,7 @@
 // 限制输入金额小数点后两位
 - (BOOL)limitEditTopupMoneyWithTextField:(UITextField *)textField Range:(NSRange)range replacementString:(NSString *)string;
 
+// 限制输入字符串和数字
+- (BOOL)limitTextCharactorWithString:(NSString *)string;
+
 @end

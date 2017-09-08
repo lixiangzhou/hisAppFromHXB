@@ -102,7 +102,6 @@
 
 }
 - (void)registerPassword {
-    
     __weak typeof(self)weakSelf = self;
     [self.smscodeView clickSetPassWordButtonFunc:^(NSString *password, NSString *smscode,NSString *inviteCode) {
         NSString * message = [NSString isOrNoPasswordStyle:password];

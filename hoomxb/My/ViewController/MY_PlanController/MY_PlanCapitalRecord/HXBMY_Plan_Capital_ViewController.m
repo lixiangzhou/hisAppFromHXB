@@ -65,7 +65,7 @@ static NSString *const cellID = @"cellID";
     self.planCapitalTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.planCapitalTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.planCapitalTableView];
-    
+
     [self.planCapitalTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.top.equalTo(self.topView.mas_bottom);
@@ -171,8 +171,8 @@ static NSString *const cellID = @"cellID";
     HXBMY_Plan_Capital_Cell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[HXBMY_Plan_Capital_Cell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.ID = _dataArray[indexPath.row].loanId;
     cell.loanAoumt = _dataArray[indexPath.row].amount;
     cell.time = _dataArray[indexPath.row].lendTime;

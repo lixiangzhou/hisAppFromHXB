@@ -73,7 +73,7 @@ static NSString *kINVEST = @"INVEST";
 ///年利率
 - (NSString *)expectedRate {
     if (!_expectedRate) {
-        _expectedRate = [NSString stringWithFormat:@"%@%@",self.planDetailModel.expectedRate,@"%"];
+        _expectedRate = [NSString stringWithFormat:@"%.1f%%",self.planDetailModel.expectedRate.floatValue];
     }
     return _expectedRate;
 }
