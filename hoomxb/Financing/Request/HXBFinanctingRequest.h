@@ -33,6 +33,13 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 
 
 #pragma mark - 理财一级界面的数据请求
+/**
+ 将数据转为模型
+ 
+ @param dataList 数据数组
+ @return 模型数组
+ */
+- (NSMutableArray <HXBFinHomePageViewModel_PlanList *>*)plan_dataProcessingWitharr:(NSArray *)dataList;
 //MARK: 红利计划列表的网络请求
 ///红利计划-数据请求- 一级界面首页
 - (void)planBuyListWithIsUpData: (BOOL)isUPData

@@ -58,24 +58,24 @@
 
 - (void)setCardViewFrame{
     
-    if (![self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-        self.mybankView.hidden = YES;
-        [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.offset(kScrAdaptationH750(30));
-            make.top.equalTo(self.view).offset(kScrAdaptationH750(20));
-        }];
-    }else
-    {
-        [self loadBankCard];
-        [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.offset(kScrAdaptationH750(30));
-            make.top.equalTo(self.mybankView.mas_bottom).offset(kScrAdaptationH750(20));
-        }];
-        [self.freeTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.offset(-kScrAdaptationH750(30));
-            make.centerY.equalTo(self.availableBalanceLabel);
-        }];
-    }
+//    if (![self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+//        self.mybankView.hidden = YES;
+//        [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.offset(kScrAdaptationH750(30));
+//            make.top.equalTo(self.view).offset(kScrAdaptationH750(20));
+//        }];
+//    }else
+//    {
+    [self loadBankCard];
+    [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(kScrAdaptationH750(30));
+        make.top.equalTo(self.mybankView.mas_bottom).offset(kScrAdaptationH750(20));
+    }];
+    [self.freeTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.offset(-kScrAdaptationH750(30));
+        make.centerY.equalTo(self.availableBalanceLabel);
+    }];
+//    }
     
     [self.amountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(kScrAdaptationH750(20));

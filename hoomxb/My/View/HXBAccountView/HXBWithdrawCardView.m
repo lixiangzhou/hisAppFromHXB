@@ -122,7 +122,7 @@
         isNull = YES;
         return isNull;
     }
-    if (!(self.bankCardTextField.text.length > 10 && self.bankCardTextField.text.length <= 21)) {
+    if (!(self.bankCardTextField.text.length >= 10 && self.bankCardTextField.text.length <= 25)) {
         
         [HxbHUDProgress showMessageCenter:@"请输入正确的卡号" inView:self];
         isNull = YES;

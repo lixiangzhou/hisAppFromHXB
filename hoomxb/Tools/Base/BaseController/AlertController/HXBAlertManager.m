@@ -160,6 +160,7 @@
 //                [HxbHUDProgress showMessageCenter:string inView:vc.view];
             }];
             [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
+            return;
         }
         
         ///条件全部满足

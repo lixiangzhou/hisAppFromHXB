@@ -270,6 +270,13 @@
 
 #pragma mark - 网络数据请求
 - (void)planLoadDateWithIsUpData: (BOOL)isUPData {
+    if (!(self.finPlanListVMArray.count > 0)) {
+        id responseObject = [PPNetworkCache httpCacheForURL:@"/plan" parameters:nil];
+        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
+        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self.finantingRequest plan_dataProcessingWitharr:dataList];
+        self.finPlanListVMArray = planListViewModelArray;
+    }
+    
     __weak typeof(self)weakSelf = self;
     [self.finantingRequest planBuyListWithIsUpData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray) {
         weakSelf.finPlanListVMArray = viewModelArray;

@@ -66,8 +66,9 @@
 
 -(void)sc_didClickAd:(id)adModel{
     NSLog(@"sc_didClickAd-->%@",adModel);
+    kWeakSelf
     if (self.clickBannerImageBlock) {
-        self.clickBannerImageBlock(adModel);
+        weakSelf.clickBannerImageBlock(adModel);
     }
 }
 //-(void)sc_scrollToIndex:(NSInteger)index{

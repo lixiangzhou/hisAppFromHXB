@@ -47,10 +47,12 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             NSDictionary *dic = request.responseObject[kResponseData];
             __block NSString *error = @"";
             [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                if (!(error.length > 0)) {
-                    NSArray *arr = obj;
-                    error = [NSString stringWithFormat:@"%@%@",error,arr[0]];
-                }
+                NSArray *arr = obj;
+                error = arr[0];
+//                NSLog(@"%@",obj);
+//                if (!(error.length > 0)) {
+//                    
+//                }
             }];
             [HxbHUDProgress showTextWithMessage:error];
         }

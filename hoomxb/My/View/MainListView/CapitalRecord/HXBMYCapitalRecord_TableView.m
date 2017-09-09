@@ -29,6 +29,10 @@ static NSString * const HeaderID = @"HeaderID";
 
 - (void)setCapitalRecortdDetailViewModelArray:(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *> *)capitalRecortdDetailViewModelArray {
     _capitalRecortdDetailViewModelArray = capitalRecortdDetailViewModelArray;
+    if (capitalRecortdDetailViewModelArray.count) {
+        [self.transactionArr removeAllObjects];
+    }
+    self.nodataView.hidden = capitalRecortdDetailViewModelArray.count;
     for (int i = 0; i < capitalRecortdDetailViewModelArray.count; i++) {
         HXBMYViewModel_MainCapitalRecordViewModel *mainCapitalRecordViewModel = capitalRecortdDetailViewModelArray[i];
         if (![[self.tagArr lastObject] isEqualToString:mainCapitalRecordViewModel.capitalRecordModel.tag]) {
@@ -45,7 +49,6 @@ static NSString * const HeaderID = @"HeaderID";
         }
         [self.transactionArr addObject:arr];
     }
-    self.nodataView.hidden = self.transactionArr.count;
     [self reloadData];
     self.tableFooterView = [[UIView alloc]init];
 }

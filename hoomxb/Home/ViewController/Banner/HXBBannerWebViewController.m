@@ -26,7 +26,7 @@
 #import "HXBBaseTabBarController.h"//红利计划
 @interface HXBBannerWebViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView *webView;
-@property WebViewJavascriptBridge* bridge;
+@property (nonatomic, strong) WebViewJavascriptBridge* bridge;
 @end
 
 @implementation HXBBannerWebViewController
@@ -177,6 +177,11 @@
         [HxbHUDProgress showLoadDataHUD:self.webView];
     }
     return _webView;
+}
+
+- (void)dealloc
+{
+    NSLog(@"已经销毁");
 }
 
 @end

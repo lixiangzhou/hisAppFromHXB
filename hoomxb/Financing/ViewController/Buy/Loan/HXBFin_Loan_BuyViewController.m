@@ -169,7 +169,7 @@
         
         //是否大于标的剩余金额
         if (capital.floatValue > weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount.floatValue) {
-            textField.text = [NSString stringWithFormat:@"%.2lf",weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount.floatValue];
+            textField.text = [NSString stringWithFormat:@"%.lf",weakSelf.loanViewModel.loanDetailModel.loanVo.surplusAmount.floatValue];
             [HxbHUDProgress showMessageCenter:@"输入金额大于了标的剩余金额" inView:self.view];
             return;
         }
@@ -178,7 +178,7 @@
         if (capital.floatValue > self.availablePoint.floatValue) {
             NSLog(@"%@",@"输入金额大于了剩余可投金额");
             [HxbHUDProgress showMessageCenter:@"余额不足，请先充值" inView:self.view andBlock:^{
-                NSString *amount = [NSString stringWithFormat:@"%.2lf",(capital.integerValue - self.assetsTotal.floatValue)];
+                NSString *amount = [NSString stringWithFormat:@"%.2lf",capital.doubleValue];
                 [self pushTopUPViewControllerWithAmount: amount];
             }];
             return;
