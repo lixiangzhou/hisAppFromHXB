@@ -187,18 +187,18 @@
         }
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [self.planListViewModelArray removeAllObjects];
-        id responseObject = [PPNetworkCache httpCacheForURL:@"/plan" parameters:nil];
-        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
-        //数据的处理
-        [self plan_handleDataWithIsUPData:isUPData andData:planListViewModelArray];
-        if (responseObject) {
-            if (self.planListViewModelArray.count) {
-                successDateBlock(self.planListViewModelArray);
-                return;
-            }
-        }
+//        [self.planListViewModelArray removeAllObjects];
+//        id responseObject = [PPNetworkCache httpCacheForURL:@"/plan" parameters:nil];
+//        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
+//        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
+//        //数据的处理
+//        [self plan_handleDataWithIsUPData:isUPData andData:planListViewModelArray];
+//        if (responseObject) {
+//            if (planListViewModelArray.count) {
+//                successDateBlock(planListViewModelArray);
+//                return;
+//            }
+//        }
         if (failureBlock) {
             failureBlock(error);
         }

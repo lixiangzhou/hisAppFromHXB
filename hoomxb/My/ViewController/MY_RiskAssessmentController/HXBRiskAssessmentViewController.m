@@ -50,13 +50,13 @@
     [_bridge registerHandler:@"riskEvaluation" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"testObjcCallback called: %@", data);
         //如果外部实现了这个方法，那就直接执行这个block
-        if (self.popBlock) {
+        if (weakSelf.popBlock) {
             NSString *type = data[@"riskType"];
-            self.popBlock(type);
+            weakSelf.popBlock(type);
             return;
         }
         __block UIViewController *vc = nil;
-        [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [weakSelf.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj isKindOfClass:NSClassFromString(@"HxbAccountInfoViewController")]) {
                 vc = obj;
                 *stop = true;
@@ -134,4 +134,9 @@
 - (void)popWithBlock:(void (^)(NSString *type))popBlock {
     self.popBlock = popBlock;
 }
+- (void)dealloc
+{
+    NSLog(@"已经销毁");
+}
+
 @end

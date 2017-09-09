@@ -56,20 +56,21 @@ UITableViewDataSource
     if (indexPath.section == 0) {
         
     }else if(indexPath.section == 1){
+        kWeakSelf
         [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             self.userInfoViewModel = viewModel;
             if (indexPath.row == 0) {
                 //进入存管账户
-                [self entryDepositoryAccount:NO];
+                [weakSelf entryDepositoryAccount:NO];
                 
             }else if (indexPath.row == 1){
                 
-                if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+                if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
                     //进入银行卡
-                    [self entryDepositoryAccount:YES];
+                    [weakSelf entryDepositoryAccount:YES];
                 }else{
                     //进入绑卡页面
-                    [self bindBankCardClick];
+                    [weakSelf bindBankCardClick];
                 }
             }
         } andFailure:^(NSError *error) {

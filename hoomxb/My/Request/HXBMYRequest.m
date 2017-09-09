@@ -360,7 +360,7 @@
             }
           
             page1 = self.repayingPage;
-            NSLog(@"%d,%ld",page1,(long)self.repayingPage);
+            NSLog(@"%ld,%ld",(long)page1,(long)self.repayingPage);
         }
             break;
         case HXBRequestType_MY_LoanRequestType_BID_LOAN:{
@@ -536,7 +536,6 @@
         [self.capitalRecordViewModel_array removeAllObjects];
     }
     self.capitalRecordPage ++;
-    [self.capitalRecordViewModel_array removeAllObjects];
     [self.capitalRecordViewModel_array addObjectsFromArray:viewModeArray];
     return self.capitalRecordViewModel_array;
 }
