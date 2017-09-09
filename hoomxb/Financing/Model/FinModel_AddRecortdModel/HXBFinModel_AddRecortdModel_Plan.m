@@ -21,7 +21,8 @@
 - (void)setAmount:(NSString *)amount {
     _amount = amount;
     _amount = [NSString hxb_getPerMilWithDouble:amount.floatValue];
-    _amount_YUAN = [NSString stringWithFormat:@"%.2f元",amount.floatValue];
+//    _amount_YUAN = [NSString stringWithFormat:@"%.2f元",amount.floatValue];
+    _amount_YUAN = _amount;
 }
 
 - (void)setJoinTime:(NSString *)joinTime {

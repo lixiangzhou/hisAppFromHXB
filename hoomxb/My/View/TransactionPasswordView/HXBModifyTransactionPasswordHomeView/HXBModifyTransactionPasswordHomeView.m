@@ -143,6 +143,13 @@
  */
 - (void)getValidationCodeButtonClick
 {
+    self.count = 60;
+    [self.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
+    self.getValidationCodeButton.enabled = NO;
+    self.getValidationCodeButton.backgroundColor = COR26;
+    self.getValidationCodeButton.layer.borderWidth = 0;
+    [self.getValidationCodeButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
     if (self.getValidationCodeButtonClickBlock) {
         self.getValidationCodeButtonClickBlock(self.idCardTextField.text);
     }
@@ -152,16 +159,19 @@
 /**
  身份证验证成功
  */
-- (void)idcardWasSuccessfully
-{
-    self.getValidationCodeButton.enabled = NO;
-    _getValidationCodeButton.layer.borderWidth = 0;
-    [_getValidationCodeButton setBackgroundColor:COR26];
-    [_getValidationCodeButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-    self.count = 60;
-    [self.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
-}
+//- (void)idcardWasSuccessfully
+//{
+//    self.count = 60;
+//    [self.getValidationCodeButton setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
+//    self.getValidationCodeButton.enabled = NO;
+//    self.getValidationCodeButton.backgroundColor = COR26;
+//    self.getValidationCodeButton.layer.borderWidth = 0;
+//    [self.getValidationCodeButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+//    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
+//    if (self.getValidationCodeButtonClickBlock) {
+//        self.getValidationCodeButtonClickBlock(self.idCardTextField.text);
+//    }
+//}
 
 - (void)timeDown
 {
@@ -214,8 +224,11 @@
     self.phoneNumberLabel.text = [userInfoModel.userInfo.mobile replaceStringWithStartLocation:3 lenght:userInfoModel.userInfo.mobile.length - 7];
     if ([userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
         self.authenticatedNameLabel.text = [userInfoModel.userInfo.realName hxb_hiddenUserNameWithleft];
-    }else
-    {
+        self.getValidationCodeButton.enabled = NO;
+        self.getValidationCodeButton.backgroundColor = COR26;
+        self.getValidationCodeButton.layer.borderWidth = 0;
+        [self.getValidationCodeButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    } else {
         self.authenticatedNameTipLabel.hidden = YES;
         self.authenticatedNameLabel.hidden = YES;
         self.idCardTextField.hidden = YES;
@@ -246,7 +259,6 @@
         _authenticatedNameLabel = [[UILabel alloc] init];
         _authenticatedNameLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _authenticatedNameLabel.textColor = COR6;
-        _authenticatedNameLabel.text = @"***";
         _authenticatedNameLabel.font = [UIFont systemFontOfSize:15];
     }
     return _authenticatedNameLabel;
@@ -264,6 +276,29 @@
         _idCardTextField.delegate = self;
         _idCardTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
+    kWeakSelf
+    _idCardTextField.block = ^(NSString *text) {
+        if (text.length > 17) {
+            [weakSelf.getValidationCodeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
+            weakSelf.getValidationCodeButton.enabled = YES;
+            [weakSelf.getValidationCodeButton setBackgroundColor:[UIColor whiteColor]];
+            weakSelf.getValidationCodeButton.layer.borderWidth = kXYBorderWidth;
+            weakSelf.getValidationCodeButton.layer.borderColor = COR29.CGColor;
+            [weakSelf.getValidationCodeButton setTitleColor:COR29 forState:(UIControlStateNormal)];
+        } else {
+            weakSelf.getValidationCodeButton.enabled = NO;
+            weakSelf.getValidationCodeButton.backgroundColor = COR26;
+            weakSelf.getValidationCodeButton.layer.borderWidth = 0;
+            [weakSelf.getValidationCodeButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        }
+        if (weakSelf.verificationCodeTextField.text.length > 0 && text.length > 0) {
+            [weakSelf.nextButton setBackgroundColor:COR29];
+            weakSelf.nextButton.userInteractionEnabled = YES;
+        } else {
+            [weakSelf.nextButton setBackgroundColor:COR12];
+            weakSelf.nextButton.userInteractionEnabled = NO;
+        }
+    };
     return _idCardTextField;
 }
 /**
@@ -354,19 +389,9 @@
             [strM deleteCharactersInRange:range];
             str = strM.copy;
         }
-        if (str.length > 0 && _verificationCodeTextField.text.length > 0) {
-            [_nextButton setBackgroundColor:COR29];
-            _nextButton.userInteractionEnabled = YES;
-        } else {
-            [_nextButton setBackgroundColor:COR12];
-            _nextButton.userInteractionEnabled = NO;
-        }
-        if (str.length == 18) {
-            self.getValidationCodeButtonClickBlock(str);
-        }
-        if (str.length > 18) {
-            return NO;
-        }
+
+        if (str.length > 18) return NO;
+        
     } else {
         NSString *str = nil;
         if (string.length) {

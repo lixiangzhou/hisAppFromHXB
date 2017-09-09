@@ -20,8 +20,26 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status == 5068) {
-            NSString *string = [NSString stringWithFormat:@"您今日开通存管错误已超限，请明日再试！请联系客服：%@", kServiceMobile];
-            [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:string];
+            NSString *string = @"您信息填写有误，为保障账户安全，请及时联系客服";
+            HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"暂不联系" andRightButtonMassage:@"联系客服"];
+            if (string.length > 20) {
+                alertVC.messageHeight = 60;
+            } else {
+                alertVC.messageHeight = 40;
+            }
+            alertVC.isHIddenLeftBtn = NO;
+            alertVC.isCenterShow = YES;
+            [alertVC setClickXYRightButtonBlock:^{
+                NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", kServiceMobile];
+                NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
+                if (compare == NSOrderedDescending || compare == NSOrderedSame) {
+                    /// 大于等于10.0系统使用此openURL方法
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
+                } else {
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
+                }
+            }];
+            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
             return;
         }
         if (status != 0) {
@@ -55,7 +73,13 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            if (status == 5068) {
+                
+                [self showAlertWithMessage:@"您的绑卡操作已超限，请明日再试"];
+            } else {
+                [self showAlertWithMessage:responseObject[@"message"]];
+            }
+//            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) {
                 failureBlock(responseObject);
             }
@@ -73,6 +97,20 @@
     
 }
 
+- (void)showAlertWithMessage:(NSString *)message {
+    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:message force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"知道了"];
+    if (message.length > 20) {
+        alertVC.messageHeight = 60;
+    } else {
+        alertVC.messageHeight = 40;
+    }
+    alertVC.isHIddenLeftBtn = YES;
+    alertVC.isCenterShow = YES;
+    [alertVC setClickXYRightButtonBlock:^{
+        [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+}
 
 - (void)accountRechargeRequestWithRechargeAmount:(NSString *)amount andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {

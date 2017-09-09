@@ -36,6 +36,8 @@
 
 @property (nonatomic, strong) HXBVerificationCodeAlertView *verificationCodeAlertView;
 
+@property (nonatomic, strong) UILabel *mobileLabel;
+
 @end
 
 @implementation HXBAlertVC
@@ -54,6 +56,7 @@
     [self.view addSubview:self.backBtn];
     [self.view addSubview:self.contentView];
     [self.view addSubview:self.cancelBtn];
+    [self.view addSubview:self.mobileLabel];
     [self.contentView addSubview:self.sureBtn];
     [self.contentView addSubview:self.message];
 }
@@ -63,15 +66,26 @@
     _isCode = isCode;
     if (isCode) {
         [self.contentView addSubview:self.verificationCodeAlertView];
-    }else
-    {
+    } else {
         [self.contentView addSubview:self.forgetBtn];
         [self.contentView addSubview:self.pwdField];
-//        [self.contentView addSubview:self.lineView];
-//        [self.contentView addSubview:self.eyeBtn];
     }
     [self setupSubViewFrame];
 }
+
+- (void)setIsMobile:(BOOL)isMobile {
+    _isMobile = isMobile;
+    if (isMobile) {
+        _mobileLabel.hidden = NO;
+        _sureBtn.backgroundColor = COR29;
+        [_sureBtn setTitle:@"拨打" forState:(UIControlStateNormal)];
+        _sureBtn.userInteractionEnabled = YES;
+    } else {
+        _mobileLabel.hidden = YES;
+    }
+    
+}
+
 
 - (void)setupSubViewFrame
 {
@@ -105,6 +119,14 @@
         make.bottom.equalTo(self.view.mas_bottom);
     }];
 
+    [self.mobileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.contentView).offset(kScrAdaptationH(50));
+        make.bottom.equalTo(self.sureBtn.mas_top);
+        make.left.equalTo(self.contentView).offset(kScrAdaptationW750(50));
+        make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-50));
+    }];
+    [self.view bringSubviewToFront:self.mobileLabel];
+    
     if (self.isCode) {
         [self.verificationCodeAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.message.mas_bottom);
@@ -114,6 +136,10 @@
         }];
         return;
     }
+//    if (self.isMobile) {
+    
+//        return;
+//    }
     
     [self.pwdField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.message.mas_bottom).offset(kScrAdaptationH750(40));
@@ -143,8 +169,17 @@
     
 }
 
-- (void)setMessageTitle:(NSString *)messageTitle
-{
+- (void)setMessageLabelText:(NSString *)messageLabelText {
+    _messageLabelText = messageLabelText;
+    self.mobileLabel.text = _messageLabelText;
+    if (messageLabelText.length > 0) {
+        _verificationCodeAlertView.hidden = YES;
+    } else {
+        _verificationCodeAlertView.hidden = NO;
+    }
+}
+
+- (void)setMessageTitle:(NSString *)messageTitle {
     _messageTitle = messageTitle;
     self.message.text = messageTitle;
 }
@@ -154,10 +189,14 @@
     if (!self.isCode) {
         //校验交易密码
         [self checkTransactionPasswordWithBtn:btn];
-    }else
-    {
+    }else{
+        if (_isMobile) {
+            self.sureBtnClick(@"打客服");
+            return;
+        }
         //校验验证码
         [self checkVerificationCode];
+        
     }
     
 }
@@ -269,6 +308,19 @@
         _message.font = kHXBFont_PINGFANGSC_REGULAR_750(34);
     }
     return _message;
+}
+
+- (UILabel *)mobileLabel
+{
+    if (!_mobileLabel) {
+        _mobileLabel = [[UILabel alloc] init];
+        _mobileLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
+        _mobileLabel.numberOfLines = 0;
+        _mobileLabel.hidden = YES;
+        _mobileLabel.textAlignment = NSTextAlignmentCenter;
+        _mobileLabel.textColor = COR8;
+    }
+    return _mobileLabel;
 }
 
 - (HBAlertPasswordView *)pwdField

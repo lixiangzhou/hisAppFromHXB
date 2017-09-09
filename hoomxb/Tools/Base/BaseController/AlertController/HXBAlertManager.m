@@ -16,6 +16,7 @@
 #import "HXBOpenDepositAccountViewController.h"
 #import "HXBDepositoryAlertViewController.h"
 #import "HXBXYAlertViewController.h"
+#import "HXBAlertVC.h"
 
 @interface HXBAlertManager ()
 
@@ -30,28 +31,44 @@
 }
 //重新登录
 + (void)reLoginAlertWithViewVC: (UIViewController *)vc {
-    //弹窗提示是否找回，点击找回退出登录到登录页面
-    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"您的账户在另一台设备登录，您的账户密码可能泄露，如非您本人操作，请及时修改登录密码" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"登录异常" Massage:@"您的账户在另一台设备登录，您的账户密码可能泄露，如非您本人操作，请及时修改登录密码" force:2 andLeftButtonMassage:@"知道了" andRightButtonMassage:@"重新登录"];
+    alertVC.messageHeight = 60;
+    [alertVC setClickXYRightButtonBlock:^{
         //到登录界面
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         ///退出登录
         [KeyChainManage sharedInstance].isLogin = false;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
-//        [[KeyChainManage sharedInstance] signOut];
     }];
-    
-    UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    [alertVC setClickXYLeftButtonBlock:^{
         ///退出登录
         [KeyChainManage sharedInstance].isLogin = false;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
     }];
+    [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
     
-    [alertController addAction:okAction];
-    [alertController addAction:cancalAction];
-    
-    [vc.navigationController presentViewController:alertController animated:YES completion:nil];
+    //弹窗提示是否找回，点击找回退出登录到登录页面
+//    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"您的账户在另一台设备登录，您的账户密码可能泄露，如非您本人操作，请及时修改登录密码" message:@"" preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        //到登录界面
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+//        ///退出登录
+//        [KeyChainManage sharedInstance].isLogin = false;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
+////        [[KeyChainManage sharedInstance] signOut];
+//    }];
+//    
+//    UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//        ///退出登录
+//        [KeyChainManage sharedInstance].isLogin = false;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
+//    }];
+//    
+//    [alertController addAction:okAction];
+//    [alertController addAction:cancalAction];
+//    
+//    [vc.navigationController presentViewController:alertController animated:YES completion:nil];
 }
 /** 获取当前View的控制器对象 */
 + (UIViewController *)getCurrentViewControllerWithView: (UIView *)view{
@@ -82,7 +99,7 @@
 //        }
         
         if (viewModel.userInfoModel.userInfo.isUnbundling) {
-            [self callupWithphoneNumber:kServiceMobile andWithMessage:kHXBCallPhone_title];
+            [self callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
             return;
         }
 
@@ -197,13 +214,18 @@
  
  @param phoneNumber 电话号
  */
-+ (void)callupWithphoneNumber:(NSString *)phoneNumber andWithMessage:(NSString *)message
-{
-    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝客服电话" Massage:phoneNumber force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
-    alertVC.messageHeight = 40;
++ (void)callupWithphoneNumber:(NSString *)phoneNumber andWithTitle:(NSString *)title Message:(NSString *)message {
+    
+//    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"登录异常" Massage:@"您的账户在另一台设备登录，您的账户密码可能泄露，如非您本人操作，请及时修改登录密码" force:2 andLeftButtonMassage:@"知道了" andRightButtonMassage:@"重新登录"];
+    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:title Massage:message force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
+    if (message.length > 20) {
+        alertVC.messageHeight = 60;
+    } else {
+        alertVC.messageHeight = 40;
+    }
+    alertVC.isCenterShow = YES;
     [alertVC setClickXYRightButtonBlock:^{
-        NSString *newPhone = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
-        NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@",newPhone];
+        NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", phoneNumber];
         NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
         if (compare == NSOrderedDescending || compare == NSOrderedSame) {
             /// 大于等于10.0系统使用此openURL方法
@@ -216,6 +238,31 @@
         [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
     }];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+//    HXBAlertVC *alertVC = nil;
+//    if ([UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController) {
+//        alertVC = (HXBAlertVC *)[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController;
+//    }else{
+//        alertVC = [[HXBAlertVC alloc] init];
+//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:NO completion:nil];
+//    }
+//    
+//    alertVC.isCode = YES;
+//    alertVC.isMobile = YES;
+//    alertVC.messageTitle = @"温馨提示";
+//    alertVC.messageLabelText = message;
+////    alertVC.messageLabelText = [NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile];
+////    __weak typeof(alertVC) weakAlertVC = alertVC;
+//    alertVC.sureBtnClick = ^(NSString *pwd){
+//        NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", phoneNumber];
+//        NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
+//        if (compare == NSOrderedDescending || compare == NSOrderedSame) {
+//            /// 大于等于10.0系统使用此openURL方法
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
+//        } else {
+//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
+//        }
+//    };
+
     
 //    HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:[NSString stringWithFormat:@"%@%@",message,phoneNumber] andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
 //    [alertVC setClickRightButtonBlock:^{
