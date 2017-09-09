@@ -64,6 +64,8 @@
     self.rightButtonMassage = rightButtonMassage;
     return self;
 }
+
+
 - (Animatr *)animatr {
     if (!_animatr) {
         _animatr = [Animatr animatrWithModalPresentationStyle:UIModalPresentationCustom];
@@ -116,9 +118,61 @@
             make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
             make.centerY.equalTo(self.leftButton);
         }];
+        if (_isCenterShow) {
+            self.massageTextView.textAlignment = NSTextAlignmentCenter;
+            self.massageTextView.font = kHXBFont_PINGFANGSC_REGULAR(15);
+        } else {
+            self.massageTextView.textAlignment = NSTextAlignmentLeft;
+        }
+        if (self.titleAlert.length > 0) {
+            self.mainTitle.hidden = NO;
+            [self.massageTextView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.view).offset(kScrAdaptationH(45));
+                make.left.equalTo(self.view).offset(kScrAdaptationW(10));
+                make.right.equalTo(self.view).offset(kScrAdaptationW(-10));
+                make.height.offset(kScrAdaptationH(_messageHeight));
+            }];
+        } else {
+            self.mainTitle.hidden = YES;
+            [self.massageTextView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(self.view).offset(kScrAdaptationH(20));
+                make.left.equalTo(self.view).offset(kScrAdaptationW(10));
+                make.right.equalTo(self.view).offset(kScrAdaptationW(-10));
+                make.height.offset(kScrAdaptationH(_messageHeight));
+            }];
+        }
+        if (_isHIddenLeftBtn) {
+            self.leftButton.hidden = YES;
+            [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
+                make.top.equalTo(self.mainTitle).offset(kScrAdaptationH(_messageHeight + 50));
+                make.left.equalTo(self.view).offset(kScrAdaptationW(20));
+                make.height.offset(kScrAdaptationH(35));
+            }];
+        } else {
+            self.leftButton.hidden = NO;
+            [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
+                make.top.equalTo(self.mainTitle).offset(kScrAdaptationH(_messageHeight + 50));
+                make.width.offset(kScrAdaptationW(115));
+                make.height.offset(kScrAdaptationH(35));
+            }];
+        }
     }
 
 }
+
+//- (void)setIsCenterShow:(BOOL)isCenterShow {
+//    _isCenterShow = isCenterShow;
+//    if (isCenterShow) {
+//        self.massageTextView.textAlignment = NSTextAlignmentCenter;
+//        self.massageTextView.font = kHXBFont_PINGFANGSC_REGULAR(16);
+//    } else {
+//        self.massageTextView.textAlignment = NSTextAlignmentLeft;
+//    }
+//}
+
+
 
 - (void)setUPViewsFrame {
     

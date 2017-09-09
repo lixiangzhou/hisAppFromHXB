@@ -120,7 +120,7 @@
 }
 - (void)phoneBtnClick
 {
-    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:@"请联系客服"];
+    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"红小宝客服电话" Message: kServiceMobile];
 }
 - (void)nextButtonClick:(UIButton *)sender{
     if ([_amountTextField.text doubleValue] < 1) {

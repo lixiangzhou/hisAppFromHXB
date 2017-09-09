@@ -55,5 +55,5 @@
  @param phoneNumber 电话号
  @param message 提示信息
  */
-+ (void)callupWithphoneNumber:(NSString *)phoneNumber andWithMessage:(NSString *)message;
++ (void)callupWithphoneNumber:(NSString *)phoneNumber andWithTitle:(NSString *)title Message:(NSString *)message;
 @end

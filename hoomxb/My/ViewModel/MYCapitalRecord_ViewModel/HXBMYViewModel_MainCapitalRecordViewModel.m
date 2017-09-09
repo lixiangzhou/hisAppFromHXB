@@ -42,12 +42,12 @@
         if ([self.capitalRecordModel.isPlus isEqualToString:@"false"]) {
             
             CGFloat pay = self.capitalRecordModel.pay.floatValue;
-            _income = [NSString stringWithFormat:@"- %.2f",pay];
+            _income = [NSString stringWithFormat:@"- %.2f元",pay];
             self.inComeStrColor = COLOR(113,203,97,1);
         }else {
             CGFloat inComeFloat = self.capitalRecordModel.income.floatValue;
             self.inComeStrColor = COLOR(245, 81, 81, 1);
-            _income = [NSString stringWithFormat:@"+ %.2f",inComeFloat];
+            _income = [NSString stringWithFormat:@"+ %.2f元",inComeFloat];
         }
     }
     return _income;

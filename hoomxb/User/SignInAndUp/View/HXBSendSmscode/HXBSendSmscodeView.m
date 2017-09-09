@@ -155,7 +155,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     self.password_TextField.leftImage = [UIImage imageNamed:@"password"];
     self.inviteCodeTextField.leftImage = [UIImage imageNamed:@"invitation_code"];
     self.password_TextField.secureTextEntry = YES;
-    
+    self.password_TextField.keyboardType = UIKeyboardTypeASCIICapable;
     self.smscode_TextField.delegate = self;
     self.password_TextField.delegate = self;
     self.inviteCodeTextField.delegate = self;
@@ -221,7 +221,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     
     self.password_TextField.placeholder = @"密码为8-20位数字与字母组合";
     self.inviteCodeTextField.placeholder = @"请输入邀请码";
-    self.inviteCodeTextField.keyboardType = UIKeyboardTypeDefault;
+    self.inviteCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
     
 
     

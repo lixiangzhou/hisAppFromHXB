@@ -59,20 +59,14 @@
     if ([self.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
         HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
         [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andSuccessBlock:^(id responseObject) {
-            
             NSLog(@"%@",responseObject);
             [weakSelf.homeView idcardWasSuccessfully];
-//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 1.0 * NSEC_PER_SEC);
-//            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//            });
-//         [weakSelf getValidationCode];
          
         } andFailureBlock:^(NSError *error) {
             NSLog(@"%@",error);
             [weakSelf.homeView sendCodeFail];
         }];
-    }else
-    {
+    } else {
         [weakSelf.homeView idcardWasSuccessfully];
         [weakSelf getValidationCode];
     }
@@ -83,9 +77,7 @@
 /**
  获取验证码
  */
-- (void)getValidationCode
-{
-    
+- (void)getValidationCode {
     HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
     [modifyTransactionPasswordRequest myTransactionPasswordWithSuccessBlock:^(id responseObject) {
         NSLog(@"获取验证码成功%@",responseObject);

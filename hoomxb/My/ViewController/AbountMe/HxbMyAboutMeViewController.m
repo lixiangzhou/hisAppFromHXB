@@ -61,7 +61,7 @@ UITableViewDelegate,UITableViewDataSource
 //            } andFailureBlock:^(NSError *error) {
 //                
 //            }];
-            [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:@"联系客服"];
+            [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"红小宝客服电话" Message:kServiceMobile];
         }
             break;
         case 1:
