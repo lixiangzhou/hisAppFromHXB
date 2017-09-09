@@ -17,6 +17,9 @@
          andRightButtonMassage:(NSString *)rightButtonMassage;
 
 @property (nonatomic, assign) CGFloat messageHeight;
+@property (nonatomic, assign) BOOL isCenterShow;
+@property (nonatomic, assign) BOOL isHIddenLeftBtn;
+@property (nonatomic, assign) BOOL isHiddenTitle;
 
 ///点击了左边按钮
 @property (nonatomic,copy) void(^clickXYLeftButtonBlock)();

@@ -75,7 +75,7 @@ UITableViewDataSource,UITableViewDelegate
         [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             
             if (viewModel.userInfoModel.userInfo.isUnbundling) {
-                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:kHXBCallPhone_title];
+                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
                 return;
             }
             
@@ -128,7 +128,7 @@ UITableViewDataSource,UITableViewDelegate
             }
         } else {
             if (viewModel.userInfoModel.userInfo.isUnbundling) {
-                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithMessage:kHXBCallPhone_title];
+                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
                 return;
             }
             if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {

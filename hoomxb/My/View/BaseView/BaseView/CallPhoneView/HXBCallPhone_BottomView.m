@@ -59,7 +59,7 @@
 
 - (void)callPhone
 {
-    [HXBAlertManager callupWithphoneNumber:self.phoneBtn.titleLabel.text andWithMessage:@"请联系客服"];
+    [HXBAlertManager callupWithphoneNumber:self.phoneBtn.titleLabel.text andWithTitle:@"红小宝客服电话" Message:kServiceMobile];
 }
 
 #pragma mark - set方法

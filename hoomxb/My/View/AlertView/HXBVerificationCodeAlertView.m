@@ -75,7 +75,9 @@
 {
     self.codeBtn.enabled = NO;
     self.count = 60;
-    [self.codeBtn setBackgroundColor:RGB(222, 222, 222)];
+    [self.codeBtn setBackgroundColor:COR12];
+    self.codeBtn.layer.borderWidth = 0;
+    [self.codeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [self.codeBtn setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
     if (self.getVerificationCodeBlock) {
@@ -91,7 +93,10 @@
         self.codeBtn.enabled = YES;
         [self.timer invalidate];
         self.timer = nil;
-        [self.codeBtn setBackgroundColor:RGB(245, 81, 81)];
+        [self.codeBtn setBackgroundColor:[UIColor whiteColor]];
+        self.codeBtn.layer.borderWidth = kXYBorderWidth;
+        self.codeBtn.layer.borderColor = COR29.CGColor;
+        [self.codeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
         [self.codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     }
 }

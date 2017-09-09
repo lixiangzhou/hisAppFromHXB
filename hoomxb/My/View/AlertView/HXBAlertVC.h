@@ -14,11 +14,20 @@
  messagetitle
  */
 @property (nonatomic, copy) NSString *messageTitle;
+/**
+ message
+ */
+@property (nonatomic, copy) NSString *messageLabelText;
 
 /**
  是否是验证码
  */
 @property (nonatomic, assign) BOOL isCode;
+/**
+ 是否是电话
+ */
+@property (nonatomic, assign) BOOL isMobile;
+
 
 /**
  确认按钮

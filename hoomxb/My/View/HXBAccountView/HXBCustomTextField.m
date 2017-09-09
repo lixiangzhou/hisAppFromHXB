@@ -173,6 +173,7 @@
     self.textField.secureTextEntry = secureTextEntry;
     self.eyeBtn.hidden = !secureTextEntry;
     if (secureTextEntry) {
+        self.textField.keyboardType = UIKeyboardTypeASCIICapable;
         [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
             make.right.equalTo(self).offset(-kScrAdaptationW(50));
