@@ -31,6 +31,7 @@
     self.hxbBaseVCScrollView.tableHeaderView = self.mainView;
     self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
     self.hxbBaseVCScrollView.delegate = self;
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self loadUserInfo];
     [self setupSubView];
 }

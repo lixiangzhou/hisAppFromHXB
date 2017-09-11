@@ -60,7 +60,7 @@
     kWeakSelf
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.userInfoViewModel = viewModel;
-        weakSelf.availableBalanceLabel.text =  [NSString stringWithFormat:@"可提金额: %.2f元",viewModel.userInfoModel.userAssets.availablePoint.doubleValue];
+        weakSelf.availableBalanceLabel.text =  [NSString stringWithFormat:@"可提金额：%@",[NSString hxb_getPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue]];
     } andFailure:^(NSError *error) {
         
     }];

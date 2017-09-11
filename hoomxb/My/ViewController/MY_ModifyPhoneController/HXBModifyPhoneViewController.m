@@ -40,7 +40,7 @@
         //点击确认修改
         _homeView.sureChangeBtnClickBlock = ^(NSString *phoneNumber,NSString *verificationCode){
             if (weakSelf.checkPaptcha.length == 0) {
-                [HxbHUDProgress showTextWithMessage:@"请获取验证码"];
+                [HxbHUDProgress showTextWithMessage:@"请输入正确的短信验证码"];
             } else {
                 HXBModifyPhoneRequest *modifyPhoneRequest = [[HXBModifyPhoneRequest alloc] init];
                 [modifyPhoneRequest mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(id responseObject) {
