@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"开通恒丰银行存管账户";
-    
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
     [self.view addSubview:self.iconView];
     [self.view addSubview:self.promptLabel];

@@ -56,6 +56,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 //    self.view.hidden = ![KeyChain isLogin];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:(UIBarMetricsDefaultPrompt)];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     //加载用户数据
