@@ -35,6 +35,7 @@
         [self addSubview:self.rightImageView];
         [self addSubview:self.bankNameBtn];
         [self addSubview:self.eyeBtn];
+        self.limitStringLength = 20;
         self.bankNameBtn.hidden = YES;
         [self setupSubViewFrame];
         [[NSNotificationCenter defaultCenter] addObserver:self
@@ -138,7 +139,10 @@
     NSString *text = nil;
     UITextField *sender = (UITextField *)[notification object];
     text = sender.text;
-    NSLog(@"%@", text);
+    NSLog(@"%@\n%d", text, _limitStringLength);
+    if (text.length > _limitStringLength) {
+        sender.text = [sender.text substringToIndex:text.length - 1];
+    }
     if (_secureTextEntry) {
         if (text.length > 0) {
             NSString *str = [text substringFromIndex:text.length - 1];
@@ -156,6 +160,10 @@
     if (self.block) {
         self.block(sender.text);
     }
+}
+
+- (void)setLimitStringLength:(int)limitStringLength {
+    _limitStringLength = limitStringLength;
 }
 
 #pragma mark - set方法

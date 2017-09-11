@@ -61,10 +61,10 @@
         [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andSuccessBlock:^(id responseObject) {
             NSLog(@"%@",responseObject);
             [weakSelf.homeView idcardWasSuccessfully];
-         
+            [weakSelf getValidationCode];
         } andFailureBlock:^(NSError *error) {
             NSLog(@"%@",error);
-            [weakSelf.homeView sendCodeFail];
+            [HxbHUDProgress showTextWithMessage:@"请输入正确的身份证号"];
         }];
     } else {
         [weakSelf.homeView idcardWasSuccessfully];
@@ -131,8 +131,8 @@
         _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
         
         _homeView.getValidationCodeButtonClickBlock = ^(NSString *IDCard){
-//            [weakSelf authenticationWithIDCard:IDCard];
-            [weakSelf getValidationCode];
+            [weakSelf authenticationWithIDCard:IDCard];
+//            [weakSelf getValidationCode];
         };
         //点击下一步回调
         _homeView.nextButtonClickBlock = ^(NSString *idCardNo,NSString *verificationCode){

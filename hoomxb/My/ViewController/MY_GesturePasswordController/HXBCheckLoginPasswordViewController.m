@@ -39,6 +39,16 @@
         _loginPasswordTextField.delegate = self;
         _loginPasswordTextField.placeholder = @"登录密码";
         _loginPasswordTextField.leftImage = [UIImage imageNamed:@"password"];
+        kWeakSelf
+        _loginPasswordTextField.block = ^(NSString *text) {
+            if (text.length > 0) {
+                _checkLoginBtn.backgroundColor = COR29;
+                _checkLoginBtn.userInteractionEnabled = YES;
+            } else {
+                _checkLoginBtn.backgroundColor = COR26;
+                _checkLoginBtn.userInteractionEnabled = NO;
+            }
+        };
     }
     return _loginPasswordTextField;
 }
@@ -93,27 +103,6 @@
     }
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSString *str = nil;
-    if (string.length) {
-        str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-    } else if(!string.length) {
-        NSInteger length = self.loginPasswordTextField.text.length;
-        NSRange range = NSMakeRange(length - 1, 1);
-        NSMutableString *strM = self.loginPasswordTextField.text.mutableCopy;
-        [strM deleteCharactersInRange:range];
-        str = strM.copy;
-    }
-    if (str.length > 0) {
-        _checkLoginBtn.backgroundColor = COR29;
-        _checkLoginBtn.userInteractionEnabled = YES;
-    } else {
-        _checkLoginBtn.backgroundColor = COR26;
-        _checkLoginBtn.userInteractionEnabled = NO;
-    }
-    if (str.length > 20) return NO;
-    return YES;
-}
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
     _checkLoginBtn.backgroundColor = COR26;
     _checkLoginBtn.userInteractionEnabled = NO;

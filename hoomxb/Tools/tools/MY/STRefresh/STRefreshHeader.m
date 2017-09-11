@@ -227,8 +227,14 @@ static void * STRefreshcontentInsetContext              = &STRefreshcontentInset
 }
 
 - (void)removeObservers {
-    [self.superview removeObserver:self forKeyPath:@"contentOffset"];
-    [self.superview removeObserver:self forKeyPath:@"contentInset"];;
+    @try {
+        [self.superview removeObserver:self forKeyPath:@"contentOffset"];
+        [self.superview removeObserver:self forKeyPath:@"contentInset"];;
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
 }
 
 #pragma mark - observe

@@ -31,8 +31,8 @@
 		4E45F4351F4FC71E009708B7 /* AXHNewFeatureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F42F1F4FC71E009708B7 /* AXHNewFeatureController.m */; };
 		4E45F4361F4FC71E009708B7 /* AXHNewFeatureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4331F4FC71E009708B7 /* AXHNewFeatureCell.m */; };
 		4E45F4491F4FD48A009708B7 /* TAExampleDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4481F4FD48A009708B7 /* TAExampleDotView.m */; };
-		4E45F44C1F4FFE0D009708B7 /* hxb_startImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E45F44A1F4FFE0D009708B7 /* hxb_startImage@2x.png */; };
-		4E45F44D1F4FFE0D009708B7 /* hxb_startImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E45F44B1F4FFE0D009708B7 /* hxb_startImage@3x.png */; };
+		4E45F44C1F4FFE0D009708B7 /* hxb_startImage1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E45F44A1F4FFE0D009708B7 /* hxb_startImage1@2x.png */; };
+		4E45F44D1F4FFE0D009708B7 /* hxb_startImage1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E45F44B1F4FFE0D009708B7 /* hxb_startImage1@3x.png */; };
 		4E4ACC911F05FBBB0031B326 /* HXBLoanInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */; };
 		4E4ACC941F060F550031B326 /* HXBLoanInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC931F060F550031B326 /* HXBLoanInstructionView.m */; };
 		4E4ACC9A1F061F3D0031B326 /* HXBHXBBorrowUserinforView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC991F061F3D0031B326 /* HXBHXBBorrowUserinforView.m */; };
@@ -537,8 +537,8 @@
 		4E45F4331F4FC71E009708B7 /* AXHNewFeatureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXHNewFeatureCell.m; sourceTree = "<group>"; };
 		4E45F4471F4FD48A009708B7 /* TAExampleDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAExampleDotView.h; sourceTree = "<group>"; };
 		4E45F4481F4FD48A009708B7 /* TAExampleDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAExampleDotView.m; sourceTree = "<group>"; };
-		4E45F44A1F4FFE0D009708B7 /* hxb_startImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hxb_startImage@2x.png"; sourceTree = "<group>"; };
-		4E45F44B1F4FFE0D009708B7 /* hxb_startImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hxb_startImage@3x.png"; sourceTree = "<group>"; };
+		4E45F44A1F4FFE0D009708B7 /* hxb_startImage1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hxb_startImage1@2x.png"; sourceTree = "<group>"; };
+		4E45F44B1F4FFE0D009708B7 /* hxb_startImage1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hxb_startImage1@3x.png"; sourceTree = "<group>"; };
 		4E4ACC8F1F05FBBB0031B326 /* HXBLoanInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBLoanInformation.h; sourceTree = "<group>"; };
 		4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLoanInformation.m; sourceTree = "<group>"; };
 		4E4ACC921F060F550031B326 /* HXBLoanInstructionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBLoanInstructionView.h; sourceTree = "<group>"; };
@@ -1760,8 +1760,8 @@
 		4E7CCF421EBC1B5B00F7BDB3 /* launch */ = {
 			isa = PBXGroup;
 			children = (
-				4E45F44A1F4FFE0D009708B7 /* hxb_startImage@2x.png */,
-				4E45F44B1F4FFE0D009708B7 /* hxb_startImage@3x.png */,
+				4E45F44A1F4FFE0D009708B7 /* hxb_startImage1@2x.png */,
+				4E45F44B1F4FFE0D009708B7 /* hxb_startImage1@3x.png */,
 			);
 			path = launch;
 			sourceTree = "<group>";
@@ -4263,7 +4263,7 @@
 				4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */,
 				4EECE0161F38177000301758 /* 5004.svg in Resources */,
 				4EECE0141F38177000301758 /* 5002.svg in Resources */,
-				4E45F44D1F4FFE0D009708B7 /* hxb_startImage@3x.png in Resources */,
+				4E45F44D1F4FFE0D009708B7 /* hxb_startImage1@3x.png in Resources */,
 				4EECE01C1F38177000301758 /* 5010.svg in Resources */,
 				4EECE0261F38548100301758 /* close_eye.svg in Resources */,
 				4E7E5B721F14792B00771C07 /* my_Unselected.svg in Resources */,
@@ -4306,7 +4306,7 @@
 				4E9215611F1DE2D900C8CECB /* FinPlanList_present.svg in Resources */,
 				E190EF9F1F25A61B001E0B14 /* HXBBannerCollectionViewCell.xib in Resources */,
 				4EECE00D1F38177000301758 /* 0160.svg in Resources */,
-				4E45F44C1F4FFE0D009708B7 /* hxb_startImage@2x.png in Resources */,
+				4E45F44C1F4FFE0D009708B7 /* hxb_startImage1@2x.png in Resources */,
 				4E92155F1F1DBCC200C8CECB /* BUYtips.svg in Resources */,
 				4EECE01A1F38177000301758 /* 5008.svg in Resources */,
 			);
@@ -4386,7 +4386,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

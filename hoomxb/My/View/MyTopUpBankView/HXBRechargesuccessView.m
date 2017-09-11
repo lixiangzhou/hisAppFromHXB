@@ -49,8 +49,7 @@
     self.rechargeNumLabel.text = [NSString stringWithFormat:@"成功充值 %@",amountStr];
 }
 
-- (void)setupSubViewFrame
-{
+- (void)setupSubViewFrame {
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
         make.top.equalTo(self).offset(kScrAdaptationH750(130));

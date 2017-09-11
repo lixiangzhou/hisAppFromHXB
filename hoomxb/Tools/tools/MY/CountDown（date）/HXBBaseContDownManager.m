@@ -334,7 +334,13 @@
 
 - (void)dealloc
 {
-    [self.scrollView removeObserver:self forKeyPath:@"contentOffset"];
+    @try {
+        [self.scrollView removeObserver:self forKeyPath:@"contentOffset"];
+    } @catch (NSException *exception) {
+        NSLog(@"%@--观察者异常被销毁", exception);
+    } @finally {
+        NSLog(@"");
+    }
     NSLog(@"%@ - ✅被销毁",self.class);
 }
 @end

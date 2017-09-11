@@ -21,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"";
     [self setUP];
     self.isColourGradientNavigationBar = YES;
 }
