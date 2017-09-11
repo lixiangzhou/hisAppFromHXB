@@ -86,11 +86,7 @@
         make.top.equalTo(self.allProfitLabel.mas_bottom);
         make.height.offset(kScrAdaptationH(17));
     }];
-    [self.eyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.allProfitTitleLabel.mas_right).offset(kScrAdaptationW(5));
-        make.centerY.equalTo(self.allProfitTitleLabel);
-        make.height.width.offset(kScrAdaptationH(15));
-    }];
+    
     [self.availableAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.lineView.mas_right);
         make.right.equalTo(self);
@@ -102,6 +98,12 @@
         make.top.equalTo(self.availableAmountLabel.mas_bottom);
         make.height.offset(kScrAdaptationH(17));
         
+    }];
+    [self.eyeButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.allProfitTitleLabel.mas_right).offset(kScrAdaptationW(0));
+        make.centerY.equalTo(self.allProfitTitleLabel);
+        make.height.offset(kScrAdaptationH(30));
+        make.width.offset(kScrAdaptationW(30));
     }];
 
     
@@ -220,10 +222,11 @@
 
 - (UIButton *)eyeButton{
     if (!_eyeButton) {
-        _eyeButton = [[UIButton alloc]initWithFrame:CGRectMake(self.width - 40 - 20, 40, 40, 40)];
+        _eyeButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [_eyeButton setImage:[SVGKImage imageNamed:@"eye.svg"].UIImage forState:UIControlStateNormal];
         [_eyeButton setImage:[SVGKImage imageNamed:@"close_eye.svg"].UIImage forState:UIControlStateSelected];
         [_eyeButton addTarget:self action:@selector(ciphertextButtonClick) forControlEvents:UIControlEventTouchUpInside];
+        [self bringSubviewToFront:_eyeButton];
     }
     return _eyeButton;
 }

@@ -107,6 +107,12 @@
         selectImage = [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         NAV.tabBarItem.selectedImage = selectImage;
         [self addChildViewController:NAV];
+        if (i == 2) {
+            [NAV.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:(UIBarMetricsDefault)];
+            NAV.navigationItem.leftBarButtonItem = nil;
+            [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
+            
+        }
     }
 }
 
@@ -169,7 +175,7 @@
     HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
     vc.selectedIndexVC = notification.object[@"selectedIndex"];
-    [self.selectedViewController presentViewController:navi animated:NO completion:nil];
+    [self.selectedViewController presentViewController:navi animated:YES completion:nil];
 }
 //跳转 myVC
 - (void) pushMyVC:(NSNotification *)notification {

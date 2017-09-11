@@ -136,6 +136,17 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     }];
 }
 
+- (void)dismissViewControllerClass:(Class)class {
+    UIViewController *vc = self;
+    while (![vc isKindOfClass:class] && vc != nil) {
+        vc = vc.presentingViewController;
+        if ([vc isKindOfClass:[UINavigationController class]]) {
+            vc = ((UINavigationController *)vc).viewControllers.lastObject;
+        }
+    }
+    [vc dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - 注册 点击注册事件
 - (void)registerSignUPEvent {
     kWeakSelf
@@ -244,7 +255,6 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 //    [self.navigationController.navigationBar setValue:@(0)forKeyPath:@"backgroundView.alpha"];
 }
 - (void)didClickSignInBtn{
-    
     [self dismiss];
 }
 

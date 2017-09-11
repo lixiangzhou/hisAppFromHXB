@@ -132,7 +132,21 @@ UITableViewDataSource,UITableViewDelegate
             }
         } else {
             if (viewModel.userInfoModel.userInfo.isUnbundling) {
-                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
+
+                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"修改手机号，需先绑定银行卡。" force:2 andLeftButtonMassage:@"暂不绑定" andRightButtonMassage:@"立即绑定"];
+                alertVC.messageHeight = 40;
+                [alertVC setClickXYRightButtonBlock:^{
+                    //进入绑卡界面
+                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                    withdrawCardViewController.title = @"绑卡";
+                    withdrawCardViewController.userInfoModel = viewModel.userInfoModel;
+                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                    [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+                }];
+                [alertVC setClickXYLeftButtonBlock:^{
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }];
+                [self presentViewController:alertVC animated:YES completion:nil];
                 return;
             }
             if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
@@ -141,19 +155,7 @@ UITableViewDataSource,UITableViewDelegate
                 }
             } else {
                 if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-                    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"修改手机号，需先绑定银行卡。" force:2 andLeftButtonMassage:@"暂不绑定" andRightButtonMassage:@"立即绑定"];
-                    alertVC.messageHeight = 40;
-                    [alertVC setClickXYRightButtonBlock:^{
-                        //进入绑卡界面
-                        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                        withdrawCardViewController.title = @"绑卡";
-                        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                        [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-                    }];
-                    [alertVC setClickXYLeftButtonBlock:^{
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                    }];
-                    [self presentViewController:alertVC animated:YES completion:nil];
+                    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
                 } else {
                     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"信息不完善" force:2 andLeftButtonMassage:@"暂不完善" andRightButtonMassage:@"去完善信息"];
                     alertVC.isCenterShow = YES;
