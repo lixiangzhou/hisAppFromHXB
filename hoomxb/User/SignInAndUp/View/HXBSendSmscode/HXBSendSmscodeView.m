@@ -420,9 +420,12 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 #pragma mark - textField delegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [UIView animateWithDuration:0.4 animations:^{
-        self.y = - 75;
-    }];
+    if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
+    } else {
+        [UIView animateWithDuration:0.4 animations:^{
+            self.y = - 75;
+        }];
+    }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {

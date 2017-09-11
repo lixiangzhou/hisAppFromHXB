@@ -205,7 +205,7 @@
 - (HXBHomePageLoginIndicationView *)indicationView
 {
     if (!_indicationView) {
-        _indicationView = [[HXBHomePageLoginIndicationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 140)];
+        _indicationView = [[HXBHomePageLoginIndicationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(140))];
     }
     return _indicationView;
 }

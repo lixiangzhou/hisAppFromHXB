@@ -93,9 +93,11 @@
         HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
         //设置绑卡信息
         weakSelf.iconView.svgImageString = bankCardModel.bankCode;
-        
         weakSelf.bankName.text = bankCardModel.bankType;
         weakSelf.realName.text = [NSString stringWithFormat:@"持卡人：%@",[bankCardModel.name replaceStringWithStartLocation:0 lenght:bankCardModel.name.length - 1]];
+        if (bankCardModel.name.length > 4) {
+            weakSelf.realName.text = [NSString stringWithFormat:@"持卡人：***%@",[bankCardModel.name substringFromIndex:bankCardModel.name.length - 1]];
+        }
         weakSelf.bankNum.text = [bankCardModel.cardId hxb_hiddenBankCard];
         weakSelf.bankTip.text = bankCardModel.quota;
     } failure:^(NYBaseRequest *request, NSError *error) {
