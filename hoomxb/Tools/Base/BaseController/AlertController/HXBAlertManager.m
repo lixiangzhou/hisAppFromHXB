@@ -32,7 +32,7 @@
 //重新登录
 + (void)reLoginAlertWithViewVC: (UIViewController *)vc {
     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"登录异常" Massage:@"您的账户在另一台设备登录，您的账户密码可能泄露，如非您本人操作，请及时修改登录密码" force:2 andLeftButtonMassage:@"知道了" andRightButtonMassage:@"重新登录"];
-    alertVC.messageHeight = 60;
+    alertVC.messageHeight = 80;
     [alertVC setClickXYRightButtonBlock:^{
         //到登录界面
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
@@ -215,11 +215,10 @@
  @param phoneNumber 电话号
  */
 + (void)callupWithphoneNumber:(NSString *)phoneNumber andWithTitle:(NSString *)title Message:(NSString *)message {
-    
-//    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"登录异常" Massage:@"您的账户在另一台设备登录，您的账户密码可能泄露，如非您本人操作，请及时修改登录密码" force:2 andLeftButtonMassage:@"知道了" andRightButtonMassage:@"重新登录"];
+
     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:title Massage:message force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
     if (message.length > 20) {
-        alertVC.messageHeight = 60;
+        alertVC.messageHeight = 80;
     } else {
         alertVC.messageHeight = 40;
     }

@@ -352,6 +352,15 @@ static void * SwipeTableViewItemPanGestureContext      = &SwipeTableViewItemPanG
     }
 #endif
     // reuse item view observe
+    @try {
+        [_shouldVisibleItemView removeObserver:self forKeyPath:@"contentOffset"];
+        [_shouldVisibleItemView removeObserver:self forKeyPath:@"contentSize"];
+        [_shouldVisibleItemView removeObserver:self forKeyPath:@"panGestureRecognizer.state"];
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    };
     [_shouldVisibleItemView removeObserver:self forKeyPath:@"contentOffset"];
     [_shouldVisibleItemView removeObserver:self forKeyPath:@"contentSize"];
     [_shouldVisibleItemView removeObserver:self forKeyPath:@"panGestureRecognizer.state"];
@@ -366,6 +375,15 @@ static void * SwipeTableViewItemPanGestureContext      = &SwipeTableViewItemPanG
     
     if (_switchPageWithoutAnimation) {
         // observe
+        @try {
+            [_currentItemView removeObserver:self forKeyPath:@"contentOffset"];
+            [_currentItemView removeObserver:self forKeyPath:@"contentSize"];
+            [_currentItemView removeObserver:self forKeyPath:@"panGestureRecognizer.state"];
+        } @catch (NSException *exception) {
+            
+        } @finally {
+            
+        };
         [_currentItemView removeObserver:self forKeyPath:@"contentOffset"];
         [_currentItemView removeObserver:self forKeyPath:@"contentSize"];
         [_currentItemView removeObserver:self forKeyPath:@"panGestureRecognizer.state"];
@@ -686,7 +704,15 @@ static void * SwipeTableViewItemPanGestureContext      = &SwipeTableViewItemPanG
             return;
         }
         // observe
-        [_currentItemView removeObserver:self forKeyPath:@"contentOffset"];
+        @try {
+            [_currentItemView removeObserver:self forKeyPath:@"contentOffset"];
+            [_currentItemView removeObserver:self forKeyPath:@"contentSize"];
+            [_currentItemView removeObserver:self forKeyPath:@"panGestureRecognizer.state"];
+        } @catch (NSException *exception) {
+            
+        } @finally {
+            
+        };
         [_currentItemView removeObserver:self forKeyPath:@"contentSize"];
         [_currentItemView removeObserver:self forKeyPath:@"panGestureRecognizer.state"];
         

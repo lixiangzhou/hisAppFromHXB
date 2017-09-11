@@ -26,6 +26,8 @@ typedef void(^isLimitText)(NSString *text);
 @property(nullable, nonatomic,weak)   id<UITextFieldDelegate> delegate;
 @property (nonatomic, copy) NSString * _Nullable typeTextField;
 @property (nonatomic, assign) int number; // 必须要设置
+@property (nonatomic, assign) int limitStringLength;
+
 /**
  block
  */

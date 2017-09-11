@@ -27,6 +27,7 @@
     userInfoAPI.requestUrl = kHXBUser_UserInfoURL;
     userInfoAPI.requestMethod = NYRequestMethodGet;
     [userInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        
         if ([responseObject[kResponseStatus] integerValue]) {
             kHXBResponsShowHUD
         }

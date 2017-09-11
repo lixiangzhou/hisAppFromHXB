@@ -20,13 +20,11 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status == 5068) {
-            NSString *string = @"您信息填写有误，为保障账户安全，请及时联系客服";
+            NSString *string = [NSString stringWithFormat:@"您信息填写有误，为保障账户安全，请及时联系客服 %@", kServiceMobile];
             HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"暂不联系" andRightButtonMassage:@"联系客服"];
-            if (string.length > 20) {
-                alertVC.messageHeight = 60;
-            } else {
-                alertVC.messageHeight = 40;
-            }
+   
+                alertVC.messageHeight = 50;
+            
             alertVC.isHIddenLeftBtn = NO;
             alertVC.isCenterShow = YES;
             [alertVC setClickXYRightButtonBlock:^{

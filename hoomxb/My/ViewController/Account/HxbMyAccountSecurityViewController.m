@@ -66,14 +66,18 @@ UITableViewDataSource,UITableViewDelegate
         NSLog(@"click 绑定手机号");
     }else if (indexPath.row == 1) {
         NSLog(@"click 设置登录密码");
-        HXBAccount_AlterLoginPassword_ViewController *signUPVC = [[HXBAccount_AlterLoginPassword_ViewController alloc] init];
-        signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
-        [self.navigationController pushViewController: signUPVC animated:true];
-    }else if (indexPath.row == 2){
+        [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+            HXBAccount_AlterLoginPassword_ViewController *signUPVC = [[HXBAccount_AlterLoginPassword_ViewController alloc] init];
+            signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
+            [self.navigationController pushViewController: signUPVC animated:true];
+        } andFailure:^(NSError *error) {
+            
+        }];
+        
+    } else if (indexPath.row == 2){
         NSLog(@"click 设置交易密码");
         
         [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            
             if (viewModel.userInfoModel.userInfo.isUnbundling) {
                 [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
                 return;
@@ -152,6 +156,7 @@ UITableViewDataSource,UITableViewDelegate
                     [self presentViewController:alertVC animated:YES completion:nil];
                 } else {
                     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"信息不完善" force:2 andLeftButtonMassage:@"暂不完善" andRightButtonMassage:@"去完善信息"];
+                    alertVC.isCenterShow = YES;
                     alertVC.messageHeight = 40;
                     [alertVC setClickXYRightButtonBlock:^{
                     //完善信息

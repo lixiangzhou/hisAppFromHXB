@@ -159,6 +159,10 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     self.smscode_TextField.delegate = self;
     self.password_TextField.delegate = self;
     self.inviteCodeTextField.delegate = self;
+    self.smscode_TextField.limitStringLength = 6;
+    self.password_TextField.limitStringLength = 20;
+    self.inviteCodeTextField.limitStringLength = 1000;
+    
     kWeakSelf
     self.smscode_TextField.block = ^(NSString *text) {
         if (_type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot ) {
@@ -233,6 +237,23 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self.negotiateView clickCheckMarkWithBlock:^(BOOL isSelected) {
         _isSelect = isSelected;
         if (isSelected) {
+            if (_type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot ) {
+                if (_password_TextField.text.length > 0 && _smscode_TextField.text.length > 0) {
+                    weakSelf.setPassWordButton.backgroundColor = COR29;
+                    weakSelf.setPassWordButton.userInteractionEnabled = YES;
+                } else {
+                    weakSelf.setPassWordButton.backgroundColor = COR12;
+                    weakSelf.setPassWordButton.userInteractionEnabled = NO;
+                }
+            } else {
+                if (_password_TextField.text.length > 0 && _smscode_TextField.text.length > 0 && _inviteCodeTextField.text.length > 0) {
+                    weakSelf.setPassWordButton.backgroundColor = COR29;
+                    weakSelf.setPassWordButton.userInteractionEnabled = YES;
+                } else {
+                    weakSelf.setPassWordButton.backgroundColor = COR12;
+                    weakSelf.setPassWordButton.userInteractionEnabled = NO;
+                }
+            }
             weakSelf.setPassWordButton.userInteractionEnabled = YES;
             weakSelf.setPassWordButton.backgroundColor = COR29;
         } else {
@@ -398,53 +419,9 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 }
 
 #pragma mark - textField delegate
-- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField.superview == _smscode_TextField) {
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-            
-        }else if(!string.length) {
-            NSInteger length = _smscode_TextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = _smscode_TextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        if (str.length > 6) return NO;
-    } else if (textField.superview == _password_TextField){
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-            
-        }else if(!string.length) {
-            NSInteger length = _password_TextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = _password_TextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        if (str.length > 20) return NO;
-    } else {
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-            
-        }else if(!string.length) {
-            NSInteger length = _inviteCodeTextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = _inviteCodeTextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        if (str.length > 20) return NO;
-    }
-    return YES;
-}
-
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [UIView animateWithDuration:0.4 animations:^{
-        self.y = - 90;
+        self.y = - 75;
     }];
 }
 

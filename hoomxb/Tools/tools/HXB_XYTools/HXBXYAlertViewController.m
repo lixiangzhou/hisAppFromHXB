@@ -233,7 +233,7 @@
 - (UITextView *)massageTextView {
     if (!_massageTextView) {
         _massageTextView = [[UITextView alloc]init];
-        _massageTextView.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        _massageTextView.font = kHXBFont_PINGFANGSC_REGULAR(15);
         _massageTextView.textColor = kHXBColor_Grey_Font0_2;
         _massageTextView.backgroundColor = [UIColor whiteColor];
         _massageTextView.textAlignment = NSTextAlignmentLeft;

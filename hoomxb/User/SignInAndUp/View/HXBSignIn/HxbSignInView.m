@@ -102,7 +102,7 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
     self.userAgreementBtn = [[UIButton alloc] init];
     self.partingLine = [[UIView alloc] init];
 
-    self.phoneTextField.number = 1;
+    self.phoneTextField.limitStringLength = 11;
     kWeakSelf
     self.phoneTextField.block = ^(NSString *text) {
         NSLog(@"text = %@", text);
@@ -113,15 +113,14 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
             weakSelf.signInButton.backgroundColor = COR12;
             weakSelf.signInButton.userInteractionEnabled = NO;
         }
-        //是否为电话号码
-        [weakSelf showISMobileNumberViewWithString: text];
         if (text.length == 11) {
+            //是否为电话号码
+            [weakSelf showISMobileNumberViewWithString: text];
             if (![NSString isMobileNumber:text]) {
                 [HxbHUDProgress showTextWithMessage:@"填写正确的手机号"];
             }
         }
     };
-    self.passwordTextField.number = 2;
     self.passwordTextField.block = ^(NSString *text) {
         if (text.length > 0 && self.phoneTextField.text.length > 0) {
             weakSelf.signInButton.backgroundColor = COR29;
@@ -307,41 +306,7 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     return true;
 }
-///当textField 的值将要改变的时候调用
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    if (textField.superview == _phoneTextField) {
-        NSMutableString *str = [[NSMutableString alloc] initWithString:textField.text];
-        if (string.length) {
-            [str insertString:string atIndex:range.location];
-        }else if(!string.length) {
-            NSInteger length = self.phoneTextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = self.phoneTextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        if (str.length > 11) {
-            [self.phoneTextField endEditing:YES];
-        }
-        
-    } else {
-        NSMutableString *str = [[NSMutableString alloc] initWithString:textField.text];
-        if (string.length) {
-            [str insertString:string atIndex:range.location];
-        }else if(!string.length) {
-            NSInteger length = self.phoneTextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = self.phoneTextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        if (str.length > 20) {
-            [self.passwordTextField  endEditing:YES];
-        }
-    }
-    return YES;
-}
+
 
 ///停止编辑的时候要判断有没有手势密码。（有 输入，没有就去设置）
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {

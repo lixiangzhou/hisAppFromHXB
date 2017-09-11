@@ -304,19 +304,9 @@
     if ([string isEqualToString:@"."]) return NO;
     if (range.location == 11) return NO;
     if ([textField isEqual:self.rechargeView.textField]) {
-//        NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
-//        self.profitLabel.text = [self.model totalInterestWithAmount:amount.floatValue];
     }
     return true;
-    
-//    if ([string isEqualToString:@"."]) return NO;
-//    if ([textField isEqual:self.rechargeView.textField]) {
-//        
-//        NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
-//        
-////        self.profitLabel.text = [self.model.JoinImmediateView_Model totalInterestWithAmount:amount.floatValue];
-//    }
-//    return true;
+
 }
 - (BOOL) textFieldShouldEndEditing:(UITextField *)textField {
     if ([textField isEqual:self.rechargeView.textField]) {
