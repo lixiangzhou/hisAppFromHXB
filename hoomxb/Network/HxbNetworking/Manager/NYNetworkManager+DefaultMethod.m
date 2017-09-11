@@ -115,6 +115,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:RequestFailure object:nil userInfo:nil];
+    
 }
 
 

@@ -31,7 +31,7 @@ static HXBBaseHandDate *_instancetype;
 }
 
 - (NSString *) millisecond_StringFromDate:(NSString *)dateObj andDateFormat:(NSString *)format {
-    NSObject *dateStr = @(dateObj.integerValue / 1000).description;
+    NSObject *dateStr = @(dateObj.doubleValue / 1000).description;
     NSDate *date = [self returnDateWithOBJ:dateStr andDateFormatter:format];
     return [self.dateFormatter stringFromDate:date];
 }

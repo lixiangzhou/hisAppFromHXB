@@ -31,6 +31,7 @@
 
 - (void)addRequest:(NYBaseRequest *)request withHUD:(NSString *)content
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     HxbHUDProgress *hud = (content.length)? [HxbHUDProgress new]:nil;
     [hud showAnimationWithText:content];
     NSLog(@"%@",request.requestHeaderFieldValueDictionary);
@@ -38,9 +39,11 @@
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
     [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
         [hud hide];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
         [hud hide];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self processConnection:connection withRequest:request error:error];
     }];
 }

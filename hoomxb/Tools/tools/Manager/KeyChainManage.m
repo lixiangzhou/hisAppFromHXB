@@ -460,6 +460,21 @@ static NSString *const kISEscrow = @"kISEscrow";
         }
     }];
 }
+
+- (void)downLoadUserInfoNoHUDWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure
+{
+    [HXBRequestUserInfo downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        [self setValueWithUserInfoModel:viewModel];
+        if (seccessBlock) {
+            seccessBlock(viewModel);
+        }
+    } andFailure:^(NSError *error) {
+        if (failure) {
+            failure (error);
+        }
+    }];
+}
+
 ///是否绑卡
 - (void)isBindCardWithBlock: (void (^)(NSString *isBindCard))isBindCardBlock {
     if (![_keychain[kIsBindCard] integerValue]) {

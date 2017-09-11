@@ -167,9 +167,8 @@ static NSString *ID = @"collectionCell";
     }else
     {
         KeyWindow.rootViewController = self.mainTabbarVC;
+        [self showNewAlert];
     }
-    [self showNewAlert];
-    
 }
 
 // 展示开户弹框

@@ -59,6 +59,12 @@
     }];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.myTopUpBaseView.amount = @"";
+}
+
 /**
  快捷充值请求
  */

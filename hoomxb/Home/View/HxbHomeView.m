@@ -66,7 +66,7 @@
         return;
     }
     
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         
 //        if ([viewModel.userInfoModel.userInfo.isAllPassed isEqualToString:@"0"]) {
 //            //没有投资显示的界面

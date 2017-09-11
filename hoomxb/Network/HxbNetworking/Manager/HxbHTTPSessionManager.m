@@ -22,9 +22,10 @@
     void (^authFailBlock)(NSURLResponse *response, id _Nullable responseObject,  NSError * _Nullable error) = ^(NSURLResponse *response, id _Nullable responseObject,  NSError * _Nullable error)
     {
         NSLog(@"error %@",error);
+        
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)response;
         ///获取code码，如果是401 那么表示token失效
-        if([httpResponse statusCode] == HXBTokenInvalidCode.integerValue){
+        if([httpResponse statusCode] == kHXBCode_Enum_TokenNotJurisdiction){
             //删除token 让客户登录
             [[KeyChainManage sharedInstance] removeToken];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -51,6 +52,11 @@
         }else{
             NSLog(@"no auth error");
             completionHandler(response, responseObject, error);
+            if (error) {
+                if ([KeyChain isLogin]) {
+                    [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+                }
+            }
         }
     };
     

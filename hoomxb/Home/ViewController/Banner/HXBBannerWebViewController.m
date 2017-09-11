@@ -33,6 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"";
     self.isColourGradientNavigationBar = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
@@ -121,7 +122,7 @@
 
 #pragma mark - UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSLog(@"%@",request);
     
     NSString *urlString = [[request URL]  absoluteString];
@@ -160,6 +161,7 @@
 {
     [HxbHUDProgress hidenHUD:self.webView];
     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 #pragma mark - 懒加载

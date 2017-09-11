@@ -159,11 +159,7 @@
 //MARK: 红利计划列表api
 - (void)planBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
     
-    //如果 内存缓存的planlist没有数据那么就从沙河中获取缓存数据
-    if (!self.planListViewModelArray.count) {
-       if (successDateBlock) successDateBlock( [HXBDataManager getFin_PlanListViewModelArray]);
-    }
-    
+
     
     //是否为上拉刷新
     self.planListAPI.isUPReloadData = isUPData;///这里一定要 在前面  否则 api的page不会++ 或变为1

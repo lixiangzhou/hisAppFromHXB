@@ -145,7 +145,10 @@
     [super viewDidAppear:animated];
     if (!self.isVersionUpdate) {
         self.isVersionUpdate = YES;
-        [self checkVersionUpdate];
+        static dispatch_once_t once;
+        dispatch_once(&once, ^{
+            [self checkVersionUpdate];
+        });
     }
     //    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
 }

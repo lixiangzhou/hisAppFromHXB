@@ -52,9 +52,19 @@
     [self.view addSubview:self.tiedCardLabel];
     [self.view addSubview:self.reminderLabel];
     [self setCardViewFrame];
-
+    [self loadData];
 }
 
+- (void)loadData
+{
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        weakSelf.userInfoViewModel = viewModel;
+        weakSelf.availableBalanceLabel.text =  [NSString stringWithFormat:@"可提金额: %.2f元",viewModel.userInfoModel.userAssets.availablePoint.doubleValue];
+    } andFailure:^(NSError *error) {
+        
+    }];
+}
 
 - (void)setCardViewFrame{
     
@@ -164,6 +174,7 @@
         NSLog(@"%@",error);
     }];
     
+   
     
 }
 
@@ -315,7 +326,7 @@
     if (!_callPhoneView) {
         _callPhoneView = [[HXBCallPhone_BottomView alloc] init];
         _callPhoneView.leftTitle = @"3、如提现过程中有疑问，请联系客服：";
-        _callPhoneView.phoneNumber = kServiceMobile;
+        _callPhoneView.phoneNumber = [NSString stringWithFormat:@"%@。",kServiceMobile];
 //        _callPhoneView.supplementText = @"(周一至周五 9:00-19:00)";
     }
     return _callPhoneView;
@@ -325,7 +336,7 @@
 {
     if (!_promptLabel) {
         _promptLabel = [[UILabel alloc] init];
-        _promptLabel.text = @"2、禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用";
+        _promptLabel.text = @"2、禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用；";
         _promptLabel.textColor = COR8;
         _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _promptLabel.numberOfLines = 0;
@@ -336,7 +347,7 @@
 {
     if (!_tiedCardLabel) {
         _tiedCardLabel = [[UILabel alloc] init];
-        _tiedCardLabel.text = @"1、预计到账时间为两个工作日，双休日和法定节假日顺延处理。";
+        _tiedCardLabel.text = @"1、预计到账时间为两个工作日，双休日和法定节假日顺延处理；";
         _tiedCardLabel.textColor = COR8;
         _tiedCardLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _tiedCardLabel.numberOfLines = 0;
@@ -442,6 +453,8 @@
         
     }];
 }
+
+
 
 - (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
 {

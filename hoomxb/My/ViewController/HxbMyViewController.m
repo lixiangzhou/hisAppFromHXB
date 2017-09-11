@@ -137,7 +137,7 @@
 - (void)logicalJudgment:(HXBRechargeAndWithdrawalsLogicalJudgment)type
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.userInfoViewModel = viewModel;
         if (weakSelf.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
             [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
@@ -175,6 +175,7 @@
             HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
             withdrawCardViewController.title = @"绑卡";
             withdrawCardViewController.type = type;
+            withdrawCardViewController.userInfoModel = self.userInfoViewModel.userInfoModel;
             [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
         }else if (!([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
         {
@@ -214,7 +215,7 @@
 #pragma mark - 加载数据
 - (void)loadData_userInfo {
     kWeakSelf
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [HXBRequestUserInfo downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.userInfoViewModel = viewModel;
         weakSelf.myView.isStopRefresh_Home = YES;
     } andFailure:^(NSError *error) {

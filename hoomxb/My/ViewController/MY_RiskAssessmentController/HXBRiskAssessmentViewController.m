@@ -35,6 +35,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
     [self setupRightBarBtn];
@@ -93,6 +94,7 @@
     [_bridge callHandler:@"skipTest" data:nil];
 }
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSString *urlString = [[request URL]  absoluteString];
     NSLog(@"==> %@",urlString);
     
@@ -127,6 +129,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
      self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     [HxbHUDProgress hidenHUD:self.webView];
     

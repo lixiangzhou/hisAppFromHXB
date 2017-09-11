@@ -31,6 +31,7 @@ static NSString * const HeaderID = @"HeaderID";
     _capitalRecortdDetailViewModelArray = capitalRecortdDetailViewModelArray;
     if (capitalRecortdDetailViewModelArray.count) {
         [self.transactionArr removeAllObjects];
+        [self.tagArr removeAllObjects];
     }
     self.nodataView.hidden = capitalRecortdDetailViewModelArray.count;
     for (int i = 0; i < capitalRecortdDetailViewModelArray.count; i++) {

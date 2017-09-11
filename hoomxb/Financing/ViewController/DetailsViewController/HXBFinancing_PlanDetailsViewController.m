@@ -95,6 +95,7 @@
     } andFailure:^(NSError *error) {
         
     }];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_starCountDown object:nil];
 //    [self.view addSubview:_planDetailsView.addButton];
 //    [_planDetailsView.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.left.equalTo(self.view).offset(0);
@@ -103,6 +104,11 @@
 //        make.height.offset(kScrAdaptationH(60));
 //    }];
 //    _planDetailsView.addButton.hidden = NO;
+}
+
+- (void)starCountDown
+{
+    [self downLoadData];
 }
 
 //MARK: - 立即加入按钮的添加
@@ -540,8 +546,9 @@
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
         self.planDetailViewModel = viewModel;
         if (viewModel.isContDown) {
-            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@([viewModel.countDownStr floatValue]) andDateFormat:@"mm分ss秒后开始加入"];
-            [self.addButton setTitle:str forState:UIControlStateNormal];
+//            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@([viewModel.countDownStr floatValue]) andDateFormat:@"mm分ss秒后开始加入"];
+            self.countDownManager.countDownEndTime = [viewModel.countDownStr floatValue];
+//            [self.addButton setTitle:str forState:UIControlStateNormal];
         } else {
             
             if (self.planDetailViewModel.planDetailModel.unifyStatus.integerValue <= 5) {//等待加入

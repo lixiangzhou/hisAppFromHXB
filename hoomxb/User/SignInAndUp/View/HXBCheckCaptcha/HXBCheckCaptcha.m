@@ -31,7 +31,7 @@ static NSString *const kTrueButtonTitle = @"确定";
 - (void)setIsCorrect:(BOOL)isCorrect {
     _isCorrect = isCorrect;
     if(!isCorrect) {
-        self.promptLabel.text = @"验证码输入错误";
+//        self.promptLabel.text = @"验证码输入错误";
         self.checkCaptchaTextField.text = @"";
     }
 }

@@ -231,7 +231,7 @@
         return isNull;
     }
     if (self.pwdTextField.text.length != 6) {
-        [HxbHUDProgress showMessageCenter:@"交易密码需6位纯数字" inView:self];
+        [HxbHUDProgress showMessageCenter:@"交易密码为6位数字" inView:self];
         isNull = YES;
         return isNull;
     }
@@ -395,8 +395,8 @@
         _pwdTextField = [[HXBCustomTextField alloc] init];
         _pwdTextField.leftImage = [UIImage imageNamed:@"transaction_password"];
         _pwdTextField.placeholder = @"请设置6位纯数字的交易密码";
-        _pwdTextField.keyboardType = UIKeyboardTypeNumberPad;
         _pwdTextField.secureTextEntry = YES;
+        _pwdTextField.keyboardType = UIKeyboardTypeNumberPad;
         _pwdTextField.delegate = self;
     }
     return _pwdTextField;

@@ -141,7 +141,7 @@
         self.afterLoginView.tipString = @"注册／登录";
     }else
     {
-        [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             
             if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 //没有开户

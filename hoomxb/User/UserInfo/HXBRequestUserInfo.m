@@ -51,4 +51,35 @@
         kNetWorkError(@"用户请求失败");
     }];
 }
++ (void)downLoadUserInfoNoHUDWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failureBlock
+{
+    NYBaseRequest *userInfoAPI = [[NYBaseRequest alloc]init];
+    userInfoAPI.requestUrl = kHXBUser_UserInfoURL;
+    userInfoAPI.requestMethod = NYRequestMethodGet;
+    [userInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        if ([responseObject[kResponseStatus] integerValue]) {
+            kHXBResponsShowHUD
+        }
+        //        NSLog(@"%@",responseObject);
+        //        NSLog(@"%@",[KeyChain token]);
+        HXBUserInfoModel *userInfoModel = [[HXBUserInfoModel alloc]init];
+        
+        [userInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];
+        
+        HXBRequestUserInfoViewModel *viewModel = [[HXBRequestUserInfoViewModel alloc]init];
+        viewModel.userInfoModel = userInfoModel;
+        
+        if (seccessBlock) {
+            seccessBlock(viewModel);
+        }
+        
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        NSLog(@"%@",error);
+        if (failureBlock) {
+            failureBlock(error);
+        }
+        kNetWorkError(@"用户请求失败");
+    }];
+}
+
 @end

@@ -21,7 +21,7 @@ typedef void(^block) (NSString *countDownValue);
 ///定时单位
 @property (nonatomic,assign) CGFloat countDownUnit;
 ///定时结束时间
-@property (nonatomic,assign) CGFloat countDownEndTime;
+//@property (nonatomic,assign) CGFloat countDownEndTime;
 ///当前时间
 @property (nonatomic,assign) CGFloat countDownResumeTime;
 ///时长
@@ -127,7 +127,6 @@ typedef void(^block) (NSString *countDownValue);
         [self stopTimer];
     }
 }
-
 ///countDown 回调
 - (void)countDownCallBackFunc: (void(^)(CGFloat countDownValue))countDownCallBackBlock {
     self.countDownCallBack = countDownCallBackBlock;

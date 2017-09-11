@@ -158,7 +158,8 @@
     }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:showView animated:YES];
     //    hud.backgroundColor = [UIColor colorWithRed:125/255.0f green:125/255.0f blue:125/255.0f alpha:1.f];
-    hud.bezelView.backgroundColor = [UIColor colorWithRed:125/255.0f green:125/255.0f blue:125/255.0f alpha:1.f];
+    hud.bezelView.backgroundColor = [UIColor blackColor];
+    hud.contentColor = [UIColor whiteColor];
     hud.label.text = NSLocalizedString(@"加载中...", @"HUD loading title");
     hud.label.textColor = [UIColor whiteColor];
     hud.backgroundColor = [UIColor clearColor];

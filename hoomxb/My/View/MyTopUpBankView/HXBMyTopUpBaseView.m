@@ -48,7 +48,7 @@
 
 - (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
 {
-    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@元",viewModel.availablePoint_NOTYUAN];
+    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%.2f元",viewModel.userInfoModel.userAssets.availablePoint.doubleValue];
     if (_amountTextField.text.length > 0) {
         _nextButton.backgroundColor = COR29;
         _nextButton.userInteractionEnabled = YES;
@@ -189,7 +189,7 @@
 {
     if (!_tipLabel) {
         _tipLabel = [[UILabel alloc] init];
-        _tipLabel.text = @"1、禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用。";
+        _tipLabel.text = @"1、禁止洗钱、信用卡套现、虚假交易等行为，一经发现并确认，将终止该账户的使用；";
         _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _tipLabel.numberOfLines = 0;
         _tipLabel.textColor = COR8;
@@ -201,9 +201,9 @@
 {
     if (!_phoneBtn) {
         _phoneBtn  = [[UIButton alloc] init];
-        NSString *string = [NSString stringWithFormat:@"2、如有疑问，请联系客服：%@", kServiceMobile];
-        NSMutableAttributedString *str = [NSMutableAttributedString setupAttributeStringWithString:string WithRange:NSMakeRange(string.length - kServiceMobile.length, kServiceMobile.length) andAttributeColor:COR30];
-        [str addAttribute:NSForegroundColorAttributeName value:COR8 range:NSMakeRange(0, string.length - kServiceMobile.length)];
+        NSString *string = [NSString stringWithFormat:@"2、如有疑问，请联系客服：%@。", kServiceMobile];
+        NSMutableAttributedString *str = [NSMutableAttributedString setupAttributeStringWithString:string WithRange:NSMakeRange(string.length - kServiceMobile.length - 1, kServiceMobile.length) andAttributeColor:COR30];
+        [str addAttribute:NSForegroundColorAttributeName value:COR8 range:NSMakeRange(0, string.length - kServiceMobile.length - 1)];
         [_phoneBtn setAttributedTitle:str forState:(UIControlStateNormal)];
         [_phoneBtn addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _phoneBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);

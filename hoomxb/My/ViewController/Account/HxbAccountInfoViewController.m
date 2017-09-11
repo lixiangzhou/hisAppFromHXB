@@ -113,6 +113,11 @@ UITableViewDataSource
 - (void)bindBankCardClick
 {
 //    [HXBMiddlekey rechargePurchaseJumpLogicWithNAV:self.navigationController];
+    if (self.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
+        [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
+        return;
+    }
+    
     if ([self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"])  {
         //    //进入绑卡界面
         HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];

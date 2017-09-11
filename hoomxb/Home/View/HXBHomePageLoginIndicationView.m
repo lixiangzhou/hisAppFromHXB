@@ -122,7 +122,7 @@
 - (void)loadNewDate
 {
     kWeakSelf
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [HXBRequestUserInfo downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         if ([KeyChain.ciphertext isEqualToString:@"0"]) {
             weakSelf.eyeButton.selected = NO;
             weakSelf.availableAmountLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue];

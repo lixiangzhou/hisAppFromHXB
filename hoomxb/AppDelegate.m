@@ -53,7 +53,6 @@ static NSString *const my = @"我的";
         NSArray *imageArray = @[@"home_Unselected.svg",@"investment_Unselected.svg",@"my_Unselected.svg"];
         //选中下的图片前缀
         NSArray *commonName = @[@"home_Selected.svg",@"investment_Selected.svg",@"my_Selected.svg"];
-        
         for (UIView *view in self.mainTabbarVC.tabBar.subviews) {
             NSLog(@"view = %@", view);
             if ([view isKindOfClass:[UIImageView class]] && view.bounds.size.height <= 1) {

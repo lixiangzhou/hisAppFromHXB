@@ -370,14 +370,28 @@ static NSString *const my = @"我的";
             KeyChain.gesturePwdCount = @"5";
             [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
         } else {
+           
+            
             NSLog(@"密码错误！");
             int cout = [KeyChain.gesturePwdCount intValue];
             cout--;
             KeyChain.gesturePwdCount = [NSString stringWithFormat:@"%d",cout];
             if (cout <= 0) {
-                [KeyChain removeAllInfo];
-                [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                
+                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"很抱歉，您的手势密码五次输入错误" force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确定"];
+                
+                alertVC.messageHeight = 40;
+                alertVC.isCenterShow = YES;
+                [alertVC setClickXYRightButtonBlock:^{
+                    [KeyChain removeAllInfo];
+                    [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                }];
+                [alertVC setClickXYLeftButtonBlock:^{
+                    [KeyChain removeAllInfo];
+                    [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
+                }];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
                 return;
             }
             [self.msgLabel showWarnMsgAndShake:[NSString stringWithFormat:@"密码错了，还可输入%@次", KeyChain.gesturePwdCount]];

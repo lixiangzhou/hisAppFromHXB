@@ -25,6 +25,9 @@ typedef enum : NSUInteger {
 ///主要是管理了项目中轻量的倒计时，
 @interface HXBBaseCountDownManager_lightweight : NSObject
 
+///定时结束时间
+@property (nonatomic,assign) CGFloat countDownEndTime;
+
 /**注释参见 init 构造方法*/
 + (instancetype) countDownManagerWithCountDownEndTime: (CGFloat)countDownEndTime
                               andCountDownEndTimeType: (HXBBaseCountDownManager_lightweight_CountDownEndTime_CompareType) endTimeCompareType

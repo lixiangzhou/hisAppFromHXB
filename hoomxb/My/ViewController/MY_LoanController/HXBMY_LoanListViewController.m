@@ -33,7 +33,7 @@ kDealloc
     [super viewDidLoad];
     self.isColourGradientNavigationBar = true;
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"散标理财";
+    self.title = @"散标债权";
     //防止跳转的时候，tableView向上或者向下移动
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;

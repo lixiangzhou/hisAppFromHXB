@@ -143,8 +143,16 @@
     //创建自视图
     self.homePageView = [[HXBFinanctingView_HomePage alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - HxbTabBarHeight)];
     [self.view addSubview:self.homePageView];
+    //后台进入前台倒计时刷新问题
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_starCountDown object:nil];
 }
 
+- (void)starCountDown
+{
+    [self planLoadDateWithIsUpData:true];
+    [self loanLoadDateWithIsUpData:true];
+    [self loanTruansferLoandDataWithIsUPData:true];
+}
 #pragma mark - 处理点击事件
 - (void)clickMidToolBarView {
     kWeakSelf
@@ -276,7 +284,6 @@
         NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self.finantingRequest plan_dataProcessingWitharr:dataList];
         self.finPlanListVMArray = planListViewModelArray;
     }
-    
     __weak typeof(self)weakSelf = self;
     [self.finantingRequest planBuyListWithIsUpData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray) {
         weakSelf.finPlanListVMArray = viewModelArray;
