@@ -134,11 +134,19 @@
 - (void)setAmount:(NSString *)amount {
     _amount = amount;
     self.amountTextField.text = amount;
+    if (amount.length) {
+        _nextButton.backgroundColor = COR29;
+        _nextButton.userInteractionEnabled = YES;
+    } else {
+        _nextButton.backgroundColor = COR26;
+        _nextButton.userInteractionEnabled = NO;
+    }
 }
 - (NSString *)amount
 {
     return self.amountTextField.text;
 }
+
 
 - (HXBMyTopUpBankView *)mybankView{
     if (!_mybankView) {

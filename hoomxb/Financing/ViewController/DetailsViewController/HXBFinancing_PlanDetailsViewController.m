@@ -543,11 +543,12 @@
 
 //MARK: 网络数据请求
 - (void)downLoadData {
+    kWeakSelf
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
         self.planDetailViewModel = viewModel;
         if (viewModel.isContDown) {
 //            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@([viewModel.countDownStr floatValue]) andDateFormat:@"mm分ss秒后开始加入"];
-            self.countDownManager.countDownEndTime = [viewModel.countDownStr floatValue];
+            weakSelf.countDownManager.countDownEndTime = [viewModel.countDownStr floatValue];
 //            [self.addButton setTitle:str forState:UIControlStateNormal];
         } else {
             
@@ -557,6 +558,7 @@
             {
                 [self.addButton setTitle:viewModel.addButtonStr forState:UIControlStateNormal];
             }
+            [self.countDownManager stopTimer];
         }
         self.hxbBaseVCScrollView.hidden = NO;
         self.title = viewModel.planDetailModel.name;

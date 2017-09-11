@@ -61,12 +61,15 @@
     //加载用户数据
     if ([KeyChain isLogin]) {
         [self loadData_userInfo];
+    }else
+    {
+        self.userInfoViewModel = nil;
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
+//    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 //MARK: 对controllerView进行布局
@@ -85,10 +88,10 @@
     };
   
     [self.view addSubview:self.myView];
-    if (KeyChain.isLogin) {
-//        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
-        return;
-    }
+//    if (KeyChain.isLogin) {
+////        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
+//        return;
+//    }
 }
 
 ///查看总资产
@@ -97,12 +100,10 @@
     kWeakSelf
     [self.myView clickAllFinanceButtonWithBlock:^(UILabel * _Nullable button) {
         //跳转资产目录
-        if (!KeyChain.isLogin) {
-//            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
-            return;
+        if (KeyChain.isLogin) {
+            HXBMY_AllFinanceViewController *allFinanceViewController = [[HXBMY_AllFinanceViewController alloc]init];
+            [weakSelf.navigationController pushViewController:allFinanceViewController animated:true];
         }
-        HXBMY_AllFinanceViewController *allFinanceViewController = [[HXBMY_AllFinanceViewController alloc]init];
-        [weakSelf.navigationController pushViewController:allFinanceViewController animated:true];
     }];
 }
 
@@ -137,7 +138,7 @@
 - (void)logicalJudgment:(HXBRechargeAndWithdrawalsLogicalJudgment)type
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.userInfoViewModel = viewModel;
         if (weakSelf.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
             [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];

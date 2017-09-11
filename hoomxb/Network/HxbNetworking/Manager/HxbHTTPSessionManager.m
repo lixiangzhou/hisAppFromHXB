@@ -52,11 +52,6 @@
         }else{
             NSLog(@"no auth error");
             completionHandler(response, responseObject, error);
-            if (error) {
-                if ([KeyChain isLogin]) {
-                    [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
-                }
-            }
         }
     };
     

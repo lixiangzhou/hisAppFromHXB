@@ -133,10 +133,7 @@
 //        self.backView.backgroundColor = [UIColor whiteColor];
 //    }
 }
-//-(void)setExpectAnnualizedRatesTitleString:(NSString *)expectAnnualizedRatesTitleString{
-//    _expectAnnualizedRatesTitleString = expectAnnualizedRatesTitleString;
-//    _expectAnnualizedRatesTitleLabel.text = _expectAnnualizedRatesTitleString;
-//}
+
 
 #pragma mark Set Methods
 
@@ -165,17 +162,16 @@
     
     [self.purchaseButton setTitle:self.homePageModel_DataList.cellBtnTitle forState:UIControlStateNormal];
     
-    if (!homePageModel_DataList.tag.length) {
-        self.icon.hidden = YES;
-        self.promptLabel.hidden = YES;
+    if (self.homePageModel_DataList.tag.length > 0) {
+        self.icon.hidden = NO;
+        self.promptLabel.text = self.homePageModel_DataList.tag;
     }else
     {
-        self.icon.hidden = NO;
-        self.promptLabel.text = homePageModel_DataList.tag;
+        self.icon.hidden = YES;
+        self.promptLabel.hidden = YES;
     }
     //设置子控件的位置
     [self setupSubViewFrame];
-    
 }
 
 
@@ -289,32 +285,7 @@
     }
     return _investmentPeriodTitleLabel;
 }
-//- (UILabel *)investmentPeriodLabel
-//{
-//    if (!_investmentPeriodLabel) {
-//        _investmentPeriodLabel = [[UILabel alloc]initWithFrame:CGRectMake(RightItemPercent*SCREEN_WIDTH, 50, 50, 22)];
-//        _investmentPeriodLabel.textColor = COR10;
-//        _investmentPeriodLabel.text = @"期限";
-//        _investmentPeriodLabel.font = [UIFont systemFontOfSize:12];
-//    }
-//    return _investmentPeriodLabel;
-//}
 
-//- (UILabel *)purchaseLabel
-//{
-//    if (!_purchaseLabel) {
-//        _purchaseLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) + 10, self.investmentPeriodLabel.y, SCREEN_WIDTH - CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) - 20, 36)];
-//        _purchaseLabel.font = HXB_Text_Font(13);
-//        _purchaseLabel.textColor = COR8;
-//        _purchaseLabel.text = @"加入";
-//        _purchaseLabel.userInteractionEnabled = YES;
-//        _purchaseLabel.textAlignment = NSTextAlignmentCenter;
-//        _purchaseLabel.layer.borderWidth = 1.f;
-//        _purchaseLabel.layer.borderColor = [COR10 CGColor];
-//        _purchaseLabel.layer.cornerRadius = 4.0f;
-//    }
-//    return _purchaseLabel;
-//}
 
 - (UIButton *)purchaseButton
 {
@@ -344,6 +315,7 @@
         SVGKImage *svgImage = [SVGKImage imageNamed:@"package.svg"];
         _icon.contentMode = UIViewContentModeScaleAspectFit;
         _icon.image = svgImage.UIImage;
+        _icon.hidden = YES;
     }
     return _icon;
 }

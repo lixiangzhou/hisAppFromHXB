@@ -24,7 +24,7 @@
     if ([self.extraInterestRate doubleValue] > 0) {
         _fixExtraInterestRate = [NSString stringWithFormat:@"+%.1f%%",[self.extraInterestRate doubleValue]];
     }
-    return _fixExtraInterestRate;
+    return _fixExtraInterestRate?:@"0";
 }
 
 /**

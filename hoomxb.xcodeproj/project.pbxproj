@@ -31,8 +31,6 @@
 		4E45F4351F4FC71E009708B7 /* AXHNewFeatureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F42F1F4FC71E009708B7 /* AXHNewFeatureController.m */; };
 		4E45F4361F4FC71E009708B7 /* AXHNewFeatureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4331F4FC71E009708B7 /* AXHNewFeatureCell.m */; };
 		4E45F4491F4FD48A009708B7 /* TAExampleDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4481F4FD48A009708B7 /* TAExampleDotView.m */; };
-		4E45F44C1F4FFE0D009708B7 /* hxb_startImage1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E45F44A1F4FFE0D009708B7 /* hxb_startImage1@2x.png */; };
-		4E45F44D1F4FFE0D009708B7 /* hxb_startImage1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E45F44B1F4FFE0D009708B7 /* hxb_startImage1@3x.png */; };
 		4E4ACC911F05FBBB0031B326 /* HXBLoanInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */; };
 		4E4ACC941F060F550031B326 /* HXBLoanInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC931F060F550031B326 /* HXBLoanInstructionView.m */; };
 		4E4ACC9A1F061F3D0031B326 /* HXBHXBBorrowUserinforView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC991F061F3D0031B326 /* HXBHXBBorrowUserinforView.m */; };
@@ -104,6 +102,8 @@
 		4E8D28AB1F46F07100B73FF8 /* 默认.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E8D28AA1F46F07100B73FF8 /* 默认.svg */; };
 		4E8EAA0A1F176B3D003834D4 /* close.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E8EAA091F176B3D003834D4 /* close.svg */; };
 		4E8EAA121F17A0E4003834D4 /* HXBNoticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8EAA111F17A0E4003834D4 /* HXBNoticModel.m */; };
+		4E8FFD341F662A3E00932437 /* hxb_startImage1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E8FFD321F662A3E00932437 /* hxb_startImage1@2x.png */; };
+		4E8FFD351F662A3E00932437 /* hxb_startImage1@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E8FFD331F662A3E00932437 /* hxb_startImage1@3x.png */; };
 		4E9127551EFA69FB007F8C13 /* HXBFinModel_BuyResoult_PlanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1757AFC1EFA3E1B009C0BC8 /* HXBFinModel_BuyResoult_PlanModel.m */; };
 		4E92155B1F1DBC6600C8CECB /* LoanTruansfer.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E92155A1F1DBC6600C8CECB /* LoanTruansfer.svg */; };
 		4E92155F1F1DBCC200C8CECB /* BUYtips.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E92155E1F1DBCC200C8CECB /* BUYtips.svg */; };
@@ -537,8 +537,6 @@
 		4E45F4331F4FC71E009708B7 /* AXHNewFeatureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXHNewFeatureCell.m; sourceTree = "<group>"; };
 		4E45F4471F4FD48A009708B7 /* TAExampleDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAExampleDotView.h; sourceTree = "<group>"; };
 		4E45F4481F4FD48A009708B7 /* TAExampleDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAExampleDotView.m; sourceTree = "<group>"; };
-		4E45F44A1F4FFE0D009708B7 /* hxb_startImage1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hxb_startImage1@2x.png"; sourceTree = "<group>"; };
-		4E45F44B1F4FFE0D009708B7 /* hxb_startImage1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hxb_startImage1@3x.png"; sourceTree = "<group>"; };
 		4E4ACC8F1F05FBBB0031B326 /* HXBLoanInformation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBLoanInformation.h; sourceTree = "<group>"; };
 		4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLoanInformation.m; sourceTree = "<group>"; };
 		4E4ACC921F060F550031B326 /* HXBLoanInstructionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBLoanInstructionView.h; sourceTree = "<group>"; };
@@ -660,6 +658,8 @@
 		4E8EAA0D1F179664003834D4 /* HXBNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBNoticeViewController.m; sourceTree = "<group>"; };
 		4E8EAA101F17A0E4003834D4 /* HXBNoticModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBNoticModel.h; sourceTree = "<group>"; };
 		4E8EAA111F17A0E4003834D4 /* HXBNoticModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBNoticModel.m; sourceTree = "<group>"; };
+		4E8FFD321F662A3E00932437 /* hxb_startImage1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hxb_startImage1@2x.png"; sourceTree = "<group>"; };
+		4E8FFD331F662A3E00932437 /* hxb_startImage1@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hxb_startImage1@3x.png"; sourceTree = "<group>"; };
 		4E92155A1F1DBC6600C8CECB /* LoanTruansfer.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LoanTruansfer.svg; sourceTree = "<group>"; };
 		4E92155E1F1DBCC200C8CECB /* BUYtips.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BUYtips.svg; sourceTree = "<group>"; };
 		4E9215601F1DE2D900C8CECB /* FinPlanList_present.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FinPlanList_present.svg; sourceTree = "<group>"; };
@@ -1732,11 +1732,11 @@
 		4E7CCF381EBC1B5B00F7BDB3 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				4E8FFD311F662A3E00932437 /* launch */,
 				4EC492981EC19A7D00B7DAA2 /* zhaoshang.png */,
 				4E7E5B661F146F3C00771C07 /* SVG */,
 				4EC492961EC19A7900B7DAA2 /* My */,
 				4E7CCF391EBC1B5B00F7BDB3 /* Home */,
-				4E7CCF421EBC1B5B00F7BDB3 /* launch */,
 				4E7CCF441EBC1B5B00F7BDB3 /* signIn */,
 			);
 			path = images;
@@ -1755,15 +1755,6 @@
 				4E7CCF411EBC1B5B00F7BDB3 /* pageControl_select@3x.png */,
 			);
 			path = Home;
-			sourceTree = "<group>";
-		};
-		4E7CCF421EBC1B5B00F7BDB3 /* launch */ = {
-			isa = PBXGroup;
-			children = (
-				4E45F44A1F4FFE0D009708B7 /* hxb_startImage1@2x.png */,
-				4E45F44B1F4FFE0D009708B7 /* hxb_startImage1@3x.png */,
-			);
-			path = launch;
 			sourceTree = "<group>";
 		};
 		4E7CCF441EBC1B5B00F7BDB3 /* signIn */ = {
@@ -1933,6 +1924,15 @@
 				4E8EAA111F17A0E4003834D4 /* HXBNoticModel.m */,
 			);
 			path = Notice;
+			sourceTree = "<group>";
+		};
+		4E8FFD311F662A3E00932437 /* launch */ = {
+			isa = PBXGroup;
+			children = (
+				4E8FFD321F662A3E00932437 /* hxb_startImage1@2x.png */,
+				4E8FFD331F662A3E00932437 /* hxb_startImage1@3x.png */,
+			);
+			path = launch;
 			sourceTree = "<group>";
 		};
 		4E9215761F1E137F00C8CECB /* HXBOpenDepositAccountView */ = {
@@ -4263,8 +4263,8 @@
 				4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */,
 				4EECE0161F38177000301758 /* 5004.svg in Resources */,
 				4EECE0141F38177000301758 /* 5002.svg in Resources */,
-				4E45F44D1F4FFE0D009708B7 /* hxb_startImage1@3x.png in Resources */,
 				4EECE01C1F38177000301758 /* 5010.svg in Resources */,
+				4E8FFD341F662A3E00932437 /* hxb_startImage1@2x.png in Resources */,
 				4EECE0261F38548100301758 /* close_eye.svg in Resources */,
 				4E7E5B721F14792B00771C07 /* my_Unselected.svg in Resources */,
 				4E9215731F1DFC9E00C8CECB /* card.svg in Resources */,
@@ -4292,6 +4292,7 @@
 				4EECE00C1F38177000301758 /* 0150.svg in Resources */,
 				4E99BF501F55196600D197A3 /* FinPlanList_CountDown.svg in Resources */,
 				4E7E5B6D1F1478C100771C07 /* investment_Unselected.svg in Resources */,
+				4E8FFD351F662A3E00932437 /* hxb_startImage1@3x.png in Resources */,
 				4E7E5B711F14792B00771C07 /* my_Selected.svg in Resources */,
 				4E9215751F1DFFA400C8CECB /* more.svg in Resources */,
 				4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
@@ -4306,7 +4307,6 @@
 				4E9215611F1DE2D900C8CECB /* FinPlanList_present.svg in Resources */,
 				E190EF9F1F25A61B001E0B14 /* HXBBannerCollectionViewCell.xib in Resources */,
 				4EECE00D1F38177000301758 /* 0160.svg in Resources */,
-				4E45F44C1F4FFE0D009708B7 /* hxb_startImage1@2x.png in Resources */,
 				4E92155F1F1DBCC200C8CECB /* BUYtips.svg in Resources */,
 				4EECE01A1F38177000301758 /* 5008.svg in Resources */,
 			);
@@ -4386,7 +4386,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

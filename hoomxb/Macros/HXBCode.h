@@ -22,6 +22,8 @@ typedef enum : NSUInteger {
     kHXBCode_Enum_RequestOverrun = 412,
     //没有连接网络
     kHXBCode_Enum_NoConnectionNetwork = -1009,
+    //服务器错误
+    kHXBCode_Enum_NoServerFaile = 500,
 } kHXBCode_Enum;
 
 /**

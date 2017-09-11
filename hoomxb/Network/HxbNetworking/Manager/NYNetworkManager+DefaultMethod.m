@@ -101,6 +101,14 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             case kHXBCode_Enum_RequestOverrun:
         {
             [HxbHUDProgress showMessageCenter:@"系统时间与服务器时间相差过大" inView:nil];
+            return;
+        }
+            break;
+            
+            case kHXBCode_Enum_NoServerFaile:
+        {
+            [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
+            return;
         }
             break;
         default:
@@ -109,9 +117,11 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     
     if (!KeyChain.ishaveNet) {
         [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+        return;
     }
     if (!request.responseStatusCode) {
          [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
+        return;
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:RequestFailure object:nil userInfo:nil];
