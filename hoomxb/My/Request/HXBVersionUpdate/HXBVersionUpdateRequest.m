@@ -50,9 +50,6 @@
             successDateBlock(responseObject);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (KeyChain.ishaveNet) {
-            [HxbHUDProgress showTextWithMessage:@"请求失败"];
-        }
         if (failureBlock) {
             failureBlock(error);
         }
