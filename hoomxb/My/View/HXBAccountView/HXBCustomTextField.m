@@ -106,11 +106,10 @@
         make.height.offset(0.5);
     }];
     [self.eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.textField);
         make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
-//        make.height.offset(kScrAdaptationH750(23.9));
-        make.width.offset(kScrAdaptationW750(40));
+        make.width.offset(20);
         make.top.bottom.equalTo(self);
+        make.height.equalTo(self);
     }];
 
    
@@ -278,6 +277,7 @@
         [_eyeBtn setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateNormal];
         [_eyeBtn setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateSelected];
         [_eyeBtn addTarget:self action:@selector(eyeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _eyeBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
         _eyeBtn.hidden = YES;
     }
     return _eyeBtn;
