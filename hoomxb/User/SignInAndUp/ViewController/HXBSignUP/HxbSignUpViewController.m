@@ -37,6 +37,8 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self.hxbBaseVCScrollView addSubview:self.signUPView];
     self.hxbBaseVCScrollView.bounces = NO;
     [self trackingScrollViewBlock:^(UIScrollView *scrollView) {

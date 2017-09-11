@@ -100,7 +100,6 @@
 - (UILabel *)bankNameLabel{
     if (!_bankNameLabel) {
         _bankNameLabel = [[UILabel alloc] init];
-//        _bankNameLabel.text = @"招商银行";
         _bankNameLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _bankNameLabel.textColor = RGB(51, 51, 51);
     }
@@ -110,7 +109,6 @@
 - (UILabel *)bankCardNumLabel{
     if (!_bankCardNumLabel) {
         _bankCardNumLabel = [[UILabel alloc] init];
-//        _bankCardNumLabel.text = @"(尾号1234)";
         _bankCardNumLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _bankCardNumLabel.textColor = RGB(51, 51, 51);
     }
@@ -123,7 +121,6 @@
         _amountLimitLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _amountLimitLabel.numberOfLines = 0;
         _amountLimitLabel.textColor = COR10;
-        _amountLimitLabel.text = @"单笔限额：xx元，单日限额：xx元，单月限额：xx元";
     }
     return _amountLimitLabel;
 }

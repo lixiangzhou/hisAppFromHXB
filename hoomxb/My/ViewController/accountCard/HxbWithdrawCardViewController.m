@@ -71,6 +71,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isColourGradientNavigationBar = YES;
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self.view addSubview:self.withdrawCardView];
 }
 

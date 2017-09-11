@@ -12,10 +12,15 @@
 #import "HXBBaseViewController.h"
 #import <WebKit/WebKit.h>
 #import "SVGKImage.h"
-@interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate,UIScrollViewDelegate>
+#import "HXBNoNetworkStatusView.h"
+
+@interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate,UIScrollViewDelegate, UINavigationControllerDelegate>
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @property (nonatomic,strong) HXBColourGradientView *colorGradientView;
 @property (nonatomic,strong) UIImageView *nacigationBarImageView;
+@property (nonatomic, assign) BOOL isCanSideBack;
+@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
+
 @end
 
 @implementation HXBBaseViewController{
@@ -96,6 +101,7 @@
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
 }
+
 
 // 去除tabBar上面的横线
 - (void)hiddenTabbarLine {
@@ -180,21 +186,75 @@
 - (void)viewWillAppear:(BOOL)animated{
     //设置电池栏的颜色
     [super viewWillAppear:animated];
+//    kWeakSelf
+//    self.noNetworkStatusView.getNetworkAgainBlock = ^{
+//        [weakSelf getNetworkAgain];
+//        if (weakSelf.getNetworkAgainBlock) {
+//            weakSelf.getNetworkAgainBlock();
+//        }
+//    };
     self.isTransparentNavigationBar = _isTransparentNavigationBar;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.automaticallyAdjustsScrollViewInsets = self.hxb_automaticallyAdjustsScrollViewInsets;
     [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:false];
 }
 
+//- (void)getNetworkAgain
+//{
+////    NSLog(@"%@",viewController);
+//    if (self.childViewControllers.count <= 1) return;
+//    if (!KeyChain.ishaveNet) {
+//        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+//        [self.view addSubview:self.noNetworkStatusView];
+//    }else
+//    {
+//        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+//    }
+//    
+//}
+
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.view endEditing:true];
     [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:false];
+    [self resetSideBack];
 }
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.navigationController setNavigationBarHidden:false animated:false];
 }
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self forbiddenSideBack];
+}
+
+
+-(void)forbiddenSideBack{
+    
+    self.isCanSideBack = NO;
+    //关闭ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        
+        self.navigationController.interactivePopGestureRecognizer.delegate=self;
+    }
+    
+}
+
+- (void)resetSideBack {
+    
+    self.isCanSideBack=YES;
+    //开启ios右滑返回
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+    }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+    return self.isCanSideBack;
+    
+}
+
 ///tracking ScrollView
 - (void) trackingScrollViewBlock: (void(^)(UIScrollView *scrollView)) trackingScrollViewBlock {
     self.trackingScrollViewBlock = trackingScrollViewBlock;

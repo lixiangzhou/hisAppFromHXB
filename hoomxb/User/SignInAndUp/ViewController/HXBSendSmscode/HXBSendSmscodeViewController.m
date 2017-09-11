@@ -27,6 +27,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self setUPView];//视图设置
     [self registerEvent];//事件注册
 //    [self sendSmscode];//

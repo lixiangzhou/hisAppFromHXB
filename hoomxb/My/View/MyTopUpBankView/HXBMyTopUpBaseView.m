@@ -48,7 +48,7 @@
 
 - (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
 {
-    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%.2f元",viewModel.userInfoModel.userAssets.availablePoint.doubleValue];
+    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@", [NSString hxb_getPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue]];
     if (_amountTextField.text.length > 0) {
         _nextButton.backgroundColor = COR29;
         _nextButton.userInteractionEnabled = YES;
