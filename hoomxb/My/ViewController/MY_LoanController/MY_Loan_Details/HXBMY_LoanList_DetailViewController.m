@@ -39,20 +39,20 @@
         manager.toRepayLableManager.rightLabelAlignment = NSTextAlignmentCenter;
         
         manager.nextRepayDateLableManager.isLeftRight   = false;
-        manager.nextRepayDateLableManager.leftLabelStr  = @"下一还款日";
-        manager.nextRepayDateLableManager.rightLabelStr = weakSelf.loanDetailViewModel.nextRepayDate;
+        manager.nextRepayDateLableManager.leftLabelStr  = weakSelf.loanDetailViewModel.nextRepayDate;
+        manager.nextRepayDateLableManager.rightLabelStr =  @"下一还款日";
         manager.nextRepayDateLableManager.leftLabelAlignment = NSTextAlignmentCenter;
         manager.nextRepayDateLableManager.rightLabelAlignment = NSTextAlignmentCenter;
         
         manager.monthlyPrincipalManager.isLeftRight     = false;
-        manager.monthlyPrincipalManager.leftLabelStr    = @"月收本息（元）";
-        manager.monthlyPrincipalManager.rightLabelStr   = weakSelf.loanDetailViewModel.monthlyRepay;
+        manager.monthlyPrincipalManager.leftLabelStr    = weakSelf.loanDetailViewModel.monthlyRepay;
+        manager.monthlyPrincipalManager.rightLabelStr   = @"月收本息（元）";
         manager.monthlyPrincipalManager.leftLabelAlignment = NSTextAlignmentCenter;
         manager.monthlyPrincipalManager.rightLabelAlignment = NSTextAlignmentCenter;
         
         manager.infoViewManager.leftStrArray = @[
                                                  @"投资金额",
-                                                 @"利率",
+                                                 @"年利率",
                                                  @"期限",
                                                  @"还款方式",
                                                  @"已收本息"

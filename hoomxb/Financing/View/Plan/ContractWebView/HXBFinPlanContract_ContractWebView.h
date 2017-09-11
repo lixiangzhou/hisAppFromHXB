@@ -7,7 +7,6 @@
 //
 
 #import <WebKit/WebKit.h>
-
 @interface HXBFinPlanContract_ContractWebView : WKWebView
 - (void)loadURL: (NSString *)URL;
 @property (nonatomic,assign) BOOL isHiddenHUD;

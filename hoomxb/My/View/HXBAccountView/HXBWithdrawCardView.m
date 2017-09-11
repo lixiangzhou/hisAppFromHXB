@@ -149,6 +149,7 @@
         _bankCardTextField.placeholder = @"银行卡号";
         _bankCardTextField.keyboardType = UIKeyboardTypeNumberPad;
         _bankCardTextField.delegate = self;
+        _bankCardTextField.limitStringLength = 25;
         _bankCardTextField.leftImage = [UIImage imageNamed:@"bankcard"];
     }
     return _bankCardTextField;
@@ -162,6 +163,7 @@
         _bankNameTextField.placeholder = @"银行名称";
         _bankNameTextField.leftImage = [SVGKImage imageNamed:@"bank.svg"].UIImage;
         _bankNameTextField.rightImage = [SVGKImage imageNamed:@"more.svg"].UIImage;
+
         _bankNameTextField.btnClick = ^{
             if (weakSelf.bankNameBtnClickBlock) {
                 weakSelf.bankNameBtnClickBlock();
@@ -180,6 +182,7 @@
         _phoneNumberTextField.placeholder = @"预留手机号";
         _phoneNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
         _phoneNumberTextField.delegate = self;
+        _phoneNumberTextField.limitStringLength = 11;
         _phoneNumberTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
     }
     return _phoneNumberTextField;

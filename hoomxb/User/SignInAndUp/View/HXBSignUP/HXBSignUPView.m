@@ -131,7 +131,7 @@ UITextFieldDelegate
         make.right.equalTo(weakSelf);
         make.height.offset(kScrAdaptationH(60));
     }];
-    _phoneTextField.number = 1;
+    _phoneTextField.limitStringLength = 11;
     _phoneTextField.block = ^(NSString *text) {
         if (text.length == 11) {
             if (weakSelf.checkMobileBlock) {
@@ -165,23 +165,7 @@ UITextFieldDelegate
     self.checkMobileLabel.backgroundColor = [UIColor hxb_randomColor];
 }
 
-#pragma mark - textfield delegate
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSString *str = nil;
-    if (string.length) {
-        str = [NSString stringWithFormat:@"%@%@",self.phoneTextField.text,string];
-    }else {
-        NSInteger length = self.phoneTextField.text.length;
-        NSRange range = NSMakeRange(length - 1, 1);
-        NSMutableString *strM = self.phoneTextField.text.mutableCopy;
-        [strM deleteCharactersInRange:range];
-        str = strM.copy;
-    }
-    if (str.length > 11) {
-        return NO;
-    }
-    return YES;
-}
+
 //
 //- (BOOL)textFieldShouldClear:(UITextField *)textField {
 //    if (textField == _phoneTextField) {

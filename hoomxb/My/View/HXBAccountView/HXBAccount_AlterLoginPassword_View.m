@@ -79,6 +79,15 @@
         _password_New.delegate = self;
         _password_New.placeholder = @"请设置8-20位数字和字母组合的密码";
         _password_New.secureTextEntry = YES;
+        _password_New.block = ^(NSString *text) {
+            if (text.length > 0 && _password_Original.text.length > 0) {
+                _alterButton.backgroundColor = COR29;
+                _alterButton.userInteractionEnabled = YES;
+            } else {
+                _alterButton.backgroundColor = COR12;
+                _alterButton.userInteractionEnabled = NO;
+            }
+        };
     }
     return _password_New;
 }
@@ -91,52 +100,17 @@
         _password_Original.delegate = self;
         _password_Original.placeholder = @"原登录密码";
         _password_Original.secureTextEntry = YES;
+        _password_Original.block = ^(NSString *text) {
+            if (text.length > 0 && _password_New.text.length > 0) {
+                _alterButton.backgroundColor = COR29;
+                _alterButton.userInteractionEnabled = YES;
+            } else {
+                _alterButton.backgroundColor = COR12;
+                _alterButton.userInteractionEnabled = NO;
+            }
+        };
     }
     return _password_Original;
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField.superview == _password_Original) {
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-        } else if(!string.length) {
-            NSInteger length = _password_Original.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = _password_Original.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        if (str.length > 0 && _password_New.text.length > 0 && ![string isEqualToString:@""]) {
-            self.alterButton.backgroundColor = COR29;
-            self.alterButton.userInteractionEnabled = YES;
-        } else {
-            self.alterButton.backgroundColor = COR12;
-            self.alterButton.userInteractionEnabled = NO;
-        }
-        if (str.length > 20) return NO;
-    } else {
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-        } else if(!string.length) {
-            NSInteger length = self.password_New.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = self.password_New.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        if (str.length > 0 && _password_Original.text.length > 0 && ![string isEqualToString:@""]) {
-            self.alterButton.backgroundColor = COR29;
-            self.alterButton.userInteractionEnabled = YES;
-        } else {
-            self.alterButton.backgroundColor = COR12;
-            self.alterButton.userInteractionEnabled = NO;
-        }
-        if (str.length > 20) return NO;
-    }
-    return YES;
-
 }
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {

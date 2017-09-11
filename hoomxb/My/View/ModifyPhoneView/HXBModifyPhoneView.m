@@ -46,6 +46,36 @@
         _phoneTextField = [[HXBCustomTextField alloc] init];
         _phoneTextField.placeholder = @"新手机号";
         _phoneTextField.delegate = self;
+        kWeakSelf
+        _phoneTextField.limitStringLength = 11;
+        _phoneTextField.block = ^(NSString *text) {
+            if (text.length == 11) {
+                if (![NSString isMobileNumber:text]) {
+                    [HxbHUDProgress showTextWithMessage:@"手机号格式有误"];
+                } else {
+                    if (self.timeCount == 0) {
+                        weakSelf.getCodeBtn.backgroundColor = [UIColor whiteColor];
+                        weakSelf.getCodeBtn.layer.borderWidth = kXYBorderWidth;
+                        weakSelf.getCodeBtn.layer.borderColor = COR29.CGColor;
+                        [weakSelf.getCodeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
+                        weakSelf.getCodeBtn.userInteractionEnabled = YES;
+                    }
+                }
+            } else if (text.length < 11) {
+                weakSelf.getCodeBtn.backgroundColor = COR26;
+                weakSelf.getCodeBtn.userInteractionEnabled = NO;
+                weakSelf.getCodeBtn.layer.borderWidth = 0;
+                [weakSelf.getCodeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+            }
+            if (text.length > 0 && _verificationCodeTextField.text.length > 0) {
+                [_sureChangeBtn setBackgroundColor:COR29];
+                _sureChangeBtn.userInteractionEnabled = YES;
+            } else {
+                [_sureChangeBtn setBackgroundColor:COR12];
+                _sureChangeBtn.userInteractionEnabled = NO;
+            }
+
+        };
         _phoneTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
@@ -60,6 +90,17 @@
         _verificationCodeTextField.isGetCode = YES;
         _verificationCodeTextField.delegate = self;
         _verificationCodeTextField.leftImage = [UIImage imageNamed:@"security_code"];
+        _verificationCodeTextField.limitStringLength = 6;
+        kWeakSelf
+        _verificationCodeTextField.block = ^(NSString *text) {
+            if (text.length > 0 && _phoneTextField.text.length > 0) {
+                [_sureChangeBtn setBackgroundColor:COR29];
+                _sureChangeBtn.userInteractionEnabled = YES;
+            } else {
+                [_sureChangeBtn setBackgroundColor:COR12];
+                _sureChangeBtn.userInteractionEnabled = NO;
+            }
+        };
         _verificationCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
     }
     return _verificationCodeTextField;
@@ -174,69 +215,7 @@
     }];
 
 }
-//参数一：range,要被替换的字符串的range，如果是新键入的那么就没有字符串被替换，range.lenth=0,第二个参数：替换的字符串，即键盘即将键入或者即将粘贴到textfield的string
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (textField.superview == _phoneTextField) {
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-        } else if(!string.length) {
-            NSInteger length = self.phoneTextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = self.phoneTextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        if (str.length == 11) {
-            [_phoneTextField resignFirstResponder];
-            if (![NSString isMobileNumber:str]) {
-                [HxbHUDProgress showTextWithMessage:@"手机号格式有误"];
-            } else {
-                if (self.timeCount == 0) {
-                    _getCodeBtn.backgroundColor = [UIColor whiteColor];
-                    _getCodeBtn.layer.borderWidth = kXYBorderWidth;
-                    _getCodeBtn.layer.borderColor = COR29.CGColor;
-                    [_getCodeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
-                    _getCodeBtn.userInteractionEnabled = YES;
-                }
-            }
-        } else if (str.length < 11) {
-            _getCodeBtn.backgroundColor = COR26;
-            _getCodeBtn.userInteractionEnabled = NO;
-            _getCodeBtn.layer.borderWidth = 0;
-            [_getCodeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-        }
-        if (str.length > 11) return NO;
-        
-        if (str.length > 0 && _verificationCodeTextField.text.length > 0) {
-            [_sureChangeBtn setBackgroundColor:COR29];
-            _sureChangeBtn.userInteractionEnabled = YES;
-        } else {
-            [_sureChangeBtn setBackgroundColor:COR12];
-            _sureChangeBtn.userInteractionEnabled = NO;
-        }
-    } else {
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-        } else if(!string.length) {
-            NSInteger length = self.verificationCodeTextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = self.verificationCodeTextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        if (str.length > 6) return NO;
-        if (str.length > 0 && _phoneTextField.text.length > 0) {
-            [_sureChangeBtn setBackgroundColor:COR29];
-            _sureChangeBtn.userInteractionEnabled = YES;
-        } else {
-            [_sureChangeBtn setBackgroundColor:COR12];
-            _sureChangeBtn.userInteractionEnabled = NO;
-        }
-    }
-    return YES;
-}
+
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
     _getCodeBtn.backgroundColor = COR26;

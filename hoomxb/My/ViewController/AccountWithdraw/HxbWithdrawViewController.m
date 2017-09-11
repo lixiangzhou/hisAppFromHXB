@@ -90,7 +90,7 @@
     [self.amountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(kScrAdaptationH750(20));
         make.left.equalTo(self.view).offset(kScrAdaptationW750(30));
-        make.right.equalTo(self.view);
+        make.right.equalTo(self.view).offset(kScrAdaptationW750(-30));
         make.height.offset(kScrAdaptationH750(100));
     }];
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -370,7 +370,7 @@
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
 {   
     _userInfoViewModel = userInfoViewModel;
-    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可提金额: %.2f元",[userInfoViewModel.userInfoModel.userAssets.availablePoint floatValue]];
+    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可提金额：%@", [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.availablePoint floatValue]]];
 }
 
 - (void)loadBankCard

@@ -71,6 +71,7 @@ static NSString *const my = @"我的";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    
     //配置网络
     [self setNetworkConfig];
     

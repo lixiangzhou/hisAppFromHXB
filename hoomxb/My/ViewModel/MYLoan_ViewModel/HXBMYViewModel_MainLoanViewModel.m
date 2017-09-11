@@ -80,7 +80,7 @@
  */
 - (NSString *) monthlyRepay {
     if (!_monthlyRepay) {
-        _monthlyRepay = [NSString hxb_getPerMilWithDouble:self.loanModel.monthlyRepay.floatValue];
+        _monthlyRepay = [NSString GetPerMilWithDouble:self.loanModel.monthlyRepay.floatValue];
     }
     return _monthlyRepay;
 }
@@ -100,7 +100,7 @@
  */
 - (NSString *) interest {
     if (!_interest) {
-        _interest = [NSString stringWithFormat:@"%.1lf%@",self.loanModel.interest.floatValue,@"%"];
+        _interest = [NSString stringWithFormat:@"%.2lf%@",self.loanModel.interest.floatValue,@"%"];
     }
     return _interest;
 }
