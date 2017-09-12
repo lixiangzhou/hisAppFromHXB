@@ -141,7 +141,7 @@
 {
     NSInteger index = self.navigationController.viewControllers.count;
     UIViewController *VC = self.navigationController.viewControllers[index - 2];
-    if ([VC isKindOfClass:NSClassFromString(@"HXBOpenDepositAccountViewController")] || [VC isKindOfClass:NSClassFromString(@"HxbWithdrawCardViewController")]) {
+    if ([VC isKindOfClass:NSClassFromString(@"HXBOpenDepositAccountViewController")] || [VC isKindOfClass:NSClassFromString(@"HxbWithdrawCardViewController")] || [VC isKindOfClass:NSClassFromString(@"HXBFin_Plan_BuyViewController")]) {
         [self.navigationController popToViewController:self.navigationController.viewControllers[index - 3] animated:YES];
     }else
     {
