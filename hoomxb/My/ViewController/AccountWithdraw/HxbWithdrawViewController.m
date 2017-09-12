@@ -52,9 +52,21 @@
     [self.view addSubview:self.tiedCardLabel];
     [self.view addSubview:self.reminderLabel];
     [self setCardViewFrame];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self loadData];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.amountTextField.text = @"";
+    self.nextButton.backgroundColor = COR12;
+    self.nextButton.userInteractionEnabled = NO;
+}
 - (void)loadData
 {
     kWeakSelf
