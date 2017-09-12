@@ -94,4 +94,15 @@ static NSString *CELLID = @"CELLID";
     }
     return _nodataView;
 }
+
+- (void)dealloc {
+    @try {
+        [self removeObserver:self forKeyPath:@"contentOffset"];
+    } @catch (NSException *exception) {
+        NSLog(@"%@--观察者异常被销毁", exception);
+    } @finally {
+        NSLog(@"");
+    }
+    NSLog(@"%@ - ✅被销毁",self.class);
+}
 @end
