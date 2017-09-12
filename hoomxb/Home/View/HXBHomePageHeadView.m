@@ -142,7 +142,6 @@
     }else
     {
         [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            
             if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 //没有开户
                 weakSelf.afterLoginView.headTipString = @"红小宝携手恒丰银行资金存管已上线";
@@ -214,7 +213,7 @@
 {
     kWeakSelf
     if (!_afterLoginView) {
-        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(137))];
+        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(140))];
         _afterLoginView.tipButtonClickBlock_homePageAfterLoginView = ^(){
             if (weakSelf.tipButtonClickBlock_homePageHeadView) {
                 weakSelf.tipButtonClickBlock_homePageHeadView();

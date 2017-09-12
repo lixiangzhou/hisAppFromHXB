@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isColourGradientNavigationBar = YES;
-    self.title = @"资产总额";
+    self.title = @"资产统计";
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.allFinanceView];
     [self.view addSubview:self.accumulatedIncomeView];

@@ -198,7 +198,7 @@
     }];
     
     [self.massageTextView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(kScrAdaptationH(45));
+        make.top.equalTo(self.view).offset(kScrAdaptationH(40));
         make.left.equalTo(self.view).offset(kScrAdaptationW(10));
         make.right.equalTo(self.view).offset(kScrAdaptationW(-10));
         make.height.offset(kScrAdaptationH(_messageHeight));

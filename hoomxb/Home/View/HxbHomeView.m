@@ -81,11 +81,10 @@
 //        }
         
 //        if (viewModel.userInfoModel.userInfo.isCreateEscrowAcc && [viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])
-        if([viewModel.userInfoModel.userInfo.hasEverInvestFinancePlan isEqualToString:@"1"]){
+        if([viewModel.userInfoModel.userInfo.hasEverInvestFinancePlan isEqualToString:@"1"] || [viewModel.userInfoModel.userInfo.hasEverInvestFinancePlan isEqualToString:@"0"]){
             //已经投资显示的界面
             [weakSelf.headView showAlreadyInvestedView];
-        }else
-        {
+        }else{
             //没有投资显示的界面
             [weakSelf.headView showNotValidatedView];
         }
@@ -216,59 +215,21 @@
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//    if (_network) {
-//        TopProductModel * model = [_hotSellDataList objectAtIndex:indexPath.row];
-//        if (model.requiredNew) {
-//            if (indexPath.row == 0) {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    //            }else{
-                static NSString *identifier = @"ProductCelled";
-                HXBHomePageProductCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-                if (!cell) {
-                    cell = [[HXBHomePageProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-                    }
+    static NSString *identifier = @"ProductCelled";
+    HXBHomePageProductCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[HXBHomePageProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
     
-                   cell.homePageModel_DataList = self.homeBaseModel.homePlanRecommend[indexPath.section];
+    cell.homePageModel_DataList = self.homeBaseModel.homePlanRecommend[indexPath.section];
     
-                   kWeakSelf
-                   cell.purchaseButtonClickBlock = ^(){
-                       weakSelf.purchaseButtonClickBlock();
-                   };
-//                cell.model = model;
-//                NSLog(@"%ld",(long)model.status)
-              return cell;
-//        }else{
-//            static NSString *identifier = @"ProductCell";
-//            HXBHomePageProductCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-//            if (!cell) {
-//                cell = [[HXBHomePageProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-//            }
-//            cell.model = model;
-//            NSLog(@"状态>>>>>>>%ld",(long)model.status);
-//            return cell;
-//        }
-//    }else
-//    {
-//        NSString *identifier = @"nullCell";
-//        HXBHomeNullTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-//        if (!cell) {
-//            cell = [[HXBHomeNullTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-//        }
-//        cell.refreshBtnClickBlock = ^() {
-//            //            HXBHomePageVC *vc = (HXBHomePageVC *)next;
-//            [self loadData];
-//        };
-//        return cell;
-//    }
-//        static NSString *identifier = @"ProductCelled";
-//        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-//        if (!cell) {
-//            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-//        }
-
-
+    kWeakSelf
+    cell.purchaseButtonClickBlock = ^(){
+        weakSelf.purchaseButtonClickBlock();
+    };
+    return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -622,12 +622,11 @@ static NSString *const kISEscrow = @"kISEscrow";
     NSLog(@"phone = %@",self.mobile);
 //    BOOL isLogin = self.mobile.length;
     return [self.keychain[kIsLogin] integerValue];
-
-//    return isLogin;
 }
 
 - (void)setIsLogin:(BOOL)isLogin {
     self.keychain[kIsLogin] = @(isLogin).description;
+    NSLog(@"description = %@",  @(isLogin).description);
 }
 
 - (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock {
