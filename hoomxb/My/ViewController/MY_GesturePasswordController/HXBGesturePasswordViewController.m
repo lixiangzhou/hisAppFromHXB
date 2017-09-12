@@ -383,12 +383,12 @@ static NSString *const my = @"我的";
                 alertVC.messageHeight = 40;
                 alertVC.isCenterShow = YES;
                 [alertVC setClickXYRightButtonBlock:^{
-                    [KeyChain removeAllInfo];
+                    [KeyChain signOut];
                     [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
                 }];
                 [alertVC setClickXYLeftButtonBlock:^{
-                    [KeyChain removeAllInfo];
+                    [KeyChain signOut];
                     [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
                 }];
                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];

@@ -74,6 +74,8 @@ static NSString *const kFrozenPoint = @"kFrozenPoint";
 static NSString *const kIsLogin = @"kIsLogin";
 ///isEscrow	int	是否开通存管账户 1：已开通， 0：未开通
 static NSString *const kISEscrow = @"kISEscrow";
+//H5页面的BaseURL
+static NSString *const hostH5 = @"hostH5";
 
 @interface KeyChainManage ()
 
@@ -439,13 +441,7 @@ static NSString *const kISEscrow = @"kISEscrow";
     }
 }
 
-- (NSString *)h5host
-{
-    if (_h5host == nil) {
-        return @"https://m.hoomxb.com";
-    }
-    return _h5host;
-}
+
 
 /// 用户信息的请求
 - (void)downLoadUserInfoWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure{
@@ -665,6 +661,18 @@ static NSString *const kISEscrow = @"kISEscrow";
     NSString *token = self.keychain[kToken];
     return token?:@"";
 }
+
+- (NSString *)h5host
+{
+    NSString *h5Host = self.keychain[hostH5];
+    return h5Host?:@"https://m.hoomxb.com";
+}
+
+- (void)setH5host:(NSString *)h5host
+{
+    self.keychain[hostH5] = h5host;
+}
+
 -(void)setAvatarImageURL:(NSString *)avatarImageURL
 {
     self.keychain[kAvatarImageURL] = avatarImageURL;
