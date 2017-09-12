@@ -41,12 +41,12 @@
         ///	是否是收入
         NSString *incomeStr = nil;
         if ([self.capitalRecordModel.isPlus isEqualToString:@"false"]) {
-            CGFloat pay = self.capitalRecordModel.pay.floatValue;
+            CGFloat pay = self.capitalRecordModel.pay.doubleValue;
             incomeStr = [NSString hxb_getPerMilWithDouble:pay];
             _income = [NSString stringWithFormat:@"- %@",incomeStr];
             self.inComeStrColor = COLOR(113,203,97,1);
         }else {
-            CGFloat inComeFloat = self.capitalRecordModel.income.floatValue;
+            CGFloat inComeFloat = self.capitalRecordModel.income.doubleValue;
             self.inComeStrColor = COLOR(245, 81, 81, 1);
             incomeStr = [NSString hxb_getPerMilWithDouble:inComeFloat];
             _income = [NSString stringWithFormat:@"+ %@", incomeStr];
