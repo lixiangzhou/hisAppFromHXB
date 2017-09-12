@@ -40,7 +40,7 @@
         _rechargesuccessView = [[HXBRechargesuccessView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
         //继续充值Block
         _rechargesuccessView.continueRechargeBlock = ^{
-            [weakSelf.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         };
         //立即投资
         _rechargesuccessView.immediateInvestmentBlock = ^{
