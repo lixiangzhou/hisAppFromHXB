@@ -197,10 +197,17 @@
 - (void)setupBtnStyle
 {
     if (![self.homePageModel_DataList.unifyStatus isEqualToString:@"立即加入"] && self.homePageModel_DataList.isHidden) {
-        self.colourGradientView.hidden = YES;
-        [self.purchaseButton setTitleColor:kHXBColor_Font0_6 forState:UIControlStateNormal];
-        self.purchaseButton.layer.borderColor = kHXBColor_Font0_5.CGColor;
-        self.purchaseButton.backgroundColor = kHXBColor_Grey090909;
+        if ([self.homePageModel_DataList.unifyStatus isEqualToString:@"销售结束"]) {
+            self.colourGradientView.hidden = YES;
+            [self.purchaseButton setTitleColor:kHXBColor_Font0_6 forState:UIControlStateNormal];
+            self.purchaseButton.layer.borderColor = kHXBColor_Font0_5.CGColor;
+            self.purchaseButton.backgroundColor = kHXBColor_Grey090909;
+        }else
+        {
+            self.purchaseButton.backgroundColor = COR29;
+            [self.purchaseButton setTitle:@"立即加入" forState:(UIControlStateNormal)];
+            [self.purchaseButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        }
     }else if(!self.homePageModel_DataList.isHidden){
         [self setCountDownString:self.countDownString];
     }else
