@@ -56,8 +56,8 @@
 
 
 
-
 @implementation HxbFinanctingViewController
+
 #pragma mark - setter 方发
 //主要是给数据源赋值然后刷新UI
 - (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {

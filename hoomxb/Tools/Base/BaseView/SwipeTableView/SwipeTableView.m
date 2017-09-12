@@ -361,9 +361,6 @@ static void * SwipeTableViewItemPanGestureContext      = &SwipeTableViewItemPanG
     } @finally {
         
     };
-    [_shouldVisibleItemView removeObserver:self forKeyPath:@"contentOffset"];
-    [_shouldVisibleItemView removeObserver:self forKeyPath:@"contentSize"];
-    [_shouldVisibleItemView removeObserver:self forKeyPath:@"panGestureRecognizer.state"];
     self.shouldVisibleItemIndex = indexPath.item;
     self.shouldVisibleItemView  = subView;
     [_shouldVisibleItemView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:SwipeTableViewItemContentOffsetContext];
@@ -384,9 +381,6 @@ static void * SwipeTableViewItemPanGestureContext      = &SwipeTableViewItemPanG
         } @finally {
             
         };
-        [_currentItemView removeObserver:self forKeyPath:@"contentOffset"];
-        [_currentItemView removeObserver:self forKeyPath:@"contentSize"];
-        [_currentItemView removeObserver:self forKeyPath:@"panGestureRecognizer.state"];
         [subView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:SwipeTableViewItemContentOffsetContext];
         [subView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:SwipeTableViewItemContentSizeContext];
         [subView addObserver:self forKeyPath:@"panGestureRecognizer.state" options:NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew context:SwipeTableViewItemPanGestureContext];
@@ -713,9 +707,6 @@ static void * SwipeTableViewItemPanGestureContext      = &SwipeTableViewItemPanG
         } @finally {
             
         };
-        [_currentItemView removeObserver:self forKeyPath:@"contentSize"];
-        [_currentItemView removeObserver:self forKeyPath:@"panGestureRecognizer.state"];
-        
         _currentItemIndex = currentItemIndex;
         NSIndexPath *currentIndexPath = [NSIndexPath indexPathForItem:_currentItemIndex inSection:0];
         self.currentItemView = [self.contentView cellForItemAtIndexPath:currentIndexPath].scrollView;

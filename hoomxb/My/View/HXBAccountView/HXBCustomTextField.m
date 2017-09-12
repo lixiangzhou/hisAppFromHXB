@@ -138,9 +138,10 @@
     NSString *text = nil;
     UITextField *sender = (UITextField *)[notification object];
     text = sender.text;
-    NSLog(@"%@\n%d", text, _limitStringLength);
-    if (text.length > _limitStringLength) {
+    if (sender.keyboardType != UIKeyboardTypeDefault) {
+        if (text.length > _limitStringLength) {
         sender.text = [sender.text substringToIndex:text.length - 1];
+        }
     }
     if (_secureTextEntry) {
         if (text.length > 0) {

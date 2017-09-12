@@ -94,4 +94,5 @@ static NSString *CELLID = @"CELLID";
     }
     return _nodataView;
 }
+
 @end
