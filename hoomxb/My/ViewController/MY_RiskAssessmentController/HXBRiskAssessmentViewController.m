@@ -65,13 +65,24 @@
         }];
         [weakSelf.navigationController popToViewController:vc animated:true];
     }];
+    @try {        
+        baseNAV.getNetworkAgainBlock = ^{
+            [weakSelf.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kHXBH5_RiskEvaluationURL]]];
+        };
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.isColourGradientNavigationBar = YES;
-    [HxbHUDProgress showLoadDataHUD:self.webView];
+    if ([KeyChain ishaveNet]) {
+        [HxbHUDProgress showLoadDataHUD:self.webView];
+    }
 }
 
 - (void)setupRightBarBtn
@@ -94,6 +105,7 @@
     [_bridge callHandler:@"skipTest" data:nil];
 }
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSString *urlString = [[request URL]  absoluteString];
     NSLog(@"==> %@",urlString);

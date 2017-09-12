@@ -65,10 +65,16 @@ kDealloc
     [self registerRefresh];
     //cell 点击的加载
     [self registerClickCell];
-    kWeakSelf
-    baseNAV.getNetworkAgainBlock = ^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
-    };
+    @try {        
+        kWeakSelf
+        baseNAV.getNetworkAgainBlock = ^{
+            [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
+        };
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
 }
 
 ///资产统计网络请求

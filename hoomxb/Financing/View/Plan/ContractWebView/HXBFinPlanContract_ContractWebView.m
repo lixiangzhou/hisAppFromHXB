@@ -15,6 +15,7 @@
 
 @implementation HXBFinPlanContract_ContractWebView
 - (void)loadURL: (NSString *)URL {
+    if (![KeyChain ishaveNet]) return;
     if (!_isHiddenHUD) {
         [HxbHUDProgress showLoadDataHUD:self];
     }

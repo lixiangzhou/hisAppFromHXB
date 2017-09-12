@@ -27,10 +27,10 @@
 ///是否可以滑动
 @property (nonatomic,assign) BOOL isScroll;
 
-/**
- 再次调用网络请求的方法
- */
-@property (nonatomic, copy) void(^getNetworkAgainBlock)();
+///**
+// 再次调用网络请求的方法
+// */
+//@property (nonatomic, copy) void(^getNetworkAgainBlock)();
 ///tracking ScrollView
 - (void) trackingScrollViewBlock: (void(^)(UIScrollView *scrollView)) trackingScrollViewBlock;
 

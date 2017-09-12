@@ -19,10 +19,7 @@
 - (void) setURL:(NSString *)URL {
     _URL = URL;
     [self.contractWebVeiw loadURL:URL];
-    kWeakSelf
-    baseNAV.getNetworkAgainBlock = ^{
-        [weakSelf.contractWebVeiw loadURL:URL];
-    };
+    
 }
 
 - (void)viewDidLoad {
@@ -30,6 +27,16 @@
     self.title = @"";
     [self setUP];
     self.isColourGradientNavigationBar = YES;
+    @try {
+        kWeakSelf
+        baseNAV.getNetworkAgainBlock = ^{
+            [weakSelf.contractWebVeiw loadURL:weakSelf.URL];
+        };
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
 }
 
 

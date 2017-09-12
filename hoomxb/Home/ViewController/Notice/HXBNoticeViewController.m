@@ -43,10 +43,16 @@
     self.isColourGradientNavigationBar = YES;
     [self.view addSubview:self.mainTabelView];
     [self loadDataWithIsUPReloadData:YES];
-    kWeakSelf
-    baseNAV.getNetworkAgainBlock = ^{
-        [weakSelf loadDataWithIsUPReloadData:YES];
-    };
+    @try {        
+        kWeakSelf
+        baseNAV.getNetworkAgainBlock = ^{
+            [weakSelf loadDataWithIsUPReloadData:YES];
+        };
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
 }
 
 

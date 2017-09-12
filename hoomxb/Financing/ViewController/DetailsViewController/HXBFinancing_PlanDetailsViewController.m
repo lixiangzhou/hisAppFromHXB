@@ -104,6 +104,16 @@
 //        make.height.offset(kScrAdaptationH(60));
 //    }];
 //    _planDetailsView.addButton.hidden = NO;
+    @try {
+        kWeakSelf
+        baseNAV.getNetworkAgainBlock = ^{
+            [weakSelf downLoadData];
+        };
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
 }
 
 - (void)starCountDown
@@ -312,9 +322,16 @@
     self.hxbBaseVCScrollView.tableHeaderView = [self tableViewHeadView];
     self.hxbBaseVCScrollView.tableFooterView = [self tableViewFootView];
     [self.hxbBaseVCScrollView reloadData];
-    baseNAV.getNetworkAgainBlock = ^{
-        [weakSelf downLoadData];
-    };
+    
+    @try {
+        baseNAV.getNetworkAgainBlock = ^{
+            [weakSelf downLoadData];
+        };        
+    } @catch (NSException *exception) {
+        
+    } @finally {
+        
+    }
 }
 
 // 表头
