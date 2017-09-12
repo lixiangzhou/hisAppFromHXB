@@ -161,7 +161,7 @@
     self.planListTableView.lockPeriodLabel_ConstStr = @"期限(月)";
     
     //监听contentOffset
-    [self.planListTableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+//    [self.planListTableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
     //点击cell的block
     [self.planListTableView setClickPlanListCellBlock:^(NSIndexPath *indexPage, id model) {
@@ -182,11 +182,11 @@
         
     }];
 }
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if ([keyPath isEqualToString:@"contentOffset"]) {
-        
-    }
-}
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+//    if ([keyPath isEqualToString:@"contentOffset"]) {
+//        
+//    }
+//}
 //MARK:散标列表
 - (void)setupLoanListTableView {
     self.loanListTableView = [[HXBFinancting_LoanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];

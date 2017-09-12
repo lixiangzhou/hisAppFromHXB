@@ -319,6 +319,9 @@
         return YES;
     }else
     {
+        if (self.nameTextField == textField.superview && [string isEqualToString:@" "]) {
+            return NO;
+        }
         return [self limitNumberCount:textField.superview];
     }
 }
@@ -326,9 +329,7 @@
 
 - (BOOL)limitNumberCount:(UIView *)textField
 {
-    if (self.nameTextField.text.length > 14 && self.nameTextField == textField) {
-        return NO;
-    }
+    
     if (self.idCardTextField.text.length > 17 && self.idCardTextField == textField) {
         return NO;
     }

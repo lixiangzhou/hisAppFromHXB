@@ -92,12 +92,12 @@
         }
         return;
     }
-    if ([keyPath isEqualToString:@"contentOffset"]) {
-        NSNumber *offsetNumb = change[NSKeyValueChangeNewKey];
-        CGPoint offsetPoint = [offsetNumb CGPointValue];
-        self.colorGradientView.frame = CGRectMake(0, 0, kScreenWidth, self.colorGradientView.height + offsetPoint.y);
-        self.colorGradientView.endPoint = CGPointMake(kScreenWidth, self.colorGradientView.frame.size.height);
-    }
+//    if ([keyPath isEqualToString:@"contentOffset"]) {
+//        NSNumber *offsetNumb = change[NSKeyValueChangeNewKey];
+//        CGPoint offsetPoint = [offsetNumb CGPointValue];
+//        self.colorGradientView.frame = CGRectMake(0, 0, kScreenWidth, self.colorGradientView.height + offsetPoint.y);
+//        self.colorGradientView.endPoint = CGPointMake(kScreenWidth, self.colorGradientView.frame.size.height);
+//    }
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
 }
