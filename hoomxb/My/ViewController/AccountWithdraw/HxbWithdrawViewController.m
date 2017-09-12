@@ -252,7 +252,7 @@
         UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(150), kScrAdaptationH750(42))];
         tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         tipLabel.textColor = RGB(51, 51, 51);
-        tipLabel.text = @"提现金额:";
+        tipLabel.text = @"提现金额";
         _amountTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _amountTextField.leftViewMode = UITextFieldViewModeAlways;
         _amountTextField.leftView = tipLabel;
@@ -337,7 +337,7 @@
     if (!_callPhoneView) {
         _callPhoneView = [[HXBCallPhone_BottomView alloc] init];
         _callPhoneView.leftTitle = @"3、如提现过程中有疑问，请联系客服：";
-        _callPhoneView.phoneNumber = [NSString stringWithFormat:@"%@。",kServiceMobile];
+        _callPhoneView.phoneNumber = [NSString stringWithFormat:@"%@",kServiceMobile];
 //        _callPhoneView.supplementText = @"(周一至周五 9:00-19:00)";
     }
     return _callPhoneView;
