@@ -292,9 +292,8 @@
 {
     if (!_availableBalanceLabel) {
         _availableBalanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.amountTextField.bottom + 20, 0, 0)];
-        _availableBalanceLabel.text = @"可用余额 : 0.00元";
         _availableBalanceLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
-        _availableBalanceLabel.textColor = COR8;
+        _availableBalanceLabel.textColor = RGB(51, 51, 51);
     }
     return _availableBalanceLabel;
 }
