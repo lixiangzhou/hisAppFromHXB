@@ -218,9 +218,9 @@
 
     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:title Massage:message force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
     if (message.length > 20) {
-        alertVC.messageHeight = 80;
+        alertVC.messageHeight = kScrAdaptationH(60);
     } else {
-        alertVC.messageHeight = 40;
+        alertVC.messageHeight = kScrAdaptationH(40);
     }
     alertVC.isCenterShow = YES;
     [alertVC setClickXYRightButtonBlock:^{
@@ -285,7 +285,7 @@
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel {
     if ([versionUpdateModel.force isEqualToString:@"1"]) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝又更新咯！" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
-        alertVC.messageHeight = 95;
+        alertVC.messageHeight = kScrAdaptationH(100);
         [alertVC setClickXYRightButtonBlock:^{
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
             [[UIApplication sharedApplication] openURL:url];
@@ -293,7 +293,7 @@
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
     } else if ([versionUpdateModel.force isEqualToString:@"2"] ) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝又更新咯！" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
-        alertVC.messageHeight = 95;
+        alertVC.messageHeight = kScrAdaptationH(100);
         [alertVC setClickXYRightButtonBlock:^{
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
             [[UIApplication sharedApplication] openURL:url];

@@ -46,14 +46,14 @@
         self.backgroundColor = [UIColor whiteColor];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         [self.contentView addSubview:self.backView];
-//        [self.backView addSubview:self.titleLabel];
+        //        [self.backView addSubview:self.titleLabel];
         [self.backView addSubview:self.promptLabel];
         [self.backView addSubview:self.expectAnnualizedRatesTitleLabel];
         [self.backView addSubview:self.expectAnnualizedRatesLabel];
-//        [self.backView addSubview:self.extraInterestRateLabel];
+        //        [self.backView addSubview:self.extraInterestRateLabel];
         [self.backView addSubview:self.investmentPeriodTitleLabel];
-//        [self.backView addSubview:self.investmentPeriodLabel];
-//        [self.backView addSubview:self.purchaseLabel];
+        //        [self.backView addSubview:self.investmentPeriodLabel];
+        //        [self.backView addSubview:self.purchaseLabel];
         [self.backView addSubview:self.purchaseButton];
         [self.backView addSubview:self.icon];
         
@@ -82,18 +82,16 @@
         make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(14));
         make.height.with.offset(kScrAdaptationH(13));
     }];
-    if (self.homePageModel_DataList.tag.length > 0) {
-        [self.expectAnnualizedRatesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerX.equalTo(self.backView);
-            make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(48));
-            make.height.offset(kScrAdaptationH(14));
-        }];
-        
-    }else
-    {
+    if (!_homePageModel_DataList.tag.length) {
         [self.expectAnnualizedRatesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.backView);
             make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(22));
+            make.height.offset(kScrAdaptationH(14));
+        }];
+    } else {
+        [self.expectAnnualizedRatesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self.backView);
+            make.top.equalTo(self.backView.mas_top).offset(kScrAdaptationH(48));
             make.height.offset(kScrAdaptationH(14));
         }];
     }
@@ -127,11 +125,11 @@
 -(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated
 {
     [super setSelected:highlighted animated:animated];
-//    if (highlighted) {
-//        self.backView.backgroundColor = COR13;
-//    }else{
-//        self.backView.backgroundColor = [UIColor whiteColor];
-//    }
+    //    if (highlighted) {
+    //        self.backView.backgroundColor = COR13;
+    //    }else{
+    //        self.backView.backgroundColor = [UIColor whiteColor];
+    //    }
 }
 
 
@@ -141,20 +139,20 @@
 {
     _homePageModel_DataList = homePageModel_DataList;
     _titleString = homePageModel_DataList.name;
-//    self.titleLabel.text = _titleString;
+    //    self.titleLabel.text = _titleString;
     NSString *str = [NSString stringWithFormat:@"投资期限%@个月",homePageModel_DataList.lockPeriod];
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:str];
     // 设置字体和设置字体的范围
     [attrStr addAttribute:NSForegroundColorAttributeName
-                       value:RGB(253, 54, 54)
-                       range:[str rangeOfString:homePageModel_DataList.lockPeriod]];
+                    value:RGB(253, 54, 54)
+                    range:[str rangeOfString:homePageModel_DataList.lockPeriod]];
     self.investmentPeriodTitleLabel.attributedText = attrStr;
-
+    
     if (![homePageModel_DataList.fixExtraInterestRate isEqualToString:@"0"]) {
         self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],homePageModel_DataList.fixExtraInterestRate];
     }else
     {
-         self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%",[homePageModel_DataList.baseInterestRate doubleValue]];
+        self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%",[homePageModel_DataList.baseInterestRate doubleValue]];
     }
     
     //根据数据返回
@@ -162,13 +160,13 @@
     
     [self.purchaseButton setTitle:self.homePageModel_DataList.cellBtnTitle forState:UIControlStateNormal];
     
-    if (self.homePageModel_DataList.tag.length > 0) {
-        self.icon.hidden = NO;
-        self.promptLabel.text = self.homePageModel_DataList.tag;
-    }else
-    {
+    if (!homePageModel_DataList.tag.length) {
         self.icon.hidden = YES;
         self.promptLabel.hidden = YES;
+    } else {
+        self.icon.hidden = NO;
+        self.promptLabel.hidden = NO;
+        self.promptLabel.text = self.homePageModel_DataList.tag;
     }
     //设置子控件的位置
     [self setupSubViewFrame];
@@ -239,7 +237,7 @@
     if (!_promptLabel) {
         _promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 110, 0, 110, 14)];
         _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(13);
-//        _promptLabel.text = @"喜迎国庆，立加息啦";
+        //        _promptLabel.text = @"喜迎国庆，立加息啦";
         _promptLabel.textColor = RGB(94, 149, 255);
     }
     return _promptLabel;
@@ -293,7 +291,7 @@
         _purchaseButton = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) + 10, 0, SCREEN_WIDTH - CGRectGetMaxX(self.investmentPeriodTitleLabel.frame) - 20, 36)];
         _purchaseButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
         [_purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
-//        [_purchaseButton setTitle:@"加入" forState:UIControlStateNormal];
+        //        [_purchaseButton setTitle:@"加入" forState:UIControlStateNormal];
         [_purchaseButton addTarget:self action:@selector(purchaseButtonClick) forControlEvents:UIControlEventTouchUpInside];
         _purchaseButton.enabled = NO;
         _purchaseButton.layer.borderWidth = kXYBorderWidth;
@@ -336,7 +334,7 @@
 #pragma mark - 处理按钮点击事件
 - (void)purchaseButtonClick
 {
-//    NSLog(@"%s",__func__);
+    //    NSLog(@"%s",__func__);
     if (self.purchaseButtonClickBlock) {
         self.purchaseButtonClickBlock();
     }
