@@ -63,7 +63,6 @@ static NSString *const my = @"我的";
             }
         }
         
-        
         [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
 
     }
