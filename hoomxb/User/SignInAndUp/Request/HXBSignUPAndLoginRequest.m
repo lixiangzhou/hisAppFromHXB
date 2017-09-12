@@ -91,7 +91,7 @@
     //配置userAgent
     NSString *systemVision = [[UIDevice currentDevice] systemVersion];
     NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    NSString *userAgent = [NSString stringWithFormat:@"Iphone/IOS %@/v%@" ,systemVision,version];
+    NSString *userAgent = [NSString stringWithFormat:@"Iphone/IOS %@/v%@ iphone" ,systemVision,version];
     [requestM addValue:userAgent forHTTPHeaderField:@"User-Agent"];
     requestM.HTTPMethod = @"GET";
     //配置token

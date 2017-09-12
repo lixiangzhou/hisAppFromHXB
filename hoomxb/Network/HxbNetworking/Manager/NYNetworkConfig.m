@@ -45,7 +45,7 @@ static NSString *const X_HxbAuth_Token = @"X-Hxb-Auth-Token";
     if (self) {
         self.systemVision = [[UIDevice currentDevice] systemVersion];
         self.version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-        self.userAgent = [NSString stringWithFormat:@"Iphone/IOS %@/v%@" ,self.systemVision,self.version];
+        self.userAgent = [NSString stringWithFormat:@"Iphone/IOS %@/v%@ iphone" ,self.systemVision,self.version];
         _additionalHeaderFields = @{};
         self.baseUrl = @"";
         self.defaultAcceptableStatusCodes = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(200, 100)];
