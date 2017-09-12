@@ -204,6 +204,11 @@
     }
     if (self.finPlanListViewModel.isCountDown) {
         self.countDownLable.text = countDownString;
+        self.addStatus.text = @"等待加入";
+        self.addStatus.backgroundColor = RGB(255, 247, 247);
+        self.addStatus.textColor = RGB(253, 54, 54);
+        self.addStatus.layer.borderColor = RGB(255, 133, 133).CGColor;
+        self.addStatus.layer.borderWidth = kScrAdaptationH(0.5f);
     }
     if ([self.addStatus.text isEqualToString:@"等待加入"] && self.finPlanListViewModel.isHidden) {
         self.addStatus.text = @"立即加入";

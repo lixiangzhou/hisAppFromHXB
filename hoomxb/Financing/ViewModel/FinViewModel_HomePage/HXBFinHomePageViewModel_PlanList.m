@@ -52,34 +52,49 @@ typedef enum : NSUInteger {
 }
 
 - (void)setCountDownString:(NSString *)countDownString {
+    _countDownString = countDownString;
     if (!countDownString.integerValue && !self.remainTimeString.length) {
         self.isHidden = true;
     }else {
         self.isHidden = false;
     }
-    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm:ss"];
-}
-/**
- 剩余时间
- */
-- (NSString *) countDownLastStr {
-    if (!_countDownLastStr) {
-        _countDownLastStr = @(self.planListModel.diffTime.integerValue / 1000.0).description;
-        if (_countDownLastStr.integerValue <= 3600 && _countDownLastStr.integerValue >= 0) {
-            NSLog(@"%@倒计时",_countDownLastStr);
-            self.isCountDown = true;
-            //会有倒计时
-        }else if (_countDownLastStr.integerValue > 3600) {
-            //显示的是数字 12日12：12
-            NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planListModel.beginSellingTime  andDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
-            NSString *datestr = @(date.timeIntervalSince1970).description;
-            self.isHidden = false;
-            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"dd日HH:mm"];
-        }
+//    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm:ss"];
+    _countDownLastStr = @(self.planListModel.diffTime.integerValue / 1000.0).description;
+    if (_countDownLastStr.integerValue <= 3600 && _countDownLastStr.integerValue >= 0) {
+        NSLog(@"%@倒计时",_countDownLastStr);
+        self.isCountDown = true;
+        //会有倒计时
+        _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm:ss"];
+    }else if (_countDownLastStr.integerValue > 3600) {
+        //显示的是数字 12日12：12
+        NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planListModel.beginSellingTime  andDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
+        NSString *datestr = @(date.timeIntervalSince1970).description;
+        self.isHidden = false;
+        self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"dd日HH:mm"];
     }
-    
-    return _countDownLastStr;
+
 }
+///**
+// 剩余时间
+// */
+//- (NSString *) countDownLastStr {
+//    if (!_countDownLastStr) {
+//        _countDownLastStr = @(self.planListModel.diffTime.integerValue / 1000.0).description;
+//        if (_countDownLastStr.integerValue <= 3600 && _countDownLastStr.integerValue >= 0) {
+//            NSLog(@"%@倒计时",_countDownLastStr);
+//            self.isCountDown = true;
+//            //会有倒计时
+//        }else if (_countDownLastStr.integerValue > 3600) {
+//            //显示的是数字 12日12：12
+//            NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planListModel.beginSellingTime  andDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
+//            NSString *datestr = @(date.timeIntervalSince1970).description;
+//            self.isHidden = false;
+//            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"dd日HH:mm"];
+//        }
+//    }
+//    
+//    return _countDownLastStr;
+//}
 
 
 #pragma mark - getter
