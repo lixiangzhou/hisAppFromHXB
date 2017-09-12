@@ -45,7 +45,7 @@
 - (void)setAmount:(NSString *)amount
 {
     _amount = amount;
-    NSString *amountStr = [NSString hxb_getPerMilWithDouble:[amount floatValue]];
+    NSString *amountStr = [NSString hxb_getPerMilWithDouble:[amount doubleValue]];
     self.rechargeNumLabel.text = [NSString stringWithFormat:@"成功充值 %@",amountStr];
 }
 
