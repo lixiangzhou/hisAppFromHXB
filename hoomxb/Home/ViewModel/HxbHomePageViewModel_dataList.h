@@ -14,4 +14,5 @@
 @property (nonatomic, strong) NSString *lockPeriod;
 @property (nonatomic, strong) NSString *expectedYearRate;
 @property (nonatomic, strong) NSString *status;
+
 @end

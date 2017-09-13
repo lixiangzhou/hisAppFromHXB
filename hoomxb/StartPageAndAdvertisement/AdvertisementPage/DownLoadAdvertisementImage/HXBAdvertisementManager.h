@@ -16,4 +16,5 @@ static NSString *const adImageName;
 + (void)downLoadAdvertisementImageWithadvertisementImageURLStr:(NSString *) advertisementImageURLStr andDownLoadBlock: (void(^)(NSString *imagePath))downLoadBlock;
 ///广告图片路径的获取
 + (UIImage *)getAdvertisementImagePath;
+
 @end
