@@ -158,7 +158,7 @@
 - (HXBLeftLabelTextView *)amountTextField{
     if (!_amountTextField) {
         _amountTextField = [[HXBLeftLabelTextView alloc] init];
-        _amountTextField.leftStr = @"充值金额:";
+        _amountTextField.leftStr = @"充值金额";
         _amountTextField.backgroundColor = [UIColor whiteColor];
         _amountTextField.isDecimalPlaces = YES;
         _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
@@ -209,9 +209,9 @@
 {
     if (!_phoneBtn) {
         _phoneBtn  = [[UIButton alloc] init];
-        NSString *string = [NSString stringWithFormat:@"2、如有疑问，请联系客服：%@。", kServiceMobile];
-        NSMutableAttributedString *str = [NSMutableAttributedString setupAttributeStringWithString:string WithRange:NSMakeRange(string.length - kServiceMobile.length - 1, kServiceMobile.length) andAttributeColor:COR30];
-        [str addAttribute:NSForegroundColorAttributeName value:COR8 range:NSMakeRange(0, string.length - kServiceMobile.length - 1)];
+        NSString *string = [NSString stringWithFormat:@"2、如有疑问，请联系客服：%@", kServiceMobile];
+        NSMutableAttributedString *str = [NSMutableAttributedString setupAttributeStringWithString:string WithRange:NSMakeRange(string.length - kServiceMobile.length, kServiceMobile.length) andAttributeColor:COR30];
+        [str addAttribute:NSForegroundColorAttributeName value:COR8 range:NSMakeRange(0, string.length - kServiceMobile.length)];
         [_phoneBtn setAttributedTitle:str forState:(UIControlStateNormal)];
         [_phoneBtn addTarget:self action:@selector(phoneBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _phoneBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
