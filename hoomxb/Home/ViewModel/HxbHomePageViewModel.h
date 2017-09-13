@@ -14,4 +14,5 @@
 @property (nonatomic,strong) NSString *assetsTotal;
 
 @property (nonatomic, strong) HXBHomeBaseModel *homeBaseModel;
+
 @end
