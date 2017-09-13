@@ -88,7 +88,7 @@
     self.toolBarViewOptionStrArray = @[
                                        @"红利计划",
                                        @"散标",
-//                                       @"债权转让" //债权转让，以后打开
+                                       @"债权转让" //债权转让，以后打开
                                        ];
     
     
@@ -140,7 +140,7 @@
     self.bottomViewArray = @[
                              self.planListTableView,
                              self.loanListTableView,
-//                             self.loanTruansferTableView //债权转让，以后打开
+                             self.loanTruansferTableView //债权转让，以后打开
                             ];
 }
 
