@@ -29,9 +29,10 @@ typedef void(^isLimitText)(NSString *text);
 @property (nonatomic, assign) int limitStringLength;
 
 /**
- block
+ 返回当前输入text值的block
  */
 @property (nonatomic, copy) isLimitText block;
+
 /**
  背景按钮点击
  */

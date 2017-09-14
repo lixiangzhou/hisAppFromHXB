@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class HXBCardBinModel;
 @interface HXBOpenDepositAccountRequest : NSObject
 
 /**
@@ -47,5 +47,15 @@
  @param failureBlock 失败回调
  */
 - (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+/**
+ 卡bin校验
+ 
+ @param bankNumber 银行卡号
+ @param successDateBlock 成功回调
+ @param failureBlock 失败回调
+ */
++ (void)checkCardBinResultRequestWithSmscode:(NSString *)bankNumber andSuccessBlock: (void(^)(HXBCardBinModel *cardBinModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
 
 @end

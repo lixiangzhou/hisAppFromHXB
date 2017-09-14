@@ -7,18 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HXBCardBinModel;
 @interface HXBWithdrawCardView : UIView
 
 /**
  bankName
  */
-@property (nonatomic, copy) NSString *bankName;
+//@property (nonatomic, copy) NSString *bankName;
 
 /**
  bankCode
  */
-@property (nonatomic, copy) NSString *bankCode;
+//@property (nonatomic, copy) NSString *bankCode;
+
+/**
+ 卡bin数据
+ */
+@property (nonatomic, strong) HXBCardBinModel *cardBinModel;
 
 /**
  bankNameBtnClickBlock
@@ -29,6 +34,11 @@
  nextButtonClickBlcok
  */
 @property (nonatomic, copy) void(^nextButtonClickBlock)(NSDictionary *dic);
+
+/**
+ 卡bin校验
+ */
+@property (nonatomic, copy) void(^checkCardBin)(NSString *bankNumber);
 
 
 

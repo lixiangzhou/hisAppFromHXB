@@ -56,6 +56,14 @@
             [weakSelf nextButtonClick:dic];
         };
         
+        _withdrawCardView.checkCardBin = ^(NSString *bankNumber) {
+            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:bankNumber andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+                [weakSelf checkCardBin:cardBinModel];
+            } andFailureBlock:^(NSError *error) {
+                
+            }];
+        };
+        
     }
     return _withdrawCardView;
 }
@@ -74,16 +82,21 @@
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self.view addSubview:self.withdrawCardView];
 }
+//卡bin校验
+- (void)checkCardBin:(HXBCardBinModel *)cardBinModel
+{
+    self.withdrawCardView.cardBinModel = cardBinModel;
+}
 
 - (void)enterBankCardListVC
 {
     kWeakSelf
     HXBBankCardListViewController *bankCardListVC = [[HXBBankCardListViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bankCardListVC];
-    bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
-        weakSelf.withdrawCardView.bankCode = bankCode;
-        weakSelf.withdrawCardView.bankName = bankName;
-    };
+//    bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
+//        weakSelf.withdrawCardView.bankCode = bankCode;
+//        weakSelf.withdrawCardView.bankName = bankName;
+//    };
     [weakSelf presentViewController:nav animated:YES completion:nil];
 }
 

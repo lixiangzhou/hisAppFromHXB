@@ -13,7 +13,7 @@
 #import "SVGKImage.h"
 #import "HXBBankCardModel.h"
 #import "HXBAgreementView.h"
-
+#import "HXBCardBinModel.h"
 @interface HXBOpenDepositAccountView ()<UITextFieldDelegate>
 @property (nonatomic, strong) HXBDepositoryHeaderView *headerTipView;
 @property (nonatomic, strong) HXBCustomTextField *nameTextField;
@@ -119,7 +119,7 @@
     self.bankNameTextField.text = bankCardModel.bankType;
     self.bankNameTextField.isHidenLine = YES;
     self.bankNameTextField.userInteractionEnabled = NO;
-    self.bankCode = bankCardModel.bankCode;
+//    self.bankCode = bankCardModel.bankCode;
     
     self.bankNumberTextField.text = [bankCardModel.cardId replaceStringWithStartLocation:0 lenght:bankCardModel.cardId.length - 4];
     self.bankNumberTextField.isHidenLine = YES;
@@ -174,7 +174,6 @@
         make.height.offset(kScrAdaptationH(50));
     }];
     
- 
     [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.phoneTextField.mas_bottom).offset(kScrAdaptationH(40));
         make.centerX.equalTo(self);
@@ -183,10 +182,21 @@
     }];
 }
 
-- (void)setBankName:(NSString *)bankName
+//- (void)setBankName:(NSString *)bankName
+//{
+//    _bankName = bankName;
+//    self.bankNameTextField.text = bankName;
+//}
+
+- (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
 {
-    _bankName = bankName;
-    self.bankNameTextField.text = bankName;
+    _cardBinModel = cardBinModel;
+    if (cardBinModel.isDebit) {
+        self.bankNameTextField.text = [NSString stringWithFormat:@"%@：%@",cardBinModel.bankName,cardBinModel.quota];
+    }else
+    {
+        self.bankNameTextField.text = @"此卡为信用卡，暂不支持";
+    }
 }
 
 - (void)bottomBtnClick
@@ -199,7 +209,7 @@
                               @"password" : self.pwdTextField.text,
                               @"bankCard" : self.bankNumberTextField.text,
                               @"bankReservedMobile" : self.phoneTextField.text,
-                              @"bankCode" : self.bankCode
+//                              @"bankCode" : self.bankCode
                               };
         self.openAccountBlock(dic);
     }
@@ -235,11 +245,11 @@
         isNull = YES;
         return isNull;
     }
-    if (!(self.bankCode.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"银行名称不能为空" inView:self];
-        isNull = YES;
-        return isNull;
-    }
+//    if (!(self.bankCode.length > 0)) {
+//        [HxbHUDProgress showMessageCenter:@"银行名称不能为空" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
     if (!(self.bankNumberTextField.text.length > 0)) {
         [HxbHUDProgress showMessageCenter:@"银行卡号不能为空" inView:self];
         isNull = YES;
@@ -278,10 +288,10 @@
         isNull = YES;
         return isNull;
     }
-    if (!(self.bankCode.length > 0)) {
-        isNull = YES;
-        return isNull;
-    }
+//    if (!(self.bankCode.length > 0)) {
+//        isNull = YES;
+//        return isNull;
+//    }
     if (!(self.bankNumberTextField.text.length > 0) && textField != self.bankNumberTextField) {
         isNull = YES;
         return isNull;
@@ -324,6 +334,8 @@
         }
         return [self limitNumberCount:textField.superview];
     }
+    
+    
 }
 
 
@@ -436,6 +448,14 @@
         _bankNumberTextField.placeholder = @"银行卡号";
         _bankNumberTextField.delegate = self;
         _bankNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
+        kWeakSelf
+        _bankNumberTextField.block = ^(NSString *text) {
+            if (text.length>=12) {
+                if (weakSelf.checkCardBin) {
+                    weakSelf.checkCardBin(text);
+                }
+            }
+        };
     }
     return _bankNumberTextField;
 }

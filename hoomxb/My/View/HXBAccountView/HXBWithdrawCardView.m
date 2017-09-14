@@ -10,6 +10,7 @@
 #import "HXBBankCardListViewController.h"
 #import "SVGKImage.h"
 #import "HXBCustomTextField.h"
+#import "HXBCardBinModel.h"
 @interface HXBWithdrawCardView ()<UITextFieldDelegate>
 //@property (nonatomic, strong) UITextField *bankCardTextField;
 //@property (nonatomic, strong) UIButton *bankNameBtn;
@@ -112,7 +113,7 @@
         NSDictionary *dic = @{
                               @"bankCard" : self.bankCardTextField.text,
                               @"bankReservedMobile" : self.phoneNumberTextField.text,
-                              @"bankCode" : self.bankCode
+//                              @"bankCode" : self.bankCode
                               };
         self.nextButtonClickBlock(dic);
     }
@@ -120,11 +121,11 @@
 - (BOOL)judgeIsNull
 {
     BOOL isNull = NO;
-    if (!(self.bankCode.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"没有选择银行" inView:self];
-        isNull = YES;
-        return isNull;
-    }
+//    if (!(self.bankCode.length > 0)) {
+//        [HxbHUDProgress showMessageCenter:@"没有选择银行" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
     if (!(self.bankCardTextField.text.length >= 10 && self.bankCardTextField.text.length <= 25)) {
         
         [HxbHUDProgress showMessageCenter:@"请输入正确的卡号" inView:self];
@@ -139,11 +140,11 @@
     return isNull;
 }
 
-- (void)setBankName:(NSString *)bankName
-{
-    _bankName = bankName;
-    self.bankNameTextField.text = bankName;
-}
+//- (void)setBankName:(NSString *)bankName
+//{
+//    _bankName = bankName;
+//    self.bankNameTextField.text = bankName;
+//}
 
 #pragma mark - 懒加载
 - (HXBCustomTextField *)bankCardTextField{
@@ -154,8 +155,28 @@
         _bankCardTextField.delegate = self;
         _bankCardTextField.limitStringLength = 25;
         _bankCardTextField.leftImage = [UIImage imageNamed:@"bankcard"];
+        kWeakSelf
+        _bankCardTextField.block = ^(NSString *text) {
+            if (text.length>=12) {
+                if (weakSelf.checkCardBin) {
+                    weakSelf.checkCardBin(text);
+                }
+            }
+        };
     }
     return _bankCardTextField;
+}
+
+
+- (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
+{
+    _cardBinModel = cardBinModel;
+    if (cardBinModel.isDebit) {
+        self.bankNameTextField.text = [NSString stringWithFormat:@"%@：%@",cardBinModel.bankName,cardBinModel.quota];
+    }else
+    {
+        self.bankNameTextField.text = @"此卡为信用卡，暂不支持";
+    }
 }
 
 - (HXBCustomTextField *)bankNameTextField

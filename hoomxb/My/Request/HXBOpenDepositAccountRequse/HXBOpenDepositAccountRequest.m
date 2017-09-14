@@ -8,6 +8,7 @@
 
 #import "HXBOpenDepositAccountRequest.h"
 #import "HXBBaseRequest.h"
+#import "HXBCardBinModel.h"
 @implementation HXBOpenDepositAccountRequest
 
 - (void)openDepositAccountRequestWithArgument:(NSDictionary *)requestArgument andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
@@ -168,6 +169,46 @@
         }
     }];
     
+}
+
+
+/**
+ 卡bin校验
+ 
+ @param bankNumber 银行卡号
+ @param successDateBlock 成功回调
+ @param failureBlock 失败回调
+ */
++ (void)checkCardBinResultRequestWithSmscode:(NSString *)bankNumber andSuccessBlock: (void(^)(HXBCardBinModel *cardBinModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+{
+    HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
+    versionUpdateAPI.requestUrl = kHXBUser_checkCardBin;
+    versionUpdateAPI.requestMethod = NYRequestMethodPost;
+    versionUpdateAPI.requestArgument = @{
+                                         @"bankCard" : bankNumber
+                                         };
+    versionUpdateAPI.isUPReloadData = YES;
+    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSInteger status =  [responseObject[@"status"] integerValue];
+        if (status != 0) {
+            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            if (failureBlock) {
+                failureBlock(responseObject);
+            }
+            return;
+        }
+        
+        HXBCardBinModel *cardBinModel = [HXBCardBinModel yy_modelWithDictionary:responseObject[@"data"]];
+        if (successDateBlock) {
+            successDateBlock(cardBinModel);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (failureBlock) {
+            failureBlock(error);
+        }
+    }];
+
 }
 
 @end

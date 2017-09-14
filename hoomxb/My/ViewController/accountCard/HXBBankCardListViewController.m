@@ -104,6 +104,7 @@
     HXBBankListCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[HXBBankListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     HXBBankList *bankModel  = self.bankListModels[indexPath.row];
     cell.textLabel.text = bankModel.name;
@@ -119,7 +120,7 @@
         HXBBankList *bankModel  = self.bankListModels[indexPath.row];
         self.bankCardListBlock(bankModel.bankCode,bankModel.name);
     }
-    [self back];
+//    [self back];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
