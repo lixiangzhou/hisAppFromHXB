@@ -259,6 +259,7 @@ typedef NS_ENUM(NSInteger, LCProgressHUDType){
     
     [[HxbHUDProgress shareInstance].HUD setRemoveFromSuperViewOnHide:YES];
     if(msg)[HxbHUDProgress shareInstance].HUD.detailsLabel.text = msg;
+    [HxbHUDProgress shareInstance].HUD.detailsLabel.numberOfLines = 0;
     [HxbHUDProgress shareInstance].HUD.detailsLabel.font = [UIFont systemFontOfSize:16];
     
     switch (mytype) {
