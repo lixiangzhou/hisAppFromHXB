@@ -73,7 +73,7 @@ UITableViewDelegate,UITableViewDataSource
     HXBFin_TableViewCell_LoanTransfer *cell = [tableView dequeueReusableCellWithIdentifier:kcellClass forIndexPath:indexPath];
     
     cell.LoanTruansferViewModel = self.loanTruansferViewModel[indexPath.row];
-    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.clickStutasButtonBlock = ^(id model) {
         if (self.clickCellBlock) {
             self.clickCellBlock(self.loanTruansferViewModel[indexPath.row], indexPath);
@@ -87,7 +87,6 @@ UITableViewDelegate,UITableViewDataSource
         [self addSubview: _nodataView];
         _nodataView.imageName = @"Fin_NotData";
         _nodataView.noDataMassage = @"暂无转让中的债权";
-//        _nodataView.downPULLMassage = @"下拉进行刷新";
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(kScrAdaptationH(100));
             make.height.width.equalTo(@(kScrAdaptationH(184)));
