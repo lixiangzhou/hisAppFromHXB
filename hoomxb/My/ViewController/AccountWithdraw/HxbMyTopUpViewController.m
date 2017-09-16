@@ -72,7 +72,7 @@
 {
     kWeakSelf
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:self.myTopUpBaseView.amount andSuccessBlock:^(id responseObject) {
+    [accountRequest accountRechargeRequestWithRechargeAmount:self.myTopUpBaseView.amount andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
         [weakSelf requestRechargeResult];
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);

@@ -165,7 +165,7 @@
     if (!_mainView) {
         kWeakSelf
         _mainView = [[HXBOpenDepositAccountView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
-        
+        _mainView.backgroundColor = kHXBColor_BackGround;
         _mainView.userModel = self.userModel;
         
         _mainView.bankNameBlock = ^{

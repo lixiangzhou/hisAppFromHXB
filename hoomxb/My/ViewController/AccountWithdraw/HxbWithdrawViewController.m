@@ -15,6 +15,7 @@
 #import "HXBAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBCallPhone_BottomView.h"
+#import "HXBOpenDepositAccountRequest.h"
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIView *backView;
@@ -143,7 +144,7 @@
 {
     kWeakSelf
     HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
-    alertVC.isCode = NO;
+    alertVC.isCode = YES;
     alertVC.messageTitle = @"请输入您的交易密码";
     alertVC.sureBtnClick = ^(NSString *pwd){
         if (pwd.length == 0) {
@@ -158,13 +159,26 @@
         modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
         [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
     };
-    [self presentViewController:alertVC animated:NO completion:^{
-        
+    alertVC.getVerificationCodeBlock = ^{
+        [weakSelf withdrawSmscode];
+    };
+    [self presentViewController:alertVC animated:NO completion:nil];
+}
+/**
+ 提现短验
+ */
+- (void)withdrawSmscode
+{
+    kWeakSelf
+    HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+    [accountRequest accountRechargeRequestWithRechargeAmount:self.bankCardModel.amount andWithAction:@"withdraw" andSuccessBlock:^(id responseObject) {
+        [weakSelf withdrawals];
+    } andFailureBlock:^(NSError *error) {
+        NSLog(@"%@",error);
     }];
-
 }
 
-- (void)checkWithdrawals:(NSString *)paypassword
+- (void)checkWithdrawals:(NSString *)smscode
 {
 //    self.view.userInteractionEnabled = NO;
     kWeakSelf
@@ -172,7 +186,7 @@
     requestArgument[@"bankno"] = self.bankCardModel.bankCode;
     requestArgument[@"city"] = self.bankCardModel.city;
     requestArgument[@"bank"] = self.bankCardModel.cardId;
-    requestArgument[@"paypassword"] = paypassword;
+    requestArgument[@"smscode"] = smscode;
     requestArgument[@"amount"] = self.bankCardModel.amount;
     HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
     [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
@@ -203,7 +217,8 @@
     }
     
     if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-        [self withdrawals];
+//        [self withdrawals];
+        [self withdrawSmscode];
         return;
     }
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {

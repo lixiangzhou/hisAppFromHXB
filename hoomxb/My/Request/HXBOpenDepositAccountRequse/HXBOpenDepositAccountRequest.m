@@ -110,10 +110,10 @@
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
 }
 
-- (void)accountRechargeRequestWithRechargeAmount:(NSString *)amount andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)accountRechargeRequestWithRechargeAmount:(NSString *)amount andWithAction:(NSString *)action andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
-    versionUpdateAPI.requestUrl = kHXBAccount_quickpay_smscode;
+    versionUpdateAPI.requestUrl = [NSString stringWithFormat:@"%@%@",kHXBAccount_quickpay_smscode,action];
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{
                                          @"amount" : amount

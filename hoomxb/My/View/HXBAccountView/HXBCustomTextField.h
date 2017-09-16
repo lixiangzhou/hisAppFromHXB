@@ -24,10 +24,14 @@ typedef void(^isLimitText)(NSString *text);
 @property (nonatomic, assign) BOOL isIDCardTextField;
 @property (nonatomic, assign) BOOL isGetCode;
 @property(nullable, nonatomic,weak)   id<UITextFieldDelegate> delegate;
-@property (nonatomic, copy) NSString * _Nullable typeTextField;
+//@property (nonatomic, copy) NSString * _Nullable typeTextField;
 @property (nonatomic, assign) int number; // 必须要设置
 @property (nonatomic, assign) int limitStringLength;
 
+/**
+ SVG图片
+ */
+@property (nonatomic, copy) NSString *svgImageName;
 /**
  返回当前输入text值的block
  */

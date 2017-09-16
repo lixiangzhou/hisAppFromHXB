@@ -22,6 +22,8 @@
 @property (nonatomic, strong) HXBCustomTextField *bankNameTextField;
 @property (nonatomic, strong) HXBCustomTextField *bankCardTextField;
 @property (nonatomic, strong) HXBCustomTextField *phoneNumberTextField;
+@property (nonatomic, strong) UIButton *seeLimitBtn;
+@property (nonatomic, strong) UIView *line;
 @end
 
 @implementation HXBWithdrawCardView
@@ -30,13 +32,14 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = kHXBColor_BackGround;
         [self addSubview:self.bankCardTextField];
         [self addSubview:self.bankNameTextField];
+        [self addSubview:self.seeLimitBtn];
         [self addSubview:self.phoneNumberTextField];
         [self addSubview:self.nextButton];
         [self addSubview:self.cardholderLabel];
-        
+        [self addSubview:self.line];
 //        [self addSubview:self.tieOnCard];
         [self setupSubViewFrame];
         
@@ -76,33 +79,52 @@
 //        make.top.equalTo(self.cardholderLabel.mas_bottom).offset(-10);
 //    }];
 
-    [self.bankNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.seeLimitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.cardholderLabel.mas_bottom);;
+        make.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(50));
+        make.width.offset(kScrAdaptationW(100));
+    }];
+    [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.seeLimitBtn.mas_bottom);;
+        make.right.equalTo(self).offset(kScrAdaptationW(-15));
+        make.left.equalTo(self).offset(kScrAdaptationW(15));
+        make.height.offset(0.5);
+    }];
+    
+    [self.bankCardTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
-        make.right.equalTo(self.mas_right);
+        make.right.equalTo(self.seeLimitBtn.mas_left).offset(kScrAdaptationH(20));
         make.top.equalTo(self.cardholderLabel.mas_bottom);
         make.height.offset(kScrAdaptationH750(100));
     }];
     
-    
-    [self.bankCardTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left);
-        make.right.equalTo(self.mas_right);
-        make.height.offset(kScrAdaptationH750(100));
-        make.top.equalTo(self.bankNameTextField.mas_bottom);
-    }];
-    [self.phoneNumberTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.bankNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
         make.height.offset(kScrAdaptationH750(100));
         make.top.equalTo(self.bankCardTextField.mas_bottom);
     }];
+
+//    [self.phoneNumberTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.mas_left);
+//        make.right.equalTo(self.mas_right);
+//        make.height.offset(kScrAdaptationH750(100));
+//        make.top.equalTo(self.bankNameTextField.mas_bottom).offset(kScrAdaptationH(10));
+//    }];
     [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
         make.height.offset(kScrAdaptationH750(82));
-        make.top.equalTo(self.phoneNumberTextField.mas_bottom).offset(kScrAdaptationH750(136));
+        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH750(-600));
     }];
     
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankCardTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH750(100));
 }
 
 
@@ -146,6 +168,21 @@
 //    self.bankNameTextField.text = bankName;
 //}
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField.superview == self.bankCardTextField) {
+        self.line.backgroundColor = COR29;
+    }
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField.superview == self.bankCardTextField) {
+        self.line.backgroundColor = COR12;
+    }
+}
+
 #pragma mark - 懒加载
 - (HXBCustomTextField *)bankCardTextField{
     if (!_bankCardTextField) {
@@ -155,11 +192,13 @@
         _bankCardTextField.delegate = self;
         _bankCardTextField.limitStringLength = 25;
         _bankCardTextField.leftImage = [UIImage imageNamed:@"bankcard"];
+        _bankCardTextField.isHidenLine = YES;
         kWeakSelf
         _bankCardTextField.block = ^(NSString *text) {
             if (text.length>=12) {
                 if (weakSelf.checkCardBin) {
                     weakSelf.checkCardBin(text);
+                    
                 }
             }
         };
@@ -167,14 +206,30 @@
     return _bankCardTextField;
 }
 
+- (void)seeLimitBtnClick
+{
+    if (self.bankNameBtnClickBlock) {
+        self.bankNameBtnClickBlock();
+    }
+
+}
+
 
 - (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
 {
     _cardBinModel = cardBinModel;
+    self.bankNameTextField.hidden = NO;
+    self.line.hidden = NO;
+    [UIView animateWithDuration:1.0 animations:^{
+        self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
+    }];
+    [self layoutIfNeeded];
     if (cardBinModel.isDebit) {
+        self.bankNameTextField.svgImageName = cardBinModel.bankCode;
         self.bankNameTextField.text = [NSString stringWithFormat:@"%@：%@",cardBinModel.bankName,cardBinModel.quota];
     }else
     {
+        self.bankNameTextField.svgImageName = @"默认";
         self.bankNameTextField.text = @"此卡为信用卡，暂不支持";
     }
 }
@@ -182,22 +237,32 @@
 - (HXBCustomTextField *)bankNameTextField
 {
     if (!_bankNameTextField) {
-        kWeakSelf
         _bankNameTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectZero];
         _bankNameTextField.placeholder = @"银行名称";
-        _bankNameTextField.leftImage = [SVGKImage imageNamed:@"bank.svg"].UIImage;
-        _bankNameTextField.rightImage = [SVGKImage imageNamed:@"more.svg"].UIImage;
-
-        _bankNameTextField.btnClick = ^{
-            if (weakSelf.bankNameBtnClickBlock) {
-                weakSelf.bankNameBtnClickBlock();
-            }
-        };
+        _bankNameTextField.svgImageName = @"默认";
+        _bankNameTextField.hidden = YES;
+        _bankNameTextField.userInteractionEnabled = NO;
+//        _bankNameTextField.rightImage = [SVGKImage imageNamed:@"more.svg"].UIImage;
+        _bankNameTextField.isHidenLine = YES;
+//        _bankNameTextField.btnClick = ^{
+//            if (weakSelf.bankNameBtnClickBlock) {
+//                weakSelf.bankNameBtnClickBlock();
+//            }
+//        };
         
     }
     return _bankNameTextField;
 }
 
+- (UIView *)line
+{
+    if (!_line) {
+        _line = [[UIView alloc] init];
+        _line.backgroundColor = COR12;
+        _line.hidden = YES;
+    }
+    return _line;
+}
 
 
 - (HXBCustomTextField *)phoneNumberTextField{
@@ -208,6 +273,7 @@
         _phoneNumberTextField.delegate = self;
         _phoneNumberTextField.limitStringLength = 11;
         _phoneNumberTextField.leftImage = [UIImage imageNamed:@"mobile_number"];
+        _phoneNumberTextField.isHidenLine = YES;
     }
     return _phoneNumberTextField;
 }
@@ -276,14 +342,19 @@
     return _cardholderLabel;
 }
 
-//- (UILabel *)tieOnCard
-//{
-//    if (!_tieOnCard) {
-//        _tieOnCard = [[UILabel alloc] init];
-//        _tieOnCard.text = @"  绑定银行卡  ";
-//        _tieOnCard.backgroundColor = [UIColor whiteColor];
-//    }
-//    return _tieOnCard;
-//}
+- (UIButton *)seeLimitBtn
+{
+    if (!_seeLimitBtn) {
+        _seeLimitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_seeLimitBtn setTitle:@"查看银行限额" forState:(UIControlStateNormal)];
+        [_seeLimitBtn setTitleColor:kHXBColor_Blue040610 forState:(UIControlStateNormal)];
+        _seeLimitBtn.backgroundColor = [UIColor whiteColor];
+        [_seeLimitBtn addTarget:self action:@selector(seeLimitBtnClick) forControlEvents:(UIControlEventTouchUpInside)];
+        _seeLimitBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _seeLimitBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        
+    }
+    return _seeLimitBtn;
+}
 
 @end
