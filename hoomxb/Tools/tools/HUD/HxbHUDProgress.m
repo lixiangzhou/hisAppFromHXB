@@ -38,6 +38,7 @@
     HUD.bezelView.backgroundColor = [UIColor blackColor];
     HUD.label.text = NSLocalizedString(text, @"HUD loading title");
     HUD.label.font = kHXBFont_PINGFANGSC_REGULAR(14);
+    HUD.label.numberOfLines = 0;
     HUD.label.textColor = [UIColor whiteColor];
     HUD.backgroundColor = [UIColor clearColor];
     HUD.offset = CGPointMake(0, - kScrAdaptationH(100));
