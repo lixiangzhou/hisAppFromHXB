@@ -26,7 +26,7 @@ static NSString *const channelId = @"App Store";
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version]; // 设置App的版本
     [MobClick setEncryptEnabled:NO];// 设置是否对日志信息进行加密, 默认NO(不加密).、
-    [MobClick setLogEnabled:YES];
+    [MobClick setLogEnabled:NO];
 }
 
 #pragma mark --- HXBPageController(页面统计)

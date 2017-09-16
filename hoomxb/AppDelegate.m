@@ -24,6 +24,8 @@
 
 #import "AXHNewFeatureController.h"//引导页
 
+#import "AvoidCrash.h"//防止数据为空产生的闪退
+
 static NSString *const home = @"首页";
 static NSString *const financing = @"投资";
 static NSString *const my = @"我的";
@@ -70,8 +72,8 @@ static NSString *const my = @"我的";
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    
+    //字典和数据为空的防止闪退
+    [AvoidCrash becomeEffective];
     //配置网络
     [self setNetworkConfig];
     

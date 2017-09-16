@@ -25,8 +25,8 @@
 //#define BASEURL                                       @"http://10.1.80.11:9001"
 
 //叶
-//#define BASEURL                                       @"https://api.hoomxb.com"//线上环境
-#define BASEURL                                       @"http://192.168.1.21:3000"//后台
+#define BASEURL                                       @"https://api.hoomxb.com"//线上环境
+//#define BASEURL                                       @"http://192.168.1.21:3000"//后台
 //#define BASEURL                                       @"http://192.168.1.133:3000"//王鹏 端测试
 //#define BASEURL                                       @"http://192.168.1.161:3000"//杜宇 测试
 //#define BASEURL                                       @"http://192.168.1.31:3100"//后台、

@@ -116,7 +116,7 @@
 
 //MARK: 销毁
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_StopAllRequest object:nil];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_StopAllRequest object:nil];
     [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
     NSLog(@"✅被销毁 %@",self);
 }
