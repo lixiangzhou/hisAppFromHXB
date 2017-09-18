@@ -94,6 +94,7 @@
     NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVision,version];
     [requestM addValue:userAgent forHTTPHeaderField:@"User-Agent"];
     [requestM addValue:[HXBServerAndClientTime getCurrentTime_Millisecond] forHTTPHeaderField:@"X-Hxb-Auth-Timestamp"];
+    [requestM addValue:KeyChain.token forHTTPHeaderField: kHXBToken_X_HxbAuth_Token];
     requestM.HTTPMethod = @"GET";
     //配置token
     ///创建请求
