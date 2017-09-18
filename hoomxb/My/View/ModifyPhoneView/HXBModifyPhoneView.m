@@ -189,9 +189,6 @@
     }
     [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:self.phoneTextField.text andSuccessBlock:^(BOOL isExist) {
         if (isExist) {
-            [HxbHUDProgress showTextWithMessage:@"该手机号已使用"];
-        }else
-        {
             if (self.getValidationCodeButtonClickBlock) {
                 self.getValidationCodeButtonClickBlock(self.phoneTextField.text);
             }
