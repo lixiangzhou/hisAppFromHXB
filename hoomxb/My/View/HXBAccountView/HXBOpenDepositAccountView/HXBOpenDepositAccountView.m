@@ -257,7 +257,7 @@
                               @"password" : self.pwdTextField.text,
                               @"bankCard" : self.bankNumberTextField.text,
                               @"bankReservedMobile" : self.phoneTextField.text,
-//                              @"bankCode" : self.bankCode
+                              @"bankCode" : self.cardBinModel.bankCode
                               };
         self.openAccountBlock(dic);
     }
@@ -492,6 +492,7 @@
         _bankNameTextField.delegate = self;
         _bankNameTextField.isHidenLine = YES;
         _bankNameTextField.userInteractionEnabled = NO;
+        _bankNameTextField.textColor = COR10;
     }
     return _bankNameTextField;
 }

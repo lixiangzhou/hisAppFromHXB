@@ -35,7 +35,7 @@
 @property (nonatomic, copy) void(^sureBtnClick)(NSString *pwd);
 
 ///**
-// 确认按钮
+// 忘记密码按钮
 // */
 @property (nonatomic, copy) void(^forgetBtnClick)();
 

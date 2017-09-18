@@ -261,6 +261,13 @@
     self.idTextField.text = text;
 }
 
+- (void)setTextColor:(UIColor *)textColor
+{
+    _textColor = textColor;
+    self.textField.textColor = textColor;
+}
+
+
 - (NSString *)text
 {
     if (self.isIDCardTextField) {
@@ -296,6 +303,7 @@
         _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.delegate = self;
+        _textField.textColor = COR6;
     }
     return _textField;
 }

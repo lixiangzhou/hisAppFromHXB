@@ -33,6 +33,8 @@
  数据模型
  */
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
+
+@property (nonatomic, strong) HXBAlertVC *alertVC;
 @end
 
 @implementation HxbWithdrawViewController
@@ -143,26 +145,26 @@
 - (void)withdrawals
 {
     kWeakSelf
-    HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
-    alertVC.isCode = YES;
-    alertVC.messageTitle = @"请输入您的交易密码";
-    alertVC.sureBtnClick = ^(NSString *pwd){
+    self.alertVC = [[HXBAlertVC alloc] init];
+    self.alertVC.isCode = YES;
+    self.alertVC.messageTitle = @"请输入您的交易密码";
+    self.alertVC.sureBtnClick = ^(NSString *pwd){
         if (pwd.length == 0) {
             return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
             return;
         }
         [weakSelf checkWithdrawals:pwd];
     };
-    alertVC.forgetBtnClick = ^(){
+    self.alertVC.forgetBtnClick = ^(){
         HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
         modifyTransactionPasswordVC.title = @"修改交易密码";
         modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
         [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
     };
-    alertVC.getVerificationCodeBlock = ^{
+    self.alertVC.getVerificationCodeBlock = ^{
         [weakSelf withdrawSmscode];
     };
-    [self presentViewController:alertVC animated:NO completion:nil];
+    [self presentViewController:self.alertVC animated:NO completion:nil];
 }
 /**
  提现短验
@@ -191,6 +193,7 @@
     HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
     [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
         NSLog(@"%@",responseObject);
+        [weakSelf.alertVC disablesAutomaticKeyboardDismissal];
 //        weakSelf.view.userInteractionEnabled = YES;
         HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
         weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
