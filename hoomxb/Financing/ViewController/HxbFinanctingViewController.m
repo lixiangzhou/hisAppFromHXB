@@ -214,6 +214,7 @@
     HXBFin_DetailLoanTruansfer_ViewController *loanTruansfer_VC = [[HXBFin_DetailLoanTruansfer_ViewController alloc]init];
     loanTruansfer_VC.loanTransfer_ViewModel = cellModel;
     loanTruansfer_VC.loanID = cellModel.loanTruansferListModel.transferId;
+    loanTruansfer_VC.title = cellModel.loanTruansferListModel.title;
     [self.navigationController pushViewController:loanTruansfer_VC animated:true];
     
 }

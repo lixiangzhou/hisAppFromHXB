@@ -8,10 +8,14 @@
 
 #import "HXBColourGradientView.h"
 @class HXBFin_PlanDetailView_TopViewManager;
+
 @interface HXBFin_PlanDetailView_TopView : HXBColourGradientView
+
 @property (nonatomic, assign) NSUInteger attributeStringLength;
 @property (nonatomic,strong) HXBFin_PlanDetailView_TopViewManager *manager;
 - (void)setUPValueWithManager: (HXBFin_PlanDetailView_TopViewManager *(^)(HXBFin_PlanDetailView_TopViewManager *manager))managerBlock;
+
+
 @end
 
 @interface HXBFin_PlanDetailView_TopViewManager : NSObject

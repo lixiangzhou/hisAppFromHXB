@@ -31,6 +31,6 @@
 - (void) lienColorWithRed:(CGFloat)red andGreen: (CGFloat)green andBlue: (CGFloat)blue andAlpha: (CGFloat)alpha;
 - (void) show;
 ///点击事件的回调
-- (void) clickButtonWithBlock: (void (^)(UIButton *button,UITextField *textField))clickButton;
+- (void) clickButtonWithBlock: (void (^)(UIButton *button,HXBCustomTextField *textField))clickButton;
 @end
 

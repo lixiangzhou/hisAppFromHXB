@@ -96,7 +96,6 @@
     [requestM addValue:[HXBServerAndClientTime getCurrentTime_Millisecond] forHTTPHeaderField:@"X-Hxb-Auth-Timestamp"];
     requestM.HTTPMethod = @"GET";
     //配置token
-    [requestM addValue:KeyChain.token forHTTPHeaderField: kHXBToken_X_HxbAuth_Token];
     ///创建请求
     NSURLSessionTask *task = [session dataTaskWithRequest:requestM.copy completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {

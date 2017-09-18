@@ -21,4 +21,5 @@
 @property (nonatomic,copy)NSString *placeholder;
 ///点击了一键购买
 - (void)clickBuyButtonFunc:(void(^)())clickBuyButtonBlock;
+
 @end
