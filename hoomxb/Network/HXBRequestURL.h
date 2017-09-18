@@ -17,7 +17,8 @@
 
 //MARK: ======================= 理财资产 界面 =======================
 //列表
-#define kHXBFinanc_PlanLisetURL(planListPage) [NSString stringWithFormat:@"/plan?page=%ld",(planListPage)]//红利计划列表
+//红利计划列表
+#define kHXBFinanc_PlanLisetURL(planListPage) [NSString stringWithFormat:@"/plan?page=%ld",(planListPage)]
 #define kHXBFinanc_LoanListURL(loanListPage) [NSString stringWithFormat:@"/loan?page=%ld",(loanListPage)]//标的列表
 #define kHXBFin_LoanTruansferURL @"/transfer"///债转列表
 //详情
@@ -27,7 +28,7 @@
 //加入记录
 #define kHXBFinanc_Loan_AddRecortdURL(loanID) [NSString stringWithFormat:@"/loan/%@/record",(loanID)]//加入记录
 #define kHXBFinanc_Plan_AddRecortdURL(planID) [NSString stringWithFormat:@"/plan/%@/record",(planID)]//红利计划 加入记录
-#define kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(loanTruanserID)];//债转加入记录
+#define kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(loanTruanserID)];//账户外债转加入记录
 
 //MARK: ======================= 用户 =======================
 #define kHXBUser_UserInfoURL @"/user/info"///用户信息

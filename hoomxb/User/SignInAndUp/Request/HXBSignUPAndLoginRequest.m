@@ -93,9 +93,9 @@
     NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
     NSString *userAgent = [NSString stringWithFormat:@"Iphone/IOS %@/v%@ iphone" ,systemVision,version];
     [requestM addValue:userAgent forHTTPHeaderField:@"User-Agent"];
+    [requestM addValue:KeyChain.token forHTTPHeaderField: kHXBToken_X_HxbAuth_Token];
     requestM.HTTPMethod = @"GET";
     //配置token
-    [requestM addValue:KeyChain.token forHTTPHeaderField: kHXBToken_X_HxbAuth_Token];
     ///创建请求
     NSURLSessionTask *task = [session dataTaskWithRequest:requestM.copy completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (data) {

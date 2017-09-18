@@ -57,6 +57,9 @@
 }
 
 
+
+
+
 //- (HXBFinAddRecortdTableView_Plan *)addRecortdTableView {
 //    if (!_addRecortdTableView) {
 //        _addRecortdTableView = [[HXBFinAddRecortdTableView_Plan alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];

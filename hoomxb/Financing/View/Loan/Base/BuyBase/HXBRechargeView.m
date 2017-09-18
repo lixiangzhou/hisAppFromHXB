@@ -75,7 +75,6 @@
     [self.buyTextField show];
 //    self.buyTextField.textField.placeholder = self.placeholder;
     self.buyTextField.textField.delegate = self;
-    self.buyTextField.textField.font = kHXBFont_PINGFANGSC_REGULAR(18);
 //    if (self.placeholder.length > 0) {
 //        self.buyTextField.textField.attributedPlaceholder = [NSAttributedString setupAttributeStringWithString:self.placeholder WithRange:NSMakeRange(0, self.placeholder.length) andAttributeColor:kHXBColor_Font0_5 andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(14)];
 //    }

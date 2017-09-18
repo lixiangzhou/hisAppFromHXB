@@ -21,7 +21,6 @@
 - (void)setAmount:(NSString *)amount {
     _amount = amount;
     _amount = [NSString hxb_getPerMilWithDouble:amount.floatValue];
-//    _amount_YUAN = [NSString stringWithFormat:@"%.2f元",amount.floatValue];
     _amount_YUAN = _amount;
 }
 
@@ -32,13 +31,7 @@
 - (void)setNickName:(NSString *)nickName {
     _nickName = nickName;
     if (nickName.length >= 6) {
-        NSString *str = [nickName substringWithRange:NSMakeRange(0, 3)];
-        NSString *strLast = [nickName substringWithRange:NSMakeRange(nickName.length - 4, 4)];
-        NSMutableString *strMid = @"".mutableCopy;
-        for (NSInteger i = (nickName.length - 7); i > 0; i --) {
-            [strMid appendString:@"*"];
-        }
-        _hxb_nickName = [NSString stringWithFormat:@"%@%@%@",str,strMid,strLast];
+        _hxb_nickName = [NSString hiddenStr:nickName MidWithFistLenth:3 andLastLenth:4];
     }else {
         _hxb_nickName = nickName;
     }
