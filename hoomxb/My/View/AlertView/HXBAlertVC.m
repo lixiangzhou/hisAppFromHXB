@@ -354,7 +354,7 @@
     if (!_backBtn) {
         _backBtn = [[UIButton alloc] init];
         _backBtn.backgroundColor = [UIColor clearColor];
-        [_backBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+//        [_backBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;
 }

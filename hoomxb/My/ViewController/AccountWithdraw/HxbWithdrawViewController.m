@@ -193,7 +193,8 @@
     HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
     [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
         NSLog(@"%@",responseObject);
-        [weakSelf.alertVC disablesAutomaticKeyboardDismissal];
+        
+        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
 //        weakSelf.view.userInteractionEnabled = YES;
         HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
         weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
@@ -202,8 +203,6 @@
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    
-   
     
 }
 
