@@ -732,16 +732,13 @@
 
 ///债转的购买
 - (void)loanTruansfer_confirmBuyReslutWithLoanID: (NSString *)loanTruansferID
-                                andInvestAmount :(NSString *)investAmount
+                                parameter :(NSDictionary *)parameter
                         andSuccessBlock:(void (^)(HXBFin_LoanTruansfer_BuyResoutViewModel *model))successDateBlock
                                  andFailureBlock:(void (^)(NSError *error, NSDictionary *response))failureBlock {
     HXBBaseRequest *loanTruansferAPI = [[HXBBaseRequest alloc]init];
     loanTruansferAPI.requestUrl = kHXBFin_BuyReslut_LoanTruansferURL(loanTruansferID);
     loanTruansferAPI.requestMethod = NYRequestMethodPost;
-    investAmount = investAmount? investAmount : @" ";
-    loanTruansferAPI.requestArgument = @{
-                                         @"investAmount" : investAmount
-                                         };
+    loanTruansferAPI.requestArgument = parameter;
     
     [loanTruansferAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue]) {

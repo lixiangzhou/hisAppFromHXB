@@ -16,7 +16,7 @@
 #import "HXBMYViewModel_MainLoanViewModel.h"///借款信息
 #import "HXBFinAddRecortdVC_Loan.h"///转让记录
 #import "HXBFinLoanTruansfer_ContraceWebViewVC.h"//转让协议
-#import "HXBFin_LoanTruansfer_BuyViewController.h"///转让购买
+//#import "HXBFin_LoanTruansfer_BuyViewController.h"///转让购买
 #import "HXBFinDetailViewModel_LoanTruansferDetail.h"//详情的viewModel
 #import "HXBFinAddRecordVC_LoanTruansfer.h"//转让记录
 #import "HXBFinAddTruastWebViewVC.h"///曾信页
@@ -24,6 +24,7 @@
 #import "HXBFinanctingDetail_progressCell.h"
 #import "HXBFin_LoanTruansferDetail_TopView.h"
 #import "HXBFinanctingDetail_trustCell.h"
+#import "HXBFin_creditorChange_buy_ViewController.h"
 
 
 @interface HXBFin_DetailLoanTruansfer_ViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -100,7 +101,6 @@
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     self.addButton.backgroundColor = COR29;
     [self.addButton setTitle:@"转让中" forState:(UIControlStateNormal)];
-    kWeakSelf
     self.countDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, self.addButton.height)];
     self.countDownLabel.textAlignment = NSTextAlignmentCenter;
     self.countDownLabel.hidden = YES;
@@ -222,9 +222,12 @@
 }
 
 - (void)enterLoanBuyViewController {
-    HXBFin_LoanTruansfer_BuyViewController *loanJoinVC = [[HXBFin_LoanTruansfer_BuyViewController alloc]init];
-    loanJoinVC.title = @"散标投资";
-    loanJoinVC.loanTruansferViewModel = self.loanTruansferDetailViewModel;
+    HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
+    loanJoinVC.title = @"投资债权";
+    // self.loanTruansferDetailViewModel
+    loanJoinVC.type = HXB_Creditor;
+    loanJoinVC.placeholderStr = self.loanTruansferDetailViewModel.startIncrease_Amount;
+    loanJoinVC.availablePoint = self.loanTruansferDetailViewModel.leftTransAmount;
 //    loanJoinVC.availablePoint = _availablePoint;
     [self.navigationController pushViewController:loanJoinVC animated:true];
 }

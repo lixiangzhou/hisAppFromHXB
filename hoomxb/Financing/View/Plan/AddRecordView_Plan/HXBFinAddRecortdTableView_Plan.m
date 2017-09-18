@@ -35,6 +35,8 @@ static NSString *CELLID = @"CELLID";
 
 - (void)setLoanTruansferModelArray:(NSArray<HXBFinModel_AddRecortdModel_LoanTruansfer *> *)loanTruansferModelArray{
     _loanTruansferModelArray = loanTruansferModelArray;
+    self.nodataView.hidden = loanTruansferModelArray.count;
+    NSLog(@"_____________%ld", loanTruansferModelArray.count);
     [self reloadData];
 }
 
@@ -84,6 +86,7 @@ static NSString *CELLID = @"CELLID";
         [self addSubview: _nodataView];
         _nodataView.imageName = @"Fin_NotData";
         _nodataView.noDataMassage = @"暂无记录";
+        _nodataView.hidden = YES;
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(kScrAdaptationH(100));
             make.height.width.equalTo(@(kScrAdaptationH(184)));
