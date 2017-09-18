@@ -215,6 +215,7 @@ static NSString *const my = @"我的";
     [self serverAndClientTime];
     self.exitTime = [NSDate date];
     NSLog(@"%@",application);
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
 }
 
 
