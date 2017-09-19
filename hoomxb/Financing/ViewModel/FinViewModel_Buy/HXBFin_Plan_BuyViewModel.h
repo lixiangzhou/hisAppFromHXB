@@ -12,4 +12,5 @@
 @property (nonatomic,strong) HXBFinModel_BuyResoult_PlanModel *buyPlanModel;
 ///开始计息
 @property (nonatomic,copy) NSString *lockStart;
+
 @end

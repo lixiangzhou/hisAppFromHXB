@@ -100,9 +100,20 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
                         andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
                         andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock;
 
-/// loanTruansfer 购买结果
+#pragma mark --- 请求参数改为字典
+// 红利 购买结果
+- (void)plan_buyReslutWithPlanID: (NSString *)planID
+                      parameter :(NSDictionary *)parameter
+                 andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
+                 andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock;
+// 散标 购买结果
+- (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
+                              parameter :(NSDictionary *)parameter
+                        andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
+                        andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock;
+/// 债权 购买结果
 - (void)loanTruansfer_confirmBuyReslutWithLoanID: (NSString *)loanTruansferID
-                                parameter :(NSDictionary *)parameter
+                                      parameter :(NSDictionary *)parameter
                                  andSuccessBlock:(void (^)(HXBFin_LoanTruansfer_BuyResoutViewModel *model))successDateBlock
                                  andFailureBlock:(void (^)(NSError *error, NSDictionary *response))failureBlock;
 

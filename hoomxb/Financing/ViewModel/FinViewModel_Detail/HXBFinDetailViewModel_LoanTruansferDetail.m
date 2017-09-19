@@ -118,7 +118,7 @@
  */
 - (NSString *)startIncrease_Amount {
     if (!_startIncrease_Amount) {
-        _startIncrease_Amount = [NSString stringWithFormat:@"%.0lf起投%.0lf递增",self.loanTruansferDetailModel.minInverst.floatValue,self.loanTruansferDetailModel.loanVo.finishedRatio.floatValue];
+        _startIncrease_Amount = [NSString stringWithFormat:@"%.0lf起投，%.0lf递增",self.loanTruansferDetailModel.minInverst.floatValue,self.loanTruansferDetailModel.loanVo.finishedRatio.floatValue];
     }
     return _startIncrease_Amount;
 }

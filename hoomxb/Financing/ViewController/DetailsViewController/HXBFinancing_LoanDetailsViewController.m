@@ -25,6 +25,7 @@
 #import "HXBFinAddTruastWebViewVC.h"
 
 #pragma mark --- (肖扬 散标计划详情)
+#import "HXBFin_creditorChange_buy_ViewController.h"
 
 @interface HXBFinancing_LoanDetailsViewController ()
 //假的navigationBar
@@ -223,11 +224,15 @@
 }
 - (void)enterLoanBuyViewController
 {
-    //跳转加入界面
-    HXBFin_Loan_BuyViewController *loanJoinVC = [[HXBFin_Loan_BuyViewController alloc]init];
+    //跳转加入界
+    HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
     loanJoinVC.title = @"散标投资";
-    loanJoinVC.loanViewModel = self.loanDetailViewModel;
-    loanJoinVC.availablePoint = _availablePoint;
+    loanJoinVC.availablePoint = self.loanDetailViewModel.loanDetailModel.loanVo.surplusAmount;
+    loanJoinVC.placeholderStr = self.loanDetailViewModel.addCondition;
+    loanJoinVC.loanId = self.loanDetailViewModel.loanDetailModel.userVo.loanId;
+    loanJoinVC.minRegisterAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
+    loanJoinVC.registerMultipleAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
+    loanJoinVC.type = HXB_Loan;
     [self.navigationController pushViewController:loanJoinVC animated:true];
 }
 

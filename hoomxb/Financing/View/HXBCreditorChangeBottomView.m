@@ -38,7 +38,7 @@
         make.height.offset(kScrAdaptationH(35));
     }];
     [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_bottomLabel.mas_bottom).offset(kScrAdaptationH750(100));
+        make.top.equalTo(_bottomLabel.mas_bottom).offset(kScrAdaptationH750(80));
         make.left.equalTo(self).offset(kScrAdaptationH750(40));
         make.right.equalTo(self).offset(kScrAdaptationH750(-40));
         make.height.offset(kScrAdaptationH750(90));
@@ -49,15 +49,50 @@
 - (HXBFinBaseNegotiateView *)bottomLabel {
     if (!_bottomLabel) {
         _bottomLabel = [[HXBFinBaseNegotiateView alloc] init];
-        _bottomLabel.negotiateStr = @"债权转让及受让协议》《风险提示";
+        _bottomLabel.type = @"购买页";
     }
-    [_bottomLabel clickNegotiateWithBlock:^{
-        NSLog(@"点击了协议");
-    }];
+    kWeakSelf
+    _bottomLabel.block = ^(NSInteger type) {
+        if (type == 1) {
+            if (weakSelf.delegateBlock) {
+                weakSelf.delegateBlock(1);
+            }
+        } else {
+//            if (weakSelf.delegateBlock) {
+//                weakSelf.delegateBlock(2);
+//            }
+        }
+    };
     [_bottomLabel clickCheckMarkWithBlock:^(BOOL isSelected) {
-        NSLog(@"点击了对勾");
+        if (isSelected) {
+            [self isClickWithStatus:1];
+        } else {
+            [self isClickWithStatus:2];
+        }
     }];
     return _bottomLabel;
+}
+
+- (void)setDelegateLabel:(NSString *)delegateLabel {
+    _delegateLabel = delegateLabel;
+    _bottomLabel.negotiateStr = delegateLabel;
+}
+
+
+- (void)setClickBtnStr:(NSString *)clickBtnStr {
+    _clickBtnStr = clickBtnStr;
+    [_addBtn setTitle:clickBtnStr forState:(UIControlStateNormal)];
+}
+
+// 按钮是否可以点击
+- (void)isClickWithStatus:(int)status { // 1 可以点击 2 不可点击
+    if (status == 1) {
+        _addBtn.userInteractionEnabled = YES;
+        _addBtn.backgroundColor = COR29;
+    } else {
+        _addBtn.userInteractionEnabled = NO;
+        _addBtn.backgroundColor = COR12;
+    }
 }
 
 - (UIButton *)addBtn {

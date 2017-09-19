@@ -17,6 +17,7 @@
 @property (nonatomic, strong)  NSString *titleStr;
 /** detail数据源 */
 @property (nonatomic, strong)  NSString *detailStr;
-
+/** 是否富文本展示 */
+@property (nonatomic, assign) BOOL isAttributeShow;
 
 @end

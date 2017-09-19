@@ -130,7 +130,7 @@
 //    [self.nextOneLabel sizeToFit];
     
     [self.topLabelLeft mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationH(20));
+        make.top.equalTo(self).offset(kScrAdaptationH(30));
         make.left.right.equalTo(self);
         make.height.offset(kScrAdaptationH(40));
     }];
