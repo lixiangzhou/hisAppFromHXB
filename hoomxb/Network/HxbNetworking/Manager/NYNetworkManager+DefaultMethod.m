@@ -88,6 +88,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
                 UIViewController *VC = NAV.viewControllers.lastObject;
                 [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
             }
+            return;
 //            [[KeyChainManage sharedInstance] removeAllInfo];
             break;
        

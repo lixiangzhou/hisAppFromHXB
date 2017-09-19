@@ -187,31 +187,28 @@
         [HxbHUDProgress showTextWithMessage:@"手机号格式有误"];
         return;
     }
-    [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:self.phoneTextField.text andSuccessBlock:^(BOOL isExist) {
+    [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:self.phoneTextField.text andSuccessBlock:^(BOOL isExist,NSString *message) {
         if (isExist) {
-            [HxbHUDProgress showTextWithMessage:@"该手机号已使用"];
-        }else
-        {
             if (self.getValidationCodeButtonClickBlock) {
                 self.getValidationCodeButtonClickBlock(self.phoneTextField.text);
             }
         }
-    } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
+    } andFailureBlock:^(NSError *error) {
         
-        if (request) {
-            UIView *view = nil;
-            if([self isKindOfClass:[UIViewController class]]) {
-                UIViewController *vc = (UIViewController *)self;
-                view = vc.view;
-            }
-            if ([self isKindOfClass:[UIView class]]) {
-                view = self;
-            }
-            if (view){
-                [HxbHUDProgress showMessage:request.responseObject[kResponseMessage] inView:view];
-            }else
-                [HxbHUDProgress showMessage:request.responseObject[kResponseMessage]];
-        }
+//        if (request) {
+//            UIView *view = nil;
+//            if([self isKindOfClass:[UIViewController class]]) {
+//                UIViewController *vc = (UIViewController *)self;
+//                view = vc.view;
+//            }
+//            if ([self isKindOfClass:[UIView class]]) {
+//                view = self;
+//            }
+//            if (view){
+//                [HxbHUDProgress showMessage:request.responseObject[kResponseMessage] inView:view];
+//            }else
+//                [HxbHUDProgress showMessage:request.responseObject[kResponseMessage]];
+//        }
     }];
 
 }
