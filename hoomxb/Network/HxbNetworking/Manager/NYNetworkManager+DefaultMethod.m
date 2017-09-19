@@ -90,6 +90,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
                     [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
                 }
             }
+            return;
 //            [[KeyChainManage sharedInstance] removeAllInfo];
             break;
        
