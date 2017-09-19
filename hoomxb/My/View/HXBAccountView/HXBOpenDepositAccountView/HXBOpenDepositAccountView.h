@@ -19,6 +19,11 @@
 @property (nonatomic, strong) HXBCardBinModel *cardBinModel;
 
 /**
+ 卡bin校验失败
+ */
+@property (nonatomic, assign) BOOL isCheckFailed;
+
+/**
  bankCode
  */
 //@property (nonatomic, copy) NSString *bankCode;

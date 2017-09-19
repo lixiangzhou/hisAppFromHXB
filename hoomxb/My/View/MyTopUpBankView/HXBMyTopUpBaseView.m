@@ -15,7 +15,6 @@
 @property (nonatomic, strong) HXBLeftLabelTextView *amountTextField;
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) UILabel *availableBalanceLabel;
-@property (nonatomic, strong) HXBMyTopUpBankView *mybankView;
 @property (nonatomic, strong) HXBMyTopUpHeaderView *myTopUpHeaderView;
 @property (nonatomic, strong) UILabel *tipLabel;
 @property (nonatomic, strong) UILabel *promptLabel;

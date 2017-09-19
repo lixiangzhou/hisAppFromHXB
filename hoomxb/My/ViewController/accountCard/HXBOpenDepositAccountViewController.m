@@ -193,7 +193,7 @@
             [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:bankNumber andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
                 [weakSelf checkCardBin:cardBinModel];
             } andFailureBlock:^(NSError *error) {
-                
+                weakSelf.mainView.isCheckFailed = YES;
             }];
         };
         

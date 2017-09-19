@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HXBBankCardModel;
 @interface HXBMyTopUpBankView : UIView
+
+@property (nonatomic, strong)  HXBBankCardModel *bankCardModel;
 
 @end

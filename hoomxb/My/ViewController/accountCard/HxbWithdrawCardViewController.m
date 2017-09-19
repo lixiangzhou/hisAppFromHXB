@@ -60,7 +60,7 @@
             [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:bankNumber andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
                 [weakSelf checkCardBin:cardBinModel];
             } andFailureBlock:^(NSError *error) {
-                
+                weakSelf.withdrawCardView.isCheckFailed = YES;
             }];
         };
         

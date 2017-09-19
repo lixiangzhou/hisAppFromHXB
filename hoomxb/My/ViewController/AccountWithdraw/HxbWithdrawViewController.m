@@ -144,28 +144,11 @@
 
 - (void)withdrawals
 {
-    kWeakSelf
-    self.alertVC = [[HXBAlertVC alloc] init];
-    self.alertVC.isCode = YES;
-    self.alertVC.messageTitle = @"请输入您的交易密码";
-    self.alertVC.sureBtnClick = ^(NSString *pwd){
-        if (pwd.length == 0) {
-            return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
-            return;
-        }
-        [weakSelf checkWithdrawals:pwd];
-    };
-    self.alertVC.forgetBtnClick = ^(){
-        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-        modifyTransactionPasswordVC.title = @"修改交易密码";
-        modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
-        [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-    };
-    self.alertVC.getVerificationCodeBlock = ^{
-        [weakSelf withdrawSmscode];
-    };
     [self presentViewController:self.alertVC animated:NO completion:nil];
 }
+
+
+
 /**
  提现短验
  */
@@ -436,6 +419,34 @@
     {
         [super leftBackBtnClick];
     }
+}
+
+- (HXBAlertVC *)alertVC
+{
+    if (!_alertVC) {
+        kWeakSelf
+        _alertVC = [[HXBAlertVC alloc] init];
+        _alertVC.isCode = YES;
+        _alertVC.messageTitle = @"请输入您的短信验证码";
+        _alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收",[self.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:self.bankCardModel.mobile.length - 7]];
+        _alertVC.sureBtnClick = ^(NSString *pwd){
+            if (pwd.length == 0) {
+                return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
+                return;
+            }
+            [weakSelf checkWithdrawals:pwd];
+        };
+        _alertVC.forgetBtnClick = ^(){
+            HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+            modifyTransactionPasswordVC.title = @"修改交易密码";
+            modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
+            [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+        };
+        _alertVC.getVerificationCodeBlock = ^{
+            [weakSelf withdrawSmscode];
+        };
+    }
+    return _alertVC;
 }
 
 

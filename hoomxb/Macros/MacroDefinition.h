@@ -174,6 +174,9 @@
 #define kServiceMobile @"400-1552-888"
 #define kSecuryText @"****"
 
+//ZCC 卡bin动画时间
+#define kBankbin_AnimationTime 0.5
+
 //----------------------内存----------------------------
 
 

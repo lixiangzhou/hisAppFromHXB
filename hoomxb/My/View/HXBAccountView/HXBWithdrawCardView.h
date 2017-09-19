@@ -11,14 +11,9 @@
 @interface HXBWithdrawCardView : UIView
 
 /**
- bankName
+ 卡bin校验失败
  */
-//@property (nonatomic, copy) NSString *bankName;
-
-/**
- bankCode
- */
-//@property (nonatomic, copy) NSString *bankCode;
+@property (nonatomic, assign) BOOL isCheckFailed;
 
 /**
  卡bin数据

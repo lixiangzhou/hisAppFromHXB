@@ -14,6 +14,12 @@
  messagetitle
  */
 @property (nonatomic, copy) NSString *messageTitle;
+
+/**
+ 子标题
+ */
+@property (nonatomic, copy) NSString *subTitle;
+
 /**
  message
  */
