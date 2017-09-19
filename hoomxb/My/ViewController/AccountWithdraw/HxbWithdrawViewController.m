@@ -15,6 +15,7 @@
 #import "HXBAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBCallPhone_BottomView.h"
+#import "HXBOpenDepositAccountRequest.h"
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIView *backView;
@@ -32,6 +33,8 @@
  数据模型
  */
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
+
+@property (nonatomic, strong) HXBAlertVC *alertVC;
 @end
 
 @implementation HxbWithdrawViewController
@@ -141,30 +144,26 @@
 
 - (void)withdrawals
 {
-    kWeakSelf
-    HXBAlertVC *alertVC = [[HXBAlertVC alloc] init];
-    alertVC.isCode = NO;
-    alertVC.messageTitle = @"请输入您的交易密码";
-    alertVC.sureBtnClick = ^(NSString *pwd){
-        if (pwd.length == 0) {
-            return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
-            return;
-        }
-        [weakSelf checkWithdrawals:pwd];
-    };
-    alertVC.forgetBtnClick = ^(){
-        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-        modifyTransactionPasswordVC.title = @"修改交易密码";
-        modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
-        [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-    };
-    [self presentViewController:alertVC animated:NO completion:^{
-        
-    }];
-
+    [self presentViewController:self.alertVC animated:NO completion:nil];
 }
 
-- (void)checkWithdrawals:(NSString *)paypassword
+
+
+/**
+ 提现短验
+ */
+- (void)withdrawSmscode
+{
+    kWeakSelf
+    HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+    [accountRequest accountRechargeRequestWithRechargeAmount:self.bankCardModel.amount andWithAction:@"withdraw" andSuccessBlock:^(id responseObject) {
+        [weakSelf withdrawals];
+    } andFailureBlock:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)checkWithdrawals:(NSString *)smscode
 {
 //    self.view.userInteractionEnabled = NO;
     kWeakSelf
@@ -172,11 +171,13 @@
     requestArgument[@"bankno"] = self.bankCardModel.bankCode;
     requestArgument[@"city"] = self.bankCardModel.city;
     requestArgument[@"bank"] = self.bankCardModel.cardId;
-    requestArgument[@"paypassword"] = paypassword;
+    requestArgument[@"smscode"] = smscode;
     requestArgument[@"amount"] = self.bankCardModel.amount;
     HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
     [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
         NSLog(@"%@",responseObject);
+        
+        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
 //        weakSelf.view.userInteractionEnabled = YES;
         HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
         weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
@@ -185,8 +186,6 @@
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    
-   
     
 }
 
@@ -203,7 +202,8 @@
     }
     
     if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-        [self withdrawals];
+//        [self withdrawals];
+        [self withdrawSmscode];
         return;
     }
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
@@ -419,6 +419,34 @@
     {
         [super leftBackBtnClick];
     }
+}
+
+- (HXBAlertVC *)alertVC
+{
+    if (!_alertVC) {
+        kWeakSelf
+        _alertVC = [[HXBAlertVC alloc] init];
+        _alertVC.isCode = YES;
+        _alertVC.messageTitle = @"请输入您的短信验证码";
+        _alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收",[self.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:self.bankCardModel.mobile.length - 7]];
+        _alertVC.sureBtnClick = ^(NSString *pwd){
+            if (pwd.length == 0) {
+                return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
+                return;
+            }
+            [weakSelf checkWithdrawals:pwd];
+        };
+        _alertVC.forgetBtnClick = ^(){
+            HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+            modifyTransactionPasswordVC.title = @"修改交易密码";
+            modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
+            [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+        };
+        _alertVC.getVerificationCodeBlock = ^{
+            [weakSelf withdrawSmscode];
+        };
+    }
+    return _alertVC;
 }
 
 

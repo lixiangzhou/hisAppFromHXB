@@ -28,6 +28,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.leftImageView];
         [self addSubview:self.textField];
         [self addSubview:self.idTextField];
@@ -80,6 +81,11 @@
     }
 }
 
+- (void)setSvgImageName:(NSString *)svgImageName
+{
+    _svgImageName = svgImageName;
+    self.leftImageView.svgImageString = svgImageName;
+}
 
 - (void)setupSubViewFrame
 {
@@ -303,6 +309,7 @@
         _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.delegate = self;
+        _textField.textColor = COR6;
     }
     return _textField;
 }

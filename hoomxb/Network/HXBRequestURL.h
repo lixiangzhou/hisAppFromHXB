@@ -88,9 +88,10 @@
 //MARK: ======================= 存管 ==========================
 #define kHXBOpenDepositAccount_Escrow @"/user/escrow" //用户开通存管账户
 #define kHXBUserInfo_BankCard @"/account/user/card" //用户获取绑定银行卡信息
-#define kHXBAccount_quickpay_smscode @"/account/quickpay/smscode" //代扣充值获取手机验证码
+#define kHXBAccount_quickpay_smscode @"/account/smscode/" //代扣充值获取手机验证码
 #define kHXBAccount_quickpay @"/account/quickpay" //代扣充值接口
 #define kHXBAccount_Bindcard @"/account/bindcard" //绑卡
+#define kHXBUser_checkCardBin @"/user/checkCardBin" //卡bin校验
 
 //MARK: ======================= 协议 ==========================
 //协议或合同名	端口号后链接	状态	账户内连接

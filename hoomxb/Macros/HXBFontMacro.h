@@ -24,12 +24,44 @@
 //label.font = [UIFont fontWithName:@"Helvetica" size:15.f];
 
 //pingfang 普通
-#define kHXBFont_PINGFANGSC_REGULAR(s)        ([UIFont fontWithName:@"PingFangSC-Regular" size:kScrAdaptationH(s)])
+//#define kHXBFont_PINGFANGSC_REGULAR(s)        ([UIFont fontWithName:@"PingFangSC-Regular" size:kScrAdaptationH(s)])
+
+
+
+/*
+ // 扩住的是方法的一部份代码
+ if (CurrentSystemVersion < 7.0) {
+ 
+ //这里写的是低版本的API 代码
+ 
+ }else{
+ 
+ // xcode 6 以上版本才有的iOS8系统的API，判断该版本xcode的API是否可用，编译时是否需要生成这段代码
+ #ifdef __IPHONE_8_0
+ //这里写高版本的新的API
+ //在高版本xcode运行,此部分的代码有颜色
+ //在低版本xcode运行,此本分代码为白色,也就是不会执行
+ #endif
+ 
+ }
+ */
+//#define isBelowPhone9 [[UIDevice currentDevice] systemVersion].floatValue < 9.0
+//#ifdef isBelowPhone9
+
+#define kHXBFont_PINGFANGSC_REGULAR(s)            ([UIFont fontWithName:@"HelveticaNeue" size:kScrAdaptationH(s)])
+#define kHXBFont_PINGFANGSC_REGULAR_750(s)        ([UIFont fontWithName:@"HelveticaNeue" size:kScrAdaptationH750(s)])
+
+//#else
+//
+//#define kHXBFont_PINGFANGSC_REGULAR(s) ([UIFont fontWithName:@"PingFangSC-Regular" size:kScrAdaptationH(s)])
+//#define kHXBFont_PINGFANGSC_REGULAR_750(s)        ([UIFont fontWithName:@"PingFangSC-Regular" size:kScrAdaptationH750(s)])
+//
+//#endif
 //#define kHXBFont_HelveticaNeue_Medium_REGULAR(s)        ([UIFont fontWithName:@"HelveticaNeue-Medium" size:kScrAdaptationH(s)])
 //#define kHXBFont_HelveticaNeue_REGULAR(s)        ([UIFont fontWithName:@"HelveticaNeue" size:kScrAdaptationH(s)])
 //#define kHXBFont_MicrosoftYaHei_REGULAR(s)        ([UIFont fontWithName:@"MicrosoftYaHei" size:kScrAdaptationH(s)])
 //pingfang 750 普通
-#define kHXBFont_PINGFANGSC_REGULAR_750(s)        ([UIFont fontWithName:@"PingFangSC-Regular" size:kScrAdaptationH750(s)])
+//#define kHXBFont_PINGFANGSC_REGULAR_750(s)        ([UIFont fontWithName:@"PingFangSC-Regular" size:kScrAdaptationH750(s)])
 
 
 

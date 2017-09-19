@@ -25,14 +25,15 @@ typedef void(^isLimitText)(NSString *text);
 @property (nonatomic, assign) BOOL isGetCode;
 @property (nonatomic, assign) BOOL isCleanAllBtn;
 @property(nullable, nonatomic,weak)   id<UITextFieldDelegate> delegate;
-@property (nonatomic, copy) NSString * _Nullable typeTextField;
+//@property (nonatomic, copy) NSString * _Nullable typeTextField;
 @property (nonatomic, assign) int number; // 必须要设置
 @property (nonatomic, assign) int limitStringLength;
 @property (nonatomic, assign) BOOL disableEdit;
 /**
- block
+ 返回当前输入text值的block
  */
 @property (nonatomic, copy) isLimitText block;
+
 /**
  背景按钮点击
  */

@@ -124,7 +124,7 @@
         
         NSString *systemVision = [[UIDevice currentDevice] systemVersion];
         NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-        NSString *userAgent = [NSString stringWithFormat:@"Iphone/IOS %@/v%@ iphone" ,systemVision,version];
+        NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVision,version];
         NSLog(@"%@",[KeyChain token]);
         [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
         [mutableRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];

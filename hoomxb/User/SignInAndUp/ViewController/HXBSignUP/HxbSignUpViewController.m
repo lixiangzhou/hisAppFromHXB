@@ -23,6 +23,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 @property (nonatomic, strong) HXBSignUPView *signUPView;
 @property (nonatomic, assign) BOOL isCheckCaptchaSucceed;
 @property (nonatomic, copy) NSString *checkPaptchaStr;
+@property (nonatomic, strong) HXBCheckCaptchaViewController *checkCaptchVC;
 @end
 
 @implementation HxbSignUpViewController
@@ -65,24 +66,26 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     kWeakSelf
     [self.signUPView signUPClickNextButtonFunc:^(NSString *mobile) {
         [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_registFirst];
-        if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {//注册
-            if (!KeyChain.ishaveNet) {
-                [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
-                return;
-            }
-            if ([weakSelf.signUPView.checkMobileStr isEqualToString:kAlreadyRegistered])
-            {
-                [HxbHUDProgress showMessageCenter:kAlreadyRegistered inView:self.view];
-                return;
-            }
-        }else if(self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot)
-        {
-            if([weakSelf.signUPView.checkMobileStr isEqualToString:@"该手机号暂未注册"])
-            {
-                [HxbHUDProgress showMessageCenter:weakSelf.signUPView.checkMobileStr inView:self.view];
-                return;
-            }
+        if (!KeyChain.ishaveNet) {
+            [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+            return;
         }
+
+//        if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_signup) {//注册
+//           //
+////            if (weakSelf.signUPView.checkMobileStr.length > 0)
+////            {
+////                [HxbHUDProgress showTextWithMessage:weakSelf.signUPView.checkMobileStr];
+////                return;
+////            }
+//        }else if(self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot)
+//        {
+////            if([weakSelf.signUPView.checkMobileStr isEqualToString:@"该手机号暂未注册"])
+////            {
+////                [HxbHUDProgress showMessageCenter:weakSelf.signUPView.checkMobileStr inView:self.view];
+////                return;
+////            }
+//        }
         NSLog(@"点击了下一步");
         switch (weakSelf.type) {
             case HXBSignUPAndLoginRequest_sendSmscodeType_signup://注册
@@ -107,8 +110,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
       
         //1. modal一个图验控制器
         ///1. 如果要是已经图验过了，那就不需要图验了
-        HXBCheckCaptchaViewController *checkCaptchVC = [[HXBCheckCaptchaViewController alloc]init];
-        [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
+        [self.checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
             weakSelf.checkPaptchaStr = checkPaptcha;
             NSLog(@"发送 验证码");
 //            dispatch_async(dispatch_get_global_queue(0, 0), ^{
@@ -128,10 +130,30 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 //                });
 //            });
         }];
-        if (!weakSelf.isCheckCaptchaSucceed) {
-            [weakSelf presentViewController:checkCaptchVC animated:true completion:nil];
-            return;
+        
+        if (weakSelf.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
+            [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
+                if (!weakSelf.isCheckCaptchaSucceed && isExist) {
+                    [weakSelf presentViewController:self.checkCaptchVC animated:true completion:nil];
+                    return;
+                }
+            } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
+                
+            }];
+        }else
+        {
+            [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist, NSString *message) {
+                if (!weakSelf.isCheckCaptchaSucceed && isExist) {
+                    [weakSelf presentViewController:self.checkCaptchVC animated:true completion:nil];
+                    return;
+                }
+            } andFailureBlock:^(NSError *error) {
+                
+            }];
         }
+        
+        
+       
     
     }];
 }
@@ -156,18 +178,12 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 - (void)registerCheckMobileWithMobile:(NSString *)mobile
 {
     kWeakSelf
-    [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
+    [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist, NSString *message) {
         NSLog(@"%d",isExist);
-        if (isExist) {
+        if (!isExist) {
             ///已有账号
-            weakSelf.signUPView.checkMobileStr = @"该手机号暂未注册";
-        }else
-        {
-            ///已有账号
-            weakSelf.signUPView.checkMobileStr = kAlreadyRegistered;
-            [HxbHUDProgress showMessageCenter:kAlreadyRegistered inView:self.view];
+            weakSelf.signUPView.checkMobileStr = message;
         }
-        
         ///已有账号
 //        weakSelf.signUPView.checkMobileStr = @"该手机号暂未注册";
     } andFailureBlock:^(NSError *error) {
@@ -195,7 +211,6 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
             ///已有账号
             weakSelf.signUPView.checkMobileStr = @"该手机号暂未注册";
         }
-
         ///已有账号
 //        weakSelf.signUPView.checkMobileStr = @"该手机号暂未注册";
     } andFailureBlock:^(NSError *error,NYBaseRequest *request) {
@@ -211,5 +226,12 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     [self.signUPView clickHaveAccountButtonFunc:^{
         [weakSelf.navigationController popViewControllerAnimated:true];
     }];
+}
+- (HXBCheckCaptchaViewController *)checkCaptchVC
+{
+    if (!_checkCaptchVC) {
+        _checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
+    }
+    return _checkCaptchVC;
 }
 @end

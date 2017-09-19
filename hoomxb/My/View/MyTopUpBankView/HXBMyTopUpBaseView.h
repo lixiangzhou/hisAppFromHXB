@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HXBMyTopUpBankView;
 @interface HXBMyTopUpBaseView : UIView
 
 
@@ -15,6 +15,11 @@
  充值金额
  */
 @property (nonatomic, copy) NSString *amount;
+
+/**
+ 银行卡视图
+ */
+@property (nonatomic, strong) HXBMyTopUpBankView *mybankView;
 
 /**
  可用金额

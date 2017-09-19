@@ -68,10 +68,10 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
 ///李鹏跃 ： 禁止用 登录按钮
 - (void)checkMobileResultFuncWithCheckMobileResultStr:(NSString *)checkMobileResultStr andIsEditLoginButton:(BOOL)isEditLoginButton {
 //    self.isPhoneNumberLabel.text = checkMobileResultStr;
-    if (!isEditLoginButton) {
-//        [HxbHUDProgress showError:checkMobileResultStr inview:self];
-        [HxbHUDProgress showMessageCenter:checkMobileResultStr inView:self];
-    }
+//    if (!isEditLoginButton) {
+////        [HxbHUDProgress showError:checkMobileResultStr inview:self];
+//        [HxbHUDProgress showMessageCenter:checkMobileResultStr inView:self];
+//    }
 //    self.signInButton.userInteractionEnabled = isEditLoginButton;
 }
 

@@ -91,8 +91,9 @@
     //配置userAgent
     NSString *systemVision = [[UIDevice currentDevice] systemVersion];
     NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    NSString *userAgent = [NSString stringWithFormat:@"Iphone/IOS %@/v%@ iphone" ,systemVision,version];
+    NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVision,version];
     [requestM addValue:userAgent forHTTPHeaderField:@"User-Agent"];
+    [requestM addValue:[HXBServerAndClientTime getCurrentTime_Millisecond] forHTTPHeaderField:@"X-Hxb-Auth-Timestamp"];
     [requestM addValue:KeyChain.token forHTTPHeaderField: kHXBToken_X_HxbAuth_Token];
     requestM.HTTPMethod = @"GET";
     //配置token
@@ -186,8 +187,9 @@
 
 #pragma mark - 注册校验手机号
 + (void)checkMobileRequestWithMobile: (NSString *)mobile
-                     andSuccessBlock: (void(^)(BOOL isExist))successBlock
+                     andSuccessBlock: (void(^)(BOOL isExist,NSString *message))successBlock
                      andFailureBlock: (void(^)(NSError *error))failureBlock {
+    
     
     HXBBaseRequest *checkMobileAPI = [[HXBBaseRequest alloc]init];
     checkMobileAPI.requestMethod = NYRequestMethodPost;
@@ -201,12 +203,26 @@
         
 //        kHXBResponsShowHUD
         NSString *status = [responseObject valueForKey:@"status"];
-        if(successBlock) successBlock(!status.integerValue);
+        NSString *message = @"";
+        if (status.integerValue == 1) {
+            if ([responseObject[@"message"] isEqualToString:@"手机号码已存在"]) {
+                message = @"该手机号已注册";
+                [HxbHUDProgress showTextWithMessage:message];
+            }else
+            {
+                message = responseObject[@"message"];
+                [HxbHUDProgress showTextWithMessage:message];
+            }
+        }
+        if (status.integerValue == 104) {
+            message = @"请输入正确的手机号码";
+        }
+        if(successBlock) successBlock(!status.integerValue,message);
         
         
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);
-        kNetWorkError(@"校验手机号 请求失败");
+//        kNetWorkError(@"校验手机号 请求失败");
     }];
 }
 
@@ -218,13 +234,20 @@
     HXBBaseRequest *checkMobileAPI = [[HXBBaseRequest alloc]init];
     checkMobileAPI.requestMethod = NYRequestMethodPost;
     checkMobileAPI.requestUrl = kHXBUser_CheckExistMobileURL;
-    
     checkMobileAPI.requestArgument = @{
                                        @"mobile":mobile
                                        };
     [checkMobileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
 //        kHXBResponsShowHUD
         NSString *status = [responseObject valueForKey:@"status"];
+        if (status.integerValue == 1) {
+            if ([responseObject[@"message"] isEqualToString:@"手机号码不存在"]) {
+                [HxbHUDProgress showTextWithMessage:@"手机号未注册"];
+            }else
+            {
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            }
+        }
         if(successBlock) successBlock(!status.integerValue);
         
     } failure:^(NYBaseRequest *request, NSError *error) {

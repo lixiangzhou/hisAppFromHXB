@@ -48,12 +48,12 @@
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             return;
         }
-        HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+        weakSelf.bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
         //设置绑卡信息
-        weakSelf.bankNameLabel.text = bankCardModel.bankType;
-        weakSelf.bankCardNumLabel.text = [NSString stringWithFormat:@"（尾号%@）",[bankCardModel.cardId substringFromIndex:bankCardModel.cardId.length - 4]];
-        weakSelf.amountLimitLabel.text = bankCardModel.quota;
-        weakSelf.bankLogoImageView.svgImageString = bankCardModel.bankCode;
+        weakSelf.bankNameLabel.text = weakSelf.bankCardModel.bankType;
+        weakSelf.bankCardNumLabel.text = [NSString stringWithFormat:@"（尾号%@）",[weakSelf.bankCardModel.cardId substringFromIndex:weakSelf.bankCardModel.cardId.length - 4]];
+        weakSelf.amountLimitLabel.text = weakSelf.bankCardModel.quota;
+        weakSelf.bankLogoImageView.svgImageString = weakSelf.bankCardModel.bankCode;
         if (weakSelf.bankLogoImageView.image == nil) {
             weakSelf.bankLogoImageView.svgImageString = @"默认";
         }

@@ -13,7 +13,7 @@
 #import "SVGKImage.h"
 #import "HXBBankCardModel.h"
 #import "HXBAgreementView.h"
-
+#import "HXBCardBinModel.h"
 @interface HXBOpenDepositAccountView ()<UITextFieldDelegate>
 @property (nonatomic, strong) HXBDepositoryHeaderView *headerTipView;
 @property (nonatomic, strong) HXBCustomTextField *nameTextField;
@@ -22,10 +22,11 @@
 @property (nonatomic, strong) HXBDepositoryHeaderView *bottomTipView;
 @property (nonatomic, strong) HXBCustomTextField *bankNameTextField;
 @property (nonatomic, strong) HXBCustomTextField *bankNumberTextField;
+@property (nonatomic, strong) UIButton *seeLimitBtn;
 @property (nonatomic, strong) HXBCustomTextField *phoneTextField;
 //@property (nonatomic, strong) HXBFinBaseNegotiateView *negotiateView;
 @property (nonatomic, strong) HXBAgreementView *negotiateView;
-
+@property (nonatomic, strong) UIView *line;
 /**
  是否同意协议
  */
@@ -40,6 +41,8 @@
 
 @implementation HXBOpenDepositAccountView
 
+
+#pragma mark – Life Cycle
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -51,17 +54,278 @@
         [self addSubview:self.bottomTipView];
         [self addSubview:self.bankNameTextField];
         [self addSubview:self.bankNumberTextField];
+        [self addSubview:self.seeLimitBtn];
         [self addSubview:self.phoneTextField];
         [self addSubview:self.negotiateView];
-//        [self addSubview:self.bottomBtn];
+        [self addSubview:self.line];
+        //        [self addSubview:self.bottomBtn];
         [self setupSubViewFrame];
         self.isAgree = YES;
-       
+        
     }
     return self;
 }
 
+- (void)setupSubViewFrame
+{
+    [self.headerTipView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(kScrAdaptationH(20));
+        make.left.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(37));
+    }];
+    [self.nameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.headerTipView.mas_bottom).offset(kScrAdaptationH(20));
+        make.left.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(50));
+    }];
+    [self.idCardTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.nameTextField.mas_bottom).offset(kScrAdaptationH(10));
+        make.left.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(50));
+    }];
+    [self.pwdTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.idCardTextField.mas_bottom).offset(kScrAdaptationH(10));
+        make.left.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(50));
+    }];
+    [self.bottomTipView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.pwdTextField.mas_bottom).offset(kScrAdaptationH(35));
+        make.left.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(37));
+    }];
+    [self.seeLimitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.bottomTipView.mas_bottom).offset(kScrAdaptationH(20));
+        make.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(50));
+        make.width.offset(kScrAdaptationW(100));
+    }];
+    [self.bankNumberTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.bottomTipView.mas_bottom).offset(kScrAdaptationH(20));
+        make.left.equalTo(self);
+        make.right.equalTo(self.seeLimitBtn.mas_left).offset(kScrAdaptationW(20));
+        make.height.offset(kScrAdaptationH(50));
+    }];
+    [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.seeLimitBtn.mas_bottom);;
+        make.right.equalTo(self).offset(kScrAdaptationW(-15));
+        make.left.equalTo(self).offset(kScrAdaptationW(15));
+        make.height.offset(0.5);
+    }];
+    [self.bankNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.bankNumberTextField.mas_bottom);
+        make.left.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(50));
+    }];
+    
+    
+    //    [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+    //        make.top.equalTo(self.bankNumberTextField.mas_bottom).offset(kScrAdaptationH(10));
+    //        make.left.right.equalTo(self);
+    //        make.height.offset(kScrAdaptationH(50));
+    //    }];
+    
+    [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(-65));
+        make.centerX.equalTo(self);
+        make.left.equalTo(self).offset(kScrAdaptationW(18));
+        make.right.equalTo(self).offset(kScrAdaptationW(-18));
+    }];
+}
 
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    if (self.bankNameTextField.hidden) {
+        self.phoneTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNumberTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
+    }
+}
+
+#pragma mark - Events
+
+- (void)bottomBtnClick
+{
+    if (self.openAccountBlock) {
+        if ([self judgeIsTure]) return;
+        NSDictionary *dic = @{
+                              @"realName" : self.nameTextField.text,
+                              @"identityCard" : self.idCardTextField.text,
+                              @"password" : self.pwdTextField.text,
+                              @"bankCard" : self.bankNumberTextField.text,
+                              @"bankReservedMobile" : self.phoneTextField.text,
+                              @"bankCode" : self.cardBinModel.bankCode
+                              };
+        self.openAccountBlock(dic);
+    }
+}
+
+- (BOOL)judgeIsTure
+{
+    BOOL isNull = NO;
+    if (!(self.nameTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"真实姓名不能为空" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.idCardTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"身份证号不能为空" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if(self.idCardTextField.text.length != 18)
+    {
+        [HxbHUDProgress showMessageCenter:@"身份证号输入有误" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if(!(self.pwdTextField.text.length > 0))
+    {
+        [HxbHUDProgress showMessageCenter:@"交易密码不能为空" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (self.pwdTextField.text.length != 6) {
+        [HxbHUDProgress showMessageCenter:@"交易密码为6位数字" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    //    if (!(self.bankCode.length > 0)) {
+    //        [HxbHUDProgress showMessageCenter:@"银行名称不能为空" inView:self];
+    //        isNull = YES;
+    //        return isNull;
+    //    }
+    if (!(self.bankNumberTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"银行卡号不能为空" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.bankNumberTextField.text.length >= 10 && self.bankNumberTextField.text.length <= 25)) {
+        [HxbHUDProgress showMessageCenter:@"银行卡号输入有误" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.phoneTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"预留手机号不能为空" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (self.phoneTextField.text.length != 11) {
+        [HxbHUDProgress showMessageCenter:@"预留手机号有误" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    return isNull;
+}
+
+- (BOOL)isjudgeIsNull:(UIView *)textField
+{
+    BOOL isNull = NO;
+    if (!(self.nameTextField.text.length > 0) && textField != self.nameTextField) {
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.idCardTextField.text.length > 0) && textField != self.idCardTextField) {
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.pwdTextField.text.length > 0) && textField != self.pwdTextField) {
+        isNull = YES;
+        return isNull;
+    }
+    //    if (!(self.bankCode.length > 0)) {
+    //        isNull = YES;
+    //        return isNull;
+    //    }
+    if (!(self.bankNumberTextField.text.length > 0) && textField != self.bankNumberTextField) {
+        isNull = YES;
+        return isNull;
+    }
+    if (!(self.phoneTextField.text.length > 0) && textField != self.phoneTextField) {
+        isNull = YES;
+        return isNull;
+    }
+    return isNull;
+}
+
+- (BOOL)limitNumberCount:(UIView *)textField
+{
+    
+    if (self.idCardTextField.text.length > 17 && self.idCardTextField == textField) {
+        return NO;
+    }
+    if (self.pwdTextField.text.length > 5 && self.pwdTextField == textField) {
+        return NO;
+    }
+    if (self.bankNumberTextField.text.length > 24 && self.bankNumberTextField == textField) {
+        return NO;
+    }
+    if (self.phoneTextField.text.length > 10 && self.phoneTextField == textField) {
+        return NO;
+    }
+    return YES;
+}
+
+- (void)seeLimitBtnClick
+{
+    if (self.bankNameBlock) {
+        self.bankNameBlock();
+    }
+}
+
+#pragma mark - UITextFieldDelegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (textField.superview == self.bankNumberTextField) {
+        self.line.backgroundColor = COR29;
+    }
+    return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if (textField.superview == self.bankNumberTextField) {
+        self.line.backgroundColor = COR12;
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    /*下面代码为所有输入textField响应底部按钮
+     if (self.isAgree) {
+     if (range.location == 0 && [string isEqualToString:@""]) {
+     self.bottomBtn.backgroundColor = COR26;
+     self.bottomBtn.enabled = NO;
+     }else
+     {
+     if (![self isjudgeIsNull:textField.superview])
+     {
+     self.bottomBtn.backgroundColor = COR24;
+     self.bottomBtn.enabled = YES;
+     }
+     }
+     }else
+     {
+     self.bottomBtn.backgroundColor = COR26;
+     self.bottomBtn.enabled = NO;
+     }
+     */
+    
+    if ([string isEqualToString:@""]) {
+        return YES;
+    }else
+    {
+        if (self.nameTextField == textField.superview && [string isEqualToString:@" "]) {
+            return NO;
+        }
+        return [self limitNumberCount:textField.superview];
+    }
+    
+    
+}
+
+
+#pragma mark - Getters and Setters
+//设置用户信息
 - (void)setUserModel:(HXBRequestUserInfoViewModel *)userModel
 {
     _userModel = userModel;
@@ -119,7 +383,7 @@
     self.bankNameTextField.text = bankCardModel.bankType;
     self.bankNameTextField.isHidenLine = YES;
     self.bankNameTextField.userInteractionEnabled = NO;
-    self.bankCode = bankCardModel.bankCode;
+//    self.bankCode = bankCardModel.bankCode;
     
     self.bankNumberTextField.text = [bankCardModel.cardId replaceStringWithStartLocation:0 lenght:bankCardModel.cardId.length - 4];
     self.bankNumberTextField.isHidenLine = YES;
@@ -131,218 +395,39 @@
     self.phoneTextField.userInteractionEnabled = NO;
 }
 
-- (void)setupSubViewFrame
+/**
+ 卡bin校验成功
+ */
+- (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
 {
-    [self.headerTipView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationH(20));
-        make.left.right.equalTo(self);
-        make.height.offset(kScrAdaptationH(37));
+    _cardBinModel = cardBinModel;
+//    self.bankNumberTextField.isHidenLine = NO;
+    self.line.hidden = NO;
+    self.bankNameTextField.hidden = NO;
+    [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
+        self.phoneTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
     }];
-    [self.nameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.headerTipView.mas_bottom);
-        make.left.right.equalTo(self);
-        make.height.offset(kScrAdaptationH(50));
-    }];
-    [self.idCardTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.nameTextField.mas_bottom);
-        make.left.right.equalTo(self);
-        make.height.offset(kScrAdaptationH(50));
-    }];
-    [self.pwdTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.idCardTextField.mas_bottom);
-        make.left.right.equalTo(self);
-        make.height.offset(kScrAdaptationH(50));
-    }];
-    [self.bottomTipView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.pwdTextField.mas_bottom).offset(kScrAdaptationH(50));
-        make.left.right.equalTo(self);
-        make.height.offset(kScrAdaptationH(37));
-    }];
-    [self.bankNameTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bottomTipView.mas_bottom);
-        make.left.right.equalTo(self);
-        make.height.offset(kScrAdaptationH(50));
-    }];
-    [self.bankNumberTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bankNameTextField.mas_bottom);
-        make.left.right.equalTo(self);
-        make.height.offset(kScrAdaptationH(50));
-    }];
-    [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bankNumberTextField.mas_bottom);
-        make.left.right.equalTo(self);
-        make.height.offset(kScrAdaptationH(50));
-    }];
-    
- 
-    [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.phoneTextField.mas_bottom).offset(kScrAdaptationH(40));
-        make.centerX.equalTo(self);
-        make.left.equalTo(self).offset(kScrAdaptationW(18));
-        make.right.equalTo(self).offset(kScrAdaptationW(-18));
-    }];
-}
-
-- (void)setBankName:(NSString *)bankName
-{
-    _bankName = bankName;
-    self.bankNameTextField.text = bankName;
-}
-
-- (void)bottomBtnClick
-{
-    if (self.openAccountBlock) {
-        if ([self judgeIsTure]) return;
-        NSDictionary *dic = @{
-                              @"realName" : self.nameTextField.text,
-                              @"identityCard" : self.idCardTextField.text,
-                              @"password" : self.pwdTextField.text,
-                              @"bankCard" : self.bankNumberTextField.text,
-                              @"bankReservedMobile" : self.phoneTextField.text,
-                              @"bankCode" : self.bankCode
-                              };
-        self.openAccountBlock(dic);
-    }
-}
-
-- (BOOL)judgeIsTure
-{
-    BOOL isNull = NO;
-    if (!(self.nameTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"真实姓名不能为空" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if (!(self.idCardTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"身份证号不能为空" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if(self.idCardTextField.text.length != 18)
-    {
-        [HxbHUDProgress showMessageCenter:@"身份证号输入有误" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if(!(self.pwdTextField.text.length > 0))
-    {
-        [HxbHUDProgress showMessageCenter:@"交易密码不能为空" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if (self.pwdTextField.text.length != 6) {
-        [HxbHUDProgress showMessageCenter:@"交易密码为6位数字" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if (!(self.bankCode.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"银行名称不能为空" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if (!(self.bankNumberTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"银行卡号不能为空" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if (!(self.bankNumberTextField.text.length >= 10 && self.bankNumberTextField.text.length <= 25)) {
-        [HxbHUDProgress showMessageCenter:@"银行卡号输入有误" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if (!(self.phoneTextField.text.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"预留手机号不能为空" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if (self.phoneTextField.text.length != 11) {
-        [HxbHUDProgress showMessageCenter:@"预留手机号有误" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    return isNull;
-}
-
-- (BOOL)isjudgeIsNull:(UIView *)textField
-{
-    BOOL isNull = NO;
-    if (!(self.nameTextField.text.length > 0) && textField != self.nameTextField) {
-        isNull = YES;
-        return isNull;
-    }
-    if (!(self.idCardTextField.text.length > 0) && textField != self.idCardTextField) {
-        isNull = YES;
-        return isNull;
-    }
-    if (!(self.pwdTextField.text.length > 0) && textField != self.pwdTextField) {
-        isNull = YES;
-        return isNull;
-    }
-    if (!(self.bankCode.length > 0)) {
-        isNull = YES;
-        return isNull;
-    }
-    if (!(self.bankNumberTextField.text.length > 0) && textField != self.bankNumberTextField) {
-        isNull = YES;
-        return isNull;
-    }
-    if (!(self.phoneTextField.text.length > 0) && textField != self.phoneTextField) {
-        isNull = YES;
-        return isNull;
-    }
-    return isNull;
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    /*下面代码为所有输入textField响应底部按钮
-    if (self.isAgree) {
-        if (range.location == 0 && [string isEqualToString:@""]) {
-            self.bottomBtn.backgroundColor = COR26;
-            self.bottomBtn.enabled = NO;
-        }else
-        {
-            if (![self isjudgeIsNull:textField.superview])
-            {
-                self.bottomBtn.backgroundColor = COR24;
-                self.bottomBtn.enabled = YES;
-            }
-        }
+    [self layoutIfNeeded];
+    if (cardBinModel.isDebit) {
+        self.bankNameTextField.svgImageName = cardBinModel.bankCode;
+        self.bankNameTextField.text = [NSString stringWithFormat:@"%@：%@",cardBinModel.bankName,cardBinModel.quota];
     }else
     {
-        self.bottomBtn.backgroundColor = COR26;
-        self.bottomBtn.enabled = NO;
-    }
-    */
-    
-    if ([string isEqualToString:@""]) {
-        return YES;
-    }else
-    {
-        if (self.nameTextField == textField.superview && [string isEqualToString:@" "]) {
-            return NO;
-        }
-        return [self limitNumberCount:textField.superview];
+        self.bankNameTextField.svgImageName = @"默认";
+        self.bankNameTextField.text = @"此卡为信用卡，暂不支持";
     }
 }
 
-
-- (BOOL)limitNumberCount:(UIView *)textField
+//卡bin校验失败
+- (void)setIsCheckFailed:(BOOL)isCheckFailed
 {
-    
-    if (self.idCardTextField.text.length > 17 && self.idCardTextField == textField) {
-        return NO;
+    _isCheckFailed = isCheckFailed;
+    if (isCheckFailed) {
+        self.bankNameTextField.hidden = YES;
+        [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
+            self.phoneTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNumberTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
+        }];
     }
-    if (self.pwdTextField.text.length > 5 && self.pwdTextField == textField) {
-        return NO;
-    }
-    if (self.bankNumberTextField.text.length > 24 && self.bankNumberTextField == textField) {
-        return NO;
-    }
-    if (self.phoneTextField.text.length > 10 && self.phoneTextField == textField) {
-        return NO;
-    }
-    return YES;
 }
 
 //- (void)setBankCode:(NSString *)bankCode
@@ -375,6 +460,7 @@
         _nameTextField.leftImage = [SVGKImage imageNamed:@"name.svg"].UIImage;
         _nameTextField.placeholder = @"真实姓名";
         _nameTextField.delegate = self;
+        _nameTextField.isHidenLine = YES;
     }
     return _nameTextField;
 }
@@ -387,6 +473,7 @@
         _idCardTextField.placeholder = @"身份证号";
         _idCardTextField.delegate = self;
         _idCardTextField.isIDCardTextField = YES;
+        _idCardTextField.isHidenLine = YES;
     }
     return _idCardTextField;
 }
@@ -399,6 +486,7 @@
         _pwdTextField.secureTextEntry = YES;
         _pwdTextField.keyboardType = UIKeyboardTypeNumberPad;
         _pwdTextField.delegate = self;
+        _pwdTextField.isHidenLine = YES;
     }
     return _pwdTextField;
 }
@@ -414,17 +502,15 @@
 - (HXBCustomTextField *)bankNameTextField
 {
     if (!_bankNameTextField) {
-        kWeakSelf
         _bankNameTextField = [[HXBCustomTextField alloc] init];
-        _bankNameTextField.leftImage = [SVGKImage imageNamed:@"bank_name.svg"].UIImage;
+        _bankNameTextField.leftImage = [SVGKImage imageNamed:@"默认.svg"].UIImage;
+        _bankNameTextField.hidden = YES;
         _bankNameTextField.placeholder = @"银行名称";
-        _bankNameTextField.rightImage = [SVGKImage imageNamed:@"more.svg"].UIImage;
+//        _bankNameTextField.rightImage = [SVGKImage imageNamed:@"more.svg"].UIImage;
         _bankNameTextField.delegate = self;
-        _bankNameTextField.btnClick = ^{
-            if (weakSelf.bankNameBlock) {
-                weakSelf.bankNameBlock();
-            }
-        };
+        _bankNameTextField.isHidenLine = YES;
+        _bankNameTextField.userInteractionEnabled = NO;
+        _bankNameTextField.textColor = COR10;
     }
     return _bankNameTextField;
 }
@@ -436,18 +522,42 @@
         _bankNumberTextField.placeholder = @"银行卡号";
         _bankNumberTextField.delegate = self;
         _bankNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _bankNumberTextField.isHidenLine = YES;
+        kWeakSelf
+        _bankNumberTextField.block = ^(NSString *text) {
+            if (text.length>=12) {
+                if (weakSelf.checkCardBin) {
+                    weakSelf.checkCardBin(text);
+                }
+            }
+        };
     }
     return _bankNumberTextField;
+}
+
+- (UIButton *)seeLimitBtn
+{
+    if (!_seeLimitBtn) {
+        _seeLimitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_seeLimitBtn setTitle:@"查看银行限额" forState:(UIControlStateNormal)];
+        [_seeLimitBtn setTitleColor:kHXBColor_Blue040610 forState:(UIControlStateNormal)];
+        _seeLimitBtn.backgroundColor = [UIColor whiteColor];
+        [_seeLimitBtn addTarget:self action:@selector(seeLimitBtnClick) forControlEvents:(UIControlEventTouchUpInside)];
+        _seeLimitBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        _seeLimitBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+    }
+    return _seeLimitBtn;
 }
 
 - (HXBCustomTextField *)phoneTextField
 {
     if (!_phoneTextField) {
         _phoneTextField = [[HXBCustomTextField alloc] init];
-        _phoneTextField.leftImage = [SVGKImage imageNamed:@"mobile.svg"].UIImage;
+        _phoneTextField.svgImageName = @"mobile";
         _phoneTextField.placeholder = @"银行预留手机号";
         _phoneTextField.delegate = self;
         _phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _phoneTextField.isHidenLine = YES;
     }
     return _phoneTextField;
 }
@@ -510,5 +620,13 @@
 {
     [self endEditing:YES];
 }
-
+- (UIView *)line
+{
+    if (!_line) {
+        _line = [[UIView alloc] init];
+        _line.backgroundColor = COR12;
+        _line.hidden = YES;
+    }
+    return _line;
+}
 @end

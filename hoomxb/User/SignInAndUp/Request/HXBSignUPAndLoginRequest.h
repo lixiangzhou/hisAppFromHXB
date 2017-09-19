@@ -85,7 +85,7 @@
  * @param mobile    用户名
  */
 + (void)checkMobileRequestWithMobile: (NSString *)mobile
-                     andSuccessBlock: (void(^)(BOOL isExist))successBlock
+                     andSuccessBlock: (void(^)(BOOL isExist,NSString *message))successBlock
                      andFailureBlock: (void(^)(NSError *error))failureBlock;
 /**
  * 忘记密码校验手机号

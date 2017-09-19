@@ -7,20 +7,30 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HXBBankCardModel;
+@class HXBBankCardModel,HXBCardBinModel;
 @interface HXBOpenDepositAccountView : UIView
 
 //用户信息
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userModel;
 
 /**
+ 卡bin数据
+ */
+@property (nonatomic, strong) HXBCardBinModel *cardBinModel;
+
+/**
+ 卡bin校验失败
+ */
+@property (nonatomic, assign) BOOL isCheckFailed;
+
+/**
  bankCode
  */
-@property (nonatomic, copy) NSString *bankCode;
+//@property (nonatomic, copy) NSString *bankCode;
 /**
  银行名称
  */
-@property (nonatomic, copy) NSString *bankName;
+//@property (nonatomic, copy) NSString *bankName;
 
 /**
  bankNameBlock
@@ -32,6 +42,10 @@
  开通账户
  */
 @property (nonatomic, copy)  void(^openAccountBlock)(NSDictionary *dic);
+/**
+ 卡bin校验
+ */
+@property (nonatomic, copy) void(^checkCardBin)(NSString *bankNumber);
 /**
  存管协议
  */

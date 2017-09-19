@@ -105,16 +105,21 @@
     self.isBlueGradientNavigationBar = YES;
 }
 
+- (void)checkCardBin:(HXBCardBinModel *)cardBinModel
+{
+    self.mainView.cardBinModel = cardBinModel;
+}
+
 //进入银行卡列表
 - (void)enterBankCardListVC
 {
     kWeakSelf
     HXBBankCardListViewController *bankCardListVC = [[HXBBankCardListViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bankCardListVC];
-    bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
-        weakSelf.mainView.bankCode = bankCode;
-        weakSelf.mainView.bankName = bankName;
-    };
+//    bankCardListVC.bankCardListBlock = ^(NSString *bankCode, NSString *bankName){
+//        weakSelf.mainView.bankCode = bankCode;
+//        weakSelf.mainView.bankName = bankName;
+//    };
     [weakSelf presentViewController:nav animated:YES completion:nil];
 }
 //开通账户
@@ -160,7 +165,7 @@
     if (!_mainView) {
         kWeakSelf
         _mainView = [[HXBOpenDepositAccountView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
-        
+        _mainView.backgroundColor = kHXBColor_BackGround;
         _mainView.userModel = self.userModel;
         
         _mainView.bankNameBlock = ^{
@@ -182,6 +187,15 @@
             }
             [weakSelf.navigationController pushViewController:webViewVC animated:true];
         }];
+        
+        //卡bin校验
+        _mainView.checkCardBin = ^(NSString *bankNumber) {
+            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:bankNumber andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+                [weakSelf checkCardBin:cardBinModel];
+            } andFailureBlock:^(NSError *error) {
+                weakSelf.mainView.isCheckFailed = YES;
+            }];
+        };
         
     }
     return _mainView;

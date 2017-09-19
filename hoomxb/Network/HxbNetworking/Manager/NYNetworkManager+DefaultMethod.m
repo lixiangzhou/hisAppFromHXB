@@ -83,11 +83,14 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             if (KeyChain.isLogin) {
                 //弹出是否 登录
 //                [[KeyChainManage sharedInstance] signOut];
-                UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-                UINavigationController *NAV = tbVC.selectedViewController;
-                UIViewController *VC = NAV.viewControllers.lastObject;
-                [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
+                if ([[UIApplication sharedApplication].keyWindow.rootViewController isKindOfClass:NSClassFromString(@"UITabBarController")]) {
+                    UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                    UINavigationController *NAV = tbVC.selectedViewController;
+                    UIViewController *VC = NAV.viewControllers.lastObject;
+                    [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
+                }
             }
+            return;
 //            [[KeyChainManage sharedInstance] removeAllInfo];
             break;
        
