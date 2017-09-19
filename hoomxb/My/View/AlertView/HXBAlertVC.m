@@ -26,6 +26,8 @@
 //@property (nonatomic, strong) UIView *lineView;
 
 //@property (nonatomic, strong) UIButton *eyeBtn;
+//子标题设置
+@property (nonatomic, strong) UILabel *subTitleLabel;
 
 /**
  交易密码
@@ -66,11 +68,18 @@
     _isCode = isCode;
     if (isCode) {
         [self.contentView addSubview:self.verificationCodeAlertView];
+        [self.contentView addSubview:self.subTitleLabel];
     } else {
         [self.contentView addSubview:self.forgetBtn];
         [self.contentView addSubview:self.pwdField];
     }
     [self setupSubViewFrame];
+}
+
+- (void)setSubTitle:(NSString *)subTitle
+{
+    _subTitle = subTitle;
+    self.subTitleLabel.text = subTitle;
 }
 
 - (void)setIsMobile:(BOOL)isMobile {
@@ -102,12 +111,12 @@
         make.height.offset(kScrAdaptationH750(95));
     }];
     [self.message mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(80));
+        make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(60));
         make.centerX.equalTo(self.contentView);
         make.height.offset(kScrAdaptationH750(34));
     }];
     [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(kScrAdaptationH750(-73));
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(kScrAdaptationH750(-60));
         make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(40));
         make.height.offset(kScrAdaptationH750(70));
@@ -128,8 +137,13 @@
     [self.view bringSubviewToFront:self.mobileLabel];
     
     if (self.isCode) {
+       
+        [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.message.mas_bottom).offset(kScrAdaptationH750(20));
+            make.left.right.equalTo(self.contentView);
+        }];
         [self.verificationCodeAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.message.mas_bottom);
+            make.top.equalTo(self.subTitleLabel.mas_bottom);
             make.bottom.equalTo(self.sureBtn.mas_top);
             make.left.equalTo(self.contentView).offset(kScrAdaptationW750(90));
             make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-90));
@@ -354,7 +368,7 @@
     if (!_backBtn) {
         _backBtn = [[UIButton alloc] init];
         _backBtn.backgroundColor = [UIColor clearColor];
-        [_backBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+//        [_backBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     }
     return _backBtn;
 }
@@ -373,6 +387,17 @@
         };
     }
     return _verificationCodeAlertView;
+}
+
+- (UILabel *)subTitleLabel
+{
+    if (!_subTitleLabel) {
+        _subTitleLabel = [[UILabel alloc] init];
+        _subTitleLabel.textColor = COR8;
+        _subTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+        _subTitleLabel.textAlignment = NSTextAlignmentCenter;
+    }
+    return _subTitleLabel;
 }
 
 - (void)dismiss

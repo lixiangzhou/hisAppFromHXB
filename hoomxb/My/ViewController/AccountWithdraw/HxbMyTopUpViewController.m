@@ -16,6 +16,8 @@
 #import "HXBAlertVC.h"
 #import "HXBOpenDepositAccountRequest.h"
 #import "HXBFBase_BuyResult_VC.h"
+#import "HXBBankCardModel.h"
+#import "HXBMyTopUpBankView.h"
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
@@ -96,6 +98,8 @@
     kWeakSelf
     alertVC.isCode = YES;
     alertVC.messageTitle = @"请输入您的短信验证码";
+
+    alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:self.myTopUpBaseView.mybankView.bankCardModel.mobile.length - 7]];
     __weak typeof(alertVC) weakAlertVC = alertVC;
     alertVC.sureBtnClick = ^(NSString *pwd){
         HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];

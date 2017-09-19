@@ -214,13 +214,13 @@
 
 }
 
-
+//卡bin校验成功
 - (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
 {
     _cardBinModel = cardBinModel;
     self.bankNameTextField.hidden = NO;
     self.line.hidden = NO;
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
         self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
     }];
     [self layoutIfNeeded];
@@ -233,6 +233,18 @@
         self.bankNameTextField.text = @"此卡为信用卡，暂不支持";
     }
 }
+//卡bin校验失败
+- (void)setIsCheckFailed:(BOOL)isCheckFailed
+{
+    _isCheckFailed = isCheckFailed;
+    if (isCheckFailed) {
+        self.bankNameTextField.hidden = YES;
+        [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
+            self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankCardTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH750(100));
+        }];
+    }
+}
+
 
 - (HXBCustomTextField *)bankNameTextField
 {

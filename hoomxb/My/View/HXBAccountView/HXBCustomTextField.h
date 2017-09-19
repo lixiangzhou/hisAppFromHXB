@@ -27,7 +27,8 @@ typedef void(^isLimitText)(NSString *text);
 //@property (nonatomic, copy) NSString * _Nullable typeTextField;
 @property (nonatomic, assign) int number; // 必须要设置
 @property (nonatomic, assign) int limitStringLength;
-
+//字体颜色
+@property (nonatomic, strong) UIColor *textColor;
 /**
  SVG图片
  */
