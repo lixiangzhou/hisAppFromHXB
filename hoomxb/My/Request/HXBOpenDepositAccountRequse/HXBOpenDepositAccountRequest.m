@@ -76,7 +76,8 @@
                 
                 [self showAlertWithMessage:@"您的绑卡操作已超限，请明日再试"];
             } else {
-                [self showAlertWithMessage:responseObject[@"message"]];
+                if (status == 104) return;
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
 //            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) {

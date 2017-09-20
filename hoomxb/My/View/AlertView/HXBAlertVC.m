@@ -67,9 +67,13 @@
 {
     _isCode = isCode;
     if (isCode) {
+        [self.forgetBtn removeFromSuperview];
+        [self.pwdField removeFromSuperview];
         [self.contentView addSubview:self.verificationCodeAlertView];
         [self.contentView addSubview:self.subTitleLabel];
     } else {
+        [self.verificationCodeAlertView removeFromSuperview];
+        [self.subTitleLabel removeFromSuperview];
         [self.contentView addSubview:self.forgetBtn];
         [self.contentView addSubview:self.pwdField];
     }
