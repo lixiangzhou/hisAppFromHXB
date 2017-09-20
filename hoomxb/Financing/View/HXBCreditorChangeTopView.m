@@ -62,7 +62,6 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), 0, kScrAdaptationW(70), kScrAdaptationH(65))];
     label.text = @"金额：";
-    [_rechargeView addSubview:label];
     
     _rechargeViewTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectMake(label.left + kScrAdaptationW(5), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(95), kScrAdaptationH(35))];
     _rechargeViewTextField.keyboardType = UIKeyboardTypeDecimalPad;
@@ -73,6 +72,7 @@
         weakSelf.changeBlock(text);
     };
     [_rechargeView addSubview:_rechargeViewTextField];
+    [_rechargeView addSubview:label];
     
     _rechargeBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     _rechargeBtn.frame = CGRectMake(kScreenWidth - kScrAdaptationW(95), kScrAdaptationH750(35), kScrAdaptationW(80), kScrAdaptationH(30));

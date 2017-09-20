@@ -29,6 +29,12 @@ typedef void(^isLimitText)(NSString *text);
 @property (nonatomic, assign) int number; // 必须要设置
 @property (nonatomic, assign) int limitStringLength;
 @property (nonatomic, assign) BOOL disableEdit;
+//字体颜色
+@property (nonatomic, strong) UIColor *textColor;
+/**
+ SVG图片
+ */
+@property (nonatomic, copy) NSString *svgImageName;
 /**
  返回当前输入text值的block
  */

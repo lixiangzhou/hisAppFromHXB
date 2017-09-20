@@ -16,13 +16,20 @@
 #import "HxbMyTopUpViewController.h"
 #import "HXBFinAddTruastWebViewVC.h"
 #import "HXBFin_Buy_ViewModel.h"
+#import "HXBAlertVC.h"
+#import "HXBOpenDepositAccountRequest.h"
+#import "HXBModifyTransactionPasswordViewController.h"
 
 @interface HXBFin_creditorChange_buy_ViewController ()<UITableViewDelegate, UITableViewDataSource>
 /** topView */
 @property (nonatomic, strong) HXBCreditorChangeTopView *topView;
 /** bottomView*/
 @property (nonatomic, strong) HXBCreditorChangeBottomView *bottomView;
+// 我的信息
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *viewModel;
+/** 短验弹框 */
+@property (nonatomic, strong) HXBAlertVC *alertVC;
+// 银行卡信息
 @property (nonatomic, strong) HXBBankCardModel *cardModel;
 /** titleArray */
 @property (nonatomic, strong) NSArray *titleArray;
@@ -161,6 +168,7 @@
 }
 
 - (void)clickAddBtn {
+    [_topView endEditing:YES];
     if (_topupMoneyStr.floatValue > _balanceMoneyStr.floatValue) {
         _buyType = @"recharge";
     } else {
@@ -173,14 +181,13 @@
         if (isMultipleOfMin) {
             [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         }
+    }
+    if (_type == HXB_Plan) {
+        [self requestForPlan];
+    } else if (_type == HXB_Loan) {
+        [self requestForLoan];
     } else {
-        if (_type == HXB_Plan) {
-            [self requestForPlan];
-        } else if (_type == HXB_Loan) {
-            [self requestForLoan];
-        } else {
-            [self requestForCreditor];
-        }
+        [self requestForCreditor];
     }
     
 }
@@ -190,7 +197,6 @@
 
 // 购买红利计划
 - (void)requestForPlan {
-    NSDictionary *dic = nil;
     if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
         self.topView.totalMoney = _availablePoint;
         _topupMoneyStr = _availablePoint;
@@ -205,63 +211,16 @@
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
         if ([_btnLabelText containsString:@"充值"]) {
-            
-            dic = @{@"amount": _topupMoneyStr,
-                    @"cashType": _cashType,
-                    @"buyType": _buyType,
-                    @"tradPassword": _exchangePasswordStr};
+            [self fullAddtionFunc];
         } else {
-            dic = @{@"amount": _topupMoneyStr,
-                    @"cashType": _cashType,
-                    @"buyType": _buyType,
-                    @"balanceAmount": _balanceMoneyStr,
-                    @"smsCode": _smsCodeStr};
+            [self alertPassWord];
         }
-        kWeakSelf
-        [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:self.loanId parameter:dic andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
-            ///加入成功
-            HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-            planBuySuccessVC.imageName = @"successful";
-            planBuySuccessVC.buy_title = @"加入成功";
-            planBuySuccessVC.buy_description =model.lockStart;
-            planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
-            planBuySuccessVC.title = @"投资成功";
-            [planBuySuccessVC clickButtonWithBlock:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
-                [self.navigationController popToRootViewControllerAnimated:true];
-            }];
-            
-            [self.navigationController pushViewController:planBuySuccessVC animated:true];
-        } andFailureBlock:^(NSError *error, NSInteger status) {
-            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-            failViewController.title = @"投资结果";
-            switch (status) {
-                case 3408:
-                    failViewController.imageName = @"yuebuzu";
-                    failViewController.buy_title = @"可用余额不足，请重新购买";
-                    failViewController.buy_ButtonTitle = @"重新投资";
-                    break;
-                case 3100:
-                    failViewController.imageName = @"shouqin";
-                    failViewController.buy_title = @"手慢了，已售罄";
-                    failViewController.buy_ButtonTitle = @"重新投资";
-                    break;
-                default:
-                    failViewController.imageName = @"failure";
-                    failViewController.buy_title = @"加入失败";
-                    failViewController.buy_ButtonTitle = @"重新投资";
-            }
-            [failViewController clickButtonWithBlock:^{
-                [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
-            }];
-            [weakSelf.navigationController pushViewController:failViewController animated:true];
-        }];
+       
     }
 }
 
 // 购买散标
 - (void)requestForLoan {
-    NSDictionary *dic = nil;
     if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
         self.topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
         _topupMoneyStr = _availablePoint;
@@ -273,55 +232,12 @@
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
-        if ([_buyType isEqualToString:@"balance"]) {
-            dic = @{@"amount": _topupMoneyStr,
-                    @"buyType": _buyType,
-                    @"tradPassword": _exchangePasswordStr,
-                    };
+        if ([_btnLabelText containsString:@"充值"]) {
+            [self fullAddtionFunc];
         } else {
-            dic = @{@"amount": _topupMoneyStr,
-                    @"buyType": _buyType,
-                    @"balanceAmount": _balanceMoneyStr,
-                    @"smsCode": _smsCodeStr};
+            [self alertPassWord];
         }
-        [[HXBFinanctingRequest sharedFinanctingRequest] loan_confirmBuyReslutWithLoanID:self.loanId parameter:dic andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
-            ///加入成功
-            HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-            loanBuySuccessVC.imageName = @"successful";
-            loanBuySuccessVC.buy_title = @"投标成功";
-            loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的投资金额，放款成功后开始计息";
-            loanBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
-            loanBuySuccessVC.title = @"投资成功";
-            [loanBuySuccessVC clickButtonWithBlock:^{
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-                [self.navigationController popToRootViewControllerAnimated:true];
-            }];
-            
-            [self.navigationController pushViewController:loanBuySuccessVC animated:true];
-        } andFailureBlock:^(NSError *error, NSInteger status) {
-            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-            failViewController.title = @"投资结果";
-            switch (status) {
-                case 3408:
-                    failViewController.imageName = @"yuebuzu";
-                    failViewController.buy_title = @"可用余额不足，请重新购买";
-                    failViewController.buy_ButtonTitle = @"重新投资";
-                    break;
-                case 3100:
-                    failViewController.imageName = @"shouqin";
-                    failViewController.buy_title = @"手慢了，已售罄";
-                    failViewController.buy_ButtonTitle = @"重新投资";
-                    break;
-                default:
-                    failViewController.imageName = @"failure";
-                    failViewController.buy_title = @"加入失败";
-                    failViewController.buy_ButtonTitle = @"重新投资";
-            }
-            [failViewController clickButtonWithBlock:^{
-                [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
-            }];
-            [self.navigationController pushViewController:failViewController animated:true];
-        }];
+        
     }
     
     
@@ -329,7 +245,6 @@
 
 // 购买债权
 - (void)requestForCreditor {
-    NSDictionary *dic = nil;
     if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
         self.topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
         _topupMoneyStr = _availablePoint;
@@ -341,46 +256,234 @@
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
-        if ([_buyType isEqualToString:@"balancce"]) {
-            dic = @{@"investAmount": _topupMoneyStr,
+        if ([_btnLabelText containsString:@"充值"]) {
+            [self fullAddtionFunc];
+        } else {
+            [self alertPassWord];
+        }
+        
+    }
+}
+
+- (void)fullAddtionFunc {
+    kWeakSelf
+    HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+    [accountRequest accountRechargeRequestWithRechargeAmount:_topupMoneyStr andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
+        [weakSelf alertSmsCode];
+    } andFailureBlock:^(NSError *error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)alertSmsCode {
+    self.alertVC.isCode = YES;
+    self.alertVC.messageTitle = @"充值验证短信";
+    self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", _viewModel.userInfoModel.userInfo.mobile];
+    kWeakSelf
+    self.alertVC.sureBtnClick = ^(NSString *pwd) {
+        [weakSelf.alertVC.view endEditing:YES];
+        NSDictionary *dic = nil;
+        if (weakSelf.type == HXB_Plan) {
+            dic = @{@"amount": _topupMoneyStr,
+                    @"cashType": _cashType,
                     @"buyType": _buyType,
-                    @"tradPassword": _exchangePasswordStr,
-                    };
+                    @"balanceAmount": _balanceMoneyStr,
+                    @"smsCode": pwd};
+            [weakSelf buyPlanWithDic:dic];
+        } else if (weakSelf.type == HXB_Loan) {
+            dic = @{@"amount": _topupMoneyStr,
+                    @"buyType": _buyType,
+                    @"balanceAmount": _balanceMoneyStr,
+                    @"smsCode": pwd};
+            [weakSelf buyLoanWithDic:dic];
         } else {
             dic = @{@"investAmount": _topupMoneyStr,
                     @"buyType": _buyType,
                     @"balanceAmount": _balanceMoneyStr,
-                    @"smsCode": _smsCodeStr};
+                    @"smsCode": pwd};
+            [weakSelf buyCreditorWithDic:dic];
         }
-        kWeakSelf
-        [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansfer_confirmBuyReslutWithLoanID:_loanId parameter:dic andSuccessBlock:^(HXBFin_LoanTruansfer_BuyResoutViewModel *model) {
-            NSLog(@"购买成功");
-        } andFailureBlock:^(NSError *error, NSDictionary *response) {
-            NSInteger status = [response[@"status"] integerValue];
-            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-            failViewController.title = @"投资结果";
-            switch (status) {
-                case 3408:
-                    failViewController.imageName = @"yuebuzu";
-                    failViewController.buy_title = @"可用余额不足，请重新购买";
-                    failViewController.buy_ButtonTitle = @"重新投资";
-                    break;
-                case 3100:
-                    failViewController.imageName = @"shouqin";
-                    failViewController.buy_title = @"手慢了，已售罄";
-                    failViewController.buy_ButtonTitle = @"重新投资";
-                    break;
-                default:
-                    failViewController.imageName = @"failure";
-                    failViewController.buy_title = @"加入失败";
-                    failViewController.buy_ButtonTitle = @"重新投资";
-            }
-            [failViewController clickButtonWithBlock:^{
-                [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
-            }];
-            [weakSelf.navigationController pushViewController:failViewController animated:true];
+    };
+    [self presentViewController:_alertVC animated:NO completion:nil];
+}
+
+-(void)alertPassWord {
+    self.alertVC.isCode = NO;
+    self.alertVC.messageTitle = @"交易密码";
+    kWeakSelf
+    self.alertVC.sureBtnClick = ^(NSString *pwd) {
+        NSDictionary *dic = nil;
+        if (weakSelf.type == HXB_Plan) {
+            dic = @{@"amount": _topupMoneyStr,
+                    @"cashType": _cashType,
+                    @"buyType": _buyType,
+                    @"tradPassword": pwd};
+            [weakSelf buyPlanWithDic:dic];
+        } else if (weakSelf.type == HXB_Loan) {
+            dic = @{@"amount": _topupMoneyStr,
+                    @"buyType": _buyType,
+                    @"tradPassword": pwd,
+                    };
+            [weakSelf buyLoanWithDic:dic];
+        } else {
+            dic = @{@"investAmount": _topupMoneyStr,
+                    @"buyType": _buyType,
+                    @"tradPassword": pwd,
+                    };
+            [weakSelf buyCreditorWithDic:dic];
+        }
+    };
+    self.alertVC.forgetBtnClick = ^{
+        [weakSelf.alertVC.view endEditing:YES];
+        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+        modifyTransactionPasswordVC.title = @"修改交易密码";
+        modifyTransactionPasswordVC.userInfoModel = weakSelf.viewModel.userInfoModel;
+        [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+    };
+    [self presentViewController:_alertVC animated:NO completion:nil];
+    
+
+}
+
+- (void)buyPlanWithDic:(NSDictionary *)dic {
+    kWeakSelf
+    [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:self.loanId parameter:dic andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
+        ///加入成功
+        HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+        planBuySuccessVC.imageName = @"successful";
+        planBuySuccessVC.buy_title = @"加入成功";
+        planBuySuccessVC.buy_description =model.lockStart;
+        planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
+        planBuySuccessVC.title = @"投资成功";
+        [planBuySuccessVC clickButtonWithBlock:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
+            [self.navigationController popToRootViewControllerAnimated:true];
         }];
-    }
+        
+        [self.navigationController pushViewController:planBuySuccessVC animated:true];
+    } andFailureBlock:^(NSError *error, NSInteger status) {
+        HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
+        failViewController.title = @"投资结果";
+        switch (status) {
+            case 3408:
+                failViewController.imageName = @"yuebuzu";
+                failViewController.buy_title = @"可用余额不足，请重新购买";
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+            case 999:
+                failViewController.imageName = @"shouqin";
+                failViewController.buy_title = @"手慢了，已售罄";
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+            case -999:
+                failViewController.imageName = @"shouqin";
+                failViewController.buy_title = @"加入失败\n充值结果正在恒丰银行处理中，请稍后查看";
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+            case 3014:
+                return ;
+            case 3015:
+                return ;
+            default:
+                failViewController.imageName = @"failure";
+                failViewController.buy_title = @"加入失败";
+                failViewController.buy_ButtonTitle = @"重新投资";
+        }
+        [failViewController clickButtonWithBlock:^{
+            [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
+        }];
+        [weakSelf.navigationController pushViewController:failViewController animated:true];
+    }];
+}
+
+- (void)buyLoanWithDic:(NSDictionary *)dic {
+    [[HXBFinanctingRequest sharedFinanctingRequest] loan_confirmBuyReslutWithLoanID:self.loanId parameter:dic andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
+        ///加入成功
+        HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+        loanBuySuccessVC.imageName = @"successful";
+        loanBuySuccessVC.buy_title = @"投标成功";
+        loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的投资金额，放款成功后开始计息";
+        loanBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
+        loanBuySuccessVC.title = @"投资成功";
+        [loanBuySuccessVC clickButtonWithBlock:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
+            [self.navigationController popToRootViewControllerAnimated:true];
+        }];
+        
+        [self.navigationController pushViewController:loanBuySuccessVC animated:true];
+    } andFailureBlock:^(NSError *error, NSInteger status) {
+        HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
+        failViewController.title = @"投资结果";
+        switch (status) {
+            case 3408:
+                failViewController.imageName = @"yuebuzu";
+                failViewController.buy_title = @"可用余额不足，请重新购买";
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+            case 999:
+                failViewController.imageName = @"shouqin";
+                failViewController.buy_title = @"手慢了，已售罄";
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+            case -999:
+                failViewController.imageName = @"shouqin";
+                failViewController.buy_title = @"加入失败\n充值结果正在恒丰银行处理中，请稍后查看";
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+            case 3014:
+                return ;
+            case 3015:
+                return ;
+            default:
+                failViewController.imageName = @"failure";
+                failViewController.buy_title = @"加入失败";
+                failViewController.buy_ButtonTitle = @"重新投资";
+        }
+        [failViewController clickButtonWithBlock:^{
+            [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
+        }];
+        [self.navigationController pushViewController:failViewController animated:true];
+    }];
+}
+
+- (void)buyCreditorWithDic:(NSDictionary *)dic {
+    kWeakSelf
+    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansfer_confirmBuyReslutWithLoanID:_loanId parameter:dic andSuccessBlock:^(HXBFin_LoanTruansfer_BuyResoutViewModel *model) {
+        NSLog(@"购买成功");
+    } andFailureBlock:^(NSError *error, NSDictionary *response) {
+        NSInteger status = [response[@"status"] integerValue];
+        HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
+        failViewController.title = @"投资结果";
+        switch (status) {
+            case 3408:
+                failViewController.imageName = @"yuebuzu";
+                failViewController.buy_title = @"可用余额不足，请重新购买";
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+            case 999:
+                failViewController.imageName = @"shouqin";
+                failViewController.buy_title = @"手慢了，已售罄";
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+            case -999:
+                failViewController.imageName = @"shouqin";
+                failViewController.buy_title = @"加入失败\n充值结果正在恒丰银行处理中，请稍后查看";
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+            case 3014:
+                return ;
+            case 3015:
+                return ;
+            default:
+                failViewController.imageName = @"failure";
+                failViewController.buy_title = @"加入失败";
+                failViewController.buy_ButtonTitle = @"重新投资";
+        }
+        [failViewController clickButtonWithBlock:^{
+            [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
+        }];
+        [weakSelf.navigationController pushViewController:failViewController animated:true];
+    }];
 }
 
 - (void)changeBtnLabel {
@@ -505,7 +608,12 @@
     return _detailArray;
 }
 
-
+- (HXBAlertVC *)alertVC {
+    if (!_alertVC) {
+        _alertVC = [[HXBAlertVC alloc] init];
+    }
+    return _alertVC;
+}
 
 
 - (void)dealloc {

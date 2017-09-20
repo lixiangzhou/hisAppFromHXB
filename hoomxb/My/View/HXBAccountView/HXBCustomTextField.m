@@ -275,6 +275,13 @@
     }
 }
 
+- (void)setTextColor:(UIColor *)textColor
+{
+    _textColor = textColor;
+    self.textField.textColor = textColor;
+}
+
+
 - (NSString *)text
 {
     if (self.isIDCardTextField) {
