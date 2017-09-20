@@ -19,6 +19,7 @@
 #import "HXBAlertVC.h"
 #import "HXBOpenDepositAccountRequest.h"
 #import "HXBModifyTransactionPasswordViewController.h"
+#import "HxbWithdrawCardViewController.h"
 
 @interface HXBFin_creditorChange_buy_ViewController ()<UITableViewDelegate, UITableViewDataSource>
 /** topView */
@@ -114,16 +115,15 @@
         }
         if (_type == HXB_Plan) {
             _profitMoneyStr = [NSString stringWithFormat:@"%.2f", text.floatValue*self.totalInterest.floatValue/100.0];
-        } else if (_type == HXB_Loan) {
-            
-        } else {
-            
         }
         [weakSelf setUpArray];
     };
     _topView.block = ^{ // 点击一键购买执行的方法
-        NSString *topupStr = weakSelf.availablePoint ;
-        weakSelf.topView.totalMoney = topupStr;
+        NSString *topupStr = weakSelf.availablePoint;
+        weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%ld", topupStr.integerValue];
+        if (_type == HXB_Creditor) {
+            weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.2f", topupStr.doubleValue];
+        }
         _topupMoneyStr = topupStr;
         [weakSelf setUpArray];
     };
@@ -133,7 +133,7 @@
 
 - (UIView *)footTableView {
     kWeakSelf
-    _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH750(2000))];
+    _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
     if (_type == HXB_Plan) {
         _bottomView.delegateLabel = @"红利计划服务协议》,《风险提示";
     } else if (_type == HXB_Loan) {
@@ -174,22 +174,20 @@
     } else {
         _buyType = @"balance";
     }
-    if (_topupMoneyStr.length == 0) {
-        [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
-    } else if (_topupMoneyStr.doubleValue > _minRegisterAmount.integerValue) {
-        BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
-        if (isMultipleOfMin) {
-            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+    if (_viewModel.userInfoModel.userInfo.hasBindCard.intValue == 1) {
+        if (_type == HXB_Plan) {
+            [self requestForPlan];
+        } else if (_type == HXB_Loan) {
+            [self requestForLoan];
+        } else {
+            [self requestForCreditor];
         }
-    }
-    if (_type == HXB_Plan) {
-        [self requestForPlan];
-    } else if (_type == HXB_Loan) {
-        [self requestForLoan];
     } else {
-        [self requestForCreditor];
+        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+        withdrawCardViewController.title = @"绑卡";
+        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+        [self.navigationController pushViewController:withdrawCardViewController animated:YES];
     }
-    
 }
 
 
@@ -197,23 +195,30 @@
 
 // 购买红利计划
 - (void)requestForPlan {
-    if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
-        self.topView.totalMoney = _availablePoint;
+    if (_topupMoneyStr.length == 0) {
+        [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
+    } else if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
+        self.topView.totalMoney = [NSString stringWithFormat:@"%ld", _availablePoint.integerValue];
         _topupMoneyStr = _availablePoint;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _availablePoint.floatValue*self.totalInterest.floatValue/100.0];
         [self setUpArray];
-        [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
+        [HxbHUDProgress showTextWithMessage:@"已超过加入金额"];
     }  else if (_topupMoneyStr.floatValue < _minRegisterAmount.floatValue) {
-        _topView.totalMoney = _minRegisterAmount;
+        _topView.totalMoney = [NSString stringWithFormat:@"%ld", _minRegisterAmount.integerValue];
         _topupMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
-        if ([_btnLabelText containsString:@"充值"]) {
-            [self fullAddtionFunc];
+        BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
+        if (isMultipleOfMin) {
+            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         } else {
-            [self alertPassWord];
+            if ([_btnLabelText containsString:@"充值"]) {
+                [self fullAddtionFunc];
+            } else {
+                [self alertPassWord];
+            }
         }
        
     }
@@ -221,45 +226,64 @@
 
 // 购买散标
 - (void)requestForLoan {
-    if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
-        self.topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
-        _topupMoneyStr = _availablePoint;
+    if (_topupMoneyStr.length == 0) {
+        [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
+    } else if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
+        self.topView.totalMoney = [NSString stringWithFormat:@"%ld", _availablePoint.integerValue];
+        _topupMoneyStr = [NSString stringWithFormat:@"%ld", _availablePoint.integerValue];
         [self setUpArray];
-        [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
+        [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
     } else if (_topupMoneyStr.floatValue < _minRegisterAmount.floatValue) {
-        _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
+        _topView.totalMoney = [NSString stringWithFormat:@"%ld", _minRegisterAmount.integerValue];
         _topupMoneyStr = _minRegisterAmount;
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
-        if ([_btnLabelText containsString:@"充值"]) {
-            [self fullAddtionFunc];
+        BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
+        if (isMultipleOfMin) {
+            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         } else {
-            [self alertPassWord];
+            if ([_btnLabelText containsString:@"充值"]) {
+                [self fullAddtionFunc];
+            } else {
+                [self alertPassWord];
+            }
         }
-        
     }
-    
-    
 }
 
 // 购买债权
 - (void)requestForCreditor {
-    if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
+    if (_topupMoneyStr.length == 0) {
+        [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
+    } else if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
         self.topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
         _topupMoneyStr = _availablePoint;
         [self setUpArray];
-        [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
+        [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
     } else if (_topupMoneyStr.floatValue < _minRegisterAmount.floatValue) {
         _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
         _topupMoneyStr = _minRegisterAmount;
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
-        if ([_btnLabelText containsString:@"充值"]) {
-            [self fullAddtionFunc];
+        BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
+        if (isMultipleOfMin) {
+            if (_topupMoneyStr.doubleValue != _availablePoint.doubleValue) {
+                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+            } else {
+                if ([_btnLabelText containsString:@"充值"]) {
+                    [self fullAddtionFunc];
+                } else {
+                    [self alertPassWord];
+                }
+            }
         } else {
-            [self alertPassWord];
+            if ([_btnLabelText containsString:@"充值"]) {
+                [self fullAddtionFunc];
+            } else {
+                [self alertPassWord];
+            }
         }
         
     }
@@ -348,6 +372,7 @@
 - (void)buyPlanWithDic:(NSDictionary *)dic {
     kWeakSelf
     [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:self.loanId parameter:dic andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
+        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
         ///加入成功
         HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
         planBuySuccessVC.imageName = @"successful";
@@ -366,16 +391,19 @@
         failViewController.title = @"投资结果";
         switch (status) {
             case 3408:
+                [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                 failViewController.imageName = @"yuebuzu";
                 failViewController.buy_title = @"可用余额不足，请重新购买";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 999:
+                [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                 failViewController.imageName = @"shouqin";
                 failViewController.buy_title = @"手慢了，已售罄";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case -999:
+                [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                 failViewController.imageName = @"shouqin";
                 failViewController.buy_title = @"加入失败\n充值结果正在恒丰银行处理中，请稍后查看";
                 failViewController.buy_ButtonTitle = @"重新投资";
@@ -397,7 +425,9 @@
 }
 
 - (void)buyLoanWithDic:(NSDictionary *)dic {
+    kWeakSelf
     [[HXBFinanctingRequest sharedFinanctingRequest] loan_confirmBuyReslutWithLoanID:self.loanId parameter:dic andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
+        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
         ///加入成功
         HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
         loanBuySuccessVC.imageName = @"successful";
@@ -416,16 +446,19 @@
         failViewController.title = @"投资结果";
         switch (status) {
             case 3408:
+                [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                 failViewController.imageName = @"yuebuzu";
                 failViewController.buy_title = @"可用余额不足，请重新购买";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 999:
+                [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                 failViewController.imageName = @"shouqin";
                 failViewController.buy_title = @"手慢了，已售罄";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case -999:
+                [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                 failViewController.imageName = @"shouqin";
                 failViewController.buy_title = @"加入失败\n充值结果正在恒丰银行处理中，请稍后查看";
                 failViewController.buy_ButtonTitle = @"重新投资";
@@ -449,23 +482,39 @@
 - (void)buyCreditorWithDic:(NSDictionary *)dic {
     kWeakSelf
     [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansfer_confirmBuyReslutWithLoanID:_loanId parameter:dic andSuccessBlock:^(HXBFin_LoanTruansfer_BuyResoutViewModel *model) {
-        NSLog(@"购买成功");
+        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
+        ///加入成功
+        HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+        loanBuySuccessVC.imageName = @"successful";
+        loanBuySuccessVC.buy_title = @"投标成功";
+        loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的投资金额，放款成功后开始计息";
+        loanBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
+        loanBuySuccessVC.title = @"投资成功";
+        [loanBuySuccessVC clickButtonWithBlock:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
+            [self.navigationController popToRootViewControllerAnimated:true];
+        }];
+        
+        [self.navigationController pushViewController:loanBuySuccessVC animated:true];
     } andFailureBlock:^(NSError *error, NSDictionary *response) {
         NSInteger status = [response[@"status"] integerValue];
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
         failViewController.title = @"投资结果";
         switch (status) {
             case 3408:
+                [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                 failViewController.imageName = @"yuebuzu";
                 failViewController.buy_title = @"可用余额不足，请重新购买";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 999:
+                [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                 failViewController.imageName = @"shouqin";
                 failViewController.buy_title = @"手慢了，已售罄";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case -999:
+                [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                 failViewController.imageName = @"shouqin";
                 failViewController.buy_title = @"加入失败\n充值结果正在恒丰银行处理中，请稍后查看";
                 failViewController.buy_ButtonTitle = @"重新投资";
