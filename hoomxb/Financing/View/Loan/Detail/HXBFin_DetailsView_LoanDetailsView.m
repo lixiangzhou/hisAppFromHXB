@@ -281,7 +281,7 @@
     self.promptLablel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
     self.promptLablel.text = @"- 预期收益不代表实际收益，投资需谨慎 -";
     [self.promptLablel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bottomTableView.mas_bottom).offset(kScrAdaptationH(10));
+        make.top.equalTo(self.bottomTableView.mas_bottom).offset(kScrAdaptationH(20));
         make.left.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(17)));
     }];
@@ -348,9 +348,10 @@
     UILabel *lable = [[UILabel alloc]init];
     [self addSubview:lable];
     [lable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.bottomTableView.mas_bottom);
+//        make.top.equalTo(weakSelf.bottomTableView.mas_bottom);
         make.left.right.equalTo(weakSelf);
         make.centerX.equalTo(weakSelf);
+        make.centerY.equalTo(weakSelf);
     }];
     lable.text = self.promptStr;
     lable.textAlignment = NSTextAlignmentCenter;

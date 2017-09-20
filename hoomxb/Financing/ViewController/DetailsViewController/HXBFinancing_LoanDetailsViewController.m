@@ -43,7 +43,7 @@
 /**
  添加一个倒计时时间label
  */
-@property (nonatomic, strong) UILabel *timeLabel;
+//@property (nonatomic, strong) UILabel *timeLabel;
 
 
 @end
@@ -140,19 +140,19 @@
     self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     [self.hxbBaseVCScrollView addSubview:self.loanDetailsView];
     
-    self.timeLabel = [[UILabel alloc] init];
-    self.timeLabel.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.timeLabel];
-    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.view).offset(-kScrAdaptationH(50));
-        make.left.equalTo(self.view).offset(0);
-        make.right.equalTo(self.view).offset(0);
-        make.height.offset(kScrAdaptationH(25));
-    }];
-    self.timeLabel.hidden = YES;
-    self.timeLabel.textColor = [UIColor grayColor];
-    self.timeLabel.textAlignment = NSTextAlignmentCenter;
-    self.timeLabel.font = [UIFont systemFontOfSize:12.0f];
+//    self.timeLabel = [[UILabel alloc] init];
+//    self.timeLabel.backgroundColor = [UIColor whiteColor];
+//    [self.view addSubview:self.timeLabel];
+//    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.equalTo(self.view).offset(-kScrAdaptationH(50));
+//        make.left.equalTo(self.view).offset(0);
+//        make.right.equalTo(self.view).offset(0);
+//        make.height.offset(kScrAdaptationH(25));
+//    }];
+//    self.timeLabel.hidden = YES;
+//    self.timeLabel.textColor = [UIColor grayColor];
+//    self.timeLabel.textAlignment = NSTextAlignmentCenter;
+//    self.timeLabel.font = [UIFont systemFontOfSize:12.0f];
     [self.view addSubview:self.loanDetailsView.addButton];
     self.loanDetailsView.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(50), kScreenWidth, kScrAdaptationH(50));
 }
@@ -237,10 +237,10 @@
     [[HXBFinanctingRequest sharedFinanctingRequest] loanDetaileWithLoanID:self.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanDetail *viewModel) {
         weakSelf.loanDetailViewModel = viewModel;
         weakSelf.title = viewModel.loanDetailModel.loanVo.title;
-        weakSelf.timeLabel.attributedText = [NSMutableAttributedString setupAttributeStringWithString:[NSString stringWithFormat:@"剩余投标时间：%@", viewModel.remainTime] WithRange:NSMakeRange(7, viewModel.remainTime.length) andAttributeColor:[UIColor orangeColor] andAttributeFont:weakSelf.timeLabel.font];
-        if ([viewModel.addButtonStr hasPrefix:@"立即"]) {
-            weakSelf.timeLabel.hidden = NO;
-        }
+//        weakSelf.timeLabel.attributedText = [NSMutableAttributedString setupAttributeStringWithString:[NSString stringWithFormat:@"剩余投标时间：%@", viewModel.remainTime] WithRange:NSMakeRange(7, viewModel.remainTime.length) andAttributeColor:[UIColor orangeColor] andAttributeFont:weakSelf.timeLabel.font];
+//        if ([viewModel.addButtonStr hasPrefix:@"立即"]) {
+//            weakSelf.timeLabel.hidden = NO;
+//        }
         weakSelf.loanDetailsView.modelArray = weakSelf.tableViewModelArray;
         [weakSelf.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
