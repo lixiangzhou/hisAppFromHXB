@@ -39,6 +39,7 @@
     [self addSubview:topView];
     [topView addSubview:self.tipsImageView];
     [topView addSubview:self.cardLimitMoneyLabel];
+    self.cardLimitMoneyLabel.hidden = YES;
     [self setRechardView];
     [topView addSubview:_rechargeView];
     [topView addSubview:self.creditorLabel];
@@ -188,12 +189,14 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [UIView animateWithDuration:0.5 animations:^{
+        _cardLimitMoneyLabel.hidden = NO;
         _cardLimitMoneyLabel.y = 0;
     }];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [UIView animateWithDuration:0.2 animations:^{
+        _cardLimitMoneyLabel.hidden= YES;
         _cardLimitMoneyLabel.y = -kScrAdaptationH(35);
     }];
 }
