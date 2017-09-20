@@ -135,7 +135,7 @@
         NSDictionary *dic = @{
                               @"bankCard" : self.bankCardTextField.text,
                               @"bankReservedMobile" : self.phoneNumberTextField.text,
-//                              @"bankCode" : self.bankCode
+                              @"bankCode" : self.cardBinModel.bankCode
                               };
         self.nextButtonClickBlock(dic);
     }
