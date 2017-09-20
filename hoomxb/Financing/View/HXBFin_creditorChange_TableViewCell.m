@@ -59,7 +59,20 @@
 
 - (void)setDetailStr:(NSString *)detailStr {
     _detailStr = detailStr;
-    _detailLabel.text = detailStr;
+}
+
+- (void)setIsAttributeShow:(BOOL)isAttributeShow {
+    _isAttributeShow = isAttributeShow;
+    if (_isAttributeShow) {
+            NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:_detailStr];
+        if (_detailStr.length > 1) {
+            [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(0, _detailStr.length - 1)];
+        }
+            _detailLabel.attributedText = attributedStr;
+    } else {
+        _detailLabel.text = _detailStr;
+        
+    }
 }
 
 - (void)setIsHeddenHine:(BOOL)isHeddenHine {
@@ -81,7 +94,6 @@
     if (!_detailLabel) {
         _detailLabel = [[UILabel alloc] init];
         _detailLabel.textColor = COR6;
-        _detailLabel.text = @"100.00元";
         _detailLabel.textAlignment = NSTextAlignmentRight;
         _detailLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     }

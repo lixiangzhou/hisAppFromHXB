@@ -226,9 +226,11 @@
     loanJoinVC.title = @"投资债权";
     // self.loanTruansferDetailViewModel
     loanJoinVC.type = HXB_Creditor;
+    loanJoinVC.loanId = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanId;
     loanJoinVC.placeholderStr = self.loanTruansferDetailViewModel.startIncrease_Amount;
-    loanJoinVC.availablePoint = self.loanTruansferDetailViewModel.leftTransAmount;
-//    loanJoinVC.availablePoint = _availablePoint;
+    loanJoinVC.availablePoint = self.loanTruansferDetailViewModel.loanTruansferDetailModel.leftTransAmount;
+    loanJoinVC.minRegisterAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
+    loanJoinVC.registerMultipleAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
     [self.navigationController pushViewController:loanJoinVC animated:true];
 }
 

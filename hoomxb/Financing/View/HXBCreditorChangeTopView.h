@@ -19,6 +19,18 @@ typedef void(^textfieldDidChange)(NSString *text);
 @property (nonatomic, copy) NSString * totalMoney;
 /** 占位符 */
 @property (nonatomic, copy) NSString * placeholderStr;
+/** 银行限额 */
+@property (nonatomic, copy) NSString * cardStr;
+/** 键盘类型 */
+@property (nonatomic, assign) UIKeyboardType keyboardType;
+
+/** 是否隐藏一键购买的按钮 */
+@property (nonatomic, assign) BOOL isHiddenBtn;
+/** 取消输入框的编辑状态 */
+@property (nonatomic, assign) BOOL disableKeyBorad;
+/** 取消一键购买的点击 */
+@property (nonatomic, assign) BOOL disableBtn;
+
 /** buyBlock */
 @property (nonatomic, copy) buyBlock block;
 /** buyBlock */

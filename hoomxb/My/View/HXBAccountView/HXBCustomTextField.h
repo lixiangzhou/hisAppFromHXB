@@ -23,10 +23,12 @@ typedef void(^isLimitText)(NSString *text);
 @property(nonatomic) UIKeyboardType keyboardType;
 @property (nonatomic, assign) BOOL isIDCardTextField;
 @property (nonatomic, assign) BOOL isGetCode;
+@property (nonatomic, assign) BOOL isCleanAllBtn;
 @property(nullable, nonatomic,weak)   id<UITextFieldDelegate> delegate;
 //@property (nonatomic, copy) NSString * _Nullable typeTextField;
 @property (nonatomic, assign) int number; // 必须要设置
 @property (nonatomic, assign) int limitStringLength;
+@property (nonatomic, assign) BOOL disableEdit;
 //字体颜色
 @property (nonatomic, strong) UIColor *textColor;
 /**

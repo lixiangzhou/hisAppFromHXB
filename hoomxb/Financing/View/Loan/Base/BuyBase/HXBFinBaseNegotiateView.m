@@ -20,6 +20,8 @@
 @property (nonatomic,strong) UILabel *negotiateLabel;
 ///服务协议 button
 @property (nonatomic,strong) UIButton *negotiateButton;
+@property (nonatomic,strong) UIButton *negotiateButton1;
+
 @end
 @implementation HXBFinBaseNegotiateView
 - (instancetype) initWithFrame:(CGRect)frame {
@@ -38,12 +40,15 @@
     self.negotiateImageViewBackgroundButton = [[UIButton alloc]init];
     self.negotiateImageView = [[UIImageView alloc]init];
     self.negotiateButton = [[UIButton alloc]init];
+    self.negotiateButton1 = [[UIButton alloc]init];
     self.negotiateLabel = [[UILabel alloc]init];
+    self.negotiateButton1.hidden = YES;
     //协议
     [self addSubview:self.negotiateImageViewBackgroundButton];
     [self.negotiateImageViewBackgroundButton addSubview:self.negotiateImageView];
     [self addSubview:self.negotiateLabel];
     [self addSubview:self.negotiateButton];
+    [self addSubview:self.negotiateButton1];
 }
 
 - (void)setUPViewsFrame {
@@ -66,6 +71,11 @@
         make.left.equalTo(self.negotiateLabel.mas_right).offset(0);
         make.height.bottom.equalTo(self.negotiateLabel);
     }];
+    [self.negotiateButton1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.negotiateButton.mas_right).offset(0);
+        make.height.bottom.equalTo(self.negotiateLabel);
+    }];
+    
     self.negotiateImageViewBackgroundButton.backgroundColor = [UIColor whiteColor];
     self.negotiateImageViewBackgroundButton.layer.borderColor = kHXBColor_Blue040610.CGColor;
     self.negotiateImageViewBackgroundButton.layer.borderWidth = kXYBorderWidth;
@@ -74,12 +84,15 @@
     self.negotiateImageView.image = [UIImage imageNamed:@"duigou"];
     self.negotiateLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
     self.negotiateButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
+    self.negotiateButton1.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
     self.negotiateLabel.textColor = kHXBColor_Font0_6;
 }
 
 - (void)setUPViews {
     [self.negotiateButton setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
+    [self.negotiateButton1 setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
     [self.negotiateButton addTarget:self action:@selector(clickNegotiateButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.negotiateButton1 addTarget:self action:@selector(clickNegotiateButton1:) forControlEvents:UIControlEventTouchUpInside];
     self.negotiateLabel.text = @"我已阅读并同意";///@"我已阅读并同意";
     
     [self.negotiateImageViewBackgroundButton addTarget:self action:@selector(clickNegotiateImageViewBackgroundButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -102,7 +115,9 @@
 }
 
 - (void)clickNegotiateButton: (UIButton *)button {
-    NSLog(@"点击了服务协议%@",self);
+    if (self.block) {
+        self.block(1);
+    }
     if (self.clickNegotiateBlock) {
         self.clickNegotiateBlock();
     }
@@ -116,9 +131,24 @@
         _negotiateStr = [NSString stringWithFormat:@"《%@》",negotiateStr];
     }
     [self.negotiateButton setTitle:_negotiateStr  forState: UIControlStateNormal];
+    if ([_type isEqualToString:@"购买页"]) {
+        NSArray *negotiateArray = [_negotiateStr componentsSeparatedByString:@"》,《"];
+        if (negotiateArray.count > 1) {
+            self.negotiateButton1.hidden = YES;
+            [self.negotiateButton setTitle:[NSString stringWithFormat:@"%@》", negotiateArray[0]]  forState: UIControlStateNormal];
+            [self.negotiateButton1 setTitle:[NSString stringWithFormat:@"《%@", negotiateArray[1]]  forState: UIControlStateNormal];
+        }
+    }
 }
 
 - (void)clickNegotiateWithBlock:(void (^)())clickNegotiateBlock {
     self.clickNegotiateBlock = clickNegotiateBlock;
 }
+
+- (void)clickNegotiateButton1:(UIButton *)button {
+    if (self.block) {
+        _block(2);
+    }
+}
+
 @end

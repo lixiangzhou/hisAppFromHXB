@@ -196,6 +196,11 @@
     }
 }
 
+- (void)setDisableEdit:(BOOL)disableEdit {
+    _disableEdit = disableEdit;
+    _textField.enabled = !_disableEdit;
+}
+
 - (void)setIsGetCode:(BOOL)isGetCode {
     _isGetCode = isGetCode;
     if (_isGetCode) {
@@ -261,6 +266,15 @@
     self.idTextField.text = text;
 }
 
+- (void)setIsCleanAllBtn:(BOOL)isCleanAllBtn {
+    _isCleanAllBtn = isCleanAllBtn;
+    if (isCleanAllBtn) {
+        self.textField.clearButtonMode = UITextFieldViewModeNever;
+    } else {
+        self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    }
+}
+
 - (void)setTextColor:(UIColor *)textColor
 {
     _textColor = textColor;
@@ -275,7 +289,6 @@
     } else {
         return self.textField.text;
     }
-    
 }
 
 - (void)setKeyboardType:(UIKeyboardType)keyboardType
