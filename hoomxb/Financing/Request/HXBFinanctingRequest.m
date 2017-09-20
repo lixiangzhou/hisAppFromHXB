@@ -730,6 +730,79 @@
     }];
 }
 
+#pragma mark --- 请求参数改为字典
+// 红利 购买结果
+- (void)plan_buyReslutWithPlanID: (NSString *)planID
+                      parameter :(NSDictionary *)parameter
+                 andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
+                 andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock {
+    HXBBaseRequest *confirmBuyReslut = [[HXBBaseRequest alloc]init];
+    confirmBuyReslut.requestArgument = parameter;
+    confirmBuyReslut.requestUrl = kHXBFin_Plan_ConfirmBuyReslutURL(planID);
+    confirmBuyReslut.requestMethod = NYRequestMethodPost;
+    [confirmBuyReslut startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+        if (status == 3408) {
+            if (failureBlock) failureBlock(nil,status); return;
+        }
+        if (status == 3100) {
+            if (failureBlock) failureBlock(nil,status); return;
+        }
+        if (status) {
+            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]]; return;
+        }
+        NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
+        HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
+        
+        [reslut yy_modelSetWithDictionary:dataDic];
+        HXBFin_Plan_BuyViewModel *planViewModel = [[HXBFin_Plan_BuyViewModel alloc]init];
+        planViewModel.buyPlanModel = reslut;
+        
+        if (successDateBlock) {
+            successDateBlock(planViewModel);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        if (failureBlock) failureBlock(nil,0);
+    }];
+    
+}
+// 散标 购买结果
+- (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
+                             parameter :(NSDictionary *)parameter
+                        andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
+                        andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock {
+    HXBBaseRequest *loanBuyReslutRequest = [[HXBBaseRequest alloc]init];
+    loanBuyReslutRequest.requestMethod = NYRequestMethodPost;
+    loanBuyReslutRequest.requestUrl = kHXBFin_BuyReslut_LoanURL(loanID);
+    loanBuyReslutRequest.requestArgument = parameter;
+    [loanBuyReslutRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+        if (status == 3408) {
+            if (failureBlock) failureBlock(nil,3408); return;
+        }
+        if (status == 3100) {
+            if (failureBlock) failureBlock(nil,3100); return;
+        }
+        if (status) {
+            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            if (failureBlock) failureBlock(nil,status);
+            return;
+        }
+        
+        HXBFinModel_BuyResoult_LoanModel *loanBuyResoult = [[HXBFinModel_BuyResoult_LoanModel alloc]init];
+        [loanBuyResoult yy_modelSetWithDictionary:responseObject[kResponseData]];
+        
+        
+        if (successDateBlock) {
+            successDateBlock(loanBuyResoult);
+        }
+        
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        if (failureBlock) failureBlock(error,0);
+    }];
+}
+
+
 ///债转的购买
 - (void)loanTruansfer_confirmBuyReslutWithLoanID: (NSString *)loanTruansferID
                                 parameter :(NSDictionary *)parameter
