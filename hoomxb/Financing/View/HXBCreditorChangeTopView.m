@@ -21,6 +21,10 @@
 @property (nonatomic, strong) UIButton *rechargeBtn;
 /** 银行限额弹框 */
 @property (nonatomic, strong)  UILabel *cardLimitMoneyLabel;
+/** 预期收益 */
+@property (nonatomic, strong)  UILabel *profitLabel;
+/** 预期收益 */
+@property (nonatomic, strong)  UIView *backView;
 
 @end
 @implementation HXBCreditorChangeTopView
@@ -38,13 +42,15 @@
     topView.backgroundColor = [UIColor clearColor];
     [self addSubview:topView];
     [topView addSubview:self.tipsImageView];
+    [self addSubview:self.cardLimitMoneyLabel];
     
-    self.cardLimitMoneyLabel.hidden = YES;
+    self.cardLimitMoneyLabel.hidden = NO;
     [self setRechardView];
     [topView addSubview:_rechargeView];
     [topView addSubview:self.creditorLabel];
-    [topView addSubview:self.cardLimitMoneyLabel];
-        [_creditorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    
+    
+    [_creditorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.equalTo(self).offset(kScrAdaptationW750(70));
         make.width.offset(kScreenWidth - 2 * kScrAdaptationW(15));
@@ -55,11 +61,27 @@
         make.centerY.equalTo(_creditorLabel);
         make.height.width.equalTo(@(kScrAdaptationH750(30)));
     }];
+    _backView = [[UIView alloc] initWithFrame:CGRectMake(0,kScrAdaptationH750(200), kScreenWidth, kScrAdaptationH(35))];
+    _backView.backgroundColor = [UIColor whiteColor];
+    [self addSubview:_backView];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0,0, kScreenWidth, kScrAdaptationH(0.5))];
+    lineView.backgroundColor = COR12;
+    [_backView addSubview:lineView];
+    [_backView addSubview:self.profitLabel];
 }
 
+- (void)setHiddenMoneyLabel:(BOOL)hiddenMoneyLabel {
+    _hiddenMoneyLabel = hiddenMoneyLabel;
+    _cardLimitMoneyLabel.hidden = hiddenMoneyLabel;
+}
+
+- (void)setHiddenProfitLabel:(BOOL)hiddenProfitLabel {
+    _hiddenProfitLabel = hiddenProfitLabel;
+    _backView.hidden = hiddenProfitLabel;
+}
 - (void)setRechardView {
     kWeakSelf
-    _rechargeView = [[UIView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(35), kScreenWidth, kScrAdaptationH(60))];
+    _rechargeView = [[UIView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(35), kScreenWidth, kScrAdaptationH(65))];
     _rechargeView.backgroundColor = [UIColor whiteColor];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), 0, kScrAdaptationW(70), kScrAdaptationH(65))];
@@ -114,7 +136,6 @@
 - (UILabel *)cardLimitMoneyLabel {
     if (!_cardLimitMoneyLabel) {
         _cardLimitMoneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -kScrAdaptationH(35), kScreenWidth, kScrAdaptationH(35))];
-        _cardLimitMoneyLabel.text = @"ahkjsdhakdshajdh";
         _cardLimitMoneyLabel.textAlignment = NSTextAlignmentCenter;
         _cardLimitMoneyLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _cardLimitMoneyLabel.textColor = [UIColor whiteColor];
@@ -122,7 +143,15 @@
     }
     return _cardLimitMoneyLabel;
 }
-
+- (UILabel *)profitLabel {
+    if (!_profitLabel) {
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), 0, kScreenWidth, kScrAdaptationH750(70))];
+        _profitLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        _profitLabel.text = @"1231231231";
+        _profitLabel.textColor = COR10;
+    }
+    return _profitLabel;
+}
 
 - (void)setCreditorMoney:(NSString *)creditorMoney {
     _creditorMoney = creditorMoney;
@@ -179,6 +208,15 @@
     }
 }
 
+- (void)setProfitStr:(NSString *)profitStr {
+    _profitStr = profitStr;
+    NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:profitStr];
+    if (profitStr.length > 6) {
+        [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(5, profitStr.length - 6)];
+    }
+    _profitLabel.attributedText = attributedStr;
+}
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (range.location == 0 && [string isEqualToString:@"0"]) return NO;
     if (range.location == 0 && [string isEqualToString:@"."]) return NO;
@@ -190,14 +228,12 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     [UIView animateWithDuration:0.5 animations:^{
-        _cardLimitMoneyLabel.hidden = NO;
         _cardLimitMoneyLabel.y = 0;
     }];
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     [UIView animateWithDuration:0.2 animations:^{
-        _cardLimitMoneyLabel.hidden= YES;
         _cardLimitMoneyLabel.y = -kScrAdaptationH(35);
     }];
 }

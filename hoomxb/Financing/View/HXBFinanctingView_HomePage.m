@@ -39,14 +39,36 @@
 #pragma mark - setter 主要是进行了UI的刷新
 - (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
     _finPlanListVMArray = finPlanListVMArray;
+    //上拉刷新，下拉加载
+    kWeakSelf
+    if (_finPlanListVMArray.count >= 20) {
+        [self.planListTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+            if (weakSelf.planRefreshFooterBlock) weakSelf.planRefreshFooterBlock();
+        } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+        }];
+    }
     self.planListTableView.planListViewModelArray = finPlanListVMArray;
 }
 - (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
     _finLoanListVMArray = finLoanListVMArray;
+    kWeakSelf
+    if (_finLoanListVMArray.count >= 20) {
+        [self.loanListTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+            if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
+        } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+        }];
+    }
     self.loanListTableView.loanListViewModelArray =finLoanListVMArray;
 }
 - (void)setFinLoanTruansferVMArray:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)finLoanTruansferVMArray {
     _finLoanTruansferVMArray = finLoanTruansferVMArray;
+    kWeakSelf
+    if (_finLoanTruansferVMArray.count >= 20) {
+        [self.loanTruansferTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+            if (weakSelf.loanTruansferFooterBlock) weakSelf.loanTruansferFooterBlock();
+        } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+        }];
+    }
     self.loanTruansferTableView.loanTruansferViewModel = finLoanTruansferVMArray;
 }
 
@@ -170,12 +192,6 @@
         }
     }];
     
-    //上拉刷新，下拉加载
-    [self.planListTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-         if (weakSelf.planRefreshFooterBlock) weakSelf.planRefreshFooterBlock();
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-       
-    }];
     [self.planListTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         if (weakSelf.planRefreshHeaderBlock) weakSelf.planRefreshHeaderBlock();
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
@@ -200,10 +216,6 @@
     }];
     
     //上拉刷新，下拉加载
-    [self.loanListTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-    }];
     [self.loanListTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         if (weakSelf.loanRefreshHeaderBlock) weakSelf.loanRefreshHeaderBlock();
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
@@ -216,11 +228,7 @@
     kWeakSelf
     self.loanTruansferTableView = [[HXBFin_LoanTransferTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
 
-    //上拉刷新，下拉加载
-    [self.loanTruansferTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        if (weakSelf.loanTruansferFooterBlock) weakSelf.loanTruansferFooterBlock();
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-    }];
+    //上拉刷新，下拉加载（判断条数是否）
     [self.loanTruansferTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         if (weakSelf.loanTruansferHeaderBlock) weakSelf.loanTruansferHeaderBlock();
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {

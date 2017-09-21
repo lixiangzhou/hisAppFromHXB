@@ -216,7 +216,12 @@
         [self checkVerificationCode];
         
     }
-    
+}
+
+- (void)setIsCleanPassword:(BOOL)isCleanPassword {
+    _isCleanPassword = isCleanPassword;
+    _pwdField.isCleanPassword = _isCleanPassword;
+    _verificationCodeAlertView.isCleanSmsCode = _isCleanPassword;
 }
 /**
  校验验证码

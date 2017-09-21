@@ -111,12 +111,23 @@
 }
 
 /**
- 清除密码
+ 清除密码(old)
  */
 - (void)clearUpPassword {
     
     self.passwordTextField.text = @"";
     [self textFieldDidChange:self.passwordTextField];
+}
+
+/**
+ 清除密码(new)
+ */
+- (void)setIsCleanPassword:(BOOL)isCleanPassword {
+    _isCleanPassword = isCleanPassword;
+    if (isCleanPassword) {
+        self.passwordTextField.text = @"";
+        [self textFieldDidChange:self.passwordTextField];
+    }
 }
 
 /**
