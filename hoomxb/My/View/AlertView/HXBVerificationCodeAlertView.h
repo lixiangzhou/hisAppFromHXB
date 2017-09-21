@@ -16,6 +16,8 @@
 @property (nonatomic, copy) NSString *verificationCode;
 //线的颜色
 @property(nonatomic,copy) UIColor *lineColor;
+/** 是否清楚输入框 */
+@property (nonatomic, assign)  BOOL isCleanSmsCode;
 
 /**
  getVerificationCode再次获取验证码

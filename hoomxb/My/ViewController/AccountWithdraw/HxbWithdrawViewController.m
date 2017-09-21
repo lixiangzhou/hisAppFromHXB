@@ -16,6 +16,8 @@
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBCallPhone_BottomView.h"
 #import "HXBOpenDepositAccountRequest.h"
+#import "HXBMy_Withdraw_notifitionView.h"
+
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIView *backView;
@@ -29,6 +31,8 @@
 @property (nonatomic, strong) UILabel *promptLabel;
 @property (nonatomic, strong) UILabel *tiedCardLabel;
 @property (nonatomic, strong) UILabel *reminderLabel;
+@property (nonatomic, strong) HXBMy_Withdraw_notifitionView *notifitionView;
+
 /**
  数据模型
  */
@@ -44,6 +48,7 @@
     self.title = @"提现";
     self.isColourGradientNavigationBar = YES;
     self.view.backgroundColor = BACKGROUNDCOLOR;
+    [self.view addSubview:self.notifitionView];
     [self.view addSubview:self.backView];
     [self.view addSubview:self.mybankView];
     [self.view addSubview:self.amountTextField];
@@ -225,8 +230,8 @@
     } andFailure:^(NSError *error) {
         
     }];
-   
 }
+
 
 - (WithdrawBankView *)mybankView{
     if (!_mybankView) {
@@ -246,16 +251,16 @@
 - (UITextField *)amountTextField{
     if (!_amountTextField) {
         _amountTextField = [[UITextField alloc] init];
+        _amountTextField.placeholder = @"提现金额";
         _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
         _amountTextField.delegate = self;
         _amountTextField.backgroundColor = [UIColor whiteColor];
-        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(150), kScrAdaptationH750(42))];
-        tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
-        tipLabel.textColor = RGB(51, 51, 51);
-        tipLabel.text = @"提现金额";
+        UIImageView *tipImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(67), kScrAdaptationH750(37))];
+        tipImage.contentMode = UIViewContentModeScaleAspectFit;
+        tipImage.image = [UIImage imageNamed:@"hxb_my_message人民币"];
         _amountTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _amountTextField.leftViewMode = UITextFieldViewModeAlways;
-        _amountTextField.leftView = tipLabel;
+        _amountTextField.leftView = tipImage;
         _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _amountTextField.textColor = RGB(51, 51, 51);
     }
@@ -448,7 +453,17 @@
     }
     return _alertVC;
 }
-
+- (HXBMy_Withdraw_notifitionView *)notifitionView {
+    if (!_notifitionView) {
+        _notifitionView = [[HXBMy_Withdraw_notifitionView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScrAdaptationH750(70))];
+    }
+    _notifitionView.hidden = YES;
+    _notifitionView.block = ^{
+        NSLog(@"点击了消息");
+    };
+    _notifitionView.messageCount = @"qkkjsdhajkdhakjsdhk";
+    return _notifitionView;
+}
 
 @end
 
@@ -492,8 +507,6 @@
         
     }];
 }
-
-
 
 - (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
 {
@@ -559,6 +572,9 @@
     }
     return _bankCardNumLabel;
 }
+
+
+
 
 - (UILabel *)amountLimitLabel{
     if (!_amountLimitLabel) {

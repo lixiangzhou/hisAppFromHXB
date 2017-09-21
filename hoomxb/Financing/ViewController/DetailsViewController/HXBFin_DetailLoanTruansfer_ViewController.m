@@ -100,7 +100,7 @@
     [self.view addSubview:_addButton];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     self.addButton.backgroundColor = COR29;
-    [self.addButton setTitle:@"转让中" forState:(UIControlStateNormal)];
+    [self.addButton setTitle:@"立即购买" forState:(UIControlStateNormal)];
     self.countDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, self.addButton.height)];
     self.countDownLabel.textAlignment = NSTextAlignmentCenter;
     self.countDownLabel.hidden = YES;
@@ -226,7 +226,7 @@
     loanJoinVC.title = @"投资债权";
     // self.loanTruansferDetailViewModel
     loanJoinVC.type = HXB_Creditor;
-    loanJoinVC.loanId = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanId;
+    loanJoinVC.loanId = self.loanTruansferDetailViewModel.loanTruansferDetailModel.transferId;
     loanJoinVC.placeholderStr = self.loanTruansferDetailViewModel.startIncrease_Amount;
     loanJoinVC.availablePoint = self.loanTruansferDetailViewModel.loanTruansferDetailModel.leftTransAmount;
     loanJoinVC.minRegisterAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;

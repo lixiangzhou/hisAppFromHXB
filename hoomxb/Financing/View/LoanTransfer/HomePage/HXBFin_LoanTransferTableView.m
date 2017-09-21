@@ -35,7 +35,7 @@ UITableViewDelegate,UITableViewDataSource
 - (void)setUPViews {
     self.delegate = self;
     self.dataSource = self;
-    
+    self.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self registerClass:NSClassFromString(kcellClass) forCellReuseIdentifier:kcellClass];
     self.tableFooterView = [[UIView alloc]init];
     self.rowHeight = kScrAdaptationH(120);
