@@ -34,7 +34,10 @@
  */
 @property (nonatomic, assign) BOOL isMobile;
 
-
+/**
+ 是否清空
+ */
+@property (nonatomic, assign) BOOL isCleanPassword;
 /**
  确认按钮
  */

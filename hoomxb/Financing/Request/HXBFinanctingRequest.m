@@ -804,12 +804,12 @@
     loanTruansferAPI.requestMethod = NYRequestMethodPost;
     loanTruansferAPI.requestArgument = parameter;
     [loanTruansferAPI startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
-        
-        if ([responseObject[kResponseStatus] integerValue]) {
-            if (failureBlock) {
-                failureBlock(nil,responseObject);
+        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+        if (status) {
+            if (status == 3014 || status == 3015) {
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
-            return;
+            if (failureBlock) failureBlock(nil, responseObject); return;
         }
         
         HXBFin_LoanTruansfer_BuyResoutViewModel *loantruansferViewModel = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc]init];

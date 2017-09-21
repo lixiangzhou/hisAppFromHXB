@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) UILabel *leftLabel;
 
+@property (nonatomic, strong) UIImageView *leftImage;
+
 @property (nonatomic, strong) UITextField *textField;
 
 @end
@@ -22,6 +24,7 @@
 {
     self = [super init];
     if (self) {
+        [self addSubview:self.leftImage];
         [self addSubview:self.leftLabel];
         [self addSubview:self.textField];
         [self setupSubViewFrame];
@@ -31,15 +34,21 @@
 
 - (void)setupSubViewFrame
 {
-    [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.leftImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW750(30));
         make.centerY.equalTo(self);
-        make.width.offset(kScrAdaptationW750(150));
+        make.width.offset(kScrAdaptationW750(67));
+        make.height.offset(kScrAdaptationH750(37));
     }];
+//    [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self).offset(kScrAdaptationW750(30));
+//        make.centerY.equalTo(self);
+//        make.width.offset(kScrAdaptationW750(150));
+//    }];
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.bottom.equalTo(self);
-        make.left.equalTo(self.leftLabel.mas_right);
+        make.left.equalTo(self.leftImage.mas_right);
         make.right.equalTo(self).offset(kScrAdaptationW750(-30));
     }];
 }
@@ -48,6 +57,8 @@
 {
     _leftStr = leftStr;
     self.leftLabel.text = leftStr;
+    self.leftLabel.hidden = YES;
+    self.leftImage.image = [UIImage imageNamed:leftStr];
     [self.leftLabel sizeToFit];
 }
 
@@ -92,11 +103,19 @@
     return _leftLabel;
 }
 
+- (UIImageView *)leftImage {
+    if (!_leftImage) {
+        _leftImage = [[UIImageView alloc] init];
+        _leftImage.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _leftImage;
+}
+
 - (UITextField *)textField
 {
     if (!_textField) {
         _textField = [[UITextField alloc] init];
-        _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(44);
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.textColor = COR6;
     }

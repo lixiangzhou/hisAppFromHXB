@@ -38,6 +38,15 @@
     return self;
 }
 
+- (void)setIsCleanSmsCode:(BOOL)isCleanSmsCode {
+    _isCleanSmsCode = isCleanSmsCode;
+    if (_isCleanSmsCode) {
+        _textField.text = @"";
+    } else {
+        
+    }
+}
+
 - (void)setupSubViewFrame
 {
     [self.codeBtn mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -21,6 +21,9 @@ typedef void(^textfieldDidChange)(NSString *text);
 @property (nonatomic, copy) NSString * placeholderStr;
 /** 银行限额 */
 @property (nonatomic, copy) NSString * cardStr;
+/** 预期收益 */
+@property (nonatomic, copy) NSString * profitStr;
+
 /** 键盘类型 */
 @property (nonatomic, assign) UIKeyboardType keyboardType;
 
@@ -30,6 +33,10 @@ typedef void(^textfieldDidChange)(NSString *text);
 @property (nonatomic, assign) BOOL disableKeyBorad;
 /** 取消一键购买的点击 */
 @property (nonatomic, assign) BOOL disableBtn;
+/** 隐藏银行卡限额 */
+@property (nonatomic, assign) BOOL hiddenMoneyLabel;
+/** 隐藏预期收益 */
+@property (nonatomic, assign) BOOL hiddenProfitLabel;
 
 /** buyBlock */
 @property (nonatomic, copy) buyBlock block;

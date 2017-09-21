@@ -113,5 +113,5 @@
 #define COR30    [UIColor colorWithRed:114/255.0f green:176/255.0f blue:255/255.0f alpha:1]
 
 #define COR31    [UIColor colorWithRed:63/255.0f green:63/255.0f blue:63/255.0f alpha:1]
-
+#define COR32    [UIColor colorWithRed:254/255.0f green:252/255.0f blue:236/255.0f alpha:1]    // 消息的背景
 #endif /* HXBColorMacro_h */

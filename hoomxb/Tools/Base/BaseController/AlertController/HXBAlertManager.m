@@ -284,7 +284,7 @@
 
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel {
     if ([versionUpdateModel.force isEqualToString:@"1"]) {
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝又更新咯！" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝发现新版本" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
         alertVC.messageHeight = kScrAdaptationH(100);
         [alertVC setClickXYRightButtonBlock:^{
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
@@ -292,7 +292,7 @@
         }];
         [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
     } else if ([versionUpdateModel.force isEqualToString:@"2"] ) {
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝又更新咯！" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝发现新版本" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
         alertVC.messageHeight = kScrAdaptationH(100);
         [alertVC setClickXYRightButtonBlock:^{
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];

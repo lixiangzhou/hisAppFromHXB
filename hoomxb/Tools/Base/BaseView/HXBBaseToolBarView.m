@@ -250,15 +250,16 @@
 
 - (void)setupAnimaBarView {
     if (!_barAnimaViewH) {
-        _barAnimaViewH = 2;
+        _barAnimaViewH = 5;
     }
 #pragma mark - 肖扬修改
     CGFloat barAnimaViewCenterY = self.frame.size.height - _barAnimaViewH + _barAnimaViewH/2 - self.barAnimaViewBottomSpacing;
-    CGFloat barAnimaViewW = self.frame.size.width/self.optionStrArray.count - _barAnimaViewSpacing * 2;
+    NSLog(@"%.2f", _barAnimaViewSpacing);
+//    CGFloat barAnimaViewW = self.frame.size.width/self.optionStrArray.count - _barAnimaViewSpacing * 2;
+    CGFloat barAnimaViewW = kScrAdaptationW(20);
     CGFloat barAnimaViewCenterX = self.frame.size.width/self.optionStrArray.count/2 +  self.selectItemIndex * self.frame.size.width/self.optionStrArray.count;
 
     self.itemBarAnimaView = [[UIView alloc]initWithFrame: CGRectZero];
-
     self.itemBarAnimaView.center = CGPointMake(barAnimaViewCenterX, barAnimaViewCenterY);
     self.itemBarAnimaView.bounds = CGRectMake(0, 0, barAnimaViewW, _barAnimaViewH);
     
