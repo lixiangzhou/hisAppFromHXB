@@ -740,16 +740,14 @@
     confirmBuyReslut.requestArgument = parameter;
     confirmBuyReslut.requestUrl = kHXBFin_Plan_ConfirmBuyReslutURL(planID);
     confirmBuyReslut.requestMethod = NYRequestMethodPost;
-    [confirmBuyReslut startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+    [confirmBuyReslut startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        if (status == 3408) {
-            if (failureBlock) failureBlock(nil,status); return;
-        }
-        if (status == 3100) {
-            if (failureBlock) failureBlock(nil,status); return;
-        }
         if (status) {
-            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]]; return;
+            if (status == 3014 || status == 3015) {
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            }
+            
+            if (failureBlock) failureBlock(nil,status); return;
         }
         NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
         HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
@@ -764,7 +762,6 @@
     } failure:^(HXBBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(nil,0);
     }];
-    
 }
 // 散标 购买结果
 - (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
@@ -775,18 +772,13 @@
     loanBuyReslutRequest.requestMethod = NYRequestMethodPost;
     loanBuyReslutRequest.requestUrl = kHXBFin_BuyReslut_LoanURL(loanID);
     loanBuyReslutRequest.requestArgument = parameter;
-    [loanBuyReslutRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+    [loanBuyReslutRequest startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        if (status == 3408) {
-            if (failureBlock) failureBlock(nil,3408); return;
-        }
-        if (status == 3100) {
-            if (failureBlock) failureBlock(nil,3100); return;
-        }
         if (status) {
-            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
-            if (failureBlock) failureBlock(nil,status);
-            return;
+            if (status == 3014 || status == 3015) {
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            }
+            if (failureBlock) failureBlock(nil,status); return;
         }
         
         HXBFinModel_BuyResoult_LoanModel *loanBuyResoult = [[HXBFinModel_BuyResoult_LoanModel alloc]init];
@@ -796,7 +788,6 @@
         if (successDateBlock) {
             successDateBlock(loanBuyResoult);
         }
-        
     } failure:^(HXBBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error,0);
     }];
@@ -812,8 +803,8 @@
     loanTruansferAPI.requestUrl = kHXBFin_BuyReslut_LoanTruansferURL(loanTruansferID);
     loanTruansferAPI.requestMethod = NYRequestMethodPost;
     loanTruansferAPI.requestArgument = parameter;
-    
-    [loanTruansferAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+    [loanTruansferAPI startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
+        
         if ([responseObject[kResponseStatus] integerValue]) {
             if (failureBlock) {
                 failureBlock(nil,responseObject);
@@ -836,6 +827,7 @@
     } failure:^(HXBBaseRequest *request, NSError *error) {
         
     }];
+
     
 }
 
