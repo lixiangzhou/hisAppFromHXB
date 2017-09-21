@@ -36,8 +36,15 @@
     // Do any additional setup after loading the view.
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.isColourGradientNavigationBar = YES;
-    [self.homeView addSubview:self.callPhoneView];
-    [self setupSubViewFrame];
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        self.userInfoModel = viewModel.userInfoModel;
+        self.homeView.userInfoModel = viewModel.userInfoModel;
+        [self.homeView addSubview:self.callPhoneView];
+        [self setupSubViewFrame];
+    } andFailure:^(NSError *error) {
+        
+    }];
+    
 }
 
 - (void)setupSubViewFrame

@@ -10,4 +10,9 @@
 
 @interface HXBTransferCreditorViewController : HXBBaseViewController
 
+/**
+ 债权ID
+ */
+@property (nonatomic, copy) NSString *creditorID;
+
 @end

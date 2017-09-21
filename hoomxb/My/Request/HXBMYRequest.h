@@ -17,7 +17,7 @@
 @class HXBMYModel_Plan_planRequestModel;///plan 资产目录
 @class HXBMYModel_Loan_LoanRequestModel;///loan 资产目录
 @class HXBMY_PlanViewModel_LoanRecordViewModel;
-
+@class HXBTransferConfirmModel;
 ///关于个人主页的红利计划的 （账户内）
 @interface HXBMYRequest : NSObject
 ///创建单利对象
@@ -78,4 +78,17 @@
 - (void)planAssets_AccountRequestSuccessBlock: (void(^)(HXBMYModel_Plan_planRequestModel *viewModel))successDateBlock
                               andFailureBlock: (void(^)(NSError *error))failureBlock
                                     andUpData: (BOOL)isUPData;
+/**
+ 账户内-债权转让确认页
+ */
+- (void)transferRequest_AccountRequestTransferID: (NSString *)transferID
+                                       SuccessBlock: (void(^)(HXBTransferConfirmModel *transferConfirmModel))successDateBlock
+                                   andFailureBlock: (void(^)(NSError *error))failureBlock;
+/**
+ 账户内-债权转让功能接口
+ */
+- (void)transferResultRequest_AccountRequestTransferID: (NSString *)transferID
+                                                andPWD:(NSString *)pwd
+                                          SuccessBlock: (void(^)(id responseObject))successDateBlock
+                                       andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end

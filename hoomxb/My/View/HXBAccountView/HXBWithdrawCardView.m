@@ -168,20 +168,7 @@
 //    self.bankNameTextField.text = bankName;
 //}
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    if (textField.superview == self.bankCardTextField) {
-        self.line.backgroundColor = COR29;
-    }
-    return YES;
-}
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    if (textField.superview == self.bankCardTextField) {
-        self.line.backgroundColor = COR12;
-    }
-}
 
 #pragma mark - 懒加载
 - (HXBCustomTextField *)bankCardTextField{
@@ -238,6 +225,7 @@
 {
     _isCheckFailed = isCheckFailed;
     if (isCheckFailed) {
+        self.line.hidden = YES;
         self.bankNameTextField.hidden = YES;
         [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
             self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankCardTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH750(100));
@@ -245,6 +233,11 @@
     }
 }
 
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    [self setIsCheckFailed:YES];
+    return YES;
+}
 
 - (HXBCustomTextField *)bankNameTextField
 {

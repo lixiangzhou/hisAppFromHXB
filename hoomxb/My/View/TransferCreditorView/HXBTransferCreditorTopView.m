@@ -7,7 +7,7 @@
 //
 
 #import "HXBTransferCreditorTopView.h"
-
+#import "HXBTransferConfirmModel.h"
 @interface HXBTransferCreditorTopView ()
 //回收金额
 @property (nonatomic, strong) UILabel *recoveryAmountLabel;
@@ -80,6 +80,15 @@
         make.right.left.bottom.equalTo(self);
         make.height.offset(0.5);
     }];
+}
+
+#pragma mark - setter
+- (void)setTransferConfirmModel:(HXBTransferConfirmModel *)transferConfirmModel
+{
+    _transferConfirmModel = transferConfirmModel;
+    self.recoveryAmountNumberLabel.text = [NSString hxb_getPerMilWithDouble:[transferConfirmModel.expectRecoveryAmount doubleValue]];
+    self.creditorValueNumberLabel.text = [NSString hxb_getPerMilWithDouble:[transferConfirmModel.currentTransValue doubleValue]];
+    self.serviceChargeNumberLabel.text = [NSString hxb_getPerMilWithDouble:[transferConfirmModel.transFee doubleValue]];
 }
 
 #pragma mark - getter(懒加载)

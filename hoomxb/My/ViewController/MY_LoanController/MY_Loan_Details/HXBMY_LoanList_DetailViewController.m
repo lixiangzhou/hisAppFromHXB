@@ -122,6 +122,7 @@
 - (void)transferBtnClick
 {
     HXBTransferCreditorViewController *transferCreditorVC = [[HXBTransferCreditorViewController alloc] init];
+    transferCreditorVC.creditorID = self.loanDetailViewModel.loanModel.loanId;
     [self.navigationController pushViewController:transferCreditorVC animated:YES];
 }
 

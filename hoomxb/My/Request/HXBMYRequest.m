@@ -29,6 +29,7 @@
 
 #import "HXBMYModel_Plan_planRequestModel.h"///plan 账户内计划资产
 #import "HXBMYModel_Loan_LoanRequestModel.h"/// loan 账户内散标资产
+#import "HXBTransferConfirmModel.h"//账户内债转确认model
 
 
 @interface HXBMYRequest ()
@@ -640,6 +641,73 @@
         [planAcccountModel yy_modelSetWithDictionary:dataDic];
         if (successDateBlock) {
             successDateBlock(planAcccountModel);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        
+    }];
+}
+
+/**
+ 账户内-债权转让确认页
+ */
+- (void)transferRequest_AccountRequestTransferID: (NSString *)transferID
+                                    SuccessBlock: (void(^)(HXBTransferConfirmModel *transferConfirmModel))successDateBlock
+                                 andFailureBlock: (void(^)(NSError *error))failureBlock{
+    
+    HXBBaseRequest *account_TransferRequest = [[HXBBaseRequest alloc]init];
+    account_TransferRequest.requestUrl = kHXBFin_TransferRecordURL(transferID);
+    account_TransferRequest.requestMethod = NYRequestMethodPost;
+    account_TransferRequest.isUPReloadData = YES;
+    [account_TransferRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        
+        if([responseObject[kResponseStatus] integerValue]) {
+            kNetWorkError(@" Plan 账户内债权确认页");
+            if (failureBlock) {
+                failureBlock(responseObject);
+            }
+            if ([responseObject[kResponseStatus] integerValue] != 104) {
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            }
+        }
+        HXBTransferConfirmModel *transferConfirmModel = [[HXBTransferConfirmModel alloc]init];
+        NSDictionary *dataDic = responseObject[kResponseData];
+        [transferConfirmModel yy_modelSetWithDictionary:dataDic];
+        if (successDateBlock) {
+            successDateBlock(transferConfirmModel);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        
+    }];
+}
+
+/**
+ 账户内-债权转让功能接口
+ */
+- (void)transferResultRequest_AccountRequestTransferID: (NSString *)transferID
+                                                andPWD:(NSString *)pwd
+                                    SuccessBlock: (void(^)(id responseObject))successDateBlock
+                                 andFailureBlock: (void(^)(NSError *error))failureBlock{
+    
+    HXBBaseRequest *account_TransferRequest = [[HXBBaseRequest alloc]init];
+    account_TransferRequest.requestUrl = kHXBFin_TransferResultURL(transferID);
+    account_TransferRequest.requestMethod = NYRequestMethodPost;
+    account_TransferRequest.requestArgument = @{
+                                                @"tradPassword" : pwd,
+                                                };
+    account_TransferRequest.isUPReloadData = YES;
+    [account_TransferRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        
+        if([responseObject[kResponseStatus] integerValue]) {
+            kNetWorkError(@" Plan 账户内债权确认页");
+            if ([responseObject[kResponseStatus] integerValue] == 104) return;
+            if (failureBlock) {
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+                failureBlock(responseObject);
+                return;
+            }
+        }
+        if (successDateBlock) {
+            successDateBlock(responseObject);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         

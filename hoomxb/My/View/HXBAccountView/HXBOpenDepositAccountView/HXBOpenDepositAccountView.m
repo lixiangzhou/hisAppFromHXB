@@ -14,6 +14,7 @@
 #import "HXBBankCardModel.h"
 #import "HXBAgreementView.h"
 #import "HXBCardBinModel.h"
+#import "IQKeyboardManager.h"
 @interface HXBOpenDepositAccountView ()<UITextFieldDelegate>
 @property (nonatomic, strong) HXBDepositoryHeaderView *headerTipView;
 @property (nonatomic, strong) HXBCustomTextField *nameTextField;
@@ -275,8 +276,10 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if (textField.superview == self.bankNumberTextField) {
-        self.line.backgroundColor = COR29;
+    if (textField.superview == self.bankNumberTextField ) {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.y -= 70;
+        }];
     }
     return YES;
 }
@@ -284,8 +287,13 @@
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     if (textField.superview == self.bankNumberTextField) {
-        self.line.backgroundColor = COR12;
     }
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField
+{
+    [self setIsCheckFailed:YES];
+    return YES;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -423,6 +431,7 @@
 {
     _isCheckFailed = isCheckFailed;
     if (isCheckFailed) {
+        self.line.hidden = NO;
         self.bankNameTextField.hidden = YES;
         [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
             self.phoneTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNumberTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
