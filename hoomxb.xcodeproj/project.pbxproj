@@ -182,6 +182,9 @@
 		4EB45DAB1EF7ACCE00C2CF21 /* HXBHomeTitleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB45DAA1EF7ACCE00C2CF21 /* HXBHomeTitleModel.m */; };
 		4EB559901F037F6700146D62 /* UITextView+YLTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB5598F1F037F6700146D62 /* UITextView+YLTextView.m */; };
 		4EB559931F0380DB00146D62 /* HXBFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB559921F0380DB00146D62 /* HXBFeedbackViewController.m */; };
+		4EBE193D1F73A5A200AB5AB6 /* HXBTransferCreditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE193C1F73A5A200AB5AB6 /* HXBTransferCreditorViewController.m */; };
+		4EBE19411F73AA9400AB5AB6 /* HXBTransferCreditorTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE19401F73AA9400AB5AB6 /* HXBTransferCreditorTopView.m */; };
+		4EBE19441F73B44500AB5AB6 /* HXBTransferCreditorBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE19431F73B44500AB5AB6 /* HXBTransferCreditorBottomView.m */; };
 		4EC492991EC19A7D00B7DAA2 /* zhaoshang.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC492981EC19A7D00B7DAA2 /* zhaoshang.png */; };
 		4ED2F2781ECAD0BA0014E5C7 /* HXBMyBankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED2F2771ECAD0BA0014E5C7 /* HXBMyBankCell.m */; };
 		4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED2F2791ECAD9810014E5C7 /* homepage_close@2x.png */; };
@@ -809,6 +812,12 @@
 		4EB5598F1F037F6700146D62 /* UITextView+YLTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+YLTextView.m"; sourceTree = "<group>"; };
 		4EB559911F0380DB00146D62 /* HXBFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFeedbackViewController.h; sourceTree = "<group>"; };
 		4EB559921F0380DB00146D62 /* HXBFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFeedbackViewController.m; sourceTree = "<group>"; };
+		4EBE193B1F73A5A200AB5AB6 /* HXBTransferCreditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTransferCreditorViewController.h; sourceTree = "<group>"; };
+		4EBE193C1F73A5A200AB5AB6 /* HXBTransferCreditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTransferCreditorViewController.m; sourceTree = "<group>"; };
+		4EBE193F1F73AA9400AB5AB6 /* HXBTransferCreditorTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTransferCreditorTopView.h; sourceTree = "<group>"; };
+		4EBE19401F73AA9400AB5AB6 /* HXBTransferCreditorTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTransferCreditorTopView.m; sourceTree = "<group>"; };
+		4EBE19421F73B44500AB5AB6 /* HXBTransferCreditorBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTransferCreditorBottomView.h; sourceTree = "<group>"; };
+		4EBE19431F73B44500AB5AB6 /* HXBTransferCreditorBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTransferCreditorBottomView.m; sourceTree = "<group>"; };
 		4EC492981EC19A7D00B7DAA2 /* zhaoshang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhaoshang.png; sourceTree = "<group>"; };
 		4ED2F2761ECAD0BA0014E5C7 /* HXBMyBankCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMyBankCell.h; sourceTree = "<group>"; };
 		4ED2F2771ECAD0BA0014E5C7 /* HXBMyBankCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyBankCell.m; sourceTree = "<group>"; };
@@ -2201,6 +2210,17 @@
 			path = UITextView;
 			sourceTree = "<group>";
 		};
+		4EBE193E1F73AA7400AB5AB6 /* TransferCreditorView */ = {
+			isa = PBXGroup;
+			children = (
+				4EBE193F1F73AA9400AB5AB6 /* HXBTransferCreditorTopView.h */,
+				4EBE19401F73AA9400AB5AB6 /* HXBTransferCreditorTopView.m */,
+				4EBE19421F73B44500AB5AB6 /* HXBTransferCreditorBottomView.h */,
+				4EBE19431F73B44500AB5AB6 /* HXBTransferCreditorBottomView.m */,
+			);
+			path = TransferCreditorView;
+			sourceTree = "<group>";
+		};
 		4EC492961EC19A7900B7DAA2 /* My */ = {
 			isa = PBXGroup;
 			children = (
@@ -2526,6 +2546,8 @@
 			children = (
 				E1270B261ECED08800729BC9 /* HXBMY_LoanList_DetailViewController.h */,
 				E1270B271ECED08800729BC9 /* HXBMY_LoanList_DetailViewController.m */,
+				4EBE193B1F73A5A200AB5AB6 /* HXBTransferCreditorViewController.h */,
+				4EBE193C1F73A5A200AB5AB6 /* HXBTransferCreditorViewController.m */,
 			);
 			path = MY_Loan_Details;
 			sourceTree = "<group>";
@@ -3889,6 +3911,7 @@
 		E1D2CA511EAB4D6B000099C7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4EBE193E1F73AA7400AB5AB6 /* TransferCreditorView */,
 				E1625B251EFBDA7500FE9ABF /* BaseView */,
 				4E294F221EB9E73A007D5042 /* HxbMyView.h */,
 				4E294F231EB9E73A007D5042 /* HxbMyView.m */,
@@ -4491,6 +4514,7 @@
 				E1A1BEE61F38325A0006BAA7 /* HXBBaseViewCell_MYListCellTableViewCell.m in Sources */,
 				4E886FC41EF91EBA0056086E /* HXBCircleInfoView.m in Sources */,
 				4EAEBEFF1F39685C00729389 /* HXBProportionalBarView.m in Sources */,
+				4EBE193D1F73A5A200AB5AB6 /* HXBTransferCreditorViewController.m in Sources */,
 				E1CD4BCC1ED83064000CC57B /* KeyChainManage.m in Sources */,
 				4E886FCD1EF940010056086E /* HXBModifyGesturePasswordController.m in Sources */,
 				4E94E37C1F0F619400746973 /* HXBCardholderInformationView.m in Sources */,
@@ -4618,6 +4642,7 @@
 				4E99824E1F026C3600CABA59 /* HXBMY_AllFinanceView.m in Sources */,
 				4E559B541F0FB98E003D9982 /* HXBRechargeFailView.m in Sources */,
 				E18CF0D01F07931B004F7998 /* UITableViewCell+HXBTableViewCell.m in Sources */,
+				4EBE19411F73AA9400AB5AB6 /* HXBTransferCreditorTopView.m in Sources */,
 				4E739B5F1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m in Sources */,
 				E133DCEE1EEE3597009466DE /* HXBRequestUserInfo.m in Sources */,
 				E17A32C51F1F36990079DBAE /* HXBFinModel_AddRecortdModel_LoanTruansfer.m in Sources */,
@@ -4631,6 +4656,7 @@
 				E17A32BF1F1F10CA0079DBAE /* HXBFin_LoanTruansfer_BuyResoutViewModel.m in Sources */,
 				E1E461851EB9C17A005B1FC6 /* HXBFinancting_PlanListTableViewCell.m in Sources */,
 				E122D8581EA0CAB900DC71ED /* UIScreen+Hxb.m in Sources */,
+				4EBE19441F73B44500AB5AB6 /* HXBTransferCreditorBottomView.m in Sources */,
 				E129A00B1F0625FA0051ADA0 /* HXBAlertManager.m in Sources */,
 				E133DCE01EEE3597009466DE /* HXBSignUPAndLoginRequest_EnumManager.m in Sources */,
 				E1C964761EA5E04F0066DBC4 /* HXBBaseViewController.m in Sources */,

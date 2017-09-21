@@ -12,11 +12,15 @@
 #import "HXBFinDetail_TableView.h"
 #import "HXBFinContract_contraceWebViewVC_Loan.h"
 #import "HXBMY_Plan_Capital_ViewController.h"
+#import "HXBTransferCreditorViewController.h"
 @interface HXBMY_LoanList_DetailViewController ()
 /**
  散标详情
  */
 @property (nonatomic,strong) HXBMY_Loan_DetailView *loanDetailView;
+
+//底部按钮
+@property (nonatomic, strong) UIButton *transferBtn;
 
 @end
 
@@ -88,6 +92,12 @@
     self.loanDetailView = [[HXBMY_Loan_DetailView alloc]initWithFrame:self.view.frame];
     
     [self.hxbBaseVCScrollView addSubview:self.loanDetailView];
+    [self.view addSubview:self.transferBtn];
+    [self.transferBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.offset(kScrAdaptationH(50));
+    }];
+    
     self.hxb_automaticallyAdjustsScrollViewInsets = true;
     self.loanDetailViewModel = _loanDetailViewModel;
     [self.loanDetailView clickBottomTableViewCellBloakFunc:^(NSInteger index) {
@@ -108,6 +118,13 @@
         }
     }];
 }
+
+- (void)transferBtnClick
+{
+    HXBTransferCreditorViewController *transferCreditorVC = [[HXBTransferCreditorViewController alloc] init];
+    [self.navigationController pushViewController:transferCreditorVC animated:YES];
+}
+
 ///服务协议
 - (void)clickContrace {
     HXBFinContract_contraceWebViewVC_Loan *vc = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
@@ -115,6 +132,21 @@
     
     vc.URL = kHXB_Negotiate_ServeLoan_AccountURL(self.loanDetailViewModel.loanModel.loanId);
     vc.title = @"借款合同";
+}
+
+/**
+ 底部按钮
+ */
+- (UIButton *)transferBtn
+{
+    if (!_transferBtn) {
+        _transferBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        [_transferBtn setTitle:@"转让" forState:(UIControlStateNormal)];
+        _transferBtn.backgroundColor = COR29;
+        [_transferBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        [_transferBtn addTarget:self action:@selector(transferBtnClick) forControlEvents:(UIControlEventTouchUpInside)];
+    }
+    return _transferBtn;
 }
 
 @end
