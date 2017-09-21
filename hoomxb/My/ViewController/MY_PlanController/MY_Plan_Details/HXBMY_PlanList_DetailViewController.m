@@ -90,6 +90,7 @@
 - (void)clickLoanRecord {
     HXBMY_Plan_Capital_ViewController *capitalVC = [[HXBMY_Plan_Capital_ViewController alloc]init];
     capitalVC.planID = self.planViewModel.planModelDataList.ID;
+    capitalVC.type = HXBInvestmentRecord;
     [self.navigationController pushViewController:capitalVC animated:true];
 }
 //加入按钮

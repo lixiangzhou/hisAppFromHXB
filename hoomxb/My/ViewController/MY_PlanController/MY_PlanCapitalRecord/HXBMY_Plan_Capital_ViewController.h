@@ -7,9 +7,12 @@
 //
 
 #import "HXBBaseViewController.h"
+#import "HXBSignUPAndLoginRequest_EnumManager.h"
 ///投资记录的b
 @interface HXBMY_Plan_Capital_ViewController : HXBBaseViewController
 @property (nonatomic,copy) NSString *planID;
+
+@property (nonatomic, assign) HXBInvestmentAndTransferRecord type;
 @end
 
 

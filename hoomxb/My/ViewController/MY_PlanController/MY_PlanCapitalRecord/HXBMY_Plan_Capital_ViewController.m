@@ -50,7 +50,7 @@ static NSString *const cellID = @"cellID";
 - (void)viewDidLoad {
     [super viewDidLoad];
      
-    self.title = @"投资记录";
+    
     self.isColourGradientNavigationBar = YES;
     self.topView = [self headView];
     [self.view addSubview: self.topView];
@@ -144,7 +144,16 @@ static NSString *const cellID = @"cellID";
 
 - (void)downLoadWithIsUPLoad: (BOOL)isUPLoad {
     kWeakSelf
-    [self.request loanRecord_my_Plan_WithIsUPData: isUPLoad andPlanID:self.planID andSuccessBlock:^(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *viewModelArray) {
+    NSString *requestURL = @"";
+    if (self.type == HXBInvestmentRecord) {
+        self.title = @"投资记录";
+        requestURL = kHXBFin_loanRecordURL(self.planID);
+    }else if(self.type == HXBTransferRecord)
+    {
+        self.title = @"转让记录";
+        requestURL = kHXBFin_CreditorRecordURL(self.planID);
+    }
+    [self.request loanRecord_my_Plan_WithIsUPData: isUPLoad andWithRequestUrl:requestURL  andPlanID:self.planID andSuccessBlock:^(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *viewModelArray) {
         weakSelf.dataArray= viewModelArray;
         if (weakSelf.dataArray.count) {
              [self.planCapitalTableView reloadData];

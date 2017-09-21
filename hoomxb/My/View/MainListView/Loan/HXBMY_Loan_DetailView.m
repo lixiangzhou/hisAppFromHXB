@@ -209,7 +209,8 @@
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.infoView.mas_bottom).offset(kScrAdaptationH750(20));
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH750(90)));
+//        make.height.equalTo(@(kScrAdaptationH750(90)));
+        make.bottom.equalTo(self);
     }];
     kWeakSelf
     [self.tableView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
@@ -219,7 +220,7 @@
     }];
     
     self.infoView.backgroundColor = [UIColor whiteColor];
-    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.backgroundColor = BACKGROUNDCOLOR;
 }
 - (void)clickBottomTableViewCellBloakFunc:(void(^)(NSInteger index))clickBottomTableViewCell {
     self.clickBottomTableViewCell = clickBottomTableViewCell;

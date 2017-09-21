@@ -57,6 +57,9 @@
 #define kHXBMY_LoanAccountRequestURL @"/account/loanAssets"///账户内 账户内Loan资产
 #define kHXBMY_PlanAccountRequestURL @"/account/planAssets"///账户内 账户内Plan资产
 
+///账户内转让记录
+#define kHXBFin_CreditorRecordURL(planID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(planID)]
+
 //MARK: ======================= 账户设置 =======================
 #define kHXBSetUPAccount_MobifyPassword_LoginRequestURL @"/account/password"//修改登录密码
 #define kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL @"/checkIdentityAuth"//修改交易密码--验证用户身份信息接口

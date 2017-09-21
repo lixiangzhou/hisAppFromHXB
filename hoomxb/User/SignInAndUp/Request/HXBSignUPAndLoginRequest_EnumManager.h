@@ -53,6 +53,14 @@ typedef enum : NSUInteger {
     HXBRechargeAndWithdrawalsLogicalJudgment_Other
 } HXBRechargeAndWithdrawalsLogicalJudgment;
 
+/**投资记录和转让记录*/
+typedef enum : NSUInteger {
+    ///投资记录
+    HXBInvestmentRecord,
+    ///转让记录
+    HXBTransferRecord,
+} HXBInvestmentAndTransferRecord;
+
 
 ///枚举管理类
 @interface HXBSignUPAndLoginRequest_EnumManager : NSObject

@@ -62,6 +62,7 @@
 
 ///plan 详情页的 交易记录
 - (void)loanRecord_my_Plan_WithIsUPData: (BOOL)isUPData
+                      andWithRequestUrl: (NSString *)requestUrl
                               andPlanID: (NSString *)planID
                         andSuccessBlock: (void(^)(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *>* viewModelArray))successDateBlock
                         andFailureBlock: (void(^)(NSError *error))failureBlock;

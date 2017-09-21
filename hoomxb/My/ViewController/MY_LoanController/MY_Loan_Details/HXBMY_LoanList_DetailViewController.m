@@ -11,6 +11,7 @@
 #import "HXBMYViewModel_MainLoanViewModel.h"
 #import "HXBFinDetail_TableView.h"
 #import "HXBFinContract_contraceWebViewVC_Loan.h"
+#import "HXBMY_Plan_Capital_ViewController.h"
 @interface HXBMY_LoanList_DetailViewController ()
 /**
  散标详情
@@ -30,7 +31,7 @@
         
         manager.termsLeftStr = weakSelf.loanDetailViewModel.goBackLoanTimeCellValue;
         manager.statusImageName = @"yihuanqishu";
-        manager.strArray = @[@"借款合同"];
+        manager.strArray = @[@"转让记录",@"借款合同"];
         
         manager.toRepayLableManager.isLeftRight         = false;
         manager.toRepayLableManager.rightLabelStr       = @"待收金额（元）";
@@ -92,9 +93,16 @@
     [self.loanDetailView clickBottomTableViewCellBloakFunc:^(NSInteger index) {
         switch (index) {
             case 0:
+            {
+                HXBMY_Plan_Capital_ViewController *capitalVC = [[HXBMY_Plan_Capital_ViewController alloc]init];
+                capitalVC.planID = self.loanDetailViewModel.loanModel.loanId;
+                capitalVC.type = HXBTransferRecord;
+                [self.navigationController pushViewController:capitalVC animated:true];
+            }
+                break;
+                case 1:
                 [self clickContrace];
                 break;
-                
             default:
                 break;
         }
