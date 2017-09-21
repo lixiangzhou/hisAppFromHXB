@@ -38,11 +38,12 @@
     topView.backgroundColor = [UIColor clearColor];
     [self addSubview:topView];
     [topView addSubview:self.tipsImageView];
-    [topView addSubview:self.cardLimitMoneyLabel];
+    
     self.cardLimitMoneyLabel.hidden = YES;
     [self setRechardView];
     [topView addSubview:_rechargeView];
     [topView addSubview:self.creditorLabel];
+    [topView addSubview:self.cardLimitMoneyLabel];
         [_creditorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.equalTo(self).offset(kScrAdaptationW750(70));

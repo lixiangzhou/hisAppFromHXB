@@ -33,10 +33,9 @@
     [self.contentView addSubview:self.detailLabel];
     [self.contentView addSubview:self.lineView];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self);
+        make.top.bottom.equalTo(self);
         make.left.equalTo(@(kScrAdaptationW(15)));
         make.width.offset(kScrAdaptationW(200));
-        make.height.offset(kScrAdaptationH(50));
     }];
     [_detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_titleLabel);
