@@ -33,7 +33,7 @@
  */
 - (NSString *)interest {
     if (!_interest) {
-        _interest = [NSString stringWithFormat:@"%.2lf",self.loanTruansferModel.interest.floatValue];
+        _interest = [NSString hxb_getPerMilWithDouble:self.loanTruansferModel.interest.floatValue];
     }
     return _interest;
 }

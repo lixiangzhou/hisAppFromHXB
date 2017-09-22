@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^isLimitText)(NSString *text);
+typedef void(^isLimitText)(NSString *text1);
 
 @interface HXBCustomTextField : UIView
 
@@ -29,6 +29,8 @@ typedef void(^isLimitText)(NSString *text);
 @property (nonatomic, assign) int number; // 必须要设置
 @property (nonatomic, assign) int limitStringLength;
 @property (nonatomic, assign) BOOL disableEdit;
+// 是否大字号展示
+@property (nonatomic, assign) BOOL isLagerText;
 //字体颜色
 @property (nonatomic, strong) UIColor *textColor;
 /**

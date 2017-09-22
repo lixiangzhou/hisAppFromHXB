@@ -227,7 +227,7 @@
     //跳转加入界
     HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
     loanJoinVC.title = @"散标投资";
-    loanJoinVC.availablePoint = self.loanDetailViewModel.loanDetailModel.loanVo.surplusAmount;
+    loanJoinVC.availablePoint = [NSString stringWithFormat:@"%.lf", self.loanDetailViewModel.loanDetailModel.loanVo.surplusAmount.doubleValue];
     loanJoinVC.placeholderStr = self.loanDetailViewModel.addCondition;
     loanJoinVC.loanId = self.loanDetailViewModel.loanDetailModel.userVo.loanId;
     loanJoinVC.minRegisterAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
