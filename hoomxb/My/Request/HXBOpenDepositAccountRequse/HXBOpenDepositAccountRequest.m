@@ -17,9 +17,7 @@
     versionUpdateAPI.requestUrl = kHXBOpenDepositAccount_Escrow;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
-    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
+    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {        NSInteger status =  [responseObject[@"status"] integerValue];
         if (status == 5068) {
             NSString *string = [NSString stringWithFormat:@"您信息填写有误，为保障账户安全，请及时联系客服 %@", kServiceMobile];
             HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"暂不联系" andRightButtonMassage:@"联系客服"];
@@ -123,7 +121,10 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            if (status != 1) {
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            } else {
+            }
             if (failureBlock) {
                 failureBlock(responseObject);
             }

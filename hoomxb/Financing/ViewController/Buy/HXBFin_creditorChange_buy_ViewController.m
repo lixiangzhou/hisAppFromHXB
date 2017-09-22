@@ -215,7 +215,7 @@
         _topupMoneyStr = _availablePoint;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _availablePoint.floatValue*self.totalInterest.floatValue/100.0];
         [self setUpArray];
-        [HxbHUDProgress showTextWithMessage:@"已超过加入金额"];
+        [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
     }  else if (_topupMoneyStr.floatValue < _minRegisterAmount.floatValue) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", _minRegisterAmount.integerValue];
         _topupMoneyStr = _minRegisterAmount;
@@ -227,17 +227,15 @@
         if (isMultipleOfMin) {
             [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         } else {
-            if (_viewModel.userInfoModel.userInfo.hasBindCard.intValue == 0 && _topupMoneyStr.doubleValue > _balanceMoneyStr.doubleValue) {
+            if ([_btnLabelText containsString:@"充值"]) {
+                [self fullAddtionFunc];
+            } else if ([_btnLabelText containsString:@"绑定"]){
                 HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
                 withdrawCardViewController.title = @"绑卡";
                 withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-            }else{
-                if ([_btnLabelText containsString:@"充值"]) {
-                    [self fullAddtionFunc];
-                } else {
-                    [self alertPassWord];
-                }
+            } else {
+                [self alertPassWord];
             }
         }
        
@@ -263,19 +261,18 @@
         if (isMultipleOfMin) {
             [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         } else {
-            if (_viewModel.userInfoModel.userInfo.hasBindCard.intValue == 0 && _topupMoneyStr.doubleValue > _balanceMoneyStr.doubleValue) {
+            if ([_btnLabelText containsString:@"充值"]) {
+                [self fullAddtionFunc];
+            } else if ([_btnLabelText containsString:@"绑定"]){
                 HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
                 withdrawCardViewController.title = @"绑卡";
                 withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-            }else{
-                if ([_btnLabelText containsString:@"充值"]) {
-                    [self fullAddtionFunc];
-                } else {
-                    [self alertPassWord];
-                }
+            } else {
+                [self alertPassWord];
             }
         }
+        
     }
 }
 
@@ -309,25 +306,27 @@
             if (_topupMoneyStr.doubleValue != _availablePoint.doubleValue) {
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
             } else {
-                
                 if ([_btnLabelText containsString:@"充值"]) {
                     [self fullAddtionFunc];
+                } else if ([_btnLabelText containsString:@"绑定"]){
+                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                    withdrawCardViewController.title = @"绑卡";
+                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
                 } else {
                     [self alertPassWord];
                 }
             }
         } else {
-            if (_viewModel.userInfoModel.userInfo.hasBindCard.intValue == 0 && _topupMoneyStr.doubleValue > _balanceMoneyStr.doubleValue) {
+            if ([_btnLabelText containsString:@"充值"]) {
+                [self fullAddtionFunc];
+            } else if ([_btnLabelText containsString:@"绑定"]){
                 HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
                 withdrawCardViewController.title = @"绑卡";
                 withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-            }else{
-                if ([_btnLabelText containsString:@"充值"]) {
-                    [self fullAddtionFunc];
-                } else {
-                    [self alertPassWord];
-                }
+            } else {
+                [self alertPassWord];
             }
         }
         
@@ -340,7 +339,13 @@
     [accountRequest accountRechargeRequestWithRechargeAmount:_topupMoneyStr andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
         [weakSelf alertSmsCode];
     } andFailureBlock:^(NSError *error) {
-        NSLog(@"%@",error);
+        NSDictionary *errDic = (NSDictionary *)error;
+        if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
+            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+            withdrawCardViewController.title = @"绑卡";
+            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+            [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+        }
     }];
 }
 
@@ -449,13 +454,13 @@
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case -999:
-                failViewController.imageName = @"failure";
+                failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 3016:
-                failViewController.imageName = @"failure";
+                failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
@@ -510,13 +515,13 @@
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case -999:
-                failViewController.imageName = @"failure";
+                failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 3016:
-                failViewController.imageName = @"failure";
+                failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
@@ -578,13 +583,13 @@
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case -999:
-                failViewController.imageName = @"failure";
+                failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 3016:
-                failViewController.imageName = @"failure";
+                failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
@@ -611,7 +616,11 @@
 - (void)changeBtnLabel {
     NSLog(@"%@, %@", _topupMoneyStr, _balanceMoneyStr);
     if (_topupMoneyStr.floatValue > _balanceMoneyStr.floatValue) {
-        self.bottomView.clickBtnStr = @"余额不足，需充值投资";
+        if ([self.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+            self.bottomView.clickBtnStr = @"余额不足，需充值投资";
+        } else {
+            self.bottomView.clickBtnStr = @"绑定银行卡";
+        }
     } else {
         self.bottomView.clickBtnStr = @"立即加入";
     }
