@@ -111,13 +111,13 @@
         make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(kScrAdaptationH750(20));
         make.left.equalTo(self.view).offset(kScrAdaptationW750(30));
         make.right.equalTo(self.view).offset(kScrAdaptationW750(-30));
-        make.height.offset(kScrAdaptationH750(100));
+        make.height.offset(kScrAdaptationH750(130));
     }];
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(kScrAdaptationH750(20));
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-        make.height.offset(kScrAdaptationH750(100));
+        make.height.offset(kScrAdaptationH750(130));
     }];
     
     [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -254,6 +254,7 @@
         _amountTextField.placeholder = @"提现金额";
         _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
         _amountTextField.delegate = self;
+        _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
         _amountTextField.backgroundColor = [UIColor whiteColor];
         UIImageView *tipImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(67), kScrAdaptationH750(37))];
         tipImage.contentMode = UIViewContentModeScaleAspectFit;
@@ -261,7 +262,7 @@
         _amountTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _amountTextField.leftViewMode = UITextFieldViewModeAlways;
         _amountTextField.leftView = tipImage;
-        _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+//        _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _amountTextField.textColor = RGB(51, 51, 51);
     }
     return _amountTextField;

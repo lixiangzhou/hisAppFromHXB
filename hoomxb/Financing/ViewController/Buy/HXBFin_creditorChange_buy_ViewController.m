@@ -20,6 +20,7 @@
 #import "HXBOpenDepositAccountRequest.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HxbWithdrawCardViewController.h"
+#import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
 
 @interface HXBFin_creditorChange_buy_ViewController ()<UITableViewDelegate, UITableViewDataSource>
 /** topView */
@@ -52,6 +53,8 @@
 @property (nonatomic, copy) NSString * btnLabelText;
 /** 购买类型 */
 @property (nonatomic, copy) NSString *buyType; // balance recharge
+/** 是否全部购买 */
+@property (nonatomic, assign) BOOL buyAll; // balance recharge
 
 @end
 
@@ -89,7 +92,7 @@
 
 - (UIView *)headTableView {
     kWeakSelf
-    _topView = [[HXBCreditorChangeTopView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH750(295))];
+    _topView = [[HXBCreditorChangeTopView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH750(285))];
     if (_type == HXB_Plan) {
         self.topView.isHiddenBtn = YES;
         self.topView.profitStr = @"预期收益：0.00元";
@@ -104,9 +107,12 @@
         self.topView.keyboardType = UIKeyboardTypeDecimalPad;
         if (self.availablePoint.doubleValue < 2 * self.minRegisterAmount.doubleValue) {
             _topView.totalMoney = self.availablePoint;
+            _topupMoneyStr = self.availablePoint;
+            _buyAll = YES;
             _topView.disableKeyBorad = YES;
             _topView.disableBtn = YES;
         } else {
+            _buyAll = NO;
             _topView.disableKeyBorad = NO;
             _topView.disableBtn = NO;
         }
@@ -134,7 +140,7 @@
     };
     _topView.block = ^{ // 点击一键购买执行的方法
         NSString *topupStr = weakSelf.availablePoint;
-        weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%ld", topupStr.integerValue];
+        weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.lf", topupStr.floatValue];
         if (_type == HXB_Creditor) {
             weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.2f", topupStr.doubleValue];
         }
@@ -188,21 +194,13 @@
     } else {
         _buyType = @"balance";
     }
-//    if (_viewModel.userInfoModel.userInfo.hasBindCard.intValue == 0 && _topupMoneyStr.doubleValue > _balanceMoneyStr.doubleValue) {
-//        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-//        withdrawCardViewController.title = @"绑卡";
-//        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-//        [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-//    } else {
-        if (_type == HXB_Plan) {
-            [self requestForPlan];
-        } else if (_type == HXB_Loan) {
-            [self requestForLoan];
-        } else {
-            [self requestForCreditor];
-        }
-        
-//    }
+    if (_type == HXB_Plan) {
+        [self requestForPlan];
+    } else if (_type == HXB_Loan) {
+        [self requestForLoan];
+    } else {
+        [self requestForCreditor];
+    }
 }
 
 
@@ -213,7 +211,7 @@
     if (_topupMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
-        self.topView.totalMoney = [NSString stringWithFormat:@"%ld", _availablePoint.integerValue];
+        self.topView.totalMoney = [NSString stringWithFormat:@"%@", _availablePoint];
         _topupMoneyStr = _availablePoint;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _availablePoint.floatValue*self.totalInterest.floatValue/100.0];
         [self setUpArray];
@@ -283,6 +281,14 @@
 
 // 购买债权
 - (void)requestForCreditor {
+    if (_buyAll) {
+        if ([_btnLabelText containsString:@"充值"]) {
+            [self fullAddtionFunc];
+        } else {
+            [self alertPassWord];
+        }
+        return;
+    }
     if (_topupMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
@@ -299,10 +305,11 @@
         [HxbHUDProgress showTextWithMessage:@"剩余的带转让金额不能低于起投金额"];
     } else {
         BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
-        if (isMultipleOfMin) {
+        if (isMultipleOfMin || [_topupMoneyStr containsString:@"."]) {
             if (_topupMoneyStr.doubleValue != _availablePoint.doubleValue) {
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
             } else {
+                
                 if ([_btnLabelText containsString:@"充值"]) {
                     [self fullAddtionFunc];
                 } else {
@@ -538,11 +545,17 @@
     [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansfer_confirmBuyReslutWithLoanID:_loanId parameter:dic andSuccessBlock:^(HXBFin_LoanTruansfer_BuyResoutViewModel *model) {
         ///加入成功
         HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+        loanBuySuccessVC.title = @"购买成功";
+        loanBuySuccessVC.buy_title = @"购买成功";
         loanBuySuccessVC.imageName = @"successful";
-        loanBuySuccessVC.buy_title = @"投标成功";
-        loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的投资金额，放款成功后开始计息";
+        loanBuySuccessVC.massage_Left_StrArray = @[@"下一还款日", @"投资金额", @"实际买入本金", @"公允利息"];
+        loanBuySuccessVC.massage_Right_StrArray = @[model.nextRepayDate, model.buyAmount, model.principal, model.interest];
+        if (model.isRepayed) {
+            loanBuySuccessVC.buy_description = @"公允利息为您垫付的转让人持有天利息，还款人将会在下个还款日予以返回";
+        } else {
+            loanBuySuccessVC.buy_description = @"公允利息：当期已还时，债权人将多收利息进行补偿，均放入投资本金";
+        }
         loanBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
-        loanBuySuccessVC.title = @"投资成功";
         [loanBuySuccessVC clickButtonWithBlock:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
             [self.navigationController popToRootViewControllerAnimated:true];
@@ -618,10 +631,15 @@
     }
     cell.titleStr = _titleArray[indexPath.row];
     cell.detailStr = _detailArray[indexPath.row];
-    if ([_titleArray[indexPath.row] isEqualToString:@"预期收益："] || [_titleArray[indexPath.row] isEqualToString:@"还需支付："]) {
+    if ([_titleArray[indexPath.row] isEqualToString:@"还需支付："]) {
         cell.isAttributeShow = YES;
+        cell.isHeddenHine = YES;
     } else {
+        cell.isHeddenHine = NO;
         cell.isAttributeShow = NO;
+        if (_titleArray.count == 1) {
+            cell.isHeddenHine  = YES;
+        }
     }
     return cell;
 }
@@ -667,37 +685,15 @@
     if (!_profitMoneyStr) {
         _profitMoneyStr = @"";
     }
-//    if (_type == HXB_Plan) {
-//        if (_topupMoneyStr.floatValue > _balanceMoneyStr.floatValue) {
-//            self.titleArray = @[@"可用金额：", @"还需支付："];
-//            self.detailArray = @[[NSString hxb_getPerMilWithDouble:_profitMoneyStr.doubleValue], _viewModel.availablePoint, [NSString hxb_getPerMilWithDouble:(_topupMoneyStr.doubleValue - _balanceMoneyStr.doubleValue)]];
-//            [self.hxbBaseVCScrollView reloadData];
-//        } else {
-//            self.titleArray = @[@"可用金额："];
-//            self.detailArray = @[[NSString hxb_getPerMilWithDouble:_profitMoneyStr.doubleValue], _viewModel.availablePoint];
-//            [self.hxbBaseVCScrollView reloadData];
-//        }
-//    } else if (_type == HXB_Loan) {
-//        if (_topupMoneyStr.doubleValue > _balanceMoneyStr.doubleValue) {
-//            self.titleArray = @[@"可用金额：", @"还需支付："];
-//            self.detailArray = @[_viewModel.availablePoint, [NSString hxb_getPerMilWithDouble:(_topupMoneyStr.doubleValue - _balanceMoneyStr.doubleValue)]];
-//            [self.hxbBaseVCScrollView reloadData];
-//        } else {
-//            self.titleArray = @[@"可用金额："];
-//            self.detailArray = @[_viewModel.availablePoint];
-//            [self.hxbBaseVCScrollView reloadData];
-//        }
-//    } else {
-        if (_topupMoneyStr.doubleValue > _balanceMoneyStr.doubleValue) {
-            self.titleArray = @[@"可用金额：", @"还需支付："];
-            self.detailArray = @[_viewModel.availablePoint, [NSString hxb_getPerMilWithDouble:(_topupMoneyStr.doubleValue - _balanceMoneyStr.doubleValue)]];
-            [self.hxbBaseVCScrollView reloadData];
-        } else {
-            self.titleArray = @[@"可用金额："];
-            self.detailArray = @[_viewModel.availablePoint];
-            [self.hxbBaseVCScrollView reloadData];
-        }
-//    }
+    if (_topupMoneyStr.doubleValue > _balanceMoneyStr.doubleValue) {
+        self.titleArray = @[@"可用金额：", @"还需支付："];
+        self.detailArray = @[_viewModel.availablePoint, [NSString hxb_getPerMilWithDouble:(_topupMoneyStr.doubleValue - _balanceMoneyStr.doubleValue)]];
+        [self.hxbBaseVCScrollView reloadData];
+    } else {
+        self.titleArray = @[@"可用金额："];
+        self.detailArray = @[_viewModel.availablePoint];
+        [self.hxbBaseVCScrollView reloadData];
+    }
     [self changeBtnLabel];
 }
 

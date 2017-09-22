@@ -115,7 +115,7 @@
 {
     if (!_textField) {
         _textField = [[UITextField alloc] init];
-        _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(44);
+        _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.textColor = COR6;
     }

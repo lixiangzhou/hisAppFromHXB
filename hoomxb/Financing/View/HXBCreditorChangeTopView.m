@@ -84,19 +84,21 @@
     _rechargeView = [[UIView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(35), kScreenWidth, kScrAdaptationH(65))];
     _rechargeView.backgroundColor = [UIColor whiteColor];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), 0, kScrAdaptationW(70), kScrAdaptationH(65))];
-    label.text = @"金额：";
+    UIImageView *leftImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH750(46.5), kScrAdaptationW(67), kScrAdaptationH750(37))];
+    leftImage.contentMode = UIViewContentModeScaleAspectFit;
+    leftImage.image = [UIImage imageNamed:@"hxb_my_message人民币"];
     
-    _rechargeViewTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectMake(label.left + kScrAdaptationW(5), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(95), kScrAdaptationH(35))];
+    _rechargeViewTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectMake(leftImage.left + kScrAdaptationW(5), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(95), kScrAdaptationH(35))];
     _rechargeViewTextField.keyboardType = UIKeyboardTypeDecimalPad;
     _rechargeViewTextField.isHidenLine = YES;
     _rechargeViewTextField.delegate = self;
+    _rechargeViewTextField.isLagerText = YES;
     _rechargeViewTextField.isCleanAllBtn = YES;
     _rechargeViewTextField.block = ^(NSString *text) {
         weakSelf.changeBlock(text);
     };
     [_rechargeView addSubview:_rechargeViewTextField];
-    [_rechargeView addSubview:label];
+    [_rechargeView addSubview:leftImage];
     
     _rechargeBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
     _rechargeBtn.frame = CGRectMake(kScreenWidth - kScrAdaptationW(95), kScrAdaptationH750(35), kScrAdaptationW(80), kScrAdaptationH(30));
@@ -178,10 +180,10 @@
     _isHiddenBtn = isHiddenBtn;
     if (isHiddenBtn) {
         _rechargeBtn.hidden = YES;
-        _rechargeViewTextField.frame = CGRectMake(kScrAdaptationW(20), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(15), kScrAdaptationH(35));
+        _rechargeViewTextField.frame = CGRectMake(kScrAdaptationW(5), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(15), kScrAdaptationH(35));
     } else {
         _rechargeBtn.hidden = NO;
-        _rechargeViewTextField.frame = CGRectMake(kScrAdaptationW(20), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(95), kScrAdaptationH(35));
+        _rechargeViewTextField.frame = CGRectMake(kScrAdaptationW(5), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(95), kScrAdaptationH(35));
     }
 }
 

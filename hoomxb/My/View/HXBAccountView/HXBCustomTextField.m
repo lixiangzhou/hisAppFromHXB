@@ -333,6 +333,15 @@
     return _idTextField;
 }
 
+- (void)setIsLagerText:(BOOL)isLagerText {
+    _isLagerText = isLagerText;
+    if (isLagerText) {
+        _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
+    } else {
+        _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+    }
+}
+
 - (UIImageView *)leftImageView
 {
     if (!_leftImageView) {

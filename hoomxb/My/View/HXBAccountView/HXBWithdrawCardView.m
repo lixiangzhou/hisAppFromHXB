@@ -23,6 +23,8 @@
 @property (nonatomic, strong) HXBCustomTextField *bankCardTextField;
 @property (nonatomic, strong) HXBCustomTextField *phoneNumberTextField;
 @property (nonatomic, strong) UIButton *seeLimitBtn;
+/** bankCardID */
+@property (nonatomic, copy) NSString *bankCardID;
 @property (nonatomic, strong) UIView *line;
 @end
 
@@ -133,7 +135,7 @@
     if (self.nextButtonClickBlock) {
         if ([self judgeIsNull]) return;
         NSDictionary *dic = @{
-                              @"bankCard" : self.bankCardTextField.text,
+                              @"bankCard" : _bankCardID,
                               @"bankReservedMobile" : self.phoneNumberTextField.text,
                               @"bankCode" : self.cardBinModel.bankCode
                               };
@@ -195,9 +197,10 @@
         _bankCardTextField.isHidenLine = YES;
         kWeakSelf
         _bankCardTextField.block = ^(NSString *text) {
+            _bankCardID = [_bankCardTextField.text stringByReplacingOccurrencesOfString:@" "  withString:@""];
             if (text.length>=12) {
                 if (weakSelf.checkCardBin) {
-                    weakSelf.checkCardBin(text);
+                    weakSelf.checkCardBin(weakSelf.bankCardID);
                     
                 }
             }
@@ -305,7 +308,7 @@
         if (str.length > 11) {
             return NO;
         }
-    } else {
+    } else if (textField.superview == _bankCardTextField) {
         NSString *str = nil;
         if (string.length) {
             str = [NSString stringWithFormat:@"%@%@",textField.text,string];
@@ -316,12 +319,33 @@
             [strM deleteCharactersInRange:range];
             str = strM.copy;
         }
-        if (str.length > 25) {
+        if ([self isPureInt:string]) {
+            if (_bankCardTextField.text.length % 5 == 4 && _bankCardTextField.text.length < 22) {
+                _bankCardTextField.text = [NSString stringWithFormat:@"%@ ", _bankCardTextField.text];
+            }
+            if (str.length > 23) {
+                str = [str substringToIndex:23];
+                _bankCardTextField.text = str;
+                [_bankCardTextField resignFirstResponder];
+                return NO;
+            }
+        } else if ([string isEqualToString:@""]) {
+            if ((_bankCardTextField.text.length - 2) % 5 == 4 && _bankCardTextField.text.length < 22) {
+                _bankCardTextField.text = [_bankCardTextField.text substringToIndex:_bankCardTextField.text.length - 1];
+            }
+            return YES;
+        } else {
             return NO;
         }
     }
     
     return YES;
+}
+
+- (BOOL)isPureInt:(NSString *)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return [scan scanInt:&val] && [scan isAtEnd];
 }
 
 
@@ -368,5 +392,6 @@
     }
     return _seeLimitBtn;
 }
+
 
 @end

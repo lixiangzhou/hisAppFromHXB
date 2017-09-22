@@ -813,6 +813,7 @@
         }
         
         HXBFin_LoanTruansfer_BuyResoutViewModel *loantruansferViewModel = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc]init];
+        
         HXBFinModel_BuyResout_LoanTruansferModel *loantruansferModel = [[HXBFinModel_BuyResout_LoanTruansferModel alloc]init];
         NSDictionary *dataDic = responseObject[kResponseData];
         BOOL isSuccess = [loantruansferModel yy_modelSetWithDictionary:dataDic];
