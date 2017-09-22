@@ -116,7 +116,7 @@ static NSString *CELLID = @"CELLID";
     _addRecortdModel_plan_dataList = addRecortdModel_plan_dataList;
 
     _numberLabel.text   = addRecortdModel_plan_dataList.index;
-    _IDLabel.text       = addRecortdModel_plan_dataList.hxb_nickName;
+    _IDLabel.text       = addRecortdModel_plan_dataList.nickName;
     _dateLabel.text     = addRecortdModel_plan_dataList.hxb_joinTime;
     _YUANLable.text     = addRecortdModel_plan_dataList.amount_YUAN;
 }

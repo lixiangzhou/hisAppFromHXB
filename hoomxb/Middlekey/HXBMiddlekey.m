@@ -27,9 +27,10 @@
                 return;
             }
             
-            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+            
             if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 //开通存管银行账户
+                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
                 openDepositAccountVC.title = @"开通存管账户";
                 openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [nav pushViewController:openDepositAccountVC animated:YES];
@@ -44,6 +45,7 @@
             }else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
             {
                 //完善信息
+                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
                 openDepositAccountVC.title = @"完善信息";
                 openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                 [nav pushViewController:openDepositAccountVC animated:YES];

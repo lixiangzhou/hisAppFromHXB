@@ -7,7 +7,6 @@
 //
 
 #import "HXBMY_LoanTruansferViewModel.h"
-
 @implementation HXBMY_LoanTruansferViewModel
 /**
  @"剩余期限(月)"
@@ -29,11 +28,21 @@
 }
 
 /**
+ 状态
+ */
+- (NSString *) status_UI {
+    if (!_status_UI) {
+        _status_UI = [HXBEnumerateTransitionManager Fin_LoanTruansfer_StatusWith_request:self.my_truanfserModel.status];
+    }
+    return _status_UI;
+}
+
+/**
  待转金额
  */
 - (NSString *) amountTransferStr {
     if (!_amountTransferStr) {
-        _amountTransferStr = [NSString hxb_getPerMilWithDouble:self.my_truanfserModel.leftTransAmount.floatValue];
+        _amountTransferStr = [NSString GetPerMilWithDouble:self.my_truanfserModel.leftTransAmount.floatValue];
     }
     return _amountTransferStr;
 }

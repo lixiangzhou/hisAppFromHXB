@@ -23,6 +23,9 @@ static NSString *const kHXBSVGImage = @"kHXBSVGImage";
     if (self.image == nil && path != nil) {
         self.image = [SVGKImage imageNamed:svgImageString].UIImage;
     }
+    if (self.image == nil) {
+        self.image = [SVGKImage imageNamed:@"默认"].UIImage;
+    }
     objc_setAssociatedObject(self, &kHXBSVGImageName, svgImageString, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 - (NSString *)svgImageString {

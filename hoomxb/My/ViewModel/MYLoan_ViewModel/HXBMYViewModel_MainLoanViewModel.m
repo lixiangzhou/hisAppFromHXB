@@ -50,7 +50,7 @@
  */
 - (NSString *) toRepay {
     if (!_toRepay) {
-        _toRepay = [NSString hxb_getPerMilWithDouble:self.loanModel.toRepay.floatValue];
+        _toRepay = [NSString GetPerMilWithDouble:self.loanModel.toRepay.floatValue];
     }
     return _toRepay;
 }

@@ -28,13 +28,13 @@
     _joinTime = joinTime;
     _hxb_joinTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:joinTime andDateFormat:@"yyyy-MM-dd  HH:mm"];
 }
-- (void)setNickName:(NSString *)nickName {
-    _nickName = nickName;
-    if (nickName.length >= 6) {
-        _hxb_nickName = [NSString hiddenStr:nickName MidWithFistLenth:3 andLastLenth:4];
-    }else {
-        _hxb_nickName = nickName;
-    }
-}
+//- (void)setNickName:(NSString *)nickName {
+//    _nickName = nickName;
+//    if (nickName.length >= 6) {
+//        _hxb_nickName = [NSString hiddenStr:nickName MidWithFistLenth:3 andLastLenth:4];
+//    }else {
+//        _hxb_nickName = nickName;
+//    }
+//}
 
 @end

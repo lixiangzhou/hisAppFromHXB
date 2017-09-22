@@ -277,9 +277,7 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if (textField.superview == self.bankNumberTextField ) {
-        [UIView animateWithDuration:0.5 animations:^{
-            self.y -= 70;
-        }];
+        
     }
     return YES;
 }
@@ -412,6 +410,9 @@
 //    self.bankNumberTextField.isHidenLine = NO;
     self.line.hidden = NO;
     self.bankNameTextField.hidden = NO;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.y = -70;
+    }];
     [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
         self.phoneTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
     }];

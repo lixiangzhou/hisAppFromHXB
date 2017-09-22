@@ -29,6 +29,17 @@
  */
 @property (nonatomic,copy) NSString *loanTitle;
 
+ /**
+ 状态 (汉字)
+ TRANSFERING：正在转让，
+ TRANSFERED：转让完毕，
+ CANCLE：已取消，
+ CLOSED_CANCLE：结标取消，
+ OVERDUE_CANCLE：逾期取消，
+ PRESALE：转让预售
+ */
+@property (nonatomic, copy) NSString *status_UI;
+
 /// 加入按钮的颜色
 @property (nonatomic,strong) UIColor *addButtonBackgroundColor;
 ///加入按钮的字体颜色

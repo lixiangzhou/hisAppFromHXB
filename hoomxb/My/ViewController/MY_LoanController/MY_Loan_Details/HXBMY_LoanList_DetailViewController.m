@@ -35,7 +35,8 @@
         
         manager.termsLeftStr = weakSelf.loanDetailViewModel.goBackLoanTimeCellValue;
         manager.statusImageName = @"yihuanqishu";
-        manager.strArray = @[@"转让记录",@"借款合同"];
+//        manager.strArray = @[@"借款合同",@"转让记录"];//打开就有转让记录了
+         manager.strArray = @[@"借款合同"];
         
         manager.toRepayLableManager.isLeftRight         = false;
         manager.toRepayLableManager.rightLabelStr       = @"待收金额（元）";
@@ -104,14 +105,17 @@
         switch (index) {
             case 0:
             {
+                [self clickContrace];
+               
+            }
+                break;
+                case 1:
+            {
                 HXBMY_Plan_Capital_ViewController *capitalVC = [[HXBMY_Plan_Capital_ViewController alloc]init];
                 capitalVC.planID = self.loanDetailViewModel.loanModel.loanId;
                 capitalVC.type = HXBTransferRecord;
                 [self.navigationController pushViewController:capitalVC animated:true];
             }
-                break;
-                case 1:
-                [self clickContrace];
                 break;
             default:
                 break;

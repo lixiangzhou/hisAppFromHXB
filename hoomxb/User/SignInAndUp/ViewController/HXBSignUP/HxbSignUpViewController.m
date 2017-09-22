@@ -110,6 +110,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
       
         //1. modal一个图验控制器
         ///1. 如果要是已经图验过了，那就不需要图验了
+        self.checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
         [self.checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
             weakSelf.checkPaptchaStr = checkPaptcha;
             NSLog(@"发送 验证码");
@@ -227,11 +228,5 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
         [weakSelf.navigationController popViewControllerAnimated:true];
     }];
 }
-- (HXBCheckCaptchaViewController *)checkCaptchVC
-{
-    if (!_checkCaptchVC) {
-        _checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
-    }
-    return _checkCaptchVC;
-}
+
 @end

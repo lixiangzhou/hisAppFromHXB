@@ -8,6 +8,7 @@
 
 #import "HXBMY_LoanTruansferTableView.h"
 #import "HXBFin_TableViewCell_LoanTransfer.h"
+#import "HXBBaseViewCell_MYListCellTableViewCell.h"
 static NSString *const CELLID = @"CELLID";
 @interface HXBMY_LoanTruansferTableView () <UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,copy) void(^clickPlanListCellBlock)(NSIndexPath *index,HXBMY_LoanTruansferViewModel *viewModel);
@@ -16,7 +17,7 @@ static NSString *const CELLID = @"CELLID";
 @implementation HXBMY_LoanTruansferTableView
 
 - (instancetype) initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
-    if (self = [super initWithFrame:frame style:style]) {
+    if (self = [super initWithFrame:frame style:UITableViewStylePlain]) {
         [self setUP];
     }
     return self;
@@ -27,11 +28,9 @@ static NSString *const CELLID = @"CELLID";
     self.dataSource = self;
     self.backgroundColor = kHXBColor_BackGround;
     
-    [self registerClass:[HXBFin_TableViewCell_LoanTransfer class] forCellReuseIdentifier:CELLID];
-    self.separatorInset = UIEdgeInsetsMake(0, -50, 0, 0);
-    self.backgroundColor = kHXBColor_BackGround;
-    self.rowHeight = kScrAdaptationH(121);
+    [self registerClass:[HXBBaseViewCell_MYListCellTableViewCell class] forCellReuseIdentifier:CELLID];
     self.nodataView.hidden = false;
+    self.rowHeight = kScrAdaptationH(140);
 }
 - (void)setLoanTruansferViewModelArray:(NSArray<HXBMY_LoanTruansferViewModel *> *)loanTruansferViewModelArray {
     _loanTruansferViewModelArray = loanTruansferViewModelArray;
@@ -46,36 +45,58 @@ static NSString *const CELLID = @"CELLID";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    HXBFin_TableViewCell_LoanTransfer *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
-    HXBFin_TableViewCell_LoanTransferManager *manager = [[HXBFin_TableViewCell_LoanTransferManager alloc]init];
-    /**
-     @"剩余期限(月)"
-     */
-    manager.remainMonthStr = self.loanTruansferViewModelArray[indexPath.row].remainMonthStr;
-    /**
-     @"年利率"
-     */
-    manager.interest = self.loanTruansferViewModelArray[indexPath.row].interest;
     
-    /**
-     待转金额
-     */
-    manager.amountTransferStr = self.loanTruansferViewModelArray[indexPath.row].amountTransferStr;
+    HXBBaseViewCell_MYListCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    NSArray *titleArray = @[
+                            @"年利率",
+                            @"待转出金额(元)",
+                            @"剩余期限",
+                            ];
+    //            exiTingImageViewName = @"explain.svg";
+    [cell setUPValueWithListCellManager:^HXBBaseViewCell_MYListCellTableViewCellManager *(HXBBaseViewCell_MYListCellTableViewCellManager *manager) {
+        manager.title_LeftLabelStr = self.loanTruansferViewModelArray[indexPath.row].loanTitle;
+        manager.title_RightLabelStr = self.loanTruansferViewModelArray[indexPath.row].status_UI;
+        manager.bottomViewManager.leftStrArray = titleArray;
+        manager.bottomViewManager.rightStrArray = @[
+                                                    self.loanTruansferViewModelArray[indexPath.row].interest,
+                                                    self.loanTruansferViewModelArray[indexPath.row].amountTransferStr,
+                                                    self.loanTruansferViewModelArray[indexPath.row].remainMonthStr
+                                                    ];
+        manager.title_ImageName = @"LoanTruansfer.svg";
+        return manager;
+    }];
     
-    /**
-     消费借款
-     */
-    manager.loanTitle = self.loanTruansferViewModelArray[indexPath.row].loanTitle;
-    
-    /// 加入按钮的颜色
-    manager.addButtonBackgroundColor = self.loanTruansferViewModelArray[indexPath.row].addButtonBackgroundColor;
-    ///加入按钮的字体颜色
-    manager.addButtonTitleColor = self.loanTruansferViewModelArray[indexPath.row].addButtonTitleColor;
-    ///addbutton 边缘的颜色
-    manager.addButtonBorderColor = self.loanTruansferViewModelArray[indexPath.row].addButtonTitleColor;
-    //addButton可否被点击
-    manager.isUserInteractionEnabled = self.loanTruansferViewModelArray[indexPath.row].isAccessibilityElement;
-    cell.manager = manager;
+//    HXBFin_TableViewCell_LoanTransfer *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
+//    HXBFin_TableViewCell_LoanTransferManager *manager = [[HXBFin_TableViewCell_LoanTransferManager alloc]init];
+//    /**
+//     @"剩余期限(月)"
+//     */
+//    manager.remainMonthStr = self.loanTruansferViewModelArray[indexPath.row].remainMonthStr;
+//    /**
+//     @"年利率"
+//     */
+//    manager.interest = self.loanTruansferViewModelArray[indexPath.row].interest;
+//    
+//    /**
+//     待转金额
+//     */
+//    manager.amountTransferStr = self.loanTruansferViewModelArray[indexPath.row].amountTransferStr;
+//    
+//    /**
+//     消费借款
+//     */
+//    manager.loanTitle = self.loanTruansferViewModelArray[indexPath.row].loanTitle;
+//    
+//    /// 加入按钮的颜色
+//    manager.addButtonBackgroundColor = self.loanTruansferViewModelArray[indexPath.row].addButtonBackgroundColor;
+//    ///加入按钮的字体颜色
+//    manager.addButtonTitleColor = self.loanTruansferViewModelArray[indexPath.row].addButtonTitleColor;
+//    ///addbutton 边缘的颜色
+//    manager.addButtonBorderColor = self.loanTruansferViewModelArray[indexPath.row].addButtonTitleColor;
+//    //addButton可否被点击
+//    manager.isUserInteractionEnabled = self.loanTruansferViewModelArray[indexPath.row].isAccessibilityElement;
+//    cell.manager = manager;
     return cell;
 }
 
@@ -102,4 +123,15 @@ static NSString *const CELLID = @"CELLID";
     }
     return _nodataView;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return kScrAdaptationH(10);
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
 @end

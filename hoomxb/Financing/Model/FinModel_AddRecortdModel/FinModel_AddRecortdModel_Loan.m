@@ -20,10 +20,10 @@
 @implementation HXBFinModel_AddRecortdModel_loanLenderRecord_list_Loan
 
 ///	int	投资人名称
-- (void)setUsername:(NSString *)username {
-    _username = username;
-    _username = [NSString hiddenStr:username MidWithFistLenth:3 andLastLenth:4];
-}
+//- (void)setUsername:(NSString *)username {
+//    _username = username;
+//    _username = [NSString hiddenStr:username MidWithFistLenth:3 andLastLenth:4];
+//}
 ///	int	投资金额
 - (void) setAmount:(NSString *)amount {
     _amount = amount;

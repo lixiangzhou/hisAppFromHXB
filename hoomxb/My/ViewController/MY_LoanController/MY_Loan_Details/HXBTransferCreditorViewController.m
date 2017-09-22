@@ -149,7 +149,14 @@
             [weakSelf.navigationController pushViewController:vc animated:true];
         }];
         [_agreementView clickCheckMarkWithBlock:^(BOOL isSelected) {
-            
+            if (isSelected) {
+                weakSelf.sureBtn.userInteractionEnabled = YES;
+                [weakSelf.sureBtn setBackgroundColor:COR29];
+            }else
+            {
+                weakSelf.sureBtn.userInteractionEnabled = NO;
+                [weakSelf.sureBtn setBackgroundColor:COR26];
+            }
         }];
     }
     return _agreementView;

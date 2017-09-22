@@ -39,29 +39,29 @@ static NSString *CELLID = @"CELLID";
         self.scrollEnabled = false;
         self.rowHeight = kScrAdaptationH(45);
 //        self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
-        self.tableFooterView = [self footView];
+//        self.tableFooterView = [self footView];
 
     }
     return self;
 }
 
-- (UIView *)footView {
-    UIView *foot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW(375), 54)];
-    foot.backgroundColor = kHXBColor_BackGround;
-    UILabel *label = [[UILabel alloc] init];
-    [foot addSubview:label];
-    [label mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(foot).offset(0);
-        make.top.equalTo(foot).offset(kScrAdaptationH(10));
-        make.width.offset(kScrAdaptationW(375));
-        make.height.offset(kScrAdaptationH(17));
-    }];
-    label.text = @"- 预期收益不代表实际收益，投资需谨慎 -";
-    label.font = kHXBFont_PINGFANGSC_REGULAR(12);
-    label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
-    return foot;
-}
+//- (UIView *)footView {
+//    UIView *foot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW(375), 54)];
+//    foot.backgroundColor = kHXBColor_BackGround;
+//    UILabel *label = [[UILabel alloc] init];
+//    [foot addSubview:label];
+//    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(foot).offset(0);
+//        make.top.equalTo(foot).offset(kScrAdaptationH(10));
+//        make.width.offset(kScrAdaptationW(375));
+//        make.height.offset(kScrAdaptationH(17));
+//    }];
+//    label.text = @"- 预期收益不代表实际收益，投资需谨慎 -";
+//    label.font = kHXBFont_PINGFANGSC_REGULAR(12);
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
+//    return foot;
+//}
 
 
 ///MARK: 设置

@@ -16,9 +16,9 @@
 /**
  债权购买人
  */
-- (void)setToUserId:(NSString *)toUserId {
-    _toUserId = [NSString hiddenStr:toUserId MidWithFistLenth:3 andLastLenth:2];
-}
+//- (void)setToUserId:(NSString *)toUserId {
+//    _toUserId = [NSString hiddenStr:toUserId MidWithFistLenth:3 andLastLenth:2];
+//}
 /**
  交易金额
  */
