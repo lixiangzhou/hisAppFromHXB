@@ -532,12 +532,10 @@
  跳转加入界面
  */
 - (void)enterPlanBuyViewController {
-    
-//    kWeakSelf
     HXBFin_creditorChange_buy_ViewController *planJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc] init];
     float remainAmount = self.planDetailViewModel.planDetailModel.remainAmount.floatValue;
-    float singleMaxRegisterAmount = self.planDetailViewModel.planDetailModel.singleMaxRegisterAmount.floatValue;
-    float creditorVCStr = remainAmount < singleMaxRegisterAmount ? remainAmount : singleMaxRegisterAmount;
+    float userRemainAmount = self.planDetailViewModel.planDetailModel.userRemainAmount.floatValue;
+    float creditorVCStr = remainAmount < userRemainAmount ? remainAmount : userRemainAmount;
     planJoinVC.availablePoint = [NSString stringWithFormat:@"%.2f", creditorVCStr];
     planJoinVC.title = @"加入计划";
     planJoinVC.type = HXB_Plan;
@@ -548,22 +546,6 @@
     planJoinVC.registerMultipleAmount = self.planDetailViewModel.planDetailModel.registerMultipleAmount;
     planJoinVC.placeholderStr = self.planDetailViewModel.addCondition;
     [self.navigationController pushViewController:planJoinVC animated:YES];
-    //跳转加入界面
-//    HXBFin_Plan_BuyViewController *planJoinVC = [[HXBFin_Plan_BuyViewController alloc]init];
-//    planJoinVC.title = @"加入计划";
-//    planJoinVC.planViewModel = weakSelf.planDetailViewModel;
-//    [planJoinVC clickLookMYInfoButtonWithBlock:^{
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
-//        [weakSelf.navigationController popToRootViewControllerAnimated:false];
-//    }];
-//    
-//    [planJoinVC setCallBackBlock:^{
-//        [weakSelf.navigationController popoverPresentationController];
-//    }];
-//    
-//    planJoinVC.availablePoint = _availablePoint;
-//    [weakSelf.navigationController pushViewController:planJoinVC animated:true];
-    
 }
 
 - (HXBBaseCountDownManager_lightweight *)countDownManager {

@@ -100,7 +100,7 @@
     [self.view addSubview:_addButton];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     self.addButton.backgroundColor = COR29;
-    [self.addButton setTitle:@"立即购买" forState:(UIControlStateNormal)];
+    [self.addButton setTitle:@"确认购买" forState:(UIControlStateNormal)];
     self.countDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, self.addButton.height)];
     self.countDownLabel.textAlignment = NSTextAlignmentCenter;
     self.countDownLabel.hidden = YES;
@@ -224,7 +224,6 @@
 - (void)enterLoanBuyViewController {
     HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
     loanJoinVC.title = @"投资债权";
-    // self.loanTruansferDetailViewModel
     loanJoinVC.type = HXB_Creditor;
     loanJoinVC.loanId = self.loanTruansferDetailViewModel.loanTruansferDetailModel.transferId;
     loanJoinVC.placeholderStr = self.loanTruansferDetailViewModel.startIncrease_Amount;
@@ -252,74 +251,16 @@
     }];
 }
 
-
-
 - (void) setData {
-//    kWeakSelf
-    
     self.topView.interestLabelLeftStr = self.loanTransfer_ViewModel.loanTruansferListModel.interest;
     self.topView.remainTimeLabelLeftStr = self.loanTruansferDetailViewModel.leftMonths;
     self.topView.truansferAmountLabelLeftStr = self.loanTruansferDetailViewModel.leftTransAmount;
     self.topView.nextOneText = @"下个还款日";
-    
-//    [self.detailView setUPValueWithManager:^HXBFin_LoanTruansferDetailViewManger *(HXBFin_LoanTruansferDetailViewManger *manager) {
-//        ///顶部的品字形
-//        /**
-//         下个还款日 05-31
-//         品字形 上右
-//         */
-//        manager.topViewManager.nextOneLabel = @"下个还款日";
-//        /**
-//         年利率 label
-//         品字形 上
-//         */
-//        manager.topViewManager.interestLabelManager.rightLabelStr = @"年利率";
-//        manager.topViewManager.interestLabelManager.leftLabelStr = weakSelf.loanTransfer_ViewModel.loanTruansferListModel.interest;
-//
-//        /**
-//         剩余期限
-//         品字形 左
-//         */
-//        manager.topViewManager.remainTimeLabelManager.rightLabelStr = @"剩余期限";
-//        manager.topViewManager.remainTimeLabelManager.leftLabelStr = weakSelf.loanTruansferDetailViewModel.leftMonths;
-//        /**
-//         待转让金额
-//         品字形 右
-//         */
-//        manager.topViewManager.truansferAmountLabelManager.rightLabelStr = @"待转让金额";
-//        manager.topViewManager.truansferAmountLabelManager.leftLabelStr = weakSelf.loanTruansferDetailViewModel.leftTransAmount;
-//
-//        /**
-//         左侧的stringArray
-//         */
-//        manager.loanType_InterestLabelManager.leftStrArray = @[@"下一个还款日",@"还款方式"];
-//        /**
-//         右侧的stringArray
-//         */
-//        manager.loanType_InterestLabelManager.rightStrArray = @[weakSelf.loanTruansferDetailViewModel.nextRepayDate,
-//                                                                weakSelf.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.repaymentType];
-//        /**
-//         图片- 文字- 图片 的tableView
-//         */
-//        manager.detailTableViewArray = weakSelf.tableViewTitleArray;
-//        /**
-//         * 预期收益不代表实际收益，投资需谨慎
-//         */
-//        manager.promptLabelStr = @"- 预期收益不代表实际收益，投资需谨慎 -";
-//        /**
-//         加入按钮
-//         */
-//        manager.addButtonStr = weakSelf.loanTruansferDetailViewModel.status;
-//        manager.isAddButtonClick = weakSelf.loanTruansferDetailViewModel.isUserInteractionEnabled;
-//        manager.addButtonBackgroundColor = weakSelf.loanTruansferDetailViewModel.addButtonBackgroundColor;
-//        manager.addButtonTitleColor = weakSelf.loanTruansferDetailViewModel.addButtonTitleColor;
-//        return manager;
-//    }];
 }
 
 - (NSArray *) tableViewTitleArray {
     if (!_tableViewTitleArray) {
-        _tableViewTitleArray = @[@"借款信息", @"转让记录", @"《债权转让及受让协议》及《反洗钱及出借风险提示书》"];
+        _tableViewTitleArray = @[@"借款信息", @"转让记录", @"债权转让及受让协议"];
     }
     return _tableViewTitleArray;
 }
