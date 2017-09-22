@@ -471,6 +471,8 @@
                 return ;
             case 104:
                 return ;
+            case 3413:
+                return ;
             default:
                 failViewController.imageName = @"failure";
                 failViewController.buy_title = @"加入失败";
@@ -531,6 +533,8 @@
             case 3015:
                 return ;
             case 104:
+                return ;
+            case 3413:
                 return ;
             default:
                 failViewController.imageName = @"failure";
@@ -599,6 +603,8 @@
             case 3015:
                 return ;
             case 104:
+                return ;
+            case 3413:
                 return ;
             default:
                 failViewController.imageName = @"failure";
