@@ -79,6 +79,7 @@
 @property (nonatomic,strong) UIColor *addButtonTitleColor;
 ///addbutton 边缘的颜色
 @property (nonatomic,strong) UIColor *addButtonBorderColor;
+
 ///detailview的viewModel
 @property (nonatomic,strong) HXBFin_Detail_DetailVC_LoanManager *fin_LoanInfoView_Manager;
 @end
