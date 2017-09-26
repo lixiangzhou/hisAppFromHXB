@@ -38,4 +38,6 @@
 - (void) addColourGradientWithHeight:(CGFloat)height;
 ///可以重写返回方法
 - (void)leftBackBtnClick;
+///无网状态的网络连接
+- (void)getNetworkAgain;
 @end

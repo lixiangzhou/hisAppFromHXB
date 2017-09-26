@@ -34,6 +34,9 @@ UITableViewDataSource
     if (self = [super initWithFrame:frame style:style]) {
         [self setup];
         self.nodataView.hidden = NO;
+        self.estimatedRowHeight = 0;
+        self.estimatedSectionHeaderHeight = 0;
+        self.estimatedSectionFooterHeight = 0;
     }
     return self;
 }

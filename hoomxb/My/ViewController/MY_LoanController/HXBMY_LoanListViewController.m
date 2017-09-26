@@ -39,18 +39,14 @@ kDealloc
         self.automaticallyAdjustsScrollViewInsets = NO;
     };
     [self setUP];
-    @try {
-        kWeakSelf
-        baseNAV.getNetworkAgainBlock = ^{
-            [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
-        };
-    } @catch (NSException *exception) {
-        
-    } @finally {
-        
-    }
 }
-
+/**
+ 再次获取网络数据
+ */
+- (void)getNetworkAgain
+{
+     [self downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+}
 //设置
 - (void)setUP {
     ///请求资产统计的网络请求

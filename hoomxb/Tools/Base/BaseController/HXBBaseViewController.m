@@ -34,8 +34,20 @@
     //解决侧滑手势失效
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     [self setupLeftBackBtn];
+    //
+    [self loadNoNetwork];
 }
-
+//是否显示无网界面
+- (void) loadNoNetwork{
+    if (self.navigationController.childViewControllers.count <= 1) return;
+    if (!KeyChain.ishaveNet) {
+        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+        [self.view addSubview:self.noNetworkStatusView];
+    }else
+    {
+        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+    }
+}
 
 /**
  统一设置返回按钮
@@ -78,6 +90,7 @@
         [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
         _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
         _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
     }
     return _hxbBaseVCScrollView;
 }
@@ -197,6 +210,8 @@
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     self.automaticallyAdjustsScrollViewInsets = self.hxb_automaticallyAdjustsScrollViewInsets;
     [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:false];
+    
+   
 }
 
 //- (void)getNetworkAgain
@@ -235,8 +250,7 @@
     self.isCanSideBack = NO;
     //关闭ios右滑返回
     if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        
-        self.navigationController.interactivePopGestureRecognizer.delegate=self;
+        self.navigationController.interactivePopGestureRecognizer.delegate = self;
     }
     
 }
@@ -273,4 +287,30 @@
     }
     return _nacigationBarImageView;
 }
+
+/**
+ 无网界面显示
+ */
+- (HXBNoNetworkStatusView *)noNetworkStatusView
+{
+    kWeakSelf
+    if (!_noNetworkStatusView) {
+        _noNetworkStatusView = [[HXBNoNetworkStatusView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        _noNetworkStatusView.hidden = YES;
+        _noNetworkStatusView.backgroundColor = BACKGROUNDCOLOR;
+        _noNetworkStatusView.getNetworkAgainBlock = ^{
+            if ([weakSelf respondsToSelector:@selector(getNetworkAgain)]) {
+               weakSelf.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+                if (KeyChain.ishaveNet) {
+                    [weakSelf getNetworkAgain];
+                }else{
+                    [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+                }
+            }
+        };
+    }
+    return _noNetworkStatusView;
+}
+
+
 @end

@@ -14,7 +14,7 @@
 /**
  再次调用网络请求的方法
  */
-@property (nonatomic, copy) void(^getNetworkAgainBlock)();
+//@property (nonatomic, copy) void(^getNetworkAgainBlock)();
 
 #pragma mark -自定义 pop & push 按钮
 /**

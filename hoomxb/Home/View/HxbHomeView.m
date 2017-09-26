@@ -356,6 +356,7 @@
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.tableHeaderView = self.headView;
         _mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
+        [HXBMiddlekey AdaptationiOS11WithTableView:_mainTableView];
 //        _mainTableView.hxb_behindHeader = [[HXBRefreshHeader alloc]initWithRefreshingTarget:self refreshingAction:@selector(loadData)];
 //        _mainTableView.hxb_behindHeader.sloganView.hidden = NO;
         kWeakSelf

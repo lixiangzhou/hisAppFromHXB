@@ -179,6 +179,7 @@ MyViewHeaderDelegate
         _mainTableView.tableHeaderView = self.headerView;
         _mainTableView.tableHeaderView.userInteractionEnabled = YES;
         _mainTableView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_mainTableView];
         kWeakSelf
         [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
             if (weakSelf.homeRefreshHeaderBlock) weakSelf.homeRefreshHeaderBlock();

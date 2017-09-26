@@ -21,4 +21,10 @@
 + (void)rechargePurchaseJumpLogicWithNAV:(UINavigationController *)nav;
 
 
+
+/**
+ tableView适配iOS11
+ */
++ (void)AdaptationiOS11WithTableView:(UITableView *)tableView;
+
 @end

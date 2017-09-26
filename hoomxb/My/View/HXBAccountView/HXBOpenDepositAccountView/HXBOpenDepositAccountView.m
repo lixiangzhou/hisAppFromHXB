@@ -189,11 +189,11 @@
         isNull = YES;
         return isNull;
     }
-    //    if (!(self.bankCode.length > 0)) {
-    //        [HxbHUDProgress showMessageCenter:@"银行名称不能为空" inView:self];
-    //        isNull = YES;
-    //        return isNull;
-    //    }
+    if (!(self.cardBinModel.bankCode.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"银行号没有校验成功，请稍后再试" inView:self];
+        isNull = YES;
+        return isNull;
+    }
     if (!(self.bankNumberTextField.text.length > 0)) {
         [HxbHUDProgress showMessageCenter:@"银行卡号不能为空" inView:self];
         isNull = YES;
@@ -407,6 +407,7 @@
 - (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
 {
     _cardBinModel = cardBinModel;
+    if (!cardBinModel.bankName.length) return;
 //    self.bankNumberTextField.isHidenLine = NO;
     self.line.hidden = NO;
     self.bankNameTextField.hidden = NO;

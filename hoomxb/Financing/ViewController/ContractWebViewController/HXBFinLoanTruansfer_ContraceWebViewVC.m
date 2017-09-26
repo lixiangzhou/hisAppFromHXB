@@ -27,6 +27,15 @@
 }
 
 
+/**
+ 再次获取网络数据
+ */
+- (void)getNetworkAgain
+{
+      [self.contractWebVeiw loadURL:self.URL];
+}
+
+
 - (void)setUP {
     self.contractWebVeiw = [[HXBFinPlanContract_ContractWebView alloc]init];
     [self.view addSubview:self.contractWebVeiw];

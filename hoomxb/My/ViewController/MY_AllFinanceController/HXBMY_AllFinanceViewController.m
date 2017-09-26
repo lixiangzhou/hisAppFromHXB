@@ -24,16 +24,13 @@
     [self.view addSubview:self.allFinanceView];
     [self.view addSubview:self.accumulatedIncomeView];
     [self loadData_userInfo];
-    @try {
-        kWeakSelf
-        baseNAV.getNetworkAgainBlock = ^{
-            [weakSelf loadData_userInfo];
-        };
-    } @catch (NSException *exception) {
-        
-    } @finally {
-        
-    }
+}
+/**
+ 再次获取网络数据
+ */
+- (void)getNetworkAgain
+{
+    [self loadData_userInfo];
 }
 
 - (void)loadData_userInfo

@@ -75,10 +75,12 @@
 @property (nonatomic,copy) NSString *realName;
 /// 身份证 640121197904299980
 @property (nonatomic,copy) NSString *idNo;
+
 /**
- 开通存管账户次数
+ 性别：‘0’：男，‘1’：女
  */
-//@property (nonatomic, copy) NSString *escrowTime;
+@property (nonatomic, copy) NSString *gender;
+
 /**
  是否评估
  */
@@ -91,6 +93,7 @@
  是否解绑身份证
  */
 @property (nonatomic, assign) BOOL isUnbundling;
+
 
 @property (nonatomic,copy) NSString *ip;
 @property (nonatomic,copy) NSString *hasRecharge;
