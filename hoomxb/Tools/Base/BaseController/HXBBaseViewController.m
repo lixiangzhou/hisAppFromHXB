@@ -43,6 +43,7 @@
     if (!KeyChain.ishaveNet) {
         self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
         [self.view addSubview:self.noNetworkStatusView];
+        
     }else
     {
         self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
@@ -252,7 +253,7 @@
     if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.delegate = self;
     }
-    
+    [self.view bringSubviewToFront:self.noNetworkStatusView];
 }
 
 - (void)resetSideBack {
