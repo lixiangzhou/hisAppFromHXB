@@ -90,7 +90,7 @@
         make.height.offset(kScrAdaptationH(50));
     }];
     [self.bottomTipView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.pwdTextField.mas_bottom).offset(kScrAdaptationH(35));
+        make.top.equalTo(self.pwdTextField.mas_bottom).offset(kScrAdaptationH(25));
         make.left.right.equalTo(self);
         make.height.offset(kScrAdaptationH(37));
     }];
@@ -124,13 +124,13 @@
     //        make.left.right.equalTo(self);
     //        make.height.offset(kScrAdaptationH(50));
     //    }];
-    
     [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(-65));
+        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(-59));
         make.centerX.equalTo(self);
         make.left.equalTo(self).offset(kScrAdaptationW(18));
         make.right.equalTo(self).offset(kScrAdaptationW(-18));
     }];
+
 }
 
 - (void)layoutSubviews
