@@ -24,18 +24,15 @@
     self.title = @"";
     [self setUP];
     self.isColourGradientNavigationBar = YES;
-    @try {
-        kWeakSelf
-        baseNAV.getNetworkAgainBlock = ^{
-            [weakSelf.contractWebVeiw loadURL:weakSelf.URL];
-        };        
-    } @catch (NSException *exception) {
-        
-    } @finally {
-        
-    }
 }
 
+/**
+ 再次获取网络数据
+ */
+- (void)getNetworkAgain
+{
+    [self.contractWebVeiw loadURL:self.URL];
+}
 
 - (void)setUP {
     self.contractWebVeiw = [[HXBFinPlanContract_ContractWebView alloc]init];

@@ -92,7 +92,7 @@
         make.height.offset(kScrAdaptationH(50));
     }];
     [self.bottomTipView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.pwdTextField.mas_bottom).offset(kScrAdaptationH(35));
+        make.top.equalTo(self.pwdTextField.mas_bottom).offset(kScrAdaptationH(25));
         make.left.right.equalTo(self);
         make.height.offset(kScrAdaptationH(37));
     }];
@@ -126,13 +126,13 @@
     //        make.left.right.equalTo(self);
     //        make.height.offset(kScrAdaptationH(50));
     //    }];
-    
     [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(-65));
+        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(-59));
         make.centerX.equalTo(self);
         make.left.equalTo(self).offset(kScrAdaptationW(18));
         make.right.equalTo(self).offset(kScrAdaptationW(-18));
     }];
+
 }
 
 - (void)layoutSubviews
@@ -192,11 +192,11 @@
         isNull = YES;
         return isNull;
     }
-    //    if (!(self.bankCode.length > 0)) {
-    //        [HxbHUDProgress showMessageCenter:@"银行名称不能为空" inView:self];
-    //        isNull = YES;
-    //        return isNull;
-    //    }
+    if (!(self.cardBinModel.bankCode.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"银行号没有校验成功，请稍后再试" inView:self];
+        isNull = YES;
+        return isNull;
+    }
     if (!(self.bankNumberTextField.text.length > 0)) {
         [HxbHUDProgress showMessageCenter:@"银行卡号不能为空" inView:self];
         isNull = YES;
@@ -445,6 +445,7 @@
 - (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
 {
     _cardBinModel = cardBinModel;
+    if (!cardBinModel.bankName.length) return;
 //    self.bankNumberTextField.isHidenLine = NO;
     self.line.hidden = NO;
     self.bankNameTextField.hidden = NO;

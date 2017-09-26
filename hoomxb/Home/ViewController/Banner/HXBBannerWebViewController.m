@@ -50,17 +50,14 @@
         NSLog(@"%@",data);
         [weakSelf logicalJumpWithData:data];
     }];
-    @try {
-        baseNAV.getNetworkAgainBlock = ^{
-            [weakSelf.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:weakSelf.url]]];
-        };
-        
-    } @catch (NSException *exception) {
-        
-    } @finally {
-        
-    }
-    
+}
+
+/**
+ 再次获取网络数据
+ */
+- (void)getNetworkAgain
+{
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
 }
 
 - (void)logicalJumpWithData:(id)data

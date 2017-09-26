@@ -21,4 +21,6 @@
 #import "HXBCustomTextField.h" // 红小宝的输入框
 #import "HXBDeviceVersion.h" //获取机型
 
+#import "HXBMiddlekey.h" //统一处理中间逻辑
+
 #endif /* HxbTools_h */

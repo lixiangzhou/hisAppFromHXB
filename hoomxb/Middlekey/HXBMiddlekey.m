@@ -101,4 +101,25 @@
         }];
     }
 }
+
+/**
+ tableView适配iOS11
+ */
++ (void)AdaptationiOS11WithTableView:(UITableView *)tableView
+{
+    //如果iOS的系统是11.0，会有这样一个宏定义“#define __IPHONE_11_0  110000”；如果系统版本低于11.0则没有这个宏定义
+#ifdef __IPHONE_11_0
+    if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+        if (@available(iOS 11.0, *)) {
+            tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//            tableView.estimatedRowHeight = 0;
+            tableView.estimatedSectionHeaderHeight = 0;
+//            tableView.estimatedSectionFooterHeight = 0;
+        } else {
+            // Fallback on earlier versions
+        }
+    }
+#endif
+}
+
 @end

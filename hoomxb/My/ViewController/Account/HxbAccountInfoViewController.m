@@ -44,16 +44,14 @@ UITableViewDataSource
     [super viewWillAppear:animated];
     self.isColourGradientNavigationBar = YES;
     [self loadData_userInfo];///加载用户数据
-    @try {
-        kWeakSelf
-        baseNAV.getNetworkAgainBlock = ^{
-            [weakSelf loadData_userInfo];
-        };        
-    } @catch (NSException *exception) {
-        
-    } @finally {
-        
-    }
+}
+
+/**
+ 再次获取网络数据
+ */
+- (void)getNetworkAgain
+{
+     [self loadData_userInfo];
 }
 
 #pragma TableViewDelegate
@@ -289,6 +287,11 @@ UITableViewDataSource
         cell.imageView.image = [UIImage imageNamed:@"default_avatar"];
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.hiddenLine = YES;
+        if ([self.userInfoViewModel.userInfoModel.userInfo.gender isEqualToString:@"1"]) {
+            cell.imageView.image = [UIImage imageNamed:@"woman"];
+        }else if([self.userInfoViewModel.userInfoModel.userInfo.gender isEqualToString:@"0"]){
+            cell.imageView.image = [UIImage imageNamed:@"man"];
+        }
     }else if (indexPath.section == 1){
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.row == 0) {
