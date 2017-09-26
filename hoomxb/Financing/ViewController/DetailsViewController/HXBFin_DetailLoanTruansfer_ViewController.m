@@ -96,8 +96,12 @@
 //MARK: - 立即加入按钮的添加
 - (void)setupAddView {
     self.addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(50), kScreenWidth, kScrAdaptationH(50));
+//    self.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(50), kScreenWidth, kScrAdaptationH(50));
     [self.view addSubview:_addButton];
+    [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.width.equalTo(self.view);
+        make.height.equalTo(@(kScrAdaptationH(50)));
+    }];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     self.addButton.backgroundColor = COR29;
     [self.addButton setTitle:@"确认购买" forState:(UIControlStateNormal)];

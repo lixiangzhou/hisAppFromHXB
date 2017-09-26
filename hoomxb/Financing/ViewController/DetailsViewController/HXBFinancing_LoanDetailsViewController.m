@@ -155,7 +155,11 @@
 //    self.timeLabel.textAlignment = NSTextAlignmentCenter;
 //    self.timeLabel.font = [UIFont systemFontOfSize:12.0f];
     [self.view addSubview:self.loanDetailsView.addButton];
-    self.loanDetailsView.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(50), kScreenWidth, kScrAdaptationH(50));
+//    self.loanDetailsView.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(50), kScreenWidth, kScrAdaptationH(50));
+    [self.loanDetailsView.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.bottom.width.equalTo(self.view);
+        make.height.equalTo(@(kScrAdaptationH(50)));
+    }];
 }
 - (void)setUPTopImageView {
     self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
