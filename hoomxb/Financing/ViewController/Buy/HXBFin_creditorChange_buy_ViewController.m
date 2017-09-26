@@ -131,7 +131,10 @@
                 weakSelf.bottomView.clickBtnStr = @"绑定银行卡";
             }
         } else {
-            weakSelf.bottomView.clickBtnStr = @"立即加入";
+            weakSelf.bottomView.clickBtnStr = @"立即投资";
+            if (_type == HXB_Plan) {
+                weakSelf.bottomView.clickBtnStr = @"立即加入";
+            }
         }
         if (_type == HXB_Plan) {
             weakSelf.topView.profitStr = [NSString stringWithFormat:@"预期收益：%@", [NSString hxb_getPerMilWithDouble:text.floatValue*self.totalInterest.floatValue/100.0]];
@@ -211,8 +214,8 @@
     if (_topupMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
-        self.topView.totalMoney = [NSString stringWithFormat:@"%@", _availablePoint];
-        _topupMoneyStr = _availablePoint;
+        self.topView.totalMoney = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
+        _topupMoneyStr = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _availablePoint.floatValue*self.totalInterest.floatValue/100.0];
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
@@ -247,8 +250,8 @@
     if (_topupMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
-        self.topView.totalMoney = [NSString stringWithFormat:@"%ld", _availablePoint.integerValue];
-        _topupMoneyStr = [NSString stringWithFormat:@"%ld", _availablePoint.integerValue];
+        self.topView.totalMoney = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
+        _topupMoneyStr = [NSString stringWithFormat:@"%lf", _availablePoint.doubleValue];
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
     } else if (_topupMoneyStr.floatValue < _minRegisterAmount.floatValue) {
@@ -281,6 +284,11 @@
     if (_buyAll) {
         if ([_btnLabelText containsString:@"充值"]) {
             [self fullAddtionFunc];
+        } else if ([_btnLabelText containsString:@"绑定"]) {
+            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+            withdrawCardViewController.title = @"绑卡";
+            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+            [self.navigationController pushViewController:withdrawCardViewController animated:YES];
         } else {
             [self alertPassWord];
         }
@@ -299,7 +307,7 @@
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else if (_availablePoint.floatValue - _topupMoneyStr.floatValue < _minRegisterAmount.floatValue && _topupMoneyStr.doubleValue != _availablePoint.doubleValue) {
-        [HxbHUDProgress showTextWithMessage:@"剩余的带转让金额不能低于起投金额"];
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
     } else {
         BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
         if (isMultipleOfMin || [_topupMoneyStr containsString:@"."]) {
@@ -466,6 +474,7 @@
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 3014:
+                self.alertVC.isCleanPassword = YES;
                 return ;
             case 3015:
                 return ;
@@ -529,6 +538,7 @@
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 3014:
+                self.alertVC.isCleanPassword = YES;
                 return ;
             case 3015:
                 return ;
@@ -599,6 +609,7 @@
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 3014:
+                self.alertVC.isCleanPassword = YES;
                 return ;
             case 3015:
                 return ;
@@ -628,7 +639,10 @@
             self.bottomView.clickBtnStr = @"绑定银行卡";
         }
     } else {
-        self.bottomView.clickBtnStr = @"立即加入";
+        self.bottomView.clickBtnStr = @"立即投资";
+        if (_type == HXB_Plan) {
+             self.bottomView.clickBtnStr = @"立即加入";
+        }
     }
 }
 

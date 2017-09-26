@@ -743,7 +743,7 @@
     [confirmBuyReslut startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
         if (status) {
-            if (status == 3014 || status == 3015) {
+            if (status == 3014 || status == 3015 || status == 3413) {
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
             
@@ -775,7 +775,7 @@
     [loanBuyReslutRequest startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
         if (status) {
-            if (status == 3014 || status == 3015) {
+            if (status == 3014 || status == 3015 || status == 3413) {
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
             if (failureBlock) failureBlock(nil,status); return;
@@ -806,7 +806,7 @@
     [loanTruansferAPI startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
         if (status) {
-            if (status == 3014 || status == 3015) {
+            if (status == 3014 || status == 3015 || status == 3413) {
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
             if (failureBlock) failureBlock(nil, responseObject); return;

@@ -28,6 +28,8 @@
 //@property (nonatomic, strong) HXBFinBaseNegotiateView *negotiateView;
 @property (nonatomic, strong) HXBAgreementView *negotiateView;
 @property (nonatomic, strong) UIView *line;
+/** 银行卡号 */
+@property (nonatomic, copy) NSString *bankNumber;
 /**
  是否同意协议
  */
@@ -147,11 +149,12 @@
 {
     if (self.openAccountBlock) {
         if ([self judgeIsTure]) return;
+        _bankNumber = [_bankNumberTextField.text stringByReplacingOccurrencesOfString:@" "  withString:@""];
         NSDictionary *dic = @{
                               @"realName" : self.nameTextField.text,
                               @"identityCard" : self.idCardTextField.text,
                               @"password" : self.pwdTextField.text,
-                              @"bankCard" : self.bankNumberTextField.text,
+                              @"bankCard" : _bankNumber,
                               @"bankReservedMobile" : self.phoneTextField.text,
                               @"bankCode" : self.cardBinModel.bankCode
                               };
@@ -199,7 +202,7 @@
         isNull = YES;
         return isNull;
     }
-    if (!(self.bankNumberTextField.text.length >= 10 && self.bankNumberTextField.text.length <= 25)) {
+    if (!(self.bankNumberTextField.text.length >= 10 && self.bankNumberTextField.text.length <= 31)) {
         [HxbHUDProgress showMessageCenter:@"银行卡号输入有误" inView:self];
         isNull = YES;
         return isNull;
@@ -256,7 +259,7 @@
     if (self.pwdTextField.text.length > 5 && self.pwdTextField == textField) {
         return NO;
     }
-    if (self.bankNumberTextField.text.length > 24 && self.bankNumberTextField == textField) {
+    if (self.bankNumberTextField.text.length > 31 && self.bankNumberTextField == textField) {
         return NO;
     }
     if (self.phoneTextField.text.length > 10 && self.phoneTextField == textField) {
@@ -315,7 +318,37 @@
      self.bottomBtn.enabled = NO;
      }
      */
+    if (textField.superview == _bankNumberTextField) {
+        NSString *str = nil;
+        if (string.length) {
+            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
+        } else if(!string.length) {
+            NSInteger length = _bankNumberTextField.text.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            NSMutableString *strM = _bankNumberTextField.text.mutableCopy;
+            [strM deleteCharactersInRange:range];
+            str = strM.copy;
+        }
+        if ([self isPureInt:string]) {
+            if (_bankNumberTextField.text.length % 5 == 4 && _bankNumberTextField.text.length < 30) {
+                _bankNumberTextField.text = [NSString stringWithFormat:@"%@ ", _bankNumberTextField.text];
+            }
+            if (str.length > 31) {
+                str = [str substringToIndex:31];
+                _bankNumberTextField.text = str;
+                [_bankNumberTextField resignFirstResponder];
+                return NO;
+            }
+        } else if ([string isEqualToString:@""]) {
+            if ((_bankNumberTextField.text.length - 2) % 5 == 4 && _bankNumberTextField.text.length < 30) {
+                _bankNumberTextField.text = [_bankNumberTextField.text substringToIndex:_bankNumberTextField.text.length - 1];
+            }
+            return YES;
+        } else {
+            return NO;
+        }
     
+    }
     if ([string isEqualToString:@""]) {
         return YES;
     }else
@@ -325,9 +358,14 @@
         }
         return [self limitNumberCount:textField.superview];
     }
-    
-    
 }
+
+- (BOOL)isPureInt:(NSString *)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return [scan scanInt:&val] && [scan isAtEnd];
+}
+
 
 
 #pragma mark - Getters and Setters
@@ -532,13 +570,15 @@
         _bankNumberTextField.leftImage = [SVGKImage imageNamed:@"card.svg"].UIImage;
         _bankNumberTextField.placeholder = @"银行卡号";
         _bankNumberTextField.delegate = self;
+        _bankNumberTextField.limitStringLength = 31;
         _bankNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
         _bankNumberTextField.isHidenLine = YES;
         kWeakSelf
         _bankNumberTextField.block = ^(NSString *text) {
+            _bankNumber = [text stringByReplacingOccurrencesOfString:@" "  withString:@""];
             if (text.length>=12) {
                 if (weakSelf.checkCardBin) {
-                    weakSelf.checkCardBin(text);
+                    weakSelf.checkCardBin(weakSelf.bankNumber);
                 }
             }
         };

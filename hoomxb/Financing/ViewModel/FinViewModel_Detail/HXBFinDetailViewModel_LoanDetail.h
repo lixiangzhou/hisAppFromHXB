@@ -17,7 +17,6 @@
  */
 @property (nonatomic,copy) NSString *loanPeriodStr;
 
-
 /**
  status 标的状态
  */

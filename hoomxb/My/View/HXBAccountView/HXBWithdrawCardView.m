@@ -150,7 +150,7 @@
 //        isNull = YES;
 //        return isNull;
 //    }
-    if (!(self.bankCardTextField.text.length >= 10 && self.bankCardTextField.text.length <= 25)) {
+    if (!(self.bankCardTextField.text.length >= 10 && self.bankCardTextField.text.length <= 31)) {
         
         [HxbHUDProgress showMessageCenter:@"请输入正确的卡号" inView:self];
         isNull = YES;
@@ -179,7 +179,7 @@
         _bankCardTextField.placeholder = @"银行卡号";
         _bankCardTextField.keyboardType = UIKeyboardTypeNumberPad;
         _bankCardTextField.delegate = self;
-        _bankCardTextField.limitStringLength = 25;
+        _bankCardTextField.limitStringLength = 31;
         _bankCardTextField.leftImage = [UIImage imageNamed:@"bankcard"];
         _bankCardTextField.isHidenLine = YES;
         kWeakSelf
@@ -313,17 +313,17 @@
             str = strM.copy;
         }
         if ([self isPureInt:string]) {
-            if (_bankCardTextField.text.length % 5 == 4 && _bankCardTextField.text.length < 22) {
+            if (_bankCardTextField.text.length % 5 == 4 && _bankCardTextField.text.length < 30) {
                 _bankCardTextField.text = [NSString stringWithFormat:@"%@ ", _bankCardTextField.text];
             }
-            if (str.length > 23) {
-                str = [str substringToIndex:23];
+            if (str.length > 31) {
+                str = [str substringToIndex:31];
                 _bankCardTextField.text = str;
                 [_bankCardTextField resignFirstResponder];
                 return NO;
             }
         } else if ([string isEqualToString:@""]) {
-            if ((_bankCardTextField.text.length - 2) % 5 == 4 && _bankCardTextField.text.length < 22) {
+            if ((_bankCardTextField.text.length - 2) % 5 == 4 && _bankCardTextField.text.length < 30) {
                 _bankCardTextField.text = [_bankCardTextField.text substringToIndex:_bankCardTextField.text.length - 1];
             }
             return YES;
