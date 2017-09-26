@@ -15,7 +15,7 @@
 @interface HXBBaseNavigationController ()<UIGestureRecognizerDelegate>
 @property (nonatomic,strong) PYFullScreenGesturePOPManager *popManager;
 
-@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
+//@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
 
 @end
 
@@ -40,29 +40,29 @@
     
     [super pushViewController:viewController animated:animated];
     
-    [self getNetworkAgain:viewController];
-    kWeakSelf
-    self.noNetworkStatusView.getNetworkAgainBlock = ^{
-        [weakSelf getNetworkAgain:viewController];
-        if (weakSelf.getNetworkAgainBlock) {
-            weakSelf.getNetworkAgainBlock();
-        }
-    };
+//    [self getNetworkAgain:viewController];
+//    kWeakSelf
+//    self.noNetworkStatusView.getNetworkAgainBlock = ^{
+//        [weakSelf getNetworkAgain:viewController];
+//        if (weakSelf.getNetworkAgainBlock) {
+//            weakSelf.getNetworkAgainBlock();
+//        }
+//    };
 }
 
-- (void)getNetworkAgain:(UIViewController *)viewController
-{
-    NSLog(@"%@",viewController);
-    if (self.childViewControllers.count <= 1) return;
-    if (!KeyChain.ishaveNet) {
-        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
-        [viewController.view addSubview:self.noNetworkStatusView];
-    }else
-    {
-        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
-    }
-
-}
+//- (void)getNetworkAgain:(UIViewController *)viewController
+//{
+//    NSLog(@"%@",viewController);
+//    if (self.childViewControllers.count <= 1) return;
+//    if (!KeyChain.ishaveNet) {
+//        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+//        [viewController.view addSubview:self.noNetworkStatusView];
+//    }else
+//    {
+//        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+//    }
+//
+//}
 
 #pragma mark - setter pop的自定义
 - (void)popViewControllerWithToViewController: (NSString *)toViewControllerStr andAnimated: (BOOL)animated{
@@ -99,14 +99,14 @@
 }
 
 
-- (HXBNoNetworkStatusView *)noNetworkStatusView
-{
-    if (!_noNetworkStatusView) {
-        _noNetworkStatusView = [[HXBNoNetworkStatusView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
-        _noNetworkStatusView.hidden = YES;
-        _noNetworkStatusView.backgroundColor = BACKGROUNDCOLOR;
-    }
-    return _noNetworkStatusView;
-}
+//- (HXBNoNetworkStatusView *)noNetworkStatusView
+//{
+//    if (!_noNetworkStatusView) {
+//        _noNetworkStatusView = [[HXBNoNetworkStatusView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+//        _noNetworkStatusView.hidden = YES;
+//        _noNetworkStatusView.backgroundColor = BACKGROUNDCOLOR;
+//    }
+//    return _noNetworkStatusView;
+//}
 
 @end

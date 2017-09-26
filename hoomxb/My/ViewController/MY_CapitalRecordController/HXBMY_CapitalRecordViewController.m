@@ -49,16 +49,14 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:true];
     [self setUP];
     self.isColourGradientNavigationBar = YES;
-    @try {
-        kWeakSelf
-        baseNAV.getNetworkAgainBlock = ^{
-            [weakSelf downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:true];
-        };        
-    } @catch (NSException *exception) {
-        
-    } @finally {
-        
-    }
+}
+
+/**
+ 再次获取网络数据
+ */
+- (void)getNetworkAgain
+{
+    [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:true];
 }
 
 - (void)setUP {

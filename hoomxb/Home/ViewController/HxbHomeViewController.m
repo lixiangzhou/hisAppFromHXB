@@ -164,6 +164,7 @@
     }
     HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
     [request homePlanRecommendWithIsUPReloadData:isUPReloadData andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
+        NSLog(@"%@",viewModel);
         weakSelf.homeView.homeBaseModel = viewModel.homeBaseModel;
         weakSelf.homeView.isStopRefresh_Home = YES;
     } andFailureBlock:^(NSError *error) {

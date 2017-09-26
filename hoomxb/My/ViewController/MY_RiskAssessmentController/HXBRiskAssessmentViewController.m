@@ -65,15 +65,14 @@
         }];
         [weakSelf.navigationController popToViewController:vc animated:true];
     }];
-    @try {        
-        baseNAV.getNetworkAgainBlock = ^{
-            [weakSelf.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kHXBH5_RiskEvaluationURL]]];
-        };
-    } @catch (NSException *exception) {
-        
-    } @finally {
-        
-    }
+}
+
+/**
+ 再次获取网络数据
+ */
+- (void)getNetworkAgain
+{
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kHXBH5_RiskEvaluationURL]]];
 }
 
 - (void)viewWillAppear:(BOOL)animated

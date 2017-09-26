@@ -104,17 +104,16 @@
 //        make.height.offset(kScrAdaptationH(60));
 //    }];
 //    _planDetailsView.addButton.hidden = NO;
-    @try {
-        kWeakSelf
-        baseNAV.getNetworkAgainBlock = ^{
-            [weakSelf downLoadData];
-        };
-    } @catch (NSException *exception) {
-        
-    } @finally {
-        
-    }
 }
+
+/**
+ 再次获取网络数据
+ */
+- (void)getNetworkAgain
+{
+    [self downLoadData];
+}
+
 
 - (void)starCountDown
 {
@@ -323,16 +322,9 @@
     self.hxbBaseVCScrollView.tableFooterView = [self tableViewFootView];
     [self.hxbBaseVCScrollView reloadData];
     
-    @try {
-        baseNAV.getNetworkAgainBlock = ^{
-            [weakSelf downLoadData];
-        };        
-    } @catch (NSException *exception) {
-        
-    } @finally {
-        
-    }
 }
+
+
 
 // 表头
 - (UIView *)tableViewHeadView {
