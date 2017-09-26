@@ -222,6 +222,10 @@
 }
 
 - (void)enterLoanBuyViewController {
+    if ([self.loanTruansferDetailViewModel.loanTruansferDetailModel.enabledBuy isEqualToString:@"0"]) {
+        [HxbHUDProgress showTextWithMessage:@"自己转让的债权无法再次购买"];
+        return;
+    }
     HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
     loanJoinVC.title = @"投资债权";
     loanJoinVC.type = HXB_Creditor;
