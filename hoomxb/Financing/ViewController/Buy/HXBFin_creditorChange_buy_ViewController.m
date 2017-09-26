@@ -284,6 +284,11 @@
     if (_buyAll) {
         if ([_btnLabelText containsString:@"充值"]) {
             [self fullAddtionFunc];
+        } else if ([_btnLabelText containsString:@"绑定"]) {
+            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+            withdrawCardViewController.title = @"绑卡";
+            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+            [self.navigationController pushViewController:withdrawCardViewController animated:YES];
         } else {
             [self alertPassWord];
         }
