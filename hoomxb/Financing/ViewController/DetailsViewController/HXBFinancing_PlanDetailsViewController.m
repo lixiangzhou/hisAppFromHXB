@@ -315,7 +315,7 @@
     }
     self.hxbBaseVCScrollView.delegate = self;
     self.hxbBaseVCScrollView.dataSource = self;
-    self.hxbBaseVCScrollView.hidden = YES;
+//    self.hxbBaseVCScrollView.hidden = YES;
 //    self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64 - 60)];
 //    [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
     self.hxbBaseVCScrollView.tableHeaderView = [self tableViewHeadView];

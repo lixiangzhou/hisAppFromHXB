@@ -87,7 +87,7 @@
     self.hxbBaseVCScrollView.dataSource = self;
     self.hxbBaseVCScrollView.tableHeaderView = [self tableViewHeadView];
     self.hxbBaseVCScrollView.tableFooterView = [self tableViewFootView];
-    self.hxbBaseVCScrollView.hidden = YES;
+//    self.hxbBaseVCScrollView.hidden = YES;
     //    self.detailView = [[HXBFin_LoanTruansferDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     //    [self.hxbBaseVCScrollView addSubview:self.detailView];
     self.hxb_automaticallyAdjustsScrollViewInsets = false;
