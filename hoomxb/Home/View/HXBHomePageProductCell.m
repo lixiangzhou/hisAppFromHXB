@@ -161,10 +161,12 @@
     [self.purchaseButton setTitle:self.homePageModel_DataList.cellBtnTitle forState:UIControlStateNormal];
     
     if ([self.homePageModel_DataList.cellBtnTitle rangeOfString:@"开售"].location != NSNotFound) {
+        self.colourGradientView.hidden = YES;
         [self.purchaseButton setTitleColor:COR29 forState:UIControlStateNormal];
         self.purchaseButton.layer.borderColor = RGB(255, 133, 133).CGColor;
         self.purchaseButton.backgroundColor = RGB(255, 247, 247);
     }else if([self.homePageModel_DataList.cellBtnTitle isEqualToString:@"收益中"]){
+        self.colourGradientView.hidden = YES;
         [self.purchaseButton setTitleColor:kHXBColor_Font0_6 forState:UIControlStateNormal];
         self.purchaseButton.layer.borderColor = kHXBColor_Font0_5.CGColor;
         self.purchaseButton.backgroundColor = kHXBColor_Grey090909;
@@ -212,11 +214,13 @@
             self.purchaseButton.layer.borderColor = kHXBColor_Font0_5.CGColor;
             self.purchaseButton.backgroundColor = kHXBColor_Grey090909;
         }else if([self.homePageModel_DataList.cellBtnTitle isEqualToString:@"收益中"]){
+            self.colourGradientView.hidden = YES;
             [self.purchaseButton setTitleColor:kHXBColor_Font0_6 forState:UIControlStateNormal];
             self.purchaseButton.layer.borderColor = kHXBColor_Font0_5.CGColor;
             self.purchaseButton.backgroundColor = kHXBColor_Grey090909;
         }else{
             self.purchaseButton.backgroundColor = COR29;
+            self.colourGradientView.hidden = NO;
             [self.purchaseButton setTitle:@"立即加入" forState:(UIControlStateNormal)];
             [self.purchaseButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
