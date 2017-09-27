@@ -246,7 +246,7 @@
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:placeholder];
     // 设置字体和设置字体的范围
     [attrStr addAttribute:NSForegroundColorAttributeName
-                    value:COR10
+                    value:COR12
                     range:NSMakeRange(0, placeholder.length)];
     self.textField.attributedPlaceholder = attrStr;
     self.idTextField.attributedPlaceholder = attrStr;
