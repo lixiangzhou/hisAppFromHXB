@@ -14,7 +14,7 @@
 @property (nonatomic,strong) UIView *rechargeView;
 // 待转让金额
 /** 电灯泡 */
-@property (nonatomic, strong)  UIImageView *tipsImageView;
+//@property (nonatomic, strong)  UIImageView *tipsImageView;
 @property (nonatomic,strong) UILabel *creditorLabel;
 
 @property (nonatomic, strong) HXBCustomTextField *rechargeViewTextField;
@@ -41,7 +41,7 @@
     UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(95))];
     topView.backgroundColor = [UIColor clearColor];
     [self addSubview:topView];
-    [topView addSubview:self.tipsImageView];
+//    [topView addSubview:self.tipsImageView];
     [self addSubview:self.cardLimitMoneyLabel];
     
     self.cardLimitMoneyLabel.hidden = NO;
@@ -52,20 +52,20 @@
     
     [_creditorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
-        make.left.equalTo(self).offset(kScrAdaptationW750(70));
+        make.left.equalTo(self).offset(kScrAdaptationW750(30));
         make.width.offset(kScreenWidth - 2 * kScrAdaptationW(15));
         make.height.offset(kScrAdaptationH(35));
     }];
-    [_tipsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(kScrAdaptationW750(30));
-        make.centerY.equalTo(_creditorLabel);
-        make.height.width.equalTo(@(kScrAdaptationH750(30)));
-    }];
+//    [_tipsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self).offset(kScrAdaptationW750(30));
+//        make.centerY.equalTo(_creditorLabel);
+//        make.height.width.equalTo(@(kScrAdaptationH750(30)));
+//    }];
     _backView = [[UIView alloc] initWithFrame:CGRectMake(0,kScrAdaptationH750(200), kScreenWidth, kScrAdaptationH(35))];
     _backView.backgroundColor = [UIColor whiteColor];
     [self addSubview:_backView];
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0,0, kScreenWidth, kScrAdaptationH(0.5))];
-    lineView.backgroundColor = COR12;
+    lineView.backgroundColor = COR26;
     [_backView addSubview:lineView];
     [_backView addSubview:self.profitLabel];
 }
@@ -84,11 +84,11 @@
     _rechargeView = [[UIView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(35), kScreenWidth, kScrAdaptationH(65))];
     _rechargeView.backgroundColor = [UIColor whiteColor];
     
-    UIImageView *leftImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH750(46.5), kScrAdaptationW(67), kScrAdaptationH750(37))];
+    UIImageView *leftImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), kScrAdaptationH750(46.5), kScrAdaptationW750(27), kScrAdaptationH750(37))];
     leftImage.contentMode = UIViewContentModeScaleAspectFit;
     leftImage.image = [UIImage imageNamed:@"hxb_my_message人民币"];
     
-    _rechargeViewTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectMake(leftImage.left + kScrAdaptationW(5), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(95), kScrAdaptationH(35))];
+    _rechargeViewTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectMake(kScrAdaptationW(5), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(105), kScrAdaptationH(35))];
     _rechargeViewTextField.keyboardType = UIKeyboardTypeDecimalPad;
     _rechargeViewTextField.isHidenLine = YES;
     _rechargeViewTextField.delegate = self;
@@ -117,13 +117,13 @@
     self.block();
 }
 
-- (UIImageView *)tipsImageView {
-    if (!_tipsImageView) {
-        _tipsImageView = [[UIImageView alloc] init];
-        _tipsImageView.svgImageString = @"BUYtips";
-     }
-    return _tipsImageView;
-}
+//- (UIImageView *)tipsImageView {
+//    if (!_tipsImageView) {
+//        _tipsImageView = [[UIImageView alloc] init];
+//        _tipsImageView.svgImageString = @"BUYtips";
+//     }
+//    return _tipsImageView;
+//}
 
 
 - (UILabel *)creditorLabel {
@@ -180,10 +180,10 @@
     _isHiddenBtn = isHiddenBtn;
     if (isHiddenBtn) {
         _rechargeBtn.hidden = YES;
-        _rechargeViewTextField.frame = CGRectMake(kScrAdaptationW(5), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(15), kScrAdaptationH(35));
+        _rechargeViewTextField.frame = CGRectMake(-5, kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(15), kScrAdaptationH(35));
     } else {
         _rechargeBtn.hidden = NO;
-        _rechargeViewTextField.frame = CGRectMake(kScrAdaptationW(5), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(95), kScrAdaptationH(35));
+        _rechargeViewTextField.frame = CGRectMake(-5, kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(95), kScrAdaptationH(35));
     }
 }
 

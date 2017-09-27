@@ -77,6 +77,9 @@
 
 - (void)buildUI {
     self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:(UITableViewStylePlain)];
+    if (LL_iPhoneX) {
+        self.hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+    }
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.hxbBaseVCScrollView.tableFooterView = [self footTableView];
     self.hxbBaseVCScrollView.hidden = NO;
@@ -92,16 +95,16 @@
 
 - (UIView *)headTableView {
     kWeakSelf
-    _topView = [[HXBCreditorChangeTopView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH750(285))];
+    _topView = [[HXBCreditorChangeTopView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH750(85))];
     if (_type == HXB_Plan) {
         self.topView.isHiddenBtn = YES;
         self.topView.profitStr = @"预期收益：0.00元";
         self.topView.hiddenProfitLabel = NO;
-        self.topView.height = kScrAdaptationH750(295);
+        self.topView.height = kScrAdaptationH750(285);
     } else {
         self.topView.isHiddenBtn = NO;
         self.topView.hiddenProfitLabel = YES;
-        self.topView.height = kScrAdaptationH750(225);
+        self.topView.height = kScrAdaptationH750(215);
     }
     if (_type == HXB_Creditor) {
         self.topView.keyboardType = UIKeyboardTypeDecimalPad;
@@ -381,7 +384,7 @@
                     @"smsCode": pwd};
             [weakSelf buyLoanWithDic:dic];
         } else {
-            dic = @{@"amount": _topupMoneyStr,
+            dic = @{@"amount": [NSString stringWithFormat:@"%.2f", _topupMoneyStr.doubleValue],
                     @"buyType": _buyType,
                     @"balanceAmount": _balanceMoneyStr,
                     @"smsCode": pwd};
