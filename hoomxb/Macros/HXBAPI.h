@@ -26,6 +26,7 @@
 
 //叶
 //#define BASEURL                                       @"https://api.hoomxb.com"//线上环境
+//#define BASEURL                                       @"https://api.hongxiaobao.com"//新线上环境
 //#define BASEURL                                       @"http://192.168.1.21:3000"//后台
 //#define BASEURL                                       @"http://192.168.1.133:3000"//王鹏 端测试
 //#define BASEURL                                       @"http://192.168.1.148:3000"//杜宇 测试

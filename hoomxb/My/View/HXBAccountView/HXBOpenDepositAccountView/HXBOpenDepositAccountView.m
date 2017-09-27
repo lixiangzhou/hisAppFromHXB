@@ -197,6 +197,11 @@
         isNull = YES;
         return isNull;
     }
+    if (!self.cardBinModel.support) {
+        [HxbHUDProgress showMessageCenter:@"此平台不支持该银行卡" inView:self];
+        isNull = YES;
+        return isNull;
+    }
     if (!(self.bankNumberTextField.text.length > 0)) {
         [HxbHUDProgress showMessageCenter:@"银行卡号不能为空" inView:self];
         isNull = YES;
@@ -445,8 +450,20 @@
 - (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
 {
     _cardBinModel = cardBinModel;
-    if (!cardBinModel.bankName.length) return;
-//    self.bankNumberTextField.isHidenLine = NO;
+    if (cardBinModel.creditCard) {
+        [self showKabinWithCardBinModel:cardBinModel];
+    }else
+    {
+        if (cardBinModel.support) {
+             [self showKabinWithCardBinModel:cardBinModel];
+        }
+    }
+  
+}
+
+//是否显示卡bin信息
+- (void)showKabinWithCardBinModel:(HXBCardBinModel *)cardBinModel
+{
     self.line.hidden = NO;
     self.bankNameTextField.hidden = NO;
     [UIView animateWithDuration:0.5 animations:^{
@@ -456,7 +473,7 @@
         self.phoneTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
     }];
     [self layoutIfNeeded];
-    if (cardBinModel.isDebit) {
+    if (!cardBinModel.creditCard) {
         self.bankNameTextField.svgImageName = cardBinModel.bankCode;
         self.bankNameTextField.text = [NSString stringWithFormat:@"%@：%@",cardBinModel.bankName,cardBinModel.quota];
     }else

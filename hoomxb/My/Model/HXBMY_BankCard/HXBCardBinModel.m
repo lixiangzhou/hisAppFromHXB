@@ -11,14 +11,14 @@
 @implementation HXBCardBinModel
 
 
-- (void)setCardType:(NSString *)cardType
-{
-    _cardType = cardType;
-    if ([cardType isEqualToString:@"debit"]) {
-        self.isDebit = YES;
-    }else
-    {
-        self.isDebit = NO;
-    }
-}
+//- (void)setCardType:(NSString *)cardType
+//{
+//    _cardType = cardType;
+//    if ([cardType isEqualToString:@"debit"]) {
+//        self.isDebit = YES;
+//    }else
+//    {
+//        self.isDebit = NO;
+//    }
+//}
 @end
