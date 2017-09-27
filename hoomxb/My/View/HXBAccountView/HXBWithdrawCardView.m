@@ -208,13 +208,31 @@
 - (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
 {
     _cardBinModel = cardBinModel;
+    
+    if (cardBinModel.creditCard) {
+        [self showKabinWithCardBinModel:cardBinModel];
+    }else
+    {
+        if (cardBinModel.support) {
+            [self showKabinWithCardBinModel:cardBinModel];
+        }
+    }
+    
+   
+}
+
+/**
+ 是否显示卡bin
+ */
+- (void)showKabinWithCardBinModel:(HXBCardBinModel *)cardBinModel
+{
     self.bankNameTextField.hidden = NO;
     self.line.hidden = NO;
     [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
         self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
     }];
     [self layoutIfNeeded];
-    if (cardBinModel.isDebit) {
+    if (!cardBinModel.creditCard) {
         self.bankNameTextField.svgImageName = cardBinModel.bankCode;
         self.bankNameTextField.text = [NSString stringWithFormat:@"%@：%@",cardBinModel.bankName,cardBinModel.quota];
     }else
@@ -223,6 +241,7 @@
         self.bankNameTextField.text = @"此卡为信用卡，暂不支持";
     }
 }
+
 //卡bin校验失败
 - (void)setIsCheckFailed:(BOOL)isCheckFailed
 {

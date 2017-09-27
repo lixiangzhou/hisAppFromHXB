@@ -20,6 +20,7 @@
 
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
+@property (nonatomic, strong) UIImageView *tipImage;
 @property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UILabel *availableBalanceLabel;
 @property (nonatomic, strong) UILabel *freeTipLabel;
@@ -52,6 +53,7 @@
     [self.view addSubview:self.backView];
     [self.view addSubview:self.mybankView];
     [self.view addSubview:self.amountTextField];
+    [self.view addSubview:self.tipImage];
     [self.view addSubview:self.nextButton];
     [self.view addSubview:self.availableBalanceLabel];
     [self.view addSubview:self.freeTipLabel];
@@ -98,7 +100,7 @@
 //    {
     [self loadBankCard];
     [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.offset(kScrAdaptationH750(30));
+        make.left.offset(kScrAdaptationW750(30));
         make.top.equalTo(self.mybankView.mas_bottom).offset(kScrAdaptationH750(20));
     }];
     [self.freeTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -107,12 +109,20 @@
     }];
 //    }
     
+    [self.tipImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.offset(kScrAdaptationH750(30));
+        make.width.offset(kScrAdaptationW750(27));
+        make.height.offset(kScrAdaptationH750(37));
+        make.centerY.equalTo(self.amountTextField);
+    }];
+    
     [self.amountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(kScrAdaptationH750(20));
-        make.left.equalTo(self.view).offset(kScrAdaptationW750(30));
+        make.left.equalTo(self.tipImage.mas_right).offset(kScrAdaptationW750(30));
         make.right.equalTo(self.view).offset(kScrAdaptationW750(-30));
         make.height.offset(kScrAdaptationH750(130));
     }];
+    
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(kScrAdaptationH750(20));
         make.left.equalTo(self.view);
@@ -256,17 +266,20 @@
         _amountTextField.delegate = self;
         _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
         _amountTextField.backgroundColor = [UIColor whiteColor];
-        UIImageView *tipImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(67), kScrAdaptationH750(37))];
-        tipImage.contentMode = UIViewContentModeScaleAspectFit;
-        tipImage.image = [UIImage imageNamed:@"hxb_my_message人民币"];
-        _amountTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _amountTextField.leftViewMode = UITextFieldViewModeAlways;
-        _amountTextField.leftView = tipImage;
 //        _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _amountTextField.textColor = RGB(51, 51, 51);
     }
     return _amountTextField;
 }
+
+- (UIImageView *)tipImage{
+    if(!_tipImage){
+        _tipImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(24), kScrAdaptationH750(37))];
+        _tipImage.image = [UIImage imageNamed:@"hxb_my_message人民币"];
+    }
+    return _tipImage;
+}
+
 //参数一：range,要被替换的字符串的range，如果是新键入的那么就没有字符串被替换，range.lenth=0,第二个参数：替换的字符串，即键盘即将键入或者即将粘贴到textfield的string
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string;
 {

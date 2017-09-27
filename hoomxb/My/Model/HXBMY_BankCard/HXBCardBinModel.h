@@ -27,11 +27,20 @@
  */
 @property (nonatomic, copy) NSString *quota;
 
+/**
+ 是否为信用卡
+ */
+@property (nonatomic, assign) BOOL creditCard;
+
+/**
+ 是否是支持的银行
+ */
+@property (nonatomic, assign) BOOL support;
 
 /***************新增属性*********************/
 /**
  是否为储蓄卡
  */
-@property (nonatomic, assign) BOOL isDebit;
+//@property (nonatomic, assign) BOOL isDebit;
 
 @end
