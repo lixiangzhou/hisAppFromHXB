@@ -73,7 +73,7 @@
     self.success = success;
     self.failture = failure;
     //现在的初始化代码
-//    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
 //    config.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 //    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:config];
     HxbHTTPSessionManager *manager = [HxbHTTPSessionManager manager];//以前初始化代码
