@@ -17,14 +17,25 @@ static NSString *const kHXBSVGImage = @"kHXBSVGImage";
 @implementation UIImageView (HxbSDWebImage)
 
 - (void)setSvgImageString:(NSString *)svgImageString {
+    
+    if (!svgImageString) {
+        self.image = [SVGKImage imageNamed:@"默认"].UIImage;
+        objc_setAssociatedObject(self, &kHXBSVGImageName, svgImageString, OBJC_ASSOCIATION_COPY_NONATOMIC);
+        return;
+    }
+    
     self.image = [UIImage imageNamed:svgImageString];
     NSArray *array = [svgImageString componentsSeparatedByString:@"."]; //从字符A中分隔成2个元素的数组
     NSString* path =  [[NSBundle mainBundle] pathForResource:[array firstObject] ofType:@"svg"];
-    if (self.image == nil && path != nil) {
-        self.image = [SVGKImage imageNamed:svgImageString].UIImage;
-    }
-    if (self.image == nil) {
-        self.image = [SVGKImage imageNamed:@"默认"].UIImage;
+    
+    if (path&&!self.image) {
+        @try {
+            self.image = [SVGKImage imageNamed:svgImageString].UIImage;
+        } @catch (NSException *exception) {
+            self.image = [SVGKImage imageNamed:@"默认"].UIImage;
+        } @finally {
+            
+        }
     }
     objc_setAssociatedObject(self, &kHXBSVGImageName, svgImageString, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
