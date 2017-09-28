@@ -353,10 +353,12 @@
         };
         
         _homeView.clickBannerImageBlock = ^(BannerModel *model) {
-            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
-            webViewVC.url = model.url;
-//            webViewVC.title = model.title;//mgmt标题
-            [weakSelf.navigationController pushViewController:webViewVC animated:true];
+            if (model.url.length) {
+                HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+                webViewVC.url = model.url;
+                //            webViewVC.title = model.title;//mgmt标题
+                [weakSelf.navigationController pushViewController:webViewVC animated:true];
+            }
         };
     }
     return _homeView;

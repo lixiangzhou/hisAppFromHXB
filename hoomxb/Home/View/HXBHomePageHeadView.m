@@ -180,7 +180,13 @@
 {
     _homeBaseModel = homeBaseModel;
     self.bulletinView.homeTitle = homeBaseModel.homeTitle;
-    self.bannerView.bannersModel = homeBaseModel.bannerList;
+    
+    if (homeBaseModel.bannerList.count) {
+        self.bannerView.bannersModel = homeBaseModel.bannerList;
+    }else{
+        BannerModel *bannerModel = [[BannerModel alloc] init];
+        self.bannerView.bannersModel = @[bannerModel];
+    }
 }
 
 - (void)noticeBtnClick
@@ -240,11 +246,11 @@
     if (!_bannerView) {
         _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kScrAdaptationH(110))];
 //        _bannerView.backgroundColor = [UIColor greenColor];
-//        BannerModel *bannerModel = [[BannerModel alloc] init];
+        BannerModel *bannerModel = [[BannerModel alloc] init];
 //        bannerModel.title = @"banner";
 //        bannerModel.image = @"http://img.zcool.cn/community/01320457c129440000012e7e7b7e99.gif";
 //        bannerModel.url = @"http://blog.csdn.net/lkxasdfg/article/details/8660827";
-//        _bannerView.bannersModel = @[bannerModel,bannerModel,bannerModel,bannerModel];
+        _bannerView.bannersModel = @[bannerModel];
         _bannerView.clickBannerImageBlock = ^(BannerModel *model){
             NSLog(@"%@%@",model.image,model.title);
             if (weakSelf.clickBannerImageBlock) {

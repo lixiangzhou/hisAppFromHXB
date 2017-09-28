@@ -19,24 +19,24 @@
              };
 }
 
-- (NSArray *)bannerList
-{
-    NSString *curTime =  [HXBServerAndClientTime getCurrentTime_Millisecond];
-    NSMutableArray *arr = [[NSMutableArray alloc] init];
-    for (BannerModel *bannermodel in _bannerList) {
-        NSLog(@"%@",bannermodel.start);
-        NSLog(@"%@",bannermodel.end);
-        if (bannermodel.end.length > 0) {
-            if (curTime.doubleValue > bannermodel.start.doubleValue && curTime.doubleValue < bannermodel.end.doubleValue) {
-                [arr addObject:bannermodel];
-            }
-        }else
-        {
-            [arr addObject:bannermodel];
-        }
-    }
-    _bannerList = arr;
-    return _bannerList;
-}
+//- (NSArray *)bannerList
+//{
+//    NSString *curTime =  [HXBServerAndClientTime getCurrentTime_Millisecond];
+//    NSMutableArray *arr = [[NSMutableArray alloc] init];
+//    for (BannerModel *bannermodel in _bannerList) {
+//        NSLog(@"%@",bannermodel.start);
+//        NSLog(@"%@",bannermodel.end);
+//        if (bannermodel.end.length > 0) {
+//            if (curTime.doubleValue > bannermodel.start.doubleValue && curTime.doubleValue < bannermodel.end.doubleValue) {
+//                [arr addObject:bannermodel];
+//            }
+//        }else
+//        {
+//            [arr addObject:bannermodel];
+//        }
+//    }
+//    _bannerList = arr;
+//    return _bannerList;
+//}
 
 @end
