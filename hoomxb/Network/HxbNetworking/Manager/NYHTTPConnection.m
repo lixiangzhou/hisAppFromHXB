@@ -73,15 +73,14 @@
     self.success = success;
     self.failture = failure;
     //现在的初始化代码
-    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-    config.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
-    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]initWithSessionConfiguration:config];
-//    HxbHTTPSessionManager *manager = [HxbHTTPSessionManager manager];//以前初始化代码
-    
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
+    HxbHTTPSessionManager *manager = [[HxbHTTPSessionManager alloc] initWithSessionConfiguration:config];
+
+//    HxbHTTPSessionManager *manager = [HxbHTTPSessionManager manager]; //以前初始化代码
 //-------------------------------------------request----------------------------------------
 //    if (request.requestSerializerType == NYRequestSerializerTypeHTTP) {
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    
+
 //    }else if (request.requestSerializerType == NYRequestSerializerTypeJson){
 //        manager.requestSerializer = [AFJSONRequestSerializer serializer];
 //    }
