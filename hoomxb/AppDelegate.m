@@ -100,6 +100,14 @@ static NSString *const my = @"我的";
     
 }
 
+// 检测外键传入的参数
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    if (!url)  return NO;
+    NSString *urlStr = url.absoluteString;
+    NSLog(@"handleOpenURL:%@",urlStr);
+    return YES;
+}
+
 - (void)keyboardManager
 {
     IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
