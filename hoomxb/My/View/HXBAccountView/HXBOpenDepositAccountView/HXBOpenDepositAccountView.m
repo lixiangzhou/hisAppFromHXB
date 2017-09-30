@@ -192,16 +192,6 @@
         isNull = YES;
         return isNull;
     }
-    if (!(self.cardBinModel.bankCode.length > 0)) {
-        [HxbHUDProgress showMessageCenter:@"银行号没有校验成功，请稍后再试" inView:self];
-        isNull = YES;
-        return isNull;
-    }
-    if (!self.cardBinModel.support) {
-        [HxbHUDProgress showMessageCenter:@"此平台不支持该银行卡" inView:self];
-        isNull = YES;
-        return isNull;
-    }
     if (!(self.bankNumberTextField.text.length > 0)) {
         [HxbHUDProgress showMessageCenter:@"银行卡号不能为空" inView:self];
         isNull = YES;
@@ -212,6 +202,17 @@
         isNull = YES;
         return isNull;
     }
+    
+    if ((!self.cardBinModel.creditCard) && (!self.cardBinModel.support)) {
+        [HxbHUDProgress showMessageCenter:@"此平台不支持该银行卡" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+//    if (!(self.cardBinModel.bankCode.length > 0)) {
+//        [HxbHUDProgress showMessageCenter:@"银行卡号没有校验成功，请稍后再试" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
     if (!(self.phoneTextField.text.length > 0)) {
         [HxbHUDProgress showMessageCenter:@"预留手机号不能为空" inView:self];
         isNull = YES;

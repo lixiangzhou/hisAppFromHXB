@@ -43,5 +43,8 @@
 @property (nonatomic,copy) NSString *toRepay;//123956.92
 ///投标进度
 @property (nonatomic,copy) NSString *progress;
+///是否为债权转让
+@property (nonatomic, assign) BOOL isBuyTransfer;
+
 - (void)steUPProperty;
 @end

@@ -8,7 +8,7 @@
 
 #import "HXBBaseTableView.h"
 #import "HXBMY_LoanTruansferViewModel.h"
-@interface HXBMY_LoanTruansferTableView : HXBBaseTableView
+@interface HXBMY_LoanTruansferTableView : UITableView
 @property (nonatomic,strong) NSArray <HXBMY_LoanTruansferViewModel*> *loanTruansferViewModelArray;
 
 @end

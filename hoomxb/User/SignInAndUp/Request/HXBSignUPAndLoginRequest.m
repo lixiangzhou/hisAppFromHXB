@@ -191,7 +191,7 @@
                      andFailureBlock: (void(^)(NSError *error))failureBlock {
     
     
-    HXBBaseRequest *checkMobileAPI = [[HXBBaseRequest alloc]init];
+    NYBaseRequest *checkMobileAPI = [[NYBaseRequest alloc]init];
     checkMobileAPI.requestMethod = NYRequestMethodPost;
     checkMobileAPI.requestUrl = kHXBUser_CheckMobileURL;
     
@@ -231,7 +231,7 @@
                      andSuccessBlock: (void(^)(BOOL isExist))successBlock
                      andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock {
     
-    HXBBaseRequest *checkMobileAPI = [[HXBBaseRequest alloc]init];
+    NYBaseRequest *checkMobileAPI = [[NYBaseRequest alloc]init];
     checkMobileAPI.requestMethod = NYRequestMethodPost;
     checkMobileAPI.requestUrl = kHXBUser_CheckExistMobileURL;
     checkMobileAPI.requestArgument = @{
