@@ -53,6 +53,8 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
                 }else{
                     VC = tbVC;
                 }
+                
+                
                 [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
             }
             return;
@@ -66,7 +68,6 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         default:
             break;
     }
-    
     
 //    DLog(@"请求成功-request：%@",request);
     if ([request.responseObject[kResponseStatus] integerValue]) {
@@ -82,7 +83,8 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             }];
             [HxbHUDProgress showTextWithMessage:error];
         }else{
-            [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
+//            if ([request.requestUrl rangeOfString:kHXBUser_checkCardBin].location != NSNotFound) return;
+//            [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
         }
     }else{
         if([request isKindOfClass:[HXBBaseRequest class]]) {
@@ -162,10 +164,9 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         return;
     }
     
-    [HxbHUDProgress showMessageCenter:request.error.description];
+    [HxbHUDProgress showMessageCenter:request.error.userInfo[@"NSLocalizedDescription"]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:RequestFailure object:nil userInfo:nil];
-    
 }
 
 
