@@ -56,7 +56,6 @@ static NSString *const CELLID = @"CELLID";
                             @"待转出金额(元)",
                             @"剩余期限",
                             ];
-    //            exiTingImageViewName = @"explain.svg";
     [cell setUPValueWithListCellManager:^HXBBaseViewCell_MYListCellTableViewCellManager *(HXBBaseViewCell_MYListCellTableViewCellManager *manager) {
         manager.title_LeftLabelStr = self.loanTruansferViewModelArray[indexPath.row].loanTitle;
 //        manager.title_RightLabelStr = self.loanTruansferViewModelArray[indexPath.row].status_UI;

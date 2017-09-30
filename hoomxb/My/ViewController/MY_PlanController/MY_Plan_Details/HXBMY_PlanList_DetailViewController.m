@@ -58,6 +58,7 @@
     if (self.isLeave) {
         cake = 5;
     }
+
     HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:kVCViewFrame_64 andInfoHaveCake:cake];
     self.planDetailView = planDetailView;
     //tableView 的点击

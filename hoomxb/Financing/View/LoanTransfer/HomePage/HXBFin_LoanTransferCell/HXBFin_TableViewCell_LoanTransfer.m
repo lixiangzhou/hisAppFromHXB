@@ -177,8 +177,7 @@
 
     self.amountTransferLabel.text = LoanTruansferViewModel.leftTransAmount_YUAN;
     self.loanLable.text = LoanTruansferViewModel.title;
-    self.loanImageView.image = [SVGKImage imageNamed:@"LoanTruansfer"].UIImage;
-    
+    self.loanImageView.image = [UIImage imageNamed:@"LoanTruansfer"];
 //    [self.stutasButton setTitle:@"转让中" forState:UIControlStateNormal];
 //    self.interestView.leftLabel.text = LoanTruansferViewModel.interest;
 }
@@ -215,7 +214,7 @@
     
     self.amountTransferLabel.text = manager.amountTransferStr;
     self.loanLable.text = manager.loanTitle;
-    self.loanImageView.image = [SVGKImage imageNamed:@"LoanTruansfer"].UIImage;
+    self.loanImageView.image = [UIImage imageNamed:@"LoanTruansfer"];
 }
 
 @end

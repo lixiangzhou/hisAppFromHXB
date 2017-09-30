@@ -104,7 +104,7 @@ static NSString *const exitTitle = @"已退出";
                            @"已获收益(元)",
                            @"平均历史年化收益"
                            ];
-            lanTruansferImageName = @"LoanTruansfer.svg";
+            lanTruansferImageName = @"LoanTruansfer";
             break;
         default:
             break;
@@ -113,11 +113,19 @@ static NSString *const exitTitle = @"已退出";
         manager.title_LeftLabelStr = viewModel.planModelDataList.name;
         manager.title_RightLabelStr = viewModel.status;
         manager.bottomViewManager.leftStrArray = titleArray;
-        manager.bottomViewManager.rightStrArray = @[
-                                                    viewModel.finalAmount_NOTYUAN,
-                                                    viewModel.earnAmount_NOTYUAN,
-                                                    viewModel.expectedRate
-                                                    ];
+        if (viewModel.requestType == HXBRequestType_MY_PlanRequestType_EXITING_PLAN) {
+            manager.bottomViewManager.rightStrArray = @[
+                                                        viewModel.finalAmount_NOTYUAN,
+                                                        viewModel.earnAmount_NOTYUAN,
+                                                        [NSString GetPerMilWithDouble:viewModel.planModelDataList.redProgressLeft.doubleValue]
+                                                        ];
+        } else {
+            manager.bottomViewManager.rightStrArray = @[
+                                                        viewModel.finalAmount_NOTYUAN,
+                                                        viewModel.earnAmount_NOTYUAN,
+                                                        viewModel.expectedRate
+                                                        ];
+        }
         manager.wenHaoImageName = exiTingImageViewName;
         manager.title_ImageName = lanTruansferImageName;
         return manager;

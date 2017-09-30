@@ -285,9 +285,15 @@
 
 //MARK: 取消定时器
 - (void)cancelTimer {
-    dispatch_cancel(self.timer);
-    self.column = -1;
-    self.timer = nil;
+    @try {
+        dispatch_cancel(self.timer);
+    } @catch (NSException *exception) {
+    } @finally {
+        self.column = -1;
+        self.timer = nil;
+    }
+    
+    
 }
 //MARK: 开启定时器
 - (void)resumeTimer {
