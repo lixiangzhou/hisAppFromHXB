@@ -65,7 +65,7 @@ static NSString *const CELLID = @"CELLID";
                                                     self.loanTruansferViewModelArray[indexPath.row].amountTransferStr,
                                                     self.loanTruansferViewModelArray[indexPath.row].remainMonthStr
                                                     ];
-        manager.title_ImageName = @"LoanTruansfer";
+//        manager.title_ImageName = @"LoanTruansfer.svg";
         return manager;
     }];
     
