@@ -211,6 +211,7 @@ kDealloc
     [self.planListView clickLoan_exiting_CellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickLoanCellIndex) {
         HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
         planListDetailVC.planViewModel = planViewModel;
+        planListDetailVC.isLeave = YES;
         [weakSelf.navigationController pushViewController:planListDetailVC animated:true];
     }];
     //已退出

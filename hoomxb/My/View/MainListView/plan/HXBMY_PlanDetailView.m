@@ -155,8 +155,8 @@ UITableViewDataSource
     self.topViewMassge  = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
     self.tableView = [[HXBFinDetail_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     UIEdgeInsets infoView_insets = UIEdgeInsetsMake(kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30));
+    NSLog(@"______%ld", self.cake);
     self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:self.cake andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:infoView_insets];
-    
      self.typeView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets];
     
     
@@ -222,7 +222,7 @@ UITableViewDataSource
         make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH750(20));
         make.left.equalTo(self);
         make.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH750(300)));
+        make.height.equalTo(@(kScrAdaptationH750(75 * self.cake)));
     }];
     [self.typeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.infoView.mas_bottom).offset(kScrAdaptationH750(20));
