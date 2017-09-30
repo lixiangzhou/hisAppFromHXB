@@ -15,5 +15,6 @@
 
 @property (nonatomic, strong) HXBBaseTabBarController *mainTabbarVC;
 
+
 @end
 
