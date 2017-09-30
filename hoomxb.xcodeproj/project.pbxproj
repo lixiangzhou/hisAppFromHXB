@@ -192,6 +192,8 @@
 		4ED2F27F1ECADC960014E5C7 /* introductionplaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED2F27D1ECADC960014E5C7 /* introductionplaceholder@2x.png */; };
 		4ED2F2801ECADC960014E5C7 /* introductionplaceholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED2F27E1ECADC960014E5C7 /* introductionplaceholder@3x.png */; };
 		4ED2F2831ECAE3C30014E5C7 /* HxbNormalConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED2F2821ECAE3C30014E5C7 /* HxbNormalConfig.m */; };
+		4EDDFBB01F7E0DA300C1A301 /* HXBFin_Plan_BuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFBAE1F7E0DA300C1A301 /* HXBFin_Plan_BuyViewController.m */; };
+		4EDDFBB11F7E0DA300C1A301 /* HXBFBase_BuyResult_VC.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EDDFBAF1F7E0DA300C1A301 /* HXBFBase_BuyResult_VC.m */; };
 		4EE5671D1F1F448C008126B4 /* HXBTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5671C1F1F448C008126B4 /* HXBTipView.m */; };
 		4EECDFD11F380E8B00301758 /* hongli.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECDFCE1F380E8B00301758 /* hongli.svg */; };
 		4EECDFD21F380E8B00301758 /* sanbiao.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECDFCF1F380E8B00301758 /* sanbiao.svg */; };
@@ -822,6 +824,10 @@
 		4ED2F2811ECAE3C30014E5C7 /* HxbNormalConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbNormalConfig.h; sourceTree = "<group>"; };
 		4ED2F2821ECAE3C30014E5C7 /* HxbNormalConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbNormalConfig.m; sourceTree = "<group>"; };
 		4ED2F2841ECAE4010014E5C7 /* HxbMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxbMacro.h; sourceTree = "<group>"; };
+		4EDDFBAC1F7E0DA300C1A301 /* HXBFin_Plan_BuyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFin_Plan_BuyViewController.h; sourceTree = "<group>"; };
+		4EDDFBAD1F7E0DA300C1A301 /* HXBFBase_BuyResult_VC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFBase_BuyResult_VC.h; sourceTree = "<group>"; };
+		4EDDFBAE1F7E0DA300C1A301 /* HXBFin_Plan_BuyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Plan_BuyViewController.m; sourceTree = "<group>"; };
+		4EDDFBAF1F7E0DA300C1A301 /* HXBFBase_BuyResult_VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFBase_BuyResult_VC.m; sourceTree = "<group>"; };
 		4EE5671B1F1F448C008126B4 /* HXBTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTipView.h; sourceTree = "<group>"; };
 		4EE5671C1F1F448C008126B4 /* HXBTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTipView.m; sourceTree = "<group>"; };
 		4EECDFCE1F380E8B00301758 /* hongli.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = hongli.svg; sourceTree = "<group>"; };
@@ -4691,6 +4697,7 @@
 				4E7BDEC11F18B650002A3E18 /* HXBLeftLabelTextView.m in Sources */,
 				E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */,
 				E17509BD1EC6F2A100E17B39 /* HXBFin_Detail_DetailVC_Loan.m in Sources */,
+				4EDDFBB01F7E0DA300C1A301 /* HXBFin_Plan_BuyViewController.m in Sources */,
 				E1DD667C1EFCD84400A4C01D /* HXBBaseView_MoreTopBottomView.m in Sources */,
 				E133DCDC1EEE3597009466DE /* HXBSingnUPEventManager.m in Sources */,
 				E16D7EE01F2B3C7200C5FBF5 /* HXBFin_LoanPerson_Info.m in Sources */,
@@ -4760,6 +4767,7 @@
 				E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */,
 				E1E461391EB98ADD005B1FC6 /* HXBBaseScrollToolBarView.m in Sources */,
 				E1270B461ECED2D000729BC9 /* HXBMyModel_MainLoanModel.m in Sources */,
+				4EDDFBB11F7E0DA300C1A301 /* HXBFBase_BuyResult_VC.m in Sources */,
 				E1FF8EED1F0FB52000C7F1AC /* HXBBaseModel.m in Sources */,
 				4E81E3FD1EE94FDE006AD3FC /* HXBModifyTransactionPasswordViewController.m in Sources */,
 				4E94A86B1F5D4FE90001BE94 /* UITextField+BXExtension.m in Sources */,

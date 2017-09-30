@@ -113,7 +113,9 @@ static NSString *const exitTitle = @"已退出";
                                                             lastValue
                                                             ];
                 manager.wenHaoImageName = exiTingImageViewName;
-                manager.title_ImageName = lanTruansferImageName;
+                if (viewModel.loanModel.isBuyTransfer) {
+                    manager.title_ImageName = @"LoanTruansfer.svg";
+                }
                 return manager;
             }];
         }

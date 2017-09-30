@@ -19,9 +19,6 @@ static NSString *const CELLID = @"CELLID";
 - (instancetype) initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setUP];
-        self.estimatedRowHeight = 0;
-        self.estimatedSectionHeaderHeight = 0;
-        self.estimatedSectionFooterHeight = 0;
     }
     return self;
 }
@@ -30,10 +27,13 @@ static NSString *const CELLID = @"CELLID";
     self.delegate = self;
     self.dataSource = self;
     self.backgroundColor = kHXBColor_BackGround;
-    
+    self.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self registerClass:[HXBBaseViewCell_MYListCellTableViewCell class] forCellReuseIdentifier:CELLID];
     self.nodataView.hidden = false;
     self.rowHeight = kScrAdaptationH(140);
+    self.estimatedRowHeight = 0;
+    self.estimatedSectionHeaderHeight = 0;
+    self.estimatedSectionFooterHeight = 0;
 }
 - (void)setLoanTruansferViewModelArray:(NSArray<HXBMY_LoanTruansferViewModel *> *)loanTruansferViewModelArray {
     _loanTruansferViewModelArray = loanTruansferViewModelArray;
@@ -58,7 +58,7 @@ static NSString *const CELLID = @"CELLID";
                             ];
     [cell setUPValueWithListCellManager:^HXBBaseViewCell_MYListCellTableViewCellManager *(HXBBaseViewCell_MYListCellTableViewCellManager *manager) {
         manager.title_LeftLabelStr = self.loanTruansferViewModelArray[indexPath.row].loanTitle;
-        manager.title_RightLabelStr = self.loanTruansferViewModelArray[indexPath.row].status_UI;
+//        manager.title_RightLabelStr = self.loanTruansferViewModelArray[indexPath.row].status_UI;
         manager.bottomViewManager.leftStrArray = titleArray;
         manager.bottomViewManager.rightStrArray = @[
                                                     self.loanTruansferViewModelArray[indexPath.row].interest,
@@ -110,6 +110,18 @@ static NSString *const CELLID = @"CELLID";
         self.clickPlanListCellBlock(indexPath, self.loanTruansferViewModelArray[indexPath.row]);
     }
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return kScrAdaptationH(10);
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
+
+#pragma mark - getter(懒加载)
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
@@ -126,14 +138,7 @@ static NSString *const CELLID = @"CELLID";
     return _nodataView;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return kScrAdaptationH(10);
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 0.01;
-}
+
 
 @end
