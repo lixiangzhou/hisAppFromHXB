@@ -308,7 +308,13 @@
 
     self.isTransparentNavigationBar = true;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - kScrAdaptationH(50));
+    [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.equalTo(self.view);
+        make.top.equalTo(self.view).offset(64);//.offset(kScrAdaptationH(30))
+        make.bottom.equalTo(self.view).offset(kScrAdaptationH(-50)); //注意适配iPhone X
+    }];
+//    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - kScrAdaptationH(50));
+    
 //    self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.hxbBaseVCScrollView.separatorColor = COR12;
     if ([self.hxbBaseVCScrollView respondsToSelector:@selector(setSeparatorInset:)]) {
