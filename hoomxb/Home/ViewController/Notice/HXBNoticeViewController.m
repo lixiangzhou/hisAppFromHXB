@@ -89,7 +89,7 @@
     static NSString *identifier = @"HXBNoticeViewControllerCell";
     HXBNoticeCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[HXBNoticeCell alloc]initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:identifier];
+        cell = [[HXBNoticeCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         cell.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
     }
     

@@ -104,7 +104,7 @@ static NSString *const exitTitle = @"已退出";
                            @"已获收益(元)",
                            @"平均历史年化收益"
                            ];
-            lanTruansferImageName = @"LoanTruansfer";
+//            lanTruansferImageName = @"LoanTruansfer";
             break;
         default:
             break;

@@ -349,7 +349,7 @@ static NSString *const my = @"我的";
         KeyChain.gesturePwd = gesture;
         KeyChain.gesturePwdCount = @"5";
         [kUserDefaults setBool:YES forKey:kHXBGesturePWD];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:NO];
         
     } else {
         NSLog(@"两次手势不匹配！");

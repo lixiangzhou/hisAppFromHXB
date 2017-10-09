@@ -43,9 +43,11 @@
         if (!image) {
             UIImageView *imageView = [[UIImageView alloc]init];
             imageView.svgImageString = myListCellManager.title_ImageName;
+            
             image = imageView.image;
         }
         self.title_ImageView.image = image;
+        self.title_ImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.title_ImageView.hidden = NO;
     }else {///没有imageView 那么跟新约束
         [self hxb_updateConstraints_imageView];
@@ -91,10 +93,10 @@
 ///title 没有ImageView 的时候更新约束
 - (void)hxb_updateConstraints_imageView {
     self.title_ImageView.hidden = !self.myListCellManager.title_ImageName;
-    CGFloat title_LeftLabel_LeftW = self.myListCellManager.title_ImageName.length? kScrAdaptationW(35) : kScrAdaptationW(15);
+    CGFloat title_LeftLabel_LeftW = self.myListCellManager.title_ImageName.length? kScrAdaptationW(25) : kScrAdaptationW(15);
     if (!self.myListCellManager.title_ImageName) {
         [self.title_LeftLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(15);
+            make.left.equalTo(self.contentView).offset(title_LeftLabel_LeftW);
         }];
     }
 }
@@ -138,7 +140,7 @@
         [self.contentView addSubview: self.title_ImageView];
         [self.title_ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.with.equalTo(@(kScrAdaptationH(15)));
-            make.left.equalTo(self.contentView).offset(kScrAdaptationW(15));
+            make.left.equalTo(self.contentView).offset(kScrAdaptationW(7));
             make.centerY.equalTo(self.contentView.mas_top).offset(kScrAdaptationH(22));
         }];
 }
