@@ -135,7 +135,7 @@ static NSString *const exitTitle = @"已退出";
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.clickPlanCellBlock(self.mainPlanViewModelArray[indexPath.section], indexPath);
+     self.clickPlanCellBlock(self.mainPlanViewModelArray[indexPath.section], indexPath);
 }
 
 

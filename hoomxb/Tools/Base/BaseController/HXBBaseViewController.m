@@ -298,8 +298,8 @@
 /**
  无网界面显示
  */
-- (HXBNoNetworkStatusView *)noNetworkStatusView
-{
+- (HXBNoNetworkStatusView *)noNetworkStatusView {
+    
     kWeakSelf
     if (!_noNetworkStatusView) {
         _noNetworkStatusView = [[HXBNoNetworkStatusView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];

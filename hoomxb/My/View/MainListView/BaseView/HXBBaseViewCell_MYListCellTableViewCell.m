@@ -54,11 +54,9 @@
     self.title_RightLabel.text = myListCellManager.title_RightLabelStr;
     if (self.title_RightLabel.text.length) {
         self.title_RightBGView.hidden = NO;
-    }else
-    {
+    } else {
         self.title_RightBGView.hidden = YES;
     }
-    
     
     [self.bottomTopBottomView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager * (HXBBaseView_MoreTopBottomViewManager *viewManager) {
         myListCellManager.bottomViewManager.leftViewArray = viewManager.leftViewArray;
@@ -69,15 +67,24 @@
     label.textColor = kHXBColor_Red_090303;
     if (myListCellManager.wenHaoImageName.length) {
         UIImageView *imageView = [[UIImageView alloc]init];
+        imageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageView)];
+        [imageView addGestureRecognizer:tapImage];
         imageView.svgImageString = myListCellManager.wenHaoImageName;
-        [self.bottomTopBottomView addSubview:imageView];
-        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.bottomTopBottomView.backgroundColor = [UIColor redColor];
+        [self.contentView addSubview:imageView];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make){
             make.left.equalTo(self.bottomTopBottomView.leftViewArray.lastObject.mas_right).offset(kScrAdaptationW(4));
             make.height.width.equalTo(@(kScrAdaptationH(14)));
             make.centerY.equalTo(self.bottomTopBottomView.leftViewArray.lastObject);
         }];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
+}
+
+// 点击图片的方法
+- (void)tapImageView {
+    [HxbHUDProgress showTextWithMessage:@"待转出金额为0时，红利计划完成退出，退出期间，正常计息。"];
 }
 
 #pragma mark - 赋值 后 更新约束
