@@ -150,7 +150,7 @@ static NSString *kINVEST = @"INVEST";
                 _isAddButtonHidden = true;
                 [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
                     _statusInt = 3;
-                    _status = typeUI;
+                    _status = [NSString stringWithFormat:@"%@", self.planDetailModel.exitWay];
                 }];
             }
                 

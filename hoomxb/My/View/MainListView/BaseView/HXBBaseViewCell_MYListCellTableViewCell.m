@@ -69,11 +69,10 @@
     label.textColor = kHXBColor_Red_090303;
     if (myListCellManager.wenHaoImageName.length) {
         UIImageView *imageView = [[UIImageView alloc]init];
+        imageView.svgImageString = myListCellManager.wenHaoImageName;
         imageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageView)];
         [imageView addGestureRecognizer:tapImage];
-        imageView.svgImageString = myListCellManager.wenHaoImageName;
-        self.bottomTopBottomView.backgroundColor = [UIColor redColor];
         [self.contentView addSubview:imageView];
         [imageView mas_makeConstraints:^(MASConstraintMaker *make){
             make.left.equalTo(self.bottomTopBottomView.leftViewArray.lastObject.mas_right).offset(kScrAdaptationW(4));

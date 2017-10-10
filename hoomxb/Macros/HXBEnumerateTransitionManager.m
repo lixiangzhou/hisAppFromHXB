@@ -15,9 +15,9 @@
 /// 根据枚举值返回对应的请求参数字符串 ———— 我的红利计划主界面
 + (HXBRequestType_MY_PlanRequestType)myPlan_requestTypeStr: (NSString *)typeStr{
     
-    if ([typeStr isEqualToString:MY_PlanRequestType_EXIT_PLAN]) return HXBRequestType_MY_PlanRequestType_EXIT_PLAN;//已推出
+    if ([typeStr isEqualToString:MY_PlanRequestType_EXIT_PLAN]) return HXBRequestType_MY_PlanRequestType_EXIT_PLAN;//已退出
     if ([typeStr isEqualToString:MY_PlanRequestType_HOLD_PLAN]) return HXBRequestType_MY_PlanRequestType_HOLD_PLAN;//持有中
-    if ([typeStr isEqualToString:MY_PlanRequestType_EXITING_PLAN]) return HXBRequestType_MY_PlanRequestType_EXITING_PLAN;//推出中
+    if ([typeStr isEqualToString:MY_PlanRequestType_EXITING_PLAN]) return HXBRequestType_MY_PlanRequestType_EXITING_PLAN;//退出中
     NSLog(@"🌶 %@, - 我的红利计划主界面  根据枚举值返回对应的请求参数字符串 出现错误",self.class);
     return HXBRequestType_MY_PlanRequestType_EXIT_PLAN;
 }

@@ -17,6 +17,9 @@
 @property (nonatomic,copy) NSString *cashType;
 ///红利计划 状态
 @property (nonatomic,copy) NSString *status;
+///红利计划 退出方式
+@property (nonatomic,copy) NSString *exitWay;
+
 /**
  status 对应的枚举
  1: 表示等待计息

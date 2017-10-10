@@ -51,6 +51,8 @@
 @property (nonatomic,copy) NSString *totalInterest;
 ///	string	状态（PURCHASE_END：收益中，PURCHASEING：等待计息）
 @property (nonatomic,copy) NSString *status;
+// 退出方式
+@property (nonatomic,copy) NSString *exitWay;
 ///	Int	剩余天数
 @property (nonatomic,copy) NSString *lastDays;
 
