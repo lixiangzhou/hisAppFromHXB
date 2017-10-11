@@ -92,6 +92,9 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                             completionHandler:
                                   ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      if (!data) {
+                                          return ;
+                                      }
                                       NSLog(@"data:%@",response);
                                        NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil]);
                                       refresh(data);

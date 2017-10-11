@@ -33,7 +33,7 @@ static NSString *kINVEST = @"INVEST";
  */
 - (NSString *) addTime {
     if (!_addTime) {
-        NSString *date = @(self.planDetailModel.registerTime.integerValue).description;
+        NSString *date = @(self.planDetailModel.registerTime.doubleValue).description;
         _addTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:date andDateFormat:@"yyyy-MM-dd"];
     }
     return _addTime;

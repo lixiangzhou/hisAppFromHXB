@@ -85,7 +85,12 @@
 
 // 点击图片的方法
 - (void)tapImageView {
-    [HxbHUDProgress showTextWithMessage:@"待转出金额为0时，红利计划完成退出，退出期间，正常计息。"];
+    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"待转出金额为0时，红利计划完成退出，退出期间，正常计息。" force:1 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
+    alertVC.messageHeight = kScrAdaptationH(60);
+    [alertVC setClickXYLeftButtonBlock:^{
+        [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
 }
 
 #pragma mark - 赋值 后 更新约束
