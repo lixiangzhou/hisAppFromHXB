@@ -40,6 +40,13 @@ kDealloc
     };
     [self setUP];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+}
+
 /**
  再次获取网络数据
  */
@@ -54,7 +61,7 @@ kDealloc
     ///view的创建
     [self setupView];
     ///网络请求
-    [self downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+//    [self downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
     ///事件的传递
     [self registerEvent];
     //刷新  加载
@@ -128,6 +135,12 @@ kDealloc
             self.loan_BID_ViewModelArray = loanViewModelArray;
             break;
         case HXBRequestType_MY_LoanRequestType_Truansfer: //转让中
+            break;
+        default:
+            self.loanListView.repaying_ViewModelArray = loanViewModelArray;
+            self.loan_REPAYING_ViewModelArray = loanViewModelArray;
+            self.loanListView.bid_ViewModelArray = loanViewModelArray;
+            self.loan_BID_ViewModelArray = loanViewModelArray;
             break;
     }
 }

@@ -64,6 +64,11 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
             return;
         }
+        case kHXBCode_Enum_RequestOverrun:
+        {
+            [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
+            return;
+        }
             break;
         default:
             break;

@@ -435,10 +435,15 @@
     self.bankNameTextField.userInteractionEnabled = NO;
 //    self.bankCode = bankCardModel.bankCode;
     
+    if (bankCardModel.cardId.length >= 12) {
+        if (self.checkCardBin) {
+            self.checkCardBin(bankCardModel.cardId);
+        }
+    }
     self.bankNumberTextField.text = [bankCardModel.cardId replaceStringWithStartLocation:0 lenght:bankCardModel.cardId.length - 4];
     self.bankNumberTextField.isHidenLine = YES;
     self.bankNumberTextField.userInteractionEnabled = NO;
-    
+
     
     self.phoneTextField.text = bankCardModel.securyMobile;
     self.phoneTextField.isHidenLine = YES;
@@ -467,9 +472,11 @@
 {
     self.line.hidden = NO;
     self.bankNameTextField.hidden = NO;
-    [UIView animateWithDuration:0.5 animations:^{
-        self.y = -70;
-    }];
+    if (self.bankNumberTextField.userInteractionEnabled) {
+        [UIView animateWithDuration:0.5 animations:^{
+            self.y = -70;
+        }];
+    }
     [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
         self.phoneTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
     }];
