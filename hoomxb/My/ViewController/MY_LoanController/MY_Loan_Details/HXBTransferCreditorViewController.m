@@ -15,6 +15,7 @@
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBFBase_BuyResult_VC.h"
 #import "HXBMY_LoanListViewController.h"
+#import "HXBTransferConfirmModel.h"
 @interface HXBTransferCreditorViewController ()
 
 @property (nonatomic, strong) HXBTransferCreditorTopView *topView;
@@ -26,6 +27,8 @@
 @property (nonatomic, strong) UIButton *sureBtn;
 
 @property (nonatomic, strong) HXBAlertVC *alertVC;
+
+@property (nonatomic, strong) HXBTransferConfirmModel *transferConfirmModel;
 
 @end
 
@@ -79,6 +82,7 @@
     HXBMYRequest *transferRequest = [[HXBMYRequest alloc] init];
     [transferRequest transferRequest_AccountRequestTransferID:self.creditorID SuccessBlock:^(HXBTransferConfirmModel *transferConfirmModel) {
         weakSelf.topView.transferConfirmModel = transferConfirmModel;
+        weakSelf.transferConfirmModel = transferConfirmModel;
     } andFailureBlock:^(NSError *error) {
         
     }];
@@ -112,7 +116,7 @@
 {
     kWeakSelf
     HXBMYRequest *transferRequest = [[HXBMYRequest alloc] init];
-    [transferRequest transferResultRequest_AccountRequestTransferID:self.creditorID andPWD:pwd SuccessBlock:^(id responseObject) {
+    [transferRequest transferResultRequest_AccountRequestTransferID:self.creditorID andPWD:pwd andCurrentTransferValue:self.transferConfirmModel.currentTransValue SuccessBlock:^(id responseObject) {
         HXBFBase_BuyResult_VC *successVC = [[HXBFBase_BuyResult_VC alloc] init];
         successVC.imageName = @"successful";
         successVC.buy_title = @"转让成功";

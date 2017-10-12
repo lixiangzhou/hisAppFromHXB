@@ -89,6 +89,7 @@
 		4E81E3FD1EE94FDE006AD3FC /* HXBModifyTransactionPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E3FA1EE94FDE006AD3FC /* HXBModifyTransactionPasswordViewController.m */; };
 		4E81E3FE1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E3FC1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m */; };
 		4E81E4061EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E81E4021EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m */; };
+		4E85EA261F8DF04900B7F124 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F630821F20B4F100FC0122 /* Assets.xcassets */; };
 		4E862E791F3C4BC5008CC638 /* HXBBankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E862E781F3C4BC5008CC638 /* HXBBankView.m */; };
 		4E87284E1F3D9B5900137398 /* HBAlertPasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E87284D1F3D9B5900137398 /* HBAlertPasswordView.m */; };
 		4E886FB71EF916A30056086E /* HXBGesturePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FB61EF916A30056086E /* HXBGesturePasswordViewController.m */; };
@@ -211,7 +212,6 @@
 		4EECE0191F38177000301758 /* 5007.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0071F38177000301758 /* 5007.svg */; };
 		4EECE01A1F38177000301758 /* 5008.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0081F38177000301758 /* 5008.svg */; };
 		4EECE01B1F38177000301758 /* 5009.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0091F38177000301758 /* 5009.svg */; };
-		4EECE01C1F38177000301758 /* 5010.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE00A1F38177000301758 /* 5010.svg */; };
 		4EECE01D1F38177000301758 /* 5012.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE00B1F38177000301758 /* 5012.svg */; };
 		4EECE0201F383ABE00301758 /* HXBMyHomeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EECE01F1F383ABE00301758 /* HXBMyHomeViewCell.m */; };
 		4EECE0241F3843A200301758 /* eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0231F3843A200301758 /* eye.svg */; };
@@ -458,7 +458,6 @@
 		E1F630761F207B9900FC0122 /* HXBFinLoanTruansfer_ContraceWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F630751F207B9900FC0122 /* HXBFinLoanTruansfer_ContraceWebViewVC.m */; };
 		E1F630791F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F630781F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m */; };
 		E1F6307D1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F6307C1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m */; };
-		E1F630831F20B4F100FC0122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F630821F20B4F100FC0122 /* Assets.xcassets */; };
 		E1FBADB71EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADB61EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m */; };
 		E1FBADBD1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADBA1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m */; };
 		E1FBADBE1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADBC1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m */; };
@@ -846,7 +845,6 @@
 		4EECE0071F38177000301758 /* 5007.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 5007.svg; sourceTree = "<group>"; };
 		4EECE0081F38177000301758 /* 5008.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 5008.svg; sourceTree = "<group>"; };
 		4EECE0091F38177000301758 /* 5009.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 5009.svg; sourceTree = "<group>"; };
-		4EECE00A1F38177000301758 /* 5010.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 5010.svg; sourceTree = "<group>"; };
 		4EECE00B1F38177000301758 /* 5012.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 5012.svg; sourceTree = "<group>"; };
 		4EECE01E1F383ABE00301758 /* HXBMyHomeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMyHomeViewCell.h; sourceTree = "<group>"; };
 		4EECE01F1F383ABE00301758 /* HXBMyHomeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyHomeViewCell.m; sourceTree = "<group>"; };
@@ -2249,7 +2247,6 @@
 				4EECE0071F38177000301758 /* 5007.svg */,
 				4EECE0081F38177000301758 /* 5008.svg */,
 				4EECE0091F38177000301758 /* 5009.svg */,
-				4EECE00A1F38177000301758 /* 5010.svg */,
 				4EECE00B1F38177000301758 /* 5012.svg */,
 			);
 			path = "银行icon";
@@ -4275,7 +4272,6 @@
 				4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */,
 				4EECE0161F38177000301758 /* 5004.svg in Resources */,
 				4EECE0141F38177000301758 /* 5002.svg in Resources */,
-				4EECE01C1F38177000301758 /* 5010.svg in Resources */,
 				4EECE0261F38548100301758 /* close_eye.svg in Resources */,
 				4E7E5B721F14792B00771C07 /* my_Unselected.svg in Resources */,
 				4E9215731F1DFC9E00C8CECB /* card.svg in Resources */,
@@ -4285,6 +4281,7 @@
 				4E7E5B811F14DFE900771C07 /* package.svg in Resources */,
 				4EECE0171F38177000301758 /* 5005.svg in Resources */,
 				4E7E5B6A1F14705700771C07 /* home_Unselected.svg in Resources */,
+				4E85EA261F8DF04900B7F124 /* Assets.xcassets in Resources */,
 				4E7BDEBE1F189F11002A3E18 /* arrow.svg in Resources */,
 				4ED2F2801ECADC960014E5C7 /* introductionplaceholder@3x.png in Resources */,
 				4E7CCF4C1EBC1B5B00F7BDB3 /* pageControl@3x.png in Resources */,
@@ -4308,7 +4305,6 @@
 				4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
 				4E9215691F1DFC4600C8CECB /* transaction_password.svg in Resources */,
 				4EECE00F1F38177000301758 /* 0201.svg in Resources */,
-				E1F630831F20B4F100FC0122 /* Assets.xcassets in Resources */,
 				4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */,
 				4E9215711F1DFC8800C8CECB /* bank_name.svg in Resources */,
 				4EECE01D1F38177000301758 /* 5012.svg in Resources */,
