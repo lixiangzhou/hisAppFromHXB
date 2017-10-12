@@ -18,6 +18,14 @@
  */
 @property (nonatomic,copy) NSString *toUserId;
 /**
+ 债权出售人名字
+ */
+@property (nonatomic,copy) NSString *fromUserName;
+/**
+ 债权购买人名字
+ */
+@property (nonatomic,copy) NSString *toUserName;
+/**
 交易金额
  */
 @property (nonatomic,copy) NSString *amount;

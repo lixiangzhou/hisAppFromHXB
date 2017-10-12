@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'FDE4A1EF8D791543C9274B6992BC5918'
+               BlueprintIdentifier = '91325C1E161F33B06490218DDC0A2075'
                BlueprintName = 'SVGKit'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libSVGKit.a'>

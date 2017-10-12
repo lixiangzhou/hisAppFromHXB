@@ -126,7 +126,9 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankCardTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH750(100));
+    if (self.bankNameTextField.hidden){
+        self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankCardTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH750(100));
+    }
 }
 
 
@@ -150,17 +152,49 @@
 //        isNull = YES;
 //        return isNull;
 //    }
+    if (!(self.bankCardTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"银行卡号不能为空" inView:self];
+        isNull = YES;
+        return isNull;
+    }
     if (!(self.bankCardTextField.text.length >= 10 && self.bankCardTextField.text.length <= 31)) {
-        
-        [HxbHUDProgress showMessageCenter:@"请输入正确的卡号" inView:self];
+        [HxbHUDProgress showMessageCenter:@"银行卡号输入有误" inView:self];
         isNull = YES;
         return isNull;
     }
-    if (![NSString isMobileNumber:self.phoneNumberTextField.text]) {
-        [HxbHUDProgress showMessageCenter:@"请输入正确手机号" inView:self];
+    if ((!self.cardBinModel.creditCard) && (!self.cardBinModel.support)) {
+        [HxbHUDProgress showMessageCenter:@"此平台不支持该银行卡" inView:self];
         isNull = YES;
         return isNull;
     }
+//    if (!(self.cardBinModel.bankCode.length > 0)) {
+//        [HxbHUDProgress showMessageCenter:@"银行卡号没有校验成功，请稍后再试" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
+    if (!(self.phoneNumberTextField.text.length > 0)) {
+        [HxbHUDProgress showMessageCenter:@"预留手机号不能为空" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    if (self.phoneNumberTextField.text.length != 11) {
+        [HxbHUDProgress showMessageCenter:@"预留手机号有误" inView:self];
+        isNull = YES;
+        return isNull;
+    }
+    
+    
+//    if (!(self.bankCardTextField.text.length >= 10 && self.bankCardTextField.text.length <= 31)) {
+//
+//        [HxbHUDProgress showMessageCenter:@"请输入正确的卡号" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
+//    if (![NSString isMobileNumber:self.phoneNumberTextField.text]) {
+//        [HxbHUDProgress showMessageCenter:@"请输入正确手机号" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
     return isNull;
 }
 
@@ -208,13 +242,31 @@
 - (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
 {
     _cardBinModel = cardBinModel;
+    
+    if (cardBinModel.creditCard) {
+        [self showKabinWithCardBinModel:cardBinModel];
+    }else
+    {
+        if (cardBinModel.support) {
+            [self showKabinWithCardBinModel:cardBinModel];
+        }
+    }
+    
+   
+}
+
+/**
+ 是否显示卡bin
+ */
+- (void)showKabinWithCardBinModel:(HXBCardBinModel *)cardBinModel
+{
     self.bankNameTextField.hidden = NO;
     self.line.hidden = NO;
     [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
         self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
     }];
     [self layoutIfNeeded];
-    if (cardBinModel.isDebit) {
+    if (!cardBinModel.creditCard) {
         self.bankNameTextField.svgImageName = cardBinModel.bankCode;
         self.bankNameTextField.text = [NSString stringWithFormat:@"%@：%@",cardBinModel.bankName,cardBinModel.quota];
     }else
@@ -223,6 +275,7 @@
         self.bankNameTextField.text = @"此卡为信用卡，暂不支持";
     }
 }
+
 //卡bin校验失败
 - (void)setIsCheckFailed:(BOOL)isCheckFailed
 {

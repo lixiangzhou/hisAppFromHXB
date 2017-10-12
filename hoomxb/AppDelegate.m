@@ -68,12 +68,16 @@ static NSString *const my = @"我的";
         [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
 
     }
-    return _mainTabbarVC;
+    return _mainTabbarVC ;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //字典和数据为空的防止闪退
-    [AvoidCrash becomeEffective];
+//    [AvoidCrash becomeEffective];
+    
+    //设置友盟统计
+    [self setupUmeng];
+    
     //配置网络
     [self setNetworkConfig];
     
@@ -85,10 +89,7 @@ static NSString *const my = @"我的";
     
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
-    
-    //设置友盟统计
-    [self setupUmeng];
-    
+
     //设置键盘
     [self keyboardManager];
     
@@ -98,6 +99,14 @@ static NSString *const my = @"我的";
 - (void)setupUmeng {
     [HXBUmengManagar HXB_umengStart];
     
+}
+
+// 检测外键传入的参数
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
+    if (!url)  return NO;
+    NSString *urlStr = url.absoluteString;
+    NSLog(@"handleOpenURL:%@",urlStr);
+    return YES;
 }
 
 - (void)keyboardManager

@@ -113,7 +113,9 @@ static NSString *const exitTitle = @"已退出";
                                                             lastValue
                                                             ];
                 manager.wenHaoImageName = exiTingImageViewName;
-                manager.title_ImageName = lanTruansferImageName;
+                if (viewModel.loanModel.isBuyTransfer) {
+                    manager.title_ImageName = @"LoanTruansfer.svg";
+                }
                 return manager;
             }];
         }
@@ -148,7 +150,7 @@ static NSString *const exitTitle = @"已退出";
                            @"已获收益(元)",
                            @"平均历史年化收益"
                            ];
-            lanTruansferImageName = @"LoanTruansfer.svg";
+            lanTruansferImageName = @"LoanTruansfer";
             title_rightSTR = viewModel.title_Truansfer;
             break;
         default:

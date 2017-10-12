@@ -27,17 +27,53 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         [HxbHUDProgress showTextWithMessage:@"请求超时,请稍后重试"];
     }
     
-    switch ([request.responseObject[kResponseStatus] integerValue]) {
-        case kHXBCode_Enum_Captcha://弹出图验、
-//            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowCaptchaVC object:nil];
-            break;
-        case kHXBCode_Enum_NotSigin:///没有登录{
-            KeyChain.isLogin = false;
-            break;
+//    switch ([request.responseObject[kResponseStatus] integerValue]) {
+//        case kHXBCode_Enum_Captcha://弹出图验、
+////            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowCaptchaVC object:nil];
+//            break;
+//        case kHXBCode_Enum_NotSigin:///没有登录{
+//            KeyChain.isLogin = false;
+//            break;
+//        case kHXBCode_Enum_TokenNotJurisdiction://没有权限
+//            KeyChain.isLogin = false;
+//            break;
+//    }
+    
+    switch (request.responseStatusCode) {
+        case kHXBCode_Enum_NotSigin:///没有登录
         case kHXBCode_Enum_TokenNotJurisdiction://没有权限
-            KeyChain.isLogin = false;
+            if (KeyChain.isLogin) {
+                //弹出是否 登录
+                //                [[KeyChainManage sharedInstance] signOut];
+                UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                UIViewController *VC = nil;
+                if ([tbVC isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
+                    UINavigationController *NAV = tbVC.selectedViewController;
+                    VC = NAV.viewControllers.lastObject;
+                }else{
+                    VC = tbVC;
+                }
+                
+                
+                [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
+            }
+            return;
+            break;
+        case kHXBCode_Enum_NoServerFaile:
+        {
+            [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
+            return;
+        }
+        case kHXBCode_Enum_RequestOverrun:
+        {
+            [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
+            return;
+        }
+            break;
+        default:
             break;
     }
+    
 //    DLog(@"请求成功-request：%@",request);
     if ([request.responseObject[kResponseStatus] integerValue]) {
         NSLog(@" ---------- %@",request.responseObject[kResponseStatus]);
@@ -49,12 +85,11 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                 NSArray *arr = obj;
                 error = arr[0];
-//                NSLog(@"%@",obj);
-//                if (!(error.length > 0)) {
-//                    
-//                }
             }];
             [HxbHUDProgress showTextWithMessage:error];
+        }else{
+//            if ([request.requestUrl rangeOfString:kHXBUser_checkCardBin].location != NSNotFound) return;
+//            [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
         }
     }else{
         if([request isKindOfClass:[HXBBaseRequest class]]) {
@@ -82,13 +117,16 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         case kHXBCode_Enum_TokenNotJurisdiction://没有权限
             if (KeyChain.isLogin) {
                 //弹出是否 登录
-//                [[KeyChainManage sharedInstance] signOut];
-                if ([[UIApplication sharedApplication].keyWindow.rootViewController isKindOfClass:NSClassFromString(@"UITabBarController")]) {
-                    UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                //                [[KeyChainManage sharedInstance] signOut];
+                UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+                UIViewController *VC = nil;
+                if ([tbVC isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
                     UINavigationController *NAV = tbVC.selectedViewController;
-                    UIViewController *VC = NAV.viewControllers.lastObject;
-                    [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
+                    VC = NAV.viewControllers.lastObject;
+                }else{
+                    VC = tbVC;
                 }
+                [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
             }
             return;
 //            [[KeyChainManage sharedInstance] removeAllInfo];
@@ -122,13 +160,18 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
         return;
     }
-    if (!request.responseStatusCode) {
-         [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
+//    if (!request.responseStatusCode) {
+//         [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
+//        return;
+//    }
+    if ([request.responseObject[@"code"]  isEqual: @"ESOCKETTIMEDOUT"]) {
+        [HxbHUDProgress showMessageCenter:@"请求超时,请稍后重试"];
         return;
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:RequestFailure object:nil userInfo:nil];
+    [HxbHUDProgress showMessageCenter:request.error.userInfo[@"NSLocalizedDescription"]];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:RequestFailure object:nil userInfo:nil];
 }
 
 

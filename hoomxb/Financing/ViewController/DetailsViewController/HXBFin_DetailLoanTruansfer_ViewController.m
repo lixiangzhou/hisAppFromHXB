@@ -16,7 +16,6 @@
 #import "HXBMYViewModel_MainLoanViewModel.h"///借款信息
 #import "HXBFinAddRecortdVC_Loan.h"///转让记录
 #import "HXBFinLoanTruansfer_ContraceWebViewVC.h"//转让协议
-//#import "HXBFin_LoanTruansfer_BuyViewController.h"///转让购买
 #import "HXBFinDetailViewModel_LoanTruansferDetail.h"//详情的viewModel
 #import "HXBFinAddRecordVC_LoanTruansfer.h"//转让记录
 #import "HXBFinAddTruastWebViewVC.h"///曾信页
@@ -31,7 +30,6 @@
 
 //假的navigationBar
 @property (nonatomic,strong) UIImageView *topImageView;
-//@property (nonatomic,strong) HXBFin_LoanTruansferDetailView *detailView;
 ///底部的tableView被点击
 @property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
 @property (nonatomic,copy) void (^clickAddButtonBlock)();
@@ -92,7 +90,7 @@
     self.hxbBaseVCScrollView.dataSource = self;
     self.hxbBaseVCScrollView.tableHeaderView = [self tableViewHeadView];
     self.hxbBaseVCScrollView.tableFooterView = [self tableViewFootView];
-    self.hxbBaseVCScrollView.hidden = YES;
+//    self.hxbBaseVCScrollView.hidden = YES;
     //    self.detailView = [[HXBFin_LoanTruansferDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     //    [self.hxbBaseVCScrollView addSubview:self.detailView];
     self.hxb_automaticallyAdjustsScrollViewInsets = false;

@@ -58,6 +58,7 @@
     if (self.isLeave) {
         cake = 5;
     }
+
     HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:kVCViewFrame_64 andInfoHaveCake:cake];
     self.planDetailView = planDetailView;
     //tableView 的点击
@@ -167,7 +168,6 @@
     self.viewModel = viewModel;
     kWeakSelf
     [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
-        
         manager.topViewStatusStr = viewModel.status;
         manager.topViewMassgeManager.rightLabelStr = @"已获收益（元）";
         manager.topViewMassgeManager.leftLabelStr = viewModel.earnAmount;

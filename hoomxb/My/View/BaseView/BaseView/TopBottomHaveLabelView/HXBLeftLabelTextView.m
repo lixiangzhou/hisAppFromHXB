@@ -37,7 +37,7 @@
     [self.leftImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW750(30));
         make.centerY.equalTo(self);
-        make.width.offset(kScrAdaptationW750(67));
+        make.width.offset(kScrAdaptationW750(27));
         make.height.offset(kScrAdaptationH750(37));
     }];
 //    [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -48,7 +48,7 @@
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.bottom.equalTo(self);
-        make.left.equalTo(self.leftImage.mas_right);
+        make.left.equalTo(self.leftImage.mas_right).offset(kScrAdaptationW(10));
         make.right.equalTo(self).offset(kScrAdaptationW750(-30));
     }];
 }

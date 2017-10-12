@@ -172,6 +172,7 @@ UITableViewDelegate,UITableViewDataSource
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableHeaderView = self.headerView;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_tableView];
     }
     return _tableView;
 }

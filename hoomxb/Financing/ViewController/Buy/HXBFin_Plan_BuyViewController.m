@@ -13,8 +13,8 @@
 #import "HXBFinDetailViewModel_PlanDetail.h"
 #import "HXBFinDetailModel_PlanDetail.h"
 #import "HXBFin_Plan_BuyViewModel.h"
-#import "HXBFin_Plan_BuySuccessViewController.h"//购买成功
-#import "HXBFin_Plan_BugFailViewController.h" //购买失败
+//#import "HXBFin_Plan_BuySuccessViewController.h"//购买成功
+//#import "HXBFin_Plan_BugFailViewController.h" //购买失败
 #import"HxbMyTopUpViewController.h"///充值
 #import "HXBFinAddTruastWebViewVC.h"//协议
 #import "HXBMiddlekey.h"

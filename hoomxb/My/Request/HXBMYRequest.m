@@ -685,6 +685,7 @@
  */
 - (void)transferResultRequest_AccountRequestTransferID: (NSString *)transferID
                                                 andPWD:(NSString *)pwd
+                               andCurrentTransferValue:(NSString *)currentTransferValue
                                     SuccessBlock: (void(^)(id responseObject))successDateBlock
                                  andFailureBlock: (void(^)(NSError *error))failureBlock{
     
@@ -693,6 +694,7 @@
     account_TransferRequest.requestMethod = NYRequestMethodPost;
     account_TransferRequest.requestArgument = @{
                                                 @"tradPassword" : pwd,
+                                                @"currentTransferValue" : currentTransferValue
                                                 };
     account_TransferRequest.isUPReloadData = YES;
     [account_TransferRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {

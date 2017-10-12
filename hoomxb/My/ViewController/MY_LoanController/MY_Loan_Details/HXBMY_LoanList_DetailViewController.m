@@ -84,15 +84,15 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = BACKGROUNDCOLOR;
     self.title = self.loanDetailViewModel.loanTitle;
     [self setUPView];
     self.isColourGradientNavigationBar = true;
 }
 
 - (void)setUPView {
-    self.loanDetailView = [[HXBMY_Loan_DetailView alloc]initWithFrame:self.view.frame];
-    
-    [self.hxbBaseVCScrollView addSubview:self.loanDetailView];
+    self.loanDetailView = [[HXBMY_Loan_DetailView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, self.view.height)];
+    [self.view addSubview:self.loanDetailView];
     [self.view addSubview:self.transferBtn];
     [self.transferBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);

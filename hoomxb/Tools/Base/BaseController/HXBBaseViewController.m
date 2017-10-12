@@ -34,7 +34,6 @@
     //解决侧滑手势失效
     self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     [self setupLeftBackBtn];
-    //
     [self loadNoNetwork];
 }
 //是否显示无网界面
@@ -43,9 +42,7 @@
     if (!KeyChain.ishaveNet) {
         self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
         [self.view addSubview:self.noNetworkStatusView];
-        
-    }else
-    {
+    } else {
         self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
     }
 }
@@ -86,6 +83,10 @@
 //        self.automaticallyAdjustsScrollViewInsets = true;
 //        self.edgesForExtendedLayout = UIRectEdgeAll;
         _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        if (LL_iPhoneX) {
+            _hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+        }
+        
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
 //        self.view.frame = _hxbBaseVCScrollView.bounds;
         [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
@@ -282,9 +283,14 @@
 - (UIImageView *)nacigationBarImageView {
     if (!_nacigationBarImageView) {
         _nacigationBarImageView = [[UIImageView alloc]init];
-        _nacigationBarImageView.frame = CGRectMake(0, 0, kScreenWidth, 64);
+        if (LL_iPhoneX) {
+            _nacigationBarImageView.frame = CGRectMake(0, 0, kScreenWidth, 88);
+        } else {
+            _nacigationBarImageView.frame = CGRectMake(0, 0, kScreenWidth, 64);
+        }
         [self.view addSubview:_nacigationBarImageView];
-        [self.view insertSubview:_nacigationBarImageView atIndex:self.view.subviews.count-1];
+        [self.view bringSubviewToFront:_nacigationBarImageView];
+//        [self.view insertSubview:_nacigationBarImageView atIndex:self.view.subviews.count-1];
     }
     return _nacigationBarImageView;
 }
@@ -292,11 +298,14 @@
 /**
  无网界面显示
  */
-- (HXBNoNetworkStatusView *)noNetworkStatusView
-{
+- (HXBNoNetworkStatusView *)noNetworkStatusView {
+    
     kWeakSelf
     if (!_noNetworkStatusView) {
         _noNetworkStatusView = [[HXBNoNetworkStatusView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        if (LL_iPhoneX) {
+            _noNetworkStatusView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+        }
         _noNetworkStatusView.hidden = YES;
         _noNetworkStatusView.backgroundColor = BACKGROUNDCOLOR;
         _noNetworkStatusView.getNetworkAgainBlock = ^{

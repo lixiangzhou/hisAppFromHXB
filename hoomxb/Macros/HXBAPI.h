@@ -28,12 +28,13 @@
 //#define BASEURL                                       @"https://api.hongxiaobao.com"//线上环境
 //#define BASEURL                                       @"http://192.168.1.21:3000"//后台
 //#define BASEURL                                       @"http://192.168.1.133:3000"//王鹏 端测试
-//#define BASEURL                                       @"http://192.168.1.161:3000"//杜宇 测试
+//#define BASEURL                                       @"http://192.168.1.199:3000"//杜宇 测试
 //#define BASEURL                                       @"http://192.168.1.31:3100"//后台、
-//#define BASEURL                                       @"http://192.168.1.27:3100"//后台 测试
-//#define BASEURL                                       @"http://192.168.1.28:3100"//后台 测试
-#define BASEURL                                       @"http://192.168.1.35:4100"//后台 测试
+#define BASEURL                                       @"http://192.168.1.27:3100"//后台 测试                                                                                                                                                                                       
+//#define BASEURL                                       @"http://192.168.1.35:4100"//后台 测试
 //#define BASEURL                                       @"http://192.168.1.31:3100"//后台、
+//#define BASEURL                                       @"http://192.168.1.35:4100"//后台、
+//#define BASEURL                                       @"http://192.168.1.27:5100"//后台、
 
 //#define kHXBH5_BaseURL                                @"http://192.168.1.21:3300"//后台 测试 （协议测试）
 //#define kHXBH5_BaseURL                                @"http://192.168.1.235:3000"//欧朋 测试 （协议测试）

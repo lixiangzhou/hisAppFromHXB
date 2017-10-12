@@ -93,6 +93,9 @@
     __weak typeof(self)weakSelf = self;
     [self.planDetail_DetailView setValueManager_PlanDetail_Detail:^HXBFinPlanDetail_DetailViewManager *(HXBFinPlanDetail_DetailViewManager *manager) {
          HXBFinDetailModel_PlanDetail *detailData = weakSelf.planDetailModel.planDetailModel;
+        if (!detailData) {
+            return manager;
+        }
         manager.addViewManager.leftStrArray = @[
                                                 @"计划金额",
                                                 @"加入条件",

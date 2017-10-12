@@ -21,8 +21,7 @@
 #import "HXBFin_Detail_DetailsVC_Plan.h"//红利计划详情中的详情
 
 #import "HXBFinPlanContract_contraceWebViewVC.h"//协议
-#import "HXBFinBuy_plan_ViewController.h"//计划加入
-#import "HXBFin_Plan_BuyViewController.h"//加入 界面
+//#import "HXBFin_Plan_BuyViewController.h"//加入 界面
 #import "HXBFinAddTruastWebViewVC.h"
 
 
@@ -325,7 +324,7 @@
     }
     self.hxbBaseVCScrollView.delegate = self;
     self.hxbBaseVCScrollView.dataSource = self;
-    self.hxbBaseVCScrollView.hidden = YES;
+//    self.hxbBaseVCScrollView.hidden = YES;
 //    self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64 - 60)];
 //    [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
     self.hxbBaseVCScrollView.tableHeaderView = [self tableViewHeadView];

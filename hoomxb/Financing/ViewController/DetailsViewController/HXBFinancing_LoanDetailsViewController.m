@@ -19,9 +19,7 @@
 #import "HXBFinAddRecortdVC_Loan.h"//贷款记录的控制器
 #import "HXBFinContract_contraceWebViewVC_Loan.h"//贷款合同的控制器
 
-#import "HXBFinBuy_Loan_ViewController.h"//加入
-#import "HXBFinDetailViewModel_LoanDetail.h"
-#import "HXBFin_Loan_BuyViewController.h"//加入界面
+//#import "HXBFin_Loan_BuyViewController.h"//加入界面
 #import "HXBFinAddTruastWebViewVC.h"
 
 #pragma mark --- (肖扬 散标计划详情)

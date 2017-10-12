@@ -32,6 +32,9 @@
             
                 //调用refreshAccesstoken方法，刷新access token。
                 [self refreshAccessToken:^(NSData *data) {
+                    if (!data) {
+                        return ;
+                    }
                     NSDictionary *dic = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"data"];
                     HXBTokenModel *model = [HXBTokenModel yy_modelWithJSON:dic];
                     NSLog(@"😝😝😝😝😝%@",model.token);
@@ -89,6 +92,9 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                             completionHandler:
                                   ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      if (!data) {
+                                          return ;
+                                      }
                                       NSLog(@"data:%@",response);
                                        NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil]);
                                       refresh(data);

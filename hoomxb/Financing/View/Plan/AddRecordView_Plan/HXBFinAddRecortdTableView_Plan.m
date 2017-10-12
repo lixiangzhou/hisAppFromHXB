@@ -75,7 +75,7 @@ static NSString *CELLID = @"CELLID";
     }
     if (self.loanTruansferModelArray.count) {
         HXBFinModel_AddRecortdModel_LoanTruansfer *loanTruansferModel = self.loanTruansferModelArray[indexPath.row];
-        [planCell showWithNumber:loanTruansferModel.index andID:loanTruansferModel.toUserId andDate:loanTruansferModel.createTime andAmount:loanTruansferModel.amount];
+        [planCell showWithNumber:loanTruansferModel.index andID:loanTruansferModel.toUserName andDate:loanTruansferModel.createTime andAmount:loanTruansferModel.amount];
     }
     return planCell;
 }
