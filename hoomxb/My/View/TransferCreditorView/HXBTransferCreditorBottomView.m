@@ -129,7 +129,7 @@
 {
     if (!_principaLabel) {
         _principaLabel = [[UILabel alloc] init];
-        _principaLabel.text = @"当前代收本金";
+        _principaLabel.text = @"当前待收本金";
         _principaLabel.textAlignment = NSTextAlignmentCenter;
         _principaLabel.textColor = COR10;
         _principaLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);

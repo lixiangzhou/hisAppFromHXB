@@ -89,6 +89,7 @@
  */
 - (void)transferResultRequest_AccountRequestTransferID: (NSString *)transferID
                                                 andPWD:(NSString *)pwd
+                               andCurrentTransferValue:(NSString *)currentTransferValue
                                           SuccessBlock: (void(^)(id responseObject))successDateBlock
                                        andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end
