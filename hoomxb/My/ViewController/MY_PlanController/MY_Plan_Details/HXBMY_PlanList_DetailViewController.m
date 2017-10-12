@@ -168,7 +168,6 @@
     self.viewModel = viewModel;
     kWeakSelf
     [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
-        
         manager.topViewStatusStr = viewModel.status;
         manager.topViewMassgeManager.rightLabelStr = @"已获收益（元）";
         manager.topViewMassgeManager.leftLabelStr = viewModel.earnAmount;

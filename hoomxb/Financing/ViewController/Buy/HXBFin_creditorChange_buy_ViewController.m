@@ -391,6 +391,19 @@
             [weakSelf buyCreditorWithDic:dic];
         }
     };
+    self.alertVC.getVerificationCodeBlock = ^{
+        HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+        [accountRequest accountRechargeRequestWithRechargeAmount:weakSelf.topupMoneyStr andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
+        } andFailureBlock:^(NSError *error) {
+            NSDictionary *errDic = (NSDictionary *)error;
+            if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
+                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                withdrawCardViewController.title = @"绑卡";
+                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+            }
+        }];
+    };
     [self presentViewController:_alertVC animated:NO completion:nil];
 }
 

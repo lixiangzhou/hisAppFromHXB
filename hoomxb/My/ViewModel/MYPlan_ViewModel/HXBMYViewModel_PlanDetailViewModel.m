@@ -33,7 +33,7 @@ static NSString *kINVEST = @"INVEST";
  */
 - (NSString *) addTime {
     if (!_addTime) {
-        NSString *date = @(self.planDetailModel.registerTime.integerValue).description;
+        NSString *date = @(self.planDetailModel.registerTime.doubleValue).description;
         _addTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:date andDateFormat:@"yyyy-MM-dd"];
     }
     return _addTime;
@@ -150,7 +150,7 @@ static NSString *kINVEST = @"INVEST";
                 _isAddButtonHidden = true;
                 [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
                     _statusInt = 3;
-                    _status = typeUI;
+                    _status = [NSString stringWithFormat:@"%@", self.planDetailModel.exitWay];
                 }];
             }
                 

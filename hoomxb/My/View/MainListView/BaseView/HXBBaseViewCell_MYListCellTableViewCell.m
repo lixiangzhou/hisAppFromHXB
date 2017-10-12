@@ -43,9 +43,11 @@
         if (!image) {
             UIImageView *imageView = [[UIImageView alloc]init];
             imageView.svgImageString = myListCellManager.title_ImageName;
+            
             image = imageView.image;
         }
         self.title_ImageView.image = image;
+        self.title_ImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.title_ImageView.hidden = NO;
     }else {///没有imageView 那么跟新约束
         [self hxb_updateConstraints_imageView];
@@ -54,11 +56,9 @@
     self.title_RightLabel.text = myListCellManager.title_RightLabelStr;
     if (self.title_RightLabel.text.length) {
         self.title_RightBGView.hidden = NO;
-    }else
-    {
+    } else {
         self.title_RightBGView.hidden = YES;
     }
-    
     
     [self.bottomTopBottomView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager * (HXBBaseView_MoreTopBottomViewManager *viewManager) {
         myListCellManager.bottomViewManager.leftViewArray = viewManager.leftViewArray;
@@ -70,8 +70,11 @@
     if (myListCellManager.wenHaoImageName.length) {
         UIImageView *imageView = [[UIImageView alloc]init];
         imageView.svgImageString = myListCellManager.wenHaoImageName;
-        [self.bottomTopBottomView addSubview:imageView];
-        [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        imageView.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapImage = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageView)];
+        [imageView addGestureRecognizer:tapImage];
+        [self.contentView addSubview:imageView];
+        [imageView mas_makeConstraints:^(MASConstraintMaker *make){
             make.left.equalTo(self.bottomTopBottomView.leftViewArray.lastObject.mas_right).offset(kScrAdaptationW(4));
             make.height.width.equalTo(@(kScrAdaptationH(14)));
             make.centerY.equalTo(self.bottomTopBottomView.leftViewArray.lastObject);
@@ -80,14 +83,24 @@
     }
 }
 
+// 点击图片的方法
+- (void)tapImageView {
+    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"待转出金额为0时，红利计划完成退出，退出期间，正常计息。" force:1 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
+    alertVC.messageHeight = kScrAdaptationH(60);
+    [alertVC setClickXYLeftButtonBlock:^{
+        [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+}
+
 #pragma mark - 赋值 后 更新约束
 ///title 没有ImageView 的时候更新约束
 - (void)hxb_updateConstraints_imageView {
     self.title_ImageView.hidden = !self.myListCellManager.title_ImageName;
-    CGFloat title_LeftLabel_LeftW = self.myListCellManager.title_ImageName.length? kScrAdaptationW(35) : kScrAdaptationW(15);
+    CGFloat title_LeftLabel_LeftW = self.myListCellManager.title_ImageName.length? kScrAdaptationW(25) : kScrAdaptationW(15);
     if (!self.myListCellManager.title_ImageName) {
         [self.title_LeftLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(15);
+            make.left.equalTo(self.contentView).offset(title_LeftLabel_LeftW);
         }];
     }
 }
@@ -131,7 +144,7 @@
         [self.contentView addSubview: self.title_ImageView];
         [self.title_ImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.with.equalTo(@(kScrAdaptationH(15)));
-            make.left.equalTo(self.contentView).offset(kScrAdaptationW(15));
+            make.left.equalTo(self.contentView).offset(kScrAdaptationW(7));
             make.centerY.equalTo(self.contentView.mas_top).offset(kScrAdaptationH(22));
         }];
 }
