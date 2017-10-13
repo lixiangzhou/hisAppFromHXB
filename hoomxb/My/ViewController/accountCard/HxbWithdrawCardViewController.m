@@ -32,10 +32,7 @@
 
 @property (nonatomic, strong) HXBWithdrawCardView *withdrawCardView;
 
-/**
- 银行卡号
- */
-@property (nonatomic, copy) NSString *bankNumber;
+
 
 
 @end
@@ -57,7 +54,6 @@
         };
         
         _withdrawCardView.checkCardBin = ^(NSString *bankNumber) {
-            weakSelf.bankNumber = bankNumber;
             [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:bankNumber andisTostTip:NO andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
                 [weakSelf checkCardBin:cardBinModel];
             } andFailureBlock:^(NSError *error) {
