@@ -249,7 +249,7 @@
         {
             self.sureBtnClick(self.transactionPassword);
         }
-    }else if ([btn.titleLabel.text isEqualToString:@"忘记密码?"])
+    }else if ([btn.titleLabel.text isEqualToString:@"忘记密码?"]||[btn.titleLabel.text isEqualToString:@"忘记交易密码?"])
     {
         if (self.forgetBtnClick) {
             self.forgetBtnClick();
@@ -317,7 +317,7 @@
 {
     if (!_forgetBtn) {
         _forgetBtn = [[UIButton alloc] init];
-        [_forgetBtn setTitle:@"忘记密码?" forState:UIControlStateNormal];
+        [_forgetBtn setTitle:@"忘记交易密码?" forState:UIControlStateNormal];
         _forgetBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         [_forgetBtn setTitleColor:RGB(115, 173, 255) forState:UIControlStateNormal];
         [_forgetBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
