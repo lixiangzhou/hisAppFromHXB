@@ -194,7 +194,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (isTost & (status != 104)) {
+            if (isTost && (status != 104)) {
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
             if (failureBlock) {
