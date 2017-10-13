@@ -139,7 +139,7 @@ UITableViewDelegate,UITableViewDataSource
 
 - (NSMutableAttributedString *)call
 {
-    NSString *str = @"客服热线（周一至周五9:00-19:00）";
+    NSString *str = @"客服热线（工作日9:00-18:00）";
     NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc]initWithString:str];
     
     [attributedStr addAttribute:NSFontAttributeName
