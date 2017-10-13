@@ -32,10 +32,7 @@
 
 @property (nonatomic, strong) HXBWithdrawCardView *withdrawCardView;
 
-/**
- bankName
- */
-//@property (nonatomic, strong) NSString *bankName;
+
 
 
 @end
@@ -57,7 +54,7 @@
         };
         
         _withdrawCardView.checkCardBin = ^(NSString *bankNumber) {
-            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:bankNumber andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:bankNumber andisTostTip:NO andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
                 [weakSelf checkCardBin:cardBinModel];
             } andFailureBlock:^(NSError *error) {
                 weakSelf.withdrawCardView.isCheckFailed = YES;
@@ -103,6 +100,13 @@
 
 
 - (void)nextButtonClick:(NSDictionary *)dic{
+    [self openStorageWithArgument:dic];
+}
+
+/**
+ 开通存管账户
+ */
+- (void)openStorageWithArgument:(NSDictionary *)dic{
     kWeakSelf
     HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [openDepositAccountRequest bindBankCardRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
@@ -121,10 +125,7 @@
     } andFailureBlock:^(NSError *error) {
         
     }];
-    
 }
-
-
 
 
 #pragma mark - --- delegate 视图委托 ---
