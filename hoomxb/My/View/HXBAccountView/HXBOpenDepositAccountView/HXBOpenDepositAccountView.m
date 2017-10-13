@@ -601,7 +601,7 @@
         kWeakSelf
         _bankNumberTextField.block = ^(NSString *text) {
             _bankNumber = [text stringByReplacingOccurrencesOfString:@" "  withString:@""];
-            if (text.length>=12) {
+            if (_bankNumber.length>=12) {
                 if (weakSelf.checkCardBin) {
                     weakSelf.checkCardBin(weakSelf.bankNumber);
                 }
