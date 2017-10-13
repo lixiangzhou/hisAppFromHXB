@@ -281,7 +281,8 @@
     self.promptLablel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
     self.promptLablel.text = @"- 预期收益不代表实际收益，投资需谨慎 -";
     [self.promptLablel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bottomTableView.mas_bottom).offset(kScrAdaptationH(20));
+//        make.top.equalTo(self.bottomTableView.mas_bottom).offset(kScrAdaptationH(20));
+        make.top.equalTo(self.bottomTableView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH(17)));
     }];

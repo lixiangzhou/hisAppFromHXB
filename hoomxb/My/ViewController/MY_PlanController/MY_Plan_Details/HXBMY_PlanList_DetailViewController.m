@@ -92,6 +92,7 @@
     HXBMY_Plan_Capital_ViewController *capitalVC = [[HXBMY_Plan_Capital_ViewController alloc]init];
     capitalVC.planID = self.planViewModel.planModelDataList.ID;
     capitalVC.type = HXBInvestmentRecord;
+    capitalVC.investmentType = self.type;
     [self.navigationController pushViewController:capitalVC animated:true];
 }
 //加入按钮

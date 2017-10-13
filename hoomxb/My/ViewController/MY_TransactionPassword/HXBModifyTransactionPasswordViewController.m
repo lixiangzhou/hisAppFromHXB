@@ -91,7 +91,8 @@
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
         //失败之后立即不去修改获取验证码的状态
-//        [weakSelf.homeView sendCodeFail];
+        kWeakSelf
+        [weakSelf.homeView sendCodeFail];
     }];
 }
 

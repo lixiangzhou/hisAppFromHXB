@@ -21,6 +21,7 @@
 
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userModel;
 
+
 @end
 
 @implementation HXBOpenDepositAccountViewController
@@ -125,6 +126,13 @@
 //开通账户
 - (void)bottomBtnClick:(NSDictionary *)dic
 {
+    [self openStorageWithArgument:dic];
+}
+
+/**
+ 开通存管账户
+ */
+- (void)openStorageWithArgument:(NSDictionary *)dic{
     kWeakSelf
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_commitBtn];
     HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
@@ -156,7 +164,6 @@
     } andFailureBlock:^(NSError *error) {
         
     }];
-    
 }
 
 #pragma mark - 懒加载
@@ -190,7 +197,7 @@
         
         //卡bin校验
         _mainView.checkCardBin = ^(NSString *bankNumber) {
-            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:bankNumber andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:bankNumber andisTostTip:NO andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
                 [weakSelf checkCardBin:cardBinModel];
             } andFailureBlock:^(NSError *error) {
                 weakSelf.mainView.isCheckFailed = YES;

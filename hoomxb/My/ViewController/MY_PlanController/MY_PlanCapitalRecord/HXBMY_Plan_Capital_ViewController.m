@@ -64,6 +64,7 @@ static NSString *const cellID = @"cellID";
     
     self.planCapitalTableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.planCapitalTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [HXBMiddlekey AdaptationiOS11WithTableView:self.planCapitalTableView];
     [self.view addSubview:self.planCapitalTableView];
 
     [self.planCapitalTableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -185,8 +186,26 @@ static NSString *const cellID = @"cellID";
     cell.ID = _dataArray[indexPath.row].loanId;
     cell.loanAoumt = _dataArray[indexPath.row].amount;
     cell.time = _dataArray[indexPath.row].lendTime;
-    cell.type = _dataArray[indexPath.row].status;
+    
+    if (self.type == HXBInvestmentRecord) {
+        if (self.investmentType == HXBRequestType_MY_PlanRequestType_HOLD_PLAN) {
+            cell.type = _dataArray[indexPath.row].status;
+        }else{
+            if (_dataArray[indexPath.row].planLoanRecordModel.rollOutleft.doubleValue > 0) {
+                cell.type = @"转让中";
+            }else{
+                cell.type = @"已完成";
+            }
+        }
+    }else{
+        cell.type = _dataArray[indexPath.row].status;
+    }
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return kScrAdaptationH750(88);
 }
 
 - (void)didReceiveMemoryWarning {

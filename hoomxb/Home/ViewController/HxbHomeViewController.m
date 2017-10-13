@@ -40,6 +40,11 @@
     [super viewDidLoad];
 //    [self hiddenTabbarLine];
     [self.view addSubview:self.homeView];
+    [self.homeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.equalTo(self.view);
+        make.top.equalTo(self.view);//.offset(kScrAdaptationH(30))
+        make.bottom.equalTo(self.view); //注意适配iPhone X
+    }];
 //    [self getData:YES];
 //    [self.homeView changeIndicationView];
 //    [self.homeView showSecurityCertificationOrInvest];
@@ -310,7 +315,9 @@
 - (HxbHomeView *)homeView{
     if (!_homeView) {
         kWeakSelf
-        _homeView = [[HxbHomeView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+//        _homeView = [[HxbHomeView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _homeView = [[HxbHomeView alloc]initWithFrame:CGRectZero];
+
         /**
          点击cell中按钮的回调的Block
          */

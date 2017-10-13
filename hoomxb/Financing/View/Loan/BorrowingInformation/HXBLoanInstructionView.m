@@ -24,6 +24,7 @@
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.loanInstructionLabel];
         [self addSubview:self.loanContentLabel];
+        
         [self setupSubViewframe];
     }
     return self;

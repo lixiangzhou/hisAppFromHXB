@@ -29,6 +29,11 @@
     if (self) {
 
         [self addSubview:self.mainTableView];
+        [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.width.equalTo(self);
+            make.top.equalTo(self);//.offset(kScrAdaptationH(30))
+            make.bottom.equalTo(self).offset(-49); //注意适配iPhone X
+        }];
 //        [self.mainTableView addSubview:self.refreshControl];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIndicationView) name:IsLoginToReloadTableView object:nil];
 //        [self addSubview:self.navigationBar];
@@ -348,7 +353,8 @@
 - (UITableView *)mainTableView
 {
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49) style:UITableViewStyleGrouped];
+        _mainTableView = [[UITableView alloc]initWithFrame:CGRectZero];
+//        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49) style:UITableViewStyleGrouped];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.backgroundColor = RGB(245, 245, 245);
