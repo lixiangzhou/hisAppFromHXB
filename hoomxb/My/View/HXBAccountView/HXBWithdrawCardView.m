@@ -11,6 +11,7 @@
 #import "SVGKImage.h"
 #import "HXBCustomTextField.h"
 #import "HXBCardBinModel.h"
+#import "HXBOpenDepositAccountRequest.h"
 @interface HXBWithdrawCardView ()<UITextFieldDelegate>
 //@property (nonatomic, strong) UITextField *bankCardTextField;
 //@property (nonatomic, strong) UIButton *bankNameBtn;
@@ -135,13 +136,22 @@
 - (void)nextButtonClick
 {
     if (self.nextButtonClickBlock) {
-        if ([self judgeIsNull]) return;
-        NSDictionary *dic = @{
-                              @"bankCard" : _bankCardID,
-                              @"bankReservedMobile" : self.phoneNumberTextField.text,
-                              @"bankCode" : self.cardBinModel.bankCode
-                              };
-        self.nextButtonClickBlock(dic);
+        kWeakSelf
+        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:_bankCardID andisTostTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+//            [weakSelf checkCardBin:cardBinModel];
+            weakSelf.cardBinModel = cardBinModel;
+            if ([self judgeIsNull]) return;
+            NSDictionary *dic = @{
+                                  @"bankCard" : _bankCardID,
+                                  @"bankReservedMobile" : self.phoneNumberTextField.text,
+                                  @"bankCode" : self.cardBinModel.bankCode
+                                  };
+            self.nextButtonClickBlock(dic);
+            
+        } andFailureBlock:^(NSError *error) {
+            weakSelf.isCheckFailed = YES;
+        }];
+        
     }
 }
 - (BOOL)judgeIsNull
@@ -158,12 +168,12 @@
         return isNull;
     }
     if (!(self.bankCardTextField.text.length >= 10 && self.bankCardTextField.text.length <= 31)) {
-        [HxbHUDProgress showMessageCenter:@"银行卡号输入有误" inView:self];
+        [HxbHUDProgress showMessageCenter:@"您银行卡号有误，请重新输入" inView:self];
         isNull = YES;
         return isNull;
     }
-    if ((!self.cardBinModel.creditCard) && (!self.cardBinModel.support)) {
-        [HxbHUDProgress showMessageCenter:@"此平台不支持该银行卡" inView:self];
+    if (self.cardBinModel.creditCard) {
+        [HxbHUDProgress showMessageCenter:@"此卡为信用卡，暂不支持" inView:self];
         isNull = YES;
         return isNull;
     }
@@ -242,15 +252,15 @@
 - (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
 {
     _cardBinModel = cardBinModel;
-    
-    if (cardBinModel.creditCard) {
-        [self showKabinWithCardBinModel:cardBinModel];
-    }else
-    {
-        if (cardBinModel.support) {
-            [self showKabinWithCardBinModel:cardBinModel];
-        }
-    }
+    [self showKabinWithCardBinModel:cardBinModel];
+//    if (cardBinModel.creditCard) {
+//
+//    }else
+//    {
+//        if (cardBinModel.support) {
+//            [self showKabinWithCardBinModel:cardBinModel];
+//        }
+//    }
     
    
 }
@@ -266,6 +276,7 @@
         self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
     }];
     [self layoutIfNeeded];
+    
     if (!cardBinModel.creditCard) {
         self.bankNameTextField.svgImageName = cardBinModel.bankCode;
         self.bankNameTextField.text = [NSString stringWithFormat:@"%@：%@",cardBinModel.bankName,cardBinModel.quota];

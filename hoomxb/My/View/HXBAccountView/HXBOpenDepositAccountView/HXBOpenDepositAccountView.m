@@ -15,6 +15,7 @@
 #import "HXBAgreementView.h"
 #import "HXBCardBinModel.h"
 #import "IQKeyboardManager.h"
+#import "HXBOpenDepositAccountRequest.h"
 @interface HXBOpenDepositAccountView ()<UITextFieldDelegate>
 @property (nonatomic, strong) HXBDepositoryHeaderView *headerTipView;
 @property (nonatomic, strong) HXBCustomTextField *nameTextField;
@@ -148,19 +149,26 @@
 - (void)bottomBtnClick
 {
     if (self.openAccountBlock) {
-        if ([self judgeIsTure]) return;
-        _bankNumber = [_bankNumberTextField.text stringByReplacingOccurrencesOfString:@" "  withString:@""];
-        NSDictionary *dic = @{
-                              @"realName" : self.nameTextField.text,
-                              @"identityCard" : self.idCardTextField.text,
-                              @"password" : self.pwdTextField.text,
-                              @"bankCard" : _bankNumber,
-                              @"bankReservedMobile" : self.phoneTextField.text,
-                              @"bankCode" : self.cardBinModel.bankCode
-                              };
-        self.openAccountBlock(dic);
+        kWeakSelf
+        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:self.bankNumber andisTostTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+            weakSelf.cardBinModel = cardBinModel;
+            if ([self judgeIsTure]) return;
+            self.bankNumber = [self.bankNumberTextField.text stringByReplacingOccurrencesOfString:@" "  withString:@""];
+            NSDictionary *dic = @{
+                                  @"realName" : self.nameTextField.text,
+                                  @"identityCard" : self.idCardTextField.text,
+                                  @"password" : self.pwdTextField.text,
+                                  @"bankCard" : _bankNumber,
+                                  @"bankReservedMobile" : self.phoneTextField.text,
+                                  @"bankCode" : self.cardBinModel.bankCode
+                                  };
+            self.openAccountBlock(dic);
+        } andFailureBlock:^(NSError *error) {
+            weakSelf.isCheckFailed = YES;
+        }];
     }
 }
+
 
 - (BOOL)judgeIsTure
 {
@@ -203,8 +211,8 @@
         return isNull;
     }
     
-    if ((!self.cardBinModel.creditCard) && (!self.cardBinModel.support)) {
-        [HxbHUDProgress showMessageCenter:@"此平台不支持该银行卡" inView:self];
+    if (self.cardBinModel.creditCard) {
+        [HxbHUDProgress showMessageCenter:@"此卡为信用卡，暂不支持" inView:self];
         isNull = YES;
         return isNull;
     }
@@ -456,14 +464,15 @@
 - (void)setCardBinModel:(HXBCardBinModel *)cardBinModel
 {
     _cardBinModel = cardBinModel;
-    if (cardBinModel.creditCard) {
-        [self showKabinWithCardBinModel:cardBinModel];
-    }else
-    {
-        if (cardBinModel.support) {
-             [self showKabinWithCardBinModel:cardBinModel];
-        }
-    }
+    [self showKabinWithCardBinModel:cardBinModel];
+//    if (cardBinModel.creditCard) {
+//
+//    }else
+//    {
+//        if (cardBinModel.support) {
+//             [self showKabinWithCardBinModel:cardBinModel];
+//        }
+//    }
   
 }
 
@@ -481,6 +490,7 @@
         self.phoneTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
     }];
     [self layoutIfNeeded];
+    
     if (!cardBinModel.creditCard) {
         self.bankNameTextField.svgImageName = cardBinModel.bankCode;
         self.bankNameTextField.text = [NSString stringWithFormat:@"%@：%@",cardBinModel.bankName,cardBinModel.quota];

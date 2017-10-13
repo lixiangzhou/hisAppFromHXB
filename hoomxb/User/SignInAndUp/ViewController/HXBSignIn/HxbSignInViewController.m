@@ -104,7 +104,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
         } andFailureBlock:^(NSError *error, id responseObject) {
             if ([responseObject[kResponseStatus] integerValue]) {
                 
-                [HxbHUDProgress showTextWithMessage: responseObject[kResponseMessage]];
+//                [HxbHUDProgress showTextWithMessage: responseObject[kResponseMessage]];
                 if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {
 //                    [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
                     if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {//谈图验

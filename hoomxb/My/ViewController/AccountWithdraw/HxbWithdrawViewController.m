@@ -447,7 +447,7 @@
         _alertVC = [[HXBAlertVC alloc] init];
         _alertVC.isCode = YES;
         _alertVC.messageTitle = @"请输入您的短信验证码";
-        _alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收",[self.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:self.bankCardModel.mobile.length - 7]];
+        _alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收",[self.userInfoViewModel.userInfoModel.userInfo.mobile replaceStringWithStartLocation:3 lenght:self.bankCardModel.mobile.length - 7]];
         _alertVC.sureBtnClick = ^(NSString *pwd){
             if (pwd.length == 0) {
                 return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];

@@ -71,7 +71,6 @@
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
             if (status == 5068) {
-                
                 [self showAlertWithMessage:@"您的绑卡操作已超限，请明日再试"];
             } else {
                 if (status == 104) return;
@@ -175,12 +174,13 @@
 
 /**
  卡bin校验
- 
+
  @param bankNumber 银行卡号
+ @param isTost 是否需要提示信息
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-+ (void)checkCardBinResultRequestWithSmscode:(NSString *)bankNumber andSuccessBlock: (void(^)(HXBCardBinModel *cardBinModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
++ (void)checkCardBinResultRequestWithSmscode:(NSString *)bankNumber andisTostTip:(BOOL)isTost andSuccessBlock: (void(^)(HXBCardBinModel *cardBinModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBUser_checkCardBin;
@@ -193,6 +193,9 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
+            if (isTost) {
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            }
             if (failureBlock) {
                 failureBlock(responseObject);
             }
