@@ -7,16 +7,15 @@
 //
 
 #import "HXBCreditorChangeTopView.h"
-//#import "HXBRechargeView.h"
+#import "HXBMy_Withdraw_notifitionView.h"
+
 
 @interface HXBCreditorChangeTopView ()<UITextFieldDelegate>
 // 一键购买
 @property (nonatomic,strong) UIView *rechargeView;
 // 待转让金额
-/** 电灯泡 */
-//@property (nonatomic, strong)  UIImageView *tipsImageView;
 @property (nonatomic,strong) UILabel *creditorLabel;
-
+@property (nonatomic, strong) HXBMy_Withdraw_notifitionView *notifitionView;
 @property (nonatomic, strong) HXBCustomTextField *rechargeViewTextField;
 @property (nonatomic, strong) UIButton *rechargeBtn;
 /** 银行限额弹框 */
@@ -24,7 +23,9 @@
 /** 预期收益 */
 @property (nonatomic, strong)  UILabel *profitLabel;
 /** 预期收益 */
-@property (nonatomic, strong)  UIView *backView;
+@property (nonatomic, strong) UIView *backView;
+@property (nonatomic, strong) UIView *topView;
+@property (nonatomic, strong) UIImageView *leftImage;
 
 @end
 @implementation HXBCreditorChangeTopView
@@ -38,93 +39,79 @@
 }
 
 - (void)buildUI {
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(95))];
-    topView.backgroundColor = [UIColor clearColor];
-    [self addSubview:topView];
-//    [topView addSubview:self.tipsImageView];
-    [self addSubview:self.cardLimitMoneyLabel];
-    
-    self.cardLimitMoneyLabel.hidden = NO;
-    [self setRechardView];
-    [topView addSubview:_rechargeView];
-    [topView addSubview:self.creditorLabel];
-    
+    [self addSubview:self.notifitionView];
+    [self addSubview:self.topView];
+    [self addSubview:self.backView];
+    [self addSubview:self.rechargeView];
+    [self.topView addSubview:self.creditorLabel];
+    [self.rechargeView addSubview:self.rechargeViewTextField];
+    [self.rechargeView addSubview:self.leftImage];
+    [self.rechargeView addSubview:self.rechargeBtn];
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(0.5))];
+    lineView.backgroundColor = COR26;
+    [self.backView addSubview:lineView];
+    [self.backView addSubview:self.profitLabel];
+}
+
+- (void)setupFrame {
+    [_topView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_notifitionView.mas_bottom);
+        make.left.equalTo(self);
+        make.width.equalTo(self);
+        make.height.offset(kScrAdaptationH(35));
+    }];
     
     [_creditorLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self);
+        make.top.equalTo(_topView);
         make.left.equalTo(self).offset(kScrAdaptationW750(30));
         make.width.offset(kScreenWidth - 2 * kScrAdaptationW(15));
         make.height.offset(kScrAdaptationH(35));
     }];
-//    [_tipsImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self).offset(kScrAdaptationW750(30));
-//        make.centerY.equalTo(_creditorLabel);
-//        make.height.width.equalTo(@(kScrAdaptationH750(30)));
-//    }];
-    _backView = [[UIView alloc] initWithFrame:CGRectMake(0,kScrAdaptationH750(200), kScreenWidth, kScrAdaptationH(35))];
-    _backView.backgroundColor = [UIColor whiteColor];
-    [self addSubview:_backView];
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0,0, kScreenWidth, kScrAdaptationH(0.5))];
-    lineView.backgroundColor = COR26;
-    [_backView addSubview:lineView];
-    [_backView addSubview:self.profitLabel];
-}
-
-- (void)setHiddenMoneyLabel:(BOOL)hiddenMoneyLabel {
-    _hiddenMoneyLabel = hiddenMoneyLabel;
-    _cardLimitMoneyLabel.hidden = hiddenMoneyLabel;
+    
+    [_rechargeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_topView).offset(kScrAdaptationH(35));
+        make.left.equalTo(self);
+        make.width.offset(kScreenWidth);
+        make.height.offset(kScrAdaptationH(65));
+    }];
+    
+    [_leftImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_rechargeView).offset(kScrAdaptationH750(46.5));
+        make.left.equalTo(self).offset(kScrAdaptationW(15));
+        make.width.offset(kScrAdaptationW750(27));
+        make.height.offset(kScrAdaptationW750(37));
+    }];
+    
+    [_rechargeViewTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_rechargeView).offset(kScrAdaptationH(15));
+        make.left.equalTo(self).offset(kScrAdaptationW(5));
+        make.width.offset(kScreenWidth - kScrAdaptationW(95));
+        make.height.offset(kScrAdaptationH(35));
+    }];
+    
+    [_rechargeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_rechargeView).offset(kScrAdaptationH750(35));
+        make.left.equalTo(self).offset(kScreenWidth - kScrAdaptationW(95));
+        make.width.offset(kScrAdaptationW(80));
+        make.height.offset(kScrAdaptationH(30));
+    }];
+    
+    [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_topView.mas_bottom).offset(kScrAdaptationH(65));
+        make.left.equalTo(self);
+        make.width.offset(kScreenWidth);
+        make.height.offset(kScrAdaptationH(35));
+    }];
 }
 
 - (void)setHiddenProfitLabel:(BOOL)hiddenProfitLabel {
     _hiddenProfitLabel = hiddenProfitLabel;
     _backView.hidden = hiddenProfitLabel;
 }
-- (void)setRechardView {
-    kWeakSelf
-    _rechargeView = [[UIView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(35), kScreenWidth, kScrAdaptationH(65))];
-    _rechargeView.backgroundColor = [UIColor whiteColor];
-    
-    UIImageView *leftImage = [[UIImageView alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), kScrAdaptationH750(46.5), kScrAdaptationW750(27), kScrAdaptationH750(37))];
-    leftImage.contentMode = UIViewContentModeScaleAspectFit;
-    leftImage.image = [UIImage imageNamed:@"hxb_my_message人民币"];
-    
-    _rechargeViewTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectMake(kScrAdaptationW(5), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(105), kScrAdaptationH(35))];
-    _rechargeViewTextField.keyboardType = UIKeyboardTypeDecimalPad;
-    _rechargeViewTextField.isHidenLine = YES;
-    _rechargeViewTextField.delegate = self;
-    _rechargeViewTextField.isLagerText = YES;
-    _rechargeViewTextField.isCleanAllBtn = YES;
-    _rechargeViewTextField.block = ^(NSString *text) {
-        weakSelf.changeBlock(text);
-    };
-    [_rechargeView addSubview:_rechargeViewTextField];
-    [_rechargeView addSubview:leftImage];
-    
-    _rechargeBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    _rechargeBtn.frame = CGRectMake(kScreenWidth - kScrAdaptationW(95), kScrAdaptationH750(35), kScrAdaptationW(80), kScrAdaptationH(30));
-    [_rechargeBtn addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_rechargeBtn setTitle:@"一键购买" forState:(UIControlStateNormal)];
-    _rechargeBtn.layer.cornerRadius = kScrAdaptationW750(5);
-    _rechargeBtn.layer.masksToBounds = true;
-    _rechargeBtn.layer.borderColor = kHXBColor_Blue040610.CGColor;//(r:0.45 g:0.68 b:0.68 a:1.00)
-    _rechargeBtn.layer.borderWidth = kXYBorderWidth;
-    [_rechargeBtn setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
-    _rechargeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
-    [_rechargeView addSubview:_rechargeBtn];
-}
 
 - (void)clickButton:(UIButton *)sender {
     self.block();
 }
-
-//- (UIImageView *)tipsImageView {
-//    if (!_tipsImageView) {
-//        _tipsImageView = [[UIImageView alloc] init];
-//        _tipsImageView.svgImageString = @"BUYtips";
-//     }
-//    return _tipsImageView;
-//}
-
 
 - (UILabel *)creditorLabel {
     if (!_creditorLabel) {
@@ -137,7 +124,7 @@
 
 - (UILabel *)cardLimitMoneyLabel {
     if (!_cardLimitMoneyLabel) {
-        _cardLimitMoneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, -kScrAdaptationH(35), kScreenWidth, kScrAdaptationH(35))];
+        _cardLimitMoneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(35))];
         _cardLimitMoneyLabel.textAlignment = NSTextAlignmentCenter;
         _cardLimitMoneyLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _cardLimitMoneyLabel.textColor = [UIColor whiteColor];
@@ -194,9 +181,26 @@
 
 - (void)setCardStr:(NSString *)cardStr {
     _cardStr = cardStr;
-    self.cardLimitMoneyLabel.text = cardStr;
+    if (self.hasBank) {
+        [_notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self);
+            make.left.equalTo(self);
+            make.width.equalTo(self);
+            make.height.offset(kScrAdaptationH(35));
+        }];
+        _notifitionView.messageCount = _cardStr;
+        _notifitionView.hidden = NO;
+    } else {
+        [_notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self);
+            make.left.equalTo(self);
+            make.width.equalTo(self);
+            make.height.offset(kScrAdaptationH(0));
+        }];
+        _notifitionView.hidden = YES;
+    }
+    [self setupFrame];
 }
-
 
 - (void)setDisableBtn:(BOOL)disableBtn {
     _disableBtn = disableBtn;
@@ -228,16 +232,78 @@
     return [NSString checkBothDecimalPlaces:checkStr];
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [UIView animateWithDuration:0.5 animations:^{
-        _cardLimitMoneyLabel.y = 0;
-    }];
+- (HXBMy_Withdraw_notifitionView *)notifitionView {
+    if (!_notifitionView) {
+        _notifitionView = [[HXBMy_Withdraw_notifitionView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(0))];
+    }
+    _notifitionView.hidden = NO;
+    _notifitionView.block = ^{
+        NSLog(@"点击了消息");
+    };
+    return _notifitionView;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    [UIView animateWithDuration:0.2 animations:^{
-        _cardLimitMoneyLabel.y = -kScrAdaptationH(35);
-    }];
+- (UIView *)topView {
+    if (!_topView) {
+        _topView = [[UIView alloc] initWithFrame:CGRectZero];
+    }
+    return _topView;
+}
+- (UIView *)backView {
+    if (!_backView) {
+        _backView = [[UIView alloc] initWithFrame:CGRectZero];
+        _backView.backgroundColor = [UIColor whiteColor];
+    }
+    return _backView;
+}
+- (UIView *)rechargeView {
+    if (!_rechargeView) {
+        _rechargeView = [[UIView alloc] initWithFrame:CGRectZero];
+        _rechargeView.backgroundColor = [UIColor whiteColor];
+    }
+    return _rechargeView;
+}
+
+- (UIImageView *)leftImage {
+    if (!_leftImage) {
+        _leftImage = [[UIImageView alloc] initWithFrame:CGRectZero];
+        _leftImage.image = [UIImage imageNamed:@"hxb_my_message人民币"];
+        _leftImage.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _leftImage;
+}
+
+- (HXBCustomTextField *)rechargeViewTextField {
+    kWeakSelf;
+    if (!_rechargeViewTextField) {
+        _rechargeViewTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectZero];
+        _rechargeViewTextField.keyboardType = UIKeyboardTypeDecimalPad;
+        _rechargeViewTextField.isHidenLine = YES;
+        _rechargeViewTextField.delegate = self;
+        _rechargeViewTextField.isLagerText = YES;
+        _rechargeViewTextField.isCleanAllBtn = YES;
+        _rechargeViewTextField.block = ^(NSString *text) {
+            weakSelf.changeBlock(text);
+        };
+    }
+    return _rechargeViewTextField;
+}
+
+
+- (UIButton *) rechargeBtn{
+    if (!_rechargeBtn) {
+        _rechargeBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+        _rechargeBtn.frame = CGRectZero;
+        [_rechargeBtn addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_rechargeBtn setTitle:@"一键购买" forState:(UIControlStateNormal)];
+        _rechargeBtn.layer.cornerRadius = kScrAdaptationW750(5);
+        _rechargeBtn.layer.masksToBounds = true;
+        _rechargeBtn.layer.borderColor = kHXBColor_Blue040610.CGColor;//(r:0.45 g:0.68 b:0.68 a:1.00)
+        _rechargeBtn.layer.borderWidth = kXYBorderWidth;
+        [_rechargeBtn setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
+        _rechargeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+    }
+    return _rechargeBtn;
 }
 
 /*

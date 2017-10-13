@@ -138,7 +138,7 @@
  */
 - (NSString *) leftMonths {
     if (!_leftMonths) {
-        _leftMonths = [NSString stringWithFormat:@"%@个月",self.loanTruansferDetailModel.loanVo.leftMonths];
+        _leftMonths = [NSString stringWithFormat:@"%@个月",self.loanTruansferDetailModel.leftMonths];
     }
     return _leftMonths;
 }

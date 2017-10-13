@@ -256,14 +256,14 @@
             manager.infoViewManager.leftStrArray = @[
                                                      @"加入金额",
                                                      @"平均历史年化收益",
-                                                     @"实际退出日期",
                                                      @"期限",
+                                                     @"实际退出日期"
                                                      ];
             manager.infoViewManager.rightStrArray = @[
                                                       viewModel.addAuomt,
                                                       viewModel.expectedRate,
-                                                      viewModel.endLockingTime,
-                                                      viewModel.lockTime
+                                                      viewModel.lockTime,
+                                                      viewModel.endLockingTime
                                                       ];
             manager.typeImageName = @"tuichu";
             break;

@@ -37,20 +37,24 @@
 @end
 
 @implementation HXBBaseAlertViewController
-- (instancetype) init {
-    if (self = [super init]) {
-        self.modalPresentationStyle = UIModalPresentationCustom;
-        self.transitioningDelegate = self.animatr;
-    }
-    return self;
-}
+//- (instancetype) init {
+//    if (self = [super init]) {
+//        self.modalPresentationStyle = UIModalPresentationCustom;
+//        self.transitioningDelegate = self.animatr;
+//    }
+//    return self;
+//}
 - (instancetype) initWithMassage:(NSString *)massage
             andLeftButtonMassage:(NSString *)leftButtonMassage
            andRightButtonMassage:(NSString *)rightButtonMassage {
-    self = [[HXBBaseAlertViewController alloc]init];
-    self.massage = massage;
-    self.leftButtonMassage = leftButtonMassage;
-    self.rightButtonMassage = rightButtonMassage;
+    if (self = [super init]) {
+        self.modalPresentationStyle = UIModalPresentationCustom;
+        self.transitioningDelegate = self.animatr;
+//        self = [[HXBBaseAlertViewController alloc]init];
+        self.massage = massage;
+        self.leftButtonMassage = leftButtonMassage;
+        self.rightButtonMassage = rightButtonMassage;
+    }
     return self;
 }
 - (Animatr *)animatr {

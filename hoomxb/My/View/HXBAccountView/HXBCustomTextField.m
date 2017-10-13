@@ -25,8 +25,7 @@
 
 @implementation HXBCustomTextField
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.leftImageView];
@@ -47,7 +46,6 @@
                                                  selector:@selector(textFieldDidChangeValue:)
                                                      name:UITextFieldTextDidChangeNotification
                                                    object:self.idTextField];
-//
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(textFieldDidEndEditing1:)
                                                      name:UITextFieldTextDidEndEditingNotification
@@ -67,6 +65,18 @@
         
     }
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UITextFieldTextDidChangeNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UITextFieldTextDidEndEditingNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UITextFieldTextDidBeginEditingNotification
+                                                  object:nil];
 }
 
 - (void)setIsIDCardTextField:(BOOL)isIDCardTextField {
@@ -95,6 +105,7 @@
         make.width.offset(kScrAdaptationW750(36));
         make.height.offset(kScrAdaptationH750(38));
     }];
+
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
          make.right.equalTo(self).offset(-kScrAdaptationW750(40));
@@ -246,7 +257,7 @@
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:placeholder];
     // 设置字体和设置字体的范围
     [attrStr addAttribute:NSForegroundColorAttributeName
-                    value:COR12
+                    value:COR10
                     range:NSMakeRange(0, placeholder.length)];
     self.textField.attributedPlaceholder = attrStr;
     self.idTextField.attributedPlaceholder = attrStr;

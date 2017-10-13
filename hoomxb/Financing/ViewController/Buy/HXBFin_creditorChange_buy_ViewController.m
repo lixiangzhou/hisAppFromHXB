@@ -65,8 +65,8 @@
     self.isColourGradientNavigationBar = true;
 //    [self getNewUserInfo];
     [self buildUI];
-    [self getBankCardLimit];
     [self setUpDate];
+    [self getBankCardLimit];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -82,78 +82,79 @@
     }
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.hxbBaseVCScrollView.tableFooterView = [self footTableView];
+    self.hxbBaseVCScrollView.tableHeaderView = self.topView;
     self.hxbBaseVCScrollView.hidden = NO;
     self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.hxbBaseVCScrollView.tableHeaderView = [self headTableView];
     [self.hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
     self.hxbBaseVCScrollView.delegate = self;
     self.hxbBaseVCScrollView.dataSource = self;
     self.hxbBaseVCScrollView.rowHeight = kScrAdaptationH750(110.5);
     [self.view addSubview:self.hxbBaseVCScrollView];
+    [self.hxbBaseVCScrollView reloadData];
 }
 
 
-- (UIView *)headTableView {
+- (UIView *)topView {
     kWeakSelf
-    _topView = [[HXBCreditorChangeTopView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH750(85))];
-    if (_type == HXB_Plan) {
-        self.topView.isHiddenBtn = YES;
-        self.topView.profitStr = @"预期收益：0.00元";
-        self.topView.hiddenProfitLabel = NO;
-        self.topView.height = kScrAdaptationH750(285);
-    } else {
-        self.topView.isHiddenBtn = NO;
-        self.topView.hiddenProfitLabel = YES;
-        self.topView.height = kScrAdaptationH750(215);
-    }
-    if (_type == HXB_Creditor) {
-        self.topView.keyboardType = UIKeyboardTypeDecimalPad;
-        if (self.availablePoint.doubleValue < 2 * self.minRegisterAmount.doubleValue) {
-            _topView.totalMoney = self.availablePoint;
-            _topupMoneyStr = self.availablePoint;
-            _buyAll = YES;
-            _topView.disableKeyBorad = YES;
-            _topView.disableBtn = YES;
-        } else {
-            _buyAll = NO;
-            _topView.disableKeyBorad = NO;
-            _topView.disableBtn = NO;
-        }
-    } else {
-        self.topView.keyboardType = UIKeyboardTypeNumberPad;
-    }
-    
-    _topView.changeBlock = ^(NSString *text) {
-        weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@：%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
-        weakSelf.topView.hiddenMoneyLabel = !weakSelf.cardModel.bankType;
-        _topupMoneyStr = text;
-        if (text.floatValue > _balanceMoneyStr.floatValue) {
-            if ([weakSelf.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-                weakSelf.bottomView.clickBtnStr = @"余额不足，需充值投资";
-            } else {
-                weakSelf.bottomView.clickBtnStr = @"绑定银行卡";
-            }
-        } else {
-            weakSelf.bottomView.clickBtnStr = @"立即投资";
-            if (_type == HXB_Plan) {
-                weakSelf.bottomView.clickBtnStr = @"立即加入";
-            }
-        }
+    if (!_topView) {
+        _topView = [[HXBCreditorChangeTopView alloc] initWithFrame:CGRectZero];
         if (_type == HXB_Plan) {
-            weakSelf.topView.profitStr = [NSString stringWithFormat:@"预期收益：%@", [NSString hxb_getPerMilWithDouble:text.floatValue*self.totalInterest.floatValue/100.0]];
+            self.topView.isHiddenBtn = YES;
+            self.topView.profitStr = @"预期收益：0.00元";
+            self.topView.hiddenProfitLabel = NO;
+        } else {
+            self.topView.isHiddenBtn = NO;
+            self.topView.hiddenProfitLabel = YES;
         }
-        [weakSelf setUpArray];
-    };
-    _topView.block = ^{ // 点击一键购买执行的方法
-        NSString *topupStr = weakSelf.availablePoint;
-        weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.lf", topupStr.floatValue];
         if (_type == HXB_Creditor) {
-            weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.2f", topupStr.doubleValue];
+            self.topView.keyboardType = UIKeyboardTypeNumberPad;
+            if (self.availablePoint.doubleValue < 2 * self.minRegisterAmount.doubleValue) {
+                _topView.totalMoney = self.availablePoint;
+                _topupMoneyStr = self.availablePoint;
+                _buyAll = YES;
+                _topView.disableKeyBorad = YES;
+                _topView.disableBtn = YES;
+            } else {
+                _buyAll = NO;
+                _topView.disableKeyBorad = NO;
+                _topView.disableBtn = NO;
+            }
+        } else {
+            self.topView.keyboardType = UIKeyboardTypeNumberPad;
         }
-        _topupMoneyStr = topupStr;
-        [weakSelf setUpArray];
-    };
+        
+        _topView.changeBlock = ^(NSString *text) {
+            weakSelf.topView.hiddenMoneyLabel = !weakSelf.cardModel.bankType;
+            _topupMoneyStr = text;
+            if (text.floatValue > _balanceMoneyStr.floatValue) {
+                if ([weakSelf.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+                    weakSelf.bottomView.clickBtnStr = @"余额不足，需充值投资";
+                } else {
+                    weakSelf.bottomView.clickBtnStr = @"绑定银行卡";
+                }
+            } else {
+                weakSelf.bottomView.clickBtnStr = @"立即投资";
+                if (_type == HXB_Plan) {
+                    weakSelf.bottomView.clickBtnStr = @"立即加入";
+                }
+            }
+            if (_type == HXB_Plan) {
+                weakSelf.topView.profitStr = [NSString stringWithFormat:@"预期收益：%@", [NSString hxb_getPerMilWithDouble:text.floatValue*self.totalInterest.floatValue/100.0]];
+            }
+            [weakSelf setUpArray];
+        };
+        _topView.block = ^{ // 点击一键购买执行的方法
+            NSString *topupStr = weakSelf.availablePoint;
+            weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.lf", topupStr.floatValue];
+            if (_type == HXB_Creditor) {
+                weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.2f", topupStr.doubleValue];
+            }
+            _topupMoneyStr = topupStr;
+            [weakSelf setUpArray];
+        };
+    }
     return _topView;
+   
 }
 
 
@@ -297,6 +298,7 @@
         }
         return;
     }
+    BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
     if (_topupMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
@@ -309,38 +311,21 @@
         _topupMoneyStr = _minRegisterAmount;
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
+    } else if (isMultipleOfMin) {
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
     } else if (_availablePoint.floatValue - _topupMoneyStr.floatValue < _minRegisterAmount.floatValue && _topupMoneyStr.doubleValue != _availablePoint.doubleValue) {
         [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
     } else {
-        BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
-        if (isMultipleOfMin || [_topupMoneyStr containsString:@"."]) {
-            if (_topupMoneyStr.doubleValue != _availablePoint.doubleValue) {
-                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-            } else {
-                if ([_btnLabelText containsString:@"充值"]) {
-                    [self fullAddtionFunc];
-                } else if ([_btnLabelText containsString:@"绑定"]){
-                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                    withdrawCardViewController.title = @"绑卡";
-                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-                } else {
-                    [self alertPassWord];
-                }
-            }
+        if ([_btnLabelText containsString:@"充值"]) {
+            [self fullAddtionFunc];
+        } else if ([_btnLabelText containsString:@"绑定"]){
+            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+            withdrawCardViewController.title = @"绑卡";
+            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+            [self.navigationController pushViewController:withdrawCardViewController animated:YES];
         } else {
-            if ([_btnLabelText containsString:@"充值"]) {
-                [self fullAddtionFunc];
-            } else if ([_btnLabelText containsString:@"绑定"]){
-                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                withdrawCardViewController.title = @"绑卡";
-                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-            } else {
-                [self alertPassWord];
-            }
+            [self alertPassWord];
         }
-        
     }
 }
 
@@ -496,6 +481,8 @@
                 return ;
             case 104:
                 return ;
+            case 412:
+                return ;
             case 3413:
                 return ;
             default:
@@ -559,6 +546,8 @@
             case 3015:
                 return ;
             case 104:
+                return ;
+            case 412:
                 return ;
             case 3413:
                 return ;
@@ -630,6 +619,8 @@
             case 3015:
                 return ;
             case 104:
+                return ;
+            case 412:
                 return ;
             case 3413:
                 return ;
@@ -720,9 +711,22 @@
 - (void)getBankCardLimit {
     [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
         self.cardModel = model;
+        if (_type == HXB_Plan) {
+            if (self.cardModel.bankType) {
+                self.topView.height = kScrAdaptationH750(355);
+            } else {
+                self.topView.height = kScrAdaptationH750(285);
+            }
+        } else {
+            if (self.cardModel.bankType) {
+                self.topView.height = kScrAdaptationH750(285);
+            } else {
+                self.topView.height = kScrAdaptationH750(215);
+            }
+        }
+        _topView.hasBank = self.cardModel.bankType;
         _topView.cardStr = [NSString stringWithFormat:@"%@：%@", self.cardModel.bankType, self.cardModel.quota];
-        self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
-
+        self.hxbBaseVCScrollView.tableHeaderView = self.topView;
     }];
 }
 

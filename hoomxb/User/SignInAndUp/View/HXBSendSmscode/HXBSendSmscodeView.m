@@ -422,16 +422,32 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
     } else {
-        [UIView animateWithDuration:0.4 animations:^{
-            self.y = - 75;
-        }];
+        if (kScreenWidth == 320 ) {
+            [UIView animateWithDuration:0.4 animations:^{
+                self.y = -75;
+            }];
+        } else {
+            if (textField.superview == _inviteCodeTextField) {
+                [UIView animateWithDuration:0.4 animations:^{
+                    self.y = -45;
+                }];
+            }
+        }
     }
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
-    [UIView animateWithDuration:0.4 animations:^{
-        self.y = 0;
-    }];
+    if (kScreenWidth == 320) {
+        [UIView animateWithDuration:0.4 animations:^{
+            self.y = 0;
+        }];
+    } else {
+        if (textField.superview == _inviteCodeTextField) {
+            [UIView animateWithDuration:0.4 animations:^{
+                self.y = 0;
+            }];
+        }
+    }
 }
 - (BOOL)isPasswordQualifiedFunWithStr: (NSString *)password {
     ///判断字符串是否包含数字
