@@ -69,6 +69,10 @@
     return self;
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)setIsIDCardTextField:(BOOL)isIDCardTextField {
     
     _isIDCardTextField = isIDCardTextField;
@@ -95,6 +99,7 @@
         make.width.offset(kScrAdaptationW750(36));
         make.height.offset(kScrAdaptationH750(38));
     }];
+
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
          make.right.equalTo(self).offset(-kScrAdaptationW750(40));
@@ -246,7 +251,7 @@
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:placeholder];
     // 设置字体和设置字体的范围
     [attrStr addAttribute:NSForegroundColorAttributeName
-                    value:COR12
+                    value:COR10
                     range:NSMakeRange(0, placeholder.length)];
     self.textField.attributedPlaceholder = attrStr;
     self.idTextField.attributedPlaceholder = attrStr;

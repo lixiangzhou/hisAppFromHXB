@@ -126,7 +126,7 @@ static NSString *kINVEST = @"INVEST";
                 self.statusInt = 4;
                 _isAddButtonHidden = true;
                [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
-                   _status = typeUI;
+                   _status = [NSString stringWithFormat:@"%@", self.planDetailModel.exitWay];
                 }];
             }
                 break;
@@ -194,7 +194,7 @@ static NSString *kINVEST = @"INVEST";
  */
 - (NSString *) endLockingTime {
     if (!_endLockingTime) {
-        _endLockingTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.endLockingTime andDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        _endLockingTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.endLockingTime andDateFormat:@"yyyy-MM-dd"];
     }
     return _endLockingTime;
 }
