@@ -105,7 +105,7 @@
         self.topView.hiddenProfitLabel = YES;
     }
     if (_type == HXB_Creditor) {
-        self.topView.keyboardType = UIKeyboardTypeDecimalPad;
+        self.topView.keyboardType = UIKeyboardTypeNumberPad;
         if (self.availablePoint.doubleValue < 2 * self.minRegisterAmount.doubleValue) {
             _topView.totalMoney = self.availablePoint;
             _topupMoneyStr = self.availablePoint;
@@ -295,9 +295,6 @@
         return;
     }
     BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
-    if (!isMultipleOfMin) {
-        _topupMoneyStr = [NSString stringWithFormat:@"%ld", _topupMoneyStr.integerValue];
-    }
     if (_topupMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
@@ -311,8 +308,6 @@
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else if (isMultipleOfMin) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-    } else if ([_topupMoneyStr containsString:@"."]) {
         [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
     } else if (_availablePoint.floatValue - _topupMoneyStr.floatValue < _minRegisterAmount.floatValue && _topupMoneyStr.doubleValue != _availablePoint.doubleValue) {
         [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
