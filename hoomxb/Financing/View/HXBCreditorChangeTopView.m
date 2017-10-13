@@ -181,7 +181,7 @@
 
 - (void)setCardStr:(NSString *)cardStr {
     _cardStr = cardStr;
-    if ([_cardStr containsString:@"单"]) {
+    if (self.hasBank) {
         [_notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             make.left.equalTo(self);

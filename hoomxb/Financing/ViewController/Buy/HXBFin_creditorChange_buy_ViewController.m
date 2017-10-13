@@ -724,6 +724,7 @@
                 self.topView.height = kScrAdaptationH750(215);
             }
         }
+        _topView.hasBank = self.cardModel.bankType;
         _topView.cardStr = [NSString stringWithFormat:@"%@：%@", self.cardModel.bankType, self.cardModel.quota];
         self.hxbBaseVCScrollView.tableHeaderView = self.topView;
     }];

@@ -25,8 +25,7 @@
 
 @implementation HXBCustomTextField
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+- (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
         [self addSubview:self.leftImageView];
@@ -47,7 +46,6 @@
                                                  selector:@selector(textFieldDidChangeValue:)
                                                      name:UITextFieldTextDidChangeNotification
                                                    object:self.idTextField];
-//
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(textFieldDidEndEditing1:)
                                                      name:UITextFieldTextDidEndEditingNotification
@@ -70,7 +68,15 @@
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UITextFieldTextDidChangeNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UITextFieldTextDidEndEditingNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UITextFieldTextDidBeginEditingNotification
+                                                  object:nil];
 }
 
 - (void)setIsIDCardTextField:(BOOL)isIDCardTextField {
