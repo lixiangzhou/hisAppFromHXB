@@ -13,6 +13,10 @@
 @property (nonatomic,copy) NSString *planID;
 
 @property (nonatomic, assign) HXBInvestmentAndTransferRecord type;
+/**
+ 判断是持有中、退出中、已退出
+ */
+@property (nonatomic, assign) HXBRequestType_MY_PlanRequestType investmentType;
 @end
 
 

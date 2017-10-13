@@ -35,7 +35,7 @@
 /**
  是否是支持的银行
  */
-@property (nonatomic, assign) BOOL support;
+//@property (nonatomic, assign) BOOL support;
 
 /***************新增属性*********************/
 /**

@@ -205,6 +205,7 @@ kDealloc
     [self.planListView clickLoan_hold_CellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickLoanCellIndex) {
         HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
         planListDetailVC.planViewModel = planViewModel;
+        planListDetailVC.type = HXBRequestType_MY_PlanRequestType_HOLD_PLAN;
         [weakSelf.navigationController pushViewController:planListDetailVC animated:true];
     }];
     //退出中
@@ -212,12 +213,14 @@ kDealloc
         HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
         planListDetailVC.planViewModel = planViewModel;
         planListDetailVC.isLeave = YES;
+        planListDetailVC.type = HXBRequestType_MY_PlanRequestType_EXITING_PLAN;
         [weakSelf.navigationController pushViewController:planListDetailVC animated:true];
     }];
     //已退出
     [self.planListView clickLoan_exit_CellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickLoanCellIndex) {
         HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
         planListDetailVC.planViewModel = planViewModel;
+        planListDetailVC.type = HXBRequestType_MY_PlanRequestType_EXIT_PLAN;
         [weakSelf.navigationController pushViewController:planListDetailVC animated:true];
     }];
 }
