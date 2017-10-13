@@ -152,6 +152,9 @@
         kWeakSelf
         [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:self.bankNumber andisTostTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
             weakSelf.cardBinModel = cardBinModel;
+            [UIView animateWithDuration:0.5 animations:^{
+                self.y = 0;
+            }];
             if ([self judgeIsTure]) return;
             self.bankNumber = [self.bankNumberTextField.text stringByReplacingOccurrencesOfString:@" "  withString:@""];
             NSDictionary *dic = @{
@@ -307,7 +310,9 @@
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
-    [self setIsCheckFailed:YES];
+    if (self.bankNumberTextField == textField.superview) {
+        [self setIsCheckFailed:YES];
+    }
     return YES;
 }
 

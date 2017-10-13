@@ -185,6 +185,7 @@
     HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBUser_checkCardBin;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
+    if (bankNumber == nil) bankNumber = @"";
     versionUpdateAPI.requestArgument = @{
                                          @"bankCard" : bankNumber
                                          };
@@ -193,7 +194,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (isTost) {
+            if (isTost & (status != 104)) {
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
             if (failureBlock) {
