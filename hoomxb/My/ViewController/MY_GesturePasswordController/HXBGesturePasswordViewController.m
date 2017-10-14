@@ -197,6 +197,7 @@ static NSString *const my = @"我的";
 - (void)setupSubViewsSettingVc
 {
     self.isWhiteColourGradientNavigationBar = YES;
+    self.isHiddennNoNetworkStatusView = YES;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[[UIButton alloc] init]];
     [self.msgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);

@@ -168,6 +168,10 @@
 {
     [HxbHUDProgress hidenHUD:self.webView];
     self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    if (self.title.length > 9) {
+        NSString *subtitle = [self.title substringToIndex:9];
+        self.title = [subtitle stringByAppendingString:@"..."];
+    }
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 

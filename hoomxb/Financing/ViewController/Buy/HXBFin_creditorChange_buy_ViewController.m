@@ -346,11 +346,15 @@
 }
 
 - (void)alertSmsCode {
+    if ((_topupMoneyStr.doubleValue - _balanceMoneyStr.doubleValue) < 1.00) {
+        [HxbHUDProgress showTextWithMessage:@"充值金额必须大于1元"];
+        return;
+    }
     self.alertVC = [[HXBAlertVC alloc] init];
     self.alertVC.isCode = YES;
     self.alertVC.isCleanPassword = YES;
     self.alertVC.messageTitle = @"充值验证短信";
-    self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [_viewModel.userInfoModel.userInfo.mobile replaceStringWithStartLocation:3 lenght:4]];
+    self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
     kWeakSelf
     self.alertVC.sureBtnClick = ^(NSString *pwd) {
         [weakSelf.alertVC.view endEditing:YES];
