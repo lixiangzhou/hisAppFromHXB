@@ -99,15 +99,16 @@
     if (!_topView) {
         _topView = [[HXBCreditorChangeTopView alloc] initWithFrame:CGRectZero];
         if (_type == HXB_Plan) {
-            self.topView.isHiddenBtn = YES;
-            self.topView.profitStr = @"预期收益：0.00元";
-            self.topView.hiddenProfitLabel = NO;
+            _topView.isHiddenBtn = YES;
+            _topView.profitStr = @"预期收益：0.00元";
+            _topView.hiddenProfitLabel = NO;
         } else {
-            self.topView.isHiddenBtn = NO;
-            self.topView.hiddenProfitLabel = YES;
+            _topView.isHiddenBtn = NO;
+            _topView.hiddenProfitLabel = YES;
         }
         if (_type == HXB_Creditor) {
-            self.topView.keyboardType = UIKeyboardTypeNumberPad;
+//            self.topView.keyboardType = UIKeyboardTypeNumberPad;
+            _topView.keyboardType = UIKeyboardTypeDecimalPad;//债转带小数点键盘
             if (self.availablePoint.doubleValue < 2 * self.minRegisterAmount.doubleValue) {
                 _topView.totalMoney = self.availablePoint;
                 _topupMoneyStr = self.availablePoint;
@@ -120,7 +121,7 @@
                 _topView.disableBtn = NO;
             }
         } else {
-            self.topView.keyboardType = UIKeyboardTypeNumberPad;
+            _topView.keyboardType = UIKeyboardTypeNumberPad;
         }
         
         _topView.changeBlock = ^(NSString *text) {
@@ -298,7 +299,48 @@
         }
         return;
     }
-    BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
+    
+    /*
+     _availablePoint             待转让金额
+     _minRegisterAmount          最低起投金额
+     _registerMultipleAmount     最低起投此金额多少倍
+     _topupMoneyStr              输入的金额
+     */
+    BOOL isHasContainsNonzeroDecimals = (int)([_topupMoneyStr floatValue]*100)%100 != 0 ? true:false;//true:含非零小数
+    BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);//true表示非（最低倍数）的整数倍
+    if (_topupMoneyStr.length <= 0) {
+        [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
+    }else if (isHasContainsNonzeroDecimals){
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+    }else if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
+        self.topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
+        _topupMoneyStr = _availablePoint;
+        [self setUpArray];
+        [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
+    } else if (_topupMoneyStr.floatValue < _minRegisterAmount.floatValue) {
+        _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
+        _topupMoneyStr = _minRegisterAmount;
+        [self setUpArray];
+        [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
+    } else if (isMultipleOfMin) {
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+    } else if (_availablePoint.floatValue - _topupMoneyStr.floatValue < _minRegisterAmount.floatValue && _topupMoneyStr.doubleValue != _availablePoint.doubleValue) {
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
+    } else {
+        if ([_btnLabelText containsString:@"充值"]) {
+            [self fullAddtionFunc];
+        } else if ([_btnLabelText containsString:@"绑定"]){
+            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+            withdrawCardViewController.title = @"绑卡";
+            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+            [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+        } else {
+            [self alertPassWord];
+        }
+    }
+    
+    /*
+    BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);//
     if (_topupMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_topupMoneyStr.floatValue > _availablePoint.floatValue) {
@@ -327,6 +369,7 @@
             [self alertPassWord];
         }
     }
+     */
 }
 
 - (void)fullAddtionFunc {

@@ -108,7 +108,7 @@
 
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
-         make.right.equalTo(self).offset(-kScrAdaptationW750(40));
+         make.right.equalTo(self).offset(-kScrAdaptationW750(40));//40
         make.top.bottom.equalTo(self);
     }];
     [self.idTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -324,7 +324,9 @@
 {
     if (!_textField) {
         _textField = [[UITextField alloc] init];
-        _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);//30
+//        [_textField setValue:[UIColor redColor] forKeyPath:@"_placeholderLabel.textColor"];
+//        [_textField setValue:[UIFont boldSystemFontOfSize:16] forKeyPath:@"_placeholderLabel.font"];
         _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _textField.delegate = self;
         _textField.textColor = COR6;
