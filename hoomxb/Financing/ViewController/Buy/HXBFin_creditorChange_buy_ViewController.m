@@ -306,7 +306,7 @@
      _registerMultipleAmount     最低起投此金额多少倍
      _topupMoneyStr              输入的金额
      */
-    BOOL isHasContainsNonzeroDecimals = (int)([_topupMoneyStr floatValue]*100)%100 != 0 ? true:false;//true:含非零小数
+    BOOL isHasContainsNonzeroDecimals = (int)([_topupMoneyStr doubleValue]*100)%100 != 0 ? true:false;//true:含非零小数
     BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);//true表示非（最低倍数）的整数倍
     if (_topupMoneyStr.length <= 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
