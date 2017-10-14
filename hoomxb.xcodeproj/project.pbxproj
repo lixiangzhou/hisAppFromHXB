@@ -113,7 +113,6 @@
 		4E8EAA121F17A0E4003834D4 /* HXBNoticModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8EAA111F17A0E4003834D4 /* HXBNoticModel.m */; };
 		4E8EC14C1F6F6B2C00980EDB /* HXBFinanctingDetail_trustCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8EC14B1F6F6B2C00980EDB /* HXBFinanctingDetail_trustCell.m */; };
 		4E9127551EFA69FB007F8C13 /* HXBFinModel_BuyResoult_PlanModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1757AFC1EFA3E1B009C0BC8 /* HXBFinModel_BuyResoult_PlanModel.m */; };
-		4E92155B1F1DBC6600C8CECB /* LoanTruansfer.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E92155A1F1DBC6600C8CECB /* LoanTruansfer.svg */; };
 		4E92155F1F1DBCC200C8CECB /* BUYtips.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E92155E1F1DBCC200C8CECB /* BUYtips.svg */; };
 		4E9215611F1DE2D900C8CECB /* FinPlanList_present.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E9215601F1DE2D900C8CECB /* FinPlanList_present.svg */; };
 		4E9215641F1DEE7400C8CECB /* HXBOpenDepositAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E9215631F1DEE7400C8CECB /* HXBOpenDepositAccountViewController.m */; };
@@ -679,7 +678,6 @@
 		4E8EAA111F17A0E4003834D4 /* HXBNoticModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBNoticModel.m; sourceTree = "<group>"; };
 		4E8EC14A1F6F6B2C00980EDB /* HXBFinanctingDetail_trustCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinanctingDetail_trustCell.h; sourceTree = "<group>"; };
 		4E8EC14B1F6F6B2C00980EDB /* HXBFinanctingDetail_trustCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinanctingDetail_trustCell.m; sourceTree = "<group>"; };
-		4E92155A1F1DBC6600C8CECB /* LoanTruansfer.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LoanTruansfer.svg; sourceTree = "<group>"; };
 		4E92155E1F1DBCC200C8CECB /* BUYtips.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BUYtips.svg; sourceTree = "<group>"; };
 		4E9215601F1DE2D900C8CECB /* FinPlanList_present.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = FinPlanList_present.svg; sourceTree = "<group>"; };
 		4E9215621F1DEE7400C8CECB /* HXBOpenDepositAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBOpenDepositAccountViewController.h; sourceTree = "<group>"; };
@@ -1812,7 +1810,6 @@
 				4E9215601F1DE2D900C8CECB /* FinPlanList_present.svg */,
 				4E99BF4F1F55196600D197A3 /* FinPlanList_CountDown.svg */,
 				4E92155E1F1DBCC200C8CECB /* BUYtips.svg */,
-				4E92155A1F1DBC6600C8CECB /* LoanTruansfer.svg */,
 				4E7BDEBD1F189F11002A3E18 /* arrow.svg */,
 				4E7BDEBB1F189F02002A3E18 /* bank.svg */,
 				4E8EAA091F176B3D003834D4 /* close.svg */,
@@ -4267,7 +4264,6 @@
 				4EECDFD11F380E8B00301758 /* hongli.svg in Resources */,
 				4E88A5231F15B79700BBDF11 /* password_eye_open.svg in Resources */,
 				4EECE0151F38177000301758 /* 5003.svg in Resources */,
-				4E92155B1F1DBC6600C8CECB /* LoanTruansfer.svg in Resources */,
 				4E7CCF501EBC1B5B00F7BDB3 /* login_close@2x.png in Resources */,
 				4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */,
 				4EECE0161F38177000301758 /* 5004.svg in Resources */,

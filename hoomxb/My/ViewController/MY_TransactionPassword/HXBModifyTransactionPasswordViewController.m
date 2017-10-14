@@ -71,7 +71,7 @@
             [weakSelf getValidationCode];
         } andFailureBlock:^(NSError *error) {
             NSLog(@"%@",error);
-            [HxbHUDProgress showTextWithMessage:@"请输入正确的身份证号"];
+//            [HxbHUDProgress showTextWithMessage:@"请输入正确的身份证号"];
         }];
     } else {
         [weakSelf.homeView idcardWasSuccessfully];

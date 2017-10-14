@@ -27,6 +27,10 @@
 ///是否可以滑动
 @property (nonatomic,assign) BOOL isScroll;
 
+/**
+ 是否隐藏无网界面
+ */
+@property (nonatomic, assign) BOOL isHiddennNoNetworkStatusView;
 ///**
 // 再次调用网络请求的方法
 // */

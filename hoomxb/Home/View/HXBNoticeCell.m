@@ -12,7 +12,7 @@
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
-    if (self = [super initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier]) {
+    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         self.textLabel.textColor = COR8;
