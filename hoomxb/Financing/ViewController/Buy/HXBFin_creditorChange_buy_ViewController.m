@@ -306,9 +306,9 @@
      _registerMultipleAmount     最低起投此金额多少倍
      _inputMoneyStr              输入的金额
      */
-    BOOL isHasContainsNonzeroDecimals = (int)([_topupMoneyStr doubleValue]*100)%100 != 0 ? true:false;//true:含非零小数
-    BOOL isMultipleOfMin = ((_topupMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);//true表示非（最低倍数）的整数倍
-    if (_topupMoneyStr.length <= 0) {
+    BOOL isHasContainsNonzeroDecimals = (int)([_inputMoneyStr doubleValue]*100)%100 != 0 ? true:false;//true:含非零小数
+    BOOL isMultipleOfMin = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);//true表示非（最低倍数）的整数倍
+    if (_inputMoneyStr.length <= 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     }else if (isHasContainsNonzeroDecimals){
         [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
