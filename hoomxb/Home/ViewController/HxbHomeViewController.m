@@ -79,7 +79,7 @@
     if (KeyChain.gesturePwd.length < 4 && [KeyChain isLogin]) {
         HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
         gesturePasswordVC.type = GestureViewControllerTypeSetting;
-        [self.navigationController pushViewController:gesturePasswordVC animated:YES];
+        [self.navigationController pushViewController:gesturePasswordVC animated:NO];
     }
 }
 

@@ -52,7 +52,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 //    self.isColourGradientNavigationBar = YES;
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     self.title = @"登录";
-    [self setLeftItemBar];
+//    [self setLeftItemBar];
     [self setSignView];/// 设置登录界面
     [self registerSignViewEvent];///signView事件注册
     [self registerCheckMobileEvent];///请求手机号是否存在
@@ -240,22 +240,22 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     }];
 }
 
-- (void)setLeftItemBar{
-    UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
-    //    [leftBackBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
-    // 让按钮内部的所有内容左对齐
-    leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    [leftBackBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-    [leftBackBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    // 修改导航栏左边的item
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBackBtn];
+//- (void)setLeftItemBar{
+//    UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
+//    //    [leftBackBtn setTitle:@"返回" forState:UIControlStateNormal];
+//    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
+//    // 让按钮内部的所有内容左对齐
+//    leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    [leftBackBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+//    [leftBackBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//    // 修改导航栏左边的item
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBackBtn];
 //    self.navigationController.navigationBar.barStyle=UIBarStyleBlackTranslucent;
 //    self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:UIBarMetricsDefault];
 //    [self.navigationController.navigationBar setValue:@(0)forKeyPath:@"backgroundView.alpha"];
-}
-- (void)didClickSignInBtn{
+//}
+- (void)leftBackBtnClick{
     [self dismiss];
 }
 

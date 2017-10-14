@@ -89,7 +89,7 @@
     static NSString *identifier = @"HXBNoticeViewControllerCell";
     HXBNoticeCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[HXBNoticeCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell = [[HXBNoticeCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
         cell.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
     }
     
@@ -121,6 +121,7 @@
         _mainTabelView.dataSource = self;
         _mainTabelView.hidden = YES;
         _mainTabelView.rowHeight = kScrAdaptationH750(90);
+        [HXBMiddlekey AdaptationiOS11WithTableView:_mainTabelView];
         // _mainTabelView.tableFooterView = [self tableViewFootView];
         _mainTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_mainTabelView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
