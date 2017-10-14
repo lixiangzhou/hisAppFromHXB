@@ -167,11 +167,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [HxbHUDProgress hidenHUD:self.webView];
-    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    if (self.title.length > 9) {
-        NSString *subtitle = [self.title substringToIndex:9];
-        self.title = [subtitle stringByAppendingString:@"..."];
-    }
+    self.title = [HXBMiddlekey H5Title:[webView stringByEvaluatingJavaScriptFromString:@"document.title"]];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
