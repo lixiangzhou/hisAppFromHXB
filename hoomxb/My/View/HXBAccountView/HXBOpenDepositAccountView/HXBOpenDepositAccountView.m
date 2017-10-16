@@ -453,6 +453,7 @@
             self.checkCardBin(bankCardModel.cardId);
         }
     }
+    _bankNumber = bankCardModel.cardId;
     self.bankNumberTextField.text = [bankCardModel.cardId replaceStringWithStartLocation:0 lenght:bankCardModel.cardId.length - 4];
     self.bankNumberTextField.isHidenLine = YES;
     self.bankNumberTextField.userInteractionEnabled = NO;
