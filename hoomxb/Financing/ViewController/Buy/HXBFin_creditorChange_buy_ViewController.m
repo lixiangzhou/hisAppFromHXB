@@ -313,7 +313,16 @@
     }else{
         if (isHasContainsNonzeroDecimals){
             if ((int)([_inputMoneyStr doubleValue]*100) == (int)([_availablePoint doubleValue]*100)) {
-                [self alertPassWord];
+                if ([_btnLabelText containsString:@"充值"]) {
+                    [self fullAddtionFunc];
+                } else if ([_btnLabelText containsString:@"绑定"]){
+                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                    withdrawCardViewController.title = @"绑卡";
+                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+                } else {
+                    [self alertPassWord];
+                }
                 return;
             }else{
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
