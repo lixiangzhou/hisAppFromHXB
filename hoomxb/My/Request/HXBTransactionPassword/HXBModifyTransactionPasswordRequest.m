@@ -34,8 +34,9 @@
         NSLog(@"身份证验证%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            
-            [HxbHUDProgress showTextWithMessage:@"请输入正确的身份证号"];
+            if (status != 412) {
+                [HxbHUDProgress showTextWithMessage:@"请输入正确的身份证号"];
+            }
             if (failureBlock) {
                 failureBlock(nil);
             }

@@ -57,11 +57,20 @@
     [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
     [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateHighlighted];
     // 让按钮内部的所有内容左对齐
-    leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [leftBackBtn addTarget:self action:@selector(leftBackBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    [leftBackBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+//    [leftBackBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     // 修改导航栏左边的item
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBackBtn];
+    UIBarButtonItem * spaceItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    //将宽度设为负值
+    if (@available(iOS 11.0, *)) {
+        leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    } else {
+         spaceItem.width = -15;
+    }
+    //将两个BarButtonItem都返回给NavigationItem
+    self.navigationItem.leftBarButtonItems = @[spaceItem,[[UIBarButtonItem alloc] initWithCustomView:leftBackBtn]];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBackBtn];
 }
 
 
@@ -197,6 +206,13 @@
 //        self.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
 //    }
 }
+
+- (void)setIsHiddennNoNetworkStatusView:(BOOL)isHiddennNoNetworkStatusView
+{
+    _isHiddennNoNetworkStatusView = isHiddennNoNetworkStatusView;
+    self.noNetworkStatusView.hidden = isHiddennNoNetworkStatusView;
+}
+
 #pragma mark - 隐藏导航条
 - (void)viewWillAppear:(BOOL)animated{
     //设置电池栏的颜色

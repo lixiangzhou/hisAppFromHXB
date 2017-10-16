@@ -27,4 +27,11 @@
  */
 + (void)AdaptationiOS11WithTableView:(UITableView *)tableView;
 
+/**
+ 设置H5显示超过9个文字
+ 
+ @param title 标题
+ */
++ (NSString *)H5Title:(NSString *)title;
+
 @end
