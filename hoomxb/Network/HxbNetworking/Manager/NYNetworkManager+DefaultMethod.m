@@ -167,8 +167,17 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         [HxbHUDProgress showMessageCenter:@"请求超时,请稍后重试"];
         return;
     }
+
+    NSString *str = request.error.userInfo[@"NSLocalizedDescription"];
+    if (str.length>0) {
+        if ([[str substringFromIndex:str.length-1] isEqualToString:@"。"]) {
+            str = [str substringToIndex:str.length-1];
+            [HxbHUDProgress showMessageCenter:str];
+        } else {
+            [HxbHUDProgress showMessageCenter:request.error.userInfo[@"NSLocalizedDescription"]];
+        }
+    }
     
-    [HxbHUDProgress showMessageCenter:request.error.userInfo[@"NSLocalizedDescription"]];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:RequestFailure object:nil userInfo:nil];
 }
