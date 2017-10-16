@@ -216,6 +216,14 @@ static NSString *const investString = @"立即投资";
 
 // 购买红利计划
 - (void)requestForPlan {
+    if (_availablePoint.integerValue == 0) {
+        self.topView.totalMoney = @"";
+        self.topView.profitStr = @"预期收益：0.00元";
+        _inputMoneyStr = @"";
+        [self setUpArray];
+        [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
+        return;
+    }
     if (_inputMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
@@ -644,6 +652,12 @@ static NSString *const investString = @"立即投资";
                 failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+            case 1:
+                failViewController.imageName = @"outOffTime";
+                failViewController.buy_title = @"加入失败";
+                failViewController.buy_description = response[@"message"];
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 3014:
