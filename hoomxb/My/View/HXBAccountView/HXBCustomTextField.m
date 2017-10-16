@@ -349,7 +349,7 @@
 - (void)setIsLagerText:(BOOL)isLagerText {
     _isLagerText = isLagerText;
     if (isLagerText) {
-        _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
+        _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(38);
     } else {
         _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
     }
