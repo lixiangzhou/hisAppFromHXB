@@ -480,6 +480,7 @@
 
 }
 
+// 购买计划
 - (void)buyPlanWithDic:(NSDictionary *)dic {
     kWeakSelf
     [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:self.loanId parameter:dic andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
@@ -545,6 +546,7 @@
     }];
 }
 
+// 购买散标
 - (void)buyLoanWithDic:(NSDictionary *)dic {
     kWeakSelf
     [[HXBFinanctingRequest sharedFinanctingRequest] loan_confirmBuyReslutWithLoanID:self.loanId parameter:dic andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
@@ -611,6 +613,7 @@
     }];
 }
 
+// 购买债权
 - (void)buyCreditorWithDic:(NSDictionary *)dic {
     kWeakSelf
     [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansfer_confirmBuyReslutWithLoanID:_loanId parameter:dic andSuccessBlock:^(HXBFin_LoanTruansfer_BuyResoutViewModel *model) {
@@ -658,6 +661,12 @@
                 failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+            case 1:
+                failViewController.imageName = @"outOffTime";
+                failViewController.buy_title = @"加入失败";
+                failViewController.buy_description = response[@"message"];
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 3014:
