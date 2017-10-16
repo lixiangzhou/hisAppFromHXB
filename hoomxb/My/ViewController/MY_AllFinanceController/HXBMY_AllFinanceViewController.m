@@ -49,7 +49,8 @@
 - (HXBAccumulatedIncomeView *)accumulatedIncomeView
 {
     if (!_accumulatedIncomeView) {
-        _accumulatedIncomeView = [[HXBAccumulatedIncomeView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.allFinanceView.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(291))];
+        // 高度改为屏幕高度减去上半部分的高度
+        _accumulatedIncomeView = [[HXBAccumulatedIncomeView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.allFinanceView.frame) + kScrAdaptationH(10), kScreenWidth, kScreenHeight - kScrAdaptationH(262) - 64)];
     }
     return _accumulatedIncomeView;
 }

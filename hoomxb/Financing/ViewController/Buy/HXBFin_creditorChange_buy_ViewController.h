@@ -18,7 +18,7 @@ typedef enum : NSUInteger {
 } HXB_Fin_Type;
 @interface HXBFin_creditorChange_buy_ViewController : HXBBaseViewController
 
-@property (nonatomic,copy) NSString *availablePoint; // topViewLabel
+@property (nonatomic,copy) NSString *availablePoint; // 待转让金额
 @property (nonatomic,copy) NSString *placeholderStr; // 占位符
 @property (nonatomic,copy) NSString *loanId; // 标的 id
 @property (nonatomic,copy) NSString *cashType; // 收益方式
