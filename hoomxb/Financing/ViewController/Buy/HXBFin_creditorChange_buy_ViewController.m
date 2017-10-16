@@ -646,12 +646,6 @@ static NSString *const investString = @"立即投资";
                 failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case 1:
-                failViewController.imageName = @"outOffTime";
-                failViewController.buy_title = @"加入失败";
-                failViewController.buy_description = response[@"message"];
-                failViewController.buy_ButtonTitle = @"重新投资";
-                break;
             case 3014:
                 self.alertVC.isCleanPassword = YES;
                 return ;
@@ -764,7 +758,7 @@ static NSString *const investString = @"立即投资";
             }
         }
         _topView.hasBank = self.cardModel.bankType;
-        _topView.cardStr = [NSString stringWithFormat:@"%@：%@", self.cardModel.bankType, self.cardModel.quota];
+        _topView.cardStr = [NSString stringWithFormat:@"%@%@", self.cardModel.bankType, self.cardModel.quota];
         self.hxbBaseVCScrollView.tableHeaderView = self.topView;
     }];
 }
