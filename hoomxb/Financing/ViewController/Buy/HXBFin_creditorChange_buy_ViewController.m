@@ -310,32 +310,42 @@
     BOOL isMultipleOfMin = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);//true表示非（最低倍数）的整数倍
     if (_inputMoneyStr.length <= 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
-    }else if (isHasContainsNonzeroDecimals){
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-    }else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
-        self.topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
-        _inputMoneyStr = _availablePoint;
-        [self setUpArray];
-        [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
-    } else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
-        _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
-        _inputMoneyStr = _minRegisterAmount;
-        [self setUpArray];
-        [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
-    } else if (isMultipleOfMin) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-    } else if (_availablePoint.floatValue - _inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
-    } else {
-        if ([_btnLabelText containsString:@"充值"]) {
-            [self fullAddtionFunc];
-        } else if ([_btnLabelText containsString:@"绑定"]){
-            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-            withdrawCardViewController.title = @"绑卡";
-            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-            [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-        } else {
-            [self alertPassWord];
+    }else{
+        if (isHasContainsNonzeroDecimals){
+            if ((int)([_inputMoneyStr doubleValue]*100) == (int)([_availablePoint doubleValue]*100)) {
+                [self alertPassWord];
+                return;
+            }else{
+                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+                return;
+            }
+        }else{
+            if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
+                self.topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
+                _inputMoneyStr = _availablePoint;
+                [self setUpArray];
+                [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
+            } else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
+                _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
+                _inputMoneyStr = _minRegisterAmount;
+                [self setUpArray];
+                [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
+            } else if (isMultipleOfMin) {
+                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+            } else if (_availablePoint.floatValue - _inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
+                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
+            } else {
+                if ([_btnLabelText containsString:@"充值"]) {
+                    [self fullAddtionFunc];
+                } else if ([_btnLabelText containsString:@"绑定"]){
+                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                    withdrawCardViewController.title = @"绑卡";
+                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+                } else {
+                    [self alertPassWord];
+                }
+            }
         }
     }
     
