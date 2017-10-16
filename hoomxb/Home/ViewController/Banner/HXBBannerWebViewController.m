@@ -147,17 +147,17 @@
         
     } else {
         
-        NSString *systemVision = [[UIDevice currentDevice] systemVersion];
-        NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-        NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVision,version];
-        NSLog(@"%@",[KeyChain token]);
-        [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
-        [mutableRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];
-        
-        request = [mutableRequest copy];
-        
-        [webView loadRequest:request];
-        return NO;
+//        NSString *systemVision = [[UIDevice currentDevice] systemVersion];
+//        NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+//        NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVision,version];
+//        NSLog(@"%@",[KeyChain token]);
+//        [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
+//        [mutableRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+//
+//        request = [mutableRequest copy];
+//
+//        [webView loadRequest:request];
+        return YES;
     }
     
     return YES;
@@ -182,8 +182,16 @@
         _webView.scrollView.bounces = NO;
         // UIWebView 滚动的比较慢，这里设置为正常速度
         _webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
-        [HxbHUDProgress showLoadDataHUD:self.webView];
+        NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] init];
+        [urlRequest setURL:[NSURL URLWithString:self.url]];
+        NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
+        NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+        NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVersion,version];
+        NSLog(@"%@",[KeyChain token]);
+        [urlRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
+        [urlRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+        [_webView loadRequest:urlRequest];
+        [HxbHUDProgress showLoadDataHUD:_webView];
     }
     return _webView;
 }

@@ -158,6 +158,7 @@ static NSString *const my = @"我的";
     {//有新特性界面
         //如果有新特性，进入新特性界面
         AXHNewFeatureController *VC = [[AXHNewFeatureController alloc] init];
+        VC.force = self.versionUpdateModel.force;
         self.window.rootViewController = VC;
         //保存当前版本，用偏好设置
         [[NSUserDefaults standardUserDefaults] setObject:currentVersion forKey:AXHVersionKey];
@@ -173,6 +174,8 @@ static NSString *const my = @"我的";
     
     
     [self chooseRootViewController];
+    //检测版本更新
+    [self checkversionUpdate];
     //广告页打开就能用
 //    __weak typeof(self) weakSelf = self;
 //    HxbAdvertiseViewController *advertiseViewControllre = [[HxbAdvertiseViewController alloc]init];
@@ -201,8 +204,7 @@ static NSString *const my = @"我的";
     {
         _window.rootViewController = self.mainTabbarVC;
     }
-    //检测版本更新
-    [self checkversionUpdate];
+    
 }
 
 //根据服务器时间计算与本地时间的时间差
