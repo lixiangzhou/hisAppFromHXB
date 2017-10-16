@@ -82,12 +82,21 @@
         make.height.offset(kScrAdaptationW750(37));
     }];
     
-    [_rechargeViewTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_rechargeView).offset(kScrAdaptationH(15));
-        make.left.equalTo(self).offset(kScrAdaptationW(5));
-        make.width.offset(kScreenWidth - kScrAdaptationW(95));
-        make.height.offset(kScrAdaptationH(35));
-    }];
+    if (_isHiddenBtn) {
+        [_rechargeViewTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_rechargeView).offset(kScrAdaptationH(15));
+            make.left.equalTo(self).offset(kScrAdaptationW(5));
+            make.width.offset(kScreenWidth - kScrAdaptationW(15));
+            make.height.offset(kScrAdaptationH(35));
+        }];
+    } else {
+        [_rechargeViewTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(_rechargeView).offset(kScrAdaptationH(15));
+            make.left.equalTo(self).offset(kScrAdaptationW(5));
+            make.width.offset(kScreenWidth - kScrAdaptationW(95));
+            make.height.offset(kScrAdaptationH(35));
+        }];
+    }
     
     [_rechargeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_rechargeView).offset(kScrAdaptationH750(35));
@@ -167,10 +176,10 @@
     _isHiddenBtn = isHiddenBtn;
     if (isHiddenBtn) {
         _rechargeBtn.hidden = YES;
-        _rechargeViewTextField.frame = CGRectMake(-5, kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(15), kScrAdaptationH(35));
+//        _rechargeViewTextField.frame = CGRectMake(-5, kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(15), kScrAdaptationH(35));
     } else {
         _rechargeBtn.hidden = NO;
-        _rechargeViewTextField.frame = CGRectMake(-5, kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(95), kScrAdaptationH(35));
+//        _rechargeViewTextField.frame = CGRectMake(-5, kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(95), kScrAdaptationH(35));
     }
 }
 
