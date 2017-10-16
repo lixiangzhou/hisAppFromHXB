@@ -167,7 +167,10 @@ static NSString *ID = @"collectionCell";
     }else
     {
         KeyWindow.rootViewController = self.mainTabbarVC;
-        [self showNewAlert];
+        if ([self.force isEqualToString:@"0"]) {
+            [self showNewAlert];
+        }
+        
     }
 }
 

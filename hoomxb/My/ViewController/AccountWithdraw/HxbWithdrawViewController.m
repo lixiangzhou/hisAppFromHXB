@@ -159,7 +159,10 @@
 
 - (void)withdrawals
 {
-    [self presentViewController:self.alertVC animated:NO completion:nil];
+    if (self.presentedViewController != self.alertVC) {
+        self.alertVC = nil;
+        [self presentViewController:self.alertVC animated:NO completion:nil];
+    }
 }
 
 
