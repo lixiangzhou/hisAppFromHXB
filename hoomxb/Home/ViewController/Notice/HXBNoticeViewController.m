@@ -69,7 +69,6 @@
         }
         weakSelf.mainTabelView.hidden = NO;
         [weakSelf.mainTabelView reloadData];
-        weakSelf.mainTabelView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         [weakSelf setTableFooterView:weakSelf.mainTabelView];
         [weakSelf.mainTabelView.mj_footer endRefreshing];
         [self.mainTabelView.mj_header endRefreshing];
@@ -89,10 +88,8 @@
     static NSString *identifier = @"HXBNoticeViewControllerCell";
     HXBNoticeCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[HXBNoticeCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
-        cell.separatorInset = UIEdgeInsetsMake(0, 15, 0, 15);
+        cell = [[HXBNoticeCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
     }
-    
     HXBNoticModel *noticModel = self.modelArrs[indexPath.row];
     cell.textLabel.text = noticModel.title;
     cell.detailTextLabel.text = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:noticModel.date andDateFormat:@"MM-dd"];
@@ -120,10 +117,10 @@
         _mainTabelView.delegate = self;
         _mainTabelView.dataSource = self;
         _mainTabelView.hidden = YES;
+        _mainTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTabelView.rowHeight = kScrAdaptationH750(90);
         [HXBMiddlekey AdaptationiOS11WithTableView:_mainTabelView];
         // _mainTabelView.tableFooterView = [self tableViewFootView];
-        _mainTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_mainTabelView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
             [weakSelf loadDataWithIsUPReloadData:YES];
         } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {

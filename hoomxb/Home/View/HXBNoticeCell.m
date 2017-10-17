@@ -13,16 +13,17 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
+//        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
         self.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         self.textLabel.textColor = COR8;
-        self.textLabel.numberOfLines = 2;
         self.detailTextLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         self.detailTextLabel.textColor = COR10;
         self.detailTextLabel.textAlignment = NSTextAlignmentRight;
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, kScrAdaptationH(44.5), kScreenWidth - 30, kScrAdaptationH(0.5))];
-        lineView.backgroundColor = COR12;
-        [self.contentView addSubview:lineView];
+//        if (@available(iOS 11.0, *)) {
+            UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, kScrAdaptationH(44.5), kScreenWidth - 30, kScrAdaptationH(0.5))];
+            lineView.backgroundColor = COR12;
+            [self.contentView addSubview:lineView];
+//        }
     }
     return self;
 }
