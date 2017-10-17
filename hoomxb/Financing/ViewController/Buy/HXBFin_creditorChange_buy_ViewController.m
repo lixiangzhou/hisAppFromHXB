@@ -365,6 +365,10 @@ static NSString *const investString = @"立即投资";
 
 - (void)fullAddtionFunc {
     kWeakSelf
+    if ((_inputMoneyStr.doubleValue - _balanceMoneyStr.doubleValue) < 1.00) {
+        [HxbHUDProgress showTextWithMessage:@"充值金额必须大于1元"];
+        return;
+    }
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [accountRequest accountRechargeRequestWithRechargeAmount:_inputMoneyStr andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
         [weakSelf alertSmsCode];
@@ -380,10 +384,6 @@ static NSString *const investString = @"立即投资";
 }
 
 - (void)alertSmsCode {
-    if ((_inputMoneyStr.doubleValue - _balanceMoneyStr.doubleValue) < 1.00) {
-        [HxbHUDProgress showTextWithMessage:@"充值金额必须大于1元"];
-        return;
-    }
     self.alertVC = [[HXBAlertVC alloc] init];
     self.alertVC.isCode = YES;
     self.alertVC.isCleanPassword = YES;
@@ -655,7 +655,7 @@ static NSString *const investString = @"立即投资";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 1:
-                failViewController.imageName = @"outOffTime";
+                failViewController.imageName = @"failure";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = response[@"message"];
                 failViewController.buy_ButtonTitle = @"重新投资";
