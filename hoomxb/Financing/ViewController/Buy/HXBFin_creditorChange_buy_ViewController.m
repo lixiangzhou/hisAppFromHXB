@@ -785,7 +785,7 @@ static NSString *const investString = @"立即投资";
             }
         }
         _topView.cardStr = [NSString stringWithFormat:@"%@%@", self.cardModel.bankType, self.cardModel.quota];
-        _topView.hasBank = self.cardModel.bankType;
+        _topView.hasBank = self.cardModel.bankType ? YES : NO;
         self.hxbBaseVCScrollView.tableHeaderView = self.topView;
     }];
 }
