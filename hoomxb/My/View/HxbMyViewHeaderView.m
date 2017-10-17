@@ -154,7 +154,7 @@
     
     NSString *accumulatedProfitStr = userInfoViewModel.userInfoModel.userAssets.earnTotal.intValue? [NSString GetPerMilWithDouble:userInfoViewModel.userInfoModel.userAssets.earnTotal.doubleValue]: @"0.00";
     
-    NSString *balance = userInfoViewModel.userInfoModel.userAssets.availablePoint.intValue ? [NSString GetPerMilWithDouble:userInfoViewModel.userInfoModel.userAssets.availablePoint.doubleValue] : @"0.00";
+    NSString *balance = userInfoViewModel.userInfoModel.userAssets.availablePoint.doubleValue ? [NSString GetPerMilWithDouble:userInfoViewModel.userInfoModel.userAssets.availablePoint.doubleValue] : @"0.00";
     if ([KeyChain.ciphertext isEqualToString:@"0"])
     {
         self.rightHeadButton.selected = NO;

@@ -51,9 +51,17 @@
     lineView.backgroundColor = COR26;
     [self.backView addSubview:lineView];
     [self.backView addSubview:self.profitLabel];
+    [self setupFrame];
 }
 
 - (void)setupFrame {
+    [_notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self);
+        make.left.equalTo(self);
+        make.width.equalTo(self);
+        make.height.offset(kScrAdaptationH(0));
+    }];
+    
     [_topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_notifitionView.mas_bottom);
         make.left.equalTo(self);
@@ -190,8 +198,12 @@
 
 - (void)setCardStr:(NSString *)cardStr {
     _cardStr = cardStr;
+}
+
+- (void)setHasBank:(BOOL)hasBank {
+    _hasBank = hasBank;
     if (self.hasBank) {
-        [_notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_notifitionView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             make.left.equalTo(self);
             make.width.equalTo(self);
@@ -199,16 +211,7 @@
         }];
         _notifitionView.messageCount = _cardStr;
         _notifitionView.hidden = NO;
-    } else {
-        [_notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self);
-            make.left.equalTo(self);
-            make.width.equalTo(self);
-            make.height.offset(kScrAdaptationH(0));
-        }];
-        _notifitionView.hidden = YES;
     }
-    [self setupFrame];
 }
 
 - (void)setDisableBtn:(BOOL)disableBtn {
@@ -245,7 +248,7 @@
     if (!_notifitionView) {
         _notifitionView = [[HXBMy_Withdraw_notifitionView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(0))];
     }
-    _notifitionView.hidden = NO;
+    _notifitionView.hidden = YES;
     _notifitionView.block = ^{
         NSLog(@"点击了消息");
     };
