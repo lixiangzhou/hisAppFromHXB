@@ -53,11 +53,11 @@
  卡bin校验
  
  @param bankNumber 银行卡号
- @param isTost 是否需要提示信息
+ @param isToast 是否需要提示信息
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-+ (void)checkCardBinResultRequestWithSmscode:(NSString *)bankNumber andisTostTip:(BOOL)isTost andSuccessBlock: (void(^)(HXBCardBinModel *cardBinModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
++ (void)checkCardBinResultRequestWithSmscode:(NSString *)bankNumber andisToastTip:(BOOL)isToast andSuccessBlock: (void(^)(HXBCardBinModel *cardBinModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
 @end

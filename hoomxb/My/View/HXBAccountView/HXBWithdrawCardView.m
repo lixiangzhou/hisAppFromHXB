@@ -119,7 +119,7 @@
         make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
         make.height.offset(kScrAdaptationH750(82));
-        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH750(-600));
+        make.top.equalTo(self.phoneNumberTextField.mas_bottom).offset(kScrAdaptationH750(123));
     }];
     
 }
@@ -137,10 +137,10 @@
 {
     if (self.nextButtonClickBlock) {
         kWeakSelf
-        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:_bankCardID andisTostTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+        if ([self judgeIsNull]) return;
+        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:_bankCardID andisToastTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
 //            [weakSelf checkCardBin:cardBinModel];
             weakSelf.cardBinModel = cardBinModel;
-            if ([self judgeIsNull]) return;
             NSDictionary *dic = @{
                                   @"bankCard" : _bankCardID,
                                   @"bankReservedMobile" : self.phoneNumberTextField.text,
@@ -274,8 +274,9 @@
     self.line.hidden = NO;
     [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
         self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankNameTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(50));
+        [self layoutIfNeeded];
     }];
-    [self layoutIfNeeded];
+    
     
     if (!cardBinModel.creditCard) {
         self.bankNameTextField.svgImageName = cardBinModel.bankCode;
@@ -296,6 +297,7 @@
         self.bankNameTextField.hidden = YES;
         [UIView animateWithDuration:kBankbin_AnimationTime animations:^{
             self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankCardTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH750(100));
+            [self layoutIfNeeded];
         }];
     }
 }

@@ -25,7 +25,8 @@ extern NSString *const kHXBNotification_StopAllRequest;
 extern NSString *const kHXBNotification_PlanAndLoan_Fragment;
 //从后台进入程序唤醒倒计时
 extern NSString *const kHXBNotification_starCountDown;
-
+//是否更新提示
+extern NSString *const kHXBNotification_update;
 @interface HxbNotificationMacros : NSObject
 
 @end
