@@ -282,7 +282,7 @@
         self.bankNameTextField.text = [NSString stringWithFormat:@"%@：%@",cardBinModel.bankName,cardBinModel.quota];
     }else
     {
-        self.bankNameTextField.svgImageName = @"默认";
+        self.bankNameTextField.svgImageName = cardBinModel.bankCode;
         self.bankNameTextField.text = @"此卡为信用卡，暂不支持";
     }
 }
