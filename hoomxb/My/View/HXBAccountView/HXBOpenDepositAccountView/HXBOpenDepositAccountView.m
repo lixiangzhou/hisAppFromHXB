@@ -151,7 +151,7 @@
     if (self.openAccountBlock) {
         kWeakSelf
         if ([self judgeIsTure]) return;
-        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:self.bankNumber andisTostTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:self.bankNumber andisToastTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
             weakSelf.cardBinModel = cardBinModel;
             [UIView animateWithDuration:0.5 animations:^{
                 self.y = 0;
