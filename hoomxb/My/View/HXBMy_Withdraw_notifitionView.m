@@ -31,12 +31,12 @@
     self.backgroundColor = COR32;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickMessageView)];
     [self addGestureRecognizer:tap];
-    UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH750(69.5), kScreenWidth, kScrAdaptationH750(0.5))];
+    UIView *shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH750(80), kScreenWidth, kScrAdaptationH750(0.5))];
     shadowView.backgroundColor = COR32;
     shadowView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
-    shadowView.layer.shadowOffset = CGSizeMake(2, 2);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
-    shadowView.layer.shadowOpacity = 0.8;//阴影透明度，默认0
-    shadowView.layer.shadowRadius = 2;//阴影半径，默认3
+    shadowView.layer.shadowOffset = CGSizeMake(1, 1);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+    shadowView.layer.shadowOpacity = 0.6;//阴影透明度，默认0
+    shadowView.layer.shadowRadius = 1;//阴影半径，默认3
     [self addSubview:shadowView];
     
     [self addSubview:self.messageImage];
@@ -51,7 +51,7 @@
     }];
     [_messageImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(_messageLabel.mas_left).offset(-kScrAdaptationW(10));
-        make.top.equalTo(@kScrAdaptationH750(21));
+        make.top.equalTo(@kScrAdaptationH750(26));
         make.width.offset(kScrAdaptationW750(26));
         make.height.offset(kScrAdaptationH750(27.7));
     }];

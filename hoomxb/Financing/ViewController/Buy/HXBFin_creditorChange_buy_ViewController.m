@@ -374,11 +374,17 @@ static NSString *const investString = @"立即投资";
         [weakSelf alertSmsCode];
     } andFailureBlock:^(NSError *error) {
         NSDictionary *errDic = (NSDictionary *)error;
-        if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-            withdrawCardViewController.title = @"绑卡";
-            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-            [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+        @try {
+            if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
+                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                withdrawCardViewController.title = @"绑卡";
+                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+            }
+        } @catch (NSException *exception) {
+            
+        } @finally {
+            
         }
     }];
 }
@@ -419,12 +425,17 @@ static NSString *const investString = @"立即投资";
         [accountRequest accountRechargeRequestWithRechargeAmount:weakSelf.inputMoneyStr andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
         } andFailureBlock:^(NSError *error) {
             NSDictionary *errDic = (NSDictionary *)error;
-            if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                withdrawCardViewController.title = @"绑卡";
-                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+            @try {
+                if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
+                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                    withdrawCardViewController.title = @"绑卡";
+                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                    [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+                }
+            } @catch (NSException *exception) {
+            } @finally {
             }
+            
         }];
     };
     [self presentViewController:_alertVC animated:NO completion:nil];
@@ -760,15 +771,15 @@ static NSString *const investString = @"立即投资";
         self.cardModel = model;
         if (_type == HXB_Plan) {
             if (self.cardModel.bankType) {
-                self.topView.height = kScrAdaptationH750(355);
+                self.topView.height = kScrAdaptationH750(360);
             } else {
-                self.topView.height = kScrAdaptationH750(285);
+                self.topView.height = kScrAdaptationH750(290);
             }
         } else {
             if (self.cardModel.bankType) {
-                self.topView.height = kScrAdaptationH750(285);
+                self.topView.height = kScrAdaptationH750(290);
             } else {
-                self.topView.height = kScrAdaptationH750(215);
+                self.topView.height = kScrAdaptationH750(220);
             }
         }
         _topView.hasBank = self.cardModel.bankType;
