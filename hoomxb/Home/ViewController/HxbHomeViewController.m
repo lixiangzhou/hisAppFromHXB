@@ -32,6 +32,8 @@
 
 @property (nonatomic, assign) BOOL isVersionUpdate;
 
+@property (nonatomic, strong) HXBVersionUpdateViewModel *versionUpdateVM;
+
 @end
 
 @implementation HxbHomeViewController
@@ -56,6 +58,7 @@
     //判断是否显示设置手势密码
     [self gesturePwdShow];
     [self hiddenTabbarLine];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update) name:kHXBNotification_update object:nil];
 }
 
 
@@ -130,12 +133,13 @@
  */
 - (void)checkVersionUpdate
 {
+    kWeakSelf
     NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
     HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
     [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
-        HXBVersionUpdateViewModel *versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
-         versionUpdateVM.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
-        [HXBAlertManager checkversionUpdateWith: versionUpdateVM.versionUpdateModel];
+        weakSelf.versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
+         weakSelf.versionUpdateVM.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
+        [HXBAlertManager checkversionUpdateWith: weakSelf.versionUpdateVM.versionUpdateModel];
     } andFailureBlock:^(NSError *error) {
         
     }];
@@ -239,6 +243,10 @@
 //}
 
 #pragma mark Action
+- (void)update
+{
+    [HXBAlertManager checkversionUpdateWith: self.versionUpdateVM.versionUpdateModel];
+}
 ///刷新首页
 - (void)refreshHomePage
 {
