@@ -701,7 +701,7 @@
         
         if([responseObject[kResponseStatus] integerValue]) {
             kNetWorkError(@" Plan 账户内债权确认页");
-            if ([responseObject[kResponseStatus] integerValue] == 3014) {
+            if ([responseObject[kResponseStatus] integerValue] == kHXBTransaction_Password_Error) {
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
                 return;
             }

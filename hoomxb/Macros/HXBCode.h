@@ -18,12 +18,26 @@ typedef enum : NSUInteger {
     kHXBCode_Enum_TokenNotJurisdiction = 401,
     ///未登录
     kHXBCode_Enum_NotSigin = 402,
-    ///请求超时
+    ///服务器时间与系统时间相差过大
     kHXBCode_Enum_RequestOverrun = 412,
     //没有连接网络
     kHXBCode_Enum_NoConnectionNetwork = -1009,
     //服务器错误
     kHXBCode_Enum_NoServerFaile = 500,
+    //交易密码错误
+    kHXBTransaction_Password_Error = 3014,
+    //短信验证码错误
+    kHXBSMS_Code_Error = 3015,
+    //购买过于频繁
+    kHXBBuying_Too_Frequently = 3413,
+    //恒丰银行处理中
+    kHXBHengfeng_treatment = 3016,
+    //余额不足
+    kHXBNot_Sufficient_Funds = 3408,
+    //已售罄
+    kHXBSold_Out = 999,
+    //购买处理中
+    kHXBPurchase_Processing = -999,
 } kHXBCode_Enum;
 
 /**
