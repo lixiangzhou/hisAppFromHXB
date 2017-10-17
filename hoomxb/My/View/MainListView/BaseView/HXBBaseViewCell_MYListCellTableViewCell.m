@@ -41,9 +41,7 @@
     if (myListCellManager.title_ImageName.length) {
        UIImage *image = [UIImage imageNamed:myListCellManager.title_ImageName];
         if (!image) {
-            UIImageView *imageView = [[UIImageView alloc]init];
-            imageView.svgImageString = myListCellManager.title_ImageName;
-            
+            UIImageView *imageView = [[UIImageView alloc]init];            
             image = imageView.image;
         }
         self.title_ImageView.image = image;

@@ -133,7 +133,7 @@
 
 - (UILabel *)cardLimitMoneyLabel {
     if (!_cardLimitMoneyLabel) {
-        _cardLimitMoneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(35))];
+        _cardLimitMoneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(40))];
         _cardLimitMoneyLabel.textAlignment = NSTextAlignmentCenter;
         _cardLimitMoneyLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _cardLimitMoneyLabel.textColor = [UIColor whiteColor];
@@ -195,7 +195,7 @@
             make.top.equalTo(self);
             make.left.equalTo(self);
             make.width.equalTo(self);
-            make.height.offset(kScrAdaptationH(35));
+            make.height.offset(kScrAdaptationH(40));
         }];
         _notifitionView.messageCount = _cardStr;
         _notifitionView.hidden = NO;
