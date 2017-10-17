@@ -216,6 +216,14 @@ static NSString *const investString = @"立即投资";
 
 // 购买红利计划
 - (void)requestForPlan {
+    if (_availablePoint.integerValue == 0) {
+        self.topView.totalMoney = @"";
+        self.topView.profitStr = @"预期收益：0.00元";
+        _inputMoneyStr = @"";
+        [self setUpArray];
+        [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
+        return;
+    }
     if (_inputMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
@@ -357,6 +365,10 @@ static NSString *const investString = @"立即投资";
 
 - (void)fullAddtionFunc {
     kWeakSelf
+    if ((_inputMoneyStr.doubleValue - _balanceMoneyStr.doubleValue) < 1.00) {
+        [HxbHUDProgress showTextWithMessage:@"充值金额必须大于1元"];
+        return;
+    }
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [accountRequest accountRechargeRequestWithRechargeAmount:_inputMoneyStr andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
         [weakSelf alertSmsCode];
@@ -372,10 +384,6 @@ static NSString *const investString = @"立即投资";
 }
 
 - (void)alertSmsCode {
-    if ((_inputMoneyStr.doubleValue - _balanceMoneyStr.doubleValue) < 1.00) {
-        [HxbHUDProgress showTextWithMessage:@"充值金额必须大于1元"];
-        return;
-    }
     self.alertVC = [[HXBAlertVC alloc] init];
     self.alertVC.isCode = YES;
     self.alertVC.isCleanPassword = YES;
@@ -483,38 +491,38 @@ static NSString *const investString = @"立即投资";
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
         failViewController.title = @"投资结果";
         switch (status) {
-            case 3408:
+            case kHXBNot_Sufficient_Funds:
                 failViewController.imageName = @"yuebuzu";
                 failViewController.buy_title = @"可用余额不足，请重新购买";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case 999:
+            case kHXBSold_Out:
                 failViewController.imageName = @"shouqin";
                 failViewController.buy_title = @"手慢了，已售罄";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case -999:
+            case kHXBPurchase_Processing:
                 failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case 3016:
+            case kHXBHengfeng_treatment:
                 failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case 3014:
+            case kHXBTransaction_Password_Error:
                 self.alertVC.isCleanPassword = YES;
                 return ;
-            case 3015:
+            case kHXBSMS_Code_Error:
                 return ;
             case 104:
                 return ;
             case 412:
                 return ;
-            case 3413:
+            case kHXBBuying_Too_Frequently:
                 return ;
             default:
                 failViewController.imageName = @"failure";
@@ -550,38 +558,38 @@ static NSString *const investString = @"立即投资";
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
         failViewController.title = @"投资结果";
         switch (status) {
-            case 3408:
+            case kHXBNot_Sufficient_Funds:
                 failViewController.imageName = @"yuebuzu";
                 failViewController.buy_title = @"可用余额不足，请重新购买";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case 999:
+            case kHXBSold_Out:
                 failViewController.imageName = @"shouqin";
                 failViewController.buy_title = @"手慢了，已售罄";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case -999:
+            case kHXBPurchase_Processing:
                 failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case 3016:
+            case kHXBHengfeng_treatment:
                 failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case 3014:
+            case kHXBTransaction_Password_Error:
                 self.alertVC.isCleanPassword = YES;
                 return ;
-            case 3015:
+            case kHXBSMS_Code_Error:
                 return ;
             case 104:
                 return ;
             case 412:
                 return ;
-            case 3413:
+            case kHXBBuying_Too_Frequently:
                 return ;
             default:
                 failViewController.imageName = @"failure";
@@ -624,44 +632,44 @@ static NSString *const investString = @"立即投资";
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
         failViewController.title = @"投资结果";
         switch (status) {
-            case 3408:
+            case kHXBNot_Sufficient_Funds:
                 failViewController.imageName = @"yuebuzu";
                 failViewController.buy_title = @"可用余额不足，请重新购买";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case 999:
+            case kHXBSold_Out:
                 failViewController.imageName = @"shouqin";
                 failViewController.buy_title = @"手慢了，已售罄";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case -999:
+            case kHXBPurchase_Processing:
                 failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case 3016:
+            case kHXBHengfeng_treatment:
                 failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
             case 1:
-                failViewController.imageName = @"outOffTime";
+                failViewController.imageName = @"failure";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = response[@"message"];
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
-            case 3014:
+            case kHXBTransaction_Password_Error:
                 self.alertVC.isCleanPassword = YES;
                 return ;
-            case 3015:
+            case kHXBSMS_Code_Error:
                 return ;
             case 104:
                 return ;
             case 412:
                 return ;
-            case 3413:
+            case kHXBBuying_Too_Frequently:
                 return ;
             default:
                 failViewController.imageName = @"failure";
@@ -764,7 +772,7 @@ static NSString *const investString = @"立即投资";
             }
         }
         _topView.hasBank = self.cardModel.bankType;
-        _topView.cardStr = [NSString stringWithFormat:@"%@：%@", self.cardModel.bankType, self.cardModel.quota];
+        _topView.cardStr = [NSString stringWithFormat:@"%@%@", self.cardModel.bankType, self.cardModel.quota];
         self.hxbBaseVCScrollView.tableHeaderView = self.topView;
     }];
 }

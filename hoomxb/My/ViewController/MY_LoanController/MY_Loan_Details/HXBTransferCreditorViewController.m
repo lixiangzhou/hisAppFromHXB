@@ -134,6 +134,27 @@
         [weakSelf.navigationController pushViewController:successVC animated:true];
     } andFailureBlock:^(NSError *error) {
         
+        HXBFBase_BuyResult_VC *failureVC = [[HXBFBase_BuyResult_VC alloc] init];
+        failureVC.imageName = @"failure";
+        failureVC.buy_title = @"转让失败";
+        NSDictionary *dic = (NSDictionary *)error;
+        @try {
+            failureVC.buy_description = dic[@"message"];
+        } @catch (NSException *exception) {
+        } @finally {
+        }
+        failureVC.buy_ButtonTitle = @"重新转让";
+        failureVC.title = @"债权转让";
+        [failureVC clickButtonWithBlock:^{
+            for (UIViewController *VC in self.navigationController.viewControllers) {
+                if ([VC isKindOfClass:[HXBMY_LoanListViewController class]]) {
+                    [weakSelf.navigationController popToViewController:VC animated:YES];
+                }
+            }
+        }];
+        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
+        [weakSelf.navigationController pushViewController:failureVC animated:true];
+        
     }];
 }
 
