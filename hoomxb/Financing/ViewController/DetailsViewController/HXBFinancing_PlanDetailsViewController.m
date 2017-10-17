@@ -158,7 +158,7 @@
         [self.countDownManager countDownCallBackFunc:^(CGFloat countDownValue) {
             if (countDownValue < 0) {
                 if (weakSelf.downLodaDataBlock) weakSelf.downLodaDataBlock();
-                [weakSelf.addButton setTitle:@"" forState:UIControlStateNormal];
+                [weakSelf.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
                 [weakSelf.addButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
                 weakSelf.countDownLabel.text = @"立即加入";
                 weakSelf.countDownLabel.textColor = [UIColor whiteColor];

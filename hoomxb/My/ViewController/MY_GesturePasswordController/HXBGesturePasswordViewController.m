@@ -386,7 +386,7 @@ static NSString *const my = @"我的";
                 [alertVC setClickXYRightButtonBlock:^{
                     [KeyChain signOut];
                     [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{kHXBMY_VersionUpdateURL : @YES}];
                 }];
                 [alertVC setClickXYLeftButtonBlock:^{
                     [KeyChain signOut];

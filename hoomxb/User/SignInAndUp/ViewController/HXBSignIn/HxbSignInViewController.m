@@ -99,7 +99,9 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
             KeyChain.ciphertext = @"0";
             [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
                 
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+                [weakSelf dismissViewControllerAnimated:YES completion:^{
+                    [self update];
+                }];
             }];
         } andFailureBlock:^(NSError *error, id responseObject) {
             if ([responseObject[kResponseStatus] integerValue]) {
@@ -236,8 +238,15 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
         baseTabBarVC.selectedIndex = [self.selectedIndexVC integerValue];
     }
     [self dismissViewControllerAnimated:YES completion:^{
-        
+        [self update];
     }];
+}
+
+- (void)update{
+    if (self.isUpdate) {
+        self.isUpdate = NO;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_update object:nil];
+    }
 }
 
 //- (void)setLeftItemBar{

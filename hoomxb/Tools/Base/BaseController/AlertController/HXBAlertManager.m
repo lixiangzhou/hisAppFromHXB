@@ -292,10 +292,8 @@
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
             [[UIApplication sharedApplication] openURL:url];
         }];
-        if ([UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController) {
-            [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-        }
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+        [self promptPriorityWithAlertVC:alertVC];
+        
     } else if ([versionUpdateModel.force isEqualToString:@"2"] ) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝发现新版本" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
         if (versionUpdateModel.updateinfo.length > 40) {
@@ -310,14 +308,14 @@
         [alertVC setClickXYLeftButtonBlock:^{
             [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
         }];
-        if ([UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController) {
-            [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-        }
-        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+        [self promptPriorityWithAlertVC:alertVC];
     } else {
     }
 }
 
-
+//提示框的优先级
++ (void)promptPriorityWithAlertVC:(UIViewController *)alertVC {
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+}
 
 @end
