@@ -89,7 +89,7 @@
 /**
  下拉加载数据
  */
-- (void)registerRefresh{
+- (void)registerRefresh {
     kWeakSelf
     self.homeView.homeRefreshHeaderBlock = ^(){
         NSLog(@"首页下来加载数据");
@@ -110,8 +110,8 @@
 //    [self.navigationController pushViewController:adVc animated:YES];
 //}
 
--(void)dealloc{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"pushtoad" object:nil];
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kHXBNotification_update object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

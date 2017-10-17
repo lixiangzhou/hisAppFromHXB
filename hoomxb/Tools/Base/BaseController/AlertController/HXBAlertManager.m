@@ -293,16 +293,6 @@
             [[UIApplication sharedApplication] openURL:url];
         }];
         [self promptPriorityWithAlertVC:alertVC];
-//        if ([[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController isKindOfClass:[HxbSignInViewController class]]) {
-//            [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:^{
-//                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
-//            }];
-//        }else if ([UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController){
-//            [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-//            [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
-//        }else{
-//             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
-//        }
         
     } else if ([versionUpdateModel.force isEqualToString:@"2"] ) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝发现新版本" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
@@ -319,17 +309,12 @@
             [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
         }];
         [self promptPriorityWithAlertVC:alertVC];
-//        if ([UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController) {
-//            [[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-//        }
-//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
     } else {
     }
 }
 
 //提示框的优先级
-+ (void)promptPriorityWithAlertVC:(UIViewController *)alertVC
-{
++ (void)promptPriorityWithAlertVC:(UIViewController *)alertVC {
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
 }
 
