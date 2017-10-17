@@ -47,6 +47,9 @@
         self.title_ImageView.image = image;
         self.title_ImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.title_ImageView.hidden = NO;
+        [self.title_LeftLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(kScrAdaptationW(35));
+        }];
     }else {///没有imageView 那么跟新约束
         [self hxb_updateConstraints_imageView];
     }
