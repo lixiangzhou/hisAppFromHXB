@@ -150,12 +150,12 @@
 {
     if (self.openAccountBlock) {
         kWeakSelf
+        if ([self judgeIsTure]) return;
         [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:self.bankNumber andisTostTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
             weakSelf.cardBinModel = cardBinModel;
             [UIView animateWithDuration:0.5 animations:^{
                 self.y = 0;
             }];
-            if ([self judgeIsTure]) return;
             self.bankNumber = [self.bankNumberTextField.text stringByReplacingOccurrencesOfString:@" "  withString:@""];
             NSDictionary *dic = @{
                                   @"realName" : self.nameTextField.text,

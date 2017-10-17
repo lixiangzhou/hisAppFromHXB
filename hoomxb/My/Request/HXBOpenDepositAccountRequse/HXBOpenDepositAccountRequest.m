@@ -189,7 +189,7 @@
     versionUpdateAPI.requestArgument = @{
                                          @"bankCard" : bankNumber
                                          };
-    versionUpdateAPI.isUPReloadData = YES;
+    versionUpdateAPI.isUPReloadData = !isTost;
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];

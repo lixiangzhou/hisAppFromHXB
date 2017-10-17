@@ -137,10 +137,10 @@
 {
     if (self.nextButtonClickBlock) {
         kWeakSelf
+        if ([self judgeIsNull]) return;
         [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:_bankCardID andisTostTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
 //            [weakSelf checkCardBin:cardBinModel];
             weakSelf.cardBinModel = cardBinModel;
-            if ([self judgeIsNull]) return;
             NSDictionary *dic = @{
                                   @"bankCard" : _bankCardID,
                                   @"bankReservedMobile" : self.phoneNumberTextField.text,
