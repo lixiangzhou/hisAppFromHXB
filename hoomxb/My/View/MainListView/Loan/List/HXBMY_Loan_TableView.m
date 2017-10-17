@@ -113,7 +113,6 @@ static NSString *const exitTitle = @"已退出";
                                                             lastValue
                                                             ];
                 manager.wenHaoImageName = exiTingImageViewName;
-                NSLog(@"%d++++++++", viewModel.loanModel.isBuyTransfer);
                 if (viewModel.loanModel.isBuyTransfer) {
                     manager.title_ImageName = @"LoanTruansfer";
                 }
@@ -180,6 +179,10 @@ static NSString *const exitTitle = @"已退出";
 
 - (void)clickLoanCellFuncWithBlock: (void(^)(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex))clickLoanCellBlock{
     self.clickLoanCellBlock = clickLoanCellBlock;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return [[UIView alloc] init];
 }
 
 - (CGFloat) tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
