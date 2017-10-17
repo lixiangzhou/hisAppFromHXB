@@ -20,13 +20,13 @@
         self.detailTextLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         self.detailTextLabel.textColor = COR10;
         self.detailTextLabel.textAlignment = NSTextAlignmentRight;
-        [self setupSubViewFrame];
+        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(15, kScrAdaptationH(44.5), kScreenWidth - 30, kScrAdaptationH(0.5))];
+        lineView.backgroundColor = COR12;
+        [self.contentView addSubview:lineView];
     }
     return self;
 }
-- (void)setupSubViewFrame
-{
-
+- (void)layoutSubviews {
     [self.textLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW(15));
         make.top.equalTo(self.contentView).offset(kScrAdaptationH(15));
