@@ -248,7 +248,7 @@
                     HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
                     failViewController.title = @"投资结果";
                     switch (status) {
-                        case 3408:
+                        case kHXBNot_Sufficient_Funds:
                             failViewController.imageName = @"yuebuzu";
                             failViewController.buy_title = @"可用余额不足，请重新购买";
                             failViewController.buy_ButtonTitle = @"重新投资";

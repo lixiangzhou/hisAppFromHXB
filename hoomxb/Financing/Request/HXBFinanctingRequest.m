@@ -620,7 +620,7 @@
     
     [confirmBuyReslut startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        if (status == 3408) {
+        if (status == kHXBNot_Sufficient_Funds) {
         
             if (failureBlock) failureBlock(nil,status);
             return;
@@ -702,8 +702,8 @@
                                       };
     [loanBuyReslutRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        if (status == 3408) {
-            if (failureBlock) failureBlock(nil,3408);
+        if (status == kHXBNot_Sufficient_Funds) {
+            if (failureBlock) failureBlock(nil,kHXBNot_Sufficient_Funds);
             return;
         }
         if (status == 3100) {
@@ -743,7 +743,7 @@
     [confirmBuyReslut startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
         if (status) {
-            if (status == 3014 || status == 3015 || status == 3413) {
+            if (status == kHXBTransaction_Password_Error || status == kHXBSMS_Code_Error || status == kHXBBuying_Too_Frequently) {
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
             
@@ -775,7 +775,7 @@
     [loanBuyReslutRequest startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
         if (status) {
-            if (status == 3014 || status == 3015 || status == 3413) {
+            if (status == kHXBTransaction_Password_Error || status == kHXBSMS_Code_Error || status == kHXBBuying_Too_Frequently) {
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
             if (failureBlock) failureBlock(nil,status); return;
@@ -806,7 +806,7 @@
     [loanTruansferAPI startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
         if (status) {
-            if (status == 3014 || status == 3015 || status == 3413) {
+            if (status == kHXBTransaction_Password_Error || status == kHXBSMS_Code_Error || status == kHXBBuying_Too_Frequently) {
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
             if (failureBlock) failureBlock(nil, responseObject); return;
