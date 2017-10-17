@@ -138,7 +138,7 @@
     if (self.nextButtonClickBlock) {
         kWeakSelf
         if ([self judgeIsNull]) return;
-        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:_bankCardID andisTostTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:_bankCardID andisToastTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
 //            [weakSelf checkCardBin:cardBinModel];
             weakSelf.cardBinModel = cardBinModel;
             NSDictionary *dic = @{
