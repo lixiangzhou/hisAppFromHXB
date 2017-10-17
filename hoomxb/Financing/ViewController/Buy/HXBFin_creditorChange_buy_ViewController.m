@@ -408,7 +408,7 @@ static NSString *const investString = @"立即投资";
                     @"smsCode": pwd};
             [weakSelf buyPlanWithDic:dic];
         } else if (weakSelf.type == HXB_Loan) {
-            dic = @{@"amount": _inputMoneyStr,
+            dic = @{@"amount": [NSString stringWithFormat:@"%.lf", _inputMoneyStr.doubleValue], // 强转成整数类型
                     @"buyType": _buyType,
                     @"balanceAmount": _balanceMoneyStr,
                     @"smsCode": pwd};
