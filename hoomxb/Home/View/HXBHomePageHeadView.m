@@ -21,8 +21,9 @@
 
 //@property (nonatomic, strong) HXBHomePageModuleView *moduleView;
 
+// 登录之后的页面
 @property (nonatomic, strong) HXBHomePageLoginIndicationView *indicationView;
-
+// 登录之前的页面
 @property (nonatomic, strong) HXBHomePageAfterLoginView *afterLoginView;
 
 @property (nonatomic, strong) UIButton *noticeBtn;
@@ -109,12 +110,11 @@
 //    }
 //}
 
+// 显示未投资页
 - (void)showNotValidatedView
 {
     self.afterLoginView.hidden = NO;
-    if (self.indicationView.hidden) {
-        return;
-    }
+    if (self.indicationView.hidden) return;
 //    self.height = self.height - self.indicationView.height;
     if (!self.bulletinView.hidden) {
 //        self.moduleView.y = self.bannerView.height + self.bulletinView.height +  self.afterLoginView.height;
@@ -123,6 +123,7 @@
     [self resetView];
 }
 
+// 显示投资页
 - (void)showAlreadyInvestedView
 {
     [self.indicationView loadNewDate];
@@ -136,11 +137,11 @@
 
 - (void)showSecurityCertificationOrInvest{
     kWeakSelf
+    NSLog(@"________%d", [KeyChain isLogin]);
     if (![KeyChain isLogin]) {
         self.afterLoginView.headTipString = @"红小宝全新起航，新起点，新梦想";
         self.afterLoginView.tipString = @"注册／登录";
-    }else
-    {
+    } else {
         [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 //没有开户
@@ -150,11 +151,11 @@
                  // 没有实名
                  weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
                   weakSelf.afterLoginView.tipString = @"完善存管信息";
-             }else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]) {
+             } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]) {
                 //已经投资显示的界面
                 weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
                 weakSelf.afterLoginView.tipString = @"立即投资";
-            }
+             }
         } andFailure:^(NSError *error) {
             
         }];

@@ -74,6 +74,7 @@ static NSString *const investString = @"立即投资";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    [self getBankCardLimit];
     [self getNewUserInfo];
 }
 
@@ -768,6 +769,7 @@ static NSString *const investString = @"立即投资";
 // 获取银行限额
 - (void)getBankCardLimit {
     [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
+        self.hxbBaseVCScrollView.tableHeaderView = nil;
         self.cardModel = model;
         if (_type == HXB_Plan) {
             if (self.cardModel.bankType) {
@@ -782,8 +784,8 @@ static NSString *const investString = @"立即投资";
                 self.topView.height = kScrAdaptationH750(220);
             }
         }
-        _topView.hasBank = self.cardModel.bankType;
         _topView.cardStr = [NSString stringWithFormat:@"%@%@", self.cardModel.bankType, self.cardModel.quota];
+        _topView.hasBank = self.cardModel.bankType;
         self.hxbBaseVCScrollView.tableHeaderView = self.topView;
     }];
 }
