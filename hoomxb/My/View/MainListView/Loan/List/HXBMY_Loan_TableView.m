@@ -115,6 +115,8 @@ static NSString *const exitTitle = @"已退出";
                 manager.wenHaoImageName = exiTingImageViewName;
                 if (viewModel.loanModel.isBuyTransfer) {
                     manager.title_ImageName = @"LoanTruansfer";
+                } else {
+                    manager.title_ImageName = nil;
                 }
                 return manager;
             }];
