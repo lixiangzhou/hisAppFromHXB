@@ -211,6 +211,14 @@
         }];
         _notifitionView.messageCount = _cardStr;
         _notifitionView.hidden = NO;
+    } else {
+        [_notifitionView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self);
+            make.left.equalTo(self);
+            make.width.equalTo(self);
+            make.height.offset(kScrAdaptationH(0));
+        }];
+        _notifitionView.hidden = YES;
     }
 }
 

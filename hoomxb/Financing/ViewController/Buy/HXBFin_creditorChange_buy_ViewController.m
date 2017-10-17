@@ -68,6 +68,7 @@ static NSString *const investString = @"立即投资";
     self.isColourGradientNavigationBar = true;
 //    [self getNewUserInfo];
     [self buildUI];
+    
     [self setUpDate];
     [self getBankCardLimit];
 }
@@ -256,7 +257,7 @@ static NSString *const investString = @"立即投资";
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
         self.topView.totalMoney = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
-        _inputMoneyStr = [NSString stringWithFormat:@"%lf", _availablePoint.doubleValue];
+        _inputMoneyStr = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
     } else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
@@ -283,13 +284,13 @@ static NSString *const investString = @"立即投资";
      _registerMultipleAmount     最低起投此金额多少倍
      _inputMoneyStr              输入的金额
      */
-    BOOL isHasContainsNonzeroDecimals = (int)([_inputMoneyStr doubleValue] * 100) % 100 != 0 ? true:false;//true:含非零小数
+    BOOL isHasContainsNonzeroDecimals = (long long)([_inputMoneyStr doubleValue] * 100) % 100 != 0 ? true:false;//true:含非零小数
     BOOL isMultipleOfMin = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);//true表示非（最低倍数）的整数倍
     if (_inputMoneyStr.length <= 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     }else{
         if (isHasContainsNonzeroDecimals) {
-            if ((int)([_inputMoneyStr doubleValue] * 100) == (int)([_availablePoint doubleValue] * 100)) {
+            if ((long long)([_inputMoneyStr doubleValue] * 100) == (long long)([_availablePoint doubleValue] * 100)) {
                 [self chooseBuyTypeWithSting:_btnLabelText];
                 return;
             }else{
@@ -408,7 +409,7 @@ static NSString *const investString = @"立即投资";
                     @"smsCode": pwd};
             [weakSelf buyPlanWithDic:dic];
         } else if (weakSelf.type == HXB_Loan) {
-            dic = @{@"amount": _inputMoneyStr,
+            dic = @{@"amount": [NSString stringWithFormat:@"%.lf", _inputMoneyStr.doubleValue], // 强转成整数类型
                     @"buyType": _buyType,
                     @"balanceAmount": _balanceMoneyStr,
                     @"smsCode": pwd};
@@ -785,7 +786,7 @@ static NSString *const investString = @"立即投资";
             }
         }
         _topView.cardStr = [NSString stringWithFormat:@"%@%@", self.cardModel.bankType, self.cardModel.quota];
-        _topView.hasBank = self.cardModel.bankType;
+        _topView.hasBank = self.cardModel.bankType ? YES : NO;
         self.hxbBaseVCScrollView.tableHeaderView = self.topView;
     }];
 }
