@@ -79,15 +79,11 @@
 @implementation HXBFinancing_PlanDetailsViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //    [self registerClickCell];
-    //    [self registerAddTrust];//增信
     self.isHiddenNavigationBar = false;
     [self setup];
     [self downLoadData];
     [self tableViewModelArray];
     [self setupAddView];
-//    [self registerClickAddButton];
-    
     [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
         _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
@@ -569,8 +565,7 @@
             
             if (self.planDetailViewModel.planDetailModel.unifyStatus.integerValue <= 5) {//等待加入
                 [self.addButton setTitle:self.planDetailViewModel.remainTimeString forState:UIControlStateNormal];
-            }else
-            {
+            } else {
                 [self.addButton setTitle:viewModel.addButtonStr forState:UIControlStateNormal];
             }
             [self.countDownManager stopTimer];
