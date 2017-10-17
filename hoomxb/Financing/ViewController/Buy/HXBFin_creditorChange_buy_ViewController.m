@@ -256,7 +256,7 @@ static NSString *const investString = @"立即投资";
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
         self.topView.totalMoney = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
-        _inputMoneyStr = [NSString stringWithFormat:@"%lf", _availablePoint.doubleValue];
+        _inputMoneyStr = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
     } else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
