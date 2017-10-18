@@ -4202,7 +4202,7 @@
 			attributes = {
 				CLASSPREFIX = HXB;
 				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = "hooms\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010\U0010un-miniX";
+				ORGANIZATIONNAME = "hoomsun-miniX";
 				TargetAttributes = {
 					4E16D8291E9CD0FE002A1881 = {
 						CreatedOnToolsVersion = 8.2.1;
