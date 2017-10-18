@@ -31,39 +31,35 @@
 #define kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(loanTruanserID)];//账户外债转加入记录
 
 //MARK: ======================= 用户 =======================
-#define kHXBUser_UserInfoURL @"/user/info"///用户信息
-#define kHXBUser_LoginURL @"/user/login"//登录
-#define kHXBUser_SignUPURL @"/user/signup"//注册
-#define HXBAccount_ForgotPasswordURL @"/forgot"///忘记密码
-#define kHXBUser_checkCaptchaURL @"/checkCaptcha"///校验 图片验证码
-#define kHXBUser_smscodeURL @"/send/smscode"///发送短信接口
-#define kHXBUser_CheckMobileURL @"/checkMobile"///校验手机号
-#define kHXBUser_CheckExistMobileURL @"/checkExistMobile"///忘记密码校验手机号
-#define kHXBUser_realnameURL @"/user/realname"///实名认证
-#define kHXBUser_riskModifyScoreURL @"/user/riskModifyScore"///风险评测
+#define kHXBUser_UserInfoURL            @"/user/info"///用户信息
+#define kHXBUser_LoginURL               @"/user/login"//登录
+#define kHXBUser_SignUPURL              @"/user/signup"//注册
+#define HXBAccount_ForgotPasswordURL    @"/forgot"///忘记密码
+#define kHXBUser_checkCaptchaURL        @"/checkCaptcha"///校验 图片验证码
+#define kHXBUser_smscodeURL             @"/send/smscode"///发送短信接口
+#define kHXBUser_CheckMobileURL         @"/checkMobile"///校验手机号
+#define kHXBUser_CheckExistMobileURL    @"/checkExistMobile"///忘记密码校验手机号
+#define kHXBUser_realnameURL            @"/user/realname"///实名认证
+#define kHXBUser_riskModifyScoreURL     @"/user/riskModifyScore"///风险评测
 
 //MARK: ======================= 账户内 =======================
-#define kHXBMY_CapitalRecordURL @"/account/tradlist"///交易记录
-#define kHXBMY_PlanListURL @"/account/plan"//账户内  planlist
-#define kHXBMY_PlanDetaileURL(planID) [NSString stringWithFormat:@"/account/plan/%@",(planID)]
-#define kHXBMY_PlanAssetsURL @"/account/plan"// plan 资金统计
-
-#define kHXBMY_LoanListURL @"/account/loan"//账户内  loanlist
-#define kHXBMY_LoanTruansferListURL @"/account/transfer"//账户内 loanTruansfer
-#define kHXBMY_LoanAssetsURL @"/account/loanAssets"//loan资金统计
-
-///账户内的plan 交易记录
-#define kHXBFin_loanRecordURL(planID) [NSString stringWithFormat:@"/account/plan/%@/loanRecord",(planID)]
-#define kHXBMY_LoanAccountRequestURL @"/account/loanAssets"///账户内 账户内Loan资产
-#define kHXBMY_PlanAccountRequestURL @"/account/planAssets"///账户内 账户内Plan资产
-
-
+#define kHXBMY_CapitalRecordURL         @"/account/tradlist"///交易记录
+#define kHXBMY_PlanListURL              @"/account/plan"//账户内  planlist
+#define kHXBMY_PlanAssetsURL            @"/account/plan"// plan 资金统计
+#define kHXBMY_LoanListURL              @"/account/loan"//账户内  loanlist
+#define kHXBMY_LoanTruansferListURL     @"/account/transfer"//账户内 loanTruansfer
+#define kHXBMY_LoanAssetsURL            @"/account/loanAssets"//loan资金统计
+#define kHXBMY_LoanAccountRequestURL    @"/account/loanAssets"///账户内 账户内Loan资产
+#define kHXBMY_PlanAccountRequestURL    @"/account/planAssets"///账户内 账户内Plan资产
+#define kHXBMY_PlanDetaileURL(planID)   [NSString stringWithFormat:@"/account/plan/%@",(planID)]
+#define kHXBFin_loanRecordURL(planID)   [NSString stringWithFormat:@"/account/plan/%@/loanRecord",(planID)]
 ///账户内转让记录
 #define kHXBFin_CreditorRecordURL(planID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(planID)]
 //账户内债权转让确认页
 #define kHXBFin_TransferRecordURL(planID) [NSString stringWithFormat:@"/account/transfer/%@/confirm",(planID)]
 //债权转让功能接口
 #define kHXBFin_TransferResultURL(planID) [NSString stringWithFormat:@"/account/transfer/%@/result",(planID)]
+
 
 //MARK: ======================= 账户设置 =======================
 #define kHXBSetUPAccount_MobifyPassword_LoginRequestURL @"/account/password"//修改登录密码
