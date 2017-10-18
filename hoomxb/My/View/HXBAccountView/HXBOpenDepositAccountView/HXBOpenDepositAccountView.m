@@ -3,7 +3,7 @@
 //  hoomxb
 //
 //  Created by HXB-C on 2017/7/18.
-//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
+//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
 #import "HXBOpenDepositAccountView.h"
@@ -214,11 +214,11 @@
         return isNull;
     }
     
-    if (self.cardBinModel.creditCard) {
-        [HxbHUDProgress showMessageCenter:@"此卡为信用卡，暂不支持" inView:self];
-        isNull = YES;
-        return isNull;
-    }
+//    if (self.cardBinModel.creditCard) {
+//        [HxbHUDProgress showMessageCenter:@"此卡为信用卡，暂不支持" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
 //    if (!(self.cardBinModel.bankCode.length > 0)) {
 //        [HxbHUDProgress showMessageCenter:@"银行卡号没有校验成功，请稍后再试" inView:self];
 //        isNull = YES;
