@@ -15,7 +15,7 @@ pod 'UICKeyChainStore'
 pod 'MBProgressHUD'
 pod 'SDCycleScrollView','~> 1.64'
 pod 'SVGKit', :git => 'https://github.com/SVGKit/SVGKit.git', :branch => '2.x'
-pod 'IQKeyboardManager'
+pod 'IQKeyboardManager', '~> 5.0.2'
 pod 'CJLabel', '~> 2.1.3'
 pod 'UMengAnalytics-NO-IDFA'#无IDFA版SDK（请根据需要选择其中一个）
 pod 'AvoidCrash', '~> 2.2.3'#防止闪退

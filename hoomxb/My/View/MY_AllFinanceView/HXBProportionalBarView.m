@@ -3,7 +3,7 @@
 //  画图
 //
 //  Created by HXB-C on 2017/8/7.
-//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
+//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
 #import "HXBProportionalBarView.h"

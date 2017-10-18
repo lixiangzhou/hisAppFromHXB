@@ -3,7 +3,7 @@
 //  hoomxb
 //
 //  Created by HXB-C on 2017/7/7.
-//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
+//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
 #import "HXBWithdrawCardView.h"
@@ -129,6 +129,7 @@
     [super layoutSubviews];
     if (self.bankNameTextField.hidden){
         self.phoneNumberTextField.frame = CGRectMake(0, CGRectGetMaxY(self.bankCardTextField.frame) + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH750(100));
+        self.nextButton.frame = CGRectMake(20, CGRectGetMaxY(_phoneNumberTextField.frame) + kScrAdaptationH750(123), SCREEN_WIDTH - 40, 44);
     }
 }
 
@@ -172,11 +173,11 @@
         isNull = YES;
         return isNull;
     }
-    if (self.cardBinModel.creditCard) {
-        [HxbHUDProgress showMessageCenter:@"此卡为信用卡，暂不支持" inView:self];
-        isNull = YES;
-        return isNull;
-    }
+//    if (self.cardBinModel.creditCard) {
+//        [HxbHUDProgress showMessageCenter:@"此卡为信用卡，暂不支持" inView:self];
+//        isNull = YES;
+//        return isNull;
+//    }
 //    if (!(self.cardBinModel.bankCode.length > 0)) {
 //        [HxbHUDProgress showMessageCenter:@"银行卡号没有校验成功，请稍后再试" inView:self];
 //        isNull = YES;
@@ -410,7 +411,7 @@
 
 - (UIButton *)nextButton{
     if (!_nextButton) {
-        _nextButton = [UIButton btnwithTitle:@"绑卡" andTarget:self andAction:@selector(nextButtonClick) andFrameByCategory:CGRectMake(20, CGRectGetMaxY(_phoneNumberTextField.frame) + 40, SCREEN_WIDTH - 40, 44)];
+        _nextButton = [UIButton btnwithTitle:@"绑卡" andTarget:self andAction:@selector(nextButtonClick) andFrameByCategory:CGRectMake(20, CGRectGetMaxY(_phoneNumberTextField.frame) + kScrAdaptationH750(123), SCREEN_WIDTH - 40, 44)];
         _nextButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
         [_nextButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         _nextButton.backgroundColor = RGB(245, 81, 81);
