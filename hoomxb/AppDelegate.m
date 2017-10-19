@@ -73,7 +73,7 @@ static NSString *const my = @"我的";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //字典和数据为空的防止闪退
-//    [AvoidCrash becomeEffective];
+    [AvoidCrash becomeEffective];
     //设置友盟统计
     [self setupUmeng];
     
