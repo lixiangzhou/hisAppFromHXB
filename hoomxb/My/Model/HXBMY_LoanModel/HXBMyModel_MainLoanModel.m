@@ -32,4 +32,17 @@
 - (NSString *)description {
     return [self yy_modelDescription];
 }
+/**
+ 判断是否可以进行转让
+ */
+- (BOOL)isTransferable
+{
+    if ([self.transferable isEqualToString:@"1"]) {
+        _isTransferable = YES;
+    } else {
+        _isTransferable = NO;
+    }
+    return _isTransferable;
+}
+
 @end
