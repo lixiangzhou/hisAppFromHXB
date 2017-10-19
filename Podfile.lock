@@ -22,7 +22,7 @@ PODS:
   - CocoaLumberjack/Default (3.2.1)
   - CocoaLumberjack/Extensions (3.2.1):
     - CocoaLumberjack/Default
-  - IQKeyboardManager (5.0.2)
+  - IQKeyboardManager (5.0.4)
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
   - MJRefresh (3.0.8)
@@ -71,7 +71,7 @@ SPEC CHECKSUMS:
   AvoidCrash: bc1e7e6bb8c977854e8111abc162a9fce53b40d5
   CJLabel: adff5c773bd79b4a52c1bd40fe0692c2ce97bb77
   CocoaLumberjack: 2800c03334042fe80589423c8d80e582dcaec482
-  IQKeyboardManager: 5ab84749f20f682f784160c2c63bef4f19d10d26
+  IQKeyboardManager: 1df9c0f147af1681cfb2d9977bc30309d45a7e76
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJRefresh: fafde8f18f4afd66b434331a9beb67a6c0264056
