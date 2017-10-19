@@ -28,8 +28,9 @@
 
 - (void) setLoanDetailViewModel:(HXBMYViewModel_MainLoanViewModel *)loanDetailViewModel {
     _loanDetailViewModel = loanDetailViewModel;
+    self.transferBtn.userInteractionEnabled = loanDetailViewModel.loanModel.isTransferable;
+    self.transferBtn.backgroundColor = loanDetailViewModel.loanModel.isTransferable ? COR29:COR12;
     kWeakSelf
-
     [self.loanDetailView setUPValueWithManagerBlock:^HXBMY_Loan_DetailViewManager *(HXBMY_Loan_DetailViewManager *manager) {
         _loanDetailViewModel = loanDetailViewModel;
         

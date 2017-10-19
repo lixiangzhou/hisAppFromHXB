@@ -7,7 +7,7 @@
 //
 
 #import "HXBTransferCreditorBottomView.h"
-
+#import "HXBTransferConfirmModel.h"
 @interface HXBTransferCreditorBottomView ()
 //债权价值
 @property (nonatomic, strong) UIButton *creditorValueBtn;
@@ -95,6 +95,13 @@
         make.height.offset(kScrAdaptationH750(24));
     }];
 }
+#pragma mark - setter
+- (void)setTransferConfirmModel:(HXBTransferConfirmModel *)transferConfirmModel
+{
+    _transferConfirmModel = transferConfirmModel;
+    self.serviceChargeLabel.text = [NSString stringWithFormat:@"手续费按照债权价值的%@%%收取",transferConfirmModel.rate];
+}
+
 
 #pragma mark - getter(懒加载)
 - (UIButton *)creditorValueBtn
