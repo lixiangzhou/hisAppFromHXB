@@ -296,6 +296,11 @@ static NSString *const investString = @"立即投资";
                 [self chooseBuyTypeWithSting:_btnLabelText];
                 return;
             }else{
+                if ([_inputMoneyStr doubleValue] < [_minRegisterAmount doubleValue]) {
+                    _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
+                    _inputMoneyStr = _minRegisterAmount;
+                    [self setUpArray];
+                }
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
                 return;
             }

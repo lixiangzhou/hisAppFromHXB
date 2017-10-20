@@ -266,6 +266,7 @@
         _amountTextField = [[UITextField alloc] init];
         _amountTextField.placeholder = @"提现金额";
         _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
+        _amountTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _amountTextField.delegate = self;
         _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
         _amountTextField.backgroundColor = [UIColor whiteColor];
