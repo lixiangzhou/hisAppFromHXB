@@ -62,9 +62,14 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 - (void)setUP {
 //    self.view.backgroundColor = kHXBColor_BackGround;
     self.tableView = [[HXBMYCapitalRecord_TableView alloc]init];
-    self.tableView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight);
+    CGFloat height = 0;
+    if (@available(iOS 11.0, *)) {
+        height = 64;
+    }
+    self.tableView.frame = CGRectMake(0, height, kScreenWidth, kScreenHeight);
     self.tableView.backgroundColor = kHXBColor_BackGround;
     [self refresh];
+    [HXBMiddlekey AdaptationiOS11WithTableView:self.tableView];
     [self.view addSubview:self.tableView];
     [self setUPNAVItem];
 }

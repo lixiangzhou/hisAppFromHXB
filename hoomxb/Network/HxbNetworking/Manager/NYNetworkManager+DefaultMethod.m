@@ -88,7 +88,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
                 error = arr[0];
             }];
             [HxbHUDProgress showTextWithMessage:error];
-        }else if(status.integerValue == kHXBCode_Enum_RequestOverrun){
+        }else if(status.integerValue == kHXBCode_Enum_RequestOverrun && ![request.requestUrl isEqualToString:kHXBUser_checkCardBin]){
             [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
         }
     }else{

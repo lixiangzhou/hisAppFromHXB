@@ -27,8 +27,10 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (failureBlock) {
+            if (status != 104) {
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            }
+            if (failureBlock) {
                 failureBlock(responseObject);
             }
             return;

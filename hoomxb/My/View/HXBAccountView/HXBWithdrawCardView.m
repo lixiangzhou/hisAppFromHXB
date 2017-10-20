@@ -305,7 +305,9 @@
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
-    [self setIsCheckFailed:YES];
+    if (self.bankCardTextField == textField.superview) {
+        [self setIsCheckFailed:YES];
+    }
     return YES;
 }
 
