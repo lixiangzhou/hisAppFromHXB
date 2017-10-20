@@ -48,6 +48,9 @@
 		4E559B4E1F0FAFFC003D9982 /* HXBRechargeCompletedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E559B4D1F0FAFFC003D9982 /* HXBRechargeCompletedViewController.m */; };
 		4E559B511F0FB066003D9982 /* HXBRechargesuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E559B501F0FB066003D9982 /* HXBRechargesuccessView.m */; };
 		4E559B541F0FB98E003D9982 /* HXBRechargeFailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E559B531F0FB98E003D9982 /* HXBRechargeFailView.m */; };
+		4E5987D91F9A1AA5009BB497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F630821F20B4F100FC0122 /* Assets.xcassets */; };
+		4E5987DA1F9A1BBA009BB497 /* hxb_startImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E8C0DF81F98E98D00F25C8E /* hxb_startImage@2x.png */; };
+		4E5987DB1F9A1BBD009BB497 /* hxb_startImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E8C0DF91F98E98D00F25C8E /* hxb_startImage@3x.png */; };
 		4E6677C21EEA96300064ECCE /* HXBBankCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6677C11EEA96300064ECCE /* HXBBankCardModel.m */; };
 		4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */; };
 		4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D31001EA70DC900598529 /* HxbHomeViewController.m */; };
@@ -105,9 +108,6 @@
 		4E8A50291F29CE1400DE1C7D /* HXBUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8A50281F29CE1400DE1C7D /* HXBUserInfoView.m */; };
 		4E8AAE9C1F0B7A4400655544 /* HXBRiskAssessmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAE9B1F0B7A4400655544 /* HXBRiskAssessmentViewController.m */; };
 		4E8AAEA01F0B866C00655544 /* HXBSetGesturePasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8AAE9F1F0B866C00655544 /* HXBSetGesturePasswordRequest.m */; };
-		4E8C0DF71F98E94E00F25C8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F630821F20B4F100FC0122 /* Assets.xcassets */; };
-		4E8C0DFA1F98E9DE00F25C8E /* hxb_startImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E8C0DF81F98E98D00F25C8E /* hxb_startImage@2x.png */; };
-		4E8C0DFB1F98E9DE00F25C8E /* hxb_startImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E8C0DF91F98E98D00F25C8E /* hxb_startImage@3x.png */; };
 		4E8CC3141F1F3CAB003DD51F /* HXBPresentInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8CC3131F1F3CAB003DD51F /* HXBPresentInformationView.m */; };
 		4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E8CD0791EBB571A00DCDC5A /* HxbMyViewHeaderView.m */; };
 		4E8D28AB1F46F07100B73FF8 /* 默认.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E8D28AA1F46F07100B73FF8 /* 默认.svg */; };
@@ -4263,7 +4263,7 @@
 				4EECE0181F38177000301758 /* 5006.svg in Resources */,
 				4EECDFD31F380E8B00301758 /* trading_record.svg in Resources */,
 				4E1D909A1F14F62D00D29EA7 /* notice.svg in Resources */,
-				4E8C0DFB1F98E9DE00F25C8E /* hxb_startImage@3x.png in Resources */,
+				4E5987DB1F9A1BBD009BB497 /* hxb_startImage@3x.png in Resources */,
 				4E7CCF511EBC1B5B00F7BDB3 /* login_close@3x.png in Resources */,
 				4E7E5B691F14705700771C07 /* home_Selected.svg in Resources */,
 				4E92156D1F1DFC6900C8CECB /* name.svg in Resources */,
@@ -4273,6 +4273,7 @@
 				4EECE0151F38177000301758 /* 5003.svg in Resources */,
 				4E7CCF501EBC1B5B00F7BDB3 /* login_close@2x.png in Resources */,
 				4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */,
+				4E5987D91F9A1AA5009BB497 /* Assets.xcassets in Resources */,
 				4EECE0161F38177000301758 /* 5004.svg in Resources */,
 				4EECE0141F38177000301758 /* 5002.svg in Resources */,
 				4EECE0261F38548100301758 /* close_eye.svg in Resources */,
@@ -4280,7 +4281,6 @@
 				4E9215731F1DFC9E00C8CECB /* card.svg in Resources */,
 				4ED2F27F1ECADC960014E5C7 /* introductionplaceholder@2x.png in Resources */,
 				4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */,
-				4E8C0DF71F98E94E00F25C8E /* Assets.xcassets in Resources */,
 				4EECE0191F38177000301758 /* 5007.svg in Resources */,
 				4E7E5B811F14DFE900771C07 /* package.svg in Resources */,
 				4EECE0171F38177000301758 /* 5005.svg in Resources */,
@@ -4291,7 +4291,6 @@
 				E18986CE1F2F048B00FAA054 /* audit_status.svg in Resources */,
 				4EECE0101F38177000301758 /* 0210.svg in Resources */,
 				4E8EAA0A1F176B3D003834D4 /* close.svg in Resources */,
-				4E8C0DFA1F98E9DE00F25C8E /* hxb_startImage@2x.png in Resources */,
 				4EECE01B1F38177000301758 /* 5009.svg in Resources */,
 				4E7CCF4D1EBC1B5B00F7BDB3 /* pageControl_select@2x.png in Resources */,
 				4E88A5271F15CBC500BBDF11 /* back.svg in Resources */,
@@ -4299,6 +4298,7 @@
 				4EECDFD21F380E8B00301758 /* sanbiao.svg in Resources */,
 				4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */,
 				4EECE0111F38177000301758 /* 0220.svg in Resources */,
+				4E5987DA1F9A1BBA009BB497 /* hxb_startImage@2x.png in Resources */,
 				4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */,
 				4E92156F1F1DFC8100C8CECB /* id_number.svg in Resources */,
 				4EECE00C1F38177000301758 /* 0150.svg in Resources */,
