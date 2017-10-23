@@ -88,7 +88,7 @@ static NSString *const investString = @"立即投资";
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.hxbBaseVCScrollView.tableFooterView = [self footTableView];
     self.hxbBaseVCScrollView.tableHeaderView = self.topView;
-    self.hxbBaseVCScrollView.hidden = NO;
+    self.hxbBaseVCScrollView.hidden = YES;
     self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
     self.hxbBaseVCScrollView.delegate = self;
@@ -374,11 +374,11 @@ static NSString *const investString = @"立即投资";
 
 - (void)fullAddtionFunc {
     kWeakSelf
-    if ((_inputMoneyStr.doubleValue - _balanceMoneyStr.doubleValue) < 1.00) {
+    double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue];
+    if (topupMoney < 1.00) {
         [HxbHUDProgress showTextWithMessage:@"充值金额必须大于1元"];
         return;
     }
-    double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue];
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
         [weakSelf alertSmsCode];
@@ -768,7 +768,6 @@ static NSString *const investString = @"立即投资";
         _viewModel = viewModel;
         _balanceMoneyStr = _viewModel.userInfoModel.userAssets.availablePoint;
         [self setUpArray];
-        NSLog(@"%@, %@, %@, %@, %@, %lu", self.placeholderStr, self.availablePoint, self.loanId, _balanceMoneyStr, _viewModel.availablePoint, self.type);
         [self.hxbBaseVCScrollView reloadData];
     } andFailure:^(NSError *error) {
         
