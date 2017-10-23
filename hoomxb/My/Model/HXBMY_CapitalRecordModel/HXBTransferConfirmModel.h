@@ -40,6 +40,6 @@
 /**
  费率
  */
-@property (nonatomic, assign) double rate;
+@property (nonatomic, copy) NSString *rate;
 
 @end

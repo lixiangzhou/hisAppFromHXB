@@ -46,5 +46,10 @@
 ///是否为债权转让
 @property (nonatomic, assign) BOOL isBuyTransfer;
 
+/**
+ 判断是否可以进行转让
+ */
+@property (nonatomic, assign) BOOL isTransferable;
+
 - (void)steUPProperty;
 @end

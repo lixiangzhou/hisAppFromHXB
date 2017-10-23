@@ -82,6 +82,7 @@
     HXBMYRequest *transferRequest = [[HXBMYRequest alloc] init];
     [transferRequest transferRequest_AccountRequestTransferID:self.creditorID SuccessBlock:^(HXBTransferConfirmModel *transferConfirmModel) {
         weakSelf.topView.transferConfirmModel = transferConfirmModel;
+        weakSelf.bottomView.transferConfirmModel = transferConfirmModel;
         weakSelf.transferConfirmModel = transferConfirmModel;
     } andFailureBlock:^(NSError *error) {
         
