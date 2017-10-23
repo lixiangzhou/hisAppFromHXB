@@ -215,12 +215,18 @@
 
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
-    _getCodeBtn.backgroundColor = COR26;
-    _getCodeBtn.userInteractionEnabled = NO;
-    _getCodeBtn.layer.borderWidth = 0;
-    [_getCodeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-    [_sureChangeBtn setBackgroundColor:COR12];
-    _sureChangeBtn.userInteractionEnabled = NO;
+    if (textField.superview == _phoneTextField) {
+        _getCodeBtn.backgroundColor = COR26;
+        _getCodeBtn.userInteractionEnabled = NO;
+        _getCodeBtn.layer.borderWidth = 0;
+        [_getCodeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        [_sureChangeBtn setBackgroundColor:COR12];
+        _sureChangeBtn.userInteractionEnabled = NO;
+    } else {
+        [_sureChangeBtn setBackgroundColor:COR12];
+        _sureChangeBtn.userInteractionEnabled = NO;
+    }
+    
     return YES;
 }
 
