@@ -44,6 +44,8 @@
 
 @implementation HxbWithdrawViewController
 
+
+#pragma mark – Life Cycle(生命周期)
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"提现";
@@ -62,6 +64,8 @@
     [self.view addSubview:self.tiedCardLabel];
     [self.view addSubview:self.reminderLabel];
     [self setCardViewFrame];
+    //增加提现记录的按钮
+    [self setupRightBarBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -77,6 +81,22 @@
     self.nextButton.backgroundColor = COR12;
     self.nextButton.userInteractionEnabled = NO;
 }
+
+
+#pragma mark - Events
+
+/**
+ 增加提现记录的按钮
+ */
+- (void)setupRightBarBtn {
+    UIButton *rightBarBtn = [[UIButton alloc] init];
+    [rightBarBtn setTitle:@"提现记录" forState:(UIControlStateNormal)];
+    [rightBarBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    rightBarBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
+    self.navigationItem.rightBarButtonItem = rightItem;
+}
+
 - (void)loadData
 {
     kWeakSelf
