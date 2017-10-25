@@ -192,7 +192,7 @@ MyViewHeaderDelegate
 
 - (HxbMyViewHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(276))];
+        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH750(575))];//kScrAdaptationH(276)
         _headerView.delegate = self;
         _headerView.userInteractionEnabled = YES;
         kWeakSelf
