@@ -174,6 +174,9 @@
 #define kServiceMobile @"400-1552-888"
 #define kSecuryText @"****"
 
+//加载文字
+#define kLoadIngText @"加载中..." 
+
 
 // iPhone X
 #define  LL_iPhoneX (kScreenWidth == 375.f && kScreenHeight == 812.f ? YES : NO)

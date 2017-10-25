@@ -37,6 +37,9 @@
 		4E45F4351F4FC71E009708B7 /* AXHNewFeatureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F42F1F4FC71E009708B7 /* AXHNewFeatureController.m */; };
 		4E45F4361F4FC71E009708B7 /* AXHNewFeatureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4331F4FC71E009708B7 /* AXHNewFeatureCell.m */; };
 		4E45F4491F4FD48A009708B7 /* TAExampleDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4481F4FD48A009708B7 /* TAExampleDotView.m */; };
+		4E47DD301F9F460E0015232E /* HXBCasRegisterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E47DD2D1F9F45DF0015232E /* HXBCasRegisterModel.m */; };
+		4E47DD311F9F46170015232E /* HXBCashRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E47DD2B1F9F45D40015232E /* HXBCashRegisterViewController.m */; };
+		4E47DD321F9F46190015232E /* HXBCasRegisterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E47DD2E1F9F45EA0015232E /* HXBCasRegisterViewModel.m */; };
 		4E48FF421F69124600965BA2 /* HXBDeviceVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48FF411F69124600965BA2 /* HXBDeviceVersion.m */; };
 		4E48FF451F69323500965BA2 /* HXBCardBinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48FF441F69323500965BA2 /* HXBCardBinModel.m */; };
 		4E4ACC911F05FBBB0031B326 /* HXBLoanInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */; };
@@ -553,6 +556,12 @@
 		4E45F4331F4FC71E009708B7 /* AXHNewFeatureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXHNewFeatureCell.m; sourceTree = "<group>"; };
 		4E45F4471F4FD48A009708B7 /* TAExampleDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAExampleDotView.h; sourceTree = "<group>"; };
 		4E45F4481F4FD48A009708B7 /* TAExampleDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAExampleDotView.m; sourceTree = "<group>"; };
+		4E47DD2A1F9F45D40015232E /* HXBCashRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCashRegisterViewController.h; sourceTree = "<group>"; };
+		4E47DD2B1F9F45D40015232E /* HXBCashRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCashRegisterViewController.m; sourceTree = "<group>"; };
+		4E47DD2C1F9F45DF0015232E /* HXBCasRegisterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCasRegisterModel.h; sourceTree = "<group>"; };
+		4E47DD2D1F9F45DF0015232E /* HXBCasRegisterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCasRegisterModel.m; sourceTree = "<group>"; };
+		4E47DD2E1F9F45EA0015232E /* HXBCasRegisterViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCasRegisterViewModel.m; sourceTree = "<group>"; };
+		4E47DD2F1F9F45EA0015232E /* HXBCasRegisterViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCasRegisterViewModel.h; sourceTree = "<group>"; };
 		4E48FF401F69124600965BA2 /* HXBDeviceVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBDeviceVersion.h; sourceTree = "<group>"; };
 		4E48FF411F69124600965BA2 /* HXBDeviceVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBDeviceVersion.m; sourceTree = "<group>"; };
 		4E48FF431F69323500965BA2 /* HXBCardBinModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCardBinModel.h; sourceTree = "<group>"; };
@@ -1568,6 +1577,7 @@
 		4E422CAD1EA7383D00C0EB62 /* My */ = {
 			isa = PBXGroup;
 			children = (
+				4E47DD251F9F45B20015232E /* CasRegister(提现记录) */,
 				E1CC03561ECAD2AD00121D21 /* Request */,
 				4E422CB01EA7383D00C0EB62 /* ViewController */,
 				E1D2CA511EAB4D6B000099C7 /* View */,
@@ -1672,6 +1682,51 @@
 				4E45F4331F4FC71E009708B7 /* AXHNewFeatureCell.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		4E47DD251F9F45B20015232E /* CasRegister(提现记录) */ = {
+			isa = PBXGroup;
+			children = (
+				4E47DD261F9F45B20015232E /* Model */,
+				4E47DD271F9F45B20015232E /* View */,
+				4E47DD281F9F45B20015232E /* ViewController */,
+				4E47DD291F9F45B20015232E /* ViewModel */,
+			);
+			path = "CasRegister(提现记录)";
+			sourceTree = "<group>";
+		};
+		4E47DD261F9F45B20015232E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E47DD2C1F9F45DF0015232E /* HXBCasRegisterModel.h */,
+				4E47DD2D1F9F45DF0015232E /* HXBCasRegisterModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4E47DD271F9F45B20015232E /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4E47DD281F9F45B20015232E /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E47DD2A1F9F45D40015232E /* HXBCashRegisterViewController.h */,
+				4E47DD2B1F9F45D40015232E /* HXBCashRegisterViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4E47DD291F9F45B20015232E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4E47DD2F1F9F45EA0015232E /* HXBCasRegisterViewModel.h */,
+				4E47DD2E1F9F45EA0015232E /* HXBCasRegisterViewModel.m */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		4E48FF3F1F69121E00965BA2 /* HXBDeviceVersion */ = {
@@ -4672,6 +4727,7 @@
 				4E4ACC911F05FBBB0031B326 /* HXBLoanInformation.m in Sources */,
 				4EB29C501F4A7AD800E33CDF /* YYDiskCache.m in Sources */,
 				E133DCE41EEE3597009466DE /* HXBSignUPView.m in Sources */,
+				4E47DD311F9F46170015232E /* HXBCashRegisterViewController.m in Sources */,
 				E133DCDD1EEE3597009466DE /* LoginModel.m in Sources */,
 				E1C964741EA5E04F0066DBC4 /* HXBBaseNavigationController.m in Sources */,
 				4E954B171F43016C00D743D8 /* HXBCallPhone_BottomView.m in Sources */,
@@ -4691,6 +4747,7 @@
 				4E886FBE1EF91A4E0056086E /* HXBCircleViewConst.m in Sources */,
 				4E94B28D1ECC4973003CCBA7 /* NSAttributedString+Util.m in Sources */,
 				E1E461491EB9AB74005B1FC6 /* HXBFinanctingRequest.m in Sources */,
+				4E47DD321F9F46190015232E /* HXBCasRegisterViewModel.m in Sources */,
 				E1E4613C1EB98B5C005B1FC6 /* HXBBaseToolBarView.m in Sources */,
 				E1D3D0D21ED6B526003F1DBA /* HXBAdvertisementManager.m in Sources */,
 				E1F0D80C1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m in Sources */,
@@ -4733,6 +4790,7 @@
 				E1270B251ECED07100729BC9 /* HXBMY_PlanList_DetailViewController.m in Sources */,
 				4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */,
 				E1D048531EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m in Sources */,
+				4E47DD301F9F460E0015232E /* HXBCasRegisterModel.m in Sources */,
 				E1270B751ECEEC6300729BC9 /* HXBMY_PlanDetail_InfoCell.m in Sources */,
 				E1C964781EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.m in Sources */,
 				E133DCE91EEE3597009466DE /* HxbSignInViewController.m in Sources */,
