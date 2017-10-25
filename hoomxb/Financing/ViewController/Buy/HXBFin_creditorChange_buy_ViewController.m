@@ -759,15 +759,15 @@ static NSString *const investString = @"立即投资";
         self.cardModel = model;
         if (_type == HXB_Plan) {
             if (self.cardModel.bankType) {
-                self.topView.height = kScrAdaptationH750(360);
+                self.topView.height = kScrAdaptationH750(370);
             } else {
-                self.topView.height = kScrAdaptationH750(290);
+                self.topView.height = kScrAdaptationH750(300);
             }
         } else {
             if (self.cardModel.bankType) {
-                self.topView.height = kScrAdaptationH750(290);
+                self.topView.height = kScrAdaptationH750(300);
             } else {
-                self.topView.height = kScrAdaptationH750(220);
+                self.topView.height = kScrAdaptationH750(230);
             }
         }
         _topView.cardStr = [NSString stringWithFormat:@"%@%@", self.cardModel.bankType, self.cardModel.quota];
