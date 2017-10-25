@@ -19,6 +19,8 @@
 #import "HXBMiddlekey.h"
 #import "HXBBottomLineTableViewCell.h"
 #import "HXBDepositoryAlertViewController.h"
+#import "HxbFinancialAdvisorViewController.h"
+
 @interface HxbAccountInfoViewController ()
 <
 UITableViewDelegate,
@@ -99,6 +101,13 @@ UITableViewDataSource
             }
                 break;
             case 2:
+            {
+                //理财顾问
+                HxbFinancialAdvisorViewController *financialAdvisorViewController = [[HxbFinancialAdvisorViewController alloc]init];
+                [self.navigationController pushViewController:financialAdvisorViewController animated:YES];
+            }
+                break;
+            case 3:
             {
                 //关于我们
                 HxbMyAboutMeViewController *myAboutMeViewController = [[HxbMyAboutMeViewController alloc]init];
@@ -322,7 +331,7 @@ UITableViewDataSource
         }
     }else if (indexPath.section == 2){
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        NSArray *arr = @[@"风险评测",@"账户安全",@"关于我们"];
+        NSArray *arr = @[@"风险评测",@"账户安全",@"我的理财顾问",@"关于我们"];
         cell.textLabel.text = arr[indexPath.row];
         if (indexPath.row == 0) {
             cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
@@ -330,7 +339,7 @@ UITableViewDataSource
             if ([cell.detailTextLabel.text isEqualToString:@"立即评测"]) {
                 cell.detailTextLabel.textColor = COR29;
             }
-        }else if(indexPath.row == 2)
+        }else if(indexPath.row == 3)
         {
             cell.hiddenLine = YES;
         }
@@ -361,7 +370,7 @@ UITableViewDataSource
         }
             break;
         case 2:
-            return 3;
+            return 4;
             break;
         case 3:
             return 1;
