@@ -1153,6 +1153,8 @@
 		E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBEnumerateTransitionManager.m; sourceTree = "<group>"; };
 		E173D6661F0119DD00D04BDA /* HXBMY_Loan_DetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_Loan_DetailView.h; sourceTree = "<group>"; };
 		E173D6671F0119DD00D04BDA /* HXBMY_Loan_DetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_Loan_DetailView.m; sourceTree = "<group>"; };
+		E174CBBE1FA1C5A90004D3E4 /* HXBChooseDiscountCouponViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBChooseDiscountCouponViewController.h; sourceTree = "<group>"; };
+		E174CBBF1FA1C5A90004D3E4 /* HXBChooseDiscountCouponViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBChooseDiscountCouponViewController.m; sourceTree = "<group>"; };
 		E17509AD1EC6D58900E17B39 /* HXBBaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWebViewController.h; sourceTree = "<group>"; };
 		E17509AE1EC6D58900E17B39 /* HXBBaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWebViewController.m; sourceTree = "<group>"; };
 		E17509B41EC6E22600E17B39 /* HXBFinPlanContract_ContractWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinPlanContract_ContractWebView.h; sourceTree = "<group>"; };
@@ -1434,6 +1436,7 @@
 				4E16D8311E9CD0FE002A1881 /* AppDelegate.m */,
 				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
 				4E16D8341E9CD0FE002A1881 /* ViewController.m */,
+				E174CBBC1FA1C5A90004D3E4 /* DiscountCoupon */,
 				4E45F42B1F4FC71E009708B7 /* NewFeature */,
 				4EB4208D1F25FC3E00631A25 /* Middlekey */,
 				4EA93FBB1EA0A591002F3615 /* Macros */,
@@ -3311,6 +3314,47 @@
 				E166C5911F03D0D700AA14F4 /* HXBMY_Plan_Capital_ViewController.m */,
 			);
 			path = MY_PlanCapitalRecord;
+			sourceTree = "<group>";
+		};
+		E174CBBC1FA1C5A90004D3E4 /* DiscountCoupon */ = {
+			isa = PBXGroup;
+			children = (
+				E174CBBD1FA1C5A90004D3E4 /* Controller */,
+				E174CBC01FA1C5A90004D3E4 /* Model */,
+				E174CBC11FA1C5A90004D3E4 /* View */,
+				E174CBC21FA1C5A90004D3E4 /* ViewModel */,
+			);
+			path = DiscountCoupon;
+			sourceTree = "<group>";
+		};
+		E174CBBD1FA1C5A90004D3E4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E174CBBE1FA1C5A90004D3E4 /* HXBChooseDiscountCouponViewController.h */,
+				E174CBBF1FA1C5A90004D3E4 /* HXBChooseDiscountCouponViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E174CBC01FA1C5A90004D3E4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E174CBC11FA1C5A90004D3E4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E174CBC21FA1C5A90004D3E4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E17509B01EC6E0BC00E17B39 /* ContractWebView */ = {

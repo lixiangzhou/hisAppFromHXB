@@ -58,6 +58,10 @@ static NSString *const investString = @"立即投资";
 @property (nonatomic, copy) NSString * btnLabelText;
 /** 购买类型 */
 @property (nonatomic, copy) NSString *buyType; // balance recharge
+/** 数组的优惠券textLabel */
+@property (nonatomic, copy) NSString *discountTitle;
+/** 数组的可用余额textLabel */
+@property (nonatomic, copy) NSString *balanceTitle;
 
 @end
 
@@ -67,6 +71,8 @@ static NSString *const investString = @"立即投资";
     [super viewDidLoad];
     self.isColourGradientNavigationBar = true;
 //    [self getNewUserInfo];
+    _discountTitle = @"优惠券";
+    _balanceTitle = @"可用余额";
     [self buildUI];
     
     [self setUpDate];
@@ -780,15 +786,15 @@ static NSString *const investString = @"立即投资";
     if (!_profitMoneyStr) {
         _profitMoneyStr = @"";
     }
-    if (_inputMoneyStr.doubleValue > _balanceMoneyStr.doubleValue) {
-        self.titleArray = @[@"可用金额：", @"还需支付："];
-        self.detailArray = @[_viewModel.availablePoint, [NSString hxb_getPerMilWithDouble:(_inputMoneyStr.doubleValue - _balanceMoneyStr.doubleValue)]];
+//    if (_inputMoneyStr.doubleValue > _balanceMoneyStr.doubleValue) {
+        self.titleArray = @[_discountTitle, @"应付金额", _balanceTitle];
+        self.detailArray = @[@"请选择优惠券", @"0.00元",  [NSString hxb_getPerMilWithDouble: _balanceMoneyStr.doubleValue]];
         [self.hxbBaseVCScrollView reloadData];
-    } else {
-        self.titleArray = @[@"可用金额："];
-        self.detailArray = @[_viewModel.availablePoint];
-        [self.hxbBaseVCScrollView reloadData];
-    }
+//    } else {
+//        self.titleArray = @[@"可用金额："];
+//        self.detailArray = @[_viewModel.availablePoint];
+//        [self.hxbBaseVCScrollView reloadData];
+//    }
     [self changeBtnLabel];
 }
 
