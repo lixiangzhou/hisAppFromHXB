@@ -19,7 +19,7 @@
 #import "HXBMiddlekey.h"
 #import "HXBBottomLineTableViewCell.h"
 #import "HXBDepositoryAlertViewController.h"
-//#import "HxbFinancialAdvisorViewController.h"
+#import "HxbFinancialAdvisorViewController.h"
 
 @interface HxbAccountInfoViewController ()
 <
@@ -103,8 +103,8 @@ UITableViewDataSource
             case 2:
             {
                 //理财顾问
-//                HxbFinancialAdvisorViewController *financialAdvisorViewController = [[HxbFinancialAdvisorViewController alloc]init];
-//                [self.navigationController pushViewController:financialAdvisorViewController animated:YES];
+                HxbFinancialAdvisorViewController *financialAdvisorViewController = [[HxbFinancialAdvisorViewController alloc]init];
+                [self.navigationController pushViewController:financialAdvisorViewController animated:YES];
             }
                 break;
             case 3:

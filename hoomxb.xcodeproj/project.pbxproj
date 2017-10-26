@@ -330,6 +330,7 @@
 		E14B9BDF1F14731400450692 /* HXBColourGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BDE1F14731400450692 /* HXBColourGradientView.m */; };
 		E14B9BE61F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BE51F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
+		E15DDF401FA1DA3F0035C566 /* HxbFinancialAdvisorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E15DDF3F1FA1DA3F0035C566 /* HxbFinancialAdvisorViewController.m */; };
 		E16017671EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E16017661EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.m */; };
 		E160176B1EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = E160176A1EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.m */; };
 		E16017791EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m in Sources */ = {isa = PBXBuildFile; fileRef = E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */; };
@@ -1087,6 +1088,8 @@
 		E14B9BE51F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_PlanDetailView_TopView.m; sourceTree = "<group>"; };
 		E157A8941EE67A1F002BF6AC /* HXBToolCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBToolCountDownButton.h; sourceTree = "<group>"; };
 		E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBToolCountDownButton.m; sourceTree = "<group>"; };
+		E15DDF3E1FA1DA3F0035C566 /* HxbFinancialAdvisorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbFinancialAdvisorViewController.h; sourceTree = "<group>"; };
+		E15DDF3F1FA1DA3F0035C566 /* HxbFinancialAdvisorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbFinancialAdvisorViewController.m; sourceTree = "<group>"; };
 		E16017651EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_Detail_Detail_PlanWebViewController.h; sourceTree = "<group>"; };
 		E16017661EF3840100A2AAE8 /* HXBFin_Detail_Detail_PlanWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Detail_Detail_PlanWebViewController.m; sourceTree = "<group>"; };
 		E16017691EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinModel_AddRecortd_Plan_Model.h; sourceTree = "<group>"; };
@@ -1576,6 +1579,7 @@
 		4E422CB01EA7383D00C0EB62 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				E15DDF3D1FA1DA3F0035C566 /* FinancialAdvisor */,
 				4E422CB21EA7386900C0EB62 /* HxbMyViewController.h */,
 				4E422CB31EA7386900C0EB62 /* HxbMyViewController.m */,
 				4E8AAE961F0B79C500655544 /* MY_RiskAssessmentController */,
@@ -3100,6 +3104,15 @@
 			path = WebViewController;
 			sourceTree = "<group>";
 		};
+		E15DDF3D1FA1DA3F0035C566 /* FinancialAdvisor */ = {
+			isa = PBXGroup;
+			children = (
+				E15DDF3E1FA1DA3F0035C566 /* HxbFinancialAdvisorViewController.h */,
+				E15DDF3F1FA1DA3F0035C566 /* HxbFinancialAdvisorViewController.m */,
+			);
+			path = FinancialAdvisor;
+			sourceTree = "<group>";
+		};
 		E16017681EF3AD4600A2AAE8 /* FinModel_AddRecortdViewMode */ = {
 			isa = PBXGroup;
 			children = (
@@ -4534,6 +4547,7 @@
 				E1E5885A1EE165BF0045C4AE /* AnimatedTransition.m in Sources */,
 				E166C58E1F0375DC00AA14F4 /* HXBMY_Capital_Sift_ViewController.m in Sources */,
 				E1270B781ECEEC9D00729BC9 /* HXBMY_PlanDetail_TypeCell.m in Sources */,
+				E15DDF401FA1DA3F0035C566 /* HxbFinancialAdvisorViewController.m in Sources */,
 				E1C964771EA5E04F0066DBC4 /* HXBBaseCollectionView.m in Sources */,
 				4E8198AE1EC44BCE00D668A1 /* HXBHomePageModuleView.m in Sources */,
 				E1659C061F175F07000073BF /* HXBBaseAlertViewController.m in Sources */,
