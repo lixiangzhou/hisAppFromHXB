@@ -21,6 +21,7 @@
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HxbWithdrawCardViewController.h"
 #import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
+#import "HXBChooseDiscountCouponViewController.h"
 
 static NSString *const topupString = @"余额不足，需充值投资";
 static NSString *const bankString = @"绑定银行卡";
@@ -717,6 +718,12 @@ static NSString *const investString = @"立即投资";
         cell = [[HXBFin_creditorChange_TableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    if (indexPath.row == 0) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.isDiscountRow = YES;
+    } else {
+        cell.isDiscountRow = NO;
+    }
     cell.titleStr = _titleArray[indexPath.row];
     cell.detailStr = _detailArray[indexPath.row];
     if ([_titleArray[indexPath.row] isEqualToString:@"还需支付："]) {
@@ -731,6 +738,15 @@ static NSString *const investString = @"立即投资";
     }
     return cell;
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 0) {
+        HXBChooseDiscountCouponViewController *chooseDiscountVC = [[HXBChooseDiscountCouponViewController alloc] init];
+        [self.navigationController pushViewController:chooseDiscountVC animated:YES];
+    }
+}
+
 
 - (void)setUpDate {
     if (_type == HXB_Plan) {

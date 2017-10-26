@@ -17,6 +17,8 @@
 @property (nonatomic, strong)  NSString *titleStr;
 /** detail数据源 */
 @property (nonatomic, strong)  NSString *detailStr;
+/** 第一行是否置灰显示 */
+@property (nonatomic, assign)  BOOL isDiscountRow;
 /** 是否富文本展示 */
 @property (nonatomic, assign) BOOL isAttributeShow;
 

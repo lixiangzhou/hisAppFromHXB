@@ -79,6 +79,26 @@
     _lineView.hidden = isHeddenHine;
 }
 
+- (void)setIsDiscountRow:(BOOL)isDiscountRow {
+    _isDiscountRow  = isDiscountRow;
+    if (_isDiscountRow) {
+        _detailLabel.textColor =COR10;
+        [_detailLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(_titleLabel);
+            make.right.equalTo(@(kScrAdaptationW(0)));
+            make.width.offset(kScreenWidth - kScrAdaptationW(200));
+            make.height.offset(kScrAdaptationH(50));
+        }];
+    } else {
+        _detailLabel.textColor =COR6;
+        [_detailLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(_titleLabel);
+            make.right.equalTo(@(kScrAdaptationW(-15)));
+            make.width.offset(kScreenWidth - kScrAdaptationW(200));
+            make.height.offset(kScrAdaptationH(50));
+        }];
+    }
+}
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
