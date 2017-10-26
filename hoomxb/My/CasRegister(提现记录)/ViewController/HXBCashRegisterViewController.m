@@ -16,12 +16,13 @@
 #pragma mark – Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"提现进度";
+    self.isRedColorWithNavigationBar = YES;
     [self loadCashRegisterData];
 }
 #pragma mark - Events
 
-#pragma mark – Private Methods
+#pragma mark – Private 
 - (void)loadCashRegisterData {
     [HXBCasRegisterViewModel checkCardBinResultRequestWithSmscode:@"" andSuccessBlock:^{
         

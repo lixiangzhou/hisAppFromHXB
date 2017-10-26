@@ -78,7 +78,7 @@
 #define kHXBSetWithdrawals_withdrawURL   @"/account/withdraw"//提现
 #define kHXBSetWithdrawals_banklistURL   @"/banklist"//提现
 #define kHXBSetWithdrawals_withdrawArriveTimeURL   @"/account/withdraw/arriveTime"//到账时间
-
+#define kHXBSetWithdrawals_recordtURL    @"/account/withdraw/record"//提现记录
 
 //MARK: ======================= 购买 ==========================
 #define kHXBFin_Plan_ConfirmBuyReslutURL(planID) [NSString stringWithFormat:@"/plan/%@/result",(planID)]//确认购买

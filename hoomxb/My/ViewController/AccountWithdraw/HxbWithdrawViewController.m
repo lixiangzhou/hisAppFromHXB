@@ -17,7 +17,7 @@
 #import "HXBCallPhone_BottomView.h"
 #import "HXBOpenDepositAccountRequest.h"
 #import "HXBMy_Withdraw_notifitionView.h"
-
+#import "HXBCashRegisterViewController.h"
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIImageView *tipImage;
@@ -93,8 +93,17 @@
     [rightBarBtn setTitle:@"提现记录" forState:(UIControlStateNormal)];
     [rightBarBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     rightBarBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+    [rightBarBtn addTarget:self action:@selector(pushCashRegisterVC) forControlEvents:(UIControlEventTouchUpInside)];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:rightBarBtn];
     self.navigationItem.rightBarButtonItem = rightItem;
+}
+
+/**
+ 进入提现记录
+ */
+- (void)pushCashRegisterVC {
+    HXBCashRegisterViewController *cashRegisterVC = [[HXBCashRegisterViewController alloc] init];
+    [self.navigationController pushViewController:cashRegisterVC animated:YES];
 }
 
 - (void)loadData

@@ -18,10 +18,9 @@
  */
 + (void)checkCardBinResultRequestWithSmscode:(NSString *)bankNumber andSuccessBlock: (void(^)())successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
-//    versionUpdateAPI.requestUrl = kHXBSetWithdrawals_recordtURL;
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    versionUpdateAPI.requestUrl = kHXBSetWithdrawals_recordtURL;
     versionUpdateAPI.requestMethod = NYRequestMethodGet;
-    versionUpdateAPI.isUPReloadData = YES;
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
 //        NSInteger status =  [responseObject[@"status"] integerValue];
