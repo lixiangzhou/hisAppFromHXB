@@ -10,7 +10,7 @@
 #import <AdSupport/AdSupport.h>
 #import <UIKit/UIKit.h>
 ///通用接口Header必传字段 userAgent
-static NSString *const User_Agent = @"User-Agent";
+static NSString *const User_Agent = X_Hxb_User_Agent;
 ///通用接口Header必传字段 token
 static NSString *const X_HxbAuth_Token = @"X-Hxb-Auth-Token";
 

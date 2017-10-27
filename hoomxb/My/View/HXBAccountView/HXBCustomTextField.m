@@ -120,7 +120,7 @@
         make.bottom.equalTo(self.mas_bottom);
         make.left.equalTo(self.leftImageView.mas_left);
         make.right.equalTo(self).offset(kScrAdaptationW750(-40));
-        make.height.offset(0.5);
+        make.height.offset(kHXPartingLineHeight);
     }];
     [self.eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));

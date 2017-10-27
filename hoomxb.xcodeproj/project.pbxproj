@@ -37,9 +37,9 @@
 		4E45F4351F4FC71E009708B7 /* AXHNewFeatureController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F42F1F4FC71E009708B7 /* AXHNewFeatureController.m */; };
 		4E45F4361F4FC71E009708B7 /* AXHNewFeatureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4331F4FC71E009708B7 /* AXHNewFeatureCell.m */; };
 		4E45F4491F4FD48A009708B7 /* TAExampleDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E45F4481F4FD48A009708B7 /* TAExampleDotView.m */; };
-		4E47DD301F9F460E0015232E /* HXBCasRegisterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E47DD2D1F9F45DF0015232E /* HXBCasRegisterModel.m */; };
-		4E47DD311F9F46170015232E /* HXBCashRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E47DD2B1F9F45D40015232E /* HXBCashRegisterViewController.m */; };
-		4E47DD321F9F46190015232E /* HXBCasRegisterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E47DD2E1F9F45EA0015232E /* HXBCasRegisterViewModel.m */; };
+		4E47DD301F9F460E0015232E /* HXBWithdrawRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E47DD2D1F9F45DF0015232E /* HXBWithdrawRecordModel.m */; };
+		4E47DD311F9F46170015232E /* HXBWithdrawRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E47DD2B1F9F45D40015232E /* HXBWithdrawRecordViewController.m */; };
+		4E47DD321F9F46190015232E /* HXBWithdrawRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E47DD2E1F9F45EA0015232E /* HXBWithdrawRecordViewModel.m */; };
 		4E48FF421F69124600965BA2 /* HXBDeviceVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48FF411F69124600965BA2 /* HXBDeviceVersion.m */; };
 		4E48FF451F69323500965BA2 /* HXBCardBinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48FF441F69323500965BA2 /* HXBCardBinModel.m */; };
 		4E4ACC911F05FBBB0031B326 /* HXBLoanInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */; };
@@ -54,6 +54,7 @@
 		4E5987D91F9A1AA5009BB497 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1F630821F20B4F100FC0122 /* Assets.xcassets */; };
 		4E5987DA1F9A1BBA009BB497 /* hxb_startImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E8C0DF81F98E98D00F25C8E /* hxb_startImage@2x.png */; };
 		4E5987DB1F9A1BBD009BB497 /* hxb_startImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4E8C0DF91F98E98D00F25C8E /* hxb_startImage@3x.png */; };
+		4E6179091FA1DC38004010FA /* HXBWithdrawRecordListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6179081FA1DC38004010FA /* HXBWithdrawRecordListModel.m */; };
 		4E6677C21EEA96300064ECCE /* HXBBankCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6677C11EEA96300064ECCE /* HXBBankCardModel.m */; };
 		4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */; };
 		4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D31001EA70DC900598529 /* HxbHomeViewController.m */; };
@@ -197,6 +198,7 @@
 		4ED2F27F1ECADC960014E5C7 /* introductionplaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED2F27D1ECADC960014E5C7 /* introductionplaceholder@2x.png */; };
 		4ED2F2801ECADC960014E5C7 /* introductionplaceholder@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4ED2F27E1ECADC960014E5C7 /* introductionplaceholder@3x.png */; };
 		4ED2F2831ECAE3C30014E5C7 /* HxbNormalConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED2F2821ECAE3C30014E5C7 /* HxbNormalConfig.m */; };
+		4EE2E38C1FA2D857000812C7 /* HXBWithdrawRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE2E38B1FA2D857000812C7 /* HXBWithdrawRecordCell.m */; };
 		4EE5671D1F1F448C008126B4 /* HXBTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE5671C1F1F448C008126B4 /* HXBTipView.m */; };
 		4EECDFD11F380E8B00301758 /* hongli.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECDFCE1F380E8B00301758 /* hongli.svg */; };
 		4EECDFD21F380E8B00301758 /* sanbiao.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECDFCF1F380E8B00301758 /* sanbiao.svg */; };
@@ -556,12 +558,12 @@
 		4E45F4331F4FC71E009708B7 /* AXHNewFeatureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AXHNewFeatureCell.m; sourceTree = "<group>"; };
 		4E45F4471F4FD48A009708B7 /* TAExampleDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAExampleDotView.h; sourceTree = "<group>"; };
 		4E45F4481F4FD48A009708B7 /* TAExampleDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAExampleDotView.m; sourceTree = "<group>"; };
-		4E47DD2A1F9F45D40015232E /* HXBCashRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCashRegisterViewController.h; sourceTree = "<group>"; };
-		4E47DD2B1F9F45D40015232E /* HXBCashRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCashRegisterViewController.m; sourceTree = "<group>"; };
-		4E47DD2C1F9F45DF0015232E /* HXBCasRegisterModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCasRegisterModel.h; sourceTree = "<group>"; };
-		4E47DD2D1F9F45DF0015232E /* HXBCasRegisterModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCasRegisterModel.m; sourceTree = "<group>"; };
-		4E47DD2E1F9F45EA0015232E /* HXBCasRegisterViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCasRegisterViewModel.m; sourceTree = "<group>"; };
-		4E47DD2F1F9F45EA0015232E /* HXBCasRegisterViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCasRegisterViewModel.h; sourceTree = "<group>"; };
+		4E47DD2A1F9F45D40015232E /* HXBWithdrawRecordViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawRecordViewController.h; sourceTree = "<group>"; };
+		4E47DD2B1F9F45D40015232E /* HXBWithdrawRecordViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawRecordViewController.m; sourceTree = "<group>"; };
+		4E47DD2C1F9F45DF0015232E /* HXBWithdrawRecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawRecordModel.h; sourceTree = "<group>"; };
+		4E47DD2D1F9F45DF0015232E /* HXBWithdrawRecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawRecordModel.m; sourceTree = "<group>"; };
+		4E47DD2E1F9F45EA0015232E /* HXBWithdrawRecordViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawRecordViewModel.m; sourceTree = "<group>"; };
+		4E47DD2F1F9F45EA0015232E /* HXBWithdrawRecordViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawRecordViewModel.h; sourceTree = "<group>"; };
 		4E48FF401F69124600965BA2 /* HXBDeviceVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBDeviceVersion.h; sourceTree = "<group>"; };
 		4E48FF411F69124600965BA2 /* HXBDeviceVersion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBDeviceVersion.m; sourceTree = "<group>"; };
 		4E48FF431F69323500965BA2 /* HXBCardBinModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCardBinModel.h; sourceTree = "<group>"; };
@@ -584,6 +586,8 @@
 		4E559B501F0FB066003D9982 /* HXBRechargesuccessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRechargesuccessView.m; sourceTree = "<group>"; };
 		4E559B521F0FB98E003D9982 /* HXBRechargeFailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRechargeFailView.h; sourceTree = "<group>"; };
 		4E559B531F0FB98E003D9982 /* HXBRechargeFailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRechargeFailView.m; sourceTree = "<group>"; };
+		4E6179071FA1DC38004010FA /* HXBWithdrawRecordListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawRecordListModel.h; sourceTree = "<group>"; };
+		4E6179081FA1DC38004010FA /* HXBWithdrawRecordListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawRecordListModel.m; sourceTree = "<group>"; };
 		4E6677C01EEA96300064ECCE /* HXBBankCardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBankCardModel.h; sourceTree = "<group>"; };
 		4E6677C11EEA96300064ECCE /* HXBBankCardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBankCardModel.m; sourceTree = "<group>"; };
 		4E6D30FC1EA70D0600598529 /* HxbAdvertiseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbAdvertiseViewController.h; sourceTree = "<group>"; };
@@ -836,6 +840,8 @@
 		4ED2F2841ECAE4010014E5C7 /* HxbMacro.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxbMacro.h; sourceTree = "<group>"; };
 		4EDDFBAE1F7E0DA300C1A301 /* HXBFin_Plan_BuyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Plan_BuyViewController.m; sourceTree = "<group>"; };
 		4EDDFBAF1F7E0DA300C1A301 /* HXBFBase_BuyResult_VC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFBase_BuyResult_VC.m; sourceTree = "<group>"; };
+		4EE2E38A1FA2D857000812C7 /* HXBWithdrawRecordCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawRecordCell.h; sourceTree = "<group>"; };
+		4EE2E38B1FA2D857000812C7 /* HXBWithdrawRecordCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawRecordCell.m; sourceTree = "<group>"; };
 		4EE5671B1F1F448C008126B4 /* HXBTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBTipView.h; sourceTree = "<group>"; };
 		4EE5671C1F1F448C008126B4 /* HXBTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTipView.m; sourceTree = "<group>"; };
 		4EECDFCE1F380E8B00301758 /* hongli.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = hongli.svg; sourceTree = "<group>"; };
@@ -1698,8 +1704,10 @@
 		4E47DD261F9F45B20015232E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4E47DD2C1F9F45DF0015232E /* HXBCasRegisterModel.h */,
-				4E47DD2D1F9F45DF0015232E /* HXBCasRegisterModel.m */,
+				4E47DD2C1F9F45DF0015232E /* HXBWithdrawRecordModel.h */,
+				4E47DD2D1F9F45DF0015232E /* HXBWithdrawRecordModel.m */,
+				4E6179071FA1DC38004010FA /* HXBWithdrawRecordListModel.h */,
+				4E6179081FA1DC38004010FA /* HXBWithdrawRecordListModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1707,6 +1715,8 @@
 		4E47DD271F9F45B20015232E /* View */ = {
 			isa = PBXGroup;
 			children = (
+				4EE2E38A1FA2D857000812C7 /* HXBWithdrawRecordCell.h */,
+				4EE2E38B1FA2D857000812C7 /* HXBWithdrawRecordCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1714,8 +1724,8 @@
 		4E47DD281F9F45B20015232E /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4E47DD2A1F9F45D40015232E /* HXBCashRegisterViewController.h */,
-				4E47DD2B1F9F45D40015232E /* HXBCashRegisterViewController.m */,
+				4E47DD2A1F9F45D40015232E /* HXBWithdrawRecordViewController.h */,
+				4E47DD2B1F9F45D40015232E /* HXBWithdrawRecordViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -1723,8 +1733,8 @@
 		4E47DD291F9F45B20015232E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4E47DD2F1F9F45EA0015232E /* HXBCasRegisterViewModel.h */,
-				4E47DD2E1F9F45EA0015232E /* HXBCasRegisterViewModel.m */,
+				4E47DD2F1F9F45EA0015232E /* HXBWithdrawRecordViewModel.h */,
+				4E47DD2E1F9F45EA0015232E /* HXBWithdrawRecordViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -4482,6 +4492,7 @@
 				4E94B2791ECC1B23003CCBA7 /* HXBBaseView_MYList_TableViewCell.m in Sources */,
 				E1757B071EFA40DF009C0BC8 /* HXBFinModel_BuyResoult_LoanModel.m in Sources */,
 				4E559B4B1F0F8B67003D9982 /* HXBGetValidationCodeView.m in Sources */,
+				4EE2E38C1FA2D857000812C7 /* HXBWithdrawRecordCell.m in Sources */,
 				4E45F4291F4FC05C009708B7 /* HXB_XYTools.m in Sources */,
 				4E94B2781ECC1B13003CCBA7 /* HXBBaseTableView_MYPlanList_TableView.m in Sources */,
 				E133DCED1EEE3597009466DE /* HXBSign_InAndUPViewModel.m in Sources */,
@@ -4727,7 +4738,7 @@
 				4E4ACC911F05FBBB0031B326 /* HXBLoanInformation.m in Sources */,
 				4EB29C501F4A7AD800E33CDF /* YYDiskCache.m in Sources */,
 				E133DCE41EEE3597009466DE /* HXBSignUPView.m in Sources */,
-				4E47DD311F9F46170015232E /* HXBCashRegisterViewController.m in Sources */,
+				4E47DD311F9F46170015232E /* HXBWithdrawRecordViewController.m in Sources */,
 				E133DCDD1EEE3597009466DE /* LoginModel.m in Sources */,
 				E1C964741EA5E04F0066DBC4 /* HXBBaseNavigationController.m in Sources */,
 				4E954B171F43016C00D743D8 /* HXBCallPhone_BottomView.m in Sources */,
@@ -4747,7 +4758,7 @@
 				4E886FBE1EF91A4E0056086E /* HXBCircleViewConst.m in Sources */,
 				4E94B28D1ECC4973003CCBA7 /* NSAttributedString+Util.m in Sources */,
 				E1E461491EB9AB74005B1FC6 /* HXBFinanctingRequest.m in Sources */,
-				4E47DD321F9F46190015232E /* HXBCasRegisterViewModel.m in Sources */,
+				4E47DD321F9F46190015232E /* HXBWithdrawRecordViewModel.m in Sources */,
 				E1E4613C1EB98B5C005B1FC6 /* HXBBaseToolBarView.m in Sources */,
 				E1D3D0D21ED6B526003F1DBA /* HXBAdvertisementManager.m in Sources */,
 				E1F0D80C1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m in Sources */,
@@ -4765,6 +4776,7 @@
 				E1C9647A1EA5E04F0066DBC4 /* HXBBaseTableView.m in Sources */,
 				4E96E2D51F28829D00C4AF27 /* HXBNoticeCell.m in Sources */,
 				E190EFAA1F25EB16001E0B14 /* HXBBaseView_Button.m in Sources */,
+				4E6179091FA1DC38004010FA /* HXBWithdrawRecordListModel.m in Sources */,
 				E17E6AE71ECDA46B0046888B /* HXBMY_CapitalRecordViewController.m in Sources */,
 				285D70111F6BE154006B520B /* HXBCreditorChangeBottomView.m in Sources */,
 				E122D8511EA0CAB900DC71ED /* NSString+HxbGeneral.m in Sources */,
@@ -4790,7 +4802,7 @@
 				E1270B251ECED07100729BC9 /* HXBMY_PlanList_DetailViewController.m in Sources */,
 				4E8198B61EC450C900D668A1 /* UILabel+Util.m in Sources */,
 				E1D048531EE96F63002A4E28 /* HXBAccount_AlterLoginPassword_ViewController.m in Sources */,
-				4E47DD301F9F460E0015232E /* HXBCasRegisterModel.m in Sources */,
+				4E47DD301F9F460E0015232E /* HXBWithdrawRecordModel.m in Sources */,
 				E1270B751ECEEC6300729BC9 /* HXBMY_PlanDetail_InfoCell.m in Sources */,
 				E1C964781EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.m in Sources */,
 				E133DCE91EEE3597009466DE /* HxbSignInViewController.m in Sources */,

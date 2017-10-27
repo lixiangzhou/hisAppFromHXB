@@ -10,6 +10,9 @@
 #define MacroDefinition_h
 
 
+//-------------------请求头需要的字段-------------------------
+#define X_Hxb_User_Agent @"X-Hxb-User-Agent"
+//#define X_Hxb_User_Agent @"User-Agent"
 //-------------------获取设备大小-------------------------
 //NavBar高度
 #define NavigationBar_HEIGHT                  (44.0f)
@@ -175,8 +178,9 @@
 #define kSecuryText @"****"
 
 //加载文字
-#define kLoadIngText @"加载中..." 
-
+#define kLoadIngText @"加载中..."
+//分割线高度
+#define kHXPartingLineHeight 0.5
 
 // iPhone X
 #define  LL_iPhoneX (kScreenWidth == 375.f && kScreenHeight == 812.f ? YES : NO)

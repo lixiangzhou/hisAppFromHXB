@@ -26,7 +26,7 @@
         [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self);
             make.bottom.equalTo(self);
-            make.height.offset(0.5);
+            make.height.offset(kHXPartingLineHeight);
         }];
         
     }
