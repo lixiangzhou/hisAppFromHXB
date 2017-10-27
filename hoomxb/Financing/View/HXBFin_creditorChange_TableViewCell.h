@@ -19,7 +19,10 @@
 @property (nonatomic, strong)  NSString *detailStr;
 /** 第一行是否置灰显示 */
 @property (nonatomic, assign)  BOOL isDiscountRow;
-/** 是否富文本展示 */
+/** 颜色富文本展示 */
+@property (nonatomic, assign) BOOL isAttributeColorShow;
+/** 字体大小富文本展示 */
 @property (nonatomic, assign) BOOL isAttributeShow;
+
 
 @end

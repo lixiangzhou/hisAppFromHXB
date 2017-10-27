@@ -11,7 +11,6 @@
 
 // FOUNDATION_EXPORT NSString * const kString;   --> .h & .m (stringInstance == kString)
 
-
 // 调用富友web前 需先做permission判断
 //#import "FYUserLevelAPI.h"
 //#import "UserPermissioHongXiaoBao/PrefixHeader.pchnModel.h"
@@ -29,8 +28,8 @@
 //#define BASEURL                                       @"http://192.168.1.21:3000"//后台
 //#define BASEURL                                       @"http://192.168.1.133:3000"//王鹏 端测试
 //#define BASEURL                                       @"http://192.168.1.199:3000"//杜宇 测试
-#define BASEURL                                       @"http://192.168.1.31:3100"//后台、
-//#define BASEURL                                       @"http://192.168.1.27:3100"//后台 测试
+//#define BASEURL                                       @"http://192.168.1.31:3100"//后台、
+#define BASEURL                                       @"http://192.168.1.26:3100"//后台 测试
 //#define BASEURL                                       @"http://192.168.1.35:4100"//后台 测试
 //#define BASEURL                                       @"http://192.168.1.31:3100"//后台、
 //#define BASEURL                                       @"http://192.168.1.35:4100"//后台、

@@ -101,7 +101,6 @@
         _addBtn.backgroundColor = COR29;
         _addBtn.layer.cornerRadius = 5.0f;;
         _addBtn.layer.masksToBounds = YES;
-        [_addBtn setTitle:@"立即转让" forState:(UIControlStateNormal)];
         [_addBtn addTarget:self action:@selector(clickBtn:) forControlEvents:(UIControlEventTouchUpInside)];
     }
     return _addBtn;

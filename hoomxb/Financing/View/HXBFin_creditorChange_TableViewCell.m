@@ -60,19 +60,33 @@
     _detailStr = detailStr;
 }
 
-- (void)setIsAttributeShow:(BOOL)isAttributeShow {
-    _isAttributeShow = isAttributeShow;
-    if (_isAttributeShow) {
+- (void)setIsAttributeShowWithColor:(BOOL)isAttributeColorShow {
+    _isAttributeColorShow = isAttributeColorShow;
+    if (_isAttributeColorShow) {
             NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:_detailStr];
-        if (_detailStr.length > 1) {
-            [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(0, _detailStr.length - 1)];
+        if (_detailStr.length > 4) {
+            [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(4, _detailStr.length - 4)];
         }
-            _detailLabel.attributedText = attributedStr;
+        _detailLabel.attributedText = attributedStr;
     } else {
         _detailLabel.text = _detailStr;
         
     }
 }
+- (void)setIsAttributeShow:(BOOL)isAttributeShow {
+    _isAttributeShow = isAttributeShow;
+    if (_isAttributeShow) {
+        NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:_detailStr];
+        if (_detailStr.length > 4) {
+            [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(0, _detailStr.length - 1)];
+        }
+        _detailLabel.attributedText = attributedStr;
+    } else {
+        _detailLabel.text = _detailStr;
+        
+    }
+}
+
 
 - (void)setIsHeddenHine:(BOOL)isHeddenHine {
     _isHeddenHine = isHeddenHine;

@@ -114,4 +114,6 @@
 
 #define COR31    [UIColor colorWithRed:63/255.0f green:63/255.0f blue:63/255.0f alpha:1]
 #define COR32    [UIColor colorWithRed:254/255.0f green:252/255.0f blue:236/255.0f alpha:1]    // 消息的背景
+#define COR33    [UIColor colorWithRed:253/255.0f green:54/255.0f blue:54/255.0f alpha:1] // 选择优惠券红色
+#define COR34    [UIColor colorWithRed:204/255.0f green:204/255.0f blue:204/255.0f alpha:1]    // 选择优惠券灰色
 #endif /* HXBColorMacro_h */
