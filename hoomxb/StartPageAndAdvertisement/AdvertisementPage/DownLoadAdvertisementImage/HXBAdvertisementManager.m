@@ -16,15 +16,16 @@ static NSString *const adImageName = @"adImageName";
 ///下载广告图片
 + (void)downLoadAdvertisementImageWithadvertisementImageURLStr:(NSString *) advertisementImageURLStr andDownLoadBlock: (void(^)(NSString *imagePath))downLoadBlock
 {
-    if (!advertisementImageURLStr) {
+    if (advertisementImageURLStr) {
         // TODO 请求广告接口
-        NSArray *imageArray = @[@"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222441_kVZXU.jpeg", @"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222425_zFKGY.thumb.700_0.jpeg", @"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222413_ak25z.thumb.700_0.jpeg", @"https://a-ssl.duitang.com/uploads/item/201604/06/20160406172034_TVkJs.thumb.700_0.jpeg"];
-        NSString *imageUrl = imageArray[arc4random() % imageArray.count];
-//        NSString *imageUrl = imageArray[1];
-        
-        advertisementImageURLStr = imageUrl;
+//        NSArray *imageArray = @[@"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222441_kVZXU.jpeg", @"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222425_zFKGY.thumb.700_0.jpeg", @"https://a-ssl.duitang.com/uploads/item/201505/31/20150531222413_ak25z.thumb.700_0.jpeg", @"https://a-ssl.duitang.com/uploads/item/201604/06/20160406172034_TVkJs.thumb.700_0.jpeg"];
+//        NSString *imageUrl = imageArray[arc4random() % imageArray.count];
+////        NSString *imageUrl = imageArray[1];
+//
+//        advertisementImageURLStr = imageUrl;
+         [self getAdvertisingImageWithImageURL:advertisementImageURLStr andDownLoadBlock:downLoadBlock];
     }
-    [self getAdvertisingImageWithImageURL:advertisementImageURLStr andDownLoadBlock:downLoadBlock];
+//    [self getAdvertisingImageWithImageURL:advertisementImageURLStr andDownLoadBlock:downLoadBlock];
     
 }
 
