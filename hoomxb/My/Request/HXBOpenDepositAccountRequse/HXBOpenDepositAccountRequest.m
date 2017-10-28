@@ -73,7 +73,7 @@
             if (status == 5068) {
                 [self showAlertWithMessage:@"您的绑卡操作已超限，请明日再试"];
             } else {
-                if (status == 104) return;
+                if (status == kHXBCode_Enum_ProcessingField) return;
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
 //            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
@@ -120,7 +120,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (status != 104) {
+            if (status != kHXBCode_Enum_ProcessingField) {
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
             if (failureBlock) {
@@ -194,7 +194,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (isToast && (status != 104)) {
+            if (isToast && (status != kHXBCode_Enum_ProcessingField)) {
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
             if (failureBlock) {

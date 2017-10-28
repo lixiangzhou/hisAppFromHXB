@@ -216,7 +216,7 @@
                 [HxbHUDProgress showTextWithMessage:message];
             }
         }
-        if (status.integerValue == 104) {
+        if (status.integerValue == kHXBCode_Enum_ProcessingField) {
             message = @"请输入正确的手机号码";
         }
         if(successBlock) successBlock(!status.integerValue,message);
@@ -257,7 +257,7 @@
                 [HxbHUDProgress showTextWithMessage:message];
             }
         }
-        if (status.integerValue == 104) {
+        if (status.integerValue == kHXBCode_Enum_ProcessingField) {
             message = @"请输入正确的手机号码";
         }
         if(successBlock) successBlock(!status.integerValue,message);

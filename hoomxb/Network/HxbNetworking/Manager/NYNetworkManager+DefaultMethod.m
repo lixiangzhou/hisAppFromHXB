@@ -80,7 +80,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         NSLog(@" ---------- %@",request.responseObject[kResponseStatus]);
         ///未登录状态 弹出登录框
         NSString *status = request.responseObject[kResponseStatus];
-        if (status.integerValue == 104) {
+        if (status.integerValue == kHXBCode_Enum_ProcessingField) {
             NSDictionary *dic = request.responseObject[kResponseData];
             __block NSString *error = @"";
             [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {

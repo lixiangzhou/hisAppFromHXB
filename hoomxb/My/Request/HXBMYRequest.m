@@ -665,7 +665,7 @@
             if (failureBlock) {
                 failureBlock(responseObject);
             }
-            if ([responseObject[kResponseStatus] integerValue] != 104) {
+            if ([responseObject[kResponseStatus] integerValue] != kHXBCode_Enum_ProcessingField) {
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
         }

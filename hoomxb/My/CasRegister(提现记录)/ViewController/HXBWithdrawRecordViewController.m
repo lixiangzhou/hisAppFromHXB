@@ -89,8 +89,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return kScrAdaptationH750(200);
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return kScrAdaptationH750(20);
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headView = [[UIView alloc] init];
+    headView.backgroundColor = BACKGROUNDCOLOR;
+    return headView;
 }
 
 #pragma mark – Getters and Setters

@@ -27,7 +27,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (status != 104) {
+            if (status != kHXBCode_Enum_ProcessingField) {
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
             if (failureBlock) {

@@ -106,7 +106,7 @@
         [accountRequest accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:self.myTopUpBaseView.amount andSuccessBlock:^(id responseObject) {
             
             NSInteger status =  [responseObject[@"status"] integerValue];
-            if (status == 104) return ;
+            if (status == kHXBCode_Enum_ProcessingField) return ;
 
             if (status != 0) {
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];

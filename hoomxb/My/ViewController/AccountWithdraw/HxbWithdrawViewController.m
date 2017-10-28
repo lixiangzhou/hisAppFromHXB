@@ -94,6 +94,7 @@
     [cashRegisterBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     cashRegisterBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
     [cashRegisterBtn addTarget:self action:@selector(pushCashRegisterVC) forControlEvents:(UIControlEventTouchUpInside)];
+    [cashRegisterBtn sizeToFit];
     UIBarButtonItem *cashRegisterItem = [[UIBarButtonItem alloc] initWithCustomView:cashRegisterBtn];
     self.navigationItem.rightBarButtonItem = cashRegisterItem;
 }
