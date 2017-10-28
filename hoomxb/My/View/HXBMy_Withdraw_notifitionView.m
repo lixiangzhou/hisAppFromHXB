@@ -67,6 +67,11 @@
     _messageLabel.attributedText = str;
 }
 
+- (void)setImageName:(NSString *)imageName {
+    _imageName = imageName;
+    _messageImage.image = [UIImage imageNamed:imageName];
+}
+
 - (UIImageView *)messageImage {
     if (!_messageImage) {
         _messageImage = [[UIImageView alloc] init];

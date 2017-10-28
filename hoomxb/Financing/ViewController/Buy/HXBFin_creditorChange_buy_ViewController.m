@@ -22,13 +22,14 @@
 #import "HxbWithdrawCardViewController.h"
 #import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
 #import "HXBChooseDiscountCouponViewController.h"
+#import "HXBChooseCouponViewModel.h"
 
 static NSString *const topupString = @"余额不足，需充值投资";
 static NSString *const bankString = @"绑定银行卡";
 static NSString *const investString = @"立即投资";
 
 
-@interface HXBFin_creditorChange_buy_ViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface HXBFin_creditorChange_buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
 /** topView */
 @property (nonatomic, strong) HXBCreditorChangeTopView *topView;
 /** bottomView*/
@@ -67,6 +68,8 @@ static NSString *const investString = @"立即投资";
 @property (nonatomic, copy) NSString *balanceTitle;
 /** 可用余额detailLabel */
 @property (nonatomic, copy) NSString *balanceDetailTitle;
+/** 最优优惠券model */
+@property (nonatomic, strong) HXBBestCouponModel *model;
 
 @end
 
@@ -138,6 +141,9 @@ static NSString *const investString = @"立即投资";
         }
         
         _topView.changeBlock = ^(NSString *text) {
+            if (text.doubleValue > _minRegisterAmount.doubleValue) {
+                [weakSelf getBESTCouponWithMoney:text];
+            }
             [weakSelf changeItemWithInvestMoney:text];
         };
         _topView.block = ^{ // 点击一键购买执行的方法
@@ -370,7 +376,7 @@ static NSString *const investString = @"立即投资";
 - (void)fullAddtionFunc {
     kWeakSelf
     double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue];
-    if (topupMoney < 1.00) {
+    if (topupMoney < _viewModel.minChargeAmount.floatValue) {
         [HxbHUDProgress showTextWithMessage:@"充值金额必须大于1元"];
         return;
     }
@@ -754,10 +760,17 @@ static NSString *const investString = @"立即投资";
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
         HXBChooseDiscountCouponViewController *chooseDiscountVC = [[HXBChooseDiscountCouponViewController alloc] init];
+        chooseDiscountVC.delegate = self;
+        chooseDiscountVC.planid = _loanId;
+        chooseDiscountVC.investMoney = _inputMoneyStr ? _inputMoneyStr : @"0.00";
+        chooseDiscountVC.type = @"plan";
         [self.navigationController pushViewController:chooseDiscountVC animated:YES];
     }
 }
 
+- (void)sendModel:(HXBCouponModel *)model {
+    [self.hxbBaseVCScrollView reloadData];
+}
 
 - (void)setUpDate {
     if (_type == HXB_Plan) {
@@ -783,6 +796,30 @@ static NSString *const investString = @"立即投资";
     } andFailure:^(NSError *error) {
         
     }];
+}
+
+// 匹配最优优惠券
+- (void)getBESTCouponWithMoney:(NSString *)money {
+    NSDictionary *dic_post = @{
+                               @"id": _loanId,
+                               @"amount": money ? money: @"0",
+                               @"type": @"plan"
+                               };
+    [HXBChooseCouponViewModel BestCouponWithparams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
+        self.model = model;
+        if (model.hasCoupon) {
+            if (model.model.valueActual.floatValue > 0) {
+                _discountTitle = model.model.valueActual;
+            } else {
+                _discountTitle = @"请选择优惠券";
+            }
+        } else {
+            _discountTitle = @"暂无可用优惠券";
+        }
+    } andFailureBlock:^(NSError *error) {
+        _discountTitle = @"暂无可用优惠券";
+    }];
+    [self setUpArray];
 }
 
 // 获取银行限额
@@ -837,6 +874,13 @@ static NSString *const investString = @"立即投资";
         _detailArray = [NSArray array];
     }
     return _detailArray;
+}
+
+- (HXBBestCouponModel *)model {
+    if (!_model) {
+        _model = [[HXBBestCouponModel alloc] init];
+    }
+    return _model;
 }
 
 - (void)didReceiveMemoryWarning {

@@ -453,6 +453,8 @@
 		E1E461491EB9AB74005B1FC6 /* HXBFinanctingRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E461481EB9AB74005B1FC6 /* HXBFinanctingRequest.m */; };
 		E1E4617F1EB9BE25005B1FC6 /* HXBFinancting_PlanListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E4617E1EB9BE25005B1FC6 /* HXBFinancting_PlanListTableView.m */; };
 		E1E461851EB9C17A005B1FC6 /* HXBFinancting_PlanListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E461841EB9C17A005B1FC6 /* HXBFinancting_PlanListTableViewCell.m */; };
+		E1E4A43E1FA424B60016CDAC /* HXBCouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E4A43D1FA424B60016CDAC /* HXBCouponModel.m */; };
+		E1E4A4411FA479810016CDAC /* HXBBestCouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E4A4401FA479810016CDAC /* HXBBestCouponModel.m */; };
 		E1E5885A1EE165BF0045C4AE /* AnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588551EE165BF0045C4AE /* AnimatedTransition.m */; };
 		E1E5885B1EE165BF0045C4AE /* Animatr.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588571EE165BF0045C4AE /* Animatr.m */; };
 		E1E5885C1EE165BF0045C4AE /* PYPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588591EE165BF0045C4AE /* PYPresentationController.m */; };
@@ -1342,6 +1344,10 @@
 		E1E4617E1EB9BE25005B1FC6 /* HXBFinancting_PlanListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancting_PlanListTableView.m; sourceTree = "<group>"; };
 		E1E461831EB9C17A005B1FC6 /* HXBFinancting_PlanListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancting_PlanListTableViewCell.h; sourceTree = "<group>"; };
 		E1E461841EB9C17A005B1FC6 /* HXBFinancting_PlanListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancting_PlanListTableViewCell.m; sourceTree = "<group>"; };
+		E1E4A43C1FA424B60016CDAC /* HXBCouponModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCouponModel.h; sourceTree = "<group>"; };
+		E1E4A43D1FA424B60016CDAC /* HXBCouponModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCouponModel.m; sourceTree = "<group>"; };
+		E1E4A43F1FA479810016CDAC /* HXBBestCouponModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBestCouponModel.h; sourceTree = "<group>"; };
+		E1E4A4401FA479810016CDAC /* HXBBestCouponModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBBestCouponModel.m; sourceTree = "<group>"; };
 		E1E588541EE165BF0045C4AE /* AnimatedTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedTransition.h; sourceTree = "<group>"; };
 		E1E588551EE165BF0045C4AE /* AnimatedTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedTransition.m; sourceTree = "<group>"; };
 		E1E588561EE165BF0045C4AE /* Animatr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animatr.h; sourceTree = "<group>"; };
@@ -3354,6 +3360,10 @@
 			children = (
 				E1F60EE01FA33ED400AB8441 /* HXBChooseCouponModel.h */,
 				E1F60EE11FA33ED400AB8441 /* HXBChooseCouponModel.m */,
+				E1E4A43C1FA424B60016CDAC /* HXBCouponModel.h */,
+				E1E4A43D1FA424B60016CDAC /* HXBCouponModel.m */,
+				E1E4A43F1FA479810016CDAC /* HXBBestCouponModel.h */,
+				E1E4A4401FA479810016CDAC /* HXBBestCouponModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4499,6 +4509,7 @@
 				4EB45DAB1EF7ACCE00C2CF21 /* HXBHomeTitleModel.m in Sources */,
 				E1FF8EDD1F0F66A100C7F1AC /* HXBFin_LoanTransferTableView.m in Sources */,
 				E166C5961F03D6C200AA14F4 /* HXBMY_PlanModel_LoanRecordModel.m in Sources */,
+				E1E4A4411FA479810016CDAC /* HXBBestCouponModel.m in Sources */,
 				E17CCEE71F305DA000D6E98E /* HXBMY_LoanTruansferViewModel.m in Sources */,
 				4EAA30281F136EC8003F2AF3 /* HXBSetTransactionPasswordView.m in Sources */,
 				E1CD4BD21ED83064000CC57B /* HXBBaseHandDate.m in Sources */,
@@ -4708,6 +4719,7 @@
 				E133DCF11EEE3597009466DE /* HXBUserInfoModel.m in Sources */,
 				E129A01E1F0631340051ADA0 /* HXBMy_Loan_Swipe.m in Sources */,
 				E129A0151F0630460051ADA0 /* STCollectionView.m in Sources */,
+				E1E4A43E1FA424B60016CDAC /* HXBCouponModel.m in Sources */,
 				E163143E1EC076B20090567E /* HXBFinHomePageModel_LoanList.m in Sources */,
 				E133DD381EEEC14C009466DE /* BaseModel.m in Sources */,
 				E133DCD81EEE3597009466DE /* HxbPickerBankSubBranch.m in Sources */,

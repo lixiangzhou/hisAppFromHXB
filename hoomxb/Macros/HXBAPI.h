@@ -29,7 +29,8 @@
 //#define BASEURL                                       @"http://192.168.1.133:3000"//王鹏 端测试
 //#define BASEURL                                       @"http://192.168.1.199:3000"//杜宇 测试
 //#define BASEURL                                       @"http://192.168.1.31:3100"//后台、
-#define BASEURL                                       @"http://192.168.1.26:3100"//后台 测试
+//#define BASEURL                                       @"http://192.168.1.26:3100"//后台 测试
+#define BASEURL                                       @"http://192.168.1.243:3100"//杨老板
 //#define BASEURL                                       @"http://192.168.1.35:4100"//后台 测试
 //#define BASEURL                                       @"http://192.168.1.31:3100"//后台、
 //#define BASEURL                                       @"http://192.168.1.35:4100"//后台、
