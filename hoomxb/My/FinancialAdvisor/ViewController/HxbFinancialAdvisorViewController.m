@@ -36,6 +36,7 @@
     self.isReadColorWithNavigationBar = YES;
     self.title = @"我的理财顾问";
     [self.view addSubview:self.headerView];
+    [self.view addSubview:self.businessCardImageView];
     [self setupSubViewFrame];
 }
 
@@ -45,7 +46,7 @@
 }
 
 - (void)call{
-    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:[NSString stringWithFormat:@"理财顾问 %@:%@",self.financialAdvisorModel.name,self.financialAdvisorModel.mobile] Message:kServiceMobile];
+    [HXBAlertManager callupWithphoneNumber:self.financialAdvisorModel.mobile andWithTitle:[NSString stringWithFormat:@"理财顾问： %@",self.financialAdvisorModel.name] Message:self.financialAdvisorModel.mobile];
 }
 
 - (void)setFinancialAdvisorModel:(HXBFinancialAdvisorModel *)financialAdvisorModel{
@@ -54,9 +55,12 @@
     self.financialAdvisor_nameLabel.text = _financialAdvisorModel.name&&![_financialAdvisorModel.name isEqualToString:@""] ? _financialAdvisorModel.name : @"--";
     self.financialAdvisor_jobNumberLabel.text = _financialAdvisorModel.code&&![_financialAdvisorModel.code isEqualToString:@""] ? _financialAdvisorModel.code : @"--";
     
-    self.financialAdvisor_phoneLabel.userInteractionEnabled = YES;
     _financialAdvisor_phoneLabel.textColor = RGBA(119, 179, 255, 1);
     self.financialAdvisor_phoneLabel.text = _financialAdvisorModel.mobile&&![_financialAdvisorModel.mobile isEqualToString:@""] ? _financialAdvisorModel.mobile : @"--";
+    self.businessCardImageView.userInteractionEnabled = YES;
+    self.financialAdvisor_phoneLabel.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(call)];
+    [self.financialAdvisor_phoneLabel addGestureRecognizer:tap];
 }
 
 - (void)loadData_financialAdvisorInfo{
@@ -200,8 +204,6 @@
         _financialAdvisor_phoneLabel.textColor = RGBA(51, 51, 51, 1);
         _financialAdvisor_phoneLabel.textAlignment = NSTextAlignmentCenter;
         _financialAdvisor_phoneLabel.text = @"--";
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(call)];
-        [_financialAdvisor_phoneLabel addGestureRecognizer:tap];
     }
     return _financialAdvisor_phoneLabel;
 }
@@ -227,7 +229,6 @@
     if (!_headBackgroundImageView) {
         _headBackgroundImageView = [[UIImageView alloc]initWithFrame:CGRectZero];
         _headBackgroundImageView.svgImageString = @"bj";
-        [_headBackgroundImageView addSubview:self.businessCardImageView];
     }
     return _headBackgroundImageView;
 }

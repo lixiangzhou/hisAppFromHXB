@@ -48,6 +48,7 @@
 //        [self registerEvent];
         [self addSubview:self.backgroundImage];
         [self addSubview:self.allAssetsTitleLabel];
+        [self addSubview:self.allAssetsLabel];
         
         [self addSubview:self.holdingAssetsLabel];
         [self addSubview:self.holdingAssetsTitleLabel];
@@ -87,6 +88,14 @@
         make.height.equalTo(@kScrAdaptationH750(24));
         make.width.equalTo(@kScrAdaptationW750(160));
     }];
+    [self.allAssetsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self).offset(kScrAdaptationW750(30));
+        make.top.equalTo(self).offset(kScrAdaptationH750(156));
+        make.height.equalTo(@kScrAdaptationH750(80));
+        make.width.equalTo(@kScrAdaptationW750(620));
+    }];
+    
+    
     [self.holdingAssetsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self);
         make.right.equalTo(self.lineView.mas_left);
@@ -248,6 +257,18 @@
         _holdingAssetsLabel.userInteractionEnabled = true;
     }
     return _holdingAssetsLabel;
+}
+//[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(<#W#>), kScrAdaptationH750(<#H#>), kScrAdaptationW750(<#W#>), kScrAdaptationH750(<#H#>));
+
+- (UILabel *)allAssetsLabel{
+    if (!_allAssetsLabel) {
+        _allAssetsLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(30), kScrAdaptationH750(206), kScrAdaptationW750(620), kScrAdaptationH750(80))];
+        _allAssetsLabel.text = @"--";
+        _allAssetsLabel.textAlignment = NSTextAlignmentLeft;
+        _allAssetsLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(80);
+        _allAssetsLabel.textColor = COR27;
+    }
+    return _allAssetsLabel;
 }
 
 - (UILabel *)allAssetsTitleLabel{
