@@ -44,16 +44,21 @@
 #define kHXBUser_financialAdvisorURL @"/account/advisor" //获取理财顾问信息
 
 //MARK: ======================= 账户内 =======================
-#define kHXBMY_CapitalRecordURL         @"/account/tradlist"///交易记录
-#define kHXBMY_PlanListURL              @"/account/plan"//账户内  planlist
-#define kHXBMY_PlanAssetsURL            @"/account/plan"// plan 资金统计
-#define kHXBMY_LoanListURL              @"/account/loan"//账户内  loanlist
-#define kHXBMY_LoanTruansferListURL     @"/account/transfer"//账户内 loanTruansfer
-#define kHXBMY_LoanAssetsURL            @"/account/loanAssets"//loan资金统计
-#define kHXBMY_LoanAccountRequestURL    @"/account/loanAssets"///账户内 账户内Loan资产
-#define kHXBMY_PlanAccountRequestURL    @"/account/planAssets"///账户内 账户内Plan资产
-#define kHXBMY_PlanDetaileURL(planID)   [NSString stringWithFormat:@"/account/plan/%@",(planID)]
-#define kHXBFin_loanRecordURL(planID)   [NSString stringWithFormat:@"/account/plan/%@/loanRecord",(planID)]
+#define kHXBMY_CapitalRecordURL @"/account/tradlist"///交易记录
+#define kHXBMY_PlanListURL @"/account/plan"//账户内  planlist
+#define kHXBMY_PlanDetaileURL(planID) [NSString stringWithFormat:@"/account/plan/%@",(planID)]
+#define kHXBMY_PlanAssetsURL @"/account/plan"// plan 资金统计
+
+#define kHXBMY_LoanListURL @"/account/loan"//账户内  loanlist
+#define kHXBMY_LoanTruansferListURL @"/account/transfer"//账户内 loanTruansfer
+#define kHXBMY_LoanAssetsURL @"/account/loanAssets"//loan资金统计
+
+///账户内的plan 交易记录
+#define kHXBFin_loanRecordURL(planID) [NSString stringWithFormat:@"/account/plan/%@/loanRecord",(planID)]
+#define kHXBMY_LoanAccountRequestURL @"/account/loanAssets"///账户内 账户内Loan资产
+#define kHXBMY_PlanAccountRequestURL @"/account/planAssets"///账户内 账户内Plan资产
+
+
 ///账户内转让记录
 #define kHXBFin_CreditorRecordURL(planID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(planID)]
 //账户内债权转让确认页
@@ -99,7 +104,7 @@
 #define kHXBUser_checkCardBin @"/user/checkCardBin" //卡bin校验
 
 //MARK: ======================= 协议 ==========================
-//协议或合同名	端口号后链接	状态	账户内连接
+//协议或合同名    端口号后链接    状态    账户内连接
 #define kHXB_Negotiate_SginUPURL @"/agreement/signup"///《注册服务协议》
 #define kHXB_Negotiate_CertificationURL @"/agreement/realname"///《红小宝认证服务协议》
 #define kHXB_Negotiate_ServePlanURL @"/agreement/plan"///《红利计划服务协议书》
