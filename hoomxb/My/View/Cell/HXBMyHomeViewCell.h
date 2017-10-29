@@ -15,4 +15,5 @@
  */
 @property (nonatomic, assign) BOOL isShowLine;
 
+@property (nonatomic, strong) UILabel *descLab;
 @end

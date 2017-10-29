@@ -15,7 +15,7 @@
 + (void)downLoadmyFinancialAdvisorInfoNoHUDWithSeccessBlock:(void(^)(HXBFinancialAdvisorModel *model))seccessBlock andFailure: (void(^)(NSError *error))failureBlock
 {
     NYBaseRequest *userInfoAPI = [[NYBaseRequest alloc]init];
-    userInfoAPI.requestUrl = kHXBUser_financialAdvisorURL;
+    userInfoAPI.requestUrl = kHXBUser_financialAdvisorURL;//@"/account"
     userInfoAPI.requestMethod = NYRequestMethodGet;
     [userInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"获取理财顾问信息%@",responseObject);
