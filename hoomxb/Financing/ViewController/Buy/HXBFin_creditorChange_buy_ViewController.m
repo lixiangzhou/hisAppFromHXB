@@ -373,8 +373,9 @@ static NSString *const investString = @"立即投资";
         [HxbHUDProgress showTextWithMessage:@"充值金额必须大于1元"];
         return;
     }
+    double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue];
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:_inputMoneyStr andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
+    [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
         [weakSelf alertSmsCode];
     } andFailureBlock:^(NSError *error) {
         NSDictionary *errDic = (NSDictionary *)error;

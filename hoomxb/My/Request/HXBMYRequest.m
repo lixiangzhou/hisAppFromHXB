@@ -692,6 +692,7 @@
     HXBBaseRequest *account_TransferRequest = [[HXBBaseRequest alloc]init];
     account_TransferRequest.requestUrl = kHXBFin_TransferResultURL(transferID);
     account_TransferRequest.requestMethod = NYRequestMethodPost;
+    currentTransferValue = currentTransferValue ? currentTransferValue:@"";
     account_TransferRequest.requestArgument = @{
                                                 @"tradPassword" : pwd,
                                                 @"currentTransferValue" : currentTransferValue

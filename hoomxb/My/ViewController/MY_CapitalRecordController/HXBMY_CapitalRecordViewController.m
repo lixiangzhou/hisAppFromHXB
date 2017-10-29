@@ -62,7 +62,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 - (void)setUP {
 //    self.view.backgroundColor = kHXBColor_BackGround;
     self.tableView = [[HXBMYCapitalRecord_TableView alloc]init];
-    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+    self.tableView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight);
     self.tableView.backgroundColor = kHXBColor_BackGround;
     [self refresh];
     [self.view addSubview:self.tableView];

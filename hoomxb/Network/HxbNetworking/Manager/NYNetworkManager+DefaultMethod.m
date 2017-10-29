@@ -66,6 +66,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         }
         case kHXBCode_Enum_RequestOverrun:
         {
+            if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin]) return;
             [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
             return;
         }

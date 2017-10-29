@@ -74,7 +74,6 @@ static NSString *const my = @"我的";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //字典和数据为空的防止闪退
 //    [AvoidCrash becomeEffective];
-    
     //设置友盟统计
     [self setupUmeng];
     
@@ -92,6 +91,8 @@ static NSString *const my = @"我的";
 
     //设置键盘
     [self keyboardManager];
+    //方案多个按钮同时点击
+    [[UIButton appearance] setExclusiveTouch:YES];
     
     return YES;
 }

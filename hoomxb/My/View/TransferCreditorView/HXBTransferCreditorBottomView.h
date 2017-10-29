@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HXBTransferConfirmModel;
 @interface HXBTransferCreditorBottomView : UIView
+
+@property (nonatomic, strong) HXBTransferConfirmModel *transferConfirmModel;
 
 @end
