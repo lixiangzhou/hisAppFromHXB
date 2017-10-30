@@ -55,12 +55,12 @@
     self.financialAdvisor_nameLabel.text = _financialAdvisorModel.name&&![_financialAdvisorModel.name isEqualToString:@""] ? _financialAdvisorModel.name : @"--";
     self.financialAdvisor_jobNumberLabel.text = _financialAdvisorModel.code&&![_financialAdvisorModel.code isEqualToString:@""] ? _financialAdvisorModel.code : @"--";
     
-    _financialAdvisor_phoneLabel.textColor = RGBA(119, 179, 255, 1);
     self.financialAdvisor_phoneLabel.text = _financialAdvisorModel.mobile&&![_financialAdvisorModel.mobile isEqualToString:@""] ? _financialAdvisorModel.mobile : @"--";
     self.businessCardImageView.userInteractionEnabled = YES;
     self.financialAdvisor_phoneLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(call)];
     if (![self.financialAdvisor_phoneLabel.text isEqualToString:@"--"]) {
+        _financialAdvisor_phoneLabel.textColor = RGBA(51, 51, 51, 1);
         [self.financialAdvisor_phoneLabel addGestureRecognizer:tap];
     }
 }
@@ -203,7 +203,7 @@
     if (!_financialAdvisor_phoneLabel) {
         _financialAdvisor_phoneLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW(208.5), kScrAdaptationH(135.5), kScrAdaptationW(111.5), kScrAdaptationH(16))];
         _financialAdvisor_phoneLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
-        _financialAdvisor_phoneLabel.textColor = RGBA(51, 51, 51, 1);
+        _financialAdvisor_phoneLabel.textColor = RGBA(153, 153, 153, 1);
         _financialAdvisor_phoneLabel.textAlignment = NSTextAlignmentCenter;
         _financialAdvisor_phoneLabel.text = @"--";
     }

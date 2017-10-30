@@ -407,6 +407,9 @@
 		E1B0F4861EC492160071246F /* HXBFinAddRecordVC_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B0F4851EC492160071246F /* HXBFinAddRecordVC_Plan.m */; };
 		E1B0F4891EC492980071246F /* HXBFinAddRecortdVC_Loan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B0F4881EC492980071246F /* HXBFinAddRecortdVC_Loan.m */; };
 		E1B0F48D1EC4950A0071246F /* HXBFin_Detail_DetailsVC_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B0F48C1EC4950A0071246F /* HXBFin_Detail_DetailsVC_Plan.m */; };
+		E1B1CC2D1FA7399D0001DED4 /* HXBMyCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B1CC2C1FA7399D0001DED4 /* HXBMyCouponViewController.m */; };
+		E1B1CC301FA739C40001DED4 /* HXBMyCouponListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B1CC2F1FA739C40001DED4 /* HXBMyCouponListViewController.m */; };
+		E1B1CC331FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B1CC321FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.m */; };
 		E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */; };
 		E1B517BC1F134EAF001C9878 /* HXBFin_DetailLoanTruansfer_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B517BB1F134EAF001C9878 /* HXBFin_DetailLoanTruansfer_ViewController.m */; };
 		E1C10A4D1EBC60E500C21984 /* HXBFin_PlanDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C10A4C1EBC60E500C21984 /* HXBFin_PlanDetailsView.m */; };
@@ -1249,6 +1252,12 @@
 		E1B0F4881EC492980071246F /* HXBFinAddRecortdVC_Loan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinAddRecortdVC_Loan.m; sourceTree = "<group>"; };
 		E1B0F48B1EC4950A0071246F /* HXBFin_Detail_DetailsVC_Plan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_Detail_DetailsVC_Plan.h; sourceTree = "<group>"; };
 		E1B0F48C1EC4950A0071246F /* HXBFin_Detail_DetailsVC_Plan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Detail_DetailsVC_Plan.m; sourceTree = "<group>"; };
+		E1B1CC2B1FA7399D0001DED4 /* HXBMyCouponViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponViewController.h; sourceTree = "<group>"; };
+		E1B1CC2C1FA7399D0001DED4 /* HXBMyCouponViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponViewController.m; sourceTree = "<group>"; };
+		E1B1CC2E1FA739C40001DED4 /* HXBMyCouponListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponListViewController.h; sourceTree = "<group>"; };
+		E1B1CC2F1FA739C40001DED4 /* HXBMyCouponListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponListViewController.m; sourceTree = "<group>"; };
+		E1B1CC311FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponExchangeViewController.h; sourceTree = "<group>"; };
+		E1B1CC321FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponExchangeViewController.m; sourceTree = "<group>"; };
 		E1B2D53E1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+HXBScrollView.h"; sourceTree = "<group>"; };
 		E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+HXBScrollView.m"; sourceTree = "<group>"; };
 		E1B517BA1F134EAF001C9878 /* HXBFin_DetailLoanTruansfer_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_DetailLoanTruansfer_ViewController.h; sourceTree = "<group>"; };
@@ -1573,6 +1582,7 @@
 		4E422CAD1EA7383D00C0EB62 /* My */ = {
 			isa = PBXGroup;
 			children = (
+				E1B1CC261FA7168E0001DED4 /* Coupon */,
 				E17641771FA33D2C00258AF7 /* FinancialAdvisor */,
 				E1CC03561ECAD2AD00121D21 /* Request */,
 				4E422CB01EA7383D00C0EB62 /* ViewController */,
@@ -3586,6 +3596,51 @@
 			path = Detail_DetailsViewController;
 			sourceTree = "<group>";
 		};
+		E1B1CC261FA7168E0001DED4 /* Coupon */ = {
+			isa = PBXGroup;
+			children = (
+				E1B1CC271FA7168E0001DED4 /* Model */,
+				E1B1CC281FA7168E0001DED4 /* View */,
+				E1B1CC291FA7168E0001DED4 /* ViewController */,
+				E1B1CC2A1FA7168E0001DED4 /* ViewModel */,
+			);
+			path = Coupon;
+			sourceTree = "<group>";
+		};
+		E1B1CC271FA7168E0001DED4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E1B1CC281FA7168E0001DED4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E1B1CC291FA7168E0001DED4 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E1B1CC2B1FA7399D0001DED4 /* HXBMyCouponViewController.h */,
+				E1B1CC2C1FA7399D0001DED4 /* HXBMyCouponViewController.m */,
+				E1B1CC2E1FA739C40001DED4 /* HXBMyCouponListViewController.h */,
+				E1B1CC2F1FA739C40001DED4 /* HXBMyCouponListViewController.m */,
+				E1B1CC311FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.h */,
+				E1B1CC321FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		E1B1CC2A1FA7168E0001DED4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E1C10A4A1EBC60BD00C21984 /* PlanDetails */ = {
 			isa = PBXGroup;
 			children = (
@@ -4502,6 +4557,7 @@
 				E1CD4BCC1ED83064000CC57B /* KeyChainManage.m in Sources */,
 				4E886FCD1EF940010056086E /* HXBModifyGesturePasswordController.m in Sources */,
 				4E94E37C1F0F619400746973 /* HXBCardholderInformationView.m in Sources */,
+				E1B1CC331FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.m in Sources */,
 				E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */,
 				E17641811FA33D2D00258AF7 /* HXBFinancialAdvisorModel.m in Sources */,
 				E129A0171F0630460051ADA0 /* SwipeTableView.m in Sources */,
@@ -4518,6 +4574,7 @@
 				E1CB56241ED3E82700D962CA /* HXBMYCapitalRecord_TableView.m in Sources */,
 				E133DCD71EEE3597009466DE /* HxbPickerArea.m in Sources */,
 				E133DD3B1EEEC14C009466DE /* NYBaseRequest.m in Sources */,
+				E1B1CC301FA739C40001DED4 /* HXBMyCouponListViewController.m in Sources */,
 				4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */,
 				E133DCEC1EEE3597009466DE /* HxbSignUpViewController.m in Sources */,
 				E1FBADBE1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m in Sources */,
@@ -4673,6 +4730,7 @@
 				285D700E1F6BE13C006B520B /* HXBCreditorChangeTopView.m in Sources */,
 				E1C10A501EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m in Sources */,
 				E16314311EC0761C0090567E /* HXBFinHomePageViewModel_LoanList.m in Sources */,
+				E1B1CC2D1FA7399D0001DED4 /* HXBMyCouponViewController.m in Sources */,
 				E1CD4BD31ED83064000CC57B /* HXBServerAndClientTime.m in Sources */,
 				4E81E3971EE8F8E4006AD3FC /* UIView+HXBFrame.m in Sources */,
 				4E559B4E1F0FAFFC003D9982 /* HXBRechargeCompletedViewController.m in Sources */,
