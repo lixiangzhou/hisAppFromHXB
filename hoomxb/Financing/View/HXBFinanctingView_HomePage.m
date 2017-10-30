@@ -114,16 +114,16 @@
                                        ];
     
     
-//设置toolBarVie
+    //设置toolBarView
     [self setupToolBarView];
     
-//搭建底部的ScrollView
+    //搭建底部的ScrollView
     [self setupBottomScrollViewArray];
     
     //为底部的scrollView添加定时器
     [self setupCountDownManager];
     
-//搭建ScrollToolBarView
+    //搭建ScrollToolBarView
     [self setupScrollToolBarView];
     //定时器
     [self setupCountDownManager];
@@ -191,9 +191,10 @@
             weakSelf.clickPlanListCellBlock(indexPage,model);
         }
     }];
-    
+    //红利计划下拉刷新
     [self.planListTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        if (weakSelf.planRefreshHeaderBlock) weakSelf.planRefreshHeaderBlock();
+        if (weakSelf.planRefreshHeaderBlock)
+            weakSelf.planRefreshHeaderBlock();
     } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
         
     }];

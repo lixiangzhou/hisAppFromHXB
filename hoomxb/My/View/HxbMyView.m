@@ -96,7 +96,14 @@ MyViewHeaderDelegate
 #pragma TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {//第一组： plan
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+//            HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+//            HXBMyCouponsViewController *myCouponsViewController = [[HXBMyCouponsViewController alloc]init];
+//            [vc.navigationController pushViewController:myCouponsViewController animated:YES];
+        }
+    }
+    if (indexPath.section == 1) {//第一组： plan
         if (indexPath.row == 0) {
             HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
             HXBMY_PlanListViewController *myPlanViewController = [[HXBMY_PlanListViewController alloc]init];
@@ -108,7 +115,7 @@ MyViewHeaderDelegate
             [VC.navigationController pushViewController:loanListViewController animated:true];
         }
     }
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
         HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
         [VC.navigationController pushViewController:capitalRecordViewController animated:true];

@@ -60,7 +60,9 @@
     self.businessCardImageView.userInteractionEnabled = YES;
     self.financialAdvisor_phoneLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(call)];
-    [self.financialAdvisor_phoneLabel addGestureRecognizer:tap];
+    if (![self.financialAdvisor_phoneLabel.text isEqualToString:@"--"]) {
+        [self.financialAdvisor_phoneLabel addGestureRecognizer:tap];
+    }
 }
 
 - (void)loadData_financialAdvisorInfo{
