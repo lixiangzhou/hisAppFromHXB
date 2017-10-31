@@ -216,6 +216,7 @@
 		4EECE0241F3843A200301758 /* eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0231F3843A200301758 /* eye.svg */; };
 		4EECE0261F38548100301758 /* close_eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0251F38548100301758 /* close_eye.svg */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
+		8DEF09281FA819AC002AD5F7 /* HXBTopTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF09271FA819AC002AD5F7 /* HXBTopTabView.m */; };
 		E1057D701EE28D0C00C63286 /* NSString+HXBPhonNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = E1057D6F1EE28D0C00C63286 /* NSString+HXBPhonNumber.m */; };
 		E10CDBC51EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CDBC41EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m */; };
 		E10CEB0E1F7F96D100B65501 /* HXBFin_Plan_BuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CEB0A1F7F96CF00B65501 /* HXBFin_Plan_BuyViewController.m */; };
@@ -854,6 +855,8 @@
 		4EECE01F1F383ABE00301758 /* HXBMyHomeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyHomeViewCell.m; sourceTree = "<group>"; };
 		4EECE0231F3843A200301758 /* eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = eye.svg; sourceTree = "<group>"; };
 		4EECE0251F38548100301758 /* close_eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = close_eye.svg; sourceTree = "<group>"; };
+		8DEF09261FA819AC002AD5F7 /* HXBTopTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBTopTabView.h; sourceTree = "<group>"; };
+		8DEF09271FA819AC002AD5F7 /* HXBTopTabView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBTopTabView.m; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
 		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2269,6 +2272,29 @@
 			path = "银行icon";
 			sourceTree = "<group>";
 		};
+		8DEF09231FA81757002AD5F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8DEF09261FA819AC002AD5F7 /* HXBTopTabView.h */,
+				8DEF09271FA819AC002AD5F7 /* HXBTopTabView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8DEF09241FA81762002AD5F7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8DEF09251FA8176A002AD5F7 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		93AB8A7B8B5BF47D9A9FFDF5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3599,26 +3625,12 @@
 		E1B1CC261FA7168E0001DED4 /* Coupon */ = {
 			isa = PBXGroup;
 			children = (
-				E1B1CC271FA7168E0001DED4 /* Model */,
-				E1B1CC281FA7168E0001DED4 /* View */,
+				8DEF09251FA8176A002AD5F7 /* ViewModel */,
+				8DEF09241FA81762002AD5F7 /* Model */,
+				8DEF09231FA81757002AD5F7 /* View */,
 				E1B1CC291FA7168E0001DED4 /* ViewController */,
-				E1B1CC2A1FA7168E0001DED4 /* ViewModel */,
 			);
 			path = Coupon;
-			sourceTree = "<group>";
-		};
-		E1B1CC271FA7168E0001DED4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		E1B1CC281FA7168E0001DED4 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		E1B1CC291FA7168E0001DED4 /* ViewController */ = {
@@ -3632,13 +3644,6 @@
 				E1B1CC321FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.m */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		E1B1CC2A1FA7168E0001DED4 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E1C10A4A1EBC60BD00C21984 /* PlanDetails */ = {
@@ -4709,6 +4714,7 @@
 				4E8198AB1EC44BCE00D668A1 /* HXBHomePageBulletinView.m in Sources */,
 				E1D2CA631EAB4F26000099C7 /* HxbFinanctingViewController.m in Sources */,
 				E129A0161F0630460051ADA0 /* STHeaderView.m in Sources */,
+				8DEF09281FA819AC002AD5F7 /* HXBTopTabView.m in Sources */,
 				4E862E791F3C4BC5008CC638 /* HXBBankView.m in Sources */,
 				E165EAA81EF8E74600D68763 /* HXBFinBase_FlowChartView.m in Sources */,
 				E14B9BDF1F14731400450692 /* HXBColourGradientView.m in Sources */,

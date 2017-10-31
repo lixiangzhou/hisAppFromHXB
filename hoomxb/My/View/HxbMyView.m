@@ -10,6 +10,7 @@
 #import "HxbMyViewHeaderView.h"
 #import "AppDelegate.h"
 #import "HxbMyViewController.h"
+#import "HXBMyCouponViewController.h"   // 优惠券
 #import "HXBMY_PlanListViewController.h"///plan 列表的VC
 #import "HXBMY_LoanListViewController.h"///散标 列表的VC
 #import "HXBMY_CapitalRecordViewController.h"//资产记录
@@ -98,9 +99,9 @@ MyViewHeaderDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-//            HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-//            HXBMyCouponsViewController *myCouponsViewController = [[HXBMyCouponsViewController alloc]init];
-//            [vc.navigationController pushViewController:myCouponsViewController animated:YES];
+            HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+            HXBMyCouponViewController *myCouponsViewController = [[HXBMyCouponViewController alloc]init];
+            [vc.navigationController pushViewController:myCouponsViewController animated:YES];
         }
     }
     if (indexPath.section == 1) {//第一组： plan
