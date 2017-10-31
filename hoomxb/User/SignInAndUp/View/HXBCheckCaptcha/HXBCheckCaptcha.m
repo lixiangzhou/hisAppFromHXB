@@ -97,7 +97,7 @@ static NSString *const kTrueButtonTitle = @"确定";
         make.top.equalTo(weakSelf.checkCaptchaImageView.mas_bottom);
         make.right.equalTo(weakSelf.checkCaptchaTextField.mas_right);
         make.left.equalTo(weakSelf.checkCaptchaTextField.mas_left);
-        make.height.offset(kHXPartingLineHeight);
+        make.height.offset(kHXBPartingLineHeight);
     }];
     [self.trueButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));

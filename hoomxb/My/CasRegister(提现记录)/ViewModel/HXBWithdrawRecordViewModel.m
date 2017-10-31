@@ -28,7 +28,7 @@
 {
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBSetWithdrawals_recordtURL;
-    versionUpdateAPI.requestMethod = NYRequestMethodGet;
+    versionUpdateAPI.requestMethod = NYRequestMethodPost;
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
        
         NSInteger status =  [responseObject[@"status"] integerValue];

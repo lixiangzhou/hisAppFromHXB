@@ -158,7 +158,7 @@ static NSString *CELLID = @"CELLID";
         make.bottom.equalTo(self);
         make.left.equalTo(self).offset(kScrAdaptationW(15));
         make.right.equalTo(self).offset(kScrAdaptationW(-15));
-        make.height.offset(kHXPartingLineHeight);
+        make.height.offset(kHXBPartingLineHeight);
     }];
 }
 - (void)setIsHiddenLastCellBottomLine:(BOOL)isHiddenLastCellBottomLine {

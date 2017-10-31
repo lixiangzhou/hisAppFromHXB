@@ -284,7 +284,7 @@ static NSString *const cellID = @"cellID";
         make.bottom.equalTo(self.contentView.mas_bottom);
         make.left.equalTo(self.contentView).offset(kScrAdaptationW750(30));
         make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-30));
-        make.height.offset(kHXPartingLineHeight);
+        make.height.offset(kHXBPartingLineHeight);
     }];
     [self.planIDLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.top.equalTo(self.contentView);

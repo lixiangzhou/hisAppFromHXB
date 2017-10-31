@@ -51,7 +51,6 @@ static NSString *CELLID = @"CELLID";
     [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.backgroundColor = kHXBColor_BackGround;
-    self.rowHeight = kScrAdaptationH(121);
     self.nodataView.hidden = false;
 }
 
@@ -59,12 +58,16 @@ static NSString *CELLID = @"CELLID";
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 //    return 20;
+    return 1;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.planListViewModelArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
-    cell.finPlanListViewModel = self.planListViewModelArray[indexPath.row];
+    cell.finPlanListViewModel = self.planListViewModelArray[indexPath.section];
     cell.lockPeriodLabel_ConstStr = self.lockPeriodLabel_ConstStr;
     cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;
     return cell;
@@ -79,6 +82,29 @@ static NSString *CELLID = @"CELLID";
         self.clickPlanListCellBlock(indexPath, cell.finPlanListViewModel);
     }
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.planListViewModelArray[indexPath.section].planListModel.hasCoupon) {
+        return kScrAdaptationH750(279);
+    } else {
+        return kScrAdaptationH750(219);
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.01;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kScrAdaptationH750(20);
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *headView = [[UIView alloc] init];
+    headView.backgroundColor = BACKGROUNDCOLOR;
+    return headView;
+}
+
+
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];

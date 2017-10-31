@@ -11,10 +11,7 @@
 #import "HxbHomePageViewModel_dataList.h"
 
 @interface HXBHomePageProductCell : UITableViewCell
-@property (nonatomic, strong) UIView *backView;
-@property (nonatomic, strong) NSString *expectAnnualizedRatesTitleString;
-@property (nonatomic, strong) NSString *titleString;
-//@property (nonatomic, strong) HxbHomePageViewModel_dataList *homeDataListViewModel;
+
 @property (nonatomic, strong) HxbHomePageModel_DataList *homePageModel_DataList;
 
 /**
@@ -28,6 +25,3 @@
 @property (nonatomic, copy) void(^purchaseButtonClickBlock)();
 @end
 
-@interface CategoryLabel : UILabel
-
-@end

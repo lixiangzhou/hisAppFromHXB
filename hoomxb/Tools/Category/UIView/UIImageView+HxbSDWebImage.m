@@ -79,4 +79,26 @@ static NSString *const kHXBSVGImage = @"kHXBSVGImage";
 - (void)hxb_SVGImageWihtName: (NSString *)svgImageName {
     self.image = [SVGKImage imageNamed:svgImageName].UIImage;
 }
+
+
+
+/**
+ 分割线
+ */
++ (UIImage *)imageWithLineWithImageView:(UIImageView *)imageView{
+    CGFloat width = imageView.frame.size.width;
+    CGFloat height = imageView.frame.size.height;
+    UIGraphicsBeginImageContext(imageView.frame.size);
+    [imageView.image drawInRect:CGRectMake(0, 0, width, height)];
+    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
+    CGFloat lengths[] = {7,5};
+    CGContextRef line = UIGraphicsGetCurrentContext();
+    CGContextSetStrokeColorWithColor(line, kHXBColor_Font0_5.CGColor);
+    CGContextSetLineDash(line, 0, lengths, 1);
+    CGContextMoveToPoint(line, 0, 1);
+    CGContextAddLineToPoint(line, width, 1);
+    CGContextStrokePath(line);
+    return  UIGraphicsGetImageFromCurrentImageContext();
+}
+
 @end

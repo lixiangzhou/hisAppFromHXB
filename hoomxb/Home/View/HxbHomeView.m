@@ -27,11 +27,10 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-
         [self addSubview:self.mainTableView];
         [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.width.equalTo(self);
-            make.top.equalTo(self);//.offset(kScrAdaptationH(30))
+            make.left.right.top.equalTo(self);
+//            make.top.equalTo(self);//.offset(kScrAdaptationH(30))
             make.bottom.equalTo(self).offset(-49); //注意适配iPhone X
         }];
 //        [self.mainTableView addSubview:self.refreshControl];
@@ -123,8 +122,16 @@
 - (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
 {
     _homeBaseModel = homeBaseModel;
+     UIEdgeInsets contentInset = self.mainTableView.contentInset;
     if (homeBaseModel.homeTitle.baseTitle.length) {
         _footerLabel.text = [NSString stringWithFormat:@"- %@ -",homeBaseModel.homeTitle.baseTitle];
+        self.mainTableView.tableFooterView = self.footerView;
+        contentInset.bottom = 10;
+        self.mainTableView.contentInset = contentInset;
+    } else {
+        self.mainTableView.tableFooterView = nil;
+        contentInset.bottom = 0;
+        self.mainTableView.contentInset = contentInset;
     }
     
     self.headView.homeBaseModel = homeBaseModel;
@@ -139,8 +146,8 @@
 }
 
 - (void)creatCountDownManager {
-    __weak typeof (self)weakSelf = self;
-    
+    kWeakSelf
+
     self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray:self.homeBaseModel.homePlanRecommend andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
     
     [self.contDwonManager countDownWithChangeModelBlock:^(HxbHomePageModel_DataList *model, NSIndexPath *index) {
@@ -196,28 +203,22 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    if (_network) {
-//        return _hotSellDataList.count;
-//    }else
-//    {
-//    NSLog(@"%lu",(unsigned long)_homeDataListViewModelArray.count);
-//    return _homeDataListViewModelArray.count;
     return 1;
-//    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.homeBaseModel.homePlanRecommend.count;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HxbHomePageModel_DataList *homePageModel_DataList = self.homeBaseModel.homePlanRecommend[indexPath.section];
-    if (!homePageModel_DataList.tag.length) {
-        return kScrAdaptationH(235);
+    if (homePageModel_DataList.tag.length > 0) {
+        return kScrAdaptationH750(526);
     }else
     {
-        return kScrAdaptationH(255);
+        return kScrAdaptationH750(500);
     }
 }
 
@@ -304,7 +305,7 @@
 {
     if (!_headView) {
         kWeakSelf
-        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(302))];//199
+        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH750(533))];//199
         
         _headView.delegate = self;
         _headView.tipButtonClickBlock_homePageHeadView = ^(){
@@ -337,7 +338,7 @@
         
         _footerLabel = [UILabel new];
         _footerLabel.frame = CGRectMake(0, 0, _footerView.width, _footerView.height);
-        _footerLabel.text = @"- 预期年利率不等于实际收益，投资需谨慎 -";
+//        _footerLabel.text = @"- 预期年利率不等于实际收益，投资需谨慎 -";
         _footerLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _footerLabel.textColor = RGB(184, 184, 184);
         _footerLabel.backgroundColor = RGB(245, 245, 245);
@@ -355,24 +356,19 @@
 {
     if (!_mainTableView) {
         _mainTableView = [[UITableView alloc]initWithFrame:CGRectZero];
-//        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49) style:UITableViewStyleGrouped];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.backgroundColor = RGB(245, 245, 245);
         _mainTableView.showsVerticalScrollIndicator = NO;
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.tableHeaderView = self.headView;
-        _mainTableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
         [HXBMiddlekey AdaptationiOS11WithTableView:_mainTableView];
-//        _mainTableView.hxb_behindHeader = [[HXBRefreshHeader alloc]initWithRefreshingTarget:self refreshingAction:@selector(loadData)];
-//        _mainTableView.hxb_behindHeader.sloganView.hidden = NO;
         kWeakSelf
         [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
             if (weakSelf.homeRefreshHeaderBlock) weakSelf.homeRefreshHeaderBlock();
         } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-            
+
         }];
-        _mainTableView.tableFooterView = self.footerView;
     }
     return _mainTableView;
 }

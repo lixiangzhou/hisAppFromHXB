@@ -53,7 +53,7 @@
         make.left.equalTo(self.contentView);
         make.right.equalTo(self.contentView);
         make.bottom.equalTo(self.contentView);
-        make.height.offset(kHXPartingLineHeight);
+        make.height.offset(kHXBPartingLineHeight);
     }];
 }
 - (UIView *)line

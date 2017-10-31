@@ -14,10 +14,12 @@
     return @{@"ID" : @"id"};
 }
 
-- (void)setUnifyStatus:(NSString *)unifyStatus
-{
-    _unifyStatus = [self judgmentStateValue:unifyStatus];
-}
+//- (void)setUnifyStatus:(NSString *)unifyStatus
+//{
+//    _unifyStatus = unifyStatus;
+//    _unifyStatus = [self judgmentStateValue:unifyStatus];
+//}
+
 
 - (NSString *)fixExtraInterestRate {
     
@@ -32,21 +34,30 @@
  */
 - (NSString *) countDownLastStr {
     if (!_countDownLastStr) {
-        _countDownLastStr = @(self.diffTime.integerValue / 1000.0).description;
-        if (_countDownLastStr.integerValue <= 3600 && _countDownLastStr.integerValue >= 0) {
+        _countDownLastStr = @(self.diffTime.doubleValue / 1000.0).description;
+        if (_countDownLastStr.doubleValue <= 3600 && _countDownLastStr.doubleValue >= 0) {
             NSLog(@"%@倒计时",_countDownLastStr);
-            self.isCountDown = true;
             //会有倒计时
-        }else if (_countDownLastStr.integerValue > 3600) {
+        }else if (self.isremainTime) {
             //显示的是数字 12日12：12
             self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:_countDownLastStr andDateFormat:@"MM月dd日 HH:mm开售"];
         }
     }
     return _countDownLastStr;
 }
+
+- (BOOL)isCountDown {
+    if ((self.diffTime.doubleValue / 1000.0) <= 3600 && self.diffTime.doubleValue > 0) {
+        _isCountDown = YES;
+    } else {
+        _isCountDown = NO;
+    }
+    return _isCountDown;
+}
+
 - (BOOL)isremainTime
 {
-    if ((self.diffTime.integerValue / 1000.0) > 3600) {
+    if ((self.diffTime.doubleValue / 1000.0) > 3600) {
         return YES;
     }
     return NO;
@@ -55,7 +66,7 @@
 - (NSString *)cellBtnTitle
 {
     if (self.diffTime.intValue < 0) {
-        _cellBtnTitle = self.unifyStatus;
+        _cellBtnTitle = [self judgmentStateValue:self.unifyStatus];;
     }else if (self.isremainTime)
     {
         _cellBtnTitle = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.beginSellingTime andDateFormat:@"MM月dd日 HH:mm开售"];
@@ -85,7 +96,7 @@
         case 1:
         case 4:
         case 5:
-            return [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.beginSellingTime andDateFormat:@"MM月dd日 HH:mm开售"];//等待预售开始超过30分
+            return [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.beginSellingTime andDateFormat:@"MM月dd日 HH:mm开售"];//等待预售开始超过60分
             break;
 //        case 1:
 //            return @"等待开放";//等待预售开始小于30分钟

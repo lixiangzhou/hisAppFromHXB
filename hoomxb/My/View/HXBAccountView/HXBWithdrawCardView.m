@@ -92,7 +92,7 @@
         make.top.equalTo(self.seeLimitBtn.mas_bottom);;
         make.right.equalTo(self).offset(kScrAdaptationW(-15));
         make.left.equalTo(self).offset(kScrAdaptationW(15));
-        make.height.offset(kHXPartingLineHeight);
+        make.height.offset(kHXBPartingLineHeight);
     }];
     
     [self.bankCardTextField mas_makeConstraints:^(MASConstraintMaker *make) {

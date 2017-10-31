@@ -78,7 +78,7 @@
     }];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.left.bottom.equalTo(self);
-        make.height.offset(kHXPartingLineHeight);
+        make.height.offset(kHXBPartingLineHeight);
     }];
 }
 
