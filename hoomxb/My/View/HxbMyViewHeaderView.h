@@ -13,9 +13,10 @@
 - (void)didClickTopUpBtn:(UIButton *_Nullable)sender;
 - (void)didClickWithdrawBtn:(UIButton *_Nullable)sender;
 @end
-
+@class HXBMyRequestAccountModel;
 @interface HxbMyViewHeaderView : UIView
 @property (nonatomic, strong) HXBRequestUserInfoViewModel * _Nonnull userInfoViewModel;
+@property (nonatomic, strong) HXBMyRequestAccountModel * _Nonnull accountInfoViewModel;
 @property (nonatomic,weak,nullable)id<MyViewHeaderDelegate>delegate;
 ///点击了 总资产
 - (void)clickAllFinanceButtonWithBlock: (void(^_Nullable)(UILabel * _Nullable button))clickAllFinanceButtonBlock;

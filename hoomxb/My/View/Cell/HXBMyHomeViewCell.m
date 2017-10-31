@@ -39,13 +39,20 @@
         make.height.offset(0.5);
     }];
     [self.descLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@kScrAdaptationH750(38));
+        make.centerY.equalTo(self.textLabel);
         make.height.equalTo(@kScrAdaptationH750(24));
         make.left.equalTo(@kScrAdaptationW750(750-66-300));
         make.width.equalTo(@kScrAdaptationW750(300));
     }];
 }
 
+- (void)setDesc:(id)desc{
+    if ([desc isKindOfClass:[NSString class]]) {
+        self.descLab.text = desc;
+    }else if ([desc isKindOfClass:[NSAttributedString class]]){
+        self.descLab.attributedText = desc;
+    }
+}
 
 - (void)setIsShowLine:(BOOL)isShowLine
 {
@@ -57,6 +64,7 @@
     if (!_descLab) {
         _descLab = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(750-66-300), kScrAdaptationH750(38), kScrAdaptationW750(300), kScrAdaptationH750(24))];
         _descLab.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        _descLab.textColor = RGBA(153, 153, 153, 1);
         _descLab.textAlignment = NSTextAlignmentRight;
     }
     return _descLab;

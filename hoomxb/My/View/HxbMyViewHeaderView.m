@@ -8,6 +8,7 @@
 
 #import "HxbMyViewHeaderView.h"
 #import "SVGKImage.h"
+#import "HXBMyRequestAccountModel.h"
 @interface HxbMyViewHeaderView ()
 
 @property (nonatomic, strong) UIImageView *backgroundImage;//背景图片
@@ -65,14 +66,6 @@
         [self addSubview:self.withdrawImgV];
         [self addSubview:self.withdrawButton];
         [self addSubview:self.lineView];
-        
-        
-//        [self addSubview:self.holdingAssetsLabel];
-//        [self addSubview:self.holdingAssetsTitleLabel];
-//        [self addSubview:self.lineView];
-//        [self.buttonView addSubview:self.balanceTitleLabel];
-//        [self.buttonView addSubview:self.balanceLabel];
-        
         
         [self addSubview:self.personalCenterButton];
        
@@ -211,8 +204,34 @@
 /**
  设置数据
 
- @param userInfoViewModel 数据模型
+ @param accountInfoViewModel 数据模型
  */
+- (void)setAccountInfoViewModel:(HXBMyRequestAccountModel *)accountInfoViewModel{
+    _accountInfoViewModel = accountInfoViewModel;
+    _allAssets = accountInfoViewModel.assetsTotal;
+    NSString *allAssetsStr = _allAssets? [NSString GetPerMilWithDouble:_allAssets]:@"0.00";
+    
+    NSString *accumulatedProfitStr = accountInfoViewModel.earnTotal? [NSString GetPerMilWithDouble:accountInfoViewModel.earnTotal]: @"0.00";
+    
+    NSString *balance = accountInfoViewModel.availablePoint ? [NSString GetPerMilWithDouble:accountInfoViewModel.availablePoint] : @"0.00";
+    if ([KeyChain.ciphertext isEqualToString:@"0"])
+    {
+        self.securyButton.selected = NO;
+        //        self.holdingAssetsLabel.text = allFinanceStr;
+        self.accumulatedProfitLabel.text = accumulatedProfitStr;
+        self.balanceLabel.text = balance;
+        self.allAssetsLabel.text = allAssetsStr;
+    }else
+    {
+        self.securyButton.selected = YES;
+        //        self.holdingAssetsLabel.text = kSecuryText;
+        self.accumulatedProfitLabel.text = kSecuryText;
+        self.balanceLabel.text = kSecuryText;
+        self.allAssetsLabel.text = kSecuryText;
+    }
+}
+
+/*
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
 {
     _userInfoViewModel = userInfoViewModel;
@@ -238,6 +257,7 @@
         self.allAssetsLabel.text = kSecuryText;
     }
 }
+*/
 
 - (void)leftHeaderButtonClick:(UIButton *)sender{
     
@@ -248,9 +268,13 @@
 
 - (void)securyButtonClick:(UIButton *)rightHeadBtn
 {
-    NSString *allFinanceStr = [NSString GetPerMilWithDouble:_allAssets]?:@"0.00";
-    NSString *accumulatedProfitStr = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
-    NSString *balance = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
+//    NSString *allFinanceStr = [NSString GetPerMilWithDouble:_allAssets]?:@"0.00";
+//    NSString *accumulatedProfitStr = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
+//    NSString *balance = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
+    
+    NSString *allAssetsStr = _allAssets? [NSString GetPerMilWithDouble:_allAssets]:@"0.00";
+    NSString *accumulatedProfitStr = _accountInfoViewModel.earnTotal? [NSString GetPerMilWithDouble:_accountInfoViewModel.earnTotal]: @"0.00";
+    NSString *balance = _accountInfoViewModel.availablePoint ? [NSString GetPerMilWithDouble:_accountInfoViewModel.availablePoint] : @"0.00";
     
     if ([KeyChain.ciphertext isEqualToString:@"0"]){
         KeyChain.ciphertext = @"1";
@@ -266,31 +290,31 @@
 //        self.holdingAssetsLabel.text = allFinanceStr;
         self.accumulatedProfitLabel.text = accumulatedProfitStr;
         self.balanceLabel.text = balance;
-        self.allAssetsLabel.text = allFinanceStr;
+        self.allAssetsLabel.text = allAssetsStr;
     }
 }
 
 
-- (void)topupButtonClick:(UIButton *)sender{
+- (void)topupButtonClick:(id)sender{
     kWeakSelf
     UIButton *tmpBtn = nil;
     if (!sender||sender!=_topupButton) {
-        sender = weakSelf.topupButton;
+        tmpBtn = weakSelf.topupButton;
     }else{
-        tmpBtn = sender;
+        tmpBtn = (UIButton *)sender;
     }
     if ([self.delegate respondsToSelector:@selector(didClickTopUpBtn:)]) {
         [self.delegate didClickTopUpBtn:tmpBtn];
     }
 }
 
-- (void)withdrawButtonClick:(UIButton *)sender{
+- (void)withdrawButtonClick:(id)sender{
     kWeakSelf
     UIButton *tmpBtn = nil;
     if (!sender||sender!=_withdrawButton) {
-        sender = weakSelf.withdrawButton;
+        tmpBtn = weakSelf.withdrawButton;
     }else{
-        tmpBtn = sender;
+        tmpBtn = (UIButton *)sender;
     }
     if ([self.delegate respondsToSelector:@selector(didClickWithdrawBtn:)]) {
         [self.delegate didClickWithdrawBtn:tmpBtn];

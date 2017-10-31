@@ -410,6 +410,8 @@
 		E1B1CC2D1FA7399D0001DED4 /* HXBMyCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B1CC2C1FA7399D0001DED4 /* HXBMyCouponViewController.m */; };
 		E1B1CC301FA739C40001DED4 /* HXBMyCouponListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B1CC2F1FA739C40001DED4 /* HXBMyCouponListViewController.m */; };
 		E1B1CC331FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B1CC321FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.m */; };
+		E1B1CC391FA74D160001DED4 /* HXBRequestAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B1CC381FA74D160001DED4 /* HXBRequestAccountInfo.m */; };
+		E1B1CC3C1FA74FA40001DED4 /* HXBMyRequestAccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B1CC3B1FA74FA40001DED4 /* HXBMyRequestAccountModel.m */; };
 		E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */; };
 		E1B517BC1F134EAF001C9878 /* HXBFin_DetailLoanTruansfer_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B517BB1F134EAF001C9878 /* HXBFin_DetailLoanTruansfer_ViewController.m */; };
 		E1C10A4D1EBC60E500C21984 /* HXBFin_PlanDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C10A4C1EBC60E500C21984 /* HXBFin_PlanDetailsView.m */; };
@@ -1258,6 +1260,10 @@
 		E1B1CC2F1FA739C40001DED4 /* HXBMyCouponListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponListViewController.m; sourceTree = "<group>"; };
 		E1B1CC311FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponExchangeViewController.h; sourceTree = "<group>"; };
 		E1B1CC321FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponExchangeViewController.m; sourceTree = "<group>"; };
+		E1B1CC371FA74D160001DED4 /* HXBRequestAccountInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBRequestAccountInfo.h; sourceTree = "<group>"; };
+		E1B1CC381FA74D160001DED4 /* HXBRequestAccountInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBRequestAccountInfo.m; sourceTree = "<group>"; };
+		E1B1CC3A1FA74FA40001DED4 /* HXBMyRequestAccountModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyRequestAccountModel.h; sourceTree = "<group>"; };
+		E1B1CC3B1FA74FA40001DED4 /* HXBMyRequestAccountModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyRequestAccountModel.m; sourceTree = "<group>"; };
 		E1B2D53E1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+HXBScrollView.h"; sourceTree = "<group>"; };
 		E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+HXBScrollView.m"; sourceTree = "<group>"; };
 		E1B517BA1F134EAF001C9878 /* HXBFin_DetailLoanTruansfer_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_DetailLoanTruansfer_ViewController.h; sourceTree = "<group>"; };
@@ -3599,26 +3605,9 @@
 		E1B1CC261FA7168E0001DED4 /* Coupon */ = {
 			isa = PBXGroup;
 			children = (
-				E1B1CC271FA7168E0001DED4 /* Model */,
-				E1B1CC281FA7168E0001DED4 /* View */,
 				E1B1CC291FA7168E0001DED4 /* ViewController */,
-				E1B1CC2A1FA7168E0001DED4 /* ViewModel */,
 			);
 			path = Coupon;
-			sourceTree = "<group>";
-		};
-		E1B1CC271FA7168E0001DED4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		E1B1CC281FA7168E0001DED4 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		E1B1CC291FA7168E0001DED4 /* ViewController */ = {
@@ -3632,13 +3621,6 @@
 				E1B1CC321FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.m */,
 			);
 			path = ViewController;
-			sourceTree = "<group>";
-		};
-		E1B1CC2A1FA7168E0001DED4 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E1C10A4A1EBC60BD00C21984 /* PlanDetails */ = {
@@ -3739,6 +3721,8 @@
 				E1CC03581ECAD2AD00121D21 /* HXBMYRequest.m */,
 				E1CC03591ECAD2AD00121D21 /* HXBRequestType_MYManager.h */,
 				E1CC035A1ECAD2AD00121D21 /* HXBRequestType_MYManager.m */,
+				E1B1CC371FA74D160001DED4 /* HXBRequestAccountInfo.h */,
+				E1B1CC381FA74D160001DED4 /* HXBRequestAccountInfo.m */,
 				4E964FC71F20BE3F001DF2C0 /* HXBOpenDepositAccountRequse */,
 				4E8AAE9D1F0B847600655544 /* HXBSetGesturePassword */,
 				4E739B541F0A3516000A4D1E /* HXBVersionUpdate */,
@@ -3953,6 +3937,8 @@
 				E1270B421ECED2D000729BC9 /* HXBMY_PlanModel */,
 				E1270B3F1ECED2D000729BC9 /* HXBMY_LoanModel */,
 				E1270B3C1ECED2D000729BC9 /* HXBMY_CapitalRecordModel */,
+				E1B1CC3A1FA74FA40001DED4 /* HXBMyRequestAccountModel.h */,
+				E1B1CC3B1FA74FA40001DED4 /* HXBMyRequestAccountModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4564,6 +4550,7 @@
 				E1D7883E1EC32AE000566AC1 /* HXBFinancting_LoanListTableView.m in Sources */,
 				E133DD3D1EEEC14C009466DE /* NYHTTPConnection.m in Sources */,
 				E122D8551EA0CAB900DC71ED /* NSString+HxbSortDicMD5.m in Sources */,
+				E1B1CC391FA74D160001DED4 /* HXBRequestAccountInfo.m in Sources */,
 				4E81989C1EC4383600D668A1 /* HxbHomeView.m in Sources */,
 				4EB559901F037F6700146D62 /* UITextView+YLTextView.m in Sources */,
 				E1C10A4D1EBC60E500C21984 /* HXBFin_PlanDetailsView.m in Sources */,
@@ -4883,6 +4870,7 @@
 				4E94B2771ECBF922003CCBA7 /* HxbHomePageViewModel.m in Sources */,
 				E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */,
 				E1E461391EB98ADD005B1FC6 /* HXBBaseScrollToolBarView.m in Sources */,
+				E1B1CC3C1FA74FA40001DED4 /* HXBMyRequestAccountModel.m in Sources */,
 				E1270B461ECED2D000729BC9 /* HXBMyModel_MainLoanModel.m in Sources */,
 				E1FF8EED1F0FB52000C7F1AC /* HXBBaseModel.m in Sources */,
 				4E81E3FD1EE94FDE006AD3FC /* HXBModifyTransactionPasswordViewController.m in Sources */,
