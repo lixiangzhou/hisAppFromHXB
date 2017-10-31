@@ -10,6 +10,7 @@
 
 @interface HXBMyHomeViewCell : UITableViewCell
 
+@property (nonatomic, copy) id desc;
 /**
  是否显示底部线条
  */
