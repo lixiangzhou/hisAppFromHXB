@@ -33,11 +33,11 @@ MyViewHeaderDelegate
 - (void)clickAllFinanceButtonWithBlock: (void(^)(UILabel * button))clickAllFinanceButtonBlock{
     self.clickAllFinanceButtonWithBlock = clickAllFinanceButtonBlock;
 }
+
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.mainTableView];
-
     }
     return self;
 }

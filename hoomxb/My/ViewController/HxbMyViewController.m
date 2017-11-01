@@ -89,7 +89,7 @@
     self.myView = [[HxbMyView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     self.myView.delegate = self;
     self.myView.userInteractionEnabled = YES;
-    self.myView.homeRefreshHeaderBlock = ^(){
+    self.myView.homeRefreshHeaderBlock = ^(){ //下拉加载回调的Block
         [weakSelf loadData_userInfo];
         [weakSelf loadData_accountInfo];//账户内数据总览
     };
@@ -224,6 +224,7 @@
 - (void)clickMyLoanButton: (UIButton *)button {
     NSLog(@"%@ - 散标被点击",self.class);
 }
+
 #pragma mark - 加载数据
 - (void)loadData_accountInfo{
     kWeakSelf
@@ -232,7 +233,6 @@
         weakSelf.myView.isStopRefresh_Home = YES;
     } andFailure:^(NSError *error) {
         weakSelf.myView.isStopRefresh_Home = YES;
-        NSLog(@"%@",self);
     }];
 }
 - (void)loadData_userInfo {
@@ -242,7 +242,6 @@
         weakSelf.myView.isStopRefresh_Home = YES;
     } andFailure:^(NSError *error) {
         weakSelf.myView.isStopRefresh_Home = YES;
-        NSLog(@"%@",self);
     }];
 }
 @end

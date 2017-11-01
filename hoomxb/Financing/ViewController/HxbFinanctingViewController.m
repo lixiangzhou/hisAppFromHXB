@@ -87,7 +87,7 @@
     
     [self.countDownButton setValue:@1 forKey:@"selected"];
     // NAV
-    self.isHiddenNavigationBar = true;
+    self.isHiddenNavigationBar = true;//隐藏导航条
     //初始化属性
     [self creatProperty];//实例化请求单利
     

@@ -18,24 +18,41 @@
 @property (nonatomic, strong) HXBMyCouponListViewController *couponListVC;
 @property (nonatomic, strong) HXBMyCouponExchangeViewController *couponExchangeVC;
 
-@property (nonatomic, weak) HXBTopTabView *topTabView;
-@property (nonatomic, assign) UIScrollView *scrollView;
+@property (nonatomic, strong) HXBTopTabView *topTabView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @end
 
 @implementation HXBMyCouponViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    self.isReadColorWithNavigationBar = YES;
+    
+       self.isColourGradientNavigationBar = true;
+    
+//    self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+//    self.topImageView.image = [UIImage imageNamed:@"NavigationBar"];
+//    [self.view addSubview:self.topImageView];
     
     self.title = @"优惠券";
     [self setUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+
 #pragma mark - UI
 - (void)setUI {
     [self addChildVC];
-    [self setTab];
-    [self setScrollView];
+    [self.view addSubview:self.topTabView];
+    [self.view addSubview:self.scrollView];
+    
+    [self setupSubViewFrame];
+}
+
+- (void)setupSubViewFrame{
+    
 }
 
 - (void)addChildVC {
@@ -45,43 +62,43 @@
     [self addChildViewController:self.couponListVC];
     [self addChildViewController:self.couponExchangeVC];
 }
-
-- (void)setTab {
-    HXBTopTabView *tabView = [[HXBTopTabView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)
-                                                           titles:@[@"优惠券", @"兑换优惠券"]
-                                                             font:[UIFont systemFontOfSize:16]
-                                                      normalColor:[UIColor darkGrayColor]
-                                                    selectedColor:[UIColor redColor]
-                                                     sepLineColor:[UIColor whiteColor]
-                                                     sepLineWidth:1
-                                                    sepLineHeight:1
-                                                  bottomLineColor:[UIColor redColor]
-                                                 bottomLineHeight:1
-                                       bottomLineWidthAdjustTitle:YES
-                                            bottomLineWidthPading:5
-                                                    selectedIndex:0];
-    self.topTabView = tabView;
-    tabView.delegate = self;
-    [self.view addSubview:tabView];
+- (HXBTopTabView *)topTabView{
+    if (!_topTabView) {
+        _topTabView = [[HXBTopTabView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 44)
+                                                    titles:@[@"优惠券", @"兑换优惠券"]
+                                                      font:kHXBFont_PINGFANGSC_REGULAR_750(30)
+                                               normalColor:RGBA(51, 51, 51, 1)
+                                             selectedColor:RGBA(253, 54, 54, 1)
+                                              sepLineColor:[UIColor whiteColor]
+                                              sepLineWidth:1
+                                             sepLineHeight:1
+                                           bottomLineColor:RGBA(253, 54, 54, 1)
+                                          bottomLineHeight:1
+                                bottomLineWidthAdjustTitle:YES
+                                     bottomLineWidthPading:5
+                                             selectedIndex:0];
+        _topTabView.delegate = self;
+    }
+    return _topTabView;
 }
 
-- (void)setScrollView {
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.topTabView.frame), self.view.frame.size.width, self.view.size.height - CGRectGetMaxY(self.topTabView.frame) - 64)];
-    scrollView.contentSize = CGSizeMake(self.view.frame.size.width * 2, 0);
-    scrollView.showsHorizontalScrollIndicator = NO;
-    scrollView.pagingEnabled = YES;
-    scrollView.delegate = self;
-    [self.view addSubview:scrollView];
-    self.scrollView = scrollView;
-    
-    [scrollView addSubview:self.couponListVC.view];
-    [scrollView addSubview:self.couponExchangeVC.view];
-    
-    self.couponListVC.view.backgroundColor = [UIColor redColor];
-    self.couponExchangeVC.view.backgroundColor = [UIColor yellowColor];
-    
-    self.couponListVC.view.frame = CGRectMake(0, 0, scrollView.frame.size.width, scrollView.frame.size.height);
-    self.couponExchangeVC.view.frame = CGRectMake(scrollView.frame.size.width, 0, scrollView.frame.size.width, scrollView.frame.size.height);
+-(UIScrollView *)scrollView{
+    if (!_scrollView) {
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.topTabView.frame), SCREEN_WIDTH, SCREEN_HEIGHT - CGRectGetMaxY(self.topTabView.frame))];
+        _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 2, 0);
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.pagingEnabled = YES;
+        _scrollView.delegate = self;
+        [self.view addSubview:_scrollView];
+        self.scrollView = _scrollView;
+        
+        self.couponListVC.view.frame = CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
+        self.couponExchangeVC.view.frame = CGRectMake(_scrollView.frame.size.width, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
+        
+        [_scrollView addSubview:self.couponListVC.view];
+        [_scrollView addSubview:self.couponExchangeVC.view];
+    }
+    return _scrollView;
 }
 
 #pragma mark - HXBTopTabViewDelegate
