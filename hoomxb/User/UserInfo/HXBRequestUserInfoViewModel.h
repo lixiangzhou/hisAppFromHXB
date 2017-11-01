@@ -30,10 +30,7 @@
 @property (nonatomic,copy) NSString *frozenPoint;
 ///累计收益
 @property (nonatomic,copy) NSString *earnTotal;
-///最小充值金额
-@property (nonatomic,copy) NSString *minChargeAmount;
-///最小提现金额
-@property (nonatomic,copy) NSString *minWithdrawAmount;
+
 
 // -------------------- 没有拼接元 ---------------------
 ///可用余额 以 元为后缀

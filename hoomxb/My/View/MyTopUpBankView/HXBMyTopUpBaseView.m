@@ -20,6 +20,8 @@
 @property (nonatomic, strong) UILabel *promptLabel;
 @property (nonatomic, strong) UIButton *phoneBtn;
 @property (nonatomic, strong) UILabel *freeTipLabel;
+/** 最小充值金额*/
+@property (nonatomic, copy) NSString *minRechargeMoney;
 @end
 
 @implementation HXBMyTopUpBaseView
@@ -47,6 +49,7 @@
 
 - (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
 {
+    self.minRechargeMoney = viewModel.userInfoModel.userInfo.minChargeAmount;
     self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@", [NSString hxb_getPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue]];
     if (_amountTextField.text.length > 0) {
         _nextButton.backgroundColor = COR29;
@@ -122,6 +125,7 @@
     [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"红小宝客服电话" Message: kServiceMobile];
 }
 - (void)nextButtonClick:(UIButton *)sender{
+    NSLog(@"________%@", _minRechargeMoney);
     if ([_amountTextField.text doubleValue] < 1) {
         [HxbHUDProgress showMessageCenter:@"金额不能小于1" inView:self];
         return;

@@ -75,6 +75,10 @@
 @property (nonatomic,copy) NSString *realName;
 /// 身份证 640121197904299980
 @property (nonatomic,copy) NSString *idNo;
+///最小充值金额
+@property (nonatomic,copy) NSString *minChargeAmount;
+///最小提现金额
+@property (nonatomic,copy) NSString *minWithdrawAmount;
 
 /**
  性别：‘0’：男，‘1’：女
