@@ -14,6 +14,10 @@ typedef void(^clickMessgae)(void);
 
 /** 消息个数 */
 @property (nonatomic, copy)  NSString *messageCount;
+/**
+ 富文本形式
+ */
+@property (nonatomic, copy) NSAttributedString *attributedMessageCount;
 /** 点击消息 */
 @property (nonatomic, copy)  clickMessgae block;
 

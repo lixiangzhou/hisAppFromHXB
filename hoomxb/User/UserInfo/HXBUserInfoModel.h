@@ -80,6 +80,15 @@
  性别：‘0’：男，‘1’：女
  */
 @property (nonatomic, copy) NSString *gender;
+/**
+ 最小充值金额
+ */
+@property (nonatomic, assign) int minChargeAmount;
+
+/**
+ 最小提现金额
+ */
+@property (nonatomic, assign) int minWithdrawAmount;
 
 /**
  是否评估

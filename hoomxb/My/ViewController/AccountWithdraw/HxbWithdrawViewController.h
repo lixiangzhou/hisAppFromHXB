@@ -15,5 +15,5 @@
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 @end
 @interface HxbWithdrawViewController : HXBBaseViewController
-@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+
 @end

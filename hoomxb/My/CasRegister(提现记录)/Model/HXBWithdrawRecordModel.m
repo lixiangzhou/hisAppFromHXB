@@ -10,10 +10,24 @@
 
 @implementation HXBWithdrawRecordModel
 
-- (BOOL)isBlueColor
-{
-    _isBlueColor = [self.cashDrawStatus isEqualToString:@"CASHDRAW_IN_PROCESS"];
+- (BOOL)isBlueColor {
+    _isBlueColor = [self.status isEqualToString:@"INPROCESS"] || [self.status isEqualToString:@"UNKNOW"];
     return _isBlueColor;
+}
+
+
+- (NSString *)bankLastNum {
+    _bankLastNum = [NSString stringWithFormat:@"（尾号%@）",[self.bankNum substringFromIndex:self.bankNum.length - 4]];
+    return _bankLastNum;
+}
+
+- (NSString *)applyTimeStr {
+    _applyTimeStr = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.applyTime andDateFormat:@"yyyy-MM-dd HH:mm"];
+    return _applyTimeStr;
+}
+- (NSString *)cashAmount {
+    _cashAmount = [NSString stringWithFormat:@"%.2lf",_cashAmount.doubleValue];
+    return _cashAmount;
 }
 
 @end

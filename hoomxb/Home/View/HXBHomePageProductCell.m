@@ -214,20 +214,20 @@
     self.moneyOffCouponImageView.hidden = !self.homePageModel_DataList.hasMoneyOffCoupon;
     self.discountCouponImageView.hidden = !self.homePageModel_DataList.hasDiscountCoupon;
     if (self.homePageModel_DataList.hasMoneyOffCoupon) {
-        [self.moneyOffCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.moneyOffCouponImageView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.titleLabel);
             make.left.equalTo(self.titleLabel.mas_right).offset(kScrAdaptationW750(10));
             make.width.offset(kScrAdaptationW750(60));
             make.height.offset(kScrAdaptationH750(28));
         }];
-        [self.discountCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.discountCouponImageView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.titleLabel);
             make.left.equalTo(self.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(10));
             make.width.offset(kScrAdaptationW750(60));
             make.height.offset(kScrAdaptationH750(28));
         }];
     } else {
-        [self.discountCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.discountCouponImageView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.titleLabel);
             make.left.equalTo(self.titleLabel.mas_right).offset(kScrAdaptationW750(10));
             make.width.offset(kScrAdaptationW750(60));

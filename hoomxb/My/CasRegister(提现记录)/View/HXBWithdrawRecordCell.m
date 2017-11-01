@@ -103,10 +103,10 @@
     _withdrawRecordModel = withdrawRecordModel;
     self.cashAmountLabel.text = [NSString stringWithFormat:@"提现金额：%@元",withdrawRecordModel.cashAmount];
     self.bankNameLabel.text = withdrawRecordModel.bankName;
-    self.bankNumLabel.text = withdrawRecordModel.bankNum;
-    self.logDescLabel.text = withdrawRecordModel.logDesc;
-    self.cashDrawStatusLabel.text = withdrawRecordModel.cashDrawName;
-    self.applyTimeLabel.text = withdrawRecordModel.applyTime;
+    self.bankNumLabel.text = withdrawRecordModel.bankLastNum;
+    self.logDescLabel.text = withdrawRecordModel.logText;
+    self.cashDrawStatusLabel.text = withdrawRecordModel.statusText;
+    self.applyTimeLabel.text = withdrawRecordModel.applyTimeStr;
     if (withdrawRecordModel.isBlueColor) {
         self.cashDrawStatusLabel.textColor = COR30;
     } else {

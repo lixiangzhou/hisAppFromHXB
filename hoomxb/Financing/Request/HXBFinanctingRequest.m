@@ -166,6 +166,7 @@
     self.planListAPI.requestUrl = kHXBFinanc_PlanLisetURL(self.planListAPI.dataPage);
     self.planListAPI.requestMethod = NYRequestMethodGet;
     [self.planListAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
         ///数据是否出错
         kHXBResponsShowHUD
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];

@@ -126,8 +126,8 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
             if (![NSString isMobileNumber:text]) {
                 [HxbHUDProgress showTextWithMessage:@"填写正确的手机号"];
             }
-            weakSelf.phoneText = text;
         }
+        weakSelf.phoneText = text;
     };
     self.passwordTextField.block = ^(NSString *text) {
         if (text.length > 0 && self.phoneTextField.text.length > 0) {

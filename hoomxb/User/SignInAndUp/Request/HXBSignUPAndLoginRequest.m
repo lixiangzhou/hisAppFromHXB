@@ -29,7 +29,8 @@
                                   @"mobile"	: mobile,///           是	string	手机号
                                   @"smscode" : smscode,///	      是	string	短信验证码
                                   @"password" : password,///       是	string	密码
-                                  @"inviteCode" : inviteCode///    否	string	邀请码
+                                  @"inviteCode" : inviteCode,///    否	string	邀请码
+                                  @"utmSource" : @"ios"
                                   };
     [signUPAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD
