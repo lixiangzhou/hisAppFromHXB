@@ -21,5 +21,7 @@ typedef void(^clickDelegateBlock)(int index);
 @property (nonatomic, copy) addBtnClickFunc addBlock;
 /** 点击协议的方法 */
 @property (nonatomic, copy) clickDelegateBlock delegateBlock;
+/** 是否可以点击按钮 */
+@property (nonatomic, assign) BOOL btnIsClick;
 
 @end

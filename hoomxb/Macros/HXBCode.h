@@ -38,6 +38,8 @@ typedef enum : NSUInteger {
     kHXBSold_Out = 999,
     //购买处理中
     kHXBPurchase_Processing = -999,
+    //优惠券购买失败
+    kHXBBuy_Coupon_Error = 50000,
 } kHXBCode_Enum;
 
 /**

@@ -43,7 +43,15 @@
         make.right.equalTo(self).offset(kScrAdaptationH750(-40));
         make.height.offset(kScrAdaptationH750(90));
     }];
-    
+}
+
+- (void)setBtnIsClick:(BOOL)btnIsClick {
+    _btnIsClick = btnIsClick;
+    if (btnIsClick) {
+        [self isClickWithStatus:1];
+    } else {
+        [self isClickWithStatus:2];
+    }
 }
 
 - (HXBFinBaseNegotiateView *)bottomLabel {
@@ -64,7 +72,7 @@
         }
     };
     [_bottomLabel clickCheckMarkWithBlock:^(BOOL isSelected) {
-        if (isSelected) {
+        if (isSelected && _btnIsClick) {
             [self isClickWithStatus:1];
         } else {
             [self isClickWithStatus:2];

@@ -32,8 +32,11 @@
 - (void)buildUI {
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.detailLabel];
-    [self.contentView addSubview:self.activityView];
     [self.contentView addSubview:self.lineView];
+    _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _activityView.center = CGPointMake(kScreenWidth - kScrAdaptationW(60), kScrAdaptationH(25));
+    [_activityView startAnimating];
+    [self.contentView addSubview:_activityView];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self);
         make.left.equalTo(@(kScrAdaptationW(15)));
@@ -51,11 +54,6 @@
         make.width.offset(kScreenWidth);
         make.height.offset(kScrAdaptationH(0.5));
     }];
-    [_activityView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.right.equalTo(self).offset(-kScrAdaptationW750(30));
-        make.height.width.offset(kScrAdaptationH750(44));
-    }];
 }
 
 - (void)setTitleStr:(NSString *)titleStr {
@@ -71,6 +69,23 @@
         [attributedStr addAttribute:NSFontAttributeName value:kHXBFont_PINGFANGSC_REGULAR(12) range:NSMakeRange(4, _titleStr.length - 4)];
         _titleLabel.attributedText = attributedStr;
     }
+}
+
+- (void)setHiddenActivity:(BOOL)hiddenActivity {
+    _hiddenActivity = hiddenActivity;
+}
+
+- (void)setIsStartAnimation:(BOOL)isStartAnimation {
+    _isStartAnimation = isStartAnimation;
+    _detailLabel.hidden = _isStartAnimation;
+    if (isStartAnimation) {
+        _activityView.hidden = NO;
+        [_activityView startAnimating];
+    } else {
+        _activityView.hidden = YES;
+        [_activityView stopAnimating];
+    }
+    [_activityView setHidesWhenStopped:YES];
 }
 
 - (void)setDetailStr:(NSString *)detailStr {
@@ -134,10 +149,9 @@
 
 - (UIActivityIndicatorView *)activityView {
     if (!_activityView) {
-        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
-        _activityView.backgroundColor = [UIColor redColor];
-        _activityView.color = [UIColor greenColor];
-        [_activityView startAnimating];
+        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _activityView.center = CGPointMake(kScreenWidth - kScrAdaptationW(60), kScrAdaptationH(25));
+        [_activityView stopAnimating];
     }
     return _activityView;
 }
