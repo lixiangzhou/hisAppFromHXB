@@ -83,7 +83,7 @@ static NSString *const investString = @"立即投资";
 @property (nonatomic, assign) double discountMoney;
 /** 优惠券id */
 @property (nonatomic, copy) NSString *couponid;
-/** 优惠券id */
+/** 是否获取到优惠券 */
 @property (nonatomic, assign) BOOL hasGetCoupon;
 @end
 
@@ -775,11 +775,9 @@ static NSString *const investString = @"立即投资";
     if (indexPath.row == 0) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.isDiscountRow = YES;
-        cell.hiddenActivity = NO;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.isDiscountRow = NO;
-        cell.hiddenActivity = YES;
     }
     cell.titleStr = _titleArray[indexPath.row];
     cell.detailStr = _detailArray[indexPath.row];
@@ -875,7 +873,7 @@ static NSString *const investString = @"立即投资";
         self.bottomView.btnIsClick = YES;
         _discountTitle = nil;
         self.model = model;
-        if (model.bestCoupon.valueActual.floatValue > 0) {
+        if (model.hasCoupon && model.bestCoupon) { // 只有有优惠券hasCoupon都返回1，没有匹配到bestCoupon为空，所有有优惠券，且匹配到了，就抵扣或者满减
             _discountMoney = model.bestCoupon.valueActual.doubleValue;
             double handleMoney = money.doubleValue - model.bestCoupon.valueActual.doubleValue;
             _discountTitle = [NSString stringWithFormat:@"-%@", [NSString hxb_getPerMilWithDouble:model.bestCoupon.valueActual.doubleValue]];

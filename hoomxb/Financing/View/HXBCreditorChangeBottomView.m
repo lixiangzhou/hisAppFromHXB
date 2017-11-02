@@ -15,7 +15,8 @@
 @property (nonatomic, strong) HXBFinBaseNegotiateView *bottomLabel;
 /** 点击按钮 */
 @property (nonatomic, strong) UIButton *addBtn;
-
+/** 是否选中协议 */
+@property (nonatomic, assign) BOOL isSelectDelegate;
 @end
 
 @implementation HXBCreditorChangeBottomView
@@ -24,6 +25,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self buildUI];
+        _isSelectDelegate = YES;
     }
     return self;
 }
@@ -47,7 +49,7 @@
 
 - (void)setBtnIsClick:(BOOL)btnIsClick {
     _btnIsClick = btnIsClick;
-    if (btnIsClick) {
+    if (btnIsClick && _isSelectDelegate) {
         [self isClickWithStatus:1];
     } else {
         [self isClickWithStatus:2];
@@ -72,6 +74,7 @@
         }
     };
     [_bottomLabel clickCheckMarkWithBlock:^(BOOL isSelected) {
+        _isSelectDelegate = isSelected;
         if (isSelected && _btnIsClick) {
             [self isClickWithStatus:1];
         } else {

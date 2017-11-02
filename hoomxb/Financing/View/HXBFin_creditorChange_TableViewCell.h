@@ -12,8 +12,6 @@
 
 /** 是否隐藏横线 */
 @property (nonatomic, assign)  BOOL isHeddenHine;
-/** 是否隐藏菊花 */
-@property (nonatomic, assign)  BOOL hiddenActivity;
 /** 是否开始菊花 */
 @property (nonatomic, assign)  BOOL isStartAnimation;
 /** title数据源 */

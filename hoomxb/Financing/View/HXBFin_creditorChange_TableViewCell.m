@@ -71,9 +71,6 @@
     }
 }
 
-- (void)setHiddenActivity:(BOOL)hiddenActivity {
-    _hiddenActivity = hiddenActivity;
-}
 
 - (void)setIsStartAnimation:(BOOL)isStartAnimation {
     _isStartAnimation = isStartAnimation;
