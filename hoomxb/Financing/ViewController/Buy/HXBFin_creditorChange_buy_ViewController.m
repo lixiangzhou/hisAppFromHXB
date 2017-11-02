@@ -101,7 +101,7 @@ static NSString *const investString = @"立即投资";
     [self getBankCardLimit];
     [self hasBestCouponRequest];
     [self changeItemWithInvestMoney:_inputMoneyStr];
-    self.bottomView.btnIsClick = _inputMoneyStr.length;
+    self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -158,9 +158,9 @@ static NSString *const investString = @"立即投资";
         }
         
         _topView.changeBlock = ^(NSString *text) {
-            weakSelf.bottomView.btnIsClick = text.length;
-            BOOL isCheck = ((text.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
-            if (text.doubleValue >= _minRegisterAmount.doubleValue && text.doubleValue <= _availablePoint.doubleValue && !isCheck) {
+            weakSelf.bottomView.addBtnIsUseable = text.length;
+            BOOL isFitToBuy = ((text.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
+            if (text.doubleValue >= _minRegisterAmount.doubleValue && text.doubleValue <= _availablePoint.doubleValue && isFitToBuy) {
                 if (_type == HXB_Plan) {
                     [weakSelf getBESTCouponWithMoney:text];
                 } else {
@@ -297,11 +297,11 @@ static NSString *const investString = @"立即投资";
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
-        BOOL isMultipleOfMin = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
-        if (isMultipleOfMin) {
-            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-        } else {
+        BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
+        if (isFitToBuy) {
             [self chooseBuyTypeWithSting:_btnLabelText];
+        } else {
+            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         }
     }
 }
@@ -321,11 +321,11 @@ static NSString *const investString = @"立即投资";
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
-        BOOL isMultipleOfMin = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
-        if (isMultipleOfMin) {
-            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-        } else {
+        BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
+        if (isFitToBuy) {
             [self chooseBuyTypeWithSting:_btnLabelText];
+        } else {
+            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         }
         
     }
@@ -340,7 +340,7 @@ static NSString *const investString = @"立即投资";
      _inputMoneyStr              输入的金额
      */
     BOOL isHasContainsNonzeroDecimals = (long long)([_inputMoneyStr doubleValue] * 100) % 100 != 0 ? true:false;//true:含非零小数
-    BOOL isMultipleOfMin = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);//true表示非（最低倍数）的整数倍
+    BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
     if (_inputMoneyStr.length <= 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     }else{
@@ -378,7 +378,7 @@ static NSString *const investString = @"立即投资";
                 _inputMoneyStr = _minRegisterAmount;
                 [self setUpArray];
                 [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
-            } else if (isMultipleOfMin) {
+            } else if (!isFitToBuy) {
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
             } else if (_availablePoint.floatValue - _inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
@@ -773,8 +773,13 @@ static NSString *const investString = @"立即投资";
     }
     cell.hasBestCoupon = _hasBestCoupon;
     if (indexPath.row == 0) {
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.isDiscountRow = YES;
+        if (_type == HXB_Creditor) {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.isDiscountRow = NO;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.isDiscountRow = YES;
+        }
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.isDiscountRow = NO;
@@ -866,11 +871,11 @@ static NSString *const investString = @"立即投资";
     HXBFin_creditorChange_TableViewCell *cell = [self.hxbBaseVCScrollView cellForRowAtIndexPath:indexpath];
     cell.isStartAnimation = YES;
     _hasGetCoupon = YES;
-    self.bottomView.btnIsClick = NO;
+    self.bottomView.addBtnIsUseable = NO;
     [HXBChooseCouponViewModel BestCouponWithparams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
         cell.isStartAnimation = NO;
         _hasGetCoupon = NO;
-        self.bottomView.btnIsClick = YES;
+        self.bottomView.addBtnIsUseable = YES;
         _discountTitle = nil;
         self.model = model;
         if (model.hasCoupon && model.bestCoupon) { // 只有有优惠券hasCoupon都返回1，没有匹配到bestCoupon为空，所有有优惠券，且匹配到了，就抵扣或者满减

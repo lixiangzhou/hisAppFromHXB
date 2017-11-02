@@ -59,7 +59,7 @@
 - (void)setTitleStr:(NSString *)titleStr {
     _titleStr = titleStr;
     _titleLabel.text = titleStr;
-    if ([_titleStr containsString:@"使用"]) {
+    if ([_titleStr containsString:@"优惠券"]) {
         NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:_titleStr];
         [attributedStr addAttribute:NSFontAttributeName value:kHXBFont_PINGFANGSC_REGULAR(12) range:NSMakeRange(3, _titleStr.length - 3)];
         _titleLabel.attributedText = attributedStr;

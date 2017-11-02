@@ -19,8 +19,8 @@
 ///服务协议
 @property (nonatomic,strong) UILabel *negotiateLabel;
 ///服务协议 button
-@property (nonatomic,strong) UIButton *negotiateButton;
-@property (nonatomic,strong) UIButton *negotiateButton1;
+@property (nonatomic,strong) UIButton *planNegotiateButton;
+@property (nonatomic,strong) UIButton *reticuleNegotiateButton;
 
 @end
 @implementation HXBFinBaseNegotiateView
@@ -39,15 +39,15 @@
 - (void)creatViews {
     self.negotiateImageViewBackgroundButton = [[UIButton alloc]init];
     self.negotiateImageView = [[UIImageView alloc]init];
-    self.negotiateButton = [[UIButton alloc]init];
-    self.negotiateButton1 = [[UIButton alloc]init];
+    self.planNegotiateButton = [[UIButton alloc]init];
+    self.reticuleNegotiateButton = [[UIButton alloc]init];
     self.negotiateLabel = [[UILabel alloc]init];
     //协议
     [self addSubview:self.negotiateImageViewBackgroundButton];
     [self.negotiateImageViewBackgroundButton addSubview:self.negotiateImageView];
     [self addSubview:self.negotiateLabel];
-    [self addSubview:self.negotiateButton];
-    [self addSubview:self.negotiateButton1];
+    [self addSubview:self.planNegotiateButton];
+    [self addSubview:self.reticuleNegotiateButton];
 }
 
 - (void)setUPViewsFrame {
@@ -66,12 +66,12 @@
         make.height.equalTo(@(kScrAdaptationH750(26)));
         make.centerY.equalTo(self);
     }];
-    [self.negotiateButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.planNegotiateButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.negotiateLabel.mas_right).offset(0);
         make.height.bottom.equalTo(self.negotiateLabel);
     }];
-    [self.negotiateButton1 mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.negotiateButton.mas_right).offset(0);
+    [self.reticuleNegotiateButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.planNegotiateButton.mas_right).offset(0);
         make.height.bottom.equalTo(self.negotiateLabel);
     }];
     
@@ -82,16 +82,16 @@
     self.negotiateImageViewBackgroundButton.layer.masksToBounds = true;
     self.negotiateImageView.image = [UIImage imageNamed:@"duigou"];
     self.negotiateLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
-    self.negotiateButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
-    self.negotiateButton1.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+    self.planNegotiateButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+    self.reticuleNegotiateButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     self.negotiateLabel.textColor = kHXBColor_Font0_6;
 }
 
 - (void)setUPViews {
-    [self.negotiateButton setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
-    [self.negotiateButton1 setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
-    [self.negotiateButton addTarget:self action:@selector(clickNegotiateButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.negotiateButton1 addTarget:self action:@selector(clickNegotiateButton1:) forControlEvents:UIControlEventTouchUpInside];
+    [self.planNegotiateButton setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
+    [self.reticuleNegotiateButton setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
+    [self.planNegotiateButton addTarget:self action:@selector(clickNegotiateButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.reticuleNegotiateButton addTarget:self action:@selector(clickNegotiateButton1:) forControlEvents:UIControlEventTouchUpInside];
     self.negotiateLabel.text = @"我已阅读并同意";///@"我已阅读并同意";
     
     [self.negotiateImageViewBackgroundButton addTarget:self action:@selector(clickNegotiateImageViewBackgroundButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -130,13 +130,13 @@
     if (![negotiateStr containsString:@"《》"]) {
         _negotiateStr = [NSString stringWithFormat:@"《%@》",negotiateStr];
     }
-    [self.negotiateButton setTitle:_negotiateStr  forState: UIControlStateNormal];
+    [self.planNegotiateButton setTitle:_negotiateStr  forState: UIControlStateNormal];
     if ([_type isEqualToString:@"购买页"]) {
         NSArray *negotiateArray = [_negotiateStr componentsSeparatedByString:@"》,《"];
         NSLog(@"%@", negotiateArray);
         if (negotiateArray.count > 1) {
-            [self.negotiateButton setTitle:[NSString stringWithFormat:@"%@》，", negotiateArray[0]]  forState: UIControlStateNormal];
-            [self.negotiateButton1 setTitle:[NSString stringWithFormat:@"《%@", negotiateArray[1]]  forState: UIControlStateNormal];
+            [self.planNegotiateButton setTitle:[NSString stringWithFormat:@"%@》，", negotiateArray[0]]  forState: UIControlStateNormal];
+            [self.reticuleNegotiateButton setTitle:[NSString stringWithFormat:@"《%@", negotiateArray[1]]  forState: UIControlStateNormal];
         }
     }
 }

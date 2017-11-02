@@ -12,7 +12,7 @@
 @interface HXBCreditorChangeBottomView ()
 
 /** 富文本 */
-@property (nonatomic, strong) HXBFinBaseNegotiateView *bottomLabel;
+@property (nonatomic, strong) HXBFinBaseNegotiateView *protocolView;
 /** 点击按钮 */
 @property (nonatomic, strong) UIButton *addBtn;
 /** 是否选中协议 */
@@ -33,36 +33,36 @@
 - (void)buildUI {
     [self addSubview:self.bottomLabel];
     [self addSubview:self.addBtn];
-    [_bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_protocolView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(kScrAdaptationH750(10));
         make.left.equalTo(self);
         make.width.offset(kScreenWidth - 2 * kScrAdaptationW(15));
         make.height.offset(kScrAdaptationH(35));
     }];
     [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_bottomLabel.mas_bottom).offset(kScrAdaptationH750(80));
+        make.top.equalTo(_protocolView.mas_bottom).offset(kScrAdaptationH750(80));
         make.left.equalTo(self).offset(kScrAdaptationH750(40));
         make.right.equalTo(self).offset(kScrAdaptationH750(-40));
         make.height.offset(kScrAdaptationH750(90));
     }];
 }
 
-- (void)setBtnIsClick:(BOOL)btnIsClick {
-    _btnIsClick = btnIsClick;
-    if (btnIsClick && _isSelectDelegate) {
-        [self isClickWithStatus:1];
+- (void)setAddBtnIsUseable:(BOOL)addBtnIsUseable {
+    _addBtnIsUseable = addBtnIsUseable;
+    if (addBtnIsUseable && _isSelectDelegate) {
+        [self isClickWithAble:YES];
     } else {
-        [self isClickWithStatus:2];
+        [self isClickWithAble:NO];
     }
 }
 
 - (HXBFinBaseNegotiateView *)bottomLabel {
-    if (!_bottomLabel) {
-        _bottomLabel = [[HXBFinBaseNegotiateView alloc] init];
-        _bottomLabel.type = @"购买页";
+    if (!_protocolView) {
+        _protocolView = [[HXBFinBaseNegotiateView alloc] init];
+        _protocolView.type = @"购买页";
     }
     kWeakSelf
-    _bottomLabel.block = ^(NSInteger type) {
+    _protocolView.block = ^(NSInteger type) {
         if (type == 1) {
             if (weakSelf.delegateBlock) {
                 weakSelf.delegateBlock(1);
@@ -73,20 +73,20 @@
             }
         }
     };
-    [_bottomLabel clickCheckMarkWithBlock:^(BOOL isSelected) {
+    [_protocolView clickCheckMarkWithBlock:^(BOOL isSelected) {
         _isSelectDelegate = isSelected;
-        if (isSelected && _btnIsClick) {
-            [self isClickWithStatus:1];
+        if (isSelected && _addBtnIsUseable) {
+            [self isClickWithAble:YES];
         } else {
-            [self isClickWithStatus:2];
+            [self isClickWithAble:NO];
         }
     }];
-    return _bottomLabel;
+    return _protocolView;
 }
 
 - (void)setDelegateLabel:(NSString *)delegateLabel {
     _delegateLabel = delegateLabel;
-    _bottomLabel.negotiateStr = delegateLabel;
+    _protocolView.negotiateStr = delegateLabel;
 }
 
 
@@ -96,8 +96,8 @@
 }
 
 // 按钮是否可以点击
-- (void)isClickWithStatus:(int)status { // 1 可以点击 2 不可点击
-    if (status == 1) {
+- (void)isClickWithAble:(BOOL)able { // 1 可以点击 2 不可点击
+    if (able) {
         _addBtn.userInteractionEnabled = YES;
         _addBtn.backgroundColor = COR29;
     } else {
