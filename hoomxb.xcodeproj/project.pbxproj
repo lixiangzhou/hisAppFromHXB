@@ -328,7 +328,6 @@
 		E13A53451F0A44E1002C3416 /* HXBMy_Plan_Swipe.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A53441F0A44E1002C3416 /* HXBMy_Plan_Swipe.m */; };
 		E13A534E1F0A65E9002C3416 /* STRefreshHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */; };
 		E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */; };
-		E13A53681FAAED2D00E4C6E8 /* HXBMyCouponExchangeResultController.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A53671FAAED2D00E4C6E8 /* HXBMyCouponExchangeResultController.m */; };
 		E14B9BDF1F14731400450692 /* HXBColourGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BDE1F14731400450692 /* HXBColourGradientView.m */; };
 		E14B9BE61F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BE51F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
@@ -1094,8 +1093,6 @@
 		E13A534A1F0A65E9002C3416 /* STRefreshHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STRefreshHeader.m; sourceTree = "<group>"; };
 		E13A534B1F0A65E9002C3416 /* UIScrollView+STRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+STRefresh.h"; sourceTree = "<group>"; };
 		E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+STRefresh.m"; sourceTree = "<group>"; };
-		E13A53661FAAED2D00E4C6E8 /* HXBMyCouponExchangeResultController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponExchangeResultController.h; sourceTree = "<group>"; };
-		E13A53671FAAED2D00E4C6E8 /* HXBMyCouponExchangeResultController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponExchangeResultController.m; sourceTree = "<group>"; };
 		E14B9BDD1F14731400450692 /* HXBColourGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBColourGradientView.h; sourceTree = "<group>"; };
 		E14B9BDE1F14731400450692 /* HXBColourGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBColourGradientView.m; sourceTree = "<group>"; };
 		E14B9BE11F1482D100450692 /* HXBFin_PlanDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_PlanDetailView.h; sourceTree = "<group>"; };
@@ -3666,8 +3663,6 @@
 				E1B1CC2F1FA739C40001DED4 /* HXBMyCouponListViewController.m */,
 				E1B1CC311FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.h */,
 				E1B1CC321FA73A0F0001DED4 /* HXBMyCouponExchangeViewController.m */,
-				E13A53661FAAED2D00E4C6E8 /* HXBMyCouponExchangeResultController.h */,
-				E13A53671FAAED2D00E4C6E8 /* HXBMyCouponExchangeResultController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4649,7 +4644,6 @@
 				E129A0071F0617D70051ADA0 /* HXBMYModel_Loan_LoanRequestModel.m in Sources */,
 				E1CD4BD01ED83064000CC57B /* PYBaseContDownManager.m in Sources */,
 				4EB45DA41EF7A2BF00C2CF21 /* HxbHomeRequest.m in Sources */,
-				E13A53681FAAED2D00E4C6E8 /* HXBMyCouponExchangeResultController.m in Sources */,
 				4E9982471F02677B00CABA59 /* HXBAlertVC.m in Sources */,
 				E1CD4BCE1ED83064000CC57B /* HxbAdvertiseView.m in Sources */,
 				E10EB4AD1EEFDFE800F16CFA /* HxbWithdrawResultViewController.m in Sources */,

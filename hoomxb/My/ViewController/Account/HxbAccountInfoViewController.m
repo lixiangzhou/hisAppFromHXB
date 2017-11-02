@@ -333,6 +333,7 @@ UITableViewDataSource
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         NSArray *arr = @[@"风险评测",@"账户安全",@"我的理财顾问",@"关于我们"];
         cell.textLabel.text = arr[indexPath.row];
+        cell.hiddenLine = NO;
         if (indexPath.row == 0) {
             cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
             cell.detailTextLabel.textColor = COR30;

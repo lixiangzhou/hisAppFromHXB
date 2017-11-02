@@ -84,7 +84,7 @@ UITableViewDataSource
 #pragma mark - 懒加载
 - (UITableView *)mainTableView{
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style:UITableViewStyleGrouped];
+        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-44) style:UITableViewStyleGrouped];
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
@@ -106,6 +106,7 @@ UITableViewDataSource
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
+        _nodataView.userInteractionEnabled = NO;
         [self addSubview:_nodataView];
         _nodataView.imageName = @"my_couponList_NotData";
         _nodataView.noDataMassage = @"暂时还没有优惠券";

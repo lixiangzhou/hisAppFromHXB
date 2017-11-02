@@ -55,7 +55,7 @@
         make.centerY.equalTo(self.bgView);
         make.height.equalTo(@kScrAdaptationH750(32));
         make.left.equalTo(self.redeemCodeLab.mas_right).offset(kScrAdaptationW750(20));
-        make.width.equalTo(@kScrAdaptationW750(389));
+        make.right.equalTo(self.bgView.mas_right);
     }];
     [self.promptLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bgView).offset(kScrAdaptationH750(20));
@@ -122,7 +122,9 @@
 -(void)textFieldDidEndEditing:(UITextField *)textField{
     if ([self.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0) {
         self.redeemCodeBtn.userInteractionEnabled = YES;
+//        self.redeemCodeBtn.backgroundColor = RGBA(245, 81, 85, 1);
     }else{
+//        self.redeemCodeBtn.backgroundColor = [UIColor lightGrayColor];
         self.redeemCodeBtn.userInteractionEnabled = NO;
     }
 }
@@ -245,6 +247,7 @@
         _redeemCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _redeemCodeBtn.frame = CGRectMake(kScrAdaptationW750(40), kScrAdaptationH750(326), kScrAdaptationW750(670), kScrAdaptationH750(90));
         _redeemCodeBtn.backgroundColor = RGBA(245, 81, 85, 1);
+//        self.redeemCodeBtn.backgroundColor = [UIColor lightGrayColor];
         [_redeemCodeBtn setTitle:@"兑换" forState:UIControlStateNormal];
         [_redeemCodeBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
         _redeemCodeBtn.layer.cornerRadius = 3;
@@ -268,7 +271,7 @@
 
 - (UITextField *)redeemCodeTextField{
     if (!_redeemCodeTextField) {
-        _redeemCodeTextField = [[UITextField alloc]initWithFrame:CGRectMake(kScrAdaptationW750(146), kScrAdaptationH750(44), kScrAdaptationW750(389), kScrAdaptationH750(32))];
+        _redeemCodeTextField = [[UITextField alloc]initWithFrame:CGRectMake(kScrAdaptationW750(146), kScrAdaptationH750(44), kScrAdaptationW750(750-146), kScrAdaptationH750(32))];
         _redeemCodeTextField.placeholder = @"请输入兑换码";
         _redeemCodeTextField.delegate = self;
         _redeemCodeTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);

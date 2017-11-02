@@ -163,9 +163,9 @@
     }];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
-        make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH(25+29));
+        make.top.equalTo(self.withdrawImgV.mas_top);
         make.width.offset(0.5);
-        make.height.offset(kScrAdaptationH(40));
+        make.height.offset(kScrAdaptationH750(40));
     }];
     
     
@@ -325,7 +325,7 @@
 - (UIImageView *)backgroundImage
 {
     if (!_backgroundImage) {
-        _backgroundImage =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top_bg"]];
+        _backgroundImage =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"top"]];
         _backgroundImage.userInteractionEnabled = YES;
     }
     return _backgroundImage;
@@ -495,7 +495,7 @@
 - (UIView *)lineView{
     if (!_lineView) {
         _lineView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(375), kScrAdaptationH750(486+25), 0.5, kScrAdaptationH750(40))];
-        _lineView.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.2];
+        _lineView.backgroundColor = RGBA(245, 81, 81, 1);
     }
     return _lineView;
 }

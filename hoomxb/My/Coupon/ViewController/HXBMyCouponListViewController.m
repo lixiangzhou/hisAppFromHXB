@@ -45,7 +45,7 @@
 
 -(HXBMyCouponListView *)myView{
     if (!_myView) {
-        _myView = [[HXBMyCouponListView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _myView = [[HXBMyCouponListView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-44)];
         kWeakSelf
         _myView.userInteractionEnabled = YES;
         /**
