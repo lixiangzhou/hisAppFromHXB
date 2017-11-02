@@ -54,6 +54,7 @@
 #define kHXBMY_LoanTruansferListURL @"/account/transfer"//账户内 loanTruansfer
 #define kHXBMY_LoanAssetsURL @"/account/loanAssets"//loan资金统计
 #define kHXBMY_AccountListInfoURL @"/account/coupon"///账户内优惠券列表
+#define kHXBMY_CouponExchangeInfoURL @"/coupon/exchange"///兑换优惠券
 
 ///账户内的plan 交易记录
 #define kHXBFin_loanRecordURL(planID) [NSString stringWithFormat:@"/account/plan/%@/loanRecord",(planID)]
@@ -118,6 +119,7 @@
 #define kHXB_Negotiate_depository @"/agreement/depository" ///《存管开户协议》
 #define kHXB_Negotiate_thirdpart @"/agreement/thirdpart" ///《恒丰银行股份有限公司杭州分行网络交易资金账户三方协议》
 #define kHXB_Negotiate_authorize @"/agreement/authorize" ///《红小宝平台授权协议》
+#define kHXB_Negotiate_couponExchangeInstructionsUrl @"/discount/explain" ///优惠券使用说明
 
 #define kHXB_Negotiate_AddTrustURL @"/landing/trust"///增信页
 #endif

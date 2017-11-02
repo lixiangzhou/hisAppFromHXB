@@ -60,5 +60,8 @@
 @property (nonatomic, assign) BOOL isUsedForPlan;
 /** 是否被用于了债权转让*/
 @property (nonatomic, assign) BOOL isUsedForTransfer;
+@property (nonatomic, copy) NSString *summaryTitle;
+@property (nonatomic, copy) NSString *summarySubtitle;
+@property (nonatomic, copy) NSString *summaryContent;
 
 @end

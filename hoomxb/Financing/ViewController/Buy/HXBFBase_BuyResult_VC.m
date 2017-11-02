@@ -7,6 +7,7 @@
 //
 
 #import "HXBFBase_BuyResult_VC.h"
+#import "HXBFinAddTruastWebViewVC.h"
 
 @interface HXBFBase_BuyResult_VC ()
 @property (nonatomic,strong) UIImageView *imageView;
@@ -45,6 +46,17 @@
     [super viewDidLoad];
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self setUP];
+    
+    if ([self.title isEqualToString:@"兑换优惠券"]) {
+        UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"my_couponList_InstructionsNot"] style:UIBarButtonItemStylePlain target:self action:@selector(enterInstructions)];
+        self.navigationItem.rightBarButtonItem = anotherButton;
+    }
+}
+
+- (void)enterInstructions{
+    HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+    vc.URL = kHXB_Negotiate_couponExchangeInstructionsUrl;
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 - (void)setUP {

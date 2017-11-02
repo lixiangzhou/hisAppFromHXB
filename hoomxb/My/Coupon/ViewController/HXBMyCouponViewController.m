@@ -11,7 +11,7 @@
 #import "HXBTopTabView.h"
 #import "HXBMyCouponListViewController.h"
 #import "HXBMyCouponExchangeViewController.h"
-
+#import "HXBFinAddTruastWebViewVC.h"
 
 
 @interface HXBMyCouponViewController () <HXBTopTabViewDelegate, UIScrollViewDelegate>
@@ -26,21 +26,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.isReadColorWithNavigationBar = YES;
-    
-       self.isColourGradientNavigationBar = true;
-    
-//    self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
-//    self.topImageView.image = [UIImage imageNamed:@"NavigationBar"];
-//    [self.view addSubview:self.topImageView];
+    self.isReadColorWithNavigationBar = YES;
     
     self.title = @"优惠券";
     [self setUI];
+    
+    UIButton*rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    [rightButton setImage:[UIImage imageNamed:@"my_couponList_InstructionsNot"]forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(enterInstructions)forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem*rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem= rightItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
+
+- (void)enterInstructions{
+    HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+    vc.URL = kHXB_Negotiate_couponExchangeInstructionsUrl;
+    [self.navigationController pushViewController:vc animated:true];
+}
+
 
 #pragma mark - UI
 - (void)setUI {
@@ -48,12 +55,14 @@
     [self.view addSubview:self.topTabView];
     [self.view addSubview:self.scrollView];
     
-    [self setupSubViewFrame];
+//    [self setupSubViewFrame];
 }
 
-- (void)setupSubViewFrame{
-    
-}
+//- (void)setupSubViewFrame{
+//    [self.topTabView mas_makeConstraints:^(MASConstraintMaker *make) {
+//
+//    }];
+//}
 
 - (void)addChildVC {
     self.couponListVC = [HXBMyCouponListViewController new];

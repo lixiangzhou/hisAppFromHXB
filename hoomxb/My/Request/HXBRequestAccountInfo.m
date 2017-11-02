@@ -12,6 +12,34 @@
 
 @implementation HXBRequestAccountInfo
 
++ (void)downLoadMyCouponExchangeInfoNoHUDWithCode:(NSString *)code withSeccessBlock:(void(^)(HXBMyCouponListModel *Model))seccessBlock andFailure: (void(^)(NSError *error))failureBlock{
+    
+    NYBaseRequest *myAccountListInfoAPI = [[NYBaseRequest alloc]init];
+    myAccountListInfoAPI.requestUrl = kHXBMY_CouponExchangeInfoURL;
+    myAccountListInfoAPI.requestMethod = NYRequestMethodPost;
+    myAccountListInfoAPI.requestArgument = @{@"code":code};
+    
+    [myAccountListInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        if ([responseObject[kResponseStatus] integerValue]) {
+            kHXBResponsShowHUD
+        }
+        
+        HXBMyCouponListModel *accountInfoModel = [[HXBMyCouponListModel alloc]init];
+        [accountInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];
+        
+        if (seccessBlock) {
+            seccessBlock(accountInfoModel);
+        }
+        
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        NSLog(@"%@",error);
+        if (failureBlock) {
+            failureBlock(error);
+        }
+        kNetWorkError(@"用户请求失败");
+    }];
+}
+
 + (NSMutableArray <HXBMyCouponListModel *>*)dataProcessingWitharr:(NSArray *)dataList
 {
     NSMutableArray <HXBMyCouponListModel *>*planListViewModelArray = [[NSMutableArray alloc]init];
