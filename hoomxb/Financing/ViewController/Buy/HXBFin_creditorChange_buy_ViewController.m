@@ -222,11 +222,11 @@ static NSString *const investString = @"立即投资";
     kWeakSelf
     _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
     if (_type == HXB_Plan) {
-        _bottomView.delegateLabel = @"红利计划服务协议》,《风险提示";
+        _bottomView.delegateLabel = @"红利计划服务协议》,《网络借贷协议书";
     } else if (_type == HXB_Loan) {
-        _bottomView.delegateLabel = @"借款合同》,《风险提示";
+        _bottomView.delegateLabel = @"借款合同》,《网络借贷协议书";
     } else {
-        _bottomView.delegateLabel = @"债权转让及受让协议》,《风险提示";
+        _bottomView.delegateLabel = @"债权转让及受让协议》,《网络借贷协议书";
     }
     _bottomView.delegateBlock = ^(int index) {
         if (index == 1) {
@@ -244,7 +244,7 @@ static NSString *const investString = @"立即投资";
                 [weakSelf.navigationController pushViewController:vc animated:true];
             }
         } else {
-            NSLog(@"暂不开放");
+            [HxbHUDProgress showTextWithMessage:@"暂无URL"];
         }
     };
     _bottomView.addBlock = ^(NSString *investMoney) {

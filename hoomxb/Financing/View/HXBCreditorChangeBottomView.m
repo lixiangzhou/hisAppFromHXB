@@ -68,9 +68,9 @@
                 weakSelf.delegateBlock(1);
             }
         } else {
-//            if (weakSelf.delegateBlock) {
-//                weakSelf.delegateBlock(2);
-//            }
+            if (weakSelf.delegateBlock) {
+                weakSelf.delegateBlock(2);
+            }
         }
     };
     [_bottomLabel clickCheckMarkWithBlock:^(BOOL isSelected) {

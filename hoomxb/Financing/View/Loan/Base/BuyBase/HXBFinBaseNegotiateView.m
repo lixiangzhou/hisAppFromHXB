@@ -42,7 +42,6 @@
     self.negotiateButton = [[UIButton alloc]init];
     self.negotiateButton1 = [[UIButton alloc]init];
     self.negotiateLabel = [[UILabel alloc]init];
-    self.negotiateButton1.hidden = YES;
     //协议
     [self addSubview:self.negotiateImageViewBackgroundButton];
     [self.negotiateImageViewBackgroundButton addSubview:self.negotiateImageView];
@@ -82,9 +81,9 @@
     self.negotiateImageViewBackgroundButton.layer.cornerRadius = kScrAdaptationH750(6);
     self.negotiateImageViewBackgroundButton.layer.masksToBounds = true;
     self.negotiateImageView.image = [UIImage imageNamed:@"duigou"];
-    self.negotiateLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
-    self.negotiateButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
-    self.negotiateButton1.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
+    self.negotiateLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+    self.negotiateButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+    self.negotiateButton1.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     self.negotiateLabel.textColor = kHXBColor_Font0_6;
 }
 
@@ -125,6 +124,7 @@
 - (void)clickCheckMarkWithBlock:(void(^)(BOOL isSelected))clickCheckMarkBlock {
     self.clickCheckMarkBlock = clickCheckMarkBlock;
 }
+
 - (void)setNegotiateStr:(NSString *)negotiateStr {
     _negotiateStr = negotiateStr;
     if (![negotiateStr containsString:@"《》"]) {
@@ -133,9 +133,9 @@
     [self.negotiateButton setTitle:_negotiateStr  forState: UIControlStateNormal];
     if ([_type isEqualToString:@"购买页"]) {
         NSArray *negotiateArray = [_negotiateStr componentsSeparatedByString:@"》,《"];
+        NSLog(@"%@", negotiateArray);
         if (negotiateArray.count > 1) {
-            self.negotiateButton1.hidden = YES;
-            [self.negotiateButton setTitle:[NSString stringWithFormat:@"%@》", negotiateArray[0]]  forState: UIControlStateNormal];
+            [self.negotiateButton setTitle:[NSString stringWithFormat:@"%@》，", negotiateArray[0]]  forState: UIControlStateNormal];
             [self.negotiateButton1 setTitle:[NSString stringWithFormat:@"《%@", negotiateArray[1]]  forState: UIControlStateNormal];
         }
     }
