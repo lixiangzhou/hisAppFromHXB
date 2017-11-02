@@ -28,7 +28,7 @@
 @end
 
 @implementation HXBWithdrawRecordViewController
-#pragma mark – Life Cycle
+#pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"提现进度";
@@ -42,7 +42,7 @@
 - (void)getNetworkAgain {
     [self loadCashRegisterData];
 }
-#pragma mark – Private
+#pragma mark - Private
 //加载数据
 - (void)loadCashRegisterData {
     kWeakSelf
@@ -62,11 +62,7 @@
 }
 //判断是否有数据
 - (void)isHaveData {
-    if (self.withdrawRecordViewModel.withdrawRecordListModel.dataList.count) {
-        self.nodataView.hidden = YES;
-    } else {
-        self.nodataView.hidden = NO;
-    }
+    self.nodataView.hidden = self.withdrawRecordViewModel.withdrawRecordListModel.dataList.count;
 }
 
 #pragma mark - UITableViewDataSource
@@ -100,7 +96,7 @@
     return headView;
 }
 
-#pragma mark – Getters and Setters
+#pragma mark - Getters and Setters
 - (UITableView *)withdrawRecordTableView {
     if (!_withdrawRecordTableView) {
         _withdrawRecordTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:(UITableViewStyleGrouped)];

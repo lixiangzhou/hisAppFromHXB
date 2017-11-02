@@ -79,20 +79,14 @@
     self.moneyOffCouponImageView.hidden = !self.finPlanListViewModel.planListModel.hasMoneyOffCoupon;
     self.discountCouponImageView.hidden = !self.finPlanListViewModel.planListModel.hasDiscountCoupon;
     if (self.finPlanListViewModel.planListModel.hasMoneyOffCoupon) {
-        [self.moneyOffCouponImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.lineImageView.mas_bottom);
-            make.bottom.equalTo(self.contentView);
-            make.left.equalTo(self.contentView).offset(kScrAdaptationW750(30));
-            make.width.offset(kScrAdaptationW750(60));
-        }];
-        [self.discountCouponImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        [self.discountCouponImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.lineImageView.mas_bottom);
             make.bottom.equalTo(self.contentView);
             make.left.equalTo(self.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(30));
             make.width.offset(kScrAdaptationW750(60));
         }];
     } else {
-        [self.discountCouponImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        [self.discountCouponImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.lineImageView.mas_bottom);
             make.bottom.equalTo(self.contentView);
             make.left.equalTo(self.contentView).offset(kScrAdaptationW750(30));
@@ -164,6 +158,20 @@
 - (void)layoutSubUI {
     kWeakSelf
     //布局
+    [self.moneyOffCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lineImageView.mas_bottom);
+        make.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.contentView).offset(kScrAdaptationW750(30));
+        make.width.offset(kScrAdaptationW750(60));
+    }];
+    
+    [self.discountCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.lineImageView.mas_bottom);
+        make.bottom.equalTo(self.contentView);
+        make.left.equalTo(self.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(30));
+        make.width.offset(kScrAdaptationW750(60));
+    }];
+    
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH750(32));
         make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));

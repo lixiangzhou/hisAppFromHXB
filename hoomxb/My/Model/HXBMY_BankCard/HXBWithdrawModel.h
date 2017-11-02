@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+
 @class HXBBankCardModel;
+
 @interface HXBWithdrawModel : NSObject
 /**
  可用余额

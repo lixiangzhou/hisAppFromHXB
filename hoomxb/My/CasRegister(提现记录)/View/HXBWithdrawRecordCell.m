@@ -44,7 +44,7 @@
 
 @implementation HXBWithdrawRecordCell
 
-#pragma mark – Life Cycle
+#pragma mark - Life Cycle
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         [self setupSubView];
@@ -53,7 +53,7 @@
     return self;
 }
 
-#pragma mark – Private
+#pragma mark - Private
 - (void)setupSubView {
     [self.contentView addSubview:self.cashAmountLabel];
     [self.contentView addSubview:self.bankNameLabel];
@@ -97,7 +97,7 @@
     }];
 }
 
-#pragma mark – Getters and Setters
+#pragma mark - Getters and Setters
 
 - (void)setWithdrawRecordModel:(HXBWithdrawRecordModel *)withdrawRecordModel {
     _withdrawRecordModel = withdrawRecordModel;
@@ -113,7 +113,7 @@
         self.cashDrawStatusLabel.textColor = COR10;
     }
 }
-
+#pragma mark - Lazy
 - (UILabel *)cashAmountLabel {
     if (!_cashAmountLabel) {
         _cashAmountLabel = [[UILabel alloc] init];

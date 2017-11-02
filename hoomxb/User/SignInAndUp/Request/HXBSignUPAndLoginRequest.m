@@ -207,7 +207,7 @@
 //        kHXBResponsShowHUD
         NSString *status = [responseObject valueForKey:@"status"];
         NSString *message = @"";
-        if (status.integerValue == 1) {
+        if (status.integerValue == kHXBCode_Enum_CommonError) {
             if ([responseObject[@"message"] isEqualToString:@"手机号码已存在"]) {
                 message = @"该手机号已注册";
                 [HxbHUDProgress showTextWithMessage:message];
@@ -248,7 +248,7 @@
         //        kHXBResponsShowHUD
         NSString *status = [responseObject valueForKey:@"status"];
         NSString *message = @"";
-        if (status.integerValue == 1) {
+        if (status.integerValue == kHXBCode_Enum_CommonError) {
             if ([responseObject[@"message"] isEqualToString:@"手机号码已存在"]) {
                 message = @"该手机号已注册";
                 [HxbHUDProgress showTextWithMessage:message];

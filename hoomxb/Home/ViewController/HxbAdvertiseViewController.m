@@ -39,6 +39,16 @@
         if (status == 0) {
             NSString *imageURL = responseObject[kResponseData][@"url"];
             [HXBAdvertisementManager downLoadAdvertisementImageWithadvertisementImageURLStr:imageURL andDownLoadBlock:^(NSString *imagePath) {
+                UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+                if (image) {//显示广告
+                    advertiseView.advertiseImage = image;
+                    [advertiseView show];
+                }else {//不显示直接跳转控制器
+                    NSLog(@"第一次加载广告图片，所以不显示");
+                    if (self.dismissAdvertiseViewControllerBlock) {
+                        self.dismissAdvertiseViewControllerBlock();
+                    }
+                }
             }];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
