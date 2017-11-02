@@ -103,7 +103,7 @@
 #pragma mark – Getters and Setters
 - (UITableView *)withdrawRecordTableView {
     if (!_withdrawRecordTableView) {
-        _withdrawRecordTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:(UITableViewStylePlain)];
+        _withdrawRecordTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:(UITableViewStyleGrouped)];
         [HXBMiddlekey AdaptationiOS11WithTableView:_withdrawRecordTableView];
         _withdrawRecordTableView.backgroundColor = BACKGROUNDCOLOR;
         _withdrawRecordTableView.delegate = self;

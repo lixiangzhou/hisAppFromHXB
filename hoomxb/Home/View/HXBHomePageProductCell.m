@@ -89,7 +89,7 @@
  */
 - (void)setupSubViewFrame
 {
-    if (self.tagLabbel.hidden) {
+    if (!self.homePageModel_DataList.tag.length) {
         [self.tagLabbel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-30));
             make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(22));

@@ -180,11 +180,10 @@ static NSString *const my = @"我的";
     //检测版本更新
     [self checkversionUpdate];
     //广告页打开就能用
-    __weak typeof(self) weakSelf = self;
+    kWeakSelf
     HxbAdvertiseViewController *advertiseViewControllre = [[HxbAdvertiseViewController alloc]init];
     _window.rootViewController = advertiseViewControllre;
     [advertiseViewControllre dismissAdvertiseViewControllerFunc:^{
-//        [weakSelf enterTheGesturePasswordVC];
          [weakSelf chooseRootViewController];
     }];
     _window.backgroundColor = [UIColor whiteColor];
