@@ -19,6 +19,10 @@
  */
 @property (nonatomic,assign) BOOL isStopRefresh_Home;
 /**
+ 点击cell中按钮回调的Block
+ */
+@property (nonatomic, copy) void(^actionButtonClickBlock)();
+/**
  下拉加载回调的Block
  */
 @property (nonatomic, copy) void(^ _Nonnull homeRefreshHeaderBlock)();

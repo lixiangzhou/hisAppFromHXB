@@ -52,10 +52,6 @@ UITableViewDataSource
 //}
 
 #pragma mark - TableViewDelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return kScrAdaptationH750(270);
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 13.f;
 }
@@ -64,35 +60,19 @@ UITableViewDataSource
     return 0.1f;
 }
 
-- (void)clickImmediateUseBtn:(UIButton *)sender{
-    NSLog(@"点击立即使用按钮");
-//    HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
-//    planDetailsVC.title = model.planListModel.name;
-//    UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"红利计划##" style:UIBarButtonItemStylePlain target:nil action:nil];
-//    self.navigationItem.backBarButtonItem = leftBarButtonItem;
-//    planDetailsVC.planID = model.planListModel.ID;
-//    planDetailsVC.isPlan = true;
-//    planDetailsVC.isFlowChart = true;
-//    planDetailsVC.hidesBottomBarWhenPushed = true;
-//    planDetailsVC.planListViewModel = model;
-//
-//    [self.navigationController pushViewController:planDetailsVC animated:true];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *celledStr = @"celled";
     HXBMyCouponListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
-    if (cell == nil) {
+    if (!cell) {
         cell = [[HXBMyCouponListTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.myCouponListModel = self.myCouponListModelArray[indexPath.row];
-    //按钮使能 事件处理？
-    cell.actionBtn.userInteractionEnabled = YES;
-    [cell.actionBtn addTarget:self action:@selector(clickImmediateUseBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //区别两种cell
+    kWeakSelf
+    cell.actionButtonClickBlock = ^(){
+        weakSelf.actionButtonClickBlock();
+    };
     
     return cell;
 }
@@ -101,23 +81,21 @@ UITableViewDataSource
     return self.myCouponListModelArray.count;//model个数
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
 #pragma mark - 懒加载
 - (UITableView *)mainTableView{
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
+        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style:UITableViewStyleGrouped];
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.tableHeaderView.userInteractionEnabled = YES;
         _mainTableView.backgroundColor = RGBA(244, 243, 248, 1);
+        _mainTableView.rowHeight = kScrAdaptationH750(270);
         [HXBMiddlekey AdaptationiOS11WithTableView:_mainTableView];
         kWeakSelf
         [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-            if (weakSelf.homeRefreshHeaderBlock) weakSelf.homeRefreshHeaderBlock();
+            if (weakSelf.homeRefreshHeaderBlock)
+                weakSelf.homeRefreshHeaderBlock();
         } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
             
         }];

@@ -10,8 +10,11 @@
 @class HXBMyCouponListModel;
 @interface HXBMyCouponListTableViewCell : UITableViewCell
 
+/**
+ cell点击 立即使用 按钮回调的Block
+ */
+@property (nonatomic, copy) void(^actionButtonClickBlock)();
 
-@property (nonatomic, strong)  UIButton *actionBtn;//"立即使用"
 @property (nonatomic, strong)  HXBMyCouponListModel *myCouponListModel;
 
 @end

@@ -23,7 +23,8 @@
 @property (nonatomic, strong)  UILabel *allowBusinessCategoryLab;//"散标 债转 红利计划（1/3/6/9）"
 @property (nonatomic, strong)  UIImageView *rightLineImgV;
 @property (nonatomic, strong)  UIImageView *rightImgV;
-@property (nonatomic, copy)    NSString *couponTypeText;
+@property (nonatomic, strong)  UIButton *actionBtn;//"立即使用"
+//@property (nonatomic, copy)    NSString *couponTypeText;
 
 @end
 
@@ -39,39 +40,35 @@
     return self;
 }
 
-- (void)setCouponTypeText:(NSString *)couponTypeText{
-    if (!couponTypeText||[couponTypeText isEqualToString:@""]) {
-        _couponTypeText = @"";
-    }else{
-        _couponTypeText = couponTypeText;
+- (void)clickActionBtn{
+    if (self.actionButtonClickBlock) {
+        self.actionButtonClickBlock();
     }
 }
 
 - (void)setMyCouponListModel:(HXBMyCouponListModel *)myCouponListModel{
     _myCouponListModel = myCouponListModel;
-    self.couponTypeText = myCouponListModel.couponTypeText;
+    self.couponTypeLab.text = myCouponListModel.couponTypeText;; //‘抵扣券"还是“满减券”
     
-    if ([self.couponTypeText isEqualToString:@"抵扣券"]) { //判断折扣还是满减
+    if ([self.couponTypeLab.text isEqualToString:@"抵扣券"]) { //判断折扣还是满减
         self.leftImgV.image = [UIImage imageNamed:@"my_couponList_dicountRateleft"];
         
-        if (myCouponListModel.dicountRate&&![myCouponListModel.dicountRate isEqualToString:@""]) {
-            self.dicountRateLab.textColor = RGBA(253, 54, 54, 1);
-            self.dicountRateLab.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
-            NSString *dicountRate = [NSString stringWithFormat:@"%@%%",myCouponListModel.dicountRate];
-            NSRange range = NSMakeRange(0,dicountRate.length - 1);
-            UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(84);
-            NSMutableAttributedString *attrM = [NSAttributedString setupAttributeStringWithString:dicountRate WithRange:range andAttributeColor:RGBA(253, 54, 54, 1) andAttributeFont:font];
-            self.dicountRateLab.attributedText = attrM;
-        }
+        self.dicountRateLab.textColor = RGBA(253, 54, 54, 1);
+        self.dicountRateLab.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
+        NSString *dicountRate = [NSString stringWithFormat:@"%@%%",myCouponListModel.dicountRate];
+        NSRange range = NSMakeRange(0,dicountRate.length - 1);
+        UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(84);
+        NSMutableAttributedString *attrM = [NSAttributedString setupAttributeStringWithString:dicountRate WithRange:range andAttributeColor:RGBA(253, 54, 54, 1) andAttributeFont:font];
+        self.dicountRateLab.attributedText = attrM;
         
-        if (myCouponListModel.maxDiscountAmount&&![myCouponListModel.maxDiscountAmount isEqualToString:@""]) {
+        if (myCouponListModel.maxDiscountAmount && ![myCouponListModel.maxDiscountAmount isEqualToString:@""]) {
             self.allowDerateInvestLab.text = [NSString stringWithFormat:@"最高%@元",myCouponListModel.maxDiscountAmount];//“最高6666元” “满5000元使用”
             self.allowDerateInvestLab.textColor = RGBA(253, 54, 54, 1);
         }else{
             self.allowDerateInvestLab.text = @"";
         }
 
-        if ((myCouponListModel.forProductLimit&&[myCouponListModel.forProductLimit containsString:@"("])||(myCouponListModel.forProductLimit&&[myCouponListModel.forProductLimit containsString:@"（"])) {
+        if (myCouponListModel.forProductLimit && ([myCouponListModel.forProductLimit containsString:@"("] || [myCouponListModel.forProductLimit containsString:@"（"])) {
             NSString *str = [NSString stringWithFormat:@"%@%@",myCouponListModel.forProductText,myCouponListModel.forProductLimit];
             NSRange range;
             if ([myCouponListModel.allowBusinessCategory containsString:@"("]) {
@@ -91,32 +88,31 @@
         
         [_actionBtn setTitleColor:RGBA(253, 54, 54, 1) forState:UIControlStateNormal];
         
-        [self.allowDerateInvestLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.allowDerateInvestLab mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.leftImgV).offset(kScrAdaptationW750(18));
             make.width.equalTo(@kScrAdaptationW750(180));
             make.top.equalTo(self.dicountRateLab.mas_bottom).offset(kScrAdaptationH750(20));
             make.height.equalTo(@kScrAdaptationH750(22));
         }];
-    }else if([self.couponTypeText isEqualToString:@"满减券"]){
+    }else if([self.couponTypeLab.text isEqualToString:@"满减券"]){
         self.leftImgV.image = [UIImage imageNamed:@"my_couponList_dicountRateleft"];
-        if (myCouponListModel.dicountRate&&[myCouponListModel.dicountRate isEqualToString:@""]) {
-            self.dicountRateLab.textColor = RGBA(115, 173, 255, 1);
-            self.dicountRateLab.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
-            NSString *dicountRate = [NSString stringWithFormat:@"%@%%",myCouponListModel.dicountRate];
-            NSRange range = NSMakeRange(0,dicountRate.length - 1);
-            UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(60);
-            NSMutableAttributedString *attrM = [NSAttributedString setupAttributeStringWithString:dicountRate WithRange:range andAttributeColor:RGBA(115, 173, 255, 1) andAttributeFont:font];
-            self.dicountRateLab.attributedText = attrM;
-        }
         
-        if (myCouponListModel.maxDiscountAmount&&![myCouponListModel.maxDiscountAmount isEqualToString:@""]) {
+        self.dicountRateLab.textColor = RGBA(115, 173, 255, 1);
+        self.dicountRateLab.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
+        NSString *dicountRate = [NSString stringWithFormat:@"%@%%",myCouponListModel.dicountRate];
+        NSRange range = NSMakeRange(0,dicountRate.length - 1);
+        UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(60);
+        NSMutableAttributedString *attrM = [NSAttributedString setupAttributeStringWithString:dicountRate WithRange:range andAttributeColor:RGBA(115, 173, 255, 1) andAttributeFont:font];
+        self.dicountRateLab.attributedText = attrM;
+        
+        if (myCouponListModel.maxDiscountAmount && ![myCouponListModel.maxDiscountAmount isEqualToString:@""]) {
             self.allowDerateInvestLab.text = [NSString stringWithFormat:@"最高%@元",myCouponListModel.maxDiscountAmount];//“最高6666元” “满5000元使用”
             self.allowDerateInvestLab.textColor = RGBA(115, 173, 255, 1);
         }else{
             self.allowDerateInvestLab.text = @"";
         }
         
-        if ((myCouponListModel.forProductLimit&&[myCouponListModel.allowBusinessCategory containsString:@"("])||(myCouponListModel.forProductLimit&&[myCouponListModel.allowBusinessCategory containsString:@"（"])) {
+        if (myCouponListModel.forProductLimit && ([myCouponListModel.allowBusinessCategory containsString:@"("] || [myCouponListModel.allowBusinessCategory containsString:@"（"])) {
             NSString *str = [NSString stringWithFormat:@"%@%@",myCouponListModel.forProductText,myCouponListModel.forProductLimit];
             NSRange range;
             if ([myCouponListModel.allowBusinessCategory containsString:@"("]) {
@@ -136,7 +132,7 @@
         
         [_actionBtn setTitleColor:RGBA(115, 173, 255, 1) forState:UIControlStateNormal];
         
-        [self.allowDerateInvestLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.allowDerateInvestLab mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.leftImgV).offset(kScrAdaptationW750(18));
             make.width.equalTo(@kScrAdaptationW750(180));
             make.top.equalTo(self.dicountRateLab.mas_bottom).offset(kScrAdaptationH750(11));
@@ -144,9 +140,15 @@
         }];
     }else{
         self.leftImgV.image = [UIImage imageNamed:@"my_couponList_dicountRateleftDef"];
+        self.dicountRateLab.text = @"";
+        self.allowDerateInvestLab.text = @"";
+        self.couponTypeLab.text = @"";
+        self.tagLab.text = @"";
+        self.termOfValidityLab.text = @"";
+        self.allowBusinessCategoryLab.text = @"";
+        [self.actionBtn setTitle:@"" forState:UIControlStateNormal];
     }
 
-    self.couponTypeLab.text = self.couponTypeText;; //‘抵扣券"还是“满减券”
     self.tagLab.text = [NSString stringWithFormat:@"(%@)",myCouponListModel.tag];//"(贺岁大礼包)"
     
     //时间戳转化成时间
@@ -156,6 +158,7 @@
     NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:myCouponListModel.expireTime];
     self.termOfValidityLab.text = [NSString stringWithFormat:@"有效至%@",[stampFormatter stringFromDate:stampDate]];//"有效期至2017/11/30"
 }
+
 - (void)setupSubViewFrame
 {
     [self.mainView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -244,7 +247,6 @@
         [_mainView addSubview:self.midBgImgV];
         [_mainView addSubview:self.rightLineImgV];
         [_mainView addSubview:self.rightImgV];
-        
     }
     return _mainView;
 }
@@ -257,10 +259,12 @@
          _actionBtn.titleLabel.numberOfLines = 0;
         [_actionBtn setTitle:@"立\n即\n使\n用" forState:UIControlStateNormal];
         [_actionBtn setTitleColor:RGBA(153, 153, 153, 1) forState:UIControlStateHighlighted];
-        _actionBtn.userInteractionEnabled = NO;
+        _actionBtn.userInteractionEnabled = YES;
+        [_actionBtn addTarget:self action:@selector(clickActionBtn) forControlEvents:UIControlEventTouchUpInside];
     }
     return _actionBtn;
 }
+
 - (UIImageView *)rightImgV{
     if (!_rightImgV) {
         _rightImgV = [[UIImageView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(608), 0, kScrAdaptationW750(82), kScrAdaptationH750(240))];
@@ -270,6 +274,7 @@
     }
     return _rightImgV;
 }
+
 - (UIImageView *)rightLineImgV{
     if (!_rightLineImgV) {
         _rightLineImgV = [[UIImageView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(606), kScrAdaptationH750(0), kScrAdaptationW750(2), kScrAdaptationH750(240))];
@@ -287,6 +292,7 @@
     }
     return _couponTypeLab;
 }
+
 - (UILabel *)tagLab{
     if (!_tagLab) {
         _tagLab = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(140), kScrAdaptationH750(40), kScrAdaptationW750(200), kScrAdaptationH750(34))];
@@ -296,6 +302,7 @@
     }
     return _tagLab;
 }
+
 - (UILabel *)termOfValidityLab{
     if (!_termOfValidityLab) {
         _termOfValidityLab = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(40), kScrAdaptationH750(94), kScrAdaptationW750(300), kScrAdaptationH750(32))];
@@ -360,17 +367,6 @@
         [_leftImgV addSubview:self.allowDerateInvestLab];
     }
     return _leftImgV;
-}
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end
