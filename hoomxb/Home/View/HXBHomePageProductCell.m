@@ -111,9 +111,9 @@
     
     [self.recommendImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(kScrAdaptationW750(50));
-        make.top.equalTo(self.contentView);
-        make.width.offset(kScrAdaptationW750(78));
-        make.height.offset(kScrAdaptationH750(80));
+        make.top.equalTo(self.contentView).offset(-2);
+        make.width.offset(kScrAdaptationW750(92));
+        make.height.offset(kScrAdaptationH750(93));
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -193,7 +193,10 @@
     NSString *str = [NSString stringWithFormat:@"%@月期",homePageModel_DataList.lockPeriod];
     self.investmentPeriodTitleLabel.text = str;
     if (![homePageModel_DataList.fixExtraInterestRate isEqualToString:@"0"]) {
-        self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],homePageModel_DataList.fixExtraInterestRate];
+        NSString *messageStr = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],homePageModel_DataList.fixExtraInterestRate];
+        NSRange range = [messageStr rangeOfString:homePageModel_DataList.fixExtraInterestRate];
+        self.expectAnnualizedRatesTitleLabel.attributedText = [NSMutableAttributedString setupAttributeStringWithString:messageStr WithRange:(NSRange)range andAttributeColor:RGB(253, 54, 54) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(50)];
+        
     } else {
         self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%",[homePageModel_DataList.baseInterestRate doubleValue]];
     }
@@ -355,7 +358,7 @@
         _expectAnnualizedRatesLabel = [[UILabel alloc]initWithFrame:CGRectMake(16, 50, 120, 22)];
         _expectAnnualizedRatesLabel.textColor = COR10;
         _expectAnnualizedRatesLabel.text = @"平均历史年化收益";
-        _expectAnnualizedRatesLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        _expectAnnualizedRatesLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     }
     return _expectAnnualizedRatesLabel;
 }

@@ -67,11 +67,15 @@ static NSString *const adImageName = @"adImageName";
             [kUserDefaults synchronize];
             // 如果有广告链接，将广告链接也保存下来
             if (downLoadBlock) {
-                downLoadBlock(filePath);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    downLoadBlock(filePath);
+                });
             }
         }else{
             if (downLoadBlock) {
-                downLoadBlock(nil);
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    downLoadBlock(nil);
+                });
             }
             NSLog(@"保存失败");
         }
