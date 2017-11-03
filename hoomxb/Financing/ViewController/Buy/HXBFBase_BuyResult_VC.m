@@ -7,6 +7,7 @@
 //
 
 #import "HXBFBase_BuyResult_VC.h"
+#import "HXBFinAddTruastWebViewVC.h"
 
 @interface HXBFBase_BuyResult_VC ()
 @property (nonatomic,strong) UIImageView *imageView;
@@ -45,6 +46,18 @@
     [super viewDidLoad];
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self setUP];
+    
+    if ([self.title isEqualToString:@"兑换优惠券"]) {
+        UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"my_couponList_InstructionsNot"] style:UIBarButtonItemStylePlain target:self action:@selector(enterInstructions)];
+        self.navigationItem.rightBarButtonItem = anotherButton;
+        [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+    }
+}
+
+- (void)enterInstructions{
+    HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+    vc.URL = kHXB_Negotiate_couponExchangeInstructionsUrl;
+    [self.navigationController pushViewController:vc animated:true];
 }
 
 - (void)setUP {
@@ -90,10 +103,13 @@
     }
     if(self.midStr) {
         self.midLabel = [[UILabel alloc]init];
-        self.midLabel.text = self.midStr;
-        self.midLabel.textColor = kHXBColor_Font0_6;
+        self.midLabel.attributedText = [self getAttributedStringWithString:self.midStr lineSpace:8];
+        self.midLabel.numberOfLines = 0;
+        self.midLabel.textAlignment = NSTextAlignmentCenter;
+        self.midLabel.textColor = Content_Text_Color;
         self.midLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
         [self.view addSubview:self.midLabel];
+        
         [self.midLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(view.mas_bottom).offset(kScrAdaptationH750(16));
             make.centerX.equalTo(view);
@@ -124,6 +140,17 @@
     }];
     
 }
+
+// 设置行间距的富文本
+-(NSAttributedString *)getAttributedStringWithString:(NSString *)string lineSpace:(CGFloat)lineSpace {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = lineSpace; // 调整行间距
+    NSRange range = NSMakeRange(0, [string length]);
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
+    return attributedString;
+}
+
 - (void)clickButton: (UIButton *)button {
     if (self.clickButtonBlock) {
         self.clickButtonBlock();
@@ -202,7 +229,11 @@
 }
 
 - (void)leftBackBtnClick {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if ([self.title isEqualToString:@"兑换优惠券"]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 
 }
 

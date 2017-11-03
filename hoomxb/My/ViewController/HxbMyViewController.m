@@ -19,9 +19,12 @@
 #import "HxbMyTopUpViewController.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
 #import "HXBDepositoryAlertViewController.h"
+#import "HXBMyRequestAccountModel.h"
+#import "HXBRequestAccountInfo.h"
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+@property (nonatomic, strong) HXBMyRequestAccountModel *accountModel;
 @property (nonatomic, strong) HxbMyView *myView;
 @end
 
@@ -61,10 +64,12 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     //加载用户数据
     if ([KeyChain isLogin]) {
-        [self loadData_userInfo];
+//        [self loadData_userInfo];
+        [self loadData_accountInfo];//账户内数据总览
     }else
     {
-        self.userInfoViewModel = nil;
+//        self.userInfoViewModel = nil;
+        self.accountModel = nil;
     }
 }
 
@@ -84,8 +89,9 @@
     self.myView = [[HxbMyView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
     self.myView.delegate = self;
     self.myView.userInteractionEnabled = YES;
-    self.myView.homeRefreshHeaderBlock = ^(){
+    self.myView.homeRefreshHeaderBlock = ^(){ //下拉加载回调的Block
         [weakSelf loadData_userInfo];
+        [weakSelf loadData_accountInfo];//账户内数据总览
     };
   
     [self.view addSubview:self.myView];
@@ -114,6 +120,10 @@
     self.myView.userInfoViewModel = self.userInfoViewModel;
 }
 
+- (void)setAccountModel:(HXBMyRequestAccountModel *)accountModel{
+    _accountModel = accountModel;
+    self.myView.accountModel = self.accountModel;
+}
 
 - (void)didLeftHeadBtnClick:(UIButton *)sender{
     HxbAccountInfoViewController *accountInfoVC = [[HxbAccountInfoViewController alloc]init];
@@ -214,7 +224,17 @@
 - (void)clickMyLoanButton: (UIButton *)button {
     NSLog(@"%@ - 散标被点击",self.class);
 }
+
 #pragma mark - 加载数据
+- (void)loadData_accountInfo{
+    kWeakSelf
+    [HXBRequestAccountInfo downLoadAccountInfoNoHUDWithSeccessBlock:^(HXBMyRequestAccountModel *viewModel) {
+        weakSelf.accountModel = viewModel;
+        weakSelf.myView.isStopRefresh_Home = YES;
+    } andFailure:^(NSError *error) {
+        weakSelf.myView.isStopRefresh_Home = YES;
+    }];
+}
 - (void)loadData_userInfo {
     kWeakSelf
     [HXBRequestUserInfo downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
@@ -222,7 +242,6 @@
         weakSelf.myView.isStopRefresh_Home = YES;
     } andFailure:^(NSError *error) {
         weakSelf.myView.isStopRefresh_Home = YES;
-        NSLog(@"%@",self);
     }];
 }
 @end

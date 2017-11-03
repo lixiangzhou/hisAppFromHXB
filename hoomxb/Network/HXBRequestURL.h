@@ -32,29 +32,38 @@
 #define kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(loanTruanserID)];//账户外债转加入记录
 
 //MARK: ======================= 用户 =======================
-#define kHXBUser_UserInfoURL            @"/user/info"///用户信息
-#define kHXBUser_LoginURL               @"/user/login"//登录
-#define kHXBUser_SignUPURL              @"/user/signup"//注册
-#define HXBAccount_ForgotPasswordURL    @"/forgot"///忘记密码
-#define kHXBUser_checkCaptchaURL        @"/checkCaptcha"///校验 图片验证码
-#define kHXBUser_smscodeURL             @"/send/smscode"///发送短信接口
-#define kHXBUser_CheckMobileURL         @"/checkMobile"///校验手机号
-#define kHXBUser_CheckExistMobileURL    @"/checkExistMobile"///忘记密码校验手机号
-#define kHXBUser_realnameURL            @"/user/realname"///实名认证
-#define kHXBUser_riskModifyScoreURL     @"/user/riskModifyScore"///风险评测
+#define kHXBUser_UserInfoURL @"/user/info"///用户信息
+#define kHXBUser_LoginURL @"/user/login"//登录
+#define kHXBUser_SignUPURL @"/user/signup"//注册
+#define HXBAccount_ForgotPasswordURL @"/forgot"///忘记密码
+#define kHXBUser_checkCaptchaURL @"/checkCaptcha"///校验 图片验证码
+#define kHXBUser_smscodeURL @"/send/smscode"///发送短信接口
+#define kHXBUser_CheckMobileURL @"/checkMobile"///校验手机号
+#define kHXBUser_CheckExistMobileURL @"/checkExistMobile"///忘记密码校验手机号
+#define kHXBUser_realnameURL @"/user/realname"///实名认证
+#define kHXBUser_riskModifyScoreURL @"/user/riskModifyScore"///风险评测
+#define kHXBUser_financialAdvisorURL @"/account/advisor" //获取理财顾问信息
+#define kHXBUser_AccountInfoURL @"/account"///账户内数据总览
 #define kHXBUser_QuestionsURL           @"/questions"///常见问题
 
 //MARK: ======================= 账户内 =======================
-#define kHXBMY_CapitalRecordURL         @"/account/tradlist"///交易记录
-#define kHXBMY_PlanListURL              @"/account/plan"//账户内  planlist
-#define kHXBMY_PlanAssetsURL            @"/account/plan"// plan 资金统计
-#define kHXBMY_LoanListURL              @"/account/loan"//账户内  loanlist
-#define kHXBMY_LoanTruansferListURL     @"/account/transfer"//账户内 loanTruansfer
-#define kHXBMY_LoanAssetsURL            @"/account/loanAssets"//loan资金统计
-#define kHXBMY_LoanAccountRequestURL    @"/account/loanAssets"///账户内 账户内Loan资产
-#define kHXBMY_PlanAccountRequestURL    @"/account/planAssets"///账户内 账户内Plan资产
-#define kHXBMY_PlanDetaileURL(planID)   [NSString stringWithFormat:@"/account/plan/%@",(planID)]
-#define kHXBFin_loanRecordURL(planID)   [NSString stringWithFormat:@"/account/plan/%@/loanRecord",(planID)]
+#define kHXBMY_CapitalRecordURL @"/account/tradlist"///交易记录
+#define kHXBMY_PlanListURL @"/account/plan"//账户内  planlist
+#define kHXBMY_PlanDetaileURL(planID) [NSString stringWithFormat:@"/account/plan/%@",(planID)]
+#define kHXBMY_PlanAssetsURL @"/account/plan"// plan 资金统计
+
+#define kHXBMY_LoanListURL @"/account/loan"//账户内  loanlist
+#define kHXBMY_LoanTruansferListURL @"/account/transfer"//账户内 loanTruansfer
+#define kHXBMY_LoanAssetsURL @"/account/loanAssets"//loan资金统计
+#define kHXBMY_AccountListInfoURL @"/account/coupon"///账户内优惠券列表
+#define kHXBMY_CouponExchangeInfoURL @"/coupon/exchange"///兑换优惠券
+
+///账户内的plan 交易记录
+#define kHXBFin_loanRecordURL(planID) [NSString stringWithFormat:@"/account/plan/%@/loanRecord",(planID)]
+#define kHXBMY_LoanAccountRequestURL @"/account/loanAssets"///账户内 账户内Loan资产
+#define kHXBMY_PlanAccountRequestURL @"/account/planAssets"///账户内 账户内Plan资产
+
+
 ///账户内转让记录
 #define kHXBFin_CreditorRecordURL(planID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(planID)]
 //账户内债权转让确认页
@@ -101,7 +110,7 @@
 #define kHXBUser_checkCardBin @"/user/checkCardBin" //卡bin校验
 
 //MARK: ======================= 协议 ==========================
-//协议或合同名	端口号后链接	状态	账户内连接
+//协议或合同名    端口号后链接    状态    账户内连接
 #define kHXB_Negotiate_SginUPURL @"/agreement/signup"///《注册服务协议》
 #define kHXB_Negotiate_CertificationURL @"/agreement/realname"///《红小宝认证服务协议》
 #define kHXB_Negotiate_ServePlanURL @"/agreement/plan"///《红利计划服务协议书》
@@ -113,6 +122,7 @@
 #define kHXB_Negotiate_depository @"/agreement/depository" ///《存管开户协议》
 #define kHXB_Negotiate_thirdpart @"/agreement/thirdpart" ///《恒丰银行股份有限公司杭州分行网络交易资金账户三方协议》
 #define kHXB_Negotiate_authorize @"/agreement/authorize" ///《红小宝平台授权协议》
+#define kHXB_Negotiate_couponExchangeInstructionsUrl @"/discount/explain" ///优惠券使用说明
 
 #define kHXB_Negotiate_AddTrustURL @"/landing/trust"///增信页
 
