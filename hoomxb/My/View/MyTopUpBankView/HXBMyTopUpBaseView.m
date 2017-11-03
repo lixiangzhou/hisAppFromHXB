@@ -58,65 +58,68 @@
 }
 
 - (void)setCardViewFrame{
-    
     [self.myTopUpHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
         make.top.equalTo(self.mas_top).offset(64);
         make.height.offset(kScrAdaptationH750(80));
     }];
+    
     [self.mybankView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
         make.top.equalTo(self.myTopUpHeaderView.mas_bottom);
         make.height.offset(kScrAdaptationH750(160));
     }];
+    
     [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(30));
         make.top.equalTo(self.mybankView.mas_bottom).offset(kScrAdaptationH750(20));
         make.height.offset(kScrAdaptationH750(33));
     }];
+    
     [self.freeTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.offset(-kScrAdaptationH750(30));
         make.centerY.equalTo(self.availableBalanceLabel);
     }];
+    
     [self.amountTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
         make.top.equalTo(self.availableBalanceLabel.mas_bottom).offset(kScrAdaptationH750(20));
         make.height.offset(kScrAdaptationH750(130));
     }];
+    
     [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
         make.top.equalTo(self.amountTextField.mas_bottom).offset(kScrAdaptationH750(100));
         make.height.offset(kScrAdaptationH750(80));
     }];
+    
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
         make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH750(-100));
     }];
+    
     [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.tipLabel.mas_bottom);
 //        make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
         make.left.equalTo(self.tipLabel.mas_left);
     }];
+    
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
         make.bottom.equalTo(self.tipLabel.mas_top).offset(kScrAdaptationH750(-20));
         make.height.offset(kScrAdaptationH750(24));
     }];
+    kWeakSelf
     _amountTextField.haveStr = ^(BOOL haveStr) {
         NSLog(@"%d", haveStr);
-        if (haveStr) {
-            _nextButton.backgroundColor = COR29;
-            _nextButton.userInteractionEnabled = YES;
-        } else {
-            _nextButton.backgroundColor = COR26;
-            _nextButton.userInteractionEnabled = NO;
-        }
+        weakSelf.nextButton.userInteractionEnabled = haveStr;
+        weakSelf.nextButton.backgroundColor = haveStr ? COR29 : COR12;
     };
     
 }

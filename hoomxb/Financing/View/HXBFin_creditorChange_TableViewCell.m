@@ -15,6 +15,7 @@
 @property (nonatomic, strong) UILabel *detailLabel;
 /** 横线 */
 @property (nonatomic, strong) UIView *lineView;
+/** 小菊花 */
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
 
 @end
@@ -33,37 +34,50 @@
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.detailLabel];
     [self.contentView addSubview:self.lineView];
+    
     _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _activityView.center = CGPointMake(kScreenWidth - kScrAdaptationW(60), kScrAdaptationH(25));
     [_activityView startAnimating];
     [self.contentView addSubview:_activityView];
+    
+    [self setupFrame];
+    
+}
+
+- (void)setupFrame {
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self);
         make.left.equalTo(@(kScrAdaptationW(15)));
         make.width.offset(kScrAdaptationW(200));
     }];
+    
     [_detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_titleLabel);
         make.right.equalTo(@(kScrAdaptationW(-15)));
         make.width.offset(kScreenWidth - kScrAdaptationW(200));
         make.height.offset(kScrAdaptationH(50));
     }];
+    
     [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self);
         make.right.equalTo(self.mas_right);
         make.width.offset(kScreenWidth);
         make.height.offset(kScrAdaptationH(0.5));
     }];
+
 }
 
 - (void)setTitleStr:(NSString *)titleStr {
     _titleStr = titleStr;
     _titleLabel.text = titleStr;
     if ([_titleStr containsString:@"优惠券"]) {
+        
         NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:_titleStr];
         [attributedStr addAttribute:NSFontAttributeName value:kHXBFont_PINGFANGSC_REGULAR(12) range:NSMakeRange(3, _titleStr.length - 3)];
         _titleLabel.attributedText = attributedStr;
+        
     } else if ([_titleStr containsString:@"可用余额"]) {
+        
         NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:_titleStr];
         [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(4, _titleStr.length - 4)];
         [attributedStr addAttribute:NSFontAttributeName value:kHXBFont_PINGFANGSC_REGULAR(12) range:NSMakeRange(4, _titleStr.length - 4)];
@@ -76,24 +90,16 @@
     _isStartAnimation = isStartAnimation;
     _detailLabel.hidden = _isStartAnimation;
     if (isStartAnimation) {
-        _activityView.hidden = NO;
         [_activityView startAnimating];
     } else {
-        _activityView.hidden = YES;
         [_activityView stopAnimating];
     }
-    [_activityView setHidesWhenStopped:YES];
 }
 
 - (void)setDetailStr:(NSString *)detailStr {
     _detailStr = detailStr;
     _detailLabel.text = _detailStr;
 }
-
-- (void)setHasBestCoupon:(BOOL)hasBestCoupon {
-    _hasBestCoupon = hasBestCoupon;
-}
-
 
 - (void)setIsHeddenHine:(BOOL)isHeddenHine {
     _isHeddenHine = isHeddenHine;
@@ -108,13 +114,16 @@
         } else {
             _detailLabel.textColor = COR10;
         }
+        
         [_detailLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_titleLabel);
             make.right.equalTo(@(kScrAdaptationW(0)));
             make.width.offset(kScreenWidth - kScrAdaptationW(200));
             make.height.offset(kScrAdaptationH(50));
         }];
+        
     } else {
+        
         _detailLabel.textColor =COR6;
         [_detailLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(_titleLabel);
@@ -142,15 +151,6 @@
         _detailLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     }
     return _detailLabel;
-}
-
-- (UIActivityIndicatorView *)activityView {
-    if (!_activityView) {
-        _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _activityView.center = CGPointMake(kScreenWidth - kScrAdaptationW(60), kScrAdaptationH(25));
-        [_activityView stopAnimating];
-    }
-    return _activityView;
 }
 
 - (UIView *)lineView {

@@ -31,7 +31,7 @@
 }
 
 - (void)buildUI {
-    [self addSubview:self.bottomLabel];
+    [self addSubview:self.protocolView];
     [self addSubview:self.addBtn];
     [_protocolView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(kScrAdaptationH750(10));
@@ -56,37 +56,27 @@
     }
 }
 
-- (HXBFinBaseNegotiateView *)bottomLabel {
+- (HXBFinBaseNegotiateView *)protocolView {
     if (!_protocolView) {
         _protocolView = [[HXBFinBaseNegotiateView alloc] init];
         _protocolView.type = @"购买页";
     }
     kWeakSelf
     _protocolView.block = ^(NSInteger type) {
-        if (type == 1) {
-            if (weakSelf.delegateBlock) {
-                weakSelf.delegateBlock(1);
-            }
-        } else {
-            if (weakSelf.delegateBlock) {
-                weakSelf.delegateBlock(2);
-            }
+        if (weakSelf.delegateBlock) {
+            weakSelf.delegateBlock(type);
         }
     };
     [_protocolView clickCheckMarkWithBlock:^(BOOL isSelected) {
         _isSelectDelegate = isSelected;
-        if (isSelected && _addBtnIsUseable) {
-            [self isClickWithAble:YES];
-        } else {
-            [self isClickWithAble:NO];
-        }
+        [self isClickWithAble:(isSelected && _addBtnIsUseable)];
     }];
     return _protocolView;
 }
 
-- (void)setDelegateLabel:(NSString *)delegateLabel {
-    _delegateLabel = delegateLabel;
-    _protocolView.negotiateStr = delegateLabel;
+- (void)setDelegateLabelText:(NSString *)delegateLabelText {
+    _delegateLabelText = delegateLabelText;
+    _protocolView.negotiateStr = delegateLabelText;
 }
 
 
@@ -96,14 +86,9 @@
 }
 
 // 按钮是否可以点击
-- (void)isClickWithAble:(BOOL)able { // 1 可以点击 2 不可点击
-    if (able) {
-        _addBtn.userInteractionEnabled = YES;
-        _addBtn.backgroundColor = COR29;
-    } else {
-        _addBtn.userInteractionEnabled = NO;
-        _addBtn.backgroundColor = COR12;
-    }
+- (void)isClickWithAble:(BOOL)able {
+    _addBtn.userInteractionEnabled = able;
+    _addBtn.backgroundColor = able ? COR29 : COR12;
 }
 
 - (UIButton *)addBtn {
@@ -118,7 +103,9 @@
 }
 
 - (void)clickBtn:(UIButton *)button {
-    self.addBlock(button.titleLabel.text);
+    if (self.addBlock) {
+        self.addBlock(button.titleLabel.text);
+    }
 }
 
 
