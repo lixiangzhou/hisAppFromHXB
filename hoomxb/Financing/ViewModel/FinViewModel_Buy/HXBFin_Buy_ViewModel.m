@@ -14,7 +14,7 @@
     NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
     bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
     bankCardAPI.requestMethod = NYRequestMethodGet;
-    [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [bankCardAPI startWithHUDStr:@"加载中..." Success:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
@@ -27,6 +27,19 @@
         NSLog(@"%@",error);
         [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
     }];
+//    [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+//        NSLog(@"%@",responseObject);
+//        NSInteger status =  [responseObject[@"status"] integerValue];
+//        if (status != 0) {
+//            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+//            return;
+//        }
+//        HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+//        successDateBlock(bankCardModel);
+//    } failure:^(NYBaseRequest *request, NSError *error) {
+//        NSLog(@"%@",error);
+//        [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+//    }];
 }
 
 @end

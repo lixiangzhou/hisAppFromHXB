@@ -539,7 +539,7 @@
     planJoinVC.totalInterest = self.planDetailViewModel.totalInterest;
     planJoinVC.loanId = self.planDetailViewModel.ID;
     planJoinVC.minRegisterAmount = self.planDetailViewModel.planDetailModel.minRegisterAmount;
-    planJoinVC.cashType = self.planDetailViewModel.profitType_UI;
+    planJoinVC.cashType = self.planDetailViewModel.profitType;
     planJoinVC.registerMultipleAmount = self.planDetailViewModel.planDetailModel.registerMultipleAmount;
     planJoinVC.placeholderStr = self.planDetailViewModel.addCondition;
     [self.navigationController pushViewController:planJoinVC animated:YES];

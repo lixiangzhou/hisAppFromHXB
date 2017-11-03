@@ -237,8 +237,8 @@
 - (void)setProfitStr:(NSString *)profitStr {
     _profitStr = profitStr;
     NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:profitStr];
-    if (profitStr.length > 6) {
-        [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(5, profitStr.length - 6)];
+    if (profitStr.length > 5) {
+        [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(4, profitStr.length - 5)];
     }
     _profitLabel.attributedText = attributedStr;
 }

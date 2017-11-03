@@ -21,13 +21,16 @@
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HxbWithdrawCardViewController.h"
 #import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
+#import "HXBChooseDiscountCouponViewController.h"
+#import "HXBChooseCouponViewModel.h"
+#import "HXBCouponModel.h"
 
 static NSString *const topupString = @"余额不足，需充值投资";
 static NSString *const bankString = @"绑定银行卡";
 static NSString *const investString = @"立即投资";
 
 
-@interface HXBFin_creditorChange_buy_ViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface HXBFin_creditorChange_buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
 /** topView */
 @property (nonatomic, strong) HXBCreditorChangeTopView *topView;
 /** bottomView*/
@@ -58,7 +61,30 @@ static NSString *const investString = @"立即投资";
 @property (nonatomic, copy) NSString * btnLabelText;
 /** 购买类型 */
 @property (nonatomic, copy) NSString *buyType; // balance recharge
-
+/** 优惠券Title */
+@property (nonatomic, copy) NSString *couponTitle;
+/** 优惠券金额 */
+@property (nonatomic, copy) NSString *discountTitle;
+/** 应付金额detailLabel */
+@property (nonatomic, copy) NSString *handleDetailTitle;
+/** 可用余额TextLabel */
+@property (nonatomic, copy) NSString *balanceTitle;
+/** 可用余额detailLabel */
+@property (nonatomic, copy) NSString *balanceDetailTitle;
+/** 最优优惠券model */
+@property (nonatomic, strong) HXBBestCouponModel *model;
+/** 选择的优惠券model */
+@property (nonatomic, strong) HXBCouponModel *chooseCoupon;
+/** 是否有优惠券 */
+@property (nonatomic, assign) BOOL hasCoupon;
+/** 是否匹配优惠券 */
+@property (nonatomic, assign) BOOL hasBestCoupon;
+/** 优惠的金额 */
+@property (nonatomic, assign) double discountMoney;
+/** 优惠券id */
+@property (nonatomic, copy) NSString *couponid;
+/** 是否获取到优惠券 */
+@property (nonatomic, assign) BOOL hasGetCoupon;
 @end
 
 @implementation HXBFin_creditorChange_buy_ViewController
@@ -67,10 +93,15 @@ static NSString *const investString = @"立即投资";
     [super viewDidLoad];
     self.isColourGradientNavigationBar = true;
 //    [self getNewUserInfo];
+    _couponTitle = @"优惠券";
+    _discountTitle = @"";
+    _balanceTitle = @"可用余额";
     [self buildUI];
-    
     [self setUpDate];
     [self getBankCardLimit];
+    [self hasBestCouponRequest];
+    [self changeItemWithInvestMoney:_inputMoneyStr];
+    self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -105,7 +136,7 @@ static NSString *const investString = @"立即投资";
         _topView = [[HXBCreditorChangeTopView alloc] initWithFrame:CGRectZero];
         if (_type == HXB_Plan) {
             _topView.isHiddenBtn = YES;
-            _topView.profitStr = @"预期收益：0.00元";
+            _topView.profitStr = @"预期收益0.00元";
             _topView.hiddenProfitLabel = NO;
         } else {
             _topView.isHiddenBtn = NO;
@@ -127,24 +158,28 @@ static NSString *const investString = @"立即投资";
         }
         
         _topView.changeBlock = ^(NSString *text) {
-            weakSelf.topView.hiddenMoneyLabel = !weakSelf.cardModel.bankType;
-            _inputMoneyStr = text;
-            if (text.floatValue > _balanceMoneyStr.floatValue) {
-                if ([weakSelf.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-                    weakSelf.bottomView.clickBtnStr = topupString;
+            weakSelf.bottomView.addBtnIsUseable = text.length;
+            BOOL isFitToBuy = ((text.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
+            if (text.doubleValue >= _minRegisterAmount.doubleValue && text.doubleValue <= _availablePoint.doubleValue && isFitToBuy) {
+                if (_type == HXB_Plan) {
+                    [weakSelf getBESTCouponWithMoney:text];
                 } else {
-                    weakSelf.bottomView.clickBtnStr = bankString;
+                    [weakSelf setUpArray];
+                    [weakSelf changeItemWithInvestMoney:text];
                 }
             } else {
-                weakSelf.bottomView.clickBtnStr = investString;
-                if (_type == HXB_Plan) {
-                    weakSelf.bottomView.clickBtnStr = @"立即加入";
+                if ([text isEqualToString:@""]) {
+                    _discountTitle = @"请选择优惠券";
+                } else {
+                    _discountTitle = @"未使用";
                 }
+                _couponid = @" ";
+                _hasBestCoupon = NO;
+                _couponTitle = @"优惠券";
+                _handleDetailTitle = text;
+                [weakSelf setUpArray];
+                [weakSelf changeItemWithInvestMoney:text];
             }
-            if (_type == HXB_Plan) {
-                weakSelf.topView.profitStr = [NSString stringWithFormat:@"预期收益：%@", [NSString hxb_getPerMilWithDouble:text.floatValue*self.totalInterest.floatValue/100.0]];
-            }
-            [weakSelf setUpArray];
         };
         _topView.block = ^{ // 点击一键购买执行的方法
             NSString *topupStr = weakSelf.availablePoint;
@@ -157,21 +192,43 @@ static NSString *const investString = @"立即投资";
         };
     }
     return _topView;
-   
 }
 
+- (void)changeItemWithInvestMoney:(NSString *)investMoney {
+    self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
+    _inputMoneyStr = investMoney;
+    double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue - _discountMoney;
+    if (rechargeMoney > 0.00) { // 余额不足的情况
+        if ([self.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+            self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f并投资", rechargeMoney];
+        } else {
+            self.bottomView.clickBtnStr = bankString;
+        }
+        _balanceTitle = @"可用余额（余额不足）";
+    } else {
+        self.bottomView.clickBtnStr = investString;
+        _balanceTitle = @"可用余额";
+        if (_type == HXB_Plan) {
+            self.bottomView.clickBtnStr = investString;
+        }
+    }
+    if (_type == HXB_Plan) {
+        self.topView.profitStr = [NSString stringWithFormat:@"预期收益%@", [NSString hxb_getPerMilWithDouble:investMoney.floatValue*self.totalInterest.floatValue/100.0]];
+    }
+    [self setUpArray];
+}
 
 - (UIView *)footTableView {
     kWeakSelf
     _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
     if (_type == HXB_Plan) {
-        _bottomView.delegateLabel = @"红利计划服务协议》,《风险提示";
+        _bottomView.delegateLabelText = @"红利计划服务协议》,《网络借贷协议书";
     } else if (_type == HXB_Loan) {
-        _bottomView.delegateLabel = @"借款合同》,《风险提示";
+        _bottomView.delegateLabelText = @"借款合同》,《网络借贷协议书";
     } else {
-        _bottomView.delegateLabel = @"债权转让及受让协议》,《风险提示";
+        _bottomView.delegateLabelText = @"债权转让及受让协议》,《网络借贷协议书";
     }
-    _bottomView.delegateBlock = ^(int index) {
+    _bottomView.delegateBlock = ^(NSInteger index) {
         if (index == 1) {
             if (_type == HXB_Plan) {
                 HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
@@ -187,7 +244,7 @@ static NSString *const investString = @"立即投资";
                 [weakSelf.navigationController pushViewController:vc animated:true];
             }
         } else {
-            NSLog(@"暂不开放");
+            [HxbHUDProgress showTextWithMessage:@"暂无URL"];
         }
     };
     _bottomView.addBlock = ^(NSString *investMoney) {
@@ -213,14 +270,11 @@ static NSString *const investString = @"立即投资";
     }
 }
 
-
-
-
 // 购买红利计划
 - (void)requestForPlan {
     if (_availablePoint.integerValue == 0) {
         self.topView.totalMoney = @"";
-        self.topView.profitStr = @"预期收益：0.00元";
+        self.topView.profitStr = @"预期收益0.00元";
         _inputMoneyStr = @"";
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
@@ -232,24 +286,23 @@ static NSString *const investString = @"立即投资";
         self.topView.totalMoney = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
         _inputMoneyStr = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _availablePoint.floatValue*self.totalInterest.floatValue/100.0];
-        [self setUpArray];
-        _topView.profitStr = [NSString stringWithFormat:@"预期收益：%@元", _profitMoneyStr];
+        [self getBESTCouponWithMoney:_inputMoneyStr];
+        _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
     }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
-        [self setUpArray];
-        _topView.profitStr = [NSString stringWithFormat:@"预期收益：%@元", _profitMoneyStr];
+        [self getBESTCouponWithMoney:_inputMoneyStr];
+        _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
-        BOOL isMultipleOfMin = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
-        if (isMultipleOfMin) {
-            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-        } else {
+        BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
+        if (isFitToBuy) {
             [self chooseBuyTypeWithSting:_btnLabelText];
+        } else {
+            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         }
-       
     }
 }
 
@@ -268,11 +321,11 @@ static NSString *const investString = @"立即投资";
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
-        BOOL isMultipleOfMin = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);
-        if (isMultipleOfMin) {
-            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-        } else {
+        BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
+        if (isFitToBuy) {
             [self chooseBuyTypeWithSting:_btnLabelText];
+        } else {
+            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
         }
         
     }
@@ -287,7 +340,7 @@ static NSString *const investString = @"立即投资";
      _inputMoneyStr              输入的金额
      */
     BOOL isHasContainsNonzeroDecimals = (long long)([_inputMoneyStr doubleValue] * 100) % 100 != 0 ? true:false;//true:含非零小数
-    BOOL isMultipleOfMin = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);//true表示非（最低倍数）的整数倍
+    BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
     if (_inputMoneyStr.length <= 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     }else{
@@ -325,7 +378,7 @@ static NSString *const investString = @"立即投资";
                 _inputMoneyStr = _minRegisterAmount;
                 [self setUpArray];
                 [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
-            } else if (isMultipleOfMin) {
+            } else if (!isFitToBuy) {
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
             } else if (_availablePoint.floatValue - _inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
@@ -338,7 +391,7 @@ static NSString *const investString = @"立即投资";
 
 // 判断是什么投资类型（充值购买，余额购买、未绑卡）
 - (void)chooseBuyTypeWithSting:(NSString *)buyType {
-    if ([buyType isEqualToString:topupString]) {
+    if ([buyType containsString:@"充值"]) {
         [self fullAddtionFunc];
     } else if ([buyType isEqualToString:bankString]) {
         HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
@@ -352,12 +405,13 @@ static NSString *const investString = @"立即投资";
 
 - (void)fullAddtionFunc {
     kWeakSelf
-    double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue];
-    if (topupMoney < 1.00) {
-        [HxbHUDProgress showTextWithMessage:@"充值金额必须大于1元"];
-        return;
+    double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
+    if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"充值金额必须大于%d元", _viewModel.userInfoModel.userInfo.minChargeAmount]];
+        topupMoney = _viewModel.userInfoModel.userInfo.minChargeAmount;
     }
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+    NSLog(@"___%.2f", topupMoney);
     [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
         [weakSelf alertSmsCode];
     } andFailureBlock:^(NSError *error) {
@@ -392,7 +446,10 @@ static NSString *const investString = @"立即投资";
                     @"cashType": _cashType,
                     @"buyType": _buyType,
                     @"balanceAmount": _balanceMoneyStr,
-                    @"smsCode": pwd};
+                    @"smsCode": pwd,
+                    @"platform": @"IOS",
+                    @"couponId": _couponid
+                    };
             [weakSelf buyPlanWithDic:dic];
         } else if (weakSelf.type == HXB_Loan) {
             dic = @{@"amount": [NSString stringWithFormat:@"%.lf", _inputMoneyStr.doubleValue], // 强转成整数类型
@@ -441,7 +498,9 @@ static NSString *const investString = @"立即投资";
             dic = @{@"amount": _inputMoneyStr,
                     @"cashType": _cashType,
                     @"buyType": _buyType,
-                    @"tradPassword": pwd};
+                    @"tradPassword": pwd,
+                    @"couponId": _couponid
+                    };
             [weakSelf buyPlanWithDic:dic];
         } else if (weakSelf.type == HXB_Loan) {
             dic = @{@"amount": _inputMoneyStr,
@@ -518,6 +577,8 @@ static NSString *const investString = @"立即投资";
             case kHXBSMS_Code_Error:
                 return ;
             case kHXBCode_Enum_ProcessingField:
+                return ;
+            case 50000:
                 return ;
             case 412:
                 return ;
@@ -684,7 +745,6 @@ static NSString *const investString = @"立即投资";
 }
 
 - (void)changeBtnLabel {
-    NSLog(@"%@, %@", _inputMoneyStr, _balanceMoneyStr);
     if (_inputMoneyStr.floatValue > _balanceMoneyStr.floatValue) {
         if ([self.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
             self.bottomView.clickBtnStr = @"余额不足，需充值投资";
@@ -711,14 +771,25 @@ static NSString *const investString = @"立即投资";
         cell = [[HXBFin_creditorChange_TableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.hasBestCoupon = _hasBestCoupon;
+    if (indexPath.row == 0) {
+        if (_type == HXB_Creditor) {
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.isDiscountRow = NO;
+        } else {
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.isDiscountRow = YES;
+        }
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.isDiscountRow = NO;
+    }
     cell.titleStr = _titleArray[indexPath.row];
     cell.detailStr = _detailArray[indexPath.row];
-    if ([_titleArray[indexPath.row] isEqualToString:@"还需支付："]) {
-        cell.isAttributeShow = YES;
+    if ([_titleArray[indexPath.row] containsString:@"可用余额"]) {
         cell.isHeddenHine = YES;
     } else {
         cell.isHeddenHine = NO;
-        cell.isAttributeShow = NO;
         if (_titleArray.count == 1) {
             cell.isHeddenHine  = YES;
         }
@@ -726,13 +797,51 @@ static NSString *const investString = @"立即投资";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.row == 0) {
+        HXBChooseDiscountCouponViewController *chooseDiscountVC = [[HXBChooseDiscountCouponViewController alloc] init];
+        chooseDiscountVC.delegate = self;
+        chooseDiscountVC.planid = _loanId;
+        chooseDiscountVC.investMoney = _inputMoneyStr ? _inputMoneyStr : @"";
+        chooseDiscountVC.type = @"plan";
+        chooseDiscountVC.couponid = _couponid;
+        if (!_hasGetCoupon) {
+            [self.navigationController pushViewController:chooseDiscountVC animated:YES];
+        }
+    }
+}
+
+- (void)chooseDiscountCouponViewController:(HXBChooseDiscountCouponViewController *)chooseDiscountCouponViewController didSendModel:(HXBCouponModel *)model {
+    if (model) {
+        _discountMoney = model.valueActual.doubleValue;
+        double handleMoney = _inputMoneyStr.doubleValue - model.valueActual.doubleValue;
+        _discountTitle = [NSString stringWithFormat:@"-%@", [NSString hxb_getPerMilWithDouble:model.valueActual.doubleValue]];
+        _handleDetailTitle = [NSString stringWithFormat:@"%.2f", handleMoney];
+        _couponTitle = [NSString stringWithFormat:@"优惠券（使用%@）", model.summaryTitle];
+        _hasBestCoupon = YES;
+        _chooseCoupon = model;
+        _couponid = model.ID;
+    } else {
+        _discountMoney = 0.0;
+        _hasBestCoupon = NO;
+        _handleDetailTitle = [NSString stringWithFormat:@"%.2f", _inputMoneyStr.doubleValue];
+        _couponTitle = @"优惠券";
+        _discountTitle = @"请选择优惠券";
+        _couponid = @"不使用优惠券";
+    }
+    [self changeItemWithInvestMoney:_inputMoneyStr];
+    [self setUpArray];
+}
+
+
 - (void)setUpDate {
     if (_type == HXB_Plan) {
-        _topView.creditorMoney = [NSString stringWithFormat:@"本期计划加入上限：%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+        _topView.creditorMoney = [NSString stringWithFormat:@"本期计划加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
     } else if (_type == HXB_Loan) {
-        _topView.creditorMoney = [NSString stringWithFormat:@"标的剩余金额：%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+        _topView.creditorMoney = [NSString stringWithFormat:@"标的剩余金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
     } else {
-        _topView.creditorMoney = [NSString stringWithFormat:@"待转让金额：%@", [NSString hxb_getPerMilWithDouble:_availablePoint.doubleValue]];
+        _topView.creditorMoney = [NSString stringWithFormat:@"待转让金额%@", [NSString hxb_getPerMilWithDouble:_availablePoint.doubleValue]];
     }
     _topView.placeholderStr = _placeholderStr;
     
@@ -752,6 +861,73 @@ static NSString *const investString = @"立即投资";
     }];
 }
 
+// 匹配最优优惠券
+- (void)getBESTCouponWithMoney:(NSString *)money {
+    NSDictionary *dic_post = @{
+                               @"id": _loanId,
+                               @"amount": money,
+                               @"type": @"plan"
+                               };
+    NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
+    HXBFin_creditorChange_TableViewCell *cell = [self.hxbBaseVCScrollView cellForRowAtIndexPath:indexpath];
+    cell.isStartAnimation = YES;
+    _hasGetCoupon = YES;
+    self.bottomView.addBtnIsUseable = NO;
+    [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
+        cell.isStartAnimation = NO;
+        _hasGetCoupon = NO;
+        self.bottomView.addBtnIsUseable = YES;
+        _discountTitle = nil;
+        self.model = model;
+        if (model.hasCoupon && model.bestCoupon) { // 只有有优惠券hasCoupon都返回1，没有匹配到bestCoupon为空，所有有优惠券，且匹配到了，就抵扣或者满减
+            _discountMoney = model.bestCoupon.valueActual.doubleValue;
+            double handleMoney = money.doubleValue - model.bestCoupon.valueActual.doubleValue;
+            _discountTitle = [NSString stringWithFormat:@"-%@", [NSString hxb_getPerMilWithDouble:model.bestCoupon.valueActual.doubleValue]];
+            _handleDetailTitle = [NSString stringWithFormat:@"%.2f", handleMoney];
+            _couponTitle = [NSString stringWithFormat:@"优惠券（使用%@）", model.bestCoupon.summaryTitle];
+            _hasBestCoupon = YES;
+            _couponid = model.bestCoupon.ID;
+        } else {
+            _hasBestCoupon = NO;
+            _handleDetailTitle = money;
+            _discountTitle = @"请选择优惠券";
+            _couponTitle = @"优惠券";
+            _couponid = @" ";
+        }
+        [self setUpArray];
+        [self changeItemWithInvestMoney:money];
+    } andFailureBlock:^(NSError *error) {
+        _hasBestCoupon = NO;
+        _discountTitle = @"请选择优惠券";
+        [self setUpArray];
+        [self changeItemWithInvestMoney:money];
+    }];
+    
+}
+
+- (void)hasBestCouponRequest {
+    NSDictionary *dic_post = @{
+                               @"id": _loanId,
+                               @"amount": @"0",
+                               @"type": @"plan"
+                               };
+    [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
+        self.hxbBaseVCScrollView.hidden = NO;
+        _discountTitle = nil;
+        self.model = model;
+        _hasCoupon = model.hasCoupon;
+        if (model.hasCoupon) {
+            _discountTitle = @"请选择优惠券";
+        } else {
+            _discountTitle = @"暂无可用优惠券";
+        }
+        [self setUpArray];
+    } andFailureBlock:^(NSError *error) {
+        _discountTitle = @"暂无可用优惠券";
+    }];
+    
+}
+
 // 获取银行限额
 - (void)getBankCardLimit {
     [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
@@ -759,15 +935,15 @@ static NSString *const investString = @"立即投资";
         self.cardModel = model;
         if (_type == HXB_Plan) {
             if (self.cardModel.bankType) {
-                self.topView.height = kScrAdaptationH750(360);
+                self.topView.height = kScrAdaptationH750(370);
             } else {
-                self.topView.height = kScrAdaptationH750(290);
+                self.topView.height = kScrAdaptationH750(300);
             }
         } else {
             if (self.cardModel.bankType) {
-                self.topView.height = kScrAdaptationH750(290);
+                self.topView.height = kScrAdaptationH750(300);
             } else {
-                self.topView.height = kScrAdaptationH750(220);
+                self.topView.height = kScrAdaptationH750(230);
             }
         }
         _topView.cardStr = [NSString stringWithFormat:@"%@%@", self.cardModel.bankType, self.cardModel.quota];
@@ -780,16 +956,14 @@ static NSString *const investString = @"立即投资";
     if (!_profitMoneyStr) {
         _profitMoneyStr = @"";
     }
-    if (_inputMoneyStr.doubleValue > _balanceMoneyStr.doubleValue) {
-        self.titleArray = @[@"可用金额：", @"还需支付："];
-        self.detailArray = @[_viewModel.availablePoint, [NSString hxb_getPerMilWithDouble:(_inputMoneyStr.doubleValue - _balanceMoneyStr.doubleValue)]];
-        [self.hxbBaseVCScrollView reloadData];
+    if (_type == HXB_Plan || _type == HXB_Loan) {
+        self.titleArray = @[_couponTitle, @"支付金额", _balanceTitle];
+        self.detailArray = @[_discountTitle,  [NSString hxb_getPerMilWithDouble: _handleDetailTitle.doubleValue],  [NSString hxb_getPerMilWithDouble: _balanceMoneyStr.doubleValue]];
     } else {
-        self.titleArray = @[@"可用金额："];
-        self.detailArray = @[_viewModel.availablePoint];
-        [self.hxbBaseVCScrollView reloadData];
+        self.titleArray = @[@"应付金额", _balanceTitle];
+        self.detailArray = @[[NSString hxb_getPerMilWithDouble: _handleDetailTitle.doubleValue],  [NSString hxb_getPerMilWithDouble: _balanceMoneyStr.doubleValue]];
     }
-    [self changeBtnLabel];
+    [self.hxbBaseVCScrollView reloadData];
 }
 
 
@@ -808,16 +982,11 @@ static NSString *const investString = @"立即投资";
     return _detailArray;
 }
 
-//- (HXBAlertVC *)alertVC {
-//    if (!_alertVC) {
-//        _alertVC = [[HXBAlertVC alloc] init];
-//    }
-//    return _alertVC;
-//}
-
-
-- (void)dealloc {
-    
+- (HXBBestCouponModel *)model {
+    if (!_model) {
+        _model = [[HXBBestCouponModel alloc] init];
+    }
+    return _model;
 }
 
 - (void)didReceiveMemoryWarning {

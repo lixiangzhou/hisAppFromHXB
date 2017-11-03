@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UILabel *detailLabel;
 /** 横线 */
 @property (nonatomic, strong) UIView *lineView;
+/** 小菊花 */
+@property (nonatomic, strong) UIActivityIndicatorView *activityView;
 
 @end
 
@@ -32,46 +34,71 @@
     [self.contentView addSubview:self.titleLabel];
     [self.contentView addSubview:self.detailLabel];
     [self.contentView addSubview:self.lineView];
+    
+    _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _activityView.center = CGPointMake(kScreenWidth - kScrAdaptationW(60), kScrAdaptationH(25));
+    [_activityView startAnimating];
+    [self.contentView addSubview:_activityView];
+    
+    [self setupFrame];
+    
+}
+
+- (void)setupFrame {
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.bottom.equalTo(self);
         make.left.equalTo(@(kScrAdaptationW(15)));
         make.width.offset(kScrAdaptationW(200));
     }];
+    
     [_detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(_titleLabel);
         make.right.equalTo(@(kScrAdaptationW(-15)));
         make.width.offset(kScreenWidth - kScrAdaptationW(200));
         make.height.offset(kScrAdaptationH(50));
     }];
+    
     [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self);
         make.right.equalTo(self.mas_right);
         make.width.offset(kScreenWidth);
         make.height.offset(kHXBDivisionLineHeight);
     }];
+
 }
 
 - (void)setTitleStr:(NSString *)titleStr {
     _titleStr = titleStr;
     _titleLabel.text = titleStr;
+    if ([_titleStr containsString:@"优惠券"]) {
+        
+        NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:_titleStr];
+        [attributedStr addAttribute:NSFontAttributeName value:kHXBFont_PINGFANGSC_REGULAR(12) range:NSMakeRange(3, _titleStr.length - 3)];
+        _titleLabel.attributedText = attributedStr;
+        
+    } else if ([_titleStr containsString:@"可用余额"]) {
+        
+        NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:_titleStr];
+        [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(4, _titleStr.length - 4)];
+        [attributedStr addAttribute:NSFontAttributeName value:kHXBFont_PINGFANGSC_REGULAR(12) range:NSMakeRange(4, _titleStr.length - 4)];
+        _titleLabel.attributedText = attributedStr;
+    }
+}
+
+
+- (void)setIsStartAnimation:(BOOL)isStartAnimation {
+    _isStartAnimation = isStartAnimation;
+    _detailLabel.hidden = _isStartAnimation;
+    if (isStartAnimation) {
+        [_activityView startAnimating];
+    } else {
+        [_activityView stopAnimating];
+    }
 }
 
 - (void)setDetailStr:(NSString *)detailStr {
     _detailStr = detailStr;
-}
-
-- (void)setIsAttributeShow:(BOOL)isAttributeShow {
-    _isAttributeShow = isAttributeShow;
-    if (_isAttributeShow) {
-            NSMutableAttributedString *attributedStr = [[NSMutableAttributedString alloc] initWithString:_detailStr];
-        if (_detailStr.length > 1) {
-            [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(0, _detailStr.length - 1)];
-        }
-            _detailLabel.attributedText = attributedStr;
-    } else {
-        _detailLabel.text = _detailStr;
-        
-    }
+    _detailLabel.text = _detailStr;
 }
 
 - (void)setIsHeddenHine:(BOOL)isHeddenHine {
@@ -79,6 +106,33 @@
     _lineView.hidden = isHeddenHine;
 }
 
+- (void)setIsDiscountRow:(BOOL)isDiscountRow {
+    _isDiscountRow  = isDiscountRow;
+    if (_isDiscountRow) {
+        if (_hasBestCoupon) {
+            _detailLabel.textColor = COR6;
+        } else {
+            _detailLabel.textColor = COR10;
+        }
+        
+        [_detailLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(_titleLabel);
+            make.right.equalTo(@(kScrAdaptationW(0)));
+            make.width.offset(kScreenWidth - kScrAdaptationW(200));
+            make.height.offset(kScrAdaptationH(50));
+        }];
+        
+    } else {
+        
+        _detailLabel.textColor =COR6;
+        [_detailLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(_titleLabel);
+            make.right.equalTo(@(kScrAdaptationW(-15)));
+            make.width.offset(kScreenWidth - kScrAdaptationW(200));
+            make.height.offset(kScrAdaptationH(50));
+        }];
+    }
+}
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];

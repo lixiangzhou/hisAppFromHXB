@@ -76,10 +76,10 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 
 #pragma mark - 购买
 /// 计划 购买
-- (void)planBuyWithPlanID:(NSString *)planID
-                andAmount:(NSString *)amount
-          andSuccessBlock:(void (^)(HXBFinModel_Buy_Plan *model,HXBFinModel_BuyResoult_PlanModel *resultModel))successDateBlock
-          andFailureBlock:(void (^)(NSError *))failureBlock;
+//- (void)planBuyWithPlanID:(NSString *)planID
+//                andAmount:(NSString *)amount
+//          andSuccessBlock:(void (^)(HXBFinModel_Buy_Plan *model,HXBFinModel_BuyResoult_PlanModel *resultModel))successDateBlock
+//          andFailureBlock:(void (^)(NSError *))failureBlock;
 
 /// 计划 购买 结果返回
 - (void)plan_buyReslutWithPlanID: (NSString *)planID
