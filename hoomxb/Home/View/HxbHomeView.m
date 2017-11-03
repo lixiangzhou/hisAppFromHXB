@@ -6,6 +6,9 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
+#define kHXBBottomSpacing 10
+#define kHXbdefaultSpacing 0
+
 #import "HxbHomeView.h"
 #import "HXBHomePageHeadView.h"
 #import "HXBHomePageProductCell.h"
@@ -126,11 +129,11 @@
     if (homeBaseModel.homeTitle.baseTitle.length) {
         _footerLabel.text = [NSString stringWithFormat:@"- %@ -",homeBaseModel.homeTitle.baseTitle];
         self.mainTableView.tableFooterView = self.footerView;
-        contentInset.bottom = 10;
+        contentInset.bottom = kHXBBottomSpacing;
         self.mainTableView.contentInset = contentInset;
     } else {
         self.mainTableView.tableFooterView = nil;
-        contentInset.bottom = 0;
+        contentInset.bottom = kHXbdefaultSpacing;
         self.mainTableView.contentInset = contentInset;
     }
     

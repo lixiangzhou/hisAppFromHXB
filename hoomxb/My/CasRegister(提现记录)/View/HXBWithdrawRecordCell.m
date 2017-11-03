@@ -93,7 +93,7 @@
         make.left.equalTo(self.cashAmountLabel.mas_left);
         make.right.equalTo(self.cashDrawStatusLabel.mas_right);
         make.bottom.equalTo(self.contentView);
-        make.height.offset(kHXBPartingLineHeight);
+        make.height.offset(kHXBDivisionLineHeight);
     }];
 }
 

@@ -65,7 +65,7 @@
         make.left.equalTo(self.textField.mas_left);
         make.right.equalTo(self.textField.mas_right);
         make.bottom.equalTo(self.codeBtn.mas_bottom);
-        make.height.offset(kHXBPartingLineHeight);
+        make.height.offset(kHXBDivisionLineHeight);
     }];
 }
 

@@ -34,7 +34,7 @@
 {
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
-        make.height.offset(kHXBPartingLineHeight);
+        make.height.offset(kHXBDivisionLineHeight);
     }];
 }
 

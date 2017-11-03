@@ -77,8 +77,6 @@ UITableViewDelegate,UITableViewDataSource
 
 #pragma mark - tableViewDatasource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    NSLog(@"🌶，测试数据");
-//    return 100;
     return 1;
 }
 

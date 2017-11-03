@@ -6,6 +6,12 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
+#define kHXBUnitConversionToSeconds(Millisecond) (Millisecond/1000.0)
+#define kHXBSecond 1
+#define kHXBMinute (60 * kHXBSecond)
+#define kHXBHour    (60 * kHXBSecond)
+
+
 #import "HxbHomePageModel_DataList.h"
 
 @implementation HxbHomePageModel_DataList
@@ -34,8 +40,8 @@
  */
 - (NSString *) countDownLastStr {
     if (!_countDownLastStr) {
-        _countDownLastStr = @(self.diffTime.doubleValue / 1000.0).description;
-        if (_countDownLastStr.doubleValue <= 3600 && _countDownLastStr.doubleValue >= 0) {
+        _countDownLastStr = @(kHXBUnitConversionToSeconds(self.diffTime.doubleValue)).description;
+        if (_countDownLastStr.doubleValue <= kHXBHour && _countDownLastStr.doubleValue >= 0) {
             NSLog(@"%@倒计时",_countDownLastStr);
             //会有倒计时
         }else if (self.isremainTime) {
@@ -47,7 +53,8 @@
 }
 
 - (BOOL)isCountDown {
-    if ((self.diffTime.doubleValue / 1000.0) <= 3600 && self.diffTime.doubleValue > 0) {
+    
+    if ((kHXBUnitConversionToSeconds(self.diffTime.doubleValue)) <= kHXBHour && self.diffTime.doubleValue > 0) {
         _isCountDown = YES;
     } else {
         _isCountDown = NO;
@@ -57,7 +64,8 @@
 
 - (BOOL)isremainTime
 {
-    if ((self.diffTime.doubleValue / 1000.0) > 3600) {
+    
+    if ((kHXBUnitConversionToSeconds(self.diffTime.doubleValue)) > kHXBHour) {
         return YES;
     }
     return NO;
@@ -65,7 +73,7 @@
 
 - (NSString *)cellBtnTitle
 {
-    if (self.diffTime.intValue < 0) {
+    if (self.diffTime.doubleValue < 0) {
         _cellBtnTitle = [self judgmentStateValue:self.unifyStatus];;
     }else if (self.isremainTime)
     {

@@ -200,7 +200,7 @@
     
     [self.lineImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.contentView);
-        make.height.offset(kHXBPartingLineHeight);
+        make.height.offset(kHXBDivisionLineHeight);
         make.top.equalTo(self.expectedYearRateLable_Const.mas_bottom).offset(kScrAdaptationH750(30));
     }];
     
@@ -396,7 +396,7 @@
 
 - (UIImageView *)lineImageView {
     if (!_lineImageView) {
-        _lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kHXBPartingLineHeight)];
+        _lineImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kHXBDivisionLineHeight)];
         _lineImageView.image = [UIImageView imageWithLineWithImageView:_lineImageView];
         _lineImageView.hidden = YES;
     }

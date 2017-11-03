@@ -154,7 +154,7 @@
         make.left.equalTo(self.contentView).offset(kScrAdaptationW750(255));
         make.centerY.equalTo(self.investmentPeriodTitleLabel);
         make.height.offset(kScrAdaptationH750(24));
-        make.width.offset(kHXBPartingLineHeight);
+        make.width.offset(kHXBDivisionLineHeight);
         
     }];
     
@@ -162,7 +162,7 @@
         make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-255));
         make.centerY.equalTo(self.investmentPeriodTitleLabel);
         make.height.offset(kScrAdaptationH750(24));
-        make.width.offset(kHXBPartingLineHeight);
+        make.width.offset(kHXBDivisionLineHeight);
     }];
     
     [self.purchaseButton mas_makeConstraints:^(MASConstraintMaker *make) {

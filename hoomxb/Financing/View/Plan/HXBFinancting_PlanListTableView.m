@@ -6,6 +6,17 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
+
+
+#define kPlanListCellHasCouponHeight         kScrAdaptationH750(279)
+#define kPlanListCellNoHasCouponHeight       kScrAdaptationH750(219)
+#define kPlanListCellSpacing                 kScrAdaptationH750(20)
+#define kNodataViewTopSpacing                kScrAdaptationH(100)
+#define kNodataViewHeight                    kScrAdaptationH(184)
+#define kNodataViewImageName                 @"Fin_NotData"
+#define kNoDataMassage                       @"暂无数据"
+
+
 #import "HXBFinancting_PlanListTableView.h"
 #import "HXBFinancting_PlanListTableViewCell.h"
 #import "HXBFinHomePageViewModel_PlanList.h"//viewmodel
@@ -70,6 +81,7 @@ static NSString *CELLID = @"CELLID";
     cell.finPlanListViewModel = self.planListViewModelArray[indexPath.section];
     cell.lockPeriodLabel_ConstStr = self.lockPeriodLabel_ConstStr;
     cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;
+    
     return cell;
 }
 
@@ -84,9 +96,9 @@ static NSString *CELLID = @"CELLID";
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.planListViewModelArray[indexPath.section].planListModel.hasCoupon) {
-        return kScrAdaptationH750(279);
+        return kPlanListCellHasCouponHeight;
     } else {
-        return kScrAdaptationH750(219);
+        return kPlanListCellNoHasCouponHeight;
     }
 }
 
@@ -95,7 +107,7 @@ static NSString *CELLID = @"CELLID";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return kScrAdaptationH750(20);
+    return kPlanListCellSpacing;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -109,12 +121,11 @@ static NSString *CELLID = @"CELLID";
     if (!_nodataView) {
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
         [self addSubview:_nodataView];
-        _nodataView.imageName = @"Fin_NotData";
-        _nodataView.noDataMassage = @"暂无数据";
-//        _nodataView.downPULLMassage = @"下拉进行刷新";
+        _nodataView.imageName = kNodataViewImageName;
+        _nodataView.noDataMassage = kNoDataMassage;
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).offset(kScrAdaptationH(100));
-            make.height.width.equalTo(@(kScrAdaptationH(184)));
+            make.top.equalTo(self).offset(kNodataViewTopSpacing);
+            make.height.width.offset(kNodataViewHeight);
             make.centerX.equalTo(self);
         }];
     }
