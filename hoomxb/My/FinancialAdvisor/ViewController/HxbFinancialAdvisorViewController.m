@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isReadColorWithNavigationBar = YES;
+    self.isRedColorWithNavigationBar = YES;
     self.title = @"我的理财顾问";
     [self.view addSubview:self.headerView];
     [self.view addSubview:self.businessCardImageView];

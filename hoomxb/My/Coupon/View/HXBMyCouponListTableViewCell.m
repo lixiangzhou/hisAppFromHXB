@@ -187,16 +187,15 @@
         make.height.equalTo(@kScrAdaptationH750(22));
     }];
     [self.leftLineImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-        //ake(kScrAdaptationW750(212), kScrAdaptationH750(0), kScrAdaptationW750(2), kScrAdaptationH750(14))];
         make.left.equalTo(@kScrAdaptationW750(212));
         make.width.equalTo(@kScrAdaptationW750(2));
         make.top.equalTo(@kScrAdaptationH750(14));
         make.height.equalTo(@kScrAdaptationH750(212));
     }];
     [self.midBgImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@kScrAdaptationW750(214));
+        make.left.equalTo(@kScrAdaptationW750(212));
         make.top.equalTo(@kScrAdaptationH750(0));
-        make.width.equalTo(@kScrAdaptationW750(390));
+        make.width.equalTo(@kScrAdaptationW750(392));
         make.height.equalTo(@kScrAdaptationH750(240));
     }];
     [self.couponTypeLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -230,7 +229,7 @@
         make.height.equalTo(@kScrAdaptationH750(240));
     }];
     [self.rightImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@kScrAdaptationW750(606));
+        make.left.equalTo(@kScrAdaptationW750(604));
         make.width.equalTo(@kScrAdaptationW750(84));
         make.top.equalTo(@kScrAdaptationH750(0));
         make.height.equalTo(@kScrAdaptationH750(240));
@@ -246,10 +245,10 @@
         _mainView.backgroundColor = RGBA(244, 243, 248, 1);
         _mainView.userInteractionEnabled = YES;
         [_mainView addSubview:self.leftImgV];
-        [_mainView addSubview:self.leftLineImgV];
         [_mainView addSubview:self.midBgImgV];
-        [_mainView addSubview:self.rightLineImgV];
         [_mainView addSubview:self.rightImgV];
+        [_mainView addSubview:self.leftLineImgV];
+        [_mainView addSubview:self.rightLineImgV];
     }
     return _mainView;
 }
@@ -281,7 +280,8 @@
 - (UIImageView *)rightLineImgV{
     if (!_rightLineImgV) {
         _rightLineImgV = [[UIImageView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(606), kScrAdaptationH750(0), kScrAdaptationW750(2), kScrAdaptationH750(240))];
-        _rightLineImgV.image = [UIImage imageNamed:@"my_couponList_rightline"];
+        _rightLineImgV.image = [UIImageView imageWithVerticalLineWithImageView:_rightLineImgV];
+        _rightLineImgV.backgroundColor = [UIColor whiteColor];
     }
     return _rightLineImgV;
 }
@@ -340,7 +340,7 @@
 - (UIImageView *)leftLineImgV{
     if (!_leftLineImgV) {
         _leftLineImgV = [[UIImageView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(212), kScrAdaptationH750(14), kScrAdaptationW750(2), kScrAdaptationH750(212))];
-        _leftLineImgV.image = [UIImage imageNamed:@"my_couponList_leftline"];
+        _leftLineImgV.image = [UIImageView imageWithVerticalLineWithImageView:_leftLineImgV];
     }
     return _leftLineImgV;
 }

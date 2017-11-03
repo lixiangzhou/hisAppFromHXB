@@ -44,6 +44,7 @@
 #define kHXBUser_riskModifyScoreURL @"/user/riskModifyScore"///风险评测
 #define kHXBUser_financialAdvisorURL @"/account/advisor" //获取理财顾问信息
 #define kHXBUser_AccountInfoURL @"/account"///账户内数据总览
+#define kHXBUser_QuestionsURL           @"/questions"///常见问题
 
 //MARK: ======================= 账户内 =======================
 #define kHXBMY_CapitalRecordURL @"/account/tradlist"///交易记录

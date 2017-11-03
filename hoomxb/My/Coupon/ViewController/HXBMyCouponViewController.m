@@ -26,7 +26,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isReadColorWithNavigationBar = YES;
+    self.isRedColorWithNavigationBar = YES;
     
     self.title = @"我的优惠券";
     [self setUI];

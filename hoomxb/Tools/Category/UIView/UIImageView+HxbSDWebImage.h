@@ -51,5 +51,8 @@
  虚线分割线
  */
 + (UIImage *)imageWithLineWithImageView:(UIImageView *)imageView;
-
+/**
+ 竖线分割线
+ */
++ (UIImage *)imageWithVerticalLineWithImageView:(UIImageView *)imageView;
 @end
