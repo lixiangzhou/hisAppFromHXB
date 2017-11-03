@@ -34,6 +34,32 @@
     [self.contractWebVeiw loadURL:self.URL];
 }
 
+/**
+ 是否显示导航栏右边的按钮
+ */
+- (void)setIsShowRightBtn:(BOOL)isShowRightBtn
+{
+    _isShowRightBtn = isShowRightBtn;
+    if (isShowRightBtn) {
+        [self setupRightBarBtn];
+    } else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+}
+
+- (void)setupRightBarBtn {
+    UIButton *callBtn = [[UIButton alloc] init];
+    [callBtn setImage:[UIImage imageNamed:@"phone"] forState:(UIControlStateNormal)];
+    callBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+    [callBtn addTarget:self action:@selector(call) forControlEvents:(UIControlEventTouchUpInside)];
+    UIBarButtonItem *callBtnItem = [[UIBarButtonItem alloc] initWithCustomView:callBtn];
+    self.navigationItem.rightBarButtonItem = callBtnItem;
+}
+
+- (void)call {
+    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"红小宝客服电话" Message:kServiceMobile];
+}
+
 - (void)setUP {
     self.contractWebVeiw = [[HXBFinPlanContract_ContractWebView alloc]init];
     [self.view addSubview:self.contractWebVeiw];

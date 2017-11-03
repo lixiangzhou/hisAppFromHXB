@@ -41,7 +41,7 @@
     [super viewDidLoad];
     self.title = @"确认转让债权";
     self.view.backgroundColor = BACKGROUNDCOLOR;
-    self.isReadColorWithNavigationBar = YES;
+    self.isRedColorWithNavigationBar = YES;
     [self.view addSubview:self.topView];
     [self.view addSubview:self.bottomView];
     [self.view addSubview:self.agreementView];

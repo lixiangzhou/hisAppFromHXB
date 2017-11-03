@@ -665,8 +665,10 @@ static NSString *const hostH5 = @"hostH5";
 - (NSString *)h5host
 {
     NSString *h5Host = self.keychain[hostH5];
-//    NSString *h5Host = @"http://192.168.1.144:3000";
-    return h5Host?:@"https://m.hoomxb.com";
+    if (!h5Host.length) {
+        h5Host = @"https://m.hoomxb.com";
+    }
+    return h5Host;
 }
 
 - (void)setH5host:(NSString *)h5host

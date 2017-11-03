@@ -112,7 +112,7 @@
 //    self.bankCardModel.amount doubleValue
     
     self.withdrawalsNumberLabel.text = [NSString stringWithFormat:@"%@",[NSString hxb_getPerMilWithDouble:[self.bankCardModel.amount doubleValue]]];
-    self.withdrawalsTimeLabel.text = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.bankCardModel.arrivalTime andDateFormat:@"yyyy-MM-dd"];
+    self.withdrawalsTimeLabel.text = self.bankCardModel.bankArriveTimeText;
 }
 - (void)backBttonClick:(UIButton *)sender{
     if (self.completeBlock) {

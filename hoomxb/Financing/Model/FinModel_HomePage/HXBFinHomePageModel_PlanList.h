@@ -89,9 +89,25 @@
 //MARK: -====================== 未知字段 ============================
 ///财务状况
 @property (nonatomic,copy) NSString *financeStatus;
+//提示文案右边的提示文案
 @property (nonatomic,copy) NSString *tag;//": "第11个",
 //": "2017-05-09 15:40:58"
 
-///String	倒计时时间戳
+//MARK: -====================== 新增字段 ============================
+/**
+ 是否有可用抵扣券
+ */
+@property (nonatomic, assign) BOOL hasDiscountCoupon;
+/**
+ 是否有可用满减券
+ */
+@property (nonatomic, assign) BOOL hasMoneyOffCoupon;
+
+//MARK: -====================== 辅助字段 ============================
+/**
+ 是否有优惠券
+ */
+@property (nonatomic, assign) BOOL hasCoupon;
+
 @end
 

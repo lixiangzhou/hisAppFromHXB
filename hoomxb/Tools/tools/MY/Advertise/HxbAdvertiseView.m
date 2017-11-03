@@ -42,22 +42,22 @@ static int const showtime = 3;
         _adView.userInteractionEnabled = YES;
         _adView.contentMode = UIViewContentModeScaleAspectFill;
         _adView.clipsToBounds = YES;
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToAd)];
-        [_adView addGestureRecognizer:tap];
-        
-        // 2.跳过按钮
-        CGFloat btnW = 60;
-        CGFloat btnH = 30;
-        _countBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - btnW - 24, btnH, btnW, btnH)];
-        [_countBtn addTarget:self action:@selector(clickSkipButton) forControlEvents:UIControlEventTouchUpInside];
-        [_countBtn setTitle:[NSString stringWithFormat:@"跳过%d", showtime] forState:UIControlStateNormal];
-        _countBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_countBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _countBtn.backgroundColor = [UIColor colorWithRed:38 /255.0 green:38 /255.0 blue:38 /255.0 alpha:0.6];
-        _countBtn.layer.cornerRadius = 4;
-        
         [self addSubview:_adView];
-        [self addSubview:_countBtn];
+        //打开闪屏页面点击方法
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToAd)];
+//        [_adView addGestureRecognizer:tap];
+        
+        // 2.跳过按钮（打开下面注释就能展示跳过按钮）
+//        CGFloat btnW = 60;
+//        CGFloat btnH = 30;
+//        _countBtn = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - btnW - 24, btnH, btnW, btnH)];
+//        [_countBtn addTarget:self action:@selector(clickSkipButton) forControlEvents:UIControlEventTouchUpInside];
+//        [_countBtn setTitle:[NSString stringWithFormat:@"跳过%d", showtime] forState:UIControlStateNormal];
+//        _countBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+//        [_countBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        _countBtn.backgroundColor = [UIColor colorWithRed:38 /255.0 green:38 /255.0 blue:38 /255.0 alpha:0.6];
+//        _countBtn.layer.cornerRadius = 4;
+//        [self addSubview:_countBtn];
         
     }
     return self;

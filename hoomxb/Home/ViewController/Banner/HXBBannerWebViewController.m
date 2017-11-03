@@ -141,7 +141,7 @@
     
     // 判断请求头是否已包含，如果不判断该字段会导致webview加载时死循环
     
-    if (requestHeaders[@"X-Hxb-Auth-Token"] && requestHeaders[@"User-Agent"]) {
+    if (requestHeaders[@"X-Hxb-Auth-Token"] && requestHeaders[X_Hxb_User_Agent]) {
         
         return YES;
         
@@ -152,7 +152,7 @@
 //        NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVision,version];
 //        NSLog(@"%@",[KeyChain token]);
 //        [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
-//        [mutableRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+//        [mutableRequest setValue:userAgent forHTTPHeaderField:X_Hxb_User_Agent];
 //
 //        request = [mutableRequest copy];
 //
@@ -189,7 +189,7 @@
         NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVersion,version];
         NSLog(@"%@",[KeyChain token]);
         [urlRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
-        [urlRequest setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+        [urlRequest setValue:userAgent forHTTPHeaderField:X_Hxb_User_Agent];
         [_webView loadRequest:urlRequest];
         [HxbHUDProgress showLoadDataHUD:_webView];
     }

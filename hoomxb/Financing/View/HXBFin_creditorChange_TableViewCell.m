@@ -47,7 +47,7 @@
         make.bottom.equalTo(self);
         make.right.equalTo(self.mas_right);
         make.width.offset(kScreenWidth);
-        make.height.offset(kScrAdaptationH(0.5));
+        make.height.offset(kHXBDivisionLineHeight);
     }];
 }
 

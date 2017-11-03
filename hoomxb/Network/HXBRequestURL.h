@@ -14,7 +14,8 @@
 //MARK: ======================= 所有H5 界面 =======================
 
 #define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",[KeyChain h5host]]//风险评测
-
+//MARK: ======================= 闪屏接口 界面 =======================
+#define kHXBSplash            @"/splash"///闪屏接口
 //MARK: ======================= 理财资产 界面 =======================
 //列表
 //红利计划列表
@@ -41,6 +42,7 @@
 #define kHXBUser_CheckExistMobileURL    @"/checkExistMobile"///忘记密码校验手机号
 #define kHXBUser_realnameURL            @"/user/realname"///实名认证
 #define kHXBUser_riskModifyScoreURL     @"/user/riskModifyScore"///风险评测
+#define kHXBUser_QuestionsURL           @"/questions"///常见问题
 
 //MARK: ======================= 账户内 =======================
 #define kHXBMY_CapitalRecordURL         @"/account/tradlist"///交易记录
@@ -78,7 +80,7 @@
 #define kHXBSetWithdrawals_withdrawURL   @"/account/withdraw"//提现
 #define kHXBSetWithdrawals_banklistURL   @"/banklist"//提现
 #define kHXBSetWithdrawals_withdrawArriveTimeURL   @"/account/withdraw/arriveTime"//到账时间
-
+#define kHXBSetWithdrawals_recordtURL    @"/account/withdraw/record"//提现记录
 
 //MARK: ======================= 购买 ==========================
 #define kHXBFin_Plan_ConfirmBuyReslutURL(planID) [NSString stringWithFormat:@"/plan/%@/result",(planID)]//确认购买
@@ -92,6 +94,7 @@
 //MARK: ======================= 存管 ==========================
 #define kHXBOpenDepositAccount_Escrow @"/user/escrow" //用户开通存管账户
 #define kHXBUserInfo_BankCard @"/account/user/card" //用户获取绑定银行卡信息
+#define kHXBWithdraw @"/account/withdraw" //提现页面
 #define kHXBAccount_quickpay_smscode @"/account/smscode/" //代扣充值获取手机验证码
 #define kHXBAccount_quickpay @"/account/quickpay" //代扣充值接口
 #define kHXBAccount_Bindcard @"/account/bindcard" //绑卡

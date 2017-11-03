@@ -143,7 +143,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
             }];
         }else
         {
-            [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist, NSString *message) {
+            [HXBSignUPAndLoginRequest checkMobileRequestHUDWithMobile:mobile andSuccessBlock:^(BOOL isExist, NSString *message) {
                 if (!weakSelf.isCheckCaptchaSucceed && isExist) {
                     [weakSelf presentViewController:self.checkCaptchVC animated:true completion:nil];
                     return;

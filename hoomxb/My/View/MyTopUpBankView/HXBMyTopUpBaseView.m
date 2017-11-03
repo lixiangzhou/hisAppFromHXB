@@ -47,6 +47,7 @@
 
 - (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel
 {
+    _viewModel = viewModel;
     self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@", [NSString hxb_getPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue]];
     if (_amountTextField.text.length > 0) {
         _nextButton.backgroundColor = COR29;
@@ -122,8 +123,8 @@
     [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"红小宝客服电话" Message: kServiceMobile];
 }
 - (void)nextButtonClick:(UIButton *)sender{
-    if ([_amountTextField.text doubleValue] < 1) {
-        [HxbHUDProgress showMessageCenter:@"金额不能小于1" inView:self];
+    if ([_amountTextField.text doubleValue] < self.viewModel.userInfoModel.userInfo.minChargeAmount) {
+        [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"充值金额不能小于%d",self.viewModel.userInfoModel.userInfo.minChargeAmount] inView:self];
         return;
     }
     if (self.rechargeBlock) {

@@ -67,6 +67,10 @@
     _messageLabel.attributedText = str;
 }
 
+- (void)setAttributedMessageCount:(NSAttributedString *)attributedMessageCount {
+    _messageLabel.attributedText = attributedMessageCount;
+}
+
 - (UIImageView *)messageImage {
     if (!_messageImage) {
         _messageImage = [[UIImageView alloc] init];

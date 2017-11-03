@@ -13,6 +13,7 @@
 #import "HXBVersionUpdateModel.h"//版本更新的model
 #import "HXBAgreementView.h"
 #import "HXBBottomLineTableViewCell.h"
+#import "HXBFinPlanContract_contraceWebViewVC.h"
 @interface HxbMyAboutMeViewController ()
 <
 UITableViewDelegate,UITableViewDataSource
@@ -73,7 +74,11 @@ UITableViewDelegate,UITableViewDataSource
             break;
         case 2:
         {
-            
+            //跳转常见问题
+            HXBFinPlanContract_contraceWebViewVC *planWebViewController = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
+            planWebViewController.URL = kHXBUser_QuestionsURL;
+            planWebViewController.isShowRightBtn = YES;
+            [self.navigationController pushViewController:planWebViewController animated:true];
         }
             break;
         case 3:
@@ -125,10 +130,10 @@ UITableViewDelegate,UITableViewDataSource
             cell.textLabel.text = @"版本";
             NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"v%@",version];
-            cell.hiddenLine = YES;
         }else if (indexPath.row == 2){
             cell.textLabel.text = @"常见问题";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.hiddenLine = YES;
         }else{
             cell.textLabel.text = @"意见反馈";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -158,7 +163,7 @@ UITableViewDelegate,UITableViewDataSource
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  2;
+    return  3;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

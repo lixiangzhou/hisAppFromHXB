@@ -35,8 +35,9 @@
 //#define BASEURL                                       @"http://192.168.1.31:3100"//后台、
 //#define BASEURL                                       @"http://192.168.1.35:4100"//后台、
 //#define BASEURL                                       @"http://192.168.1.27:5100"//后台、
-#define BASEURL                                       @"http://192.168.1.28:3100"//后台、
-
+//#define BASEURL                                       @"http://192.168.1.28:4100"//后台、
+#define BASEURL                                       @"http://192.168.1.26:3100"//后台、
+//#define BASEURL                                       @"http://192.168.1.243:3100"//杨老板
 
 //#define kHXBH5_BaseURL                                @"http://192.168.1.21:3300"//后台 测试 （协议测试）
 //#define kHXBH5_BaseURL                                @"http://192.168.1.235:3000"//欧朋 测试 （协议测试）
