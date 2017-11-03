@@ -11,12 +11,12 @@
 #import "HXBBestCouponModel.h"
 @interface HXBChooseCouponViewModel : NSObject
 // 选择优惠券列表
-+ (void)chooseCouponWithparams: (NSDictionary *)params
++ (void)requestChooseCouponWithParams: (NSDictionary *)params
                    andSuccessBlock: (void(^)(HXBChooseCouponModel *model))successDateBlock
                    andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 // 购买匹配最优优惠券
-+ (void)BestCouponWithparams: (NSDictionary *)params
++ (void)requestBestCouponWithParams: (NSDictionary *)params
                andSuccessBlock: (void(^)(HXBBestCouponModel *model))successDateBlock
                andFailureBlock: (void(^)(NSError *error))failureBlock;
 @end

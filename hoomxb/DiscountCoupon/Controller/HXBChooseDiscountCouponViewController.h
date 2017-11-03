@@ -7,11 +7,13 @@
 //
 
 #import "HXBBaseViewController.h"
+
 @class HXBCouponModel;
+@class HXBChooseDiscountCouponViewController;
 
-@protocol HXBChooseDiscountCouponViewControllerDelegate <NSObject> // 代理传值方法
+@protocol HXBChooseDiscountCouponViewControllerDelegate <NSObject>
 
-- (void)sendModel:(HXBCouponModel *)model;
+- (void)chooseDiscountCouponViewController:(HXBChooseDiscountCouponViewController *)chooseDiscountCouponViewController didSendModel:(HXBCouponModel *)model;
 
 @end
 

@@ -15,7 +15,6 @@
 		288BAA041FAC593B009DF8AB /* HXBBestCouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9F61FAC593B009DF8AB /* HXBBestCouponModel.m */; };
 		288BAA051FAC593B009DF8AB /* HXBChooseCouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9F81FAC593B009DF8AB /* HXBChooseCouponModel.m */; };
 		288BAA061FAC593B009DF8AB /* HXBCouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9FA1FAC593B009DF8AB /* HXBCouponModel.m */; };
-		288BAA071FAC593B009DF8AB /* HXBChooseDiscountTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9FD1FAC593B009DF8AB /* HXBChooseDiscountTableView.m */; };
 		288BAA081FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9FF1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m */; };
 		288BAA091FAC593B009DF8AB /* HXBChooseCouponViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BAA021FAC593B009DF8AB /* HXBChooseCouponViewModel.m */; };
 		28B5D0241F711E9D00E2F486 /* HXBFin_Buy_ViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B5D0231F711E9D00E2F486 /* HXBFin_Buy_ViewModel.m */; };
@@ -514,8 +513,6 @@
 		288BA9F81FAC593B009DF8AB /* HXBChooseCouponModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBChooseCouponModel.m; sourceTree = "<group>"; };
 		288BA9F91FAC593B009DF8AB /* HXBCouponModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCouponModel.h; sourceTree = "<group>"; };
 		288BA9FA1FAC593B009DF8AB /* HXBCouponModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCouponModel.m; sourceTree = "<group>"; };
-		288BA9FC1FAC593B009DF8AB /* HXBChooseDiscountTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBChooseDiscountTableView.h; sourceTree = "<group>"; };
-		288BA9FD1FAC593B009DF8AB /* HXBChooseDiscountTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBChooseDiscountTableView.m; sourceTree = "<group>"; };
 		288BA9FE1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBChooseDiscountTableViewCell.h; sourceTree = "<group>"; };
 		288BA9FF1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBChooseDiscountTableViewCell.m; sourceTree = "<group>"; };
 		288BAA011FAC593B009DF8AB /* HXBChooseCouponViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBChooseCouponViewModel.h; sourceTree = "<group>"; };
@@ -1461,8 +1458,6 @@
 		288BA9FB1FAC593B009DF8AB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				288BA9FC1FAC593B009DF8AB /* HXBChooseDiscountTableView.h */,
-				288BA9FD1FAC593B009DF8AB /* HXBChooseDiscountTableView.m */,
 				288BA9FE1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.h */,
 				288BA9FF1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m */,
 			);
@@ -4720,7 +4715,6 @@
 				E163143E1EC076B20090567E /* HXBFinHomePageModel_LoanList.m in Sources */,
 				E133DD381EEEC14C009466DE /* BaseModel.m in Sources */,
 				E133DCD81EEE3597009466DE /* HxbPickerBankSubBranch.m in Sources */,
-				288BAA071FAC593B009DF8AB /* HXBChooseDiscountTableView.m in Sources */,
 				4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */,
 				E163144C1EC0937C0090567E /* HXBFin_DetailsView_PlanDetailsView.m in Sources */,
 				4E99824D1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m in Sources */,

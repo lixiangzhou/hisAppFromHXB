@@ -10,7 +10,7 @@
 
 @implementation HXBChooseCouponViewModel
 
-+ (void)chooseCouponWithparams: (NSDictionary *)params
++ (void)requestChooseCouponWithParams: (NSDictionary *)params
                andSuccessBlock: (void(^)(HXBChooseCouponModel *model))successDateBlock
                andFailureBlock: (void(^)(NSError *error))failureBlock {
     NYBaseRequest *accountAsseAPI = [[NYBaseRequest alloc]init];
@@ -33,7 +33,7 @@
 }
 
 // 购买匹配最优优惠券
-+ (void)BestCouponWithparams: (NSDictionary *)params
++ (void)requestBestCouponWithParams: (NSDictionary *)params
              andSuccessBlock: (void(^)(HXBBestCouponModel *model))successDateBlock
              andFailureBlock: (void(^)(NSError *error))failureBlock {
     NYBaseRequest *accountAsseAPI = [[NYBaseRequest alloc]init];

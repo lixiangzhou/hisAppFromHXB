@@ -7,7 +7,6 @@
 //
 
 #import "HXBChooseDiscountCouponViewController.h"
-#import "HXBChooseDiscountTableView.h"
 #import "HXBChooseDiscountTableViewCell.h"
 #import "HXBChooseCouponViewModel.h"
 #import "HXBMy_Withdraw_notifitionView.h"
@@ -15,15 +14,13 @@
 
 @interface HXBChooseDiscountCouponViewController ()<UITableViewDelegate, UITableViewDataSource>
 // 表视图
-@property (nonatomic, strong) HXBChooseDiscountTableView *tableView;
+@property (nonatomic, strong) HXBBaseTableView *tableView;
 // 接口返回的数据模型
 @property (nonatomic, strong) HXBChooseCouponModel *couponViewModel;
 // 提示Label
 @property (nonatomic, strong) HXBMy_Withdraw_notifitionView *notifitionView;
 // 无数据
 @property (nonatomic, strong) HXBNoDataView *nodataView;
-// 是否使用不选择优惠券
-@property (nonatomic, strong) UIImageView *selectImageView;
 // 是否选中
 @property (nonatomic, assign) BOOL hasSelect;
 //判断第几个是选择的优惠券
@@ -44,15 +41,17 @@
 }
 
 - (void)buildUI {
-    _tableView = [[HXBChooseDiscountTableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:(UITableViewStylePlain)];
+    _tableView = [[HXBBaseTableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:(UITableViewStylePlain)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.hidden = YES;
     _tableView.backgroundColor = BACKGROUNDCOLOR;
     _tableView.rowHeight = kScrAdaptationH750(126);
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
     [self.view addSubview:_tableView];
     [self.view addSubview:self.notifitionView];
+    
     if (_investMoney.floatValue > 0) {
         _notifitionView.hidden = YES;
         _tableView.tableHeaderView = [self tableViewHeadView];
@@ -67,10 +66,6 @@
     [self setUpDate];
 }
 
-- (void)setCouponid:(NSString *)couponid {
-    _couponid = couponid;
-}
-
 - (UIView *)tableViewHeadView {
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH750(120))];
     headView.backgroundColor = BACKGROUNDCOLOR;
@@ -79,28 +74,32 @@
     selectView.backgroundColor = [UIColor whiteColor];
     [headView addSubview:selectView];
     
-    _selectImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScrAdaptationW750(30), kScrAdaptationH750(34), kScrAdaptationW750(32), kScrAdaptationH750(32))];
+    UIImageView *selectImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScrAdaptationW750(30), kScrAdaptationH750(34), kScrAdaptationW750(32), kScrAdaptationH750(32))];
+    [selectView addSubview:selectImageView];
+    
     if ([_couponid isEqualToString:@"不使用优惠券"]) {
-        _selectImageView.image = [UIImage imageNamed:@"chooseCoupon"];
+        selectImageView.image = [UIImage imageNamed:@"chooseCoupon"];
     } else {
-        _selectImageView.image = [UIImage imageNamed:@"unselectCoupon"];
+        selectImageView.image = [UIImage imageNamed:@"unselectCoupon"];
     }
-    [selectView addSubview:_selectImageView];
+    
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(kScrAdaptationW750(92), 0, kScreenWidth, kScrAdaptationH750(100))];
     label.text = @"不使用优惠券";
     label.font = kHXBFont_PINGFANGSC_REGULAR(15);
     label.textColor = COR6;
     [selectView addSubview:label];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToPop:)];
     [headView addGestureRecognizer:tap];
+    
     return headView;
 }
 
 - (void)tapToPop:(UITapGestureRecognizer *)tap {
     // 点击回调参数
-    if ([self.delegate respondsToSelector:@selector(sendModel:)]) {
+    if ([self.delegate respondsToSelector:@selector(chooseDiscountCouponViewController:didSendModel:)]) {
         if (self.couponViewModel.dataList.count > 0 || self.couponViewModel.unusableList.count > 0) {
-            [self.delegate sendModel:nil];
+            [self.delegate chooseDiscountCouponViewController:self didSendModel:nil];
         }
     }
     [self.navigationController popViewControllerAnimated:YES];
@@ -204,9 +203,9 @@
     if (indexPath.section == 0 && self.couponViewModel.dataList.count > 0) {
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
         // 点击回调参数
-        if ([self.delegate respondsToSelector:@selector(sendModel:)]) {
+        if ([self.delegate respondsToSelector:@selector(chooseDiscountCouponViewController:didSendModel:)]) {
             if (self.couponViewModel.dataList.count > 0 || self.couponViewModel.unusableList.count > 0) {
-                [self.delegate sendModel:self.couponViewModel.dataList[indexPath.row]];
+                [self.delegate chooseDiscountCouponViewController:self didSendModel:self.couponViewModel.dataList[indexPath.row]];
             }
         }
         [self.navigationController popViewControllerAnimated:YES];
@@ -219,7 +218,7 @@
                           @"amount": _investMoney,
                           @"type": _type
                           };
-    [HXBChooseCouponViewModel chooseCouponWithparams:dic_post andSuccessBlock:^(HXBChooseCouponModel *model) {
+    [HXBChooseCouponViewModel requestChooseCouponWithParams:dic_post andSuccessBlock:^(HXBChooseCouponModel *model) {
         NSInteger num = 0;
         self.couponViewModel = model;
         for (HXBCouponModel *couponModel in model.dataList) {

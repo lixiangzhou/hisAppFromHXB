@@ -812,7 +812,7 @@ static NSString *const investString = @"立即投资";
     }
 }
 
-- (void)sendModel:(HXBCouponModel *)model {
+- (void)chooseDiscountCouponViewController:(HXBChooseDiscountCouponViewController *)chooseDiscountCouponViewController didSendModel:(HXBCouponModel *)model {
     if (model) {
         _discountMoney = model.valueActual.doubleValue;
         double handleMoney = _inputMoneyStr.doubleValue - model.valueActual.doubleValue;
@@ -833,6 +833,7 @@ static NSString *const investString = @"立即投资";
     [self changeItemWithInvestMoney:_inputMoneyStr];
     [self setUpArray];
 }
+
 
 - (void)setUpDate {
     if (_type == HXB_Plan) {
@@ -872,7 +873,7 @@ static NSString *const investString = @"立即投资";
     cell.isStartAnimation = YES;
     _hasGetCoupon = YES;
     self.bottomView.addBtnIsUseable = NO;
-    [HXBChooseCouponViewModel BestCouponWithparams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
+    [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
         cell.isStartAnimation = NO;
         _hasGetCoupon = NO;
         self.bottomView.addBtnIsUseable = YES;
@@ -910,7 +911,7 @@ static NSString *const investString = @"立即投资";
                                @"amount": @"0",
                                @"type": @"plan"
                                };
-    [HXBChooseCouponViewModel BestCouponWithparams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
+    [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
         self.hxbBaseVCScrollView.hidden = NO;
         _discountTitle = nil;
         self.model = model;
