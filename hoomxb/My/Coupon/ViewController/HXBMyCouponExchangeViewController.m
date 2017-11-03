@@ -60,12 +60,6 @@
         make.width.equalTo(@kScrAdaptationW750(96));
     }];
     
-    [self.promptLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bgView).offset(kScrAdaptationH750(20));
-        make.height.equalTo(@kScrAdaptationH750(28));
-        make.left.equalTo(@kScrAdaptationW750(30));
-        make.width.equalTo(@kScrAdaptationW750(120));
-    }];
     [self.redeemCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(kScrAdaptationH750(326));
         make.height.equalTo(@kScrAdaptationH750(90));
@@ -86,32 +80,36 @@
 
 - (void)loadData_myAccountExchangeInfo{
     kWeakSelf
-    [HXBRequestAccountInfo downLoadMyCouponExchangeInfoNoHUDWithCode: [weakSelf.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] withSeccessBlock:^(HXBMyCouponListModel *Model) {
-        self.myCouponListModel = Model;
-        HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-        planBuySuccessVC.imageName = @"myAccountExchangeSuccessful";
-        planBuySuccessVC.buy_title = @"兑换成功";
-        planBuySuccessVC.buy_description = Model.summaryContent;
-        planBuySuccessVC.buy_ButtonTitle = @"查看我的优惠券";
-        planBuySuccessVC.title = @"兑换优惠券";
-        [planBuySuccessVC clickButtonWithBlock:^{
-            __block UIViewController *viewController = nil;
-            [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([VC isKindOfClass:[HXBMyCouponListViewController class]]) {
-                    viewController = VC;
-                    * stop = true;
+    [HXBRequestAccountInfo downLoadMyCouponExchangeInfoNoHUDWithCode: [weakSelf.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] withSeccessBlock:^(HXBMyCouponListModel *Model, NSString *message) {
+        if (message.length > 0) {
+            self.promptLab.hidden = NO;
+            self.promptLab.text = message;
+        } else {
+            self.myCouponListModel = Model;
+            HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+            planBuySuccessVC.imageName = @"myAccountExchangeSuccessful";
+            planBuySuccessVC.buy_title = @"兑换成功";
+            planBuySuccessVC.midStr = [NSString stringWithFormat:@"您已成功兑换\n%@", Model.summaryContent];
+            planBuySuccessVC.buy_ButtonTitle = @"查看我的优惠券";
+            planBuySuccessVC.title = @"兑换优惠券";
+            [planBuySuccessVC clickButtonWithBlock:^{
+                __block UIViewController *viewController = nil;
+                [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([VC isKindOfClass:[HXBMyCouponListViewController class]]) {
+                        viewController = VC;
+                        * stop = true;
+                    }
+                }];
+                if (viewController) {
+                    [self.navigationController popToViewController:viewController animated:true];
                 }
             }];
-            if (viewController) {
-                [self.navigationController popToViewController:viewController animated:true];
-            }
-        }];
+            
+            [self.navigationController pushViewController:planBuySuccessVC animated:true];
+        }
         
-        [self.navigationController pushViewController:planBuySuccessVC animated:true];
         
     } andFailure:^(NSError *error) {
-        self.promptLab.hidden = NO;
-        self.promptLab.text = self.myCouponListModel.summaryContent;
     }];
 }
 
@@ -224,7 +222,7 @@
 
 -(UILabel *)promptLab{
     if (!_promptLab) {
-        _promptLab = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(30), kScrAdaptationH750(44), kScrAdaptationW750(120), kScrAdaptationH750(28))];
+        _promptLab = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(30), kScrAdaptationH750(180), kScreenWidth - kScrAdaptationW750(60), kScrAdaptationH750(28))];
         _promptLab.text = @"";
         _promptLab.textAlignment = NSTextAlignmentCenter;
         _promptLab.textColor = RGBA(253, 54, 54, 1);

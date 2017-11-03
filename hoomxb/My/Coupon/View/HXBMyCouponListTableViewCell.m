@@ -214,7 +214,7 @@
     [self.termOfValidityLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@kScrAdaptationW750(40));
         make.width.equalTo(@kScrAdaptationW750(300));
-        make.top.equalTo(@kScrAdaptationH750(94));
+        make.top.equalTo(@kScrAdaptationH750(104));
         make.height.equalTo(@kScrAdaptationH750(32));
     }];
     [self.allowBusinessCategoryLab mas_makeConstraints:^(MASConstraintMaker *make) {

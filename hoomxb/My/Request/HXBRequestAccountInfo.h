@@ -18,7 +18,7 @@
  @param seccessBlock 成功
  @param failureBlock 失败
  */
-+ (void)downLoadMyCouponExchangeInfoNoHUDWithCode:(NSString *)code withSeccessBlock:(void(^)(HXBMyCouponListModel *Model))seccessBlock andFailure: (void(^)(NSError *error))failureBlock;
++ (void)downLoadMyCouponExchangeInfoNoHUDWithCode:(NSString *)code withSeccessBlock:(void(^)(HXBMyCouponListModel *Model, NSString *message))seccessBlock andFailure: (void(^)(NSError *error))failureBlock;
 
 /**
  我的页面 请求优惠券信息

@@ -230,7 +230,7 @@
 {
     if (!_headBackgroundImageView) {
         _headBackgroundImageView = [[UIImageView alloc]initWithFrame:CGRectZero];
-        _headBackgroundImageView.svgImageString = @"bj";
+        _headBackgroundImageView.image = [UIImage imageNamed:@"top"];
     }
     return _headBackgroundImageView;
 }

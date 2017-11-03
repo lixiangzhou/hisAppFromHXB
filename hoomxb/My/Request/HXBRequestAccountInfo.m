@@ -12,24 +12,30 @@
 
 @implementation HXBRequestAccountInfo
 
-+ (void)downLoadMyCouponExchangeInfoNoHUDWithCode:(NSString *)code withSeccessBlock:(void(^)(HXBMyCouponListModel *Model))seccessBlock andFailure: (void(^)(NSError *error))failureBlock{
-    
++ (void)downLoadMyCouponExchangeInfoNoHUDWithCode:(NSString *)code withSeccessBlock:(void(^)(HXBMyCouponListModel *Model, NSString *message))seccessBlock andFailure: (void(^)(NSError *error))failureBlock{
     NYBaseRequest *myAccountListInfoAPI = [[NYBaseRequest alloc]init];
     myAccountListInfoAPI.requestUrl = kHXBMY_CouponExchangeInfoURL;
     myAccountListInfoAPI.requestMethod = NYRequestMethodPost;
     myAccountListInfoAPI.requestArgument = @{@"code":code};
     
     [myAccountListInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        if ([responseObject[kResponseStatus] integerValue]) {
-            kHXBResponsShowHUD
+        if ([responseObject[kResponseStatus] integerValue] == 0) {
+            HXBMyCouponListModel *accountInfoModel = [[HXBMyCouponListModel alloc]init];
+            [accountInfoModel yy_modelSetWithDictionary:responseObject[@"data"][@"coupon"]];
+            if (seccessBlock) {
+                seccessBlock(accountInfoModel, @"");
+            }
+        } else {
+            if ([responseObject[kResponseStatus] integerValue] == 2 || [responseObject[kResponseStatus] integerValue] == 500) {
+                if (seccessBlock) {
+                    seccessBlock(nil, responseObject[kResponseMessage]);
+                }
+            } else {
+                kHXBResponsShowHUD
+                return;
+            }
         }
         
-        HXBMyCouponListModel *accountInfoModel = [[HXBMyCouponListModel alloc]init];
-        [accountInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];
-        
-        if (seccessBlock) {
-            seccessBlock(accountInfoModel);
-        }
         
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);

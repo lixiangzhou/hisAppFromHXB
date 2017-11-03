@@ -103,10 +103,13 @@
     }
     if(self.midStr) {
         self.midLabel = [[UILabel alloc]init];
-        self.midLabel.text = self.midStr;
-        self.midLabel.textColor = kHXBColor_Font0_6;
+        self.midLabel.attributedText = [self getAttributedStringWithString:self.midStr lineSpace:8];
+        self.midLabel.numberOfLines = 0;
+        self.midLabel.textAlignment = NSTextAlignmentCenter;
+        self.midLabel.textColor = Content_Text_Color;
         self.midLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(26);
         [self.view addSubview:self.midLabel];
+        
         [self.midLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(view.mas_bottom).offset(kScrAdaptationH750(16));
             make.centerX.equalTo(view);
@@ -137,6 +140,17 @@
     }];
     
 }
+
+// 设置行间距的富文本
+-(NSAttributedString *)getAttributedStringWithString:(NSString *)string lineSpace:(CGFloat)lineSpace {
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = lineSpace; // 调整行间距
+    NSRange range = NSMakeRange(0, [string length]);
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
+    return attributedString;
+}
+
 - (void)clickButton: (UIButton *)button {
     if (self.clickButtonBlock) {
         self.clickButtonBlock();
