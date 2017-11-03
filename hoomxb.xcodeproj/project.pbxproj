@@ -17,7 +17,6 @@
 		4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8311E9CD0FE002A1881 /* AppDelegate.m */; };
 		4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8341E9CD0FE002A1881 /* ViewController.m */; };
 		4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D8361E9CD0FE002A1881 /* Main.storyboard */; };
-		4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */; };
 		4E16D8481E9CD0FE002A1881 /* hoomxbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */; };
 		4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */; };
 		4E19E8651F4D924B00032302 /* HXBFinanctingDetail_imageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E19E8621F4D924B00032302 /* HXBFinanctingDetail_imageCell.m */; };
@@ -512,7 +511,6 @@
 		4E16D8331E9CD0FE002A1881 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		4E16D8341E9CD0FE002A1881 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4E16D8371E9CD0FE002A1881 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4E16D83C1E9CD0FE002A1881 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E16D83E1E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E16D8431E9CD0FE002A1881 /* hoomxbTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hoomxbTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = hoomxbTests.m; sourceTree = "<group>"; };
@@ -1464,7 +1462,6 @@
 			isa = PBXGroup;
 			children = (
 				E1F630821F20B4F100FC0122 /* Assets.xcassets */,
-				4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */,
 				4E16D83E1E9CD0FE002A1881 /* Info.plist */,
 				4EA93FBF1EA0A5FB002F3615 /* PrefixHeader.pch */,
 				4E16D82E1E9CD0FE002A1881 /* main.m */,
@@ -4337,7 +4334,6 @@
 				4E7E5B721F14792B00771C07 /* my_Unselected.svg in Resources */,
 				4E9215731F1DFC9E00C8CECB /* card.svg in Resources */,
 				4ED2F27F1ECADC960014E5C7 /* introductionplaceholder@2x.png in Resources */,
-				4E16D83D1E9CD0FE002A1881 /* LaunchScreen.storyboard in Resources */,
 				4EECE0191F38177000301758 /* 5007.svg in Resources */,
 				4EECE0171F38177000301758 /* 5005.svg in Resources */,
 				4E7E5B6A1F14705700771C07 /* home_Unselected.svg in Resources */,
@@ -4911,14 +4907,6 @@
 				4E16D8371E9CD0FE002A1881 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4E16D83B1E9CD0FE002A1881 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4E16D83C1E9CD0FE002A1881 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
