@@ -34,7 +34,7 @@
     [super viewDidLoad];
     self.title = @"选择优惠券";
     self.view.backgroundColor = BACKGROUNDCOLOR;
-    self.isReadColorWithNavigationBar = YES;
+    self.isRedColorWithNavigationBar = YES;
     _num = 0;
     [self buildUI];
     [self setUpDate];

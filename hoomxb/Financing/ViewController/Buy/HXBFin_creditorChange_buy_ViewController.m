@@ -406,9 +406,9 @@ static NSString *const investString = @"立即投资";
 - (void)fullAddtionFunc {
     kWeakSelf
     double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
-    if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount.floatValue) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"充值金额必须大于%@元", _viewModel.userInfoModel.userInfo.minChargeAmount]];
-        topupMoney = _viewModel.userInfoModel.userInfo.minChargeAmount.doubleValue;
+    if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"充值金额必须大于%d元", _viewModel.userInfoModel.userInfo.minChargeAmount]];
+        topupMoney = _viewModel.userInfoModel.userInfo.minChargeAmount;
     }
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     NSLog(@"___%.2f", topupMoney);
