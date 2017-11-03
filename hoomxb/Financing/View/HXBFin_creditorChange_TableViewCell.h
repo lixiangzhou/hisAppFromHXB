@@ -12,12 +12,16 @@
 
 /** 是否隐藏横线 */
 @property (nonatomic, assign)  BOOL isHeddenHine;
-
+/** 是否开始菊花 */
+@property (nonatomic, assign)  BOOL isStartAnimation;
 /** title数据源 */
 @property (nonatomic, strong)  NSString *titleStr;
 /** detail数据源 */
 @property (nonatomic, strong)  NSString *detailStr;
-/** 是否富文本展示 */
-@property (nonatomic, assign) BOOL isAttributeShow;
+/** 第一行是否置灰显示 */
+@property (nonatomic, assign)  BOOL isDiscountRow;
+/** 是否匹配最优有优惠券 */
+@property (nonatomic, assign)  BOOL hasBestCoupon;
+
 
 @end

@@ -11,6 +11,12 @@
 		285D700E1F6BE13C006B520B /* HXBCreditorChangeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 285D700D1F6BE13C006B520B /* HXBCreditorChangeTopView.m */; };
 		285D70111F6BE154006B520B /* HXBCreditorChangeBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 285D70101F6BE154006B520B /* HXBCreditorChangeBottomView.m */; };
 		285D70141F6BE186006B520B /* HXBFin_creditorChange_TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 285D70131F6BE186006B520B /* HXBFin_creditorChange_TableViewCell.m */; };
+		288BAA031FAC593B009DF8AB /* HXBChooseDiscountCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9F31FAC593B009DF8AB /* HXBChooseDiscountCouponViewController.m */; };
+		288BAA041FAC593B009DF8AB /* HXBBestCouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9F61FAC593B009DF8AB /* HXBBestCouponModel.m */; };
+		288BAA051FAC593B009DF8AB /* HXBChooseCouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9F81FAC593B009DF8AB /* HXBChooseCouponModel.m */; };
+		288BAA061FAC593B009DF8AB /* HXBCouponModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9FA1FAC593B009DF8AB /* HXBCouponModel.m */; };
+		288BAA081FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BA9FF1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m */; };
+		288BAA091FAC593B009DF8AB /* HXBChooseCouponViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BAA021FAC593B009DF8AB /* HXBChooseCouponViewModel.m */; };
 		28B5D0241F711E9D00E2F486 /* HXBFin_Buy_ViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B5D0231F711E9D00E2F486 /* HXBFin_Buy_ViewModel.m */; };
 		28B5D0271F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B5D0261F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.m */; };
 		4E16D82F1E9CD0FE002A1881 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D82E1E9CD0FE002A1881 /* main.m */; };
@@ -500,6 +506,18 @@
 		285D70101F6BE154006B520B /* HXBCreditorChangeBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCreditorChangeBottomView.m; sourceTree = "<group>"; };
 		285D70121F6BE186006B520B /* HXBFin_creditorChange_TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_creditorChange_TableViewCell.h; sourceTree = "<group>"; };
 		285D70131F6BE186006B520B /* HXBFin_creditorChange_TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_creditorChange_TableViewCell.m; sourceTree = "<group>"; };
+		288BA9F21FAC593B009DF8AB /* HXBChooseDiscountCouponViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBChooseDiscountCouponViewController.h; sourceTree = "<group>"; };
+		288BA9F31FAC593B009DF8AB /* HXBChooseDiscountCouponViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBChooseDiscountCouponViewController.m; sourceTree = "<group>"; };
+		288BA9F51FAC593B009DF8AB /* HXBBestCouponModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBestCouponModel.h; sourceTree = "<group>"; };
+		288BA9F61FAC593B009DF8AB /* HXBBestCouponModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBestCouponModel.m; sourceTree = "<group>"; };
+		288BA9F71FAC593B009DF8AB /* HXBChooseCouponModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBChooseCouponModel.h; sourceTree = "<group>"; };
+		288BA9F81FAC593B009DF8AB /* HXBChooseCouponModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBChooseCouponModel.m; sourceTree = "<group>"; };
+		288BA9F91FAC593B009DF8AB /* HXBCouponModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCouponModel.h; sourceTree = "<group>"; };
+		288BA9FA1FAC593B009DF8AB /* HXBCouponModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCouponModel.m; sourceTree = "<group>"; };
+		288BA9FE1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBChooseDiscountTableViewCell.h; sourceTree = "<group>"; };
+		288BA9FF1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBChooseDiscountTableViewCell.m; sourceTree = "<group>"; };
+		288BAA011FAC593B009DF8AB /* HXBChooseCouponViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBChooseCouponViewModel.h; sourceTree = "<group>"; };
+		288BAA021FAC593B009DF8AB /* HXBChooseCouponViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBChooseCouponViewModel.m; sourceTree = "<group>"; };
 		28B5D0221F711E9D00E2F486 /* HXBFin_Buy_ViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_Buy_ViewModel.h; sourceTree = "<group>"; };
 		28B5D0231F711E9D00E2F486 /* HXBFin_Buy_ViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Buy_ViewModel.m; sourceTree = "<group>"; };
 		28B5D0251F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMy_Withdraw_notifitionView.h; sourceTree = "<group>"; };
@@ -1412,6 +1430,57 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		288BA9F01FAC593A009DF8AB /* DiscountCoupon */ = {
+			isa = PBXGroup;
+			children = (
+				288BA9F11FAC593B009DF8AB /* Controller */,
+				288BA9F41FAC593B009DF8AB /* Model */,
+				288BA9FB1FAC593B009DF8AB /* View */,
+				288BAA001FAC593B009DF8AB /* ViewModel */,
+			);
+			path = DiscountCoupon;
+			sourceTree = "<group>";
+		};
+		288BA9F11FAC593B009DF8AB /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				288BA9F21FAC593B009DF8AB /* HXBChooseDiscountCouponViewController.h */,
+				288BA9F31FAC593B009DF8AB /* HXBChooseDiscountCouponViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		288BA9F41FAC593B009DF8AB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				288BA9F51FAC593B009DF8AB /* HXBBestCouponModel.h */,
+				288BA9F61FAC593B009DF8AB /* HXBBestCouponModel.m */,
+				288BA9F71FAC593B009DF8AB /* HXBChooseCouponModel.h */,
+				288BA9F81FAC593B009DF8AB /* HXBChooseCouponModel.m */,
+				288BA9F91FAC593B009DF8AB /* HXBCouponModel.h */,
+				288BA9FA1FAC593B009DF8AB /* HXBCouponModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		288BA9FB1FAC593B009DF8AB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				288BA9FE1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.h */,
+				288BA9FF1FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		288BAA001FAC593B009DF8AB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				288BAA011FAC593B009DF8AB /* HXBChooseCouponViewModel.h */,
+				288BAA021FAC593B009DF8AB /* HXBChooseCouponViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		4E16D8211E9CD0FE002A1881 = {
 			isa = PBXGroup;
 			children = (
@@ -1442,6 +1511,7 @@
 				4E16D8311E9CD0FE002A1881 /* AppDelegate.m */,
 				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
 				4E16D8341E9CD0FE002A1881 /* ViewController.m */,
+				288BA9F01FAC593A009DF8AB /* DiscountCoupon */,
 				4E45F42B1F4FC71E009708B7 /* NewFeature */,
 				4EB4208D1F25FC3E00631A25 /* Middlekey */,
 				4EA93FBB1EA0A591002F3615 /* Macros */,
@@ -4570,6 +4640,7 @@
 				E1CD4BCE1ED83064000CC57B /* HxbAdvertiseView.m in Sources */,
 				E10EB4AD1EEFDFE800F16CFA /* HxbWithdrawResultViewController.m in Sources */,
 				E122D85B1EA0CAB900DC71ED /* UILabel+HxbLabel.m in Sources */,
+				288BAA051FAC593B009DF8AB /* HXBChooseCouponModel.m in Sources */,
 				E1270B4D1ECED2FC00729BC9 /* HXBMYModel_LoanDetailModel.m in Sources */,
 				4E559B511F0FB066003D9982 /* HXBRechargesuccessView.m in Sources */,
 				E1270B361ECED1F300729BC9 /* HXBMYViewModel_MainCapitalRecordViewModel.m in Sources */,
@@ -4587,6 +4658,7 @@
 				E16314321EC0761C0090567E /* HXBFinHomePageViewModel_PlanList.m in Sources */,
 				E1659C001F1737F9000073BF /* HXBFinPlanDetail_DetailView.m in Sources */,
 				4E35C6CD1F0E660D0022C8E6 /* HXBMyTopUpBaseView.m in Sources */,
+				288BAA081FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m in Sources */,
 				E1CC035C1ECAD2AD00121D21 /* HXBRequestType_MYManager.m in Sources */,
 				E17509C01EC6F38900E17B39 /* HXBFinContract_contraceWebViewVC_Loan.m in Sources */,
 				4EECE0201F383ABE00301758 /* HXBMyHomeViewCell.m in Sources */,
@@ -4711,6 +4783,7 @@
 				E12801001F0294270066FB66 /* HXBFin_Plan_BuyViewModel.m in Sources */,
 				E1270B381ECED1F300729BC9 /* HXBMYViewModel_MianPlanViewModel.m in Sources */,
 				E190EFA71F25DB59001E0B14 /* HXBSignInWaterView.m in Sources */,
+				288BAA031FAC593B009DF8AB /* HXBChooseDiscountCouponViewController.m in Sources */,
 				E122D8521EA0CAB900DC71ED /* NSString+HxbHash.m in Sources */,
 				4EBE19471F73D02800AB5AB6 /* HXBTransferConfirmModel.m in Sources */,
 				E18B68A81EC9D3D80047E458 /* HXBMainListView_Plan.m in Sources */,
@@ -4733,6 +4806,7 @@
 				E1398F521F345EC20094441F /* HXBDataManager.m in Sources */,
 				E133DCDF1EEE3597009466DE /* HXBSignUPAndLoginRequest.m in Sources */,
 				E1CB56271ED3E9A800D962CA /* HXBMYCapitalRecord_TableViewCell.m in Sources */,
+				288BAA091FAC593B009DF8AB /* HXBChooseCouponViewModel.m in Sources */,
 				4E94A86C1F5D4FE90001BE94 /* UIView+BXExtension.m in Sources */,
 				4EAEBF081F39CCD500729389 /* HXBAccumulatedIncomeView.m in Sources */,
 				E1CD4BCA1ED83064000CC57B /* HxbHUDProgress.m in Sources */,
@@ -4748,6 +4822,7 @@
 				E1E4613C1EB98B5C005B1FC6 /* HXBBaseToolBarView.m in Sources */,
 				E1D3D0D21ED6B526003F1DBA /* HXBAdvertisementManager.m in Sources */,
 				E1F0D80C1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m in Sources */,
+				288BAA041FAC593B009DF8AB /* HXBBestCouponModel.m in Sources */,
 				E122D8501EA0CAB900DC71ED /* NSString+CopiesTransfer.m in Sources */,
 				E122D8541EA0CAB900DC71ED /* NSString+HxbPerMilMoney.m in Sources */,
 				E17509B61EC6E22600E17B39 /* HXBFinPlanContract_ContractWebView.m in Sources */,
@@ -4806,6 +4881,7 @@
 				4E886FBB1EF9194E0056086E /* HXBCircle.m in Sources */,
 				E1625B241EFB620200FE9ABF /* HXBSecurityCertification_Request.m in Sources */,
 				4EAA301D1F134E11003F2AF3 /* HXBQuickRechargeView.m in Sources */,
+				288BAA061FAC593B009DF8AB /* HXBCouponModel.m in Sources */,
 				4E94B2901ECC49D2003CCBA7 /* HXBHomePageProductCell.m in Sources */,
 				E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */,
 				E133DD3C1EEEC14C009466DE /* HxbHTTPSessionManager.m in Sources */,

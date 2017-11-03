@@ -39,7 +39,6 @@ typedef void(^textfieldDidChange)(NSString *text);
 @property (nonatomic, assign) BOOL hiddenProfitLabel;
 /** 是否绑卡 */
 @property (nonatomic, assign) BOOL hasBank;
-
 /** buyBlock */
 @property (nonatomic, copy) buyBlock block;
 /** buyBlock */
