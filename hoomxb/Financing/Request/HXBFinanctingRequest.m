@@ -744,10 +744,9 @@
     [confirmBuyReslut startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
         if (status) {
-            if (status == kHXBTransaction_Password_Error || status == kHXBSMS_Code_Error || status == kHXBBuying_Too_Frequently) {
+            if (status == kHXBTransaction_Password_Error || status == kHXBSMS_Code_Error || status == kHXBBuying_Too_Frequently || status == kHXBBuy_Coupon_Error) {
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
-            
             if (failureBlock) failureBlock(nil,status); return;
         }
         NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
