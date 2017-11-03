@@ -215,12 +215,18 @@
 
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField {
-    _getCodeBtn.backgroundColor = COR26;
-    _getCodeBtn.userInteractionEnabled = NO;
-    _getCodeBtn.layer.borderWidth = 0;
-    [_getCodeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-    [_sureChangeBtn setBackgroundColor:COR12];
-    _sureChangeBtn.userInteractionEnabled = NO;
+    if (textField.superview == _phoneTextField) {
+        _getCodeBtn.backgroundColor = COR26;
+        _getCodeBtn.userInteractionEnabled = NO;
+        _getCodeBtn.layer.borderWidth = 0;
+        [_getCodeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+        [_sureChangeBtn setBackgroundColor:COR12];
+        _sureChangeBtn.userInteractionEnabled = NO;
+    } else {
+        [_sureChangeBtn setBackgroundColor:COR12];
+        _sureChangeBtn.userInteractionEnabled = NO;
+    }
+    
     return YES;
 }
 
@@ -246,7 +252,7 @@
 {
     [self.timer invalidate];
     self.timer = nil;
-    self.getCodeBtn.enabled = YES;
+    self.getCodeBtn.userInteractionEnabled = YES;
     self.getCodeBtn.backgroundColor = COR29;
     [self.getCodeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
     self.getCodeBtn.layer.borderWidth = kXYBorderWidth;
@@ -261,7 +267,7 @@
 {
     self.timeCount = 60;
     [self.getCodeBtn setTitle:[NSString stringWithFormat:@"%ds",self.timeCount] forState:UIControlStateNormal];
-    self.getCodeBtn.enabled = NO;
+    self.getCodeBtn.userInteractionEnabled = NO;
     self.getCodeBtn.backgroundColor = COR26;
     self.getCodeBtn.layer.borderWidth = 0;
     [self.getCodeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
@@ -276,7 +282,7 @@
     if (self.timeCount <= 0) {
         [self.timer invalidate];
         self.timer = nil;
-        self.getCodeBtn.enabled = YES;
+        self.getCodeBtn.userInteractionEnabled = YES;
         self.getCodeBtn.backgroundColor = [UIColor whiteColor];
         self.getCodeBtn.layer.borderWidth = kXYBorderWidth;
         [self.getCodeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];

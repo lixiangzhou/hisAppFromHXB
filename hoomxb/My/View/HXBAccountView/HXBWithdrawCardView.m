@@ -92,7 +92,7 @@
         make.top.equalTo(self.seeLimitBtn.mas_bottom);;
         make.right.equalTo(self).offset(kScrAdaptationW(-15));
         make.left.equalTo(self).offset(kScrAdaptationW(15));
-        make.height.offset(0.5);
+        make.height.offset(kHXBDivisionLineHeight);
     }];
     
     [self.bankCardTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -305,7 +305,9 @@
 
 - (BOOL)textFieldShouldClear:(UITextField *)textField
 {
-    [self setIsCheckFailed:YES];
+    if (self.bankCardTextField == textField.superview) {
+        [self setIsCheckFailed:YES];
+    }
     return YES;
 }
 

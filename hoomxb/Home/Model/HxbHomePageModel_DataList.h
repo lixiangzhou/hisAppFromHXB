@@ -20,6 +20,10 @@
 @interface HxbHomePageModel_DataList : NSObject
 
 /**
+ id
+ */
+@property (nonatomic, copy) NSString *ID;
+/**
  计划名称
  */
 @property (nonatomic, copy) NSString *name;
@@ -53,10 +57,28 @@
  */
 @property (nonatomic, copy) NSString *beginSellingTime;
 /**
+ 计划提示”整存整取字” “整存整取…”
+ */
+@property (nonatomic, copy) NSString *featuredSlogan;
+/**
+ 起投金额
+ */
+@property (nonatomic, assign) int minRegisterAmount;
+/**
  倒计时时间差
  */
 @property (nonatomic, copy) NSString *diffTime;
 
+/**
+ 是否有可用抵扣券
+ */
+@property (nonatomic, assign) BOOL hasDiscountCoupon;
+/**
+ 是否有可用满减券
+ */
+@property (nonatomic, assign) BOOL hasMoneyOffCoupon;
+
+/*********************** 辅助字段 ****************************/
 ///倒计时的String
 @property (nonatomic,copy) NSString *countDownLastStr;
 ///是否需要倒计时
@@ -80,8 +102,5 @@
  */
 @property (nonatomic, copy) NSString *fixExtraInterestRate;
 
-/**
- id
- */
-@property (nonatomic, copy) NSString *ID;
+
 @end

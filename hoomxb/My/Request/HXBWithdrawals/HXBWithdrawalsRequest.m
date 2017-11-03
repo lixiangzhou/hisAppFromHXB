@@ -27,8 +27,10 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (failureBlock) {
+            if (status != kHXBCode_Enum_ProcessingField) {
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            }
+            if (failureBlock) {
                 failureBlock(responseObject);
             }
             return;
@@ -97,7 +99,7 @@
             successDateBlock(responseObject);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [HxbHUDProgress showTextWithMessage:@"请求失败"];
+//        [HxbHUDProgress showTextWithMessage:@"请求失败"];
         if (failureBlock) {
             failureBlock(error);
         }

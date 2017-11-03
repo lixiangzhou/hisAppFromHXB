@@ -204,7 +204,7 @@
             }else if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
                 HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
                 if (!KeyChain.isLogin)  return;
-                withdrawViewController.userInfoViewModel = self.userInfoViewModel;
+
                 [weakSelf.navigationController pushViewController:withdrawViewController animated:YES];
             }
         }

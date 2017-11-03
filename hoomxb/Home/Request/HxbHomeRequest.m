@@ -49,6 +49,7 @@
     homePlanRecommendAPI.requestUrl = kHXBHome_HomeURL;
     homePlanRecommendAPI.isUPReloadData = isUPReloadData;
     [homePlanRecommendAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
          NSDictionary *baseDic = [responseObject valueForKey:@"data"];
         HxbHomePageViewModel *homePageViewModel = [[HxbHomePageViewModel alloc] init];
         homePageViewModel.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];

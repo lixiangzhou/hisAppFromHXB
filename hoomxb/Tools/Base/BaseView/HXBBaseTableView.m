@@ -15,22 +15,10 @@
 @implementation HXBBaseTableView
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
-        self.tableFooterView = [[UIView alloc]init];
-//        self.delegate = self;
-//        self.dataSource = self;
-//    self registerClass:[] forCellReuseIdentifier:<#(nonnull NSString *)#>
+//        self.tableFooterView = [[UIView alloc]init];
+        [HXBMiddlekey AdaptationiOS11WithTableView:self];
     }
     return self;
 }
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    
-//}
-//
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//}
-//
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    
-//}
+
 @end

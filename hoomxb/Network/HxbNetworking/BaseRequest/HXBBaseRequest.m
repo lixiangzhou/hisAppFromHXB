@@ -43,7 +43,7 @@
 
 
 - (void)start{
-    NSString *str = @"加载中...";
+    NSString *str = kLoadIngText;
     if (self.isUPReloadData || self.dataPage > 1) {
         str = nil;
     }

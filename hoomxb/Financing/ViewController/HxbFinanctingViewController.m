@@ -110,13 +110,13 @@
 
 
 - (void)creatCountDownManager {
-    __weak typeof (self)weakSelf = self;
-    
+    kWeakSelf
     self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray: self.finPlanListVMArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
     [self.contDwonManager countDownWithChangeModelBlock:^(HXBFinHomePageViewModel_PlanList *model, NSIndexPath *index) {
-        if (weakSelf.finPlanListVMArray.count > index.row) {
+        if (weakSelf.finPlanListVMArray.count > index.section) {
             UITableView *tableView = (UITableView *)[weakSelf.homePageView valueForKey:@"planListTableView"];
-            UITableViewCell *cell = [tableView cellForRowAtIndexPath:index];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index.row];
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             [cell setValue:model.countDownString forKey:@"countDownString"];
         }
     }];

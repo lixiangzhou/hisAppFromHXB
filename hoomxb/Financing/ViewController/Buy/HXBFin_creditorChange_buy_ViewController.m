@@ -88,7 +88,7 @@ static NSString *const investString = @"立即投资";
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.hxbBaseVCScrollView.tableFooterView = [self footTableView];
     self.hxbBaseVCScrollView.tableHeaderView = self.topView;
-    self.hxbBaseVCScrollView.hidden = NO;
+    self.hxbBaseVCScrollView.hidden = YES;
     self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
     self.hxbBaseVCScrollView.delegate = self;
@@ -114,8 +114,8 @@ static NSString *const investString = @"立即投资";
         if (_type == HXB_Creditor) {
             _topView.keyboardType = UIKeyboardTypeDecimalPad; // 债转带小数点键盘
             if (self.availablePoint.doubleValue < 2 * self.minRegisterAmount.doubleValue) {
-                _topView.totalMoney = self.availablePoint;
-                _inputMoneyStr = self.availablePoint;
+                _topView.totalMoney = [NSString stringWithFormat:@"%.2f", self.availablePoint.doubleValue];
+                _inputMoneyStr = [NSString stringWithFormat:@"%.2f", self.availablePoint.doubleValue];
                 _topView.disableKeyBorad = YES;
                 _topView.disableBtn = YES;
             } else {
@@ -236,7 +236,7 @@ static NSString *const investString = @"立即投资";
         _topView.profitStr = [NSString stringWithFormat:@"预期收益：%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
     }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
-        _topView.totalMoney = [NSString stringWithFormat:@"%ld", _minRegisterAmount.integerValue];
+        _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
         [self setUpArray];
@@ -263,7 +263,7 @@ static NSString *const investString = @"立即投资";
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
     } else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
-        _topView.totalMoney = [NSString stringWithFormat:@"%ld", _minRegisterAmount.integerValue];
+        _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
@@ -291,15 +291,30 @@ static NSString *const investString = @"立即投资";
     if (_inputMoneyStr.length <= 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     }else{
+        if ([_availablePoint doubleValue] == 0.00) { // 如果待转是0元的话，直接请求接口
+            [self chooseBuyTypeWithSting:_btnLabelText];
+            return;
+        }
         if (isHasContainsNonzeroDecimals) {
             if ((long long)([_inputMoneyStr doubleValue] * 100) == (long long)([_availablePoint doubleValue] * 100)) {
                 [self chooseBuyTypeWithSting:_btnLabelText];
                 return;
-            }else{
-                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+            } else {
+                if ([_inputMoneyStr doubleValue] < [_minRegisterAmount doubleValue]) {
+                    _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
+                    _inputMoneyStr = _minRegisterAmount;
+                    [self setUpArray];
+                } else if ([_inputMoneyStr doubleValue] > _availablePoint.floatValue) {
+                    _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
+                    _inputMoneyStr = _availablePoint;
+                    [self setUpArray];
+                    [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
+                } else {
+                    [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+                }
                 return;
             }
-        }else{
+        } else {
             if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
                 self.topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
                 _inputMoneyStr = _availablePoint;
@@ -319,38 +334,6 @@ static NSString *const investString = @"立即投资";
             }
         }
     }
-    
-    /*
-    BOOL isMultipleOfMin = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue);//
-    if (_inputMoneyStr.length == 0) {
-        [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
-    } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
-        self.topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
-        _inputMoneyStr = _availablePoint;
-        [self setUpArray];
-        [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
-    } else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
-        _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.doubleValue];
-        _inputMoneyStr = _minRegisterAmount;
-        [self setUpArray];
-        [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
-    } else if (isMultipleOfMin) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-    } else if (_availablePoint.floatValue - _inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
-    } else {
-        if ([_btnLabelText containsString:@"充值"]) {
-            [self fullAddtionFunc];
-        } else if ([_btnLabelText containsString:@"绑定"]){
-            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-            withdrawCardViewController.title = @"绑卡";
-            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-            [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-        } else {
-            [self alertPassWord];
-        }
-    }
-     */
 }
 
 // 判断是什么投资类型（充值购买，余额购买、未绑卡）
@@ -369,11 +352,11 @@ static NSString *const investString = @"立即投资";
 
 - (void)fullAddtionFunc {
     kWeakSelf
-    if ((_inputMoneyStr.doubleValue - _balanceMoneyStr.doubleValue) < 1.00) {
+    double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue];
+    if (topupMoney < 1.00) {
         [HxbHUDProgress showTextWithMessage:@"充值金额必须大于1元"];
         return;
     }
-    double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue];
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
         [weakSelf alertSmsCode];
@@ -534,7 +517,7 @@ static NSString *const investString = @"立即投资";
                 return ;
             case kHXBSMS_Code_Error:
                 return ;
-            case 104:
+            case kHXBCode_Enum_ProcessingField:
                 return ;
             case 412:
                 return ;
@@ -601,7 +584,7 @@ static NSString *const investString = @"立即投资";
                 return ;
             case kHXBSMS_Code_Error:
                 return ;
-            case 104:
+            case kHXBCode_Enum_ProcessingField:
                 return ;
             case 412:
                 return ;
@@ -681,7 +664,7 @@ static NSString *const investString = @"立即投资";
                 return ;
             case kHXBSMS_Code_Error:
                 return ;
-            case 104:
+            case kHXBCode_Enum_ProcessingField:
                 return ;
             case 412:
                 return ;
@@ -763,7 +746,6 @@ static NSString *const investString = @"立即投资";
         _viewModel = viewModel;
         _balanceMoneyStr = _viewModel.userInfoModel.userAssets.availablePoint;
         [self setUpArray];
-        NSLog(@"%@, %@, %@, %@, %@, %lu", self.placeholderStr, self.availablePoint, self.loanId, _balanceMoneyStr, _viewModel.availablePoint, self.type);
         [self.hxbBaseVCScrollView reloadData];
     } andFailure:^(NSError *error) {
         

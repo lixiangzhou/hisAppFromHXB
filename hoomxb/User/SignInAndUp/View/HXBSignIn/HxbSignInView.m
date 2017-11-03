@@ -57,6 +57,11 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
 @property (nonatomic,copy) void(^forgetPasswordButtonBlock)();
 ///点击了用户协议
 @property (nonatomic, copy) void(^userAgreementBtnBlock)();
+
+/**
+ 判断输入是否应该去请求防止412
+ */
+@property (nonatomic, copy) NSString *phoneText;
 @end
 
 @implementation HxbSignInView
@@ -115,11 +120,14 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
         }
         if (text.length == 11) {
             //是否为电话号码
-            [weakSelf showISMobileNumberViewWithString: text];
+            if (![weakSelf.phoneText isEqualToString:text]) {
+                [weakSelf showISMobileNumberViewWithString:text];
+            }
             if (![NSString isMobileNumber:text]) {
                 [HxbHUDProgress showTextWithMessage:@"填写正确的手机号"];
             }
         }
+        weakSelf.phoneText = text;
     };
     self.passwordTextField.block = ^(NSString *text) {
         if (text.length > 0 && self.phoneTextField.text.length > 0) {

@@ -17,9 +17,6 @@
 #import "SVGKImage.h"
 @interface HXBHomePageHeadView () 
 
-@property (nonatomic, strong) HXBHomePageBulletinView *bulletinView;
-
-//@property (nonatomic, strong) HXBHomePageModuleView *moduleView;
 
 // 登录之后的页面
 @property (nonatomic, strong) HXBHomePageLoginIndicationView *indicationView;
@@ -50,75 +47,24 @@
         [self addSubview:self.backgroundImageView];
         [self addSubview:self.afterLoginView];
         [self addSubview:self.indicationView];
-//        [self addSubview:self.moduleView];
         [self addSubview:self.bannerView];
-        [self addSubview:self.bulletinView];
         [self addSubview:self.noticeBtn];
-//        [self.moduleView setTopLine];
     }
     return self;
 }
 
 #pragma mark HXBHomePageBulletinViewDelegate Methods
-//- (void)closeButtonView
-//{
-//    if (self.bulletinView.hidden == YES) {
-//        return;
-//    }
-//    self.bulletinView.hidden = YES;
-////    self.indicationView.y = self.bannerView.height;
-////    self.afterLoginView.y = self.bannerView.height;
-////
-////    self.moduleView.y = self.bannerView.height + self.indicationView.height;
-////
-//    self.height = self.height - self.bulletinView.height;
-//    [self.bulletinView removeFromSuperview];
-//    
-//    [self resetView];
-//}
-
 -(void)setNetwork:(BOOL)network{
     _network = network;
-//    self.moduleView.network = _network ;
-
 }
 
 #pragma mark Private Methods
-//- (void)hideBulletinView
-//{
-//    [self closeButtonView];
-//}
-
-//- (void)showBulletinView
-//{
-//    if (!self.bulletinView || self.bulletinView.hidden == YES) {
-//        [self addSubview:self.bulletinView];
-//        self.bulletinView.hidden = NO;
-//        // set frame
-//        if ([KeyChain isLogin]) {
-//            self.afterLoginView.y = self.afterLoginView.y + self.bulletinView.height;
-////            self.moduleView.y = self.moduleView.y + self.bulletinView.height;
-//            self.height = self.height + self.bulletinView.height;
-//        }else
-//        {
-//            self.indicationView.y = self.indicationView.y + self.bulletinView.height;
-////            self.moduleView.y = self.moduleView.y + self.bulletinView.height;
-//            self.height = self.height + self.bulletinView.height;
-//        }
-//        
-//        [self resetView];
-//    }
-//}
-
 // 显示未投资页
 - (void)showNotValidatedView
 {
     self.afterLoginView.hidden = NO;
     if (self.indicationView.hidden) return;
 //    self.height = self.height - self.indicationView.height;
-    if (!self.bulletinView.hidden) {
-//        self.moduleView.y = self.bannerView.height + self.bulletinView.height +  self.afterLoginView.height;
-    }
     self.indicationView.hidden = YES;
     [self resetView];
 }
@@ -160,15 +106,6 @@
             
         }];
     }
-    
-//    if ( [KeyChain isLogin] && [KeyChain isVerify]) {
-//       self.afterLoginView.tipString = @"立即投资啦！";
-//    }else{
-//       self.afterLoginView.tipString = @"安全认证";
-//    }
-//    if ([KeyChain isVerify] && [KeyChain isInvest]) {
-//        
-//    }
 }
 - (void)resetView
 {
@@ -180,7 +117,6 @@
 - (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
 {
     _homeBaseModel = homeBaseModel;
-    self.bulletinView.homeTitle = homeBaseModel.homeTitle;
     
     if (homeBaseModel.bannerList.count) {
         self.bannerView.bannersModel = homeBaseModel.bannerList;
@@ -198,14 +134,6 @@
 }
 
 #pragma mark Set Methods
-//- (void)setBulletinsModel:(NSArray *)bulletinsModel
-//{
-//    if (!bulletinsModel || bulletinsModel.count == 0) {
-//        [self hideBulletinView];
-//    }
-//    _bulletinsModel = bulletinsModel;
-//    self.bulletinView.bulletinsModel = bulletinsModel;
-//}
 
 #pragma mark Get Methods
 - (HXBHomePageLoginIndicationView *)indicationView
@@ -227,19 +155,10 @@
             }
             
         };
-        //               _afterLoginView.hidden  = YES;
     }
     return _afterLoginView;
 }
 
-//- (HXBHomePageModuleView *)moduleView
-//{
-//    if (!_moduleView) {
-//        _moduleView = [[HXBHomePageModuleView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_indicationView.frame), SCREEN_WIDTH, 85)];
-//        _moduleView.backgroundColor = COR1;
-//    }
-//    return _moduleView;
-//}
 
 - (HXBBannerView *)bannerView
 {
@@ -262,14 +181,6 @@
     return _bannerView;
 }
 
-- (HXBHomePageBulletinView *)bulletinView
-{
-    if (!_bulletinView) {
-        _bulletinView = [[HXBHomePageBulletinView alloc]initWithFrame:CGRectMake(0,self.height - kScrAdaptationH(35), SCREEN_WIDTH, kScrAdaptationH(35))];
-//        _bulletinView.delegete = self;
-    }
-    return _bulletinView;
-}
 
 - (UIButton *)noticeBtn
 {

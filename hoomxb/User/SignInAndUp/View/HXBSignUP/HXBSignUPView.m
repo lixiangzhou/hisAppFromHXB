@@ -31,6 +31,10 @@ UITextFieldDelegate
 @property (nonatomic, copy) void(^clickHaveAccountButtonBlock)();
 ///波浪视图
 @property (nonatomic, strong) HXBSignInWaterView *waterView;
+/**
+ 判断输入是否应该去请求防止412
+ */
+@property (nonatomic, copy) NSString *phoneText;
 @end
 
 @implementation HXBSignUPView
@@ -136,10 +140,9 @@ UITextFieldDelegate
         if (text.length == 11) {
             if (weakSelf.checkMobileBlock) {
                 //判断是否为手机号，不是不让图验
-                if (![NSString isMobileNumber:text]) {
-                    [HxbHUDProgress showTextWithMessage:@"填写正确的手机号"];
+                if (![weakSelf.phoneText isEqualToString:text]) {
+                    weakSelf.checkMobileBlock(text);
                 }
-                weakSelf.checkMobileBlock(text);
             }
         }
         if (text.length > 0) {
@@ -149,6 +152,7 @@ UITextFieldDelegate
             weakSelf.nextButton.backgroundColor = COR26;
             weakSelf.nextButton.userInteractionEnabled = NO;
         }
+        weakSelf.phoneText = text;
     };
     [self.nextButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.phoneTextField.mas_bottom).offset(kScrAdaptationH(50));
