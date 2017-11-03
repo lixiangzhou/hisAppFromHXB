@@ -178,7 +178,7 @@
 //MARK:红利计划列表
 - (void)setupPlanListTableView {
     kWeakSelf
-    self.planListTableView = [[HXBFinancting_PlanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.planListTableView = [[HXBFinancting_PlanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.planListTableView.expectedYearRateLable_ConstStr = @"平均历史年化收益";
     self.planListTableView.lockPeriodLabel_ConstStr = @"期限(月)";
     
@@ -205,9 +205,10 @@
 //}
 //MARK:散标列表
 - (void)setupLoanListTableView {
-    self.loanListTableView = [[HXBFinancting_LoanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
+    self.loanListTableView = [[HXBFinancting_LoanListTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.loanListTableView.expectedYearRateLable_ConstStr = @"年利率";
     self.loanListTableView.lockPeriodLabel_ConstStr = @"期限(月)";
+    self.loanListTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     kWeakSelf
     [self.loanListTableView setClickLoanListCellBlock:^(NSIndexPath *index, id model) {
         if (weakSelf.clickLoanListCellBlock) {
@@ -226,8 +227,8 @@
 //MARK: 债转
 - (void)setUPLoanTransferTableView {
     kWeakSelf
-    self.loanTruansferTableView = [[HXBFin_LoanTransferTableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
-
+    self.loanTruansferTableView = [[HXBFin_LoanTransferTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    self.loanTruansferTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //上拉刷新，下拉加载（判断条数是否）
     [self.loanTruansferTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
         if (weakSelf.loanTruansferHeaderBlock) weakSelf.loanTruansferHeaderBlock();

@@ -29,7 +29,8 @@
                                   @"mobile"	: mobile,///           是	string	手机号
                                   @"smscode" : smscode,///	      是	string	短信验证码
                                   @"password" : password,///       是	string	密码
-                                  @"inviteCode" : inviteCode///    否	string	邀请码
+                                  @"inviteCode" : inviteCode,///    否	string	邀请码
+                                  @"utmSource" : @"ios"
                                   };
     [signUPAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD
@@ -94,7 +95,7 @@
     NSString *systemVision = [[UIDevice currentDevice] systemVersion];
     NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
     NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVision,version];
-    [requestM addValue:userAgent forHTTPHeaderField:@"User-Agent"];
+    [requestM addValue:userAgent forHTTPHeaderField:X_Hxb_User_Agent];
     [requestM addValue:[HXBServerAndClientTime getCurrentTime_Millisecond] forHTTPHeaderField:@"X-Hxb-Auth-Timestamp"];
     [requestM addValue:KeyChain.token forHTTPHeaderField: kHXBToken_X_HxbAuth_Token];
     requestM.HTTPMethod = @"GET";
@@ -206,7 +207,7 @@
 //        kHXBResponsShowHUD
         NSString *status = [responseObject valueForKey:@"status"];
         NSString *message = @"";
-        if (status.integerValue == 1) {
+        if (status.integerValue == kHXBCode_Enum_CommonError) {
             if ([responseObject[@"message"] isEqualToString:@"手机号码已存在"]) {
                 message = @"该手机号已注册";
                 [HxbHUDProgress showTextWithMessage:message];
@@ -216,7 +217,7 @@
                 [HxbHUDProgress showTextWithMessage:message];
             }
         }
-        if (status.integerValue == 104) {
+        if (status.integerValue == kHXBCode_Enum_ProcessingField) {
             message = @"请输入正确的手机号码";
         }
         if(successBlock) successBlock(!status.integerValue,message);
@@ -225,6 +226,47 @@
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);
 //        kNetWorkError(@"校验手机号 请求失败");
+    }];
+}
+
+#pragma mark - 注册校验手机号有HUD展示
++ (void)checkMobileRequestHUDWithMobile: (NSString *)mobile
+                     andSuccessBlock: (void(^)(BOOL isExist,NSString *message))successBlock
+                     andFailureBlock: (void(^)(NSError *error))failureBlock {
+    
+    
+    NYBaseRequest *checkMobileAPI = [[NYBaseRequest alloc]init];
+    checkMobileAPI.requestMethod = NYRequestMethodPost;
+    checkMobileAPI.requestUrl = kHXBUser_CheckMobileURL;
+    
+    checkMobileAPI.requestArgument = @{
+                                       @"mobile":mobile
+                                       };
+    NSLog(@"%@",[KeyChain token]);
+    [checkMobileAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
+        
+        //        kHXBResponsShowHUD
+        NSString *status = [responseObject valueForKey:@"status"];
+        NSString *message = @"";
+        if (status.integerValue == kHXBCode_Enum_CommonError) {
+            if ([responseObject[@"message"] isEqualToString:@"手机号码已存在"]) {
+                message = @"该手机号已注册";
+                [HxbHUDProgress showTextWithMessage:message];
+            }else
+            {
+                message = responseObject[@"message"];
+                [HxbHUDProgress showTextWithMessage:message];
+            }
+        }
+        if (status.integerValue == kHXBCode_Enum_ProcessingField) {
+            message = @"请输入正确的手机号码";
+        }
+        if(successBlock) successBlock(!status.integerValue,message);
+        
+        
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (failureBlock) failureBlock(error);
+        //        kNetWorkError(@"校验手机号 请求失败");
     }];
 }
 

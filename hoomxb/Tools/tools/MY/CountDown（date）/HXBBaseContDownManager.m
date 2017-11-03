@@ -254,7 +254,7 @@
     }
     __block NSInteger count = 0;
     [self.modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([model valueForKey:self.modelCountDownKey] <= 0) {
+        if ([model valueForKey:self.modelDateKey] <= 0) {
             count++;
         }
     }];

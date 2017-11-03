@@ -78,6 +78,7 @@
 #define COR11    [UIColor colorWithRed:155/255.0f green:155/255.0f blue:155/255.0f alpha:1]    // 色
 // 浅灰
 #define COR12    [UIColor colorWithRed:221/255.0f green:221/255.0f blue:221/255.0f alpha:1]    // 色
+#define COR192    [UIColor colorWithRed:192/255.0f green:192/255.0f blue:192/255.0f alpha:1]    // 色
 
 #define COR13    [UIColor colorWithRed:232/255.0f green:232/255.0f blue:232/255.0f alpha:1]    // 色
 #define COR14    [UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1]    // 色

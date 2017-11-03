@@ -15,7 +15,7 @@
 @property (nonatomic,assign) BOOL isTransparentNavigationBar;
 ///导航条是否为红色渐变
 @property (nonatomic,assign) BOOL isColourGradientNavigationBar;
-@property (nonatomic,assign) BOOL isReadColorWithNavigationBar;
+@property (nonatomic,assign) BOOL isRedColorWithNavigationBar;
 ///导航条是否为白色
 @property (nonatomic, assign) BOOL isWhiteColourGradientNavigationBar;
 ///导航条是否为蓝色

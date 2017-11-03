@@ -12,8 +12,12 @@
  code 码
  */
 typedef enum : NSUInteger {
+    ///普通错误状态码
+    kHXBCode_Enum_CommonError = 1,
     ///弹出图验
     kHXBCode_Enum_Captcha = 102,
+    ///Form错误处理字段
+    kHXBCode_Enum_ProcessingField = 104,
     ///token无权限
     kHXBCode_Enum_TokenNotJurisdiction = 401,
     ///未登录

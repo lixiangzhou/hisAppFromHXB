@@ -9,7 +9,6 @@
 #import "HxbWithdrawViewController.h"
 #import "HxbSecurityCertificationViewController.h"
 #import "HxbWithdrawCardViewController.h"
-#import "HXBBankCardModel.h"
 #import "HXBWithdrawalsRequest.h"
 #import "HxbWithdrawResultViewController.h"
 #import "HXBAlertVC.h"
@@ -17,7 +16,9 @@
 #import "HXBCallPhone_BottomView.h"
 #import "HXBOpenDepositAccountRequest.h"
 #import "HXBMy_Withdraw_notifitionView.h"
-
+#import "HXBWithdrawRecordViewController.h"
+#import "HXBWithdrawModel.h"
+#import "HXBBankCardModel.h"
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIImageView *tipImage;
@@ -37,13 +38,16 @@
 /**
  数据模型
  */
-@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
+@property (nonatomic, strong) HXBWithdrawModel *withdrawModel;
+
 
 @property (nonatomic, strong) HXBAlertVC *alertVC;
 @end
 
 @implementation HxbWithdrawViewController
 
+
+#pragma mark – Life Cycle(生命周期)
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"提现";
@@ -62,12 +66,14 @@
     [self.view addSubview:self.tiedCardLabel];
     [self.view addSubview:self.reminderLabel];
     [self setCardViewFrame];
+    //增加提现记录的按钮
+    [self setupRightBarBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self loadData];
+    [self loadBankCard];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -77,38 +83,56 @@
     self.nextButton.backgroundColor = COR12;
     self.nextButton.userInteractionEnabled = NO;
 }
-- (void)loadData
-{
-    kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.userInfoViewModel = viewModel;
-        weakSelf.availableBalanceLabel.text =  [NSString stringWithFormat:@"可提金额：%@",[NSString hxb_getPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue]];
-    } andFailure:^(NSError *error) {
-        
-    }];
+
+
+#pragma mark - Events
+
+/**
+ 增加提现记录的按钮
+ */
+- (void)setupRightBarBtn {
+    UIButton *cashRegisterBtn = [[UIButton alloc] init];
+    [cashRegisterBtn setTitle:@"提现记录" forState:(UIControlStateNormal)];
+    [cashRegisterBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    cashRegisterBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+    [cashRegisterBtn addTarget:self action:@selector(pushCashRegisterVC) forControlEvents:(UIControlEventTouchUpInside)];
+    [cashRegisterBtn sizeToFit];
+    UIBarButtonItem *cashRegisterItem = [[UIBarButtonItem alloc] initWithCustomView:cashRegisterBtn];
+    self.navigationItem.rightBarButtonItem = cashRegisterItem;
+}
+
+/**
+ 进入提现记录
+ */
+- (void)pushCashRegisterVC {
+    HXBWithdrawRecordViewController *cashRegisterVC = [[HXBWithdrawRecordViewController alloc] init];
+    [self.navigationController pushViewController:cashRegisterVC animated:YES];
 }
 
 - (void)setCardViewFrame{
+
+    [self.notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(self.view).offset(64);
+        make.height.offset(kScrAdaptationH750(0));
+    }];
     
-//    if (![self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-//        self.mybankView.hidden = YES;
-//        [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.offset(kScrAdaptationH750(30));
-//            make.top.equalTo(self.view).offset(kScrAdaptationH750(20));
-//        }];
-//    }else
-//    {
-    [self loadBankCard];
+    [self.mybankView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.left.equalTo(self.view);
+        make.top.equalTo(self.notifitionView.mas_bottom);
+        make.height.offset(kScrAdaptationH750(160));
+    }];
+    
     [self.availableBalanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(kScrAdaptationW750(30));
         make.top.equalTo(self.mybankView.mas_bottom).offset(kScrAdaptationH750(20));
     }];
+    
     [self.freeTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.offset(-kScrAdaptationH750(30));
         make.centerY.equalTo(self.availableBalanceLabel);
     }];
-//    }
-    
+
     [self.tipImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.offset(kScrAdaptationH750(30));
         make.width.offset(kScrAdaptationW750(27));
@@ -136,20 +160,24 @@
         make.right.equalTo(self.view).offset(kScrAdaptationW750(-40));
         make.height.offset(kScrAdaptationH750(82));
     }];
+    
     [self.callPhoneView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.view).offset(kScrAdaptationH750(-100));
         make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
     }];
+    
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.callPhoneView.mas_top).offset(kScrAdaptationH750(-10));
         make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.view).offset(-kScrAdaptationW750(40));
     }];
+    
     [self.tiedCardLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.promptLabel.mas_top).offset(kScrAdaptationH750(-10));
         make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.view).offset(-kScrAdaptationW750(40));
     }];
+    
     [self.reminderLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.tiedCardLabel.mas_top).offset(kScrAdaptationH750(-20));
         make.left.equalTo(self.view).offset(kScrAdaptationW750(40));
@@ -165,8 +193,6 @@
     }
 }
 
-
-
 /**
  提现短验
  */
@@ -174,7 +200,7 @@
 {
     kWeakSelf
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:self.bankCardModel.amount andWithAction:@"withdraw" andSuccessBlock:^(id responseObject) {
+    [accountRequest accountRechargeRequestWithRechargeAmount:self.amountTextField.text andWithAction:@"withdraw" andSuccessBlock:^(id responseObject) {
         [weakSelf withdrawals];
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
@@ -186,11 +212,11 @@
 //    self.view.userInteractionEnabled = NO;
     kWeakSelf
     NSMutableDictionary *requestArgument  = [NSMutableDictionary dictionary];
-    requestArgument[@"bankno"] = self.bankCardModel.bankCode;
-    requestArgument[@"city"] = self.bankCardModel.city;
-    requestArgument[@"bank"] = self.bankCardModel.cardId;
+    requestArgument[@"bankno"] = self.withdrawModel.bankCard.bankCode;
+    requestArgument[@"city"] = self.withdrawModel.bankCard.city;
+    requestArgument[@"bank"] = self.withdrawModel.bankCard.cardId;
     requestArgument[@"smscode"] = smscode;
-    requestArgument[@"amount"] = self.bankCardModel.amount;
+    requestArgument[@"amount"] = self.amountTextField.text;
     HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
     [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
         NSLog(@"%@",responseObject);
@@ -198,90 +224,27 @@
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
 //        weakSelf.view.userInteractionEnabled = YES;
         HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
-        weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
-        withdrawResultVC.bankCardModel = weakSelf.bankCardModel;
+//        weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
+        withdrawResultVC.bankCardModel = weakSelf.withdrawModel.bankCard;
         [weakSelf.navigationController pushViewController:withdrawResultVC animated:YES];
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
     }];
-    
 }
 
 - (void)nextButtonClick:(UIButton *)sender{
-    kWeakSelf
-    self.bankCardModel.amount = self.amountTextField.text;
-    if ([_amountTextField.text doubleValue] < 1) {
-        [HxbHUDProgress showTextWithMessage:@"金额不能小于1"];
+    self.withdrawModel.bankCard.amount = self.amountTextField.text;
+    if ([_amountTextField.text doubleValue] < self.withdrawModel.minWithdrawAmount) {
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"提现金额不能小于%d",self.withdrawModel.minWithdrawAmount]];
         return;
     }
-    if ([_amountTextField.text doubleValue] > [self.userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]) {
+    if ([_amountTextField.text doubleValue] > self.withdrawModel.balanceAmount) {
         [HxbHUDProgress showTextWithMessage:@"余额不足"];
         return;
     }
     
-    if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-//        [self withdrawals];
-        [self withdrawSmscode];
-        return;
-    }
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        //实名认证
-        if (!viewModel.userInfoModel.userInfo.isAllPassed.integerValue) {
-            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
-            securityCertificationVC.userInfoViewModel = viewModel;
-            [weakSelf.navigationController pushViewController:securityCertificationVC animated:YES];
-            return;
-        }else
-        {
-            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-            withdrawCardViewController.title = @"确认信息";
-            withdrawCardViewController.amount = self.amountTextField.text;
-            withdrawCardViewController.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
-            [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-            return;
-        }
-    } andFailure:^(NSError *error) {
-        
-    }];
-}
-
-
-- (WithdrawBankView *)mybankView{
-    if (!_mybankView) {
-        _mybankView = [[WithdrawBankView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, kScrAdaptationH750(160))];
-    }
-    return _mybankView;
-}
-
-- (UIView *)backView
-{
-    if (!_backView) {
-        _backView = [[UIView alloc] init];
-        _backView.backgroundColor = [UIColor whiteColor];
-    }
-    return _backView;
-}
-- (UITextField *)amountTextField{
-    if (!_amountTextField) {
-        _amountTextField = [[UITextField alloc] init];
-        _amountTextField.placeholder = @"提现金额";
-        _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
-        _amountTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _amountTextField.delegate = self;
-        _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
-        _amountTextField.backgroundColor = [UIColor whiteColor];
-//        _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
-        _amountTextField.textColor = RGB(51, 51, 51);
-    }
-    return _amountTextField;
-}
-
-- (UIImageView *)tipImage{
-    if(!_tipImage){
-        _tipImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(24), kScrAdaptationH750(37))];
-        _tipImage.image = [UIImage imageNamed:@"hxb_my_message人民币"];
-    }
-    return _tipImage;
+    [self withdrawSmscode];
+    
 }
 
 //参数一：range,要被替换的字符串的range，如果是新键入的那么就没有字符串被替换，range.lenth=0,第二个参数：替换的字符串，即键盘即将键入或者即将粘贴到textfield的string
@@ -313,6 +276,103 @@
     return [NSString checkBothDecimalPlaces:checkStr];
 }
 
+- (void)loadBankCard
+{
+    kWeakSelf
+    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
+    bankCardAPI.requestUrl = kHXBWithdraw;
+    bankCardAPI.requestMethod = NYRequestMethodGet;
+    [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSInteger status =  [responseObject[@"status"] integerValue];
+        if (status != 0) {
+            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            return;
+        }
+        weakSelf.withdrawModel = [HXBWithdrawModel yy_modelWithJSON:responseObject[@"data"]];
+        
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        NSLog(@"%@",error);
+        [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+    }];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+
+- (void)leftBackBtnClick
+{
+    NSInteger index = self.navigationController.viewControllers.count;
+    UIViewController *VC = self.navigationController.viewControllers[index - 2];
+    if ([VC isKindOfClass:NSClassFromString(@"HXBOpenDepositAccountViewController")] || [VC isKindOfClass:NSClassFromString(@"HxbWithdrawCardViewController")]) {
+        [self.navigationController popToViewController:self.navigationController.viewControllers[index - 3] animated:YES];
+    }else
+    {
+        [super leftBackBtnClick];
+    }
+}
+
+#pragma mark - Setter
+- (void)setWithdrawModel:(HXBWithdrawModel *)withdrawModel {
+    _withdrawModel = withdrawModel;
+    self.availableBalanceLabel.text =  [NSString stringWithFormat:@"可提金额：%@",[NSString hxb_getPerMilWithDouble:withdrawModel.balanceAmount]];
+    self.mybankView.bankCardModel = withdrawModel.bankCard;
+    if (withdrawModel.inprocessCount > 0) {
+        self.notifitionView.hidden = NO;
+        NSString *messageStr = [NSString stringWithFormat:@"您有%d条提现申请正在处理，点击查看",withdrawModel.inprocessCount];
+        NSRange range = [messageStr rangeOfString:[NSString stringWithFormat:@"%d",withdrawModel.inprocessCount]];
+        self.notifitionView.attributedMessageCount = [NSMutableAttributedString setupAttributeStringWithString:messageStr WithRange:(NSRange)range andAttributeColor:COR29 andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(24)];
+        [self.notifitionView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(self.view);
+            make.top.equalTo(self.view).offset(64);
+            make.height.offset(kScrAdaptationH750(70));
+        }];
+    }
+    
+}
+
+
+#pragma mark - Getter
+- (WithdrawBankView *)mybankView{
+    if (!_mybankView) {
+        _mybankView = [[WithdrawBankView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, kScrAdaptationH750(160))];
+    }
+    return _mybankView;
+}
+
+- (UIView *)backView
+{
+    if (!_backView) {
+        _backView = [[UIView alloc] init];
+        _backView.backgroundColor = [UIColor whiteColor];
+    }
+    return _backView;
+}
+
+- (UITextField *)amountTextField{
+    if (!_amountTextField) {
+        _amountTextField = [[UITextField alloc] init];
+        _amountTextField.placeholder = @"提现金额";
+        _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
+        _amountTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _amountTextField.delegate = self;
+        _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(40);
+        _amountTextField.backgroundColor = [UIColor whiteColor];
+        //        _amountTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        _amountTextField.textColor = RGB(51, 51, 51);
+    }
+    return _amountTextField;
+}
+
+- (UIImageView *)tipImage{
+    if(!_tipImage){
+        _tipImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW750(24), kScrAdaptationH750(37))];
+        _tipImage.image = [UIImage imageNamed:@"hxb_my_message人民币"];
+    }
+    return _tipImage;
+}
 
 - (UIButton *)nextButton{
     if (!_nextButton) {
@@ -344,16 +404,6 @@
     return _freeTipLabel;
 }
 
-//- (UILabel *)tipLabel
-//{
-//    if (!_tipLabel) {
-//        _tipLabel = [[UILabel alloc] init];
-//        _tipLabel.text = @"3、禁止恶意提现";
-//        _tipLabel.textColor = COR8;
-//        _tipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
-//    }
-//    return _tipLabel;
-//}
 
 - (HXBCallPhone_BottomView *)callPhoneView
 {
@@ -361,7 +411,7 @@
         _callPhoneView = [[HXBCallPhone_BottomView alloc] init];
         _callPhoneView.leftTitle = @"3、如提现过程中有疑问，请联系客服：";
         _callPhoneView.phoneNumber = [NSString stringWithFormat:@"%@",kServiceMobile];
-//        _callPhoneView.supplementText = @"(周一至周五 9:00-19:00)";
+        //        _callPhoneView.supplementText = @"(周一至周五 9:00-19:00)";
     }
     return _callPhoneView;
 }
@@ -377,6 +427,7 @@
     }
     return _promptLabel;
 }
+
 - (UILabel *)tiedCardLabel
 {
     if (!_tiedCardLabel) {
@@ -388,6 +439,7 @@
     }
     return _tiedCardLabel;
 }
+
 - (UILabel *)reminderLabel
 {
     if (!_reminderLabel) {
@@ -398,51 +450,6 @@
     }
     return _reminderLabel;
 }
-/**
- 设置数据
- */
-- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
-{   
-    _userInfoViewModel = userInfoViewModel;
-    self.availableBalanceLabel.text = [NSString stringWithFormat:@"可提金额：%@", [NSString hxb_getPerMilWithDouble:[userInfoViewModel.userInfoModel.userAssets.availablePoint floatValue]]];
-}
-
-- (void)loadBankCard
-{
-    kWeakSelf
-    NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
-    bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
-    bankCardAPI.requestMethod = NYRequestMethodGet;
-    [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            return;
-        }
-        weakSelf.bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
-        self.mybankView.bankCardModel = weakSelf.bankCardModel;
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        NSLog(@"%@",error);
-        [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
-    }];
-}
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self.view endEditing:YES];
-}
-- (void)leftBackBtnClick
-{
-    NSInteger index = self.navigationController.viewControllers.count;
-    UIViewController *VC = self.navigationController.viewControllers[index - 2];
-    if ([VC isKindOfClass:NSClassFromString(@"HXBOpenDepositAccountViewController")] || [VC isKindOfClass:NSClassFromString(@"HxbWithdrawCardViewController")]) {
-        [self.navigationController popToViewController:self.navigationController.viewControllers[index - 3] animated:YES];
-    }else
-    {
-        [super leftBackBtnClick];
-    }
-}
 
 - (HXBAlertVC *)alertVC
 {
@@ -451,7 +458,7 @@
         _alertVC = [[HXBAlertVC alloc] init];
         _alertVC.isCode = YES;
         _alertVC.messageTitle = @"请输入您的短信验证码";
-        _alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收",[self.userInfoViewModel.userInfoModel.userInfo.mobile replaceStringWithStartLocation:3 lenght:self.bankCardModel.mobile.length - 7]];
+        _alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收",[self.withdrawModel.mobileNumber replaceStringWithStartLocation:3 lenght:self.withdrawModel.mobileNumber.length - 7]];
         _alertVC.sureBtnClick = ^(NSString *pwd){
             if (pwd.length == 0) {
                 return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
@@ -462,7 +469,7 @@
         _alertVC.forgetBtnClick = ^(){
             HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
             modifyTransactionPasswordVC.title = @"修改交易密码";
-            modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
+//            modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
             [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
         };
         _alertVC.getVerificationCodeBlock = ^{
@@ -472,14 +479,15 @@
     return _alertVC;
 }
 - (HXBMy_Withdraw_notifitionView *)notifitionView {
+    kWeakSelf
     if (!_notifitionView) {
         _notifitionView = [[HXBMy_Withdraw_notifitionView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScrAdaptationH750(70))];
+        _notifitionView.hidden = YES;
     }
-    _notifitionView.hidden = YES;
     _notifitionView.block = ^{
-        NSLog(@"点击了消息");
+        [weakSelf pushCashRegisterVC];
     };
-    _notifitionView.messageCount = @"qkkjsdhajkdhakjsdhk";
+//    _notifitionView.messageCount = @"qkkjsdhajkdhakjsdhk";
     return _notifitionView;
 }
 
@@ -590,8 +598,6 @@
     }
     return _bankCardNumLabel;
 }
-
-
 
 
 - (UILabel *)amountLimitLabel{

@@ -46,4 +46,10 @@
  *设置SVG图片
  */
 - (void)hxb_SVGImageWihtName: (NSString *)svgImageName;
+
+/**
+ 虚线分割线
+ */
++ (UIImage *)imageWithLineWithImageView:(UIImageView *)imageView;
+
 @end

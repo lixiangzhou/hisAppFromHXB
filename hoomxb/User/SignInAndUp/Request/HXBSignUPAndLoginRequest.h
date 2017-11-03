@@ -88,6 +88,13 @@
                      andSuccessBlock: (void(^)(BOOL isExist,NSString *message))successBlock
                      andFailureBlock: (void(^)(NSError *error))failureBlock;
 /**
+ * 注册校验手机号有HUD
+ * @param mobile    用户名
+ */
++ (void)checkMobileRequestHUDWithMobile: (NSString *)mobile
+                        andSuccessBlock: (void(^)(BOOL isExist,NSString *message))successBlock
+                        andFailureBlock: (void(^)(NSError *error))failureBlock;
+/**
  * 忘记密码校验手机号
  * @param mobile    用户名
  */

@@ -31,7 +31,7 @@
     NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVision,version];
     NSLog(@"%@",[KeyChain token]);
     [request setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
-    [request setValue:userAgent forHTTPHeaderField:@"User-Agent"];
+    [request setValue:userAgent forHTTPHeaderField:X_Hxb_User_Agent];
     
     request = [request copy];
     [self loadRequest:request];

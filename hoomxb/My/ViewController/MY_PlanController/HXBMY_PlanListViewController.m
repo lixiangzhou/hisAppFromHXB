@@ -52,7 +52,7 @@ kDealloc
 
 //设置
 - (void)setUP {
-    self.isReadColorWithNavigationBar = true;
+    self.isRedColorWithNavigationBar = true;
     ///请求资产统计的网络请求
     [self assetStatisticsLoadData];
     ///view的创建

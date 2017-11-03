@@ -72,6 +72,8 @@ static NSString *const my = @"我的";
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //设置启动页面停留时间
+    [NSThread sleepForTimeInterval:0.5];
     //字典和数据为空的防止闪退
     [AvoidCrash becomeEffective];
     //设置友盟统计
@@ -174,17 +176,17 @@ static NSString *const my = @"我的";
 //HXBBaseTabBarController *tabBarController = [[HXBBaseTabBarController alloc]init];
     
     
-    [self chooseRootViewController];
+//    [self chooseRootViewController];
     //检测版本更新
     [self checkversionUpdate];
     //广告页打开就能用
-//    __weak typeof(self) weakSelf = self;
-//    HxbAdvertiseViewController *advertiseViewControllre = [[HxbAdvertiseViewController alloc]init];
-//    _window.rootViewController = advertiseViewControllre;
-//    [advertiseViewControllre dismissAdvertiseViewControllerFunc:^{
-//        [weakSelf enterTheGesturePasswordVC];
-//    }];
-//    _window.backgroundColor = [UIColor whiteColor];
+    kWeakSelf
+    HxbAdvertiseViewController *advertiseViewControllre = [[HxbAdvertiseViewController alloc]init];
+    _window.rootViewController = advertiseViewControllre;
+    [advertiseViewControllre dismissAdvertiseViewControllerFunc:^{
+         [weakSelf chooseRootViewController];
+    }];
+    _window.backgroundColor = [UIColor whiteColor];
     
     [_window makeKeyAndVisible];
 }

@@ -19,8 +19,8 @@
     versionUpdateAPI.requestArgument = requestArgument;
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {        NSInteger status =  [responseObject[@"status"] integerValue];
         if (status == 5068) {
-            NSString *string = [NSString stringWithFormat:@"您信息填写有误，为保障账户安全，请及时联系客服 %@", kServiceMobile];
-            HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"暂不联系" andRightButtonMassage:@"联系客服"];
+            NSString *string = [NSString stringWithFormat:@"您在红小宝平台开通恒丰银行存管操作已达上限，请联系客服 %@", kServiceMobile];
+            HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"联系客服"];
    
                 alertVC.messageHeight = 50;
             
@@ -71,9 +71,27 @@
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
             if (status == 5068) {
-                [self showAlertWithMessage:@"您的绑卡操作已超限，请明日再试"];
+                NSString *string = [NSString stringWithFormat:@"您今日绑卡次数已超限，请明日再试！请联系客服 %@", kServiceMobile];
+                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"联系客服"];
+                
+                alertVC.messageHeight = 50;
+                
+                alertVC.isHIddenLeftBtn = NO;
+                alertVC.isCenterShow = YES;
+                [alertVC setClickXYRightButtonBlock:^{
+                    NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", kServiceMobile];
+                    NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
+                    if (compare == NSOrderedDescending || compare == NSOrderedSame) {
+                        /// 大于等于10.0系统使用此openURL方法
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
+                    } else {
+                        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
+                    }
+                }];
+                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+                return;
             } else {
-                if (status == 104) return;
+                if (status == kHXBCode_Enum_ProcessingField) return;
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
 //            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
@@ -120,7 +138,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (status != 104) {
+            if (status != kHXBCode_Enum_ProcessingField) {
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
             if (failureBlock) {
@@ -194,7 +212,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (isToast && (status != 104)) {
+            if (isToast && (status != kHXBCode_Enum_ProcessingField)) {
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             }
             if (failureBlock) {

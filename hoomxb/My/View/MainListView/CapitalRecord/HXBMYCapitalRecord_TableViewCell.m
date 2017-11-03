@@ -115,7 +115,7 @@
         make.bottom.equalTo(weakSelf.contentView).offset(-kScrAdaptationH(0.5));
         make.width.offset(kScreenWidth - kScrAdaptationW(30));
         make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
-        make.height.offset(kScrAdaptationH(0.5));
+        make.height.offset(kHXBDivisionLineHeight);
     }];
     self.pointDisplayType_Label.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
     self.pointDisplayType_Label.textColor = COLOR(51, 51, 51, 1);

@@ -48,7 +48,7 @@
 }
 
 - (void)setUP {
-    self.isReadColorWithNavigationBar = true;
+    self.isRedColorWithNavigationBar = true;
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(kScrAdaptationH750(130) + 64);
         make.width.equalTo(@(kScrAdaptationW750(310)));

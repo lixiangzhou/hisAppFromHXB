@@ -13,4 +13,13 @@
     return @{@"ID" : @"id"};
 }
 
+- (BOOL)hasCoupon {
+    if (self.hasDiscountCoupon || self.hasMoneyOffCoupon) {
+        _hasCoupon = YES;
+    } else {
+         _hasCoupon = NO;
+    }
+    return _hasCoupon;
+}
+
 @end

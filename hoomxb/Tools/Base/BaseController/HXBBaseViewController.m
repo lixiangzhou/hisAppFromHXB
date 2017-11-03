@@ -178,9 +178,9 @@
         [self.view addSubview:self.nacigationBarImageView];
     }
 }
-- (void)setIsReadColorWithNavigationBar: (BOOL) isReadColorWithNavigationBar {
+- (void)setIsRedColorWithNavigationBar: (BOOL) isRedColorWithNavigationBar {
     
-    if (isReadColorWithNavigationBar) {
+    if (isRedColorWithNavigationBar) {
         self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
         self.isTransparentNavigationBar = true;
         self.nacigationBarImageView.image = [UIImage imageNamed:@"NavigationBar"];

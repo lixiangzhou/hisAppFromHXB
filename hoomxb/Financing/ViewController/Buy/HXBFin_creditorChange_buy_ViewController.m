@@ -576,7 +576,7 @@ static NSString *const investString = @"立即投资";
                 return ;
             case kHXBSMS_Code_Error:
                 return ;
-            case 104:
+            case kHXBCode_Enum_ProcessingField:
                 return ;
             case 50000:
                 return ;
@@ -645,7 +645,7 @@ static NSString *const investString = @"立即投资";
                 return ;
             case kHXBSMS_Code_Error:
                 return ;
-            case 104:
+            case kHXBCode_Enum_ProcessingField:
                 return ;
             case 412:
                 return ;
@@ -725,7 +725,7 @@ static NSString *const investString = @"立即投资";
                 return ;
             case kHXBSMS_Code_Error:
                 return ;
-            case 104:
+            case kHXBCode_Enum_ProcessingField:
                 return ;
             case 412:
                 return ;

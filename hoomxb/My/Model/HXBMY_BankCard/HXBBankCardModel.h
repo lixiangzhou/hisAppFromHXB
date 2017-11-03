@@ -43,7 +43,7 @@
  */
 @property (nonatomic, copy) NSString *name;
 /**
- mobile
+ 银行卡预留手机号
  */
 @property (nonatomic, copy) NSString *mobile;
 /**
@@ -51,7 +51,7 @@
  */
 @property (nonatomic, copy) NSString *province;
 /**
- status
+ 银行卡状态,参加数据字段，银行卡部分
  */
 @property (nonatomic, copy) NSString *status;
 /**
@@ -89,5 +89,10 @@
  密文手机号
  */
 @property (nonatomic, copy) NSString *securyMobile;
+
+/**
+ 提现预计到帐时间文本
+ */
+@property (nonatomic, copy) NSString *bankArriveTimeText;
 
 @end
