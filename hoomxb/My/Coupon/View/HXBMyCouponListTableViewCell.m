@@ -52,7 +52,6 @@
     
     if ([self.couponTypeLab.text isEqualToString:@"抵扣券"]) { //判断折扣还是满减
         self.leftImgV.image = [UIImage imageNamed:@"my_couponList_dicountRateleft"];
-        
         self.dicountRateLab.textColor = RGBA(253, 54, 54, 1);
         self.dicountRateLab.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
         NSString *dicountRate = [NSString stringWithFormat:@"%@%%",myCouponListModel.dicountRate];
@@ -68,6 +67,7 @@
             self.allowDerateInvestLab.text = @"";
         }
 
+        NSLog(@"_____%@", myCouponListModel.forProductLimit);
         if (myCouponListModel.forProductLimit && ([myCouponListModel.forProductLimit containsString:@"("] || [myCouponListModel.forProductLimit containsString:@"（"])) {
             NSString *str = [NSString stringWithFormat:@"%@  %@",myCouponListModel.forProductText,myCouponListModel.forProductLimit];
             NSRange range;
@@ -150,14 +150,15 @@
         self.allowBusinessCategoryLab.text = @"";
         [self.actionBtn setTitle:@"" forState:UIControlStateNormal];
     }
-
-    self.tagLab.text = [NSString stringWithFormat:@"(%@)",myCouponListModel.tag];//"(贺岁大礼包)"
+    if (myCouponListModel.tag) {
+        self.tagLab.text = [NSString stringWithFormat:@"(%@)",myCouponListModel.tag];//"(贺岁大礼包)"
+    }
     
     //时间戳转化成时间
     NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
     [stampFormatter setDateFormat:@"YYYY/MM/dd"];
     //以 1970/01/01 GMT为基准，然后过了secs秒的时间
-    NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:myCouponListModel.expireTime];
+    NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:myCouponListModel.expireTime / 1000];
     self.termOfValidityLab.text = [NSString stringWithFormat:@"有效至%@",[stampFormatter stringFromDate:stampDate]];//"有效期至2017/11/30"
 }
 

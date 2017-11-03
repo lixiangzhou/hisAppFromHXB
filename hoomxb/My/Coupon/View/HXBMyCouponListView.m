@@ -53,11 +53,11 @@ UITableViewDataSource
 
 #pragma mark - TableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 13.f;
+    return kScrAdaptationH(19);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return 0.1f;
+    return kScrAdaptationH(0.0001);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -73,7 +73,6 @@ UITableViewDataSource
     cell.actionButtonClickBlock = ^(){
         weakSelf.actionButtonClickBlock();
     };
-    
     return cell;
 }
 

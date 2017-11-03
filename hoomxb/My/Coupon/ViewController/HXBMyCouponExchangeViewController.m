@@ -17,7 +17,7 @@
 
 @property (nonatomic, strong)UIView *bgView;
 @property (nonatomic, strong)UILabel *redeemCodeLab;
-@property (nonatomic, strong)UITextField *redeemCodeTextField;
+@property (nonatomic, strong)HXBCustomTextField *redeemCodeTextField;
 @property (nonatomic, strong)UILabel *promptLab;
 @property (nonatomic, strong)UIButton *redeemCodeBtn;
 @property (nonatomic, strong)HXBMyCouponListModel *myCouponListModel;
@@ -45,18 +45,21 @@
         make.height.equalTo(@kScrAdaptationH750(120));
         make.left.width.equalTo(self.view);
     }];
+    
+    [self.redeemCodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.bgView);
+        make.height.equalTo(@kScrAdaptationH750(32));
+        make.left.equalTo(self.view).offset(kScrAdaptationW750(70));
+        make.right.equalTo(self.bgView.mas_right);
+    }];
+    
     [self.redeemCodeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bgView).offset(kScrAdaptationH750(44));
         make.height.equalTo(@kScrAdaptationH750(30));
         make.left.equalTo(self.view).offset(kScrAdaptationW750(44));
         make.width.equalTo(@kScrAdaptationW750(96));
     }];
-    [self.redeemCodeTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.bgView);
-        make.height.equalTo(@kScrAdaptationH750(32));
-        make.left.equalTo(self.redeemCodeLab.mas_right).offset(kScrAdaptationW750(20));
-        make.right.equalTo(self.bgView.mas_right);
-    }];
+    
     [self.promptLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.bgView).offset(kScrAdaptationH750(20));
         make.height.equalTo(@kScrAdaptationH750(28));
@@ -119,19 +122,9 @@
     self.promptLab.hidden = YES;
 }
 
--(void)textFieldDidEndEditing:(UITextField *)textField{
-    if ([self.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0) {
-        self.redeemCodeBtn.userInteractionEnabled = YES;
-//        self.redeemCodeBtn.backgroundColor = RGBA(245, 81, 85, 1);
-    }else{
-//        self.redeemCodeBtn.backgroundColor = [UIColor lightGrayColor];
-        self.redeemCodeBtn.userInteractionEnabled = NO;
-    }
-}
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    if (textField == _redeemCodeTextField) {
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    if (textField.superview == _redeemCodeTextField) {
         NSString *str = nil;
         if (string.length) {
             str = [NSString stringWithFormat:@"%@%@",textField.text,string];
@@ -164,9 +157,8 @@
     
     if ([string isEqualToString:@""]) {
         return YES;
-    }else
-    {
-        if (self.redeemCodeTextField.text.length >= 20  && self.redeemCodeTextField == textField) {
+    } else {
+        if (self.redeemCodeTextField.text.length >= 20) {
             return NO;
         }
         return YES;
@@ -228,8 +220,7 @@
     [self.view addSubview:self.bgView];
     [self.view addSubview:self.promptLab];
     self.promptLab.hidden = YES;
-    [self.view addSubview:self.redeemCodeBtn];
-}
+    [self.view addSubview:self.redeemCodeBtn];}
 
 -(UILabel *)promptLab{
     if (!_promptLab) {
@@ -246,8 +237,8 @@
     if (!_redeemCodeBtn) {
         _redeemCodeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         _redeemCodeBtn.frame = CGRectMake(kScrAdaptationW750(40), kScrAdaptationH750(326), kScrAdaptationW750(670), kScrAdaptationH750(90));
-        _redeemCodeBtn.backgroundColor = RGBA(245, 81, 85, 1);
-//        self.redeemCodeBtn.backgroundColor = [UIColor lightGrayColor];
+        _redeemCodeBtn.backgroundColor = COR12;
+        _redeemCodeBtn.userInteractionEnabled = NO;
         [_redeemCodeBtn setTitle:@"兑换" forState:UIControlStateNormal];
         [_redeemCodeBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
         _redeemCodeBtn.layer.cornerRadius = 3;
@@ -256,6 +247,33 @@
         [_redeemCodeBtn addTarget:self action:@selector(clickRedeemCodeBtn:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _redeemCodeBtn;
+}
+
+
+
+- (HXBCustomTextField *)redeemCodeTextField{
+    if (!_redeemCodeTextField) {
+        _redeemCodeTextField = [[HXBCustomTextField alloc] initWithFrame:CGRectZero];
+        _redeemCodeTextField.placeholder = @"请输入兑换码";
+        _redeemCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
+        _redeemCodeTextField.delegate = self;
+        _redeemCodeTextField.limitStringLength = 19;
+        _redeemCodeTextField.isHidenLine = YES;
+        kWeakSelf
+        _redeemCodeTextField.block = ^(NSString *text) {
+            if (text.length) {
+                weakSelf.redeemCodeBtn.userInteractionEnabled = YES;
+                weakSelf.redeemCodeBtn.backgroundColor = COR29;
+            } else {
+                weakSelf.redeemCodeBtn.userInteractionEnabled = NO;
+                weakSelf.redeemCodeBtn.backgroundColor = COR12;
+            }
+            if (text.length > 19) {
+                weakSelf.redeemCodeTextField.disableEdit = YES;
+            }
+        };
+    }
+    return _redeemCodeTextField;
 }
 
 - (UILabel *)redeemCodeLab{
@@ -269,25 +287,25 @@
     return _redeemCodeLab;
 }
 
-- (UITextField *)redeemCodeTextField{
-    if (!_redeemCodeTextField) {
-        _redeemCodeTextField = [[UITextField alloc]initWithFrame:CGRectMake(kScrAdaptationW750(146), kScrAdaptationH750(44), kScrAdaptationW750(750-146), kScrAdaptationH750(32))];
-        _redeemCodeTextField.placeholder = @"请输入兑换码";
-        _redeemCodeTextField.delegate = self;
-        _redeemCodeTextField.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
-        _redeemCodeTextField.textColor = RGBA(51, 51, 51, 1);
-        _redeemCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
-        _redeemCodeTextField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
-    }
-    return _redeemCodeTextField;
-}
+
+//- (HXBCustomTextField *)redeemCodeTextField{
+//    if (!_redeemCodeTextField) {
+//        _redeemCodeTextField = [[HXBCustomTextField alloc]initWithFrame:CGRectMake(kScrAdaptationW750(146), kScrAdaptationH750(44), kScrAdaptationW750(750-146), kScrAdaptationH750(32))];
+//        _redeemCodeTextField.placeholder = @"请输入兑换码";
+//        _redeemCodeTextField.delegate = self;
+//        _redeemCodeTextField.textColor = RGBA(51, 51, 51, 1);
+//        _redeemCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
+////        _redeemCodeTextField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
+//    }
+//    return _redeemCodeTextField;
+//}
 
 - (UIView *)bgView{
     if (!_bgView) {
         _bgView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(0), kScrAdaptationH750(40), SCREEN_WIDTH, kScrAdaptationH750(120))];
         _bgView.backgroundColor = [UIColor whiteColor];
-        [_bgView addSubview:self.redeemCodeLab];
         [_bgView addSubview:self.redeemCodeTextField];
+        [_bgView addSubview:self.redeemCodeLab];
     }
     return _bgView;
 }

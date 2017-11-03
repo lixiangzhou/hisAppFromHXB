@@ -50,6 +50,7 @@
     if ([self.title isEqualToString:@"兑换优惠券"]) {
         UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"my_couponList_InstructionsNot"] style:UIBarButtonItemStylePlain target:self action:@selector(enterInstructions)];
         self.navigationItem.rightBarButtonItem = anotherButton;
+        [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
     }
 }
 
@@ -214,7 +215,11 @@
 }
 
 - (void)leftBackBtnClick {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    if ([self.title isEqualToString:@"兑换优惠券"]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
 
 }
 

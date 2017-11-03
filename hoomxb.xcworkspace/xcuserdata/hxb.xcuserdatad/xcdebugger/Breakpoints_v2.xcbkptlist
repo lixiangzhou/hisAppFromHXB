@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "hoomxb/My/View/HXBAccountView/HXBCustomTextField.m"
-            timestampString = "529670632.896178"
+            timestampString = "531372216.63103"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "218"
@@ -25,13 +25,13 @@
                   symbolName = "-[HXBCustomTextField setIsGetCode:]"
                   moduleName = "hoomxb"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hxb/Desktop/hxb/ios/hoomxb/My/View/HXBAccountView/HXBCustomTextField.m"
-                  timestampString = "530951426.749635"
+                  urlString = "file:///Users/hxb/Desktop/Hoomsun/hoomxb/My/View/HXBAccountView/HXBCustomTextField.m"
+                  timestampString = "531373085.632861"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "218"
                   endingLineNumber = "218"
-                  offsetFromSymbolStart = "88">
+                  offsetFromSymbolStart = "67">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -40,13 +40,13 @@
                   symbolName = "__35-[HXBCustomTextField setIsGetCode:]_block_invoke"
                   moduleName = "hoomxb"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hxb/Desktop/hxb/ios/hoomxb/My/View/HXBAccountView/HXBCustomTextField.m"
-                  timestampString = "530951426.751107"
+                  urlString = "file:///Users/hxb/Desktop/Hoomsun/hoomxb/My/View/HXBAccountView/HXBCustomTextField.m"
+                  timestampString = "531373085.635816"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "219"
-                  endingLineNumber = "219"
-                  offsetFromSymbolStart = "76">
+                  startingLineNumber = "218"
+                  endingLineNumber = "218"
+                  offsetFromSymbolStart = "19">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "hoomxb/Financing/ViewController/Buy/HXBFin_creditorChange_buy_ViewController.m"
-            timestampString = "529670632.897233"
+            timestampString = "531373085.281978"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "111"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "hoomxb/Financing/ViewController/Buy/HXBFin_creditorChange_buy_ViewController.m"
-            timestampString = "529670632.897504"
+            timestampString = "531373085.282616"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "311"
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "hoomxb/Financing/ViewController/Buy/HXBFin_creditorChange_buy_ViewController.m"
-            timestampString = "529670632.897736"
+            timestampString = "531373085.283209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "314"
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "hoomxb/Financing/ViewController/Buy/HXBFin_creditorChange_buy_ViewController.m"
-            timestampString = "529670632.897962"
+            timestampString = "531373085.28396"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "316"
@@ -250,77 +250,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "hoomxb/My/ViewController/HxbMyViewController.m"
-            timestampString = "530954201.617035"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
-            landmarkName = "-setupSubView"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/My/ViewController/HxbMyViewController.m"
-            timestampString = "530954201.618027"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
-            landmarkName = "-setupMyView"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/My/ViewController/HxbMyViewController.m"
             timestampString = "530954201.618607"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "219"
             endingLineNumber = "219"
-            landmarkName = "-loadData_userInfo"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/My/ViewController/HxbMyViewController.m"
-            timestampString = "530954201.619185"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "-viewWillAppear:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/My/View/HxbMyView.m"
-            timestampString = "530953407.047636"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
-            landmarkName = "-mainTableView"
-            landmarkType = "7">
+            landmarkName = "HxbMyViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -337,6 +273,38 @@
             endingLineNumber = "69"
             landmarkName = "-loadData_financialAdvisorInfo"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[HxbFinancialAdvisorViewController loadData_financialAdvisorInfo]"
+                  moduleName = "hoomxb"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hxb/Desktop/Hoomsun/hoomxb/My/FinancialAdvisor/ViewController/HxbFinancialAdvisorViewController.m"
+                  timestampString = "531373085.699526"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "69"
+                  endingLineNumber = "69"
+                  offsetFromSymbolStart = "41">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__66-[HxbFinancialAdvisorViewController loadData_financialAdvisorInfo]_block_invoke"
+                  moduleName = "hoomxb"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/hxb/Desktop/Hoomsun/hoomxb/My/FinancialAdvisor/ViewController/HxbFinancialAdvisorViewController.m"
+                  timestampString = "531373085.702389"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "44">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -383,7 +351,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "221"
             endingLineNumber = "221"
-            landmarkName = "-loadData_userInfo"
+            landmarkName = "-clickBarButtonItem"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -491,22 +459,6 @@
             continueAfterRunningActions = "No"
             scope = "0"
             stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "hoomxb/My/View/HxbMyViewHeaderView.m"
-            timestampString = "530954201.621101"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "-setUserInfoViewModel:"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

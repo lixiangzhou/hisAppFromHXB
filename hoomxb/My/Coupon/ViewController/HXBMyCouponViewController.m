@@ -28,7 +28,7 @@
     [super viewDidLoad];
     self.isReadColorWithNavigationBar = YES;
     
-    self.title = @"优惠券";
+    self.title = @"我的优惠券";
     [self setUI];
     
     UIButton*rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
