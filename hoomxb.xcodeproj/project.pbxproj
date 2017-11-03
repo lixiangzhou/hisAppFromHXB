@@ -62,6 +62,18 @@
 		4E6677C21EEA96300064ECCE /* HXBBankCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6677C11EEA96300064ECCE /* HXBBankCardModel.m */; };
 		4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */; };
 		4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E6D31001EA70DC900598529 /* HxbHomeViewController.m */; };
+		4E70B1951FACA12D0049D2F1 /* HXBRequestAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B1941FACA12D0049D2F1 /* HXBRequestAccountInfo.m */; };
+		4E70B1961FACA1A20049D2F1 /* HXBMyCouponViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B1901FACA0990049D2F1 /* HXBMyCouponViewController.m */; };
+		4E70B1971FACA1CF0049D2F1 /* HXBMyRequestAccountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B1921FACA0FB0049D2F1 /* HXBMyRequestAccountModel.m */; };
+		4E70B1981FACA1EA0049D2F1 /* HXBMyCouponListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B1821FACA0990049D2F1 /* HXBMyCouponListModel.m */; };
+		4E70B1991FACA1FC0049D2F1 /* HxbFinancialAdvisorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B17B1FACA0980049D2F1 /* HxbFinancialAdvisorViewController.m */; };
+		4E70B19A1FACA2140049D2F1 /* HXBTopTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B1891FACA0990049D2F1 /* HXBTopTabView.m */; };
+		4E70B19B1FACA2250049D2F1 /* HXBMyCouponListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B18E1FACA0990049D2F1 /* HXBMyCouponListViewController.m */; };
+		4E70B19C1FACA2420049D2F1 /* HXBFinancialAdvisorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B17E1FACA0980049D2F1 /* HXBFinancialAdvisorRequest.m */; };
+		4E70B19D1FACA2560049D2F1 /* HXBMyCouponExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B18C1FACA0990049D2F1 /* HXBMyCouponExchangeViewController.m */; };
+		4E70B19E1FACA28D0049D2F1 /* HXBMyCouponListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B1871FACA0990049D2F1 /* HXBMyCouponListView.m */; };
+		4E70B19F1FACA2AA0049D2F1 /* HXBFinancialAdvisorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B1781FACA0980049D2F1 /* HXBFinancialAdvisorModel.m */; };
+		4E70B1A01FACA2BB0049D2F1 /* HXBMyCouponListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E70B1851FACA0990049D2F1 /* HXBMyCouponListTableViewCell.m */; };
 		4E739B571F0A356A000A4D1E /* HXBVersionUpdateRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E739B561F0A356A000A4D1E /* HXBVersionUpdateRequest.m */; };
 		4E739B5B1F0A388B000A4D1E /* HXBVersionUpdateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E739B5A1F0A388B000A4D1E /* HXBVersionUpdateModel.m */; };
 		4E739B5F1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E739B5E1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m */; };
@@ -609,6 +621,30 @@
 		4E6D30FD1EA70D0600598529 /* HxbAdvertiseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbAdvertiseViewController.m; sourceTree = "<group>"; };
 		4E6D30FF1EA70DC900598529 /* HxbHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHomeViewController.h; sourceTree = "<group>"; };
 		4E6D31001EA70DC900598529 /* HxbHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHomeViewController.m; sourceTree = "<group>"; };
+		4E70B1771FACA0980049D2F1 /* HXBFinancialAdvisorModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFinancialAdvisorModel.h; sourceTree = "<group>"; };
+		4E70B1781FACA0980049D2F1 /* HXBFinancialAdvisorModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFinancialAdvisorModel.m; sourceTree = "<group>"; };
+		4E70B17A1FACA0980049D2F1 /* HxbFinancialAdvisorViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HxbFinancialAdvisorViewController.h; sourceTree = "<group>"; };
+		4E70B17B1FACA0980049D2F1 /* HxbFinancialAdvisorViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HxbFinancialAdvisorViewController.m; sourceTree = "<group>"; };
+		4E70B17D1FACA0980049D2F1 /* HXBFinancialAdvisorRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFinancialAdvisorRequest.h; sourceTree = "<group>"; };
+		4E70B17E1FACA0980049D2F1 /* HXBFinancialAdvisorRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFinancialAdvisorRequest.m; sourceTree = "<group>"; };
+		4E70B1811FACA0990049D2F1 /* HXBMyCouponListModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponListModel.h; sourceTree = "<group>"; };
+		4E70B1821FACA0990049D2F1 /* HXBMyCouponListModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponListModel.m; sourceTree = "<group>"; };
+		4E70B1841FACA0990049D2F1 /* HXBMyCouponListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponListTableViewCell.h; sourceTree = "<group>"; };
+		4E70B1851FACA0990049D2F1 /* HXBMyCouponListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponListTableViewCell.m; sourceTree = "<group>"; };
+		4E70B1861FACA0990049D2F1 /* HXBMyCouponListView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponListView.h; sourceTree = "<group>"; };
+		4E70B1871FACA0990049D2F1 /* HXBMyCouponListView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponListView.m; sourceTree = "<group>"; };
+		4E70B1881FACA0990049D2F1 /* HXBTopTabView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBTopTabView.h; sourceTree = "<group>"; };
+		4E70B1891FACA0990049D2F1 /* HXBTopTabView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBTopTabView.m; sourceTree = "<group>"; };
+		4E70B18B1FACA0990049D2F1 /* HXBMyCouponExchangeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponExchangeViewController.h; sourceTree = "<group>"; };
+		4E70B18C1FACA0990049D2F1 /* HXBMyCouponExchangeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponExchangeViewController.m; sourceTree = "<group>"; };
+		4E70B18D1FACA0990049D2F1 /* HXBMyCouponListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponListViewController.h; sourceTree = "<group>"; };
+		4E70B18E1FACA0990049D2F1 /* HXBMyCouponListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponListViewController.m; sourceTree = "<group>"; };
+		4E70B18F1FACA0990049D2F1 /* HXBMyCouponViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyCouponViewController.h; sourceTree = "<group>"; };
+		4E70B1901FACA0990049D2F1 /* HXBMyCouponViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyCouponViewController.m; sourceTree = "<group>"; };
+		4E70B1911FACA0FB0049D2F1 /* HXBMyRequestAccountModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyRequestAccountModel.h; sourceTree = "<group>"; };
+		4E70B1921FACA0FB0049D2F1 /* HXBMyRequestAccountModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyRequestAccountModel.m; sourceTree = "<group>"; };
+		4E70B1931FACA12D0049D2F1 /* HXBRequestAccountInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBRequestAccountInfo.h; sourceTree = "<group>"; };
+		4E70B1941FACA12D0049D2F1 /* HXBRequestAccountInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBRequestAccountInfo.m; sourceTree = "<group>"; };
 		4E739B551F0A356A000A4D1E /* HXBVersionUpdateRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBVersionUpdateRequest.h; sourceTree = "<group>"; };
 		4E739B561F0A356A000A4D1E /* HXBVersionUpdateRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBVersionUpdateRequest.m; sourceTree = "<group>"; };
 		4E739B591F0A388B000A4D1E /* HXBVersionUpdateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBVersionUpdateModel.h; sourceTree = "<group>"; };
@@ -1648,6 +1684,8 @@
 		4E422CAD1EA7383D00C0EB62 /* My */ = {
 			isa = PBXGroup;
 			children = (
+				4E70B17F1FACA0990049D2F1 /* Coupon */,
+				4E70B1751FACA0980049D2F1 /* FinancialAdvisor */,
 				4E47DD251F9F45B20015232E /* CasRegister(提现记录) */,
 				E1CC03561ECAD2AD00121D21 /* Request */,
 				4E422CB01EA7383D00C0EB62 /* ViewController */,
@@ -1843,6 +1881,88 @@
 				4E48FF441F69323500965BA2 /* HXBCardBinModel.m */,
 			);
 			path = HXBMY_BankCard;
+			sourceTree = "<group>";
+		};
+		4E70B1751FACA0980049D2F1 /* FinancialAdvisor */ = {
+			isa = PBXGroup;
+			children = (
+				4E70B1761FACA0980049D2F1 /* Model */,
+				4E70B1791FACA0980049D2F1 /* ViewController */,
+				4E70B17C1FACA0980049D2F1 /* ViewModel */,
+			);
+			path = FinancialAdvisor;
+			sourceTree = "<group>";
+		};
+		4E70B1761FACA0980049D2F1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E70B1771FACA0980049D2F1 /* HXBFinancialAdvisorModel.h */,
+				4E70B1781FACA0980049D2F1 /* HXBFinancialAdvisorModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4E70B1791FACA0980049D2F1 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E70B17A1FACA0980049D2F1 /* HxbFinancialAdvisorViewController.h */,
+				4E70B17B1FACA0980049D2F1 /* HxbFinancialAdvisorViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		4E70B17C1FACA0980049D2F1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4E70B17D1FACA0980049D2F1 /* HXBFinancialAdvisorRequest.h */,
+				4E70B17E1FACA0980049D2F1 /* HXBFinancialAdvisorRequest.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4E70B17F1FACA0990049D2F1 /* Coupon */ = {
+			isa = PBXGroup;
+			children = (
+				4E70B1801FACA0990049D2F1 /* Model */,
+				4E70B1831FACA0990049D2F1 /* View */,
+				4E70B18A1FACA0990049D2F1 /* ViewController */,
+			);
+			path = Coupon;
+			sourceTree = "<group>";
+		};
+		4E70B1801FACA0990049D2F1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E70B1811FACA0990049D2F1 /* HXBMyCouponListModel.h */,
+				4E70B1821FACA0990049D2F1 /* HXBMyCouponListModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4E70B1831FACA0990049D2F1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E70B1841FACA0990049D2F1 /* HXBMyCouponListTableViewCell.h */,
+				4E70B1851FACA0990049D2F1 /* HXBMyCouponListTableViewCell.m */,
+				4E70B1861FACA0990049D2F1 /* HXBMyCouponListView.h */,
+				4E70B1871FACA0990049D2F1 /* HXBMyCouponListView.m */,
+				4E70B1881FACA0990049D2F1 /* HXBTopTabView.h */,
+				4E70B1891FACA0990049D2F1 /* HXBTopTabView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4E70B18A1FACA0990049D2F1 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4E70B18B1FACA0990049D2F1 /* HXBMyCouponExchangeViewController.h */,
+				4E70B18C1FACA0990049D2F1 /* HXBMyCouponExchangeViewController.m */,
+				4E70B18D1FACA0990049D2F1 /* HXBMyCouponListViewController.h */,
+				4E70B18E1FACA0990049D2F1 /* HXBMyCouponListViewController.m */,
+				4E70B18F1FACA0990049D2F1 /* HXBMyCouponViewController.h */,
+				4E70B1901FACA0990049D2F1 /* HXBMyCouponViewController.m */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		4E739B541F0A3516000A4D1E /* HXBVersionUpdate */ = {
@@ -3767,6 +3887,8 @@
 		E1CC03561ECAD2AD00121D21 /* Request */ = {
 			isa = PBXGroup;
 			children = (
+				4E70B1931FACA12D0049D2F1 /* HXBRequestAccountInfo.h */,
+				4E70B1941FACA12D0049D2F1 /* HXBRequestAccountInfo.m */,
 				E1CC03571ECAD2AD00121D21 /* HXBMYRequest.h */,
 				E1CC03581ECAD2AD00121D21 /* HXBMYRequest.m */,
 				E1CC03591ECAD2AD00121D21 /* HXBRequestType_MYManager.h */,
@@ -3978,6 +4100,8 @@
 		E1D2CA501EAB4D6B000099C7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4E70B1911FACA0FB0049D2F1 /* HXBMyRequestAccountModel.h */,
+				4E70B1921FACA0FB0049D2F1 /* HXBMyRequestAccountModel.m */,
 				E17CCEE41F305D7800D6E98E /* HXBMY_LoanTruansferModel */,
 				4EB420911F2604EC00631A25 /* HXBMY_BankList */,
 				4E739B581F0A386D000A4D1E /* HXBMY_VersionUpdateModel */,
@@ -4538,6 +4662,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E70B1A01FACA2BB0049D2F1 /* HXBMyCouponListTableViewCell.m in Sources */,
+				4E70B19F1FACA2AA0049D2F1 /* HXBFinancialAdvisorModel.m in Sources */,
+				4E70B19E1FACA28D0049D2F1 /* HXBMyCouponListView.m in Sources */,
+				4E70B19D1FACA2560049D2F1 /* HXBMyCouponExchangeViewController.m in Sources */,
+				4E70B19C1FACA2420049D2F1 /* HXBFinancialAdvisorRequest.m in Sources */,
+				4E70B19B1FACA2250049D2F1 /* HXBMyCouponListViewController.m in Sources */,
+				4E70B19A1FACA2140049D2F1 /* HXBTopTabView.m in Sources */,
+				4E70B1991FACA1FC0049D2F1 /* HxbFinancialAdvisorViewController.m in Sources */,
+				4E70B1981FACA1EA0049D2F1 /* HXBMyCouponListModel.m in Sources */,
+				4E70B1971FACA1CF0049D2F1 /* HXBMyRequestAccountModel.m in Sources */,
+				4E70B1961FACA1A20049D2F1 /* HXBMyCouponViewController.m in Sources */,
 				4E9A93061F6A6F6100E01215 /* HXBBankCardListViewController.m in Sources */,
 				4EE5671D1F1F448C008126B4 /* HXBTipView.m in Sources */,
 				4E7BDEB51F1862AD002A3E18 /* HXBNoticeViewController.m in Sources */,
@@ -4888,6 +5023,7 @@
 				288BAA061FAC593B009DF8AB /* HXBCouponModel.m in Sources */,
 				4E94B2901ECC49D2003CCBA7 /* HXBHomePageProductCell.m in Sources */,
 				E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */,
+				4E70B1951FACA12D0049D2F1 /* HXBRequestAccountInfo.m in Sources */,
 				E133DD3C1EEEC14C009466DE /* HxbHTTPSessionManager.m in Sources */,
 				E1E0DE6A1EF117A400AF7C87 /* HXBBaseTextField.m in Sources */,
 				4E94A86A1F5D4FE90001BE94 /* BXTextField.m in Sources */,

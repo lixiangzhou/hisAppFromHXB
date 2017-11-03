@@ -9,7 +9,7 @@
 #define kHXBUnitConversionToSeconds(Millisecond) (Millisecond/1000.0)
 #define kHXBSecond 1
 #define kHXBMinute (60 * kHXBSecond)
-#define kHXBHour    (60 * kHXBSecond)
+#define kHXBHour    (60 * kHXBMinute)
 
 
 #import "HxbHomePageModel_DataList.h"
@@ -64,7 +64,7 @@
 
 - (BOOL)isremainTime
 {
-    
+
     if ((kHXBUnitConversionToSeconds(self.diffTime.doubleValue)) > kHXBHour) {
         return YES;
     }

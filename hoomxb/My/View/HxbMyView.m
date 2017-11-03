@@ -10,11 +10,12 @@
 #import "HxbMyViewHeaderView.h"
 #import "AppDelegate.h"
 #import "HxbMyViewController.h"
+#import "HXBMyCouponViewController.h"   // 优惠券
 #import "HXBMY_PlanListViewController.h"///plan 列表的VC
 #import "HXBMY_LoanListViewController.h"///散标 列表的VC
 #import "HXBMY_CapitalRecordViewController.h"//资产记录
 #import "HXBMyHomeViewCell.h"
-
+#import "HXBMyRequestAccountModel.h"
 @interface HxbMyView ()
 <
 UITableViewDelegate,
@@ -32,11 +33,11 @@ MyViewHeaderDelegate
 - (void)clickAllFinanceButtonWithBlock: (void(^)(UILabel * button))clickAllFinanceButtonBlock{
     self.clickAllFinanceButtonWithBlock = clickAllFinanceButtonBlock;
 }
+
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.mainTableView];
-
     }
     return self;
 }
@@ -49,6 +50,12 @@ MyViewHeaderDelegate
 {
     _userInfoViewModel = userInfoViewModel;
     self.headerView.userInfoViewModel = userInfoViewModel;
+}
+
+- (void)setAccountModel:(HXBMyRequestAccountModel *)accountModel{
+    _accountModel = accountModel;
+    self.headerView.accountInfoViewModel = accountModel;
+    [self.mainTableView reloadData];
 }
 
 - (void)didClickLeftHeadBtn:(UIButton *)sender{
@@ -96,7 +103,14 @@ MyViewHeaderDelegate
 #pragma TableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {//第一组： plan
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+            HXBMyCouponViewController *myCouponsViewController = [[HXBMyCouponViewController alloc]init];
+            [vc.navigationController pushViewController:myCouponsViewController animated:YES];
+        }
+    }
+    if (indexPath.section == 1) {//第一组： plan
         if (indexPath.row == 0) {
             HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
             HXBMY_PlanListViewController *myPlanViewController = [[HXBMY_PlanListViewController alloc]init];
@@ -108,7 +122,7 @@ MyViewHeaderDelegate
             [VC.navigationController pushViewController:loanListViewController animated:true];
         }
     }
-    if (indexPath.section == 1) {
+    if (indexPath.section == 2) {
         HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
         HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
         [VC.navigationController pushViewController:capitalRecordViewController animated:true];
@@ -119,13 +133,55 @@ MyViewHeaderDelegate
     return kScrAdaptationH(44.5);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return kScrAdaptationH(10);
+    if (section == 2) {
+        return 0.1f;
+    }else{
+        return kScrAdaptationH750(100);
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    
-    return 0.1;
+    if (section == 2) {
+        return 0.1f;
+    }else{
+        return kScrAdaptationH750(20);
+    }
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView *supV = nil;
+    if (section !=0&&section !=1) {
+        return nil;
+    }else{
+        supV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH750(100))];
+        supV.backgroundColor = [UIColor whiteColor];
+        UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(30), kScrAdaptationH750(35), kScrAdaptationW750(200), kScrAdaptationH750(30))];
+        lab.textAlignment = NSTextAlignmentLeft;
+        lab.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        lab.textColor = RGBA(51, 51, 51, 1);
+        UIView *lineV = [[UIView alloc]initWithFrame:CGRectMake(0, supV.frame.size.height-1, kScreenWidth, 1)];
+        lineV.backgroundColor = RGBA(244, 243, 248, 1);
+        [supV addSubview:lineV];
+        [supV addSubview:lab];
+        if (section == 0) {
+            lab.text = @"我的福利";
+        }else if (section == 1){
+            lab.text = @"我的资产";
+        }
+        return supV;
+    }
+}
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+//    switch (section) {
+//        case 0:
+//            return @"我的福利";
+//        case 1:
+//            return @"我的资产";
+//        default:
+//            return @"";
+//    }
+//}
 
 #pragma TableViewDataSource
 
@@ -140,34 +196,47 @@ MyViewHeaderDelegate
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
+        cell.textLabel.text = @"优惠券";
+        cell.textLabel.textColor = RGBA(102, 102, 102, 1);
+        NSString *str = [NSString stringWithFormat:@"您有%lld张优惠券",self.accountModel.availableCouponCount];
+        NSRange range = NSMakeRange(2, str.length - 6);
+        NSAttributedString *serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:RGBA(255, 33, 33, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(24)];
+        cell.desc = serverViewAttributedStr;
+        cell.isShowLine = NO;
+    }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
             cell.textLabel.text = @"红利计划资产";
-            cell.imageView.svgImageString = @"hongli.svg";
+            cell.textLabel.textColor = RGBA(102, 102, 102, 1);
+//            cell.imageView.svgImageString = @"hongli.svg";
+            cell.desc = [NSString hxb_getPerMilWithDouble:self.accountModel.financePlanAssets];
             cell.isShowLine = YES;
         }else
         {
             cell.textLabel.text = @"散标债权资产";
-            cell.imageView.svgImageString = @"sanbiao.svg";
+            cell.textLabel.textColor = RGBA(102, 102, 102, 1);
+            cell.desc = [NSString hxb_getPerMilWithDouble:self.accountModel.lenderPrincipal];
+//            cell.imageView.svgImageString = @"sanbiao.svg";
         }
-        
-    }else if (indexPath.section == 1){
+    }else{
         cell.textLabel.text = @"交易记录";
-        cell.imageView.svgImageString = @"trading_record.svg";
+//        cell.imageView.svgImageString = @"trading_record.svg";
     }
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return 2;
-    }else
+        return 1;
+    }else if (section == 1)
     {
+        return 2;
+    }else {
         return 1;
     }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 3;
 }
 
 - (UITableView *)mainTableView{
@@ -192,7 +261,7 @@ MyViewHeaderDelegate
 
 - (HxbMyViewHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(276))];
+        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH750(575+43))];//kScrAdaptationH(276)//575
         _headerView.delegate = self;
         _headerView.userInteractionEnabled = YES;
         kWeakSelf

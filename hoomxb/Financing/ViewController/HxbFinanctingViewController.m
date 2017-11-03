@@ -87,9 +87,9 @@
     
     [self.countDownButton setValue:@1 forKey:@"selected"];
     // NAV
-    self.isHiddenNavigationBar = true;
+    self.isHiddenNavigationBar = true;//隐藏导航条
     //初始化属性
-    [self creatProperty];
+    [self creatProperty];//实例化请求单利
     
     //rootView
     [self setup];
@@ -135,7 +135,6 @@
     self.finantingRequest = [HXBFinanctingRequest sharedFinanctingRequest];
 }
 - (void)setup {
-    self.view.backgroundColor = [UIColor whiteColor];
     //防止跳转的时候，tableView向上或者向下移动
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
