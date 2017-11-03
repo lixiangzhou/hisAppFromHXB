@@ -112,8 +112,8 @@
     [self.recommendImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(kScrAdaptationW750(50));
         make.top.equalTo(self.contentView);
-        make.width.offset(kScrAdaptationW750(70));
-        make.height.offset(kScrAdaptationH750(72));
+        make.width.offset(kScrAdaptationW750(78));
+        make.height.offset(kScrAdaptationH750(80));
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
