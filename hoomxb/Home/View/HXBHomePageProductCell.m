@@ -275,7 +275,7 @@
             self.homePageModel_DataList.isCountDown = NO;
             self.colourGradientView.hidden = NO;
             [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
-            self.purchaseButton.layer.borderColor = kHXBColor_Font0_5.CGColor;
+            self.purchaseButton.layer.borderColor = [UIColor clearColor].CGColor;
             [self.purchaseButton setTitle:@"立即加入" forState:(UIControlStateNormal)];
         }
     }else
@@ -299,7 +299,7 @@
         } else if([self.homePageModel_DataList.cellBtnTitle isEqualToString:@"立即加入"]) {
             self.colourGradientView.hidden = NO;
             [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
-            self.purchaseButton.layer.borderColor = kHXBColor_Font0_5.CGColor;
+            self.purchaseButton.layer.borderColor = [UIColor clearColor].CGColor;
         } else {
             self.colourGradientView.hidden = YES;
             [self.purchaseButton setTitleColor:kHXBColor_Font0_6 forState:UIControlStateNormal];

@@ -151,7 +151,7 @@
     if (self.openAccountBlock) {
         kWeakSelf
         if ([self judgeIsTure]) return;
-        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:self.bankNumber andisToastTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithBankNumber:self.bankNumber andisToastTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
             weakSelf.cardBinModel = cardBinModel;
             [UIView animateWithDuration:0.5 animations:^{
                 self.y = 0;
@@ -161,7 +161,7 @@
                                   @"realName" : self.nameTextField.text,
                                   @"identityCard" : self.idCardTextField.text,
                                   @"password" : self.pwdTextField.text,
-                                  @"bankCard" : _bankNumber,
+                                  @"bankCard" : self.bankNumber,
                                   @"bankReservedMobile" : self.phoneTextField.text,
                                   @"bankCode" : self.cardBinModel.bankCode
                                   };
@@ -338,34 +338,40 @@
      }
      */
     if (textField.superview == _bankNumberTextField) {
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-        } else if(!string.length) {
-            NSInteger length = _bankNumberTextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = _bankNumberTextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        if ([self isPureInt:string]) {
-            if (_bankNumberTextField.text.length % 5 == 4 && _bankNumberTextField.text.length < 30) {
-                _bankNumberTextField.text = [NSString stringWithFormat:@"%@ ", _bankNumberTextField.text];
-            }
-            if (str.length > 31) {
-                str = [str substringToIndex:31];
-                _bankNumberTextField.text = str;
-                [_bankNumberTextField resignFirstResponder];
-                return NO;
-            }
-        } else if ([string isEqualToString:@""]) {
-            if ((_bankNumberTextField.text.length - 2) % 5 == 4 && _bankNumberTextField.text.length < 30) {
-                _bankNumberTextField.text = [_bankNumberTextField.text substringToIndex:_bankNumberTextField.text.length - 1];
-            }
-            return YES;
-        } else {
+        NSString *text = [textField text];
+        
+        NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789\b"];
+        string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if ([string rangeOfCharacterFromSet:[characterSet invertedSet]].location != NSNotFound) {
             return NO;
         }
+        
+        text = [text stringByReplacingCharactersInRange:range withString:string];
+        text = [text stringByReplacingOccurrencesOfString:@" " withString:@""];
+        if ([text length] >= 26) {
+            return NO;
+        }
+        self.bankNumber = text;
+        if (text.length>=12) {
+            if (self.checkCardBin) {
+                self.checkCardBin(text);
+            }
+        }
+        
+        NSString *newString = @"";
+        while (text.length > 0) {
+            NSString *subString = [text substringToIndex:MIN(text.length, 4)];
+            newString = [newString stringByAppendingString:subString];
+            if (subString.length == 4) {
+                newString = [newString stringByAppendingString:@" "];
+            }
+            text = [text substringFromIndex:MIN(text.length, 4)];
+        }
+        
+        newString = [newString stringByTrimmingCharactersInSet:[characterSet invertedSet]];
+        
+        [textField setText:newString];
+        return NO;
     
     }
     if ([string isEqualToString:@""]) {
@@ -453,7 +459,7 @@
             self.checkCardBin(bankCardModel.cardId);
         }
     }
-    _bankNumber = bankCardModel.cardId;
+    self.bankNumber = bankCardModel.cardId;
     self.bankNumberTextField.text = [bankCardModel.cardId replaceStringWithStartLocation:0 lenght:bankCardModel.cardId.length - 4];
     self.bankNumberTextField.isHidenLine = YES;
     self.bankNumberTextField.userInteractionEnabled = NO;
@@ -614,15 +620,15 @@
         _bankNumberTextField.limitStringLength = 31;
         _bankNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
         _bankNumberTextField.isHidenLine = YES;
-        kWeakSelf
-        _bankNumberTextField.block = ^(NSString *text) {
-            _bankNumber = [text stringByReplacingOccurrencesOfString:@" "  withString:@""];
-            if (_bankNumber.length>=12) {
-                if (weakSelf.checkCardBin) {
-                    weakSelf.checkCardBin(weakSelf.bankNumber);
-                }
-            }
-        };
+//        kWeakSelf
+//        _bankNumberTextField.block = ^(NSString *text) {
+//            _bankNumber = [text stringByReplacingOccurrencesOfString:@" "  withString:@""];
+//            if (_bankNumber.length>=12) {
+//                if (weakSelf.checkCardBin) {
+//                    weakSelf.checkCardBin(weakSelf.bankNumber);
+//                }
+//            }
+//        };
     }
     return _bankNumberTextField;
 }

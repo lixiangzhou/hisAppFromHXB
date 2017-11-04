@@ -782,13 +782,14 @@ static NSString *const investString = @"立即投资";
     }
     cell.hasBestCoupon = _hasBestCoupon;
     if (indexPath.row == 0) {
-        if (_type == HXB_Creditor) {
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.isDiscountRow = NO;
-        } else {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.isDiscountRow = YES;
-        }
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.isDiscountRow = YES;
+//        if (_type == HXB_Creditor) {
+//            cell.accessoryType = UITableViewCellAccessoryNone;
+//            cell.isDiscountRow = NO;
+//        } else {
+//
+//        }
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.isDiscountRow = NO;
@@ -902,6 +903,9 @@ static NSString *const investString = @"立即投资";
             _discountTitle = @"请选择优惠券";
             _couponTitle = @"优惠券";
             _couponid = @" ";
+            if (!model.hasCoupon) {
+                _discountTitle = @"暂无可用优惠券";
+            }
         }
         [self setUpArray];
         [self changeItemWithInvestMoney:money];
@@ -970,8 +974,8 @@ static NSString *const investString = @"立即投资";
         self.titleArray = @[_couponTitle, @"支付金额", _balanceTitle];
         self.detailArray = @[_discountTitle,  [NSString hxb_getPerMilWithDouble: _handleDetailTitle.doubleValue],  [NSString hxb_getPerMilWithDouble: _balanceMoneyStr.doubleValue]];
     } else {
-        self.titleArray = @[@"应付金额", _balanceTitle];
-        self.detailArray = @[[NSString hxb_getPerMilWithDouble: _handleDetailTitle.doubleValue],  [NSString hxb_getPerMilWithDouble: _balanceMoneyStr.doubleValue]];
+        self.titleArray = @[_couponTitle,@"应付金额", _balanceTitle];
+        self.detailArray = @[_discountTitle,[NSString hxb_getPerMilWithDouble: _handleDetailTitle.doubleValue],  [NSString hxb_getPerMilWithDouble: _balanceMoneyStr.doubleValue]];
     }
     [self.hxbBaseVCScrollView reloadData];
 }

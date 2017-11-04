@@ -99,7 +99,7 @@
         make.left.equalTo(@kScrAdaptationW750(675));
         make.width.equalTo(@kScrAdaptationW750(45));
         make.centerY.equalTo(self.allAssetsLabel);
-        make.height.offset(kScrAdaptationH750(27));
+        make.height.offset(kScrAdaptationH750(100));
     }];
     [self.balanceTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW750(30));
@@ -522,6 +522,7 @@
         _securyButton = [[UIButton alloc]initWithFrame:CGRectMake(self.width - 40 - 20, 40, 40, 40)];
         [_securyButton setImage:[UIImage imageNamed:@"my_eyes"] forState:UIControlStateNormal];
         [_securyButton setImage:[UIImage imageNamed:@"my_closedEyes"] forState:UIControlStateSelected];
+        _securyButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_securyButton addTarget:self action:@selector(securyButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _securyButton;
