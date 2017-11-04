@@ -51,6 +51,7 @@
 {
     _viewModel = viewModel;
     self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@", [NSString hxb_getPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue]];
+    self.amountTextField.placeholder = [NSString stringWithFormat:@"充值金额不能小于%d.00元",self.viewModel.userInfoModel.userInfo.minChargeAmount];
     if (_amountTextField.text.length > 0) {
         _nextButton.backgroundColor = COR29;
         _nextButton.userInteractionEnabled = YES;
@@ -129,7 +130,7 @@
 }
 - (void)nextButtonClick:(UIButton *)sender{
     if ([_amountTextField.text doubleValue] < self.viewModel.userInfoModel.userInfo.minChargeAmount) {
-        [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"充值金额不能小于%d",self.viewModel.userInfoModel.userInfo.minChargeAmount] inView:self];
+        [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"充值金额不能小于%d元",self.viewModel.userInfoModel.userInfo.minChargeAmount] inView:self];
         return;
     }
     if (self.rechargeBlock) {
@@ -186,9 +187,9 @@
 - (UIButton *)nextButton{
     if (!_nextButton) {
         _nextButton = [UIButton btnwithTitle:@"充值" andTarget:self andAction:@selector(nextButtonClick:) andFrameByCategory:  CGRectMake(20,CGRectGetMaxY(_amountTextField.frame) + 20, SCREEN_WIDTH - 40,44)];
+        _nextButton.backgroundColor = COR26;
+        _nextButton.userInteractionEnabled = NO;
     }
-    _nextButton.backgroundColor = COR26;
-    _nextButton.userInteractionEnabled = NO;
     return _nextButton;
 }
 

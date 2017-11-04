@@ -242,6 +242,8 @@
     loanJoinVC.minRegisterAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
     loanJoinVC.registerMultipleAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
     [self.navigationController pushViewController:loanJoinVC animated:true];
+    
+    
 }
 
 

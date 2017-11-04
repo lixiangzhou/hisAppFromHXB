@@ -208,7 +208,7 @@
  */
 - (void)setAccountInfoViewModel:(HXBMyRequestAccountModel *)accountInfoViewModel{
     _accountInfoViewModel = accountInfoViewModel;
-    _allAssets = accountInfoViewModel.assetsTotal;
+    _allAssets = accountInfoViewModel.financePlanAssets;
     NSString *allAssetsStr = _allAssets? [NSString GetPerMilWithDouble:_allAssets]:@"0.00";
     
     NSString *accumulatedProfitStr = accountInfoViewModel.earnTotal? [NSString GetPerMilWithDouble:accountInfoViewModel.earnTotal]: @"0.00";
@@ -362,7 +362,7 @@
 - (UILabel *)allAssetsTitleLabel{
     if (!_allAssetsTitleLabel) {
         _allAssetsTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(29), kScrAdaptationH750(156), self.width/2, kScrAdaptationH750(24))];
-        _allAssetsTitleLabel.text = @"总资产(元)";
+        _allAssetsTitleLabel.text = @"持有资产(元)";
         _allAssetsTitleLabel.textAlignment = NSTextAlignmentLeft;
         _allAssetsTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _allAssetsTitleLabel.textColor = COR27;

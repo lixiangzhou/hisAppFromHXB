@@ -214,7 +214,7 @@
     } else {
         self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%",[homePageModel_DataList.baseInterestRate doubleValue]];
     }
-    self.minRegisterAmountLabel.text =  [NSString stringWithFormat:@"%d起投",homePageModel_DataList.minRegisterAmount];
+    self.minRegisterAmountLabel.text =  [NSString stringWithFormat:@"%d元起投",homePageModel_DataList.minRegisterAmount];
     
     self.planTitleLabel.text = homePageModel_DataList.featuredSlogan;
     //根据数据返回
@@ -252,9 +252,11 @@
     if (!self.homePageModel_DataList.tag.length) {
         self.icon.hidden = YES;
         self.tagLabbel.hidden = YES;
+        self.recommendImageView.hidden = YES;
     } else {
         self.icon.hidden = NO;
         self.tagLabbel.hidden = NO;
+        self.recommendImageView.hidden = NO;
         self.tagLabbel.text = self.homePageModel_DataList.tag;
     }
 }
@@ -436,6 +438,7 @@
         _recommendImageView = [[UIImageView alloc] init];
         _recommendImageView.contentMode = UIViewContentModeScaleAspectFit;
         _recommendImageView.image = [UIImage imageNamed:@"Home_Recommend"];
+        _recommendImageView.hidden = YES;
     }
     return _recommendImageView;
 }

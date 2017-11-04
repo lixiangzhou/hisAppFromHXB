@@ -318,6 +318,7 @@
 - (void)setWithdrawModel:(HXBWithdrawModel *)withdrawModel {
     _withdrawModel = withdrawModel;
     self.availableBalanceLabel.text =  [NSString stringWithFormat:@"可提金额：%@",[NSString hxb_getPerMilWithDouble:withdrawModel.balanceAmount]];
+    self.amountTextField.placeholder = [NSString stringWithFormat:@"提现金额不能小于%d.00元",self.withdrawModel.minWithdrawAmount];
     self.mybankView.bankCardModel = withdrawModel.bankCard;
     if (withdrawModel.inprocessCount > 0) {
         self.notifitionView.hidden = NO;
@@ -354,7 +355,7 @@
 - (UITextField *)amountTextField{
     if (!_amountTextField) {
         _amountTextField = [[UITextField alloc] init];
-        _amountTextField.placeholder = @"提现金额";
+//        _amountTextField.placeholder = [NSString stringWithFormat:@"提现金额不能小于%d",self.withdrawModel.minWithdrawAmount];
         _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
         _amountTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _amountTextField.delegate = self;

@@ -510,7 +510,7 @@
     self.capitalRecordAPI.requestMethod = NYRequestMethodGet;
     [self.capitalRecordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD
-
+        NSLog(@"%@",responseObject);
         NSDictionary *data = [responseObject valueForKey:@"data"];
         NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
         

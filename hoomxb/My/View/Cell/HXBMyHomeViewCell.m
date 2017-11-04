@@ -36,7 +36,7 @@
 {
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
-        make.height.offset(kHXBDivisionLineHeight);
+        make.height.offset(0.5);
     }];
     [self.descLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.textLabel);

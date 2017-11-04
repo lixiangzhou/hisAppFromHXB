@@ -126,6 +126,8 @@
 
 #define kHXB_Negotiate_AddTrustURL @"/landing/trust"///增信页
 
+#define kHXB_Agreement_Hint @"/agreement/hint"
+
 //MARK: ======================= 优惠券 ==========================
 #define kHXB_Coupon_Query @"/coupon/query" // 选择优惠券列表
 #define kHXB_Coupon_Best @"/coupon/best" // 匹配最优优惠券

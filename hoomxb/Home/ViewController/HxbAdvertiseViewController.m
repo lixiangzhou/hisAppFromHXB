@@ -21,12 +21,13 @@
     [super viewDidLoad];
     
     [self setAdvertiseView];
-  
+    
 }
 
 - (void)setAdvertiseView{
    
     HxbAdvertiseView *advertiseView = [[HxbAdvertiseView alloc] initWithFrame:self.view.frame];
+    advertiseView.advertiseImage = [UIImage imageNamed:@"launch"];
     [self.view addSubview:advertiseView];
     [advertiseView showAdvertiseWebViewWithBlock:^{
         [self setUPWebView];
@@ -52,7 +53,9 @@
             }];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        
+        if (self.dismissAdvertiseViewControllerBlock) {
+            self.dismissAdvertiseViewControllerBlock();
+        }
     }];
     
     [advertiseView showAdvertiseWebViewWithBlock:^{
