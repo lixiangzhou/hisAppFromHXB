@@ -14,7 +14,7 @@
 #import "UILabel+Util.h"
 
 #import "HxbHomePageModel_DataList.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #define RightItemPercent        0.436
 #define BackWidth               (SCREEN_WIDTH - 16)
 

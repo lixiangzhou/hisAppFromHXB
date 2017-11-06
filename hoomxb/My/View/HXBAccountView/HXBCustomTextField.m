@@ -7,7 +7,7 @@
 //
 
 #import "HXBCustomTextField.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 @interface HXBCustomTextField ()<UITextFieldDelegate>
 {
     NSString *_text;

@@ -10,7 +10,7 @@
 #import "HXBCheckCaptcha.h"
 #import "HXBSignUPAndLoginRequest.h"
 #import   "UIImageView+WebCache.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 
 @interface HXBCheckCaptchaViewController ()
 @property (nonatomic, strong) Animatr *animatrManager;

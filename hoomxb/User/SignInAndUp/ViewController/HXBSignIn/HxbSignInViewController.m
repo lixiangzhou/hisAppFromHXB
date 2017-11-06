@@ -15,7 +15,7 @@
 #import "HXBRequestUserInfoViewModel.h"///userinfo的viewModel
 #import "HXBCheckCaptchaViewController.h"
 #import "HXBBaseTabBarController.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import "HXBSignUPAgreementWebViewVC.h"
 ///手机号存在
 static NSString *const kMobile_IsExist = @"手机号已存在";

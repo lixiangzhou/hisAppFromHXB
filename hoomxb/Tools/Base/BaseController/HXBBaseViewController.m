@@ -11,7 +11,7 @@
 
 #import "HXBBaseViewController.h"
 #import <WebKit/WebKit.h>
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import "HXBNoNetworkStatusView.h"
 
 @interface HXBBaseViewController () <WKUIDelegate,WKNavigationDelegate,UIScrollViewDelegate, UINavigationControllerDelegate>

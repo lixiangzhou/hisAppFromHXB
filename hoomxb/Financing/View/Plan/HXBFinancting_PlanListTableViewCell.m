@@ -13,7 +13,7 @@
 #import "HXBFinHomePageModel_PlanList.h"
 #import "HXBFinHomePageViewModel_LoanList.h"
 #import "HXBFinHomePageModel_LoanList.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 @interface HXBFinancting_PlanListTableViewCell ()
 @property (nonatomic,strong) UILabel *nameLabel;
 @property (nonatomic,strong) UILabel *expectedYearRateLable;//预期年化

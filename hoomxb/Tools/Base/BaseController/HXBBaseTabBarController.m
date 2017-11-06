@@ -12,7 +12,7 @@
 #import "HxbMyViewController.h"
 #import "HXBCheckCaptchaViewController.h"
 #import "HXBBaseViewController.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 @interface HXBBaseTabBarController ()<UITabBarControllerDelegate>
 
 @end
