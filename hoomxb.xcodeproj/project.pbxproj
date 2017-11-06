@@ -241,7 +241,6 @@
 		8DBA85D71FB069FB00B1B50D /* HXBBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA85D51FB069FB00B1B50D /* HXBBaseViewModel.m */; };
 		8DBA85E01FB06A8000B1B50D /* C8F542F0-5DE9-3E06-AD55-EFC5E64C6D06.bcsymbolmap in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA85DB1FB06A8000B1B50D /* C8F542F0-5DE9-3E06-AD55-EFC5E64C6D06.bcsymbolmap */; };
 		8DBA85E11FB06A8000B1B50D /* CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA85DC1FB06A8000B1B50D /* CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap */; };
-		8DBA85E31FB06A8000B1B50D /* CocoaLumberjack.framework.dSYM in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA85DE1FB06A8000B1B50D /* CocoaLumberjack.framework.dSYM */; };
 		8DBA85E51FB06AD600B1B50D /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBA85E41FB06ACC00B1B50D /* CoreText.framework */; };
 		8DBA85E71FB06AE400B1B50D /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBA85E61FB06ADC00B1B50D /* CoreImage.framework */; };
 		8DBA85E91FB06AEE00B1B50D /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBA85E81FB06AEE00B1B50D /* libxml2.tbd */; };
@@ -951,7 +950,6 @@
 		8DBA85DB1FB06A8000B1B50D /* C8F542F0-5DE9-3E06-AD55-EFC5E64C6D06.bcsymbolmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "C8F542F0-5DE9-3E06-AD55-EFC5E64C6D06.bcsymbolmap"; sourceTree = "<group>"; };
 		8DBA85DC1FB06A8000B1B50D /* CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap"; sourceTree = "<group>"; };
 		8DBA85DD1FB06A8000B1B50D /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaLumberjack.framework; sourceTree = "<group>"; };
-		8DBA85DE1FB06A8000B1B50D /* CocoaLumberjack.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = CocoaLumberjack.framework.dSYM; sourceTree = "<group>"; };
 		8DBA85E41FB06ACC00B1B50D /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		8DBA85E61FB06ADC00B1B50D /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 		8DBA85E81FB06AEE00B1B50D /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
@@ -2575,7 +2573,6 @@
 				8DBA85DB1FB06A8000B1B50D /* C8F542F0-5DE9-3E06-AD55-EFC5E64C6D06.bcsymbolmap */,
 				8DBA85DC1FB06A8000B1B50D /* CBCCBFAB-2074-328B-96C3-72FF2F15563F.bcsymbolmap */,
 				8DBA85DD1FB06A8000B1B50D /* CocoaLumberjack.framework */,
-				8DBA85DE1FB06A8000B1B50D /* CocoaLumberjack.framework.dSYM */,
 			);
 			path = CocoaLumberjack;
 			sourceTree = "<group>";
@@ -4620,7 +4617,6 @@
 				4ED2F27C1ECAD9810014E5C7 /* homepage_close@3x.png in Resources */,
 				4EECDFD21F380E8B00301758 /* sanbiao.svg in Resources */,
 				4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */,
-				8DBA85E31FB06A8000B1B50D /* CocoaLumberjack.framework.dSYM in Resources */,
 				4EECE0111F38177000301758 /* 0220.svg in Resources */,
 				4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */,
 				4E92156F1F1DFC8100C8CECB /* id_number.svg in Resources */,
