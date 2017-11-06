@@ -197,7 +197,7 @@
         
         //卡bin校验
         _mainView.checkCardBin = ^(NSString *bankNumber) {
-            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:bankNumber andisToastTip:NO andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
                 [weakSelf checkCardBin:cardBinModel];
             } andFailureBlock:^(NSError *error) {
                 weakSelf.mainView.isCheckFailed = YES;

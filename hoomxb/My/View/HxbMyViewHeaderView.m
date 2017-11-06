@@ -99,7 +99,7 @@
         make.left.equalTo(@kScrAdaptationW750(675));
         make.width.equalTo(@kScrAdaptationW750(45));
         make.centerY.equalTo(self.allAssetsLabel);
-        make.height.offset(kScrAdaptationH750(27));
+        make.height.offset(kScrAdaptationH750(100));
     }];
     [self.balanceTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW750(30));
@@ -208,7 +208,7 @@
  */
 - (void)setAccountInfoViewModel:(HXBMyRequestAccountModel *)accountInfoViewModel{
     _accountInfoViewModel = accountInfoViewModel;
-    _allAssets = accountInfoViewModel.assetsTotal;
+    _allAssets = accountInfoViewModel.financePlanAssets;
     NSString *allAssetsStr = _allAssets? [NSString GetPerMilWithDouble:_allAssets]:@"0.00";
     
     NSString *accumulatedProfitStr = accountInfoViewModel.earnTotal? [NSString GetPerMilWithDouble:accountInfoViewModel.earnTotal]: @"0.00";
@@ -362,7 +362,7 @@
 - (UILabel *)allAssetsTitleLabel{
     if (!_allAssetsTitleLabel) {
         _allAssetsTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(29), kScrAdaptationH750(156), self.width/2, kScrAdaptationH750(24))];
-        _allAssetsTitleLabel.text = @"总资产(元)";
+        _allAssetsTitleLabel.text = @"持有资产(元)";
         _allAssetsTitleLabel.textAlignment = NSTextAlignmentLeft;
         _allAssetsTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _allAssetsTitleLabel.textColor = COR27;
@@ -522,6 +522,7 @@
         _securyButton = [[UIButton alloc]initWithFrame:CGRectMake(self.width - 40 - 20, 40, 40, 40)];
         [_securyButton setImage:[UIImage imageNamed:@"my_eyes"] forState:UIControlStateNormal];
         [_securyButton setImage:[UIImage imageNamed:@"my_closedEyes"] forState:UIControlStateSelected];
+        _securyButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         [_securyButton addTarget:self action:@selector(securyButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _securyButton;

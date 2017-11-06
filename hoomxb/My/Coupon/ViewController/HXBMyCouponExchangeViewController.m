@@ -87,7 +87,7 @@
         } else {
             self.myCouponListModel = Model;
             HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-            planBuySuccessVC.imageName = @"myAccountExchangeSuccessful";
+            planBuySuccessVC.imageName = @"SuccessfulCoupon";
             planBuySuccessVC.buy_title = @"兑换成功";
             planBuySuccessVC.midStr = [NSString stringWithFormat:@"您已成功兑换\n%@", Model.summaryContent];
             planBuySuccessVC.buy_ButtonTitle = @"查看我的优惠券";
@@ -141,12 +141,14 @@
                 str = [str substringToIndex:19];
                 _redeemCodeTextField.text = str;
                 [_redeemCodeTextField resignFirstResponder];
+                _redeemCodeTextField.text = [str uppercaseString];
                 return NO;
             }
         } else if ([string isEqualToString:@""]) {
             if ((_redeemCodeTextField.text.length - 2) % 5 == 4 && _redeemCodeTextField.text.length < 19) {
                 _redeemCodeTextField.text = [_redeemCodeTextField.text substringToIndex:_redeemCodeTextField.text.length - 1];
             }
+            _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
             return YES;
         } else {
             return NO;
@@ -154,11 +156,13 @@
     }
     
     if ([string isEqualToString:@""]) {
+        _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
         return YES;
     } else {
         if (self.redeemCodeTextField.text.length >= 20) {
             return NO;
         }
+        _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
         return YES;
     }
 }
@@ -259,6 +263,7 @@
         _redeemCodeTextField.isHidenLine = YES;
         kWeakSelf
         _redeemCodeTextField.block = ^(NSString *text) {
+            weakSelf.redeemCodeTextField.text = [text uppercaseString];
             if (text.length) {
                 weakSelf.redeemCodeBtn.userInteractionEnabled = YES;
                 weakSelf.redeemCodeBtn.backgroundColor = COR29;

@@ -21,12 +21,13 @@
     [super viewDidLoad];
     
     [self setAdvertiseView];
-  
+    
 }
 
 - (void)setAdvertiseView{
    
     HxbAdvertiseView *advertiseView = [[HxbAdvertiseView alloc] initWithFrame:self.view.frame];
+    advertiseView.advertiseImage = [UIImage imageNamed:@"launch"];
     [self.view addSubview:advertiseView];
     [advertiseView showAdvertiseWebViewWithBlock:^{
         [self setUPWebView];
@@ -52,7 +53,9 @@
             }];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        
+        if (self.dismissAdvertiseViewControllerBlock) {
+            self.dismissAdvertiseViewControllerBlock();
+        }
     }];
     
     [advertiseView showAdvertiseWebViewWithBlock:^{
@@ -64,17 +67,17 @@
             self.dismissAdvertiseViewControllerBlock();
         }
     }];
-    //显示广告图片
-    UIImage *image = [HXBAdvertisementManager getAdvertisementImagePath];
-    if (image) {//显示广告
-        advertiseView.advertiseImage = image;
-        [advertiseView show];
-    }else {//不显示直接跳转控制器
-        NSLog(@"第一次加载广告图片，所以不显示");
-        if (self.dismissAdvertiseViewControllerBlock) {
-            self.dismissAdvertiseViewControllerBlock();
-        }
-    }
+//    //显示广告图片
+//    UIImage *image = [HXBAdvertisementManager getAdvertisementImagePath];
+//    if (image) {//显示广告
+//        advertiseView.advertiseImage = image;
+//        [advertiseView show];
+//    }else {//不显示直接跳转控制器
+//        NSLog(@"第一次加载广告图片，所以不显示");
+//        if (self.dismissAdvertiseViewControllerBlock) {
+//            self.dismissAdvertiseViewControllerBlock();
+//        }
+//    }
 }
 - (void)setUPWebView{
     self.title = @"点击进入广告链接";

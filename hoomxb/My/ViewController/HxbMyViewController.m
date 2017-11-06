@@ -168,18 +168,6 @@
             };
             [weakSelf presentViewController:alertVC animated:NO completion:nil];
             
-//            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
-//            [alertVC setClickLeftButtonBlock:^{
-//                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-//                openDepositAccountVC.title = @"开通存管账户";
-//                openDepositAccountVC.type = type;
-//                [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-//            }];
-//            [weakSelf.navigationController presentViewController:alertVC animated:YES completion:nil];
-            //        //开通存管银行账户
-            //        HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
-            //        bindBankCardVC.type = type;
-            //        [self.navigationController pushViewController:bindBankCardVC animated:YES];
             
         } else if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
         {

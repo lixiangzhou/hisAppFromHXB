@@ -54,7 +54,7 @@
         };
         
         _withdrawCardView.checkCardBin = ^(NSString *bankNumber) {
-            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:bankNumber andisToastTip:NO andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
                 [weakSelf checkCardBin:cardBinModel];
             } andFailureBlock:^(NSError *error) {
                 weakSelf.withdrawCardView.isCheckFailed = YES;

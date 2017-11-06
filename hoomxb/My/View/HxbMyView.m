@@ -198,10 +198,14 @@ MyViewHeaderDelegate
     if (indexPath.section == 0) {
         cell.textLabel.text = @"优惠券";
         cell.textLabel.textColor = RGBA(102, 102, 102, 1);
-        NSString *str = [NSString stringWithFormat:@"您有%lld张优惠券",self.accountModel.availableCouponCount];
-        NSRange range = NSMakeRange(2, str.length - 6);
-        NSAttributedString *serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:RGBA(255, 33, 33, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(24)];
-        cell.desc = serverViewAttributedStr;
+        if (self.accountModel.availableCouponCount) {
+            NSString *str = [NSString stringWithFormat:@"您有%lld张优惠券",self.accountModel.availableCouponCount];
+            NSRange range = NSMakeRange(2, str.length - 6);
+            NSAttributedString *serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:RGBA(255, 33, 33, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(24)];
+            cell.desc = serverViewAttributedStr;
+        } else {
+             cell.desc = @"";
+        }
         cell.isShowLine = NO;
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
@@ -216,6 +220,7 @@ MyViewHeaderDelegate
             cell.textLabel.textColor = RGBA(102, 102, 102, 1);
             cell.desc = [NSString hxb_getPerMilWithDouble:self.accountModel.lenderPrincipal];
 //            cell.imageView.svgImageString = @"sanbiao.svg";
+            cell.isShowLine = NO;
         }
     }else{
         cell.textLabel.text = @"交易记录";

@@ -180,7 +180,7 @@
 //加载文字
 #define kLoadIngText @"加载中..."
 //分割线高度
-#define kHXBDivisionLineHeight 1
+#define kHXBDivisionLineHeight 0.5
 
 // iPhone X
 #define  LL_iPhoneX (kScreenWidth == 375.f && kScreenHeight == 812.f ? YES : NO)

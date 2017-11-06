@@ -66,7 +66,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     if (@available(iOS 11.0, *)) {
         height = 64;
     }
-    self.tableView.frame = CGRectMake(0, height, kScreenWidth, kScreenHeight);
+    self.tableView.frame = CGRectMake(0, height, kScreenWidth, kScreenHeight - 64);
     self.tableView.backgroundColor = kHXBColor_BackGround;
     [self refresh];
     [HXBMiddlekey AdaptationiOS11WithTableView:self.tableView];

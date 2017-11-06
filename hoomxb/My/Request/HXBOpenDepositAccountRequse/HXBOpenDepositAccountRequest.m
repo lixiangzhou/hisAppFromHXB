@@ -198,7 +198,7 @@
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-+ (void)checkCardBinResultRequestWithSmscode:(NSString *)bankNumber andisToastTip:(BOOL)isToast andSuccessBlock: (void(^)(HXBCardBinModel *cardBinModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
++ (void)checkCardBinResultRequestWithBankNumber:(NSString *)bankNumber andisToastTip:(BOOL)isToast andSuccessBlock: (void(^)(HXBCardBinModel *cardBinModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBUser_checkCardBin;

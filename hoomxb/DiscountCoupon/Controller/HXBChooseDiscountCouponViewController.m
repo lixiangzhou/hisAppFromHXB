@@ -233,6 +233,7 @@
             self.tableView.hidden = NO;
             self.nodataView.hidden = YES;
         }
+        self.notifitionView.hidden = !self.nodataView.hidden;
         [self.tableView reloadData];
     } andFailureBlock:^(NSError *error) {
         
@@ -250,8 +251,8 @@
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
-        _nodataView.imageName = @"Fin_NotData";
-        _nodataView.noDataMassage = @"暂无数据";
+        _nodataView.imageName = @"noCoupons";
+        _nodataView.noDataMassage = @"暂无优惠券数据";
         [self.view addSubview:_nodataView];
         _nodataView.hidden = YES;
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
