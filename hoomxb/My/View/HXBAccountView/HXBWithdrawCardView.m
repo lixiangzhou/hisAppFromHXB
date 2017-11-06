@@ -139,7 +139,7 @@
     if (self.nextButtonClickBlock) {
         kWeakSelf
         if ([self judgeIsNull]) return;
-        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithSmscode:_bankCardID andisToastTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
+        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithBankNumber:_bankCardID andisToastTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
 //            [weakSelf checkCardBin:cardBinModel];
             weakSelf.cardBinModel = cardBinModel;
             NSDictionary *dic = @{
@@ -233,7 +233,6 @@
             if (_bankCardID.length >= 12) {
                 if (weakSelf.checkCardBin) {
                     weakSelf.checkCardBin(weakSelf.bankCardID);
-                    
                 }
             }
         };
@@ -371,34 +370,9 @@
             return NO;
         }
     } else if (textField.superview == _bankCardTextField) {
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-        } else if(!string.length) {
-            NSInteger length = self.bankCardTextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = self.bankCardTextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        if ([self isPureInt:string]) {
-            if (_bankCardTextField.text.length % 5 == 4 && _bankCardTextField.text.length < 30) {
-                _bankCardTextField.text = [NSString stringWithFormat:@"%@ ", _bankCardTextField.text];
-            }
-            if (str.length > 31) {
-                str = [str substringToIndex:31];
-                _bankCardTextField.text = str;
-                [_bankCardTextField resignFirstResponder];
-                return NO;
-            }
-        } else if ([string isEqualToString:@""]) {
-            if ((_bankCardTextField.text.length - 2) % 5 == 4 && _bankCardTextField.text.length < 30) {
-                _bankCardTextField.text = [_bankCardTextField.text substringToIndex:_bankCardTextField.text.length - 1];
-            }
-            return YES;
-        } else {
-            return NO;
-        }
+        
+         return [UITextField numberFormatTextField:textField shouldChangeCharactersInRange:range replacementString:string textFieldType:kBankCardNumberTextFieldType];
+        
     }
     
     return YES;

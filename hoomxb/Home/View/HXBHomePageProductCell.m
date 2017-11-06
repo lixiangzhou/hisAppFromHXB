@@ -80,6 +80,8 @@
         [self.contentView addSubview:self.icon];
         [self.contentView addSubview:self.discountCouponImageView];
         [self.contentView addSubview:self.moneyOffCouponImageView];
+        
+        [self setupSubViewFrame];
     }
     return self;
 }
@@ -89,19 +91,26 @@
  */
 - (void)setupSubViewFrame
 {
-    if (!self.homePageModel_DataList.tag.length) {
-        [self.tagLabbel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-30));
-            make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(22));
-            make.height.offset(kScrAdaptationH750(0));
-        }];
-    } else {
-        [self.tagLabbel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-30));
-            make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(22));
-            make.height.offset(kScrAdaptationH750(25));
-        }];
-    }
+
+    [self.tagLabbel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-30));
+        make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(22));
+        make.height.offset(kScrAdaptationH750(25));
+    }];
+
+    [self.moneyOffCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.titleLabel);
+        make.left.equalTo(self.titleLabel.mas_right).offset(kScrAdaptationW750(10));
+        make.width.offset(kScrAdaptationW750(60));
+        make.height.offset(kScrAdaptationH750(28));
+    }];
+    
+    [self.discountCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.titleLabel);
+        make.left.equalTo(self.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(10));
+        make.width.offset(kScrAdaptationW750(60));
+        make.height.offset(kScrAdaptationH750(28));
+    }];
     
     [self.icon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.tagLabbel.mas_left).offset(kScrAdaptationW750(-10));
@@ -111,9 +120,9 @@
     
     [self.recommendImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(kScrAdaptationW750(50));
-        make.top.equalTo(self.contentView);
-        make.width.offset(kScrAdaptationW750(78));
-        make.height.offset(kScrAdaptationH750(80));
+        make.top.equalTo(self.contentView).offset(-2);
+        make.width.offset(kScrAdaptationW750(92));
+        make.height.offset(kScrAdaptationH750(93));
     }];
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -193,19 +202,20 @@
     NSString *str = [NSString stringWithFormat:@"%@月期",homePageModel_DataList.lockPeriod];
     self.investmentPeriodTitleLabel.text = str;
     if (![homePageModel_DataList.fixExtraInterestRate isEqualToString:@"0"]) {
-        self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],homePageModel_DataList.fixExtraInterestRate];
+        NSString *messageStr = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],homePageModel_DataList.fixExtraInterestRate];
+        NSRange range = [messageStr rangeOfString:homePageModel_DataList.fixExtraInterestRate];
+        self.expectAnnualizedRatesTitleLabel.attributedText = [NSMutableAttributedString setupAttributeStringWithString:messageStr WithRange:(NSRange)range andAttributeColor:RGB(253, 54, 54) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(50)];
+        
     } else {
         self.expectAnnualizedRatesTitleLabel.text = [NSString stringWithFormat:@"%.1f%%",[homePageModel_DataList.baseInterestRate doubleValue]];
     }
-    self.minRegisterAmountLabel.text =  [NSString stringWithFormat:@"%d起投",homePageModel_DataList.minRegisterAmount];
+    self.minRegisterAmountLabel.text =  [NSString stringWithFormat:@"%d元起投",homePageModel_DataList.minRegisterAmount];
     
     self.planTitleLabel.text = homePageModel_DataList.featuredSlogan;
     //根据数据返回
     [self setupBtnStyle];
     //是否显示tag
     [self isShowTag];
-    //设置子控件的位置
-    [self setupSubViewFrame];
     //设置显示的优惠券
     [self setupCoupon];
 }
@@ -214,20 +224,14 @@
     self.moneyOffCouponImageView.hidden = !self.homePageModel_DataList.hasMoneyOffCoupon;
     self.discountCouponImageView.hidden = !self.homePageModel_DataList.hasDiscountCoupon;
     if (self.homePageModel_DataList.hasMoneyOffCoupon) {
-        [self.moneyOffCouponImageView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.titleLabel);
-            make.left.equalTo(self.titleLabel.mas_right).offset(kScrAdaptationW750(10));
-            make.width.offset(kScrAdaptationW750(60));
-            make.height.offset(kScrAdaptationH750(28));
-        }];
-        [self.discountCouponImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        [self.discountCouponImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.titleLabel);
             make.left.equalTo(self.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(10));
             make.width.offset(kScrAdaptationW750(60));
             make.height.offset(kScrAdaptationH750(28));
         }];
     } else {
-        [self.discountCouponImageView mas_updateConstraints:^(MASConstraintMaker *make) {
+        [self.discountCouponImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self.titleLabel);
             make.left.equalTo(self.titleLabel.mas_right).offset(kScrAdaptationW750(10));
             make.width.offset(kScrAdaptationW750(60));
@@ -241,10 +245,18 @@
     if (!self.homePageModel_DataList.tag.length) {
         self.icon.hidden = YES;
         self.tagLabbel.hidden = YES;
+        self.recommendImageView.hidden = YES;
+        [self.tagLabbel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(kScrAdaptationH750(0));
+        }];
     } else {
         self.icon.hidden = NO;
         self.tagLabbel.hidden = NO;
+        self.recommendImageView.hidden = NO;
         self.tagLabbel.text = self.homePageModel_DataList.tag;
+        [self.tagLabbel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(kScrAdaptationH750(25));
+        }];
     }
 }
 
@@ -262,7 +274,7 @@
             self.homePageModel_DataList.isCountDown = NO;
             self.colourGradientView.hidden = NO;
             [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
-            self.purchaseButton.layer.borderColor = kHXBColor_Font0_5.CGColor;
+            self.purchaseButton.layer.borderColor = [UIColor clearColor].CGColor;
             [self.purchaseButton setTitle:@"立即加入" forState:(UIControlStateNormal)];
         }
     }else
@@ -286,7 +298,7 @@
         } else if([self.homePageModel_DataList.cellBtnTitle isEqualToString:@"立即加入"]) {
             self.colourGradientView.hidden = NO;
             [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
-            self.purchaseButton.layer.borderColor = kHXBColor_Font0_5.CGColor;
+            self.purchaseButton.layer.borderColor = [UIColor clearColor].CGColor;
         } else {
             self.colourGradientView.hidden = YES;
             [self.purchaseButton setTitleColor:kHXBColor_Font0_6 forState:UIControlStateNormal];
@@ -355,7 +367,7 @@
         _expectAnnualizedRatesLabel = [[UILabel alloc]initWithFrame:CGRectMake(16, 50, 120, 22)];
         _expectAnnualizedRatesLabel.textColor = COR10;
         _expectAnnualizedRatesLabel.text = @"平均历史年化收益";
-        _expectAnnualizedRatesLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        _expectAnnualizedRatesLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     }
     return _expectAnnualizedRatesLabel;
 }
@@ -425,6 +437,7 @@
         _recommendImageView = [[UIImageView alloc] init];
         _recommendImageView.contentMode = UIViewContentModeScaleAspectFit;
         _recommendImageView.image = [UIImage imageNamed:@"Home_Recommend"];
+        _recommendImageView.hidden = YES;
     }
     return _recommendImageView;
 }
