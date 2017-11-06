@@ -156,7 +156,7 @@
             [UIView animateWithDuration:0.5 animations:^{
                 self.y = 0;
             }];
-            self.bankNumber = [self.bankNumberTextField.text stringByReplacingOccurrencesOfString:@" "  withString:@""];
+            self.bankNumber = [self.bankNumber stringByReplacingOccurrencesOfString:@" "  withString:@""];
             NSDictionary *dic = @{
                                   @"realName" : self.nameTextField.text,
                                   @"identityCard" : self.idCardTextField.text,
@@ -338,40 +338,8 @@
      }
      */
     if (textField.superview == _bankNumberTextField) {
-        NSString *text = [textField text];
         
-        NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789\b"];
-        string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-        if ([string rangeOfCharacterFromSet:[characterSet invertedSet]].location != NSNotFound) {
-            return NO;
-        }
-        
-        text = [text stringByReplacingCharactersInRange:range withString:string];
-        text = [text stringByReplacingOccurrencesOfString:@" " withString:@""];
-        if ([text length] >= 26) {
-            return NO;
-        }
-        self.bankNumber = text;
-        if (text.length>=12) {
-            if (self.checkCardBin) {
-                self.checkCardBin(text);
-            }
-        }
-        
-        NSString *newString = @"";
-        while (text.length > 0) {
-            NSString *subString = [text substringToIndex:MIN(text.length, 4)];
-            newString = [newString stringByAppendingString:subString];
-            if (subString.length == 4) {
-                newString = [newString stringByAppendingString:@" "];
-            }
-            text = [text substringFromIndex:MIN(text.length, 4)];
-        }
-        
-        newString = [newString stringByTrimmingCharactersInSet:[characterSet invertedSet]];
-        
-        [textField setText:newString];
-        return NO;
+         return [UITextField numberFormatTextField:textField shouldChangeCharactersInRange:range replacementString:string textFieldType:kBankCardNumberTextFieldType];
     
     }
     if ([string isEqualToString:@""]) {
@@ -620,15 +588,15 @@
         _bankNumberTextField.limitStringLength = 31;
         _bankNumberTextField.keyboardType = UIKeyboardTypeNumberPad;
         _bankNumberTextField.isHidenLine = YES;
-//        kWeakSelf
-//        _bankNumberTextField.block = ^(NSString *text) {
-//            _bankNumber = [text stringByReplacingOccurrencesOfString:@" "  withString:@""];
-//            if (_bankNumber.length>=12) {
-//                if (weakSelf.checkCardBin) {
-//                    weakSelf.checkCardBin(weakSelf.bankNumber);
-//                }
-//            }
-//        };
+        kWeakSelf
+        _bankNumberTextField.block = ^(NSString *text) {
+            _bankNumber = [text stringByReplacingOccurrencesOfString:@" "  withString:@""];
+            if (_bankNumber.length>=12) {
+                if (weakSelf.checkCardBin) {
+                    weakSelf.checkCardBin(weakSelf.bankNumber);
+                }
+            }
+        };
     }
     return _bankNumberTextField;
 }

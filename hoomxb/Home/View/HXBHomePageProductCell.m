@@ -80,6 +80,8 @@
         [self.contentView addSubview:self.icon];
         [self.contentView addSubview:self.discountCouponImageView];
         [self.contentView addSubview:self.moneyOffCouponImageView];
+        
+        [self setupSubViewFrame];
     }
     return self;
 }
@@ -89,20 +91,13 @@
  */
 - (void)setupSubViewFrame
 {
-    if (!self.homePageModel_DataList.tag.length) {
-        [self.tagLabbel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-30));
-            make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(22));
-            make.height.offset(kScrAdaptationH750(0));
-        }];
-    } else {
-        [self.tagLabbel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-30));
-            make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(22));
-            make.height.offset(kScrAdaptationH750(25));
-        }];
-    }
-    
+
+    [self.tagLabbel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-30));
+        make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(22));
+        make.height.offset(kScrAdaptationH750(25));
+    }];
+
     [self.moneyOffCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.titleLabel);
         make.left.equalTo(self.titleLabel.mas_right).offset(kScrAdaptationW750(10));
@@ -221,8 +216,6 @@
     [self setupBtnStyle];
     //是否显示tag
     [self isShowTag];
-    //设置子控件的位置
-    [self setupSubViewFrame];
     //设置显示的优惠券
     [self setupCoupon];
 }
@@ -253,11 +246,17 @@
         self.icon.hidden = YES;
         self.tagLabbel.hidden = YES;
         self.recommendImageView.hidden = YES;
+        [self.tagLabbel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(kScrAdaptationH750(0));
+        }];
     } else {
         self.icon.hidden = NO;
         self.tagLabbel.hidden = NO;
         self.recommendImageView.hidden = NO;
         self.tagLabbel.text = self.homePageModel_DataList.tag;
+        [self.tagLabbel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(kScrAdaptationH750(25));
+        }];
     }
 }
 

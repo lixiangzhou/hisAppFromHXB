@@ -228,14 +228,14 @@
         _bankCardTextField.leftImage = [UIImage imageNamed:@"bankcard"];
         _bankCardTextField.isHidenLine = YES;
         kWeakSelf
-//        _bankCardTextField.block = ^(NSString *text) {
-//            _bankCardID = [_bankCardTextField.text stringByReplacingOccurrencesOfString:@" "  withString:@""];
-//            if (_bankCardID.length >= 12) {
-//                if (weakSelf.checkCardBin) {
-//                    weakSelf.checkCardBin(weakSelf.bankCardID);
-//                }
-//            }
-//        };
+        _bankCardTextField.block = ^(NSString *text) {
+            _bankCardID = [_bankCardTextField.text stringByReplacingOccurrencesOfString:@" "  withString:@""];
+            if (_bankCardID.length >= 12) {
+                if (weakSelf.checkCardBin) {
+                    weakSelf.checkCardBin(weakSelf.bankCardID);
+                }
+            }
+        };
     }
     return _bankCardTextField;
 }
@@ -370,40 +370,9 @@
             return NO;
         }
     } else if (textField.superview == _bankCardTextField) {
-        NSString *text = [textField text];
         
-        NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789\b"];
-        string = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
-        if ([string rangeOfCharacterFromSet:[characterSet invertedSet]].location != NSNotFound) {
-            return NO;
-        }
+         return [UITextField numberFormatTextField:textField shouldChangeCharactersInRange:range replacementString:string textFieldType:kBankCardNumberTextFieldType];
         
-        text = [text stringByReplacingCharactersInRange:range withString:string];
-        text = [text stringByReplacingOccurrencesOfString:@" " withString:@""];
-        if ([text length] >= 26) {
-            return NO;
-        }
-        _bankCardID = text;
-        if (text.length>=12) {
-            if (self.checkCardBin) {
-                self.checkCardBin(text);
-            }
-        }
-        
-        NSString *newString = @"";
-        while (text.length > 0) {
-            NSString *subString = [text substringToIndex:MIN(text.length, 4)];
-            newString = [newString stringByAppendingString:subString];
-            if (subString.length == 4) {
-                newString = [newString stringByAppendingString:@" "];
-            }
-            text = [text substringFromIndex:MIN(text.length, 4)];
-        }
-        
-        newString = [newString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        
-        [textField setText:newString];
-        return NO;
     }
     
     return YES;
