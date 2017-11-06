@@ -8,7 +8,6 @@
 
 #import "HXBMainListView_Loan_TopView.h"
 #import "HXBMYModel_AssetStatistics_Loan.h"
-#import "ViewController.h"
 #import "SwipeTableView.h"
 #import "STCollectionView.h"
 #import "UIView+STFrame.h"

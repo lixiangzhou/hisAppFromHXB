@@ -21,7 +21,6 @@
 		28B5D0271F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B5D0261F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.m */; };
 		4E16D82F1E9CD0FE002A1881 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D82E1E9CD0FE002A1881 /* main.m */; };
 		4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8311E9CD0FE002A1881 /* AppDelegate.m */; };
-		4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8341E9CD0FE002A1881 /* ViewController.m */; };
 		4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D8361E9CD0FE002A1881 /* Main.storyboard */; };
 		4E16D8481E9CD0FE002A1881 /* hoomxbTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8471E9CD0FE002A1881 /* hoomxbTests.m */; };
 		4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */; };
@@ -568,8 +567,6 @@
 		4E16D82E1E9CD0FE002A1881 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4E16D8301E9CD0FE002A1881 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		4E16D8311E9CD0FE002A1881 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		4E16D8331E9CD0FE002A1881 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		4E16D8341E9CD0FE002A1881 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		4E16D8371E9CD0FE002A1881 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4E16D83E1E9CD0FE002A1881 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E16D8431E9CD0FE002A1881 /* hoomxbTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = hoomxbTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1596,15 +1593,13 @@
 			children = (
 				4E16D8301E9CD0FE002A1881 /* AppDelegate.h */,
 				4E16D8311E9CD0FE002A1881 /* AppDelegate.m */,
-				4E16D8331E9CD0FE002A1881 /* ViewController.h */,
-				4E16D8341E9CD0FE002A1881 /* ViewController.m */,
 				8DBA85D81FB06A0A00B1B50D /* Lib */,
+				E122D8081EA0CAB900DC71ED /* Tools */,
+				E133DD1A1EEEC14C009466DE /* Network */,
+				4EA93FBB1EA0A591002F3615 /* Macros */,
 				288BA9F01FAC593A009DF8AB /* DiscountCoupon */,
 				4E45F42B1F4FC71E009708B7 /* NewFeature */,
 				4EB4208D1F25FC3E00631A25 /* Middlekey */,
-				4EA93FBB1EA0A591002F3615 /* Macros */,
-				E122D8081EA0CAB900DC71ED /* Tools */,
-				E133DD1A1EEEC14C009466DE /* Network */,
 				E1D3D0CB1ED6A9B8003F1DBA /* StartPageAndAdvertisement */,
 				E133DC8B1EEE3597009466DE /* User */,
 				4E3C1D091EA6421B00C8BD36 /* Home */,
@@ -4964,7 +4959,6 @@
 				E17E61A61F1C87B1004D5883 /* HXBFinBaseNegotiateView.m in Sources */,
 				4EB29C4F1F4A7AD800E33CDF /* YYCache.m in Sources */,
 				E1FF8EE01F0F675900C7F1AC /* HXBFinHomePageViewModel_LoanTruansferViewModel.m in Sources */,
-				4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */,
 				E122D85A1EA0CAB900DC71ED /* UIImageView+HxbSDWebImage.m in Sources */,
 				E12800F91F023AB40066FB66 /* HXBCode.m in Sources */,
 				E1C9647B1EA5E04F0066DBC4 /* HXBBaseTableViewCell.m in Sources */,
