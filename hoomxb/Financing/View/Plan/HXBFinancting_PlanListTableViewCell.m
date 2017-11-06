@@ -6,6 +6,8 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
+#define DottedLineHeight 1
+
 #import "HXBFinancting_PlanListTableViewCell.h"
 #import "HXBFinHomePageViewModel_PlanList.h"
 #import "HXBFinHomePageModel_PlanList.h"
@@ -200,7 +202,7 @@
     
     [self.lineImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.contentView);
-        make.height.offset(kHXBDivisionLineHeight);
+        make.height.offset(DottedLineHeight);
         make.top.equalTo(self.expectedYearRateLable_Const.mas_bottom).offset(kScrAdaptationH750(30));
     }];
     
