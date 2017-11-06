@@ -11,7 +11,7 @@
 #import "HXBFBase_BuyResult_VC.h"
 #import "HXBMyCouponListViewController.h"
 #import "HXBMyCouponListModel.h"
-
+#import "HXBMyCouponViewController.h"
 
 @interface HXBMyCouponExchangeViewController ()<UITextFieldDelegate>
 
@@ -93,14 +93,18 @@
             planBuySuccessVC.buy_ButtonTitle = @"查看我的优惠券";
             planBuySuccessVC.title = @"兑换优惠券";
             [planBuySuccessVC clickButtonWithBlock:^{
-                __block UIViewController *viewController = nil;
+                __block HXBMyCouponViewController *viewController = nil;
                 [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([VC isKindOfClass:[HXBMyCouponListViewController class]]) {
+                    if ([VC isKindOfClass:[HXBMyCouponViewController class]]) {
                         viewController = VC;
                         * stop = true;
                     }
                 }];
-                if (viewController) {
+                if ((HXBMyCouponViewController * )viewController.childViewControllers[0] && [(HXBMyCouponViewController * )viewController.childViewControllers[0] isKindOfClass:[HXBMyCouponListViewController class]]) {
+
+                    UIButton *btn = viewController.topTabView.tabs[0];
+                    [viewController.topTabView tabAnimation:btn];
+                    [viewController.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
                     [self.navigationController popToViewController:viewController animated:true];
                 }
             }];

@@ -225,7 +225,7 @@
     alertVC.isCenterShow = YES;
     [alertVC setClickXYRightButtonBlock:^{
         NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", phoneNumber];
-        NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
+        NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0" options:NSNumericSearch];
 //        dispatch_async(dispatch_get_global_queue(0, 0), ^{
             if (compare == NSOrderedDescending || compare == NSOrderedSame) {
                 /// 大于等于10.0系统使用此openURL方法

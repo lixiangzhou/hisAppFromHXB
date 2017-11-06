@@ -17,7 +17,7 @@
 
 @property (nonatomic, weak) UIButton *selectedTab;
 
-@property (nonatomic, strong) NSMutableArray *tabs;
+//@property (nonatomic, strong) NSMutableArray *tabs;
 @end
 
 @implementation HXBTopTabView
