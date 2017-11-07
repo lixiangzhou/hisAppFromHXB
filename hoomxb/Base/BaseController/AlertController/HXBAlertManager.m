@@ -8,7 +8,7 @@
 
 #import "HXBAlertManager.h"
 #import "HXBVersionUpdateModel.h"
-
+#import "HXBBaseAlertViewController.h"
 #import "HxbSecurityCertificationViewController.h"
 #import "HXBSetGesturePasswordRequest.h"
 #import "HXBRiskAssessmentViewController.h"

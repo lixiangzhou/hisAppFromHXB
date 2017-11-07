@@ -19,7 +19,7 @@ static NSString *const home = @"首页";
 static NSString *const financing = @"投资";
 static NSString *const my = @"我的";
 
-@interface HXBGesturePasswordViewController ()<HXBCircleViewDelegate>
+@interface HXBGesturePasswordViewController ()<HXBCircleViewDelegate, UIGestureRecognizerDelegate>
 /**
  *  重设按钮
  */
@@ -97,28 +97,11 @@ static NSString *const my = @"我的";
     if (self.type == GestureViewControllerTypeLogin) {
         [self.navigationController setNavigationBarHidden:YES animated:animated];
     }
-    
-    
-    // 进来先清空存的第一个密码
-//    [HXBCircleViewConst saveGesture:nil Key:gestureOneSaveKey];
-//    KeyChain.gesturePwd = nil;
-}
-
-
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
     [self.view setBackgroundColor:CircleViewBackgroundColor];
     
     // 1.界面相同部分生成器
@@ -126,6 +109,15 @@ static NSString *const my = @"我的";
     
     // 2.界面不同部分生成器
     [self setupDifferentUI];
+    
+    // ------------------------------警用全屏手势------------------------------------------
+    [self.navigationController.interactivePopGestureRecognizer.view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
+        } else if ([obj isKindOfClass:[UIPanGestureRecognizer class]]) {
+            obj.enabled = NO;
+            *stop = YES;
+        }
+    }];
 }
 
 #pragma mark - 创建UIBarButtonItem
@@ -349,6 +341,24 @@ static NSString *const my = @"我的";
         KeyChain.gesturePwd = gesture;
         KeyChain.gesturePwdCount = @"5";
         [kUserDefaults setBool:YES forKey:kHXBGesturePWD];
+      
+        // ------------------------------解决 popToRootViewControllerAnimated 手势无效的问题------------------------------------------
+        NSArray<UIGestureRecognizer *> *gestures = self.navigationController.interactivePopGestureRecognizer.view.gestureRecognizers;
+        [self.navigationController.interactivePopGestureRecognizer.view.gestureRecognizers enumerateObjectsUsingBlock:^(__kindof UIGestureRecognizer * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
+            } else if ([obj isKindOfClass:[UIPanGestureRecognizer class]]) {
+                obj.enabled = YES;
+                *stop = YES;
+            }
+        }];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            for (UIGestureRecognizer *gesture in gestures) {
+                [self.navigationController.interactivePopGestureRecognizer.view addGestureRecognizer:gesture];
+            }
+        });
+        
+        // ------------------------------解决 popToRootViewControllerAnimated 手势无效的问题------------------------------------------
         [self.navigationController popToRootViewControllerAnimated:NO];
         
     } else {

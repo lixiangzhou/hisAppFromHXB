@@ -17,19 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self setupWebView];
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-//MARK: --- setupWebView
 - (void)setupWebView {
-    
     //设置导航条
     //创建WkWebView & 解决webView不能播放视频的问题
     WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc]init];
@@ -176,60 +169,6 @@
                                                       }]];
     
     [self presentViewController:alertController animated:YES completion:^{}];
-}
-
-
-#pragma mark - ---------------5、WKWebView疑难--------------
-#pragma mark - WKNavigationDelegate
-//追踪加载过程，有是否允许加载、开始加载、加载完成、加载失败
-//MARK: WKWebView加载POST请求无法发送参数问题
-- (void)WKWebViewLoadPOSTRequest{
-    
-    // 创建WKWebView
-    WKWebView *webView = [[WKWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    // 将WKWebView添加到当前View
-    [self.view addSubview:webView];
-    // 设置访问的URL
-    NSURL *url = [NSURL URLWithString:@"http://www.example.com"];
-    // 根据URL创建请求
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    // 设置请求方法为POST
-    [request setHTTPMethod:@"POST"];
-    // 设置请求参数
-    [request setHTTPBody:[@"username=aaa&password=123" dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    // 实例化网络会话
-    NSURLSession *session = [NSURLSession sharedSession];
-    // 创建请求Task
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        // 将请求到的网页数据用loadHTMLString 的方法加载
-        NSString *htmlStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        [webView loadHTMLString:htmlStr baseURL:nil];
-    }];
-    // 开启网络任务
-    [task resume];
-}
-
-#pragma mark -  开启加载
-- (void)loadRequestWithURL: (NSString *)URL
-{
-    if ([_webView isLoading]){
-        return;
-    }
-    
-    NSURL *url = [NSURL URLWithString:@"http://www.hao123.com"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [_webView loadRequest:request];
-    NSLog(@"加载：启动");
-}
-
-- (void)stopClick{
-    if ([_webView isLoading]){
-        [_webView stopLoading];
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        NSLog(@"加载：停止");
-    }
 }
 
 @end
