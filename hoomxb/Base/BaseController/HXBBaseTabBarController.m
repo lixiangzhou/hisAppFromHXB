@@ -19,34 +19,23 @@
 
 @implementation HXBBaseTabBarController
 
-
-#pragma mark - setter方法
-#pragma mark - gtter方法
-- (UIColor *)normalColor {
-    if (!_normalColor) {
-        _normalColor = [UIColor redColor];
-    }
-    return _normalColor;
-}
-- (UIColor *)selectColor {
-    if (!_selectColor) {
-        _selectColor = [UIColor blueColor];
-    }
-    return _selectColor;
-}
-
-#pragma mark - viewDidLoad
+#pragma mark - LifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     ///注册通知
     [self registerNotification];
-//    self.tabBar.hidden = YES;
+
     self.delegate = self;
+    
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
     [[UITabBar appearance] setShadowImage:[UIImage new]];
 }
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
+#pragma mark - UI
 // 去除tabBar上面的横线
 - (void)hiddenTabbarLine {
     UIImageView *shadowImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.3)];
@@ -58,6 +47,7 @@
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
 }
 
+#pragma mark - Observer
 ///注册通知
 - (void)registerNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentLoginVC:) name:kHXBNotification_ShowLoginVC object:nil];
@@ -67,16 +57,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMYVC_PlanList:) name:kHXBNotification_ShowMYVC_PlanList object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMyVC_LoanList:) name:kHXBNotification_ShowMYVC_LoanList object:nil];
 
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-
-}
-
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
 }
 
 #pragma mark - 封装的方法
@@ -102,10 +82,12 @@
         SVGKImage *svgImage = [SVGKImage imageNamed:imageNameArray[i]];
         UIImage *image = [svgImage.UIImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         NAV.tabBarItem.image = image;
+        
         svgImage = [SVGKImage imageNamed:selectImageCommonNameArray[i]];
         UIImage *selectImage = svgImage.UIImage;
         selectImage = [selectImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         NAV.tabBarItem.selectedImage = selectImage;
+        
         [self addChildViewController:NAV];
         if (i == 2) {
             [NAV.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:(UIBarMetricsDefault)];
@@ -116,31 +98,17 @@
     }
 }
 
-
-
 //MARK: 创建导航控制器
 - (HXBBaseNavigationController *)creatNavigationControllerBySubViewController: (UIViewController *)VC {
     HXBBaseNavigationController *NAV = [[HXBBaseNavigationController alloc]initWithRootViewController:VC];
     return NAV;
 }
 
-
 //MARK: 根据文件名创建subVC
 - (UIViewController *)ctratSubControllerWithName: (NSString *)subViewControllerName {
     Class class = NSClassFromString(subViewControllerName);
     UIViewController *controller = [[class alloc]init];
     return controller;
-}
-
-
-
-- (void)realShowLogin
-{
-  
-//    self.homePageVC.willPresent = YES;
-//    self.moneyManageVC.willPresent = YES;
-    
-//    [self presentViewController:navLoginVC animated:YES completion:nil];
 }
 
 #pragma mark - tabBarDelegate
@@ -161,15 +129,12 @@
     
     //当前是否处于登录状态// 没有登录的话就return一个NO，并modal一个登录控制器。
     if (isMYController && ![KeyChain isLogin]) {
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{@"selectedIndex" : [NSString stringWithFormat:@"%lu",(unsigned long)tabBarController.selectedIndex]}];
-        
-        return YES;
     }
     return YES;
 }
 
-
+#pragma mark - 通知Action
 // modal 登录控制器
 - (void) presentLoginVC:(NSNotification *)notification {
     HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
@@ -182,6 +147,7 @@
     }
     [self.selectedViewController presentViewController:navi animated:YES completion:nil];
 }
+
 //跳转 myVC
 - (void) pushMyVC:(NSNotification *)notification {
     self.selectedViewController = self.viewControllers.lastObject;
@@ -190,42 +156,41 @@
 - (void) showMyVC: (NSNotification *)notification {
     self.selectedViewController = self.viewControllers.lastObject;
 }
+
 - (void) showHomeVC: (NSNotification *)notification {
     self.selectedViewController = self.viewControllers.firstObject;
     [self.viewControllers enumerateObjectsUsingBlock:^(__kindof UINavigationController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj popToRootViewControllerAnimated:NO];
     }];
 }
+
 - (void)showMYVC_PlanList:(NSNotification *)notification {
     Class obj = NSClassFromString(@"HXBMY_PlanListViewController");
     UINavigationController *myPlanListViewController = [[obj alloc]init];
     [self.viewControllers.lastObject pushViewController:myPlanListViewController animated:YES];
     self.selectedViewController = self.viewControllers.lastObject;
 }
+
 - (void)showMyVC_LoanList:(NSNotification *)notification {
     Class obj = NSClassFromString(@"HXBMY_LoanListViewController");
     UINavigationController *myPlanListViewController = [[obj alloc]init];
     [self.viewControllers.lastObject pushViewController:myPlanListViewController animated:YES];
     self.selectedViewController = self.viewControllers.lastObject;
 }
-////谈图验
-//- (void) modalCaptchaVC: (NSNotification *)notif {
-//    HXBBaseNavigationController *nav =  (HXBBaseNavigationController *)self.selectedViewController;
-//    UIViewController *viewController = nav.viewControllers.firstObject;
-//    HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
-//    [nav presentViewController:checkCaptchaViewController animated:true completion:nil];
-//}
 
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+#pragma mark - gtter方法
+- (UIColor *)normalColor {
+    if (!_normalColor) {
+        _normalColor = [UIColor redColor];
+    }
+    return _normalColor;
 }
+- (UIColor *)selectColor {
+    if (!_selectColor) {
+        _selectColor = [UIColor blueColor];
+    }
+    return _selectColor;
+}
+
 @end
 
-
-
-
-// ----------------- readMe ------------------------
-/*
- 根据subVC名创建subVC并加入到self.childViewControllers里面
- */

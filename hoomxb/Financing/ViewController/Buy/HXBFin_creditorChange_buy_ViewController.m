@@ -85,6 +85,9 @@ static NSString *const investString = @"立即投资";
 @property (nonatomic, copy) NSString *couponid;
 /** 是否获取到优惠券 */
 @property (nonatomic, assign) BOOL hasGetCoupon;
+
+@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @end
 
 @implementation HXBFin_creditorChange_buy_ViewController
@@ -980,6 +983,23 @@ static NSString *const investString = @"立即投资";
     [self.hxbBaseVCScrollView reloadData];
 }
 
+- (void)dealloc {
+    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    NSLog(@"✅被销毁 %@",self);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+        }
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+}
 
 
 - (NSArray *)titleArray {
@@ -1003,9 +1023,21 @@ static NSString *const investString = @"立即投资";
     return _model;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (UITableView *)hxbBaseVCScrollView {
+    if (!_hxbBaseVCScrollView) {
+        
+        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        if (LL_iPhoneX) {
+            _hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+        }
+        
+        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
+        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
+        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
+    }
+    return _hxbBaseVCScrollView;
 }
 
 

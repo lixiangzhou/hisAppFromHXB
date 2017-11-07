@@ -21,7 +21,7 @@
  * @param subViewControllerNameArray subViewController的名字
  * @param titleArray subViewController的NAV与tabbar的title
  * @param imageNameArray 默认情况下的image的名字
- * @param selectImageCommonName 选中情况下的image的名字的前缀
+ * @param selectImageCommonNameArray 选中情况下的image的名字的前缀
  */
 - (void)subViewControllerNames: (NSArray <NSString *> *)subViewControllerNameArray andNavigationControllerTitleArray: (NSArray<NSString *>*)titleArray andImageNameArray: (NSArray<NSString *>*)imageNameArray andSelectImageCommonName: (NSArray<NSString *>*)selectImageCommonNameArray;
 

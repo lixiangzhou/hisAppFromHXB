@@ -30,7 +30,8 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 ///用户的基本信息的ViewModel
 @property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,copy) NSString *checkCaptcha;
-
+@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @end
 
 @implementation HxbSignInViewController
@@ -78,9 +79,9 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     self.signView = [[HxbSignInView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.hxb_automaticallyAdjustsScrollViewInsets = false;
     [self.hxbBaseVCScrollView addSubview:self.signView];
-    [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
+    self.trackingScrollViewBlock = ^(UIScrollView *scrollView) {
         [weakSelf.signView endEditing:true];
-    }];
+    };
 }
 
 #pragma mark - signView事件注册
@@ -249,21 +250,23 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     }
 }
 
-//- (void)setLeftItemBar{
-//    UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
-//    //    [leftBackBtn setTitle:@"返回" forState:UIControlStateNormal];
-//    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
-//    // 让按钮内部的所有内容左对齐
-//    leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    [leftBackBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
-//    [leftBackBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-//    // 修改导航栏左边的item
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBackBtn];
-//    self.navigationController.navigationBar.barStyle=UIBarStyleBlackTranslucent;
-//    self.navigationController.navigationBar.titleTextAttributes=@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:UIBarMetricsDefault];
-//    [self.navigationController.navigationBar setValue:@(0)forKeyPath:@"backgroundView.alpha"];
-//}
+- (UITableView *)hxbBaseVCScrollView {
+    if (!_hxbBaseVCScrollView) {
+        
+        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        if (LL_iPhoneX) {
+            _hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+        }
+        
+        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
+        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
+        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
+    }
+    return _hxbBaseVCScrollView;
+}
+
 - (void)leftBackBtnClick{
     [self dismiss];
 }
@@ -272,4 +275,23 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     [super viewWillDisappear:animated];
     [HXBNotificationCenter removeObserver:self name:kHXBNotification_ShowLoginVC object:nil];
 }
+
+- (void)dealloc {
+    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    NSLog(@"✅被销毁 %@",self);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+        }
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+}
+
 @end

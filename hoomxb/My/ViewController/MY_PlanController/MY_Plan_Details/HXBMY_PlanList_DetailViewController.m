@@ -27,6 +27,8 @@
 @property (nonatomic,strong) HXBMYReqest_DetailRequest *detailRequest;
 @property (nonatomic,weak) HXBMY_PlanDetailView *planDetailView;
 @property (nonatomic,strong)HXBMYViewModel_PlanDetailViewModel *viewModel;
+@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @end
 
 @implementation HXBMY_PlanList_DetailViewController
@@ -271,8 +273,21 @@
             break;
     }
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)dealloc {
+    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    NSLog(@"✅被销毁 %@",self);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+        }
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
 }
 @end
