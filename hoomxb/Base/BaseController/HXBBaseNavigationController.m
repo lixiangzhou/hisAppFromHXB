@@ -26,6 +26,16 @@
     [super viewDidLoad];
     
     [self.tabBarItem setTitlePositionAdjustment:UIOffsetMake(-3, -3)];
+    
+    id target = self.interactivePopGestureRecognizer.delegate;
+    SEL handler = NSSelectorFromString(@"handleNavigationTransition:");
+    UIView *targetView = self.interactivePopGestureRecognizer.view;
+    UIPanGestureRecognizer * fullScreenGes = [[UIPanGestureRecognizer alloc]initWithTarget:target action:handler];
+    fullScreenGes.delegate = self;
+    [targetView addGestureRecognizer:fullScreenGes];
+    
+    // 关闭边缘触发手势 防止和原有边缘手势冲突
+    [self.interactivePopGestureRecognizer setEnabled:NO];
 }
 
 #pragma mark - override push
@@ -47,7 +57,8 @@
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     ///这里有两个条件不允许手势执行，1、当前控制器为根控制器；2、如果这个push、pop动画正在执行（私有属性）
-    return self.viewControllers.count != 1 && ![[self valueForKey:@"_isTransitioning"] boolValue];
+    BOOL panLeft = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:gestureRecognizer.view].x > 0;
+    return self.viewControllers.count != 1 && ![[self valueForKey:@"_isTransitioning"] boolValue] && panLeft;
 }
 
 @end

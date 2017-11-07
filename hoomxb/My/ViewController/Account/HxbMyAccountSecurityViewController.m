@@ -46,7 +46,7 @@ UITableViewDataSource,UITableViewDelegate
     [super viewDidLoad];
     self.title = @"账户安全";
     [self.view addSubview:self.tableView];
-    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+    self.self.automaticallyAdjustsScrollViewInsets = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated

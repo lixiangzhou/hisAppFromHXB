@@ -77,7 +77,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     kWeakSelf
     self.isTransparentNavigationBar = true;
     self.signView = [[HxbSignInView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    self.hxb_automaticallyAdjustsScrollViewInsets = false;
+    self.self.automaticallyAdjustsScrollViewInsets = NO;
     [self.hxbBaseVCScrollView addSubview:self.signView];
     self.trackingScrollViewBlock = ^(UIScrollView *scrollView) {
         [weakSelf.signView endEditing:true];

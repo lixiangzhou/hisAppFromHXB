@@ -31,7 +31,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
+//    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
     
     [self setupLeftBackBtn];
     
@@ -44,8 +44,7 @@
     
     self.isTransparentNavigationBar = _isTransparentNavigationBar;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    self.automaticallyAdjustsScrollViewInsets = self.hxb_automaticallyAdjustsScrollViewInsets;
-    [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:false];
+    [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -53,27 +52,30 @@
     
 //    self.isCanSideBack = NO;
     //关闭ios右滑返回
-    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = self;
-    }
+//    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        self.navigationController.interactivePopGestureRecognizer.delegate = self;
+//    }
     [self.view bringSubviewToFront:self.noNetworkStatusView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    
     [self.view endEditing:true];
-    [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:false];
+    
+    [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:NO];
     
 //    self.isCanSideBack=YES;
     //开启ios右滑返回
-    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-    }
+//    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
+//    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [self.navigationController setNavigationBarHidden:false animated:false];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 #pragma mark - UI
@@ -119,7 +121,6 @@
 
 #pragma mark - setter 方法
 
-///隐藏导航条
 - (void)setIsHiddenNavigationBar:(BOOL)isHiddenNavigationBar {
     _isHiddenNavigationBar = isHiddenNavigationBar;
     self.navigationController.navigationBarHidden = isHiddenNavigationBar;
@@ -170,19 +171,10 @@
     }
 }
 
-///是否禁止scrollView自动向下平移64
-- (void)setHxb_automaticallyAdjustsScrollViewInsets:(BOOL)hxb_automaticallyAdjustsScrollViewInsets {
-    _hxb_automaticallyAdjustsScrollViewInsets = hxb_automaticallyAdjustsScrollViewInsets;
-    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
-        self.automaticallyAdjustsScrollViewInsets = hxb_automaticallyAdjustsScrollViewInsets;
-    };
-}
-
 #pragma mark - UIGestureRecognizerDelegate
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
-    return NO;//self.isCanSideBack;
-    
-}
+//- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
+//    return NO;//self.isCanSideBack;
+//}
 
 #pragma mark - Other
 ///白色的电池栏

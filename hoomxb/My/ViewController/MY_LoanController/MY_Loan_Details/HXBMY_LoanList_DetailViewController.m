@@ -100,7 +100,7 @@
         make.height.offset(kScrAdaptationH(50));
     }];
     
-    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+    self.self.automaticallyAdjustsScrollViewInsets = YES;
     self.loanDetailViewModel = _loanDetailViewModel;
     [self.loanDetailView clickBottomTableViewCellBloakFunc:^(NSInteger index) {
         switch (index) {

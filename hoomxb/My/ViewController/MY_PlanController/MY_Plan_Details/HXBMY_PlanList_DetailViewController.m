@@ -47,7 +47,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+
     self.isColourGradientNavigationBar = true;
     [self setUP];
     self.title = self.planViewModel.planModelDataList.name;

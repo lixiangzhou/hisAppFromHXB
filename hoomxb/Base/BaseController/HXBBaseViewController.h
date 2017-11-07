@@ -20,8 +20,6 @@
 @property (nonatomic, assign) BOOL isWhiteColourGradientNavigationBar;
 ///导航条是否为蓝色
 @property (nonatomic,assign) BOOL isBlueGradientNavigationBar;
-///自动把scrollView向下平移64
-@property (nonatomic,assign) BOOL hxb_automaticallyAdjustsScrollViewInsets;
 
 ///可以重写返回方法
 - (void)leftBackBtnClick;

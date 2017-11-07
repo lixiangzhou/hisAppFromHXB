@@ -119,8 +119,6 @@
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
-//   #warning 屏蔽了点击 我的 跳转 登录页
-//   return true;
     //获取当前的导航控制器的跟控制器
     UIViewController *vc = ((HXBBaseNavigationController *)viewController).viewControllers.firstObject;
     
@@ -130,13 +128,14 @@
     //当前是否处于登录状态// 没有登录的话就return一个NO，并modal一个登录控制器。
     if (isMYController && ![KeyChain isLogin]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{@"selectedIndex" : [NSString stringWithFormat:@"%lu",(unsigned long)tabBarController.selectedIndex]}];
+        return YES;
     }
     return YES;
 }
 
 #pragma mark - 通知Action
 // modal 登录控制器
-- (void) presentLoginVC:(NSNotification *)notification {
+- (void)presentLoginVC:(NSNotification *)notification {
     HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
     UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
     vc.selectedIndexVC = notification.object[@"selectedIndex"];
@@ -145,19 +144,22 @@
     } @catch (NSException *exception) {
     } @finally {
     }
-    [self.selectedViewController presentViewController:navi animated:YES completion:nil];
+    
+    [self presentViewController:navi animated:YES completion:^{
+//        self.selectedViewController = self.viewControllers.lastObject;
+    }];
 }
 
 //跳转 myVC
-- (void) pushMyVC:(NSNotification *)notification {
+- (void)pushMyVC:(NSNotification *)notification {
     self.selectedViewController = self.viewControllers.lastObject;
 }
 //显示我的界面
-- (void) showMyVC: (NSNotification *)notification {
+- (void)showMyVC: (NSNotification *)notification {
     self.selectedViewController = self.viewControllers.lastObject;
 }
 
-- (void) showHomeVC: (NSNotification *)notification {
+- (void)showHomeVC: (NSNotification *)notification {
     self.selectedViewController = self.viewControllers.firstObject;
     [self.viewControllers enumerateObjectsUsingBlock:^(__kindof UINavigationController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [obj popToRootViewControllerAnimated:NO];
