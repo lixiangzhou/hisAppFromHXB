@@ -66,8 +66,7 @@
         }else{
             self.allowDerateInvestLab.text = @"";
         }
-
-        NSLog(@"_____%@", myCouponListModel.forProductLimit);
+        
         if (myCouponListModel.forProductLimit && ([myCouponListModel.forProductLimit containsString:@"("] || [myCouponListModel.forProductLimit containsString:@"（"])) {
             NSString *str = [NSString stringWithFormat:@"%@  %@",myCouponListModel.forProductText,myCouponListModel.forProductLimit];
             NSRange range;
@@ -114,7 +113,7 @@
             self.allowDerateInvestLab.text = @"";
         }
         
-        if (myCouponListModel.forProductLimit && ([myCouponListModel.allowBusinessCategory containsString:@"("] || [myCouponListModel.allowBusinessCategory containsString:@"（"])) {
+        if (myCouponListModel.forProductLimit && ([myCouponListModel.forProductLimit containsString:@"("] || [myCouponListModel.forProductLimit containsString:@"（"])) {
             NSString *str = [NSString stringWithFormat:@"%@  %@",myCouponListModel.forProductText,myCouponListModel.forProductLimit];
             NSRange range;
             if ([myCouponListModel.allowBusinessCategory containsString:@"("]) {

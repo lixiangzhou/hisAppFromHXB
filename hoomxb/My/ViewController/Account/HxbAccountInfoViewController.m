@@ -317,7 +317,7 @@ UITableViewDataSource
                 cell.detailTextLabel.text = @"已开通";
                 cell.detailTextLabel.textColor = COR30;
             }
-            cell.hiddenLine = self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc;
+            cell.hiddenLine = !self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc;
             
         }else if (indexPath.row == 1){
             cell.textLabel.text = @"银行卡";
