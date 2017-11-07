@@ -326,9 +326,12 @@
         NSRange range = [messageStr rangeOfString:[NSString stringWithFormat:@"%d",withdrawModel.inprocessCount]];
         self.notifitionView.attributedMessageCount = [NSMutableAttributedString setupAttributeStringWithString:messageStr WithRange:(NSRange)range andAttributeColor:COR29 andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(24)];
         [self.notifitionView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.top.equalTo(self.view).offset(64);
             make.height.offset(kScrAdaptationH750(70));
+        }];
+    } else {
+        self.notifitionView.hidden = YES;
+        [self.notifitionView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(kScrAdaptationH750(0));
         }];
     }
     
