@@ -421,7 +421,7 @@ static NSString *const investString = @"立即投资";
 - (void)fullAddtionFunc {
     kWeakSelf
     double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
-    if (topupMoney <= _viewModel.userInfoModel.userInfo.minChargeAmount) {
+    if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
         [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"充值金额必须大于%d元", _viewModel.userInfoModel.userInfo.minChargeAmount]];
         topupMoney = _viewModel.userInfoModel.userInfo.minChargeAmount;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
