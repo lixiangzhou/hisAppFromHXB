@@ -229,11 +229,11 @@
         }
         if (model.dataList.count == 0 && model.unusableList.count == 0) {
             self.nodataView.hidden = NO;
+            self.notifitionView.hidden = YES;
         } else {
             self.tableView.hidden = NO;
             self.nodataView.hidden = YES;
         }
-        self.notifitionView.hidden = !self.nodataView.hidden;
         [self.tableView reloadData];
     } andFailureBlock:^(NSError *error) {
         

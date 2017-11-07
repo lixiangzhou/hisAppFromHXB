@@ -119,6 +119,17 @@
 
 #pragma mark - UITextFieldDelegate
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    self.promptLab.text = @"";
+    self.promptLab.hidden = YES;
+    return YES;
+}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField{
     self.promptLab.text = @"";
     self.promptLab.hidden = YES;
@@ -126,7 +137,9 @@
 
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+//    string = [string uppercaseString];
     if (textField.superview == _redeemCodeTextField) {
+//        return [UITextField numberFormatTextField:textField shouldChangeCharactersInRange:range replacementString:string textFieldType:kBankCardNumberTextFieldType];
         NSString *str = nil;
         if (string.length) {
             str = [NSString stringWithFormat:@"%@%@",textField.text,string];
@@ -137,6 +150,8 @@
             [strM deleteCharactersInRange:range];
             str = strM.copy;
         }
+        self.promptLab.text = @"";
+        self.promptLab.hidden = YES;
         if ([self judgeTextFieldInputString:string]) {
             if (_redeemCodeTextField.text.length % 5 == 4 && _redeemCodeTextField.text.length < 19) {
                 _redeemCodeTextField.text = [NSString stringWithFormat:@"%@ ", _redeemCodeTextField.text];
@@ -152,7 +167,7 @@
             if ((_redeemCodeTextField.text.length - 2) % 5 == 4 && _redeemCodeTextField.text.length < 19) {
                 _redeemCodeTextField.text = [_redeemCodeTextField.text substringToIndex:_redeemCodeTextField.text.length - 1];
             }
-            _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
+//            _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
             return YES;
         } else {
             return NO;
@@ -160,13 +175,13 @@
     }
     
     if ([string isEqualToString:@""]) {
-        _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
+//        _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
         return YES;
     } else {
         if (self.redeemCodeTextField.text.length >= 20) {
             return NO;
         }
-        _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
+//        _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
         return YES;
     }
 }
@@ -186,16 +201,19 @@
     if (!string||[string isEqualToString:@""]) {
         return NO;
     }
-    for (int i = 0; i < string.length; i++) { //避免修正时不扫描
-        NSString *subString = [string substringWithRange:NSMakeRange(i, 1)];
-        if ([subString isEqualToString:@" "]) {
-            continue;
-        }
-        int ascii = [subString characterAtIndex:0];
-        if (![self judgeTextFieldInputCStringASCII:ascii]) {
-            return NO;
-            break;
-        }
+//    for (int i = 0; i < string.length; i++) { //避免修正时不扫描
+//        NSString *subString = [string substringWithRange:NSMakeRange(i, 1)];
+//        if ([subString isEqualToString:@" "]) {
+//            continue;
+//        }
+//        int ascii = [subString characterAtIndex:0];
+//        if (![self judgeTextFieldInputCStringASCII:ascii]) {
+//            return NO;
+//            break;
+//        }
+//    }
+    if ([string isEqualToString:@" "]) {
+        return NO;
     }
     return YES;
 }
