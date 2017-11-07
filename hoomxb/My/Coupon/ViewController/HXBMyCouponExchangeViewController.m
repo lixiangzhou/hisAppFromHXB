@@ -111,8 +111,6 @@
             self.redeemCodeTextField.text = @"";
             [self.navigationController pushViewController:planBuySuccessVC animated:true];
         }
-        
-        
     } andFailure:^(NSError *error) {
     }];
 }
