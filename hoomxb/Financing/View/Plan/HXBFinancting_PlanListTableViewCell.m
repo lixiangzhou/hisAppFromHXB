@@ -84,7 +84,7 @@
         [self.discountCouponImageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.lineImageView.mas_bottom);
             make.bottom.equalTo(self.contentView);
-            make.left.equalTo(self.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(30));
+            make.left.equalTo(self.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(25));
             make.width.offset(kScrAdaptationW750(60));
         }];
     } else {
@@ -170,7 +170,7 @@
     [self.discountCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.lineImageView.mas_bottom);
         make.bottom.equalTo(self.contentView);
-        make.left.equalTo(self.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(30));
+        make.left.equalTo(self.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(25));
         make.width.offset(kScrAdaptationW750(60));
     }];
     
