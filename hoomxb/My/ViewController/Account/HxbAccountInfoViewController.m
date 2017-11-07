@@ -305,6 +305,7 @@ UITableViewDataSource
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.row == 0) {
             cell.textLabel.text = @"恒丰银行存管账户";
+            
             if (!self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
                 //开通存管银行账户
                 cell.detailTextLabel.text = @"未开通";
@@ -316,6 +317,8 @@ UITableViewDataSource
                 cell.detailTextLabel.text = @"已开通";
                 cell.detailTextLabel.textColor = COR30;
             }
+            cell.hiddenLine = !self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc;
+            
         }else if (indexPath.row == 1){
             cell.textLabel.text = @"银行卡";
             cell.hiddenLine = YES;
@@ -345,6 +348,8 @@ UITableViewDataSource
             cell.hiddenLine = YES;
         }
     }else if (indexPath.section == 3){
+        cell.textLabel.text = @"";
+        cell.detailTextLabel.text = @"";
         self.signOutLabel.frame = cell.bounds;
         self.signOutLabel.width = kScreenWidth;
         [cell.contentView addSubview:self.signOutLabel];

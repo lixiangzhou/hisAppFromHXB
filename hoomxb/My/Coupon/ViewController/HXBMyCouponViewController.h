@@ -8,6 +8,9 @@
 
 #import "HXBBaseViewController.h"
 
+#import "HXBTopTabView.h"
 @interface HXBMyCouponViewController : HXBBaseViewController
 
+@property (nonatomic, strong) HXBTopTabView *topTabView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 @end

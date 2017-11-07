@@ -14,7 +14,8 @@
 @end
 
 @interface HXBTopTabView : UIView
-
+- (void)tabAnimation:(UIButton *)tab;
+@property (nonatomic, strong) NSMutableArray *tabs;
 /**
  快速创建tab
 

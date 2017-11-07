@@ -7,19 +7,19 @@
 //
 
 #import "HXBMyCouponViewController.h"
-
+#import "HXBMyCouponListViewController.h"
+#import "HXBMyCouponExchangeViewController.h"
 #import "HXBTopTabView.h"
 #import "HXBMyCouponListViewController.h"
 #import "HXBMyCouponExchangeViewController.h"
 #import "HXBFinAddTruastWebViewVC.h"
 
-
 @interface HXBMyCouponViewController () <HXBTopTabViewDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) HXBMyCouponListViewController *couponListVC;
 @property (nonatomic, strong) HXBMyCouponExchangeViewController *couponExchangeVC;
 
-@property (nonatomic, strong) HXBTopTabView *topTabView;
-@property (nonatomic, strong) UIScrollView *scrollView;
+//@property (nonatomic, strong) HXBTopTabView *topTabView;
+//@property (nonatomic, strong) UIScrollView *scrollView;
 @end
 
 @implementation HXBMyCouponViewController
@@ -54,15 +54,7 @@
     [self addChildVC];
     [self.view addSubview:self.topTabView];
     [self.view addSubview:self.scrollView];
-    
-//    [self setupSubViewFrame];
 }
-
-//- (void)setupSubViewFrame{
-//    [self.topTabView mas_makeConstraints:^(MASConstraintMaker *make) {
-//
-//    }];
-//}
 
 - (void)addChildVC {
     self.couponListVC = [HXBMyCouponListViewController new];
