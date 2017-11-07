@@ -424,13 +424,17 @@ static NSString *const investString = @"立即投资";
     if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
         [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"充值金额必须大于%d元", _viewModel.userInfoModel.userInfo.minChargeAmount]];
         topupMoney = _viewModel.userInfoModel.userInfo.minChargeAmount;
+        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-                NSLog(@"___%.2f", topupMoney);
+                
                 [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
+                    
                     [weakSelf alertSmsCode];
+                    
                 } andFailureBlock:^(NSError *error) {
+                    
                     NSDictionary *errDic = (NSDictionary *)error;
                     @try {
                         if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
@@ -440,9 +444,7 @@ static NSString *const investString = @"立即投资";
                             [self.navigationController pushViewController:withdrawCardViewController animated:YES];
                         }
                     } @catch (NSException *exception) {
-                        
                     } @finally {
-                        
                     }
                 }];
             });
