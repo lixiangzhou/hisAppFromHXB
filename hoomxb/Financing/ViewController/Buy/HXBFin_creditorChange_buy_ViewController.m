@@ -265,11 +265,6 @@ static NSString *const investString = @"立即投资";
 
 - (void)clickAddBtn {
     [_topView endEditing:YES];
-    if (_inputMoneyStr.floatValue > _balanceMoneyStr.floatValue) {
-        _buyType = @"recharge";
-    } else {
-        _buyType = @"balance";
-    }
     if (_type == HXB_Plan) {
         [self requestForPlan];
     } else if (_type == HXB_Loan) {
@@ -445,6 +440,7 @@ static NSString *const investString = @"立即投资";
     self.alertVC.isCode = YES;
     self.alertVC.isCleanPassword = YES;
     self.alertVC.messageTitle = @"充值验证短信";
+    _buyType = @"recharge"; // 弹出短验，都是充值购买
     self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
     kWeakSelf
     self.alertVC.sureBtnClick = ^(NSString *pwd) {
@@ -456,7 +452,6 @@ static NSString *const investString = @"立即投资";
                     @"buyType": _buyType,
                     @"balanceAmount": _balanceMoneyStr,
                     @"smsCode": pwd,
-                    @"platform": @"IOS",
                     @"couponId": _couponid
                     };
             [weakSelf buyPlanWithDic:dic];
@@ -500,6 +495,7 @@ static NSString *const investString = @"立即投资";
     self.alertVC.isCode = NO;
     self.alertVC.messageTitle = @"交易密码";
     self.alertVC.isCleanPassword = YES;
+    _buyType = @"balance"; // 弹出密码，都是余额购买
     kWeakSelf
     self.alertVC.sureBtnClick = ^(NSString *pwd) {
         NSDictionary *dic = nil;
@@ -837,7 +833,7 @@ static NSString *const investString = @"立即投资";
         _hasBestCoupon = NO;
         _handleDetailTitle = [NSString stringWithFormat:@"%.2f", _inputMoneyStr.doubleValue];
         _couponTitle = @"优惠券";
-        _discountTitle = @"请选择优惠券";
+        _discountTitle = @"不使用优惠券";
         _couponid = @"不使用优惠券";
     }
     [self changeItemWithInvestMoney:_inputMoneyStr];
