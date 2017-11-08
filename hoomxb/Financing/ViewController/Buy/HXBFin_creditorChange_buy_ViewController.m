@@ -169,11 +169,7 @@ static NSString *const investString = @"立即投资";
                     [weakSelf setUpArray];
                 }
             } else {
-                if ([text isEqualToString:@""]) {
-                    _discountTitle = @"请选择优惠券";
-                } else {
-                    _discountTitle = @"未使用";
-                }
+                _discountTitle = @"未使用";
                 _couponid = @" ";
                 _hasBestCoupon = NO;
                 _couponTitle = @"优惠券";
@@ -627,9 +623,9 @@ static NSString *const investString = @"立即投资";
                 return ;
             case kHXBCode_Enum_ProcessingField:
                 return ;
-            case 50000:
+            case kHXBBuy_Coupon_Error:
                 return ;
-            case 412:
+            case kHXBCode_Enum_RequestOverrun:
                 return ;
             case kHXBBuying_Too_Frequently:
                 return ;
@@ -696,7 +692,7 @@ static NSString *const investString = @"立即投资";
                 return ;
             case kHXBCode_Enum_ProcessingField:
                 return ;
-            case 412:
+            case kHXBCode_Enum_RequestOverrun:
                 return ;
             case kHXBBuying_Too_Frequently:
                 return ;
@@ -776,7 +772,7 @@ static NSString *const investString = @"立即投资";
                 return ;
             case kHXBCode_Enum_ProcessingField:
                 return ;
-            case 412:
+            case kHXBCode_Enum_RequestOverrun:
                 return ;
             case kHXBBuying_Too_Frequently:
                 return ;
