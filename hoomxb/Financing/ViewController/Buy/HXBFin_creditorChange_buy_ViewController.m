@@ -481,6 +481,9 @@ static NSString *const investString = @"立即投资";
     self.alertVC.isCleanPassword = YES;
     self.alertVC.messageTitle = @"充值验证短信";
     _buyType = @"recharge"; // 弹出短验，都是充值购买
+    if (!_hasBestCoupon) {
+        _couponid = @"";
+    }
     self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
     kWeakSelf
     self.alertVC.sureBtnClick = ^(NSString *pwd) {
@@ -536,6 +539,9 @@ static NSString *const investString = @"立即投资";
     self.alertVC.messageTitle = @"交易密码";
     self.alertVC.isCleanPassword = YES;
     _buyType = @"balance"; // 弹出密码，都是余额购买
+    if (!_hasBestCoupon) {
+        _couponid = @"";
+    }
     kWeakSelf
     self.alertVC.sureBtnClick = ^(NSString *pwd) {
         NSDictionary *dic = nil;
