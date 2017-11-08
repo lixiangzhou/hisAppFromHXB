@@ -822,6 +822,7 @@ static NSString *const investString = @"立即投资";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.hasBestCoupon = _hasBestCoupon;
+    cell.isStartAnimation = NO;
     if (indexPath.row == 0) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.isDiscountRow = YES;
