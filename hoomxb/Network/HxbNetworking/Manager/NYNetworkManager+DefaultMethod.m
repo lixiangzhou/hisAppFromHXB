@@ -27,18 +27,6 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         [HxbHUDProgress showTextWithMessage:@"请求超时,请稍后重试"];
     }
     
-//    switch ([request.responseObject[kResponseStatus] integerValue]) {
-//        case kHXBCode_Enum_Captcha://弹出图验、
-////            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowCaptchaVC object:nil];
-//            break;
-//        case kHXBCode_Enum_NotSigin:///没有登录{
-//            KeyChain.isLogin = false;
-//            break;
-//        case kHXBCode_Enum_TokenNotJurisdiction://没有权限
-//            KeyChain.isLogin = false;
-//            break;
-//    }
-    
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:///没有登录
         case kHXBCode_Enum_TokenNotJurisdiction://没有权限
