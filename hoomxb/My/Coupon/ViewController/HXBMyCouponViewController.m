@@ -27,19 +27,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isRedColorWithNavigationBar = YES;
-    
+
     self.title = @"我的优惠券";
-    [self setUI];
-    
+    [self setNavigationItem];
+    [self getNetworkAgain];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+
+- (void)setNavigationItem{
     UIButton*rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     [rightButton setImage:[UIImage imageNamed:@"my_couponList_InstructionsNot"]forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(enterInstructions)forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem*rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem= rightItem;
-}
-
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
 }
 
 - (void)enterInstructions{
@@ -48,6 +51,13 @@
     [self.navigationController pushViewController:vc animated:true];
 }
 
+- (void)getNetworkAgain{
+    if (KeyChain.ishaveNet) {
+        [self setUI];
+    }else{
+        [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+    }
+}
 
 #pragma mark - UI
 - (void)setUI {
