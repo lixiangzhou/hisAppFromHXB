@@ -81,8 +81,12 @@
 - (void)callBackRequestSuccess:(NYBaseRequest *)request
 {
     if (request.success) {
-        [self defaultMethodRequestSuccessWithRequest:request];
+        if (request.customCodeSuccessBlock) {
+            request.customCodeSuccessBlock(request,request.responseObject);
+        } else {
+            [self defaultMethodRequestSuccessWithRequest:request];
         request.success(request,request.responseObject);
+        }
     }
     if ([request.delegate respondsToSelector:@selector(requesetFinished:)]) {
         [request.delegate requesetFinished:request];
@@ -96,9 +100,12 @@
 - (void)callBackRequestFailure:(NYBaseRequest *)request
 {    
     if (request.failure) {
-        [self defaultMethodRequestFaulureWithRequest:request];
-//        if (request.error.code == kHXBCode_Enum_NoConnectionNetwork) return;
-        request.failure(request,request.error);
+        if (request.customCodeFailureBlock) {
+            request.customCodeFailureBlock(request,request.error);
+        } else {
+            [self defaultMethodRequestFaulureWithRequest:request];
+            request.failure(request,request.error);
+        }
     }
     if ([request.delegate respondsToSelector:@selector(requestFailed:)]) {
         [request.delegate requestFailed:request];
