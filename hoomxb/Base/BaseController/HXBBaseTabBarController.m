@@ -60,8 +60,7 @@
 }
 
 #pragma mark - 封装的方法
-/* 根据subVC名创建subVC并加入到self.childViewControllers里面
- */
+/* 根据subVC名创建subVC并加入到self.childViewControllers里面 */
 - (void)subViewControllerNames: (NSArray <NSString *> *)subViewControllerNameArray andNavigationControllerTitleArray: (NSArray<NSString *>*)titleArray andImageNameArray: (NSArray<NSString *>*)imageNameArray andSelectImageCommonName: (NSArray<NSString *>*)selectImageCommonNameArray{
     
     for (int i = 0; i < subViewControllerNameArray.count; i ++) {
@@ -99,13 +98,13 @@
     }
 }
 
-/// 创建导航控制器
+//MARK: 创建导航控制器
 - (HXBBaseNavigationController *)creatNavigationControllerBySubViewController: (UIViewController *)VC {
     HXBBaseNavigationController *NAV = [[HXBBaseNavigationController alloc]initWithRootViewController:VC];
     return NAV;
 }
 
-/// 根据文件名创建subVC
+//MARK: 根据文件名创建subVC
 - (UIViewController *)ctratSubControllerWithName: (NSString *)subViewControllerName {
     Class class = NSClassFromString(subViewControllerName);
     UIViewController *controller = [[class alloc]init];
@@ -147,7 +146,6 @@
     }
     
     [self presentViewController:navi animated:YES completion:^{
-//        self.selectedViewController = self.viewControllers.lastObject;
     }];
 }
 
