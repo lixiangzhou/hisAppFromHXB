@@ -163,6 +163,7 @@ static NSString *const investString = @"立即投资";
             if (text.doubleValue >= _minRegisterAmount.doubleValue && text.doubleValue <= _availablePoint.doubleValue && isFitToBuy) {
                 if (_type == HXB_Plan) {
                     _couponTitle = @"优惠券";
+                    [weakSelf setUpArray];
                     [weakSelf getBESTCouponWithMoney:text];
                 } else {
                     [weakSelf changeItemWithInvestMoney:text];
