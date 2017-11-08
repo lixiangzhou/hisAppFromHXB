@@ -26,6 +26,8 @@
 @property (nonatomic, strong) UIImageView *topupImgV;
 @property (nonatomic, strong) UIImageView *withdrawImgV;
 @property (nonatomic, strong) UIView *lineView;
+@property (nonatomic, strong) UIView *topupSupView;
+@property (nonatomic, strong) UIView *withdrawSupView;
 //@property (nonatomic, strong) UIView *buttonLineView;
 @property (nonatomic, strong) UIButton *personalCenterButton;//个人中心
 @property (nonatomic, strong) UIButton *securyButton;//加密
@@ -60,11 +62,14 @@
         [self addSubview:self.accumulatedProfitLabel];
         [self addSubview:self.buttonView];
         [self addSubview:self.topupAndWithdrawBgImg];
-        
+    
         [self addSubview:self.topupImgV];
         [self addSubview:self.topupButton];
         [self addSubview:self.withdrawImgV];
         [self addSubview:self.withdrawButton];
+        [self addSubview:self.topupSupView];
+        [self addSubview:self.withdrawSupView];
+        
         [self addSubview:self.lineView];
         
         [self addSubview:self.personalCenterButton];
@@ -141,25 +146,37 @@
         make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(28+29));
         make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(100+35));
         make.height.equalTo(@kScrAdaptationH750(34));
-        make.width.equalTo(@kScrAdaptationW750(80));
+        make.width.equalTo(@kScrAdaptationW750(51));
     }];
     [self.topupButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(28+29));
         make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(167+35));
         make.height.equalTo(@kScrAdaptationH750(34));
-        make.width.equalTo(@kScrAdaptationW750(120));
+        make.width.equalTo(@kScrAdaptationW750(80));
     }];
     [self.withdrawImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(24+29));
         make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(377+35));
         make.height.equalTo(@kScrAdaptationH750(41));
-        make.width.equalTo(@kScrAdaptationW750(80));
+        make.width.equalTo(@kScrAdaptationW750(38));
     }];
     [self.withdrawButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(28+29));
         make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(446+35));
         make.height.equalTo(@kScrAdaptationH750(34));
-        make.width.equalTo(@kScrAdaptationW750(130));
+        make.width.equalTo(@kScrAdaptationW750(80));
+    }];
+    [self.topupSupView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@kScrAdaptationH750(486));
+        make.left.equalTo(@kScrAdaptationW750(70));
+        make.height.equalTo(@kScrAdaptationH750(90));
+        make.width.equalTo(@kScrAdaptationW750(300));
+    }];
+    [self.withdrawSupView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(@kScrAdaptationH750(486));
+        make.left.equalTo(@kScrAdaptationW750(380));
+        make.height.equalTo(@kScrAdaptationH750(90));
+        make.width.equalTo(@kScrAdaptationW750(300));
     }];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self);
@@ -447,11 +464,31 @@
     return _topupAndWithdrawBgImg;
 }
 
+- (UIView *)topupSupView{
+    if (!_topupSupView) {
+        _topupSupView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(70), kScrAdaptationH750(486), kScrAdaptationW750(300), kScrAdaptationH750(90))];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(topupButtonClick:)];
+        [_topupSupView addGestureRecognizer:tap];
+        _topupSupView.backgroundColor = [UIColor clearColor];
+    }
+    return _topupSupView;
+}
+
+- (UIView *)withdrawSupView{
+    if (!_withdrawSupView) {
+        _withdrawSupView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(70), kScrAdaptationH750(486), kScrAdaptationW750(300), kScrAdaptationH750(90))];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(withdrawButtonClick:)];
+        [_withdrawSupView addGestureRecognizer:tap];
+        _withdrawSupView.backgroundColor = [UIColor clearColor];
+    }
+    return _withdrawSupView;
+}
+
 - (UIImageView *)topupImgV{
     if (!_topupImgV) {
-        _topupImgV = [[UIImageView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(100+70), kScrAdaptationH750(514), kScrAdaptationW750(80), kScrAdaptationH750(34))];
+        _topupImgV = [[UIImageView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(100+70), kScrAdaptationH750(514), kScrAdaptationW750(51), kScrAdaptationH750(34))];
         _topupImgV.image = [UIImage imageNamed:@"my_topup"];
-        _topupImgV.contentMode = UIViewContentModeScaleAspectFit;
+//        _topupImgV.contentMode = UIViewContentModeScaleAspectFit;
         _topupImgV.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(topupButtonClick:)];
         [_topupImgV addGestureRecognizer:tap];
@@ -461,7 +498,7 @@
 
 - (UIButton *)topupButton{
     if (!_topupButton) {
-        _topupButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW750(167+70),kScrAdaptationH750(514),kScrAdaptationW750(120),kScrAdaptationH750(34))];
+        _topupButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW750(167+70),kScrAdaptationH750(514),kScrAdaptationW750(80),kScrAdaptationH750(34))];
         [_topupButton setTitle:@"充值" forState:UIControlStateNormal];
 //        [_topupButton setImage:[UIImage imageNamed:@"my_topup"] forState:UIControlStateNormal];
         [_topupButton setTitleColor:RGB(255, 64, 79) forState:UIControlStateNormal];
@@ -473,8 +510,8 @@
 
 - (UIImageView *)withdrawImgV{
     if (!_withdrawImgV) {
-        _withdrawImgV = [[UIImageView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(447+70), kScrAdaptationH750(510), kScrAdaptationW750(80), kScrAdaptationH750(41))];
-        _withdrawImgV.contentMode = UIViewContentModeScaleAspectFit;
+        _withdrawImgV = [[UIImageView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(447+70), kScrAdaptationH750(510), kScrAdaptationW750(38), kScrAdaptationH750(41))];
+//        _withdrawImgV.contentMode = UIViewContentModeScaleAspectFit;
         _withdrawImgV.image = [UIImage imageNamed:@"my_withdraw"];
         _withdrawImgV.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(withdrawButtonClick:)];
@@ -485,7 +522,7 @@
 
 - (UIButton *)withdrawButton{
     if (!_withdrawButton) {
-        _withdrawButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW750(446+70),kScrAdaptationH750(514),kScrAdaptationW750(130),kScrAdaptationH750(34))];
+        _withdrawButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW750(446+70),kScrAdaptationH750(514),kScrAdaptationW750(80),kScrAdaptationH750(34))];
         [_withdrawButton setTitleColor:RGB(255, 64, 79) forState:UIControlStateNormal];
         [_withdrawButton setTitle:@"提现" forState:UIControlStateNormal];
         _withdrawButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
