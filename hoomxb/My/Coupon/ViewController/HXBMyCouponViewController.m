@@ -80,11 +80,13 @@
 
 #pragma mark - HXBTopTabViewDelegate
 - (void)topTabView:(HXBTopTabView *)topTabView didClickIndex:(NSInteger)index {
+    [self.view endEditing:YES];
     [self.scrollView setContentOffset:CGPointMake(index * self.scrollView.frame.size.width, 0) animated:YES];
 }
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
     self.topTabView.selectedIndex = (NSInteger)(scrollView.contentOffset.x / scrollView.frame.size.width);
 }
 

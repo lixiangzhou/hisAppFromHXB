@@ -18,7 +18,7 @@
     myAccountListInfoAPI.requestMethod = NYRequestMethodPost;
     myAccountListInfoAPI.requestArgument = @{@"code":code};
     
-    [myAccountListInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [myAccountListInfoAPI startWithHUDStr:@"加载中..." Success:^(NYBaseRequest *request, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue] == 0) {
             HXBMyCouponListModel *accountInfoModel = [[HXBMyCouponListModel alloc]init];
             [accountInfoModel yy_modelSetWithDictionary:responseObject[@"data"][@"coupon"]];
@@ -35,8 +35,6 @@
                 return;
             }
         }
-        
-        
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);
         if (failureBlock) {

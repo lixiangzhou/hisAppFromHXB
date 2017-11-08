@@ -187,6 +187,7 @@
 #pragma mark - Action
 
 - (void)clickRedeemCodeBtn:(UIButton *)sender{
+    [self.view endEditing:YES];
     if ([self.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0) {
         [self loadData_myAccountExchangeInfo];
     }
