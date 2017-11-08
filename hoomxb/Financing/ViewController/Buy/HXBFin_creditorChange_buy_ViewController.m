@@ -100,7 +100,7 @@ static NSString *const investString = @"立即投资";
     [self setUpDate];
     [self getBankCardLimit];
     [self hasBestCouponRequest];
-    [self changeItemWithInvestMoney:_inputMoneyStr];
+    
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
 }
 
@@ -208,7 +208,6 @@ static NSString *const investString = @"立即投资";
             } else {
                 self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%d.00元并投资", self.viewModel.userInfoModel.userInfo.minChargeAmount];
             }
-            
         } else {
             self.bottomView.clickBtnStr = bankString;
         }
@@ -905,9 +904,10 @@ static NSString *const investString = @"立即投资";
         _viewModel = viewModel;
         _balanceMoneyStr = _viewModel.userInfoModel.userAssets.availablePoint;
         [self setUpArray];
+        [self changeItemWithInvestMoney:_inputMoneyStr];
         [self.hxbBaseVCScrollView reloadData];
     } andFailure:^(NSError *error) {
-        
+        [self changeItemWithInvestMoney:_inputMoneyStr];
     }];
 }
 
