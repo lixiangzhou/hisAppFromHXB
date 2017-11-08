@@ -25,6 +25,8 @@
 
 @implementation HXBMyCouponListViewController
 
+#pragma mark - Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -37,6 +39,20 @@
     [super viewWillAppear:animated];
     [self loadData_myCouponListInfo];
 }
+
+#pragma mark - 加载数据
+- (void)loadData_myCouponListInfo{
+    kWeakSelf
+    [HXBRequestAccountInfo downLoadMyAccountListInfoNoHUDWithParameterDict:self.parameterDict withSeccessBlock:^(NSArray<HXBMyCouponListModel *> *modelArray) {
+//        weakSelf.myCouponListModelArray = modelArray;
+        weakSelf.myView.myCouponListModelArray = modelArray;
+        weakSelf.myView.isStopRefresh_Home = YES;
+    } andFailure:^(NSError *error) {
+        weakSelf.myView.isStopRefresh_Home = YES;
+    }];
+}
+
+#pragma mark - Setter / Getter / Lazy
 
 - (void)setParameter{
     _page = 1;
@@ -62,25 +78,6 @@
         };
     }
     return _myView;
-}
-
-//主要是给数据源赋值然后刷新UI
-//- (void)setMyCouponListModelArray:(NSArray<HXBMyCouponListModel *> *)myCouponListModelArray{
-//    _myCouponListModelArray = myCouponListModelArray;
-//    self.myView.myCouponListModelArray = myCouponListModelArray;
-//    [self.contDwonManager countDownWithModelArray:finPlanListVMArray andModelDateKey:nil  andModelCountDownKey:nil];
-//}
-
-#pragma mark - 加载数据
-- (void)loadData_myCouponListInfo{
-    kWeakSelf
-    [HXBRequestAccountInfo downLoadMyAccountListInfoNoHUDWithParameterDict:self.parameterDict withSeccessBlock:^(NSArray<HXBMyCouponListModel *> *modelArray) {
-//        weakSelf.myCouponListModelArray = modelArray;
-        weakSelf.myView.myCouponListModelArray = modelArray;
-        weakSelf.myView.isStopRefresh_Home = YES;
-    } andFailure:^(NSError *error) {
-        weakSelf.myView.isStopRefresh_Home = YES;
-    }];
 }
 
 - (NSDictionary *)parameterDict{

@@ -539,8 +539,6 @@
     return _lineView;
 }
 
-
-
 - (UIButton *)personalCenterButton{
     if (!_personalCenterButton) {
         _personalCenterButton = [[UIButton alloc]initWithFrame:CGRectMake(0, kScrAdaptationH(20), kScrAdaptationW(53), kScrAdaptationW(53))];

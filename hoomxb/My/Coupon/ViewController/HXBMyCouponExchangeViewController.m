@@ -25,18 +25,27 @@
 
 @implementation HXBMyCouponExchangeViewController
 
+#pragma mark - Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = RGBA(244, 243, 248, 1);
     
     [self buildUI];
     [self setupSubViewFrame];
-    
-   
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+}
+
+#pragma mark - UI
+
+- (void)buildUI{
+    [self.view addSubview:self.bgView];
+    [self.view addSubview:self.promptLab];
+    self.promptLab.hidden = YES;
+    [self.view addSubview:self.redeemCodeBtn];
 }
 
 - (void)setupSubViewFrame{
@@ -68,15 +77,7 @@
     }];
 }
 
-- (void)clickRedeemCodeBtn:(UIButton *)sender{
-    if ([self.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0) {
-        [self loadData_myAccountExchangeInfo];
-    }
-}
-
--(void)setMyCouponListModel:(HXBMyCouponListModel *)myCouponListModel{
-    _myCouponListModel = myCouponListModel;
-}
+#pragma mark - Network
 
 - (void)loadData_myAccountExchangeInfo{
     kWeakSelf
@@ -101,7 +102,7 @@
                     }
                 }];
                 if ((HXBMyCouponViewController * )viewController.childViewControllers[0] && [(HXBMyCouponViewController * )viewController.childViewControllers[0] isKindOfClass:[HXBMyCouponListViewController class]]) {
-
+                    
                     UIButton *btn = viewController.topTabView.tabs[0];
                     [viewController.topTabView tabAnimation:btn];
                     [viewController.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
@@ -132,7 +133,6 @@
     self.promptLab.text = @"";
     self.promptLab.hidden = YES;
 }
-
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 //    string = [string uppercaseString];
@@ -184,65 +184,19 @@
     }
 }
 
-//- (BOOL)isPureInt:(NSString *)string{
-//    NSScanner* scan = [NSScanner scannerWithString:string];
-//    int val;
-//    return [scan scanInt:&val] && [scan isAtEnd];
-//
-//}
+#pragma mark - Action
 
-/**
- *  Description 0-9 A-Z a-z
- *  @param string 匹配输入的字符串
- */
-- (BOOL)judgeTextFieldInputString:(NSString *)string{
-    if (!string||[string isEqualToString:@""]) {
-        return NO;
+- (void)clickRedeemCodeBtn:(UIButton *)sender{
+    if ([self.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0) {
+        [self loadData_myAccountExchangeInfo];
     }
-//    for (int i = 0; i < string.length; i++) { //避免修正时不扫描
-//        NSString *subString = [string substringWithRange:NSMakeRange(i, 1)];
-//        if ([subString isEqualToString:@" "]) {
-//            continue;
-//        }
-//        int ascii = [subString characterAtIndex:0];
-//        if (![self judgeTextFieldInputCStringASCII:ascii]) {
-//            return NO;
-//            break;
-//        }
-//    }
-    if ([string isEqualToString:@" "]) {
-        return NO;
-    }
-    return YES;
 }
 
-- (BOOL)judgeTextFieldInputCStringASCII:(int)ascii{
-    
-    int ascii_a = [@"a" characterAtIndex:0];//转ASCII码
-    int ascii_z = [@"z" characterAtIndex:0];
-    
-    int ascii_A = [@"A" characterAtIndex:0];
-    int ascii_Z = [@"Z" characterAtIndex:0];
-    
-    int ascii_0 = [@"0" characterAtIndex:0];
-    int ascii_9 = [@"9" characterAtIndex:0];
-    
-    //    int ascii = [string characterAtIndex:0];
-    if( ascii >= ascii_A && ascii <= ascii_Z){
-        return YES;
-    }else if( ascii >= ascii_a && ascii <= ascii_z){
-        return YES;
-    }else if( ascii >= ascii_0 && ascii <= ascii_9){
-        return YES;
-    }
-    return NO;
-}
+#pragma mark - Setter / Getter / Lazy
 
-- (void)buildUI{
-    [self.view addSubview:self.bgView];
-    [self.view addSubview:self.promptLab];
-    self.promptLab.hidden = YES;
-    [self.view addSubview:self.redeemCodeBtn];}
+-(void)setMyCouponListModel:(HXBMyCouponListModel *)myCouponListModel{
+    _myCouponListModel = myCouponListModel;
+}
 
 -(UILabel *)promptLab{
     if (!_promptLab) {
@@ -270,8 +224,6 @@
     }
     return _redeemCodeBtn;
 }
-
-
 
 - (HXBCustomTextField *)redeemCodeTextField{
     if (!_redeemCodeTextField) {
@@ -333,20 +285,60 @@
     return _bgView;
 }
 
+#pragma mark - Other
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//- (BOOL)isPureInt:(NSString *)string{
+//    NSScanner* scan = [NSScanner scannerWithString:string];
+//    int val;
+//    return [scan scanInt:&val] && [scan isAtEnd];
+//
+//}
+
+/**
+ *  Description 0-9 A-Z a-z
+ *  @param string 匹配输入的字符串
+ */
+- (BOOL)judgeTextFieldInputString:(NSString *)string{
+    if (!string||[string isEqualToString:@""]) {
+        return NO;
+    }
+    //    for (int i = 0; i < string.length; i++) { //避免修正时不扫描
+    //        NSString *subString = [string substringWithRange:NSMakeRange(i, 1)];
+    //        if ([subString isEqualToString:@" "]) {
+    //            continue;
+    //        }
+    //        int ascii = [subString characterAtIndex:0];
+    //        if (![self judgeTextFieldInputCStringASCII:ascii]) {
+    //            return NO;
+    //            break;
+    //        }
+    //    }
+    if ([string isEqualToString:@" "]) {
+        return NO;
+    }
+    return YES;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (BOOL)judgeTextFieldInputCStringASCII:(int)ascii{
+    
+    int ascii_a = [@"a" characterAtIndex:0];//转ASCII码
+    int ascii_z = [@"z" characterAtIndex:0];
+    
+    int ascii_A = [@"A" characterAtIndex:0];
+    int ascii_Z = [@"Z" characterAtIndex:0];
+    
+    int ascii_0 = [@"0" characterAtIndex:0];
+    int ascii_9 = [@"9" characterAtIndex:0];
+    
+    //    int ascii = [string characterAtIndex:0];
+    if( ascii >= ascii_A && ascii <= ascii_Z){
+        return YES;
+    }else if( ascii >= ascii_a && ascii <= ascii_z){
+        return YES;
+    }else if( ascii >= ascii_0 && ascii <= ascii_9){
+        return YES;
+    }
+    return NO;
 }
-*/
 
 @end
