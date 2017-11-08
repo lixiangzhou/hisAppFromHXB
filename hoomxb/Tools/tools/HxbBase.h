@@ -22,7 +22,6 @@
 #import "HXBBaseTextField.h"///里面有button 和textfield
 #import "HXBBaseView_MoreTopBottomView.h"///上下的view
 #import "HXBBaseView_TwoLable_View.h"//左右或上下的连着的view
-#import "UITableViewCell+HXBTableViewCell.h"///cell
 #import "HXBBaseTextField.h"///右边一个textField 右边一个
 #import "HXBBaseViewConcentricCirclesView.h"///画出同心圆
 #import "HXBNoDataView.h"//没有数据的View
