@@ -36,6 +36,15 @@ PODS:
     - CocoaLumberjack (~> 3.x)
   - UICKeyChainStore (2.1.1)
   - UMengAnalytics-NO-IDFA (4.2.5)
+  - UMengUShare/Core (6.4.6):
+    - UMengUShare/Network
+  - UMengUShare/Network (6.4.6)
+  - UMengUShare/Social/ReducedQQ (6.4.6):
+    - UMengUShare/Core
+  - UMengUShare/Social/ReducedWeChat (6.4.6):
+    - UMengUShare/Core
+  - UMengUShare/UI (6.4.6):
+    - UMengUShare/Core
   - WebViewJavascriptBridge (4.1.5)
   - YYModel (1.0.4)
 
@@ -53,6 +62,9 @@ DEPENDENCIES:
   - SVGKit (from `https://github.com/SVGKit/SVGKit.git`, branch `2.x`)
   - UICKeyChainStore
   - UMengAnalytics-NO-IDFA
+  - UMengUShare/Social/ReducedQQ
+  - UMengUShare/Social/ReducedWeChat
+  - UMengUShare/UI
   - WebViewJavascriptBridge (~> 4.1.3)
   - YYModel
 
@@ -81,9 +93,10 @@ SPEC CHECKSUMS:
   SVGKit: 4055d9e809b5db8633755979cfb3b02dc5a8c20d
   UICKeyChainStore: 239558492fa260531a0774cfc611ea83a6eaff3a
   UMengAnalytics-NO-IDFA: 16666e32edce5be44ae5b14aaaa7f3582e09d6ab
+  UMengUShare: fdbbf86353976727af26a66e9a84314ecb59c816
   WebViewJavascriptBridge: e7b6669bebfc4f151daa0fdec3c8c24c8dc3a24e
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 67318d9daa1bdb189bfccc9ca013c81760e12de0
+PODFILE CHECKSUM: 4548f6d651a2746f01a2d4b65a37b5e20c72a87f
 
 COCOAPODS: 1.3.1
