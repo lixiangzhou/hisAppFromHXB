@@ -21,6 +21,9 @@
 #import "HXBDepositoryAlertViewController.h"
 #import "HXBMyRequestAccountModel.h"
 #import "HXBRequestAccountInfo.h"
+
+#import "HXBInviteListViewController.h"
+
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
@@ -135,8 +138,12 @@
     //        #import "HxbMyTopUpViewController.h"
     //        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
     //        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_topup_money];
-    [self logicalJudgment:HXBRechargeAndWithdrawalsLogicalJudgment_Recharge];
+//    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_topup_money];
+//    [self logicalJudgment:HXBRechargeAndWithdrawalsLogicalJudgment_Recharge];
+    
+    HXBInviteListViewController *invistVC = [[HXBInviteListViewController alloc] init];
+    [self.navigationController pushViewController:invistVC animated:YES];
+    
 }
 /// 提现
 - (void)didClickWithdrawBtn:(UIButton *)sender{
