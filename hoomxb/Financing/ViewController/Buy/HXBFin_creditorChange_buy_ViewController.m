@@ -286,6 +286,12 @@ static NSString *const investString = @"立即投资";
         self.topView.totalMoney = @"";
         self.topView.profitStr = @"预期收益0.00元";
         _inputMoneyStr = @"";
+        _discountTitle = @"请选择优惠券";
+        _handleDetailTitle = @"0.00元";
+        _couponTitle = @"优惠券";
+        _hasBestCoupon = NO;
+        _bottomView.addBtnIsUseable = _inputMoneyStr.length;
+        [self changeItemWithInvestMoney:_inputMoneyStr];
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
         return;
@@ -818,12 +824,6 @@ static NSString *const investString = @"立即投资";
     if (indexPath.row == 0) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.isDiscountRow = YES;
-//        if (_type == HXB_Creditor) {
-//            cell.accessoryType = UITableViewCellAccessoryNone;
-//            cell.isDiscountRow = NO;
-//        } else {
-//
-//        }
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.isDiscountRow = NO;
