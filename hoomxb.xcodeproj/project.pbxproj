@@ -244,8 +244,6 @@
 		8D2F47E61FB18BD700742907 /* HXBBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F47B31FB18BD700742907 /* HXBBaseModel.m */; };
 		8D2F47E71FB18BD700742907 /* HXBBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F47B51FB18BD700742907 /* HXBBaseViewModel.m */; };
 		8D2F47E81FB18BD700742907 /* HXBBaseViewConcentricCirclesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F47B91FB18BD700742907 /* HXBBaseViewConcentricCirclesView.m */; };
-		8D2F47E91FB18BD700742907 /* HXBBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F47BB1FB18BD700742907 /* HXBBaseCollectionView.m */; };
-		8D2F47EA1FB18BD700742907 /* HXBBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F47BD1FB18BD700742907 /* HXBBaseCollectionViewCell.m */; };
 		8D2F47EB1FB18BD700742907 /* HXBBasePasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F47BF1FB18BD700742907 /* HXBBasePasswordView.m */; };
 		8D2F47EC1FB18BD700742907 /* HXBBaseScrollToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F47C11FB18BD700742907 /* HXBBaseScrollToolBarView.m */; };
 		8D2F47ED1FB18BD700742907 /* HXBBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2F47C31FB18BD700742907 /* HXBBaseTableView.m */; };
@@ -955,10 +953,6 @@
 		8D2F47B51FB18BD700742907 /* HXBBaseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewModel.m; sourceTree = "<group>"; };
 		8D2F47B81FB18BD700742907 /* HXBBaseViewConcentricCirclesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseViewConcentricCirclesView.h; sourceTree = "<group>"; };
 		8D2F47B91FB18BD700742907 /* HXBBaseViewConcentricCirclesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewConcentricCirclesView.m; sourceTree = "<group>"; };
-		8D2F47BA1FB18BD700742907 /* HXBBaseCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseCollectionView.h; sourceTree = "<group>"; };
-		8D2F47BB1FB18BD700742907 /* HXBBaseCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseCollectionView.m; sourceTree = "<group>"; };
-		8D2F47BC1FB18BD700742907 /* HXBBaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseCollectionViewCell.h; sourceTree = "<group>"; };
-		8D2F47BD1FB18BD700742907 /* HXBBaseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseCollectionViewCell.m; sourceTree = "<group>"; };
 		8D2F47BE1FB18BD700742907 /* HXBBasePasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBasePasswordView.h; sourceTree = "<group>"; };
 		8D2F47BF1FB18BD700742907 /* HXBBasePasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBasePasswordView.m; sourceTree = "<group>"; };
 		8D2F47C01FB18BD700742907 /* HXBBaseScrollToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseScrollToolBarView.h; sourceTree = "<group>"; };
@@ -2588,10 +2582,6 @@
 			isa = PBXGroup;
 			children = (
 				8D2F47B71FB18BD700742907 /* cocoze2d_arc */,
-				8D2F47BA1FB18BD700742907 /* HXBBaseCollectionView.h */,
-				8D2F47BB1FB18BD700742907 /* HXBBaseCollectionView.m */,
-				8D2F47BC1FB18BD700742907 /* HXBBaseCollectionViewCell.h */,
-				8D2F47BD1FB18BD700742907 /* HXBBaseCollectionViewCell.m */,
 				8D2F47BE1FB18BD700742907 /* HXBBasePasswordView.h */,
 				8D2F47BF1FB18BD700742907 /* HXBBasePasswordView.m */,
 				8D2F47C01FB18BD700742907 /* HXBBaseScrollToolBarView.h */,
@@ -4816,7 +4806,6 @@
 				E12800EB1F0201250066FB66 /* HXBMY_AllFinanceViewController.m in Sources */,
 				E1CD4BD41ED83064000CC57B /* HXBBaseVersionUpdateManager.m in Sources */,
 				E129A0071F0617D70051ADA0 /* HXBMYModel_Loan_LoanRequestModel.m in Sources */,
-				8D2F47E91FB18BD700742907 /* HXBBaseCollectionView.m in Sources */,
 				4EB45DA41EF7A2BF00C2CF21 /* HxbHomeRequest.m in Sources */,
 				4E9982471F02677B00CABA59 /* HXBAlertVC.m in Sources */,
 				E1CD4BCE1ED83064000CC57B /* HxbAdvertiseView.m in Sources */,
@@ -4996,7 +4985,6 @@
 				E133DCE31EEE3597009466DE /* HxbSignInView.m in Sources */,
 				E10EB4B31EEFE04400F16CFA /* HxbAccountInfoViewController.m in Sources */,
 				E133DCDA1EEE3597009466DE /* HxbBindCardViewController.m in Sources */,
-				8D2F47EA1FB18BD700742907 /* HXBBaseCollectionViewCell.m in Sources */,
 				E10EB4BF1EEFE0B500F16CFA /* HxbWithdrawViewController.m in Sources */,
 				E133DD3F1EEEC14C009466DE /* NYNetworkManager+DefaultMethod.m in Sources */,
 				4E886FBE1EF91A4E0056086E /* HXBCircleViewConst.m in Sources */,

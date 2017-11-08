@@ -10,6 +10,8 @@
 
 @interface HXBNoNetworkStatusView : UIView
 
++ (instancetype)noNetworkStatusView;
+
 /**
  重新获取网络
  */

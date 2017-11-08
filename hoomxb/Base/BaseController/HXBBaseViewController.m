@@ -31,8 +31,6 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-//    self.navigationController.interactivePopGestureRecognizer.delegate = (id)self;
-    
     [self setupLeftBackBtn];
     
     [self loadNoNetwork];
@@ -103,7 +101,7 @@
 
 #pragma mark - Action
 
-- (void)loadNoNetwork{
+- (void)loadNoNetwork {
     if (self.navigationController.childViewControllers.count <= 1) return;
     
     if (!KeyChain.ishaveNet) {
@@ -211,21 +209,13 @@
     
     kWeakSelf
     if (!_noNetworkStatusView) {
-        _noNetworkStatusView = [[HXBNoNetworkStatusView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
-        if (LL_iPhoneX) {
-            _noNetworkStatusView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
-        }
-        _noNetworkStatusView.hidden = YES;
-        _noNetworkStatusView.backgroundColor = BACKGROUNDCOLOR;
-        
+        _noNetworkStatusView = [HXBNoNetworkStatusView noNetworkStatusView];
         _noNetworkStatusView.getNetworkAgainBlock = ^{
-            if ([weakSelf respondsToSelector:@selector(getNetworkAgain)]) {
-               weakSelf.noNetworkStatusView.hidden = KeyChain.ishaveNet;
-                if (KeyChain.ishaveNet) {
-                    [weakSelf getNetworkAgain];
-                }else{
-                    [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
-                }
+            weakSelf.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+            if (KeyChain.ishaveNet) {
+                [weakSelf getNetworkAgain];
+            }else{
+                [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
             }
         };
     }
