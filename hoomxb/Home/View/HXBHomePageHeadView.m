@@ -14,7 +14,7 @@
 
 #import "BannerModel.h"
 #import "HXBHomeBaseModel.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 @interface HXBHomePageHeadView () 
 
 

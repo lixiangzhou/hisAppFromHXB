@@ -10,7 +10,7 @@
 #import "HXBDepositoryHeaderView.h"
 #import "HXBCustomTextField.h"
 #import "HXBFinBaseNegotiateView.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import "HXBBankCardModel.h"
 #import "HXBAgreementView.h"
 #import "HXBCardBinModel.h"

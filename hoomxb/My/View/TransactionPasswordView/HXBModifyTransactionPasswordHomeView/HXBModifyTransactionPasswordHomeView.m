@@ -9,7 +9,7 @@
 #import "HXBModifyTransactionPasswordHomeView.h"
 #import "HXBUserInfoModel.h"
 #import "HXBCustomTextField.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 @interface HXBModifyTransactionPasswordHomeView()<UITextFieldDelegate>
 
 /**

@@ -7,7 +7,7 @@
 //
 
 #import "HXBSendSmscodeView.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import "HXBCustomTextField.h"
 #import "HXBFinBaseNegotiateView.h"
 

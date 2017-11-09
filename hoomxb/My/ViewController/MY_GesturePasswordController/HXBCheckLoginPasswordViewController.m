@@ -10,7 +10,7 @@
 #import "HXBGesturePasswordViewController.h"//手势密码
 #import "HXBSetGesturePasswordRequest.h"
 #import "HXBCustomTextField.h"
-#import "SVGKImageView.h"
+#import "SVGKit/SVGKImageView.h"
 @interface HXBCheckLoginPasswordViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) HXBCustomTextField *loginPasswordTextField;
