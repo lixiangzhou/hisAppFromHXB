@@ -27,18 +27,6 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         [HxbHUDProgress showTextWithMessage:@"请求超时,请稍后重试"];
     }
     
-//    switch ([request.responseObject[kResponseStatus] integerValue]) {
-//        case kHXBCode_Enum_Captcha://弹出图验、
-////            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowCaptchaVC object:nil];
-//            break;
-//        case kHXBCode_Enum_NotSigin:///没有登录{
-//            KeyChain.isLogin = false;
-//            break;
-//        case kHXBCode_Enum_TokenNotJurisdiction://没有权限
-//            KeyChain.isLogin = false;
-//            break;
-//    }
-    
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:///没有登录
         case kHXBCode_Enum_TokenNotJurisdiction://没有权限
@@ -53,8 +41,6 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
                 }else{
                     VC = tbVC;
                 }
-                
-                
                 [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
             }
             return;
@@ -88,7 +74,10 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
                 error = arr[0];
             }];
             [HxbHUDProgress showTextWithMessage:error];
-        }else if(status.integerValue == kHXBCode_Enum_RequestOverrun && ![request.requestUrl isEqualToString:kHXBUser_checkCardBin]){
+        }else if(status.integerValue == kHXBCode_Enum_RequestOverrun){
+            if ([self handlingSpecialErrorCodes:request]) {
+                return;
+            }
             [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
         }
     }else{
@@ -99,6 +88,20 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             }
         }
     }
+}
+
+
+/**
+ 处理不需要提示412问题
+ */
+- (BOOL)handlingSpecialErrorCodes:(NYBaseRequest *)request {
+    if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin]) {
+        return YES;
+    }
+    if ([request.requestUrl isEqualToString:kHXB_Coupon_Best]) {
+        return YES;
+    }
+    return NO;
 }
 
 
