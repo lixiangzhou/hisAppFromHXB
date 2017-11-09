@@ -35,6 +35,11 @@
  button title
  */
 @property (nonatomic,strong) UIButton * buy_ButtonTitleLabel;
+/**
+ 邀请好友按钮
+ */
+@property (nonatomic,strong) UIButton *inviteButton;
+
 
 @property (nonatomic,assign) CGFloat massageHeight;
 @property (nonatomic,copy) void(^clickButtonBlock)();
@@ -123,7 +128,14 @@
         make.width.equalTo(@(kScrAdaptationW750(670)));
         make.height.equalTo(@(kScrAdaptationH750(82)));
     }];
+    [self.inviteButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.buy_ButtonTitleLabel.mas_bottom).offset(kScrAdaptationH750(40));
+        make.centerX.equalTo(self.view);
+        make.width.equalTo(@(kScrAdaptationW750(670)));
+        make.height.equalTo(@(kScrAdaptationH750(82)));
+    }];
     [self.buy_ButtonTitleLabel addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.inviteButton addTarget:self action:@selector(clickToShare:) forControlEvents:UIControlEventTouchUpInside];
     [self.buy_ButtonTitleLabel setTitle:self.buy_ButtonTitle forState:UIControlStateNormal];
     kWeakSelf
     [_buy_massageLabel setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
@@ -139,6 +151,10 @@
         return viewManager;
     }];
     
+}
+
+- (void)clickToShare:(UIButton *)clickToShare {
+    NSLog(@"分享邀请");
 }
 
 // 设置行间距的富文本
@@ -216,12 +232,38 @@
     }
     return _buy_ButtonTitleLabel;
 }
+- (UIButton *)inviteButton {
+    if (!_inviteButton) {
+        _inviteButton = [[UIButton alloc]init];
+        [self.view addSubview: _inviteButton];
+        _inviteButton.layer.masksToBounds = true;
+        _inviteButton.layer.cornerRadius = kScrAdaptationW750(5);
+        _inviteButton.backgroundColor = [UIColor whiteColor];
+        [_inviteButton setTitleColor:COR29 forState:(UIControlStateNormal)];
+        _inviteButton.layer.borderWidth = kXYBorderWidth;
+        _inviteButton.layer.borderColor = COR29.CGColor;
+        _inviteButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
+        [_inviteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
+    return _inviteButton;
+}
+
 - (void)setBuy_massageCount:(NSInteger)buy_massageCount {
     _buy_massageCount = buy_massageCount;
     CGFloat label_TotalHeight = _buy_massageCount * kScrAdaptationH750(30);
     CGFloat spacing_TotalHeight = (_buy_massageCount - 1) * kScrAdaptationH750(28);
     self.massageHeight = label_TotalHeight + spacing_TotalHeight;
 }
+
+- (void)setinviteButtonTitle:(NSString *)inviteButtonTitle {
+    if (inviteButtonTitle.length) {
+        [_inviteButton setHidden:NO];
+        [_inviteButton setTitle:inviteButtonTitle forState:(UIControlStateNormal)];
+    } else {
+        [_inviteButton setHidden:YES];
+    }
+}
+
 - (CGFloat) massageHeight {
     CGFloat label_TotalHeight = _buy_massageCount * kScrAdaptationH750(30);
     CGFloat spacing_TotalHeight = (_buy_massageCount - 1) * kScrAdaptationH750(28);

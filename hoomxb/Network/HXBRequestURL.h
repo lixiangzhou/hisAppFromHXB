@@ -132,4 +132,8 @@
 #define kHXB_Coupon_Query @"/coupon/query" // 选择优惠券列表
 #define kHXB_Coupon_Best @"/coupon/best" // 匹配最优优惠券
 
+//MARK: ======================= 邀请好友 ==========================
+#define kHXB_Invite_List @"/account/invite/list" // 邀请好友列表
+#define kHXB_Invite_OverView @"/account/invite/overview" // 邀请好友奖励
+
 #endif

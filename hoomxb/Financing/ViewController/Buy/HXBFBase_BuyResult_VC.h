@@ -39,6 +39,11 @@
  */
 @property (nonatomic,copy) NSArray *massage_Right_StrArray;
 /**
+ 邀请好友按钮文案
+ */
+@property (nonatomic, copy) NSString *inviteButtonTitle;
+
+/**
  (可能没有，在button的顶部 100的地方)
  居中的label
  */
