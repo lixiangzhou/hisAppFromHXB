@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface HXBUMengShareManager : NSObject
+#import <UMSocialCore/UMSocialCore.h>
+@interface HXBUMengShareManager : UMSocialManager
 
 
 /**
@@ -16,5 +16,8 @@
  */
 + (void)HXB_umengShareStart;
 
-
+/**
+ 显示分享
+ */
++ (void) showShareMenuViewInWindow;
 @end
