@@ -38,7 +38,7 @@ UITableViewDataSource
     [super viewDidLoad];
     self.title = @"账户信息";
     [self.view addSubview:self.tableView];
-    self.self.automaticallyAdjustsScrollViewInsets = YES;
+    self.automaticallyAdjustsScrollViewInsets = YES;
     
 }
 - (void)viewWillAppear:(BOOL)animated

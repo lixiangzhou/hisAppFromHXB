@@ -194,6 +194,23 @@
     }];
 }
 
+- (UITableView *)hxbBaseVCScrollView {
+    if (!_hxbBaseVCScrollView) {
+        
+        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        if (LL_iPhoneX) {
+            _hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+        }
+        
+        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
+        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
+        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
+    }
+    return _hxbBaseVCScrollView;
+}
+
 - (void)judgementStatusWithStauts: (NSInteger)status andManager: (HXBMY_PlanDetailView_Manager *)manager andHXBMYViewModel_PlanDetailViewModel: (HXBMYViewModel_PlanDetailViewModel *)viewModel{
     /**
      statusInt
