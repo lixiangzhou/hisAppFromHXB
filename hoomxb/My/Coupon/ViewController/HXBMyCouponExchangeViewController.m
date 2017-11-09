@@ -81,7 +81,7 @@
 
 - (void)loadData_myAccountExchangeInfo{
     kWeakSelf
-    [HXBRequestAccountInfo downLoadMyCouponExchangeInfoNoHUDWithCode: [weakSelf.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] withSeccessBlock:^(HXBMyCouponListModel *Model, NSString *message) {
+    [HXBRequestAccountInfo downLoadMyCouponExchangeInfoHUDWithCode: [weakSelf.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] withSeccessBlock:^(HXBMyCouponListModel *Model, NSString *message) {
         if (message.length > 0) {
             self.promptLab.hidden = NO;
             self.promptLab.text = message;

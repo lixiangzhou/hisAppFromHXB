@@ -12,7 +12,7 @@
 
 @implementation HXBRequestAccountInfo
 
-+ (void)downLoadMyCouponExchangeInfoNoHUDWithCode:(NSString *)code withSeccessBlock:(void(^)(HXBMyCouponListModel *Model, NSString *message))seccessBlock andFailure: (void(^)(NSError *error))failureBlock{
++ (void)downLoadMyCouponExchangeInfoHUDWithCode:(NSString *)code withSeccessBlock:(void(^)(HXBMyCouponListModel *Model, NSString *message))seccessBlock andFailure: (void(^)(NSError *error))failureBlock{
     NYBaseRequest *myAccountListInfoAPI = [[NYBaseRequest alloc]init];
     myAccountListInfoAPI.requestUrl = kHXBMY_CouponExchangeInfoURL;
     myAccountListInfoAPI.requestMethod = NYRequestMethodPost;
@@ -57,14 +57,14 @@
     return planListViewModelArray;
 }
 
-+ (void)downLoadMyAccountListInfoNoHUDWithParameterDict:(NSDictionary *)parameterDict withSeccessBlock:(void(^)(NSArray<HXBMyCouponListModel *>* modelArray))seccessBlock andFailure: (void(^)(NSError *error))failureBlock{
++ (void)downLoadMyAccountListInfoHUDWithParameterDict:(NSDictionary *)parameterDict withSeccessBlock:(void(^)(NSArray<HXBMyCouponListModel *>* modelArray))seccessBlock andFailure: (void(^)(NSError *error))failureBlock{
     
     NYBaseRequest *myAccountListInfoAPI = [[NYBaseRequest alloc]init];
     myAccountListInfoAPI.requestUrl = kHXBMY_AccountListInfoURL;
     myAccountListInfoAPI.requestMethod = NYRequestMethodPost;
     myAccountListInfoAPI.requestArgument = parameterDict;
     
-    [myAccountListInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [myAccountListInfoAPI startWithHUDStr:@"加载中..." Success:^(NYBaseRequest *request, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue]) {
             kHXBResponsShowHUD
         }
@@ -74,7 +74,6 @@
         if (seccessBlock) {
             seccessBlock(modelArray);
         }
-        
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);
         if (failureBlock) {

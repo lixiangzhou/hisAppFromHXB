@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isRedColorWithNavigationBar = YES;
-
+    
     self.title = @"我的优惠券";
     [self setNavigationItem];
     [self getNetworkAgain];
