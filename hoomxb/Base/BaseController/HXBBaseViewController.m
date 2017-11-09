@@ -48,11 +48,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-//    self.isCanSideBack = NO;
-    //关闭ios右滑返回
-//    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        self.navigationController.interactivePopGestureRecognizer.delegate = self;
-//    }
     [self.view bringSubviewToFront:self.noNetworkStatusView];
 }
 
@@ -62,12 +57,6 @@
     [self.view endEditing:true];
     
     [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:NO];
-    
-//    self.isCanSideBack=YES;
-    //开启ios右滑返回
-//    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
-//        self.navigationController.interactivePopGestureRecognizer.delegate = nil;
-//    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -168,11 +157,6 @@
         self.nacigationBarImageView.image = [UIImage imageNamed:@"nav_top_blue"];
     }
 }
-
-#pragma mark - UIGestureRecognizerDelegate
-//- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer*)gestureRecognizer {
-//    return NO;//self.isCanSideBack;
-//}
 
 #pragma mark - Other
 ///白色的电池栏

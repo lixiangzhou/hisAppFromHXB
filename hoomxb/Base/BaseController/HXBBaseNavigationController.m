@@ -9,6 +9,7 @@
 #import "HXBBaseNavigationController.h"
 
 @interface HXBBaseNavigationController ()<UIGestureRecognizerDelegate>
+@property (nonatomic, strong) UIPanGestureRecognizer *fullScreenGesture;
 @end
 
 @implementation HXBBaseNavigationController
@@ -21,9 +22,11 @@
     id target = self.interactivePopGestureRecognizer.delegate;
     SEL handler = NSSelectorFromString(@"handleNavigationTransition:");
     UIView *targetView = self.interactivePopGestureRecognizer.view;
-    UIPanGestureRecognizer * fullScreenGes = [[UIPanGestureRecognizer alloc]initWithTarget:target action:handler];
-    fullScreenGes.delegate = self;
-    [targetView addGestureRecognizer:fullScreenGes];
+    self.fullScreenGesture = [[UIPanGestureRecognizer alloc] initWithTarget:target action:handler];
+    self.fullScreenGesture.delegate = self;
+    [targetView addGestureRecognizer:self.fullScreenGesture];
+    
+    self.enableFullScreenGesture = YES;
     
     // 关闭边缘触发手势 防止和原有边缘手势冲突
     [self.interactivePopGestureRecognizer setEnabled:NO];
@@ -45,6 +48,14 @@
     ///这里有两个条件不允许手势执行，1、当前控制器为根控制器；2、如果这个push、pop动画正在执行（私有属性）3、向左滑
     BOOL panLeft = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:gestureRecognizer.view].x > 0;
     return self.viewControllers.count != 1 && ![[self valueForKey:@"_isTransitioning"] boolValue] && panLeft;
+}
+
+#pragma mark - Setter
+- (void)setEnableFullScreenGesture:(BOOL)enableFullScreenGesture {
+    _enableFullScreenGesture = enableFullScreenGesture;
+    
+    [self.interactivePopGestureRecognizer.view addGestureRecognizer:self.fullScreenGesture];
+    self.fullScreenGesture.enabled = enableFullScreenGesture;
 }
 
 #pragma mark - setter pop的自定义
