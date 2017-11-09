@@ -46,29 +46,6 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
     }];
     [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
-    
-    //弹窗提示是否找回，点击找回退出登录到登录页面
-//    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"您的账户在另一台设备登录，您的账户密码可能泄露，如非您本人操作，请及时修改登录密码" message:@"" preferredStyle:UIAlertControllerStyleAlert];
-//    
-//    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        //到登录界面
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-//        ///退出登录
-//        [KeyChainManage sharedInstance].isLogin = false;
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
-////        [[KeyChainManage sharedInstance] signOut];
-//    }];
-//    
-//    UIAlertAction *cancalAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//        ///退出登录
-//        [KeyChainManage sharedInstance].isLogin = false;
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
-//    }];
-//    
-//    [alertController addAction:okAction];
-//    [alertController addAction:cancalAction];
-//    
-//    [vc.navigationController presentViewController:alertController animated:YES completion:nil];
 }
 /** 获取当前View的控制器对象 */
 + (UIViewController *)getCurrentViewControllerWithView: (UIView *)view{
