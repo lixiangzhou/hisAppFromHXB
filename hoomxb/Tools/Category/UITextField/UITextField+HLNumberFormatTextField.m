@@ -12,7 +12,7 @@
 //身份证号最大长度
 #define KIDLength 18
 //银行卡号最大长度
-#define KBankcardNumLength 24
+#define KBankcardNumLength 25
 //手机号334格式空格处光标所处位置长度分别为3，8
 #define KPhoneNumFirstPoint 3
 #define KPhoneNumSecondPoint 8
@@ -25,6 +25,7 @@
 #define KBankcardNumThirdPoint 14
 #define KBankcardNumFourthPoint 19
 #define KBankcardNumFifthPoint 24
+#define KBankcardNumSixPoint 29
 @implementation UITextField (HLTextField)
 
 /**
@@ -139,7 +140,7 @@
                 
             }else{
                 
-                if (range.location == KBankcardNumFirstPoint || range.location  == KBankcardNumSecondPoint || range.location == KBankcardNumThirdPoint || range.location  == KBankcardNumFourthPoint || range.location == KBankcardNumFifthPoint) {
+                if (range.location == KBankcardNumFirstPoint || range.location  == KBankcardNumSecondPoint || range.location == KBankcardNumThirdPoint || range.location  == KBankcardNumFourthPoint || range.location == KBankcardNumFifthPoint || range.location == KBankcardNumSixPoint) {
                     offset ++;
                 }
                 
@@ -197,6 +198,8 @@
             
         }if (tStr.length >KBankcardNumFifthPoint) {
             [tStr insertString:@" " atIndex:KBankcardNumFifthPoint];
+        }if (tStr.length > KBankcardNumSixPoint) {
+            [tStr insertString:@" " atIndex:KBankcardNumSixPoint];
         }
         
     }
@@ -218,7 +221,7 @@
         
     }else{
         
-        if (range.location == KBankcardNumFirstPoint || range.location  == KBankcardNumSecondPoint || range.location == KBankcardNumThirdPoint || range.location  == KBankcardNumFourthPoint || range.location  == KBankcardNumFifthPoint) {
+        if (range.location == KBankcardNumFirstPoint || range.location  == KBankcardNumSecondPoint || range.location == KBankcardNumThirdPoint || range.location  == KBankcardNumFourthPoint || range.location  == KBankcardNumFifthPoint || range.location == KBankcardNumSixPoint) {
             offset ++;
         }
         

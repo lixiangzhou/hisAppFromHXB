@@ -19,7 +19,6 @@
 #import "HXBXYAlertViewController.h" // 更新的弹框
 #import "BXTextField.h" // 身份证键盘
 #import "HXBCustomTextField.h" // 红小宝的输入框
-#import "UITextField+HLNumberFormatTextField.h"//身份证、银行卡、手机号输入框
 #import "HXBDeviceVersion.h" //获取机型
 
 #import "HXBMiddlekey.h" //统一处理中间逻辑

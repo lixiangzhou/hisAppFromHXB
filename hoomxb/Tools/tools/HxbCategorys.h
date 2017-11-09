@@ -22,6 +22,7 @@
 #import "UIColor+HxbColor.h"// 随机色，rgb，16进制颜色
 #import "UIScrollView+HXBScrollView.h"//关于上拉刷新与下拉加载
 #import "UITextField+HxbTextField.h" //TextField的自定义
+#import "UITextField+HLNumberFormatTextField.h"//身份证、银行卡、手机号输入框
 #import "UIView+HXBFrame.h"//关于frame
 
 

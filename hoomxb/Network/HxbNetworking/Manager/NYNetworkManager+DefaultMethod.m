@@ -62,7 +62,11 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
                 error = arr[0];
             }];
             [HxbHUDProgress showTextWithMessage:error];
-        } else if (status.integerValue == kHXBCode_Enum_RequestOverrun && ![request.requestUrl isEqualToString:kHXBUser_checkCardBin]){
+        } else if(status.integerValue == kHXBCode_Enum_RequestOverrun){
+            if ([self handlingSpecialErrorCodes:request]) {
+                return;
+            }
+
             [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
         }
     } else {
@@ -74,6 +78,20 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             
         }
     }
+}
+
+
+/**
+ 处理不需要提示412问题
+ */
+- (BOOL)handlingSpecialErrorCodes:(NYBaseRequest *)request {
+    if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin]) {
+        return YES;
+    }
+    if ([request.requestUrl isEqualToString:kHXB_Coupon_Best]) {
+        return YES;
+    }
+    return NO;
 }
 
 
