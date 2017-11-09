@@ -10,6 +10,8 @@
 
 @interface HXBBaseNavigationController : UINavigationController
 
+/// 是否允许全屏手势，默认 YES
+@property (nonatomic, assign) BOOL enableFullScreenGesture;
 
 /**
  再次调用网络请求的方法
