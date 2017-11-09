@@ -8,7 +8,7 @@
 
 #import "HXBWithdrawCardView.h"
 #import "HXBBankCardListViewController.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import "HXBCustomTextField.h"
 #import "HXBCardBinModel.h"
 #import "HXBOpenDepositAccountRequest.h"

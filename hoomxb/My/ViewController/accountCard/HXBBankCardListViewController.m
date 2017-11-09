@@ -9,7 +9,7 @@
 #import "HXBBankCardListViewController.h"
 #import "HXBWithdrawalsRequest.h"
 #import "HXBBankListCell.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import "HXBBankList.h"
 @interface HXBBankCardListViewController ()<UITableViewDelegate,UITableViewDataSource>
 

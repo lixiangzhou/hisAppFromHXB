@@ -7,7 +7,7 @@
 //
 
 #import "HXBAlertVC.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import "HXBVerificationCodeAlertView.h"
 #import "HBAlertPasswordView.h"
 @interface HXBAlertVC ()<HBAlertPasswordViewDelegate, UITextFieldDelegate>

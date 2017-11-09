@@ -7,7 +7,7 @@
 //
 
 #import "HXBFin_TableViewCell_LoanTransfer.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
 @interface HXBFin_TableViewCell_LoanTransfer ()
 /**
