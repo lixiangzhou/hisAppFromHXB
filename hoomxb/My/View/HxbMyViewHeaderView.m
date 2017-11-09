@@ -63,12 +63,12 @@
         [self addSubview:self.buttonView];
         [self addSubview:self.topupAndWithdrawBgImg];
     
-        [self addSubview:self.topupImgV];
+//        [self addSubview:self.topupImgV];
         [self addSubview:self.topupButton];
-        [self addSubview:self.withdrawImgV];
+//        [self addSubview:self.withdrawImgV];
         [self addSubview:self.withdrawButton];
-        [self addSubview:self.topupSupView];
-        [self addSubview:self.withdrawSupView];
+//        [self addSubview:self.topupSupView];
+//        [self addSubview:self.withdrawSupView];
         
         [self addSubview:self.lineView];
         
@@ -142,74 +142,51 @@
         make.top.equalTo(self.backgroundImage.mas_bottom).offset(kScrAdaptationH750(-(45+29)));
         make.height.offset(kScrAdaptationH750(29+43+90));
     }];
-    [self.topupImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(28+29));
-        make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(100+35));
-        make.height.equalTo(@kScrAdaptationH750(34));
-        make.width.equalTo(@kScrAdaptationW750(51));
-    }];
-    [self.topupButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(28+29));
-        make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(167+35));
-        make.height.equalTo(@kScrAdaptationH750(34));
-        make.width.equalTo(@kScrAdaptationW750(80));
-    }];
-    [self.withdrawImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(24+29));
-        make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(377+35));
-        make.height.equalTo(@kScrAdaptationH750(41));
-        make.width.equalTo(@kScrAdaptationW750(38));
-    }];
-    [self.withdrawButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(28+29));
-        make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(446+35));
-        make.height.equalTo(@kScrAdaptationH750(34));
-        make.width.equalTo(@kScrAdaptationW750(80));
-    }];
-    [self.topupSupView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@kScrAdaptationH750(486));
-        make.left.equalTo(@kScrAdaptationW750(70));
-        make.height.equalTo(@kScrAdaptationH750(90));
-        make.width.equalTo(@kScrAdaptationW750(300));
-    }];
-    [self.withdrawSupView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@kScrAdaptationH750(486));
-        make.left.equalTo(@kScrAdaptationW750(380));
-        make.height.equalTo(@kScrAdaptationH750(90));
-        make.width.equalTo(@kScrAdaptationW750(300));
-    }];
-    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self);
-        make.top.equalTo(self.withdrawImgV.mas_top);
-        make.width.offset(0.5);
-        make.height.offset(kScrAdaptationH750(40));
-    }];
     
     
-//    [self.holdingAssetsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self);
-//        make.right.equalTo(self.lineView.mas_left);
-//        make.top.equalTo(self).offset(kScrAdaptationH(93));
-//        make.height.offset(kScrAdaptationH(33));
+//    [self.topupImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(28+29));
+//        make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(100+35));
+//        make.height.equalTo(@kScrAdaptationH750(34));
+//        make.width.equalTo(@kScrAdaptationW750(51));
 //    }];
-//    [self.holdingAssetsTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerX.equalTo(self.holdingAssetsLabel);
-//        make.top.equalTo(self.holdingAssetsLabel.mas_bottom);
-//        make.height.offset(kScrAdaptationH(17));
+//    [self.topupButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(28+29));
+//        make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(167+35));
+//        make.height.equalTo(@kScrAdaptationH750(34));
+//        make.width.equalTo(@kScrAdaptationW750(80));
 //    }];
-
-    
-//    [self.balanceTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.buttonView).offset(kScrAdaptationW(15));
-//        make.top.equalTo(self.buttonView).offset(kScrAdaptationH(12));
-//        make.height.offset(kScrAdaptationH(21));
+//    [self.withdrawImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(24+29));
+//        make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(377+35));
+//        make.height.equalTo(@kScrAdaptationH750(41));
+//        make.width.equalTo(@kScrAdaptationW750(38));
 //    }];
-//    [self.balanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.balanceTitleLabel.mas_left);
-//        make.top.equalTo(self.balanceTitleLabel.mas_bottom).offset(kScrAdaptationH(10));
+//    [self.withdrawButton mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationH750(28+29));
+//        make.left.equalTo(self.topupAndWithdrawBgImg).offset(kScrAdaptationW750(446+35));
+//        make.height.equalTo(@kScrAdaptationH750(34));
+//        make.width.equalTo(@kScrAdaptationW750(80));
+//    }];
+//    [self.topupSupView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(@kScrAdaptationH750(486));
+//        make.left.equalTo(@kScrAdaptationW750(70));
+//        make.height.equalTo(@kScrAdaptationH750(90));
+//        make.width.equalTo(@kScrAdaptationW750(300));
+//    }];
+//    [self.withdrawSupView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(@kScrAdaptationH750(486));
+//        make.left.equalTo(@kScrAdaptationW750(380));
+//        make.height.equalTo(@kScrAdaptationH750(90));
+//        make.width.equalTo(@kScrAdaptationW750(300));
 //    }];
     
-    
+//    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerX.equalTo(self);
+//        make.top.equalTo(self.withdrawImgV.mas_top);
+//        make.width.offset(0.5);
+//        make.height.offset(kScrAdaptationH750(40));
+//    }];
 }
 
 - (void)clickAllFinanceButton: (UITapGestureRecognizer *)tap {
@@ -225,7 +202,7 @@
  */
 - (void)setAccountInfoViewModel:(HXBMyRequestAccountModel *)accountInfoViewModel{
     _accountInfoViewModel = accountInfoViewModel;
-    _allAssets = accountInfoViewModel.financePlanAssets;
+    _allAssets = accountInfoViewModel.financePlanAssets + accountInfoViewModel.lenderPrincipal;
     NSString *allAssetsStr = _allAssets? [NSString GetPerMilWithDouble:_allAssets]:@"0.00";
     
     NSString *accumulatedProfitStr = accountInfoViewModel.earnTotal? [NSString GetPerMilWithDouble:accountInfoViewModel.earnTotal]: @"0.00";
@@ -348,23 +325,6 @@
     return _backgroundImage;
 }
 
-//- (UILabel *)holdingAssetsLabel{
-//    if (!_holdingAssetsLabel) {
-//        _holdingAssetsLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.height/2 - 60, self.width, 40)];
-////        _holdingAssetsLabel.text = @"38.00";
-//        _holdingAssetsLabel.textAlignment = NSTextAlignmentCenter;
-//        _holdingAssetsLabel.font = kHXBFont_PINGFANGSC_REGULAR(24);
-//        _holdingAssetsLabel.textColor = COR15;
-//        _holdingAssetsLabel.text = @"--";
-//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickAllFinanceButton:)];
-//        [_holdingAssetsLabel addGestureRecognizer:tap];
-//        _holdingAssetsLabel.userInteractionEnabled = true;
-//    }
-//    return _holdingAssetsLabel;
-//}
-
-//[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(<#W#>), kScrAdaptationH750(<#H#>), kScrAdaptationW750(<#W#>), kScrAdaptationH750(<#H#>));
-
 - (UILabel *)allAssetsLabel{
     if (!_allAssetsLabel) {
         _allAssetsLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(30), kScrAdaptationH750(206), kScrAdaptationW750(620), kScrAdaptationH750(80))];
@@ -386,18 +346,6 @@
     }
     return _allAssetsTitleLabel;
 }
-
-//- (UILabel *)holdingAssetsTitleLabel{
-//    if (!_holdingAssetsTitleLabel) {
-//        _holdingAssetsTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.width/2, 40)];
-//        _holdingAssetsTitleLabel.text = @"持有资产(元)";
-//        _holdingAssetsTitleLabel.center = CGPointMake(self.width/2, 60);
-//        _holdingAssetsTitleLabel.textAlignment = NSTextAlignmentLeft;
-//        _holdingAssetsTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-//        _holdingAssetsTitleLabel.textColor = COR27;
-//    }
-//    return _holdingAssetsTitleLabel;
-//}
 
 - (UILabel *)accumulatedProfitTitleLabel{
     if (!_accumulatedProfitTitleLabel) {
@@ -464,6 +412,50 @@
     return _topupAndWithdrawBgImg;
 }
 
+- (UIButton *)topupButton{
+    if (!_topupButton) {
+        _topupButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW750(70),kScrAdaptationH750(486),kScrAdaptationW750(300),kScrAdaptationH750(90))];
+        [_topupButton setTitle:@"充值" forState:UIControlStateNormal];
+        [_topupButton setImage:[UIImage imageNamed:@"my_topup"] forState:UIControlStateNormal];
+        [_topupButton setTitleColor:RGB(255, 64, 79) forState:UIControlStateNormal];
+        [_topupButton addTarget:self action:@selector(topupButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        _topupButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
+
+        [_topupButton layoutIfNeeded];
+        CGRect titleFrame = _topupButton.titleLabel.frame;
+        CGRect imageFrame = _topupButton.imageView.frame;
+        CGFloat space = titleFrame.origin.x - imageFrame.origin.x - imageFrame.size.width-kScrAdaptationW750(0);
+       
+        [_topupButton setImageEdgeInsets:UIEdgeInsetsMake(kScrAdaptationH750(28),-space, kScrAdaptationH750(29), (space))];
+        _topupButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [_topupButton setTitleEdgeInsets:UIEdgeInsetsMake(kScrAdaptationH750(28), -space, kScrAdaptationH750(28), space)];
+        [_topupButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    }
+    return _topupButton;
+}
+
+- (UIButton *)withdrawButton{
+    if (!_withdrawButton) {
+        _withdrawButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW750(70+300+5),kScrAdaptationH750(486),kScrAdaptationW750(300),kScrAdaptationH750(90))];
+        [_withdrawButton setTitleColor:RGB(255, 64, 79) forState:UIControlStateNormal];
+        [_withdrawButton setTitle:@"提现" forState:UIControlStateNormal];
+        [_withdrawButton setImage:[UIImage imageNamed:@"my_withdraw"] forState:UIControlStateNormal];
+        _withdrawButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
+        [_withdrawButton addTarget:self action:@selector(withdrawButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [_withdrawButton layoutIfNeeded];
+        CGRect titleFrame = _withdrawButton.titleLabel.frame;
+        CGRect imageFrame = _withdrawButton.imageView.frame;
+        CGFloat space = titleFrame.origin.x - imageFrame.origin.x - imageFrame.size.width-kScrAdaptationW750(0);
+        
+        [_withdrawButton setImageEdgeInsets:UIEdgeInsetsMake(kScrAdaptationH750(28),-space, kScrAdaptationH750(29), (space))];
+        _withdrawButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+        [_withdrawButton setTitleEdgeInsets:UIEdgeInsetsMake(kScrAdaptationH750(28), -space, kScrAdaptationH750(28), space)];
+        [_withdrawButton.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    }
+    return _withdrawButton;
+}
+/*
 - (UIView *)topupSupView{
     if (!_topupSupView) {
         _topupSupView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(70), kScrAdaptationH750(486), kScrAdaptationW750(300), kScrAdaptationH750(90))];
@@ -530,7 +522,7 @@
     }
     return _withdrawButton;
 }
-
+*/
 - (UIView *)lineView{
     if (!_lineView) {
         _lineView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(375), kScrAdaptationH750(486+25), 0.5, kScrAdaptationH750(40))];

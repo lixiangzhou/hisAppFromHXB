@@ -135,53 +135,14 @@
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-//    string = [string uppercaseString];
-    if (textField.superview == _redeemCodeTextField) {
-//        return [UITextField numberFormatTextField:textField shouldChangeCharactersInRange:range replacementString:string textFieldType:kBankCardNumberTextFieldType];
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-        } else if(!string.length) {
-            NSInteger length = _redeemCodeTextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = _redeemCodeTextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        self.promptLab.text = @"";
-        self.promptLab.hidden = YES;
-        if ([self judgeTextFieldInputString:string]) {
-            if (_redeemCodeTextField.text.length % 5 == 4 && _redeemCodeTextField.text.length < 19) {
-                _redeemCodeTextField.text = [NSString stringWithFormat:@"%@ ", _redeemCodeTextField.text];
-            }
-            if (str.length >= 19) {
-                str = [str substringToIndex:19];
-                _redeemCodeTextField.text = str;
-                [_redeemCodeTextField resignFirstResponder];
-                _redeemCodeTextField.text = [str uppercaseString];
-                return NO;
-            }
-        } else if ([string isEqualToString:@""]) {
-            if ((_redeemCodeTextField.text.length - 2) % 5 == 4 && _redeemCodeTextField.text.length < 19) {
-                _redeemCodeTextField.text = [_redeemCodeTextField.text substringToIndex:_redeemCodeTextField.text.length - 1];
-            }
-//            _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
-            return YES;
-        } else {
-            return NO;
-        }
-    }
     
-    if ([string isEqualToString:@""]) {
-//        _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
-        return YES;
-    } else {
-        if (self.redeemCodeTextField.text.length >= 20) {
+    if (textField.superview == _redeemCodeTextField) {
+        if ([string isEqualToString:@" "]) {
             return NO;
         }
-//        _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
-        return YES;
+        return [UITextField numberFormatTextField:textField shouldChangeCharactersInRange:range replacementString:string textFieldType:kRedeemCodeTextFieldType];
     }
+    return YES;
 }
 
 #pragma mark - Action
