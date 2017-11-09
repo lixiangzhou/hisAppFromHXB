@@ -85,8 +85,8 @@
             request.customCodeSuccessBlock(request,request.responseObject);
         } else {
             [self defaultMethodRequestSuccessWithRequest:request];
-        request.success(request,request.responseObject);
         }
+        request.success(request,request.responseObject);
     }
     if ([request.delegate respondsToSelector:@selector(requesetFinished:)]) {
         [request.delegate requesetFinished:request];
@@ -104,8 +104,8 @@
             request.customCodeFailureBlock(request,request.error);
         } else {
             [self defaultMethodRequestFaulureWithRequest:request];
-            request.failure(request,request.error);
         }
+        request.failure(request,request.error);
     }
     if ([request.delegate respondsToSelector:@selector(requestFailed:)]) {
         [request.delegate requestFailed:request];

@@ -47,7 +47,7 @@
 //加入上线
 - (NSString *)singleMaxRegisterAmount {
     if (!_singleMaxRegisterAmount) {
-        _singleMaxRegisterAmount = [NSString hxb_getPerMilWithIntegetNumber: self.planDetailModel.singleMaxRegisterAmount.floatValue];
+        _singleMaxRegisterAmount = [NSString hxb_getPerMilWithIntegetNumber: self.planDetailModel.singleMaxRegisterAmount.doubleValue];
 //        _singleMaxRegisterAmount = self.planDetailModel.remainAmount < self.planDetailModel.userRemainAmount ? self.planDetailModel.remainAmount : self.planDetailModel.userRemainAmount;
     }
     return _singleMaxRegisterAmount;
@@ -162,7 +162,7 @@
 
 ///剩余可追加金额
 - (void)setUPUserRemainAmount {
-    self.userRemainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.userRemainAmount.floatValue];
+    self.userRemainAmount = [NSString hxb_getPerMilWithDouble:self.planDetailModel.userRemainAmount.doubleValue];
 }
 
 ///加入上线
@@ -174,7 +174,7 @@
 //    if (self.planDetailModel.joinCount.integerValue == 1) {
 //        self.hxb_singleMaxRegisterAmount = @"本期计划加入上限20,000元";
 //    }
-    NSString *str = [NSString hxb_getPerMilWithDouble:self.singleMaxRegisterAmount.floatValue];
+    NSString *str = [NSString hxb_getPerMilWithDouble:self.singleMaxRegisterAmount.doubleValue];
     self.hxb_singleMaxRegisterAmount = [NSString stringWithFormat:@"本期计划加入上限%@元",str];
 }
 
@@ -226,7 +226,7 @@
              1、	销售截止时间之前，如果满额：【已满额】。
              2、	到销售截止时间之后，锁定期之前：【销售结束】。
              */
-            CGFloat millisecond = [[HXBServerAndClientTime getCurrentTime_Millisecond] floatValue];
+            CGFloat millisecond = [[HXBServerAndClientTime getCurrentTime_Millisecond] doubleValue];
 //            if (self.planDetailModel.endSellingTime.floatValue >= millisecond) {
 //                self.addButtonStr = @"已满额";
 //            }else {//需求更改
@@ -251,11 +251,11 @@
     switch ([self.planDetailModel.unifyStatus integerValue]) {
         case 6://立即加入或者  追加
         case 5:
-            if (self.planDetailModel.remainAmount.floatValue <= 0) {
+            if (self.planDetailModel.remainAmount.doubleValue <= 0) {
                 _remainAmount = [NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.amount];
                 _remainAmount_constStr = @"计划总金额";
             } else {
-                _remainAmount = [NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.remainAmount.floatValue];
+                _remainAmount = [NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.remainAmount.doubleValue];
                 _remainAmount_constStr = @"剩余金额";
             }
             break;
