@@ -585,9 +585,9 @@
 - (UITableView *)hxbBaseVCScrollView {
     if (!_hxbBaseVCScrollView) {
         
-        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:UITableViewStylePlain];
+        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY) style:UITableViewStylePlain];
         if (LL_iPhoneX) {
-            _hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+            _hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
         }
         self.automaticallyAdjustsScrollViewInsets = NO;
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];

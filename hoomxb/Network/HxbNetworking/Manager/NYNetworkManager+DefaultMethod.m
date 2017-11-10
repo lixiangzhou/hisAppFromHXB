@@ -167,7 +167,7 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             str = [str substringToIndex:str.length-1];
             [HxbHUDProgress showMessageCenter:str];
         } else {
-            if (request.error.code == -999) { // 请求任务取消
+            if (request.error.code == kHXBPurchase_Processing) { // 请求任务取消
             } else {
                 [HxbHUDProgress showMessageCenter:request.error.userInfo[@"NSLocalizedDescription"]];
             }

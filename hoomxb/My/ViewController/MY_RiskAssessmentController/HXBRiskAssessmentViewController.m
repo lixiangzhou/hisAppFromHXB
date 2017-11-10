@@ -22,7 +22,7 @@
 - (UIWebView *)webView
 {
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
         _webView.delegate = self;
         _webView.scalesPageToFit = YES;
         _webView.scrollView.showsHorizontalScrollIndicator = NO;

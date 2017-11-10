@@ -116,9 +116,9 @@ static NSString *const investString = @"立即投资";
 }
 
 - (void)buildUI {
-    self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:(UITableViewStylePlain)];
+    self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY) style:(UITableViewStylePlain)];
     if (LL_iPhoneX) {
-        self.hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+        self.hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
     }
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.hxbBaseVCScrollView.tableFooterView = [self footTableView];
@@ -963,7 +963,7 @@ static NSString *const investString = @"立即投资";
         [self setUpArray];
         [self changeItemWithInvestMoney:money];
     } andFailureBlock:^(NSError *error) {
-        if (error.code == -999) { // 请求任务取消
+        if (error.code == kHXBPurchase_Processing) { // 请求任务取消
             cell.isStartAnimation = YES;
         } else {
             _hasBestCoupon = NO;
@@ -1088,7 +1088,7 @@ static NSString *const investString = @"立即投资";
         
         _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         if (LL_iPhoneX) {
-            _hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+            _hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
         }
         
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
