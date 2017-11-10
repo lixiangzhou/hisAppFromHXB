@@ -30,17 +30,16 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:///没有登录
         case kHXBCode_Enum_TokenNotJurisdiction://没有权限
+            // token 失效，静态登出并回到首页
             if (KeyChain.isLogin) {
-                //弹出是否 登录
-                UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-                UIViewController *VC = nil;
-                if ([tbVC isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
-                    UINavigationController *NAV = tbVC.selectedViewController;
-                    VC = NAV.viewControllers.lastObject;
-                } else {
-                    VC = tbVC;
-                }
-                [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
+                ///退出登录，清空登录信息，回到首页
+                KeyChain.isLogin = NO;
+                [KeyChain signOut];
+                
+                // 静态显示主TabVC的HomeVC
+                // 当前有tabVC的时候，会在tabVC中得到处理，显示HomeVC
+                // 如果没有创建tabVC的时候，不处理该通知，因为只有在tabVC中监听了该通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
             }
             return;
         case kHXBCode_Enum_NoServerFaile:
