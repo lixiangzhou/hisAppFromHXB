@@ -36,14 +36,12 @@ static NSString *CELLID = @"CELLID";
 - (void)setLoanTruansferModelArray:(NSArray<HXBFinModel_AddRecortdModel_LoanTruansfer *> *)loanTruansferModelArray{
     _loanTruansferModelArray = loanTruansferModelArray;
     self.nodataView.hidden = loanTruansferModelArray.count;
-    NSLog(@"_____________%ld", loanTruansferModelArray.count);
     [self reloadData];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setUP];
-//        self.backgroundColor = kHXBColor_BackGround;
     }
     return self;
 }
@@ -51,6 +49,7 @@ static NSString *CELLID = @"CELLID";
 - (void)setUP {
     self.delegate = self;
     self.dataSource = self;
+    self.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
     [self registerClass:[HXBFinAddRecortdTableViewCell_Plan class] forCellReuseIdentifier:CELLID];
     self.rowHeight = kScrAdaptationH(60);

@@ -31,7 +31,7 @@
     [super viewDidLoad];
 //    [self.hxbBaseVCScrollView addSubview:self.mainView];
     self.hxbBaseVCScrollView.tableHeaderView = self.mainView;
-    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
+    self.hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY);
     self.hxbBaseVCScrollView.delegate = self;
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self loadUserInfo];
@@ -191,7 +191,7 @@
         
         _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         if (LL_iPhoneX) {
-            _hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+            _hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
         }
         self.automaticallyAdjustsScrollViewInsets = NO;
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
@@ -207,7 +207,7 @@
 {
     if (!_mainView) {
         kWeakSelf
-        _mainView = [[HXBOpenDepositAccountView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        _mainView = [[HXBOpenDepositAccountView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
         _mainView.backgroundColor = kHXBColor_BackGround;
         _mainView.userModel = self.userModel;
         

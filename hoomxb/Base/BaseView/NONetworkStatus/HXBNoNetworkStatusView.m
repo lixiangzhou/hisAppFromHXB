@@ -20,9 +20,9 @@
 @implementation HXBNoNetworkStatusView
 
 + (instancetype)noNetworkStatusView {
-    HXBNoNetworkStatusView *noNetworkStatusView = [[HXBNoNetworkStatusView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+    HXBNoNetworkStatusView *noNetworkStatusView = [[HXBNoNetworkStatusView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
     if (LL_iPhoneX) {
-        noNetworkStatusView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+        noNetworkStatusView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
     }
     noNetworkStatusView.hidden = YES;
     noNetworkStatusView.backgroundColor = BACKGROUNDCOLOR;

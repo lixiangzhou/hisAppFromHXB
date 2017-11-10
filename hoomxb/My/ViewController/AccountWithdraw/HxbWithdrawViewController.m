@@ -113,7 +113,7 @@
 
     [self.notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(64);
+        make.top.equalTo(self.view).offset(HxbNavigationBarY);
         make.height.offset(kScrAdaptationH750(0));
     }];
     

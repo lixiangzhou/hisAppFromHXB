@@ -58,7 +58,7 @@
 - (HXBTransactionPasswordConfirmationView *)homeView
 {
     if (!_homeView) {
-        _homeView = [[HXBTransactionPasswordConfirmationView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        _homeView = [[HXBTransactionPasswordConfirmationView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
         kWeakSelf
         _homeView.confirmChangeButtonClickBlock = ^(NSString *surePassword){
             [weakSelf confirmTransactionWithPassword:surePassword];
