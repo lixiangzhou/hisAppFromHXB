@@ -236,7 +236,7 @@
     self.scrollView.showsVerticalScrollIndicator = false;
     
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@64);
+        make.top.equalTo(self.view);
         make.left.right.bottom.equalTo(self.view);
     }];
     
