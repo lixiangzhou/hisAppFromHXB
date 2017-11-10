@@ -14,13 +14,13 @@ HXBFinModel_BuyResoult_LoanModel_Context_TransInput
 ;
 @interface HXBFinModel_BuyResoult_LoanModel : NSObject
 
-
-
 @property (nonatomic,copy) NSString *orderNo;///": "1111L0053764770601142044HG34YGTI",
 ///输入状态
 @property (nonatomic,strong) HXBFinModel_BuyResoult_LoanModel_StateInput *stateInput;///
 ///context
 @property (nonatomic,strong) HXBFinModel_BuyResoult_LoanModel_Context *context;
+///context
+@property (nonatomic, copy) NSString *inviteActivityDesc;
 
 @end
 

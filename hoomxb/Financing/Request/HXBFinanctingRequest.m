@@ -38,7 +38,7 @@
 #import "HXBFinModel_Buy_Plan.h"///购买
 #import "HXBFinModel_BuyResoult_PlanModel.h"///购买结果
 #import "HXBFinModel_Buy_LoanModel.h"//购买
-#import "HXBFinModel_BuyResoult_LoanModel.h"///购买结果
+
 #import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"//债转的购买结果
 
 @interface HXBFinanctingRequest ()

@@ -644,8 +644,9 @@ static NSString *const investString = @"立即投资";
     kWeakSelf
     [[HXBFinanctingRequest sharedFinanctingRequest] loan_confirmBuyReslutWithLoanID:self.loanId parameter:dic andSuccessBlock:^(HXBFinModel_BuyResoult_LoanModel *model) {
         ///加入成功
+        
         HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-        loanBuySuccessVC.inviteButtonTitle = @"邀请好友";
+        loanBuySuccessVC.inviteButtonTitle = model.inviteActivityDesc;
         loanBuySuccessVC.imageName = @"successful";
         loanBuySuccessVC.buy_title = @"投标成功";
         loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的投资金额，放款成功后开始计息";

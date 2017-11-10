@@ -239,11 +239,10 @@
         _inviteButton.layer.masksToBounds = true;
         _inviteButton.layer.cornerRadius = kScrAdaptationW750(5);
         _inviteButton.backgroundColor = [UIColor whiteColor];
-        [_inviteButton setTitleColor:COR29 forState:(UIControlStateNormal)];
         _inviteButton.layer.borderWidth = kXYBorderWidth;
         _inviteButton.layer.borderColor = COR29.CGColor;
         _inviteButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
-        [_inviteButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_inviteButton setTitleColor:COR29 forState:UIControlStateNormal];
     }
     return _inviteButton;
 }
@@ -255,15 +254,11 @@
     self.massageHeight = label_TotalHeight + spacing_TotalHeight;
 }
 
-- (void)setinviteButtonTitle:(NSString *)inviteButtonTitle {
-    if (inviteButtonTitle.length) {
-        [_inviteButton setHidden:NO];
-        [_inviteButton setTitle:inviteButtonTitle forState:(UIControlStateNormal)];
-    } else {
-        [_inviteButton setHidden:YES];
-    }
+- (void)setInviteButtonTitle:(NSString *)inviteButtonTitle {
+    _inviteButtonTitle = inviteButtonTitle;
+    [self.inviteButton setTitle:_inviteButtonTitle forState:(UIControlStateNormal)];
+    [self.inviteButton setHidden:_inviteButtonTitle.length];
 }
-
 - (CGFloat) massageHeight {
     CGFloat label_TotalHeight = _buy_massageCount * kScrAdaptationH750(30);
     CGFloat spacing_TotalHeight = (_buy_massageCount - 1) * kScrAdaptationH750(28);
