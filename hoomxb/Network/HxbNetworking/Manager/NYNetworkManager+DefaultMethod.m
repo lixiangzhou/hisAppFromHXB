@@ -190,7 +190,10 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
             str = [str substringToIndex:str.length-1];
             [HxbHUDProgress showMessageCenter:str];
         } else {
-            [HxbHUDProgress showMessageCenter:request.error.userInfo[@"NSLocalizedDescription"]];
+            if (request.error.code == -999) { // 请求任务取消
+            } else {
+                [HxbHUDProgress showMessageCenter:request.error.userInfo[@"NSLocalizedDescription"]];
+            }
         }
     }
     
