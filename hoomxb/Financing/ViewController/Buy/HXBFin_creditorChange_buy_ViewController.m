@@ -25,9 +25,7 @@
 #import "HXBChooseCouponViewModel.h"
 #import "HXBCouponModel.h"
 
-static NSString *const topupString = @"余额不足，需充值投资";
 static NSString *const bankString = @"绑定银行卡";
-static NSString *const investString = @"立即投资";
 
 
 @interface HXBFin_creditorChange_buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
@@ -222,7 +220,7 @@ static NSString *const investString = @"立即投资";
         }
         _balanceTitle = @"可用余额（余额不足）";
     } else {
-        self.bottomView.clickBtnStr = investString;
+        self.bottomView.clickBtnStr = @"立即投资";
         _balanceTitle = @"可用余额";
         if (_type == HXB_Plan) {
             self.bottomView.clickBtnStr = @"立即加入";

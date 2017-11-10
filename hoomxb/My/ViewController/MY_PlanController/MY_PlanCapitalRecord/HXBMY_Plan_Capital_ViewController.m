@@ -58,7 +58,7 @@ static NSString *const cellID = @"cellID";
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.top.equalTo(self.view.mas_top).offset(64);
+        make.top.equalTo(self.view.mas_top).offset(HxbNavigationBarY);
         make.height.offset(kScrAdaptationH750(100));
     }];
     

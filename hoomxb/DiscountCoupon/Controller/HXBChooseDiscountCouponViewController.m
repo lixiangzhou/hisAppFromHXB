@@ -58,7 +58,7 @@
     } else {
         _notifitionView.hidden = NO;
         _tableView.tableHeaderView.hidden = YES;
-        _tableView.frame = CGRectMake(0, 64 + kScrAdaptationH(40), kScreenWidth, kScreenHeight - HxbNavigationBarY - kScrAdaptationH(40));
+        _tableView.frame = CGRectMake(0, HxbNavigationBarY + kScrAdaptationH(40), kScreenWidth, kScreenHeight - HxbNavigationBarY - kScrAdaptationH(40));
     }
 }
 

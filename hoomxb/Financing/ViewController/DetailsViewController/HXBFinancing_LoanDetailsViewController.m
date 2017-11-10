@@ -135,7 +135,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
-        make.top.equalTo(self.view).offset(64);//.offset(kScrAdaptationH(30))
+        make.top.equalTo(self.view).offset(HxbNavigationBarY);//.offset(kScrAdaptationH(30))
         make.bottom.equalTo(self.view).offset(kScrAdaptationH(-50)); //注意适配iPhone X
     }];
 //    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
