@@ -216,13 +216,16 @@ static NSString *const investString = @"立即投资";
             }
         } else {
             self.bottomView.clickBtnStr = bankString;
+            if (_type == HXB_Plan) {
+                self.bottomView.clickBtnStr = @"立即加入";
+            }
         }
         _balanceTitle = @"可用余额（余额不足）";
     } else {
         self.bottomView.clickBtnStr = investString;
         _balanceTitle = @"可用余额";
         if (_type == HXB_Plan) {
-            self.bottomView.clickBtnStr = investString;
+            self.bottomView.clickBtnStr = @"立即加入";
         }
     }
     if (_type == HXB_Plan) {
