@@ -23,7 +23,8 @@
     alterLoginPasswordAPI.requestUrl = kHXBSetWithdrawals_withdrawURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     alterLoginPasswordAPI.requestArgument = requestArgument;
-    [alterLoginPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+   
+    [alterLoginPasswordAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
