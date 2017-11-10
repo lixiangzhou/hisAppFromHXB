@@ -38,6 +38,7 @@
     self.title = @"";
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self setupRightBarBtn];
     
     /****** 加载桥梁对象 ******/

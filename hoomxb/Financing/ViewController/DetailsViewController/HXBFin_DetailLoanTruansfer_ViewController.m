@@ -187,6 +187,7 @@
             cell = [[UITableViewCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"cell"];
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         }
+        cell.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.text = self.tableViewTitleArray[indexPath.row];
         cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
