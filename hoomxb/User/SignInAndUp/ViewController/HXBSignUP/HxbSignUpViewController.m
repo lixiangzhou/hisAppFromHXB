@@ -65,7 +65,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     self.trackingScrollViewBlock = ^(UIScrollView *scrollView) {
         [weakSelf.hxbBaseVCScrollView endEditing:true];
     };
-    self.automaticallyAdjustsScrollViewInsets = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self registerEvent];
     if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
         _signUPView.isHiddenLoginBtn = YES;
