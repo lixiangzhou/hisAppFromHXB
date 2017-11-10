@@ -88,6 +88,8 @@ static NSString *const investString = @"立即投资";
 
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+/** 发送请求的任务 */
+@property (nonatomic, strong) NSURLSessionDataTask *dataTask;
 @end
 
 @implementation HXBFin_creditorChange_buy_ViewController
@@ -112,7 +114,6 @@ static NSString *const investString = @"立即投资";
     [self getBankCardLimit];
     [self getNewUserInfo];
 }
-
 
 - (void)buildUI {
     self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:(UITableViewStylePlain)];
@@ -173,6 +174,7 @@ static NSString *const investString = @"立即投资";
                     [weakSelf setUpArray];
                 }
             } else {
+                [weakSelf.dataTask cancel];
                 _discountTitle = @"未使用";
                 _couponid = @" ";
                 _hasBestCoupon = NO;
@@ -928,7 +930,10 @@ static NSString *const investString = @"立即投资";
     cell.isStartAnimation = YES;
     _hasGetCoupon = YES;
     self.bottomView.addBtnIsUseable = NO;
-    [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
+    if (_dataTask) {
+        [_dataTask cancel];
+    }
+    _dataTask = [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
         cell.isStartAnimation = NO;
         _hasGetCoupon = NO;
         self.bottomView.addBtnIsUseable = YES;
@@ -955,11 +960,15 @@ static NSString *const investString = @"立即投资";
         [self setUpArray];
         [self changeItemWithInvestMoney:money];
     } andFailureBlock:^(NSError *error) {
-        _hasBestCoupon = NO;
-        cell.isStartAnimation = NO;
-        _discountTitle = @"请选择优惠券";
-        [self setUpArray];
-        [self changeItemWithInvestMoney:money];
+        if (error.code == -999) { // 请求任务取消
+            cell.isStartAnimation = YES;
+        } else {
+            _hasBestCoupon = NO;
+            cell.isStartAnimation = NO;
+            _discountTitle = @"请选择优惠券";
+            [self setUpArray];
+            [self changeItemWithInvestMoney:money];
+        }
     }];
     
 }

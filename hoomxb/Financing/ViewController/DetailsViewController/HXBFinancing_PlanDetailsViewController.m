@@ -304,10 +304,11 @@
     [self setUPTopImageView];
 
     self.isTransparentNavigationBar = true;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
-        make.top.equalTo(self.view);
+        make.top.equalTo(self.view).offset(64);
         make.bottom.equalTo(self.view).offset(kScrAdaptationH(-50)); //注意适配iPhone X
     }];
 //    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - kScrAdaptationH(50));
@@ -584,11 +585,11 @@
 - (UITableView *)hxbBaseVCScrollView {
     if (!_hxbBaseVCScrollView) {
         
-        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:UITableViewStylePlain];
         if (LL_iPhoneX) {
             _hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
         }
-        
+        self.automaticallyAdjustsScrollViewInsets = NO;
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
         [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
         _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
