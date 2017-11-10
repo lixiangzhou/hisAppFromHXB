@@ -431,9 +431,7 @@
 		E1C10A4D1EBC60E500C21984 /* HXBFin_PlanDetailsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C10A4C1EBC60E500C21984 /* HXBFin_PlanDetailsView.m */; };
 		E1C10A501EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C10A4F1EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m */; };
 		E1C2AB901F15FC11003A31E2 /* HXBBaseViewConcentricCirclesView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C2AB8F1F15FC11003A31E2 /* HXBBaseViewConcentricCirclesView.m */; };
-		E1C964741EA5E04F0066DBC4 /* HXBBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964641EA5E04F0066DBC4 /* HXBBaseNavigationController.m */; };
 		E1C964751EA5E04F0066DBC4 /* HXBBaseTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964661EA5E04F0066DBC4 /* HXBBaseTabBarController.m */; };
-		E1C964761EA5E04F0066DBC4 /* HXBBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964681EA5E04F0066DBC4 /* HXBBaseViewController.m */; };
 		E1C964771EA5E04F0066DBC4 /* HXBBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C9646B1EA5E04F0066DBC4 /* HXBBaseCollectionView.m */; };
 		E1C964781EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C9646D1EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.m */; };
 		E1C9647A1EA5E04F0066DBC4 /* HXBBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C964711EA5E04F0066DBC4 /* HXBBaseTableView.m */; };
@@ -1321,11 +1319,9 @@
 		E1C2AB8E1F15FC11003A31E2 /* HXBBaseViewConcentricCirclesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseViewConcentricCirclesView.h; sourceTree = "<group>"; };
 		E1C2AB8F1F15FC11003A31E2 /* HXBBaseViewConcentricCirclesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewConcentricCirclesView.m; sourceTree = "<group>"; };
 		E1C964631EA5E04F0066DBC4 /* HXBBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseNavigationController.h; sourceTree = "<group>"; };
-		E1C964641EA5E04F0066DBC4 /* HXBBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseNavigationController.m; sourceTree = "<group>"; };
 		E1C964651EA5E04F0066DBC4 /* HXBBaseTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTabBarController.h; sourceTree = "<group>"; };
 		E1C964661EA5E04F0066DBC4 /* HXBBaseTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTabBarController.m; sourceTree = "<group>"; };
 		E1C964671EA5E04F0066DBC4 /* HXBBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseViewController.h; sourceTree = "<group>"; };
-		E1C964681EA5E04F0066DBC4 /* HXBBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewController.m; sourceTree = "<group>"; };
 		E1C9646A1EA5E04F0066DBC4 /* HXBBaseCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseCollectionView.h; sourceTree = "<group>"; };
 		E1C9646B1EA5E04F0066DBC4 /* HXBBaseCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseCollectionView.m; sourceTree = "<group>"; };
 		E1C9646C1EA5E04F0066DBC4 /* HXBBaseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseCollectionViewCell.h; sourceTree = "<group>"; };
@@ -3832,11 +3828,9 @@
 			children = (
 				E129A0081F0625DF0051ADA0 /* Alert */,
 				E1C964631EA5E04F0066DBC4 /* HXBBaseNavigationController.h */,
-				E1C964641EA5E04F0066DBC4 /* HXBBaseNavigationController.m */,
 				E1C964651EA5E04F0066DBC4 /* HXBBaseTabBarController.h */,
 				E1C964661EA5E04F0066DBC4 /* HXBBaseTabBarController.m */,
 				E1C964671EA5E04F0066DBC4 /* HXBBaseViewController.h */,
-				E1C964681EA5E04F0066DBC4 /* HXBBaseViewController.m */,
 				E17509AD1EC6D58900E17B39 /* HXBBaseWebViewController.h */,
 				E17509AE1EC6D58900E17B39 /* HXBBaseWebViewController.m */,
 			);
@@ -4866,7 +4860,6 @@
 				4EBE19441F73B44500AB5AB6 /* HXBTransferCreditorBottomView.m in Sources */,
 				E129A00B1F0625FA0051ADA0 /* HXBAlertManager.m in Sources */,
 				E133DCE01EEE3597009466DE /* HXBSignUPAndLoginRequest_EnumManager.m in Sources */,
-				E1C964761EA5E04F0066DBC4 /* HXBBaseViewController.m in Sources */,
 				E1CD4BDA1ED85266000CC57B /* PYFullScreenGesturePOPManager.m in Sources */,
 				4E8198AC1EC44BCE00D668A1 /* HXBHomePageHeadView.m in Sources */,
 				E1247B3F1ECC2ABC00B2CD7C /* HXBMainListView_Loan.m in Sources */,
@@ -4940,7 +4933,6 @@
 				E133DCE41EEE3597009466DE /* HXBSignUPView.m in Sources */,
 				4E47DD311F9F46170015232E /* HXBWithdrawRecordViewController.m in Sources */,
 				E133DCDD1EEE3597009466DE /* LoginModel.m in Sources */,
-				E1C964741EA5E04F0066DBC4 /* HXBBaseNavigationController.m in Sources */,
 				4E954B171F43016C00D743D8 /* HXBCallPhone_BottomView.m in Sources */,
 				E1B517BC1F134EAF001C9878 /* HXBFin_DetailLoanTruansfer_ViewController.m in Sources */,
 				E133DD401EEEC14C009466DE /* NYNetworkManager.m in Sources */,
