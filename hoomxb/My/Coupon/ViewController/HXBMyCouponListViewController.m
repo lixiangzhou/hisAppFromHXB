@@ -33,6 +33,7 @@
     [self setParameter];
     self.view.backgroundColor = RGBA(244, 243, 248, 1);
 //    [self.view addSubview:self.myView];
+//    self.myView.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -44,13 +45,23 @@
 - (void)loadData_myCouponListInfo{
     kWeakSelf
     [HXBRequestAccountInfo downLoadMyAccountListInfoHUDWithParameterDict:self.parameterDict withSeccessBlock:^(NSArray<HXBMyCouponListModel *> *modelArray) {
-//        weakSelf.myCouponListModelArray = modelArray;
         [weakSelf.view addSubview:self.myView];
         weakSelf.myView.myCouponListModelArray = modelArray;
+        weakSelf.myView.hidden = !weakSelf.myView.myCouponListModelArray.count;
         weakSelf.myView.isStopRefresh_Home = YES;
     } andFailure:^(NSError *error) {
         weakSelf.myView.isStopRefresh_Home = YES;
+//        [weakSelf.view addSubview:self.myView];
+        if (weakSelf.myView) {
+            weakSelf.myView.hidden = YES;
+        }
+        [weakSelf.view addSubview:weakSelf.noNetworkStatusView];
+        weakSelf.isHiddennNoNetworkStatusView = NO;
     }];
+}
+
+- (void)getNetworkAgain{
+    [self loadData_myCouponListInfo];
 }
 
 #pragma mark - Setter / Getter / Lazy

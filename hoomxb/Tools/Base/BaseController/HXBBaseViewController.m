@@ -19,7 +19,7 @@
 @property (nonatomic,strong) HXBColourGradientView *colorGradientView;
 @property (nonatomic,strong) UIImageView *nacigationBarImageView;
 @property (nonatomic, assign) BOOL isCanSideBack;
-@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
+//@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
 
 @end
 

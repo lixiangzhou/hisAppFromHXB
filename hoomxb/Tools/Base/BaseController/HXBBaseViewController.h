@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HXBNoNetworkStatusView;
 @interface HXBBaseViewController : UIViewController
 ///是否隐藏导航栏
 @property (nonatomic,assign) BOOL isHiddenNavigationBar;
@@ -44,4 +44,10 @@
 - (void)leftBackBtnClick;
 ///无网状态的网络连接
 - (void)getNetworkAgain;
+
+
+
+
+@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
+
 @end
