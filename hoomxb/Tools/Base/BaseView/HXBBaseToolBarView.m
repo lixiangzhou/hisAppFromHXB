@@ -35,6 +35,7 @@
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
         self.optionStrArray = optionStrArray;
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(fromCouponListToFinanctingPlan) name:kHXBNotification_fromCouponListToFinanctingPlan object:nil];
     }
     return self;
 }
@@ -42,6 +43,9 @@
     return [[self alloc]initWithFrame:frame andOptionStrArray:optionStrArray];
 }
 
+- (void)fromCouponListToFinanctingPlan{
+    self.selectItemIndex = 0;
+}
 
 #pragma mark - 展示
 - (void)show {
@@ -448,5 +452,7 @@
 //MARK: - 销毁
 - (void) dealloc  {
     NSLog(@"%@ - ✅被销毁",self.class);
+    //移除观察者
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:kHXBNotification_fromCouponListToFinanctingPlan object:nil];
 }
 @end
