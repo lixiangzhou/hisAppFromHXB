@@ -45,6 +45,7 @@
         if (successDateBlock) {
             successDateBlock(self.withdrawRecordListModel);
         }
+        
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {
             failureBlock(error);
@@ -52,5 +53,6 @@
     }];
     
 }
+
 
 @end

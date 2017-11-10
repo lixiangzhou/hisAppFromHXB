@@ -167,7 +167,8 @@
                                          @"smscode" : smscode,
                                          @"amount" : amount
                                          };
-    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+
+    [versionUpdateAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
 //        NSInteger status =  [responseObject[@"status"] integerValue];
 //        if (status != 0) {

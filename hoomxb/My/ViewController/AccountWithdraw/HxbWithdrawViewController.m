@@ -516,7 +516,7 @@
         [self addSubview:self.bankCardNumLabel];
         [self addSubview:self.amountLimitLabel];
         [self addSubview:self.arrivalDateLabel];
-        [self getpaymentDate];
+//        [self getpaymentDate];
         [self setContentViewFrame];
     }
     return self;
@@ -525,18 +525,18 @@
 /**
  回去到账时间
  */
-- (void)getpaymentDate
-{
-    kWeakSelf
-    HXBWithdrawalsRequest *paymentDate = [[HXBWithdrawalsRequest alloc] init];
-    [paymentDate paymentDateRequestWithSuccessBlock:^(id responseObject) {
-        
-        weakSelf.arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:responseObject[@"data"][@"arrivalTime"] andDateFormat:@"yyyy-MM-dd"]];
-        
-    } andFailureBlock:^(NSError *error) {
-        
-    }];
-}
+//- (void)getpaymentDate
+//{
+//    kWeakSelf
+//    HXBWithdrawalsRequest *paymentDate = [[HXBWithdrawalsRequest alloc] init];
+//    [paymentDate paymentDateRequestWithSuccessBlock:^(id responseObject) {
+//
+//        weakSelf.arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:responseObject[@"data"][@"arrivalTime"] andDateFormat:@"yyyy-MM-dd"]];
+//
+//    } andFailureBlock:^(NSError *error) {
+//
+//    }];
+//}
 
 - (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
 {
@@ -544,6 +544,8 @@
     self.bankNameLabel.text = self.bankCardModel.bankType;
     self.bankCardNumLabel.text = [NSString stringWithFormat:@"(尾号%@)",[self.bankCardModel.cardId substringFromIndex:self.bankCardModel.cardId.length - 4]];
     self.bankLogoImageView.svgImageString = self.bankCardModel.bankCode;
+    
+    self.arrivalDateLabel.text = bankCardModel.bankArriveTimeText;
 }
 
 
@@ -571,7 +573,7 @@
 {
     if (!_arrivalDateLabel) {
         _arrivalDateLabel = [[UILabel alloc] init];
-        _arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] stringFromDate:[NSDate date] andDateFormat:@"yyyy-MM-dd"]];
+//        _arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] stringFromDate:[NSDate date] andDateFormat:@"yyyy-MM-dd"]];
         _arrivalDateLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _arrivalDateLabel.textColor = RGB(153, 153, 153);
     }

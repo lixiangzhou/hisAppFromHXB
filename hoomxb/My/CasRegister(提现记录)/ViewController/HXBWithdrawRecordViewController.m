@@ -123,15 +123,15 @@
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
-        [self.view addSubview:_nodataView];
         _nodataView.imageName = @"Fin_NotData";
         _nodataView.noDataMassage = @"暂无数据";
         _nodataView.userInteractionEnabled = NO;
+        [self.withdrawRecordTableView addSubview:_nodataView];
         //        _nodataView.downPULLMassage = @"下拉进行刷新";
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(kScrAdaptationH(100) + 64);
+            make.top.equalTo(self.withdrawRecordTableView).offset(kScrAdaptationH(100));
             make.height.width.equalTo(@(kScrAdaptationH(184)));
-            make.centerX.equalTo(self.view);
+            make.centerX.equalTo(self.withdrawRecordTableView);
         }];
     }
     return _nodataView;

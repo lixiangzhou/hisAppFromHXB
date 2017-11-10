@@ -38,38 +38,6 @@ static NSString *const my = @"我的";
 @end
 
 @implementation AppDelegate
-///懒加载主界面Tabbar
-- (HXBBaseTabBarController *)mainTabbarVC
-{
-    if (!_mainTabbarVC) {
-        _mainTabbarVC = [[HXBBaseTabBarController alloc]init];
-        _mainTabbarVC.selectColor = [UIColor redColor];///选中的颜色
-        _mainTabbarVC.normalColor = [UIColor grayColor];///平常状态的颜色
-        
-        NSArray *controllerNameArray = @[
-                                         @"HxbHomeViewController",//首页
-                                         @"HxbFinanctingViewController",//理财
-                                         @"HxbMyViewController"];//我的
-        //title 集合
-        NSArray *controllerTitleArray = @[home,financing,my];
-        NSArray *imageArray = @[@"home_Unselected.svg",@"investment_Unselected.svg",@"my_Unselected.svg"];
-        //选中下的图片前缀
-        NSArray *commonName = @[@"home_Selected.svg",@"investment_Selected.svg",@"my_Selected.svg"];
-        for (UIView *view in self.mainTabbarVC.tabBar.subviews) {
-            NSLog(@"view = %@", view);
-            if ([view isKindOfClass:[UIImageView class]] && view.bounds.size.height <= 1) {
-                UIImageView *ima = (UIImageView *)view;
-                ima.height = 0.000001;
-                //            ima.backgroundColor = [UIColor redColor];
-                ima.hidden = YES;
-            }
-        }
-        
-        [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
-
-    }
-    return _mainTabbarVC ;
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //设置启动页面停留时间
@@ -98,11 +66,6 @@ static NSString *const my = @"我的";
     
     return YES;
 }
-//设置UI友盟统计信息
-- (void)setupUmeng {
-    [HXBUmengManagar HXB_umengStart];
-    
-}
 
 // 检测外键传入的参数
 -(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url{
@@ -112,39 +75,45 @@ static NSString *const my = @"我的";
     return YES;
 }
 
-- (void)keyboardManager
-{
-    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
-    manager.enable = YES;
-    manager.shouldResignOnTouchOutside = YES;
-    manager.shouldToolbarUsesTextFieldTintColor = YES;
-    manager.enableAutoToolbar = NO;
+- (void)applicationWillResignActive:(UIApplication *)application {
+    //服务器时间与客户端时间的处理
+    [self serverAndClientTime];
 }
 
-- (void)checkversionUpdate
-{
-    kWeakSelf
-    NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
-    [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
-//        HXBVersionUpdateViewModel *versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
-        weakSelf.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
-//        versionUpdateVM.versionUpdateModel =  weakSelf.versionUpdateModel;
-    } andFailureBlock:^(NSError *error) {
-        
-    }];
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    //服务器时间与客户端时间的处理
+    [self serverAndClientTime];
+    self.exitTime = [NSDate date];
+    NSLog(@"%@",application);
+    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
 }
 
-
-#pragma mark - 判断app是否第一次启动，以及版本是否需要更新
-- (void)judgementApplication {
-    if([HXBBaseVersionUpdateManager isFirstStartUPAPP]) {
-        NSLog(@"第一次登录程序");
-        [KeyChain removeAllInfo];
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    //服务器时间与客户端时间的处理
+    [self serverAndClientTime];
+    
+    if ([self.versionUpdateModel.force isEqualToString:@"1"]) {
+        [HXBAlertManager checkversionUpdateWith:self.versionUpdateModel];
     }
+    
+    NSDate *nowTime = [NSDate date];
+    NSTimeInterval timeDifference = [nowTime timeIntervalSinceDate: self.exitTime];
+    if (timeDifference>300) {
+        [self enterTheGesturePasswordVC];
+    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_starCountDown object:nil];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    //服务器时间与客户端时间的处理
+    [self serverAndClientTime];
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
     
 }
 
+#pragma mark - 根视图控制器
 // 选择一个跟控制器
 - (void)chooseRootViewController
 {
@@ -168,8 +137,6 @@ static NSString *const my = @"我的";
     }
 }
 
-
-#pragma mark - 创建并设置根视图控制器
 - (void)creatRootViewController {
     
     _window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
@@ -207,9 +174,9 @@ static NSString *const my = @"我的";
     {
         _window.rootViewController = self.mainTabbarVC;
     }
-    
 }
 
+#pragma mark - 基本设置
 //根据服务器时间计算与本地时间的时间差
 - (void)serverAndClientTime {
     //......服务器请求数据
@@ -217,54 +184,81 @@ static NSString *const my = @"我的";
     HXBServerAndClientTime *serverAndClientTime = [HXBServerAndClientTime sharedServerAndClientTime];
     serverAndClientTime.serverTime = serverTime;
 }
-
-
-- (void)applicationWillResignActive:(UIApplication *)application {
-    //服务器时间与客户端时间的处理
-    [self serverAndClientTime];
-}
-
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    //服务器时间与客户端时间的处理
-    [self serverAndClientTime];
-    self.exitTime = [NSDate date];
-    NSLog(@"%@",application);
-    [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
-}
-
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    //服务器时间与客户端时间的处理
-    [self serverAndClientTime];
-    
-    if ([self.versionUpdateModel.force isEqualToString:@"1"]) {
-        [HXBAlertManager checkversionUpdateWith:self.versionUpdateModel];
+///
+- (void)judgementApplication {
+    if([HXBBaseVersionUpdateManager isFirstStartUPAPP]) {
+        NSLog(@"第一次登录程序");
+        [KeyChain removeAllInfo];
     }
-    
-    NSDate *nowTime = [NSDate date];
-    NSTimeInterval timeDifference = [nowTime timeIntervalSinceDate: self.exitTime];
-    if (timeDifference>300) {
-        [self enterTheGesturePasswordVC];
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_starCountDown object:nil];
 }
 
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    //服务器时间与客户端时间的处理
-    [self serverAndClientTime];
+//设置UI友盟统计信息
+- (void)setupUmeng {
+    [HXBUmengManagar HXB_umengStart];
 }
 
-
-- (void)applicationWillTerminate:(UIApplication *)application {
+- (void)keyboardManager
+{
+    IQKeyboardManager *manager = [IQKeyboardManager sharedManager];
+    manager.enable = YES;
+    manager.shouldResignOnTouchOutside = YES;
+    manager.shouldToolbarUsesTextFieldTintColor = YES;
+    manager.enableAutoToolbar = NO;
 }
-#pragma mark - 设置网路库的Config
+
+- (void)checkversionUpdate
+{
+    kWeakSelf
+    NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
+    HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
+    [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
+        //        HXBVersionUpdateViewModel *versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
+        weakSelf.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
+        //        versionUpdateVM.versionUpdateModel =  weakSelf.versionUpdateModel;
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
+}
+
 - (void)setNetworkConfig
 {
     NYNetworkConfig *config = [NYNetworkConfig sharedInstance];
     config.baseUrl = BASEURL;
     config.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+}
+
+#pragma mark - Lazy
+///懒加载主界面Tabbar
+- (HXBBaseTabBarController *)mainTabbarVC
+{
+    if (!_mainTabbarVC) {
+        _mainTabbarVC = [[HXBBaseTabBarController alloc]init];
+        _mainTabbarVC.selectColor = [UIColor redColor];///选中的颜色
+        _mainTabbarVC.normalColor = [UIColor grayColor];///平常状态的颜色
+        
+        NSArray *controllerNameArray = @[
+                                         @"HxbHomeViewController",//首页
+                                         @"HxbFinanctingViewController",//理财
+                                         @"HxbMyViewController"];//我的
+        //title 集合
+        NSArray *controllerTitleArray = @[home,financing,my];
+        NSArray *imageArray = @[@"home_Unselected.svg",@"investment_Unselected.svg",@"my_Unselected.svg"];
+        //选中下的图片前缀
+        NSArray *commonName = @[@"home_Selected.svg",@"investment_Selected.svg",@"my_Selected.svg"];
+        for (UIView *view in self.mainTabbarVC.tabBar.subviews) {
+            NSLog(@"view = %@", view);
+            if ([view isKindOfClass:[UIImageView class]] && view.bounds.size.height <= 1) {
+                UIImageView *ima = (UIImageView *)view;
+                ima.height = 0.000001;
+                //            ima.backgroundColor = [UIColor redColor];
+                ima.hidden = YES;
+            }
+        }
+        
+        [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
+        
+    }
+    return _mainTabbarVC ;
 }
 
 //- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:

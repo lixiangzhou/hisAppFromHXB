@@ -70,7 +70,7 @@ static NSString *CELLID = @"CELLID";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
-    cell.loanListViewModel = self.loanListViewModelArray[indexPath.row];
+    cell.loanListViewModel = self.loanListViewModelArray[indexPath.section];
     
     cell.lockPeriodLabel_ConstStr = self.lockPeriodLabel_ConstStr;
     cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;

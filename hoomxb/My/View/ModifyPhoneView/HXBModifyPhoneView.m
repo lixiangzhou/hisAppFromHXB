@@ -9,7 +9,7 @@
 #import "HXBModifyPhoneView.h"
 #import "HXBSignUPAndLoginRequest.h"
 #import "HXBCustomTextField.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 @interface HXBModifyPhoneView ()<UITextFieldDelegate>
 
 /**

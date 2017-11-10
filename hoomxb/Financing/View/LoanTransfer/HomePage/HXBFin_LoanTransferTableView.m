@@ -87,7 +87,7 @@ UITableViewDelegate,UITableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFin_TableViewCell_LoanTransfer *cell = [tableView dequeueReusableCellWithIdentifier:kcellClass forIndexPath:indexPath];
     
-    cell.LoanTruansferViewModel = self.loanTruansferViewModel[indexPath.row];
+    cell.LoanTruansferViewModel = self.loanTruansferViewModel[indexPath.section];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.clickStutasButtonBlock = ^(id model) {
         if (self.clickCellBlock) {
