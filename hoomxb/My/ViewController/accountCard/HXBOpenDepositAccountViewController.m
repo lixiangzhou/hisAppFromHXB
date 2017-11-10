@@ -193,7 +193,7 @@
         if (LL_iPhoneX) {
             _hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
         }
-        
+        self.automaticallyAdjustsScrollViewInsets = NO;
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
         [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
         _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];

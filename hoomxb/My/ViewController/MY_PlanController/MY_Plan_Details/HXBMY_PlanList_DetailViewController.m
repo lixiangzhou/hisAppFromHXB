@@ -61,7 +61,7 @@
         cake = 5;
     }
 
-    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:kVCViewFrame_64 andInfoHaveCake:cake];
+    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) andInfoHaveCake:cake];
     self.planDetailView = planDetailView;
     //tableView 的点击
     [self.planDetailView clickBottomTableViewCellBloakFunc:^(NSInteger index) {

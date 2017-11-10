@@ -84,7 +84,7 @@
 
 ///初始化展示网络数据的lable
 - (void)setUP {
-    self.planDetail_DetailView = [[HXBFinPlanDetail_DetailView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+    self.planDetail_DetailView = [[HXBFinPlanDetail_DetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
     [self.hxbBaseVCScrollView addSubview:self.planDetail_DetailView];
     self.hxbBaseVCScrollView.bounces = true;
 //    [self.planDetail_DetailView mas_makeConstraints:^(MASConstraintMaker *make) {
