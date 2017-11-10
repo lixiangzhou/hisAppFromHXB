@@ -25,40 +25,21 @@
 @end
 
 @implementation HXBAlertManager
-+ (void)alertManager_loginAgainAlertWithView: (UIView *)view {
-    UIViewController *vc = [self getCurrentViewControllerWithView:view];
-    [self reLoginAlertWithViewVC:vc];
-}
-//重新登录
-+ (void)reLoginAlertWithViewVC: (UIViewController *)vc {
-    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"登录异常" Massage:@"您的账户在另一台设备登录，您的账户密码可能泄露，如非您本人操作，请及时修改登录密码" force:2 andLeftButtonMassage:@"知道了" andRightButtonMassage:@"重新登录"];
++ (void)alertNeedLoginAgainWithMeaage:(NSString *)message {
+    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"登录异常" Massage:message force:2 andLeftButtonMassage:@"知道了" andRightButtonMassage:@"重新登录"];
     alertVC.messageHeight = 80;
     [alertVC setClickXYRightButtonBlock:^{
-        //到登录界面
+        ///到登录界面
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-        ///退出登录
-        [KeyChainManage sharedInstance].isLogin = false;
+        ///显示Home
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
     }];
     [alertVC setClickXYLeftButtonBlock:^{
-        ///退出登录
-        [KeyChainManage sharedInstance].isLogin = false;
+        ///显示Home
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
     }];
-    [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
 }
-/** 获取当前View的控制器对象 */
-+ (UIViewController *)getCurrentViewControllerWithView: (UIView *)view{
-    UIResponder *next = [view nextResponder];
-    do {
-        if ([next isKindOfClass:[UIViewController class]]) {
-            return (UIViewController *)next;
-        }
-        next = [next nextResponder];
-    } while (next != nil);
-    return nil;
-}
-
 
 /**
  判断购买 判断
