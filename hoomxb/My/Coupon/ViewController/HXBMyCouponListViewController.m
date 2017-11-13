@@ -81,7 +81,8 @@
          */
         _myView.actionButtonClickBlock = ^(){
             [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            [[NSNotificationCenter defaultCenter]postNotificationName:kHXBNotification_fromCouponListToFinanctingPlan object:nil];
+            //红利计划列表页
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
             [tabViewController setSelectedIndex:1];

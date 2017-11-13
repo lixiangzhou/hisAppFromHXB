@@ -28,6 +28,3 @@ NSString *const kHXBNotification_starCountDown = @"kHXBNotification_starCountDow
 //是否更新提示
 NSString *const kHXBNotification_update = @"kHXBNotification_update";
 
-//从优惠券调到制定投资类型 红利计划
-NSString *const kHXBNotification_fromCouponListToFinanctingPlan = @"kHXBNotification_fromCouponListToFinanctingPlan";
-
