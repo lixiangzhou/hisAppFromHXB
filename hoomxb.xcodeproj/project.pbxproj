@@ -19,6 +19,7 @@
 		288BAA091FAC593B009DF8AB /* HXBChooseCouponViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 288BAA021FAC593B009DF8AB /* HXBChooseCouponViewModel.m */; };
 		28B5D0241F711E9D00E2F486 /* HXBFin_Buy_ViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B5D0231F711E9D00E2F486 /* HXBFin_Buy_ViewModel.m */; };
 		28B5D0271F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 28B5D0261F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.m */; };
+		4E1196741FB95F91002C1D44 /* JXLayoutButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1196721FB95F91002C1D44 /* JXLayoutButton.m */; };
 		4E16D82F1E9CD0FE002A1881 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D82E1E9CD0FE002A1881 /* main.m */; };
 		4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8311E9CD0FE002A1881 /* AppDelegate.m */; };
 		4E16D8351E9CD0FE002A1881 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8341E9CD0FE002A1881 /* ViewController.m */; };
@@ -189,6 +190,7 @@
 		4EAEBF021F398E8400729389 /* HXBAssetsCustomVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAEBF011F398E8400729389 /* HXBAssetsCustomVIew.m */; };
 		4EAEBF051F39CC9D00729389 /* HXBProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAEBF041F39CC9D00729389 /* HXBProgressView.m */; };
 		4EAEBF081F39CCD500729389 /* HXBAccumulatedIncomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAEBF071F39CCD500729389 /* HXBAccumulatedIncomeView.m */; };
+		4EB15F081FB936CF004D10CF /* HXBUmengView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB15F071FB936CF004D10CF /* HXBUmengView.m */; };
 		4EB29C4F1F4A7AD800E33CDF /* YYCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB29C481F4A7AD800E33CDF /* YYCache.m */; };
 		4EB29C501F4A7AD800E33CDF /* YYDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB29C4A1F4A7AD800E33CDF /* YYDiskCache.m */; };
 		4EB29C511F4A7AD800E33CDF /* YYKVStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB29C4C1F4A7AD800E33CDF /* YYKVStorage.m */; };
@@ -536,6 +538,10 @@
 		28B5D0231F711E9D00E2F486 /* HXBFin_Buy_ViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Buy_ViewModel.m; sourceTree = "<group>"; };
 		28B5D0251F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMy_Withdraw_notifitionView.h; sourceTree = "<group>"; };
 		28B5D0261F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMy_Withdraw_notifitionView.m; sourceTree = "<group>"; };
+		4E1196721FB95F91002C1D44 /* JXLayoutButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JXLayoutButton.m; sourceTree = "<group>"; };
+		4E1196731FB95F91002C1D44 /* JXLayoutButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JXLayoutButton.h; sourceTree = "<group>"; };
+		4E1196751FB982E6002C1D44 /* HXBUmengViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUmengViewController.h; sourceTree = "<group>"; };
+		4E1196761FB982E6002C1D44 /* HXBUmengViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBUmengViewController.m; sourceTree = "<group>"; };
 		4E16D82A1E9CD0FE002A1881 /* hoomxb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hoomxb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E16D82E1E9CD0FE002A1881 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4E16D8301E9CD0FE002A1881 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -843,6 +849,8 @@
 		4EAEBF041F39CC9D00729389 /* HXBProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBProgressView.m; sourceTree = "<group>"; };
 		4EAEBF061F39CCD500729389 /* HXBAccumulatedIncomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAccumulatedIncomeView.h; sourceTree = "<group>"; };
 		4EAEBF071F39CCD500729389 /* HXBAccumulatedIncomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAccumulatedIncomeView.m; sourceTree = "<group>"; };
+		4EB15F061FB936CF004D10CF /* HXBUmengView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUmengView.h; sourceTree = "<group>"; };
+		4EB15F071FB936CF004D10CF /* HXBUmengView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBUmengView.m; sourceTree = "<group>"; };
 		4EB29C471F4A7AD800E33CDF /* YYCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCache.h; sourceTree = "<group>"; };
 		4EB29C481F4A7AD800E33CDF /* YYCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCache.m; sourceTree = "<group>"; };
 		4EB29C491F4A7AD800E33CDF /* YYDiskCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYDiskCache.h; sourceTree = "<group>"; };
@@ -1755,6 +1763,7 @@
 		4E45F4261F4FC05C009708B7 /* HXBUmengManagar */ = {
 			isa = PBXGroup;
 			children = (
+				4EB15EFF1FB935EC004D10CF /* HXBUmengUShareUI */,
 				4E45F4271F4FC05C009708B7 /* HXBUmengManagar.h */,
 				4E45F4281F4FC05C009708B7 /* HXBUmengManagar.m */,
 				4E2BACA61FB2EE3A002A3C82 /* HXBUMengShareManager.h */,
@@ -2386,6 +2395,27 @@
 				4EAB3EDF1EEA3D3E00E3924E /* HXBModifyTransactionPasswordRequest.m */,
 			);
 			path = HXBTransactionPassword;
+			sourceTree = "<group>";
+		};
+		4EB15EFF1FB935EC004D10CF /* HXBUmengUShareUI */ = {
+			isa = PBXGroup;
+			children = (
+				4EB15F051FB936A8004D10CF /* View */,
+				4E1196751FB982E6002C1D44 /* HXBUmengViewController.h */,
+				4E1196761FB982E6002C1D44 /* HXBUmengViewController.m */,
+			);
+			path = HXBUmengUShareUI;
+			sourceTree = "<group>";
+		};
+		4EB15F051FB936A8004D10CF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E1196731FB95F91002C1D44 /* JXLayoutButton.h */,
+				4E1196721FB95F91002C1D44 /* JXLayoutButton.m */,
+				4EB15F061FB936CF004D10CF /* HXBUmengView.h */,
+				4EB15F071FB936CF004D10CF /* HXBUmengView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		4EB29C461F4A7AD800E33CDF /* YYCache */ = {
@@ -4852,6 +4882,7 @@
 				E122D8531EA0CAB900DC71ED /* NSString+HxbMask.m in Sources */,
 				E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */,
 				4E9345581EFE48C300D2886B /* HXBModifyPhoneRequest.m in Sources */,
+				4E1196741FB95F91002C1D44 /* JXLayoutButton.m in Sources */,
 				4E99824E1F026C3600CABA59 /* HXBMY_AllFinanceView.m in Sources */,
 				28B5D0271F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.m in Sources */,
 				4E559B541F0FB98E003D9982 /* HXBRechargeFailView.m in Sources */,
@@ -4934,6 +4965,7 @@
 				288BAA031FAC593B009DF8AB /* HXBChooseDiscountCouponViewController.m in Sources */,
 				E122D8521EA0CAB900DC71ED /* NSString+HxbHash.m in Sources */,
 				4EBE19471F73D02800AB5AB6 /* HXBTransferConfirmModel.m in Sources */,
+				4EB15F081FB936CF004D10CF /* HXBUmengView.m in Sources */,
 				E18B68A81EC9D3D80047E458 /* HXBMainListView_Plan.m in Sources */,
 				4ED2F2781ECAD0BA0014E5C7 /* HXBMyBankCell.m in Sources */,
 				E11EF1751F395D76009027E1 /* HXBMY_Loan_TableView.m in Sources */,
