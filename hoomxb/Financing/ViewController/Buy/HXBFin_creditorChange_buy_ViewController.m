@@ -103,7 +103,7 @@ static NSString *const bankString = @"绑定银行卡";
     [self setUpDate];
     [self getBankCardLimit];
     [self hasBestCouponRequest];
-    
+    // 根据输入框的金额判断投资按钮是否可以点击
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
 }
 
@@ -113,7 +113,10 @@ static NSString *const bankString = @"绑定银行卡";
     [self getNewUserInfo];
 }
 
+
 - (void)buildUI {
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY) style:(UITableViewStylePlain)];
     if (LL_iPhoneX) {
         self.hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
@@ -214,9 +217,6 @@ static NSString *const bankString = @"绑定银行卡";
             }
         } else {
             self.bottomView.clickBtnStr = bankString;
-            if (_type == HXB_Plan) {
-                self.bottomView.clickBtnStr = @"立即加入";
-            }
         }
         _balanceTitle = @"可用余额（余额不足）";
     } else {
@@ -232,44 +232,7 @@ static NSString *const bankString = @"绑定银行卡";
     [self setUpArray];
 }
 
-- (UIView *)footTableView {
-    kWeakSelf
-    _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
-    if (_type == HXB_Plan) {
-        _bottomView.delegateLabelText = @"红利计划服务协议》,《网络借贷协议书";
-    } else if (_type == HXB_Loan) {
-        _bottomView.delegateLabelText = @"借款合同》,《网络借贷协议书";
-    } else {
-        _bottomView.delegateLabelText = @"债权转让及受让协议》,《网络借贷协议书";
-    }
-    _bottomView.delegateBlock = ^(NSInteger index) {
-        if (index == 1) {
-            if (_type == HXB_Plan) {
-                HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-                vc.URL = kHXB_Negotiate_ServePlanURL;
-                [weakSelf.navigationController pushViewController:vc animated:true];
-            } else if (_type == HXB_Loan) {
-                HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-                vc.URL = kHXB_Negotiate_ServeLoanURL;
-                [weakSelf.navigationController pushViewController:vc animated:true];
-            } else {
-                HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-                vc.URL = kHXB_Negotiate_LoanTruansferURL;
-                [weakSelf.navigationController pushViewController:vc animated:true];
-            }
-        } else {
-//            [HxbHUDProgress showTextWithMessage:@"暂无URL"];
-            HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-            vc.URL = kHXB_Agreement_Hint;
-            [weakSelf.navigationController pushViewController:vc animated:true];
-        }
-    };
-    _bottomView.addBlock = ^(NSString *investMoney) {
-        _btnLabelText = investMoney;
-        [weakSelf clickAddBtn];
-    };
-    return _bottomView;
-}
+
 
 - (void)clickAddBtn {
     [_topView endEditing:YES];
@@ -1081,21 +1044,42 @@ static NSString *const bankString = @"绑定银行卡";
     return _model;
 }
 
-- (UITableView *)hxbBaseVCScrollView {
-    if (!_hxbBaseVCScrollView) {
-        
-        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
-        if (LL_iPhoneX) {
-            _hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
-        }
-        
-        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
-        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
-        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
+- (UIView *)footTableView {
+    kWeakSelf
+    _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
+    if (_type == HXB_Plan) {
+        _bottomView.delegateLabelText = @"红利计划服务协议》,《网络借贷协议书";
+    } else if (_type == HXB_Loan) {
+        _bottomView.delegateLabelText = @"借款合同》,《网络借贷协议书";
+    } else {
+        _bottomView.delegateLabelText = @"债权转让及受让协议》,《网络借贷协议书";
     }
-    return _hxbBaseVCScrollView;
+    _bottomView.delegateBlock = ^(NSInteger index) {
+        if (index == 1) {
+            if (_type == HXB_Plan) {
+                HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+                vc.URL = kHXB_Negotiate_ServePlanURL;
+                [weakSelf.navigationController pushViewController:vc animated:true];
+            } else if (_type == HXB_Loan) {
+                HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+                vc.URL = kHXB_Negotiate_ServeLoanURL;
+                [weakSelf.navigationController pushViewController:vc animated:true];
+            } else {
+                HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+                vc.URL = kHXB_Negotiate_LoanTruansferURL;
+                [weakSelf.navigationController pushViewController:vc animated:true];
+            }
+        } else {
+            HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+            vc.URL = kHXB_Agreement_Hint;
+            [weakSelf.navigationController pushViewController:vc animated:true];
+        }
+    };
+    _bottomView.addBlock = ^(NSString *investMoney) {
+        _btnLabelText = investMoney;
+        [weakSelf clickAddBtn];
+    };
+    return _bottomView;
 }
 
 
