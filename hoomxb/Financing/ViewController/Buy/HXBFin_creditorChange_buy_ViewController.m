@@ -131,7 +131,6 @@ static NSString *const bankString = @"绑定银行卡";
     self.hxbBaseVCScrollView.dataSource = self;
     self.hxbBaseVCScrollView.rowHeight = kScrAdaptationH750(110.5);
     [self.view addSubview:self.hxbBaseVCScrollView];
-    [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
     [self.hxbBaseVCScrollView reloadData];
 }
 
@@ -564,8 +563,8 @@ static NSString *const bankString = @"绑定银行卡";
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
             [self.navigationController popToRootViewControllerAnimated:true];
         }];
-        [self.navigationController pushViewController:planBuySuccessVC animated:true];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
+        [self.navigationController pushViewController:planBuySuccessVC animated:true];
     } andFailureBlock:^(NSError *error, NSInteger status) {
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
         failViewController.title = @"投资结果";
