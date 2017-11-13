@@ -96,21 +96,9 @@
     
     
     switch (request.responseStatusCode) {
-        case kHXBCode_Enum_NotSigin:///没有登录
-        case kHXBCode_Enum_TokenNotJurisdiction://没有权限
-            if (KeyChain.isLogin) {
-//                //弹出是否 登录
-//                //                [[KeyChainManage sharedInstance] signOut];
-//                UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-//                UIViewController *VC = nil;
-//                if ([tbVC isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
-//                    UINavigationController *NAV = tbVC.selectedViewController;
-//                    VC = NAV.viewControllers.lastObject;
-//                }else{
-//                    VC = tbVC;
-//                }
-//                [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
-            }
+        case kHXBCode_Enum_NotSigin:/// 没有登录
+        case kHXBCode_Enum_TokenNotJurisdiction:// token 失效
+            [self tokenInvidateProcess];
             return;
         case kHXBCode_Enum_RequestOverrun:
         {
