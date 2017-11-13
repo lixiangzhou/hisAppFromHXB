@@ -33,20 +33,20 @@
     [super viewDidLoad];
     self.title = @"提现进度";
     self.isRedColorWithNavigationBar = YES;
-    [self loadCashRegisterData];
+    [self loadCashRegisterData:YES];
     [self.view addSubview:self.withdrawRecordTableView];
     [self nodataView];
 }
 #pragma mark - Events
 ///无网状态的网络连接
 - (void)getNetworkAgain {
-    [self loadCashRegisterData];
+    [self loadCashRegisterData:YES];
 }
 #pragma mark - Private
 //加载数据
-- (void)loadCashRegisterData {
+- (void)loadCashRegisterData:(BOOL)isShowLoading {
     kWeakSelf
-    [self.withdrawRecordViewModel casRegisteRequestSuccessBlock:^(HXBWithdrawRecordListModel *withdrawRecordListModel) {
+    [self.withdrawRecordViewModel withdrawRecordProgressRequestWithLoading:isShowLoading andSuccessBlock:^(HXBWithdrawRecordListModel *withdrawRecordListModel) {
         [weakSelf isHaveData];
         [weakSelf.withdrawRecordTableView reloadData];
         [weakSelf endRefreshing];
@@ -106,7 +106,7 @@
         _withdrawRecordTableView.dataSource = self;
         _withdrawRecordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_withdrawRecordTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-            [self loadCashRegisterData];
+            [self loadCashRegisterData:NO];
         } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
             
         }];

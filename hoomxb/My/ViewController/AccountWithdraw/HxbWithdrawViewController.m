@@ -76,13 +76,6 @@
     [self loadBankCard];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    self.amountTextField.text = @"";
-    self.nextButton.backgroundColor = COR12;
-    self.nextButton.userInteractionEnabled = NO;
-}
 
 
 #pragma mark - Events
@@ -234,15 +227,14 @@
 
 - (void)nextButtonClick:(UIButton *)sender{
     self.withdrawModel.bankCard.amount = self.amountTextField.text;
-    if ([_amountTextField.text doubleValue] < self.withdrawModel.minWithdrawAmount) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"提现金额不能小于%d元",self.withdrawModel.minWithdrawAmount]];
-        return;
-    }
     if ([_amountTextField.text doubleValue] > self.withdrawModel.balanceAmount) {
         [HxbHUDProgress showTextWithMessage:@"余额不足"];
         return;
     }
-    
+    if ([_amountTextField.text doubleValue] < self.withdrawModel.minWithdrawAmount) {
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"提现金额不能小于%d元",self.withdrawModel.minWithdrawAmount]];
+        return;
+    }
     [self withdrawSmscode];
     
 }
@@ -274,6 +266,14 @@
     //第一个参数，被替换字符串的range，第二个参数，即将键入或者粘贴的string，返回的是改变过后的新str，即textfield的新的文本内容
     NSString *checkStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
     return [NSString checkBothDecimalPlaces:checkStr];
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    if (textField == self.amountTextField) {
+        self.nextButton.backgroundColor = COR12;
+        self.nextButton.userInteractionEnabled = NO;
+    }
+    return YES;
 }
 
 - (void)loadBankCard
