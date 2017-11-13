@@ -61,7 +61,7 @@
         cake = 5;
     }
 
-    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:kVCViewFrame_64 andInfoHaveCake:cake];
+    HXBMY_PlanDetailView *planDetailView = [[HXBMY_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) andInfoHaveCake:cake];
     self.planDetailView = planDetailView;
     //tableView 的点击
     [self.planDetailView clickBottomTableViewCellBloakFunc:^(NSInteger index) {
@@ -199,7 +199,7 @@
         
         _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         if (LL_iPhoneX) {
-            _hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+            _hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
         }
         
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];

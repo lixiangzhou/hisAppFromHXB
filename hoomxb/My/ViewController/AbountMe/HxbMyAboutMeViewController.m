@@ -30,6 +30,7 @@ UITableViewDelegate,UITableViewDataSource
     [super viewDidLoad];
     self.title = @"关于我们";
     [self.view addSubview:self.tableView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self setupSubViewFrame];
 }
 

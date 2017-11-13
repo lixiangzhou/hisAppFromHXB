@@ -31,3 +31,7 @@ CGFloat const HxbControlNormalHeight = 36;
 
 /** 8.tabBar的高度 49*/
 CGFloat const HxbTabBarHeight = 49;
+
+/** 9.iPhone X导航栏的最大的Y值 88*/
+CGFloat const HxbNavigationBarMaxY = 88;
+

@@ -113,7 +113,7 @@
 {
     if (!_mainTabelView) {
         kWeakSelf
-        _mainTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        _mainTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
         _mainTabelView.delegate = self;
         _mainTabelView.dataSource = self;
         _mainTabelView.hidden = YES;

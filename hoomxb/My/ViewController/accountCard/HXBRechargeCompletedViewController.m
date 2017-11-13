@@ -37,7 +37,7 @@
 {
     if (!_rechargesuccessView) {
         kWeakSelf
-        _rechargesuccessView = [[HXBRechargesuccessView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        _rechargesuccessView = [[HXBRechargesuccessView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
         //继续充值Block
         _rechargesuccessView.continueRechargeBlock = ^{
             [weakSelf.navigationController popViewControllerAnimated:YES];

@@ -62,7 +62,7 @@
     [self.myTopUpHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
-        make.top.equalTo(self.mas_top).offset(64);
+        make.top.equalTo(self.mas_top).offset(HxbNavigationBarY);
         make.height.offset(kScrAdaptationH750(80));
     }];
     
