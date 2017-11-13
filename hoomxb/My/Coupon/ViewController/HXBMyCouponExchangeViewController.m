@@ -224,19 +224,6 @@
     return _redeemCodeLab;
 }
 
-
-//- (HXBCustomTextField *)redeemCodeTextField{
-//    if (!_redeemCodeTextField) {
-//        _redeemCodeTextField = [[HXBCustomTextField alloc]initWithFrame:CGRectMake(kScrAdaptationW750(146), kScrAdaptationH750(44), kScrAdaptationW750(750-146), kScrAdaptationH750(32))];
-//        _redeemCodeTextField.placeholder = @"请输入兑换码";
-//        _redeemCodeTextField.delegate = self;
-//        _redeemCodeTextField.textColor = RGBA(51, 51, 51, 1);
-//        _redeemCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
-////        _redeemCodeTextField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
-//    }
-//    return _redeemCodeTextField;
-//}
-
 - (UIView *)bgView{
     if (!_bgView) {
         _bgView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(0), kScrAdaptationH750(40), SCREEN_WIDTH, kScrAdaptationH750(120))];
@@ -248,59 +235,5 @@
 }
 
 #pragma mark - Other
-
-//- (BOOL)isPureInt:(NSString *)string{
-//    NSScanner* scan = [NSScanner scannerWithString:string];
-//    int val;
-//    return [scan scanInt:&val] && [scan isAtEnd];
-//
-//}
-
-/**
- *  Description 0-9 A-Z a-z
- *  @param string 匹配输入的字符串
- */
-- (BOOL)judgeTextFieldInputString:(NSString *)string{
-    if (!string||[string isEqualToString:@""]) {
-        return NO;
-    }
-    //    for (int i = 0; i < string.length; i++) { //避免修正时不扫描
-    //        NSString *subString = [string substringWithRange:NSMakeRange(i, 1)];
-    //        if ([subString isEqualToString:@" "]) {
-    //            continue;
-    //        }
-    //        int ascii = [subString characterAtIndex:0];
-    //        if (![self judgeTextFieldInputCStringASCII:ascii]) {
-    //            return NO;
-    //            break;
-    //        }
-    //    }
-    if ([string isEqualToString:@" "]) {
-        return NO;
-    }
-    return YES;
-}
-
-- (BOOL)judgeTextFieldInputCStringASCII:(int)ascii{
-    
-    int ascii_a = [@"a" characterAtIndex:0];//转ASCII码
-    int ascii_z = [@"z" characterAtIndex:0];
-    
-    int ascii_A = [@"A" characterAtIndex:0];
-    int ascii_Z = [@"Z" characterAtIndex:0];
-    
-    int ascii_0 = [@"0" characterAtIndex:0];
-    int ascii_9 = [@"9" characterAtIndex:0];
-    
-    //    int ascii = [string characterAtIndex:0];
-    if( ascii >= ascii_A && ascii <= ascii_Z){
-        return YES;
-    }else if( ascii >= ascii_a && ascii <= ascii_z){
-        return YES;
-    }else if( ascii >= ascii_0 && ascii <= ascii_9){
-        return YES;
-    }
-    return NO;
-}
 
 @end
