@@ -13,7 +13,7 @@
 #import "HXBRequestUserInfo.h"
 
 #define kGesturePwd self.keychain[kMobile]
-#define kSiginPwd self.keychain[kMobile]
+#define kSiginPwd @"HXBSinInCount"
 
 static NSString * const kService = @"www.hoomxb.com";
 //注册时返回的信息
@@ -80,7 +80,7 @@ static NSString *const hostH5 = @"hostH5";
 @interface KeyChainManage ()
 
 @property (nonatomic, strong) UICKeyChainStore *keychain;
-//UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:kService];
+
 ///	double	总资产
 @property (nonatomic,copy) NSString *assetsTotal;
 ///	double	累计收益
@@ -133,24 +133,14 @@ static NSString *const hostH5 = @"hostH5";
     dispatch_once(&once, ^{
         sharedInstance = [[self alloc] init];
         sharedInstance.keychain = [UICKeyChainStore keyChainStoreWithService:kService];
-        
     });
     
     return sharedInstance;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        self.gesturePwd = @"";
-    }
-    return self;
-}
-
 #pragma mark - 常用方法
 
-- (void) setValueWithUserInfoModel: (HXBRequestUserInfoViewModel *)userInfoViewModel {
+- (void)setValueWithUserInfoModel: (HXBRequestUserInfoViewModel *)userInfoViewModel {
     
     //是否实名
     _isVerify = userInfoViewModel.userInfoModel.userInfo.isAllPassed;
@@ -560,8 +550,7 @@ static NSString *const hostH5 = @"hostH5";
     KeyChainManage *manager = KeyChain;
     [manager.keychain removeItemForKey:kLoginPwd];
     [manager.keychain removeItemForKey:kTradePwd];
-    [manager.keychain removeItemForKey:kGesturePwd];
-    [manager.keychain removeItemForKey:kGesturePwdCount];
+    [self removeGesture];
 }
 
 - (void)removeGesture
@@ -594,17 +583,6 @@ static NSString *const hostH5 = @"hostH5";
     [manager.keychain removeItemForKey:kCiphertext];
 }
 
-- (void)printAllInfo
-{
-    /*
-    KeyChainManage *manager = KeyChain;
-    DLog(@"kcManager-info:\n{\n phone:%@\n token:%@\n userId:%@\n inviteCode:%@\n loginpwd:%@\n tradepwd:%@\n realName:%@\n realID:%@\n bankArr:%@\n}",manager.phone,manager.token,manager.userId,manager.inviteCode,manager.loginPwd,manager.tradePwd,manager.realName,manager.realId,manager.bankNumArr);
-   DLog(@"keychain-realinfo:\nallkey:%@,\nallitem:%@",manager.keychain.allKeys,manager.keychain.allItems);
-    DLog(@"kc-bankArr:%@\nkc-token:%@",[NSKeyedUnarchiver unarchiveObjectWithData:[manager.keychain dataForKey:kBankNumArr]],manager.keychain[kToken]);
-    DLog(@"manager.bankarr:%@",manager.bankNumArr);
-     **/
-}
-
 #pragma mark - KVC
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
@@ -628,6 +606,7 @@ static NSString *const hostH5 = @"hostH5";
 - (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock {
     if (!self.isLogin) {
         isLoginInRealTimeBlock (false);
+        return;
     }
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         if (isLoginInRealTimeBlock) {
@@ -641,7 +620,7 @@ static NSString *const hostH5 = @"hostH5";
     }];
 }
 
-- (void) setMobile:(NSString *)mobile {
+- (void)setMobile:(NSString *)mobile {
     _mobile = mobile;
     self.keychain[kMobile] = mobile;
 }
