@@ -40,63 +40,6 @@
  */
 @property (nonatomic, copy) NSString *h5host;
 
-/*
-@property (nonatomic, copy) NSString  *token;
-@property (nonatomic, copy) NSString  *phone;
-
-@property (nonatomic, copy) NSString  *inviteCode;
-
-@property (nonatomic, copy) NSString  *loginPwd;
-///交易密码
-@property (nonatomic, copy) NSString  *tradePwd;
-///手势密码
-@property (nonatomic, copy) NSString  *gesturePwd;
-///手势密码输入的次数
-@property (nonatomic, copy) NSString  *gesturePwdCount;
-///身份证
-@property (nonatomic, copy) NSString  *realId;           //!< 身份证
-///姓名
-@property (nonatomic, copy) NSString  *realName;//!<
-///银行卡名
-@property (nonatomic, copy) NSString  *defBankNum;
-///头像url
-@property (nonatomic, copy) NSString  *avatarImageURL;
-///头像的data
-@property (nonatomic, copy) NSData    *localAvatarImageData;
-
-@property (nonatomic, strong) NSArray *bankNumArr;
-
-@property (nonatomic, assign, readonly) BOOL isLogin;
-///总资产
-@property (nonatomic, strong) NSString *assetsTotal;
-
-
-
-///	是否安全认证
-@property (nonatomic,copy) NSString *isVerify;
-
-
-///是否绑卡
-@property (nonatomic,copy) NSString *isBindCard;
-///isCashPasswordPassed
-@property (nonatomic,copy) NSString *isCashPasswordPassed;
-///isIdPassed	String	是否实名
-@property (nonatomic,copy) NSString *isIdPassed;
-///是否手机号
-@property (nonatomic,copy) NSString *isMobilePassed;
-///用户手机号
-@property (nonatomic,copy) NSString *mobile;
-///用户id
-@property (nonatomic,copy) NSString *userId;
-///username	String	用户名称
-@property (nonatomic,copy) NSString *userName;
-///真实姓名
-@property (nonatomic,copy) NSString *realName;
-///idNo
-@property (nonatomic,copy) NSString *idNo;
- */
-
-
 ///是否登录
 - (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock;
 
@@ -148,17 +91,10 @@
 ///	是否安全认证
 - (void) isVerifyWithBlock: (void(^)(NSString *isVerify))isVerifyBlock;
 
-///信息赋值
-- (void) setValueWithUserInfoModel: (HXBRequestUserInfoViewModel *)userInfoViewModel;
-
 /// 用户信息的请求
 - (void)downLoadUserInfoWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure;
 /// 用户信息的请求-无加载状态
 - (void)downLoadUserInfoNoHUDWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure;
-/*
- 储存号码
- */
-- (void) setMobile:(NSString *)mobile;
 
 - (void)removePassword;     //!< 移除密码
 
@@ -179,8 +115,6 @@
 - (BOOL)isSwitchOn;         //!<手势密码是否开启
 
 - (BOOL)hasBindBankcard;    //!<已经绑定了银行卡
-
-- (void)printAllInfo;
 
 - (BOOL)isInvest;
 
