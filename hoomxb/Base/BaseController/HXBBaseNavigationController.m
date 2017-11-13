@@ -53,8 +53,9 @@
 #pragma mark - Setter
 - (void)setEnableFullScreenGesture:(BOOL)enableFullScreenGesture {
     _enableFullScreenGesture = enableFullScreenGesture;
-    
-    [self.interactivePopGestureRecognizer.view addGestureRecognizer:self.fullScreenGesture];
+    if (self.fullScreenGesture) {
+        [self.interactivePopGestureRecognizer.view addGestureRecognizer:self.fullScreenGesture];
+    }
     self.fullScreenGesture.enabled = enableFullScreenGesture;
 }
 
