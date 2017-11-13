@@ -65,12 +65,6 @@
 
 - (void)leftBackBtnClick
 {
-    for (UIViewController *vc in self.navigationController.viewControllers) {
-        if ([vc isKindOfClass:NSClassFromString(@"HXBFinancing_PlanDetailsViewController")]) {
-             [self.navigationController popToViewController:vc animated:YES];
-            return;
-        }
-    }
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
