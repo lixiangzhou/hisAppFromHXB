@@ -10,7 +10,7 @@
 #import "HXBCheckCaptcha.h"
 #import "HXBSignUPAndLoginRequest.h"
 #import   "UIImageView+WebCache.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 
 @interface HXBCheckCaptchaViewController ()
 @property (nonatomic, strong) Animatr *animatrManager;
@@ -73,10 +73,7 @@
 
 //设置
 - (void) setUP {
-//    self.hxbBaseVCScrollView.backgroundColor = [UIColor clearColor];
-//    [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
-//        [self.hxbBaseVCScrollView endEditing:true];
-//    }];
+
     [self setUPSubView];//设置图层
     [self downCheckCaptcha];//请求图验
     [self clickTrueButtonEvent];//点击了确认按钮

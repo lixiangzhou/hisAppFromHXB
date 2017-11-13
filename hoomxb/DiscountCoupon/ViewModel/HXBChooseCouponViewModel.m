@@ -7,6 +7,7 @@
 //
 
 #import "HXBChooseCouponViewModel.h"
+#import "NYHTTPConnection.h"
 
 @implementation HXBChooseCouponViewModel
 
@@ -17,7 +18,7 @@
     accountAsseAPI.requestMethod = NYRequestMethodPost;
     accountAsseAPI.requestUrl = kHXB_Coupon_Query;
     accountAsseAPI.requestArgument = params;
-    [accountAsseAPI startWithHUDStr:@"加载中..." Success:^(NYBaseRequest *request, id responseObject) {
+    [accountAsseAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
         NSDictionary *baseDic = [responseObject valueForKey:@"data"];
         HXBChooseCouponModel *model = [[HXBChooseCouponModel alloc]init];
         [model yy_modelSetWithDictionary:baseDic];
@@ -26,16 +27,15 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (error && failureBlock) {
-            NSLog(@"✘ 首页资金等- 请求没有数据");
             failureBlock(error);
         }
     }];
 }
 
 // 购买匹配最优优惠券
-+ (void)requestBestCouponWithParams: (NSDictionary *)params
-             andSuccessBlock: (void(^)(HXBBestCouponModel *model))successDateBlock
-             andFailureBlock: (void(^)(NSError *error))failureBlock {
++ (NSURLSessionDataTask *)requestBestCouponWithParams: (NSDictionary *)params
+                                      andSuccessBlock: (void(^)(HXBBestCouponModel *model))successDateBlock
+                                      andFailureBlock: (void(^)(NSError *error))failureBlock {
     NYBaseRequest *accountAsseAPI = [[NYBaseRequest alloc]init];
     accountAsseAPI.requestMethod = NYRequestMethodPost;
     accountAsseAPI.requestUrl = kHXB_Coupon_Best;
@@ -49,9 +49,9 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (error && failureBlock) {
-            NSLog(@"最优优惠券请求没有数据");
             failureBlock(error);
         }
     }];
+    return accountAsseAPI.connection.task; // 返回当前的请求任务
 }
 @end

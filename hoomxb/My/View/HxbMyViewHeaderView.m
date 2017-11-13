@@ -7,7 +7,7 @@
 //
 
 #import "HxbMyViewHeaderView.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import "HXBMyRequestAccountModel.h"
 @interface HxbMyViewHeaderView ()
 

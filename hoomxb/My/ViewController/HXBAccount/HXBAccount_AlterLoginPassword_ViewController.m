@@ -31,7 +31,7 @@
 kWeakSelf
     self.alterLoginPasswordView = [[HXBAccount_AlterLoginPassword_View alloc]init];
     [self.view addSubview:self.alterLoginPasswordView];
-    self.alterLoginPasswordView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
+    self.alterLoginPasswordView.frame = CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY);
     
     [self.alterLoginPasswordView clickAlterButtonWithBlock:^(NSString *password_Original, NSString *password_New) {
         //验证密码

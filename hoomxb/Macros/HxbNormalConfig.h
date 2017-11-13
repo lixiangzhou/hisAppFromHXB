@@ -32,3 +32,7 @@ UIKIT_EXTERN CGFloat const HxbControlNormalHeight;
 /** 8.tabBar的高度 49*/
 UIKIT_EXTERN CGFloat const HxbTabBarHeight;
 
+/** 9.iPhone X导航栏的最大的Y值 88*/
+UIKIT_EXTERN CGFloat const HxbNavigationBarMaxY;
+
+

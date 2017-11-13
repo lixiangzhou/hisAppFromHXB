@@ -56,7 +56,7 @@
             weakSelf.myView.hidden = YES;
         }
         [weakSelf.view addSubview:weakSelf.noNetworkStatusView];
-        weakSelf.isHiddennNoNetworkStatusView = NO;
+        weakSelf.noNetworkStatusView.hidden = NO;//weakSelf.isHiddennNoNetworkStatusView = NO;
     }];
 }
 

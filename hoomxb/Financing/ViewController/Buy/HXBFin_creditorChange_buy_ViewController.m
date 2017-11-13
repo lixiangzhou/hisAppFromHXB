@@ -25,9 +25,7 @@
 #import "HXBChooseCouponViewModel.h"
 #import "HXBCouponModel.h"
 
-static NSString *const topupString = @"余额不足，需充值投资";
 static NSString *const bankString = @"绑定银行卡";
-static NSString *const investString = @"立即投资";
 
 
 @interface HXBFin_creditorChange_buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
@@ -85,6 +83,11 @@ static NSString *const investString = @"立即投资";
 @property (nonatomic, copy) NSString *couponid;
 /** 是否获取到优惠券 */
 @property (nonatomic, assign) BOOL hasGetCoupon;
+
+@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+/** 发送请求的任务 */
+@property (nonatomic, strong) NSURLSessionDataTask *dataTask;
 @end
 
 @implementation HXBFin_creditorChange_buy_ViewController
@@ -110,11 +113,10 @@ static NSString *const investString = @"立即投资";
     [self getNewUserInfo];
 }
 
-
 - (void)buildUI {
-    self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:(UITableViewStylePlain)];
+    self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY) style:(UITableViewStylePlain)];
     if (LL_iPhoneX) {
-        self.hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+        self.hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
     }
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.hxbBaseVCScrollView.tableFooterView = [self footTableView];
@@ -170,6 +172,7 @@ static NSString *const investString = @"立即投资";
                     [weakSelf setUpArray];
                 }
             } else {
+                [weakSelf.dataTask cancel];
                 _discountTitle = @"未使用";
                 _couponid = @" ";
                 _hasBestCoupon = NO;
@@ -211,13 +214,16 @@ static NSString *const investString = @"立即投资";
             }
         } else {
             self.bottomView.clickBtnStr = bankString;
+            if (_type == HXB_Plan) {
+                self.bottomView.clickBtnStr = @"立即加入";
+            }
         }
         _balanceTitle = @"可用余额（余额不足）";
     } else {
-        self.bottomView.clickBtnStr = investString;
+        self.bottomView.clickBtnStr = @"立即投资";
         _balanceTitle = @"可用余额";
         if (_type == HXB_Plan) {
-            self.bottomView.clickBtnStr = investString;
+            self.bottomView.clickBtnStr = @"立即加入";
         }
     }
     if (_type == HXB_Plan) {
@@ -925,7 +931,10 @@ static NSString *const investString = @"立即投资";
     cell.isStartAnimation = YES;
     _hasGetCoupon = YES;
     self.bottomView.addBtnIsUseable = NO;
-    [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
+    if (_dataTask) {
+        [_dataTask cancel];
+    }
+    _dataTask = [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
         cell.isStartAnimation = NO;
         _hasGetCoupon = NO;
         self.bottomView.addBtnIsUseable = YES;
@@ -952,11 +961,15 @@ static NSString *const investString = @"立即投资";
         [self setUpArray];
         [self changeItemWithInvestMoney:money];
     } andFailureBlock:^(NSError *error) {
-        _hasBestCoupon = NO;
-        cell.isStartAnimation = NO;
-        _discountTitle = @"请选择优惠券";
-        [self setUpArray];
-        [self changeItemWithInvestMoney:money];
+        if (error.code == kHXBPurchase_Processing) { // 请求任务取消
+            cell.isStartAnimation = YES;
+        } else {
+            _hasBestCoupon = NO;
+            cell.isStartAnimation = NO;
+            _discountTitle = @"请选择优惠券";
+            [self setUpArray];
+            [self changeItemWithInvestMoney:money];
+        }
     }];
     
 }
@@ -1028,6 +1041,23 @@ static NSString *const investString = @"立即投资";
     [self.hxbBaseVCScrollView reloadData];
 }
 
+- (void)dealloc {
+    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    NSLog(@"✅被销毁 %@",self);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+        }
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+}
 
 
 - (NSArray *)titleArray {
@@ -1051,9 +1081,21 @@ static NSString *const investString = @"立即投资";
     return _model;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (UITableView *)hxbBaseVCScrollView {
+    if (!_hxbBaseVCScrollView) {
+        
+        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        if (LL_iPhoneX) {
+            _hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
+        }
+        
+        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
+        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
+        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
+    }
+    return _hxbBaseVCScrollView;
 }
 
 

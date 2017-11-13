@@ -9,7 +9,7 @@
 #import "HXBBankCardListViewController.h"
 #import "HXBWithdrawalsRequest.h"
 #import "HXBBankListCell.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import "HXBBankList.h"
 @interface HXBBankCardListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -34,7 +34,7 @@
 - (UITableView *)mainTableView
 {
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
+        _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;

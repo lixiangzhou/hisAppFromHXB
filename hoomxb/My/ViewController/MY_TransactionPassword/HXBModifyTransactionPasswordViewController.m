@@ -136,7 +136,7 @@
 {
     if (!_homeView) {
         kWeakSelf
-        _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        _homeView = [[HXBModifyTransactionPasswordHomeView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
         
         _homeView.getValidationCodeButtonClickBlock = ^(NSString *IDCard){
             [weakSelf authenticationWithIDCard:IDCard];
