@@ -14,7 +14,8 @@
 /**
  重新登录的alert
  */
-+ (void)alertManager_loginAgainAlertWithView: (UIView *)view;
+//+ (void)alertManager_loginAgainAlertWithView: (UIView *)view;
++ (void)alertNeedLoginAgainWithMeaage:(NSString *)message;
 
 /**
  强制更新

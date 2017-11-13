@@ -148,6 +148,7 @@ static const CGFloat kFrontLineWidth = 5.0f;
     }
 }
 - (void)setProgress:(CGFloat)progress{
+    if (progress > 1) progress = 1;
     NSAssert(progress >= 0 && progress <=1, @"超出范围");
     _progress = progress;
     [self setNeedsDisplay];
