@@ -1,22 +1,14 @@
 //
-//  HXBFin_creditorChange_buy_ViewController.h
+//  HXBFin_Loan_Buy_ViewController.h
 //  hoomxb
 //
-//  Created by 肖扬 on 2017/9/15.
+//  Created by 肖扬 on 2017/11/13.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
 #import "HXBBaseViewController.h"
-@class
-HXBFinDetailViewModel_LoanTruansferDetail,
-HXBFin_JoinimmediateView_Loan_ViewModel;
 
-typedef enum : NSUInteger {
-    HXB_Plan,
-    HXB_Loan,
-    HXB_Creditor,
-} HXB_Fin_Type;
-@interface HXBFin_creditorChange_buy_ViewController : HXBBaseViewController
+@interface HXBFin_Loan_Buy_ViewController : HXBBaseViewController
 
 @property (nonatomic,copy) NSString *availablePoint; // 待转让金额
 @property (nonatomic,copy) NSString *placeholderStr; // 占位符

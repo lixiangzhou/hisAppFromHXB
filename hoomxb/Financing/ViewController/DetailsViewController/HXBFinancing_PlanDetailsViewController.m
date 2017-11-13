@@ -32,6 +32,7 @@
 #import "HXBFinBase_FlowChartView.h"
 #import "HXBFin_DetailsViewBase.h"
 #import "HXBFin_creditorChange_buy_ViewController.h"
+#import "HXBFin_Plan_Buy_ViewController.h"
 
 @interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 //假的navigationBar
@@ -529,13 +530,12 @@
  跳转加入界面
  */
 - (void)enterPlanBuyViewController {
-    HXBFin_creditorChange_buy_ViewController *planJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc] init];
+    HXBFin_Plan_Buy_ViewController *planJoinVC = [[HXBFin_Plan_Buy_ViewController alloc] init];
     float remainAmount = self.planDetailViewModel.planDetailModel.remainAmount.floatValue;
     float userRemainAmount = self.planDetailViewModel.planDetailModel.userRemainAmount.floatValue;
     float creditorVCStr = remainAmount < userRemainAmount ? remainAmount : userRemainAmount;
     planJoinVC.availablePoint = [NSString stringWithFormat:@"%.2f", creditorVCStr];
     planJoinVC.title = @"加入计划";
-    planJoinVC.type = HXB_Plan;
     planJoinVC.totalInterest = self.planDetailViewModel.totalInterest;
     planJoinVC.loanId = self.planDetailViewModel.ID;
     planJoinVC.minRegisterAmount = self.planDetailViewModel.planDetailModel.minRegisterAmount;
