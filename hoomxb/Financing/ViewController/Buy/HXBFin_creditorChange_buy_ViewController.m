@@ -113,6 +113,7 @@ static NSString *const bankString = @"绑定银行卡";
     [self getNewUserInfo];
 }
 
+
 - (void)buildUI {
     self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY) style:(UITableViewStylePlain)];
     if (LL_iPhoneX) {
