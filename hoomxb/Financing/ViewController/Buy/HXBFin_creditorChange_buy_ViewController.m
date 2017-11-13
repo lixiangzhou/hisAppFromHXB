@@ -115,6 +115,8 @@ static NSString *const bankString = @"绑定银行卡";
 
 
 - (void)buildUI {
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY) style:(UITableViewStylePlain)];
     if (LL_iPhoneX) {
         self.hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
@@ -562,8 +564,8 @@ static NSString *const bankString = @"绑定银行卡";
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
             [self.navigationController popToRootViewControllerAnimated:true];
         }];
-        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
         [self.navigationController pushViewController:planBuySuccessVC animated:true];
+        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
     } andFailureBlock:^(NSError *error, NSInteger status) {
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
         failViewController.title = @"投资结果";
