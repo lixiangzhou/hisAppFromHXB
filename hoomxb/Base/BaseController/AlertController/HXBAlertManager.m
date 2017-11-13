@@ -38,7 +38,18 @@
         ///显示Home
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
     }];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+    
+    // 获取最顶层控制器
+    UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *VC = nil;
+    if ([tbVC isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
+        UINavigationController *NAV = tbVC.selectedViewController;
+        VC = NAV.viewControllers.lastObject;
+    }else{
+        VC = tbVC;
+    }
+    
+    [VC presentViewController:alertVC animated:YES completion:nil];
 }
 
 /**
