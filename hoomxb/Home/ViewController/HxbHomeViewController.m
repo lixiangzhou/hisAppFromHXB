@@ -116,7 +116,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:true animated:animated];
+    [self.navigationController setNavigationBarHidden:true animated:false];
     [self getData:YES];
     [self.homeView changeIndicationView];
     [self.homeView showSecurityCertificationOrInvest];
@@ -125,7 +125,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    [self.navigationController setNavigationBarHidden:true animated:false];
+    [self.navigationController setNavigationBarHidden:true animated:false];
 }
 
 /**
