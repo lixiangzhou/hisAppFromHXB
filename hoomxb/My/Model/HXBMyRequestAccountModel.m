@@ -10,4 +10,10 @@
 
 @implementation HXBMyRequestAccountModel
 
+- (void)setEarnTotal:(double)earnTotal{
+    if (_earnTotal < 0) {
+        _earnTotal = 0.00;
+    }
+}
+
 @end
