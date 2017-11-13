@@ -22,9 +22,6 @@
 #import "HxbWithdrawCardViewController.h"
 #import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
 #import "HXBChooseDiscountCouponViewController.h"
-#import "HXBChooseCouponViewModel.h"
-#import "HXBCouponModel.h"
-
 static NSString *const bankString = @"绑定银行卡";
 
 @interface HXBFin_creditorChange_buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
@@ -106,52 +103,6 @@ static NSString *const bankString = @"绑定银行卡";
     self.hxbBaseVCScrollView.rowHeight = kScrAdaptationH750(110.5);
     [self.view addSubview:self.hxbBaseVCScrollView];
     [self.hxbBaseVCScrollView reloadData];
-}
-
-
-- (UIView *)topView {
-    kWeakSelf
-    if (!_topView) {
-        _topView = [[HXBCreditorChangeTopView alloc] initWithFrame:CGRectZero];
-        _topView.isHiddenBtn = NO;
-        _topView.hiddenProfitLabel = YES;
-        _topView.keyboardType = UIKeyboardTypeDecimalPad; // 债转带小数点键盘
-        if (self.availablePoint.doubleValue < 2 * self.minRegisterAmount.doubleValue) {
-            _topView.totalMoney = [NSString stringWithFormat:@"%.2f", self.availablePoint.doubleValue];
-            _inputMoneyStr = [NSString stringWithFormat:@"%.2f", self.availablePoint.doubleValue];
-            _topView.disableKeyBorad = YES;
-            _topView.disableBtn = YES;
-        } else {
-            _topView.disableKeyBorad = NO;
-            _topView.disableBtn = NO;
-        }
-        
-        _topView.changeBlock = ^(NSString *text) {
-            weakSelf.bottomView.addBtnIsUseable = text.length;
-            BOOL isFitToBuy = ((text.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
-            if (text.doubleValue >= _minRegisterAmount.doubleValue && text.doubleValue <= _availablePoint.doubleValue && isFitToBuy) {
-                [weakSelf changeItemWithInvestMoney:text];
-                [weakSelf setUpArray];
-            } else {
-                _discountTitle = @"未使用";
-                _handleDetailTitle = text;
-                [weakSelf changeItemWithInvestMoney:text];
-                [weakSelf setUpArray];
-            }
-        };
-        _topView.creditorMoney = [NSString stringWithFormat:@"待转让金额%@", [NSString hxb_getPerMilWithDouble:_availablePoint.doubleValue]];
-        _topView.placeholderStr = _placeholderStr;
-        _topView.block = ^{ // 点击一键购买执行的方法
-            NSString *topupStr = weakSelf.availablePoint;
-            weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.2f", topupStr.doubleValue];
-            _inputMoneyStr = topupStr;
-            _handleDetailTitle = topupStr;
-            weakSelf.bottomView.addBtnIsUseable = topupStr.length;
-            [weakSelf changeItemWithInvestMoney:topupStr];
-            [weakSelf setUpArray];
-        };
-    }
-    return _topView;
 }
 
 - (void)changeItemWithInvestMoney:(NSString *)investMoney {
@@ -264,49 +215,12 @@ static NSString *const bankString = @"绑定银行卡";
         topupMoney = _viewModel.userInfoModel.userInfo.minChargeAmount;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             dispatch_async(dispatch_get_main_queue(), ^{
-                HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-                NSLog(@"___%.2f", topupMoney);
-                [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
-                    [weakSelf alertSmsCode];
-                } andFailureBlock:^(NSError *error) {
-                    NSDictionary *errDic = (NSDictionary *)error;
-                    @try {
-                        if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-                            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                            withdrawCardViewController.title = @"绑卡";
-                            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                            [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-                        }
-                    } @catch (NSException *exception) {
-                        
-                    } @finally {
-                        
-                    }
-                }];
+                [weakSelf sendSmsCodeWithMoney:topupMoney];
             });
         });
     } else {
-        HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-        NSLog(@"___%.2f", topupMoney);
-        [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
-            [weakSelf alertSmsCode];
-        } andFailureBlock:^(NSError *error) {
-            NSDictionary *errDic = (NSDictionary *)error;
-            @try {
-                if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                    withdrawCardViewController.title = @"绑卡";
-                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-                }
-            } @catch (NSException *exception) {
-                
-            } @finally {
-                
-            }
-        }];
+        [self sendSmsCodeWithMoney:topupMoney];
     }
-    
 }
 
 - (void)alertSmsCode {
@@ -327,22 +241,7 @@ static NSString *const bankString = @"绑定银行卡";
         [weakSelf buyCreditorWithDic:dic];
     };
     self.alertVC.getVerificationCodeBlock = ^{
-        HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-        [accountRequest accountRechargeRequestWithRechargeAmount:weakSelf.inputMoneyStr andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
-        } andFailureBlock:^(NSError *error) {
-            NSDictionary *errDic = (NSDictionary *)error;
-            @try {
-                if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                    withdrawCardViewController.title = @"绑卡";
-                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                    [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-                }
-            } @catch (NSException *exception) {
-            } @finally {
-            }
-            
-        }];
+        [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
     };
     [self presentViewController:_alertVC animated:NO completion:nil];
 }
@@ -371,8 +270,25 @@ static NSString *const bankString = @"绑定银行卡";
         [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
     };
     [self presentViewController:_alertVC animated:NO completion:nil];
-    
+}
 
+- (void)sendSmsCodeWithMoney:(double)topupMoney {
+    HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+    [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
+        [self alertSmsCode];
+    } andFailureBlock:^(NSError *error) {
+        NSDictionary *errDic = (NSDictionary *)error;
+        @try {
+            if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
+                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                withdrawCardViewController.title = @"绑卡";
+                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+                [self.navigationController pushViewController:withdrawCardViewController animated:YES];
+            }
+        } @catch (NSException *exception) {
+        } @finally {
+        }
+    }];
 }
 
 // 购买债权
@@ -518,7 +434,6 @@ static NSString *const bankString = @"绑定银行卡";
     }];
 }
 
-
 // 获取银行限额
 - (void)getBankCardLimit {
     [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
@@ -556,6 +471,51 @@ static NSString *const bankString = @"绑定银行卡";
         _detailArray = [NSArray array];
     }
     return _detailArray;
+}
+
+- (UIView *)topView {
+    kWeakSelf
+    if (!_topView) {
+        _topView = [[HXBCreditorChangeTopView alloc] initWithFrame:CGRectZero];
+        _topView.isHiddenBtn = NO;
+        _topView.hiddenProfitLabel = YES;
+        _topView.keyboardType = UIKeyboardTypeDecimalPad; // 债转带小数点键盘
+        if (self.availablePoint.doubleValue < 2 * self.minRegisterAmount.doubleValue) {
+            _topView.totalMoney = [NSString stringWithFormat:@"%.2f", self.availablePoint.doubleValue];
+            _inputMoneyStr = [NSString stringWithFormat:@"%.2f", self.availablePoint.doubleValue];
+            _topView.disableKeyBorad = YES;
+            _topView.disableBtn = YES;
+        } else {
+            _topView.disableKeyBorad = NO;
+            _topView.disableBtn = NO;
+        }
+        
+        _topView.changeBlock = ^(NSString *text) {
+            weakSelf.bottomView.addBtnIsUseable = text.length;
+            BOOL isFitToBuy = ((text.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
+            if (text.doubleValue >= _minRegisterAmount.doubleValue && text.doubleValue <= _availablePoint.doubleValue && isFitToBuy) {
+                [weakSelf changeItemWithInvestMoney:text];
+                [weakSelf setUpArray];
+            } else {
+                _discountTitle = @"未使用";
+                _handleDetailTitle = text;
+                [weakSelf changeItemWithInvestMoney:text];
+                [weakSelf setUpArray];
+            }
+        };
+        _topView.creditorMoney = [NSString stringWithFormat:@"待转让金额%@", [NSString hxb_getPerMilWithDouble:_availablePoint.doubleValue]];
+        _topView.placeholderStr = _placeholderStr;
+        _topView.block = ^{ // 点击一键购买执行的方法
+            NSString *topupStr = weakSelf.availablePoint;
+            weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.2f", topupStr.doubleValue];
+            _inputMoneyStr = topupStr;
+            _handleDetailTitle = topupStr;
+            weakSelf.bottomView.addBtnIsUseable = topupStr.length;
+            [weakSelf changeItemWithInvestMoney:topupStr];
+            [weakSelf setUpArray];
+        };
+    }
+    return _topView;
 }
 
 - (UIView *)footTableView {

@@ -274,7 +274,6 @@ static NSString *const bankString = @"绑定银行卡";
     }];
 }
 
-
 - (void)alertSmsCode {
     self.alertVC = [[HXBAlertVC alloc] init];
     self.alertVC.isCode = YES;
