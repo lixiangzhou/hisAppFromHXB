@@ -28,6 +28,11 @@ UITableViewDataSource
         self.backgroundColor = RGBA(244, 243, 248, 1);
         [self addSubview:self.mainTableView];
         self.nodataView.hidden = false;
+        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.mainTableView).offset(kScrAdaptationH(100));
+            make.height.width.equalTo(@(kScrAdaptationH(184)));
+            make.centerX.equalTo(self.mainTableView);
+        }];
     }
     return self;
 }
@@ -90,6 +95,7 @@ UITableViewDataSource
         _mainTableView.tableHeaderView.userInteractionEnabled = YES;
         _mainTableView.backgroundColor = RGBA(244, 243, 248, 1);
         _mainTableView.rowHeight = kScrAdaptationH750(270);
+        [_mainTableView addSubview:self.nodataView];
         [HXBMiddlekey AdaptationiOS11WithTableView:_mainTableView];
         kWeakSelf
         [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
@@ -106,15 +112,9 @@ UITableViewDataSource
     if (!_nodataView) {
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
         _nodataView.userInteractionEnabled = NO;
-        [self addSubview:_nodataView];
         _nodataView.imageName = @"my_couponList_NotData";
         _nodataView.noDataMassage = @"暂时还没有优惠券";
         //        _nodataView.downPULLMassage = @"下拉进行刷新";
-        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).offset(kScrAdaptationH(100));
-            make.height.width.equalTo(@(kScrAdaptationH(184)));
-            make.centerX.equalTo(self);
-        }];
     }
     return _nodataView;
 }

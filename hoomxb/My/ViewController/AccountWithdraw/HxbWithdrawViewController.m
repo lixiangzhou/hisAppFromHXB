@@ -235,7 +235,7 @@
 - (void)nextButtonClick:(UIButton *)sender{
     self.withdrawModel.bankCard.amount = self.amountTextField.text;
     if ([_amountTextField.text doubleValue] < self.withdrawModel.minWithdrawAmount) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"提现金额不能小于%d",self.withdrawModel.minWithdrawAmount]];
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"提现金额不能小于%d元",self.withdrawModel.minWithdrawAmount]];
         return;
     }
     if ([_amountTextField.text doubleValue] > self.withdrawModel.balanceAmount) {

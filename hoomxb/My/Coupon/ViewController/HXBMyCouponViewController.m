@@ -24,30 +24,20 @@
 
 @implementation HXBMyCouponViewController
 
+#pragma mark - Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isRedColorWithNavigationBar = YES;
     
     self.title = @"我的优惠券";
-    [self setUI];
-    
-    UIButton*rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
-    [rightButton setImage:[UIImage imageNamed:@"my_couponList_InstructionsNot"]forState:UIControlStateNormal];
-    [rightButton addTarget:self action:@selector(enterInstructions)forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem*rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
-    self.navigationItem.rightBarButtonItem= rightItem;
+    [self setNavigationItem];
+    [self getNetworkAgain];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 }
-
-- (void)enterInstructions{
-    HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-    vc.URL = kHXB_Negotiate_couponExchangeInstructionsUrl;
-    [self.navigationController pushViewController:vc animated:true];
-}
-
 
 #pragma mark - UI
 - (void)setUI {
@@ -63,6 +53,45 @@
     [self addChildViewController:self.couponListVC];
     [self addChildViewController:self.couponExchangeVC];
 }
+
+- (void)setNavigationItem{
+    UIButton*rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    [rightButton setImage:[UIImage imageNamed:@"my_couponList_InstructionsNot"]forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(enterInstructions)forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem*rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem= rightItem;
+}
+
+- (void)enterInstructions{
+    HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
+    vc.URL = kHXB_Negotiate_couponExchangeInstructionsUrl;
+    [self.navigationController pushViewController:vc animated:true];
+}
+
+#pragma mark - Network
+
+- (void)getNetworkAgain{
+    if (KeyChain.ishaveNet) {
+        [self setUI];
+    }else{
+        [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+    }
+}
+
+#pragma mark - HXBTopTabViewDelegate
+- (void)topTabView:(HXBTopTabView *)topTabView didClickIndex:(NSInteger)index {
+    [self.view endEditing:YES];
+    [self.scrollView setContentOffset:CGPointMake(index * self.scrollView.frame.size.width, 0) animated:YES];
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    [self.view endEditing:YES];
+    self.topTabView.selectedIndex = (NSInteger)(scrollView.contentOffset.x / scrollView.frame.size.width);
+}
+
+#pragma mark - Setter / Getter / Lazy
+
 - (HXBTopTabView *)topTabView{
     if (!_topTabView) {
         _topTabView = [[HXBTopTabView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 44)
@@ -102,13 +131,4 @@
     return _scrollView;
 }
 
-#pragma mark - HXBTopTabViewDelegate
-- (void)topTabView:(HXBTopTabView *)topTabView didClickIndex:(NSInteger)index {
-    [self.scrollView setContentOffset:CGPointMake(index * self.scrollView.frame.size.width, 0) animated:YES];
-}
-
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    self.topTabView.selectedIndex = (NSInteger)(scrollView.contentOffset.x / scrollView.frame.size.width);
-}
 @end

@@ -19,7 +19,7 @@
 @property (nonatomic,strong) HXBColourGradientView *colorGradientView;
 @property (nonatomic,strong) UIImageView *nacigationBarImageView;
 //@property (nonatomic, assign) BOOL isCanSideBack;
-@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
+//@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
 
 @end
 
@@ -176,9 +176,9 @@
     if (!_nacigationBarImageView) {
         _nacigationBarImageView = [[UIImageView alloc]init];
         if (LL_iPhoneX) {
-            _nacigationBarImageView.frame = CGRectMake(0, 0, kScreenWidth, HxbNavigationBarMaxY);
+            _nacigationBarImageView.frame = CGRectMake(0, 0, kScreenWidth, 88);
         } else {
-            _nacigationBarImageView.frame = CGRectMake(0, 0, kScreenWidth, HxbNavigationBarY);
+            _nacigationBarImageView.frame = CGRectMake(0, 0, kScreenWidth, 64);
         }
         [self.view addSubview:_nacigationBarImageView];
         [self.view bringSubviewToFront:_nacigationBarImageView];

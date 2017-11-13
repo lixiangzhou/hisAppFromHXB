@@ -13,6 +13,8 @@
 #define KIDLength 18
 //银行卡号最大长度
 #define KBankcardNumLength 25
+//兑换码最大长度
+#define KRedeemCodeLength 16
 //手机号334格式空格处光标所处位置长度分别为3，8
 #define KPhoneNumFirstPoint 3
 #define KPhoneNumSecondPoint 8
@@ -26,6 +28,11 @@
 #define KBankcardNumFourthPoint 19
 #define KBankcardNumFifthPoint 24
 #define KBankcardNumSixPoint 29
+//兑换码684格式空格处光标所处位置分别为4，9，14，19
+#define KRedeemCodeFirstPoint 4
+#define KRedeemCodeSecondPoint 9
+#define KRedeemCodeThirdPoint 14
+#define KRedeemCodeFourthPoint 19
 @implementation UITextField (HLTextField)
 
 /**
@@ -114,13 +121,17 @@
                     return NO;
                 }
                 
-            }else{
+            }else if(type == kBankCardNumberTextFieldType){
                 
                 //限制输入字符个数
                 if (([self whiteSpaseString:textField.text].length + string.length - range.length > KBankcardNumLength) ) {
                     return NO;
                 }
- 
+            }else{
+                //限制输入字符个数
+                if (([self whiteSpaseString:textField.text].length + string.length - range.length > KRedeemCodeLength) ) {
+                    return NO;
+                }
             }
 
             [textField insertText:string];
@@ -138,12 +149,16 @@
                     offset ++;
                 }
                 
-            }else{
+            }else if (type == kBankCardNumberTextFieldType){
                 
                 if (range.location == KBankcardNumFirstPoint || range.location  == KBankcardNumSecondPoint || range.location == KBankcardNumThirdPoint || range.location  == KBankcardNumFourthPoint || range.location == KBankcardNumFifthPoint || range.location == KBankcardNumSixPoint) {
                     offset ++;
                 }
                 
+            }else {
+                if (range.location == KRedeemCodeFirstPoint || range.location  == KRedeemCodeSecondPoint || range.location == KRedeemCodeThirdPoint || range.location  == KRedeemCodeFourthPoint) {
+                    offset ++;
+                }
             }
             UITextPosition *newPos = [textField positionFromPosition:textField.beginningOfDocument offset:offset];
             textField.selectedTextRange = [textField textRangeFromPosition:newPos toPosition:newPos];
@@ -183,7 +198,7 @@
             
         }
         
-    }else{
+    }else if(type == kBankCardNumberTextFieldType){
     
         //银行卡号
         if (tStr.length >KBankcardNumFirstPoint) {
@@ -202,6 +217,17 @@
             [tStr insertString:@" " atIndex:KBankcardNumSixPoint];
         }
         
+    }else{
+        //兑换码
+        if (tStr.length >KRedeemCodeFirstPoint) {
+            [tStr insertString:@" " atIndex:KRedeemCodeFirstPoint];
+        }if (tStr.length > KRedeemCodeSecondPoint) {
+            [tStr insertString:@" " atIndex:KRedeemCodeSecondPoint];
+        } if (tStr.length >KRedeemCodeThirdPoint) {
+            [tStr insertString:@" " atIndex:KRedeemCodeThirdPoint];
+        }if (tStr.length > KRedeemCodeFourthPoint) {
+            [tStr insertString:@" " atIndex:KRedeemCodeFourthPoint];
+        }
     }
     
     return  tStr;
@@ -219,12 +245,15 @@
             offset ++;
         }
         
-    }else{
+    }else if(type == kBankCardNumberTextFieldType){
         
         if (range.location == KBankcardNumFirstPoint || range.location  == KBankcardNumSecondPoint || range.location == KBankcardNumThirdPoint || range.location  == KBankcardNumFourthPoint || range.location  == KBankcardNumFifthPoint || range.location == KBankcardNumSixPoint) {
             offset ++;
         }
-        
+    }else{
+        if (range.location == KRedeemCodeFirstPoint || range.location  == KRedeemCodeSecondPoint || range.location == KRedeemCodeThirdPoint || range.location  == KRedeemCodeFourthPoint) {
+            offset ++;
+        }
     }
 }
 //去除空格
