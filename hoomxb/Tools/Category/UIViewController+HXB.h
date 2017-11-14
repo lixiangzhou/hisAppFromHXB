@@ -14,5 +14,5 @@
                     noDataMassage:(NSString *)noDataMassage
                   downPullMassage:(NSString *)downPullMassage
                            inView:(UIView *)view
-                remakeConstraints:(void(^)(MASConstraintMaker *))remakeConstraints
+                remakeConstraints:(void(^)(MASConstraintMaker *))remakeConstraints;
 @end
