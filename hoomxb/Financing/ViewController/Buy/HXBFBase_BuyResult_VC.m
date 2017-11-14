@@ -66,6 +66,7 @@
 }
 
 - (void)setUP {
+    [self.view addSubview: self.inviteButton];
     self.isRedColorWithNavigationBar = true;
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(kScrAdaptationH750(130) + 64);
@@ -81,6 +82,7 @@
     
  
     UIView *view = self.buy_titleLabel;
+    
     if (self.buy_massageCount) {
         [self.buy_massageLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(view.mas_bottom).offset(kScrAdaptationH750(95));
@@ -128,12 +130,14 @@
         make.width.equalTo(@(kScrAdaptationW750(670)));
         make.height.equalTo(@(kScrAdaptationH750(82)));
     }];
+    
     [self.inviteButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.buy_ButtonTitleLabel.mas_bottom).offset(kScrAdaptationH750(40));
+        make.top.equalTo(view.mas_bottom).offset(kScrAdaptationH750(222));
         make.centerX.equalTo(self.view);
         make.width.equalTo(@(kScrAdaptationW750(670)));
         make.height.equalTo(@(kScrAdaptationH750(82)));
     }];
+    
     [self.buy_ButtonTitleLabel addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.inviteButton addTarget:self action:@selector(clickToShare:) forControlEvents:UIControlEventTouchUpInside];
     [self.buy_ButtonTitleLabel setTitle:self.buy_ButtonTitle forState:UIControlStateNormal];
@@ -234,8 +238,7 @@
 }
 - (UIButton *)inviteButton {
     if (!_inviteButton) {
-        _inviteButton = [[UIButton alloc]init];
-        [self.view addSubview: _inviteButton];
+        _inviteButton = [[UIButton alloc]initWithFrame:CGRectZero];
         _inviteButton.layer.masksToBounds = true;
         _inviteButton.layer.cornerRadius = kScrAdaptationW750(5);
         _inviteButton.backgroundColor = [UIColor whiteColor];
@@ -254,11 +257,12 @@
     self.massageHeight = label_TotalHeight + spacing_TotalHeight;
 }
 
-- (void)setInviteButtonTitle:(NSString *)inviteButtonTitle {
-    _inviteButtonTitle = inviteButtonTitle;
+- (void)setIsShowInviteBtn:(BOOL)isShowInviteBtn {
+    _isShowInviteBtn = isShowInviteBtn;
+    self.inviteButton.hidden = !isShowInviteBtn;
     [self.inviteButton setTitle:_inviteButtonTitle forState:(UIControlStateNormal)];
-    [self.inviteButton setHidden:_inviteButtonTitle.length];
 }
+
 - (CGFloat) massageHeight {
     CGFloat label_TotalHeight = _buy_massageCount * kScrAdaptationH750(30);
     CGFloat spacing_TotalHeight = (_buy_massageCount - 1) * kScrAdaptationH750(28);

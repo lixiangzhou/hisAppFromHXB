@@ -13,6 +13,10 @@
  model
  */
 @property (nonatomic,strong) HXBFinModel_BuyResout_LoanTruansferModel *loanTruansferModel;
+/** 是否开启活动 */
+@property (nonatomic, assign) BOOL isInviteActivityShow;
+/** 邀请活动的文案 */
+@property (nonatomic, copy) NSString *inviteActivityDesc;
 /**
  投资金额
  */

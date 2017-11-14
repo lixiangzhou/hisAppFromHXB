@@ -42,7 +42,10 @@
  邀请好友按钮文案
  */
 @property (nonatomic, copy) NSString *inviteButtonTitle;
-
+/**
+ 是否显示邀请好友按钮
+ */
+@property (nonatomic,  assign) BOOL isShowInviteBtn;
 /**
  (可能没有，在button的顶部 100的地方)
  居中的label

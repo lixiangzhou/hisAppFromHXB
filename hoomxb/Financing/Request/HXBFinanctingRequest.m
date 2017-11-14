@@ -735,7 +735,7 @@
 // 红利 购买结果
 - (void)plan_buyReslutWithPlanID: (NSString *)planID
                       parameter :(NSDictionary *)parameter
-                 andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
+                 andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
                  andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock {
     HXBBaseRequest *confirmBuyReslut = [[HXBBaseRequest alloc]init];
     confirmBuyReslut.requestArgument = parameter;
@@ -753,11 +753,11 @@
         HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
         
         [reslut yy_modelSetWithDictionary:dataDic];
-        HXBFin_Plan_BuyViewModel *planViewModel = [[HXBFin_Plan_BuyViewModel alloc]init];
-        planViewModel.buyPlanModel = reslut;
+//        HXBFin_Plan_BuyViewModel *planViewModel = [[HXBFin_Plan_BuyViewModel alloc]init];
+//        planViewModel.buyPlanModel = reslut;
         
         if (successDateBlock) {
-            successDateBlock(planViewModel);
+            successDateBlock(reslut);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(nil,0);

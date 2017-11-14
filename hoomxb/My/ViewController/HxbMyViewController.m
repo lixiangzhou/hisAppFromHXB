@@ -136,14 +136,10 @@
 ///充值
 - (void)didClickTopUpBtn:(UIButton *)sender{
     //        #import "HxbMyTopUpViewController.h"
-    //        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-    //        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-//    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_topup_money];
-//    [self logicalJudgment:HXBRechargeAndWithdrawalsLogicalJudgment_Recharge];
-    
-    HXBInviteListViewController *invistVC = [[HXBInviteListViewController alloc] init];
-    [self.navigationController pushViewController:invistVC animated:YES];
-    
+//    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+//    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_topup_money];
+    [self logicalJudgment:HXBRechargeAndWithdrawalsLogicalJudgment_Recharge];
 }
 /// 提现
 - (void)didClickWithdrawBtn:(UIButton *)sender{

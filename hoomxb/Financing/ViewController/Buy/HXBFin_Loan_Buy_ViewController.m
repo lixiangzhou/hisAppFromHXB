@@ -257,6 +257,7 @@ static NSString *const bankString = @"绑定银行卡";
         ///加入成功
         HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
         loanBuySuccessVC.inviteButtonTitle = model.inviteActivityDesc;
+        loanBuySuccessVC.isShowInviteBtn = model.isInviteActivityShow;
         loanBuySuccessVC.imageName = @"successful";
         loanBuySuccessVC.buy_title = @"投标成功";
         loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的投资金额，放款成功后开始计息";

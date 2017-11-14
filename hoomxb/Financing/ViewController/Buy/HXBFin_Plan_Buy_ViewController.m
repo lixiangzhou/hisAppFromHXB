@@ -331,9 +331,10 @@ static NSString *const bankString = @"绑定银行卡";
 // 购买计划
 - (void)buyPlanWithDic:(NSDictionary *)dic {
     kWeakSelf
-    [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:self.loanId parameter:dic andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
+    [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:self.loanId parameter:dic andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
         HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-        planBuySuccessVC.inviteButtonTitle = @"邀请好友";
+        planBuySuccessVC.inviteButtonTitle = model.inviteActivityDesc;
+        planBuySuccessVC.isShowInviteBtn = model.isInviteActivityShow;
         planBuySuccessVC.imageName = @"successful";
         planBuySuccessVC.buy_title = @"加入成功";
         planBuySuccessVC.buy_description =model.lockStart;

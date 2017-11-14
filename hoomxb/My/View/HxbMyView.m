@@ -14,6 +14,7 @@
 #import "HXBMY_PlanListViewController.h"///plan 列表的VC
 #import "HXBMY_LoanListViewController.h"///散标 列表的VC
 #import "HXBMY_CapitalRecordViewController.h"//资产记录
+#import "HXBInviteListViewController.h" // 邀请好友
 #import "HXBMyHomeViewCell.h"
 #import "HXBMyRequestAccountModel.h"
 @interface HxbMyView ()
@@ -123,9 +124,15 @@ MyViewHeaderDelegate
         }
     }
     if (indexPath.section == 2) {
-        HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-        HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
-        [VC.navigationController pushViewController:capitalRecordViewController animated:true];
+        if (indexPath.row == 0) {
+            HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+            HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
+            [VC.navigationController pushViewController:capitalRecordViewController animated:true];
+        } else {
+            HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+             HXBInviteListViewController *inviteViewController = [[HXBInviteListViewController alloc]init];
+            [VC.navigationController pushViewController:inviteViewController animated:true];
+        }
     }
 }
 
@@ -184,7 +191,6 @@ MyViewHeaderDelegate
 //}
 
 #pragma TableViewDataSource
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *celledStr = @"celled";
     HXBMyHomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
@@ -223,8 +229,13 @@ MyViewHeaderDelegate
             cell.isShowLine = NO;
         }
     }else{
-        cell.textLabel.text = @"交易记录";
-//        cell.imageView.svgImageString = @"trading_record.svg";
+        if (indexPath.row == 0) {
+            cell.textLabel.text = @"交易记录";
+            cell.isShowLine = YES;
+        } else {
+            cell.textLabel.text = @"邀请好友";
+            cell.isShowLine = NO;
+        }
     }
     return cell;
 }
@@ -236,7 +247,7 @@ MyViewHeaderDelegate
     {
         return 2;
     }else {
-        return 1;
+        return 2;
     }
 }
 
@@ -246,7 +257,7 @@ MyViewHeaderDelegate
 
 - (UITableView *)mainTableView{
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
+        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 30) style:UITableViewStyleGrouped];
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;

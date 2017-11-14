@@ -19,7 +19,9 @@ HXBFinModel_BuyResoult_LoanModel_Context_TransInput
 @property (nonatomic,strong) HXBFinModel_BuyResoult_LoanModel_StateInput *stateInput;///
 ///context
 @property (nonatomic,strong) HXBFinModel_BuyResoult_LoanModel_Context *context;
-///context
+/** 是否开启活动 */
+@property (nonatomic, assign) BOOL isInviteActivityShow;
+/** 邀请活动的文案 */
 @property (nonatomic, copy) NSString *inviteActivityDesc;
 
 @end

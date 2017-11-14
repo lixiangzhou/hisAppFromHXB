@@ -297,7 +297,8 @@ static NSString *const bankString = @"绑定银行卡";
     [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansfer_confirmBuyReslutWithLoanID:_loanId parameter:dic andSuccessBlock:^(HXBFin_LoanTruansfer_BuyResoutViewModel *model) {
         ///加入成功
         HXBFBase_BuyResult_VC *loanBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-        loanBuySuccessVC.inviteButtonTitle = @"邀请好友";
+        loanBuySuccessVC.inviteButtonTitle = model.inviteActivityDesc;
+        loanBuySuccessVC.isShowInviteBtn = model.isInviteActivityShow;
         loanBuySuccessVC.title = @"购买成功";
         loanBuySuccessVC.buy_title = @"购买成功";
         loanBuySuccessVC.imageName = @"successful";

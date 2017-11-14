@@ -68,6 +68,22 @@ typedef enum : NSUInteger {
     kHXBUmengEnum_topup_money = 1007,
     /// 提现
     kHXBUmengEnum_withdraw_money = 1008,
+    /// 邀请好友入口
+    kHXBUmengEnum_invite_entrance = 1009,
+    /// 浮层调起次数
+    kHXBUmengEnum_invite_alert = 1010,
+    /// 微信button
+    kHXBUmengEnum_invite_weChat = 1011,
+    /// 朋友圈button
+    kHXBUmengEnum_invite_friendCircle = 1012,
+    /// QQbutton
+    kHXBUmengEnum_invite_QQ = 1013,
+    /// 空间button
+    kHXBUmengEnum_invite_QQSpace = 1014,
+    /// 查看投资button
+    kHXBUmengEnum_investSucess_seeResult = 1015,
+    /// 分享红包button
+    kHXBUmengEnum_inviteSucess_share = 1016,
     
 } kHXBUmeng_Enum;
 static NSString *const kHXBUmeng_loginToRegist = @"1000";
@@ -79,6 +95,14 @@ static NSString *const kHXBUmeng_alertBtn = @"1005";
 static NSString *const kHXBUmeng_commitBtn = @"1006";
 static NSString *const kHXBUmeng_topup_money = @"1007";
 static NSString *const kHXBUmeng_withdraw_money = @"1008";
+static NSString *const kHXBUmeng_invite_entrance = @"1009";
+static NSString *const kHXBUmeng_invite_alert = @"1010";
+static NSString *const kHXBUmeng_invite_weChat = @"1011";
+static NSString *const kHXBUmeng_invite_friendCircle = @"1012";
+static NSString *const kHXBUmeng_invite_QQ = @"1013";
+static NSString *const kHXBUmeng_invite_QQSpace = @"1014";
+static NSString *const kHXBUmeng_investSucess_seeResult = @"1015";
+static NSString *const kHXBUmeng_inviteSucess_share = @"1016";
 
 
 @interface HXBCode : NSObject
