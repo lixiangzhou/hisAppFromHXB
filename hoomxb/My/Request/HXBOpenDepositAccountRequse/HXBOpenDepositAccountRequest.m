@@ -17,12 +17,15 @@
     versionUpdateAPI.requestUrl = kHXBOpenDepositAccount_Escrow;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
-    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {        NSInteger status =  [responseObject[@"status"] integerValue];
+    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        
+        NSInteger status =  [responseObject[@"status"] integerValue];
         if (status == 5068) {
-            NSString *string = [NSString stringWithFormat:@"您在红小宝平台开通恒丰银行存管操作已达上限，请联系客服 %@", kServiceMobile];
+            NSString *string = [NSString stringWithFormat:@"您今日开通存管错误次数已超限，请明日再试。如有疑问可联系客服 %@", kServiceMobile];
+            
             HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"联系客服"];
    
-                alertVC.messageHeight = 50;
+                alertVC.messageHeight = 60;
             
             alertVC.isHIddenLeftBtn = NO;
             alertVC.isCenterShow = YES;
@@ -71,10 +74,10 @@
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
             if (status == 5068) {
-                NSString *string = [NSString stringWithFormat:@"您今日绑卡次数已超限，请明日再试！请联系客服 %@", kServiceMobile];
+                NSString *string = [NSString stringWithFormat:@"您今日绑卡错误次数已超限，请明日再试。如有疑问可联系客服 \n%@", kServiceMobile];
                 HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"联系客服"];
                 
-                alertVC.messageHeight = 50;
+                alertVC.messageHeight = 60;
                 
                 alertVC.isHIddenLeftBtn = NO;
                 alertVC.isCenterShow = YES;
