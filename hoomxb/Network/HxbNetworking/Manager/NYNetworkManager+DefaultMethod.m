@@ -55,8 +55,12 @@
         } else if (status.integerValue == kHXBCode_Enum_SingleLogin) {
             // 单点登录时，显示tabVC的HomeVC，并弹框提示
             if (KeyChain.isLogin) {
-                KeyChain.isLogin = NO;
-                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
+                // 忽略广告和刷新的请求，因为这种情况不需要手势密码，需要在首页弹框
+                if ([request.requestUrl isEqualToString:kHXBSplash] || [request.requestUrl isEqualToString:kHXBMY_VersionUpdateURL]) {
+                } else {
+                    KeyChain.isLogin = NO;
+                    [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
+                }
             }
             return;
         }
