@@ -236,7 +236,7 @@
         }
         [self.tableView reloadData];
     } andFailureBlock:^(NSError *error) {
-        
+        self.nodataView.hidden = NO;
     }];
 }
 

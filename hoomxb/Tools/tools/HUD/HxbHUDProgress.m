@@ -115,21 +115,21 @@
     _HUD.label.textColor = [UIColor whiteColor];
     _HUD.delegate = self;//添加代理
     [_HUD showAnimated:YES];
-    self.mTime =0;
-    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFired:) userInfo:nil repeats:30];
-    timer.fireDate = [NSDate distantPast];
+//    self.mTime =0;
+//    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timerFired:) userInfo:nil repeats:30];
+//    timer.fireDate = [NSDate distantPast];
     
 }
 
--(void)timerFired:(NSTimer *)time{
-    
-    self.mTime++;
-    
-    if (self.mTime >= 12) {
-        timer.fireDate = [NSDate distantFuture];
-        [self hide];
-    }
-}
+//-(void)timerFired:(NSTimer *)time{
+//
+//    self.mTime++;
+//
+//    if (self.mTime >= 12) {
+//        timer.fireDate = [NSDate distantFuture];
+//        [self hide];
+//    }
+//}
 
 -(void)hide
 {
