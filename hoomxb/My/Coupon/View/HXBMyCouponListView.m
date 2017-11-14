@@ -16,7 +16,7 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 @property (nonatomic, strong) UITableView *mainTableView;
-@property (nonatomic,strong) HXBNoDataView *nodataView;
+//@property (nonatomic,strong) HXBNoDataView *nodataView;
 
 @end
 
