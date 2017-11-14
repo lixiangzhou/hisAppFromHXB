@@ -60,7 +60,7 @@
     self.financialAdvisor_phoneLabel.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(call)];
     if (![self.financialAdvisor_phoneLabel.text isEqualToString:@"--"]) {
-        _financialAdvisor_phoneLabel.textColor = RGBA(51, 51, 51, 1);
+        _financialAdvisor_phoneLabel.textColor = RGBA(119, 179, 255, 1);
         [self.financialAdvisor_phoneLabel addGestureRecognizer:tap];
     }
 }
