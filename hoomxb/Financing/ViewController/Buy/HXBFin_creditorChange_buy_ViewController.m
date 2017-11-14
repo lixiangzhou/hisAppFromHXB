@@ -210,11 +210,11 @@ static NSString *const bankString = @"绑定银行卡";
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue - _discountMoney;
     if (rechargeMoney > 0.00) { // 余额不足的情况
         if ([self.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-            if (rechargeMoney > self.viewModel.userInfoModel.userInfo.minChargeAmount) {
+//            if (rechargeMoney > self.viewModel.userInfoModel.userInfo.minChargeAmount) {
                 self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
-            } else {
-                self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%d.00元并投资", self.viewModel.userInfoModel.userInfo.minChargeAmount];
-            }
+//            } else {
+//                self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%d.00元并投资", self.viewModel.userInfoModel.userInfo.minChargeAmount];
+//            }
         } else {
             self.bottomView.clickBtnStr = bankString;
         }
@@ -392,21 +392,18 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)fullAddtionFunc {
     kWeakSelf
     double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
+    NSString *rechargeMoney = [NSString stringWithFormat:@"%d", _viewModel.userInfoModel.userInfo.minChargeAmount];
     if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"充值金额必须大于%d元", _viewModel.userInfoModel.userInfo.minChargeAmount]];
-        topupMoney = _viewModel.userInfoModel.userInfo.minChargeAmount;
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-                
-                [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
-                    
-                    [weakSelf alertSmsCode];
-                    
-                } andFailureBlock:^(NSError *error) {
-                    
-                    NSDictionary *errDic = (NSDictionary *)error;
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", rechargeMoney] force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确认充值"];
+        alertVC.messageHeight = kScrAdaptationH(45);
+        alertVC.isCenterShow = YES;
+        [alertVC setClickXYRightButtonBlock:^{
+            HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+            [accountRequest accountRechargeRequestWithRechargeAmount:rechargeMoney andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
+                [weakSelf alertSmsCode];
+            } andFailureBlock:^(NSError *error) {
+                NSDictionary *errDic = (NSDictionary *)error;
+                if (errDic) {
                     @try {
                         if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
                             HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
@@ -415,11 +412,15 @@ static NSString *const bankString = @"绑定银行卡";
                             [self.navigationController pushViewController:withdrawCardViewController animated:YES];
                         }
                     } @catch (NSException *exception) {
+                        
                     } @finally {
+                        
                     }
-                }];
-            });
-        });
+                }
+            }];
+        }];
+        [self presentViewController:alertVC animated:YES completion:nil];
+
     } else {
         HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
         NSLog(@"___%.2f", topupMoney);
