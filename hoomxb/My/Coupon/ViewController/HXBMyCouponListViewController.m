@@ -49,11 +49,11 @@
         weakSelf.myView.isStopRefresh_Home = YES;
     } andFailure:^(NSError *error) {
         weakSelf.myView.isStopRefresh_Home = YES;
-        [weakSelf.view addSubview:weakSelf.noNetworkStatusView];
-        [weakSelf.noNetworkStatusView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.left.top.width.height.equalTo(self.view);
-        }];
-        weakSelf.noNetworkStatusView.hidden = NO;
+//        [weakSelf.view addSubview:weakSelf.noNetworkStatusView];
+//        [weakSelf.noNetworkStatusView mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.left.top.width.height.equalTo(self.view);
+//        }];
+//        weakSelf.noNetworkStatusView.hidden = NO;
     }];
 }
 
