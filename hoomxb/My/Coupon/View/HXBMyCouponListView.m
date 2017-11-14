@@ -66,10 +66,10 @@ UITableViewDataSource
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *celledStr = @"celled";
-    HXBMyCouponListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
+    
+    HXBMyCouponListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"celled"];
     if (!cell) {
-        cell = [[HXBMyCouponListTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
+        cell = [[HXBMyCouponListTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"celled"];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
