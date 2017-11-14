@@ -254,7 +254,7 @@
         {
             NSLog(@"点击了账户密码登录");
             [KeyChain signOut];
-            [UIApplication sharedApplication].keyWindow.rootViewController = [HXBRootVCManager manager].mainTabbarVC;
+            [[HXBRootVCManager manager] makeTabbarRootVC];
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         }
             break;

@@ -21,7 +21,6 @@
 
 @property (nonatomic, strong) NSDate *exitTime;
 
-@property (nonatomic, strong) HXBVersionUpdateModel *versionUpdateModel;
 @end
 
 @implementation AppDelegate
@@ -80,7 +79,7 @@
     [self serverAndClientTime];
     
     if ([[HXBRootVCManager manager].versionUpdateModel.force isEqualToString:@"1"]) {
-        [HXBAlertManager checkversionUpdateWith:self.versionUpdateModel];
+        [HXBAlertManager checkversionUpdateWith:[HXBRootVCManager manager].versionUpdateModel];
     }
     
     NSDate *nowTime = [NSDate date];

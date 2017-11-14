@@ -33,21 +33,21 @@
 
 /// 创建根控制器
 - (void)createRootVCAndMakeKeyWindow {
-    UIWindow *window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    [UIApplication sharedApplication].delegate.window = window;
+    self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    [UIApplication sharedApplication].delegate.window = self.window;
     
     [self checkVersionUpdate];
     // 广告
     kWeakSelf
     HxbAdvertiseViewController *advertiseViewControllre = [[HxbAdvertiseViewController alloc]init];
-    window.rootViewController = advertiseViewControllre;
+    self.window.rootViewController = advertiseViewControllre;
     
     [advertiseViewControllre dismissAdvertiseViewControllerFunc:^{
         [weakSelf chooseRootViewController];
     }];
     
-    window.backgroundColor = [UIColor whiteColor];
-    [window makeKeyAndVisible];
+    self.window.backgroundColor = [UIColor whiteColor];
+    [self.window makeKeyAndVisible];
 }
 
 /// 选择一个根控制器
@@ -128,10 +128,6 @@
         [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
     }
     return _mainTabbarVC ;
-}
-
-- (UIWindow *)window {
-    return [UIApplication sharedApplication].keyWindow;
 }
 
 @end
