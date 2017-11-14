@@ -126,6 +126,7 @@
         _nodataView.imageName = @"Fin_NotData";
         _nodataView.noDataMassage = @"暂无数据";
         _nodataView.userInteractionEnabled = NO;
+        _nodataView.hidden = YES;
         [self.withdrawRecordTableView addSubview:_nodataView];
         //        _nodataView.downPULLMassage = @"下拉进行刷新";
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
