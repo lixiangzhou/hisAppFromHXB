@@ -71,8 +71,8 @@ UITableViewDataSource
     if (!cell) {
         cell = [[HXBMyCouponListTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"celled"];
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.myCouponListModel = self.myCouponListModelArray[indexPath.row];
     kWeakSelf
     cell.actionButtonClickBlock = ^(){
