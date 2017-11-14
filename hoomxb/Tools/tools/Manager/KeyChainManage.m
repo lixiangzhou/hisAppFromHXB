@@ -560,6 +560,10 @@ static NSString *const hostH5 = @"hostH5";
     [manager.keychain removeItemForKey:kGesturePwdCount];
 }
 
+- (BOOL)validateGesturePwd {
+    return (KeyChain.gesturePwd.length >= 4) && [KeyChain isLogin] && [kUserDefaults boolForKey:kHXBGesturePWD];
+}
+
 - (void)removeGesturePwdCount
 {
     KeyChainManage *manager = KeyChain;

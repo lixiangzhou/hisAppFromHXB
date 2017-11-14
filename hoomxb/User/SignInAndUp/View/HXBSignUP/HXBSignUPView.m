@@ -11,7 +11,7 @@
 #import "SVGKit/SVGKImage.h"
 #import "HXBSignInWaterView.h"//波浪式图
 static NSString *const kNextButtonTitle = @"下一步";
-static NSString *const kHavedAccountTitle = @"已有账户，去登录";
+static NSString *const kHavedAccountTitle = @"我有账户，去登录";
 static NSString *const kPhoneTitle = @"请输入您常用的手机号";
 @interface HXBSignUPView()  <
 UITextFieldDelegate

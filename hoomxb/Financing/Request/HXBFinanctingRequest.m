@@ -157,9 +157,7 @@
 #pragma mark - homePage reaquest
 
 //MARK: 红利计划列表api
-- (void)planBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
-    
-
+- (void)planBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray,NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
     
     //是否为上拉刷新
     self.planListAPI.isUPReloadData = isUPData;///这里一定要 在前面  否则 api的page不会++ 或变为1
@@ -179,7 +177,8 @@
             if(isUPData) {
                 [PPNetworkCache setHttpCache:responseObject URL:@"/plan" parameters:nil];
             }
-            successDateBlock(self.planListViewModelArray);
+            NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
+            successDateBlock(self.planListViewModelArray,totalCountStr.integerValue);
             [HXBDataManager setFin_PlanListViewModelArrayWithArray:self.planListViewModelArray];///缓存数据
         }
         
@@ -245,7 +244,7 @@
 }
 
 //MARK: 散标列表api
-- (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
+- (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray,NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
     self.loanListAPI.isUPReloadData = isUPData;
     self.loanListAPI.requestUrl =  kHXBFinanc_LoanListURL((long)self.loanListAPI.dataPage);
     self.loanListAPI.requestMethod = NYRequestMethodGet;
@@ -267,8 +266,12 @@
             if(failureBlock) failureBlock(nil);
             return;
         }
+        NSLog(@"%@",responseObject);
         ///请求成功
-        if (successDateBlock) successDateBlock(self.loanListViewModelArray);
+        if (successDateBlock) {
+            NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
+            successDateBlock(self.loanListViewModelArray,totalCountStr.integerValue);
+        }
         [PPNetworkCache setHttpCache:responseObject URL:@"/loan" parameters:nil];
         
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -279,7 +282,8 @@
         //回调
         [self loan_handleDataWithIsUPData:self.loanListAPI.isUPReloadData andViewModel:loanDataListModelArray];
         if (responseObject) {
-            successDateBlock(self.loanListViewModelArray);
+            NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
+            successDateBlock(self.loanListViewModelArray,totalCountStr.integerValue);
             return;
         }
         if (error && failureBlock) {
@@ -335,7 +339,7 @@
 
 
 ///MARK: 债转列表
-- (void)loanTruansferListWithIsUPData:(BOOL)isUPData andSuccessBlock:(void (^)(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *))successDateBlock andFailureBlock:(void (^)(NSError *error, id responseObject))failureBlock {
+- (void)loanTruansferListWithIsUPData:(BOOL)isUPData andSuccessBlock:(void (^)(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *,NSInteger totalCount))successDateBlock andFailureBlock:(void (^)(NSError *error, id responseObject))failureBlock {
     self.loanTruansferAPI.isUPReloadData = isUPData;
     self.loanTruansferAPI.requestMethod = NYRequestMethodGet;
     self.loanTruansferAPI.requestUrl = kHXBFin_LoanTruansferURL;
@@ -368,7 +372,8 @@
                 [self.loanTruansferViewModel removeAllObjects];
             }
             [self.loanTruansferViewModel addObjectsFromArray:arrayM];
-            successDateBlock(self.loanTruansferViewModel);
+            NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
+            successDateBlock(self.loanTruansferViewModel,totalCountStr.integerValue);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
             if (failureBlock) {

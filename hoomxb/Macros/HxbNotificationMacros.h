@@ -27,8 +27,6 @@ extern NSString *const kHXBNotification_PlanAndLoan_Fragment;
 extern NSString *const kHXBNotification_starCountDown;
 //是否更新提示
 extern NSString *const kHXBNotification_update;
-//从优惠券调到制定投资类型 红利计划
-extern NSString *const kHXBNotification_fromCouponListToFinanctingPlan;
 @interface HxbNotificationMacros : NSObject
 
 

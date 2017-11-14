@@ -32,7 +32,7 @@
     
     [self setParameter];
     self.view.backgroundColor = RGBA(244, 243, 248, 1);
-//    [self.view addSubview:self.myView];
+    [self.view addSubview:self.myView];
 //    self.myView.hidden = YES;
 }
 
@@ -45,18 +45,15 @@
 - (void)loadData_myCouponListInfo{
     kWeakSelf
     [HXBRequestAccountInfo downLoadMyAccountListInfoHUDWithParameterDict:self.parameterDict withSeccessBlock:^(NSArray<HXBMyCouponListModel *> *modelArray) {
-        [weakSelf.view addSubview:self.myView];
         weakSelf.myView.myCouponListModelArray = modelArray;
-        weakSelf.myView.hidden = !weakSelf.myView.myCouponListModelArray.count;
         weakSelf.myView.isStopRefresh_Home = YES;
     } andFailure:^(NSError *error) {
         weakSelf.myView.isStopRefresh_Home = YES;
-//        [weakSelf.view addSubview:self.myView];
-        if (weakSelf.myView) {
-            weakSelf.myView.hidden = YES;
-        }
-        [weakSelf.view addSubview:weakSelf.noNetworkStatusView];
-        weakSelf.noNetworkStatusView.hidden = NO;//weakSelf.isHiddennNoNetworkStatusView = NO;
+//        [weakSelf.view addSubview:weakSelf.noNetworkStatusView];
+//        [weakSelf.noNetworkStatusView mas_updateConstraints:^(MASConstraintMaker *make) {
+//            make.left.top.width.height.equalTo(self.view);
+//        }];
+//        weakSelf.noNetworkStatusView.hidden = NO;
     }];
 }
 
@@ -81,7 +78,8 @@
          */
         _myView.actionButtonClickBlock = ^(){
             [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-            [[NSNotificationCenter defaultCenter]postNotificationName:kHXBNotification_fromCouponListToFinanctingPlan object:nil];
+            //红利计划列表页
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
             AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
             UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
             [tabViewController setSelectedIndex:1];

@@ -100,6 +100,9 @@
 
 - (void)removeGesture;     //!< 移除手势密码
 
+/// 验证手势密码是否有效
+- (BOOL)validateGesturePwd;
+
 - (void)removeGesturePwdCount;//!< 移除手势密码可输入次数
 
 - (void)removeToken;        //!< 移除token
