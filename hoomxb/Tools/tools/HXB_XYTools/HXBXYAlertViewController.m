@@ -162,15 +162,6 @@
 
 }
 
-//- (void)setIsCenterShow:(BOOL)isCenterShow {
-//    _isCenterShow = isCenterShow;
-//    if (isCenterShow) {
-//        self.massageTextView.textAlignment = NSTextAlignmentCenter;
-//        self.massageTextView.font = kHXBFont_PINGFANGSC_REGULAR(16);
-//    } else {
-//        self.massageTextView.textAlignment = NSTextAlignmentLeft;
-//    }
-//}
 
 
 
@@ -238,6 +229,9 @@
         _massageTextView.backgroundColor = [UIColor whiteColor];
         _massageTextView.textAlignment = NSTextAlignmentLeft;
         _massageTextView.editable = NO;
+        if (_isScrolled == NO) {
+            [_massageTextView setUserInteractionEnabled:NO];
+        }
         [self.view addSubview:_massageTextView];
     }
     return _massageTextView;
