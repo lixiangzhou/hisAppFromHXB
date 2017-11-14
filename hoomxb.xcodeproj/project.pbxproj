@@ -260,6 +260,7 @@
 		8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */; };
 		8DAD308F1FBA8F8C00E2AEE8 /* HXBBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */; };
 		8DAD30921FBA954900E2AEE8 /* HXBRootVCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30911FBA954900E2AEE8 /* HXBRootVCManager.m */; };
+		8DAD309B1FBAEB0900E2AEE8 /* UIViewController+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD309A1FBAEB0900E2AEE8 /* UIViewController+HXB.m */; };
 		E1057D701EE28D0C00C63286 /* NSString+HXBPhonNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = E1057D6F1EE28D0C00C63286 /* NSString+HXBPhonNumber.m */; };
 		E10CDBC51EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CDBC41EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m */; };
 		E10CEB0E1F7F96D100B65501 /* HXBFin_Plan_BuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CEB0A1F7F96CF00B65501 /* HXBFin_Plan_BuyViewController.m */; };
@@ -965,6 +966,8 @@
 		8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTextField.m; sourceTree = "<group>"; };
 		8DAD30901FBA954900E2AEE8 /* HXBRootVCManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBRootVCManager.h; sourceTree = "<group>"; };
 		8DAD30911FBA954900E2AEE8 /* HXBRootVCManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBRootVCManager.m; sourceTree = "<group>"; };
+		8DAD30991FBAEB0900E2AEE8 /* UIViewController+HXB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HXB.h"; sourceTree = "<group>"; };
+		8DAD309A1FBAEB0900E2AEE8 /* UIViewController+HXB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HXB.m"; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
 		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2745,6 +2748,8 @@
 		E122D8161EA0CAB900DC71ED /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				8DAD30991FBAEB0900E2AEE8 /* UIViewController+HXB.h */,
+				8DAD309A1FBAEB0900E2AEE8 /* UIViewController+HXB.m */,
 				4EB5598D1F037EFA00146D62 /* UITextView */,
 				4E94B28A1ECC496C003CCBA7 /* NSAttributedString */,
 				4E8198B31EC450B500D668A1 /* UILabel */,
@@ -4926,6 +4931,7 @@
 				E16D7EE01F2B3C7200C5FBF5 /* HXBFin_LoanPerson_Info.m in Sources */,
 				E133DCE11EEE3597009466DE /* HXBCheckCaptcha.m in Sources */,
 				E1057D701EE28D0C00C63286 /* NSString+HXBPhonNumber.m in Sources */,
+				8DAD309B1FBAEB0900E2AEE8 /* UIViewController+HXB.m in Sources */,
 				4ED2F2831ECAE3C30014E5C7 /* HxbNormalConfig.m in Sources */,
 				E10EB4BE1EEFE0B500F16CFA /* HxbMyTopUpViewController.m in Sources */,
 				E165EA9B1EF8E6D500D68763 /* HXBJoinImmediateView.m in Sources */,
