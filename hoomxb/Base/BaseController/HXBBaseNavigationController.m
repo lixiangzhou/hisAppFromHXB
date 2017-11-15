@@ -19,14 +19,13 @@
     
     [self.tabBarItem setTitlePositionAdjustment:UIOffsetMake(-3, -3)];
     
-//    id target = self.interactivePopGestureRecognizer.delegate;
-//    SEL handler = NSSelectorFromString(@"handleNavigationTransition:");
-//    UIView *targetView = self.interactivePopGestureRecognizer.view;
-//    self.fullScreenGesture = [[UIPanGestureRecognizer alloc] initWithTarget:target action:handler];
-//    self.fullScreenGesture.delegate = self;
-//    [targetView addGestureRecognizer:self.fullScreenGesture];
-//    
-//    self.enableFullScreenGesture = YES;
+    id target = self.interactivePopGestureRecognizer.delegate;
+    SEL handler = NSSelectorFromString(@"handleNavigationTransition:");
+    UIView *targetView = self.interactivePopGestureRecognizer.view;
+    self.fullScreenGesture = [[UIPanGestureRecognizer alloc] initWithTarget:target action:handler];
+    self.fullScreenGesture.delegate = self;
+    [targetView addGestureRecognizer:self.fullScreenGesture];
+    self.enableFullScreenGesture = YES;
     
     // 关闭边缘触发手势 防止和原有边缘手势冲突
     [self.interactivePopGestureRecognizer setEnabled:NO];

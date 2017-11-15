@@ -21,6 +21,7 @@
 //@property (nonatomic, assign) BOOL isCanSideBack;
 //@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
 
+@property (nonatomic, strong) UIButton *leftBackBtn;
 @end
 
 @implementation HXBBaseViewController
@@ -39,7 +40,11 @@
 - (void)viewWillAppear:(BOOL)animated{
     //设置电池栏的颜色
     [super viewWillAppear:animated];
-    
+    if (self.leftBackBtn){
+        if(!self.leftBackBtn.superview){
+            [self setupLeftBackBtn];
+        }
+    }
     self.isTransparentNavigationBar = _isTransparentNavigationBar;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:NO];
@@ -70,7 +75,7 @@
 - (void)setupLeftBackBtn
 {
     UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
-
+    self.leftBackBtn = leftBackBtn;
     [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
     [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateHighlighted];
     
