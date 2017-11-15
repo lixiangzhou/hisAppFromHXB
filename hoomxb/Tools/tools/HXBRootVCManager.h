@@ -13,6 +13,7 @@
 @interface HXBRootVCManager : NSObject
 
 @property (nonatomic, strong) HXBBaseTabBarController *mainTabbarVC;
+/// 目前只在AppDelegate用到
 @property (nonatomic, strong) HXBVersionUpdateModel *versionUpdateModel;
 
 + (instancetype)manager;
