@@ -18,9 +18,9 @@
  快速创建无数据的View
 
  @param imgName imageName
- @param noDataMassage imageName
- @param downPullMassage noDataMassage
- @param view downPULLMassage
+ @param noDataMassage noDataMassage
+ @param downPullMassage downPullMassage
+ @param view 父视图
  @param remakeConstraints 约束
  @return HXBNoDataView
  */
