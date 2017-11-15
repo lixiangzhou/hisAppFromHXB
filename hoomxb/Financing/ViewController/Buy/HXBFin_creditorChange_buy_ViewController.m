@@ -392,7 +392,7 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)fullAddtionFunc {
     kWeakSelf
     double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
-    NSString *rechargeMoney = [NSString stringWithFormat:@"%d", _viewModel.userInfoModel.userInfo.minChargeAmount];
+    NSString *rechargeMoney =_viewModel.userInfoModel.userInfo.minChargeAmount_new;
     if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", rechargeMoney] force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确认充值"];
         alertVC.messageHeight = 47;
