@@ -21,9 +21,6 @@
         if (status == 5068) {
             NSString *string = [NSString stringWithFormat:@"您在红小宝平台开通恒丰银行存管操作已达上限，请联系客服 %@", kServiceMobile];
             HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"联系客服"];
-   
-                alertVC.messageHeight = 50;
-            
             alertVC.isHIddenLeftBtn = NO;
             alertVC.isCenterShow = YES;
             [alertVC setClickXYRightButtonBlock:^{
@@ -73,9 +70,6 @@
             if (status == 5068) {
                 NSString *string = [NSString stringWithFormat:@"您今日绑卡次数已超限，请明日再试！请联系客服 %@", kServiceMobile];
                 HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"联系客服"];
-                
-                alertVC.messageHeight = 50;
-                
                 alertVC.isHIddenLeftBtn = NO;
                 alertVC.isCenterShow = YES;
                 [alertVC setClickXYRightButtonBlock:^{
@@ -113,11 +107,6 @@
 
 - (void)showAlertWithMessage:(NSString *)message {
     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:message force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"知道了"];
-    if (message.length > 20) {
-        alertVC.messageHeight = 60;
-    } else {
-        alertVC.messageHeight = 40;
-    }
     alertVC.isHIddenLeftBtn = YES;
     alertVC.isCenterShow = YES;
     [alertVC setClickXYRightButtonBlock:^{
