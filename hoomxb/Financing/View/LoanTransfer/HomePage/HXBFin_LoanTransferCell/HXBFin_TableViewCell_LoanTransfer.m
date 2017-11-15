@@ -66,18 +66,19 @@
     _stutasButton.layer.masksToBounds = true;
     _stutasButton.backgroundColor = kHXBColor_Red_090303;
     _stutasButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
-    [_stutasButton addTarget:self action:@selector(clickStutasButton:) forControlEvents:UIControlEventTouchUpInside];
+    _stutasButton.enabled = NO;
+//    [_stutasButton addTarget:self action:@selector(clickStutasButton:) forControlEvents:UIControlEventTouchUpInside];
     _loanLable = [[UILabel alloc]init];
     _loanImageView = [[UIImageView alloc]init];
 }
 
-- (void)clickStutasButton:(UIButton *)button {
-    NSLog(@"转让中按钮被点击");
-    if (self.clickStutasButtonBlock) {
-        self.clickStutasButtonBlock(self.LoanTruansferViewModel);
-        return;
-    }
-}
+//- (void)clickStutasButton:(UIButton *)button {
+//    NSLog(@"转让中按钮被点击");
+//    if (self.clickStutasButtonBlock) {
+//        self.clickStutasButtonBlock(self.LoanTruansferViewModel);
+//        return;
+//    }
+//}
 - (void)setUPFrames {
     NSArray <UIView *>*array = @[
                                  _interestView,
