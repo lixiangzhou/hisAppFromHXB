@@ -48,7 +48,7 @@ static NSString *ID = @"collectionCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.imageData =  @[@"1银行存管", @"2安全保障", @"3红利计划", @"4优惠券"];
+    self.imageData =  @[@"HXBBankCustody", @"HXBSecurityGuarantee", @"HXBBonusPlan", @"HXBCoupon"];
     
 //    self.collectionView.backgroundColor = [UIColor greenColor];
     //注册一个cell,默认就会创建这个类型的cell
