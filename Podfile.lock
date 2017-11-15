@@ -22,6 +22,9 @@ PODS:
   - CocoaLumberjack/Default (3.3.0)
   - CocoaLumberjack/Extensions (3.3.0):
     - CocoaLumberjack/Default
+  - Crashlytics (3.9.3):
+    - Fabric (~> 1.7.2)
+  - Fabric (1.7.2)
   - IQKeyboardManager (5.0.4)
   - Masonry (1.0.2)
   - MBProgressHUD (1.0.0)
@@ -43,6 +46,8 @@ DEPENDENCIES:
   - AFNetworking
   - AvoidCrash (~> 2.2.3)
   - CJLabel (~> 2.1.3)
+  - Crashlytics
+  - Fabric
   - IQKeyboardManager (~> 5.0.2)
   - Masonry
   - MBProgressHUD
@@ -71,6 +76,8 @@ SPEC CHECKSUMS:
   AvoidCrash: bc1e7e6bb8c977854e8111abc162a9fce53b40d5
   CJLabel: adff5c773bd79b4a52c1bd40fe0692c2ce97bb77
   CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
+  Crashlytics: dbb07d01876c171c5ccbdf7826410380189e452c
+  Fabric: 9cd6a848efcf1b8b07497e0b6a2e7d336353ba15
   IQKeyboardManager: 1df9c0f147af1681cfb2d9977bc30309d45a7e76
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
@@ -84,6 +91,6 @@ SPEC CHECKSUMS:
   WebViewJavascriptBridge: e7b6669bebfc4f151daa0fdec3c8c24c8dc3a24e
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
 
-PODFILE CHECKSUM: 67318d9daa1bdb189bfccc9ca013c81760e12de0
+PODFILE CHECKSUM: 232e31a2a969f840fbeee66ac7fcd32d40464fa2
 
 COCOAPODS: 1.3.1

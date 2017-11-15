@@ -19,4 +19,6 @@ pod 'IQKeyboardManager', '~> 5.0.2'
 pod 'CJLabel', '~> 2.1.3'
 pod 'UMengAnalytics-NO-IDFA'#无IDFA版SDK（请根据需要选择其中一个）
 pod 'AvoidCrash', '~> 2.2.3'#防止闪退
+pod 'Fabric'
+pod 'Crashlytics'
 end
