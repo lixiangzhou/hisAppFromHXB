@@ -16,6 +16,7 @@
 @property (nonatomic,copy) NSString *leftButtonMassage;
 @property (nonatomic,copy) NSString *rightButtonMassage;
 @property (nonatomic, assign) CGFloat messageHeight;
+@property (nonatomic, assign) BOOL isScrolled;
 /**
  Title
  */
@@ -35,7 +36,6 @@
  */
 @property (nonatomic,strong) UIButton *rightButton;
 @property (nonatomic,strong) UIView *containerView;
-@property (nonatomic,strong) NSMutableArray *buttonArray;
 
 
 @end
@@ -60,7 +60,6 @@
     self.massage = massage;
     self.force = force;
     _messageHeight = [[HXB_XYTools shareHandle] heightWithString:massage labelFont:kHXBFont_PINGFANGSC_REGULAR(15) Width:kScrAdaptationW(275)];
-    NSLog(@"_messageHeight = %.2f", _messageHeight);
     if (_messageHeight > 80) {
         self.isScrolled = YES;
     } else {
@@ -106,9 +105,6 @@
         _animatr = [Animatr animatrWithModalPresentationStyle:UIModalPresentationCustom];
     }
     return _animatr;
-}
-
-- (void)clickContainerView : (UIButton *)button {
 }
 
 - (void)setUPViews{
