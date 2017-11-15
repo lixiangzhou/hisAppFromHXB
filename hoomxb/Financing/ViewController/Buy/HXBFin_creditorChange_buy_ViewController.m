@@ -396,7 +396,6 @@ static NSString *const bankString = @"绑定银行卡";
     if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", rechargeMoney] force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确认充值"];
         alertVC.isCenterShow = YES;
-        alertVC.isScrolled = NO;
         [alertVC setClickXYRightButtonBlock:^{
             HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
             [accountRequest accountRechargeRequestWithRechargeAmount:rechargeMoney andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
