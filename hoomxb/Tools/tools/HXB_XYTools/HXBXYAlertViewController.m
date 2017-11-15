@@ -8,14 +8,14 @@
 
 #import "HXBXYAlertViewController.h"
 
-@interface HXBXYAlertViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface HXBXYAlertViewController ()
 @property (nonatomic,strong) Animatr *animatr;
 @property (nonatomic,copy) NSString *titleAlert;
 @property (nonatomic,assign) int force;
 @property (nonatomic,copy) NSString *massage;
 @property (nonatomic,copy) NSString *leftButtonMassage;
 @property (nonatomic,copy) NSString *rightButtonMassage;
-
+@property (nonatomic, assign) CGFloat messageHeight;
 /**
  Title
  */
@@ -56,32 +56,32 @@
          andLeftButtonMassage:(NSString *)leftButtonMassage
         andRightButtonMassage:(NSString *)rightButtonMassage {
     self = [[HXBXYAlertViewController alloc]init];
-    
     self.titleAlert = title;
     self.massage = massage;
     self.force = force;
+    _messageHeight = [[HXB_XYTools shareHandle] heightWithString:massage labelFont:kHXBFont_PINGFANGSC_REGULAR(15) Width:kScrAdaptationW(275)];
+    NSLog(@"_messageHeight = %.2f", _messageHeight);
+    if (_messageHeight > 80) {
+        self.isScrolled = YES;
+    } else {
+        self.isScrolled = NO;
+    }
+    _messageHeight = _messageHeight > 80 ? 80 : _messageHeight;
     self.leftButtonMassage = leftButtonMassage;
     self.rightButtonMassage = rightButtonMassage;
     return self;
 }
 
-
-- (Animatr *)animatr {
-    if (!_animatr) {
-        _animatr = [Animatr animatrWithModalPresentationStyle:UIModalPresentationCustom];
-    }
-    return _animatr;
-}
-- (void)clickContainerView : (UIButton *)button {
-//    [self dismissViewControllerAnimated:true completion:nil];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setUPAnimater];
+    [self setUPViews];
 }
 
 - (void)setUPAnimater{
-//    __weak typeof (self)weakSelf = self;
-    
     [self.animatr presentAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
         toView.center = [UIApplication sharedApplication].keyWindow.center;
-        toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(_messageHeight + 105));
+        toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(110)+_messageHeight);
         self.animatr.isAccomplishAnima = true;
     }];
     [self.animatr dismissAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
@@ -100,115 +100,127 @@
     }];
 }
 
-- (void) setUPViews{
-    self.mainTitle.text = self.titleAlert;
-    self.massageTextView.text = self.massage;
-//    self.massageLabel.text = self.massage;
-    [self.leftButton setTitle:self.leftButtonMassage forState:UIControlStateNormal];
-    [self.rightButton setTitle:self.rightButtonMassage forState:UIControlStateNormal];
-    if (_force == 1) { // 如果强制。只展示右边按钮
-        self.leftButton.hidden = YES;
-        [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.containerView).offset(kScrAdaptationW(20));
-            make.right.equalTo(self.containerView).offset(kScrAdaptationW(-20));
-        }];
-    } else {
-        self.leftButton.hidden = NO;
-        [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
-            make.centerY.equalTo(self.leftButton);
-        }];
-        if (_isCenterShow) {
-            self.massageTextView.textAlignment = NSTextAlignmentCenter;
-            self.massageTextView.font = kHXBFont_PINGFANGSC_REGULAR(15);
-        } else {
-            self.massageTextView.textAlignment = NSTextAlignmentLeft;
-        }
-        if (self.titleAlert.length > 0) {
-            self.mainTitle.hidden = NO;
-            [self.massageTextView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.view).offset(kScrAdaptationH(45));
-                make.left.equalTo(self.view).offset(kScrAdaptationW(10));
-                make.right.equalTo(self.view).offset(kScrAdaptationW(-10));
-                make.height.offset(kScrAdaptationH(_messageHeight));
-            }];
-        } else {
-            self.mainTitle.hidden = YES;
-            [self.massageTextView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.view).offset(kScrAdaptationH(20));
-                make.left.equalTo(self.view).offset(kScrAdaptationW(10));
-                make.right.equalTo(self.view).offset(kScrAdaptationW(-10));
-                make.height.offset(kScrAdaptationH(_messageHeight));
-            }];
-        }
-        if (_isHIddenLeftBtn) {
-            self.leftButton.hidden = YES;
-            [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
-                make.top.equalTo(self.mainTitle).offset(kScrAdaptationH(_messageHeight + 50));
-                make.left.equalTo(self.view).offset(kScrAdaptationW(20));
-                make.height.offset(kScrAdaptationH(35));
-            }];
-        } else {
-            self.leftButton.hidden = NO;
-            [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
-                make.top.equalTo(self.mainTitle).offset(kScrAdaptationH(_messageHeight + 50));
-                make.width.offset(kScrAdaptationW(115));
-                make.height.offset(kScrAdaptationH(35));
-            }];
-        }
+// 转场动画
+- (Animatr *)animatr {
+    if (!_animatr) {
+        _animatr = [Animatr animatrWithModalPresentationStyle:UIModalPresentationCustom];
     }
-
+    return _animatr;
 }
 
+- (void)clickContainerView : (UIButton *)button {
+}
 
-
-
-- (void)setUPViewsFrame {
-    
-    //    self.view.frame = CGRectMake(kScrAdaptationW(40), kScrAdaptationH(260), kScrAdaptationW(295), kScrAdaptationH(145));
+- (void)setUPViews{
     self.view.layer.cornerRadius = kScrAdaptationW(5);
     self.view.layer.masksToBounds = true;
-    self.containerView = [[UIView alloc]init];
-    self.containerView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.containerView];
-    
+    [self.view addSubview:self.mainTitle];
+    [self.view addSubview:self.massageTextView];
+    [self.view addSubview:self.leftButton];
+    [self.view addSubview:self.rightButton];
+    [self setUPViewsFrame];
+}
+
+- (void)setUPViewsFrame {
     [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(0);
-        make.height.offset(kScrAdaptationH(_messageHeight + 105));
+        make.top.equalTo(self.view);
+        make.height.offset(kScrAdaptationH(110)+_messageHeight);
         make.width.offset(self.view.width);
         make.center.equalTo(self.view);
     }];
     
     [self.mainTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(kScrAdaptationH(0));
-        make.left.equalTo(self.view).offset(kScrAdaptationW(0));
-        make.right.equalTo(self.view).offset(kScrAdaptationW(0));
-        make.height.offset(kScrAdaptationH(50));
+        make.top.equalTo(self.view);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.height.offset(kScrAdaptationH(45));
     }];
     
     [self.massageTextView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(kScrAdaptationH(40));
+        make.top.equalTo(self.mainTitle.mas_bottom);
         make.left.equalTo(self.view).offset(kScrAdaptationW(10));
         make.right.equalTo(self.view).offset(kScrAdaptationW(-10));
-        make.height.offset(kScrAdaptationH(_messageHeight));
+        make.height.offset(_messageHeight);
     }];
     
     [self.leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(kScrAdaptationW(20));
-        make.top.equalTo(self.mainTitle).offset(kScrAdaptationH(_messageHeight + 50));
+        make.bottom.equalTo(self.view.mas_bottom).offset(-kScrAdaptationH(20));
         make.width.offset(kScrAdaptationW(115));
         make.height.offset(kScrAdaptationH(35));
     }];
     
     [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
-        make.top.equalTo(self.mainTitle).offset(kScrAdaptationH(_messageHeight + 50));
+        make.centerY.equalTo(self.leftButton.mas_centerY);
         make.width.offset(kScrAdaptationW(115));
         make.height.offset(kScrAdaptationH(35));
     }];
+    
+    [self displayData];
 }
+
+- (void)displayData {
+    self.mainTitle.text = self.titleAlert;
+    self.massageTextView.text = self.massage;
+    
+    if (_force == 1) { // 如果强制。只展示右边按钮
+        self.leftButton.hidden = YES;
+        [self.rightButton mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view).offset(kScrAdaptationW(20));
+            make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
+        }];
+    } else {
+        self.leftButton.hidden = NO;
+        [self.rightButton mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
+            make.width.offset(kScrAdaptationW(115));
+            make.height.offset(kScrAdaptationH(35));
+        }];
+    }
+    
+    if (_isCenterShow) {
+        self.massageTextView.textAlignment = NSTextAlignmentCenter;
+    } else {
+        self.massageTextView.textAlignment = NSTextAlignmentLeft;
+    }
+    
+    if (self.titleAlert.length > 0) {
+        self.mainTitle.hidden = NO;
+        [self.massageTextView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(kScrAdaptationH(45));
+        }];
+    } else {
+        self.mainTitle.hidden = YES;
+        [self.massageTextView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(kScrAdaptationH(27.5));
+            
+        }];
+    }
+    
+    if (_isHIddenLeftBtn) {
+        self.leftButton.hidden = YES;
+        [self.rightButton mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.view).offset(kScrAdaptationW(20));
+            make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
+        }];
+    } else {
+        self.leftButton.hidden = NO;
+        [self.rightButton mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
+            make.width.offset(kScrAdaptationW(115));
+            make.height.offset(kScrAdaptationH(35));
+        }];
+    }
+    
+    if (_isScrolled == NO) {
+        [_massageTextView setUserInteractionEnabled:NO];
+    } else {
+        [_massageTextView setUserInteractionEnabled:YES];
+    }
+}
+
 - (UILabel *)mainTitle {
     if (!_mainTitle) {
         _mainTitle = [[UILabel alloc]init];
@@ -216,7 +228,6 @@
         _mainTitle.textColor = [UIColor blackColor];
         _mainTitle.backgroundColor = [UIColor whiteColor];
         _mainTitle.textAlignment = NSTextAlignmentCenter;
-        [self.view addSubview:_mainTitle];
     }
     return _mainTitle;
 }
@@ -229,13 +240,10 @@
         _massageTextView.backgroundColor = [UIColor whiteColor];
         _massageTextView.textAlignment = NSTextAlignmentLeft;
         _massageTextView.editable = NO;
-        if (_isScrolled == NO) {
-            [_massageTextView setUserInteractionEnabled:NO];
-        }
-        [self.view addSubview:_massageTextView];
     }
     return _massageTextView;
 }
+
 - (UIButton*)rightButton {
     if (!_rightButton) {
         _rightButton = [[UIButton alloc]init];
@@ -243,11 +251,13 @@
         _rightButton.layer.masksToBounds = YES;
         _rightButton.backgroundColor = COR29;
         [_rightButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_rightButton setTitle:self.rightButtonMassage forState:UIControlStateNormal];
+        [_rightButton addTarget:self action:@selector(clickRightButton:) forControlEvents:UIControlEventTouchUpInside];
         _rightButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
-        [self.view addSubview:_rightButton];
     }
     return _rightButton;
 }
+
 - (UIButton *)leftButton {
     if (!_leftButton) {
         _leftButton = [[UIButton alloc]init];
@@ -257,47 +267,33 @@
         _leftButton.layer.borderColor = COR29.CGColor;
         _leftButton.backgroundColor = [UIColor whiteColor];
         [_leftButton setTitleColor:COR29 forState:UIControlStateNormal];
+        [_leftButton setTitle:self.leftButtonMassage forState:UIControlStateNormal];
+        [_leftButton addTarget:self action:@selector(clickLeftButton:) forControlEvents:UIControlEventTouchUpInside];
         _leftButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
-        [self.view addSubview:_leftButton];
     }
     return _leftButton;
 }
+
+- (UIView *)containerView {
+    if (!_containerView) {
+        _containerView = [[UIView alloc]init];
+        _containerView.backgroundColor = [UIColor whiteColor];
+    }
+    return _containerView;
+}
+
 - (void)clickLeftButton:(UIButton *)button {
-    NSLog(@"点击了左边的button %@",self);
     [self dismissViewControllerAnimated:true completion:nil];
     if (self.clickXYLeftButtonBlock) {
         self.clickXYLeftButtonBlock();
     }
 }
 - (void)clickRightButton: (UIButton *)button {
-    NSLog(@"点击了右边的button %@",self);
     [self dismissViewControllerAnimated:true completion:nil];
     if (self.clickXYRightButtonBlock) {
         self.clickXYRightButtonBlock();
     }
 }
-
-- (void)addButtonWithTitle:(NSString *)title andEvent:(void(^)(UIButton *button))eventBlock {
-    UIButton *button = [[UIButton alloc]init];
-    [self.containerView addSubview:button];
-    [self.buttonArray addObject:button];
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self setUPAnimater];
-    [self setUPViewsFrame];
-    [self setUPViews];
-    [_rightButton addTarget:self  action:@selector(clickRightButton:) forControlEvents:UIControlEventTouchUpInside];
-    [_leftButton addTarget:self  action:@selector(clickLeftButton:) forControlEvents:UIControlEventTouchUpInside];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 
 @end
