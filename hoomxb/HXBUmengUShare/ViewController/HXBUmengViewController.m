@@ -6,8 +6,12 @@
 //Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
+#define kHXBShareViewHeight kScrAdaptationH(213)
+
 #import "HXBUmengViewController.h"
 #import "HXBUmengView.h"
+#import "HXBUMShareViewModel.h"
+#import "HXBUMShareModel.h"
 @interface HXBUmengViewController ()
 
 @property (nonatomic, strong) UIView *bottomShareView;
@@ -18,6 +22,7 @@
 
 @property (nonatomic, strong) HXBUmengView *umengView;
 
+@property (nonatomic, strong) HXBUMShareViewModel *shareVM;
 
 @end
 
@@ -37,6 +42,7 @@
     [super viewDidLoad];
     
     [self setUI];
+    [self loadShareData];
 }
 
 
@@ -49,10 +55,6 @@
     [self.bottomShareView addSubview:self.cancelBtn];
     [self.bottomShareView addSubview:self.umengView];
     
-//    [self.bottomShareView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.height.offset(kScrAdaptationH(213));
-//        make.left.right.bottom.equalTo(self.view);
-//    }];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.bottomShareView);
         make.top.equalTo(self.bottomShareView).offset(kScrAdaptationH(25));
@@ -70,16 +72,54 @@
 }
 
 #pragma mark - Network
+- (void)loadShareData {
+    kWeakSelf
+    [self.shareVM UMShareRequestSuccessBlock:^(HXBUMShareViewModel *shareViewModel) {
+        weakSelf.shareVM = shareViewModel;
+    } andFailureBlock:^(NSError *error) {
+        
+    }];
+}
 
 
-#pragma mark - Delegate Internal
 
-#pragma mark -
-
-
-#pragma mark - Delegate External
-
-#pragma mark -
+#pragma mark - 分享失败回调文案
+- (NSString *)sharFailureStringWithCode:(NSInteger)code {
+    switch (code) {
+        case UMSocialPlatformErrorType_Unknow:
+            return @"未知错误";
+        case UMSocialPlatformErrorType_NotSupport:
+            return @"客户端版本不支持";
+        case  UMSocialPlatformErrorType_AuthorizeFailed:
+            return @"授权失败";
+        case UMSocialPlatformErrorType_ShareFailed:
+            return @"分享失败";
+        case UMSocialPlatformErrorType_RequestForUserProfileFailed:
+            return @"请求用户信息失败";
+        case UMSocialPlatformErrorType_ShareDataNil:
+            return @"网络异常";
+        case UMSocialPlatformErrorType_ShareDataTypeIllegal:
+            return @"分享内容不支持";
+        case UMSocialPlatformErrorType_CheckUrlSchemaFail:
+            return @"跳转链接配置错误";
+        case UMSocialPlatformErrorType_NotInstall:
+            return @"应用未安装";
+        case UMSocialPlatformErrorType_Cancel:
+            return @"取消操作";
+        case UMSocialPlatformErrorType_NotNetWork:
+            return @"网络异常";
+        case UMSocialPlatformErrorType_SourceError:
+            return @"第三方错误";
+        case UMSocialPlatformErrorType_ProtocolNotOverride:
+            return @"对应的UMSocialPlatformProvider的方法没有实现";
+        case UMSocialPlatformErrorType_NotUsingHttps:
+            return @"没有用https的请求";
+        default:
+            return @"未知错误";
+            break;
+    }
+    return nil;
+}
 
 
 #pragma mark - Action
@@ -99,7 +139,7 @@
 
 - (void)showShareView {
     [UIView animateWithDuration:0.3 animations:^{
-        self.bottomShareView.y = kScreenHeight - kScrAdaptationH(213);
+        self.bottomShareView.y = kScreenHeight - kHXBShareViewHeight;
     }];
 }
 
@@ -113,11 +153,12 @@
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
+   
     //创建网页内容对象
-    NSString* thumbURL =  @"https://mobile.umeng.com/images/pic/home/social/img-1.png";
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:@"欢迎使用【友盟+】社会化组件U-Share" descr:@"欢迎使用【友盟+】社会化组件U-Share，SDK包最小，集成成本最低，助力您的产品开发、运营与推广！" thumImage:thumbURL];
+    NSString* thumbURL = self.shareVM.shareModel.image;
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.shareVM.shareModel.title descr:self.shareVM.shareModel.desc thumImage:thumbURL];
     //设置网页地址
-    shareObject.webpageUrl = @"http://mobile.umeng.com/social";
+    shareObject.webpageUrl = self.shareVM.shareModel.link;
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
@@ -125,6 +166,8 @@
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
         if (error) {
+            NSString *errorMessage = [self sharFailureStringWithCode:error.code];
+            [HxbHUDProgress showMessageCenter:errorMessage inView:nil];
             UMSocialLogInfo(@"************Share fail with error %@*********",error);
         }else{
             if ([data isKindOfClass:[UMSocialShareResponse class]]) {
@@ -133,7 +176,6 @@
                 UMSocialLogInfo(@"response message is %@",resp.message);
                 //第三方原始返回的数据
                 UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
-                
             }else{
                 UMSocialLogInfo(@"response data is %@",data);
             }
@@ -143,9 +185,17 @@
 }
 
 #pragma mark - Setter / Getter / Lazy
+
+- (HXBUMShareViewModel *)shareVM {
+    if (!_shareVM) {
+        _shareVM = [[HXBUMShareViewModel alloc] init];
+    }
+    return _shareVM;
+}
+
 - (UIView *)bottomShareView {
     if (!_bottomShareView) {
-        _bottomShareView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, kScrAdaptationH(213))];
+        _bottomShareView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight, kScreenWidth, kHXBShareViewHeight)];
         _bottomShareView.backgroundColor = kHXBColor_ShareViewBackGround;
     }
     return _bottomShareView;
