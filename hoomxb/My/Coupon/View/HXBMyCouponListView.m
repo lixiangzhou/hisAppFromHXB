@@ -113,7 +113,7 @@ UITableViewDataSource
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
         _nodataView.userInteractionEnabled = NO;
         _nodataView.imageName = @"my_couponList_NotData";
-        _nodataView.noDataMassage = @"暂时还没有优惠券";
+        _nodataView.noDataMassage = @"暂无优惠券";
         //        _nodataView.downPULLMassage = @"下拉进行刷新";
     }
     return _nodataView;
