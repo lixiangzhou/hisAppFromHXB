@@ -118,11 +118,6 @@
 
 - (void)showAlertWithMessage:(NSString *)message {
     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:message force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"知道了"];
-    if (message.length > 20) {
-        alertVC.messageHeight = 60;
-    } else {
-        alertVC.messageHeight = 40;
-    }
     alertVC.isHIddenLeftBtn = YES;
     alertVC.isCenterShow = YES;
     [alertVC setClickXYRightButtonBlock:^{
