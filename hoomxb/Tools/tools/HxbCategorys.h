@@ -24,6 +24,7 @@
 #import "UITextField+HxbTextField.h" //TextField的自定义
 #import "UITextField+HLNumberFormatTextField.h"//身份证、银行卡、手机号输入框
 #import "UIView+HXBFrame.h"//关于frame
+#import "UIImage+HXBUtil.h"//获取启动页图片
 
 
 

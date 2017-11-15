@@ -20,8 +20,8 @@
     NSArray *imageDict = [[[NSBundle mainBundle] infoDictionary] valueForKey:@"UILaunchImages"];
     for (NSDictionary *dict in imageDict) {
         CGSize imageSize = CGSizeFromString(dict[@"UILaunchImageSize"]);
-        if (CGSizeEqualToSize([UIScreen mainScreen].bounds.size, imageSize) && [viewOrientation isEqualToString:dict[@""]]) {
-            launchImage = dict[@""];
+        if (CGSizeEqualToSize([UIScreen mainScreen].bounds.size, imageSize) && [viewOrientation isEqualToString:dict[@"UILaunchImageOrientation"]]) {
+            launchImage = dict[@"UILaunchImageName"];
         }
     }
     return [UIImage imageNamed:launchImage];

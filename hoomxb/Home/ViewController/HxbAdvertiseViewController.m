@@ -28,7 +28,7 @@
 - (void)setAdvertiseView{
    
     HxbAdvertiseView *advertiseView = [[HxbAdvertiseView alloc] initWithFrame:self.view.frame];
-    advertiseView.advertiseImage = [UIImage imageNamed:@"launch"];
+    advertiseView.advertiseImage = [UIImage getLauchImage];
     [self.view addSubview:advertiseView];
     [advertiseView showAdvertiseWebViewWithBlock:^{
         [self setUPWebView];
