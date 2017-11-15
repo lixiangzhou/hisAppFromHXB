@@ -50,16 +50,14 @@
                     [advertiseView show];
                 }else {//不显示直接跳转控制器
                     NSLog(@"第一次加载广告图片，所以不显示");
-                    if (self.dismissAdvertiseViewControllerBlock) {
-                        self.dismissAdvertiseViewControllerBlock(self.isSingleLogin);
-                    }
+                    [self dismiss];
                 }
             }];
+        } else {
+            [self dismiss];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (self.dismissAdvertiseViewControllerBlock) {
-            self.dismissAdvertiseViewControllerBlock(self.isSingleLogin);
-        }
+        [self dismiss];
     }];
     
     [advertiseView showAdvertiseWebViewWithBlock:^{
@@ -67,9 +65,7 @@
     }];
     
     [advertiseView clickSkipButtonFuncWithBlock:^{
-        if (self.dismissAdvertiseViewControllerBlock) {
-            self.dismissAdvertiseViewControllerBlock(self.isSingleLogin);
-        }
+        [self dismiss];
     }];
 //    //显示广告图片
 //    UIImage *image = [HXBAdvertisementManager getAdvertisementImagePath];
@@ -83,6 +79,13 @@
 //        }
 //    }
 }
+
+- (void)dismiss {
+    if (self.dismissAdvertiseViewControllerBlock) {
+        self.dismissAdvertiseViewControllerBlock(self.isSingleLogin);
+    }
+}
+
 - (void)setUPWebView{
     self.title = @"点击进入广告链接";
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
