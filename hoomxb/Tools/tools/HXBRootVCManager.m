@@ -59,11 +59,11 @@
     //版本检测
     if ([currentVersion isEqualToString:lastVersion]) { // 没有最新的版本号
         // 广告的时候有单点登录码，不需要显示手势密码页面
-        if (isSingleLogin) {
-            [self makeTabbarRootVC];
-        } else {
-            [self enterTheGesturePasswordVCOrTabBar];
-        }
+//        if (isSingleLogin) {
+//            [self makeTabbarRootVC];
+//        } else {
+        [self enterTheGesturePasswordVCOrTabBar];
+//        }
     } else { // 有新版本
         AXHNewFeatureController *VC = [[AXHNewFeatureController alloc] init];
         VC.force = self.versionUpdateModel.force;
