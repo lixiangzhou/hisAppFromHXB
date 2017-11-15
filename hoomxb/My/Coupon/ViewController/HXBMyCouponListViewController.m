@@ -10,7 +10,7 @@
 #import "HXBMyCouponListView.h"
 #import "HXBRequestAccountInfo.h"
 #import "HXBMyCouponListModel.h"
-#import "AppDelegate.h"
+#import "HXBRootVCManager.h"
 
 @interface HXBMyCouponListViewController (){
     int _page;
@@ -80,9 +80,7 @@
             [weakSelf.navigationController popToRootViewControllerAnimated:NO];
             //红利计划列表页
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
-            AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-            UITabBarController *tabViewController = (UITabBarController *) appDelegate.window.rootViewController;
-            [tabViewController setSelectedIndex:1];
+            [[HXBRootVCManager manager].mainTabbarVC setSelectedIndex:1];
         };
         _myView.homeRefreshHeaderBlock = ^(){
             [weakSelf loadData_myCouponListInfo];

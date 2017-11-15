@@ -12,4 +12,21 @@
 @property (nonatomic,copy) NSString *imageName;
 @property (nonatomic,copy) NSString *noDataMassage;
 @property (nonatomic,copy) NSString *downPULLMassage;
+
+
+/**
+ 快速创建无数据的View
+
+ @param imgName imageName
+ @param noDataMassage noDataMassage
+ @param downPullMassage downPullMassage
+ @param view 父视图
+ @param remakeConstraints 约束
+ @return HXBNoDataView
+ */
++ (HXBNoDataView *)noDataViewWithImgName:(NSString *)imgName
+                           noDataMassage:(NSString *)noDataMassage
+                         downPullMassage:(NSString *)downPullMassage
+                                  inView:(UIView *)view
+                       remakeConstraints:(void(^)(MASConstraintMaker *make))remakeConstraints;
 @end

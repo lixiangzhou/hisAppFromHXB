@@ -14,8 +14,6 @@
 @end
 @implementation HXBNoDataView
 
-
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -24,6 +22,7 @@
     }
     return self;
 }
+
 - (void)setUP {//179
     [self.notDataImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
@@ -44,6 +43,23 @@
     }];
 }
 
++ (HXBNoDataView *)noDataViewWithImgName:(NSString *)imgName noDataMassage:(NSString *)noDataMassage downPullMassage:(NSString *)downPullMassage inView:(UIView *)view remakeConstraints:(void(^)(MASConstraintMaker *))remakeConstraints
+{
+    HXBNoDataView *nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
+    nodataView.imageName = imgName;
+    nodataView.noDataMassage = noDataMassage;
+    nodataView.downPULLMassage = downPullMassage;
+    
+    nodataView.userInteractionEnabled = NO;
+    nodataView.hidden = YES;
+    
+    [view addSubview:nodataView];
+    [nodataView mas_remakeConstraints:remakeConstraints];
+    
+    return nodataView;
+}
+
+#pragma mark - Lazy Setter
 - (UILabel *)noDataLabel {
     if (!_noDataLabel) {
         _noDataLabel = [[UILabel alloc]init];

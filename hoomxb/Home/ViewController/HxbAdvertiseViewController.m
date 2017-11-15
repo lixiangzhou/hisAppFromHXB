@@ -12,7 +12,8 @@
 @interface HxbAdvertiseViewController ()
 
 @property (nonatomic, strong) UIWebView *webView;
-@property (nonatomic, copy) void(^dismissAdvertiseViewControllerBlock)();
+@property (nonatomic, copy) void(^dismissAdvertiseViewControllerBlock)(BOOL isSingleLogin);
+@property (nonatomic, assign) BOOL isSingleLogin;
 @end
 
 @implementation HxbAdvertiseViewController
@@ -37,6 +38,9 @@
     splashTRequest.requestUrl = kHXBSplash;
     [splashTRequest startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSInteger status =  [responseObject[kResponseStatus] integerValue];
+        
+        self.isSingleLogin = status == kHXBCode_Enum_SingleLogin;
+        
         if (status == 0) {
             NSString *imageURL = responseObject[kResponseData][@"url"];
             [HXBAdvertisementManager downLoadAdvertisementImageWithadvertisementImageURLStr:imageURL andDownLoadBlock:^(NSString *imagePath) {
@@ -46,16 +50,14 @@
                     [advertiseView show];
                 }else {//不显示直接跳转控制器
                     NSLog(@"第一次加载广告图片，所以不显示");
-                    if (self.dismissAdvertiseViewControllerBlock) {
-                        self.dismissAdvertiseViewControllerBlock();
-                    }
+                    [self dismiss];
                 }
             }];
+        } else {
+            [self dismiss];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (self.dismissAdvertiseViewControllerBlock) {
-            self.dismissAdvertiseViewControllerBlock();
-        }
+        [self dismiss];
     }];
     
     [advertiseView showAdvertiseWebViewWithBlock:^{
@@ -63,9 +65,7 @@
     }];
     
     [advertiseView clickSkipButtonFuncWithBlock:^{
-        if (self.dismissAdvertiseViewControllerBlock) {
-            self.dismissAdvertiseViewControllerBlock();
-        }
+        [self dismiss];
     }];
 //    //显示广告图片
 //    UIImage *image = [HXBAdvertisementManager getAdvertisementImagePath];
@@ -79,6 +79,13 @@
 //        }
 //    }
 }
+
+- (void)dismiss {
+    if (self.dismissAdvertiseViewControllerBlock) {
+        self.dismissAdvertiseViewControllerBlock(self.isSingleLogin);
+    }
+}
+
 - (void)setUPWebView{
     self.title = @"点击进入广告链接";
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
@@ -96,7 +103,7 @@
 }
 
 
-- (void) dismissAdvertiseViewControllerFunc: (void(^)())dismissAdvertiseViewControllerBlock{
+- (void) dismissAdvertiseViewControllerFunc: (void(^)(BOOL isSingleLogin))dismissAdvertiseViewControllerBlock{
     self.dismissAdvertiseViewControllerBlock = dismissAdvertiseViewControllerBlock;
 }
 

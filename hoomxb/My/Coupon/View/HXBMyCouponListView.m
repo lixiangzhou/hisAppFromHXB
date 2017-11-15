@@ -71,8 +71,8 @@ UITableViewDataSource
     if (!cell) {
         cell = [[HXBMyCouponListTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"celled"];
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.myCouponListModel = self.myCouponListModelArray[indexPath.row];
     kWeakSelf
     cell.actionButtonClickBlock = ^(){
@@ -113,7 +113,7 @@ UITableViewDataSource
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
         _nodataView.userInteractionEnabled = NO;
         _nodataView.imageName = @"my_couponList_NotData";
-        _nodataView.noDataMassage = @"暂时还没有优惠券";
+        _nodataView.noDataMassage = @"暂无优惠券";
         //        _nodataView.downPULLMassage = @"下拉进行刷新";
     }
     return _nodataView;
