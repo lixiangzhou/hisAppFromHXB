@@ -253,11 +253,16 @@
         return;
     }
     __block NSInteger count = 0;
-    [self.modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+    for (id model in self.modelArray) {
         if ([model valueForKey:self.modelDateKey] <= 0) {
             count++;
         }
-    }];
+    }
+//    [self.modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
+//        if ([model valueForKey:self.modelDateKey] <= 0) {
+//            count++;
+//        }
+//    }];
     if (count == self.modelArray.count) {
         [self cancelTimer];
     }
