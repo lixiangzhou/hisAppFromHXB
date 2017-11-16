@@ -36,33 +36,6 @@
     _page = 1;
     [self setUpDataForInviteOverView];
     [self setUpDataForInviteList];
-    [self addObservers];
-}
-
-//- (void)viewWillAppear:(BOOL)animated {
-//    [super viewWillAppear:animated];
-//}
-//
-//-(void)viewDidAppear:(BOOL)animated {
-//    [super viewDidAppear:animated];
-//}
-//
-//-(void)viewWillDisappear:(BOOL)animated {
-//    [super viewWillDisappear:animated];
-//}
-//
-//- (void)viewDidDisappear:(BOOL)animated {
-//    [super viewDidDisappear:animated];
-//}
-//
-//- (void)dealloc {
-//
-//}
-
-#pragma mark - Observers
-
-- (void)addObservers {
-    
 }
 
 #pragma mark - UI
@@ -160,36 +133,26 @@
 
 - (void)setUpDataForInviteOverView {
     [HXBInviteViewModel requestForInviteOverViewWithParams:nil andSuccessBlock:^(HXBInviteOverViewModel *model) {
-        NSString *cashBackAmount = model.cashBackAmount.length ? model.cashBackAmount: @"--";
-        if (model) {
-            self.headView.dataDic = @{
-                                      @"topLabel": cashBackAmount,
-                                      @"topItemLabel": @"现金奖励(元)",
-                                      @"leftLabel": [NSString stringWithFormat:@"%ld", model.couponNumber],
-                                      @"leftItemLabel": @"优惠券(张)",
-                                      @"rightLabel": [NSString stringWithFormat:@"%ld", model.inviteNumber],
-                                      @"rightItemLabel": @"邀请人数(人)"
-                                      };
+        if (model.cashBackAmount) {
+            self.headView.dataDic = [self dataDicWithCashBackAmount:model.cashBackAmount couponNumber:[NSString stringWithFormat:@"%ld", model.couponNumber] inviteNumber:[NSString stringWithFormat:@"%ld", model.inviteNumber]];
         } else {
-            self.headView.dataDic = @{
-                                      @"topLabel": @"--",
-                                      @"topItemLabel": @"现金奖励(元）",
-                                      @"leftLabel": @"--",
-                                      @"leftItemLabel": @"优惠券(张)",
-                                      @"rightLabel": @"--",
-                                      @"rightItemLabel": @"邀请人数(人)"
-                                      };
+            self.headView.dataDic = [self dataDicWithCashBackAmount:@"--" couponNumber:@"--" inviteNumber:@"--"];
         }
     } andFailureBlock:^(NSError *error) {
-        self.headView.dataDic = @{
-                                  @"topLabel": @"--",
-                                  @"topItemLabel": @"现金奖励(元)",
-                                  @"leftLabel": @"--",
-                                  @"leftItemLabel": @"优惠券(张)",
-                                  @"rightLabel": @"--",
-                                  @"rightItemLabel": @"邀请人数(人)"
-                                  };
+        self.headView.dataDic = [self dataDicWithCashBackAmount:@"--" couponNumber:@"--" inviteNumber:@"--"];
     }];
+}
+
+- (NSDictionary *)dataDicWithCashBackAmount:(NSString *)cashBackAmount couponNumber:(NSString *)couponNumber inviteNumber:(NSString *)inviteNumber {
+    NSDictionary *data = @{
+                           @"topLabel": cashBackAmount,
+                           @"topItemLabel": @"现金奖励(元)",
+                           @"leftLabel": couponNumber,
+                           @"leftItemLabel": @"优惠券(张)",
+                           @"rightLabel": inviteNumber,
+                           @"rightItemLabel": @"邀请人数(人)"
+                           };
+    return data;
 }
 
 

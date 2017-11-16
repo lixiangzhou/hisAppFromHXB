@@ -158,7 +158,7 @@
 }
 
 - (void)clickToShare:(UIButton *)clickToShare {
-    NSLog(@"分享邀请");
+    [HxbHUDProgress showTextWithMessage:@"分享弹框"];
 }
 
 // 设置行间距的富文本

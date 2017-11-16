@@ -23,7 +23,7 @@ UITableViewDelegate,
 UITableViewDataSource,
 MyViewHeaderDelegate
 >
-@property (nonatomic, strong) UITableView *mainTableView;
+@property (nonatomic, strong) HXBBaseTableView *mainTableView;
 @property (nonatomic, strong) HxbMyViewHeaderView *headerView;
 //@property (nonatomic, strong) UIButton *signOutButton;
 @property (nonatomic, copy) void(^clickAllFinanceButtonWithBlock)(UILabel *button);
@@ -109,6 +109,11 @@ MyViewHeaderDelegate
             HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
             HXBMyCouponViewController *myCouponsViewController = [[HXBMyCouponViewController alloc]init];
             [vc.navigationController pushViewController:myCouponsViewController animated:YES];
+        } else {
+//            [HxbHUDProgress showTextWithMessage:@"邀请好友入口"];
+            HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+            HXBInviteListViewController *inviteViewController = [[HXBInviteListViewController alloc]init];
+            [VC.navigationController pushViewController:inviteViewController animated:true];
         }
     }
     if (indexPath.section == 1) {//第一组： plan
@@ -128,10 +133,6 @@ MyViewHeaderDelegate
             HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
             HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
             [VC.navigationController pushViewController:capitalRecordViewController animated:true];
-        } else {
-            HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-             HXBInviteListViewController *inviteViewController = [[HXBInviteListViewController alloc]init];
-            [VC.navigationController pushViewController:inviteViewController animated:true];
         }
     }
 }
@@ -202,17 +203,23 @@ MyViewHeaderDelegate
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     if (indexPath.section == 0) {
-        cell.textLabel.text = @"优惠券";
-        cell.textLabel.textColor = RGBA(102, 102, 102, 1);
-        if (self.accountModel.availableCouponCount) {
-            NSString *str = [NSString stringWithFormat:@"您有%lld张优惠券",self.accountModel.availableCouponCount];
-            NSRange range = NSMakeRange(2, str.length - 6);
-            NSAttributedString *serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:RGBA(255, 33, 33, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(24)];
-            cell.desc = serverViewAttributedStr;
+        if (indexPath.row == 0) {
+            cell.textLabel.text = @"优惠券";
+            cell.textLabel.textColor = RGBA(102, 102, 102, 1);
+            if (self.accountModel.availableCouponCount) {
+                NSString *str = [NSString stringWithFormat:@"您有%lld张优惠券",self.accountModel.availableCouponCount];
+                NSRange range = NSMakeRange(2, str.length - 6);
+                NSAttributedString *serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:RGBA(255, 33, 33, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(24)];
+                cell.desc = serverViewAttributedStr;
+            } else {
+                cell.desc = @"";
+            }
+            cell.isShowLine = YES;
         } else {
-             cell.desc = @"";
+            cell.textLabel.text = @"邀请好友";
+            cell.textLabel.textColor = RGBA(102, 102, 102, 1);
+            cell.isShowLine = NO;
         }
-        cell.isShowLine = NO;
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
             cell.textLabel.text = @"红利计划资产";
@@ -229,25 +236,19 @@ MyViewHeaderDelegate
             cell.isShowLine = NO;
         }
     }else{
-        if (indexPath.row == 0) {
-            cell.textLabel.text = @"交易记录";
-            cell.isShowLine = YES;
-        } else {
-            cell.textLabel.text = @"邀请好友";
-            cell.isShowLine = NO;
-        }
+        cell.textLabel.text = @"交易记录";
+        cell.isShowLine = NO;
     }
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
+        return 2;
+    } else if (section == 1) {
+        return 2;
+    } else {
         return 1;
-    }else if (section == 1)
-    {
-        return 2;
-    }else {
-        return 2;
     }
 }
 
@@ -255,16 +256,15 @@ MyViewHeaderDelegate
     return 3;
 }
 
-- (UITableView *)mainTableView{
+- (HXBBaseTableView *)mainTableView{
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 30) style:UITableViewStyleGrouped];
+        _mainTableView = [[HXBBaseTableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49) style:UITableViewStyleGrouped];
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.tableHeaderView = self.headerView;
         _mainTableView.tableHeaderView.userInteractionEnabled = YES;
         _mainTableView.backgroundColor = kHXBColor_BackGround;
-        [HXBMiddlekey AdaptationiOS11WithTableView:_mainTableView];
         kWeakSelf
         [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
             if (weakSelf.homeRefreshHeaderBlock) weakSelf.homeRefreshHeaderBlock();

@@ -11,6 +11,7 @@
 #import "HXBRequestAccountInfo.h"
 #import "HXBMyCouponListModel.h"
 #import "AppDelegate.h"
+#import "HXBInviteListViewController.h"
 
 @interface HXBMyCouponListViewController (){
     int _page;
@@ -47,6 +48,9 @@
     if (!_myView) {
         _myView = [[HXBMyCouponListView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-44)];
         kWeakSelf
+        _myView.block = ^{
+            [HxbHUDProgress showTextWithMessage:@"邀请好友入口"];
+        };
         _myView.userInteractionEnabled = YES;
         /**
          点击cell中按钮的回调的Block
