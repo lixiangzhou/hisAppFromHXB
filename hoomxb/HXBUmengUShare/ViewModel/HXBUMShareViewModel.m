@@ -13,19 +13,25 @@
 
 
 - (NSString *)getShareLink:(UMSocialPlatformType)type {
+    NSString *shareURL = @"";
     switch (type) {
         case UMSocialPlatformType_WechatSession:
-            return self.shareModel.wechat;
+            shareURL = self.shareModel.wechat;
+            break;
         case UMSocialPlatformType_WechatTimeLine:
-            return self.shareModel.moments;
+            shareURL = self.shareModel.moments;
+            break;
         case UMSocialPlatformType_QQ:
-            return self.shareModel.qq;
+            shareURL = self.shareModel.qq;
+            break;
         case UMSocialPlatformType_Qzone:
-            return self.shareModel.qzone;
+            shareURL = self.shareModel.qzone;
+            break;
         default:
             break;
     }
-    return @"";
+    shareURL = [NSString stringWithFormat:@"%@%@",KeyChain.h5host,shareURL];
+    return shareURL;
 }
 
 /**
@@ -38,6 +44,8 @@
     NYBaseRequest *umShareAPI = [[NYBaseRequest alloc] init];
     umShareAPI.requestUrl = kHXBUMShareURL;
     umShareAPI.requestMethod = NYRequestMethodPost;
+    umShareAPI.requestArgument = @{@"action":@"buy"};
+                             
     [umShareAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         
         NSInteger status =  [responseObject[kResponseStatus] integerValue];
