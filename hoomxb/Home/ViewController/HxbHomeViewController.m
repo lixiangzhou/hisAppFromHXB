@@ -94,8 +94,6 @@
     self.homeView.homeRefreshHeaderBlock = ^(){
         NSLog(@"首页下来加载数据");
         [weakSelf getData:YES];
-        [weakSelf.homeView changeIndicationView];
-        [weakSelf.homeView showSecurityCertificationOrInvest];
     };
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_starCountDown object:nil];
 }
@@ -118,8 +116,6 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:true animated:false];
     [self getData:YES];
-    [self.homeView changeIndicationView];
-    [self.homeView showSecurityCertificationOrInvest];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -176,9 +172,15 @@
         NSLog(@"%@",viewModel);
         weakSelf.homeView.homeBaseModel = viewModel.homeBaseModel;
         weakSelf.homeView.isStopRefresh_Home = YES;
+        
+        [self.homeView changeIndicationView];
+        [self.homeView showSecurityCertificationOrInvest];
     } andFailureBlock:^(NSError *error) {
         weakSelf.homeView.isStopRefresh_Home = YES;
         NSLog(@"%@",error);
+        
+        [self.homeView changeIndicationView];
+        [self.homeView showSecurityCertificationOrInvest];
     }];
 //    NSString *userId = @"2110468";
 //    [request homeAccountAssetWithUserID:userId andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
