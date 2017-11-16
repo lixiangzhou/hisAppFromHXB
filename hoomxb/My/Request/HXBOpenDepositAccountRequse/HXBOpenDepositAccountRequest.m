@@ -25,9 +25,6 @@
             
             HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"联系客服"];
             
-            alertVC.messageHeight = 60;
-            alertVC.isScrolled = NO;
-            
             alertVC.isHIddenLeftBtn = NO;
             alertVC.isCenterShow = YES;
             [alertVC setClickXYRightButtonBlock:^{
@@ -77,9 +74,6 @@
             if (status == 5068) {
                 NSString *string = [NSString stringWithFormat:@"您今日绑卡错误次数已超限，请明日再试。如有疑问可联系客服 \n%@", kServiceMobile];
                 HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:string force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"联系客服"];
-                
-                alertVC.messageHeight = 60;
-                alertVC.isScrolled = NO;
                 
                 alertVC.isHIddenLeftBtn = NO;
                 alertVC.isCenterShow = YES;

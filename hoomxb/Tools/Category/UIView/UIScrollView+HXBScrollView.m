@@ -6,6 +6,8 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
+static NSString * const footerNoMoreDataStr = @"已加载全部";
+
 #import "UIScrollView+HXBScrollView.h"
 
 @implementation UIScrollView (HXBScrollView)
@@ -64,9 +66,11 @@
     footer.automaticallyHidden = true;
     self.mj_footer = footer;
     if (!idleImages.count) {
-        self.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        MJRefreshAutoNormalFooter *autoNormalFooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             if (footerRefreshCallBack) footerRefreshCallBack();
         }];
+        [autoNormalFooter setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
+        self.mj_footer = autoNormalFooter;
     }
 }
 
@@ -93,10 +97,13 @@
     }];
     footer.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     footer.stateLabel.textColor = COR6;
+    [footer setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
+    
     if (footerBlock) footerBlock(footer);
     footer.automaticallyHidden = true;
     self.mj_footer = footer;
 }
+
 
 - (void)endRefresh {
     [self.mj_header endRefreshing];
