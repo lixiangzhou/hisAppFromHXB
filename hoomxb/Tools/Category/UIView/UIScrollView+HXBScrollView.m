@@ -53,6 +53,7 @@ static NSString * const footerNoMoreDataStr = @"已加载全部";
     }];
     footer.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     footer.stateLabel.textColor = COR6;
+    [footer setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
     //设置header
     if (gifFooterBlock) gifFooterBlock(footer);
     
