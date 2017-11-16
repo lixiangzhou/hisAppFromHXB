@@ -26,11 +26,11 @@
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:///没有登录
         case kHXBCode_Enum_TokenNotJurisdiction: // token 失效
-//            [self tokenInvidateProcess];
-            if (KeyChain.isLogin) {
-                KeyChain.isLogin = NO;
-                [HXBAlertManager alertNeedLoginAgainWithMeaage:@"您的账户在另一台设备登录，您的账户密码可能泄露，如非您本人操作，请及时修改登录密码"];
-            }
+            [self tokenInvidateProcess];
+//            if (KeyChain.isLogin) {
+//                KeyChain.isLogin = NO;
+//                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
+//            }
             return;
         case kHXBCode_Enum_NoServerFaile:
         {
@@ -107,10 +107,11 @@
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:/// 没有登录
         case kHXBCode_Enum_TokenNotJurisdiction:// token 失效
-            if (KeyChain.isLogin) {
-                KeyChain.isLogin = NO;
-                [HXBAlertManager alertNeedLoginAgainWithMeaage:@"您的账户在另一台设备登录，您的账户密码可能泄露，如非您本人操作，请及时修改登录密码"];
-            }
+            [self tokenInvidateProcess];
+//            if (KeyChain.isLogin) {
+//                KeyChain.isLogin = NO;
+//                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
+//            }
             return;
         case kHXBCode_Enum_RequestOverrun:
         {
