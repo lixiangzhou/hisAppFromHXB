@@ -26,11 +26,11 @@
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:///没有登录
         case kHXBCode_Enum_TokenNotJurisdiction: // token 失效
-//            [self tokenInvidateProcess];
-            if (KeyChain.isLogin) {
-                KeyChain.isLogin = NO;
-                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
-            }
+            [self tokenInvidateProcess];
+//            if (KeyChain.isLogin) {
+//                KeyChain.isLogin = NO;
+//                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
+//            }
             return;
         case kHXBCode_Enum_NoServerFaile:
         {
@@ -107,10 +107,11 @@
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:/// 没有登录
         case kHXBCode_Enum_TokenNotJurisdiction:// token 失效
-            if (KeyChain.isLogin) {
-                KeyChain.isLogin = NO;
-                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
-            }
+            [self tokenInvidateProcess];
+//            if (KeyChain.isLogin) {
+//                KeyChain.isLogin = NO;
+//                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
+//            }
             return;
         case kHXBCode_Enum_RequestOverrun:
         {
