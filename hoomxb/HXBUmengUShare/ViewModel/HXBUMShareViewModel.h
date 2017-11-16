@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <UMSocialCore/UMSocialCore.h>
 @class HXBUMShareModel;
 @interface HXBUMShareViewModel : NSObject
 
@@ -22,4 +22,12 @@
  */
 - (void)UMShareRequestSuccessBlock: (void(^)(HXBUMShareViewModel * shareViewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
+
+/**
+ 根据不同分享获取不同渠道连接
+
+ @param type 分享类型
+ @return 渠道连接
+ */
+- (NSString *)getShareLink:(UMSocialPlatformType)type;
 @end

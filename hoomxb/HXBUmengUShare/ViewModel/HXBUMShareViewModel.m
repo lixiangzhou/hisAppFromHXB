@@ -11,6 +11,23 @@
 @implementation HXBUMShareViewModel
 
 
+
+- (NSString *)getShareLink:(UMSocialPlatformType)type {
+    switch (type) {
+        case UMSocialPlatformType_WechatSession:
+            return self.shareModel.wechat;
+        case UMSocialPlatformType_WechatTimeLine:
+            return self.shareModel.moments;
+        case UMSocialPlatformType_QQ:
+            return self.shareModel.qq;
+        case UMSocialPlatformType_Qzone:
+            return self.shareModel.qzone;
+        default:
+            break;
+    }
+    return @"";
+}
+
 /**
  获取分享数据
  

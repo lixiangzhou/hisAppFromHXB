@@ -158,7 +158,7 @@
     NSString* thumbURL = self.shareVM.shareModel.image;
     UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:self.shareVM.shareModel.title descr:self.shareVM.shareModel.desc thumImage:thumbURL];
     //设置网页地址
-    shareObject.webpageUrl = self.shareVM.shareModel.link;
+    shareObject.webpageUrl = [self.shareVM getShareLink:platformType];
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;
