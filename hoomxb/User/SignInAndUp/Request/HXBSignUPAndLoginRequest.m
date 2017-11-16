@@ -30,7 +30,8 @@
                                   @"smscode" : smscode,///	      是	string	短信验证码
                                   @"password" : password,///       是	string	密码
                                   @"inviteCode" : inviteCode,///    否	string	邀请码
-                                  @"utmSource" : @"ios"
+                                  @"utmSource" : @"",///推广渠道
+                                  @"marketSource" : @"ios"///市场来源
                                   };
     [signUPAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD

@@ -89,11 +89,11 @@ UITableViewDelegate,UITableViewDataSource
     
     cell.LoanTruansferViewModel = self.loanTruansferViewModel[indexPath.section];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.clickStutasButtonBlock = ^(id model) {
-        if (self.clickCellBlock) {
-            self.clickCellBlock(self.loanTruansferViewModel[indexPath.row], indexPath);
-        }
-    };
+//    cell.clickStutasButtonBlock = ^(id model) {
+//        if (self.clickCellBlock) {
+//            self.clickCellBlock(self.loanTruansferViewModel[indexPath.row], indexPath);
+//        }
+//    };
     return cell;
 }
 - (HXBNoDataView *)nodataView {
