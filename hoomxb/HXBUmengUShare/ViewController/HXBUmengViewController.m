@@ -13,6 +13,9 @@
 #import "HXBUMShareViewModel.h"
 #import "HXBUMShareModel.h"
 @interface HXBUmengViewController ()
+{
+    HXBUMShareViewModel *_shareVM;
+}
 
 @property (nonatomic, strong) UIView *bottomShareView;
 
@@ -22,7 +25,6 @@
 
 @property (nonatomic, strong) HXBUmengView *umengView;
 
-@property (nonatomic, strong) HXBUMShareViewModel *shareVM;
 
 @end
 
@@ -42,7 +44,6 @@
     [super viewDidLoad];
     
     [self setUI];
-    [self loadShareData];
 }
 
 
@@ -185,6 +186,13 @@
 }
 
 #pragma mark - Setter / Getter / Lazy
+
+- (void)setShareVM:(HXBUMShareViewModel *)shareVM{
+    _shareVM = shareVM;
+    if (!shareVM) {
+        [self loadShareData];
+    }
+}
 
 - (HXBUMShareViewModel *)shareVM {
     if (!_shareVM) {

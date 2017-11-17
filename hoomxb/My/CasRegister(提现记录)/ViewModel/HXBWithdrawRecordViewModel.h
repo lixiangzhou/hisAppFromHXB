@@ -21,6 +21,6 @@
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-- (void)withdrawRecordProgressRequestWithLoading:(BOOL)isLoading andSuccessBlock: (void(^)(HXBWithdrawRecordListModel * withdrawRecordListModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)withdrawRecordProgressRequestWithLoading:(BOOL)isLoading andPage:(NSInteger)page andSuccessBlock: (void(^)(HXBWithdrawRecordListModel * withdrawRecordListModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 @end

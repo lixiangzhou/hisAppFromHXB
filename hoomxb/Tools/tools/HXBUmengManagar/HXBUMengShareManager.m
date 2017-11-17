@@ -75,10 +75,10 @@
 }
 
 
-+ (void) showShareMenuViewInWindow {
++ (void) showShareMenuViewInWindowWith:(HXBUMShareViewModel *)shareVM {
     
     HXBUmengViewController *UmengVC = [[HXBUmengViewController alloc] init];
-
+    UmengVC.shareVM = shareVM;
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:UmengVC animated:NO completion:^{
         [UmengVC showShareView];
     }];

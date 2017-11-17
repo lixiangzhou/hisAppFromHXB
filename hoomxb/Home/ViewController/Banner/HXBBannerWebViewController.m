@@ -16,6 +16,8 @@
 #define kPlan_fragment @"/home/plan_fragment"//红利计划列表页
 #define kLoan_fragment @"/home/loan_fragment"//散标列表页
 #define kLoantransferfragment @"/home/loan_transfer_fragment"//债权转让列表页
+#define kAccountFriendsRecordActivity @"/account/invite_friends_record_activity"//好友邀请记录
+
 
 #import "HXBBannerWebViewController.h"
 #import "WebViewJavascriptBridge.h"
@@ -25,10 +27,11 @@
 #import "HXBFinancing_LoanDetailsViewController.h"//散标详情页
 #import "HXBBaseTabBarController.h"//红利计划
 #import "HXBUMengShareManager.h"
+#import "HXBUMShareViewModel.h"
+#import "HXBUMShareModel.h"
 @interface HXBBannerWebViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) WebViewJavascriptBridge* bridge;
-@property (nonatomic, strong) UIButton *shareBtn;
 @end
 
 @implementation HXBBannerWebViewController
@@ -39,23 +42,19 @@
     self.isColourGradientNavigationBar = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
-    [self.view addSubview:self.shareBtn];
     
     [self setupJavascriptBridge];
     
     [self setupSubViewFrame];
+    
+    
 }
 
 - (void)setupSubViewFrame {
     
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(64);
-        make.left.right.equalTo(self.view);
-        make.bottom.equalTo(self.shareBtn.mas_top);
-    }];
-    [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
-        make.height.offset(kScrAdaptationH750(88));
     }];
 }
 
@@ -76,6 +75,15 @@
         NSLog(@"%@",data);
         [weakSelf logicalJumpWithData:data];
     }];
+    [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"%@",data);
+        
+        HXBUMShareViewModel *shareViewModel = [[HXBUMShareViewModel alloc] init];
+        shareViewModel.shareModel = [HXBUMShareModel yy_modelWithDictionary:data];
+        [HXBUMengShareManager showShareMenuViewInWindowWith:shareViewModel];
+    }];
+
+
 }
 
 /**
@@ -148,12 +156,14 @@
     }else if ([data[@"path"] isEqualToString:kLoantransferfragment]){
         //主页债权转让列表页
         tabBarVC.selectedIndex = 1;
+    }else if ([data[@"path"] isEqualToString:kAccountFriendsRecordActivity]){
+        [HxbHUDProgress showError:@"进入好友邀请记录"];
     }
    
 }
 #pragma mark - Event
 - (void)shareBtnClick {
-    [HXBUMengShareManager showShareMenuViewInWindow];
+    [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
 }
 
 
@@ -197,14 +207,5 @@
     return _webView;
 }
 
-- (UIButton *)shareBtn {
-    if (!_shareBtn) {
-        _shareBtn = [[UIButton alloc] init];
-        [_shareBtn setTitle:@"好友分享" forState:(UIControlStateNormal)];
-        [_shareBtn addTarget:self action:@selector(shareBtnClick) forControlEvents:(UIControlEventTouchUpInside)];
-        _shareBtn.backgroundColor = COR25;
-    }
-    return _shareBtn;
-}
 
 @end

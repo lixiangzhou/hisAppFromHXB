@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HXBUMShareViewModel;
 @interface HXBUmengViewController : UIViewController
 
+/**
+ 分享的数据
+ */
+@property (nonatomic, strong) HXBUMShareViewModel *shareVM;
 /**
  展示分享视图
  */

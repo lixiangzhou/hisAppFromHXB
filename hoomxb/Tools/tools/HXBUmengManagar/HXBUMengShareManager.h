@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UMSocialCore/UMSocialCore.h>
+@class HXBUMShareViewModel;
 @interface HXBUMengShareManager : UMSocialManager
 
 
@@ -19,5 +20,5 @@
 /**
  显示分享
  */
-+ (void) showShareMenuViewInWindow;
++ (void) showShareMenuViewInWindowWith:(HXBUMShareViewModel *)shareVM;
 @end
