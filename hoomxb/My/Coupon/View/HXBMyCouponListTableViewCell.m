@@ -56,7 +56,7 @@
         self.dicountRateLab.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
         NSString *dicountRate = [NSString stringWithFormat:@"%@%%",myCouponListModel.dicountRate];
         NSRange range = NSMakeRange(0,dicountRate.length - 1);
-        UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(84);
+        UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(58);
         NSMutableAttributedString *attrM = [NSAttributedString setupAttributeStringWithString:dicountRate WithRange:range andAttributeColor:RGBA(253, 54, 54, 1) andAttributeFont:font];
         self.dicountRateLab.attributedText = attrM;
         
@@ -158,7 +158,7 @@
     [stampFormatter setDateFormat:@"YYYY/MM/dd"];
     //以 1970/01/01 GMT为基准，然后过了secs秒的时间
     NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:myCouponListModel.expireTime / 1000];
-    self.termOfValidityLab.text = [NSString stringWithFormat:@"有效至%@",[stampFormatter stringFromDate:stampDate]];//"有效期至2017/11/30"
+    self.termOfValidityLab.text = [NSString stringWithFormat:@"有效期至%@",[stampFormatter stringFromDate:stampDate]];//"有效期至2017/11/30"
 }
 
 - (void)setupSubViewFrame

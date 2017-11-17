@@ -48,7 +48,7 @@
         VC = tbVC;
     }
     
-    [VC presentViewController:alertVC animated:YES completion:nil];
+    [VC.navigationController presentViewController:alertVC animated:YES completion:nil];
 }
 
 /**

@@ -124,25 +124,28 @@
  tab 点击动画
  */
 - (void)tabAnimation:(UIButton *)tab {
-    tab.selected = YES;
-    self.selectedTab.selected = NO;
-    self.selectedTab = tab;
     
-    CGFloat bottomX = tab.frame.origin.x;
-    CGFloat bottomW = tab.frame.size.width;
-    
-    if (self.bottomLineWidthAdjustTitle) {
-        NSString *title = [tab titleForState:UIControlStateNormal];
+    if (tab != self.selectedTab) {
+        tab.selected = YES;
+        self.selectedTab.selected = NO;
+        self.selectedTab = tab;
         
-        bottomW = [title sizeWithAttributes:@{NSFontAttributeName: self.selectedTab.titleLabel.font}].width + self.bottomLineWidthPading * 2;
+        CGFloat bottomX = tab.frame.origin.x;
+        CGFloat bottomW = tab.frame.size.width;
         
-        bottomX = tab.frame.origin.x + (tab.frame.size.width - bottomW) * 0.5;
+        if (self.bottomLineWidthAdjustTitle) {
+            NSString *title = [tab titleForState:UIControlStateNormal];
+            
+            bottomW = [title sizeWithAttributes:@{NSFontAttributeName: self.selectedTab.titleLabel.font}].width + self.bottomLineWidthPading * 2;
+            
+            bottomX = tab.frame.origin.x + (tab.frame.size.width - bottomW) * 0.5;
+        }
+        self.bottomLine.frame = CGRectMake(bottomX, tab.frame.size.height - self.bottomLineHeight, bottomW, self.bottomLineHeight);
+        
+        [UIView animateWithDuration:0.25 animations:^{
+            self.bottomLine.frame = CGRectMake(bottomX, self.bounds.size.height - self.bottomLineHeight, bottomW, self.bottomLineHeight);
+        }];
     }
-    self.bottomLine.frame = CGRectMake(bottomX, tab.frame.size.height - self.bottomLineHeight, bottomW, self.bottomLineHeight);
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        self.bottomLine.frame = CGRectMake(bottomX, self.bounds.size.height - self.bottomLineHeight, bottomW, self.bottomLineHeight);
-    }];
 }
 
 /**
