@@ -81,30 +81,28 @@
     [self resetView];
 }
 
-- (void)showSecurityCertificationOrInvest{
+- (void)showSecurityCertificationOrInvest:(HXBRequestUserInfoViewModel *)viewModel{
     kWeakSelf
     NSLog(@"________%d", [KeyChain isLogin]);
     if (![KeyChain isLogin]) {
         self.afterLoginView.headTipString = @"红小宝全新起航，新起点，新梦想";
         self.afterLoginView.tipString = @"注册／登录";
     } else {
-        [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-                //没有开户
-                weakSelf.afterLoginView.headTipString = @"红小宝携手恒丰银行资金存管已上线";
-                weakSelf.afterLoginView.tipString = @"立即开通存管账户";
-             } else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])) {
-                 // 没有实名
-                 weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
-                  weakSelf.afterLoginView.tipString = @"完善存管信息";
-             } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]) {
-                //已经投资显示的界面
-                weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
-                weakSelf.afterLoginView.tipString = @"立即投资";
-             }
-        } andFailure:^(NSError *error) {
-            
-        }];
+        
+        if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+            //没有开户
+            weakSelf.afterLoginView.headTipString = @"红小宝携手恒丰银行资金存管已上线";
+            weakSelf.afterLoginView.tipString = @"立即开通存管账户";
+        } else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])) {
+            // 没有实名
+            weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
+            weakSelf.afterLoginView.tipString = @"完善存管信息";
+        } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]) {
+            //已经投资显示的界面
+            weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
+            weakSelf.afterLoginView.tipString = @"立即投资";
+        }
+        
     }
 }
 - (void)resetView
