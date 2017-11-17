@@ -12,8 +12,8 @@ typedef enum {
     
     kIDCardNoTextFieldType, //身份证号
     kPhoneNumberTextFieldType, //手机号
-    kBankCardNumberTextFieldType //银行卡号
-    
+    kBankCardNumberTextFieldType, //银行卡号
+    kRedeemCodeTextFieldType //兑换码
 }kTextFieldType;
 @interface UITextField (HLTextField)
 /**

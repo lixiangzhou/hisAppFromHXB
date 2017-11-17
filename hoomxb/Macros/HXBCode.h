@@ -18,10 +18,12 @@ typedef enum : NSUInteger {
     kHXBCode_Enum_Captcha = 102,
     ///Form错误处理字段
     kHXBCode_Enum_ProcessingField = 104,
-    ///token无权限
+    /// token 失效
     kHXBCode_Enum_TokenNotJurisdiction = 401,
     ///未登录
     kHXBCode_Enum_NotSigin = 402,
+    /// token 单点登录
+    kHXBCode_Enum_SingleLogin = 409,
     ///服务器时间与系统时间相差过大
     kHXBCode_Enum_RequestOverrun = 412,
     //没有连接网络

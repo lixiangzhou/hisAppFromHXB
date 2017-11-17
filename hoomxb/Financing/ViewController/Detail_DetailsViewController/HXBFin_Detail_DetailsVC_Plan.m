@@ -64,7 +64,8 @@
 //@property (nonatomic,strong) UILabel *serviceChargeLabel_const;
 
 @property (nonatomic,strong) HXBFinPlanDetail_DetailView *planDetail_DetailView;
-
+@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @end
 
 @implementation HXBFin_Detail_DetailsVC_Plan
@@ -83,7 +84,8 @@
 
 ///初始化展示网络数据的lable
 - (void)setUP {
-    self.planDetail_DetailView = [[HXBFinPlanDetail_DetailView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.planDetail_DetailView = [[HXBFinPlanDetail_DetailView alloc]initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
     [self.hxbBaseVCScrollView addSubview:self.planDetail_DetailView];
     self.hxbBaseVCScrollView.bounces = true;
 //    [self.planDetail_DetailView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -143,244 +145,40 @@
         [self.navigationController pushViewController:planWebViewController animated:true];
     }];
     
-//    self.addView = [[UIView alloc]init];
-//    self.planAmountLabel = [[UILabel alloc]init];
-//    self.joinConditionLabel = [[UILabel alloc]init];
-//    self.joinedOnTheLineLabel = [[UILabel alloc]init];
-//    
-//    self.dateView = [[UIView alloc]init];
-//    self.startByDateLabel = [[UILabel alloc]init];
-//    self.exitDateLabel = [[UILabel alloc]init];
-//    self.theTermLabel = [[UILabel alloc]init];
-//    
-//    self.typeView = [[UIView alloc]init];
-//    self.expiredExitMethodLabel = [[UILabel alloc]init];
-////    self.securityLabel = [[UILabel alloc]init];
-//    self.revenueApproachLabel = [[UILabel alloc]init];
-//    
-//     self.serviceView = [[UIView alloc]init];
-//    self.serviceChargeLabel = [[UILabel alloc]init];
-//    
-//    
-//    [self.view addSubview:self.planAmountLabel];
-//    [self.view addSubview:self.joinConditionLabel];
-//    [self.view addSubview:self.joinedOnTheLineLabel];
-//    [self.view addSubview:self.startByDateLabel];
-//    [self.view addSubview:self.exitDateLabel];
-//    [self.view addSubview:self.theTermLabel];
-//    [self.view addSubview:self.expiredExitMethodLabel];
-////    [self.view addSubview:self.securityLabel];
-//    [self.view addSubview:self.revenueApproachLabel];
-//    [self.view addSubview:self.serviceChargeLabel];
 }
 
-///布局展示网络数据的label
-//- (void)layoutLables {
-//    kWeakSelf
-//    [self.planAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(weakSelf.view);
-//        make.top.equalTo(@64);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.joinConditionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.planAmountLabel.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.joinedOnTheLineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.joinConditionLabel.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.startByDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.joinedOnTheLineLabel.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.exitDateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.startByDateLabel.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.theTermLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.exitDateLabel.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.expiredExitMethodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.theTermLabel.mas_bottom);
-//        make.height.equalTo(@(kScrAdaptationH(20)));
-//    }];
-////    [self.securityLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-////        make.right.equalTo(weakSelf.view);
-////        make.top.equalTo(weakSelf.expiredExitMethodLabel.mas_bottom);
-////        make.height.equalTo(@20);
-////    }];
-//    [self.revenueApproachLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.expiredExitMethodLabel.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.serviceChargeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.right.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.revenueApproachLabel.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//}
-
-
-///设置展示网络数据的label的值
-//- (void)setUPStr {
-//    //HXBFinDetailModel_PlanDetail_DataList *dataList = self.planDetailModel.planDetailModel.dataList.firstObject;
-//    HXBFinDetailModel_PlanDetail *detailData = self.planDetailModel.planDetailModel;
-//    self.planAmountLabel.text = [NSString hxb_getPerMilWithDouble:detailData.amount];//@"测试加入原因";//计化金额
-//    self.joinConditionLabel.text = self.planDetailModel.addCondition;//加入条件
-//    self.joinedOnTheLineLabel.text = self.planDetailModel.singleMaxRegisterAmount;//加入上线
-//    self.startByDateLabel.text = self.planDetailModel.beginSellingTime;//开始时间
-//    self.exitDateLabel.text = self.planDetailModel.financeEndTime;//结束时间
-//    self.theTermLabel.text = self.planDetailModel.lockPeriod;//期限
-//    self.expiredExitMethodLabel.text = @"系统通过债权转让的方式自动完成退出";
-//    //self.securityLabel.text = detailData.principalBalanceContractName;//安全保障
-//    self.revenueApproachLabel.text = @"收益再投资";//收益处理方式
-//    //协议
-//    self.serviceChargeLabel.text = self.planDetailModel.contractName;
-//    self.serviceChargeLabel.textColor = [UIColor blueColor];
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickServiceChargeLabel:)];
-//    [self.serviceChargeLabel addGestureRecognizer:tap];
-//    self.serviceChargeLabel.userInteractionEnabled = true;
-//}
-//- (void)clickServiceChargeLabel:(UITapGestureRecognizer *)tap {
-//    //跳转 协议
-//    HXBFin_Detail_Detail_PlanWebViewController *planWebViewController = [[HXBFin_Detail_Detail_PlanWebViewController alloc]init];
-//    
-//    [self.navigationController pushViewController:planWebViewController animated:true];
-//}
-
-//
-/////设置展示网络数据的Lable的对其方式
-//- (void)setUPAlignment {
-//    self.planAmountLabel.textAlignment = NSTextAlignmentRight;
-//    self.joinConditionLabel.textAlignment = NSTextAlignmentRight;
-//    self.joinedOnTheLineLabel.textAlignment = NSTextAlignmentRight;
-//    self.startByDateLabel.textAlignment = NSTextAlignmentRight;
-//    self.exitDateLabel.textAlignment = NSTextAlignmentRight;
-//    self.theTermLabel.textAlignment = NSTextAlignmentRight;
-//    self.expiredExitMethodLabel.textAlignment = NSTextAlignmentRight;
-////    self.securityLabel.textAlignment = NSTextAlignmentRight;
-//    self.revenueApproachLabel.textAlignment = NSTextAlignmentRight;
-//    self.serviceChargeLabel.textAlignment = NSTextAlignmentRight;
-//}
-//
-/////初始化提示label
-//- (void)setUP_const {
-//    self.planAmountLabel_const = [[UILabel alloc]init];
-//    self.joinConditionLabel_const = [[UILabel alloc]init];
-//    self.joinedOnTheLineLabel_const = [[UILabel alloc]init];
-//    self.startByDateLabel_const = [[UILabel alloc]init];
-//    self.exitDateLabel_const = [[UILabel alloc]init];
-//    self.theTermLabel_const = [[UILabel alloc]init];
-//    self.expiredExitMethodLabel_const = [[UILabel alloc]init];
-////    self.securityLabel_const = [[UILabel alloc]init];
-//    self.revenueApproachLabel_const = [[UILabel alloc]init];
-//    self.serviceChargeLabel_const = [[UILabel alloc]init];
-//    
-//    
-//    
-//    [self.view addSubview:self.planAmountLabel_const];
-//    [self.view addSubview:self.joinConditionLabel_const];
-//    [self.view addSubview:self.joinedOnTheLineLabel_const];
-//    [self.view addSubview:self.startByDateLabel_const];
-//    [self.view addSubview:self.exitDateLabel_const];
-//    [self.view addSubview:self.theTermLabel_const];
-//    [self.view addSubview:self.expiredExitMethodLabel_const];
-////    [self.view addSubview:self.securityLabel_const];
-//    [self.view addSubview:self.revenueApproachLabel_const];
-//    [self.view addSubview:self.serviceChargeLabel_const];
-//}
-//
-/////为提示label赋值
-//- (void)setUP_constStr {
-//    self.planAmountLabel_const.text = @"计划金额";
-//    self.joinConditionLabel_const.text = @"加入条件";
-//    self.joinedOnTheLineLabel_const.text = @"加入上限";
-//    self.startByDateLabel_const.text = @"开始加入日期";
-//    self.exitDateLabel_const.text = @"退出日期";
-//    self.theTermLabel_const.text = @"期限";
-//    self.expiredExitMethodLabel_const.text = @"到期退出方式";
-////    self.securityLabel_const.text = @"安全保障";
-//    self.revenueApproachLabel_const.text = @"收益处理方式";
-//    self.serviceChargeLabel_const.text = @"服务费";
-//}
-//
-/////布局const
-//- (void)layoutLable_const {
-//    kWeakSelf
-//    [self.planAmountLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.view);
-//        make.top.equalTo(@64);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.joinConditionLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.planAmountLabel_const.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.joinedOnTheLineLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.joinConditionLabel_const.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.startByDateLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.joinedOnTheLineLabel_const.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.exitDateLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.startByDateLabel_const.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.theTermLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.exitDateLabel_const.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.expiredExitMethodLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.theTermLabel_const.mas_bottom);
-//        make.height.equalTo(@(kScrAdaptationH(20)));
-//    }];
-////    [self.securityLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-////        make.left.equalTo(weakSelf.view);
-////        make.top.equalTo(weakSelf.expiredExitMethodLabel_const.mas_bottom);
-////        make.height.equalTo(@20);
-////    }];
-//    [self.revenueApproachLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.expiredExitMethodLabel_const.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//    [self.serviceChargeLabel_const mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(weakSelf.view);
-//        make.top.equalTo(weakSelf.revenueApproachLabel_const.mas_bottom);
-//        make.height.equalTo(@20);
-//    }];
-//}
-//- (void)didReceiveMemoryWarning {
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
-
-kDealloc
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UITableView *)hxbBaseVCScrollView {
+    if (!_hxbBaseVCScrollView) {
+        
+        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        if (LL_iPhoneX) {
+            _hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
+        }
+        
+        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
+        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
+        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
+    }
+    return _hxbBaseVCScrollView;
 }
-*/
 
+- (void)dealloc {
+    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    NSLog(@"✅被销毁 %@",self);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+        }
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+}
 @end

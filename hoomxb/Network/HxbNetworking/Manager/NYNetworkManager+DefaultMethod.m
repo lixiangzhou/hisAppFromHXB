@@ -1,4 +1,4 @@
-    //
+//
 //  NYNetworkManager+DefaultMethod.m
 //  NYNetwork
 //
@@ -8,10 +8,6 @@
 
 #import "NYNetworkManager+DefaultMethod.h"
 #import "HXBBaseRequest.h"
-NSString *const RequestSuccess = @"RequestSuccess";
-NSString *const RequestFailure = @"RequestFailure";
-NSString *const LoginVCDismiss = @"LoginVCDismiss";
-
 
 @implementation NYNetworkManager (DefaultMethod)
 
@@ -29,42 +25,22 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:///没有登录
-        case kHXBCode_Enum_TokenNotJurisdiction://没有权限
-            if (KeyChain.isLogin) {
-                //弹出是否 登录
-                //                [[KeyChainManage sharedInstance] signOut];
-                UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-                UIViewController *VC = nil;
-                if ([tbVC isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
-                    UINavigationController *NAV = tbVC.selectedViewController;
-                    VC = NAV.viewControllers.lastObject;
-                }else{
-                    VC = tbVC;
-                }
-                [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
-            }
+        case kHXBCode_Enum_TokenNotJurisdiction: // token 失效
+            [self tokenInvidateProcess];
+//            if (KeyChain.isLogin) {
+//                KeyChain.isLogin = NO;
+//                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
+//            }
             return;
-            break;
         case kHXBCode_Enum_NoServerFaile:
         {
             [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
             return;
         }
-        case kHXBCode_Enum_RequestOverrun:
-        {
-            if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin]) return;
-            [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
-            return;
-        }
-            break;
-        default:
-            break;
     }
     
-//    DLog(@"请求成功-request：%@",request);
     if ([request.responseObject[kResponseStatus] integerValue]) {
         NSLog(@" ---------- %@",request.responseObject[kResponseStatus]);
-        ///未登录状态 弹出登录框
         NSString *status = request.responseObject[kResponseStatus];
         if (status.integerValue == kHXBCode_Enum_ProcessingField) {
             NSDictionary *dic = request.responseObject[kResponseData];
@@ -74,13 +50,26 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
                 error = arr[0];
             }];
             [HxbHUDProgress showTextWithMessage:error];
-        }else if(status.integerValue == kHXBCode_Enum_RequestOverrun){
+        } else if(status.integerValue == kHXBCode_Enum_RequestOverrun){
             if ([self handlingSpecialErrorCodes:request]) {
                 return;
             }
+
             [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
         }
-    }else{
+//        else if (status.integerValue == kHXBCode_Enum_SingleLogin) {
+//            // 单点登录时，显示tabVC的HomeVC，并弹框提示
+//            if (KeyChain.isLogin) {
+//                // 忽略广告和刷新的请求，因为这种情况不需要手势密码，需要在首页弹框
+//                if ([request.requestUrl isEqualToString:kHXBSplash] || [request.requestUrl isEqualToString:kHXBMY_VersionUpdateURL]) {
+//                } else {
+//                    KeyChain.isLogin = NO;
+//                    [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
+//                }
+//            }
+//            return;
+//        }
+    } else {
         if([request isKindOfClass:[HXBBaseRequest class]]) {
             HXBBaseRequest *requestHxb = (HXBBaseRequest *)request;
             if (request.responseObject[kResponseData][@"dataList"]) {
@@ -116,40 +105,22 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
     
     
     switch (request.responseStatusCode) {
-        case kHXBCode_Enum_NotSigin:///没有登录
-        case kHXBCode_Enum_TokenNotJurisdiction://没有权限
-            if (KeyChain.isLogin) {
-                //弹出是否 登录
-                //                [[KeyChainManage sharedInstance] signOut];
-                UITabBarController *tbVC = (UITabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-                UIViewController *VC = nil;
-                if ([tbVC isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
-                    UINavigationController *NAV = tbVC.selectedViewController;
-                    VC = NAV.viewControllers.lastObject;
-                }else{
-                    VC = tbVC;
-                }
-                [HXBAlertManager alertManager_loginAgainAlertWithView:VC.view];
-            }
+        case kHXBCode_Enum_NotSigin:/// 没有登录
+        case kHXBCode_Enum_TokenNotJurisdiction:// token 失效
+            [self tokenInvidateProcess];
+//            if (KeyChain.isLogin) {
+//                KeyChain.isLogin = NO;
+//                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
+//            }
             return;
-//            [[KeyChainManage sharedInstance] removeAllInfo];
-            break;
-       
-            /**
-             先判断是否为登录状态，如果是，就登出，不是，就显示页面权限
-             */
-            //跳转登录注册
-//            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-//            break;
-            
-            case kHXBCode_Enum_RequestOverrun:
+        case kHXBCode_Enum_RequestOverrun:
         {
             [HxbHUDProgress showMessageCenter:@"系统时间与服务器时间相差过大" inView:nil];
             return;
         }
             break;
             
-            case kHXBCode_Enum_NoServerFaile:
+        case kHXBCode_Enum_NoServerFaile:
         {
             [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
             return;
@@ -163,42 +134,52 @@ NSString *const LoginVCDismiss = @"LoginVCDismiss";
         [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
         return;
     }
-//    if (!request.responseStatusCode) {
-//         [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
-//        return;
-//    }
+
     if ([request.responseObject[@"code"]  isEqual: @"ESOCKETTIMEDOUT"]) {
         [HxbHUDProgress showMessageCenter:@"请求超时,请稍后重试"];
         return;
     }
-
+    
     NSString *str = request.error.userInfo[@"NSLocalizedDescription"];
     if (str.length>0) {
         if ([[str substringFromIndex:str.length-1] isEqualToString:@"。"]) {
             str = [str substringToIndex:str.length-1];
             [HxbHUDProgress showMessageCenter:str];
         } else {
-            [HxbHUDProgress showMessageCenter:request.error.userInfo[@"NSLocalizedDescription"]];
+            if (request.error.code == kHXBPurchase_Processing) { // 请求任务取消
+            } else {
+                [HxbHUDProgress showMessageCenter:request.error.userInfo[@"NSLocalizedDescription"]];
+            }
         }
     }
-    
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:RequestFailure object:nil userInfo:nil];
 }
 
+- (void)tokenInvidateProcess {
+    // token 失效，静态登出并回到首页
+    if (KeyChain.isLogin) {
+        /// 退出登录，清空登录信息，回到首页
+        KeyChain.isLogin = NO;
+        [KeyChain signOut];
+        
+        // 静态显示主TabVC的HomeVC
+        // 当前有tabVC的时候，会在tabVC中得到处理，显示HomeVC
+        // 如果没有创建tabVC的时候，不处理该通知，因为只有在tabVC中监听了该通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
+    }
+}
 
-#pragma mark - 请求成功，
-//MARK: status != 0
+#pragma mark - 部分页面用到Page++ 的处理
+// status != 0
 //未登录状态 弹出登录框 status 为1 message 为@“请登录后操作”
-- (void) showLoginVCWithRequest: (NYBaseRequest *)request {
+- (void)showLoginVCWithRequest: (NYBaseRequest *)request {
     if ([request.responseObject[kResponseMessage] isEqualToString:@"请登录后操作"]) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
     }
 }
 
-//MARK: status == 0
+// status == 0
 //page++
-- (void) addRequestPage: (HXBBaseRequest *)request {
+- (void)addRequestPage: (HXBBaseRequest *)request {
     NSArray *dataArray = request.responseObject[kResponseData][kResponseDataList];
     if(dataArray.count) request.dataPage ++;
     NSLog(@"%@ 🐯page ++ %ld",request,(long)request.dataPage);

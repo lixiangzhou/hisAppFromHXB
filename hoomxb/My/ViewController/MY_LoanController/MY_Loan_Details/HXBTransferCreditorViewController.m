@@ -52,7 +52,7 @@
 - (void)setupFrame
 {
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(64);
+        make.top.equalTo(self.view).offset(HxbNavigationBarY);
         make.right.left.equalTo(self.view);
         make.height.offset(kScrAdaptationH750(270));
     }];

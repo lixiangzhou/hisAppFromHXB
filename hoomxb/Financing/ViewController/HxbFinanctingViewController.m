@@ -285,7 +285,8 @@
         self.finPlanListVMArray = planListViewModelArray;
     }
     __weak typeof(self)weakSelf = self;
-    [self.finantingRequest planBuyListWithIsUpData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray) {
+    [self.finantingRequest planBuyListWithIsUpData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray, NSInteger totalCount) {
+        weakSelf.homePageView.finPlanTotalCount = totalCount;
         weakSelf.finPlanListVMArray = viewModelArray;
         //结束下拉刷新与上拉刷新
         weakSelf.homePageView.isStopRefresh_Plan = true;
@@ -298,7 +299,8 @@
 
 - (void)loanLoadDateWithIsUpData: (BOOL)isUpData {
     __weak typeof(self)weakSelf = self;
-    [self.finantingRequest loanBuyListWithIsUpData:isUpData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_LoanList *> *viewModelArray) {
+    [self.finantingRequest loanBuyListWithIsUpData:isUpData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_LoanList *> *viewModelArray,NSInteger totalCount) {
+        weakSelf.homePageView.finLoanTotalCount = totalCount;
         weakSelf.finLoanListVMArray = viewModelArray;
         //结束下拉刷新与上拉刷新
         weakSelf.homePageView.isStopRefresh_loan = true;
@@ -312,7 +314,8 @@
 /// 债转的数据请求
 - (void)loanTruansferLoandDataWithIsUPData: (BOOL)isUPData {
     kWeakSelf
-    [self.finantingRequest loanTruansferListWithIsUPData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *viewModelArray) {
+    [self.finantingRequest loanTruansferListWithIsUPData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *viewModelArray,NSInteger totalCount) {
+        weakSelf.homePageView.finLoanTruansferTotalCount = totalCount;
         weakSelf.finloanTruansferVMArray = viewModelArray;
         weakSelf.homePageView.isStopRefresh_LoanTruansfer = true;
         weakSelf.isFirstLoadNetDataLoanTruansfer = false;

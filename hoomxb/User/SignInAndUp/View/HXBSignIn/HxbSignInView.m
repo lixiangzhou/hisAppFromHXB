@@ -8,7 +8,7 @@
 //
 
 #import "HxbSignInView.h"
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import "HXBSignInWaterView.h"//波浪式图
 static NSString *const kForgetPasswordText = @"忘记密码";
 static NSString *const kPhoneText = @"手机号";

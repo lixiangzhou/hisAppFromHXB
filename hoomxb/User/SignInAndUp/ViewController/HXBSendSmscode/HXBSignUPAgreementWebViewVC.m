@@ -25,7 +25,7 @@
     self.title = @"";
     [self setUP];
     self.isColourGradientNavigationBar = YES;
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 /**
@@ -39,7 +39,7 @@
     self.contractWebVeiw = [[HXBFinPlanContract_ContractWebView alloc]init];
     self.contractWebVeiw.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
     [self.view addSubview:self.contractWebVeiw];
-    self.contractWebVeiw.frame = CGRectMake(0, 64, self.view.width, kScreenHeight - 64);
+    self.contractWebVeiw.frame = CGRectMake(0, HxbNavigationBarY, self.view.width, kScreenHeight - HxbNavigationBarY);
     [self.contractWebVeiw loadURL: self.URL];
     [self.contractWebVeiw addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
 }

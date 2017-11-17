@@ -8,7 +8,7 @@
 
 #import "HXBBaseViewController.h"
 
-@interface HXBXYAlertViewController : HXBBaseViewController
+@interface HXBXYAlertViewController : UIViewController
 
 - (instancetype) initWithTitle:(NSString *)title
                        Massage:(NSString *)massage
@@ -16,7 +16,6 @@
           andLeftButtonMassage:(NSString *)leftButtonMassage
          andRightButtonMassage:(NSString *)rightButtonMassage;
 
-@property (nonatomic, assign) CGFloat messageHeight;
 @property (nonatomic, assign) BOOL isCenterShow;
 @property (nonatomic, assign) BOOL isHIddenLeftBtn;
 @property (nonatomic, assign) BOOL isHiddenTitle;

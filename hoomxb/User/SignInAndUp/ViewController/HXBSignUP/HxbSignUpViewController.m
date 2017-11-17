@@ -24,6 +24,8 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 @property (nonatomic, assign) BOOL isCheckCaptchaSucceed;
 @property (nonatomic, copy) NSString *checkPaptchaStr;
 @property (nonatomic, strong) HXBCheckCaptchaViewController *checkCaptchVC;
+@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @end
 
 @implementation HxbSignUpViewController
@@ -36,16 +38,34 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     return _signUPView;
 }
 
+- (UITableView *)hxbBaseVCScrollView {
+    if (!_hxbBaseVCScrollView) {
+        
+        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        if (LL_iPhoneX) {
+            _hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
+        }
+        
+        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
+        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
+        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
+    }
+    return _hxbBaseVCScrollView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self.hxbBaseVCScrollView addSubview:self.signUPView];
     self.hxbBaseVCScrollView.bounces = NO;
-    [self trackingScrollViewBlock:^(UIScrollView *scrollView) {
-        [self.hxbBaseVCScrollView endEditing:true];
-    }];
-    self.automaticallyAdjustsScrollViewInsets = YES;
+    kWeakSelf
+    self.trackingScrollViewBlock = ^(UIScrollView *scrollView) {
+        [weakSelf.hxbBaseVCScrollView endEditing:true];
+    };
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self registerEvent];
     if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
         _signUPView.isHiddenLoginBtn = YES;
@@ -227,6 +247,24 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     [self.signUPView clickHaveAccountButtonFunc:^{
         [weakSelf.navigationController popViewControllerAnimated:true];
     }];
+}
+
+- (void)dealloc {
+    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    NSLog(@"✅被销毁 %@",self);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+        }
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
 }
 
 @end

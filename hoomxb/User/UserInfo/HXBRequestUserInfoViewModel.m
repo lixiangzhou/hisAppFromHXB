@@ -63,7 +63,7 @@
  */
 - (NSString *) lenderPrincipal {
     if (!_lenderPrincipal) {
-        _lenderPrincipal = [NSString hxb_getPerMilWithDouble:self.userInfoModel.userAssets.lenderPrincipal.floatValue];
+        _lenderPrincipal = [NSString GetPerMilWithDouble:self.userInfoModel.userAssets.lenderPrincipal.floatValue];
     }
     return _lenderPrincipal;
 }
@@ -75,7 +75,7 @@
         if (self.userInfoModel.userAssets.lenderEarned.floatValue < 0) {
             self.userInfoModel.userAssets.lenderEarned = 0;
         }
-        _lenderEarned = [NSString hxb_getPerMilWithDouble:self.userInfoModel.userAssets.lenderEarned.floatValue];
+        _lenderEarned = [NSString GetPerMilWithDouble:self.userInfoModel.userAssets.lenderEarned.floatValue];
     }
     return _lenderEarned;
 }

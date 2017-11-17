@@ -10,15 +10,9 @@
 #import "AXHNewFeatureCell.h"
 #import "TAPageControl.h"
 #import "TAExampleDotView.h"
-#import "HXBBaseTabBarController.h"
-#import "HXBGesturePasswordViewController.h"
 #import "HXBDepositoryAlertViewController.h"
 #import "HXBOpenDepositAccountViewController.h"
-
-static NSString *const home = @"首页";
-static NSString *const financing = @"投资";
-static NSString *const my = @"我的";
-
+#import "HXBRootVCManager.h"
 
 @interface AXHNewFeatureController ()<TAPageControlDelegate>
 @property (strong, nonatomic) TAPageControl *customPageControl2;
@@ -26,7 +20,6 @@ static NSString *const my = @"我的";
 @property (nonatomic, strong) AXHNewFeatureCell *cell;
 
 @property (nonatomic, strong) UIButton *startButton;
-@property (nonatomic, strong) HXBBaseTabBarController *mainTabbarVC;
 
 @end
 
@@ -55,7 +48,7 @@ static NSString *ID = @"collectionCell";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.imageData =  @[@"银行存管", @"红利计划", @"安全保障", @"新版起航"];
+    self.imageData =  @[@"HXBBankCustody", @"HXBSecurityGuarantee", @"HXBBonusPlan", @"HXBCoupon"];
     
 //    self.collectionView.backgroundColor = [UIColor greenColor];
     //注册一个cell,默认就会创建这个类型的cell
@@ -154,23 +147,12 @@ static NSString *ID = @"collectionCell";
 // 点击开始微博的时候调用
 - (void)start
 {
-    //    // 进入tabBarVc
-    //    SignInViewController *signInVC = [[SignInViewController alloc] init];
-    //    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:signInVC];
-    //    self.window.rootViewController = nav;
-    // 切换根控制器:可以直接把之前的根控制器清空
-    //    AXHKeyWindow.rootViewController = signInVC;
-    if ((KeyChain.gesturePwd.length >= 4) && [KeyChain isLogin] && [kUserDefaults boolForKey:kHXBGesturePWD]) {
-        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-        gesturePasswordVC.type = GestureViewControllerTypeLogin;
-        KeyWindow.rootViewController = gesturePasswordVC;
-    }else
-    {
-        KeyWindow.rootViewController = self.mainTabbarVC;
+    [[HXBRootVCManager manager] enterTheGesturePasswordVCOrTabBar];
+    
+    if (KeyChain.validateGesturePwd == NO) {
         if ([self.force isEqualToString:@"0"]) {
             [self showNewAlert];
         }
-        
     }
 }
 
@@ -184,34 +166,8 @@ static NSString *ID = @"collectionCell";
         openDepositAccountVC.title = @"开通存管账户";
         openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
 //        KeyWindow.rootViewController = self.mainTabbarVC;
-        [self.mainTabbarVC.childViewControllers[0] pushViewController:openDepositAccountVC animated:YES];
+        [[HXBRootVCManager manager].mainTabbarVC.childViewControllers[0] pushViewController:openDepositAccountVC animated:YES];
     };
     [KeyWindow.rootViewController presentViewController:alertVC animated:NO completion:nil];
-}
-
-
-///懒加载主界面Tabbar
-- (HXBBaseTabBarController *)mainTabbarVC
-{
-    if (!_mainTabbarVC) {
-        _mainTabbarVC = [[HXBBaseTabBarController alloc]init];
-        _mainTabbarVC.selectColor = [UIColor redColor];///选中的颜色
-        _mainTabbarVC.normalColor = [UIColor grayColor];///平常状态的颜色
-        
-        NSArray *controllerNameArray = @[
-                                         @"HxbHomeViewController",//首页
-                                         @"HxbFinanctingViewController",//理财
-                                         @"HxbMyViewController"];//我的
-        //title 集合
-        NSArray *controllerTitleArray = @[home,financing,my];
-        NSArray *imageArray = @[@"home_Unselected.svg",@"investment_Unselected.svg",@"my_Unselected.svg"];
-        //选中下的图片前缀
-        NSArray *commonName = @[@"home_Selected.svg",@"investment_Selected.svg",@"my_Selected.svg"];
-        
-        
-        [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
-        
-    }
-    return _mainTabbarVC;
 }
 @end

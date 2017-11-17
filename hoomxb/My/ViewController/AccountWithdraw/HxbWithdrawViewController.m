@@ -76,13 +76,6 @@
     [self loadBankCard];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    self.amountTextField.text = @"";
-    self.nextButton.backgroundColor = COR12;
-    self.nextButton.userInteractionEnabled = NO;
-}
 
 
 #pragma mark - Events
@@ -113,7 +106,7 @@
 
     [self.notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(64);
+        make.top.equalTo(self.view).offset(HxbNavigationBarY);
         make.height.offset(kScrAdaptationH750(0));
     }];
     
@@ -234,15 +227,14 @@
 
 - (void)nextButtonClick:(UIButton *)sender{
     self.withdrawModel.bankCard.amount = self.amountTextField.text;
-    if ([_amountTextField.text doubleValue] < self.withdrawModel.minWithdrawAmount) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"提现金额不能小于%d",self.withdrawModel.minWithdrawAmount]];
-        return;
-    }
     if ([_amountTextField.text doubleValue] > self.withdrawModel.balanceAmount) {
         [HxbHUDProgress showTextWithMessage:@"余额不足"];
         return;
     }
-    
+    if ([_amountTextField.text doubleValue] < self.withdrawModel.minWithdrawAmount) {
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"提现金额不能小于%d元",self.withdrawModel.minWithdrawAmount]];
+        return;
+    }
     [self withdrawSmscode];
     
 }
@@ -274,6 +266,14 @@
     //第一个参数，被替换字符串的range，第二个参数，即将键入或者粘贴的string，返回的是改变过后的新str，即textfield的新的文本内容
     NSString *checkStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
     return [NSString checkBothDecimalPlaces:checkStr];
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    if (textField == self.amountTextField) {
+        self.nextButton.backgroundColor = COR12;
+        self.nextButton.userInteractionEnabled = NO;
+    }
+    return YES;
 }
 
 - (void)loadBankCard
@@ -516,7 +516,7 @@
         [self addSubview:self.bankCardNumLabel];
         [self addSubview:self.amountLimitLabel];
         [self addSubview:self.arrivalDateLabel];
-        [self getpaymentDate];
+//        [self getpaymentDate];
         [self setContentViewFrame];
     }
     return self;
@@ -525,18 +525,18 @@
 /**
  回去到账时间
  */
-- (void)getpaymentDate
-{
-    kWeakSelf
-    HXBWithdrawalsRequest *paymentDate = [[HXBWithdrawalsRequest alloc] init];
-    [paymentDate paymentDateRequestWithSuccessBlock:^(id responseObject) {
-        
-        weakSelf.arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:responseObject[@"data"][@"arrivalTime"] andDateFormat:@"yyyy-MM-dd"]];
-        
-    } andFailureBlock:^(NSError *error) {
-        
-    }];
-}
+//- (void)getpaymentDate
+//{
+//    kWeakSelf
+//    HXBWithdrawalsRequest *paymentDate = [[HXBWithdrawalsRequest alloc] init];
+//    [paymentDate paymentDateRequestWithSuccessBlock:^(id responseObject) {
+//
+//        weakSelf.arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:responseObject[@"data"][@"arrivalTime"] andDateFormat:@"yyyy-MM-dd"]];
+//
+//    } andFailureBlock:^(NSError *error) {
+//
+//    }];
+//}
 
 - (void)setBankCardModel:(HXBBankCardModel *)bankCardModel
 {
@@ -544,6 +544,8 @@
     self.bankNameLabel.text = self.bankCardModel.bankType;
     self.bankCardNumLabel.text = [NSString stringWithFormat:@"(尾号%@)",[self.bankCardModel.cardId substringFromIndex:self.bankCardModel.cardId.length - 4]];
     self.bankLogoImageView.svgImageString = self.bankCardModel.bankCode;
+    
+    self.arrivalDateLabel.text = bankCardModel.bankArriveTimeText;
 }
 
 
@@ -571,7 +573,7 @@
 {
     if (!_arrivalDateLabel) {
         _arrivalDateLabel = [[UILabel alloc] init];
-        _arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] stringFromDate:[NSDate date] andDateFormat:@"yyyy-MM-dd"]];
+//        _arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] stringFromDate:[NSDate date] andDateFormat:@"yyyy-MM-dd"]];
         _arrivalDateLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _arrivalDateLabel.textColor = RGB(153, 153, 153);
     }

@@ -58,7 +58,7 @@
     } else {
         _notifitionView.hidden = NO;
         _tableView.tableHeaderView.hidden = YES;
-        _tableView.frame = CGRectMake(0, 64 + kScrAdaptationH(40), kScreenWidth, kScreenHeight - 64 - kScrAdaptationH(40));
+        _tableView.frame = CGRectMake(0, HxbNavigationBarY + kScrAdaptationH(40), kScreenWidth, kScreenHeight - HxbNavigationBarY - kScrAdaptationH(40));
     }
 }
 
@@ -236,7 +236,7 @@
         }
         [self.tableView reloadData];
     } andFailureBlock:^(NSError *error) {
-        
+        self.nodataView.hidden = NO;
     }];
 }
 
@@ -252,7 +252,7 @@
     if (!_nodataView) {
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
         _nodataView.imageName = @"noCoupons";
-        _nodataView.noDataMassage = @"暂无优惠券数据";
+        _nodataView.noDataMassage = @"暂无优惠券";
         [self.view addSubview:_nodataView];
         _nodataView.hidden = YES;
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {

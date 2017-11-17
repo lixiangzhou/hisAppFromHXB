@@ -37,12 +37,15 @@
         kWeakSelf
         _presentInformationView = [[HXBPresentInformationView alloc] initWithFrame:self.view.bounds];
         _presentInformationView.completeBlock = ^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"提现充值" object:weakSelf];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"提现充值" object:weakSelf];
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         };
     }
     return _presentInformationView;
 }
 
+- (void)leftBackBtnClick {
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 @end

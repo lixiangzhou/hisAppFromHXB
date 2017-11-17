@@ -62,6 +62,7 @@
         tab.frame = CGRectMake(btnX, 0, btnW, height);
         if (i == selectedIndex) {
             self.selectedTab = tab;
+            tab.selected = YES;
         }
     }
     // 添加分割线
