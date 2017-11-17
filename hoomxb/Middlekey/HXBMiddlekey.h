@@ -13,7 +13,7 @@
 /**
  存管的逻辑
  */
-+ (void)depositoryJumpLogicWithNAV:(UINavigationController *)nav;
++ (void)depositoryJumpLogicWithNAV:(UINavigationController *)nav withOldUserInfo:(HXBRequestUserInfoViewModel *)viewModel;
 
 /**
  充值够没的逻辑
