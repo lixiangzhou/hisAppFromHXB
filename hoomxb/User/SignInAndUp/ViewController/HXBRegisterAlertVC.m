@@ -143,7 +143,7 @@
 {
     if (!_answeringVoiceCodeBtn) {
         _answeringVoiceCodeBtn = [[UIButton alloc] init];
-        [_answeringVoiceCodeBtn setTitle:@"接听语音验证码" forState:UIControlStateNormal];
+        [_answeringVoiceCodeBtn setTitle:@"接听电话" forState:UIControlStateNormal];
         [_answeringVoiceCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_answeringVoiceCodeBtn addTarget:self action:@selector(answeringVoiceCodeClick) forControlEvents:UIControlEventTouchUpInside];
         [_answeringVoiceCodeBtn setBackgroundColor:RGB(245, 81, 81)];
@@ -160,7 +160,7 @@
 {
     if (!_sendSMSCodeBtn) {
         _sendSMSCodeBtn = [[UIButton alloc] init];
-        [_sendSMSCodeBtn setTitle:@"发送短信验证码" forState:UIControlStateNormal];
+        [_sendSMSCodeBtn setTitle:@"获取短信" forState:UIControlStateNormal];
         [_sendSMSCodeBtn setTitleColor:RGB(245, 81, 81) forState:UIControlStateNormal];
         [_sendSMSCodeBtn addTarget:self action:@selector(sendSMSCodeClick) forControlEvents:UIControlEventTouchUpInside];
         [_sendSMSCodeBtn setBackgroundColor:[UIColor whiteColor]];
