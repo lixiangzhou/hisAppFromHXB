@@ -14,6 +14,7 @@
 #import "HXBBindBankCardViewController.h"
 #import "HXBSignUPAgreementWebViewVC.h"
 #import "HXBSignInWaterView.h"
+#import "HXBRegisterAlertVC.h"
 ///短信验证 VC
 @interface HXBSendSmscodeViewController ()
 @property (nonatomic,strong) HXBSendSmscodeView *smscodeView;
@@ -72,9 +73,35 @@
 
 ///注册短信验证码
 - (void)registerSendSmscode {
-    __weak typeof(self)weakSelf = self;
+    
     [self.smscodeView clickSendSmscodeButtonWithBlock:^{
-        [weakSelf sendSmscode];
+        
+        HXBRegisterAlertVC *registerAlertVC = nil;
+        if (self.presentedViewController)
+        {
+            registerAlertVC = (HXBRegisterAlertVC *)self.presentedViewController;
+        }else
+        {
+            registerAlertVC = [[HXBRegisterAlertVC alloc] init];
+            [self presentViewController:registerAlertVC animated:NO completion:nil];
+        }
+        kWeakSelf
+        registerAlertVC.messageTitle = @"获取语音验证码";
+        registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
+//        __weak typeof (registerAlertVC) weakAlertVC = registerAlertVC;
+        
+        [registerAlertVC verificationCodeBtnWithBlock:^{
+            [weakSelf sendSmscode];
+            [weakSelf.smscodeView clickSendButton:nil];
+        }];
+        [registerAlertVC speechVerificationCodeBtnWithBlock:^{
+            [weakSelf sendSmscode];//获取语音验证码 注意参数
+            [weakSelf.smscodeView clickSendButton:nil];
+        }];
+        [registerAlertVC cancelBtnWithBlock:^{
+            //
+            NSLog(@"点击取消按钮");
+        }];
     }];
 }
 - (void)sendSmscode {
@@ -94,9 +121,15 @@
             }
                 break;
             case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
+            {
                 NSLog(@"注册");
+                
+                
+                
+                
 //                [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
 //                }];
+            }
                 break;
         }
     } andFailureBlock:^(NSError *error) {

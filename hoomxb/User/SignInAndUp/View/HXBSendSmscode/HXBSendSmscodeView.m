@@ -14,7 +14,7 @@
 static NSString *const kSmscode_ConstLableTitle = @"请输入验证码";
 static NSString *const kPassword_constLableTitle = @"密码为8-20位数字与字母组合";
 static NSString *const kSetPassWordButtonTitle = @"确认设置登录密码";
-static NSString *const kSendSmscodeAgainTitle = @"获取验证码";
+static NSString *const kSendSmscodeAgainTitle = @"语音验证码";
 static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 @interface HXBSendSmscodeView () <UITextFieldDelegate>
@@ -110,7 +110,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [self setUP];
-        self.totalTimeNumber = 60;
+        self.totalTimeNumber = 15;//60
         self.timeNumber = self.totalTimeNumber;
     }
     return self;
@@ -348,10 +348,13 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 ///点击了发送按钮
 - (void)clickSendButton: (UIButton *)button {
-    [self setSendButtonStatus];
-    self.sendButton.backgroundColor = RGB(222, 222, 222);
-    if (self.clickSendSmscodeButtonBlock) self.clickSendSmscodeButtonBlock();
-    
+    //弹框 选中某个验证码发送之后才会倒计时
+    if (button) {
+        [self setSendButtonStatus];
+        self.sendButton.backgroundColor = RGB(222, 222, 222);
+    }
+    if (self.clickSendSmscodeButtonBlock)
+        self.clickSendSmscodeButtonBlock();
 }
 
 - (void) setSendButtonStatus {

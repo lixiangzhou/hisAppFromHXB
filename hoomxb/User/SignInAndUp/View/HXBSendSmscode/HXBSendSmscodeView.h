@@ -18,4 +18,6 @@
 - (void)clickSendSmscodeButtonWithBlock: (void(^)())clickSendSmscodeButtonBlock;
 ///点击了服务协议
 - (void)clickAgreementSignUPWithBlock: (void(^)())clickAgreementSignUPBlock;
+///点击了发送按钮
+- (void)clickSendButton: (UIButton *)button;
 @end

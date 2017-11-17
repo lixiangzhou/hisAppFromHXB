@@ -29,6 +29,8 @@
  是否是验证码
  */
 @property (nonatomic, assign) BOOL isCode;
+//是否有语音验证码
+@property (nonatomic, assign) BOOL isSpeechVerificationCode;
 /**
  是否是电话
  */
@@ -47,7 +49,8 @@
 // 忘记密码按钮
 // */
 @property (nonatomic, copy) void(^forgetBtnClick)();
-
+//getSpeechVerificationCodeBlock获取语音验证码
+@property (nonatomic, copy) void (^getSpeechVerificationCodeBlock)();
 /**
  getVerificationCodeBlock
  */
