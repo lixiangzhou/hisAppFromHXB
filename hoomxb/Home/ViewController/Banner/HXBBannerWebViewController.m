@@ -24,7 +24,6 @@
 #import "HXBFinancing_PlanDetailsViewController.h"//红利计划详情
 #import "HXBFinancing_LoanDetailsViewController.h"//散标详情页
 #import "HXBBaseTabBarController.h"//红利计划
-#import "HxbSignUpViewController.h"//注册
 @interface HXBBannerWebViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) WebViewJavascriptBridge* bridge;
@@ -71,12 +70,7 @@
     if ([data[@"path"] isEqualToString:kRegisterVC]) {
         //注册
         //跳转登录注册
-        [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_loginToRegist];
-        HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
-        signUPVC.title = @"注册";
-        signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;
-        [baseVC.navigationController pushViewController:signUPVC animated:NO];
-
+       [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
     }else if ([data[@"path"] isEqualToString:kRechargeVC]){
         //充值页面
         HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];

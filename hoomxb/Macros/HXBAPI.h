@@ -23,7 +23,7 @@
 //#define BASEURL                                       @"http://10.1.80.11:9001"
 
 //叶
-#define BASEURL                                       @"https://tapi.hoomxb.com"
+#define BASEURL                                       @"https://api.hoomxb.com"
 //#define BASEURL                                       @"http://api.hongxiaobao.com"//线上环境
 //#define BASEURL                                       @"http://myapi.hoomxb.com"//线上环境
 //#define BASEURL                                       @"http://192.168.1.21:3000"//后台
