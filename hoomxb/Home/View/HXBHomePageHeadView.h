@@ -56,7 +56,7 @@
 //- (void)hideBulletinView;
 - (void)showBulletinView;
 
-- (void)showSecurityCertificationOrInvest;
+- (void)showSecurityCertificationOrInvest:(HXBRequestUserInfoViewModel *)viewModel;
 
 
 @end
