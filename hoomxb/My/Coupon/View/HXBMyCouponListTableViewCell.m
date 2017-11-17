@@ -56,7 +56,7 @@
         self.dicountRateLab.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
         NSString *dicountRate = [NSString stringWithFormat:@"%@%%",myCouponListModel.dicountRate];
         NSRange range = NSMakeRange(0,dicountRate.length - 1);
-        UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(84);
+        UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(58);
         NSMutableAttributedString *attrM = [NSAttributedString setupAttributeStringWithString:dicountRate WithRange:range andAttributeColor:RGBA(253, 54, 54, 1) andAttributeFont:font];
         self.dicountRateLab.attributedText = attrM;
         
