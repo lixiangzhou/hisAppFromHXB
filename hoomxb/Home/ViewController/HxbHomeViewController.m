@@ -27,7 +27,6 @@
 
 
 
-
 @interface HxbHomeViewController ()
 
 @property (nonatomic, assign) BOOL isVersionUpdate;
@@ -165,6 +164,7 @@
         [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             [self.homeView changeIndicationView:viewModel];
             [self.homeView showSecurityCertificationOrInvest:viewModel];
+            self.userInfoViewModel = viewModel;
         } andFailure:^(NSError *error) {
             [self.homeView changeIndicationView:self.userInfoViewModel];
             [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
@@ -369,7 +369,7 @@
             }else
             {
                 //判断首页的header各种逻辑
-                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController];
+                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController withOldUserInfo:weakSelf.userInfoViewModel];
             }
             
         };
