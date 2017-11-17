@@ -24,7 +24,6 @@
 //#import "HXBOpenDepositAccountViewController.h"//开通存管账户
 //#import "HxbWithdrawCardViewController.h"//绑卡界面
 #import "HXBMiddlekey.h"
-#import "HXBRootVCManager.h"
 
 
 
@@ -169,6 +168,7 @@
         [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             [self.homeView changeIndicationView:viewModel];
             [self.homeView showSecurityCertificationOrInvest:viewModel];
+            self.userInfoViewModel = viewModel;
         } andFailure:^(NSError *error) {
             [self.homeView changeIndicationView:self.userInfoViewModel];
             [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
@@ -373,9 +373,7 @@
             }else
             {
                 //判断首页的header各种逻辑
-//                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController];
-                //跳转立即投资
-                [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 1;
+                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController withOldUserInfo:weakSelf.userInfoViewModel];
             }
             
         };
