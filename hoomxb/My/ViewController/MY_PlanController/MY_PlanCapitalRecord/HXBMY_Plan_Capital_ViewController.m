@@ -188,15 +188,11 @@ static NSString *const cellID = @"cellID";
     cell.time = _dataArray[indexPath.row].lendTime;
     
     if (self.type == HXBInvestmentRecord) {
-        if (self.investmentType == HXBRequestType_MY_PlanRequestType_HOLD_PLAN) {
-            cell.type = _dataArray[indexPath.row].status;
-        }else{
-            if (_dataArray[indexPath.row].planLoanRecordModel.rollOutleft.doubleValue > 0) {
-                cell.type = @"转让中";
-            }else{
-                cell.type = @"已完成";
-            }
-        }
+        cell.type = _dataArray[indexPath.row].statusText;
+//        if (self.investmentType == HXBRequestType_MY_PlanRequestType_HOLD_PLAN) {
+//            cell.type = _dataArray[indexPath.row].statusText;
+//        }else{
+//        }
     }else{
         cell.type = _dataArray[indexPath.row].status;
     }

@@ -30,6 +30,10 @@
  */
 @property (nonatomic,copy) NSString * status;///": 6500,
 /**
+ 新状态（收益中，转出中，已结清）
+ */
+@property (nonatomic,copy) NSString *statusText;
+/**
  待转让金额
  */
 @property (nonatomic, copy) NSString *rollOutleft;

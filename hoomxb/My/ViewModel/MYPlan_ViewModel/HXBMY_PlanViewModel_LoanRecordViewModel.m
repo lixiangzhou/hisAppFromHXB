@@ -44,6 +44,16 @@
 /**
  状态
  */
+- (NSString *) statusText {
+    if (!_statusText) {
+        _statusText = self.planLoanRecordModel.statusText;
+    }
+    return _statusText;
+}
+
+/**
+ 状态
+ */
 - (NSString *) status {
     if (!_status) {
         ///String	投标中
