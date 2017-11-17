@@ -30,12 +30,14 @@
     HxbAdvertiseView *advertiseView = [[HxbAdvertiseView alloc] initWithFrame:self.view.frame];
     advertiseView.advertiseImage = [UIImage getLauchImage];
     [self.view addSubview:advertiseView];
+    [advertiseView show];
     [advertiseView showAdvertiseWebViewWithBlock:^{
         [self setUPWebView];
     }];
     // 2.无论沙盒中是否存在广告图片，都需要重新调用广告接口，判断广告是否更新
     NYBaseRequest *splashTRequest = [[NYBaseRequest alloc] init];
     splashTRequest.requestUrl = kHXBSplash;
+    splashTRequest.requestMethod = NYRequestMethodGet;
     [splashTRequest startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSInteger status =  [responseObject[kResponseStatus] integerValue];
         
@@ -47,17 +49,11 @@
                 UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
                 if (image) {//显示广告
                     advertiseView.advertiseImage = image;
-                    [advertiseView show];
-                }else {//不显示直接跳转控制器
-                    NSLog(@"第一次加载广告图片，所以不显示");
-                    [self dismiss];
                 }
             }];
-        } else {
-            [self dismiss];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [self dismiss];
+        
     }];
     
     [advertiseView showAdvertiseWebViewWithBlock:^{

@@ -34,6 +34,8 @@
 
 @property (nonatomic, strong) HXBVersionUpdateViewModel *versionUpdateVM;
 
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+
 @end
 
 @implementation HxbHomeViewController
@@ -117,8 +119,8 @@
     [self.navigationController setNavigationBarHidden:true animated:animated];
     [self getData:YES];
     
-    [self.homeView changeIndicationView];
-    [self.homeView showSecurityCertificationOrInvest];
+    [self.homeView changeIndicationView:self.userInfoViewModel];
+    [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -159,6 +161,19 @@
 #pragma mark Request
 - (void)getData:(BOOL)isUPReloadData{
     kWeakSelf
+    if (KeyChain.isLogin) {
+        [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+            [self.homeView changeIndicationView:viewModel];
+            [self.homeView showSecurityCertificationOrInvest:viewModel];
+        } andFailure:^(NSError *error) {
+            [self.homeView changeIndicationView:self.userInfoViewModel];
+            [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+        }];
+    } else {
+        [self.homeView changeIndicationView:self.userInfoViewModel];
+        [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+    }
+    
     if (!self.homeView.homeBaseModel) {
         id responseObject = [PPNetworkCache httpCacheForURL:kHXBHome_HomeURL parameters:nil];
         if (responseObject) {
@@ -172,14 +187,10 @@
         weakSelf.homeView.homeBaseModel = viewModel.homeBaseModel;
         weakSelf.homeView.isStopRefresh_Home = YES;
         
-        [self.homeView changeIndicationView];
-        [self.homeView showSecurityCertificationOrInvest];
     } andFailureBlock:^(NSError *error) {
         weakSelf.homeView.isStopRefresh_Home = YES;
         NSLog(@"%@",error);
         
-        [self.homeView changeIndicationView];
-        [self.homeView showSecurityCertificationOrInvest];
     }];
 //    NSString *userId = @"2110468";
 //    [request homeAccountAssetWithUserID:userId andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
