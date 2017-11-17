@@ -24,7 +24,7 @@
 //#import "HXBOpenDepositAccountViewController.h"//开通存管账户
 //#import "HxbWithdrawCardViewController.h"//绑卡界面
 #import "HXBMiddlekey.h"
-
+#import "HXBRootVCManager.h"
 
 
 
@@ -362,7 +362,9 @@
             }else
             {
                 //判断首页的header各种逻辑
-                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController];
+//                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController];
+                //跳转立即投资
+                [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 1;
             }
             
         };
