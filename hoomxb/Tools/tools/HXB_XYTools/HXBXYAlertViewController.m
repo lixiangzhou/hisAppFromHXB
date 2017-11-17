@@ -99,6 +99,10 @@
     }];
 }
 
+- (void)clickContainerView:(UITapGestureRecognizer *)clickContainerView {
+    
+}
+
 // 转场动画
 - (Animatr *)animatr {
     if (!_animatr) {
