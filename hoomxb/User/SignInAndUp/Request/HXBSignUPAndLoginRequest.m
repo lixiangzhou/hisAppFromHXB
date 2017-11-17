@@ -12,6 +12,8 @@
 #import "HXBTokenManager.h"///请求token
 #import "HXBBaseRequest.h"//网络数据请求
 
+#import "HXBBaseUrlManager.h"
+
 @implementation HXBSignUPAndLoginRequest
 
 + (void)signUPRequetWithMobile: (NSString *)mobile///手机号
@@ -88,7 +90,7 @@
                        andFailureBlock: (void(^)(NSError *error))failureBlock {
     
     NSURLSession *session = [NSURLSession sharedSession];
-    NSString *URLSTR = [NSString stringWithFormat:@"%@%@",BASEURL,@"/captcha"];
+    NSString *URLSTR = [NSString stringWithFormat:@"%@%@",[HXBBaseUrlManager manager].baseUrl,@"/captcha"];
     NSURL *url = [NSURL URLWithString:URLSTR];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSMutableURLRequest *requestM = [request mutableCopy];

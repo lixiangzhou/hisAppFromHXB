@@ -29,6 +29,8 @@ fprintf(stderr, "-------------------\n");   \
 #define NSLog(format, ...) nil
 #endif
 
+#define HXBIsRelease YES
+
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
