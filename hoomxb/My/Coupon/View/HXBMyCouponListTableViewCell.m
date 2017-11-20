@@ -158,7 +158,7 @@
     [stampFormatter setDateFormat:@"YYYY/MM/dd"];
     //以 1970/01/01 GMT为基准，然后过了secs秒的时间
     NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:myCouponListModel.expireTime / 1000];
-    self.termOfValidityLab.text = [NSString stringWithFormat:@"有效至%@",[stampFormatter stringFromDate:stampDate]];//"有效期至2017/11/30"
+    self.termOfValidityLab.text = [NSString stringWithFormat:@"有效期至%@",[stampFormatter stringFromDate:stampDate]];//"有效期至2017/11/30"
 }
 
 - (void)setupSubViewFrame

@@ -23,7 +23,7 @@
 //#define BASEURL                                       @"http://10.1.80.11:9001"
 
 //叶
-//#define BASEURL                                       @"https://api.hoomxb.com"
+#define BASEURL                                       @"https://api.hoomxb.com"
 //#define BASEURL                                       @"http://api.hongxiaobao.com"//线上环境
 //#define BASEURL                                       @"http://myapi.hoomxb.com"//线上环境
 //#define BASEURL                                       @"http://192.168.1.21:3000"//后台
@@ -36,7 +36,7 @@
 //#define BASEURL                                       @"http://192.168.1.35:4100"//后台、
 //#define BASEURL                                       @"http://192.168.1.27:5100"//后台、
 //#define BASEURL                                       @"http://192.168.1.28:3100"//后台、
-#define BASEURL                                       @"http://192.168.1.36:3100"
+//#define BASEURL                                       @"http://192.168.1.36:3100"
 //#define BASEURL                                       @"http://192.168.1.26:3100"
 //#define BASEURL                                       @"http://192.168.1.243:3100"//杨老板
 //#define BASEURL                                                  @"http://yourapi.hoomxb.com"
