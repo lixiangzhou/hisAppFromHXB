@@ -60,12 +60,17 @@
         [weakSelf.withdrawRecordTableView reloadData];
         [weakSelf endRefreshing];
         if (withdrawRecordListModel.isNoMoreData) {
-             [self.withdrawRecordTableView.mj_footer endRefreshingWithNoMoreData];
+             [weakSelf.withdrawRecordTableView.mj_footer endRefreshingWithNoMoreData];
+        } else {
+            [weakSelf.withdrawRecordTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+                [self loadCashRegisterDataNeeedShowLoading:NO];
+            } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+            }];
         }
     } andFailureBlock:^(NSError *error) {
         [weakSelf.withdrawRecordTableView reloadData];
         [weakSelf endRefreshing];
-        self.page--;
+        weakSelf.page--;
     }];
 }
 //结束刷新
@@ -87,6 +92,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.withdrawRecordModel = self.withdrawRecordViewModel.withdrawRecordListModel.dataList[indexPath.row];
+    
     return cell;
 }
 
@@ -129,10 +135,6 @@
             
         }];
         
-        [_withdrawRecordTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-            [self loadCashRegisterDataNeeedShowLoading:NO];
-        } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-        }];
     }
     return _withdrawRecordTableView;
 }
