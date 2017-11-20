@@ -111,10 +111,20 @@ UITableViewDataSource
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
-        _nodataView.userInteractionEnabled = NO;
+        [self addSubview:_nodataView];
         _nodataView.imageName = @"my_couponList_NotData";
-        _nodataView.noDataMassage = @"暂无优惠券";
-        //        _nodataView.downPULLMassage = @"下拉进行刷新";
+        _nodataView.noDataMassage = @"暂无优惠券，立即获取";
+        kWeakSelf
+        _nodataView.clickBlock = ^{
+            if (weakSelf.block) {
+                weakSelf.block();
+            }
+        };
+        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(kScrAdaptationH(100));
+            make.height.width.equalTo(@(kScrAdaptationH(184)));
+            make.centerX.equalTo(self);
+        }];
     }
     return _nodataView;
 }

@@ -9,6 +9,14 @@
 #import "HXBFinModel_BuyResoult_PlanModel.h"
 
 @implementation HXBFinModel_BuyResoult_PlanModel
+/**
+ 开始计息
+ */
+- (NSString *) lockStart {
+    NSString *timeStr = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:_lockStart andDateFormat:@"MM月dd日"];
+    _lockStart = [NSString stringWithFormat:@"预计%@开始计息", _lockStart ? timeStr : @"--月--日"];
+    return _lockStart;
+}
 
 @end
 

@@ -14,6 +14,8 @@
 //MARK: ======================= 所有H5 界面 =======================
 
 #define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",[KeyChain h5host]]//风险评测
+#define kHXBH5_InviteDetailURL [NSString stringWithFormat:@"%@/invite/detail",[KeyChain h5host]]//邀请好友
+
 //MARK: ======================= 闪屏接口 界面 =======================
 #define kHXBSplash            @"/splash"///闪屏接口
 //MARK: ======================= 理财资产 界面 =======================
@@ -134,5 +136,9 @@
 //MARK: ======================= 优惠券 ==========================
 #define kHXB_Coupon_Query @"/coupon/query" // 选择优惠券列表
 #define kHXB_Coupon_Best @"/coupon/best" // 匹配最优优惠券
+
+//MARK: ======================= 邀请好友 ==========================
+#define kHXB_Invite_List @"/account/invite/list" // 邀请好友列表
+#define kHXB_Invite_OverView @"/account/invite/overview" // 邀请好友奖励
 
 #endif
