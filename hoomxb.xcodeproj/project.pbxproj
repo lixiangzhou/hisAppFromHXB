@@ -922,6 +922,7 @@
 		4EECE01F1F383ABE00301758 /* HXBMyHomeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyHomeViewCell.m; sourceTree = "<group>"; };
 		4EECE0231F3843A200301758 /* eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = eye.svg; sourceTree = "<group>"; };
 		4EECE0251F38548100301758 /* close_eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = close_eye.svg; sourceTree = "<group>"; };
+		8D6B046A1FC2A3BF0046F48A /* HXBBaseConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseConfig.h; sourceTree = "<group>"; };
 		8DAD30411FBA8F8B00E2AEE8 /* HXBAlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAlertManager.h; sourceTree = "<group>"; };
 		8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAlertManager.m; sourceTree = "<group>"; };
 		8DAD30431FBA8F8B00E2AEE8 /* HXBBaseAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseAlertViewController.h; sourceTree = "<group>"; };
@@ -2334,6 +2335,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED2F2841ECAE4010014E5C7 /* HxbMacro.h */,
+				8D6B046A1FC2A3BF0046F48A /* HXBBaseConfig.h */,
 				E1247B351ECC1BD400B2CD7C /* HXMacros_BLog.h */,
 				4E8198AF1EC44CFD00D668A1 /* MacroDefinition.h */,
 				4EA93FBD1EA0A5AB002F3615 /* HXBAPI.h */,
