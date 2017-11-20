@@ -13,6 +13,8 @@
 #import "HXBCheckCaptchaViewController.h"
 #import "HXBBaseViewController.h"
 #import "SVGKit/SVGKImage.h"
+#import "HXBBaseUrlSettingView.h"
+
 @interface HXBBaseTabBarController ()<UITabBarControllerDelegate>
 
 @end
@@ -131,6 +133,12 @@
         return YES;
     }
     return YES;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (HXBIsRelease == NO) {
+        [[HXBBaseUrlSettingView settingView] show];
+    }
 }
 
 #pragma mark - 通知Action

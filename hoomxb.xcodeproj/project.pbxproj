@@ -262,6 +262,8 @@
 		8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */; };
 		8DAD308F1FBA8F8C00E2AEE8 /* HXBBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */; };
 		9AA357181FBC38E20053B8A3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 9AA357171FBC38E20053B8A3 /* Podfile */; };
+		9AF220EF1FC2BA8F00002D1D /* HXBBaseUrlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */; };
+		9AF220F01FC2BA8F00002D1D /* HXBBaseUrlSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EE1FC2BA8F00002D1D /* HXBBaseUrlSettingView.m */; };
 		E1057D701EE28D0C00C63286 /* NSString+HXBPhonNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = E1057D6F1EE28D0C00C63286 /* NSString+HXBPhonNumber.m */; };
 		E10CDBC51EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CDBC41EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m */; };
 		E10CEB0E1F7F96D100B65501 /* HXBFin_Plan_BuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CEB0A1F7F96CF00B65501 /* HXBFin_Plan_BuyViewController.m */; };
@@ -922,6 +924,7 @@
 		4EECE0231F3843A200301758 /* eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = eye.svg; sourceTree = "<group>"; };
 		4EECE0251F38548100301758 /* close_eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = close_eye.svg; sourceTree = "<group>"; };
 		6290EFB173CD62D4B8B37627 /* Pods-hoomxb.adoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.adoc.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.adoc.xcconfig"; sourceTree = "<group>"; };
+		8D6B046A1FC2A3BF0046F48A /* HXBBaseConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseConfig.h; sourceTree = "<group>"; };
 		8DAD30411FBA8F8B00E2AEE8 /* HXBAlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAlertManager.h; sourceTree = "<group>"; };
 		8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAlertManager.m; sourceTree = "<group>"; };
 		8DAD30431FBA8F8B00E2AEE8 /* HXBBaseAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseAlertViewController.h; sourceTree = "<group>"; };
@@ -971,6 +974,10 @@
 		8DAD30761FBA8F8B00E2AEE8 /* HXBBaseTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTextField.h; sourceTree = "<group>"; };
 		8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTextField.m; sourceTree = "<group>"; };
 		9AA357171FBC38E20053B8A3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		9AF220EB1FC2BA8F00002D1D /* HXBBaseUrlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlManager.h; sourceTree = "<group>"; };
+		9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseUrlManager.m; sourceTree = "<group>"; };
+		9AF220ED1FC2BA8F00002D1D /* HXBBaseUrlSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlSettingView.h; sourceTree = "<group>"; };
+		9AF220EE1FC2BA8F00002D1D /* HXBBaseUrlSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseUrlSettingView.m; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
 		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2332,6 +2339,7 @@
 			isa = PBXGroup;
 			children = (
 				4ED2F2841ECAE4010014E5C7 /* HxbMacro.h */,
+				8D6B046A1FC2A3BF0046F48A /* HXBBaseConfig.h */,
 				E1247B351ECC1BD400B2CD7C /* HXMacros_BLog.h */,
 				4E8198AF1EC44CFD00D668A1 /* MacroDefinition.h */,
 				4EA93FBD1EA0A5AB002F3615 /* HXBAPI.h */,
@@ -2634,6 +2642,17 @@
 				DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9AF220EA1FC2BA8F00002D1D /* BaseURL */ = {
+			isa = PBXGroup;
+			children = (
+				9AF220EB1FC2BA8F00002D1D /* HXBBaseUrlManager.h */,
+				9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */,
+				9AF220ED1FC2BA8F00002D1D /* HXBBaseUrlSettingView.h */,
+				9AF220EE1FC2BA8F00002D1D /* HXBBaseUrlSettingView.m */,
+			);
+			path = BaseURL;
 			sourceTree = "<group>";
 		};
 		AB2C5DD4297DD10D18ED07A2 /* Pods */ = {
@@ -3885,6 +3904,7 @@
 		E1CD4BA91ED83064000CC57B /* tools */ = {
 			isa = PBXGroup;
 			children = (
+				9AF220EA1FC2BA8F00002D1D /* BaseURL */,
 				4E422CC21EA74F3B00C0EB62 /* HxbTools.h */,
 				E122D8441EA0CAB900DC71ED /* HxbBase.h */,
 				E122D8451EA0CAB900DC71ED /* HxbCategorys.h */,
@@ -4976,11 +4996,13 @@
 				E133DCE91EEE3597009466DE /* HxbSignInViewController.m in Sources */,
 				4E4ACC9A1F061F3D0031B326 /* HXBHXBBorrowUserinforView.m in Sources */,
 				E122D85D1EA0CAB900DC71ED /* UIView+HxbView.m in Sources */,
+				9AF220F01FC2BA8F00002D1D /* HXBBaseUrlSettingView.m in Sources */,
 				4E45F4361F4FC71E009708B7 /* AXHNewFeatureCell.m in Sources */,
 				4E739B5B1F0A388B000A4D1E /* HXBVersionUpdateModel.m in Sources */,
 				4E35C6C71F0E46DA0022C8E6 /* HXBMyTopUpBankView.m in Sources */,
 				E1CB561A1ED2D1F500D962CA /* HXBMYModel_AssetStatistics_Plan.m in Sources */,
 				4EAD98D51EB838F80029A3FF /* UITextField+HxbTextField.m in Sources */,
+				9AF220EF1FC2BA8F00002D1D /* HXBBaseUrlManager.m in Sources */,
 				E122D8571EA0CAB900DC71ED /* UIResponder+FindNext.m in Sources */,
 				28B5D0241F711E9D00E2F486 /* HXBFin_Buy_ViewModel.m in Sources */,
 				E133DD411EEEC14C009466DE /* HXBRequestEnumAndStatic.m in Sources */,
