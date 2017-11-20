@@ -24,7 +24,6 @@
     }
     return self;
 }
-
 - (void)setUP {//179
     [self.notDataImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
@@ -44,7 +43,21 @@
         make.height.equalTo(@(kScrAdaptationH(15)));
     }];
 }
-
++ (HXBNoDataView *)noDataViewWithImgName:(NSString *)imgName noDataMassage:(NSString *)noDataMassage downPullMassage:(NSString *)downPullMassage inView:(UIView *)view remakeConstraints:(void(^)(MASConstraintMaker *))remakeConstraints
+{
+    HXBNoDataView *nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
+    nodataView.imageName = imgName;
+    nodataView.noDataMassage = noDataMassage;
+    nodataView.downPULLMassage = downPullMassage;
+    
+    nodataView.userInteractionEnabled = NO;
+    nodataView.hidden = YES;
+    
+    [view addSubview:nodataView];
+    [nodataView mas_remakeConstraints:remakeConstraints];
+    
+    return nodataView;
+}
 - (CJLabel *)noDataLabel {
     if (!_noDataLabel) {
         _noDataLabel = [[CJLabel alloc] initWithFrame:CGRectZero];
