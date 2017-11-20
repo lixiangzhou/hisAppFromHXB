@@ -189,10 +189,7 @@ static NSString *const cellID = @"cellID";
     
     if (self.type == HXBInvestmentRecord) {
         cell.type = _dataArray[indexPath.row].statusText;
-//        if (self.investmentType == HXBRequestType_MY_PlanRequestType_HOLD_PLAN) {
-//            cell.type = _dataArray[indexPath.row].statusText;
-//        }else{
-//        }
+
     }else{
         cell.type = _dataArray[indexPath.row].status;
     }
