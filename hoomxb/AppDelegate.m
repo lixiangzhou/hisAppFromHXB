@@ -16,6 +16,7 @@
 #import "UMMobClick/MobClick.h"//友盟统计
 #import "AvoidCrash.h"//防止数据为空产生的闪退
 #import "HXBRootVCManager.h"    // 根控制器管理
+#import "HXBBaseUrlSettingView.h"
 
 @interface AppDelegate ()
 
@@ -49,6 +50,10 @@
     [self keyboardManager];
     //方案多个按钮同时点击
     [[UIButton appearance] setExclusiveTouch:YES];
+    
+    if (HXBIsRelease == NO) {
+        [HXBBaseUrlSettingView attatchToWindow];
+    }
     
     return YES;
 }
@@ -132,7 +137,14 @@
 - (void)setNetworkConfig
 {
     NYNetworkConfig *config = [NYNetworkConfig sharedInstance];
-    config.baseUrl = BASEURL;
+    config.baseUrl = [HXBBaseUrlManager manager].baseUrl;
+    
+    if (HXBIsRelease == NO) {
+        // 当baseUrl 改变的时候，需要更新 config.baseUrl
+        [RACObserve([HXBBaseUrlManager manager], baseUrl) subscribeNext:^(id  _Nullable x) {
+            config.baseUrl = x;
+        }];
+    }
     config.version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
 }
 
