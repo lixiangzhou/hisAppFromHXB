@@ -14,9 +14,10 @@
 #import "HXBMY_PlanListViewController.h"///plan 列表的VC
 #import "HXBMY_LoanListViewController.h"///散标 列表的VC
 #import "HXBMY_CapitalRecordViewController.h"//资产记录
-#import "HXBInviteListViewController.h" // 邀请好友
 #import "HXBMyHomeViewCell.h"
 #import "HXBMyRequestAccountModel.h"
+#import "HXBBannerWebViewController.h"
+
 @interface HxbMyView ()
 <
 UITableViewDelegate,
@@ -110,10 +111,10 @@ MyViewHeaderDelegate
             HXBMyCouponViewController *myCouponsViewController = [[HXBMyCouponViewController alloc]init];
             [vc.navigationController pushViewController:myCouponsViewController animated:YES];
         } else {
-
             HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-            HXBInviteListViewController *inviteViewController = [[HXBInviteListViewController alloc]init];
-            [VC.navigationController pushViewController:inviteViewController animated:true];
+            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+            webViewVC.url = kHXBH5_InviteDetailURL;
+            [VC.navigationController pushViewController:webViewVC animated:true];
         }
     }
     if (indexPath.section == 1) {//第一组： plan

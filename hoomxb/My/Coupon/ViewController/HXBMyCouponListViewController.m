@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "HXBInviteListViewController.h"
 #import "HXBRootVCManager.h"
+#import "HXBBannerWebViewController.h"
 
 @interface HXBMyCouponListViewController (){
     int _page;
@@ -75,7 +76,9 @@
         _myView = [[HXBMyCouponListView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-44)];
         kWeakSelf
         _myView.block = ^{
-            [HxbHUDProgress showTextWithMessage:@"邀请好友入口"];
+            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+            webViewVC.url = kHXBH5_InviteDetailURL;
+            [weakSelf.navigationController pushViewController:webViewVC animated:true];
         };
         _myView.userInteractionEnabled = YES;
         /**

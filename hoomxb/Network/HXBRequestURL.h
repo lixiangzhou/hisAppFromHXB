@@ -14,6 +14,8 @@
 //MARK: ======================= 所有H5 界面 =======================
 
 #define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",[KeyChain h5host]]//风险评测
+#define kHXBH5_InviteDetailURL [NSString stringWithFormat:@"%@/invite/detail",[KeyChain h5host]]//邀请好友
+
 //MARK: ======================= 闪屏接口 界面 =======================
 #define kHXBSplash            @"/splash"///闪屏接口
 //MARK: ======================= 理财资产 界面 =======================

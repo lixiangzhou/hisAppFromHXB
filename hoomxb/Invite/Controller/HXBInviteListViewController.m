@@ -175,13 +175,13 @@
         _tableView.delegate = self;
         _tableView.separatorStyle = NO;
         _tableView.tableHeaderView = [self tableHeader];
-        
+        kWeakSelf
         // 下拉刷新
         [_tableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
             _page = 1;
-            [self.dataArray removeAllObjects];
-            [self setUpDataForInviteList];
-            [self setUpDataForInviteOverView];
+            [weakSelf.dataArray removeAllObjects];
+            [weakSelf setUpDataForInviteList];
+            [weakSelf setUpDataForInviteOverView];
         } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
             
         }];

@@ -8,6 +8,7 @@
 
 #import "HXBFBase_BuyResult_VC.h"
 #import "HXBFinAddTruastWebViewVC.h"
+#import "HXBUMengShareManager.h"
 
 @interface HXBFBase_BuyResult_VC ()
 @property (nonatomic,strong) UIImageView *imageView;
@@ -158,7 +159,7 @@
 }
 
 - (void)clickToShare:(UIButton *)clickToShare {
-    [HxbHUDProgress showTextWithMessage:@"分享弹框"];
+    [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
 }
 
 // 设置行间距的富文本
