@@ -129,11 +129,10 @@ MyViewHeaderDelegate
         }
     }
     if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
-            HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-            HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
-            [VC.navigationController pushViewController:capitalRecordViewController animated:true];
-        }
+        HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
+        HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
+        [VC.navigationController pushViewController:capitalRecordViewController animated:true];
+        
     }
 }
 

@@ -61,7 +61,6 @@
 - (CJLabel *)noDataLabel {
     if (!_noDataLabel) {
         _noDataLabel = [[CJLabel alloc] initWithFrame:CGRectZero];
-        _noDataLabel.font = kHXBFont_PINGFANGSC_REGULAR(66);
         _noDataLabel.textColor = kHXBColor_Grey_Font0_2;
         _noDataLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview: _noDataLabel];

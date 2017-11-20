@@ -126,9 +126,9 @@ static NSString *const bankString = @"绑定银行卡";
 }
 
 - (void)buildUI {
-    self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:(UITableViewStylePlain)];
+    self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY) style:(UITableViewStylePlain)];
     if (LL_iPhoneX) {
-        self.hxbBaseVCScrollView.frame = CGRectMake(0, 88, kScreenWidth, kScreenHeight - 88);
+        self.hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
     }
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.hxbBaseVCScrollView.tableFooterView = [self footTableView];
@@ -143,15 +143,17 @@ static NSString *const bankString = @"绑定银行卡";
     [self.hxbBaseVCScrollView reloadData];
 }
 
+static const NSInteger topView_bank_high = 370;
+static const NSInteger topView_high = 300;
 // 获取银行限额
 - (void)getBankCardLimit {
     [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
         self.hxbBaseVCScrollView.tableHeaderView = nil;
         self.cardModel = model;
         if (self.cardModel.bankType) {
-            self.topView.height = kScrAdaptationH750(370);
+            self.topView.height = kScrAdaptationH750(topView_bank_high);
         } else {
-            self.topView.height = kScrAdaptationH750(300);
+            self.topView.height = kScrAdaptationH750(topView_high);
         }
         _topView.cardStr = [NSString stringWithFormat:@"%@%@", self.cardModel.bankType, self.cardModel.quota];
         _topView.hasBank = self.cardModel.bankType ? YES : NO;
@@ -254,14 +256,15 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)fullAddtionFunc {
     kWeakSelf
     double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
+    NSString *rechargeMoney =_viewModel.userInfoModel.userInfo.minChargeAmount_new;
     if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"充值金额必须大于%d元", _viewModel.userInfoModel.userInfo.minChargeAmount]];
-        topupMoney = _viewModel.userInfoModel.userInfo.minChargeAmount;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf sendSmsCodeWithMoney:topupMoney];
-            });
-        });
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", rechargeMoney] force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确认充值"];
+        alertVC.isCenterShow = YES;
+        [alertVC setClickXYRightButtonBlock:^{
+            [weakSelf sendSmsCodeWithMoney:_viewModel.userInfoModel.userInfo.minChargeAmount];
+        }];
+        [self presentViewController:alertVC animated:YES completion:nil];
+        
     } else {
         [self sendSmsCodeWithMoney:topupMoney];
     }
