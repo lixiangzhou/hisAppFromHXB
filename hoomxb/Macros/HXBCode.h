@@ -51,43 +51,6 @@ typedef enum : NSUInteger {
 /**
  code 码
  */
-typedef enum : NSUInteger {
-    /// 登录跳转注册
-    kHXBUmengEnum_loginToRegist = 1000,
-    /// 注册下一步
-    kHXBUmengEnum_registFirst = 1001,
-    /// 注册
-    kHXBUmengEnum_registSuccess = 1002,
-    /// 引导开户
-    kHXBUmengEnum_registSuccess_lead = 1003,
-    /// 注册成功返回
-    kHXBUmengEnum_registSuccess_return = 1004,
-    /// 弹框
-    kHXBUmengEnum_alertBtn = 1005,
-    /// 提交按钮
-    kHXBUmengEnum_commitBtn = 1006,
-    /// 充值
-    kHXBUmengEnum_topup_money = 1007,
-    /// 提现
-    kHXBUmengEnum_withdraw_money = 1008,
-    /// 邀请好友入口
-    kHXBUmengEnum_invite_entrance = 1009,
-    /// 浮层调起次数
-    kHXBUmengEnum_invite_alert = 1010,
-    /// 微信button
-    kHXBUmengEnum_invite_weChat = 1011,
-    /// 朋友圈button
-    kHXBUmengEnum_invite_friendCircle = 1012,
-    /// QQbutton
-    kHXBUmengEnum_invite_QQ = 1013,
-    /// 空间button
-    kHXBUmengEnum_invite_QQSpace = 1014,
-    /// 查看投资button
-    kHXBUmengEnum_investSucess_seeResult = 1015,
-    /// 分享红包button
-    kHXBUmengEnum_inviteSucess_share = 1016,
-    
-} kHXBUmeng_Enum;
 static NSString *const kHXBUmeng_loginToRegist = @"1000";
 static NSString *const kHXBUmeng_registFirst = @"1001";
 static NSString *const kHXBUmeng_registSuccess = @"1002";

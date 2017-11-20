@@ -132,14 +132,15 @@
 }
 
 - (void)setUpDataForInviteOverView {
+    NSString *noDataText = @"--";
     [HXBInviteViewModel requestForInviteOverViewWithParams:nil andSuccessBlock:^(HXBInviteOverViewModel *model) {
         if (model.cashBackAmount) {
             self.headView.dataDic = [self dataDicWithCashBackAmount:model.cashBackAmount couponNumber:[NSString stringWithFormat:@"%ld", model.couponNumber] inviteNumber:[NSString stringWithFormat:@"%ld", model.inviteNumber]];
         } else {
-            self.headView.dataDic = [self dataDicWithCashBackAmount:@"--" couponNumber:@"--" inviteNumber:@"--"];
+            self.headView.dataDic = [self dataDicWithCashBackAmount:noDataText couponNumber:noDataText inviteNumber:noDataText];
         }
     } andFailureBlock:^(NSError *error) {
-        self.headView.dataDic = [self dataDicWithCashBackAmount:@"--" couponNumber:@"--" inviteNumber:@"--"];
+        self.headView.dataDic = [self dataDicWithCashBackAmount:noDataText couponNumber:noDataText inviteNumber:noDataText];
     }];
 }
 

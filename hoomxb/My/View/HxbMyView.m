@@ -110,7 +110,7 @@ MyViewHeaderDelegate
             HXBMyCouponViewController *myCouponsViewController = [[HXBMyCouponViewController alloc]init];
             [vc.navigationController pushViewController:myCouponsViewController animated:YES];
         } else {
-//            [HxbHUDProgress showTextWithMessage:@"邀请好友入口"];
+
             HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
             HXBInviteListViewController *inviteViewController = [[HXBInviteListViewController alloc]init];
             [VC.navigationController pushViewController:inviteViewController animated:true];
