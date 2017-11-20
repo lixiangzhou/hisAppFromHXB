@@ -52,6 +52,7 @@
 }
 
 
+
 @end
 @implementation HXBRequestUserInfoAPI_UserInfo
 
@@ -61,6 +62,14 @@
         return YES;
     }
     return NO;
+}
+
+- (NSString *)minChargeAmount_new {
+    return [NSString stringWithFormat:@"%.2f", (float)_minChargeAmount];
+}
+
+- (NSString *)minWithdrawAmount_new {
+    return [NSString stringWithFormat:@"%.2f", (float)_minWithdrawAmount];
 }
 
 @end

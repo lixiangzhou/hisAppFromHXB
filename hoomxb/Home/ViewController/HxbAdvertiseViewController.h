@@ -12,5 +12,5 @@
 
 @property (nonatomic, copy) NSString *adUrl;
 ///dismiss
-- (void) dismissAdvertiseViewControllerFunc: (void(^)())dismissAdvertiseViewControllerBlock;
+- (void) dismissAdvertiseViewControllerFunc: (void(^)(BOOL isSingleLogin))dismissAdvertiseViewControllerBlock;
 @end

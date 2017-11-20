@@ -91,8 +91,16 @@ typedef void (^FailureBlock)(NYBaseRequest *request, NSError *error);
 //================================== callback ==================================
 //返回成功回调
 @property (nonatomic, copy) SuccessBlock success;
+/**
+ 自定义特殊状态拦截返回成功回调
+ */
+@property (nonatomic, copy) SuccessBlock customCodeSuccessBlock;
 //返回失败回调
 @property (nonatomic, copy) FailureBlock failure;
+/**
+ 自定义特殊状态拦截返回失败回调
+ */
+@property (nonatomic, copy) FailureBlock customCodeFailureBlock;
 //代理
 @property (nonatomic, weak) id<NYRequestDelegate> delegate;
 

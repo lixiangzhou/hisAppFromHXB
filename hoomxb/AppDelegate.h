@@ -13,8 +13,5 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (nonatomic, strong) HXBBaseTabBarController *mainTabbarVC;
-
-
 @end
 

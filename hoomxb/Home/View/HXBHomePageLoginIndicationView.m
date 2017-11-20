@@ -14,7 +14,7 @@
 
 #import "HXBBaseTabBarController.h"
 
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 
 
 @interface HXBHomePageLoginIndicationView ()

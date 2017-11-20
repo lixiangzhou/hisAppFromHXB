@@ -8,7 +8,7 @@
 
 #import "UIImageView+HxbSDWebImage.h"
 #import <UIImageView+WebCache.h>
-#import "SVGKImage.h"
+#import "SVGKit/SVGKImage.h"
 #import <objc/runtime.h>
 
 static NSString *const kHXBSVGImageName = @"kHXBSVGImageName";

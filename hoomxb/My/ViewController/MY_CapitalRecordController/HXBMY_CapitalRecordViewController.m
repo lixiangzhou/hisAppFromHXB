@@ -44,7 +44,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"交易记录";
-    self.hxb_automaticallyAdjustsScrollViewInsets = true;
+    self.automaticallyAdjustsScrollViewInsets = YES;
     self.screenType = @" ";
     [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:true];
     [self setUP];
@@ -99,7 +99,12 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
         }
         self.tableView.capitalRecortdDetailViewModelArray = viewModelArray;
         self.tableView.totalCount = self.totalCount;
-        [self.tableView endRefresh];
+        if (viewModelArray.count == self.totalCount) {
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        } else {
+            [self.tableView endRefresh];
+        }
     } andFailureBlock:^(NSError *error) {
         [self.tableView endRefresh];
     }];

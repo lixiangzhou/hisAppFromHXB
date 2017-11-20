@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HXBNoDataView.h"
 
 @class HXBMyCouponListModel;
 
@@ -16,7 +17,7 @@ typedef void(^tapToInviteVCBlock)(void);
 
 //@property (nonatomic, strong) HXBMyCouponListModel *_Nonnull myCouponListModel;
 @property (nonatomic,strong) NSArray <HXBMyCouponListModel *>* _Nullable myCouponListModelArray;
-
+@property (nonatomic,strong) HXBNoDataView *nodataView;
 /**
  是否停止刷新
  */

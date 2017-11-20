@@ -16,7 +16,7 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 @property (nonatomic, strong) UITableView *mainTableView;
-@property (nonatomic,strong) HXBNoDataView *nodataView;
+//@property (nonatomic,strong) HXBNoDataView *nodataView;
 
 @end
 
@@ -28,6 +28,11 @@ UITableViewDataSource
         self.backgroundColor = RGBA(244, 243, 248, 1);
         [self addSubview:self.mainTableView];
         self.nodataView.hidden = false;
+        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.mainTableView).offset(kScrAdaptationH(100));
+            make.height.width.equalTo(@(kScrAdaptationH(184)));
+            make.centerX.equalTo(self.mainTableView);
+        }];
     }
     return self;
 }
@@ -61,13 +66,13 @@ UITableViewDataSource
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *celledStr = @"celled";
-    HXBMyCouponListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:celledStr];
+    
+    HXBMyCouponListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"celled"];
     if (!cell) {
-        cell = [[HXBMyCouponListTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:celledStr];
+        cell = [[HXBMyCouponListTableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"celled"];
         cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.myCouponListModel = self.myCouponListModelArray[indexPath.row];
     kWeakSelf
     cell.actionButtonClickBlock = ^(){
@@ -90,6 +95,7 @@ UITableViewDataSource
         _mainTableView.tableHeaderView.userInteractionEnabled = YES;
         _mainTableView.backgroundColor = RGBA(244, 243, 248, 1);
         _mainTableView.rowHeight = kScrAdaptationH750(270);
+        [_mainTableView addSubview:self.nodataView];
         [HXBMiddlekey AdaptationiOS11WithTableView:_mainTableView];
         kWeakSelf
         [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{

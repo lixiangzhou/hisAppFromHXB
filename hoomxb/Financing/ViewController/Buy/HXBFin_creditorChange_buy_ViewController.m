@@ -63,6 +63,8 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, copy) NSString *balanceTitle;
 /** 可用余额detailLabel */
 @property (nonatomic, copy) NSString *balanceDetailTitle;
+@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 
 @end
 
@@ -71,12 +73,11 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isColourGradientNavigationBar = true;
-//    [self getNewUserInfo];
     _discountTitle = @"暂无可用优惠券";
     _balanceTitle = @"可用余额";
     [self buildUI];
     [self getBankCardLimit];
-    [self changeItemWithInvestMoney:_inputMoneyStr];
+    
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
 }
 
@@ -86,6 +87,23 @@ static NSString *const bankString = @"绑定银行卡";
     [self getNewUserInfo];
 }
 
+- (void)dealloc {
+    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    NSLog(@"✅被销毁 %@",self);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+        }
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+}
 
 - (void)buildUI {
     self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:(UITableViewStylePlain)];
@@ -112,12 +130,7 @@ static NSString *const bankString = @"绑定银行卡";
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue;
     if (rechargeMoney > 0.00) { // 余额不足的情况
         if ([self.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-            if (rechargeMoney > self.viewModel.userInfoModel.userInfo.minChargeAmount) {
-                self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
-            } else {
-                self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%d.00元并投资", self.viewModel.userInfoModel.userInfo.minChargeAmount];
-            }
-            
+            self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
         } else {
             self.bottomView.clickBtnStr = bankString;
         }
@@ -385,6 +398,7 @@ static NSString *const bankString = @"绑定银行卡";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.hasBestCoupon = NO;
+    cell.isStartAnimation = NO;
     if (indexPath.row == 0) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.isDiscountRow = YES;
@@ -430,8 +444,9 @@ static NSString *const bankString = @"绑定银行卡";
         _balanceMoneyStr = _viewModel.userInfoModel.userAssets.availablePoint;
         [self setUpArray];
         [self.hxbBaseVCScrollView reloadData];
+        [self changeItemWithInvestMoney:_inputMoneyStr];
     } andFailure:^(NSError *error) {
-        
+        [self changeItemWithInvestMoney:_inputMoneyStr];
     }];
 }
 
@@ -448,6 +463,7 @@ static NSString *const bankString = @"绑定银行卡";
         _topView.cardStr = [NSString stringWithFormat:@"%@%@", self.cardModel.bankType, self.cardModel.quota];
         _topView.hasBank = self.cardModel.bankType ? YES : NO;
         self.hxbBaseVCScrollView.tableHeaderView = self.topView;
+        
     }];
 }
 
@@ -490,7 +506,6 @@ static NSString *const bankString = @"绑定银行卡";
             _topView.disableKeyBorad = NO;
             _topView.disableBtn = NO;
         }
-        
         _topView.changeBlock = ^(NSString *text) {
             weakSelf.bottomView.addBtnIsUseable = text.length;
             BOOL isFitToBuy = ((text.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;

@@ -29,4 +29,5 @@ extern NSString *const kHXBNotification_starCountDown;
 extern NSString *const kHXBNotification_update;
 @interface HxbNotificationMacros : NSObject
 
+
 @end

@@ -70,7 +70,7 @@
     if ([data[@"path"] isEqualToString:kRegisterVC]) {
         //注册
         //跳转登录注册
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+       [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
     }else if ([data[@"path"] isEqualToString:kRechargeVC]){
         //充值页面
         HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
@@ -80,7 +80,7 @@
         HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
         openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         openDepositAccountVC.title = @"开通存管账户";
-        [baseVC.navigationController pushViewController:openDepositAccountVC animated:YES];
+        [baseVC.navigationController pushViewController:openDepositAccountVC animated:NO];
     }else if ([data[@"path"] isEqualToString:kPlanDetailVC]){
         //某个计划的详情页
         HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
@@ -90,7 +90,7 @@
             planDetailsVC.isPlan = true;
             planDetailsVC.isFlowChart = true;
             planDetailsVC.hidesBottomBarWhenPushed = true;
-            [baseVC.navigationController pushViewController:planDetailsVC animated:true];
+            [baseVC.navigationController pushViewController:planDetailsVC animated:NO];
         }
     }else if ([data[@"path"] isEqualToString:kLoanDetailVC]){
         //某个散标的详情页
@@ -101,7 +101,7 @@
             loanDetailsVC.loanID = productId;
             
             loanDetailsVC.hidesBottomBarWhenPushed = true;
-            [baseVC.navigationController pushViewController:loanDetailsVC animated:true];
+            [baseVC.navigationController pushViewController:loanDetailsVC animated:NO];
         }
         
     }else if ([data[@"path"] isEqualToString:kLoginVC]){
@@ -175,7 +175,7 @@
 - (UIWebView *)webView
 {
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
         _webView.delegate = self;
         _webView.scalesPageToFit = YES;
         _webView.scrollView.showsHorizontalScrollIndicator = NO;

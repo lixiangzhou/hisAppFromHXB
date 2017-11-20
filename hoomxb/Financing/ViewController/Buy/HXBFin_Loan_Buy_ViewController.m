@@ -64,6 +64,8 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, copy) NSString *balanceTitle;
 /** 可用余额detailLabel */
 @property (nonatomic, copy) NSString *balanceDetailTitle;
+@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 
 @end
 
@@ -84,6 +86,24 @@ static NSString *const bankString = @"绑定银行卡";
     [super viewWillAppear: animated];
     [self getBankCardLimit];
     [self getNewUserInfo];
+}
+
+- (void)dealloc {
+    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    NSLog(@"✅被销毁 %@",self);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+        }
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
 }
 
 - (void)buildUI {
@@ -111,11 +131,7 @@ static NSString *const bankString = @"绑定银行卡";
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue;
     if (rechargeMoney > 0.00) { // 余额不足的情况
         if ([self.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-            if (rechargeMoney > self.viewModel.userInfoModel.userInfo.minChargeAmount) {
-                self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
-            } else {
-                self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%d.00元并投资", self.viewModel.userInfoModel.userInfo.minChargeAmount];
-            }
+            self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
         } else {
             self.bottomView.clickBtnStr = bankString;
         }
@@ -331,6 +347,7 @@ static NSString *const bankString = @"绑定银行卡";
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     cell.hasBestCoupon = NO;
+    cell.isStartAnimation = NO;
     if (indexPath.row == 0) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.isDiscountRow = YES;

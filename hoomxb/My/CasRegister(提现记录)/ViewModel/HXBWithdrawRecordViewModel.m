@@ -21,15 +21,20 @@
 /**
  提现进度
  
+ @param isLoading 是否显示加载
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-- (void)casRegisteRequestSuccessBlock: (void(^)(HXBWithdrawRecordListModel * withdrawRecordListModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)withdrawRecordProgressRequestWithLoading:(BOOL)isLoading andSuccessBlock: (void(^)(HXBWithdrawRecordListModel * withdrawRecordListModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 {
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBSetWithdrawals_recordtURL;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
-    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    NSString *loadStr = nil;
+    if (isLoading) {
+        loadStr = kLoadIngText;
+    }
+    [versionUpdateAPI startWithHUDStr:loadStr Success:^(NYBaseRequest *request, id responseObject) {
        
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
@@ -45,6 +50,7 @@
         if (successDateBlock) {
             successDateBlock(self.withdrawRecordListModel);
         }
+        
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {
             failureBlock(error);
@@ -52,5 +58,6 @@
     }];
     
 }
+
 
 @end

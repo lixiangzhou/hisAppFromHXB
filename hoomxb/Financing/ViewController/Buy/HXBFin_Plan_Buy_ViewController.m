@@ -82,6 +82,8 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, copy) NSString *couponid;
 /** 是否获取到优惠券 */
 @property (nonatomic, assign) BOOL hasGetCoupon;
+@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 
 @end
 
@@ -104,6 +106,23 @@ static NSString *const bankString = @"绑定银行卡";
     [super viewWillAppear: animated];
     [self getBankCardLimit];
     [self getNewUserInfo];
+}
+
+- (void)dealloc {
+    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+        }
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
 }
 
 - (void)buildUI {
@@ -147,12 +166,7 @@ static NSString *const bankString = @"绑定银行卡";
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue - _discountMoney;
     if (rechargeMoney > 0.00) { // 余额不足的情况
         if ([self.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-            if (rechargeMoney > self.viewModel.userInfoModel.userInfo.minChargeAmount) {
-                self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
-            } else {
-                self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%d.00元并投资", self.viewModel.userInfoModel.userInfo.minChargeAmount];
-            }
-            
+            self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
         } else {
             self.bottomView.clickBtnStr = bankString;
         }
@@ -508,6 +522,7 @@ static NSString *const bankString = @"绑定银行卡";
             _couponid = model.bestCoupon.ID;
         } else {
             _hasBestCoupon = NO;
+            _discountMoney = 0.0;
             _handleDetailTitle = money;
             _discountTitle = @"请选择优惠券";
             _couponTitle = @"优惠券";

@@ -12,14 +12,9 @@
 #import "HXBLockLabel.h"
 #import "HXBCircleInfoView.h"
 #import "HXBCircle.h"
+#import "HXBRootVCManager.h"
 
-#import "HXBBaseTabBarController.h"//手势界面成功进入的tabVC
-
-static NSString *const home = @"首页";
-static NSString *const financing = @"投资";
-static NSString *const my = @"我的";
-
-@interface HXBGesturePasswordViewController ()<HXBCircleViewDelegate>
+@interface HXBGesturePasswordViewController ()<HXBCircleViewDelegate, UIGestureRecognizerDelegate>
 /**
  *  重设按钮
  */
@@ -47,38 +42,9 @@ static NSString *const my = @"我的";
  */
 @property (nonatomic, strong) HXBCircleInfoView *infoView;
 
-/**
- *  mainTabbarVC
- */
-@property (nonatomic, strong) HXBBaseTabBarController *mainTabbarVC;
-
 @end
 
 @implementation HXBGesturePasswordViewController
-
-///懒加载主界面Tabbar
-- (HXBBaseTabBarController *)mainTabbarVC
-{
-    if (!_mainTabbarVC) {
-        _mainTabbarVC = [[HXBBaseTabBarController alloc]init];
-        _mainTabbarVC.selectColor = [UIColor redColor];///选中的颜色
-        _mainTabbarVC.normalColor = [UIColor grayColor];///平常状态的颜色
-        
-        NSArray *controllerNameArray = @[
-                                         @"HxbHomeViewController",//首页
-                                         @"HxbFinanctingViewController",//理财
-                                         @"HxbMyViewController"];//我的
-        //title 集合
-        NSArray *controllerTitleArray = @[home,financing,my];
-        NSArray *imageArray = @[@"home_Unselected.svg",@"investment_Unselected.svg",@"my_Unselected.svg"];
-        //选中下的图片前缀
-        NSArray *commonName = @[@"home_Selected.svg",@"investment_Selected.svg",@"my_Selected.svg"];
-        
-        [_mainTabbarVC subViewControllerNames:controllerNameArray andNavigationControllerTitleArray:controllerTitleArray andImageNameArray:imageArray andSelectImageCommonName:commonName];
-        
-    }
-    return _mainTabbarVC;
-}
 
 - (UILabel *)titleLabel
 {
@@ -98,27 +64,19 @@ static NSString *const my = @"我的";
         [self.navigationController setNavigationBarHidden:YES animated:animated];
     }
     
-    
-    // 进来先清空存的第一个密码
-//    [HXBCircleViewConst saveGesture:nil Key:gestureOneSaveKey];
-//    KeyChain.gesturePwd = nil;
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
 }
 
-
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        
-    }
-    return self;
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
     [self.view setBackgroundColor:CircleViewBackgroundColor];
     
     // 1.界面相同部分生成器
@@ -126,6 +84,8 @@ static NSString *const my = @"我的";
     
     // 2.界面不同部分生成器
     [self setupDifferentUI];
+    
+    
 }
 
 #pragma mark - 创建UIBarButtonItem
@@ -197,7 +157,6 @@ static NSString *const my = @"我的";
 - (void)setupSubViewsSettingVc
 {
     self.isWhiteColourGradientNavigationBar = YES;
-    self.isHiddennNoNetworkStatusView = YES;
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:[[UIButton alloc] init]];
     [self.msgLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
@@ -295,7 +254,7 @@ static NSString *const my = @"我的";
         {
             NSLog(@"点击了账户密码登录");
             [KeyChain signOut];
-            [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
+            [[HXBRootVCManager manager] makeTabbarRootVC];
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         }
             break;
@@ -350,6 +309,7 @@ static NSString *const my = @"我的";
         KeyChain.gesturePwd = gesture;
         KeyChain.gesturePwdCount = @"5";
         [kUserDefaults setBool:YES forKey:kHXBGesturePWD];
+        
         [self.navigationController popToRootViewControllerAnimated:NO];
         
     } else {
@@ -369,7 +329,7 @@ static NSString *const my = @"我的";
             NSLog(@"登陆成功！");
 //            [self.navigationController popToRootViewControllerAnimated:YES];
             KeyChain.gesturePwdCount = @"5";
-            [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
+            [[HXBRootVCManager manager] makeTabbarRootVC];
         } else {
            
             
@@ -380,17 +340,15 @@ static NSString *const my = @"我的";
             if (cout <= 0) {
                 
                 HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"很抱歉，您的手势密码五次输入错误" force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确定"];
-                
-                alertVC.messageHeight = 40;
                 alertVC.isCenterShow = YES;
                 [alertVC setClickXYRightButtonBlock:^{
                     [KeyChain signOut];
-                    [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
+                    [[HXBRootVCManager manager] makeTabbarRootVC];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{kHXBMY_VersionUpdateURL : @YES}];
                 }];
                 [alertVC setClickXYLeftButtonBlock:^{
                     [KeyChain signOut];
-                    [UIApplication sharedApplication].keyWindow.rootViewController = self.mainTabbarVC;
+                    [[HXBRootVCManager manager] makeTabbarRootVC];
                 }];
                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
                 return;
@@ -433,8 +391,5 @@ static NSString *const my = @"我的";
         [obj setState:CircleStateNormal];
     }];
 }
-
-
-
 
 @end

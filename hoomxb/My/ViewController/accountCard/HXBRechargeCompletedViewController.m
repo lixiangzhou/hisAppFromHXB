@@ -37,7 +37,7 @@
 {
     if (!_rechargesuccessView) {
         kWeakSelf
-        _rechargesuccessView = [[HXBRechargesuccessView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64)];
+        _rechargesuccessView = [[HXBRechargesuccessView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
         //继续充值Block
         _rechargesuccessView.continueRechargeBlock = ^{
             [weakSelf.navigationController popViewControllerAnimated:YES];
@@ -65,12 +65,6 @@
 
 - (void)leftBackBtnClick
 {
-    for (UIViewController *vc in self.navigationController.viewControllers) {
-        if ([vc isKindOfClass:NSClassFromString(@"HXBFinancing_PlanDetailsViewController")]) {
-             [self.navigationController popToViewController:vc animated:YES];
-            return;
-        }
-    }
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

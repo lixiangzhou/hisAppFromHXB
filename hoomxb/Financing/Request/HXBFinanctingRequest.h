@@ -44,16 +44,16 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 //MARK: 红利计划列表的网络请求
 ///红利计划-数据请求- 一级界面首页
 - (void)planBuyListWithIsUpData: (BOOL)isUPData
-                andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray))successDateBlock
+                andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray,NSInteger totalCount))successDateBlock
                 andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 //MARK: 散标列表的网络数据请求
 ///散标列表-数据请求- 一级界面首页
-- (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray,NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 //MARK:债权转让 列表
 ///债权转让列表页
-- (void)loanTruansferListWithIsUPData: (BOOL)isUPData andSuccessBlock: (void (^)(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error,id responsObject))failureBlock;
+- (void)loanTruansferListWithIsUPData: (BOOL)isUPData andSuccessBlock: (void (^)(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *>* viewModelArray,NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error,id responsObject))failureBlock;
 
 
 #pragma mark - 理财二级界面 - 详情界面的数据请求

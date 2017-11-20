@@ -13,7 +13,7 @@
 #import "HXBRequestUserInfo.h"
 
 #define kGesturePwd self.keychain[kMobile]
-#define kSiginPwd self.keychain[kMobile]
+#define kSiginPwd @"HXBSinInCount"
 
 static NSString * const kService = @"www.hoomxb.com";
 //注册时返回的信息
@@ -54,25 +54,25 @@ static NSString *const kIsMobilePassed = @"kIsMobilePassed";
 static NSString *const kMobile = @"kMobile";
 ///用户名
 static NSString *const kUserName = @"kUserName";
-///	double	总资产
+///    double    总资产
 static NSString *const kAssetsTotal = @"kAssetsTotal";
-///	double	累计收益
+///    double    累计收益
 static NSString *const kEarnTotal = @"kEarnTotal";
-///	double	红利计划-持有资产
+///    double    红利计划-持有资产
 static NSString *const kFinancePlanAssets = @"kFinancePlanAssets";
-///	double	红利计划-累计收益
+///    double    红利计划-累计收益
 static NSString *const kFinancePlanSumPlanInterest = @"kFinancePlanSumPlanInterest";
-///	double	散标债权-持有资产
+///    double    散标债权-持有资产
 static NSString *const kLenderPrincipal = @"kLenderPrincipal";
-///	double	散标债权-累计收益
+///    double    散标债权-累计收益
 static NSString *const kLenderEarned = @"kLenderEarned";
-///	double	可用余额
+///    double    可用余额
 static NSString *const kAvailablePoint = @"kAvailablePoint";
-///	double	冻结余额
+///    double    冻结余额
 static NSString *const kFrozenPoint = @"kFrozenPoint";
 /// 是否登录
 static NSString *const kIsLogin = @"kIsLogin";
-///isEscrow	int	是否开通存管账户 1：已开通， 0：未开通
+///isEscrow    int    是否开通存管账户 1：已开通， 0：未开通
 static NSString *const kISEscrow = @"kISEscrow";
 //H5页面的BaseURL
 static NSString *const hostH5 = @"hostH5";
@@ -80,39 +80,39 @@ static NSString *const hostH5 = @"hostH5";
 @interface KeyChainManage ()
 
 @property (nonatomic, strong) UICKeyChainStore *keychain;
-//UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:kService];
-///	double	总资产
+
+///    double    总资产
 @property (nonatomic,copy) NSString *assetsTotal;
-///	double	累计收益
+///    double    累计收益
 @property (nonatomic,copy) NSString *earnTotal;
-///	double	红利计划-持有资产
+///    double    红利计划-持有资产
 @property (nonatomic,copy) NSString *financePlanAssets;
-///	double	红利计划-累计收益
+///    double    红利计划-累计收益
 @property (nonatomic,copy) NSString *financePlanSumPlanInterest;
-///	double	散标债权-持有资产
+///    double    散标债权-持有资产
 @property (nonatomic,copy) NSString *lenderPrincipal;
-///	double	散标债权-累计收益
+///    double    散标债权-累计收益
 @property (nonatomic,copy) NSString *lenderEarned;
-///	double	可用余额
+///    double    可用余额
 @property (nonatomic,copy) NSString *availablePoint;
-///	double	冻结余额
+///    double    冻结余额
 @property (nonatomic,copy) NSString *frozenPoint;
 
 
-///	是否安全认证
+///    是否安全认证
 @property (nonatomic,copy) NSString *isVerify;
 ///是否绑卡
 @property (nonatomic,copy) NSString *isBindCard;
 ///isCashPasswordPassed
 @property (nonatomic,copy) NSString *isCashPasswordPassed;
-///isIdPassed	String	是否实名
+///isIdPassed    String    是否实名
 @property (nonatomic,copy) NSString *isIdPassed;
 ///是否手机号
 @property (nonatomic,copy) NSString *isMobilePassed;
 
 ///用户id
 @property (nonatomic,copy) NSString *userId;
-///username	String	用户名称
+///username    String    用户名称
 @property (nonatomic,copy) NSString *userName;
 ///真实姓名
 @property (nonatomic,copy) NSString *realName;
@@ -133,24 +133,14 @@ static NSString *const hostH5 = @"hostH5";
     dispatch_once(&once, ^{
         sharedInstance = [[self alloc] init];
         sharedInstance.keychain = [UICKeyChainStore keyChainStoreWithService:kService];
-        
     });
     
     return sharedInstance;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        self.gesturePwd = @"";
-    }
-    return self;
-}
-
 #pragma mark - 常用方法
 
-- (void) setValueWithUserInfoModel: (HXBRequestUserInfoViewModel *)userInfoViewModel {
+- (void)setValueWithUserInfoModel: (HXBRequestUserInfoViewModel *)userInfoViewModel {
     
     //是否实名
     _isVerify = userInfoViewModel.userInfoModel.userInfo.isAllPassed;
@@ -160,16 +150,16 @@ static NSString *const hostH5 = @"hostH5";
     _isBindCard = userInfoViewModel.userInfoModel.userInfo.hasBindCard;
     _keychain[kIsBindCard] = _isBindCard;
     
-    //isCashPasswordPassed	String	是否有交易密码
+    //isCashPasswordPassed    String    是否有交易密码
     _isCashPasswordPassed = userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed;
      _keychain[kISCashPasswordPassed] = _isCashPasswordPassed;
     
-    ///isIdPassed	String	是否实名
+    ///isIdPassed    String    是否实名
     _isIdPassed = userInfoViewModel.userInfoModel.userInfo.isIdPassed;
     _keychain[kIsIdPassed] = _isIdPassed;
     
     
-    ///isMobilePassed	String	是否手机号
+    ///isMobilePassed    String    是否手机号
     _isMobilePassed = userInfoViewModel.userInfoModel.userInfo.isMobilePassed;
     _keychain[kIsMobilePassed] = _isMobilePassed;
     
@@ -191,24 +181,24 @@ static NSString *const hostH5 = @"hostH5";
     _userId = userInfoViewModel.userInfoModel.userInfo.userId;
     _keychain[kUserId] = _userId;
     
-    ///	double	总资产
+    ///    double    总资产
     _assetsTotal = userInfoViewModel.userInfoModel.userAssets.assetsTotal;
-    ///	double	累计收益
+    ///    double    累计收益
     _earnTotal = userInfoViewModel.userInfoModel.userAssets.earnTotal;
-    ///	double	红利计划-持有资产
+    ///    double    红利计划-持有资产
     _financePlanAssets = userInfoViewModel.userInfoModel.userAssets.financePlanAssets;
-    ///	double	红利计划-累计收益
+    ///    double    红利计划-累计收益
     _financePlanSumPlanInterest = userInfoViewModel.userInfoModel.userAssets.financePlanSumPlanInterest;
-    ///	double	散标债权-持有资产
+    ///    double    散标债权-持有资产
     _lenderPrincipal = userInfoViewModel.userInfoModel.userAssets.lenderPrincipal;
-    ///	double	散标债权-累计收益
+    ///    double    散标债权-累计收益
     _lenderEarned = userInfoViewModel.userInfoModel.userAssets.lenderEarned;
-    ///	double	可用余额
+    ///    double    可用余额
     _availablePoint = userInfoViewModel.userInfoModel.userAssets.availablePoint;
-    ///	double	冻结余额
+    ///    double    冻结余额
     _frozenPoint = userInfoViewModel.userInfoModel.userAssets.frozenPoint;
 }
-///	double	总资产
+///    double    总资产
 - (void)assetsTotalWithBlock: (void(^)(NSString *assetsTotal))assetsTotalWithBlock {
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         [self setValueWithUserInfoModel:viewModel];
@@ -221,7 +211,7 @@ static NSString *const hostH5 = @"hostH5";
         }
     }];
 }
-///	double	累计收益
+///    double    累计收益
 - (void)earnTotalWithBlock: (void(^)(NSString *earnTotal))earnTotalBlock{
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         [self setValueWithUserInfoModel:viewModel];
@@ -234,7 +224,7 @@ static NSString *const hostH5 = @"hostH5";
         }
     }];
 }
-///	double	红利计划-持有资产
+///    double    红利计划-持有资产
 - (void)financePlanAssetsWithBlock: (void(^)(NSString *financePlanAssets))financePlanAssetsBlock{
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         [self setValueWithUserInfoModel:viewModel];
@@ -247,7 +237,7 @@ static NSString *const hostH5 = @"hostH5";
         }
     }];
 }
-///	double	红利计划-累计收益
+///    double    红利计划-累计收益
 - (void)financePlanSumPlanInterestWithBlock: (void(^)(NSString *financePlanSumPlanInterest))financePlanSumPlanInterestBlock{
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         [self setValueWithUserInfoModel:viewModel];
@@ -260,7 +250,7 @@ static NSString *const hostH5 = @"hostH5";
         }
     }];
 }
-///	double	散标债权-持有资产
+///    double    散标债权-持有资产
 - (void)lenderPrincipalWithBlock: (void(^)(NSString *lenderPrincipal))lenderPrincipalBlock{
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         [self setValueWithUserInfoModel:viewModel];
@@ -273,7 +263,7 @@ static NSString *const hostH5 = @"hostH5";
         }
     }];
 }
-///	double	散标债权-累计收益
+///    double    散标债权-累计收益
 - (void)lenderEarnedWithBlock: (void(^)(NSString *lenderEarned))lenderEarnedBlock{
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         [self setValueWithUserInfoModel:viewModel];
@@ -286,7 +276,7 @@ static NSString *const hostH5 = @"hostH5";
         }
     }];
 }
-///	double	可用余额
+///    double    可用余额
 - (void)availablePointWithBlock: (void(^)(NSString *availablePoint))availablePointBlock{
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         [self setValueWithUserInfoModel:viewModel];
@@ -299,7 +289,7 @@ static NSString *const hostH5 = @"hostH5";
         }
     }];
 }
-///	double	冻结余额
+///    double    冻结余额
 - (void)frozenPointWithBlock: (void(^)(NSString *frozenPoint))frozenPointBlock{
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         [self setValueWithUserInfoModel:viewModel];
@@ -315,7 +305,7 @@ static NSString *const hostH5 = @"hostH5";
 
 
 
-///userId	int	用户id
+///userId    int    用户id
 - (void)userIdWithBlock: (void(^)(NSString *userID))userIdBlock {
     if (![_keychain[kUserName] length]) {
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
@@ -378,7 +368,7 @@ static NSString *const hostH5 = @"hostH5";
     }
 }
 
-///isMobilePassed	String	是否手机号
+///isMobilePassed    String    是否手机号
 - (void)isMobilePassedWithBlock: (void(^)(NSString *mobilePassed))mobilePassedBlock {
    if (![_isMobilePassed integerValue]) {
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
@@ -399,7 +389,7 @@ static NSString *const hostH5 = @"hostH5";
     }
 }
 
-///isIdPassed	String	是否实名
+///isIdPassed    String    是否实名
 - (void)isIdPassedWithBlock: (void(^)(NSString *isIdPassed))isIdPassedBlock {
     if (!_isIdPassed.integerValue) {
         [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
@@ -491,7 +481,7 @@ static NSString *const hostH5 = @"hostH5";
         isBindCardBlock(_isBindCard);
     }
 }
-///	是否安全认证
+///    是否安全认证
 - (void) isVerifyWithBlock: (void(^)(NSString *isVerify))isVerifyBlock {
     if (![KeyChain isLogin]) {
         return;
@@ -560,8 +550,7 @@ static NSString *const hostH5 = @"hostH5";
     KeyChainManage *manager = KeyChain;
     [manager.keychain removeItemForKey:kLoginPwd];
     [manager.keychain removeItemForKey:kTradePwd];
-    [manager.keychain removeItemForKey:kGesturePwd];
-    [manager.keychain removeItemForKey:kGesturePwdCount];
+    [self removeGesture];
 }
 
 - (void)removeGesture
@@ -569,6 +558,10 @@ static NSString *const hostH5 = @"hostH5";
     KeyChainManage *manager = KeyChain;
     [manager.keychain removeItemForKey:kGesturePwd];
     [manager.keychain removeItemForKey:kGesturePwdCount];
+}
+
+- (BOOL)validateGesturePwd {
+    return (KeyChain.gesturePwd.length >= 4) && [KeyChain isLogin] && [kUserDefaults boolForKey:kHXBGesturePWD];
 }
 
 - (void)removeGesturePwdCount
@@ -594,17 +587,6 @@ static NSString *const hostH5 = @"hostH5";
     [manager.keychain removeItemForKey:kCiphertext];
 }
 
-- (void)printAllInfo
-{
-    /*
-    KeyChainManage *manager = KeyChain;
-    DLog(@"kcManager-info:\n{\n phone:%@\n token:%@\n userId:%@\n inviteCode:%@\n loginpwd:%@\n tradepwd:%@\n realName:%@\n realID:%@\n bankArr:%@\n}",manager.phone,manager.token,manager.userId,manager.inviteCode,manager.loginPwd,manager.tradePwd,manager.realName,manager.realId,manager.bankNumArr);
-   DLog(@"keychain-realinfo:\nallkey:%@,\nallitem:%@",manager.keychain.allKeys,manager.keychain.allItems);
-    DLog(@"kc-bankArr:%@\nkc-token:%@",[NSKeyedUnarchiver unarchiveObjectWithData:[manager.keychain dataForKey:kBankNumArr]],manager.keychain[kToken]);
-    DLog(@"manager.bankarr:%@",manager.bankNumArr);
-     **/
-}
-
 #pragma mark - KVC
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
@@ -628,6 +610,7 @@ static NSString *const hostH5 = @"hostH5";
 - (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock {
     if (!self.isLogin) {
         isLoginInRealTimeBlock (false);
+        return;
     }
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         if (isLoginInRealTimeBlock) {
@@ -641,7 +624,7 @@ static NSString *const hostH5 = @"hostH5";
     }];
 }
 
-- (void) setMobile:(NSString *)mobile {
+- (void)setMobile:(NSString *)mobile {
     _mobile = mobile;
     self.keychain[kMobile] = mobile;
 }

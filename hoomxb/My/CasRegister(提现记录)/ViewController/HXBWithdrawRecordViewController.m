@@ -33,20 +33,20 @@
     [super viewDidLoad];
     self.title = @"提现进度";
     self.isRedColorWithNavigationBar = YES;
-    [self loadCashRegisterData];
+    [self loadCashRegisterDataNeeedShowLoading:YES];
     [self.view addSubview:self.withdrawRecordTableView];
     [self nodataView];
 }
 #pragma mark - Events
 ///无网状态的网络连接
 - (void)getNetworkAgain {
-    [self loadCashRegisterData];
+    [self loadCashRegisterDataNeeedShowLoading:YES];
 }
 #pragma mark - Private
 //加载数据
-- (void)loadCashRegisterData {
+- (void)loadCashRegisterDataNeeedShowLoading:(BOOL)isShowLoading {
     kWeakSelf
-    [self.withdrawRecordViewModel casRegisteRequestSuccessBlock:^(HXBWithdrawRecordListModel *withdrawRecordListModel) {
+    [self.withdrawRecordViewModel withdrawRecordProgressRequestWithLoading:isShowLoading andSuccessBlock:^(HXBWithdrawRecordListModel *withdrawRecordListModel) {
         [weakSelf isHaveData];
         [weakSelf.withdrawRecordTableView reloadData];
         [weakSelf endRefreshing];
@@ -99,14 +99,14 @@
 #pragma mark - Getters and Setters
 - (UITableView *)withdrawRecordTableView {
     if (!_withdrawRecordTableView) {
-        _withdrawRecordTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64) style:(UITableViewStyleGrouped)];
+        _withdrawRecordTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY) style:(UITableViewStyleGrouped)];
         [HXBMiddlekey AdaptationiOS11WithTableView:_withdrawRecordTableView];
         _withdrawRecordTableView.backgroundColor = BACKGROUNDCOLOR;
         _withdrawRecordTableView.delegate = self;
         _withdrawRecordTableView.dataSource = self;
         _withdrawRecordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_withdrawRecordTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-            [self loadCashRegisterData];
+            [self loadCashRegisterDataNeeedShowLoading:NO];
         } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
             
         }];
@@ -123,15 +123,16 @@
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
-        [self.view addSubview:_nodataView];
         _nodataView.imageName = @"Fin_NotData";
         _nodataView.noDataMassage = @"暂无数据";
         _nodataView.userInteractionEnabled = NO;
+        _nodataView.hidden = YES;
+        [self.withdrawRecordTableView addSubview:_nodataView];
         //        _nodataView.downPULLMassage = @"下拉进行刷新";
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(kScrAdaptationH(100) + 64);
+            make.top.equalTo(self.withdrawRecordTableView).offset(kScrAdaptationH(100));
             make.height.width.equalTo(@(kScrAdaptationH(184)));
-            make.centerX.equalTo(self.view);
+            make.centerX.equalTo(self.withdrawRecordTableView);
         }];
     }
     return _nodataView;

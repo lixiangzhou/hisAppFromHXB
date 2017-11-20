@@ -21,7 +21,6 @@
 #import "HXBFin_Detail_DetailsVC_Plan.h"//红利计划详情中的详情
 
 #import "HXBFinPlanContract_contraceWebViewVC.h"//协议
-//#import "HXBFin_Plan_BuyViewController.h"//加入 界面
 #import "HXBFinAddTruastWebViewVC.h"
 
 
@@ -75,6 +74,8 @@
 ///倒计时完成刷新数据
 @property (nonatomic,copy) void(^downLodaDataBlock)();
 
+@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
@@ -92,14 +93,6 @@
         
     }];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_starCountDown object:nil];
-//    [self.view addSubview:_planDetailsView.addButton];
-//    [_planDetailsView.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.view).offset(0);
-//        make.bottom.equalTo(self.view).offset(0);
-//        make.width.offset(kScrAdaptationW(375));
-//        make.height.offset(kScrAdaptationH(60));
-//    }];
-//    _planDetailsView.addButton.hidden = NO;
 }
 
 /**
@@ -225,43 +218,6 @@
 
     }
     self.addButton.backgroundColor = self.planDetailViewModel.addButtonBackgroundColor;
-    
-    
-//    [_planDetailsView setUPViewModelVM:^HXBFin_PlanDetailView_ViewModelVM *(HXBFin_PlanDetailView_ViewModelVM *viewModelVM) {
-//        weakSelf.planDetailVM = viewModelVM;
-//        viewModelVM.totalInterestStr           = weakSelf.planDetailViewModel.planDetailModel.expectedRate;
-//        viewModelVM.startInvestmentStr         = weakSelf.planDetailViewModel.minRegisterAmount;
-//        viewModelVM.remainAmount               = weakSelf.planDetailViewModel.remainAmount;
-//        
-//        viewModelVM.totalInterestStr_const     = @"年利率";
-//        
-//        viewModelVM.remainAmount_const         = weakSelf.planDetailViewModel.remainAmount_constStr;
-//        
-//        viewModelVM.startInvestmentStr_const   = @"起投";
-//        viewModelVM.promptStr                  = @"* 预期收益不代表实际收益，投资需谨慎";
-//        
-//       
-//        viewModelVM.lockPeriodStr              = weakSelf.planDetailViewModel.lockPeriodStr;
-//        viewModelVM.isUserInteractionEnabled   = weakSelf.planDetailViewModel.isAddButtonInteraction;
-//        viewModelVM.title                      = @"加入计划";
-//        viewModelVM.diffTime                   = weakSelf.planDetailViewModel.countDownStr;
-//        //倒计时
-//        viewModelVM.isCountDown                = weakSelf.planDetailViewModel.isContDown;
-//        //加入按钮
-//        viewModelVM.addButtonBackgroundColor   = weakSelf.planDetailViewModel.addButtonBackgroundColor;
-//        viewModelVM.addButtonTitleColor        = weakSelf.planDetailViewModel.addButtonTitleColor;
-//        viewModelVM.addButtonStr               = weakSelf.planDetailViewModel.addButtonStr;
-//        if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
-//        }
-//        ///如果是小于5的情况，那么就是等待加入， 那么如果小于1小时，那么久显示这个参数
-//        viewModelVM.remainTimeString           = weakSelf.planDetailViewModel.remainTimeString;
-//        //流程的数据
-//        viewModelVM.unifyStatus                = weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue;
-//        viewModelVM.addTime                    = weakSelf.planDetailViewModel.beginSellingTime_flow;
-//        viewModelVM.beginProfitTime            = weakSelf.planDetailViewModel.financeEndTime_flow;
-//        viewModelVM.leaveTime                  = weakSelf.planDetailViewModel.endLockingTime_flow;
-//        return viewModelVM;
-//    }];
 }
 
 - (void) setupTableViewArray {
@@ -303,15 +259,13 @@
     [self setUPTopImageView];
 
     self.isTransparentNavigationBar = true;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
-        make.top.equalTo(self.view).offset(64);//.offset(kScrAdaptationH(30))
+        make.top.equalTo(self.view).offset(HxbNavigationBarY);
         make.bottom.equalTo(self.view).offset(kScrAdaptationH(-50)); //注意适配iPhone X
     }];
-//    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - kScrAdaptationH(50));
-    
-//    self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.hxbBaseVCScrollView.separatorColor = COR12;
     if ([self.hxbBaseVCScrollView respondsToSelector:@selector(setSeparatorInset:)]) {
         [self.hxbBaseVCScrollView setSeparatorInset:UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15))];
@@ -321,9 +275,6 @@
     }
     self.hxbBaseVCScrollView.delegate = self;
     self.hxbBaseVCScrollView.dataSource = self;
-//    self.hxbBaseVCScrollView.hidden = YES;
-//    self.planDetailsView = [[HXBFin_PlanDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64 - 60)];
-//    [self.hxbBaseVCScrollView addSubview:self.planDetailsView];
     self.hxbBaseVCScrollView.tableHeaderView = [self tableViewHeadView];
     self.hxbBaseVCScrollView.tableFooterView = [self tableViewFootView];
     [self.hxbBaseVCScrollView reloadData];
@@ -372,18 +323,7 @@
     if (indexPath.section == 0) {
         return kScrAdaptationH(80);
     } else if (indexPath.section == 1) {
-
         return kScrAdaptationH(108);
-//        switch (self.planDetailViewModel.planDetailModel.unifyStatus.integerValue) {
-//            case 8:
-//            case 9:
-//                return kScrAdaptationH(108);
-//                break;
-        
-//            default:
-//                return kScrAdaptationH(83);
-//                break;
-//        }
     } else {
         return kScrAdaptationH(44.5);
     }
@@ -395,7 +335,6 @@
         if (!cell) {
             cell = [[HXBFinanctingDetail_imageCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"trustCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//            cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, 100);
         }
         cell.trustView.image = [UIImage imageNamed:@"hxb_增信"];
         return cell;
@@ -461,69 +400,10 @@
     [self.view addSubview:self.topImageView];
 }
 
-///MARK: 事件注册
-//- (void)registerClickCell {
-//    __weak typeof (self)weakSelf = self;
-//    [self.planDetailsView clickBottomTableViewCellBloakFunc:^(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model) {
-//        //跳转相应的页面
-//        NSLog(@"%@",model.optionTitle);
-//        ///点击了计划详情
-//        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0]]) {
-//            HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc]init];
-//            detail_DetailPlanVC.planDetailModel = weakSelf.planDetailViewModel;
-//            [weakSelf.navigationController pushViewController:detail_DetailPlanVC animated:true];
-//        }
-//    
-//        ///  加入记录
-//        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
-//            HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
-//            planAddRecordVC.planListViewModel = weakSelf.planListViewModel;
-//            planAddRecordVC.planID = weakSelf.planID;
-//            [weakSelf.navigationController pushViewController:planAddRecordVC animated:true];
-//        }
-//        ///红利计划服务
-//        if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2]]) {
-//            //跳转一个webView
-//            HXBFinPlanContract_contraceWebViewVC * contractWebViewVC = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
-//            contractWebViewVC.URL = weakSelf.planDetailViewModel.contractURL;
-//            [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
-//        }
-//    }];
-//}
-
-///注册 addButton点击事件
-//- (void)registerClickAddButton {
-//    kWeakSelf
-//    [self.planDetailsView clickAddButtonFunc:^{
-//        //如果不是登录 那么就登录
-//        if(![KeyChainManage sharedInstance].isLogin) {
-//            //            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
-//            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-//            return;
-//        }
-//        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^{
-//            [weakSelf enterPlanBuyViewController];
-//        }];
-//    }];
-//}
-
-///曾欣事件
-//- (void)registerAddTrust {
-//    kWeakSelf
-//    [self.planDetailsView clickAddTrustWithBlock:^{
-//        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-//        vc.URL = kHXB_Negotiate_AddTrustURL;
-//        [weakSelf.navigationController pushViewController:vc animated:true];
-//    }];
-//}
 
 ///注册刷新事件
 - (void)registerLoadData {
     [self downLoadData];
-//    kWeakSelf
-//    [self.planDetailsView downLoadDataWithBlock:^{
-//        [weakSelf downLoadData];
-//    }];
 }
 
 /**
@@ -579,7 +459,39 @@
     }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+- (UITableView *)hxbBaseVCScrollView {
+    if (!_hxbBaseVCScrollView) {
+        
+        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY) style:UITableViewStylePlain];
+        if (LL_iPhoneX) {
+            _hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
+        }
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
+        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
+        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
+    }
+    return _hxbBaseVCScrollView;
 }
+
+- (void)dealloc {
+    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    NSLog(@"✅被销毁 %@",self);
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"state"]) {
+        NSNumber *tracking = change[NSKeyValueChangeNewKey];
+        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
+            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+        }
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
+}
+
 @end

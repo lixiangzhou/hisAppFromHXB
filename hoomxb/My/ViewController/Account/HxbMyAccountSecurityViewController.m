@@ -46,7 +46,6 @@ UITableViewDataSource,UITableViewDelegate
     [super viewDidLoad];
     self.title = @"账户安全";
     [self.view addSubview:self.tableView];
-    self.hxb_automaticallyAdjustsScrollViewInsets = true;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -142,7 +141,6 @@ UITableViewDataSource,UITableViewDelegate
             } else {
                 if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
                     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"修改手机号，需先绑定银行卡。" force:2 andLeftButtonMassage:@"暂不绑定" andRightButtonMassage:@"立即绑定"];
-                    alertVC.messageHeight = 40;
                     [alertVC setClickXYRightButtonBlock:^{
                         //进入绑卡界面
                         HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
@@ -157,7 +155,6 @@ UITableViewDataSource,UITableViewDelegate
                 } else {
                     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"信息不完善" force:2 andLeftButtonMassage:@"暂不完善" andRightButtonMassage:@"去完善信息"];
                     alertVC.isCenterShow = YES;
-                    alertVC.messageHeight = 40;
                     [alertVC setClickXYRightButtonBlock:^{
                     //完善信息
                     HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
