@@ -148,6 +148,7 @@ static const CGFloat kFrontLineWidth = 5.0f;
     }
 }
 - (void)setProgress:(CGFloat)progress{
+    // 暂时处理为超出1就按1处理（肖扬、聪聪）
     if (progress > 1) progress = 1;
     NSAssert(progress >= 0 && progress <=1, @"超出范围");
     _progress = progress;

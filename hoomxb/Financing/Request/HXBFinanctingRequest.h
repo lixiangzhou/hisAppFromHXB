@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HXBBaseRequest.h"
+#import "HXBFinModel_BuyResoult_LoanModel.h"///购买结果
 @class HXBFinHomePageViewModel_PlanList;//红利计划的首页ViewModel
 @class HXBFinHomePageViewModel_LoanList;//散标列表页- 一级界面ViewModel
 @class HXBFinDetailViewModel_PlanDetail;//红利计划详情页ViewModel
@@ -104,7 +105,7 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 // 红利 购买结果
 - (void)plan_buyReslutWithPlanID: (NSString *)planID
                       parameter :(NSDictionary *)parameter
-                 andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
+                 andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
                  andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock;
 // 散标 购买结果
 - (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID

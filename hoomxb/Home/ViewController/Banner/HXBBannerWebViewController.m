@@ -29,6 +29,8 @@
 #import "HXBUMengShareManager.h"
 #import "HXBUMShareViewModel.h"
 #import "HXBUMShareModel.h"
+#import "HXBInviteListViewController.h"
+
 @interface HXBBannerWebViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) WebViewJavascriptBridge* bridge;
@@ -161,7 +163,8 @@
         //主页债权转让列表页
         tabBarVC.selectedIndex = 1;
     }else if ([data[@"path"] isEqualToString:kAccountFriendsRecordActivity]){
-        [HxbHUDProgress showError:@"进入好友邀请记录"];
+        HXBInviteListViewController *inviteListVC = [[HXBInviteListViewController alloc] init];
+        [baseVC.navigationController pushViewController:inviteListVC animated:NO];
     }
    
 }
