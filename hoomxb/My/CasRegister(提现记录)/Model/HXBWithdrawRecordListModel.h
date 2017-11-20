@@ -30,4 +30,11 @@
  */
 @property (nonatomic, assign) NSInteger totalCount;
 
+/******************************辅助字段******************************/
+
+/**
+ 是否全部加载完毕数据
+ */
+@property (nonatomic, assign) BOOL isNoMoreData;
+
 @end

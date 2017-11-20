@@ -15,7 +15,7 @@
 /**
  开启友盟分享
  */
-+ (void)HXB_umengShareStart;
++ (void)umengShareStart;
 
 /**
  显示分享

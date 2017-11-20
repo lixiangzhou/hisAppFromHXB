@@ -53,7 +53,11 @@
 - (void)setupSubViewFrame {
     
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(64);
+        if (LL_iPhoneX) {
+            make.top.equalTo(self.view).offset(HxbNavigationBarMaxY);
+        } else {
+            make.top.equalTo(self.view).offset(HxbNavigationBarY);
+        }
         make.left.right.bottom.equalTo(self.view);
     }];
 }

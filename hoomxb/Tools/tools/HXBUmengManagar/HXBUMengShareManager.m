@@ -22,7 +22,7 @@
 
 @implementation HXBUMengShareManager
 
-+ (void)HXB_umengShareStart {
++ (void)umengShareStart {
     /* 打开调试日志 */
     [[UMSocialManager defaultManager] openLog:YES];
     

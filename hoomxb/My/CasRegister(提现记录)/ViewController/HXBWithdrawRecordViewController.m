@@ -59,7 +59,7 @@
         [weakSelf isHaveData];
         [weakSelf.withdrawRecordTableView reloadData];
         [weakSelf endRefreshing];
-        if (withdrawRecordListModel.dataList.count >= withdrawRecordListModel.totalCount) {
+        if (withdrawRecordListModel.isNoMoreData) {
              [self.withdrawRecordTableView.mj_footer endRefreshingWithNoMoreData];
         }
     } andFailureBlock:^(NSError *error) {

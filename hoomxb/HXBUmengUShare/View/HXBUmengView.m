@@ -37,21 +37,23 @@
     
     CGFloat itemHeight = kScrAdaptationH(74);
     CGFloat itemWith = kScrAdaptationW(51);
-    
     CGFloat leftSpacing = kScrAdaptationW(20);
     CGFloat itemSpacing = (kScreenWidth - 2 * leftSpacing - sharingPlatform.count * itemWith)/ (sharingPlatform.count - 1);
+    CGFloat midSpacing = kScrAdaptationH(15);
+    
+    UIFont *shareBtnTitleFount = kHXBFont_PINGFANGSC_REGULAR(14);
+    
     
     for (int i = 0; i < sharingPlatform.count; i++) {
         JXLayoutButton *shareItemBtn = [JXLayoutButton buttonWithType:UIButtonTypeCustom];
         shareItemBtn.frame = CGRectMake((itemSpacing + itemWith) * i, 0, itemWith,itemHeight);
-        shareItemBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        shareItemBtn.titleLabel.font = shareBtnTitleFount;
         [shareItemBtn setTitleColor:COR10 forState:(UIControlStateNormal)];
         
         shareItemBtn.layoutStyle = JXLayoutButtonStyleUpImageDownTitle;
-        shareItemBtn.midSpacing = kScrAdaptationH(15);
+        shareItemBtn.midSpacing = midSpacing;
         [self addSubview:shareItemBtn];
         [shareItemBtn setTitle:nameArr[i] forState:(UIControlStateNormal)];
-        shareItemBtn.contentMode = UIViewContentModeScaleAspectFit;
         shareItemBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
         NSString *sharetype = sharingPlatform[i];
         shareItemBtn.tag = sharetype.intValue;

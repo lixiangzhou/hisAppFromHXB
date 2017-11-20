@@ -17,8 +17,6 @@
 
 #import "HXBUMengShareManager.h"//友盟分享
 
-#import "AXHNewFeatureController.h"//引导页
-
 #import "AvoidCrash.h"//防止数据为空产生的闪退
 #import "HXBRootVCManager.h"    // 根控制器管理
 #import "HXBBaseUrlSettingView.h"
@@ -55,7 +53,7 @@
     [self keyboardManager];
     
     //友盟分享
-    [HXBUMengShareManager HXB_umengShareStart];
+    [HXBUMengShareManager umengShareStart];
     
     //方案多个按钮同时点击
     [[UIButton appearance] setExclusiveTouch:YES];

@@ -14,4 +14,11 @@
              @"dataList" : [HXBWithdrawRecordModel class]
              };
 }
+
+- (BOOL)isNoMoreData {
+    return (self.dataList.count >= self.totalCount);
+}
+
+
+
 @end
