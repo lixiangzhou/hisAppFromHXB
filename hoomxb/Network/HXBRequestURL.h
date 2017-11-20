@@ -84,6 +84,9 @@
 
 #define kHXBMY_VersionUpdateURL @"/update"//版本更新
 
+//MARK: ======================= 友盟分享 =======================
+#define kHXBUMShareURL   @"/share"//获取分享时所需要的数据
+
 
 //MARK: ======================= 充值提现 =======================
 #define kHXBSetWithdrawals_withdrawURL   @"/account/withdraw"//提现

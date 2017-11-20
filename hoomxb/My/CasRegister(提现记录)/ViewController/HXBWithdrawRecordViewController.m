@@ -25,17 +25,25 @@
  暂无数据接口
  */
 @property (nonatomic, strong) HXBNoDataView *nodataView;
+
+/**
+ 页码
+ */
+@property (nonatomic, assign) NSInteger page;
+
 @end
 
 @implementation HXBWithdrawRecordViewController
 #pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.page = 0;
     self.title = @"提现进度";
     self.isRedColorWithNavigationBar = YES;
     [self loadCashRegisterDataNeeedShowLoading:YES];
     [self.view addSubview:self.withdrawRecordTableView];
     [self nodataView];
+    
 }
 #pragma mark - Events
 ///无网状态的网络连接
@@ -46,19 +54,24 @@
 //加载数据
 - (void)loadCashRegisterDataNeeedShowLoading:(BOOL)isShowLoading {
     kWeakSelf
-    [self.withdrawRecordViewModel withdrawRecordProgressRequestWithLoading:isShowLoading andSuccessBlock:^(HXBWithdrawRecordListModel *withdrawRecordListModel) {
+    self.page++;
+    [self.withdrawRecordViewModel withdrawRecordProgressRequestWithLoading:isShowLoading andPage:self.page andSuccessBlock:^(HXBWithdrawRecordListModel *withdrawRecordListModel) {
         [weakSelf isHaveData];
         [weakSelf.withdrawRecordTableView reloadData];
         [weakSelf endRefreshing];
+        if (withdrawRecordListModel.isNoMoreData) {
+             [self.withdrawRecordTableView.mj_footer endRefreshingWithNoMoreData];
+        }
     } andFailureBlock:^(NSError *error) {
         [weakSelf.withdrawRecordTableView reloadData];
         [weakSelf endRefreshing];
+        self.page--;
     }];
 }
 //结束刷新
 - (void)endRefreshing {
     [self.withdrawRecordTableView.mj_header endRefreshing];
-    [self.withdrawRecordTableView.mj_header endRefreshing];
+    [self.withdrawRecordTableView.mj_footer endRefreshing];
 }
 //判断是否有数据
 - (void)isHaveData {
@@ -90,6 +103,10 @@
     return kScrAdaptationH750(20);
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.01;
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *headView = [[UIView alloc] init];
     headView.backgroundColor = BACKGROUNDCOLOR;
@@ -106,9 +123,15 @@
         _withdrawRecordTableView.dataSource = self;
         _withdrawRecordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_withdrawRecordTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+            self.page = 0;
             [self loadCashRegisterDataNeeedShowLoading:NO];
         } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
             
+        }];
+        
+        [_withdrawRecordTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+            [self loadCashRegisterDataNeeedShowLoading:NO];
+        } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
         }];
     }
     return _withdrawRecordTableView;

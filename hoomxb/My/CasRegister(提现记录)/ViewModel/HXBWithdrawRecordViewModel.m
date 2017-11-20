@@ -9,6 +9,13 @@
 #import "HXBWithdrawRecordViewModel.h"
 #import "HXBBaseRequest.h"
 #import "HXBWithdrawRecordListModel.h"
+
+@interface HXBWithdrawRecordViewModel ()
+
+@property (nonatomic, strong) NSMutableArray <HXBWithdrawRecordModel *> *dataList;
+
+@end
+
 @implementation HXBWithdrawRecordViewModel
 
 - (HXBWithdrawRecordListModel *)withdrawRecordModel {
@@ -25,17 +32,24 @@
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-- (void)withdrawRecordProgressRequestWithLoading:(BOOL)isLoading andSuccessBlock: (void(^)(HXBWithdrawRecordListModel * withdrawRecordListModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)withdrawRecordProgressRequestWithLoading:(BOOL)isLoading andPage:(NSInteger)page andSuccessBlock: (void(^)(HXBWithdrawRecordListModel * withdrawRecordListModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 {
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBSetWithdrawals_recordtURL;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
+    versionUpdateAPI.requestArgument = @{
+                                         @"page" : @(page),
+                                         @"pageSize" : @20
+                                         };
+    if (page == 1) {
+        [self.dataList removeAllObjects];
+    }
     NSString *loadStr = nil;
     if (isLoading) {
         loadStr = kLoadIngText;
     }
     [versionUpdateAPI startWithHUDStr:loadStr Success:^(NYBaseRequest *request, id responseObject) {
-       
+        NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
             if ((status != kHXBCode_Enum_ProcessingField)) {
@@ -46,7 +60,10 @@
             }
             return;
         }
+        
         self.withdrawRecordListModel = [HXBWithdrawRecordListModel yy_modelWithDictionary:responseObject[kResponseData]];
+        [self.dataList addObjectsFromArray:self.withdrawRecordListModel.dataList];
+        self.withdrawRecordListModel.dataList = self.dataList;
         if (successDateBlock) {
             successDateBlock(self.withdrawRecordListModel);
         }
@@ -59,5 +76,11 @@
     
 }
 
+- (NSMutableArray<HXBWithdrawRecordModel *> *)dataList{
+    if (!_dataList) {
+        _dataList = [[NSMutableArray alloc] init];
+    }
+    return _dataList;
+}
 
 @end

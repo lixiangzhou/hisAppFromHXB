@@ -16,6 +16,8 @@
 #define kPlan_fragment @"/home/plan_fragment"//红利计划列表页
 #define kLoan_fragment @"/home/loan_fragment"//散标列表页
 #define kLoantransferfragment @"/home/loan_transfer_fragment"//债权转让列表页
+#define kAccountFriendsRecordActivity @"/account/invite_friends_record_activity"//好友邀请记录
+
 
 #import "HXBBannerWebViewController.h"
 #import "WebViewJavascriptBridge.h"
@@ -24,6 +26,9 @@
 #import "HXBFinancing_PlanDetailsViewController.h"//红利计划详情
 #import "HXBFinancing_LoanDetailsViewController.h"//散标详情页
 #import "HXBBaseTabBarController.h"//红利计划
+#import "HXBUMengShareManager.h"
+#import "HXBUMShareViewModel.h"
+#import "HXBUMShareModel.h"
 @interface HXBBannerWebViewController ()<UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) WebViewJavascriptBridge* bridge;
@@ -38,6 +43,30 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
     
+    [self setupJavascriptBridge];
+    
+    [self setupSubViewFrame];
+    
+    
+}
+
+- (void)setupSubViewFrame {
+    
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        if (LL_iPhoneX) {
+            make.top.equalTo(self.view).offset(HxbNavigationBarMaxY);
+        } else {
+            make.top.equalTo(self.view).offset(HxbNavigationBarY);
+        }
+        make.left.right.bottom.equalTo(self.view);
+    }];
+}
+
+
+/**
+ 初始化与H5交互
+ */
+- (void)setupJavascriptBridge {
     /****** 加载桥梁对象 ******/
     [WebViewJavascriptBridge enableLogging];
     
@@ -50,6 +79,15 @@
         NSLog(@"%@",data);
         [weakSelf logicalJumpWithData:data];
     }];
+    [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"%@",data);
+        
+        HXBUMShareViewModel *shareViewModel = [[HXBUMShareViewModel alloc] init];
+        shareViewModel.shareModel = [HXBUMShareModel yy_modelWithDictionary:data];
+        [HXBUMengShareManager showShareMenuViewInWindowWith:shareViewModel];
+    }];
+
+
 }
 
 /**
@@ -122,43 +160,20 @@
     }else if ([data[@"path"] isEqualToString:kLoantransferfragment]){
         //主页债权转让列表页
         tabBarVC.selectedIndex = 1;
+    }else if ([data[@"path"] isEqualToString:kAccountFriendsRecordActivity]){
+        [HxbHUDProgress showError:@"进入好友邀请记录"];
     }
    
+}
+#pragma mark - Event
+- (void)shareBtnClick {
+    [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
 }
 
 
 #pragma mark - UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSLog(@"%@",request);
-    
-    NSString *urlString = [[request URL]  absoluteString];
-    NSLog(@"==> %@",urlString);
-    
-    NSMutableURLRequest *mutableRequest = [request mutableCopy];
-    
-    NSDictionary *requestHeaders = request.allHTTPHeaderFields;
-    
-    // 判断请求头是否已包含，如果不判断该字段会导致webview加载时死循环
-    
-    if (requestHeaders[@"X-Hxb-Auth-Token"] && requestHeaders[X_Hxb_User_Agent]) {
-        
-        return YES;
-        
-    } else {
-        
-//        NSString *systemVision = [[UIDevice currentDevice] systemVersion];
-//        NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-//        NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVision,version];
-//        NSLog(@"%@",[KeyChain token]);
-//        [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
-//        [mutableRequest setValue:userAgent forHTTPHeaderField:X_Hxb_User_Agent];
-//
-//        request = [mutableRequest copy];
-//
-//        [webView loadRequest:request];
-        return YES;
-    }
     
     return YES;
 }
@@ -196,9 +211,5 @@
     return _webView;
 }
 
-- (void)dealloc
-{
-    NSLog(@"已经销毁");
-}
 
 @end
