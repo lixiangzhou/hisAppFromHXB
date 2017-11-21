@@ -19,6 +19,8 @@
 
 #import "AvoidCrash.h"//防止数据为空产生的闪退
 #import "HXBRootVCManager.h"    // 根控制器管理
+#import <Fabric/Fabric.h> //fabric crash 统计
+#import <Crashlytics/Crashlytics.h> //fabric crash 统计
 #import "HXBBaseUrlSettingView.h"
 
 @interface AppDelegate ()
@@ -34,6 +36,10 @@
     [NSThread sleepForTimeInterval:0.5];
     //字典和数据为空的防止闪退
     [AvoidCrash becomeEffective];
+    
+    //fabrci crash 统计
+    [Fabric with:@[[Crashlytics class]]];
+    
     //设置友盟统计
     [self setupUmeng];
     

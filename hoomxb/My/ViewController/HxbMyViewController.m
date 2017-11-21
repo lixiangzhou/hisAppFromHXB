@@ -64,7 +64,7 @@
 //    self.view.hidden = ![KeyChain isLogin];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:(UIBarMetricsDefaultPrompt)];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [self hideNavigationBar:animated];
     //加载用户数据
     if ([KeyChain isLogin]) {
 //        [self loadData_userInfo];
@@ -73,12 +73,18 @@
     {
 //        self.userInfoViewModel = nil;
         self.accountModel = nil;
+        [self transparentNavigationTitle];
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-//    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self transparentNavigationTitle];
 }
 
 //MARK: 对controllerView进行布局
