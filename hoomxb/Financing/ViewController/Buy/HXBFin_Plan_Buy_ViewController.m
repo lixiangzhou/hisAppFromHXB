@@ -272,6 +272,7 @@ static const NSInteger topView_high = 300;
 }
 
 - (void)sendSmsCodeWithMoney:(double)topupMoney {
+    
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     NSString *type = _isClickSpeechVerificationCode ? @"voice" : @"sms";
     [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:type andWithAction:@"buy" andSuccessBlock:^(id responseObject) {

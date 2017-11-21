@@ -178,7 +178,9 @@
         if (status) {
             kNetWorkError(@"发送短信 请求失败");
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            if (failureBlock) failureBlock(responseObject);
+            if (failureBlock){
+                failureBlock(responseObject);
+            }
             return;
         }
         if (successBlock) successBlock(true);

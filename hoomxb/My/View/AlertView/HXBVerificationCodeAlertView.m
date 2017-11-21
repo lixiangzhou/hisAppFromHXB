@@ -112,7 +112,7 @@
 - (void)getSpeechVerificationCode
 {
     self.speechVerificationCodeBtn.enabled = NO;
-    [self.speechVerificationCodeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    [self.speechVerificationCodeBtn setTitleColor:RGB(153, 153, 153) forState:UIControlStateNormal];
     self.codeBtn.enabled = NO;
     self.count = 60;
     [self.codeBtn setBackgroundColor:COR12];
@@ -128,7 +128,7 @@
 {
     if (self.isSpeechVerificationCode) {
         self.speechVerificationCodeBtn.enabled = NO;
-        [self.speechVerificationCodeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [self.speechVerificationCodeBtn setTitleColor:RGB(153, 153, 153) forState:UIControlStateNormal];
     }
     self.codeBtn.enabled = NO;
     self.count = 60;
@@ -187,10 +187,7 @@
         _speechVerificationCodeBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         _speechVerificationCodeBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
         [_speechVerificationCodeBtn setTitle:@"获取语音验证码" forState:UIControlStateNormal];
-//        [_speechVerificationCodeBtn setTitle:@"获取语音验证码" forState:UIControlStateHighlighted];
         [_speechVerificationCodeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-//        [_speechVerificationCodeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-//        [_speechVerificationCodeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateSelected];
         [_speechVerificationCodeBtn.titleLabel setFont:kHXBFont_PINGFANGSC_REGULAR(12)];
         [_speechVerificationCodeBtn addTarget:self action:@selector(getSpeechVerificationCode) forControlEvents:UIControlEventTouchUpInside];//点击 获得语音验证码的事件处理
     }
@@ -204,7 +201,6 @@
         [_codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
         [_codeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_codeBtn addTarget:self action:@selector(getVerificationCode) forControlEvents:UIControlEventTouchUpInside];
-        [_codeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_codeBtn setBackgroundColor:RGB(245, 81, 81)];
         _codeBtn.layer.cornerRadius = kScrAdaptationW750(8);
         _codeBtn.layer.masksToBounds = YES;

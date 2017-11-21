@@ -111,7 +111,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         self.backgroundColor = [UIColor whiteColor];
         [self setUP];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setStartsCountdown) name:kHXBNotification_registrationStartCountdown object:nil];
-        self.totalTimeNumber = 10;//60
+        self.totalTimeNumber = 60;
         self.timeNumber = self.totalTimeNumber;
     }
     return self;
@@ -357,24 +357,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 }
 ///点击了验证码按钮
 - (void)clickSendButton: (UIButton *)button {
-    //弹框 选中某个验证码发送之后才会倒计时
-//    if (_startsCountdown) {
-//        [self setSendButtonStatus];
-//        self.sendButton.backgroundColor = RGB(222, 222, 222);
-////        _isSpeechVerificationCode = YES;
-//    }
 
-//    ++weakSelf.clickSmsCodeBtnNum;
-//    if (_clickSmsCodeBtnNum >= 9) {
-//        _clickSmsCodeBtnNum = 0;
-//        HXBCheckCaptchaViewController *checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
-//        [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
-//            self.captcha = checkPaptcha;
-//            NSLog(@"发送 验证码");
-//        }];
-//    }
-    
-    
     if (self.clickSendSmscodeButtonBlock)
         self.clickSendSmscodeButtonBlock();
 }
