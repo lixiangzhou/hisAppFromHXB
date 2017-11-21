@@ -7,14 +7,14 @@
 //
 
 #import "HXBNoDataView.h"
+#import "CJLabel.h"
+
 @interface HXBNoDataView ()
 @property (nonatomic,strong) UIImageView *notDataImageView;
-@property (nonatomic,strong) UILabel *noDataLabel;
+@property (nonatomic,strong) CJLabel *noDataLabel;
 @property (nonatomic,strong) UILabel *downPULabel;
 @end
 @implementation HXBNoDataView
-
-
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -43,11 +43,24 @@
         make.height.equalTo(@(kScrAdaptationH(15)));
     }];
 }
-
-- (UILabel *)noDataLabel {
++ (HXBNoDataView *)noDataViewWithImgName:(NSString *)imgName noDataMassage:(NSString *)noDataMassage downPullMassage:(NSString *)downPullMassage inView:(UIView *)view remakeConstraints:(void(^)(MASConstraintMaker *))remakeConstraints
+{
+    HXBNoDataView *nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
+    nodataView.imageName = imgName;
+    nodataView.noDataMassage = noDataMassage;
+    nodataView.downPULLMassage = downPullMassage;
+    
+    nodataView.userInteractionEnabled = NO;
+    nodataView.hidden = YES;
+    
+    [view addSubview:nodataView];
+    [nodataView mas_remakeConstraints:remakeConstraints];
+    
+    return nodataView;
+}
+- (CJLabel *)noDataLabel {
     if (!_noDataLabel) {
-        _noDataLabel = [[UILabel alloc]init];
-        _noDataLabel.font = kHXBFont_PINGFANGSC_REGULAR(18);
+        _noDataLabel = [[CJLabel alloc] initWithFrame:CGRectZero];
         _noDataLabel.textColor = kHXBColor_Grey_Font0_2;
         _noDataLabel.textAlignment = NSTextAlignmentCenter;
         [self addSubview: _noDataLabel];
@@ -82,8 +95,29 @@
 }
 - (void)setNoDataMassage:(NSString *)noDataMassage {
     _noDataMassage = noDataMassage;
-    self.noDataLabel.text = noDataMassage;
+    NSDictionary *textAttributes = @{
+                                     NSForegroundColorAttributeName:COR6,
+                                     NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)
+                                     };
+    NSDictionary *linkAttributes = @{
+                                     NSForegroundColorAttributeName:kHXBColor_Blue040610,
+                                     NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)
+                                     };
+    NSAttributedString *message = [[NSAttributedString alloc] initWithString:noDataMassage attributes:textAttributes];
+    NSMutableAttributedString *dataMessage = [CJLabel configureLinkAttributedString:message
+                                                                         withString:@"立即获取"
+                                                                   sameStringEnable:NO
+                                                                     linkAttributes:linkAttributes
+                                                               activeLinkAttributes:linkAttributes
+                                                                          parameter:nil
+                                                                     clickLinkBlock:^(CJLabelLinkModel *linkModel){
+                                                                         if (_clickBlock) {
+                                                                             _clickBlock();
+                                                                         }
+                                                                     }longPressBlock:nil];
+    self.noDataLabel.text = dataMessage;
 }
+
 - (void)setDownPULLMassage:(NSString *)downPULLMassage {
     _downPULLMassage = downPULLMassage;
     self.downPULabel.text = downPULLMassage;

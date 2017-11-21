@@ -27,12 +27,13 @@
 
 
 
-
 @interface HxbHomeViewController ()
 
 @property (nonatomic, assign) BOOL isVersionUpdate;
 
 @property (nonatomic, strong) HXBVersionUpdateViewModel *versionUpdateVM;
+
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 @end
 
@@ -79,7 +80,7 @@
  */
 - (void)gesturePwdShow
 {
-    if (KeyChain.gesturePwd.length < 4 && [KeyChain isLogin]) {
+    if (KeyChain.gesturePwd.length == 0 && [KeyChain isLogin]) {
         HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
         gesturePasswordVC.type = GestureViewControllerTypeSetting;
         [self.navigationController pushViewController:gesturePasswordVC animated:NO];
@@ -94,8 +95,6 @@
     self.homeView.homeRefreshHeaderBlock = ^(){
         NSLog(@"首页下来加载数据");
         [weakSelf getData:YES];
-        [weakSelf.homeView changeIndicationView];
-        [weakSelf.homeView showSecurityCertificationOrInvest];
     };
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_starCountDown object:nil];
 }
@@ -116,16 +115,17 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:true animated:animated];
+    [self.navigationController setNavigationBarHidden:true animated:false];
     [self getData:YES];
-    [self.homeView changeIndicationView];
-    [self.homeView showSecurityCertificationOrInvest];
+    
+    [self.homeView changeIndicationView:self.userInfoViewModel];
+    [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    [self.navigationController setNavigationBarHidden:true animated:false];
+    [self.navigationController setNavigationBarHidden:true animated:false];
 }
 
 /**
@@ -164,6 +164,20 @@
 #pragma mark Request
 - (void)getData:(BOOL)isUPReloadData{
     kWeakSelf
+    if (KeyChain.isLogin) {
+        [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+            [self.homeView changeIndicationView:viewModel];
+            [self.homeView showSecurityCertificationOrInvest:viewModel];
+            self.userInfoViewModel = viewModel;
+        } andFailure:^(NSError *error) {
+            [self.homeView changeIndicationView:self.userInfoViewModel];
+            [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+        }];
+    } else {
+        [self.homeView changeIndicationView:self.userInfoViewModel];
+        [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+    }
+    
     if (!self.homeView.homeBaseModel) {
         id responseObject = [PPNetworkCache httpCacheForURL:kHXBHome_HomeURL parameters:nil];
         if (responseObject) {
@@ -176,9 +190,11 @@
         NSLog(@"%@",viewModel);
         weakSelf.homeView.homeBaseModel = viewModel.homeBaseModel;
         weakSelf.homeView.isStopRefresh_Home = YES;
+        
     } andFailureBlock:^(NSError *error) {
         weakSelf.homeView.isStopRefresh_Home = YES;
         NSLog(@"%@",error);
+        
     }];
 //    NSString *userId = @"2110468";
 //    [request homeAccountAssetWithUserID:userId andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
@@ -357,7 +373,7 @@
             }else
             {
                 //判断首页的header各种逻辑
-                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController];
+                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController withOldUserInfo:weakSelf.userInfoViewModel];
             }
             
         };

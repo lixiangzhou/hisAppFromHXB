@@ -31,4 +31,5 @@ extern NSString *const kHXBNotification_update;
 extern NSString *const kHXBNotification_registrationStartCountdown;
 @interface HxbNotificationMacros : NSObject
 
+
 @end

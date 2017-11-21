@@ -237,7 +237,6 @@
     }
     HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
     loanJoinVC.title = @"投资债权";
-    loanJoinVC.type = HXB_Creditor;
     loanJoinVC.loanId = self.loanTruansferDetailViewModel.loanTruansferDetailModel.transferId;
     loanJoinVC.placeholderStr = self.loanTruansferDetailViewModel.startIncrease_Amount;
     loanJoinVC.availablePoint = self.loanTruansferDetailViewModel.loanTruansferDetailModel.leftTransAmount;

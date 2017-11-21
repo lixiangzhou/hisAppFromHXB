@@ -43,31 +43,31 @@
 ///是否登录
 - (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock;
 
-///	double	总资产
+///    double    总资产
 - (void)assetsTotalWithBlock: (void(^)(NSString *assetsTotal))assetsTotalWithBlock;
 
-///	double	累计收益
+///    double    累计收益
 - (void)earnTotalWithBlock: (void(^)(NSString *earnTotal))earnTotalBlock;
 
-///	double	红利计划-持有资产
+///    double    红利计划-持有资产
 - (void)financePlanAssetsWithBlock: (void(^)(NSString *financePlanAssets))financePlanAssetsBlock;
 
-///	double	红利计划-累计收益
+///    double    红利计划-累计收益
 - (void)financePlanSumPlanInterestWithBlock: (void(^)(NSString *financePlanSumPlanInterest))financePlanSumPlanInterestBlock;
 
-///	double	散标债权-持有资产
+///    double    散标债权-持有资产
 - (void)lenderPrincipalWithBlock: (void(^)(NSString *lenderPrincipal))lenderPrincipalBlock;
 
-///	double	散标债权-累计收益
+///    double    散标债权-累计收益
 - (void)lenderEarnedWithBlock: (void(^)(NSString *lenderEarned))lenderEarnedBlock;
 
-///	double	可用余额;
+///    double    可用余额;
 - (void)availablePointWithBlock: (void(^)(NSString *availablePoint))availablePointBlock;
 
-///	double	冻结余额
+///    double    冻结余额
 - (void)frozenPointWithBlock: (void(^)(NSString *frozenPoint))frozenPointBlock;
 
-///userId	int	用户id
+///userId    int    用户id
 - (void)userIdWithBlock: (void(^)(NSString *userID))userIdBlock;
 
 ///用户名
@@ -76,10 +76,10 @@
 ///用户手机号
 - (void)mobileWithBlock: (void(^)(NSString *mobile))userMobileBlock;
 
-///isMobilePassed	String	是否手机号
+///isMobilePassed    String    是否手机号
 - (void)isMobilePassedWithBlock: (void(^)(NSString *mobilePassed))mobilePassedBlock;
 
-///isIdPassed	String	是否实名
+///isIdPassed    String    是否实名
 - (void)isIdPassedWithBlock: (void(^)(NSString *isIdPassed))isIdPassedBlock;
 
 ///是否有交易密码
@@ -88,7 +88,7 @@
 ///是否绑卡;
 - (void)isBindCardWithBlock: (void (^)(NSString *isBindCard))isBindCardBlock;
 
-///	是否安全认证
+///    是否安全认证
 - (void) isVerifyWithBlock: (void(^)(NSString *isVerify))isVerifyBlock;
 
 /// 用户信息的请求
@@ -99,6 +99,9 @@
 - (void)removePassword;     //!< 移除密码
 
 - (void)removeGesture;     //!< 移除手势密码
+
+/// 验证手势密码是否有效
+- (BOOL)validateGesturePwd;
 
 - (void)removeGesturePwdCount;//!< 移除手势密码可输入次数
 

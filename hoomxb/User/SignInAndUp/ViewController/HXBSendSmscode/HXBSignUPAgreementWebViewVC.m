@@ -25,7 +25,7 @@
     self.title = @"";
     [self setUP];
     self.isColourGradientNavigationBar = YES;
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 /**

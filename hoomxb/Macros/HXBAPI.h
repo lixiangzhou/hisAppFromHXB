@@ -20,7 +20,6 @@
 #define FAQ_URL                                       @"https://www.hoomxb.com/app-files/questions"    //常见问题url
 #define PLAN_FAQ_URL                                  @"https://hoomxb.com/app-files/common_questions.html"
 #define PLAN_SAFE_GUARD_URL                           @"https://hoomxb.com/app-files/plan-safeguard.html"
-//#define BASEURL                                       @"http://10.1.80.11:9001"
 
 //叶
 //#define BASEURL                                       @"https://api.hoomxb.com"

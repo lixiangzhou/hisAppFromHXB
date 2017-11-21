@@ -15,21 +15,26 @@
 /**
  投资金额
  */
-@property (nonatomic,copy) NSString * amount;///": 6500,
+@property (nonatomic,copy) NSString * amount;
 /**
  
  */
-@property (nonatomic,copy) NSString * ID;//": 6500,
+@property (nonatomic,copy) NSString * ID;
 /**
  投资时间
  */
-@property (nonatomic,copy) NSString * lendTime;///": 6500,
+@property (nonatomic,copy) NSString * lendTime;
 /**
  散标id
  */
-@property (nonatomic,copy) NSString * loanId;///": 6500,
+@property (nonatomic,copy) NSString * loanId;
 /**
  状态
  */
-@property (nonatomic,copy) NSString * status;///": 6500,
+@property (nonatomic,copy) NSString * status;
+/**
+ 新状态（收益中，转出中，已结清）
+ */
+@property (nonatomic,copy) NSString *statusText;
+
 @end

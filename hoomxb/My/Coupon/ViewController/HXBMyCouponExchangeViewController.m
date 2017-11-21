@@ -25,18 +25,27 @@
 
 @implementation HXBMyCouponExchangeViewController
 
+#pragma mark - Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = RGBA(244, 243, 248, 1);
     
     [self buildUI];
     [self setupSubViewFrame];
-    
-   
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+}
+
+#pragma mark - UI
+
+- (void)buildUI{
+    [self.view addSubview:self.bgView];
+    [self.view addSubview:self.promptLab];
+    self.promptLab.hidden = YES;
+    [self.view addSubview:self.redeemCodeBtn];
 }
 
 - (void)setupSubViewFrame{
@@ -68,19 +77,11 @@
     }];
 }
 
-- (void)clickRedeemCodeBtn:(UIButton *)sender{
-    if ([self.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0) {
-        [self loadData_myAccountExchangeInfo];
-    }
-}
-
--(void)setMyCouponListModel:(HXBMyCouponListModel *)myCouponListModel{
-    _myCouponListModel = myCouponListModel;
-}
+#pragma mark - Network
 
 - (void)loadData_myAccountExchangeInfo{
     kWeakSelf
-    [HXBRequestAccountInfo downLoadMyCouponExchangeInfoNoHUDWithCode: [weakSelf.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] withSeccessBlock:^(HXBMyCouponListModel *Model, NSString *message) {
+    [HXBRequestAccountInfo downLoadMyCouponExchangeInfoHUDWithCode: [weakSelf.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] withSeccessBlock:^(HXBMyCouponListModel *Model, NSString *message) {
         if (message.length > 0) {
             self.promptLab.hidden = NO;
             self.promptLab.text = message;
@@ -101,7 +102,7 @@
                     }
                 }];
                 if ((HXBMyCouponViewController * )viewController.childViewControllers[0] && [(HXBMyCouponViewController * )viewController.childViewControllers[0] isKindOfClass:[HXBMyCouponListViewController class]]) {
-
+                    
                     UIButton *btn = viewController.topTabView.tabs[0];
                     [viewController.topTabView tabAnimation:btn];
                     [viewController.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
@@ -133,116 +134,31 @@
     self.promptLab.hidden = YES;
 }
 
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-//    string = [string uppercaseString];
-    if (textField.superview == _redeemCodeTextField) {
-//        return [UITextField numberFormatTextField:textField shouldChangeCharactersInRange:range replacementString:string textFieldType:kBankCardNumberTextFieldType];
-        NSString *str = nil;
-        if (string.length) {
-            str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-        } else if(!string.length) {
-            NSInteger length = _redeemCodeTextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
-            NSMutableString *strM = _redeemCodeTextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
-            str = strM.copy;
-        }
-        self.promptLab.text = @"";
-        self.promptLab.hidden = YES;
-        if ([self judgeTextFieldInputString:string]) {
-            if (_redeemCodeTextField.text.length % 5 == 4 && _redeemCodeTextField.text.length < 19) {
-                _redeemCodeTextField.text = [NSString stringWithFormat:@"%@ ", _redeemCodeTextField.text];
-            }
-            if (str.length >= 19) {
-                str = [str substringToIndex:19];
-                _redeemCodeTextField.text = str;
-                [_redeemCodeTextField resignFirstResponder];
-                _redeemCodeTextField.text = [str uppercaseString];
-                return NO;
-            }
-        } else if ([string isEqualToString:@""]) {
-            if ((_redeemCodeTextField.text.length - 2) % 5 == 4 && _redeemCodeTextField.text.length < 19) {
-                _redeemCodeTextField.text = [_redeemCodeTextField.text substringToIndex:_redeemCodeTextField.text.length - 1];
-            }
-//            _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
-            return YES;
-        } else {
-            return NO;
-        }
-    }
     
-    if ([string isEqualToString:@""]) {
-//        _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
-        return YES;
-    } else {
-        if (self.redeemCodeTextField.text.length >= 20) {
+    if (textField.superview == _redeemCodeTextField) {
+        if ([string isEqualToString:@" "]) {
             return NO;
         }
-//        _redeemCodeTextField.text = [_redeemCodeTextField.text uppercaseString];
-        return YES;
-    }
-}
-
-//- (BOOL)isPureInt:(NSString *)string{
-//    NSScanner* scan = [NSScanner scannerWithString:string];
-//    int val;
-//    return [scan scanInt:&val] && [scan isAtEnd];
-//
-//}
-
-/**
- *  Description 0-9 A-Z a-z
- *  @param string 匹配输入的字符串
- */
-- (BOOL)judgeTextFieldInputString:(NSString *)string{
-    if (!string||[string isEqualToString:@""]) {
-        return NO;
-    }
-//    for (int i = 0; i < string.length; i++) { //避免修正时不扫描
-//        NSString *subString = [string substringWithRange:NSMakeRange(i, 1)];
-//        if ([subString isEqualToString:@" "]) {
-//            continue;
-//        }
-//        int ascii = [subString characterAtIndex:0];
-//        if (![self judgeTextFieldInputCStringASCII:ascii]) {
-//            return NO;
-//            break;
-//        }
-//    }
-    if ([string isEqualToString:@" "]) {
-        return NO;
+        return [UITextField numberFormatTextField:textField shouldChangeCharactersInRange:range replacementString:string textFieldType:kRedeemCodeTextFieldType];
     }
     return YES;
 }
 
-- (BOOL)judgeTextFieldInputCStringASCII:(int)ascii{
-    
-    int ascii_a = [@"a" characterAtIndex:0];//转ASCII码
-    int ascii_z = [@"z" characterAtIndex:0];
-    
-    int ascii_A = [@"A" characterAtIndex:0];
-    int ascii_Z = [@"Z" characterAtIndex:0];
-    
-    int ascii_0 = [@"0" characterAtIndex:0];
-    int ascii_9 = [@"9" characterAtIndex:0];
-    
-    //    int ascii = [string characterAtIndex:0];
-    if( ascii >= ascii_A && ascii <= ascii_Z){
-        return YES;
-    }else if( ascii >= ascii_a && ascii <= ascii_z){
-        return YES;
-    }else if( ascii >= ascii_0 && ascii <= ascii_9){
-        return YES;
+#pragma mark - Action
+
+- (void)clickRedeemCodeBtn:(UIButton *)sender{
+    [self.view endEditing:YES];
+    if ([self.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""].length > 0) {
+        [self loadData_myAccountExchangeInfo];
     }
-    return NO;
 }
 
-- (void)buildUI{
-    [self.view addSubview:self.bgView];
-    [self.view addSubview:self.promptLab];
-    self.promptLab.hidden = YES;
-    [self.view addSubview:self.redeemCodeBtn];}
+#pragma mark - Setter / Getter / Lazy
+
+-(void)setMyCouponListModel:(HXBMyCouponListModel *)myCouponListModel{
+    _myCouponListModel = myCouponListModel;
+}
 
 -(UILabel *)promptLab{
     if (!_promptLab) {
@@ -270,8 +186,6 @@
     }
     return _redeemCodeBtn;
 }
-
-
 
 - (HXBCustomTextField *)redeemCodeTextField{
     if (!_redeemCodeTextField) {
@@ -310,19 +224,6 @@
     return _redeemCodeLab;
 }
 
-
-//- (HXBCustomTextField *)redeemCodeTextField{
-//    if (!_redeemCodeTextField) {
-//        _redeemCodeTextField = [[HXBCustomTextField alloc]initWithFrame:CGRectMake(kScrAdaptationW750(146), kScrAdaptationH750(44), kScrAdaptationW750(750-146), kScrAdaptationH750(32))];
-//        _redeemCodeTextField.placeholder = @"请输入兑换码";
-//        _redeemCodeTextField.delegate = self;
-//        _redeemCodeTextField.textColor = RGBA(51, 51, 51, 1);
-//        _redeemCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
-////        _redeemCodeTextField.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
-//    }
-//    return _redeemCodeTextField;
-//}
-
 - (UIView *)bgView{
     if (!_bgView) {
         _bgView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(0), kScrAdaptationH750(40), SCREEN_WIDTH, kScrAdaptationH750(120))];
@@ -333,20 +234,6 @@
     return _bgView;
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+#pragma mark - Other
 
 @end

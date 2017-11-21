@@ -26,8 +26,4 @@ typedef enum : NSUInteger {
 @property (nonatomic,copy) NSString *registerMultipleAmount; // 最小倍数
 @property (nonatomic,copy) NSString *minRegisterAmount; // 最小起投
 
-@property (nonatomic, assign) HXB_Fin_Type  type; // 标的类型
-
-
-
 @end

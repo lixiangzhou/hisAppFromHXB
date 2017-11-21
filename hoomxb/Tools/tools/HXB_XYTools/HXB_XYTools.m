@@ -44,13 +44,25 @@ static HXB_XYTools * handle = nil;
 
 
 // 自适应宽度的方法
-- (CGFloat)WidthWithString:(NSString *)string labelFont:(UIFont *)labelFont addWidth:(CGFloat)width
-{
-    NSDictionary *dic = [NSDictionary dictionaryWithObject:labelFont forKey:NSFontAttributeName];
-    //2. 计算320宽16字号的label的高度
-    CGRect frame = [string boundingRectWithSize:CGSizeMake(1000, 15) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:dic context:nil];
+- (CGFloat)WidthWithString:(NSString *)string labelFont:(UIFont *)labelFont addWidth:(CGFloat)width {
+    CGRect frame;
+    if (string.length && labelFont) {
+        NSDictionary *dic = [NSDictionary dictionaryWithObject:labelFont forKey:NSFontAttributeName];
+        //2. 计算320宽16字号的label的高度
+        frame = [string boundingRectWithSize:CGSizeMake(1000, 15) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:dic context:nil];
+    }
     return frame.size.width + width;
 }
+
+// 自适应高度的方法
+- (CGFloat)heightWithString:(NSString *)string labelFont:(UIFont *)labelFont Width:(CGFloat)width {
+    CGSize titleSize;
+    if (string.length && labelFont) {
+        titleSize = [string boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:labelFont} context:nil].size;
+    }
+     return titleSize.height + 15;
+}
+
 
 - (BOOL)limitEditTopupMoneyWithTextField:(UITextField *)textField Range:(NSRange)range replacementString:(NSString *)string {
     NSString *updatedText = [textField.text stringByReplacingCharactersInRange:range withString:string];

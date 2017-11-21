@@ -15,10 +15,22 @@
 ///MARK: ----------  model的数组 （数据源） ---------------
 //红利计划列表的数据数组
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList *>* finPlanListVMArray;
+/**
+ 红利计划列表总条数
+ */
+@property (nonatomic, assign) NSInteger finPlanTotalCount;
 //散标列表的数据数组
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList *>* finLoanListVMArray;
+/**
+ 散标列表总条数
+ */
+@property (nonatomic, assign) NSInteger finLoanTotalCount;
 ///债转的数据
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>* finLoanTruansferVMArray;
+/**
+ 债转列表总条数
+ */
+@property (nonatomic, assign) NSInteger finLoanTruansferTotalCount;
 
 //MARK: ----------  点击了中间的toolBarView按钮 ---------------
 @property (nonatomic,copy) void(^switchBottomScrollViewBlock)(NSInteger index, NSString *title, UIButton *option);

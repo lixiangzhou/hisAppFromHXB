@@ -11,6 +11,8 @@
 #import "HxbHUDProgress.h"
 #import <AdSupport/AdSupport.h>
 #import "NYNetworkConfig.h"
+#import "HXBBaseUrlManager.h"
+
 @implementation HxbHTTPSessionManager
 
 
@@ -66,7 +68,7 @@
 }
 
 -(void)refreshAccessToken:(void(^)(NSData *data))refresh{
-    NSString *tokenURLString = [NSString stringWithFormat:@"%@%@",BASEURL,TOKENURL];
+    NSString *tokenURLString = [NSString stringWithFormat:@"%@%@",[HXBBaseUrlManager manager].baseUrl,TOKENURL];
     NSURL *tokenURL =[NSURL URLWithString:tokenURLString];
     NSURLRequest *request = [NSURLRequest requestWithURL:tokenURL];
     

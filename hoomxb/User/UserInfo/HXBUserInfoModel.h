@@ -89,7 +89,15 @@
  最小提现金额
  */
 @property (nonatomic, assign) int minWithdrawAmount;
+/**
+ 最小充值金额——new
+ */
+@property (nonatomic, strong) NSString *minChargeAmount_new;
 
+/**
+ 最小提现金额——new
+ */
+@property (nonatomic, strong) NSString *minWithdrawAmount_new;
 /**
  是否评估
  */

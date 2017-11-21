@@ -58,7 +58,8 @@
         } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
         }];
     }
-    self.loanListTableView.loanListViewModelArray =finLoanListVMArray;
+    self.loanListTableView.loanListViewModelArray = finLoanListVMArray;
+
 }
 - (void)setFinLoanTruansferVMArray:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)finLoanTruansferVMArray {
     _finLoanTruansferVMArray = finLoanTruansferVMArray;
@@ -79,6 +80,9 @@
     if (isStopRefresh_loan) {
         [self.loanListTableView endRefresh];
     }
+    if (self.finLoanTotalCount <= self.finLoanListVMArray.count) {
+        [self.loanListTableView.mj_footer endRefreshingWithNoMoreData];
+    }
 }
 - (void)setIsStopRefresh_Plan:(BOOL)isStopRefresh_Plan {
     _isStopRefresh_Plan = isStopRefresh_Plan;
@@ -86,12 +90,18 @@
         [self.planListTableView.mj_footer endRefreshing];
         [self.planListTableView.mj_header endRefreshing];
     }
+    if (self.finPlanTotalCount <= self.finPlanListVMArray.count) {
+        [self.planListTableView.mj_footer endRefreshingWithNoMoreData];
+    }
 }
 - (void)setIsStopRefresh_LoanTruansfer:(BOOL)isStopRefresh_LoanTruansfer {
     _isStopRefresh_LoanTruansfer = isStopRefresh_LoanTruansfer;
     if (isStopRefresh_LoanTruansfer) {
         [self.loanTruansferTableView.mj_footer endRefreshing];
         [self.loanTruansferTableView.mj_header endRefreshing];
+    }
+    if (self.finLoanTruansferTotalCount <= self.finLoanTruansferVMArray.count) {
+        [self.loanListTableView.mj_footer endRefreshingWithNoMoreData];
     }
 }
 

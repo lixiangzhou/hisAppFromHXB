@@ -27,7 +27,6 @@
 @implementation HXBAlertManager
 + (void)alertNeedLoginAgainWithMeaage:(NSString *)message {
     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"登录异常" Massage:message force:2 andLeftButtonMassage:@"知道了" andRightButtonMassage:@"重新登录"];
-    alertVC.messageHeight = 80;
     [alertVC setClickXYRightButtonBlock:^{
         ///到登录界面
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
@@ -49,7 +48,7 @@
         VC = tbVC;
     }
     
-    [VC presentViewController:alertVC animated:YES completion:nil];
+    [VC.navigationController presentViewController:alertVC animated:YES completion:nil];
 }
 
 /**
@@ -186,11 +185,6 @@
 + (void)callupWithphoneNumber:(NSString *)phoneNumber andWithTitle:(NSString *)title Message:(NSString *)message {
 
     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:title Massage:message force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
-    if (message.length > 20) {
-        alertVC.messageHeight = kScrAdaptationH(60);
-    } else {
-        alertVC.messageHeight = kScrAdaptationH(40);
-    }
     alertVC.isCenterShow = YES;
     [alertVC setClickXYRightButtonBlock:^{
         NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", phoneNumber];
@@ -252,11 +246,7 @@
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel {
     if ([versionUpdateModel.force isEqualToString:@"1"]) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝发现新版本" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
-        if (versionUpdateModel.updateinfo.length > 40) {
-            alertVC.messageHeight = kScrAdaptationH(80);
-        } else {
-            alertVC.messageHeight = kScrAdaptationH(60);
-        }
+
         [alertVC setClickXYRightButtonBlock:^{
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
             [[UIApplication sharedApplication] openURL:url];
@@ -265,11 +255,7 @@
         
     } else if ([versionUpdateModel.force isEqualToString:@"2"] ) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝发现新版本" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
-        if (versionUpdateModel.updateinfo.length > 40) {
-            alertVC.messageHeight = kScrAdaptationH(80);
-        } else {
-            alertVC.messageHeight = kScrAdaptationH(60);
-        }
+
         [alertVC setClickXYRightButtonBlock:^{
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
             [[UIApplication sharedApplication] openURL:url];

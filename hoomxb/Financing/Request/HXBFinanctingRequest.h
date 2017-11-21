@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HXBBaseRequest.h"
+#import "HXBFinModel_BuyResoult_LoanModel.h"///购买结果
 @class HXBFinHomePageViewModel_PlanList;//红利计划的首页ViewModel
 @class HXBFinHomePageViewModel_LoanList;//散标列表页- 一级界面ViewModel
 @class HXBFinDetailViewModel_PlanDetail;//红利计划详情页ViewModel
@@ -43,16 +44,16 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 //MARK: 红利计划列表的网络请求
 ///红利计划-数据请求- 一级界面首页
 - (void)planBuyListWithIsUpData: (BOOL)isUPData
-                andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray))successDateBlock
+                andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray,NSInteger totalCount))successDateBlock
                 andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 //MARK: 散标列表的网络数据请求
 ///散标列表-数据请求- 一级界面首页
-- (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)loanBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray,NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 //MARK:债权转让 列表
 ///债权转让列表页
-- (void)loanTruansferListWithIsUPData: (BOOL)isUPData andSuccessBlock: (void (^)(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *>* viewModelArray))successDateBlock andFailureBlock: (void(^)(NSError *error,id responsObject))failureBlock;
+- (void)loanTruansferListWithIsUPData: (BOOL)isUPData andSuccessBlock: (void (^)(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *>* viewModelArray,NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error,id responsObject))failureBlock;
 
 
 #pragma mark - 理财二级界面 - 详情界面的数据请求
@@ -104,7 +105,7 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 // 红利 购买结果
 - (void)plan_buyReslutWithPlanID: (NSString *)planID
                       parameter :(NSDictionary *)parameter
-                 andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
+                 andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
                  andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock;
 // 散标 购买结果
 - (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID

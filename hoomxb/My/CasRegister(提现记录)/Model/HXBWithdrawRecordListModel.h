@@ -15,4 +15,26 @@
  */
 @property (nonatomic, strong) NSArray <HXBWithdrawRecordModel *> *dataList;
 
+/**
+ 当前页码
+ */
+@property (nonatomic, assign) NSInteger pageNumber;
+
+/**
+ 每页返回条数
+ */
+@property (nonatomic, assign) NSInteger pageSize;
+
+/**
+ 总共条数
+ */
+@property (nonatomic, assign) NSInteger totalCount;
+
+/******************************辅助字段******************************/
+
+/**
+ 是否全部加载完毕数据
+ */
+@property (nonatomic, assign) BOOL isNoMoreData;
+
 @end

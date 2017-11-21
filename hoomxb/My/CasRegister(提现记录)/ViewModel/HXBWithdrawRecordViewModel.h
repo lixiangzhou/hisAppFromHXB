@@ -16,10 +16,11 @@
 
 /**
  提现进度
- 
+
+ @param isLoading 是否显示加载
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-- (void)casRegisteRequestSuccessBlock: (void(^)(HXBWithdrawRecordListModel * withdrawRecordListModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)withdrawRecordProgressRequestWithLoading:(BOOL)isLoading andPage:(NSInteger)page andSuccessBlock: (void(^)(HXBWithdrawRecordListModel * withdrawRecordListModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 @end

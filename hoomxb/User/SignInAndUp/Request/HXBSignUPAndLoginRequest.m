@@ -12,6 +12,8 @@
 #import "HXBTokenManager.h"///请求token
 #import "HXBBaseRequest.h"//网络数据请求
 
+#import "HXBBaseUrlManager.h"
+
 @implementation HXBSignUPAndLoginRequest
 
 + (void)signUPRequetWithMobile: (NSString *)mobile///手机号
@@ -30,7 +32,8 @@
                                   @"smscode" : smscode,///	      是	string	短信验证码
                                   @"password" : password,///       是	string	密码
                                   @"inviteCode" : inviteCode,///    否	string	邀请码
-                                  @"utmSource" : @"ios"
+                                  @"utmSource" : @"",///推广渠道
+                                  @"marketSource" : @"ios"///市场来源
                                   };
     [signUPAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD
@@ -87,7 +90,7 @@
                        andFailureBlock: (void(^)(NSError *error))failureBlock {
     
     NSURLSession *session = [NSURLSession sharedSession];
-    NSString *URLSTR = [NSString stringWithFormat:@"%@%@",BASEURL,@"/captcha"];
+    NSString *URLSTR = [NSString stringWithFormat:@"%@%@",[HXBBaseUrlManager manager].baseUrl,@"/captcha"];
     NSURL *url = [NSURL URLWithString:URLSTR];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSMutableURLRequest *requestM = [request mutableCopy];
