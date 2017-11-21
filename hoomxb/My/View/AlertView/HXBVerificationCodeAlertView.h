@@ -14,11 +14,15 @@
  验证码
  */
 @property (nonatomic, copy) NSString *verificationCode;
+//是否有语音验证码
+@property (nonatomic, assign) BOOL isSpeechVerificationCode;
 //线的颜色
 @property(nonatomic,copy) UIColor *lineColor;
 /** 是否清楚输入框 */
 @property (nonatomic, assign)  BOOL isCleanSmsCode;
 
+//getSpeechVerificationCodeBlock获取语音验证码
+@property (nonatomic, copy) void (^getSpeechVerificationCodeBlock)();
 /**
  getVerificationCode再次获取验证码
  */

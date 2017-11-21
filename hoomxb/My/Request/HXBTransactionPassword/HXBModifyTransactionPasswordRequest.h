@@ -24,8 +24,8 @@
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-- (void)myTransactionPasswordWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
-
+//- (void)myTransactionPasswordWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)myTransactionPasswordWithAction:(NSString *)action andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 /**
  修改交易密码---同时验证身份证和验证码
