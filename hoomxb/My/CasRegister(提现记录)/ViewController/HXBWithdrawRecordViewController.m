@@ -61,7 +61,7 @@
         [weakSelf endRefreshing];
         if (withdrawRecordListModel.isNoMoreData) {
              [weakSelf.withdrawRecordTableView.mj_footer endRefreshingWithNoMoreData];
-            if (withdrawRecordListModel.dataList.count < kPageCount) {
+            if (withdrawRecordListModel.dataList.count <= kPageCount) {
                 weakSelf.withdrawRecordTableView.mj_footer = nil;
             }
         } else {
