@@ -14,7 +14,7 @@
 static NSString *const kSmscode_ConstLableTitle = @"请输入验证码";
 static NSString *const kPassword_constLableTitle = @"密码为8-20位数字与字母组合";
 static NSString *const kSetPassWordButtonTitle = @"确认设置登录密码";
-static NSString *const kSendSmscodeAgainTitle = @"获取验证码";
+static NSString *const kSendSmscodeAgainTitle = @"语音验证码";
 static NSString *const kSendSmscodeTitle = @"发送验证码";
 
 @interface HXBSendSmscodeView () <UITextFieldDelegate>
@@ -110,12 +110,15 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         [self setUP];
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(setStartsCountdown) name:kHXBNotification_registrationStartCountdown object:nil];
         self.totalTimeNumber = 60;
         self.timeNumber = self.totalTimeNumber;
     }
     return self;
 }
-
+//- (void)setStartsCountdown{
+//    _startsCountdown = YES;
+//}
 - (void)setUP {
     [self creatSubView];
     [self layoutSubView_sendSmscode];
@@ -345,13 +348,18 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 //    [self.eyeButton addTarget:self action:@selector(clickEyeButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.setPassWordButton addTarget:self action:@selector(clickSetPassWordButton:) forControlEvents:UIControlEventTouchUpInside];
 }
-
-///点击了发送按钮
+- (void)setStartsCountdown:(BOOL)startsCountdown{
+    _startsCountdown = startsCountdown;
+    if (_startsCountdown) {
+        [self setSendButtonStatus];
+        self.sendButton.backgroundColor = RGB(222, 222, 222);
+    }
+}
+///点击了验证码按钮
 - (void)clickSendButton: (UIButton *)button {
-    [self setSendButtonStatus];
-    self.sendButton.backgroundColor = RGB(222, 222, 222);
-    if (self.clickSendSmscodeButtonBlock) self.clickSendSmscodeButtonBlock();
-    
+
+    if (self.clickSendSmscodeButtonBlock)
+        self.clickSendSmscodeButtonBlock();
 }
 
 - (void) setSendButtonStatus {
@@ -405,6 +413,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         [self deleteTimer];
         self.timeNumber = self.totalTimeNumber;
         self.sendButton.userInteractionEnabled = true;
+        _startsCountdown = NO;
     } else {
         [self.sendButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
         self.sendButton.layer.borderWidth = 0;
@@ -414,6 +423,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)deleteTimer {
     if (self.timer.isValid) {
         [self.timer invalidate];
+        _startsCountdown = NO;
     }
     self.timer = nil;
 }

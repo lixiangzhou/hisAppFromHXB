@@ -59,15 +59,15 @@
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-- (void)myTransactionPasswordWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)myTransactionPasswordWithAction:(NSString *)action andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     HXBBaseRequest *alterLoginPasswordAPI = [[HXBBaseRequest alloc] init];
-    alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPassword_SendSmscodeURL;
+    alterLoginPasswordAPI.requestUrl = kHXBUser_smscodeURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     NSLog(@"%@",kTypeKey_tradpwd);
     
     alterLoginPasswordAPI.requestArgument = @{
-                                              @"action" : kTypeKey_tradpwd
+                                              @"action" : action
                                               };
     [alterLoginPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"验证码验证%@",responseObject);

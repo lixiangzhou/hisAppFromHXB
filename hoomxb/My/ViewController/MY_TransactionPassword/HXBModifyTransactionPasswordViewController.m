@@ -12,6 +12,8 @@
 #import "HXBModifyTransactionPasswordRequest.h"
 #import "HXBModifyPhoneViewController.h"
 #import "HXBCallPhone_BottomView.h"
+#import "HXBSignUPAndLoginRequest_EnumManager.h"
+
 @interface HXBModifyTransactionPasswordViewController ()
 
 @property (nonatomic, strong) HXBModifyTransactionPasswordHomeView *homeView;
@@ -86,7 +88,13 @@
  */
 - (void)getValidationCode {
     HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
-    [modifyTransactionPasswordRequest myTransactionPasswordWithSuccessBlock:^(id responseObject) {
+    NSString *action = @"";
+    if ([self.title isEqualToString:@"修改交易密码"]){
+        action = kTypeKey_tradpwd;
+    }else if ([self.title isEqualToString:@"解绑原手机号"]){
+        action = kTypeKey_oldmobile;
+    }
+    [modifyTransactionPasswordRequest myTransactionPasswordWithAction:action andSuccessBlock:^(id responseObject) {
         NSLog(@"获取验证码成功%@",responseObject);
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
@@ -94,6 +102,7 @@
         kWeakSelf
         [weakSelf.homeView sendCodeFail];
     }];
+    
 }
 
 /**

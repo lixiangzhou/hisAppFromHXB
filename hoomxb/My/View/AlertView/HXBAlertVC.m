@@ -63,6 +63,10 @@
     [self.contentView addSubview:self.message];
 }
 
+-(void)setIsSpeechVerificationCode:(BOOL)isSpeechVerificationCode{
+    _isSpeechVerificationCode = isSpeechVerificationCode;
+    self.verificationCodeAlertView.isSpeechVerificationCode = isSpeechVerificationCode;
+}
 - (void)setIsCode:(BOOL)isCode
 {
     _isCode = isCode;
@@ -104,12 +108,12 @@
 {
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view).offset(kScrAdaptationH750(385));
-        make.height.offset(kScrAdaptationH750(440));
+        make.top.equalTo(self.view).offset(kScrAdaptationH750(310));//385
+        make.height.offset(kScrAdaptationH750(500));//440
         make.width.offset(kScrAdaptationW750(590));
     }];
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView.mas_top);
+        make.bottom.equalTo(self.contentView.mas_top); 
         make.right.equalTo(self.contentView.mas_right);
         make.width.offset(kScrAdaptationW750(50));
         make.height.offset(kScrAdaptationH750(95));
@@ -149,8 +153,8 @@
         [self.verificationCodeAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.subTitleLabel.mas_bottom);
             make.bottom.equalTo(self.sureBtn.mas_top);
-            make.left.equalTo(self.contentView).offset(kScrAdaptationW750(90));
-            make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-90));
+            make.left.equalTo(self.contentView).offset(kScrAdaptationW750(70));
+            make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-70));
         }];
         return;
     }
@@ -392,6 +396,11 @@
         _verificationCodeAlertView.getVerificationCodeBlock = ^{
             if (weakSelf.getVerificationCodeBlock) {
                 weakSelf.getVerificationCodeBlock();
+            }
+        };
+        _verificationCodeAlertView.getSpeechVerificationCodeBlock = ^{
+            if (weakSelf.getSpeechVerificationCodeBlock) {
+                weakSelf.getSpeechVerificationCodeBlock();
             }
         };
     }

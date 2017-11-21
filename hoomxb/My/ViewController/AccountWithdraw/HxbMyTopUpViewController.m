@@ -21,6 +21,10 @@
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
+//是否有语音验证码
+@property (nonatomic, assign) BOOL isSpeechVerificationCode;
+//是否点击的语音
+@property (nonatomic, assign) BOOL isClickSpeechVerificationCode;
 
 @end
 
@@ -40,6 +44,9 @@
         kWeakSelf
         _myTopUpBaseView = [[HXBMyTopUpBaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _myTopUpBaseView.rechargeBlock = ^{
+            //第一次短验
+            _isSpeechVerificationCode = YES;
+            _isClickSpeechVerificationCode = NO;
             [weakSelf enterRecharge];
         };
         if (self.amount.floatValue) {
@@ -73,8 +80,9 @@
 - (void)enterRecharge
 {
     kWeakSelf
+    NSString *type = _isClickSpeechVerificationCode ? @"voice" : @"sms";
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:self.myTopUpBaseView.amount andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
+    [accountRequest accountRechargeRequestWithRechargeAmount:self.myTopUpBaseView.amount andWithType:type andWithAction:@"recharge" andSuccessBlock:^(id responseObject) {
         [weakSelf requestRechargeResult];
     } andFailureBlock:^(NSError *error) {
         NSLog(@"%@",error);
@@ -97,12 +105,13 @@
    }
     kWeakSelf
     alertVC.isCode = YES;
+    alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
     alertVC.messageTitle = @"请输入您的短信验证码";
-
     alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:self.myTopUpBaseView.mybankView.bankCardModel.mobile.length - 7]];
     __weak typeof(alertVC) weakAlertVC = alertVC;
     alertVC.sureBtnClick = ^(NSString *pwd){
         HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+        
         [accountRequest accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:self.myTopUpBaseView.amount andSuccessBlock:^(id responseObject) {
             
             NSInteger status =  [responseObject[@"status"] integerValue];
@@ -137,6 +146,12 @@
         }];
     };
     alertVC.getVerificationCodeBlock = ^{
+        _isClickSpeechVerificationCode = NO;
+        [weakSelf enterRecharge];
+    };
+    alertVC.getSpeechVerificationCodeBlock = ^{
+        _isClickSpeechVerificationCode = YES;
+        //获取语音验证码 注意参数
         [weakSelf enterRecharge];
     };
     

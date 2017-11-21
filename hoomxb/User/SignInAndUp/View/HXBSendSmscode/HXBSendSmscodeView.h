@@ -11,6 +11,9 @@
 @interface HXBSendSmscodeView : UIView
 @property (nonatomic, copy) NSString *phonNumber;
 @property (nonatomic,assign) HXBSignUPAndLoginRequest_sendSmscodeType type;
+//是否有语音验证码
+//@property (nonatomic, assign) BOOL isSpeechVerificationCode;
+@property (nonatomic, assign) BOOL startsCountdown;
 
 ///点击了确认
 - (void)clickSetPassWordButtonFunc: (void(^)(NSString *password, NSString *smscode,NSString *inviteCode))clickSetPassWordButtonBlock;
@@ -18,4 +21,6 @@
 - (void)clickSendSmscodeButtonWithBlock: (void(^)())clickSendSmscodeButtonBlock;
 ///点击了服务协议
 - (void)clickAgreementSignUPWithBlock: (void(^)())clickAgreementSignUPBlock;
+///点击了发送按钮
+- (void)clickSendButton: (UIButton *)button;
 @end

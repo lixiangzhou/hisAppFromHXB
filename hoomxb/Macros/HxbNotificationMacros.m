@@ -28,3 +28,4 @@ NSString *const kHXBNotification_starCountDown = @"kHXBNotification_starCountDow
 //是否更新提示
 NSString *const kHXBNotification_update = @"kHXBNotification_update";
 
+NSString *const kHXBNotification_registrationStartCountdown = @"kHXBNotification_registrationStartCountdown";
