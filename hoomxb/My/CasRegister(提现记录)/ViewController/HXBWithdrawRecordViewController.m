@@ -63,7 +63,7 @@
              [weakSelf.withdrawRecordTableView.mj_footer endRefreshingWithNoMoreData];
         } else {
             [weakSelf.withdrawRecordTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-                [self loadCashRegisterDataNeeedShowLoading:NO];
+                [weakSelf loadCashRegisterDataNeeedShowLoading:NO];
             } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
             }];
         }
