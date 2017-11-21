@@ -110,12 +110,12 @@
 
                     [registerAlertVC verificationCodeBtnWithBlock:^{
                         
-                        [weakSelf sendSmscode];
+                        [weakSelf sendSmscode:@"sms"];
                         [weakSelf.smscodeView clickSendButton:nil];
                     }];
                     [registerAlertVC speechVerificationCodeBtnWithBlock:^{
                         
-                        [weakSelf sendSmscode];//获取语音验证码 注意参数
+                        [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
                         
                         [weakSelf.smscodeView clickSendButton:nil];
                     }];
@@ -150,7 +150,7 @@
                 ++num;
                 [[NSUserDefaults standardUserDefaults] setInteger:num forKey:@"clickSmsCodeBtnNum"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                [weakSelf sendSmscode];
+                [weakSelf sendSmscode:@"sms"];
                 [weakSelf.smscodeView clickSendButton:nil];
             }];
             [registerAlertVC speechVerificationCodeBtnWithBlock:^{
@@ -158,7 +158,7 @@
                 ++num;
                 [[NSUserDefaults standardUserDefaults] setInteger:num forKey:@"clickSmsCodeBtnNum"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                [weakSelf sendSmscode];//获取语音验证码 注意参数
+                [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
                 [weakSelf.smscodeView clickSendButton:nil];
             }];
             [registerAlertVC cancelBtnWithBlock:^{
@@ -171,28 +171,50 @@
     }];
 }
 
-- (void)sendSmscode {
+- (void)sendSmscode:(NSString *)typeStr {
     kWeakSelf
     //请求网络数据
-    [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:self.captcha andSuccessBlock:^(BOOL isSuccessBlock) {
-        switch (weakSelf.type) {
-            case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
-                NSLog(@"发送 验证码");
+    if (typeStr) {
+        [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:self.captcha andType:typeStr andSuccessBlock:^(BOOL isSuccessBlock) {
+            switch (weakSelf.type) {
+                case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
+                    NSLog(@"发送 验证码");
+                }
+                    break;
+                case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
+                {
+                    NSLog(@"注册");
+                    weakSelf.smscodeView.startsCountdown = YES;
+                }
+                    break;
             }
-                break;
-            case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
-            {
-                NSLog(@"注册");
-                //                weakSelf.smscodeView.isSpeechVerificationCode = YES;
-                weakSelf.smscodeView.startsCountdown = YES;
+        } andFailureBlock:^(NSError *error) {
+            kNetWorkError(@"短信发送失败");
+            weakSelf.smscodeView.startsCountdown = NO;
+        }];
+        
+    }else{
+        [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:self.captcha andSuccessBlock:^(BOOL isSuccessBlock) {
+            switch (weakSelf.type) {
+                case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
+                    NSLog(@"发送 验证码");
+                }
+                    break;
+                case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
+                {
+                    NSLog(@"注册");
+                    //                weakSelf.smscodeView.isSpeechVerificationCode = YES;
+                    weakSelf.smscodeView.startsCountdown = YES;
+                }
+                    break;
             }
-                break;
-        }
-    } andFailureBlock:^(NSError *error) {
-        kNetWorkError(@"短信发送失败");
-        //        weakSelf.smscodeView.isSpeechVerificationCode = NO;
-        weakSelf.smscodeView.startsCountdown = NO;
-    }];
+        } andFailureBlock:^(NSError *error) {
+            kNetWorkError(@"短信发送失败");
+            //        weakSelf.smscodeView.isSpeechVerificationCode = NO;
+            weakSelf.smscodeView.startsCountdown = NO;
+        }];
+    }
+    
 }
 - (void)registerPassword {
     __weak typeof(self)weakSelf = self;

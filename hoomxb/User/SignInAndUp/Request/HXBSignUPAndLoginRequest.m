@@ -189,7 +189,42 @@
         kNetWorkError(@"发送短信 请求失败");
     }];
 }
-
+#pragma mark - 发送短信接口 短信或者语音
++ (void)smscodeRequestWithMobile: (NSString *)mobile
+                       andAction: (HXBSignUPAndLoginRequest_sendSmscodeType)action
+                      andCaptcha: (NSString *)captcha
+                         andType:(NSString *)type
+                 andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
+                 andFailureBlock: (void(^)(NSError *error))failureBlock{
+    HXBBaseRequest *smscodeAPI = [[HXBBaseRequest alloc]init];
+    smscodeAPI.requestUrl = kHXBUser_smscodeURL;
+    smscodeAPI.requestMethod = NYRequestMethodPost;
+    NSString *actionStr = [HXBSignUPAndLoginRequest_EnumManager getKeyWithHXBSignUPAndLoginRequest_sendSmscodeType:action];
+    smscodeAPI.requestArgument = @{
+                                   @"mobile":mobile,///     是    string    用户名
+                                   @"action":actionStr,///     是    string    signup(参照通用短信发送类型)
+                                   @"captcha":captcha,///    是    string    校验图片二维码
+                                   @"type":type
+                                   };
+    [smscodeAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        
+        //        kHXBResponsShowHUD
+        NSLog(@"%@",responseObject);
+        BOOL status = [responseObject[@"status"] integerValue];
+        if (status) {
+            kNetWorkError(@"发送短信 请求失败");
+            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            if (failureBlock) failureBlock(responseObject);
+            return;
+        }
+        if (successBlock) successBlock(true);
+        
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        
+        if (failureBlock) failureBlock(error);
+        kNetWorkError(@"发送短信 请求失败");
+    }];
+}
 
 #pragma mark - 注册校验手机号
 + (void)checkMobileRequestWithMobile: (NSString *)mobile
