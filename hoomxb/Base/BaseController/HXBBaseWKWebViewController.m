@@ -1,19 +1,19 @@
 //
-//  HXBBaseWebViewController.m
+//  HXBBaseWKWebViewController.m
 //  hoomxb
 //
 //  Created by HXB on 2017/5/13.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBBaseWebViewController.h"
+#import "HXBBaseWKWebViewController.h"
 #import <WebKit/WebKit.h>
 
-@interface HXBBaseWebViewController ()<WKUIDelegate,WKNavigationDelegate>
+@interface HXBBaseWKWebViewController ()<WKUIDelegate,WKNavigationDelegate>
 @property (nonatomic,strong) WKWebView *webView;
 @end
 
-@implementation HXBBaseWebViewController
+@implementation HXBBaseWKWebViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

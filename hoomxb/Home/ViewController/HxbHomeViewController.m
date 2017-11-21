@@ -115,7 +115,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:true animated:false];
+    [self hideNavigationBar:animated];
     [self getData:YES];
     
     [self.homeView changeIndicationView:self.userInfoViewModel];
@@ -125,7 +125,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:true animated:false];
 }
 
 /**
@@ -144,10 +143,7 @@
         
     }];
 }
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self.navigationController setNavigationBarHidden:false animated:false];
-}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -158,6 +154,7 @@
             [self checkVersionUpdate];
         });
     }
+    [self transparentNavigationTitle];
     //    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 

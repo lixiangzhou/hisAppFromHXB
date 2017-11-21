@@ -6,8 +6,8 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBBaseWebViewController.h"
+#import "HXBBaseWKWebViewController.h"
 
-@interface HXBFin_Detail_Detail_PlanWebViewController : HXBBaseWebViewController
+@interface HXBFin_Detail_Detail_PlanWebViewController : HXBBaseWKWebViewController
 
 @end
