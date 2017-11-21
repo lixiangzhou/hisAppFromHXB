@@ -16,6 +16,7 @@
 #import "HXBSignInWaterView.h"
 #import "HXBRegisterAlertVC.h"
 #import "HXBCheckCaptchaViewController.h"///modal 出来的校验码
+#import "HXBSignUPAndLoginRequest.h"///数据请求
 
 ///短信验证 VC
 @interface HXBSendSmscodeViewController ()
@@ -24,6 +25,7 @@
 @property (nonatomic, strong) HXBSignInWaterView *waterView;
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+@property (nonatomic, strong) HXBCheckCaptchaViewController *checkCaptchVC;
 @end
 
 @implementation HXBSendSmscodeViewController
@@ -53,7 +55,8 @@
     self.smscodeView = [[HXBSendSmscodeView alloc] initWithFrame:self.view.frame];
     self.smscodeView.type = self.type;
     self.smscodeView.startsCountdown = YES;
-    
+    [[NSUserDefaults standardUserDefaults]setInteger:1 forKey:@"clickSmsCodeBtnNum"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     kWeakSelf
     self.trackingScrollViewBlock = ^(UIScrollView *scrollView) {
         [weakSelf.smscodeView endEditing:true];
@@ -78,39 +81,96 @@
 - (void)registerSendSmscode {
     
     [self.smscodeView clickSendSmscodeButtonWithBlock:^{
-        
-        HXBRegisterAlertVC *registerAlertVC = nil;
-        if (self.presentedViewController)
-        {
-            registerAlertVC = (HXBRegisterAlertVC *)self.presentedViewController;
-        }else
-        {
-            registerAlertVC = [[HXBRegisterAlertVC alloc] init];
-            [self presentViewController:registerAlertVC animated:NO completion:nil];
-        }
+        NSInteger num = [[NSUserDefaults standardUserDefaults] integerForKey:@"clickSmsCodeBtnNum"];
+        NSLog(@"======num===%ld",num);
         kWeakSelf
-        registerAlertVC.messageTitle = @"获取语音验证码";
-        registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
+        if (num >= 3) {
+            
+            self.checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
+            [self.checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
+                weakSelf.captcha = checkPaptcha;
+                NSLog(@"发送 验证码");
+
+                [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
+                    
+                    [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"clickSmsCodeBtnNum"];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    
+                    HXBRegisterAlertVC *registerAlertVC = nil;
+                    if (self.presentedViewController)
+                    {
+                        registerAlertVC = (HXBRegisterAlertVC *)self.presentedViewController;
+                    }else
+                    {
+                        registerAlertVC = [[HXBRegisterAlertVC alloc] init];
+                        [self presentViewController:registerAlertVC animated:NO completion:nil];
+                    }
+                    registerAlertVC.messageTitle = @"获取语音验证码";
+                    registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
+
+                    [registerAlertVC verificationCodeBtnWithBlock:^{
+                        
+                        [weakSelf sendSmscode];
+                        [weakSelf.smscodeView clickSendButton:nil];
+                    }];
+                    [registerAlertVC speechVerificationCodeBtnWithBlock:^{
+                        
+                        [weakSelf sendSmscode];//获取语音验证码 注意参数
+                        
+                        [weakSelf.smscodeView clickSendButton:nil];
+                    }];
+                    [registerAlertVC cancelBtnWithBlock:^{
+                        //
+                        weakSelf.smscodeView.startsCountdown = NO;
+                        NSLog(@"点击取消按钮");
+                    }];
+
+                } andFailureBlock:^(NSError *error) {
+                    
+                }];
+            }];
+        [weakSelf presentViewController:self.checkCaptchVC animated:true completion:nil];
         
-        [registerAlertVC verificationCodeBtnWithBlock:^{
-            [weakSelf sendSmscode];
-            [weakSelf.smscodeView clickSendButton:nil];
-            //            weakSelf.smscodeView.isSpeechVerificationCode = YES;
-            //            weakSelf.smscodeView.startsCountdown = YES;
-        }];
-        [registerAlertVC speechVerificationCodeBtnWithBlock:^{
-            [weakSelf sendSmscode];//获取语音验证码 注意参数
-            [weakSelf.smscodeView clickSendButton:nil];
-            //            weakSelf.smscodeView.isSpeechVerificationCode = YES;
-            //            weakSelf.smscodeView.startsCountdown = YES;
-        }];
-        [registerAlertVC cancelBtnWithBlock:^{
-            //
-            weakSelf.smscodeView.startsCountdown = NO;
-            NSLog(@"点击取消按钮");
-        }];
+        } else {
+            HXBRegisterAlertVC *registerAlertVC = nil;
+            if (self.presentedViewController)
+            {
+                registerAlertVC = (HXBRegisterAlertVC *)self.presentedViewController;
+            }else
+            {
+                registerAlertVC = [[HXBRegisterAlertVC alloc] init];
+                [self presentViewController:registerAlertVC animated:NO completion:nil];
+            }
+            
+            registerAlertVC.messageTitle = @"获取语音验证码";
+            registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
+            
+            [registerAlertVC verificationCodeBtnWithBlock:^{
+                NSInteger num = [[NSUserDefaults standardUserDefaults] integerForKey:@"clickSmsCodeBtnNum"];
+                ++num;
+                [[NSUserDefaults standardUserDefaults] setInteger:num forKey:@"clickSmsCodeBtnNum"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [weakSelf sendSmscode];
+                [weakSelf.smscodeView clickSendButton:nil];
+            }];
+            [registerAlertVC speechVerificationCodeBtnWithBlock:^{
+                NSInteger num = [[NSUserDefaults standardUserDefaults] integerForKey:@"clickSmsCodeBtnNum"];
+                ++num;
+                [[NSUserDefaults standardUserDefaults] setInteger:num forKey:@"clickSmsCodeBtnNum"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [weakSelf sendSmscode];//获取语音验证码 注意参数
+                [weakSelf.smscodeView clickSendButton:nil];
+            }];
+            [registerAlertVC cancelBtnWithBlock:^{
+                //
+                weakSelf.smscodeView.startsCountdown = NO;
+                NSLog(@"点击取消按钮");
+            }];
+        }
+        
     }];
 }
+
 - (void)sendSmscode {
     kWeakSelf
     //请求网络数据
@@ -118,33 +178,21 @@
         switch (weakSelf.type) {
             case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
                 NSLog(@"发送 验证码");
-//                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-//                                    [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                                        if ([obj isKindOfClass:[HxbAccountInfoViewController class]]) {
-//                                            [self.navigationController popToViewController:obj animated:true];
-//                                            *stop = true;
-//                                        }
-                //                    }];
             }
                 break;
             case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
             {
                 NSLog(@"注册");
-//                weakSelf.smscodeView.isSpeechVerificationCode = YES;
+                //                weakSelf.smscodeView.isSpeechVerificationCode = YES;
                 weakSelf.smscodeView.startsCountdown = YES;
-                
-                
-//                [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
-//                }];
             }
                 break;
         }
     } andFailureBlock:^(NSError *error) {
         kNetWorkError(@"短信发送失败");
-//        weakSelf.smscodeView.isSpeechVerificationCode = NO;
+        //        weakSelf.smscodeView.isSpeechVerificationCode = NO;
         weakSelf.smscodeView.startsCountdown = NO;
     }];
-
 }
 - (void)registerPassword {
     __weak typeof(self)weakSelf = self;

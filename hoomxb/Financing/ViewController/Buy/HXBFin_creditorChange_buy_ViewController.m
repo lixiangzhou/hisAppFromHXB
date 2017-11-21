@@ -228,53 +228,10 @@ static NSString *const bankString = @"绑定银行卡";
     double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue];
     NSString *rechargeMoney =_viewModel.userInfoModel.userInfo.minChargeAmount_new;
     if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"充值金额必须大于%d元", _viewModel.userInfoModel.userInfo.minChargeAmount]];
-        topupMoney = _viewModel.userInfoModel.userInfo.minChargeAmount;
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-                
-                [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
-                    _isSpeechVerificationCode = YES;
-                    [weakSelf alertSmsCode];
-                    
-                } andFailureBlock:^(NSError *error) {
-                    
-                    NSDictionary *errDic = (NSDictionary *)error;
-                    @try {
-                        if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-                            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                            withdrawCardViewController.title = @"绑卡";
-                            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                            [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-                        }
-                    } @catch (NSException *exception) {
-                    } @finally {
-                    }
-                }];
-            });
-        });
-    } else {
-        HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-        NSLog(@"___%.2f", topupMoney);
-        [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
-            _isSpeechVerificationCode = YES;
-            [weakSelf alertSmsCode];
-        } andFailureBlock:^(NSError *error) {
-            NSDictionary *errDic = (NSDictionary *)error;
-            @try {
-                if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                    withdrawCardViewController.title = @"绑卡";
-                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-                }
-            } @catch (NSException *exception) {
-                
-            } @finally {
-                
-            }
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", rechargeMoney] force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确认充值"];
+        alertVC.isCenterShow = YES;
+        [alertVC setClickXYRightButtonBlock:^{
+            [weakSelf sendSmsCodeWithMoney:_viewModel.userInfoModel.userInfo.minChargeAmount];
         }];
         [self presentViewController:alertVC animated:YES completion:nil];
     } else {
