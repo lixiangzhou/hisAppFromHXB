@@ -275,19 +275,6 @@ static const NSInteger topView_high = 300;
     [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
         [self alertSmsCode];
     } andFailureBlock:^(NSError *error) {
-        NSDictionary *errDic = (NSDictionary *)error;
-        @try {
-            if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                withdrawCardViewController.title = @"绑卡";
-                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-            }
-        } @catch (NSException *exception) {
-            
-        } @finally {
-            
-        }
     }];
 }
 
