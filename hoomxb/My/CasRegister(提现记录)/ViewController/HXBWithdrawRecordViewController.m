@@ -61,6 +61,9 @@
         [weakSelf endRefreshing];
         if (withdrawRecordListModel.isNoMoreData) {
              [weakSelf.withdrawRecordTableView.mj_footer endRefreshingWithNoMoreData];
+            if (withdrawRecordListModel.dataList.count < kPageCount) {
+                weakSelf.withdrawRecordTableView.mj_footer = nil;
+            }
         } else {
             if (!weakSelf.withdrawRecordTableView.mj_footer) {
                 [weakSelf.withdrawRecordTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
