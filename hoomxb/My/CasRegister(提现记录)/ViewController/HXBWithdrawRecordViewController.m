@@ -61,11 +61,16 @@
         [weakSelf endRefreshing];
         if (withdrawRecordListModel.isNoMoreData) {
              [weakSelf.withdrawRecordTableView.mj_footer endRefreshingWithNoMoreData];
+            if (withdrawRecordListModel.dataList.count <= kPageCount) {
+                weakSelf.withdrawRecordTableView.mj_footer = nil;
+            }
         } else {
-            [weakSelf.withdrawRecordTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-                [weakSelf loadCashRegisterDataNeeedShowLoading:NO];
-            } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-            }];
+            if (!weakSelf.withdrawRecordTableView.mj_footer) {
+                [weakSelf.withdrawRecordTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+                    [weakSelf loadCashRegisterDataNeeedShowLoading:NO];
+                } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+                }];
+            }
         }
     } andFailureBlock:^(NSError *error) {
         [weakSelf.withdrawRecordTableView reloadData];
