@@ -86,6 +86,7 @@ static NSString *const bankString = @"绑定银行卡";
     [super viewWillAppear: animated];
     [self getBankCardLimit];
     [self getNewUserInfo];
+    
 }
 
 - (void)dealloc {
@@ -390,10 +391,11 @@ static NSString *const bankString = @"绑定银行卡";
         self.hxbBaseVCScrollView.hidden = NO;
         _viewModel = viewModel;
         _balanceMoneyStr = _viewModel.userInfoModel.userAssets.availablePoint;
+        [self changeItemWithInvestMoney:_inputMoneyStr];
         [self setUpArray];
         [self.hxbBaseVCScrollView reloadData];
     } andFailure:^(NSError *error) {
-        
+        [self changeItemWithInvestMoney:_inputMoneyStr];
     }];
 }
 
