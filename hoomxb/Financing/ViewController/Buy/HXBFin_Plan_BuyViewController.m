@@ -225,10 +225,7 @@
         }
         //判断是否安全认证
         kWeakSelf
-//        [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
-//            if (!isVerify) {
-//                [HxbHUDProgress showTextWithMessage:@"去安全认证"];
-//            } else {
+
                 [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.ID andAmount:capital cashType:self.planViewModel.profitType andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
                     ///加入成功
                     HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];

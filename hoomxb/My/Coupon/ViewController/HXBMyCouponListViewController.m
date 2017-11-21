@@ -10,7 +10,10 @@
 #import "HXBMyCouponListView.h"
 #import "HXBRequestAccountInfo.h"
 #import "HXBMyCouponListModel.h"
+#import "AppDelegate.h"
+#import "HXBInviteListViewController.h"
 #import "HXBRootVCManager.h"
+#import "HXBBannerWebViewController.h"
 
 @interface HXBMyCouponListViewController (){
     int _page;
@@ -72,6 +75,11 @@
     if (!_myView) {
         _myView = [[HXBMyCouponListView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-44)];
         kWeakSelf
+        _myView.block = ^{
+            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+            webViewVC.url = kHXBH5_InviteDetailURL;
+            [weakSelf.navigationController pushViewController:webViewVC animated:true];
+        };
         _myView.userInteractionEnabled = YES;
         /**
          点击cell中按钮的回调的Block

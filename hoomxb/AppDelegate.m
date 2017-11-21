@@ -14,6 +14,9 @@
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 #import "IQKeyboardManager.h"//设置键盘
 #import "UMMobClick/MobClick.h"//友盟统计
+
+#import "HXBUMengShareManager.h"//友盟分享
+
 #import "AvoidCrash.h"//防止数据为空产生的闪退
 #import "HXBRootVCManager.h"    // 根控制器管理
 #import <Fabric/Fabric.h> //fabric crash 统计
@@ -54,6 +57,10 @@
 
     //设置键盘
     [self keyboardManager];
+    
+    //友盟分享
+    [HXBUMengShareManager umengShareStart];
+    
     //方案多个按钮同时点击
     [[UIButton appearance] setExclusiveTouch:YES];
     
@@ -105,6 +112,19 @@
     //服务器时间与客户端时间的处理
     [self serverAndClientTime];
 }
+
+// 支持所有iOS系统
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响
+    BOOL result = [[HXBUMengShareManager defaultManager] handleOpenURL:url sourceApplication:sourceApplication annotation:annotation];
+    if (!result) {
+        // 其他如支付等SDK的回调
+    }
+    return result;
+}
+
+
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     
