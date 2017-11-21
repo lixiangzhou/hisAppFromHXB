@@ -115,7 +115,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:true animated:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     [self getData:YES];
     
     [self.homeView changeIndicationView:self.userInfoViewModel];
