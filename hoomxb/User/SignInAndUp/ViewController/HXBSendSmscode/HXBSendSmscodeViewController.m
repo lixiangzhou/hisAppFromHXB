@@ -15,6 +15,8 @@
 #import "HXBSignUPAgreementWebViewVC.h"
 #import "HXBSignInWaterView.h"
 #import "HXBRegisterAlertVC.h"
+#import "HXBCheckCaptchaViewController.h"///modal 出来的校验码
+
 ///短信验证 VC
 @interface HXBSendSmscodeViewController ()
 @property (nonatomic,strong) HXBSendSmscodeView *smscodeView;
@@ -50,6 +52,8 @@
     self.hxbBaseVCScrollView.bounces = NO;
     self.smscodeView = [[HXBSendSmscodeView alloc] initWithFrame:self.view.frame];
     self.smscodeView.type = self.type;
+    self.smscodeView.startsCountdown = YES;
+    
     kWeakSelf
     self.trackingScrollViewBlock = ^(UIScrollView *scrollView) {
         [weakSelf.smscodeView endEditing:true];
@@ -70,7 +74,6 @@
     [self registerAgreementSignUP];
 }
 
-
 ///注册短信验证码
 - (void)registerSendSmscode {
     
@@ -88,18 +91,22 @@
         kWeakSelf
         registerAlertVC.messageTitle = @"获取语音验证码";
         registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
-//        __weak typeof (registerAlertVC) weakAlertVC = registerAlertVC;
         
         [registerAlertVC verificationCodeBtnWithBlock:^{
             [weakSelf sendSmscode];
             [weakSelf.smscodeView clickSendButton:nil];
+            //            weakSelf.smscodeView.isSpeechVerificationCode = YES;
+            //            weakSelf.smscodeView.startsCountdown = YES;
         }];
         [registerAlertVC speechVerificationCodeBtnWithBlock:^{
             [weakSelf sendSmscode];//获取语音验证码 注意参数
             [weakSelf.smscodeView clickSendButton:nil];
+            //            weakSelf.smscodeView.isSpeechVerificationCode = YES;
+            //            weakSelf.smscodeView.startsCountdown = YES;
         }];
         [registerAlertVC cancelBtnWithBlock:^{
             //
+            weakSelf.smscodeView.startsCountdown = NO;
             NSLog(@"点击取消按钮");
         }];
     }];
@@ -123,8 +130,8 @@
             case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
             {
                 NSLog(@"注册");
-                
-                
+//                weakSelf.smscodeView.isSpeechVerificationCode = YES;
+                weakSelf.smscodeView.startsCountdown = YES;
                 
                 
 //                [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
@@ -134,6 +141,8 @@
         }
     } andFailureBlock:^(NSError *error) {
         kNetWorkError(@"短信发送失败");
+//        weakSelf.smscodeView.isSpeechVerificationCode = NO;
+        weakSelf.smscodeView.startsCountdown = NO;
     }];
 
 }
