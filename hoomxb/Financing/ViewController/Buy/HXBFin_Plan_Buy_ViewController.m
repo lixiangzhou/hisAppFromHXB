@@ -268,8 +268,7 @@ static const NSInteger topView_high = 300;
         [alertVC setClickXYRightButtonBlock:^{
             [weakSelf sendSmsCodeWithMoney:_viewModel.userInfoModel.userInfo.minChargeAmount];
         }];
-        [weakSelf presentViewController:alertVC animated:YES completion:nil];
-        
+        [self presentViewController:alertVC animated:YES completion:nil];
     } else {
         [weakSelf sendSmsCodeWithMoney:topupMoney];
     }
