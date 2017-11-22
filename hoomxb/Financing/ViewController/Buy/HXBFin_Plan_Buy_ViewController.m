@@ -270,7 +270,7 @@ static const NSInteger topView_high = 300;
         }];
         [self presentViewController:alertVC animated:YES completion:nil];
     } else {
-        [weakSelf sendSmsCodeWithMoney:topupMoney];
+        [self sendSmsCodeWithMoney:topupMoney];
     }
 }
 
@@ -296,7 +296,7 @@ static const NSInteger topView_high = 300;
         _buyType = @"recharge"; // 弹出短验，都是充值购买
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
-        weakSelf.alertVC.sureBtnClick = ^(NSString *pwd) {
+        self.alertVC.sureBtnClick = ^(NSString *pwd) {
             [weakSelf.alertVC.view endEditing:YES];
             NSDictionary *dic = nil;
             dic = @{@"amount": _inputMoneyStr,
@@ -308,12 +308,12 @@ static const NSInteger topView_high = 300;
                     };
             [weakSelf buyPlanWithDic:dic];
         };
-        weakSelf.alertVC.getVerificationCodeBlock = ^{
+        self.alertVC.getVerificationCodeBlock = ^{
             _isClickSpeechVerificationCode = NO;
             _isSpeechVerificationCode = YES;
             [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
         };
-        weakSelf.alertVC.getSpeechVerificationCodeBlock = ^{
+        self.alertVC.getSpeechVerificationCodeBlock = ^{
             _isClickSpeechVerificationCode = YES;
             _isSpeechVerificationCode = YES;
             //获取语音验证码 注意参数
@@ -325,7 +325,7 @@ static const NSInteger topView_high = 300;
 }
 
 -(void)alertPassWord {
-//    self.alertVC = [[HXBAlertVC alloc] init];
+    self.alertVC = [[HXBAlertVC alloc] init];
     self.alertVC.isCode = NO;
     self.alertVC.messageTitle = @"交易密码";
     self.alertVC.isCleanPassword = YES;

@@ -272,11 +272,8 @@ static NSString *const bankString = @"绑定银行卡";
             //获取语音验证码 注意参数
             _isClickSpeechVerificationCode = YES;
             _isSpeechVerificationCode = YES;
-            HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
+            
             [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
-            //        [accountRequest accountRechargeRequestWithRechargeAmount:weakSelf.inputMoneyStr andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
-            //        } andFailureBlock:^(NSError *error) {
-            //        }];
         };
         [self presentViewController:_alertVC animated:NO completion:nil];
     }

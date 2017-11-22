@@ -230,7 +230,7 @@ static NSString *const bankString = @"绑定银行卡";
             _isSpeechVerificationCode = YES;
             [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
         };
-        weakSelf.alertVC.getSpeechVerificationCodeBlock = ^{
+        self.alertVC.getSpeechVerificationCodeBlock = ^{
             _isClickSpeechVerificationCode = YES;
             _isSpeechVerificationCode = YES;
             //获取语音验证码 注意参数
