@@ -37,7 +37,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
     self.isBlueGradientNavigationBar = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    // 恢复全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
 - (void)setSubViewFrame
