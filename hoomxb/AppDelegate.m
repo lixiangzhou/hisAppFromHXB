@@ -64,7 +64,7 @@
     //方案多个按钮同时点击
     [[UIButton appearance] setExclusiveTouch:YES];
     
-    if (HXBIsRelease == NO) {
+    if (HXBShakeChangeBaseUrl == YES) {
         [HXBBaseUrlSettingView attatchToWindow];
     }
     
@@ -165,7 +165,7 @@
     NYNetworkConfig *config = [NYNetworkConfig sharedInstance];
     config.baseUrl = [HXBBaseUrlManager manager].baseUrl;
     
-    if (HXBIsRelease == NO) {
+    if (HXBShakeChangeBaseUrl == YES) {
         // 当baseUrl 改变的时候，需要更新 config.baseUrl
         [RACObserve([HXBBaseUrlManager manager], baseUrl) subscribeNext:^(id  _Nullable x) {
             config.baseUrl = x;

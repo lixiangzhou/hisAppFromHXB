@@ -136,7 +136,7 @@
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    if (HXBIsRelease == NO) {
+    if (HXBShakeChangeBaseUrl == YES) {
         [[HXBBaseUrlSettingView settingView] show];
     }
 }
