@@ -188,7 +188,6 @@
     planDetailsVC.planID = model.planListModel.ID;
     planDetailsVC.isPlan = true;
     planDetailsVC.isFlowChart = true;
-    planDetailsVC.hidesBottomBarWhenPushed = true;
     planDetailsVC.planListViewModel = model;
 
     [self.navigationController pushViewController:planDetailsVC animated:true];
@@ -220,8 +219,6 @@
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
     loanDetailsVC.loanID = model.loanListModel.loanId;
     loanDetailsVC.loanListViewMode = model;
- 
-    loanDetailsVC.hidesBottomBarWhenPushed = true;
     [self.navigationController pushViewController:loanDetailsVC animated:true];
 }
 
@@ -326,6 +323,13 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 //    [self.homePageView.contDwonManager cancelTimer];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
