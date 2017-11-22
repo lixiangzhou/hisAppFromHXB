@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'A8F2F0BF0B749ACB31DD7EB11A0864A9'
+               BlueprintIdentifier = 'CECFF06863F04D2B9837F24F4E1150E1'
                BlueprintName = 'CJLabel'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libCJLabel.a'>

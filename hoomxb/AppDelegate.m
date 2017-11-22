@@ -35,7 +35,7 @@
     //设置启动页面停留时间
     [NSThread sleepForTimeInterval:0.5];
     //字典和数据为空的防止闪退
-    [AvoidCrash becomeEffective];
+//    [AvoidCrash becomeEffective];
     
     //fabrci crash 统计
     [Fabric with:@[[Crashlytics class]]];

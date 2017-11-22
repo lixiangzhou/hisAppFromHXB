@@ -14,7 +14,7 @@
 //MARK: ======================= 所有H5 界面 =======================
 
 #define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",[KeyChain h5host]]//风险评测
-#define kHXBH5_InviteDetailURL [NSString stringWithFormat:@"%@/invite/detail",[KeyChain h5host]]//邀请好友
+#define kHXBH5_InviteDetailURL [NSString stringWithFormat:@"%@/account/invite",[KeyChain h5host]]//邀请好友 /invite/detail
 
 //MARK: ======================= 闪屏接口 界面 =======================
 #define kHXBSplash            @"/splash"///闪屏接口
@@ -39,7 +39,7 @@
 #define kHXBUser_SignUPURL @"/user/signup"//注册
 #define HXBAccount_ForgotPasswordURL @"/forgot"///忘记密码
 #define kHXBUser_checkCaptchaURL @"/checkCaptcha"///校验 图片验证码
-#define kHXBUser_smscodeURL @"/send/smscode"///发送短信接口
+#define kHXBUser_smscodeURL @"/verifycode/send"//@"/send/smscode"///发送短信接口
 #define kHXBUser_CheckMobileURL @"/checkMobile"///校验手机号
 #define kHXBUser_CheckExistMobileURL @"/checkExistMobile"///忘记密码校验手机号
 #define kHXBUser_realnameURL @"/user/realname"///实名认证
