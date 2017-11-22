@@ -117,7 +117,6 @@
     [super viewWillAppear:animated];
     [self hideNavigationBar:animated];
     [self getData:YES];
-    
     [self.homeView changeIndicationView:self.userInfoViewModel];
     [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
 }
