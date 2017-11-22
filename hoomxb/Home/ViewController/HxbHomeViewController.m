@@ -115,9 +115,9 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self hideNavigationBar:animated];
     [self getData:YES];
-    
     [self.homeView changeIndicationView:self.userInfoViewModel];
     [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
 }
@@ -155,6 +155,7 @@
         });
     }
     [self transparentNavigationTitle];
+    self.tabBarController.tabBar.hidden = NO;
     //    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
@@ -359,7 +360,6 @@
             planDetailsVC.planID = homePageModel.ID;
             planDetailsVC.isPlan = true;
             planDetailsVC.isFlowChart = true;
-            planDetailsVC.hidesBottomBarWhenPushed = true;
             [weakSelf.navigationController pushViewController:planDetailsVC animated:true];
         };
         _homeView.tipButtonClickBlock_homeView = ^(){

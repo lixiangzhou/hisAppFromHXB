@@ -33,6 +33,16 @@
     [[UITabBar appearance] setShadowImage:[UIImage new]];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    UINavigationController *navController = self.selectedViewController;
+    if(navController.viewControllers.count > 1){
+        self.tabBar.hidden = YES;
+    }
+}
+
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
