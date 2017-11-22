@@ -498,10 +498,11 @@ static const NSInteger topView_high = 300;
         self.hxbBaseVCScrollView.hidden = NO;
         _viewModel = viewModel;
         _balanceMoneyStr = _viewModel.userInfoModel.userAssets.availablePoint;
+         [self changeItemWithInvestMoney:_inputMoneyStr];
         [self setUpArray];
         [self.hxbBaseVCScrollView reloadData];
     } andFailure:^(NSError *error) {
-        
+        [self changeItemWithInvestMoney:_inputMoneyStr];
     }];
 }
 

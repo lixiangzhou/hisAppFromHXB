@@ -91,6 +91,7 @@ static NSString *const bankString = @"绑定银行卡";
     [super viewWillAppear: animated];
     [self getBankCardLimit];
     [self getNewUserInfo];
+    
 }
 
 - (void)dealloc {
@@ -245,17 +246,6 @@ static NSString *const bankString = @"绑定银行卡";
     [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:type andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
         [self alertSmsCode];
     } andFailureBlock:^(NSError *error) {
-        NSDictionary *errDic = (NSDictionary *)error;
-        @try {
-            if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                withdrawCardViewController.title = @"绑卡";
-                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-            }
-        } @catch (NSException *exception) {
-        } @finally {
-        }
     }];
 }
 
@@ -408,10 +398,11 @@ static NSString *const bankString = @"绑定银行卡";
         self.hxbBaseVCScrollView.hidden = NO;
         _viewModel = viewModel;
         _balanceMoneyStr = _viewModel.userInfoModel.userAssets.availablePoint;
+        [self changeItemWithInvestMoney:_inputMoneyStr];
         [self setUpArray];
         [self.hxbBaseVCScrollView reloadData];
     } andFailure:^(NSError *error) {
-        
+        [self changeItemWithInvestMoney:_inputMoneyStr];
     }];
 }
 
