@@ -145,7 +145,7 @@
 // modal 登录控制器
 - (void)presentLoginVC:(NSNotification *)notification {
     HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
-    UINavigationController *navi = [[UINavigationController alloc]initWithRootViewController:vc];
+    HXBBaseNavigationController *navi = [[HXBBaseNavigationController alloc]initWithRootViewController:vc];
     vc.selectedIndexVC = notification.object[@"selectedIndex"];
     @try {
         vc.isUpdate = notification.object[kHXBMY_VersionUpdateURL];

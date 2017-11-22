@@ -81,7 +81,7 @@
 @implementation HXBFinancing_PlanDetailsViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isHiddenNavigationBar = false;
+    self.isColourGradientNavigationBar = YES;
     [self setup];
     [self downLoadData];
     [self tableViewModelArray];

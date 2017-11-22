@@ -32,7 +32,12 @@
                  andInviteCode: (NSString *)inviteCode
                andSuccessBlock: (void(^)())successBlock
                andFailureBlock: (void(^)(NSError *error))failureBlock;
-
++ (void)smscodeRequestWithMobile: (NSString *)mobile
+                       andAction: (HXBSignUPAndLoginRequest_sendSmscodeType)action
+                      andCaptcha: (NSString *)captcha
+                         andType:(NSString *)type
+                 andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
+                 andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
 /**

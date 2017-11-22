@@ -39,7 +39,7 @@
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{
                                          @"page" : @(page),
-                                         @"pageSize" : @20
+                                         @"pageSize" : @kPageCount
                                          };
     if (page == 1) {
         [self.dataList removeAllObjects];

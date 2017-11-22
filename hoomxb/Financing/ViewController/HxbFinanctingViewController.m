@@ -86,8 +86,7 @@
     self.countDownButton = [[HXBToolCountDownButton alloc]init];
     
     [self.countDownButton setValue:@1 forKey:@"selected"];
-    // NAV
-    self.isHiddenNavigationBar = true;//隐藏导航条
+    
     //初始化属性
     [self creatProperty];//实例化请求单利
     
@@ -331,6 +330,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 //    [self.homePageView.contDwonManager resumeTimer];
 //    [self.homePageView loadData];
     [self planLoadDateWithIsUpData:true];

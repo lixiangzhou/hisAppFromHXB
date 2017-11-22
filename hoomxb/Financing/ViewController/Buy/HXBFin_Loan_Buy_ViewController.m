@@ -4,7 +4,7 @@
 //
 //  Created by 肖扬 on 2017/11/13.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
-//
+// 散标
 
 #import "HXBFin_Loan_Buy_ViewController.h"
 #import "HXBCreditorChangeTopView.h"
@@ -66,6 +66,8 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, copy) NSString *balanceDetailTitle;
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+//是否点击的语音
+@property (nonatomic, assign) BOOL isClickSpeechVerificationCode;
 
 @end
 
@@ -204,6 +206,8 @@ static NSString *const bankString = @"绑定银行卡";
     self.alertVC = [[HXBAlertVC alloc] init];
     self.alertVC.isCode = YES;
     self.alertVC.isCleanPassword = YES;
+    self.alertVC.isSpeechVerificationCode = YES;
+    _isClickSpeechVerificationCode = NO;
     self.alertVC.messageTitle = @"充值验证短信";
     _buyType = @"recharge"; // 弹出短验，都是充值购买
     self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
@@ -225,7 +229,8 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)sendSmsCodeWithMoney:(double)topupMoney {
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
+    NSString *type = _isClickSpeechVerificationCode ? @"voice" : @"sms";
+    [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:type andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
         [self alertSmsCode];
     } andFailureBlock:^(NSError *error) {
     }];

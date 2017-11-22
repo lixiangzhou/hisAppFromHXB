@@ -63,7 +63,7 @@
     self.versionUpdateAPI.requestMethod = NYRequestMethodGet;
     self.versionUpdateAPI.requestArgument = @{
                                          @"page" : @(self.versionUpdateAPI.dataPage),
-                                         @"pageSize" : @20
+                                         @"pageSize" : @kPageCount
                                          };
     kWeakSelf
     [self.versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {

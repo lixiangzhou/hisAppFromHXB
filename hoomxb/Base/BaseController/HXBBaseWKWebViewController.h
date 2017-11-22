@@ -1,5 +1,5 @@
 //
-//  HXBBaseWebViewController.h
+//  HXBBaseWKWebViewController.h
 //  hoomxb
 //
 //  Created by HXB on 2017/5/13.
@@ -8,7 +8,7 @@
 
 #import <WebKit/WebKit.h>
 
-@interface HXBBaseWebViewController : UIViewController
+@interface HXBBaseWKWebViewController : UIViewController
 //活动或者官方类型通知 被点击后，串来的url 跳转webView
 @property (nonatomic,strong) NSURL *pushURL;
 @property (nonatomic,copy) NSString *typeTitle;
