@@ -80,7 +80,7 @@
     [sectionHeadView addSubview:titleLable];
     
     UIView *separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(44.5), kScreenWidth, kHXBDivisionLineHeight)];
-    separatorLineView.backgroundColor = COR12;
+    separatorLineView.backgroundColor = COR13;
     [sectionHeadView addSubview:separatorLineView];
     
     return sectionHeadView;

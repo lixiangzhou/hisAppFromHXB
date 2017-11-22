@@ -59,7 +59,7 @@
 - (void)setupFrame {
     [_backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self);
-        make.height.offset(kScrAdaptationH(kScrAdaptationH(248) - 64));
+        make.height.offset(kScrAdaptationH(248) - 64);
     }];
     
     [_topLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -75,7 +75,7 @@
     }];
     
     [_leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_topItemLabel.mas_bottom).offset(kScrAdaptationH(15));
+        make.top.equalTo(_topItemLabel.mas_bottom).offset(kScrAdaptationH(20));
         make.centerX.equalTo(self.mas_centerX).offset(-kScreenWidth / 4);
         make.height.offset(kScrAdaptationH(33));
     }];
