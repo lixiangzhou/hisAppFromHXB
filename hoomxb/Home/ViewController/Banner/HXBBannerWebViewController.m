@@ -178,6 +178,10 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        return NO;
+    }
+    
     return YES;
 }
 
@@ -205,7 +209,7 @@
         NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
         NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
         NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVersion,version];
-        NSLog(@"%@",[KeyChain token]);
+        NSLog(@"测试token：%@结束",[KeyChain token]);
         [urlRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
         [urlRequest setValue:userAgent forHTTPHeaderField:X_Hxb_User_Agent];
         [_webView loadRequest:urlRequest];
