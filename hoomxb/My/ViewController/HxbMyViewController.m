@@ -85,6 +85,7 @@
 {
     [super viewDidAppear:animated];
     [self transparentNavigationTitle];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 //MARK: 对controllerView进行布局

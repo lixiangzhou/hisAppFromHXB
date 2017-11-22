@@ -30,16 +30,16 @@
 - (instancetype)init {
     self = [super init];
     if (self) {
-        if (HXBIsRelease) {
+        if (HXBShakeChangeBaseUrl == NO) {
             // 线上环境
-            _baseUrl = @"http://myapi.hoomxb.com";
+            _baseUrl = @"http://api.hoomxb.com";
         } else {
             NSString *storedBaseUrl = [[NSUserDefaults standardUserDefaults] objectForKey:HXBBaseUrlKey];
             // http://192.168.1.36:3100 长度24
             if (storedBaseUrl.length > 0) {
                 _baseUrl = storedBaseUrl;
             } else {
-                _baseUrl = @"http://192.168.1.37:3100";
+                _baseUrl = @"http://192.168.1.26:3100";
             }
         }
     }
@@ -47,7 +47,7 @@
 }
 
 - (void)setBaseUrl:(NSString *)baseUrl {
-    if (HXBIsRelease) {
+    if (HXBShakeChangeBaseUrl == NO) {
         return;
     }
     _baseUrl = baseUrl;
