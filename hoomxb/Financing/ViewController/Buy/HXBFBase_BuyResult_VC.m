@@ -174,6 +174,7 @@
 }
 
 - (void)clickToShare:(UIButton *)clickToShare {
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_inviteSucess_share];
     [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
 }
 
@@ -188,6 +189,7 @@
 }
 
 - (void)clickButton: (UIButton *)button {
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_investSucess_seeResult];
     if (self.clickButtonBlock) {
         self.clickButtonBlock();
     }

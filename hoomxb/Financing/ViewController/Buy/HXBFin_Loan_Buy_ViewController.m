@@ -389,7 +389,6 @@ static NSString *const bankString = @"绑定银行卡";
         [self setUpArray];
         [self.hxbBaseVCScrollView reloadData];
     } andFailure:^(NSError *error) {
-        [self changeItemWithInvestMoney:_inputMoneyStr];
     }];
 }
 

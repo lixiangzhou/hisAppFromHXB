@@ -59,7 +59,11 @@
 - (void)setupFrame {
     [_backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self);
-        make.height.offset(kScrAdaptationH(248) - 64);
+        if (LL_iPhoneX) {
+            make.height.offset(kScrAdaptationH(248) - HxbNavigationBarY);
+        } else {
+            make.height.offset(kScrAdaptationH(248) - HxbNavigationBarMaxY);
+        }
     }];
     
     [_topLabel mas_makeConstraints:^(MASConstraintMaker *make) {
