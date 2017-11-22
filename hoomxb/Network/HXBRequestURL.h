@@ -39,7 +39,7 @@
 #define kHXBUser_SignUPURL @"/user/signup"//注册
 #define HXBAccount_ForgotPasswordURL @"/forgot"///忘记密码
 #define kHXBUser_checkCaptchaURL @"/checkCaptcha"///校验 图片验证码
-#define kHXBUser_smscodeURL @"/send/smscode"///发送短信接口
+#define kHXBUser_smscodeURL @"/verifycode/send"//@"/send/smscode"///发送短信接口
 #define kHXBUser_CheckMobileURL @"/checkMobile"///校验手机号
 #define kHXBUser_CheckExistMobileURL @"/checkExistMobile"///忘记密码校验手机号
 #define kHXBUser_realnameURL @"/user/realname"///实名认证

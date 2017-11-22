@@ -31,7 +31,6 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.isColourGradientNavigationBar = YES;
     [self setupLeftBackBtn];
     
     [self loadNoNetwork];

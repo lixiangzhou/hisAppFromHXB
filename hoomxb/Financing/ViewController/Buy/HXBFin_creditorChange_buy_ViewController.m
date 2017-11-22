@@ -266,18 +266,6 @@ static NSString *const bankString = @"绑定银行卡";
         HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
         [accountRequest accountRechargeRequestWithRechargeAmount:weakSelf.inputMoneyStr andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
         } andFailureBlock:^(NSError *error) {
-            NSDictionary *errDic = (NSDictionary *)error;
-            @try {
-                if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                    withdrawCardViewController.title = @"绑卡";
-                    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                    [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-                }
-            } @catch (NSException *exception) {
-            } @finally {
-            }
-            
         }];
     };
     [self presentViewController:_alertVC animated:NO completion:nil];
