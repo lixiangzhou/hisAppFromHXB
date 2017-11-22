@@ -86,6 +86,8 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 //是否点击的语音
 @property (nonatomic, assign) BOOL isClickSpeechVerificationCode;
+//是否有语音验证码
+@property (nonatomic, assign) BOOL isSpeechVerificationCode;
 @end
 
 @implementation HXBFin_Plan_Buy_ViewController
@@ -96,6 +98,8 @@ static NSString *const bankString = @"绑定银行卡";
     _couponTitle = @"优惠券";
     _discountTitle = @"";
     _balanceTitle = @"可用余额";
+    _isSpeechVerificationCode = NO;
+    _isClickSpeechVerificationCode = NO;
     [self buildUI];
     [self getBankCardLimit];
     [self hasBestCouponRequest];
@@ -264,66 +268,65 @@ static const NSInteger topView_high = 300;
         [alertVC setClickXYRightButtonBlock:^{
             [weakSelf sendSmsCodeWithMoney:_viewModel.userInfoModel.userInfo.minChargeAmount];
         }];
-        [self presentViewController:alertVC animated:YES completion:nil];
+        [weakSelf presentViewController:alertVC animated:YES completion:nil];
         
     } else {
-        [self sendSmsCodeWithMoney:topupMoney];
+        [weakSelf sendSmsCodeWithMoney:topupMoney];
     }
 }
 
 - (void)sendSmsCodeWithMoney:(double)topupMoney {
-    
+    kWeakSelf
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     NSString *type = _isClickSpeechVerificationCode ? @"voice" : @"sms";
     [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:type andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
-        [self alertSmsCode];
+        
+        [weakSelf alertSmsCode];
     } andFailureBlock:^(NSError *error) {
-        NSDictionary *errDic = (NSDictionary *)error;
-        @try {
-            if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                withdrawCardViewController.title = @"绑卡";
-                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-            }
-        } @catch (NSException *exception) {
-            
-        } @finally {
-            
-        }
     }];
 }
 
 - (void)alertSmsCode {
-    self.alertVC = [[HXBAlertVC alloc] init];
-    self.alertVC.isCode = YES;
-    self.alertVC.isCleanPassword = YES;
-    self.alertVC.isSpeechVerificationCode = YES;
-    _isClickSpeechVerificationCode = NO;
-    self.alertVC.messageTitle = @"充值验证短信";
-    _buyType = @"recharge"; // 弹出短验，都是充值购买
-    self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-    kWeakSelf
-    self.alertVC.sureBtnClick = ^(NSString *pwd) {
-        [weakSelf.alertVC.view endEditing:YES];
-        NSDictionary *dic = nil;
-        dic = @{@"amount": _inputMoneyStr,
-                @"cashType": _cashType,
-                @"buyType": _buyType,
-                @"balanceAmount": _balanceMoneyStr,
-                @"smsCode": pwd,
-                @"couponId": _couponid
-                };
-        [weakSelf buyPlanWithDic:dic];
-    };
-    self.alertVC.getVerificationCodeBlock = ^{
-        [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
-    };
-    [self presentViewController:_alertVC animated:NO completion:nil];
+    if (!self.presentedViewController) {
+        self.alertVC = [[HXBAlertVC alloc] init];
+        self.alertVC.isCode = YES;
+        self.alertVC.isCleanPassword = YES;
+        self.alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
+        //    _isClickSpeechVerificationCode = NO;
+        self.alertVC.messageTitle = @"充值验证短信";
+        _buyType = @"recharge"; // 弹出短验，都是充值购买
+        self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
+        kWeakSelf
+        weakSelf.alertVC.sureBtnClick = ^(NSString *pwd) {
+            [weakSelf.alertVC.view endEditing:YES];
+            NSDictionary *dic = nil;
+            dic = @{@"amount": _inputMoneyStr,
+                    @"cashType": _cashType,
+                    @"buyType": _buyType,
+                    @"balanceAmount": _balanceMoneyStr,
+                    @"smsCode": pwd,
+                    @"couponId": _couponid
+                    };
+            [weakSelf buyPlanWithDic:dic];
+        };
+        weakSelf.alertVC.getVerificationCodeBlock = ^{
+            _isClickSpeechVerificationCode = NO;
+            _isSpeechVerificationCode = YES;
+            [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
+        };
+        weakSelf.alertVC.getSpeechVerificationCodeBlock = ^{
+            _isClickSpeechVerificationCode = YES;
+            _isSpeechVerificationCode = YES;
+            //获取语音验证码 注意参数
+            [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
+        };
+        
+        [self presentViewController:self.alertVC animated:NO completion:nil];
+    }
 }
 
 -(void)alertPassWord {
-    self.alertVC = [[HXBAlertVC alloc] init];
+//    self.alertVC = [[HXBAlertVC alloc] init];
     self.alertVC.isCode = NO;
     self.alertVC.messageTitle = @"交易密码";
     self.alertVC.isCleanPassword = YES;
@@ -364,10 +367,10 @@ static const NSInteger topView_high = 300;
         planBuySuccessVC.title = @"投资成功";
         [planBuySuccessVC clickButtonWithBlock:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
-            [self.navigationController popToRootViewControllerAnimated:true];
+            [weakSelf.navigationController popToRootViewControllerAnimated:true];
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        [self.navigationController pushViewController:planBuySuccessVC animated:true];
+        [weakSelf.navigationController pushViewController:planBuySuccessVC animated:true];
     } andFailureBlock:^(NSError *error, NSInteger status) {
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
         failViewController.title = @"投资结果";
