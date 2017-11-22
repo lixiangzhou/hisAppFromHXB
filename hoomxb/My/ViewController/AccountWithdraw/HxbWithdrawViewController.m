@@ -73,9 +73,18 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
     [self loadBankCard];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    // 恢复全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
+}
 
 
 #pragma mark - Events

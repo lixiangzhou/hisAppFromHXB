@@ -129,7 +129,6 @@
             planDetailsVC.planID = productId;
             planDetailsVC.isPlan = true;
             planDetailsVC.isFlowChart = true;
-            planDetailsVC.hidesBottomBarWhenPushed = true;
             [baseVC.navigationController pushViewController:planDetailsVC animated:NO];
         }
     }else if ([data[@"path"] isEqualToString:kLoanDetailVC]){
@@ -140,7 +139,6 @@
             
             loanDetailsVC.loanID = productId;
             
-            loanDetailsVC.hidesBottomBarWhenPushed = true;
             [baseVC.navigationController pushViewController:loanDetailsVC animated:NO];
         }
         
