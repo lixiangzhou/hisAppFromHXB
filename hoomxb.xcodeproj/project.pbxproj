@@ -4596,6 +4596,7 @@
 				TargetAttributes = {
 					4E16D8291E9CD0FE002A1881 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Z9M2NMJFP5;
 						ProvisioningStyle = Manual;
 					};
 					4E16D8421E9CD0FE002A1881 = {
@@ -5383,7 +5384,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer: 聪聪 翟 (86S6Q378KL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 聪聪 翟 (86S6Q378KL)";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5402,7 +5403,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "61ead4f8-711a-4f99-8753-5de22470b739";
 				PROVISIONING_PROFILE_SPECIFIER = hoomun_dev;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
