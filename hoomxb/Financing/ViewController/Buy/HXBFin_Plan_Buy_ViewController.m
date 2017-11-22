@@ -265,7 +265,6 @@ static const NSInteger topView_high = 300;
             [weakSelf sendSmsCodeWithMoney:_viewModel.userInfoModel.userInfo.minChargeAmount];
         }];
         [self presentViewController:alertVC animated:YES completion:nil];
-        
     } else {
         [self sendSmsCodeWithMoney:topupMoney];
     }
