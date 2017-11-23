@@ -43,27 +43,22 @@
     HxbAdvertiseViewController *advertiseViewControllre = [[HxbAdvertiseViewController alloc]init];
     self.window.rootViewController = advertiseViewControllre;
     
-    [advertiseViewControllre dismissAdvertiseViewControllerFunc:^(BOOL isSingleLogin) {
-        [weakSelf chooseRootViewController:isSingleLogin];
-    }];
+    advertiseViewControllre.dismissBlock = ^() {
+        [weakSelf chooseRootViewController];
+    };
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 }
 
 /// 选择一个根控制器
-- (void)chooseRootViewController:(BOOL)isSingleLogin
+- (void)chooseRootViewController
 {
     NSString *currentVersion = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
     NSString *lastVersion = [[NSUserDefaults standardUserDefaults] objectForKey:AXHVersionKey];
     //版本检测
     if ([currentVersion isEqualToString:lastVersion]) { // 没有最新的版本号
-        // 广告的时候有单点登录码，不需要显示手势密码页面
-//        if (isSingleLogin) {
-//            [self makeTabbarRootVC];
-//        } else {
         [self enterTheGesturePasswordVCOrTabBar];
-//        }
     } else { // 有新版本
         AXHNewFeatureController *VC = [[AXHNewFeatureController alloc] init];
         VC.force = self.versionUpdateModel.force;
