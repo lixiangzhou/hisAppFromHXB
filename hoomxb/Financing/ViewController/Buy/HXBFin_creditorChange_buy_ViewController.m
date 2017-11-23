@@ -69,6 +69,8 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, strong) NSURLSessionDataTask *dataTask;
 //是否点击的语音
 @property (nonatomic, assign) BOOL isClickSpeechVerificationCode;
+//是否有语音验证码
+@property (nonatomic, assign) BOOL isSpeechVerificationCode;
 @end
 
 @implementation HXBFin_creditorChange_buy_ViewController
@@ -78,6 +80,8 @@ static NSString *const bankString = @"绑定银行卡";
     self.isColourGradientNavigationBar = true;
     _discountTitle = @"暂无可用优惠券";
     _balanceTitle = @"可用余额";
+    _isSpeechVerificationCode = NO;
+    _isClickSpeechVerificationCode = NO;
     [self buildUI];
     [self getBankCardLimit];
     
@@ -240,35 +244,39 @@ static NSString *const bankString = @"绑定银行卡";
 }
 
 - (void)alertSmsCode {
-    self.alertVC = [[HXBAlertVC alloc] init];
-    self.alertVC.isCode = YES;
-    self.alertVC.isSpeechVerificationCode = YES;
-    self.alertVC.isCleanPassword = YES;
-    _isClickSpeechVerificationCode = NO;
-    self.alertVC.messageTitle = @"充值验证短信";
-    _buyType = @"recharge"; // 弹出短验，都是充值购买
-    self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-    kWeakSelf
-    self.alertVC.sureBtnClick = ^(NSString *pwd) {
-        [weakSelf.alertVC.view endEditing:YES];
-        NSDictionary *dic = nil;
-        dic = @{@"amount": [NSString stringWithFormat:@"%.2f", _inputMoneyStr.doubleValue],
-                @"buyType": _buyType,
-                @"balanceAmount": _balanceMoneyStr,
-                @"smsCode": pwd};
-        [weakSelf buyCreditorWithDic:dic];
-    };
-    self.alertVC.getVerificationCodeBlock = ^{
-        [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
-    };
-    self.alertVC.getSpeechVerificationCodeBlock = ^{
-        //获取语音验证码 注意参数
-        HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-        [accountRequest accountRechargeRequestWithRechargeAmount:weakSelf.inputMoneyStr andWithAction:@"quickpay" andSuccessBlock:^(id responseObject) {
-        } andFailureBlock:^(NSError *error) {
-        }];
-    };
-    [self presentViewController:_alertVC animated:NO completion:nil];
+    if (!self.presentedViewController) {
+        self.alertVC = [[HXBAlertVC alloc] init];
+        self.alertVC.isCode = YES;
+        self.alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
+        self.alertVC.isCleanPassword = YES;
+        //    _isClickSpeechVerificationCode = NO;
+        self.alertVC.messageTitle = @"充值验证短信";
+        _buyType = @"recharge"; // 弹出短验，都是充值购买
+        self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
+        kWeakSelf
+        self.alertVC.sureBtnClick = ^(NSString *pwd) {
+            [weakSelf.alertVC.view endEditing:YES];
+            NSDictionary *dic = nil;
+            dic = @{@"amount": [NSString stringWithFormat:@"%.2f", _inputMoneyStr.doubleValue],
+                    @"buyType": _buyType,
+                    @"balanceAmount": _balanceMoneyStr,
+                    @"smsCode": pwd};
+            [weakSelf buyCreditorWithDic:dic];
+        };
+        self.alertVC.getVerificationCodeBlock = ^{
+            _isClickSpeechVerificationCode = NO;
+            _isSpeechVerificationCode = YES;
+            [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
+        };
+        self.alertVC.getSpeechVerificationCodeBlock = ^{
+            //获取语音验证码 注意参数
+            _isClickSpeechVerificationCode = YES;
+            _isSpeechVerificationCode = YES;
+            
+            [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
+        };
+        [self presentViewController:_alertVC animated:NO completion:nil];
+    }
 }
 
 -(void)alertPassWord {
@@ -303,17 +311,6 @@ static NSString *const bankString = @"绑定银行卡";
     [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:type andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
         [self alertSmsCode];
     } andFailureBlock:^(NSError *error) {
-        NSDictionary *errDic = (NSDictionary *)error;
-        @try {
-            if ([errDic[@"message"] isEqualToString:@"存管账户信息不完善"]) {
-                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                withdrawCardViewController.title = @"绑卡";
-                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-                [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-            }
-        } @catch (NSException *exception) {
-        } @finally {
-        }
     }];
 }
 

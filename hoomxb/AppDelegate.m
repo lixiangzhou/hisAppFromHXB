@@ -8,8 +8,6 @@
 
 #import "AppDelegate.h"
 #import "NYNetwork.h"//网络请求的kit
-#import "HxbAdvertiseView.h"//弹窗
-#import "HXBServerAndClientTime.h"//客户端与服务器时间协调的工具类
 #import "HXBBaseVersionUpdateManager.h"//
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 #import "IQKeyboardManager.h"//设置键盘
@@ -35,7 +33,7 @@
     //设置启动页面停留时间
     [NSThread sleepForTimeInterval:0.5];
     //字典和数据为空的防止闪退
-    [AvoidCrash becomeEffective];
+//    [AvoidCrash becomeEffective];
     
     //fabrci crash 统计
     [Fabric with:@[[Crashlytics class]]];
@@ -51,9 +49,6 @@
     
     //创建根视图 并设置
     [[HXBRootVCManager manager] createRootVCAndMakeKeyWindow];
-    
-    //服务器时间与客户端时间的处理
-    [self serverAndClientTime];
 
     //设置键盘
     [self keyboardManager];
@@ -64,7 +59,7 @@
     //方案多个按钮同时点击
     [[UIButton appearance] setExclusiveTouch:YES];
     
-    if (HXBIsRelease == NO) {
+    if (HXBShakeChangeBaseUrl == YES) {
         [HXBBaseUrlSettingView attatchToWindow];
     }
     
@@ -80,22 +75,15 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    //服务器时间与客户端时间的处理
-    [self serverAndClientTime];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    //服务器时间与客户端时间的处理
-    [self serverAndClientTime];
     self.exitTime = [NSDate date];
     NSLog(@"%@",application);
     [[[UIApplication sharedApplication] keyWindow] endEditing:YES];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    //服务器时间与客户端时间的处理
-    [self serverAndClientTime];
-    
     if ([[HXBRootVCManager manager].versionUpdateModel.force isEqualToString:@"1"]) {
         [HXBAlertManager checkversionUpdateWith:[HXBRootVCManager manager].versionUpdateModel];
     }
@@ -109,8 +97,6 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    //服务器时间与客户端时间的处理
-    [self serverAndClientTime];
 }
 
 // 支持所有iOS系统
@@ -131,14 +117,7 @@
 }
 
 #pragma mark - 基本设置
-//根据服务器时间计算与本地时间的时间差
-- (void)serverAndClientTime {
-    //......服务器请求数据
-    NSString *serverTime;//服务器求情下来之后的服务器时间戳
-    HXBServerAndClientTime *serverAndClientTime = [HXBServerAndClientTime sharedServerAndClientTime];
-    serverAndClientTime.serverTime = serverTime;
-}
-///
+
 - (void)judgementApplication {
     if([HXBBaseVersionUpdateManager isFirstStartUPAPP]) {
         NSLog(@"第一次登录程序");
@@ -165,7 +144,7 @@
     NYNetworkConfig *config = [NYNetworkConfig sharedInstance];
     config.baseUrl = [HXBBaseUrlManager manager].baseUrl;
     
-    if (HXBIsRelease == NO) {
+    if (HXBShakeChangeBaseUrl == YES) {
         // 当baseUrl 改变的时候，需要更新 config.baseUrl
         [RACObserve([HXBBaseUrlManager manager], baseUrl) subscribeNext:^(id  _Nullable x) {
             config.baseUrl = x;

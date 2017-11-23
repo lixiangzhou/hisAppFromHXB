@@ -9,6 +9,8 @@
 #import "NYNetworkConfig.h"
 #import <AdSupport/AdSupport.h>
 #import <UIKit/UIKit.h>
+#import "NSDate+HXB.h"
+
 ///通用接口Header必传字段 userAgent
 static NSString *const User_Agent = X_Hxb_User_Agent;
 ///通用接口Header必传字段 token
@@ -57,14 +59,12 @@ static NSString *const X_HxbAuth_Token = @"X-Hxb-Auth-Token";
 //MARK: 设置请求基本信息
 - (NSDictionary *)additionalHeaderFields
 {
-    //毫秒时间戳
-    NSString *curTime =  [HXBServerAndClientTime getCurrentTime_Millisecond];
     NSDictionary *dict = @{
                            X_HxbAuth_Token:[KeyChain token],
                            User_Agent:self.userAgent,
                            @"IDFA":[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString],
                            @"X-Request-Id":[[[UIDevice currentDevice] identifierForVendor] UUIDString],
-                           @"X-Hxb-Auth-Timestamp":curTime
+                           @"X-Hxb-Auth-Timestamp": [NSDate milliSecondSince1970]
                            };
 
     return dict;
