@@ -30,4 +30,12 @@
  @return 渠道连接
  */
 - (NSString *)getShareLink:(UMSocialPlatformType)type;
+
+
+/**
+ 分享错误返回的信息
+
+ @param code 错误码
+ */
++ (void)sharFailureStringWithCode:(NSInteger)code;
 @end

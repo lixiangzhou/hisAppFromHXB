@@ -48,16 +48,11 @@
     splashTRequest.requestUrl = kHXBSplash;
     splashTRequest.requestMethod = NYRequestMethodGet;
     
-    kWeakSelf
     [splashTRequest startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSInteger status =  [responseObject[kResponseStatus] integerValue];
         if (status == 0) {
             NSString *imageURL = responseObject[kResponseData][@"url"];
-            [[SDWebImageDownloader sharedDownloader] downloadImageWithURL:[NSURL URLWithString:imageURL] options:SDWebImageDownloaderUseNSURLCache progress:nil completed:^(UIImage *image, NSData *data, NSError *error, BOOL finished) {
-                if (image) {
-                    weakSelf.imgView.image = image;
-                }
-            }];
+            [self.imgView sd_setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage getLauchImage]];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         

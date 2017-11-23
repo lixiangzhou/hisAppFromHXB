@@ -69,4 +69,57 @@
     }];
 }
 
+#pragma mark - 分享失败回调文案
++ (void)sharFailureStringWithCode:(NSInteger)code {
+    NSString *errorMessage = @"";
+    switch (code) {
+        case UMSocialPlatformErrorType_Unknow:
+            errorMessage = @"未知错误";
+            break;
+        case UMSocialPlatformErrorType_NotSupport:
+            errorMessage = @"客户端版本不支持";
+            break;
+        case  UMSocialPlatformErrorType_AuthorizeFailed:
+            errorMessage = @"授权失败";
+            break;
+        case UMSocialPlatformErrorType_ShareFailed:
+            errorMessage = @"分享失败";
+            break;
+        case UMSocialPlatformErrorType_RequestForUserProfileFailed:
+            errorMessage = @"请求用户信息失败";
+            break;
+        case UMSocialPlatformErrorType_ShareDataNil:
+            errorMessage = @"网络异常";
+            break;
+        case UMSocialPlatformErrorType_ShareDataTypeIllegal:
+            errorMessage = @"分享内容不支持";
+            break;
+        case UMSocialPlatformErrorType_CheckUrlSchemaFail:
+            errorMessage = @"跳转链接配置错误";
+            break;
+        case UMSocialPlatformErrorType_NotInstall:
+            errorMessage = @"应用未安装";
+            break;
+        case UMSocialPlatformErrorType_Cancel:
+            errorMessage = @"取消操作";
+            break;
+        case UMSocialPlatformErrorType_NotNetWork:
+            errorMessage = @"网络异常";
+            break;
+        case UMSocialPlatformErrorType_SourceError:
+            errorMessage = @"第三方错误";
+            break;
+        case UMSocialPlatformErrorType_ProtocolNotOverride:
+            errorMessage = @"对应的UMSocialPlatformProvider的方法没有实现";
+            break;
+        case UMSocialPlatformErrorType_NotUsingHttps:
+            errorMessage = @"没有用https的请求";
+            break;
+        default:
+            errorMessage = @"未知错误";
+            break;
+    }
+    [HxbHUDProgress showMessageCenter:errorMessage inView:nil];
+}
+
 @end
