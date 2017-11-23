@@ -256,7 +256,6 @@
 		8DAD307A1FBA8F8C00E2AEE8 /* HXBBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30461FBA8F8B00E2AEE8 /* HXBBaseNavigationController.m */; };
 		8DAD307B1FBA8F8C00E2AEE8 /* HXBBaseTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30481FBA8F8B00E2AEE8 /* HXBBaseTabBarController.m */; };
 		8DAD307C1FBA8F8C00E2AEE8 /* HXBBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD304A1FBA8F8B00E2AEE8 /* HXBBaseViewController.m */; };
-		8DAD307D1FBA8F8C00E2AEE8 /* HXBBaseWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD304C1FBA8F8B00E2AEE8 /* HXBBaseWKWebViewController.m */; };
 		8DAD307E1FBA8F8C00E2AEE8 /* HXBBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD304F1FBA8F8B00E2AEE8 /* HXBBaseModel.m */; };
 		8DAD307F1FBA8F8C00E2AEE8 /* HXBBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30511FBA8F8B00E2AEE8 /* HXBBaseViewModel.m */; };
 		8DAD30801FBA8F8C00E2AEE8 /* HXBBaseViewConcentricCirclesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30551FBA8F8B00E2AEE8 /* HXBBaseViewConcentricCirclesView.m */; };
@@ -275,7 +274,8 @@
 		8DAD308D1FBA8F8C00E2AEE8 /* SwipeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30721FBA8F8B00E2AEE8 /* SwipeTableView.m */; };
 		8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */; };
 		8DAD308F1FBA8F8C00E2AEE8 /* HXBBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */; };
-		9ADB5CB21FC441B9004062FD /* HXBBaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9ADB5CB11FC441B9004062FD /* HXBBaseWebViewController.m */; };
+		9A36E3301FC6AB1700C318B3 /* HXBBaseWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */; };
+		9A36E3321FC6AB1700C318B3 /* HXBWKWebviewViewModuel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A36E32F1FC6AB1700C318B3 /* HXBWKWebviewViewModuel.m */; };
 		9AF220EF1FC2BA8F00002D1D /* HXBBaseUrlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */; };
 		9AF220F01FC2BA8F00002D1D /* HXBBaseUrlSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EE1FC2BA8F00002D1D /* HXBBaseUrlSettingView.m */; };
 		E1057D701EE28D0C00C63286 /* NSString+HXBPhonNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = E1057D6F1EE28D0C00C63286 /* NSString+HXBPhonNumber.m */; };
@@ -979,8 +979,6 @@
 		8DAD30481FBA8F8B00E2AEE8 /* HXBBaseTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTabBarController.m; sourceTree = "<group>"; };
 		8DAD30491FBA8F8B00E2AEE8 /* HXBBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseViewController.h; sourceTree = "<group>"; };
 		8DAD304A1FBA8F8B00E2AEE8 /* HXBBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewController.m; sourceTree = "<group>"; };
-		8DAD304B1FBA8F8B00E2AEE8 /* HXBBaseWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWKWebViewController.h; sourceTree = "<group>"; };
-		8DAD304C1FBA8F8B00E2AEE8 /* HXBBaseWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWKWebViewController.m; sourceTree = "<group>"; };
 		8DAD304E1FBA8F8B00E2AEE8 /* HXBBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseModel.h; sourceTree = "<group>"; };
 		8DAD304F1FBA8F8B00E2AEE8 /* HXBBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseModel.m; sourceTree = "<group>"; };
 		8DAD30501FBA8F8B00E2AEE8 /* HXBBaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseViewModel.h; sourceTree = "<group>"; };
@@ -1017,8 +1015,10 @@
 		8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+STFrame.m"; sourceTree = "<group>"; };
 		8DAD30761FBA8F8B00E2AEE8 /* HXBBaseTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTextField.h; sourceTree = "<group>"; };
 		8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTextField.m; sourceTree = "<group>"; };
-		9ADB5CB01FC441B9004062FD /* HXBBaseWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseWebViewController.h; sourceTree = "<group>"; };
-		9ADB5CB11FC441B9004062FD /* HXBBaseWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWebViewController.m; sourceTree = "<group>"; };
+		9A36E32A1FC6AB1700C318B3 /* HXBBaseWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWKWebViewController.h; sourceTree = "<group>"; };
+		9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWKWebViewController.m; sourceTree = "<group>"; };
+		9A36E32E1FC6AB1700C318B3 /* HXBWKWebviewViewModuel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWKWebviewViewModuel.h; sourceTree = "<group>"; };
+		9A36E32F1FC6AB1700C318B3 /* HXBWKWebviewViewModuel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWKWebviewViewModuel.m; sourceTree = "<group>"; };
 		9AF220EB1FC2BA8F00002D1D /* HXBBaseUrlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlManager.h; sourceTree = "<group>"; };
 		9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseUrlManager.m; sourceTree = "<group>"; };
 		9AF220ED1FC2BA8F00002D1D /* HXBBaseUrlSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlSettingView.h; sourceTree = "<group>"; };
@@ -2676,6 +2676,7 @@
 		8DAD303F1FBA8F8B00E2AEE8 /* BaseController */ = {
 			isa = PBXGroup;
 			children = (
+				9A36E3291FC6AB1700C318B3 /* WebViewController */,
 				8DAD30401FBA8F8B00E2AEE8 /* AlertController */,
 				8DAD30451FBA8F8B00E2AEE8 /* HXBBaseNavigationController.h */,
 				8DAD30461FBA8F8B00E2AEE8 /* HXBBaseNavigationController.m */,
@@ -2683,10 +2684,6 @@
 				8DAD30481FBA8F8B00E2AEE8 /* HXBBaseTabBarController.m */,
 				8DAD30491FBA8F8B00E2AEE8 /* HXBBaseViewController.h */,
 				8DAD304A1FBA8F8B00E2AEE8 /* HXBBaseViewController.m */,
-				8DAD304B1FBA8F8B00E2AEE8 /* HXBBaseWKWebViewController.h */,
-				8DAD304C1FBA8F8B00E2AEE8 /* HXBBaseWKWebViewController.m */,
-				9ADB5CB01FC441B9004062FD /* HXBBaseWebViewController.h */,
-				9ADB5CB11FC441B9004062FD /* HXBBaseWebViewController.m */,
 			);
 			path = BaseController;
 			sourceTree = "<group>";
@@ -2798,6 +2795,17 @@
 				DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9A36E3291FC6AB1700C318B3 /* WebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9A36E32A1FC6AB1700C318B3 /* HXBBaseWKWebViewController.h */,
+				9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */,
+				9A36E32E1FC6AB1700C318B3 /* HXBWKWebviewViewModuel.h */,
+				9A36E32F1FC6AB1700C318B3 /* HXBWKWebviewViewModuel.m */,
+			);
+			path = WebViewController;
 			sourceTree = "<group>";
 		};
 		9AF220EA1FC2BA8F00002D1D /* BaseURL */ = {
@@ -4891,7 +4899,7 @@
 				E1B0F48D1EC4950A0071246F /* HXBFin_Detail_DetailsVC_Plan.m in Sources */,
 				E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */,
 				4E9D206C1F342166003DF3C3 /* HXBAgreementView.m in Sources */,
-				9ADB5CB21FC441B9004062FD /* HXBBaseWebViewController.m in Sources */,
+				9A36E3301FC6AB1700C318B3 /* HXBBaseWKWebViewController.m in Sources */,
 				E1CB56241ED3E82700D962CA /* HXBMYCapitalRecord_TableView.m in Sources */,
 				E133DCD71EEE3597009466DE /* HxbPickerArea.m in Sources */,
 				E133DD3B1EEEC14C009466DE /* NYBaseRequest.m in Sources */,
@@ -5064,10 +5072,10 @@
 				E163144C1EC0937C0090567E /* HXBFin_DetailsView_PlanDetailsView.m in Sources */,
 				8DAD30781FBA8F8C00E2AEE8 /* HXBAlertManager.m in Sources */,
 				4E99824D1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m in Sources */,
+				9A36E3321FC6AB1700C318B3 /* HXBWKWebviewViewModuel.m in Sources */,
 				E17A32C21F1F33B10079DBAE /* HXBFinAddRecordVC_LoanTruansfer.m in Sources */,
 				E17A32BC1F1F0FC90079DBAE /* HXBFinModel_BuyResout_LoanTruansferModel.m in Sources */,
 				E1E4617F1EB9BE25005B1FC6 /* HXBFinancting_PlanListTableView.m in Sources */,
-				8DAD307D1FBA8F8C00E2AEE8 /* HXBBaseWKWebViewController.m in Sources */,
 				E122D84F1EA0CAB900DC71ED /* NSAttributedString+HxbAttributedString.m in Sources */,
 				4E45F42A1F4FC05C009708B7 /* HXBUmengManagar.m in Sources */,
 				E1E5885B1EE165BF0045C4AE /* Animatr.m in Sources */,
