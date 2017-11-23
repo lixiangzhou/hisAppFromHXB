@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#define AXHNewFeatureCellID @"AXHNewFeatureCellID"
+
 @interface AXHNewFeatureCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImage *image;
-
-
 
 @end

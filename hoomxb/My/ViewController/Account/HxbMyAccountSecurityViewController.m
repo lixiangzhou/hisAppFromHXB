@@ -12,7 +12,6 @@
 
 #import "HxbSignUpViewController.h"///注册
 #import "HXBModifyTransactionPasswordViewController.h"//交易密码
-#import "HXBModifyGesturePasswordController.h"//修改手势密码
 //#import "HxbSecurityCertificationViewController.h"//安全认证
 #import "HXBCheckLoginPasswordViewController.h"//验证登录密码
 #import "HXBOpenDepositAccountViewController.h"

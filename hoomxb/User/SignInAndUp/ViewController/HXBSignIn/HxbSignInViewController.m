@@ -254,9 +254,6 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     if (!_hxbBaseVCScrollView) {
         
         _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
-        if (LL_iPhoneX) {
-            _hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarMaxY, kScreenWidth, kScreenHeight - HxbNavigationBarMaxY);
-        }
         
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
         [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
