@@ -179,11 +179,7 @@
 - (UIImageView *)nacigationBarImageView {
     if (!_nacigationBarImageView) {
         _nacigationBarImageView = [[UIImageView alloc]init];
-        if (LL_iPhoneX) {
-            _nacigationBarImageView.frame = CGRectMake(0, 0, kScreenWidth, 88);
-        } else {
-            _nacigationBarImageView.frame = CGRectMake(0, 0, kScreenWidth, 64);
-        }
+        _nacigationBarImageView.frame = CGRectMake(0, 0, kScreenWidth, HXBStatusBarAndNavigationBarHeight);
         [self.view addSubview:_nacigationBarImageView];
         [self.view bringSubviewToFront:_nacigationBarImageView];
     }
