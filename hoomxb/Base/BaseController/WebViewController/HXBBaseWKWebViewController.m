@@ -126,7 +126,7 @@
 //        preferences.minimumFontSize = 30.0;
         configuration.preferences = preferences;
         
-        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64) configuration:configuration];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, self.view.width, self.view.height - HXBStatusBarAndNavigationBarHeight) configuration:configuration];
         _webView.navigationDelegate = self.webViewModuel;
     }
     return _webView;
@@ -151,15 +151,15 @@
         kWeakSelf
         _webViewModuel.loadStateBlock = ^(HXBPageLoadState state) {
             switch (state) {
-                case PageLoadStart: {
+                case HXBPageLoadStateStart: {
                     [weakSelf loadProgress:YES];
                     break;
                 }
-                case PageLoadEnd: {
+                case HXBPageLoadStateEnd: {
                     [weakSelf loadProgress:NO];
                     break;
                 }
-                case PageLoadFaile: {
+                case HXBPageLoadStateFaile: {
                     [weakSelf loadProgress:NO];
                     break;
                 }

@@ -19,7 +19,7 @@
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     if (self.loadStateBlock) {
-        self.loadStateBlock(PageLoadStart);
+        self.loadStateBlock(HXBPageLoadStateEnd);
     }
 }
 
@@ -28,7 +28,7 @@
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if (self.loadStateBlock) {
-        self.loadStateBlock(PageLoadEnd);
+        self.loadStateBlock(HXBPageLoadStateEnd);
     }
 }
 
@@ -37,7 +37,7 @@
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     if (self.loadStateBlock) {
-        self.loadStateBlock(PageLoadFaile);
+        self.loadStateBlock(HXBPageLoadStateFaile);
     }
 }
 
