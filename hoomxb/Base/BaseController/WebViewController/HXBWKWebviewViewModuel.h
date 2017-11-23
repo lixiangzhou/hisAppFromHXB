@@ -13,11 +13,11 @@ typedef enum : NSUInteger {
     PageLoadEnd,
     PageLoadStart,
     PageLoadFaile
-} EMPageLoadState;
+} HXBPageLoadState;
 
 @interface HXBWKWebviewViewModuel : NSObject<WKNavigationDelegate>
 
-typedef void (^ PageLoadStateBlock) (EMPageLoadState state);
+typedef void (^ PageLoadStateBlock) (HXBPageLoadState state);
 
 //页面加载状态回调
 @property (nonatomic, strong) PageLoadStateBlock loadStateBlock;

@@ -52,10 +52,7 @@
     
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:(NSKeyValueObservingOptionNew) context:nil];
 }
-- (void)leftBackBtnClick {
-    HXBBaseViewController* vc = [[HXBBaseViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
-}
+
 - (void)dealloc {
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
 }
@@ -152,7 +149,7 @@
         _webViewModuel = [[HXBWKWebviewViewModuel alloc] init];
         
         kWeakSelf
-        _webViewModuel.loadStateBlock = ^(EMPageLoadState state) {
+        _webViewModuel.loadStateBlock = ^(HXBPageLoadState state) {
             switch (state) {
                 case PageLoadStart: {
                     [weakSelf loadProgress:YES];
