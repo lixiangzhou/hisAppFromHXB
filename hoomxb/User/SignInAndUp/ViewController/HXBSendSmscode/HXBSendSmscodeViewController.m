@@ -53,6 +53,7 @@
 - (void)setUPView {
     self.hxbBaseVCScrollView.bounces = NO;
     self.smscodeView = [[HXBSendSmscodeView alloc] initWithFrame:self.view.frame];
+    
     self.smscodeView.type = self.type;
     self.smscodeView.startsCountdown = YES;
     
@@ -61,6 +62,7 @@
         [weakSelf.smscodeView endEditing:true];
     };
     self.smscodeView.phonNumber = self.phonNumber;
+    self.smscodeView.isSendSpeechCode = NO;
     [self.hxbBaseVCScrollView addSubview: self.smscodeView];
     [self.view addSubview:self.waterView];
     
@@ -87,12 +89,12 @@
         registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
         
         [registerAlertVC verificationCodeBtnWithBlock:^{
-            
+            weakSelf.smscodeView.isSendSpeechCode = NO;
             [weakSelf sendSmscode:@"sms"];
             [weakSelf.smscodeView clickSendButton:nil];
         }];
         [registerAlertVC speechVerificationCodeBtnWithBlock:^{
-            
+            weakSelf.smscodeView.isSendSpeechCode = YES;
             [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
             [weakSelf.smscodeView clickSendButton:nil];
         }];
