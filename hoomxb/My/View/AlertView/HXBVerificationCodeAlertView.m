@@ -146,7 +146,7 @@
 {
     self.count--;
     [self.codeBtn setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
-    if (self.count == -1) {
+    if (self.count <= -1) {
         self.codeBtn.enabled = YES;
         [self.timer invalidate];
         self.timer = nil;
@@ -154,11 +154,14 @@
         self.codeBtn.layer.borderWidth = kXYBorderWidth;
         self.codeBtn.layer.borderColor = COR29.CGColor;
         [self.codeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
-        [self.codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-        if (_isSpeechVerificationCode) {
-            self.speechVerificationCodeBtn.enabled = YES;
-            [_speechVerificationCodeBtn setTitleColor:RGB(45, 121, 243) forState:UIControlStateNormal];
-        }
+        [self.codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
+        self.isSpeechVerificationCode = YES;
+        self.speechVerificationCodeBtn.enabled = YES;
+        [_speechVerificationCodeBtn setTitleColor:RGB(45, 121, 243) forState:UIControlStateNormal];
+//        if (_isSpeechVerificationCode) {
+//            self.speechVerificationCodeBtn.enabled = YES;
+//            [_speechVerificationCodeBtn setTitleColor:RGB(45, 121, 243) forState:UIControlStateNormal];
+//        }
     }
 }
 
@@ -198,7 +201,7 @@
     if (!_codeBtn) {
         _codeBtn = [[UIButton alloc] init];
         _codeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
-        [_codeBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
+        [_codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
         [_codeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_codeBtn addTarget:self action:@selector(getVerificationCode) forControlEvents:UIControlEventTouchUpInside];
         [_codeBtn setBackgroundColor:RGB(245, 81, 81)];

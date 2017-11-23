@@ -45,7 +45,7 @@
         _myTopUpBaseView = [[HXBMyTopUpBaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _myTopUpBaseView.rechargeBlock = ^{
             //第一次短验
-            _isSpeechVerificationCode = YES;
+            _isSpeechVerificationCode = NO;
             _isClickSpeechVerificationCode = NO;
             [weakSelf enterRecharge];
         };
@@ -117,6 +117,7 @@
     kWeakSelf
     alertVC.isCode = YES;
     alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
+    _isSpeechVerificationCode = YES;
     alertVC.messageTitle = @"请输入您的短信验证码";
     alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:self.myTopUpBaseView.mybankView.bankCardModel.mobile.length - 7]];
     __weak typeof(alertVC) weakAlertVC = alertVC;

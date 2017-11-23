@@ -19,7 +19,7 @@
 
 - (NSString *)invitedUserPhoneNo_new {
     if (!_invitedUserPhoneNo_new) {
-        _invitedUserPhoneNo_new = [self.invitedUserPhoneNo hxb_hiddenPhonNumberWithMid];
+        _invitedUserPhoneNo_new = [self.invitedUserPhoneNo stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
     }
     return _invitedUserPhoneNo_new;
 }
