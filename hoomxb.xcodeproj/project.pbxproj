@@ -125,7 +125,6 @@
 		4E886FC41EF91EBA0056086E /* HXBCircleInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FC31EF91EBA0056086E /* HXBCircleInfoView.m */; };
 		4E886FC71EF9201B0056086E /* HXBLockLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FC61EF9201B0056086E /* HXBLockLabel.m */; };
 		4E886FCA1EF9205E0056086E /* CALayer+Anim.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FC91EF9205E0056086E /* CALayer+Anim.m */; };
-		4E886FCD1EF940010056086E /* HXBModifyGesturePasswordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E886FCC1EF940010056086E /* HXBModifyGesturePasswordController.m */; };
 		4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5201F15B79000BBDF11 /* password_eye_close.svg */; };
 		4E88A5231F15B79700BBDF11 /* password_eye_open.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5221F15B79700BBDF11 /* password_eye_open.svg */; };
 		4E88A5271F15CBC500BBDF11 /* back.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E88A5261F15CBC500BBDF11 /* back.svg */; };
@@ -754,8 +753,6 @@
 		4E886FC61EF9201B0056086E /* HXBLockLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLockLabel.m; sourceTree = "<group>"; };
 		4E886FC81EF9205E0056086E /* CALayer+Anim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CALayer+Anim.h"; sourceTree = "<group>"; };
 		4E886FC91EF9205E0056086E /* CALayer+Anim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+Anim.m"; sourceTree = "<group>"; };
-		4E886FCB1EF940010056086E /* HXBModifyGesturePasswordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyGesturePasswordController.h; sourceTree = "<group>"; };
-		4E886FCC1EF940010056086E /* HXBModifyGesturePasswordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyGesturePasswordController.m; sourceTree = "<group>"; };
 		4E88A5201F15B79000BBDF11 /* password_eye_close.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = password_eye_close.svg; sourceTree = "<group>"; };
 		4E88A5221F15B79700BBDF11 /* password_eye_open.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = password_eye_open.svg; sourceTree = "<group>"; };
 		4E88A5261F15CBC500BBDF11 /* back.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = back.svg; sourceTree = "<group>"; };
@@ -2207,8 +2204,6 @@
 			children = (
 				4E886FB51EF916A30056086E /* HXBGesturePasswordViewController.h */,
 				4E886FB61EF916A30056086E /* HXBGesturePasswordViewController.m */,
-				4E886FCB1EF940010056086E /* HXBModifyGesturePasswordController.h */,
-				4E886FCC1EF940010056086E /* HXBModifyGesturePasswordController.m */,
 				4E5003351F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.h */,
 				4E5003361F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m */,
 			);
@@ -4823,7 +4818,6 @@
 				8DAD307B1FBA8F8C00E2AEE8 /* HXBBaseTabBarController.m in Sources */,
 				4EBE193D1F73A5A200AB5AB6 /* HXBTransferCreditorViewController.m in Sources */,
 				E1CD4BCC1ED83064000CC57B /* KeyChainManage.m in Sources */,
-				4E886FCD1EF940010056086E /* HXBModifyGesturePasswordController.m in Sources */,
 				4E94E37C1F0F619400746973 /* HXBCardholderInformationView.m in Sources */,
 				E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */,
 				E1D7883E1EC32AE000566AC1 /* HXBFinancting_LoanListTableView.m in Sources */,
