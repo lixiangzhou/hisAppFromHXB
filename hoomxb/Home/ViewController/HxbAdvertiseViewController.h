@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+
 ///广告的VC
 @interface HxbAdvertiseViewController : UIViewController
 
-@property (nonatomic, copy) NSString *adUrl;
-///dismiss
-- (void) dismissAdvertiseViewControllerFunc: (void(^)(BOOL isSingleLogin))dismissAdvertiseViewControllerBlock;
+@property (nonatomic, copy) void(^dismissBlock)();
+
 @end
