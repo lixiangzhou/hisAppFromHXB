@@ -226,7 +226,7 @@
              1、	销售截止时间之前，如果满额：【已满额】。
              2、	到销售截止时间之后，锁定期之前：【销售结束】。
              */
-            CGFloat millisecond = [[HXBServerAndClientTime getCurrentTime_Millisecond] doubleValue];
+//            CGFloat millisecond = [[HXBServerAndClientTime getCurrentTime_Millisecond] doubleValue];
 //            if (self.planDetailModel.endSellingTime.floatValue >= millisecond) {
 //                self.addButtonStr = @"已满额";
 //            }else {//需求更改
