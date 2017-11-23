@@ -1847,7 +1847,6 @@
 			isa = PBXGroup;
 			children = (
 				4E45F42D1F4FC71E009708B7 /* Controller */,
-				4E45F4301F4FC71E009708B7 /* Model */,
 				4E45F4311F4FC71E009708B7 /* View */,
 			);
 			path = NewFeature;
@@ -1860,13 +1859,6 @@
 				4E45F42F1F4FC71E009708B7 /* AXHNewFeatureController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		4E45F4301F4FC71E009708B7 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		4E45F4311F4FC71E009708B7 /* View */ = {
