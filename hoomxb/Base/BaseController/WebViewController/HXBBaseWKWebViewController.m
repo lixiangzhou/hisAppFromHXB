@@ -35,10 +35,7 @@
     self = [super init];
     if (self) {
         _firstLoadPage = YES;
-        //目前， 当页面返回时， 都强制重新加载
-        if (!_pageReload) {
-            _pageReload = YES;
-        }
+        _pageReload = YES;
     }
     return self;
 }
