@@ -10,9 +10,9 @@
 #import <WebKit/WebKit.h>
 
 typedef enum : NSUInteger {
-    PageLoadEnd,
-    PageLoadStart,
-    PageLoadFaile
+    HXBPageLoadEnd,
+    HXBPageLoadStart,
+    HXBPageLoadFaile
 } HXBPageLoadState;
 
 @interface HXBWKWebviewViewModuel : NSObject<WKNavigationDelegate>

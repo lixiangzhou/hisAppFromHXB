@@ -81,7 +81,7 @@
     kWeakSelf
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(weakSelf.view);
-        make.top.equalTo(weakSelf.view).offset(64);
+        make.top.equalTo(weakSelf.view).offset(HXBStatusBarAndNavigationBarHeight);
         make.height.mas_equalTo(_progressViewHeight);
     }];
     
@@ -125,8 +125,7 @@
         preferences.javaScriptCanOpenWindowsAutomatically = YES;
 //        preferences.minimumFontSize = 30.0;
         configuration.preferences = preferences;
-        
-        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64) configuration:configuration];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
         _webView.navigationDelegate = self.webViewModuel;
     }
     return _webView;
@@ -151,15 +150,15 @@
         kWeakSelf
         _webViewModuel.loadStateBlock = ^(HXBPageLoadState state) {
             switch (state) {
-                case PageLoadStart: {
+                case HXBPageLoadStart: {
                     [weakSelf loadProgress:YES];
                     break;
                 }
-                case PageLoadEnd: {
+                case HXBPageLoadEnd: {
                     [weakSelf loadProgress:NO];
                     break;
                 }
-                case PageLoadFaile: {
+                case HXBPageLoadFaile: {
                     [weakSelf loadProgress:NO];
                     break;
                 }
