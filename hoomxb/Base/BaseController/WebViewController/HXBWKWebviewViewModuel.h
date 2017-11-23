@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <WebKit/WebKit.h>
 
 typedef enum : NSUInteger {
     PageLoadEnd,
@@ -14,7 +15,7 @@ typedef enum : NSUInteger {
     PageLoadFaile
 } EMPageLoadState;
 
-@interface HXBWKWebviewViewModuel : NSObject
+@interface HXBWKWebviewViewModuel : NSObject<WKNavigationDelegate>
 
 typedef void (^ PageLoadStateBlock) (EMPageLoadState state);
 

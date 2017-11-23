@@ -13,7 +13,7 @@
 
 @property (nonatomic, copy) NSString* pageUrl;
 
-//是否需要重新加载
+//重新获取焦点时，是否需要重新加载, 默认值是YES
 @property (nonatomic, assign) BOOL pageReload;
 
 /**

@@ -7,9 +7,8 @@
 //
 
 #import "HXBWKWebviewViewModuel.h"
-#import <WebKit/WebKit.h>
 
-@interface HXBWKWebviewViewModuel ()<WKNavigationDelegate>
+@interface HXBWKWebviewViewModuel ()
 
 @end
 
