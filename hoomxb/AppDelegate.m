@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "NYNetwork.h"//网络请求的kit
-#import "HxbAdvertiseView.h"//弹窗
 #import "HXBBaseVersionUpdateManager.h"//
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 #import "IQKeyboardManager.h"//设置键盘
