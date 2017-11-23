@@ -11,7 +11,7 @@
 
 #import "HXBTokenManager.h"///请求token
 #import "HXBBaseRequest.h"//网络数据请求
-
+#import "NSDate+HXB.h"
 #import "HXBBaseUrlManager.h"
 
 @implementation HXBSignUPAndLoginRequest
@@ -99,7 +99,7 @@
     NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
     NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVision,version];
     [requestM addValue:userAgent forHTTPHeaderField:X_Hxb_User_Agent];
-    [requestM addValue:[HXBServerAndClientTime getCurrentTime_Millisecond] forHTTPHeaderField:@"X-Hxb-Auth-Timestamp"];
+    [requestM addValue:[NSDate milliSecondSince1970] forHTTPHeaderField:@"X-Hxb-Auth-Timestamp"];
     [requestM addValue:KeyChain.token forHTTPHeaderField: kHXBToken_X_HxbAuth_Token];
     requestM.HTTPMethod = @"GET";
     //配置token

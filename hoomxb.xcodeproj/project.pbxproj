@@ -251,6 +251,7 @@
 		8D2CF5261FC2DA5D008F7A89 /* HXBHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF51C1FC2DA5D008F7A89 /* HXBHeadView.m */; };
 		8D2CF5271FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF51E1FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m */; };
 		8D2CF5281FC2DA5D008F7A89 /* HXBInviteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */; };
+		8D4064F31FC67E2A00121E1C /* NSDate+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4064F21FC67E2A00121E1C /* NSDate+HXB.m */; };
 		8DAD30781FBA8F8C00E2AEE8 /* HXBAlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */; };
 		8DAD30791FBA8F8C00E2AEE8 /* HXBBaseAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30441FBA8F8B00E2AEE8 /* HXBBaseAlertViewController.m */; };
 		8DAD307A1FBA8F8C00E2AEE8 /* HXBBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30461FBA8F8B00E2AEE8 /* HXBBaseNavigationController.m */; };
@@ -470,7 +471,6 @@
 		E1CD4BCE1ED83064000CC57B /* HxbAdvertiseView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BB71ED83064000CC57B /* HxbAdvertiseView.m */; };
 		E1CD4BD11ED83064000CC57B /* HXBBaseContDownManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BBF1ED83064000CC57B /* HXBBaseContDownManager.m */; };
 		E1CD4BD21ED83064000CC57B /* HXBBaseHandDate.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BC11ED83064000CC57B /* HXBBaseHandDate.m */; };
-		E1CD4BD31ED83064000CC57B /* HXBServerAndClientTime.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BC31ED83064000CC57B /* HXBServerAndClientTime.m */; };
 		E1CD4BD41ED83064000CC57B /* HXBBaseVersionUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BC61ED83064000CC57B /* HXBBaseVersionUpdateManager.m */; };
 		E1CD4BD51ED83064000CC57B /* HXBBaseWaveView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BC91ED83064000CC57B /* HXBBaseWaveView.m */; };
 		E1CD4BD61ED83156000CC57B /* HXBBaseAdvertiseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BB91ED83064000CC57B /* HXBBaseAdvertiseViewController.m */; };
@@ -968,6 +968,8 @@
 		8D2CF51E1FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBInviteListTableViewCell.m; sourceTree = "<group>"; };
 		8D2CF5201FC2DA5D008F7A89 /* HXBInviteViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBInviteViewModel.h; sourceTree = "<group>"; };
 		8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBInviteViewModel.m; sourceTree = "<group>"; };
+		8D4064F11FC67E2A00121E1C /* NSDate+HXB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+HXB.h"; sourceTree = "<group>"; };
+		8D4064F21FC67E2A00121E1C /* NSDate+HXB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HXB.m"; sourceTree = "<group>"; };
 		8D6B046A1FC2A3BF0046F48A /* HXBBaseConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseConfig.h; sourceTree = "<group>"; };
 		8DAD30411FBA8F8B00E2AEE8 /* HXBAlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAlertManager.h; sourceTree = "<group>"; };
 		8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAlertManager.m; sourceTree = "<group>"; };
@@ -1426,8 +1428,6 @@
 		E1CD4BBF1ED83064000CC57B /* HXBBaseContDownManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseContDownManager.m; sourceTree = "<group>"; };
 		E1CD4BC01ED83064000CC57B /* HXBBaseHandDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseHandDate.h; sourceTree = "<group>"; };
 		E1CD4BC11ED83064000CC57B /* HXBBaseHandDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseHandDate.m; sourceTree = "<group>"; };
-		E1CD4BC21ED83064000CC57B /* HXBServerAndClientTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBServerAndClientTime.h; sourceTree = "<group>"; };
-		E1CD4BC31ED83064000CC57B /* HXBServerAndClientTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBServerAndClientTime.m; sourceTree = "<group>"; };
 		E1CD4BC51ED83064000CC57B /* HXBBaseVersionUpdateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseVersionUpdateManager.h; sourceTree = "<group>"; };
 		E1CD4BC61ED83064000CC57B /* HXBBaseVersionUpdateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseVersionUpdateManager.m; sourceTree = "<group>"; };
 		E1CD4BC81ED83064000CC57B /* HXBBaseWaveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWaveView.h; sourceTree = "<group>"; };
@@ -2663,6 +2663,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		8D4064F01FC67E0600121E1C /* NSDate */ = {
+			isa = PBXGroup;
+			children = (
+				8D4064F11FC67E2A00121E1C /* NSDate+HXB.h */,
+				8D4064F21FC67E2A00121E1C /* NSDate+HXB.m */,
+			);
+			path = NSDate;
+			sourceTree = "<group>";
+		};
 		8DAD303E1FBA8F8B00E2AEE8 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -2937,6 +2946,7 @@
 		E122D8161EA0CAB900DC71ED /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				8D4064F01FC67E0600121E1C /* NSDate */,
 				4EA8C19E1FBC2F630064019C /* UIImage */,
 				4EB5598D1F037EFA00146D62 /* UITextView */,
 				4E94B28A1ECC496C003CCBA7 /* NSAttributedString */,
@@ -4142,8 +4152,6 @@
 				E1CD4BBF1ED83064000CC57B /* HXBBaseContDownManager.m */,
 				E1CD4BC01ED83064000CC57B /* HXBBaseHandDate.h */,
 				E1CD4BC11ED83064000CC57B /* HXBBaseHandDate.m */,
-				E1CD4BC21ED83064000CC57B /* HXBServerAndClientTime.h */,
-				E1CD4BC31ED83064000CC57B /* HXBServerAndClientTime.m */,
 				E16017771EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.h */,
 				E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */,
 			);
@@ -5002,6 +5010,7 @@
 				E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */,
 				4E9345581EFE48C300D2886B /* HXBModifyPhoneRequest.m in Sources */,
 				4E99824E1F026C3600CABA59 /* HXBMY_AllFinanceView.m in Sources */,
+				8D4064F31FC67E2A00121E1C /* NSDate+HXB.m in Sources */,
 				28B5D0271F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.m in Sources */,
 				4E559B541F0FB98E003D9982 /* HXBRechargeFailView.m in Sources */,
 				4EBE19411F73AA9400AB5AB6 /* HXBTransferCreditorTopView.m in Sources */,
@@ -5048,7 +5057,6 @@
 				E1C10A501EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m in Sources */,
 				E16314311EC0761C0090567E /* HXBFinHomePageViewModel_LoanList.m in Sources */,
 				8DAD307F1FBA8F8C00E2AEE8 /* HXBBaseViewModel.m in Sources */,
-				E1CD4BD31ED83064000CC57B /* HXBServerAndClientTime.m in Sources */,
 				4E81E3971EE8F8E4006AD3FC /* UIView+HXBFrame.m in Sources */,
 				4E559B4E1F0FAFFC003D9982 /* HXBRechargeCompletedViewController.m in Sources */,
 				8DAD308D1FBA8F8C00E2AEE8 /* SwipeTableView.m in Sources */,

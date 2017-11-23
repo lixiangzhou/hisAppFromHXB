@@ -31,7 +31,6 @@
 
 //MARK: NSObject
 #import "HXBBaseHandDate.h"//关于时间处理的类
-#import "HXBServerAndClientTime.h"//与服务器时间协调
 #import "HXBBaseCountDownManager_lightweight.h"//倒计时 轻量级 适用于单个视图
 #import "HXBBaseContDownManager.h"//关于倒计时的类 适用于tableView中有多个cell 需要计时
 #import "Animatr.h"//转场动画的工具类
