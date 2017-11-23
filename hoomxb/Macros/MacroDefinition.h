@@ -183,19 +183,19 @@
 #define kHXBDivisionLineHeight 0.5
 
 // iPhone X
-#define  LL_iPhoneX (kScreenWidth == 375.f && kScreenHeight == 812.f ? YES : NO)
+#define  HXBIPhoneX (kScreenWidth == 375.f && kScreenHeight == 812.f ? YES : NO)
 // 状态栏高度
-#define  LL_StatusBarHeight      (LL_iPhoneX ? 44.f : 20.f)
+#define  HXBStatusBarHeight      (HXBIPhoneX ? 44.f : 20.f)
 // 导航栏高度
-#define  LL_NavigationBarHeight  44.f
+#define  HXBNavigationBarHeight  44.f
 // Tabbar高度
-#define  LL_TabbarHeight         (LL_iPhoneX ? (49.f+34.f) : 49.f)
+#define  HXBTabbarHeight         (HXBIPhoneX ? (49.f+34.f) : 49.f)
 // Tabbar 安全区域高度
-#define  LL_TabbarSafeBottomMargin         (LL_iPhoneX ? 34.f : 0.f)
+#define  HXBTabbarSafeBottomMargin         (HXBIPhoneX ? 34.f : 0.f)
 // 状态栏和导航栏高度
-#define  LL_StatusBarAndNavigationBarHeight  (LL_iPhoneX ? 88.f : 64.f)
+#define  HXBStatusBarAndNavigationBarHeight  (HXBIPhoneX ? 88.f : 64.f)
 
-#define LL_ViewSafeAreInsets(view) ({UIEdgeInsets insets; if(@available(iOS 11.0, *)) {insets = view.safeAreaInsets;} else {insets = UIEdgeInsetsZero;} insets;})
+#define HXBViewSafeAreInsets(view) ({UIEdgeInsets insets; if(@available(iOS 11.0, *)) {insets = view.safeAreaInsets;} else {insets = UIEdgeInsetsZero;} insets;})
 
 
 
