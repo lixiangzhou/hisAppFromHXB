@@ -150,15 +150,15 @@
         kWeakSelf
         _webViewModuel.loadStateBlock = ^(HXBPageLoadState state) {
             switch (state) {
-                case HXBPageLoadStart: {
+                case HXBPageLoadStateStart: {
                     [weakSelf loadProgress:YES];
                     break;
                 }
-                case HXBPageLoadEnd: {
+                case HXBPageLoadStateEnd: {
                     [weakSelf loadProgress:NO];
                     break;
                 }
-                case HXBPageLoadFaile: {
+                case HXBPageLoadStateFaile: {
                     [weakSelf loadProgress:NO];
                     break;
                 }
