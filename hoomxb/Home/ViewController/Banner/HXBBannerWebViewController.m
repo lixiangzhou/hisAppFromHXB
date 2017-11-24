@@ -81,25 +81,25 @@
 {
     //跳转立即投资
     HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-
-    if ([data[@"path"] isEqualToString:kRegisterVC]) {
+    NSString *path = data[@"path"];
+    if ([path isEqualToString:kRegisterVC]) {
         //注册
         //跳转登录注册
         HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
         signUPVC.title = @"注册";
         signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_H5;
         [self.navigationController pushViewController:signUPVC animated:YES];
-    }else if ([data[@"path"] isEqualToString:kRechargeVC]){
+    }else if ([path isEqualToString:kRechargeVC]){
         //充值页面
         HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
         [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-    }else if ([data[@"path"] isEqualToString:kEscrowActivityVC]){
+    }else if ([path isEqualToString:kEscrowActivityVC]){
         //存管开户页面
         HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
         openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         openDepositAccountVC.title = @"开通存管账户";
         [self.navigationController pushViewController:openDepositAccountVC animated:YES];
-    }else if ([data[@"path"] isEqualToString:kPlanDetailVC]){
+    }else if ([path isEqualToString:kPlanDetailVC]){
         //某个计划的详情页
         HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
         NSString *productId = data[@"productId"];
@@ -109,7 +109,7 @@
             planDetailsVC.isFlowChart = true;
             [self.navigationController pushViewController:planDetailsVC animated:YES];
         }
-    }else if ([data[@"path"] isEqualToString:kLoanDetailVC]){
+    }else if ([path isEqualToString:kLoanDetailVC]){
         //某个散标的详情页
         HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
         NSString *productId = data[@"productId"];
@@ -120,30 +120,30 @@
             [self.navigationController pushViewController:loanDetailsVC animated:YES];
         }
         
-    }else if ([data[@"path"] isEqualToString:kLoginVC]){
+    }else if ([path isEqualToString:kLoginVC]){
         //登录页面
         //跳转登录注册
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-    }else if ([data[@"path"] isEqualToString:kHomeVC]){
+    }else if ([path isEqualToString:kHomeVC]){
         //主页
        [self.navigationController popViewControllerAnimated:NO];
         tabBarVC.selectedIndex = 0;
-    }else if ([data[@"path"] isEqualToString:kPlan_fragment]){
+    }else if ([path isEqualToString:kPlan_fragment]){
         //红利计划列表页
         [self.navigationController popViewControllerAnimated:NO];
         tabBarVC.selectedIndex = 1;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
-    }else if ([data[@"path"] isEqualToString:kLoan_fragment]){
+    }else if ([path isEqualToString:kLoan_fragment]){
         //散标列表页
         [self.navigationController popViewControllerAnimated:NO];
         tabBarVC.selectedIndex = 1;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @1}];
-    }else if ([data[@"path"] isEqualToString:kLoantransferfragment]){
+    }else if ([path isEqualToString:kLoantransferfragment]){
         //主页债权转让列表页
         [self.navigationController popViewControllerAnimated:NO];
         tabBarVC.selectedIndex = 1;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @2}];
-    }else if ([data[@"path"] isEqualToString:kAccountFriendsRecordActivity]){
+    }else if ([path isEqualToString:kAccountFriendsRecordActivity]){
         HXBInviteListViewController *inviteListVC = [[HXBInviteListViewController alloc] init];
         [self.navigationController pushViewController:inviteListVC animated:YES];
     }
