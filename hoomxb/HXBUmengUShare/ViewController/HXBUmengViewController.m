@@ -127,7 +127,7 @@
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
         if (error) {
-            [HXBUMShareViewModel sharFailureStringWithCode:error.code];
+            [self.shareVM sharFailureStringWithCode:error.code];
             UMSocialLogInfo(@"************Share fail with error %@*********",error);
         }else{
             if ([data isKindOfClass:[UMSocialShareResponse class]]) {
