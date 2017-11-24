@@ -70,7 +70,7 @@
 }
 
 #pragma mark - 分享失败回调文案
-+ (void)sharFailureStringWithCode:(NSInteger)code {
+- (void)sharFailureStringWithCode:(NSInteger)code {
     NSString *errorMessage = @"";
     switch (code) {
         case UMSocialPlatformErrorType_Unknow:
