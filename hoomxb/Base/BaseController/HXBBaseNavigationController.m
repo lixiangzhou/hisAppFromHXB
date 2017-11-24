@@ -12,6 +12,9 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *fullScreenGesture;
 @end
 
+//观察者上下文
+static void *sObserveContext = &sObserveContext;
+
 @implementation HXBBaseNavigationController
 
 - (void)viewDidLoad {
@@ -26,9 +29,32 @@
     self.fullScreenGesture.delegate = self;
     [targetView addGestureRecognizer:self.fullScreenGesture];
     self.enableFullScreenGesture = YES;
-    
     // 关闭边缘触发手势 防止和原有边缘手势冲突
     [self.interactivePopGestureRecognizer setEnabled:NO];
+    [self addObservers];
+}
+
+- (void)dealloc {
+    [self.fullScreenGesture removeObserver:self forKeyPath:@"state"];
+}
+
+#pragma 增加观察者
+- (void)addObservers {
+    [self.fullScreenGesture addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:sObserveContext];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == sObserveContext) {
+        if ([keyPath isEqualToString:@"state"]) {
+            NSNumber* state = [change valueForKey:@"new"];
+            if (1 == state.integerValue) {//右滑手势开始生效
+                self.occurRightGestureAction = YES;
+            }
+        }
+    } else {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 #pragma mark - override push

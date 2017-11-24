@@ -22,6 +22,7 @@
 ///导航条是否为蓝色
 @property (nonatomic,assign) BOOL isBlueGradientNavigationBar;
 @property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
+
 ///可以重写返回方法
 - (void)leftBackBtnClick;
 ///无网状态的网络连接
