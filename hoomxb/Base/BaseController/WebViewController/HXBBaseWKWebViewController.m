@@ -128,6 +128,11 @@
     [self.jsBridge registerHandler:handlerName handler:handler];
 }
 
+#pragma mark 调用js
+- (void)callHandler:(NSString *)handlerName data:(id)data {
+    [self.jsBridge callHandler:handlerName data:data];
+}
+
 #pragma mark webView初始化
 - (WKWebView *)webView {
     if (!_webView) {

@@ -12,6 +12,8 @@
 
 /// 是否允许全屏手势，默认 YES
 @property (nonatomic, assign) BOOL enableFullScreenGesture;
+//是否发生了向右滑动的手势动作
+@property (nonatomic, assign) BOOL occurRightGestureAction;
 
 /**
  再次调用网络请求的方法

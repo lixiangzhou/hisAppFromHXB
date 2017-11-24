@@ -75,7 +75,12 @@
     [super viewWillAppear:animated];
     
     // 禁用全屏滑动手势
-    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+    NSInteger index = self.navigationController.viewControllers.count;
+    UIViewController *VC = self.navigationController.viewControllers[index - 2];
+    if ([VC isKindOfClass:NSClassFromString(@"HXBOpenDepositAccountViewController")] || [VC isKindOfClass:NSClassFromString(@"HxbWithdrawCardViewController")]) {
+        ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+    }
+    
     [self loadBankCard];
 }
 
