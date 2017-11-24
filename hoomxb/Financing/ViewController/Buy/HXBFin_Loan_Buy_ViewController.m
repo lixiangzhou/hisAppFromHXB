@@ -207,10 +207,11 @@ static NSString *const bankString = @"绑定银行卡";
     if (!self.presentedViewController) {
         self.alertVC = [[HXBAlertVC alloc] init];
         self.alertVC.isCode = YES;
+        self.alertVC.speechType = YES;
         self.alertVC.isCleanPassword = YES;
         self.alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
 //        _isClickSpeechVerificationCode = NO;
-        self.alertVC.messageTitle = @"充值验证短信";
+        self.alertVC.messageTitle = @"请输入验证码";
         _buyType = @"recharge"; // 弹出短验，都是充值购买
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
@@ -226,11 +227,13 @@ static NSString *const bankString = @"绑定银行卡";
         self.alertVC.getVerificationCodeBlock = ^{
             _isClickSpeechVerificationCode = NO;
             _isSpeechVerificationCode = YES;
+            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
             [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
         };
         self.alertVC.getSpeechVerificationCodeBlock = ^{
             _isClickSpeechVerificationCode = YES;
             _isSpeechVerificationCode = YES;
+            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
             //获取语音验证码 注意参数
             [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
         };
@@ -400,7 +403,6 @@ static NSString *const bankString = @"绑定银行卡";
         [self setUpArray];
         [self.hxbBaseVCScrollView reloadData];
     } andFailure:^(NSError *error) {
-        [self changeItemWithInvestMoney:_inputMoneyStr];
     }];
 }
 
@@ -470,13 +472,18 @@ static const NSInteger topView_high = 230;
         _topView.creditorMoney = [NSString stringWithFormat:@"标的剩余金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
         _topView.placeholderStr = _placeholderStr;
         _topView.block = ^{ // 点击一键购买执行的方法
-            NSString *topupStr = weakSelf.availablePoint;
-            weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.lf", topupStr.floatValue];
-            _inputMoneyStr = topupStr;
-            _handleDetailTitle = topupStr;
-            weakSelf.bottomView.addBtnIsUseable = topupStr.length;
-            [weakSelf changeItemWithInvestMoney:topupStr];
-            [weakSelf setUpArray];
+            if (weakSelf.availablePoint.doubleValue == 0) {
+                [HxbHUDProgress showTextWithMessage:@"投标金额已达上限"];
+                weakSelf.topView.disableKeyBorad = YES;
+            } else {
+                NSString *topupStr = weakSelf.availablePoint;
+                weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.lf", topupStr.floatValue];
+                _inputMoneyStr = topupStr;
+                _handleDetailTitle = topupStr;
+                weakSelf.bottomView.addBtnIsUseable = topupStr.length;
+                [weakSelf changeItemWithInvestMoney:topupStr];
+                [weakSelf setUpArray];
+            }
         };
     }
     return _topView;

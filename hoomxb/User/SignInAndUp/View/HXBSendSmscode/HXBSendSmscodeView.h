@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
 @interface HXBSendSmscodeView : UIView
+// 是否点击的是发送语音
+@property (nonatomic, assign) BOOL isSendSpeechCode;
 @property (nonatomic, copy) NSString *phonNumber;
 @property (nonatomic,assign) HXBSignUPAndLoginRequest_sendSmscodeType type;
 //是否有语音验证码

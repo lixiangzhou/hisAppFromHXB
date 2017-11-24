@@ -155,13 +155,13 @@
         self.codeBtn.layer.borderColor = COR29.CGColor;
         [self.codeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
         [self.codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
-        self.isSpeechVerificationCode = YES;
+        self.isSpeechVerificationCode = _isSpeechVerificationCode;
+        if (_speechType) {
+            self.isSpeechVerificationCode = YES;
+        }
         self.speechVerificationCodeBtn.enabled = YES;
         [_speechVerificationCodeBtn setTitleColor:RGB(45, 121, 243) forState:UIControlStateNormal];
-//        if (_isSpeechVerificationCode) {
-//            self.speechVerificationCodeBtn.enabled = YES;
-//            [_speechVerificationCodeBtn setTitleColor:RGB(45, 121, 243) forState:UIControlStateNormal];
-//        }
+
     }
 }
 

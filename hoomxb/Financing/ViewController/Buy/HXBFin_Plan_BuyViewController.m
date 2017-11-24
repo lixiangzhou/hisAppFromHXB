@@ -231,6 +231,7 @@
                     HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
                     planBuySuccessVC.imageName = @"successful";
                     planBuySuccessVC.buy_title = @"加入成功";
+                    planBuySuccessVC.isShowInviteBtn = NO;
                     planBuySuccessVC.buy_description = model.lockStart;
                     planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
                     planBuySuccessVC.title = @"投资成功";

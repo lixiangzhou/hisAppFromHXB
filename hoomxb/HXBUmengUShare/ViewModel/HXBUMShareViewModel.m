@@ -17,15 +17,19 @@
     switch (type) {
         case UMSocialPlatformType_WechatSession:
             shareURL = self.shareModel.wechat;
+            [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_weChat];
             break;
         case UMSocialPlatformType_WechatTimeLine:
             shareURL = self.shareModel.moments;
+            [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_friendCircle];
             break;
         case UMSocialPlatformType_QQ:
             shareURL = self.shareModel.qq;
+            [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_QQ];
             break;
         case UMSocialPlatformType_Qzone:
             shareURL = self.shareModel.qzone;
+            [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_QQSpace];
             break;
         default:
             break;

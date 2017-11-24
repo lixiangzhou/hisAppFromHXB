@@ -78,8 +78,6 @@
         [weakSelf logicalJumpWithData:data];
     }];
     [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"%@",data);
-        
         HXBUMShareViewModel *shareViewModel = [[HXBUMShareViewModel alloc] init];
         shareViewModel.shareModel = [HXBUMShareModel yy_modelWithDictionary:data];
         [HXBUMengShareManager showShareMenuViewInWindowWith:shareViewModel];

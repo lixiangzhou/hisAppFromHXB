@@ -67,6 +67,11 @@
     _isSpeechVerificationCode = isSpeechVerificationCode;
     self.verificationCodeAlertView.isSpeechVerificationCode = isSpeechVerificationCode;
 }
+
+- (void)setSpeechType:(BOOL)speechType {
+    _speechType = speechType;
+    self.verificationCodeAlertView.speechType = _speechType;
+}
 - (void)setIsCode:(BOOL)isCode
 {
     _isCode = isCode;
