@@ -20,5 +20,5 @@ typedef enum : NSUInteger {
 typedef void (^ HXBPageLoadStateBlock) (HXBPageLoadState state);
 
 //页面加载状态回调
-@property (nonatomic, strong) HXBPageLoadStateBlock loadStateBlock;
+@property (nonatomic, copy) HXBPageLoadStateBlock loadStateBlock;
 @end
