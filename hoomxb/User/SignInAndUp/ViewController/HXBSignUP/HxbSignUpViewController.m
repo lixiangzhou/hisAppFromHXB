@@ -241,9 +241,16 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 ///点击了已有账号按钮
 - (void) registerEvent_clickHaveAccount{
     kWeakSelf
-    [self.signUPView clickHaveAccountButtonFunc:^{
-        [weakSelf.navigationController popViewControllerAnimated:true];
-    }];
+    if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_H5) {
+        [self.signUPView clickHaveAccountButtonFunc:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+            [weakSelf.navigationController popViewControllerAnimated:true];
+        }];
+    } else {
+        [self.signUPView clickHaveAccountButtonFunc:^{
+            [weakSelf.navigationController popViewControllerAnimated:true];
+        }];
+    }
 }
 
 - (void)dealloc {

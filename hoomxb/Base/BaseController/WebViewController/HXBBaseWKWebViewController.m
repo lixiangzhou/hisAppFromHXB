@@ -9,6 +9,7 @@
 #import "HXBBaseWKWebViewController.h"
 #import <WebKit/WebKit.h>
 #import "HXBWKWebviewViewModuel.h"
+#import "HXBWKWebViewProgressView.h"
 
 @interface HXBBaseWKWebViewController ()<WKNavigationDelegate> {
     //进度视图的高度
@@ -18,7 +19,7 @@
 }
 
 @property (nonatomic, strong) WKWebView *webView;
-@property (nonatomic, strong) UIProgressView* progressView;
+@property (nonatomic, strong) HXBWKWebViewProgressView* progressView;
 
 //js 代理
 @property (nonatomic, strong) WKWebViewJavascriptBridge *jsBridge;
@@ -45,7 +46,7 @@
     // Do any additional setup after loading the view.
     
     self.isRedColorWithNavigationBar = YES;
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.webView];
     [self.view addSubview:self.progressView];
     [self setupConstraints];
@@ -74,7 +75,8 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
-        self.progressView.progress = self.webView.estimatedProgress;
+        [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
+
     } else if ([keyPath isEqualToString:@"title"]) {
         self.title = [HXBMiddlekey H5Title:self.webView.title];
     }
@@ -91,7 +93,7 @@
 - (void)setupConstraints {
     kWeakSelf
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(weakSelf.view);
+        make.left.equalTo(weakSelf.view);
         make.top.equalTo(weakSelf.view).offset(HXBStatusBarAndNavigationBarHeight);
         make.height.mas_equalTo(_progressViewHeight);
     }];
@@ -143,12 +145,13 @@
 }
 
 #pragma mark progressView初始化
-- (UIProgressView *)progressView {
+- (HXBWKWebViewProgressView *)progressView {
     if (!_progressView) {
-        _progressView = [[UIProgressView alloc] initWithProgressViewStyle:(UIProgressViewStyleDefault)];
-        [_progressView setTrackTintColor: [UIColor clearColor]];
-        _progressView.progress = 0;
-        [_progressView setProgressTintColor:[UIColor blueColor]];
+        _progressView = [[HXBWKWebViewProgressView alloc] init];
+        kWeakSelf
+        _progressView.HXBPageLoadStateSuccessBlock = ^{
+            [weakSelf loadProgress:NO];
+        };
     }
     return _progressView;
 }
@@ -165,10 +168,10 @@
                     [weakSelf loadProgress:YES];
                     break;
                 }
-                case HXBPageLoadStateEnd: {
-                    [weakSelf loadProgress:NO];
-                    break;
-                }
+//                case HXBPageLoadStateEnd: {
+//                    [weakSelf loadProgress:NO];
+//                    break;
+//                }
                 case HXBPageLoadStateFaile: {
                     [weakSelf loadProgress:NO];
                     break;

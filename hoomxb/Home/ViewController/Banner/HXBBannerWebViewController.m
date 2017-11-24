@@ -30,7 +30,7 @@
 #import "HXBUMShareViewModel.h"
 #import "HXBUMShareModel.h"
 #import "HXBInviteListViewController.h"
-
+#import "HxbSignUpViewController.h"//注册
 @interface HXBBannerWebViewController ()
 
 @end
@@ -81,23 +81,24 @@
 {
     //跳转立即投资
     HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-    
-    UIViewController *baseVC = [self.navigationController.viewControllers firstObject];
-    [self.navigationController popViewControllerAnimated:NO];
+
     if ([data[@"path"] isEqualToString:kRegisterVC]) {
         //注册
         //跳转登录注册
-       [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
+        signUPVC.title = @"注册";
+        signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_H5;
+        [self.navigationController pushViewController:signUPVC animated:YES];
     }else if ([data[@"path"] isEqualToString:kRechargeVC]){
         //充值页面
         HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-        [baseVC.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
     }else if ([data[@"path"] isEqualToString:kEscrowActivityVC]){
         //存管开户页面
         HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
         openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         openDepositAccountVC.title = @"开通存管账户";
-        [baseVC.navigationController pushViewController:openDepositAccountVC animated:NO];
+        [self.navigationController pushViewController:openDepositAccountVC animated:YES];
     }else if ([data[@"path"] isEqualToString:kPlanDetailVC]){
         //某个计划的详情页
         HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
@@ -106,7 +107,7 @@
             planDetailsVC.planID = productId;
             planDetailsVC.isPlan = true;
             planDetailsVC.isFlowChart = true;
-            [baseVC.navigationController pushViewController:planDetailsVC animated:NO];
+            [self.navigationController pushViewController:planDetailsVC animated:YES];
         }
     }else if ([data[@"path"] isEqualToString:kLoanDetailVC]){
         //某个散标的详情页
@@ -116,7 +117,7 @@
             
             loanDetailsVC.loanID = productId;
             
-            [baseVC.navigationController pushViewController:loanDetailsVC animated:NO];
+            [self.navigationController pushViewController:loanDetailsVC animated:YES];
         }
         
     }else if ([data[@"path"] isEqualToString:kLoginVC]){
@@ -125,21 +126,26 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
     }else if ([data[@"path"] isEqualToString:kHomeVC]){
         //主页
-       
+       [self.navigationController popViewControllerAnimated:NO];
+        tabBarVC.selectedIndex = 0;
     }else if ([data[@"path"] isEqualToString:kPlan_fragment]){
         //红利计划列表页
+        [self.navigationController popViewControllerAnimated:NO];
         tabBarVC.selectedIndex = 1;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
     }else if ([data[@"path"] isEqualToString:kLoan_fragment]){
         //散标列表页
+        [self.navigationController popViewControllerAnimated:NO];
         tabBarVC.selectedIndex = 1;
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @1}];
     }else if ([data[@"path"] isEqualToString:kLoantransferfragment]){
         //主页债权转让列表页
+        [self.navigationController popViewControllerAnimated:NO];
         tabBarVC.selectedIndex = 1;
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @2}];
     }else if ([data[@"path"] isEqualToString:kAccountFriendsRecordActivity]){
         HXBInviteListViewController *inviteListVC = [[HXBInviteListViewController alloc] init];
-        [baseVC.navigationController pushViewController:inviteListVC animated:NO];
+        [self.navigationController pushViewController:inviteListVC animated:YES];
     }
    
 }

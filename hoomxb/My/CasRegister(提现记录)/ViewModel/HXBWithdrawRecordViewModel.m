@@ -41,15 +41,15 @@
                                          @"page" : @(page),
                                          @"pageSize" : @kPageCount
                                          };
-    if (page == 1) {
-        [self.dataList removeAllObjects];
-    }
     NSString *loadStr = nil;
     if (isLoading) {
         loadStr = kLoadIngText;
     }
     [versionUpdateAPI startWithHUDStr:loadStr Success:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
+        if (page == 1) {
+            [self.dataList removeAllObjects];
+        }
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
             if ((status != kHXBCode_Enum_ProcessingField)) {
