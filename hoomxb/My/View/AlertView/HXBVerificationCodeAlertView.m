@@ -219,6 +219,7 @@
         _textField.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
         _textField.textColor = RGB(51, 51, 51);
         _textField.keyboardType = UIKeyboardTypeNumberPad;
+        _textField.placeholder = @"验证码";
     }
     return _textField;
 }
