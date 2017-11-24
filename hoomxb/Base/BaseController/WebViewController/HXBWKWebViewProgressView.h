@@ -18,5 +18,5 @@
 /**
  进度条加载完毕回调
  */
-@property (nonatomic, copy)  void (^HXBPageLoadStateSuccessBlock) ();
+@property (nonatomic, copy)  void (^webViewLoadSuccessBlock) ();
 @end

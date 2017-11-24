@@ -78,7 +78,7 @@
         [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
 
     } else if ([keyPath isEqualToString:@"title"]) {
-        self.title = [HXBMiddlekey H5Title:self.webView.title];
+        self.title = [NSString H5Title:self.webView.title];
     }
     
 }
@@ -86,14 +86,14 @@
 #pragma mark 无网络重新加载H5
 - (void)getNetworkAgain
 {
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.pageUrl]]];
+    [self loadWebPage];
 }
 
 #pragma mark 安装约束
 - (void)setupConstraints {
     kWeakSelf
     [self.progressView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf.view);
+        make.left.right.equalTo(weakSelf.view);
         make.top.equalTo(weakSelf.view).offset(HXBStatusBarAndNavigationBarHeight);
         make.height.mas_equalTo(_progressViewHeight);
     }];
@@ -149,7 +149,7 @@
     if (!_progressView) {
         _progressView = [[HXBWKWebViewProgressView alloc] init];
         kWeakSelf
-        _progressView.HXBPageLoadStateSuccessBlock = ^{
+        _progressView.webViewLoadSuccessBlock = ^{
             [weakSelf loadProgress:NO];
         };
     }

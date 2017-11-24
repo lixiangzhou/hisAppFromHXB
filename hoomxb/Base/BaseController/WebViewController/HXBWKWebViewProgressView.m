@@ -12,8 +12,6 @@
 
 @property (nonatomic) UIView *progressBarView;
 @property (nonatomic) NSTimeInterval barAnimationDuration;
-@property (nonatomic) NSTimeInterval fadeAnimationDuration;
-@property (nonatomic) NSTimeInterval fadeOutDelay;
 
 @end
 
@@ -25,6 +23,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setUI];
+        _barAnimationDuration = 0.5f;
     }
     return self;
 }
@@ -40,15 +39,10 @@
 - (void)setUI {
     self.userInteractionEnabled = NO;
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    _progressBarView = [[UIView alloc] initWithFrame:self.bounds];
-    _progressBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-    UIColor *tintColor = COR29;
-    _progressBarView.backgroundColor = tintColor;
+    _progressBarView = [[UIView alloc] initWithFrame:CGRectZero];
+    _progressBarView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    _progressBarView.backgroundColor = COR29;
     [self addSubview:_progressBarView];
-    
-    _barAnimationDuration = 0.5f;
-    _fadeAnimationDuration = 0.3f;
-    _fadeOutDelay = 0.1f;
 }
 
 #pragma mark - Action
@@ -63,17 +57,14 @@
         frame.size.width = progress * kScreenWidth;
         _progressBarView.frame = frame;
         NSLog(@"进度%lf",_progressBarView.width);
-    } completion:nil];
-    
-    if (progress >= 1.0) {
-        [UIView animateWithDuration:animated ? _fadeAnimationDuration : 0.0 delay:_fadeOutDelay options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            _progressBarView.alpha = 0.5;
-        } completion:^(BOOL completed){
-            if (self.HXBPageLoadStateSuccessBlock) {
-                self.HXBPageLoadStateSuccessBlock();
+    } completion:^(BOOL finished) {
+        if (progress >= 1.0) {
+            if (self.webViewLoadSuccessBlock) {
+                self.webViewLoadSuccessBlock();
             }
-        }];
-    }
+        }
+    }];
+    
 }
 
 #pragma mark - Helper
