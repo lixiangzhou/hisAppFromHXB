@@ -93,17 +93,24 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
             break;
     }
 }
-- (void)setPhonNumber:(NSString *)phonNumber {
-    _phonNumber = phonNumber;
-    NSString *str = [NSString hiddenStr:phonNumber MidWithFistLenth:3 andLastLenth:4];
-    NSString *strLabel = [NSString stringWithFormat:@"已向手机%@发送短信",str];
-    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:strLabel];
+
+- (void)setIsSendSpeechCode:(BOOL)isSendSpeechCode {
+    _isSendSpeechCode = isSendSpeechCode;
+    NSString *str = [NSString hiddenStr:_phonNumber MidWithFistLenth:3 andLastLenth:4];
+    NSString *string = _isSendSpeechCode ? [NSString stringWithFormat:@"请留意接听%@上的来电",str] : [NSString stringWithFormat:@"已向手机%@发送短信",str];
+    self.phonNumberLabel.attributedText = [self transferString:string str:str];
+}
+
+- (NSMutableAttributedString *)transferString:(NSString *)string str:(NSString *)str {
+    NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:string];
     // 设置字体和设置字体的范围
     [attrStr addAttribute:NSForegroundColorAttributeName
                     value:RGB(253, 54, 54)
-                    range:[strLabel rangeOfString:str]];
-    self.phonNumberLabel.attributedText = attrStr;
+                    range:[string rangeOfString:str]];
+    return attrStr;
 }
+
+
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -404,7 +411,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     
     [self.sendButton setTitle:[NSString stringWithFormat:@"%@s",@(self.timeNumber).description] forState:UIControlStateNormal];
     if (self.timeNumber <= 0) {
-        [self.sendButton setTitle:kSendSmscodeAgainTitle forState:UIControlStateNormal];
+        NSString *btnTitle = _type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot ? kSendSmscodeTitle : kSendSmscodeAgainTitle;
+        [self.sendButton setTitle:btnTitle forState:UIControlStateNormal];
 //        [self.sendButton setBackgroundColor:RGB(245, 81, 81)];
         [self.sendButton setBackgroundColor:[UIColor whiteColor]];
         [self.sendButton setTitleColor:COR29 forState:(UIControlStateNormal)];

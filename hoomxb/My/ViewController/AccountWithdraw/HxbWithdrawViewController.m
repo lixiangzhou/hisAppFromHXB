@@ -470,7 +470,9 @@
         kWeakSelf
         _alertVC = [[HXBAlertVC alloc] init];
         _alertVC.isCode = YES;
+        self.alertVC.speechType = NO;
         _alertVC.messageTitle = @"请输入您的短信验证码";
+        _alertVC.isSpeechVerificationCode = NO;
         _alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收",[self.withdrawModel.mobileNumber replaceStringWithStartLocation:3 lenght:self.withdrawModel.mobileNumber.length - 7]];
         _alertVC.sureBtnClick = ^(NSString *pwd){
             if (pwd.length == 0) {

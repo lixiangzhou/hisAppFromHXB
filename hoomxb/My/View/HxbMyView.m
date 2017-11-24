@@ -111,6 +111,7 @@ MyViewHeaderDelegate
             HXBMyCouponViewController *myCouponsViewController = [[HXBMyCouponViewController alloc]init];
             [vc.navigationController pushViewController:myCouponsViewController animated:YES];
         } else {
+            [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_entrance];
             HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
             HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
             webViewVC.pageUrl = kHXBH5_InviteDetailURL;

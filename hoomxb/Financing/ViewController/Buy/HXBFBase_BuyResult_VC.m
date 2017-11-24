@@ -174,6 +174,7 @@
 }
 
 - (void)clickToShare:(UIButton *)clickToShare {
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_inviteSucess_share];
     [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
 }
 
@@ -188,6 +189,7 @@
 }
 
 - (void)clickButton: (UIButton *)button {
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_investSucess_seeResult];
     if (self.clickButtonBlock) {
         self.clickButtonBlock();
     }
@@ -259,6 +261,7 @@
         _inviteButton.layer.cornerRadius = kScrAdaptationW750(5);
         _inviteButton.backgroundColor = [UIColor whiteColor];
         _inviteButton.layer.borderWidth = kXYBorderWidth;
+        _inviteButton.hidden = YES;
         _inviteButton.layer.borderColor = COR29.CGColor;
         _inviteButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
         [_inviteButton setTitleColor:COR29 forState:UIControlStateNormal];

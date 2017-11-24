@@ -59,7 +59,7 @@
 - (void)setupFrame {
     [_backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self);
-        make.height.offset(kScrAdaptationH(248) - 64);
+        make.height.offset(kScrAdaptationH(248) - HXBStatusBarAndNavigationBarHeight);
     }];
     
     [_topLabel mas_makeConstraints:^(MASConstraintMaker *make) {

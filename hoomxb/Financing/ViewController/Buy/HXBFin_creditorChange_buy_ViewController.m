@@ -244,11 +244,12 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)alertSmsCode {
     if (!self.presentedViewController) {
         self.alertVC = [[HXBAlertVC alloc] init];
+        self.alertVC.speechType = YES;
         self.alertVC.isCode = YES;
         self.alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
         self.alertVC.isCleanPassword = YES;
         //    _isClickSpeechVerificationCode = NO;
-        self.alertVC.messageTitle = @"充值验证短信";
+        self.alertVC.messageTitle = @"请输入验证码";
         _buyType = @"recharge"; // 弹出短验，都是充值购买
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
@@ -264,12 +265,14 @@ static NSString *const bankString = @"绑定银行卡";
         self.alertVC.getVerificationCodeBlock = ^{
             _isClickSpeechVerificationCode = NO;
             _isSpeechVerificationCode = YES;
+            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
             [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
         };
         self.alertVC.getSpeechVerificationCodeBlock = ^{
             //获取语音验证码 注意参数
             _isClickSpeechVerificationCode = YES;
             _isSpeechVerificationCode = YES;
+            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
             
             [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
         };

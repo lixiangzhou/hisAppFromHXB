@@ -76,7 +76,7 @@
 
 
 + (void) showShareMenuViewInWindowWith:(HXBUMShareViewModel *)shareVM {
-    
+    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_alert];
     HXBUmengViewController *UmengVC = [[HXBUmengViewController alloc] init];
     UmengVC.shareVM = shareVM;
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:UmengVC animated:NO completion:^{
