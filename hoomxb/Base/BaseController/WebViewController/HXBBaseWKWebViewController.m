@@ -51,10 +51,12 @@
     [self setupConstraints];
     
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:(NSKeyValueObservingOptionNew) context:nil];
+    [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
 }
 
 - (void)dealloc {
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    [self.webView removeObserver:self forKeyPath:@"title"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -73,7 +75,16 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
         self.progressView.progress = self.webView.estimatedProgress;
+    } else if ([keyPath isEqualToString:@"title"]) {
+        self.title = [HXBMiddlekey H5Title:self.webView.title];
     }
+    
+}
+
+#pragma mark 无网络重新加载H5
+- (void)getNetworkAgain
+{
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.pageUrl]]];
 }
 
 #pragma mark 安装约束

@@ -6,13 +6,9 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBBaseViewController.h"
+#import "HXBBaseWKWebViewController.h"
 
-@interface HXBBannerWebViewController : HXBBaseViewController
+@interface HXBBannerWebViewController : HXBBaseWKWebViewController
 
-/**
- URL
- */
-@property (nonatomic, copy) NSString *url;
 
 @end

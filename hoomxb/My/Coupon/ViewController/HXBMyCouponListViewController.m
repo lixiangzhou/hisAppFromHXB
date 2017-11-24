@@ -77,7 +77,7 @@
         kWeakSelf
         _myView.block = ^{
             HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
-            webViewVC.url = kHXBH5_InviteDetailURL;
+            webViewVC.pageUrl = kHXBH5_InviteDetailURL;
             [weakSelf.navigationController pushViewController:webViewVC animated:true];
         };
         _myView.userInteractionEnabled = YES;

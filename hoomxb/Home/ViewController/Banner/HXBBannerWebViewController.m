@@ -31,9 +31,8 @@
 #import "HXBUMShareModel.h"
 #import "HXBInviteListViewController.h"
 
-@interface HXBBannerWebViewController ()<UIWebViewDelegate>
-@property (nonatomic, strong) UIWebView *webView;
-@property (nonatomic, strong) WebViewJavascriptBridge* bridge;
+@interface HXBBannerWebViewController ()
+
 @end
 
 @implementation HXBBannerWebViewController
@@ -42,59 +41,41 @@
     [super viewDidLoad];
     self.title = @"";
     self.isColourGradientNavigationBar = YES;
+    self.pageReload = YES;
     self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.webView];
-    
     [self setupJavascriptBridge];
-    
-    [self setupSubViewFrame];
-    
-    
 }
 
-- (void)setupSubViewFrame {
-    
-    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(HXBStatusBarAndNavigationBarHeight);
-        make.left.right.bottom.equalTo(self.view);
-    }];
-}
 
 
 /**
  初始化与H5交互
  */
 - (void)setupJavascriptBridge {
-    /****** 加载桥梁对象 ******/
-    [WebViewJavascriptBridge enableLogging];
-    
-    /****** 初始化 ******/
-    _bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-    }];
+
     kWeakSelf
     /****** OC端注册一个方法 (测试)******/
-    [self.bridge registerHandler:@"startPage" handler:^(id data, WVJBResponseCallback responseCallback) {
+    [self registJavascriptBridge:@"startPage" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",data);
         [weakSelf logicalJumpWithData:data];
     }];
-    [self.bridge registerHandler:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
+    
+    [self registJavascriptBridge:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",data);
-        
         HXBUMShareViewModel *shareViewModel = [[HXBUMShareViewModel alloc] init];
         shareViewModel.shareModel = [HXBUMShareModel yy_modelWithDictionary:data];
         [HXBUMengShareManager showShareMenuViewInWindowWith:shareViewModel];
     }];
-
-
+    
 }
 
-/**
- 再次获取网络数据
- */
-- (void)getNetworkAgain
-{
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
-}
+///**
+// 再次获取网络数据
+// */
+//- (void)getNetworkAgain
+//{
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.pageUrl]]];
+//}
 
 - (void)logicalJumpWithData:(id)data
 {
@@ -161,55 +142,6 @@
         [baseVC.navigationController pushViewController:inviteListVC animated:NO];
     }
    
-}
-#pragma mark - Event
-- (void)shareBtnClick {
-    [HXBUMengShareManager showShareMenuViewInWindowWith:nil];
-}
-
-
-#pragma mark - UIWebViewDelegate
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
-    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        return NO;
-    }
-    
-    return YES;
-}
-
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    [HxbHUDProgress hidenHUD:self.webView];
-    self.title = [HXBMiddlekey H5Title:[webView stringByEvaluatingJavaScriptFromString:@"document.title"]];
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-}
-
-#pragma mark - 懒加载
-- (UIWebView *)webView
-{
-    if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
-        _webView.delegate = self;
-        _webView.scalesPageToFit = YES;
-        _webView.scrollView.showsHorizontalScrollIndicator = NO;
-        _webView.scrollView.bounces = NO;
-        // UIWebView 滚动的比较慢，这里设置为正常速度
-        _webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-        NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] init];
-        [urlRequest setURL:[NSURL URLWithString:self.url]];
-        NSString *systemVersion = [[UIDevice currentDevice] systemVersion];
-        NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-        NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVersion,version];
-        NSLog(@"测试token：%@结束",[KeyChain token]);
-        [urlRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
-        [urlRequest setValue:userAgent forHTTPHeaderField:X_Hxb_User_Agent];
-        [_webView loadRequest:urlRequest];
-        [HxbHUDProgress showLoadDataHUD:_webView];
-    }
-    return _webView;
 }
 
 
