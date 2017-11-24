@@ -37,5 +37,5 @@
 
  @param code 错误码
  */
-+ (void)sharFailureStringWithCode:(NSInteger)code;
+- (void)sharFailureStringWithCode:(NSInteger)code;
 @end
