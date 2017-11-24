@@ -114,7 +114,7 @@ MyViewHeaderDelegate
             [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_entrance];
             HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
             HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
-            webViewVC.url = kHXBH5_InviteDetailURL;
+            webViewVC.pageUrl = kHXBH5_InviteDetailURL;
             [VC.navigationController pushViewController:webViewVC animated:true];
         }
     }

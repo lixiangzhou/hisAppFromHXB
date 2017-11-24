@@ -48,7 +48,7 @@
     if ([keyPath isEqualToString:@"title"])
     {
         if (object == self.contractWebVeiw) {
-            self.title = [HXBMiddlekey H5Title:self.contractWebVeiw.title];
+            self.title = [NSString H5Title:self.contractWebVeiw.title];
         }else
         {
             [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
