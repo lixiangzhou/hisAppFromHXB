@@ -83,46 +83,6 @@
 }
 
 
-
-#pragma mark - 分享失败回调文案
-- (NSString *)sharFailureStringWithCode:(NSInteger)code {
-    switch (code) {
-        case UMSocialPlatformErrorType_Unknow:
-            return @"未知错误";
-        case UMSocialPlatformErrorType_NotSupport:
-            return @"客户端版本不支持";
-        case  UMSocialPlatformErrorType_AuthorizeFailed:
-            return @"授权失败";
-        case UMSocialPlatformErrorType_ShareFailed:
-            return @"分享失败";
-        case UMSocialPlatformErrorType_RequestForUserProfileFailed:
-            return @"请求用户信息失败";
-        case UMSocialPlatformErrorType_ShareDataNil:
-            return @"网络异常";
-        case UMSocialPlatformErrorType_ShareDataTypeIllegal:
-            return @"分享内容不支持";
-        case UMSocialPlatformErrorType_CheckUrlSchemaFail:
-            return @"跳转链接配置错误";
-        case UMSocialPlatformErrorType_NotInstall:
-            return @"应用未安装";
-        case UMSocialPlatformErrorType_Cancel:
-            return @"取消操作";
-        case UMSocialPlatformErrorType_NotNetWork:
-            return @"网络异常";
-        case UMSocialPlatformErrorType_SourceError:
-            return @"第三方错误";
-        case UMSocialPlatformErrorType_ProtocolNotOverride:
-            return @"对应的UMSocialPlatformProvider的方法没有实现";
-        case UMSocialPlatformErrorType_NotUsingHttps:
-            return @"没有用https的请求";
-        default:
-            return @"未知错误";
-            break;
-    }
-    return nil;
-}
-
-
 #pragma mark - Action
 
 - (void)cancelShare {
@@ -167,8 +127,7 @@
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
         if (error) {
-            NSString *errorMessage = [self sharFailureStringWithCode:error.code];
-            [HxbHUDProgress showMessageCenter:errorMessage inView:nil];
+            [HXBUMShareViewModel sharFailureStringWithCode:error.code];
             UMSocialLogInfo(@"************Share fail with error %@*********",error);
         }else{
             if ([data isKindOfClass:[UMSocialShareResponse class]]) {
