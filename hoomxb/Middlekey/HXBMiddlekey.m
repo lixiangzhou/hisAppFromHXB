@@ -117,17 +117,4 @@
 }
 
 
-/**
- 设置H5显示超过9个文字
-
- @param title 标题
- */
-+ (NSString *)H5Title:(NSString *)title
-{
-    if (title.length > 9) {
-        NSString *subtitle = [title substringToIndex:9];
-       title = [subtitle stringByAppendingString:@"..."];
-    }
-    return title;
-}
 @end

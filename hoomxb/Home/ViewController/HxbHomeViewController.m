@@ -383,7 +383,7 @@
         _homeView.clickBannerImageBlock = ^(BannerModel *model) {
             if (model.url.length) {
                 HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
-                webViewVC.url = model.url;
+                webViewVC.pageUrl = model.url;
                 //            webViewVC.title = model.title;//mgmt标题
                 [weakSelf.navigationController pushViewController:webViewVC animated:true];
             }

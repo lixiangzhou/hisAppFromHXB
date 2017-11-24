@@ -41,15 +41,16 @@
                                          @"page" : @(page),
                                          @"pageSize" : @kPageCount
                                          };
-    if (page == 1) {
-        [self.dataList removeAllObjects];
-    }
     NSString *loadStr = nil;
     if (isLoading) {
         loadStr = kLoadIngText;
     }
+    kWeakSelf
     [versionUpdateAPI startWithHUDStr:loadStr Success:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
+        if (page == 1) {
+            [weakSelf.dataList removeAllObjects];
+        }
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
             if ((status != kHXBCode_Enum_ProcessingField)) {
@@ -61,11 +62,11 @@
             return;
         }
         
-        self.withdrawRecordListModel = [HXBWithdrawRecordListModel yy_modelWithDictionary:responseObject[kResponseData]];
-        [self.dataList addObjectsFromArray:self.withdrawRecordListModel.dataList];
-        self.withdrawRecordListModel.dataList = self.dataList;
+        weakSelf.withdrawRecordListModel = [HXBWithdrawRecordListModel yy_modelWithDictionary:responseObject[kResponseData]];
+        [weakSelf.dataList addObjectsFromArray:self.withdrawRecordListModel.dataList];
+        weakSelf.withdrawRecordListModel.dataList = self.dataList;
         if (successDateBlock) {
-            successDateBlock(self.withdrawRecordListModel);
+            successDateBlock(weakSelf.withdrawRecordListModel);
         }
         
     } failure:^(NYBaseRequest *request, NSError *error) {

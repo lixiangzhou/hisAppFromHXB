@@ -19,7 +19,7 @@
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     if (self.loadStateBlock) {
-        self.loadStateBlock(HXBPageLoadStateEnd);
+        self.loadStateBlock(HXBPageLoadStateStart);
     }
 }
 
