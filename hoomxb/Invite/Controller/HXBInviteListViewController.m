@@ -36,6 +36,7 @@
     _page = 1;
     [self setUpDataForInviteOverView];
     [self setUpDataForInviteList];
+    
 }
 
 #pragma mark - UI

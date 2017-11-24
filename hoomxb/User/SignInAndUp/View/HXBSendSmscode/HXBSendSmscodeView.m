@@ -411,7 +411,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     
     [self.sendButton setTitle:[NSString stringWithFormat:@"%@s",@(self.timeNumber).description] forState:UIControlStateNormal];
     if (self.timeNumber <= 0) {
-        [self.sendButton setTitle:kSendSmscodeAgainTitle forState:UIControlStateNormal];
+        NSString *btnTitle = _type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot ? kSendSmscodeTitle : kSendSmscodeAgainTitle;
+        [self.sendButton setTitle:btnTitle forState:UIControlStateNormal];
 //        [self.sendButton setBackgroundColor:RGB(245, 81, 81)];
         [self.sendButton setBackgroundColor:[UIColor whiteColor]];
         [self.sendButton setTitleColor:COR29 forState:(UIControlStateNormal)];

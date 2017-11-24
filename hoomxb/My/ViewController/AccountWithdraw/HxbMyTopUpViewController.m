@@ -15,7 +15,6 @@
 #import "HXBRechargeCompletedViewController.h"
 #import "HXBAlertVC.h"
 #import "HXBOpenDepositAccountRequest.h"
-#import "HXBFBase_BuyResult_VC.h"
 #import "HXBBankCardModel.h"
 #import "HXBMyTopUpBankView.h"
 @interface HxbMyTopUpViewController ()
@@ -107,6 +106,7 @@
     if (!self.presentedViewController) {
         self.alertVC = [[HXBAlertVC alloc] init];
         self.alertVC.isCode = YES;
+        self.alertVC.speechType = YES;
         self.alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
         self.alertVC.messageTitle = @"请输入验证码";
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];

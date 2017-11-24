@@ -119,6 +119,7 @@
     HXBMYRequest *transferRequest = [[HXBMYRequest alloc] init];
     [transferRequest transferResultRequest_AccountRequestTransferID:self.creditorID andPWD:pwd andCurrentTransferValue:self.transferConfirmModel.currentTransValue SuccessBlock:^(id responseObject) {
         HXBFBase_BuyResult_VC *successVC = [[HXBFBase_BuyResult_VC alloc] init];
+        successVC.isShowInviteBtn = NO;
         successVC.imageName = @"successful";
         successVC.buy_title = @"转让成功";
         successVC.buy_description = @"确认成功，债权已进入转让中，具体完成时间以实际转让成功时间为准";

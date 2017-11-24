@@ -88,6 +88,7 @@
         } else {
             self.myCouponListModel = Model;
             HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+            planBuySuccessVC.isShowInviteBtn = NO;
             planBuySuccessVC.imageName = @"SuccessfulCoupon";
             planBuySuccessVC.buy_title = @"兑换成功";
             planBuySuccessVC.midStr = [NSString stringWithFormat:@"您已成功兑换\n%@", Model.summaryContent];

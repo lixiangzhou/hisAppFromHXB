@@ -289,6 +289,7 @@ static const NSInteger topView_high = 300;
     if (!self.presentedViewController) {
         self.alertVC = [[HXBAlertVC alloc] init];
         self.alertVC.isCode = YES;
+        self.alertVC.speechType = YES;
         self.alertVC.isCleanPassword = YES;
         self.alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
         self.alertVC.messageTitle = @"请输入验证码";

@@ -31,6 +31,8 @@
 @property (nonatomic, assign) BOOL isCode;
 //是否有语音验证码
 @property (nonatomic, assign) BOOL isSpeechVerificationCode;
+// 类型
+@property (nonatomic, assign) BOOL speechType; // 1是充值、充值购买、注册 0是其他的页面
 /**
  是否是电话
  */

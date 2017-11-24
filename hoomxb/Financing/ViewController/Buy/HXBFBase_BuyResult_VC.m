@@ -261,6 +261,7 @@
         _inviteButton.layer.cornerRadius = kScrAdaptationW750(5);
         _inviteButton.backgroundColor = [UIColor whiteColor];
         _inviteButton.layer.borderWidth = kXYBorderWidth;
+        _inviteButton.hidden = YES;
         _inviteButton.layer.borderColor = COR29.CGColor;
         _inviteButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
         [_inviteButton setTitleColor:COR29 forState:UIControlStateNormal];
