@@ -10,15 +10,15 @@
 #import <WebKit/WebKit.h>
 
 typedef enum : NSUInteger {
-    HXBPageLoadEnd,
-    HXBPageLoadStart,
-    HXBPageLoadFaile
+    HXBPageLoadStateEnd,
+    HXBPageLoadStateStart,
+    HXBPageLoadStateFaile
 } HXBPageLoadState;
 
 @interface HXBWKWebviewViewModuel : NSObject<WKNavigationDelegate>
 
-typedef void (^ PageLoadStateBlock) (HXBPageLoadState state);
+typedef void (^ HXBPageLoadStateBlock) (HXBPageLoadState state);
 
 //页面加载状态回调
-@property (nonatomic, strong) PageLoadStateBlock loadStateBlock;
+@property (nonatomic, copy) HXBPageLoadStateBlock loadStateBlock;
 @end
