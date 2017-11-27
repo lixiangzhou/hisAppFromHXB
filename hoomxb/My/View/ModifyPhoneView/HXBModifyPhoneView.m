@@ -50,7 +50,7 @@
         _phoneTextField.limitStringLength = 11;
         _phoneTextField.block = ^(NSString *text) {
             if (text.length == 11) {
-                if (self.timeCount == 0) {
+                if (weakSelf.timeCount == 0) {
                     weakSelf.getCodeBtn.backgroundColor = [UIColor whiteColor];
                     weakSelf.getCodeBtn.layer.borderWidth = kXYBorderWidth;
                     weakSelf.getCodeBtn.layer.borderColor = COR29.CGColor;
@@ -64,11 +64,11 @@
                 [weakSelf.getCodeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
             }
             if (text.length > 0 && _verificationCodeTextField.text.length > 0) {
-                [_sureChangeBtn setBackgroundColor:COR29];
-                _sureChangeBtn.userInteractionEnabled = YES;
+                [weakSelf.sureChangeBtn setBackgroundColor:COR29];
+                weakSelf.sureChangeBtn.userInteractionEnabled = YES;
             } else {
-                [_sureChangeBtn setBackgroundColor:COR12];
-                _sureChangeBtn.userInteractionEnabled = NO;
+                [weakSelf.sureChangeBtn setBackgroundColor:COR12];
+                weakSelf.sureChangeBtn.userInteractionEnabled = NO;
             }
 
         };
@@ -90,11 +90,11 @@
         kWeakSelf
         _verificationCodeTextField.block = ^(NSString *text) {
             if (text.length > 0 && _phoneTextField.text.length > 0) {
-                [_sureChangeBtn setBackgroundColor:COR29];
-                _sureChangeBtn.userInteractionEnabled = YES;
+                [weakSelf.sureChangeBtn setBackgroundColor:COR29];
+                weakSelf.sureChangeBtn.userInteractionEnabled = YES;
             } else {
-                [_sureChangeBtn setBackgroundColor:COR12];
-                _sureChangeBtn.userInteractionEnabled = NO;
+                [weakSelf.sureChangeBtn setBackgroundColor:COR12];
+                weakSelf.sureChangeBtn.userInteractionEnabled = NO;
             }
         };
         _verificationCodeTextField.keyboardType = UIKeyboardTypeNumberPad;
