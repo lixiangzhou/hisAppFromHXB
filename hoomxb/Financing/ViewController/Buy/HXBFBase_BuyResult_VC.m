@@ -118,7 +118,7 @@
             make.top.equalTo(view.mas_bottom).offset(kScrAdaptationW750(40));
         }];
         [self.iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self.buy_descriptionLabel);
+            make.top.equalTo(self.buy_descriptionLabel).offset(kScrAdaptationH(2));
             make.right.equalTo(self.buy_descriptionLabel.mas_left).offset(kScrAdaptationW750(-8));
             make.height.width.equalTo(@(kScrAdaptationH750(26)));
         }];
