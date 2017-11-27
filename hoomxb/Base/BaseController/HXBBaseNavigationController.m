@@ -53,7 +53,6 @@ static void *sObserveContext = &sObserveContext;
         if ([keyPath isEqualToString:@"state"]) {
             NSNumber* state = [change valueForKey:@"new"];
             if (UIGestureRecognizerStateBegan == state.integerValue) {//右滑手势开始生效
-                int count = self.viewControllers.count;
                 self.occurRightGestureAction = YES;
             }
         }
