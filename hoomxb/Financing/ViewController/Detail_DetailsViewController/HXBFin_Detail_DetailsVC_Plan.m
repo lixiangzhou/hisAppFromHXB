@@ -9,7 +9,6 @@
 #import "HXBFin_Detail_DetailsVC_Plan.h"
 #import "HXBFinDetailViewModel_PlanDetail.h"
 #import "HXBFinDetailModel_PlanDetail.h"
-#import "HXBFin_Detail_Detail_PlanWebViewController.h"
 #import "HXBFinPlanDetail_DetailView.h"//详情中的详情 plan
 #import "HXBFinPlanContract_contraceWebViewVC.h"
 @interface HXBFin_Detail_DetailsVC_Plan ()

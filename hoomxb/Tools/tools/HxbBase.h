@@ -11,7 +11,7 @@
 #import "HXBBaseViewController.h"//控制器的基类
 #import "HXBBaseNavigationController.h"
 #import "HXBFBase_BuyResult_VC.h"///购买结果页
-
+#import "HXBBaseWKWebViewController.h"//webView的基类控制器
 
 //MARK: UIView
 #import "HXBBaseTableView.h"//tableView
