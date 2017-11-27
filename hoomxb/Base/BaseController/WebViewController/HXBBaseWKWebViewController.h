@@ -30,4 +30,14 @@
  @param data 数据
  */
 - (void)callHandler:(NSString *)handlerName data:(id)data;
+
+
+/**
+ push 一个显示网页的控制器
+
+ @param pageUrl 网页的URL
+ @param controller 从该控制器push
+ @return 返回当前控制器
+ */
++ (instancetype)pushWithPageUrl:(NSString *)pageUrl fromController:(HXBBaseViewController *)controller;
 @end
