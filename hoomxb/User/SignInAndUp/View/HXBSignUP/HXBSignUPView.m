@@ -122,7 +122,7 @@ UITextFieldDelegate
     return self;
 }
 
-- (void) setUP {
+- (void)setUP {
     [self addSubview:self.phoneTextField];
     [self addSubview:self.nextButton];
     [self addSubview:self.havedAccountButton];
@@ -169,28 +169,8 @@ UITextFieldDelegate
     self.checkMobileLabel.backgroundColor = [UIColor hxb_randomColor];
 }
 
-
-//
-//- (BOOL)textFieldShouldClear:(UITextField *)textField {
-//    if (textField == _phoneTextField) {
-//        self.nextButton.backgroundColor = COR26;
-//        self.nextButton.userInteractionEnabled = NO;
-//    }
-//    return YES;
-//}
-
-
-- (void)textFieldDidChange1:(UITextField *)textField{
-   
-}
-
 ///点击了nextButton
 - (void)clickNextButton:(UIButton *)sender{
-    //判断是否为手机号，不是不让图验
-    if (![NSString isMobileNumber:self.phoneTextField.text]) {
-        [HxbHUDProgress showMessageCenter:@"手机号格式不正确" inView:self];
-        return;
-    }
     if (self.clickNextButtonBlock) self.clickNextButtonBlock(self.phoneTextField.text);
 }
 ///点击了已有账号登录按钮
@@ -202,11 +182,7 @@ UITextFieldDelegate
 
 - (void)setIsHiddenLoginBtn:(BOOL)isHiddenLoginBtn {
     _isHiddenLoginBtn = isHiddenLoginBtn;
-    if (_isHiddenLoginBtn) {
-        self.havedAccountButton.hidden = YES;
-    } else {
-        self.havedAccountButton.hidden = NO;
-    }
+    self.havedAccountButton.hidden = isHiddenLoginBtn;
 }
 
 //事件的传递

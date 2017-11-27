@@ -50,16 +50,12 @@
         _phoneTextField.limitStringLength = 11;
         _phoneTextField.block = ^(NSString *text) {
             if (text.length == 11) {
-                if (![NSString isMobileNumber:text]) {
-                    [HxbHUDProgress showTextWithMessage:@"手机号格式有误"];
-                } else {
-                    if (self.timeCount == 0) {
-                        weakSelf.getCodeBtn.backgroundColor = [UIColor whiteColor];
-                        weakSelf.getCodeBtn.layer.borderWidth = kXYBorderWidth;
-                        weakSelf.getCodeBtn.layer.borderColor = COR29.CGColor;
-                        [weakSelf.getCodeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
-                        weakSelf.getCodeBtn.userInteractionEnabled = YES;
-                    }
+                if (self.timeCount == 0) {
+                    weakSelf.getCodeBtn.backgroundColor = [UIColor whiteColor];
+                    weakSelf.getCodeBtn.layer.borderWidth = kXYBorderWidth;
+                    weakSelf.getCodeBtn.layer.borderColor = COR29.CGColor;
+                    [weakSelf.getCodeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
+                    weakSelf.getCodeBtn.userInteractionEnabled = YES;
                 }
             } else if (text.length < 11) {
                 weakSelf.getCodeBtn.backgroundColor = COR26;
@@ -183,10 +179,6 @@
 
 #pragma mark - 事件处理
 - (void)getCodeBtnClick {
-    if (![NSString isMobileNumber:self.phoneTextField.text]) {
-        [HxbHUDProgress showTextWithMessage:@"手机号格式有误"];
-        return;
-    }
     [HXBSignUPAndLoginRequest checkMobileRequestWithMobile:self.phoneTextField.text andSuccessBlock:^(BOOL isExist,NSString *message) {
         if (isExist) {
             if (self.getValidationCodeButtonClickBlock) {
@@ -195,20 +187,6 @@
         }
     } andFailureBlock:^(NSError *error) {
         
-//        if (request) {
-//            UIView *view = nil;
-//            if([self isKindOfClass:[UIViewController class]]) {
-//                UIViewController *vc = (UIViewController *)self;
-//                view = vc.view;
-//            }
-//            if ([self isKindOfClass:[UIView class]]) {
-//                view = self;
-//            }
-//            if (view){
-//                [HxbHUDProgress showMessage:request.responseObject[kResponseMessage] inView:view];
-//            }else
-//                [HxbHUDProgress showMessage:request.responseObject[kResponseMessage]];
-//        }
     }];
 
 }
@@ -234,8 +212,6 @@
 {
     if (self.phoneTextField.text.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"新手机号不能为空"];
-    } else if (![NSString isMobileNumber:self.phoneTextField.text]) {
-        [HxbHUDProgress showTextWithMessage:@"请输入正确的手机号"];
     } else if (self.verificationCodeTextField.text.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入正确的验证码"];
     } else {
