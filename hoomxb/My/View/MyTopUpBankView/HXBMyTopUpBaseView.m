@@ -167,7 +167,6 @@
         _amountTextField.leftStr = @"hxb_my_message人民币";
         _amountTextField.backgroundColor = [UIColor whiteColor];
         _amountTextField.isDecimalPlaces = YES;
-        _amountTextField.placeholder = @"充值金额";
         _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _amountTextField;
