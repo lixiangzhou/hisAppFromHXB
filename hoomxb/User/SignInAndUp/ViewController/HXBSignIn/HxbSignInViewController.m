@@ -1,4 +1,4 @@
-        //
+//
 //  HxbSignInViewController.m
 //  hoomxb
 //
@@ -12,48 +12,27 @@
 #import "HxbSignInView.h"
 #import "HXBSignUPAndLoginRequest.h"///用于请求注册登录的接口
 #import "HXBRequestUserInfo.h"///用户数据的请求
-#import "HXBRequestUserInfoViewModel.h"///userinfo的viewModel
 #import "HXBCheckCaptchaViewController.h"
-#import "HXBBaseTabBarController.h"
-#import "SVGKit/SVGKImage.h"
 #import "HXBSignUPAgreementWebViewVC.h"
+#import "HXBRootVCManager.h"
+
 ///手机号存在
 static NSString *const kMobile_IsExist = @"手机号已存在";
 static NSString *const kMobile_NotExis = @"手机号尚未注册";
 
-
-
 @interface HxbSignInViewController ()
 @property (nonatomic,strong) HxbSignInView *signView;
-///记录登录请求的次数， （存到了用户偏好设置中）
-@property (nonatomic,strong) NSNumber *reuqestSignINNumber;
-///用户的基本信息的ViewModel
-@property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+
 @property (nonatomic,copy) NSString *checkCaptcha;
-@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
-@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @end
 
 @implementation HxbSignInViewController
 
-
-
-#pragma mark - getter 
-//- (NSNumber *)reuqestSignINNumber {
-//    return [];
-//}
-//- (void) setReuqestSignINNumber:(NSNumber *)reuqestSignINNumber {
-//    [[NSUserDefaults standardUserDefaults] setValue:reuqestSignINNumber forKey:kReuqestSignINNumber];
-//}
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(modalCaptchaVC:) name:kHXBBotification_ShowCaptchaVC object:nil];
-//    self.isColourGradientNavigationBar = YES;
-    self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+    
     self.title = @"登录";
-//    [self setLeftItemBar];
+    
     [self setSignView];/// 设置登录界面
     [self registerSignViewEvent];///signView事件注册
     [self registerCheckMobileEvent];///请求手机号是否存在
@@ -62,26 +41,16 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     [self registerClickUserAgreementBtn];///用户协议
 }
 
-
-//谈图验
-- (void) modalCaptchaVC: (NSNotification *)notif {
-    HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
-    [checkCaptchaViewController checkCaptchaSucceedFunc:^(NSString *checkPaptcha) {
-        self.checkCaptcha = checkPaptcha;
-    }];
-    [self presentViewController:checkCaptchaViewController animated:true completion:nil];
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [HXBNotificationCenter removeObserver:self name:kHXBNotification_ShowLoginVC object:nil];
 }
+
 /// 设置 登录界面
 - (void)setSignView{
-    self.hxbBaseVCScrollView.bounces = NO;
-    kWeakSelf
-    self.isTransparentNavigationBar = true;
+    self.isTransparentNavigationBar = YES;
     self.signView = [[HxbSignInView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    [self.hxbBaseVCScrollView addSubview:self.signView];
-    self.trackingScrollViewBlock = ^(UIScrollView *scrollView) {
-        [weakSelf.signView endEditing:true];
-    };
+    [self.view addSubview:self.signView];
 }
 
 #pragma mark - signView事件注册
@@ -92,11 +61,9 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
         //用户登录请求
         [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:pasword andCaptcha:self.checkCaptcha andSuccessBlock:^(BOOL isSuccess) {
             NSLog(@"登录成功");
-            [weakSelf userInfo_DownLoadData];//请求用户信息
-            self.reuqestSignINNumber = @(0);
             [KeyChainManage sharedInstance].siginCount = @"0";
             //调到我的界面
-            [KeyChainManage sharedInstance].isLogin = true;
+            [KeyChainManage sharedInstance].isLogin = YES;
             KeyChain.ciphertext = @"0";
             [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
                 
@@ -106,49 +73,31 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
             }];
         } andFailureBlock:^(NSError *error, id responseObject) {
             if ([responseObject[kResponseStatus] integerValue]) {
-                
-//                [HxbHUDProgress showTextWithMessage: responseObject[kResponseMessage]];
-                if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {
-//                    [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
-                    if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {//谈图验
-                        HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
-                        [checkCaptchaViewController checkCaptchaSucceedFunc:^(NSString *checkPaptcha) {
-                            //                    self.checkCaptcha = checkPaptcha;
-                            self.signView.isDeletePassword = YES;
-                            [self signIn_downLoadDataWithCaptcha:checkPaptcha andPassword:pasword andMobile:mobile];
-                        }];
-                        [self presentViewController:checkCaptchaViewController animated:true completion:nil];
-                    }
+                if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {//谈图验
+                    HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
+                    [checkCaptchaViewController checkCaptchaSucceedFunc:^(NSString *checkPaptcha) {
+                        //                    self.checkCaptcha = checkPaptcha;
+                        self.signView.isDeletePassword = YES;
+                        [self signIn_downLoadDataWithCaptcha:checkPaptcha andPassword:pasword andMobile:mobile];
+                    }];
+                    [self presentViewController:checkCaptchaViewController animated:YES completion:nil];
                 }
+                
             }
             ///清空
             self.checkCaptcha = nil;
         }];
     }];
 }
+
 ///注册 校验手机号事件
 - (void) registerCheckMobileEvent {
-    kWeakSelf
     [self.signView checkMobileRequestBlockFunc:^(NSString *mobile) {
-      [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
-          NSString *existStr = isExist? kMobile_IsExist : kMobile_NotExis;
-          ///通过这个方法吧要展示的信息，和是否可以点击登录按钮进行设定
-          [weakSelf.signView checkMobileResultFuncWithCheckMobileResultStr:existStr andIsEditLoginButton:isExist];
-      } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
-          kHXBRespons_ShowHUDWithError(self.signView)
-      }];
+        [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
+        } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
+            kHXBRespons_ShowHUDWithError(self.signView)
+        }];
     }];
-}
-
-- (void)dismissViewControllerClass:(Class)class {
-    UIViewController *vc = self;
-    while (![vc isKindOfClass:class] && vc != nil) {
-        vc = vc.presentingViewController;
-        if ([vc isKindOfClass:[UINavigationController class]]) {
-            vc = ((UINavigationController *)vc).viewControllers.lastObject;
-        }
-    }
-    [vc dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - 注册 点击注册事件
@@ -159,7 +108,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
         HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
         signUPVC.title = @"注册";
         signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;
-        [weakSelf.navigationController pushViewController:signUPVC animated:true];
+        [weakSelf.navigationController pushViewController:signUPVC animated:YES];
     }];
 }
 
@@ -170,9 +119,8 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
         HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc] init];
         signUPVC.title = @"重置登录密码";
         signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
-        [weakSelf.navigationController pushViewController:signUPVC animated:true];
+        [weakSelf.navigationController pushViewController:signUPVC animated:YES];
     }];
-   
 }
 
 - (void)registerClickUserAgreementBtn
@@ -180,33 +128,21 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     [self.signView clickUserAgreementBtnFunc:^{
         HXBSignUPAgreementWebViewVC *signUPAgreementWebViewVC = [[HXBSignUPAgreementWebViewVC alloc]init];
         signUPAgreementWebViewVC.URL = kHXB_Negotiate_SginUPURL;
-        [self.navigationController pushViewController:signUPAgreementWebViewVC animated:true];
+        [self.navigationController pushViewController:signUPAgreementWebViewVC animated:YES];
     }];
 }
 
 #pragma mark - 数据的请求
-///用户数据的请求
-- (void)userInfo_DownLoadData {
-//    __weak typeof(self)weakSelf = self;
-//    HXBRequestUserInfo *userInfo_request = [[HXBRequestUserInfo alloc]init];
-//    [userInfo_request downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-//        weakSelf.userInfoViewModel = viewModel;
-//    } andFailure:^(NSError *error) {
-//        NSLog(@"用户数据请求出错");
-//    }];
-}
 
 ///登录 数据的请求
 - (void)signIn_downLoadDataWithCaptcha: (NSString *)captcha andPassword: (NSString *)password andMobile: (NSString *)mobile{
-
+    
     kWeakSelf
     [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:password andCaptcha:captcha andSuccessBlock:^(BOOL isSuccess) {
         NSLog(@"登录成功");
-        [self userInfo_DownLoadData];//请求用户信息
-        self.reuqestSignINNumber = @(0);
         [KeyChainManage sharedInstance].siginCount = @"0";
         //调到我的界面
-        [KeyChainManage sharedInstance].isLogin = true;
+        [KeyChainManage sharedInstance].isLogin = YES;
         [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
             [weakSelf dismissViewControllerAnimated:YES completion:nil];
         }];
@@ -216,27 +152,20 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
             if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {//谈图验
                 HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
                 [checkCaptchaViewController checkCaptchaSucceedFunc:^(NSString *checkPaptcha) {
-//                    self.checkCaptcha = checkPaptcha;
+                    //                    self.checkCaptcha = checkPaptcha;
                     [self signIn_downLoadDataWithCaptcha:checkPaptcha andPassword:password andMobile:mobile];
                 }];
-                [self presentViewController:checkCaptchaViewController animated:true completion:nil];
+                [self presentViewController:checkCaptchaViewController animated:YES completion:nil];
             }
         }
         
     }];
 }
 
-
-- (void)didClicksignUpBtn{
-    HxbPhoneVerifyViewController *phoneVerifyViewController =[[HxbPhoneVerifyViewController alloc]init];
-    [self.navigationController pushViewController:phoneVerifyViewController animated:true];
-}
-
+#pragma mark - Helper
 - (void)dismiss{
-    
-    HXBBaseTabBarController *baseTabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     if (self.selectedIndexVC != nil) {
-        baseTabBarVC.selectedIndex = [self.selectedIndexVC integerValue];
+        [HXBRootVCManager manager].mainTabbarVC.selectedIndex = [self.selectedIndexVC integerValue];
     }
     [self dismissViewControllerAnimated:YES completion:^{
         [self update];
@@ -250,45 +179,8 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     }
 }
 
-- (UITableView *)hxbBaseVCScrollView {
-    if (!_hxbBaseVCScrollView) {
-        
-        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
-        
-        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
-        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
-        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
-    }
-    return _hxbBaseVCScrollView;
-}
-
 - (void)leftBackBtnClick{
     [self dismiss];
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [HXBNotificationCenter removeObserver:self name:kHXBNotification_ShowLoginVC object:nil];
-}
-
-- (void)dealloc {
-    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
-    NSLog(@"✅被销毁 %@",self);
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    
-    if ([keyPath isEqualToString:@"state"]) {
-        NSNumber *tracking = change[NSKeyValueChangeNewKey];
-        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
-            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
-        }
-        return;
-    }
-    
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
 }
 
 @end

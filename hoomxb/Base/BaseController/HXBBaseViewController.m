@@ -131,7 +131,6 @@
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: kHXBFont_PINGFANGSC_REGULAR(18)};
         self.isTransparentNavigationBar = true;
         self.nacigationBarImageView.image = [UIImage imageNamed:@"top"];
-        [self.view addSubview:self.nacigationBarImageView];
     }
 }
 
@@ -141,7 +140,6 @@
         self.isTransparentNavigationBar = true;
         self.nacigationBarImageView.backgroundColor = [UIColor whiteColor];
         self.nacigationBarImageView.image = [UIImage imageNamed:@""];
-        [self.view addSubview:self.nacigationBarImageView];
     }
 }
 - (void)setIsRedColorWithNavigationBar: (BOOL) isRedColorWithNavigationBar {
@@ -150,7 +148,6 @@
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
         self.isTransparentNavigationBar = true;
         self.nacigationBarImageView.image = [UIImage imageNamed:@"NavigationBar"];
-        [self.view addSubview:self.nacigationBarImageView];
     }
 }
 - (void)setIsBlueGradientNavigationBar:(BOOL)isBlueGradientNavigationBar

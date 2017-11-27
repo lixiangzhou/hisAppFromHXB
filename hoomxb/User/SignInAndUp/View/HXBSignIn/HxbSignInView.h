@@ -22,10 +22,5 @@
 - (void) clickforgetPasswordButtonFunc: (void(^)())forgetPasswordButtonBlock;
 ///点击了用户协议
 - (void) clickUserAgreementBtnFunc: (void(^)())userAgreementBtnBlock;
-/**
- * 请求到手机号是否存在后 把结果放在这个函数中
- * @param checkMobileResultStr 展示结果的label 的内容
- * @param isEditLoginButton 是否可以对登录按钮进行编辑
- */
-- (void) checkMobileResultFuncWithCheckMobileResultStr: (NSString *)checkMobileResultStr andIsEditLoginButton: (BOOL)isEditLoginButton;
+
 @end

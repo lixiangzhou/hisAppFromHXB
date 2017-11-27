@@ -290,6 +290,7 @@ static const NSInteger topView_high = 300;
         self.alertVC.speechType = YES;
         self.alertVC.isCleanPassword = YES;
         self.alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
+        double rechargeMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
         self.alertVC.messageTitle = @"请输入验证码";
         _buyType = @"recharge"; // 弹出短验，都是充值购买
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
@@ -310,13 +311,13 @@ static const NSInteger topView_high = 300;
             _isClickSpeechVerificationCode = NO;
             _isSpeechVerificationCode = YES;
             weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-            [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
+            [weakSelf sendSmsCodeWithMoney:rechargeMoney];
         };
         self.alertVC.getSpeechVerificationCodeBlock = ^{
             _isClickSpeechVerificationCode = YES;
             _isSpeechVerificationCode = YES;
             weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-            [weakSelf sendSmsCodeWithMoney:weakSelf.inputMoneyStr.doubleValue];
+            [weakSelf sendSmsCodeWithMoney:rechargeMoney];
         };
         
         [self presentViewController:self.alertVC animated:NO completion:nil];
@@ -402,9 +403,9 @@ static const NSInteger topView_high = 300;
                 return ;
             case kHXBCode_Enum_ProcessingField:
                 return ;
-            case 50000:
+            case kHXBBuy_Coupon_Error:
                 return ;
-            case 412:
+            case kHXBCode_Enum_RequestOverrun:
                 return ;
             case kHXBBuying_Too_Frequently:
                 return ;

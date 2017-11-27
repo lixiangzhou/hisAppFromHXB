@@ -17,8 +17,6 @@
 +(NSString*)getAppVersionNum;
 ///手机号加密算法
 +(NSString*)encryptRegisterNum:(NSString*)rNum;
-///是否为手机号
-+ (BOOL)isMobileNumber:(NSString *)mobileNum;
 ///判断是否有中文字符
 + (BOOL)isChinese:(NSString *)str;
 ///判断字符串是否包含数字
