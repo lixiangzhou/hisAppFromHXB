@@ -8,7 +8,11 @@
 
 #import "HXBBaseNavigationController.h"
 
-@interface HXBBaseNavigationController ()<UIGestureRecognizerDelegate>
+@interface HXBBaseNavigationController ()<UIGestureRecognizerDelegate> {
+    NSInteger _viewControllerCountWhenRightGesture; //右滑时， 控制器的数量
+    BOOL _occurRightGestureAction; //是否发生了向右滑动的手势动作
+}
+
 @property (nonatomic, strong) UIPanGestureRecognizer *fullScreenGesture;
 @end
 
@@ -69,6 +73,14 @@ static void *sObserveContext = &sObserveContext;
     [super pushViewController:viewController animated:animated];
 }
 
+#pragma mark - override pop
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated {
+    UIViewController *popViewController = [super popViewControllerAnimated:animated];
+    _viewControllerCountWhenRightGesture = self.viewControllers.count;
+    
+    return popViewController;
+}
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     ///这里有两个条件不允许手势执行，1、当前控制器为根控制器；2、如果这个push、pop动画正在执行（私有属性）3、向左滑
     BOOL panLeft = [(UIPanGestureRecognizer *)gestureRecognizer translationInView:gestureRecognizer.view].x > 0;
@@ -93,4 +105,22 @@ static void *sObserveContext = &sObserveContext;
     }
 }
 
+#pragma mark occurRightGestureAction属性方法
+- (void)setOccurRightGestureAction:(BOOL)occurRightGestureAction {
+    _occurRightGestureAction = occurRightGestureAction;
+    if (!_occurRightGestureAction) {
+        _viewControllerCountWhenRightGesture = self.viewControllers.count;
+    }
+}
+
+- (BOOL)occurRightGestureAction {
+    if (_occurRightGestureAction) {
+        //这个状态下表明，松手后，确实滑动返回到前一个页面了；因此将occurRightGestureAction重置为NO，相当于正常的点击返回按钮动作一样。
+        if (_viewControllerCountWhenRightGesture == self.viewControllers.count) {
+            _occurRightGestureAction = NO;
+            return NO;
+        }
+    }
+    return _occurRightGestureAction;
+}
 @end

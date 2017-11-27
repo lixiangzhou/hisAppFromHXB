@@ -50,6 +50,15 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    //是否需要重新加载页面
+    HXBBaseNavigationController* navVC = (HXBBaseNavigationController*)self.navigationController;
+    if (!navVC.occurRightGestureAction) {
+        [self reLoadWhenViewAppear];
+    }
+    else {
+        navVC.occurRightGestureAction = NO;
+    }
+    
     [super viewDidAppear:animated];
     
     [self.view bringSubviewToFront:self.noNetworkStatusView];
@@ -225,5 +234,13 @@
 - (void)transparentNavigationTitle
 {
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor clearColor]};
+}
+
+/**
+ 替代viewDidAppear方法，子类如果需要重新加载页面，只需重写这个方法就可以
+ 注意：这个方法处理了滑动返回时的种种情况，要将所有的重新加载操作，放在这个方法里
+ */
+- (void)reLoadWhenViewAppear {
+    
 }
 @end
