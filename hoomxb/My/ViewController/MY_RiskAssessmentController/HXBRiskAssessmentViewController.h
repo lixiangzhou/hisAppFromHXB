@@ -6,9 +6,9 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBBaseViewController.h"
+#import "HXBBaseWKWebViewController.h"
 
-@interface HXBRiskAssessmentViewController : HXBBaseViewController
+@interface HXBRiskAssessmentViewController : HXBBaseWKWebViewController
 
 - (void)popWithBlock:(void(^)(NSString *type))popBlock;
 @end
