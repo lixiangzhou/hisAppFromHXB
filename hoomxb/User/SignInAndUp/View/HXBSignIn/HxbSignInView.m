@@ -66,22 +66,7 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
 
 @implementation HxbSignInView
 
-
-
-#pragma mark - 参数的传递
-
-///李鹏跃 ： 禁止用 登录按钮
-- (void)checkMobileResultFuncWithCheckMobileResultStr:(NSString *)checkMobileResultStr andIsEditLoginButton:(BOOL)isEditLoginButton {
-//    self.isPhoneNumberLabel.text = checkMobileResultStr;
-//    if (!isEditLoginButton) {
-////        [HxbHUDProgress showError:checkMobileResultStr inview:self];
-//        [HxbHUDProgress showMessageCenter:checkMobileResultStr inView:self];
-//    }
-//    self.signInButton.userInteractionEnabled = isEditLoginButton;
-}
-
-
-
+#pragma mark - UI
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
@@ -123,9 +108,6 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
             if (![weakSelf.phoneText isEqualToString:text]) {
                 [weakSelf showISMobileNumberViewWithString:text];
             }
-            if (![NSString isMobileNumber:text]) {
-                [HxbHUDProgress showTextWithMessage:@"填写正确的手机号"];
-            }
         }
         weakSelf.phoneText = text;
     };
@@ -149,7 +131,7 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
                             range:NSMakeRange(0, kPhoneText.length)];
     self.phoneTextField.attributedPlaceholder = phoneAttrStr;
     self.passwordTextField.keyboardType = UIKeyboardTypeASCIICapable;
-    self.passwordTextField.secureTextEntry = true;
+    self.passwordTextField.secureTextEntry = YES;
     
     NSMutableAttributedString *passwordAttrStr = [[NSMutableAttributedString alloc] initWithString:kPasswordText];
     // 设置字体和设置字体的范围
@@ -170,7 +152,6 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
     [self addSubview:self.userAgreementBtn];
 
     [self addSubview:self.partingLine];
-    
 
     [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.waterView.mas_bottom).offset(kScrAdaptationH(64));
@@ -218,8 +199,6 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
 
 ///设置子控件
 - (void)setUPSubViews_SetUP {
-
-    
     self.phoneTextField.delegate = self;
     self.passwordTextField.delegate = self;
     self.phoneTextField.keyboardType = UIKeyboardTypeNumberPad;
@@ -250,6 +229,7 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
     [self.userAgreementBtn addTarget:self action:@selector(clickUserAgreementBtn) forControlEvents:UIControlEventTouchUpInside];
 }
 
+#pragma mark - Action
 /**
  点击了用户协议
  */
@@ -272,34 +252,33 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
 - (void)clickSignUPButton: (UIButton *)signUPButton {
     if (self.clickSignUpButtonBlock) self.clickSignUpButtonBlock();
 }
+
+///点击了忘记密码按钮
+- (void)clickForgetPasswordButton: (UIButton *)button {
+    if (self.forgetPasswordButtonBlock) self.forgetPasswordButtonBlock();
+}
+
+#pragma mark - Helper
 ///判断 未填写那些资料 （密码、手机号）
-- (BOOL) notFillInThoseInformation {
+- (BOOL)notFillInThoseInformation {
     //电话号码未填写
     if (!self.phoneTextField.text.length) {
         NSLog(@"%@",kPhoneText_Nil);
         [HxbHUDProgress showMessageCenter:kPhoneText_Nil inView:self];
-        return true;
-    }
-    ///填写的不是手机号码
-    if (![NSString isMobileNumber:self.phoneTextField.text]) {
-        [HxbHUDProgress showMessageCenter:@"填写正确的手机号" inView:self];
         return YES;
     }
+
     if (!self.passwordTextField.text.length) {
         NSLog(@"%@",kPassword_Nil);
         [HxbHUDProgress showMessageCenter:kPassword_Nil inView:self];
-        return true;
+        return YES;
     }
     NSString * message = [NSString isOrNoPasswordStyle:self.passwordTextField.text];
     if (message.length > 0) {
         [HxbHUDProgress showTextWithMessage:message];
         return YES;
     }
-    return false;
-}
-///点击了忘记密码按钮
-- (void)clickForgetPasswordButton: (UIButton *)button {
-    if (self.forgetPasswordButtonBlock) self.forgetPasswordButtonBlock();
+    return NO;
 }
 
 - (void)setIsDeletePassword:(BOOL)isDeletePassword {
@@ -309,36 +288,12 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
     }
 }
 
-
-#pragma mark - textField 的代理方法
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    return true;
-}
-
-
-///停止编辑的时候要判断有没有手势密码。（有 输入，没有就去设置）
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-    if (textField.superview == self.phoneTextField) {
-        
-    }
-    return true;
-}
-
 ///展示是否为电话号码
 - (void)showISMobileNumberViewWithString:(NSString *)str {
-    BOOL isTrue = [NSString isMobileNumber:str];
-    if (!isTrue) {//不是真的，提示输入正确的密码
-//        self.isPhoneNumberLabel.text = kPhoneText_Error;
-        return;
-    }
-//    self.isPhoneNumberLabel.text = @"";
-    ///请求手机号是否存在
     if (self.checkMobileBlock) {
         self.checkMobileBlock(str);
     }
 }
-
-
 
 #pragma mark - 点击事件的传递
 ///登录
