@@ -60,7 +60,9 @@
     [self.webView removeObserver:self forKeyPath:@"title"];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void)reLoadWhenViewAppear {
+    [super reLoadWhenViewAppear];
+    
     if (_firstLoadPage || self.pageReload) {
         _firstLoadPage = NO;
         
