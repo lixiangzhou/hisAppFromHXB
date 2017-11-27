@@ -62,6 +62,8 @@
             if (self.webViewLoadSuccessBlock) {
                 self.webViewLoadSuccessBlock();
             }
+            //完成加载之后需要将进度条重置为0
+            _progressBarView.width = 0;
         }
     }];
     
