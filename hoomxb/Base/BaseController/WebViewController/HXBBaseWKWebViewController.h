@@ -23,5 +23,11 @@
  @param handler 回到方法
  */
 - (void)registJavascriptBridge:(NSString *)handlerName handler:(WVJBHandler)handler;
+/**
+ 调用js
 
+ @param handlerName js 名称
+ @param data 数据
+ */
+- (void)callHandler:(NSString *)handlerName data:(id)data;
 @end

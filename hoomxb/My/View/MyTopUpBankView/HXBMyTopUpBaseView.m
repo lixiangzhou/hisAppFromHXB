@@ -51,7 +51,7 @@
 {
     _viewModel = viewModel;
     self.availableBalanceLabel.text = [NSString stringWithFormat:@"可用金额：%@", [NSString hxb_getPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue]];
-    self.amountTextField.placeholder = [NSString stringWithFormat:@"充值金额不能小于%d.00元",self.viewModel.userInfoModel.userInfo.minChargeAmount];
+    self.amountTextField.placeholder = [NSString stringWithFormat:@"最小充值金额为%d.00元",self.viewModel.userInfoModel.userInfo.minChargeAmount];
     if (_amountTextField.text.length > 0) {
         _nextButton.backgroundColor = COR29;
         _nextButton.userInteractionEnabled = YES;
@@ -130,7 +130,7 @@
 }
 - (void)nextButtonClick:(UIButton *)sender{
     if ([_amountTextField.text doubleValue] < self.viewModel.userInfoModel.userInfo.minChargeAmount) {
-        [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"充值金额不能小于%d元",self.viewModel.userInfoModel.userInfo.minChargeAmount] inView:self];
+        [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"最小充值金额为%d元",self.viewModel.userInfoModel.userInfo.minChargeAmount] inView:self];
         return;
     }
     if (self.rechargeBlock) {
@@ -167,7 +167,6 @@
         _amountTextField.leftStr = @"hxb_my_message人民币";
         _amountTextField.backgroundColor = [UIColor whiteColor];
         _amountTextField.isDecimalPlaces = YES;
-        _amountTextField.placeholder = @"充值金额";
         _amountTextField.keyboardType = UIKeyboardTypeDecimalPad;
     }
     return _amountTextField;

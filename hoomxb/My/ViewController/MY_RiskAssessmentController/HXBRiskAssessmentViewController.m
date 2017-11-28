@@ -8,48 +8,36 @@
 
 #import "HXBRiskAssessmentViewController.h"
 #import "WebViewJavascriptBridge.h"
-@interface HXBRiskAssessmentViewController ()<UIWebViewDelegate>
-
-@property (nonatomic, strong) UIWebView *webView;
-
-@property WebViewJavascriptBridge* bridge;
+@interface HXBRiskAssessmentViewController ()
 
 @property (nonatomic,copy) void(^popBlock)(NSString *type);
+
 @end
 
 @implementation HXBRiskAssessmentViewController
 
-- (UIWebView *)webView
-{
-    if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
-        _webView.delegate = self;
-        _webView.scalesPageToFit = YES;
-        _webView.scrollView.showsHorizontalScrollIndicator = NO;
-        _webView.scrollView.bounces = NO;
-        // UIWebView 滚动的比较慢，这里设置为正常速度
-        _webView.scrollView.decelerationRate = UIScrollViewDecelerationRateNormal;
-        [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kHXBH5_RiskEvaluationURL]]];
-    }
-    return _webView;
-}
+#pragma mark - Life Cycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"";
-    self.view.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.webView];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.pageUrl = kHXBH5_RiskEvaluationURL;
+    
     [self setupRightBarBtn];
+    //注册H5调用原生的方法
+    [self registJSBridge];
     
-    /****** 加载桥梁对象 ******/
-    [WebViewJavascriptBridge enableLogging];
-    
-    /****** 初始化 ******/
-    _bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-    }];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
+}
+
+#pragma mark - 注册H5事件
+- (void)registJSBridge{
     kWeakSelf
-    /****** OC端注册一个方法 (测试)******/
-    [_bridge registerHandler:@"riskEvaluation" handler:^(id data, WVJBResponseCallback responseCallback) {
+    [self registJavascriptBridge:@"riskEvaluation" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"testObjcCallback called: %@", data);
         //如果外部实现了这个方法，那就直接执行这个block
         if (weakSelf.popBlock) {
@@ -68,25 +56,9 @@
     }];
 }
 
-/**
- 再次获取网络数据
- */
-- (void)getNetworkAgain
-{
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:kHXBH5_RiskEvaluationURL]]];
-}
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.isColourGradientNavigationBar = YES;
-    if ([KeyChain ishaveNet]) {
-        [HxbHUDProgress showLoadDataHUD:self.webView];
-    }
-}
-
-- (void)setupRightBarBtn
-{
+#pragma mark - UI
+- (void)setupRightBarBtn{
     UIButton *rightBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW(50), 35)];
     [rightBackBtn setTitle:@"跳过" forState:UIControlStateNormal];
     // 让按钮内部的所有内容左对齐
@@ -100,58 +72,13 @@
     
 }
 
-- (void)dismiss
-{
-    [_bridge callHandler:@"skipTest" data:nil];
-}
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSString *urlString = [[request URL]  absoluteString];
-    NSLog(@"==> %@",urlString);
-    
-    NSMutableURLRequest *mutableRequest = [request mutableCopy];
-    
-    NSDictionary *requestHeaders = request.allHTTPHeaderFields;
-    
-    // 判断请求头是否已包含，如果不判断该字段会导致webview加载时死循环
-
-    if (requestHeaders[@"X-Hxb-Auth-Token"] && requestHeaders[X_Hxb_User_Agent]) {
-
-        return YES;
-        
-    } else {
-        
-        NSString *systemVision = [[UIDevice currentDevice] systemVersion];
-        NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-        NSString *userAgent = [NSString stringWithFormat:@"%@/IOS %@/v%@ iphone" ,[HXBDeviceVersion deviceVersion],systemVision,version];
-        NSLog(@"%@",[KeyChain token]);
-        [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];
-        [mutableRequest setValue:userAgent forHTTPHeaderField:X_Hxb_User_Agent];
-        
-        request = [mutableRequest copy];
-        
-        [webView loadRequest:request];
-        
-        return NO;
-    }
-
-    return YES;
+#pragma mark - Action
+- (void)dismiss{
+    [self callHandler:@"skipTest" data:nil];
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    self.title = [HXBMiddlekey H5Title:[webView stringByEvaluatingJavaScriptFromString:@"document.title"]];
-    [HxbHUDProgress hidenHUD:self.webView];
-    
-}
 - (void)popWithBlock:(void (^)(NSString *type))popBlock {
     self.popBlock = popBlock;
-}
-- (void)dealloc
-{
-    NSLog(@"已经销毁");
 }
 
 @end

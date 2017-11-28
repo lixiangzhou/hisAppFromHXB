@@ -75,7 +75,12 @@
     [super viewWillAppear:animated];
     
     // 禁用全屏滑动手势
-    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+    NSInteger index = self.navigationController.viewControllers.count;
+    UIViewController *VC = self.navigationController.viewControllers[index - 2];
+    if ([VC isKindOfClass:NSClassFromString(@"HXBOpenDepositAccountViewController")] || [VC isKindOfClass:NSClassFromString(@"HxbWithdrawCardViewController")]) {
+        ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+    }
+    
     [self loadBankCard];
 }
 
@@ -241,7 +246,7 @@
         return;
     }
     if ([_amountTextField.text doubleValue] < self.withdrawModel.minWithdrawAmount) {
-        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"提现金额不能小于%d元",self.withdrawModel.minWithdrawAmount]];
+        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"最小提现金额为%d元",self.withdrawModel.minWithdrawAmount]];
         return;
     }
     [self withdrawSmscode];
@@ -327,7 +332,7 @@
 - (void)setWithdrawModel:(HXBWithdrawModel *)withdrawModel {
     _withdrawModel = withdrawModel;
     self.availableBalanceLabel.text =  [NSString stringWithFormat:@"可提金额：%@",[NSString hxb_getPerMilWithDouble:withdrawModel.balanceAmount]];
-    self.amountTextField.placeholder = [NSString stringWithFormat:@"提现金额不能小于%d.00元",self.withdrawModel.minWithdrawAmount];
+    self.amountTextField.placeholder = [NSString stringWithFormat:@"最小提现金额为%d.00元",self.withdrawModel.minWithdrawAmount];
     self.mybankView.bankCardModel = withdrawModel.bankCard;
     if (withdrawModel.inprocessCount > 0) {
         self.notifitionView.hidden = NO;

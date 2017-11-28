@@ -21,6 +21,8 @@
 //@property (nonatomic, assign) BOOL isCanSideBack;
 //@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
 
+@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
+
 @property (nonatomic, strong) UIButton *leftBackBtn;
 @end
 
@@ -33,7 +35,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupLeftBackBtn];
     
-    [self loadNoNetwork];
+    [self loadNoNetworkView];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -50,6 +52,15 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    //是否需要重新加载页面
+    HXBBaseNavigationController* navVC = (HXBBaseNavigationController*)self.navigationController;
+    if (!navVC.occurRightGestureAction) {
+        [self reLoadWhenViewAppear];
+    }
+    else {
+        navVC.occurRightGestureAction = NO;
+    }
+    
     [super viewDidAppear:animated];
     
     [self.view bringSubviewToFront:self.noNetworkStatusView];
@@ -92,17 +103,20 @@
 }
 
 
-#pragma mark - Action
+#pragma mark - 加载无网络视图
 
-- (void)loadNoNetwork {
-    if (self.navigationController.childViewControllers.count <= 1) return;
-    
-    if (!KeyChain.ishaveNet) {
-        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
-        [self.view addSubview:self.noNetworkStatusView];
-    } else {
-        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+- (BOOL)loadNoNetworkView {
+    if (self.navigationController.childViewControllers.count > 1) {
+        if (!KeyChain.ishaveNet) {
+            self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+            [self.view addSubview:self.noNetworkStatusView];
+            return YES;
+        } else {
+            self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+        }
     }
+    
+    return NO;
 }
 
 - (void)leftBackBtnClick
@@ -131,7 +145,6 @@
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: kHXBFont_PINGFANGSC_REGULAR(18)};
         self.isTransparentNavigationBar = true;
         self.nacigationBarImageView.image = [UIImage imageNamed:@"top"];
-        [self.view addSubview:self.nacigationBarImageView];
     }
 }
 
@@ -141,7 +154,6 @@
         self.isTransparentNavigationBar = true;
         self.nacigationBarImageView.backgroundColor = [UIColor whiteColor];
         self.nacigationBarImageView.image = [UIImage imageNamed:@""];
-        [self.view addSubview:self.nacigationBarImageView];
     }
 }
 - (void)setIsRedColorWithNavigationBar: (BOOL) isRedColorWithNavigationBar {
@@ -150,7 +162,6 @@
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
         self.isTransparentNavigationBar = true;
         self.nacigationBarImageView.image = [UIImage imageNamed:@"NavigationBar"];
-        [self.view addSubview:self.nacigationBarImageView];
     }
 }
 - (void)setIsBlueGradientNavigationBar:(BOOL)isBlueGradientNavigationBar
@@ -228,5 +239,13 @@
 - (void)transparentNavigationTitle
 {
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor clearColor]};
+}
+
+/**
+ 替代viewDidAppear方法，子类如果需要重新加载页面，只需重写这个方法就可以
+ 注意：这个方法处理了滑动返回时的种种情况，要将所有的重新加载操作，放在这个方法里
+ */
+- (void)reLoadWhenViewAppear {
+    
 }
 @end

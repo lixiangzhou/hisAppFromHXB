@@ -9,12 +9,8 @@
 #ifndef HXBRequestURL_h
 #define HXBRequestURL_h
 
-//MARK: ======================= 所有H5 界面 =======================
+//MARK: ======================= 首页 =======================
 #define kHXBHome_HomeURL @"/home"///用户信息
-//MARK: ======================= 所有H5 界面 =======================
-
-#define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",[KeyChain h5host]]//风险评测
-#define kHXBH5_InviteDetailURL [NSString stringWithFormat:@"%@/account/invite",[KeyChain h5host]]//邀请好友 /invite/detail
 
 //MARK: ======================= 闪屏接口 界面 =======================
 #define kHXBSplash            @"/splash"///闪屏接口
@@ -86,8 +82,6 @@
 
 #define kHXBMY_VersionUpdateURL @"/update"//版本更新
 
-//MARK: ======================= 友盟分享 =======================
-#define kHXBUMShareURL   @"/share"//获取分享时所需要的数据
 
 
 //MARK: ======================= 充值提现 =======================
@@ -133,6 +127,10 @@
 
 #define kHXB_Agreement_Hint @"/agreement/hint"
 
+//MARK: ======================= H5界面 =======================
+#define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",[KeyChain h5host]]//风险评测
+#define kHXBH5_InviteDetailURL [NSString stringWithFormat:@"%@/account/invite",[KeyChain h5host]]//邀请好友 /invite/detail
+
 //MARK: ======================= 优惠券 ==========================
 #define kHXB_Coupon_Query @"/coupon/query" // 选择优惠券列表
 #define kHXB_Coupon_Best @"/coupon/best" // 匹配最优优惠券
@@ -141,4 +139,6 @@
 #define kHXB_Invite_List @"/account/invite/list" // 邀请好友列表
 #define kHXB_Invite_OverView @"/account/invite/overview" // 邀请好友奖励
 
+//MARK: ======================= 友盟分享 =======================
+#define kHXBUMShareURL   @"/share"//获取分享时所需要的数据
 #endif
