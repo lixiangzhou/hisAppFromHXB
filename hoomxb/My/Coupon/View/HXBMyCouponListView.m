@@ -15,7 +15,7 @@
 UITableViewDelegate,
 UITableViewDataSource
 >
-@property (nonatomic, strong) UITableView *mainTableView;
+//@property (nonatomic, strong) UITableView *mainTableView;
 //@property (nonatomic,strong) HXBNoDataView *nodataView;
 
 @end
@@ -45,16 +45,14 @@ UITableViewDataSource
     }
 }
 
--(void)setMyCouponListModelArray:(NSArray<HXBMyCouponListModel *> *)myCouponListModelArray{
-    _myCouponListModelArray = myCouponListModelArray;
-    self.nodataView.hidden = myCouponListModelArray.count;
-    [self.mainTableView reloadData];
-}
+-(void)setMyCouponListModelArray:(NSMutableArray<HXBMyCouponListModel *> *)myCouponListModelArray{
 
-//-(void)setMyCouponListModel:(HXBMyCouponListModel *)myCouponListModel{
-//    _myCouponListModel = myCouponListModel;
-//    [self.mainTableView reloadData];
-//}
+    _myCouponListModelArray = myCouponListModelArray;
+    self.nodataView.hidden = myCouponListModelArray.count > 0 ? YES:NO;
+    if (_myCouponListModelArray.count > 0) {
+        [self.mainTableView reloadData];
+    }
+}
 
 #pragma mark - TableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
