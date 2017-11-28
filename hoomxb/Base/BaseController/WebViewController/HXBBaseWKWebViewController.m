@@ -14,6 +14,9 @@
 @interface HXBBaseWKWebViewController ()<WKNavigationDelegate> {
     //进度视图的高度
     NSInteger _progressViewHeight;
+    //判断是否时首次加载页面
+    BOOL _firstLoadPage;
+
 }
 
 @property (nonatomic, strong) WKWebView *webView;
@@ -34,6 +37,7 @@
     self = [super init];
     if (self) {
         _pageReload = YES;
+        _firstLoadPage = YES;
     }
     return self;
 }
@@ -62,9 +66,13 @@
 - (void)reLoadWhenViewAppear {
     [super reLoadWhenViewAppear];
     
-    if (self.pageReload) {
-        [self.webView reload];
+    if (![self loadNoNetworkView]) {
+        if (!_firstLoadPage && self.pageReload) {
+            [self.webView reload];
+        }
     }
+    
+    _firstLoadPage = NO;
 }
 
 - (void)didReceiveMemoryWarning {
