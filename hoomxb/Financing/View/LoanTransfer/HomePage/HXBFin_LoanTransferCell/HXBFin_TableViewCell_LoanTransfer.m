@@ -151,7 +151,7 @@
     self.stutasButton.backgroundColor = LoanTruansferViewModel.addButtonBackgroundColor;
     self.stutasButton.layer.borderColor = LoanTruansferViewModel.addButtonBorderColor.CGColor;
     self.stutasButton.layer.borderWidth = kScrAdaptationH(0.8f);
-    [self.stutasButton setTitle:LoanTruansferViewModel.status forState:UIControlStateNormal];
+    [self.stutasButton setTitle:LoanTruansferViewModel.loanTruansferListModel.statusText forState:UIControlStateNormal];
     
     [self.interestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         viewModelVM.leftLabelStr = LoanTruansferViewModel.interest;

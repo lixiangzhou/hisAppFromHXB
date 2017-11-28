@@ -18,15 +18,21 @@
 
 #pragma mark - Life Cycle
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+         self.pageUrl = kHXBH5_RiskEvaluationURL;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.pageUrl = kHXBH5_RiskEvaluationURL;
-    
     [self setupRightBarBtn];
     //注册H5调用原生的方法
     [self registJSBridge];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated{

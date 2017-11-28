@@ -47,4 +47,6 @@
  PRESALE：转让预售
  */
 @property (nonatomic,copy) NSString * status;
+//按钮文案
+@property (nonatomic,copy) NSString * statusText;
 @end
