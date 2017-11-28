@@ -265,10 +265,8 @@ MyViewHeaderDelegate
         _mainTableView.tableHeaderView.userInteractionEnabled = YES;
         _mainTableView.backgroundColor = kHXBColor_BackGround;
         kWeakSelf
-        [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [_mainTableView hxb_headerWithRefreshBlock:^{
             if (weakSelf.homeRefreshHeaderBlock) weakSelf.homeRefreshHeaderBlock();
-        } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-            
         }];
     }
     return _mainTableView;

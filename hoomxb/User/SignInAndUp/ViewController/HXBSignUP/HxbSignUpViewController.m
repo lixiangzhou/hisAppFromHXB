@@ -21,7 +21,6 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 @interface HxbSignUpViewController ()
 
 @property (nonatomic, strong) HXBSignUPView *signUPView;
-@property (nonatomic, assign) BOOL isCheckCaptchaSucceed;
 
 @end
 
@@ -75,7 +74,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
         
         if (weakSelf.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
-                if (!weakSelf.isCheckCaptchaSucceed && isExist) {
+                if (isExist) {
                     [weakSelf presentViewController:checkCaptchVC animated:true completion:nil];
                     return;
                 }
@@ -84,7 +83,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
         }else
         {
             [HXBSignUPAndLoginRequest checkMobileRequestHUDWithMobile:mobile andSuccessBlock:^(BOOL isExist, NSString *message) {
-                if (!weakSelf.isCheckCaptchaSucceed && isExist) {
+                if (isExist) {
                     [weakSelf presentViewController:checkCaptchVC animated:true completion:nil];
                     return;
                 }

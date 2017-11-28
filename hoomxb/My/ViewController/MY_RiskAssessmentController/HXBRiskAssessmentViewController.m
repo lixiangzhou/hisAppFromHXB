@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
+
     [self setupRightBarBtn];
     //注册H5调用原生的方法
     [self registJSBridge];

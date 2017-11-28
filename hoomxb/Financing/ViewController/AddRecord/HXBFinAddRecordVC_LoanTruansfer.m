@@ -49,36 +49,10 @@
 }
 
 - (void)headerRefresh {
-    [self.addRecortdTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.addRecortdTableView hxb_headerWithRefreshBlock:^{
         [self downLoadDataWihtIsUPLoad:true];
-    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
     }];
     
 }
-
-
-
-
-
-//- (HXBFinAddRecortdTableView_Plan *)addRecortdTableView {
-//    if (!_addRecortdTableView) {
-//        _addRecortdTableView = [[HXBFinAddRecortdTableView_Plan alloc]initWithFrame:self.view.frame style:UITableViewStylePlain];
-//    }
-//    return _addRecortdTableView;
-//}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
