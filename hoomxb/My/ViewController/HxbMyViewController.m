@@ -48,6 +48,7 @@
         //        [self loadData_userInfo];
         [self loadData_accountInfo];//账户内数据总览
     } else {
+        self.myView.accountModel = nil;
         [self transparentNavigationTitle];
     }
 }
