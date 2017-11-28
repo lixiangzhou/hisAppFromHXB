@@ -135,7 +135,7 @@
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
         [weakSelf.navigationController pushViewController:successVC animated:true];
     } andFailureBlock:^(NSError *error) {
-        
+        if (error.code == kHXBCode_Enum_NoConnectionNetwork || error.code == kHXBCode_Enum_ConnectionTimeOut) return ;
         HXBFBase_BuyResult_VC *failureVC = [[HXBFBase_BuyResult_VC alloc] init];
         failureVC.imageName = @"failure";
         failureVC.buy_title = @"转让失败";

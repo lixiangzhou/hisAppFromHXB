@@ -331,6 +331,10 @@ static NSString *const bankString = @"绑定银行卡";
                 return ;
             case kHXBBuying_Too_Frequently:
                 return ;
+            case kHXBCode_Enum_ConnectionTimeOut:
+                return;
+            case kHXBCode_Enum_NoConnectionNetwork:
+                return;
             default:
                 failViewController.imageName = @"failure";
                 failViewController.buy_title = @"加入失败";
