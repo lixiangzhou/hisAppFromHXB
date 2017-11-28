@@ -41,6 +41,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self hideNavigationBar:animated];
     //加载用户数据
     if ([KeyChain isLogin]) {
