@@ -41,12 +41,14 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self hideNavigationBar:animated];
     //加载用户数据
     if ([KeyChain isLogin]) {
         //        [self loadData_userInfo];
         [self loadData_accountInfo];//账户内数据总览
     } else {
+        self.myView.accountModel = nil;
         [self transparentNavigationTitle];
     }
 }
