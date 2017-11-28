@@ -25,60 +25,30 @@
 #import "HXBInviteListViewController.h"
 
 @interface HxbMyViewController ()<MyViewDelegate>
-@property (nonatomic,copy) NSString *imageName;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
-@property (nonatomic, strong) HXBMyRequestAccountModel *accountModel;
 @property (nonatomic, strong) HxbMyView *myView;
 @end
 
 @implementation HxbMyViewController
 
+#pragma mark - LifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.imageName = @"1";
-    //防止跳转的时候，tableView向上或者向下移动
-    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
-        self.automaticallyAdjustsScrollViewInsets = true;
-    };
-    //登录的测试
-
-//    对controllerView进行布局
     [self setupSubView];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadMyDate) name:@"提现充值" object:nil];
-    //对controllerView进行布局
-    //    [self setupSubView];
-
-    
-//    //散标列表 红利计划的Button
-//    [self setupBUTTON];
 }
-
-//- (void)reloadMyDate {
-//    [self loadData_userInfo];
-//}
-
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-//    self.view.hidden = ![KeyChain isLogin];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"top"] forBarMetrics:(UIBarMetricsDefaultPrompt)];
-    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     [self hideNavigationBar:animated];
     //加载用户数据
     if ([KeyChain isLogin]) {
-//        [self loadData_userInfo];
+        //        [self loadData_userInfo];
         [self loadData_accountInfo];//账户内数据总览
-    }else
-    {
-//        self.userInfoViewModel = nil;
-        self.accountModel = nil;
+    } else {
         [self transparentNavigationTitle];
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -88,7 +58,7 @@
     self.tabBarController.tabBar.hidden = NO;
 }
 
-//MARK: 对controllerView进行布局
+#pragma mark - UI
 - (void)setupSubView {
     [self setupMyView];
     [self clickAllFinanceButton];
@@ -103,38 +73,30 @@
         [weakSelf loadData_userInfo];
         [weakSelf loadData_accountInfo];//账户内数据总览
     };
-  
+    
     [self.view addSubview:self.myView];
-//    if (KeyChain.isLogin) {
-////        [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
-//        return;
-//    }
 }
 
-///查看总资产
+/// 查看总资产
 - (void)clickAllFinanceButton {
-   
     kWeakSelf
     [self.myView clickAllFinanceButtonWithBlock:^(UILabel * _Nullable button) {
         //跳转资产目录
         if (KeyChain.isLogin) {
             HXBMY_AllFinanceViewController *allFinanceViewController = [[HXBMY_AllFinanceViewController alloc]init];
-            [weakSelf.navigationController pushViewController:allFinanceViewController animated:true];
+            [weakSelf.navigationController pushViewController:allFinanceViewController animated:YES];
         }
     }];
 }
 
+#pragma mark - Setter Getter
 - (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
 {
     _userInfoViewModel = userInfoViewModel;
     self.myView.userInfoViewModel = self.userInfoViewModel;
 }
 
-- (void)setAccountModel:(HXBMyRequestAccountModel *)accountModel{
-    _accountModel = accountModel;
-    self.myView.accountModel = self.accountModel;
-}
-
+#pragma mark - MyViewDelegate
 - (void)didLeftHeadBtnClick:(UIButton *)sender{
     HxbAccountInfoViewController *accountInfoVC = [[HxbAccountInfoViewController alloc]init];
     accountInfoVC.userInfoViewModel = self.userInfoViewModel;
@@ -142,9 +104,6 @@
 }
 ///充值
 - (void)didClickTopUpBtn:(UIButton *)sender{
-    //        #import "HxbMyTopUpViewController.h"
-//    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-//    [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_topup_money];
     [self logicalJudgment:HXBRechargeAndWithdrawalsLogicalJudgment_Recharge];
 }
@@ -153,6 +112,8 @@
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_withdraw_money];
     [self logicalJudgment:HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals];
 }
+
+#pragma mark - Helper
 /**
  逻辑判断
  */
@@ -171,7 +132,7 @@
             alertVC.immediateOpenBlock = ^{
                 [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_alertBtn];
                 HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-//                openDepositAccountVC.userModel = viewModel;
+                //                openDepositAccountVC.userModel = viewModel;
                 openDepositAccountVC.title = @"开通存管账户";
                 openDepositAccountVC.type = type;
                 [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
@@ -187,47 +148,34 @@
             withdrawCardViewController.type = type;
             withdrawCardViewController.userInfoModel = self.userInfoViewModel.userInfoModel;
             [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-        }else if (!([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
+        } else if (!([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
         {
             //完善信息
             HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
             openDepositAccountVC.title = @"完善信息";
             openDepositAccountVC.type = type;
             [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-        }else
+        } else
         {
             if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
                 HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
                 [weakSelf.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-            }else if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
-                HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+            } else if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
                 if (!KeyChain.isLogin)  return;
-
+                HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
                 [weakSelf.navigationController pushViewController:withdrawViewController animated:YES];
             }
         }
-
-        
     } andFailure:^(NSError *error) {
         
     }];
 }
 
-
-
-- (void)clickBarButtonItem {
-    NSLog(@"点击了返回按钮");
-}
-
-- (void)clickMyLoanButton: (UIButton *)button {
-    NSLog(@"%@ - 散标被点击",self.class);
-}
-
-#pragma mark - 加载数据
+#pragma mark - Network
 - (void)loadData_accountInfo{
     kWeakSelf
     [HXBRequestAccountInfo downLoadAccountInfoNoHUDWithSeccessBlock:^(HXBMyRequestAccountModel *viewModel) {
-        weakSelf.accountModel = viewModel;
+        weakSelf.myView.accountModel = viewModel;
         weakSelf.myView.isStopRefresh_Home = YES;
     } andFailure:^(NSError *error) {
         weakSelf.myView.isStopRefresh_Home = YES;

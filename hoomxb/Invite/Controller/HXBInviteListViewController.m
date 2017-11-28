@@ -178,13 +178,11 @@
         _tableView.tableHeaderView = [self tableHeader];
         kWeakSelf
         // 下拉刷新
-        [_tableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [_tableView hxb_headerWithRefreshBlock:^{
             _page = 1;
             [weakSelf.dataArray removeAllObjects];
             [weakSelf setUpDataForInviteList];
             [weakSelf setUpDataForInviteOverView];
-        } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-            
         }];
         _tableView.rowHeight = kScrAdaptationH(60);
     }

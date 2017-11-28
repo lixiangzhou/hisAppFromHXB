@@ -76,9 +76,8 @@ static NSString *const cellID = @"cellID";
         [weakSelf downLoadWithIsUPLoad:false];
     } andSetUpGifFooterBlock:^(MJRefreshBackNormalFooter *footer) {
     }];
-    [self.planCapitalTableView hxb_HeaderWithHeaderRefreshCallBack:^{
+    [self.planCapitalTableView hxb_headerWithRefreshBlock:^{
         [weakSelf downLoadWithIsUPLoad:true];
-    } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
     
     self.planCapitalTableView.delegate = self;

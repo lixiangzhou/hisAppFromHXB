@@ -396,17 +396,7 @@ kDealloc
 ///下拉刷新
 - (void)downLoadRefresh {
     __weak typeof (self)weakSelf = self;
-//    [self.hold_Plan_TableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-//        if (weakSelf.hold_Plan_UPRefresh) weakSelf.hold_Plan_UPRefresh();
-//    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {}];
-//    
-//    [self.exiting_Plan_TableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-//        if (weakSelf.exiting_Plan_DownRefresh) weakSelf.exiting_Plan_UPRefresh();
-//    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {}];
-//    
-//    [self.exit_Plan_TableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-//        if (weakSelf.exit_Plan_DownRefresh) weakSelf.exit_Plan_UPRefresh();
-//    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {}];
+
     self.hold_Plan_TableView.header = [STRefreshHeader headerWithRefreshingBlock:^(STRefreshHeader *header) {
      if (weakSelf.hold_Plan_UPRefresh) weakSelf.hold_Plan_UPRefresh();
     }];

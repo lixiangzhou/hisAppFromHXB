@@ -98,11 +98,9 @@ UITableViewDataSource
         [_mainTableView addSubview:self.nodataView];
         [HXBMiddlekey AdaptationiOS11WithTableView:_mainTableView];
         kWeakSelf
-        [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [_mainTableView hxb_headerWithRefreshBlock:^{
             if (weakSelf.homeRefreshHeaderBlock)
                 weakSelf.homeRefreshHeaderBlock();
-        } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-            
         }];
     }
     return _mainTableView;
