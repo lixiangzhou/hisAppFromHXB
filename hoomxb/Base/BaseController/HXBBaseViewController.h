@@ -21,7 +21,6 @@
 @property (nonatomic, assign) BOOL isWhiteColourGradientNavigationBar;
 ///导航条是否为蓝色
 @property (nonatomic,assign) BOOL isBlueGradientNavigationBar;
-@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
 
 ///可以重写返回方法
 - (void)leftBackBtnClick;
@@ -47,4 +46,11 @@
  注意：这个方法处理了滑动返回时的种种情况，要将所有的重新加载操作，放在这个方法里
  */
 - (void)reLoadWhenViewAppear;
+
+/**
+ 加载无网络视图
+
+ @return YES, 已经显示了；NO，没有显示
+ */
+- (BOOL)loadNoNetworkView;
 @end

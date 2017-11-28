@@ -46,6 +46,8 @@ typedef enum : NSUInteger {
     kHXBPurchase_Processing = -999,
     //优惠券购买失败
     kHXBBuy_Coupon_Error = 50000,
+    //连接超时
+    kHXBCode_Enum_ConnectionTimeOut = -2009
 } kHXBCode_Enum;
 
 /**

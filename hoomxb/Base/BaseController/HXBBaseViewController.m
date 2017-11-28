@@ -21,6 +21,8 @@
 //@property (nonatomic, assign) BOOL isCanSideBack;
 //@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
 
+@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
+
 @property (nonatomic, strong) UIButton *leftBackBtn;
 @end
 
@@ -33,7 +35,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self setupLeftBackBtn];
     
-    [self loadNoNetwork];
+    [self loadNoNetworkView];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -101,17 +103,20 @@
 }
 
 
-#pragma mark - Action
+#pragma mark - 加载无网络视图
 
-- (void)loadNoNetwork {
-    if (self.navigationController.childViewControllers.count <= 1) return;
-    
-    if (!KeyChain.ishaveNet) {
-        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
-        [self.view addSubview:self.noNetworkStatusView];
-    } else {
-        self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+- (BOOL)loadNoNetworkView {
+    if (self.navigationController.childViewControllers.count > 1) {
+        if (!KeyChain.ishaveNet) {
+            self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+            [self.view addSubview:self.noNetworkStatusView];
+            return YES;
+        } else {
+            self.noNetworkStatusView.hidden = KeyChain.ishaveNet;
+        }
     }
+    
+    return NO;
 }
 
 - (void)leftBackBtnClick
