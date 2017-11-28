@@ -345,6 +345,7 @@
     self.loanTruansferAPI.requestUrl = kHXBFin_LoanTruansferURL;
     self.loanTruansferAPI.requestArgument = @{
                                               @"page":@(self.loanTruansferAPI.dataPage),//int	当前页
+                                              @"pageSize":@kPageCount
                                               };
     [self.loanTruansferAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue]) {
@@ -361,9 +362,7 @@
             HXBFinHomePageModel_LoanTruansferList *model = [[HXBFinHomePageModel_LoanTruansferList alloc]init];
             [model yy_modelSetWithDictionary:obj];
             viewModel.loanTruansferListModel = model;
-            if (model.leftTransAmount.floatValue) {
-                [arrayM addObject:viewModel];
-            }
+            [arrayM addObject:viewModel];
         }];
         
         
@@ -653,7 +652,7 @@
             successDateBlock(planViewModel);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(nil,0);
+        if (failureBlock) failureBlock(nil,error.code);
     }];
 }
 
@@ -765,7 +764,7 @@
             successDateBlock(reslut);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(nil,0);
+        if (failureBlock) failureBlock(nil,error.code);
     }];
 }
 // 散标 购买结果
@@ -794,7 +793,7 @@
             successDateBlock(loanBuyResoult);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(error,0);
+        if (failureBlock) failureBlock(error,error.code);
     }];
 }
 
@@ -831,7 +830,7 @@
             successDateBlock(loantruansferViewModel);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        
+        if (failureBlock) failureBlock(error, nil);
     }];
 
     

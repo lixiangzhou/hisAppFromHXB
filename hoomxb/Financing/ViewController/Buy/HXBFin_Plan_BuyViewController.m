@@ -238,7 +238,6 @@
                         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
                         [self.navigationController popToRootViewControllerAnimated:true];
                     }];
-                    
                     [self.navigationController pushViewController:planBuySuccessVC animated:true];
                     // [self.navigationController popToRootViewControllerAnimated:true];
                 } andFailureBlock:^(NSError *error, NSInteger status) {
@@ -256,6 +255,9 @@
                             failViewController.buy_title = @"手慢了，已售罄";
                             failViewController.buy_ButtonTitle = @"重新投资";
                             break;
+                        case kHXBCode_Enum_NoConnectionNetwork:
+                        case kHXBCode_Enum_ConnectionTimeOut:
+                            return ;
                         default:
                             failViewController.imageName = @"failure";
                             failViewController.buy_title = @"加入失败";

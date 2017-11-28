@@ -106,23 +106,7 @@
     if (!_status) {
         [self setUPAddButtonColorWithType:true];
         if ([self.loanTruansferListModel.status isEqualToString:@"TRANSFERING"]) {
-            _status = @"转让中";
             [self setUPAddButtonColorWithType:false];
-        }
-        if ([self.loanTruansferListModel.status isEqualToString:@"TRANSFERED"]) {
-            _status = @"转让完毕";
-        }
-        if ([self.loanTruansferListModel.status isEqualToString:@"CANCLE"]) {
-            _status = @"已取消";
-        }
-        if ([self.loanTruansferListModel.status isEqualToString:@"CLOSED_CANCLE"]) {
-            _status = @"结标取消";
-        }
-        if ([self.loanTruansferListModel.status isEqualToString:@"OVERDUE_CANCLE"]) {
-            _status = @"逾期取消";
-        }
-        if ([self.loanTruansferListModel.status isEqualToString:@"PRESALE"]) {
-            _status = @"转让预售";
         }
     }
     return _status;

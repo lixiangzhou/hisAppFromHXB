@@ -215,13 +215,13 @@
         make.centerX.equalTo(weakSelf.lockPeriodLabel);
     }];
     [self.addStatus mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(weakSelf.contentView);
+        make.centerY.equalTo(weakSelf.expectedYearRateLable);
         make.right.equalTo(@(kScrAdaptationW(-14)));
         make.height.equalTo(@(kScrAdaptationH(30)));
         make.width.equalTo(@(kScrAdaptationW(85)));
     }];
     [self.countDownView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.addStatus.mas_bottom).offset(kScrAdaptationH(13));
+        make.centerY.equalTo(weakSelf.expectedYearRateLable_Const);
         make.centerX.equalTo(weakSelf.addStatus);
         make.left.equalTo(weakSelf.arrowImageView.mas_left);
         make.right.equalTo(weakSelf.countDownLable.mas_right);

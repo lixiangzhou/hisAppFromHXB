@@ -715,7 +715,10 @@
             successDateBlock(responseObject);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        
+        if (failureBlock) {
+            failureBlock(error);
+            return;
+        }
     }];
 }
 

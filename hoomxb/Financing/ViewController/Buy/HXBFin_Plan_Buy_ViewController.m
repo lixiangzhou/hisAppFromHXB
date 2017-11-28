@@ -400,14 +400,12 @@ static const NSInteger topView_high = 300;
                 self.alertVC.isCleanPassword = YES;
                 return ;
             case kHXBSMS_Code_Error:
-                return ;
             case kHXBCode_Enum_ProcessingField:
-                return ;
             case kHXBBuy_Coupon_Error:
-                return ;
             case kHXBCode_Enum_RequestOverrun:
-                return ;
             case kHXBBuying_Too_Frequently:
+            case kHXBCode_Enum_ConnectionTimeOut:
+            case kHXBCode_Enum_NoConnectionNetwork:
                 return ;
             default:
                 failViewController.imageName = @"failure";
