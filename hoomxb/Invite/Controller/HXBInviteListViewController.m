@@ -47,7 +47,10 @@
 }
 
 #pragma mark - Network
-
+- (void)getNetworkAgain {
+    [self setUpDataForInviteOverView];
+    [self setUpDataForInviteList];
+}
 
 #pragma mark - Delegate Internal
 
@@ -128,6 +131,7 @@
         }
         [_tableView reloadData];
     } andFailureBlock:^(NSError *error) {
+        _tableView.hidden = NO;
         [_tableView endRefresh];
     }];
 }
@@ -135,12 +139,14 @@
 - (void)setUpDataForInviteOverView {
     NSString *noDataText = @"--";
     [HXBInviteViewModel requestForInviteOverViewWithParams:nil andSuccessBlock:^(HXBInviteOverViewModel *model) {
+        _headView.hidden = NO;
         if (model.cashBackAmount) {
             self.headView.dataDic = [self dataDicWithCashBackAmount:model.cashBackAmount couponNumber:[NSString stringWithFormat:@"%ld", model.couponNumber] inviteNumber:[NSString stringWithFormat:@"%ld", model.inviteNumber]];
         } else {
             self.headView.dataDic = [self dataDicWithCashBackAmount:noDataText couponNumber:noDataText inviteNumber:noDataText];
         }
     } andFailureBlock:^(NSError *error) {
+        _headView.hidden = NO;
         self.headView.dataDic = [self dataDicWithCashBackAmount:noDataText couponNumber:noDataText inviteNumber:noDataText];
     }];
 }
@@ -162,6 +168,7 @@
 - (HXBHeadView *)headView {
     if (!_headView) {
         _headView = [[HXBHeadView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScrAdaptationH(258) - 64)];
+        _headView.hidden = YES;
     }
     return _headView;
 }
