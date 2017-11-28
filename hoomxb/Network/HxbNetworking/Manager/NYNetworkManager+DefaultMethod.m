@@ -132,6 +132,7 @@
     
     if (!KeyChain.ishaveNet) {
         [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+        request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_NoConnectionNetwork userInfo:@{@"message":@"暂无网络"}];
         return;
     }
 
@@ -145,6 +146,9 @@
         if ([[str substringFromIndex:str.length-1] isEqualToString:@"。"]) {
             str = [str substringToIndex:str.length-1];
             [HxbHUDProgress showMessageCenter:str];
+            if ([str containsString:@"请求超时"]) {
+                request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
+            }
         } else {
             if (request.error.code == kHXBPurchase_Processing) { // 请求任务取消
             } else {
