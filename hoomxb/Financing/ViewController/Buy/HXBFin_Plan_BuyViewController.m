@@ -257,7 +257,6 @@
                             failViewController.buy_ButtonTitle = @"重新投资";
                             break;
                         case kHXBCode_Enum_NoConnectionNetwork:
-                            return ;
                         case kHXBCode_Enum_ConnectionTimeOut:
                             return ;
                         default:
