@@ -41,6 +41,7 @@
 - (void)setBankInfoView {
     UIView *bankInfoView = [UIView new];
     [self.view addSubview:bankInfoView];
+    self.bankInfoView = bankInfoView;
     
     // 银行卡图片
     UIImageView *bankIconView = [UIImageView new];
@@ -197,10 +198,11 @@
 - (void)unBind {
     NSString *idCardNum = [self.idCardTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *transactionPwd = [self.transactionPwdTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
-    [self.bankCardViewModel requestUnBindWithIdCardNum:idCardNum transactionPwd:transactionPwd finishBlock:^(BOOL succeed, NSString *errorMessage) {
-        if (succeed) {
-            // TODO: push 到 结果页面
-        } else {
+    
+    [self.bankCardViewModel requestUnBindWithIdCardNum:idCardNum transactionPwd:transactionPwd finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
+        if (canPush) {
+            // push
+        } else { 
             [HxbHUDProgress showMessageCenter:errorMessage];
         }
     }];

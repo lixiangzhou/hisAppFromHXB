@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, NYResponseSerializerType){
     NYResponseSerializerTypeJson,
 };
 
-typedef void (^SuccessBlock)(NYBaseRequest *request, id responseObject);
+typedef void (^SuccessBlock)(NYBaseRequest *request, NSDictionary *responseObject);
 typedef void (^FailureBlock)(NYBaseRequest *request, NSError *error);
 
 //==================================  请求完成代理方法 ==================================

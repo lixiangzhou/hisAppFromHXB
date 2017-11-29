@@ -26,6 +26,14 @@
 
 #pragma mark - Method
 
-- (void)requestUnBindWithIdCardNum:(NSString *)idCardNum transactionPwd:(NSString *)transactionPwd finishBlock:(void (^)(BOOL succeed, NSString *errorMessage))finishBlock;
+
+/**
+ 解绑银行卡
+
+ @param idCardNum 银行卡号
+ @param transactionPwd 交易密码
+ @param finishBlock 完成回调，canPush 在成功或者是 statusCode == kHXBCode_UnBindCardFail 时为 YES，否则为NO，需要toast errorMessage
+ */
+- (void)requestUnBindWithIdCardNum:(NSString *)idCardNum transactionPwd:(NSString *)transactionPwd finishBlock:(void (^)(BOOL succeed, NSString *errorMessage, BOOL canPush))finishBlock;
 
 @end

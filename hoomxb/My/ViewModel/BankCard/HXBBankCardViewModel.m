@@ -7,6 +7,7 @@
 //
 
 #import "HXBBankCardViewModel.h"
+#import "NYBaseRequest+HXB.h"
 
 @implementation HXBBankCardViewModel
 
@@ -24,8 +25,26 @@
     _userNameOnlyLast = [bankCardModel.name replaceStringWithStartLocation:0 lenght:bankCardModel.name.length - 1];;
 }
 
-- (void)requestUnBindWithIdCardNum:(NSString *)idCardNum transactionPwd:(NSString *)transactionPwd finishBlock:(void (^)(BOOL, NSString *))finishBlock
+- (void)requestUnBindWithIdCardNum:(NSString *)idCardNum transactionPwd:(NSString *)transactionPwd finishBlock:(void (^)(BOOL, NSString *, BOOL))finishBlock
 {
-    
+    [NYBaseRequest requestWithRequestUrl:kHXBUserInfo_UnbindBankCard param:@{@"idCardNo": idCardNum, @"cashPassword": transactionPwd} method:NYRequestMethodPost success:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        
+        if (finishBlock == nil) {
+            return;
+        }
+        
+        if (responseObject.isSuccess) {
+            finishBlock(YES, responseObject.message, YES);
+        } else {
+            if (responseObject.statusCode == kHXBCode_UnBindCardFail) {
+                finishBlock(NO, responseObject.message, YES);
+            } else {
+                finishBlock(NO, responseObject.message, NO);
+            }
+        }
+        
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        
+    }];
 }
 @end
