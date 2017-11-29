@@ -138,6 +138,27 @@
     [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"红小宝客服电话" Message:kServiceMobile];
 }
 
+- (void)leftBackBtnClick {
+    if (_className.length > 0) {
+        [self popToViewControllerWithClassName:_className];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+// pop到制定的页面
+- (void)popToViewControllerWithClassName:(NSString *)class {
+    __block HXBBaseViewController *vc = nil;
+    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:NSClassFromString(class)]) {
+            vc = obj;
+            *stop = true;
+        }
+        if (vc) {
+            [self.navigationController popToViewController:vc animated:YES];
+        }
+    }];
+}
 
 #pragma mark - getter/setter
 - (HXBUserInfoView *)userInfoView

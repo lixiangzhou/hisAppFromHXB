@@ -90,10 +90,6 @@
     if ([request.requestUrl isEqualToString:kHXB_Coupon_Best]) {
         return YES;
     }
-    // 邀请好友列表取消412展示
-    if ([request.requestUrl isEqualToString:kHXB_Invite_List] || [request.requestUrl isEqualToString:kHXB_Invite_OverView] ) {
-        return YES;
-    }
     return NO;
 }
 
