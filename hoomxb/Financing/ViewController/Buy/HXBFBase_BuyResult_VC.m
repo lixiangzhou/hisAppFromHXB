@@ -6,8 +6,7 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFBase_BuyResult_VC.h"
-#import "HXBFinAddTruastWebViewVC.h"
+
 #import "HXBUMengShareManager.h"
 
 @interface HXBFBase_BuyResult_VC ()
@@ -76,9 +75,7 @@
 }
 
 - (void)enterInstructions{
-    HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-    vc.URL = kHXB_Negotiate_couponExchangeInstructionsUrl;
-    [self.navigationController pushViewController:vc animated:true];
+    [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_couponExchangeInstructionsUrl] fromController:self];
 }
 
 - (void)setUP {

@@ -14,7 +14,6 @@
 #import "HXBFBase_BuyResult_VC.h"
 #import "HXBFin_Plan_BuyViewModel.h"
 #import "HxbMyTopUpViewController.h"
-#import "HXBFinAddTruastWebViewVC.h"
 #import "HXBFin_Buy_ViewModel.h"
 #import "HXBAlertVC.h"
 #import "HXBOpenDepositAccountRequest.h"
@@ -626,9 +625,7 @@ static const NSInteger topView_high = 300;
         if (index == 1) {
             [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:weakSelf];
         } else {
-            HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-            vc.URL = kHXB_Agreement_Hint;
-            [weakSelf.navigationController pushViewController:vc animated:true];
+            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Agreement_Hint] fromController:weakSelf];
         }
     };
     

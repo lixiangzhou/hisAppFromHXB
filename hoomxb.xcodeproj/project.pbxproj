@@ -488,7 +488,6 @@
 		E1F0D80C1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F0D80B1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m */; };
 		E1F3BE471FBD821000D9BD48 /* HXBRegisterAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F3BE461FBD821000D9BD48 /* HXBRegisterAlertVC.m */; };
 		E1F630761F207B9900FC0122 /* HXBFinLoanTruansfer_ContraceWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F630751F207B9900FC0122 /* HXBFinLoanTruansfer_ContraceWebViewVC.m */; };
-		E1F6307D1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F6307C1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m */; };
 		E1FBADB71EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADB61EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m */; };
 		E1FBADBD1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADBA1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m */; };
 		E1FBADBE1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FBADBC1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m */; };
@@ -1453,8 +1452,6 @@
 		E1F3BE461FBD821000D9BD48 /* HXBRegisterAlertVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBRegisterAlertVC.m; sourceTree = "<group>"; };
 		E1F630741F207B9900FC0122 /* HXBFinLoanTruansfer_ContraceWebViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinLoanTruansfer_ContraceWebViewVC.h; sourceTree = "<group>"; };
 		E1F630751F207B9900FC0122 /* HXBFinLoanTruansfer_ContraceWebViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinLoanTruansfer_ContraceWebViewVC.m; sourceTree = "<group>"; };
-		E1F6307B1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinAddTruastWebViewVC.h; sourceTree = "<group>"; };
-		E1F6307C1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinAddTruastWebViewVC.m; sourceTree = "<group>"; };
 		E1F630821F20B4F100FC0122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1FBADB51EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinDatailModel_LoanDetail.h; sourceTree = "<group>"; };
 		E1FBADB61EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinDatailModel_LoanDetail.m; sourceTree = "<group>"; };
@@ -4337,7 +4334,6 @@
 				E1B0F48A1EC494DB0071246F /* Detail_DetailsViewController */,
 				E1FBADBF1EC45E1F00F74D86 /* AddRecordViewController(plan_addRecortd and Loan_Recortd) */,
 				E17509B71EC6E4ED00E17B39 /* ContractWebViewController */,
-				E1F6307A1F20920600FC0122 /* AddTrustController */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -4402,15 +4398,6 @@
 				E1E588591EE165BF0045C4AE /* PYPresentationController.m */,
 			);
 			path = TransitioningManager;
-			sourceTree = "<group>";
-		};
-		E1F6307A1F20920600FC0122 /* AddTrustController */ = {
-			isa = PBXGroup;
-			children = (
-				E1F6307B1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.h */,
-				E1F6307C1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m */,
-			);
-			path = AddTrustController;
 			sourceTree = "<group>";
 		};
 		E1FBADB81EC45DE800F74D86 /* DetailsViewController */ = {
@@ -4840,7 +4827,6 @@
 				4E6D31011EA70DC900598529 /* HxbHomeViewController.m in Sources */,
 				E133DCEC1EEE3597009466DE /* HxbSignUpViewController.m in Sources */,
 				E1FBADBE1EC45DE800F74D86 /* HXBFinancing_PlanDetailsViewController.m in Sources */,
-				E1F6307D1F209A9700FC0122 /* HXBFinAddTruastWebViewVC.m in Sources */,
 				4E886FCA1EF9205E0056086E /* CALayer+Anim.m in Sources */,
 				E1270B6B1ECEE93700729BC9 /* HXBMY_PlanDetailView.m in Sources */,
 				4E886FC11EF91B1E0056086E /* HXBCircleView.m in Sources */,

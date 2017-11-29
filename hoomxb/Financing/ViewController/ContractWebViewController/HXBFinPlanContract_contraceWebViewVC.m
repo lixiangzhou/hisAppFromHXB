@@ -48,7 +48,7 @@
 }
 
 - (void)setupRightBarBtn {
-    UIButton *callBtn = [[UIButton alloc] init];
+    UIButton *callBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationH(18), kScrAdaptationH(18))];
     [callBtn setImage:[UIImage imageNamed:@"phone"] forState:(UIControlStateNormal)];
     callBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
     [callBtn addTarget:self action:@selector(call) forControlEvents:(UIControlEventTouchUpInside)];

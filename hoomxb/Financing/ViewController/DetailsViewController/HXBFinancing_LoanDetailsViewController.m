@@ -20,7 +20,6 @@
 #import "HXBFinContract_contraceWebViewVC_Loan.h"//贷款合同的控制器
 
 //#import "HXBFin_Loan_BuyViewController.h"//加入界面
-#import "HXBFinAddTruastWebViewVC.h"
 
 #pragma mark --- (肖扬 散标计划详情)
 #import "HXBFin_creditorChange_buy_ViewController.h"
@@ -221,9 +220,7 @@
 - (void)registerAddTrust {
     kWeakSelf
     [self.loanDetailsView clickAddTrustWithBlock:^{
-        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-        vc.URL = kHXB_Negotiate_AddTrustURL;
-        [weakSelf.navigationController pushViewController:vc animated:true];
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:weakSelf];
     }];
 }
 - (void)enterLoanBuyViewController {

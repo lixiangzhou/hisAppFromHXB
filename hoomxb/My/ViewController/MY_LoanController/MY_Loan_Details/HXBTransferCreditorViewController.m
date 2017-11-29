@@ -9,7 +9,6 @@
 #import "HXBTransferCreditorViewController.h"
 #import "HXBTransferCreditorTopView.h"
 #import "HXBTransferCreditorBottomView.h"
-#import "HXBFinAddTruastWebViewVC.h"
 #import "HXBMYRequest.h"
 #import "HXBAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
@@ -171,9 +170,7 @@
         _agreementView.negotiateStr = @"债权转让及受让协议";
         kWeakSelf
         [_agreementView clickNegotiateWithBlock:^{
-            HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-            vc.URL = kHXB_Negotiate_LoanTruansferURL;
-            [weakSelf.navigationController pushViewController:vc animated:true];
+            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_LoanTruansferURL] fromController:weakSelf];
         }];
         [_agreementView clickCheckMarkWithBlock:^(BOOL isSelected) {
             if (isSelected) {

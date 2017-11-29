@@ -21,7 +21,6 @@
 #import "HXBFin_Detail_DetailsVC_Plan.h"//红利计划详情中的详情
 
 #import "HXBFinPlanContract_contraceWebViewVC.h"//协议
-#import "HXBFinAddTruastWebViewVC.h"
 
 
 #pragma mark --- 新改（肖扬 红利计划 详情）
@@ -370,9 +369,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-        vc.URL = kHXB_Negotiate_AddTrustURL;
-        [self.navigationController pushViewController:vc animated:true];
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:self];
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc] init];

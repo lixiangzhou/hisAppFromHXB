@@ -125,7 +125,7 @@
 
 #define kHXB_Negotiate_AddTrustURL @"/landing/trust"///增信页
 
-#define kHXB_Agreement_Hint @"/agreement/hint"
+#define kHXB_Agreement_Hint @"/agreement/hint"//网络借贷协议书
 
 //MARK: ======================= H5界面 =======================
 #define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",[KeyChain h5host]]//风险评测
