@@ -7,12 +7,15 @@
 //
 
 #import "HXBBaseViewController.h"
-
+#import "HXBSignUPAndLoginRequest_EnumManager.h"
 @interface HXBDepositoryAlertViewController : HXBBaseViewController
 
 /**
  立即开通存管
  */
 @property (nonatomic, copy) void (^immediateOpenBlock)();
+
+
++ (void)showEscrowDialogActivityWithVCTitle:(NSString *)title andType:(HXBRechargeAndWithdrawalsLogicalJudgment)type andWithFromController:(UINavigationController *)nav;
 
 @end
