@@ -9,6 +9,7 @@
 #import "HXBUnBindCardController.h"
 #import "HXBBankCardViewModel.h"
 #import "HXBModifyTransactionPasswordViewController.h"
+#import "HXBMyBankResultViewController.h"
 
 @interface HXBUnBindCardController ()
 @property (nonatomic, weak) UIView *bankInfoView;
@@ -216,6 +217,10 @@
     [self.bankCardViewModel requestUnBindWithParam:@{@"idCardNo": idCardNum, @"cashPassword": transactionPwd} finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
         if (canPush) {
             // push
+            HXBMyBankResultViewController *VC = [HXBMyBankResultViewController new];
+            VC.isSuccess = succeed;
+            VC.mobileText = self.bankCardViewModel.bankNumLast4;
+            VC.describeText = errorMessage;
         } else { 
             [HxbHUDProgress showMessageCenter:errorMessage];
         }
