@@ -22,7 +22,7 @@
     
     _bankNumLast4 = [bankCardModel.cardId substringFromIndex:bankCardModel.cardId.length - 4];
     
-    _userNameOnlyLast = [bankCardModel.name replaceStringWithStartLocation:0 lenght:bankCardModel.name.length - 1];;
+    _userNameOnlyLast = [bankCardModel.name replaceStringWithStartLocation:0 lenght:bankCardModel.name.length - 1];
 }
 
 - (void)requestUnBindWithIdCardNum:(NSString *)idCardNum transactionPwd:(NSString *)transactionPwd finishBlock:(void (^)(BOOL, NSString *, BOOL))finishBlock
