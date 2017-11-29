@@ -39,6 +39,8 @@ fprintf(stderr, "-------------------\n");   \
 #import "UIResponder+FindNext.h"
 #import "HxbMacro.h"
 #import "NYBaseRequest.h"
+#import "HXBMacroSwitch.h"
+
 //#import "UIViewController+MethodSwizzle.h"
 
 //#import "UIView+LayoutMethods.h"
