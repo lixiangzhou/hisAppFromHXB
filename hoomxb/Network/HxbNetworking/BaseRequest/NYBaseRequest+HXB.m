@@ -30,10 +30,10 @@
 
 + (NYBaseRequest *)requestWithRequestUrl:(NSString *)requestUrl param:(NSDictionary *)param method:(NYRequestMethod)method success:(SuccessBlock)success failure:(FailureBlock)failure;
 {
-    return [self requestWithRequestUrl:requestUrl param:param method:method configRequestBlock:nil success:success failure:failure];
+    return [self requestWithRequestUrl:requestUrl param:param method:method success:success failure:failure configRequestBlock:nil];
 }
 
-+ (NYBaseRequest *)requestWithRequestUrl:(NSString *)requestUrl param:(NSDictionary *)param method:(NYRequestMethod)method configRequestBlock:(void (^)(NYBaseRequest *))configRequestBlock success:(SuccessBlock)success failure:(FailureBlock)failure;
++ (NYBaseRequest *)requestWithRequestUrl:(NSString *)requestUrl param:(NSDictionary *)param method:(NYRequestMethod)method success:(SuccessBlock)success failure:(FailureBlock)failure configRequestBlock:(void (^)(NYBaseRequest *))configRequestBlock
 {
     NYBaseRequest *request = [NYBaseRequest new];
     request.requestUrl = requestUrl;
