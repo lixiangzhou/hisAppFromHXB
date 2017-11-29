@@ -79,6 +79,17 @@
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self.view addSubview:self.withdrawCardView];
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
+}
+
 //卡bin校验
 - (void)checkCardBin:(HXBCardBinModel *)cardBinModel
 {

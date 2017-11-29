@@ -34,7 +34,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.tipLabel];
     if (self.isBank) {
@@ -52,6 +51,20 @@
     }
     
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
+    [self loadUserInfo];
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
+}
+
 
 - (void)setupBankViewFrame
 {
@@ -97,13 +110,6 @@
 //        make.right.equalTo(self.view).offset(kScrAdaptationW750(-20));
 //        make.centerY.equalTo(self.tipLabel);
 //    }];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.isColourGradientNavigationBar = YES;
-    [self loadUserInfo];
 }
 
 - (void)loadUserInfo
