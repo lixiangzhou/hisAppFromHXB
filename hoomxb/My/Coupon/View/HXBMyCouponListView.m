@@ -112,7 +112,8 @@ UITableViewDataSource
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
         [self addSubview:_nodataView];
         _nodataView.imageName = @"my_couponList_NotData";
-        _nodataView.noDataMassage = @"暂无优惠券，立即获取";
+        NSString *messageText = kIsShowInviteFunction ? @"暂无优惠券，立即获取" : @"暂无优惠券";
+        _nodataView.noDataMassage = messageText;
         kWeakSelf
         _nodataView.clickBlock = ^{
             if (weakSelf.block) {

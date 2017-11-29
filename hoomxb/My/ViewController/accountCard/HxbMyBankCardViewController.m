@@ -12,6 +12,8 @@
 #import "HXBUserInfoView.h"
 #import "HXBFinLoanTruansfer_ContraceWebViewVC.h"
 #import "HXBBankView.h"
+#import "HXBUnBindCardController.h"
+
 @interface HxbMyBankCardViewController ()
 
 /**
@@ -34,7 +36,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.tipLabel];
     if (self.isBank) {
@@ -59,12 +60,26 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    self.isColourGradientNavigationBar = YES;
+//    [self loadUserInfo];
+//}
+
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isColourGradientNavigationBar = YES;
     [self loadUserInfo];
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
 }
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
+}
+
 
 - (void)setupBankViewFrame
 {
@@ -153,6 +168,29 @@
     [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"红小宝客服电话" Message:kServiceMobile];
 }
 
+- (void)leftBackBtnClick {
+    if (_className.length > 0) {
+        [self popToViewControllerWithClassName:_className];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+// pop到制定的页面
+- (void)popToViewControllerWithClassName:(NSString *)class {
+    __block HXBBaseViewController *vc = nil;
+    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) { // 块遍历法，遍历子控制器
+        if ([obj isKindOfClass:NSClassFromString(class)]) {
+            vc = obj;
+            *stop = YES;
+        }
+    }];
+    if (vc) {
+        [self.navigationController popToViewController:vc animated:YES];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 #pragma mark - getter/setter
 - (HXBUserInfoView *)userInfoView

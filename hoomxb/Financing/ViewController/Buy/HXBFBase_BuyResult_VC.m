@@ -278,7 +278,9 @@
 
 - (void)setIsShowInviteBtn:(BOOL)isShowInviteBtn {
     _isShowInviteBtn = isShowInviteBtn;
-    self.inviteButton.hidden = !isShowInviteBtn;
+    if (kIsShowInviteFunction) {
+        self.inviteButton.hidden = !isShowInviteBtn;
+    }
     [self.inviteButton setTitle:_inviteButtonTitle forState:(UIControlStateNormal)];
 }
 
