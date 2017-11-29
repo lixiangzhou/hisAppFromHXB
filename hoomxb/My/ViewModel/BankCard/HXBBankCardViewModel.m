@@ -25,9 +25,9 @@
     _userNameOnlyLast = [bankCardModel.name replaceStringWithStartLocation:0 lenght:bankCardModel.name.length - 1];
 }
 
-- (void)requestUnBindWithIdCardNum:(NSString *)idCardNum transactionPwd:(NSString *)transactionPwd finishBlock:(void (^)(BOOL, NSString *, BOOL))finishBlock
+- (void)requestUnBindWithParam:(NSDictionary *)param finishBlock:(void (^)(BOOL, NSString *, BOOL))finishBlock
 {
-    [NYBaseRequest requestWithRequestUrl:kHXBUserInfo_UnbindBankCard param:@{@"idCardNo": idCardNum, @"cashPassword": transactionPwd} method:NYRequestMethodPost success:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [NYBaseRequest requestWithRequestUrl:kHXBUserInfo_UnbindBankCard param:param method:NYRequestMethodPost success:^(NYBaseRequest *request, NSDictionary *responseObject) {
         
         if (finishBlock == nil) {
             return;

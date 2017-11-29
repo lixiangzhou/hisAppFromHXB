@@ -199,7 +199,7 @@
     NSString *idCardNum = [self.idCardTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *transactionPwd = [self.transactionPwdTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     
-    [self.bankCardViewModel requestUnBindWithIdCardNum:idCardNum transactionPwd:transactionPwd finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
+    [self.bankCardViewModel requestUnBindWithParam:@{@"idCardNo": idCardNum, @"cashPassword": transactionPwd} finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
         if (canPush) {
             // push
         } else { 
