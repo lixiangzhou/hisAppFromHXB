@@ -177,6 +177,9 @@
 #define kServiceMobile @"400-1552-888"
 #define kSecuryText @"****"
 
+// 是否打开邀请好友功能
+#define kIsShowInviteFunction NO
+
 //加载文字
 #define kLoadIngText @"加载中..."
 //分割线高度

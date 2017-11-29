@@ -216,7 +216,7 @@ MyViewHeaderDelegate
             } else {
                 cell.desc = @"";
             }
-            cell.isShowLine = YES;
+            cell.isShowLine = kIsShowInviteFunction;
         } else {
             cell.textLabel.text = @"邀请好友";
             cell.textLabel.textColor = RGBA(102, 102, 102, 1);
@@ -245,7 +245,9 @@ MyViewHeaderDelegate
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (section == 0 || section == 1) {
+    if (section == 0) {
+        return  kIsShowInviteFunction ? 2 : 1;
+    } else if ( section == 1) {
         return 2;
     } else {
         return 1;

@@ -383,7 +383,7 @@
 		E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */; };
 		E14B9BDF1F14731400450692 /* HXBColourGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BDE1F14731400450692 /* HXBColourGradientView.m */; };
 		E14B9BE61F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BE51F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m */; };
-		E14BDE8D1FCE589C00A19731 /* HXBMyBankResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E14BDE8C1FCE589C00A19731 /* HXBMyBankResultViewController.m */; };
+		E14BDE931FCE8EB100A19731 /* HXBMyBankResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E14BDE911FCE8EB000A19731 /* HXBMyBankResultViewController.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
 		E160176B1EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = E160176A1EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.m */; };
 		E16017791EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m in Sources */ = {isa = PBXBuildFile; fileRef = E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */; };
@@ -1241,8 +1241,8 @@
 		E14B9BE21F1482D100450692 /* HXBFin_PlanDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_PlanDetailView.m; sourceTree = "<group>"; };
 		E14B9BE41F14AF7100450692 /* HXBFin_PlanDetailView_TopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_PlanDetailView_TopView.h; sourceTree = "<group>"; };
 		E14B9BE51F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_PlanDetailView_TopView.m; sourceTree = "<group>"; };
-		E14BDE8B1FCE589C00A19731 /* HXBMyBankResultViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyBankResultViewController.h; sourceTree = "<group>"; };
-		E14BDE8C1FCE589C00A19731 /* HXBMyBankResultViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyBankResultViewController.m; sourceTree = "<group>"; };
+		E14BDE911FCE8EB000A19731 /* HXBMyBankResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyBankResultViewController.m; sourceTree = "<group>"; };
+		E14BDE921FCE8EB000A19731 /* HXBMyBankResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMyBankResultViewController.h; sourceTree = "<group>"; };
 		E157A8941EE67A1F002BF6AC /* HXBToolCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBToolCountDownButton.h; sourceTree = "<group>"; };
 		E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBToolCountDownButton.m; sourceTree = "<group>"; };
 		E16017691EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinModel_AddRecortd_Plan_Model.h; sourceTree = "<group>"; };
@@ -2855,8 +2855,8 @@
 				4E9215631F1DEE7400C8CECB /* HXBOpenDepositAccountViewController.m */,
 				4E77C41E1F3E9D4C004257E6 /* HXBDepositoryAlertViewController.h */,
 				4E77C41F1F3E9D4C004257E6 /* HXBDepositoryAlertViewController.m */,
-				E14BDE8B1FCE589C00A19731 /* HXBMyBankResultViewController.h */,
-				E14BDE8C1FCE589C00A19731 /* HXBMyBankResultViewController.m */,
+				E14BDE921FCE8EB000A19731 /* HXBMyBankResultViewController.h */,
+				E14BDE911FCE8EB000A19731 /* HXBMyBankResultViewController.m */,
 			);
 			path = accountCard;
 			sourceTree = "<group>";
@@ -5178,7 +5178,7 @@
 				E1270B4A1ECED2E900729BC9 /* HXBMYModel_PlanDetailModel.m in Sources */,
 				8D2CF5241FC2DA5D008F7A89 /* HXBInviteModel.m in Sources */,
 				E1270B471ECED2D000729BC9 /* HXBMYModel_MainPlanModel.m in Sources */,
-				E14BDE8D1FCE589C00A19731 /* HXBMyBankResultViewController.m in Sources */,
+				E14BDE931FCE8EB100A19731 /* HXBMyBankResultViewController.m in Sources */,
 				E1A1BEF01F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.m in Sources */,
 				4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */,
 				E14B9BE61F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m in Sources */,
