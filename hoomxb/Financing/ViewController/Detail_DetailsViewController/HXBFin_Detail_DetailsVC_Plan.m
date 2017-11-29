@@ -139,9 +139,7 @@
     }];
     [self.planDetail_DetailView clickServerButtonWithBlock:^(UILabel *button) {
         //跳转 协议
-        HXBFinPlanContract_contraceWebViewVC *planWebViewController = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
-        planWebViewController.URL = kHXB_Negotiate_ServePlanURL;
-        [self.navigationController pushViewController:planWebViewController animated:true];
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:weakSelf];
     }];
     
 }

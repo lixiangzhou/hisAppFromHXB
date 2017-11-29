@@ -624,9 +624,7 @@ static const NSInteger topView_high = 300;
     
     _bottomView.delegateBlock = ^(NSInteger index) {
         if (index == 1) {
-            HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-            vc.URL = kHXB_Negotiate_ServePlanURL;
-            [weakSelf.navigationController pushViewController:vc animated:true];
+            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:weakSelf];
         } else {
             HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
             vc.URL = kHXB_Agreement_Hint;

@@ -384,9 +384,7 @@
             planAddRecordVC.planID = self.planID;
             [self.navigationController pushViewController:planAddRecordVC animated:true];
         } else {
-            HXBFinPlanContract_contraceWebViewVC * contractWebViewVC = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
-            contractWebViewVC.URL = self.planDetailViewModel.contractURL;
-            [self.navigationController pushViewController:contractWebViewVC animated:true];
+            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:self];
         }
     }
 }

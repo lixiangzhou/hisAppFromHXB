@@ -276,9 +276,7 @@
 - (void)registerNegotiate {
     kWeakSelf
     [self.joinimmediateView clickNegotiateButtonFunc:^{
-        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-        vc.URL = kHXB_Negotiate_ServePlanURL;
-        [weakSelf.navigationController pushViewController:vc animated:true];
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:weakSelf];
     }];
 }
 

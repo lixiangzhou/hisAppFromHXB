@@ -22,7 +22,6 @@
 #import "HXBFinDetailModel_PlanDetail.h"//model 购买
 #import "HXBMYViewModel_MianPlanViewModel.h"
 #import "HXBMY_Plan_Capital_ViewController.h"//投资记录
-#import "HXBFinContract_contraceWebViewVC_Loan.h"
 @interface HXBMY_PlanList_DetailViewController ()
 @property (nonatomic,strong) HXBMYReqest_DetailRequest *detailRequest;
 @property (nonatomic,weak) HXBMY_PlanDetailView *planDetailView;
@@ -84,10 +83,11 @@
 //服务协议
 - (void)clickNegotiate {
     NSLog(@"点击了服务协议%@",self);
-    HXBFinContract_contraceWebViewVC_Loan *vc = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
-    [self.navigationController pushViewController:vc animated:true];
-    vc.URL = kHXB_Negotiate_ServePlan_AccountURL(self.viewModel.planDetailModel.ID);
-    vc.title = @"红利计划服务协议";
+    [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlan_AccountURL(self.viewModel.planDetailModel.ID)] fromController:self];
+//    HXBFinContract_contraceWebViewVC_Loan *vc = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
+//    [self.navigationController pushViewController:vc animated:true];
+//    vc.URL = kHXB_Negotiate_ServePlan_AccountURL(self.viewModel.planDetailModel.ID);
+//    vc.title = @"红利计划服务协议";
 }
 //投资记录
 - (void)clickLoanRecord {
