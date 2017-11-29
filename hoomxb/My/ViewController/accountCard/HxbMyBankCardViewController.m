@@ -174,15 +174,17 @@
 // pop到制定的页面
 - (void)popToViewControllerWithClassName:(NSString *)class {
     __block HXBBaseViewController *vc = nil;
-    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) { // 块遍历法，遍历子控制器
         if ([obj isKindOfClass:NSClassFromString(class)]) {
             vc = obj;
-            *stop = true;
-        }
-        if (vc) {
-            [self.navigationController popToViewController:vc animated:YES];
+            *stop = YES;
         }
     }];
+    if (vc) {
+        [self.navigationController popToViewController:vc animated:YES];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - getter/setter

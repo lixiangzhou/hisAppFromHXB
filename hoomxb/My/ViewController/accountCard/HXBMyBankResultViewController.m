@@ -45,7 +45,7 @@
 // 布局
 - (void)displayFrame {
     [self.bankImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@kScrAdaptationH(74));
+        make.top.equalTo(@(HXBStatusBarAndNavigationBarHeight + kScrAdaptationH(20)));
         make.centerX.equalTo(self.view);
         make.width.height.offset(kScrAdaptationW(120));
     }];
@@ -127,12 +127,14 @@
     [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) { // 块遍历法，遍历子控制器
         if ([obj isKindOfClass:NSClassFromString(class)]) {
             vc = obj;
-            *stop = true;
-        }
-        if (vc) {
-            [self.navigationController popToViewController:vc animated:YES];
+            *stop = YES;
         }
     }];
+    if (vc) {
+        [self.navigationController popToViewController:vc animated:YES];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 #pragma mark - Setter / Getter / Lazy
