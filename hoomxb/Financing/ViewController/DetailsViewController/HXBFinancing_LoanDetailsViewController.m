@@ -123,10 +123,8 @@
 //MARK: ------ setup -------
 - (void)setup {
     kWeakSelf
-    [self.hxbBaseVCScrollView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.hxbBaseVCScrollView hxb_headerWithRefreshBlock:^{
         [weakSelf downLoadData];
-    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-        
     }];
     
     [self setUPTopImageView];

@@ -96,7 +96,7 @@
     if (@available(iOS 11.0, *)) {
         leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     } else {
-         spaceItem.width = -15;
+        spaceItem.width = -15;
     }
     
     self.navigationItem.leftBarButtonItems = @[spaceItem,[[UIBarButtonItem alloc] initWithCustomView:leftBackBtn]];

@@ -140,6 +140,14 @@
     [self.jsBridge callHandler:handlerName data:data];
 }
 
++ (instancetype)pushWithPageUrl:(NSString *)pageUrl fromController:(HXBBaseViewController *)controller
+{
+    HXBBaseWKWebViewController *VC = [HXBBaseWKWebViewController new];
+    VC.pageUrl = pageUrl;
+    [controller.navigationController pushViewController:VC animated:YES];
+    return VC;
+}
+
 #pragma mark webView初始化
 - (WKWebView *)webView {
     if (!_webView) {

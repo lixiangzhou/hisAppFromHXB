@@ -361,13 +361,13 @@ kDealloc
 ///下拉刷新
 - (void)downLoadRefresh {
     __weak typeof (self)weakSelf = self;
-    [self.bid_Loan_TableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.bid_Loan_TableView hxb_headerWithRefreshBlock:^{
         if (weakSelf.bid_Loan_UPRefresh) weakSelf.bid_Loan_UPRefresh();
-    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {}];
+    }];
     
-    [self.erpaying_Loan_TableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.erpaying_Loan_TableView hxb_headerWithRefreshBlock:^{
         if (weakSelf.repaying_Loan_UPRefresh) weakSelf.repaying_Loan_UPRefresh();
-    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {}];
+    }];
 }
 
 //上啦加载

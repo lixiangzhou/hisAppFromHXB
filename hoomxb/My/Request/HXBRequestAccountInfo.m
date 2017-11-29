@@ -57,22 +57,23 @@
     return planListViewModelArray;
 }
 
-+ (void)downLoadMyAccountListInfoHUDWithParameterDict:(NSDictionary *)parameterDict withSeccessBlock:(void(^)(NSArray<HXBMyCouponListModel *>* modelArray))seccessBlock andFailure: (void(^)(NSError *error))failureBlock{
++ (void)downLoadMyAccountListInfoHUDWithParameterDict:(NSDictionary *)parameterDict withSeccessBlock:(void(^)(NSArray<HXBMyCouponListModel *>* modelArray, NSInteger totalCount))seccessBlock andFailure: (void(^)(NSError *error))failureBlock{
     
     NYBaseRequest *myAccountListInfoAPI = [[NYBaseRequest alloc]init];
     myAccountListInfoAPI.requestUrl = kHXBMY_AccountListInfoURL;
     myAccountListInfoAPI.requestMethod = NYRequestMethodPost;
     myAccountListInfoAPI.requestArgument = parameterDict;
-    
-    [myAccountListInfoAPI startWithHUDStr:@"加载中..." Success:^(NYBaseRequest *request, id responseObject) {
+    //@"加载中..."
+    [myAccountListInfoAPI startWithHUDStr:nil Success:^(NYBaseRequest *request, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue]) {
             kHXBResponsShowHUD
         }
-        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
+        NSDictionary *data = [responseObject valueForKey:@"data"];
+        NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
         NSMutableArray <HXBMyCouponListModel *>*modelArray = [HXBRequestAccountInfo dataProcessingWitharr:dataList];
         
         if (seccessBlock) {
-            seccessBlock(modelArray);
+            seccessBlock(modelArray, [[data valueForKey:@"totalCount"] integerValue]);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);

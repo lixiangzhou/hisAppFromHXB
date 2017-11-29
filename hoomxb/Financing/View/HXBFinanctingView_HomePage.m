@@ -202,11 +202,9 @@
         }
     }];
     //红利计划下拉刷新
-    [self.planListTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.planListTableView hxb_headerWithRefreshBlock:^{
         if (weakSelf.planRefreshHeaderBlock)
             weakSelf.planRefreshHeaderBlock();
-    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-        
     }];
 }
 //- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -228,10 +226,8 @@
     }];
     
     //上拉刷新，下拉加载
-    [self.loanListTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.loanListTableView hxb_headerWithRefreshBlock:^{
         if (weakSelf.loanRefreshHeaderBlock) weakSelf.loanRefreshHeaderBlock();
-    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-        
     }];
 }
 
@@ -241,10 +237,8 @@
     self.loanTruansferTableView = [[HXBFin_LoanTransferTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.loanTruansferTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     //上拉刷新，下拉加载（判断条数是否）
-    [self.loanTruansferTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.loanTruansferTableView hxb_headerWithRefreshBlock:^{
         if (weakSelf.loanTruansferHeaderBlock) weakSelf.loanTruansferHeaderBlock();
-    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-        
     }];
     
     //cell的点击

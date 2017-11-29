@@ -36,6 +36,5 @@
  @param seccessBlock 成功
  @param failureBlock 失败
  */
-+ (void)downLoadMyAccountListInfoHUDWithParameterDict:(NSDictionary *)parameterDict withSeccessBlock:(void(^)(NSArray<HXBMyCouponListModel *>* modelArray))seccessBlock andFailure: (void(^)(NSError *error))failureBlock;
-
++ (void)downLoadMyAccountListInfoHUDWithParameterDict:(NSDictionary *)parameterDict withSeccessBlock:(void(^)(NSArray<HXBMyCouponListModel *>* modelArray, NSInteger totalCount))seccessBlock andFailure: (void(^)(NSError *error))failureBlock;
 @end

@@ -77,9 +77,8 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 
 - (void)refresh {
     kWeakSelf
-    [self.tableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.tableView hxb_headerWithRefreshBlock:^{
         [weakSelf downDataWithScreenType:weakSelf.screenType andStartDate:nil andEndDate:nil andIsUPData:true];
-    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
     }];
 }
 
