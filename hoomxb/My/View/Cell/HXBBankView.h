@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^unbundBankBlock)(void);//解绑block
+@class HXBBankCardModel;
+typedef void(^unbundBankBlock)(HXBBankCardModel *bankCardModel);//解绑block
 
 @interface HXBBankView : UIView
 
 @property (nonatomic, assign) BOOL hasUnbundlingBtn;//是否显示解绑银行卡按钮
-@property (nonatomic, copy) void (^unbundBankBlock)();
+@property (nonatomic, copy) void (^unbundBankBlock)(HXBBankCardModel *bankCardModel);
 
 @end
