@@ -79,10 +79,45 @@
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self.view addSubview:self.withdrawCardView];
 }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
+}
+
 //卡bin校验
 - (void)checkCardBin:(HXBCardBinModel *)cardBinModel
 {
     self.withdrawCardView.cardBinModel = cardBinModel;
+}
+
+- (void)leftBackBtnClick {
+    if (_className.length > 0 && _type == HXBRechargeAndWithdrawalsLogicalJudgment_Other) {
+        [self popToViewControllerWithClassName:_className];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+// pop到制定的页面
+- (void)popToViewControllerWithClassName:(NSString *)class {
+    __block HXBBaseViewController *vc = nil;
+    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) { // 块遍历法，遍历子控制器
+        if ([obj isKindOfClass:NSClassFromString(class)]) {
+            vc = obj;
+            *stop = YES;
+        }
+    }];
+    if (vc) {
+        [self.navigationController popToViewController:vc animated:YES];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)enterBankCardListVC

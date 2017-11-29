@@ -15,5 +15,7 @@
  是否显示银行卡界面
  */
 @property (nonatomic, assign) BOOL isBank;
+// 返回的页面类名
+@property (nonatomic, copy) NSString *className;
 
 @end
