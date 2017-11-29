@@ -1018,6 +1018,7 @@
 		9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWKWebViewController.m; sourceTree = "<group>"; };
 		9A36E32E1FC6AB1700C318B3 /* HXBWKWebviewViewModuel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWKWebviewViewModuel.h; sourceTree = "<group>"; };
 		9A36E32F1FC6AB1700C318B3 /* HXBWKWebviewViewModuel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWKWebviewViewModuel.m; sourceTree = "<group>"; };
+		9A37BCB01FCEA3E400B2B81F /* HXBMacroSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMacroSwitch.h; sourceTree = "<group>"; };
 		9AF220EB1FC2BA8F00002D1D /* HXBBaseUrlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlManager.h; sourceTree = "<group>"; };
 		9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseUrlManager.m; sourceTree = "<group>"; };
 		9AF220ED1FC2BA8F00002D1D /* HXBBaseUrlSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlSettingView.h; sourceTree = "<group>"; };
@@ -2437,6 +2438,7 @@
 				E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */,
 				E12800F71F023AB40066FB66 /* HXBCode.h */,
 				E12800F81F023AB40066FB66 /* HXBCode.m */,
+				9A37BCB01FCEA3E400B2B81F /* HXBMacroSwitch.h */,
 			);
 			path = Macros;
 			sourceTree = "<group>";

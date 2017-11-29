@@ -41,6 +41,12 @@
         self.tipLabel.text = @"您在红小宝平台充值，提现均会使用该卡";
         [self.view addSubview:self.bankView];
         [self.view addSubview:self.phoneBtn];
+        self.bankView.hasUnbundlingBtn = YES;
+        kWeakSelf
+        self.bankView.unbundBankBlock = ^(HXBBankCardModel *bankCardModel) {
+            [weakSelf checkUnbundlingInfo];
+            
+        };
         [self setupBankViewFrame];
     }else
     {
@@ -49,8 +55,14 @@
         [self.view addSubview:self.userInfoView];
         [self setupUserInfoViewFrame];
     }
-    
 }
+
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    self.isColourGradientNavigationBar = YES;
+//    [self loadUserInfo];
+//}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -84,7 +96,6 @@
         make.bottom.equalTo(self.view).offset(kScrAdaptationH(-30));
     }];
 }
-
 
 - (void)setupUserInfoViewFrame
 {
@@ -136,6 +147,12 @@
 //}
 
 #pragma mark - 事件处理
+
+- (void)checkUnbundlingInfo{
+    //校验能否解绑
+    //成功push下一页
+    
+}
 
 - (void)phoneBtnClick
 {
@@ -206,7 +223,7 @@
 {
     if (!_phoneBtn) {
         _phoneBtn  = [[UIButton alloc] init];
-        NSString *string = [NSString stringWithFormat:@"如需解绑，请联系红小宝客服：%@", kServiceMobile];
+        NSString *string = [NSString stringWithFormat:@"如有问题，请联系红小宝客服：%@", kServiceMobile];
         NSMutableAttributedString *str = [NSMutableAttributedString setupAttributeStringWithString:string WithRange:NSMakeRange(string.length - kServiceMobile.length, kServiceMobile.length) andAttributeColor:COR30];
         
         [str addAttribute:NSForegroundColorAttributeName value:COR8 range:NSMakeRange(0, string.length - kServiceMobile.length)];

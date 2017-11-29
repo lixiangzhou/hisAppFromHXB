@@ -43,9 +43,8 @@
 - (void)viewDidLoad {
     kWeakSelf
     [super viewDidLoad];
-    [self.hxbBaseVCScrollView hxb_HeaderWithHeaderRefreshCallBack:^{
+    [self.hxbBaseVCScrollView hxb_headerWithRefreshBlock:^{
         [weakSelf.hxbBaseVCScrollView endRefresh];
-    } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
     }];
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.isColourGradientNavigationBar = true;

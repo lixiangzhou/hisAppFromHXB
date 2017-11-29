@@ -134,11 +134,9 @@
         _withdrawRecordTableView.dataSource = self;
         _withdrawRecordTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         kWeakSelf
-        [_withdrawRecordTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [_withdrawRecordTableView hxb_headerWithRefreshBlock:^{
             weakSelf.page = 0;
             [weakSelf loadCashRegisterDataNeeedShowLoading:NO];
-        } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-            
         }];
         
     }

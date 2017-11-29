@@ -12,31 +12,20 @@ static NSString * const footerNoMoreDataStr = @"已加载全部";
 
 @implementation UIScrollView (HXBScrollView)
 
-//带有动画的下拉刷新
-- (void)hxb_GifHeaderWithIdleImages:(NSArray<UIImage *>*)idleImages
-                    andPullingImages:(NSArray <UIImage*>*)pullingImages
-                   andFreshingImages:(NSArray<UIImage*>*)refreshingImages
-                andRefreshDurations:(NSArray<NSNumber*>*)durations
-                     andRefreshBlock:(void(^)())headerRefreshCallBack
-              andSetUpGifHeaderBlock:(void(^)(MJRefreshGifHeader *gifHeader))gifHeaderBlock{
-    //创建header
-    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingBlock:^{
-        if (headerRefreshCallBack) headerRefreshCallBack();
-    }];
+//MARK: 默认的下拉刷新
+- (void)hxb_headerWithRefreshBlock:(void (^)())headerRefreshCallBack
+{
+    [self hxb_headerWithRefreshBlock:headerRefreshCallBack configHeaderBlock:nil];
+}
+
+- (void)hxb_headerWithRefreshBlock:(void(^)())headerRefreshCallBack
+                     configHeaderBlock:(void(^)(MJRefreshNormalHeader *header))configHeaderBlock{
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:headerRefreshCallBack];
     header.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     header.stateLabel.textColor = COR6;
     header.lastUpdatedTimeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     header.lastUpdatedTimeLabel.textColor = COR6;
-    //设置header
-    if (gifHeaderBlock) gifHeaderBlock(header);
-    
-    //设置动画数组
-    //默认状态下的动画
-    [header setImages:idleImages duration:durations[0].longValue forState:MJRefreshStateIdle];
-    //即将刷新
-    [header setImages:idleImages duration:durations[1].longValue forState:MJRefreshStatePulling];
-    //正在刷新
-    [header setImages:idleImages duration:durations[2].longValue forState:MJRefreshStateRefreshing];
+    if (configHeaderBlock) configHeaderBlock(header);
     self.mj_header = header;
 }
 
@@ -76,19 +65,7 @@ static NSString * const footerNoMoreDataStr = @"已加载全部";
 }
 
 
-//MARK: 默认的下拉刷新
-- (void)hxb_HeaderWithHeaderRefreshCallBack:(void(^)())headerRefreshCallBack
-                     andSetUpGifHeaderBlock:(void(^)(MJRefreshNormalHeader *header))headerBlock{
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        if(headerRefreshCallBack) headerRefreshCallBack();
-    }];
-    header.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-    header.stateLabel.textColor = COR6;
-    header.lastUpdatedTimeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-    header.lastUpdatedTimeLabel.textColor = COR6;
-    if (headerBlock) headerBlock(header);
-    self.mj_header = header;
-}
+
 
 //MARK: 默认的上拉加载
 - (void)hxb_FooterWithRefreshBlock:(void(^)())footerRefreshCallBack

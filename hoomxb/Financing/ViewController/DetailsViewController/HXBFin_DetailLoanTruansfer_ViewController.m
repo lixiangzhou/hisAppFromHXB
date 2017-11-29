@@ -74,10 +74,8 @@
 
 - (void) setUP {
     kWeakSelf
-    [self.hxbBaseVCScrollView hxb_HeaderWithHeaderRefreshCallBack:^{
+    [self.hxbBaseVCScrollView hxb_headerWithRefreshBlock:^{
         [weakSelf downLoadData];
-    } andSetUpGifHeaderBlock:^(MJRefreshNormalHeader *header) {
-        [weakSelf.hxbBaseVCScrollView endRefresh];
     }];
     self.isTransparentNavigationBar = true;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;

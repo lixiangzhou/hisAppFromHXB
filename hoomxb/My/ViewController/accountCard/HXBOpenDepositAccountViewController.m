@@ -41,11 +41,9 @@
 - (void)setupSubView
 {
     kWeakSelf
-    [self.hxbBaseVCScrollView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.hxbBaseVCScrollView hxb_headerWithRefreshBlock:^{
         [weakSelf loadUserInfo];
         [weakSelf.hxbBaseVCScrollView.mj_header endRefreshing];
-    } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-        
     }];
     [self.view addSubview:self.mainView.bottomBtn];
     [self.mainView.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {

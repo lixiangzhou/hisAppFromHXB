@@ -121,10 +121,8 @@
         _mainTabelView.rowHeight = kScrAdaptationH750(90);
         [HXBMiddlekey AdaptationiOS11WithTableView:_mainTabelView];
         // _mainTabelView.tableFooterView = [self tableViewFootView];
-        [_mainTabelView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [_mainTabelView hxb_headerWithRefreshBlock:^{
             [weakSelf loadDataWithIsUPReloadData:YES];
-        } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-            
         }];
         if (self.totalCount >= kPageCount) {
             [_mainTabelView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{

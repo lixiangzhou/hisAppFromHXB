@@ -15,7 +15,7 @@
 UITableViewDelegate,
 UITableViewDataSource
 >
-@property (nonatomic, strong) UITableView *mainTableView;
+//@property (nonatomic, strong) UITableView *mainTableView;
 //@property (nonatomic,strong) HXBNoDataView *nodataView;
 
 @end
@@ -45,16 +45,14 @@ UITableViewDataSource
     }
 }
 
--(void)setMyCouponListModelArray:(NSArray<HXBMyCouponListModel *> *)myCouponListModelArray{
-    _myCouponListModelArray = myCouponListModelArray;
-    self.nodataView.hidden = myCouponListModelArray.count;
-    [self.mainTableView reloadData];
-}
+-(void)setMyCouponListModelArray:(NSMutableArray<HXBMyCouponListModel *> *)myCouponListModelArray{
 
-//-(void)setMyCouponListModel:(HXBMyCouponListModel *)myCouponListModel{
-//    _myCouponListModel = myCouponListModel;
-//    [self.mainTableView reloadData];
-//}
+    _myCouponListModelArray = myCouponListModelArray;
+    self.nodataView.hidden = myCouponListModelArray.count > 0 ? YES:NO;
+    if (_myCouponListModelArray.count > 0) {
+        [self.mainTableView reloadData];
+    }
+}
 
 #pragma mark - TableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -73,7 +71,10 @@ UITableViewDataSource
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.myCouponListModel = self.myCouponListModelArray[indexPath.row];
+    if (self.myCouponListModelArray.count > 0) {
+        cell.myCouponListModel = self.myCouponListModelArray[indexPath.row];
+    }
+    
     kWeakSelf
     cell.actionButtonClickBlock = ^(){
         weakSelf.actionButtonClickBlock();
@@ -98,11 +99,9 @@ UITableViewDataSource
         [_mainTableView addSubview:self.nodataView];
         [HXBMiddlekey AdaptationiOS11WithTableView:_mainTableView];
         kWeakSelf
-        [_mainTableView hxb_GifHeaderWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [_mainTableView hxb_headerWithRefreshBlock:^{
             if (weakSelf.homeRefreshHeaderBlock)
                 weakSelf.homeRefreshHeaderBlock();
-        } andSetUpGifHeaderBlock:^(MJRefreshGifHeader *gifHeader) {
-            
         }];
     }
     return _mainTableView;

@@ -22,6 +22,9 @@
 
 @property (nonatomic, strong) UILabel *bankTip;
 
+@property (nonatomic, strong) UIButton *unbundlingBtn;//解绑
+
+@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 
 @end
 
@@ -38,11 +41,32 @@
         [self.backImageView addSubview:self.bankName];
         [self.backImageView addSubview:self.realName];
         [self.backImageView addSubview:self.bankNum];
+        [self.backImageView addSubview:self.unbundlingBtn];
         [self.backImageView addSubview:self.bankTip];
         [self setupSubViewFrame];
         [self loadBankData];
     }
     return self;
+}
+
+- (void)setHasUnbundlingBtn:(BOOL)hasUnbundlingBtn{
+    _hasUnbundlingBtn = hasUnbundlingBtn;
+    if (_hasUnbundlingBtn) {
+        self.backImageView.userInteractionEnabled = YES;
+        [self.unbundlingBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.width.equalTo(@kScrAdaptationW750(130));
+            make.right.equalTo(self.backImageView.mas_right).offset(kScrAdaptationW750(-40));
+            make.top.equalTo(self.backImageView.mas_top).offset(kScrAdaptationH(20));
+            make.height.offset(kScrAdaptationH750(40));
+        }];
+    }
+}
+
+- (void)clickUnbundlingBtn:(UIButton *)sender{
+    kWeakSelf
+    if (weakSelf.unbundBankBlock) {
+        weakSelf.unbundBankBlock(self.bankCardModel);
+    }
 }
 
 - (void)setupSubViewFrame
@@ -91,6 +115,7 @@
             return;
         }
         HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+        self.bankCardModel = bankCardModel;
         //设置绑卡信息
         weakSelf.iconView.svgImageString = bankCardModel.bankCode;
         weakSelf.bankName.text = bankCardModel.bankType;
@@ -104,8 +129,6 @@
         NSLog(@"%@",error);
         [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
     }];
-
-
 }
 
 #pragma mark - 懒加载
@@ -146,6 +169,20 @@
         _bankNum.textColor = COR29;
     }
     return _bankNum;
+}
+
+- (UIButton *)unbundlingBtn{
+    if (!_unbundlingBtn) {
+        _unbundlingBtn = [[UIButton alloc]init];
+        [_unbundlingBtn setTitle:@"解绑" forState:UIControlStateNormal];
+        [_unbundlingBtn setBackgroundColor:[UIColor redColor]];
+        [_unbundlingBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _unbundlingBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(13);
+        _unbundlingBtn.layer.cornerRadius = 4.0;
+        _unbundlingBtn.layer.masksToBounds = YES;
+        [_unbundlingBtn addTarget:self action:@selector(clickUnbundlingBtn:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _unbundlingBtn;
 }
 
 - (UILabel *)bankTip
