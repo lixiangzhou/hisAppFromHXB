@@ -8,7 +8,7 @@
 
 #import "NYBaseRequest.h"
 
-@interface NSDictionary (HXB)
+@interface NSDictionary (HXBResponse)
 @property (nonatomic, strong, readonly) id data;
 @property (nonatomic, copy, readonly) NSString *message;
 @property (nonatomic, assign, readonly) NSInteger statusCode;

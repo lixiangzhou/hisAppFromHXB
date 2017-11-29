@@ -8,7 +8,7 @@
 
 #import "NYBaseRequest+HXB.h"
 
-@implementation NSDictionary (HXB)
+@implementation NSDictionary (HXBResponse)
 - (id)data {
     return self[kResponseData];
 }
