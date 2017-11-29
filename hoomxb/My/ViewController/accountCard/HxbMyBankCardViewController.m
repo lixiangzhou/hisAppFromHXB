@@ -10,7 +10,6 @@
 #import "NYBaseRequest.h"
 #import "HXBBankCardModel.h"
 #import "HXBUserInfoView.h"
-#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"
 #import "HXBBankView.h"
 @interface HxbMyBankCardViewController ()
 
@@ -147,10 +146,7 @@
         _userInfoView = [[HXBUserInfoView alloc] initWithFrame:CGRectZero];
         _userInfoView.agreementBlock = ^{
             NSLog(@"《存管开户协议》");
-            HXBFinLoanTruansfer_ContraceWebViewVC *webViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc] init];
-            webViewVC.URL = kHXB_Negotiate_thirdpart;
-            webViewVC.title = @"存管协议";
-            [weakSelf.navigationController pushViewController:webViewVC animated:true];
+            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_thirdpart] fromController:weakSelf];
         };
     }
     return _userInfoView;

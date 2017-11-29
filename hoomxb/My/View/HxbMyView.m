@@ -113,9 +113,7 @@ MyViewHeaderDelegate
         } else {
             [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_entrance];
             HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
-            webViewVC.pageUrl = kHXBH5_InviteDetailURL;
-            [VC.navigationController pushViewController:webViewVC animated:true];
+            [HXBBannerWebViewController pushWithPageUrl:kHXBH5_InviteDetailURL fromController:VC];
         }
     }
     if (indexPath.section == 1) {//第一组： plan

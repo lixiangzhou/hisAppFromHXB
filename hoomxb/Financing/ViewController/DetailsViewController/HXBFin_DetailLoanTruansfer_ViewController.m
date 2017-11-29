@@ -15,7 +15,6 @@
 #import "HXBFin_LoanTruansferDetailViewController.h"
 #import "HXBMYViewModel_MainLoanViewModel.h"///借款信息
 #import "HXBFinAddRecortdVC_Loan.h"///转让记录
-#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"//转让协议
 #import "HXBFinDetailViewModel_LoanTruansferDetail.h"//详情的viewModel
 #import "HXBFinAddRecordVC_LoanTruansfer.h"//转让记录
 #import "HXBFinanctingDetail_imageCell.h"
@@ -206,9 +205,7 @@
             loanAddRecordVC.loanTruansferID = self.loanTransfer_ViewModel.transferId;
             [self.navigationController pushViewController:loanAddRecordVC animated:true];
         } else {
-            HXBFinLoanTruansfer_ContraceWebViewVC * contractWebViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc]init];
-            contractWebViewVC.URL = self.loanTruansferDetailViewModel.agreementURL;
-            [self.navigationController pushViewController:contractWebViewVC animated:true];
+            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_LoanTruansferURL] fromController:self];
         }
     }
 }

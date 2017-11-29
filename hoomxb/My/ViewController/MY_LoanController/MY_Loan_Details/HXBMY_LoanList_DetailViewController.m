@@ -10,7 +10,6 @@
 #import "HXBMY_Loan_DetailView.h"
 #import "HXBMYViewModel_MainLoanViewModel.h"
 #import "HXBFinDetail_TableView.h"
-#import "HXBFinContract_contraceWebViewVC_Loan.h"
 #import "HXBMY_Plan_Capital_ViewController.h"
 #import "HXBTransferCreditorViewController.h"
 @interface HXBMY_LoanList_DetailViewController ()
@@ -132,11 +131,7 @@
 
 ///服务协议
 - (void)clickContrace {
-    HXBFinContract_contraceWebViewVC_Loan *vc = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
-    [self.navigationController pushViewController:vc animated:true];
-    
-    vc.URL = kHXB_Negotiate_ServeLoan_AccountURL(self.loanDetailViewModel.loanModel.loanId);
-    vc.title = @"借款合同";
+    [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServeLoan_AccountURL(self.loanDetailViewModel.loanModel.loanId)] fromController:self];
 }
 
 /**

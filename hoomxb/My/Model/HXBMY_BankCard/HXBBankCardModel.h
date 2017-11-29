@@ -75,11 +75,11 @@
 /**
  单日限额
  */
-@property (nonatomic, copy) NSString *day;
+//@property (nonatomic, copy) NSString *day;
 /**
  单笔限额
  */
-@property (nonatomic, copy) NSString *single;
+//@property (nonatomic, copy) NSString *single;
 
 /**
  限额提示
