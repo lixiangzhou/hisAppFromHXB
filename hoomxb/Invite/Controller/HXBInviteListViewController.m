@@ -21,6 +21,7 @@
 @property (nonatomic, strong) HXBInviteModel *model;
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, assign) NSInteger totalCount;
+@property (nonatomic, strong) UIView *sectionHeadView;
 @end
 
 @implementation HXBInviteListViewController
@@ -69,25 +70,26 @@
 }
 
 - (UIView *)tableHeader {
-    UIView *sectionHeadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(45))];
-    sectionHeadView.backgroundColor = [UIColor whiteColor];
+    _sectionHeadView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(45))];
+    _sectionHeadView.hidden = YES;
+    _sectionHeadView.backgroundColor = [UIColor whiteColor];
     
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(kScrAdaptationW(9), kScrAdaptationH(16.5), kScrAdaptationW(2), kScrAdaptationH(12))];
     lineView.backgroundColor = COR29;
     lineView.layer.cornerRadius = kScrAdaptationW(1);
-    [sectionHeadView addSubview:lineView];
+    [_sectionHeadView addSubview:lineView];
     
     UILabel *titleLable = [[UILabel alloc] initWithFrame:CGRectMake(kScrAdaptationW(20), kScrAdaptationH(15), kScreenWidth - kScrAdaptationW(35), kScrAdaptationH(15))];
     titleLable.text = @"我的好友";
     titleLable.font = kHXBFont_PINGFANGSC_REGULAR(15);
     titleLable.textColor = COR6;
-    [sectionHeadView addSubview:titleLable];
+    [_sectionHeadView addSubview:titleLable];
     
     UIView *separatorLineView = [[UIView alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(44.5), kScreenWidth, kHXBDivisionLineHeight)];
     separatorLineView.backgroundColor = COR13;
-    [sectionHeadView addSubview:separatorLineView];
+    [_sectionHeadView addSubview:separatorLineView];
     
-    return sectionHeadView;
+    return _sectionHeadView;
 }
 
 #pragma mark -
@@ -109,6 +111,7 @@
         }
         if (self.dataArray.count) {
             _tableView.hidden = NO;
+            _sectionHeadView.hidden = NO;
             self.nodataView.hidden = YES;
             [self.tableView.tableHeaderView setHidden:NO];
             [_tableView endRefresh];
@@ -126,12 +129,12 @@
         } else {
             [self.tableView.tableHeaderView setHidden:YES];
             _tableView.hidden = NO;
+            _sectionHeadView.hidden = NO;
             self.nodataView.hidden = NO;
             [_tableView endRefresh];
         }
         [_tableView reloadData];
     } andFailureBlock:^(NSError *error) {
-        _tableView.hidden = NO;
         [_tableView endRefresh];
     }];
 }
@@ -147,7 +150,6 @@
         }
     } andFailureBlock:^(NSError *error) {
         _headView.hidden = NO;
-        self.headView.dataDic = [self dataDicWithCashBackAmount:noDataText couponNumber:noDataText inviteNumber:noDataText];
     }];
 }
 

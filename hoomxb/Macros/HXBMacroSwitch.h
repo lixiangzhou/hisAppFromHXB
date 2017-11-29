@@ -9,4 +9,7 @@
 #ifndef HXBMacroSwitch_h
 #define HXBMacroSwitch_h
 
+// 是否打开邀请好友功能
+#define kIsShowInviteFunction NO
+
 #endif /* HXBMacroSwitch_h */
