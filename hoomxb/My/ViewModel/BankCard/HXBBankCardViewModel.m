@@ -47,4 +47,28 @@
         
     }];
 }
+
+- (NSString *)validateIdCardNo:(NSString *)cardNo
+{
+    if (!(cardNo.length > 0)) {
+        return @"身份证号不能为空";
+    }
+    if (cardNo.length != 18)
+    {
+        return @"身份证号输入有误";
+    }
+    return nil;
+}
+
+- (NSString *)validateTransactionPwd:(NSString *)transactionPwd
+{
+    if(!(transactionPwd.length > 0))
+    {
+        return @"交易密码不能为空";
+    }
+    if (transactionPwd.length != 6) {
+        return @"交易密码为6位数字";
+    }
+    return nil;
+}
 @end

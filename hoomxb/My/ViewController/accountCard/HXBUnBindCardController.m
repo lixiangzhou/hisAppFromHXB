@@ -199,6 +199,20 @@
     NSString *idCardNum = [self.idCardTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     NSString *transactionPwd = [self.transactionPwdTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
     
+    // 验证身份证号
+    NSString *idCardNoMessage = [self.bankCardViewModel validateIdCardNo:idCardNum];
+    if (idCardNoMessage) {
+        [HxbHUDProgress showMessageCenter:idCardNoMessage];
+        return;
+    }
+    
+    // 验证交易密码
+    NSString *transactionPwdMessage = [self.bankCardViewModel validateTransactionPwd:transactionPwd];
+    if (transactionPwdMessage) {
+        [HxbHUDProgress showMessageCenter:transactionPwdMessage];
+        return;
+    }
+    
     [self.bankCardViewModel requestUnBindWithParam:@{@"idCardNo": idCardNum, @"cashPassword": transactionPwd} finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
         if (canPush) {
             // push
