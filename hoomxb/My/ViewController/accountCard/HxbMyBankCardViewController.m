@@ -47,7 +47,7 @@
         kWeakSelf
         self.bankView.unbundBankBlock = ^(HXBBankCardModel *bankCardModel) {
             weakSelf.bankCardModel = bankCardModel;
-            [weakSelf checkUnbundlingInfo];
+            [weakSelf checkUnbundlingInfo:bankCardModel];
             
         };
         [self setupBankViewFrame];
@@ -151,14 +151,17 @@
 
 #pragma mark - 事件处理
 
-- (void)checkUnbundlingInfo{
+- (void)checkUnbundlingInfo:(HXBBankCardModel *)bankCardModel {
+    
+    HXBUnBindCardController *VC = [HXBUnBindCardController new];
+    VC.bankCardModel = bankCardModel;
+    [self.navigationController pushViewController:VC animated:YES];
     //校验能否解绑
     //成功push下一页
-//    if (self.bankCardModel) {
-//
-//    } else {
-        [HxbHUDProgress showTextWithMessage:@"本日您的解绑次数已超限，请明日重试"];//self.bankCardModel.
-//    }
+    //    if (self.bankCardModel) {
+    //
+    //    } else {
+    [HxbHUDProgress showTextWithMessage:@"本日您的解绑次数已超限，请明日重试"];//self.bankCardModel.
 }
 
 - (void)phoneBtnClick
