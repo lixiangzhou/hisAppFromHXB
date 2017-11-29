@@ -94,7 +94,7 @@
 - (void)setBottomView {
     // 身份证号
     UILabel *nameLabel = [UILabel new];
-    nameLabel.text = [NSString stringWithFormat:@"认证姓名：%@", self.bankCardViewModel.userName];
+    nameLabel.text = [NSString stringWithFormat:@"认证姓名：%@", self.bankCardViewModel.userNameOnlyLast];
     [self.view addSubview:nameLabel];
     
     HXBCustomTextField *idCardTextField = [[HXBCustomTextField alloc] init];

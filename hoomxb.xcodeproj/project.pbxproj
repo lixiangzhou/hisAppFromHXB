@@ -254,6 +254,7 @@
 		8D4064F31FC67E2A00121E1C /* NSDate+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4064F21FC67E2A00121E1C /* NSDate+HXB.m */; };
 		8D5A2F471FCE5A3A00057DB3 /* HXBUnBindCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5A2F461FCE5A3A00057DB3 /* HXBUnBindCardController.m */; };
 		8D5A2F4B1FCE756300057DB3 /* HXBBankCardViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5A2F4A1FCE756300057DB3 /* HXBBankCardViewModel.m */; };
+		8D5A2F4E1FCE918400057DB3 /* NYBaseRequest+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5A2F4D1FCE918400057DB3 /* NYBaseRequest+HXB.m */; };
 		8DAD30781FBA8F8C00E2AEE8 /* HXBAlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */; };
 		8DAD30791FBA8F8C00E2AEE8 /* HXBBaseAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30441FBA8F8B00E2AEE8 /* HXBBaseAlertViewController.m */; };
 		8DAD307A1FBA8F8C00E2AEE8 /* HXBBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30461FBA8F8B00E2AEE8 /* HXBBaseNavigationController.m */; };
@@ -972,6 +973,8 @@
 		8D5A2F461FCE5A3A00057DB3 /* HXBUnBindCardController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBUnBindCardController.m; sourceTree = "<group>"; };
 		8D5A2F491FCE756300057DB3 /* HXBBankCardViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBankCardViewModel.h; sourceTree = "<group>"; };
 		8D5A2F4A1FCE756300057DB3 /* HXBBankCardViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBBankCardViewModel.m; sourceTree = "<group>"; };
+		8D5A2F4C1FCE918400057DB3 /* NYBaseRequest+HXB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NYBaseRequest+HXB.h"; sourceTree = "<group>"; };
+		8D5A2F4D1FCE918400057DB3 /* NYBaseRequest+HXB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NYBaseRequest+HXB.m"; sourceTree = "<group>"; };
 		8D6B046A1FC2A3BF0046F48A /* HXBBaseConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseConfig.h; sourceTree = "<group>"; };
 		8DAD30411FBA8F8B00E2AEE8 /* HXBAlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAlertManager.h; sourceTree = "<group>"; };
 		8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAlertManager.m; sourceTree = "<group>"; };
@@ -3499,6 +3502,8 @@
 				E133DD231EEEC14C009466DE /* HXBBaseRequest.m */,
 				E133DD241EEEC14C009466DE /* NYBaseRequest.h */,
 				E133DD251EEEC14C009466DE /* NYBaseRequest.m */,
+				8D5A2F4C1FCE918400057DB3 /* NYBaseRequest+HXB.h */,
+				8D5A2F4D1FCE918400057DB3 /* NYBaseRequest+HXB.m */,
 			);
 			path = BaseRequest;
 			sourceTree = "<group>";
@@ -4961,6 +4966,7 @@
 				4E8198AA1EC44BCE00D668A1 /* HXBHomePageAfterLoginView.m in Sources */,
 				8D5A2F4B1FCE756300057DB3 /* HXBBankCardViewModel.m in Sources */,
 				4E0446DE1FBEA98A0030E276 /* HXBUmengViewController.m in Sources */,
+				8D5A2F4E1FCE918400057DB3 /* NYBaseRequest+HXB.m in Sources */,
 				4E8EAA121F17A0E4003834D4 /* HXBNoticModel.m in Sources */,
 				E122D8531EA0CAB900DC71ED /* NSString+HxbMask.m in Sources */,
 				E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */,

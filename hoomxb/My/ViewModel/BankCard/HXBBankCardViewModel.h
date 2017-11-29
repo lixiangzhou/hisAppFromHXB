@@ -20,8 +20,8 @@
 @property (nonatomic, copy, readonly) NSString *bankNumStarFormat;
 /// 银行卡后4位
 @property (nonatomic, copy, readonly) NSString *bankNumLast4;
-/// 持卡人名字
-@property (nonatomic, copy, readonly) NSString *userName;
+/// 持卡人名字, 只显示最后一个字: **子
+@property (nonatomic, copy, readonly) NSString *userNameOnlyLast;
 
 
 #pragma mark - Method

@@ -12,6 +12,8 @@
 #import "HXBUserInfoView.h"
 #import "HXBFinLoanTruansfer_ContraceWebViewVC.h"
 #import "HXBBankView.h"
+#import "HXBUnBindCardController.h"
+
 @interface HxbMyBankCardViewController ()
 
 /**
@@ -60,8 +62,9 @@
 
 - (void)checkUnbundlingInfo{
     //校验能否解绑
-    //成功push下一页
-    
+    HXBUnBindCardController *VC = [HXBUnBindCardController new];
+    VC.bankCardModel = self.bankCardModel;
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 - (void)setupBankViewFrame
