@@ -55,7 +55,7 @@
 }
 
 - (void)setNavigationItem{
-    UIButton*rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    UIButton*rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,kScrAdaptationW750(32),kScrAdaptationH750(37))];
     [rightButton setImage:[UIImage imageNamed:@"my_couponList_InstructionsNot"]forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(enterInstructions)forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem*rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];

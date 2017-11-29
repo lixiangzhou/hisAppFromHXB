@@ -45,6 +45,7 @@
         self.bankView.hasUnbundlingBtn = YES;
         kWeakSelf
         self.bankView.unbundBankBlock = ^(HXBBankCardModel *bankCardModel) {
+            weakSelf.bankCardModel = bankCardModel;
             [weakSelf checkUnbundlingInfo];
             
         };
@@ -138,7 +139,11 @@
 - (void)checkUnbundlingInfo{
     //校验能否解绑
     //成功push下一页
-    
+//    if (self.bankCardModel) {
+//
+//    } else {
+        [HxbHUDProgress showTextWithMessage:@"本日您的解绑次数已超限，请明日重试"];//self.bankCardModel.
+//    }
 }
 
 - (void)phoneBtnClick
