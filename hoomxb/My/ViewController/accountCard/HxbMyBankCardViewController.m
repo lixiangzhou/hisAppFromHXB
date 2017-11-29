@@ -12,6 +12,8 @@
 #import "HXBUserInfoView.h"
 #import "HXBFinLoanTruansfer_ContraceWebViewVC.h"
 #import "HXBBankView.h"
+#import "HXBUnBindCardController.h"
+
 @interface HxbMyBankCardViewController ()
 
 /**
@@ -45,7 +47,7 @@
         self.bankView.hasUnbundlingBtn = YES;
         kWeakSelf
         self.bankView.unbundBankBlock = ^(HXBBankCardModel *bankCardModel) {
-            [weakSelf checkUnbundlingInfo];
+            [weakSelf checkUnbundlingInfo:bankCardModel];
             
         };
         [self setupBankViewFrame];
@@ -135,10 +137,10 @@
 
 #pragma mark - 事件处理
 
-- (void)checkUnbundlingInfo{
-    //校验能否解绑
-    //成功push下一页
-    
+- (void)checkUnbundlingInfo:(HXBBankCardModel *)bankCardModel {
+    HXBUnBindCardController *VC = [HXBUnBindCardController new];
+    VC.bankCardModel = bankCardModel;
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 - (void)phoneBtnClick
