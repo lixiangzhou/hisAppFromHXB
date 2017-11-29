@@ -13,8 +13,9 @@
 - (void)setEarnTotal:(double)earnTotal{
     if (earnTotal < 0) {
         _earnTotal = 0.00;
+    } else {
+        _earnTotal = earnTotal;
     }
-    _earnTotal = earnTotal;
 }
 
 @end

@@ -46,8 +46,9 @@
         [self.view addSubview:self.phoneBtn];
         self.bankView.hasUnbundlingBtn = YES;
         kWeakSelf
-        self.bankView.unbundBankBlock = ^{
-            [weakSelf checkUnbundlingInfo];
+        self.bankView.unbundBankBlock = ^(HXBBankCardModel *bankCardModel) {
+            [weakSelf checkUnbundlingInfo:bankCardModel];
+            
         };
         [self setupBankViewFrame];
     }else
@@ -57,14 +58,13 @@
         [self.view addSubview:self.userInfoView];
         [self setupUserInfoViewFrame];
     }
-    
 }
 
-- (void)checkUnbundlingInfo{
-    //校验能否解绑
-    HXBUnBindCardController *VC = [HXBUnBindCardController new];
-    VC.bankCardModel = self.bankCardModel;
-    [self.navigationController pushViewController:VC animated:YES];
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
+    [self loadUserInfo];
 }
 
 - (void)setupBankViewFrame
@@ -85,7 +85,6 @@
         make.bottom.equalTo(self.view).offset(kScrAdaptationH(-30));
     }];
 }
-
 
 - (void)setupUserInfoViewFrame
 {
@@ -113,13 +112,6 @@
 //    }];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.isColourGradientNavigationBar = YES;
-    [self loadUserInfo];
-}
-
 - (void)loadUserInfo
 {
     kWeakSelf
@@ -144,6 +136,12 @@
 //}
 
 #pragma mark - 事件处理
+
+- (void)checkUnbundlingInfo:(HXBBankCardModel *)bankCardModel {
+    HXBUnBindCardController *VC = [HXBUnBindCardController new];
+    VC.bankCardModel = bankCardModel;
+    [self.navigationController pushViewController:VC animated:YES];
+}
 
 - (void)phoneBtnClick
 {
