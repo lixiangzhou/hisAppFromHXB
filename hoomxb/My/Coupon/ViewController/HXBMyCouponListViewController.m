@@ -21,7 +21,6 @@
 }
 
 @property (nonatomic, strong) HXBMyCouponListView *myView;
-@property (nonatomic, strong) NSDictionary *parameterDict;
 @property (nonatomic, strong) NSMutableArray <HXBMyCouponListModel*>* myCouponListModelMArray;//数据数组
 
 @end
@@ -36,7 +35,6 @@
     [self setParameter];
     self.view.backgroundColor = RGBA(244, 243, 248, 1);
     [self.view addSubview:self.myView];
-//    self.myView.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -47,15 +45,16 @@
 #pragma mark - 加载数据
 - (void)loadData_myCouponListInfo{
     kWeakSelf
-    [HXBRequestAccountInfo downLoadMyAccountListInfoHUDWithParameterDict:self.parameterDict withSeccessBlock:^(NSArray<HXBMyCouponListModel *> *modelArray, NSInteger totalCount) {
+    [HXBRequestAccountInfo downLoadMyAccountListInfoHUDWithParameterDict:@{@"page":[NSString stringWithFormat:@"%d",_page],@"filter":_filter} withSeccessBlock:^(NSArray<HXBMyCouponListModel *> *modelArray, NSInteger totalCount) {
     
-        if (totalCount > 20) {
-            [self.myView.mainTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-                ++_page;
-                _parameterDict = @{@"page":[NSString stringWithFormat:@"%d",_page],@"filter":_filter};
-                [weakSelf loadData_myCouponListInfo];
-            } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-            }];
+        if (totalCount > kPageCount) {
+            if (!weakSelf.myView.mainTableView.mj_footer) {
+                [weakSelf.myView.mainTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+                    ++_page;
+                    [weakSelf loadData_myCouponListInfo];
+                } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+                }];
+            }
         }
         if (_page == 1) {
             [weakSelf.myCouponListModelMArray removeAllObjects];
@@ -75,7 +74,6 @@
 
 - (void)getNetworkAgain{
     _page = 1;
-    _parameterDict = @{@"page":[NSString stringWithFormat:@"%d",_page],@"filter":_filter};
     [self loadData_myCouponListInfo];
 }
 
@@ -107,18 +105,10 @@
         };
         _myView.homeRefreshHeaderBlock = ^(){
             _page = 1;
-            _parameterDict = @{@"page":[NSString stringWithFormat:@"%d",_page],@"filter":_filter};
             [weakSelf loadData_myCouponListInfo];
         };
     }
     return _myView;
-}
-
-- (NSDictionary *)parameterDict{
-    if (!_parameterDict) {
-        _parameterDict = @{@"page":[NSString stringWithFormat:@"%d",_page],@"filter":_filter};
-    }
-    return _parameterDict;
 }
 
 -(NSMutableArray<HXBMyCouponListModel *> *)myCouponListModelMArray{

@@ -71,7 +71,10 @@ UITableViewDataSource
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.myCouponListModel = self.myCouponListModelArray[indexPath.row];
+    if (self.myCouponListModelArray.count > 0) {
+        cell.myCouponListModel = self.myCouponListModelArray[indexPath.row];
+    }
+    
     kWeakSelf
     cell.actionButtonClickBlock = ^(){
         weakSelf.actionButtonClickBlock();
