@@ -82,13 +82,14 @@
         _bankImageView.image = [UIImage imageNamed:@"successful"];
         [_actionButton setTitle:@"重新绑卡" forState:(UIControlStateNormal)];
         _bankTileLabel.text = @"解绑成功";
+        _bankDescribeLabel.text = [NSString stringWithFormat:@"尾号%@的银行卡解绑成功", _mobileText];
     } else {
         _bankImageView.image = [UIImage imageNamed:@"failure"];
         [_actionButton setTitle:@"重新解绑" forState:(UIControlStateNormal)];
         _bankTileLabel.text = @"解绑失败";
+        _bankDescribeLabel.text = _describeText;
     }
     [_myAccountButton setTitle:@"我的账户" forState:(UIControlStateNormal)];
-    _bankDescribeLabel.text = _describeText;
     
 }
 
