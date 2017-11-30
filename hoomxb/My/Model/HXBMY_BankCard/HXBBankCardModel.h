@@ -75,11 +75,11 @@
 /**
  单日限额
  */
-@property (nonatomic, copy) NSString *day;
+//@property (nonatomic, copy) NSString *day;
 /**
  单笔限额
  */
-@property (nonatomic, copy) NSString *single;
+//@property (nonatomic, copy) NSString *single;
 
 /**
  限额提示
@@ -95,9 +95,9 @@
  */
 @property (nonatomic, copy) NSString *bankArriveTimeText;
 
-//能否解绑
-
-//能否解绑提示信息
-//@property (nonatomic, copy) NSString *;
+//是否可以解绑银行卡
+@property (nonatomic, assign) BOOL enableUnbind;
+//不可以解绑银行卡原因
+@property (nonatomic, copy) NSString *enableUnbindReason;
 
 @end

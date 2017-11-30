@@ -11,7 +11,6 @@
 #import "HXBNoticeViewController.h"
 #import "HXBVersionUpdateRequest.h"
 #import "HXBNoticModel.h"
-#import "HXBFinAddTruastWebViewVC.h"
 #import "HXBNoticeCell.h"
 @interface HXBNoticeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *mainTabelView;
@@ -101,10 +100,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     HXBNoticModel *noticModel = self.modelArrs[indexPath.row];
     NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],noticModel.ID];
-    HXBFinAddTruastWebViewVC *finAddTruastWebViewVC = [[HXBFinAddTruastWebViewVC alloc] init];
-    finAddTruastWebViewVC.URL = str;
-    finAddTruastWebViewVC.title = @"公告详情";
-    [self.navigationController pushViewController:finAddTruastWebViewVC animated:YES];
+    [HXBBaseWKWebViewController pushWithPageUrl:str fromController:self];
 }
 
 

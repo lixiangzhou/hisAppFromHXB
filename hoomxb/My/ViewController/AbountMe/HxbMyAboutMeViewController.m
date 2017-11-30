@@ -13,7 +13,7 @@
 #import "HXBVersionUpdateModel.h"//版本更新的model
 #import "HXBAgreementView.h"
 #import "HXBBottomLineTableViewCell.h"
-#import "HXBFinPlanContract_contraceWebViewVC.h"
+#import "HXBCommonProblemViewController.h"//常见问题H5
 @interface HxbMyAboutMeViewController ()
 <
 UITableViewDelegate,UITableViewDataSource
@@ -76,10 +76,9 @@ UITableViewDelegate,UITableViewDataSource
         case 2:
         {
             //跳转常见问题
-            HXBFinPlanContract_contraceWebViewVC *planWebViewController = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
-            planWebViewController.URL = kHXBUser_QuestionsURL;
-            planWebViewController.isShowRightBtn = YES;
-            [self.navigationController pushViewController:planWebViewController animated:true];
+            HXBCommonProblemViewController *commonProblemVC = [[HXBCommonProblemViewController alloc] init];
+            commonProblemVC.pageUrl = [NSString splicingH5hostWithURL:kHXBUser_QuestionsURL];
+            [self.navigationController pushViewController:commonProblemVC animated:YES];
         }
             break;
         case 3:

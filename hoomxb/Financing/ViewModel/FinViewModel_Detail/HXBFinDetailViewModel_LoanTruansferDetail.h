@@ -66,7 +66,7 @@
 /**
  协议URL
  */
-@property (nonatomic,copy) NSString * agreementURL;
+//@property (nonatomic,copy) NSString * agreementURL;
 /**
  按月等额本息
  */
