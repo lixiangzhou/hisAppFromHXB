@@ -46,8 +46,7 @@
         kWeakSelf
         self.bankView.unbundBankBlock = ^(HXBBankCardModel *bankCardModel) {
             weakSelf.bankCardModel = bankCardModel;
-            [weakSelf checkUnbundlingInfo:bankCardModel];
-            
+            [weakSelf setupRightBarBtn];
         };
         [self setupBankViewFrame];
     }else
@@ -69,6 +68,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isColourGradientNavigationBar = YES;
+    
     [self loadUserInfo];
     // 禁用全屏滑动手势
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
@@ -90,9 +90,13 @@
 }
 
 - (void)clickUnbundBankBtn:(UIButton *)sender {
-    HXBUnBindCardController *VC = [HXBUnBindCardController new];
-    VC.bankCardModel = self.bankCardModel;
-    [self.navigationController pushViewController:VC animated:YES];
+    if (!self.bankCardModel.enableUnbind) {
+        [HxbHUDProgress showTextWithMessage:self.bankCardModel.enableUnbindReason];
+    } else {
+        HXBUnBindCardController *VC = [HXBUnBindCardController new];
+        VC.bankCardModel = self.bankCardModel;
+        [self.navigationController pushViewController:VC animated:YES];
+    }
 }
 
 - (void)setupBankViewFrame
@@ -164,14 +168,6 @@
 //}
 
 #pragma mark - 事件处理
-
-- (void)checkUnbundlingInfo:(HXBBankCardModel *)bankCardModel {
-    if (!self.bankCardModel.enableUnbind) {
-        [HxbHUDProgress showTextWithMessage:self.bankCardModel.enableUnbindReason];
-    } else {
-        [self setupRightBarBtn];
-    }
-}
 
 - (void)phoneBtnClick
 {
