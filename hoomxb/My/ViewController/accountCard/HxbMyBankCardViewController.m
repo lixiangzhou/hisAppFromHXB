@@ -58,24 +58,10 @@
     }
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    self.isColourGradientNavigationBar = YES;
-//    [self loadUserInfo];
-//}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isColourGradientNavigationBar = YES;
     [self loadUserInfo];
-    // 禁用全屏滑动手势
-    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
 - (void)setupRightBarBtn {
@@ -126,17 +112,6 @@
         make.top.equalTo(self.view).offset(HxbNavigationBarY);
         make.bottom.equalTo(self.userInfoView.mas_top);
     }];
-//    [self.bankView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.view).offset(kScrAdaptationW750(20));
-//        make.right.equalTo(self.view).offset(kScrAdaptationW750(-20));
-//        make.top.equalTo(self.userInfoView.mas_bottom).offset(kScrAdaptationH750(20));
-//        make.height.offset(120);
-//    }];
-//    [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.tipLabel.mas_right);
-//        make.right.equalTo(self.view).offset(kScrAdaptationW750(-20));
-//        make.centerY.equalTo(self.tipLabel);
-//    }];
 }
 
 - (void)loadUserInfo
@@ -153,54 +128,20 @@
     }];
 }
 
-//- (void)bindBankCardClick
-//{
-//    //进入绑卡界面
-//    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-//    withdrawCardViewController.title = @"绑卡";
-//    withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-//    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-//}
-
 #pragma mark - 事件处理
 
 - (void)checkUnbundlingInfo:(HXBBankCardModel *)bankCardModel {
-    //    if (self.bankCardModel) {
-    //[HxbHUDProgress showTextWithMessage:@"本日您的解绑次数已超限，请明日重试"];//self.bankCardModel.
-    //    } else {
-    [self setupRightBarBtn];
-//}
+    if (!self.bankCardModel.enableUnbind) {
+        [HxbHUDProgress showTextWithMessage:self.bankCardModel.enableUnbindReason];
+    } else {
+        [self setupRightBarBtn];
+    }
 }
 
 - (void)phoneBtnClick
 {
-//    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4001551888"];
-//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+
     [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"红小宝客服电话" Message:kServiceMobile];
-}
-
-- (void)leftBackBtnClick {
-    if (_className.length > 0) {
-        [self popToViewControllerWithClassName:_className];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-// pop到制定的页面
-- (void)popToViewControllerWithClassName:(NSString *)class {
-    __block HXBBaseViewController *vc = nil;
-    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) { // 块遍历法，遍历子控制器
-        if ([obj isKindOfClass:NSClassFromString(class)]) {
-            vc = obj;
-            *stop = YES;
-        }
-    }];
-    if (vc) {
-        [self.navigationController popToViewController:vc animated:YES];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
 }
 
 #pragma mark - getter/setter

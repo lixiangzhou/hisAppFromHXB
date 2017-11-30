@@ -109,10 +109,7 @@
         withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         [self.navigationController pushViewController:withdrawCardViewController animated:YES];
     } else {
-        HxbMyBankCardViewController *myBankViewController = [[HxbMyBankCardViewController alloc] init];
-        myBankViewController.className = @"HxbAccountInfoViewController";
-         myBankViewController.isBank = YES;
-        [self.navigationController pushViewController:myBankViewController animated:YES];
+        [self popToViewControllerWithClassName:@"HxbMyBankCardViewController"];
     }
 
 }
