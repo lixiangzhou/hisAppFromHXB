@@ -53,7 +53,7 @@
     UILabel *bankNameLabel = [UILabel new];
     bankNameLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     bankNameLabel.textColor = COR6;
-    bankNameLabel.text = self.bankCardViewModel.bankNameNo4;
+    bankNameLabel.text = self.bankCardViewModel.bankName;
     [bankInfoView addSubview:bankNameLabel];
     
     // 银行卡号
@@ -176,7 +176,7 @@
     }];
     
     [forgetPwdBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(transactionPwdTextField).offset(-kScrAdaptationW(15));
+        make.right.equalTo(transactionPwdTextField).offset(-kScrAdaptationW(17));
         make.centerY.equalTo(transactionPwdTextField);
     }];
     
