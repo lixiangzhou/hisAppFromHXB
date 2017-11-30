@@ -11,7 +11,6 @@
 #import "HxbMyTopUpViewController.h"
 #import "HXBOpenDepositAccountView.h"
 #import "HXBOpenDepositAccountRequest.h"
-#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"///存管的服务协议
 #import "HxbWithdrawViewController.h"
 #import "HXBModifyTransactionPasswordViewController.h"//修改手机号
 #import "HXBBankCardModel.h"
@@ -214,14 +213,12 @@
         };
         [_mainView clickTrustAgreementWithBlock:^(BOOL isThirdpart) {
             NSLog(@"《存管开户协议》");
-            HXBFinLoanTruansfer_ContraceWebViewVC *webViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc] init];
+            HXBBaseWKWebViewController *webViewVC = [[HXBBaseWKWebViewController alloc] init];
             if (isThirdpart) {
-                webViewVC.URL = kHXB_Negotiate_thirdpart;
-//                webViewVC.title = @"恒丰银行股份有限公司杭州分行网络交易资金账户三方协议";
+                webViewVC.pageUrl = [NSString splicingH5hostWithURL:kHXB_Negotiate_thirdpart];
             }else
             {
-                webViewVC.URL = kHXB_Negotiate_authorize;
-//                webViewVC.title = @"红小宝平台授权协议";
+                webViewVC.pageUrl = [NSString splicingH5hostWithURL:kHXB_Negotiate_authorize];
             }
             [weakSelf.navigationController pushViewController:webViewVC animated:true];
         }];

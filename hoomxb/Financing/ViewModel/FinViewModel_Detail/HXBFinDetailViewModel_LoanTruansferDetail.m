@@ -178,15 +178,7 @@
     }
     return _agreementTitle;
 }
-/**
- 借款协议
- */
-- (NSString *) agreementURL {
-    if (!_agreementURL) {
-        _agreementURL = kHXB_Negotiate_LoanTruansferURL;
-    }
-    return _agreementURL;
-}
+
 /**
  是否可以点击确认加入
  */

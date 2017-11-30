@@ -9,6 +9,7 @@
 #define kRegisterVC @"/account/register"//注册页面
 #define kRechargeVC @"/cash/recharge"//充值页面
 #define kEscrowActivityVC @"/home/EscrowActivity"//存管开户页面
+#define kEscrowdialogActivityVC @"/user/escrowdialog_activity"//存管开户弹框
 #define kPlanDetailVC @"/plan/detail"//某个计划的详情页
 #define kLoanDetailVC @"/loan/detail"//某个散标的详情页
 #define kLoginVC @"/account/login"//登录页面
@@ -31,6 +32,7 @@
 #import "HXBUMShareModel.h"
 #import "HXBInviteListViewController.h"
 #import "HxbSignUpViewController.h"//注册
+#import "HXBDepositoryAlertViewController.h"//开户弹框
 @interface HXBBannerWebViewController ()
 
 @end
@@ -146,6 +148,8 @@
     }else if ([path isEqualToString:kAccountFriendsRecordActivity]){
         HXBInviteListViewController *inviteListVC = [[HXBInviteListViewController alloc] init];
         [self.navigationController pushViewController:inviteListVC animated:YES];
+    }else if ([path isEqualToString:kEscrowdialogActivityVC]){
+        [HXBDepositoryAlertViewController showEscrowDialogActivityWithVCTitle:@"开通存管账户" andType:(HXBRechargeAndWithdrawalsLogicalJudgment_Other) andWithFromController:self.navigationController];
     }
    
 }
