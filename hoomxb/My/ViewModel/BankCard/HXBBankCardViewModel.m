@@ -18,16 +18,18 @@
     
     _bankName = bankCardModel.bankType;
     
-    _bankNumStarFormat = [bankCardModel.cardId hxb_hiddenBankCard];
+    _bankNoStarFormat = [bankCardModel.cardId hxb_hiddenBankCard];
     
-    _bankNumLast4 = [bankCardModel.cardId substringFromIndex:bankCardModel.cardId.length - 4];
+    _bankNoLast4 = [bankCardModel.cardId substringFromIndex:bankCardModel.cardId.length - 4];
+    
+    _bankNameNo4 = [NSString stringWithFormat:@"%@（尾号%@）", _bankName, _bankNoLast4];
     
     _userNameOnlyLast = [bankCardModel.name replaceStringWithStartLocation:0 lenght:bankCardModel.name.length - 1];
 }
 
-- (void)requestUnBindWithIdCardNum:(NSString *)idCardNum transactionPwd:(NSString *)transactionPwd finishBlock:(void (^)(BOOL, NSString *, BOOL))finishBlock
+- (void)requestUnBindWithParam:(NSDictionary *)param finishBlock:(void (^)(BOOL, NSString *, BOOL))finishBlock
 {
-    [NYBaseRequest requestWithRequestUrl:kHXBUserInfo_UnbindBankCard param:@{@"idCardNo": idCardNum, @"cashPassword": transactionPwd} method:NYRequestMethodPost success:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [NYBaseRequest requestWithRequestUrl:kHXBUserInfo_UnbindBankCard param:param method:NYRequestMethodPost success:^(NYBaseRequest *request, NSDictionary *responseObject) {
         
         if (finishBlock == nil) {
             return;
@@ -46,5 +48,29 @@
     } failure:^(NYBaseRequest *request, NSError *error) {
         
     }];
+}
+
+- (NSString *)validateIdCardNo:(NSString *)cardNo
+{
+    if (!(cardNo.length > 0)) {
+        return @"身份证号不能为空";
+    }
+    if (cardNo.length != 18)
+    {
+        return @"身份证号输入有误";
+    }
+    return nil;
+}
+
+- (NSString *)validateTransactionPwd:(NSString *)transactionPwd
+{
+    if(!(transactionPwd.length > 0))
+    {
+        return @"交易密码不能为空";
+    }
+    if (transactionPwd.length != 6) {
+        return @"交易密码为6位数字";
+    }
+    return nil;
 }
 @end
