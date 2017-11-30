@@ -95,4 +95,9 @@
  */
 @property (nonatomic, copy) NSString *bankArriveTimeText;
 
+//能否解绑
+
+//能否解绑提示信息
+//@property (nonatomic, copy) NSString *;
+
 @end

@@ -22,6 +22,7 @@
 
 @property (nonatomic, strong) UILabel *bankTip;
 
+@property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 
 @end
 
@@ -91,6 +92,7 @@
             return;
         }
         HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
+        self.bankCardModel = bankCardModel;
         //设置绑卡信息
         weakSelf.iconView.svgImageString = bankCardModel.bankCode;
         weakSelf.bankName.text = bankCardModel.bankType;
@@ -100,12 +102,14 @@
         }
         weakSelf.bankNum.text = [bankCardModel.cardId hxb_hiddenBankCard];
         weakSelf.bankTip.text = bankCardModel.quota;
+        
+        if (weakSelf.unbundBankBlock) {
+            weakSelf.unbundBankBlock(self.bankCardModel);
+        }
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);
         [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
     }];
-
-
 }
 
 #pragma mark - 懒加载

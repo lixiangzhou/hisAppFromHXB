@@ -71,7 +71,10 @@ UITableViewDataSource
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.myCouponListModel = self.myCouponListModelArray[indexPath.row];
+    if (self.myCouponListModelArray.count > 0) {
+        cell.myCouponListModel = self.myCouponListModelArray[indexPath.row];
+    }
+    
     kWeakSelf
     cell.actionButtonClickBlock = ^(){
         weakSelf.actionButtonClickBlock();
@@ -109,7 +112,8 @@ UITableViewDataSource
         _nodataView = [[HXBNoDataView alloc]initWithFrame:CGRectZero];
         [self addSubview:_nodataView];
         _nodataView.imageName = @"my_couponList_NotData";
-        _nodataView.noDataMassage = @"暂无优惠券，立即获取";
+        NSString *messageText = kIsShowInviteFunction ? @"暂无优惠券，立即获取" : @"暂无优惠券";
+        _nodataView.noDataMassage = messageText;
         kWeakSelf
         _nodataView.clickBlock = ^{
             if (weakSelf.block) {

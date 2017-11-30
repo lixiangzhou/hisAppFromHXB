@@ -11,6 +11,8 @@
 #import "HXBBankCardModel.h"
 #import "HXBUserInfoView.h"
 #import "HXBBankView.h"
+#import "HXBUnBindCardController.h"
+
 @interface HxbMyBankCardViewController ()
 
 /**
@@ -33,7 +35,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.tipLabel];
     if (self.isBank) {
@@ -41,6 +42,12 @@
         self.tipLabel.text = @"您在红小宝平台充值，提现均会使用该卡";
         [self.view addSubview:self.bankView];
         [self.view addSubview:self.phoneBtn];
+        kWeakSelf
+        self.bankView.unbundBankBlock = ^(HXBBankCardModel *bankCardModel) {
+            weakSelf.bankCardModel = bankCardModel;
+            [weakSelf checkUnbundlingInfo:bankCardModel];
+            
+        };
         [self setupBankViewFrame];
     }else
     {
@@ -49,7 +56,42 @@
         [self.view addSubview:self.userInfoView];
         [self setupUserInfoViewFrame];
     }
-    
+}
+
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    self.isColourGradientNavigationBar = YES;
+//    [self loadUserInfo];
+//}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.isColourGradientNavigationBar = YES;
+    [self loadUserInfo];
+    // 禁用全屏滑动手势
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
+}
+
+- (void)setupRightBarBtn {
+    UIButton *unbundBankBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW(31), kScrAdaptationH(19))];
+    [unbundBankBtn setTitle:@"解绑" forState:UIControlStateNormal];
+    unbundBankBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+    [unbundBankBtn setTitleColor:RGB(254, 254, 254) forState:UIControlStateNormal];
+    [unbundBankBtn addTarget:self action:@selector(clickUnbundBankBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    UIBarButtonItem *unbundBankBtnItem = [[UIBarButtonItem alloc] initWithCustomView:unbundBankBtn];
+    self.navigationItem.rightBarButtonItem = unbundBankBtnItem;
+}
+
+- (void)clickUnbundBankBtn:(UIButton *)sender {
+    HXBUnBindCardController *VC = [HXBUnBindCardController new];
+    VC.bankCardModel = self.bankCardModel;
+    [self.navigationController pushViewController:VC animated:YES];
 }
 
 - (void)setupBankViewFrame
@@ -70,7 +112,6 @@
         make.bottom.equalTo(self.view).offset(kScrAdaptationH(-30));
     }];
 }
-
 
 - (void)setupUserInfoViewFrame
 {
@@ -98,13 +139,6 @@
 //    }];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    self.isColourGradientNavigationBar = YES;
-    [self loadUserInfo];
-}
-
 - (void)loadUserInfo
 {
     kWeakSelf
@@ -130,6 +164,14 @@
 
 #pragma mark - 事件处理
 
+- (void)checkUnbundlingInfo:(HXBBankCardModel *)bankCardModel {
+    //    if (self.bankCardModel) {
+    //[HxbHUDProgress showTextWithMessage:@"本日您的解绑次数已超限，请明日重试"];//self.bankCardModel.
+    //    } else {
+    [self setupRightBarBtn];
+//}
+}
+
 - (void)phoneBtnClick
 {
 //    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",@"4001551888"];
@@ -137,6 +179,29 @@
     [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"红小宝客服电话" Message:kServiceMobile];
 }
 
+- (void)leftBackBtnClick {
+    if (_className.length > 0) {
+        [self popToViewControllerWithClassName:_className];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+// pop到制定的页面
+- (void)popToViewControllerWithClassName:(NSString *)class {
+    __block HXBBaseViewController *vc = nil;
+    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) { // 块遍历法，遍历子控制器
+        if ([obj isKindOfClass:NSClassFromString(class)]) {
+            vc = obj;
+            *stop = YES;
+        }
+    }];
+    if (vc) {
+        [self.navigationController popToViewController:vc animated:YES];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 #pragma mark - getter/setter
 - (HXBUserInfoView *)userInfoView
@@ -175,7 +240,7 @@
 {
     if (!_phoneBtn) {
         _phoneBtn  = [[UIButton alloc] init];
-        NSString *string = [NSString stringWithFormat:@"如需解绑，请联系红小宝客服：%@", kServiceMobile];
+        NSString *string = [NSString stringWithFormat:@"如有问题，请联系红小宝客服：%@", kServiceMobile];
         NSMutableAttributedString *str = [NSMutableAttributedString setupAttributeStringWithString:string WithRange:NSMakeRange(string.length - kServiceMobile.length, kServiceMobile.length) andAttributeColor:COR30];
         
         [str addAttribute:NSForegroundColorAttributeName value:COR8 range:NSMakeRange(0, string.length - kServiceMobile.length)];

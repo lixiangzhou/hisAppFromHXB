@@ -13,5 +13,6 @@
 #import "NYHTTPConnection.h"
 #import "NYNetworkManager.h"
 #import "NYBaseRequest.h"
+#import "NYBaseRequest+HXB.h"
 
 #endif /* NYNetwork_h */

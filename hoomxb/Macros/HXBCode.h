@@ -47,7 +47,11 @@ typedef enum : NSUInteger {
     //优惠券购买失败
     kHXBBuy_Coupon_Error = 50000,
     //连接超时
-    kHXBCode_Enum_ConnectionTimeOut = -2009
+    kHXBCode_Enum_ConnectionTimeOut = -2009,
+    // 解绑银行卡失败（跳结果页）
+    kHXBCode_UnBindCardFail = 4002,
+    // 成功
+    kHXBCode_Success = 0
 } kHXBCode_Enum;
 
 /**

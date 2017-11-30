@@ -60,17 +60,17 @@
     // 禁用全屏滑动手势
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = NO;
 }
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
+}
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.isHiddenNavigationBar = YES;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
-}
 
 #pragma mark - UI
 /// 界面相同部分生成器

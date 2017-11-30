@@ -23,4 +23,9 @@
 @property (nonatomic, copy) NSString *amount;
 
 @property (nonatomic, strong) HXBUserInfoModel *userInfoModel;
+/**
+ 返回的页面类名
+ */
+@property (nonatomic, copy) NSString *className;
+
 @end

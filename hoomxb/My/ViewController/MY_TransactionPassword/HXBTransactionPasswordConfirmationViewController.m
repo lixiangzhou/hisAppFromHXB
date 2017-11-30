@@ -10,6 +10,9 @@
 #import "HXBTransactionPasswordConfirmationView.h"
 #import "HXBModifyTransactionPasswordRequest.h"
 #import "HxbAccountInfoViewController.h"
+#import "HXBUnBindCardController.h"
+#import "HxbAccountInfoViewController.h"
+
 @interface HXBTransactionPasswordConfirmationViewController ()
 
 @property (nonatomic, strong) HXBTransactionPasswordConfirmationView *homeView;
@@ -46,12 +49,38 @@
     HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
     [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:self.idcard andWithCode:self.code andWithPassword:surePassword andSuccessBlock:^(id responseObject) {
         [HxbHUDProgress showTextWithMessage:@"修改成功"];
-        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         
+        UIViewController *accountVC = [weakSelf shouldPopToAccountVC];
+        if (accountVC != nil) {
+            [weakSelf.navigationController popToViewController:accountVC animated:YES];
+        } else {
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+        }
     } andFailureBlock:^(NSError *error) {
         
     }];
     
+}
+// 以下代码控制跳转到账户信息，从解绑银行卡 忘记密码 进入时 有效
+- (UIViewController *)shouldPopToAccountVC {
+    __block HxbAccountInfoViewController *accountVC = nil;
+    __block HXBUnBindCardController *unBindVC = nil;
+    [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[HXBUnBindCardController class]]) {
+            unBindVC = obj;
+        } else if ([obj isKindOfClass:[HxbAccountInfoViewController class]]) {
+            accountVC = obj;
+        }
+        if (unBindVC != nil && accountVC != nil) {
+            *stop = YES;
+        }
+    }];
+    
+    if (unBindVC != nil && accountVC != nil) {
+        return accountVC;
+    }
+    
+    return nil;
 }
 
 #pragma mark - get方法

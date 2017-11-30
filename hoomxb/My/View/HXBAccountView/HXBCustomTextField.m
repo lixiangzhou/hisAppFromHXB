@@ -108,7 +108,7 @@
 
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.leftImageView.mas_right).offset(kScrAdaptationW750(20));
-         make.right.equalTo(self).offset(-kScrAdaptationW750(40));//40
+        make.right.equalTo(self).offset(-kScrAdaptationW750(40));//40
         make.top.bottom.equalTo(self);
     }];
     [self.idTextField mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -223,7 +223,12 @@
     }
 }
 
-
+- (void)setClearRightMargin:(NSInteger)clearRightMargin {
+    _clearRightMargin = clearRightMargin;
+    [self.textField mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(-kScrAdaptationW750(40 + clearRightMargin));//40
+    }];
+}
 
 - (void)setIsHidenLine:(BOOL )isHidenLine
 {

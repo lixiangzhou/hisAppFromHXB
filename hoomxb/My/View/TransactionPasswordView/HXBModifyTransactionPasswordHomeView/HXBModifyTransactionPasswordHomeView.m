@@ -263,7 +263,7 @@
 {
     if (!_idCardTextField) {
         _idCardTextField = [[HXBCustomTextField alloc] init];
-        _idCardTextField.leftImage = [UIImage imageNamed:@"bankcard"];
+        _idCardTextField.leftImage = [UIImage imageNamed:@"idcard"];
         _idCardTextField.placeholder = @"请输入身份证号码";
         _idCardTextField.isIDCardTextField = YES;
         _idCardTextField.delegate = self;
