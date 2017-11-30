@@ -241,7 +241,6 @@
         if (canPush) {
             HXBMyBankResultViewController *VC = [HXBMyBankResultViewController new];
             VC.isSuccess = succeed;
-            VC.mobileText = self.bankCardViewModel.bankNoLast4;
             VC.describeText = errorMessage;
             [self.navigationController pushViewController:VC animated:YES];
         } else { 

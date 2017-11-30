@@ -43,9 +43,9 @@
         self.tipLabel.text = @"您在红小宝平台充值，提现均会使用该卡";
         [self.view addSubview:self.bankView];
         [self.view addSubview:self.phoneBtn];
-        self.bankView.hasUnbundlingBtn = YES;
         kWeakSelf
         self.bankView.unbundBankBlock = ^(HXBBankCardModel *bankCardModel) {
+            weakSelf.bankCardModel = bankCardModel;
             [weakSelf checkUnbundlingInfo:bankCardModel];
             
         };
@@ -79,6 +79,21 @@
     ((HXBBaseNavigationController *)self.navigationController).enableFullScreenGesture = YES;
 }
 
+- (void)setupRightBarBtn {
+    UIButton *unbundBankBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW(31), kScrAdaptationH(19))];
+    [unbundBankBtn setTitle:@"解绑" forState:UIControlStateNormal];
+    unbundBankBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+    [unbundBankBtn setTitleColor:RGB(254, 254, 254) forState:UIControlStateNormal];
+    [unbundBankBtn addTarget:self action:@selector(clickUnbundBankBtn:) forControlEvents:(UIControlEventTouchUpInside)];
+    UIBarButtonItem *unbundBankBtnItem = [[UIBarButtonItem alloc] initWithCustomView:unbundBankBtn];
+    self.navigationItem.rightBarButtonItem = unbundBankBtnItem;
+}
+
+- (void)clickUnbundBankBtn:(UIButton *)sender {
+    HXBUnBindCardController *VC = [HXBUnBindCardController new];
+    VC.bankCardModel = self.bankCardModel;
+    [self.navigationController pushViewController:VC animated:YES];
+}
 
 - (void)setupBankViewFrame
 {
@@ -151,9 +166,11 @@
 #pragma mark - 事件处理
 
 - (void)checkUnbundlingInfo:(HXBBankCardModel *)bankCardModel {
-    HXBUnBindCardController *VC = [HXBUnBindCardController new];
-    VC.bankCardModel = bankCardModel;
-    [self.navigationController pushViewController:VC animated:YES];
+    //    if (self.bankCardModel) {
+    //[HxbHUDProgress showTextWithMessage:@"本日您的解绑次数已超限，请明日重试"];//self.bankCardModel.
+    //    } else {
+    [self setupRightBarBtn];
+//}
 }
 
 - (void)phoneBtnClick
