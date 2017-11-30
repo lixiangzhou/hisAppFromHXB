@@ -154,7 +154,9 @@
     [unBindBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     unBindBtn.layer.cornerRadius = 4;
     unBindBtn.layer.masksToBounds = YES;
+    
     [self.view addSubview:unBindBtn];
+    self.unBindBtn = unBindBtn;
     
     // 约束布局
     [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
