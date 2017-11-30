@@ -18,9 +18,11 @@
     
     _bankName = bankCardModel.bankType;
     
-    _bankNumStarFormat = [bankCardModel.cardId hxb_hiddenBankCard];
+    _bankNoStarFormat = [bankCardModel.cardId hxb_hiddenBankCard];
     
-    _bankNumLast4 = [bankCardModel.cardId substringFromIndex:bankCardModel.cardId.length - 4];
+    _bankNoLast4 = [bankCardModel.cardId substringFromIndex:bankCardModel.cardId.length - 4];
+    
+    _bankNameNo4 = [NSString stringWithFormat:@"%@（尾号%@）", _bankName, _bankNoLast4];
     
     _userNameOnlyLast = [bankCardModel.name replaceStringWithStartLocation:0 lenght:bankCardModel.name.length - 1];
 }

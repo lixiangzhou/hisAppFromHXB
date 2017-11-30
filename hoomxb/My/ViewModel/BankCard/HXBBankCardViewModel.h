@@ -17,9 +17,11 @@
 /// 银行名
 @property (nonatomic, copy, readonly) NSString *bankName;
 /// 银行卡号码: **** **** **** 1234
-@property (nonatomic, copy, readonly) NSString *bankNumStarFormat;
+@property (nonatomic, copy, readonly) NSString *bankNoStarFormat;
 /// 银行卡后4位
-@property (nonatomic, copy, readonly) NSString *bankNumLast4;
+@property (nonatomic, copy, readonly) NSString *bankNoLast4;
+/// 银行名(1234)
+@property (nonatomic, copy, readonly) NSString *bankNameNo4;
 /// 持卡人名字, 只显示最后一个字: **子
 @property (nonatomic, copy, readonly) NSString *userNameOnlyLast;
 

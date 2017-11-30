@@ -2,17 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "zhaiquanpipei.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "zhaiquanpipei@2x.png",
+      "filename" : "idcard@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "zhaiquanpipei@3x.png",
+      "filename" : "idcard@3x.png",
       "scale" : "3x"
     }
   ],
