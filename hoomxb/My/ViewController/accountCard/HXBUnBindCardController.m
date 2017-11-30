@@ -239,11 +239,11 @@
     
     [self.bankCardViewModel requestUnBindWithParam:@{@"idCardNo": idCardNo, @"cashPassword": transactionPwd} finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
         if (canPush) {
-            // push
             HXBMyBankResultViewController *VC = [HXBMyBankResultViewController new];
             VC.isSuccess = succeed;
             VC.mobileText = self.bankCardViewModel.bankNoLast4;
             VC.describeText = errorMessage;
+            [self.navigationController pushViewController:VC animated:YES];
         } else { 
             [HxbHUDProgress showMessageCenter:errorMessage];
         }
