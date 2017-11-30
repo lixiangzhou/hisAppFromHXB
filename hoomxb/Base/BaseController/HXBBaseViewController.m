@@ -49,6 +49,8 @@
     self.isTransparentNavigationBar = _isTransparentNavigationBar;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:NO];
+    //保障无网络时， 该子视图能在最上方
+    [self.view bringSubviewToFront:self.noNetworkStatusView];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -62,7 +64,7 @@
     }
     
     [super viewDidAppear:animated];
-    
+    //双重保障无网络时， 该子视图能在最上方
     [self.view bringSubviewToFront:self.noNetworkStatusView];
 }
 
