@@ -12,6 +12,8 @@
 
 // 是否解绑成功
 @property (nonatomic,assign) BOOL isSuccess; // 解绑成功传 YES  失败传 NO
+// 手机号后四位
+@property (nonatomic,copy) NSString *mobileText;
 // 错误描述
 @property (nonatomic,copy) NSString *describeText;
 
