@@ -45,25 +45,25 @@
 // 布局
 - (void)displayFrame {
     [self.bankImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@(HXBStatusBarAndNavigationBarHeight + kScrAdaptationH(20)));
+        make.top.equalTo(@(HXBStatusBarAndNavigationBarHeight + kScrAdaptationH750(150)));
         make.centerX.equalTo(self.view);
-        make.width.height.offset(kScrAdaptationW(120));
+        make.width.equalTo(@(kScrAdaptationW750(295)));
+        make.height.equalTo(@(kScrAdaptationH750(182)));
     }];
     
     [self.bankTileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bankImageView.mas_bottom).offset(kScrAdaptationH(5));
+        make.top.equalTo(self.bankImageView.mas_bottom).offset(kScrAdaptationH(30));
         make.centerX.equalTo(self.view);
-        make.height.offset(kScrAdaptationH(16));
     }];
     
     [self.bankDescribeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bankTileLabel.mas_bottom).offset(kScrAdaptationH(5));
+        make.top.equalTo(self.bankTileLabel.mas_bottom).offset(kScrAdaptationH(10));
         make.centerX.equalTo(self.view);
         make.width.offset(kScreenWidth - kScrAdaptationW(30));
     }];
     
     [self.actionButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bankTileLabel.mas_bottom).offset(kScrAdaptationH(200));
+        make.top.equalTo(self.bankDescribeLabel.mas_bottom).offset(kScrAdaptationH(50));
         make.centerX.equalTo(self.view);
         make.width.equalTo(@(kScrAdaptationW750(670)));
         make.height.equalTo(@(kScrAdaptationH750(82)));
@@ -81,11 +81,11 @@
     if (_isSuccess) {
         _bankImageView.image = [UIImage imageNamed:@"successful"];
         [_actionButton setTitle:@"重新绑卡" forState:(UIControlStateNormal)];
-        _bankTileLabel.text = [NSString stringWithFormat:@"尾号%@的银行卡解绑成功", _mobileText];
+        _bankTileLabel.text = @"解绑成功";
     } else {
         _bankImageView.image = [UIImage imageNamed:@"failure"];
         [_actionButton setTitle:@"重新解绑" forState:(UIControlStateNormal)];
-        _bankTileLabel.text = @"银行卡解绑失败";
+        _bankTileLabel.text = @"解绑失败";
     }
     [_myAccountButton setTitle:@"我的账户" forState:(UIControlStateNormal)];
     _bankDescribeLabel.text = _describeText;
@@ -149,7 +149,7 @@
 - (UILabel *)bankTileLabel {
     if (!_bankTileLabel) {
         _bankTileLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _bankTileLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        _bankTileLabel.font = kHXBFont_PINGFANGSC_REGULAR(19);
         _bankTileLabel.textColor = COR6;
     }
     return _bankTileLabel;
@@ -158,9 +158,9 @@
 - (UILabel *)bankDescribeLabel {
     if (!_bankDescribeLabel) {
         _bankDescribeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _bankDescribeLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+        _bankDescribeLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         _bankDescribeLabel.textAlignment = NSTextAlignmentCenter;
-        _bankDescribeLabel.textColor = COR6;
+        _bankDescribeLabel.textColor = COR10;
     }
     return _bankDescribeLabel;
 }
