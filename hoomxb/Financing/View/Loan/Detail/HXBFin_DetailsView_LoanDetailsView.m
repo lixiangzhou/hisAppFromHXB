@@ -16,7 +16,6 @@
 #import "HXBFinHomePageModel_LoanList.h"
 #import "HXBFin_LoanDetailView_TopView.h"
 #import "HXBFinPlanContract_ContractWebView.h"///曾信任服务协议
-#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"
 @interface HXBFin_DetailsView_LoanDetailsView ()
 @property (nonatomic,strong) HXBFin_DetailsView_LoanDetailsView_ViewModelVM *viewModelVM;
 ///预期年化的view

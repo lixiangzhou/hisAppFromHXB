@@ -50,7 +50,7 @@
 {
     [self.creditorValueBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW750(40));
-//        make.width.offset(kScrAdaptationW750(156));
+        make.width.offset(kScrAdaptationW750(156));
         make.top.equalTo(self).offset(kScrAdaptationH750(63));
         make.height.offset(kScrAdaptationH750(44));
     }];
@@ -117,7 +117,7 @@
         _creditorValueBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _creditorValueBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
         _creditorValueBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -kScrAdaptationW750(5), 0, 0);
-        _creditorValueBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -kScrAdaptationW750(10), 0, kScrAdaptationW750(10));
+        _creditorValueBtn.titleEdgeInsets = UIEdgeInsetsMake(0, kScrAdaptationW750(10), 0, 0);
     }
     return _creditorValueBtn;
 }

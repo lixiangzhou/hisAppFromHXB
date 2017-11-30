@@ -12,7 +12,6 @@
 #import "HXBTopTabView.h"
 #import "HXBMyCouponListViewController.h"
 #import "HXBMyCouponExchangeViewController.h"
-#import "HXBFinAddTruastWebViewVC.h"
 
 @interface HXBMyCouponViewController () <HXBTopTabViewDelegate, UIScrollViewDelegate>
 @property (nonatomic, strong) HXBMyCouponListViewController *couponListVC;
@@ -63,9 +62,7 @@
 }
 
 - (void)enterInstructions{
-    HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-    vc.URL = kHXB_Negotiate_couponExchangeInstructionsUrl;
-    [self.navigationController pushViewController:vc animated:true];
+    [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_couponExchangeInstructionsUrl] fromController:self];
 }
 
 #pragma mark - Network

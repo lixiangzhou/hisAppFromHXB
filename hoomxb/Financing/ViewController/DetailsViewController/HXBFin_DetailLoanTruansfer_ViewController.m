@@ -15,10 +15,8 @@
 #import "HXBFin_LoanTruansferDetailViewController.h"
 #import "HXBMYViewModel_MainLoanViewModel.h"///借款信息
 #import "HXBFinAddRecortdVC_Loan.h"///转让记录
-#import "HXBFinLoanTruansfer_ContraceWebViewVC.h"//转让协议
 #import "HXBFinDetailViewModel_LoanTruansferDetail.h"//详情的viewModel
 #import "HXBFinAddRecordVC_LoanTruansfer.h"//转让记录
-#import "HXBFinAddTruastWebViewVC.h"///曾信页
 #import "HXBFinanctingDetail_imageCell.h"
 #import "HXBFinanctingDetail_progressCell.h"
 #import "HXBFin_LoanTruansferDetail_TopView.h"
@@ -196,9 +194,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-        vc.URL = kHXB_Negotiate_AddTrustURL;
-        [self.navigationController pushViewController:vc animated:true];
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:self];
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
@@ -209,9 +205,7 @@
             loanAddRecordVC.loanTruansferID = self.loanTransfer_ViewModel.transferId;
             [self.navigationController pushViewController:loanAddRecordVC animated:true];
         } else {
-            HXBFinLoanTruansfer_ContraceWebViewVC * contractWebViewVC = [[HXBFinLoanTruansfer_ContraceWebViewVC alloc]init];
-            contractWebViewVC.URL = self.loanTruansferDetailViewModel.agreementURL;
-            [self.navigationController pushViewController:contractWebViewVC animated:true];
+            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_LoanTruansferURL] fromController:self];
         }
     }
 }

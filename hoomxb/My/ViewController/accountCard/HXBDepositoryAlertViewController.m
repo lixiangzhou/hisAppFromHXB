@@ -7,7 +7,8 @@
 //
 
 #import "HXBDepositoryAlertViewController.h"
-
+#import "HXBOpenDepositAccountViewController.h"//存管开户页面
+#import "HXBRootVCManager.h"//基类的管理类
 @interface HXBDepositoryAlertViewController ()
 
 @property (nonatomic, strong) UIView *contentView;
@@ -26,7 +27,7 @@
 @end
 
 @implementation HXBDepositoryAlertViewController
-
+#pragma mark - Life Cycle
 - (instancetype)init
 {
     if (self = [super init]) {
@@ -47,7 +48,7 @@
     [self setupSubViewFrame];
     
 }
-
+#pragma mark - UI
 - (void)setupSubViewFrame
 {
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -102,11 +103,26 @@
     }
     [self dismissViewControllerAnimated:NO completion:nil];
 }
-
+#pragma mark - Action
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self dismissViewControllerAnimated:NO completion:nil];
 }
+
+
++ (void)showEscrowDialogActivityWithVCTitle:(NSString *)title andType:(HXBRechargeAndWithdrawalsLogicalJudgment)type andWithFromController:(UINavigationController *)nav{
+    HXBDepositoryAlertViewController *alertVC = [[self alloc] init];
+    alertVC.immediateOpenBlock = ^{
+        [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_alertBtn];
+        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+        openDepositAccountVC.title = title;
+        openDepositAccountVC.type = type;
+        [nav pushViewController:openDepositAccountVC animated:YES];
+    };
+    [nav presentViewController:alertVC animated:NO completion:nil];
+}
+
+
 
 #pragma - mark 懒加载
 - (UIView *)contentView

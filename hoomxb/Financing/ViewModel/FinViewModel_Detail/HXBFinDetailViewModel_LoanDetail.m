@@ -244,15 +244,7 @@
     }
     return _agreementTitle;
 }
-/**
- 服务协议 button str
- */
-- (NSString *) agreementURL {
-    if (!_agreementURL) {
-        _agreementURL = kHXB_Negotiate_ServeLoanURL;
-    }
-    return _agreementURL;
-}
+
 - (NSString *)remainTime {
     if (!_remainTime) {
         _remainTime  = self.loanDetailModel.remainTime;

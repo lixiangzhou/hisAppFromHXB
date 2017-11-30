@@ -10,7 +10,6 @@
 #import "HXBFinDetailViewModel_PlanDetail.h"
 #import "HXBFinDetailModel_PlanDetail.h"
 #import "HXBFinPlanDetail_DetailView.h"//详情中的详情 plan
-#import "HXBFinPlanContract_contraceWebViewVC.h"
 @interface HXBFin_Detail_DetailsVC_Plan ()
 //// ------ view
 //@property (nonatomic,strong) UIView *addView;
@@ -139,9 +138,7 @@
     }];
     [self.planDetail_DetailView clickServerButtonWithBlock:^(UILabel *button) {
         //跳转 协议
-        HXBFinPlanContract_contraceWebViewVC *planWebViewController = [[HXBFinPlanContract_contraceWebViewVC alloc]init];
-        planWebViewController.URL = kHXB_Negotiate_ServePlanURL;
-        [self.navigationController pushViewController:planWebViewController animated:true];
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:weakSelf];
     }];
     
 }

@@ -16,7 +16,6 @@
 //#import "HXBFin_Plan_BuySuccessViewController.h"//购买成功
 //#import "HXBFin_Plan_BugFailViewController.h" //购买失败
 #import"HxbMyTopUpViewController.h"///充值
-#import "HXBFinAddTruastWebViewVC.h"//协议
 #import "HXBMiddlekey.h"
 #import "HxbWithdrawCardViewController.h"
 @interface HXBFin_Plan_BuyViewController ()
@@ -276,9 +275,7 @@
 - (void)registerNegotiate {
     kWeakSelf
     [self.joinimmediateView clickNegotiateButtonFunc:^{
-        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-        vc.URL = kHXB_Negotiate_ServePlanURL;
-        [weakSelf.navigationController pushViewController:vc animated:true];
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:weakSelf];
     }];
 }
 

@@ -74,7 +74,7 @@
 /**
   URL赋予协议
  */
-@property (nonatomic,copy) NSString *agreementURL;
+//@property (nonatomic,copy) NSString *agreementURL;
 
 
 // MARK ----- 标的详情-- 详情

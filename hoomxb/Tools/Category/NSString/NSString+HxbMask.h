@@ -21,5 +21,11 @@
 + (NSString *)H5Title:(NSString *)title;
 
 
-
+/**
+ H5页面拼接后台返回的h5host
+ 
+ @param url 需要拼接的URL
+ @return 返回一个拼接好的URL
+ */
++ (NSString *)splicingH5hostWithURL:(NSString *)url;
 @end
