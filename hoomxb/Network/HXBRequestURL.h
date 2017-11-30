@@ -42,7 +42,7 @@
 #define kHXBUser_riskModifyScoreURL @"/user/riskModifyScore"///风险评测
 #define kHXBUser_financialAdvisorURL @"/account/advisor" //获取理财顾问信息
 #define kHXBUser_AccountInfoURL @"/account"///账户内数据总览
-#define kHXBUser_QuestionsURL           @"/questions"///常见问题
+
 
 //MARK: ======================= 账户内 =======================
 #define kHXBMY_CapitalRecordURL @"/account/tradlist"///交易记录
@@ -101,9 +101,8 @@
 #define kHXBHome_AnnounceURL @"/announce"//公告
 //MARK: ======================= 存管 ==========================
 #define kHXBOpenDepositAccount_Escrow @"/user/escrow" //用户开通存管账户
+#define kHXBUserInfo_UnbindBankCard @"/account/bankcard/unbind" // 解绑银行卡操作
 #define kHXBUserInfo_BankCard @"/account/bankcard"//@"/account/user/card" //用户获取绑定银行卡信息
-//#define kHXBUserInfo_UnbindBankCardQuery @"/account/unbindcard/query" //查询是否可以解绑银行卡
-#define kHXBUserInfo_UnbindBankCard @"/account/unbindcard" // 解绑银行卡操作
 #define kHXBWithdraw @"/account/withdraw" //提现页面
 #define kHXBAccount_quickpay_smscode @"/account/smscode/" //代扣充值获取手机验证码
 #define kHXBAccount_quickpay @"/account/quickpay" //代扣充值接口 短验和语音统一为一个借口
@@ -120,6 +119,7 @@
 #define kHXB_Negotiate_ServeLoanURL @"/agreement/loan"///《借款服务协议书》
 #define kHXB_Negotiate_Anti_MoneyLaunderingURL @"/agreement/antimoney"///《反洗钱告知暨客户出借承诺书》
 #define kHXB_Negotiate_LoanTruansferURL @"/agreement/debts"///《债权转让及受让协议》
+#define kHXB_Negotiate_ServeCreditor_AccountURL(productID) [NSString stringWithFormat: @"/account/transfer/%@/agreement",(productID)]///账户内《债权转让及受让协议》
 #define kHXB_Negotiate_depository @"/agreement/depository" ///《存管开户协议》
 #define kHXB_Negotiate_thirdpart @"/agreement/thirdpart" ///《恒丰银行股份有限公司杭州分行网络交易资金账户三方协议》
 #define kHXB_Negotiate_authorize @"/agreement/authorize" ///《红小宝平台授权协议》
@@ -127,11 +127,12 @@
 
 #define kHXB_Negotiate_AddTrustURL @"/landing/trust"///增信页
 
-#define kHXB_Agreement_Hint @"/agreement/hint"
+#define kHXB_Agreement_Hint @"/agreement/hint"//网络借贷协议书
 
 //MARK: ======================= H5界面 =======================
 #define kHXBH5_RiskEvaluationURL [NSString stringWithFormat:@"%@/riskvail",[KeyChain h5host]]//风险评测
 #define kHXBH5_InviteDetailURL [NSString stringWithFormat:@"%@/account/invite",[KeyChain h5host]]//邀请好友 /invite/detail
+#define kHXBUser_QuestionsURL           @"/questions"///常见问题
 
 //MARK: ======================= 优惠券 ==========================
 #define kHXB_Coupon_Query @"/coupon/query" // 选择优惠券列表

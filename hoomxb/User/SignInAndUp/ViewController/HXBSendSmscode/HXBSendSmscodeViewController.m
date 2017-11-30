@@ -12,7 +12,6 @@
 //#import "HxbSignUpSucceedViewController.h"
 #import "HxbAccountInfoViewController.h"
 #import "HXBBindBankCardViewController.h"
-#import "HXBSignUPAgreementWebViewVC.h"
 #import "HXBSignInWaterView.h"
 #import "HXBRegisterAlertVC.h"
 #import "HXBCheckCaptchaViewController.h"///modal 出来的校验码
@@ -242,9 +241,7 @@
 - (void)registerAgreementSignUP {
     kWeakSelf
     [self.smscodeView clickAgreementSignUPWithBlock:^{
-        HXBSignUPAgreementWebViewVC *signUPAgreementWebViewVC = [[HXBSignUPAgreementWebViewVC alloc]init];
-        signUPAgreementWebViewVC.URL = kHXB_Negotiate_SginUPURL;
-        [weakSelf.navigationController pushViewController:signUPAgreementWebViewVC animated:true];
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_SginUPURL] fromController:weakSelf];
     }];
 }
 

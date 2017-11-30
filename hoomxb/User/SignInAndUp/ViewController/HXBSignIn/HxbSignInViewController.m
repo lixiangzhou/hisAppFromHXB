@@ -13,7 +13,6 @@
 #import "HXBSignUPAndLoginRequest.h"///用于请求注册登录的接口
 #import "HXBRequestUserInfo.h"///用户数据的请求
 #import "HXBCheckCaptchaViewController.h"
-#import "HXBSignUPAgreementWebViewVC.h"
 #import "HXBRootVCManager.h"
 
 ///手机号存在
@@ -125,10 +124,9 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 
 - (void)registerClickUserAgreementBtn
 {
+    kWeakSelf
     [self.signView clickUserAgreementBtnFunc:^{
-        HXBSignUPAgreementWebViewVC *signUPAgreementWebViewVC = [[HXBSignUPAgreementWebViewVC alloc]init];
-        signUPAgreementWebViewVC.URL = kHXB_Negotiate_SginUPURL;
-        [self.navigationController pushViewController:signUPAgreementWebViewVC animated:YES];
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_SginUPURL] fromController:weakSelf];
     }];
 }
 

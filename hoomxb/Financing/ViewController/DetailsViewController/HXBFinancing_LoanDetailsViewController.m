@@ -17,10 +17,8 @@
 
 #import "HXBFin_Detail_DetailVC_Loan.h"//贷款信息的控制器
 #import "HXBFinAddRecortdVC_Loan.h"//贷款记录的控制器
-#import "HXBFinContract_contraceWebViewVC_Loan.h"//贷款合同的控制器
 
 //#import "HXBFin_Loan_BuyViewController.h"//加入界面
-#import "HXBFinAddTruastWebViewVC.h"
 
 #pragma mark --- (肖扬 散标计划详情)
 #import "HXBFin_creditorChange_buy_ViewController.h"
@@ -195,9 +193,7 @@
         ///合同
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2]]) {
             //跳转一个webView
-            HXBFinContract_contraceWebViewVC_Loan * contractWebViewVC = [[HXBFinContract_contraceWebViewVC_Loan alloc]init];
-            contractWebViewVC.URL = weakSelf.loanDetailViewModel.agreementURL;
-            [weakSelf.navigationController pushViewController:contractWebViewVC animated:true];
+            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServeLoanURL] fromController:weakSelf];
         }
     }];
 }
@@ -221,9 +217,7 @@
 - (void)registerAddTrust {
     kWeakSelf
     [self.loanDetailsView clickAddTrustWithBlock:^{
-        HXBFinAddTruastWebViewVC *vc = [[HXBFinAddTruastWebViewVC alloc] init];
-        vc.URL = kHXB_Negotiate_AddTrustURL;
-        [weakSelf.navigationController pushViewController:vc animated:true];
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:weakSelf];
     }];
 }
 - (void)enterLoanBuyViewController {
