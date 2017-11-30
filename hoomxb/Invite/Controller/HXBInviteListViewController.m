@@ -129,13 +129,14 @@
         } else {
             [self.tableView.tableHeaderView setHidden:YES];
             _tableView.hidden = NO;
-            _sectionHeadView.hidden = NO;
+            _sectionHeadView.hidden = YES;
             self.nodataView.hidden = NO;
             [_tableView endRefresh];
         }
         [_tableView reloadData];
     } andFailureBlock:^(NSError *error) {
         [_tableView endRefresh];
+        _sectionHeadView.hidden = YES;
     }];
 }
 
