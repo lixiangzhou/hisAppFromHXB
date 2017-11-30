@@ -140,9 +140,8 @@
     UIImageView *tipIconView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tip"]];
     [self.view addSubview:tipIconView];
     
-    
     // 底部描述
-    UILabel *descLabel = [UILabel hxb_labelWithText:[NSString stringWithFormat:@"您正在解绑尾号%@的银行卡。解绑后需重新绑定方可购买红小宝平台理财产品，进行充值提现操作。", self.bankCardViewModel.bankNoLast4] fontSize:15 color:COR10];
+    UILabel *descLabel = [UILabel hxb_labelWithText:[NSString stringWithFormat:@"您正在解绑尾号%@的银行卡。解绑后需重新绑定方可进行充值提现操作。", self.bankCardViewModel.bankNoLast4] fontSize:15 color:COR10];
     [self.view addSubview:descLabel];
 
     // 确认
@@ -241,6 +240,7 @@
         if (canPush) {
             HXBMyBankResultViewController *VC = [HXBMyBankResultViewController new];
             VC.isSuccess = succeed;
+            VC.mobileText = self.bankCardViewModel.bankNoLast4;
             VC.describeText = errorMessage;
             [self.navigationController pushViewController:VC animated:YES];
         } else { 
