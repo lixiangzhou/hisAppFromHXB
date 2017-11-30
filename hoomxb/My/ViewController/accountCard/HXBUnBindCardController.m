@@ -16,6 +16,7 @@
 @property (nonatomic, strong) HXBBankCardViewModel *bankCardViewModel;
 @property (nonatomic, weak) HXBCustomTextField *idCardTextField;
 @property (nonatomic, weak) HXBCustomTextField *transactionPwdTextField;
+@property (nonatomic, weak) UIButton *unBindBtn;
 @end
 
 @implementation HXBUnBindCardController
@@ -128,6 +129,8 @@
     transactionPwdTextField.limitStringLength = 6;
     transactionPwdTextField.keyboardType = UIKeyboardTypeNumberPad;
     transactionPwdTextField.clearRightMargin = 100;
+    transactionPwdTextField.secureTextEntry = YES;
+    transactionPwdTextField.hideEye = YES;
     
     [self.view addSubview:transactionPwdTextField];
     self.transactionPwdTextField = transactionPwdTextField;
@@ -236,15 +239,23 @@
         return;
     }
     
+    // 防止按钮重复点击
+    self.unBindBtn.enabled = NO;
+    
     [self.bankCardViewModel requestUnBindWithParam:@{@"idCardNo": idCardNo, @"cashPassword": transactionPwd} finishBlock:^(BOOL succeed, NSString *errorMessage, BOOL canPush) {
+        // 防止按钮重复点击
+        self.unBindBtn.enabled = YES;
+        
         if (canPush) {
             HXBMyBankResultViewController *VC = [HXBMyBankResultViewController new];
             VC.isSuccess = succeed;
             VC.mobileText = self.bankCardViewModel.bankNoLast4;
             VC.describeText = errorMessage;
             [self.navigationController pushViewController:VC animated:YES];
-        } else { 
-            [HxbHUDProgress showMessageCenter:errorMessage];
+        } else {
+            if (errorMessage) {
+                [HxbHUDProgress showMessageCenter:errorMessage];
+            }
         }
     }];
 }
