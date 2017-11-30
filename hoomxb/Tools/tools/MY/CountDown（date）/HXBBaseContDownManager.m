@@ -185,18 +185,17 @@
         [self cancelTimer];
         return;
     }
-    kWeakSelf
     [modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         //如果依然是数组那么就在遍历一次
         if ([[model class] isSubclassOfClass:NSClassFromString(@"NSArray")]) {
-            weakSelf.isTwo_DimensionalArray = true;
-            weakSelf.column ++;
+            self.isTwo_DimensionalArray = true;
+            self.column ++;
             NSArray *modelArray = model;
             [modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
-                [weakSelf enumerateWithModel:model andIndex:idx];
+                [self enumerateWithModel:model andIndex:idx];
             }];
-        } else {
-            [weakSelf enumerateWithModel:model andIndex:idx];
+        }else {
+            [self enumerateWithModel:model andIndex:idx];
         }
     }];
 }
