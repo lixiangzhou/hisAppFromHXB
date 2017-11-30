@@ -166,11 +166,11 @@
 #pragma mark - 事件处理
 
 - (void)checkUnbundlingInfo:(HXBBankCardModel *)bankCardModel {
-    //    if (self.bankCardModel) {
-    //[HxbHUDProgress showTextWithMessage:@"本日您的解绑次数已超限，请明日重试"];//self.bankCardModel.
-    //    } else {
-    [self setupRightBarBtn];
-//}
+    if (!self.bankCardModel.enableUnbind) {
+        [HxbHUDProgress showTextWithMessage:self.bankCardModel.enableUnbindReason];
+    } else {
+        [self setupRightBarBtn];
+    }
 }
 
 - (void)phoneBtnClick
