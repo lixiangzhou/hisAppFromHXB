@@ -157,11 +157,7 @@
             [self.navigationController pushViewController:withdrawViewController animated:YES];
             
         } else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other) {
-            if (_className.length > 0 && _type == HXBRechargeAndWithdrawalsLogicalJudgment_Other) {
-                [self popToViewControllerWithClassName:_className];
-            } else {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
+            [self leftBackBtnClick];
         }
     } andFailureBlock:^(NSError *error) {
         
