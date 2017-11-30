@@ -1,10 +1,10 @@
 // !$*UTF8*$!
 {
-    archiveVersion = 1;
-    classes = {
-    };
-    objectVersion = 46;
-    objects = {
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
 
 /* Begin PBXBuildFile section */
 		282B0C9E1FB96B8A0082FBDD /* HXBFin_Plan_Buy_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 282B0C9D1FB96B8A0082FBDD /* HXBFin_Plan_Buy_ViewController.m */; };
@@ -165,7 +165,6 @@
 		4E94B2861ECC2ED2003CCBA7 /* HxbHomePageViewModel_dataList.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B2851ECC2ED2003CCBA7 /* HxbHomePageViewModel_dataList.m */; };
 		4E94B28D1ECC4973003CCBA7 /* NSAttributedString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B28C1ECC4973003CCBA7 /* NSAttributedString+Util.m */; };
 		4E94B2901ECC49D2003CCBA7 /* HXBHomePageProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B28F1ECC49D2003CCBA7 /* HXBHomePageProductCell.m */; };
-		4E94B4661FCF9E6800770E5A /* HXBCommonProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B4651FCF9E6800770E5A /* HXBCommonProblemViewController.m */; };
 		4E94E3791F0F5E2500746973 /* HXBBindBankCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E3781F0F5E2500746973 /* HXBBindBankCardViewController.m */; };
 		4E94E37C1F0F619400746973 /* HXBCardholderInformationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E37B1F0F619400746973 /* HXBCardholderInformationView.m */; };
 		4E94E3821F0F63D300746973 /* HXBWithdrawCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E94E3811F0F63D300746973 /* HXBWithdrawCardView.m */; };
@@ -244,6 +243,7 @@
 		4EECE0201F383ABE00301758 /* HXBMyHomeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EECE01F1F383ABE00301758 /* HXBMyHomeViewCell.m */; };
 		4EECE0241F3843A200301758 /* eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0231F3843A200301758 /* eye.svg */; };
 		4EECE0261F38548100301758 /* close_eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0251F38548100301758 /* close_eye.svg */; };
+		4EED937F1FCFDDF80031DB2D /* HXBCommonProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EED937D1FCFDDF40031DB2D /* HXBCommonProblemViewController.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 		8D2CF5221FC2DA5D008F7A89 /* HXBInviteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF5121FC2DA5D008F7A89 /* HXBInviteListViewController.m */; };
 		8D2CF5231FC2DA5D008F7A89 /* HXBInviteListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF5151FC2DA5D008F7A89 /* HXBInviteListModel.m */; };
@@ -253,6 +253,9 @@
 		8D2CF5271FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF51E1FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m */; };
 		8D2CF5281FC2DA5D008F7A89 /* HXBInviteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */; };
 		8D4064F31FC67E2A00121E1C /* NSDate+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4064F21FC67E2A00121E1C /* NSDate+HXB.m */; };
+		8D5A2F471FCE5A3A00057DB3 /* HXBUnBindCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5A2F461FCE5A3A00057DB3 /* HXBUnBindCardController.m */; };
+		8D5A2F4B1FCE756300057DB3 /* HXBBankCardViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5A2F4A1FCE756300057DB3 /* HXBBankCardViewModel.m */; };
+		8D5A2F4E1FCE918400057DB3 /* NYBaseRequest+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5A2F4D1FCE918400057DB3 /* NYBaseRequest+HXB.m */; };
 		8DAD30781FBA8F8C00E2AEE8 /* HXBAlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */; };
 		8DAD30791FBA8F8C00E2AEE8 /* HXBBaseAlertViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30441FBA8F8B00E2AEE8 /* HXBBaseAlertViewController.m */; };
 		8DAD307A1FBA8F8C00E2AEE8 /* HXBBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30461FBA8F8B00E2AEE8 /* HXBBaseNavigationController.m */; };
@@ -384,6 +387,7 @@
 		E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = E13A534C1F0A65E9002C3416 /* UIScrollView+STRefresh.m */; };
 		E14B9BDF1F14731400450692 /* HXBColourGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BDE1F14731400450692 /* HXBColourGradientView.m */; };
 		E14B9BE61F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BE51F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m */; };
+		E14BDE931FCE8EB100A19731 /* HXBMyBankResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E14BDE911FCE8EB000A19731 /* HXBMyBankResultViewController.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
 		E160176B1EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.m in Sources */ = {isa = PBXBuildFile; fileRef = E160176A1EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.m */; };
 		E16017791EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m in Sources */ = {isa = PBXBuildFile; fileRef = E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */; };
@@ -499,33 +503,33 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-        4E16D8441E9CD0FE002A1881 /* PBXContainerItemProxy */ = {
-            isa = PBXContainerItemProxy;
-            containerPortal = 4E16D8221E9CD0FE002A1881 /* Project object */;
-            proxyType = 1;
-            remoteGlobalIDString = 4E16D8291E9CD0FE002A1881;
-            remoteInfo = hoomxb;
-        };
-        4E16D84F1E9CD0FE002A1881 /* PBXContainerItemProxy */ = {
-            isa = PBXContainerItemProxy;
-            containerPortal = 4E16D8221E9CD0FE002A1881 /* Project object */;
-            proxyType = 1;
-            remoteGlobalIDString = 4E16D8291E9CD0FE002A1881;
-            remoteInfo = hoomxb;
-        };
+		4E16D8441E9CD0FE002A1881 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E16D8221E9CD0FE002A1881 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E16D8291E9CD0FE002A1881;
+			remoteInfo = hoomxb;
+		};
+		4E16D84F1E9CD0FE002A1881 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4E16D8221E9CD0FE002A1881 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E16D8291E9CD0FE002A1881;
+			remoteInfo = hoomxb;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-        8DBA85F51FB06CE200B1B50D /* Embed Frameworks */ = {
-            isa = PBXCopyFilesBuildPhase;
-            buildActionMask = 2147483647;
-            dstPath = "";
-            dstSubfolderSpec = 10;
-            files = (
-            );
-            name = "Embed Frameworks";
-            runOnlyForDeploymentPostprocessing = 0;
-        };
+		8DBA85F51FB06CE200B1B50D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -810,8 +814,6 @@
 		4E94B28C1ECC4973003CCBA7 /* NSAttributedString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Util.m"; sourceTree = "<group>"; };
 		4E94B28E1ECC49D2003CCBA7 /* HXBHomePageProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBHomePageProductCell.h; sourceTree = "<group>"; };
 		4E94B28F1ECC49D2003CCBA7 /* HXBHomePageProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBHomePageProductCell.m; sourceTree = "<group>"; };
-		4E94B4641FCF9E6800770E5A /* HXBCommonProblemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCommonProblemViewController.h; sourceTree = "<group>"; };
-		4E94B4651FCF9E6800770E5A /* HXBCommonProblemViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCommonProblemViewController.m; sourceTree = "<group>"; };
 		4E94E3771F0F5E2500746973 /* HXBBindBankCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBindBankCardViewController.h; sourceTree = "<group>"; };
 		4E94E3781F0F5E2500746973 /* HXBBindBankCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBindBankCardViewController.m; sourceTree = "<group>"; };
 		4E94E37A1F0F619400746973 /* HXBCardholderInformationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCardholderInformationView.h; sourceTree = "<group>"; };
@@ -947,6 +949,8 @@
 		4EECE01F1F383ABE00301758 /* HXBMyHomeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyHomeViewCell.m; sourceTree = "<group>"; };
 		4EECE0231F3843A200301758 /* eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = eye.svg; sourceTree = "<group>"; };
 		4EECE0251F38548100301758 /* close_eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = close_eye.svg; sourceTree = "<group>"; };
+		4EED937D1FCFDDF40031DB2D /* HXBCommonProblemViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCommonProblemViewController.m; sourceTree = "<group>"; };
+		4EED937E1FCFDDF40031DB2D /* HXBCommonProblemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCommonProblemViewController.h; sourceTree = "<group>"; };
 		6290EFB173CD62D4B8B37627 /* Pods-hoomxb.adoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.adoc.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.adoc.xcconfig"; sourceTree = "<group>"; };
 		8D2CF5111FC2DA5D008F7A89 /* HXBInviteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBInviteListViewController.h; sourceTree = "<group>"; };
 		8D2CF5121FC2DA5D008F7A89 /* HXBInviteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBInviteListViewController.m; sourceTree = "<group>"; };
@@ -964,6 +968,12 @@
 		8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBInviteViewModel.m; sourceTree = "<group>"; };
 		8D4064F11FC67E2A00121E1C /* NSDate+HXB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+HXB.h"; sourceTree = "<group>"; };
 		8D4064F21FC67E2A00121E1C /* NSDate+HXB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HXB.m"; sourceTree = "<group>"; };
+		8D5A2F451FCE5A3A00057DB3 /* HXBUnBindCardController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUnBindCardController.h; sourceTree = "<group>"; };
+		8D5A2F461FCE5A3A00057DB3 /* HXBUnBindCardController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBUnBindCardController.m; sourceTree = "<group>"; };
+		8D5A2F491FCE756300057DB3 /* HXBBankCardViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBankCardViewModel.h; sourceTree = "<group>"; };
+		8D5A2F4A1FCE756300057DB3 /* HXBBankCardViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBBankCardViewModel.m; sourceTree = "<group>"; };
+		8D5A2F4C1FCE918400057DB3 /* NYBaseRequest+HXB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NYBaseRequest+HXB.h"; sourceTree = "<group>"; };
+		8D5A2F4D1FCE918400057DB3 /* NYBaseRequest+HXB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NYBaseRequest+HXB.m"; sourceTree = "<group>"; };
 		8D6B046A1FC2A3BF0046F48A /* HXBBaseConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseConfig.h; sourceTree = "<group>"; };
 		8DAD30411FBA8F8B00E2AEE8 /* HXBAlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAlertManager.h; sourceTree = "<group>"; };
 		8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBAlertManager.m; sourceTree = "<group>"; };
@@ -1015,6 +1025,7 @@
 		9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWKWebViewController.m; sourceTree = "<group>"; };
 		9A36E32E1FC6AB1700C318B3 /* HXBWKWebviewViewModuel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWKWebviewViewModuel.h; sourceTree = "<group>"; };
 		9A36E32F1FC6AB1700C318B3 /* HXBWKWebviewViewModuel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWKWebviewViewModuel.m; sourceTree = "<group>"; };
+		9A37BCB01FCEA3E400B2B81F /* HXBMacroSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMacroSwitch.h; sourceTree = "<group>"; };
 		9AF220EB1FC2BA8F00002D1D /* HXBBaseUrlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlManager.h; sourceTree = "<group>"; };
 		9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseUrlManager.m; sourceTree = "<group>"; };
 		9AF220ED1FC2BA8F00002D1D /* HXBBaseUrlSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlSettingView.h; sourceTree = "<group>"; };
@@ -1238,6 +1249,8 @@
 		E14B9BE21F1482D100450692 /* HXBFin_PlanDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_PlanDetailView.m; sourceTree = "<group>"; };
 		E14B9BE41F14AF7100450692 /* HXBFin_PlanDetailView_TopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_PlanDetailView_TopView.h; sourceTree = "<group>"; };
 		E14B9BE51F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_PlanDetailView_TopView.m; sourceTree = "<group>"; };
+		E14BDE911FCE8EB000A19731 /* HXBMyBankResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMyBankResultViewController.m; sourceTree = "<group>"; };
+		E14BDE921FCE8EB000A19731 /* HXBMyBankResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMyBankResultViewController.h; sourceTree = "<group>"; };
 		E157A8941EE67A1F002BF6AC /* HXBToolCountDownButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBToolCountDownButton.h; sourceTree = "<group>"; };
 		E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBToolCountDownButton.m; sourceTree = "<group>"; };
 		E16017691EF3AD6000A2AAE8 /* HXBFinModel_AddRecortd_Plan_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinModel_AddRecortd_Plan_Model.h; sourceTree = "<group>"; };
@@ -1446,6 +1459,8 @@
 		E1F0D80B1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMYCapitalRecord_TableViewHeaderView.m; sourceTree = "<group>"; };
 		E1F3BE451FBD821000D9BD48 /* HXBRegisterAlertVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBRegisterAlertVC.h; sourceTree = "<group>"; };
 		E1F3BE461FBD821000D9BD48 /* HXBRegisterAlertVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBRegisterAlertVC.m; sourceTree = "<group>"; };
+		E1F630771F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPAgreementWebViewVC.h; sourceTree = "<group>"; };
+		E1F630781F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSignUPAgreementWebViewVC.m; sourceTree = "<group>"; };
 		E1F630821F20B4F100FC0122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1FBADB51EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinDatailModel_LoanDetail.h; sourceTree = "<group>"; };
 		E1FBADB61EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinDatailModel_LoanDetail.m; sourceTree = "<group>"; };
@@ -1472,28 +1487,28 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-        4E16D8271E9CD0FE002A1881 /* Frameworks */ = {
-            isa = PBXFrameworksBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        4E16D8401E9CD0FE002A1881 /* Frameworks */ = {
-            isa = PBXFrameworksBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        4E16D84B1E9CD0FE002A1881 /* Frameworks */ = {
-            isa = PBXFrameworksBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
+		4E16D8271E9CD0FE002A1881 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E16D8401E9CD0FE002A1881 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E16D84B1E9CD0FE002A1881 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -2422,6 +2437,7 @@
 				E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */,
 				E12800F71F023AB40066FB66 /* HXBCode.h */,
 				E12800F81F023AB40066FB66 /* HXBCode.m */,
+				9A37BCB01FCEA3E400B2B81F /* HXBMacroSwitch.h */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
@@ -2637,6 +2653,15 @@
 			path = NSDate;
 			sourceTree = "<group>";
 		};
+		8D5A2F481FCE6D3500057DB3 /* BankCard */ = {
+			isa = PBXGroup;
+			children = (
+				8D5A2F491FCE756300057DB3 /* HXBBankCardViewModel.h */,
+				8D5A2F4A1FCE756300057DB3 /* HXBBankCardViewModel.m */,
+			);
+			path = BankCard;
+			sourceTree = "<group>";
+		};
 		8DAD303E1FBA8F8B00E2AEE8 /* Base */ = {
 			isa = PBXGroup;
 			children = (
@@ -2840,6 +2865,10 @@
 				4E9215631F1DEE7400C8CECB /* HXBOpenDepositAccountViewController.m */,
 				4E77C41E1F3E9D4C004257E6 /* HXBDepositoryAlertViewController.h */,
 				4E77C41F1F3E9D4C004257E6 /* HXBDepositoryAlertViewController.m */,
+				8D5A2F451FCE5A3A00057DB3 /* HXBUnBindCardController.h */,
+				8D5A2F461FCE5A3A00057DB3 /* HXBUnBindCardController.m */,
+				E14BDE921FCE8EB000A19731 /* HXBMyBankResultViewController.h */,
+				E14BDE911FCE8EB000A19731 /* HXBMyBankResultViewController.m */,
 			);
 			path = accountCard;
 			sourceTree = "<group>";
@@ -3342,6 +3371,8 @@
 			children = (
 				E133DCBE1EEE3597009466DE /* HXBSendSmscodeViewController.h */,
 				E133DCBF1EEE3597009466DE /* HXBSendSmscodeViewController.m */,
+				E1F630771F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.h */,
+				E1F630781F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m */,
 			);
 			path = HXBSendSmscode;
 			sourceTree = "<group>";
@@ -3468,6 +3499,8 @@
 				E133DD231EEEC14C009466DE /* HXBBaseRequest.m */,
 				E133DD241EEEC14C009466DE /* NYBaseRequest.h */,
 				E133DD251EEEC14C009466DE /* NYBaseRequest.m */,
+				8D5A2F4C1FCE918400057DB3 /* NYBaseRequest+HXB.h */,
+				8D5A2F4D1FCE918400057DB3 /* NYBaseRequest+HXB.m */,
 			);
 			path = BaseRequest;
 			sourceTree = "<group>";
@@ -3780,8 +3813,8 @@
 		E17509B71EC6E4ED00E17B39 /* ContractWebViewController */ = {
 			isa = PBXGroup;
 			children = (
-				4E94B4641FCF9E6800770E5A /* HXBCommonProblemViewController.h */,
-				4E94B4651FCF9E6800770E5A /* HXBCommonProblemViewController.m */,
+				4EED937E1FCFDDF40031DB2D /* HXBCommonProblemViewController.h */,
+				4EED937D1FCFDDF40031DB2D /* HXBCommonProblemViewController.m */,
 			);
 			path = ContractWebViewController;
 			sourceTree = "<group>";
@@ -4257,6 +4290,7 @@
 		E1D2CA521EAB4D6B000099C7 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				8D5A2F481FCE6D3500057DB3 /* BankCard */,
 				E17CCEE31F305D6000D6E98E /* MYLoanTruansfer_ViewModel */,
 				4E739B5C1F0A3E0E000A4D1E /* HXBMY_VersionUpdate_ViewModel */,
 				E1270B331ECED1F300729BC9 /* MYPlan_ViewModel */,
@@ -4450,282 +4484,282 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-        4E16D8291E9CD0FE002A1881 /* hoomxb */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = 4E16D8571E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxb" */;
-            buildPhases = (
-                F371DAFC047AF7A268C34DA1 /* [CP] Check Pods Manifest.lock */,
-                4E16D8261E9CD0FE002A1881 /* Sources */,
-                4E16D8271E9CD0FE002A1881 /* Frameworks */,
-                4E16D8281E9CD0FE002A1881 /* Resources */,
-                66E283077D9763B274CFFA54 /* bu */,
-                8131C46B2F56F932ACC61550 /* [CP] Copy Pods Resources */,
-                D3B8E945C267594907723E1E /* [CP] Embed Pods Frameworks */,
-                8DBA85F51FB06CE200B1B50D /* Embed Frameworks */,
-                9A1B4B4E1FBC29EB0084CCE6 /* ShellScript */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-            );
-            name = hoomxb;
-            productName = hoomxb;
-            productReference = 4E16D82A1E9CD0FE002A1881 /* hoomxb.app */;
-            productType = "com.apple.product-type.application";
-        };
-        4E16D8421E9CD0FE002A1881 /* hoomxbTests */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = 4E16D85A1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbTests" */;
-            buildPhases = (
-                4E16D83F1E9CD0FE002A1881 /* Sources */,
-                4E16D8401E9CD0FE002A1881 /* Frameworks */,
-                4E16D8411E9CD0FE002A1881 /* Resources */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-                4E16D8451E9CD0FE002A1881 /* PBXTargetDependency */,
-            );
-            name = hoomxbTests;
-            productName = hoomxbTests;
-            productReference = 4E16D8431E9CD0FE002A1881 /* hoomxbTests.xctest */;
-            productType = "com.apple.product-type.bundle.unit-test";
-        };
-        4E16D84D1E9CD0FE002A1881 /* hoomxbUITests */ = {
-            isa = PBXNativeTarget;
-            buildConfigurationList = 4E16D85D1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbUITests" */;
-            buildPhases = (
-                4E16D84A1E9CD0FE002A1881 /* Sources */,
-                4E16D84B1E9CD0FE002A1881 /* Frameworks */,
-                4E16D84C1E9CD0FE002A1881 /* Resources */,
-            );
-            buildRules = (
-            );
-            dependencies = (
-                4E16D8501E9CD0FE002A1881 /* PBXTargetDependency */,
-            );
-            name = hoomxbUITests;
-            productName = hoomxbUITests;
-            productReference = 4E16D84E1E9CD0FE002A1881 /* hoomxbUITests.xctest */;
-            productType = "com.apple.product-type.bundle.ui-testing";
-        };
+		4E16D8291E9CD0FE002A1881 /* hoomxb */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E16D8571E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxb" */;
+			buildPhases = (
+				F371DAFC047AF7A268C34DA1 /* [CP] Check Pods Manifest.lock */,
+				4E16D8261E9CD0FE002A1881 /* Sources */,
+				4E16D8271E9CD0FE002A1881 /* Frameworks */,
+				4E16D8281E9CD0FE002A1881 /* Resources */,
+				66E283077D9763B274CFFA54 /* bu */,
+				8131C46B2F56F932ACC61550 /* [CP] Copy Pods Resources */,
+				D3B8E945C267594907723E1E /* [CP] Embed Pods Frameworks */,
+				8DBA85F51FB06CE200B1B50D /* Embed Frameworks */,
+				9A1B4B4E1FBC29EB0084CCE6 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hoomxb;
+			productName = hoomxb;
+			productReference = 4E16D82A1E9CD0FE002A1881 /* hoomxb.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4E16D8421E9CD0FE002A1881 /* hoomxbTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E16D85A1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbTests" */;
+			buildPhases = (
+				4E16D83F1E9CD0FE002A1881 /* Sources */,
+				4E16D8401E9CD0FE002A1881 /* Frameworks */,
+				4E16D8411E9CD0FE002A1881 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E16D8451E9CD0FE002A1881 /* PBXTargetDependency */,
+			);
+			name = hoomxbTests;
+			productName = hoomxbTests;
+			productReference = 4E16D8431E9CD0FE002A1881 /* hoomxbTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4E16D84D1E9CD0FE002A1881 /* hoomxbUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4E16D85D1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbUITests" */;
+			buildPhases = (
+				4E16D84A1E9CD0FE002A1881 /* Sources */,
+				4E16D84B1E9CD0FE002A1881 /* Frameworks */,
+				4E16D84C1E9CD0FE002A1881 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4E16D8501E9CD0FE002A1881 /* PBXTargetDependency */,
+			);
+			name = hoomxbUITests;
+			productName = hoomxbUITests;
+			productReference = 4E16D84E1E9CD0FE002A1881 /* hoomxbUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-        4E16D8221E9CD0FE002A1881 /* Project object */ = {
-            isa = PBXProject;
-            attributes = {
-                CLASSPREFIX = HXB;
-                LastUpgradeCheck = 0820;
-                ORGANIZATIONNAME = "hoomsun-miniX";
-                TargetAttributes = {
-                    4E16D8291E9CD0FE002A1881 = {
-                        CreatedOnToolsVersion = 8.2.1;
-                        DevelopmentTeam = Z9M2NMJFP5;
-                        ProvisioningStyle = Automatic;
-                    };
-                    4E16D8421E9CD0FE002A1881 = {
-                        CreatedOnToolsVersion = 8.2.1;
-                        DevelopmentTeam = Z9M2NMJFP5;
-                        ProvisioningStyle = Automatic;
-                        TestTargetID = 4E16D8291E9CD0FE002A1881;
-                    };
-                    4E16D84D1E9CD0FE002A1881 = {
-                        CreatedOnToolsVersion = 8.2.1;
-                        DevelopmentTeam = Z9M2NMJFP5;
-                        ProvisioningStyle = Automatic;
-                        TestTargetID = 4E16D8291E9CD0FE002A1881;
-                    };
-                };
-            };
-            buildConfigurationList = 4E16D8251E9CD0FE002A1881 /* Build configuration list for PBXProject "hoomxb" */;
-            compatibilityVersion = "Xcode 3.2";
-            developmentRegion = English;
-            hasScannedForEncodings = 0;
-            knownRegions = (
-                en,
-                Base,
-            );
-            mainGroup = 4E16D8211E9CD0FE002A1881;
-            productRefGroup = 4E16D82B1E9CD0FE002A1881 /* Products */;
-            projectDirPath = "";
-            projectRoot = "";
-            targets = (
-                4E16D8291E9CD0FE002A1881 /* hoomxb */,
-                4E16D8421E9CD0FE002A1881 /* hoomxbTests */,
-                4E16D84D1E9CD0FE002A1881 /* hoomxbUITests */,
-            );
-        };
+		4E16D8221E9CD0FE002A1881 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = HXB;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "hoomsun-miniX";
+				TargetAttributes = {
+					4E16D8291E9CD0FE002A1881 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Z9M2NMJFP5;
+						ProvisioningStyle = Automatic;
+					};
+					4E16D8421E9CD0FE002A1881 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Z9M2NMJFP5;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4E16D8291E9CD0FE002A1881;
+					};
+					4E16D84D1E9CD0FE002A1881 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = Z9M2NMJFP5;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4E16D8291E9CD0FE002A1881;
+					};
+				};
+			};
+			buildConfigurationList = 4E16D8251E9CD0FE002A1881 /* Build configuration list for PBXProject "hoomxb" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4E16D8211E9CD0FE002A1881;
+			productRefGroup = 4E16D82B1E9CD0FE002A1881 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4E16D8291E9CD0FE002A1881 /* hoomxb */,
+				4E16D8421E9CD0FE002A1881 /* hoomxbTests */,
+				4E16D84D1E9CD0FE002A1881 /* hoomxbUITests */,
+			);
+		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-        4E16D8281E9CD0FE002A1881 /* Resources */ = {
-            isa = PBXResourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-                4E8D28AB1F46F07100B73FF8 /* 默认.svg in Resources */,
-                4EECE0241F3843A200301758 /* eye.svg in Resources */,
-                4EC492991EC19A7D00B7DAA2 /* zhaoshang.png in Resources */,
-                4EECE0121F38177000301758 /* 5000.svg in Resources */,
-                4E92156B1F1DFC5500C8CECB /* mobile.svg in Resources */,
-                4EECE0131F38177000301758 /* 5001.svg in Resources */,
-                4EECE0181F38177000301758 /* 5006.svg in Resources */,
-                4EECDFD31F380E8B00301758 /* trading_record.svg in Resources */,
-                4E1D909A1F14F62D00D29EA7 /* notice.svg in Resources */,
-                4E7CCF511EBC1B5B00F7BDB3 /* login_close@3x.png in Resources */,
-                4E7E5B691F14705700771C07 /* home_Selected.svg in Resources */,
-                4E92156D1F1DFC6900C8CECB /* name.svg in Resources */,
-                4E7BDEBC1F189F02002A3E18 /* bank.svg in Resources */,
-                4EECDFD11F380E8B00301758 /* hongli.svg in Resources */,
-                4E88A5231F15B79700BBDF11 /* password_eye_open.svg in Resources */,
-                4EECE0151F38177000301758 /* 5003.svg in Resources */,
-                4E7CCF501EBC1B5B00F7BDB3 /* login_close@2x.png in Resources */,
-                4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */,
-                4E5987D91F9A1AA5009BB497 /* Assets.xcassets in Resources */,
-                4EECE0161F38177000301758 /* 5004.svg in Resources */,
-                4EECE0141F38177000301758 /* 5002.svg in Resources */,
-                4EECE0261F38548100301758 /* close_eye.svg in Resources */,
-                4E7E5B721F14792B00771C07 /* my_Unselected.svg in Resources */,
-                4E9215731F1DFC9E00C8CECB /* card.svg in Resources */,
-                4ED2F27F1ECADC960014E5C7 /* introductionplaceholder@2x.png in Resources */,
-                4EECE0191F38177000301758 /* 5007.svg in Resources */,
-                4EECE0171F38177000301758 /* 5005.svg in Resources */,
-                4E7E5B6A1F14705700771C07 /* home_Unselected.svg in Resources */,
-                4E7BDEBE1F189F11002A3E18 /* arrow.svg in Resources */,
-                4ED2F2801ECADC960014E5C7 /* introductionplaceholder@3x.png in Resources */,
-                4E7CCF4C1EBC1B5B00F7BDB3 /* pageControl@3x.png in Resources */,
-                E18986CE1F2F048B00FAA054 /* audit_status.svg in Resources */,
-                4EECE0101F38177000301758 /* 0210.svg in Resources */,
-                4E8EAA0A1F176B3D003834D4 /* close.svg in Resources */,
-                4EECE01B1F38177000301758 /* 5009.svg in Resources */,
-                4E7CCF4D1EBC1B5B00F7BDB3 /* pageControl_select@2x.png in Resources */,
-                4E88A5271F15CBC500BBDF11 /* back.svg in Resources */,
-                4ED2F27C1ECAD9810014E5C7 /* homepage_close@3x.png in Resources */,
-                4EECDFD21F380E8B00301758 /* sanbiao.svg in Resources */,
-                4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */,
-                4EECE0111F38177000301758 /* 0220.svg in Resources */,
-                4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */,
-                4E92156F1F1DFC8100C8CECB /* id_number.svg in Resources */,
-                4EECE00C1F38177000301758 /* 0150.svg in Resources */,
-                4E99BF501F55196600D197A3 /* FinPlanList_CountDown.svg in Resources */,
-                4E7E5B6D1F1478C100771C07 /* investment_Unselected.svg in Resources */,
-                4E7E5B711F14792B00771C07 /* my_Selected.svg in Resources */,
-                4E9215751F1DFFA400C8CECB /* more.svg in Resources */,
-                4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
-                4E9215691F1DFC4600C8CECB /* transaction_password.svg in Resources */,
-                4EECE00F1F38177000301758 /* 0201.svg in Resources */,
-                4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */,
-                4E9215711F1DFC8800C8CECB /* bank_name.svg in Resources */,
-                4EECE01D1F38177000301758 /* 5012.svg in Resources */,
-                4E7CCF4E1EBC1B5B00F7BDB3 /* pageControl_select@3x.png in Resources */,
-                E1A1BEF21F386C080006BAA7 /* explain.svg in Resources */,
-                E190EF9F1F25A61B001E0B14 /* HXBBannerCollectionViewCell.xib in Resources */,
-                4EECE00D1F38177000301758 /* 0160.svg in Resources */,
-                4E92155F1F1DBCC200C8CECB /* BUYtips.svg in Resources */,
-                4EECE01A1F38177000301758 /* 5008.svg in Resources */,
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        4E16D8411E9CD0FE002A1881 /* Resources */ = {
-            isa = PBXResourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
-        4E16D84C1E9CD0FE002A1881 /* Resources */ = {
-            isa = PBXResourcesBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-        };
+		4E16D8281E9CD0FE002A1881 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E8D28AB1F46F07100B73FF8 /* 默认.svg in Resources */,
+				4EECE0241F3843A200301758 /* eye.svg in Resources */,
+				4EC492991EC19A7D00B7DAA2 /* zhaoshang.png in Resources */,
+				4EECE0121F38177000301758 /* 5000.svg in Resources */,
+				4E92156B1F1DFC5500C8CECB /* mobile.svg in Resources */,
+				4EECE0131F38177000301758 /* 5001.svg in Resources */,
+				4EECE0181F38177000301758 /* 5006.svg in Resources */,
+				4EECDFD31F380E8B00301758 /* trading_record.svg in Resources */,
+				4E1D909A1F14F62D00D29EA7 /* notice.svg in Resources */,
+				4E7CCF511EBC1B5B00F7BDB3 /* login_close@3x.png in Resources */,
+				4E7E5B691F14705700771C07 /* home_Selected.svg in Resources */,
+				4E92156D1F1DFC6900C8CECB /* name.svg in Resources */,
+				4E7BDEBC1F189F02002A3E18 /* bank.svg in Resources */,
+				4EECDFD11F380E8B00301758 /* hongli.svg in Resources */,
+				4E88A5231F15B79700BBDF11 /* password_eye_open.svg in Resources */,
+				4EECE0151F38177000301758 /* 5003.svg in Resources */,
+				4E7CCF501EBC1B5B00F7BDB3 /* login_close@2x.png in Resources */,
+				4E7CCF4B1EBC1B5B00F7BDB3 /* pageControl@2x.png in Resources */,
+				4E5987D91F9A1AA5009BB497 /* Assets.xcassets in Resources */,
+				4EECE0161F38177000301758 /* 5004.svg in Resources */,
+				4EECE0141F38177000301758 /* 5002.svg in Resources */,
+				4EECE0261F38548100301758 /* close_eye.svg in Resources */,
+				4E7E5B721F14792B00771C07 /* my_Unselected.svg in Resources */,
+				4E9215731F1DFC9E00C8CECB /* card.svg in Resources */,
+				4ED2F27F1ECADC960014E5C7 /* introductionplaceholder@2x.png in Resources */,
+				4EECE0191F38177000301758 /* 5007.svg in Resources */,
+				4EECE0171F38177000301758 /* 5005.svg in Resources */,
+				4E7E5B6A1F14705700771C07 /* home_Unselected.svg in Resources */,
+				4E7BDEBE1F189F11002A3E18 /* arrow.svg in Resources */,
+				4ED2F2801ECADC960014E5C7 /* introductionplaceholder@3x.png in Resources */,
+				4E7CCF4C1EBC1B5B00F7BDB3 /* pageControl@3x.png in Resources */,
+				E18986CE1F2F048B00FAA054 /* audit_status.svg in Resources */,
+				4EECE0101F38177000301758 /* 0210.svg in Resources */,
+				4E8EAA0A1F176B3D003834D4 /* close.svg in Resources */,
+				4EECE01B1F38177000301758 /* 5009.svg in Resources */,
+				4E7CCF4D1EBC1B5B00F7BDB3 /* pageControl_select@2x.png in Resources */,
+				4E88A5271F15CBC500BBDF11 /* back.svg in Resources */,
+				4ED2F27C1ECAD9810014E5C7 /* homepage_close@3x.png in Resources */,
+				4EECDFD21F380E8B00301758 /* sanbiao.svg in Resources */,
+				4E7E5B6E1F1478C100771C07 /* investment_Selected.svg in Resources */,
+				4EECE0111F38177000301758 /* 0220.svg in Resources */,
+				4E88A5211F15B79000BBDF11 /* password_eye_close.svg in Resources */,
+				4E92156F1F1DFC8100C8CECB /* id_number.svg in Resources */,
+				4EECE00C1F38177000301758 /* 0150.svg in Resources */,
+				4E99BF501F55196600D197A3 /* FinPlanList_CountDown.svg in Resources */,
+				4E7E5B6D1F1478C100771C07 /* investment_Unselected.svg in Resources */,
+				4E7E5B711F14792B00771C07 /* my_Selected.svg in Resources */,
+				4E9215751F1DFFA400C8CECB /* more.svg in Resources */,
+				4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */,
+				4E9215691F1DFC4600C8CECB /* transaction_password.svg in Resources */,
+				4EECE00F1F38177000301758 /* 0201.svg in Resources */,
+				4ED2F27B1ECAD9810014E5C7 /* homepage_close@2x.png in Resources */,
+				4E9215711F1DFC8800C8CECB /* bank_name.svg in Resources */,
+				4EECE01D1F38177000301758 /* 5012.svg in Resources */,
+				4E7CCF4E1EBC1B5B00F7BDB3 /* pageControl_select@3x.png in Resources */,
+				E1A1BEF21F386C080006BAA7 /* explain.svg in Resources */,
+				E190EF9F1F25A61B001E0B14 /* HXBBannerCollectionViewCell.xib in Resources */,
+				4EECE00D1F38177000301758 /* 0160.svg in Resources */,
+				4E92155F1F1DBCC200C8CECB /* BUYtips.svg in Resources */,
+				4EECE01A1F38177000301758 /* 5008.svg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E16D8411E9CD0FE002A1881 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4E16D84C1E9CD0FE002A1881 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-        66E283077D9763B274CFFA54 /* bu */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputPaths = (
-            );
-            name = bu;
-            outputPaths = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-frameworks.sh\"\n";
-            showEnvVarsInLog = 0;
-        };
-        8131C46B2F56F932ACC61550 /* [CP] Copy Pods Resources */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputPaths = (
-                "${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-resources.sh",
-                "${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
-                "${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
-                "${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle",
-                "${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle",
-                "${PODS_ROOT}/WebViewJavascriptBridge/WebViewJavascriptBridge/WebViewJavascriptBridge.js.txt",
-            );
-            name = "[CP] Copy Pods Resources";
-            outputPaths = (
-                "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-resources.sh\"\n";
-            showEnvVarsInLog = 0;
-        };
-        9A1B4B4E1FBC29EB0084CCE6 /* ShellScript */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputPaths = (
-            );
-            outputPaths = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "\"${PODS_ROOT}/Fabric/run\" 5e78d407a64c6e3d8712144d2234b768aa86f98b aaaf2da8284ef37ab965847cbe7c07ce691fc4a16e1f7006bd05ffe469ec4a82";
-        };
-        D3B8E945C267594907723E1E /* [CP] Embed Pods Frameworks */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputPaths = (
-            );
-            name = "[CP] Embed Pods Frameworks";
-            outputPaths = (
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-frameworks.sh\"\n";
-            showEnvVarsInLog = 0;
-        };
-        F371DAFC047AF7A268C34DA1 /* [CP] Check Pods Manifest.lock */ = {
-            isa = PBXShellScriptBuildPhase;
-            buildActionMask = 2147483647;
-            files = (
-            );
-            inputPaths = (
-                "${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-                "${PODS_ROOT}/Manifest.lock",
-            );
-            name = "[CP] Check Pods Manifest.lock";
-            outputPaths = (
-                "$(DERIVED_FILE_DIR)/Pods-hoomxb-checkManifestLockResult.txt",
-            );
-            runOnlyForDeploymentPostprocessing = 0;
-            shellPath = /bin/sh;
-            shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-            showEnvVarsInLog = 0;
-        };
+		66E283077D9763B274CFFA54 /* bu */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = bu;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8131C46B2F56F932ACC61550 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-resources.sh",
+				"${PODS_ROOT}/IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle",
+				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialSDK/UMSocialSDKPromptResources.bundle",
+				"${PODS_ROOT}/UMengUShare/UShareSDK/UMSocialUI/UMSocialSDKResources.bundle",
+				"${PODS_ROOT}/WebViewJavascriptBridge/WebViewJavascriptBridge/WebViewJavascriptBridge.js.txt",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9A1B4B4E1FBC29EB0084CCE6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 5e78d407a64c6e3d8712144d2234b768aa86f98b aaaf2da8284ef37ab965847cbe7c07ce691fc4a16e1f7006bd05ffe469ec4a82";
+		};
+		D3B8E945C267594907723E1E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F371DAFC047AF7A268C34DA1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-hoomxb-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -4873,6 +4907,7 @@
 				288BAA081FAC593B009DF8AB /* HXBChooseDiscountTableViewCell.m in Sources */,
 				E1CC035C1ECAD2AD00121D21 /* HXBRequestType_MYManager.m in Sources */,
 				4EECE0201F383ABE00301758 /* HXBMyHomeViewCell.m in Sources */,
+				4EED937F1FCFDDF80031DB2D /* HXBCommonProblemViewController.m in Sources */,
 				4E0446E11FBEA99F0030E276 /* JXLayoutButton.m in Sources */,
 				E10EB4AC1EEFDFE800F16CFA /* HxbWithdrawCardViewController.m in Sources */,
 				E1E5885A1EE165BF0045C4AE /* AnimatedTransition.m in Sources */,
@@ -4911,7 +4946,9 @@
 				E16D7EDD1F2B371000C5FBF5 /* HXBFin_LoanInfoView.m in Sources */,
 				4E9215641F1DEE7400C8CECB /* HXBOpenDepositAccountViewController.m in Sources */,
 				4E8198AA1EC44BCE00D668A1 /* HXBHomePageAfterLoginView.m in Sources */,
+				8D5A2F4B1FCE756300057DB3 /* HXBBankCardViewModel.m in Sources */,
 				4E0446DE1FBEA98A0030E276 /* HXBUmengViewController.m in Sources */,
+				8D5A2F4E1FCE918400057DB3 /* NYBaseRequest+HXB.m in Sources */,
 				4E8EAA121F17A0E4003834D4 /* HXBNoticModel.m in Sources */,
 				E122D8531EA0CAB900DC71ED /* NSString+HxbMask.m in Sources */,
 				E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */,
@@ -5003,7 +5040,6 @@
 				4ED2F2781ECAD0BA0014E5C7 /* HXBMyBankCell.m in Sources */,
 				8DAD30821FBA8F8C00E2AEE8 /* HXBBaseScrollToolBarView.m in Sources */,
 				E11EF1751F395D76009027E1 /* HXBMY_Loan_TableView.m in Sources */,
-				4E94B4661FCF9E6800770E5A /* HXBCommonProblemViewController.m in Sources */,
 				E17A095E1F1DB823006564B8 /* HXBFinDetailModel_LoanTruansferDetail.m in Sources */,
 				8D2CF5251FC2DA5D008F7A89 /* HXBInviteOverViewModel.m in Sources */,
 				4E6677C21EEA96300064ECCE /* HXBBankCardModel.m in Sources */,
@@ -5114,6 +5150,7 @@
 				E133DCD91EEE3597009466DE /* HxbToolbar.m in Sources */,
 				4E0446E01FBEA99D0030E276 /* HXBUmengView.m in Sources */,
 				4E81E4061EE95036006AD3FC /* HXBModifyTransactionPasswordHomeView.m in Sources */,
+				8D5A2F471FCE5A3A00057DB3 /* HXBUnBindCardController.m in Sources */,
 				E16314381EC076820090567E /* HXBFinDetailViewModel_LoanDetail.m in Sources */,
 				E1CD4BD51ED83064000CC57B /* HXBBaseWaveView.m in Sources */,
 				E1CD4BCB1ED83064000CC57B /* HxbFileManager.m in Sources */,
@@ -5142,6 +5179,7 @@
 				E1270B4A1ECED2E900729BC9 /* HXBMYModel_PlanDetailModel.m in Sources */,
 				8D2CF5241FC2DA5D008F7A89 /* HXBInviteModel.m in Sources */,
 				E1270B471ECED2D000729BC9 /* HXBMYModel_MainPlanModel.m in Sources */,
+				E14BDE931FCE8EB100A19731 /* HXBMyBankResultViewController.m in Sources */,
 				E1A1BEF01F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.m in Sources */,
 				4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */,
 				E14B9BE61F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m in Sources */,
@@ -5181,380 +5219,380 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-        4E16D8451E9CD0FE002A1881 /* PBXTargetDependency */ = {
-            isa = PBXTargetDependency;
-            target = 4E16D8291E9CD0FE002A1881 /* hoomxb */;
-            targetProxy = 4E16D8441E9CD0FE002A1881 /* PBXContainerItemProxy */;
-        };
-        4E16D8501E9CD0FE002A1881 /* PBXTargetDependency */ = {
-            isa = PBXTargetDependency;
-            target = 4E16D8291E9CD0FE002A1881 /* hoomxb */;
-            targetProxy = 4E16D84F1E9CD0FE002A1881 /* PBXContainerItemProxy */;
-        };
+		4E16D8451E9CD0FE002A1881 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E16D8291E9CD0FE002A1881 /* hoomxb */;
+			targetProxy = 4E16D8441E9CD0FE002A1881 /* PBXContainerItemProxy */;
+		};
+		4E16D8501E9CD0FE002A1881 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E16D8291E9CD0FE002A1881 /* hoomxb */;
+			targetProxy = 4E16D84F1E9CD0FE002A1881 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-        4E16D8361E9CD0FE002A1881 /* Main.storyboard */ = {
-            isa = PBXVariantGroup;
-            children = (
-                4E16D8371E9CD0FE002A1881 /* Base */,
-            );
-            name = Main.storyboard;
-            sourceTree = "<group>";
-        };
+		4E16D8361E9CD0FE002A1881 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4E16D8371E9CD0FE002A1881 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-        4E16D8551E9CD0FE002A1881 /* Debug */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                ALWAYS_SEARCH_USER_PATHS = NO;
-                CLANG_ANALYZER_NONNULL = YES;
-                CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-                CLANG_CXX_LIBRARY = "libc++";
-                CLANG_ENABLE_MODULES = YES;
-                CLANG_ENABLE_OBJC_ARC = YES;
-                CLANG_WARN_BOOL_CONVERSION = YES;
-                CLANG_WARN_CONSTANT_CONVERSION = YES;
-                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-                CLANG_WARN_EMPTY_BODY = YES;
-                CLANG_WARN_ENUM_CONVERSION = YES;
-                CLANG_WARN_INFINITE_RECURSION = YES;
-                CLANG_WARN_INT_CONVERSION = YES;
-                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-                CLANG_WARN_SUSPICIOUS_MOVE = YES;
-                CLANG_WARN_UNREACHABLE_CODE = YES;
-                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-                COPY_PHASE_STRIP = NO;
-                DEBUG_INFORMATION_FORMAT = dwarf;
-                ENABLE_STRICT_OBJC_MSGSEND = YES;
-                ENABLE_TESTABILITY = YES;
-                GCC_C_LANGUAGE_STANDARD = gnu99;
-                GCC_DYNAMIC_NO_PIC = NO;
-                GCC_NO_COMMON_BLOCKS = YES;
-                GCC_OPTIMIZATION_LEVEL = 0;
-                GCC_PREPROCESSOR_DEFINITIONS = (
-                    "DEBUG=1",
-                    "$(inherited)",
-                );
-                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-                GCC_WARN_UNDECLARED_SELECTOR = YES;
-                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-                GCC_WARN_UNUSED_FUNCTION = YES;
-                GCC_WARN_UNUSED_VARIABLE = YES;
-                IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-                MTL_ENABLE_DEBUG_INFO = YES;
-                ONLY_ACTIVE_ARCH = YES;
-                SDKROOT = iphoneos;
-            };
-            name = Debug;
-        };
-        4E16D8561E9CD0FE002A1881 /* Release */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                ALWAYS_SEARCH_USER_PATHS = NO;
-                CLANG_ANALYZER_NONNULL = YES;
-                CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-                CLANG_CXX_LIBRARY = "libc++";
-                CLANG_ENABLE_MODULES = YES;
-                CLANG_ENABLE_OBJC_ARC = YES;
-                CLANG_WARN_BOOL_CONVERSION = YES;
-                CLANG_WARN_CONSTANT_CONVERSION = YES;
-                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-                CLANG_WARN_EMPTY_BODY = YES;
-                CLANG_WARN_ENUM_CONVERSION = YES;
-                CLANG_WARN_INFINITE_RECURSION = YES;
-                CLANG_WARN_INT_CONVERSION = YES;
-                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-                CLANG_WARN_SUSPICIOUS_MOVE = YES;
-                CLANG_WARN_UNREACHABLE_CODE = YES;
-                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-                COPY_PHASE_STRIP = NO;
-                DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-                ENABLE_NS_ASSERTIONS = NO;
-                ENABLE_STRICT_OBJC_MSGSEND = YES;
-                GCC_C_LANGUAGE_STANDARD = gnu99;
-                GCC_NO_COMMON_BLOCKS = YES;
-                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-                GCC_WARN_UNDECLARED_SELECTOR = YES;
-                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-                GCC_WARN_UNUSED_FUNCTION = YES;
-                GCC_WARN_UNUSED_VARIABLE = YES;
-                IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-                MTL_ENABLE_DEBUG_INFO = NO;
-                SDKROOT = iphoneos;
-                VALIDATE_PRODUCT = YES;
-            };
-            name = Release;
-        };
-        4E16D8581E9CD0FE002A1881 /* Debug */ = {
-            isa = XCBuildConfiguration;
-            baseConfigurationReference = DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */;
-            buildSettings = {
-                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-                ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-                CODE_SIGN_IDENTITY = "iPhone Developer: 聪聪 翟 (86S6Q378KL)";
-                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-                CODE_SIGN_STYLE = Automatic;
-                DEVELOPMENT_TEAM = Z9M2NMJFP5;
-                ENABLE_BITCODE = YES;
-                FRAMEWORK_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "$(PROJECT_DIR)/hoomxb/Lib",
-                    "$(PROJECT_DIR)/hoomxb/Lib/CocoaLumberjack",
-                    "$(PROJECT_DIR)",
-                );
-                GCC_INPUT_FILETYPE = automatic;
-                GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
-                INFOPLIST_FILE = hoomxb/Info.plist;
-                IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-                LIBRARY_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
-                );
-                PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                PROVISIONING_PROFILE = "";
-                PROVISIONING_PROFILE_SPECIFIER = "";
-                TARGETED_DEVICE_FAMILY = 1;
-            };
-            name = Debug;
-        };
-        4E16D8591E9CD0FE002A1881 /* Release */ = {
-            isa = XCBuildConfiguration;
-            baseConfigurationReference = B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */;
-            buildSettings = {
-                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-                ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-                CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
-                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-                CODE_SIGN_STYLE = Automatic;
-                DEVELOPMENT_TEAM = Z9M2NMJFP5;
-                ENABLE_BITCODE = YES;
-                FRAMEWORK_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "$(PROJECT_DIR)/hoomxb/Lib",
-                    "$(PROJECT_DIR)/hoomxb/Lib/CocoaLumberjack",
-                    "$(PROJECT_DIR)",
-                );
-                GCC_INPUT_FILETYPE = automatic;
-                GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
-                INFOPLIST_FILE = hoomxb/Info.plist;
-                IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-                LIBRARY_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
-                );
-                PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                PROVISIONING_PROFILE = "";
-                PROVISIONING_PROFILE_SPECIFIER = "";
-                TARGETED_DEVICE_FAMILY = 1;
-            };
-            name = Release;
-        };
-        4E16D85B1E9CD0FE002A1881 /* Debug */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                BUNDLE_LOADER = "$(TEST_HOST)";
-                DEVELOPMENT_TEAM = Z9M2NMJFP5;
-                INFOPLIST_FILE = hoomxbTests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-                PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbTests";
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hoomxb.app/hoomxb";
-            };
-            name = Debug;
-        };
-        4E16D85C1E9CD0FE002A1881 /* Release */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                BUNDLE_LOADER = "$(TEST_HOST)";
-                DEVELOPMENT_TEAM = Z9M2NMJFP5;
-                INFOPLIST_FILE = hoomxbTests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-                PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbTests";
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hoomxb.app/hoomxb";
-            };
-            name = Release;
-        };
-        4E16D85E1E9CD0FE002A1881 /* Debug */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                DEVELOPMENT_TEAM = Z9M2NMJFP5;
-                INFOPLIST_FILE = hoomxbUITests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-                PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbUITests";
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                TEST_TARGET_NAME = hoomxb;
-            };
-            name = Debug;
-        };
-        4E16D85F1E9CD0FE002A1881 /* Release */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                DEVELOPMENT_TEAM = Z9M2NMJFP5;
-                INFOPLIST_FILE = hoomxbUITests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-                PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbUITests";
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                TEST_TARGET_NAME = hoomxb;
-            };
-            name = Release;
-        };
-        9A7FEC921FBD3D58003E0C5C /* Adoc */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                ALWAYS_SEARCH_USER_PATHS = NO;
-                CLANG_ANALYZER_NONNULL = YES;
-                CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-                CLANG_CXX_LIBRARY = "libc++";
-                CLANG_ENABLE_MODULES = YES;
-                CLANG_ENABLE_OBJC_ARC = YES;
-                CLANG_WARN_BOOL_CONVERSION = YES;
-                CLANG_WARN_CONSTANT_CONVERSION = YES;
-                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-                CLANG_WARN_EMPTY_BODY = YES;
-                CLANG_WARN_ENUM_CONVERSION = YES;
-                CLANG_WARN_INFINITE_RECURSION = YES;
-                CLANG_WARN_INT_CONVERSION = YES;
-                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-                CLANG_WARN_SUSPICIOUS_MOVE = YES;
-                CLANG_WARN_UNREACHABLE_CODE = YES;
-                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-                COPY_PHASE_STRIP = NO;
-                DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-                ENABLE_NS_ASSERTIONS = NO;
-                ENABLE_STRICT_OBJC_MSGSEND = YES;
-                GCC_C_LANGUAGE_STANDARD = gnu99;
-                GCC_NO_COMMON_BLOCKS = YES;
-                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-                GCC_WARN_UNDECLARED_SELECTOR = YES;
-                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-                GCC_WARN_UNUSED_FUNCTION = YES;
-                GCC_WARN_UNUSED_VARIABLE = YES;
-                IPHONEOS_DEPLOYMENT_TARGET = 10.2;
-                MTL_ENABLE_DEBUG_INFO = NO;
-                SDKROOT = iphoneos;
-                VALIDATE_PRODUCT = YES;
-            };
-            name = Adoc;
-        };
-        9A7FEC931FBD3D58003E0C5C /* Adoc */ = {
-            isa = XCBuildConfiguration;
-            baseConfigurationReference = 6290EFB173CD62D4B8B37627 /* Pods-hoomxb.adoc.xcconfig */;
-            buildSettings = {
-                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-                ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-                CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
-                "CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-                CODE_SIGN_STYLE = Automatic;
-                DEVELOPMENT_TEAM = Z9M2NMJFP5;
-                ENABLE_BITCODE = YES;
-                FRAMEWORK_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "$(PROJECT_DIR)/hoomxb/Lib",
-                    "$(PROJECT_DIR)/hoomxb/Lib/CocoaLumberjack",
-                    "$(PROJECT_DIR)",
-                );
-                GCC_INPUT_FILETYPE = automatic;
-                GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
-                INFOPLIST_FILE = hoomxb/Info.plist;
-                IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-                LIBRARY_SEARCH_PATHS = (
-                    "$(inherited)",
-                    "$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
-                );
-                PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                PROVISIONING_PROFILE = "";
-                PROVISIONING_PROFILE_SPECIFIER = "";
-                TARGETED_DEVICE_FAMILY = 1;
-            };
-            name = Adoc;
-        };
-        9A7FEC941FBD3D58003E0C5C /* Adoc */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                BUNDLE_LOADER = "$(TEST_HOST)";
-                DEVELOPMENT_TEAM = Z9M2NMJFP5;
-                INFOPLIST_FILE = hoomxbTests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-                PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbTests";
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hoomxb.app/hoomxb";
-            };
-            name = Adoc;
-        };
-        9A7FEC951FBD3D58003E0C5C /* Adoc */ = {
-            isa = XCBuildConfiguration;
-            buildSettings = {
-                DEVELOPMENT_TEAM = Z9M2NMJFP5;
-                INFOPLIST_FILE = hoomxbUITests/Info.plist;
-                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-                PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbUITests";
-                PRODUCT_NAME = "$(TARGET_NAME)";
-                TEST_TARGET_NAME = hoomxb;
-            };
-            name = Adoc;
-        };
+		4E16D8551E9CD0FE002A1881 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4E16D8561E9CD0FE002A1881 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4E16D8581E9CD0FE002A1881 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer: 聪聪 翟 (86S6Q378KL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/hoomxb/Lib",
+					"$(PROJECT_DIR)/hoomxb/Lib/CocoaLumberjack",
+					"$(PROJECT_DIR)",
+				);
+				GCC_INPUT_FILETYPE = automatic;
+				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
+				INFOPLIST_FILE = hoomxb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		4E16D8591E9CD0FE002A1881 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/hoomxb/Lib",
+					"$(PROJECT_DIR)/hoomxb/Lib/CocoaLumberjack",
+					"$(PROJECT_DIR)",
+				);
+				GCC_INPUT_FILETYPE = automatic;
+				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
+				INFOPLIST_FILE = hoomxb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		4E16D85B1E9CD0FE002A1881 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxbTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hoomxb.app/hoomxb";
+			};
+			name = Debug;
+		};
+		4E16D85C1E9CD0FE002A1881 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxbTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hoomxb.app/hoomxb";
+			};
+			name = Release;
+		};
+		4E16D85E1E9CD0FE002A1881 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxbUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = hoomxb;
+			};
+			name = Debug;
+		};
+		4E16D85F1E9CD0FE002A1881 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxbUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = hoomxb;
+			};
+			name = Release;
+		};
+		9A7FEC921FBD3D58003E0C5C /* Adoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Adoc;
+		};
+		9A7FEC931FBD3D58003E0C5C /* Adoc */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6290EFB173CD62D4B8B37627 /* Pods-hoomxb.adoc.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/hoomxb/Lib",
+					"$(PROJECT_DIR)/hoomxb/Lib/CocoaLumberjack",
+					"$(PROJECT_DIR)",
+				);
+				GCC_INPUT_FILETYPE = automatic;
+				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
+				INFOPLIST_FILE = hoomxb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Adoc;
+		};
+		9A7FEC941FBD3D58003E0C5C /* Adoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxbTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/hoomxb.app/hoomxb";
+			};
+			name = Adoc;
+		};
+		9A7FEC951FBD3D58003E0C5C /* Adoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
+				INFOPLIST_FILE = hoomxbUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "hooms--------------un.hoomxbUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = hoomxb;
+			};
+			name = Adoc;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-        4E16D8251E9CD0FE002A1881 /* Build configuration list for PBXProject "hoomxb" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                4E16D8551E9CD0FE002A1881 /* Debug */,
-                4E16D8561E9CD0FE002A1881 /* Release */,
-                9A7FEC921FBD3D58003E0C5C /* Adoc */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
-        4E16D8571E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxb" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                4E16D8581E9CD0FE002A1881 /* Debug */,
-                4E16D8591E9CD0FE002A1881 /* Release */,
-                9A7FEC931FBD3D58003E0C5C /* Adoc */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
-        4E16D85A1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbTests" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                4E16D85B1E9CD0FE002A1881 /* Debug */,
-                4E16D85C1E9CD0FE002A1881 /* Release */,
-                9A7FEC941FBD3D58003E0C5C /* Adoc */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
-        4E16D85D1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbUITests" */ = {
-            isa = XCConfigurationList;
-            buildConfigurations = (
-                4E16D85E1E9CD0FE002A1881 /* Debug */,
-                4E16D85F1E9CD0FE002A1881 /* Release */,
-                9A7FEC951FBD3D58003E0C5C /* Adoc */,
-            );
-            defaultConfigurationIsVisible = 0;
-            defaultConfigurationName = Release;
-        };
+		4E16D8251E9CD0FE002A1881 /* Build configuration list for PBXProject "hoomxb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E16D8551E9CD0FE002A1881 /* Debug */,
+				4E16D8561E9CD0FE002A1881 /* Release */,
+				9A7FEC921FBD3D58003E0C5C /* Adoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E16D8571E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E16D8581E9CD0FE002A1881 /* Debug */,
+				4E16D8591E9CD0FE002A1881 /* Release */,
+				9A7FEC931FBD3D58003E0C5C /* Adoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E16D85A1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E16D85B1E9CD0FE002A1881 /* Debug */,
+				4E16D85C1E9CD0FE002A1881 /* Release */,
+				9A7FEC941FBD3D58003E0C5C /* Adoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4E16D85D1E9CD0FE002A1881 /* Build configuration list for PBXNativeTarget "hoomxbUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E16D85E1E9CD0FE002A1881 /* Debug */,
+				4E16D85F1E9CD0FE002A1881 /* Release */,
+				9A7FEC951FBD3D58003E0C5C /* Adoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
-    };
-    rootObject = 4E16D8221E9CD0FE002A1881 /* Project object */;
+	};
+	rootObject = 4E16D8221E9CD0FE002A1881 /* Project object */;
 }
