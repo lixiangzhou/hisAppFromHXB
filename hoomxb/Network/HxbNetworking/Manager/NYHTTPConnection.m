@@ -67,7 +67,7 @@
 //-------------------------------------------request----------------------------------------
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     NSLog(@"manager = %@",manager);
-    manager.requestSerializer.timeoutInterval = 20;
+    manager.requestSerializer.timeoutInterval = 30;
     
     NSDictionary *headers = [self headerFieldsValueWithRequest:request];
       [manager.requestSerializer setHTTPShouldHandleCookies:NO];
