@@ -146,16 +146,22 @@
     HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [openDepositAccountRequest bindBankCardRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
         if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
+            
             HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
             [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-        }else if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
+            
+        } else if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals) {
+            
             HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
             if (!KeyChain.isLogin)  return;
-
             [self.navigationController pushViewController:withdrawViewController animated:YES];
-        }else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
-        {
-            [self.navigationController popViewControllerAnimated:YES];
+            
+        } else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other) {
+            if (_className.length > 0 && _type == HXBRechargeAndWithdrawalsLogicalJudgment_Other) {
+                [self popToViewControllerWithClassName:_className];
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
     } andFailureBlock:^(NSError *error) {
         
