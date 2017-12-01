@@ -42,10 +42,10 @@
         self.tipLabel.text = @"您在红小宝平台充值，提现均会使用该卡";
         [self.view addSubview:self.bankView];
         [self.view addSubview:self.phoneBtn];
+        [self setupRightBarBtn];
         kWeakSelf
         self.bankView.unbundBankBlock = ^(HXBBankCardModel *bankCardModel) {
             weakSelf.bankCardModel = bankCardModel;
-            [weakSelf setupRightBarBtn];
         };
         [self setupBankViewFrame];
     }else
