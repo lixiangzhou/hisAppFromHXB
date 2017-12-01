@@ -292,7 +292,7 @@ static const NSInteger topView_high = 300;
         }else{
             errorCode = error.code;
         }
-        if (errorCode == kHXBCode_Enum_ConnectionTimeOut || errorCode == kHXBCode_Enum_NoConnectionNetwork) {
+        if (errorCode != 0) {
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
         }
     }];
@@ -336,7 +336,10 @@ static const NSInteger topView_high = 300;
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf sendSmsCodeWithMoney:rechargeMoney];
         };
-        
+        self.alertVC.cancelBtnClickBlock = ^{
+            _isClickSpeechVerificationCode = NO;
+            _isSpeechVerificationCode = NO;
+        };
         [self presentViewController:self.alertVC animated:NO completion:nil];
     }
 }

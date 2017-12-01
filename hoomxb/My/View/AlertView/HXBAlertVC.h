@@ -57,5 +57,6 @@
  getVerificationCodeBlock
  */
 @property (nonatomic, copy) void(^getVerificationCodeBlock)();
+@property (nonatomic, copy) void (^cancelBtnClickBlock)();
 
 @end

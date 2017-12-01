@@ -113,7 +113,7 @@
         }else{
             errorCode = error.code;
         }
-        if (errorCode == kHXBCode_Enum_ConnectionTimeOut || errorCode == kHXBCode_Enum_NoConnectionNetwork) {
+        if (errorCode != 0) {
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
         }
     }];

@@ -276,6 +276,10 @@ static NSString *const bankString = @"绑定银行卡";
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf sendSmsCodeWithMoney:rechargeMoney];
         };
+        self.alertVC.cancelBtnClickBlock = ^{
+            _isClickSpeechVerificationCode = NO;
+            _isSpeechVerificationCode = NO;
+        };
         [self presentViewController:_alertVC animated:NO completion:nil];
     }
 }
@@ -327,7 +331,7 @@ static NSString *const bankString = @"绑定银行卡";
         }else{
             errorCode = error.code;
         }
-        if (errorCode == kHXBCode_Enum_ConnectionTimeOut || errorCode == kHXBCode_Enum_NoConnectionNetwork) {
+        if (errorCode != 0) {
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
         }
     }];

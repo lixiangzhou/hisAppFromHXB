@@ -425,8 +425,11 @@
 
 - (void)dismiss
 {
+    kWeakSelf
     [self dismissViewControllerAnimated:NO completion:^{
-        
+        if (weakSelf.cancelBtnClickBlock) {
+            weakSelf.cancelBtnClickBlock();
+        }
     }];
 }
 #pragma mark - <HBAlertPasswordViewDelegate>

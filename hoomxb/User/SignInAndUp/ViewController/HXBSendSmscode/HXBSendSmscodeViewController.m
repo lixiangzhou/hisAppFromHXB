@@ -83,7 +83,6 @@
         [self.smscodeView clickSendSmscodeButtonWithBlock:^{
             if (_type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
                 [weakSelf sendSmscode:@"sms"];
-                weakSelf.smscodeView.startsCountdown = YES;
             } else {
                 HXBRegisterAlertVC *registerAlertVC = [[HXBRegisterAlertVC alloc] init];
                 [self presentViewController:registerAlertVC animated:NO completion:nil];
@@ -117,8 +116,10 @@
     //请求网络数据
     if (typeStr) {
         [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:self.captcha andType:typeStr andSuccessBlock:^(BOOL isSuccessBlock) {
+
             switch (weakSelf.type) {
                 case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
+                    weakSelf.smscodeView.startsCountdown = YES;
                     NSLog(@"发送 验证码");
                 }
                     break;
