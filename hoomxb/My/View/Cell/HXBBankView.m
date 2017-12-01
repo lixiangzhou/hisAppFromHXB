@@ -66,7 +66,7 @@
     }];
     [self.bankNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.iconView.mas_left);
-        make.right.equalTo(self);
+        make.right.equalTo(self).offset(-kScrAdaptationH(20));
         make.top.equalTo(self.iconView.mas_bottom).offset(kScrAdaptationH(20));
         make.height.offset(kScrAdaptationH(31));
     }];
@@ -100,7 +100,16 @@
         if (bankCardModel.name.length > 4) {
             weakSelf.realName.text = [NSString stringWithFormat:@"持卡人：***%@",[bankCardModel.name substringFromIndex:bankCardModel.name.length - 1]];
         }
-        weakSelf.bankNum.text = [bankCardModel.cardId stringByReplacingOccurrencesOfString:[bankCardModel.cardId substringWithRange:NSMakeRange(0,bankCardModel.cardId.length - 4)]withString:@"****   ****   ****   "];
+        
+        NSString *str = [bankCardModel.cardId stringByReplacingOccurrencesOfString:[bankCardModel.cardId substringWithRange:NSMakeRange(0,bankCardModel.cardId.length - 4)]withString:@"****  ****  ****  "];
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        [style setLineBreakMode:NSLineBreakByCharWrapping];
+        NSDictionary *attribute = @{NSFontAttributeName: kHXBFont_PINGFANGSC_REGULAR(24),NSParagraphStyleAttributeName:style};
+        CGSize size = [str boundingRectWithSize:CGSizeMake(weakSelf.bankNum.bounds.size.width, kScrAdaptationH(31)) options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
+        float width = weakSelf.bankNum.bounds.size.width - ceil(size.width);
+        float space = width / (str.length+1);
+        weakSelf.bankNum.text = str;
+        [self changeWordSpaceForLabel:weakSelf.bankNum WithSpace:space];
         weakSelf.bankTip.text = bankCardModel.quota;
         
         if (weakSelf.unbundBankBlock) {
@@ -110,6 +119,17 @@
         NSLog(@"%@",error);
         [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
     }];
+}
+
+- (void)changeWordSpaceForLabel:(UILabel *)label WithSpace:(float)space {
+    
+    NSString *labelText = label.text;
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText attributes:@{NSKernAttributeName:@(space)}];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
+    label.attributedText = attributedString;
+    [label sizeToFit];
+    
 }
 
 #pragma mark - 懒加载
@@ -147,6 +167,7 @@
     if (!_bankNum) {
         _bankNum = [[UILabel alloc] init];
         _bankNum.font = kHXBFont_PINGFANGSC_REGULAR(24);
+        _bankNum.numberOfLines = 1;
         _bankNum.textColor = COR29;
     }
     return _bankNum;
