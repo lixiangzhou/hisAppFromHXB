@@ -8,7 +8,7 @@
 
 #import "NYNetworkManager+DefaultMethod.h"
 #import "HXBBaseRequest.h"
-
+#import "HXBRootVCManager.h"
 @implementation NYNetworkManager (DefaultMethod)
 
 - (void)defaultMethodRequestSuccessWithRequest:(NYBaseRequest *)request
@@ -164,6 +164,9 @@
         /// 退出登录，清空登录信息，回到首页
         KeyChain.isLogin = NO;
         [KeyChain signOut];
+        
+        //单点登出之后dismiss最上层可能会有的控制器
+        [[HXBRootVCManager manager].mainTabbarVC.presentedViewController dismissViewControllerAnimated:NO completion:nil];
         
         // 静态显示主TabVC的HomeVC
         // 当前有tabVC的时候，会在tabVC中得到处理，显示HomeVC
