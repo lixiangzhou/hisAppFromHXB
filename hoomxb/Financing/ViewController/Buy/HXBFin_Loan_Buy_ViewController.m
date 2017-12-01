@@ -267,7 +267,7 @@ static NSString *const bankString = @"绑定银行卡";
         }else{
             errorCode = error.code;
         }
-        if (errorCode != 0) {
+        if (errorCode != kHXBCode_Success) {
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
         }
     }];

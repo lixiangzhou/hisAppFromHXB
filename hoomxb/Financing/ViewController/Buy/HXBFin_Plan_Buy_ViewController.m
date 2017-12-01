@@ -292,7 +292,7 @@ static const NSInteger topView_high = 300;
         }else{
             errorCode = error.code;
         }
-        if (errorCode != 0) {
+        if (errorCode != kHXBCode_Success) {
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
         }
     }];
