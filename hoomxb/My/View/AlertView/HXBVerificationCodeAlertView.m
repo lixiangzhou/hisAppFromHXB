@@ -137,27 +137,6 @@
 
 - (void)getSpeechVerificationCode
 {
-//    self.speechVerificationCodeBtn.enabled = NO;
-//    [self.speechVerificationCodeBtn setTitleColor:RGB(153, 153, 153) forState:UIControlStateNormal];
-//    self.codeBtn.enabled = NO;
-////    self.count = 60;
-//    [self.codeBtn setBackgroundColor:COR12];
-//    self.codeBtn.layer.borderWidth = 0;
-//    [self.codeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
-//    [self.codeBtn setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
-////    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
-   
-//    [self.timer invalidate];
-//    self.timer = nil;
-//    [self.speechVerificationCodeBtn setTitle:@"获取语音验证码" forState:UIControlStateNormal];
-//    [self.speechVerificationCodeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-//    [self.codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
-//    [self.codeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [self.codeBtn setBackgroundColor:RGB(245, 81, 81)];
-//    self.codeBtn.layer.cornerRadius = kScrAdaptationW750(8);
-//    self.codeBtn.layer.masksToBounds = YES;
-//    self.speechVerificationCodeBtn.enabled = YES;
-//    self.codeBtn.enabled = YES;
     [self enabledBtns];
     if (self.getSpeechVerificationCodeBlock) {
         self.getSpeechVerificationCodeBlock();
