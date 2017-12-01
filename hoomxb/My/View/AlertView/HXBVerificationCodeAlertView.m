@@ -39,10 +39,6 @@
         [self setupSubViewFrame];
         self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
         [self getVerificationCode];
-//        [self getSpeechVerificationCode];
-//        if (_isSpeechVerificationCode) {
-//            [self getSpeechVerificationCode];
-//        }
     }
     return self;
 }
@@ -55,6 +51,7 @@
         
     }
 }
+
 -(void)setIsSpeechVerificationCode:(BOOL)isSpeechVerificationCode{
     _isSpeechVerificationCode = isSpeechVerificationCode;
     self.speechVerificationCodeLab.hidden = !isSpeechVerificationCode;
@@ -72,10 +69,20 @@
             make.height.offset(kScrAdaptationH(12));
         }];
     }
-//    if (isSpeechVerificationCode) {
-//        [self getSpeechVerificationCode];
-//    }
 }
+
+- (void)setLineColor:(UIColor *)lineColor
+{
+    _lineColor = lineColor;
+    self.line.backgroundColor = lineColor;
+}
+
+- (void)setDelegate:(id<UITextFieldDelegate>)delegate
+{
+    _delegate = delegate;
+    self.textField.delegate = delegate;
+}
+
 - (void)setupSubViewFrame
 {
     [self.codeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -98,32 +105,45 @@
     }];
 }
 
-- (void)setLineColor:(UIColor *)lineColor
-{
-    _lineColor = lineColor;
-    self.line.backgroundColor = lineColor;
+- (void)enabledBtns{
+    self.codeBtn.enabled = YES;
+    [self.codeBtn setBackgroundColor:[UIColor whiteColor]];
+    self.codeBtn.layer.borderWidth = kXYBorderWidth;
+    self.codeBtn.layer.borderColor = COR29.CGColor;
+    [self.codeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
+    [self.codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
+    self.codeBtn.layer.cornerRadius = kScrAdaptationW750(8);
+    self.codeBtn.layer.masksToBounds = YES;
+    self.speechVerificationCodeBtn.enabled = YES;
+    [self.speechVerificationCodeBtn setTitle:@"获取语音验证码" forState:UIControlStateNormal];
+    [self.speechVerificationCodeBtn setTitleColor:RGB(45, 121, 243) forState:UIControlStateNormal];
+    if (self.timer.isValid) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
 }
 
-- (void)setDelegate:(id<UITextFieldDelegate>)delegate
-{
-    _delegate = delegate;
-    self.textField.delegate = delegate;
-}
-- (void)getSpeechVerificationCode
-{
+- (void)disEnabledBtns{
     self.speechVerificationCodeBtn.enabled = NO;
     [self.speechVerificationCodeBtn setTitleColor:RGB(153, 153, 153) forState:UIControlStateNormal];
     self.codeBtn.enabled = NO;
-    self.count = 60;
     [self.codeBtn setBackgroundColor:COR12];
     self.codeBtn.layer.borderWidth = 0;
     [self.codeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    self.count = 60;
     [self.codeBtn setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
+    [self.timer fire];
+}
+
+- (void)getSpeechVerificationCode
+{
+    [self enabledBtns];
     if (self.getSpeechVerificationCodeBlock) {
         self.getSpeechVerificationCodeBlock();
+        NSLog(@"");
     }
 }
+
 - (void)getVerificationCode
 {
     if (self.isSpeechVerificationCode) {
@@ -136,7 +156,8 @@
     self.codeBtn.layer.borderWidth = 0;
     [self.codeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [self.codeBtn setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
+    [self.timer fire];
+//    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
     if (self.getVerificationCodeBlock) {
         self.getVerificationCodeBlock();
     }
@@ -172,6 +193,15 @@
 
 
 #pragma mark - 懒加载
+
+- (NSTimer *) timer {
+    if (!_timer) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+    }
+    return _timer;
+}
+
 -(UILabel *)speechVerificationCodeLab{
     if (!_speechVerificationCodeLab) {
         _speechVerificationCodeLab = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -190,7 +220,7 @@
         _speechVerificationCodeBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
         _speechVerificationCodeBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
         [_speechVerificationCodeBtn setTitle:@"获取语音验证码" forState:UIControlStateNormal];
-        [_speechVerificationCodeBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [_speechVerificationCodeBtn setTitleColor:RGB(153, 153, 153) forState:UIControlStateNormal];
         [_speechVerificationCodeBtn.titleLabel setFont:kHXBFont_PINGFANGSC_REGULAR(12)];
         [_speechVerificationCodeBtn addTarget:self action:@selector(getSpeechVerificationCode) forControlEvents:UIControlEventTouchUpInside];//点击 获得语音验证码的事件处理
     }
@@ -204,7 +234,7 @@
         [_codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
         [_codeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_codeBtn addTarget:self action:@selector(getVerificationCode) forControlEvents:UIControlEventTouchUpInside];
-        [_codeBtn setBackgroundColor:RGB(245, 81, 81)];
+        [_codeBtn setBackgroundColor:COR12];
         _codeBtn.layer.cornerRadius = kScrAdaptationW750(8);
         _codeBtn.layer.masksToBounds = YES;
         

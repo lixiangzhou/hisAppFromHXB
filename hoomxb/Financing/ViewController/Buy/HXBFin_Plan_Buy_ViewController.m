@@ -276,9 +276,25 @@ static const NSInteger topView_high = 300;
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     NSString *type = _isClickSpeechVerificationCode ? @"voice" : @"sms";
     [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:type andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
-        
+        if (_isClickSpeechVerificationCode) {
+            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
+        } else {
+            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
+        }
         [weakSelf alertSmsCode];
+        [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
     } andFailureBlock:^(NSError *error) {
+        NSLog(@"*****error:%@****",error);
+        NSInteger errorCode = 0;
+        if ([error isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dic = (NSDictionary *)error;
+            errorCode = [dic[@"status"] integerValue];
+        }else{
+            errorCode = error.code;
+        }
+        if (errorCode != kHXBCode_Success) {
+            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
+        }
     }];
 }
 
@@ -309,16 +325,21 @@ static const NSInteger topView_high = 300;
         self.alertVC.getVerificationCodeBlock = ^{
             _isClickSpeechVerificationCode = NO;
             _isSpeechVerificationCode = YES;
-            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
+//            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
+            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf sendSmsCodeWithMoney:rechargeMoney];
         };
         self.alertVC.getSpeechVerificationCodeBlock = ^{
             _isClickSpeechVerificationCode = YES;
             _isSpeechVerificationCode = YES;
-            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
+//            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
+            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf sendSmsCodeWithMoney:rechargeMoney];
         };
-        
+        self.alertVC.cancelBtnClickBlock = ^{
+            _isClickSpeechVerificationCode = NO;
+            _isSpeechVerificationCode = NO;
+        };
         [self presentViewController:self.alertVC animated:NO completion:nil];
     }
 }

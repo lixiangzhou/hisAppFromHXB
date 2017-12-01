@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HXBVerificationCodeAlertView.h"
 @interface HXBAlertVC : UIViewController
-
+@property (nonatomic, strong) HXBVerificationCodeAlertView *verificationCodeAlertView;
 /**
  messagetitle
  */
@@ -57,5 +57,6 @@
  getVerificationCodeBlock
  */
 @property (nonatomic, copy) void(^getVerificationCodeBlock)();
+@property (nonatomic, copy) void (^cancelBtnClickBlock)();
 
 @end

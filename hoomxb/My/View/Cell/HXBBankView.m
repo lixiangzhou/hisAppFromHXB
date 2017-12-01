@@ -100,7 +100,7 @@
         if (bankCardModel.name.length > 4) {
             weakSelf.realName.text = [NSString stringWithFormat:@"持卡人：***%@",[bankCardModel.name substringFromIndex:bankCardModel.name.length - 1]];
         }
-        weakSelf.bankNum.text = [bankCardModel.cardId hxb_hiddenBankCard];
+        weakSelf.bankNum.text = [bankCardModel.cardId stringByReplacingOccurrencesOfString:[bankCardModel.cardId substringWithRange:NSMakeRange(0,bankCardModel.cardId.length - 4)]withString:@"****   ****   ****   "];
         weakSelf.bankTip.text = bankCardModel.quota;
         
         if (weakSelf.unbundBankBlock) {

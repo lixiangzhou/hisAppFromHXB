@@ -36,7 +36,7 @@
 
 @property (nonatomic, strong) UIButton *backBtn;
 
-@property (nonatomic, strong) HXBVerificationCodeAlertView *verificationCodeAlertView;
+//@property (nonatomic, strong) HXBVerificationCodeAlertView *verificationCodeAlertView;
 
 @property (nonatomic, strong) UILabel *mobileLabel;
 
@@ -425,8 +425,10 @@
 
 - (void)dismiss
 {
+    if (self.cancelBtnClickBlock) {
+        self.cancelBtnClickBlock();
+    }
     [self dismissViewControllerAnimated:NO completion:^{
-        
     }];
 }
 #pragma mark - <HBAlertPasswordViewDelegate>
