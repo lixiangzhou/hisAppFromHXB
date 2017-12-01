@@ -29,6 +29,7 @@ typedef void(^isLimitText)(NSString *text1);
 @property (nonatomic, assign) int number; // 必须要设置
 @property (nonatomic, assign) int limitStringLength;
 @property (nonatomic, assign) BOOL disableEdit;
+@property (nonatomic, assign) BOOL hideEye;
 /// 清除按钮距离右边的距离
 @property (nonatomic, assign) NSInteger clearRightMargin;
 // 是否大字号展示

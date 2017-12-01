@@ -297,6 +297,10 @@
     self.textField.textColor = textColor;
 }
 
+- (void)setHideEye:(BOOL)hideEye {
+    _hideEye = hideEye;
+    self.eyeBtn.hidden = hideEye;
+}
 
 - (NSString *)text
 {

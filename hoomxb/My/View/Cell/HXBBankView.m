@@ -84,7 +84,7 @@
     NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
     bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
     bankCardAPI.requestMethod = NYRequestMethodGet;
-    [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [bankCardAPI startWithHUDStr:@"加载中..." Success:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {

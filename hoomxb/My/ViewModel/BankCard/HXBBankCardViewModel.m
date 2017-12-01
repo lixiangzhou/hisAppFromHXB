@@ -46,7 +46,7 @@
         }
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-        
+        finishBlock(NO, nil, NO);
     }];
 }
 
