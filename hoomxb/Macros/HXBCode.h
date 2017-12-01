@@ -24,6 +24,8 @@ typedef enum : NSUInteger {
     kHXBCode_Enum_NotSigin = 402,
     /// token 单点登录
     kHXBCode_Enum_SingleLogin = 409,
+    ///图验次数超限
+    kHXBCode_Enum_CaptchaTransfinite = 411,
     ///服务器时间与系统时间相差过大
     kHXBCode_Enum_RequestOverrun = 412,
     //没有连接网络

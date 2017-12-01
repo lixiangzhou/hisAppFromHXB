@@ -33,4 +33,7 @@
 /** 协议 */
 @property (nonatomic, assign) id<UITextFieldDelegate> delegate;
 
+- (void)enabledBtns;//使能“发送验证码”和“获取语音验证码”按钮
+- (void)disEnabledBtns;//取消使能“发送验证码”和“获取语音验证码”按钮
+
 @end

@@ -92,12 +92,12 @@
                 registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
                 
                 [registerAlertVC verificationCodeBtnWithBlock:^{
-                    weakSelf.smscodeView.isSendSpeechCode = NO;
+//                    weakSelf.smscodeView.isSendSpeechCode = NO;
                     [weakSelf sendSmscode:@"sms"];
                     [weakSelf.smscodeView clickSendButton:nil];
                 }];
                 [registerAlertVC speechVerificationCodeBtnWithBlock:^{
-                    weakSelf.smscodeView.isSendSpeechCode = YES;
+//                    weakSelf.smscodeView.isSendSpeechCode = YES;
                     [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
                     [weakSelf.smscodeView clickSendButton:nil];
                 }];
@@ -126,16 +126,27 @@
                 {
                     NSLog(@"注册");
                     weakSelf.smscodeView.startsCountdown = YES;
+                    if ([typeStr isEqualToString:@"sms"]) {
+                        weakSelf.smscodeView.isSendSpeechCode = NO;
+                    } else if([typeStr isEqualToString:@"voice"]){
+                        weakSelf.smscodeView.isSendSpeechCode = YES;
+                    }
                 }
                     break;
             }
         } andFailureBlock:^(NSError *error) {
             kNetWorkError(@"短信发送失败");
             weakSelf.smscodeView.startsCountdown = NO;
-            
-            NSDictionary *dic = (NSDictionary *)error;
-            NSString *status = [NSString stringWithFormat:@"%@",dic[@"status"]];
-            if ([status isEqualToString:@"411"]) {
+            weakSelf.smscodeView.isSendSpeechCode = NO;
+            NSInteger errorCode = 0;
+            if ([error isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dic = (NSDictionary *)error;
+                errorCode = [dic[@"status"] integerValue];
+            }else{
+                errorCode = error.code;
+            }
+        
+            if (errorCode == kHXBCode_Enum_CaptchaTransfinite) {
                 self.checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
                 [self.checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
                     weakSelf.captcha = checkPaptcha;

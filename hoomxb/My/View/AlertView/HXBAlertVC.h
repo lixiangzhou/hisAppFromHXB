@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "HXBVerificationCodeAlertView.h"
 @interface HXBAlertVC : UIViewController
-
+@property (nonatomic, strong) HXBVerificationCodeAlertView *verificationCodeAlertView;
 /**
  messagetitle
  */

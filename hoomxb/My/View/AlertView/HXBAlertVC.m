@@ -36,7 +36,7 @@
 
 @property (nonatomic, strong) UIButton *backBtn;
 
-@property (nonatomic, strong) HXBVerificationCodeAlertView *verificationCodeAlertView;
+//@property (nonatomic, strong) HXBVerificationCodeAlertView *verificationCodeAlertView;
 
 @property (nonatomic, strong) UILabel *mobileLabel;
 
