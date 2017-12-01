@@ -42,11 +42,10 @@
         self.tipLabel.text = @"您在红小宝平台充值，提现均会使用该卡";
         [self.view addSubview:self.bankView];
         [self.view addSubview:self.phoneBtn];
+        [self setupRightBarBtn];
         kWeakSelf
         self.bankView.unbundBankBlock = ^(HXBBankCardModel *bankCardModel) {
             weakSelf.bankCardModel = bankCardModel;
-            [weakSelf checkUnbundlingInfo:bankCardModel];
-            
         };
         [self setupBankViewFrame];
     }else
@@ -61,6 +60,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isColourGradientNavigationBar = YES;
+    
     [self loadUserInfo];
 }
 
@@ -75,9 +75,13 @@
 }
 
 - (void)clickUnbundBankBtn:(UIButton *)sender {
-    HXBUnBindCardController *VC = [HXBUnBindCardController new];
-    VC.bankCardModel = self.bankCardModel;
-    [self.navigationController pushViewController:VC animated:YES];
+    if (!self.bankCardModel.enableUnbind) {
+        [HxbHUDProgress showTextWithMessage:self.bankCardModel.enableUnbindReason];
+    } else {
+        HXBUnBindCardController *VC = [HXBUnBindCardController new];
+        VC.bankCardModel = self.bankCardModel;
+        [self.navigationController pushViewController:VC animated:YES];
+    }
 }
 
 - (void)setupBankViewFrame
@@ -129,14 +133,6 @@
 }
 
 #pragma mark - 事件处理
-
-- (void)checkUnbundlingInfo:(HXBBankCardModel *)bankCardModel {
-    if (!self.bankCardModel.enableUnbind) {
-        [HxbHUDProgress showTextWithMessage:self.bankCardModel.enableUnbindReason];
-    } else {
-        [self setupRightBarBtn];
-    }
-}
 
 - (void)phoneBtnClick
 {
