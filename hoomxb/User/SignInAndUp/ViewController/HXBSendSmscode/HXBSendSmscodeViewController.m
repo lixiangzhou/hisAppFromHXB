@@ -89,7 +89,7 @@
                 
                 registerAlertVC.messageTitle = @"获取语音验证码";
                 registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
-                
+                registerAlertVC.type = @"注册验证码";
                 [registerAlertVC verificationCodeBtnWithBlock:^{
 //                    weakSelf.smscodeView.isSendSpeechCode = NO;
                     [weakSelf sendSmscode:@"sms"];
@@ -164,6 +164,7 @@
                             registerAlertVC = [[HXBRegisterAlertVC alloc] init];
                             [self presentViewController:registerAlertVC animated:NO completion:nil];
                         }
+                        registerAlertVC.type = @"注册验证码";
                         registerAlertVC.messageTitle = @"获取语音验证码";
                         registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
                         

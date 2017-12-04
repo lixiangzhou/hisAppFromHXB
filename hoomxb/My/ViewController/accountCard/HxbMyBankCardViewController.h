@@ -15,6 +15,7 @@
  是否显示银行卡界面
  */
 @property (nonatomic, assign) BOOL isBank;
+@property (nonatomic, copy) NSString *isCashPasswordPassed;//是否有交易密码
 // 返回的页面类名
 @property (nonatomic, copy) NSString *className;
 

@@ -14,6 +14,8 @@
 #import "HxbWithdrawViewController.h"
 #import "HXBModifyTransactionPasswordViewController.h"//修改手机号
 #import "HXBBankCardModel.h"
+#import "HxbAccountInfoViewController.h"
+
 @interface HXBOpenDepositAccountViewController ()<UITableViewDelegate>
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
@@ -149,7 +151,16 @@
             [self.navigationController pushViewController:withdrawViewController animated:YES];
         }else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
         {
-            [self.navigationController popViewControllerAnimated:YES];
+            if (_isFromUnbundBank) {
+                for (UIViewController *controller in self.navigationController.viewControllers) {
+                    if ([controller isKindOfClass:[HxbAccountInfoViewController class]]) {
+                        HxbAccountInfoViewController *accountInfoVC = (HxbAccountInfoViewController *)controller;
+                        [self.navigationController popToViewController:accountInfoVC animated:YES];
+                    }
+                }
+            } else {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_signup)
         {
             [self dismissViewControllerAnimated:YES completion:nil];

@@ -184,6 +184,7 @@ UITableViewDataSource
             //已开通
             HxbMyBankCardViewController *myBankCardViewVC = [[HxbMyBankCardViewController alloc]init];
             myBankCardViewVC.isBank = isbankView;
+            myBankCardViewVC.isCashPasswordPassed = self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed;//是否设定交易密码
             [self.navigationController pushViewController:myBankCardViewVC animated:YES];
         }else if(![self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]){
             //完善信息
