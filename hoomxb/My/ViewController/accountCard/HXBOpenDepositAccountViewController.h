@@ -16,5 +16,6 @@
 @property (nonatomic, assign) HXBRechargeAndWithdrawalsLogicalJudgment type;
 //用户信息
 //@property (nonatomic, strong) HXBRequestUserInfoViewModel *userModel;
+@property (nonatomic, assign) BOOL isFromUnbundBank;//是否来自银行卡解绑页面
 
 @end
