@@ -431,6 +431,7 @@
     [self dismissViewControllerAnimated:NO completion:^{
     }];
 }
+
 #pragma mark - <HBAlertPasswordViewDelegate>
 - (void)sureActionWithAlertPasswordView:(HBAlertPasswordView *)alertPasswordView password:(NSString *)password {
     

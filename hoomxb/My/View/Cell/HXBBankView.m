@@ -31,7 +31,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW(355), kScrAdaptationH(170))];
+        self.backImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScrAdaptationW(345), kScrAdaptationH(170))];
         self.backImageView.image = [UIImage imageNamed:@"hxb_card_bg"];
         [self addSubview:self.backImageView];
 
@@ -49,7 +49,7 @@
 - (void)setupSubViewFrame
 {
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(kScrAdaptationW(20));
+        make.left.equalTo(self).offset(kScrAdaptationW(30));
         make.top.equalTo(self).offset(kScrAdaptationH(20));
         make.width.offset(kScrAdaptationW(40));
         make.height.offset(kScrAdaptationW(40));
@@ -66,14 +66,14 @@
     }];
     [self.bankNum mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.iconView.mas_left);
-        make.right.equalTo(self).offset(-kScrAdaptationH(20));
+        make.right.equalTo(self).offset(-kScrAdaptationH(30));
         make.top.equalTo(self.iconView.mas_bottom).offset(kScrAdaptationH(20));
         make.height.offset(kScrAdaptationH(31));
     }];
     [self.bankTip mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.iconView.mas_left);
         make.top.equalTo(self.bankNum.mas_bottom).offset(kScrAdaptationH(20));
-        make.right.equalTo(self);
+        make.right.equalTo(self).offset(-kScrAdaptationH(30));
         make.height.offset(kScrAdaptationH(16));
     }];
 }
@@ -100,14 +100,14 @@
         if (bankCardModel.name.length > 4) {
             weakSelf.realName.text = [NSString stringWithFormat:@"持卡人：***%@",[bankCardModel.name substringFromIndex:bankCardModel.name.length - 1]];
         }
-        
+        weakSelf.bankNum.textAlignment = NSTextAlignmentCenter;
         NSString *str = [bankCardModel.cardId stringByReplacingOccurrencesOfString:[bankCardModel.cardId substringWithRange:NSMakeRange(0,bankCardModel.cardId.length - 4)]withString:@"****  ****  ****  "];
         NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
         [style setLineBreakMode:NSLineBreakByCharWrapping];
         NSDictionary *attribute = @{NSFontAttributeName: kHXBFont_PINGFANGSC_REGULAR(24),NSParagraphStyleAttributeName:style};
         CGSize size = [str boundingRectWithSize:CGSizeMake(weakSelf.bankNum.bounds.size.width, kScrAdaptationH(31)) options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
         float width = weakSelf.bankNum.bounds.size.width - ceil(size.width);
-        float space = width / (str.length+1);
+        float space = width / (str.length-1);
         weakSelf.bankNum.text = str;
         [self changeWordSpaceForLabel:weakSelf.bankNum WithSpace:space];
         weakSelf.bankTip.text = bankCardModel.quota;
