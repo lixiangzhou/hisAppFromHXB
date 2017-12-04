@@ -85,30 +85,25 @@
                 [weakSelf sendSmscode:@"sms"];
             } else {
                 HXBRegisterAlertVC *registerAlertVC = [[HXBRegisterAlertVC alloc] init];
-                [self presentViewController:registerAlertVC animated:NO completion:nil];
+                [weakSelf presentViewController:registerAlertVC animated:NO completion:nil];
                 
                 registerAlertVC.messageTitle = @"获取语音验证码";
                 registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
                 registerAlertVC.type = @"注册验证码";
                 [registerAlertVC verificationCodeBtnWithBlock:^{
-//                    weakSelf.smscodeView.isSendSpeechCode = NO;
                     [weakSelf sendSmscode:@"sms"];
                     [weakSelf.smscodeView clickSendButton:nil];
                 }];
                 [registerAlertVC speechVerificationCodeBtnWithBlock:^{
-//                    weakSelf.smscodeView.isSendSpeechCode = YES;
-                    [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
+                    [weakSelf sendSmscode:@"voice"];//获取语音验证码
                     [weakSelf.smscodeView clickSendButton:nil];
                 }];
                 [registerAlertVC cancelBtnWithBlock:^{
-                    //
                     weakSelf.smscodeView.startsCountdown = NO;
                     NSLog(@"点击取消按钮");
                 }];
             }
-            
         }];
-
 }
 
 - (void)sendSmscode:(NSString *)typeStr {
@@ -148,21 +143,21 @@
             }
         
             if (errorCode == kHXBCode_Enum_CaptchaTransfinite) {
-                self.checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
-                [self.checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
+                weakSelf.checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
+                [weakSelf.checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
                     weakSelf.captcha = checkPaptcha;
                     NSLog(@"发送 验证码");
                     
                     [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
                         
                         HXBRegisterAlertVC *registerAlertVC = nil;
-                        if (self.presentedViewController)
+                        if (weakSelf.presentedViewController)
                         {
-                            registerAlertVC = (HXBRegisterAlertVC *)self.presentedViewController;
+                            registerAlertVC = (HXBRegisterAlertVC *)weakSelf.presentedViewController;
                         }else
                         {
                             registerAlertVC = [[HXBRegisterAlertVC alloc] init];
-                            [self presentViewController:registerAlertVC animated:NO completion:nil];
+                            [weakSelf presentViewController:registerAlertVC animated:NO completion:nil];
                         }
                         registerAlertVC.type = @"注册验证码";
                         registerAlertVC.messageTitle = @"获取语音验证码";
@@ -176,11 +171,10 @@
                         [registerAlertVC speechVerificationCodeBtnWithBlock:^{
                             
                             [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
-                            
                             [weakSelf.smscodeView clickSendButton:nil];
                         }];
                         [registerAlertVC cancelBtnWithBlock:^{
-                            //
+    
                             weakSelf.smscodeView.startsCountdown = NO;
                             NSLog(@"点击取消按钮");
                         }];
