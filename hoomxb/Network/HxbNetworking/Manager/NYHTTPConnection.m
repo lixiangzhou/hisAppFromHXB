@@ -109,8 +109,8 @@
             [self getNewTokenWithRequest:request andWithError:error];
         } else {
             [self requestHandleFailure:request error:error];
-            [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
         }
+        [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
     };
     
     request.currentVC = [self topControllerWithRootController:KeyWindow.rootViewController];
@@ -253,8 +253,8 @@
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request
                                             completionHandler:
                                   ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                      if (!data) {
-                                          return ;
+                                      if (error) {
+                                          data = nil;
                                       }
                                       NSLog(@"data:%@",response);
                                       NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil]);

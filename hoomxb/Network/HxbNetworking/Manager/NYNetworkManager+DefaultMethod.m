@@ -24,14 +24,6 @@
     }
     
     switch (request.responseStatusCode) {
-//        case kHXBCode_Enum_NotSigin:///没有登录
-//        case kHXBCode_Enum_TokenNotJurisdiction: // token 失效
-//            [self tokenInvidateProcess];
-//            if (KeyChain.isLogin) {
-//                KeyChain.isLogin = NO;
-//                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
-//            }
-            return;
         case kHXBCode_Enum_NoServerFaile:
         {
             [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
@@ -105,13 +97,8 @@
     
     
     switch (request.responseStatusCode) {
-//        case kHXBCode_Enum_NotSigin:/// 没有登录
-//        case kHXBCode_Enum_TokenNotJurisdiction:// token 失效
-//            [self tokenInvidateProcess];
-//            if (KeyChain.isLogin) {
-//                KeyChain.isLogin = NO;
-//                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
-//            }
+        case kHXBCode_Enum_NotSigin:/// 没有登录
+        case kHXBCode_Enum_TokenNotJurisdiction:// token 失效
             return;
         case kHXBCode_Enum_RequestOverrun:
         {
