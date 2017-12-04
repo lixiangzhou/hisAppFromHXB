@@ -81,7 +81,7 @@
     if ([self.isCashPasswordPassed isEqualToString:@"0"]) { //未设置交易密码
         HXBRegisterAlertVC *registerAlertVC = [[HXBRegisterAlertVC alloc] init];
         [self presentViewController:registerAlertVC animated:NO completion:nil];
-        
+        kWeakSelf
         registerAlertVC.messageTitle = @"";
         registerAlertVC.subTitle = @"为了您的账户安全，请完善存管账户信息后再进行解绑操作";
         registerAlertVC.type = @"解绑未设置交易密码";
@@ -94,7 +94,7 @@
             openDepositAccountVC.title = @"完善信息";
             openDepositAccountVC.isFromUnbundBank = YES;
             openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-            [self.navigationController pushViewController:openDepositAccountVC animated:YES];
+            [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
         }];
         [registerAlertVC cancelBtnWithBlock:^{
             NSLog(@"点击取消按钮");
