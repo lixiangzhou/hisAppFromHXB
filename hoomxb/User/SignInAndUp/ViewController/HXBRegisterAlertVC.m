@@ -62,6 +62,20 @@
     _messageTitle = messageTitle;
     self.messageLab.text = messageTitle;
 }
+-(void)setType:(NSString *)type{
+    _type = type;
+    if ([_type isEqualToString:@"解绑未设置交易密码"]) {
+        [self.sendSMSCodeBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [self.answeringVoiceCodeBtn setTitle:@"确定" forState:UIControlStateNormal];
+        if (self.cancelBtn) {
+            self.cancelBtn.hidden = YES;
+        }
+    } else if([_type isEqualToString:@"注册验证码"]){
+        [self.sendSMSCodeBtn setTitle:@"获取短信" forState:UIControlStateNormal];
+         [self.answeringVoiceCodeBtn setTitle:@"接听电话" forState:UIControlStateNormal];
+    }
+}
+
 - (void)setupSubViewFrame
 {
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -143,7 +157,6 @@
 {
     if (!_answeringVoiceCodeBtn) {
         _answeringVoiceCodeBtn = [[UIButton alloc] init];
-        [_answeringVoiceCodeBtn setTitle:@"接听电话" forState:UIControlStateNormal];
         [_answeringVoiceCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_answeringVoiceCodeBtn addTarget:self action:@selector(answeringVoiceCodeClick) forControlEvents:UIControlEventTouchUpInside];
         [_answeringVoiceCodeBtn setBackgroundColor:RGB(245, 81, 81)];
@@ -160,7 +173,6 @@
 {
     if (!_sendSMSCodeBtn) {
         _sendSMSCodeBtn = [[UIButton alloc] init];
-        [_sendSMSCodeBtn setTitle:@"获取短信" forState:UIControlStateNormal];
         [_sendSMSCodeBtn setTitleColor:RGB(245, 81, 81) forState:UIControlStateNormal];
         [_sendSMSCodeBtn addTarget:self action:@selector(sendSMSCodeClick) forControlEvents:UIControlEventTouchUpInside];
         [_sendSMSCodeBtn setBackgroundColor:[UIColor whiteColor]];
