@@ -12,6 +12,8 @@
 #import "HXBTokenModel.h"
 #import <objc/runtime.h>
 #import "HxbHTTPSessionManager.h"
+#import "HXBBaseUrlManager.h"
+#import "HXBRootVCManager.h"
 #define Config [NYNetworkConfig sharedInstance]
 
 
@@ -61,7 +63,7 @@
     self.failture = failure;
     //现在的初始化代码
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
-    HxbHTTPSessionManager *manager = [[HxbHTTPSessionManager alloc] initWithSessionConfiguration:config];
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc] initWithSessionConfiguration:config];
     //    HxbHTTPSessionManager *manager = [HxbHTTPSessionManager manager]; //以前初始化代码
 
 //-------------------------------------------request----------------------------------------
@@ -101,10 +103,17 @@
     };
     
     void (^failureBlock)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) = ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self requestHandleFailure:request error:error];
-        [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)task.response;
+        ///获取code码，如果是401 那么表示token失效
+        if([httpResponse statusCode] == kHXBCode_Enum_TokenNotJurisdiction  || [httpResponse statusCode] == kHXBCode_Enum_NotSigin){
+            [self getNewTokenWithRequest:request andWithError:error];
+        } else {
+            [self requestHandleFailure:request error:error];
+            [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
+        }
     };
     
+    request.currentVC = [self topControllerWithRootController:KeyWindow.rootViewController];
     
     NSURLSessionDataTask *task = nil;
     switch (request.requestMethod) {
@@ -164,4 +173,95 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+#pragma - mark token失效
+- (void)getNewTokenWithRequest:(NYBaseRequest *)request andWithError:(NSError *)error{
+
+    //删除token 让客户登录
+    [[KeyChainManage sharedInstance] removeToken];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    
+        //调用refreshAccesstoken方法，刷新access token。
+        [self refreshAccessToken:^(NSData *data) {
+            if (!data) {
+                if (self.failture) {
+                    self.failture(self,error);
+                }
+                return ;
+            }
+            NSDictionary *dic = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:@"data"];
+            HXBTokenModel *model = [HXBTokenModel yy_modelWithJSON:dic];
+            NSLog(@"😝😝😝😝😝%@",model.token);
+            kNetWorkError(@"token失效");
+            
+            [KeyChain setToken:model.token];
+            
+            //退出登录
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //回到首页
+                [self tokenInvidateProcess];
+                if (request.currentVC) {
+                    [self connectWithRequest:request success:self.success failure:self.failture];
+                } else {
+                    if (self.failture) {
+                        self.failture(self,error);
+                    }
+                }
+            });
+        }];
+    });
+}
+
+
+- (void)tokenInvidateProcess {
+    // token 失效，静态登出并回到首页
+    if (KeyChain.isLogin) {
+        /// 退出登录，清空登录信息，回到首页
+        KeyChain.isLogin = NO;
+//        [KeyChain signOut];
+        
+        //单点登出之后dismiss最上层可能会有的控制器
+        [[HXBRootVCManager manager].mainTabbarVC.presentedViewController dismissViewControllerAnimated:NO completion:nil];
+        // 静态显示主TabVC的HomeVC
+        // 当前有tabVC的时候，会在tabVC中得到处理，显示HomeVC
+        // 如果没有创建tabVC的时候，不处理该通知，因为只有在tabVC中监听了该通知
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
+    }
+}
+
+#pragma mark - 获取最顶端控制器
+- (UIViewController *)topControllerWithRootController:(UIViewController *)rootController {
+    if ([rootController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabBarVC = (UITabBarController *)rootController;
+        return [self topControllerWithRootController:tabBarVC.selectedViewController];
+    } else if ([rootController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navigationVC = (UINavigationController *)rootController;
+        return [self topControllerWithRootController:navigationVC.visibleViewController];
+    } else if (rootController.presentedViewController) {
+        return [self topControllerWithRootController:rootController.presentedViewController];
+    } else {
+        return rootController;
+    }
+}
+
+#pragma - mark 获取token
+- (void)refreshAccessToken:(void(^)(NSData *data))refresh{
+    NSString *tokenURLString = [NSString stringWithFormat:@"%@%@",[HXBBaseUrlManager manager].baseUrl,TOKENURL];
+    NSURL *tokenURL =[NSURL URLWithString:tokenURLString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:tokenURL];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
+                                            completionHandler:
+                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
+                                      if (!data) {
+                                          return ;
+                                      }
+                                      NSLog(@"data:%@",response);
+                                      NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil]);
+                                      refresh(data);
+                                  }];
+    
+    [task resume];
+}
+
 @end

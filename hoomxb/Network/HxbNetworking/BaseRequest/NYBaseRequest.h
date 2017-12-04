@@ -73,6 +73,8 @@ typedef void (^FailureBlock)(NYBaseRequest *request, NSError *error);
 @property (nonatomic, assign) NYRequestSerializerType requestSerializerType;
 //请求超时时间
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
+//顶部控制器
+@property (nonatomic, weak) UIViewController *currentVC;
 
 
 //================================== response ==================================
