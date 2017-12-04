@@ -139,32 +139,33 @@
     [openDepositAccountRequest openDepositAccountRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
         if ([self.title isEqualToString:@"完善信息"]) {
             [HxbHUDProgress showTextWithMessage:@"提交成功"];
-        }else{
+        } else {
             [HxbHUDProgress showTextWithMessage:@"开户成功"];
         }
         if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
             HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
             [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-        }else if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
+        } else if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
             HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
             if (!KeyChain.isLogin)  return;
             [self.navigationController pushViewController:withdrawViewController animated:YES];
-        }else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
+        } else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
         {
             if (_isFromUnbundBank) {
                 for (UIViewController *controller in self.navigationController.viewControllers) {
                     if ([controller isKindOfClass:[HxbAccountInfoViewController class]]) {
                         HxbAccountInfoViewController *accountInfoVC = (HxbAccountInfoViewController *)controller;
                         [self.navigationController popToViewController:accountInfoVC animated:YES];
+                        break;
                     }
                 }
             } else {
                 [self.navigationController popViewControllerAnimated:YES];
             }
-        }else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_signup)
+        } else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_signup)
         {
             [self dismissViewControllerAnimated:YES completion:nil];
-        }else if (weakSelf.type == HXBChangePhone){
+        } else if (weakSelf.type == HXBChangePhone){
             HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
             modifyTransactionPasswordVC.title = @"修改绑定手机号";
             modifyTransactionPasswordVC.userInfoModel = self.userModel.userInfoModel;
