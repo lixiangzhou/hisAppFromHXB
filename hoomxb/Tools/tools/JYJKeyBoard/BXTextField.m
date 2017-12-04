@@ -17,6 +17,11 @@
 @property (nonatomic, assign) BOOL willShowKeyboard;
 
 @property (nonatomic, assign) BOOL displayingKeyboard;
+
+@property (nonatomic, assign) BOOL numberPadIsAppear;
+
+@property (nonatomic, strong) NSNotification *numberPadAppearNotification;
+
 @end
 
 @implementation BXTextField
@@ -36,9 +41,9 @@
 - (void)setup {
     self.keyboardType = UIKeyboardTypeNumberPad;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeginShow:) name:UITextFieldTextDidBeginEditingNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeginShow:) name:UITextFieldTextDidBeginEditingNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillEndShow:) name:UITextFieldTextDidEndEditingNotification object:nil];
 }
 
@@ -50,32 +55,33 @@
 - (void)keyboardWillBeginShow:(NSNotification *)notification {
     if (self.keyboardType != UIKeyboardTypeNumberPad) return;
     self.willShowKeyboard = notification.object == self;
-}
-
-
-- (void)keyboardWillEndShow:(NSNotification *)notification {
-    if (self.keyboardType != UIKeyboardTypeNumberPad) return;
-    self.willShowKeyboard = NO;
-    NSDictionary *userInfo = [notification userInfo];
-    CGFloat animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    NSInteger animationCurve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
-    // 添加动画
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationBeginsFromCurrentState:YES];
-    [UIView setAnimationDuration:animationDuration];
-    [UIView setAnimationCurve:animationCurve];
-    self.doneButton.transform = CGAffineTransformIdentity;
-    [self.doneButton removeFromSuperview];
-    [UIView commitAnimations];
+    
+    /* 这个方法永远都走，如果数字键盘已经出现，keyboardWillShow方法默认不执行，导致出现X不显示
+        所以设置一个变量用于存放是否已经有数字键盘
+        如果有数字键盘且记录self对象，执行keyboardWillShow，在视图上面加X按钮
+     
+        更换键盘类型或者隐藏键盘的时候，更改numberPadIsAppear，成为默认值
+     */
+    if (self.numberPadIsAppear) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self keyboardWillShow:self.numberPadAppearNotification];
+        });
+    }
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification {
-    if (self.keyboardType != UIKeyboardTypeNumberPad) return;
+    
+    if (self.keyboardType != UIKeyboardTypeNumberPad) {
+        return;
+    } else {
+        self.numberPadIsAppear = YES;
+        self.numberPadAppearNotification = notification;
+    }
+    
     if (!self.willShowKeyboard) {
         self.displayingKeyboard = YES;
         return;
     }
-    NSLog(@"%zd", self.displayingKeyboard);
     [self.doneButton removeFromSuperview];
     self.doneButton = nil;
 
@@ -89,7 +95,7 @@
     // 获取到最上层的window,这句代码很关键
     UIWindow *tempWindow = [[[UIApplication sharedApplication] windows] objectAtIndex:1];
     
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] > 9.0) {
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0) {
         tempWindow = [[[UIApplication sharedApplication] windows] lastObject];
     }
     
@@ -150,7 +156,26 @@
     self.displayingKeyboard = YES;
 }
 
+- (void)keyboardWillEndShow:(NSNotification *)notification {
+    if (self.keyboardType != UIKeyboardTypeNumberPad) return;
+    self.willShowKeyboard = NO;
+    NSDictionary *userInfo = [notification userInfo];
+    CGFloat animationDuration = [[userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    NSInteger animationCurve = [[userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey] integerValue];
+    // 添加动画
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:animationDuration];
+    [UIView setAnimationCurve:animationCurve];
+    self.doneButton.transform = CGAffineTransformIdentity;
+    [self.doneButton removeFromSuperview];
+    [UIView commitAnimations];
+}
+
+
 - (void)keyboardWillHide:(NSNotification *)notification {
+    self.numberPadIsAppear = NO;
+    self.numberPadAppearNotification = nil;
     if (self.keyboardType != UIKeyboardTypeNumberPad) return;
     self.displayingKeyboard = NO;
 }
