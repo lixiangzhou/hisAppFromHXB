@@ -60,8 +60,9 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.isColourGradientNavigationBar = YES;
-    
-    [self loadUserInfo];
+    if (!self.isBank) {
+        [self loadUserInfo];
+    }
 }
 
 - (void)setupRightBarBtn {
@@ -92,8 +93,8 @@
         make.height.offset(kScrAdaptationH(45));
     }];
     [self.bankView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(kScrAdaptationW(10));
-        make.right.equalTo(self.view).offset(kScrAdaptationW(-10));
+        make.left.equalTo(self.view).offset(kScrAdaptationW(15));
+        make.right.equalTo(self.view).offset(kScrAdaptationW(-15));
         make.top.equalTo(self.tipLabel.mas_bottom);
         make.height.offset(kScrAdaptationH(162));
     }];

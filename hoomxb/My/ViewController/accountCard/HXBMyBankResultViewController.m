@@ -80,7 +80,7 @@
 - (void)setData {
     if (_isSuccess) {
         _bankImageView.image = [UIImage imageNamed:@"successful"];
-        [_actionButton setTitle:@"重新绑卡" forState:(UIControlStateNormal)];
+        [_actionButton setTitle:@"绑定新卡" forState:(UIControlStateNormal)];
         _bankTileLabel.text = @"解绑成功";
         _bankDescribeLabel.text = [NSString stringWithFormat:@"尾号%@的银行卡解绑成功", _mobileText];
     } else {
