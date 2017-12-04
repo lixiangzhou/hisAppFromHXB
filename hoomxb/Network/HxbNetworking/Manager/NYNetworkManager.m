@@ -34,7 +34,7 @@
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     HxbHUDProgress *hud = (content.length)? [HxbHUDProgress new]:nil;
     [hud showAnimationWithText:content];
-    NSLog(@"%@",request.requestHeaderFieldValueDictionary);
+    NSLog(@"%@",request.httpHeaderFields);
   
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
     [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
@@ -88,9 +88,9 @@
         }
         request.success(request,request.responseObject);
     }
-    if ([request.delegate respondsToSelector:@selector(requesetFinished:)]) {
-        [request.delegate requesetFinished:request];
-    }
+//    if ([request.delegate respondsToSelector:@selector(requesetFinished:)]) {
+//        [request.delegate requesetFinished:request];
+//    }
     [self clearRequestBlock:request];
 }
 
@@ -107,9 +107,9 @@
         }
         request.failure(request,request.error);
     }
-    if ([request.delegate respondsToSelector:@selector(requestFailed:)]) {
-        [request.delegate requestFailed:request];
-    }
+//    if ([request.delegate respondsToSelector:@selector(requestFailed:)]) {
+//        [request.delegate requestFailed:request];
+//    }
     [self clearRequestBlock:request];
 }
 

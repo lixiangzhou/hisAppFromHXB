@@ -8,19 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
-///服务器返回未知异常
+/// 服务器返回未知异常
 static  NSInteger const kResponseStatusError = 300000;
-///服务器返回的常用字段
+/// 服务器返回的常用字段
 static NSString *const kResponseStatus = @"status";
-///服务器返回的常用字段
+/// 服务器返回的常用字段
 static NSString *const kResponseData = @"data";
-///服务器返回的常用字段
+/// 服务器返回的常用字段
 static NSString *const kResponseDataList = @"dataList";
-///服务器返回的常用字段
+/// 服务器返回的常用字段
 static NSString *const kResponseMessage = @"message";
 
 @class NYBaseRequest;
-@class NYHTTPConnection;
+//@class NYHTTPConnection;
 
 //================================== 定义方法序列化枚举，成功失败回调 ==================================
 typedef NS_ENUM(NSInteger, NYRequestMethod){
@@ -30,88 +30,81 @@ typedef NS_ENUM(NSInteger, NYRequestMethod){
     NYRequestMethodDelete,
 };
 
-typedef NS_ENUM(NSInteger, NYRequestSerializerType){
-    NYRequestSerializerTypeHTTP = 0,
-    NYRequestSerializerTypeJson,
-};
+//typedef NS_ENUM(NSInteger, NYRequestSerializerType){
+//    NYRequestSerializerTypeHTTP = 0,
+//    NYRequestSerializerTypeJson,
+//};
+//
+//typedef NS_ENUM(NSInteger, NYResponseSerializerType){
+//    NYResponseSerializerTypeHTTP = 0,
+//    NYResponseSerializerTypeJson,
+//};
 
-typedef NS_ENUM(NSInteger, NYResponseSerializerType){
-    NYResponseSerializerTypeHTTP = 0,
-    NYResponseSerializerTypeJson,
-};
-
-typedef void (^SuccessBlock)(NYBaseRequest *request, NSDictionary *responseObject);
-typedef void (^FailureBlock)(NYBaseRequest *request, NSError *error);
-
-//==================================  请求完成代理方法 ==================================
-@protocol NYRequestDelegate <NSObject>
-
-@optional
-
-- (void)requesetFinished:(NYBaseRequest *)request;
-- (void)requestFailed:(NYBaseRequest *)request;
-
-@end
+typedef void (^HXBRequestSuccessBlock)(NYBaseRequest *request, NSDictionary *responseObject);
+typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 
 @interface NYBaseRequest : NSObject
 
-//================================== request ==================================
-@property (nonatomic, weak) NYHTTPConnection *connection;
+// ================================== request ==================================
+//@property (nonatomic, weak) NYHTTPConnection *connection;
 //请求方法 Get/Post
 @property (nonatomic, assign) NYRequestMethod requestMethod;
 //baseUrl之后的请求Url
 @property (nonatomic, copy) NSString *requestUrl;
 //baseUrl，如http://api.hoomxb.com
 @property (nonatomic, copy) NSString *baseUrl;
-//最终请求时传的Url，根据baseUrl的有无来生成
-@property (nonatomic, copy, readonly) NSURL *url;
 //请求参数字典
 @property (nonatomic, strong) id requestArgument;
 //向请求头中添加的附加信息，除token、version等公共信息
-@property (nonatomic, copy) NSDictionary *requestHeaderFieldValueDictionary;
-//请求序列化类型
-@property (nonatomic, assign) NYRequestSerializerType requestSerializerType;
+@property (nonatomic, copy) NSDictionary *httpHeaderFields;
 //请求超时时间
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
 
 
 //================================== response ==================================
 //响应序列化类型
-@property (nonatomic, assign) NYResponseSerializerType responseSerializerType;
+//@property (nonatomic, assign) NYResponseSerializerType responseSerializerType;
 //响应状态码，如403
-@property (nonatomic, assign, readonly) NSInteger responseStatusCode;
+@property (nonatomic, assign) NSInteger responseStatusCode;
 //响应头
-@property (nonatomic, copy, readonly) NSDictionary *responseHeaderFieldValueDictionary;
+@property (nonatomic, copy) NSDictionary *responseHeaderFieldValueDictionary;
 //回调成功内容
 @property (nonatomic, strong) id responseObject;
 //回调失败错误
 @property (nonatomic, strong) NSError *error;
+/// 请求对应的任务
+@property (nonatomic, strong) NSURLSessionDataTask *dataTask;
+
+
+
+
 
 
 //================================== callback ==================================
 //返回成功回调
-@property (nonatomic, copy) SuccessBlock success;
+@property (nonatomic, copy) HXBRequestSuccessBlock success;
 /**
  自定义特殊状态拦截返回成功回调
  */
-@property (nonatomic, copy) SuccessBlock customCodeSuccessBlock;
+@property (nonatomic, copy) HXBRequestSuccessBlock customCodeSuccessBlock;
 //返回失败回调
-@property (nonatomic, copy) FailureBlock failure;
+@property (nonatomic, copy) HXBRequestFailureBlock failure;
 /**
  自定义特殊状态拦截返回失败回调
  */
-@property (nonatomic, copy) FailureBlock customCodeFailureBlock;
-//代理
-@property (nonatomic, weak) id<NYRequestDelegate> delegate;
+@property (nonatomic, copy) HXBRequestFailureBlock customCodeFailureBlock;
 
 
 //================================== function ==================================
 - (void)start;
 
-- (void)startWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void)startWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
 
-- (void)startWithHUDStr:(NSString *)string Success:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void)startWithHUDStr:(NSString *)string Success:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
 
-- (void)startAnimationWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void)startAnimationWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
+
+
+- (NYBaseRequest *)copyRequest;
 
 @end

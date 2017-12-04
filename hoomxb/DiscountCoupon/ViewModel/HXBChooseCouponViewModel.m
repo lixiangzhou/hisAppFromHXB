@@ -52,6 +52,6 @@
             failureBlock(error);
         }
     }];
-    return accountAsseAPI.connection.task; // 返回当前的请求任务
+    return accountAsseAPI.dataTask; // 返回当前的请求任务
 }
 @end

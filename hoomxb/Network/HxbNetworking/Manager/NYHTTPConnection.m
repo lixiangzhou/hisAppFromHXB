@@ -48,7 +48,7 @@
 {
     NSMutableDictionary *headers = [Config.additionalHeaderFields mutableCopy];
 
-    [request.requestHeaderFieldValueDictionary enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+    [request.httpHeaderFields enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
         [headers setObject:obj forKey:key];
     }];
     return headers;
@@ -65,7 +65,7 @@
     //    HxbHTTPSessionManager *manager = [HxbHTTPSessionManager manager]; //以前初始化代码
 
 //-------------------------------------------request----------------------------------------
-    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+//    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     NSLog(@"manager = %@",manager);
     manager.requestSerializer.timeoutInterval = 30;
     
@@ -77,11 +77,11 @@
     }];
     
 //--------------------------------------------response----------------------------------------
-    if (request.responseSerializerType == NYResponseSerializerTypeHTTP) {
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    }else if (request.responseSerializerType == NYResponseSerializerTypeJson){
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    }
+//    if (request.responseSerializerType == NYResponseSerializerTypeHTTP) {
+//        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    }else if (request.responseSerializerType == NYResponseSerializerTypeJson){
+//        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//    }
     manager.responseSerializer.acceptableStatusCodes = Config.defaultAcceptableStatusCodes;
     manager.responseSerializer.acceptableContentTypes = Config.defaultAcceptableContentTypes;
     
@@ -135,7 +135,7 @@
     }
     [self.dispatchTable setObject:task forKey:@(task.taskIdentifier)];
     self.task = task;
-    request.connection = self;
+//    request.connection = self;
 }
 
 - (void)requestHandleSuccess:(NYBaseRequest *)request responseObject:(id)object
