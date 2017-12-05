@@ -105,7 +105,7 @@
     void (^failureBlock)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) = ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse*)task.response;
         ///获取code码，如果是401 那么表示token失效
-        if([httpResponse statusCode] == kHXBCode_Enum_TokenNotJurisdiction  || [httpResponse statusCode] == kHXBCode_Enum_NotSigin){
+        if([httpResponse statusCode] == kHXBCode_Enum_TokenNotJurisdiction){
             [self getNewTokenWithRequest:request andWithError:error];
         } else {
             [self requestHandleFailure:request error:error];
@@ -113,8 +113,7 @@
         [self.dispatchTable removeObjectForKey:@(task.taskIdentifier)];
     };
     
-    request.currentVC = [self topControllerWithRootController:KeyWindow.rootViewController];
-    
+
     NSURLSessionDataTask *task = nil;
     switch (request.requestMethod) {
         case NYRequestMethodGet:
@@ -197,14 +196,19 @@
             
             //退出登录
             dispatch_async(dispatch_get_main_queue(), ^{
+                
+                UINavigationController *tabbarSelectedVC = (UINavigationController *)[HXBRootVCManager manager].mainTabbarVC.selectedViewController;
+                //记录回到首页之前是否有顶部控制器
+                NSInteger viewControllersCount = tabbarSelectedVC.viewControllers.count;
                 //回到首页
                 [self tokenInvidateProcess];
-                if (request.currentVC) {
-                    [self connectWithRequest:request success:self.success failure:self.failture];
-                } else {
+                
+                if (viewControllersCount>1) {
                     if (self.failture) {
                         self.failture(self,error);
                     }
+                } else {
+                    [self connectWithRequest:request success:self.success failure:self.failture];
                 }
             });
         }];
