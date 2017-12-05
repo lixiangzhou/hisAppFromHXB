@@ -141,6 +141,7 @@
             self.nodataView.hidden = NO;
             _sectionHeadView.hidden = YES;
         }
+        [_tableView reloadData];
     }];
 }
 
