@@ -8,6 +8,7 @@
 
 #import "NYBaseRequest.h"
 
+@interface NYBaseRequest (HXB)
 /*
  快速发送请求
  内部调用的是 requestWithRequestUrl:(NSString *)requestUrl param:(NSDictionary *)param method:(NYRequestMethod)method configRequestBlock:(void (^)(NYBaseRequest *request))configRequestBlock success:(SuccessBlock)success failure:(FailureBlock)failure

@@ -9,7 +9,6 @@
 #import "NSDictionary+HXBResponse.h"
 
 @implementation NSDictionary (HXBResponse)
-@implementation NSDictionary (HXBResponse)
 - (id)data {
     return self[kResponseData];
 }
@@ -25,5 +24,5 @@
 - (BOOL)isSuccess {
     return self.statusCode == kHXBCode_Success;
 }
-@end
+
 @end
