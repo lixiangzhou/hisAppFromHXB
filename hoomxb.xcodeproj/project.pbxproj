@@ -426,7 +426,6 @@
 		E17A095E1F1DB823006564B8 /* HXBFinDetailModel_LoanTruansferDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A095D1F1DB823006564B8 /* HXBFinDetailModel_LoanTruansferDetail.m */; };
 		E17A09671F1DB8B5006564B8 /* HXBFinDetailViewModel_LoanTruansferDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A09661F1DB8B5006564B8 /* HXBFinDetailViewModel_LoanTruansferDetail.m */; };
 		E17A096B1F1DE688006564B8 /* HXBFin_LoanTruansferBuyView.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A096A1F1DE688006564B8 /* HXBFin_LoanTruansferBuyView.m */; };
-		E17A32BC1F1F0FC90079DBAE /* HXBFinModel_BuyResout_LoanTruansferModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A32BB1F1F0FC90079DBAE /* HXBFinModel_BuyResout_LoanTruansferModel.m */; };
 		E17A32BF1F1F10CA0079DBAE /* HXBFin_LoanTruansfer_BuyResoutViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A32BE1F1F10CA0079DBAE /* HXBFin_LoanTruansfer_BuyResoutViewModel.m */; };
 		E17A32C21F1F33B10079DBAE /* HXBFinAddRecordVC_LoanTruansfer.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A32C11F1F33B10079DBAE /* HXBFinAddRecordVC_LoanTruansfer.m */; };
 		E17A32C51F1F36990079DBAE /* HXBFinModel_AddRecortdModel_LoanTruansfer.m in Sources */ = {isa = PBXBuildFile; fileRef = E17A32C41F1F36990079DBAE /* HXBFinModel_AddRecortdModel_LoanTruansfer.m */; };
@@ -1329,8 +1328,6 @@
 		E17A09661F1DB8B5006564B8 /* HXBFinDetailViewModel_LoanTruansferDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinDetailViewModel_LoanTruansferDetail.m; sourceTree = "<group>"; };
 		E17A09691F1DE688006564B8 /* HXBFin_LoanTruansferBuyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanTruansferBuyView.h; sourceTree = "<group>"; };
 		E17A096A1F1DE688006564B8 /* HXBFin_LoanTruansferBuyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanTruansferBuyView.m; sourceTree = "<group>"; };
-		E17A32BA1F1F0FC90079DBAE /* HXBFinModel_BuyResout_LoanTruansferModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinModel_BuyResout_LoanTruansferModel.h; sourceTree = "<group>"; };
-		E17A32BB1F1F0FC90079DBAE /* HXBFinModel_BuyResout_LoanTruansferModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinModel_BuyResout_LoanTruansferModel.m; sourceTree = "<group>"; };
 		E17A32BD1F1F10CA0079DBAE /* HXBFin_LoanTruansfer_BuyResoutViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanTruansfer_BuyResoutViewModel.h; sourceTree = "<group>"; };
 		E17A32BE1F1F10CA0079DBAE /* HXBFin_LoanTruansfer_BuyResoutViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanTruansfer_BuyResoutViewModel.m; sourceTree = "<group>"; };
 		E17A32C01F1F33B10079DBAE /* HXBFinAddRecordVC_LoanTruansfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinAddRecordVC_LoanTruansfer.h; sourceTree = "<group>"; };
@@ -3853,8 +3850,6 @@
 		E17A32B91F1F0FA20079DBAE /* LoanTruansfer */ = {
 			isa = PBXGroup;
 			children = (
-				E17A32BA1F1F0FC90079DBAE /* HXBFinModel_BuyResout_LoanTruansferModel.h */,
-				E17A32BB1F1F0FC90079DBAE /* HXBFinModel_BuyResout_LoanTruansferModel.m */,
 			);
 			path = LoanTruansfer;
 			sourceTree = "<group>";
@@ -5018,7 +5013,6 @@
 				4E99824D1F026C3600CABA59 /* HXBMy_AllFinance_TableViewCell.m in Sources */,
 				9A36E3321FC6AB1700C318B3 /* HXBWKWebviewViewModuel.m in Sources */,
 				E17A32C21F1F33B10079DBAE /* HXBFinAddRecordVC_LoanTruansfer.m in Sources */,
-				E17A32BC1F1F0FC90079DBAE /* HXBFinModel_BuyResout_LoanTruansferModel.m in Sources */,
 				E1E4617F1EB9BE25005B1FC6 /* HXBFinancting_PlanListTableView.m in Sources */,
 				E122D84F1EA0CAB900DC71ED /* NSAttributedString+HxbAttributedString.m in Sources */,
 				4E45F42A1F4FC05C009708B7 /* HXBUmengManagar.m in Sources */,

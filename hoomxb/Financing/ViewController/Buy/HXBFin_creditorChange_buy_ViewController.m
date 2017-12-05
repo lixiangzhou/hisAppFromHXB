@@ -349,7 +349,7 @@ static NSString *const bankString = @"绑定银行卡";
         loanBuySuccessVC.buy_title = @"购买成功";
         loanBuySuccessVC.imageName = @"successful";
         loanBuySuccessVC.massage_Left_StrArray = @[@"下一还款日", @"投资金额", @"实际买入本金", @"公允利息"];
-        loanBuySuccessVC.massage_Right_StrArray = @[model.nextRepayDate, model.buyAmount, model.principal, model.interest];
+        loanBuySuccessVC.massage_Right_StrArray = @[model.nextRepayDate_new, model.buyAmount_new, model.principal_new, model.interest_new];
         if (model.isRepayed) {
             loanBuySuccessVC.buy_description = @"公允利息为您垫付的转让人持有天利息，还款人将会在下个还款日予以返回";
         } else {
