@@ -7,12 +7,8 @@
 //
 
 #import "HXBBaseViewModel.h"
-#import "HXBFinModel_BuyResout_LoanTruansferModel.h"
 @interface HXBFin_LoanTruansfer_BuyResoutViewModel : HXBBaseViewModel
-/**
- model
- */
-@property (nonatomic,strong) HXBFinModel_BuyResout_LoanTruansferModel *loanTruansferModel;
+
 /** 是否开启活动 */
 @property (nonatomic, assign) BOOL isInviteActivityShow;
 /** 邀请活动的文案 */
@@ -42,12 +38,20 @@
  */
 @property (nonatomic,copy) NSString *nextRepayDate;
 /**
- 下一个还款日转字符串
+ 下一个还款日_new
  */
 @property (nonatomic,copy) NSString *nextRepayDate_new;
-
+/**
+ 投资金额_new
+ */
 @property (nonatomic,copy) NSString *buyAmount_new;
+/**
+ 公允利息_new
+ */
 @property (nonatomic,copy) NSString *interest_new;
+/**
+ 实际买入本金_new
+ */
 @property (nonatomic,copy) NSString *principal_new;
 
 @end

@@ -136,7 +136,11 @@
         [_tableView reloadData];
     } andFailureBlock:^(NSError *error) {
         [_tableView endRefresh];
-        _sectionHeadView.hidden = YES;
+        if (error.code == kHXBCode_Enum_ConnectionTimeOut) {
+            _tableView.hidden = NO;
+            self.nodataView.hidden = NO;
+            _sectionHeadView.hidden = YES;
+        }
     }];
 }
 
@@ -150,7 +154,10 @@
             self.headView.dataDic = [self dataDicWithCashBackAmount:noDataText couponNumber:noDataText inviteNumber:noDataText];
         }
     } andFailureBlock:^(NSError *error) {
-        _headView.hidden = NO;
+        if (error.code == kHXBCode_Enum_ConnectionTimeOut) {
+            _headView.hidden = NO;
+            self.headView.dataDic = [self dataDicWithCashBackAmount:noDataText couponNumber:noDataText inviteNumber:noDataText];
+        }
     }];
 }
 

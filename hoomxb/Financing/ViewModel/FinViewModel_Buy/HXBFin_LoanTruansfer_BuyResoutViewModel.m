@@ -38,6 +38,9 @@
     return _interest_new;
 }
 
+/**
+ 下一还款日
+ */
 - (NSString *)nextRepayDate_new {
     if (self.nextRepayDate) {
         _nextRepayDate_new = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.nextRepayDate andDateFormat:@"yyyy-MM-dd"];
