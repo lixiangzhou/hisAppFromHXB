@@ -35,4 +35,9 @@
  下一个还款日
  */
 @property (nonatomic,copy) NSString *nextRepayDate;
+/** 是否开启活动 */
+@property (nonatomic, assign) BOOL isInviteActivityShow;
+/** 邀请活动的文案 */
+@property (nonatomic, copy) NSString *inviteActivityDesc;
+
 @end

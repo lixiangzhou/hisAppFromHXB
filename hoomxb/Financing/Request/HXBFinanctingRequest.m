@@ -757,8 +757,6 @@
         HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
         
         [reslut yy_modelSetWithDictionary:dataDic];
-//        HXBFin_Plan_BuyViewModel *planViewModel = [[HXBFin_Plan_BuyViewModel alloc]init];
-//        planViewModel.buyPlanModel = reslut;
         
         if (successDateBlock) {
             successDateBlock(reslut);
@@ -816,18 +814,12 @@
             if (failureBlock) failureBlock(nil, responseObject); return;
         }
         
-        HXBFin_LoanTruansfer_BuyResoutViewModel *loantruansferViewModel = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc]init];
-        
-        HXBFinModel_BuyResout_LoanTruansferModel *loantruansferModel = [[HXBFinModel_BuyResout_LoanTruansferModel alloc]init];
+        HXBFin_LoanTruansfer_BuyResoutViewModel *result = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc]init];
         NSDictionary *dataDic = responseObject[kResponseData];
-        BOOL isSuccess = [loantruansferModel yy_modelSetWithDictionary:dataDic];
-        if (!isSuccess) {
-            NSLog(@"🌶字典转模型失败%@",self);
-            return;
-        }
-        loantruansferViewModel.loanTruansferModel = loantruansferModel;
+        [result yy_modelSetWithDictionary:dataDic];
+
         if (successDateBlock) {
-            successDateBlock(loantruansferViewModel);
+            successDateBlock(result);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error, nil);

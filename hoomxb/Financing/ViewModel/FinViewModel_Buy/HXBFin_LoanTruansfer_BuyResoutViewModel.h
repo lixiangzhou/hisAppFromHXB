@@ -41,4 +41,13 @@
  下一个还款日
  */
 @property (nonatomic,copy) NSString *nextRepayDate;
+/**
+ 下一个还款日转字符串
+ */
+@property (nonatomic,copy) NSString *nextRepayDate_new;
+
+@property (nonatomic,copy) NSString *buyAmount_new;
+@property (nonatomic,copy) NSString *interest_new;
+@property (nonatomic,copy) NSString *principal_new;
+
 @end

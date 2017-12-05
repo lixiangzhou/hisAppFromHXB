@@ -12,47 +12,36 @@
 /**
  投资金额
  */
-- (NSString *)buyAmount {
-    if (!_buyAmount) {
-        _buyAmount = [NSString hxb_getPerMilWithDouble:self.loanTruansferModel.buyAmount.floatValue];
+- (NSString *)buyAmount_new {
+    if (self.buyAmount) {
+        _buyAmount_new = [NSString hxb_getPerMilWithDouble:self.buyAmount.floatValue];
     }
-    return _buyAmount;
+    return _buyAmount_new;
 }
 
 /**
  实际买入本金
  */
-- (NSString *)principal {
-    if (!_principal) {
-        _principal = [NSString hxb_getPerMilWithDouble:self.loanTruansferModel.principal.floatValue];
+- (NSString *)principal_new {
+    if (self.principal) {
+        _principal_new = [NSString hxb_getPerMilWithDouble:self.principal.floatValue];
     }
-    return _principal;
+    return _principal_new;
 }
 /**
  公允利息
  */
-- (NSString *)interest {
-    if (!_interest) {
-        _interest = [NSString hxb_getPerMilWithDouble:self.loanTruansferModel.interest.floatValue];
+- (NSString *)interest_new {
+    if (self.interest) {
+        _interest_new = [NSString hxb_getPerMilWithDouble:self.interest.floatValue];
     }
-    return _interest;
+    return _interest_new;
 }
-/**
- 是否当期已还：
- 1为已还，
- 0为未还
- */
-- (BOOL)isRepayed {
-    return self.loanTruansferModel.isRepayed;
-}
-/**
- 下一个还款日
- */
 
-- (NSString *) nextRepayDate {
-    if (!_nextRepayDate) {
-        _nextRepayDate = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.loanTruansferModel.nextRepayDate andDateFormat:@"yyyy-MM-dd"];
+- (NSString *)nextRepayDate_new {
+    if (self.nextRepayDate) {
+        _nextRepayDate_new = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.nextRepayDate andDateFormat:@"yyyy-MM-dd"];
     }
-    return _nextRepayDate;
+    return _nextRepayDate_new;
 }
 @end
