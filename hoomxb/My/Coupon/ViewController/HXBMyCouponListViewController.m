@@ -89,7 +89,9 @@
         _myView = [[HXBMyCouponListView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-44)];
         kWeakSelf
         _myView.block = ^{
-            [HXBBannerWebViewController pushWithPageUrl:kHXBH5_InviteDetailURL fromController:weakSelf];
+            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+            webViewVC.pageUrl = kHXBH5_InviteDetailURL;
+            [weakSelf.navigationController pushViewController:webViewVC animated:YES];
         };
         _myView.userInteractionEnabled = YES;
         /**

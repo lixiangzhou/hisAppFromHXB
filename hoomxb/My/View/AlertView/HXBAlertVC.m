@@ -241,7 +241,9 @@
         [HxbHUDProgress showMessage:@"验证码不能为空" inView:self.contentView];
         return;
     }
-    self.sureBtnClick(self.verificationCodeAlertView.verificationCode);
+    if (self.sureBtnClick) {
+        self.sureBtnClick(self.verificationCodeAlertView.verificationCode);
+    }
 //    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
