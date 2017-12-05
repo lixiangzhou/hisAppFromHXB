@@ -150,17 +150,27 @@
 
 /// 单点登录处理
 - (void)processSingleLoginWithRequest:(NYBaseRequest *)request {
+    [KeyChain removeToken];
     kWeakSelf
     [self refreshAccessToken:^(NSString *token) {
         if (token) {
             KeyChain.token = token;
-            [weakSelf processTokenInvidate];
-            NYBaseRequest *newRequest = [request copyRequest];
-            [weakSelf connectWithRequest:newRequest success:weakSelf.success failure:weakSelf.failure];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([HXBRootVCManager manager].mainTabbarVC.selectedViewController.childViewControllers.count > 1) {
+                    if (request.failure) {
+                        request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
+                        request.failure(request, nil);
+                    }
+                } else {
+                    [weakSelf processTokenInvidate];
+                    NYBaseRequest *newRequest = [request copyRequest];
+                    [weakSelf connectWithRequest:newRequest success:weakSelf.success failure:weakSelf.failure];
+                }
+            });
         } else {
             if (request.failure) {
                 request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
-//                request.responseErrorMessage = @"连接超时";
+
                 request.failure(request, request.error);
             }
         }
