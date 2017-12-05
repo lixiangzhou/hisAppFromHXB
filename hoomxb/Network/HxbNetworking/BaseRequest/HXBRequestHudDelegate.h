@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol HXBRequestHudDelegate <NSObject>
-- (void)showProgress:(NSString *)content;
+- (void)showProgress;
 - (void)showToast:(NSString *)toast;
+- (void)hideProgress;
 @end

@@ -66,14 +66,17 @@
     // 参数
     NSDictionary *parameters = request.requestArgument;
     
+    [request.hudDelegate showProgress];
     kWeakSelf
     // 设置回调
     void (^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) = ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        [request.hudDelegate showProgress];
         [weakSelf setResponseWithRequest:request task:task responseObj:responseObject error:nil];
         [weakSelf requestHandleSuccess:request responseObject:responseObject];
     };
     
     void (^failureBlock)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) = ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        [request.hudDelegate showProgress];
         [weakSelf setResponseWithRequest:request task:task responseObj:nil error:error];
         [weakSelf requestHandleFailure:request error:error];
     };
