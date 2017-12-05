@@ -8,7 +8,7 @@
 
 #import "HXBBaseWKWebViewController.h"
 #import <WebKit/WebKit.h>
-#import "HXBWKWebviewViewModuel.h"
+#import "HXBWKWebviewViewModel.h"
 #import "HXBWKWebViewProgressView.h"
 
 @interface HXBBaseWKWebViewController ()<WKNavigationDelegate> {
