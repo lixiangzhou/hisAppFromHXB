@@ -98,8 +98,9 @@
     
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:/// 没有登录
-        case kHXBCode_Enum_TokenNotJurisdiction:// token 失效
             [self tokenInvidateProcess];
+            return;
+        case kHXBCode_Enum_TokenNotJurisdiction:// token 失效
             return;
         case kHXBCode_Enum_RequestOverrun:
         {
