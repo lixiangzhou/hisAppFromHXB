@@ -99,6 +99,7 @@
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:/// 没有登录
         case kHXBCode_Enum_TokenNotJurisdiction:// token 失效
+            [self tokenInvidateProcess];
             return;
         case kHXBCode_Enum_RequestOverrun:
         {
@@ -150,7 +151,7 @@
     if (KeyChain.isLogin) {
         /// 退出登录，清空登录信息，回到首页
         KeyChain.isLogin = NO;
-        [KeyChain signOut];
+//        [KeyChain signOut];
         
         //单点登出之后dismiss最上层可能会有的控制器
         [[HXBRootVCManager manager].mainTabbarVC.presentedViewController dismissViewControllerAnimated:NO completion:nil];
