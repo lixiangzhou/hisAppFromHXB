@@ -64,6 +64,7 @@
 }
 -(void)setType:(NSString *)type{
     _type = type;
+    kWeakSelf
     if ([_type isEqualToString:@"解绑未设置交易密码"]) {
         [self.sendSMSCodeBtn setTitle:@"取消" forState:UIControlStateNormal];
         [self.answeringVoiceCodeBtn setTitle:@"确定" forState:UIControlStateNormal];
@@ -71,13 +72,14 @@
             self.cancelBtn.hidden = YES;
         }
         [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(kScrAdaptationH750(410));
-        }];
-        [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(410));
             make.height.offset(kScrAdaptationH750(300));
         }];
-        [self.subTitleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(60));
+        [self.subTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
+            make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
+            make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
+            make.height.equalTo(@kScrAdaptationH(42));
         }];
     } else if([_type isEqualToString:@"注册验证码"]){
         [self.sendSMSCodeBtn setTitle:@"获取短信" forState:UIControlStateNormal];
@@ -87,46 +89,47 @@
 
 - (void)setupSubViewFrame
 {
+    kWeakSelf
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top);
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.bottom.equalTo(self.view.mas_bottom);
+        make.top.equalTo(weakSelf.view.mas_top);
+        make.left.equalTo(weakSelf.view.mas_left);
+        make.right.equalTo(weakSelf.view.mas_right);
+        make.bottom.equalTo(weakSelf.view.mas_bottom);
     }];
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view).offset(kScrAdaptationH750(385));
+        make.centerX.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(385));
         make.height.offset(kScrAdaptationH750(400));
         make.width.offset(kScrAdaptationW750(590));
     }];
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView.mas_top);
-        make.right.equalTo(self.contentView.mas_right);
+        make.bottom.equalTo(weakSelf.contentView.mas_top);
+        make.right.equalTo(weakSelf.contentView.mas_right);
         make.width.offset(kScrAdaptationW750(50));
         make.height.offset(kScrAdaptationH750(95));
     }];
     [self.messageLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(60));
-        make.centerX.equalTo(self.contentView);
+        make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
+        make.centerX.equalTo(weakSelf.contentView);
         make.height.offset(kScrAdaptationH750(34));
     }];
     [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
-        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationH750(40));
-        make.right.equalTo(self.contentView.mas_right).offset(kScrAdaptationH750(-40));
+        make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
+        make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
+        make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
         make.height.equalTo(@kScrAdaptationH(42));
     }];
     [self.sendSMSCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(kScrAdaptationH750(-60));
-        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(40));
+        make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(kScrAdaptationH750(-60));
+        make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationW750(40));
         make.width.equalTo(@kScrAdaptationW(117.5));
         make.height.offset(kScrAdaptationH750(70));
     }];
     [self.answeringVoiceCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(kScrAdaptationH750(-60));
+        make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(kScrAdaptationH750(-60));
 //        make.left.equalTo(self.sendSMSCodeBtn.mas_right).offset(kScrAdaptationW750(40));
         make.width.equalTo(@kScrAdaptationW(117.5));
-        make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(40));
+        make.right.equalTo(weakSelf.contentView.mas_right).offset(-kScrAdaptationW750(40));
         make.height.offset(kScrAdaptationH750(70));
     }];
 }
