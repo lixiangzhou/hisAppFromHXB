@@ -70,6 +70,15 @@
         if (self.cancelBtn) {
             self.cancelBtn.hidden = YES;
         }
+        [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.view).offset(kScrAdaptationH750(410));
+        }];
+        [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.offset(kScrAdaptationH750(300));
+        }];
+        [self.subTitleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(60));
+        }];
     } else if([_type isEqualToString:@"注册验证码"]){
         [self.sendSMSCodeBtn setTitle:@"获取短信" forState:UIControlStateNormal];
          [self.answeringVoiceCodeBtn setTitle:@"接听电话" forState:UIControlStateNormal];
