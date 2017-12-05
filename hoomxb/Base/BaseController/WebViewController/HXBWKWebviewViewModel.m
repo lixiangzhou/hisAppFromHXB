@@ -6,7 +6,7 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBWKWebviewViewModuel.h"
+#import "HXBWKWebviewViewModel.h"
 
 @interface HXBWKWebviewViewModuel ()
 
