@@ -110,7 +110,7 @@
     idCardTextField.leftImage = [UIImage imageNamed:@"idcard"];
     idCardTextField.placeholder = @"请输入身份证号";
     idCardTextField.isIDCardTextField = YES;
-    idCardTextField.keyboardType = UIKeyboardTypeDecimalPad;
+//    idCardTextField.keyboardType = UIKeyboardTypeNumberPad;
     idCardTextField.limitStringLength = 18;
     
     [self.view addSubview:idCardTextField];

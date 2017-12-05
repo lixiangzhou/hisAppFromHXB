@@ -9,6 +9,7 @@
 #import "NYBaseRequest.h"
 #import "NYHTTPConnection.h"
 #import "NYNetworkManager.h"
+#import "HxbHUDProgress.h"
 
 @implementation NYBaseRequest
 
@@ -18,18 +19,6 @@
     }
     return _httpHeaderFields;
 }
-
-//----------------------------------response------------------------------------
-
-//- (NSInteger)responseStatusCode{
-//    NSHTTPURLResponse *response = (NSHTTPURLResponse *)self.connection.task.response;
-//    return response.statusCode;
-//}
-
-//- (NSDictionary *)responseHeaderFieldValueDictionary{
-//    NSHTTPURLResponse *response = (NSHTTPURLResponse *)self.connection.task.response;
-//    return response.allHeaderFields;
-//}
 
 //-----------------------------------funtion--------------------------------------
 - (void)start{

@@ -253,6 +253,7 @@
 		8D2CF5271FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF51E1FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m */; };
 		8D2CF5281FC2DA5D008F7A89 /* HXBInviteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */; };
 		8D3F84E41FD4E3A800E6CA97 /* HXBHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3F84E31FD4E3A800E6CA97 /* HXBHTTPSessionManager.m */; };
+		8D3F84EE1FD6899400E6CA97 /* NSDictionary+HXBResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3F84ED1FD6899400E6CA97 /* NSDictionary+HXBResponse.m */; };
 		8D4064F31FC67E2A00121E1C /* NSDate+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4064F21FC67E2A00121E1C /* NSDate+HXB.m */; };
 		8D5A2F471FCE5A3A00057DB3 /* HXBUnBindCardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5A2F461FCE5A3A00057DB3 /* HXBUnBindCardController.m */; };
 		8D5A2F4B1FCE756300057DB3 /* HXBBankCardViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5A2F4A1FCE756300057DB3 /* HXBBankCardViewModel.m */; };
@@ -969,6 +970,9 @@
 		8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBInviteViewModel.m; sourceTree = "<group>"; };
 		8D3F84E21FD4E3A800E6CA97 /* HXBHTTPSessionManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBHTTPSessionManager.h; sourceTree = "<group>"; };
 		8D3F84E31FD4E3A800E6CA97 /* HXBHTTPSessionManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBHTTPSessionManager.m; sourceTree = "<group>"; };
+		8D3F84EB1FD6877B00E6CA97 /* HXBRequestHudDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBRequestHudDelegate.h; sourceTree = "<group>"; };
+		8D3F84EC1FD6899400E6CA97 /* NSDictionary+HXBResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+HXBResponse.h"; sourceTree = "<group>"; };
+		8D3F84ED1FD6899400E6CA97 /* NSDictionary+HXBResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+HXBResponse.m"; sourceTree = "<group>"; };
 		8D4064F11FC67E2A00121E1C /* NSDate+HXB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDate+HXB.h"; sourceTree = "<group>"; };
 		8D4064F21FC67E2A00121E1C /* NSDate+HXB.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HXB.m"; sourceTree = "<group>"; };
 		8D5A2F451FCE5A3A00057DB3 /* HXBUnBindCardController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUnBindCardController.h; sourceTree = "<group>"; };
@@ -3506,6 +3510,9 @@
 				8D5A2F4D1FCE918400057DB3 /* NYBaseRequest+HXB.m */,
 				8D3F84E21FD4E3A800E6CA97 /* HXBHTTPSessionManager.h */,
 				8D3F84E31FD4E3A800E6CA97 /* HXBHTTPSessionManager.m */,
+				8D3F84EB1FD6877B00E6CA97 /* HXBRequestHudDelegate.h */,
+				8D3F84EC1FD6899400E6CA97 /* NSDictionary+HXBResponse.h */,
+				8D3F84ED1FD6899400E6CA97 /* NSDictionary+HXBResponse.m */,
 			);
 			path = BaseRequest;
 			sourceTree = "<group>";
@@ -4962,6 +4969,7 @@
 				4E99824E1F026C3600CABA59 /* HXBMY_AllFinanceView.m in Sources */,
 				8D4064F31FC67E2A00121E1C /* NSDate+HXB.m in Sources */,
 				28B5D0271F73B13100E2F486 /* HXBMy_Withdraw_notifitionView.m in Sources */,
+				8D3F84EE1FD6899400E6CA97 /* NSDictionary+HXBResponse.m in Sources */,
 				4E559B541F0FB98E003D9982 /* HXBRechargeFailView.m in Sources */,
 				4EBE19411F73AA9400AB5AB6 /* HXBTransferCreditorTopView.m in Sources */,
 				4E739B5F1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m in Sources */,

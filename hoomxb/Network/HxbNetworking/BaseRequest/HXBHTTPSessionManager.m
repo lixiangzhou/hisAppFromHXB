@@ -11,40 +11,20 @@
 #import "HXBRootVCManager.h"
 #import "HXBBaseRequest.h"
 #import "HXBTokenModel.h"
-//typedef void (^HXBIntercepterBlock)(NSURLSessionDataTask *task, id responseObj, NSError *error);
-
-@implementation NSDictionary (HXBResponse)
-- (id)data {
-    return self[kResponseData];
-}
-
-- (NSString *)message {
-    return self[kResponseMessage];
-}
-
-- (NSInteger)statusCode {
-    return [self[kResponseStatus] integerValue];
-}
-
-- (BOOL)isSuccess {
-    return self.statusCode == kHXBCode_Success;
-}
-@end
-
 
 @interface HXBHTTPSessionManager ()
-//@property (nonatomic, strong) NSMutableArray <HXBIntercepterBlock> *intercepters;
+
 @end
 
 @implementation HXBHTTPSessionManager
 
+/// 工厂方法：创建一个新的SessionManager
 + (instancetype)hxbManager {
     HXBHTTPSessionManager *manager = [[self alloc] initWithBaseURL:nil sessionConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     
     manager.requestSerializer.HTTPShouldHandleCookies = NO;
     manager.responseSerializer.acceptableStatusCodes = [NYNetworkConfig sharedInstance].defaultAcceptableStatusCodes;
     manager.responseSerializer.acceptableContentTypes = [NYNetworkConfig sharedInstance].defaultAcceptableContentTypes;
-    //    manager.intercepters = [NSMutableArray<HXBIntercepterBlock> array];
     
     return manager;
 }
@@ -77,11 +57,16 @@
     // 参数
     NSDictionary *parameters = request.requestArgument;
     
+    // 显示 HUD
+//    [self showNetworkActivityIndicator:request];
+    
     // 开始请求
     [manager requestWithMethod:request.requestMethod urlString:urlString params:parameters progressBlock:nil successBlock:^(NSURLSessionDataTask *task, id responseObj) {
         [self processSuccessWithRequest:request task:task responseObj:responseObj];
+//        [self hideNetworkActivityIndicator:request];
     } failureBlock:^(NSURLSessionDataTask *task, NSError *error) {
         [self processFailureWithRequest:request task:task error:error];
+//        [self hideNetworkActivityIndicator:request];
     }];
 }
 
@@ -109,7 +94,7 @@
     NSInteger responseCode = [self responseCode:task];
     
     // 处理通用的响应头和响应体
-    [self processResponseCode:responseCode];
+    [self processResponseCode:responseCode forRequest:request];
     [self processRequestBodyWithRequest:request task:task responseObj:responseObj];
     
     if (request.success) {
@@ -126,8 +111,8 @@
     if ([self checkSingleLogin:responseCode]) {
         [self processSingleLoginWithRequest:request];
     } else {
-        // 处理通用的响应头和响应体
-        [self processResponseCode:[self responseCode:task]];
+        // 处理通用的响应头和Error
+        [self processResponseCode:responseCode forRequest:request];
         [self processRequestErrorWithRequest:request task:task error:error];
         
         if (request.failure) {
@@ -139,22 +124,23 @@
 /// 成功处理响应体
 - (void)processRequestBodyWithRequest:(NYBaseRequest *)request task:(NSURLSessionDataTask *)task responseObj:(NSDictionary *)responseObj {
     if ([responseObj[@"code"]  isEqual: @"ESOCKETTIMEDOUT"]) {
-        [HxbHUDProgress showTextWithMessage:@"请求超时,请稍后重试"];
+        request.responseErrorMessage = @"请求超时,请稍后重试";
     }
     
     NSInteger statusCode = responseObj.statusCode;
     switch (statusCode) {
         case kHXBCode_Enum_ProcessingField: {
             NSDictionary *data = responseObj.data;
-            NSString *error = data.allValues.firstObject;
-            [HxbHUDProgress showTextWithMessage:error];
+            NSString *errorMsg = data.allValues.firstObject;
+            request.responseErrorMessage = errorMsg;
         }
             break;
         case kHXBCode_Enum_RequestOverrun: {
             if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin] ||
                 [request.requestUrl isEqualToString:kHXB_Coupon_Best]) {
             } else {
-                [HxbHUDProgress showTextWithMessage:responseObj.message];
+                NSString *errorMsg = responseObj.message ?: @"";
+                request.responseErrorMessage = errorMsg;
             }
         }
             break;
@@ -176,34 +162,29 @@
     NSString *str = error.userInfo[@"NSLocalizedDescription"];
     if (str.length > 0) {
         if ([[str substringFromIndex:str.length - 1] isEqualToString:@"。"]) {
-            str = [str substringToIndex:str.length-1];
-            [HxbHUDProgress showMessageCenter:str];
+            str = [str substringToIndex:str.length - 1];
             if ([str containsString:@"请求超时"]) {
                 request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
             }
+            request.responseErrorMessage = @"请求超时";
         } else {
             if (request.error.code == kHXBPurchase_Processing) { // 请求任务取消
             } else {
-                [HxbHUDProgress showMessageCenter:error.userInfo[@"NSLocalizedDescription"]];
+                request.responseErrorMessage = str;
             }
         }
     }
 }
 
 /// 响应头处理
-- (void)processResponseCode:(NSInteger)responseCode {
+- (void)processResponseCode:(NSInteger)responseCode forRequest:(NYBaseRequest *)request{
     switch (responseCode) {
-        case kHXBCode_Enum_NotSigin:    // 没有登录
-        case kHXBCode_Enum_TokenNotJurisdiction: // token 失效
-            //            [self tokenInvidateProcess];
-            [self refreshAccessToken:^(NSString *token) {
-                if (token) {
-                    
-                }
-            }];
+        case kHXBCode_Enum_NotSigin: {    // 没有登录
+            [self processTokenInvidate];
+        }
             break;
         case kHXBCode_Enum_NoServerFaile: {
-            [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
+            request.responseErrorMessage = @"网络连接失败，请稍后再试";
             break;
         }
     }
@@ -212,16 +193,31 @@
 /// 设置请求的 Response 信息
 - (void)setResponseWithRequest:(NYBaseRequest *)request task:(NSURLSessionDataTask *)task responseObj:(NSDictionary *)responseObj error:(NSError *)error {
     request.responseStatusCode = [self responseCode:task];
-    request.responseHeaderFieldValueDictionary = [self allHeaderFields:task];
+//    request.responseHeaderFieldValueDictionary = [self allHeaderFields:task];
     request.responseObject = responseObj;
     request.error = error;
-    request.dataTask = task;
+    
+}
+
+#pragma mark - HUD
+// 记录当前请求次数，用于控制 networkActivityIndicator 的显示隐藏
+static int currentRequestsCount = 0;
+- (void)showNetworkActivityIndicator:(NYBaseRequest *)request {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    currentRequestsCount++;
+}
+
+- (void)hideNetworkActivityIndicator:(NYBaseRequest *)request {
+    currentRequestsCount--;
+    if (currentRequestsCount == 0) {
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    }
 }
 
 #pragma mark - Single Login
 /// 检查是否进行单点处理
 - (BOOL)checkSingleLogin:(NSInteger)responseCode {
-    return responseCode == kHXBCode_Enum_TokenNotJurisdiction || responseCode == kHXBCode_Enum_NotSigin;
+    return responseCode == kHXBCode_Enum_TokenNotJurisdiction;
 }
 
 /// 单点登录处理
@@ -231,12 +227,12 @@
             KeyChain.token = token;
             [self processTokenInvidate];
             NYBaseRequest *newRequest = [request copyRequest];
-//            request.success = nil;
-//            request.failure = nil;
             [self startRequest:newRequest successBlock:request.success failureBlock:request.failure];
         } else {
             if (request.failure) {
-                request.failure(request, [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}]);
+                request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
+                request.responseErrorMessage = @"连接超时";
+                request.failure(request, request.error);
             }
         }
     }];

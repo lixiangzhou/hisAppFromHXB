@@ -10,8 +10,6 @@
 #import "NYHTTPConnection.h"
 #import "HxbHUDProgress.h"
 
-//#import <FBRetainCycleDetector/FBRetainCycleDetector.h>
-
 @implementation NYNetworkManager
 
 + (instancetype)sharedManager
@@ -88,9 +86,6 @@
         }
         request.success(request,request.responseObject);
     }
-//    if ([request.delegate respondsToSelector:@selector(requesetFinished:)]) {
-//        [request.delegate requesetFinished:request];
-//    }
     [self clearRequestBlock:request];
 }
 
@@ -107,9 +102,7 @@
         }
         request.failure(request,request.error);
     }
-//    if ([request.delegate respondsToSelector:@selector(requestFailed:)]) {
-//        [request.delegate requestFailed:request];
-//    }
+
     [self clearRequestBlock:request];
 }
 
