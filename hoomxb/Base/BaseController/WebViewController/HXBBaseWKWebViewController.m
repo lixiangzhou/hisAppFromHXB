@@ -28,6 +28,8 @@
 //webview viewModuel
 @property (nonatomic, strong) HXBWKWebviewViewModuel *webViewModuel;
 
+@property (nonatomic, assign) BOOL loadResult;
+
 @end
 
 @implementation HXBBaseWKWebViewController
@@ -61,6 +63,13 @@
 - (void)dealloc {
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
     [self.webView removeObserver:self forKeyPath:@"title"];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.webView.hidden = YES;
+    self.loadResult = NO;
 }
 
 - (void)reLoadWhenViewAppear {
@@ -127,6 +136,9 @@
         _progressViewHeight = 0;
     }
     
+    if(self.loadResult) {
+        self.webView.hidden = NO;
+    }
     [self updateConstraints];
 }
 
@@ -188,10 +200,10 @@
                     [weakSelf loadProgress:YES];
                     break;
                 }
-//                case HXBPageLoadStateEnd: {
-//                    [weakSelf loadProgress:NO];
-//                    break;
-//                }
+                case HXBPageLoadStateEnd: {
+                    weakSelf.loadResult = YES;
+                    break;
+                }
                 case HXBPageLoadStateFaile: {
                     [weakSelf loadProgress:NO];
                     break;
