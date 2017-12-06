@@ -206,6 +206,7 @@ kDealloc
         [weakSelf downLoadDataLoantruansferIsUPData:false];
     } andUPBlock:^{
         [weakSelf downLoadDataLoantruansferIsUPData:true];
+        [weakSelf assetStatisticsLoadData];
     }];
 }
 ///切换底部的ScrollView的时候调用
