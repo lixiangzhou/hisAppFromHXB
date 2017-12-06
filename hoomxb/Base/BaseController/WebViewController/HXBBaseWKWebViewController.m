@@ -65,18 +65,13 @@
     [self.webView removeObserver:self forKeyPath:@"title"];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    self.webView.hidden = YES;
-    self.loadResult = NO;
-}
-
 - (void)reLoadWhenViewAppear {
     [super reLoadWhenViewAppear];
     
     if (![self loadNoNetworkView]) {
         if (!_firstLoadPage && self.pageReload) {
+            self.webView.hidden = YES;
+            self.loadResult = NO;
             [self.webView reload];
         }
     }
