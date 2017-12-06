@@ -53,6 +53,8 @@ kDealloc
 - (void)getNetworkAgain
 {
      [self downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+    ///请求资产统计的网络请求
+    [self assetStatisticsLoadData];
 }
 //设置
 - (void)setUP {
@@ -204,6 +206,7 @@ kDealloc
         [weakSelf downLoadDataLoantruansferIsUPData:false];
     } andUPBlock:^{
         [weakSelf downLoadDataLoantruansferIsUPData:true];
+        [weakSelf assetStatisticsLoadData];
     }];
 }
 ///切换底部的ScrollView的时候调用
