@@ -448,5 +448,6 @@
 //MARK: - 销毁
 - (void) dealloc  {
     NSLog(@"%@ - ✅被销毁",self.class);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 @end
