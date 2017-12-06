@@ -70,9 +70,7 @@
     
     if (![self loadNoNetworkView]) {
         if (!_firstLoadPage && self.pageReload) {
-            self.webView.hidden = YES;
-            self.loadResult = NO;
-            [self.webView reload];
+            [self reloadPage];
         }
     }
     
@@ -236,6 +234,12 @@
     [self.webView loadRequest:urlRequest];
 }
 
+#pragma mark 重新加载页面
+- (void)reloadPage {
+    self.webView.hidden = YES;
+    self.loadResult = NO;
+    [self.webView reload];
+}
 /*
 #pragma mark - Navigation
 

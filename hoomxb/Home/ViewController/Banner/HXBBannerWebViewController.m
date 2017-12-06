@@ -123,9 +123,20 @@
         }
         
     }else if ([path isEqualToString:kLoginVC]){
-        //登录页面
-        //跳转登录注册
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        if(KeyChain.isLogin) {
+            kWeakSelf
+            [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+                [weakSelf reloadPage];
+            } andFailure:^(NSError *error) {
+                
+            }];
+        }
+        else{
+            //登录页面
+            //跳转登录注册
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
+        
     }else if ([path isEqualToString:kHomeVC]){
         //主页
        [self.navigationController popViewControllerAnimated:NO];
