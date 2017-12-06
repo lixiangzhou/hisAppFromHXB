@@ -66,6 +66,10 @@ static void *sObserveContext = &sObserveContext;
 {
     if (self.viewControllers.count >= 1)
     {
+        //第一次push的时候， 强制手滑返回可用
+        if(1 == self.viewControllers.count) {
+            self.enableFullScreenGesture = YES;
+        }
         viewController.hidesBottomBarWhenPushed = YES;
         self.navigationBar.hidden = NO;
     }
