@@ -66,17 +66,17 @@
     // 参数
     NSDictionary *parameters = request.requestArgument;
     
-    [request.hudDelegate showProgress];
+    [self showProgressWithRequest:request];
     kWeakSelf
     // 设置回调
     void (^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) = ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [request.hudDelegate showProgress];
+        [weakSelf hideProgressWithRequest:request];
         [weakSelf setResponseWithRequest:request task:task responseObj:responseObject error:nil];
         [weakSelf requestHandleSuccess:request responseObject:responseObject];
     };
     
     void (^failureBlock)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) = ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [request.hudDelegate showProgress];
+        [weakSelf hideProgressWithRequest:request];
         [weakSelf setResponseWithRequest:request task:task responseObj:nil error:error];
         [weakSelf requestHandleFailure:request error:error];
     };
@@ -140,6 +140,19 @@
 
 - (NSDictionary *)allHeaderFields:(NSURLSessionDataTask *)task {
     return ((NSHTTPURLResponse *)task.response).allHeaderFields;
+}
+
+#pragma mark - Hud
+- (void)showProgressWithRequest:(NYBaseRequest *)request {
+    if (request.showHud && [request.hudDelegate respondsToSelector:@selector(showProgress)]) {
+        [request.hudDelegate showProgress];
+    }
+}
+
+- (void)hideProgressWithRequest:(NYBaseRequest *)request {
+    if (request.showHud && [request.hudDelegate respondsToSelector:@selector(showProgress)]) {
+        [request.hudDelegate hideProgress];
+    }
 }
 
 #pragma mark - Single Login

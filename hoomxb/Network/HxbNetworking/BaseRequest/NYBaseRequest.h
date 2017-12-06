@@ -69,6 +69,8 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 
 //================================== hud & toast ==================================
 @property (nonatomic, weak) id<HXBRequestHudDelegate> hudDelegate;
+@property (nonatomic, assign) BOOL showHud;
+@property (nonatomic, assign) BOOL showToast;
 
 //================================== callback ==================================
 /// 返回成功回调

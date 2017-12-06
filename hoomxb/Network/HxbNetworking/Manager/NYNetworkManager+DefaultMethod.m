@@ -21,19 +21,14 @@
     
     if ([request.responseObject[@"code"]  isEqual: @"ESOCKETTIMEDOUT"]) {
 //        [HxbHUDProgress showTextWithMessage:@"请求超时,请稍后重试"];
-//        request.responseErrorMessage = @"请求超时,请稍后重试";
-        [request.hudDelegate showToast:@"请求超时,请稍后重试"];
+        [self showToast:@"请求超时,请稍后重试" withRequest:request];
     }
     
     switch (request.responseStatusCode) {
-        case kHXBCode_Enum_NotSigin:///没有登录
-        case kHXBCode_Enum_TokenNotJurisdiction: // token 失效
-            [self tokenInvidateProcess];
-            return;
         case kHXBCode_Enum_NoServerFaile:
         {
 //            [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
-            [request.hudDelegate showToast:@"网络连接失败，请稍后再试"];
+            [self showToast:@"网络连接失败，请稍后再试" withRequest:request];
             return;
         }
     }
@@ -48,15 +43,14 @@
                 NSArray *arr = obj;
                 error = arr[0];
             }];
-            [request.hudDelegate showToast:error];
 //            [HxbHUDProgress showTextWithMessage:error];
+            [self showToast:error withRequest:request];
         } else if(status.integerValue == kHXBCode_Enum_RequestOverrun){
             if ([self handlingSpecialErrorCodes:request]) {
                 return;
             }
-
-            [request.hudDelegate showToast:request.responseObject[kResponseMessage]];
 //            [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
+            [self showToast:request.responseObject[kResponseMessage] withRequest:request];
         }
 
     } else {
@@ -98,15 +92,12 @@
         case kHXBCode_Enum_NotSigin:/// 没有登录
         case kHXBCode_Enum_TokenNotJurisdiction:// token 失效
             [self tokenInvidateProcess];
-//            if (KeyChain.isLogin) {
-//                KeyChain.isLogin = NO;
-//                [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
-//            }
             return;
         case kHXBCode_Enum_NoServerFaile:
         {
 //            [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
-            [request.hudDelegate showToast:@"网络连接失败，请稍后再试"];
+//            [request.hudDelegate showToast:@"网络连接失败，请稍后再试"];
+            [self showToast:@"网络连接失败，请稍后再试" withRequest:request];
             return;
         }
             break;
@@ -116,7 +107,8 @@
     
     if (!KeyChain.ishaveNet) {
 //        [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
-        [request.hudDelegate showToast:@"暂无网络，请稍后再试"];
+//        [request.hudDelegate showToast:@"暂无网络，请稍后再试"];
+        [self showToast:@"暂无网络，请稍后再试" withRequest:request];
         request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_NoConnectionNetwork userInfo:@{@"message":@"暂无网络"}];
         return;
     }
@@ -129,17 +121,27 @@
                 request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
             }
 //            [HxbHUDProgress showMessageCenter:str];
-            [request.hudDelegate showToast:str];
+//            [request.hudDelegate showToast:str];
+            [self showToast:str withRequest:request];
         } else {
             if (request.error.code == kHXBPurchase_Processing) { // 请求任务取消
             } else {
 //                [HxbHUDProgress showMessageCenter:request.error.userInfo[@"NSLocalizedDescription"]];
-                [request.hudDelegate showToast:str];
+//                [request.hudDelegate showToast:str];
+                [self showToast:str withRequest:request];
             }
         }
     }
 }
 
+#pragma mark - Toast
+- (void)showToast:(NSString *)toast withRequest:(NYBaseRequest *)request {
+    if (request.showToast && [request.hudDelegate respondsToSelector:@selector(showToast:)]) {
+        [request.hudDelegate showToast:toast];
+    }
+}
+
+#pragma mark -
 - (void)tokenInvidateProcess {
     // token 失效，静态登出并回到首页
     if (KeyChain.isLogin) {
