@@ -30,17 +30,29 @@
 - (void)addRequest:(NYBaseRequest *)request withHUD:(NSString *)content
 {
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    HxbHUDProgress *hud = (content.length)? [HxbHUDProgress new]:nil;
-    [hud showAnimationWithText:content];
+    
+    // 适配重构前的HUD
+    HxbHUDProgress *hud = nil;
+    if (request.hudDelegate == nil) {
+        HxbHUDProgress *hud = (content.length) ? [HxbHUDProgress new] : nil;
+        [hud showAnimationWithText:content];
+    }
     NSLog(@"%@",request.httpHeaderFields);
+    
   
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
     [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
-        [hud hide];
+        // 适配重构前的HUD
+        if (request.hudDelegate == nil) {
+            [hud hide];
+        }
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
-        [hud hide];
+        // 适配重构前的HUD
+        if (request.hudDelegate == nil) {
+            [hud hide];
+        }
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self processConnection:connection withRequest:request error:error];
     }];
@@ -48,14 +60,25 @@
 
 - (void)addRequestWithAnimation:(NYBaseRequest *)request
 {
-    HxbHUDProgress *hud = [HxbHUDProgress new];
-    [hud showAnimation];
+    // 适配重构前的HUD
+    HxbHUDProgress *hud = nil;
+    if (request.hudDelegate == nil) {
+        hud = [HxbHUDProgress new];
+        [hud showAnimation];
+    }
+    
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
     [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
-        [hud hide];
+        // 适配重构前的HUD
+        if (request.hudDelegate == nil) {
+            [hud hide];
+        }
         [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
-        [hud hide];
+        // 适配重构前的HUD
+        if (request.hudDelegate == nil) {
+            [hud hide];
+        }
         [self processConnection:connection withRequest:request error:error];
     }];
 }

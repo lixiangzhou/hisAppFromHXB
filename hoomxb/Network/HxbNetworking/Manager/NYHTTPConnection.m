@@ -144,14 +144,20 @@
 
 #pragma mark - Hud
 - (void)showProgressWithRequest:(NYBaseRequest *)request {
-    if (request.showHud && [request.hudDelegate respondsToSelector:@selector(showProgress)]) {
-        [request.hudDelegate showProgress];
+    if (request.hudDelegate) {  // 重构后的hud
+        if (request.showHud && [request.hudDelegate respondsToSelector:@selector(showProgress)]) {
+            [request.hudDelegate showProgress];
+        }
+    } else {    
     }
 }
 
 - (void)hideProgressWithRequest:(NYBaseRequest *)request {
-    if (request.showHud && [request.hudDelegate respondsToSelector:@selector(showProgress)]) {
-        [request.hudDelegate hideProgress];
+    if (request.hudDelegate) {  // 重构后的hud
+        if (request.showHud && [request.hudDelegate respondsToSelector:@selector(showProgress)]) {
+            [request.hudDelegate hideProgress];
+        }
+    } else {
     }
 }
 
