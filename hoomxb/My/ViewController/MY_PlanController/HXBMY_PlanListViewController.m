@@ -74,6 +74,8 @@ kDealloc
 - (void)getNetworkAgain
 {
     [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
+    ///请求资产统计的网络请求
+    [self assetStatisticsLoadData];
 }
 
 ///资产统计网络请求
@@ -176,7 +178,7 @@ kDealloc
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:false];
     } andUPBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
-//        [weakSelf assetStatisticsLoadData];
+        [weakSelf assetStatisticsLoadData];
     }];
 }
 - (void) refresh_exiting {
