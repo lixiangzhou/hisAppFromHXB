@@ -256,7 +256,7 @@
             [self.navigationController pushViewController:VC animated:YES];
         } else {
             if (errorMessage) {
-                [HxbHUDProgress showMessageCenter:errorMessage];
+                [HxbHUDProgress showMessageCenter:errorMessage hideAnimatedAfterDelay:2];
             }
         }
     }];

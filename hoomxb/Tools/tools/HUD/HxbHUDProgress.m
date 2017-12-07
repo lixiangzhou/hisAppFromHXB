@@ -321,9 +321,13 @@ typedef NS_ENUM(NSInteger, LCProgressHUDType){
 
 + (void)showMessageCenter:(NSString *) msg{
     [self show:msg inView:nil type:LCProgressHUDTypeOnlyTextCenter];
-    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:2];
+    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1];
 }
 
++ (void)showMessageCenter:(NSString *) msg hideAnimatedAfterDelay:(NSTimeInterval) delay{
+    [self show:msg inView:nil type:LCProgressHUDTypeOnlyTextCenter];
+    [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:delay];
+}
 
 + (void)showProgress:(NSString *)msg inView:(UIView *)view{
     [self show:msg inView:view type:LCProgressHUDTypeJHLoading];
