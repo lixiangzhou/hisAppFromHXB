@@ -18,6 +18,7 @@
 #define kLoan_fragment @"/home/loan_fragment"//散标列表页
 #define kLoantransferfragment @"/home/loan_transfer_fragment"//债权转让列表页
 #define kAccountFriendsRecordActivity @"/account/invite_friends_record_activity"//好友邀请记录
+#define kInviteSellerShowMessage @"/invite/seller" // h5 调app 展示信息框
 
 
 #import "HXBBannerWebViewController.h"
@@ -61,7 +62,11 @@
         NSLog(@"%@",data);
         [weakSelf logicalJumpWithData:data];
     }];
-    
+    /****** OC端注册一个方法 (h5 调app 展示信息框)******/
+    [self registJavascriptBridge:@"showMessage" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"%@",data);
+        [weakSelf logicalJumpWithData:data];
+    }];
     [self registJavascriptBridge:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",data);
         HXBUMShareViewModel *shareViewModel = [[HXBUMShareViewModel alloc] init];
@@ -84,6 +89,7 @@
     //跳转立即投资
     HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     NSString *path = data[@"path"];
+    NSString * inviteSellerMessageText = data[@"message"];
     if ([path isEqualToString:kRegisterVC]) {
         //注册
         //跳转登录注册
@@ -150,6 +156,8 @@
         [self.navigationController pushViewController:inviteListVC animated:YES];
     }else if ([path isEqualToString:kEscrowdialogActivityVC]){
         [HXBDepositoryAlertViewController showEscrowDialogActivityWithVCTitle:@"开通存管账户" andType:(HXBRechargeAndWithdrawalsLogicalJudgment_Other) andWithFromController:self.navigationController];
+    } else if ([path isEqualToString:kInviteSellerShowMessage]) {
+        [HxbHUDProgress showTextWithMessage:inviteSellerMessageText];
     }
    
 }

@@ -231,7 +231,11 @@ static const NSInteger topView_high = 300;
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
-    } else {
+    }
+//    else if (_inputMoneyStr.doubleValue < _availablePoint.doubleValue &&  _availablePoint.doubleValue - _inputMoneyStr.doubleValue < _minRegisterAmount.doubleValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
+//        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
+//    }
+    else {
         BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
         if (isFitToBuy) {
             [self chooseBuyTypeWithSting:_btnLabelText];
@@ -610,6 +614,13 @@ static const NSInteger topView_high = 300;
         _topView.profitStr = @"预期收益0.00元";
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
+//        if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
+//            _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+//            _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+//            _topView.disableKeyBorad = YES;
+//        } else {
+//            _topView.disableKeyBorad = NO;
+//        }
         _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
             weakSelf.bottomView.addBtnIsUseable = text.length;
             BOOL isFitToBuy = ((text.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
@@ -626,6 +637,9 @@ static const NSInteger topView_high = 300;
                 [weakSelf changeItemWithInvestMoney:text];
                 [weakSelf setUpArray];
             }
+//            if (_inputMoneyStr.doubleValue < _availablePoint.doubleValue &&  _availablePoint.doubleValue - text.doubleValue < _minRegisterAmount.doubleValue && text.doubleValue != _availablePoint.doubleValue) {
+//                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", weakSelf.minRegisterAmount]];
+//            }
         };
         _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
         _topView.placeholderStr = _placeholderStr;
