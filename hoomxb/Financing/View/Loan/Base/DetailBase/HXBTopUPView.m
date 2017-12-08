@@ -49,7 +49,7 @@
     self.balanceLabel.text = manager.balanceLabelStr;
     ///余额展示
     self.balanceLabel_const.text = manager.balanceLabel_constStr;
-    self.rechargeButton.userInteractionEnabled = true;
+    self.rechargeButton.userInteractionEnabled = YES;
     ///充值的button
     [self.rechargeButton setTitle: manager.rechargeButtonStr forState:UIControlStateNormal];
 }

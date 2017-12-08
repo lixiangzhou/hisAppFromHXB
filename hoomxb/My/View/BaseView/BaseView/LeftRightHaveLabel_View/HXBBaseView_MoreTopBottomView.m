@@ -140,7 +140,7 @@
 }
 ///给view 赋值，并且返回是否赋值成功
 - (BOOL) setValueWithView: (UIView *)view andStr: (NSString *)value andAlignment: (NSTextAlignment)alignment andTextColor:(UIColor *)textColor andBackGroundColor: (UIColor *)backGroundColor andFont: (UIFont *)font{
-    view.userInteractionEnabled = true;
+    view.userInteractionEnabled = YES;
     if(!backGroundColor) {
         backGroundColor = [UIColor whiteColor];
     }
@@ -151,7 +151,7 @@
         label.textColor = textColor;
         label.backgroundColor = backGroundColor;
         label.font = font;
-        return true;
+        return YES;
     }
     if ([view isKindOfClass:[UIButton class]]) {
         UIButton *button = (UIButton *)view;
@@ -159,9 +159,9 @@
         [button setTitleColor:textColor forState:UIControlStateNormal];
         button.backgroundColor = backGroundColor;
         button.titleLabel.font = font;
-        return true;
+        return YES;
     }
-    return false;
+    return NO;
 }
 
 - (void) setUPViewsFrameWithRightViewNotTitle {

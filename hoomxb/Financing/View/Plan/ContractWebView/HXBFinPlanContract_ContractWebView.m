@@ -81,7 +81,7 @@
 //}
 //MARK: 页面开始加载时调用
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = true;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 //MARK: 内容开始返回时调用
 - (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation {

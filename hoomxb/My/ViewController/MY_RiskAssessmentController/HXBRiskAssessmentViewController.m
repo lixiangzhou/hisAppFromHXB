@@ -56,10 +56,10 @@
         [weakSelf.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj isKindOfClass:NSClassFromString(@"HxbAccountInfoViewController")]) {
                 vc = obj;
-                *stop = true;
+                *stop = YES;
             }
         }];
-        [weakSelf.navigationController popToViewController:vc animated:true];
+        [weakSelf.navigationController popToViewController:vc animated:YES];
     }];
 }
 

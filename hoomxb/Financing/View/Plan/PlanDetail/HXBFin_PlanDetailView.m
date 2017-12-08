@@ -110,7 +110,7 @@
                 [weakSelf.addButton setTitle:@"立即加入" forState:UIControlStateNormal];
                 [weakSelf.addButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
                 weakSelf.addButton.backgroundColor = COR29;
-                weakSelf.addButton.userInteractionEnabled = true;
+                weakSelf.addButton.userInteractionEnabled = YES;
                 [weakSelf.countDownManager stopTimer];
                 return;
             }
@@ -231,7 +231,7 @@
 - (void)setupAddTrustView {
     self.trustView = [[UIImageView alloc]init];
     self.trustView.backgroundColor = [UIColor whiteColor];
-    self.trustView.userInteractionEnabled = true;
+    self.trustView.userInteractionEnabled = YES;
     [self addSubview: self.trustView];
     [self.trustView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.topView.mas_bottom).offset(kScrAdaptationH(10));
@@ -283,7 +283,7 @@
         make.centerX.equalTo(self.addButton);
         make.height.equalTo(@(kScrAdaptationH(30)));
     }];
-    self.addButton.userInteractionEnabled = true;
+    self.addButton.userInteractionEnabled = YES;
 }
 
 - (void)clickAddButton: (UIButton *)button {
@@ -300,7 +300,7 @@
     kWeakSelf
     self.bottomTableView = [[HXBFinDetail_TableView alloc]init];
     self.bottomTableView.tableViewCellModelArray = self.modelArray;
-    self.bottomTableView.bounces = false;
+    self.bottomTableView.bounces = NO;
     [self addSubview:self.bottomTableView];
     [self.bottomTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.flowChartView.mas_bottom).offset(kScrAdaptationH(10));

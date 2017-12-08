@@ -76,10 +76,10 @@
 }
 - (NSString *)status {
     if (!_status) {
-        [self setUPAddButtonColorWithType:true];
+        [self setUPAddButtonColorWithType:YES];
         if ([self.loanTruansferDetailModel.transferDetail.status isEqualToString:@"TRANSFERING"]) {
             _status = @"转让中";
-            [self setUPAddButtonColorWithType:false];
+            [self setUPAddButtonColorWithType:NO];
         }
         if ([self.loanTruansferDetailModel.transferDetail.status isEqualToString:@"TRANSFERED"]) {
             _status = @"转让完毕";
@@ -102,13 +102,13 @@
 - (void)setUPAddButtonColorWithType:(BOOL) isSelected {
     if (isSelected) {
         ///设置addbutton的颜色
-        self.isUserInteractionEnabled = false;
+        self.isUserInteractionEnabled = NO;
         self.addButtonTitleColor = kHXBColor_Grey_Font0_2;
         self.addButtonBackgroundColor = kHXBColor_Font0_6;
         self.addButtonBorderColor = kHXBColor_Grey_Font0_2;
         return;
     }
-    self.isUserInteractionEnabled = true;
+    self.isUserInteractionEnabled = YES;
     self.addButtonTitleColor = [UIColor whiteColor];
     self.addButtonBackgroundColor = kHXBColor_Red_090303;
     self.addButtonBorderColor = kHXBColor_Red_090303;
@@ -184,7 +184,7 @@
  */
 - (BOOL) isAddButtonEditing {
     if (!_isAddButtonEditing) {
-        _isAddButtonEditing = true;
+        _isAddButtonEditing = YES;
     }
     return _isAddButtonEditing;
 }

@@ -113,8 +113,8 @@
         NSString *productId = data[@"productId"];
         if (productId != nil) {
             planDetailsVC.planID = productId;
-            planDetailsVC.isPlan = true;
-            planDetailsVC.isFlowChart = true;
+            planDetailsVC.isPlan = YES;
+            planDetailsVC.isFlowChart = YES;
             [self.navigationController pushViewController:planDetailsVC animated:YES];
         }
     }else if ([path isEqualToString:kLoanDetailVC]){

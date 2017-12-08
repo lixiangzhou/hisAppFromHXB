@@ -124,7 +124,7 @@ static NSString *const kTrueButtonTitle = @"确定";
     [self.trueButton setTitle:kTrueButtonTitle forState:UIControlStateNormal];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]init];
     [tap addTarget:self action:@selector(clickCheckCaptchaImageView:)];
-    self.checkCaptchaImageView.userInteractionEnabled = true;
+    self.checkCaptchaImageView.userInteractionEnabled = YES;
     [self.checkCaptchaImageView addGestureRecognizer:tap];
     
     self.checkCaptchaTextField.font = kHXBFont_PINGFANGSC_REGULAR(16);

@@ -55,7 +55,7 @@ static NSString *CELLID = @"CELLID";
         [self setLayoutMargins:UIEdgeInsetsZero];
     }
     self.rowHeight = kScrAdaptationH(121);
-    self.nodataView.hidden = false;
+    self.nodataView.hidden = NO;
 }
 
 #pragma mark - datesource

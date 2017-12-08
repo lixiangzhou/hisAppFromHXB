@@ -109,7 +109,7 @@ static NSString *kINVEST = @"INVEST";
 - (BOOL)isAddButtonHidden {
     if (!_isAddButtonHidden) {
         [self status];
-        _isAddButtonHidden = true;
+        _isAddButtonHidden = YES;
     }
     return _isAddButtonHidden;
 }
@@ -119,12 +119,12 @@ static NSString *kINVEST = @"INVEST";
  */
 - (NSString *)status {
     if (!_status) {
-        _isAddButtonHidden = true;
+        _isAddButtonHidden = YES;
         switch ([HXBEnumerateTransitionManager myPlan_requestTypeStr:self.planDetailModel.type]) {
             case HXBRequestType_MY_PlanRequestType_EXIT_PLAN: {
                 //已经退出
                 self.statusInt = 4;
-                _isAddButtonHidden = true;
+                _isAddButtonHidden = YES;
                [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
                    _status = [NSString stringWithFormat:@"%@", self.planDetailModel.exitWay];
                 }];
@@ -140,14 +140,14 @@ static NSString *kINVEST = @"INVEST";
                     if ([self.planDetailModel.status isEqualToString:MY_PlanResponsType_PURCHASEING_Plan]) {
                         ///等待计息
                         _statusInt = 1;
-//                        self.isAddButtonHidden = false;
+//                        self.isAddButtonHidden = NO;
                         _status = typeUI;
                     }
                 }];
             }
                 break;
             case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:{
-                _isAddButtonHidden = true;
+                _isAddButtonHidden = YES;
                 [HXBEnumerateTransitionManager myPlan_requestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andTypeBlock:^(NSString *typeUI, NSString *type) {
                     _statusInt = 3;
                     _status = [NSString stringWithFormat:@"%@", self.planDetailModel.exitWay];
@@ -157,7 +157,7 @@ static NSString *kINVEST = @"INVEST";
                 break;
         }
         if (self.planDetailModel.unifyStatus == kHXBEnum_Fin_Plan_UnifyStatus_6) {
-            _isAddButtonHidden = false;
+            _isAddButtonHidden = NO;
         }
     }
     return _status;

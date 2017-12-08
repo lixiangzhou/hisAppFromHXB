@@ -75,7 +75,7 @@
     [self.hxbBaseVCScrollView hxb_headerWithRefreshBlock:^{
         [weakSelf downLoadData];
     }];
-    self.isTransparentNavigationBar = true;
+    self.isTransparentNavigationBar = YES;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
@@ -109,7 +109,7 @@
     self.countDownLabel.textAlignment = NSTextAlignmentCenter;
     self.countDownLabel.hidden = YES;
     [self.addButton addSubview: self.countDownLabel];
-    self.addButton.userInteractionEnabled = true;
+    self.addButton.userInteractionEnabled = YES;
 }
 
 
@@ -199,11 +199,11 @@
         if (indexPath.row == 0) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.loanTruansferDetailViewModel.fin_LoanInfoView_Manager;
-            [self.navigationController pushViewController:detail_DetailLoanVC animated:true];
+            [self.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         } else if (indexPath.row == 1) {
             HXBFinAddRecordVC_LoanTruansfer *loanAddRecordVC = [[HXBFinAddRecordVC_LoanTruansfer alloc]init];
             loanAddRecordVC.loanTruansferID = self.loanTransfer_ViewModel.transferId;
-            [self.navigationController pushViewController:loanAddRecordVC animated:true];
+            [self.navigationController pushViewController:loanAddRecordVC animated:YES];
         } else {
             [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_LoanTruansferURL] fromController:self];
         }
@@ -234,7 +234,7 @@
     loanJoinVC.availablePoint = self.loanTruansferDetailViewModel.loanTruansferDetailModel.leftTransAmount;
     loanJoinVC.minRegisterAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
     loanJoinVC.registerMultipleAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
-    [self.navigationController pushViewController:loanJoinVC animated:true];
+    [self.navigationController pushViewController:loanJoinVC animated:YES];
     
     
 }

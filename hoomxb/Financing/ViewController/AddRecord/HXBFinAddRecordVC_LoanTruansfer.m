@@ -20,7 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUPViews];
-    [self downLoadDataWihtIsUPLoad:true];
+    [self downLoadDataWihtIsUPLoad:YES];
     self.title = @"转让记录";
 }
 
@@ -34,7 +34,7 @@
 }
 
 - (void)setUPViews {
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
     self.addRecortdTableView = [[HXBFinAddRecortdTableView_Plan alloc]initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height - 64) style:UITableViewStylePlain];
     [self.view addSubview:self.addRecortdTableView];
 }
@@ -42,7 +42,7 @@
 
 - (void) footerRefresh {
     [self.addRecortdTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        [self downLoadDataWihtIsUPLoad:false];
+        [self downLoadDataWihtIsUPLoad:NO];
     } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
         
     }];
@@ -50,7 +50,7 @@
 
 - (void)headerRefresh {
     [self.addRecortdTableView hxb_headerWithRefreshBlock:^{
-        [self downLoadDataWihtIsUPLoad:true];
+        [self downLoadDataWihtIsUPLoad:YES];
     }];
     
 }

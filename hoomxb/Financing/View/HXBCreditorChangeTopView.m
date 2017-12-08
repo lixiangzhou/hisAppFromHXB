@@ -317,7 +317,7 @@
         [_rechargeBtn addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
         [_rechargeBtn setTitle:@"一键购买" forState:(UIControlStateNormal)];
         _rechargeBtn.layer.cornerRadius = kScrAdaptationW750(5);
-        _rechargeBtn.layer.masksToBounds = true;
+        _rechargeBtn.layer.masksToBounds = YES;
         _rechargeBtn.layer.borderColor = kHXBColor_Blue040610.CGColor;//(r:0.45 g:0.68 b:0.68 a:1.00)
         _rechargeBtn.layer.borderWidth = kXYBorderWidth;
         [_rechargeBtn setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];
