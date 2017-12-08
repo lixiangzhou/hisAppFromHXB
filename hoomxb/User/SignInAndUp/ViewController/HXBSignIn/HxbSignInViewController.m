@@ -71,6 +71,8 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
                 }];
             }];
         } andFailureBlock:^(NSError *error, id responseObject) {
+            
+            
             if ([responseObject[kResponseStatus] integerValue]) {
                 if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {//谈图验
                     HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
@@ -81,7 +83,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
                     }];
                     [self presentViewController:checkCaptchaViewController animated:YES completion:nil];
                 }
-                
+
             }
             ///清空
             self.checkCaptcha = nil;
