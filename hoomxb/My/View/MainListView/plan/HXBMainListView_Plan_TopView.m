@@ -127,7 +127,7 @@
     }];
 }
 - (void)setValue {
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
        [self.financePlanAssetsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
             viewModelVM.leftLabelStr = @"持有资产(元)";
             viewModelVM.rightLabelStr = viewModel.lenderPrincipal;

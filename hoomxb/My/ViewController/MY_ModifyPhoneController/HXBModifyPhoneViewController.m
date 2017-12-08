@@ -45,7 +45,7 @@
                 HXBModifyPhoneRequest *modifyPhoneRequest = [[HXBModifyPhoneRequest alloc] init];
                 [modifyPhoneRequest mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(id responseObject) {
                     NSLog(@"%@",responseObject);
-                    [KeyChain setMobile:phoneNumber];
+                    KeyChain.mobile = phoneNumber;
                     [KeyChain removeGesture];
                     [KeyChain signOut];
                     weakSelf.tabBarController.selectedIndex = 0;

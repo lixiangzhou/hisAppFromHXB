@@ -212,7 +212,7 @@
 
 ///点击了立即加入
 - (void)clickAddButton:(UIButton *)sender {
-    if (![KeyChainManage sharedInstance].isLogin) {
+    if (!KeyChain.isLogin) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         return;
     }

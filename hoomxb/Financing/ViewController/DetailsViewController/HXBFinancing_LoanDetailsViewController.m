@@ -105,7 +105,7 @@
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = false;
     //判断是否风险评测
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
         _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
     } andFailure:^(NSError *error) {
@@ -203,7 +203,7 @@
     kWeakSelf
     [self.loanDetailsView clickAddButtonFunc:^{
         //如果不是登录 那么就登录
-        if (![KeyChainManage sharedInstance].isLogin) {
+        if (!KeyChain.isLogin) {
 //            [HXBAlertManager alertManager_loginAgainAlertWithView:self.view];
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;

@@ -36,7 +36,7 @@
 - (void)loadData_userInfo
 {
     kWeakSelf
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.allFinanceView.viewModel = viewModel;
         weakSelf.accumulatedIncomeView.viewModel = viewModel;
     } andFailure:^(NSError *error) {

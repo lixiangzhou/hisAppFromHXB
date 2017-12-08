@@ -84,7 +84,7 @@
     [self downLoadData];
     [self tableViewModelArray];
     [self setupAddView];
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
         _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
     } andFailure:^(NSError *error) {
@@ -127,7 +127,7 @@
 }
 
 - (void)clickAddButton: (UIButton *)button {
-    if(![KeyChainManage sharedInstance].isLogin) {
+    if(!KeyChain.isLogin) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         return;
     }

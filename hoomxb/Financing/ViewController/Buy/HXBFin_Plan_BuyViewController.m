@@ -49,7 +49,7 @@
     self.isColourGradientNavigationBar = true;
     
 //    //请求 个人数据
-//    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+//    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
 //        _availablePoint = viewModel.userInfoModel.userAssets.availablePoint;
 //        _assetsTotal = viewModel.userInfoModel.userAssets.assetsTotal;
 //    } andFailure:^(NSError *error) {
@@ -73,7 +73,7 @@
 {
     [super viewWillAppear:animated];
     //请求 个人数据
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.userInfoModel.userAssets.availablePoint;
         _assetsTotal = viewModel.userInfoModel.userAssets.assetsTotal;
     } andFailure:^(NSError *error) {
