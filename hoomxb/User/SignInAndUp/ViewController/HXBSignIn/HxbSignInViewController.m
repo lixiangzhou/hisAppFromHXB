@@ -83,11 +83,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
                     }];
                     [self presentViewController:checkCaptchaViewController animated:YES completion:nil];
                 }
-//                else if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_TokenNotJurisdiction) {
-//                    [HxbHUDProgress showTextWithMessage:@"登录失效"];
-//
-//                }
-                
+
             }
             ///清空
             self.checkCaptcha = nil;
