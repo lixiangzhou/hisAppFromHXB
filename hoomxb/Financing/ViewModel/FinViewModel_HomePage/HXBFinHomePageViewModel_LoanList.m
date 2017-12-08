@@ -53,10 +53,10 @@ typedef enum : NSUInteger {
 
 ///状态的处理
 - (void)setupStatusWithLoanListModelStatus: (NSString *) status{
-    [self setUPAddButtonColorWithType:true];
+    [self setUPAddButtonColorWithType:YES];
     if ([status isEqualToString:@"OPEN"]) {
         self.status = @"立即投标";//投标中
-        [self setUPAddButtonColorWithType:false];
+        [self setUPAddButtonColorWithType:NO];
     }
     
     if ([status isEqualToString:@"READY"]) self.status = @"已满标";//已满标

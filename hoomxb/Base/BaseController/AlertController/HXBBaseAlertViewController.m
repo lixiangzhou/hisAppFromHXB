@@ -68,13 +68,13 @@
     [self.animatr presentAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
         toView.center = [UIApplication sharedApplication].keyWindow.center;
         toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(145));
-        weakSelf.animatr.isAccomplishAnima = true;
+        weakSelf.animatr.isAccomplishAnima = YES;
     }];
     [self.animatr dismissAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
         [UIView animateWithDuration:0 animations:^{
             
         } completion:^(BOOL finished) {
-            weakSelf.animatr.isAccomplishAnima = true;
+            weakSelf.animatr.isAccomplishAnima = YES;
         }];
     }];
     [self.animatr setupContainerViewWithBlock:^(UIView *containerView) {
@@ -86,7 +86,7 @@
     }];
 }
 - (void)clickContainerView : (UIButton *)button {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -107,7 +107,7 @@
 - (void)setUPViewsFrame {
 //    self.view.frame = CGRectMake(kScrAdaptationW(40), kScrAdaptationH(260), kScrAdaptationW(295), kScrAdaptationH(145));
     self.view.layer.cornerRadius = kScrAdaptationW(5);
-    self.view.layer.masksToBounds = true;
+    self.view.layer.masksToBounds = YES;
     self.containerView = [[UIView alloc]init];
     [self.view addSubview:self.containerView];
     
@@ -184,14 +184,14 @@
 }
 - (void)clickLeftButton:(UIButton *)button {
     NSLog(@"点击了左边的button %@",self);
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     if (self.clickLeftButtonBlock) {
         self.clickLeftButtonBlock();
     }
 }
 - (void)clickRightButton: (UIButton *)button {
     NSLog(@"点击了右边的button %@",self);
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     if (self.clickRightButtonBlock) {
         self.clickRightButtonBlock();
     }

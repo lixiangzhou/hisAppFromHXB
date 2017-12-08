@@ -130,7 +130,7 @@
  5. status 10 （已退出） (圆圈全红，并且显示收益中这几个字)
  */
 - (void)setStage:(NSInteger)stage {
-    _concentricCirclesView.hidden = false;
+    _concentricCirclesView.hidden = NO;
     switch (stage) {
         case 0:
         case 1:
@@ -150,22 +150,22 @@
         case 7:
             self.concentricCirclesView_red.stage = 1;
             self.concentricCirclesView_red.dontDrowArtCount = 1;
-            self.concentricCirclesView_red.isDontDrowLastArtCount = true;
+            self.concentricCirclesView_red.isDontDrowLastArtCount = YES;
             self.stageFont = HXBFinBase_FlowChartView_Plan_Stage_Add;
             break;
         case 8:
         case 9:
             self.concentricCirclesView_red.stage = 2;
-            _colourGradientView_profiting.hidden = false;
-            self.concentricCirclesView_red.isDontDrowLastArtCount = true;
-            self.profitLabel.hidden = false;
+            _colourGradientView_profiting.hidden = NO;
+            self.concentricCirclesView_red.isDontDrowLastArtCount = YES;
+            self.profitLabel.hidden = NO;
             self.stageFont = HXBFinBase_FlowChartView_Plan_Stage_Begin;
             break;
         case 10:
 
             self.concentricCirclesView_red.stage = 3;
-            _colourGradientView_profiting.hidden = false;
-            self.profitLabel.hidden = false;
+            _colourGradientView_profiting.hidden = NO;
+            self.profitLabel.hidden = NO;
             self.stageFont = HXBFinBase_FlowChartView_Plan_Stage_Leave;
             break;
     }
@@ -282,7 +282,7 @@
     if (!_concentricCirclesView) {
         
         _concentricCirclesView = [[HXBBaseViewConcentricCirclesView alloc]init];
-        _concentricCirclesView.hidden = true;
+        _concentricCirclesView.hidden = YES;
         ///第几个为空心圆
 //        _concentricCirclesView.dontDrowArtCount = 3;
         [self addSubview:_concentricCirclesView];
@@ -333,7 +333,7 @@
 - (HXBColourGradientView *)colourGradientView_profiting {
     if (!_colourGradientView_profiting) {
         _colourGradientView_profiting = [[HXBColourGradientView alloc]initWithFrame:CGRectZero];
-        _colourGradientView_profiting.hidden = true;
+        _colourGradientView_profiting.hidden = YES;
         [self insertSubview:_colourGradientView_profiting atIndex:0];
     }
     return _colourGradientView_profiting;
@@ -356,7 +356,7 @@
         _profitLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _profitLabel.textColor = kHXBColor_Grey_Font0_2;
         _profitLabel.text = @"收益中";
-        _profitLabel.hidden = true;
+        _profitLabel.hidden = YES;
     }
     return _profitLabel;
 }

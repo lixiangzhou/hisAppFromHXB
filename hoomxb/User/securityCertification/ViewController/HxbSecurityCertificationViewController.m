@@ -51,10 +51,10 @@
 //                    [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
 //                        if ([VC isKindOfClass:NSClassFromString(self.popToClass)]) {
 //                            viewController = VC;
-//                            * stop = true;
+//                            * stop = YES;
 //                        }
 //                    }];
-//                    [self.navigationController popToViewController:viewController animated:true];
+//                    [self.navigationController popToViewController:viewController animated:YES];
 //                }
             } andFailure:^(NSError *error) {
                 

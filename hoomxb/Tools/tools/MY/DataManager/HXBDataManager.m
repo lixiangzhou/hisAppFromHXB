@@ -72,7 +72,7 @@ static NSString *const homePage_PlanListViewModelArrayPlist = @"homePage_PlanLis
 //    [array enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
 //        [arrayM addObject: [obj yy_modelToJSONData]];
 //    }];
-//    [arrayM writeToFile:[self getPathWithType:typeStr] atomically:true];
+//    [arrayM writeToFile:[self getPathWithType:typeStr] atomically:YES];
 //    NSLog(@"|||||存储 数据 - 地址%@",[self getPathWithType:typeStr]);
 //    NSLog(@"|||||存储 数据 - 数组%@",array);
 }

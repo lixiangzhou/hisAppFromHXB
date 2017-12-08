@@ -232,7 +232,7 @@
             {
                 webViewVC.pageUrl = [NSString splicingH5hostWithURL:kHXB_Negotiate_authorize];
             }
-            [weakSelf.navigationController pushViewController:webViewVC animated:true];
+            [weakSelf.navigationController pushViewController:webViewVC animated:YES];
         }];
         
         //卡bin校验

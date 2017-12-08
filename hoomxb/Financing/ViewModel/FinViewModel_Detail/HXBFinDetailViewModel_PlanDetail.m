@@ -179,45 +179,45 @@
 }
 
 - (void)setAddButtonStrValue {
-    self.isAddButtonInteraction = false;
-    [self setUPAddButtonColorWithType:true];
+    self.isAddButtonInteraction = NO;
+    [self setUPAddButtonColorWithType:YES];
     switch ([self.planDetailModel.unifyStatus integerValue]) {
         case 0:
 //            self.addButtonStr = @"等待预售开始超过30分";
-//            self.isAddButtonInteraction = false;
+//            self.isAddButtonInteraction = NO;
 //            break;
         case 1:
 //            self.addButtonStr = @"等待预售开始小于30分钟";
-//            self.isAddButtonInteraction = false;
+//            self.isAddButtonInteraction = NO;
 //            break;
         case 2:
 //            self.addButtonStr = @"预定";
-//            self.isAddButtonInteraction = false;
+//            self.isAddButtonInteraction = NO;
 //            break;
         case 3:
 //            self.addButtonStr = @"预定满额";
-//            self.isAddButtonInteraction = false;
+//            self.isAddButtonInteraction = NO;
 //            break;
         case 4:
 //            self.addButtonStr = @"等待开放购买大于30分钟";
-//            self.isAddButtonInteraction = false;
+//            self.isAddButtonInteraction = NO;
 //            break;
         case 5:
 //            self.addButtonStr = @"等待开放购买小于30分钟";
-            self.isAddButtonInteraction = false;
-//            self.isContDown = true;
+            self.isAddButtonInteraction = NO;
+//            self.isContDown = YES;
             self.addButtonStr = @"等待加入";
             break;
         case 6:
-            [self setUPAddButtonColorWithType:false];
+            [self setUPAddButtonColorWithType:NO];
             self.addButtonStr = @"立即加入";
-            self.isAddButtonInteraction = true;
+            self.isAddButtonInteraction = YES;
             if (self.planDetailModel.isFirst.integerValue) {
                 self.addButtonStr = @"立即加入";
-                self.isAddButtonInteraction = true;
+                self.isAddButtonInteraction = YES;
             }else {
                 self.addButtonStr = @"追加";
-                self.isAddButtonInteraction = true;
+                self.isAddButtonInteraction = YES;
             }
             break;
         case 7:{
@@ -232,20 +232,20 @@
 //            }else {//需求更改
                 self.addButtonStr = @"销售结束";
 //            }
-            self.isAddButtonInteraction = false;
+            self.isAddButtonInteraction = NO;
         }
             break;
         case 8:
             self.addButtonStr = @"收益中";
-            self.isAddButtonInteraction = false;
+            self.isAddButtonInteraction = NO;
             break;
         case 9:
             self.addButtonStr = @"开放期";
-            self.isAddButtonInteraction = false;
+            self.isAddButtonInteraction = NO;
             break;
         case 10:
             self.addButtonStr = @"已退出";
-            self.isAddButtonInteraction = false;
+            self.isAddButtonInteraction = NO;
             break;
     }
     switch ([self.planDetailModel.unifyStatus integerValue]) {
@@ -269,13 +269,13 @@
 - (void)setUPAddButtonColorWithType:(BOOL) isSelected {
     if (isSelected) {
         ///设置addbutton的颜色
-        self.isAddButtonInteraction = true;
+        self.isAddButtonInteraction = YES;
         self.addButtonTitleColor = [UIColor whiteColor];
         self.addButtonBackgroundColor = COR26;
         self.addButtonBorderColor = kHXBColor_Grey_Font0_2;
         return;
     }
-    self.isAddButtonInteraction = false;
+    self.isAddButtonInteraction = NO;
     self.addButtonTitleColor = [UIColor whiteColor];
     self.addButtonBackgroundColor = kHXBColor_Red_090303;
     self.addButtonBorderColor = kHXBColor_Red_090303;
@@ -360,11 +360,11 @@
         _countDownStr = @(self.planDetailModel.diffTime.integerValue / 1000.0).description;
         if (_countDownStr.integerValue <= 3600 && _countDownStr.integerValue >= 0) {
             NSLog(@"%@倒计时",_countDownStr);
-            self.isContDown = true;
+            self.isContDown = YES;
             //会有倒计时
         }else if (_countDownStr.integerValue > 3600) {
 //            显示的是数字 12日12：12
-            self.isContDown = false;
+            self.isContDown = NO;
             NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planDetailModel.beginSellingTime  andDateFormatter:nil];
             self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:date andDateFormat:@"MM月dd日 HH:mm开售"];
         }

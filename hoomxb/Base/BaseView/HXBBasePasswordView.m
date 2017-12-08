@@ -43,7 +43,7 @@
         self.eyeButtonEdgeInsets = eyeButtonEdgeInsets;
         self.password_constW = password_constW;
         self.eyeButtonW = eyeButtonW;
-        self.password_TextField.secureTextEntry = true;
+        self.password_TextField.secureTextEntry = YES;
         [self show];
     }
     return self;
@@ -147,17 +147,17 @@
     
     if ([string isEqualToString:@"\n"]) {
         [textField resignFirstResponder];
-        return false;
+        return NO;
     }
     if (![textField isEqual: self.password_TextField]) {
-        return true;
+        return YES;
     }
-    if (!self.hiddenImage) return true;
+    if (!self.hiddenImage) return YES;
     if (!string.length){//删除字符
         NSRange range = NSMakeRange(self.passwordStr.length - 1, 1);
         [self.passwordStr deleteCharactersInRange: range];
         [self.hiddenPasswordStr deleteCharactersInRange:range];
-        return true;
+        return YES;
     }
     [self.passwordStr appendString:string];
     //添加图片
@@ -172,7 +172,7 @@
     }else {
         self.password_TextField.attributedText = self.hiddenPasswordStr;
     }
-    return false;
+    return NO;
 }
 ///6-20位数字和字母组成 密码
 + (BOOL)isPasswordQualifiedFunWithStr: (NSString *)password {

@@ -53,22 +53,22 @@ typedef enum : NSUInteger {
 - (void)setCountDownString:(NSString *)countDownString {
     _countDownString = countDownString;
     if (!countDownString.integerValue && !self.remainTimeString.length) {
-        self.isHidden = true;
+        self.isHidden = YES;
     }else {
-        self.isHidden = false;
+        self.isHidden = NO;
     }
 //    _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm:ss"];
     _countDownLastStr = @(self.planListModel.diffTime.integerValue / 1000.0).description;
     if (_countDownLastStr.integerValue <= 3600 && _countDownLastStr.integerValue >= 0) {
         NSLog(@"%@倒计时",_countDownLastStr);
-        self.isCountDown = true;
+        self.isCountDown = YES;
         //会有倒计时
         _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm:ss"];
     }else if (_countDownLastStr.integerValue > 3600) {
         //显示的是数字 12日12：12
         NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planListModel.beginSellingTime  andDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
         NSString *datestr = @(date.timeIntervalSince1970).description;
-        self.isHidden = false;
+        self.isHidden = NO;
         self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"dd日HH:mm"];
     }
 
@@ -81,13 +81,13 @@ typedef enum : NSUInteger {
 //        _countDownLastStr = @(self.planListModel.diffTime.integerValue / 1000.0).description;
 //        if (_countDownLastStr.integerValue <= 3600 && _countDownLastStr.integerValue >= 0) {
 //            NSLog(@"%@倒计时",_countDownLastStr);
-//            self.isCountDown = true;
+//            self.isCountDown = YES;
 //            //会有倒计时
 //        }else if (_countDownLastStr.integerValue > 3600) {
 //            //显示的是数字 12日12：12
 //            NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planListModel.beginSellingTime  andDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
 //            NSString *datestr = @(date.timeIntervalSince1970).description;
-//            self.isHidden = false;
+//            self.isHidden = NO;
 //            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"dd日HH:mm"];
 //        }
 //    }
@@ -105,7 +105,7 @@ typedef enum : NSUInteger {
 
 //红利计划状态
 - (NSString *)setupUnifyStatus {
-   [self setUPAddButtonColorWithType:true];
+   [self setUPAddButtonColorWithType:YES];
     switch (self.planListModel.unifyStatus.integerValue) {
         case 0:
 //            return @"等待预售开始超过30分";
@@ -119,11 +119,11 @@ typedef enum : NSUInteger {
 //            return @"等待开放购买大于30分钟";
         case 5:
 //            return @"等待开放购买小于30分钟";
-//            _isCountDown = true;
-            [self setUPAddButtonColorWithType:true];
+//            _isCountDown = YES;
+            [self setUPAddButtonColorWithType:YES];
             return @"等待加入";
         case 6:
-            [self setUPAddButtonColorWithType:false];
+            [self setUPAddButtonColorWithType:NO];
             return @"立即加入";
         case 7:
         {
@@ -138,17 +138,17 @@ typedef enum : NSUInteger {
 //                str = @"已满额";
 //            }else {
                 str = @"销售结束";//需求换了,现在只有销售结束
-            [self setUPAddButtonColorWithType:true];
+            [self setUPAddButtonColorWithType:YES];
 //            }
             return str;
         }
         case 8:
-            [self setUPAddButtonColorWithType:true];
+            [self setUPAddButtonColorWithType:YES];
             return @"收益中";
         case 9:
             return @"开放期";
         case 10:
-            [self setUPAddButtonColorWithType:true];
+            [self setUPAddButtonColorWithType:YES];
             return @"已退出";
     }
     return nil;

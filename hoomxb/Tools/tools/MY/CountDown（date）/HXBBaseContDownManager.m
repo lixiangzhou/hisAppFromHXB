@@ -188,7 +188,7 @@
     [modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
         //如果依然是数组那么就在遍历一次
         if ([[model class] isSubclassOfClass:NSClassFromString(@"NSArray")]) {
-            self.isTwo_DimensionalArray = true;
+            self.isTwo_DimensionalArray = YES;
             self.column ++;
             NSArray *modelArray = model;
             [modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -336,9 +336,9 @@
             //表示滑动到了底部
             BOOL isScrollViewBottom = (scrollView.contentSize.height - contentOffsetY) <= 1 + scrollView.frame.size.height - 2;
             if (isScrollViewBottom) {
-                self.isPan = true;
+                self.isPan = YES;
             }else {
-                self.isPan = false;
+                self.isPan = NO;
             }
         }
 }

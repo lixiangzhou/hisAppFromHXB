@@ -35,8 +35,8 @@ static NSString *CELLID = @"CELLID";
 - (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setup];
-        self.bounces = false;
-        self.scrollEnabled = false;
+        self.bounces = NO;
+        self.scrollEnabled = NO;
         self.rowHeight = kScrAdaptationH(45);
 //        self.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
 //        self.tableFooterView = [self footView];
@@ -97,7 +97,7 @@ static NSString *CELLID = @"CELLID";
     HXBFinDetail_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
     cell.model = self.tableViewCellModelArray[indexPath.row];
     if (indexPath.row == self.strArray.count-1 || indexPath.row == self.tableViewCellModelArray.count-1) {
-        cell.isHiddenLastCellBottomLine = true;
+        cell.isHiddenLastCellBottomLine = YES;
     }
     if (self.strArray.count) {
         cell.optionLabel.text = self.strArray[indexPath.row];

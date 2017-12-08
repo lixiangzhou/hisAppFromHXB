@@ -103,7 +103,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = false;
+    self.navigationController.navigationBarHidden = NO;
     //判断是否风险评测
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
@@ -116,7 +116,7 @@
     [self registerEvent];
 }
 - (void)clickLeftBarButtonItem {
-    [self.navigationController popViewControllerAnimated:true];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 //MARK: ------ setup -------
 - (void)setup {
@@ -127,7 +127,7 @@
     
     [self setUPTopImageView];
     
-    self.isTransparentNavigationBar = true;
+    self.isTransparentNavigationBar = YES;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -181,14 +181,14 @@
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             //            detail_DetailLoanVC. = self.planDetailViewModel;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = weakSelf.loanDetailViewModel.fin_LoanInfoView_Manager;
-            [weakSelf.navigationController pushViewController:detail_DetailLoanVC animated:true];
+            [weakSelf.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         }
         ///  借款记录
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[1]]) {
             HXBFinAddRecortdVC_Loan *loanAddRecordVC = [[HXBFinAddRecortdVC_Loan alloc]init];
             //loanAddRecordVC.planDetailModel = self.planDetailViewModel.planDetailModel;
             loanAddRecordVC.loanID = weakSelf.loanID;
-            [weakSelf.navigationController pushViewController:loanAddRecordVC animated:true];
+            [weakSelf.navigationController pushViewController:loanAddRecordVC animated:YES];
         }
         ///合同
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[2]]) {
@@ -229,7 +229,7 @@
     loanJoinVC.loanId = self.loanDetailViewModel.loanDetailModel.userVo.loanId;
     loanJoinVC.minRegisterAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
     loanJoinVC.registerMultipleAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
-    [self.navigationController pushViewController:loanJoinVC animated:true];
+    [self.navigationController pushViewController:loanJoinVC animated:YES];
 }
 
 //MARK: 网络数据请求

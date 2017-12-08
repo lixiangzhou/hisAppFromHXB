@@ -29,7 +29,7 @@
 - (void)setupAddTrustView {
     self.trustView = [[UIImageView alloc]init];
     self.trustView.backgroundColor = [UIColor whiteColor];
-    self.trustView.userInteractionEnabled = true;
+    self.trustView.userInteractionEnabled = YES;
     [self.contentView addSubview: self.trustView];
     [self.trustView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentView).offset(0);

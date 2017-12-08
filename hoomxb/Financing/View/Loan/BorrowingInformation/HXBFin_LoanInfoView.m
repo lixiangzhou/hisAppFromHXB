@@ -123,8 +123,8 @@
 
 
 - (void)setUPFrame {
-    self.scrollView.showsHorizontalScrollIndicator = false;
-    self.scrollView.showsVerticalScrollIndicator = false;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    self.scrollView.showsVerticalScrollIndicator = NO;
     
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@64);

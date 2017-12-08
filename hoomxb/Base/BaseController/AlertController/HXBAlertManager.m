@@ -62,7 +62,7 @@
 //            ///没有实名
 //            HxbSecurityCertificationViewController *securityCertificationVC = [[HxbSecurityCertificationViewController alloc]init];
 //            securityCertificationVC.popToClass = NSStringFromClass([weakSelf class]);
-//            [vc.navigationController pushViewController:securityCertificationVC animated:true];
+//            [vc.navigationController pushViewController:securityCertificationVC animated:YES];
 //            return;
 //        }
         
@@ -116,7 +116,7 @@
                 [vc.navigationController pushViewController:riskAssessmentVC animated:YES];
                 __weak typeof(riskAssessmentVC) weakRiskAssessmentVC = riskAssessmentVC;
                 [riskAssessmentVC popWithBlock:^(NSString *type) {
-                    [weakRiskAssessmentVC.navigationController popToViewController:vc animated:true];
+                    [weakRiskAssessmentVC.navigationController popToViewController:vc animated:YES];
                 }];
             }];
             [alertVC setClickRightButtonBlock:^{

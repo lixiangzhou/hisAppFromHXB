@@ -16,10 +16,10 @@ static NSString *const kHXBCFBundleShortVersionString = @"CFBundleShortVersionSt
 + (BOOL) isFirstStartUPAPP {
     id isFirstStartUPAPP = [[NSUserDefaults standardUserDefaults] valueForKey:kHXBIsFirstStartUPAPP];
     if (!isFirstStartUPAPP) {
-        [[NSUserDefaults standardUserDefaults] setObject:@"false" forKey:kHXBIsFirstStartUPAPP];
-        return true;
+        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:kHXBIsFirstStartUPAPP];
+        return YES;
     }
-    return false;
+    return NO;
 }
 
 + (BOOL) isUPDataAPPWithAPPID: (CGFloat)APPID {
