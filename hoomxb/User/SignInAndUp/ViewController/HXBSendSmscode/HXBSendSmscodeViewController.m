@@ -58,7 +58,7 @@
     
     kWeakSelf
     self.trackingScrollViewBlock = ^(UIScrollView *scrollView) {
-        [weakSelf.smscodeView endEditing:true];
+        [weakSelf.smscodeView endEditing:YES];
     };
     self.smscodeView.phonNumber = self.phonNumber;
     self.smscodeView.isSendSpeechCode = NO;
@@ -183,7 +183,7 @@
                         
                     }];
                 }];
-                [weakSelf presentViewController:self.checkCaptchVC animated:true completion:nil];
+                [weakSelf presentViewController:self.checkCaptchVC animated:YES completion:nil];
             }
             
         }];
@@ -222,18 +222,18 @@
         if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             NSLog(@"忘记密码");
             [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:self.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {
-                [self.navigationController popToRootViewControllerAnimated:false];
+                [self.navigationController popToRootViewControllerAnimated:NO];
             } andFailureBlock:^(NSError *error) {
                 
             }];
         }else {
             [HXBSignUPAndLoginRequest signUPRequetWithMobile:weakSelf.phonNumber andSmscode:smscode andPassword:password andInviteCode:inviteCode andSuccessBlock:^{
                  NSLog(@"注册设置成功");
-                [[KeyChainManage sharedInstance] setMobile:self.phonNumber];
-                [KeyChainManage sharedInstance].isLogin = true;
+                KeyChain.mobile = self.phonNumber;
+                KeyChain.isLogin = YES;
                 KeyChain.ciphertext = @"0";
 //                HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
-//                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
+//                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:YES];
                 HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
                 bindBankCardVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_signup;
                 [self.navigationController pushViewController:bindBankCardVC animated:YES];

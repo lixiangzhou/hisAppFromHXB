@@ -537,7 +537,7 @@ static NSString *const hostH5 = @"hostH5";
 - (void)signOut
 {
     KeyChainManage *manager = KeyChain;
-    self.isLogin = false;
+    self.isLogin = NO;
     [HXBRequestUserInfo signOut];
     [manager.keychain removeItemForKey:kLoginPwd];
     [manager.keychain removeItemForKey:kTradePwd];
@@ -609,17 +609,17 @@ static NSString *const hostH5 = @"hostH5";
 
 - (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock {
     if (!self.isLogin) {
-        isLoginInRealTimeBlock (false);
+        isLoginInRealTimeBlock (NO);
         return;
     }
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         if (isLoginInRealTimeBlock) {
             [self setValueWithUserInfoModel: viewModel];
-            isLoginInRealTimeBlock(true);
+            isLoginInRealTimeBlock(YES);
         }
     } andFailure:^(NSError *error) {
         if (isLoginInRealTimeBlock) {
-            isLoginInRealTimeBlock(false);
+            isLoginInRealTimeBlock(NO);
         }
     }];
 }

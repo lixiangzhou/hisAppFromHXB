@@ -67,7 +67,7 @@
     [self.button addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.button setTitle:@"一键购买" forState:(UIControlStateNormal)];
     self.button.layer.cornerRadius = kScrAdaptationW750(5);
-    self.button.layer.masksToBounds = true;
+    self.button.layer.masksToBounds = YES;
     self.button.layer.borderColor = kHXBColor_Blue040610.CGColor;//(r:0.45 g:0.68 b:0.68 a:1.00)
     self.button.layer.borderWidth = kXYBorderWidth;
     [self.button setTitleColor:kHXBColor_Blue040610 forState:UIControlStateNormal];

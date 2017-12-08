@@ -156,7 +156,7 @@ kDealloc
         _scrollToolBarView.shouldAdjustContentSize = YES;
         _scrollToolBarView.swipeHeaderView = self.topView;
         _scrollToolBarView.swipeHeaderBar = self.toolBarView;
-        _scrollToolBarView.swipeHeaderBarScrollDisabled = true;
+        _scrollToolBarView.swipeHeaderBarScrollDisabled = YES;
     }
     return _scrollToolBarView;
 }
@@ -361,7 +361,7 @@ kDealloc
 //}
 - (void)downLoadTopViewData {
     kWeakSelf
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.topView.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
         

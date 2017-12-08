@@ -104,9 +104,9 @@
  */
 - (NSString *) status {
     if (!_status) {
-        [self setUPAddButtonColorWithType:true];
+        [self setUPAddButtonColorWithType:YES];
         if ([self.loanTruansferListModel.status isEqualToString:@"TRANSFERING"]) {
-            [self setUPAddButtonColorWithType:false];
+            [self setUPAddButtonColorWithType:NO];
         }
     }
     return _status;

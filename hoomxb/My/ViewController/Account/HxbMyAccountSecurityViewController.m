@@ -67,7 +67,7 @@ UITableViewDataSource,UITableViewDelegate
         [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             HXBAccount_AlterLoginPassword_ViewController *signUPVC = [[HXBAccount_AlterLoginPassword_ViewController alloc] init];
             signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
-            [self.navigationController pushViewController: signUPVC animated:true];
+            [self.navigationController pushViewController: signUPVC animated:YES];
         } andFailure:^(NSError *error) {
             
         }];

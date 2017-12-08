@@ -84,7 +84,7 @@
     [self downLoadData];
     [self tableViewModelArray];
     [self setupAddView];
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
         _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
     } andFailure:^(NSError *error) {
@@ -123,11 +123,11 @@
     self.countDownLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, self.addButton.height)];
     self.countDownLabel.textAlignment = NSTextAlignmentCenter;
     [self.addButton addSubview: self.countDownLabel];
-    self.addButton.userInteractionEnabled = true;
+    self.addButton.userInteractionEnabled = YES;
 }
 
 - (void)clickAddButton: (UIButton *)button {
-    if(![KeyChainManage sharedInstance].isLogin) {
+    if(!KeyChain.isLogin) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         return;
     }
@@ -155,7 +155,7 @@
                 weakSelf.countDownLabel.text = @"立即加入";
                 weakSelf.countDownLabel.textColor = [UIColor whiteColor];
                 weakSelf.addButton.backgroundColor = COR29;
-                weakSelf.addButton.userInteractionEnabled = true;
+                weakSelf.addButton.userInteractionEnabled = YES;
                 [weakSelf.countDownManager stopTimer];
                 return;
             }
@@ -254,7 +254,7 @@
     }];
     [self setUPTopImageView];
 
-    self.isTransparentNavigationBar = true;
+    self.isTransparentNavigationBar = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -373,12 +373,12 @@
         if (indexPath.row == 0) {
             HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc] init];
             detail_DetailPlanVC.planDetailModel = self.planDetailViewModel;
-            [self.navigationController pushViewController:detail_DetailPlanVC animated:true];
+            [self.navigationController pushViewController:detail_DetailPlanVC animated:YES];
         } else if (indexPath.row == 1) {
             HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
             planAddRecordVC.planListViewModel = self.planListViewModel;
             planAddRecordVC.planID = self.planID;
-            [self.navigationController pushViewController:planAddRecordVC animated:true];
+            [self.navigationController pushViewController:planAddRecordVC animated:YES];
         } else {
             [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:self];
         }

@@ -49,13 +49,13 @@
 - (void)setUPAnimater{
     __weak typeof (self)weakSelf = self;
     [self.animatrManager presentAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
-        weakSelf.animatrManager.isAccomplishAnima = true;
+        weakSelf.animatrManager.isAccomplishAnima = YES;
     }];
     [self.animatrManager dismissAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
         [UIView animateWithDuration:0 animations:^{
             
         } completion:^(BOOL finished) {
-            weakSelf.animatrManager.isAccomplishAnima = true;
+            weakSelf.animatrManager.isAccomplishAnima = YES;
         }];
     }];
     [self.animatrManager setupContainerViewWithBlock:^(UIView *containerView) {
@@ -68,7 +68,7 @@
     
 }
 - (void)clickContainerView: (UIButton *)button {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 //设置
@@ -118,14 +118,14 @@
             //正确就dismiss
             if (isSuccessBlock) {
                 ///通知控制器 图验通过
-                [weakSelf dismissViewControllerAnimated:true completion:nil];
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
                  if(weakSelf.isCheckCaptchaSucceedBlock) weakSelf.isCheckCaptchaSucceedBlock(checkCaptChaStr);
               
             }else{
-                weakSelf.checkCaptcha.isCorrect = false;
+                weakSelf.checkCaptcha.isCorrect = NO;
             }
         } andFailureBlock:^(NSError *error) {
-            weakSelf.checkCaptcha.isCorrect = false;
+            weakSelf.checkCaptcha.isCorrect = NO;
             [weakSelf downCheckCaptcha];
         }];
     }];

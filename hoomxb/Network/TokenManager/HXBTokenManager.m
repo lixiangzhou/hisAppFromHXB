@@ -22,7 +22,7 @@
         if (data) {
             NSDictionary *dic = [[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil] objectForKey:kHXBDownLoadTokenKey];
             HXBTokenModel *model = [HXBTokenModel yy_modelWithJSON:dic];
-            [KeyChain setToken:model.token];
+            KeyChain.token = model.token;
             ///下载成功的回调
             if (downLoadTokenSucceedBlock) {
                 downLoadTokenSucceedBlock(KeyChain.token);

@@ -76,7 +76,7 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
     _discountTitle = @"暂无可用优惠券";
     _balanceTitle = @"可用余额";
     _isSpeechVerificationCode = NO;
@@ -157,7 +157,7 @@ static NSString *const bankString = @"绑定银行卡";
      _registerMultipleAmount     最低起投此金额多少倍
      _inputMoneyStr              输入的金额
      */
-    BOOL isHasContainsNonzeroDecimals = (long long)([_inputMoneyStr doubleValue] * 100) % 100 != 0 ? true:false;//true:含非零小数
+    BOOL isHasContainsNonzeroDecimals = (long long)([_inputMoneyStr doubleValue] * 100) % 100 != 0 ? YES:NO;//YES:含非零小数
     BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
     if (_inputMoneyStr.length <= 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
@@ -358,10 +358,10 @@ static NSString *const bankString = @"绑定银行卡";
         loanBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
         [loanBuySuccessVC clickButtonWithBlock:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-            [self.navigationController popToRootViewControllerAnimated:true];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        [self.navigationController pushViewController:loanBuySuccessVC animated:true];
+        [self.navigationController pushViewController:loanBuySuccessVC animated:YES];
     } andFailureBlock:^(NSError *error, NSDictionary *response) {
         NSInteger status = [response[@"status"] integerValue];
         NSInteger errorCode = error.code;
@@ -415,10 +415,10 @@ static NSString *const bankString = @"绑定银行卡";
                 failViewController.buy_ButtonTitle = @"重新投资";
         }
         [failViewController clickButtonWithBlock:^{
-            [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
+            [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        [weakSelf.navigationController pushViewController:failViewController animated:true];
+        [weakSelf.navigationController pushViewController:failViewController animated:YES];
     }];
 }
 

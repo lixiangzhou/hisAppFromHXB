@@ -32,13 +32,13 @@
 
 - (void)clickLeftBarButtonItem : (UIBarButtonItem *)button {
 //    [[NSNotificationCenter defaultCenter]postNotificationName:kHXBBotification_ShowHomeVC object:nil];
-    [self dismissViewControllerAnimated:false completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
     
 }
 
 - (void)securityCertificationButtonClick:(UIButton *)sender{
     HxbSecurityCertificationViewController *securityCertificationViewController = [[HxbSecurityCertificationViewController alloc]init];
-    [self.navigationController pushViewController:securityCertificationViewController animated:true];
+    [self.navigationController pushViewController:securityCertificationViewController animated:YES];
 
 }
 - (UIButton *)securityCertificationButton{

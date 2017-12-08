@@ -61,8 +61,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     switch (type) {
         case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:
         {
-            [self.inviteCodeTextField setHidden:true];
-            [self.negotiateView setHidden:true];
+            [self.inviteCodeTextField setHidden:YES];
+            [self.negotiateView setHidden:YES];
             [self.setPassWordButton setTitle:@"确认重置密码" forState:UIControlStateNormal];
             [self.setPassWordButton mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(self.password_TextField.mas_bottom).offset(kScrAdaptationH(50));
@@ -310,7 +310,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 ///设置
 - (void)setSubView {
     self.password_TextField.delegate = self;
-    self.password_TextField.secureTextEntry = true;
+    self.password_TextField.secureTextEntry = YES;
     self.smscode_TextField.delegate = self;
     
     self.phonNumberLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
@@ -370,7 +370,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 }
 
 - (void) setSendButtonStatus {
-    self.sendButton.userInteractionEnabled = false;
+    self.sendButton.userInteractionEnabled = NO;
     [self.timer fire];
 }
 
@@ -420,7 +420,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
         self.sendButton.layer.borderColor = COR29.CGColor;
         [self deleteTimer];
         self.timeNumber = self.totalTimeNumber;
-        self.sendButton.userInteractionEnabled = true;
+        self.sendButton.userInteractionEnabled = YES;
         _startsCountdown = NO;
     } else {
         [self.sendButton setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];

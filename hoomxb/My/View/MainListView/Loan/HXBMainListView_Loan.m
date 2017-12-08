@@ -181,13 +181,13 @@ kDealloc
     kWeakSelf
     self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:self.toolBarViewOptionTitleStrArray];
     //开启动画
-    self.toolBarView.isAnima_ItemBottomBarView = true;
+    self.toolBarView.isAnima_ItemBottomBarView = YES;
     self.toolBarView.animaTime_ItemBottomBarView = 0.5;
     
     ///改变底部的提示线条颜色' && '高度
     self.toolBarView.itemBarAnimaViewColor = kHXBColor_Red_255_64_79;
     self.toolBarView.barAnimaViewH = 2;
-    self.toolBarView.isHiddenLien = true;
+    self.toolBarView.isHiddenLien = YES;
     
     
     // 对item 进行自定义

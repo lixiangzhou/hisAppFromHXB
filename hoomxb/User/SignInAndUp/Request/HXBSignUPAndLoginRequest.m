@@ -74,11 +74,11 @@
             return;
         }
         if (successBlock) {
-            successBlock(true);
-            if (![mobile isEqualToString:KeyChain.mobile]) {
+            successBlock(YES);
+            if ((![mobile isEqualToString:KeyChain.mobile]) && KeyChain.mobile) {
                 [KeyChain removeGesture];
             }
-            [KeyChain setMobile:mobile];
+            KeyChain.mobile = mobile;
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {
@@ -150,7 +150,7 @@
                                         };
     [checkCaptchaAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD;
-        if (successBlock) successBlock(true);
+        if (successBlock) successBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);
         kNetWorkError(@"校验图片验证码请求失败");
@@ -186,7 +186,7 @@
             }
             return;
         }
-        if (successBlock) successBlock(true);
+        if (successBlock) successBlock(YES);
         
     } failure:^(NYBaseRequest *request, NSError *error) {
         
@@ -222,7 +222,7 @@
             if (failureBlock) failureBlock(responseObject);
             return;
         }
-        if (successBlock) successBlock(true);
+        if (successBlock) successBlock(YES);
         
     } failure:^(NYBaseRequest *request, NSError *error) {
         
@@ -362,7 +362,7 @@
         ///判断是否成功
         kHXBRespons_returnVCError
         if (successBlock) {
-            successBlock(true);
+            successBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error,nil);
@@ -390,7 +390,7 @@
     
     [forgotPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD
-        if(successBlock) successBlock(true);
+        if(successBlock) successBlock(YES);
         NSLog(@"%@",responseObject);
     } failure:^(NYBaseRequest *request, NSError *error) {
         if(failureBlock) failureBlock(error);

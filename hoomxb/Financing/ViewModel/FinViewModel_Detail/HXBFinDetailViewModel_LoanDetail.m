@@ -18,7 +18,7 @@
 }
 
 - (BOOL)isAddButtonEndEditing {
-    return true;
+    return YES;
 }
 
 /**
@@ -37,85 +37,85 @@
     if (!_status) {
         NSString *status = self.loanDetailModel.loanVo.status;
         ///String	投标中
-        [self setUPAddButtonColorWithType:true];
+        [self setUPAddButtonColorWithType:YES];
         if ( [status isEqualToString:@"OPEN"]){
             self.addButtonStr = @"立即投标";
-            [self setUPAddButtonColorWithType:false];
+            [self setUPAddButtonColorWithType:NO];
             
-            _isAddButtonEditing = true;
+            _isAddButtonEditing = YES;
             _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.surplusAmount.floatValue];
         }
         ///	String	已满标
         if ([status isEqualToString:@"READY"]){
             self.addButtonStr = @"已满标";
-            _isAddButtonEditing = false;
+            _isAddButtonEditing = NO;
             _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
             
         }
         ///	String	已流标
         if ([status isEqualToString:@"FAILED"]){
             self.addButtonStr = @"立即投标";
-            _isAddButtonEditing = false;
+            _isAddButtonEditing = NO;
         }
         ///	String	收益中
         if ([status isEqualToString:@"IN_PROGRESS"]){
             self.addButtonStr = @"收益中";
-            _isAddButtonEditing = false;
+            _isAddButtonEditing = NO;
             _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         ///	String	逾期
         if ([status isEqualToString:@"OVER_DUE"]){
             self.addButtonStr = @"逾期";
-            _isAddButtonEditing = false;
+            _isAddButtonEditing = NO;
               _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
             
         }
         ///	String	坏账
         if ([status isEqualToString:@"BAD_DEBT"]){
             self.addButtonStr = @"坏账";
-             _isAddButtonEditing = false;
+             _isAddButtonEditing = NO;
               _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	已结清
         if ([status isEqualToString:@"CLOSED"]){
             self.addButtonStr = @"已结清";
-             _isAddButtonEditing = false;
+             _isAddButtonEditing = NO;
               _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	新申请
         if ([status isEqualToString:@"FIRST_APPLY"]){
             self.addButtonStr = @"立即投标";
-             _isAddButtonEditing = false;
+             _isAddButtonEditing = NO;
               _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	已满标
         if ([status isEqualToString:@"FIRST_READY"]){
             self.addButtonStr = @"已满标";
-             _isAddButtonEditing = false;
+             _isAddButtonEditing = NO;
             _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	预售
         if ([status isEqualToString:@"PRE_SALES"]){
             self.addButtonStr = @"立即投标";
-            _isAddButtonEditing = true;
+            _isAddButtonEditing = YES;
               _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	等待招标
         if ([status isEqualToString:@"WAIT_OPEN"]){
             self.addButtonStr = @"立即投标";
-            _isAddButtonEditing = true;
+            _isAddButtonEditing = YES;
               _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
         ///	String	放款中
         if ([status isEqualToString:@"FANGBIAO_PROCESSING"]){
             self.addButtonStr = @"立即投标";
-            _isAddButtonEditing = true;
+            _isAddButtonEditing = YES;
               _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
         
@@ -132,13 +132,13 @@
 - (void)setUPAddButtonColorWithType:(BOOL) isSelected {
     if (isSelected) {
         ///设置addbutton的颜色
-        self.isAddButtonEditing = false;
+        self.isAddButtonEditing = NO;
         self.addButtonTitleColor = [UIColor whiteColor];
         self.addButtonBackgroundColor = COR26;
         self.addButtonBorderColor = kHXBColor_Grey_Font0_2;
         return;
     }
-    self.isAddButtonEditing = true;
+    self.isAddButtonEditing = YES;
     self.addButtonTitleColor = [UIColor whiteColor];
     self.addButtonBackgroundColor = kHXBColor_Red_090303;
     self.addButtonBorderColor = kHXBColor_Red_090303;

@@ -39,7 +39,7 @@
     self.titleLabel.frame = CGRectMake(kScrAdaptationH(10) * 2, 0, self.titleLabel.frame.size.width, self.titleLabel.frame.size.height);
     self.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
     self.imageView.layer.borderWidth = kXYBorderWidth;
-    self.imageView.layer.masksToBounds = true;
+    self.imageView.layer.masksToBounds = YES;
     self.imageView.layer.cornerRadius = kScrAdaptationH(10)/2.0;
 
 //    CGFloat X, W;
@@ -62,7 +62,7 @@
 //    self.hxb_imageView_Selected.bounds = CGRectMake(0, 0, _imageRect.size.width, _imageRect.size.height);
 //    
 //    self.titleLabel.frame = CGRectMake(titleX, titleY, titleW, titleH);
-//    self.selected = false;
+//    self.selected = NO;
 //    self.isReduce = self.isReduce;
 }
 
@@ -104,9 +104,9 @@
 //    _isReduce = isReduce;
 //    if (isReduce) {
 //        self.hxb_imageView.layer.cornerRadius = self.hxb_imageView.frame.size.height/2.0;
-//        self.hxb_imageView.layer.masksToBounds = true;
+//        self.hxb_imageView.layer.masksToBounds = YES;
 //        self.hxb_imageView_Selected.layer.cornerRadius = self.hxb_imageView.frame.size.height/2.0;
-//        self.hxb_imageView_Selected.layer.masksToBounds = true;
+//        self.hxb_imageView_Selected.layer.masksToBounds = YES;
 //    }
 //}
 @end

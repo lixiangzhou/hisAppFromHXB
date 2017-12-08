@@ -45,7 +45,7 @@
                 HXBModifyPhoneRequest *modifyPhoneRequest = [[HXBModifyPhoneRequest alloc] init];
                 [modifyPhoneRequest mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(id responseObject) {
                     NSLog(@"%@",responseObject);
-                    [KeyChain setMobile:phoneNumber];
+                    KeyChain.mobile = phoneNumber;
                     [KeyChain removeGesture];
                     [KeyChain signOut];
                     weakSelf.tabBarController.selectedIndex = 0;
@@ -83,7 +83,7 @@
     kWeakSelf
     ///1. 如果要是已经图验过了，那就不需要图验了
     HXBCheckCaptchaViewController *checkCaptchVC = [[HXBCheckCaptchaViewController alloc]init];
-    [self presentViewController:checkCaptchVC animated:true completion:nil];
+    [self presentViewController:checkCaptchVC animated:YES completion:nil];
     [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
         weakSelf.checkPaptcha = checkPaptcha;
         [weakSelf.homeView getCodeSuccessfully];

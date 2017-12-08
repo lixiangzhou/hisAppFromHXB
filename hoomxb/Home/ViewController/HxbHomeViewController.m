@@ -358,9 +358,9 @@
             HxbHomePageModel_DataList *homePageModel = weakSelf.homeView.homeBaseModel.homePlanRecommend[indexPath.section];
             planDetailsVC.title = homePageModel.name;
             planDetailsVC.planID = homePageModel.ID;
-            planDetailsVC.isPlan = true;
-            planDetailsVC.isFlowChart = true;
-            [weakSelf.navigationController pushViewController:planDetailsVC animated:true];
+            planDetailsVC.isPlan = YES;
+            planDetailsVC.isFlowChart = YES;
+            [weakSelf.navigationController pushViewController:planDetailsVC animated:YES];
         };
         _homeView.tipButtonClickBlock_homeView = ^(){
             
@@ -385,7 +385,7 @@
                 HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
                 webViewVC.pageUrl = model.url;
                 //            webViewVC.title = model.title;//mgmt标题
-                [weakSelf.navigationController pushViewController:webViewVC animated:true];
+                [weakSelf.navigationController pushViewController:webViewVC animated:YES];
             }
         };
     }

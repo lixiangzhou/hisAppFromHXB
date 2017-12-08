@@ -36,12 +36,12 @@ kDealloc
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isTransparentNavigationBar = true;
+    self.isTransparentNavigationBar = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     self.title  = @"红利计划";
     [self setUP];
     ///网络请求
-//    [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
+//    [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
     //防止跳转的时候，tableView向上或者向下移动
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -52,18 +52,18 @@ kDealloc
 {
     [super viewWillAppear:animated];
     ///网络请求
-    [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
+    [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
 }
 
 //设置
 - (void)setUP {
-    self.isRedColorWithNavigationBar = true;
+    self.isRedColorWithNavigationBar = YES;
     ///请求资产统计的网络请求
     [self assetStatisticsLoadData];
     ///view的创建
     [self setupView];
     ///网络请求
-//    [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
+//    [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
     ///事件的传递
     [self registerEvent];
     //刷新  加载
@@ -78,7 +78,7 @@ kDealloc
  */
 - (void)getNetworkAgain
 {
-    [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
+    [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
     ///请求资产统计的网络请求
     [self assetStatisticsLoadData];
 }
@@ -86,7 +86,7 @@ kDealloc
 ///资产统计网络请求
 - (void)assetStatisticsLoadData {
     kWeakSelf
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.planListView.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
     }];
@@ -155,17 +155,17 @@ kDealloc
         switch (type) {
                 //持有中
             case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:
-                if (!weakSelf.hold_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:true];
+                if (!weakSelf.hold_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
                 break;
                 
                 //退出中
             case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:
-                if (!weakSelf.exiting_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:true];
+                if (!weakSelf.exiting_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:YES];
                 break;
             
                 //已退出
             case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
-                if (!weakSelf.exit_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:true];
+                if (!weakSelf.exit_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:YES];
                 break;
         }
     }];
@@ -180,7 +180,7 @@ kDealloc
 - (void) refresh_hold {
     __weak typeof(self)weakSelf = self;
     [self.planListView hold_RefreashWithDownBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:false];
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:NO];
     } andUPBlock:^{
         [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
         [weakSelf assetStatisticsLoadData];
@@ -190,9 +190,9 @@ kDealloc
     __weak typeof (self)weakSelf = self;
     [self.planListView exiting_RefreashWithDownBlock:^{
         [weakSelf assetStatisticsLoadData];
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:false];
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:NO];
     } andUPBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:true];
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:YES];
         [weakSelf assetStatisticsLoadData];
     }];
 }
@@ -200,9 +200,9 @@ kDealloc
     __weak typeof (self)weakSelf = self;
     [self.planListView exit_RefreashWithDownBlock:^{
         [weakSelf assetStatisticsLoadData];
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:false];
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:NO];
     } andUPBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:true];
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:YES];
         [weakSelf assetStatisticsLoadData];
     }];
 }
@@ -215,7 +215,7 @@ kDealloc
         HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
         planListDetailVC.planViewModel = planViewModel;
         planListDetailVC.type = HXBRequestType_MY_PlanRequestType_HOLD_PLAN;
-        [weakSelf.navigationController pushViewController:planListDetailVC animated:true];
+        [weakSelf.navigationController pushViewController:planListDetailVC animated:YES];
     }];
     //退出中
     [self.planListView clickLoan_exiting_CellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickLoanCellIndex) {
@@ -223,14 +223,14 @@ kDealloc
         planListDetailVC.planViewModel = planViewModel;
         planListDetailVC.isLeave = YES;
         planListDetailVC.type = HXBRequestType_MY_PlanRequestType_EXITING_PLAN;
-        [weakSelf.navigationController pushViewController:planListDetailVC animated:true];
+        [weakSelf.navigationController pushViewController:planListDetailVC animated:YES];
     }];
     //已退出
     [self.planListView clickLoan_exit_CellFuncWithBlock:^(HXBMYViewModel_MianPlanViewModel *planViewModel, NSIndexPath *clickLoanCellIndex) {
         HXBMY_PlanList_DetailViewController *planListDetailVC = [[HXBMY_PlanList_DetailViewController alloc]init];
         planListDetailVC.planViewModel = planViewModel;
         planListDetailVC.type = HXBRequestType_MY_PlanRequestType_EXIT_PLAN;
-        [weakSelf.navigationController pushViewController:planListDetailVC animated:true];
+        [weakSelf.navigationController pushViewController:planListDetailVC animated:YES];
     }];
 }
 

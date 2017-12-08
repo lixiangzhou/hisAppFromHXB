@@ -67,7 +67,7 @@
     self.upperLimitLabel_const.text = model.upperLimitLabel_constStr;
   
     [self.addButton setTitle:model.addButtonStr forState:UIControlStateNormal];
-    [self setUPAddButtonValueWithSelecter:true];///设置button 为可以点击
+    [self setUPAddButtonValueWithSelecter:YES];///设置button 为可以点击
     self.profitTypeLabel.text = model.profitTypeLabelStr;
     self.rechargeView.placeholder = model.rechargeViewTextField_placeholderStr;
     [self.rechargeView.button setTitle:model.buyButtonStr forState:UIControlStateNormal];
@@ -107,7 +107,7 @@
     self.profitView.backgroundColor = [UIColor whiteColor];
     self.backgroundColor = kHXBColor_BackGround;
     self.addButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
-    self.addButton.userInteractionEnabled = false;
+    self.addButton.userInteractionEnabled = NO;
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
 }
 - (void)setUPAddButtonValueWithSelecter:(BOOL) userInteractionEnabled {
@@ -241,7 +241,7 @@
     }];
     self.addButton.backgroundColor = kHXBColor_Red_090303;
     self.addButton.layer.cornerRadius = kScrAdaptationH750(5);
-    self.addButton.layer.masksToBounds = true;
+    self.addButton.layer.masksToBounds = YES;
 }
 
 
@@ -320,12 +320,12 @@
         NSString *amount = [textField.text hxb_StringWithFormatAndDeleteLastChar:string];
         self.profitLabel.text = [self.model totalInterestWithAmount:amount.floatValue];
     }
-    return true;
+    return YES;
 }
 - (BOOL) textFieldShouldEndEditing:(UITextField *)textField {
 
     self.profitLabel.text = [self.model totalInterestWithAmount:textField.text.floatValue];
-    return true;
+    return YES;
 }
 @end
 

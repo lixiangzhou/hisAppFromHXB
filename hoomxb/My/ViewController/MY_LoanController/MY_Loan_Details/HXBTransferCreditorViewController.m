@@ -132,7 +132,7 @@
             }
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        [weakSelf.navigationController pushViewController:successVC animated:true];
+        [weakSelf.navigationController pushViewController:successVC animated:YES];
     } andFailureBlock:^(NSError *error) {
         if (kHXBCode_Enum_NoConnectionNetwork == error.code || kHXBCode_Enum_ConnectionTimeOut == error.code) return ;
         HXBFBase_BuyResult_VC *failureVC = [[HXBFBase_BuyResult_VC alloc] init];
@@ -154,7 +154,7 @@
             }
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        [weakSelf.navigationController pushViewController:failureVC animated:true];
+        [weakSelf.navigationController pushViewController:failureVC animated:YES];
         
     }];
 }

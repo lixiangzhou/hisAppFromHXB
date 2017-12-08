@@ -233,12 +233,12 @@ UITextFieldDelegate
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     if (!string.length) {
-        return true;
+        return YES;
     }
     if ([textField isEqual:self.identityCardNumTextField]) {
         return textField.text.length < 18;
     }
-    return true;
+    return YES;
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
@@ -252,7 +252,7 @@ UITextFieldDelegate
 //           NSLog(@"身份证不合法");
 //       }];
 //    }
-    return true;
+    return YES;
 }
 
 

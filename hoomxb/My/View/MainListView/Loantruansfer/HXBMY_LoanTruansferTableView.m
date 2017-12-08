@@ -29,7 +29,7 @@ static NSString *const CELLID = @"CELLID";
     self.backgroundColor = kHXBColor_BackGround;
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self registerClass:[HXBBaseViewCell_MYListCellTableViewCell class] forCellReuseIdentifier:CELLID];
-    self.nodataView.hidden = false;
+    self.nodataView.hidden = NO;
     self.rowHeight = kScrAdaptationH(140);
     [HXBMiddlekey AdaptationiOS11WithTableView:self];
 }

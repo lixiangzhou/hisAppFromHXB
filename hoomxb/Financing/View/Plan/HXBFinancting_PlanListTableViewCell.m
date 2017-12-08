@@ -245,8 +245,8 @@
         make.height.equalTo(@(kScrAdaptationH(13)));
     }];
     
-    [self.countDownLable setHidden: true];
-    [self.arrowImageView setHidden: true];
+    [self.countDownLable setHidden: YES];
+    [self.arrowImageView setHidden: YES];
     
     
 }
@@ -344,7 +344,7 @@
     if (!_preferentialLabel) {
         _preferentialLabel = [[UILabel alloc]init];
         _addStatus.layer.cornerRadius = kScrAdaptationW(2.5);
-        _addStatus.layer.masksToBounds = true;
+        _addStatus.layer.masksToBounds = YES;
         _addStatus.backgroundColor = kHXBColor_Red_090303;
         _addStatus.font = kHXBFont_PINGFANGSC_REGULAR(14);
         _addStatus.textColor = [UIColor whiteColor];
@@ -410,7 +410,7 @@
         _tagLableImageView = [[UIImageView alloc]init];
         _tagLableImageView.image = [UIImage imageNamed:@"home_package"];
         _tagLableImageView.contentMode = UIViewContentModeScaleAspectFit;
-        [_tagLableImageView setHidden:true];
+        [_tagLableImageView setHidden:YES];
     }
     return _tagLableImageView;
 }

@@ -176,7 +176,7 @@
 - (void)getNewTokenWithRequest:(NYBaseRequest *)request andWithError:(NSError *)error{
 
     //删除token 让客户登录
-    [[KeyChainManage sharedInstance] removeToken];
+    [KeyChain removeToken];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
     
         //调用refreshAccesstoken方法，刷新access token。
@@ -192,7 +192,7 @@
             NSLog(@"😝😝😝😝😝%@",model.token);
             kNetWorkError(@"token失效");
             
-            [KeyChain setToken:model.token];
+            KeyChain.token = model.token;
             
             //退出登录
             dispatch_async(dispatch_get_main_queue(), ^{

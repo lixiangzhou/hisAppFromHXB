@@ -63,7 +63,7 @@
     _amountTransferLabel = [[UILabel alloc] init];
     _stutasButton = [[UIButton  alloc]init];
     _stutasButton.layer.cornerRadius = kScrAdaptationW(2.5);
-    _stutasButton.layer.masksToBounds = true;
+    _stutasButton.layer.masksToBounds = YES;
     _stutasButton.backgroundColor = kHXBColor_Red_090303;
     _stutasButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
     _stutasButton.enabled = NO;

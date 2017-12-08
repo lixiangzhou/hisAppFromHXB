@@ -31,7 +31,7 @@ kDealloc
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"散标债权";
     //防止跳转的时候，tableView向上或者向下移动
@@ -44,7 +44,7 @@ kDealloc
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+    [self downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:YES];
 }
 
 /**
@@ -52,7 +52,7 @@ kDealloc
  */
 - (void)getNetworkAgain
 {
-     [self downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+     [self downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:YES];
     ///请求资产统计的网络请求
     [self assetStatisticsLoadData];
 }
@@ -63,7 +63,7 @@ kDealloc
     ///view的创建
     [self setupView];
     ///网络请求
-//    [self downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+//    [self downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:YES];
     ///事件的传递
     [self registerEvent];
     //刷新  加载
@@ -77,7 +77,7 @@ kDealloc
 /// userinfo 数据请求
 - (void)assetStatisticsLoadData {
     kWeakSelf
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.loanListView.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
         
@@ -160,16 +160,16 @@ kDealloc
         switch (type) {
                 
             case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN:
-                if (!weakSelf.loan_REPAYING_ViewModelArray.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+                if (!weakSelf.loan_REPAYING_ViewModelArray.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:YES];
                 break;
                 
             case HXBRequestType_MY_LoanRequestType_BID_LOAN:
-                if (!weakSelf.loan_BID_ViewModelArray.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:true];
+                if (!weakSelf.loan_BID_ViewModelArray.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:YES];
                 break;
                 //转让中
             case HXBRequestType_MY_LoanRequestType_Truansfer:
                 if (!weakSelf.loanTruansferViewModelArray.count) {
-                    [weakSelf downLoadDataLoantruansferIsUPData:true];
+                    [weakSelf downLoadDataLoantruansferIsUPData:YES];
                 }
                 break;
         }
@@ -185,27 +185,27 @@ kDealloc
 - (void) refresh_bid {
     __weak typeof(self)weakSelf = self;
     [self.loanListView bid_RefreashWithDownBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:false];
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:NO];
     } andUPBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:true];
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:YES];
         [weakSelf assetStatisticsLoadData];
     }];
 }
 - (void) refresh_repying {
     __weak typeof (self)weakSelf = self;
     [self.loanListView erpaying_RefreashWithDownBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:false];
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:NO];
     } andUPBlock:^{
-        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+        [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:YES];
         [weakSelf assetStatisticsLoadData];
     }];
 }
 - (void) refresh_loanTruansfer {
     kWeakSelf
     [self.loanListView loanTruansfer_RefreashWithDownBlock:^{
-        [weakSelf downLoadDataLoantruansferIsUPData:false];
+        [weakSelf downLoadDataLoantruansferIsUPData:NO];
     } andUPBlock:^{
-        [weakSelf downLoadDataLoantruansferIsUPData:true];
+        [weakSelf downLoadDataLoantruansferIsUPData:YES];
         [weakSelf assetStatisticsLoadData];
     }];
 }
@@ -215,18 +215,18 @@ kDealloc
     [self.loanListView switchBottomScrollViewCallBackFunc:^(NSInteger index, NSString *title, UIButton *option) {
         if ([title isEqualToString:HXBRequestType_MY_REPAYING_LOAN_UI]) {
             if (!weakSelf.loan_REPAYING_ViewModelArray.count){///在收益中刷新
-                [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:true];
+                [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_REPAYING_LOAN andIsUpData:YES];
             }
         }
         if ([title isEqualToString:HXBRequestType_MY_BID_LOAN_UI]) {///投标中刷新
             if (!weakSelf.loan_BID_ViewModelArray.count) {
-                [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:true];
+                [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_LoanRequestType_BID_LOAN andIsUpData:YES];
             }
         }
         //转让中
         if (index == 2) {
             if (!weakSelf.loanTruansferViewModelArray.count) {
-                [weakSelf downLoadDataLoantruansferIsUPData:true];
+                [weakSelf downLoadDataLoantruansferIsUPData:YES];
             }
         }
     }];
@@ -238,12 +238,12 @@ kDealloc
     [self.loanListView clickLoan_repaying_CellFuncWithBlock:^(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex) {
         HXBMY_LoanList_DetailViewController *planListDetailViewController = [[HXBMY_LoanList_DetailViewController alloc]init];
         planListDetailViewController.loanDetailViewModel = loanViewModel;
-        [weakSelf.navigationController pushViewController:planListDetailViewController animated:true];
+        [weakSelf.navigationController pushViewController:planListDetailViewController animated:YES];
     }];
     [self.loanListView clickLoan_bid_CellFuncWithBlock:^(HXBMYViewModel_MainLoanViewModel *loanViewModel, NSIndexPath *clickLoanCellIndex) {
 //        HXBMY_LoanList_DetailViewController *planListDetailViewController = [[HXBMY_LoanList_DetailViewController alloc]init];
 //        planListDetailViewController.loanDetailViewModel = loanViewModel;
-//        [weakSelf.navigationController pushViewController:planListDetailViewController animated:true];
+//        [weakSelf.navigationController pushViewController:planListDetailViewController animated:YES];
         NSLog(@"散标列表暂无详情页");
     }];
 }

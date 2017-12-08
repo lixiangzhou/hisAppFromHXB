@@ -73,7 +73,7 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"计划详情";
     [self setUP];
@@ -85,7 +85,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.planDetail_DetailView = [[HXBFinPlanDetail_DetailView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
     [self.hxbBaseVCScrollView addSubview:self.planDetail_DetailView];
-    self.hxbBaseVCScrollView.bounces = true;
+    self.hxbBaseVCScrollView.bounces = YES;
 //    [self.planDetail_DetailView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.edges.equalTo(self.view);
 //    }];

@@ -31,7 +31,7 @@ UITextFieldDelegate
 
 - (void)nextButtonClick:(UIButton *)sender{
     HxbSignUpViewController *signUpViewController = [[HxbSignUpViewController alloc]init];
-    [self.navigationController pushViewController:signUpViewController animated:true];
+    [self.navigationController pushViewController:signUpViewController animated:YES];
 }
 
 - (UITextField *)phoneTextField{

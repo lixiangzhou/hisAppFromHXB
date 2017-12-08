@@ -42,7 +42,7 @@
             return;
         }
         if (successBlock) {
-            successBlock(true);
+            successBlock(YES);
         }
         
     } failure:^(HXBBaseRequest *request, NSError *error) {
