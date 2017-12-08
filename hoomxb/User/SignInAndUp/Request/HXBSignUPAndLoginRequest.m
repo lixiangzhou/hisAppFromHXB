@@ -75,10 +75,10 @@
         }
         if (successBlock) {
             successBlock(true);
-            if (![mobile isEqualToString:KeyChain.mobile]) {
+            if ((![mobile isEqualToString:KeyChain.mobile]) && KeyChain.mobile) {
                 [KeyChain removeGesture];
             }
-            [KeyChain setMobile:mobile];
+            KeyChain.mobile = mobile;
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {

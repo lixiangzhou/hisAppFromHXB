@@ -86,7 +86,7 @@
  */
 //- (NSString *) availablePoint {
 //    if (!_availablePoint) {
-//        [[KeyChainManage sharedInstance] availablePointWithBlock:^(NSString *availablePoint) {
+//        [KeyChain availablePointWithBlock:^(NSString *availablePoint) {
 //            _availablePoint = availablePoint;
 //        }];
 //    }

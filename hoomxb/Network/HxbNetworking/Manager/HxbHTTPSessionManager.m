@@ -29,7 +29,7 @@
         ///获取code码，如果是401 那么表示token失效
         if([httpResponse statusCode] == kHXBCode_Enum_TokenNotJurisdiction){
             //删除token 让客户登录
-            [[KeyChainManage sharedInstance] removeToken];
+            [KeyChain removeToken];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                 
                 //调用refreshAccesstoken方法，刷新access token。
@@ -42,8 +42,7 @@
                     NSLog(@"😝😝😝😝😝%@",model.token);
                     kNetWorkError(@"token失效");
                     
-                    [KeyChain setToken:model.token];
-                    
+                    KeyChain.token = model.token;
                     
                     NSMutableURLRequest *mutableRequest = [request mutableCopy];    //拷贝request
                     [mutableRequest setValue:[KeyChain token] forHTTPHeaderField:@"X-Hxb-Auth-Token"];

@@ -158,7 +158,7 @@ kDealloc
 }
 - (void)downLoadTopViewData {
     kWeakSelf
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.topView.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
         

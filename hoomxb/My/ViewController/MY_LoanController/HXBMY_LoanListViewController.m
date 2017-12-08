@@ -77,7 +77,7 @@ kDealloc
 /// userinfo 数据请求
 - (void)assetStatisticsLoadData {
     kWeakSelf
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.loanListView.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
         
