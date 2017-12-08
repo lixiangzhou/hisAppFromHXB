@@ -75,6 +75,9 @@
         }
         if (successBlock) {
             successBlock(true);
+            if (![mobile isEqualToString:KeyChain.mobile]) {
+                [KeyChain removeGesture];
+            }
             [KeyChain setMobile:mobile];
         }
     } failure:^(NYBaseRequest *request, NSError *error) {

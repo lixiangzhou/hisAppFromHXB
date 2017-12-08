@@ -117,9 +117,9 @@
 - (UIButton *)sureChangeBtn{
     if (!_sureChangeBtn) {
         _sureChangeBtn = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(sureChangeBtnClick) andFrameByCategory:CGRectZero];
+        [_sureChangeBtn setBackgroundColor:COR12];
+        _sureChangeBtn.userInteractionEnabled = NO;
     }
-    [_sureChangeBtn setBackgroundColor:COR12];
-    _sureChangeBtn.userInteractionEnabled = NO;
     return _sureChangeBtn;
 }
 

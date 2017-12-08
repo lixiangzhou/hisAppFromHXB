@@ -154,7 +154,7 @@ kDealloc
 // 搭建顶部的View信息
 - (void)setupTopView {
     self.topView = [[HXBMainListView_Plan_TopView alloc]init];
-    [self downLoadTopViewData];
+//    [self downLoadTopViewData];
 }
 - (void)downLoadTopViewData {
     kWeakSelf

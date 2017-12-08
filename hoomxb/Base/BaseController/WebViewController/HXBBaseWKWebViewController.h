@@ -31,6 +31,10 @@
  */
 - (void)callHandler:(NSString *)handlerName data:(id)data;
 
+/**
+ 重新加载页面
+ */
+- (void)reloadPage;
 
 /**
  push 一个显示网页的控制器
@@ -40,4 +44,5 @@
  @return 返回当前控制器
  */
 + (instancetype)pushWithPageUrl:(NSString *)pageUrl fromController:(HXBBaseViewController *)controller;
+
 @end
