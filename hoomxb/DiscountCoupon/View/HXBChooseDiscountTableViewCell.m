@@ -134,6 +134,7 @@ typedef enum : NSUInteger {
 - (UIImageView *)iconImageView {
     if (!_iconImageView) {
         _iconImageView = [[UIImageView alloc] init];
+        _iconImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _iconImageView;
 }
@@ -141,6 +142,7 @@ typedef enum : NSUInteger {
 - (UIImageView *)selectImageView {
     if (!_selectImageView) {
         _selectImageView = [[UIImageView alloc] init];
+        _selectImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _selectImageView;
 }
