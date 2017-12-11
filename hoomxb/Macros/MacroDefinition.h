@@ -179,6 +179,8 @@
 
 //加载文字
 #define kLoadIngText @"加载中..."
+//无网络文案
+#define kNoNetworkText @"暂无网络，请稍后再试"
 //分割线高度
 #define kHXBDivisionLineHeight 0.5
 

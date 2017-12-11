@@ -110,6 +110,14 @@
 
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
 {
+    if (!KeyChain.ishaveNet) {
+         [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
+        return;
+    }
+    if (!self.shareVM.shareModel) {
+        [self loadShareData];
+        return;
+    }
     [self cancelShareView];
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
