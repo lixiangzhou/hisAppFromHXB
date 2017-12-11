@@ -12,6 +12,7 @@
 #import "HXBLockLabel.h"
 #import "HXBCircle.h"
 #import "HXBRootVCManager.h"
+#import "HxbMyAccountSecurityViewController.h"
 
 @interface HXBGesturePasswordViewController ()<HXBCircleViewDelegate, UIGestureRecognizerDelegate>
 /**
@@ -255,7 +256,21 @@
         KeyChain.gesturePwdCount = @"5";
         [kUserDefaults setBool:YES forKey:kHXBGesturePWD];
         
-        [self.navigationController popToRootViewControllerAnimated:NO];
+        __block UIViewController *popToVC = nil;
+        [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[HxbMyAccountSecurityViewController class]]) {
+                [kUserDefaults setBool:NO forKey:kHXBGesturePwdSkipeKey];
+                [kUserDefaults synchronize];
+                popToVC = obj;
+                *stop = YES;
+            }
+        }];
+        
+        if (popToVC) {
+            [self.navigationController popToViewController:popToVC animated:YES];
+        } else {
+            [self.navigationController popToRootViewControllerAnimated:NO];
+        }
         
     } else {
         NSLog(@"两次手势不匹配！");

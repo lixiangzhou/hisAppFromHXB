@@ -93,9 +93,15 @@
     }else{
         HXBSetGesturePasswordRequest *setGesturePasswordAPI =[[HXBSetGesturePasswordRequest alloc] init];
         [setGesturePasswordAPI setGesturePasswordRequestWithPassword:self.loginPasswordTextField.text andSuccessBlock:^(id responseObject) {
-            HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-            gesturePasswordVC.type = GestureViewControllerTypeSetting;
-            [weakSelf.navigationController pushViewController:gesturePasswordVC animated:YES];
+            if (weakSelf.switchType == HXBAccountSecureSwitchTypeOff) {
+                [kUserDefaults setBool:YES forKey:kHXBGesturePwdSkipeKey];
+                [kUserDefaults synchronize];
+                [weakSelf.navigationController popViewControllerAnimated:YES];
+            } else {
+                HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+                gesturePasswordVC.type = GestureViewControllerTypeSetting;
+                [weakSelf.navigationController pushViewController:gesturePasswordVC animated:YES];
+            }
         } andFailureBlock:^(NSError *error) {
             
         }];

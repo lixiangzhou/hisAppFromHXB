@@ -7,6 +7,7 @@
 //
 
 #import "HXBBaseViewController.h"
+
 typedef enum{
     GestureViewControllerTypeSetting = 1,
     GestureViewControllerTypeLogin
@@ -18,6 +19,8 @@ typedef enum{
     buttonTagForget
     
 }buttonTag;
+
+
 @interface HXBGesturePasswordViewController : HXBBaseViewController
 
 /**
