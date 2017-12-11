@@ -39,6 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"红小宝公告";
+//    self.isRedColorWithNavigationBar = YES;
     self.isColourGradientNavigationBar = YES;
     [self.view addSubview:self.mainTabelView];
     [self loadDataWithIsUPReloadData:YES];
@@ -109,7 +110,7 @@
 {
     if (!_mainTabelView) {
         kWeakSelf
-        _mainTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
+        _mainTabelView = [[UITableView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         _mainTabelView.delegate = self;
         _mainTabelView.dataSource = self;
         _mainTabelView.hidden = YES;
