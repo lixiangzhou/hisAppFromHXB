@@ -50,7 +50,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     [self.signUPView signUPClickNextButtonFunc:^(NSString *mobile) {
         [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_registFirst];
         if (!KeyChain.ishaveNet) {
-            [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+            [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
             return;
         }
         

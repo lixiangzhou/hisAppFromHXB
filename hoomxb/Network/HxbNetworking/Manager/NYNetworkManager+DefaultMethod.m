@@ -120,7 +120,7 @@
     }
     
     if (!KeyChain.ishaveNet) {
-        [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+        [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
         request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_NoConnectionNetwork userInfo:@{@"message":@"暂无网络"}];
         return;
     }
