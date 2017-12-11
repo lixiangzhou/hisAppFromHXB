@@ -51,16 +51,6 @@ static NSString *const homePage_PlanListViewModelArrayPlist = @"homePage_PlanLis
     [self setViewModelWithModelArray:homePagePlanArray andTypeString:homePage_PlanListViewModelArrayPlist];
 }
 
-
-
-
-
-
-
-
-
-
-
 + (NSString *)getPathWithType:(NSString *)type {
     NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
     NSString *filePath = [path stringByAppendingPathComponent:type];
