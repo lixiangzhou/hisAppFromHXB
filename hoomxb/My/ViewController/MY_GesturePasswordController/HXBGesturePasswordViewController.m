@@ -69,6 +69,10 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.isHiddenNavigationBar = YES;
+    
+    if (self.type == GestureViewControllerTypeSetting) {
+        [self alertSkipSetting];
+    }
 }
 
 
@@ -308,6 +312,26 @@
 }
 
 #pragma mark - Helper
+- (void)alertSkipSetting {
+    // 忽略手势密码弹窗提示
+    BOOL appeared = [kUserDefaults boolForKey:kHXBGesturePwdSkipeAppeardKey];
+    if (appeared == NO) {
+        // 只出现一次弹窗
+        [kUserDefaults setBool:YES forKey:kHXBGesturePwdSkipeAppeardKey];
+        [kUserDefaults synchronize];
+        // 弹窗
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:@"为了您的账户安全，\n建议您设置手势密码" force:2 andLeftButtonMassage:@"跳过设置" andRightButtonMassage:@"开始设置"];
+        alertVC.clickXYLeftButtonBlock = ^{ // 跳过设置
+            [kUserDefaults setBool:YES forKey:kHXBGesturePwdSkipeKey];
+            [kUserDefaults synchronize];
+            
+            [[HXBRootVCManager manager] makeTabbarRootVC];
+        };
+        
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }
+}
+
 - (void)creatButton:(UIButton *)btn frame:(CGRect)frame title:(NSString *)title alignment:(UIControlContentHorizontalAlignment)alignment tag:(NSInteger)tag
 {
     btn.frame = frame;

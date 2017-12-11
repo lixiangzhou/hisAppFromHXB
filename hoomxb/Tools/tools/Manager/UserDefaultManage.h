@@ -10,7 +10,13 @@
 
 #define UserDefault [UserDefaultManage sharedInstance]
 #define kUserDefaults [NSUserDefaults standardUserDefaults]
-#define kHXBGesturePWD @"HXBGesturePWD"
+// 手势密码
+UIKIT_EXTERN NSString const *kHXBGesturePWD;
+// 是否出现过忽略手势密码弹窗
+UIKIT_EXTERN NSString const *kHXBGesturePwdSkipeAppeardKey;
+// 是否忽略手势密码
+UIKIT_EXTERN NSString const *kHXBGesturePwdSkipeKey;
+
 @interface UserDefaultManage : NSObject
 
 /**

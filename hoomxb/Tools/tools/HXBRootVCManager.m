@@ -74,11 +74,17 @@
  */
 - (void)enterTheGesturePasswordVCOrTabBar
 {
-    if (KeyChain.validateGesturePwd) {
-        KeyChain.ishaveNet = YES;
-        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-        gesturePasswordVC.type = GestureViewControllerTypeLogin;
-        self.window.rootViewController = gesturePasswordVC;
+//     KeyChain.validateGesturePwd
+    if (KeyChain.isLogin) {
+        BOOL skipGesturePwd =  [kUserDefaults boolForKey:kHXBGesturePwdSkipeKey];
+        if (skipGesturePwd) {
+            [self makeTabbarRootVC];
+        } else {
+            KeyChain.ishaveNet = YES;
+            HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+            gesturePasswordVC.type = GestureViewControllerTypeLogin;
+            self.window.rootViewController = gesturePasswordVC;
+        }
     } else {
         [self makeTabbarRootVC];
     }
