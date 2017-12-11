@@ -112,6 +112,7 @@
 {
     if (!KeyChain.ishaveNet) {
          [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
+         [self cancelShareView];
         return;
     }
     if (!self.shareVM.shareModel) {
