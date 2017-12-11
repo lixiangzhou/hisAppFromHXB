@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#define UserDefault [UserDefaultManage sharedInstance]
 #define kUserDefaults [NSUserDefaults standardUserDefaults]
 // 手势密码
 UIKIT_EXTERN NSString const *kHXBGesturePWD;
