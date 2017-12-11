@@ -50,7 +50,7 @@
     umShareAPI.requestMethod = NYRequestMethodPost;
     umShareAPI.requestArgument = @{@"action":@"buy"};
                              
-    [umShareAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
+    [umShareAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         
         NSInteger status =  [responseObject[kResponseStatus] integerValue];
         if (status != 0) {

@@ -78,7 +78,7 @@
     [self.shareVM UMShareRequestSuccessBlock:^(HXBUMShareViewModel *shareViewModel) {
         weakSelf.shareVM = shareViewModel;
     } andFailureBlock:^(NSError *error) {
-        
+        [self cancelShareView];
     }];
 }
 
@@ -115,7 +115,7 @@
         return;
     }
     if (!self.shareVM.shareModel) {
-        [self loadShareData];
+        [HxbHUDProgress showMessageCenter:@"网速较慢，请稍后重试" inView:nil];
         return;
     }
     [self cancelShareView];
