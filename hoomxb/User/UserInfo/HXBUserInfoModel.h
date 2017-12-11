@@ -110,9 +110,16 @@
  是否解绑身份证
  */
 @property (nonatomic, assign) BOOL isUnbundling;
-
-
+/**
+ ip
+ */
 @property (nonatomic,copy) NSString *ip;
+/**
+ 是否投资
+ */
 @property (nonatomic,copy) NSString *hasRecharge;
-
+/**
+ 是否有理财顾问
+ */
+//@property (nonatomic,assign) BOOL isInviteMan;
 @end
