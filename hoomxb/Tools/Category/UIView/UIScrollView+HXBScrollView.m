@@ -53,7 +53,7 @@ static NSString * const footerNoMoreDataStr = @"已加载全部";
     [footer setImages:idleImages duration:durations[1].longValue forState:MJRefreshStatePulling];
     //正在刷新
     [footer setImages:idleImages duration:durations[2].longValue forState:MJRefreshStateRefreshing];
-    footer.automaticallyHidden = true;
+    footer.automaticallyHidden = YES;
     self.mj_footer = footer;
     if (!idleImages.count) {
         MJRefreshAutoNormalFooter *autoNormalFooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -78,7 +78,7 @@ static NSString * const footerNoMoreDataStr = @"已加载全部";
     [footer setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
     
     if (footerBlock) footerBlock(footer);
-    footer.automaticallyHidden = true;
+    footer.automaticallyHidden = YES;
     self.mj_footer = footer;
 }
 
@@ -97,7 +97,7 @@ static NSString * const footerNoMoreDataStr = @"已加载全部";
  footer.stateLabel header.stateLabel
  2. 记录时间的label
  header.lastUpdatedTimeLabel
- 3. 设置footer在没有数据的时候隐藏： （默认为false）
- footer.automaticallyHidden = true;
+ 3. 设置footer在没有数据的时候隐藏： （默认为NO）
+ footer.automaticallyHidden = YES;
  */
 

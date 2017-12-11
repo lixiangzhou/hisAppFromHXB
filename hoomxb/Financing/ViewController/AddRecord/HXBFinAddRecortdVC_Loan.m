@@ -23,7 +23,7 @@
 }
 
 - (void)downLoadData {
-      [[HXBFinanctingRequest sharedFinanctingRequest] loanAddRecortdWithISUPLoad:true andFinanceLoanId:self.loanID andOrder:nil andSuccessBlock:^(FinModel_AddRecortdModel_Loan *model) {
+      [[HXBFinanctingRequest sharedFinanctingRequest] loanAddRecortdWithISUPLoad:YES andFinanceLoanId:self.loanID andOrder:nil andSuccessBlock:^(FinModel_AddRecortdModel_Loan *model) {
           self.addRecortdTableView.loanModel = model;
       } andFailureBlock:^(NSError *error) {
           
@@ -31,7 +31,7 @@
 }
 
 - (void)setUPViews {
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
     self.addRecortdTableView = [[HXBFinAddRecortdTableView_Plan alloc]initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height - 64) style:UITableViewStylePlain];
     [self.view addSubview:self.addRecortdTableView];
 }

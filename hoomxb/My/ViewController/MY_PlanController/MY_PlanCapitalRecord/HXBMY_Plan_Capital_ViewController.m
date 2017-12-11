@@ -73,18 +73,18 @@ static NSString *const cellID = @"cellID";
     }];
     kWeakSelf
     [self.planCapitalTableView hxb_FooterWithRefreshBlock:^{
-        [weakSelf downLoadWithIsUPLoad:false];
+        [weakSelf downLoadWithIsUPLoad:NO];
     } andSetUpGifFooterBlock:^(MJRefreshBackNormalFooter *footer) {
     }];
     [self.planCapitalTableView hxb_headerWithRefreshBlock:^{
-        [weakSelf downLoadWithIsUPLoad:true];
+        [weakSelf downLoadWithIsUPLoad:YES];
     }];
     
     self.planCapitalTableView.delegate = self;
     self.planCapitalTableView.dataSource = self;
     
     [self.planCapitalTableView registerClass:[HXBMY_Plan_Capital_Cell class] forCellReuseIdentifier:cellID];
-    [self downLoadWithIsUPLoad:true];
+    [self downLoadWithIsUPLoad:YES];
 }
 
 

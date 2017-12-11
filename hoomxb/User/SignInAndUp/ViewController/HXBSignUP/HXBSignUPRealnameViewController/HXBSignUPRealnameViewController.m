@@ -80,7 +80,7 @@
 }
 
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    if (![textField isEqual:self.idCardTextField]) return true;
+    if (![textField isEqual:self.idCardTextField]) return YES;
     return !(textField.text.length >= 18);
 }
 
@@ -100,7 +100,7 @@
         // 符合密码规范
         self.goRealnameButton.userInteractionEnabled = [NSString checkPassWordWithString:self.setupPasswordTextField.text];
     }
-    return true;
+    return YES;
 }
 
 
@@ -109,7 +109,7 @@
         if (isExist) {
             ///跳到认证成功页
             NSLog(@"认证成功");
-            [self dismissViewControllerAnimated:true completion:nil];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
     } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
         kHXBRespons_ShowHUDWithError(self.view);

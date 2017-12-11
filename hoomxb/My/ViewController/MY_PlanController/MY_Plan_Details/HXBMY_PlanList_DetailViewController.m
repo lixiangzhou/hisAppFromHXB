@@ -47,7 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
     [self setUP];
     self.title = self.planViewModel.planModelDataList.name;
     [self downData];
@@ -91,7 +91,7 @@
     capitalVC.planID = self.planViewModel.planModelDataList.ID;
     capitalVC.type = HXBInvestmentRecord;
     capitalVC.investmentType = self.type;
-    [self.navigationController pushViewController:capitalVC animated:true];
+    [self.navigationController pushViewController:capitalVC animated:YES];
 }
 //加入按钮
 - (void)clickAddButton {
@@ -143,13 +143,13 @@
         [weakSelf.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             if ([obj isKindOfClass:NSClassFromString(@"HXBMY_PlanListViewController")]) {
                 vc = obj;
-                *stop = true;
+                *stop = YES;
             }
         }];
-        [weakSelf.navigationController popToViewController:vc animated:true];
+        [weakSelf.navigationController popToViewController:vc animated:YES];
 //        [[NSNotificationCenter defaultCenter]postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
     }];
-    [weakSelf.navigationController pushViewController:planBuyVC animated:true];
+    [weakSelf.navigationController pushViewController:planBuyVC animated:YES];
 
 }
 

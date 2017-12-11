@@ -46,7 +46,7 @@
         [weakSelf.hxbBaseVCScrollView endRefresh];
     }];
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
     
 //    //请求 个人数据
 //    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
@@ -102,7 +102,7 @@
     [self.hxbBaseVCScrollView addSubview:self.joinimmediateView];
     
     self.trackingScrollViewBlock = ^(UIScrollView *scrollView) {
-        weakSelf.joinimmediateView.isEndEditing = true;
+        weakSelf.joinimmediateView.isEndEditing = YES;
     };
     
     self.joinimmediateView.frame = CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY);
@@ -235,10 +235,10 @@
                     planBuySuccessVC.title = @"投资成功";
                     [planBuySuccessVC clickButtonWithBlock:^{
                         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
-                        [self.navigationController popToRootViewControllerAnimated:true];
+                        [self.navigationController popToRootViewControllerAnimated:YES];
                     }];
-                    [self.navigationController pushViewController:planBuySuccessVC animated:true];
-                    // [self.navigationController popToRootViewControllerAnimated:true];
+                    [self.navigationController pushViewController:planBuySuccessVC animated:YES];
+                    // [self.navigationController popToRootViewControllerAnimated:YES];
                 } andFailureBlock:^(NSError *error, NSInteger status) {
                     
                     HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
@@ -263,9 +263,9 @@
                             failViewController.buy_ButtonTitle = @"重新投资";
                     }
                     [failViewController clickButtonWithBlock:^{
-                        [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
+                        [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
                     }];
-                    [weakSelf.navigationController pushViewController:failViewController animated:true];
+                    [weakSelf.navigationController pushViewController:failViewController animated:YES];
                 }];
 //            }
 //        }];

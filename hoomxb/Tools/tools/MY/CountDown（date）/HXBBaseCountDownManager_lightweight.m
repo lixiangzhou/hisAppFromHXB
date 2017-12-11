@@ -65,7 +65,7 @@ typedef void(^block) (NSString *countDownValue);
         self.countDownEndTime = countDownEndTime;
         self.countDownDuration = countDownDuration;
         self.countDownUnit = countDownUnint;
-        self.isAutoStopTimer = true;
+        self.isAutoStopTimer = YES;
     }
     return self;
 }

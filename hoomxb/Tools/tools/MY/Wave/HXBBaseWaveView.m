@@ -33,7 +33,7 @@
     if (self = [super initWithFrame:frame]) {
         self.colorMutableArray = colorMutableArray;
         self.progress = progress;
-        self.isWaveStart = true;
+        self.isWaveStart = YES;
     }
     return self;
 }

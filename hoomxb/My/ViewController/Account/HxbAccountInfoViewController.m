@@ -418,7 +418,7 @@ UITableViewDataSource
     
     //    UIViewController *VC =[[UIViewController alloc]init];
     //    VC.view.backgroundColor = [UIColor redColor];
-    //    [self.navigationController pushViewController:VC animated:true];
+    //    [self.navigationController pushViewController:VC animated:YES];
 }
 
 ////登出按钮

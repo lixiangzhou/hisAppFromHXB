@@ -62,7 +62,7 @@ static NSString *CELLID = @"CELLID";
     [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.backgroundColor = kHXBColor_BackGround;
-    self.nodataView.hidden = false;
+    self.nodataView.hidden = NO;
 }
 
 #pragma mark - datesource

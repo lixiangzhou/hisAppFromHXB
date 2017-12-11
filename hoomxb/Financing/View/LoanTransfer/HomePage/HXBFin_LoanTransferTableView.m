@@ -27,7 +27,7 @@ UITableViewDelegate,UITableViewDataSource
 - (instancetype) initWithFrame:(CGRect)frame style:(UITableViewStyle)style {
     if (self = [super initWithFrame:frame style:style]) {
         [self setUPViews];
-        self.nodataView.hidden = false;
+        self.nodataView.hidden = NO;
         self.backgroundColor = kHXBColor_BackGround;
     }
     return self;

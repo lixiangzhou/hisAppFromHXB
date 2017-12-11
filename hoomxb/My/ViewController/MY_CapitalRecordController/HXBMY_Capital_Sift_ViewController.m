@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
     self.view.backgroundColor = kHXBColor_BackGround;
     self.titleLabel.text = @"交易记录";
     
@@ -75,7 +75,7 @@
     if (_clickCapital_TitleBlock) {
         _clickCapital_TitleBlock(button.titleLabel.text,button.tag);
     }
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

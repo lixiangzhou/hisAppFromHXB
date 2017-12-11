@@ -88,9 +88,9 @@
 
 - (void)setCountDownString:(NSString *)countDownString {
     if (!countDownString.integerValue && !self.remainTimeString) {
-        self.isHidden = true;
+        self.isHidden = YES;
     }else {
-        self.isHidden = false;
+        self.isHidden = NO;
     }
     _countDownString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:countDownString andDateFormat:@"mm分ss秒后开始加入"];
 }

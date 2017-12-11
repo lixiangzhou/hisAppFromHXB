@@ -305,7 +305,7 @@
     if (range.location == 11) return NO;
     if ([textField isEqual:self.rechargeView.textField]) {
     }
-    return true;
+    return YES;
 
 }
 - (BOOL) textFieldShouldEndEditing:(UITextField *)textField {
@@ -314,18 +314,18 @@
 //        if (!(textField.text.floatValue >= 1000)) {
 //            NSLog(@"请输入大于等于1000");
 //            [HxbHUDProgress showTextWithMessage:@"起投金额1000元"];
-//            return false;
+//            return NO;
 //        }
 //        if ((textField.text.integerValue % 1000) != 0) {
 //            NSLog(@"1000的整数倍");
 //            [HxbHUDProgress showTextWithMessage:@"投资金额应为1000的整数倍"];
-//            return false;
+//            return NO;
 //        }
         //        self.profitLabel.text = self.model.
         
 //        self.profitLabel.text = [self.model.JoinImmediateView_Model totalInterestWithAmount:textField.text.integerValue];
     }
-    return true;
+    return YES;
 }
 @end
 

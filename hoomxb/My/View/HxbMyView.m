@@ -91,7 +91,7 @@ MyViewHeaderDelegate
 //    
 //    //    UIViewController *VC =[[UIViewController alloc]init];
 //    //    VC.view.backgroundColor = [UIColor redColor];
-//    //    [self.navigationController pushViewController:VC animated:true];
+//    //    [self.navigationController pushViewController:VC animated:YES];
 //}
 
 - (void)setIsStopRefresh_Home:(BOOL)isStopRefresh_Home{
@@ -127,13 +127,13 @@ MyViewHeaderDelegate
         {
             HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
             HXBMY_LoanListViewController *loanListViewController = [[HXBMY_LoanListViewController alloc]init];
-            [VC.navigationController pushViewController:loanListViewController animated:true];
+            [VC.navigationController pushViewController:loanListViewController animated:YES];
         }
     }
     if (indexPath.section == 2) {
         HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
         HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
-        [VC.navigationController pushViewController:capitalRecordViewController animated:true];
+        [VC.navigationController pushViewController:capitalRecordViewController animated:YES];
         
     }
 }

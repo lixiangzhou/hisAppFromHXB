@@ -80,7 +80,7 @@
 
 - (void)setUP {
     [self.view addSubview: self.inviteButton];
-    self.isRedColorWithNavigationBar = true;
+    self.isRedColorWithNavigationBar = YES;
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view).offset(kScrAdaptationH750(130) + 64);
         make.width.equalTo(@(kScrAdaptationW750(310)));
@@ -243,7 +243,7 @@
     if (!_buy_ButtonTitleLabel) {
         _buy_ButtonTitleLabel = [[UIButton alloc]init];
         [self.view addSubview: _buy_ButtonTitleLabel];
-        _buy_ButtonTitleLabel.layer.masksToBounds = true;
+        _buy_ButtonTitleLabel.layer.masksToBounds = YES;
         _buy_ButtonTitleLabel.layer.cornerRadius = kScrAdaptationW750(5);
         _buy_ButtonTitleLabel.backgroundColor = kHXBColor_Red_090303;
         _buy_ButtonTitleLabel.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
@@ -254,7 +254,7 @@
 - (UIButton *)inviteButton {
     if (!_inviteButton) {
         _inviteButton = [[UIButton alloc]initWithFrame:CGRectZero];
-        _inviteButton.layer.masksToBounds = true;
+        _inviteButton.layer.masksToBounds = YES;
         _inviteButton.layer.cornerRadius = kScrAdaptationW750(5);
         _inviteButton.backgroundColor = [UIColor whiteColor];
         _inviteButton.layer.borderWidth = kXYBorderWidth;

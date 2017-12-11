@@ -151,7 +151,7 @@ UITableViewDataSource
     self.topStatusImageView = [[UIImageView alloc]init];
     self.topStatusLabel.textColor = [UIColor whiteColor];
     self.addButton      = [[UIButton alloc]init];
-    self.addButton.hidden = true;
+    self.addButton.hidden = YES;
     self.topViewMassge  = [[HXBBaseView_TwoLable_View alloc]initWithFrame:CGRectZero];
     self.tableView = [[HXBFinDetail_TableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
     UIEdgeInsets infoView_insets = UIEdgeInsetsMake(kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30), kScrAdaptationH750(30));
@@ -250,7 +250,7 @@ UITableViewDataSource
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.topStatusView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.8].CGColor;
     self.topStatusView.layer.borderWidth = kXYBorderWidth;
-    self.topStatusView.layer.masksToBounds = true;
+    self.topStatusView.layer.masksToBounds = YES;
 #pragma mark - 肖扬
     self.topStatusView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.07 ];
     self.topStatusLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);

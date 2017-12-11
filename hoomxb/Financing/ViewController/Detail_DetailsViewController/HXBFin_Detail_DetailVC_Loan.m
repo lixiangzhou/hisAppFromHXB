@@ -43,7 +43,7 @@
     [self.view addSubview: self.scrollView];
     self.title = @"借款信息";
     self.scrollView.backgroundColor = kHXBColor_BackGround;
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
     
 //    self.loanInfo = [[HXBFin_LoanInfoView alloc] init];
 //    [self.view addSubview: self.loanInfo];
@@ -232,8 +232,8 @@
 }
 
 - (void)setUPFrame {
-    self.scrollView.showsHorizontalScrollIndicator = false;
-    self.scrollView.showsVerticalScrollIndicator = false;
+    self.scrollView.showsHorizontalScrollIndicator = NO;
+    self.scrollView.showsVerticalScrollIndicator = NO;
     
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view);

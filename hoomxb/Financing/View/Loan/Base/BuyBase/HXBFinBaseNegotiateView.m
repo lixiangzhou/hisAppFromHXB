@@ -79,7 +79,7 @@
     self.negotiateImageViewBackgroundButton.layer.borderColor = kHXBColor_Blue040610.CGColor;
     self.negotiateImageViewBackgroundButton.layer.borderWidth = kXYBorderWidth;
     self.negotiateImageViewBackgroundButton.layer.cornerRadius = kScrAdaptationH750(6);
-    self.negotiateImageViewBackgroundButton.layer.masksToBounds = true;
+    self.negotiateImageViewBackgroundButton.layer.masksToBounds = YES;
     self.negotiateImageView.image = [UIImage imageNamed:@"duigou"];
     self.negotiateLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     self.planNegotiateButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);

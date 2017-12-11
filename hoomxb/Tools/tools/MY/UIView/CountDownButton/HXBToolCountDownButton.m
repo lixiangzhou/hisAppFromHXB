@@ -33,7 +33,7 @@
 /// gtter timer
 - (NSTimer *)timer {
     if (!_timer) {
-        _timer = [NSTimer timerWithTimeInterval:self.countDownVelocity target:self selector:@selector(countDownFunc) userInfo:nil repeats:true];
+        _timer = [NSTimer timerWithTimeInterval:self.countDownVelocity target:self selector:@selector(countDownFunc) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
     }
     return _timer;
@@ -54,7 +54,7 @@
         [self setTitle:@(self.k_countDownNumber).description forState:UIControlStateNormal];
     }
     if (self.k_countDownNumber <= 0 ) {
-        self.userInteractionEnabled = true;
+        self.userInteractionEnabled = YES;
         self.k_countDownNumber = self.countDownNumber;
         ///销毁timer
         [self deallocTimer];

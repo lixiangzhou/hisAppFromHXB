@@ -27,7 +27,7 @@ UITableViewDataSource
     if (self) {
         self.backgroundColor = RGBA(244, 243, 248, 1);
         [self addSubview:self.mainTableView];
-        self.nodataView.hidden = false;
+        self.nodataView.hidden = NO;
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.mainTableView).offset(kScrAdaptationH(100));
             make.height.width.equalTo(@(kScrAdaptationH(184)));
