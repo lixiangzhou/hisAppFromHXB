@@ -90,7 +90,8 @@
     if (message.length > 0) {
         [HxbHUDProgress showTextWithMessage:message];
         return;
-    }else{
+    } else {
+        
         HXBSetGesturePasswordRequest *setGesturePasswordAPI =[[HXBSetGesturePasswordRequest alloc] init];
         [setGesturePasswordAPI setGesturePasswordRequestWithPassword:self.loginPasswordTextField.text andSuccessBlock:^(id responseObject) {
             if (weakSelf.switchType == HXBAccountSecureSwitchTypeOff) {
@@ -100,6 +101,7 @@
             } else {
                 HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
                 gesturePasswordVC.type = GestureViewControllerTypeSetting;
+                gesturePasswordVC.switchType = weakSelf.switchType;
                 [weakSelf.navigationController pushViewController:gesturePasswordVC animated:YES];
             }
         } andFailureBlock:^(NSError *error) {

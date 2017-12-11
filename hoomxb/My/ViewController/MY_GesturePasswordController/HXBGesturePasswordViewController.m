@@ -266,7 +266,7 @@
             }
         }];
         
-        if (popToVC) {
+        if (popToVC && self.switchType == HXBAccountSecureSwitchTypeOn) {
             [self.navigationController popToViewController:popToVC animated:YES];
         } else {
             [self.navigationController popToRootViewControllerAnimated:NO];
