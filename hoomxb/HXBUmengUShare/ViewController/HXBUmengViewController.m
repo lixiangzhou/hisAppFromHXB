@@ -78,7 +78,7 @@
     [self.shareVM UMShareRequestSuccessBlock:^(HXBUMShareViewModel *shareViewModel) {
         weakSelf.shareVM = shareViewModel;
     } andFailureBlock:^(NSError *error) {
-        
+        [self cancelShareView];
     }];
 }
 
@@ -110,6 +110,15 @@
 
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
 {
+    if (!KeyChain.ishaveNet) {
+         [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
+         [self cancelShareView];
+        return;
+    }
+    if (!self.shareVM.shareModel) {
+        [HxbHUDProgress showMessageCenter:@"网速较慢，请稍后重试" inView:nil];
+        return;
+    }
     [self cancelShareView];
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];

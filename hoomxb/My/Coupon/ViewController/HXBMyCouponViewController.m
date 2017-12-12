@@ -71,7 +71,7 @@
     if (KeyChain.ishaveNet) {
         [self setUI];
     }else{
-        [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+        [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
     }
 }
 
