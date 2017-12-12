@@ -32,7 +32,7 @@
     if (self) {
         if (HXBShakeChangeBaseUrl == NO) {
             // 线上环境
-            _baseUrl = @"http://api.hoomxb.com";
+            _baseUrl = @"https://api.hoomxb.com";
         } else {
             NSString *storedBaseUrl = [[NSUserDefaults standardUserDefaults] objectForKey:HXBBaseUrlKey];
             // http://192.168.1.36:3100 长度24
