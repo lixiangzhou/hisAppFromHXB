@@ -281,6 +281,7 @@
 		8DAD308D1FBA8F8C00E2AEE8 /* SwipeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30721FBA8F8B00E2AEE8 /* SwipeTableView.m */; };
 		8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */; };
 		8DAD308F1FBA8F8C00E2AEE8 /* HXBBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */; };
+		9A0879E11FE12F3800ACBD8F /* HXBBaseRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0879E01FE12F3800ACBD8F /* HXBBaseRequestManager.m */; };
 		9A36E3301FC6AB1700C318B3 /* HXBBaseWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */; };
 		9AF220EF1FC2BA8F00002D1D /* HXBBaseUrlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */; };
 		9AF220F01FC2BA8F00002D1D /* HXBBaseUrlSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EE1FC2BA8F00002D1D /* HXBBaseUrlSettingView.m */; };
@@ -1026,6 +1027,8 @@
 		8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+STFrame.m"; sourceTree = "<group>"; };
 		8DAD30761FBA8F8B00E2AEE8 /* HXBBaseTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTextField.h; sourceTree = "<group>"; };
 		8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTextField.m; sourceTree = "<group>"; };
+		9A0879DF1FE12F3800ACBD8F /* HXBBaseRequestManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseRequestManager.h; sourceTree = "<group>"; };
+		9A0879E01FE12F3800ACBD8F /* HXBBaseRequestManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBBaseRequestManager.m; sourceTree = "<group>"; };
 		9A36E32A1FC6AB1700C318B3 /* HXBBaseWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWKWebViewController.h; sourceTree = "<group>"; };
 		9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWKWebViewController.m; sourceTree = "<group>"; };
 		9A37BCB01FCEA3E400B2B81F /* HXBMacroSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMacroSwitch.h; sourceTree = "<group>"; };
@@ -3505,6 +3508,8 @@
 				8D3F84EB1FD6877B00E6CA97 /* HXBRequestHudDelegate.h */,
 				8D3F84EC1FD6899400E6CA97 /* NSDictionary+HXBResponse.h */,
 				8D3F84ED1FD6899400E6CA97 /* NSDictionary+HXBResponse.m */,
+				9A0879DF1FE12F3800ACBD8F /* HXBBaseRequestManager.h */,
+				9A0879E01FE12F3800ACBD8F /* HXBBaseRequestManager.m */,
 			);
 			path = BaseRequest;
 			sourceTree = "<group>";
@@ -4998,6 +5003,7 @@
 				4E19E8661F4D924B00032302 /* HXBFinanctingDetail_progressCell.m in Sources */,
 				E1FD28EF1F18B6190032C9CE /* HXBTopUPView.m in Sources */,
 				4E77C4201F3E9D4C004257E6 /* HXBDepositoryAlertViewController.m in Sources */,
+				9A0879E11FE12F3800ACBD8F /* HXBBaseRequestManager.m in Sources */,
 				4E45F4491F4FD48A009708B7 /* TAExampleDotView.m in Sources */,
 				285D700E1F6BE13C006B520B /* HXBCreditorChangeTopView.m in Sources */,
 				E1C10A501EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m in Sources */,
