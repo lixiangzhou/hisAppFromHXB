@@ -154,11 +154,11 @@ kDealloc
 // 搭建顶部的View信息
 - (void)setupTopView {
     self.topView = [[HXBMainListView_Plan_TopView alloc]init];
-    [self downLoadTopViewData];
+//    [self downLoadTopViewData];
 }
 - (void)downLoadTopViewData {
     kWeakSelf
-    [[KeyChainManage sharedInstance] downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.topView.userInfoViewModel = viewModel;
     } andFailure:^(NSError *error) {
         
@@ -169,13 +169,13 @@ kDealloc
     kWeakSelf
     self.toolBarView = [HXBBaseToolBarView toolBarViewWithFrame:CGRectZero andOptionStrArray:self.toolBarOptionTitleArray];
     //开启动画
-    self.toolBarView.isAnima_ItemBottomBarView = true;
+    self.toolBarView.isAnima_ItemBottomBarView = YES;
     self.toolBarView.animaTime_ItemBottomBarView = 0.5;
     
     ///改变底部的提示线条颜色' && '高度
     self.toolBarView.itemBarAnimaViewColor = kHXBColor_Red_255_64_79;
     self.toolBarView.barAnimaViewH = 2;
-    self.toolBarView.isHiddenLien = true;
+    self.toolBarView.isHiddenLien = YES;
 
     // 对item 进行自定义
     [self.toolBarView setUpsetUpBarViewItemBlockFuncWithBlcok:^(UIButton *button, UIView *buttonBottomView) {

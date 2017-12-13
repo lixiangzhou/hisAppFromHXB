@@ -282,7 +282,7 @@
         
 //        _incomButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
 //        _incomButton.imageView.layer.borderWidth = kScrAdaptationH(1);
-//        _incomButton.imageView.layer.masksToBounds = true;
+//        _incomButton.imageView.layer.masksToBounds = YES;
 //        _incomButton.imageView.layer.cornerRadius = kScrAdaptationH(5);
         _incomButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         
@@ -300,7 +300,7 @@
         _identityButton.imageView.image = [UIImage imageNamed:@"duigou"];
         _identityButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
         _identityButton.imageView.layer.borderWidth = kXYBorderWidth;
-        _identityButton.imageView.layer.masksToBounds = true;
+        _identityButton.imageView.layer.masksToBounds = YES;
         _identityButton.imageView.layer.cornerRadius = kScrAdaptationH(10);
         _identityButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         [_identityButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
@@ -317,7 +317,7 @@
         _individualTrustworthinessButton.imageView.image = [UIImage imageNamed:@"duigou"];
         _individualTrustworthinessButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
         _individualTrustworthinessButton.imageView.layer.borderWidth = kXYBorderWidth;
-        _individualTrustworthinessButton.imageView.layer.masksToBounds = true;
+        _individualTrustworthinessButton.imageView.layer.masksToBounds = YES;
         _individualTrustworthinessButton.imageView.layer.cornerRadius = kScrAdaptationH(10);
         _individualTrustworthinessButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         [_individualTrustworthinessButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];
@@ -332,7 +332,7 @@
         _jobButton.imageView.image = [UIImage imageNamed:@"duigou"];
         _jobButton.imageView.layer.borderColor = kHXBColor_Blue040610.CGColor;
         _jobButton.imageView.layer.borderWidth = kXYBorderWidth;
-        _jobButton.imageView.layer.masksToBounds = true;
+        _jobButton.imageView.layer.masksToBounds = YES;
         _jobButton.imageView.layer.cornerRadius = kScrAdaptationH(10);
         _jobButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
         [_jobButton setTitleColor:kHXBColor_HeightGrey_Font0_4 forState:UIControlStateNormal];

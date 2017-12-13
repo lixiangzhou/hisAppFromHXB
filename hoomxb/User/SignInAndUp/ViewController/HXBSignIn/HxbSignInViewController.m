@@ -60,17 +60,19 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
         //用户登录请求
         [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:pasword andCaptcha:self.checkCaptcha andSuccessBlock:^(BOOL isSuccess) {
             NSLog(@"登录成功");
-            [KeyChainManage sharedInstance].siginCount = @"0";
+            KeyChain.siginCount = @"0";
             //调到我的界面
-            [KeyChainManage sharedInstance].isLogin = YES;
+            KeyChain.isLogin = YES;
             KeyChain.ciphertext = @"0";
-            [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
+            [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
                 
                 [weakSelf dismissViewControllerAnimated:YES completion:^{
                     [self update];
                 }];
             }];
         } andFailureBlock:^(NSError *error, id responseObject) {
+            
+            
             if ([responseObject[kResponseStatus] integerValue]) {
                 if ([responseObject[kResponseStatus] integerValue] == kHXBCode_Enum_Captcha) {//谈图验
                     HXBCheckCaptchaViewController *checkCaptchaViewController = [[HXBCheckCaptchaViewController alloc]init];
@@ -81,7 +83,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
                     }];
                     [self presentViewController:checkCaptchaViewController animated:YES completion:nil];
                 }
-                
+
             }
             ///清空
             self.checkCaptcha = nil;
@@ -138,10 +140,10 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     kWeakSelf
     [HXBSignUPAndLoginRequest loginRequetWithfMobile:mobile andPassword:password andCaptcha:captcha andSuccessBlock:^(BOOL isSuccess) {
         NSLog(@"登录成功");
-        [KeyChainManage sharedInstance].siginCount = @"0";
+        KeyChain.siginCount = @"0";
         //调到我的界面
-        [KeyChainManage sharedInstance].isLogin = YES;
-        [[KeyChainManage sharedInstance] isVerifyWithBlock:^(NSString *isVerify) {
+        KeyChain.isLogin = YES;
+        [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
             [weakSelf dismissViewControllerAnimated:YES completion:nil];
         }];
     } andFailureBlock:^(NSError *error, id responseObject) {

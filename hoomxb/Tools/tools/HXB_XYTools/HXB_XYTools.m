@@ -96,9 +96,9 @@ static HXB_XYTools * handle = nil;
 //        return [string isEqualToString:filtered];
 //    } else {
 //        if (range.length > 0) {
-//            return true;
+//            return YES;
 //        } else {
-//            return false;
+//            return NO;
 //        }
 //    }
 //    return YES;

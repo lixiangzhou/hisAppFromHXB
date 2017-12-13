@@ -166,7 +166,7 @@
 - (UIButton *)actionButton {
     if (!_actionButton) {
         _actionButton = [[UIButton alloc]init];
-        _actionButton.layer.masksToBounds = true;
+        _actionButton.layer.masksToBounds = YES;
         _actionButton.layer.cornerRadius = kScrAdaptationW750(5);
         _actionButton.backgroundColor = kHXBColor_Red_090303;
         _actionButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
@@ -179,7 +179,7 @@
 - (UIButton *)myAccountButton {
     if (!_myAccountButton) {
         _myAccountButton = [[UIButton alloc]initWithFrame:CGRectZero];
-        _myAccountButton.layer.masksToBounds = true;
+        _myAccountButton.layer.masksToBounds = YES;
         _myAccountButton.layer.cornerRadius = kScrAdaptationW750(5);
         _myAccountButton.backgroundColor = [UIColor whiteColor];
         _myAccountButton.layer.borderWidth = kXYBorderWidth;

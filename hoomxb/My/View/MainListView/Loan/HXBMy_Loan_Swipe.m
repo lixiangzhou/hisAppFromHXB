@@ -167,7 +167,7 @@ kDealloc
 //        _toolBarView.itemTextColor_Select = [UIColor whiteColor];
 //        _toolBarView.itemTextColor_Select = [UIColor whiteColor];
 //        
-//        _toolBarView.isAnima_ItemBottomBarView = true;
+//        _toolBarView.isAnima_ItemBottomBarView = YES;
 //        
 ////        // 对item 进行自定义
 ////        [_toolBarView setUpsetUpBarViewItemBlockFuncWithBlcok:^(UIButton *button, UIView *buttonBottomView) {
@@ -207,7 +207,7 @@ kDealloc
         _scrollToolBarView.shouldAdjustContentSize = YES;
         _scrollToolBarView.swipeHeaderView = self.loanTopView;
         _scrollToolBarView.swipeHeaderBar = self.toolBarView;
-        _scrollToolBarView.swipeHeaderBarScrollDisabled = true;
+        _scrollToolBarView.swipeHeaderBarScrollDisabled = YES;
     }
     return _scrollToolBarView;
 }

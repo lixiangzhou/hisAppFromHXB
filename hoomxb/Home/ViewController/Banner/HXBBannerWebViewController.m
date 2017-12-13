@@ -18,6 +18,7 @@
 #define kLoan_fragment @"/home/loan_fragment"//散标列表页
 #define kLoantransferfragment @"/home/loan_transfer_fragment"//债权转让列表页
 #define kAccountFriendsRecordActivity @"/account/invite_friends_record_activity"//好友邀请记录
+#define kInviteSellerShowMessage @"/invite/seller" // h5 调app 展示信息框
 
 
 #import "HXBBannerWebViewController.h"
@@ -33,6 +34,10 @@
 #import "HXBInviteListViewController.h"
 #import "HxbSignUpViewController.h"//注册
 #import "HXBDepositoryAlertViewController.h"//开户弹框
+
+static NSString *const HXB_Toast = @"toast";
+static NSString *const HXB_Dialog = @"dialog";
+
 @interface HXBBannerWebViewController ()
 
 @end
@@ -61,7 +66,11 @@
         NSLog(@"%@",data);
         [weakSelf logicalJumpWithData:data];
     }];
-    
+    /****** OC端注册一个方法 (h5 调app 展示信息框)******/
+    [self registJavascriptBridge:@"showMessage" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"%@",data);
+        [weakSelf showH5MessageWithData:data];
+    }];
     [self registJavascriptBridge:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",data);
         HXBUMShareViewModel *shareViewModel = [[HXBUMShareViewModel alloc] init];
@@ -107,8 +116,8 @@
         NSString *productId = data[@"productId"];
         if (productId != nil) {
             planDetailsVC.planID = productId;
-            planDetailsVC.isPlan = true;
-            planDetailsVC.isFlowChart = true;
+            planDetailsVC.isPlan = YES;
+            planDetailsVC.isFlowChart = YES;
             [self.navigationController pushViewController:planDetailsVC animated:YES];
         }
     }else if ([path isEqualToString:kLoanDetailVC]){
@@ -123,9 +132,19 @@
         }
         
     }else if ([path isEqualToString:kLoginVC]){
-        //登录页面
-        //跳转登录注册
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        if(KeyChain.isLogin) {
+            kWeakSelf
+            [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+                [weakSelf reloadPage];
+            } andFailure:^(NSError *error) {
+                
+            }];
+        }
+        else{
+            //登录页面
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
+        
     }else if ([path isEqualToString:kHomeVC]){
         //主页
        [self.navigationController popViewControllerAnimated:NO];
@@ -152,6 +171,22 @@
         [HXBDepositoryAlertViewController showEscrowDialogActivityWithVCTitle:@"开通存管账户" andType:(HXBRechargeAndWithdrawalsLogicalJudgment_Other) andWithFromController:self.navigationController];
     }
    
+}
+
+// H5回传弹出样式
+- (void)showH5MessageWithData:(id)data {
+    NSString *type = data[@"type"];
+    NSString *showMessage = data[@"message"];
+    if ([type isEqualToString:HXB_Toast]) {
+        
+        [HxbHUDProgress showTextWithMessage:showMessage];
+    } else if ([type isEqualToString:HXB_Dialog]) {
+        
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:showMessage force:1 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
+        [alertVC setClickXYRightButtonBlock:^{
+        }];
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }
 }
 
 

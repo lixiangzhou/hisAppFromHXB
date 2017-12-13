@@ -123,7 +123,7 @@
     self.topStatusView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.8].CGColor;
     self.topStatusView.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.07 ];
     self.topStatusView.layer.borderWidth = kXYBorderWidth;
-    self.topStatusView.layer.masksToBounds = true;
+    self.topStatusView.layer.masksToBounds = YES;
     self.topStatusLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
 //    self.topStatusLabel.backgroundColor = [UIColor colorWithWhite:1 alpha:0.07];
     self.topStatusLabel.textColor = [UIColor colorWithWhite:1 alpha:0.8];

@@ -91,7 +91,7 @@ MyViewHeaderDelegate
 //    
 //    //    UIViewController *VC =[[UIViewController alloc]init];
 //    //    VC.view.backgroundColor = [UIColor redColor];
-//    //    [self.navigationController pushViewController:VC animated:true];
+//    //    [self.navigationController pushViewController:VC animated:YES];
 //}
 
 - (void)setIsStopRefresh_Home:(BOOL)isStopRefresh_Home{
@@ -113,7 +113,9 @@ MyViewHeaderDelegate
         } else {
             [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_entrance];
             HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
-            [HXBBannerWebViewController pushWithPageUrl:kHXBH5_InviteDetailURL fromController:VC];
+            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+            webViewVC.pageUrl = kHXBH5_InviteDetailURL;
+            [VC.navigationController pushViewController:webViewVC animated:YES];
         }
     }
     if (indexPath.section == 1) {//第一组： plan
@@ -125,13 +127,13 @@ MyViewHeaderDelegate
         {
             HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
             HXBMY_LoanListViewController *loanListViewController = [[HXBMY_LoanListViewController alloc]init];
-            [VC.navigationController pushViewController:loanListViewController animated:true];
+            [VC.navigationController pushViewController:loanListViewController animated:YES];
         }
     }
     if (indexPath.section == 2) {
         HxbMyViewController *VC = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
         HXBMY_CapitalRecordViewController *capitalRecordViewController = [[HXBMY_CapitalRecordViewController alloc]init];
-        [VC.navigationController pushViewController:capitalRecordViewController animated:true];
+        [VC.navigationController pushViewController:capitalRecordViewController animated:YES];
         
     }
 }

@@ -61,8 +61,8 @@
 #pragma mark - setter
 - (void)setBottomViewSet:(NSArray<UIView *> *)bottomViewSet {
     _bottomViewSet = bottomViewSet;
-    self.isSetupSubView = true;
-    self.isConstantChange = true;
+    self.isSetupSubView = YES;
+    self.isConstantChange = YES;
 }
 - (void)setSelectToolBarViewIndex:(NSInteger)selectToolBarViewIndex {
     _selectToolBarViewIndex = selectToolBarViewIndex;
@@ -102,8 +102,8 @@
         self.midToolBarView = midToolBarView;
         self.kMidToolBarViewH = midToolBarViewH;
         self.bottomViewSet = bottomViewSet;
-        self.isConstantChange = true;
-        self.isSetupSubView = true;
+        self.isConstantChange = YES;
+        self.isSetupSubView = YES;
         
     }
     return self;
@@ -123,7 +123,7 @@
 //根据self.isConstantChange，判断是否进行常用变量的计算
 - (void)calculateValue {
     if (self.isConstantChange) {
-        self.isConstantChange = false;
+        self.isConstantChange = NO;
         self.contentOffset = CGPointMake(0, 0);
         self.kScrollToolBarViewH = self.frame.size.height;
         self.kScrollToolBarViewW = self.frame.size.width;
@@ -181,11 +181,11 @@
     self.bottomScrollView.contentSize = CGSizeMake(bottomScrollViewContentSizeX, self.kBottomScrollViewH);
 
     self.bottomScrollView.delegate = self;
-    self.bottomScrollView.pagingEnabled = true;
-    self.bottomScrollView.showsVerticalScrollIndicator = false;
-    self.bottomScrollView.showsHorizontalScrollIndicator = false;
+    self.bottomScrollView.pagingEnabled = YES;
+    self.bottomScrollView.showsVerticalScrollIndicator = NO;
+    self.bottomScrollView.showsHorizontalScrollIndicator = NO;
     self.contentOffset = CGPointMake(self.midToolBarView.selectItemIndex * self.kScrollToolBarViewW, 0);
-    self.bounces = false;
+    self.bounces = NO;
     [self addSubview: self.bottomScrollView];
     
     //布局bottomScrollView内部的Views
@@ -261,7 +261,7 @@
         } else {
             self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
             if (isScrollBottom) {
-                [self setContentOffset:kToolBarViewOffsetTop animated:false];
+                [self setContentOffset:kToolBarViewOffsetTop animated:NO];
                 return;
             }
         }
@@ -276,9 +276,9 @@
 ////        }
         
 ////        if (isDown && isScrollViewNotScroll && isTracking) {
-////            [self setContentOffset:CGPointMake(0, 0) animated:true];
+////            [self setContentOffset:CGPointMake(0, 0) animated:YES];
 ////        }else if (!isDown && isScrollViewNotScroll && isTracking) {
-////            [self setContentOffset:CGPointMake(0, _kTopViewH) animated:true];
+////            [self setContentOffset:CGPointMake(0, _kTopViewH) animated:YES];
 ////        }else {
 //            self.contentOffset = CGPointMake( 0, self.offsetY + newContentOffset.y);
 ////        }

@@ -229,13 +229,13 @@
         [self.planListViewModelArray removeAllObjects];
     }
     //是否为重复数据
-    __block BOOL isErrorData = false;
+    __block BOOL isErrorData = NO;
     //遍历，看是请求的数据为一样的数据
     [self.planListViewModelArray enumerateObjectsUsingBlock:^(HXBFinHomePageViewModel_PlanList * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([viewModelArray.firstObject.planListModel.ID isEqualToString:obj.planListModel.ID]) {
             kNetWorkError(@"红利计划列表页的 追加数据出现重复数据, 已经返回");
-            isErrorData = true;
-            *stop = true;
+            isErrorData = YES;
+            *stop = YES;
         }
     }];
     //如果是重复数据，那么就return
@@ -323,12 +323,12 @@
     if (isUPData) {
         [self.loanListViewModelArray removeAllObjects];
     }
-    __block BOOL isErrorData = false;
+    __block BOOL isErrorData = NO;
     [self.loanListViewModelArray enumerateObjectsUsingBlock:^(HXBFinHomePageViewModel_LoanList * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([loan_viewModelArray.firstObject.loanListModel.loanId isEqualToString:obj.loanListModel.loanId]) {
             kNetWorkError(@"理财 - loan列表页的 追加数据出现重复数据, 已经返回");
-            isErrorData = true;
-            *stop = true;
+            isErrorData = YES;
+            *stop = YES;
         }
     }];
     if(isErrorData) return;
@@ -757,8 +757,6 @@
         HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
         
         [reslut yy_modelSetWithDictionary:dataDic];
-//        HXBFin_Plan_BuyViewModel *planViewModel = [[HXBFin_Plan_BuyViewModel alloc]init];
-//        planViewModel.buyPlanModel = reslut;
         
         if (successDateBlock) {
             successDateBlock(reslut);
@@ -816,18 +814,12 @@
             if (failureBlock) failureBlock(nil, responseObject); return;
         }
         
-        HXBFin_LoanTruansfer_BuyResoutViewModel *loantruansferViewModel = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc]init];
-        
-        HXBFinModel_BuyResout_LoanTruansferModel *loantruansferModel = [[HXBFinModel_BuyResout_LoanTruansferModel alloc]init];
+        HXBFin_LoanTruansfer_BuyResoutViewModel *result = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc]init];
         NSDictionary *dataDic = responseObject[kResponseData];
-        BOOL isSuccess = [loantruansferModel yy_modelSetWithDictionary:dataDic];
-        if (!isSuccess) {
-            NSLog(@"🌶字典转模型失败%@",self);
-            return;
-        }
-        loantruansferViewModel.loanTruansferModel = loantruansferModel;
+        [result yy_modelSetWithDictionary:dataDic];
+
         if (successDateBlock) {
-            successDateBlock(loantruansferViewModel);
+            successDateBlock(result);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error, nil);

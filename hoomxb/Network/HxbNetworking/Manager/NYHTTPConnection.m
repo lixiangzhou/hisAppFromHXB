@@ -67,21 +67,20 @@
     NSDictionary *parameters = request.requestArgument;
     
     [self showProgressWithRequest:request];
-    kWeakSelf
+    
     // 设置回调
     void (^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) = ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [weakSelf hideProgressWithRequest:request];
-        [weakSelf setResponseWithRequest:request task:task responseObj:responseObject error:nil];
-        [weakSelf requestHandleSuccess:request responseObject:responseObject];
+        [self hideProgressWithRequest:request];
+        [self setResponseWithRequest:request task:task responseObj:responseObject error:nil];
+        [self requestHandleSuccess:request responseObject:responseObject];
     };
     
     void (^failureBlock)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) = ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [weakSelf hideProgressWithRequest:request];
-        [weakSelf setResponseWithRequest:request task:task responseObj:nil error:error];
-        [weakSelf requestHandleFailure:request error:error];
+        [self hideProgressWithRequest:request];
+        [self setResponseWithRequest:request task:task responseObj:nil error:error];
+        [self requestHandleFailure:request error:error];
     };
     
-    // 发送请求
     NSURLSessionDataTask *task = nil;
     switch (request.requestMethod) {
         case NYRequestMethodGet: { task = [manager GET:urlString parameters:parameters progress:nil success:successBlock failure:failureBlock]; break; }
@@ -226,7 +225,6 @@
         
         //单点登出之后dismiss最上层可能会有的控制器
         [[HXBRootVCManager manager].mainTabbarVC.presentedViewController dismissViewControllerAnimated:NO completion:nil];
-        
         // 静态显示主TabVC的HomeVC
         // 当前有tabVC的时候，会在tabVC中得到处理，显示HomeVC
         // 如果没有创建tabVC的时候，不处理该通知，因为只有在tabVC中监听了该通知

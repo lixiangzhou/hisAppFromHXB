@@ -335,7 +335,7 @@
     kWeakSelf
     self.bottomTableView = [[HXBFinDetail_TableView alloc]init];
     self.bottomTableView.tableViewCellModelArray = self.modelArray;
-    self.bottomTableView.bounces = false;
+    self.bottomTableView.bounces = NO;
     [self addSubview:self.bottomTableView];
     UIView *view = self.isPlan? self.flowChartView : self.trustView;
     [self.bottomTableView mas_makeConstraints:^(MASConstraintMaker *make) {

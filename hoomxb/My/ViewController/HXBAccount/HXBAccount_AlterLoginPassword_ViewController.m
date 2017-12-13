@@ -35,10 +35,10 @@ kWeakSelf
     
     [self.alterLoginPasswordView clickAlterButtonWithBlock:^(NSString *password_Original, NSString *password_New) {
         //验证密码
-//        if ([KeyChainManage sharedInstance].siginCount.integerValue == 4) {
+//        if (KeyChain.siginCount.integerValue == 4) {
 //            [self alertVC_4];
 //        }
-//        if ([KeyChainManage sharedInstance].siginCount.integerValue > 5) {
+//        if (KeyChain.siginCount.integerValue > 5) {
 //            [self alertVC_5];
 //        }
         NSString * message = [NSString isOrNoPasswordStyle:password_New];
@@ -47,7 +47,7 @@ kWeakSelf
             return;
         }
         [HXBMobifyPassword_LoginRequest mobifyPassword_LoginRequest_requestWithOldPwd:password_Original andNewPwd:password_New andSuccessBlock:^{
-            [KeyChainManage sharedInstance].siginCount = @(0).description;
+            KeyChain.siginCount = @(0).description;
             [KeyChain signOut];
             weakSelf.tabBarController.selectedIndex = 0;
             [HxbHUDProgress showTextWithMessage:@"密码修改成功，请用新密码号登录"];
@@ -57,7 +57,7 @@ kWeakSelf
             if (error) {
                 NSLog(@"%@",error);
             }else {
-                [KeyChainManage sharedInstance].siginCount = @([KeyChainManage sharedInstance].siginCount.integerValue + 1).description;
+                KeyChain.siginCount = @(KeyChain.siginCount.integerValue + 1).description;
             }
         }];
     }];
@@ -72,7 +72,7 @@ kWeakSelf
     //            }];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         ///退出登录
-        [[KeyChainManage sharedInstance] signOut];
+        [KeyChain signOut];
         //到登录界面
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
     }];
@@ -92,7 +92,7 @@ kWeakSelf
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.navigationController popToRootViewControllerAnimated:YES];
         ///退出登录
-        [[KeyChainManage sharedInstance] signOut];
+        [KeyChain signOut];
         //到登录界面
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
     }];

@@ -71,7 +71,7 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     
-    [self.view endEditing:true];
+    [self.view endEditing:YES];
     
     [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:NO];
 }
@@ -145,7 +145,7 @@
 - (void)setIsColourGradientNavigationBar:(BOOL)isColourGradientNavigationBar {
     if (isColourGradientNavigationBar) {
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor], NSFontAttributeName: kHXBFont_PINGFANGSC_REGULAR(18)};
-        self.isTransparentNavigationBar = true;
+        self.isTransparentNavigationBar = YES;
         self.nacigationBarImageView.image = [UIImage imageNamed:@"top"];
         [self.view bringSubviewToFront: self.nacigationBarImageView];
     }
@@ -154,7 +154,7 @@
 - (void)setIsWhiteColourGradientNavigationBar:(BOOL)isWhiteColourGradientNavigationBar {
     if (isWhiteColourGradientNavigationBar) {
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
-        self.isTransparentNavigationBar = true;
+        self.isTransparentNavigationBar = YES;
         self.nacigationBarImageView.backgroundColor = [UIColor whiteColor];
         self.nacigationBarImageView.image = [UIImage imageNamed:@""];
         [self.view bringSubviewToFront: self.nacigationBarImageView];
@@ -164,7 +164,7 @@
     
     if (isRedColorWithNavigationBar) {
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
-        self.isTransparentNavigationBar = true;
+        self.isTransparentNavigationBar = YES;
         self.nacigationBarImageView.image = [UIImage imageNamed:@"NavigationBar"];
         [self.view bringSubviewToFront: self.nacigationBarImageView];
     }
@@ -173,7 +173,7 @@
 {
     if (isBlueGradientNavigationBar) {
         self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:kHXBFont_PINGFANGSC_REGULAR(18)};
-        self.isTransparentNavigationBar = true;
+        self.isTransparentNavigationBar = YES;
         self.nacigationBarImageView.image = [UIImage imageNamed:@"nav_top_blue"];
         [self.view bringSubviewToFront: self.nacigationBarImageView];
     }
@@ -216,7 +216,7 @@
             if (KeyChain.ishaveNet) {
                 [weakSelf getNetworkAgain];
             }else{
-                [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+                [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
             }
         };
     }

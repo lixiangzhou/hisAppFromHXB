@@ -58,7 +58,7 @@
     
     kWeakSelf
     self.trackingScrollViewBlock = ^(UIScrollView *scrollView) {
-        [weakSelf.smscodeView endEditing:true];
+        [weakSelf.smscodeView endEditing:YES];
     };
     self.smscodeView.phonNumber = self.phonNumber;
     self.smscodeView.isSendSpeechCode = NO;
@@ -85,30 +85,25 @@
                 [weakSelf sendSmscode:@"sms"];
             } else {
                 HXBRegisterAlertVC *registerAlertVC = [[HXBRegisterAlertVC alloc] init];
-                [self presentViewController:registerAlertVC animated:NO completion:nil];
+                [weakSelf presentViewController:registerAlertVC animated:NO completion:nil];
                 
                 registerAlertVC.messageTitle = @"获取语音验证码";
                 registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
-                
+                registerAlertVC.type = @"注册验证码";
                 [registerAlertVC verificationCodeBtnWithBlock:^{
-//                    weakSelf.smscodeView.isSendSpeechCode = NO;
                     [weakSelf sendSmscode:@"sms"];
                     [weakSelf.smscodeView clickSendButton:nil];
                 }];
                 [registerAlertVC speechVerificationCodeBtnWithBlock:^{
-//                    weakSelf.smscodeView.isSendSpeechCode = YES;
-                    [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
+                    [weakSelf sendSmscode:@"voice"];//获取语音验证码
                     [weakSelf.smscodeView clickSendButton:nil];
                 }];
                 [registerAlertVC cancelBtnWithBlock:^{
-                    //
                     weakSelf.smscodeView.startsCountdown = NO;
                     NSLog(@"点击取消按钮");
                 }];
             }
-            
         }];
-
 }
 
 - (void)sendSmscode:(NSString *)typeStr {
@@ -148,22 +143,23 @@
             }
         
             if (errorCode == kHXBCode_Enum_CaptchaTransfinite) {
-                self.checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
-                [self.checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
+                weakSelf.checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
+                [weakSelf.checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
                     weakSelf.captcha = checkPaptcha;
                     NSLog(@"发送 验证码");
                     
                     [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
                         
                         HXBRegisterAlertVC *registerAlertVC = nil;
-                        if (self.presentedViewController)
+                        if (weakSelf.presentedViewController)
                         {
-                            registerAlertVC = (HXBRegisterAlertVC *)self.presentedViewController;
+                            registerAlertVC = (HXBRegisterAlertVC *)weakSelf.presentedViewController;
                         }else
                         {
                             registerAlertVC = [[HXBRegisterAlertVC alloc] init];
-                            [self presentViewController:registerAlertVC animated:NO completion:nil];
+                            [weakSelf presentViewController:registerAlertVC animated:NO completion:nil];
                         }
+                        registerAlertVC.type = @"注册验证码";
                         registerAlertVC.messageTitle = @"获取语音验证码";
                         registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
                         
@@ -175,11 +171,10 @@
                         [registerAlertVC speechVerificationCodeBtnWithBlock:^{
                             
                             [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
-                            
                             [weakSelf.smscodeView clickSendButton:nil];
                         }];
                         [registerAlertVC cancelBtnWithBlock:^{
-                            //
+    
                             weakSelf.smscodeView.startsCountdown = NO;
                             NSLog(@"点击取消按钮");
                         }];
@@ -188,7 +183,7 @@
                         
                     }];
                 }];
-                [weakSelf presentViewController:self.checkCaptchVC animated:true completion:nil];
+                [weakSelf presentViewController:self.checkCaptchVC animated:YES completion:nil];
             }
             
         }];
@@ -227,18 +222,18 @@
         if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             NSLog(@"忘记密码");
             [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:self.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {
-                [self.navigationController popToRootViewControllerAnimated:false];
+                [self.navigationController popToRootViewControllerAnimated:NO];
             } andFailureBlock:^(NSError *error) {
                 
             }];
         }else {
             [HXBSignUPAndLoginRequest signUPRequetWithMobile:weakSelf.phonNumber andSmscode:smscode andPassword:password andInviteCode:inviteCode andSuccessBlock:^{
                  NSLog(@"注册设置成功");
-                [[KeyChainManage sharedInstance] setMobile:self.phonNumber];
-                [KeyChainManage sharedInstance].isLogin = true;
+                KeyChain.mobile = self.phonNumber;
+                KeyChain.isLogin = YES;
                 KeyChain.ciphertext = @"0";
 //                HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
-//                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:true];
+//                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:YES];
                 HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
                 bindBankCardVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_signup;
                 [self.navigationController pushViewController:bindBankCardVC animated:YES];

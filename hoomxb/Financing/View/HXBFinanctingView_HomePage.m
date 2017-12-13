@@ -144,8 +144,8 @@
     self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:self.toolBarViewOptionStrArray];
     self.toolBarView.barAnimaViewSpacing = kScrAdaptationW(83);
     self.toolBarView.barAnimaViewH = kScrAdaptationH(2);
-    self.toolBarView.isAnima_ItemBottomBarView = true;
-    self.toolBarView.isColorChange = true;
+    self.toolBarView.isAnima_ItemBottomBarView = YES;
+    self.toolBarView.isColorChange = YES;
     self.toolBarView.animaTime_ItemBottomBarView = .5;
     self.toolBarView.barAnimaViewBottomSpacing = kScrAdaptationH(5);
     self.toolBarView.itemTextFont = kHXBFont_PINGFANGSC_REGULAR(17);

@@ -75,7 +75,7 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
     _discountTitle = @"暂无可用优惠券";
     _balanceTitle = @"可用余额";
     _isSpeechVerificationCode = NO;
@@ -313,10 +313,10 @@ static NSString *const bankString = @"绑定银行卡";
         loanBuySuccessVC.title = @"投资成功";
         [loanBuySuccessVC clickButtonWithBlock:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-            [self.navigationController popToRootViewControllerAnimated:true];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        [self.navigationController pushViewController:loanBuySuccessVC animated:true];
+        [self.navigationController pushViewController:loanBuySuccessVC animated:YES];
     } andFailureBlock:^(NSError *error, NSInteger status) {
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
         failViewController.title = @"投资结果";
@@ -359,10 +359,10 @@ static NSString *const bankString = @"绑定银行卡";
                 failViewController.buy_ButtonTitle = @"重新投资";
         }
         [failViewController clickButtonWithBlock:^{
-            [self.navigationController popToRootViewControllerAnimated:true];  //跳回理财页面
+            [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        [self.navigationController pushViewController:failViewController animated:true];
+        [self.navigationController pushViewController:failViewController animated:YES];
     }];
 }
 

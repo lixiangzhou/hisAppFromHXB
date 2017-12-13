@@ -217,7 +217,7 @@
 - (void)setupAddTrustView {
     self.trustView = [[UIImageView alloc]init];
     self.trustView.backgroundColor = [UIColor whiteColor];
-    self.trustView.userInteractionEnabled = true;
+    self.trustView.userInteractionEnabled = YES;
     [self addSubview: self.trustView];
     self.trustView.image = [UIImage imageNamed:@"hxb_增信"];
     [self.trustView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -332,7 +332,7 @@
     self.bottomTableView.hidden = YES;
     self.bottomTableView = [[HXBFinDetail_TableView alloc]init];
     self.bottomTableView.tableViewCellModelArray = self.modelArray;
-    self.bottomTableView.bounces = false;
+    self.bottomTableView.bounces = NO;
     [self addSubview:self.bottomTableView];
     [self.bottomTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.loanTypeViewContentView.mas_bottom).offset(kScrAdaptationH(10));

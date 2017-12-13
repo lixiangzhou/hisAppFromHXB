@@ -8,7 +8,7 @@
 
 #import "HXBBaseWKWebViewController.h"
 #import <WebKit/WebKit.h>
-#import "HXBWKWebviewViewModuel.h"
+#import "HXBWKWebviewViewModel.h"
 #import "HXBWKWebViewProgressView.h"
 
 @interface HXBBaseWKWebViewController ()<WKNavigationDelegate> {
@@ -27,6 +27,8 @@
 
 //webview viewModuel
 @property (nonatomic, strong) HXBWKWebviewViewModuel *webViewModuel;
+
+@property (nonatomic, assign) BOOL loadResult;
 
 @end
 
@@ -68,7 +70,7 @@
     
     if (![self loadNoNetworkView]) {
         if (!_firstLoadPage && self.pageReload) {
-            [self.webView reload];
+            [self reloadPage];
         }
     }
     
@@ -127,6 +129,9 @@
         _progressViewHeight = 0;
     }
     
+    if(self.loadResult) {
+        self.webView.hidden = NO;
+    }
     [self updateConstraints];
 }
 
@@ -188,10 +193,10 @@
                     [weakSelf loadProgress:YES];
                     break;
                 }
-//                case HXBPageLoadStateEnd: {
-//                    [weakSelf loadProgress:NO];
-//                    break;
-//                }
+                case HXBPageLoadStateEnd: {
+                    weakSelf.loadResult = YES;
+                    break;
+                }
                 case HXBPageLoadStateFaile: {
                     [weakSelf loadProgress:NO];
                     break;
@@ -229,6 +234,12 @@
     [self.webView loadRequest:urlRequest];
 }
 
+#pragma mark 重新加载页面
+- (void)reloadPage {
+    self.webView.hidden = YES;
+    self.loadResult = NO;
+    [self.webView reload];
+}
 /*
 #pragma mark - Navigation
 

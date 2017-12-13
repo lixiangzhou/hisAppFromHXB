@@ -28,9 +28,9 @@
  */
 -(BOOL) isEnabledBuy {
     if ([self.enabledBuy isEqualToString:@"true"]) {
-        return true;
+        return YES;
     }
-    return false;
+    return NO;
 }
 
 /**

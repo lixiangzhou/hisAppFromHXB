@@ -178,7 +178,7 @@
     view.layer.borderColor = kHXBColor_Blue040610.CGColor;
     view.layer.borderWidth = kScrAdaptationH(0.8f);
     view.layer.cornerRadius = kScrAdaptationH(22 / 2.0);
-    view.layer.masksToBounds = true;
+    view.layer.masksToBounds = YES;
     self.title_RightBGView = view;
     [view mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.contentView).offset(kScrAdaptationW(-15));

@@ -26,7 +26,6 @@
 @property (nonatomic, copy) NSString *indirectCashBackAmount;
 // 邀请好友奖励（奖励文案包括红包数、红包金额、直接返现金额、间接返现金额等信息，node层进行拼接后返回，具体文案，产品确定后告知（待他们确认好ui图后确定））
 @property (nonatomic, copy) NSString *rewardDesc;
-
 // 好友的手机号
 @property (nonatomic, copy) NSString *invitedUserPhoneNo_new;
 // 注册时间 hxb_hiddenPhonNumberWithMid

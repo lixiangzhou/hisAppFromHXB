@@ -76,7 +76,7 @@
         //画圆
         BOOL isConcentricCircles = NO;
         if (i < self.stage) {
-            isConcentricCircles = true;
+            isConcentricCircles = YES;
         }
         CGRect location_Arc = [self.concentricCirclesLocationArray[i] CGRectValue];
         [self drawRectArcWithIsConcentricCircles:isConcentricCircles andContext:context andRect:location_Arc];

@@ -46,7 +46,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     self.title = @"交易记录";
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.screenType = @" ";
-    [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:true];
+    [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:YES];
     [self setUP];
     self.isColourGradientNavigationBar = YES;
 }
@@ -56,7 +56,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
  */
 - (void)getNetworkAgain
 {
-    [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:true];
+    [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:YES];
 }
 
 - (void)setUP {
@@ -78,7 +78,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 - (void)refresh {
     kWeakSelf
     [self.tableView hxb_headerWithRefreshBlock:^{
-        [weakSelf downDataWithScreenType:weakSelf.screenType andStartDate:nil andEndDate:nil andIsUPData:true];
+        [weakSelf downDataWithScreenType:weakSelf.screenType andStartDate:nil andEndDate:nil andIsUPData:YES];
     }];
 }
 
@@ -92,7 +92,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
         self.totalCount = totalCount;
         if (self.totalCount > 20) {
             [self.tableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-                [self downDataWithScreenType:self.screenType andStartDate:nil andEndDate:nil andIsUPData:false];
+                [self downDataWithScreenType:self.screenType andStartDate:nil andEndDate:nil andIsUPData:NO];
             } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
             }];
         }
@@ -141,10 +141,10 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
                 break;
         }
         weakSelf.screenType = typeString;
-        [weakSelf downDataWithScreenType:typeString andStartDate:nil andEndDate:nil andIsUPData:true];
+        [weakSelf downDataWithScreenType:typeString andStartDate:nil andEndDate:nil andIsUPData:YES];
     }];
     //跳转筛选
-    [self presentViewController:siftVC animated:true completion:nil];
+    [self presentViewController:siftVC animated:YES completion:nil];
 }
 
 @end

@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface HXBRegisterAlertVC : UIViewController
+
+@property (nonatomic, copy) NSString *type;//标识
 /**
  messagetitle
  */
@@ -18,13 +20,6 @@
  子标题
  */
 @property (nonatomic, copy) NSString *subTitle;
-/**
- 是否是验证码
- */
-//@property (nonatomic, assign) BOOL isCode;
-//
-////是否有语音验证码
-//@property (nonatomic, assign) BOOL isSpeechVerificationCode;
 
 - (void)verificationCodeBtnWithBlock:(void (^)())getVerificationCodeBlock;
 - (void)speechVerificationCodeBtnWithBlock:(void (^)())getSpeechVerificationCodeBlock;

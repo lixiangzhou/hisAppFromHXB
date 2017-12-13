@@ -81,13 +81,13 @@
     [self.animatr presentAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
         toView.center = [UIApplication sharedApplication].keyWindow.center;
         toView.bounds = CGRectMake(0, 0, kScrAdaptationW(295), kScrAdaptationH(110)+_messageHeight);
-        self.animatr.isAccomplishAnima = true;
+        self.animatr.isAccomplishAnima = YES;
     }];
     [self.animatr dismissAnimaWithBlock:^(UIViewController *toVC, UIViewController *fromeVC, UIView *toView, UIView *fromeView) {
         [UIView animateWithDuration:0 animations:^{
             
         } completion:^(BOOL finished) {
-            self.animatr.isAccomplishAnima = true;
+            self.animatr.isAccomplishAnima = YES;
         }];
     }];
     [self.animatr setupContainerViewWithBlock:^(UIView *containerView) {
@@ -113,7 +113,7 @@
 
 - (void)setUPViews{
     self.view.layer.cornerRadius = kScrAdaptationW(5);
-    self.view.layer.masksToBounds = true;
+    self.view.layer.masksToBounds = YES;
     [self.view addSubview:self.containerView];
     [self.view addSubview:self.mainTitle];
     [self.view addSubview:self.massageTextView];
@@ -283,13 +283,13 @@
 }
 
 - (void)clickLeftButton:(UIButton *)button {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     if (self.clickXYLeftButtonBlock) {
         self.clickXYLeftButtonBlock();
     }
 }
 - (void)clickRightButton: (UIButton *)button {
-    [self dismissViewControllerAnimated:true completion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
     if (self.clickXYRightButtonBlock) {
         self.clickXYRightButtonBlock();
     }

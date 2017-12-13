@@ -50,7 +50,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     [self.signUPView signUPClickNextButtonFunc:^(NSString *mobile) {
         [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_registFirst];
         if (!KeyChain.ishaveNet) {
-            [HxbHUDProgress showMessageCenter:@"暂无网络，请稍后再试" inView:nil];
+            [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
             return;
         }
         
@@ -66,7 +66,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
                 sendSmscodeVC.phonNumber = mobile;
                 sendSmscodeVC.captcha = checkPaptcha;
                 sendSmscodeVC.type = self.type;
-                [weakSelf.navigationController pushViewController:sendSmscodeVC animated:true];
+                [weakSelf.navigationController pushViewController:sendSmscodeVC animated:YES];
             } andFailureBlock:^(NSError *error) {
 //                [HxbHUDProgress showMessageCenter:@"短信发送失败" inView:self.view];
             }];
@@ -75,7 +75,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
         if (weakSelf.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             [HXBSignUPAndLoginRequest checkExistMobileRequestWithMobile:mobile andSuccessBlock:^(BOOL isExist) {
                 if (isExist) {
-                    [weakSelf presentViewController:checkCaptchVC animated:true completion:nil];
+                    [weakSelf presentViewController:checkCaptchVC animated:YES completion:nil];
                     return;
                 }
             } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
@@ -84,7 +84,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
         {
             [HXBSignUPAndLoginRequest checkMobileRequestHUDWithMobile:mobile andSuccessBlock:^(BOOL isExist, NSString *message) {
                 if (isExist) {
-                    [weakSelf presentViewController:checkCaptchVC animated:true completion:nil];
+                    [weakSelf presentViewController:checkCaptchVC animated:YES completion:nil];
                     return;
                 }
             } andFailureBlock:^(NSError *error) {
@@ -149,11 +149,11 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_H5) {
         [self.signUPView clickHaveAccountButtonFunc:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-            [weakSelf.navigationController popViewControllerAnimated:true];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
     } else {
         [self.signUPView clickHaveAccountButtonFunc:^{
-            [weakSelf.navigationController popViewControllerAnimated:true];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
     }
 }

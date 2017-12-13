@@ -38,19 +38,19 @@
 //        manager.strArray = @[@"借款合同",@"转让记录"];//打开就有转让记录了
          manager.strArray = @[@"借款合同"];
         
-        manager.toRepayLableManager.isLeftRight         = false;
+        manager.toRepayLableManager.isLeftRight         = NO;
         manager.toRepayLableManager.rightLabelStr       = @"待收金额（元）";
         manager.toRepayLableManager.leftLabelStr        = weakSelf.loanDetailViewModel.toRepay;
         manager.toRepayLableManager.leftLabelAlignment  = NSTextAlignmentCenter;
         manager.toRepayLableManager.rightLabelAlignment = NSTextAlignmentCenter;
         
-        manager.nextRepayDateLableManager.isLeftRight   = false;
+        manager.nextRepayDateLableManager.isLeftRight   = NO;
         manager.nextRepayDateLableManager.leftLabelStr  = weakSelf.loanDetailViewModel.nextRepayDate;
         manager.nextRepayDateLableManager.rightLabelStr =  @"下一还款日";
         manager.nextRepayDateLableManager.leftLabelAlignment = NSTextAlignmentCenter;
         manager.nextRepayDateLableManager.rightLabelAlignment = NSTextAlignmentCenter;
         
-        manager.monthlyPrincipalManager.isLeftRight     = false;
+        manager.monthlyPrincipalManager.isLeftRight     = NO;
         manager.monthlyPrincipalManager.leftLabelStr    = weakSelf.loanDetailViewModel.monthlyRepay;
         manager.monthlyPrincipalManager.rightLabelStr   = @"月收本息（元）";
         manager.monthlyPrincipalManager.leftLabelAlignment = NSTextAlignmentCenter;
@@ -87,7 +87,7 @@
     self.view.backgroundColor = BACKGROUNDCOLOR;
     self.title = self.loanDetailViewModel.loanTitle;
     [self setUPView];
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
 }
 
 - (void)setUPView {
@@ -113,7 +113,7 @@
                 HXBMY_Plan_Capital_ViewController *capitalVC = [[HXBMY_Plan_Capital_ViewController alloc]init];
                 capitalVC.planID = self.loanDetailViewModel.loanModel.loanId;
                 capitalVC.type = HXBTransferRecord;
-                [self.navigationController pushViewController:capitalVC animated:true];
+                [self.navigationController pushViewController:capitalVC animated:YES];
             }
                 break;
             default:

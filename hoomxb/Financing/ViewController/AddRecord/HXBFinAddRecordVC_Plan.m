@@ -31,12 +31,12 @@ static NSString *CELLID = @"CELLID";
     [super viewDidLoad];
     self.title = @"加入记录";
     [self setUP];
-    [self downDoadDataWithISUPLoad:true];
+    [self downDoadDataWithISUPLoad:YES];
 }
 
 - (void)setUP {
     self.isColourGradientNavigationBar = true;
-    self.addRecortdTableView = [[HXBFinAddRecortdTableView_Plan alloc]initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height - 64) style:UITableViewStylePlain];
+    self.addRecortdTableView = [[HXBFinAddRecortdTableView_Plan alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, self.view.width, self.view.height - HXBStatusBarAndNavigationBarHeight) style:UITableViewStylePlain];
     [self.view addSubview:self.addRecortdTableView];
 }
 
@@ -55,7 +55,7 @@ static NSString *CELLID = @"CELLID";
 }
 
 - (void)downDoadDataWithISUPLoad: (BOOL)isUPLoad {
-    [[HXBFinanctingRequest sharedFinanctingRequest] planAddRecortdWithISUPLoad:true andFinancePlanId:self.planID andOrder:nil andSuccessBlock:^(HXBFinModel_AddRecortdModel_Plan *model) {
+    [[HXBFinanctingRequest sharedFinanctingRequest] planAddRecortdWithISUPLoad:YES andFinancePlanId:self.planID andOrder:nil andSuccessBlock:^(HXBFinModel_AddRecortdModel_Plan *model) {
         self.addRecortdTableView.addRecortdModel_Plan = model;
     } andFailureBlock:^(NSError *error) {
         

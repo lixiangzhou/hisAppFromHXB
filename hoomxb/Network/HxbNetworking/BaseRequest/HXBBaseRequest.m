@@ -56,7 +56,7 @@
         [[NYNetworkManager sharedManager] addRequest:self withHUD:str];
         return;
     }
-    [[KeyChainManage sharedInstance] isLoginWithInRealTimeBlock:^(BOOL isLogin) {
+    [KeyChain isLoginWithInRealTimeBlock:^(BOOL isLogin) {
         if (isLogin) {
             [[NYNetworkManager sharedManager] addRequest:self withHUD:str];
         }else {
@@ -78,7 +78,7 @@
         [self start];
         return;
     }
-    [[KeyChainManage sharedInstance] isLoginWithInRealTimeBlock:^(BOOL isLogin) {
+    [KeyChain isLoginWithInRealTimeBlock:^(BOOL isLogin) {
         if (isLogin) {
             self.success = [success copy];
             self.failure = [failure copy];
@@ -96,7 +96,7 @@
         [self startWithHUD:string];
         return;
     }
-    [[KeyChainManage sharedInstance] isLoginWithInRealTimeBlock:^(BOOL isLogin) {
+    [KeyChain isLoginWithInRealTimeBlock:^(BOOL isLogin) {
         if (isLogin) {
             self.success = [success copy];
             self.failure = [failure copy];
@@ -117,7 +117,7 @@
         [self startWithAnimation];
         return;
     }
-    [[KeyChainManage sharedInstance] isLoginWithInRealTimeBlock:^(BOOL isLogin) {
+    [KeyChain isLoginWithInRealTimeBlock:^(BOOL isLogin) {
         if (isLogin) {
             self.success = [success copy];
             self.failure = [failure copy];

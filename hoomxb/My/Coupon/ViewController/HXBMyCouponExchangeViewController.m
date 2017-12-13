@@ -99,7 +99,7 @@
                 [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
                     if ([VC isKindOfClass:[HXBMyCouponViewController class]]) {
                         viewController = VC;
-                        * stop = true;
+                        * stop = YES;
                     }
                 }];
                 if ((HXBMyCouponViewController * )viewController.childViewControllers[0] && [(HXBMyCouponViewController * )viewController.childViewControllers[0] isKindOfClass:[HXBMyCouponListViewController class]]) {
@@ -107,11 +107,11 @@
                     UIButton *btn = viewController.topTabView.tabs[0];
                     [viewController.topTabView tabAnimation:btn];
                     [viewController.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-                    [self.navigationController popToViewController:viewController animated:true];
+                    [self.navigationController popToViewController:viewController animated:YES];
                 }
             }];
             self.redeemCodeTextField.text = @"";
-            [self.navigationController pushViewController:planBuySuccessVC animated:true];
+            [self.navigationController pushViewController:planBuySuccessVC animated:YES];
         }
     } andFailure:^(NSError *error) {
     }];

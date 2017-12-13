@@ -77,11 +77,15 @@
 
 + (void) showShareMenuViewInWindowWith:(HXBUMShareViewModel *)shareVM {
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_alert];
-    HXBUmengViewController *UmengVC = [[HXBUmengViewController alloc] init];
-    UmengVC.shareVM = shareVM;
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:UmengVC animated:NO completion:^{
-        [UmengVC showShareView];
-    }];
+    if (KeyChain.ishaveNet) {
+        HXBUmengViewController *UmengVC = [[HXBUmengViewController alloc] init];
+        UmengVC.shareVM = shareVM;
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:UmengVC animated:NO completion:^{
+            [UmengVC showShareView];
+        }];
+    } else {
+        [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
+    }
     
     
 
