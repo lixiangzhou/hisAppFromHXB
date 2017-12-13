@@ -14,7 +14,7 @@
 @property (nonatomic, strong)  UIImageView *mainView;
 @property (nonatomic, strong)  UIImageView *leftImgV;//左
 @property (nonatomic, strong)  UILabel *dicountRateLab;//折扣率或者满减券多少元 "3%" “6666元”
-@property (nonatomic, strong)  UILabel *allowDerateInvestLab;//“最高6666元” “满5000元使用”
+@property (nonatomic, strong)  UILabel *allowDerateInvestLab;//“最低投资金额”
 @property (nonatomic, strong)  UIImageView *leftLineImgV;
 @property (nonatomic, strong)  UIImageView *midBgImgV;
 @property (nonatomic, strong)  UILabel *couponTypeLab; //‘抵扣券"
@@ -50,10 +50,9 @@
     _myCouponListModel = myCouponListModel;
     self.couponTypeLab.text = myCouponListModel.couponTypeText;; //‘抵扣券"还是“满减券”
     
-    if ([self.couponTypeLab.text isEqualToString:@"抵扣券"]) { //判断折扣还是满减
+    if ([myCouponListModel.couponType isEqualToString:@"DISCOUNT"]) { //判断折扣还是满减
         self.leftImgV.image = [UIImage imageNamed:@"my_couponList_dicountRateleft"];
         self.dicountRateLab.textColor = RGBA(253, 54, 54, 1);
-        self.dicountRateLab.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
         NSString *dicountRate = [NSString stringWithFormat:@"%@%%",myCouponListModel.dicountRate];
         NSRange range = NSMakeRange(0,dicountRate.length - 1);
         UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(58);
@@ -93,11 +92,12 @@
             make.top.equalTo(self.dicountRateLab.mas_bottom).offset(kScrAdaptationH750(20));
             make.height.equalTo(@kScrAdaptationH750(22));
         }];
-    }else if([self.couponTypeLab.text isEqualToString:@"满减券"]){
+        
+    }else if([self.couponTypeLab.text isEqualToString:@"MONEY_OFF"]){
         self.leftImgV.image = [UIImage imageNamed:@"my_couponList_ allowDerateInvestleft"];
         
         self.dicountRateLab.textColor = RGBA(115, 173, 255, 1);
-        self.dicountRateLab.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
+       
         NSRange range1 = [myCouponListModel.derateAmount rangeOfString:@"."];
         NSString *dicountRate = [NSString stringWithFormat:@"%@元",[myCouponListModel.derateAmount substringToIndex:range1.location]];
         NSRange range = NSMakeRange(0,dicountRate.length - 1);
@@ -160,6 +160,16 @@
     NSDate *stampDate = [NSDate dateWithTimeIntervalSince1970:myCouponListModel.expireTime / 1000];
     self.termOfValidityLab.text = [NSString stringWithFormat:@"有效期至%@",[stampFormatter stringFromDate:stampDate]];//"有效期至2017/11/30"
 }
+
+- (NSAttributedString *)transferStringToAttibutestring:(NSString *)string range:(NSRange)range {
+//    NSRange range1 = [myCouponListModel.derateAmount rangeOfString:@"."];
+//    NSString *dicountRate = [NSString stringWithFormat:@"%@元",[myCouponListModel.derateAmount substringToIndex:range1.location]];
+//    NSRange range = NSMakeRange(0,dicountRate.length - 1);
+
+    NSMutableAttributedString *attrM = [NSAttributedString setupAttributeStringWithString:string WithRange:range andAttributeColor:RGBA(115, 173, 255, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(60)];
+    return attrM;
+}
+
 
 - (void)setupSubViewFrame
 {
@@ -341,6 +351,7 @@
         _leftLineImgV = [[UIImageView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(212), kScrAdaptationH750(14), kScrAdaptationW750(2), kScrAdaptationH750(212))];
         _leftLineImgV.image = [UIImageView imageWithVerticalLineWithImageView:_leftLineImgV];
     }
+    
     return _leftLineImgV;
 }
 
@@ -358,6 +369,7 @@
         _dicountRateLab = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(18), kScrAdaptationH750(62), kScrAdaptationW750(176), kScrAdaptationH750(84))];
         _dicountRateLab.textAlignment = NSTextAlignmentCenter;
     }
+    _dicountRateLab.font = kHXBFont_PINGFANGSC_REGULAR_750(32);
     return _dicountRateLab;
 }
 

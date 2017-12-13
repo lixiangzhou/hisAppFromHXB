@@ -614,13 +614,14 @@ static const NSInteger topView_high = 300;
         _topView.profitStr = @"预期收益0.00元";
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
-//        if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
-//            _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-//            _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-//            _topView.disableKeyBorad = YES;
-//        } else {
-//            _topView.disableKeyBorad = NO;
-//        }
+        // 小于两倍最小投资金额时，输入框不可以编辑
+        if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
+            _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+            _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+            _topView.disableKeyBorad = YES;
+        } else {
+            _topView.disableKeyBorad = NO;
+        }
         _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
             weakSelf.bottomView.addBtnIsUseable = text.length;
             BOOL isFitToBuy = ((text.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
@@ -637,9 +638,6 @@ static const NSInteger topView_high = 300;
                 [weakSelf changeItemWithInvestMoney:text];
                 [weakSelf setUpArray];
             }
-//            if (_inputMoneyStr.doubleValue < _availablePoint.doubleValue &&  _availablePoint.doubleValue - text.doubleValue < _minRegisterAmount.doubleValue && text.doubleValue != _availablePoint.doubleValue) {
-//                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", weakSelf.minRegisterAmount]];
-//            }
         };
         _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
         _topView.placeholderStr = _placeholderStr;
