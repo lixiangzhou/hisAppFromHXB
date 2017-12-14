@@ -11,6 +11,6 @@
 #import "BannerModel.h"
 
 @interface HxbHomeViewController : HXBBaseViewController
-@property (nonatomic, strong) HxbHomeView *homeView;
+
 
 @end

@@ -28,6 +28,8 @@
 
 @interface HxbHomeViewController ()
 
+@property (nonatomic, strong) HxbHomeView *homeView;
+
 @property (nonatomic, assign) BOOL isVersionUpdate;
 
 @property (nonatomic, strong) HXBVersionUpdateViewModel *versionUpdateVM;
@@ -40,17 +42,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self hiddenTabbarLine];
-    [self.view addSubview:self.homeView];
-    [self.homeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.width.equalTo(self.view);
-        make.top.equalTo(self.view);//.offset(kScrAdaptationH(30))
-        make.bottom.equalTo(self.view); //注意适配iPhone X
-    }];
-//    [self getData:YES];
-//    [self.homeView changeIndicationView];
-//    [self.homeView showSecurityCertificationOrInvest];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    [self.view addSubview:self.homeView];
+
+    [self setupUI];
     
     [self registerRefresh];
     
@@ -59,6 +54,16 @@
     [self hiddenTabbarLine];
 }
 
+/**
+ 设置UI
+ */
+- (void)setupUI {
+    [self.homeView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.width.equalTo(self.view);
+        make.top.equalTo(self.view);//.offset(kScrAdaptationH(30))
+        make.bottom.equalTo(self.view); //注意适配iPhone X
+    }];
+}
 
 
 // 去除tabBar上面的横线
@@ -100,12 +105,6 @@
 {
      [self getData:YES];
 }
-
-//- (void)pushToAd {
-//    HxbAdvertiseViewController *adVc = [[HxbAdvertiseViewController alloc] init];
-//    [self.navigationController pushViewController:adVc animated:YES];
-//}
-
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -165,7 +164,6 @@
     }];
 
 }
-
 
 ///登录
 - (void)loginOrSignUp
