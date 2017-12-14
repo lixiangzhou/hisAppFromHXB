@@ -83,6 +83,7 @@
             KeyChain.ishaveNet = YES;
             HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
             gesturePasswordVC.type = GestureViewControllerTypeLogin;
+            gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
             self.window.rootViewController = gesturePasswordVC;
         }
     } else {

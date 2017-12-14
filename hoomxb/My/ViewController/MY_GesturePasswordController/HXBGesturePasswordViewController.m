@@ -71,7 +71,7 @@
     [super viewDidAppear:animated];
     self.isHiddenNavigationBar = YES;
     
-    if (self.type == GestureViewControllerTypeSetting) {
+    if (self.type == GestureViewControllerTypeSetting && self.switchType == HXBAccountSecureSwitchTypeNone) {
         [self alertSkipSetting];
     }
 }

@@ -10,8 +10,6 @@
 
 // 手势密码
 NSString const *kHXBGesturePWD = @"kHXBGesturePWD";
-// 是否出现过忽略手势密码弹窗
-NSString const *kHXBGesturePwdSkipeAppeardKey = @"kHXBGesturePwdSkipeAppeardKey";
 // 是否忽略手势密码
 NSString const *kHXBGesturePwdSkipeKey = @"kHXBGesturePwdSkipeKey";
 
