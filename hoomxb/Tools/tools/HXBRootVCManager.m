@@ -37,7 +37,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [UIApplication sharedApplication].delegate.window = self.window;
     
-    [HXBVersionUpdateManager sharedInstance];
+    [[HXBVersionUpdateManager sharedInstance] checkVersionUpdate];
     
     // 广告
     kWeakSelf

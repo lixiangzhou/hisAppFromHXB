@@ -30,7 +30,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [HXBVersionUpdateManager new];
-        [manager checkVersionUpdate];
     });
     return manager;
 }

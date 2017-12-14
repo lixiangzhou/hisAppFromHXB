@@ -10,15 +10,17 @@
 
 @interface HXBVersionUpdateManager : NSObject
 
-//单例
-+ (instancetype)sharedInstance;
-
 
 /**
  是否展示过升级弹框
  */
 @property (nonatomic, assign, readonly) BOOL isShow;
 
+//单例
++ (instancetype)sharedInstance;
+
+//请求版本更新接口（目前只在HXBRootVCManager内使用）
+- (void)checkVersionUpdate;
 
 //在首页需要进行显示
 - (void)show;
