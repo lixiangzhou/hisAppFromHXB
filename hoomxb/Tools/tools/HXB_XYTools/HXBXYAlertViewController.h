@@ -20,6 +20,11 @@
 @property (nonatomic, assign) BOOL isHIddenLeftBtn;
 @property (nonatomic, assign) BOOL isHiddenTitle;
 
+/**
+ 是否需要内部自动dismiss,默认是YES内部自动帮你释放
+ */
+@property (nonatomic, assign) BOOL isAutomaticDismiss;
+
 ///点击了左边按钮
 @property (nonatomic,copy) void(^clickXYLeftButtonBlock)();
 ///点击了右边按钮

@@ -12,9 +12,6 @@
 
 
 @property (nonatomic, copy) NSString *selectedIndexVC;
-/**
- 是否更新
- */
-@property (nonatomic, assign) BOOL isUpdate;
+
 
 @end

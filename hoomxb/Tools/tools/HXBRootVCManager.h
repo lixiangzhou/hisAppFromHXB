@@ -14,8 +14,7 @@
 
 @property (nonatomic, strong) HXBBaseTabBarController *mainTabbarVC;
 
-/// 目前只在AppDelegate用到
-@property (nonatomic, strong) HXBVersionUpdateModel *versionUpdateModel;
+
 
 + (instancetype)manager;
 
@@ -28,4 +27,6 @@
 /// 让tabBarVC 成为 root VC
 - (void)makeTabbarRootVC;
 
+//获取最顶端控制器
+- (UIViewController *)topControllerWithRootController:(UIViewController *)rootController;
 @end

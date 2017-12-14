@@ -21,9 +21,8 @@
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 #import "HXBNoticeViewController.h"//公告界面
 #import "HXBBannerWebViewController.h"//H5的Banner页面
-//#import "HXBOpenDepositAccountViewController.h"//开通存管账户
-//#import "HxbWithdrawCardViewController.h"//绑卡界面
 #import "HXBMiddlekey.h"
+#import "HXBVersionUpdateManager.h"
 
 
 
@@ -58,7 +57,6 @@
     //判断是否显示设置手势密码
     [self gesturePwdShow];
     [self hiddenTabbarLine];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update) name:kHXBNotification_update object:nil];
 }
 
 
@@ -108,9 +106,6 @@
 //    [self.navigationController pushViewController:adVc animated:YES];
 //}
 
--(void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kHXBNotification_update object:nil];
-}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -121,38 +116,14 @@
     [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
 
-/**
- 检测版本更新
- */
-- (void)checkVersionUpdate
-{
-    kWeakSelf
-    NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
-    [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
-        weakSelf.versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
-         weakSelf.versionUpdateVM.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
-        [HXBAlertManager checkversionUpdateWith: weakSelf.versionUpdateVM.versionUpdateModel];
-    } andFailureBlock:^(NSError *error) {
-        
-    }];
-}
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!self.isVersionUpdate) {
-        self.isVersionUpdate = YES;
-        static dispatch_once_t once;
-        dispatch_once(&once, ^{
-            [self checkVersionUpdate];
-        });
-    }
+    
+    [[HXBVersionUpdateManager sharedInstance] show];
+    
     [self transparentNavigationTitle];
     self.tabBarController.tabBar.hidden = NO;
 }
@@ -195,11 +166,6 @@
 
 }
 
-#pragma mark Action
-- (void)update
-{
-    [HXBAlertManager checkversionUpdateWith: self.versionUpdateVM.versionUpdateModel];
-}
 
 ///登录
 - (void)loginOrSignUp

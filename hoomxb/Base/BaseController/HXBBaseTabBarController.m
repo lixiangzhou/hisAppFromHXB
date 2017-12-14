@@ -157,14 +157,8 @@
     HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
     HXBBaseNavigationController *navi = [[HXBBaseNavigationController alloc]initWithRootViewController:vc];
     vc.selectedIndexVC = notification.object[@"selectedIndex"];
-    @try {
-        vc.isUpdate = notification.object[kHXBMY_VersionUpdateURL];
-    } @catch (NSException *exception) {
-    } @finally {
-    }
     
-    [self presentViewController:navi animated:YES completion:^{
-    }];
+    [self presentViewController:navi animated:YES completion:nil];
 }
 
 //跳转 myVC

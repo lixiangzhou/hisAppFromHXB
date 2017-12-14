@@ -244,6 +244,7 @@
 		4EECE0241F3843A200301758 /* eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0231F3843A200301758 /* eye.svg */; };
 		4EECE0261F38548100301758 /* close_eye.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4EECE0251F38548100301758 /* close_eye.svg */; };
 		4EED937F1FCFDDF80031DB2D /* HXBCommonProblemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EED937D1FCFDDF40031DB2D /* HXBCommonProblemViewController.m */; };
+		4EEFBE511FE0FBBF004EA6D5 /* HXBVersionUpdateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFBE501FE0FBBF004EA6D5 /* HXBVersionUpdateManager.m */; };
 		8798486D20A7A12B9E7539FF /* libPods-hoomxb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */; };
 		8D2CF5221FC2DA5D008F7A89 /* HXBInviteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF5121FC2DA5D008F7A89 /* HXBInviteListViewController.m */; };
 		8D2CF5231FC2DA5D008F7A89 /* HXBInviteListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF5151FC2DA5D008F7A89 /* HXBInviteListModel.m */; };
@@ -950,6 +951,8 @@
 		4EECE0251F38548100301758 /* close_eye.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = close_eye.svg; sourceTree = "<group>"; };
 		4EED937D1FCFDDF40031DB2D /* HXBCommonProblemViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCommonProblemViewController.m; sourceTree = "<group>"; };
 		4EED937E1FCFDDF40031DB2D /* HXBCommonProblemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCommonProblemViewController.h; sourceTree = "<group>"; };
+		4EEFBE4F1FE0FBBF004EA6D5 /* HXBVersionUpdateManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBVersionUpdateManager.h; sourceTree = "<group>"; };
+		4EEFBE501FE0FBBF004EA6D5 /* HXBVersionUpdateManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBVersionUpdateManager.m; sourceTree = "<group>"; };
 		6290EFB173CD62D4B8B37627 /* Pods-hoomxb.adoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.adoc.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.adoc.xcconfig"; sourceTree = "<group>"; };
 		8D2CF5111FC2DA5D008F7A89 /* HXBInviteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBInviteListViewController.h; sourceTree = "<group>"; };
 		8D2CF5121FC2DA5D008F7A89 /* HXBInviteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBInviteListViewController.m; sourceTree = "<group>"; };
@@ -4077,6 +4080,8 @@
 				E122D8451EA0CAB900DC71ED /* HxbCategorys.h */,
 				4E3A27CF1FBAEDFE004FB54D /* HXBRootVCManager.h */,
 				4E3A27D01FBAEDFE004FB54D /* HXBRootVCManager.m */,
+				4EEFBE4F1FE0FBBF004EA6D5 /* HXBVersionUpdateManager.h */,
+				4EEFBE501FE0FBBF004EA6D5 /* HXBVersionUpdateManager.m */,
 				4E48FF3F1F69121E00965BA2 /* HXBDeviceVersion */,
 				4E94A8631F5D4FE90001BE94 /* JYJKeyBoard */,
 				4E45F4231F4FC05C009708B7 /* HXB_XYTools */,
@@ -4857,6 +4862,7 @@
 				4E964FCA1F20BE9A001DF2C0 /* HXBOpenDepositAccountRequest.m in Sources */,
 				E1CB561D1ED2D20D00D962CA /* HXBMYModel_AssetStatistics_Loan.m in Sources */,
 				E1E4613F1EB98CF2005B1FC6 /* HXBFinanctingView_HomePage.m in Sources */,
+				4EEFBE511FE0FBBF004EA6D5 /* HXBVersionUpdateManager.m in Sources */,
 				E1FBADBD1EC45DE800F74D86 /* HXBFinancing_LoanDetailsViewController.m in Sources */,
 				4EAD98F01EB87E330029A3FF /* BannerModel.m in Sources */,
 				4E94B2831ECC2D64003CCBA7 /* HxbHomePageModel_DataList.m in Sources */,
