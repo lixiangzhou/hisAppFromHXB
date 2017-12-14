@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.imageData =  @[@"HXBBankCustody", @"HXBSecurityGuarantee", @"HXBBonusPlan", @"HXBCoupon"];
+    self.imageData =  @[@"HXBBankCustody", @"HXBSecurityGuarantee", @"HXBBonusPlan", @"HXBInvitingFriends"];
     
     [self setUI];
 }
@@ -112,11 +112,11 @@
 {
     [[HXBRootVCManager manager] enterTheGesturePasswordVCOrTabBar];
     
-    if (KeyChain.validateGesturePwd == NO) {
-        if ([self.force isEqualToString:@"0"]) {
-            [self showNewAlert];
-        }
-    }
+//    if (KeyChain.validateGesturePwd == NO) {
+//        if ([self.force isEqualToString:@"0"]) {
+//            [self showNewAlert];
+//        }
+//    }
 }
 
 // 展示开户弹框

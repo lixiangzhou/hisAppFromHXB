@@ -41,7 +41,7 @@
 }
 
 - (void)buildUI {
-    _tableView = [[HXBBaseTableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT - 64) style:(UITableViewStylePlain)];
+    _tableView = [[HXBBaseTableView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, SCREEN_WIDTH, SCREEN_HEIGHT - HXBStatusBarAndNavigationBarHeight) style:(UITableViewStylePlain)];
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.hidden = YES;

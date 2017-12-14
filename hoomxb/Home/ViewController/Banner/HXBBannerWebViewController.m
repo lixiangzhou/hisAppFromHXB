@@ -34,6 +34,10 @@
 #import "HXBInviteListViewController.h"
 #import "HxbSignUpViewController.h"//注册
 #import "HXBDepositoryAlertViewController.h"//开户弹框
+
+static NSString *const HXB_Toast = @"toast";
+static NSString *const HXB_Dialog = @"dialog";
+
 @interface HXBBannerWebViewController ()
 
 @end
@@ -65,7 +69,7 @@
     /****** OC端注册一个方法 (h5 调app 展示信息框)******/
     [self registJavascriptBridge:@"showMessage" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",data);
-        [weakSelf logicalJumpWithData:data];
+        [weakSelf showH5MessageWithData:data];
     }];
     [self registJavascriptBridge:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",data);
@@ -89,7 +93,6 @@
     //跳转立即投资
     HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     NSString *path = data[@"path"];
-    NSString * inviteSellerMessageText = data[@"message"];
     if ([path isEqualToString:kRegisterVC]) {
         //注册
         //跳转登录注册
@@ -139,7 +142,6 @@
         }
         else{
             //登录页面
-            //跳转登录注册
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         }
         
@@ -167,10 +169,24 @@
         [self.navigationController pushViewController:inviteListVC animated:YES];
     }else if ([path isEqualToString:kEscrowdialogActivityVC]){
         [HXBDepositoryAlertViewController showEscrowDialogActivityWithVCTitle:@"开通存管账户" andType:(HXBRechargeAndWithdrawalsLogicalJudgment_Other) andWithFromController:self.navigationController];
-    } else if ([path isEqualToString:kInviteSellerShowMessage]) {
-        [HxbHUDProgress showTextWithMessage:inviteSellerMessageText];
     }
    
+}
+
+// H5回传弹出样式
+- (void)showH5MessageWithData:(id)data {
+    NSString *type = data[@"type"];
+    NSString *showMessage = data[@"message"];
+    if ([type isEqualToString:HXB_Toast]) {
+        
+        [HxbHUDProgress showTextWithMessage:showMessage];
+    } else if ([type isEqualToString:HXB_Dialog]) {
+        
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:showMessage force:1 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
+        [alertVC setClickXYRightButtonBlock:^{
+        }];
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }
 }
 
 

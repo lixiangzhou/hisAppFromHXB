@@ -481,7 +481,5 @@
         self.purchaseButtonClickBlock();
     }
 }
-
-
 @end
 
