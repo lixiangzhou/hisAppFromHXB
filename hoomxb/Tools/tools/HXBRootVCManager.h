@@ -13,8 +13,8 @@
 @interface HXBRootVCManager : NSObject
 
 @property (nonatomic, strong) HXBBaseTabBarController *mainTabbarVC;
-
-
+///获取顶部控制器
+@property (nonatomic, weak) UIViewController *topVC;
 
 + (instancetype)manager;
 
@@ -27,6 +27,4 @@
 /// 让tabBarVC 成为 root VC
 - (void)makeTabbarRootVC;
 
-//获取最顶端控制器
-- (UIViewController *)topControllerWithRootController:(UIViewController *)rootController;
 @end

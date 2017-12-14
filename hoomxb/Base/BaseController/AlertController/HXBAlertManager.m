@@ -271,8 +271,7 @@
 
 //提示框的优先级
 + (void)promptPriorityWithAlertVC:(UIViewController *)alertVC {
-    UIViewController *topVC = [[HXBRootVCManager manager] topControllerWithRootController:KeyWindow.rootViewController];
-    [topVC presentViewController:alertVC animated:YES completion:nil];
+    [[HXBRootVCManager manager].topVC presentViewController:alertVC animated:YES completion:nil];
 }
 
 @end

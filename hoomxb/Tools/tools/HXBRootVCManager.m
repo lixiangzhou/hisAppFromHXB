@@ -90,6 +90,10 @@
     self.window.rootViewController = self.mainTabbarVC;
 }
 
+- (UIViewController *)topVC {
+    return [self topControllerWithRootController:KeyWindow.rootViewController];
+}
+
 #pragma mark - 获取最顶端控制器
 - (UIViewController *)topControllerWithRootController:(UIViewController *)rootController {
     if ([rootController isKindOfClass:[UITabBarController class]]) {

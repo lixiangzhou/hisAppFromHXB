@@ -43,8 +43,7 @@
         
         if ([KeyWindow.rootViewController isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
             //获取顶部控制器
-            UIViewController *topVC = [[HXBRootVCManager manager] topControllerWithRootController:KeyWindow.rootViewController];
-            if (![topVC isKindOfClass:NSClassFromString(@"HXBGesturePasswordViewController")]) {
+            if (![[HXBRootVCManager manager].topVC isKindOfClass:NSClassFromString(@"HXBGesturePasswordViewController")]) {
                 [weakSelf show];
             }
         }
