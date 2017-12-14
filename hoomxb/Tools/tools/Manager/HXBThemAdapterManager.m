@@ -18,6 +18,10 @@
  */
 + (CGFloat)getAdaterFont:(CGFloat)fontSize
 {
-    
+    CGFloat
+    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    if(812 == screenSize.height) {//iphoneX
+        
+    }
 }
 @end
