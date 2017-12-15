@@ -525,7 +525,7 @@
 */
 - (UIView *)lineView{
     if (!_lineView) {
-        _lineView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(375), kScrAdaptationH750(486+25), 0.5, kScrAdaptationH750(40))];
+        _lineView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(375), kScrAdaptationH750(486+25) + HXBStatusBarAdditionHeight, 0.5, kScrAdaptationH750(40))];
         _lineView.backgroundColor = RGBA(245, 81, 81, 1);
     }
     return _lineView;
