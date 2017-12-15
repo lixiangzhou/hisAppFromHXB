@@ -21,6 +21,9 @@
 #import "HXBDepositoryAlertViewController.h"
 #import "HxbFinancialAdvisorViewController.h"
 
+// 是否展示理财顾问的开关
+#define kIsDisplayAdvisor self.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor
+
 @interface HxbAccountInfoViewController ()
 <
 UITableViewDelegate,
@@ -28,6 +31,7 @@ UITableViewDataSource
 >
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UILabel *signOutLabel;
+@property (nonatomic, strong) NSArray *itemArray;
 //@property (nonatomic, strong) UIButton *signOutButton;
 //@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @end
@@ -82,42 +86,26 @@ UITableViewDataSource
             
         }];
        
-    }else if(indexPath.section == 2){
-        switch (indexPath.row) {
-            case 0:
-            {
-                //风险评测
-                NSLog(@"点击了风险评测");
-                [self entryRiskAssessment];
-            }
-                break;
-            case 1:
-            {
-                //账户安全
-                HxbMyAccountSecurityViewController *myAccountSecurityVC = [[HxbMyAccountSecurityViewController alloc]init];
+    } else if(indexPath.section == 2){
+        //账户安全
+        HxbMyAccountSecurityViewController *myAccountSecurityVC = [[HxbMyAccountSecurityViewController alloc] init];
+        HxbFinancialAdvisorViewController *financialAdvisorViewController = [[HxbFinancialAdvisorViewController alloc] init];
+        HxbMyAboutMeViewController *myAboutMeViewController = [[HxbMyAboutMeViewController alloc] init];
+        
+        NSArray <HXBBaseViewController *> *clickClassNameArray = kIsDisplayAdvisor ? @[myAccountSecurityVC, financialAdvisorViewController, myAboutMeViewController] : @[myAccountSecurityVC, myAboutMeViewController];
+        
+        if (indexPath.row == 0) {
+            //风险评测
+            NSLog(@"点击了风险评测");
+            [self entryRiskAssessment];
+        } else {
+            if (indexPath.row == 1) {
                 myAccountSecurityVC.userInfoViewModel = self.userInfoViewModel;
-                [self.navigationController pushViewController:myAccountSecurityVC animated:YES];
             }
-                break;
-            case 2:
-            {
-                //理财顾问
-                HxbFinancialAdvisorViewController *financialAdvisorViewController = [[HxbFinancialAdvisorViewController alloc]init];
-                [self.navigationController pushViewController:financialAdvisorViewController animated:YES];
-            }
-                break;
-            case 3:
-            {
-                //关于我们
-                HxbMyAboutMeViewController *myAboutMeViewController = [[HxbMyAboutMeViewController alloc]init];
-                [self.navigationController pushViewController:myAboutMeViewController animated:YES];
-            }
-                break;
-            default:
-                break;
+            [self.navigationController pushViewController:clickClassNameArray[indexPath.row - 1] animated:YES];
         }
-    }else if (indexPath.section == 3)
-    {
+        
+    } else if (indexPath.section == 3) {
         [self signOutButtonButtonClick];
     }
 }
@@ -221,21 +209,11 @@ UITableViewDataSource
         kWeakSelf
         alertVC.immediateOpenBlock = ^{
             HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-//            openDepositAccountVC.userModel = self.userInfoViewModel;
             openDepositAccountVC.title = @"开通存管账户";
             openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
             [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
         };
         [self presentViewController:alertVC animated:NO completion:nil];
-
-//        HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未开通存管账户请开通后在进行投资" andLeftButtonMassage:@"立即开通" andRightButtonMassage:@"取消"];
-//        [alertVC setClickLeftButtonBlock:^{
-//            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-//            openDepositAccountVC.title = @"开通存管账户";
-//            openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-//            [self.navigationController pushViewController:openDepositAccountVC animated:YES];
-//        }];
-//        [self.navigationController presentViewController:alertVC animated:YES completion:nil];
         return;
     }
     HXBRiskAssessmentViewController *riskAssessmentVC = [[HXBRiskAssessmentViewController alloc] init];
@@ -260,16 +238,6 @@ UITableViewDataSource
     
     return 0.01;
 }
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-//{
-//    UIView *fotterView = [[UIView alloc] init];
-//    fotterView.backgroundColor = [UIColor whiteColor];
-//    return [[UIView alloc] init];
-//}
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    return [UIView new];
-//}
 
 
 #pragma TableViewDataSource
@@ -298,6 +266,7 @@ UITableViewDataSource
             cell.imageView.image = [UIImage imageNamed:@"man"];
         }
     }else if (indexPath.section == 1){
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.row == 0) {
             cell.textLabel.text = @"恒丰银行存管账户";
@@ -315,7 +284,7 @@ UITableViewDataSource
             }
             cell.hiddenLine = !self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc;
             
-        }else if (indexPath.row == 1){
+        } else if (indexPath.row == 1){
             cell.textLabel.text = @"银行卡";
             cell.hiddenLine = YES;
             if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
@@ -328,10 +297,13 @@ UITableViewDataSource
             cell.textLabel.text = @"风险评测";
             cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
         }
-    }else if (indexPath.section == 2){
+    } else if (indexPath.section == 2) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        NSArray *arr = @[@"风险评测",@"账户安全",@"我的理财顾问",@"关于我们"];
-        cell.textLabel.text = arr[indexPath.row];
+        _itemArray = @[@"风险评测",@"账户安全",@"我的理财顾问",@"关于我们"];
+        if (!kIsDisplayAdvisor) {
+            _itemArray = @[@"风险评测",@"账户安全",@"关于我们"];
+        }
+        cell.textLabel.text = _itemArray[indexPath.row];
         cell.hiddenLine = NO;
         if (indexPath.row == 0) {
             cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
@@ -356,23 +328,15 @@ UITableViewDataSource
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return  (section == 0)? 1 : (section == 1)? 3:1;
     switch (section) {
         case 0:
             return 1;
             break;
         case 1:
-        {
-            if (self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-                return 2;
-            }else
-            {
-                return 1;
-            }
-        }
+            return self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc ? 2 : 1;
             break;
         case 2:
-            return 4;
+            return kIsDisplayAdvisor ? 4 : 3;
             break;
         case 3:
             return 1;
