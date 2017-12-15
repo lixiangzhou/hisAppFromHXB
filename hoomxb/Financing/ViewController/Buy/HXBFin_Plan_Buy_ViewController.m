@@ -614,14 +614,25 @@ static const NSInteger topView_high = 300;
         _topView.profitStr = @"预期收益0.00元";
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
-        // 小于两倍最小投资金额时，输入框不可以编辑
-        if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
-            _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-            _topView.disableKeyBorad = YES;
+        // 小于最小投资金额时，输入框不可以编辑
+        if (self.isFirstBuy) {
+            if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
+                _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+                _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+                _topView.disableKeyBorad = YES;
+            } else {
+                _topView.disableKeyBorad = NO;
+            }
         } else {
-            _topView.disableKeyBorad = NO;
+            if (self.availablePoint.doubleValue < self.registerMultipleAmount.doubleValue) {
+                _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+                _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+                _topView.disableKeyBorad = YES;
+            } else {
+                _topView.disableKeyBorad = NO;
+            }
         }
+        
         _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
             weakSelf.bottomView.addBtnIsUseable = text.length;
             BOOL isFitToBuy = ((text.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;

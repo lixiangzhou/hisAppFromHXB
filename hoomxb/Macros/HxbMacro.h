@@ -28,6 +28,6 @@
 #import "HXBRequestEnumAndStatic.h"
 #import "HXBEnumerateTransitionManager.h"
 #import "HXBCode.h"
-
+#import "HXBCircleViewConst.h"
 #import "HXBBaseConfig.h"
 #endif /* HxbMacro_h */
