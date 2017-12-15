@@ -70,7 +70,7 @@
 - (void)setupSubViewFrame
 {
     [self.loginPasswordTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(kScrAdaptationH750(12)+ 64);
+        make.top.equalTo(self.view).offset(kScrAdaptationH750(12)+ HXBStatusBarAndNavigationBarHeight);
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.height.offset(kScrAdaptationH750(120));
