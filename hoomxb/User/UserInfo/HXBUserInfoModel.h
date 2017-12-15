@@ -114,5 +114,7 @@
 
 @property (nonatomic,copy) NSString *ip;
 @property (nonatomic,copy) NSString *hasRecharge;
+// 是否显示销售顾问
+@property (nonatomic, assign) BOOL isDisplayAdvisor;
 
 @end
