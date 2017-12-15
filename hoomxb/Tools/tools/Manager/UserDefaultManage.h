@@ -11,12 +11,11 @@
 #define kUserDefaults [NSUserDefaults standardUserDefaults]
 
 // 是否出现过忽略手势密码弹窗
-#define kHXBGesturePwdSkipeAppeardKey [NSString stringWithFormat:@"kHXBGesturePwdSkipeAppeardKey%@", KeyChain.mobile]
-
-// 手势密码
-UIKIT_EXTERN NSString const *kHXBGesturePWD;
+#define kHXBGesturePwdSkipeAppeardKey [NSString stringWithFormat:@"kHXBGesturePwdSkipeAppeardKey%@", KeyChain.mobile ?: @""]
 // 是否忽略手势密码
-UIKIT_EXTERN NSString const *kHXBGesturePwdSkipeKey;
+#define kHXBGesturePwdSkipeKey [NSString stringWithFormat:@"kHXBGesturePwdSkipeKey%@", KeyChain.mobile ?: @""]
+// 手势密码
+#define kHXBGesturePWD [NSString stringWithFormat:@"kHXBGesturePWD%@", KeyChain.mobile ?: @""]
 
 @interface UserDefaultManage : NSObject
 

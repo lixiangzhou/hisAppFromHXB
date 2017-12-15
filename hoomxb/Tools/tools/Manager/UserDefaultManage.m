@@ -8,11 +8,6 @@
 
 #import "UserDefaultManage.h"
 
-// 手势密码
-NSString const *kHXBGesturePWD = @"kHXBGesturePWD";
-// 是否忽略手势密码
-NSString const *kHXBGesturePwdSkipeKey = @"kHXBGesturePwdSkipeKey";
-
 @implementation UserDefaultManage
 
 + (id)sharedInstance
