@@ -16,12 +16,12 @@
  @param fontSize 文字大小
  @return 适配后的字体
  */
-+ (CGFloat)getAdaterFont:(CGFloat)fontSize
-{
-    CGFloat
-    CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    if(812 == screenSize.height) {//iphoneX
-        
-    }
-}
+//+ (CGFloat)getAdaterFont:(CGFloat)fontSize
+//{
+//    CGFloat
+//    CGSize screenSize = [UIScreen mainScreen].bounds.size;
+//    if(812 == screenSize.height) {//iphoneX
+//
+//    }
+//}
 @end

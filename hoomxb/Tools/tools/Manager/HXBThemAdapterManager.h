@@ -17,5 +17,5 @@
  @param fontSize 文字大小
  @return 适配后的字体大小
  */
-+ (CGFloat)getAdaterFont:(CGFloat)fontSize;
+//+ (CGFloat)getAdaterFont:(CGFloat)fontSize;
 @end
