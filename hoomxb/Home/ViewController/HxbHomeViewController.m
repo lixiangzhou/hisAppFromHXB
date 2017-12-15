@@ -23,6 +23,7 @@
 #import "HXBBannerWebViewController.h"//H5的Banner页面
 #import "HXBMiddlekey.h"
 #import "HXBHomePopViewManager.h"
+#import "HXBVersionUpdateManager.h"
 
 @interface HxbHomeViewController ()
 
