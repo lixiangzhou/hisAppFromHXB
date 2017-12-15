@@ -10,18 +10,22 @@
 
 @implementation HXBThemAdapterManager
 
+
 /**
- 获取UIFont
- 
- @param fontSize 文字大小
- @return 适配后的字体
+ 获取以屏幕高适配的比例
+
+ @return 比例值
  */
-+ (CGFloat)getAdaterFont:(CGFloat)fontSize
++ (CGFloat)getAdaterScreenHeightScale
 {
-    CGFloat
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
+    //以iphone6为基准
+    CGFloat scale = screenSize.height/667;
+    
     if(812 == screenSize.height) {//iphoneX
-        
+        scale = 1;
     }
+    
+    return scale;
 }
 @end
