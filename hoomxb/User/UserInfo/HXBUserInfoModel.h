@@ -15,6 +15,8 @@
 @property (nonatomic,strong) HXBRequestUserInfoAPI_UserAssets *userAssets;
 ///用户相关
 @property (nonatomic,strong) HXBRequestUserInfoAPI_UserInfo *userInfo;
+
+
 @end
 
 
@@ -121,5 +123,6 @@
 /**
  是否有理财顾问
  */
-//@property (nonatomic,assign) BOOL isInviteMan;
+@property (nonatomic,assign) BOOL isDisplayAdvisor;
+
 @end
