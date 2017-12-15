@@ -44,7 +44,10 @@
 
 #pragma mark - LifeCycle
 - (void)viewDidLoad {
+    BOOL haveNet = KeyChain.ishaveNet;
+    KeyChain.ishaveNet = YES;
     [super viewDidLoad];
+    KeyChain.ishaveNet = haveNet;
     
     [self.view setBackgroundColor:CircleViewBackgroundColor];
     

@@ -77,7 +77,6 @@
 //     KeyChain.validateGesturePwd
     if (KeyChain.isLogin) {
         if (KeyChain.gesturePwd.length > 0) {   // 已有手势密码，手势登录
-            KeyChain.ishaveNet = YES;
             HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
             gesturePasswordVC.type = GestureViewControllerTypeLogin;
             gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
@@ -87,7 +86,6 @@
             if (skipGesturePwd) {
                 [self makeTabbarRootVC];
             } else {
-                KeyChain.ishaveNet = YES;
                 HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
                 gesturePasswordVC.type = GestureViewControllerTypeSetting;
                 gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
