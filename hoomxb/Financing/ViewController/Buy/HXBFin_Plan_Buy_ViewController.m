@@ -83,10 +83,7 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, assign) BOOL hasGetCoupon;
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
-//是否点击的语音
-@property (nonatomic, assign) BOOL isClickSpeechVerificationCode;
-//是否有语音验证码
-@property (nonatomic, assign) BOOL isSpeechVerificationCode;
+
 @end
 
 @implementation HXBFin_Plan_Buy_ViewController
@@ -97,8 +94,6 @@ static NSString *const bankString = @"绑定银行卡";
     _couponTitle = @"优惠券";
     _discountTitle = @"";
     _balanceTitle = @"可用余额";
-    _isSpeechVerificationCode = NO;
-    _isClickSpeechVerificationCode = NO;
     [self buildUI];
     [self getBankCardLimit];
     [self hasBestCouponRequest];
@@ -278,13 +273,8 @@ static const NSInteger topView_high = 300;
 - (void)sendSmsCodeWithMoney:(double)topupMoney {
     kWeakSelf
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    NSString *type = _isClickSpeechVerificationCode ? @"voice" : @"sms";
-    [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:type andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
-        if (_isClickSpeechVerificationCode) {
-            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-        } else {
-            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-        }
+    [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:@"sms" andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
+        weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
         [weakSelf alertSmsCode];
         [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
     } andFailureBlock:^(NSError *error) {
@@ -306,9 +296,8 @@ static const NSInteger topView_high = 300;
     if (!self.presentedViewController) {
         self.alertVC = [[HXBAlertVC alloc] init];
         self.alertVC.isCode = YES;
-        self.alertVC.speechType = YES;
+        self.alertVC.speechType = NO;
         self.alertVC.isCleanPassword = YES;
-        self.alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
         double rechargeMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
         self.alertVC.messageTitle = @"请输入验证码";
         _buyType = @"recharge"; // 弹出短验，都是充值购买
@@ -327,22 +316,14 @@ static const NSInteger topView_high = 300;
             [weakSelf buyPlanWithDic:dic];
         };
         self.alertVC.getVerificationCodeBlock = ^{
-            _isClickSpeechVerificationCode = NO;
-            _isSpeechVerificationCode = YES;
-//            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf sendSmsCodeWithMoney:rechargeMoney];
         };
         self.alertVC.getSpeechVerificationCodeBlock = ^{
-            _isClickSpeechVerificationCode = YES;
-            _isSpeechVerificationCode = YES;
-//            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf sendSmsCodeWithMoney:rechargeMoney];
         };
         self.alertVC.cancelBtnClickBlock = ^{
-            _isClickSpeechVerificationCode = NO;
-            _isSpeechVerificationCode = NO;
         };
         [self presentViewController:self.alertVC animated:NO completion:nil];
     }
