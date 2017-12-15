@@ -19,8 +19,10 @@
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) UILabel *footerLabel;
 @property (nonatomic, strong) HxbHomePageViewModel *dataViewModel;
-
 @property (nonatomic, strong) HXBBaseContDownManager *contDwonManager;
+
+@property (nonatomic, strong) UIView *tableBackgroundView;
+
 @end
 
 @implementation HxbHomeView
@@ -31,35 +33,33 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.mainTableView];
-        [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.top.equalTo(self);
-//            make.top.equalTo(self);//.offset(kScrAdaptationH(30))
-            make.bottom.equalTo(self).offset(-49); //注意适配iPhone X
-        }];
-//        [self.mainTableView addSubview:self.refreshControl];
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIndicationView) name:IsLoginToReloadTableView object:nil];
-//        [self addSubview:self.navigationBar];
+        [self.mainTableView insertSubview:self.tableBackgroundView atIndex:0];
+        [self setupUI];
         [self creatCountDownManager];
-
     }
     return self;
 }
 
+#pragma mark - setupUI
+
+- (void)setupUI {
+    [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self);
+        //            make.top.equalTo(self);//.offset(kScrAdaptationH(30))
+        make.bottom.equalTo(self).offset(-49); //注意适配iPhone X
+    }];
+    UIImage *bgImage = [UIImage imageNamed:@"Home_top_bg"];
+    CGSize imageSize = bgImage.size;
+    CGFloat imageHeight = imageSize.height / (imageSize.width / kScreenWidth);
+    [self.tableBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.height.offset(imageHeight);
+        make.bottom.equalTo(self.headView.bannerView.mas_top);
+    }];
+}
+
 
 #pragma mark Private Methods
-//- (void)hideBulletinView
-//{
-//    if (self.headView) {
-//        [self.headView hideBulletinView];
-//    }
-//}
-
-- (void)showBulletinView
-{
-    if (self.headView) {
-        [self.headView showBulletinView];
-    }
-}
 
 /**
  判断业务逻辑
@@ -226,19 +226,6 @@
     if (self.homeCellClickBlick) {
         self.homeCellClickBlick(indexPath);
     }
-//    
-//    if (_network) {
-//        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//        TopProductModel * model = [_hotSellDataList objectAtIndex:indexPath.row];
-//        id next = [self nextResponder];
-//        while (![next isKindOfClass:[HXBHomePageVC class]]) {
-//            next = [next nextResponder];
-//        }
-//        if ([next isKindOfClass:[HXBHomePageVC class]]) {
-//            HXBHomePageVC *vc = (HXBHomePageVC *)next;
-//            [vc purchaseWithModel:model];
-//        }
-//    }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -255,24 +242,6 @@
     return 0.01;
 }
 #pragma mark SET/GET METHODS
-//- (void)setBannersModel:(NSArray *)bannersModel
-//{
-//    _bannersModel = bannersModel;
-//    self.headView.bannerView.bannersModel = bannersModel;
-//}
-//
-//- (void)setBulletinsModel:(NSArray *)bulletinsModel
-//{
-//    _bulletinsModel = bulletinsModel;
-//    self.headView.bulletinsModel = bulletinsModel;
-//}
-//
-//-(void)setProfitModel:(AssetOverviewModel *)profitModel
-//{
-//    _profitModel = profitModel;
-//    self.headView.profitModel = profitModel;
-//    
-//}
 
 - (void)setIsStopRefresh_Home:(BOOL)isStopRefresh_Home{
     _isStopRefresh_Home = isStopRefresh_Home;
@@ -355,19 +324,20 @@
     return _mainTableView;
 }
 
-//- (HXBBannerView *)bannerView
-//{
-//    if (!_bannerView) {
-//        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
-//        _bannerView.backgroundColor = [UIColor clearColor];
-//    }
-//    return _bannerView;
-//}
+- (UIView *)tableBackgroundView {
+    if (!_tableBackgroundView) {
+        UIImage *bgImage = [UIImage imageNamed:@"Home_top_bg"];
+        CGSize imageSize = bgImage.size;
+        CGFloat imageHeight = imageSize.height / (imageSize.width / kScreenWidth);
+        _tableBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, imageHeight)];
+        UIImageView *bgImageView = [[UIImageView alloc] initWithImage:bgImage];
+        bgImageView.contentMode = UIViewContentModeScaleAspectFit;
+        [_tableBackgroundView addSubview:bgImageView];
+        [bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.bottom.equalTo(_tableBackgroundView);
+        }];
+    }
+    return _tableBackgroundView;
+}
 
-//- (NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
-//    if (!_homeDataListViewModelArray) {
-//        _homeDataListViewModelArray = [NSMutableArray array];
-//    }
-//    return _homeDataListViewModelArray;
-//}
 @end

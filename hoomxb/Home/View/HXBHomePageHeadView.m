@@ -14,7 +14,6 @@
 
 #import "BannerModel.h"
 #import "HXBHomeBaseModel.h"
-#import "SVGKit/SVGKImage.h"
 @interface HXBHomePageHeadView () 
 
 
@@ -25,32 +24,34 @@
 
 @property (nonatomic, strong) UIButton *noticeBtn;
 
-@property (nonatomic, strong) UIImageView *backgroundImageView;
 @end
 
 @implementation HXBHomePageHeadView
 
 
-- (UIImageView *)backgroundImageView
-{
-    if (!_backgroundImageView) {
-        _backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Group 15"]];
-        _backgroundImageView.frame = CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(257));
-    }
-    return _backgroundImageView;
-}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self addSubview:self.backgroundImageView];
         [self addSubview:self.afterLoginView];
         [self addSubview:self.indicationView];
         [self addSubview:self.bannerView];
         [self addSubview:self.noticeBtn];
+        [self setupUI];
     }
     return self;
+}
+
+#pragma mark - setupUI
+
+- (void)setupUI {
+    [self.noticeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(kScrAdaptationW(-20));
+        make.top.offset(kScrAdaptationH(40));
+        make.height.offset(kScrAdaptationH(17));
+        make.width.offset(kScrAdaptationW(20));
+    }];
 }
 
 #pragma mark HXBHomePageBulletinViewDelegate Methods
@@ -183,9 +184,8 @@
 - (UIButton *)noticeBtn
 {
     if (!_noticeBtn) {
-        _noticeBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScrAdaptationW(5), kScrAdaptationH(34), kScrAdaptationW(40), kScrAdaptationH(20))];
-        SVGKImage *svgImage = [SVGKImage imageNamed:@"notice"];
-        [_noticeBtn setImage:svgImage.UIImage forState:UIControlStateNormal];
+        _noticeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_noticeBtn setImage:[UIImage imageNamed:@"Home_notice"] forState:UIControlStateNormal];
         [_noticeBtn addTarget:self action:@selector(noticeBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _noticeBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }

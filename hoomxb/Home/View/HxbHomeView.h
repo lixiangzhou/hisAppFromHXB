@@ -56,8 +56,7 @@
 @property (nonatomic,assign) BOOL isStopRefresh_Home;
 
 - (void)changeIndicationView:(HXBRequestUserInfoViewModel *)viewModel;
-- (void)hideBulletinView;
-- (void)showBulletinView;
+
 - (void)showSecurityCertificationOrInvest:(HXBRequestUserInfoViewModel *)viewModel;
 - (void)setDataModel:(HxbHomePageViewModel *)dataModel;
 

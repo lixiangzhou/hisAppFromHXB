@@ -32,7 +32,6 @@
 		4E16D8531E9CD0FE002A1881 /* hoomxbUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8521E9CD0FE002A1881 /* hoomxbUITests.m */; };
 		4E19E8651F4D924B00032302 /* HXBFinanctingDetail_imageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E19E8621F4D924B00032302 /* HXBFinanctingDetail_imageCell.m */; };
 		4E19E8661F4D924B00032302 /* HXBFinanctingDetail_progressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E19E8641F4D924B00032302 /* HXBFinanctingDetail_progressCell.m */; };
-		4E1D909A1F14F62D00D29EA7 /* notice.svg in Resources */ = {isa = PBXBuildFile; fileRef = 4E1D90991F14F62D00D29EA7 /* notice.svg */; };
 		4E294F241EB9E73A007D5042 /* HxbMyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E294F231EB9E73A007D5042 /* HxbMyView.m */; };
 		4E2BACA81FB2EE3A002A3C82 /* HXBUMengShareManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E2BACA71FB2EE3A002A3C82 /* HXBUMengShareManager.m */; };
 		4E35C6C71F0E46DA0022C8E6 /* HXBMyTopUpBankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E35C6C61F0E46DA0022C8E6 /* HXBMyTopUpBankView.m */; };
@@ -585,7 +584,6 @@
 		4E19E8621F4D924B00032302 /* HXBFinanctingDetail_imageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinanctingDetail_imageCell.m; sourceTree = "<group>"; };
 		4E19E8631F4D924B00032302 /* HXBFinanctingDetail_progressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinanctingDetail_progressCell.h; sourceTree = "<group>"; };
 		4E19E8641F4D924B00032302 /* HXBFinanctingDetail_progressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinanctingDetail_progressCell.m; sourceTree = "<group>"; };
-		4E1D90991F14F62D00D29EA7 /* notice.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = notice.svg; sourceTree = "<group>"; };
 		4E294F221EB9E73A007D5042 /* HxbMyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbMyView.h; sourceTree = "<group>"; };
 		4E294F231EB9E73A007D5042 /* HxbMyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbMyView.m; sourceTree = "<group>"; };
 		4E2BACA61FB2EE3A002A3C82 /* HXBUMengShareManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUMengShareManager.h; sourceTree = "<group>"; };
@@ -2150,7 +2148,6 @@
 				4E88A5261F15CBC500BBDF11 /* back.svg */,
 				4E88A5221F15B79700BBDF11 /* password_eye_open.svg */,
 				4E88A5201F15B79000BBDF11 /* password_eye_close.svg */,
-				4E1D90991F14F62D00D29EA7 /* notice.svg */,
 				4E7E5B6F1F14792B00771C07 /* my_Selected.svg */,
 				4E7E5B701F14792B00771C07 /* my_Unselected.svg */,
 				4E7E5B6B1F1478C100771C07 /* investment_Unselected.svg */,
@@ -4605,7 +4602,6 @@
 				4EECE0131F38177000301758 /* 5001.svg in Resources */,
 				4EECE0181F38177000301758 /* 5006.svg in Resources */,
 				4EECDFD31F380E8B00301758 /* trading_record.svg in Resources */,
-				4E1D909A1F14F62D00D29EA7 /* notice.svg in Resources */,
 				4E7CCF511EBC1B5B00F7BDB3 /* login_close@3x.png in Resources */,
 				4E7E5B691F14705700771C07 /* home_Selected.svg in Resources */,
 				4E92156D1F1DFC6900C8CECB /* name.svg in Resources */,

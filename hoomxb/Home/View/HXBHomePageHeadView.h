@@ -53,8 +53,6 @@
  */
 - (void)showAlreadyInvestedView;
 
-//- (void)hideBulletinView;
-- (void)showBulletinView;
 
 - (void)showSecurityCertificationOrInvest:(HXBRequestUserInfoViewModel *)viewModel;
 
