@@ -120,7 +120,7 @@
 
     [self.notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(HxbNavigationBarY);
+        make.top.equalTo(self.view).offset(HXBStatusBarAndNavigationBarHeight);
         make.height.offset(kScrAdaptationH750(0));
     }];
     
@@ -501,7 +501,7 @@
 - (HXBMy_Withdraw_notifitionView *)notifitionView {
     kWeakSelf
     if (!_notifitionView) {
-        _notifitionView = [[HXBMy_Withdraw_notifitionView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScrAdaptationH750(70))];
+        _notifitionView = [[HXBMy_Withdraw_notifitionView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScrAdaptationH750(70))];
         _notifitionView.hidden = YES;
     }
     _notifitionView.block = ^{
