@@ -30,7 +30,7 @@
 {
     if (!_homeView) {
         kWeakSelf
-        _homeView = [[HXBModifyPhoneView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
+        _homeView = [[HXBModifyPhoneView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         //获取图形验证码
         weakSelf.homeView.getValidationCodeButtonClickBlock = ^(NSString *phoneNumber){
             [weakSelf enterGraphicsCodeViewWithPhoneNumber:phoneNumber];
