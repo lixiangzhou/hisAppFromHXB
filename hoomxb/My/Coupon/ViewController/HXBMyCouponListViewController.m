@@ -86,7 +86,7 @@
 
 -(HXBMyCouponListView *)myView{
     if (!_myView) {
-        _myView = [[HXBMyCouponListView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-44)];
+        _myView = [[HXBMyCouponListView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HXBStatusBarAndNavigationBarHeight - 44)];
         kWeakSelf
         _myView.block = ^{
             HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
