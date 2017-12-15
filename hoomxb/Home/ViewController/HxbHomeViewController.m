@@ -24,15 +24,13 @@
 //#import "HXBOpenDepositAccountViewController.h"//开通存管账户
 //#import "HxbWithdrawCardViewController.h"//绑卡界面
 #import "HXBMiddlekey.h"
-
-
+#import "HXBHomePopViewManager.h"
 
 @interface HxbHomeViewController ()
 
 @property (nonatomic, assign) BOOL isVersionUpdate;
 
 @property (nonatomic, strong) HXBVersionUpdateViewModel *versionUpdateVM;
-
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 @end
@@ -115,6 +113,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    kWeakSelf
+//    [[HXBHomePopViewManager sharedInstance] getHomePopViewData];//获取首页弹窗数据 多次弹出情况
+    [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:weakSelf];//展示首页弹窗
     
     [self hideNavigationBar:animated];
     [self getData:YES];

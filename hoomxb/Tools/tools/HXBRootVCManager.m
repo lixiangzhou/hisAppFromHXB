@@ -13,6 +13,7 @@
 #import "HxbAdvertiseViewController.h"
 #import "HXBVersionUpdateModel.h"
 #import "HXBGesturePasswordViewController.h"
+#import "HXBHomePopViewManager.h"
 
 #define AXHVersionKey @"version"
 
@@ -37,6 +38,7 @@
     [UIApplication sharedApplication].delegate.window = self.window;
     
     [self checkVersionUpdate];
+    [[HXBHomePopViewManager sharedInstance] getHomePopViewData];//获取首页弹窗数据
     
     // 广告
     kWeakSelf
