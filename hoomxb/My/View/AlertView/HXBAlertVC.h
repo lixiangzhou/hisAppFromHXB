@@ -32,7 +32,7 @@
 //是否有语音验证码
 @property (nonatomic, assign) BOOL isSpeechVerificationCode;
 // 类型
-@property (nonatomic, assign) BOOL speechType; // 1是充值、充值购买、注册 0是其他的页面
+@property (nonatomic, assign) BOOL speechType; // 1是注册 0是其他的页面 (充值、充值购买 12.15 V2.3.1去掉了语音验证码)
 /**
  是否是电话
  */
