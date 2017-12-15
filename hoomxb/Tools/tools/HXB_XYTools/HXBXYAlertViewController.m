@@ -46,6 +46,7 @@
     if (self = [super init]) {
         self.modalPresentationStyle = UIModalPresentationCustom;
         self.transitioningDelegate = self.animatr;
+        self.isAutomaticDismiss = YES;
     }
     return self;
 }
@@ -283,13 +284,17 @@
 }
 
 - (void)clickLeftButton:(UIButton *)button {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.isAutomaticDismiss) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
     if (self.clickXYLeftButtonBlock) {
         self.clickXYLeftButtonBlock();
     }
 }
 - (void)clickRightButton: (UIButton *)button {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (self.isAutomaticDismiss) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
     if (self.clickXYRightButtonBlock) {
         self.clickXYRightButtonBlock();
     }

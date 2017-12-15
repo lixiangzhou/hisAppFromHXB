@@ -10,9 +10,5 @@
 
 @interface AXHNewFeatureController : UICollectionViewController
 
-/**
- 判断是否显示开户提示
- */
-@property (nonatomic, copy) NSString *force;
 
 @end
