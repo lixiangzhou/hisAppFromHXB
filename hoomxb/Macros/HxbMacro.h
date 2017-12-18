@@ -20,6 +20,7 @@
 #import "UserDefaultManage.h"
 #import "HxbBase.h"
 #import "MacroDefinition.h"
+#import "UIViewController+HXBUtil.h"
 
 #import "HXMacros_BLog.h"
 #import "HXBScreenAdaptation.h"
