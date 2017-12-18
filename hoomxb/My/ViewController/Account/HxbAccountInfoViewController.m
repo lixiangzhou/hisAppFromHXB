@@ -92,7 +92,7 @@ UITableViewDataSource
         HxbFinancialAdvisorViewController *financialAdvisorViewController = [[HxbFinancialAdvisorViewController alloc] init];
         HxbMyAboutMeViewController *myAboutMeViewController = [[HxbMyAboutMeViewController alloc] init];
         
-        NSArray <HXBBaseViewController *> *clickClassNameArray = self.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor ? @[myAccountSecurityVC, financialAdvisorViewController, myAboutMeViewController] : @[myAccountSecurityVC, myAboutMeViewController];
+        NSArray <HXBBaseViewController *> *clickClassNameArray = kIsDisplayAdvisor ? @[myAccountSecurityVC, financialAdvisorViewController, myAboutMeViewController] : @[myAccountSecurityVC, myAboutMeViewController];
         
         if (indexPath.row == 0) {
             //风险评测
@@ -100,8 +100,9 @@ UITableViewDataSource
             [self entryRiskAssessment];
         } else {
             if (indexPath.row == 1) {
+                myAccountSecurityVC.userInfoViewModel = self.userInfoViewModel;
             }
-            [self.navigationController pushViewController:clickClassNameArray[indexPath.row + 1] animated:YES];
+            [self.navigationController pushViewController:clickClassNameArray[indexPath.row - 1] animated:YES];
         }
 
     } else if (indexPath.section == 3) {
@@ -299,7 +300,7 @@ UITableViewDataSource
     } else if (indexPath.section == 2) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         _itemArray = @[@"风险评测",@"账户安全",@"我的理财顾问",@"关于我们"];
-        if (!self.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor) {
+        if (!kIsDisplayAdvisor) {
             _itemArray = @[@"风险评测",@"账户安全",@"关于我们"];
         }
         cell.textLabel.text = _itemArray[indexPath.row];
@@ -334,7 +335,7 @@ UITableViewDataSource
             return self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc ? 2 : 1;
             break;
         case 2:
-            return self.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor ? 4 : 3;
+            return kIsDisplayAdvisor ? 4 : 3;
             break;
         case 3:
             return 1;
