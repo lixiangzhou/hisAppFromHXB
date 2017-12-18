@@ -12,8 +12,6 @@
 
 /** 允许使用的业务范围*/
 @property (nonatomic, copy) NSString *allowBusinessCategory;
-/** 满减券*/
-@property (nonatomic, copy) NSString *allowDerateInvest;
 /** 优惠券类型*/
 @property (nonatomic, copy) NSString *couponType;
 /** 运营文案*/
@@ -26,8 +24,10 @@
 @property (nonatomic, copy) NSString *dicountRate;
 /** 满减券 减500元*/
 @property (nonatomic, copy) NSString *derateAmount;
-/** 最少投资金额*/
+/** 抵扣券最少投资金额*/
 @property (nonatomic, copy) NSString *minInvestAmount;
+/** 满减券最小投资金额*/
+@property (nonatomic, copy) NSString *allowDerateInvest;
 /** 最大抵扣金额*/
 @property (nonatomic, copy) NSString *maxDiscountAmount;
 /** 计划id和投资金额算出来的实际减免金额*/

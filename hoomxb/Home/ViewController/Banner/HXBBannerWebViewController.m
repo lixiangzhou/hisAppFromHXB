@@ -6,17 +6,7 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#define kRegisterVC @"/account/register"//注册页面
-#define kRechargeVC @"/cash/recharge"//充值页面
-#define kEscrowActivityVC @"/home/EscrowActivity"//存管开户页面
-#define kEscrowdialogActivityVC @"/user/escrowdialog_activity"//存管开户弹框
-#define kPlanDetailVC @"/plan/detail"//某个计划的详情页
-#define kLoanDetailVC @"/loan/detail"//某个散标的详情页
-#define kLoginVC @"/account/login"//登录页面
-#define kHomeVC @"/home/main"//主页
-#define kPlan_fragment @"/home/plan_fragment"//红利计划列表页
-#define kLoan_fragment @"/home/loan_fragment"//散标列表页
-#define kLoantransferfragment @"/home/loan_transfer_fragment"//债权转让列表页
+
 #define kAccountFriendsRecordActivity @"/account/invite_friends_record_activity"//好友邀请记录
 #define kInviteSellerShowMessage @"/invite/seller" // h5 调app 展示信息框
 
