@@ -21,6 +21,9 @@
 #import "HXBDepositoryAlertViewController.h"
 #import "HxbFinancialAdvisorViewController.h"
 
+// 是否展示理财顾问的开关
+#define kIsDisplayAdvisor self.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor
+
 @interface HxbAccountInfoViewController ()
 <
 UITableViewDelegate,
@@ -262,6 +265,7 @@ UITableViewDataSource
             cell.imageView.image = [UIImage imageNamed:@"man"];
         }
     }else if (indexPath.section == 1){
+        
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.row == 0) {
             cell.textLabel.text = @"恒丰银行存管账户";
@@ -279,7 +283,7 @@ UITableViewDataSource
             }
             cell.hiddenLine = !self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc;
             
-        }else if (indexPath.row == 1){
+        } else if (indexPath.row == 1){
             cell.textLabel.text = @"银行卡";
             cell.hiddenLine = YES;
             if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
@@ -292,7 +296,7 @@ UITableViewDataSource
             cell.textLabel.text = @"风险评测";
             cell.detailTextLabel.text = self.userInfoViewModel.userInfoModel.userInfo.riskType;
         }
-    }else if (indexPath.section == 2){
+    } else if (indexPath.section == 2) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         _itemArray = @[@"风险评测",@"账户安全",@"我的理财顾问",@"关于我们"];
         if (!self.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor) {
@@ -322,7 +326,6 @@ UITableViewDataSource
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-//    return  (section == 0)? 1 : (section == 1)? 3:1;
     switch (section) {
         case 0:
             return 1;
