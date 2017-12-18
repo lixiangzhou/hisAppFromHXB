@@ -22,6 +22,8 @@
 
 @property (nonatomic, strong) UIView *tableBackgroundView;
 
+@property (nonatomic, strong) HXBCustomNavView *navView;
+
 @end
 
 @implementation HxbHomeView
@@ -33,6 +35,7 @@
     if (self) {
         [self addSubview:self.mainTableView];
         [self.mainTableView insertSubview:self.tableBackgroundView atIndex:0];
+        [self addSubview:self.navView];
         [self setupUI];
         [self creatCountDownManager];
     }
@@ -137,19 +140,7 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.y >= (SCREEN_WIDTH * 9)/16) {
-        [UIView animateWithDuration:0.5 animations:^{
-//            _navigationBar.alpha = 1.0f;
-        } completion:^(BOOL finished) {
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-        }];
-    }else{
-        [UIView animateWithDuration:0.5 animations:^{
-//            _navigationBar.alpha = 0;
-        } completion:^(BOOL finished) {
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-        }];
-    }
+    self.navView.navAlpha = (scrollView.contentOffset.y)/(CGRectGetMaxY(self.tableBackgroundView.frame) - HXBStatusBarAndNavigationBarHeight);
 }
 
 #pragma mark UITableView Delegate/DataSource
@@ -317,6 +308,16 @@
         }];
     }
     return _tableBackgroundView;
+}
+
+- (HXBCustomNavView *)navView {
+    if (!_navView) {
+        _navView = [[HXBCustomNavView alloc] init];
+        _navView.backgroundColor = [UIColor whiteColor];
+        _navView.title = @"红小宝";
+        _navView.navAlpha = 0;
+    }
+    return _navView;
 }
 
 @end

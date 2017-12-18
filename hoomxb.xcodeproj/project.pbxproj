@@ -25,6 +25,7 @@
 		4E0446E01FBEA99D0030E276 /* HXBUmengView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0446D51FBEA8910030E276 /* HXBUmengView.m */; };
 		4E0446E11FBEA99F0030E276 /* JXLayoutButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0446D71FBEA8910030E276 /* JXLayoutButton.m */; };
 		4E0446E21FBEA9A50030E276 /* HXBUMShareViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E0446DD1FBEA8910030E276 /* HXBUMShareViewModel.m */; };
+		4E1053FA1FE7BE9900BCE2F4 /* HXBCustomNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E1053F91FE7BE9900BCE2F4 /* HXBCustomNavView.m */; };
 		4E16D82F1E9CD0FE002A1881 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D82E1E9CD0FE002A1881 /* main.m */; };
 		4E16D8321E9CD0FE002A1881 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E16D8311E9CD0FE002A1881 /* AppDelegate.m */; };
 		4E16D8381E9CD0FE002A1881 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E16D8361E9CD0FE002A1881 /* Main.storyboard */; };
@@ -566,6 +567,8 @@
 		4E0446DA1FBEA8910030E276 /* HXBUmengViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBUmengViewController.m; sourceTree = "<group>"; };
 		4E0446DC1FBEA8910030E276 /* HXBUMShareViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUMShareViewModel.h; sourceTree = "<group>"; };
 		4E0446DD1FBEA8910030E276 /* HXBUMShareViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBUMShareViewModel.m; sourceTree = "<group>"; };
+		4E1053F81FE7BE9900BCE2F4 /* HXBCustomNavView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBCustomNavView.h; sourceTree = "<group>"; };
+		4E1053F91FE7BE9900BCE2F4 /* HXBCustomNavView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBCustomNavView.m; sourceTree = "<group>"; };
 		4E16D82A1E9CD0FE002A1881 /* hoomxb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hoomxb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E16D82E1E9CD0FE002A1881 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4E16D8301E9CD0FE002A1881 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -2742,6 +2745,8 @@
 				8DAD30611FBA8F8B00E2AEE8 /* HXBBaseView_Button.m */,
 				8DAD30621FBA8F8B00E2AEE8 /* HxbWelcomeView.h */,
 				8DAD30631FBA8F8B00E2AEE8 /* HxbWelcomeView.m */,
+				4E1053F81FE7BE9900BCE2F4 /* HXBCustomNavView.h */,
+				4E1053F91FE7BE9900BCE2F4 /* HXBCustomNavView.m */,
 				8DAD30641FBA8F8B00E2AEE8 /* NODataView */,
 				8DAD30671FBA8F8B00E2AEE8 /* NONetworkStatus */,
 				8DAD306A1FBA8F8B00E2AEE8 /* SwipeTableView */,
@@ -5061,6 +5066,7 @@
 				E1CD4BCA1ED83064000CC57B /* HxbHUDProgress.m in Sources */,
 				E133DCE31EEE3597009466DE /* HxbSignInView.m in Sources */,
 				E10EB4B31EEFE04400F16CFA /* HxbAccountInfoViewController.m in Sources */,
+				4E1053FA1FE7BE9900BCE2F4 /* HXBCustomNavView.m in Sources */,
 				E133DCDA1EEE3597009466DE /* HxbBindCardViewController.m in Sources */,
 				E10EB4BF1EEFE0B500F16CFA /* HxbWithdrawViewController.m in Sources */,
 				E133DD3F1EEEC14C009466DE /* NYNetworkManager+DefaultMethod.m in Sources */,

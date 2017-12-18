@@ -45,7 +45,6 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.homeView];
-
     [self setupUI];
     
     [self registerRefresh];
@@ -225,4 +224,10 @@
     }
     return _homeView;
 }
+
+#pragma mark - 设置状态栏
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 @end
