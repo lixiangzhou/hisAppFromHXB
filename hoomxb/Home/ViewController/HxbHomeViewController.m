@@ -60,8 +60,7 @@
     
     [self hideNavigationBar:animated];
     [self getData:YES];
-    [self.homeView changeIndicationView:self.userInfoViewModel];
-    [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+    self.homeView.userInfoViewModel = self.userInfoViewModel;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -133,16 +132,13 @@
     kWeakSelf
     if (KeyChain.isLogin) {
         [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            [self.homeView changeIndicationView:viewModel];
-            [self.homeView showSecurityCertificationOrInvest:viewModel];
             self.userInfoViewModel = viewModel;
+            self.homeView.userInfoViewModel = self.userInfoViewModel;
         } andFailure:^(NSError *error) {
-            [self.homeView changeIndicationView:self.userInfoViewModel];
-            [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+            self.homeView.userInfoViewModel = self.userInfoViewModel;
         }];
     } else {
-        [self.homeView changeIndicationView:self.userInfoViewModel];
-        [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+        self.homeView.userInfoViewModel = self.userInfoViewModel;
     }
     
     if (!self.homeView.homeBaseModel) {

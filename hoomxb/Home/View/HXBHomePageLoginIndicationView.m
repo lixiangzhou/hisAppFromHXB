@@ -12,10 +12,8 @@
 
 #import "HXBHomePageLoginIndicationView.h"
 #import "HxbHomeViewController.h"
-
 #import "UILabel+Util.h"
 #import "HXBRequestUserInfo.h"
-
 #import "HXBBaseTabBarController.h"
 
 
@@ -54,7 +52,6 @@
 @property (nonatomic, strong) UIButton *eyeButton;
 
 
-@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 @end
 
@@ -72,7 +69,6 @@
         [self addSubview:self.availableAmountTitleLabel];
         [self addSubview:self.eyeButton];
         [self setupSubViewFrame];
-        [self loadNewDate];
         
     }
     return self;
@@ -127,28 +123,28 @@
 }
 
 #pragma mark Set Methdos
-- (void)loadNewDate
+- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
+    _userInfoViewModel = userInfoViewModel;
+    [self loadNewDate:userInfoViewModel];
+}
+
+
+- (void)loadNewDate:(HXBRequestUserInfoViewModel *)viewModel
 {
-    kWeakSelf
-    [HXBRequestUserInfo downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        if ([KeyChain.ciphertext isEqualToString:@"0"]) {
-            weakSelf.eyeButton.selected = NO;
-            weakSelf.availableAmountLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue];
-            weakSelf.allProfitLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.earnTotal.doubleValue];
-            double allAssets = viewModel.userInfoModel.userAssets.lenderPrincipal.doubleValue + viewModel.userInfoModel.userAssets.financePlanAssets.doubleValue;
-            weakSelf.assetsLabel.text = [NSString stringWithFormat:@"%0.2lf",allAssets];
-        } else {
-            weakSelf.eyeButton.selected = YES;
-            if (viewModel.userInfoModel.userAssets.availablePoint.length > 0) {
-                weakSelf.availableAmountLabel.text = kSecuryText;
-                weakSelf.allProfitLabel.text = kSecuryText;
-                weakSelf.assetsLabel.text = kSecuryText;
-            }
+    if ([KeyChain.ciphertext isEqualToString:@"0"]) {
+        self.eyeButton.selected = NO;
+        self.availableAmountLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue];
+        self.allProfitLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.earnTotal.doubleValue];
+        double allAssets = viewModel.userInfoModel.userAssets.lenderPrincipal.doubleValue + viewModel.userInfoModel.userAssets.financePlanAssets.doubleValue;
+        self.assetsLabel.text = [NSString stringWithFormat:@"%0.2lf",allAssets];
+    } else {
+        self.eyeButton.selected = YES;
+        if (viewModel.userInfoModel.userAssets.availablePoint.length > 0) {
+            self.availableAmountLabel.text = kSecuryText;
+            self.allProfitLabel.text = kSecuryText;
+            self.assetsLabel.text = kSecuryText;
         }
-        weakSelf.userInfoViewModel = viewModel;
-    } andFailure:^(NSError *error) {
-        
-    }];
+    }
 }
 
 /**

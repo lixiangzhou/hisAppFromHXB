@@ -22,6 +22,10 @@
 @property (nonatomic, strong) HXBBannerView *bannerView;
 
 /**
+ 用户信息
+ */
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+/**
  请求下来的数据模型
  */
 @property (nonatomic, strong) HXBHomeBaseModel *homeBaseModel;

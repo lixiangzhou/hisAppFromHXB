@@ -7,7 +7,6 @@
 //
 
 #define kHXBBottomSpacing 10
-#define kHXbdefaultSpacing 0
 
 #import "HxbHomeView.h"
 #import "HXBHomePageHeadView.h"
@@ -95,10 +94,6 @@
     self.mainTableView.tableHeaderView = self.headView;
 }
 
-- (void)setDataModel:(HxbHomePageViewModel *)dataModel{
-    _dataViewModel = dataModel;
-}
-
 - (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
 {
     _homeBaseModel = homeBaseModel;
@@ -106,11 +101,9 @@
     if (homeBaseModel.homeTitle.baseTitle.length) {
         self.footerLabel.text = [NSString stringWithFormat:@"- %@ -",homeBaseModel.homeTitle.baseTitle];
         self.mainTableView.tableFooterView = self.footerView;
-        contentInset.bottom = kHXBBottomSpacing;
-        self.mainTableView.contentInset = contentInset;
     } else {
         self.mainTableView.tableFooterView = nil;
-        contentInset.bottom = kHXbdefaultSpacing;
+        contentInset.bottom = kHXBBottomSpacing;
         self.mainTableView.contentInset = contentInset;
     }
     
@@ -137,15 +130,10 @@
             [cell setValue:model.countDownString forKey:@"countDownString"];
         }
     }];
-    //要与服务器时间想比较
-    //    self.contDwonManager.clientTime = [HXBDate       ]
-    //    [self.contDwonManager stopWenScrollViewScrollBottomWithTableView:self.planListTableView];
     self.contDwonManager.isAutoEnd = YES;
     //开启定时器
     [self.contDwonManager resumeTimer];
 }
-
-
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -210,12 +198,13 @@
         self.homeCellClickBlick(indexPath);
     }
 }
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footer = [[UIView alloc] init];
-    footer.backgroundColor = [UIColor clearColor];
-    return footer;
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *header = [[UIView alloc] init];
+    header.backgroundColor = [UIColor clearColor];
+    return header;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.01;
@@ -227,6 +216,13 @@
 
 #pragma mark SET/GET METHODS
 
+- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
+    _userInfoViewModel = userInfoViewModel;
+    self.headView.userInfoViewModel = userInfoViewModel;
+    [self changeIndicationView:userInfoViewModel];
+    [self showSecurityCertificationOrInvest:userInfoViewModel];
+}
+
 - (void)setIsStopRefresh_Home:(BOOL)isStopRefresh_Home{
     _isStopRefresh_Home = isStopRefresh_Home;
     if (isStopRefresh_Home) {
@@ -234,7 +230,6 @@
         [self.mainTableView.mj_header endRefreshing];
     }
 }
-
 
 - (HXBHomePageHeadView *)headView
 {
@@ -269,7 +264,7 @@
     if (!_footerView) {
         _footerView = [UIView new];
         _footerView.backgroundColor = [UIColor clearColor];
-        _footerView.frame = CGRectMake(0, 0, self.mainTableView.width, kScrAdaptationH(20));
+        _footerView.frame = CGRectMake(0, 0, self.mainTableView.width, kScrAdaptationH(20) + 2 * kHXBBottomSpacing);
         [_footerView addSubview:self.footerLabel];
         [self.footerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(_footerView);

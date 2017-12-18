@@ -29,7 +29,6 @@
 @implementation HXBHomePageHeadView
 
 
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -77,7 +76,7 @@
 // 显示投资页
 - (void)showAlreadyInvestedView
 {
-    [self.indicationView loadNewDate];
+    self.indicationView.userInfoViewModel = self.userInfoViewModel;
     self.afterLoginView.hidden = YES;
     if (self.indicationView.hidden == NO) {
         return;
