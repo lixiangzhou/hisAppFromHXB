@@ -41,6 +41,7 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"账户信息";
+
     [self.view addSubview:self.tableView];
     
 }
@@ -92,7 +93,7 @@ UITableViewDataSource
         HxbFinancialAdvisorViewController *financialAdvisorViewController = [[HxbFinancialAdvisorViewController alloc] init];
         HxbMyAboutMeViewController *myAboutMeViewController = [[HxbMyAboutMeViewController alloc] init];
         
-        NSArray <HXBBaseViewController *> *clickClassNameArray = kIsDisplayAdvisor ? @[myAccountSecurityVC, financialAdvisorViewController, myAboutMeViewController] : @[myAccountSecurityVC, myAboutMeViewController];
+        NSArray <HXBBaseViewController *> *clickClassNameArray = _isDisplayAdvisor ? @[myAccountSecurityVC, financialAdvisorViewController, myAboutMeViewController] : @[myAccountSecurityVC, myAboutMeViewController];
         
         if (indexPath.row == 0) {
             //风险评测
@@ -300,7 +301,7 @@ UITableViewDataSource
     } else if (indexPath.section == 2) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         _itemArray = @[@"风险评测",@"账户安全",@"我的理财顾问",@"关于我们"];
-        if (!kIsDisplayAdvisor) {
+        if (!_isDisplayAdvisor) {
             _itemArray = @[@"风险评测",@"账户安全",@"关于我们"];
         }
         cell.textLabel.text = _itemArray[indexPath.row];
@@ -336,7 +337,7 @@ UITableViewDataSource
             return self.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc ? 2 : 1;
             break;
         case 2:
-            return kIsDisplayAdvisor ? 4 : 3;
+            return _isDisplayAdvisor ? 4 : 3;
             break;
         case 3:
             return 1;
@@ -411,6 +412,7 @@ UITableViewDataSource
     kWeakSelf
     [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.userInfoViewModel = viewModel;
+        _isDisplayAdvisor = weakSelf.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
         [weakSelf.tableView reloadData];
     } andFailure:^(NSError *error) {
         NSLog(@"%@",self);
