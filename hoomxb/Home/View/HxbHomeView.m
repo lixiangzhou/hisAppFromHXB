@@ -75,9 +75,11 @@
     
     if([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
         //已经投资显示的界面
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(311));
         [weakSelf.headView showAlreadyInvestedView];
     }else{
         //没有投资显示的界面
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(279));
         [weakSelf.headView showNotValidatedView];
     }
 }
@@ -86,10 +88,6 @@
     [self.headView showSecurityCertificationOrInvest:viewModel];
 }
 
-- (void)endRefreshing
-{
-//    [self.mainTableView.hxb_behindHeader endRefreshing];
-}
 
 #pragma mark HXBHomePageHeadViewDelegate Methods
 - (void)resetHeadView
@@ -147,22 +145,7 @@
     [self.contDwonManager resumeTimer];
 }
 
-//- (void)setHomeDataListViewModelArray:(NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
-//    _homeDataListViewModelArray = homeDataListViewModelArray;
-//    [_mainTableView reloadData];
-//}
-//- (void)loadData
-//{
-//    id next = [self nextResponder];
-//    while (![next isKindOfClass:[HXBHomePageVC class]]) {
-//        next = [next nextResponder];
-//    }
-//    if ([next isKindOfClass:[HXBHomePageVC class]]) {
-//        HXBHomePageVC *vc = (HXBHomePageVC *)next;
-//        [vc refreshHomePage];
-//        //        [self getTopProductsData];
-//    }
-//}
+
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -235,12 +218,13 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return kScrAdaptationH(10);
+    return 0.01;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.01;
+    return kScrAdaptationH(10);
 }
+
 #pragma mark SET/GET METHODS
 
 - (void)setIsStopRefresh_Home:(BOOL)isStopRefresh_Home{
@@ -256,7 +240,7 @@
 {
     if (!_headView) {
         kWeakSelf
-        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH750(533))];//199
+        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(279))];//199
         
         _headView.delegate = self;
         _headView.tipButtonClickBlock_homePageHeadView = ^(){

@@ -40,6 +40,7 @@
 
 @implementation HxbHomeViewController
 
+#pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -54,6 +55,26 @@
     [self hiddenTabbarLine];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self hideNavigationBar:animated];
+    [self getData:YES];
+    [self.homeView changeIndicationView:self.userInfoViewModel];
+    [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [[HXBVersionUpdateManager sharedInstance] show];
+    
+    [self transparentNavigationTitle];
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+#pragma mark - UI
 /**
  设置UI
  */
@@ -106,26 +127,6 @@
      [self getData:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self hideNavigationBar:animated];
-    [self getData:YES];
-    [self.homeView changeIndicationView:self.userInfoViewModel];
-    [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
-}
-
-
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    [[HXBVersionUpdateManager sharedInstance] show];
-    
-    [self transparentNavigationTitle];
-    self.tabBarController.tabBar.hidden = NO;
-}
 
 #pragma mark Request
 - (void)getData:(BOOL)isUPReloadData{
@@ -177,9 +178,7 @@
 - (HxbHomeView *)homeView{
     if (!_homeView) {
         kWeakSelf
-//        _homeView = [[HxbHomeView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _homeView = [[HxbHomeView alloc]initWithFrame:CGRectZero];
-
         /**
          点击cell中按钮的回调的Block
          */
@@ -188,7 +187,6 @@
         };
         /**
          点击cell中的回调的Block
-
          @param indexPath 点击cell的indexPath
          */
         _homeView.homeCellClickBlick = ^(NSIndexPath *indexPath){

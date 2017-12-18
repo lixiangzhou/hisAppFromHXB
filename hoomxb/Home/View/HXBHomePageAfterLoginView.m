@@ -36,6 +36,7 @@
     [self.tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.userTitleLabel.mas_bottom).offset(kScrAdaptationW(15));
         make.left.equalTo(self.userTitleLabel.mas_left);
+        make.height.offset(kScrAdaptationH(24));
     }];
 }
 

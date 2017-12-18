@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BannerModel.h"
 
 @interface HXBBannerCollectionViewCell : UICollectionViewCell
+
+@property (nonatomic, strong) BannerModel *bannerModel;
 
 @end

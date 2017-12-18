@@ -52,6 +52,10 @@
         make.height.offset(kScrAdaptationH(17));
         make.width.offset(kScrAdaptationW(20));
     }];
+    [self.bannerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self);
+        make.height.offset(kScrAdaptationH(166));
+    }];
 }
 
 #pragma mark HXBHomePageBulletinViewDelegate Methods
@@ -87,13 +91,13 @@
     NSLog(@"________%d", [KeyChain isLogin]);
     if (![KeyChain isLogin]) {
         self.afterLoginView.headTipString = @"红小宝全新起航，新起点，新梦想";
-        self.afterLoginView.tipString = @"注册／登录";
+        self.afterLoginView.tipString = @"立即注册";
     } else {
         
         if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
             //没有开户
             weakSelf.afterLoginView.headTipString = @"红小宝携手恒丰银行资金存管已上线";
-            weakSelf.afterLoginView.tipString = @"立即开通存管账户";
+            weakSelf.afterLoginView.tipString = @"开通存管";
         } else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])) {
             // 没有实名
             weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
@@ -138,7 +142,7 @@
 - (HXBHomePageLoginIndicationView *)indicationView
 {
     if (!_indicationView) {
-        _indicationView = [[HXBHomePageLoginIndicationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(140))];
+        _indicationView = [[HXBHomePageLoginIndicationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(145))];
     }
     return _indicationView;
 }
@@ -147,7 +151,7 @@
 {
     kWeakSelf
     if (!_afterLoginView) {
-        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(140))];
+        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(113))];
         _afterLoginView.tipButtonClickBlock_homePageAfterLoginView = ^(){
             if (weakSelf.tipButtonClickBlock_homePageHeadView) {
                 weakSelf.tipButtonClickBlock_homePageHeadView();
@@ -163,7 +167,7 @@
 {
     kWeakSelf
     if (!_bannerView) {
-        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kScrAdaptationH(110))];
+        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kScrAdaptationH(166))];
 //        _bannerView.backgroundColor = [UIColor greenColor];
         BannerModel *bannerModel = [[BannerModel alloc] init];
 //        bannerModel.title = @"banner";
