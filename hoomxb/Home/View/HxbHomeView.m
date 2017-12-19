@@ -39,7 +39,7 @@
 //        [self.mainTableView addSubview:self.refreshControl];
 //        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIndicationView) name:IsLoginToReloadTableView object:nil];
 //        [self addSubview:self.navigationBar];
-        [self creatCountDownManager];
+//        [self creatCountDownManager];
 
     }
     return self;
@@ -123,7 +123,13 @@
             [subView removeFromSuperview];
         }
     }];
-    self.contDwonManager.modelArray = self.homeBaseModel.homePlanRecommend;
+    
+    //更换数据源之前， 要先取消定时器，然后再重新设置， 否则由于线程同步问题会引发crash
+    if(self.contDwonManager) {
+        [self.contDwonManager cancelTimer];
+        self.contDwonManager = nil;
+    }
+    [self creatCountDownManager];
     [self.mainTableView reloadData];
 }
 
@@ -136,6 +142,11 @@
         if (weakSelf.homeBaseModel.homePlanRecommend.count > index.row) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index.row];
             HXBHomePageProductCell *cell = [self.mainTableView cellForRowAtIndexPath:indexPath];
+            //更新列表中对应的字段值
+            HxbHomePageModel_DataList* pageModel = [weakSelf.homeBaseModel.homePlanRecommend safeObjectAtIndex:index.row];
+            [pageModel setValue:model.countDownLastStr forKey:@"countDownLastStr"];
+            [pageModel setValue:model.countDownString forKey:@"countDownString"];
+            
             [cell setValue:model.countDownString forKey:@"countDownString"];
         }
     }];

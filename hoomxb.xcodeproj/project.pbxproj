@@ -281,6 +281,10 @@
 		8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */; };
 		8DAD308F1FBA8F8C00E2AEE8 /* HXBBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */; };
 		9A0879E71FE22E2F00ACBD8F /* HXBThemAdapterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0879E61FE22E2F00ACBD8F /* HXBThemAdapterManager.m */; };
+		9A226B1E1FE7B1AC00E27DAC /* NSArray+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B0D1FE7B1AB00E27DAC /* NSArray+IDPExtension.m */; };
+		9A226B211FE7B1AC00E27DAC /* NSDictionary+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B131FE7B1AB00E27DAC /* NSDictionary+IDPExtension.m */; };
+		9A226B281FE7B87E00E27DAC /* HXBBaseContDownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B271FE7B87E00E27DAC /* HXBBaseContDownModel.m */; };
+		9A226B2B1FE7C22500E27DAC /* NSString+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B2A1FE7C22500E27DAC /* NSString+IDPExtension.m */; };
 		9A36E3301FC6AB1700C318B3 /* HXBBaseWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */; };
 		9AF220EF1FC2BA8F00002D1D /* HXBBaseUrlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */; };
 		9AF220F01FC2BA8F00002D1D /* HXBBaseUrlSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EE1FC2BA8F00002D1D /* HXBBaseUrlSettingView.m */; };
@@ -1025,6 +1029,14 @@
 		8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTextField.m; sourceTree = "<group>"; };
 		9A0879E51FE22E2F00ACBD8F /* HXBThemAdapterManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBThemAdapterManager.h; sourceTree = "<group>"; };
 		9A0879E61FE22E2F00ACBD8F /* HXBThemAdapterManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBThemAdapterManager.m; sourceTree = "<group>"; };
+		9A226B0C1FE7B1AB00E27DAC /* NSArray+IDPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+IDPExtension.h"; sourceTree = "<group>"; };
+		9A226B0D1FE7B1AB00E27DAC /* NSArray+IDPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IDPExtension.m"; sourceTree = "<group>"; };
+		9A226B121FE7B1AB00E27DAC /* NSDictionary+IDPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+IDPExtension.h"; sourceTree = "<group>"; };
+		9A226B131FE7B1AB00E27DAC /* NSDictionary+IDPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+IDPExtension.m"; sourceTree = "<group>"; };
+		9A226B261FE7B87E00E27DAC /* HXBBaseContDownModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseContDownModel.h; sourceTree = "<group>"; };
+		9A226B271FE7B87E00E27DAC /* HXBBaseContDownModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBBaseContDownModel.m; sourceTree = "<group>"; };
+		9A226B291FE7C22400E27DAC /* NSString+IDPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+IDPExtension.h"; sourceTree = "<group>"; };
+		9A226B2A1FE7C22500E27DAC /* NSString+IDPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+IDPExtension.m"; sourceTree = "<group>"; };
 		9A36E32A1FC6AB1700C318B3 /* HXBBaseWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWKWebViewController.h; sourceTree = "<group>"; };
 		9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWKWebViewController.m; sourceTree = "<group>"; };
 		9A37BCB01FCEA3E400B2B81F /* HXBMacroSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMacroSwitch.h; sourceTree = "<group>"; };
@@ -2796,6 +2808,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9A226B071FE7B1AB00E27DAC /* IDPUtility */ = {
+			isa = PBXGroup;
+			children = (
+				9A226B291FE7C22400E27DAC /* NSString+IDPExtension.h */,
+				9A226B2A1FE7C22500E27DAC /* NSString+IDPExtension.m */,
+				9A226B0C1FE7B1AB00E27DAC /* NSArray+IDPExtension.h */,
+				9A226B0D1FE7B1AB00E27DAC /* NSArray+IDPExtension.m */,
+				9A226B121FE7B1AB00E27DAC /* NSDictionary+IDPExtension.h */,
+				9A226B131FE7B1AB00E27DAC /* NSDictionary+IDPExtension.m */,
+			);
+			path = IDPUtility;
+			sourceTree = "<group>";
+		};
 		9A36E3291FC6AB1700C318B3 /* WebViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -2941,6 +2966,7 @@
 		E122D8081EA0CAB900DC71ED /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				9A226B071FE7B1AB00E27DAC /* IDPUtility */,
 				E1CD4BA91ED83064000CC57B /* tools */,
 				E122D8161EA0CAB900DC71ED /* Category */,
 			);
@@ -4142,6 +4168,8 @@
 				E1CD4BC11ED83064000CC57B /* HXBBaseHandDate.m */,
 				E16017771EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.h */,
 				E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */,
+				9A226B261FE7B87E00E27DAC /* HXBBaseContDownModel.h */,
+				9A226B271FE7B87E00E27DAC /* HXBBaseContDownModel.m */,
 			);
 			path = "CountDown（date）";
 			sourceTree = "<group>";
@@ -4858,6 +4886,7 @@
 				E190EF9E1F25A61B001E0B14 /* HXBBannerCollectionViewCell.m in Sources */,
 				E16017791EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m in Sources */,
 				8DAD308F1FBA8F8C00E2AEE8 /* HXBBaseTextField.m in Sources */,
+				9A226B281FE7B87E00E27DAC /* HXBBaseContDownModel.m in Sources */,
 				4E8AAE9C1F0B7A4400655544 /* HXBRiskAssessmentViewController.m in Sources */,
 				4E964FCA1F20BE9A001DF2C0 /* HXBOpenDepositAccountRequest.m in Sources */,
 				E1CB561D1ED2D20D00D962CA /* HXBMYModel_AssetStatistics_Loan.m in Sources */,
@@ -4884,6 +4913,7 @@
 				E129A0071F0617D70051ADA0 /* HXBMYModel_Loan_LoanRequestModel.m in Sources */,
 				4EB45DA41EF7A2BF00C2CF21 /* HxbHomeRequest.m in Sources */,
 				4E9982471F02677B00CABA59 /* HXBAlertVC.m in Sources */,
+				9A226B211FE7B1AC00E27DAC /* NSDictionary+IDPExtension.m in Sources */,
 				E10EB4AD1EEFDFE800F16CFA /* HxbWithdrawResultViewController.m in Sources */,
 				E122D85B1EA0CAB900DC71ED /* UILabel+HxbLabel.m in Sources */,
 				288BAA051FAC593B009DF8AB /* HXBChooseCouponModel.m in Sources */,
@@ -4917,6 +4947,7 @@
 				4E8198AE1EC44BCE00D668A1 /* HXBHomePageModuleView.m in Sources */,
 				E133DCDE1EEE3597009466DE /* SignUpModel.m in Sources */,
 				8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */,
+				9A226B1E1FE7B1AC00E27DAC /* NSArray+IDPExtension.m in Sources */,
 				4E81E3FE1EE94FDE006AD3FC /* HXBTransactionPasswordConfirmationViewController.m in Sources */,
 				4E886FB71EF916A30056086E /* HXBGesturePasswordViewController.m in Sources */,
 				E16314431EC076F40090567E /* HXBFinDetailModel_PlanDetail.m in Sources */,
@@ -5084,6 +5115,7 @@
 				4E422CAC1EA736F700C0EB62 /* HxbNotificationMacros.m in Sources */,
 				8DAD30861FBA8F8C00E2AEE8 /* HXBBaseView_Button.m in Sources */,
 				4E422CB41EA7386900C0EB62 /* HxbMyViewController.m in Sources */,
+				9A226B2B1FE7C22500E27DAC /* NSString+IDPExtension.m in Sources */,
 				4E19E8651F4D924B00032302 /* HXBFinanctingDetail_imageCell.m in Sources */,
 				4E6D30FE1EA70D0600598529 /* HxbAdvertiseViewController.m in Sources */,
 				8DAD308A1FBA8F8C00E2AEE8 /* CustomSegmentControl.m in Sources */,
