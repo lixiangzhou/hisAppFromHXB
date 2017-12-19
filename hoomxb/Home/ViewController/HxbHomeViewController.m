@@ -131,10 +131,10 @@
     kWeakSelf
     if (KeyChain.isLogin) {
         [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            self.userInfoViewModel = viewModel;
-            self.homeView.userInfoViewModel = self.userInfoViewModel;
+            weakSelf.userInfoViewModel = viewModel;
+            weakSelf.homeView.userInfoViewModel = self.userInfoViewModel;
         } andFailure:^(NSError *error) {
-            self.homeView.userInfoViewModel = self.userInfoViewModel;
+            weakSelf.homeView.userInfoViewModel = self.userInfoViewModel;
         }];
     } else {
         self.homeView.userInfoViewModel = self.userInfoViewModel;

@@ -96,7 +96,7 @@
     }];
     
     [self.assetsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.assetsTitleLabel.mas_right);
+        make.left.equalTo(self.assetsTitleLabel.mas_right).offset(kScrAdaptationW(10));
         make.centerY.equalTo(self.assetsTitleLabel);
         make.height.offset(kScrAdaptationH(15));
     }];
@@ -108,7 +108,7 @@
     }];
     
     [self.availableAmountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.availableAmountTitleLabel.mas_right);
+        make.left.equalTo(self.availableAmountTitleLabel.mas_right).offset(kScrAdaptationW(10));
         make.centerY.equalTo(self.assetsTitleLabel);
         make.height.offset(kScrAdaptationH(15));
     }];
@@ -246,7 +246,7 @@
     if (!_eyeButton) {
         _eyeButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
         [_eyeButton setImage:[UIImage imageNamed:@"Home_eyes"] forState:UIControlStateNormal];
-        [_eyeButton setImage:[UIImage imageNamed:@"Home_eyes"] forState:UIControlStateSelected];
+        [_eyeButton setImage:[UIImage imageNamed:@"Home_close_eye"] forState:UIControlStateSelected];
         [_eyeButton addTarget:self action:@selector(ciphertextButtonClick) forControlEvents:UIControlEventTouchUpInside];
         _eyeButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
         CGFloat topMargin = (kEyesButtonSize - kEyesImageViewHeight) / 2.0;

@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) UILabel *titleLabel;
 
+@property (nonatomic, strong) UIView *bottomLine;
+
 @end
 
 @implementation HXBCustomNavView
@@ -32,8 +34,14 @@
 
 - (void)setUI {
     [self addSubview:self.titleLabel];
+    [self addSubview:self.bottomLine];
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.bottom.equalTo(self);
+        make.left.right.bottom.equalTo(self);
+        make.height.offset(HXBNavigationBarHeight);
+    }];
+    [self.bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self);
+        make.height.offset(kHXBDivisionLineHeight);
     }];
 }
 
@@ -71,10 +79,18 @@
     if (!_titleLabel) {
         _titleLabel = [[UILabel alloc] init];
         _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(18);
     }
     return _titleLabel;
 }
 
+- (UIView *)bottomLine {
+    if (!_bottomLine) {
+        _bottomLine = [[UIView alloc] init];
+        _bottomLine.backgroundColor = COR12;
+    }
+    return _bottomLine;
+}
 
 #pragma mark - Helper
 
