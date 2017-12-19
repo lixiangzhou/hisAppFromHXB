@@ -348,7 +348,7 @@
             [[HXBRootVCManager manager] makeTabbarRootVC];
         };
         
-        [self presentViewController:alertVC animated:YES completion:nil];
+        [self presentViewController:alertVC animated:NO completion:nil];
     }
 }
 
