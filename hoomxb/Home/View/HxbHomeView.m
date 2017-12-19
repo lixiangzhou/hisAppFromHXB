@@ -7,6 +7,9 @@
 //
 
 #define kHXBBottomSpacing 10
+#define kHXBInvestViewHeight kScrAdaptationH(311)
+#define kHXBNotInvestViewHeight kScrAdaptationH(279)
+
 
 #import "HxbHomeView.h"
 #import "HXBHomePageHeadView.h"
@@ -71,17 +74,17 @@
     kWeakSelf
     if (![KeyChain isLogin]) {
         //没有投资显示的界面
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight);
         [weakSelf.headView showNotValidatedView];
         return;
     }
-    
     if([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
         //已经投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(311));
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBInvestViewHeight);
         [weakSelf.headView showAlreadyInvestedView];
     }else{
         //没有投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(279));
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight);
         [weakSelf.headView showNotValidatedView];
     }
 }
@@ -226,7 +229,7 @@
 {
     if (!_headView) {
         kWeakSelf
-        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(279))];//199
+        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight)];//199
         
         _headView.delegate = self;
         _headView.tipButtonClickBlock_homePageHeadView = ^(){
