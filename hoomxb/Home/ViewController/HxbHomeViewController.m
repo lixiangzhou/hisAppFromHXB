@@ -49,8 +49,6 @@
     
     [self registerRefresh];
     
-    //判断是否显示设置手势密码
-    [self gesturePwdShow];
     [self hiddenTabbarLine];
 }
 
@@ -94,18 +92,6 @@
     [self.tabBarController.tabBar addSubview:shadowImage];
     [self.tabBarController.tabBar setBackgroundColor:[UIColor whiteColor]];
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
-}
-
-/**
- 手势密码逻辑
- */
-- (void)gesturePwdShow
-{
-    if (KeyChain.gesturePwd.length == 0 && [KeyChain isLogin]) {
-        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-        gesturePasswordVC.type = GestureViewControllerTypeSetting;
-        [self.navigationController pushViewController:gesturePasswordVC animated:NO];
-    }
 }
 
 /**
