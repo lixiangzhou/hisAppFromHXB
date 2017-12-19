@@ -39,6 +39,8 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
 @property (nonatomic, strong) UIButton *signInButton;
 ///注册按钮
 @property (nonatomic, strong) UIButton *signUpbutton;
+@property (nonatomic, strong) UILabel *noAccountTipLabel;
+@property (nonatomic, strong) UIView *tipContainerView;
 ///手机号是否存在
 @property (nonatomic, copy) void(^checkMobileBlock)(NSString *mobile);
 ///是否已经注册
@@ -87,6 +89,8 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
     self.phoneTextField.text = KeyChain.mobile;
     self.passwordTextField = [[HXBCustomTextField alloc]init];
     self.signInButton = [[UIButton alloc]init];
+    self.noAccountTipLabel = [UILabel new];
+    self.tipContainerView = [UIView new];
     self.signUpbutton = [[UIButton alloc]init];
     self.forgetPasswordButton = [[UIButton alloc]init];
     self.userAgreementBtn = [[UIButton alloc] init];
@@ -144,7 +148,10 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
     [self addSubview:self.phoneTextField];
     [self addSubview:self.passwordTextField];
     [self addSubview:self.signInButton];
-    [self addSubview:self.signUpbutton];
+    
+    [self addSubview:self.tipContainerView];
+    [self.tipContainerView addSubview:self.noAccountTipLabel];
+    [self.tipContainerView addSubview:self.signUpbutton];
 
     self.signInButton.backgroundColor = COR12;
     self.signInButton.userInteractionEnabled = NO;
@@ -173,10 +180,19 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
         make.left.equalTo(weakSelf).offset(20);
         make.height.equalTo(@(kScrAdaptationH(41)));
     }];
+    
+    [self.tipContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.signInButton.mas_bottom).offset(kScrAdaptationH(30));
+        make.centerX.equalTo(self);
+    }];
+    
     [self.signUpbutton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.signInButton.mas_bottom).offset(kScrAdaptationH(10));
-        make.right.equalTo(@(kScrAdaptationW(-20)));
-        make.height.equalTo(@(kScrAdaptationH(15)));
+        make.top.right.bottom.equalTo(self.tipContainerView);
+        make.left.equalTo(self.noAccountTipLabel.mas_right);
+    }];
+    
+    [self.noAccountTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.bottom.equalTo(self.tipContainerView);
     }];
 
     [self.partingLine mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -209,12 +225,15 @@ static NSString *const kThePhoneNumberDoesNotMatchThePassword = @"手机号与�
     self.signInButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
     [self.signUpbutton setTitle:kSignUPText forState:UIControlStateNormal];
     [self.signUpbutton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
-    self.signUpbutton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+    self.signUpbutton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
     [self.forgetPasswordButton setTitle:kForgetPasswordText forState:UIControlStateNormal];
     
     self.signUpbutton.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.signInButton.titleLabel.textAlignment = NSTextAlignmentCenter;
     
+    self.noAccountTipLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
+    self.noAccountTipLabel.textColor = RGB(153, 153, 153);
+    self.noAccountTipLabel.text = @"还没有账户？";
     
     [self.forgetPasswordButton setTitleColor:COR10 forState:UIControlStateNormal];
     self.forgetPasswordButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(13);
