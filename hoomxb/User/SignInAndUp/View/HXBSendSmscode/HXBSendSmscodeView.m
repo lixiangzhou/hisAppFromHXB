@@ -354,7 +354,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     } else if (self.smscode_TextField.text.length != 6) {
         [HxbHUDProgress showTextWithMessage:@"请输入正确的验证码"];
     } else {
-        if([self isPasswordQualifiedFunWithStr:self.password_TextField.text]) {
+        if ([self isPasswordQualifiedFunWithStr:self.password_TextField.text]) {
             if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
                 //合格 请求数据
                 if (self.clickSetPassWordButtonBlock) {

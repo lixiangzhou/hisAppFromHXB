@@ -229,6 +229,12 @@
         }else {
             [HXBSignUPAndLoginRequest signUPRequetWithMobile:weakSelf.phonNumber andSmscode:smscode andPassword:password andInviteCode:inviteCode andSuccessBlock:^{
                  NSLog(@"注册设置成功");
+                
+                if ((![self.phonNumber isEqualToString:KeyChain.mobile]) && KeyChain.mobile) {
+                    [KeyChain removeGesture];
+                }
+                KeyChain.gesturePwdCount = @"5";
+                
                 KeyChain.mobile = self.phonNumber;
                 KeyChain.isLogin = YES;
                 KeyChain.ciphertext = @"0";

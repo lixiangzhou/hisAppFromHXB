@@ -1456,8 +1456,6 @@
 		E1F0D80B1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMYCapitalRecord_TableViewHeaderView.m; sourceTree = "<group>"; };
 		E1F3BE451FBD821000D9BD48 /* HXBRegisterAlertVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBRegisterAlertVC.h; sourceTree = "<group>"; };
 		E1F3BE461FBD821000D9BD48 /* HXBRegisterAlertVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBRegisterAlertVC.m; sourceTree = "<group>"; };
-		E1F630771F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPAgreementWebViewVC.h; sourceTree = "<group>"; };
-		E1F630781F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSignUPAgreementWebViewVC.m; sourceTree = "<group>"; };
 		E1F630821F20B4F100FC0122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1FBADB51EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinDatailModel_LoanDetail.h; sourceTree = "<group>"; };
 		E1FBADB61EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinDatailModel_LoanDetail.m; sourceTree = "<group>"; };
@@ -3368,8 +3366,6 @@
 			children = (
 				E133DCBE1EEE3597009466DE /* HXBSendSmscodeViewController.h */,
 				E133DCBF1EEE3597009466DE /* HXBSendSmscodeViewController.m */,
-				E1F630771F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.h */,
-				E1F630781F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m */,
 			);
 			path = HXBSendSmscode;
 			sourceTree = "<group>";

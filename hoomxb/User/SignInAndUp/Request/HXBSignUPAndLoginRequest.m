@@ -79,6 +79,7 @@
             if ((![mobile isEqualToString:KeyChain.mobile]) && KeyChain.mobile) {
                 [KeyChain removeGesture];
             }
+            KeyChain.gesturePwdCount = @"5";
             KeyChain.mobile = mobile;
         }
     } failure:^(NYBaseRequest *request, NSError *error) {

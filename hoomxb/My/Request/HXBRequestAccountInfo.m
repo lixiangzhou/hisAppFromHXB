@@ -64,7 +64,7 @@
     myAccountListInfoAPI.requestMethod = NYRequestMethodPost;
     myAccountListInfoAPI.requestArgument = parameterDict;
     //@"加载中..."
-    [myAccountListInfoAPI startWithHUDStr:nil Success:^(NYBaseRequest *request, id responseObject) {
+    [myAccountListInfoAPI startWithHUDStr:@"加载中..." Success:^(NYBaseRequest *request, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue]) {
             kHXBResponsShowHUD
         }
