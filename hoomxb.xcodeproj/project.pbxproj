@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		282A0C5E1FE7693E004ADEC7 /* UIViewController+HXBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 282A0C5D1FE7693E004ADEC7 /* UIViewController+HXBUtil.m */; };
 		282B0C9E1FB96B8A0082FBDD /* HXBFin_Plan_Buy_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 282B0C9D1FB96B8A0082FBDD /* HXBFin_Plan_Buy_ViewController.m */; };
 		282B0CA11FB96BAB0082FBDD /* HXBFin_Loan_Buy_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 282B0CA01FB96BAB0082FBDD /* HXBFin_Loan_Buy_ViewController.m */; };
 		285D700E1F6BE13C006B520B /* HXBCreditorChangeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 285D700D1F6BE13C006B520B /* HXBCreditorChangeTopView.m */; };
@@ -532,6 +533,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		282A0C5C1FE7693E004ADEC7 /* UIViewController+HXBUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HXBUtil.h"; sourceTree = "<group>"; };
+		282A0C5D1FE7693E004ADEC7 /* UIViewController+HXBUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HXBUtil.m"; sourceTree = "<group>"; };
 		282B0C9C1FB96B8A0082FBDD /* HXBFin_Plan_Buy_ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFin_Plan_Buy_ViewController.h; sourceTree = "<group>"; };
 		282B0C9D1FB96B8A0082FBDD /* HXBFin_Plan_Buy_ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Plan_Buy_ViewController.m; sourceTree = "<group>"; };
 		282B0C9F1FB96BAB0082FBDD /* HXBFin_Loan_Buy_ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFin_Loan_Buy_ViewController.h; sourceTree = "<group>"; };
@@ -1507,6 +1510,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		282A0C5B1FE7692A004ADEC7 /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				282A0C5C1FE7693E004ADEC7 /* UIViewController+HXBUtil.h */,
+				282A0C5D1FE7693E004ADEC7 /* UIViewController+HXBUtil.m */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
 		288BA9F01FAC593A009DF8AB /* DiscountCoupon */ = {
 			isa = PBXGroup;
 			children = (
@@ -2945,6 +2957,7 @@
 		E122D8161EA0CAB900DC71ED /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				282A0C5B1FE7692A004ADEC7 /* UIViewController */,
 				8D4064F01FC67E0600121E1C /* NSDate */,
 				4EA8C19E1FBC2F630064019C /* UIImage */,
 				4EB5598D1F037EFA00146D62 /* UITextView */,
@@ -5081,6 +5094,7 @@
 				8DAD30811FBA8F8C00E2AEE8 /* HXBBasePasswordView.m in Sources */,
 				4E96E2D51F28829D00C4AF27 /* HXBNoticeCell.m in Sources */,
 				4E6179091FA1DC38004010FA /* HXBWithdrawRecordListModel.m in Sources */,
+				282A0C5E1FE7693E004ADEC7 /* UIViewController+HXBUtil.m in Sources */,
 				E17E6AE71ECDA46B0046888B /* HXBMY_CapitalRecordViewController.m in Sources */,
 				285D70111F6BE154006B520B /* HXBCreditorChangeBottomView.m in Sources */,
 				E122D8511EA0CAB900DC71ED /* NSString+HxbGeneral.m in Sources */,

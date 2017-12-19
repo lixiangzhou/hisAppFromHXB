@@ -57,7 +57,6 @@
     _myCouponListModel = myCouponListModel;
     self.tagLab.text = myCouponListModel.tag ? [NSString stringWithFormat:@"(%@)",  myCouponListModel.tag] : @"";//"(贺岁大礼包)"
     self.termOfValidityLab.text = [NSString stringWithFormat:@"有效期至%@",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:[NSString stringWithFormat:@"%lld", (long long)myCouponListModel.expireTime] andDateFormat:@"YYYY/MM/dd"]];
-#pragma mark --- fixme 换成最小投资金额
     self.allowDerateInvestLab.text = myCouponListModel.allowDerateInvest ? [NSString stringWithFormat:@"满%@元使用",[NSString getIntegerStringWithNumber:myCouponListModel.allowDerateInvest.doubleValue fractionDigits:0]] : @""; // 取整
     
     if ([myCouponListModel.couponType isEqualToString:@"DISCOUNT"]) {// 抵扣
@@ -91,8 +90,7 @@
         self.leftImgV.image = [UIImage imageNamed:@"my_couponList_ allowDerateInvestleft"];
         self.couponTypeLab.text =  myCouponListModel.couponTypeText;
         self.dicountRateLab.attributedText = [NSAttributedString setupAttributeStringWithString:dicountRate WithRange:range andAttributeColor:CircleStateSelectedOutsideColor andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(60)];
-        
-//        self.allowDerateInvestLab.text = myCouponListModel.allowDerateInvest ? [NSString stringWithFormat:@"满%@元使用",[NSString getIntegerStringWithNumber:myCouponListModel.allowDerateInvest.doubleValue fractionDigits:0]] : @""; // 取整
+        self.allowDerateInvestLab.text = myCouponListModel.minInvestAmount ? [NSString stringWithFormat:@"满%@元使用",[NSString getIntegerStringWithNumber:myCouponListModel.minInvestAmount.doubleValue fractionDigits:0]] : @""; // 取整
         
         self.dicountRateLab.textColor = CircleStateSelectedOutsideColor;
         self.allowDerateInvestLab.textColor = CircleStateSelectedOutsideColor;
