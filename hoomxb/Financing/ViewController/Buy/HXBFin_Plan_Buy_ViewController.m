@@ -375,47 +375,36 @@ static const NSInteger topView_high = 300;
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
         [weakSelf.navigationController pushViewController:planBuySuccessVC animated:YES];
-    } andFailureBlock:^(NSError *error, NSInteger status) {
+    } andFailureBlock:^(NSString *errorMessage, NSInteger status) {
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
         failViewController.title = @"投资结果";
         switch (status) {
+                // 加入失败跳转到失败页（3408:余额不足， 999:已售罄， 1:普通错误状态码）
             case kHXBNot_Sufficient_Funds:
-                failViewController.imageName = @"yuebuzu";
-                failViewController.buy_title = @"可用余额不足，请重新购买";
-                failViewController.buy_ButtonTitle = @"重新投资";
-                break;
             case kHXBSold_Out:
-                failViewController.imageName = @"shouqin";
-                failViewController.buy_title = @"手慢了，已售罄";
-                failViewController.buy_ButtonTitle = @"重新投资";
-                break;
-            case kHXBPurchase_Processing:
-                failViewController.imageName = @"outOffTime";
+            case kHXBCode_Enum_CommonError:
+                failViewController.imageName = @"failure";
                 failViewController.buy_title = @"加入失败";
-                failViewController.buy_description = @"处理中";
+                failViewController.buy_description = errorMessage;
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
+
+                // 处理中(3016:恒丰银行处理中 -999:处理中)
+            case kHXBPurchase_Processing:
             case kHXBHengfeng_treatment:
                 failViewController.imageName = @"outOffTime";
-                failViewController.buy_title = @"加入失败";
-                failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
+                failViewController.buy_title = @"处理中";
+                failViewController.buy_description = errorMessage;
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
+                
+                // 弹toast（3014：交易密码错误， 3015：短验错误， 3413：产品购买过于频繁， 50000：因优惠券原因，购买产品失败）
             case kHXBTransaction_Password_Error:
                 self.alertVC.isCleanPassword = YES;
                 return ;
-            case kHXBSMS_Code_Error:
-            case kHXBCode_Enum_ProcessingField:
-            case kHXBBuy_Coupon_Error:
-            case kHXBCode_Enum_RequestOverrun:
-            case kHXBBuying_Too_Frequently:
-            case kHXBCode_Enum_ConnectionTimeOut:
-            case kHXBCode_Enum_NoConnectionNetwork:
-                return ;
+
             default:
-                failViewController.imageName = @"failure";
-                failViewController.buy_title = @"加入失败";
-                failViewController.buy_ButtonTitle = @"重新投资";
+                return;
         }
         [failViewController clickButtonWithBlock:^{
             [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面

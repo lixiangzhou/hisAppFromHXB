@@ -206,7 +206,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
     [self.sendButton setTitle:@"发送" forState:UIControlStateNormal];
     
     self.password_TextField.placeholder = @"密码为8-20位数字与字母组合";
-    self.inviteCodeTextField.placeholder = @"请输入邀请码(选填)";
+    self.inviteCodeTextField.placeholder = @"请输入邀请码（选填）";
     self.inviteCodeTextField.keyboardType = UIKeyboardTypeASCIICapable;
     
 
@@ -361,15 +361,14 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
                     self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,self.inviteCodeTextField.text);
                 }
             } else {
-
-                    //合格 请求数据
-                    if (self.clickSetPassWordButtonBlock)
-                        self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,self.inviteCodeTextField.text);
+                //合格 请求数据
+                if (self.clickSetPassWordButtonBlock)
+                    self.clickSetPassWordButtonBlock(self.password_TextField.text,self.smscode_TextField.text,self.inviteCodeTextField.text);
             }
-            
-        }else {
+        } else {
             NSString * message = [NSString isOrNoPasswordStyle:self.password_TextField.text];
             [HxbHUDProgress showTextWithMessage:message];
+            NSLog(@"🌶密码不合格");
         }
     }
 }

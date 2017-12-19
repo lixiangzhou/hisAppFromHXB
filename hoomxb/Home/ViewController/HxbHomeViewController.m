@@ -384,7 +384,6 @@
             if (model.url.length) {
                 HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
                 webViewVC.pageUrl = model.url;
-                //            webViewVC.title = model.title;//mgmt标题
                 [weakSelf.navigationController pushViewController:webViewVC animated:YES];
             }
         };
