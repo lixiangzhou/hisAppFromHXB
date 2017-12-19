@@ -268,7 +268,8 @@
             }
         }];
         
-        [kUserDefaults setBool:NO forKey:kHXBGesturePwdSkipeKey];
+        [kUserDefaults setObject:kHXBGesturePwdSkipeNO forKey:kHXBGesturePwdSkipeKey];
+//        [kUserDefaults setBool:NO forKey:kHXBGesturePwdSkipeKey];
         [kUserDefaults synchronize];
         
         if (popToVC && self.switchType == HXBAccountSecureSwitchTypeOn) {   // 从账户安全页进去的
@@ -342,13 +343,16 @@
         // 弹窗
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:@"为了您的账户安全，\n建议您设置手势密码" force:2 andLeftButtonMassage:@"跳过设置" andRightButtonMassage:@"开始设置"];
         alertVC.clickXYLeftButtonBlock = ^{ // 跳过设置
-            [kUserDefaults setBool:YES forKey:kHXBGesturePwdSkipeKey];
+//            [kUserDefaults setBool:YES forKey:kHXBGesturePwdSkipeKey];
+            [kUserDefaults setObject:kHXBGesturePwdSkipeYES forKey:kHXBGesturePwdSkipeKey];
             [kUserDefaults synchronize];
             
             [[HXBRootVCManager manager] makeTabbarRootVC];
         };
         
-        [self presentViewController:alertVC animated:NO completion:nil];
+        alertVC.isCenterShow = YES;
+        
+        [self presentViewController:alertVC animated:YES completion:nil];
     }
 }
 

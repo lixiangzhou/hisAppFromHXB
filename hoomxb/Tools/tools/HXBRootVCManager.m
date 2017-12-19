@@ -82,7 +82,7 @@
             gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
             self.window.rootViewController = gesturePasswordVC;
         } else {
-            BOOL skipGesturePwd =  [kUserDefaults boolForKey:kHXBGesturePwdSkipeKey];
+            BOOL skipGesturePwd = [[kUserDefaults stringForKey:kHXBGesturePwdSkipeKey]  isEqual:kHXBGesturePwdSkipeYES];
             if (skipGesturePwd) {
                 [self makeTabbarRootVC];
             } else {
