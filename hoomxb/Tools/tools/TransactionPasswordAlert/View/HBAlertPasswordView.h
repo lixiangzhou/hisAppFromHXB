@@ -25,5 +25,13 @@
 @property (nonatomic, assign) id<HBAlertPasswordViewDelegate> delegate;
 @property (nonatomic, assign) BOOL isCleanPassword;
 
+/**
+ 键盘将要显示的时候回调
+ */
+@property (nonatomic, copy) void(^keyboardWillShowBlock)(NSNotification *notification);
 
+/**
+ 键盘将要消失的时候回调
+ */
+@property (nonatomic, copy) void(^keyboardWillHideBlock)(NSNotification *notification);
 @end
