@@ -649,7 +649,7 @@ static NSString *const hostH5 = @"hostH5";
 {
     NSString *h5Host = self.keychain[hostH5];
     if (!h5Host.length) {
-        h5Host = @"https://m.hoomxb.com";
+        h5Host = @"https://m.hongxiaobao.com";
     }
     return h5Host;
 }

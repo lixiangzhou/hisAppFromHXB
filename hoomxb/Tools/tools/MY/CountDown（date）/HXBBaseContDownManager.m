@@ -1,4 +1,4 @@
-//
+
 //  PYTextModel.m
 //  PYCountDown
 //
@@ -32,7 +32,7 @@
 //注意:此处应该使用强引用 strong
 @property (nonatomic,strong) dispatch_source_t timer;
 //记录了组数（暂时未用）
-@property (nonatomic,assign) int column;
+@property (atomic,assign) int column;
 //记录需要倒计时的model
 @property (nonatomic,strong) NSMutableArray *countDownArray;
 //传入的model数组是否为二维数组
@@ -51,12 +51,6 @@
 
 #pragma mark - getter
 
-- (dispatch_source_t)timer {
-    if (!_timer) {
-        [self createTimer];
-    }
-    return _timer;
-}
 - (dispatch_queue_t)queue {
     if (!_queue) {
         _queue = dispatch_get_global_queue(0, 0);
@@ -85,11 +79,12 @@
 }
 
 
-#pragma mark - setter 
-- (void)setModelArray:(NSArray *)modelArray {
-    _modelArray = modelArray;
-    [self createTimer];
-}
+//#pragma mark - setter
+//- (void)setModelArray:(NSArray *)modelArray {
+//    _modelArray = modelArray;
+//    [self createTimer];
+//}
+
 #pragma mark - 创建对象
 + (instancetype)countDownManagerWithCountDownStartTime: (long)countDownStartTime
                                       andCountDownUnit: (double)countDownUnit
@@ -120,13 +115,24 @@
         self.countDownUnit = countDownUnit;
         self.modelArray = modelArray;
         self.modelDateType = modelDateType;
-        if (!self.timer){
-            [self createTimer];
-        }
+        [self createTimer];
     }
     return self;
 }
 
+#pragma mark 构建内部model列表
+
+- (NSArray*)buildModelList:(NSArray*)modelArray
+{
+    NSMutableArray* resultList = [NSMutableArray arrayWithCapacity:modelArray.count];
+    for(id data in modelArray) {
+        HXBBaseContDownModel* model = [[HXBBaseContDownModel alloc] init];
+        [model setValue:[data valueForKey:self.modelDateKey] forKey:self.modelDateKey];
+        [model setValue:[data valueForKey:self.modelCountDownKey] forKey:self.modelCountDownKey];
+        [resultList addObject:model];
+    }
+    return resultList;
+}
 
 #pragma mark - 倒计时开始
 //MARK: 计时器的创建
@@ -140,6 +146,7 @@
                 [obj setValue:@"0" forKey:self.modelCountDownKey];
             }
         }];
+        self.modelArray = [self buildModelList:_modelArray];
         //1.创建GCD中的定时器
         /*
          第一个参数:创建source的类型 DISPATCH_SOURCE_TYPE_TIMER:定时器
@@ -182,7 +189,9 @@
 - (void)lookingForATimelyModelArray: (NSArray *)modelArray {
     
     if (!modelArray.count) {
-        [self cancelTimer];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self cancelTimer];
+        });
         return;
     }
     [modelArray enumerateObjectsUsingBlock:^(id  _Nonnull model, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -229,16 +238,20 @@
     //以前的判断条件是这个：dateNumber <= self.countdownStartTime && dateNumber >= 0
     //如果没有加dateNumber >= 0 这个条件，那么就不会再都是0的时候发出消息让外部进行UI刷新
     if (dateNumber <= self.countdownStartTime) {
+        if (dateNumber <= 0) {
+            dateNumber = 0;
+        }
+        [model setValue:@(dateNumber).description forKey:self.modelCountDownKey];
+        [model setValue:@(dateNumber) forKey:self.modelDateKey];
+        HXBBaseContDownModel* paramModel = [model copy];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
-            if (dateNumber <= 0) dateNumber = 0;
-            [model setValue:@(dateNumber).description forKey:self.modelCountDownKey];
-            [model setValue:@(dateNumber) forKey:self.modelDateKey];
             if(self.changeModelBlock) {
                 //如果小于0，就是零，如果是
                 NSInteger section = self.column  < 0 ? 0 : self.column;
 
                 NSIndexPath *indexPath = [NSIndexPath indexPathForRow:idx inSection:section];
-                self.changeModelBlock(model,indexPath);
+                self.changeModelBlock(paramModel,indexPath);
             }
         });
     }
@@ -264,7 +277,9 @@
 //        }
 //    }];
     if (count == self.modelArray.count) {
-        [self cancelTimer];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self cancelTimer];
+        });
     }
 }
 
@@ -291,7 +306,11 @@
 //MARK: 取消定时器
 - (void)cancelTimer {
     @try {
-        dispatch_cancel(self.timer);
+        if(self.timer) {
+            dispatch_cancel(self.timer);
+            self.countdownDataFredbackWithBlock = nil;
+            self.changeModelBlock = nil;
+        }
     } @catch (NSException *exception) {
     } @finally {
         self.column = -1;
@@ -307,20 +326,20 @@
         [self createTimer];
     }
 }
-//MARK: 数组发生变化了
-- (void)countDownWithModelArray:(NSArray *)modelArray andModelDateKey:(NSString *)modelDateKey andModelCountDownKey:(NSString *)modelCountDownKey {
-    if (modelArray.count) {
-        self.modelArray = modelArray;
-    }
-    if (modelDateKey) {
-        self.modelDateKey = modelDateKey;
-    }
-    if (modelCountDownKey) {
-        _modelCountDownKey = modelCountDownKey;
-    }
-    [self cancelTimer];
-    [self resumeTimer];
-}
+////MARK: 数组发生变化了
+//- (void)countDownWithModelArray:(NSArray *)modelArray andModelDateKey:(NSString *)modelDateKey andModelCountDownKey:(NSString *)modelCountDownKey {
+//    if (modelArray.count) {
+//        self.modelArray = modelArray;
+//    }
+//    if (modelDateKey) {
+//        self.modelDateKey = modelDateKey;
+//    }
+//    if (modelCountDownKey) {
+//        _modelCountDownKey = modelCountDownKey;
+//    }
+//    [self cancelTimer];
+//    [self resumeTimer];
+//}
 
 
 - (void)stopWenScrollViewScrollBottomWithTableView: (UIScrollView *)scrollView {
