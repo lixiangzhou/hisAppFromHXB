@@ -81,7 +81,7 @@
 - (void)registerSendSmscode {
     kWeakSelf
         [self.smscodeView clickSendSmscodeButtonWithBlock:^{
-            if (_type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
+            if (weakSelf.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
                 [weakSelf sendSmscode:@"sms"];
             } else {
                 HXBRegisterAlertVC *registerAlertVC = [[HXBRegisterAlertVC alloc] init];
@@ -183,7 +183,7 @@
                         
                     }];
                 }];
-                [weakSelf presentViewController:self.checkCaptchVC animated:YES completion:nil];
+                [weakSelf presentViewController:weakSelf.checkCaptchVC animated:YES completion:nil];
             }
             
         }];
@@ -219,30 +219,24 @@
             [HxbHUDProgress showTextWithMessage:message];
             return;
         }
-        if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
+        if (weakSelf.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
             NSLog(@"忘记密码");
-            [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:self.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {
-                [self.navigationController popToRootViewControllerAnimated:NO];
+            [HXBSignUPAndLoginRequest forgotPasswordRequestWithMobile:weakSelf.phonNumber andSmscode:smscode andCaptcha:weakSelf.captcha andPassword:password andSuccessBlock:^(BOOL isExist) {
+                [weakSelf.navigationController popToRootViewControllerAnimated:NO];
             } andFailureBlock:^(NSError *error) {
                 
             }];
         }else {
             [HXBSignUPAndLoginRequest signUPRequetWithMobile:weakSelf.phonNumber andSmscode:smscode andPassword:password andInviteCode:inviteCode andSuccessBlock:^{
                  NSLog(@"注册设置成功");
-                
-                if ((![self.phonNumber isEqualToString:KeyChain.mobile]) && KeyChain.mobile) {
-                    [KeyChain removeGesture];
-                }
-                KeyChain.gesturePwdCount = @"5";
-                
-                KeyChain.mobile = self.phonNumber;
+                KeyChain.mobile = weakSelf.phonNumber;
                 KeyChain.isLogin = YES;
                 KeyChain.ciphertext = @"0";
 //                HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
 //                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:YES];
                 HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
                 bindBankCardVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_signup;
-                [self.navigationController pushViewController:bindBankCardVC animated:YES];
+                [weakSelf.navigationController pushViewController:bindBankCardVC animated:YES];
             } andFailureBlock:^(NSError *error) {
                 
             }];

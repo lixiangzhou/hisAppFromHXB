@@ -13,6 +13,7 @@
 #import "HxbAdvertiseViewController.h"
 #import "HXBVersionUpdateModel.h"
 #import "HXBGesturePasswordViewController.h"
+#import "HXBVersionUpdateManager.h"
 
 #define AXHVersionKey @"version"
 
@@ -36,7 +37,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [UIApplication sharedApplication].delegate.window = self.window;
     
-    [self checkVersionUpdate];
+    [[HXBVersionUpdateManager sharedInstance] checkVersionUpdate];
     
     // 广告
     kWeakSelf
@@ -61,7 +62,6 @@
         [self enterTheGesturePasswordVCOrTabBar];
     } else { // 有新版本
         AXHNewFeatureController *VC = [[AXHNewFeatureController alloc] init];
-        VC.force = self.versionUpdateModel.force;
         self.window.rootViewController = VC;
         
         //保存当前版本，用偏好设置
@@ -83,20 +83,31 @@
     }
 }
 
-- (void)checkVersionUpdate
-{
-    kWeakSelf
-    NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
-    [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
-        weakSelf.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
-    } andFailureBlock:^(NSError *error) { 
-    }];
-}
+
 
 - (void)makeTabbarRootVC {
     self.window.rootViewController = self.mainTabbarVC;
 }
+
+- (UIViewController *)topVC {
+    return [self topControllerWithRootController:KeyWindow.rootViewController];
+}
+
+#pragma mark - 获取最顶端控制器
+- (UIViewController *)topControllerWithRootController:(UIViewController *)rootController {
+    if ([rootController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabBarVC = (UITabBarController *)rootController;
+        return [self topControllerWithRootController:tabBarVC.selectedViewController];
+    } else if ([rootController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController *navigationVC = (UINavigationController *)rootController;
+        return [self topControllerWithRootController:navigationVC.visibleViewController];
+    } else if (rootController.presentedViewController) {
+        return [self topControllerWithRootController:rootController.presentedViewController];
+    } else {
+        return rootController;
+    }
+}
+
 
 #pragma mark - Lazy
 /// 懒加载主界面Tabbar
