@@ -10,9 +10,9 @@
 
 @interface NSString (IDPExtension)
 /**
- 解析形如key1=""&key2=""的url参数
+  解析url中的path和？后面的参数
 
- @return 以字典形式返回
+ @param resultCall 通过block回调解析结果
  */
-- (NSDictionary*)parseUrlParam;
+- (void)parseUrlParam:(void (^)(NSString* path, NSDictionary* paramDic))resultCall;
 @end

@@ -286,8 +286,10 @@
 		9A226B281FE7B87E00E27DAC /* HXBBaseContDownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B271FE7B87E00E27DAC /* HXBBaseContDownModel.m */; };
 		9A226B2B1FE7C22500E27DAC /* NSString+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B2A1FE7C22500E27DAC /* NSString+IDPExtension.m */; };
 		9A36E3301FC6AB1700C318B3 /* HXBBaseWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */; };
+		9A5A2B711FE9136A00818846 /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5A2B6F1FE9136900818846 /* NSTimer+Addition.m */; };
 		9AF220EF1FC2BA8F00002D1D /* HXBBaseUrlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */; };
 		9AF220F01FC2BA8F00002D1D /* HXBBaseUrlSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EE1FC2BA8F00002D1D /* HXBBaseUrlSettingView.m */; };
+		9AFBE1DE1FE8FD2B000ED560 /* HXBNsTimerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFBE1DD1FE8FD2B000ED560 /* HXBNsTimerManager.m */; };
 		E1057D701EE28D0C00C63286 /* NSString+HXBPhonNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = E1057D6F1EE28D0C00C63286 /* NSString+HXBPhonNumber.m */; };
 		E10CDBC51EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CDBC41EEA473D0037F2D0 /* HXBMobifyPassword_LoginRequest.m */; };
 		E10CEB0E1F7F96D100B65501 /* HXBFin_Plan_BuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CEB0A1F7F96CF00B65501 /* HXBFin_Plan_BuyViewController.m */; };
@@ -1040,10 +1042,14 @@
 		9A36E32A1FC6AB1700C318B3 /* HXBBaseWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWKWebViewController.h; sourceTree = "<group>"; };
 		9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWKWebViewController.m; sourceTree = "<group>"; };
 		9A37BCB01FCEA3E400B2B81F /* HXBMacroSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMacroSwitch.h; sourceTree = "<group>"; };
+		9A5A2B6F1FE9136900818846 /* NSTimer+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
+		9A5A2B701FE9136A00818846 /* NSTimer+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
 		9AF220EB1FC2BA8F00002D1D /* HXBBaseUrlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlManager.h; sourceTree = "<group>"; };
 		9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseUrlManager.m; sourceTree = "<group>"; };
 		9AF220ED1FC2BA8F00002D1D /* HXBBaseUrlSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlSettingView.h; sourceTree = "<group>"; };
 		9AF220EE1FC2BA8F00002D1D /* HXBBaseUrlSettingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseUrlSettingView.m; sourceTree = "<group>"; };
+		9AFBE1DC1FE8FD2B000ED560 /* HXBNsTimerManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBNsTimerManager.h; sourceTree = "<group>"; };
+		9AFBE1DD1FE8FD2B000ED560 /* HXBNsTimerManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBNsTimerManager.m; sourceTree = "<group>"; };
 		B0BEC6A7C6764ACD873C45F7 /* Pods-hoomxb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.release.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.release.xcconfig"; sourceTree = "<group>"; };
 		DC70697F0D078A1E9909D148 /* libPods-hoomxb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hoomxb.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD263FCB1559682F39BCB7A9 /* Pods-hoomxb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hoomxb.debug.xcconfig"; path = "Pods/Target Support Files/Pods-hoomxb/Pods-hoomxb.debug.xcconfig"; sourceTree = "<group>"; };
@@ -2845,6 +2851,17 @@
 			path = BaseURL;
 			sourceTree = "<group>";
 		};
+		9AFBE1DB1FE8FD01000ED560 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				9A5A2B701FE9136A00818846 /* NSTimer+Addition.h */,
+				9A5A2B6F1FE9136900818846 /* NSTimer+Addition.m */,
+				9AFBE1DC1FE8FD2B000ED560 /* HXBNsTimerManager.h */,
+				9AFBE1DD1FE8FD2B000ED560 /* HXBNsTimerManager.m */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
 		AB2C5DD4297DD10D18ED07A2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -4100,6 +4117,7 @@
 		E1CD4BA91ED83064000CC57B /* tools */ = {
 			isa = PBXGroup;
 			children = (
+				9AFBE1DB1FE8FD01000ED560 /* Timer */,
 				9AF220EA1FC2BA8F00002D1D /* BaseURL */,
 				4E422CC21EA74F3B00C0EB62 /* HxbTools.h */,
 				E122D8441EA0CAB900DC71ED /* HxbBase.h */,
@@ -5158,10 +5176,12 @@
 				9AF220F01FC2BA8F00002D1D /* HXBBaseUrlSettingView.m in Sources */,
 				4E45F4361F4FC71E009708B7 /* AXHNewFeatureCell.m in Sources */,
 				4E739B5B1F0A388B000A4D1E /* HXBVersionUpdateModel.m in Sources */,
+				9A5A2B711FE9136A00818846 /* NSTimer+Addition.m in Sources */,
 				4E35C6C71F0E46DA0022C8E6 /* HXBMyTopUpBankView.m in Sources */,
 				E1CB561A1ED2D1F500D962CA /* HXBMYModel_AssetStatistics_Plan.m in Sources */,
 				4EAD98D51EB838F80029A3FF /* UITextField+HxbTextField.m in Sources */,
 				9AF220EF1FC2BA8F00002D1D /* HXBBaseUrlManager.m in Sources */,
+				9AFBE1DE1FE8FD2B000ED560 /* HXBNsTimerManager.m in Sources */,
 				E122D8571EA0CAB900DC71ED /* UIResponder+FindNext.m in Sources */,
 				28B5D0241F711E9D00E2F486 /* HXBFin_Buy_ViewModel.m in Sources */,
 				E133DD411EEEC14C009466DE /* HXBRequestEnumAndStatic.m in Sources */,

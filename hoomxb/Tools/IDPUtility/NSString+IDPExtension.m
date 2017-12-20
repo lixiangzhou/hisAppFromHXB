@@ -15,23 +15,35 @@
 @implementation NSString(IDPExtension)
 
 /**
- 解析形如key1=""&key2=""的url参数
+ 解析url中的path和？后面的参数
  
- @return 以字典形式返回
+ @param resultCall 通过block回调解析结果
  */
-- (NSDictionary*)parseUrlParam
+- (void)parseUrlParam:(void (^)(NSString* path, NSDictionary* paramDic))resultCall
 {
-    NSMutableDictionary* resultDic = [[NSMutableDictionary alloc] init];
-    if(self.length > 0){
-        NSArray* paramList = [self componentsSeparatedByString:@"&"];
-        for(NSString* param in paramList) {
-            NSArray* tempList = [param componentsSeparatedByString:@"="];
-            if(2 == tempList.count){
-                [resultDic setObject:tempList[1] forKey:tempList[0]];
+    NSString* path = nil;
+    NSMutableDictionary* resultDic = nil;
+    if(self.length > 0) {
+        NSURL* url = [NSURL URLWithString:self];
+        //获取路径
+        path = url.path;
+        //获取参数
+        NSString* query = url.query;
+        if(query.length > 0){
+            resultDic = [[NSMutableDictionary alloc] init];
+            NSArray* paramList = [query componentsSeparatedByString:@"&"];
+            for(NSString* param in paramList) {
+                NSArray* tempList = [param componentsSeparatedByString:@"="];
+                if(2 == tempList.count){
+                    [resultDic setObject:tempList[1] forKey:tempList[0]];
+                }
             }
         }
     }
-    return resultDic;
+    
+    if(resultCall) {
+        resultCall(path, resultDic);
+    }
 }
 
 @end
