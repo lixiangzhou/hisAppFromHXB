@@ -14,7 +14,6 @@
 
 #import "BannerModel.h"
 #import "HXBHomeBaseModel.h"
-#import "SVGKit/SVGKImage.h"
 @interface HXBHomePageHeadView () 
 
 
@@ -25,32 +24,37 @@
 
 @property (nonatomic, strong) UIButton *noticeBtn;
 
-@property (nonatomic, strong) UIImageView *backgroundImageView;
 @end
 
 @implementation HXBHomePageHeadView
 
 
-- (UIImageView *)backgroundImageView
-{
-    if (!_backgroundImageView) {
-        _backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Group 15"]];
-        _backgroundImageView.frame = CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(257));
-    }
-    return _backgroundImageView;
-}
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self addSubview:self.backgroundImageView];
         [self addSubview:self.afterLoginView];
         [self addSubview:self.indicationView];
         [self addSubview:self.bannerView];
         [self addSubview:self.noticeBtn];
+        [self setupUI];
     }
     return self;
+}
+
+#pragma mark - setupUI
+
+- (void)setupUI {
+    [self.noticeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self).offset(kScrAdaptationW(-20));
+        make.top.offset(kScrAdaptationH(40));
+        make.height.offset(kScrAdaptationH(17));
+        make.width.offset(kScrAdaptationW(20));
+    }];
+    [self.bannerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self);
+        make.height.offset(kScrAdaptationH(166));
+    }];
 }
 
 #pragma mark HXBHomePageBulletinViewDelegate Methods
@@ -72,7 +76,7 @@
 // 显示投资页
 - (void)showAlreadyInvestedView
 {
-    [self.indicationView loadNewDate];
+    self.indicationView.userInfoViewModel = self.userInfoViewModel;
     self.afterLoginView.hidden = YES;
     if (self.indicationView.hidden == NO) {
         return;
@@ -86,13 +90,13 @@
     NSLog(@"________%d", [KeyChain isLogin]);
     if (![KeyChain isLogin]) {
         self.afterLoginView.headTipString = @"红小宝全新起航，新起点，新梦想";
-        self.afterLoginView.tipString = @"注册／登录";
+        self.afterLoginView.tipString = @"立即注册";
     } else {
         
         if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
             //没有开户
             weakSelf.afterLoginView.headTipString = @"红小宝携手恒丰银行资金存管已上线";
-            weakSelf.afterLoginView.tipString = @"立即开通存管账户";
+            weakSelf.afterLoginView.tipString = @"开通存管";
         } else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])) {
             // 没有实名
             weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
@@ -137,7 +141,7 @@
 - (HXBHomePageLoginIndicationView *)indicationView
 {
     if (!_indicationView) {
-        _indicationView = [[HXBHomePageLoginIndicationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(140))];
+        _indicationView = [[HXBHomePageLoginIndicationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(145))];
     }
     return _indicationView;
 }
@@ -146,7 +150,7 @@
 {
     kWeakSelf
     if (!_afterLoginView) {
-        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(140))];
+        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(113))];
         _afterLoginView.tipButtonClickBlock_homePageAfterLoginView = ^(){
             if (weakSelf.tipButtonClickBlock_homePageHeadView) {
                 weakSelf.tipButtonClickBlock_homePageHeadView();
@@ -162,7 +166,7 @@
 {
     kWeakSelf
     if (!_bannerView) {
-        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kScrAdaptationH(110))];
+        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kScrAdaptationH(166))];
 //        _bannerView.backgroundColor = [UIColor greenColor];
         BannerModel *bannerModel = [[BannerModel alloc] init];
 //        bannerModel.title = @"banner";
@@ -183,9 +187,8 @@
 - (UIButton *)noticeBtn
 {
     if (!_noticeBtn) {
-        _noticeBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScrAdaptationW(5), kScrAdaptationH(34), kScrAdaptationW(40), kScrAdaptationH(20))];
-        SVGKImage *svgImage = [SVGKImage imageNamed:@"notice"];
-        [_noticeBtn setImage:svgImage.UIImage forState:UIControlStateNormal];
+        _noticeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
+        [_noticeBtn setImage:[UIImage imageNamed:@"Home_notice"] forState:UIControlStateNormal];
         [_noticeBtn addTarget:self action:@selector(noticeBtnClick) forControlEvents:UIControlEventTouchUpInside];
         _noticeBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }

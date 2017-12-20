@@ -5,6 +5,8 @@
 //  Created by HXB-C on 2017/11/13.
 //Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
+//分享的背景色
+#define kHXBColor_ShareViewBackGround  [UIColor colorWithRed:247/255.0f green:247/255.0f blue:247/255.0f alpha:1]
 
 #define kHXBShareViewHeight kScrAdaptationH(213)
 
