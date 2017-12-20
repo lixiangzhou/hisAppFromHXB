@@ -84,7 +84,9 @@
  pagerView did selected item cell
  */
 - (void)pagerView:(TYCyclePagerView *)pageView didSelectedItemCell:(__kindof UICollectionViewCell *)cell atIndex:(NSInteger)index {
-    NSLog(@"%ld",index);
+    if (self.clickBannerImageBlock) {
+        self.clickBannerImageBlock(self.bannersModel[index]);
+    }
 }
 
 #pragma mark - Network
