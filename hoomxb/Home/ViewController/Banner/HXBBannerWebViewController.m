@@ -6,11 +6,6 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-
-#define kAccountFriendsRecordActivity @"/account/invite_friends_record_activity"//好友邀请记录
-#define kInviteSellerShowMessage @"/invite/seller" // h5 调app 展示信息框
-
-
 #import "HXBBannerWebViewController.h"
 #import "WebViewJavascriptBridge.h"
 #import "HxbMyTopUpViewController.h"//充值

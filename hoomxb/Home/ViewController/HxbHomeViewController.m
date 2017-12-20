@@ -13,6 +13,9 @@
 //#import "HxbSecurityCertificationViewController.h"
 #import "HXBHomeBaseModel.h"
 #import "HXBFinancing_PlanDetailsViewController.h"
+#import "HXBFinancing_LoanDetailsViewController.h"
+#import "HXBFin_DetailLoanTruansfer_ViewController.h"
+#import "HXBOpenDepositAccountViewController.h"
 #import "HxbHomePageModel_DataList.h"
 #import "HXBGesturePasswordViewController.h"
 
@@ -24,7 +27,7 @@
 //#import "HXBOpenDepositAccountViewController.h"//开通存管账户
 //#import "HxbWithdrawCardViewController.h"//绑卡界面
 #import "HXBMiddlekey.h"
-
+#import "HXBRootVCManager.h"
 
 
 @interface HxbHomeViewController ()
@@ -381,13 +384,58 @@
         };
         
         _homeView.clickBannerImageBlock = ^(BannerModel *model) {
-            if (model.url.length) {
-                HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
-                webViewVC.pageUrl = model.url;
-                [weakSelf.navigationController pushViewController:webViewVC animated:YES];
-            }
+            [weakSelf pushToViewControllerWithModel:model];
         };
     }
     return _homeView;
 }
+
+// 点击benner跳转的方法
+- (void)pushToViewControllerWithModel:(BannerModel *)model {
+    
+    HXBBaseViewController *vc;
+    if ([model.type isEqualToString:@"native"]) {
+        
+        if ([model.linkPath isEqualToString:kEscrowActivityVC]) { // 开户页
+            HXBOpenDepositAccountViewController *accountVC = [HXBOpenDepositAccountViewController new];
+            accountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+            accountVC.isFromUnbundBank = NO;
+            vc = accountVC;
+        } else if ([model.linkPath isEqualToString:kPlanDetailVC]) { // 计划详情
+            HXBFinancing_PlanDetailsViewController *planVC = [HXBFinancing_PlanDetailsViewController new];
+            planVC.planID = model.parameter[@"productid"];
+            planVC.isPlan = YES;
+            planVC.isFlowChart = YES;
+            vc = planVC;
+        } else if ([model.linkPath isEqualToString:kLoanDetailVC]) { // 散标详情
+            HXBFinancing_LoanDetailsViewController *loadVC = [HXBFinancing_LoanDetailsViewController new];
+            loadVC.loanID = model.parameter[@"productid"];
+            loadVC.isFlowChart = YES;
+            vc = loadVC;
+        } else if ([model.linkPath isEqualToString:kLoanTransferDetailVC]) { // 债权详情
+            HXBFin_DetailLoanTruansfer_ViewController *loanTruansferVC = [HXBFin_DetailLoanTruansfer_ViewController new];
+            loanTruansferVC.loanID = model.parameter[@"productid"];
+            loanTruansferVC.isFlowChart = YES;
+            vc = loanTruansferVC;
+        } else if ([model.linkPath isEqualToString:kLoginVC]) { // 登录页（是否要判断是否登录？未登录跳转登录页，登陆了去我的页面）
+            if(KeyChain.isLogin) {
+                [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
+            } else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+            }
+        }
+        
+    } else {
+        if (model.url.length) {
+            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+            webViewVC.pageUrl = model.url;
+            vc = webViewVC;
+        }
+        
+    }
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+
 @end

@@ -57,7 +57,7 @@
     _myCouponListModel = myCouponListModel;
     self.tagLab.text = myCouponListModel.tag ? [NSString stringWithFormat:@"(%@)",  myCouponListModel.tag] : @"";//"(贺岁大礼包)"
     self.termOfValidityLab.text = [NSString stringWithFormat:@"有效期至%@",[[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:[NSString stringWithFormat:@"%lld", (long long)myCouponListModel.expireTime] andDateFormat:@"YYYY/MM/dd"]];
-    self.allowDerateInvestLab.text = myCouponListModel.allowDerateInvest ? [NSString stringWithFormat:@"满%@元使用",[NSString getIntegerStringWithNumber:myCouponListModel.allowDerateInvest.doubleValue fractionDigits:0]] : @""; // 取整
+   
     
     if ([myCouponListModel.couponType isEqualToString:@"DISCOUNT"]) {// 抵扣
         
@@ -67,7 +67,7 @@
         self.couponTypeLab.text = [NSString stringWithFormat:@"%@元%@", [NSString getIntegerStringWithNumber:myCouponListModel.maxDiscountAmount.doubleValue fractionDigits:0], myCouponListModel.couponTypeText];;
         self.leftImgV.image = [UIImage imageNamed:@"my_couponList_dicountRateleft"];
         self.dicountRateLab.attributedText = [NSAttributedString setupAttributeStringWithString:dicountRate WithRange:range andAttributeColor:CircleStateErrorOutsideColor andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(58)];
-//        self.allowDerateInvestLab.text = myCouponListModel.maxDiscountAmount.length ? [NSString stringWithFormat:@"最高%@元",myCouponListModel.maxDiscountAmount] : @"";//“最高6666元”
+         self.allowDerateInvestLab.text = myCouponListModel.allowDerateInvest ? [NSString stringWithFormat:@"满%@元使用",[NSString getIntegerStringWithNumber:myCouponListModel.allowDerateInvest.doubleValue fractionDigits:0]] : @""; // 取整
         
         self.dicountRateLab.textColor = CircleStateErrorOutsideColor;
         self.allowDerateInvestLab.textColor = CircleStateErrorOutsideColor;

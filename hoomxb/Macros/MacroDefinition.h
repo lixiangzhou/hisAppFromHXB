@@ -18,6 +18,8 @@
 #define kPlanDetailVC @"/plan/detail"
 //某个散标的详情页
 #define kLoanDetailVC @"/loan/detail"
+//某个债转的详情页
+#define kLoanTransferDetailVC @"/loan_transfer/detail"
 //登录页面
 #define kLoginVC @"/account/login"
 //主页
@@ -32,6 +34,10 @@
 #define kEscrowActivityVC @"/home/EscrowActivity"
 //存管开户弹框
 #define kEscrowdialogActivityVC @"/user/escrowdialog_activity"
+//好友邀请记录
+#define kAccountFriendsRecordActivity @"/account/invite_friends_record_activity"
+// h5 调app 展示信息框
+#define kInviteSellerShowMessage @"/invite/seller"
 
 
 //-------------------请求头需要的字段-------------------------
