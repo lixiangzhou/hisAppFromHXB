@@ -253,6 +253,8 @@
         
     }
     [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - 设置状态栏
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleDefault;
