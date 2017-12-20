@@ -62,8 +62,16 @@
 //主要是给数据源赋值然后刷新UI
 - (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
     _finPlanListVMArray = finPlanListVMArray;
+    
+    //更换数据源之前， 要先取消定时器，然后再重新设置， 否则由于线程同步问题会引发crash
+    if(self.contDwonManager) {
+        [self.contDwonManager cancelTimer];
+        self.contDwonManager = nil;
+    }
+    [self creatCountDownManager];
+    
     self.homePageView.finPlanListVMArray = finPlanListVMArray;
-    [self.contDwonManager countDownWithModelArray:finPlanListVMArray andModelDateKey:nil  andModelCountDownKey:nil];
+//    [self.contDwonManager countDownWithModelArray:finPlanListVMArray andModelDateKey:nil  andModelCountDownKey:nil];
 }
 - (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
     _finLoanListVMArray = finLoanListVMArray;
@@ -103,8 +111,8 @@
     [self registerRefresh];
     [self planLoadDateWithIsUpData:YES];
     
-    //创建定时器
-    [self creatCountDownManager];
+//    //创建定时器
+//    [self creatCountDownManager];
 }
 
 
@@ -115,6 +123,12 @@
         if (weakSelf.finPlanListVMArray.count > index.section) {
             UITableView *tableView = (UITableView *)[weakSelf.homePageView valueForKey:@"planListTableView"];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index.row];
+            
+            //更新列表中对应的字段值
+            HXBFinHomePageViewModel_PlanList* pageModel = [weakSelf.finPlanListVMArray safeObjectAtIndex:index.row];
+            [pageModel setValue:model.countDownLastStr forKey:@"countDownLastStr"];
+            [pageModel setValue:model.countDownString forKey:@"countDownString"];
+            
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
             [cell setValue:model.countDownString forKey:@"countDownString"];
         }

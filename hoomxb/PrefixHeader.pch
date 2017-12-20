@@ -40,6 +40,9 @@ fprintf(stderr, "-------------------\n");   \
 #import "HxbMacro.h"
 #import "NYBaseRequest.h"
 #import "HXBMacroSwitch.h"
+#import "NSDictionary+IDPExtension.h"
+#import "NSArray+IDPExtension.h"
+#import "NSString+IDPExtension.h"
 
 //#import "UIViewController+MethodSwizzle.h"
 
