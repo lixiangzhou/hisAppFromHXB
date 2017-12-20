@@ -108,25 +108,6 @@ typedef enum {
 #define CusSerTel                       @"400-1552-888"
 
 
-//#define FAQUrl                          @"http://www.hoomxb.com/app-files/questions.html" //
-#define SecurityProtect                 @"https://www.hoomxb.com/app-files/security.html"
-#define AboutUs                         @"https://www.hoomxb.com/app-files/about-us.html"
-#define BankLimitUrl                    @"https://www.hoomxb.com/app-files/bank-limit.html"
-#define FAQUrl                          @"https://www.hoomxb.com/app-files/dist/template/info.html"
-//#define SecurityProtect                 @"http://www.hoomxb.com/app-files/security.html"
-
-#define LoanAgreement                   @"https://www.hoomxb.com/app-files/debt-conditions.html"
-//#define ServiceAttorneyLetter           @"http://www.hoomxb.com/contract/service-au.html"
-#define RegisterAgreement               @"https://www.hoomxb.com/app-files/register.html"
-//#define UseTermsAndPrivacyPolicy        @"http://www.hoomxb.com/contract/privacy.html"
-#define planConditions                  @"https://www.hoomxb.com/app-files/plan-conditions.html"
-
-//http://www.hoomxb.com/contract/loan — 出借咨询与服务协议 //
-//http://www.hoomxb.com/contract/service — 服务计划授权委托书(?自动转投服务协议)
-//http://www.hoomxb.com/contract/register — 红小宝用户协议 //
-//http://www.hoomxb.com/contract/privacy — 使用条款和隐私政策协议 //
-
-
 /**
  (0 -> Product | 1 -> Develop)Fuiou Pay
 */

@@ -64,12 +64,8 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
             //调到我的界面
             KeyChain.isLogin = YES;
             KeyChain.ciphertext = @"0";
-            [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-                
-                [weakSelf dismissViewControllerAnimated:YES completion:^{
-                    [self update];
-                }];
-            }];
+            [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            
         } andFailureBlock:^(NSError *error, id responseObject) {
             
             
@@ -143,9 +139,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
         KeyChain.siginCount = @"0";
         //调到我的界面
         KeyChain.isLogin = YES;
-        [KeyChain isVerifyWithBlock:^(NSString *isVerify) {
-            [weakSelf dismissViewControllerAnimated:YES completion:nil];
-        }];
+        [weakSelf dismissViewControllerAnimated:YES completion:nil];
     } andFailureBlock:^(NSError *error, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue]) {
             [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
@@ -167,16 +161,7 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
     if (self.selectedIndexVC != nil) {
         [HXBRootVCManager manager].mainTabbarVC.selectedIndex = [self.selectedIndexVC integerValue];
     }
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self update];
-    }];
-}
-
-- (void)update{
-    if (self.isUpdate) {
-        self.isUpdate = NO;
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_update object:nil];
-    }
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)leftBackBtnClick{

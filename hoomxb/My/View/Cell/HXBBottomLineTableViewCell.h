@@ -6,9 +6,9 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "HXBBaseTableViewCell.h"
 
-@interface HXBBottomLineTableViewCell : UITableViewCell
+@interface HXBBottomLineTableViewCell : HXBBaseTableViewCell
 
 /**
  隐藏线条

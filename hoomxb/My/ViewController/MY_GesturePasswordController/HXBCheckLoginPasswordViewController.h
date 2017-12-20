@@ -8,6 +8,15 @@
 
 #import "HXBBaseViewController.h"
 
-@interface HXBCheckLoginPasswordViewController : HXBBaseViewController
 
+/// 手势密码开关类型
+typedef NS_ENUM(NSUInteger, HXBAccountSecureSwitchType) {
+    HXBAccountSecureSwitchTypeNone,     // 无
+    HXBAccountSecureSwitchTypeOn,       // 开
+    HXBAccountSecureSwitchTypeOff,      // 关
+};
+
+
+@interface HXBCheckLoginPasswordViewController : HXBBaseViewController
+@property (nonatomic, assign) HXBAccountSecureSwitchType switchType;
 @end
