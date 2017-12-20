@@ -15,7 +15,7 @@
 #import "HXBFinancing_PlanDetailsViewController.h"
 #import "HXBFinancing_LoanDetailsViewController.h"
 #import "HXBFin_DetailLoanTruansfer_ViewController.h"
-#import "HXBOpenDepositAccountViewController.h"
+#import "HXBNoticeViewController.h"
 #import "HxbHomePageModel_DataList.h"
 #import "HXBGesturePasswordViewController.h"
 
@@ -209,42 +209,39 @@
     return _homeView;
 }
 
-// 点击benner跳转的方法
+// 点击benner跳转的方法(公告列表，详情，计划列表) H5
 - (void)pushToViewControllerWithModel:(BannerModel *)model {
     
-    HXBBaseViewController *vc;
+    __block HXBBaseViewController *vc;
     if ([model.type isEqualToString:@"native"]) {
-        
-        if ([model.linkPath isEqualToString:kEscrowActivityVC]) { // 开户页
-            HXBOpenDepositAccountViewController *accountVC = [HXBOpenDepositAccountViewController new];
-            accountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-            accountVC.isFromUnbundBank = NO;
-            vc = accountVC;
-        } else if ([model.linkPath isEqualToString:kPlanDetailVC]) { // 计划详情
-            HXBFinancing_PlanDetailsViewController *planVC = [HXBFinancing_PlanDetailsViewController new];
-            planVC.planID = model.parameter[@"productid"];
-            planVC.isPlan = YES;
-            planVC.isFlowChart = YES;
-            vc = planVC;
-        } else if ([model.linkPath isEqualToString:kLoanDetailVC]) { // 散标详情
-            HXBFinancing_LoanDetailsViewController *loadVC = [HXBFinancing_LoanDetailsViewController new];
-            loadVC.loanID = model.parameter[@"productid"];
-            loadVC.isFlowChart = YES;
-            vc = loadVC;
-        } else if ([model.linkPath isEqualToString:kLoanTransferDetailVC]) { // 债权详情
-            HXBFin_DetailLoanTruansfer_ViewController *loanTruansferVC = [HXBFin_DetailLoanTruansfer_ViewController new];
-            loanTruansferVC.loanID = model.parameter[@"productid"];
-            loanTruansferVC.isFlowChart = YES;
-            vc = loanTruansferVC;
-        } else if ([model.linkPath isEqualToString:kLoginVC]) { // 登录页（是否要判断是否登录？未登录跳转登录页，登陆了去我的页面）
-            if(KeyChain.isLogin) {
-                [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 2;
+        [model.link parseUrlParam:^(NSString *path, NSDictionary *paramDic) {
+            if ([path isEqualToString:kNoticeVC]) { // 公告列表页
+                HXBNoticeViewController *noticeVC = [HXBNoticeViewController new];
+                vc = noticeVC;
+            } else if ([path isEqualToString:kPlanDetailVC]) { // 计划详情
+                HXBFinancing_PlanDetailsViewController *planVC = [HXBFinancing_PlanDetailsViewController new];
+                planVC.planID = paramDic[@"productId"];
+                planVC.isPlan = YES;
+                planVC.isFlowChart = YES;
+                vc = planVC;
+            } else if ([path isEqualToString:kLoanDetailVC]) { // 散标详情
+                HXBFinancing_LoanDetailsViewController *loadVC = [HXBFinancing_LoanDetailsViewController new];
+                loadVC.loanID = paramDic[@"productId"];
+                loadVC.isFlowChart = YES;
+                vc = loadVC;
+            } else if ([path isEqualToString:kLoanTransferDetailVC]) { // 债权详情
+                HXBFin_DetailLoanTruansfer_ViewController *loanTruansferVC = [HXBFin_DetailLoanTruansfer_ViewController new];
+                loanTruansferVC.loanID = paramDic[@"productId"];
+                loanTruansferVC.isFlowChart = YES;
+                vc = loanTruansferVC;
+            } else if ([path isEqualToString:kPlan_fragment]) { // 计划列表
+                [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 1;
             } else {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                
             }
-        }
+        }];
         
-    } else {
+    } else if ([model.type isEqualToString:@"h5"]){
         if (model.url.length) {
             HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
             webViewVC.pageUrl = model.url;

@@ -226,11 +226,7 @@ static const NSInteger topView_high = 300;
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
-    }
-//    else if (_inputMoneyStr.doubleValue < _availablePoint.doubleValue &&  _availablePoint.doubleValue - _inputMoneyStr.doubleValue < _minRegisterAmount.doubleValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
-//        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
-//    }
-    else {
+    } else {
         BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
         if (isFitToBuy) {
             [self chooseBuyTypeWithSting:_btnLabelText];

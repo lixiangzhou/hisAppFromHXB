@@ -24,6 +24,8 @@
 #define kLoginVC @"/account/login"
 //主页
 #define kHomeVC @"/home/main"
+//公告列表
+#define kNoticeVC @"/home/Notice"
 //红利计划列表页
 #define kPlan_fragment @"/home/plan_fragment"
 //散标列表页

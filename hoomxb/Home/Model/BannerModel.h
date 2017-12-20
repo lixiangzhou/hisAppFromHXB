@@ -48,14 +48,6 @@
  链接地址
  */
 @property (nonatomic, copy) NSString *link;
-/**
- 原生路径
- */
-@property (nonatomic, copy) NSString *linkPath;
-/**
- 参数
- */
-@property (nonatomic, strong) NSDictionary *parameter;
 
 
 @end
