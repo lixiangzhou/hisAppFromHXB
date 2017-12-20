@@ -102,7 +102,7 @@
 
 #define COR24    [UIColor colorWithRed:227/255.0f green:191/255.0f blue:128/255.0f alpha:1] //按钮黄色背景
 
-#define COR25    [UIColor colorWithRed:0/255.0f green:61/255.0f blue:126/255.0f alpha:1] //按钮蓝色
+#define COR25    [UIColor colorWithRed:115/255.0f green:173/255.0f blue:255/255.0f alpha:1] //按钮蓝色
 
 #define COR26    [UIColor colorWithRed:218/255.0f green:218/255.0f blue:223/255.0f alpha:1] //按钮不能点击状态
 #define COR27    [UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.6] //按钮不能点击状态
