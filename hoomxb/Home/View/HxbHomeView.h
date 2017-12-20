@@ -12,11 +12,14 @@
 #import "HxbHomePageViewModel_dataList.h"
 @class HXBHomeBaseModel,BannerModel;
 @interface HxbHomeView : UIView
-//@property (nonatomic,strong)HXBBannerView *bannerView;
 
 @property (nonatomic, strong) UITableView *mainTableView;
 
 
+/**
+ 用户信息
+ */
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 /**
  请求下来的数据模型
  */

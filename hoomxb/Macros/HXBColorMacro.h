@@ -10,8 +10,6 @@
 #define HXBColorMacro_h
 ///背景色
 #define kHXBColor_BackGround  [UIColor colorWithRed:245/255.0f green:245/255.0f blue:249/255.0f alpha:1]
-//分享的背景色
-#define kHXBColor_ShareViewBackGround  [UIColor colorWithRed:247/255.0f green:247/255.0f blue:247/255.0f alpha:1]
 
 /**
 红色系
