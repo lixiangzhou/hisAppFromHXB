@@ -21,13 +21,14 @@
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 #import "HXBNoticeViewController.h"//公告界面
 #import "HXBBannerWebViewController.h"//H5的Banner页面
-//#import "HXBOpenDepositAccountViewController.h"//开通存管账户
-//#import "HxbWithdrawCardViewController.h"//绑卡界面
 #import "HXBMiddlekey.h"
+#import "HXBVersionUpdateManager.h"
 
 
 
 @interface HxbHomeViewController ()
+
+@property (nonatomic, strong) HxbHomeView *homeView;
 
 @property (nonatomic, assign) BOOL isVersionUpdate;
 
@@ -41,27 +42,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self hiddenTabbarLine];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.homeView];
+
+    [self setupUI];
+    
+    [self registerRefresh];
+    
+    [self hiddenTabbarLine];
+}
+
+/**
+ 设置UI
+ */
+- (void)setupUI {
     [self.homeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
         make.top.equalTo(self.view);//.offset(kScrAdaptationH(30))
         make.bottom.equalTo(self.view); //注意适配iPhone X
     }];
-//    [self getData:YES];
-//    [self.homeView changeIndicationView];
-//    [self.homeView showSecurityCertificationOrInvest];
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    //    [self getBannersWithCompletion:^{}];
-    
-    [self registerRefresh];
-    
-    //判断是否显示设置手势密码
-    [self gesturePwdShow];
-    [self hiddenTabbarLine];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update) name:kHXBNotification_update object:nil];
 }
-
 
 
 // 去除tabBar上面的横线
@@ -73,18 +73,6 @@
     [self.tabBarController.tabBar addSubview:shadowImage];
     [self.tabBarController.tabBar setBackgroundColor:[UIColor whiteColor]];
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
-}
-
-/**
- 手势密码逻辑
- */
-- (void)gesturePwdShow
-{
-    if (KeyChain.gesturePwd.length == 0 && [KeyChain isLogin]) {
-        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-        gesturePasswordVC.type = GestureViewControllerTypeSetting;
-        [self.navigationController pushViewController:gesturePasswordVC animated:NO];
-    }
 }
 
 /**
@@ -104,15 +92,6 @@
      [self getData:YES];
 }
 
-//- (void)pushToAd {
-//    HxbAdvertiseViewController *adVc = [[HxbAdvertiseViewController alloc] init];
-//    [self.navigationController pushViewController:adVc animated:YES];
-//}
-
--(void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kHXBNotification_update object:nil];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -122,41 +101,16 @@
     [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
 
-/**
- 检测版本更新
- */
-- (void)checkVersionUpdate
-{
-    kWeakSelf
-    NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
-    [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
-        weakSelf.versionUpdateVM = [[HXBVersionUpdateViewModel alloc] init];
-         weakSelf.versionUpdateVM.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
-        [HXBAlertManager checkversionUpdateWith: weakSelf.versionUpdateVM.versionUpdateModel];
-    } andFailureBlock:^(NSError *error) {
-        
-    }];
-}
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    if (!self.isVersionUpdate) {
-        self.isVersionUpdate = YES;
-        static dispatch_once_t once;
-        dispatch_once(&once, ^{
-            [self checkVersionUpdate];
-        });
-    }
+    
+    [[HXBVersionUpdateManager sharedInstance] show];
+    
     [self transparentNavigationTitle];
     self.tabBarController.tabBar.hidden = NO;
-    //    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent];
 }
 
 #pragma mark Request
@@ -194,79 +148,7 @@
         NSLog(@"%@",error);
         
     }];
-//    NSString *userId = @"2110468";
-//    [request homeAccountAssetWithUserID:userId andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
-//        [self.homeView setDataModel:viewModel];
-//        NSLog(@"%@",viewModel);
-//    } andFailureBlock:^(NSError *error) {
-//        
-//    }];
-//    
-//    HxbHomeRequest_dataList * homeRequest_dataList = [[HxbHomeRequest_dataList alloc]init];
-//    [homeRequest_dataList homeDataListSuccessBlock:^(NSMutableArray<HxbHomePageViewModel_dataList *> *homeDataListViewModelArray) {
-//        self.homeView.homeDataListViewModelArray = [NSMutableArray array];
-//        self.homeView.homeDataListViewModelArray = homeDataListViewModelArray;
-//    } andFailureBlock:^(NSError *error) {
-//        
-//    }];
-}
-//- (void)getBannersWithCompletion:(void(^)())completion
-//{
-//    [self.homePageView getTopProductsData:NO];
-//    BannersAPI *api = [[BannersAPI alloc]init];
-//    [api startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-//        
-//        GetBannersModel *model = [GetBannersModel yy_modelWithJSON:responseObject];
-//        self.homePageView.bannersModel = model.banners;
-//        
-//        BulletinsAPI * bulletinsAPI = [[BulletinsAPI alloc]init];
-//        [bulletinsAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-//            completion();
-//            
-//            GetBulletinsModel * getBulletinsModel = [GetBulletinsModel yy_modelWithJSON:responseObject];
-//            //            BulletinsModel *model = [[BulletinsModel alloc]init];
-//            //            model.content = @"";
-//            //            model.linkUrl = @"skdjfsl";
-//            //            getBulletinsModel.bulletins = @[model,model,model];
-//            if (!getBulletinsModel.bulletins || getBulletinsModel.bulletins.count==0) {
-//                [self.homePageView hideBulletinView];
-//                return ;
-//            }
-//            
-//            NSMutableArray * contentArr = [NSMutableArray arrayWithCapacity:0];
-//            [getBulletinsModel.bulletins enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//                BulletinsModel *model = (BulletinsModel *)obj;
-//                [contentArr addObject:model];
-//            }];
-//            [self.homePageView showBulletinView];
-//            self.homePageView.bulletinsModel = contentArr;
-//            
-//            
-//        } failure:^(NYBaseRequest *request, NSError *error) {
-//            [self.homePageView hideBulletinView];
-//            completion();
-//        }];
-//        
-//    } failure:^(NYBaseRequest *request, NSError *error) {
-//        
-//        [self.homePageView hideBulletinView];
-//        NSArray * nullModel = nil;
-//        self.homePageView.bannersModel = nullModel;
-//        completion();
-//    }];
-//}
 
-#pragma mark Action
-- (void)update
-{
-    [HXBAlertManager checkversionUpdateWith: self.versionUpdateVM.versionUpdateModel];
-}
-///刷新首页
-- (void)refreshHomePage
-{
-//    [self getBannersWithCompletion:^{
-//        [self.homePageView endRefreshing];
-//    }];
 }
 
 ///登录
@@ -275,62 +157,6 @@
     [[NSNotificationCenter defaultCenter]postNotificationName:kHXBNotification_LoginSuccess_PushMYVC object:nil];
     
 }
-
-///点击banner跳转
-- (void)showBannerWebViewWithURL:(NSString *)linkUrl
-{
-//    HXBWKWebViewVC *webView = [[HXBWKWebViewVC alloc]initWithUrl:linkUrl];
-//    [self.navigationController pushViewController:webView animated:YES];
-}
-- (void)showBannerWebViewWithModel:(BannerModel *)model
-{
-//    HXBWKWebViewVC *webView = [[HXBWKWebViewVC alloc]initWithBannersModel:model];
-//    [self.navigationController pushViewController:webView animated:YES];
-}
-
-// 点击bulletin web调整
-- (void)showBulletinWebViewWithURL:(NSString *)linkUrl
-{
-//    HXBWKWebViewVC *webView = [[HXBWKWebViewVC alloc]initWithUrl:linkUrl];
-//    [self.navigationController pushViewController:webView animated:YES];
-}
-
-///进入产品详情页
-//- (void)purchaseWithModel:(TopProductModel *)model
-//{
-//    if (model.category == FreeTarget) {
-//        HXBMoneyManageDetailsViewController * moneyDetailVC = [[HXBMoneyManageDetailsViewController alloc]initWithProductId:model.id AndTitle:model.name AndStatus:model.status AndCategory:model.category];
-//        [self.navigationController pushViewController:moneyDetailVC animated:YES];
-//    }else if (model.category == PlanProduct) {
-//        HXBPlanProductDetailsViewController * moneyDetailVC = [[HXBPlanProductDetailsViewController alloc]initWithProductId:model.id AndTitle:model.name AndStatus:model.status AndCategory:model.category];
-//        [self.navigationController pushViewController:moneyDetailVC animated:YES];
-//    }
-//}
-
-///点击品牌介绍
-- (void)showIntroduceView
-{
-    [self showBannerWebViewWithURL:AboutUs];
-    
-}
-
-///点击安全保障
-- (void)showSafetyGuaranteeView
-{
-    [self showBannerWebViewWithURL:SecurityProtect];
-}
-
-///点击邀请好友
-- (void)showInviteFriendsView
-{
-//    if ([KeyChain isLogin]) {
-//        HXBShareQrVersionVC *inviteVC = [[HXBShareQrVersionVC alloc] init];
-//        [self.navigationController pushViewController:inviteVC animated:YES];
-//    }else{
-//        [[NSNotificationCenter defaultCenter]postNotificationName:ShowLoginVC object:nil];
-//    }
-}
-
 
 #pragma mark Get Methods
 

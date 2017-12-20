@@ -8,9 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-#define UserDefault [UserDefaultManage sharedInstance]
 #define kUserDefaults [NSUserDefaults standardUserDefaults]
-#define kHXBGesturePWD @"HXBGesturePWD"
+
+// 是否出现过忽略手势密码弹窗
+#define kHXBGesturePwdSkipeAppeardKey [NSString stringWithFormat:@"kHXBGesturePwdSkipeAppeardKey%@", KeyChain.mobile ?: @""]
+// 是否忽略手势密码
+#define kHXBGesturePwdSkipeKey [NSString stringWithFormat:@"kHXBGesturePwdSkipeKey%@", KeyChain.mobile ?: @""]
+#define kHXBGesturePwdSkipeYES @"kHXBGesturePwdSkipeYES"
+#define kHXBGesturePwdSkipeNO @"kHXBGesturePwdSkipeNO"
+// 手势密码
+#define kHXBGesturePWD [NSString stringWithFormat:@"kHXBGesturePWD%@", KeyChain.mobile ?: @""]
+
 @interface UserDefaultManage : NSObject
 
 /**
