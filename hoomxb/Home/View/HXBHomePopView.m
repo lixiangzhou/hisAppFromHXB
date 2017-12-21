@@ -167,7 +167,7 @@
     if (!_imgView) {
         _imgView = [[UIImageView alloc] initWithFrame:CGRectMake(kScrAdaptationW(0), kScrAdaptationH(0), kScrAdaptationW(266), kScrAdaptationH(356))];
         _imgView.userInteractionEnabled = YES;
-        _imgView.image = [UIImage imageNamed:@"HXBBankCustody"];//
+//        _imgView.image = [UIImage imageNamed:@"HXBBankCustody"];//
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage:)];
         [_imgView addGestureRecognizer:tap];
     }

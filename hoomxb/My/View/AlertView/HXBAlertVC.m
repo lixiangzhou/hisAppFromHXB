@@ -154,15 +154,15 @@
     }
  
     [self.pwdField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.message.mas_bottom).offset(kScrAdaptationH750(40));
-        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(45));
-        make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(45));
+        make.top.equalTo(weakSelf.message.mas_bottom).offset(kScrAdaptationH750(40));
+        make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationW750(45));
+        make.right.equalTo(weakSelf.contentView.mas_right).offset(-kScrAdaptationW750(45));
         make.height.offset(kScrAdaptationH750(80));
     }];
 
     [self.forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.pwdField.mas_bottom).offset(kScrAdaptationH750(20));
-        make.right.equalTo(self.contentView.mas_right).offset(kScrAdaptationW750(-27));
+        make.top.equalTo(weakSelf.pwdField.mas_bottom).offset(kScrAdaptationH750(20));
+        make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationW750(-27));
         make.height.offset(kScrAdaptationH750(24));
     }];
 }

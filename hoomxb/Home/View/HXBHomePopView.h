@@ -21,7 +21,7 @@
 /**
  单例
  */
-+ (nullable instancetype)sharedManager;
+//+ (nullable instancetype)sharedManager;
 
 /** 显示完成回调 */
 @property (nullable, nonatomic, copy) void(^popCompleteBlock)(void);
