@@ -10,11 +10,11 @@
 #import "HXBTransferCreditorTopView.h"
 #import "HXBTransferCreditorBottomView.h"
 #import "HXBMYRequest.h"
-#import "HXBAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBFBase_BuyResult_VC.h"
 #import "HXBMY_LoanListViewController.h"
 #import "HXBTransferConfirmModel.h"
+#import "HXBTransactionPasswordView.h"
 @interface HXBTransferCreditorViewController ()
 
 @property (nonatomic, strong) HXBTransferCreditorTopView *topView;
@@ -25,7 +25,7 @@
 
 @property (nonatomic, strong) UIButton *sureBtn;
 
-@property (nonatomic, strong) HXBAlertVC *alertVC;
+@property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
 
 @property (nonatomic, strong) HXBTransferConfirmModel *transferConfirmModel;
 
@@ -93,23 +93,10 @@
 - (void)sureBtnClick
 {
     kWeakSelf
-    _alertVC = [[HXBAlertVC alloc] init];
-    _alertVC.isCode = NO;
-    _alertVC.messageTitle = @"请输入交易密码";
-    _alertVC.sureBtnClick = ^(NSString *pwd){
-        if (pwd.length == 0) {
-            return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
-            return;
-        }
-        [weakSelf checkWithdrawals:pwd];
+    self.passwordView = [HXBTransactionPasswordView show];
+    self.passwordView.getTransactionPasswordBlock = ^(NSString *password) {
+        [weakSelf checkWithdrawals:password];
     };
-    _alertVC.forgetBtnClick = ^(){
-        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-        modifyTransactionPasswordVC.title = @"修改交易密码";
-        [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-    };
-    [self presentViewController:self.alertVC animated:NO completion:nil];
 }
 
 - (void)checkWithdrawals:(NSString *)pwd
@@ -131,16 +118,21 @@
                 }
             }
         }];
-        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
+        [weakSelf.passwordView closePasswordView];
         [weakSelf.navigationController pushViewController:successVC animated:YES];
-    } andFailureBlock:^(NSError *error) {
-        if (kHXBCode_Enum_NoConnectionNetwork == error.code || kHXBCode_Enum_ConnectionTimeOut == error.code) return ;
+    } andFailureBlock:^(NSError *error,NSInteger status) {
+        if (kHXBCode_Enum_NoConnectionNetwork == status || kHXBCode_Enum_ConnectionTimeOut == status) return ;
         HXBFBase_BuyResult_VC *failureVC = [[HXBFBase_BuyResult_VC alloc] init];
         failureVC.imageName = @"failure";
         failureVC.buy_title = @"转让失败";
         NSDictionary *dic = (NSDictionary *)error;
         @try {
             failureVC.buy_description = dic[@"message"];
+            if (status == kHXBTransaction_Password_Error) {
+                [HxbHUDProgress showTextWithMessage:dic[@"message"]];
+                [weakSelf.passwordView clearUpPassword];
+                return;
+            }
         } @catch (NSException *exception) {
         } @finally {
         }
@@ -153,7 +145,7 @@
                 }
             }
         }];
-        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
+        [weakSelf.passwordView closePasswordView];
         [weakSelf.navigationController pushViewController:failureVC animated:YES];
         
     }];

@@ -172,20 +172,14 @@
 }
 
 #pragma mark - 键盘的出现和收回的监听方法
-- (void)keyboardWillShow:(NSNotification *)notification {
-    if (self.keyboardWillShowBlock) {
-        self.keyboardWillShowBlock(notification);
-    }
+- (void)keyboardWillShow:(NSNotification *)aNotification {
+    // 获取键盘的高度
+    NSDictionary *userInfo = [aNotification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
 }
 
-- (void)keyboardWillHide:(NSNotification *)notification {
-    if (self.keyboardWillHideBlock) {
-        self.keyboardWillHideBlock(notification);
-    }
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (void)keyboardWillHide:(NSNotification *)aNotification {
+//    self.BGView.center = CGPointMake(self.BGView.center.x, self.center.y);
 }
 
 @end

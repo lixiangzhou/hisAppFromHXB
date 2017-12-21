@@ -687,7 +687,7 @@
                                                 andPWD:(NSString *)pwd
                                andCurrentTransferValue:(NSString *)currentTransferValue
                                     SuccessBlock: (void(^)(id responseObject))successDateBlock
-                                 andFailureBlock: (void(^)(NSError *error))failureBlock{
+                                 andFailureBlock: (void(^)(NSError *error,NSInteger status))failureBlock{
     
     HXBBaseRequest *account_TransferRequest = [[HXBBaseRequest alloc]init];
     account_TransferRequest.requestUrl = kHXBFin_TransferResultURL(transferID);
@@ -701,13 +701,8 @@
     [account_TransferRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         
         if([responseObject[kResponseStatus] integerValue]) {
-            kNetWorkError(@" Plan 账户内债权确认页");
-            if ([responseObject[kResponseStatus] integerValue] == kHXBTransaction_Password_Error) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-                return;
-            }
             if (failureBlock) {
-                failureBlock(responseObject);
+                failureBlock(responseObject,[responseObject[kResponseStatus] integerValue]);
                 return;
             }
         }
@@ -716,7 +711,7 @@
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         if (failureBlock) {
-            failureBlock(error);
+            failureBlock(error,error.code);
             return;
         }
     }];

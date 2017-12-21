@@ -91,5 +91,5 @@
                                                 andPWD:(NSString *)pwd
                                andCurrentTransferValue:(NSString *)currentTransferValue
                                           SuccessBlock: (void(^)(id responseObject))successDateBlock
-                                       andFailureBlock: (void(^)(NSError *error))failureBlock;
+                                       andFailureBlock: (void(^)(NSError *error,NSInteger status))failureBlock;
 @end
