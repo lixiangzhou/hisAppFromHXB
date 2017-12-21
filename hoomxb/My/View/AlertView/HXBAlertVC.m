@@ -7,37 +7,25 @@
 //
 
 #import "HXBAlertVC.h"
-#import "SVGKit/SVGKImage.h"
 #import "HXBVerificationCodeAlertView.h"
 #import "HBAlertPasswordView.h"
 @interface HXBAlertVC ()<HBAlertPasswordViewDelegate, UITextFieldDelegate>
+
 @property (nonatomic, strong) UIButton *cancelBtn;
-
 @property (nonatomic, strong) UIButton *sureBtn;
-
 @property (nonatomic, strong) UIButton *forgetBtn;
-
 @property (nonatomic, strong) UIView *contentView;
-
 @property (nonatomic, strong) UILabel *message;
-
 @property (nonatomic, strong) HBAlertPasswordView *pwdField;
 
-//@property (nonatomic, strong) UIView *lineView;
-
-//@property (nonatomic, strong) UIButton *eyeBtn;
 //子标题设置
 @property (nonatomic, strong) UILabel *subTitleLabel;
-
 /**
  交易密码
  */
 @property (nonatomic, copy) NSString *transactionPassword;
-
 @property (nonatomic, strong) UIButton *backBtn;
-
 //@property (nonatomic, strong) HXBVerificationCodeAlertView *verificationCodeAlertView;
-
 @property (nonatomic, strong) UILabel *mobileLabel;
 
 @end
@@ -57,8 +45,8 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
     [self.view addSubview:self.backBtn];
     [self.view addSubview:self.contentView];
-    [self.view addSubview:self.cancelBtn];
     [self.view addSubview:self.mobileLabel];
+    [self.contentView addSubview:self.cancelBtn];
     [self.contentView addSubview:self.sureBtn];
     [self.contentView addSubview:self.message];
 }
@@ -111,89 +99,72 @@
 
 - (void)setupSubViewFrame
 {
+    kWeakSelf
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view).offset(kScrAdaptationH750(310));//385
+        make.centerX.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(310));//385
         make.height.offset(kScrAdaptationH750(500));//440
         make.width.offset(kScrAdaptationW750(590));
     }];
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView.mas_top); 
-        make.right.equalTo(self.contentView.mas_right);
-        make.width.offset(kScrAdaptationW750(50));
-        make.height.offset(kScrAdaptationH750(95));
+        make.bottom.equalTo(weakSelf.contentView.mas_bottom);
+        make.left.equalTo(weakSelf.contentView.mas_left);
+        make.width.mas_equalTo(kScrAdaptationW750(295));
+        make.height.offset(kScrAdaptationH750(80));
     }];
     [self.message mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView.mas_top).offset(kScrAdaptationH750(60));
-        make.centerX.equalTo(self.contentView);
+        make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
+        make.centerX.equalTo(weakSelf.contentView);
         make.height.offset(kScrAdaptationH750(34));
     }];
     [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(kScrAdaptationH750(-60));
-        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(40));
-        make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(40));
-        make.height.offset(kScrAdaptationH750(70));
+        make.bottom.equalTo(weakSelf.contentView.mas_bottom);
+        make.right.equalTo(weakSelf.contentView.mas_right);
+        make.width.mas_equalTo(kScrAdaptationW750(295));
+        make.height.offset(kScrAdaptationH750(80));
     }];
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top);
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.bottom.equalTo(self.view.mas_bottom);
+        make.top.equalTo(weakSelf.view.mas_top);
+        make.left.equalTo(weakSelf.view.mas_left);
+        make.right.equalTo(weakSelf.view.mas_right);
+        make.bottom.equalTo(weakSelf.view.mas_bottom);
     }];
 
     [self.mobileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).offset(kScrAdaptationH(50));
-        make.bottom.equalTo(self.sureBtn.mas_top);
-        make.left.equalTo(self.contentView).offset(kScrAdaptationW750(50));
-        make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-50));
+        make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH(50));
+        make.bottom.equalTo(weakSelf.sureBtn.mas_top);
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(50));
+        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(-50));
     }];
     [self.view bringSubviewToFront:self.mobileLabel];
     
     if (self.isCode) {
        
         [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.message.mas_bottom).offset(kScrAdaptationH750(20));
-            make.left.right.equalTo(self.contentView);
+            make.top.equalTo(weakSelf.message.mas_bottom).offset(kScrAdaptationH750(20));
+            make.left.right.equalTo(weakSelf.contentView);
         }];
         [self.verificationCodeAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.subTitleLabel.mas_bottom);
-            make.bottom.equalTo(self.sureBtn.mas_top);
-            make.left.equalTo(self.contentView).offset(kScrAdaptationW750(70));
-            make.right.equalTo(self.contentView).offset(kScrAdaptationW750(-70));
+            make.top.equalTo(weakSelf.subTitleLabel.mas_bottom);
+            make.bottom.equalTo(weakSelf.sureBtn.mas_top);
+            make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(70));
+            make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(-70));
         }];
         return;
     }
-//    if (self.isMobile) {
-    
-//        return;
-//    }
-    
+ 
     [self.pwdField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.message.mas_bottom).offset(kScrAdaptationH750(40));
         make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(45));
         make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(45));
         make.height.offset(kScrAdaptationH750(80));
     }];
-//    [self.eyeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.centerY.equalTo(self.pwdField);
-//        make.right.equalTo(self.pwdField.mas_right);
-//        make.height.offset(kScrAdaptationH750(23.9));
-//        make.width.offset(kScrAdaptationW750(40));
-//    }];
-    
-//    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(self.pwdField.mas_bottom).offset(kScrAdaptationH750(20));
-//        make.left.equalTo(self.contentView.mas_left).offset(kScrAdaptationW750(40));
-//        make.right.equalTo(self.contentView.mas_right).offset(-kScrAdaptationW750(40));
-//        make.height.offset(0.5);
-//    }];
-    
+
     [self.forgetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.pwdField.mas_bottom).offset(kScrAdaptationH750(20));
         make.right.equalTo(self.contentView.mas_right).offset(kScrAdaptationW750(-27));
         make.height.offset(kScrAdaptationH750(24));
     }];
-    
 }
 
 - (void)setMessageLabelText:(NSString *)messageLabelText {
@@ -294,10 +265,12 @@
 {
     if (!_cancelBtn) {
         _cancelBtn = [[UIButton alloc] init];
-//        [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [_cancelBtn setImage:[SVGKImage imageNamed:@"close.svg"].UIImage forState:UIControlStateNormal];
-        [_cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        _cancelBtn.backgroundColor = [UIColor clearColor];
+        [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [_cancelBtn setTitleColor:RGB(102, 102, 102) forState:UIControlStateNormal];
+        _cancelBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+//        [_cancelBtn setImage:[SVGKImage imageNamed:@"close.svg"].UIImage forState:UIControlStateNormal];
+        _cancelBtn.backgroundColor = RGB(232, 232, 238);
+        _cancelBtn.userInteractionEnabled = YES;
         [_cancelBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
     }
     return _cancelBtn;
@@ -310,11 +283,9 @@
         [_sureBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_sureBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-        [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
+        [_sureBtn setBackgroundColor:COR29];
         _sureBtn.userInteractionEnabled = NO;
-        _sureBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
-        _sureBtn.layer.cornerRadius = kScrAdaptationW750(10);
-        _sureBtn.layer.masksToBounds = YES;
+        _sureBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
     }
     return _sureBtn;
 }

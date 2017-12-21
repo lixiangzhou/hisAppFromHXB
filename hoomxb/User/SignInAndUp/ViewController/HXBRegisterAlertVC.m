@@ -171,11 +171,7 @@
         [_answeringVoiceCodeBtn addTarget:self action:@selector(answeringVoiceCodeClick) forControlEvents:UIControlEventTouchUpInside];
         [_answeringVoiceCodeBtn setBackgroundColor:RGB(245, 81, 81)];
         _answeringVoiceCodeBtn.userInteractionEnabled = YES;
-//        _answeringVoiceCodeBtn.layer.borderWidth = kScrAdaptationW750(1);
-//        _answeringVoiceCodeBtn.layer.borderColor = RGB(245, 81, 81).CGColor;
         _answeringVoiceCodeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
-//        _answeringVoiceCodeBtn.layer.cornerRadius = kScrAdaptationW750(10);
-//        _answeringVoiceCodeBtn.layer.masksToBounds = YES;
     }
     return _answeringVoiceCodeBtn;
 }
@@ -187,11 +183,7 @@
         [_sendSMSCodeBtn addTarget:self action:@selector(sendSMSCodeClick) forControlEvents:UIControlEventTouchUpInside];
         [_sendSMSCodeBtn setBackgroundColor:RGB(232, 232, 238)];
         _sendSMSCodeBtn.userInteractionEnabled = YES;
-//        _sendSMSCodeBtn.layer.borderWidth = kScrAdaptationW750(1);
-//        _sendSMSCodeBtn.layer.borderColor = RGB(245, 81, 81).CGColor;
         _sendSMSCodeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
-//        _sendSMSCodeBtn.layer.cornerRadius = kScrAdaptationW750(10);
-//        _sendSMSCodeBtn.layer.masksToBounds = YES;
     }
     return _sendSMSCodeBtn;
 }
