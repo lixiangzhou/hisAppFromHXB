@@ -38,20 +38,37 @@
 
 @implementation HxbHomeViewController
 
+#pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.homeView];
-
     [self setupUI];
     
     [self registerRefresh];
     
-    //判断是否显示设置手势密码
-    [self gesturePwdShow];
     [self hiddenTabbarLine];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self hideNavigationBar:animated];
+    [self getData:YES];
+    self.homeView.userInfoViewModel = self.userInfoViewModel;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [[HXBVersionUpdateManager sharedInstance] show];
+    
+    [self transparentNavigationTitle];
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+#pragma mark - UI
 /**
  设置UI
  */
@@ -73,18 +90,6 @@
     [self.tabBarController.tabBar addSubview:shadowImage];
     [self.tabBarController.tabBar setBackgroundColor:[UIColor whiteColor]];
     [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
-}
-
-/**
- 手势密码逻辑
- */
-- (void)gesturePwdShow
-{
-    if (KeyChain.gesturePwd.length == 0 && [KeyChain isLogin]) {
-        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-        gesturePasswordVC.type = GestureViewControllerTypeSetting;
-        [self.navigationController pushViewController:gesturePasswordVC animated:NO];
-    }
 }
 
 /**
@@ -134,16 +139,13 @@
     kWeakSelf
     if (KeyChain.isLogin) {
         [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            [self.homeView changeIndicationView:viewModel];
-            [self.homeView showSecurityCertificationOrInvest:viewModel];
-            self.userInfoViewModel = viewModel;
+            weakSelf.userInfoViewModel = viewModel;
+            weakSelf.homeView.userInfoViewModel = self.userInfoViewModel;
         } andFailure:^(NSError *error) {
-            [self.homeView changeIndicationView:self.userInfoViewModel];
-            [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+            weakSelf.homeView.userInfoViewModel = self.userInfoViewModel;
         }];
     } else {
-        [self.homeView changeIndicationView:self.userInfoViewModel];
-        [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+        self.homeView.userInfoViewModel = self.userInfoViewModel;
     }
     
     if (!self.homeView.homeBaseModel) {
@@ -179,9 +181,7 @@
 - (HxbHomeView *)homeView{
     if (!_homeView) {
         kWeakSelf
-//        _homeView = [[HxbHomeView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _homeView = [[HxbHomeView alloc]initWithFrame:CGRectZero];
-
         /**
          点击cell中按钮的回调的Block
          */
@@ -190,7 +190,6 @@
         };
         /**
          点击cell中的回调的Block
-
          @param indexPath 点击cell的indexPath
          */
         _homeView.homeCellClickBlick = ^(NSIndexPath *indexPath){
@@ -233,4 +232,10 @@
     }
     return _homeView;
 }
+
+#pragma mark - 设置状态栏
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 @end

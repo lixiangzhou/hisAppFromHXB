@@ -7,7 +7,9 @@
 //
 
 #define kHXBBottomSpacing 10
-#define kHXbdefaultSpacing 0
+#define kHXBInvestViewHeight kScrAdaptationH(311)
+#define kHXBNotInvestViewHeight kScrAdaptationH(279)
+
 
 #import "HxbHomeView.h"
 #import "HXBHomePageHeadView.h"
@@ -19,8 +21,12 @@
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) UILabel *footerLabel;
 @property (nonatomic, strong) HxbHomePageViewModel *dataViewModel;
-
 @property (nonatomic, strong) HXBBaseContDownManager *contDwonManager;
+
+@property (nonatomic, strong) UIView *tableBackgroundView;
+
+@property (nonatomic, strong) HXBCustomNavView *navView;
+
 @end
 
 @implementation HxbHomeView
@@ -31,35 +37,33 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.mainTableView];
-        [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.top.equalTo(self);
-//            make.top.equalTo(self);//.offset(kScrAdaptationH(30))
-            make.bottom.equalTo(self).offset(-49); //注意适配iPhone X
-        }];
-//        [self.mainTableView addSubview:self.refreshControl];
-//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeIndicationView) name:IsLoginToReloadTableView object:nil];
-//        [self addSubview:self.navigationBar];
-        [self creatCountDownManager];
-
+        [self.mainTableView insertSubview:self.tableBackgroundView atIndex:0];
+        [self addSubview:self.navView];
+        [self setupUI];
     }
     return self;
 }
 
+#pragma mark - setupUI
+
+- (void)setupUI {
+    [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self);
+        //            make.top.equalTo(self);//.offset(kScrAdaptationH(30))
+        make.bottom.equalTo(self).offset(-49); //注意适配iPhone X
+    }];
+    UIImage *bgImage = [UIImage imageNamed:@"Home_top_bg"];
+    CGSize imageSize = bgImage.size;
+    CGFloat imageHeight = imageSize.height / (imageSize.width / kScreenWidth);
+    [self.tableBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.height.offset(imageHeight);
+        make.bottom.equalTo(self.headView.bannerView.mas_top);
+    }];
+}
+
 
 #pragma mark Private Methods
-//- (void)hideBulletinView
-//{
-//    if (self.headView) {
-//        [self.headView hideBulletinView];
-//    }
-//}
-
-- (void)showBulletinView
-{
-    if (self.headView) {
-        [self.headView showBulletinView];
-    }
-}
 
 /**
  判断业务逻辑
@@ -69,15 +73,17 @@
     kWeakSelf
     if (![KeyChain isLogin]) {
         //没有投资显示的界面
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight);
         [weakSelf.headView showNotValidatedView];
         return;
     }
-    
     if([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
         //已经投资显示的界面
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBInvestViewHeight);
         [weakSelf.headView showAlreadyInvestedView];
     }else{
         //没有投资显示的界面
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight);
         [weakSelf.headView showNotValidatedView];
     }
 }
@@ -86,19 +92,11 @@
     [self.headView showSecurityCertificationOrInvest:viewModel];
 }
 
-- (void)endRefreshing
-{
-//    [self.mainTableView.hxb_behindHeader endRefreshing];
-}
 
 #pragma mark HXBHomePageHeadViewDelegate Methods
 - (void)resetHeadView
 {
     self.mainTableView.tableHeaderView = self.headView;
-}
-
-- (void)setDataModel:(HxbHomePageViewModel *)dataModel{
-    _dataViewModel = dataModel;
 }
 
 - (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
@@ -108,11 +106,9 @@
     if (homeBaseModel.homeTitle.baseTitle.length) {
         self.footerLabel.text = [NSString stringWithFormat:@"- %@ -",homeBaseModel.homeTitle.baseTitle];
         self.mainTableView.tableFooterView = self.footerView;
-        contentInset.bottom = kHXBBottomSpacing;
-        self.mainTableView.contentInset = contentInset;
     } else {
         self.mainTableView.tableFooterView = nil;
-        contentInset.bottom = kHXbdefaultSpacing;
+        contentInset.bottom = kHXBBottomSpacing;
         self.mainTableView.contentInset = contentInset;
     }
     
@@ -123,7 +119,13 @@
             [subView removeFromSuperview];
         }
     }];
-    self.contDwonManager.modelArray = self.homeBaseModel.homePlanRecommend;
+    
+    //更换数据源之前， 要先取消定时器，然后再重新设置， 否则由于线程同步问题会引发crash
+    if(self.contDwonManager) {
+        [self.contDwonManager cancelTimer];
+        self.contDwonManager = nil;
+    }
+    [self creatCountDownManager];
     [self.mainTableView reloadData];
 }
 
@@ -136,49 +138,22 @@
         if (weakSelf.homeBaseModel.homePlanRecommend.count > index.row) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index.row];
             HXBHomePageProductCell *cell = [self.mainTableView cellForRowAtIndexPath:indexPath];
+            //更新列表中对应的字段值
+            HxbHomePageModel_DataList* pageModel = [weakSelf.homeBaseModel.homePlanRecommend safeObjectAtIndex:index.row];
+            [pageModel setValue:model.countDownLastStr forKey:@"countDownLastStr"];
+            [pageModel setValue:model.countDownString forKey:@"countDownString"];
+            
             [cell setValue:model.countDownString forKey:@"countDownString"];
         }
     }];
-    //要与服务器时间想比较
-    //    self.contDwonManager.clientTime = [HXBDate       ]
-    //    [self.contDwonManager stopWenScrollViewScrollBottomWithTableView:self.planListTableView];
     self.contDwonManager.isAutoEnd = YES;
     //开启定时器
     [self.contDwonManager resumeTimer];
 }
 
-//- (void)setHomeDataListViewModelArray:(NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
-//    _homeDataListViewModelArray = homeDataListViewModelArray;
-//    [_mainTableView reloadData];
-//}
-//- (void)loadData
-//{
-//    id next = [self nextResponder];
-//    while (![next isKindOfClass:[HXBHomePageVC class]]) {
-//        next = [next nextResponder];
-//    }
-//    if ([next isKindOfClass:[HXBHomePageVC class]]) {
-//        HXBHomePageVC *vc = (HXBHomePageVC *)next;
-//        [vc refreshHomePage];
-//        //        [self getTopProductsData];
-//    }
-//}
-
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView.contentOffset.y >= (SCREEN_WIDTH * 9)/16) {
-        [UIView animateWithDuration:0.5 animations:^{
-//            _navigationBar.alpha = 1.0f;
-        } completion:^(BOOL finished) {
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-        }];
-    }else{
-        [UIView animateWithDuration:0.5 animations:^{
-//            _navigationBar.alpha = 0;
-        } completion:^(BOOL finished) {
-            [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-        }];
-    }
+    self.navView.navAlpha = (scrollView.contentOffset.y)/(CGRectGetMaxY(self.tableBackgroundView.frame) - HXBStatusBarAndNavigationBarHeight);
 }
 
 #pragma mark UITableView Delegate/DataSource
@@ -226,53 +201,31 @@
     if (self.homeCellClickBlick) {
         self.homeCellClickBlick(indexPath);
     }
-//    
-//    if (_network) {
-//        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//        TopProductModel * model = [_hotSellDataList objectAtIndex:indexPath.row];
-//        id next = [self nextResponder];
-//        while (![next isKindOfClass:[HXBHomePageVC class]]) {
-//            next = [next nextResponder];
-//        }
-//        if ([next isKindOfClass:[HXBHomePageVC class]]) {
-//            HXBHomePageVC *vc = (HXBHomePageVC *)next;
-//            [vc purchaseWithModel:model];
-//        }
-//    }
 }
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footer = [[UIView alloc] init];
-    footer.backgroundColor = [UIColor clearColor];
-    return footer;
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *header = [[UIView alloc] init];
+    header.backgroundColor = [UIColor clearColor];
+    return header;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return kScrAdaptationH(10);
-}
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.01;
 }
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return kScrAdaptationH(10);
+}
+
 #pragma mark SET/GET METHODS
-//- (void)setBannersModel:(NSArray *)bannersModel
-//{
-//    _bannersModel = bannersModel;
-//    self.headView.bannerView.bannersModel = bannersModel;
-//}
-//
-//- (void)setBulletinsModel:(NSArray *)bulletinsModel
-//{
-//    _bulletinsModel = bulletinsModel;
-//    self.headView.bulletinsModel = bulletinsModel;
-//}
-//
-//-(void)setProfitModel:(AssetOverviewModel *)profitModel
-//{
-//    _profitModel = profitModel;
-//    self.headView.profitModel = profitModel;
-//    
-//}
+
+- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
+    _userInfoViewModel = userInfoViewModel;
+    self.headView.userInfoViewModel = userInfoViewModel;
+    [self changeIndicationView:userInfoViewModel];
+    [self showSecurityCertificationOrInvest:userInfoViewModel];
+}
 
 - (void)setIsStopRefresh_Home:(BOOL)isStopRefresh_Home{
     _isStopRefresh_Home = isStopRefresh_Home;
@@ -282,12 +235,11 @@
     }
 }
 
-
 - (HXBHomePageHeadView *)headView
 {
     if (!_headView) {
         kWeakSelf
-        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH750(533))];//199
+        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight)];//199
         
         _headView.delegate = self;
         _headView.tipButtonClickBlock_homePageHeadView = ^(){
@@ -316,7 +268,7 @@
     if (!_footerView) {
         _footerView = [UIView new];
         _footerView.backgroundColor = [UIColor clearColor];
-        _footerView.frame = CGRectMake(0, 0, self.mainTableView.width, kScrAdaptationH(20));
+        _footerView.frame = CGRectMake(0, 0, self.mainTableView.width, kScrAdaptationH(20) + 2 * kHXBBottomSpacing);
         [_footerView addSubview:self.footerLabel];
         [self.footerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.center.equalTo(_footerView);
@@ -355,19 +307,30 @@
     return _mainTableView;
 }
 
-//- (HXBBannerView *)bannerView
-//{
-//    if (!_bannerView) {
-//        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_WIDTH * 9/16)];
-//        _bannerView.backgroundColor = [UIColor clearColor];
-//    }
-//    return _bannerView;
-//}
+- (UIView *)tableBackgroundView {
+    if (!_tableBackgroundView) {
+        UIImage *bgImage = [UIImage imageNamed:@"Home_top_bg"];
+        CGSize imageSize = bgImage.size;
+        CGFloat imageHeight = imageSize.height / (imageSize.width / kScreenWidth);
+        _tableBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, imageHeight)];
+        UIImageView *bgImageView = [[UIImageView alloc] initWithImage:bgImage];
+        bgImageView.contentMode = UIViewContentModeScaleAspectFit;
+        [_tableBackgroundView addSubview:bgImageView];
+        [bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.top.right.bottom.equalTo(_tableBackgroundView);
+        }];
+    }
+    return _tableBackgroundView;
+}
 
-//- (NSMutableArray<HxbHomePageViewModel_dataList *> *)homeDataListViewModelArray{
-//    if (!_homeDataListViewModelArray) {
-//        _homeDataListViewModelArray = [NSMutableArray array];
-//    }
-//    return _homeDataListViewModelArray;
-//}
+- (HXBCustomNavView *)navView {
+    if (!_navView) {
+        _navView = [[HXBCustomNavView alloc] init];
+        _navView.backgroundColor = [UIColor whiteColor];
+        _navView.title = @"红小宝";
+        _navView.navAlpha = 0;
+    }
+    return _navView;
+}
+
 @end

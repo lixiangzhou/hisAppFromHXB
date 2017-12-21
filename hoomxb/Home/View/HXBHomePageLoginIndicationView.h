@@ -10,6 +10,9 @@
 
 @interface HXBHomePageLoginIndicationView : UIView
 
-- (void)loadNewDate;
+/**
+ 用户信息
+ */
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 @end

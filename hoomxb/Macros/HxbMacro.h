@@ -30,4 +30,6 @@
 #import "HXBCode.h"
 
 #import "HXBBaseConfig.h"
+
+#import "HXBThemAdapterManager.h"
 #endif /* HxbMacro_h */
