@@ -687,7 +687,7 @@
                                                 andPWD:(NSString *)pwd
                                andCurrentTransferValue:(NSString *)currentTransferValue
                                     SuccessBlock: (void(^)(id responseObject))successDateBlock
-                                 andFailureBlock: (void(^)(NSError *error,NSInteger status))failureBlock{
+                                 andFailureBlock: (void(^)(NSError *error,id responseObject))failureBlock{
     
     HXBBaseRequest *account_TransferRequest = [[HXBBaseRequest alloc]init];
     account_TransferRequest.requestUrl = kHXBFin_TransferResultURL(transferID);
@@ -702,7 +702,7 @@
         
         if([responseObject[kResponseStatus] integerValue]) {
             if (failureBlock) {
-                failureBlock(responseObject,[responseObject[kResponseStatus] integerValue]);
+                failureBlock(nil,responseObject);
                 return;
             }
         }
@@ -711,7 +711,7 @@
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         if (failureBlock) {
-            failureBlock(error,error.code);
+            failureBlock(error,nil);
             return;
         }
     }];
