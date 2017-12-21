@@ -43,6 +43,9 @@
 @property (nonatomic, strong) NSMutableArray *pointArr;
 
 @property (nonatomic, strong) UITextField *passwordTextField;
+
+@property (nonatomic, strong) UIButton *backgroundButton;
+
 @end
 
 @implementation HXBTransactionPasswordView
@@ -63,11 +66,23 @@
 
 - (void)setUI {
     self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
+    [self addSubview:self.backgroundButton];
+    [self addSubview:self.contentView];
     [self.contentView addSubview:self.closeButton];
     [self.contentView addSubview:self.tileLabel];
     [self.contentView addSubview:self.segmentingLine];
     [self.contentView addSubview:self.passwordView];
     [self.contentView addSubview:self.forgetButton];
+    
+    [self.backgroundButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self);
+        make.bottom.equalTo(self.contentView.mas_top);
+    }];
+    
+    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.left.right.equalTo(self);
+        make.height.offset(kScrAdaptationH750(388));
+    }];
     
     [self.closeButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView);
@@ -131,7 +146,8 @@
     }
     
     // 监听键盘的高度
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 #pragma mark - Action
@@ -146,10 +162,11 @@
     [[HXBRootVCManager manager].topVC.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
 }
 
-+ (HXBTransactionPasswordView *)show {
++ ( HXBTransactionPasswordView *)show {
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = NO;
+    [IQKeyboardManager sharedManager].enable = NO;
     HXBTransactionPasswordView *passwordView = [[self alloc] init];
     [[HXBRootVCManager manager].topVC.view addSubview:passwordView];
-    passwordView.passwordTextField.inputAccessoryView = passwordView.contentView;
     [passwordView.passwordTextField becomeFirstResponder];
     return passwordView;
 }
@@ -162,13 +179,10 @@
     [self textFieldDidChange:self.passwordTextField];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    [self closePasswordView];
-}
-
 
 #pragma mark - UITextFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
     if ([string isEqualToString:@"\n"]) {
         // 按回车关闭键盘
         [textField resignFirstResponder];
@@ -205,6 +219,8 @@
 
 
 #pragma mark - Setter / Getter / Lazy
+
+
 - (UIButton *)closeButton {
     if (!_closeButton) {
         _closeButton = [[UIButton alloc] init];
@@ -254,13 +270,6 @@
     return _contentView;
 }
 
-//- (UIButton *)backgroundButton {
-//    if (!_backgroundButton) {
-//        _backgroundButton = [[UIButton alloc] init];
-//        [_backgroundButton addTarget:self action:@selector(closePasswordView) forControlEvents:(UIControlEventTouchUpInside)];
-//    }
-//    return _backgroundButton;
-//}
 
 - (UITextField *)passwordTextField {
     if (!_passwordTextField) {
@@ -273,16 +282,45 @@
     return _passwordTextField;
 }
 
+- (UIButton *)backgroundButton {
+    if (!_backgroundButton) {
+        _backgroundButton = [[UIButton alloc] init];
+        [_backgroundButton addTarget:self action:@selector(closePasswordView) forControlEvents:(UIControlEventTouchUpInside)];
+    }
+    return _backgroundButton;
+}
+
+
 #pragma mark - Helper
 
 
 #pragma mark - 键盘的出现和收回的监听方法
-- (void)keyboardDidHide:(NSNotification *)notification {
-    [self removeFromSuperview];
+- (void)keyboardWillShow:(NSNotification *)notification {
+    //获取键盘的高度
+    NSDictionary *userInfo = [notification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(kScrAdaptationH750(388) + keyboardRect.size.height);
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+    // 获取键盘隐藏动画时间
+    CGFloat duration = [notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    [UIView animateWithDuration:duration animations:^{
+        self.contentView.y = kScreenHeight;
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
 }
 
 
 #pragma mark - Public
-
+- (void)dealloc {
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    [IQKeyboardManager sharedManager].enable = YES;
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end
