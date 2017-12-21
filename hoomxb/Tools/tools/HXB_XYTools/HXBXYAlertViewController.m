@@ -307,7 +307,8 @@
                 weakSelf.clickXYRightButtonBlock();
             }
         }];
-    } else {
+    }
+    else {
         if (self.clickXYRightButtonBlock) {
             self.clickXYRightButtonBlock();
         }
