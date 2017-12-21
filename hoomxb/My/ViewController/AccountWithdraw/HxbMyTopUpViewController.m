@@ -20,10 +20,6 @@
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
-//是否有语音验证码
-//@property (nonatomic, assign) BOOL isSpeechVerificationCode;
-//是否点击的语音
-//@property (nonatomic, assign) BOOL isClickSpeechVerificationCode;
 @property (nonatomic, strong) HXBAlertVC *alertVC;
 @end
 

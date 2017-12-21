@@ -25,6 +25,7 @@
 #import "HXBNoticeViewController.h"//公告界面
 #import "HXBBannerWebViewController.h"//H5的Banner页面
 #import "HXBMiddlekey.h"
+#import "HXBHomePopViewManager.h"
 #import "HXBRootVCManager.h"
 #import "HXBVersionUpdateManager.h"
 
@@ -36,7 +37,6 @@
 @property (nonatomic, assign) BOOL isVersionUpdate;
 
 @property (nonatomic, strong) HXBVersionUpdateViewModel *versionUpdateVM;
-
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 @end
@@ -57,6 +57,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    kWeakSelf
+    //    [[HXBHomePopViewManager sharedInstance] getHomePopViewData];//获取首页弹窗数据 多次弹出情况
+    [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:weakSelf];//展示首页弹窗
     
     [self hideNavigationBar:animated];
     [self getData:YES];
@@ -113,7 +117,6 @@
 {
      [self getData:YES];
 }
-
 
 #pragma mark Request
 - (void)getData:(BOOL)isUPReloadData{
