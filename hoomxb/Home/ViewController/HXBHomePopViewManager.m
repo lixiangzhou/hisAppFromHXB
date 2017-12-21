@@ -93,51 +93,53 @@
 
 - (void)popHomeViewfromController:(UIViewController *)controller{
     
-    kWeakSelf
-    // 1.初始化
-    _popView = [[HXBHomePopView alloc]init];
-    //        [popView.imgView sd_setImageWithURL:[NSURL URLWithString:self.homePopViewModel.]];
-    // 2.设置属性，可不设置使用默认值，见注解
-    // 2.1 显示时点击背景是否移除弹框
-    _popView.isClickBGDismiss = YES;
-    // 2.2 显示时背景的透明度
-    _popView.popBGAlpha = 0.5f;
-    // 2.6 显示完成回调
-    __weak typeof(_popView) weakPopView = _popView;
-    _popView.popCompleteBlock = ^{
-        NSLog(@"1111显示完成");
-        
-        if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
-            [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
-            weakSelf.isHide = YES;
-            //                [weakPopView dismiss];
-        }
-        [kUserDefaults synchronize];
-    };
-    // 2.7 移除完成回调
-    _popView.dismissCompleteBlock = ^{
-        NSLog(@"1111移除完成");
-    };
-    // 3.1处理自定义视图操作事件
-    _popView.closeActionBlock = ^{
-        NSLog(@"1111点击关闭按钮");
-        [weakPopView dismiss];
-    };
-    _popView.clickImageBlock = ^{
-        NSLog(@"1111点击图片");
-        //跳转到原生或h5
-        [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel fromController:controller];
-    };
-    _popView.clickBgmDismissCompleteBlock = ^{
-        NSLog(@"1111点击背景移除完成");
-        [weakPopView dismiss];
-    };
-    // 4.显示弹框
-    if (!self.isHide) {
-        UIImage *image = [UIImage imageWithData: [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]]];
-        if (image) {
-            _popView.imgView.image = image;
-            [_popView pop];
+    if ([controller isKindOfClass:[HxbHomeViewController class]]) {
+        kWeakSelf
+        // 1.初始化
+        _popView = [[HXBHomePopView alloc]init];
+        //        [popView.imgView sd_setImageWithURL:[NSURL URLWithString:self.homePopViewModel.]];
+        // 2.设置属性，可不设置使用默认值，见注解
+        // 2.1 显示时点击背景是否移除弹框
+        _popView.isClickBGDismiss = YES;
+        // 2.2 显示时背景的透明度
+        _popView.popBGAlpha = 0.5f;
+        // 2.6 显示完成回调
+        __weak typeof(_popView) weakPopView = _popView;
+        _popView.popCompleteBlock = ^{
+            NSLog(@"1111显示完成");
+            
+            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
+                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
+                weakSelf.isHide = YES;
+                //                [weakPopView dismiss];
+            }
+            [kUserDefaults synchronize];
+        };
+        // 2.7 移除完成回调
+        _popView.dismissCompleteBlock = ^{
+            NSLog(@"1111移除完成");
+        };
+        // 3.1处理自定义视图操作事件
+        _popView.closeActionBlock = ^{
+            NSLog(@"1111点击关闭按钮");
+            [weakPopView dismiss];
+        };
+        _popView.clickImageBlock = ^{
+            NSLog(@"1111点击图片");
+            //跳转到原生或h5
+            [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel fromController:controller];
+        };
+        _popView.clickBgmDismissCompleteBlock = ^{
+            NSLog(@"1111点击背景移除完成");
+            [weakPopView dismiss];
+        };
+        // 4.显示弹框
+        if (!self.isHide) {
+            UIImage *image = [UIImage imageWithData: [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]]];
+            if (image) {
+                _popView.imgView.image = image;
+                [_popView pop];
+            }
         }
     }
 }
