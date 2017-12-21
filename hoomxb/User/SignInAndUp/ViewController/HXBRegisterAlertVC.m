@@ -7,7 +7,6 @@
 //
 
 #import "HXBRegisterAlertVC.h"
-#import "SVGKit/SVGKImage.h"
 
 @interface HXBRegisterAlertVC ()
 @property (nonatomic, strong) UIButton *backBtn;
@@ -46,7 +45,7 @@
     self.view.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.6];
     [self.view addSubview:self.backBtn];
     [self.view addSubview:self.contentView];
-    [self.view addSubview:self.cancelBtn];
+    [self.contentView addSubview:self.cancelBtn];
     [self.contentView addSubview:self.messageLab];
     [self.contentView addSubview:self.subTitleLabel];
     [self.contentView addSubview:self.sendSMSCodeBtn];
@@ -98,15 +97,15 @@
     }];
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.view);
-        make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(385));
-        make.height.offset(kScrAdaptationH750(400));
-        make.width.offset(kScrAdaptationW750(590));
+        make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(400));
+        make.height.offset(kScrAdaptationH750(324));
+        make.width.offset(kScrAdaptationW750(560));
     }];
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.contentView.mas_top);
-        make.right.equalTo(weakSelf.contentView.mas_right);
-        make.width.offset(kScrAdaptationW750(50));
-        make.height.offset(kScrAdaptationH750(95));
+        make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(15));
+        make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationW750(-15));
+        make.width.offset(kScrAdaptationW750(46));
+        make.height.offset(kScrAdaptationH750(46));
     }];
     [self.messageLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
@@ -120,17 +119,16 @@
         make.height.equalTo(@kScrAdaptationH(42));
     }];
     [self.sendSMSCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(kScrAdaptationH750(-60));
-        make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationW750(40));
-        make.width.equalTo(@kScrAdaptationW(117.5));
-        make.height.offset(kScrAdaptationH750(70));
+        make.bottom.equalTo(weakSelf.contentView.mas_bottom);
+        make.left.equalTo(weakSelf.contentView.mas_left);
+        make.width.mas_equalTo(kScrAdaptationW750(280));
+        make.height.offset(kScrAdaptationH750(80));
     }];
     [self.answeringVoiceCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(weakSelf.contentView.mas_bottom).offset(kScrAdaptationH750(-60));
-//        make.left.equalTo(self.sendSMSCodeBtn.mas_right).offset(kScrAdaptationW750(40));
-        make.width.equalTo(@kScrAdaptationW(117.5));
-        make.right.equalTo(weakSelf.contentView.mas_right).offset(-kScrAdaptationW750(40));
-        make.height.offset(kScrAdaptationH750(70));
+        make.bottom.equalTo(weakSelf.contentView.mas_bottom);
+        make.right.equalTo(weakSelf.contentView.mas_right);
+        make.width.mas_equalTo(kScrAdaptationW750(280));
+        make.height.offset(kScrAdaptationH750(80));
     }];
 }
 - (void)verificationCodeBtnWithBlock:(void (^)())getVerificationCodeBlock{
@@ -173,11 +171,11 @@
         [_answeringVoiceCodeBtn addTarget:self action:@selector(answeringVoiceCodeClick) forControlEvents:UIControlEventTouchUpInside];
         [_answeringVoiceCodeBtn setBackgroundColor:RGB(245, 81, 81)];
         _answeringVoiceCodeBtn.userInteractionEnabled = YES;
-        _answeringVoiceCodeBtn.layer.borderWidth = kScrAdaptationW750(1);
-        _answeringVoiceCodeBtn.layer.borderColor = RGB(245, 81, 81).CGColor;
+//        _answeringVoiceCodeBtn.layer.borderWidth = kScrAdaptationW750(1);
+//        _answeringVoiceCodeBtn.layer.borderColor = RGB(245, 81, 81).CGColor;
         _answeringVoiceCodeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
-        _answeringVoiceCodeBtn.layer.cornerRadius = kScrAdaptationW750(10);
-        _answeringVoiceCodeBtn.layer.masksToBounds = YES;
+//        _answeringVoiceCodeBtn.layer.cornerRadius = kScrAdaptationW750(10);
+//        _answeringVoiceCodeBtn.layer.masksToBounds = YES;
     }
     return _answeringVoiceCodeBtn;
 }
@@ -185,15 +183,15 @@
 {
     if (!_sendSMSCodeBtn) {
         _sendSMSCodeBtn = [[UIButton alloc] init];
-        [_sendSMSCodeBtn setTitleColor:RGB(245, 81, 81) forState:UIControlStateNormal];
+        [_sendSMSCodeBtn setTitleColor:RGB(102, 102, 102) forState:UIControlStateNormal];
         [_sendSMSCodeBtn addTarget:self action:@selector(sendSMSCodeClick) forControlEvents:UIControlEventTouchUpInside];
-        [_sendSMSCodeBtn setBackgroundColor:[UIColor whiteColor]];
+        [_sendSMSCodeBtn setBackgroundColor:RGB(232, 232, 238)];
         _sendSMSCodeBtn.userInteractionEnabled = YES;
-        _sendSMSCodeBtn.layer.borderWidth = kScrAdaptationW750(1);
-        _sendSMSCodeBtn.layer.borderColor = RGB(245, 81, 81).CGColor;
+//        _sendSMSCodeBtn.layer.borderWidth = kScrAdaptationW750(1);
+//        _sendSMSCodeBtn.layer.borderColor = RGB(245, 81, 81).CGColor;
         _sendSMSCodeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
-        _sendSMSCodeBtn.layer.cornerRadius = kScrAdaptationW750(10);
-        _sendSMSCodeBtn.layer.masksToBounds = YES;
+//        _sendSMSCodeBtn.layer.cornerRadius = kScrAdaptationW750(10);
+//        _sendSMSCodeBtn.layer.masksToBounds = YES;
     }
     return _sendSMSCodeBtn;
 }
@@ -222,7 +220,7 @@
 {
     if (!_cancelBtn) {
         _cancelBtn = [[UIButton alloc] init];
-        [_cancelBtn setImage:[SVGKImage imageNamed:@"close.svg"].UIImage forState:UIControlStateNormal];
+        [_cancelBtn setImage:[UIImage imageNamed:@"register_close"] forState:UIControlStateNormal];
         [_cancelBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         _cancelBtn.backgroundColor = [UIColor clearColor];
         [_cancelBtn addTarget:self action:@selector(cancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -234,7 +232,7 @@
     if (!_contentView) {
         _contentView = [[UIView alloc] init];
         _contentView.backgroundColor = [UIColor whiteColor];
-        _contentView.layer.cornerRadius = kScrAdaptationW750(10);
+        _contentView.layer.cornerRadius = kScrAdaptationW750(7);
         _contentView.layer.masksToBounds = YES;
         
     }
