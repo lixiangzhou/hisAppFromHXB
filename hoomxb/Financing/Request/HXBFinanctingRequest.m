@@ -747,10 +747,16 @@
     confirmBuyReslut.requestMethod = NYRequestMethodPost;
     [confirmBuyReslut startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+        NSString *errorType = [[responseObject valueForKey:kResponseStatus] valueForKey:@"errorType"];
         if (status) {
-            if (status == kHXBTransaction_Password_Error || status == kHXBSMS_Code_Error || status == kHXBBuying_Too_Frequently || status == kHXBBuy_Coupon_Error) {
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            if ([errorType isEqualToString:@"TOAST"]) {
+                status = kBuy_Toast;
+            } else if ([errorType isEqualToString:@"RESULT"]) {
+                status = kBuy_Result;
+            } else if ([errorType isEqualToString:@"PROCESSING"]) {
+                status = kBuy_Processing;
             }
+            if (status == kHXBTransaction_Password_Error) status = kHXBTransaction_Password_Error;
             if (failureBlock) failureBlock(responseObject[kResponseMessage], status); return;
         }
         NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
@@ -776,11 +782,17 @@
     loanBuyReslutRequest.requestArgument = parameter;
     [loanBuyReslutRequest startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+        NSString *errorType = [[responseObject valueForKey:kResponseStatus] valueForKey:@"errorType"];
         if (status) {
-            if (status == kHXBTransaction_Password_Error || status == kHXBSMS_Code_Error || status == kHXBBuying_Too_Frequently) {
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            if ([errorType isEqualToString:@"TOAST"]) {
+                status = kBuy_Toast;
+            } else if ([errorType isEqualToString:@"RESULT"]) {
+                status = kBuy_Result;
+            } else if ([errorType isEqualToString:@"PROCESSING"]) {
+                status = kBuy_Processing;
             }
-            if (failureBlock) failureBlock(responseObject[kResponseMessage],status); return;
+            if (status == kHXBTransaction_Password_Error) status = kHXBTransaction_Password_Error;
+            if (failureBlock) failureBlock(responseObject[kResponseMessage], status); return;
         }
         
         HXBFinModel_BuyResoult_LoanModel *loanBuyResoult = [[HXBFinModel_BuyResoult_LoanModel alloc]init];
@@ -808,10 +820,16 @@
     [loanTruansferAPI startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+        NSString *errorType = [[responseObject valueForKey:kResponseStatus] valueForKey:@"errorType"];
         if (status) {
-            if (status == kHXBTransaction_Password_Error || status == kHXBSMS_Code_Error || status == kHXBBuying_Too_Frequently) {
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            if ([errorType isEqualToString:@"TOAST"]) {
+                status = kBuy_Toast;
+            } else if ([errorType isEqualToString:@"RESULT"]) {
+                status = kBuy_Result;
+            } else if ([errorType isEqualToString:@"PROCESSING"]) {
+                status = kBuy_Processing;
             }
+            if (status == kHXBTransaction_Password_Error) status = kHXBTransaction_Password_Error;
             if (failureBlock) failureBlock(responseObject[kResponseMessage], status); return;
         }
         

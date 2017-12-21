@@ -60,6 +60,10 @@
 @property (nonatomic, assign) BOOL isUsedForPlan;
 /** 是否被用于了债权转让*/
 @property (nonatomic, assign) BOOL isUsedForTransfer;
+/** 抵扣券title*/
+@property (nonatomic, copy) NSString *dicountSummaryTitle;
+/** 抵扣券最小投资金额文案*/
+@property (nonatomic, copy) NSString *dicountMinInvestDesc;
 @property (nonatomic, copy) NSString *summaryTitle;
 @property (nonatomic, copy) NSString *summarySubtitle;
 @property (nonatomic, copy) NSString *summaryContent;

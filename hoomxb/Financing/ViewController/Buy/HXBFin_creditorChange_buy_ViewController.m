@@ -349,9 +349,7 @@ static NSString *const bankString = @"绑定银行卡";
         failViewController.title = @"投资结果";
         switch (status) {
                 // 加入失败跳转到失败页（3408:余额不足， 999:已售罄， 1:普通错误状态码）
-            case kHXBNot_Sufficient_Funds:
-            case kHXBSold_Out:
-            case kHXBCode_Enum_CommonError:
+            case kBuy_Result:
                 failViewController.imageName = @"failure";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = errorMessage;
@@ -359,8 +357,7 @@ static NSString *const bankString = @"绑定银行卡";
                 break;
                 
                 // 处理中(3016:恒丰银行处理中 -999:处理中)
-            case kHXBPurchase_Processing:
-            case kHXBHengfeng_treatment:
+            case kBuy_Processing:
                 failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"处理中";
                 failViewController.buy_description = errorMessage;
@@ -370,7 +367,11 @@ static NSString *const bankString = @"绑定银行卡";
                 // 弹toast（3014：交易密码错误， 3015：短验错误， 3413：产品购买过于频繁）
             case kHXBTransaction_Password_Error:
                 self.alertVC.isCleanPassword = YES;
-                return ;
+                break;
+                
+            case kBuy_Toast:
+                [HxbHUDProgress showTextWithMessage:errorMessage];
+                break;
                 
             default:
                 return;
