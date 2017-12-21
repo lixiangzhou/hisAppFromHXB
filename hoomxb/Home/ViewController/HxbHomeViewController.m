@@ -53,6 +53,10 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    kWeakSelf
+    //    [[HXBHomePopViewManager sharedInstance] getHomePopViewData];//获取首页弹窗数据 多次弹出情况
+    [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:weakSelf];//展示首页弹窗
+    
     [self hideNavigationBar:animated];
     [self getData:YES];
     self.homeView.userInfoViewModel = self.userInfoViewModel;
@@ -107,31 +111,6 @@
 - (void)starCountDown
 {
      [self getData:YES];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    kWeakSelf
-//    [[HXBHomePopViewManager sharedInstance] getHomePopViewData];//获取首页弹窗数据 多次弹出情况
-    [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:weakSelf];//展示首页弹窗
-    
-    [self hideNavigationBar:animated];
-    [self getData:YES];
-    [self.homeView changeIndicationView:self.userInfoViewModel];
-    [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
-}
-
-
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    [[HXBVersionUpdateManager sharedInstance] show];
-    
-    [self transparentNavigationTitle];
-    self.tabBarController.tabBar.hidden = NO;
 }
 
 #pragma mark Request
