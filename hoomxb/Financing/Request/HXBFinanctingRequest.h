@@ -106,17 +106,17 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 - (void)plan_buyReslutWithPlanID: (NSString *)planID
                       parameter :(NSDictionary *)parameter
                  andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_PlanModel *model))successDateBlock
-                 andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock;
+                 andFailureBlock:(void (^)(NSString *errorMessgae, NSInteger status))failureBlock;
 // 散标 购买结果
 - (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
                               parameter :(NSDictionary *)parameter
                         andSuccessBlock:(void (^)(HXBFinModel_BuyResoult_LoanModel *model))successDateBlock
-                        andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock;
+                        andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock;
 /// 债权 购买结果
 - (void)loanTruansfer_confirmBuyReslutWithLoanID: (NSString *)loanTruansferID
                                       parameter :(NSDictionary *)parameter
                                  andSuccessBlock:(void (^)(HXBFin_LoanTruansfer_BuyResoutViewModel *model))successDateBlock
-                                 andFailureBlock:(void (^)(NSError *error, NSDictionary *response))failureBlock;
+                                 andFailureBlock:(void (^)(NSString *errorMessage, NSInteger status))failureBlock;
 
 @end
 

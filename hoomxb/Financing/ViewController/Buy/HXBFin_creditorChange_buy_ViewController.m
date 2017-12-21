@@ -66,10 +66,7 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 /** 发送请求的任务 */
 @property (nonatomic, strong) NSURLSessionDataTask *dataTask;
-//是否点击的语音
-@property (nonatomic, assign) BOOL isClickSpeechVerificationCode;
-//是否有语音验证码
-@property (nonatomic, assign) BOOL isSpeechVerificationCode;
+
 @end
 
 @implementation HXBFin_creditorChange_buy_ViewController
@@ -79,8 +76,6 @@ static NSString *const bankString = @"绑定银行卡";
     self.isColourGradientNavigationBar = YES;
     _discountTitle = @"暂无可用优惠券";
     _balanceTitle = @"可用余额";
-    _isSpeechVerificationCode = NO;
-    _isClickSpeechVerificationCode = NO;
     [self buildUI];
     [self getBankCardLimit];
     
@@ -95,7 +90,6 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)dealloc {
     [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
-    NSLog(@"✅被销毁 %@",self);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
@@ -243,9 +237,8 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)alertSmsCode {
     if (!self.presentedViewController) {
         self.alertVC = [[HXBAlertVC alloc] init];
-        self.alertVC.speechType = YES;
+        self.alertVC.speechType = NO;
         self.alertVC.isCode = YES;
-        self.alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
         self.alertVC.isCleanPassword = YES;
         double rechargeMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue];
         self.alertVC.messageTitle = @"请输入验证码";
@@ -262,23 +255,15 @@ static NSString *const bankString = @"绑定银行卡";
             [weakSelf buyCreditorWithDic:dic];
         };
         self.alertVC.getVerificationCodeBlock = ^{
-            _isClickSpeechVerificationCode = NO;
-            _isSpeechVerificationCode = YES;
-//            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf sendSmsCodeWithMoney:rechargeMoney];
         };
         self.alertVC.getSpeechVerificationCodeBlock = ^{
             //获取语音验证码 注意参数
-            _isClickSpeechVerificationCode = YES;
-            _isSpeechVerificationCode = YES;
-//            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf sendSmsCodeWithMoney:rechargeMoney];
         };
         self.alertVC.cancelBtnClickBlock = ^{
-            _isClickSpeechVerificationCode = NO;
-            _isSpeechVerificationCode = NO;
         };
         [self presentViewController:_alertVC animated:NO completion:nil];
     }
@@ -313,13 +298,8 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)sendSmsCodeWithMoney:(double)topupMoney {
     kWeakSelf
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    NSString *type = _isClickSpeechVerificationCode ? @"voice" : @"sms";
-    [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:type andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
-        if (_isClickSpeechVerificationCode) {
-            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-        } else {
-            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-        }
+    [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:@"sms" andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
+        weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
         [self alertSmsCode];
         [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
     } andFailureBlock:^(NSError *error) {
@@ -362,57 +342,39 @@ static NSString *const bankString = @"绑定银行卡";
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
         [self.navigationController pushViewController:loanBuySuccessVC animated:YES];
-    } andFailureBlock:^(NSError *error, NSDictionary *response) {
-        NSInteger status = [response[@"status"] integerValue];
-        NSInteger errorCode = error.code;
-        if (errorCode == kHXBCode_Enum_ConnectionTimeOut || errorCode == kHXBCode_Enum_NoConnectionNetwork) {
-            status = errorCode;
-        }
+        
+    } andFailureBlock:^(NSString *errorMessage, NSInteger status) {
+        
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
         failViewController.title = @"投资结果";
         switch (status) {
-            case kHXBNot_Sufficient_Funds:
-                failViewController.imageName = @"yuebuzu";
-                failViewController.buy_title = @"可用余额不足，请重新购买";
-                failViewController.buy_ButtonTitle = @"重新投资";
-                break;
-            case kHXBSold_Out:
-                failViewController.imageName = @"shouqin";
-                failViewController.buy_title = @"手慢了，已售罄";
-                failViewController.buy_ButtonTitle = @"重新投资";
-                break;
-            case kHXBPurchase_Processing:
-                failViewController.imageName = @"outOffTime";
-                failViewController.buy_title = @"加入失败";
-                failViewController.buy_description = @"处理中";
-                failViewController.buy_ButtonTitle = @"重新投资";
-                break;
-            case kHXBHengfeng_treatment:
-                failViewController.imageName = @"outOffTime";
-                failViewController.buy_title = @"加入失败";
-                failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
-                failViewController.buy_ButtonTitle = @"重新投资";
-                break;
-            case 1:
+                // 加入失败跳转到失败页（3408:余额不足， 999:已售罄， 1:普通错误状态码）
+            case kBuy_Result:
                 failViewController.imageName = @"failure";
                 failViewController.buy_title = @"加入失败";
-                failViewController.buy_description = response[@"message"];
+                failViewController.buy_description = errorMessage;
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
+                
+                // 处理中(3016:恒丰银行处理中 -999:处理中)
+            case kBuy_Processing:
+                failViewController.imageName = @"outOffTime";
+                failViewController.buy_title = @"处理中";
+                failViewController.buy_description = errorMessage;
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+                
+                // 弹toast（3014：交易密码错误， 3015：短验错误， 3413：产品购买过于频繁）
             case kHXBTransaction_Password_Error:
                 self.alertVC.isCleanPassword = YES;
-                return ;
-            case kHXBSMS_Code_Error:
-            case kHXBCode_Enum_ProcessingField:
-            case kHXBCode_Enum_RequestOverrun:
-            case kHXBBuying_Too_Frequently:
-            case kHXBCode_Enum_ConnectionTimeOut:
-            case kHXBCode_Enum_NoConnectionNetwork:
-                return ;
+                break;
+                
+            case kBuy_Toast:
+                [HxbHUDProgress showTextWithMessage:errorMessage];
+                break;
+                
             default:
-                failViewController.imageName = @"failure";
-                failViewController.buy_title = @"加入失败";
-                failViewController.buy_ButtonTitle = @"重新投资";
+                return;
         }
         [failViewController clickButtonWithBlock:^{
             [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面

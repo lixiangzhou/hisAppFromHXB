@@ -45,7 +45,7 @@
     [self hideNavigationBar:animated];
     //加载用户数据
     if ([KeyChain isLogin]) {
-        //        [self loadData_userInfo];
+        [self loadData_userInfo];
         [self loadData_accountInfo];//账户内数据总览
     } else {
         self.myView.accountModel = nil;
@@ -102,6 +102,7 @@
 - (void)didLeftHeadBtnClick:(UIButton *)sender{
     HxbAccountInfoViewController *accountInfoVC = [[HxbAccountInfoViewController alloc]init];
     accountInfoVC.userInfoViewModel = self.userInfoViewModel;
+    accountInfoVC.isDisplayAdvisor = self.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
     [self.navigationController pushViewController:accountInfoVC animated:YES];
 }
 ///充值

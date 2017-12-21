@@ -40,5 +40,14 @@
  更新时间
  */
 @property (nonatomic, copy) NSString *updateTime;
+/**
+ 跳转类型
+ */
+@property (nonatomic, copy) NSString *type;
+/**
+ 链接地址
+ */
+@property (nonatomic, copy) NSString *link;
+
 
 @end
