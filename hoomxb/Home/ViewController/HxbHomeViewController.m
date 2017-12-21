@@ -13,6 +13,9 @@
 //#import "HxbSecurityCertificationViewController.h"
 #import "HXBHomeBaseModel.h"
 #import "HXBFinancing_PlanDetailsViewController.h"
+#import "HXBFinancing_LoanDetailsViewController.h"
+#import "HXBFin_DetailLoanTruansfer_ViewController.h"
+#import "HXBNoticeViewController.h"
 #import "HxbHomePageModel_DataList.h"
 #import "HXBGesturePasswordViewController.h"
 
@@ -201,20 +204,60 @@
         };
         
         _homeView.clickBannerImageBlock = ^(BannerModel *model) {
-            if (model.url.length) {
-                HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
-                webViewVC.pageUrl = model.url;
-                //            webViewVC.title = model.title;//mgmt标题
-                [weakSelf.navigationController pushViewController:webViewVC animated:YES];
-            }
+            [weakSelf pushToViewControllerWithModel:model];
         };
     }
     return _homeView;
+}
+
+// 点击benner跳转的方法(公告列表，详情，计划列表) H5
+- (void)pushToViewControllerWithModel:(BannerModel *)model {
+    
+    __block HXBBaseViewController *vc;
+    if ([model.type isEqualToString:@"native"]) {
+        [model.link parseUrlParam:^(NSString *path, NSDictionary *paramDic) {
+            if ([path isEqualToString:kNoticeVC]) { // 公告列表页
+                HXBNoticeViewController *noticeVC = [HXBNoticeViewController new];
+                vc = noticeVC;
+            } else if ([path isEqualToString:kPlanDetailVC]) { // 计划详情
+                HXBFinancing_PlanDetailsViewController *planVC = [HXBFinancing_PlanDetailsViewController new];
+                planVC.planID = paramDic[@"productId"];
+                planVC.isPlan = YES;
+                planVC.isFlowChart = YES;
+                vc = planVC;
+            } else if ([path isEqualToString:kLoanDetailVC]) { // 散标详情
+                HXBFinancing_LoanDetailsViewController *loadVC = [HXBFinancing_LoanDetailsViewController new];
+                loadVC.loanID = paramDic[@"productId"];
+                loadVC.isFlowChart = YES;
+                vc = loadVC;
+            } else if ([path isEqualToString:kLoanTransferDetailVC]) { // 债权详情
+                HXBFin_DetailLoanTruansfer_ViewController *loanTruansferVC = [HXBFin_DetailLoanTruansfer_ViewController new];
+                loanTruansferVC.loanID = paramDic[@"productId"];
+                loanTruansferVC.isFlowChart = YES;
+                vc = loanTruansferVC;
+            } else if ([path isEqualToString:kPlan_fragment]) { // 计划列表
+                [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 1;
+            } else {
+                
+            }
+        }];
+        
+    } else if ([model.type isEqualToString:@"h5"]){
+        if (model.url.length) {
+            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+            webViewVC.pageUrl = model.url;
+            vc = webViewVC;
+        }
+        
+    }
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - 设置状态栏
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleDefault;
 }
+
+
 
 @end

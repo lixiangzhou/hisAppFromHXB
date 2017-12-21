@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		282A0C5E1FE7693E004ADEC7 /* UIViewController+HXBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 282A0C5D1FE7693E004ADEC7 /* UIViewController+HXBUtil.m */; };
 		282B0C9E1FB96B8A0082FBDD /* HXBFin_Plan_Buy_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 282B0C9D1FB96B8A0082FBDD /* HXBFin_Plan_Buy_ViewController.m */; };
 		282B0CA11FB96BAB0082FBDD /* HXBFin_Loan_Buy_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 282B0CA01FB96BAB0082FBDD /* HXBFin_Loan_Buy_ViewController.m */; };
 		285D700E1F6BE13C006B520B /* HXBCreditorChangeTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 285D700D1F6BE13C006B520B /* HXBCreditorChangeTopView.m */; };
@@ -545,6 +546,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		282A0C5C1FE7693E004ADEC7 /* UIViewController+HXBUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HXBUtil.h"; sourceTree = "<group>"; };
+		282A0C5D1FE7693E004ADEC7 /* UIViewController+HXBUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HXBUtil.m"; sourceTree = "<group>"; };
 		282B0C9C1FB96B8A0082FBDD /* HXBFin_Plan_Buy_ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFin_Plan_Buy_ViewController.h; sourceTree = "<group>"; };
 		282B0C9D1FB96B8A0082FBDD /* HXBFin_Plan_Buy_ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFin_Plan_Buy_ViewController.m; sourceTree = "<group>"; };
 		282B0C9F1FB96BAB0082FBDD /* HXBFin_Loan_Buy_ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFin_Loan_Buy_ViewController.h; sourceTree = "<group>"; };
@@ -1498,8 +1501,6 @@
 		E1F0D80B1F3B1874004685FD /* HXBMYCapitalRecord_TableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMYCapitalRecord_TableViewHeaderView.m; sourceTree = "<group>"; };
 		E1F3BE451FBD821000D9BD48 /* HXBRegisterAlertVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBRegisterAlertVC.h; sourceTree = "<group>"; };
 		E1F3BE461FBD821000D9BD48 /* HXBRegisterAlertVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBRegisterAlertVC.m; sourceTree = "<group>"; };
-		E1F630771F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignUPAgreementWebViewVC.h; sourceTree = "<group>"; };
-		E1F630781F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSignUPAgreementWebViewVC.m; sourceTree = "<group>"; };
 		E1F630821F20B4F100FC0122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1FBADB51EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinDatailModel_LoanDetail.h; sourceTree = "<group>"; };
 		E1FBADB61EC40DFB00F74D86 /* HXBFinDatailModel_LoanDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinDatailModel_LoanDetail.m; sourceTree = "<group>"; };
@@ -1551,6 +1552,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		282A0C5B1FE7692A004ADEC7 /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				282A0C5C1FE7693E004ADEC7 /* UIViewController+HXBUtil.h */,
+				282A0C5D1FE7693E004ADEC7 /* UIViewController+HXBUtil.m */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
 		288BA9F01FAC593A009DF8AB /* DiscountCoupon */ = {
 			isa = PBXGroup;
 			children = (
@@ -3062,6 +3072,7 @@
 		E122D8161EA0CAB900DC71ED /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				282A0C5B1FE7692A004ADEC7 /* UIViewController */,
 				8D4064F01FC67E0600121E1C /* NSDate */,
 				4EA8C19E1FBC2F630064019C /* UIImage */,
 				4EB5598D1F037EFA00146D62 /* UITextView */,
@@ -3483,8 +3494,6 @@
 			children = (
 				E133DCBE1EEE3597009466DE /* HXBSendSmscodeViewController.h */,
 				E133DCBF1EEE3597009466DE /* HXBSendSmscodeViewController.m */,
-				E1F630771F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.h */,
-				E1F630781F2081F200FC0122 /* HXBSignUPAgreementWebViewVC.m */,
 			);
 			path = HXBSendSmscode;
 			sourceTree = "<group>";
@@ -5209,6 +5218,7 @@
 				8DAD30811FBA8F8C00E2AEE8 /* HXBBasePasswordView.m in Sources */,
 				4E96E2D51F28829D00C4AF27 /* HXBNoticeCell.m in Sources */,
 				4E6179091FA1DC38004010FA /* HXBWithdrawRecordListModel.m in Sources */,
+				282A0C5E1FE7693E004ADEC7 /* UIViewController+HXBUtil.m in Sources */,
 				E17E6AE71ECDA46B0046888B /* HXBMY_CapitalRecordViewController.m in Sources */,
 				285D70111F6BE154006B520B /* HXBCreditorChangeBottomView.m in Sources */,
 				E122D8511EA0CAB900DC71ED /* NSString+HxbGeneral.m in Sources */,

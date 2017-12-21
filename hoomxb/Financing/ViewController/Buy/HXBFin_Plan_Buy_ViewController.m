@@ -226,11 +226,7 @@ static const NSInteger topView_high = 300;
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
-    }
-//    else if (_inputMoneyStr.doubleValue < _availablePoint.doubleValue &&  _availablePoint.doubleValue - _inputMoneyStr.doubleValue < _minRegisterAmount.doubleValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
-//        [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
-//    }
-    else {
+    } else {
         BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
         if (isFitToBuy) {
             [self chooseBuyTypeWithSting:_btnLabelText];
@@ -375,47 +371,34 @@ static const NSInteger topView_high = 300;
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
         [weakSelf.navigationController pushViewController:planBuySuccessVC animated:YES];
-    } andFailureBlock:^(NSError *error, NSInteger status) {
+    } andFailureBlock:^(NSString *errorMessage, NSInteger status) {
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
         failViewController.title = @"投资结果";
         switch (status) {
-            case kHXBNot_Sufficient_Funds:
-                failViewController.imageName = @"yuebuzu";
-                failViewController.buy_title = @"可用余额不足，请重新购买";
-                failViewController.buy_ButtonTitle = @"重新投资";
-                break;
-            case kHXBSold_Out:
-                failViewController.imageName = @"shouqin";
-                failViewController.buy_title = @"手慢了，已售罄";
-                failViewController.buy_ButtonTitle = @"重新投资";
-                break;
-            case kHXBPurchase_Processing:
-                failViewController.imageName = @"outOffTime";
-                failViewController.buy_title = @"加入失败";
-                failViewController.buy_description = @"处理中";
-                failViewController.buy_ButtonTitle = @"重新投资";
-                break;
-            case kHXBHengfeng_treatment:
-                failViewController.imageName = @"outOffTime";
-                failViewController.buy_title = @"加入失败";
-                failViewController.buy_description = @"购买的充值结果正在恒丰银行处理中";
-                failViewController.buy_ButtonTitle = @"重新投资";
-                break;
-            case kHXBTransaction_Password_Error:
-                self.alertVC.isCleanPassword = YES;
-                return ;
-            case kHXBSMS_Code_Error:
-            case kHXBCode_Enum_ProcessingField:
-            case kHXBBuy_Coupon_Error:
-            case kHXBCode_Enum_RequestOverrun:
-            case kHXBBuying_Too_Frequently:
-            case kHXBCode_Enum_ConnectionTimeOut:
-            case kHXBCode_Enum_NoConnectionNetwork:
-                return ;
-            default:
+            case kBuy_Result:
                 failViewController.imageName = @"failure";
                 failViewController.buy_title = @"加入失败";
+                failViewController.buy_description = errorMessage;
                 failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+
+            case kBuy_Processing:
+                failViewController.imageName = @"outOffTime";
+                failViewController.buy_title = @"处理中";
+                failViewController.buy_description = errorMessage;
+                failViewController.buy_ButtonTitle = @"重新投资";
+                break;
+                
+            case kHXBTransaction_Password_Error:
+                self.alertVC.isCleanPassword = YES;
+                break;
+
+            case kBuy_Toast:
+                [HxbHUDProgress showTextWithMessage:errorMessage];
+                break;
+                
+            default:
+                return;
         }
         [failViewController clickButtonWithBlock:^{
             [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
@@ -595,13 +578,25 @@ static const NSInteger topView_high = 300;
         _topView.profitStr = @"预期收益0.00元";
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
-//        if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
-//            _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-//            _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-//            _topView.disableKeyBorad = YES;
-//        } else {
-//            _topView.disableKeyBorad = NO;
-//        }
+        // 小于最小投资金额时，输入框不可以编辑
+        if (self.isFirstBuy) {
+            if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
+                _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+                _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+                _topView.disableKeyBorad = YES;
+            } else {
+                _topView.disableKeyBorad = NO;
+            }
+        } else {
+            if (self.availablePoint.doubleValue < self.registerMultipleAmount.doubleValue) {
+                _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+                _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+                _topView.disableKeyBorad = YES;
+            } else {
+                _topView.disableKeyBorad = NO;
+            }
+        }
+        
         _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
             weakSelf.bottomView.addBtnIsUseable = text.length;
             BOOL isFitToBuy = ((text.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
@@ -618,9 +613,6 @@ static const NSInteger topView_high = 300;
                 [weakSelf changeItemWithInvestMoney:text];
                 [weakSelf setUpArray];
             }
-//            if (_inputMoneyStr.doubleValue < _availablePoint.doubleValue &&  _availablePoint.doubleValue - text.doubleValue < _minRegisterAmount.doubleValue && text.doubleValue != _availablePoint.doubleValue) {
-//                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", weakSelf.minRegisterAmount]];
-//            }
         };
         _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
         _topView.placeholderStr = _placeholderStr;
