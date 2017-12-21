@@ -15,17 +15,14 @@
 @property (nonatomic, strong) UIButton *sureBtn;
 @property (nonatomic, strong) UIButton *forgetBtn;
 @property (nonatomic, strong) UIView *contentView;
-@property (nonatomic, strong) UILabel *message;
+@property (nonatomic, strong) UILabel *messageLab;
 @property (nonatomic, strong) HBAlertPasswordView *pwdField;
 
 //子标题设置
 @property (nonatomic, strong) UILabel *subTitleLabel;
-/**
- 交易密码
- */
+//交易密码
 @property (nonatomic, copy) NSString *transactionPassword;
 @property (nonatomic, strong) UIButton *backBtn;
-//@property (nonatomic, strong) HXBVerificationCodeAlertView *verificationCodeAlertView;
 @property (nonatomic, strong) UILabel *mobileLabel;
 
 @end
@@ -48,7 +45,7 @@
     [self.view addSubview:self.mobileLabel];
     [self.contentView addSubview:self.cancelBtn];
     [self.contentView addSubview:self.sureBtn];
-    [self.contentView addSubview:self.message];
+    [self.contentView addSubview:self.messageLab];
 }
 
 -(void)setIsSpeechVerificationCode:(BOOL)isSpeechVerificationCode{
@@ -93,18 +90,16 @@
     } else {
         _mobileLabel.hidden = YES;
     }
-    
 }
-
 
 - (void)setupSubViewFrame
 {
     kWeakSelf
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.view);
-        make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(310));//385
-        make.height.offset(kScrAdaptationH750(500));//440
-        make.width.offset(kScrAdaptationW750(590));
+        make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(400));//385 310
+        make.height.offset(kScrAdaptationH750(443));//440 500
+        make.width.offset(kScrAdaptationW750(560));//590
     }];
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf.contentView.mas_bottom);
@@ -112,7 +107,7 @@
         make.width.mas_equalTo(kScrAdaptationW750(295));
         make.height.offset(kScrAdaptationH750(80));
     }];
-    [self.message mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.messageLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
         make.centerX.equalTo(weakSelf.contentView);
         make.height.offset(kScrAdaptationH750(34));
@@ -141,12 +136,12 @@
     if (self.isCode) {
        
         [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.message.mas_bottom).offset(kScrAdaptationH750(20));
+            make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
             make.left.right.equalTo(weakSelf.contentView);
         }];
         [self.verificationCodeAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.subTitleLabel.mas_bottom);
-            make.bottom.equalTo(weakSelf.sureBtn.mas_top);
+            make.top.equalTo(weakSelf.subTitleLabel.mas_bottom);//.offset(kScrAdaptationH750(50));
+            make.bottom.equalTo(weakSelf.sureBtn.mas_top);//.offset(kScrAdaptationH750(-188))
             make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(70));
             make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(-70));
         }];
@@ -154,7 +149,7 @@
     }
  
     [self.pwdField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.message.mas_bottom).offset(kScrAdaptationH750(40));
+        make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(40));
         make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationW750(45));
         make.right.equalTo(weakSelf.contentView.mas_right).offset(-kScrAdaptationW750(45));
         make.height.offset(kScrAdaptationH750(80));
@@ -179,7 +174,7 @@
 
 - (void)setMessageTitle:(NSString *)messageTitle {
     _messageTitle = messageTitle;
-    self.message.text = messageTitle;
+    self.messageLab.text = messageTitle;
 }
 
 - (void)buttonClick:(UIButton *)btn
@@ -290,11 +285,6 @@
     return _sureBtn;
 }
 
-//- (void)eyeBtnClick
-//{
-//    self.pwdField.secureTextEntry = self.eyeBtn.selected;
-//    self.eyeBtn.selected = !self.eyeBtn.selected;
-//}
 - (UIButton *)forgetBtn
 {
     if (!_forgetBtn) {
@@ -306,13 +296,13 @@
     }
     return _forgetBtn;
 }
-- (UILabel *)message
+- (UILabel *)messageLab
 {
-    if (!_message) {
-        _message = [[UILabel alloc] init];
-        _message.font = kHXBFont_PINGFANGSC_REGULAR_750(34);
+    if (!_messageLab) {
+        _messageLab = [[UILabel alloc] init];
+        _messageLab.font = kHXBFont_PINGFANGSC_REGULAR_750(34);
     }
-    return _message;
+    return _messageLab;
 }
 
 - (UILabel *)mobileLabel
@@ -342,17 +332,6 @@
     }
     return _pwdField;
 }
-
-//- (UIButton *)eyeBtn
-//{
-//    if (!_eyeBtn) {
-//        _eyeBtn = [[UIButton alloc] init];
-//        [_eyeBtn setImage:[SVGKImage imageNamed:@"password_eye_close.svg"].UIImage forState:UIControlStateNormal];
-//        [_eyeBtn setImage:[SVGKImage imageNamed:@"password_eye_open.svg"].UIImage forState:UIControlStateSelected];
-//        [_eyeBtn addTarget:self action:@selector(eyeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-//    }
-//    return _eyeBtn;
-//}
 
 - (UIButton *)backBtn
 {
