@@ -102,15 +102,15 @@
     } else {
         self.backgroundView.alpha = 0.0;
     }
-    [UIView animateWithDuration:duration animations:^{
-        ws.alpha = 1.0;
-        if (!ws.isTransparent) {
-            ws.backgroundView.alpha = ws.popBGAlpha;
-        }
-    }];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (ws.popCompleteBlock) {
+            
+            ws.alpha = 1.0;
+            if (!ws.isTransparent) {
+                ws.backgroundView.alpha = ws.popBGAlpha;
+            }
+            
             ws.popCompleteBlock();
         }
     });
@@ -120,13 +120,12 @@
 {
     __weak typeof(self) ws = self;
     NSTimeInterval duration = 0.2;
-    [UIView animateWithDuration:duration animations:^{
-        ws.alpha = 0.0;
-        ws.backgroundView.alpha = 0.0;
-    }];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         if (ws.dismissCompleteBlock) {
+            ws.alpha = 0.0;
+            ws.backgroundView.alpha = 0.0;
+            
             ws.dismissCompleteBlock();
         }
         [ws removeFromSuperview];
