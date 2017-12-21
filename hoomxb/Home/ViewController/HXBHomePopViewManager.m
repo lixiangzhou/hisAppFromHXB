@@ -15,6 +15,7 @@
 #import <UIImageView+WebCache.h>
 #import "HXBBaseTabBarController.h"
 #import "NSString+HxbGeneral.h"
+#import "HXBVersionUpdateManager.h"
 
 //#define kRegisterVC @"/account/register"//注册页面
 #define kPlanDetailVC @"/plan/detail"//某个计划的详情页
@@ -93,7 +94,7 @@
 
 - (void)popHomeViewfromController:(UIViewController *)controller{
     
-    if ([controller isKindOfClass:[HxbHomeViewController class]]) {
+    if ([controller isKindOfClass:[HxbHomeViewController class]] && [HXBVersionUpdateManager sharedInstance].isShow) {
         kWeakSelf
         // 1.初始化
         _popView = [[HXBHomePopView alloc]init];
