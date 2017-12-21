@@ -50,7 +50,7 @@
         }
         
     } andFailureBlock:^(NSError *error) {
-        self.isShow = YES;
+        weakSelf.isShow = YES;
         [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
     }];
 }
