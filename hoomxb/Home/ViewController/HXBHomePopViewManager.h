@@ -8,14 +8,20 @@
 
 #import <Foundation/Foundation.h>
 @class HXBHomePopViewModel;
+
 @interface HXBHomePopViewManager : NSObject
 
-+ (instancetype)sharedInstance;
+/**
+ 加载的弹窗视图
+ */
+@property (nonatomic,strong) UIImage *popImage;
 
 /**
- 弹出首页弹窗
+ 是否隐藏首页弹窗
  */
-//+ (void)popHomeViewWith:(HXBHomePopViewModel *)homePopViewModel fromController:(UIViewController *)controller;
+@property (nonatomic,assign) BOOL isHide;
+
++ (instancetype)sharedInstance;
 
 /**
  校验是否可以弹出首页弹窗

@@ -16,15 +16,18 @@
 + (void)homePopViewRequestSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
-    versionUpdateAPI.requestUrl = kHXBMY_VersionUpdateURL;
-    versionUpdateAPI.requestMethod = NYRequestMethodPost;
+    versionUpdateAPI.requestUrl = kHXBHome_PopView;
+    versionUpdateAPI.requestMethod = NYRequestMethodGet;
 //    versionUpdateAPI.requestArgument = @{
 //                                         @"versionCode" : versionCode
 //                                         };
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status == 1) {
+        
+        if (status == 0) {
+            
+        } else if (status == 1) {
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) {
                 failureBlock(responseObject);
