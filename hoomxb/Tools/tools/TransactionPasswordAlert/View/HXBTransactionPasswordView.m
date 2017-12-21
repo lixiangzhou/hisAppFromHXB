@@ -162,13 +162,11 @@
     [[HXBRootVCManager manager].topVC.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
 }
 
-+ ( HXBTransactionPasswordView *)show {
+- (void)show {
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = NO;
     [IQKeyboardManager sharedManager].enable = NO;
-    HXBTransactionPasswordView *passwordView = [[self alloc] init];
-    [[HXBRootVCManager manager].topVC.view addSubview:passwordView];
-    [passwordView.passwordTextField becomeFirstResponder];
-    return passwordView;
+    [[HXBRootVCManager manager].topVC.view addSubview:self];
+    [self.passwordTextField becomeFirstResponder];
 }
 
 /**
@@ -216,7 +214,6 @@
         }
     }
 }
-
 
 #pragma mark - Setter / Getter / Lazy
 

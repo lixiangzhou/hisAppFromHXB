@@ -25,7 +25,7 @@
 
 @property (nonatomic, strong) UIButton *sureBtn;
 
-@property (nonatomic, weak) HXBTransactionPasswordView *passwordView;
+@property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
 
 @property (nonatomic, strong) HXBTransferConfirmModel *transferConfirmModel;
 
@@ -93,7 +93,8 @@
 - (void)sureBtnClick
 {
     kWeakSelf
-    self.passwordView = [HXBTransactionPasswordView show];
+    self.passwordView = [[HXBTransactionPasswordView alloc] init];
+    [self.passwordView show];
     self.passwordView.getTransactionPasswordBlock = ^(NSString *password) {
         [weakSelf checkWithdrawals:password];
     };

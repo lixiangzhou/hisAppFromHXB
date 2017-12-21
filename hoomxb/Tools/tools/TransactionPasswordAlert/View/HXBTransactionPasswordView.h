@@ -15,7 +15,7 @@
  */
 @property (nonatomic, copy) void (^getTransactionPasswordBlock)(NSString *password);
 //展示
-+ (HXBTransactionPasswordView *)show;
+- (void)show;
 //关闭
 - (void)closePasswordView;
 //清空密码
