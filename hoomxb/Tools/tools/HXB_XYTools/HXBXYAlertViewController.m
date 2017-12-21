@@ -285,19 +285,34 @@
 
 - (void)clickLeftButton:(UIButton *)button {
     if (self.isAutomaticDismiss) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        kWeakSelf
+        [self dismissViewControllerAnimated:YES completion:^{
+            if (weakSelf.clickXYLeftButtonBlock) {
+                weakSelf.clickXYLeftButtonBlock();
+            }
+        }];
     }
-    if (self.clickXYLeftButtonBlock) {
-        self.clickXYLeftButtonBlock();
+    else {
+        if (self.clickXYLeftButtonBlock) {
+            self.clickXYLeftButtonBlock();
+        }
     }
+    
 }
 - (void)clickRightButton: (UIButton *)button {
     if (self.isAutomaticDismiss) {
-        [self dismissViewControllerAnimated:YES completion:nil];
+        kWeakSelf
+        [self dismissViewControllerAnimated:YES completion:^{
+            if (weakSelf.clickXYRightButtonBlock) {
+                weakSelf.clickXYRightButtonBlock();
+            }
+        }];
+    } else {
+        if (self.clickXYRightButtonBlock) {
+            self.clickXYRightButtonBlock();
+        }
     }
-    if (self.clickXYRightButtonBlock) {
-        self.clickXYRightButtonBlock();
-    }
+    
 }
 
 
