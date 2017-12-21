@@ -30,8 +30,13 @@
 
 - (void)setContentFrame{
     [self.userTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self);
-        make.top.equalTo(@kScrAdaptationH(55));
+        make.left.equalTo(self).offset(kScrAdaptationW(15));
+        make.top.equalTo(@kScrAdaptationH(40));
+    }];
+    [self.tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.userTitleLabel.mas_bottom).offset(kScrAdaptationW(15));
+        make.left.equalTo(self.userTitleLabel.mas_left);
+        make.height.offset(kScrAdaptationH(24));
     }];
 }
 
@@ -50,15 +55,13 @@
 - (void)setTipString:(NSString *)tipString{
     _tipString = tipString;
     [self.tipButton setTitle:tipString forState:UIControlStateNormal];
-    CGFloat width = [[HXB_XYTools shareHandle] WidthWithString:_tipString labelFont:kHXBFont_PINGFANGSC_REGULAR(17) addWidth:30];
-    self.tipButton.frame = CGRectMake(kScreenWidth / 2 - kScrAdaptationW(width) / 2, kScrAdaptationH(86), kScrAdaptationW(width), kScrAdaptationH(30));
 }
 
 - (UILabel *)userTitleLabel{
     if (!_userTitleLabel) {
         _userTitleLabel = [[UILabel alloc]init];
-        _userTitleLabel.textColor = COR15;
-        _userTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
+        _userTitleLabel.textColor = COR10;
+        _userTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _userTitleLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _userTitleLabel;
@@ -68,12 +71,8 @@
 {
     if (!_tipButton) {
         _tipButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        _tipButton.layer.borderColor = [UIColor whiteColor].CGColor;
-        _tipButton.layer.borderWidth = kXYBorderWidth;
-        _tipButton.layer.cornerRadius = kScrAdaptationH(15.0f);
-        [_tipButton setTitleColor:COR15 forState:UIControlStateNormal];
-        _tipButton.titleLabel.font =  kHXBFont_PINGFANGSC_REGULAR(17);
-        _tipButton.backgroundColor = [UIColor colorWithWhite:1.0f alpha:0.07];
+        [_tipButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        _tipButton.titleLabel.font =  kHXBFont_PINGFANGSC_REGULAR(24);
         [_tipButton addTarget:self action:@selector(tipButtonClick) forControlEvents:UIControlEventTouchUpInside];
     }
     return _tipButton;

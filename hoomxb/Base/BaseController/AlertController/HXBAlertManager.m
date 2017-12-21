@@ -17,6 +17,7 @@
 #import "HXBDepositoryAlertViewController.h"
 #import "HXBXYAlertViewController.h"
 #import "HXBAlertVC.h"
+#import "HXBRootVCManager.h"
 
 @interface HXBAlertManager ()
 
@@ -246,7 +247,7 @@
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel {
     if ([versionUpdateModel.force isEqualToString:@"1"]) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝发现新版本" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
-
+        alertVC.isAutomaticDismiss = NO;
         [alertVC setClickXYRightButtonBlock:^{
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
             [[UIApplication sharedApplication] openURL:url];
@@ -255,13 +256,13 @@
         
     } else if ([versionUpdateModel.force isEqualToString:@"2"] ) {
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"红小宝发现新版本" Massage:versionUpdateModel.updateinfo force:[versionUpdateModel.force intValue] andLeftButtonMassage:@"暂不更新" andRightButtonMassage:@"立即更新"];
-
         [alertVC setClickXYRightButtonBlock:^{
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
             [[UIApplication sharedApplication] openURL:url];
         }];
+        
         [alertVC setClickXYLeftButtonBlock:^{
-            [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
+            //点击取消处理
         }];
         [self promptPriorityWithAlertVC:alertVC];
     } else {
@@ -270,7 +271,7 @@
 
 //提示框的优先级
 + (void)promptPriorityWithAlertVC:(UIViewController *)alertVC {
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+    [[HXBRootVCManager manager].topVC presentViewController:alertVC animated:YES completion:nil];
 }
 
 @end

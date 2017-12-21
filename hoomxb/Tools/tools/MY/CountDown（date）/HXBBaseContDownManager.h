@@ -10,7 +10,11 @@
 
 //注意 需要做倒计时的model的储存剩余时间变量的key一定要是NSString类型
 //关于更多，请看简书：http://www.jianshu.com/p/5d37adf1e03e
+
+//chj 特别声明， 这个类每个对象只能开启一次定时器， 如果想更更换定时器， 请重新创建对象
+
 #import <UIKit/UIKit.h>
+#import "HXBBaseContDownModel.h"
 
 
 ///传入的model中的用于倒计时时间的参数是剩余时间还是原始时间。
@@ -91,13 +95,13 @@ typedef enum : NSUInteger {
 /// 需要倒计时的model数组 （在model 改变后，会自动开启定时器）
 @property (nonatomic,strong) NSArray *modelArray;
 
-/**当数组发生变化的时候调用
-* @param modelArray 需要倒计时的model数组
-* @param modelDateKey model储存到期时间的属性名
-* @param modelCountDownKey model储存剩余时间的属性名
- */
-- (void)countDownWithModelArray: (NSArray *)modelArray andModelDateKey: (NSString *)modelDateKey
-           andModelCountDownKey: (NSString *)modelCountDownKey;
+///**当数组发生变化的时候调用
+//* @param modelArray 需要倒计时的model数组
+//* @param modelDateKey model储存到期时间的属性名
+//* @param modelCountDownKey model储存剩余时间的属性名
+// */
+//- (void)countDownWithModelArray: (NSArray *)modelArray andModelDateKey: (NSString *)modelDateKey
+//           andModelCountDownKey: (NSString *)modelCountDownKey;
 
 
 

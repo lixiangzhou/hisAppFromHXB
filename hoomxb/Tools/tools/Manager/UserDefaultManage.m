@@ -8,8 +8,6 @@
 
 #import "UserDefaultManage.h"
 
-#define UserDefaults [NSUserDefaults standardUserDefaults]
-
 @implementation UserDefaultManage
 
 + (id)sharedInstance
@@ -25,27 +23,27 @@
 
 - (void)setHasLaunched:(BOOL)hasLaunched
 {
-    [UserDefaults setBool:hasLaunched forKey:@"hasLaunched"];
+    [kUserDefaults setBool:hasLaunched forKey:@"hasLaunched"];
 }
 
 - (BOOL)hasLaunched
 {
-    return [UserDefaults boolForKey:@"hasLaunched"];
+    return [kUserDefaults boolForKey:@"hasLaunched"];
 }
 
 - (void)setAppVersion:(NSString *)version
 {
-    [UserDefaults setValue:version forKey:@"version"];
+    [kUserDefaults setValue:version forKey:@"version"];
 }
 
 - (BOOL)tryRedPlan
 {
-    return [UserDefaults boolForKey:@"tryRedPlan"];
+    return [kUserDefaults boolForKey:@"tryRedPlan"];
 }
 
 - (void)setTryRedPlan:(BOOL)tryRedPlan
 {
-    [UserDefaults setBool:tryRedPlan forKey:@"tryRedPlan"];
+    [kUserDefaults setBool:tryRedPlan forKey:@"tryRedPlan"];
 }
 
 @end

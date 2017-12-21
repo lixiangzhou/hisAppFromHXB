@@ -20,6 +20,7 @@
 #import <Fabric/Fabric.h> //fabric crash 统计
 #import <Crashlytics/Crashlytics.h> //fabric crash 统计
 #import "HXBBaseUrlSettingView.h"
+#import "HXBVersionUpdateManager.h"
 
 @interface AppDelegate ()
 
@@ -84,9 +85,6 @@
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-    if ([[HXBRootVCManager manager].versionUpdateModel.force isEqualToString:@"1"]) {
-        [HXBAlertManager checkversionUpdateWith:[HXBRootVCManager manager].versionUpdateModel];
-    }
     
     NSDate *nowTime = [NSDate date];
     NSTimeInterval timeDifference = [nowTime timeIntervalSinceDate: self.exitTime];
