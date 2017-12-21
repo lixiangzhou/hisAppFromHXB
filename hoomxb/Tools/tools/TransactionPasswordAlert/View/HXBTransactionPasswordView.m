@@ -162,10 +162,10 @@
     [[HXBRootVCManager manager].topVC.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
 }
 
-- (void)show {
+- (void)showInView:(UIView *)view {
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = NO;
     [IQKeyboardManager sharedManager].enable = NO;
-    [[HXBRootVCManager manager].topVC.view addSubview:self];
+    [view addSubview:self];
     [self.passwordTextField becomeFirstResponder];
 }
 

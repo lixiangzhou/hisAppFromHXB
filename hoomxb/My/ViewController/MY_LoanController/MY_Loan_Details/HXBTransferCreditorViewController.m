@@ -94,7 +94,7 @@
 {
     kWeakSelf
     self.passwordView = [[HXBTransactionPasswordView alloc] init];
-    [self.passwordView show];
+    [self.passwordView showInView:self.view];
     self.passwordView.getTransactionPasswordBlock = ^(NSString *password) {
         [weakSelf checkWithdrawals:password];
     };
