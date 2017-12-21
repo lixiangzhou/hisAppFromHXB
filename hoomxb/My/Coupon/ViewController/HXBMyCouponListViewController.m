@@ -62,6 +62,9 @@
         if (weakSelf.myCouponListModelMArray.count == totalCount) {
             [self.myView.mainTableView.mj_header endRefreshing];
             [self.myView.mainTableView.mj_footer endRefreshingWithNoMoreData];
+            if (totalCount == 0) {
+                weakSelf.myView.myCouponListModelArray = weakSelf.myCouponListModelMArray;
+            }
         } else {
             weakSelf.myView.isStopRefresh_Home = YES;
             [weakSelf.myCouponListModelMArray addObjectsFromArray:modelArray];

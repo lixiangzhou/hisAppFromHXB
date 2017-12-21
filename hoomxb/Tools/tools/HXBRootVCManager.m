@@ -74,25 +74,10 @@
  */
 - (void)enterTheGesturePasswordVCOrTabBar
 {
-//     KeyChain.validateGesturePwd
-    if (KeyChain.isLogin) {
-        if (KeyChain.gesturePwd.length > 0) {   // 已有手势密码，手势登录
-            HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-            gesturePasswordVC.type = GestureViewControllerTypeLogin;
-            gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
-            self.window.rootViewController = gesturePasswordVC;
-        } else {
-            BOOL skipGesturePwd = [[kUserDefaults stringForKey:kHXBGesturePwdSkipeKey]  isEqual:kHXBGesturePwdSkipeYES];
-            if (skipGesturePwd) {
-                [self makeTabbarRootVC];
-            } else {
-                HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-                gesturePasswordVC.type = GestureViewControllerTypeSetting;
-                gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
-                self.window.rootViewController = gesturePasswordVC;
-            }
-        }
-       
+    if (KeyChain.validateGesturePwd) {
+        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+        gesturePasswordVC.type = GestureViewControllerTypeLogin;
+        self.window.rootViewController = gesturePasswordVC;
     } else {
         [self makeTabbarRootVC];
     }

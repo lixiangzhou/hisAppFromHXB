@@ -57,4 +57,12 @@
     }
     return [NSString stringWithFormat:@"%@%@",self,string];
 }
+
+/// 对数字取整
++ (NSString *)getIntegerStringWithNumber:(double)number fractionDigits:(int)fractionDigits {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    formatter.roundingMode = NSNumberFormatterRoundFloor; // 不保留两位有效数字
+    formatter.maximumFractionDigits = fractionDigits;
+    return [formatter stringFromNumber:[NSNumber numberWithDouble:number]];
+}
 @end

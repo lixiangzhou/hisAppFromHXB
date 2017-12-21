@@ -32,7 +32,7 @@
     [super viewDidLoad];
     self.isRedColorWithNavigationBar = YES;
     self.title = @"邀请记录";
-    self.view.backgroundColor =BACKGROUNDCOLOR;
+    self.view.backgroundColor = BACKGROUNDCOLOR;
     [self setUI];
     _page = 1;
     [self setUpDataForInviteOverView];
