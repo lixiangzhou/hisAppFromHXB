@@ -77,6 +77,8 @@
             successBlock(YES);
             if ((![mobile isEqualToString:KeyChain.mobile]) && KeyChain.mobile) {
                 [KeyChain removeGesture];
+                KeyChain.skipGesture = nil;
+                KeyChain.skipGestureAlertAppeared = NO;
             }
             KeyChain.mobile = mobile;
         }
