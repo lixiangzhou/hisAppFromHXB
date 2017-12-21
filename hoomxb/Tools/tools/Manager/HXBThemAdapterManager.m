@@ -27,7 +27,7 @@
     //以iphone6为基准
     CGFloat scale = screenSize.height/667;
     
-    if(375==screenSize.width && 812==screenSize.width) {//iphoneX
+    if(375==screenSize.width && 812==screenSize.height) {//iphoneX
         scale = 1;
     }
     
@@ -42,7 +42,7 @@
 + (CGFloat)getStateBarHeight
 {
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    if(375==screenSize.width && 812==screenSize.width) {//iphoneX
+    if(375==screenSize.width && 812==screenSize.height) {//iphoneX
         return 44;
     }
     return 20;
@@ -56,7 +56,7 @@
 + (CGFloat)getStateNavgationBarHeight
 {
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    if(375==screenSize.width && 812==screenSize.width) {//iphoneX
+    if(375==screenSize.width && 812==screenSize.height) {//iphoneX
         return 88;
     }
     return 64;

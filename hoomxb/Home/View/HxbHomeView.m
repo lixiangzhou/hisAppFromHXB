@@ -50,7 +50,7 @@
     [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self);
         //            make.top.equalTo(self);//.offset(kScrAdaptationH(30))
-        make.bottom.equalTo(self).offset(-49); //注意适配iPhone X
+        make.bottom.equalTo(self).offset(-(HXBTabbarHeight)); //注意适配iPhone X
     }];
     UIImage *bgImage = [UIImage imageNamed:@"Home_top_bg"];
     CGSize imageSize = bgImage.size;
