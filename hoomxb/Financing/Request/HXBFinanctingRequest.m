@@ -747,10 +747,10 @@
     confirmBuyReslut.requestMethod = NYRequestMethodPost;
     [confirmBuyReslut startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseStatus] valueForKey:@"errorType"];
+        NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
-                status = kBuy_Toast;
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
             } else if ([errorType isEqualToString:@"PROCESSING"]) {
@@ -782,10 +782,10 @@
     loanBuyReslutRequest.requestArgument = parameter;
     [loanBuyReslutRequest startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseStatus] valueForKey:@"errorType"];
+        NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
-                status = kBuy_Toast;
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
             } else if ([errorType isEqualToString:@"PROCESSING"]) {
@@ -820,10 +820,10 @@
     [loanTruansferAPI startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseStatus] valueForKey:@"errorType"];
+        NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
-                status = kBuy_Toast;
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
             } else if ([errorType isEqualToString:@"PROCESSING"]) {

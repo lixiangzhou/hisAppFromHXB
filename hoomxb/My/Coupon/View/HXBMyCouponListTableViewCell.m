@@ -125,26 +125,27 @@
 
 - (void)setupSubViewFrame {
 
+    kWeakSelf
     [self.mainView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView).offset(kScrAdaptationW750(30));
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(30));
         make.width.equalTo(@kScrAdaptationW750(690));
-        make.top.equalTo(self.contentView);
+        make.top.equalTo(weakSelf.contentView);
         make.height.equalTo(@kScrAdaptationH750(240));
     }];
     [self.leftImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.bottom.equalTo(self.mainView);
+        make.left.top.bottom.equalTo(weakSelf.mainView);
         make.width.equalTo(@kScrAdaptationW750(212));
     }];
     [self.dicountRateLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.leftImgV).offset(kScrAdaptationW750(18));
+        make.left.equalTo(weakSelf.leftImgV).offset(kScrAdaptationW750(18));
         make.width.equalTo(@kScrAdaptationW750(180));
-        make.top.equalTo(self.leftImgV).offset(kScrAdaptationH750(62));
+        make.top.equalTo(weakSelf.leftImgV).offset(kScrAdaptationH750(62));
         make.height.equalTo(@kScrAdaptationH750(84));
     }];
     [self.allowDerateInvestLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.leftImgV).offset(kScrAdaptationW750(18));
+        make.left.equalTo(weakSelf.leftImgV).offset(kScrAdaptationW750(18));
         make.width.equalTo(@kScrAdaptationW750(180));
-        make.top.equalTo(self.dicountRateLab.mas_bottom).offset(kScrAdaptationH750(10));
+        make.top.equalTo(weakSelf.dicountRateLab.mas_bottom).offset(kScrAdaptationH750(10));
         make.height.equalTo(@kScrAdaptationH750(22));
     }];
     [self.leftLineImgV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -159,8 +160,17 @@
         make.width.equalTo(@kScrAdaptationW750(392));
         make.height.equalTo(@kScrAdaptationH750(240));
     }];
+    
+    [self.rightLineImgV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(@kScrAdaptationW750(606));
+        make.width.equalTo(@kScrAdaptationW750(2));
+        make.top.equalTo(@kScrAdaptationH750(0));
+        make.height.equalTo(@kScrAdaptationH750(240));
+    }];
+    
     [self.couponTypeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@kScrAdaptationW750(40));
+        make.right.equalTo(weakSelf.rightLineImgV).offset(kScrAdaptationW(-2));
         make.top.equalTo(@kScrAdaptationH750(40));
         make.height.equalTo(@kScrAdaptationH750(34));
     }];
@@ -177,12 +187,7 @@
         make.top.equalTo(@kScrAdaptationH750(136));
         make.height.equalTo(@kScrAdaptationH750(64));
     }];
-    [self.rightLineImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(@kScrAdaptationW750(606));
-        make.width.equalTo(@kScrAdaptationW750(2));
-        make.top.equalTo(@kScrAdaptationH750(0));
-        make.height.equalTo(@kScrAdaptationH750(240));
-    }];
+    
     [self.rightImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@kScrAdaptationW750(604));
         make.width.equalTo(@kScrAdaptationW750(84));
@@ -191,7 +196,7 @@
     }];
     
     [self.actionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.width.height.top.equalTo(self.rightImgV);
+        make.left.width.height.top.equalTo(weakSelf.rightImgV);
     }];
 }
 
