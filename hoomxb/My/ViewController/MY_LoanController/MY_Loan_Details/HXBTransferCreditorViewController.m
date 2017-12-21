@@ -143,10 +143,11 @@
     failureVC.buy_description = responseObject[@"message"];
     failureVC.buy_ButtonTitle = @"重新转让";
     failureVC.title = @"债权转让";
+    kWeakSelf
     [failureVC clickButtonWithBlock:^{
-        for (UIViewController *VC in self.navigationController.viewControllers) {
+        for (UIViewController *VC in weakSelf.navigationController.viewControllers) {
             if ([VC isKindOfClass:[HXBMY_LoanListViewController class]]) {
-                [self.navigationController popToViewController:VC animated:YES];
+                [weakSelf.navigationController popToViewController:VC animated:YES];
             }
         }
     }];

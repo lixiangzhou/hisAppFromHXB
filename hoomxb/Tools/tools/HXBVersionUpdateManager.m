@@ -49,7 +49,7 @@
         }
         
     } andFailureBlock:^(NSError *error) {
-        
+        self.isShow = YES;
     }];
 }
 
