@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #pragma mark - 通用接口说
 
-/// ======================= 展示hud 并 判断请求是否成功 =======================
+/// ======================= 展示hud 并 判断请求是否成功    failureBlock(nil)  =======================
 #define kHXBResponsShowHUD int codeValue = [responseObject[@"status"] intValue];\
 if (codeValue != 0 && codeValue != 104) {\
 if (failureBlock) {\
@@ -18,6 +18,13 @@ failureBlock(nil);\
 return;\
 }\
 }
+/// ======================= 展示hud 并 判断请求是否成功 只弹框 不处理回调 =======================
+#define kHXBBuyErrorResponsShowHUD int codeValue = [responseObject[@"status"] intValue];\
+if (codeValue != 0 && codeValue != 104) {\
+[HxbHUDProgress showTextWithMessage:responseObject[@"message"]];\
+return;\
+}
+
 /// 请求下来后返回给vc
 #define kHXBRespons_returnVCError if ([responseObject[kResponseStatus] integerValue]) {\
     if (failureBlock) {\
