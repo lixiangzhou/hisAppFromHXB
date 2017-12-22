@@ -11,6 +11,7 @@
 
 //MARK: ======================= 首页 =======================
 #define kHXBHome_HomeURL @"/home"///用户信息
+#define kHXBHome_PopView @"/popups"///首页弹窗
 
 //MARK: ======================= 闪屏接口 界面 =======================
 #define kHXBSplash            @"/splash"///闪屏接口

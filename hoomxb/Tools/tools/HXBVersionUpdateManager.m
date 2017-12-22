@@ -10,6 +10,7 @@
 #import "HXBVersionUpdateModel.h"
 #import "HXBVersionUpdateRequest.h"
 #import "HXBRootVCManager.h"
+#import "HXBHomePopViewManager.h"
 
 @interface HXBVersionUpdateManager ()
 
@@ -49,7 +50,8 @@
         }
         
     } andFailureBlock:^(NSError *error) {
-        
+        weakSelf.isShow = YES;
+        [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
     }];
 }
 

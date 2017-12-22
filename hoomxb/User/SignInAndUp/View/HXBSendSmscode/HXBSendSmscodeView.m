@@ -390,7 +390,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 }
 ///销毁定时器
 - (void)deleteTimer {
-    if (self.timer) {
+    if (_timer) {
         [self.timer stopTimer];
         _startsCountdown = NO;
         self.timer = nil;
