@@ -274,7 +274,6 @@ static const NSInteger topView_high = 300;
         [weakSelf alertSmsCode];
         [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
     } andFailureBlock:^(NSError *error) {
-        NSLog(@"*****error:%@****",error);
         NSInteger errorCode = 0;
         if ([error isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = (NSDictionary *)error;
@@ -380,6 +379,7 @@ static const NSInteger topView_high = 300;
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = errorMessage;
                 failViewController.buy_ButtonTitle = @"重新投资";
+                
                 break;
 
             case kBuy_Processing:
@@ -389,19 +389,13 @@ static const NSInteger topView_high = 300;
                 failViewController.buy_ButtonTitle = @"重新投资";
                 break;
                 
-            case kHXBTransaction_Password_Error:
-                self.alertVC.isCleanPassword = YES;
-                break;
-
-            case kBuy_Toast:
-                [HxbHUDProgress showTextWithMessage:errorMessage];
-                break;
-                
+                // 弹toast（3014：交易密码错误， 3015：短验错误， 3413：产品购买过于频繁）
             default:
+                weakSelf.alertVC.isCleanPassword = YES;
                 return;
         }
         [failViewController clickButtonWithBlock:^{
-            [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
         [weakSelf.navigationController pushViewController:failViewController animated:YES];

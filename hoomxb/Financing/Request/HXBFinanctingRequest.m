@@ -747,10 +747,12 @@
     confirmBuyReslut.requestMethod = NYRequestMethodPost;
     [confirmBuyReslut startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseStatus] valueForKey:@"errorType"];
+        NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
-                status = kBuy_Toast;
+                // 在网络请求底层已经特殊处理，在业务层不需要做处理
+                if (status == kHXBCode_Enum_ProcessingField) return ;
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
             } else if ([errorType isEqualToString:@"PROCESSING"]) {
@@ -782,10 +784,12 @@
     loanBuyReslutRequest.requestArgument = parameter;
     [loanBuyReslutRequest startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseStatus] valueForKey:@"errorType"];
+        NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
-                status = kBuy_Toast;
+                // 在网络请求底层已经特殊处理，在业务层不需要做处理
+                if (status == kHXBCode_Enum_ProcessingField) return ;
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
             } else if ([errorType isEqualToString:@"PROCESSING"]) {
@@ -820,10 +824,12 @@
     [loanTruansferAPI startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseStatus] valueForKey:@"errorType"];
+        NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
-                status = kBuy_Toast;
+                // 在网络请求底层已经特殊处理，在业务层不需要做处理
+                if (status == kHXBCode_Enum_ProcessingField) return ;
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
             } else if ([errorType isEqualToString:@"PROCESSING"]) {
