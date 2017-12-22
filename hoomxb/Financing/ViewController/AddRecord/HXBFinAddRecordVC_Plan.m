@@ -35,7 +35,7 @@ static NSString *CELLID = @"CELLID";
 }
 
 - (void)setUP {
-    self.isColourGradientNavigationBar = true;
+    self.isColourGradientNavigationBar = YES;
     self.addRecortdTableView = [[HXBFinAddRecortdTableView_Plan alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, self.view.width, self.view.height - HXBStatusBarAndNavigationBarHeight) style:UITableViewStylePlain];
     [self.view addSubview:self.addRecortdTableView];
 }

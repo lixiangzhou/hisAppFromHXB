@@ -39,7 +39,10 @@
             __block NSString *error = @"";
             [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
                 NSArray *arr = obj;
-                error = arr[0];
+                if([arr isKindOfClass:[NSArray class]] && arr.count>0) {
+                    error = arr[0];
+                    *stop = YES;
+                }
             }];
             [self showToast:error withRequest:request];
         } else if(status.integerValue == kHXBCode_Enum_RequestOverrun){

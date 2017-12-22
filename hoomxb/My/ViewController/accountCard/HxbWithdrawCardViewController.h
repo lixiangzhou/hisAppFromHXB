@@ -8,6 +8,7 @@
 
 #import "HXBBaseViewController.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
+
 @class HXBBankCardModel;
 ///银行卡绑定
 @interface HxbWithdrawCardViewController : HXBBaseViewController
