@@ -300,10 +300,9 @@ static NSString *const bankString = @"绑定银行卡";
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:@"sms" andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
         weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-        [self alertSmsCode];
+        [weakSelf alertSmsCode];
         [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
     } andFailureBlock:^(NSError *error) {
-        NSLog(@"*****error:%@****",error);
         NSInteger errorCode = 0;
         if ([error isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = (NSDictionary *)error;
@@ -365,19 +364,12 @@ static NSString *const bankString = @"绑定银行卡";
                 break;
                 
                 // 弹toast（3014：交易密码错误， 3015：短验错误， 3413：产品购买过于频繁）
-            case kHXBTransaction_Password_Error:
-                self.alertVC.isCleanPassword = YES;
-                break;
-                
-            case kBuy_Toast:
-                [HxbHUDProgress showTextWithMessage:errorMessage];
-                break;
-                
             default:
+                weakSelf.alertVC.isCleanPassword = YES;
                 return;
         }
         [failViewController clickButtonWithBlock:^{
-            [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
         [weakSelf.navigationController pushViewController:failViewController animated:YES];
