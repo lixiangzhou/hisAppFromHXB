@@ -232,25 +232,4 @@
     }
 }
 
-#pragma - mark 获取token
-- (void)refreshAccessToken:(void(^)(NSData *data))refresh{
-    NSString *tokenURLString = [NSString stringWithFormat:@"%@%@",[HXBBaseUrlManager manager].baseUrl,TOKENURL];
-    NSURL *tokenURL =[NSURL URLWithString:tokenURLString];
-    NSURLRequest *request = [NSURLRequest requestWithURL:tokenURL];
-    
-    NSURLSession *session = [NSURLSession sharedSession];
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request
-                                            completionHandler:
-                                  ^(NSData *data, NSURLResponse *response, NSError *error) {
-                                      if (error) {
-                                          data = nil;
-                                      }
-                                      NSLog(@"data:%@",response);
-                                      NSLog(@"%@", [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil]);
-                                      refresh(data);
-                                  }];
-    
-    [task resume];
-}
-
 @end

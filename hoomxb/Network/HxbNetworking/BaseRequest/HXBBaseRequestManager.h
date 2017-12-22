@@ -10,8 +10,9 @@
 
 @interface HXBBaseRequestManager : NSObject
 //当前是否正在获取令牌
-@property (nonatomic, assign) BOOL isGettingToken;
+@property (nonatomic, assign, readonly) BOOL isGettingToken;
 
 + (instancetype)sharedInstance;
 - (void)addRequest:(NYBaseRequest*)request;
+- (void)addTokenInvalidRequest:(NYBaseRequest*)request;
 @end
