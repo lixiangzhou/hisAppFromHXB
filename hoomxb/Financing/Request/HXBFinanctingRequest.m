@@ -750,6 +750,8 @@
         NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
+                // 在网络请求底层已经特殊处理，在业务层不需要做处理
+                if (status == kHXBCode_Enum_ProcessingField) return ;
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
@@ -785,6 +787,8 @@
         NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
+                // 在网络请求底层已经特殊处理，在业务层不需要做处理
+                if (status == kHXBCode_Enum_ProcessingField) return ;
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
@@ -823,6 +827,8 @@
         NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
+                // 在网络请求底层已经特殊处理，在业务层不需要做处理
+                if (status == kHXBCode_Enum_ProcessingField) return ;
                 [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
