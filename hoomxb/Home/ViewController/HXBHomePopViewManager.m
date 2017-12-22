@@ -153,15 +153,15 @@
     
     if ([homePopViewModel.type isEqualToString:@"native"]) { //哪种类型
         
-        if ([homePopViewModel.link hasPrefix:kPlan_fragment]) {
+        if ([homePopViewModel.url hasPrefix:kPlan_fragment]) {
             //计划列表
             HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
             tabBarVC.selectedIndex = 1;
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
-        } else if ([homePopViewModel.link hasPrefix:kPlanDetailVC]){
+        } else if ([homePopViewModel.url hasPrefix:kPlanDetailVC]){
             //某个计划的详情页
             HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
-            NSDictionary *parameterDict = [NSString urlDictFromUrlString:homePopViewModel.link];
+            NSDictionary *parameterDict = [NSString urlDictFromUrlString:homePopViewModel.url];
             if (parameterDict[@"productId"]) {
                 planDetailsVC.planID = parameterDict[@"productId"];
                 planDetailsVC.isPlan = YES;
@@ -170,14 +170,14 @@
             }
         }
     } else if ([homePopViewModel.type isEqualToString:@"broswer"]) {
-        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:homePopViewModel.link]]) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:homePopViewModel.link]];
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:homePopViewModel.url]]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:homePopViewModel.url]];
         }
     } else {
         //        NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],@"0b025dfa-4613-4ba9-a9e8-5805fdb6a829"];
         //        [HXBBaseWKWebViewController pushWithPageUrl:str fromController:controller];
         //[HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:homePopViewModel.link] fromController:controller];
-        [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.link fromController:controller];
+        [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.url fromController:controller];
     }
     
     [_popView dismiss];
@@ -185,7 +185,7 @@
 
 + (BOOL)checkHomePopViewWith:(HXBHomePopViewModel *)homePopViewModel{
     
-    if ([homePopViewModel.link isEqualToString:@""] || [homePopViewModel.link isEqualToString:@"/"]) {
+    if ([homePopViewModel.url isEqualToString:@""] || [homePopViewModel.url isEqualToString:@"/"]) {
         return NO;
     } else {
         return YES;
