@@ -127,8 +127,12 @@
         };
         _popView.clickImageBlock = ^{
             NSLog(@"1111点击图片");
-            //跳转到原生或h5
-            [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel fromController:controller];
+            //校验可不可以跳转
+            if ([HXBHomePopViewManager checkHomePopViewWith:self.homePopViewModel]) {
+                //跳转到原生或h5
+                [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel fromController:controller];
+            }
+            
         };
         _popView.clickBgmDismissCompleteBlock = ^{
             NSLog(@"1111点击背景移除完成");
@@ -147,46 +151,42 @@
 
 - (void)jumpPageFromHomePopView:(HXBHomePopViewModel *)homePopViewModel fromController:(UIViewController *)controller{
     
-    //校验可不可以跳转
-    if ([HXBHomePopViewManager checkHomePopViewWith:self.homePopViewModel]) {
+    if ([homePopViewModel.type isEqualToString:@"native"]) { //哪种类型
         
-        if ([homePopViewModel.type isEqualToString:@"native"]) { //哪种类型
-            
-            if ([homePopViewModel.link hasPrefix:kPlan_fragment]) {
-                //计划列表
-                HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-                tabBarVC.selectedIndex = 1;
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
-            } else if ([homePopViewModel.link hasPrefix:kPlanDetailVC]){
-                //某个计划的详情页
-                HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
-                NSDictionary *parameterDict = [NSString urlDictFromUrlString:homePopViewModel.link];
-                if (parameterDict[@"productId"]) {
-                    planDetailsVC.planID = parameterDict[@"productId"];
-                    planDetailsVC.isPlan = YES;
-                    planDetailsVC.isFlowChart = YES;
-                    [controller.navigationController pushViewController:planDetailsVC animated:YES];
-                }
+        if ([homePopViewModel.link hasPrefix:kPlan_fragment]) {
+            //计划列表
+            HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+            tabBarVC.selectedIndex = 1;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
+        } else if ([homePopViewModel.link hasPrefix:kPlanDetailVC]){
+            //某个计划的详情页
+            HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
+            NSDictionary *parameterDict = [NSString urlDictFromUrlString:homePopViewModel.link];
+            if (parameterDict[@"productId"]) {
+                planDetailsVC.planID = parameterDict[@"productId"];
+                planDetailsVC.isPlan = YES;
+                planDetailsVC.isFlowChart = YES;
+                [controller.navigationController pushViewController:planDetailsVC animated:YES];
             }
-        } else if ([homePopViewModel.type isEqualToString:@"broswer"]) {
-            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:homePopViewModel.link]]) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:homePopViewModel.link]];
-            }
-        } else {
-            //        NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],@"0b025dfa-4613-4ba9-a9e8-5805fdb6a829"];
-            //        [HXBBaseWKWebViewController pushWithPageUrl:str fromController:controller];
-            //[HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:homePopViewModel.link] fromController:controller];
-            [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.link fromController:controller];
         }
+    } else if ([homePopViewModel.type isEqualToString:@"broswer"]) {
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:homePopViewModel.link]]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:homePopViewModel.link]];
+        }
+    } else {
+        //        NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],@"0b025dfa-4613-4ba9-a9e8-5805fdb6a829"];
+        //        [HXBBaseWKWebViewController pushWithPageUrl:str fromController:controller];
+        //[HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:homePopViewModel.link] fromController:controller];
+        [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.link fromController:controller];
     }
-
+    
     [_popView dismiss];
 }
 
 + (BOOL)checkHomePopViewWith:(HXBHomePopViewModel *)homePopViewModel{
     
-    if (![homePopViewModel.link isEqualToString:@""]) {
-        return YES;
+    if ([homePopViewModel.link isEqualToString:@""] || [homePopViewModel.link isEqualToString:@"/"]) {
+        return NO;
     } else {
         return YES;
     }
