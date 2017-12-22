@@ -167,7 +167,10 @@
     if (!_imgView) {
         _imgView = [[UIImageView alloc] initWithFrame:CGRectMake(kScrAdaptationW(0), kScrAdaptationH(0), kScrAdaptationW(266), kScrAdaptationH(356))];
         _imgView.userInteractionEnabled = YES;
-//        _imgView.image = [UIImage imageNamed:@"HXBBankCustody"];//
+        _imgView.contentMode = UIViewContentModeScaleAspectFit;
+        _imgView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _imgView.layer.cornerRadius = 4;
+        _imgView.layer.masksToBounds = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage:)];
         [_imgView addGestureRecognizer:tap];
     }
