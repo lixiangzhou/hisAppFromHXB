@@ -4,7 +4,7 @@
 //
 //  Created by HXB-C on 2017/6/27.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
-//
+//  只是验证码弹窗
 
 #import <UIKit/UIKit.h>
 #import "HXBVerificationCodeAlertView.h"
@@ -23,7 +23,7 @@
 /**
  message
  */
-@property (nonatomic, copy) NSString *messageLabelText;
+//@property (nonatomic, copy) NSString *messageLabelText;
 
 /**
  是否是验证码
@@ -36,12 +36,12 @@
 /**
  是否是电话
  */
-@property (nonatomic, assign) BOOL isMobile;///
+//@property (nonatomic, assign) BOOL isMobile;///
 
 /**
  是否清空
  */
-@property (nonatomic, assign) BOOL isCleanPassword;///
+@property (nonatomic, assign) BOOL isCleanPassword;
 /**
  确认按钮
  */

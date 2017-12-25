@@ -52,15 +52,16 @@
     kWeakSelf
     [HXBHomePopViewRequest homePopViewRequestSuccessBlock:^(id responseObject) {
         
-        if (!responseObject[@"data"]) {
+        if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
             weakSelf.isHide = YES;
             return ;
         }
         weakSelf.homePopViewModel = [HXBHomePopViewModel yy_modelWithDictionary:responseObject[@"data"]];
         [weakSelf updateUserDefaultsPopViewDate:responseObject[@"data"]];
+        
 //        [HXBHomePopViewManager popHomeViewWith:weakSelf.homePopViewVM.homePopModel fromController:weakSelf];//弹出首页弹窗
     } andFailureBlock:^(NSError *error) {
-        
+        self.isHide = YES;
     }];
 }
 
@@ -86,10 +87,25 @@
 }
 
 - (void)cachePopHomeImage{
-
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_responseDict[@"image"]]];
-    [kUserDefaults setObject:data forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
-    [kUserDefaults synchronize];
+    kWeakSelf
+    [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:@"https://picsum.photos/1482/1395/?image=3"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) { //_responseDict[@"image"]
+        if (image) {
+            weakSelf.popView.imgView.image = image;
+            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_responseDict[@"image"]]];
+                    [kUserDefaults setObject:data forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
+            [kUserDefaults synchronize];
+            
+//                SDImageCache *imageCache = [SDImageCache sharedImageCache];
+//                [imageCache storeImage:image forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] toDisk:YES];
+            }
+        }];
+    
+    
+    
+    
+//    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_responseDict[@"image"]]];
+//    [kUserDefaults setObject:data forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
+//    [kUserDefaults synchronize];
 }
 
 - (void)popHomeViewfromController:(UIViewController *)controller{
@@ -114,6 +130,17 @@
                 weakSelf.isHide = YES;
                 //                [weakPopView dismiss];
             }
+            
+            
+            
+            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everyTime"]) {
+                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
+                weakSelf.isHide = YES;
+            }
+            
+            
+            
+            
             [kUserDefaults synchronize];
         };
         // 2.7 移除完成回调
