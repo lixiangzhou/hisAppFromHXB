@@ -308,6 +308,8 @@
     [UIView animateWithDuration:duration animations:^{
         self.contentView.y = kScreenHeight;
     } completion:^(BOOL finished) {
+        [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+        [IQKeyboardManager sharedManager].enable = YES;
         [self removeFromSuperview];
     }];
 }
@@ -315,8 +317,6 @@
 
 #pragma mark - Public
 - (void)dealloc {
-    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
-    [IQKeyboardManager sharedManager].enable = YES;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
