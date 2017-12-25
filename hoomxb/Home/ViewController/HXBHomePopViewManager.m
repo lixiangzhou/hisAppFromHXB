@@ -57,6 +57,7 @@
             return ;
         }
         weakSelf.homePopViewModel = [HXBHomePopViewModel yy_modelWithDictionary:responseObject[@"data"]];
+        
         [weakSelf updateUserDefaultsPopViewDate:responseObject[@"data"]];
         
 //        [HXBHomePopViewManager popHomeViewWith:weakSelf.homePopViewVM.homePopModel fromController:weakSelf];//弹出首页弹窗

@@ -750,16 +750,14 @@
         NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
-                // 在网络请求底层已经特殊处理，在业务层不需要做处理
-                if (status == kHXBCode_Enum_ProcessingField) return ;
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+                kHXBBuyErrorResponsShowHUD;
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
             } else if ([errorType isEqualToString:@"PROCESSING"]) {
                 status = kBuy_Processing;
             }
-            if (status == kHXBTransaction_Password_Error) status = kHXBTransaction_Password_Error;
-            if (failureBlock) failureBlock(responseObject[kResponseMessage], status); return;
+            if (failureBlock) failureBlock(responseObject[kResponseMessage], status);
+            return;
         }
         NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
         HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
@@ -787,16 +785,15 @@
         NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
-                // 在网络请求底层已经特殊处理，在业务层不需要做处理
-                if (status == kHXBCode_Enum_ProcessingField) return ;
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+                status = kBuy_Toast;
+                kHXBBuyErrorResponsShowHUD;
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
             } else if ([errorType isEqualToString:@"PROCESSING"]) {
                 status = kBuy_Processing;
             }
-            if (status == kHXBTransaction_Password_Error) status = kHXBTransaction_Password_Error;
-            if (failureBlock) failureBlock(responseObject[kResponseMessage], status); return;
+            if (failureBlock) failureBlock(responseObject[kResponseMessage], status);
+            return;
         }
         
         HXBFinModel_BuyResoult_LoanModel *loanBuyResoult = [[HXBFinModel_BuyResoult_LoanModel alloc]init];
@@ -827,16 +824,14 @@
         NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
-                // 在网络请求底层已经特殊处理，在业务层不需要做处理
-                if (status == kHXBCode_Enum_ProcessingField) return ;
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+                kHXBBuyErrorResponsShowHUD;
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
             } else if ([errorType isEqualToString:@"PROCESSING"]) {
                 status = kBuy_Processing;
             }
-            if (status == kHXBTransaction_Password_Error) status = kHXBTransaction_Password_Error;
-            if (failureBlock) failureBlock(responseObject[kResponseMessage], status); return;
+            if (failureBlock) failureBlock(responseObject[kResponseMessage], status);
+            return;
         }
         
         HXBFin_LoanTruansfer_BuyResoutViewModel *result = [[HXBFin_LoanTruansfer_BuyResoutViewModel alloc]init];
