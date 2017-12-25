@@ -16,6 +16,7 @@
 #import "HXBBaseTabBarController.h"
 #import "NSString+HxbGeneral.h"
 #import "HXBVersionUpdateManager.h"
+#import "UIImage+HXBUtil.h"
 
 //#define kRegisterVC @"/account/register"//注册页面
 #define kPlanDetailVC @"/plan/detail"//某个计划的详情页
@@ -51,13 +52,27 @@
 {
     kWeakSelf
     [HXBHomePopViewRequest homePopViewRequestSuccessBlock:^(id responseObject) {
+//        id responseObject1 = @{
+//
+//                               @"data":@{
+//                    @"createTime" : @1513821964630,
+//                    @"frequency" : @"everyTime",
+//                    @"id": @"3-1482-1395",
+//                    @"image" : @"https://picsum.photos/1482/1395/?image=3",
+//                    @"url" : @"/",
+//                    @"title" : @"3-1482-1395",
+//                    @"type" : @"native",
+//                    @"updateTime" : @1513821964630
+//            },
+//            @"message":@"success",
+//                               @"status":@0
+//                               };
         
         if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
             weakSelf.isHide = YES;
             return ;
         }
         weakSelf.homePopViewModel = [HXBHomePopViewModel yy_modelWithDictionary:responseObject[@"data"]];
-        
         [weakSelf updateUserDefaultsPopViewDate:responseObject[@"data"]];
         
 //        [HXBHomePopViewManager popHomeViewWith:weakSelf.homePopViewVM.homePopModel fromController:weakSelf];//弹出首页弹窗
@@ -89,89 +104,71 @@
 
 - (void)cachePopHomeImage{
     kWeakSelf
-    [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:@"https://picsum.photos/1482/1395/?image=3"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) { //_responseDict[@"image"]
+    [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:_responseDict[@"image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+
         if (image) {
-            weakSelf.popView.imgView.image = image;
-            NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_responseDict[@"image"]]];
-                    [kUserDefaults setObject:data forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
-            [kUserDefaults synchronize];
+            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(10)];
+            weakSelf.popView.imgView.image = img;
             
-//                SDImageCache *imageCache = [SDImageCache sharedImageCache];
-//                [imageCache storeImage:image forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] toDisk:YES];
+            SDImageCache *imageCache = [SDImageCache sharedImageCache];
+            [imageCache storeImage:image forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] toDisk:YES];
             }
         }];
-    
-    
-    
-    
-//    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_responseDict[@"image"]]];
-//    [kUserDefaults setObject:data forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
-//    [kUserDefaults synchronize];
 }
 
 - (void)popHomeViewfromController:(UIViewController *)controller{
     
     if ([controller isKindOfClass:[HxbHomeViewController class]] && [HXBVersionUpdateManager sharedInstance].isShow) {
         kWeakSelf
-        // 1.初始化
-        _popView = [[HXBHomePopView alloc]init];
-        //        [popView.imgView sd_setImageWithURL:[NSURL URLWithString:self.homePopViewModel.]];
-        // 2.设置属性，可不设置使用默认值，见注解
-        // 2.1 显示时点击背景是否移除弹框
-        _popView.isClickBGDismiss = YES;
-        // 2.2 显示时背景的透明度
-        _popView.popBGAlpha = 0.5f;
-        // 2.6 显示完成回调
+        
+        // 显示完成回调
         __weak typeof(_popView) weakPopView = _popView;
-        _popView.popCompleteBlock = ^{
+        self.popView.popCompleteBlock = ^{
             NSLog(@"1111显示完成");
             
-            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
-                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
-                weakSelf.isHide = YES;
-                //                [weakPopView dismiss];
-            }
-            
-            
-            
-            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everyTime"]) {
-                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
-                weakSelf.isHide = YES;
-            }
-            
-            
-            
-            
+//            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
+//                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
+//                weakSelf.isHide = YES;
+//            }
+//
+//            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everyTime"]) {
+//                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
+//                weakSelf.isHide = YES;
+//            }
+            [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
+            weakSelf.isHide = YES;
             [kUserDefaults synchronize];
         };
-        // 2.7 移除完成回调
-        _popView.dismissCompleteBlock = ^{
+        // 移除完成回调
+        self.popView.dismissCompleteBlock = ^{
             NSLog(@"1111移除完成");
         };
-        // 3.1处理自定义视图操作事件
-        _popView.closeActionBlock = ^{
+        // 处理自定义视图操作事件
+        self.popView.closeActionBlock = ^{
             NSLog(@"1111点击关闭按钮");
             [weakPopView dismiss];
         };
-        _popView.clickImageBlock = ^{
+        self.popView.clickImageBlock = ^{
             NSLog(@"1111点击图片");
             //校验可不可以跳转
-            if ([HXBHomePopViewManager checkHomePopViewWith:self.homePopViewModel]) {
+            if ([HXBHomePopViewManager checkHomePopViewWith:weakSelf.homePopViewModel]) {
                 //跳转到原生或h5
                 [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel fromController:controller];
             }
             
         };
-        _popView.clickBgmDismissCompleteBlock = ^{
+        self.popView.clickBgmDismissCompleteBlock = ^{
             NSLog(@"1111点击背景移除完成");
             [weakPopView dismiss];
         };
-        // 4.显示弹框
+        // 显示弹框
         if (!self.isHide) {
-            UIImage *image = [UIImage imageWithData: [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]]];
+//            UIImage *image = [UIImage imageWithData: [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]]];
+            UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
+            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(10)];
             if (image) {
-                _popView.imgView.image = image;
-                [_popView pop];
+                weakSelf.popView.imgView.image = img;
+                [weakSelf.popView pop];
             }
         }
     }
@@ -208,7 +205,7 @@
         [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.url fromController:controller];
     }
     
-    [_popView dismiss];
+    [self.popView dismiss];
 }
 
 + (BOOL)checkHomePopViewWith:(HXBHomePopViewModel *)homePopViewModel{
@@ -218,6 +215,17 @@
     } else {
         return YES;
     }
+}
+
+- (HXBHomePopView *)popView{
+    if (!_popView) {
+         _popView = [[HXBHomePopView alloc]init];
+        // 显示时点击背景是否移除弹框
+        _popView.isClickBGDismiss = YES;
+        // 显示时背景的透明度
+        _popView.popBGAlpha = 0.5f;
+    }
+    return _popView;
 }
 
 @end

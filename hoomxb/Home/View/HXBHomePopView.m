@@ -169,7 +169,7 @@
         _imgView.userInteractionEnabled = YES;
         _imgView.contentMode = UIViewContentModeScaleAspectFit;
         _imgView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _imgView.layer.cornerRadius = 4;
+        _imgView.layer.cornerRadius = kScrAdaptationW(10);
         _imgView.layer.masksToBounds = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage:)];
         [_imgView addGestureRecognizer:tap];
