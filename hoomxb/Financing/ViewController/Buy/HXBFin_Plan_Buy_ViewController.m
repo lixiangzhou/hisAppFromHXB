@@ -293,8 +293,7 @@ static const NSInteger topView_high = 300;
 - (void)alertSmsCode {
     if (!self.presentedViewController) {
         self.alertVC = [[HXBAlertVC alloc] init];
-        self.alertVC.isCode = YES;
-        self.alertVC.speechType = NO;
+//        self.alertVC.speechType = NO;
         self.alertVC.isCleanPassword = YES;
         double rechargeMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
         self.alertVC.messageTitle = @"请输入验证码";

@@ -11,7 +11,6 @@
 #import "HxbWithdrawResultViewController.h"
 #import "HXBBankCardModel.h"
 #import "HXBWithdrawalsRequest.h"
-#import "HXBAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBBankCardListViewController.h"
 #import "HXBWithdrawCardView.h"

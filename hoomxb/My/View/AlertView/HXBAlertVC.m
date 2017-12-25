@@ -8,19 +8,15 @@
 
 #import "HXBAlertVC.h"
 #import "HXBVerificationCodeAlertView.h"
-#import "HBAlertPasswordView.h"
-@interface HXBAlertVC ()<HBAlertPasswordViewDelegate, UITextFieldDelegate>
 
+@interface HXBAlertVC ()<UITextFieldDelegate>
+
+@property (nonatomic, strong) UIButton *backBtn;
 @property (nonatomic, strong) UIButton *cancelBtn;
 @property (nonatomic, strong) UIButton *sureBtn;
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UILabel *messageLab;
-
-//子标题设置
 @property (nonatomic, strong) UILabel *subTitleLabel;
-//交易密码
-@property (nonatomic, copy) NSString *transactionPassword;
-@property (nonatomic, strong) UIButton *backBtn;
 
 @end
 
@@ -42,6 +38,10 @@
     [self.contentView addSubview:self.cancelBtn];
     [self.contentView addSubview:self.sureBtn];
     [self.contentView addSubview:self.messageLab];
+    [self.contentView addSubview:self.verificationCodeAlertView];
+    [self.contentView addSubview:self.subTitleLabel];
+    
+    [self setupSubViewFrame];
 }
 
 -(void)setIsSpeechVerificationCode:(BOOL)isSpeechVerificationCode{
@@ -49,22 +49,10 @@
     self.verificationCodeAlertView.isSpeechVerificationCode = isSpeechVerificationCode;
 }
 
-- (void)setSpeechType:(BOOL)speechType {
-    _speechType = speechType;
-    self.verificationCodeAlertView.speechType = _speechType;
-}
-- (void)setIsCode:(BOOL)isCode
-{
-    _isCode = isCode;
-    if (isCode) {
-        [self.contentView addSubview:self.verificationCodeAlertView];
-        [self.contentView addSubview:self.subTitleLabel];
-    } else {
-        [self.verificationCodeAlertView removeFromSuperview];
-        [self.subTitleLabel removeFromSuperview];
-    }
-    [self setupSubViewFrame];
-}
+//- (void)setSpeechType:(BOOL)speechType {
+//    _speechType = speechType;
+//    self.verificationCodeAlertView.speechType = _speechType;
+//}
 
 - (void)setSubTitle:(NSString *)subTitle
 {
@@ -105,20 +93,16 @@
         make.bottom.equalTo(weakSelf.view.mas_bottom);
     }];
     
-    if (self.isCode) {
-       
-        [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
-            make.left.right.equalTo(weakSelf.contentView);
-        }];
-        [self.verificationCodeAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.subTitleLabel.mas_bottom);//.offset(kScrAdaptationH750(50));
-            make.bottom.equalTo(weakSelf.sureBtn.mas_top);//.offset(kScrAdaptationH750(-188))
-            make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(70));
-            make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(-70));
-        }];
-        return;
-    }
+    [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
+        make.left.right.equalTo(weakSelf.contentView);
+    }];
+    [self.verificationCodeAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.subTitleLabel.mas_bottom);//.offset(kScrAdaptationH750(50));
+        make.bottom.equalTo(weakSelf.sureBtn.mas_top);//.offset(kScrAdaptationH750(-188))
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(70));
+        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(-70));
+    }];
 }
 
 - (void)setMessageTitle:(NSString *)messageTitle {
@@ -128,10 +112,8 @@
 
 - (void)buttonClick:(UIButton *)btn
 {
-    if (self.isCode) {
-        //校验验证码
-        [self checkVerificationCode];
-    }
+    //校验验证码
+    [self checkVerificationCode];
 }
 
 - (void)setIsCleanPassword:(BOOL)isCleanPassword {
@@ -149,27 +131,6 @@
     }
     if (self.sureBtnClick) {
         self.sureBtnClick(self.verificationCodeAlertView.verificationCode);
-    }
-}
-
-/**
- 校验交易密码
- */
-- (void)checkTransactionPasswordWithBtn:(UIButton *)btn
-{
-    if ([btn.titleLabel.text isEqualToString:@"确定"]) {
-        if (self.transactionPassword.length != 6) {
-            [HxbHUDProgress showMessage:@"交易密码为6位数字" inView:self.contentView];
-            return;
-        }else
-        {
-            self.sureBtnClick(self.transactionPassword);
-        }
-    }else if ([btn.titleLabel.text isEqualToString:@"忘记密码?"]||[btn.titleLabel.text isEqualToString:@"忘记交易密码?"])
-    {
-        if (self.forgetBtnClick) {
-            self.forgetBtnClick();
-        }
     }
 }
 
@@ -272,22 +233,6 @@
     }
     [self dismissViewControllerAnimated:NO completion:^{
     }];
-}
-
-#pragma mark - <HBAlertPasswordViewDelegate>
-- (void)sureActionWithAlertPasswordView:(HBAlertPasswordView *)alertPasswordView password:(NSString *)password {
-    
-    self.transactionPassword = password;
-    NSLog(@"%@",[NSString stringWithFormat:@"输入的密码为:%@", password]);
-    if (password.length == 6) {
-        [_sureBtn setBackgroundColor:COR29];
-       
-        _sureBtn.userInteractionEnabled = YES;
-    } else {
-        [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
-        
-        _sureBtn.userInteractionEnabled = NO;;
-    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

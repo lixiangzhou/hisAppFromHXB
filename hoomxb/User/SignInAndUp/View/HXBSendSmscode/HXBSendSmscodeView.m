@@ -371,7 +371,8 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 }
 
 - (void)addTime:(NSString*)times {
-    [self.sendButton setTitle:times forState:UIControlStateNormal];
+    [self.sendButton setTitle:[NSString stringWithFormat:@"%@s",times] forState:UIControlStateNormal];
+//    [self.sendButton setTitle:times forState:UIControlStateNormal];
     
     if (times.intValue <= 0) {
         NSString *btnTitle = _type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot ? kSendSmscodeTitle : kSendSmscodeAgainTitle;
