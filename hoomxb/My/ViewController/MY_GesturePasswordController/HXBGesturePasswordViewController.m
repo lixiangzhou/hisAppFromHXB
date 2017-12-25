@@ -305,13 +305,13 @@
                 
                 HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"很抱歉，您的手势密码五次输入错误" force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确定"];
                 alertVC.isCenterShow = YES;
+                [KeyChain removeGesture];
+                [KeyChain signOut];
                 [alertVC setClickXYRightButtonBlock:^{
-                    [KeyChain signOut];
                     [[HXBRootVCManager manager] makeTabbarRootVC];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{kHXBMY_VersionUpdateURL : @YES}];
                 }];
                 [alertVC setClickXYLeftButtonBlock:^{
-                    [KeyChain signOut];
                     [[HXBRootVCManager manager] makeTabbarRootVC];
                 }];
                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];

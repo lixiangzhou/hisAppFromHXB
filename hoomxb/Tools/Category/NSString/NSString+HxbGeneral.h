@@ -31,6 +31,8 @@
 + (BOOL)checkPassWordWithString: (NSString *)str;
 ///根据身份证号获取生日
 +(NSString *)birthdayStrFromIdentityCard:(NSString *)numberStr;
+///根据url切成url参数字典
++(NSDictionary *)urlDictFromUrlString:(NSString *)urlStr;
 
 /**
  密码不对的提示信息

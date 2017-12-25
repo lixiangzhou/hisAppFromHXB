@@ -84,9 +84,6 @@
             [self.pointArr addObject:pointView];
         }
         
-        // 监听键盘的高度
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     }
     return self;
 }
@@ -169,23 +166,6 @@
     if ([self.delegate respondsToSelector:@selector(sureActionWithAlertPasswordView:password:)]) {
         [self.delegate sureActionWithAlertPasswordView:self password:self.passwordTextField.text];
     }
-}
-
-#pragma mark - 键盘的出现和收回的监听方法
-- (void)keyboardWillShow:(NSNotification *)notification {
-    if (self.keyboardWillShowBlock) {
-        self.keyboardWillShowBlock(notification);
-    }
-}
-
-- (void)keyboardWillHide:(NSNotification *)notification {
-    if (self.keyboardWillHideBlock) {
-        self.keyboardWillHideBlock(notification);
-    }
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

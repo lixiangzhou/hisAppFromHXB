@@ -13,6 +13,7 @@
 #import "HxbAdvertiseViewController.h"
 #import "HXBVersionUpdateModel.h"
 #import "HXBGesturePasswordViewController.h"
+#import "HXBHomePopViewManager.h"
 #import "HXBVersionUpdateManager.h"
 
 #define AXHVersionKey @"version"
@@ -37,6 +38,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [UIApplication sharedApplication].delegate.window = self.window;
     
+    [[HXBHomePopViewManager sharedInstance] getHomePopViewData];//获取首页弹窗数据
     [[HXBVersionUpdateManager sharedInstance] checkVersionUpdate];
     
     // 广告
@@ -74,7 +76,6 @@
  */
 - (void)enterTheGesturePasswordVCOrTabBar
 {
-//     KeyChain.validateGesturePwd
     if (KeyChain.isLogin) {
         NSLog(@"%@ %@ %d", KeyChain.gesturePwd, KeyChain.skipGesture, KeyChain.skipGestureAlertAppeared);
         if (KeyChain.gesturePwd.length > 0 && [KeyChain.skipGesture isEqualToString:kHXBGesturePwdSkipeNO]) {   // 已有手势密码，手势登录
