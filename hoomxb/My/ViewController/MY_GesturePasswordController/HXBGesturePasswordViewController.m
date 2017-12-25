@@ -259,6 +259,7 @@
         KeyChain.gesturePwd = gesture;
         KeyChain.gesturePwdCount = @"5";
         [kUserDefaults setBool:YES forKey:kHXBGesturePWD];
+        [kUserDefaults synchronize];
         
         __block UIViewController *popToVC = nil;
         [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -269,10 +270,12 @@
         }];
         
         KeyChain.skipGesture = kHXBGesturePwdSkipeNO;
-        [kUserDefaults synchronize];
+       
         
         if (popToVC && self.switchType == HXBAccountSecureSwitchTypeOn) {   // 从账户安全页进去的
             [self.navigationController popToViewController:popToVC animated:YES];
+        } else if (self.switchType == HXBAccountSecureSwitchTypeChange) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
         } else {    // 启动的时候进去的
             [[HXBRootVCManager manager] makeTabbarRootVC];
         }

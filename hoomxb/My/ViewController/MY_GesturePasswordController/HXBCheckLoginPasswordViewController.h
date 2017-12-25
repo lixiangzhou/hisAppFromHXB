@@ -14,6 +14,7 @@ typedef NS_ENUM(NSUInteger, HXBAccountSecureSwitchType) {
     HXBAccountSecureSwitchTypeNone,     // 无
     HXBAccountSecureSwitchTypeOn,       // 开
     HXBAccountSecureSwitchTypeOff,      // 关
+    HXBAccountSecureSwitchTypeChange,   // 修改
 };
 
 

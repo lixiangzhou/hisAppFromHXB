@@ -72,7 +72,7 @@ UITableViewDataSource,UITableViewDelegate
     }
     else if (model.type == HXBAccountSecureTypeGesturePwdModify){
         HXBCheckLoginPasswordViewController *checkLoginPasswordVC = [[HXBCheckLoginPasswordViewController alloc] init];
-        checkLoginPasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
+        checkLoginPasswordVC.switchType = HXBAccountSecureSwitchTypeChange;
         [self.navigationController pushViewController:checkLoginPasswordVC animated:YES];
     }
 }
