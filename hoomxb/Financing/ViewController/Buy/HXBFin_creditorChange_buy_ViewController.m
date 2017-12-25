@@ -21,6 +21,8 @@
 #import "HxbWithdrawCardViewController.h"
 #import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
 #import "HXBChooseDiscountCouponViewController.h"
+#import "HXBTransactionPasswordView.h"
+
 static NSString *const bankString = @"绑定银行卡";
 
 @interface HXBFin_creditorChange_buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
@@ -66,6 +68,7 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 /** 发送请求的任务 */
 @property (nonatomic, strong) NSURLSessionDataTask *dataTask;
+@property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
 
 @end
 
@@ -226,7 +229,7 @@ static NSString *const bankString = @"绑定银行卡";
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", rechargeMoney] force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确认充值"];
         alertVC.isCenterShow = YES;
         [alertVC setClickXYRightButtonBlock:^{
-            [weakSelf sendSmsCodeWithMoney:_viewModel.userInfoModel.userInfo.minChargeAmount];
+            [weakSelf sendSmsCodeWithMoney:weakSelf.viewModel.userInfoModel.userInfo.minChargeAmount];
         }];
         [self presentViewController:alertVC animated:YES completion:nil];
     } else {
@@ -269,30 +272,19 @@ static NSString *const bankString = @"绑定银行卡";
     }
 }
 
--(void)alertPassWord {
-    self.alertVC = [[HXBAlertVC alloc] init];
-    self.alertVC.isCode = NO;
-    self.alertVC.messageTitle = @"交易密码";
-    self.alertVC.isCleanPassword = YES;
-    _buyType = @"balance"; // 弹出密码，都是余额购买
+- (void)alertPassWord {
     kWeakSelf
-    self.alertVC.sureBtnClick = ^(NSString *pwd) {
+    _buyType = @"balance";
+    self.passwordView = [[HXBTransactionPasswordView alloc] init];
+    [self.passwordView showInView:self.view];
+    self.passwordView.getTransactionPasswordBlock = ^(NSString *password) {
         NSDictionary *dic = nil;
-        dic = @{@"amount": _inputMoneyStr,
-                @"buyType": _buyType,
-                @"tradPassword": pwd,
+        dic = @{@"amount": weakSelf.inputMoneyStr,
+                @"buyType": weakSelf.buyType,
+                @"tradPassword": password,
                 };
         [weakSelf buyCreditorWithDic:dic];
     };
-    self.alertVC.forgetBtnClick = ^{
-        [weakSelf.alertVC.view endEditing:YES];
-        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-        modifyTransactionPasswordVC.title = @"修改交易密码";
-        modifyTransactionPasswordVC.userInfoModel = weakSelf.viewModel.userInfoModel;
-        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-    };
-    [self presentViewController:_alertVC animated:NO completion:nil];
 }
 
 - (void)sendSmsCodeWithMoney:(double)topupMoney {
@@ -337,10 +329,10 @@ static NSString *const bankString = @"绑定银行卡";
         loanBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
         [loanBuySuccessVC clickButtonWithBlock:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
         }];
         [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-        [self.navigationController pushViewController:loanBuySuccessVC animated:YES];
+        [weakSelf.navigationController pushViewController:loanBuySuccessVC animated:YES];
         
     } andFailureBlock:^(NSString *errorMessage, NSInteger status) {
         
@@ -365,7 +357,7 @@ static NSString *const bankString = @"绑定银行卡";
                 
                 // 弹toast（3014：交易密码错误， 3015：短验错误， 3413：产品购买过于频繁）
             default:
-                weakSelf.alertVC.isCleanPassword = YES;
+                [weakSelf.passwordView clearUpPassword];
                 return;
         }
         [failViewController clickButtonWithBlock:^{
@@ -428,15 +420,16 @@ static NSString *const bankString = @"绑定银行卡";
 
 // 获取用户信息
 - (void)getNewUserInfo {
+    kWeakSelf
     [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        self.hxbBaseVCScrollView.hidden = NO;
-        _viewModel = viewModel;
-        _balanceMoneyStr = _viewModel.userInfoModel.userAssets.availablePoint;
-        [self setUpArray];
-        [self.hxbBaseVCScrollView reloadData];
-        [self changeItemWithInvestMoney:_inputMoneyStr];
+        weakSelf.hxbBaseVCScrollView.hidden = NO;
+        weakSelf.viewModel = viewModel;
+        weakSelf.balanceMoneyStr = weakSelf.viewModel.userInfoModel.userAssets.availablePoint;
+        [weakSelf setUpArray];
+        [weakSelf.hxbBaseVCScrollView reloadData];
+        [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
     } andFailure:^(NSError *error) {
-        [self changeItemWithInvestMoney:_inputMoneyStr];
+        [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
     }];
 }
 
@@ -445,17 +438,14 @@ static const NSInteger topView_high = 230;
 
 // 获取银行限额
 - (void)getBankCardLimit {
+    kWeakSelf
     [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
-        self.hxbBaseVCScrollView.tableHeaderView = nil;
-        self.cardModel = model;
-        if (self.cardModel.bankType) {
-            self.topView.height = kScrAdaptationH750(topView_bank_high);
-        } else {
-            self.topView.height = kScrAdaptationH750(topView_high);
-        }
-        _topView.cardStr = [NSString stringWithFormat:@"%@%@", self.cardModel.bankType, self.cardModel.quota];
-        _topView.hasBank = self.cardModel.bankType ? YES : NO;
-        self.hxbBaseVCScrollView.tableHeaderView = self.topView;
+        weakSelf.hxbBaseVCScrollView.tableHeaderView = nil;
+        weakSelf.cardModel = model;
+        weakSelf.topView.height = weakSelf.cardModel.bankType ? kScrAdaptationH750(topView_bank_high) : kScrAdaptationH750(topView_high);
+        weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+        weakSelf.topView.hasBank = weakSelf.cardModel.bankType ? YES : NO;
+        weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
         
     }];
 }
@@ -501,13 +491,13 @@ static const NSInteger topView_high = 230;
         }
         _topView.changeBlock = ^(NSString *text) {
             weakSelf.bottomView.addBtnIsUseable = text.length;
-            BOOL isFitToBuy = ((text.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
-            if (text.doubleValue >= _minRegisterAmount.doubleValue && text.doubleValue <= _availablePoint.doubleValue && isFitToBuy) {
+            BOOL isFitToBuy = ((text.integerValue - weakSelf.minRegisterAmount.integerValue) % weakSelf.registerMultipleAmount.integerValue) ? NO : YES;
+            if (text.doubleValue >= weakSelf.minRegisterAmount.doubleValue && text.doubleValue <= weakSelf.availablePoint.doubleValue && isFitToBuy) {
                 [weakSelf changeItemWithInvestMoney:text];
                 [weakSelf setUpArray];
             } else {
-                _discountTitle = @"未使用";
-                _handleDetailTitle = text;
+                weakSelf.discountTitle = @"未使用";
+                weakSelf.handleDetailTitle = text;
                 [weakSelf changeItemWithInvestMoney:text];
                 [weakSelf setUpArray];
             }
@@ -517,8 +507,8 @@ static const NSInteger topView_high = 230;
         _topView.block = ^{ // 点击一键购买执行的方法
             NSString *topupStr = weakSelf.availablePoint;
             weakSelf.topView.totalMoney = [NSString stringWithFormat:@"%.2f", topupStr.doubleValue];
-            _inputMoneyStr = topupStr;
-            _handleDetailTitle = topupStr;
+            weakSelf.inputMoneyStr = topupStr;
+            weakSelf.handleDetailTitle = topupStr;
             weakSelf.bottomView.addBtnIsUseable = topupStr.length;
             [weakSelf changeItemWithInvestMoney:topupStr];
             [weakSelf setUpArray];
@@ -539,7 +529,7 @@ static const NSInteger topView_high = 230;
         }
     };
     _bottomView.addBlock = ^(NSString *investMoney) {
-        _btnLabelText = investMoney;
+        weakSelf.btnLabelText = investMoney;
         [weakSelf.topView endEditing:YES];
         [weakSelf requestForCreditor];
     };

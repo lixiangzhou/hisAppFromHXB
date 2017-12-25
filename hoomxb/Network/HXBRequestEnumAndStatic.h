@@ -22,7 +22,6 @@ return;\
 #define kHXBBuyErrorResponsShowHUD int codeValue = [responseObject[@"status"] intValue];\
 if (codeValue != 0 && codeValue != 104) {\
 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];\
-return;\
 }
 
 /// 请求下来后返回给vc

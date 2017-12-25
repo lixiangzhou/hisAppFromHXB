@@ -785,6 +785,7 @@
         NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
+                status = kBuy_Toast;
                 kHXBBuyErrorResponsShowHUD;
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
