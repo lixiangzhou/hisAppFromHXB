@@ -100,6 +100,7 @@ static NSString *const bankString = @"绑定银行卡";
     [self hasBestCouponRequest];
     [self changeItemWithInvestMoney:_inputMoneyStr];
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
+    [self unavailableMoney];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -222,7 +223,7 @@ static const NSInteger topView_high = 300;
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
-    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
+    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _availablePoint.doubleValue > _minRegisterAmount.doubleValue) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
@@ -531,10 +532,31 @@ static const NSInteger topView_high = 300;
     [self changeItemWithInvestMoney:money];
 }
 
-- (void)setUpArray {
-    if (!_profitMoneyStr) {
-        _profitMoneyStr = @"";
+- (void)unavailableMoney {
+    // 小于最小投资金额时，输入框不可以编辑
+    if (self.isFirstBuy) {
+        if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
+            _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+            _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+            _topView.disableKeyBorad = YES;
+            [self getBESTCouponWithMoney:_inputMoneyStr];
+        } else {
+            _topView.disableKeyBorad = NO;
+        }
+    } else {
+        if (self.availablePoint.doubleValue < self.registerMultipleAmount.doubleValue) {
+            _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+            _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
+            _topView.disableKeyBorad = YES;
+            [self getBESTCouponWithMoney:_inputMoneyStr];
+        } else {
+            _topView.disableKeyBorad = NO;
+        }
     }
+}
+
+- (void)setUpArray {
+    _profitMoneyStr = _profitMoneyStr ? _profitMoneyStr : @"";
     self.titleArray = @[_couponTitle, @"支付金额", _balanceTitle];
     self.detailArray = @[_discountTitle,  [NSString hxb_getPerMilWithDouble: _handleDetailTitle.doubleValue],  [NSString hxb_getPerMilWithDouble: _balanceMoneyStr.doubleValue]];
     [self.hxbBaseVCScrollView reloadData];
@@ -569,24 +591,6 @@ static const NSInteger topView_high = 300;
         _topView.profitStr = @"预期收益0.00元";
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
-        // 小于最小投资金额时，输入框不可以编辑
-        if (self.isFirstBuy) {
-            if (self.availablePoint.doubleValue < self.minRegisterAmount.doubleValue) {
-                _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-                _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-                _topView.disableKeyBorad = YES;
-            } else {
-                _topView.disableKeyBorad = NO;
-            }
-        } else {
-            if (self.availablePoint.doubleValue < self.registerMultipleAmount.doubleValue) {
-                _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-                _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
-                _topView.disableKeyBorad = YES;
-            } else {
-                _topView.disableKeyBorad = NO;
-            }
-        }
         
         _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
             weakSelf.bottomView.addBtnIsUseable = text.length;
