@@ -747,7 +747,7 @@
     confirmBuyReslut.requestMethod = NYRequestMethodPost;
     [confirmBuyReslut startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
+        NSString *errorType = [[responseObject valueForKey:kResponseErrorData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
                 kHXBBuyErrorResponsShowHUD;
@@ -782,10 +782,9 @@
     loanBuyReslutRequest.requestArgument = parameter;
     [loanBuyReslutRequest startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
+        NSString *errorType = [[responseObject valueForKey:kResponseErrorData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
-                status = kBuy_Toast;
                 kHXBBuyErrorResponsShowHUD;
             } else if ([errorType isEqualToString:@"RESULT"]) {
                 status = kBuy_Result;
@@ -821,7 +820,7 @@
     [loanTruansferAPI startWithHUDStr:@"安全支付" Success:^(HXBBaseRequest *request, id responseObject) {
         
         NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        NSString *errorType = [[responseObject valueForKey:kResponseData] valueForKey:@"errorType"];
+        NSString *errorType = [[responseObject valueForKey:kResponseErrorData] valueForKey:@"errorType"];
         if (status) {
             if ([errorType isEqualToString:@"TOAST"]) {
                 kHXBBuyErrorResponsShowHUD;
