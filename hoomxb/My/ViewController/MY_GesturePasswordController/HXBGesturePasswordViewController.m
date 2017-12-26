@@ -12,6 +12,8 @@
 #import "HXBLockLabel.h"
 #import "HXBCircle.h"
 #import "HXBRootVCManager.h"
+#import "HxbMyAccountSecurityViewController.h"
+#import "HXBRootVCManager.h"
 
 @interface HXBGesturePasswordViewController ()<HXBCircleViewDelegate, UIGestureRecognizerDelegate>
 /**
@@ -42,7 +44,10 @@
 
 #pragma mark - LifeCycle
 - (void)viewDidLoad {
+    BOOL haveNet = KeyChain.ishaveNet;
+    KeyChain.ishaveNet = YES;
     [super viewDidLoad];
+    KeyChain.ishaveNet = haveNet;
     
     [self.view setBackgroundColor:CircleViewBackgroundColor];
     
@@ -69,6 +74,10 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.isHiddenNavigationBar = YES;
+    
+    if (self.type == GestureViewControllerTypeSetting && self.switchType == HXBAccountSecureSwitchTypeNone) {
+        [self alertSkipSetting];
+    }
 }
 
 
@@ -251,7 +260,23 @@
         KeyChain.gesturePwdCount = @"5";
         [kUserDefaults setBool:YES forKey:kHXBGesturePWD];
         
-        [self.navigationController popToRootViewControllerAnimated:NO];
+        __block UIViewController *popToVC = nil;
+        [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([obj isKindOfClass:[HxbMyAccountSecurityViewController class]]) {
+                popToVC = obj;
+                *stop = YES;
+            }
+        }];
+        
+        [kUserDefaults setObject:kHXBGesturePwdSkipeNO forKey:kHXBGesturePwdSkipeKey];
+//        [kUserDefaults setBool:NO forKey:kHXBGesturePwdSkipeKey];
+        [kUserDefaults synchronize];
+        
+        if (popToVC && self.switchType == HXBAccountSecureSwitchTypeOn) {   // 从账户安全页进去的
+            [self.navigationController popToViewController:popToVC animated:YES];
+        } else {    // 启动的时候进去的
+            [[HXBRootVCManager manager] makeTabbarRootVC];
+        }
         
     } else {
         NSLog(@"两次手势不匹配！");
@@ -281,13 +306,13 @@
                 
                 HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"很抱歉，您的手势密码五次输入错误" force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确定"];
                 alertVC.isCenterShow = YES;
+                [KeyChain removeGesture];
+                [KeyChain signOut];
                 [alertVC setClickXYRightButtonBlock:^{
-                    [KeyChain signOut];
                     [[HXBRootVCManager manager] makeTabbarRootVC];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{kHXBMY_VersionUpdateURL : @YES}];
                 }];
                 [alertVC setClickXYLeftButtonBlock:^{
-                    [KeyChain signOut];
                     [[HXBRootVCManager manager] makeTabbarRootVC];
                 }];
                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
@@ -308,6 +333,29 @@
 }
 
 #pragma mark - Helper
+- (void)alertSkipSetting {
+    // 忽略手势密码弹窗提示
+    BOOL appeared = [kUserDefaults boolForKey:kHXBGesturePwdSkipeAppeardKey];
+    if (appeared == NO) {
+        // 只出现一次弹窗
+        [kUserDefaults setBool:YES forKey:kHXBGesturePwdSkipeAppeardKey];
+        [kUserDefaults synchronize];
+        // 弹窗
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:@"为了您的账户安全，\n建议您设置手势密码" force:2 andLeftButtonMassage:@"跳过设置" andRightButtonMassage:@"开始设置"];
+        alertVC.clickXYLeftButtonBlock = ^{ // 跳过设置
+//            [kUserDefaults setBool:YES forKey:kHXBGesturePwdSkipeKey];
+            [kUserDefaults setObject:kHXBGesturePwdSkipeYES forKey:kHXBGesturePwdSkipeKey];
+            [kUserDefaults synchronize];
+            
+            [[HXBRootVCManager manager] makeTabbarRootVC];
+        };
+        
+        alertVC.isCenterShow = YES;
+        
+        [self presentViewController:alertVC animated:YES completion:nil];
+    }
+}
+
 - (void)creatButton:(UIButton *)btn frame:(CGRect)frame title:(NSString *)title alignment:(UIControlContentHorizontalAlignment)alignment tag:(NSInteger)tag
 {
     btn.frame = frame;

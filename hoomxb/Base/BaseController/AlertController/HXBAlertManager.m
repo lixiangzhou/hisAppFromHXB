@@ -18,6 +18,7 @@
 #import "HXBXYAlertViewController.h"
 #import "HXBAlertVC.h"
 #import "HXBRootVCManager.h"
+#import "HXBHomePopViewManager.h"
 
 @interface HXBAlertManager ()
 
@@ -190,58 +191,15 @@
     [alertVC setClickXYRightButtonBlock:^{
         NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", phoneNumber];
         NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0" options:NSNumericSearch];
-//        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        
             if (compare == NSOrderedDescending || compare == NSOrderedSame) {
                 /// 大于等于10.0系统使用此openURL方法
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
             } else {
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
             }
-//        });
     }];
-//    [alertVC setClickXYLeftButtonBlock:^{
-//    }];
     [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
-//    HXBAlertVC *alertVC = nil;
-//    if ([UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController) {
-//        alertVC = (HXBAlertVC *)[UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController;
-//    }else{
-//        alertVC = [[HXBAlertVC alloc] init];
-//        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:NO completion:nil];
-//    }
-//    
-//    alertVC.isCode = YES;
-//    alertVC.isMobile = YES;
-//    alertVC.messageTitle = @"温馨提示";
-//    alertVC.messageLabelText = message;
-////    alertVC.messageLabelText = [NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile];
-////    __weak typeof(alertVC) weakAlertVC = alertVC;
-//    alertVC.sureBtnClick = ^(NSString *pwd){
-//        NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", phoneNumber];
-//        NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
-//        if (compare == NSOrderedDescending || compare == NSOrderedSame) {
-//            /// 大于等于10.0系统使用此openURL方法
-//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
-//        } else {
-//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
-//        }
-//    };
-
-    
-//    HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:[NSString stringWithFormat:@"%@%@",message,phoneNumber] andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
-//    [alertVC setClickRightButtonBlock:^{
-//        NSString *newPhone = [phoneNumber stringByReplacingOccurrencesOfString:@"-" withString:@""];
-//        NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@",newPhone];
-//        NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
-//        if (compare == NSOrderedDescending || compare == NSOrderedSame) {
-//            /// 大于等于10.0系统使用此openURL方法
-//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
-//        } else {
-//            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
-//        }
-//    }];
-//    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
-    
 }
 
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel {
@@ -259,13 +217,16 @@
         [alertVC setClickXYRightButtonBlock:^{
             NSURL *url = [NSURL URLWithString:versionUpdateModel.url];
             [[UIApplication sharedApplication] openURL:url];
+            [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
         }];
         
         [alertVC setClickXYLeftButtonBlock:^{
             //点击取消处理
+            [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
         }];
         [self promptPriorityWithAlertVC:alertVC];
     } else {
+        [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
     }
 }
 

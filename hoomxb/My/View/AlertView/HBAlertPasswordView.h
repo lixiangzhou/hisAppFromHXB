@@ -25,5 +25,4 @@
 @property (nonatomic, assign) id<HBAlertPasswordViewDelegate> delegate;
 @property (nonatomic, assign) BOOL isCleanPassword;
 
-
 @end

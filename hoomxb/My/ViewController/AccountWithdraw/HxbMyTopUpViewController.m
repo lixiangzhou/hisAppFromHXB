@@ -20,10 +20,6 @@
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
-//是否有语音验证码
-@property (nonatomic, assign) BOOL isSpeechVerificationCode;
-//是否点击的语音
-@property (nonatomic, assign) BOOL isClickSpeechVerificationCode;
 @property (nonatomic, strong) HXBAlertVC *alertVC;
 @end
 
@@ -77,8 +73,6 @@
         _myTopUpBaseView = [[HXBMyTopUpBaseView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _myTopUpBaseView.rechargeBlock = ^{
             //第一次短验
-            _isSpeechVerificationCode = NO;
-            _isClickSpeechVerificationCode = NO;
             [weakSelf enterRecharge];
         };
         if (self.amount.floatValue) {
@@ -94,18 +88,12 @@
 - (void)enterRecharge
 {
     kWeakSelf
-    NSString *type = _isClickSpeechVerificationCode ? @"voice" : @"sms";
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:self.myTopUpBaseView.amount andWithType:type andWithAction:@"recharge" andSuccessBlock:^(id responseObject) {
-        if (_isClickSpeechVerificationCode) {
-            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
-        } else {
-            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
-        }
+    [accountRequest accountRechargeRequestWithRechargeAmount:self.myTopUpBaseView.amount andWithType:@"sms" andWithAction:@"recharge" andSuccessBlock:^(id responseObject) {
+        weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
         [weakSelf requestRechargeResult];
         [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
     } andFailureBlock:^(NSError *error) {
-        NSLog(@"*****error:%@****",error);
         NSInteger errorCode = 0;
         if ([error isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dic = (NSDictionary *)error;
@@ -126,8 +114,7 @@
     if (!self.presentedViewController) {
         self.alertVC = [[HXBAlertVC alloc] init];
         self.alertVC.isCode = YES;
-        self.alertVC.speechType = YES;
-        self.alertVC.isSpeechVerificationCode = _isSpeechVerificationCode;
+        self.alertVC.speechType = NO;
         self.alertVC.messageTitle = @"请输入验证码";
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
@@ -150,16 +137,10 @@
             }];
         };
         self.alertVC.getVerificationCodeBlock = ^{
-            _isClickSpeechVerificationCode = NO;
-            _isSpeechVerificationCode = NO;
-//            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf enterRecharge];
         };
         self.alertVC.getSpeechVerificationCodeBlock = ^{
-            _isClickSpeechVerificationCode = YES;
-            _isSpeechVerificationCode = YES;
-//            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"请留意接听%@上的来电", [weakSelf.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf enterRecharge];
         };

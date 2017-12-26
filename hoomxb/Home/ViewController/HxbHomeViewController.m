@@ -13,6 +13,9 @@
 //#import "HxbSecurityCertificationViewController.h"
 #import "HXBHomeBaseModel.h"
 #import "HXBFinancing_PlanDetailsViewController.h"
+#import "HXBFinancing_LoanDetailsViewController.h"
+#import "HXBFin_DetailLoanTruansfer_ViewController.h"
+#import "HXBNoticeViewController.h"
 #import "HxbHomePageModel_DataList.h"
 #import "HXBGesturePasswordViewController.h"
 
@@ -22,8 +25,9 @@
 #import "HXBNoticeViewController.h"//公告界面
 #import "HXBBannerWebViewController.h"//H5的Banner页面
 #import "HXBMiddlekey.h"
+#import "HXBHomePopViewManager.h"
+#import "HXBRootVCManager.h"
 #import "HXBVersionUpdateManager.h"
-
 
 
 @interface HxbHomeViewController ()
@@ -33,27 +37,44 @@
 @property (nonatomic, assign) BOOL isVersionUpdate;
 
 @property (nonatomic, strong) HXBVersionUpdateViewModel *versionUpdateVM;
-
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 @end
 
 @implementation HxbHomeViewController
 
+#pragma mark - Life Cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.view addSubview:self.homeView];
-
     [self setupUI];
     
     [self registerRefresh];
     
-    //判断是否显示设置手势密码
-    [self gesturePwdShow];
     [self hiddenTabbarLine];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    //    [[HXBHomePopViewManager sharedInstance] getHomePopViewData];//获取首页弹窗数据 多次弹出情况
+    [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:self];//展示首页弹窗
+    [[HXBVersionUpdateManager sharedInstance] show];
+    
+    [self hideNavigationBar:animated];
+    [self getData:YES];
+    self.homeView.userInfoViewModel = self.userInfoViewModel;
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self transparentNavigationTitle];
+    self.tabBarController.tabBar.hidden = NO;
+}
+
+#pragma mark - UI
 /**
  设置UI
  */
@@ -78,18 +99,6 @@
 }
 
 /**
- 手势密码逻辑
- */
-- (void)gesturePwdShow
-{
-    if (KeyChain.gesturePwd.length == 0 && [KeyChain isLogin]) {
-        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-        gesturePasswordVC.type = GestureViewControllerTypeSetting;
-        [self.navigationController pushViewController:gesturePasswordVC animated:NO];
-    }
-}
-
-/**
  下拉加载数据
  */
 - (void)registerRefresh {
@@ -106,42 +115,18 @@
      [self getData:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    
-    [self hideNavigationBar:animated];
-    [self getData:YES];
-    [self.homeView changeIndicationView:self.userInfoViewModel];
-    [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
-}
-
-
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    [[HXBVersionUpdateManager sharedInstance] show];
-    
-    [self transparentNavigationTitle];
-    self.tabBarController.tabBar.hidden = NO;
-}
-
 #pragma mark Request
 - (void)getData:(BOOL)isUPReloadData{
     kWeakSelf
     if (KeyChain.isLogin) {
         [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            [self.homeView changeIndicationView:viewModel];
-            [self.homeView showSecurityCertificationOrInvest:viewModel];
-            self.userInfoViewModel = viewModel;
+            weakSelf.userInfoViewModel = viewModel;
+            weakSelf.homeView.userInfoViewModel = self.userInfoViewModel;
         } andFailure:^(NSError *error) {
-            [self.homeView changeIndicationView:self.userInfoViewModel];
-            [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+            weakSelf.homeView.userInfoViewModel = self.userInfoViewModel;
         }];
     } else {
-        [self.homeView changeIndicationView:self.userInfoViewModel];
-        [self.homeView showSecurityCertificationOrInvest:self.userInfoViewModel];
+        self.homeView.userInfoViewModel = self.userInfoViewModel;
     }
     
     if (!self.homeView.homeBaseModel) {
@@ -177,9 +162,7 @@
 - (HxbHomeView *)homeView{
     if (!_homeView) {
         kWeakSelf
-//        _homeView = [[HxbHomeView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         _homeView = [[HxbHomeView alloc]initWithFrame:CGRectZero];
-
         /**
          点击cell中按钮的回调的Block
          */
@@ -188,7 +171,6 @@
         };
         /**
          点击cell中的回调的Block
-
          @param indexPath 点击cell的indexPath
          */
         _homeView.homeCellClickBlick = ^(NSIndexPath *indexPath){
@@ -221,14 +203,60 @@
         };
         
         _homeView.clickBannerImageBlock = ^(BannerModel *model) {
-            if (model.url.length) {
-                HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
-                webViewVC.pageUrl = model.url;
-                //            webViewVC.title = model.title;//mgmt标题
-                [weakSelf.navigationController pushViewController:webViewVC animated:YES];
-            }
+            [weakSelf pushToViewControllerWithModel:model];
         };
     }
     return _homeView;
 }
+
+// 点击benner跳转的方法(公告列表，详情，计划列表) H5
+- (void)pushToViewControllerWithModel:(BannerModel *)model {
+    
+    __block HXBBaseViewController *vc;
+    if ([model.type isEqualToString:@"native"]) {
+        [model.link parseUrlParam:^(NSString *path, NSDictionary *paramDic) {
+            if ([path isEqualToString:kNoticeVC]) { // 公告列表页
+                HXBNoticeViewController *noticeVC = [HXBNoticeViewController new];
+                vc = noticeVC;
+            } else if ([path isEqualToString:kPlanDetailVC]) { // 计划详情
+                HXBFinancing_PlanDetailsViewController *planVC = [HXBFinancing_PlanDetailsViewController new];
+                planVC.planID = paramDic[@"productId"];
+                planVC.isPlan = YES;
+                planVC.isFlowChart = YES;
+                vc = planVC;
+            } else if ([path isEqualToString:kLoanDetailVC]) { // 散标详情
+                HXBFinancing_LoanDetailsViewController *loadVC = [HXBFinancing_LoanDetailsViewController new];
+                loadVC.loanID = paramDic[@"productId"];
+                loadVC.isFlowChart = YES;
+                vc = loadVC;
+            } else if ([path isEqualToString:kLoanTransferDetailVC]) { // 债权详情
+                HXBFin_DetailLoanTruansfer_ViewController *loanTruansferVC = [HXBFin_DetailLoanTruansfer_ViewController new];
+                loanTruansferVC.loanID = paramDic[@"productId"];
+                loanTruansferVC.isFlowChart = YES;
+                vc = loanTruansferVC;
+            } else if ([path isEqualToString:kPlan_fragment]) { // 计划列表
+                [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 1;
+            } else {
+                
+            }
+        }];
+        
+    } else if ([model.type isEqualToString:@"h5"]){
+        if (model.url.length) {
+            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+            webViewVC.pageUrl = model.url;
+            vc = webViewVC;
+        }
+        
+    }
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - 设置状态栏
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
+
+
 @end

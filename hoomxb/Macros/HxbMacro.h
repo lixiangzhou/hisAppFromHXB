@@ -20,6 +20,7 @@
 #import "UserDefaultManage.h"
 #import "HxbBase.h"
 #import "MacroDefinition.h"
+#import "UIViewController+HXBUtil.h"
 
 #import "HXMacros_BLog.h"
 #import "HXBScreenAdaptation.h"
@@ -28,6 +29,8 @@
 #import "HXBRequestEnumAndStatic.h"
 #import "HXBEnumerateTransitionManager.h"
 #import "HXBCode.h"
-
+#import "HXBCircleViewConst.h"
 #import "HXBBaseConfig.h"
+
+#import "HXBThemAdapterManager.h"
 #endif /* HxbMacro_h */

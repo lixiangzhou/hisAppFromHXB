@@ -687,9 +687,9 @@
                                                 andPWD:(NSString *)pwd
                                andCurrentTransferValue:(NSString *)currentTransferValue
                                     SuccessBlock: (void(^)(id responseObject))successDateBlock
-                                 andFailureBlock: (void(^)(NSError *error))failureBlock{
+                                 andFailureBlock: (void(^)(NSError *error,id responseObject))failureBlock{
     
-    HXBBaseRequest *account_TransferRequest = [[HXBBaseRequest alloc]init];
+    NYBaseRequest *account_TransferRequest = [[NYBaseRequest alloc]init];
     account_TransferRequest.requestUrl = kHXBFin_TransferResultURL(transferID);
     account_TransferRequest.requestMethod = NYRequestMethodPost;
     currentTransferValue = currentTransferValue ? currentTransferValue:@"";
@@ -697,26 +697,20 @@
                                                 @"tradPassword" : pwd,
                                                 @"currentTransferValue" : currentTransferValue
                                                 };
-    account_TransferRequest.isUPReloadData = YES;
-    [account_TransferRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+    [account_TransferRequest startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
         
         if([responseObject[kResponseStatus] integerValue]) {
-            kNetWorkError(@" Plan 账户内债权确认页");
-            if ([responseObject[kResponseStatus] integerValue] == kHXBTransaction_Password_Error) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-                return;
-            }
             if (failureBlock) {
-                failureBlock(responseObject);
+                failureBlock(nil,responseObject);
                 return;
             }
         }
         if (successDateBlock) {
             successDateBlock(responseObject);
         }
-    } failure:^(HXBBaseRequest *request, NSError *error) {
+    } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {
-            failureBlock(error);
+            failureBlock(error,nil);
             return;
         }
     }];
