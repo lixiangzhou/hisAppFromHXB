@@ -698,6 +698,10 @@ static NSString *const hostH5 = @"hostH5";
 }
  **/
 
+- (BOOL)ishaveNet {
+    return [AFNetworkReachabilityManager sharedManager].reachable;
+}
+
 - (void)setInviteCode:(NSString *)inviteCode
 {
     self.keychain[kInviteCode] = inviteCode;
