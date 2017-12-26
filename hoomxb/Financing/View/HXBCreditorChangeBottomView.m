@@ -36,7 +36,7 @@
     [_protocolView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).offset(kScrAdaptationH750(10));
         make.left.equalTo(self);
-        make.width.offset(kScreenWidth - 2 * kScrAdaptationW(15));
+        make.width.offset(kScreenWidth);
         make.height.offset(kScrAdaptationH(35));
     }];
     [_addBtn mas_makeConstraints:^(MASConstraintMaker *make) {

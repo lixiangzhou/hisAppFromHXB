@@ -15,4 +15,18 @@
  @return 比例值
  */
 + (CGFloat)getAdaterScreenHeightScale;
+
+/**
+ 获取状态栏高度
+
+ @return 适配后的高度
+ */
++ (CGFloat)getStateBarHeight;
+
+/**
+ 获取导航栏和状态栏的总高度
+
+ @return 适配后的导航栏和状态栏的总高度
+ */
++ (CGFloat)getStateNavgationBarHeight;
 @end

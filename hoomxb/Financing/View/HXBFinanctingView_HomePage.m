@@ -251,7 +251,7 @@
 
 //搭建ScrollToolBarView
 - (void)setupScrollToolBarView {
-    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) andTopView:nil andTopViewH:0 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:64 andBottomViewSet:self.bottomViewArray];
+    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) andTopView:nil andTopViewH:0 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:HXBStatusBarAndNavigationBarHeight andBottomViewSet:self.bottomViewArray];
     [self addSubview:self.scrollToolBarView];
     //点击事件的分发
     kWeakSelf
