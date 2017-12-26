@@ -10,6 +10,11 @@
 
 #define KeyChain [KeyChainManage sharedInstance]
 
+// 是否忽略手势密码
+#define kHXBGesturePwdSkipeYES @"kHXBGesturePwdSkipeYES"
+#define kHXBGesturePwdSkipeNO @"kHXBGesturePwdSkipeNO"
+
+
 @interface KeyChainManage : NSObject
 
 /**
@@ -39,6 +44,13 @@
  h5根地址
  */
 @property (nonatomic, copy) NSString *h5host;
+
+/// 是否忽略手势密码，值为 kHXBGesturePwdSkipeYES，或 kHXBGesturePwdSkipeNO
+@property (nonatomic, copy) NSString *skipGesture;
+
+/// 是否弹窗过忽略手势密码
+@property (nonatomic, assign) BOOL skipGestureAlertAppeared;
+
 
 ///是否登录
 - (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock;

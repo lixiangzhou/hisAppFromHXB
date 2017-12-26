@@ -21,6 +21,8 @@
 @property (nonatomic, assign) BOOL isWhiteColourGradientNavigationBar;
 ///导航条是否为蓝色
 @property (nonatomic,assign) BOOL isBlueGradientNavigationBar;
+/// 是否忽略没有网络时显示无网界面
+@property (nonatomic, assign) BOOL ignoreNetwork;
 
 ///可以重写返回方法
 - (void)leftBackBtnClick;
@@ -53,4 +55,5 @@
  @return YES, 已经显示了；NO，没有显示
  */
 - (BOOL)loadNoNetworkView;
+
 @end

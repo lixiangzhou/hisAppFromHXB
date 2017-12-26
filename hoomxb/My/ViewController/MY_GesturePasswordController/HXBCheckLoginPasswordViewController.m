@@ -95,9 +95,8 @@
         HXBSetGesturePasswordRequest *setGesturePasswordAPI =[[HXBSetGesturePasswordRequest alloc] init];
         [setGesturePasswordAPI setGesturePasswordRequestWithPassword:self.loginPasswordTextField.text andSuccessBlock:^(id responseObject) {
             if (weakSelf.switchType == HXBAccountSecureSwitchTypeOff) {
-//                [kUserDefaults setBool:YES forKey:kHXBGesturePwdSkipeKey];
-                [kUserDefaults setObject:kHXBGesturePwdSkipeYES forKey:kHXBGesturePwdSkipeKey];
-                [kUserDefaults synchronize];
+                KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
+                [KeyChain removeGesture];
                 [weakSelf.navigationController popViewControllerAnimated:YES];
             } else {
                 HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];

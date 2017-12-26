@@ -14,6 +14,10 @@
 
 #define kGesturePwd self.keychain[kMobile]
 #define kSiginPwd @"HXBSinInCount"
+// 是否忽略手势密码
+#define kHXBGesturePwdSkipeKey [NSString stringWithFormat:@"kHXBGesturePwdSkipeKey%@", KeyChain.mobile ?: @""]
+// 是否出现过忽略手势密码弹窗
+#define kHXBGesturePwdSkipeAppeardKey [NSString stringWithFormat:@"kHXBGesturePwdSkipeAppeardKey%@", KeyChain.mobile ?: @""]
 
 static NSString * const kService = @"www.hoomxb.com";
 //注册时返回的信息
@@ -819,5 +823,22 @@ static NSString *const hostH5 = @"hostH5";
     return bankArr.count?bankArr:[NSArray array];
 }
 
+- (NSString *)skipGesture {
+    return self.keychain[kHXBGesturePwdSkipeKey];
+}
+
+- (void)setSkipGesture:(NSString *)skipGesture {
+    self.keychain[kHXBGesturePwdSkipeKey] = skipGesture;
+}
+
+- (void)setSkipGestureAlertAppeared:(BOOL)skipGestureAlertAppeared {
+    self.keychain[kHXBGesturePwdSkipeAppeardKey] = @(skipGestureAlertAppeared).description;
+}
+
+- (BOOL)skipGestureAlertAppeared {
+    return [self.keychain[kHXBGesturePwdSkipeAppeardKey] integerValue];
+}
+
 //- (void)setValueWith
 @end
+
