@@ -44,18 +44,18 @@
 
 #pragma mark - LifeCycle
 - (void)viewDidLoad {
-    BOOL haveNet = KeyChain.ishaveNet;
-    KeyChain.ishaveNet = YES;
     [super viewDidLoad];
-    KeyChain.ishaveNet = haveNet;
     
     [self.view setBackgroundColor:CircleViewBackgroundColor];
+    
     
     // 1.界面相同部分生成器
     [self setupSameUI];
     
     // 2.界面不同部分生成器
     [self setupDifferentUI];
+    
+    self.ignoreNetwork = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
