@@ -73,17 +73,17 @@
     kWeakSelf
     if (![KeyChain isLogin]) {
         //没有投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight);
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight);
         [weakSelf.headView showNotValidatedView];
         return;
     }
     if([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
         //已经投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBInvestViewHeight);
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBInvestViewHeight + HXBStatusBarAdditionHeight);
         [weakSelf.headView showAlreadyInvestedView];
     }else{
         //没有投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight);
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight);
         [weakSelf.headView showNotValidatedView];
     }
 }
@@ -239,7 +239,7 @@
 {
     if (!_headView) {
         kWeakSelf
-        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight)];//199
+        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight)];//199
         
         _headView.delegate = self;
         _headView.tipButtonClickBlock_homePageHeadView = ^(){

@@ -47,7 +47,7 @@
 - (void)setupUI {
     [self.noticeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self).offset(kScrAdaptationW(-20));
-        make.top.offset(kScrAdaptationH(40));
+        make.top.offset(kScrAdaptationH(40) + HXBStatusBarAdditionHeight);
         make.height.offset(kScrAdaptationH(17));
         make.width.offset(kScrAdaptationW(20));
     }];
@@ -150,7 +150,7 @@
 {
     kWeakSelf
     if (!_afterLoginView) {
-        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(113))];
+        _afterLoginView = [[HXBHomePageAfterLoginView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH(113) + HXBStatusBarAdditionHeight)];
         _afterLoginView.tipButtonClickBlock_homePageAfterLoginView = ^(){
             if (weakSelf.tipButtonClickBlock_homePageHeadView) {
                 weakSelf.tipButtonClickBlock_homePageHeadView();
