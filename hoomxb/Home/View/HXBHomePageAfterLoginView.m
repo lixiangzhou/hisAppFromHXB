@@ -31,7 +31,7 @@
 - (void)setContentFrame{
     [self.userTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW(15));
-        make.top.equalTo(@kScrAdaptationH(40));
+        make.top.equalTo(self).offset(kScrAdaptationH(40));
     }];
     [self.tipButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.userTitleLabel.mas_bottom).offset(kScrAdaptationW(15));
