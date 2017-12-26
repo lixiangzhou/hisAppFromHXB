@@ -143,7 +143,7 @@
             [pageModel setValue:model.countDownLastStr forKey:@"countDownLastStr"];
             [pageModel setValue:model.countDownString forKey:@"countDownString"];
             
-            [cell setValue:model.countDownString forKey:@"countDownString"];
+            [cell setValue:pageModel.countDownString forKey:@"countDownString"];
         }
     }];
     self.contDwonManager.isAutoEnd = YES;

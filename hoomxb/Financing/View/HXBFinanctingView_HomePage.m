@@ -141,7 +141,7 @@
 
 //设置toolBarView
 - (void)setupToolBarView {
-    self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:self.toolBarViewOptionStrArray];
+    self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:self.toolBarViewOptionStrArray topNavigationToolBar:YES];
     self.toolBarView.barAnimaViewSpacing = kScrAdaptationW(83);
     self.toolBarView.barAnimaViewH = kScrAdaptationH(2);
     self.toolBarView.isAnima_ItemBottomBarView = YES;

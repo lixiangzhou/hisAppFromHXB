@@ -300,7 +300,7 @@
         if (self.planDetailModel.isFirst.integerValue) {
             _addCondition = [NSString stringWithFormat:@"%@起投，%@递增",[NSString hxb_getPerMilWithIntegetNumber:self.minRegisterAmount.doubleValue],[NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.registerMultipleAmount.doubleValue]];
         }else{
-            _addCondition = [NSString stringWithFormat:@"%@的倍数递增",[NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.minRegisterAmount.doubleValue]];
+            _addCondition = [NSString stringWithFormat:@"%@的倍数递增",[NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.registerMultipleAmount.doubleValue]];
             
         }
     }
