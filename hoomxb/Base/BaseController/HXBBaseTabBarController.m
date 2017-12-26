@@ -14,6 +14,7 @@
 #import "HXBBaseViewController.h"
 #import "SVGKit/SVGKImage.h"
 #import "HXBBaseUrlSettingView.h"
+#import "HxbSignUpViewController.h"
 
 @interface HXBBaseTabBarController ()<UITabBarControllerDelegate>
 
@@ -63,6 +64,7 @@
 ///注册通知
 - (void)registerNotification {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentLoginVC:) name:kHXBNotification_ShowLoginVC object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentSignUpVC:) name:kHXBNotification_ShowSignUpVC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushMyVC:) name:kHXBNotification_LoginSuccess_PushMYVC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showHomeVC:) name:kHXBBotification_ShowHomeVC object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showMyVC:) name:kHXBNotification_ShowMyVC object:nil];
@@ -158,6 +160,15 @@
     HXBBaseNavigationController *navi = [[HXBBaseNavigationController alloc]initWithRootViewController:vc];
     vc.selectedIndexVC = notification.object[@"selectedIndex"];
     
+    [self presentViewController:navi animated:YES completion:nil];
+}
+
+//注册控制器
+- (void)presentSignUpVC:(NSNotification *)notification {
+    HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
+    signUPVC.title = @"注册";
+    signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;
+    HXBBaseNavigationController *navi = [[HXBBaseNavigationController alloc]initWithRootViewController:signUPVC];
     [self presentViewController:navi animated:YES completion:nil];
 }
 

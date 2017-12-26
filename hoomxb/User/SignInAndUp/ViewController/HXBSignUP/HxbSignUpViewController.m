@@ -12,6 +12,7 @@
 #import "HXBSignUPAndLoginRequest.h"///数据请求
 #import "HXBCheckCaptchaViewController.h"///modal 出来的校验码
 #import "HXBSendSmscodeViewController.h"///短信验证的Vc
+#import "HxbSignInViewController.h"
 
 ///注册按钮的title
 static NSString *const kSignUPButtonString = @"注册";
@@ -29,7 +30,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 #pragma mark - LifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.isTransparentNavigationBar = YES;
     [self.view addSubview:self.signUPView];
     [self registerEvent];
     if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
@@ -146,15 +147,26 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 ///点击了已有账号按钮
 - (void)registerEvent_clickHaveAccount{
     kWeakSelf
-    if (self.type == HXBSignUPAndLoginRequest_sendSmscodeType_H5) {
-        [self.signUPView clickHaveAccountButtonFunc:^{
-            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-            [weakSelf.navigationController popViewControllerAnimated:YES];
-        }];
-    } else {
+    if (self.navigationController.viewControllers.count > 1) {
         [self.signUPView clickHaveAccountButtonFunc:^{
             [weakSelf.navigationController popViewControllerAnimated:YES];
         }];
+    }
+    else {
+        [self.signUPView clickHaveAccountButtonFunc:^{
+            HxbSignInViewController *vc = [[HxbSignInViewController alloc]init];
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }];
+    }
+}
+
+//返回按钮
+- (void)leftBackBtnClick{
+    if (self.navigationController.viewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 

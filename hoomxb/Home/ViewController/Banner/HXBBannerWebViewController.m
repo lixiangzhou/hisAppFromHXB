@@ -81,10 +81,7 @@ static NSString *const HXB_Dialog = @"dialog";
     if ([path isEqualToString:kRegisterVC]) {
         //注册
         //跳转登录注册
-        HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
-        signUPVC.title = @"注册";
-        signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_H5;
-        [self.navigationController pushViewController:signUPVC animated:YES];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowSignUpVC object:nil];
     }else if ([path isEqualToString:kRechargeVC]){
         //充值页面
         HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
