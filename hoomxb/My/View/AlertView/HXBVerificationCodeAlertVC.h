@@ -1,5 +1,5 @@
 //
-//  HXBAlertVC.h
+//  HXBVerificationCodeAlertVC
 //  hoomxb
 //
 //  Created by HXB-C on 2017/6/27.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HXBVerificationCodeAlertView.h"
-@interface HXBAlertVC : UIViewController
+@interface HXBVerificationCodeAlertVC : UIViewController
 @property (nonatomic, strong) HXBVerificationCodeAlertView *verificationCodeAlertView;
 /**
  messagetitle
@@ -22,8 +22,6 @@
 
 //是否有语音验证码
 @property (nonatomic, assign) BOOL isSpeechVerificationCode;
-// 类型
-//@property (nonatomic, assign) BOOL speechType; // 1是注册 0是其他的页面 (充值、充值购买 12.15 V2.3.1去掉了语音验证码)
 
 /**
  是否清空

@@ -1,15 +1,15 @@
 //
-//  HXBAlertVC.m
+//  HXBVerificationCodeAlertVC
 //  hoomxb
 //
 //  Created by HXB-C on 2017/6/27.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBAlertVC.h"
+#import "HXBVerificationCodeAlertVC.h"
 #import "HXBVerificationCodeAlertView.h"
 
-@interface HXBAlertVC ()<UITextFieldDelegate>
+@interface HXBVerificationCodeAlertVC ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UIButton *backBtn;
 @property (nonatomic, strong) UIButton *cancelBtn;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation HXBAlertVC
+@implementation HXBVerificationCodeAlertVC
 
 - (instancetype)init
 {
@@ -48,11 +48,6 @@
     _isSpeechVerificationCode = isSpeechVerificationCode;
     self.verificationCodeAlertView.isSpeechVerificationCode = isSpeechVerificationCode;
 }
-
-//- (void)setSpeechType:(BOOL)speechType {
-//    _speechType = speechType;
-//    self.verificationCodeAlertView.speechType = _speechType;
-//}
 
 - (void)setSubTitle:(NSString *)subTitle
 {

@@ -11,7 +11,7 @@
 #import "HxbWithdrawCardViewController.h"
 #import "HXBWithdrawalsRequest.h"
 #import "HxbWithdrawResultViewController.h"
-#import "HXBAlertVC.h"
+#import "HXBVerificationCodeAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBCallPhone_BottomView.h"
 #import "HXBOpenDepositAccountRequest.h"
@@ -41,7 +41,7 @@
 @property (nonatomic, strong) HXBWithdrawModel *withdrawModel;
 
 
-@property (nonatomic, strong) HXBAlertVC *alertVC;
+@property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
 @end
 
 @implementation HxbWithdrawViewController
@@ -469,12 +469,11 @@
     return _reminderLabel;
 }
 
-- (HXBAlertVC *)alertVC
+- (HXBVerificationCodeAlertVC *)alertVC
 {
     if (!_alertVC) {
         kWeakSelf
-        _alertVC = [[HXBAlertVC alloc] init];
-//        self.alertVC.speechType = NO;
+        _alertVC = [[HXBVerificationCodeAlertVC alloc] init];
         _alertVC.messageTitle = @"请输入您的短信验证码";
         _alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收",[self.withdrawModel.mobileNumber replaceStringWithStartLocation:3 lenght:self.withdrawModel.mobileNumber.length - 7]];
         _alertVC.sureBtnClick = ^(NSString *pwd){
