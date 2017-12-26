@@ -57,7 +57,7 @@
 
 - (HXBMY_AllFinanceView *)allFinanceView {
     if (!_allFinanceView) {
-        _allFinanceView = [[HXBMY_AllFinanceView alloc]initWithFrame:CGRectMake(0, 64 + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(242))];
+        _allFinanceView = [[HXBMY_AllFinanceView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight + kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(242))];
     }
     return _allFinanceView;
 }

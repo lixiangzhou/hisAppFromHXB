@@ -9,6 +9,38 @@
 #ifndef MacroDefinition_h
 #define MacroDefinition_h
 
+//-------------------banner，首页弹框跳转原生的界面-------------------------
+//注册页面
+#define kRegisterVC @"/account/register"
+//充值页面
+#define kRechargeVC @"/cash/recharge"
+//某个计划的详情页
+#define kPlanDetailVC @"/plan/detail"
+//某个散标的详情页
+#define kLoanDetailVC @"/loan/detail"
+//某个债转的详情页
+#define kLoanTransferDetailVC @"/loan_transfer/detail"
+//登录页面
+#define kLoginVC @"/account/login"
+//主页
+#define kHomeVC @"/home/main"
+//公告列表
+#define kNoticeVC @"/home/notice"
+//红利计划列表页
+#define kPlan_fragment @"/home/plan_fragment"
+//散标列表页
+#define kLoan_fragment @"/home/loan_fragment"
+//债权转让列表页
+#define kLoantransferfragment @"/home/loan_transfer_fragment"
+//存管开户页面
+#define kEscrowActivityVC @"/home/EscrowActivity"
+//存管开户弹框
+#define kEscrowdialogActivityVC @"/user/escrowdialog_activity"
+//好友邀请记录
+#define kAccountFriendsRecordActivity @"/account/invite_friends_record_activity"
+// h5 调app 展示信息框
+#define kInviteSellerShowMessage @"/invite/seller"
+
 
 //-------------------请求头需要的字段-------------------------
 #define X_Hxb_User_Agent @"X-Hxb-User-Agent"
@@ -196,6 +228,11 @@
 #define  HXBTabbarSafeBottomMargin         (HXBIPhoneX ? 34.f : 0.f)
 // 状态栏和导航栏高度
 #define  HXBStatusBarAndNavigationBarHeight  [HXBThemAdapterManager getStateNavgationBarHeight]
+
+/// 屏幕顶部的额外距离，适配iPhone X
+#define HXBStatusBarAdditionHeight (HXBIPhoneX ? 24 : 0)
+/// 屏幕底部的额外距离，适配iPhone X
+#define HXBBottomAdditionHeight (HXBIPhoneX ? 34 : 0)
 
 #define HXBViewSafeAreInsets(view) ({UIEdgeInsets insets; if(@available(iOS 11.0, *)) {insets = view.safeAreaInsets;} else {insets = UIEdgeInsetsZero;} insets;})
 

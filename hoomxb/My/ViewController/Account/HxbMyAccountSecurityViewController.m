@@ -72,7 +72,7 @@ UITableViewDataSource,UITableViewDelegate
     }
     else if (model.type == HXBAccountSecureTypeGesturePwdModify){
         HXBCheckLoginPasswordViewController *checkLoginPasswordVC = [[HXBCheckLoginPasswordViewController alloc] init];
-        checkLoginPasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
+        checkLoginPasswordVC.switchType = HXBAccountSecureSwitchTypeChange;
         [self.navigationController pushViewController:checkLoginPasswordVC animated:YES];
     }
 }
@@ -110,8 +110,7 @@ UITableViewDataSource,UITableViewDelegate
     [data addObject:@{@"type":@(HXBAccountSecureTypeTransactionPwd), @"title": @"交易密码"}];
     [data addObject:@{@"type":@(HXBAccountSecureTypeGesturePwdSwitch), @"title": @"手势密码"}];
     
-    
-    if ([[kUserDefaults stringForKey:kHXBGesturePwdSkipeKey] isEqual:kHXBGesturePwdSkipeNO]) {
+    if ([KeyChain.skipGesture isEqual:kHXBGesturePwdSkipeNO]) {
         [data addObject:@{@"type":@(HXBAccountSecureTypeGesturePwdModify), @"title": @"修改手势密码"}];
     }
     

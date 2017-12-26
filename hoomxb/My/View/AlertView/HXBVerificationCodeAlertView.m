@@ -56,16 +56,17 @@
     _isSpeechVerificationCode = isSpeechVerificationCode;
     self.speechVerificationCodeLab.hidden = !isSpeechVerificationCode;
     self.speechVerificationCodeBtn.hidden = !isSpeechVerificationCode;
+    kWeakSelf
     if (_isSpeechVerificationCode) {
         [self.speechVerificationCodeLab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.line.mas_bottom).offset(kScrAdaptationH(10));
-            make.left.equalTo(self.textField.mas_left);
+            make.top.equalTo(weakSelf.line.mas_bottom).offset(kScrAdaptationH(30));
+            make.left.equalTo(weakSelf.textField.mas_left);
             make.height.offset(kScrAdaptationH(12.5));
         }];
         [self.speechVerificationCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.line.mas_bottom).offset(kScrAdaptationH(10.5));
-            make.left.equalTo(self.speechVerificationCodeLab.mas_right);
-            make.right.equalTo(self.mas_right);
+            make.top.equalTo(weakSelf.line.mas_bottom).offset(kScrAdaptationH(30.5));
+            make.left.equalTo(weakSelf.speechVerificationCodeLab.mas_right);
+            make.right.equalTo(weakSelf.mas_right);
             make.height.offset(kScrAdaptationH(12));
         }];
     }
@@ -85,22 +86,24 @@
 
 - (void)setupSubViewFrame
 {
+    kWeakSelf
     [self.codeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.right.equalTo(self.mas_right);
+//        make.centerY.equalTo(self);
+        make.top.equalTo(weakSelf.mas_top).offset(kScrAdaptationH750(50));
+        make.right.equalTo(weakSelf.mas_right);
         make.width.offset(kScrAdaptationW750(160));
         make.height.offset(kScrAdaptationH750(60));
     }];
     [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.codeBtn);
-        make.left.equalTo(self.mas_left);
-        make.right.equalTo(self.codeBtn.mas_left).offset(kScrAdaptationW750(-50));
+        make.top.equalTo(weakSelf.codeBtn);
+        make.left.equalTo(weakSelf.mas_left);
+        make.right.equalTo(weakSelf.codeBtn.mas_left).offset(kScrAdaptationW750(-50));
         make.height.offset(kScrAdaptationH(32));
     }];
     [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.textField.mas_left);
-        make.right.equalTo(self.textField.mas_right);
-        make.bottom.equalTo(self.codeBtn.mas_bottom);
+        make.left.equalTo(weakSelf.textField.mas_left);
+        make.right.equalTo(weakSelf.textField.mas_right);
+        make.bottom.equalTo(weakSelf.codeBtn.mas_bottom);
         make.height.offset(kHXBDivisionLineHeight);
     }];
 }
@@ -177,9 +180,9 @@
         [self.codeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
         [self.codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
         self.isSpeechVerificationCode = _isSpeechVerificationCode;
-        if (_speechType) {
-            self.isSpeechVerificationCode = YES;
-        }
+//        if (_speechType) {
+//            self.isSpeechVerificationCode = YES;
+//        }
         self.speechVerificationCodeBtn.enabled = YES;
         [_speechVerificationCodeBtn setTitleColor:RGB(45, 121, 243) forState:UIControlStateNormal];
 

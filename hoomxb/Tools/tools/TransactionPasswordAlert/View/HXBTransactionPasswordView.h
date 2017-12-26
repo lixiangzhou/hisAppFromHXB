@@ -14,7 +14,10 @@
  输入密码回调
  */
 @property (nonatomic, copy) void (^getTransactionPasswordBlock)(NSString *password);
-
-+ (HXBTransactionPasswordView *)show;
-
+//展示
+- (void)showInView:(UIView *)view;
+//关闭
+- (void)closePasswordView;
+//清空密码
+- (void)clearUpPassword;
 @end

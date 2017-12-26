@@ -25,8 +25,9 @@
     HXBBaseRequest *signUPAPI = [[HXBBaseRequest alloc]init];
     signUPAPI.requestMethod = NYRequestMethodPost;
     signUPAPI.requestUrl = kHXBUser_SignUPURL;
-    if (!inviteCode) inviteCode = @"";
-    
+//    if (!inviteCode) inviteCode = @"";
+    // 对邀请码进行防空处理，选项可填
+    inviteCode = inviteCode ? inviteCode : @"";
     signUPAPI.requestArgument = @{
                                   @"mobile"	: mobile,///           是	string	手机号
                                   @"smscode" : smscode,///	      是	string	短信验证码
@@ -77,7 +78,10 @@
             successBlock(YES);
             if ((![mobile isEqualToString:KeyChain.mobile]) && KeyChain.mobile) {
                 [KeyChain removeGesture];
+                KeyChain.skipGesture = nil;
+                KeyChain.skipGestureAlertAppeared = NO;
             }
+            KeyChain.gesturePwdCount = @"5";
             KeyChain.mobile = mobile;
         }
     } failure:^(NYBaseRequest *request, NSError *error) {

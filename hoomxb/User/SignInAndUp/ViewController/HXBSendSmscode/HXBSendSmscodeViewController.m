@@ -198,14 +198,12 @@
                 case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
                 {
                     NSLog(@"注册");
-                    //                weakSelf.smscodeView.isSpeechVerificationCode = YES;
                     weakSelf.smscodeView.startsCountdown = YES;
                 }
                     break;
             }
         } andFailureBlock:^(NSError *error) {
             kNetWorkError(@"短信发送失败");
-            //        weakSelf.smscodeView.isSpeechVerificationCode = NO;
             weakSelf.smscodeView.startsCountdown = NO;
         }];
     }

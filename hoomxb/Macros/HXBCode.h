@@ -56,6 +56,12 @@ typedef enum : NSUInteger {
     kHXBCode_Success = 0
 } kHXBCode_Enum;
 
+typedef enum : NSUInteger {
+    kBuy_Toast = 10001,
+    kBuy_Result = 10002,
+    kBuy_Processing = 10003,
+} KHXBBuy_Code;
+
 /**
  code 码
  */

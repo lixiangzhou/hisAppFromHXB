@@ -21,4 +21,7 @@
 + (NSString *) hiddenStr: (NSString *)string MidWithFistLenth: (NSInteger)fistLenth andLastLenth: (NSInteger)lastLenth;
 ///如果拼接的是最后一个字符串是“”，那么就默认为删除键，删除最后一个字符
 - (NSString *) hxb_StringWithFormatAndDeleteLastChar: (NSString *)string;
+/// 对数字取整
++ (NSString *)getIntegerStringWithNumber:(double)number fractionDigits:(int)fractionDigits;
+
 @end

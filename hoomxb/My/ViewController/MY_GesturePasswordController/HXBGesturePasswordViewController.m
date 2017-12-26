@@ -104,7 +104,7 @@
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.offset(kScrAdaptationH(82));
+        make.top.offset(kScrAdaptationH(82) + HXBStatusBarAdditionHeight);
     }];
     
     [self.resetBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -259,6 +259,7 @@
         KeyChain.gesturePwd = gesture;
         KeyChain.gesturePwdCount = @"5";
         [kUserDefaults setBool:YES forKey:kHXBGesturePWD];
+        [kUserDefaults synchronize];
         
         __block UIViewController *popToVC = nil;
         [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -268,12 +269,13 @@
             }
         }];
         
-        [kUserDefaults setObject:kHXBGesturePwdSkipeNO forKey:kHXBGesturePwdSkipeKey];
-//        [kUserDefaults setBool:NO forKey:kHXBGesturePwdSkipeKey];
-        [kUserDefaults synchronize];
+        KeyChain.skipGesture = kHXBGesturePwdSkipeNO;
+       
         
         if (popToVC && self.switchType == HXBAccountSecureSwitchTypeOn) {   // 从账户安全页进去的
             [self.navigationController popToViewController:popToVC animated:YES];
+        } else if (self.switchType == HXBAccountSecureSwitchTypeChange) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
         } else {    // 启动的时候进去的
             [[HXBRootVCManager manager] makeTabbarRootVC];
         }
@@ -306,13 +308,13 @@
                 
                 HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"很抱歉，您的手势密码五次输入错误" force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确定"];
                 alertVC.isCenterShow = YES;
+                [KeyChain removeGesture];
+                [KeyChain signOut];
                 [alertVC setClickXYRightButtonBlock:^{
-                    [KeyChain signOut];
                     [[HXBRootVCManager manager] makeTabbarRootVC];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{kHXBMY_VersionUpdateURL : @YES}];
                 }];
                 [alertVC setClickXYLeftButtonBlock:^{
-                    [KeyChain signOut];
                     [[HXBRootVCManager manager] makeTabbarRootVC];
                 }];
                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
@@ -335,19 +337,17 @@
 #pragma mark - Helper
 - (void)alertSkipSetting {
     // 忽略手势密码弹窗提示
-    BOOL appeared = [kUserDefaults boolForKey:kHXBGesturePwdSkipeAppeardKey];
+    BOOL appeared = KeyChain.skipGestureAlertAppeared;
     if (appeared == NO) {
-        // 只出现一次弹窗
-        [kUserDefaults setBool:YES forKey:kHXBGesturePwdSkipeAppeardKey];
-        [kUserDefaults synchronize];
         // 弹窗
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:@"为了您的账户安全，\n建议您设置手势密码" force:2 andLeftButtonMassage:@"跳过设置" andRightButtonMassage:@"开始设置"];
         alertVC.clickXYLeftButtonBlock = ^{ // 跳过设置
-//            [kUserDefaults setBool:YES forKey:kHXBGesturePwdSkipeKey];
-            [kUserDefaults setObject:kHXBGesturePwdSkipeYES forKey:kHXBGesturePwdSkipeKey];
-            [kUserDefaults synchronize];
+            KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
+            [KeyChain removeGesture];
             
             [[HXBRootVCManager manager] makeTabbarRootVC];
+            // 只出现一次弹窗
+            KeyChain.skipGestureAlertAppeared = YES;
         };
         
         alertVC.isCenterShow = YES;

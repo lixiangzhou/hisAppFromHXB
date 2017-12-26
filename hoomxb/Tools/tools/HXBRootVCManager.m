@@ -13,6 +13,7 @@
 #import "HxbAdvertiseViewController.h"
 #import "HXBVersionUpdateModel.h"
 #import "HXBGesturePasswordViewController.h"
+#import "HXBHomePopViewManager.h"
 #import "HXBVersionUpdateManager.h"
 
 #define AXHVersionKey @"version"
@@ -37,6 +38,7 @@
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     [UIApplication sharedApplication].delegate.window = self.window;
     
+    [[HXBHomePopViewManager sharedInstance] getHomePopViewData];//获取首页弹窗数据
     [[HXBVersionUpdateManager sharedInstance] checkVersionUpdate];
     
     // 广告
@@ -74,16 +76,23 @@
  */
 - (void)enterTheGesturePasswordVCOrTabBar
 {
-//     KeyChain.validateGesturePwd
     if (KeyChain.isLogin) {
-        if (KeyChain.gesturePwd.length > 0) {   // 已有手势密码，手势登录
+        NSLog(@"%@ %@ %d", KeyChain.gesturePwd, KeyChain.skipGesture, KeyChain.skipGestureAlertAppeared);
+        if (KeyChain.gesturePwd.length > 0 && [KeyChain.skipGesture isEqualToString:kHXBGesturePwdSkipeNO]) {   // 已有手势密码，手势登录
             HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
             gesturePasswordVC.type = GestureViewControllerTypeLogin;
             gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
             self.window.rootViewController = gesturePasswordVC;
         } else {
-            BOOL skipGesturePwd = [[kUserDefaults stringForKey:kHXBGesturePwdSkipeKey]  isEqual:kHXBGesturePwdSkipeYES];
-            if (skipGesturePwd) {
+            NSString *skip = KeyChain.skipGesture;
+            BOOL skipGesturePwd = NO;
+            if (skip != nil) {
+                skipGesturePwd = [skip isEqualToString:kHXBGesturePwdSkipeYES];
+            }
+            
+            BOOL appeared = KeyChain.skipGestureAlertAppeared;
+            
+            if (skipGesturePwd && appeared) {
                 [self makeTabbarRootVC];
             } else {
                 HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
@@ -92,7 +101,6 @@
                 self.window.rootViewController = gesturePasswordVC;
             }
         }
-       
     } else {
         [self makeTabbarRootVC];
     }

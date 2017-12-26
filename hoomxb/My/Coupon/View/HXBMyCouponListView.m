@@ -27,15 +27,18 @@ UITableViewDataSource
     if (self) {
         self.backgroundColor = RGBA(244, 243, 248, 1);
         [self addSubview:self.mainTableView];
-        self.nodataView.hidden = NO;
-        [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.mainTableView).offset(kScrAdaptationH(100));
+        self.nodataView.hidden = YES;
+        kWeakSelf
+        [_nodataView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.mainTableView).offset(kScrAdaptationH(100));
             make.height.width.equalTo(@(kScrAdaptationH(184)));
-            make.centerX.equalTo(self.mainTableView);
+            make.centerX.equalTo(weakSelf.mainTableView);
         }];
     }
     return self;
 }
+
+
 
 - (void)setIsStopRefresh_Home:(BOOL)isStopRefresh_Home{
     _isStopRefresh_Home = isStopRefresh_Home;
@@ -121,9 +124,9 @@ UITableViewDataSource
             }
         };
         [_nodataView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).offset(kScrAdaptationH(100));
+            make.top.equalTo(weakSelf).offset(kScrAdaptationH(100));
             make.height.width.equalTo(@(kScrAdaptationH(184)));
-            make.centerX.equalTo(self);
+            make.centerX.equalTo(weakSelf);
         }];
     }
     return _nodataView;

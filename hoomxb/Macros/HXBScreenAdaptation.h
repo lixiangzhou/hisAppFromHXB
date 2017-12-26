@@ -29,16 +29,15 @@
 
 //MARK: 计算好的尺寸比例
 ///计算比例后的高度
-#define kScrAdaptationH(H) ((H) * kScreenAdaptation_Height)
+#define kScrAdaptationH(H) ((H) * kScreenAdaptation_Width)
 ///计算比例后的宽度
 #define kScrAdaptationW(W) ((W) * kScreenAdaptation_Width)
 
-
 //MARK: 计算好的尺寸比例
 ///计算比例后的高度
-#define kScrAdaptationH750(H) ((H) * kScreenAdaptation_Height * 0.5)
+#define kScrAdaptationH750(H) ((H) * kScreenAdaptation_Width * 0.5)
 ///计算比例后的宽度
 #define kScrAdaptationW750(W) ((W) * kScreenAdaptation_Width * 0.5)
 
-#define kVCViewFrame_64 CGRectMake(0, 64, kScreenWidth, kScreenHeight-64)
+#define kVCViewFrame_64 CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight-HXBStatusBarAndNavigationBarHeight)
 #endif /* HXBScreenAdaptation_h */

@@ -11,7 +11,6 @@
 #import "HxbWithdrawResultViewController.h"
 #import "HXBBankCardModel.h"
 #import "HXBWithdrawalsRequest.h"
-#import "HXBAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBBankCardListViewController.h"
 #import "HXBWithdrawCardView.h"
@@ -43,7 +42,7 @@
 {
     if (!_withdrawCardView) {
         kWeakSelf
-        _withdrawCardView = [[HXBWithdrawCardView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
+        _withdrawCardView = [[HXBWithdrawCardView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         
         _withdrawCardView.bankNameBtnClickBlock = ^() {
             [weakSelf enterBankCardListVC];
@@ -99,22 +98,6 @@
 - (void)leftBackBtnClick {
     if (_className.length > 0 && _type == HXBRechargeAndWithdrawalsLogicalJudgment_Other) {
         [self popToViewControllerWithClassName:_className];
-    } else {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-}
-
-// pop到制定的页面
-- (void)popToViewControllerWithClassName:(NSString *)class {
-    __block HXBBaseViewController *vc = nil;
-    [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) { // 块遍历法，遍历子控制器
-        if ([obj isKindOfClass:NSClassFromString(class)]) {
-            vc = obj;
-            *stop = YES;
-        }
-    }];
-    if (vc) {
-        [self.navigationController popToViewController:vc animated:YES];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }

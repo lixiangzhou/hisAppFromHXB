@@ -51,6 +51,8 @@
     [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:NO];
     //保障无网络时， 该子视图能在最上方
     [self.view bringSubviewToFront:self.noNetworkStatusView];
+    
+    self.noNetworkStatusView.hidden = self.ignoreNetwork;
 }
 
 - (void)viewDidAppear:(BOOL)animated {

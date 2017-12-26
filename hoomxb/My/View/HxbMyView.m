@@ -259,7 +259,8 @@ MyViewHeaderDelegate
 
 - (HXBBaseTableView *)mainTableView{
     if (!_mainTableView) {
-        _mainTableView = [[HXBBaseTableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49) style:UITableViewStyleGrouped];
+        
+        _mainTableView = [[HXBBaseTableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 49 - HXBBottomAdditionHeight) style:UITableViewStyleGrouped];
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
@@ -276,7 +277,7 @@ MyViewHeaderDelegate
 
 - (HxbMyViewHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH750(575+43))];//kScrAdaptationH(276)//575
+        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH750(575 + 43 + HXBStatusBarAdditionHeight))];//kScrAdaptationH(276)//575
         _headerView.delegate = self;
         _headerView.userInteractionEnabled = YES;
         kWeakSelf
