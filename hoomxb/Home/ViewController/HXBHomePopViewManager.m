@@ -52,21 +52,6 @@
 {
     kWeakSelf
     [HXBHomePopViewRequest homePopViewRequestSuccessBlock:^(id responseObject) {
-//        id responseObject1 = @{
-//
-//                               @"data":@{
-//                    @"createTime" : @1513821964630,
-//                    @"frequency" : @"everyTime",
-//                    @"id": @"3-1482-1395",
-//                    @"image" : @"https://picsum.photos/1482/1395/?image=3",
-//                    @"url" : @"/",
-//                    @"title" : @"3-1482-1395",
-//                    @"type" : @"native",
-//                    @"updateTime" : @1513821964630
-//            },
-//            @"message":@"success",
-//                               @"status":@0
-//                               };
         
         if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
             weakSelf.isHide = YES;
@@ -105,13 +90,14 @@
 - (void)cachePopHomeImage{
     kWeakSelf
     [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:_responseDict[@"image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-
+        
         if (image) {
             UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(10)];
             weakSelf.popView.imgView.image = img;
             
             SDImageCache *imageCache = [SDImageCache sharedImageCache];
             [imageCache storeImage:image forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] toDisk:YES];
+            [imageCache removeImageForKey:_responseDict[@"image"] fromDisk:YES];
             }
         }];
 }
@@ -120,9 +106,8 @@
     
     if ([controller isKindOfClass:[HxbHomeViewController class]] && [HXBVersionUpdateManager sharedInstance].isShow) {
         kWeakSelf
-        
         // 显示完成回调
-        __weak typeof(_popView) weakPopView = _popView;
+        __weak typeof(_popView) weakPopView = self.popView;
         self.popView.popCompleteBlock = ^{
             NSLog(@"1111显示完成");
             
@@ -131,7 +116,7 @@
 //                weakSelf.isHide = YES;
 //            }
 //
-//            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everyTime"]) {
+//            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everytime"]) {
 //                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
 //                weakSelf.isHide = YES;
 //            }

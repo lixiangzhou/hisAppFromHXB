@@ -12,11 +12,6 @@
 @interface HXBHomePopViewManager : NSObject
 
 /**
- 加载的弹窗视图
- */
-@property (nonatomic,strong) UIImage *popImage;
-
-/**
  是否隐藏首页弹窗
  */
 @property (nonatomic,assign) BOOL isHide;
