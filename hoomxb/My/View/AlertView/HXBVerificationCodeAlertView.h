@@ -17,7 +17,7 @@
 //是否有语音验证码
 @property (nonatomic, assign) BOOL isSpeechVerificationCode;
 // 类型
-@property (nonatomic, assign) BOOL speechType;
+//@property (nonatomic, assign) BOOL speechType;
 //线的颜色
 @property(nonatomic,copy) UIColor *lineColor;
 /** 是否清楚输入框 */
