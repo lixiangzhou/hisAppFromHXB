@@ -42,7 +42,7 @@
 {
     if (!_withdrawCardView) {
         kWeakSelf
-        _withdrawCardView = [[HXBWithdrawCardView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
+        _withdrawCardView = [[HXBWithdrawCardView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         
         _withdrawCardView.bankNameBtnClickBlock = ^() {
             [weakSelf enterBankCardListVC];

@@ -117,7 +117,7 @@
 {
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(69);
+        make.top.equalTo(self.view).offset(69 + HXBStatusBarAdditionHeight);
         make.height.offset(kScrAdaptationH(45));
     }];
     [self.bankView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -137,12 +137,12 @@
     [self.userInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(kScrAdaptationH(45) + 64);
+        make.top.equalTo(self.view).offset(kScrAdaptationH(45) + HXBStatusBarAndNavigationBarHeight);
         make.height.offset(kScrAdaptationH(135));
     }];
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(HxbNavigationBarY);
+        make.top.equalTo(self.view).offset(HXBStatusBarAndNavigationBarHeight);
         make.bottom.equalTo(self.userInfoView.mas_top);
     }];
 }

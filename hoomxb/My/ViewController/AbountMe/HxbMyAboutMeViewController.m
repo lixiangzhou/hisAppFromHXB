@@ -40,7 +40,7 @@ UITableViewDelegate,UITableViewDataSource
         make.left.right.top.bottom.equalTo(self.headerView);
     }];
     [self.logoImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.headerView).offset(kScrAdaptationH750(220));
+        make.top.equalTo(self.headerView).offset(kScrAdaptationH(110) + HXBStatusBarAdditionHeight);
         make.centerX.equalTo(self.headerView);
         make.width.offset(kScrAdaptationW750(260));
         make.height.offset(kScrAdaptationW750(260));
@@ -173,7 +173,7 @@ UITableViewDelegate,UITableViewDataSource
 
 - (UIView *)headerView{
     if (!_headerView) {
-        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , SCREEN_WIDTH , kScrAdaptationH750(600))];
+        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 0 , SCREEN_WIDTH , kScrAdaptationH(300) + HXBStatusBarAdditionHeight)];
        
         [_headerView addSubview:self.backgroundImageView];
         [_headerView addSubview:self.logoImageView];

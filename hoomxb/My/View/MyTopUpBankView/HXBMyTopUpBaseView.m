@@ -62,7 +62,7 @@
     [self.myTopUpHeaderView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
-        make.top.equalTo(self.mas_top).offset(HxbNavigationBarY);
+        make.top.equalTo(self.mas_top).offset(HXBStatusBarAndNavigationBarHeight);
         make.height.offset(kScrAdaptationH750(80));
     }];
     
@@ -101,7 +101,7 @@
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(kScrAdaptationW750(40));
         make.right.equalTo(self.mas_right).offset(kScrAdaptationW750(-40));
-        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH750(-100));
+        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH750(-100) - HXBBottomAdditionHeight);
     }];
     
     [self.phoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {

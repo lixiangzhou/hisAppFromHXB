@@ -76,10 +76,31 @@
  */
 - (void)enterTheGesturePasswordVCOrTabBar
 {
-    if (KeyChain.validateGesturePwd) {
-        HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-        gesturePasswordVC.type = GestureViewControllerTypeLogin;
-        self.window.rootViewController = gesturePasswordVC;
+    if (KeyChain.isLogin) {
+        NSLog(@"%@ %@ %d", KeyChain.gesturePwd, KeyChain.skipGesture, KeyChain.skipGestureAlertAppeared);
+        if (KeyChain.gesturePwd.length > 0 && [KeyChain.skipGesture isEqualToString:kHXBGesturePwdSkipeNO]) {   // 已有手势密码，手势登录
+            HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+            gesturePasswordVC.type = GestureViewControllerTypeLogin;
+            gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
+            self.window.rootViewController = gesturePasswordVC;
+        } else {
+            NSString *skip = KeyChain.skipGesture;
+            BOOL skipGesturePwd = NO;
+            if (skip != nil) {
+                skipGesturePwd = [skip isEqualToString:kHXBGesturePwdSkipeYES];
+            }
+            
+            BOOL appeared = KeyChain.skipGestureAlertAppeared;
+            
+            if (skipGesturePwd && appeared) {
+                [self makeTabbarRootVC];
+            } else {
+                HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+                gesturePasswordVC.type = GestureViewControllerTypeSetting;
+                gesturePasswordVC.switchType = HXBAccountSecureSwitchTypeNone;
+                self.window.rootViewController = gesturePasswordVC;
+            }
+        }
     } else {
         [self makeTabbarRootVC];
     }

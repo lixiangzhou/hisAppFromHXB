@@ -111,24 +111,7 @@
 - (void)start
 {
     [[HXBRootVCManager manager] enterTheGesturePasswordVCOrTabBar];
-    
-//    if (KeyChain.validateGesturePwd == NO) {
-//        if ([self.force isEqualToString:@"0"]) {
-//            [self showNewAlert];
-//        }
-//    }
 }
 
-// 展示开户弹框
-- (void)showNewAlert {
-    HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
-    alertVC.immediateOpenBlock = ^{
-        [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_alertBtn];
-        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-        openDepositAccountVC.title = @"开通存管账户";
-        openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
-        [[HXBRootVCManager manager].mainTabbarVC.childViewControllers[0] pushViewController:openDepositAccountVC animated:YES];
-    };
-    [KeyWindow.rootViewController presentViewController:alertVC animated:NO completion:nil];
-}
+
 @end

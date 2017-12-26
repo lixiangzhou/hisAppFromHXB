@@ -28,7 +28,12 @@
     if (model.type == HXBAccountSecureTypeGesturePwdSwitch) {
         self.accessoryType = UITableViewCellAccessoryNone;
         UISwitch *switchView = [UISwitch new];
-        switchView.on = !([[kUserDefaults stringForKey:kHXBGesturePwdSkipeKey]  isEqual:kHXBGesturePwdSkipeYES]);
+        NSString *skip = KeyChain.skipGesture;
+        BOOL isOn = NO;
+        if (skip != nil) {
+            isOn = ![skip isEqualToString:kHXBGesturePwdSkipeYES];
+        }
+        switchView.on = isOn;
         [[switchView rac_signalForControlEvents:UIControlEventValueChanged] subscribeNext:^(__kindof UISwitch * _Nullable x) {
             model.switchBlock(x.isOn);
         }];
