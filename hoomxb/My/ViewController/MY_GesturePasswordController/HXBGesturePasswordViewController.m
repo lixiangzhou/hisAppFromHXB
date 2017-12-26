@@ -104,7 +104,7 @@
     
     [self.titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.offset(kScrAdaptationH(82));
+        make.top.offset(kScrAdaptationH(82) + HXBStatusBarAdditionHeight);
     }];
     
     [self.resetBtn mas_makeConstraints:^(MASConstraintMaker *make) {

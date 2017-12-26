@@ -32,7 +32,7 @@
     [super viewDidLoad];
 //    [self.hxbBaseVCScrollView addSubview:self.mainView];
     self.hxbBaseVCScrollView.tableHeaderView = self.mainView;
-    self.hxbBaseVCScrollView.frame = CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY);
+    self.hxbBaseVCScrollView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight);
     self.hxbBaseVCScrollView.delegate = self;
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self loadUserInfo];

@@ -220,7 +220,7 @@
 
 - (UIView *)headerView{
     if (!_headerView) {
-        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, 64 , SCREEN_WIDTH , kScrAdaptationH(172.5))];
+        _headerView = [[UIView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight , SCREEN_WIDTH , kScrAdaptationH(172.5))];
         [_headerView addSubview:self.headBackgroundImageView];
     }
     return _headerView;

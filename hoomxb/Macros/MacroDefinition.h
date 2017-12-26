@@ -229,6 +229,11 @@
 // 状态栏和导航栏高度
 #define  HXBStatusBarAndNavigationBarHeight  (HXBIPhoneX ? 88.f : 64.f)
 
+/// 屏幕顶部的额外距离，适配iPhone X
+#define HXBStatusBarAdditionHeight (HXBIPhoneX ? 24 : 0)
+/// 屏幕底部的额外距离，适配iPhone X
+#define HXBBottomAdditionHeight (HXBIPhoneX ? 34 : 0)
+
 #define HXBViewSafeAreInsets(view) ({UIEdgeInsets insets; if(@available(iOS 11.0, *)) {insets = view.safeAreaInsets;} else {insets = UIEdgeInsetsZero;} insets;})
 
 
