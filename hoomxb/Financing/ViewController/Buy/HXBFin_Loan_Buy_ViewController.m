@@ -15,7 +15,7 @@
 #import "HXBFin_Plan_BuyViewModel.h"
 #import "HxbMyTopUpViewController.h"
 #import "HXBFin_Buy_ViewModel.h"
-#import "HXBAlertVC.h"
+#import "HXBVerificationCodeAlertVC.h"
 #import "HXBOpenDepositAccountRequest.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HxbWithdrawCardViewController.h"
@@ -33,7 +33,7 @@ static NSString *const bankString = @"绑定银行卡";
 // 我的信息
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *viewModel;
 /** 短验弹框 */
-@property (nonatomic, strong) HXBAlertVC *alertVC;
+@property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
 // 银行卡信息
 @property (nonatomic, strong) HXBBankCardModel *cardModel;
 /** titleArray */
@@ -200,9 +200,7 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)alertSmsCode {
     if (!self.presentedViewController) {
-        self.alertVC = [[HXBAlertVC alloc] init];
-        self.alertVC.isCode = YES;
-        self.alertVC.speechType = NO;
+        self.alertVC = [[HXBVerificationCodeAlertVC alloc] init];
         self.alertVC.isCleanPassword = YES;
         double rechargeMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue];
         self.alertVC.messageTitle = @"请输入验证码";

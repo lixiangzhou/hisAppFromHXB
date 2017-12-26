@@ -115,8 +115,8 @@
    
     for (int i = 0; i < self.optionStrArray.count; i++) {
         CGFloat opstionX = i * (self.lienWidth + self.optionWidth);
-        CGFloat opstionY = 0;
-        CGRect opstionRect = CGRectMake(opstionX, opstionY, self.optionWidth, self.frame.size.height);
+        CGFloat opstionY = 0+HXBStatusBarHeight-20;
+        CGRect opstionRect = CGRectMake(opstionX, opstionY, self.optionWidth, self.frame.size.height-opstionY);
         NSValue *optionRectValue = [NSValue valueWithCGRect:opstionRect];
         NSString *optionStr = self.optionStrArray[i];
         NSDictionary *dic = [[NSDictionary alloc]initWithObjects:@[optionRectValue,optionStr] forKeys:@[@"optionRectValue",@"optionStr"]];

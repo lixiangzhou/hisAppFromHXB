@@ -16,6 +16,7 @@
 #import "HXBBaseTabBarController.h"
 #import "NSString+HxbGeneral.h"
 #import "HXBVersionUpdateManager.h"
+#import "UIImage+HXBUtil.h"
 
 //#define kRegisterVC @"/account/register"//注册页面
 #define kPlanDetailVC @"/plan/detail"//某个计划的详情页
@@ -51,16 +52,17 @@
 {
     kWeakSelf
     [HXBHomePopViewRequest homePopViewRequestSuccessBlock:^(id responseObject) {
-        if (!responseObject[@"data"]) {
+        
+        if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
             weakSelf.isHide = YES;
             return ;
         }
         weakSelf.homePopViewModel = [HXBHomePopViewModel yy_modelWithDictionary:responseObject[@"data"]];
-        
         [weakSelf updateUserDefaultsPopViewDate:responseObject[@"data"]];
+        
 //        [HXBHomePopViewManager popHomeViewWith:weakSelf.homePopViewVM.homePopModel fromController:weakSelf];//弹出首页弹窗
     } andFailureBlock:^(NSError *error) {
-        
+        self.isHide = YES;
     }];
 }
 
@@ -86,60 +88,72 @@
 }
 
 - (void)cachePopHomeImage{
-
-    NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_responseDict[@"image"]]];
-    [kUserDefaults setObject:data forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
-    [kUserDefaults synchronize];
+    kWeakSelf
+    [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:_responseDict[@"image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        if (image) {
+            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(10)];
+            weakSelf.popView.imgView.image = img;
+            
+            SDImageCache *imageCache = [SDImageCache sharedImageCache];
+            [imageCache storeImage:image forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] toDisk:YES];
+            [imageCache removeImageForKey:_responseDict[@"image"] fromDisk:YES];
+            }
+        }];
 }
 
 - (void)popHomeViewfromController:(UIViewController *)controller{
     
     if ([controller isKindOfClass:[HxbHomeViewController class]] && [HXBVersionUpdateManager sharedInstance].isShow) {
         kWeakSelf
-        // 1.初始化
-        _popView = [[HXBHomePopView alloc]init];
-        //        [popView.imgView sd_setImageWithURL:[NSURL URLWithString:self.homePopViewModel.]];
-        // 2.设置属性，可不设置使用默认值，见注解
-        // 2.1 显示时点击背景是否移除弹框
-        _popView.isClickBGDismiss = YES;
-        // 2.2 显示时背景的透明度
-        _popView.popBGAlpha = 0.5f;
-        // 2.6 显示完成回调
-        __weak typeof(_popView) weakPopView = _popView;
-        _popView.popCompleteBlock = ^{
+        // 显示完成回调
+        __weak typeof(_popView) weakPopView = self.popView;
+        self.popView.popCompleteBlock = ^{
             NSLog(@"1111显示完成");
             
-            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
-                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
-                weakSelf.isHide = YES;
-                //                [weakPopView dismiss];
-            }
+//            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
+//                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
+//                weakSelf.isHide = YES;
+//            }
+//
+//            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everytime"]) {
+//                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
+//                weakSelf.isHide = YES;
+//            }
+            [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
+            weakSelf.isHide = YES;
             [kUserDefaults synchronize];
         };
-        // 2.7 移除完成回调
-        _popView.dismissCompleteBlock = ^{
+        // 移除完成回调
+        self.popView.dismissCompleteBlock = ^{
             NSLog(@"1111移除完成");
         };
-        // 3.1处理自定义视图操作事件
-        _popView.closeActionBlock = ^{
+        // 处理自定义视图操作事件
+        self.popView.closeActionBlock = ^{
             NSLog(@"1111点击关闭按钮");
             [weakPopView dismiss];
         };
-        _popView.clickImageBlock = ^{
+        self.popView.clickImageBlock = ^{
             NSLog(@"1111点击图片");
-            //跳转到原生或h5
-            [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel fromController:controller];
+            //校验可不可以跳转
+            if ([HXBHomePopViewManager checkHomePopViewWith:weakSelf.homePopViewModel]) {
+                //跳转到原生或h5
+                [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel fromController:controller];
+            }
+            
         };
-        _popView.clickBgmDismissCompleteBlock = ^{
+        self.popView.clickBgmDismissCompleteBlock = ^{
             NSLog(@"1111点击背景移除完成");
             [weakPopView dismiss];
         };
-        // 4.显示弹框
+        // 显示弹框
         if (!self.isHide) {
-            UIImage *image = [UIImage imageWithData: [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]]];
+//            UIImage *image = [UIImage imageWithData: [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]]];
+            UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
+            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(10)];
             if (image) {
-                _popView.imgView.image = image;
-                [_popView pop];
+                weakSelf.popView.imgView.image = img;
+                [weakSelf.popView pop];
             }
         }
     }
@@ -147,49 +161,56 @@
 
 - (void)jumpPageFromHomePopView:(HXBHomePopViewModel *)homePopViewModel fromController:(UIViewController *)controller{
     
-    //校验可不可以跳转
-    if ([HXBHomePopViewManager checkHomePopViewWith:self.homePopViewModel]) {
+    if ([homePopViewModel.type isEqualToString:@"native"]) { //哪种类型
         
-        if ([homePopViewModel.type isEqualToString:@"native"]) { //哪种类型
-            
-            if ([homePopViewModel.link hasPrefix:kPlan_fragment]) {
-                //计划列表
-                HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-                tabBarVC.selectedIndex = 1;
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
-            } else if ([homePopViewModel.link hasPrefix:kPlanDetailVC]){
-                //某个计划的详情页
-                HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
-                NSDictionary *parameterDict = [NSString urlDictFromUrlString:homePopViewModel.link];
-                if (parameterDict[@"productId"]) {
-                    planDetailsVC.planID = parameterDict[@"productId"];
-                    planDetailsVC.isPlan = YES;
-                    planDetailsVC.isFlowChart = YES;
-                    [controller.navigationController pushViewController:planDetailsVC animated:YES];
-                }
+        if ([homePopViewModel.url hasPrefix:kPlan_fragment]) {
+            //计划列表
+            HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+            tabBarVC.selectedIndex = 1;
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_PlanAndLoan_Fragment object:@{@"selectedIndex" : @0}];
+        } else if ([homePopViewModel.url hasPrefix:kPlanDetailVC]){
+            //某个计划的详情页
+            HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
+            NSDictionary *parameterDict = [NSString urlDictFromUrlString:homePopViewModel.url];
+            if (parameterDict[@"productId"]) {
+                planDetailsVC.planID = parameterDict[@"productId"];
+                planDetailsVC.isPlan = YES;
+                planDetailsVC.isFlowChart = YES;
+                [controller.navigationController pushViewController:planDetailsVC animated:YES];
             }
-        } else if ([homePopViewModel.type isEqualToString:@"broswer"]) {
-            if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:homePopViewModel.link]]) {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:homePopViewModel.link]];
-            }
-        } else {
-            //        NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],@"0b025dfa-4613-4ba9-a9e8-5805fdb6a829"];
-            //        [HXBBaseWKWebViewController pushWithPageUrl:str fromController:controller];
-            //[HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:homePopViewModel.link] fromController:controller];
-            [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.link fromController:controller];
         }
+    } else if ([homePopViewModel.type isEqualToString:@"broswer"]) {
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:homePopViewModel.url]]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:homePopViewModel.url]];
+        }
+    } else {
+        //        NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],@"0b025dfa-4613-4ba9-a9e8-5805fdb6a829"];
+        //        [HXBBaseWKWebViewController pushWithPageUrl:str fromController:controller];
+        //[HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:homePopViewModel.link] fromController:controller];
+        [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.url fromController:controller];
     }
-
-    [_popView dismiss];
+    
+    [self.popView dismiss];
 }
 
 + (BOOL)checkHomePopViewWith:(HXBHomePopViewModel *)homePopViewModel{
     
-    if (![homePopViewModel.link isEqualToString:@""]) {
-        return YES;
+    if ([homePopViewModel.url isEqualToString:@""] || [homePopViewModel.url isEqualToString:@"/"]) {
+        return NO;
     } else {
         return YES;
     }
+}
+
+- (HXBHomePopView *)popView{
+    if (!_popView) {
+         _popView = [[HXBHomePopView alloc]init];
+        // 显示时点击背景是否移除弹框
+        _popView.isClickBGDismiss = YES;
+        // 显示时背景的透明度
+        _popView.popBGAlpha = 0.5f;
+    }
+    return _popView;
 }
 
 @end

@@ -12,7 +12,7 @@
 #import "HXBUserInfoView.h"
 #import "HXBBankView.h"
 #import "HXBUnBindCardController.h"
-#import "HXBRegisterAlertVC.h"
+#import "HXBGeneralAlertVC.h"
 #import "HXBOpenDepositAccountViewController.h"
 
 @interface HxbMyBankCardViewController ()
@@ -79,16 +79,16 @@
 
 - (void)clickUnbundBankBtn:(UIButton *)sender {
     if ([self.isCashPasswordPassed isEqualToString:@"0"]) { //未设置交易密码
-        HXBRegisterAlertVC *registerAlertVC = [[HXBRegisterAlertVC alloc] init];
+        HXBGeneralAlertVC *registerAlertVC = [[HXBGeneralAlertVC alloc] init];
         [self presentViewController:registerAlertVC animated:NO completion:nil];
         kWeakSelf
         registerAlertVC.messageTitle = @"";
         registerAlertVC.subTitle = @"为了您的账户安全，请完善存管账户信息后再进行解绑操作";
         registerAlertVC.type = @"解绑未设置交易密码";
-        [registerAlertVC verificationCodeBtnWithBlock:^{
+        [registerAlertVC leftBtnWithBlock:^{
            NSLog(@"点击取消按钮");
         }];
-        [registerAlertVC speechVerificationCodeBtnWithBlock:^{
+        [registerAlertVC rightBtnWithBlock:^{
             //完善信息
             HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
             openDepositAccountVC.title = @"完善信息";
@@ -114,7 +114,7 @@
 {
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(69);
+        make.top.equalTo(self.view).offset(69 + HXBStatusBarAdditionHeight);
         make.height.offset(kScrAdaptationH(45));
     }];
     [self.bankView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -134,12 +134,12 @@
     [self.userInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(kScrAdaptationH(45) + 64);
+        make.top.equalTo(self.view).offset(kScrAdaptationH(45) + HXBStatusBarAndNavigationBarHeight);
         make.height.offset(kScrAdaptationH(135));
     }];
     [self.tipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(HxbNavigationBarY);
+        make.top.equalTo(self.view).offset(HXBStatusBarAndNavigationBarHeight);
         make.bottom.equalTo(self.userInfoView.mas_top);
     }];
 }

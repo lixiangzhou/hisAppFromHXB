@@ -15,4 +15,6 @@
  */
 + (instancetype)getLauchImage;
 
++ (id)createRoundedRectImage:(UIImage*)image size:(CGSize)size radius:(NSInteger)r;
+
 @end

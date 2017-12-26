@@ -58,7 +58,7 @@
     } else {
         _notifitionView.hidden = NO;
         _tableView.tableHeaderView.hidden = YES;
-        _tableView.frame = CGRectMake(0, HxbNavigationBarY + kScrAdaptationH(40), kScreenWidth, kScreenHeight - HxbNavigationBarY - kScrAdaptationH(40));
+        _tableView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight + kScrAdaptationH(40), kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight - kScrAdaptationH(40));
     }
 }
 
@@ -266,7 +266,7 @@
 
 - (HXBMy_Withdraw_notifitionView *)notifitionView {
     if (!_notifitionView) {
-        _notifitionView = [[HXBMy_Withdraw_notifitionView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScrAdaptationH(40))];
+        _notifitionView = [[HXBMy_Withdraw_notifitionView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScrAdaptationH(40))];
     }
     _notifitionView.messageCount = @"请输入金额后使用";
     _notifitionView.imageName = @"couponTips_red";

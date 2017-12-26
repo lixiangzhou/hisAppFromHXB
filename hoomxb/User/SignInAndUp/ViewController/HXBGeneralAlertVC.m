@@ -1,36 +1,36 @@
 //
-//  HXBRegisterAlertVC.m
+//  HXBGeneralAlertVC.m
 //  hoomxb
 //
 //  Created by hxb on 2017/11/16.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBRegisterAlertVC.h"
+#import "HXBGeneralAlertVC.h"
 
-@interface HXBRegisterAlertVC ()
+@interface HXBGeneralAlertVC ()
 @property (nonatomic, strong) UIButton *backBtn;
 @property (nonatomic, strong) UIButton *cancelBtn;
 @property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UILabel *messageLab;
 @property (nonatomic, strong) UILabel *subTitleLabel;
-@property (nonatomic, strong) UIButton *sendSMSCodeBtn;
-@property (nonatomic, strong) UIButton *answeringVoiceCodeBtn;
+@property (nonatomic, strong) UIButton *leftBtn;
+@property (nonatomic, strong) UIButton *rightBtn;
 /**
  取消按钮
  */
 @property (nonatomic, copy) void(^cancelBtnClickBlock)();
 /**
- 短信验证码getVerificationCodeBlock
+leftBtnBlock
  */
-@property (nonatomic, copy) void(^getVerificationCodeBlock)();
+@property (nonatomic, copy) void(^leftBtnBlock)();
 /**
- 语音验证吗getSpeechVerificationCodeBlock
+rightBtnBlock
  */
-@property (nonatomic, copy) void(^getSpeechVerificationCodeBlock)();
+@property (nonatomic, copy) void(^rightBtnBlock)();
 @end
 
-@implementation HXBRegisterAlertVC
+@implementation HXBGeneralAlertVC
 
 - (instancetype)init
 {
@@ -48,8 +48,8 @@
     [self.contentView addSubview:self.cancelBtn];
     [self.contentView addSubview:self.messageLab];
     [self.contentView addSubview:self.subTitleLabel];
-    [self.contentView addSubview:self.sendSMSCodeBtn];
-    [self.contentView addSubview:self.answeringVoiceCodeBtn];
+    [self.contentView addSubview:self.leftBtn];
+    [self.contentView addSubview:self.rightBtn];
     [self setupSubViewFrame];
 }
 - (void)setSubTitle:(NSString *)subTitle
@@ -65,8 +65,8 @@
     _type = type;
     kWeakSelf
     if ([_type isEqualToString:@"解绑未设置交易密码"]) {
-        [self.sendSMSCodeBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [self.answeringVoiceCodeBtn setTitle:@"确定" forState:UIControlStateNormal];
+        [self.leftBtn setTitle:@"取消" forState:UIControlStateNormal];
+        [self.rightBtn setTitle:@"确定" forState:UIControlStateNormal];
         if (self.cancelBtn) {
             self.cancelBtn.hidden = YES;
         }
@@ -81,8 +81,8 @@
             make.height.equalTo(@kScrAdaptationH(42));
         }];
     } else if([_type isEqualToString:@"注册验证码"]){
-        [self.sendSMSCodeBtn setTitle:@"获取短信" forState:UIControlStateNormal];
-         [self.answeringVoiceCodeBtn setTitle:@"接听电话" forState:UIControlStateNormal];
+        [self.leftBtn setTitle:@"获取短信" forState:UIControlStateNormal];
+         [self.rightBtn setTitle:@"接听电话" forState:UIControlStateNormal];
     }
 }
 
@@ -118,24 +118,24 @@
         make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
         make.height.equalTo(@kScrAdaptationH(42));
     }];
-    [self.sendSMSCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf.contentView.mas_bottom);
         make.left.equalTo(weakSelf.contentView.mas_left);
         make.width.mas_equalTo(kScrAdaptationW750(280));
         make.height.offset(kScrAdaptationH750(80));
     }];
-    [self.answeringVoiceCodeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.rightBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf.contentView.mas_bottom);
         make.right.equalTo(weakSelf.contentView.mas_right);
         make.width.mas_equalTo(kScrAdaptationW750(280));
         make.height.offset(kScrAdaptationH750(80));
     }];
 }
-- (void)verificationCodeBtnWithBlock:(void (^)())getVerificationCodeBlock{
-    self.getVerificationCodeBlock = getVerificationCodeBlock;
+- (void)leftBtnWithBlock:(void (^)())leftBtnBlock{
+    self.leftBtnBlock = leftBtnBlock;
 }
-- (void)speechVerificationCodeBtnWithBlock:(void (^)())getSpeechVerificationCodeBlock{
-    self.getSpeechVerificationCodeBlock = getSpeechVerificationCodeBlock;
+- (void)rightBtnWithBlock:(void (^)())rightBtnBlock{
+    self.rightBtnBlock = rightBtnBlock;
 }
 - (void)cancelBtnWithBlock:(void (^)())cancelBtnClickBlock{
     self.cancelBtnClickBlock = cancelBtnClickBlock;
@@ -151,41 +151,41 @@
 }
 - (void)sendSMSCodeClick{
     kWeakSelf
-    if (self.getVerificationCodeBlock) {
-        self.getVerificationCodeBlock();
+    if (self.leftBtnBlock) {
+        self.leftBtnBlock();
         [weakSelf dismissViewControllerAnimated:NO completion:nil];
     }
 }
 - (void)answeringVoiceCodeClick{
     kWeakSelf
-    if (self.getSpeechVerificationCodeBlock) {
-        self.getSpeechVerificationCodeBlock();
+    if (self.rightBtnBlock) {
+        self.rightBtnBlock();
         [weakSelf dismissViewControllerAnimated:NO completion:nil];
     }
 }
-- (UIButton *)answeringVoiceCodeBtn
+- (UIButton *)rightBtn
 {
-    if (!_answeringVoiceCodeBtn) {
-        _answeringVoiceCodeBtn = [[UIButton alloc] init];
-        [_answeringVoiceCodeBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [_answeringVoiceCodeBtn addTarget:self action:@selector(answeringVoiceCodeClick) forControlEvents:UIControlEventTouchUpInside];
-        [_answeringVoiceCodeBtn setBackgroundColor:RGB(245, 81, 81)];
-        _answeringVoiceCodeBtn.userInteractionEnabled = YES;
-        _answeringVoiceCodeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+    if (!_rightBtn) {
+        _rightBtn = [[UIButton alloc] init];
+        [_rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [_rightBtn addTarget:self action:@selector(answeringVoiceCodeClick) forControlEvents:UIControlEventTouchUpInside];
+        [_rightBtn setBackgroundColor:RGB(245, 81, 81)];
+        _rightBtn.userInteractionEnabled = YES;
+        _rightBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
     }
-    return _answeringVoiceCodeBtn;
+    return _rightBtn;
 }
-- (UIButton *)sendSMSCodeBtn
+- (UIButton *)leftBtn
 {
-    if (!_sendSMSCodeBtn) {
-        _sendSMSCodeBtn = [[UIButton alloc] init];
-        [_sendSMSCodeBtn setTitleColor:RGB(102, 102, 102) forState:UIControlStateNormal];
-        [_sendSMSCodeBtn addTarget:self action:@selector(sendSMSCodeClick) forControlEvents:UIControlEventTouchUpInside];
-        [_sendSMSCodeBtn setBackgroundColor:RGB(232, 232, 238)];
-        _sendSMSCodeBtn.userInteractionEnabled = YES;
-        _sendSMSCodeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+    if (!_leftBtn) {
+        _leftBtn = [[UIButton alloc] init];
+        [_leftBtn setTitleColor:RGB(102, 102, 102) forState:UIControlStateNormal];
+        [_leftBtn addTarget:self action:@selector(sendSMSCodeClick) forControlEvents:UIControlEventTouchUpInside];
+        [_leftBtn setBackgroundColor:RGB(232, 232, 238)];
+        _leftBtn.userInteractionEnabled = YES;
+        _leftBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
     }
-    return _sendSMSCodeBtn;
+    return _leftBtn;
 }
 - (UILabel *)subTitleLabel
 {

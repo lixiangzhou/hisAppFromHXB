@@ -153,7 +153,7 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
     };
     //创建自视图
-    self.homePageView = [[HXBFinanctingView_HomePage alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - HxbTabBarHeight)];
+    self.homePageView = [[HXBFinanctingView_HomePage alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - HXBTabbarHeight)];
     [self.view addSubview:self.homePageView];
     //后台进入前台倒计时刷新问题
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_starCountDown object:nil];
