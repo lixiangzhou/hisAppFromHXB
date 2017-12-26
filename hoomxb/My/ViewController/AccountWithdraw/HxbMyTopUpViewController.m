@@ -11,14 +11,14 @@
 #import "HxbBindCardViewController.h"
 #import "HXBMyTopUpBaseView.h"
 #import "HXBRechargeCompletedViewController.h"
-#import "HXBAlertVC.h"
+#import "HXBVerificationCodeAlertVC.h"
 #import "HXBOpenDepositAccountRequest.h"
 #import "HXBBankCardModel.h"
 #import "HXBMyTopUpBankView.h"
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
-@property (nonatomic, strong) HXBAlertVC *alertVC;
+@property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
 @end
 
 @implementation HxbMyTopUpViewController
@@ -110,8 +110,7 @@
  */
 - (void)requestRechargeResult {
     if (!self.presentedViewController) {
-        self.alertVC = [[HXBAlertVC alloc] init];
-//        self.alertVC.speechType = NO;
+        self.alertVC = [[HXBVerificationCodeAlertVC alloc] init];
         self.alertVC.messageTitle = @"请输入验证码";
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
