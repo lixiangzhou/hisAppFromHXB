@@ -15,6 +15,7 @@
 //MARK: ---------------------主要的方法--------------------------
 + (instancetype)toolBarViewWithFrame:(CGRect)frame andOptionStrArray:(NSArray<NSString *> *)optionStrArray;
 - (instancetype)initWithFrame:(CGRect)frame andOptionStrArray:(NSArray<NSString *> *)optionStrArray;
+- (instancetype)initWithFrame:(CGRect)frame andOptionStrArray:(NSArray<NSString *> *)optionStrArray topNavigationToolBar:(BOOL)isTopNavigationToolBar;
 
 /**展示toolBar*/
 - (void)show;

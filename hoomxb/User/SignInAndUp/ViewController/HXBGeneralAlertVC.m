@@ -52,24 +52,34 @@ rightBtnBlock
     [self.contentView addSubview:self.rightBtn];
     [self setupSubViewFrame];
 }
+
 - (void)setSubTitle:(NSString *)subTitle
 {
     _subTitle = subTitle;
     self.subTitleLabel.text = subTitle;
 }
+
 - (void)setMessageTitle:(NSString *)messageTitle {
     _messageTitle = messageTitle;
     self.messageLab.text = messageTitle;
 }
--(void)setType:(NSString *)type{
-    _type = type;
-    kWeakSelf
-    if ([_type isEqualToString:@"解绑未设置交易密码"]) {
-        [self.leftBtn setTitle:@"取消" forState:UIControlStateNormal];
-        [self.rightBtn setTitle:@"确定" forState:UIControlStateNormal];
-        if (self.cancelBtn) {
-            self.cancelBtn.hidden = YES;
-        }
+
+- (void)setLeftBtnName:(NSString *)leftBtnName{
+    _leftBtnName = leftBtnName;
+    [self.leftBtn setTitle:_leftBtnName forState:UIControlStateNormal];
+}
+
+- (void)setRightBtnName:(NSString *)rightBtnName{
+    _rightBtnName = rightBtnName;
+    [self.rightBtn setTitle:_rightBtnName forState:UIControlStateNormal];
+}
+
+- (void)setIsHideCancelBtn:(BOOL)isHideCancelBtn{
+    
+    _isHideCancelBtn = isHideCancelBtn;
+    if (isHideCancelBtn && _cancelBtn) {
+        _cancelBtn.hidden = YES;
+        kWeakSelf
         [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(410));
             make.height.offset(kScrAdaptationH750(300));
@@ -80,10 +90,12 @@ rightBtnBlock
             make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
             make.height.equalTo(@kScrAdaptationH(42));
         }];
-    } else if([_type isEqualToString:@"注册验证码"]){
-        [self.leftBtn setTitle:@"获取短信" forState:UIControlStateNormal];
-         [self.rightBtn setTitle:@"接听电话" forState:UIControlStateNormal];
     }
+}
+
+- (void)setIsClickedBackgroundDiss:(BOOL)isClickedBackgroundDiss{
+    _isClickedBackgroundDiss = isClickedBackgroundDiss;
+    _backBtn.userInteractionEnabled = _isClickedBackgroundDiss;
 }
 
 - (void)setupSubViewFrame
@@ -131,15 +143,19 @@ rightBtnBlock
         make.height.offset(kScrAdaptationH750(80));
     }];
 }
+
 - (void)leftBtnWithBlock:(void (^)())leftBtnBlock{
     self.leftBtnBlock = leftBtnBlock;
 }
+
 - (void)rightBtnWithBlock:(void (^)())rightBtnBlock{
     self.rightBtnBlock = rightBtnBlock;
 }
+
 - (void)cancelBtnWithBlock:(void (^)())cancelBtnClickBlock{
     self.cancelBtnClickBlock = cancelBtnClickBlock;
 }
+
 - (void)cancelBtnClick
 {
     kWeakSelf
@@ -147,8 +163,8 @@ rightBtnBlock
         self.cancelBtnClickBlock();
         [weakSelf dismissViewControllerAnimated:NO completion:nil];
     }
-   
 }
+
 - (void)sendSMSCodeClick{
     kWeakSelf
     if (self.leftBtnBlock) {
@@ -156,6 +172,7 @@ rightBtnBlock
         [weakSelf dismissViewControllerAnimated:NO completion:nil];
     }
 }
+
 - (void)answeringVoiceCodeClick{
     kWeakSelf
     if (self.rightBtnBlock) {
@@ -163,6 +180,7 @@ rightBtnBlock
         [weakSelf dismissViewControllerAnimated:NO completion:nil];
     }
 }
+
 - (UIButton *)rightBtn
 {
     if (!_rightBtn) {
@@ -175,6 +193,7 @@ rightBtnBlock
     }
     return _rightBtn;
 }
+
 - (UIButton *)leftBtn
 {
     if (!_leftBtn) {
@@ -187,6 +206,7 @@ rightBtnBlock
     }
     return _leftBtn;
 }
+
 - (UILabel *)subTitleLabel
 {
     if (!_subTitleLabel) {
@@ -198,6 +218,7 @@ rightBtnBlock
     }
     return _subTitleLabel;
 }
+
 - (UILabel *)messageLab
 {
     if (!_messageLab) {
@@ -208,6 +229,7 @@ rightBtnBlock
     }
     return _messageLab;
 }
+
 - (UIButton *)cancelBtn
 {
     if (!_cancelBtn) {
@@ -219,6 +241,7 @@ rightBtnBlock
     }
     return _cancelBtn;
 }
+
 - (UIView *)contentView
 {
     if (!_contentView) {
@@ -230,12 +253,14 @@ rightBtnBlock
     }
     return _contentView;
 }
+
 - (UIButton *)backBtn
 {
     if (!_backBtn) {
         _backBtn = [[UIButton alloc] init];
         _backBtn.backgroundColor = [UIColor clearColor];
-        //        [_backBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
+        [_backBtn addTarget:self action:@selector(cancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _backBtn.userInteractionEnabled = NO;
     }
     return _backBtn;
 }

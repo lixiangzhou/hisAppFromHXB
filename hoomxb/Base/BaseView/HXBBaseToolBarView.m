@@ -21,6 +21,10 @@
 @property (nonatomic,copy) void(^clickOptionItemBlock)(UIButton *button,NSString *itemText, NSInteger index);
 /**关于item底部的view自定义*/
 @property (nonatomic,copy) void(^setUpBarViewItemBlock)(UIButton *button,UIView *barView);
+/**
+ 是否做为顶部导航工具栏
+ */
+@property (nonatomic, assign) BOOL isTopNavigationToolBar;
 @end
 
 @implementation HXBBaseToolBarView
@@ -32,12 +36,19 @@
     return self;
 }
 - (instancetype)initWithFrame:(CGRect)frame andOptionStrArray:(NSArray<NSString *> *)optionStrArray {
+    return [self initWithFrame:frame andOptionStrArray:optionStrArray topNavigationToolBar:NO];
+}
+
+- (instancetype)initWithFrame:(CGRect)frame andOptionStrArray:(NSArray<NSString *> *)optionStrArray topNavigationToolBar:(BOOL)isTopNavigationToolBar
+{
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = [UIColor whiteColor];
+        self.isTopNavigationToolBar = isTopNavigationToolBar;
         self.optionStrArray = optionStrArray;
     }
     return self;
 }
+
 + (instancetype)toolBarViewWithFrame:(CGRect)frame andOptionStrArray:(NSArray<NSString *> *)optionStrArray {
     return [[self alloc]initWithFrame:frame andOptionStrArray:optionStrArray];
 }
@@ -115,7 +126,7 @@
    
     for (int i = 0; i < self.optionStrArray.count; i++) {
         CGFloat opstionX = i * (self.lienWidth + self.optionWidth);
-        CGFloat opstionY = 0+HXBStatusBarHeight-20;
+        CGFloat opstionY = self.isTopNavigationToolBar? (0+HXBStatusBarHeight-20):0;
         CGRect opstionRect = CGRectMake(opstionX, opstionY, self.optionWidth, self.frame.size.height-opstionY);
         NSValue *optionRectValue = [NSValue valueWithCGRect:opstionRect];
         NSString *optionStr = self.optionStrArray[i];
