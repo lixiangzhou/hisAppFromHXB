@@ -84,7 +84,10 @@
         kWeakSelf
         registerAlertVC.messageTitle = @"";
         registerAlertVC.subTitle = @"为了您的账户安全，请完善存管账户信息后再进行解绑操作";
-        registerAlertVC.type = @"解绑未设置交易密码";
+        registerAlertVC.leftBtnName = @"取消";
+        registerAlertVC.rightBtnName = @"确定";
+        registerAlertVC.isHideCancelBtn = YES;
+        registerAlertVC.isClickedBackgroundDiss = NO;
         [registerAlertVC leftBtnWithBlock:^{
            NSLog(@"点击取消按钮");
         }];
