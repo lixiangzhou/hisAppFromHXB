@@ -130,7 +130,7 @@
             [pageModel setValue:model.countDownString forKey:@"countDownString"];
             
             UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-            [cell setValue:model.countDownString forKey:@"countDownString"];
+            [cell setValue:pageModel.countDownString forKey:@"countDownString"];
         }
     }];
     //要与服务器时间想比较
