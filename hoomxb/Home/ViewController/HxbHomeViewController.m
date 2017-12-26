@@ -188,7 +188,7 @@
             
             if (![KeyChain isLogin]) {
                 //跳转登录注册
-                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowSignUpVC object:nil];
             }else
             {
                 //判断首页的header各种逻辑

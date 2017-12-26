@@ -100,13 +100,23 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 #pragma mark - 注册 点击注册事件
 - (void)registerSignUPEvent {
     kWeakSelf
-    [self.signView signUP_clickButtonFunc:^{
-        [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_loginToRegist];
-        HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
-        signUPVC.title = @"注册";
-        signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;
-        [weakSelf.navigationController pushViewController:signUPVC animated:YES];
-    }];
+    if (self.navigationController.viewControllers.count > 1) {
+        [self.signView signUP_clickButtonFunc:^{
+            [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_loginToRegist];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
+        }];
+    }
+    else {
+        [self.signView signUP_clickButtonFunc:^{
+            [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_loginToRegist];
+            HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
+            signUPVC.title = @"注册";
+            signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;
+            [weakSelf.navigationController pushViewController:signUPVC animated:YES];
+        }];
+    }
+    
+    
 }
 
 ///点击了忘记密码按钮
@@ -165,7 +175,12 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
 }
 
 - (void)leftBackBtnClick{
-    [self dismiss];
+    if (self.navigationController.viewControllers.count > 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else {
+        [self dismiss];
+    }
 }
 
 @end
