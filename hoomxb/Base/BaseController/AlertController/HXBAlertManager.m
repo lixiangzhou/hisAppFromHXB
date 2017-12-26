@@ -16,7 +16,6 @@
 #import "HXBOpenDepositAccountViewController.h"
 #import "HXBDepositoryAlertViewController.h"
 #import "HXBXYAlertViewController.h"
-#import "HXBAlertVC.h"
 #import "HXBRootVCManager.h"
 #import "HXBHomePopViewManager.h"
 

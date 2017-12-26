@@ -240,8 +240,7 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)alertSmsCode {
     if (!self.presentedViewController) {
         self.alertVC = [[HXBAlertVC alloc] init];
-        self.alertVC.speechType = NO;
-        self.alertVC.isCode = YES;
+//        self.alertVC.speechType = NO;
         self.alertVC.isCleanPassword = YES;
         double rechargeMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue];
         self.alertVC.messageTitle = @"请输入验证码";
