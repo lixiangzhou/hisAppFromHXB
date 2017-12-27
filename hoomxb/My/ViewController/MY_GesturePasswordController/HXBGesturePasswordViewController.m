@@ -14,6 +14,7 @@
 #import "HXBRootVCManager.h"
 #import "HxbMyAccountSecurityViewController.h"
 #import "HXBRootVCManager.h"
+#import "HXBGeneralAlertVC.h"
 
 @interface HXBGesturePasswordViewController ()<HXBCircleViewDelegate, UIGestureRecognizerDelegate>
 /**
@@ -340,8 +341,8 @@
     BOOL appeared = KeyChain.skipGestureAlertAppeared;
     if (appeared == NO) {
         // 弹窗
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:@"为了您的账户安全，\n建议您设置手势密码" force:2 andLeftButtonMassage:@"跳过设置" andRightButtonMassage:@"开始设置"];
-        alertVC.clickXYLeftButtonBlock = ^{ // 跳过设置
+        HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:nil andSubTitle:@"为了您的账户安全，\n建议您设置手势密码" andLeftBtnName:@"跳过设置" andRightBtnName:@"开始设置" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+        alertVC.leftBtnBlock = ^{
             KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
             [KeyChain removeGesture];
             
@@ -349,8 +350,6 @@
             // 只出现一次弹窗
             KeyChain.skipGestureAlertAppeared = YES;
         };
-        
-        alertVC.isCenterShow = YES;
         
         [self presentViewController:alertVC animated:YES completion:nil];
     }
