@@ -22,15 +22,18 @@
 ///根据url切成字典
 + (NSDictionary *)urlDictFromUrlString:(NSString *)urlStr{
     NSMutableDictionary *mdict = [NSMutableDictionary dictionaryWithCapacity:0];
-    NSString *maskStr = @"?";
-    NSArray *domainArr = [urlStr componentsSeparatedByString:maskStr];
-    maskStr = @"&";
-    NSArray *parameterArr = [domainArr[1] componentsSeparatedByString:maskStr];
-    maskStr = @"=";
-    for (NSString *tmpStr in parameterArr) {
-        NSArray *keyAndValue = [tmpStr componentsSeparatedByString:maskStr];
-        [mdict setObject:keyAndValue[1] forKey:keyAndValue[0]];
-    }
+    if ([urlStr containsString:@"?"]&&[urlStr containsString:@"&"]&&[urlStr containsString:@"="]) {
+        
+        NSString *maskStr = @"?";
+        NSArray *domainArr = [urlStr componentsSeparatedByString:maskStr];
+        maskStr = @"&";
+        NSArray *parameterArr = [domainArr[1] componentsSeparatedByString:maskStr];
+        maskStr = @"=";
+        for (NSString *tmpStr in parameterArr) {
+            NSArray *keyAndValue = [tmpStr componentsSeparatedByString:maskStr];
+            [mdict setObject:keyAndValue[1] forKey:keyAndValue[0]];
+        }
+    } 
     return mdict;
 }
 
