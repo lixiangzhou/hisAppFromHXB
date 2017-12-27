@@ -129,6 +129,9 @@
     if (string.length) {
         str = [NSString stringWithFormat:@"%@%@",textField.text,string];
     } else if(!string.length) {
+        
+        // fixme
+        
         NSInteger length = textField.text.length;
         NSRange range = NSMakeRange(length - 1, 1);
         NSMutableString *strM = textField.text.mutableCopy;
