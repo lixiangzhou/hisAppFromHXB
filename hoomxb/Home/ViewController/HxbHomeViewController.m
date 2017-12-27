@@ -29,7 +29,6 @@
 #import "HXBRootVCManager.h"
 #import "HXBVersionUpdateManager.h"
 
-
 @interface HxbHomeViewController ()
 
 @property (nonatomic, strong) HxbHomeView *homeView;

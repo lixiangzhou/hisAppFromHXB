@@ -11,13 +11,11 @@
 // 角度转弧度
 #define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
 
-@interface HXBHomePopView ()<UIGestureRecognizerDelegate>
+@interface HXBHomePopView ()
 /** 内容视图 */
 @property (nonatomic, strong) UIView *contentView;
 /** 背景层 */
 @property (nonatomic, strong) UIView *backgroundView;
-/** 自定义视图 */
-@property (nonatomic, strong) UIView *customView;
 /** 关闭按钮 */
 @property (nonatomic, strong) UIButton *closeBtn;
 /** 显示时背景是否透明，透明度是否为<= 0，默认为NO */
@@ -49,6 +47,7 @@
         self.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         [self addSubview:self.backgroundView];
         [self addSubview:self.contentView];
+        [self setupSubViewFrame];
     }
     return self;
 }
@@ -57,6 +56,28 @@
     if (self.closeActionBlock) {
         self.closeActionBlock();
     }
+}
+
+- (void)setupSubViewFrame{
+    
+    kWeakSelf
+    [self.backgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.left.width.equalTo(weakSelf);
+    }];
+    [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.left.width.equalTo(weakSelf.backgroundView);
+    }];
+    [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(weakSelf.contentView);
+        make.width.mas_equalTo(kScrAdaptationW(266));
+        make.height.mas_equalTo(kScrAdaptationH(356));
+    }];
+    [self.closeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(weakSelf.contentView);
+        make.top.equalTo(weakSelf.imgView.mas_bottom).offset(kScrAdaptationH(30));
+        make.width.mas_equalTo(kScrAdaptationW(30));
+        make.height.mas_equalTo(kScrAdaptationH(31));
+    }];
 }
 
 - (void)clickImage:(UITapGestureRecognizer *)tap{
@@ -82,18 +103,39 @@
     }
 }
 
-#pragma mark UIGestureRecognizer Delegate
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    CGPoint location = [touch locationInView:_contentView];
-    location = [_customView.layer convertPoint:location fromLayer:_contentView.layer];
-    return ![_customView.layer containsPoint:location];
+- (void)adjustPosition{
+    kWeakSelf
+    if (self.imgView.image) {
+        CGSize imageSize = self.imgView.image.size;
+        CGSize imgViewSize = self.imgView.size;
+        float imgViewRatioOfwidthToHeight = imgViewSize.width/imgViewSize.height;
+        float imageRatioOfwidthToHeight = imageSize.width/imageSize.height;
+        
+        if (imageRatioOfwidthToHeight > imgViewRatioOfwidthToHeight) {
+
+            [self.imgView mas_updateConstraints:^(MASConstraintMaker *make) {
+                
+//                make.center.equalTo(weakSelf.contentView);
+//                make.width.mas_equalTo(imgViewSize.width);
+                make.height.mas_equalTo(imgViewSize.width/imageRatioOfwidthToHeight);
+            }];
+        } else if(imageRatioOfwidthToHeight < imgViewRatioOfwidthToHeight) {
+
+            [self.imgView mas_updateConstraints:^(MASConstraintMaker *make) {
+//                make.center.equalTo(weakSelf.contentView);
+                make.width.mas_equalTo(imgViewSize.height*imageRatioOfwidthToHeight);
+//                make.height.mas_equalTo(imgViewSize.height);
+            }];
+        }
+    }
 }
 
 - (void)pop
 {
     [[UIApplication sharedApplication].keyWindow addSubview:self];
     
+    [self adjustPosition];
+
     __weak typeof(self) ws = self;
     NSTimeInterval duration = 0.2;
     self.alpha = 0.0;
@@ -148,19 +190,10 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBGLayer:)];
         tap.delegate = self;
         [_contentView addGestureRecognizer:tap];
-        [_contentView addSubview:self.customView];
+        [_contentView addSubview:self.imgView];
         [_contentView addSubview:self.closeBtn];
     }
     return _contentView;
-}
-
-- (UIView *)customView{
-    if (!_customView) {
-        _customView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW(55), kScrAdaptationH(156), kScrAdaptationW(266), kScrAdaptationH(356))];//417
-        [_customView addSubview:self.imgView];
-//        [_customView addSubview:self.closeBtn];
-    }
-    return _customView;
 }
 
 -(UIImageView *)imgView{
@@ -169,7 +202,7 @@
         _imgView.userInteractionEnabled = YES;
         _imgView.contentMode = UIViewContentModeScaleAspectFit;
         _imgView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _imgView.layer.cornerRadius = kScrAdaptationW(10);
+        _imgView.layer.cornerRadius = kScrAdaptationW(4);
         _imgView.layer.masksToBounds = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickImage:)];
         [_imgView addGestureRecognizer:tap];
