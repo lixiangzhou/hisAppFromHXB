@@ -17,11 +17,6 @@
     return _registTime_new;
 }
 
-- (NSString *)invitedUserPhoneNo_new {
-    if (!_invitedUserPhoneNo_new) {
-        _invitedUserPhoneNo_new = [self.invitedUserPhoneNo stringByReplacingCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
-    }
-    return _invitedUserPhoneNo_new;
-}
+
 
 @end
