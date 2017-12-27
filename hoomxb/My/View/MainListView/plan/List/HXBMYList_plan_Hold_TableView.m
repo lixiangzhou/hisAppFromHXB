@@ -135,6 +135,10 @@ static NSString *const exitTitle = @"已退出";
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // 防止崩溃
+    if (indexPath.section >= self.mainPlanViewModelArray.count) {
+        return;
+    }
      self.clickPlanCellBlock(self.mainPlanViewModelArray[indexPath.section], indexPath);
 }
 
