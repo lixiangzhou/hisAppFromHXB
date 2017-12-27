@@ -48,8 +48,8 @@
 //#define isBelowPhone9 [[UIDevice currentDevice] systemVersion].floatValue < 9.0
 //#ifdef isBelowPhone9
 
-#define kHXBFont_PINGFANGSC_REGULAR(s)            ([UIFont fontWithName:@"HelveticaNeue" size:kScrAdaptationH(s)])
-#define kHXBFont_PINGFANGSC_REGULAR_750(s)        ([UIFont fontWithName:@"HelveticaNeue" size:kScrAdaptationH750(s)])
+#define kHXBFont_PINGFANGSC_REGULAR(s)            ([UIFont fontWithName:@"HelveticaNeue" size:kScrAdaptationW(s)])
+#define kHXBFont_PINGFANGSC_REGULAR_750(s)        ([UIFont fontWithName:@"HelveticaNeue" size:kScrAdaptationW750(s)])
 
 //#else
 //

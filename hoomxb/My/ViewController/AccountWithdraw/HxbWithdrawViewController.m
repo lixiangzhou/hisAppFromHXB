@@ -11,7 +11,7 @@
 #import "HxbWithdrawCardViewController.h"
 #import "HXBWithdrawalsRequest.h"
 #import "HxbWithdrawResultViewController.h"
-#import "HXBAlertVC.h"
+#import "HXBVerificationCodeAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBCallPhone_BottomView.h"
 #import "HXBOpenDepositAccountRequest.h"
@@ -41,7 +41,7 @@
 @property (nonatomic, strong) HXBWithdrawModel *withdrawModel;
 
 
-@property (nonatomic, strong) HXBAlertVC *alertVC;
+@property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
 @end
 
 @implementation HxbWithdrawViewController
@@ -120,7 +120,7 @@
 
     [self.notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
-        make.top.equalTo(self.view).offset(HxbNavigationBarY);
+        make.top.equalTo(self.view).offset(HXBStatusBarAndNavigationBarHeight);
         make.height.offset(kScrAdaptationH750(0));
     }];
     
@@ -469,29 +469,21 @@
     return _reminderLabel;
 }
 
-- (HXBAlertVC *)alertVC
+- (HXBVerificationCodeAlertVC *)alertVC
 {
     if (!_alertVC) {
         kWeakSelf
-        _alertVC = [[HXBAlertVC alloc] init];
-        _alertVC.isCode = YES;
-        self.alertVC.speechType = NO;
+        _alertVC = [[HXBVerificationCodeAlertVC alloc] init];
         _alertVC.messageTitle = @"请输入您的短信验证码";
-        _alertVC.isSpeechVerificationCode = NO;
         _alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收",[self.withdrawModel.mobileNumber replaceStringWithStartLocation:3 lenght:self.withdrawModel.mobileNumber.length - 7]];
         _alertVC.sureBtnClick = ^(NSString *pwd){
             if (pwd.length == 0) {
-                return [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
+                [HxbHUDProgress showTextWithMessage:@"密码不能为空"];
                 return;
             }
             [weakSelf checkWithdrawals:pwd];
         };
-        _alertVC.forgetBtnClick = ^(){
-            HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-            modifyTransactionPasswordVC.title = @"修改交易密码";
-//            modifyTransactionPasswordVC.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
-            [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-        };
+        
         _alertVC.getVerificationCodeBlock = ^{
             [weakSelf withdrawSmscode];
         };
@@ -501,7 +493,7 @@
 - (HXBMy_Withdraw_notifitionView *)notifitionView {
     kWeakSelf
     if (!_notifitionView) {
-        _notifitionView = [[HXBMy_Withdraw_notifitionView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScrAdaptationH750(70))];
+        _notifitionView = [[HXBMy_Withdraw_notifitionView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScrAdaptationH750(70))];
         _notifitionView.hidden = YES;
     }
     _notifitionView.block = ^{

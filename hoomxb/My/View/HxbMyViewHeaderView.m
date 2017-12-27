@@ -86,17 +86,17 @@
 {
     [self.backgroundImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self);
-        make.height.offset(kScrAdaptationH750(530));
+        make.height.offset(kScrAdaptationH750(530) + HXBStatusBarAdditionHeight);
     }];
     [self.allAssetsTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW750(29));
-        make.top.equalTo(self).offset(kScrAdaptationH750(156));
+        make.top.equalTo(self).offset(kScrAdaptationH750(156) + HXBStatusBarAdditionHeight);
         make.height.equalTo(@kScrAdaptationH750(24));
         make.width.equalTo(@kScrAdaptationW750(160));
     }];
     [self.allAssetsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW750(30));
-        make.top.equalTo(self).offset(kScrAdaptationH750(206));
+        make.top.equalTo(self).offset(kScrAdaptationH750(206) + HXBStatusBarAdditionHeight);
         make.height.equalTo(@kScrAdaptationH750(80));
         make.width.equalTo(@kScrAdaptationW750(620));
     }];
@@ -109,7 +109,7 @@
     [self.balanceTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self).offset(kScrAdaptationW750(30));
         make.width.equalTo(@kScrAdaptationW750(200));
-        make.top.equalTo(self).offset(kScrAdaptationH750(340));
+        make.top.equalTo(self).offset(kScrAdaptationH750(340) + HXBStatusBarAdditionHeight);
         make.height.equalTo(@kScrAdaptationH750(24));
     }];
     [self.balanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,7 +121,7 @@
     [self.accumulatedProfitTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(@kScrAdaptationW750(346));
         make.width.equalTo(@kScrAdaptationW750(200));
-        make.top.equalTo(@kScrAdaptationH750(339));
+        make.top.equalTo(self).offset(kScrAdaptationH750(339) +  + HXBStatusBarAdditionHeight);
         make.height.equalTo(@kScrAdaptationH750(24));
     }];
     [self.accumulatedProfitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -414,7 +414,7 @@
 
 - (UIButton *)topupButton{
     if (!_topupButton) {
-        _topupButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW750(70),kScrAdaptationH750(486),kScrAdaptationW750(300),kScrAdaptationH750(90))];
+        _topupButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW750(70),kScrAdaptationH750(486) + HXBStatusBarAdditionHeight,kScrAdaptationW750(300),kScrAdaptationH750(90))];
         [_topupButton setTitle:@"充值" forState:UIControlStateNormal];
         [_topupButton setImage:[UIImage imageNamed:@"my_topup"] forState:UIControlStateNormal];
         [_topupButton setTitleColor:RGB(255, 64, 79) forState:UIControlStateNormal];
@@ -436,7 +436,7 @@
 
 - (UIButton *)withdrawButton{
     if (!_withdrawButton) {
-        _withdrawButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW750(70+300+5),kScrAdaptationH750(486),kScrAdaptationW750(300),kScrAdaptationH750(90))];
+        _withdrawButton = [[UIButton alloc]initWithFrame:CGRectMake(kScrAdaptationW750(70+300+5),kScrAdaptationH750(486)  + HXBStatusBarAdditionHeight,kScrAdaptationW750(300),kScrAdaptationH750(90))];
         [_withdrawButton setTitleColor:RGB(255, 64, 79) forState:UIControlStateNormal];
         [_withdrawButton setTitle:@"提现" forState:UIControlStateNormal];
         [_withdrawButton setImage:[UIImage imageNamed:@"my_withdraw"] forState:UIControlStateNormal];
@@ -525,7 +525,7 @@
 */
 - (UIView *)lineView{
     if (!_lineView) {
-        _lineView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(375), kScrAdaptationH750(486+25), 0.5, kScrAdaptationH750(40))];
+        _lineView = [[UIView alloc]initWithFrame:CGRectMake(kScrAdaptationW750(375), kScrAdaptationH750(486+25) + HXBStatusBarAdditionHeight, 0.5, kScrAdaptationH750(40))];
         _lineView.backgroundColor = RGBA(245, 81, 81, 1);
     }
     return _lineView;
@@ -533,7 +533,7 @@
 
 - (UIButton *)personalCenterButton{
     if (!_personalCenterButton) {
-        _personalCenterButton = [[UIButton alloc]initWithFrame:CGRectMake(0, kScrAdaptationH(20), kScrAdaptationW(53), kScrAdaptationW(53))];
+        _personalCenterButton = [[UIButton alloc]initWithFrame:CGRectMake(0, kScrAdaptationH(20) + HXBStatusBarAdditionHeight, kScrAdaptationW(53), kScrAdaptationW(53))];
         [_personalCenterButton addTarget:self action:@selector(leftHeaderButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         UIImageView *btnImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"personal_center"]];
         btnImage.contentMode = UIViewContentModeScaleAspectFit;

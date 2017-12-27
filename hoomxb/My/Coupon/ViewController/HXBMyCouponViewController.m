@@ -91,7 +91,7 @@
 
 - (HXBTopTabView *)topTabView{
     if (!_topTabView) {
-        _topTabView = [[HXBTopTabView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, 44)
+        _topTabView = [[HXBTopTabView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, SCREEN_WIDTH, 44)
                                                     titles:@[@"优惠券", @"兑换优惠券"]
                                                       font:kHXBFont_PINGFANGSC_REGULAR_750(30)
                                                normalColor:RGBA(51, 51, 51, 1)

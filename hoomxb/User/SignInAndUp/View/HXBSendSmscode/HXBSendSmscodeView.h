@@ -13,8 +13,6 @@
 @property (nonatomic, assign) BOOL isSendSpeechCode;
 @property (nonatomic, copy) NSString *phonNumber;
 @property (nonatomic,assign) HXBSignUPAndLoginRequest_sendSmscodeType type;
-//是否有语音验证码
-//@property (nonatomic, assign) BOOL isSpeechVerificationCode;
 @property (nonatomic, assign) BOOL startsCountdown;
 
 ///点击了确认

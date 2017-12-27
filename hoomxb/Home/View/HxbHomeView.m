@@ -50,7 +50,7 @@
     [self.mainTableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.equalTo(self);
         //            make.top.equalTo(self);//.offset(kScrAdaptationH(30))
-        make.bottom.equalTo(self).offset(-49); //注意适配iPhone X
+        make.bottom.equalTo(self).offset(-(HXBTabbarHeight)); //注意适配iPhone X
     }];
     UIImage *bgImage = [UIImage imageNamed:@"Home_top_bg"];
     CGSize imageSize = bgImage.size;
@@ -73,17 +73,17 @@
     kWeakSelf
     if (![KeyChain isLogin]) {
         //没有投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight);
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight);
         [weakSelf.headView showNotValidatedView];
         return;
     }
     if([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
         //已经投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBInvestViewHeight);
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBInvestViewHeight + HXBStatusBarAdditionHeight);
         [weakSelf.headView showAlreadyInvestedView];
     }else{
         //没有投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight);
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight);
         [weakSelf.headView showNotValidatedView];
     }
 }
@@ -143,7 +143,7 @@
             [pageModel setValue:model.countDownLastStr forKey:@"countDownLastStr"];
             [pageModel setValue:model.countDownString forKey:@"countDownString"];
             
-            [cell setValue:model.countDownString forKey:@"countDownString"];
+            [cell setValue:pageModel.countDownString forKey:@"countDownString"];
         }
     }];
     self.contDwonManager.isAutoEnd = YES;
@@ -239,7 +239,7 @@
 {
     if (!_headView) {
         kWeakSelf
-        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight)];//199
+        _headView = [[HXBHomePageHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight)];//199
         
         _headView.delegate = self;
         _headView.tipButtonClickBlock_homePageHeadView = ^(){

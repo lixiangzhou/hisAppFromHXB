@@ -36,9 +36,8 @@ typedef enum : NSUInteger {
     ///String	CHECKOLDMOBILE (校验老的手机号)
     HXBSignUPAndLoginRequest_sendSmscodeType_oldmobile,
     ///String	UPDATEMOBILE (修改绑定手机号)
-    HXBSignUPAndLoginRequest_sendSmscodeType_newmobile,
-    ///从H5跳转到注册
-    HXBSignUPAndLoginRequest_sendSmscodeType_H5,
+    HXBSignUPAndLoginRequest_sendSmscodeType_newmobile
+    
 } HXBSignUPAndLoginRequest_sendSmscodeType;
 
 /**开户页面的跳转*/

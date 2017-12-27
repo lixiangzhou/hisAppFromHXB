@@ -141,7 +141,7 @@
 
 //设置toolBarView
 - (void)setupToolBarView {
-    self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:self.toolBarViewOptionStrArray];
+    self.toolBarView = [[HXBBaseToolBarView alloc]initWithFrame:CGRectZero andOptionStrArray:self.toolBarViewOptionStrArray topNavigationToolBar:YES];
     self.toolBarView.barAnimaViewSpacing = kScrAdaptationW(83);
     self.toolBarView.barAnimaViewH = kScrAdaptationH(2);
     self.toolBarView.isAnima_ItemBottomBarView = YES;
@@ -251,7 +251,7 @@
 
 //搭建ScrollToolBarView
 - (void)setupScrollToolBarView {
-    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) andTopView:nil andTopViewH:0 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:64 andBottomViewSet:self.bottomViewArray];
+    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height) andTopView:nil andTopViewH:0 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:HXBStatusBarAndNavigationBarHeight andBottomViewSet:self.bottomViewArray];
     [self addSubview:self.scrollToolBarView];
     //点击事件的分发
     kWeakSelf

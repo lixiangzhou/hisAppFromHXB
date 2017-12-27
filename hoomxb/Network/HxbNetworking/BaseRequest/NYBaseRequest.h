@@ -20,7 +20,9 @@ static  NSInteger const kResponseStatusError = 300000;
 static NSString *const kResponseStatus = @"status";
 /// 服务器返回的常用字段
 static NSString *const kResponseData = @"data";
-/// 服务器返回的常用字段
+///服务器错误返回的常用字段
+static NSString *const kResponseErrorData = @"errorData";
+///服务器返回的常用字段
 static NSString *const kResponseDataList = @"dataList";
 /// 服务器返回的常用字段
 static NSString *const kResponseMessage = @"message";

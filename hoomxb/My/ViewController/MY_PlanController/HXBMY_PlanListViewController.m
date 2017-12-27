@@ -94,7 +94,7 @@ kDealloc
 
 //搭建UI
 - (void)setupView {
-    self.planListView = [[HXBMainListView_Plan alloc]initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
+    self.planListView = [[HXBMainListView_Plan alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
     [self.view addSubview:self.planListView];
 }
 

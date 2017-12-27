@@ -13,7 +13,7 @@
 #import "HxbAccountInfoViewController.h"
 #import "HXBBindBankCardViewController.h"
 #import "HXBSignInWaterView.h"
-#import "HXBRegisterAlertVC.h"
+#import "HXBGeneralAlertVC.h"
 #import "HXBCheckCaptchaViewController.h"///modal 出来的校验码
 #import "HXBSignUPAndLoginRequest.h"///数据请求
 
@@ -84,21 +84,18 @@
             if (weakSelf.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
                 [weakSelf sendSmscode:@"sms"];
             } else {
-                HXBRegisterAlertVC *registerAlertVC = [[HXBRegisterAlertVC alloc] init];
+                HXBGeneralAlertVC *registerAlertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"获取语音验证码" andSubTitle:@"使用语音验证码，您将收到告知验证码的电话，您可放心接听" andLeftBtnName:@"获取短信" andRightBtnName:@"接听电话" isHideCancelBtn:NO isClickedBackgroundDiss:NO];
                 [weakSelf presentViewController:registerAlertVC animated:NO completion:nil];
                 
-                registerAlertVC.messageTitle = @"获取语音验证码";
-                registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
-                registerAlertVC.type = @"注册验证码";
-                [registerAlertVC verificationCodeBtnWithBlock:^{
+                [registerAlertVC setLeftBtnBlock:^{
                     [weakSelf sendSmscode:@"sms"];
                     [weakSelf.smscodeView clickSendButton:nil];
                 }];
-                [registerAlertVC speechVerificationCodeBtnWithBlock:^{
+                [registerAlertVC setRightBtnBlock:^{
                     [weakSelf sendSmscode:@"voice"];//获取语音验证码
                     [weakSelf.smscodeView clickSendButton:nil];
                 }];
-                [registerAlertVC cancelBtnWithBlock:^{
+                [registerAlertVC setCancelBtnClickBlock:^{
                     weakSelf.smscodeView.startsCountdown = NO;
                     NSLog(@"点击取消按钮");
                 }];
@@ -150,30 +147,27 @@
                     
                     [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
                         
-                        HXBRegisterAlertVC *registerAlertVC = nil;
+                        HXBGeneralAlertVC *registerAlertVC = nil;
                         if (weakSelf.presentedViewController)
                         {
-                            registerAlertVC = (HXBRegisterAlertVC *)weakSelf.presentedViewController;
+                            registerAlertVC = (HXBGeneralAlertVC *)weakSelf.presentedViewController;
                         }else
                         {
-                            registerAlertVC = [[HXBRegisterAlertVC alloc] init];
+                            registerAlertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"获取语音验证码" andSubTitle:@"使用语音验证码，您将收到告知验证码的电话，您可放心接听" andLeftBtnName:@"获取短信" andRightBtnName:@"接听电话" isHideCancelBtn:NO isClickedBackgroundDiss:NO];
                             [weakSelf presentViewController:registerAlertVC animated:NO completion:nil];
                         }
-                        registerAlertVC.type = @"注册验证码";
-                        registerAlertVC.messageTitle = @"获取语音验证码";
-                        registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
                         
-                        [registerAlertVC verificationCodeBtnWithBlock:^{
+                        [registerAlertVC setLeftBtnBlock:^{
                             
                             [weakSelf sendSmscode:@"sms"];
                             [weakSelf.smscodeView clickSendButton:nil];
                         }];
-                        [registerAlertVC speechVerificationCodeBtnWithBlock:^{
+                        [registerAlertVC setRightBtnBlock:^{
                             
                             [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
                             [weakSelf.smscodeView clickSendButton:nil];
                         }];
-                        [registerAlertVC cancelBtnWithBlock:^{
+                        [registerAlertVC setCancelBtnClickBlock:^{
     
                             weakSelf.smscodeView.startsCountdown = NO;
                             NSLog(@"点击取消按钮");
@@ -198,14 +192,12 @@
                 case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
                 {
                     NSLog(@"注册");
-                    //                weakSelf.smscodeView.isSpeechVerificationCode = YES;
                     weakSelf.smscodeView.startsCountdown = YES;
                 }
                     break;
             }
         } andFailureBlock:^(NSError *error) {
             kNetWorkError(@"短信发送失败");
-            //        weakSelf.smscodeView.isSpeechVerificationCode = NO;
             weakSelf.smscodeView.startsCountdown = NO;
         }];
     }
