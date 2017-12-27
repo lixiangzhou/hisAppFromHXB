@@ -168,7 +168,7 @@ MyViewHeaderDelegate
         lab.textAlignment = NSTextAlignmentLeft;
         lab.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         lab.textColor = RGBA(51, 51, 51, 1);
-        UIView *lineV = [[UIView alloc]initWithFrame:CGRectMake(0, supV.frame.size.height-1, kScreenWidth, 1)];
+        UIView *lineV = [[UIView alloc]initWithFrame:CGRectMake(0, supV.frame.size.height-0.5, kScreenWidth, 0.5)];
         lineV.backgroundColor = RGBA(244, 243, 248, 1);
         [supV addSubview:lineV];
         [supV addSubview:lab];

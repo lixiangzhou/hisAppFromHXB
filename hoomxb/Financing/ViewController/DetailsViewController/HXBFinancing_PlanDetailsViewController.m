@@ -113,8 +113,10 @@
 //    self.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(50), kScreenWidth, kScrAdaptationH(50));
     [self.view addSubview:_addButton];
     [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.width.equalTo(self.view);
+        make.left.width.equalTo(self.view);
         make.height.equalTo(@(kScrAdaptationH(50)));
+        make.top.equalTo(self.hxbBaseVCScrollView.mas_bottom);
+        make.bottom.equalTo(self.view).offset(-HXBBottomAdditionHeight);
     }];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     self.addButton.backgroundColor = [UIColor clearColor];
@@ -259,8 +261,7 @@
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
-        make.top.equalTo(self.view).offset(HxbNavigationBarY);
-        make.bottom.equalTo(self.view).offset(kScrAdaptationH(-50)); //注意适配iPhone X
+        make.top.equalTo(self.topImageView.mas_bottom);
     }];
     self.hxbBaseVCScrollView.separatorColor = COR12;
     if ([self.hxbBaseVCScrollView respondsToSelector:@selector(setSeparatorInset:)]) {
@@ -387,7 +388,7 @@
 
 
 - (void)setUPTopImageView {
-    self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, HXBStatusBarAndNavigationBarHeight)];
     self.topImageView.image = [UIImage imageNamed:@"NavigationBar"];
     [self.view addSubview:self.topImageView];
 }

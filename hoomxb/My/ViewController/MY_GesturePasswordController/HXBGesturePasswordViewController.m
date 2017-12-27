@@ -351,6 +351,8 @@
             KeyChain.skipGestureAlertAppeared = YES;
         };
         
+        alertVC.rightBtnBlock = ^{};
+        
         [self presentViewController:alertVC animated:NO completion:nil];
     }
 }
