@@ -92,8 +92,9 @@
     [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:_responseDict[@"image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         if (image) {
-            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(10)];
-            weakSelf.popView.imgView.image = img;
+//            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(4)];
+//            weakSelf.popView.imgView.image = img;
+            weakSelf.popView.imgView.image = image;
             
             SDImageCache *imageCache = [SDImageCache sharedImageCache];
             [imageCache storeImage:image forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] toDisk:YES];
@@ -150,9 +151,10 @@
         if (!self.isHide) {
 //            UIImage *image = [UIImage imageWithData: [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]]];
             UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
-            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(10)];
+//            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(4)];
             if (image) {
-                weakSelf.popView.imgView.image = img;
+//                weakSelf.popView.imgView.image = img;
+                weakSelf.popView.imgView.image = image;
                 [weakSelf.popView pop];
             }
         }

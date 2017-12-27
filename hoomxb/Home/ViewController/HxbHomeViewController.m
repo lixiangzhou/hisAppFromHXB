@@ -57,7 +57,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     //    [[HXBHomePopViewManager sharedInstance] getHomePopViewData];//获取首页弹窗数据 多次弹出情况
     [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:self];//展示首页弹窗
     [[HXBVersionUpdateManager sharedInstance] show];
