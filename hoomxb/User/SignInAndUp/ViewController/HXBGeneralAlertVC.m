@@ -44,18 +44,6 @@
  */
 @property (nonatomic, assign)BOOL isClickedBackgroundDiss;
 
-///**
-// 取消按钮
-// */
-//@property (nonatomic, copy) void(^cancelBtnClickBlock)();
-///**
-//leftBtnBlock
-// */
-//@property (nonatomic, copy) void(^leftBtnBlock)();
-///**
-//rightBtnBlock
-// */
-//@property (nonatomic, copy) void(^rightBtnBlock)();
 @end
 
 @implementation HXBGeneralAlertVC
@@ -93,80 +81,6 @@
     [self.leftBtn setTitle:_leftBtnName forState:UIControlStateNormal];
     [self.rightBtn setTitle:_rightBtnName forState:UIControlStateNormal];
     self.backBtn.userInteractionEnabled = _isClickedBackgroundDiss;
-    
-    if (_isHideCancelBtn && _cancelBtn) {
-        _cancelBtn.hidden = YES;
-        kWeakSelf
-        [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(410));
-            make.height.offset(kScrAdaptationH750(300));
-        }];
-        [self.subTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
-            make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
-            make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
-            make.height.equalTo(@kScrAdaptationH(42));
-        }];
-    }
-}
-
-- (void)setSubTitle:(NSString *)subTitle
-{
-    _subTitle = subTitle;
-    self.subTitleLabel.text = subTitle;
-//    if (self.messageLab.text.length <= 0) {
-//        kWeakSelf
-//        [self.messageLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
-//            make.centerX.equalTo(weakSelf.contentView);
-//            make.height.offset(kScrAdaptationH750(34));
-//        }];
-//        [self.subTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
-//            make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
-//            make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
-//            make.height.equalTo(@kScrAdaptationH(42));
-//        }];
-//    }
-}
-
-- (void)setMessageTitle:(NSString *)messageTitle {
-    _messageTitle = messageTitle;
-    self.messageLab.text = messageTitle;
-}
-
-- (void)setLeftBtnName:(NSString *)leftBtnName{
-    _leftBtnName = leftBtnName;
-    [self.leftBtn setTitle:_leftBtnName forState:UIControlStateNormal];
-}
-
-- (void)setRightBtnName:(NSString *)rightBtnName{
-    _rightBtnName = rightBtnName;
-    [self.rightBtn setTitle:_rightBtnName forState:UIControlStateNormal];
-}
-
-- (void)setIsHideCancelBtn:(BOOL)isHideCancelBtn{
-    
-    _isHideCancelBtn = isHideCancelBtn;
-    if (isHideCancelBtn && _cancelBtn) {
-        _cancelBtn.hidden = YES;
-        kWeakSelf
-        [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(410));
-            make.height.offset(kScrAdaptationH750(300));
-        }];
-        [self.subTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
-            make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
-            make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
-            make.height.equalTo(@kScrAdaptationH(42));
-        }];
-    }
-}
-
-- (void)setIsClickedBackgroundDiss:(BOOL)isClickedBackgroundDiss{
-    _isClickedBackgroundDiss = isClickedBackgroundDiss;
-    _backBtn.userInteractionEnabled = _isClickedBackgroundDiss;
 }
 
 - (void)setupSubViewFrame
@@ -183,12 +97,17 @@
         make.height.offset(kScrAdaptationH750(324));
         make.width.offset(kScrAdaptationW750(560));
     }];
-    [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(15));
-        make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationW750(-15));
-        make.width.offset(kScrAdaptationW750(46));
-        make.height.offset(kScrAdaptationH750(46));
-    }];
+    if (_isHideCancelBtn && _cancelBtn) {
+        _cancelBtn.hidden = YES;
+    } else {
+        [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(15));
+            make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationW750(-15));
+            make.width.offset(kScrAdaptationW750(46));
+            make.height.offset(kScrAdaptationH750(46));
+        }];
+    }
+    
     if (self.messageLab.text.length > 0) {
         [self.messageLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
@@ -197,10 +116,10 @@
         }];
         if (self.subTitleLabel.text.length > 0) {
             [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
+                make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(30));
                 make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
                 make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
-                make.height.equalTo(@kScrAdaptationH(42));
+                make.bottom.equalTo(weakSelf.leftBtn.mas_top).offset(kScrAdaptationH750(-40));
             }];
         } else {
             [self.subTitleLabel removeFromSuperview];
@@ -211,20 +130,11 @@
                 make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
                 make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
                 make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
-                make.height.equalTo(@kScrAdaptationH(100));
+                make.bottom.equalTo(weakSelf.leftBtn.mas_top).offset(kScrAdaptationH750(-60));
             }];
         } else {
-            [self.messageLab mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
-                make.centerX.equalTo(weakSelf.contentView);
-                make.height.offset(kScrAdaptationH750(34));
-            }];
-            [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
-                make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
-                make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
-                make.height.equalTo(@kScrAdaptationH(42));
-            }];
+            [self.messageLab removeFromSuperview];
+            [self.subTitleLabel removeFromSuperview];
         }
         
     }
@@ -241,18 +151,6 @@
         make.height.offset(kScrAdaptationH750(80));
     }];
 }
-
-//- (void)leftBtnWithBlock:(void (^)())leftBtnBlock{
-//    self.leftBtnBlock = leftBtnBlock;
-//}
-//
-//- (void)rightBtnWithBlock:(void (^)())rightBtnBlock{
-//    self.rightBtnBlock = rightBtnBlock;
-//}
-//
-//- (void)cancelBtnWithBlock:(void (^)())cancelBtnClickBlock{
-//    self.cancelBtnClickBlock = cancelBtnClickBlock;
-//}
 
 - (void)cancelBtnClick
 {
@@ -287,7 +185,7 @@
         [_rightBtn addTarget:self action:@selector(answeringVoiceCodeClick) forControlEvents:UIControlEventTouchUpInside];
         [_rightBtn setBackgroundColor:RGB(245, 81, 81)];
         _rightBtn.userInteractionEnabled = YES;
-        _rightBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+        _rightBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
     }
     return _rightBtn;
 }
@@ -300,7 +198,7 @@
         [_leftBtn addTarget:self action:@selector(sendSMSCodeClick) forControlEvents:UIControlEventTouchUpInside];
         [_leftBtn setBackgroundColor:RGB(232, 232, 238)];
         _leftBtn.userInteractionEnabled = YES;
-        _leftBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
+        _leftBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
     }
     return _leftBtn;
 }

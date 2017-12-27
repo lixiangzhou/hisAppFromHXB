@@ -25,8 +25,5 @@
  */
 @property (nonatomic, copy) void(^rightBtnBlock)();
 
-//- (void)leftBtnWithBlock:(void (^)())leftBtnBlock;
-//- (void)rightBtnWithBlock:(void (^)())rightBtnBlock;
-//- (void)cancelBtnWithBlock:(void (^)())cancelBtnClickBlock;//点击叉号block
 
 @end
