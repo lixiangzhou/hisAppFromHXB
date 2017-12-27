@@ -221,11 +221,14 @@
         }else {
             [HXBSignUPAndLoginRequest signUPRequetWithMobile:weakSelf.phonNumber andSmscode:smscode andPassword:password andInviteCode:inviteCode andSuccessBlock:^{
                  NSLog(@"注册设置成功");
+                [KeyChain removeGesture];
+                KeyChain.skipGesture = nil;
+                KeyChain.skipGestureAlertAppeared = NO;
+                
                 KeyChain.mobile = weakSelf.phonNumber;
                 KeyChain.isLogin = YES;
                 KeyChain.ciphertext = @"0";
-//                HxbSignUpSucceedViewController *signUPSucceedVC = [[HxbSignUpSucceedViewController alloc]init];
-//                [weakSelf.navigationController pushViewController:signUPSucceedVC animated:YES];
+
                 HXBBindBankCardViewController *bindBankCardVC = [[HXBBindBankCardViewController alloc] init];
                 bindBankCardVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_signup;
                 [weakSelf.navigationController pushViewController:bindBankCardVC animated:YES];

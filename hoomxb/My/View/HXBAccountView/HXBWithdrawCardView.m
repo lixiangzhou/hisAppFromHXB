@@ -359,11 +359,14 @@
         NSString *str = nil;
         if (string.length) {
             str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-        } else if(!string.length) {
-            NSInteger length = self.phoneNumberTextField.text.length;
-            NSRange range = NSMakeRange(length - 1, 1);
+        } else {
             NSMutableString *strM = self.phoneNumberTextField.text.mutableCopy;
-            [strM deleteCharactersInRange:range];
+            NSInteger length = strM.length;
+            NSRange range = NSMakeRange(length - 1, 1);
+            
+            if (range.location > 0 && range.location + range.length <= length) {
+                [strM deleteCharactersInRange:range];
+            }
             str = strM.copy;
         }
         if (str.length > 11) {
