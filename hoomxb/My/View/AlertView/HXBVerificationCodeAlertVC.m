@@ -61,13 +61,13 @@
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.view);
         make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(400));//385 310
-        make.height.offset(kScrAdaptationH750(443));//440 500
+        make.height.offset(kScrAdaptationH750(400));//440 500
         make.width.offset(kScrAdaptationW750(560));//590
     }];
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf.contentView.mas_bottom);
         make.left.equalTo(weakSelf.contentView.mas_left);
-        make.width.mas_equalTo(kScrAdaptationW750(295));
+        make.width.mas_equalTo(kScrAdaptationW750(280));
         make.height.offset(kScrAdaptationH750(80));
     }];
     [self.messageLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -78,7 +78,7 @@
     [self.sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf.contentView.mas_bottom);
         make.right.equalTo(weakSelf.contentView.mas_right);
-        make.width.mas_equalTo(kScrAdaptationW750(295));
+        make.width.mas_equalTo(kScrAdaptationW750(280));
         make.height.offset(kScrAdaptationH750(80));
     }];
     [self.backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -94,9 +94,9 @@
     }];
     [self.verificationCodeAlertView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.subTitleLabel.mas_bottom);//.offset(kScrAdaptationH750(50));
-        make.bottom.equalTo(weakSelf.sureBtn.mas_top);//.offset(kScrAdaptationH750(-188))
-        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(70));
-        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(-70));
+        make.bottom.equalTo(weakSelf.sureBtn.mas_top).offset(kScrAdaptationH750(-60));
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(30));
+        make.right.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(-30));
     }];
 }
 

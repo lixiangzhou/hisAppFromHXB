@@ -84,24 +84,18 @@
             if (weakSelf.type == HXBSignUPAndLoginRequest_sendSmscodeType_forgot) {
                 [weakSelf sendSmscode:@"sms"];
             } else {
-                HXBGeneralAlertVC *registerAlertVC = [[HXBGeneralAlertVC alloc] init];
+                HXBGeneralAlertVC *registerAlertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"获取语音验证码" andSubTitle:@"使用语音验证码，您将收到告知验证码的电话，您可放心接听" andLeftBtnName:@"获取短信" andRightBtnName:@"接听电话" isHideCancelBtn:NO isClickedBackgroundDiss:NO];
                 [weakSelf presentViewController:registerAlertVC animated:NO completion:nil];
                 
-                registerAlertVC.messageTitle = @"获取语音验证码";
-                registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
-                registerAlertVC.leftBtnName = @"获取短信";
-                registerAlertVC.rightBtnName = @"接听电话";
-                registerAlertVC.isHideCancelBtn = NO;
-                registerAlertVC.isClickedBackgroundDiss = NO;
-                [registerAlertVC leftBtnWithBlock:^{
+                [registerAlertVC setLeftBtnBlock:^{
                     [weakSelf sendSmscode:@"sms"];
                     [weakSelf.smscodeView clickSendButton:nil];
                 }];
-                [registerAlertVC rightBtnWithBlock:^{
+                [registerAlertVC setRightBtnBlock:^{
                     [weakSelf sendSmscode:@"voice"];//获取语音验证码
                     [weakSelf.smscodeView clickSendButton:nil];
                 }];
-                [registerAlertVC cancelBtnWithBlock:^{
+                [registerAlertVC setCancelBtnClickBlock:^{
                     weakSelf.smscodeView.startsCountdown = NO;
                     NSLog(@"点击取消按钮");
                 }];
@@ -159,27 +153,21 @@
                             registerAlertVC = (HXBGeneralAlertVC *)weakSelf.presentedViewController;
                         }else
                         {
-                            registerAlertVC = [[HXBGeneralAlertVC alloc] init];
+                            registerAlertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"获取语音验证码" andSubTitle:@"使用语音验证码，您将收到告知验证码的电话，您可放心接听" andLeftBtnName:@"获取短信" andRightBtnName:@"接听电话" isHideCancelBtn:NO isClickedBackgroundDiss:NO];
                             [weakSelf presentViewController:registerAlertVC animated:NO completion:nil];
                         }
-                        registerAlertVC.leftBtnName = @"获取短信";
-                        registerAlertVC.rightBtnName = @"接听电话";
-                        registerAlertVC.isHideCancelBtn = NO;
-                        registerAlertVC.isClickedBackgroundDiss = NO;
-                        registerAlertVC.messageTitle = @"获取语音验证码";
-                        registerAlertVC.subTitle = @"使用语音验证码，您将收到告知验证码的电话，您可放心接听";
                         
-                        [registerAlertVC leftBtnWithBlock:^{
+                        [registerAlertVC setLeftBtnBlock:^{
                             
                             [weakSelf sendSmscode:@"sms"];
                             [weakSelf.smscodeView clickSendButton:nil];
                         }];
-                        [registerAlertVC rightBtnWithBlock:^{
+                        [registerAlertVC setRightBtnBlock:^{
                             
                             [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
                             [weakSelf.smscodeView clickSendButton:nil];
                         }];
-                        [registerAlertVC cancelBtnWithBlock:^{
+                        [registerAlertVC setCancelBtnClickBlock:^{
     
                             weakSelf.smscodeView.startsCountdown = NO;
                             NSLog(@"点击取消按钮");
