@@ -10,36 +10,23 @@
 
 @interface HXBGeneralAlertVC : UIViewController
 
-/**
- messagetitle
- */
-@property (nonatomic, copy)NSString *messageTitle;
+- (instancetype)initWithMessageTitle:(NSString *)messageTitle andSubTitle:(NSString *)subTitle andLeftBtnName:(NSString *)leftBtnName andRightBtnName:(NSString *)rightBtnName isHideCancelBtn:(BOOL)isHideCancelBtn isClickedBackgroundDiss:(BOOL)isClickedBackgroundDiss;
 
 /**
- 子标题
+ 取消按钮
  */
-@property (nonatomic, copy) NSString *subTitle;
+@property (nonatomic, copy) void(^cancelBtnClickBlock)();
+/**
+ leftBtnBlock
+ */
+@property (nonatomic, copy) void(^leftBtnBlock)();
+/**
+ rightBtnBlock
+ */
+@property (nonatomic, copy) void(^rightBtnBlock)();
 
-/**
- 左按钮名字
- */
-@property (nonatomic, copy)NSString *leftBtnName;
-/**
- 右按钮名字
- */
-@property (nonatomic, copy)NSString *rightBtnName;
-/**
- 有无叉号
- */
-@property (nonatomic, assign)BOOL isHideCancelBtn;
-/**
- 点击背景是否diss页面
- */
-@property (nonatomic, assign)BOOL isClickedBackgroundDiss;
-
-
-- (void)leftBtnWithBlock:(void (^)())leftBtnBlock;
-- (void)rightBtnWithBlock:(void (^)())rightBtnBlock;
-- (void)cancelBtnWithBlock:(void (^)())cancelBtnClickBlock;//点击叉号block
+//- (void)leftBtnWithBlock:(void (^)())leftBtnBlock;
+//- (void)rightBtnWithBlock:(void (^)())rightBtnBlock;
+//- (void)cancelBtnWithBlock:(void (^)())cancelBtnClickBlock;//点击叉号block
 
 @end

@@ -408,7 +408,7 @@
     float creditorVCStr = remainAmount < userRemainAmount ? remainAmount : userRemainAmount;
     planJoinVC.availablePoint = [NSString stringWithFormat:@"%.2f", creditorVCStr];
     planJoinVC.title = @"加入计划";
-    planJoinVC.isFirstBuy = self.planDetailViewModel.planDetailModel.isFirst;
+    planJoinVC.isFirstBuy = [self.planDetailViewModel.planDetailModel.isFirst boolValue];
     planJoinVC.totalInterest = self.planDetailViewModel.totalInterest;
     planJoinVC.loanId = self.planDetailViewModel.ID;
     planJoinVC.minRegisterAmount = self.planDetailViewModel.planDetailModel.minRegisterAmount;

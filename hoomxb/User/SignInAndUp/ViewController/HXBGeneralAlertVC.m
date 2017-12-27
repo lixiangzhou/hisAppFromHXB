@@ -16,26 +16,59 @@
 @property (nonatomic, strong) UILabel *subTitleLabel;
 @property (nonatomic, strong) UIButton *leftBtn;
 @property (nonatomic, strong) UIButton *rightBtn;
+
 /**
- 取消按钮
+ messagetitle
  */
-@property (nonatomic, copy) void(^cancelBtnClickBlock)();
+@property (nonatomic, copy)NSString *messageTitle;
+
 /**
-leftBtnBlock
+ 子标题
  */
-@property (nonatomic, copy) void(^leftBtnBlock)();
+@property (nonatomic, copy) NSString *subTitle;
+
 /**
-rightBtnBlock
+ 左按钮名字
  */
-@property (nonatomic, copy) void(^rightBtnBlock)();
+@property (nonatomic, copy)NSString *leftBtnName;
+/**
+ 右按钮名字
+ */
+@property (nonatomic, copy)NSString *rightBtnName;
+/**
+ 有无叉号
+ */
+@property (nonatomic, assign)BOOL isHideCancelBtn;
+/**
+ 点击背景是否diss页面
+ */
+@property (nonatomic, assign)BOOL isClickedBackgroundDiss;
+
+///**
+// 取消按钮
+// */
+//@property (nonatomic, copy) void(^cancelBtnClickBlock)();
+///**
+//leftBtnBlock
+// */
+//@property (nonatomic, copy) void(^leftBtnBlock)();
+///**
+//rightBtnBlock
+// */
+//@property (nonatomic, copy) void(^rightBtnBlock)();
 @end
 
 @implementation HXBGeneralAlertVC
 
-- (instancetype)init
-{
+- (instancetype)initWithMessageTitle:(NSString *)messageTitle andSubTitle:(NSString *)subTitle andLeftBtnName:(NSString *)leftBtnName andRightBtnName:(NSString *)rightBtnName isHideCancelBtn:(BOOL)isHideCancelBtn isClickedBackgroundDiss:(BOOL)isClickedBackgroundDiss{
     if (self = [super init]) {
         self.modalPresentationStyle = UIModalPresentationCustom;
+        _subTitle = subTitle;
+        _messageTitle = messageTitle;
+        _leftBtnName = leftBtnName;
+        _rightBtnName = rightBtnName;
+        _isHideCancelBtn = isHideCancelBtn;
+        _isClickedBackgroundDiss = isClickedBackgroundDiss;
     }
     return self;
 }
@@ -50,13 +83,51 @@ rightBtnBlock
     [self.contentView addSubview:self.subTitleLabel];
     [self.contentView addSubview:self.leftBtn];
     [self.contentView addSubview:self.rightBtn];
+    [self setContent];
     [self setupSubViewFrame];
+}
+
+- (void)setContent{
+    self.subTitleLabel.text = _subTitle;
+    self.messageLab.text = _messageTitle;
+    [self.leftBtn setTitle:_leftBtnName forState:UIControlStateNormal];
+    [self.rightBtn setTitle:_rightBtnName forState:UIControlStateNormal];
+    self.backBtn.userInteractionEnabled = _isClickedBackgroundDiss;
+    
+    if (_isHideCancelBtn && _cancelBtn) {
+        _cancelBtn.hidden = YES;
+        kWeakSelf
+        [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(410));
+            make.height.offset(kScrAdaptationH750(300));
+        }];
+        [self.subTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
+            make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
+            make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
+            make.height.equalTo(@kScrAdaptationH(42));
+        }];
+    }
 }
 
 - (void)setSubTitle:(NSString *)subTitle
 {
     _subTitle = subTitle;
     self.subTitleLabel.text = subTitle;
+//    if (self.messageLab.text.length <= 0) {
+//        kWeakSelf
+//        [self.messageLab mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
+//            make.centerX.equalTo(weakSelf.contentView);
+//            make.height.offset(kScrAdaptationH750(34));
+//        }];
+//        [self.subTitleLabel mas_remakeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
+//            make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
+//            make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
+//            make.height.equalTo(@kScrAdaptationH(42));
+//        }];
+//    }
 }
 
 - (void)setMessageTitle:(NSString *)messageTitle {
@@ -108,8 +179,7 @@ rightBtnBlock
         make.bottom.equalTo(weakSelf.view.mas_bottom);
     }];
     [self.contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(weakSelf.view);
-        make.top.equalTo(weakSelf.view).offset(kScrAdaptationH750(400));
+        make.center.equalTo(weakSelf.view);
         make.height.offset(kScrAdaptationH750(324));
         make.width.offset(kScrAdaptationW750(560));
     }];
@@ -119,17 +189,45 @@ rightBtnBlock
         make.width.offset(kScrAdaptationW750(46));
         make.height.offset(kScrAdaptationH750(46));
     }];
-    [self.messageLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
-        make.centerX.equalTo(weakSelf.contentView);
-        make.height.offset(kScrAdaptationH750(34));
-    }];
-    [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
-        make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
-        make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
-        make.height.equalTo(@kScrAdaptationH(42));
-    }];
+    if (self.messageLab.text.length > 0) {
+        [self.messageLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
+            make.centerX.equalTo(weakSelf.contentView);
+            make.height.offset(kScrAdaptationH750(34));
+        }];
+        if (self.subTitleLabel.text.length > 0) {
+            [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
+                make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
+                make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
+                make.height.equalTo(@kScrAdaptationH(42));
+            }];
+        } else {
+            [self.subTitleLabel removeFromSuperview];
+        }
+    } else {
+        if (self.subTitleLabel.text.length > 0) {
+            [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
+                make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
+                make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
+                make.height.equalTo(@kScrAdaptationH(100));
+            }];
+        } else {
+            [self.messageLab mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(weakSelf.contentView.mas_top).offset(kScrAdaptationH750(60));
+                make.centerX.equalTo(weakSelf.contentView);
+                make.height.offset(kScrAdaptationH750(34));
+            }];
+            [self.subTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(weakSelf.messageLab.mas_bottom).offset(kScrAdaptationH750(20));
+                make.left.equalTo(weakSelf.contentView.mas_left).offset(kScrAdaptationH750(40));
+                make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationH750(-40));
+                make.height.equalTo(@kScrAdaptationH(42));
+            }];
+        }
+        
+    }
     [self.leftBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(weakSelf.contentView.mas_bottom);
         make.left.equalTo(weakSelf.contentView.mas_left);
@@ -144,17 +242,17 @@ rightBtnBlock
     }];
 }
 
-- (void)leftBtnWithBlock:(void (^)())leftBtnBlock{
-    self.leftBtnBlock = leftBtnBlock;
-}
-
-- (void)rightBtnWithBlock:(void (^)())rightBtnBlock{
-    self.rightBtnBlock = rightBtnBlock;
-}
-
-- (void)cancelBtnWithBlock:(void (^)())cancelBtnClickBlock{
-    self.cancelBtnClickBlock = cancelBtnClickBlock;
-}
+//- (void)leftBtnWithBlock:(void (^)())leftBtnBlock{
+//    self.leftBtnBlock = leftBtnBlock;
+//}
+//
+//- (void)rightBtnWithBlock:(void (^)())rightBtnBlock{
+//    self.rightBtnBlock = rightBtnBlock;
+//}
+//
+//- (void)cancelBtnWithBlock:(void (^)())cancelBtnClickBlock{
+//    self.cancelBtnClickBlock = cancelBtnClickBlock;
+//}
 
 - (void)cancelBtnClick
 {
