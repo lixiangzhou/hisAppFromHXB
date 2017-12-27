@@ -128,18 +128,20 @@
     NSString *str = nil;
     if (string.length) {
         str = [NSString stringWithFormat:@"%@%@",textField.text,string];
-    } else if(!string.length) {
-        
-        // fixme
-        
-        NSInteger length = textField.text.length;
-        NSRange range = NSMakeRange(length - 1, 1);
+    } else {
         NSMutableString *strM = textField.text.mutableCopy;
-        [strM deleteCharactersInRange:range];
+        NSInteger length = strM.length;
+        NSRange range = NSMakeRange(length - 1, 1);
+        
+        if (range.location > 0 && range.location + range.length <= length) {
+            [strM deleteCharactersInRange:range];
+        }
         str = strM.copy;
     }
+    
     if (range.location == 0 && [string isEqualToString:@"0"]) return NO;
     if (range.location == 0 && [string isEqualToString:@"."]) return NO;
+    if (range.location == 0 && string.length == 0) str = @""; // 删除最后一位的时候，把输入框清空
     if (str.length > 0) {
         self.haveStr(YES);
     } else {
