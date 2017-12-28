@@ -131,10 +131,10 @@
 
 - (void)loadNewDate:(HXBRequestUserInfoViewModel *)viewModel
 {
-    NSString *noDataText = @"--";
     if ([KeyChain.ciphertext isEqualToString:@"0"]) {
         self.eyeButton.selected = NO;
-        if ([viewModel.userInfoModel.userAssets.availablePoint isEqualToString:noDataText]) {
+        if ([viewModel.userInfoModel.userAssets.availablePoint isEqualToString:HXBIdentifier]) {
+            NSString *noDataText = @"--";
             self.availableAmountLabel.text = noDataText;
             self.allProfitLabel.text = noDataText;
             self.assetsLabel.text = noDataText;

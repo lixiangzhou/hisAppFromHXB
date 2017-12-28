@@ -128,7 +128,7 @@
                 id responseObject = [PPNetworkCache httpCacheForURL:kHXBUser_UserInfoURL parameters:nil];
                 HXBUserInfoModel *userInfoModel = [[HXBUserInfoModel alloc]init];
                 [userInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];
-                userInfoModel.userAssets.availablePoint = @"--";
+                userInfoModel.userAssets.availablePoint = HXBIdentifier;
                 weakSelf.userInfoViewModel.userInfoModel = userInfoModel;
                 weakSelf.homeView.userInfoViewModel = weakSelf.userInfoViewModel;
             }
