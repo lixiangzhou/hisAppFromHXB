@@ -233,14 +233,14 @@ static const NSInteger topView_high = 300;
     } else {
         BOOL isFitToBuy;
         if (_isFirstBuy) {
-             isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
+            isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
         } else {
-            isFitToBuy = (_inputMoneyStr.integerValue) % _registerMultipleAmount.integerValue ? NO : YES;
+            isFitToBuy = _inputMoneyStr.integerValue % _registerMultipleAmount.integerValue ? NO : YES;
         }
-        if (isFitToBuy) {
-            [self chooseBuyTypeWithSting:_btnLabelText];
-        } else {
+        if (!isFitToBuy && _inputMoneyStr.integerValue != _availablePoint.integerValue) {
             [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+        } else {
+            [self chooseBuyTypeWithSting:_btnLabelText];
         }
     }
 }
