@@ -19,6 +19,7 @@
 #import "UIImage+HXBUtil.h"
 #import "HxbSignUpViewController.h"
 #import "HXBNoticeViewController.h"
+#import "HXBBannerWebViewController.h"
 
 #define kRegisterVC @"/account/register"//注册页面
 #define kNoticeVC @"/home/notice"//公告列表
@@ -205,7 +206,13 @@
 //                NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],@"0b025dfa-4613-4ba9-a9e8-5805fdb6a829"];
         //        [HXBBaseWKWebViewController pushWithPageUrl:str fromController:controller];
         //[HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:homePopViewModel.link] fromController:controller];
-        [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.url fromController:controller];
+        
+        if (homePopViewModel.url.length) {
+            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+            webViewVC.pageUrl = homePopViewModel.url;
+            [controller.navigationController pushViewController:webViewVC animated:YES];
+        }
+//        [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.url fromController:controller];
     }
     
     [self.popView dismiss];
