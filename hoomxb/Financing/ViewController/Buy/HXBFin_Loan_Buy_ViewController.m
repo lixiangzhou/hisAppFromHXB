@@ -77,15 +77,14 @@ static NSString *const bankString = @"绑定银行卡";
     _discountTitle = @"暂无可用优惠券";
     _balanceTitle = @"可用余额";
     [self buildUI];
-    [self getBankCardLimit];
     [self changeItemWithInvestMoney:_inputMoneyStr];
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    [self getBankCardLimit];
     [self getNewUserInfo];
+    [self getBankCardLimit];
     
 }
 
@@ -389,13 +388,14 @@ static const NSInteger topView_high = 230;
     [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
         weakSelf.hxbBaseVCScrollView.tableHeaderView = nil;
         weakSelf.cardModel = model;
-        if (weakSelf.cardModel.bankType) {
+        if ([weakSelf.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
             weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
+            weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+            weakSelf.topView.hasBank = YES;
         } else {
             weakSelf.topView.height = kScrAdaptationH750(topView_high);
+            weakSelf.topView.hasBank = NO;
         }
-        weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
-        weakSelf.topView.hasBank = weakSelf.cardModel.bankType ? YES : NO;
         weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
     }];
 }

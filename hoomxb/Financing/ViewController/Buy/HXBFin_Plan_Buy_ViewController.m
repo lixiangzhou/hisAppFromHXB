@@ -96,7 +96,6 @@ static NSString *const bankString = @"绑定银行卡";
     _discountTitle = @"";
     _balanceTitle = @"可用余额";
     [self buildUI];
-    [self getBankCardLimit];
     [self hasBestCouponRequest];
     [self changeItemWithInvestMoney:_inputMoneyStr];
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
@@ -105,8 +104,8 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    [self getBankCardLimit];
     [self getNewUserInfo];
+    [self getBankCardLimit];
 }
 
 - (void)dealloc {
@@ -150,13 +149,14 @@ static const NSInteger topView_high = 300;
     [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
         weakSelf.hxbBaseVCScrollView.tableHeaderView = nil;
         weakSelf.cardModel = model;
-        if (weakSelf.cardModel.bankType) {
+        if ([weakSelf.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
             weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
+            weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+            weakSelf.topView.hasBank = YES;
         } else {
             weakSelf.topView.height = kScrAdaptationH750(topView_high);
+            weakSelf.topView.hasBank = NO;
         }
-        weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
-        weakSelf.topView.hasBank = weakSelf.cardModel.bankType ? YES : NO;
         weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
     }];
 }
@@ -231,11 +231,16 @@ static const NSInteger topView_high = 300;
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
-        BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
-        if (isFitToBuy) {
-            [self chooseBuyTypeWithSting:_btnLabelText];
+        BOOL isFitToBuy;
+        if (_isFirstBuy) {
+            isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
         } else {
+            isFitToBuy = _inputMoneyStr.integerValue % _registerMultipleAmount.integerValue ? NO : YES;
+        }
+        if (!isFitToBuy && _inputMoneyStr.integerValue != _availablePoint.integerValue) {
             [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+        } else {
+            [self chooseBuyTypeWithSting:_btnLabelText];
         }
     }
 }
@@ -593,9 +598,14 @@ static const NSInteger topView_high = 300;
         
         _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
             weakSelf.bottomView.addBtnIsUseable = text.length;
-            BOOL isFitToBuy = ((text.integerValue - weakSelf.minRegisterAmount.integerValue) % weakSelf.registerMultipleAmount.integerValue) ? NO : YES;
+            BOOL isFitToBuy = NO;
+            if (weakSelf.isFirstBuy) {
+                isFitToBuy = ((text.integerValue - weakSelf.minRegisterAmount.integerValue) % weakSelf.registerMultipleAmount.integerValue) ? NO : YES;
+            } else {
+                isFitToBuy = (text.integerValue) % weakSelf.registerMultipleAmount.integerValue ? NO : YES;
+            }
             // 判断是否符合购买条件
-            if (text.doubleValue >= weakSelf.minRegisterAmount.doubleValue && text.doubleValue <= weakSelf.availablePoint.doubleValue && isFitToBuy) {
+            if (text.doubleValue <= weakSelf.availablePoint.doubleValue && isFitToBuy) {
                 weakSelf.couponTitle = @"优惠券";
                 [weakSelf getBESTCouponWithMoney:text];
             } else {

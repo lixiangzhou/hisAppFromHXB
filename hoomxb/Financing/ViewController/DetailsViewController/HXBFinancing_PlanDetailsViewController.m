@@ -74,6 +74,7 @@
 
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
@@ -91,6 +92,7 @@
         
     }];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_starCountDown object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_checkLoginSuccess object:nil];
 }
 
 /**
@@ -133,6 +135,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         return;
     }
+
     [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^{
         [self enterPlanBuyViewController];
     }];
@@ -470,6 +473,8 @@
 
 - (void)dealloc {
     [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kHXBNotification_starCountDown object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kHXBNotification_checkLoginSuccess object:nil];
     NSLog(@"✅被销毁 %@",self);
 }
 
