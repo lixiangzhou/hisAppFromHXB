@@ -64,6 +64,8 @@ static NSString *const kMobile_NotExis = @"手机号尚未注册";
             //调到我的界面
             KeyChain.isLogin = YES;
             KeyChain.ciphertext = @"0";
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_checkLoginSuccess object:nil];
+            
             [weakSelf dismissViewControllerAnimated:YES completion:nil];
             
         } andFailureBlock:^(NSError *error, id responseObject) {
