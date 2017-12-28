@@ -131,12 +131,20 @@
 
 - (void)loadNewDate:(HXBRequestUserInfoViewModel *)viewModel
 {
+    NSString *noDataText = @"--";
     if ([KeyChain.ciphertext isEqualToString:@"0"]) {
         self.eyeButton.selected = NO;
-        self.availableAmountLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue];
-        self.allProfitLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.earnTotal.doubleValue];
-        double allAssets = viewModel.userInfoModel.userAssets.lenderPrincipal.doubleValue + viewModel.userInfoModel.userAssets.financePlanAssets.doubleValue;
-        self.assetsLabel.text = [NSString stringWithFormat:@"%0.2lf",allAssets];
+        if ([viewModel.userInfoModel.userAssets.availablePoint isEqualToString:noDataText]) {
+            self.availableAmountLabel.text = noDataText;
+            self.allProfitLabel.text = noDataText;
+            self.assetsLabel.text = noDataText;
+        } else {
+            self.availableAmountLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue];
+            self.allProfitLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.earnTotal.doubleValue];
+            double allAssets = viewModel.userInfoModel.userAssets.lenderPrincipal.doubleValue + viewModel.userInfoModel.userAssets.financePlanAssets.doubleValue;
+            self.assetsLabel.text = [NSString stringWithFormat:@"%0.2lf",allAssets];
+        }
+        
     } else {
         self.eyeButton.selected = YES;
         if (viewModel.userInfoModel.userAssets.availablePoint.length > 0) {
