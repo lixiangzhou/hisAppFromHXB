@@ -101,10 +101,6 @@
                                      NSParagraphStyleAttributeName:paragraphStyle
                                      };
         self.subTitleTextView.attributedText = [[NSAttributedString alloc] initWithString:self.subTitleTextView.text attributes:attributes];
-    } else {
-        [self.subTitleTextView setUserInteractionEnabled:YES];
-        self.subTitleTextView.textAlignment = NSTextAlignmentLeft;
-        self.subTitleTextView.contentInset = UIEdgeInsetsZero;
     }
 }
 
@@ -252,6 +248,7 @@
         _subTitleTextView.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
         _subTitleTextView.textAlignment = NSTextAlignmentLeft;
         _subTitleTextView.backgroundColor = [UIColor whiteColor];
+//        self.subTitleTextView.contentInset = UIEdgeInsetsZero;
         _subTitleTextView.editable = NO;
         _subTitleTextView.selectable = NO;
     }
