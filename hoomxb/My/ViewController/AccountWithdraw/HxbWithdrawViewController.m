@@ -265,7 +265,9 @@
         NSInteger length = textField.text.length;
         NSRange range = NSMakeRange(length - 1, 1);
         NSMutableString *strM = textField.text.mutableCopy;
-        [strM deleteCharactersInRange:range];
+        if (range.location > 0 && range.location + range.length <= length) {
+            [strM deleteCharactersInRange:range];
+        }
         str = strM.copy;
     }
     if (str.length > 0) {
