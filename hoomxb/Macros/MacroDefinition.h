@@ -209,6 +209,9 @@
 #define kServiceMobile @"400-1552-888"
 #define kSecuryText @"****"
 
+//标识符
+#define HXBIdentifier @"@#$--"
+
 //加载文字
 #define kLoadIngText @"加载中..."
 //无网络文案

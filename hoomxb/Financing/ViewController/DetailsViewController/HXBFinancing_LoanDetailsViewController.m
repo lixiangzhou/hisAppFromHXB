@@ -140,9 +140,10 @@
     [self.view addSubview:self.loanDetailsView.addButton];
 
     [self.loanDetailsView.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.width.equalTo(self.view);
+        make.left.width.equalTo(self.view);
         make.top.equalTo(self.hxbBaseVCScrollView.mas_bottom);
         make.height.equalTo(@(kScrAdaptationH(50)));
+        make.bottom.equalTo(@(-HXBBottomAdditionHeight));
     }];
 }
 - (void)setUPTopImageView {

@@ -47,6 +47,7 @@
                     NSLog(@"%@",responseObject);
                     KeyChain.mobile = phoneNumber;
                     [KeyChain removeGesture];
+                    KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
                     [KeyChain signOut];
                     weakSelf.tabBarController.selectedIndex = 0;
                     [HxbHUDProgress showTextWithMessage:@"修改成功，请用新手机号登录"];

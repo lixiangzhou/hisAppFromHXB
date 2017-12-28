@@ -63,6 +63,8 @@
         }
         //        NSLog(@"%@",responseObject);
         //        NSLog(@"%@",[KeyChain token]);
+        //对数据进行异步缓存
+        [PPNetworkCache setHttpCache:responseObject URL:kHXBUser_UserInfoURL parameters:nil];
         HXBUserInfoModel *userInfoModel = [[HXBUserInfoModel alloc]init];
         
         [userInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];

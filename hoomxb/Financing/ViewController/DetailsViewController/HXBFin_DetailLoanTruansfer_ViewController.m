@@ -98,9 +98,10 @@
 //    self.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(50), kScreenWidth, kScrAdaptationH(50));
     [self.view addSubview:_addButton];
     [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.width.equalTo(self.view);
+        make.left.width.equalTo(self.view);
         make.top.equalTo(self.hxbBaseVCScrollView.mas_bottom);
         make.height.equalTo(@(kScrAdaptationH(50)));
+        make.bottom.equalTo(@(-HXBBottomAdditionHeight));
     }];
     [self.addButton addTarget:self action:@selector(clickAddButton:) forControlEvents:UIControlEventTouchUpInside];
     self.addButton.backgroundColor = COR29;

@@ -47,11 +47,12 @@
 - (void)setUI
 {
     [self.collectionView registerClass:[AXHNewFeatureCell class] forCellWithReuseIdentifier:AXHNewFeatureCellID];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
     self.collectionView.pagingEnabled = YES;
     self.collectionView.bounces = NO;
     self.collectionView.showsHorizontalScrollIndicator = NO;
     
-    self.pageControl = [[TAPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - kScrAdaptationH750(120), CGRectGetWidth(self.view.frame), 40)];
+    self.pageControl = [[TAPageControl alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.view.frame) - kScrAdaptationH(60) - HXBBottomAdditionHeight, CGRectGetWidth(self.view.frame), 40)];
     self.pageControl.delegate = self;
     self.pageControl.numberOfPages = self.imageData.count;
     self.pageControl.dotViewClass = [TAExampleDotView class];
