@@ -340,7 +340,7 @@
     BOOL appeared = KeyChain.skipGestureAlertAppeared;
     if (appeared == NO) {
         // 弹窗
-        HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:nil andSubTitle:@"为了您的账户安全，\n建议您设置手势密码" andLeftBtnName:@"跳过设置" andRightBtnName:@"开始设置" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+        HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:nil andSubTitle:@"为了您的账户安全，建议您设置手势密码" andLeftBtnName:@"跳过设置" andRightBtnName:@"开始设置" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
         alertVC.leftBtnBlock = ^{
             KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
             [KeyChain removeGesture];

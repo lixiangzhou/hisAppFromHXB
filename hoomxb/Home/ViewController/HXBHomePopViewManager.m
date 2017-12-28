@@ -17,8 +17,11 @@
 #import "NSString+HxbGeneral.h"
 #import "HXBVersionUpdateManager.h"
 #import "UIImage+HXBUtil.h"
+#import "HxbSignUpViewController.h"
+#import "HXBNoticeViewController.h"
 
-//#define kRegisterVC @"/account/register"//注册页面
+#define kRegisterVC @"/account/register"//注册页面
+#define kNoticeVC @"/home/notice"//公告列表
 #define kPlanDetailVC @"/plan/detail"//某个计划的详情页
 //#define kLoanDetailVC @"/loan/detail"//某个散标的详情页
 #define kPlan_fragment @"/home/plan_fragment"//红利计划列表页
@@ -182,6 +185,17 @@
             } else {
                 return;
             }
+        } else if([homePopViewModel.url hasPrefix:kRegisterVC]){
+            //注册
+            HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
+            signUPVC.title = @"注册";
+            signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;
+            [controller.navigationController pushViewController:signUPVC animated:YES];
+            
+        }else if ([homePopViewModel.url hasPrefix:kNoticeVC]){
+            //公告列表
+            HXBNoticeViewController *noticeVC = [[HXBNoticeViewController alloc] init];
+            [controller.navigationController pushViewController:noticeVC animated:YES];
         }
     } else if ([homePopViewModel.type isEqualToString:@"broswer"]) {
         if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:homePopViewModel.url]]) {
