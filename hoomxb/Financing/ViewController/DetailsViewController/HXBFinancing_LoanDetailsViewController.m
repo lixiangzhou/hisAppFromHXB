@@ -132,35 +132,22 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
-        make.top.equalTo(self.view).offset(HxbNavigationBarY);//.offset(kScrAdaptationH(30))
-        make.bottom.equalTo(self.view).offset(kScrAdaptationH(-50)); //注意适配iPhone X
+        make.top.equalTo(self.topImageView.mas_bottom);//.offset(kScrAdaptationH(30))
     }];
-//    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64);
+
     self.loanDetailsView = [[HXBFin_DetailsView_LoanDetailsView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     [self.hxbBaseVCScrollView addSubview:self.loanDetailsView];
-    
-//    self.timeLabel = [[UILabel alloc] init];
-//    self.timeLabel.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:self.timeLabel];
-//    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.bottom.equalTo(self.view).offset(-kScrAdaptationH(50));
-//        make.left.equalTo(self.view).offset(0);
-//        make.right.equalTo(self.view).offset(0);
-//        make.height.offset(kScrAdaptationH(25));
-//    }];
-//    self.timeLabel.hidden = YES;
-//    self.timeLabel.textColor = [UIColor grayColor];
-//    self.timeLabel.textAlignment = NSTextAlignmentCenter;
-//    self.timeLabel.font = [UIFont systemFontOfSize:12.0f];
     [self.view addSubview:self.loanDetailsView.addButton];
-//    self.loanDetailsView.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(50), kScreenWidth, kScrAdaptationH(50));
+
     [self.loanDetailsView.addButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.bottom.width.equalTo(self.view);
+        make.left.width.equalTo(self.view);
+        make.top.equalTo(self.hxbBaseVCScrollView.mas_bottom);
         make.height.equalTo(@(kScrAdaptationH(50)));
+        make.bottom.equalTo(@(-HXBBottomAdditionHeight));
     }];
 }
 - (void)setUPTopImageView {
-    self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, HXBStatusBarAndNavigationBarHeight)];
     self.topImageView.image = [UIImage imageNamed:@"NavigationBar"];
     [self.view addSubview:self.topImageView];
 }

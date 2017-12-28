@@ -1,4 +1,4 @@
-                                                                                                                                                                                                                                  //
+//
 //  HXBSignUPAndLoginRequest.m
 //  hoomxb
 //

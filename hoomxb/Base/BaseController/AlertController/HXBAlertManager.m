@@ -18,6 +18,7 @@
 #import "HXBXYAlertViewController.h"
 #import "HXBRootVCManager.h"
 #import "HXBHomePopViewManager.h"
+#import "HXBGeneralAlertVC.h"
 
 @interface HXBAlertManager ()
 
@@ -111,8 +112,9 @@
         }
         ///风险评测
         if ([viewModel.userInfoModel.userInfo.riskType isEqualToString:@"立即评测"]) {
-            HXBBaseAlertViewController *alertVC = [[HXBBaseAlertViewController alloc]initWithMassage:@"您尚未进行风险评估，请评估后再进行投资" andLeftButtonMassage:@"立即评估" andRightButtonMassage:@"我是保守型"];
-            [alertVC setClickLeftButtonBlock:^{
+            HXBGeneralAlertVC *registerAlertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:@"您尚未进行风险评估，请评估后再进行投资" andLeftBtnName:@"立即评估" andRightBtnName:@"我是保守型" isHideCancelBtn:YES isClickedBackgroundDiss:YES];
+            [vc presentViewController:registerAlertVC animated:NO completion:nil];
+            [registerAlertVC setLeftBtnBlock:^{
                 HXBRiskAssessmentViewController *riskAssessmentVC = [[HXBRiskAssessmentViewController alloc] init];
                 [vc.navigationController pushViewController:riskAssessmentVC animated:YES];
                 __weak typeof(riskAssessmentVC) weakRiskAssessmentVC = riskAssessmentVC;
@@ -120,15 +122,12 @@
                     [weakRiskAssessmentVC.navigationController popToViewController:vc animated:YES];
                 }];
             }];
-            [alertVC setClickRightButtonBlock:^{
+            [registerAlertVC setRightBtnBlock:^{
                 HXBSetGesturePasswordRequest *riskModifyScore = [[HXBSetGesturePasswordRequest alloc] init];
                 [riskModifyScore riskModifyScoreRequestWithScore:@"0" andSuccessBlock:^(id responseObject) {
                 } andFailureBlock:^(NSError *error) {
                 }];
-//                NSString *string = [NSString stringWithFormat:@"您是保守型用户"];
-//                [HxbHUDProgress showMessageCenter:string inView:vc.view];
             }];
-            [vc.navigationController presentViewController:alertVC animated:YES completion:nil];
             return;
         }
         
@@ -185,20 +184,23 @@
  */
 + (void)callupWithphoneNumber:(NSString *)phoneNumber andWithTitle:(NSString *)title Message:(NSString *)message {
 
-    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:title Massage:message force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
-    alertVC.isCenterShow = YES;
-    [alertVC setClickXYRightButtonBlock:^{
+    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:title andSubTitle:message andLeftBtnName:@"取消" andRightBtnName:@"拨打" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+    alertVC.leftBtnBlock = ^{
+        
+    };
+    alertVC.rightBtnBlock = ^{
         NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", phoneNumber];
         NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0" options:NSNumericSearch];
         
-            if (compare == NSOrderedDescending || compare == NSOrderedSame) {
-                /// 大于等于10.0系统使用此openURL方法
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
-            } else {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
-            }
-    }];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+        if (compare == NSOrderedDescending || compare == NSOrderedSame) {
+            /// 大于等于10.0系统使用此openURL方法
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
+        }
+    };
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:NO completion:nil];
 }
 
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel {

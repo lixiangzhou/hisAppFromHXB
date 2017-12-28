@@ -118,7 +118,6 @@
     }];
     kWeakSelf
     _amountTextField.haveStr = ^(BOOL haveStr) {
-        NSLog(@"%d", haveStr);
         weakSelf.nextButton.userInteractionEnabled = haveStr;
         weakSelf.nextButton.backgroundColor = haveStr ? COR29 : COR12;
     };

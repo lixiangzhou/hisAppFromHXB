@@ -168,7 +168,7 @@ MyViewHeaderDelegate
         lab.textAlignment = NSTextAlignmentLeft;
         lab.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         lab.textColor = RGBA(51, 51, 51, 1);
-        UIView *lineV = [[UIView alloc]initWithFrame:CGRectMake(0, supV.frame.size.height-1, kScreenWidth, 1)];
+        UIView *lineV = [[UIView alloc]initWithFrame:CGRectMake(0, supV.frame.size.height-kHXBDivisionLineHeight, kScreenWidth, kHXBDivisionLineHeight)];
         lineV.backgroundColor = RGBA(244, 243, 248, 1);
         [supV addSubview:lineV];
         [supV addSubview:lab];
@@ -277,7 +277,7 @@ MyViewHeaderDelegate
 
 - (HxbMyViewHeaderView *)headerView{
     if (!_headerView) {
-        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH750(575 + 43 + HXBStatusBarAdditionHeight))];//kScrAdaptationH(276)//575
+        _headerView = [[HxbMyViewHeaderView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, kScrAdaptationH750(575 + 43) + HXBStatusBarAdditionHeight)];//kScrAdaptationH(276)//575
         _headerView.delegate = self;
         _headerView.userInteractionEnabled = YES;
         kWeakSelf

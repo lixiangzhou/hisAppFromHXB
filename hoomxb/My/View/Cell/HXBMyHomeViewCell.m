@@ -75,7 +75,7 @@
 {
     if (!_lineView) {
         _lineView = [[UIView alloc] init];
-        _lineView.backgroundColor = COR12;
+        _lineView.backgroundColor = RGBA(244, 243, 248, 1);
         _lineView.hidden = YES;
     }
     return _lineView;

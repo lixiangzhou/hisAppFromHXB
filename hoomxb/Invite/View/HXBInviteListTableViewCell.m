@@ -86,7 +86,7 @@ NSString *const HXBInviteListTableViewCellIdentifier = @"HXBInviteListTableViewC
 - (void)setModel:(HXBInviteModel *)model {
     
     _nameLabel.text =  model.invitedRealName;
-    _mobileLabel.text = model.invitedUserPhoneNo_new;
+    _mobileLabel.text = model.invitedUserPhoneNo;
     _contentLabel.text = model.rewardDesc;
     _inviteTimeLabel.text = [NSString stringWithFormat:@"%@注册", model.registTime_new];
     

@@ -59,8 +59,6 @@
         }
         weakSelf.homePopViewModel = [HXBHomePopViewModel yy_modelWithDictionary:responseObject[@"data"]];
         [weakSelf updateUserDefaultsPopViewDate:responseObject[@"data"]];
-        
-//        [HXBHomePopViewManager popHomeViewWith:weakSelf.homePopViewVM.homePopModel fromController:weakSelf];//弹出首页弹窗
     } andFailureBlock:^(NSError *error) {
         self.isHide = YES;
     }];
@@ -72,16 +70,14 @@
         if (_responseDict[@"updateTime"] < dict[@"updateTime"]) { //已更新
             _responseDict = dict;
             [self cachePopHomeImage];
-            [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
-            self.isHide = NO;
             [kUserDefaults setObject:_responseDict forKey:dict[@"id"]];
             [kUserDefaults synchronize];
+        } else {
+            self.isHide = ![kUserDefaults boolForKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
         }
     } else {
         _responseDict = dict;
         [self cachePopHomeImage];
-        [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
-        self.isHide = NO;
         [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
         [kUserDefaults synchronize];
     }
@@ -92,14 +88,23 @@
     [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:_responseDict[@"image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         if (image) {
-            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(10)];
-            weakSelf.popView.imgView.image = img;
-            
+//            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(4)];
+//            weakSelf.popView.imgView.image = img;
+            weakSelf.popView.imgView.image = image;
             SDImageCache *imageCache = [SDImageCache sharedImageCache];
             [imageCache storeImage:image forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] toDisk:YES];
             [imageCache removeImageForKey:_responseDict[@"image"] fromDisk:YES];
-            }
-        }];
+            
+            [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
+            [kUserDefaults synchronize];
+            self.isHide = NO;
+        } else {
+            [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
+            [kUserDefaults synchronize];
+            self.isHide = YES;
+        }
+    }];
+    
 }
 
 - (void)popHomeViewfromController:(UIViewController *)controller{
@@ -111,18 +116,14 @@
         self.popView.popCompleteBlock = ^{
             NSLog(@"1111显示完成");
             
-//            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
-//                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
-//                weakSelf.isHide = YES;
-//            }
-//
-//            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"everytime"]) {
-//                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
-//                weakSelf.isHide = YES;
-//            }
-            [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
+            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
+                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
+                weakSelf.isHide = YES;
+                [kUserDefaults synchronize];
+            }
+
             weakSelf.isHide = YES;
-            [kUserDefaults synchronize];
+            
         };
         // 移除完成回调
         self.popView.dismissCompleteBlock = ^{
@@ -150,9 +151,10 @@
         if (!self.isHide) {
 //            UIImage *image = [UIImage imageWithData: [kUserDefaults objectForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]]];
             UIImage *image = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
-            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(10)];
+//            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(4)];
             if (image) {
-                weakSelf.popView.imgView.image = img;
+//                weakSelf.popView.imgView.image = img;
+                weakSelf.popView.imgView.image = image;
                 [weakSelf.popView pop];
             }
         }
@@ -177,6 +179,8 @@
                 planDetailsVC.isPlan = YES;
                 planDetailsVC.isFlowChart = YES;
                 [controller.navigationController pushViewController:planDetailsVC animated:YES];
+            } else {
+                return;
             }
         }
     } else if ([homePopViewModel.type isEqualToString:@"broswer"]) {
@@ -184,7 +188,7 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:homePopViewModel.url]];
         }
     } else {
-        //        NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],@"0b025dfa-4613-4ba9-a9e8-5805fdb6a829"];
+//                NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],@"0b025dfa-4613-4ba9-a9e8-5805fdb6a829"];
         //        [HXBBaseWKWebViewController pushWithPageUrl:str fromController:controller];
         //[HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:homePopViewModel.link] fromController:controller];
         [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.url fromController:controller];

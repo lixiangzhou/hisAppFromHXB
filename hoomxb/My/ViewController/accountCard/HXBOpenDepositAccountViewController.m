@@ -47,10 +47,18 @@
         [weakSelf.hxbBaseVCScrollView.mj_header endRefreshing];
     }];
     [self.view addSubview:self.mainView.bottomBtn];
-    [self.mainView.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
-        make.height.offset(kScrAdaptationH(49));
+    [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.offset(HXBStatusBarAndNavigationBarHeight);
+        make.bottom.equalTo(self.mainView.bottomBtn.mas_top);
     }];
+    [self.mainView.bottomBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.height.offset(kScrAdaptationH(49));
+        make.bottom.equalTo(self.view).offset(-HXBBottomAdditionHeight);
+    }];
+    [self.view layoutIfNeeded];
+    self.mainView.frame = CGRectMake(0, 0, kScreenW, self.hxbBaseVCScrollView.height);
 }
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
@@ -213,7 +221,7 @@
 {
     if (!_mainView) {
         kWeakSelf
-        _mainView = [[HXBOpenDepositAccountView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
+        _mainView = [[HXBOpenDepositAccountView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _mainView.backgroundColor = kHXBColor_BackGround;
         _mainView.userModel = self.userModel;
         
