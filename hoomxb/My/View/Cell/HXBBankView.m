@@ -109,6 +109,7 @@
         float width = weakSelf.bankNum.bounds.size.width - ceil(size.width);
         float space = width / (str.length-1);
         weakSelf.bankNum.text = str;
+        // fixme
         [self changeWordSpaceForLabel:weakSelf.bankNum WithSpace:space];
         weakSelf.bankTip.text = bankCardModel.quota;
         
@@ -122,13 +123,14 @@
 }
 
 - (void)changeWordSpaceForLabel:(UILabel *)label WithSpace:(float)space {
-    
     NSString *labelText = label.text;
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText attributes:@{NSKernAttributeName:@(space)}];
-    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
-    label.attributedText = attributedString;
-    [label sizeToFit];
+    if (labelText) {
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:labelText attributes:@{NSKernAttributeName:@(space)}];
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        [attributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [labelText length])];
+        label.attributedText = attributedString;
+        [label sizeToFit];
+    }
     
 }
 
