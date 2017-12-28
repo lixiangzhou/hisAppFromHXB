@@ -59,7 +59,6 @@
     
     [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:self];//展示首页弹窗
     [[HXBVersionUpdateManager sharedInstance] show];
-    
     [self hideNavigationBar:animated];
     [self getData:YES];
     self.homeView.userInfoViewModel = self.userInfoViewModel;
