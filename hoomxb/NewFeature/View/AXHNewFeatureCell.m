@@ -24,7 +24,11 @@
 {
     if (_imageView == nil) {
         UIImageView *imageV = [[UIImageView alloc] init];
+        imageV.backgroundColor = [UIColor whiteColor];
         _imageView = imageV;
+        if (HXBIPhoneX) {
+            imageV.contentMode = UIViewContentModeScaleAspectFit;
+        }
         //注意：要加载到contentView上
         [self.contentView addSubview:imageV];
     }

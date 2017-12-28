@@ -308,6 +308,7 @@
             if (cout <= 0) {
                 HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"很抱歉，您的手势密码五次输入错误" andLeftBtnName:@"取消" andRightBtnName:@"确定" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
                 [KeyChain removeGesture];
+                KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
                 [KeyChain signOut];
                 alertVC.leftBtnBlock = ^{
                     [[HXBRootVCManager manager] makeTabbarRootVC];
@@ -351,6 +352,8 @@
         alertVC.rightBtnBlock = ^{
             
         };
+        
+        alertVC.rightBtnBlock = ^{};
         
         [self presentViewController:alertVC animated:NO completion:nil];
     }
