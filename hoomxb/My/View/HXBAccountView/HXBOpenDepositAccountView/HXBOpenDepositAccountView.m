@@ -128,7 +128,7 @@
     //        make.height.offset(kScrAdaptationH(50));
     //    }];
     [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(-59));
+        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(-10));
         make.centerX.equalTo(self);
         make.left.equalTo(self).offset(kScrAdaptationW(18));
         make.right.equalTo(self).offset(kScrAdaptationW(-18));
