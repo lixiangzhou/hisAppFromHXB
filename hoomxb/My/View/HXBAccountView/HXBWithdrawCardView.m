@@ -364,7 +364,7 @@
             NSInteger length = strM.length;
             NSRange range = NSMakeRange(length - 1, 1);
             
-            if (range.location >= 0 && range.location + range.length <= length) {
+            if (range.location >= 0) {
                 [strM deleteCharactersInRange:range];
             }
             str = strM.copy;
