@@ -150,12 +150,12 @@
             }];
             weakSelf.bankNumber = [weakSelf.bankNumber stringByReplacingOccurrencesOfString:@" "  withString:@""];
             NSDictionary *dic = @{
-                                  @"realName" : self.nameTextField.text,
-                                  @"identityCard" : self.idCardTextField.text,
-                                  @"password" : self.pwdTextField.text,
-                                  @"bankCard" : self.bankNumber,
-                                  @"bankReservedMobile" : self.phoneTextField.text,
-                                  @"bankCode" : self.cardBinModel.bankCode
+                                  @"realName" : weakSelf.nameTextField.text,
+                                  @"identityCard" : weakSelf.idCardTextField.text,
+                                  @"password" : weakSelf.pwdTextField.text,
+                                  @"bankCard" : weakSelf.bankNumber,
+                                  @"bankReservedMobile" : weakSelf.phoneTextField.text,
+                                  @"bankCode" : weakSelf.cardBinModel.bankCode
                                   };
             weakSelf.openAccountBlock(dic);
         } andFailureBlock:^(NSError *error) {
