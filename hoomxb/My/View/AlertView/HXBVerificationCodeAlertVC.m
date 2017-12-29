@@ -164,7 +164,7 @@
         [_sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_sureBtn addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         [_sureBtn setBackgroundColor:COR29];
-        _sureBtn.userInteractionEnabled = NO;
+        _sureBtn.userInteractionEnabled = YES;
         _sureBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
     }
     return _sureBtn;
