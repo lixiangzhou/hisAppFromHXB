@@ -21,7 +21,7 @@
 #define kHXBColor_999999_100                RGBA(153, 153, 153, 1)
 
 ///蓝色的背景色
-#define kHXBColor_73ADFF_100           RGBA(115, 173, 255, 1)
+#define kHXBColor_73ADFF_100                RGBA(115, 173, 255, 1)
 
 ///用于色块之间的间隔底色填充
 #define kHXBSpacingColor_F5F5F9_100         kHXBBackgroundColor
@@ -30,8 +30,8 @@
 #define kHXBSpacingLineColor_DDDDDD_100     RGBA(221, 221, 221, 1)
 
 ///白色的背景色
-#define kHXBColor_FFFFFF_100          RGBA(255, 255, 255, 1)
-#define kHXBColor_FFFFFF_50          RGBA(255, 255, 255, 0.5)
+#define kHXBColor_FFFFFF_100                RGBA(255, 255, 255, 1)
+#define kHXBColor_FFFFFF_50                 RGBA(255, 255, 255, 0.5)
 
 ///按钮长按的颜色
 #define kHXBColor_000000_30                 RGBA(0, 0, 0, 0.3)

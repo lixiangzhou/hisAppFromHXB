@@ -15,6 +15,7 @@
 #import "HXBAPI.h"
 #import "HXBFontMacro.h"
 #import "HXBColorMacro.h"
+#import "HXBFountColorMacros.h"
 #import "HXBBackgroundColorMacros.h"
 #import "KeyChainManage.h"
 #import "HxbFileManager.h"
