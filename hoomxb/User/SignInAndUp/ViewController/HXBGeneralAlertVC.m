@@ -171,6 +171,11 @@
         make.width.mas_equalTo(kScrAdaptationW750(280));
         make.height.offset(kScrAdaptationH750(80));
     }];
+    if (self.isCenterShow) {
+        self.subTitleTextView.textAlignment = NSTextAlignmentCenter;
+    } else {
+        self.subTitleTextView.textAlignment = NSTextAlignmentLeft;
+    }
 }
 
 - (void)cancelBtnClick
@@ -246,7 +251,7 @@
         _subTitleTextView = [[UITextView alloc] init];
         _subTitleTextView.textColor = RGB(102, 102, 102);
         _subTitleTextView.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
-        _subTitleTextView.textAlignment = NSTextAlignmentLeft;
+        _subTitleTextView.textAlignment = NSTextAlignmentCenter;
         _subTitleTextView.backgroundColor = [UIColor whiteColor];
 //        self.subTitleTextView.contentInset = UIEdgeInsetsZero;
         _subTitleTextView.editable = NO;

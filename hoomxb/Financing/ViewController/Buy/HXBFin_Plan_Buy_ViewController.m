@@ -264,12 +264,12 @@ static const NSInteger topView_high = 300;
     double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
     NSString *rechargeMoney =_viewModel.userInfoModel.userInfo.minChargeAmount_new;
     if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", rechargeMoney] force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确认充值"];
+        HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", rechargeMoney] andLeftBtnName:@"取消" andRightBtnName:@"确认充值" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
         alertVC.isCenterShow = YES;
-        [alertVC setClickXYRightButtonBlock:^{
-            [weakSelf sendSmsCodeWithMoney:weakSelf.viewModel.userInfoModel.userInfo.minChargeAmount];
+        [alertVC setRightBtnBlock:^{
+                [weakSelf sendSmsCodeWithMoney:weakSelf.viewModel.userInfoModel.userInfo.minChargeAmount];
         }];
-        [self presentViewController:alertVC animated:YES completion:nil];
+        [self presentViewController:alertVC animated:NO completion:nil];
     } else {
         [self sendSmsCodeWithMoney:topupMoney];
     }
@@ -301,7 +301,7 @@ static const NSInteger topView_high = 300;
         self.alertVC = [[HXBVerificationCodeAlertVC alloc] init];
         self.alertVC.isCleanPassword = YES;
         double rechargeMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
-        self.alertVC.messageTitle = @"请输入验证码";
+        self.alertVC.messageTitle = @"请输入短信验证码";
         _buyType = @"recharge"; // 弹出短验，都是充值购买
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf

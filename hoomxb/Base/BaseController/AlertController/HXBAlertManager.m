@@ -29,12 +29,12 @@
 @implementation HXBAlertManager
 + (void)alertNeedLoginAgainWithMeaage:(NSString *)message {
     
-    HXBGeneralAlertVC *registerAlertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"登录异常" andSubTitle:message andLeftBtnName:@"知道了" andRightBtnName:@"重新登录" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
-    [registerAlertVC setLeftBtnBlock:^{
+    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"登录异常" andSubTitle:message andLeftBtnName:@"知道了" andRightBtnName:@"重新登录" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+    [alertVC setLeftBtnBlock:^{
         ///显示Home
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
     }];
-    [registerAlertVC setRightBtnBlock:^{
+    [alertVC setRightBtnBlock:^{
         ///到登录界面
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         ///显示Home
@@ -51,7 +51,7 @@
         VC = tbVC;
     }
     
-    [VC.navigationController presentViewController:registerAlertVC animated:NO completion:nil];
+    [VC.navigationController presentViewController:alertVC animated:NO completion:nil];
 }
 
 /**
@@ -113,9 +113,9 @@
         }
         ///风险评测
         if ([viewModel.userInfoModel.userInfo.riskType isEqualToString:@"立即评测"]) {
-            HXBGeneralAlertVC *registerAlertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:@"您尚未进行风险评估，请评估后再进行投资" andLeftBtnName:@"立即评估" andRightBtnName:@"我是保守型" isHideCancelBtn:YES isClickedBackgroundDiss:YES];
-            [vc presentViewController:registerAlertVC animated:NO completion:nil];
-            [registerAlertVC setLeftBtnBlock:^{
+            HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:@"您尚未进行风险评估，请评估后再进行投资" andLeftBtnName:@"立即评估" andRightBtnName:@"我是保守型" isHideCancelBtn:YES isClickedBackgroundDiss:YES];
+            [vc presentViewController:alertVC animated:NO completion:nil];
+            [alertVC setLeftBtnBlock:^{
                 HXBRiskAssessmentViewController *riskAssessmentVC = [[HXBRiskAssessmentViewController alloc] init];
                 [vc.navigationController pushViewController:riskAssessmentVC animated:YES];
                 __weak typeof(riskAssessmentVC) weakRiskAssessmentVC = riskAssessmentVC;
@@ -123,7 +123,7 @@
                     [weakRiskAssessmentVC.navigationController popToViewController:vc animated:YES];
                 }];
             }];
-            [registerAlertVC setRightBtnBlock:^{
+            [alertVC setRightBtnBlock:^{
                 HXBSetGesturePasswordRequest *riskModifyScore = [[HXBSetGesturePasswordRequest alloc] init];
                 [riskModifyScore riskModifyScoreRequestWithScore:@"0" andSuccessBlock:^(id responseObject) {
                 } andFailureBlock:^(NSError *error) {

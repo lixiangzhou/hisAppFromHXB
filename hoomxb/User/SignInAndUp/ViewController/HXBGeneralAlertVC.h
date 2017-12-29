@@ -14,7 +14,10 @@
  是否需要内部自动dismiss,默认是YES内部自动帮你释放
  */
 @property (nonatomic, assign) BOOL isAutomaticDismiss;
-
+/**
+ subTitle描述是否居中
+ */
+@property (nonatomic, assign) BOOL isCenterShow;//默认居中
 /**
   通用弹窗
 

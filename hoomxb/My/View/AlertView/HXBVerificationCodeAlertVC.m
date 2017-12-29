@@ -121,7 +121,7 @@
 - (void)checkVerificationCode
 {
     if (self.verificationCodeAlertView.verificationCode.length <= 0) {
-        [HxbHUDProgress showMessage:@"验证码不能为空" inView:self.contentView];
+        [HxbHUDProgress showTextWithMessage:@"验证码不能为空"];
         return;
     }
     if (self.sureBtnClick) {
@@ -236,15 +236,15 @@
         if (string.length) {
             str = [NSString stringWithFormat:@"%@%@",textField.text,string];
         }
-        if (range.location == 0 && [string isEqualToString:@""]) {
-            [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
-            self.verificationCodeAlertView.lineColor = kHXBColor_Font0_5;
-            _sureBtn.userInteractionEnabled = NO;;
-        } else {
+//        if (range.location == 0 && [string isEqualToString:@""]) {
+//            [_sureBtn setBackgroundColor:kHXBColor_Font0_5];
+//            self.verificationCodeAlertView.lineColor = kHXBColor_Font0_5;
+//            _sureBtn.userInteractionEnabled = NO;;
+//        } else {
             [_sureBtn setBackgroundColor:COR29];
             self.verificationCodeAlertView.lineColor = COR29;
             _sureBtn.userInteractionEnabled = YES;
-        }
+//        }
         if (str.length > 6) return NO;
     } else {
         if (range.location == 0 && [string isEqualToString:@""]) {
