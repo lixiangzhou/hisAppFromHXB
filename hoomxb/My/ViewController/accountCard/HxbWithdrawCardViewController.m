@@ -7,7 +7,6 @@
 //
 
 #import "HxbWithdrawCardViewController.h"
-#import "HxbPickerArea.h"
 #import "HxbWithdrawResultViewController.h"
 #import "HXBBankCardModel.h"
 #import "HXBWithdrawalsRequest.h"

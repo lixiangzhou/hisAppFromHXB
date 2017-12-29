@@ -8,7 +8,6 @@
 
 #import "HxbMyTopUpViewController.h"
 #import "HxbSecurityCertificationViewController.h"
-#import "HxbBindCardViewController.h"
 #import "HXBMyTopUpBaseView.h"
 #import "HXBRechargeCompletedViewController.h"
 #import "HXBVerificationCodeAlertVC.h"
