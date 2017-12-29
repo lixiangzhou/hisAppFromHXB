@@ -37,6 +37,9 @@
         HxbHUDProgress *hud = (content.length) ? [HxbHUDProgress new] : nil;
         [hud showAnimationWithText:content];
     }
+    else {
+        [request showLoding:YES];
+    }
     NSLog(@"%@",request.httpHeaderFields);
     
   
@@ -46,12 +49,18 @@
         if (request.hudDelegate == nil) {
             [hud hide];
         }
+        else{
+            [request showLoding:NO];
+        }
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
         // 适配重构前的HUD
         if (request.hudDelegate == nil) {
             [hud hide];
+        }
+        else {
+            [request showLoding:NO];
         }
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self processConnection:connection withRequest:request error:error];
@@ -66,6 +75,9 @@
         hud = [HxbHUDProgress new];
         [hud showAnimation];
     }
+    else {
+        [request showLoding:YES];
+    }
     
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
     [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
@@ -73,11 +85,17 @@
         if (request.hudDelegate == nil) {
             [hud hide];
         }
+        else {
+            [request showLoding:NO];
+        }
         [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
         // 适配重构前的HUD
         if (request.hudDelegate == nil) {
             [hud hide];
+        }
+        else {
+            [request showLoding:NO];
         }
         [self processConnection:connection withRequest:request error:error];
     }];
@@ -102,11 +120,7 @@
 - (void)callBackRequestSuccess:(NYBaseRequest *)request
 {
     if (request.success) {
-        if (request.customCodeSuccessBlock) {
-            request.customCodeSuccessBlock(request,request.responseObject);
-        } else {
-            [self defaultMethodRequestSuccessWithRequest:request];
-        }
+        [self defaultMethodRequestSuccessWithRequest:request];
         request.success(request,request.responseObject);
     }
     [self clearRequestBlock:request];
@@ -118,11 +132,7 @@
 - (void)callBackRequestFailure:(NYBaseRequest *)request
 {    
     if (request.failure) {
-        if (request.customCodeFailureBlock) {
-            request.customCodeFailureBlock(request,request.error);
-        } else {
-            [self defaultMethodRequestFaulureWithRequest:request];
-        }
+        [self defaultMethodRequestFaulureWithRequest:request];
         request.failure(request,request.error);
     }
 

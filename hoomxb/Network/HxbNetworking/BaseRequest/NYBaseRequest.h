@@ -42,7 +42,7 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 
 // ================================== request ==================================
 @property (nonatomic, weak) NYHTTPConnection *connection;
-/// 请求方法 Get/Post
+/// 请求方法 Get/Post， 默认是Get
 @property (nonatomic, assign) NYRequestMethod requestMethod;
 /// baseUrl之后的请求Url
 @property (nonatomic, copy) NSString *requestUrl;
@@ -52,9 +52,14 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 @property (nonatomic, strong) id requestArgument;
 /// 向请求头中添加的附加信息，除token、version等公共信息
 @property (nonatomic, copy) NSDictionary *httpHeaderFields;
-/// 请求超时时间
+/// 请求超时时间， 默认是20秒
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
+/// 是否显示加载框
+@property (nonatomic, assign) BOOL showHud;
 
+//================================== 发送者代理 ==================================
+/// 委托
+@property (nonatomic, weak) id<HXBRequestHudDelegate> hudDelegate;
 
 //================================== response ==================================
 
@@ -69,20 +74,11 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 /// 响应出错信息
 @property (nonatomic, copy) NSString *responseErrorMessage;
 
-//================================== hud & toast ==================================
-@property (nonatomic, weak) id<HXBRequestHudDelegate> hudDelegate;
-@property (nonatomic, assign) BOOL showHud;
-@property (nonatomic, assign) BOOL showToast;
-
 //================================== callback ==================================
 /// 返回成功回调
 @property (nonatomic, copy) HXBRequestSuccessBlock success;
-/// 自定义特殊状态拦截返回成功回调
-@property (nonatomic, copy) HXBRequestSuccessBlock customCodeSuccessBlock;
 /// 返回失败回调
 @property (nonatomic, copy) HXBRequestFailureBlock failure;
-/// 自定义特殊状态拦截返回失败回调
-@property (nonatomic, copy) HXBRequestFailureBlock customCodeFailureBlock;
 
 
 //================================== function ==================================
@@ -96,5 +92,43 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 
 
 - (NYBaseRequest *)copyRequest;
+
+#pragma mark  以下为重构后需要使用的各种方法
+
+- (instancetype)initWithDelegate:(id<HXBRequestHudDelegate>)delegate;
+
+/**
+ 比较是否是同一个请求
+
+ @param request 比较对象
+ @return YES：相同；反之。
+ */
+- (BOOL)defferRequest:(NYBaseRequest*)request;
+/**
+ 显示加载框
+
+ @param isShow 控制显示/隐藏
+ */
+- (void)showLoding:(BOOL)isShow;
+
+/**
+ 显示提示文本
+
+ @param content 提示内容
+ */
+- (void)showToast:(NSString*)content;
+
+/**
+ 请求数据
+
+ @param success 成功回调
+ @param failure 失败回调
+ */
+- (void)loadData:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
+
+/**
+ 取消请求
+ */
+- (void)cancelRequest;
 
 @end

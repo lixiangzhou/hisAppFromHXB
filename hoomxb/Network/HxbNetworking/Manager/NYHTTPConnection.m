@@ -12,6 +12,7 @@
 #import "HXBTokenModel.h"
 #import <objc/runtime.h>
 #import "HXBRootVCManager.h"
+#import "HXBBaseRequestManager.h"
 
 #define Config [NYNetworkConfig sharedInstance]
 
@@ -25,9 +26,16 @@
 
 @property (nonatomic, copy) HXBConnectionFailureBlock failure;
 
+@property (nonatomic, copy) NSString* requestToken;
+
 @end
 
 @implementation NYHTTPConnection
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 /// 配置及处理 sessionManager
 - (void)connectWithRequest:(NYBaseRequest *)request success:(HXBConnectionSuccessBlock)success failure:(HXBConnectionFailureBlock)failure
@@ -65,18 +73,13 @@
     }
     // 参数
     NSDictionary *parameters = request.requestArgument;
-    
-    [self showProgressWithRequest:request];
-    
     // 设置回调
     void (^successBlock)(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) = ^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        [self hideProgressWithRequest:request];
         [self setResponseWithRequest:request task:task responseObj:responseObject error:nil];
         [self requestHandleSuccess:request responseObject:responseObject];
     };
     
     void (^failureBlock)(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) = ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        [self hideProgressWithRequest:request];
         [self setResponseWithRequest:request task:task responseObj:nil error:error];
         [self requestHandleFailure:request error:error];
     };
@@ -88,6 +91,7 @@
         case NYRequestMethodPut: { task = [manager PUT:urlString parameters:parameters success:successBlock failure:failureBlock]; break; }
         case NYRequestMethodDelete: { task = [manager DELETE:urlString parameters:parameters success:successBlock failure:failureBlock]; break; }
     }
+    self.requestToken = KeyChain.token;
     self.task = task;
     request.connection = self;
 }
@@ -141,25 +145,6 @@
     return ((NSHTTPURLResponse *)task.response).allHeaderFields;
 }
 
-#pragma mark - Hud
-- (void)showProgressWithRequest:(NYBaseRequest *)request {
-    if (request.hudDelegate) {  // 重构后的hud
-        if (request.showHud && [request.hudDelegate respondsToSelector:@selector(showProgress)]) {
-            [request.hudDelegate showProgress];
-        }
-    } else {    
-    }
-}
-
-- (void)hideProgressWithRequest:(NYBaseRequest *)request {
-    if (request.hudDelegate) {  // 重构后的hud
-        if (request.showHud && [request.hudDelegate respondsToSelector:@selector(showProgress)]) {
-            [request.hudDelegate hideProgress];
-        }
-    } else {
-    }
-}
-
 #pragma mark - Single Login
 /// 检查是否进行单点处理
 - (BOOL)checkSingleLogin:(NSInteger)responseCode {
@@ -168,31 +153,58 @@
 
 /// 单点登录处理
 - (void)processSingleLoginWithRequest:(NYBaseRequest *)request {
-    [KeyChain removeToken];
-    kWeakSelf
-    [self refreshAccessToken:^(NSString *token) {
-        if (token) {
-            KeyChain.token = token;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if ([HXBRootVCManager manager].mainTabbarVC.selectedViewController.childViewControllers.count > 1) {
-                    if (request.failure) {
-                        request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
-                        request.failure(request, nil);
-                    }
-                } else {
-                    [weakSelf processTokenInvidate];
-                    NYBaseRequest *newRequest = [request copyRequest];
-                    [weakSelf connectWithRequest:newRequest success:weakSelf.success failure:weakSelf.failure];
+    if(![self.requestToken isEqualToString:KeyChain.token]) {
+        //令牌已经被更新过, 重发请求
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self connectWithRequest:request success:self.success failure:self.failure];
+        });
+    }
+    else{
+        if(![HXBBaseRequestManager sharedInstance].isGettingToken) {
+            //当前没有正在获取令牌的请求
+            
+            [KeyChain removeToken];
+            [self refreshAccessToken:^(NSString *token) {
+                BOOL result = NO;
+                if (token) {
+                    KeyChain.token = token;
+                    result = YES;
+                    
                 }
-            });
-        } else {
-            if (request.failure) {
-                request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
-
-                request.failure(request, request.error);
-            }
+                [[HXBBaseRequestManager sharedInstance] sendFreshTokenNotify:result];
+            }];
         }
-    }];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenUpdateNotify:) name:kHXBNotification_AfterFreshToken object:self];
+        [[HXBBaseRequestManager sharedInstance] addTokenInvalidRequest:request];
+    }
+    
+}
+
+- (void)tokenUpdateNotify:(NSNotification *)notify
+{
+    BOOL result = [notify.userInfo stringAtPath:@"result"].boolValue;
+    NYBaseRequest* request = notify.object;
+    
+    if (result) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([HXBRootVCManager manager].mainTabbarVC.selectedViewController.childViewControllers.count > 1) {
+                if (request.failure) {
+                    request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
+                    request.failure(request, nil);
+                }
+            } else {
+                [self processTokenInvidate];
+                [self connectWithRequest:request success:self.success failure:self.failure];
+            }
+        });
+    } else {
+        if (request.failure) {
+            request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
+            
+            request.failure(request, request.error);
+        }
+    }
 }
 
 /// 重新请求token

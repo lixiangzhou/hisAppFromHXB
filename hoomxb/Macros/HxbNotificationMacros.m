@@ -28,3 +28,5 @@ NSString *const kHXBNotification_starCountDown = @"kHXBNotification_starCountDow
 
 
 NSString *const kHXBNotification_registrationStartCountdown = @"kHXBNotification_registrationStartCountdown";
+//刷新令牌后的通知
+NSString *const kHXBNotification_AfterFreshToken = @"kHXBNotification_AfterFreshToken";

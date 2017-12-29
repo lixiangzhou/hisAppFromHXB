@@ -13,6 +13,18 @@
 
 @implementation NYBaseRequest
 
+- (instancetype)initWithDelegate:(id<HXBRequestHudDelegate>)delegate
+{
+    self = [super init];
+    if (self) {
+        self.hudDelegate = delegate;
+        _requestMethod = NYRequestMethodGet;
+        _timeoutInterval = 20;
+        _showHud = YES;
+    }
+    return self;
+}
+
 - (NSDictionary *)httpHeaderFields{
     if (!_httpHeaderFields) {
         _httpHeaderFields = @{};
@@ -63,12 +75,78 @@
     request.requestArgument = self.requestArgument;
     request.httpHeaderFields = self.httpHeaderFields;
     request.timeoutInterval = self.timeoutInterval;
+    request.showHud = self.showHud;
     request.success = [self.success copy];
     request.failure = [self.failure copy];
-    request.customCodeSuccessBlock = [self.customCodeSuccessBlock copy];
-    request.customCodeFailureBlock = [self.customCodeFailureBlock copy];
     
     return request;
 }
 
+#pragma mark  以下为重构后需要使用的各种方法
+
+/**
+ 比较是否是同一个请求
+ 
+ @param request 比较对象
+ @return YES：相同；反之。
+ */
+- (BOOL)defferRequest:(NYBaseRequest*)request
+{
+    if([self.requestUrl isEqualToString:request.requestUrl] && self.hudDelegate==request.hudDelegate && [self.requestArgument isEqualToString:request.requestArgument]) {
+        return YES;
+    }
+    return NO;
+}
+
+/**
+ 显示加载框
+ 
+ @param isShow 控制显示/隐藏
+ */
+- (void)showLoding:(BOOL)isShow
+{
+    if(isShow) {
+        if([self.hudDelegate respondsToSelector:@selector(showProgress)]){
+            [self.hudDelegate showProgress];
+        }
+    }
+    else {
+        if([self.hudDelegate respondsToSelector:@selector(hideProgress)]){
+            [self.hudDelegate hideProgress];
+        }
+    }
+    
+}
+
+/**
+ 显示提示文本
+ 
+ @param content 提示内容
+ */
+- (void)showToast:(NSString*)content
+{
+    if([self.hudDelegate respondsToSelector:@selector(showToast:)]){
+        [self.hudDelegate showToast:content];
+    }
+}
+
+/**
+ 请求数据
+ 
+ @param success 成功回调
+ @param failure 失败回调
+ */
+- (void)loadData:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure{
+    self.success = success;
+    self.failure = failure;
+    [[NYNetworkManager sharedManager] addRequestWithAnimation:self];
+}
+
+/**
+ 取消请求
+ */
+- (void)cancelRequest
+{
+    [self.connection.task cancel];
+}
 @end

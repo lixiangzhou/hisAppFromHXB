@@ -390,7 +390,6 @@
 		E133DD391EEEC14C009466DE /* HXBTokenModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD1F1EEEC14C009466DE /* HXBTokenModel.m */; };
 		E133DD3A1EEEC14C009466DE /* HXBBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD231EEEC14C009466DE /* HXBBaseRequest.m */; };
 		E133DD3B1EEEC14C009466DE /* NYBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD251EEEC14C009466DE /* NYBaseRequest.m */; };
-		E133DD3C1EEEC14C009466DE /* HxbHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD281EEEC14C009466DE /* HxbHTTPSessionManager.m */; };
 		E133DD3D1EEEC14C009466DE /* NYHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD2A1EEEC14C009466DE /* NYHTTPConnection.m */; };
 		E133DD3E1EEEC14C009466DE /* NYNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD2C1EEEC14C009466DE /* NYNetworkConfig.m */; };
 		E133DD3F1EEEC14C009466DE /* NYNetworkManager+DefaultMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = E133DD2E1EEEC14C009466DE /* NYNetworkManager+DefaultMethod.m */; };
@@ -1269,8 +1268,6 @@
 		E133DD231EEEC14C009466DE /* HXBBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseRequest.m; sourceTree = "<group>"; };
 		E133DD241EEEC14C009466DE /* NYBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYBaseRequest.h; sourceTree = "<group>"; };
 		E133DD251EEEC14C009466DE /* NYBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYBaseRequest.m; sourceTree = "<group>"; };
-		E133DD271EEEC14C009466DE /* HxbHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbHTTPSessionManager.h; sourceTree = "<group>"; };
-		E133DD281EEEC14C009466DE /* HxbHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbHTTPSessionManager.m; sourceTree = "<group>"; };
 		E133DD291EEEC14C009466DE /* NYHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYHTTPConnection.h; sourceTree = "<group>"; };
 		E133DD2A1EEEC14C009466DE /* NYHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYHTTPConnection.m; sourceTree = "<group>"; };
 		E133DD2B1EEEC14C009466DE /* NYNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYNetworkConfig.h; sourceTree = "<group>"; };
@@ -3641,8 +3638,6 @@
 		E133DD261EEEC14C009466DE /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				E133DD271EEEC14C009466DE /* HxbHTTPSessionManager.h */,
-				E133DD281EEEC14C009466DE /* HxbHTTPSessionManager.m */,
 				E133DD291EEEC14C009466DE /* NYHTTPConnection.h */,
 				E133DD2A1EEEC14C009466DE /* NYHTTPConnection.m */,
 				E133DD2B1EEEC14C009466DE /* NYNetworkConfig.h */,
@@ -4682,7 +4677,8 @@
 				TargetAttributes = {
 					4E16D8291E9CD0FE002A1881 = {
 						CreatedOnToolsVersion = 8.2.1;
-						ProvisioningStyle = Manual;
+						DevelopmentTeam = Z9M2NMJFP5;
+						ProvisioningStyle = Automatic;
 					};
 					4E16D8421E9CD0FE002A1881 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -5283,7 +5279,6 @@
 				4E94B2901ECC49D2003CCBA7 /* HXBHomePageProductCell.m in Sources */,
 				E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */,
 				4E70B1951FACA12D0049D2F1 /* HXBRequestAccountInfo.m in Sources */,
-				E133DD3C1EEEC14C009466DE /* HxbHTTPSessionManager.m in Sources */,
 				4E94A86A1F5D4FE90001BE94 /* BXTextField.m in Sources */,
 				4E96671C1F4D520F00342A2E /* HXBBannerWebViewController.m in Sources */,
 				E17CCEEE1F30683400D6E98E /* HXBMY_LoanTruansferTableView.m in Sources */,
@@ -5479,9 +5474,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer: 聪聪 翟 (86S6Q378KL)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: 聪聪 翟 (86S6Q378KL)";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5501,7 +5496,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = hoomsunDevalopment;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -5513,9 +5508,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5535,7 +5530,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = hoomsunDistribution;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -5638,9 +5633,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = Z9M2NMJFP5;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5660,7 +5655,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = hoomsunADHoc;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Adoc;

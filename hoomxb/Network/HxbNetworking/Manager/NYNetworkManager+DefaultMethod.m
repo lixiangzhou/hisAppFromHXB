@@ -127,9 +127,7 @@
 #pragma mark - Toast
 - (void)showToast:(NSString *)toast withRequest:(NYBaseRequest *)request {
     if (request.hudDelegate) {  // 重构后的提示
-        if (request.showToast && [request.hudDelegate respondsToSelector:@selector(showToast:)]) {
-            [request.hudDelegate showToast:toast];
-        }
+        [request.hudDelegate showToast:toast];
     } else {    // 适配重构前的提示
         [HxbHUDProgress showMessageCenter:toast inView:nil];
     }
