@@ -9,7 +9,7 @@
 #ifndef HxbMacro_h
 #define HxbMacro_h
 
-#import "HxbNormalConfig.h"
+#import "HXBSpacingMacro.h"
 #import "MacrosInBusiness.h"
 #import "HxbNotificationMacros.h"
 #import "HXBAPI.h"

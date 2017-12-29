@@ -58,7 +58,7 @@ static NSString *const cellID = @"cellID";
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
-        make.top.equalTo(self.view.mas_top).offset(HxbNavigationBarY);
+        make.top.equalTo(self.view.mas_top).offset(HXBStatusBarAndNavigationBarHeight);
         make.height.offset(kScrAdaptationH750(100));
     }];
     
@@ -197,7 +197,7 @@ static NSString *const cellID = @"cellID";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return kScrAdaptationH750(HxbNavigationBarMaxY);
+    return kScrAdaptationH750(HXBStatusBarAndNavigationBarHeight);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -208,7 +208,7 @@ static NSString *const cellID = @"cellID";
 - (HXBNoDataView *)noDataView
 {
     if (!_noDataView) {
-         _noDataView = [[HXBNoDataView alloc] initWithFrame:CGRectMake(0, HxbNavigationBarY + kScrAdaptationH750(100), kScreenWidth, kScreenHeight - HxbNavigationBarY)];
+         _noDataView = [[HXBNoDataView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight + kScrAdaptationH750(100), kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         
         _noDataView.imageName = @"Fin_NotData";
         _noDataView.noDataMassage = @"暂无投资记录";
