@@ -157,9 +157,9 @@
     }
     self.codeBtn.enabled = NO;
     self.count = 60;
-    [self.codeBtn setBackgroundColor:COR12];
+    [self.codeBtn setBackgroundColor:[UIColor whiteColor]];
     self.codeBtn.layer.borderWidth = 0;
-    [self.codeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [self.codeBtn setTitleColor:COR10 forState:(UIControlStateNormal)];
     [self.codeBtn setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
     [self.timer fire];
 //    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
@@ -231,7 +231,7 @@
         _codeBtn = [[UIButton alloc] init];
         _codeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
         [_codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
-        [_codeBtn setTitleColor:COR10 forState:UIControlStateNormal];
+        [_codeBtn setTitleColor:COR29 forState:UIControlStateNormal];
         [_codeBtn addTarget:self action:@selector(getVerificationCode) forControlEvents:UIControlEventTouchUpInside];
         [_codeBtn setBackgroundColor:[UIColor whiteColor]];
     }

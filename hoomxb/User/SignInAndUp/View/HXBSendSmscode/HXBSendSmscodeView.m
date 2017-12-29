@@ -12,7 +12,7 @@
 #import "HXBFinBaseNegotiateView.h"
 #import "HXBNsTimerManager.h"
 
-static NSString *const kSmscode_ConstLableTitle = @"请输入验证码";
+static NSString *const kSmscode_ConstLableTitle = @"请输入短信验证码";
 static NSString *const kPassword_constLableTitle = @"密码为8-20位数字与字母组合";
 static NSString *const kSetPassWordButtonTitle = @"确认设置登录密码";
 static NSString *const kSendSmscodeAgainTitle = @"语音验证码";
@@ -347,7 +347,7 @@ static NSString *const kSendSmscodeTitle = @"发送验证码";
 - (void)clickSetPassWordButton: (UIButton *)button {
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_registSuccess];
     if (self.smscode_TextField.text.length == 0) {
-        [HxbHUDProgress showTextWithMessage:@"请输入验证码"];
+        [HxbHUDProgress showTextWithMessage:@"请输入短信验证码"];
     } else if (self.smscode_TextField.text.length != 6) {
         [HxbHUDProgress showTextWithMessage:@"请输入正确的验证码"];
     } else {
