@@ -134,13 +134,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (status != kHXBCode_Enum_ProcessingField) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            }
-            if (failureBlock) {
-                failureBlock(responseObject);
-            }
-            return;
+            kHXBResponsShowHUD
         }
         if (successDateBlock) {
             successDateBlock(responseObject);
@@ -167,13 +161,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (status != kHXBCode_Enum_ProcessingField) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            }
-            if (failureBlock) {
-                failureBlock(responseObject);
-            }
-            return;
+            kHXBResponsShowHUD
         }
         if (successDateBlock) {
             successDateBlock(responseObject);
@@ -198,15 +186,6 @@
                                          };
 
     [versionUpdateAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
-//        NSInteger status =  [responseObject[@"status"] integerValue];
-//        if (status != 0) {
-//            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-//            if (failureBlock) {
-//                failureBlock(responseObject);
-//            }
-//            return;
-//        }
         if (successDateBlock) {
             successDateBlock(responseObject);
         }
@@ -242,13 +221,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (isToast && (status != kHXBCode_Enum_ProcessingField)) {
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
-            }
-            if (failureBlock) {
-                failureBlock(responseObject);
-            }
-            return;
+            kHXBResponsShowHUD
         }
         
         HXBCardBinModel *cardBinModel = [HXBCardBinModel yy_modelWithDictionary:responseObject[@"data"]];

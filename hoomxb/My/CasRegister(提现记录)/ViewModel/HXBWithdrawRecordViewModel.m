@@ -53,13 +53,7 @@
         }
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if ((status != kHXBCode_Enum_ProcessingField)) {
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
-            }
-            if (failureBlock) {
-                failureBlock(responseObject);
-            }
-            return;
+            kHXBBuyErrorResponsShowHUD
         }
         
         weakSelf.withdrawRecordListModel = [HXBWithdrawRecordListModel yy_modelWithDictionary:responseObject[kResponseData]];

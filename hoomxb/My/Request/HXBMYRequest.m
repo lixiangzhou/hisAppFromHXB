@@ -661,13 +661,7 @@
     [account_TransferRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         
         if([responseObject[kResponseStatus] integerValue]) {
-            kNetWorkError(@" Plan 账户内债权确认页");
-            if (failureBlock) {
-                failureBlock(responseObject);
-            }
-            if ([responseObject[kResponseStatus] integerValue] != kHXBCode_Enum_ProcessingField) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            }
+            kHXBResponsShowHUD
         }
         HXBTransferConfirmModel *transferConfirmModel = [[HXBTransferConfirmModel alloc]init];
         NSDictionary *dataDic = responseObject[kResponseData];

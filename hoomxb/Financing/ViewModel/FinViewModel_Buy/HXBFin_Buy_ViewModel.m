@@ -18,8 +18,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            return;
+            kHXBBuyErrorResponsShowHUD
         }
         HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
         successDateBlock(bankCardModel);
@@ -27,19 +26,7 @@
         NSLog(@"%@",error);
         [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
     }];
-//    [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-//        NSLog(@"%@",responseObject);
-//        NSInteger status =  [responseObject[@"status"] integerValue];
-//        if (status != 0) {
-//            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-//            return;
-//        }
-//        HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
-//        successDateBlock(bankCardModel);
-//    } failure:^(NYBaseRequest *request, NSError *error) {
-//        NSLog(@"%@",error);
-//        [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
-//    }];
+
 }
 
 @end
