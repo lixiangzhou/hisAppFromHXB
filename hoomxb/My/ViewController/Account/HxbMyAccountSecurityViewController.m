@@ -190,22 +190,21 @@ UITableViewDataSource,UITableViewDelegate
                 }
             } else {
                 if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-                    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"修改手机号，需先绑定银行卡。" force:2 andLeftButtonMassage:@"暂不绑定" andRightButtonMassage:@"立即绑定"];
-                    [alertVC setClickXYRightButtonBlock:^{
+                    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"修改手机号，需先绑定银行卡。" andLeftBtnName:@"暂不绑定" andRightBtnName:@"立即绑定" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+                    alertVC.isCenterShow = YES;
+                    [alertVC setRightBtnBlock:^{
                         //进入绑卡界面
                         HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
                         withdrawCardViewController.title = @"绑卡";
                         withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                         [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
                     }];
-                    [alertVC setClickXYLeftButtonBlock:^{
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                    }];
-                    [self presentViewController:alertVC animated:YES completion:nil];
+            
+                    [self presentViewController:alertVC animated:NO completion:nil];
                 } else {
-                    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"信息不完善" force:2 andLeftButtonMassage:@"暂不完善" andRightButtonMassage:@"去完善信息"];
+                    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"信息不完善" andLeftBtnName:@"暂不完善" andRightBtnName:@"去完善信息" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
                     alertVC.isCenterShow = YES;
-                    [alertVC setClickXYRightButtonBlock:^{
+                    [alertVC setRightBtnBlock:^{
                         //完善信息
                         HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
                         openDepositAccountVC.title = @"完善信息";
@@ -213,12 +212,8 @@ UITableViewDataSource,UITableViewDelegate
                         //                    openDepositAccountVC.userModel = self.userInfoViewModel;
                         [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
                     }];
-                    [alertVC setClickXYLeftButtonBlock:^{
-                        [self dismissViewControllerAnimated:YES completion:nil];
-                    }];
-                    [self presentViewController:alertVC animated:YES completion:nil];
+                    [self presentViewController:alertVC animated:NO completion:nil];
                 }
-                
             }
         }
         

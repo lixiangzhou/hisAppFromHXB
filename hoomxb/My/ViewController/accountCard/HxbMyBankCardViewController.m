@@ -79,13 +79,13 @@
 
 - (void)clickUnbundBankBtn:(UIButton *)sender {
     if ([self.isCashPasswordPassed isEqualToString:@"0"]) { //未设置交易密码
-        HXBGeneralAlertVC *registerAlertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:@"为了您的账户安全，请完善存管账户信息后再进行解绑操作" andLeftBtnName:@"取消" andRightBtnName:@"确定" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
-        [self presentViewController:registerAlertVC animated:NO completion:nil];
+        HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:@"为了您的账户安全，请完善存管账户信息后再进行解绑操作" andLeftBtnName:@"取消" andRightBtnName:@"确定" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+        [self presentViewController:alertVC animated:NO completion:nil];
         kWeakSelf
-        [registerAlertVC setLeftBtnBlock:^{
+        [alertVC setLeftBtnBlock:^{
            NSLog(@"点击取消按钮");
         }];
-        [registerAlertVC setRightBtnBlock:^{
+        [alertVC setRightBtnBlock:^{
             //完善信息
             HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
             openDepositAccountVC.title = @"完善信息";
@@ -93,7 +93,7 @@
             openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
             [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
         }];
-        [registerAlertVC setCancelBtnClickBlock:^{
+        [alertVC setCancelBtnClickBlock:^{
             NSLog(@"点击取消按钮");
         }];
     } else {
