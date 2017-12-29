@@ -17,7 +17,8 @@ NSString *const kHXBNotification_ShowMYVC_PlanList = @"kHXBNotification_ShowMYVC
 NSString *const kHXBBotification_ShowCaptchaVC = @"kHXBBotification_ShowCaptchaVC";
 NSString *const kHXBNotification_ShowMyVC = @"kHXBNotification_ShowMyVC";
 NSString *const kHXBBotification_ShowHomeVC = @"kHXBBotification_ShowHomeVC";
-
+// 监听登录成功
+NSString *const kHXBNotification_checkLoginSuccess = @"kHXBNotification_checkLoginSuccess";
 NSString *const kHXBNotification_PlanAndLoan_Fragment = @"kHXBNotification_PlanAndLoan_fragment";
 
 ///停止请求
@@ -25,7 +26,6 @@ NSString *const kHXBNotification_StopAllRequest = @"kHXBNotification_StopAllRequ
 
 //从后台进入程序唤醒倒计时
 NSString *const kHXBNotification_starCountDown = @"kHXBNotification_starCountDown";
-
 
 NSString *const kHXBNotification_registrationStartCountdown = @"kHXBNotification_registrationStartCountdown";
 //刷新令牌后的通知

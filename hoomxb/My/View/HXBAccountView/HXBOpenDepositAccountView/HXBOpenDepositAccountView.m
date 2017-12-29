@@ -26,7 +26,6 @@
 @property (nonatomic, strong) HXBCustomTextField *bankNumberTextField;
 @property (nonatomic, strong) UIButton *seeLimitBtn;
 @property (nonatomic, strong) HXBCustomTextField *phoneTextField;
-//@property (nonatomic, strong) HXBFinBaseNegotiateView *negotiateView;
 @property (nonatomic, strong) HXBAgreementView *negotiateView;
 @property (nonatomic, strong) UIView *line;
 /** 银行卡号 */
@@ -62,7 +61,6 @@
         [self addSubview:self.phoneTextField];
         [self addSubview:self.negotiateView];
         [self addSubview:self.line];
-        //        [self addSubview:self.bottomBtn];
         [self setupSubViewFrame];
         self.isAgree = YES;
         
@@ -121,14 +119,8 @@
         make.height.offset(kScrAdaptationH(50));
     }];
     
-    
-    //    [self.phoneTextField mas_makeConstraints:^(MASConstraintMaker *make) {
-    //        make.top.equalTo(self.bankNumberTextField.mas_bottom).offset(kScrAdaptationH(10));
-    //        make.left.right.equalTo(self);
-    //        make.height.offset(kScrAdaptationH(50));
-    //    }];
     [self.negotiateView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(-59));
+        make.bottom.equalTo(self.mas_bottom).offset(kScrAdaptationH(-10));
         make.centerX.equalTo(self);
         make.left.equalTo(self).offset(kScrAdaptationW(18));
         make.right.equalTo(self).offset(kScrAdaptationW(-18));
@@ -154,18 +146,18 @@
         [HXBOpenDepositAccountRequest checkCardBinResultRequestWithBankNumber:self.bankNumber andisToastTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
             weakSelf.cardBinModel = cardBinModel;
             [UIView animateWithDuration:0.5 animations:^{
-                self.y = 0;
+                weakSelf.y = 0;
             }];
-            self.bankNumber = [self.bankNumber stringByReplacingOccurrencesOfString:@" "  withString:@""];
+            weakSelf.bankNumber = [weakSelf.bankNumber stringByReplacingOccurrencesOfString:@" "  withString:@""];
             NSDictionary *dic = @{
-                                  @"realName" : self.nameTextField.text,
-                                  @"identityCard" : self.idCardTextField.text,
-                                  @"password" : self.pwdTextField.text,
-                                  @"bankCard" : self.bankNumber,
-                                  @"bankReservedMobile" : self.phoneTextField.text,
-                                  @"bankCode" : self.cardBinModel.bankCode
+                                  @"realName" : weakSelf.nameTextField.text,
+                                  @"identityCard" : weakSelf.idCardTextField.text,
+                                  @"password" : weakSelf.pwdTextField.text,
+                                  @"bankCard" : weakSelf.bankNumber,
+                                  @"bankReservedMobile" : weakSelf.phoneTextField.text,
+                                  @"bankCode" : weakSelf.cardBinModel.bankCode
                                   };
-            self.openAccountBlock(dic);
+            weakSelf.openAccountBlock(dic);
         } andFailureBlock:^(NSError *error) {
             weakSelf.isCheckFailed = YES;
         }];
@@ -214,16 +206,6 @@
         return isNull;
     }
     
-//    if (self.cardBinModel.creditCard) {
-//        [HxbHUDProgress showMessageCenter:@"此卡为信用卡，暂不支持" inView:self];
-//        isNull = YES;
-//        return isNull;
-//    }
-//    if (!(self.cardBinModel.bankCode.length > 0)) {
-//        [HxbHUDProgress showMessageCenter:@"银行卡号没有校验成功，请稍后再试" inView:self];
-//        isNull = YES;
-//        return isNull;
-//    }
     if (!(self.phoneTextField.text.length > 0)) {
         [HxbHUDProgress showMessageCenter:@"预留手机号不能为空" inView:self];
         isNull = YES;
@@ -445,15 +427,6 @@
 {
     _cardBinModel = cardBinModel;
     [self showKabinWithCardBinModel:cardBinModel];
-//    if (cardBinModel.creditCard) {
-//
-//    }else
-//    {
-//        if (cardBinModel.support) {
-//             [self showKabinWithCardBinModel:cardBinModel];
-//        }
-//    }
-  
 }
 
 //是否显示卡bin信息
@@ -493,19 +466,6 @@
         }];
     }
 }
-
-//- (void)setBankCode:(NSString *)bankCode
-//{
-//    _bankCode = bankCode;
-//    if (self.isAgree && ![self isjudgeIsNull:nil]) {
-//        self.bottomBtn.backgroundColor = COR24;
-//        self.bottomBtn.enabled = YES;
-//    }else
-//    {
-//        self.bottomBtn.backgroundColor = COR26;
-//        self.bottomBtn.enabled = NO;
-//    }
-//}
 
 #pragma mark - 懒加载
 - (HXBDepositoryHeaderView *)headerTipView

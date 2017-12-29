@@ -306,19 +306,19 @@
             cout--;
             KeyChain.gesturePwdCount = [NSString stringWithFormat:@"%d",cout];
             if (cout <= 0) {
-                
-                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"很抱歉，您的手势密码五次输入错误" force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确定"];
-                alertVC.isCenterShow = YES;
+                HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"很抱歉，您的手势密码五次输入错误" andLeftBtnName:@"取消" andRightBtnName:@"确定" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
                 [KeyChain removeGesture];
+                KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
                 [KeyChain signOut];
-                [alertVC setClickXYRightButtonBlock:^{
+                alertVC.leftBtnBlock = ^{
+                    [[HXBRootVCManager manager] makeTabbarRootVC];
+                };
+                alertVC.rightBtnBlock = ^{
                     [[HXBRootVCManager manager] makeTabbarRootVC];
                     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:@{kHXBMY_VersionUpdateURL : @YES}];
-                }];
-                [alertVC setClickXYLeftButtonBlock:^{
-                    [[HXBRootVCManager manager] makeTabbarRootVC];
-                }];
-                [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+                };
+                
+                [self presentViewController:alertVC animated:NO completion:nil];
                 return;
             }
             [self.msgLabel showWarnMsgAndShake:[NSString stringWithFormat:@"密码错了，还可输入%@次", KeyChain.gesturePwdCount]];
@@ -341,15 +341,19 @@
     BOOL appeared = KeyChain.skipGestureAlertAppeared;
     if (appeared == NO) {
         // 弹窗
-        HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:nil andSubTitle:@"为了您的账户安全，\n建议您设置手势密码" andLeftBtnName:@"跳过设置" andRightBtnName:@"开始设置" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+        HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:nil andSubTitle:@"为了您的账户安全，建议您设置手势密码" andLeftBtnName:@"跳过设置" andRightBtnName:@"开始设置" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
         alertVC.leftBtnBlock = ^{
             KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
             [KeyChain removeGesture];
-            
             [[HXBRootVCManager manager] makeTabbarRootVC];
             // 只出现一次弹窗
             KeyChain.skipGestureAlertAppeared = YES;
         };
+        alertVC.rightBtnBlock = ^{
+            
+        };
+        
+        alertVC.rightBtnBlock = ^{};
         
         [self presentViewController:alertVC animated:NO completion:nil];
     }

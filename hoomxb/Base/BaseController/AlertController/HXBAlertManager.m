@@ -28,14 +28,15 @@
 
 @implementation HXBAlertManager
 + (void)alertNeedLoginAgainWithMeaage:(NSString *)message {
-    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"登录异常" Massage:message force:2 andLeftButtonMassage:@"知道了" andRightButtonMassage:@"重新登录"];
-    [alertVC setClickXYRightButtonBlock:^{
-        ///到登录界面
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+    
+    HXBGeneralAlertVC *registerAlertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"登录异常" andSubTitle:message andLeftBtnName:@"知道了" andRightBtnName:@"重新登录" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+    [registerAlertVC setLeftBtnBlock:^{
         ///显示Home
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
     }];
-    [alertVC setClickXYLeftButtonBlock:^{
+    [registerAlertVC setRightBtnBlock:^{
+        ///到登录界面
+        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         ///显示Home
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
     }];
@@ -50,7 +51,7 @@
         VC = tbVC;
     }
     
-    [VC.navigationController presentViewController:alertVC animated:YES completion:nil];
+    [VC.navigationController presentViewController:registerAlertVC animated:NO completion:nil];
 }
 
 /**
@@ -184,20 +185,23 @@
  */
 + (void)callupWithphoneNumber:(NSString *)phoneNumber andWithTitle:(NSString *)title Message:(NSString *)message {
 
-    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:title Massage:message force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"拨打"];
-    alertVC.isCenterShow = YES;
-    [alertVC setClickXYRightButtonBlock:^{
+    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:title andSubTitle:message andLeftBtnName:@"取消" andRightBtnName:@"拨打" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+    alertVC.leftBtnBlock = ^{
+        
+    };
+    alertVC.rightBtnBlock = ^{
         NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", phoneNumber];
         NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0" options:NSNumericSearch];
         
-            if (compare == NSOrderedDescending || compare == NSOrderedSame) {
-                /// 大于等于10.0系统使用此openURL方法
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
-            } else {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
-            }
-    }];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+        if (compare == NSOrderedDescending || compare == NSOrderedSame) {
+            /// 大于等于10.0系统使用此openURL方法
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
+        } else {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
+        }
+    };
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:NO completion:nil];
 }
 
 + (void)checkversionUpdateWith:(HXBVersionUpdateModel *)versionUpdateModel {

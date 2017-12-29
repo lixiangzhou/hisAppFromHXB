@@ -59,7 +59,6 @@
     
     [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:self];//展示首页弹窗
     [[HXBVersionUpdateManager sharedInstance] show];
-    
     [self hideNavigationBar:animated];
     [self getData:YES];
     self.homeView.userInfoViewModel = self.userInfoViewModel;
@@ -119,9 +118,19 @@
     if (KeyChain.isLogin) {
         [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
             weakSelf.userInfoViewModel = viewModel;
-            weakSelf.homeView.userInfoViewModel = self.userInfoViewModel;
+            weakSelf.homeView.userInfoViewModel = weakSelf.userInfoViewModel;
         } andFailure:^(NSError *error) {
-            weakSelf.homeView.userInfoViewModel = self.userInfoViewModel;
+            if (weakSelf.userInfoViewModel) {
+                weakSelf.homeView.userInfoViewModel = weakSelf.userInfoViewModel;
+            } else {
+                weakSelf.userInfoViewModel = [[HXBRequestUserInfoViewModel alloc] init];
+                id responseObject = [PPNetworkCache httpCacheForURL:kHXBUser_UserInfoURL parameters:nil];
+                HXBUserInfoModel *userInfoModel = [[HXBUserInfoModel alloc]init];
+                [userInfoModel yy_modelSetWithDictionary:responseObject[@"data"]];
+                userInfoModel.userAssets.availablePoint = HXBIdentifier;
+                weakSelf.userInfoViewModel.userInfoModel = userInfoModel;
+                weakSelf.homeView.userInfoViewModel = weakSelf.userInfoViewModel;
+            }
         }];
     } else {
         self.homeView.userInfoViewModel = self.userInfoViewModel;
