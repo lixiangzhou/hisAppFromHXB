@@ -710,6 +710,8 @@
 		4E739B5E1F0A3E35000A4D1E /* HXBVersionUpdateViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBVersionUpdateViewModel.m; sourceTree = "<group>"; };
 		4E77C41E1F3E9D4C004257E6 /* HXBDepositoryAlertViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBDepositoryAlertViewController.h; sourceTree = "<group>"; };
 		4E77C41F1F3E9D4C004257E6 /* HXBDepositoryAlertViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBDepositoryAlertViewController.m; sourceTree = "<group>"; };
+		4E7BBBEF1FF5E59C0092FD09 /* HXBBackgroundColorMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBackgroundColorMacros.h; sourceTree = "<group>"; };
+		4E7BBBF01FF60D860092FD09 /* HXBFountColorMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFountColorMacros.h; sourceTree = "<group>"; };
 		4E7BDEB81F187923002A3E18 /* HXBCustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCustomTextField.h; sourceTree = "<group>"; };
 		4E7BDEB91F187923002A3E18 /* HXBCustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBCustomTextField.m; sourceTree = "<group>"; };
 		4E7BDEBB1F189F02002A3E18 /* bank.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = bank.svg; sourceTree = "<group>"; };
@@ -2529,6 +2531,8 @@
 				E12800F71F023AB40066FB66 /* HXBCode.h */,
 				E12800F81F023AB40066FB66 /* HXBCode.m */,
 				9A37BCB01FCEA3E400B2B81F /* HXBMacroSwitch.h */,
+				4E7BBBEF1FF5E59C0092FD09 /* HXBBackgroundColorMacros.h */,
+				4E7BBBF01FF60D860092FD09 /* HXBFountColorMacros.h */,
 			);
 			path = Macros;
 			sourceTree = "<group>";
