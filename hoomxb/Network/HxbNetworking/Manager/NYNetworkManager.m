@@ -120,7 +120,17 @@
 - (void)callBackRequestSuccess:(NYBaseRequest *)request
 {
     if (request.success) {
-        [self defaultMethodRequestSuccessWithRequest:request];
+        if([request.hudDelegate respondsToSelector:@selector(erroStateCodeDeal:)]) {
+            if([request.hudDelegate erroStateCodeDeal:request]) {
+                if(request.failure) {
+                    request.failure(request, nil);
+                    return;
+                }
+            }
+        }
+        else {
+            [self defaultMethodRequestSuccessWithRequest:request];
+        }
         request.success(request,request.responseObject);
     }
     [self clearRequestBlock:request];
@@ -132,7 +142,15 @@
 - (void)callBackRequestFailure:(NYBaseRequest *)request
 {    
     if (request.failure) {
-        [self defaultMethodRequestFaulureWithRequest:request];
+        if([request.hudDelegate respondsToSelector:@selector(erroResponseCodeDeal:)]) {
+            if([request.hudDelegate erroResponseCodeDeal:request]) {
+                request.failure(request, nil);
+                return;
+            }
+        }
+        else{
+           [self defaultMethodRequestFaulureWithRequest:request];
+        }
         request.failure(request,request.error);
     }
 

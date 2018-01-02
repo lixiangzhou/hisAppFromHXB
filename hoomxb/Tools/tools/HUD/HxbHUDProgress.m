@@ -28,12 +28,16 @@
 
 + (void)showTextWithMessage:(NSString *)message{
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    MBProgressHUD *HUD = [[MBProgressHUD alloc]initWithView:keyWindow];
-    [keyWindow addSubview:HUD];
+    [self showTextInView:keyWindow text:message];
+}
+
++ (void)showTextInView:(UIView*)view text:(NSString *)message {
+    MBProgressHUD *HUD = [[MBProgressHUD alloc]initWithView:view];
+    [view addSubview:HUD];
     HUD.removeFromSuperViewOnHide = YES;
-        NSString *text = message;
-//        HUD.detailsLabel.text = text;
-//        HUD.detailsLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
+    NSString *text = message;
+    //        HUD.detailsLabel.text = text;
+    //        HUD.detailsLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
     HUD.mode = MBProgressHUDModeText;
     HUD.bezelView.backgroundColor = [UIColor blackColor];
     HUD.label.text = NSLocalizedString(text, @"HUD loading title");
