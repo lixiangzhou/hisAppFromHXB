@@ -34,7 +34,6 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (error && failureBlock) {
-            NSLog(@"✘ 首页资金等- 请求没有数据");
             failureBlock(error);
         }
     }];

@@ -208,15 +208,13 @@
     NSString *accumulatedProfitStr = accountInfoViewModel.earnTotal? [NSString GetPerMilWithDouble:accountInfoViewModel.earnTotal]: @"0.00";
     
     NSString *balance = accountInfoViewModel.availablePoint ? [NSString GetPerMilWithDouble:accountInfoViewModel.availablePoint] : @"0.00";
-    if ([KeyChain.ciphertext isEqualToString:@"0"])
-    {
+    if ([KeyChain.ciphertext isEqualToString:@"0"]) {
         self.securyButton.selected = NO;
         //        self.holdingAssetsLabel.text = allFinanceStr;
         self.accumulatedProfitLabel.text = accumulatedProfitStr;
         self.balanceLabel.text = balance;
         self.allAssetsLabel.text = allAssetsStr;
-    }else
-    {
+    } else {
         self.securyButton.selected = YES;
         //        self.holdingAssetsLabel.text = kSecuryText;
         self.accumulatedProfitLabel.text = kSecuryText;

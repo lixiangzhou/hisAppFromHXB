@@ -21,11 +21,7 @@
         NSLog(@"获取理财顾问信息%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            if (failureBlock) {
-                failureBlock(nil);
-            }
-            return;
+            kHXBResponsShowHUD
         }
         
         HXBFinancialAdvisorModel *financialAdvisorInfoModel = [[HXBFinancialAdvisorModel alloc]init];
