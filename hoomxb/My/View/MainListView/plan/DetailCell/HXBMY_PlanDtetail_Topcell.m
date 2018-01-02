@@ -21,7 +21,7 @@
 - (void)setPlanDetailViewModel:(HXBMYViewModel_PlanDetailViewModel *)planDetailViewModel {
     _planDetailViewModel = planDetailViewModel;
     self.inComeLable.text = self.planDetailViewModel.addAuomt;
-    self.planTypeLable.text = self.planDetailViewModel.cashType;
+    self.planTypeLable.text = self.planDetailViewModel.planDetailModel.incomeApproach;
     self.inComeLable_Const.text = self.planDetailViewModel.inComeLable_ConstStr;
 }
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

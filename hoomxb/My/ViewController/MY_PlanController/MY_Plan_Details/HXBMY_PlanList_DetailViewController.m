@@ -174,17 +174,17 @@
         ///判断到底是哪种
         [weakSelf judgementStatusWithStauts: viewModel.statusInt andManager:manager andHXBMYViewModel_PlanDetailViewModel:viewModel];
 
-        manager.typeViewManager.leftStrArray = @[
-                                                 @"收益处理方式"
-                                                 ];
-        manager.typeViewManager.rightStrArray = @[viewModel.cashType];
+        manager.typeViewManager.leftStrArray = @[@"收益处理方式"];
+        
+        manager.typeViewManager.rightStrArray = @[viewModel.planDetailModel.incomeApproach ?: @""];
+        
+        if (viewModel.isMonthyPayment) {
+            manager.monthlyPamentViewManager.leftStrArray = @[@"付息日"];
+            manager.monthlyPamentViewManager.rightStrArray = @[viewModel.planDetailModel.interestDate ?: @""];
+        }
    
-
-
-        manager.strArray = @[
-                             @"投资记录",
-                             @"红利计划服务协议"
-                             ];
+        manager.strArray = @[@"投资记录", @"红利计划服务协议"];
+        
         manager.isHiddenAddButton = viewModel.isAddButtonHidden;
         return manager;
     }];

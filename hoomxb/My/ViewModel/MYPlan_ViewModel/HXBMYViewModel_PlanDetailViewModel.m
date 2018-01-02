@@ -51,18 +51,18 @@ static NSString *kINVEST = @"INVEST";
 /**
  收益方式
  */
-- (NSString *) cashType {
-    if (!_cashType){
-        ///	string	处理方式 （HXB：当日提取至红小宝账户，INVEST：收益再投资）
-        if ([self.planDetailModel.cashType isEqualToString:@"HXB"]) {
-            _cashType = @"当日提取至红小宝账户";
-        }
-        if ([self.planDetailModel.cashType isEqualToString:@"INVEST"]){
-            _cashType = @"收益再投资";
-        }
-    }
-    return _cashType;
-}
+//- (NSString *) cashType {
+//    if (!_cashType){
+//        ///    string    处理方式 （HXB：当日提取至红小宝账户，INVEST：收益再投资）
+//        if ([self.planDetailModel.cashType isEqualToString:@"HXB"]) {
+//            _cashType = @"当日提取至红小宝账户";
+//        }
+//        if ([self.planDetailModel.cashType isEqualToString:@"INVEST"]){
+//            _cashType = @"收益再投资";
+//        }
+//    }
+//    return _cashType;
+//}
 ///以收益
 - (NSString *) earnAmount {
     if(!_earnAmount) {
@@ -197,6 +197,13 @@ static NSString *kINVEST = @"INVEST";
         _endLockingTime = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:self.planDetailModel.endLockingTime andDateFormat:@"yyyy-MM-dd"];
     }
     return _endLockingTime;
+}
+
+- (BOOL)isMonthyPayment {
+    if ([_planDetailModel.cashType isEqualToString:@"HXB"]) {
+        return YES;
+    }
+    return NO;
 }
 
 @end

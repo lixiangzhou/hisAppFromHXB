@@ -51,6 +51,10 @@
  type view
  */
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager      *typeViewManager;
+/**
+ 付息日
+ */
+@property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager      *monthlyPamentViewManager;
 ///**
 // // 投资记录
 // */
