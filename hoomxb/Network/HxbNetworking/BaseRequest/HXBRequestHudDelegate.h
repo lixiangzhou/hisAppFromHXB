@@ -8,8 +8,29 @@
 
 #import <Foundation/Foundation.h>
 
+@class NYBaseRequest;
+
 @protocol HXBRequestHudDelegate <NSObject>
+
+#pragma mark 弹框显示
 - (void)showProgress;
 - (void)showToast:(NSString *)toast;
 - (void)hideProgress;
+
+#pragma mark 错误码处理
+/**
+ 错误的状态码处理
+
+ @param request 请求对象
+ @return 是否已经做了处理
+ */
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request;
+
+/**
+ 错误的响应码处理
+ 
+ @param request 请求对象
+ @return 是否已经做了处理
+ */
+- (BOOL)erroResponseCodeDeal:(NYBaseRequest *)request;
 @end

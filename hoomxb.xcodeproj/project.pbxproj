@@ -269,7 +269,6 @@
 		8DAD307B1FBA8F8C00E2AEE8 /* HXBBaseTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30481FBA8F8B00E2AEE8 /* HXBBaseTabBarController.m */; };
 		8DAD307C1FBA8F8C00E2AEE8 /* HXBBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD304A1FBA8F8B00E2AEE8 /* HXBBaseViewController.m */; };
 		8DAD307E1FBA8F8C00E2AEE8 /* HXBBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD304F1FBA8F8B00E2AEE8 /* HXBBaseModel.m */; };
-		8DAD307F1FBA8F8C00E2AEE8 /* HXBBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30511FBA8F8B00E2AEE8 /* HXBBaseViewModel.m */; };
 		8DAD30801FBA8F8C00E2AEE8 /* HXBBaseViewConcentricCirclesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30551FBA8F8B00E2AEE8 /* HXBBaseViewConcentricCirclesView.m */; };
 		8DAD30811FBA8F8C00E2AEE8 /* HXBBasePasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30571FBA8F8B00E2AEE8 /* HXBBasePasswordView.m */; };
 		8DAD30821FBA8F8C00E2AEE8 /* HXBBaseScrollToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30591FBA8F8B00E2AEE8 /* HXBBaseScrollToolBarView.m */; };
@@ -292,6 +291,7 @@
 		9A226B281FE7B87E00E27DAC /* HXBBaseContDownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B271FE7B87E00E27DAC /* HXBBaseContDownModel.m */; };
 		9A226B2B1FE7C22500E27DAC /* NSString+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B2A1FE7C22500E27DAC /* NSString+IDPExtension.m */; };
 		9A36E3301FC6AB1700C318B3 /* HXBBaseWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */; };
+		9A41AB951FF649030058C314 /* HXBBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A41AB941FF649030058C314 /* HXBBaseViewModel.m */; };
 		9A5A2B711FE9136A00818846 /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5A2B6F1FE9136900818846 /* NSTimer+Addition.m */; };
 		9A5A2B741FEA284700818846 /* HXBThemAdapterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5A2B721FEA284600818846 /* HXBThemAdapterManager.m */; };
 		9AF220EF1FC2BA8F00002D1D /* HXBBaseUrlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */; };
@@ -1019,8 +1019,6 @@
 		8DAD304A1FBA8F8B00E2AEE8 /* HXBBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewController.m; sourceTree = "<group>"; };
 		8DAD304E1FBA8F8B00E2AEE8 /* HXBBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseModel.h; sourceTree = "<group>"; };
 		8DAD304F1FBA8F8B00E2AEE8 /* HXBBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseModel.m; sourceTree = "<group>"; };
-		8DAD30501FBA8F8B00E2AEE8 /* HXBBaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseViewModel.h; sourceTree = "<group>"; };
-		8DAD30511FBA8F8B00E2AEE8 /* HXBBaseViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewModel.m; sourceTree = "<group>"; };
 		8DAD30541FBA8F8B00E2AEE8 /* HXBBaseViewConcentricCirclesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseViewConcentricCirclesView.h; sourceTree = "<group>"; };
 		8DAD30551FBA8F8B00E2AEE8 /* HXBBaseViewConcentricCirclesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewConcentricCirclesView.m; sourceTree = "<group>"; };
 		8DAD30561FBA8F8B00E2AEE8 /* HXBBasePasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBasePasswordView.h; sourceTree = "<group>"; };
@@ -1066,6 +1064,8 @@
 		9A36E32A1FC6AB1700C318B3 /* HXBBaseWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWKWebViewController.h; sourceTree = "<group>"; };
 		9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWKWebViewController.m; sourceTree = "<group>"; };
 		9A37BCB01FCEA3E400B2B81F /* HXBMacroSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMacroSwitch.h; sourceTree = "<group>"; };
+		9A41AB931FF649030058C314 /* HXBBaseViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseViewModel.h; sourceTree = "<group>"; };
+		9A41AB941FF649030058C314 /* HXBBaseViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewModel.m; sourceTree = "<group>"; };
 		9A5A2B6F1FE9136900818846 /* NSTimer+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
 		9A5A2B701FE9136A00818846 /* NSTimer+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
 		9A5A2B721FEA284600818846 /* HXBThemAdapterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBThemAdapterManager.m; sourceTree = "<group>"; };
@@ -2764,6 +2764,7 @@
 		8DAD303E1FBA8F8B00E2AEE8 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				9A41AB921FF6483B0058C314 /* BaseViewModel */,
 				8DAD303F1FBA8F8B00E2AEE8 /* BaseController */,
 				8DAD304D1FBA8F8B00E2AEE8 /* BaseObject */,
 				8DAD30521FBA8F8B00E2AEE8 /* BaseView */,
@@ -2802,8 +2803,6 @@
 			children = (
 				8DAD304E1FBA8F8B00E2AEE8 /* HXBBaseModel.h */,
 				8DAD304F1FBA8F8B00E2AEE8 /* HXBBaseModel.m */,
-				8DAD30501FBA8F8B00E2AEE8 /* HXBBaseViewModel.h */,
-				8DAD30511FBA8F8B00E2AEE8 /* HXBBaseViewModel.m */,
 			);
 			path = BaseObject;
 			sourceTree = "<group>";
@@ -2921,6 +2920,15 @@
 				4E613B381FC809C0003FC5F9 /* HXBWKWebViewProgressView.m */,
 			);
 			path = WebViewController;
+			sourceTree = "<group>";
+		};
+		9A41AB921FF6483B0058C314 /* BaseViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9A41AB931FF649030058C314 /* HXBBaseViewModel.h */,
+				9A41AB941FF649030058C314 /* HXBBaseViewModel.m */,
+			);
+			path = BaseViewModel;
 			sourceTree = "<group>";
 		};
 		9AF220EA1FC2BA8F00002D1D /* BaseURL */ = {
@@ -4907,6 +4915,7 @@
 				E1FF8EDA1F0F66A100C7F1AC /* HXBFin_LoanTruansferDetail_TopView.m in Sources */,
 				4E94B27A1ECC1B3D003CCBA7 /* HXBMY_PlanListViewController.m in Sources */,
 				4E94B2791ECC1B23003CCBA7 /* HXBBaseView_MYList_TableViewCell.m in Sources */,
+				9A41AB951FF649030058C314 /* HXBBaseViewModel.m in Sources */,
 				E1757B071EFA40DF009C0BC8 /* HXBFinModel_BuyResoult_LoanModel.m in Sources */,
 				4E559B4B1F0F8B67003D9982 /* HXBGetValidationCodeView.m in Sources */,
 				4EE2E38C1FA2D857000812C7 /* HXBWithdrawRecordCell.m in Sources */,
@@ -5129,7 +5138,6 @@
 				285D700E1F6BE13C006B520B /* HXBCreditorChangeTopView.m in Sources */,
 				E1C10A501EBC640E00C21984 /* HXBFinPlanDetailsView_FlowChart.m in Sources */,
 				E16314311EC0761C0090567E /* HXBFinHomePageViewModel_LoanList.m in Sources */,
-				8DAD307F1FBA8F8C00E2AEE8 /* HXBBaseViewModel.m in Sources */,
 				4E81E3971EE8F8E4006AD3FC /* UIView+HXBFrame.m in Sources */,
 				4E559B4E1F0FAFFC003D9982 /* HXBRechargeCompletedViewController.m in Sources */,
 				8DAD308D1FBA8F8C00E2AEE8 /* SwipeTableView.m in Sources */,
