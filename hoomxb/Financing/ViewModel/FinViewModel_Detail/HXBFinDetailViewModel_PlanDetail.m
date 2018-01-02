@@ -307,6 +307,16 @@
     return _addCondition;
 }
 /**
+ 加入条件
+ */
+- (NSString *)addCondition_detail {
+    if (!_addCondition) {
+        _addCondition_detail = [NSString stringWithFormat:@"%@起投，%@递增",[NSString hxb_getPerMilWithIntegetNumber:self.minRegisterAmount.doubleValue],[NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.registerMultipleAmount.doubleValue]];
+    }
+    return _addCondition_detail;
+}
+
+/**
  加入方式
  */
 - (NSString *) profitType_UI {
