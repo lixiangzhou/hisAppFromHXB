@@ -159,9 +159,10 @@
 //MARK: 红利计划列表api
 - (void)planBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray,NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
     
-    //是否为上拉刷新
+    //是否为下拉刷新
     self.planListAPI.isUPReloadData = isUPData;///这里一定要 在前面  否则 api的page不会++ 或变为1
-    self.planListAPI.requestUrl = kHXBFinanc_PlanLisetURL(self.planListAPI.dataPage);
+    NSString *planListUrl = isUPData ? @"/plan?page=1&cashType=HXB": [NSString stringWithFormat:@"/plan?page=%ld",self.planListAPI.dataPage];
+    self.planListAPI.requestUrl = planListUrl;
     self.planListAPI.requestMethod = NYRequestMethodGet;
     [self.planListAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
@@ -183,18 +184,6 @@
         }
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-//        [self.planListViewModelArray removeAllObjects];
-//        id responseObject = [PPNetworkCache httpCacheForURL:@"/plan" parameters:nil];
-//        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-//        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
-//        //数据的处理
-//        [self plan_handleDataWithIsUPData:isUPData andData:planListViewModelArray];
-//        if (responseObject) {
-//            if (planListViewModelArray.count) {
-//                successDateBlock(planListViewModelArray);
-//                return;
-//            }
-//        }
         if (failureBlock) {
             failureBlock(error);
         }
