@@ -41,9 +41,10 @@
     secondLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     secondLabel.textAlignment = NSTextAlignmentLeft;
     secondLabel.text = @"还款方式";
+    kWeakSelf
     [firstLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(self.contentView).offset(kScrAdaptationH(5));
-        make.left.mas_equalTo(self.contentView).offset(15);
+        make.top.mas_equalTo(weakSelf.contentView).offset(kScrAdaptationH(5));
+        make.left.mas_equalTo(weakSelf.contentView).offset(15);
         make.height.offset(kScrAdaptationH(35));
         make.width.offset(kScrAdaptationW(120));
     }];
@@ -55,13 +56,13 @@
     }];
     [_returnTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(firstLabel);
-        make.right.mas_equalTo(self.contentView).offset(-15);
+        make.right.mas_equalTo(weakSelf.contentView).offset(-15);
         make.height.offset(kScrAdaptationH(35));
         make.width.offset(kScrAdaptationW(120));
     }];
     [_returnTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.mas_equalTo(secondLabel);
-        make.right.mas_equalTo(self.contentView).offset(-15);
+        make.right.mas_equalTo(weakSelf.contentView).offset(-15);
         make.height.offset(kScrAdaptationH(35));
         make.width.offset(kScrAdaptationW(120));
     }];

@@ -163,16 +163,16 @@
     kWeakSelf
     //布局
     [self.moneyOffCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lineImageView.mas_bottom);
-        make.bottom.equalTo(self.contentView);
-        make.left.equalTo(self.contentView).offset(kScrAdaptationW750(30));
+        make.top.equalTo(weakSelf.lineImageView.mas_bottom);
+        make.bottom.equalTo(weakSelf.contentView);
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(30));
         make.width.offset(kScrAdaptationW750(60));
     }];
     
     [self.discountCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.lineImageView.mas_bottom);
-        make.bottom.equalTo(self.contentView);
-        make.left.equalTo(self.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(25));
+        make.top.equalTo(weakSelf.lineImageView.mas_bottom);
+        make.bottom.equalTo(weakSelf.contentView);
+        make.left.equalTo(weakSelf.moneyOffCouponImageView.mas_right).offset(kScrAdaptationW750(25));
         make.width.offset(kScrAdaptationW750(60));
     }];
     
@@ -203,9 +203,9 @@
     }];
     
     [self.lineImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.contentView);
+        make.left.right.equalTo(weakSelf.contentView);
         make.height.offset(DottedLineHeight);
-        make.top.equalTo(self.expectedYearRateLable_Const.mas_bottom).offset(kScrAdaptationH750(30));
+        make.top.equalTo(weakSelf.expectedYearRateLable_Const.mas_bottom).offset(kScrAdaptationH750(30));
     }];
     
     [self.lockPeriodLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -231,9 +231,9 @@
     }];
     //时间的图标
     [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.countDownView.mas_left);
-        make.height.top.equalTo(self.countDownLable);
-        make.width.equalTo(self.countDownLable.mas_height);
+        make.left.equalTo(weakSelf.countDownView.mas_left);
+        make.height.top.equalTo(weakSelf.countDownLable);
+        make.width.equalTo(weakSelf.countDownLable.mas_height);
     }];
     [self.preferentialLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH750(20));

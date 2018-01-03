@@ -622,8 +622,6 @@ static const NSInteger topView_high = 300;
                 [weakSelf setUpArray];
             }
         };
-        _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
-        _topView.placeholderStr = _placeholderStr;
         _topView.block = ^{ // 点击一键购买执行的方法
         };
     }
