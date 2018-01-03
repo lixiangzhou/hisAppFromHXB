@@ -201,12 +201,7 @@
             weakSelf.clickPlanListCellBlock(indexPage,model);
         }
     }];
-    self.planListTableView.block = ^(id model) {
-        if (weakSelf.clickPlanListCellBlock) {
-            NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:1];
-            weakSelf.clickPlanListCellBlock(indexpath, model);
-        }
-    };
+
     //红利计划下拉刷新
     [self.planListTableView hxb_headerWithRefreshBlock:^{
         if (weakSelf.planRefreshHeaderBlock)

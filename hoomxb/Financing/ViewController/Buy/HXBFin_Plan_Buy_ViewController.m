@@ -599,7 +599,6 @@ static const NSInteger topView_high = 300;
         _topView.profitStr = @"预期收益0.00元";
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
-        // fixme
         _topView.profitType = _featuredSlogan;
         _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
             weakSelf.bottomView.addBtnIsUseable = text.length;
@@ -639,7 +638,7 @@ static const NSInteger topView_high = 300;
     _bottomView.delegateLabelText = @"红利计划服务协议》,《网络借贷协议书";
     _bottomView.delegateBlock = ^(NSInteger index) {
         if (index == 1) {
-            NSString *negotiate = [weakSelf.cashType isEqualToString:@"HXB"] ? [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] : [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL];
+            NSString *negotiate = [weakSelf.cashType isEqualToString:@"HXB"] ? [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanMonthURL] : [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL];
             [HXBBaseWKWebViewController pushWithPageUrl:negotiate fromController:weakSelf];
         } else {
             [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Agreement_Hint] fromController:weakSelf];

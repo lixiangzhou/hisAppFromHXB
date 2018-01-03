@@ -295,14 +295,6 @@
     _expectedYearRateLable_Const.text = _expectedYearRateLable_ConstStr;
 }
 
-- (void)setPlanType:(NSString *)planType {
-    if ([planType isEqualToString:@"HXB"]) {
-        
-    } else {
-        
-    }
-}
-
 #pragma mark Getter
 - (UIImageView *)discountCouponImageView {
     if (!_discountCouponImageView) {
