@@ -354,6 +354,7 @@
                 manager.leaveTime = weakSelf.planDetailViewModel.endLockingTime_flow;
                 return manager;
             }];
+            cell.flowChartView.profitStr = [self.planDetailViewModel.planDetailModel.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && self.planDetailViewModel.planDetailModel.interestDate ? self.planDetailViewModel.planDetailModel.interestDate : @"收益复投";
         }
         return cell;
     } else {

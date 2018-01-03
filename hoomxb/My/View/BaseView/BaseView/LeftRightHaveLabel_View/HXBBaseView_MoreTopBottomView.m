@@ -52,14 +52,16 @@
                                                andAlignment: self.viewManager.leftLabelAlignment
                                                andTextColor:self.viewManager.leftTextColor
                                          andBackGroundColor:self.viewManager.leftViewColor
-                                                    andFont: self.viewManager.leftFont];
+                                                    andFont: self.viewManager.leftFont
+                                                     andNum:i andLeftOrRight:@"left"];
         
         BOOL isSetUPViewValue_right = [self setValueWithView:self.rightViewArray[i]
                                                       andStr:self.viewManager.rightStrArray[i]
                                                 andAlignment: self.viewManager.rightLabelAlignment
                                                 andTextColor:self.viewManager.rightTextColor
                                           andBackGroundColor:self.viewManager.rightViewColor
-                                                     andFont:self.viewManager.rightFont];
+                                                     andFont:self.viewManager.rightFont
+                                                      andNum:i andLeftOrRight:@"right"];
         if(!isSetUPViewValue_Left) {
             NSLog(@"%@，左边的第 %ld个view赋值失败",self,i);
         }
@@ -119,10 +121,23 @@
     }
     for (NSInteger i = 1; i < topBottomViewNumber * 2 + 1; i ++) {
         if (i % 2 == 0) {
-            UIView * rightView = [[class alloc]init];
-            [self addSubview:rightView];
-            [rightViewArray addObject:rightView];
-            [allViewArray addObject:rightView];
+            if ([self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && 4 == i) {
+
+                UILabel * rightView = [[UILabel alloc]init];
+                UILabel *infoLab = [[UILabel alloc]init];
+                [rightView addSubview:infoLab];
+                UIButton *infoBtn = [[UIButton alloc]init];
+                [rightView addSubview:infoBtn];
+                
+                [self addSubview:rightView];
+                [rightViewArray addObject:rightView];
+                [allViewArray addObject:rightView];
+            } else {
+                UIView * rightView = [[class alloc]init];
+                [self addSubview:rightView];
+                [rightViewArray addObject:rightView];
+                [allViewArray addObject:rightView];
+            }
         }else {
             UIView *leftView = [[class alloc] init];
             [self addSubview:leftView];
@@ -139,12 +154,26 @@
     [self.viewManager setValue:self.leftViewArray forKey:@"allViewArray"];
 }
 ///给view 赋值，并且返回是否赋值成功
-- (BOOL) setValueWithView: (UIView *)view andStr: (NSString *)value andAlignment: (NSTextAlignment)alignment andTextColor:(UIColor *)textColor andBackGroundColor: (UIColor *)backGroundColor andFont: (UIFont *)font{
+- (BOOL) setValueWithView: (UIView *)view andStr: (NSString *)value andAlignment: (NSTextAlignment)alignment andTextColor:(UIColor *)textColor andBackGroundColor: (UIColor *)backGroundColor andFont: (UIFont *)font andNum: (NSInteger)i andLeftOrRight:(NSString *)location{
     view.userInteractionEnabled = YES;
     if(!backGroundColor) {
         backGroundColor = [UIColor whiteColor];
     }
     if ([view isKindOfClass:[UILabel class]]) {
+        if ([self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && 1 == i && self.rightViewArray[i].subviews.count>1 && [location isEqualToString:@"right"]) {
+            UILabel *infoLab = nil;
+            for (UIView *view in self.rightViewArray[i].subviews) {
+                if ([view isKindOfClass:[UILabel class]]) {
+                    infoLab = (UILabel *)view;
+                    infoLab.text = value;
+                    infoLab.textAlignment = alignment;
+                    infoLab.textColor = textColor;
+                    infoLab.backgroundColor = backGroundColor;
+                    infoLab.font = font;
+                    return YES;
+                }
+            }
+        }
         UILabel *label = (UILabel *)view;
         label.text = value;
         label.textAlignment = alignment;
@@ -170,33 +199,55 @@
 
 //正在进行
 - (void)setUPViews_frameWithSpace:(UIEdgeInsets)space {
-    
+    kWeakSelf
     for (NSInteger i = 0; i < self.leftViewArray.count; i++) {
         [self.leftViewArray[i] sizeToFit];
         [self.rightViewArray[i] sizeToFit];
         if (i == 0) {
             [self.leftViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self).offset(space.top);
-                make.left.equalTo(self).offset(space.left);
-                make.height.equalTo(@(self.viewH));
+                make.top.equalTo(weakSelf).offset(space.top);
+                make.left.equalTo(weakSelf).offset(space.left);
+                make.height.equalTo(@(weakSelf.viewH));
             }];
             [self.rightViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.bottom.equalTo(self.leftViewArray[i]);
-                make.left.equalTo(self.leftViewArray[i].mas_right).offset(self.leftProportion);
-                make.right.equalTo(self).offset(-space.right);
+                make.top.bottom.equalTo(weakSelf.leftViewArray[i]);
+                make.left.equalTo(weakSelf.leftViewArray[i].mas_right).offset(weakSelf.leftProportion);
+                make.right.equalTo(weakSelf).offset(-space.right);
             }];
         } else {
             [self.leftViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.leftViewArray[i - 1].mas_bottom).offset(self.topBottomSpace);
-                make.left.equalTo(self.leftViewArray[i - 1]);
-                make.height.equalTo(self.leftViewArray[i - 1]);
+                make.top.equalTo(weakSelf.leftViewArray[i - 1].mas_bottom).offset(weakSelf.topBottomSpace);
+                make.left.equalTo(weakSelf.leftViewArray[i - 1]);
+                make.height.equalTo(weakSelf.leftViewArray[i - 1]);
 //                make.width.equalTo(self.leftViewArray[i - 1]);
             }];
             [self.rightViewArray[i] mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.bottom.top.equalTo(self.leftViewArray[i]);
-                make.left.equalTo(self.leftViewArray[i].mas_right).offset(self.leftProportion);
-                make.right.equalTo(self.rightViewArray[i - 1]);
+                make.bottom.top.equalTo(weakSelf.leftViewArray[i]);
+                make.left.equalTo(weakSelf.leftViewArray[i].mas_right).offset(weakSelf.leftProportion);
+                make.right.equalTo(weakSelf.rightViewArray[i - 1]);
             }];
+            if ([self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && 1 == i && self.rightViewArray[i].subviews.count>1) { 
+                UIButton *infoBtn = nil;
+                UILabel *infoLab = nil;
+                for (UIView *view in self.rightViewArray[i].subviews) {
+                    if ([view isKindOfClass:[UILabel class]]) {
+                        infoLab = (UILabel *)view;
+                    }
+                    if ([view isKindOfClass:[UIButton class]]) {
+                        infoBtn = (UIButton *)view;
+                    }
+                }
+                [infoLab mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.right.mas_equalTo(weakSelf.rightViewArray[i].right).offset(-kScrAdaptationH(20));
+                    make.left.equalTo(weakSelf.rightViewArray[i]);
+                    make.bottom.top.equalTo(weakSelf.rightViewArray[i]);
+                }];
+                [infoBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.bottom.top.equalTo(weakSelf.rightViewArray[i]);
+                    make.width.mas_equalTo(kScrAdaptationW(14));
+                    make.left.equalTo(infoLab.mas_right).offset(kScrAdaptationW(5));
+                }];
+            }
         }
     }
 }

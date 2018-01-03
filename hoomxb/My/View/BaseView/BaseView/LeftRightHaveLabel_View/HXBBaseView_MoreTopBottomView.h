@@ -30,7 +30,7 @@ typedef enum : NSUInteger {
  */
 @property (nonatomic,strong) NSArray <UIView *> *allViewArray;
 
-
+@property (nonatomic,copy) NSString* cashType;//退出方式
 /**
  创建方法
  @param topBottomViewNumber 上下一共几层

@@ -27,6 +27,8 @@
  安全屏障
  受益处理方式
  */
+@property (nonatomic,copy) NSString *cashType;//类型
+@property (nonatomic,assign) NSUInteger typeViewCount;//类型上下层级
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *typeView;
 /**
  服务费
@@ -38,6 +40,16 @@
 @end
 
 @implementation HXBFinPlanDetail_DetailView
+
+- (instancetype) initWithFrame:(CGRect)frame withCashType:(NSString *) cashType{
+    if (self = [super initWithFrame:frame]) {
+        self.cashType = cashType;
+        self.typeViewCount = [self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? 3 : 2;//是否按月付息
+        [self setUP];
+        _manager = [[HXBFinPlanDetail_DetailViewManager alloc]init];
+    }
+    return self;
+}
 
 - (instancetype) initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -83,7 +95,23 @@
     
     self.dateView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets];
     
-    self.typeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:2 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets];
+    self.typeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:self.typeViewCount andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets];//2
+    self.typeView.cashType = self.cashType;
+    UILabel * rightView = (UILabel *)self.typeView.rightViewArray[1];
+    if ([self.typeView.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && rightView.subviews.count > 1) {
+        UIButton *infoBtn = nil;
+        for (UIView *view in rightView.subviews) {
+            if ([view isKindOfClass:[UIButton class]]) {
+                infoBtn = (UIButton *)view;
+            }
+        }
+        [infoBtn setImage:[UIImage imageNamed:@"planDetail_info"] forState:UIControlStateNormal];
+        rightView.userInteractionEnabled = YES;
+        [infoBtn addTarget:self action:@selector(clickInfoBtn) forControlEvents:UIControlEventTouchUpInside];
+//        [infoBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -rightView.imageView.size.width, 0, rightView.imageView.size.width)];
+//        [infoBtn setImageEdgeInsets:UIEdgeInsetsMake(0, rightView.titleLabel.bounds.size.width, 0, -rightView.titleLabel.bounds.size.width)];
+    }
+    
     
     self.serverView =  [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets];
     UILabel *button = (UILabel *)self.serverView.rightViewArray.firstObject;
@@ -95,6 +123,19 @@
     self.typeView.backgroundColor = [UIColor whiteColor];
     self.serverView.backgroundColor = [UIColor whiteColor];
 }
+
+- (void)clickInfoBtn{
+    NSLog(@"点击infoBtn");
+    NSString *titleStr = self.cashType && [self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? @"按月付息" : @"";
+    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:titleStr Massage:@"购买该计划产品的用户，收益将会按当月时间返回到账内即可提取，如当月无此付息日，则统一为当月最后一天为该月付息日" force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
+    alertVC.isHIddenLeftBtn = YES;
+    alertVC.isCenterShow = YES;
+    [alertVC setClickXYRightButtonBlock:^{
+        [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
+}
+
 - (void)clickServerButton : (UITapGestureRecognizer *)tap
 {
     if (self.clickServerButtonBlock) {
@@ -125,7 +166,11 @@
     [self.typeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.dateView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(self);
-        make.height.equalTo(@(kScrAdaptationH(75)));
+        if (self.typeViewCount == 3) {
+            make.height.equalTo(@(kScrAdaptationH(115)));
+        } else {
+            make.height.equalTo(@(kScrAdaptationH(75)));
+        }
     }];
     [self.serverView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.typeView.mas_bottom).offset(kScrAdaptationH(10));
