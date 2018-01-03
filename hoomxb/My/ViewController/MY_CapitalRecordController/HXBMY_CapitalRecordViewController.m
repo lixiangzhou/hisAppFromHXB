@@ -44,7 +44,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"交易记录";
-    self.automaticallyAdjustsScrollViewInsets = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     self.screenType = @" ";
     [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:YES];
     [self setUP];

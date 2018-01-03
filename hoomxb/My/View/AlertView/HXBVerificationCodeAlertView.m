@@ -7,6 +7,7 @@
 //
 
 #import "HXBVerificationCodeAlertView.h"
+#import "HXBNsTimerManager.h"
 
 @interface HXBVerificationCodeAlertView ()<UITextFieldDelegate>
 
@@ -21,7 +22,7 @@
 
 @property (nonatomic, assign) int count;
 
-@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, strong) HXBNsTimerManager *timer;
 @end
 
 
@@ -123,10 +124,7 @@
     self.speechVerificationCodeBtn.enabled = YES;
     [self.speechVerificationCodeBtn setTitle:@"获取语音验证码" forState:UIControlStateNormal];
     [self.speechVerificationCodeBtn setTitleColor:RGB(45, 121, 243) forState:UIControlStateNormal];
-    if (self.timer.isValid) {
-        [self.timer invalidate];
-        self.timer = nil;
-    }
+    [self stopTimer];
 }
 
 - (void)disEnabledBtns{
@@ -137,7 +135,14 @@
     [self.codeBtn setTitleColor:COR10 forState:(UIControlStateNormal)];
     self.count = 60;
     [self.codeBtn setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
-    [self.timer fire];
+    [self.timer startTimer];
+}
+
+- (void)stopTimer {
+    if(_timer) {
+        [self.timer stopTimer];
+        self.timer = nil;
+    }
 }
 
 - (void)getSpeechVerificationCode
@@ -157,11 +162,11 @@
     }
     self.codeBtn.enabled = NO;
     self.count = 60;
-    [self.codeBtn setBackgroundColor:COR12];
+    [self.codeBtn setBackgroundColor:[UIColor whiteColor]];
     self.codeBtn.layer.borderWidth = 0;
-    [self.codeBtn setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
+    [self.codeBtn setTitleColor:COR10 forState:(UIControlStateNormal)];
     [self.codeBtn setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
-    [self.timer fire];
+    [self.timer startTimer];
 //    self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
     if (self.getVerificationCodeBlock) {
         self.getVerificationCodeBlock();
@@ -170,12 +175,9 @@
 
 - (void)timeDown
 {
-    self.count--;
     [self.codeBtn setTitle:[NSString stringWithFormat:@"%ds",self.count] forState:UIControlStateNormal];
-    if (self.count <= -1) {
+    if (!self.timer.isTimerWorking) {
         self.codeBtn.enabled = YES;
-        [self.timer invalidate];
-        self.timer = nil;
         [self.codeBtn setBackgroundColor:[UIColor whiteColor]];
         [self.codeBtn setTitleColor:COR29 forState:(UIControlStateNormal)];
         [self.codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
@@ -193,10 +195,13 @@
 
 #pragma mark - 懒加载
 
-- (NSTimer *) timer {
+- (HXBNsTimerManager *) timer {
     if (!_timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timeDown) userInfo:nil repeats:YES];
-        [[NSRunLoop mainRunLoop] addTimer:_timer forMode:NSRunLoopCommonModes];
+        kWeakSelf
+        _timer = [HXBNsTimerManager createTimer:1 startSeconds:self.count countDownTime:YES notifyCall:^(NSString *times) {
+            weakSelf.count = times.intValue;
+            [weakSelf timeDown];
+        }];
     }
     return _timer;
 }
@@ -231,7 +236,7 @@
         _codeBtn = [[UIButton alloc] init];
         _codeBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(28);
         [_codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
-        [_codeBtn setTitleColor:COR10 forState:UIControlStateNormal];
+        [_codeBtn setTitleColor:COR29 forState:UIControlStateNormal];
         [_codeBtn addTarget:self action:@selector(getVerificationCode) forControlEvents:UIControlEventTouchUpInside];
         [_codeBtn setBackgroundColor:[UIColor whiteColor]];
     }
@@ -269,8 +274,7 @@
 }
 - (void)dealloc
 {
-    [self.timer invalidate];
-    self.timer = nil;
+    [self stopTimer];
 }
 
 

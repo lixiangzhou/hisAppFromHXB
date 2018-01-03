@@ -34,7 +34,7 @@
 - (UITableView *)mainTableView
 {
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - HxbNavigationBarY)];
+        _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - HXBNavigationBarHeight)];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;

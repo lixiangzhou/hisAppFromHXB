@@ -17,8 +17,12 @@
 #import "NSString+HxbGeneral.h"
 #import "HXBVersionUpdateManager.h"
 #import "UIImage+HXBUtil.h"
+#import "HxbSignUpViewController.h"
+#import "HXBNoticeViewController.h"
+#import "HXBBannerWebViewController.h"
 
-//#define kRegisterVC @"/account/register"//注册页面
+#define kRegisterVC @"/account/register"//注册页面
+#define kNoticeVC @"/home/notice"//公告列表
 #define kPlanDetailVC @"/plan/detail"//某个计划的详情页
 //#define kLoanDetailVC @"/loan/detail"//某个散标的详情页
 #define kPlan_fragment @"/home/plan_fragment"//红利计划列表页
@@ -182,6 +186,15 @@
             } else {
                 return;
             }
+        } else if([homePopViewModel.url hasPrefix:kRegisterVC]){
+            //注册
+            //跳转登录注册
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowSignUpVC object:nil];
+            
+        }else if ([homePopViewModel.url hasPrefix:kNoticeVC]){
+            //公告列表
+            HXBNoticeViewController *noticeVC = [[HXBNoticeViewController alloc] init];
+            [controller.navigationController pushViewController:noticeVC animated:YES];
         }
     } else if ([homePopViewModel.type isEqualToString:@"broswer"]) {
         if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:homePopViewModel.url]]) {
@@ -191,7 +204,13 @@
 //                NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],@"0b025dfa-4613-4ba9-a9e8-5805fdb6a829"];
         //        [HXBBaseWKWebViewController pushWithPageUrl:str fromController:controller];
         //[HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:homePopViewModel.link] fromController:controller];
-        [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.url fromController:controller];
+        
+        if (homePopViewModel.url.length) {
+            HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+            webViewVC.pageUrl = homePopViewModel.url;
+            [controller.navigationController pushViewController:webViewVC animated:YES];
+        }
+//        [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.url fromController:controller];
     }
     
     [self.popView dismiss];

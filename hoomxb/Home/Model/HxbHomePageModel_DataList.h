@@ -102,5 +102,14 @@
  */
 @property (nonatomic, copy) NSString *fixExtraInterestRate;
 
+/**
+ 2.4.0新增字段-计划的类型
+ */
+@property (nonatomic, copy) NSString *cashType;
+
+/**
+ 2.4.0新增字段-付息日
+ */
+@property (nonatomic, copy) NSString *cashDrawDay;
 
 @end
