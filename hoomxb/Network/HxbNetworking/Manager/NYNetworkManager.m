@@ -38,7 +38,9 @@
         [hud showAnimationWithText:content];
     }
     else {
-        [request showLoding:YES];
+        if(request.showHud) {
+           [request showLoding:YES];
+        }
     }
     NSLog(@"%@",request.httpHeaderFields);
     
@@ -50,7 +52,9 @@
             [hud hide];
         }
         else{
-            [request showLoding:NO];
+            if(request.showHud) {
+                [request showLoding:NO];
+            }
         }
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
@@ -60,7 +64,9 @@
             [hud hide];
         }
         else {
-            [request showLoding:NO];
+            if(request.showHud) {
+                [request showLoding:NO];
+            }
         }
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         [self processConnection:connection withRequest:request error:error];
@@ -76,7 +82,9 @@
         [hud showAnimation];
     }
     else {
-        [request showLoding:YES];
+        if(request.showHud) {
+            [request showLoding:YES];
+        }
     }
     
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
@@ -86,7 +94,9 @@
             [hud hide];
         }
         else {
-            [request showLoding:NO];
+            if(request.showHud) {
+                [request showLoding:NO];
+            }
         }
         [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
@@ -95,7 +105,9 @@
             [hud hide];
         }
         else {
-            [request showLoding:NO];
+            if(request.showHud) {
+                [request showLoding:NO];
+            }
         }
         [self processConnection:connection withRequest:request error:error];
     }];
