@@ -217,7 +217,13 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            kHXBResponsShowHUD
+            if (isToast && (status != kHXBCode_Enum_ProcessingField)) {
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            }
+            if (failureBlock) {
+                failureBlock(responseObject);
+            }
+            return;
         }
         
         HXBCardBinModel *cardBinModel = [HXBCardBinModel yy_modelWithDictionary:responseObject[@"data"]];
