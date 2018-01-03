@@ -248,6 +248,10 @@
             vc = webViewVC;
         }
         
+    } else if ([model.type isEqualToString:@"broswer"]) {
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:model.url]]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:model.url]];
+        }
     }
     [self.navigationController pushViewController:vc animated:YES];
 }
