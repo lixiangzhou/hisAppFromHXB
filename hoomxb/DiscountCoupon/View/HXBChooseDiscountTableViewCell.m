@@ -47,36 +47,37 @@ typedef enum : NSUInteger {
 }
 
 - (void)setUpFrame {
+    kWeakSelf
     [_iconImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self);
-        make.left.equalTo(self);
+        make.top.equalTo(weakSelf);
+        make.left.equalTo(weakSelf);
         make.width.offset(kScrAdaptationW750(67.1));
         make.height.offset(kScrAdaptationH750(68.1));
     }];
     [_selectImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.left.equalTo(self).offset(kScrAdaptationW750(30));
+        make.centerY.equalTo(weakSelf);
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW750(30));
         make.width.offset(kScrAdaptationW750(32));
         make.height.offset(kScrAdaptationH750(32));
     }];
     [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationW750(28));
-        make.left.equalTo(self).offset(kScrAdaptationW750(92));
+        make.top.equalTo(weakSelf).offset(kScrAdaptationW750(28));
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW750(92));
         make.height.offset(kScrAdaptationH750(30));
     }];
     [_detailLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_titleLabel.mas_bottom).offset(kScrAdaptationH750(16));
-        make.left.equalTo(_titleLabel.mas_left);
+        make.top.equalTo(weakSelf.titleLabel.mas_bottom).offset(kScrAdaptationH750(16));
+        make.left.equalTo(weakSelf.titleLabel.mas_left);
         make.height.offset(kScrAdaptationH750(24));
     }];
     [_moneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.right.equalTo(self).offset(-kScrAdaptationW750(30));
+        make.centerY.equalTo(weakSelf);
+        make.right.equalTo(weakSelf).offset(-kScrAdaptationW750(30));
         make.height.offset(kScrAdaptationH750(34));
     }];
     [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self);
-        make.right.equalTo(self.mas_right);
+        make.bottom.equalTo(weakSelf);
+        make.right.equalTo(weakSelf.mas_right);
         make.width.offset(kScreenWidth);
         make.height.offset(kScrAdaptationH(0.5));
     }];
