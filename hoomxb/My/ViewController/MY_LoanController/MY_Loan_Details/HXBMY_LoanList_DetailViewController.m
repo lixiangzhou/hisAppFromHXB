@@ -95,8 +95,9 @@
     [self.view addSubview:self.loanDetailView];
     [self.view addSubview:self.transferBtn];
     [self.transferBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
+        make.left.right.equalTo(self.view);
         make.height.offset(kScrAdaptationH(50));
+        make.bottom.equalTo(self.view).offset(-HXBBottomAdditionHeight);
     }];
     
     self.loanDetailViewModel = _loanDetailViewModel;
