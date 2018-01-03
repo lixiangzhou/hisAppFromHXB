@@ -249,8 +249,8 @@
         }
         
     } else if ([model.type isEqualToString:@"broswer"]) {
-        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:model.url]]) {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:model.url]];
+        if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:model.link]]) {
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:model.link]];
         }
     }
     [self.navigationController pushViewController:vc animated:YES];
