@@ -22,18 +22,12 @@
 //                                         @"versionCode" : versionCode
 //                                         };
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         
-        if (status == 0) {
-            
-        } else if (status == 1) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            if (failureBlock) {
-                failureBlock(responseObject);
-            }
-            return;
+        if (status) {
+            kHXBResponsShowHUD
         }
+        
         if (successDateBlock) {
             successDateBlock(responseObject);
         }

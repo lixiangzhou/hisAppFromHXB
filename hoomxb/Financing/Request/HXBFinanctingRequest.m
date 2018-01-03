@@ -159,16 +159,22 @@
 //MARK: 红利计划列表api
 - (void)planBuyListWithIsUpData: (BOOL)isUPData andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray,NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
     
-    //是否为上拉刷新
+    //是否为下拉刷新
     self.planListAPI.isUPReloadData = isUPData;///这里一定要 在前面  否则 api的page不会++ 或变为1
-    self.planListAPI.requestUrl = kHXBFinanc_PlanLisetURL(self.planListAPI.dataPage);
+    NSString *planListUrl = isUPData ? @"/plan?page=1&cashType=HXB": [NSString stringWithFormat:@"/plan?page=%ld",self.planListAPI.dataPage];
+    self.planListAPI.requestUrl = planListUrl;
     self.planListAPI.requestMethod = NYRequestMethodGet;
     [self.planListAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
-        ///数据是否出错
+        ///计划列表数据是否出错
         kHXBResponsShowHUD
-        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
+        NSMutableArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
+        NSArray <NSDictionary *>* recommendList = responseObject[@"data"][@"recommendList"];
+        if (recommendList.count > 0) {
+            [dataList insertObjects:recommendList atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, recommendList.count)]];
+        }
         NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
+
         //数据的处理
         [self plan_handleDataWithIsUPData:request.isUPReloadData andData:planListViewModelArray];
         
@@ -178,23 +184,11 @@
                 [PPNetworkCache setHttpCache:responseObject URL:@"/plan" parameters:nil];
             }
             NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
-            successDateBlock(self.planListViewModelArray,totalCountStr.integerValue);
+            successDateBlock(self.planListViewModelArray, totalCountStr.integerValue);
             [HXBDataManager setFin_PlanListViewModelArrayWithArray:self.planListViewModelArray];///缓存数据
         }
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-//        [self.planListViewModelArray removeAllObjects];
-//        id responseObject = [PPNetworkCache httpCacheForURL:@"/plan" parameters:nil];
-//        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-//        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
-//        //数据的处理
-//        [self plan_handleDataWithIsUPData:isUPData andData:planListViewModelArray];
-//        if (responseObject) {
-//            if (planListViewModelArray.count) {
-//                successDateBlock(planListViewModelArray);
-//                return;
-//            }
-//        }
         if (failureBlock) {
             failureBlock(error);
         }

@@ -57,44 +57,45 @@
 }
 
 - (void)setupFrame {
+    kWeakSelf
     [_backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.right.equalTo(self);
+        make.top.left.right.equalTo(weakSelf);
         make.height.offset(kScrAdaptationH(248) - HXBStatusBarAndNavigationBarHeight);
     }];
     
     [_topLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(kScrAdaptationH(15));
-        make.centerX.equalTo(self.mas_centerX);
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(15));
+        make.centerX.equalTo(weakSelf.mas_centerX);
         make.height.offset(kScrAdaptationH(40));
     }];
     
     [_topItemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_topLabel.mas_bottom).offset(kScrAdaptationH(5));
-        make.centerX.equalTo(self.mas_centerX);
+        make.top.equalTo(weakSelf.topLabel.mas_bottom).offset(kScrAdaptationH(5));
+        make.centerX.equalTo(weakSelf.mas_centerX);
         make.height.offset(kScrAdaptationH(20));
     }];
     
     [_leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_topItemLabel.mas_bottom).offset(kScrAdaptationH(20));
-        make.centerX.equalTo(self.mas_centerX).offset(-kScreenWidth / 4);
+        make.top.equalTo(weakSelf.topItemLabel.mas_bottom).offset(kScrAdaptationH(20));
+        make.centerX.equalTo(weakSelf.mas_centerX).offset(-kScreenWidth / 4);
         make.height.offset(kScrAdaptationH(33));
     }];
     
     [_leftItemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_leftLabel.mas_bottom).offset(kScrAdaptationH(5));
-        make.centerX.equalTo(_leftLabel);
+        make.top.equalTo(weakSelf.leftLabel.mas_bottom).offset(kScrAdaptationH(5));
+        make.centerX.equalTo(weakSelf.leftLabel);
         make.height.offset(kScrAdaptationH(20));
     }];
     
     [_rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_leftLabel.mas_top);
-        make.centerX.equalTo(self.mas_centerX).offset(kScreenWidth / 4);
+        make.top.equalTo(weakSelf.leftLabel.mas_top);
+        make.centerX.equalTo(weakSelf.mas_centerX).offset(kScreenWidth / 4);
         make.height.offset(kScrAdaptationH(33));
     }];
     
     [_rightItemLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_leftItemLabel);
-        make.centerX.equalTo(_rightLabel);
+        make.top.equalTo(weakSelf.leftItemLabel);
+        make.centerX.equalTo(weakSelf.rightLabel);
         make.height.offset(kScrAdaptationH(20));
     }];
 }

@@ -300,11 +300,7 @@
     bankCardAPI.requestMethod = NYRequestMethodGet;
     [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            return;
-        }
+        kHXBBuyErrorResponsShowHUD
         weakSelf.withdrawModel = [HXBWithdrawModel yy_modelWithJSON:responseObject[@"data"]];
         
     } failure:^(NYBaseRequest *request, NSError *error) {

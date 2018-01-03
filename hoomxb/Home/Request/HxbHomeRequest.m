@@ -34,7 +34,6 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (error && failureBlock) {
-            NSLog(@"✘ 首页资金等- 请求没有数据");
             failureBlock(error);
         }
     }];
@@ -48,6 +47,9 @@
     homePlanRecommendAPI.requestMethod = NYRequestMethodGet;
     homePlanRecommendAPI.requestUrl = kHXBHome_HomeURL;
     homePlanRecommendAPI.isUPReloadData = isUPReloadData;
+    homePlanRecommendAPI.requestArgument = @{
+                                             @"cashType" : @"ALL"
+                                             };
     [homePlanRecommendAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
          NSDictionary *baseDic = [responseObject valueForKey:@"data"];

@@ -104,7 +104,7 @@
                                                 ];
         manager.addViewManager.rightStrArray = @[
                                                 [NSString hxb_getPerMilWithIntegetNumber:detailData.amount],//@"测试加入原因";//计化金额
-                                                weakSelf.planDetailModel.addCondition,//加入条件
+                                                weakSelf.planDetailModel.addCondition_detail,//加入条件
                                                 weakSelf.planDetailModel.singleMaxRegisterAmount//加入上线
                                                 ];
         manager.dateViewManager.leftStrArray = @[

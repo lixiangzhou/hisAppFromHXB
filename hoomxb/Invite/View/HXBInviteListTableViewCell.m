@@ -49,34 +49,35 @@ NSString *const HXBInviteListTableViewCellIdentifier = @"HXBInviteListTableViewC
 }
 
 - (void)setupFrame {
+    kWeakSelf
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(kScrAdaptationW(20));
-        make.top.equalTo(self).offset(kScrAdaptationH(10));
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(10));
         make.height.offset(kScrAdaptationH(15));
     }];
     
     [_mobileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(kScrAdaptationW(20));
-        make.top.equalTo(_nameLabel.mas_bottom).offset(kScrAdaptationH(10));
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
+        make.top.equalTo(weakSelf.nameLabel.mas_bottom).offset(kScrAdaptationH(10));
         make.height.offset(kScrAdaptationH(14));
     }];
     
     [_contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-kScrAdaptationW(20));
-        make.top.equalTo(self).offset(kScrAdaptationH(10));
+        make.right.equalTo(weakSelf).offset(-kScrAdaptationW(20));
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(10));
         make.height.offset(kScrAdaptationH(15));
     }];
     
     [_inviteTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(-kScrAdaptationW(20));
-        make.top.equalTo(_contentLabel.mas_bottom).offset(kScrAdaptationH(10));
+        make.right.equalTo(weakSelf).offset(-kScrAdaptationW(20));
+        make.top.equalTo(weakSelf.contentLabel.mas_bottom).offset(kScrAdaptationH(10));
         make.height.offset(kScrAdaptationH(15));
     }];
     
     [_separatorLineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self).offset(kScrAdaptationW(20));
-        make.right.equalTo(self).offset(-kScrAdaptationW(20));
-        make.top.equalTo(self).offset(kScrAdaptationH(59.5));
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
+        make.right.equalTo(weakSelf).offset(-kScrAdaptationW(20));
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(59.5));
         make.height.offset(kHXBDivisionLineHeight);
     }];
 }

@@ -85,6 +85,7 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
+@property (nonatomic, assign) BOOL hasInvestMoney; // 是否是从上个页面带入的金额，是的话不校验金额，不是的话，校验金额
 @end
 
 @implementation HXBFin_Plan_Buy_ViewController
@@ -216,14 +217,9 @@ static const NSInteger topView_high = 300;
     }
     if (_inputMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
-    } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
-        self.topView.totalMoney = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
-        _inputMoneyStr = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
-        _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _availablePoint.floatValue*self.totalInterest.floatValue/100.0];
-        [self getBESTCouponWithMoney:_inputMoneyStr];
-        _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
+    } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) { // 超过可加入金额是，只check，不用强制到最大可加入金额
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
-    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _availablePoint.doubleValue > _minRegisterAmount.doubleValue) {
+    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
@@ -237,10 +233,14 @@ static const NSInteger topView_high = 300;
         } else {
             isFitToBuy = _inputMoneyStr.integerValue % _registerMultipleAmount.integerValue ? NO : YES;
         }
-        if (!isFitToBuy && _inputMoneyStr.integerValue != _availablePoint.integerValue) {
-            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-        } else {
+        if (_hasInvestMoney) {
             [self chooseBuyTypeWithSting:_btnLabelText];
+        } else {
+            if (isFitToBuy) {
+                [self chooseBuyTypeWithSting:_btnLabelText];
+            } else {
+                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+            }
         }
     }
 }
@@ -543,8 +543,10 @@ static const NSInteger topView_high = 300;
             _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _topView.disableKeyBorad = YES;
+            _hasInvestMoney = YES;
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
+            _hasInvestMoney = NO;
             _topView.disableKeyBorad = NO;
         }
     } else {
@@ -552,8 +554,10 @@ static const NSInteger topView_high = 300;
             _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _topView.disableKeyBorad = YES;
+            _hasInvestMoney = YES;
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
+            _hasInvestMoney = NO;
             _topView.disableKeyBorad = NO;
         }
     }
@@ -595,7 +599,7 @@ static const NSInteger topView_high = 300;
         _topView.profitStr = @"预期收益0.00元";
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
-        
+        _topView.profitType = _featuredSlogan;
         _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
             weakSelf.bottomView.addBtnIsUseable = text.length;
             BOOL isFitToBuy = NO;
@@ -618,8 +622,6 @@ static const NSInteger topView_high = 300;
                 [weakSelf setUpArray];
             }
         };
-        _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
-        _topView.placeholderStr = _placeholderStr;
         _topView.block = ^{ // 点击一键购买执行的方法
         };
     }
@@ -632,10 +634,10 @@ static const NSInteger topView_high = 300;
     kWeakSelf
     _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
     _bottomView.delegateLabelText = @"红利计划服务协议》,《网络借贷协议书";
-    
     _bottomView.delegateBlock = ^(NSInteger index) {
         if (index == 1) {
-            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:weakSelf];
+            NSString *negotiate = [weakSelf.cashType isEqualToString:@"HXB"] ? [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanMonthURL] : [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL];
+            [HXBBaseWKWebViewController pushWithPageUrl:negotiate fromController:weakSelf];
         } else {
             [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Agreement_Hint] fromController:weakSelf];
         }

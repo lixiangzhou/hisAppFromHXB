@@ -9,7 +9,7 @@
 #ifndef HXBColorMacro_h
 #define HXBColorMacro_h
 ///背景色
-#define kHXBColor_BackGround  [UIColor colorWithRed:245/255.0f green:245/255.0f blue:249/255.0f alpha:1]
+#define kHXBColor_BackGround  kHXBBackgroundColor
 
 /**
 红色系
@@ -43,8 +43,8 @@
 //浅灰 （字体颜色）(r:0.40 g:0.40 b:0.40 a:1.00)
 #define kHXBColor_HeightGrey_Font0_4 [UIColor colorWithRed:0.40 green:0.40 blue:0.40 alpha:1.00]//
 //浅灰 
-#define kHXBColor_Font0_5 [UIColor colorWithRed:221/256.0 green:221/256.0 blue:221/256.0 alpha:1.00]//
-#define kHXBColor_Font0_6 [UIColor colorWithRed:153/256.0 green:153/256.0 blue:153/256.0 alpha:1.00]
+#define kHXBColor_Font0_5 kHXBSpacingLineColor_DDDDDD_100//
+#define kHXBColor_Font0_6 kHXBColor_999999_100
 
 //-------- 蓝色
 #define kHXBColor_Blue040610 kHXBColor_RGB(0.45, 0.68, 1.0, 1.0 )
@@ -66,13 +66,13 @@
 
 // 黑系
 #define COR5    [UIColor colorWithRed:34/255.0f green:34/255.0f blue:34/255.0f alpha:1]    // 色
-#define COR6    [UIColor colorWithRed:51/255.0f green:51/255.0f blue:51/255.0f alpha:1]    // 色
+#define COR6    kHXBColor_333333_100    // 色
 #define COR7    [UIColor colorWithRed:85/255.0f green:85/255.0f blue:85/255.0f alpha:1]    // 色
 
 // 深灰
-#define COR8    [UIColor colorWithRed:102/255.0f green:102/255.0f blue:102/255.0f alpha:1]    // 色
+#define COR8    kHXBColor_666666_100    // 色
 #define COR9    [UIColor colorWithRed:136/255.0f green:136/255.0f blue:136/255.0f alpha:1]    // 色
-#define COR10    [UIColor colorWithRed:153/255.0f green:153/255.0f blue:153/255.0f alpha:1]    // 色
+#define COR10   kHXBColor_999999_100    // 色
 // 中灰
 #define COR11    [UIColor colorWithRed:155/255.0f green:155/255.0f blue:155/255.0f alpha:1]    // 色
 // 浅灰
@@ -82,7 +82,7 @@
 #define COR13    [UIColor colorWithRed:232/255.0f green:232/255.0f blue:232/255.0f alpha:1]    // 色
 #define COR14    [UIColor colorWithRed:240/255.0f green:240/255.0f blue:240/255.0f alpha:1]    // 色
 
-#define COR15    [UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:1]    // 白色
+#define COR15    kHXBColor_FFFFFF_100    // 白色
 
 #define COR16    [UIColor colorWithRed:254/255.0f green:163/255.0f blue:163/255.0f alpha:1]    // 粉色
 
@@ -102,13 +102,13 @@
 
 #define COR24    [UIColor colorWithRed:227/255.0f green:191/255.0f blue:128/255.0f alpha:1] //按钮黄色背景
 
-#define COR25    [UIColor colorWithRed:115/255.0f green:173/255.0f blue:255/255.0f alpha:1] //按钮蓝色
+#define COR25    kHXBColor_73ADFF_100 //按钮蓝色
 
 #define COR26    [UIColor colorWithRed:218/255.0f green:218/255.0f blue:223/255.0f alpha:1] //按钮不能点击状态
 #define COR27    [UIColor colorWithRed:255/255.0f green:255/255.0f blue:255/255.0f alpha:0.6] //按钮不能点击状态
 #define COR28    [UIColor colorWithRed:74/255.0f green:74/255.0f blue:74/255.0f alpha:1] 
 
-#define COR29    [UIColor colorWithRed:245/255.0f green:81/255.0f blue:81/255.0f alpha:1]
+#define COR29    kHXBColor_F55151_100
 
 #define COR30    [UIColor colorWithRed:114/255.0f green:176/255.0f blue:255/255.0f alpha:1]
 

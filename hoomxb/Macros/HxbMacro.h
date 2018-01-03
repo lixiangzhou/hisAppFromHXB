@@ -9,12 +9,14 @@
 #ifndef HxbMacro_h
 #define HxbMacro_h
 
-#import "HxbNormalConfig.h"
+#import "HXBSpacingMacro.h"
 #import "MacrosInBusiness.h"
 #import "HxbNotificationMacros.h"
 #import "HXBAPI.h"
 #import "HXBFontMacro.h"
 #import "HXBColorMacro.h"
+#import "HXBFountColorMacros.h"
+#import "HXBBackgroundColorMacros.h"
 #import "KeyChainManage.h"
 #import "HxbFileManager.h"
 #import "UserDefaultManage.h"

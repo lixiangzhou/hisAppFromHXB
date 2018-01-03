@@ -416,6 +416,7 @@
     planJoinVC.isFirstBuy = [self.planDetailViewModel.planDetailModel.isFirst boolValue];
     planJoinVC.totalInterest = self.planDetailViewModel.totalInterest;
     planJoinVC.loanId = self.planDetailViewModel.ID;
+    planJoinVC.featuredSlogan = self.planListViewModel.planListModel.featuredSlogan;
     planJoinVC.minRegisterAmount = self.planDetailViewModel.planDetailModel.minRegisterAmount;
     planJoinVC.cashType = self.planDetailViewModel.profitType;
     planJoinVC.registerMultipleAmount = self.planDetailViewModel.planDetailModel.registerMultipleAmount;

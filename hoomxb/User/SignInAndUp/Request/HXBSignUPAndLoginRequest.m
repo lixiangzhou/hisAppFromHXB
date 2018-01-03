@@ -173,21 +173,17 @@
     smscodeAPI.requestMethod = NYRequestMethodPost;
     NSString *actionStr = [HXBSignUPAndLoginRequest_EnumManager getKeyWithHXBSignUPAndLoginRequest_sendSmscodeType:action];
     smscodeAPI.requestArgument = @{
-                                   @"mobile":mobile,///     是	string	用户名
-                                   @"action":actionStr,///     是	string	signup(参照通用短信发送类型)
-                                   @"captcha":captcha///	是	string	校验图片二维码
+                                   @"mobile":mobile ?: @"",///     是	string	用户名
+                                   @"action":actionStr ?: @"",///     是	string	signup(参照通用短信发送类型)
+                                   @"captcha":captcha ?: @""///	是	string	校验图片二维码
                                    };
     [smscodeAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         
 //        kHXBResponsShowHUD
         NSLog(@"%@",responseObject);
-        BOOL status = [responseObject[@"status"] integerValue];
-        if (status) {
-            kNetWorkError(@"发送短信 请求失败");
+        if ([responseObject[@"status"] integerValue]) {
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            if (failureBlock){
-                failureBlock(responseObject);
-            }
+            if (failureBlock) failureBlock(responseObject);
             return;
         }
         if (successBlock) successBlock(YES);
@@ -216,12 +212,8 @@
                                    @"type":type
                                    };
     [smscodeAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        
-        //        kHXBResponsShowHUD
-        NSLog(@"%@",responseObject);
         BOOL status = [responseObject[@"status"] integerValue];
         if (status) {
-            kNetWorkError(@"发送短信 请求失败");
             [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) failureBlock(responseObject);
             return;
@@ -229,9 +221,7 @@
         if (successBlock) successBlock(YES);
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-        
         if (failureBlock) failureBlock(error);
-        kNetWorkError(@"发送短信 请求失败");
     }];
 }
 
@@ -248,21 +238,13 @@
     checkMobileAPI.requestArgument = @{
                                        @"mobile":mobile
                                        };
-    NSLog(@"%@",[KeyChain token]);
     [checkMobileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         
-//        kHXBResponsShowHUD
         NSString *status = [responseObject valueForKey:@"status"];
         NSString *message = @"";
         if (status.integerValue == kHXBCode_Enum_CommonError) {
-            if ([responseObject[@"message"] isEqualToString:@"手机号码已存在"]) {
-                message = @"该手机号已注册";
-                [HxbHUDProgress showTextWithMessage:message];
-            }else
-            {
-                message = responseObject[@"message"];
-                [HxbHUDProgress showTextWithMessage:message];
-            }
+            NSString *message = [responseObject[@"message"] isEqualToString:@"手机号码已存在"] ? @"该手机号已注册" : responseObject[@"message"];
+            [HxbHUDProgress showTextWithMessage:message];
         }
         if (status.integerValue == kHXBCode_Enum_ProcessingField) {
             message = @"请输入正确的手机号码";
@@ -272,7 +254,6 @@
         
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);
-//        kNetWorkError(@"校验手机号 请求失败");
     }];
 }
 
@@ -291,19 +272,11 @@
                                        };
     NSLog(@"%@",[KeyChain token]);
     [checkMobileAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
-        
-        //        kHXBResponsShowHUD
         NSString *status = [responseObject valueForKey:@"status"];
         NSString *message = @"";
         if (status.integerValue == kHXBCode_Enum_CommonError) {
-            if ([responseObject[@"message"] isEqualToString:@"手机号码已存在"]) {
-                message = @"该手机号已注册";
-                [HxbHUDProgress showTextWithMessage:message];
-            }else
-            {
-                message = responseObject[@"message"];
-                [HxbHUDProgress showTextWithMessage:message];
-            }
+            NSString *message = [responseObject[@"message"] isEqualToString:@"手机号码已存在"] ? @"该手机号已注册" : responseObject[@"message"];
+            [HxbHUDProgress showTextWithMessage:message];
         }
         if (status.integerValue == kHXBCode_Enum_ProcessingField) {
             message = @"请输入正确的手机号码";
@@ -313,14 +286,13 @@
         
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);
-        //        kNetWorkError(@"校验手机号 请求失败");
     }];
 }
 
 #pragma mark - 忘记密码校验手机号
 + (void)checkExistMobileRequestWithMobile: (NSString *)mobile
                      andSuccessBlock: (void(^)(BOOL isExist))successBlock
-                     andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock {
+                     andFailureBlock: (void(^)(NSError *error, NYBaseRequest *request))failureBlock {
     
     NYBaseRequest *checkMobileAPI = [[NYBaseRequest alloc]init];
     checkMobileAPI.requestMethod = NYRequestMethodPost;
@@ -329,15 +301,10 @@
                                        @"mobile":mobile
                                        };
     [checkMobileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-//        kHXBResponsShowHUD
         NSString *status = [responseObject valueForKey:@"status"];
-        if (status.integerValue == 1) {
-            if ([responseObject[@"message"] isEqualToString:@"手机号码不存在"]) {
-                [HxbHUDProgress showTextWithMessage:@"手机号未注册"];
-            }else
-            {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            }
+        if (status.integerValue == kHXBCode_Enum_CommonError) {
+            NSString *message = [responseObject[@"message"] isEqualToString:@"手机号码已存在"] ? @"该手机号已注册" : responseObject[@"message"];
+            [HxbHUDProgress showTextWithMessage:message];
         }
         if(successBlock) successBlock(!status.integerValue);
         
@@ -370,7 +337,6 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error,nil);
-         kNetWorkError(@"实名认证 请求失败")
     }];
     
 }
@@ -395,7 +361,6 @@
     [forgotPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD
         if(successBlock) successBlock(YES);
-        NSLog(@"%@",responseObject);
     } failure:^(NYBaseRequest *request, NSError *error) {
         if(failureBlock) failureBlock(error);
         NSLog(@"%@",error);

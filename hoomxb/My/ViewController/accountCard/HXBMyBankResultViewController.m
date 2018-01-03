@@ -44,34 +44,35 @@
 
 // 布局
 - (void)displayFrame {
+    kWeakSelf
     [self.bankImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@(HXBStatusBarAndNavigationBarHeight + kScrAdaptationH750(150)));
-        make.centerX.equalTo(self.view);
+        make.centerX.equalTo(weakSelf.view);
         make.width.equalTo(@(kScrAdaptationW750(295)));
         make.height.equalTo(@(kScrAdaptationH750(182)));
     }];
     
     [self.bankTileLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bankImageView.mas_bottom).offset(kScrAdaptationH(30));
-        make.centerX.equalTo(self.view);
+        make.top.equalTo(weakSelf.bankImageView.mas_bottom).offset(kScrAdaptationH(30));
+        make.centerX.equalTo(weakSelf.view);
     }];
     
     [self.bankDescribeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bankTileLabel.mas_bottom).offset(kScrAdaptationH(10));
-        make.centerX.equalTo(self.view);
+        make.top.equalTo(weakSelf.bankTileLabel.mas_bottom).offset(kScrAdaptationH(10));
+        make.centerX.equalTo(weakSelf.view);
         make.width.offset(kScreenWidth - kScrAdaptationW(30));
     }];
     
     [self.actionButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.bankDescribeLabel.mas_bottom).offset(kScrAdaptationH(50));
-        make.centerX.equalTo(self.view);
+        make.top.equalTo(weakSelf.bankDescribeLabel.mas_bottom).offset(kScrAdaptationH(50));
+        make.centerX.equalTo(weakSelf.view);
         make.width.equalTo(@(kScrAdaptationW750(670)));
         make.height.equalTo(@(kScrAdaptationH750(82)));
     }];
     
     [self.myAccountButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.actionButton.mas_bottom).offset(kScrAdaptationH(20));
-        make.centerX.equalTo(self.view);
+        make.top.equalTo(weakSelf.actionButton.mas_bottom).offset(kScrAdaptationH(20));
+        make.centerX.equalTo(weakSelf.view);
         make.width.equalTo(@(kScrAdaptationW750(670)));
         make.height.equalTo(@(kScrAdaptationH750(82)));
     }];

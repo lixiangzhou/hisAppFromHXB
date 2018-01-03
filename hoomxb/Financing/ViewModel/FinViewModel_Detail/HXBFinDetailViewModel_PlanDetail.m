@@ -299,13 +299,25 @@
     if (!_addCondition) {
         if (self.planDetailModel.isFirst.integerValue) {
             _addCondition = [NSString stringWithFormat:@"%@起投，%@递增",[NSString hxb_getPerMilWithIntegetNumber:self.minRegisterAmount.doubleValue],[NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.registerMultipleAmount.doubleValue]];
-        }else{
+        } else {
             _addCondition = [NSString stringWithFormat:@"%@的倍数递增",[NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.registerMultipleAmount.doubleValue]];
             
         }
     }
     return _addCondition;
 }
+/**
+ 加入条件
+ */
+- (NSString *)addCondition_detail {
+    if (self.minRegisterAmount.length && self.planDetailModel.registerMultipleAmount.length) {
+        _addCondition_detail = [NSString stringWithFormat:@"%@起投，%@递增",[NSString hxb_getPerMilWithIntegetNumber:self.minRegisterAmount.doubleValue],[NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.registerMultipleAmount.doubleValue]];
+    } else {
+        _addCondition_detail = @"--起投，--递增";
+    }
+    return _addCondition_detail;
+}
+
 /**
  加入方式
  */

@@ -14,6 +14,11 @@ typedef void (^CountDownBlock)(NSString* times);
 @interface HXBNsTimerManager : NSObject
 
 /**
+ 是否正在计时
+ */
+@property (nonatomic, assign, readonly) BOOL isTimerWorking;
+
+/**
  创建定时器
 
  @param ti 间隔时间
