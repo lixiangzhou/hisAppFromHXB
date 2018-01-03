@@ -218,13 +218,8 @@ static const NSInteger topView_high = 300;
     if (_inputMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) { // 超过可加入金额是，只check，不用强制到最大可加入金额
-//        self.topView.totalMoney = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
-//        _inputMoneyStr = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
-//        _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _availablePoint.floatValue*self.totalInterest.floatValue/100.0];
-//        [self getBESTCouponWithMoney:_inputMoneyStr];
-//        _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
-    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _availablePoint.doubleValue > _minRegisterAmount.doubleValue) {
+    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
@@ -604,7 +599,7 @@ static const NSInteger topView_high = 300;
         _topView.profitStr = @"预期收益0.00元";
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
-        
+        _topView.profitType = _featuredSlogan;
         _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
             weakSelf.bottomView.addBtnIsUseable = text.length;
             BOOL isFitToBuy = NO;
@@ -641,10 +636,10 @@ static const NSInteger topView_high = 300;
     kWeakSelf
     _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
     _bottomView.delegateLabelText = @"红利计划服务协议》,《网络借贷协议书";
-    
     _bottomView.delegateBlock = ^(NSInteger index) {
         if (index == 1) {
-            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:weakSelf];
+            NSString *negotiate = [weakSelf.cashType isEqualToString:@"HXB"] ? [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanMonthURL] : [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL];
+            [HXBBaseWKWebViewController pushWithPageUrl:negotiate fromController:weakSelf];
         } else {
             [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Agreement_Hint] fromController:weakSelf];
         }

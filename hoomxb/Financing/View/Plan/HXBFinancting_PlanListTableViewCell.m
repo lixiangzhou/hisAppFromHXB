@@ -29,6 +29,8 @@
 
 @property (nonatomic, strong) UIImageView *lineImageView;
 
+@property (nonatomic, strong) UIImageView *HXBImageView; // 按月付息的icon
+
 @property (nonatomic, strong) UIView *countDownView;//承载倒计时的View
 /**
  满减券
@@ -38,6 +40,7 @@
  抵扣券
  */
 @property (nonatomic, strong) UIImageView *discountCouponImageView;
+
 @end
 @implementation HXBFinancting_PlanListTableViewCell
 
@@ -48,7 +51,6 @@
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
     self.lockPeriodLabel.text = finPlanListViewModel.planListModel.lockPeriod;
     self.addStatus.text = finPlanListViewModel.unifyStatus;
-    
     [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
     [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
     if (self.finPlanListViewModel.remainTimeString.length) {
@@ -64,14 +66,13 @@
         self.tagLabel.text = finPlanListViewModel.planListModel.tag;
         self.tagLableImageView.hidden = NO;
         self.tagLabel.hidden = NO;
-    }else
-    {
+    } else {
         self.tagLabel.hidden = YES;
         [self.tagLableImageView setHidden:YES];
     }
     [self setupAddStatus];
-    
-    self.lineImageView.hidden = !finPlanListViewModel.planListModel.hasCoupon;
+    self.HXBImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: YES;
+    self.lineImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: !finPlanListViewModel.planListModel.hasCoupon;
     //设置优惠券
     [self setupCoupon];
     
@@ -155,6 +156,7 @@
     [self.contentView addSubview:self.lineImageView];
     [self.contentView addSubview:self.discountCouponImageView];
     [self.contentView addSubview:self.moneyOffCouponImageView];
+    [self.contentView addSubview:self.HXBImageView];
 }
 ///布局UI
 - (void)layoutSubUI {
@@ -243,6 +245,12 @@
         make.left.equalTo(weakSelf.arrowImageView.mas_right).offset(kScrAdaptationW(6));
         //        make.width.equalTo(@(kScrAdaptationW(36)));
         make.height.equalTo(@(kScrAdaptationH(13)));
+    }];
+    [self.HXBImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.moneyOffCouponImageView);
+        make.right.equalTo(weakSelf.mas_right).offset(-kScrAdaptationW(15));
+        make.width.equalTo(@(kScrAdaptationW750(109)));
+        make.height.equalTo(@(kScrAdaptationH750(32)));
     }];
     
     [self.countDownLable setHidden: YES];
@@ -415,8 +423,7 @@
     return _tagLableImageView;
 }
 
-- (UIView *)countDownView
-{
+- (UIView *)countDownView {
     if (!_countDownView) {
         _countDownView = [[UIView alloc] init];
         _countDownView.backgroundColor = [UIColor clearColor];
@@ -425,7 +432,15 @@
     
 }
 
-
+- (UIImageView *)HXBImageView {
+    if (!_HXBImageView) {
+        _HXBImageView = [[UIImageView alloc]init];
+        _HXBImageView.image = [UIImage imageNamed:@"finance_mouthTip"];
+        _HXBImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _HXBImageView.hidden = YES;
+    }
+    return _HXBImageView;
+}
 
 
 @end

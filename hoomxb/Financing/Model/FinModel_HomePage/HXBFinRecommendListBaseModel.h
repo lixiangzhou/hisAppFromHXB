@@ -1,15 +1,14 @@
 //
-//  HXBFinanctingModel_HomePage.h
+//  HXBFinRecommendListBaseModel.h
 //  hoomxb
 //
-//  Created by HXB on 2017/5/3.
-//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
+//  Created by HXB-xiaoYang on 2018/1/2.
+//Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface HXBFinHomePageModel_PlanList : NSObject
-
+@interface HXBFinRecommendListBaseModel : NSObject
 // 锁定期限(月),计划期限
 @property (nonatomic, copy) NSString *lockPeriod;
 // 开始销售时间
@@ -30,7 +29,8 @@
 @property (nonatomic, copy) NSString *name;
 ///    string    计划id
 @property (nonatomic,copy) NSString *ID;
-
+///string    计划倒计时
+@property (nonatomic, copy) NSString *diffTime;
 @property (nonatomic, assign) BOOL showMoneyOff;
 @property (nonatomic, assign) BOOL showDiscount;
 /// 按月
@@ -75,52 +75,5 @@
 @property (nonatomic, copy) NSString *joinCount;
 ///最终注册总金额
 @property (nonatomic, copy) NSString *finishRatio;
-
-
-///可用金额
-@property (nonatomic,copy) NSString *avalibleAmount;
-///平均出价数
-@property (nonatomic,copy) NSString *averageBidCount;
-///平均中标利率
-@property (nonatomic,copy) NSString *averageBidInterest;
-///投标数
-@property (nonatomic,copy) NSString *bidCount;
-///借算
-@property (nonatomic,copy) NSString *borrowCount;
-///显示时间
-@property (nonatomic,copy) NSString *displayTime;
-///赚取利息
-@property (nonatomic,copy) NSString *earnInterest;
-///预期年利率
-@property (nonatomic,copy) NSString *expectedYearRate;
-///融资余额
-@property (nonatomic,copy) NSString *financeLeftAmount;
-///资金使用率
-@property (nonatomic,copy) NSString *fundsUseRate;
-///加入
-@property (nonatomic,copy) NSString *joined;
-///锁天
-@property (nonatomic,copy) NSString *lockDays;
-
-///过程比
-@property (nonatomic,copy) NSString *processRatio;
-///省
-@property (nonatomic,copy) NSString *provinces;
-///销售金额
-@property (nonatomic,copy) NSString *saleAmount;
-///地位
-@property (nonatomic,copy) NSString *status;
-///子点计数
-@property (nonatomic,copy) NSString *subPointCount;
-///string	计划倒计时
-@property (nonatomic,copy) NSString *diffTime;
-
-
-//MARK: -====================== 辅助字段 ============================
-/**
- 是否有优惠券
- */
-@property (nonatomic, assign) BOOL hasCoupon;
-
 @end
 

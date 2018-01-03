@@ -243,6 +243,8 @@
                 vc = loanTruansferVC;
             } else if ([path isEqualToString:kPlan_fragment]) { // 计划列表
                 [HXBRootVCManager manager].mainTabbarVC.selectedIndex = 1;
+            } else if ([path isEqualToString:kRegisterVC]) { //跳转登录注册
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowSignUpVC object:nil];
             } else {
                 
             }
