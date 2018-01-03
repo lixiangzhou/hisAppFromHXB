@@ -23,7 +23,7 @@
 #import "HXBFinHomePageViewModel_LoanList.h"
 #import "HXBFinHomePageModel_PlanList.h"
 #import "HXBFinHomePageModel_LoanList.h"
-#import "HXBFinance_MouthType_tableView.h"
+//#import "HXBFinance_MouthType_tableView.h"
 
 
 @interface HXBFinancting_PlanListTableView ()
@@ -32,7 +32,6 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 @property (nonatomic,strong) HXBNoDataView *nodataView;
-@property (nonatomic,strong) HXBFinance_MouthType_tableView *headView;
 @end
 
 
@@ -45,7 +44,6 @@ static NSString *CELLID = @"CELLID";
 
 - (void)setPlanListViewModelArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)planListViewModelArray {
     _planListViewModelArray = planListViewModelArray;
-    _headView.planListViewModelArray = planListViewModelArray;
     self.nodataView.hidden = planListViewModelArray.count;
     [self reloadData];
 }
@@ -63,16 +61,16 @@ static NSString *CELLID = @"CELLID";
     self.delegate = self;
     self.dataSource = self;
     self.backgroundColor = kHXBColor_BackGround;
-    self.headView = [[HXBFinance_MouthType_tableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH750(299)) style:(UITableViewStyleGrouped)];
-    kWeakSelf
-    self.headView.block = ^(id model) {
-        if (weakSelf.block) {
-            weakSelf.block(model);
-        }
-    };
-    self.headView.expectedYearRateLable_ConstStr = @"平均历史年化收益";
-    self.headView.lockPeriodLabel_ConstStr = @"期限(月)";
-    self.tableHeaderView = self.headView;
+//    self.headView = [[HXBFinance_MouthType_tableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH750(299)) style:(UITableViewStyleGrouped)];
+//    kWeakSelf
+//    self.headView.block = ^(id model) {
+//        if (weakSelf.block) {
+//            weakSelf.block(model);
+//        }
+//    };
+//    self.headView.expectedYearRateLable_ConstStr = @"平均历史年化收益";
+//    self.headView.lockPeriodLabel_ConstStr = @"期限(月)";
+//    self.tableHeaderView = self.headView;
     [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.backgroundColor = kHXBColor_BackGround;
@@ -82,7 +80,6 @@ static NSString *CELLID = @"CELLID";
 #pragma mark - datesource
 
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    return 20;
     return 1;
 }
 

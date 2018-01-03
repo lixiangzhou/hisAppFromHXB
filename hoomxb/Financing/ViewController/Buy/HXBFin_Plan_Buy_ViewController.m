@@ -600,7 +600,7 @@ static const NSInteger topView_high = 300;
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
         // fixme
-        _topView.profitType = @"按月付息";
+        _topView.profitType = _featuredSlogan;
         _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
             weakSelf.bottomView.addBtnIsUseable = text.length;
             BOOL isFitToBuy = NO;
@@ -636,12 +636,11 @@ static const NSInteger topView_high = 300;
 - (UIView *)footTableView {
     kWeakSelf
     _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
-    // fixme
-    _bottomView.delegateLabelText = @"按月付息服务协议》,《网络借贷协议书";
-    
+    _bottomView.delegateLabelText = @"红利计划服务协议》,《网络借贷协议书";
     _bottomView.delegateBlock = ^(NSInteger index) {
         if (index == 1) {
-            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:weakSelf];
+            NSString *negotiate = [weakSelf.cashType isEqualToString:@"HXB"] ? [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] : [NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL];
+            [HXBBaseWKWebViewController pushWithPageUrl:negotiate fromController:weakSelf];
         } else {
             [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Agreement_Hint] fromController:weakSelf];
         }

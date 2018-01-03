@@ -166,10 +166,15 @@
     self.planListAPI.requestMethod = NYRequestMethodGet;
     [self.planListAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
-        ///数据是否出错
+        ///计划列表数据是否出错
         kHXBResponsShowHUD
-        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
+        NSMutableArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
+        NSArray <NSDictionary *>* recommendList = responseObject[@"data"][@"recommendList"];
+        if (recommendList.count > 0) {
+            [dataList insertObjects:recommendList atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, recommendList.count)]];
+        }
         NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
+
         //数据的处理
         [self plan_handleDataWithIsUPData:request.isUPReloadData andData:planListViewModelArray];
         
@@ -179,7 +184,7 @@
                 [PPNetworkCache setHttpCache:responseObject URL:@"/plan" parameters:nil];
             }
             NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
-            successDateBlock(self.planListViewModelArray,totalCountStr.integerValue);
+            successDateBlock(self.planListViewModelArray, totalCountStr.integerValue);
             [HXBDataManager setFin_PlanListViewModelArrayWithArray:self.planListViewModelArray];///缓存数据
         }
         

@@ -40,11 +40,11 @@
  抵扣券
  */
 @property (nonatomic, strong) UIImageView *discountCouponImageView;
+
 @end
 @implementation HXBFinancting_PlanListTableViewCell
 
 - (void)setFinPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)finPlanListViewModel {
-    self.HXBImageView.hidden = [self.planType isEqualToString:@"HXB"] ? NO: YES;
     _finPlanListViewModel = finPlanListViewModel;
     self.nameLabel.text = finPlanListViewModel.planListModel.name;
     self.countDownLable.text = finPlanListViewModel.countDownString;
@@ -71,8 +71,8 @@
         [self.tagLableImageView setHidden:YES];
     }
     [self setupAddStatus];
-    
-    self.lineImageView.hidden = !finPlanListViewModel.planListModel.hasCoupon;
+    self.HXBImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: YES;
+    self.lineImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: !finPlanListViewModel.planListModel.hasCoupon;
     //设置优惠券
     [self setupCoupon];
     
@@ -293,6 +293,14 @@
 - (void)setExpectedYearRateLable_ConstStr:(NSString *)expectedYearRateLable_ConstStr {
     _expectedYearRateLable_ConstStr = expectedYearRateLable_ConstStr;
     _expectedYearRateLable_Const.text = _expectedYearRateLable_ConstStr;
+}
+
+- (void)setPlanType:(NSString *)planType {
+    if ([planType isEqualToString:@"HXB"]) {
+        
+    } else {
+        
+    }
 }
 
 #pragma mark Getter

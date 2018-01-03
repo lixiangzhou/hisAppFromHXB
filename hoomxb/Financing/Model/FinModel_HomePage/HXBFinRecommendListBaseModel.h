@@ -19,12 +19,10 @@
 @property (nonatomic, copy) NSString *baseInterestRate;
 // 计划状态
 @property (nonatomic, copy) NSString *unifyStatus;
-// 分类
-@property (nonatomic, copy) NSString *category;
+
 ///    string    本期加息利率
 @property (nonatomic, copy) NSString *extraInterestRate;
-///    string    加入次数
-@property (nonatomic, copy) NSString *joinCount;
+
 ///    string    年化利率
 @property (nonatomic, copy) NSString *expectedRate;
 ///    string    计划名称
@@ -35,8 +33,13 @@
 @property (nonatomic, copy) NSString *diffTime;
 @property (nonatomic, assign) BOOL showMoneyOff;
 @property (nonatomic, assign) BOOL showDiscount;
+/// 按月
+@property (nonatomic, copy) NSString *incomeApproach;
 ///最终注册总金额
-@property (nonatomic, copy) NSString *finishRatio;
+@property (nonatomic, copy) NSString *interestDate;
+
+
+
 //提示文案右边的提示文案
 @property (nonatomic, copy) NSString *tag;
 ///总金额,本期开放的额度,计划金额（元）
@@ -66,4 +69,11 @@
 @property (nonatomic, assign) BOOL hasMoneyOffCoupon;
 @property (nonatomic, copy) NSString *cashType;
 @property (nonatomic, copy) NSString *cashDrawDay;
+// 分类
+@property (nonatomic, copy) NSString *category;
+///    string    加入次数
+@property (nonatomic, copy) NSString *joinCount;
+///最终注册总金额
+@property (nonatomic, copy) NSString *finishRatio;
 @end
+
