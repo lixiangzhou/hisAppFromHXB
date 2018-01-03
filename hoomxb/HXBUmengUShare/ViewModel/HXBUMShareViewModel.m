@@ -54,13 +54,7 @@
         
         NSInteger status =  [responseObject[kResponseStatus] integerValue];
         if (status != 0) {
-            if ((status != kHXBCode_Enum_ProcessingField)) {
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
-            }
-            if (failureBlock) {
-                failureBlock(responseObject);
-            }
-            return;
+            kHXBResponsShowHUD
         }
         self.shareModel = [HXBUMShareModel yy_modelWithDictionary:responseObject[kResponseData]];
         if (successDateBlock) {

@@ -37,6 +37,8 @@
 @property (nonatomic,copy) NSString *minRegisterAmount;
 ///加入条件加入金额%@元起，%@元的整数倍递增
 @property (nonatomic,copy) NSString *addCondition;
+///详情页的加入条件
+@property (nonatomic,copy) NSString *addCondition_detail;
 
 ///本期计划加入上线//1.加入上限：金额随用户实际的可加入金额变动，e.g.用户第一次投该期红利计划，显示为“本期计划加入上限50,000元”,用户投资30000元后，第二次追加进到该页面，显示“本期计划加入上限20,000元”，加入上限>计划剩余可投资金额时，显示计划剩余可投资金额
 @property (nonatomic,copy) NSString *hxb_singleMaxRegisterAmount;

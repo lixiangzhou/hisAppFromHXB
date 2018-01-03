@@ -265,7 +265,9 @@
         NSInteger length = textField.text.length;
         NSRange range = NSMakeRange(length - 1, 1);
         NSMutableString *strM = textField.text.mutableCopy;
-        [strM deleteCharactersInRange:range];
+        if (range.location > 0 && range.location + range.length <= length) {
+            [strM deleteCharactersInRange:range];
+        }
         str = strM.copy;
     }
     if (str.length > 0) {
@@ -298,11 +300,7 @@
     bankCardAPI.requestMethod = NYRequestMethodGet;
     [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            return;
-        }
+        kHXBBuyErrorResponsShowHUD
         weakSelf.withdrawModel = [HXBWithdrawModel yy_modelWithJSON:responseObject[@"data"]];
         
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -474,7 +472,7 @@
     if (!_alertVC) {
         kWeakSelf
         _alertVC = [[HXBVerificationCodeAlertVC alloc] init];
-        _alertVC.messageTitle = @"请输入您的短信验证码";
+        _alertVC.messageTitle = @"请输入短信验证码";
         _alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收",[self.withdrawModel.mobileNumber replaceStringWithStartLocation:3 lenght:self.withdrawModel.mobileNumber.length - 7]];
         _alertVC.sureBtnClick = ^(NSString *pwd){
             if (pwd.length == 0) {

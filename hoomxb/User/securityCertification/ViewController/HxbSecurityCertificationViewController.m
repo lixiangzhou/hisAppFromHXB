@@ -8,7 +8,6 @@
 
 #import "HxbSecurityCertificationViewController.h"
 #import "HxbSecurityCertificationView.h"
-//#import "HxbBindCardViewController.h"
 #import "HXBSignUPAndLoginRequest.h"//网络请求
 #import "HXBSecurityCertification_Request.h"
 #import "HxbWithdrawCardViewController.h"//绑卡

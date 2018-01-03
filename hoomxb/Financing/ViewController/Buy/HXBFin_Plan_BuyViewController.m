@@ -105,7 +105,7 @@
         weakSelf.joinimmediateView.isEndEditing = YES;
     };
     
-    self.joinimmediateView.frame = CGRectMake(0, HxbNavigationBarY, kScreenWidth, kScreenHeight - HxbNavigationBarY);
+    self.joinimmediateView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight);
 }
 - (void) pushTopUPViewControllerWithAmount:(NSString *)amount {
     kWeakSelf

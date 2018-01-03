@@ -73,11 +73,7 @@
         NSLog(@"验证码验证%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            if (failureBlock) {
-                failureBlock(nil);
-            }
-            return;
+           kHXBResponsShowHUD
         }
         if (successDateBlock) {
             successDateBlock(responseObject);
@@ -113,11 +109,7 @@
         NSLog(@"同时验证身份证和验证码：%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            if (failureBlock) {
-                failureBlock(nil);
-            }
-            return;
+          kHXBResponsShowHUD
         }
         if (successDateBlock) {
             successDateBlock(responseObject);
@@ -152,11 +144,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            if (failureBlock) {
-                failureBlock(nil);
-            }
-            return;
+            kHXBResponsShowHUD
         }
         if (successDateBlock) {
             successDateBlock(responseObject);

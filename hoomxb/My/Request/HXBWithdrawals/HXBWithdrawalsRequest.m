@@ -28,13 +28,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (status != kHXBCode_Enum_ProcessingField) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            }
-            if (failureBlock) {
-                failureBlock(responseObject);
-            }
-            return;
+           kHXBResponsShowHUD
         }
         if (successDateBlock) {
             successDateBlock(responseObject);
@@ -57,11 +51,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (failureBlock) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-                failureBlock(responseObject);
-            }
-            return;
+            kHXBResponsShowHUD
         }
         if (successDateBlock) {
             successDateBlock(responseObject);
@@ -90,11 +80,7 @@
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
-            if (failureBlock) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-                failureBlock(responseObject);
-            }
-            return;
+            kHXBResponsShowHUD
         }
         if (successDateBlock) {
             successDateBlock(responseObject);

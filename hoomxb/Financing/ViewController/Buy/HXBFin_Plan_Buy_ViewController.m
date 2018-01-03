@@ -85,6 +85,7 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
+@property (nonatomic, assign) BOOL hasInvestMoney; // 是否是从上个页面带入的金额，是的话不校验金额，不是的话，校验金额
 @end
 
 @implementation HXBFin_Plan_Buy_ViewController
@@ -216,12 +217,12 @@ static const NSInteger topView_high = 300;
     }
     if (_inputMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
-    } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) {
-        self.topView.totalMoney = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
-        _inputMoneyStr = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
-        _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _availablePoint.floatValue*self.totalInterest.floatValue/100.0];
-        [self getBESTCouponWithMoney:_inputMoneyStr];
-        _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
+    } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue) { // 超过可加入金额是，只check，不用强制到最大可加入金额
+//        self.topView.totalMoney = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
+//        _inputMoneyStr = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
+//        _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _availablePoint.floatValue*self.totalInterest.floatValue/100.0];
+//        [self getBESTCouponWithMoney:_inputMoneyStr];
+//        _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
     }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _availablePoint.doubleValue > _minRegisterAmount.doubleValue) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
@@ -237,10 +238,14 @@ static const NSInteger topView_high = 300;
         } else {
             isFitToBuy = _inputMoneyStr.integerValue % _registerMultipleAmount.integerValue ? NO : YES;
         }
-        if (!isFitToBuy && _inputMoneyStr.integerValue != _availablePoint.integerValue) {
-            [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
-        } else {
+        if (_hasInvestMoney) {
             [self chooseBuyTypeWithSting:_btnLabelText];
+        } else {
+            if (isFitToBuy) {
+                [self chooseBuyTypeWithSting:_btnLabelText];
+            } else {
+                [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
+            }
         }
     }
 }
@@ -264,12 +269,12 @@ static const NSInteger topView_high = 300;
     double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
     NSString *rechargeMoney =_viewModel.userInfoModel.userInfo.minChargeAmount_new;
     if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", rechargeMoney] force:2 andLeftButtonMassage:@"取消" andRightButtonMassage:@"确认充值"];
+        HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", rechargeMoney] andLeftBtnName:@"取消" andRightBtnName:@"确认充值" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
         alertVC.isCenterShow = YES;
-        [alertVC setClickXYRightButtonBlock:^{
-            [weakSelf sendSmsCodeWithMoney:weakSelf.viewModel.userInfoModel.userInfo.minChargeAmount];
+        [alertVC setRightBtnBlock:^{
+                [weakSelf sendSmsCodeWithMoney:weakSelf.viewModel.userInfoModel.userInfo.minChargeAmount];
         }];
-        [self presentViewController:alertVC animated:YES completion:nil];
+        [self presentViewController:alertVC animated:NO completion:nil];
     } else {
         [self sendSmsCodeWithMoney:topupMoney];
     }
@@ -301,7 +306,7 @@ static const NSInteger topView_high = 300;
         self.alertVC = [[HXBVerificationCodeAlertVC alloc] init];
         self.alertVC.isCleanPassword = YES;
         double rechargeMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
-        self.alertVC.messageTitle = @"请输入验证码";
+        self.alertVC.messageTitle = @"请输入短信验证码";
         _buyType = @"recharge"; // 弹出短验，都是充值购买
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
@@ -543,8 +548,10 @@ static const NSInteger topView_high = 300;
             _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _topView.disableKeyBorad = YES;
+            _hasInvestMoney = YES;
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
+            _hasInvestMoney = NO;
             _topView.disableKeyBorad = NO;
         }
     } else {
@@ -552,8 +559,10 @@ static const NSInteger topView_high = 300;
             _topView.totalMoney = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _topView.disableKeyBorad = YES;
+            _hasInvestMoney = YES;
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
+            _hasInvestMoney = NO;
             _topView.disableKeyBorad = NO;
         }
     }

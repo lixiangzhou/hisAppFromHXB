@@ -23,7 +23,6 @@
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
            _homeDataListViewModelArray  = [NSMutableArray array];
         if (!responseObject || !dataList.count) {
-            NSLog(@"✘散标购买请求没有数据");
             return;
         }
         

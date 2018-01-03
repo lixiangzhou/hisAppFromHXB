@@ -188,10 +188,8 @@
             }
         } else if([homePopViewModel.url hasPrefix:kRegisterVC]){
             //注册
-            HxbSignUpViewController *signUPVC = [[HxbSignUpViewController alloc]init];
-            signUPVC.title = @"注册";
-            signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_signup;
-            [controller.navigationController pushViewController:signUPVC animated:YES];
+            //跳转登录注册
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowSignUpVC object:nil];
             
         }else if ([homePopViewModel.url hasPrefix:kNoticeVC]){
             //公告列表

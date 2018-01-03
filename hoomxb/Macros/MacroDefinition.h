@@ -216,28 +216,7 @@
 #define kLoadIngText @"加载中..."
 //无网络文案
 #define kNoNetworkText @"暂无网络，请稍后再试"
-//分割线高度
-#define kHXBDivisionLineHeight 0.5
 
-// iPhone X
-#define  HXBIPhoneX (kScreenWidth == 375.f && kScreenHeight == 812.f ? YES : NO)
-// 状态栏高度
-#define  HXBStatusBarHeight   ([HXBThemAdapterManager getStateBarHeight])
-// 导航栏高度
-#define  HXBNavigationBarHeight  44.f
-// Tabbar高度
-#define  HXBTabbarHeight         (HXBIPhoneX ? (49.f+34.f) : 49.f)
-// Tabbar 安全区域高度
-#define  HXBTabbarSafeBottomMargin         (HXBIPhoneX ? 34.f : 0.f)
-// 状态栏和导航栏高度
-#define  HXBStatusBarAndNavigationBarHeight  [HXBThemAdapterManager getStateNavgationBarHeight]
-
-/// 屏幕顶部的额外距离，适配iPhone X
-#define HXBStatusBarAdditionHeight (HXBIPhoneX ? 24 : 0)
-/// 屏幕底部的额外距离，适配iPhone X
-#define HXBBottomAdditionHeight (HXBIPhoneX ? 34 : 0)
-
-#define HXBViewSafeAreInsets(view) ({UIEdgeInsets insets; if(@available(iOS 11.0, *)) {insets = view.safeAreaInsets;} else {insets = UIEdgeInsetsZero;} insets;})
 
 
 

@@ -8,7 +8,6 @@
 
 #import "HxbMyTopUpViewController.h"
 #import "HxbSecurityCertificationViewController.h"
-#import "HxbBindCardViewController.h"
 #import "HXBMyTopUpBaseView.h"
 #import "HXBRechargeCompletedViewController.h"
 #import "HXBVerificationCodeAlertVC.h"
@@ -111,7 +110,7 @@
 - (void)requestRechargeResult {
     if (!self.presentedViewController) {
         self.alertVC = [[HXBVerificationCodeAlertVC alloc] init];
-        self.alertVC.messageTitle = @"请输入验证码";
+        self.alertVC.messageTitle = @"请输入短信验证码";
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
         self.alertVC.sureBtnClick = ^(NSString *pwd) {
