@@ -310,8 +310,10 @@
  加入条件
  */
 - (NSString *)addCondition_detail {
-    if (!_addCondition) {
+    if (self.minRegisterAmount.length && self.planDetailModel.registerMultipleAmount.length) {
         _addCondition_detail = [NSString stringWithFormat:@"%@起投，%@递增",[NSString hxb_getPerMilWithIntegetNumber:self.minRegisterAmount.doubleValue],[NSString hxb_getPerMilWithIntegetNumber:self.planDetailModel.registerMultipleAmount.doubleValue]];
+    } else {
+        _addCondition_detail = @"--起投，--递增";
     }
     return _addCondition_detail;
 }
