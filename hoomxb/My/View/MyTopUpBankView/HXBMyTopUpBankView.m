@@ -43,11 +43,7 @@
     bankCardAPI.requestMethod = NYRequestMethodGet;
     [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            return;
-        }
+        kHXBBuyErrorResponsShowHUD
         weakSelf.bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
         //设置绑卡信息
         weakSelf.bankNameLabel.text = weakSelf.bankCardModel.bankType;

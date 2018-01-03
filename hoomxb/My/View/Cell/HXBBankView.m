@@ -86,11 +86,7 @@
     bankCardAPI.requestMethod = NYRequestMethodGet;
     [bankCardAPI startWithHUDStr:@"加载中..." Success:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            return;
-        }
+        kHXBBuyErrorResponsShowHUD
         HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
         self.bankCardModel = bankCardModel;
         //设置绑卡信息
