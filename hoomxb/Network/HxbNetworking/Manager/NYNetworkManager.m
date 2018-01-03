@@ -34,7 +34,7 @@
     // 适配重构前的HUD
     HxbHUDProgress *hud = nil;
     if (request.hudDelegate == nil) {
-        HxbHUDProgress *hud = (content.length) ? [HxbHUDProgress new] : nil;
+        hud = (content.length) ? [HxbHUDProgress new] : nil;
         [hud showAnimationWithText:content];
     }
     else {
