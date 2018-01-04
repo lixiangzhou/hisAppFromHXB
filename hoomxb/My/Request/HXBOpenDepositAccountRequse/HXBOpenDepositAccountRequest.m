@@ -89,7 +89,6 @@
                 if (status == kHXBCode_Enum_ProcessingField) return;
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
-//            [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             if (failureBlock) {
                 failureBlock(responseObject);
             }
@@ -106,15 +105,6 @@
     
 }
 
-- (void)showAlertWithMessage:(NSString *)message {
-    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"" Massage:message force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"知道了"];
-    alertVC.isHIddenLeftBtn = YES;
-    alertVC.isCenterShow = YES;
-    [alertVC setClickXYRightButtonBlock:^{
-        [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
-    }];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
-}
 
 - (void)accountRechargeRequestWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
