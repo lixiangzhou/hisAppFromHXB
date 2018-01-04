@@ -308,12 +308,12 @@ static const NSInteger topView_high = 300;
         self.alertVC.sureBtnClick = ^(NSString *pwd) {
             [weakSelf.alertVC.view endEditing:YES];
             NSDictionary *dic = nil;
-            dic = @{@"amount": _inputMoneyStr,
-                    @"cashType": _cashType,
-                    @"buyType": _buyType,
-                    @"balanceAmount": _balanceMoneyStr,
+            dic = @{@"amount": weakSelf.inputMoneyStr,
+                    @"cashType": weakSelf.cashType,
+                    @"buyType": weakSelf.buyType,
+                    @"balanceAmount": weakSelf.balanceMoneyStr,
                     @"smsCode": pwd,
-                    @"couponId": _couponid
+                    @"couponId": weakSelf.couponid
                     };
             [weakSelf buyPlanWithDic:dic];
         };
