@@ -31,8 +31,6 @@
 //@property (nonatomic, strong) UIView *buttonLineView;
 @property (nonatomic, strong) UIButton *personalCenterButton;//个人中心
 @property (nonatomic, strong) UIButton *securyButton;//加密
-@property (nonatomic, assign) double allAssets;
-//@property (nonatomic, strong) UIButton *allFinanceButton;
 @property (nonatomic, strong) UIImageView *topupAndWithdrawBgImg;
 @property (nonatomic,copy) void(^clickAllFinanceButtonBlock)(UILabel *button);
 @end
@@ -202,8 +200,6 @@
  */
 - (void)setAccountInfoViewModel:(HXBMyRequestAccountModel *)accountInfoViewModel{
     _accountInfoViewModel = accountInfoViewModel;
-    _allAssets = accountInfoViewModel.financePlanAssets + accountInfoViewModel.lenderPrincipal;
-    NSString *allAssetsStr = _allAssets? [NSString GetPerMilWithDouble:_allAssets]:@"0.00";
     
     NSString *accumulatedProfitStr = accountInfoViewModel.earnTotal? [NSString GetPerMilWithDouble:accountInfoViewModel.earnTotal]: @"0.00";
     
@@ -213,7 +209,7 @@
         //        self.holdingAssetsLabel.text = allFinanceStr;
         self.accumulatedProfitLabel.text = accumulatedProfitStr;
         self.balanceLabel.text = balance;
-        self.allAssetsLabel.text = allAssetsStr;
+        self.allAssetsLabel.text = accountInfoViewModel.holdingTotalAssets ? [NSString GetPerMilWithDouble:accountInfoViewModel.holdingTotalAssets.doubleValue] : @"0.00";
     } else {
         self.securyButton.selected = YES;
         //        self.holdingAssetsLabel.text = kSecuryText;
@@ -264,7 +260,6 @@
 //    NSString *accumulatedProfitStr = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.earnTotal doubleValue]]?:@"0.00";
 //    NSString *balance = [NSString GetPerMilWithDouble:[self.userInfoViewModel.userInfoModel.userAssets.availablePoint doubleValue]]?:@"0.00";
     
-    NSString *allAssetsStr = _allAssets? [NSString GetPerMilWithDouble:_allAssets]:@"0.00";
     NSString *accumulatedProfitStr = _accountInfoViewModel.earnTotal? [NSString GetPerMilWithDouble:_accountInfoViewModel.earnTotal]: @"0.00";
     NSString *balance = _accountInfoViewModel.availablePoint ? [NSString GetPerMilWithDouble:_accountInfoViewModel.availablePoint] : @"0.00";
     
@@ -282,7 +277,7 @@
 //        self.holdingAssetsLabel.text = allFinanceStr;
         self.accumulatedProfitLabel.text = accumulatedProfitStr;
         self.balanceLabel.text = balance;
-        self.allAssetsLabel.text = allAssetsStr;
+        self.allAssetsLabel.text = self.accountInfoViewModel.holdingTotalAssets ? [NSString GetPerMilWithDouble:self.accountInfoViewModel.holdingTotalAssets.doubleValue] : @"0.00";
     }
 }
 
