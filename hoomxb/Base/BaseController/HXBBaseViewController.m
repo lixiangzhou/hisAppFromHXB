@@ -39,6 +39,15 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    //适配iphoneX上的tabbar
+    if(HXBIPhoneX) {
+        int height = self.tabBarController.tabBar.height;
+        if(height != 83){
+            self.tabBarController.tabBar.hidden = YES;
+            self.tabBarController.tabBar.height = 83;
+        }
+    }
+    
     //设置电池栏的颜色
     [super viewWillAppear:animated];
     if (self.leftBackBtn){
