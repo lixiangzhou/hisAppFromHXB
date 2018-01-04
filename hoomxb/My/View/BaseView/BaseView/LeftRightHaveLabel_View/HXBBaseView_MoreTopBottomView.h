@@ -15,6 +15,7 @@ typedef enum : NSUInteger {
 } HXBBaseView_MoreTopBottomViewManager_Alignment;
 @interface HXBBaseView_MoreTopBottomView : UIView
 
+@property (nonatomic,copy) NSString* cashType;//退出方式
 
 - (void)setUPViewManagerWithBlock: (HXBBaseView_MoreTopBottomViewManager *(^)(HXBBaseView_MoreTopBottomViewManager *viewManager))setUPViewManagerBlock;
 /**
@@ -30,7 +31,6 @@ typedef enum : NSUInteger {
  */
 @property (nonatomic,strong) NSArray <UIView *> *allViewArray;
 
-@property (nonatomic,copy) NSString* cashType;//退出方式
 /**
  创建方法
  @param topBottomViewNumber 上下一共几层
@@ -48,8 +48,9 @@ typedef enum : NSUInteger {
  @param topBottomSpace 层级间的间距
  @param leftProportion  左右 的间距
  @param space 上下左右的间距
+ @param cashType 退出方式
  */
-- (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass: (Class)clas andViewHeight: (CGFloat)viewH andTopBottomSpace: (CGFloat)topBottomSpace andLeftRightLeftProportion: (CGFloat)leftProportion Space:(UIEdgeInsets)space;
+- (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass: (Class)clas andViewHeight: (CGFloat)viewH andTopBottomSpace: (CGFloat)topBottomSpace andLeftRightLeftProportion: (CGFloat)leftProportion Space:(UIEdgeInsets)space andCashType:(NSString *)cashType;
 
 
 

@@ -74,16 +74,16 @@
     if (_responseDict[@"image"]) {
         if (_responseDict[@"updateTime"] < dict[@"updateTime"]) { //已更新
             _responseDict = dict;
-            [kUserDefaults setObject:_responseDict forKey:dict[@"id"]];
-            [kUserDefaults synchronize];
+//            [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
+//            [kUserDefaults synchronize];
             [self cachePopHomeImage];
         } else {
             self.isHide = ![kUserDefaults boolForKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
         }
     } else {
         _responseDict = dict;
-        [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
-        [kUserDefaults synchronize];
+//        [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
+//        [kUserDefaults synchronize];
         [self cachePopHomeImage];
     }
 }
@@ -91,24 +91,26 @@
 - (void)cachePopHomeImage{
     kWeakSelf
     SDImageCache *imageCache = [SDImageCache sharedImageCache];
-    UIImage *image = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
-    if (image) {
-        [imageCache removeImageForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] fromDisk:YES];
-    }
+//    UIImage *image = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
+//    if (image) {
+//        [imageCache removeImageForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] fromDisk:YES];
+//    }
     [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:_responseDict[@"image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (image) {
             //            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(4)];
             //            weakSelf.popView.imgView.image = img;
             weakSelf.popView.imgView.image = image;
+            [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
+            [kUserDefaults synchronize];
             [imageCache storeImage:image forKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] toDisk:YES];
             [imageCache removeImageForKey:_responseDict[@"image"] fromDisk:YES];
             
-            [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
-            [kUserDefaults synchronize];
+//            [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
+//            [kUserDefaults synchronize];
             self.isHide = NO;
         } else {
-            [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
-            [kUserDefaults synchronize];
+//            [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
+//            [kUserDefaults synchronize];
             self.isHide = YES;
         }
     }];
@@ -122,13 +124,13 @@
         __weak typeof(_popView) weakPopView = self.popView;
         self.popView.popCompleteBlock = ^{
             NSLog(@"1111显示完成");
-            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
+//            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
                 [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
                 weakSelf.isHide = YES;
                 [kUserDefaults synchronize];
-            }
+//            }
 
-            weakSelf.isHide = YES;
+//            weakSelf.isHide = YES;
             
         };
         // 移除完成回调
@@ -162,6 +164,8 @@
 //                weakSelf.popView.imgView.image = img;
                 weakSelf.popView.imgView.image = image;
                 [weakSelf.popView pop];
+//                [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
+//                [kUserDefaults synchronize];
             }
         }
     }

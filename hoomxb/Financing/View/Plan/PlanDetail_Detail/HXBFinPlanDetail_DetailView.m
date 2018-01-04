@@ -27,9 +27,10 @@
  安全屏障
  受益处理方式
  */
+@property (nonatomic,strong) HXBBaseView_MoreTopBottomView *typeView;
+
 @property (nonatomic,copy) NSString *cashType;//类型
 @property (nonatomic,assign) NSUInteger typeViewCount;//类型上下层级
-@property (nonatomic,strong) HXBBaseView_MoreTopBottomView *typeView;
 /**
  服务费
  */
@@ -91,12 +92,11 @@
 
 - (void)creatSubViews {
     UIEdgeInsets edgeInsets = UIEdgeInsetsMake(kScrAdaptationH(15), kScrAdaptationW(15), 0, kScrAdaptationW(15));
-    self.addView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:0 Space:edgeInsets];
+    self.addView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:0 Space:edgeInsets andCashType:nil];
     
-    self.dateView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets];
+    self.dateView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets andCashType:nil];
     
-    self.typeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:self.typeViewCount andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets];//2
-    self.typeView.cashType = self.cashType;
+    self.typeView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:self.typeViewCount andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets andCashType:self.cashType];//2
     UILabel * rightView = (UILabel *)self.typeView.rightViewArray[1];
     if ([self.typeView.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && rightView.subviews.count > 1) {
         UIButton *infoBtn = nil;
@@ -108,12 +108,10 @@
         [infoBtn setImage:[UIImage imageNamed:@"planDetail_info"] forState:UIControlStateNormal];
         rightView.userInteractionEnabled = YES;
         [infoBtn addTarget:self action:@selector(clickInfoBtn) forControlEvents:UIControlEventTouchUpInside];
-//        [infoBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -rightView.imageView.size.width, 0, rightView.imageView.size.width)];
-//        [infoBtn setImageEdgeInsets:UIEdgeInsetsMake(0, rightView.titleLabel.bounds.size.width, 0, -rightView.titleLabel.bounds.size.width)];
     }
     
     
-    self.serverView =  [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets];
+    self.serverView =  [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets andCashType:nil];
     UILabel *button = (UILabel *)self.serverView.rightViewArray.firstObject;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickServerButton:)];
     [button addGestureRecognizer:tap];

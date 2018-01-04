@@ -4,7 +4,7 @@
 //
 //  Created by HXB on 2017/5/4.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
-//
+//  计划详情
 
 #import "HXBFinancing_PlanDetailsViewController.h"
 
@@ -233,7 +233,7 @@
                                  @"计划详情",
                                  @"加入记录",
                                  @"红利计划服务协议"
-                                 ];
+                                ];//[self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? @"按月付息服务协议" : @"红利计划服务协议"
 }
 
 - (NSArray<HXBFinDetail_TableViewCellModel *> *)tableViewModelArray {
@@ -385,7 +385,9 @@
             planAddRecordVC.planID = self.planID;
             [self.navigationController pushViewController:planAddRecordVC animated:YES];
         } else {
-            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:self];
+            
+            NSString *urlStr = [self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? kHXB_Negotiate_ServePlanMonthURL : kHXB_Negotiate_ServePlanURL;
+            [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:urlStr] fromController:self];
         }
     }
 }
@@ -418,7 +420,7 @@
     planJoinVC.loanId = self.planDetailViewModel.ID;
     planJoinVC.featuredSlogan = self.planListViewModel.planListModel.featuredSlogan;
     planJoinVC.minRegisterAmount = self.planDetailViewModel.planDetailModel.minRegisterAmount;
-    planJoinVC.cashType = self.planDetailViewModel.profitType;
+    planJoinVC.cashType = self.planDetailViewModel.planDetailModel.cashType;
     planJoinVC.registerMultipleAmount = self.planDetailViewModel.planDetailModel.registerMultipleAmount;
     planJoinVC.placeholderStr = self.planDetailViewModel.addCondition;
     [self.navigationController pushViewController:planJoinVC animated:YES];
@@ -435,26 +437,27 @@
 - (void)downLoadData {
     kWeakSelf
     [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
-        self.planDetailViewModel = viewModel;
+        weakSelf.planDetailViewModel = viewModel;
+        weakSelf.cashType = weakSelf.planDetailViewModel.planDetailModel.cashType;
         if (viewModel.isContDown) {
 //            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@([viewModel.countDownStr floatValue]) andDateFormat:@"mm分ss秒后开始加入"];
             weakSelf.countDownManager.countDownEndTime = [viewModel.countDownStr floatValue];
 //            [self.addButton setTitle:str forState:UIControlStateNormal];
         } else {
             
-            if (self.planDetailViewModel.planDetailModel.unifyStatus.integerValue <= 5) {//等待加入
-                [self.addButton setTitle:self.planDetailViewModel.remainTimeString forState:UIControlStateNormal];
+            if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue <= 5) {//等待加入
+                [weakSelf.addButton setTitle:weakSelf.planDetailViewModel.remainTimeString forState:UIControlStateNormal];
             } else {
-                [self.addButton setTitle:viewModel.addButtonStr forState:UIControlStateNormal];
+                [weakSelf.addButton setTitle:viewModel.addButtonStr forState:UIControlStateNormal];
             }
-            [self.countDownManager stopTimer];
+            [weakSelf.countDownManager stopTimer];
         }
-        self.hxbBaseVCScrollView.hidden = NO;
-        self.title = viewModel.planDetailModel.name;
-        [self.hxbBaseVCScrollView reloadData];
-        [self.hxbBaseVCScrollView endRefresh];
+        weakSelf.hxbBaseVCScrollView.hidden = NO;
+        weakSelf.title = viewModel.planDetailModel.name;
+        [weakSelf.hxbBaseVCScrollView reloadData];
+        [weakSelf.hxbBaseVCScrollView endRefresh];
     } andFailureBlock:^(NSError *error) {
-        [self.hxbBaseVCScrollView endRefresh];
+        [weakSelf.hxbBaseVCScrollView endRefresh];
     }];
 }
 

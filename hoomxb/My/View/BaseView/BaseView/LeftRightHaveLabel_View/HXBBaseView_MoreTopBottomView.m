@@ -97,9 +97,12 @@
     return self;
 }
 
-- (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass:(Class)clas andViewHeight:(CGFloat)viewH andTopBottomSpace:(CGFloat)topBottomSpace andLeftRightLeftProportion:(CGFloat)leftProportion Space:(UIEdgeInsets)space {
+- (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass:(Class)clas andViewHeight:(CGFloat)viewH andTopBottomSpace:(CGFloat)topBottomSpace andLeftRightLeftProportion:(CGFloat)leftProportion Space:(UIEdgeInsets)space andCashType:(NSString *)cashType{
     if (self = [super initWithFrame:frame]) {
         _viewManager = [[HXBBaseView_MoreTopBottomViewManager alloc]init];
+        if (cashType) {
+            self.cashType = cashType;
+        }
         [self setUPViewsCreatWithTopBottomViewNumber:topBottomViewNumber andViewClass:clas];
         self.viewH = viewH;
         self.topBottomSpace = topBottomSpace;
@@ -160,7 +163,7 @@
         backGroundColor = [UIColor whiteColor];
     }
     if ([view isKindOfClass:[UILabel class]]) {
-        if ([self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && 1 == i && self.rightViewArray[i].subviews.count>1 && [location isEqualToString:@"right"]) {
+        if ([self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && 1 == i &&  [location isEqualToString:@"right"] && self.rightViewArray[i].subviews.count>1) {
             UILabel *infoLab = nil;
             for (UIView *view in self.rightViewArray[i].subviews) {
                 if ([view isKindOfClass:[UILabel class]]) {
@@ -226,7 +229,8 @@
                 make.left.equalTo(weakSelf.leftViewArray[i].mas_right).offset(weakSelf.leftProportion);
                 make.right.equalTo(weakSelf.rightViewArray[i - 1]);
             }];
-            if ([self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && 1 == i && self.rightViewArray[i].subviews.count>1) { 
+            
+            if ([self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && 1 == i && self.rightViewArray[i].subviews.count>1) {
                 UIButton *infoBtn = nil;
                 UILabel *infoLab = nil;
                 for (UIView *view in self.rightViewArray[i].subviews) {
