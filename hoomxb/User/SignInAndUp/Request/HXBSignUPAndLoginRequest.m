@@ -173,9 +173,9 @@
     smscodeAPI.requestMethod = NYRequestMethodPost;
     NSString *actionStr = [HXBSignUPAndLoginRequest_EnumManager getKeyWithHXBSignUPAndLoginRequest_sendSmscodeType:action];
     smscodeAPI.requestArgument = @{
-                                   @"mobile":mobile,///     是	string	用户名
-                                   @"action":actionStr,///     是	string	signup(参照通用短信发送类型)
-                                   @"captcha":captcha///	是	string	校验图片二维码
+                                   @"mobile":mobile ?: @"",///     是	string	用户名
+                                   @"action":actionStr ?: @"",///     是	string	signup(参照通用短信发送类型)
+                                   @"captcha":captcha ?: @""///	是	string	校验图片二维码
                                    };
     [smscodeAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         

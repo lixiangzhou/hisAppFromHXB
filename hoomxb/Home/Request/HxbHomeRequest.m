@@ -47,6 +47,9 @@
     homePlanRecommendAPI.requestMethod = NYRequestMethodGet;
     homePlanRecommendAPI.requestUrl = kHXBHome_HomeURL;
     homePlanRecommendAPI.isUPReloadData = isUPReloadData;
+    homePlanRecommendAPI.requestArgument = @{
+                                             @"cashType" : @"ALL"
+                                             };
     [homePlanRecommendAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
          NSDictionary *baseDic = [responseObject valueForKey:@"data"];

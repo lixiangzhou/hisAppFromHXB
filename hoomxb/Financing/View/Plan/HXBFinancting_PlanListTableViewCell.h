@@ -9,15 +9,18 @@
 #import <UIKit/UIKit.h>
 @class HXBFinHomePageViewModel_PlanList;
 @class HXBFinHomePageViewModel_LoanList;
+
 @interface HXBFinancting_PlanListTableViewCell : HXBBaseTableViewCell
 
 @property (nonatomic,strong) HXBFinHomePageViewModel_LoanList *loanListViewModel;
 @property (nonatomic,strong) HXBFinHomePageViewModel_PlanList *finPlanListViewModel;
 ///用于倒计时的string
 @property (nonatomic,copy) NSString *countDownString;
-
 ///年利率文字
 @property (nonatomic,strong) NSString *expectedYearRateLable_ConstStr;
 ///期限——UI
 @property (nonatomic,strong) NSString *lockPeriodLabel_ConstStr;
+// 标的类型
+@property (nonatomic, strong) NSString *planType; // 按月计息 HXB, 普通 INVEST
+
 @end
