@@ -362,23 +362,28 @@ UITableViewDataSource
 //登出按钮事件
 - (void)signOutButtonButtonClick{
     kWeakSelf
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您确定要退出登录吗？" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
-        NSLog(@"%@",action.title);
-    }];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"您确定要退出登录吗？" preferredStyle:UIAlertControllerStyleAlert];
+//    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+//        NSLog(@"%@",action.title);
+//    }];
+//    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//        [KeyChain signOut];
+//        [(HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController setSelectedIndex:0];
+//        [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+//    }];
+//    [alertController addAction:cancelAction];
+//    [alertController addAction:okAction];
+//
+//    [self presentViewController:alertController animated:YES completion:nil];
+    
+    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"提示" andSubTitle:@"您确定要退出登录吗？" andLeftBtnName:@"取消" andRightBtnName:@"确定" isHideCancelBtn:YES isClickedBackgroundDiss:YES];
+    alertVC.isCenterShow = YES;
+    [self presentViewController:alertVC animated:NO completion:nil];
+    [alertVC setRightBtnBlock:^{
         [KeyChain signOut];
         [(HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController setSelectedIndex:0];
         [weakSelf.navigationController popToRootViewControllerAnimated:YES];
     }];
-    [alertController addAction:cancelAction];
-    [alertController addAction:okAction];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-    
-    //    UIViewController *VC =[[UIViewController alloc]init];
-    //    VC.view.backgroundColor = [UIColor redColor];
-    //    [self.navigationController pushViewController:VC animated:YES];
 }
 
 ////登出按钮

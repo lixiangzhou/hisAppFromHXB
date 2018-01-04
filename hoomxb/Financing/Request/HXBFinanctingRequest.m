@@ -422,6 +422,7 @@
         NSString *status = responseObject[kResponseStatus];
         if (status.integerValue) {
             kNetWorkError(@"计划详情页 没有数据");
+            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
             if(failureBlock) failureBlock(nil);
             return;
         }

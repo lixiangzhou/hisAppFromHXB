@@ -218,7 +218,7 @@
 - (HXBBaseView_MoreTopBottomView *)buy_massageLabel {
     if (!_buy_massageLabel) {
         UIEdgeInsets edge = UIEdgeInsetsMake(0, kScrAdaptationW750(40), 0, kScrAdaptationW750(40));
-        _buy_massageLabel = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:self.buy_massageCount andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(28) andLeftRightLeftProportion:0 Space:edge];
+        _buy_massageLabel = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:self.buy_massageCount andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(28) andLeftRightLeftProportion:0 Space:edge andCashType:nil];
         [self.view addSubview:_buy_massageLabel];
     }
     return _buy_massageLabel;
