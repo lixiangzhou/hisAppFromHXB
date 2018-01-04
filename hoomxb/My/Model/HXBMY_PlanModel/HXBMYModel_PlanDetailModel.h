@@ -55,7 +55,12 @@
 @property (nonatomic,copy) NSString *exitWay;
 ///	Int	剩余天数
 @property (nonatomic,copy) NSString *lastDays;
-
+/// 按月付息日
+@property (nonatomic, copy) NSString *cashDrawDay;
+/// 收益方式文案，文案规则：HXB返回：按月付息，INVEST返回：收益复投
+@property (nonatomic, copy) NSString *incomeApproach;
+/// interestDate 按月付息日具体文案，拼接规则：每月+cashDrawDay+日付息
+@property (nonatomic, copy) NSString *interestDate;
 
 
 
