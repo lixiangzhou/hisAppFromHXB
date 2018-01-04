@@ -128,6 +128,16 @@ UITableViewDataSource
         [self.monthlyPaymentView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
             return weakSelf.manager.monthlyPamentViewManager;
         }];
+        
+        UILabel *label = (UILabel *)self.monthlyPaymentView.rightViewArray.firstObject;
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ", label.text] ?: @""];
+        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+        attachment.image = [UIImage imageNamed:@"lightblue_tip"];
+        attachment.bounds = CGRectMake(0, 0, 14, 14);
+        [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+        label.attributedText = attr;
+        
+        [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tipClick:)]];
     } else {
         [self.monthlyPaymentView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.typeView.mas_bottom).offset(0);
@@ -248,7 +258,7 @@ UITableViewDataSource
     }];
     
     [self.monthlyPaymentView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.typeView.mas_bottom).offset(kScrAdaptationH750(20));
+        make.top.equalTo(self.typeView.mas_bottom).offset(kScrAdaptationH750(0));
         make.left.equalTo(self);
         make.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH750(90)));
@@ -288,6 +298,24 @@ UITableViewDataSource
         }
     }];
 }
+
+#pragma mark - Action
+
+- (void)tipClick:(UITapGestureRecognizer *)tap
+{
+    if (tap.view == nil) {
+        return;
+    }
+    CGPoint point = [tap locationInView:tap.view];
+    CGRect rect = tap.view.bounds;
+    if (point.x > rect.size.width - 18) {
+        if (self.tipClickBlock) {
+            self.tipClickBlock();
+        }
+    }
+}
+
+
 @end
 
 @implementation HXBMY_PlanDetailView_Manager

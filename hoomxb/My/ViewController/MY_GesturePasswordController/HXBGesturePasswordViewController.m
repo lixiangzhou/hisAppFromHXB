@@ -349,11 +349,6 @@
             // 只出现一次弹窗
             KeyChain.skipGestureAlertAppeared = YES;
         };
-        alertVC.rightBtnBlock = ^{
-            
-        };
-        
-        alertVC.rightBtnBlock = ^{};
         
         [self presentViewController:alertVC animated:NO completion:nil];
     }

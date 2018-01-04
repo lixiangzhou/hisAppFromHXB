@@ -31,6 +31,8 @@
  */
 - (void)clickAddButtonWithBlock:(void(^)(UIButton *button))clickAddButtonBlock;
 - (void)setUPValueWithViewManagerBlock: (HXBMY_PlanDetailView_Manager *(^)(HXBMY_PlanDetailView_Manager *manager))viewManagerBlock;
+
+@property (nonatomic, copy) void (^tipClickBlock)();
 @end
 
 @interface HXBMY_PlanDetailView_Manager : NSObject
