@@ -139,7 +139,7 @@
 - (void)loadData:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure{
     self.success = success;
     self.failure = failure;
-    [[NYNetworkManager sharedManager] addRequestWithAnimation:self];
+    [[NYNetworkManager sharedManager] addRequest:self];
 }
 
 /**

@@ -9,6 +9,7 @@
 #import "NYNetworkManager.h"
 #import "NYHTTPConnection.h"
 #import "HxbHUDProgress.h"
+#import "HXBBaseRequestManager.h"
 
 @implementation NYNetworkManager
 
@@ -44,32 +45,15 @@
     }
     NSLog(@"%@",request.httpHeaderFields);
     
-  
+    [[HXBBaseRequestManager sharedInstance] addRequest:request];
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
     [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
-        // 适配重构前的HUD
-        if (request.hudDelegate == nil) {
-            [hud hide];
-        }
-        else{
-            if(request.showHud) {
-                [request showLoding:NO];
-            }
-        }
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
+        [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject HUDProgress:hud];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
-        // 适配重构前的HUD
-        if (request.hudDelegate == nil) {
-            [hud hide];
-        }
-        else {
-            if(request.showHud) {
-                [request showLoding:NO];
-            }
-        }
+        
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        [self processConnection:connection withRequest:request error:error];
+        [self processConnection:connection withRequest:request error:error HUDProgress:hud];
     }];
 }
 
@@ -87,42 +71,49 @@
         }
     }
     
+    [[HXBBaseRequestManager sharedInstance] addRequest:request];
     NYHTTPConnection *connection = [[NYHTTPConnection alloc]init];
     [connection connectWithRequest:request success:^(NYHTTPConnection *connection, id responseJsonObject) {
-        // 适配重构前的HUD
-        if (request.hudDelegate == nil) {
-            [hud hide];
-        }
-        else {
-            if(request.showHud) {
-                [request showLoding:NO];
-            }
-        }
-        [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject];
+        [self processConnection:connection withRequest:request responseJsonObject:responseJsonObject HUDProgress:hud];
     } failure:^(NYHTTPConnection *connection, NSError *error) {
-        // 适配重构前的HUD
-        if (request.hudDelegate == nil) {
-            [hud hide];
-        }
-        else {
-            if(request.showHud) {
-                [request showLoding:NO];
-            }
-        }
-        [self processConnection:connection withRequest:request error:error];
+        [self processConnection:connection withRequest:request error:error HUDProgress:hud];
     }];
 }
 
-- (void)processConnection:(NYHTTPConnection *)connection withRequest:(NYBaseRequest *)request responseJsonObject:(id)responseJsonObject
+- (void)processConnection:(NYHTTPConnection *)connection withRequest:(NYBaseRequest *)request responseJsonObject:(id)responseJsonObject HUDProgress:(HxbHUDProgress*)hud
 {
-    request.responseObject = responseJsonObject;
-    [self callBackRequestSuccess:request];
+    if([[HXBBaseRequestManager sharedInstance] deleteRequest:request]) {
+        // 适配重构前的HUD
+        if (request.hudDelegate == nil) {
+            [hud hide];
+        }
+        else {
+            if(request.showHud) {
+                [request showLoding:NO];
+            }
+        }
+        
+        request.responseObject = responseJsonObject;
+        [self callBackRequestSuccess:request];
+    }
 }
 
-- (void)processConnection:(NYHTTPConnection *)connection withRequest:(NYBaseRequest *)request error:(NSError *)error
+- (void)processConnection:(NYHTTPConnection *)connection withRequest:(NYBaseRequest *)request error:(NSError *)error  HUDProgress:(HxbHUDProgress*)hud
 {
-    request.error = error;
-    [self callBackRequestFailure:request];
+    if([[HXBBaseRequestManager sharedInstance] deleteRequest:request]) {
+        // 适配重构前的HUD
+        if (request.hudDelegate == nil) {
+            [hud hide];
+        }
+        else {
+            if(request.showHud) {
+                [request showLoding:NO];
+            }
+        }
+        
+        request.error = error;
+        [self callBackRequestFailure:request];
+    }
 }
 
 //--------------------------------------------回调--------------------------------------------
