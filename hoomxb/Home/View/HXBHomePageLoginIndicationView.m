@@ -141,8 +141,7 @@
         } else {
             self.availableAmountLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.availablePoint.doubleValue];
             self.allProfitLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.earnTotal.doubleValue];
-            double allAssets = viewModel.userInfoModel.userAssets.lenderPrincipal.doubleValue + viewModel.userInfoModel.userAssets.financePlanAssets.doubleValue;
-            self.assetsLabel.text = [NSString stringWithFormat:@"%0.2lf",allAssets];
+            self.assetsLabel.text = [NSString GetPerMilWithDouble:viewModel.userInfoModel.userAssets.holdingTotalAssets.doubleValue];
         }
         
     } else {

@@ -60,7 +60,7 @@
     self.titleAlert = title;
     self.massage = massage;
     self.force = force;
-    _messageHeight = [[HXB_XYTools shareHandle] heightWithString:massage labelFont:kHXBFont_PINGFANGSC_REGULAR(15) Width:kScrAdaptationW(275)];
+    _messageHeight = ceil([[HXB_XYTools shareHandle] heightWithString:massage labelFont:kHXBFont_PINGFANGSC_REGULAR(15) Width:kScrAdaptationW(275)] + kHXBFont_PINGFANGSC_REGULAR(15).lineHeight);
     if (_messageHeight > 80) {
         self.isScrolled = YES;
     } else {

@@ -18,5 +18,6 @@
 @property (nonatomic,assign) double lenderEarned;//散标债权-累计收益
 @property (nonatomic,assign) double availablePoint;//可用余额
 @property (nonatomic,assign) long long availableCouponCount;//可用优惠券数量
-
+/// 持有总资产
+@property (nonatomic, strong) NSNumber *holdingTotalAssets;
 @end

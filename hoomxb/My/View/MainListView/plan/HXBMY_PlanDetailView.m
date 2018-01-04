@@ -64,6 +64,10 @@ UITableViewDataSource
  type view
  */
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView      *typeView;
+/**
+ 付息日
+ */
+@property (nonatomic,strong) HXBBaseView_MoreTopBottomView      *monthlyPaymentView;
 ///**
 // 合同view
 // */
@@ -120,6 +124,26 @@ UITableViewDataSource
     [self.typeView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
         return weakSelf.manager.typeViewManager;
     }];
+    if (self.manager.monthlyPamentViewManager.leftStrArray.count) {  // 如果有按月付息内容就显示，没有就调整UI
+        [self.monthlyPaymentView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+            return weakSelf.manager.monthlyPamentViewManager;
+        }];
+        
+        UILabel *label = (UILabel *)self.monthlyPaymentView.rightViewArray.firstObject;
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ", label.text] ?: @""];
+        NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
+        attachment.image = [UIImage imageNamed:@"lightblue_tip"];
+        attachment.bounds = CGRectMake(0, -2, 14, 14);
+        [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+        label.attributedText = attr;
+        
+        [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tipClick:)]];
+    } else {
+        [self.monthlyPaymentView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.typeView.mas_bottom).offset(0);
+            make.height.equalTo(@0);
+        }];
+    }
     self.tableView.strArray = _manager.strArray;
     self.tableView.contentSize = CGSizeMake(kScreenWidth, _manager.strArray.count * kScrAdaptationH(45));
 }
@@ -159,6 +183,7 @@ UITableViewDataSource
     self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:self.cake andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:infoView_insets andCashType:nil];
      self.typeView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets andCashType:nil];
     
+     self.monthlyPaymentView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets];
     
     [self addSubview:self.topView];
     [self.topView addSubview:self.topViewMassge];
@@ -167,6 +192,7 @@ UITableViewDataSource
     [self.topView addSubview: self.topStatusImageView];
     [self addSubview:self.infoView];
     [self addSubview:self.typeView];
+    [self addSubview:self.monthlyPaymentView];
     [self addSubview:self.addButton];
     [self addSubview:self.tableView];
     
@@ -230,8 +256,16 @@ UITableViewDataSource
         make.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH750(90)));
     }];
+    
+    [self.monthlyPaymentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.typeView.mas_bottom).offset(kScrAdaptationH750(0));
+        make.left.equalTo(self);
+        make.right.equalTo(self);
+        make.height.equalTo(@(kScrAdaptationH750(90)));
+    }];
+    
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.typeView.mas_bottom).offset(kScrAdaptationH(10));
+        make.top.equalTo(self.monthlyPaymentView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.equalTo(self);
         make.right.equalTo(self);
         make.height.equalTo(@(kScrAdaptationH750(180)));
@@ -247,6 +281,7 @@ UITableViewDataSource
 - (void)setUPValue{
     self.infoView.backgroundColor = [UIColor whiteColor];
     self.typeView.backgroundColor = [UIColor whiteColor];
+    self.monthlyPaymentView.backgroundColor = [UIColor whiteColor];
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.topStatusView.layer.borderColor = [UIColor colorWithWhite:1 alpha:0.8].CGColor;
     self.topStatusView.layer.borderWidth = kXYBorderWidth;
@@ -263,6 +298,24 @@ UITableViewDataSource
         }
     }];
 }
+
+#pragma mark - Action
+
+- (void)tipClick:(UITapGestureRecognizer *)tap
+{
+    if (tap.view == nil) {
+        return;
+    }
+    CGPoint point = [tap locationInView:tap.view];
+    CGRect rect = tap.view.bounds;
+    if (point.x > rect.size.width - 18) {
+        if (self.tipClickBlock) {
+            self.tipClickBlock();
+        }
+    }
+}
+
+
 @end
 
 @implementation HXBMY_PlanDetailView_Manager
@@ -294,6 +347,14 @@ UITableViewDataSource
         self.infoViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
         self.infoViewManager.leftTextColor = kHXBColor_Grey_Font0_2;
         self.infoViewManager.rightTextColor = RGB(153, 153, 153);
+        
+        self.monthlyPamentViewManager        = [[HXBBaseView_MoreTopBottomViewManager alloc]init];;
+        self.monthlyPamentViewManager.leftLabelAlignment = NSTextAlignmentLeft;
+        self.monthlyPamentViewManager.rightLabelAlignment = NSTextAlignmentRight;
+        self.monthlyPamentViewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        self.monthlyPamentViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR_750(30);
+        self.monthlyPamentViewManager.leftTextColor = kHXBColor_Grey_Font0_2;
+        self.monthlyPamentViewManager.rightTextColor = kHXBColor_HeightGrey_Font0_4;
     }
     return self;
 }
