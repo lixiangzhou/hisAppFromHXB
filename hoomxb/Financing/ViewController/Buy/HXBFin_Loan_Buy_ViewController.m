@@ -209,9 +209,9 @@ static NSString *const bankString = @"绑定银行卡";
         self.alertVC.sureBtnClick = ^(NSString *pwd) {
             [weakSelf.alertVC.view endEditing:YES];
             NSDictionary *dic = nil;
-            dic = @{@"amount": [NSString stringWithFormat:@"%.lf", _inputMoneyStr.doubleValue], // 强转成整数类型
-                    @"buyType": _buyType,
-                    @"balanceAmount": _balanceMoneyStr,
+            dic = @{@"amount": [NSString stringWithFormat:@"%.lf", weakSelf.inputMoneyStr.doubleValue], // 强转成整数类型
+                    @"buyType": weakSelf.buyType,
+                    @"balanceAmount": weakSelf.balanceMoneyStr,
                     @"smsCode": pwd};
             [weakSelf buyLoanWithDic:dic];
         };

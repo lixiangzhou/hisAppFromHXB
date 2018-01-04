@@ -106,10 +106,14 @@ static NSString *CELLID = @"CELLID";
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.planListViewModelArray[indexPath.section].planListModel.hasCoupon) {
+    if ([self.planListViewModelArray[indexPath.section].planListModel.cashType isEqualToString:@"HXB"]) { //如果是按月付息
         return kPlanListCellHasCouponHeight;
     } else {
-        return kPlanListCellNoHasCouponHeight;
+        if (self.planListViewModelArray[indexPath.section].planListModel.hasCoupon) {
+            return kPlanListCellHasCouponHeight;
+        } else {
+            return kPlanListCellNoHasCouponHeight;
+        }
     }
 }
 

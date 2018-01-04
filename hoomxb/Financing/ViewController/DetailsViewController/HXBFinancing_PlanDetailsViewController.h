@@ -18,6 +18,11 @@
 ///是否为红利计划
 @property (nonatomic,assign) BOOL isPlan;
 
+/**
+ 2.4.0新增字段-计划的类型
+ */
+@property (nonatomic, copy) NSString *cashType;
+
 ///底部的tableView的模型数组
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*modelArray;
 

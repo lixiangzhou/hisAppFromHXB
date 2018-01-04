@@ -21,6 +21,9 @@ static NSString *const MY_PlanRequestType_EXITING_PLAN_UI   = @"退出中";
 static NSString *const MY_PlanRequestType_EXIT_PLAN         = @"EXIT_PLAN";
 static NSString *const MY_PlanRequestType_EXIT_PLAN_UI      = @"已退出";
 
+static NSString *const FIN_PLAN_INCOMEAPPROACH_COMPOUND     = @"INVEST"; //收益复投
+static NSString *const FIN_PLAN_INCOMEAPPROACH_MONTHLY      = @"HXB";    //按月付息
+
 //MARK: 红利计划请求
 /** 红利计划 主界面的请求参数
  * HOLD_PLAN（持有中）

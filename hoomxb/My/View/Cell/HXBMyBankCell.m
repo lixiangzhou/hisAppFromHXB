@@ -70,7 +70,7 @@
 - (HXBBaseView_MoreTopBottomView *)moreTopBottomView
 {
     if (!_moreTopBottomView) {
-        _moreTopBottomView = [[HXBBaseView_MoreTopBottomView alloc] initWithFrame:self.backView.bounds andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:12 andTopBottomSpace:10 andLeftRightLeftProportion:10 Space:UIEdgeInsetsMake(10, 10, 10, 10)];
+        _moreTopBottomView = [[HXBBaseView_MoreTopBottomView alloc] initWithFrame:self.backView.bounds andTopBottomViewNumber:4 andViewClass:[UILabel class] andViewHeight:12 andTopBottomSpace:10 andLeftRightLeftProportion:10 Space:UIEdgeInsetsMake(10, 10, 10, 10) andCashType:nil];
         
     }
     return _moreTopBottomView;

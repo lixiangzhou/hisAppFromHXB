@@ -197,7 +197,7 @@
 /// 底部的上下分层的View
 - (void) setUPBottomView {
     UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationH(11), kScrAdaptationW(15), kScrAdaptationH(11), kScrAdaptationW(15));
-    self.bottomTopBottomView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(13) andTopBottomSpace:kScrAdaptationH(16) andLeftRightLeftProportion:0 Space:insets];
+    self.bottomTopBottomView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(13) andTopBottomSpace:kScrAdaptationH(16) andLeftRightLeftProportion:0 Space:insets andCashType:nil];
     UILabel *label = (UILabel *) self.bottomTopBottomView.rightViewArray[1];
    
     [self.contentView addSubview:self.bottomTopBottomView];
