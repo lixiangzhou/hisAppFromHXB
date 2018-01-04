@@ -133,7 +133,7 @@ UITableViewDataSource
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ ", label.text] ?: @""];
         NSTextAttachment *attachment = [[NSTextAttachment alloc] init];
         attachment.image = [UIImage imageNamed:@"lightblue_tip"];
-        attachment.bounds = CGRectMake(0, 0, 14, 14);
+        attachment.bounds = CGRectMake(0, -2, 14, 14);
         [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
         label.attributedText = attr;
         
