@@ -60,7 +60,7 @@ static HXB_XYTools * handle = nil;
     if (string.length && labelFont) {
         titleSize = [string boundingRectWithSize:CGSizeMake(width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:labelFont} context:nil].size;
     }
-     return titleSize.height + 15;
+     return titleSize.height + labelFont.lineHeight;
 }
 
 
