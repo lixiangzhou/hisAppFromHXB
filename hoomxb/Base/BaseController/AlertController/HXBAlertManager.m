@@ -30,6 +30,7 @@
 + (void)alertNeedLoginAgainWithMeaage:(NSString *)message {
     
     HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"登录异常" andSubTitle:message andLeftBtnName:@"知道了" andRightBtnName:@"重新登录" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+    alertVC.isCenterShow = YES;
     [alertVC setLeftBtnBlock:^{
         ///显示Home
         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBBotification_ShowHomeVC object:nil];
@@ -114,6 +115,7 @@
         ///风险评测
         if ([viewModel.userInfoModel.userInfo.riskType isEqualToString:@"立即评测"]) {
             HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:@"您尚未进行风险评估，请评估后再进行投资" andLeftBtnName:@"立即评估" andRightBtnName:@"我是保守型" isHideCancelBtn:YES isClickedBackgroundDiss:YES];
+            alertVC.isCenterShow = YES;
             [vc presentViewController:alertVC animated:NO completion:nil];
             [alertVC setLeftBtnBlock:^{
                 HXBRiskAssessmentViewController *riskAssessmentVC = [[HXBRiskAssessmentViewController alloc] init];
@@ -186,6 +188,7 @@
 + (void)callupWithphoneNumber:(NSString *)phoneNumber andWithTitle:(NSString *)title Message:(NSString *)message {
 
     HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:title andSubTitle:message andLeftBtnName:@"取消" andRightBtnName:@"拨打" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+    alertVC.isCenterShow = YES;
     alertVC.leftBtnBlock = ^{
         
     };

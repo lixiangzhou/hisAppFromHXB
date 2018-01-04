@@ -4,7 +4,7 @@
 //
 //  Created by HXB on 2017/5/11.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
-//
+//  计划详情-》计划详情
 
 #import "HXBFin_Detail_DetailsVC_Plan.h"
 #import "HXBFinDetailViewModel_PlanDetail.h"
@@ -83,7 +83,8 @@
 ///初始化展示网络数据的lable
 - (void)setUP {
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.planDetail_DetailView = [[HXBFinPlanDetail_DetailView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
+    self.planDetail_DetailView = [[HXBFinPlanDetail_DetailView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight) withCashType:self.planDetailModel.planDetailModel.cashType];
+    
     [self.hxbBaseVCScrollView addSubview:self.planDetail_DetailView];
     self.hxbBaseVCScrollView.bounces = YES;
 //    [self.planDetail_DetailView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -116,15 +117,28 @@
                                                  weakSelf.planDetailModel.financeEndTime,//结束时间
                                                  weakSelf.planDetailModel.lockPeriod//期限
                                                 ];
+        if ([detailData.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY]) {
+            manager.typeViewManager.leftStrArray = @[
+                                                     @"收益方式",
+                                                     @"付息日",
+                                                     @"到期退出方式",
+                                                     ];
+            manager.typeViewManager.rightStrArray = @[
+                                                      detailData.incomeApproach?detailData.incomeApproach:@"",
+                                                      detailData.interestDate?detailData.interestDate:@"",
+                                                      @"系统通过债权转让的方式自动完成退出"
+                                                      ];
+        } else {
+            manager.typeViewManager.leftStrArray = @[
+                                                     @"收益方式",
+                                                     @"到期退出方式"
+                                                     ];
+            manager.typeViewManager.rightStrArray  = @[
+                                                      detailData.incomeApproach?detailData.incomeApproach:@"",
+                                                      @"系统通过债权转让的方式自动完成退出"
+                                                      ];
+        }
         
-        manager.typeViewManager.leftStrArray = @[
-                                                @"到期退出方式",
-                                                @"收益处理方式"
-                                                ];
-        manager.typeViewManager.rightStrArray = @[
-                                                 @"系统通过债权转让的方式自动完成退出",
-                                                 @"收益再投资"//收益处理方式
-                                                ];
         manager.serverViewManager.leftStrArray = @[
                                                 @"服务费"
                                                 ];
@@ -132,13 +146,18 @@
                                                 weakSelf.planDetailModel.contractName
                                                 ];
         NSString *str = [NSString stringWithFormat:@"参见%@",weakSelf.planDetailModel.contractName];
+//        if ([detailData.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY]) {
+//            str = [NSString stringWithFormat:@"参见%@",@"《按月付息服务协议》"];
+//        }
         NSRange range = NSMakeRange(2, str.length - 2);
         manager.serverViewAttributedStr = [NSAttributedString setupAttributeStringWithString:str WithRange:range andAttributeColor:kHXBColor_RGB(115/250.0, 163.0/255.0, 1, 1) andAttributeFont:kHXBFont_PINGFANGSC_REGULAR(13)];
         return manager;
     }];
     [self.planDetail_DetailView clickServerButtonWithBlock:^(UILabel *button) {
         //跳转 协议
-        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlanURL] fromController:weakSelf];
+        
+        NSString *urlStr = [weakSelf.planDetailModel.planDetailModel.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? kHXB_Negotiate_ServePlanMonthURL : kHXB_Negotiate_ServePlanURL;
+        [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:urlStr] fromController:weakSelf];
     }];
     
 }

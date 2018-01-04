@@ -307,6 +307,7 @@
             KeyChain.gesturePwdCount = [NSString stringWithFormat:@"%d",cout];
             if (cout <= 0) {
                 HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"很抱歉，您的手势密码五次输入错误" andLeftBtnName:@"取消" andRightBtnName:@"确定" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+                alertVC.isCenterShow = YES;
                 [KeyChain removeGesture];
                 KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
                 [KeyChain signOut];
@@ -342,6 +343,7 @@
     if (appeared == NO) {
         // 弹窗
         HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:nil andSubTitle:@"为了您的账户安全，建议您设置手势密码" andLeftBtnName:@"跳过设置" andRightBtnName:@"开始设置" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+        alertVC.isCenterShow = YES;
         alertVC.leftBtnBlock = ^{
             KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
             [KeyChain removeGesture];

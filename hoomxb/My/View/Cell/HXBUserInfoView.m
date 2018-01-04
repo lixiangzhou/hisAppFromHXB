@@ -83,7 +83,7 @@
 {
     if (!_moreTopBottomView) {
         CGFloat spacing = kScrAdaptationW(15);
-        _moreTopBottomView = [[HXBBaseView_MoreTopBottomView alloc] initWithFrame:self.bounds andTopBottomViewNumber:self.leftStrArr.count andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(30) andLeftRightLeftProportion:0 Space:UIEdgeInsetsMake(spacing, spacing, spacing, spacing)];
+        _moreTopBottomView = [[HXBBaseView_MoreTopBottomView alloc] initWithFrame:self.bounds andTopBottomViewNumber:self.leftStrArr.count andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(30) andLeftRightLeftProportion:0 Space:UIEdgeInsetsMake(spacing, spacing, spacing, spacing) andCashType:nil];
         [_moreTopBottomView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
             viewManager.rightLabelAlignment = NSTextAlignmentRight;
             return viewManager;
