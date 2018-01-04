@@ -22,6 +22,8 @@
 @property (nonatomic, strong)  UILabel *cardLimitMoneyLabel;
 /** 预期收益 */
 @property (nonatomic, strong)  UILabel *profitLabel;
+/** 收益方式 */
+@property (nonatomic, strong)  UILabel *profitTypeLabel;
 /** 预期收益 */
 @property (nonatomic, strong) UIView *backView;
 @property (nonatomic, strong) UIView *topView;
@@ -51,10 +53,12 @@
     lineView.backgroundColor = COR26;
     [self.backView addSubview:lineView];
     [self.backView addSubview:self.profitLabel];
+    [self.backView addSubview:self.profitTypeLabel];
     [self setupFrame];
 }
 
 - (void)setupFrame {
+    kWeakSelf
     [_notifitionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self);
         make.left.equalTo(self);
@@ -110,6 +114,20 @@
         make.width.offset(kScreenWidth);
         make.height.offset(kScrAdaptationH(35));
     }];
+    
+    [_profitLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(weakSelf.backView);
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW(15));
+        make.right.equalTo(weakSelf).offset(-kScrAdaptationW(75));
+        make.height.offset(kScrAdaptationH(35));
+    }];
+    
+    [_profitTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.profitLabel);
+        make.width.offset(kScrAdaptationW(60));
+        make.height.offset(kScrAdaptationH(24));
+        make.right.equalTo(weakSelf.backView).offset(kScrAdaptationH(-15));
+    }];
 }
 
 - (void)setHiddenProfitLabel:(BOOL)hiddenProfitLabel {
@@ -142,12 +160,23 @@
 }
 - (UILabel *)profitLabel {
     if (!_profitLabel) {
-        _profitLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScrAdaptationW(15), 0, kScreenWidth, kScrAdaptationH750(70))];
+        _profitLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _profitLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-        _profitLabel.text = @"1231231231";
         _profitLabel.textColor = COR10;
     }
     return _profitLabel;
+}
+- (UILabel *)profitTypeLabel {
+    if (!_profitTypeLabel) {
+        _profitTypeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _profitTypeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        _profitTypeLabel.textColor = COR29;
+        _profitTypeLabel.textAlignment = NSTextAlignmentCenter;
+        _profitTypeLabel.layer.borderWidth = kXYBorderWidth;
+        _profitTypeLabel.layer.borderColor = COR29.CGColor;
+        _profitTypeLabel.layer.cornerRadius = kScrAdaptationW(4);
+    }
+    return _profitTypeLabel;
 }
 
 - (void)setCreditorMoney:(NSString *)creditorMoney {
@@ -219,6 +248,14 @@
             make.height.offset(kScrAdaptationH(0));
         }];
         _notifitionView.hidden = YES;
+    }
+}
+
+// fixme
+- (void)setProfitType:(NSString *)profitType {
+    _profitTypeLabel.hidden = !profitType.length;
+    if (profitType.length) {
+        _profitTypeLabel.text = profitType;
     }
 }
 

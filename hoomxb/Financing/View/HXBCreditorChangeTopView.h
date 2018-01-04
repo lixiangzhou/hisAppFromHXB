@@ -23,6 +23,8 @@ typedef void(^textfieldDidChange)(NSString *text);
 @property (nonatomic, copy) NSString * cardStr;
 /** 预期收益 */
 @property (nonatomic, copy) NSString * profitStr;
+/** 收益方式 */
+@property (nonatomic, copy) NSString * profitType;
 
 /** 键盘类型 */
 @property (nonatomic, assign) UIKeyboardType keyboardType;

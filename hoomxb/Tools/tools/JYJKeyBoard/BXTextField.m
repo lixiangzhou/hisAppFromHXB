@@ -108,6 +108,7 @@
     // 这里因为用了第三方的键盘顶部，所有加了44
     if (self.adjustTextFeildH) {
         kbHeight = kbEndFrame.size.height - 44;
+        
     }
 
     // 动画的轨迹
@@ -124,6 +125,9 @@
     } else if ([UIScreen mainScreen].bounds.size.width == 375) {
         doneButtonW = ([UIScreen mainScreen].bounds.size.width - 8) / 3;
         doneButtonH = (kbHeight - 2) / 4;
+        if (HXBIPhoneX) {
+            doneButtonH = 56;
+        }
     } else if ([UIScreen mainScreen].bounds.size.width == 414) {
         doneButtonW = ([UIScreen mainScreen].bounds.size.width - 7) / 3;
         doneButtonH = kbHeight / 4;
@@ -133,6 +137,9 @@
         doneButtonY = [UIScreen mainScreen].bounds.size.height - doneButtonH;
     } else {
         doneButtonY = [UIScreen mainScreen].bounds.size.height + kbHeight - doneButtonH;
+        if (HXBIPhoneX) {
+            doneButtonY = [UIScreen mainScreen].bounds.size.height + 218 - doneButtonH;
+        }
     }
     UIButton *doneButton = [[UIButton alloc] initWithFrame:CGRectMake(doneButtonX, doneButtonY, doneButtonW, doneButtonH)];
     doneButton.titleLabel.font = [UIFont systemFontOfSize:27];

@@ -77,6 +77,10 @@
     [self.timer resumeTimer];
 }
 
+- (BOOL)isTimerWorking {
+    return _timer==nil? NO : YES;
+}
+
 - (void)timeDeal:(NSTimeInterval)diffTime
 {
     if(self.isCountDown) {//倒计时
