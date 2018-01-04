@@ -10,6 +10,10 @@
 @class HXBFinPlanDetail_DetailViewManager;
 @interface HXBFinPlanDetail_DetailView : UIView
 @property (nonatomic,strong) HXBFinPlanDetail_DetailViewManager *manager;
+
+
+- (instancetype) initWithFrame:(CGRect)frame withCashType:(NSString *) cashType;
+
 - (void)setValueManager_PlanDetail_Detail: (HXBFinPlanDetail_DetailViewManager *(^)(HXBFinPlanDetail_DetailViewManager *manager))planDDetailManagerBlock;
 
 ///点击了红利计划服务协议

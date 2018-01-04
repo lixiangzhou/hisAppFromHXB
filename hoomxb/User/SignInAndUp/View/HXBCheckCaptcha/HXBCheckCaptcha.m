@@ -80,10 +80,10 @@ static NSString *const kTrueButtonTitle = @"确定";
     kWeakSelf
     [self.promptLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf);
-        make.top.offset(kScrAdaptationH(40));
+        make.top.offset(kScrAdaptationH(45));
     }];
     [self.checkCaptchaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.promptLabel.mas_bottom).offset(kScrAdaptationW(25));
+        make.top.equalTo(weakSelf.promptLabel.mas_bottom).offset(kScrAdaptationW(30));
         make.right.equalTo(@(kScrAdaptationW(-43)));
         make.height.offset(kScrAdaptationH(33));
         make.width.offset(kScrAdaptationW(90));
@@ -100,16 +100,17 @@ static NSString *const kTrueButtonTitle = @"确定";
         make.height.offset(kHXBDivisionLineHeight);
     }];
     [self.trueButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(weakSelf).offset(kScrAdaptationW(-20));
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.top.equalTo(weakSelf.checkCaptchaImageView.mas_bottom).offset(kScrAdaptationH(30));
-        make.height.offset(kScrAdaptationH(35));
+        make.right.equalTo(weakSelf);
+//        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
+        make.bottom.equalTo(weakSelf.mas_bottom);
+        make.height.offset(kScrAdaptationH(45));
+        make.width.offset(kScrAdaptationW(140));
     }];
     [self.cancelBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(weakSelf).offset(kScrAdaptationW(20));
-        make.top.equalTo(weakSelf.checkCaptchaImageView.mas_bottom).offset(kScrAdaptationH(30));
-        make.height.offset(kScrAdaptationH(35));
-        make.width.offset(kScrAdaptationW(115));
+        make.left.equalTo(weakSelf);
+        make.bottom.equalTo(weakSelf.mas_bottom);
+        make.height.offset(kScrAdaptationH(45));
+        make.right.equalTo(weakSelf.trueButton.mas_left);
     }];
     
     
@@ -129,25 +130,25 @@ static NSString *const kTrueButtonTitle = @"确定";
     
     self.checkCaptchaTextField.font = kHXBFont_PINGFANGSC_REGULAR(16);
     self.checkCaptchaTextField.textColor = RGB(51, 51, 51);
+//    self.checkCaptchaTextField.placeholder = @"图形验证码";
+//    [self.checkCaptchaTextField setValue:COR10 forKeyPath:@"_placeholderLabel.textColor"];
     self.checkCaptchaTextField.textAlignment = NSTextAlignmentCenter;
     self.checkCaptchaTextField.delegate = self;
     self.checkCaptchaTextField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.checkCaptchaTextField.keyboardType = UIKeyboardTypeNumberPad;
     self.line.backgroundColor = RGB(222, 222, 222);
     
-    self.trueButton.backgroundColor = RGB(245, 81, 81);
-    self.trueButton.layer.cornerRadius = kScrAdaptationW(4);
-    self.trueButton.layer.masksToBounds = YES;
-    self.trueButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
+    [self.trueButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.trueButton setBackgroundColor:RGB(245, 81, 81)];
+    self.trueButton.userInteractionEnabled = YES;
+    self.trueButton.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
+    [self.trueButton setTitle:@"确定" forState:UIControlStateNormal];
     
     [self.cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-    self.cancelBtn.layer.cornerRadius = kScrAdaptationW(4);
-    self.cancelBtn.layer.masksToBounds = YES;
-    self.cancelBtn.layer.borderColor = RGB(253, 54, 54).CGColor;
-    self.cancelBtn.layer.borderWidth = kXYBorderWidth;
-    self.cancelBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
-    self.cancelBtn.hidden = YES;
-    [self.cancelBtn setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
+    [self.cancelBtn setTitleColor:RGB(102, 102, 102) forState:UIControlStateNormal];
+    [self.cancelBtn setBackgroundColor:RGB(232, 232, 238)];
+    self.cancelBtn.userInteractionEnabled = YES;
+    self.cancelBtn.titleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
     [self.cancelBtn addTarget:self action:@selector(cancelBtnClick) forControlEvents:UIControlEventTouchUpInside];
 }
 

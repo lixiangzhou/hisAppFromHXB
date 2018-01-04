@@ -29,6 +29,14 @@ static NSString *kHXB_FinPlan_Leave = @"到期退出";
  加入中，开始收益，到期退出
  */
 @property (nonatomic,assign) NSInteger stage;
+
+/**
+ profitLabel描述
+ 原利息复投方式显示：收益复投
+ 利息返还方式显示：每月X日付息
+ */
+@property (nonatomic,copy) NSString *profitStr;
+
 ///设置值
 - (void)setUPFlowChartViewManagerWithManager: (HXBFinBase_FlowChartView_Manager *(^)(HXBFinBase_FlowChartView_Manager *manager))flowChartViewManagerBlock;
 

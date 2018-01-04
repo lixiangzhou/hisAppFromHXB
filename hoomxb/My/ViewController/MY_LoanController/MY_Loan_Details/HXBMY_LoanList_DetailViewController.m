@@ -91,7 +91,7 @@
 }
 
 - (void)setUPView {
-    self.loanDetailView = [[HXBMY_Loan_DetailView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, self.view.height)];
+    self.loanDetailView = [[HXBMY_Loan_DetailView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, self.view.height - HXBStatusBarAndNavigationBarHeight)];
     [self.view addSubview:self.loanDetailView];
     [self.view addSubview:self.transferBtn];
     [self.transferBtn mas_makeConstraints:^(MASConstraintMaker *make) {
