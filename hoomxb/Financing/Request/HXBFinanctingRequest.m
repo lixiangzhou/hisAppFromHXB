@@ -170,13 +170,9 @@
         kHXBResponsShowHUD
         NSMutableArray <NSDictionary *>* dataList = [NSMutableArray arrayWithArray:responseObject[@"data"][@"dataList"]];
         NSArray <NSDictionary *>* recommendList = responseObject[@"data"][@"recommendList"];
-        // 按顺序插入按月付息的数组到原数组
-        if (recommendList.count > 0) {
-            for (int i = 0; i < recommendList.count; i++) {
-                NSDictionary *recommendDic = recommendList[i];
-                [dataList safeInsertObject:recommendDic atIndex:i];
-            }
-        }
+        // 插入按月付息的数组
+        [dataList insertObjects:recommendList atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, recommendList.count)]];
+
         NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
 
         //数据的处理
