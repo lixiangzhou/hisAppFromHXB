@@ -168,10 +168,14 @@
         NSLog(@"%@",responseObject);
         ///计划列表数据是否出错
         kHXBResponsShowHUD
-        NSMutableArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
+        NSMutableArray <NSDictionary *>* dataList = [NSMutableArray arrayWithArray:responseObject[@"data"][@"dataList"]];
         NSArray <NSDictionary *>* recommendList = responseObject[@"data"][@"recommendList"];
+        // 按顺序插入按月付息的数组到原数组
         if (recommendList.count > 0) {
-            [dataList insertObjects:recommendList atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, recommendList.count)]];
+            for (int i = 0; i < recommendList.count; i++) {
+                NSDictionary *recommendDic = recommendList[i];
+                [dataList safeInsertObject:recommendDic atIndex:i];
+            }
         }
         NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
 
