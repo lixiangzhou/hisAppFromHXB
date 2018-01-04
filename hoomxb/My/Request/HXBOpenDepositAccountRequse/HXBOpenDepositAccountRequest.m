@@ -27,7 +27,7 @@
             alertVC.isCenterShow = YES;
             [alertVC setRightBtnBlock:^{
                 NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", kServiceMobile];
-                NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
+                NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0" options:NSNumericSearch];
                 if (compare == NSOrderedDescending || compare == NSOrderedSame) {
                     /// 大于等于10.0系统使用此openURL方法
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
@@ -75,16 +75,16 @@
                 alertVC.isCenterShow = YES;
                 [alertVC setRightBtnBlock:^{
                     NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@", kServiceMobile];
-                    NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0"];
+                    NSComparisonResult compare = [[UIDevice currentDevice].systemVersion compare:@"10.0" options:NSNumericSearch];
                     if (compare == NSOrderedDescending || compare == NSOrderedSame) {
-                        /// 大于等于10.0系统使用此openURL方法
+                        /// 大于等于10.0系统使用此openURL方法 
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
                     } else {
                         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
                     }
                 }];
                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:NO completion:nil];
-                return;
+                return ;
             } else {
                 if (status == kHXBCode_Enum_ProcessingField) return;
                 [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];

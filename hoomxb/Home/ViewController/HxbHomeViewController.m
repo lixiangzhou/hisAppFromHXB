@@ -189,6 +189,7 @@
             planDetailsVC.planID = homePageModel.ID;
             planDetailsVC.isPlan = YES;
             planDetailsVC.isFlowChart = YES;
+            planDetailsVC.cashType = homePageModel.cashType;
             [weakSelf.navigationController pushViewController:planDetailsVC animated:YES];
         };
         _homeView.tipButtonClickBlock_homeView = ^(){

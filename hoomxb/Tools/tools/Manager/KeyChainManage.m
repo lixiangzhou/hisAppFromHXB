@@ -655,7 +655,8 @@ static NSString *const hostH5 = @"hostH5";
     if (!h5Host.length) {
         h5Host = @"https://m.hongxiaobao.com";
     }
-    return h5Host;
+//    return h5Host;
+    return @"http://192.168.1.27:4500";
 }
 
 - (void)setH5host:(NSString *)h5host

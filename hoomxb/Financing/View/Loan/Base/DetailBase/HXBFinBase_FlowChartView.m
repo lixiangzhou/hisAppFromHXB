@@ -173,6 +173,10 @@
     
 }
 
+- (void)setProfitStr:(NSString *)profitStr{
+    self.profitLabel.text = profitStr;
+}
+
 - (void)willMoveToSuperview:(UIView *)newSuperview {
     [super willMoveToSuperview:newSuperview];
   }
@@ -355,7 +359,7 @@
         [self addSubview:_profitLabel];
         _profitLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _profitLabel.textColor = kHXBColor_Grey_Font0_2;
-        _profitLabel.text = @"收益中";
+//        _profitLabel.text = @"收益中";
         _profitLabel.hidden = YES;
     }
     return _profitLabel;
