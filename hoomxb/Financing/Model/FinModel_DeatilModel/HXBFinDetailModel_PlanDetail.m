@@ -24,6 +24,13 @@
 //    return [NSString hxb_getPerMilWithIntegetNumber:[self.userRemainAmount floatValue]];
 //}
 
+- (NSString *)cashType {
+    if (!_cashType) {
+        _cashType = @"INVEST";
+    }
+    return _cashType;
+}
+
 @end
 
 @implementation HXBFinDetailModel_PlanDetail_DataList
