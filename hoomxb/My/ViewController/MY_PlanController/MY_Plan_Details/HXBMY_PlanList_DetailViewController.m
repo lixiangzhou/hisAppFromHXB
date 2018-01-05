@@ -75,7 +75,7 @@
     }];
     
     self.planDetailView.tipClickBlock = ^{
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"按月付息" Massage:@"购买该计划产品的用户，收益将会按月返回到账内即可提取，如当月无此付息日，则统一为当月最后一天为该月付息日。" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"按月付息" Massage:@"购买该计划产品的用户，收益将会按当月时间返回到账内即可提取，如当月无此付息日，则统一为当月最后一天为该月付息日。" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
         alertVC.isHIddenLeftBtn = YES;
         alertVC.isCenterShow = YES;
         [self presentViewController:alertVC animated:YES completion:nil];
@@ -90,7 +90,11 @@
 //服务协议
 - (void)clickNegotiate {
     NSLog(@"点击了服务协议%@",self);
-    [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_ServePlan_AccountURL(self.viewModel.planDetailModel.ID)] fromController:self];
+    NSString *url = kHXB_Negotiate_ServePlan_AccountURL(self.viewModel.planDetailModel.ID);
+    if (self.viewModel.isMonthyPayment) {
+        url = kHXB_Negotiate_ServeMonthPlan_AccountURL(self.viewModel.planDetailModel.ID);
+    }
+    [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:url] fromController:self];
 }
 //投资记录
 - (void)clickLoanRecord {

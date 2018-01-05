@@ -117,6 +117,7 @@
 #define kHXB_Negotiate_ServePlanURL @"/agreement/plan"///《红利计划服务协议书》
 #define kHXB_Negotiate_ServePlanMonthURL @"/agreement/planMonth"///《按月付息服务协议书》
 #define kHXB_Negotiate_ServePlan_AccountURL(productID) [NSString stringWithFormat: @"/acount/plan/%@/agreement",(productID)]///账户内服务协议 plan
+#define kHXB_Negotiate_ServeMonthPlan_AccountURL(productID) [NSString stringWithFormat: @"/acount/planMonth/%@/agreement",(productID)]///账户内按月付息服务协议
 #define kHXB_Negotiate_ServeLoan_AccountURL(productID) [NSString stringWithFormat: @"/acount/loan/%@/agreement/",(productID)]///账户内《借款协议》
 #define kHXB_Negotiate_ServeLoanURL @"/agreement/loan"///《借款服务协议书》
 #define kHXB_Negotiate_Anti_MoneyLaunderingURL @"/agreement/antimoney"///《反洗钱告知暨客户出借承诺书》
