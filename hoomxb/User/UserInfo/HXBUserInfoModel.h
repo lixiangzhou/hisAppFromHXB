@@ -40,6 +40,8 @@
 ///    冻结余额
 @property (nonatomic,copy) NSString *frozenPoint;
 @property (nonatomic,copy) NSString *hasRecharge;
+/// 持有总资产
+@property (nonatomic,strong) NSNumber *holdingTotalAssets;
 @end
 
 
