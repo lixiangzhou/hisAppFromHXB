@@ -420,7 +420,7 @@
     planJoinVC.loanId = self.planDetailViewModel.ID;
     planJoinVC.featuredSlogan = self.planListViewModel.planListModel.featuredSlogan;
     planJoinVC.minRegisterAmount = self.planDetailViewModel.planDetailModel.minRegisterAmount;
-    planJoinVC.cashType = self.planDetailViewModel.planDetailModel.cashType;
+    planJoinVC.cashType = self.planDetailViewModel.planDetailModel.cashType.length ? self.planDetailViewModel.planDetailModel.cashType : @"INVEST";
     planJoinVC.registerMultipleAmount = self.planDetailViewModel.planDetailModel.registerMultipleAmount;
     planJoinVC.placeholderStr = self.planDetailViewModel.addCondition;
     [self.navigationController pushViewController:planJoinVC animated:YES];
