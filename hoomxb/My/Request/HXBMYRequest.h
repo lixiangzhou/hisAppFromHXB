@@ -12,6 +12,8 @@
 #import "HXBMYViewModel_MainCapitalRecordViewModel.h"//主界面 资产记录 ViewMOdel
 #import "HXBBaseRequest.h"
 #import "HXBMY_LoanTruansferViewModel.h"
+#import "HXBBaseViewModel.h"
+
 @class HXBMYModel_AssetStatistics_Plan;//资金统计的Model plan
 @class HXBMYModel_AssetStatistics_Loan;//资金统计的Model loan
 @class HXBMYModel_Plan_planRequestModel;///plan 资产目录
@@ -19,7 +21,7 @@
 @class HXBMY_PlanViewModel_LoanRecordViewModel;
 @class HXBTransferConfirmModel;
 ///关于个人主页的红利计划的 （账户内）
-@interface HXBMYRequest : NSObject
+@interface HXBMYRequest : HXBBaseViewModel
 ///创建单利对象
 + (instancetype) sharedMYRequest;
 

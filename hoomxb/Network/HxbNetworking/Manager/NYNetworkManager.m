@@ -40,7 +40,7 @@
     }
     else {
         if(request.showHud) {
-           [request showLoding:YES];
+           [request showLoading:content];
         }
     }
     NSLog(@"%@",request.httpHeaderFields);
@@ -67,7 +67,7 @@
     }
     else {
         if(request.showHud) {
-            [request showLoding:YES];
+            [request showLoading:nil];
         }
     }
     
@@ -89,7 +89,7 @@
         }
         else {
             if(request.showHud) {
-                [request showLoding:NO];
+                [request hideLoading];
             }
         }
         
@@ -107,7 +107,7 @@
         }
         else {
             if(request.showHud) {
-                [request showLoding:NO];
+                [request hideLoading];
             }
         }
         

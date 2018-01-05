@@ -130,13 +130,74 @@
 }
 
 
-//- (void)hxbRequestWithViewModelClass: (Class)viewModelClass
-//                       andModelClass: (Class)modelClass
-//                          andSuccess: (void (^)(NSArray *dataArray))successBlock
-//                          andFailure: (void (^)(HXBBaseRequest *request, NSError *error))failureBlock {
-//    self.viewModelClass = viewModelClass;
-//    self.success = [successBlock copy];
-//    self.failure = [failureBlock copy];
-//    [self startWithAnimation];
-//}
+#pragma mark  以下为重构后需要使用的各种方法
+- (void)loadData
+{
+    NSString *str = kLoadIngText;
+    if (self.isUPReloadData || self.dataPage > 1) {
+        str = nil;
+    }
+    
+    [self startWithHUD:str];
+}
+
+- (void)loadDataWithSuccess:(void(^)(HXBBaseRequest *request, id responseObject))success
+                    failure:(void(^)(HXBBaseRequest *request, NSError *error))failure
+{
+    if (!self.isJudgeLogin) {
+        self.success = [success copy];
+        self.failure = [failure copy];
+        [self loadData];
+        return;
+    }
+    [KeyChain isLoginWithInRealTimeBlock:^(BOOL isLogin) {
+        if (isLogin) {
+            self.success = [success copy];
+            self.failure = [failure copy];
+            [self loadData];
+        }else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
+    }];
+}
+
+- (void)loadDataWithHUDStr:(NSString *)string Success:(void(^)(HXBBaseRequest *request, id responseObject))success
+                   failure:(void(^)(HXBBaseRequest *request, NSError *error))failure
+{
+    if (!self.isJudgeLogin) {
+        self.success = [success copy];
+        self.failure = [failure copy];
+        [self startWithHUD:string];
+        return;
+    }
+    [KeyChain isLoginWithInRealTimeBlock:^(BOOL isLogin) {
+        if (isLogin) {
+            self.success = [success copy];
+            self.failure = [failure copy];
+            [self startWithHUD:string];
+        }else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
+    }];
+}
+
+- (void)loadDataAnimationWithSuccess:(void(^)(HXBBaseRequest *request, id responseObject))success
+                             failure:(void(^)(HXBBaseRequest *request, NSError *error))failure
+{
+    if (!self.isJudgeLogin) {
+        self.success = [success copy];
+        self.failure = [failure copy];
+        [self startWithAnimation];
+        return;
+    }
+    [KeyChain isLoginWithInRealTimeBlock:^(BOOL isLogin) {
+        if (isLogin) {
+            self.success = [success copy];
+            self.failure = [failure copy];
+            [self startWithAnimation];
+        }else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+        }
+    }];
+}
 @end

@@ -101,23 +101,25 @@
 /**
  显示加载框
  
- @param isShow 控制显示/隐藏
+ @param hudContent 显示的文本内容
  */
-- (void)showLoding:(BOOL)isShow
+- (void)showLoading:(NSString*)hudContent
 {
-    if(isShow) {
-        if([self.hudDelegate respondsToSelector:@selector(showProgress)]){
-            [self.hudDelegate showProgress];
-        }
+    if([self.hudDelegate respondsToSelector:@selector(showProgress:)]){
+        [self.hudDelegate showProgress:hudContent];
     }
-    else {
-        if([self.hudDelegate respondsToSelector:@selector(hideProgress)]){
-            [self.hudDelegate hideProgress];
-        }
-    }
-    
 }
 
+/**
+ 隐藏加载框
+ 
+ */
+- (void)hideLoading
+{
+    if([self.hudDelegate respondsToSelector:@selector(hideProgress)]){
+        [self.hudDelegate hideProgress];
+    }
+}
 /**
  显示提示文本
  

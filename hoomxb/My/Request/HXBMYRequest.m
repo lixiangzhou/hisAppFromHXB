@@ -32,7 +32,7 @@
 #import "HXBTransferConfirmModel.h"//账户内债转确认model
 
 
-@interface HXBMYRequest ()
+@interface HXBMYRequest () <HXBRequestHudDelegate>
 ///planAPI
 @property (nonatomic,strong) HXBBaseRequest *planListAPI;
 ///计划资产
@@ -628,11 +628,10 @@
                               andFailureBlock: (void(^)(NSError *error))failureBlock
                                     andUpData: (BOOL)isUPData{
 
-    HXBBaseRequest *account_PlanRequest = [[HXBBaseRequest alloc]init];
+    HXBBaseRequest *account_PlanRequest = [[HXBBaseRequest alloc] initWithDelegate:self];
     account_PlanRequest.requestUrl = kHXBMY_PlanAccountRequestURL;
-    account_PlanRequest.requestMethod = NYRequestMethodGet;
     account_PlanRequest.isUPReloadData = YES;
-    [account_PlanRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+    [account_PlanRequest loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         if([responseObject[kResponseStatus] integerValue]) {
             kNetWorkError(@" Plan 账户内计划资产");
         }

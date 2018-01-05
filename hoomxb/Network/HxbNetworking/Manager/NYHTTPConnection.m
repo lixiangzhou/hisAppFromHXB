@@ -18,7 +18,7 @@
 
 @interface NYHTTPConnection ()
 
-@property (nonatomic, strong, readwrite) NYBaseRequest *request;
+@property (nonatomic, weak) NYBaseRequest *request;
 
 @property (nonatomic, strong, readwrite) NSURLSessionDataTask *task;
 
@@ -42,6 +42,7 @@
 {
     self.success = success;
     self.failure = failure;
+    self.request = request;
     
     //现在的初始化代码
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
@@ -184,14 +185,14 @@
 - (void)tokenUpdateNotify:(NSNotification *)notify
 {
     BOOL result = [notify.userInfo stringAtPath:@"result"].boolValue;
-    NYBaseRequest* request = notify.object;
+    NYBaseRequest* request = ((NYHTTPConnection*)notify.object).request;
     
     if (result) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([HXBRootVCManager manager].mainTabbarVC.selectedViewController.childViewControllers.count > 1) {
-                if (request.failure) {
+                if (request.connection.failure) {
                     request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
-                    request.failure(request, nil);
+                    request.connection.failure(request.connection, nil);
                 }
             } else {
                 [self processTokenInvidate];
@@ -199,10 +200,10 @@
             }
         });
     } else {
-        if (request.failure) {
+        if (request.connection.failure) {
             request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
             
-            request.failure(request, request.error);
+            request.connection.failure(request.connection, request.error);
         }
     }
 }

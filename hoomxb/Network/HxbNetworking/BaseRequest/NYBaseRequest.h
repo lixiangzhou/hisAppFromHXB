@@ -41,7 +41,7 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 @interface NYBaseRequest : NSObject
 
 // ================================== request ==================================
-@property (nonatomic, weak) NYHTTPConnection *connection;
+@property (nonatomic, strong) NYHTTPConnection *connection;
 /// 请求方法 Get/Post， 默认是Get
 @property (nonatomic, assign) NYRequestMethod requestMethod;
 /// baseUrl之后的请求Url
@@ -93,6 +93,7 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 
 - (NYBaseRequest *)copyRequest;
 
+
 #pragma mark  以下为重构后需要使用的各种方法
 
 - (instancetype)initWithDelegate:(id<HXBRequestHudDelegate>)delegate;
@@ -106,10 +107,16 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 - (BOOL)defferRequest:(NYBaseRequest*)request;
 /**
  显示加载框
-
- @param isShow 控制显示/隐藏
+ 
+ @param hudContent 显示的文本内容
  */
-- (void)showLoding:(BOOL)isShow;
+- (void)showLoading:(NSString*)hudContent;
+
+/**
+ 隐藏加载框
+ 
+ */
+- (void)hideLoading;
 
 /**
  显示提示文本

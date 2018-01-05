@@ -36,9 +36,15 @@
 - (void)startAnimationWithSuccess:(void(^)(HXBBaseRequest *request, id responseObject))success
                        failure:(void(^)(HXBBaseRequest *request, NSError *error))failure;
 
-#pragma mark - 数据做了初步的处理
-//- (void)hxbRequestWithViewModelClass: (Class)viewModelClass
-//                       andModelClass: (Class)modelClass
-//                          andSuccess: (void (^)(NSArray *dataArray))successBlock
-//                          andFailure: (void (^)(HXBBaseRequest *request, NSError *error))failureBlock;
+#pragma mark  以下为重构后需要使用的各种方法
+- (void)loadData;
+
+- (void)loadDataWithSuccess:(void(^)(HXBBaseRequest *request, id responseObject))success
+                 failure:(void(^)(HXBBaseRequest *request, NSError *error))failure;
+
+- (void)loadDataWithHUDStr:(NSString *)string Success:(void(^)(HXBBaseRequest *request, id responseObject))success
+                failure:(void(^)(HXBBaseRequest *request, NSError *error))failure;
+
+- (void)loadDataAnimationWithSuccess:(void(^)(HXBBaseRequest *request, id responseObject))success
+                          failure:(void(^)(HXBBaseRequest *request, NSError *error))failure;
 @end
