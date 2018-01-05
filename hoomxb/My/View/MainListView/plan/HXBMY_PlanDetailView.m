@@ -183,7 +183,7 @@ UITableViewDataSource
     self.infoView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:self.cake andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:kScrAdaptationH750(40) andLeftRightLeftProportion:0 Space:infoView_insets andCashType:nil];
      self.typeView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets andCashType:nil];
     
-     self.monthlyPaymentView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets];
+     self.monthlyPaymentView       = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectNull andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH750(30) andTopBottomSpace:0 andLeftRightLeftProportion:0 Space:infoView_insets andCashType:nil];
     
     [self addSubview:self.topView];
     [self.topView addSubview:self.topViewMassge];
