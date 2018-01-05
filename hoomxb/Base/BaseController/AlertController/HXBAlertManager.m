@@ -114,21 +114,21 @@
         }
         ///风险评测
         if ([viewModel.userInfoModel.userInfo.riskType isEqualToString:@"立即评测"]) {
-            HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:@"您尚未进行风险评估，请评估后再进行投资" andLeftBtnName:@"立即评估" andRightBtnName:@"我是保守型" isHideCancelBtn:YES isClickedBackgroundDiss:YES];
-            alertVC.isCenterShow = YES;
+            HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:@"您尚未进行风险评测，请评测后再进行投资" andLeftBtnName:@"我是保守型" andRightBtnName:@"立即评测" isHideCancelBtn:YES isClickedBackgroundDiss:YES];
+//            alertVC.isCenterShow = YES;
             [vc presentViewController:alertVC animated:NO completion:nil];
             [alertVC setLeftBtnBlock:^{
+                HXBSetGesturePasswordRequest *riskModifyScore = [[HXBSetGesturePasswordRequest alloc] init];
+                [riskModifyScore riskModifyScoreRequestWithScore:@"0" andSuccessBlock:^(id responseObject) {
+                } andFailureBlock:^(NSError *error) {
+                }];
+            }];
+            [alertVC setRightBtnBlock:^{
                 HXBRiskAssessmentViewController *riskAssessmentVC = [[HXBRiskAssessmentViewController alloc] init];
                 [vc.navigationController pushViewController:riskAssessmentVC animated:YES];
                 __weak typeof(riskAssessmentVC) weakRiskAssessmentVC = riskAssessmentVC;
                 [riskAssessmentVC popWithBlock:^(NSString *type) {
                     [weakRiskAssessmentVC.navigationController popToViewController:vc animated:YES];
-                }];
-            }];
-            [alertVC setRightBtnBlock:^{
-                HXBSetGesturePasswordRequest *riskModifyScore = [[HXBSetGesturePasswordRequest alloc] init];
-                [riskModifyScore riskModifyScoreRequestWithScore:@"0" andSuccessBlock:^(id responseObject) {
-                } andFailureBlock:^(NSError *error) {
                 }];
             }];
             return;
