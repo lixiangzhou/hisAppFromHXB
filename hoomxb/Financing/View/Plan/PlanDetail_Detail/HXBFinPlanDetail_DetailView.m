@@ -105,7 +105,7 @@
                 infoBtn = (UIButton *)view;
             }
         }
-        [infoBtn setImage:[UIImage imageNamed:@"planDetail_info"] forState:UIControlStateNormal];
+        [infoBtn setImage:[UIImage imageNamed:@"lightblue_tip"] forState:UIControlStateNormal];
         rightView.userInteractionEnabled = YES;
         [infoBtn addTarget:self action:@selector(clickInfoBtn) forControlEvents:UIControlEventTouchUpInside];
     }
