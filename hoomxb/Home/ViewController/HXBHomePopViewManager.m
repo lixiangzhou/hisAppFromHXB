@@ -20,6 +20,7 @@
 #import "HxbSignUpViewController.h"
 #import "HXBNoticeViewController.h"
 #import "HXBBannerWebViewController.h"
+#import "HXBRootVCManager.h"
 
 #define kRegisterVC @"/account/register"//注册页面
 #define kNoticeVC @"/home/notice"//公告列表
@@ -78,7 +79,7 @@
 //            [kUserDefaults synchronize];
             [self cachePopHomeImage];
         } else {
-            self.isHide = ![kUserDefaults boolForKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
+            self.isHide = ![kUserDefaults boolForKey:[NSString stringWithFormat:@"%@%@",_responseDict[@"id"],_responseDict[@"frequency"]]];
         }
     } else {
         _responseDict = dict;
@@ -91,10 +92,10 @@
 - (void)cachePopHomeImage{
     kWeakSelf
     SDImageCache *imageCache = [SDImageCache sharedImageCache];
-//    UIImage *image = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
-//    if (image) {
-//        [imageCache removeImageForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] fromDisk:YES];
-//    }
+    UIImage *image = [imageCache imageFromDiskCacheForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]]];
+    if (image) {
+        [imageCache removeImageForKey:[NSString stringWithFormat:@"%@image",_responseDict[@"id"]] fromDisk:YES];
+    }
     [self.popView.imgView sd_setImageWithURL:[NSURL URLWithString:_responseDict[@"image"]] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         if (image) {
             //            UIImage *img = [UIImage createRoundedRectImage:image size:image.size radius:kScrAdaptationW(4)];
@@ -107,10 +108,21 @@
             
 //            [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
 //            [kUserDefaults synchronize];
-            self.isHide = NO;
+            weakSelf.isHide = NO;
+            
+            [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
         } else {
 //            [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",_responseDict[@"id"]]];
 //            [kUserDefaults synchronize];
+            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
+                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+                //                weakSelf.isHide = YES;
+                [kUserDefaults synchronize];
+            } else {
+                [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+                //                weakSelf.isHide = YES;
+                [kUserDefaults synchronize];
+            }
             self.isHide = YES;
         }
     }];
@@ -124,13 +136,17 @@
         __weak typeof(_popView) weakPopView = self.popView;
         self.popView.popCompleteBlock = ^{
             NSLog(@"1111显示完成");
-//            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
-                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@frequency",weakSelf.responseDict[@"id"]]];
-                weakSelf.isHide = YES;
+            if ([weakSelf.responseDict[@"frequency"] isEqualToString:@"once"]) {
+                [kUserDefaults setBool:NO forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+//                weakSelf.isHide = YES;
                 [kUserDefaults synchronize];
-//            }
+            } else {
+                [kUserDefaults setBool:YES forKey:[NSString stringWithFormat:@"%@%@",weakSelf.responseDict[@"id"],weakSelf.responseDict[@"frequency"]]];
+                //                weakSelf.isHide = YES;
+                [kUserDefaults synchronize];
+            }
 
-//            weakSelf.isHide = YES;
+            weakSelf.isHide = YES;
             
         };
         // 移除完成回调
