@@ -360,7 +360,7 @@
         _profitLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
         _profitLabel.textColor = kHXBColor_Grey_Font0_2;
 //        _profitLabel.text = @"收益中";
-        _profitLabel.hidden = YES;
+        _profitLabel.hidden = NO;//YES;
     }
     return _profitLabel;
 }
