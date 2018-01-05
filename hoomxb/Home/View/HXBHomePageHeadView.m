@@ -6,6 +6,8 @@
 //  Copyright © 2016年 hongxb. All rights reserved.
 //
 
+#define kHXBNoticeButtonWithAndHeight kScrAdaptationH(60)
+
 #import "HXBHomePageHeadView.h"
 #import "HXBHomePageBulletinView.h"
 #import "HXBHomePageModuleView.h"
@@ -46,10 +48,10 @@
 
 - (void)setupUI {
     [self.noticeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self).offset(kScrAdaptationW(-20));
-        make.top.offset(kScrAdaptationH(40) + HXBStatusBarAdditionHeight);
-        make.height.offset(kScrAdaptationH(17));
-        make.width.offset(kScrAdaptationW(20));
+        make.right.equalTo(self);
+        make.top.offset(kScrAdaptationH(18) + HXBStatusBarAdditionHeight);
+        make.height.offset(kHXBNoticeButtonWithAndHeight);
+        make.width.offset(kHXBNoticeButtonWithAndHeight);
     }];
     [self.bannerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self);
@@ -190,6 +192,8 @@
         _noticeBtn = [[UIButton alloc] initWithFrame:CGRectZero];
         [_noticeBtn setImage:[UIImage imageNamed:@"Home_notice"] forState:UIControlStateNormal];
         [_noticeBtn addTarget:self action:@selector(noticeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        CGFloat leftAndRight = (kHXBNoticeButtonWithAndHeight - kScrAdaptationH(20)) * 0.5;
+        _noticeBtn.imageEdgeInsets = UIEdgeInsetsMake(0, leftAndRight, 0, leftAndRight);
         _noticeBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _noticeBtn;
