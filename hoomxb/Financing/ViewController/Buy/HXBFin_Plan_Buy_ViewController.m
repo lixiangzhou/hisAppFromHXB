@@ -219,13 +219,20 @@ static const NSInteger topView_high = 300;
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue && !_hasInvestMoney) { // 超过可加入金额是，只check，不用强制到最大可加入金额
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
-    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue && !_hasInvestMoney) {
+    }  else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue && !_hasInvestMoney && _isFirstBuy) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
+    } else if (_inputMoneyStr.floatValue < _registerMultipleAmount.floatValue && !_hasInvestMoney && !_isFirstBuy) {
+        _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_registerMultipleAmount.integerValue];
+        _inputMoneyStr = _registerMultipleAmount;
+        _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _registerMultipleAmount.floatValue*self.totalInterest.floatValue/100.0];
+        [self getBESTCouponWithMoney:_inputMoneyStr];
+        _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
+        [HxbHUDProgress showTextWithMessage:@"投资金额不足递增金额"];
     } else {
         BOOL isFitToBuy;
         if (_isFirstBuy) {
