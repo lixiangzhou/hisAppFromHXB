@@ -33,9 +33,9 @@
         view = self.hugViewBlock();
     }
     
-    if(!view) {
-        view = [UIApplication sharedApplication].keyWindow;
-    }
+//    if(!view) {
+//        view = [UIApplication sharedApplication].keyWindow;
+//    }
     return view;
 }
 
