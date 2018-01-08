@@ -100,9 +100,7 @@
 - (instancetype)initWithFrame:(CGRect)frame andTopBottomViewNumber:(NSInteger)topBottomViewNumber andViewClass:(Class)clas andViewHeight:(CGFloat)viewH andTopBottomSpace:(CGFloat)topBottomSpace andLeftRightLeftProportion:(CGFloat)leftProportion Space:(UIEdgeInsets)space andCashType:(NSString *)cashType{
     if (self = [super initWithFrame:frame]) {
         _viewManager = [[HXBBaseView_MoreTopBottomViewManager alloc]init];
-        if (cashType) {
-            self.cashType = cashType;
-        }
+        self.cashType = cashType;
         [self setUPViewsCreatWithTopBottomViewNumber:topBottomViewNumber andViewClass:clas];
         self.viewH = viewH;
         self.topBottomSpace = topBottomSpace;

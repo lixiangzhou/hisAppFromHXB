@@ -121,7 +121,7 @@
             manager.typeViewManager.leftStrArray = @[
                                                      @"收益方式",
                                                      @"付息日",
-                                                     @"到期退出方式",
+                                                     @"退出方式",
                                                      ];
             manager.typeViewManager.rightStrArray = @[
                                                       detailData.incomeApproach?detailData.incomeApproach:@"",
@@ -131,7 +131,7 @@
         } else {
             manager.typeViewManager.leftStrArray = @[
                                                      @"收益方式",
-                                                     @"到期退出方式"
+                                                     @"退出方式"
                                                      ];
             manager.typeViewManager.rightStrArray  = @[
                                                       detailData.incomeApproach?detailData.incomeApproach:@"",

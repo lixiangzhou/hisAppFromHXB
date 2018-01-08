@@ -14,7 +14,7 @@
 ///红利计划 详情的Model
 @property (nonatomic,strong) HXBMYModel_PlanDetailModel *planDetailModel;
 ///处理方式 （HXB:当日提取至红小宝账户，INVEST：收益再投资）
-@property (nonatomic,copy) NSString *cashType;
+//@property (nonatomic,copy) NSString *cashType;
 ///红利计划 状态
 @property (nonatomic,copy) NSString *status;
 ///红利计划 退出方式
@@ -31,7 +31,7 @@
 ///状态 （与账户外的一致）
 @property (nonatomic,assign) kHXBEnum_Fin_Plan_UnifyStatus unifyStatus;
 /**
- ///红利计划 的种类 （收益中还是退出中 还是已退出）
+ /// 红利计划 的种类 （收益中还是退出中 还是已退出）
  */
 @property (nonatomic,copy) NSString * type;
 /**
@@ -72,4 +72,6 @@
  追加按钮是否显示
  */
 @property (nonatomic,assign) BOOL isAddButtonHidden;
+/// 是否按月付息
+@property (nonatomic, assign, getter=isMonthyPayment) BOOL monthyPayment;
 @end
