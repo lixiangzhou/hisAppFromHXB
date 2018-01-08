@@ -224,7 +224,7 @@ kDealloc
     
     NSArray *bottomViewSet = [self setupBottomScrollViewArray];
     CGRect frame = CGRectMake(0, 0, self.width, self.height);
-    HXBBaseScrollToolBarView *scrollToolBarView = [HXBBaseScrollToolBarView scrollToolBarViewWithFrame:frame andTopView:self.topView andTopViewH:kScrAdaptationH(200) - 64 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH: kScrAdaptationH(45) andBottomViewSet:bottomViewSet];
+    HXBBaseScrollToolBarView *scrollToolBarView = [HXBBaseScrollToolBarView scrollToolBarViewWithFrame:frame andTopView:self.topView andTopViewH:kScrAdaptationH(200) - HXBStatusBarAndNavigationBarHeight andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH: kScrAdaptationH(45) andBottomViewSet:bottomViewSet];
     
     [self addSubview:scrollToolBarView];
     [self setColorWithLabel:self.holdLabel];
