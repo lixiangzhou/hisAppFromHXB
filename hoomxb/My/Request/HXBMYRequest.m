@@ -32,7 +32,7 @@
 #import "HXBTransferConfirmModel.h"//账户内债转确认model
 
 
-@interface HXBMYRequest () <HXBRequestHudDelegate>
+@interface HXBMYRequest ()
 ///planAPI
 @property (nonatomic,strong) HXBBaseRequest *planListAPI;
 ///计划资产

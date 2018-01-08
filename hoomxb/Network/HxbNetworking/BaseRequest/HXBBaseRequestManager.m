@@ -8,6 +8,7 @@
 
 #import "HXBBaseRequestManager.h"
 #import "NYBaseRequest.h"
+#import "NYHTTPConnection.h"
 
 @interface HXBBaseRequestManager()
 // 线程锁
@@ -133,6 +134,7 @@
 }
 
 /**
+ 
  发送刷新令牌后的通知
  
  @param isSuccess 令牌是否成功刷新
@@ -142,7 +144,7 @@
     [self.conditionLock lock];
     
     for(NYBaseRequest *base in self.waitTokenResultList) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_AfterFreshToken object:base.connection userInfo:@{@"result":@(isSuccess)}];
+        [base.connection tokenUpdateNotify:base updateState:isSuccess];
     }
     [self.waitTokenResultList removeAllObjects];
     

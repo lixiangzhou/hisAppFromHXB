@@ -21,5 +21,5 @@ typedef void (^HXBConnectionFailureBlock)(NYHTTPConnection *connection, NSError 
 @property (nonatomic, strong, readonly) NSURLSessionDataTask *task;
 
 - (void)connectWithRequest:(NYBaseRequest *)request success:(HXBConnectionSuccessBlock)success failure:(HXBConnectionFailureBlock)failure;
-
+- (void)tokenUpdateNotify:(NYBaseRequest *)request updateState:(BOOL)isSuccess;
 @end

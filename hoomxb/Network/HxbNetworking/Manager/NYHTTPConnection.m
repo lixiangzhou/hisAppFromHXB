@@ -18,8 +18,6 @@
 
 @interface NYHTTPConnection ()
 
-@property (nonatomic, weak) NYBaseRequest *request;
-
 @property (nonatomic, strong, readwrite) NSURLSessionDataTask *task;
 
 @property (nonatomic, copy) HXBConnectionSuccessBlock success;
@@ -42,7 +40,6 @@
 {
     self.success = success;
     self.failure = failure;
-    self.request = request;
     
     //现在的初始化代码
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration ephemeralSessionConfiguration];
@@ -176,34 +173,30 @@
             }];
         }
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenUpdateNotify:) name:kHXBNotification_AfterFreshToken object:self];
         [[HXBBaseRequestManager sharedInstance] addTokenInvalidRequest:request];
     }
     
 }
 
-- (void)tokenUpdateNotify:(NSNotification *)notify
+- (void)tokenUpdateNotify:(NYBaseRequest *)request updateState:(BOOL)isSuccess
 {
-    BOOL result = [notify.userInfo stringAtPath:@"result"].boolValue;
-    NYBaseRequest* request = ((NYHTTPConnection*)notify.object).request;
-    
-    if (result) {
+    if (isSuccess) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([HXBRootVCManager manager].mainTabbarVC.selectedViewController.childViewControllers.count > 1) {
-                if (request.connection.failure) {
+                [self processTokenInvidate];
+                if (self.failure) {
                     request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
-                    request.connection.failure(request.connection, nil);
+                    self.failure(request.connection, nil);
                 }
             } else {
-                [self processTokenInvidate];
                 [self connectWithRequest:request success:self.success failure:self.failure];
             }
         });
     } else {
-        if (request.connection.failure) {
+        if (self.failure) {
             request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
             
-            request.connection.failure(request.connection, request.error);
+            self.failure(request.connection, request.error);
         }
     }
 }
