@@ -105,6 +105,7 @@
         self.isConstantChange = YES;
         self.isSetupSubView = YES;
         
+        self.delegate = self;
     }
     return self;
 }
