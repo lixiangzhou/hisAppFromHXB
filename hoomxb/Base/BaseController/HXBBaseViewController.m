@@ -57,7 +57,9 @@
     }
     self.isTransparentNavigationBar = _isTransparentNavigationBar;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:NO];
+    if(!_isHiddenNavigationBar) {
+        [self.navigationController setNavigationBarHidden:self.isHiddenNavigationBar animated:NO];
+    }
     //保障无网络时， 该子视图能在最上方
     [self.view bringSubviewToFront:self.noNetworkStatusView];
     
@@ -241,6 +243,7 @@
  */
 - (void)hideNavigationBar:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES animated:animated];
+    _isHiddenNavigationBar = YES;
     //设置背景色为透明
     self.isTransparentNavigationBar = YES;
     //设置文本颜色透明

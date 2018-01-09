@@ -344,12 +344,14 @@
 {
     [super viewDidAppear:animated];
     
+    [self transparentNavigationTitle];
     self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    
+    [self hideNavigationBar:animated];
 //    [self.homePageView.contDwonManager resumeTimer];
 //    [self.homePageView loadData];
     [self planLoadDateWithIsUpData:YES];
