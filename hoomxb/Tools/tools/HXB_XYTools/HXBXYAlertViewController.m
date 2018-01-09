@@ -60,13 +60,14 @@
     self.titleAlert = title;
     self.massage = massage;
     self.force = force;
+    CGFloat heightMax = kScreenWidth == 320 ? kScrAdaptationH(95) : kScrAdaptationH(90);
     _messageHeight = ceil([[HXB_XYTools shareHandle] heightWithString:massage labelFont:kHXBFont_PINGFANGSC_REGULAR(15) Width:kScrAdaptationW(275)] + kHXBFont_PINGFANGSC_REGULAR(15).lineHeight);
-    if (_messageHeight > 80) {
+    if (_messageHeight > heightMax) {
         self.isScrolled = YES;
     } else {
         self.isScrolled = NO;
     }
-    _messageHeight = _messageHeight > 80 ? 80 : _messageHeight;
+    _messageHeight = _messageHeight > heightMax ? heightMax : _messageHeight;
     self.leftButtonMassage = leftButtonMassage;
     self.rightButtonMassage = rightButtonMassage;
     return self;
@@ -124,37 +125,38 @@
 }
 
 - (void)setUPViewsFrame {
+    kWeakSelf
     [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view);
+        make.top.equalTo(weakSelf.view);
         make.height.offset(kScrAdaptationH(110)+_messageHeight);
-        make.width.offset(self.view.width);
-        make.center.equalTo(self.view);
+        make.width.offset(weakSelf.view.width);
+        make.center.equalTo(weakSelf.view);
     }];
     
     [self.mainTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view);
-        make.left.equalTo(self.view);
-        make.right.equalTo(self.view);
-        make.height.offset(kScrAdaptationH(45));
+        make.top.equalTo(weakSelf.view).offset(kScrAdaptationH(10));
+        make.left.equalTo(weakSelf.view);
+        make.right.equalTo(weakSelf.view);
+        make.height.offset(kScrAdaptationH(35));
     }];
     
     [self.massageTextView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.mainTitle.mas_bottom);
-        make.left.equalTo(self.view).offset(kScrAdaptationW(10));
-        make.right.equalTo(self.view).offset(kScrAdaptationW(-10));
+        make.top.equalTo(weakSelf.mainTitle.mas_bottom);
+        make.left.equalTo(weakSelf.view).offset(kScrAdaptationW(10));
+        make.right.equalTo(weakSelf.view).offset(kScrAdaptationW(-10));
         make.height.offset(_messageHeight);
     }];
     
     [self.leftButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(kScrAdaptationW(20));
-        make.bottom.equalTo(self.view.mas_bottom).offset(-kScrAdaptationH(20));
+        make.left.equalTo(weakSelf.view).offset(kScrAdaptationW(20));
+        make.bottom.equalTo(weakSelf.view.mas_bottom).offset(-kScrAdaptationH(20));
         make.width.offset(kScrAdaptationW(115));
         make.height.offset(kScrAdaptationH(35));
     }];
     
     [self.rightButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view).offset(kScrAdaptationW(-20));
-        make.centerY.equalTo(self.leftButton.mas_centerY);
+        make.right.equalTo(weakSelf.view).offset(kScrAdaptationW(-20));
+        make.centerY.equalTo(weakSelf.leftButton.mas_centerY);
         make.width.offset(kScrAdaptationW(115));
         make.height.offset(kScrAdaptationH(35));
     }];
