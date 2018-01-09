@@ -268,7 +268,17 @@
 
 #pragma mark - 设置状态栏
 - (UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleDefault;
+    //该方法联系调用两次，如果一直返回UIStatusBarStyleDefault， 就会导致下一个页面的导航栏混乱， 因此做了如下修改
+    
+    static int times = 1;
+    if(1 == times) {
+        times++;
+        return UIStatusBarStyleDefault;
+    }
+    else{
+        times = 1;
+        return UIStatusBarStyleLightContent;
+    }
 }
 
 
