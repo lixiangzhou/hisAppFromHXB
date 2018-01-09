@@ -40,19 +40,26 @@
 }
 
 #pragma mark 弹框显示
-- (void)showProgress {
+- (void)showProgress:(NSString*)hudContent {
     UIView* parentView = [self getHugView];
-    [HxbHUDProgress showInView:parentView];
+    if(parentView) {
+        [HxbHUDProgress showTextInView:parentView text:hudContent];
+    }
+    
 }
 
 - (void)showToast:(NSString *)toast {
     UIView* parentView = [self getHugView];
-    [HxbHUDProgress showTextInView:parentView text:toast];
+    if(parentView) {
+        [HxbHUDProgress showTextInView:parentView text:toast];
+    }
 }
 
 - (void)hideProgress {
     UIView* parentView = [self getHugView];
-    [HxbHUDProgress hidenHUD:parentView];
+    if(parentView) {
+        [HxbHUDProgress hidenHUD:parentView];
+    }
 }
 
 #pragma mark 错误码处理
