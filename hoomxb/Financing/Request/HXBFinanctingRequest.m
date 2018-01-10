@@ -41,6 +41,8 @@
 
 #import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"//债转的购买结果
 
+#import "HXBProductRequestModel.h"
+
 @interface HXBFinanctingRequest ()
 #pragma mark - Plan
 ///红利计划 列表API
@@ -607,47 +609,41 @@
                        cashType : (NSString *)cashType
                  andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
                  andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock{
-    HXBBaseRequest *confirmBuyReslut = [[HXBBaseRequest alloc]init];
     
-    if (!amount) amount = @"";
-    confirmBuyReslut.requestArgument = @{
-                                         @"amount" : amount,
-                                         @"cashType" : cashType
-                                         };
-    
-    confirmBuyReslut.requestUrl = kHXBFin_Plan_ConfirmBuyReslutURL(planID);
-    confirmBuyReslut.requestMethod = NYRequestMethodPost;
-    
-    [confirmBuyReslut startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-        if (status == kHXBNot_Sufficient_Funds) {
-        
-            if (failureBlock) failureBlock(nil,status);
-            return;
-        }
-        if (status == 3100) {
+    HXBProductRequestModel* reqModel = [[HXBProductRequestModel alloc] initWithDelegate:nil];
+    [reqModel plan_buyReslutWithPlanID:planID andAmount:amount cashType:cashType andResultBlock:^(HXBBaseRequest *request, id responseObject, NSError *error) {
+        if(!error) {
+            NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+            if (status == kHXBNot_Sufficient_Funds) {
+                
+                if (failureBlock) failureBlock(nil,status);
+                return;
+            }
+            if (status == 3100) {
+                
+                if (failureBlock) failureBlock(nil,status);
+                return;
+            }
             
-            if (failureBlock) failureBlock(nil,status);
-            return;
+            if (status) {
+                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+                return;
+            }
+            
+            NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
+            HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
+            
+            [reslut yy_modelSetWithDictionary:dataDic];
+            HXBFin_Plan_BuyViewModel *planViewModel = [[HXBFin_Plan_BuyViewModel alloc]init];
+            planViewModel.buyPlanModel = reslut;
+            
+            if (successDateBlock) {
+                successDateBlock(planViewModel);
+            }
         }
-        
-        if (status) {
-            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
-            return;
+        else{
+            if (failureBlock) failureBlock(nil,error.code);
         }
-        
-        NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
-        HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
-        
-        [reslut yy_modelSetWithDictionary:dataDic];
-        HXBFin_Plan_BuyViewModel *planViewModel = [[HXBFin_Plan_BuyViewModel alloc]init];
-        planViewModel.buyPlanModel = reslut;
-        
-        if (successDateBlock) {
-            successDateBlock(planViewModel);
-        }
-    } failure:^(HXBBaseRequest *request, NSError *error) {
-        if (failureBlock) failureBlock(nil,error.code);
     }];
 }
 

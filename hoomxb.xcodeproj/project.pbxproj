@@ -359,6 +359,9 @@
 		9A41AB951FF649030058C314 /* HXBBaseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A41AB941FF649030058C314 /* HXBBaseViewModel.m */; };
 		9A5A2B711FE9136A00818846 /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5A2B6F1FE9136900818846 /* NSTimer+Addition.m */; };
 		9A5A2B741FEA284700818846 /* HXBThemAdapterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5A2B721FEA284600818846 /* HXBThemAdapterManager.m */; };
+		9AA81BF720060639002D2944 /* HXBProductRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA81BF620060639002D2944 /* HXBProductRequestModel.m */; };
+		9AA81BFA2006064B002D2944 /* HXBUserRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA81BF92006064B002D2944 /* HXBUserRequestModel.m */; };
+		9AA81BFD2006065C002D2944 /* HXBOtherRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA81BFC2006065C002D2944 /* HXBOtherRequestModel.m */; };
 		9AF220EF1FC2BA8F00002D1D /* HXBBaseUrlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */; };
 		9AF220F01FC2BA8F00002D1D /* HXBBaseUrlSettingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EE1FC2BA8F00002D1D /* HXBBaseUrlSettingView.m */; };
 		9AFBE1DE1FE8FD2B000ED560 /* HXBNsTimerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFBE1DD1FE8FD2B000ED560 /* HXBNsTimerManager.m */; };
@@ -1201,6 +1204,12 @@
 		9A5A2B701FE9136A00818846 /* NSTimer+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
 		9A5A2B721FEA284600818846 /* HXBThemAdapterManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBThemAdapterManager.m; sourceTree = "<group>"; };
 		9A5A2B731FEA284600818846 /* HXBThemAdapterManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBThemAdapterManager.h; sourceTree = "<group>"; };
+		9AA81BF520060639002D2944 /* HXBProductRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBProductRequestModel.h; sourceTree = "<group>"; };
+		9AA81BF620060639002D2944 /* HXBProductRequestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBProductRequestModel.m; sourceTree = "<group>"; };
+		9AA81BF82006064B002D2944 /* HXBUserRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBUserRequestModel.h; sourceTree = "<group>"; };
+		9AA81BF92006064B002D2944 /* HXBUserRequestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBUserRequestModel.m; sourceTree = "<group>"; };
+		9AA81BFB2006065C002D2944 /* HXBOtherRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBOtherRequestModel.h; sourceTree = "<group>"; };
+		9AA81BFC2006065C002D2944 /* HXBOtherRequestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBOtherRequestModel.m; sourceTree = "<group>"; };
 		9AF220EB1FC2BA8F00002D1D /* HXBBaseUrlManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlManager.h; sourceTree = "<group>"; };
 		9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseUrlManager.m; sourceTree = "<group>"; };
 		9AF220ED1FC2BA8F00002D1D /* HXBBaseUrlSettingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseUrlSettingView.h; sourceTree = "<group>"; };
@@ -2798,6 +2807,12 @@
 		9A3E2DBB200465860055620F /* HXBNetRequestModel */ = {
 			isa = PBXGroup;
 			children = (
+				9AA81BF520060639002D2944 /* HXBProductRequestModel.h */,
+				9AA81BF620060639002D2944 /* HXBProductRequestModel.m */,
+				9AA81BF82006064B002D2944 /* HXBUserRequestModel.h */,
+				9AA81BF92006064B002D2944 /* HXBUserRequestModel.m */,
+				9AA81BFB2006065C002D2944 /* HXBOtherRequestModel.h */,
+				9AA81BFC2006065C002D2944 /* HXBOtherRequestModel.m */,
 			);
 			path = HXBNetRequestModel;
 			sourceTree = "<group>";
@@ -5094,6 +5109,7 @@
 				4E35C6CA1F0E47CB0022C8E6 /* HXBMyTopUpHeaderView.m in Sources */,
 				9A3E30BB2004A3410055620F /* HXBFinAddRecordVC_Plan.m in Sources */,
 				9A3E2F56200499970055620F /* HxbBannerViewModel.m in Sources */,
+				9AA81BF720060639002D2944 /* HXBProductRequestModel.m in Sources */,
 				4EBE19441F73B44500AB5AB6 /* HXBTransferCreditorBottomView.m in Sources */,
 				9A3E2F5E200499970055620F /* HXBHomePopViewModel.m in Sources */,
 				E133DCE01EEE3597009466DE /* HXBSignUPAndLoginRequest_EnumManager.m in Sources */,
@@ -5137,6 +5153,7 @@
 				E1E5885B1EE165BF0045C4AE /* Animatr.m in Sources */,
 				9A3E2F5A200499970055620F /* TYCyclePagerView.m in Sources */,
 				8D3F84F11FD6A24400E6CA97 /* HXBWKWebviewViewModel.m in Sources */,
+				9AA81BFA2006064B002D2944 /* HXBUserRequestModel.m in Sources */,
 				8D2CF5261FC2DA5D008F7A89 /* HXBHeadView.m in Sources */,
 				8DAD307A1FBA8F8C00E2AEE8 /* HXBBaseNavigationController.m in Sources */,
 				4E9345501EFE0FD300D2886B /* HXBModifyPhoneViewController.m in Sources */,
@@ -5255,6 +5272,7 @@
 				9AFBE1DE1FE8FD2B000ED560 /* HXBNsTimerManager.m in Sources */,
 				9A3E30C52004A3410055620F /* HXBFin_Detail_DetailVC_Loan.m in Sources */,
 				E122D8571EA0CAB900DC71ED /* UIResponder+FindNext.m in Sources */,
+				9AA81BFD2006065C002D2944 /* HXBOtherRequestModel.m in Sources */,
 				9A3E30B92004A3410055620F /* HXBFinAddRecortdTableView_Plan.m in Sources */,
 				E133DD411EEEC14C009466DE /* HXBRequestEnumAndStatic.m in Sources */,
 				E133DCEA1EEE3597009466DE /* HXBSignUPRealnameViewController.m in Sources */,

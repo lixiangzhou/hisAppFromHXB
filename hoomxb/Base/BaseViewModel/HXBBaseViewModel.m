@@ -9,6 +9,7 @@
 #import "HXBBaseViewModel.h"
 #import "HXBRootVCManager.h"
 #import "HXBBaseRequest.h"
+#import "HXBBaseRequestManager.h"
 
 @interface HXBBaseViewModel()
 
@@ -24,6 +25,11 @@
     }
     
     return self;
+}
+
+- (void)dealloc
+{
+    [[HXBBaseRequestManager sharedInstance] cancelRequest:self];
 }
 
 - (UIView*)getHugView {

@@ -89,11 +89,6 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
                  andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
                  andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock;
 
-/// loan 购买 确认请求
-- (void)loanBuyWithLoanID:(NSString *)loanID
-                andAmount:(NSString *)amount
-          andSuccessBlock:(void (^)(HXBFinModel_Buy_LoanModel *model,HXBFinModel_BuyResoult_LoanModel *resultModel))successDateBlock
-          andFailureBlock:(void (^)(NSError *error))failureBlock;
 
 /// loan 购买请求 返回了购买结果
 - (void)loan_confirmBuyReslutWithLoanID: (NSString *)loanID
