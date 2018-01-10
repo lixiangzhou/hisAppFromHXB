@@ -61,7 +61,6 @@
     self.addStatus.layer.borderColor = finPlanListViewModel.addButtonBorderColor.CGColor;
     self.addStatus.layer.borderWidth = kScrAdaptationH(0.8f);
     
-    self.countDownLable.text = _finPlanListViewModel.remainTimeString;
     if (finPlanListViewModel.planListModel.tag.length > 0) {
         self.tagLabel.text = finPlanListViewModel.planListModel.tag;
         self.tagLableImageView.hidden = NO;
@@ -75,7 +74,6 @@
     self.lineImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: !finPlanListViewModel.planListModel.hasCoupon;
     //设置优惠券
     [self setupCoupon];
-    
 }
 //设置优惠券
 - (void)setupCoupon {
@@ -387,7 +385,6 @@
 - (UILabel *)countDownLable {
     if (!_countDownLable){
         _countDownLable = [[UILabel alloc]init];
-        _countDownLable.textColor = [UIColor blueColor];
         _countDownLable.textColor = HXBC_Red_Deep;
         _countDownLable.font = kHXBFont_PINGFANGSC_REGULAR(13);
     }
