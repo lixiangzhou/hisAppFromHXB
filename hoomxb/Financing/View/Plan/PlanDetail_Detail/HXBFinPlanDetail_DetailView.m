@@ -104,25 +104,22 @@
         for (UIView *view in rightView.subviews) {
             if ([view isKindOfClass:[UIButton class]]) {
                 infoBtn = (UIButton *)view;
+                infoBtn.userInteractionEnabled = NO;
             }
             if ([view isKindOfClass:[UILabel class]]) {
                 lab = (UILabel *)view;
+                lab.userInteractionEnabled = NO;
             }
         }
         [infoBtn setImage:[UIImage imageNamed:@"lightblue_tip"] forState:UIControlStateNormal];
-        [infoBtn addTarget:self action:@selector(clickInfoBtn) forControlEvents:UIControlEventTouchUpInside];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickInfoBtn)];
-        
+        UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickInfoBtn)];
         rightView.userInteractionEnabled = YES;
-        [rightView addGestureRecognizer:tap];
-        
-        lab.userInteractionEnabled = YES;
-        [lab addGestureRecognizer:tap];
+        [rightView addGestureRecognizer:tap1];
         
         UILabel * leftView = (UILabel *)self.typeView.leftViewArray[1];
+        UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickInfoBtn)];
         leftView.userInteractionEnabled = YES;
-        [leftView addGestureRecognizer:tap];
+        [leftView addGestureRecognizer:tap2];
     }
     
     self.serverView =  [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:1.0/3 Space:edgeInsets andCashType:nil];

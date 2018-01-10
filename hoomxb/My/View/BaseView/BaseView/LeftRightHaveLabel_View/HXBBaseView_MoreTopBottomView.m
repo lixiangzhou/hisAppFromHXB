@@ -171,10 +171,6 @@
                     infoLab.textColor = textColor;
                     infoLab.backgroundColor = backGroundColor;
                     infoLab.font = font;
-//                    infoLab.userInteractionEnabled = YES;
-//                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickInfoBtn)];
-//                    [infoLab addGestureRecognizer:tap];
-                    
                     return YES;
                 }
             }
@@ -196,18 +192,6 @@
         return YES;
     }
     return NO;
-}
-
-- (void)clickInfoBtn{
-    NSLog(@"点击infoBtn");
-    NSString *titleStr = self.cashType && [self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? @"按月付息" : @"";
-    HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:titleStr Massage:@"购买该计划产品的用户，收益将会按当月时间返回到账内即可提取，如当月无此付息日，则统一为当月最后一天为该月付息日。" force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
-    alertVC.isHIddenLeftBtn = YES;
-    alertVC.isCenterShow = YES;
-    [alertVC setClickXYRightButtonBlock:^{
-        [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated:YES completion:nil];
-    }];
-    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:YES completion:nil];
 }
 
 - (void) setUPViewsFrameWithRightViewNotTitle {
