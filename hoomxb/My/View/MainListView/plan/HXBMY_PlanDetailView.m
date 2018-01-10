@@ -137,7 +137,7 @@ UITableViewDataSource
         [attr appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
         label.attributedText = attr;
         
-        [label addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tipClick:)]];
+        [self.monthlyPaymentView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tipClick:)]];
     } else {
         [self.monthlyPaymentView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.typeView.mas_bottom).offset(0);
@@ -303,15 +303,8 @@ UITableViewDataSource
 
 - (void)tipClick:(UITapGestureRecognizer *)tap
 {
-    if (tap.view == nil) {
-        return;
-    }
-    CGPoint point = [tap locationInView:tap.view];
-    CGRect rect = tap.view.bounds;
-    if (point.x > rect.size.width - 18) {
-        if (self.tipClickBlock) {
-            self.tipClickBlock();
-        }
+    if (self.tipClickBlock) {
+        self.tipClickBlock();
     }
 }
 
