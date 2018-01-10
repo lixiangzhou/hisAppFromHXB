@@ -72,9 +72,8 @@ static NSString *const cellID = @"cellID";
         make.top.equalTo(self.topView.mas_bottom);
     }];
     kWeakSelf
-    [self.planCapitalTableView hxb_FooterWithRefreshBlock:^{
+    [self.planCapitalTableView hxb_footerWithRefreshBlock:^{
         [weakSelf downLoadWithIsUPLoad:NO];
-    } andSetUpGifFooterBlock:^(MJRefreshBackNormalFooter *footer) {
     }];
     [self.planCapitalTableView hxb_headerWithRefreshBlock:^{
         [weakSelf downLoadWithIsUPLoad:YES];

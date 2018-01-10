@@ -224,10 +224,13 @@ kDealloc
     
     NSArray *bottomViewSet = [self setupBottomScrollViewArray];
     CGRect frame = CGRectMake(0, 0, self.width, self.height);
-    HXBBaseScrollToolBarView *scrollToolBarView = [HXBBaseScrollToolBarView scrollToolBarViewWithFrame:frame andTopView:self.topView andTopViewH:kScrAdaptationH(200) - HXBStatusBarAndNavigationBarHeight andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH: kScrAdaptationH(45) andBottomViewSet:bottomViewSet];
-    
+    HXBBaseScrollToolBarView *scrollToolBarView = [HXBBaseScrollToolBarView scrollToolBarViewWithFrame:frame andTopView:self.topView andTopViewH:kScrAdaptationH(200) - 64 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH: kScrAdaptationH(45) andBottomViewSet:bottomViewSet];
+    if (@available(iOS 11.0, *)) {
+        scrollToolBarView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self addSubview:scrollToolBarView];
     [self setColorWithLabel:self.holdLabel];
+    
     ///事件的传递
     kWeakSelf
     [scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
