@@ -15,45 +15,30 @@ static NSString * const footerNoMoreDataStr = @"已加载全部";
 // MARK: 默认的下拉刷新
 - (void)hxb_headerWithRefreshBlock:(void (^)())headerRefreshCallBack
 {
-    [self hxb_headerWithRefreshBlock:headerRefreshCallBack configHeaderBlock:^(MJRefreshNormalHeader *header) {
-        header.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-        header.stateLabel.textColor = COR6;
-        header.lastUpdatedTimeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-        header.lastUpdatedTimeLabel.textColor = COR6;
-    }];
-}
-
-- (void)hxb_headerWithRefreshBlock:(void(^)())headerRefreshCallBack
-                     configHeaderBlock:(void(^)(MJRefreshNormalHeader *header))configHeaderBlock{
-        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:headerRefreshCallBack];
-        if (configHeaderBlock) configHeaderBlock(header);
-        self.mj_header = header;
+    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:headerRefreshCallBack];
+    header.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    header.stateLabel.textColor = COR6;
+    header.lastUpdatedTimeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    header.lastUpdatedTimeLabel.textColor = COR6;
+    self.mj_header = header;
 }
 
 // MARK: 默认的上拉加载
 - (void)hxb_footerWithRefreshBlock:(void (^)())footerRefreshCallBack
 {
-    [self hxb_footerWithRefreshBlock:footerRefreshCallBack configFooterBlock:^(MJRefreshBackNormalFooter *footer) {
-        footer.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-        footer.stateLabel.textColor = COR6;
-        [footer setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
-        footer.automaticallyHidden = YES;
-    }];
-}
-
-
-- (void)hxb_footerWithRefreshBlock:(void(^)())footerRefreshCallBack
-            configFooterBlock:(void(^)(MJRefreshBackNormalFooter *footer))configFooterBlock {
     MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:footerRefreshCallBack];
-    if (configFooterBlock) configFooterBlock(footer);
+    footer.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    footer.stateLabel.textColor = COR6;
+    [footer setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
+    footer.automaticallyHidden = YES;
     self.mj_footer = footer;
 }
-
 
 - (void)endRefresh {
     [self.mj_header endRefreshing];
     [self.mj_footer endRefreshing];
 }
+
 @end
 
 
