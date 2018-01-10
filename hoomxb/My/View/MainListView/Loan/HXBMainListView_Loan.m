@@ -229,7 +229,11 @@ kDealloc
 ///搭建scrollToolBarView；
 - (void)createScrollToolBarView {
     kWeakSelf
-    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, self.width, self.height - HXBStatusBarAndNavigationBarHeight) andTopView:self.loanTopView andTopViewH:kScrAdaptationH(200) - HXBStatusBarAndNavigationBarHeight + HXBStatusBarAdditionHeight andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:kScrAdaptationH(45) andBottomViewSet:self.tableViewArray];
+    self.scrollToolBarView = [[HXBBaseScrollToolBarView alloc]initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, self.width, self.height - HXBStatusBarAndNavigationBarHeight) andTopView:self.loanTopView andTopViewH:kScrAdaptationH(200) - 64 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH:kScrAdaptationH(45) andBottomViewSet:self.tableViewArray];
+    
+    if (@available(iOS 11.0, *)) {
+        self.scrollToolBarView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     
     [self.scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
         weakSelf.switchBottomScrollViewBlock ? weakSelf.switchBottomScrollViewBlock(index,title,option) : nil;
