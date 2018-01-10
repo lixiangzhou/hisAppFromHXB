@@ -411,17 +411,17 @@ kDealloc
 //上啦加载
 - (void) upDataRefresh {
     __weak typeof(self) weakSelf = self;
-    [self.hold_Plan_TableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.hold_Plan_TableView hxb_footerWithRefreshBlock:^{
         if (weakSelf.hold_Plan_DownRefresh) weakSelf.hold_Plan_DownRefresh();
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
+    }];
     
-    [self.exiting_Plan_TableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.exiting_Plan_TableView hxb_footerWithRefreshBlock:^{
         if(weakSelf.exiting_Plan_UPRefresh) weakSelf.exiting_Plan_DownRefresh();
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
+    }];
     
-    [self.exit_Plan_TableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.exit_Plan_TableView hxb_footerWithRefreshBlock:^{
         if(weakSelf.exit_Plan_UPRefresh) weakSelf.exit_Plan_DownRefresh();
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
+    }];
 }
 
 //停止刷新

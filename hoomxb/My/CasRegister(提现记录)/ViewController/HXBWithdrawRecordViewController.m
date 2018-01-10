@@ -66,9 +66,8 @@
             }
         } else {
             if (!weakSelf.withdrawRecordTableView.mj_footer) {
-                [weakSelf.withdrawRecordTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+                [weakSelf.withdrawRecordTableView hxb_footerWithRefreshBlock:^{
                     [weakSelf loadCashRegisterDataNeeedShowLoading:NO];
-                } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
                 }];
             }
         }

@@ -41,10 +41,8 @@
 
 
 - (void) footerRefresh {
-    [self.addRecortdTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.addRecortdTableView hxb_footerWithRefreshBlock:^{
         [self downLoadDataWihtIsUPLoad:NO];
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-        
     }];
 }
 

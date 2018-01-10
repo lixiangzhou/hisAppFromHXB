@@ -42,9 +42,8 @@
     //上拉刷新，下拉加载
     kWeakSelf
     if (_finPlanListVMArray.count >= 20) {
-        [self.planListTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [self.planListTableView hxb_footerWithRefreshBlock:^{
             if (weakSelf.planRefreshFooterBlock) weakSelf.planRefreshFooterBlock();
-        } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
         }];
     }
     self.planListTableView.planListViewModelArray = finPlanListVMArray;
@@ -53,9 +52,8 @@
     _finLoanListVMArray = finLoanListVMArray;
     kWeakSelf
     if (_finLoanListVMArray.count >= 20) {
-        [self.loanListTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [self.loanListTableView hxb_footerWithRefreshBlock:^{
             if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
-        } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
         }];
     }
     self.loanListTableView.loanListViewModelArray = finLoanListVMArray;
@@ -65,9 +63,8 @@
     _finLoanTruansferVMArray = finLoanTruansferVMArray;
     kWeakSelf
     if (_finLoanTruansferVMArray.count >= 20) {
-        [self.loanTruansferTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+        [self.loanTruansferTableView hxb_footerWithRefreshBlock:^{
             if (weakSelf.loanTruansferFooterBlock) weakSelf.loanTruansferFooterBlock();
-        } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
         }];
     }
     self.loanTruansferTableView.loanTruansferViewModel = finLoanTruansferVMArray;

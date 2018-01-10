@@ -41,9 +41,7 @@ static NSString *CELLID = @"CELLID";
 }
 
 - (void) footerRefresh {
-    [self.addRecortdTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
+    [self.addRecortdTableView hxb_footerWithRefreshBlock:^{
         
     }];
 }

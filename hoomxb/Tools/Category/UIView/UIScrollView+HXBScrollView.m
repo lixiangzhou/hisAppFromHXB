@@ -12,73 +12,40 @@ static NSString * const footerNoMoreDataStr = @"已加载全部";
 
 @implementation UIScrollView (HXBScrollView)
 
-//MARK: 默认的下拉刷新
+// MARK: 默认的下拉刷新
 - (void)hxb_headerWithRefreshBlock:(void (^)())headerRefreshCallBack
 {
-    [self hxb_headerWithRefreshBlock:headerRefreshCallBack configHeaderBlock:nil];
+    [self hxb_headerWithRefreshBlock:headerRefreshCallBack configHeaderBlock:^(MJRefreshNormalHeader *header) {
+        header.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        header.stateLabel.textColor = COR6;
+        header.lastUpdatedTimeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        header.lastUpdatedTimeLabel.textColor = COR6;
+    }];
 }
 
 - (void)hxb_headerWithRefreshBlock:(void(^)())headerRefreshCallBack
                      configHeaderBlock:(void(^)(MJRefreshNormalHeader *header))configHeaderBlock{
-    MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:headerRefreshCallBack];
-    header.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-    header.stateLabel.textColor = COR6;
-    header.lastUpdatedTimeLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-    header.lastUpdatedTimeLabel.textColor = COR6;
-    if (configHeaderBlock) configHeaderBlock(header);
-    self.mj_header = header;
+        MJRefreshNormalHeader *header = [MJRefreshNormalHeader headerWithRefreshingBlock:headerRefreshCallBack];
+        if (configHeaderBlock) configHeaderBlock(header);
+        self.mj_header = header;
 }
 
-//带有动画的上拉加载
-- (void)hxb_GifFooterWithIdleImages:(NSArray<UIImage*>*)idleImages
-                    andPullingImages:(NSArray <UIImage*>*)pullingImages
-                   andFreshingImages:(NSArray<UIImage*>*)refreshingImages
-                 andRefreshDurations:(NSArray<NSNumber*>*)durations
-                     andRefreshBlock:(void(^)())footerRefreshCallBack
-              andSetUpGifFooterBlock:(void(^)(MJRefreshBackGifFooter *footer))gifFooterBlock{
-    
-    MJRefreshBackGifFooter *footer = [MJRefreshBackGifFooter footerWithRefreshingBlock:^{
-        if (footerRefreshCallBack) footerRefreshCallBack();
+// MARK: 默认的上拉加载
+- (void)hxb_footerWithRefreshBlock:(void (^)())footerRefreshCallBack
+{
+    [self hxb_footerWithRefreshBlock:footerRefreshCallBack configFooterBlock:^(MJRefreshBackNormalFooter *footer) {
+        footer.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
+        footer.stateLabel.textColor = COR6;
+        [footer setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
+        footer.automaticallyHidden = YES;
     }];
-    footer.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-    footer.stateLabel.textColor = COR6;
-    [footer setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
-    //设置header
-    if (gifFooterBlock) gifFooterBlock(footer);
-    
-    //设置动画数组
-    //默认状态下的动画
-    [footer setImages:idleImages duration:durations[0].longValue forState:MJRefreshStateIdle];
-    //即将刷新
-    [footer setImages:idleImages duration:durations[1].longValue forState:MJRefreshStatePulling];
-    //正在刷新
-    [footer setImages:idleImages duration:durations[2].longValue forState:MJRefreshStateRefreshing];
-    footer.automaticallyHidden = YES;
-    self.mj_footer = footer;
-    if (!idleImages.count) {
-        MJRefreshAutoNormalFooter *autoNormalFooter = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-            if (footerRefreshCallBack) footerRefreshCallBack();
-        }];
-        [autoNormalFooter setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
-        self.mj_footer = autoNormalFooter;
-    }
 }
 
 
-
-
-//MARK: 默认的上拉加载
-- (void)hxb_FooterWithRefreshBlock:(void(^)())footerRefreshCallBack
-            andSetUpGifFooterBlock:(void(^)(MJRefreshBackNormalFooter *footer))footerBlock{
-    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        if (footerRefreshCallBack) footerRefreshCallBack();
-    }];
-    footer.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-    footer.stateLabel.textColor = COR6;
-    [footer setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
-    
-    if (footerBlock) footerBlock(footer);
-    footer.automaticallyHidden = YES;
+- (void)hxb_footerWithRefreshBlock:(void(^)())footerRefreshCallBack
+            configFooterBlock:(void(^)(MJRefreshBackNormalFooter *footer))configFooterBlock {
+    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:footerRefreshCallBack];
+    if (configFooterBlock) configFooterBlock(footer);
     self.mj_footer = footer;
 }
 

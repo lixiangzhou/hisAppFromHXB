@@ -373,13 +373,13 @@ kDealloc
 //上啦加载
 - (void) upDataRefresh {
     __weak typeof(self) weakSelf = self;
-    [self.bid_Loan_TableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.bid_Loan_TableView hxb_footerWithRefreshBlock:^{
         if (weakSelf.bid_Loan_DownRefresh) weakSelf.bid_Loan_DownRefresh();
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
+    }];
     
-    [self.erpaying_Loan_TableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.erpaying_Loan_TableView hxb_footerWithRefreshBlock:^{
         if(weakSelf.repaying_Loan_DownRefresh) weakSelf.repaying_Loan_DownRefresh();
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
+    }];
 }
 
 //停止刷新
