@@ -49,10 +49,9 @@
     
         if (totalCount > kPageCount) {
             if (!weakSelf.myView.mainTableView.mj_footer) {
-                [weakSelf.myView.mainTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+                [weakSelf.myView.mainTableView hxb_footerWithRefreshBlock:^{
                     ++_page;
                     [weakSelf loadData_myCouponListInfo];
-                } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
                 }];
             }
         }

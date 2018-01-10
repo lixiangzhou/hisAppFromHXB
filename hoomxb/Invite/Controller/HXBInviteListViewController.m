@@ -118,10 +118,10 @@
             
             if (model.dataList.count >= kPageCount) {
                 // 上拉加载
-                [_tableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+                [_tableView hxb_footerWithRefreshBlock:^{
                     _page++;
                     [self setUpDataForInviteList];
-                } andSetUpGifFooterBlock:nil];
+                }];
                 
             } else if (model.totalCount == self.dataArray.count) {
                 [_tableView.mj_footer endRefreshingWithNoMoreData];

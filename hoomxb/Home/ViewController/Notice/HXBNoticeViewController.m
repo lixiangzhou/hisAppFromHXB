@@ -122,10 +122,8 @@
             [weakSelf loadDataWithIsUPReloadData:YES];
         }];
         if (self.totalCount >= kPageCount) {
-            [_mainTabelView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+            [_mainTabelView hxb_footerWithRefreshBlock:^{
                 [weakSelf loadDataWithIsUPReloadData:NO];
-            } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-                
             }];
         }
         
