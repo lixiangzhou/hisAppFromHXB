@@ -199,7 +199,7 @@
 - (NSString *)nextRepayDate {
     if (!_nextRepayDate) {
         NSDate *nextDate = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.loanTruansferDetailModel.loanVo.nextRepayDate andDateFormatter:@"yyyy-MM-dd"];
-        _nextRepayDate = [[HXBBaseHandDate sharedHandleDate] stringFromDate:nextDate andDateFormat:@"MM-dd"];
+        _nextRepayDate = [[HXBBaseHandDate sharedHandleDate] stringFromDate:nextDate andDateFormat:@"yyyy-MM-dd"];
     }
     return _nextRepayDate;
 }
