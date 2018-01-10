@@ -39,18 +39,4 @@
     [self.view addSubview:self.addRecortdTableView];
 }
 
-
-- (void) footerRefresh {
-    [self.addRecortdTableView hxb_footerWithRefreshBlock:^{
-        [self downLoadDataWihtIsUPLoad:NO];
-    }];
-}
-
-- (void)headerRefresh {
-    [self.addRecortdTableView hxb_headerWithRefreshBlock:^{
-        [self downLoadDataWihtIsUPLoad:YES];
-    }];
-    
-}
-
 @end
