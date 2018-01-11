@@ -8,7 +8,7 @@
 
 #import "HxbHomeViewController.h"
 #import "HxbAdvertiseViewController.h"
-#import "HxbHomeRequest.h"
+#import "HXBHomeVCViewModel.h"
 #import "HxbHomeRequest_dataList.h"
 //#import "HxbSecurityCertificationViewController.h"
 #import "HXBHomeBaseModel.h"
@@ -37,6 +37,8 @@
 
 @property (nonatomic, strong) HXBVersionUpdateViewModel *versionUpdateVM;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+
+@property (nonatomic, strong) HXBHomeVCViewModel *homeVimewModle;
 
 @end
 
@@ -143,16 +145,14 @@
             self.homeView.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
         }
     }
-    HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
-    [request homePlanRecommendWithIsUPReloadData:isUPReloadData andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
-        NSLog(@"%@",viewModel);
-        weakSelf.homeView.homeBaseModel = viewModel.homeBaseModel;
+    self.homeVimewModle = [[HXBHomeVCViewModel alloc] initWithBlock:^UIView *{
+        return nil;
+    }];
+    [self.homeVimewModle homePlanRecommendCallbackBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.homeView.homeBaseModel = weakSelf.homeVimewModle.homeBaseModel;
+        }
         weakSelf.homeView.isStopRefresh_Home = YES;
-        
-    } andFailureBlock:^(NSError *error) {
-        weakSelf.homeView.isStopRefresh_Home = YES;
-        NSLog(@"%@",error);
-        
     }];
 
 }
