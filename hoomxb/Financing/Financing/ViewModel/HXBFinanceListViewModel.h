@@ -22,19 +22,18 @@
 @property (nonatomic,strong) NSMutableArray <HXBFinHomePageViewModel_LoanTruansferViewModel *> *loanTruansferViewModelArray;
 
 // 红利计划列表请求
-- (void)planBuyListWithIsUpData: (BOOL)isUPData
-                resultBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray, NSInteger totalCount, BOOL isSuccess))successDateBlock;
+- (void)planListWithIsUpData: (BOOL)isUpData
+                resultBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray, NSInteger totalCount, BOOL isSuccess))resultBlock;
 
 
 // 散标列表请求
-- (void)loanBuyListWithIsUpData: (BOOL)isUPData
-                andSuccessBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray,NSInteger totalCount))successDateBlock
-                andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)loanListWithIsUpData: (BOOL)isUpData
+                resultBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray,NSInteger totalCount, BOOL isSuccess))resultBlock;
 
 // 债权转让列表请求
-- (void)loanTruansferListWithIsUPData: (BOOL)isUPData
-                      andSuccessBlock: (void (^)(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *>* viewModelArray,NSInteger totalCount))successDateBlock
-                      andFailureBlock: (void(^)(NSError *error,id responsObject))failureBlock;
+- (void)loanTruansferListWithIsUpData: (BOOL)isUPData
+                          resultBlock: (void (^)(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *>* viewModelArray, NSInteger totalCount, BOOL isSuccess))resultBlock;
+
 
 
 

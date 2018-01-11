@@ -101,6 +101,7 @@
     self.viewModel = [[HXBFinanceListViewModel alloc] initWithBlock:^UIView *{
         return self.view;
     }];
+    
     [self.countDownButton setValue:@1 forKey:@"selected"];
     
     //初始化属性
@@ -303,54 +304,43 @@
         NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self.finantingRequest plan_dataProcessingWitharr:dataList];
         self.finPlanListVMArray = planListViewModelArray;
     }
-    __weak typeof(self)weakSelf = self;
-    
-    [self.viewModel planBuyListWithIsUpData:isUPData resultBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray, NSInteger totalCount, BOOL isSuccess) {
+    kWeakSelf
+    [self.viewModel planListWithIsUpData:isUPData resultBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray, NSInteger totalCount, BOOL isSuccess) {
         //结束下拉刷新与上拉刷新
+        if (isSuccess) {
+            weakSelf.homePageView.finPlanTotalCount = totalCount;
+            weakSelf.isFirstLoadNetDataPlan = NO;
+        }
         weakSelf.homePageView.isStopRefresh_Plan = YES;
-        weakSelf.homePageView.finPlanTotalCount = totalCount;
         weakSelf.finPlanListVMArray = viewModelArray;
-        weakSelf.isFirstLoadNetDataPlan = NO;
     }];
-//    [self.finantingRequest planBuyListWithIsUpData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray, NSInteger totalCount) {
-//        weakSelf.homePageView.finPlanTotalCount = totalCount;
-//        weakSelf.finPlanListVMArray = viewModelArray;
-//        //结束下拉刷新与上拉刷新
-//        weakSelf.homePageView.isStopRefresh_Plan = YES;
-//        weakSelf.isFirstLoadNetDataPlan = NO;
-//    } andFailureBlock:^(NSError *error) {
-//        weakSelf.homePageView.isStopRefresh_Plan = YES;
-//        weakSelf.finPlanListVMArray = weakSelf.finPlanListVMArray;
-//    }];
 }
 
 - (void)loanLoadDateWithIsUpData: (BOOL)isUpData {
-    __weak typeof(self)weakSelf = self;
-    [self.finantingRequest loanBuyListWithIsUpData:isUpData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_LoanList *> *viewModelArray,NSInteger totalCount) {
-        weakSelf.homePageView.finLoanTotalCount = totalCount;
+    kWeakSelf
+    [self.viewModel loanListWithIsUpData:isUpData resultBlock:^(NSArray<HXBFinHomePageViewModel_LoanList *> *viewModelArray, NSInteger totalCount, BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.homePageView.finLoanTotalCount = totalCount;
+            weakSelf.isFirstLoadNetDataLoan = NO;
+        }
+        //结束下拉刷新与上拉刷新
+        weakSelf.homePageView.isStopRefresh_loan = YES;
         weakSelf.finLoanListVMArray = viewModelArray;
-        //结束下拉刷新与上拉刷新
-        weakSelf.homePageView.isStopRefresh_loan = YES;
-        weakSelf.isFirstLoadNetDataLoan = NO;
-    } andFailureBlock:^(NSError *error) {
-        //结束下拉刷新与上拉刷新
-        weakSelf.homePageView.isStopRefresh_loan = YES;
-        weakSelf.finLoanListVMArray =  weakSelf.finLoanListVMArray;
     }];
 }
 /// 债转的数据请求
 - (void)loanTruansferLoandDataWithIsUPData: (BOOL)isUPData {
     kWeakSelf
-    [self.finantingRequest loanTruansferListWithIsUPData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *viewModelArray,NSInteger totalCount) {
-        weakSelf.homePageView.finLoanTruansferTotalCount = totalCount;
+    [self.viewModel loanTruansferListWithIsUpData:isUPData resultBlock:^(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *viewModelArray, NSInteger totalCount, BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.homePageView.finLoanTruansferTotalCount = totalCount;
+            weakSelf.isFirstLoadNetDataLoanTruansfer = NO;
+        }
         weakSelf.finloanTruansferVMArray = viewModelArray;
         weakSelf.homePageView.isStopRefresh_LoanTruansfer = YES;
-        weakSelf.isFirstLoadNetDataLoanTruansfer = NO;
-    } andFailureBlock:^(NSError *error, id responsObject) {
-        weakSelf.homePageView.isStopRefresh_LoanTruansfer = YES;
-        weakSelf.finloanTruansferVMArray =  weakSelf.finloanTruansferVMArray;
     }];
 }
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
 //    [self.homePageView.contDwonManager cancelTimer];
@@ -368,8 +358,6 @@
     [super viewWillAppear:animated];
     
     [self hideNavigationBar:animated];
-//    [self.homePageView.contDwonManager resumeTimer];
-//    [self.homePageView loadData];
     [self planLoadDateWithIsUpData:YES];
     [self loanLoadDateWithIsUpData:YES];
     [self loanTruansferLoandDataWithIsUPData:YES];
