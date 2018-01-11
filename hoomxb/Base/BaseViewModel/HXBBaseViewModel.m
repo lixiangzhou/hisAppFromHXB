@@ -49,7 +49,7 @@
 - (void)showProgress:(NSString*)hudContent {
     UIView* parentView = [self getHugView];
     if(parentView) {
-        [HxbHUDProgress showTextInView:parentView text:hudContent];
+        [HxbHUDProgress showLoadDataHUD:parentView text:hudContent];
     }
     
 }
@@ -57,7 +57,7 @@
 - (void)showToast:(NSString *)toast {
     UIView* parentView = [self getHugView];
     if(parentView) {
-        [HxbHUDProgress showTextInView:parentView text:toast];
+        [HxbHUDProgress showMessageCenter:toast inView:parentView];
     }
 }
 

@@ -156,20 +156,21 @@
 /**
  自定义HUD加载
  */
-+ (void)showLoadDataHUD:(UIView *)showView{
++ (void)showLoadDataHUD:(UIView *)showView text:(NSString*)message{
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     if (showView == nil) {
         showView = keyWindow;
+    }
+    if(!message) {
+        message = NSLocalizedString(kLoadIngText, @"HUD loading title");
     }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:showView animated:YES];
     //    hud.backgroundColor = [UIColor colorWithRed:125/255.0f green:125/255.0f blue:125/255.0f alpha:1.f];
     hud.bezelView.backgroundColor = [UIColor blackColor];
     hud.contentColor = [UIColor whiteColor];
-    hud.label.text = NSLocalizedString(kLoadIngText, @"HUD loading title");
+    hud.label.text = message;
     hud.label.textColor = [UIColor whiteColor];
     hud.backgroundColor = [UIColor clearColor];
-    //加载完成
-    //    [hud hideAnimated:YES];
 }
 
 + (void)hidenHUD:(UIView *)hidenView

@@ -1,5 +1,5 @@
 //
-//  HXBHomePopViewRequest.h
+//  HXBHomePopVWViewModel.h
 //  hoomxb
 //
 //  Created by hxb on 2017/12/13.
@@ -7,9 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HXBHomePopViewViewModel.h"
+@class HXBHomePopVWModel;
 
-@interface HXBHomePopViewRequest : NSObject
+@interface HXBHomePopVWViewModel : NSObject
+
+@property (nonatomic,strong)HXBHomePopVWModel *homePopModel;
 
 + (void)homePopViewRequestSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
 @end

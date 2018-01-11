@@ -17,7 +17,7 @@
 - (void)loadURL: (NSString *)URL {
     if (![KeyChain ishaveNet]) return;
     if (!_isHiddenHUD) {
-        [HxbHUDProgress showLoadDataHUD:self];
+        [HxbHUDProgress showLoadDataHUD:self text:nil];
     }
     if (![URL containsString:[KeyChain h5host]]) {
         URL = [NSString stringWithFormat:@"%@%@",[KeyChain h5host],URL];
