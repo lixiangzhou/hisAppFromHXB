@@ -40,20 +40,6 @@ static NSString *CELLID = @"CELLID";
     [self.view addSubview:self.addRecortdTableView];
 }
 
-- (void) footerRefresh {
-    [self.addRecortdTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-        
-    }];
-}
-
-- (void)headerRefresh {
-    [self.addRecortdTableView hxb_headerWithRefreshBlock:^{
-        
-    }];
-}
-
 - (void)downDoadDataWithISUPLoad: (BOOL)isUPLoad {
     [[HXBFinanctingRequest sharedFinanctingRequest] planAddRecortdWithISUPLoad:YES andFinancePlanId:self.planID andOrder:nil andSuccessBlock:^(HXBFinModel_AddRecortdModel_Plan *model) {
         self.addRecortdTableView.addRecortdModel_Plan = model;

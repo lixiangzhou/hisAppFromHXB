@@ -132,25 +132,34 @@ static HXBBaseHandDate *_instancetype;
         dateStr = (NSString *)date_OBJ;
         //假设是时间字符串可以直接转化成时间对象
         date = [self.dateFormatter dateFromString:dateStr];
+        
         if (!date){//如果没有转化成功，按NSNumber类型处理
-            date = [NSDate dateWithTimeIntervalSince1970:dateStr.integerValue];
+            long long seconds = dateStr.longLongValue;
+            if(dateStr.length >= 13) {
+                seconds /= 1000;
+            }
+            date = [NSDate dateWithTimeIntervalSince1970:seconds];
             dateStr = [self.dateFormatter stringFromDate:date];
             date = [self.dateFormatter dateFromString:dateStr];
         }
         
-    }else if ([date_OBJ isKindOfClass: [NSDate class]]){
+    } else if ([date_OBJ isKindOfClass: [NSDate class]]) {
         date = (NSDate *)date_OBJ;
         dateStr = [self.dateFormatter stringFromDate:date];
         date = [self.dateFormatter dateFromString:dateStr];
         
-    }else if ([date_OBJ isKindOfClass:[NSNumber class]]){
+    } else if ([date_OBJ isKindOfClass:[NSNumber class]]) {
         NSNumber *dateNumber = (NSNumber *)date_OBJ;
-        NSInteger timeIntercal = dateNumber.integerValue;
+        long long seconds = dateNumber.longLongValue;
+        if(dateStr.length >= 13) {
+            seconds /= 1000;
+        }
+        NSInteger timeIntercal = seconds;
         date = [NSDate dateWithTimeIntervalSince1970:timeIntercal];
         dateStr = [self.dateFormatter stringFromDate:date];
         date = [self.dateFormatter dateFromString:dateStr];
         
-    }else{
+    } else { 
         NSLog(@"🌶传入的date_OBJ对象不能被识别 我可以识别 日期的NSString,NSNumber,NSDate");
         return nil;
     }

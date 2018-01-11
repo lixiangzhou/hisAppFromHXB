@@ -224,10 +224,13 @@ kDealloc
     
     NSArray *bottomViewSet = [self setupBottomScrollViewArray];
     CGRect frame = CGRectMake(0, 0, self.width, self.height);
-    HXBBaseScrollToolBarView *scrollToolBarView = [HXBBaseScrollToolBarView scrollToolBarViewWithFrame:frame andTopView:self.topView andTopViewH:kScrAdaptationH(200) - HXBStatusBarAndNavigationBarHeight andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH: kScrAdaptationH(45) andBottomViewSet:bottomViewSet];
-    
+    HXBBaseScrollToolBarView *scrollToolBarView = [HXBBaseScrollToolBarView scrollToolBarViewWithFrame:frame andTopView:self.topView andTopViewH:kScrAdaptationH(200) - 64 andMidToolBarView:self.toolBarView andMidToolBarViewMargin:0 andMidToolBarViewH: kScrAdaptationH(45) andBottomViewSet:bottomViewSet];
+    if (@available(iOS 11.0, *)) {
+        scrollToolBarView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    }
     [self addSubview:scrollToolBarView];
     [self setColorWithLabel:self.holdLabel];
+    
     ///事件的传递
     kWeakSelf
     [scrollToolBarView switchBottomScrollViewCallBack:^(NSInteger index, NSString *title, UIButton *option) {
@@ -286,17 +289,17 @@ kDealloc
 //上啦加载
 - (void) upDataRefresh {
     __weak typeof(self) weakSelf = self;
-    [self.hold_Plan_TableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.hold_Plan_TableView hxb_footerWithRefreshBlock:^{
         if (weakSelf.hold_Plan_DownRefresh) weakSelf.hold_Plan_DownRefresh();
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
+    }];
     
-    [self.exiting_Plan_TableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.exiting_Plan_TableView hxb_footerWithRefreshBlock:^{
         if(weakSelf.exiting_Plan_UPRefresh) weakSelf.exiting_Plan_DownRefresh();
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
+    }];
     
-    [self.exit_Plan_TableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+    [self.exit_Plan_TableView hxb_footerWithRefreshBlock:^{
         if(weakSelf.exit_Plan_UPRefresh) weakSelf.exit_Plan_DownRefresh();
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {}];
+    }];
 }
 
 //停止刷新

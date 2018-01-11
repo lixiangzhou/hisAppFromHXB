@@ -200,7 +200,7 @@
         }
         manager.topViewManager.rightLabelStr = @"平均历史年化收益";
         manager.leftViewManager.leftLabelStr = weakSelf.planDetailViewModel.lockPeriodStr;
-        manager.leftViewManager.rightLabelStr = @"期限";
+        manager.leftViewManager.rightLabelStr = @"锁定期限";
         manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithIntegetNumber:[weakSelf.planDetailViewModel.minRegisterAmount doubleValue]];
         manager.midViewManager.rightLabelStr = @"起投";
         manager.rightViewManager.rightLabelStr = weakSelf.planDetailViewModel.remainAmount_constStr;

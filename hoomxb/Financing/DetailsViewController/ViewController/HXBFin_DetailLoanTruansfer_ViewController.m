@@ -58,6 +58,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.isColourGradientNavigationBar = YES;
     [self setUPTopImageView];
     [self setUP];
     [self setupAddView];
@@ -262,7 +264,7 @@
     self.topView.interestLabelLeftStr = self.loanTransfer_ViewModel.loanTruansferListModel.interest;
     self.topView.remainTimeLabelLeftStr = self.loanTruansferDetailViewModel.leftMonths;
     self.topView.truansferAmountLabelLeftStr = self.loanTruansferDetailViewModel.leftTransAmount;
-    self.topView.nextOneText = @"下个还款日";
+    self.topView.nextOneText = @"下一还款日";
 }
 
 - (NSArray *) tableViewTitleArray {

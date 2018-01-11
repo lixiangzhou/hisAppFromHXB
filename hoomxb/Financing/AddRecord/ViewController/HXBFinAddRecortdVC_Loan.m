@@ -36,19 +36,4 @@
     [self.view addSubview:self.addRecortdTableView];
 }
 
-
-- (void) footerRefresh {
-    [self.addRecortdTableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
-        
-    } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
-        
-    }];
-}
-
-- (void)headerRefresh {
-    [self.addRecortdTableView hxb_headerWithRefreshBlock:^{
-        [self downLoadData];
-    }];
-}
-
 @end

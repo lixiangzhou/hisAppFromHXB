@@ -88,9 +88,8 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     {
         self.totalCount = totalCount;
         if (self.totalCount > 20) {
-            [self.tableView hxb_GifFooterWithIdleImages:nil andPullingImages:nil andFreshingImages:nil andRefreshDurations:nil andRefreshBlock:^{
+            [self.tableView hxb_footerWithRefreshBlock:^{
                 [self downDataWithScreenType:self.screenType andStartDate:nil andEndDate:nil andIsUPData:NO];
-            } andSetUpGifFooterBlock:^(MJRefreshBackGifFooter *footer) {
             }];
         }
         self.tableView.capitalRecortdDetailViewModelArray = viewModelArray;
