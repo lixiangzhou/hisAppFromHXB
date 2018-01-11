@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 //#import "HXBBannerView.h"
-#import "HxbHomePageViewModel.h"
 #import "HxbHomePageViewModel_dataList.h"
 @class HXBHomeBaseModel,BannerModel;
 @interface HxbHomeView : UIView
@@ -61,6 +60,5 @@
 - (void)changeIndicationView:(HXBRequestUserInfoViewModel *)viewModel;
 - (void)showBulletinView;
 - (void)showSecurityCertificationOrInvest:(HXBRequestUserInfoViewModel *)viewModel;
-- (void)setDataModel:(HxbHomePageViewModel *)dataModel;
 
 @end

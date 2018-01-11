@@ -9,8 +9,6 @@
 #define kHXBNoticeButtonWithAndHeight kScrAdaptationH(60)
 
 #import "HXBHomePageHeadView.h"
-#import "HXBHomePageBulletinView.h"
-#import "HXBHomePageModuleView.h"
 #import "HXBHomePageLoginIndicationView.h"
 #import "HXBHomePageAfterLoginView.h"
 
