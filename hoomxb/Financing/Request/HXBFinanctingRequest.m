@@ -383,33 +383,6 @@
 
 
 #pragma mark - 详情页 数据请求
-- (void)planDetaileWithPlanID: (NSString *)financePlanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_PlanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{
-    HXBBaseRequest *planDetaileAPI = [[HXBBaseRequest alloc]init];
-    planDetaileAPI.requestUrl = kHXBFinanc_PlanDetaileURL(financePlanId.integerValue);
-    planDetaileAPI.requestMethod = NYRequestMethodGet;
-    
-    [planDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        ///数据是否出错
-        NSString *status = responseObject[kResponseStatus];
-        if (status.integerValue) {
-            kNetWorkError(@"计划详情页 没有数据");
-            if(failureBlock) failureBlock(nil);
-            return;
-        }
-        NSDictionary *planDetaileDic = [responseObject valueForKey:@"data"];
-        HXBFinDetailModel_PlanDetail *planDetaileModel = [[HXBFinDetailModel_PlanDetail alloc]init];
-        [planDetaileModel yy_modelSetWithDictionary:planDetaileDic];
-        HXBFinDetailViewModel_PlanDetail *planDetailViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
-        planDetailViewModel.planDetailModel = planDetaileModel;
-        ///回调
-        if (successDateBlock) successDateBlock(planDetailViewModel);
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        if (error && failureBlock) {
-            kNetWorkError(@"红利计划详情")
-            failureBlock(error);
-        }
-    }];
-}
 
 ///标的详情页
 - (void)loanDetaileWithLoanID: (NSString *)financeLoanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock{

@@ -23,6 +23,7 @@
 #pragma mark --- (肖扬 散标计划详情)
 #import "HXBFin_creditorChange_buy_ViewController.h"
 #import "HXBFin_Loan_Buy_ViewController.h"
+#import "HXBFinanceDetailViewModel.h"
 
 @interface HXBFinancing_LoanDetailsViewController ()
 //假的navigationBar
@@ -40,7 +41,7 @@
 
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
-
+@property (nonatomic, strong) HXBFinanceDetailViewModel *viewModel;
 @end
 
 @implementation HXBFinancing_LoanDetailsViewController
@@ -103,6 +104,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.viewModel = [[HXBFinanceDetailViewModel alloc] initWithBlock:^UIView *{
+        return self.view;
+    }];
     
     self.isColourGradientNavigationBar = YES;
     //判断是否风险评测
@@ -223,17 +228,13 @@
 //MARK: 网络数据请求
 - (void)downLoadData {
     __weak typeof(self)weakSelf = self;
-    [[HXBFinanctingRequest sharedFinanctingRequest] loanDetaileWithLoanID:self.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanDetail *viewModel) {
-        weakSelf.loanDetailViewModel = viewModel;
-        weakSelf.title = viewModel.loanDetailModel.loanVo.title;
-//        weakSelf.timeLabel.attributedText = [NSMutableAttributedString setupAttributeStringWithString:[NSString stringWithFormat:@"剩余投标时间：%@", viewModel.remainTime] WithRange:NSMakeRange(7, viewModel.remainTime.length) andAttributeColor:[UIColor orangeColor] andAttributeFont:weakSelf.timeLabel.font];
-//        if ([viewModel.addButtonStr hasPrefix:@"立即"]) {
-//            weakSelf.timeLabel.hidden = NO;
-//        }
-        weakSelf.loanDetailsView.modelArray = weakSelf.tableViewModelArray;
+    [self.viewModel requestLoanDetailWithLoanId:self.loanID resultBlock:^(HXBFinDetailViewModel_LoanDetail *model, BOOL isSuccess) {
         [weakSelf.hxbBaseVCScrollView endRefresh];
-    } andFailureBlock:^(NSError *error) {
-        [weakSelf.hxbBaseVCScrollView endRefresh];
+        if (isSuccess) {
+            weakSelf.loanDetailViewModel = model;
+            weakSelf.title = model.loanDetailModel.loanVo.title;
+            weakSelf.loanDetailsView.modelArray = weakSelf.tableViewModelArray;
+        }
     }];
 }
 

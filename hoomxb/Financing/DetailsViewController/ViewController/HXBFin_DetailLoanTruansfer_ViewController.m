@@ -22,7 +22,7 @@
 #import "HXBFin_LoanTruansferDetail_TopView.h"
 #import "HXBFinanctingDetail_trustCell.h"
 #import "HXBFin_creditorChange_buy_ViewController.h"
-
+#import "HXBFinanceDetailViewModel.h"
 
 @interface HXBFin_DetailLoanTruansfer_ViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -52,12 +52,18 @@
 
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+
+@property (nonatomic, strong) HXBFinanceDetailViewModel *viewModel;
 @end
 
 @implementation HXBFin_DetailLoanTruansfer_ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.viewModel = [[HXBFinanceDetailViewModel alloc] initWithBlock:^UIView *{
+        return self.view;
+    }];
     
     self.isColourGradientNavigationBar = YES;
     [self setUPTopImageView];
@@ -248,15 +254,15 @@
 //MARK: 网络数据请求
 - (void)downLoadData {
     kWeakSelf
-    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansferDetileRequestWithLoanID:weakSelf.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanTruansferDetail *viewModel) {
-        weakSelf.loanTruansferDetailViewModel = viewModel;
-        [weakSelf setData];
-        weakSelf.hxbBaseVCScrollView.hidden = NO;
-        [weakSelf.hxbBaseVCScrollView reloadData];
+    
+    [self.viewModel requestLoanDetailWithLoanTruansferId:self.loanID resultBlock:^(HXBFinDetailViewModel_LoanTruansferDetail *model, BOOL isSuccess) {
         [weakSelf.hxbBaseVCScrollView endRefresh];
-    } andFailureBlock:^(NSError *error, NSDictionary *respons) {
-        [weakSelf.hxbBaseVCScrollView endRefresh];
-        [HxbHUDProgress showMessageCenter:respons[kResponseMessage] inView:weakSelf.view];
+        if (isSuccess) {
+            weakSelf.loanTruansferDetailViewModel = model;
+            [weakSelf setData];
+            weakSelf.hxbBaseVCScrollView.hidden = NO;
+            [weakSelf.hxbBaseVCScrollView reloadData];
+        }
     }];
 }
 
