@@ -58,6 +58,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.isColourGradientNavigationBar = YES;
     [self setUPTopImageView];
     [self setUP];
     [self setupAddView];
