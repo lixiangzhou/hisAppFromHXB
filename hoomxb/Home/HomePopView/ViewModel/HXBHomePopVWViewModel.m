@@ -11,14 +11,12 @@
 
 @implementation HXBHomePopVWViewModel
 
-+ (void)homePopViewRequestSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)homePopViewRequestSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     versionUpdateAPI.requestUrl = kHXBHome_PopView;
     versionUpdateAPI.requestMethod = NYRequestMethodGet;
-    //    versionUpdateAPI.requestArgument = @{
-    //                                         @"versionCode" : versionCode
-    //                                         };
+    versionUpdateAPI.showHud = NO;
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSInteger status =  [responseObject[@"status"] integerValue];
         
