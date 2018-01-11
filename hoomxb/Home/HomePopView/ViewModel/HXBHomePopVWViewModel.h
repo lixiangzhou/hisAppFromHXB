@@ -6,13 +6,13 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "HXBBaseViewModel.h"
 @class HXBHomePopVWModel;
 
-@interface HXBHomePopVWViewModel : NSObject
+@interface HXBHomePopVWViewModel : HXBBaseViewModel
 
 @property (nonatomic,strong)HXBHomePopVWModel *homePopModel;
 
-+ (void)homePopViewRequestSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)homePopViewRequestSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 @end

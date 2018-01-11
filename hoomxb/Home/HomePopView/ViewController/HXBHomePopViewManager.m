@@ -33,7 +33,7 @@
 @interface HXBHomePopViewManager ()
 
 @property (nonatomic, strong) HXBHomePopView *popView;
-@property (nonatomic, strong) HXBHomePopVWModel *homePopViewModel;
+@property (nonatomic, strong) HXBHomePopVWViewModel *homePopViewModel;
 @property (nonatomic, strong) NSDictionary *responseDict;
 
 @end
@@ -56,13 +56,16 @@
 - (void)getHomePopViewData
 {
     kWeakSelf
-    [HXBHomePopVWViewModel homePopViewRequestSuccessBlock:^(id responseObject) {
+    self.homePopViewModel = [[HXBHomePopVWViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.popView;
+    }];
+    [self.homePopViewModel homePopViewRequestSuccessBlock:^(id responseObject) {
         
         if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
             weakSelf.isHide = YES;
             return ;
         }
-        weakSelf.homePopViewModel = [HXBHomePopVWModel yy_modelWithDictionary:responseObject[@"data"]];
+        weakSelf.homePopViewModel.homePopModel = [HXBHomePopVWModel yy_modelWithDictionary:responseObject[@"data"]];
         [weakSelf updateUserDefaultsPopViewDate:responseObject[@"data"]];
     } andFailureBlock:^(NSError *error) {
         weakSelf.isHide = YES;
@@ -161,9 +164,9 @@
         self.popView.clickImageBlock = ^{
             NSLog(@"1111点击图片");
             //校验可不可以跳转
-            if ([HXBHomePopViewManager checkHomePopViewWith:weakSelf.homePopViewModel]) {
+            if ([HXBHomePopViewManager checkHomePopViewWith:weakSelf.homePopViewModel.homePopModel]) {
                 //跳转到原生或h5
-                [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel fromController:controller];
+                [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel.homePopModel fromController:controller];
             }
             
         };
