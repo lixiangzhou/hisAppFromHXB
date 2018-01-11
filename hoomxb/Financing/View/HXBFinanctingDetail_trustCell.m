@@ -36,7 +36,7 @@
     firstLabel.textColor = COR6;
     firstLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     firstLabel.textAlignment = NSTextAlignmentLeft;
-    firstLabel.text = @"下个还款日";
+    firstLabel.text = @"下一还款日";
     secondLabel.textColor = COR6;
     secondLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
     secondLabel.textAlignment = NSTextAlignmentLeft;
