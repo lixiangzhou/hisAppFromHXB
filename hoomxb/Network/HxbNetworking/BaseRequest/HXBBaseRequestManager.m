@@ -84,7 +84,7 @@
     
     if(request.hudDelegate) {
         for(NYBaseRequest* base in self.requestList) {
-            if([base defferRequest:request]) {
+            if(![base defferRequest:request]) {//同一个请求
                 [base cancelRequest];
                 [self.requestList removeObject:base];
                 [self.waitTokenResultList removeObject:base];

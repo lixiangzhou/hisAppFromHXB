@@ -18,7 +18,7 @@
 
 @interface NYHTTPConnection ()
 
-@property (nonatomic, strong, readwrite) NSURLSessionDataTask *task;
+@property (atomic, strong, readwrite) NSURLSessionDataTask *task;
 
 @property (nonatomic, copy) HXBConnectionSuccessBlock success;
 
@@ -182,8 +182,9 @@
 {
     if (isSuccess) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self processTokenInvidate];
+            
             if ([HXBRootVCManager manager].mainTabbarVC.selectedViewController.childViewControllers.count > 1) {
-                [self processTokenInvidate];
                 if (self.failure) {
                     request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
                     self.failure(request.connection, nil);
