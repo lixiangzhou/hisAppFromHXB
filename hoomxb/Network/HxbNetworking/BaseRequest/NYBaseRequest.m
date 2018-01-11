@@ -26,7 +26,7 @@
 
 - (instancetype)initWithDelegate:(id<HXBRequestHudDelegate>)delegate
 {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.hudDelegate = delegate;
     }
