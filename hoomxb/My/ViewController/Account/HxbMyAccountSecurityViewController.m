@@ -202,17 +202,17 @@ UITableViewDataSource,UITableViewDelegate
             
                     [self presentViewController:alertVC animated:NO completion:nil];
                 } else {
-                    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"信息不完善" andLeftBtnName:@"暂不完善" andRightBtnName:@"去完善信息" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
-                    alertVC.isCenterShow = YES;
-                    [alertVC setRightBtnBlock:^{
+//                    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"信息不完善" andLeftBtnName:@"暂不完善" andRightBtnName:@"去完善信息" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+//                    alertVC.isCenterShow = YES;
+//                    [alertVC setRightBtnBlock:^{
                         //完善信息
                         HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
                         openDepositAccountVC.title = @"完善信息";
                         openDepositAccountVC.type = HXBChangePhone;
                         //                    openDepositAccountVC.userModel = self.userInfoViewModel;
                         [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-                    }];
-                    [self presentViewController:alertVC animated:NO completion:nil];
+//                    }];
+//                    [self presentViewController:alertVC animated:NO completion:nil];
                 }
             }
         }
