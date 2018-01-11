@@ -30,6 +30,7 @@
 #import "HXBFin_DetailsViewBase.h"
 #import "HXBFin_creditorChange_buy_ViewController.h"
 #import "HXBFin_Plan_Buy_ViewController.h"
+#import "HXBFinancePlanDetailViewModel.h"
 
 @interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 //假的navigationBar
@@ -75,11 +76,18 @@
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 
+@property (nonatomic, strong) HXBFinancePlanDetailViewModel *viewModel;
+
 @end
 
 @implementation HXBFinancing_PlanDetailsViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.viewModel = [[HXBFinancePlanDetailViewModel alloc] initWithBlock:^UIView *{
+        return self.view;
+    }];
+    
     self.isColourGradientNavigationBar = YES;
     [self setup];
     [self downLoadData];
@@ -436,28 +444,25 @@
 //MARK: 网络数据请求
 - (void)downLoadData {
     kWeakSelf
-    [[HXBFinanctingRequest sharedFinanctingRequest] planDetaileWithPlanID:self.planID andSuccessBlock:^(HXBFinDetailViewModel_PlanDetail *viewModel) {
-        weakSelf.planDetailViewModel = viewModel;
-        weakSelf.cashType = weakSelf.planDetailViewModel.planDetailModel.cashType;
-        if (viewModel.isContDown) {
-//            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@([viewModel.countDownStr floatValue]) andDateFormat:@"mm分ss秒后开始加入"];
-            weakSelf.countDownManager.countDownEndTime = [viewModel.countDownStr floatValue];
-//            [self.addButton setTitle:str forState:UIControlStateNormal];
-        } else {
-            
-            if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue <= 5) {//等待加入
-                [weakSelf.addButton setTitle:weakSelf.planDetailViewModel.remainTimeString forState:UIControlStateNormal];
+    [self.viewModel requestPlanDetailWithPlanId:self.planID resultBlock:^(HXBFinDetailViewModel_PlanDetail *model, BOOL isSuccess) {
+        [weakSelf.hxbBaseVCScrollView endRefresh];
+        if (isSuccess) {
+            weakSelf.planDetailViewModel = model;
+            weakSelf.cashType = weakSelf.planDetailViewModel.planDetailModel.cashType;
+            if (model.isContDown) {
+                weakSelf.countDownManager.countDownEndTime = [model.countDownStr floatValue];
             } else {
-                [weakSelf.addButton setTitle:viewModel.addButtonStr forState:UIControlStateNormal];
+                if (weakSelf.planDetailViewModel.planDetailModel.unifyStatus.integerValue <= 5) {//等待加入
+                    [weakSelf.addButton setTitle:weakSelf.planDetailViewModel.remainTimeString forState:UIControlStateNormal];
+                } else {
+                    [weakSelf.addButton setTitle:model.addButtonStr forState:UIControlStateNormal];
+                }
+                [weakSelf.countDownManager stopTimer];
             }
-            [weakSelf.countDownManager stopTimer];
+            weakSelf.hxbBaseVCScrollView.hidden = NO;
+            weakSelf.title = model.planDetailModel.name;
+            [weakSelf.hxbBaseVCScrollView reloadData];
         }
-        weakSelf.hxbBaseVCScrollView.hidden = NO;
-        weakSelf.title = viewModel.planDetailModel.name;
-        [weakSelf.hxbBaseVCScrollView reloadData];
-        [weakSelf.hxbBaseVCScrollView endRefresh];
-    } andFailureBlock:^(NSError *error) {
-        [weakSelf.hxbBaseVCScrollView endRefresh];
     }];
 }
 
