@@ -18,7 +18,7 @@
 
 @interface NYHTTPConnection ()
 
-@property (nonatomic, strong, readwrite) NSURLSessionDataTask *task;
+@property (atomic, strong, readwrite) NSURLSessionDataTask *task;
 
 @property (nonatomic, copy) HXBConnectionSuccessBlock success;
 
