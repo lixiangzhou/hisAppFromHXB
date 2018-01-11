@@ -1,5 +1,5 @@
 //
-//  HXBFinancePlanDetailViewModel.h
+//  HXBFinanceDetailViewModel.h
 //  hoomxb
 //
 //  Created by lxz on 2018/1/11.
@@ -10,6 +10,6 @@
 #import "HXBFinDetailModel_PlanDetail.h"
 #import "HXBFinDetailViewModel_PlanDetail.h"
 
-@interface HXBFinancePlanDetailViewModel : HXBBaseViewModel
+@interface HXBFinanceDetailViewModel : HXBBaseViewModel
 - (void)requestPlanDetailWithPlanId:(NSString *)planId resultBlock:(void (^)(HXBFinDetailViewModel_PlanDetail *model, BOOL isSuccess))resultBlock;
 @end

@@ -1,14 +1,14 @@
 //
-//  HXBFinancePlanDetailViewModel.m
+//  HXBFinanceDetailViewModel.m
 //  hoomxb
 //
 //  Created by lxz on 2018/1/11.
 //Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBFinancePlanDetailViewModel.h"
+#import "HXBFinanceDetailViewModel.h"
 
-@implementation HXBFinancePlanDetailViewModel
+@implementation HXBFinanceDetailViewModel
 
 - (void)requestPlanDetailWithPlanId:(NSString *)planId resultBlock:(void (^)(HXBFinDetailViewModel_PlanDetail *model, BOOL isSuccess))resultBlock {
     HXBBaseRequest *planDetaileAPI = [[HXBBaseRequest alloc]initWithDelegate:self];

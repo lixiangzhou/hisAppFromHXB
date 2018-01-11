@@ -30,7 +30,7 @@
 #import "HXBFin_DetailsViewBase.h"
 #import "HXBFin_creditorChange_buy_ViewController.h"
 #import "HXBFin_Plan_Buy_ViewController.h"
-#import "HXBFinancePlanDetailViewModel.h"
+#import "HXBFinanceDetailViewModel.h"
 
 @interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 //假的navigationBar
@@ -76,7 +76,7 @@
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 
-@property (nonatomic, strong) HXBFinancePlanDetailViewModel *viewModel;
+@property (nonatomic, strong) HXBFinanceDetailViewModel *viewModel;
 
 @end
 
@@ -84,7 +84,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.viewModel = [[HXBFinancePlanDetailViewModel alloc] initWithBlock:^UIView *{
+    self.viewModel = [[HXBFinanceDetailViewModel alloc] initWithBlock:^UIView *{
         return self.view;
     }];
     
