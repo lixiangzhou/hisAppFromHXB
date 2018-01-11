@@ -29,7 +29,7 @@
 //假的navigationBar
 @property (nonatomic,strong) UIImageView *topImageView;
 @property(nonatomic,strong) HXBFin_DetailsView_LoanDetailsView *loanDetailsView;
-@property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanDetailViewModel;
+//@property (nonatomic,strong) HXBFinDetailViewModel_LoanDetail *loanDetailViewModel;
 @property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewModelArray;
 ///tableView的tatile
 @property (nonatomic,strong) NSArray <NSString *>* tableViewTitleArray;
@@ -47,23 +47,23 @@
 @implementation HXBFinancing_LoanDetailsViewController
 
 - (void) setLoanDetailViewModel:(HXBFinDetailViewModel_LoanDetail *)loanDetailViewModel {
-    _loanDetailViewModel = loanDetailViewModel;
+//    _loanDetailViewModel = loanDetailViewModel;
     kWeakSelf
     [self.loanDetailsView setUPViewModelVM:^HXBFin_DetailsView_LoanDetailsView_ViewModelVM *(HXBFin_DetailsView_LoanDetailsView_ViewModelVM *viewModelVM) {
-        viewModelVM.totalInterestStr           = [NSString stringWithFormat:@"%.1f", [weakSelf.loanDetailViewModel.totalInterestPer100 floatValue]];///年利率
+        viewModelVM.totalInterestStr           = [NSString stringWithFormat:@"%.1f", [weakSelf.viewModel.loanDetailModel.totalInterestPer100 floatValue]];///年利率
         viewModelVM.totalInterestStr_const     = @"年利率";
-        viewModelVM.remainAmount               = weakSelf.loanDetailViewModel.surplusAmount;
-        viewModelVM.remainAmount_const         = weakSelf.loanDetailViewModel.surplusAmount_ConstStr;
-        viewModelVM.startInvestmentStr         = weakSelf.loanDetailViewModel.months;
+        viewModelVM.remainAmount               = weakSelf.viewModel.loanDetailModel.surplusAmount;
+        viewModelVM.remainAmount_const         = weakSelf.viewModel.loanDetailModel.surplusAmount_ConstStr;
+        viewModelVM.startInvestmentStr         = weakSelf.viewModel.loanDetailModel.months;
         viewModelVM.startInvestmentStr_const   = @"标的期限";
         viewModelVM.promptStr                  = @"- 预期收益不代表实际收益，投资需谨慎 -";
-        viewModelVM.addButtonStr               = weakSelf.loanDetailViewModel.addButtonStr;
-        viewModelVM.remainAmount_const         = weakSelf.loanDetailViewModel.surplusAmount_ConstStr;
-        viewModelVM.remainAmount               = weakSelf.loanDetailViewModel.surplusAmount;
-        viewModelVM.isUserInteractionEnabled   = weakSelf.loanDetailViewModel.isAddButtonEditing;
-        viewModelVM.remainTime                 = weakSelf.loanDetailViewModel.loanDetailModel.remainTime;
-        viewModelVM.addButtonTitleColor        = weakSelf.loanDetailViewModel.addButtonTitleColor;
-        viewModelVM.addButtonBackgroundColor   = weakSelf.loanDetailViewModel.addButtonBackgroundColor;
+        viewModelVM.addButtonStr               = weakSelf.viewModel.loanDetailModel.addButtonStr;
+        viewModelVM.remainAmount_const         = weakSelf.viewModel.loanDetailModel.surplusAmount_ConstStr;
+        viewModelVM.remainAmount               = weakSelf.viewModel.loanDetailModel.surplusAmount;
+        viewModelVM.isUserInteractionEnabled   = weakSelf.viewModel.loanDetailModel.isAddButtonEditing;
+        viewModelVM.remainTime                 = weakSelf.viewModel.loanDetailModel.loanDetailModel.remainTime;
+        viewModelVM.addButtonTitleColor        = weakSelf.viewModel.loanDetailModel.addButtonTitleColor;
+        viewModelVM.addButtonBackgroundColor   = weakSelf.viewModel.loanDetailModel.addButtonBackgroundColor;
         viewModelVM.title                      = @"散标投资";
         return viewModelVM;
     }];
@@ -173,7 +173,7 @@
         if ([model.optionTitle isEqualToString:weakSelf.tableViewTitleArray[0]]) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             //            detail_DetailLoanVC. = self.planDetailViewModel;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = weakSelf.loanDetailViewModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = weakSelf.viewModel.loanDetailModel.fin_LoanInfoView_Manager;
             [weakSelf.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         }
         ///  借款记录
@@ -217,22 +217,22 @@
     //跳转加入界
     HXBFin_Loan_Buy_ViewController *loanJoinVC = [[HXBFin_Loan_Buy_ViewController alloc]init];
     loanJoinVC.title = @"投资散标";
-    loanJoinVC.availablePoint = [NSString stringWithFormat:@"%.lf", self.loanDetailViewModel.loanDetailModel.loanVo.surplusAmount.doubleValue];
-    loanJoinVC.placeholderStr = self.loanDetailViewModel.addCondition;
-    loanJoinVC.loanId = self.loanDetailViewModel.loanDetailModel.userVo.loanId;
-    loanJoinVC.minRegisterAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
-    loanJoinVC.registerMultipleAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
+    loanJoinVC.availablePoint = [NSString stringWithFormat:@"%.lf", self.viewModel.loanDetailModel.loanDetailModel.loanVo.surplusAmount.doubleValue];
+    loanJoinVC.placeholderStr = self.viewModel.loanDetailModel.addCondition;
+    loanJoinVC.loanId = self.viewModel.loanDetailModel.loanDetailModel.userVo.loanId;
+    loanJoinVC.minRegisterAmount = self.viewModel.loanDetailModel.loanDetailModel.minInverst;
+    loanJoinVC.registerMultipleAmount = self.viewModel.loanDetailModel.loanDetailModel.minInverst;
     [self.navigationController pushViewController:loanJoinVC animated:YES];
 }
 
 //MARK: 网络数据请求
 - (void)downLoadData {
     __weak typeof(self)weakSelf = self;
-    [self.viewModel requestLoanDetailWithLoanId:self.loanID resultBlock:^(HXBFinDetailViewModel_LoanDetail *model, BOOL isSuccess) {
+    [self.viewModel requestLoanDetailWithLoanId:self.loanID resultBlock:^(BOOL isSuccess) {
         [weakSelf.hxbBaseVCScrollView endRefresh];
         if (isSuccess) {
-            weakSelf.loanDetailViewModel = model;
-            weakSelf.title = model.loanDetailModel.loanVo.title;
+            [weakSelf setLoanDetailViewModel:weakSelf.viewModel.loanDetailModel];
+            weakSelf.title = weakSelf.viewModel.loanDetailModel.loanDetailModel.loanVo.title;
             weakSelf.loanDetailsView.modelArray = weakSelf.tableViewModelArray;
         }
     }];

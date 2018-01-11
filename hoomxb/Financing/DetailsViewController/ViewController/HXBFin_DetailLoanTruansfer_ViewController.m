@@ -35,7 +35,7 @@
 ///tableView的tatile
 @property (nonatomic,strong) NSArray *tableViewTitleArray;
 ///详情的viewModel
-@property (nonatomic,strong) HXBFinDetailViewModel_LoanTruansferDetail *loanTruansferDetailViewModel;
+//@property (nonatomic,strong) HXBFinDetailViewModel_LoanTruansferDetail *loanTruansferDetailViewModel;
 @property (nonatomic,copy) NSString *addButtonStr;
 ///加入的button
 @property (nonatomic,strong) UIButton *addButton;
@@ -183,8 +183,8 @@
             cell = [[HXBFinanctingDetail_trustCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"trustCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        cell.repaymentType = self.loanTruansferDetailViewModel.repaymentType;
-        cell.nextRepayDate = self.loanTruansferDetailViewModel.nextRepayDate;
+        cell.repaymentType = self.viewModel.loanTruansferDetailModel.repaymentType;
+        cell.nextRepayDate = self.viewModel.loanTruansferDetailModel.nextRepayDate;
         return cell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -207,7 +207,7 @@
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.loanTruansferDetailViewModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.viewModel.loanTruansferDetailModel.fin_LoanInfoView_Manager;
             [self.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         } else if (indexPath.row == 1) {
             HXBFinAddRecordVC_LoanTruansfer *loanAddRecordVC = [[HXBFinAddRecordVC_LoanTruansfer alloc]init];
@@ -232,17 +232,17 @@
 }
 
 - (void)enterLoanBuyViewController {
-    if ([self.loanTruansferDetailViewModel.loanTruansferDetailModel.enabledBuy isEqualToString:@"0"]) {
+    if ([self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.enabledBuy isEqualToString:@"0"]) {
         [HxbHUDProgress showTextWithMessage:@"自己转让的债权无法再次购买"];
         return;
     }
     HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
     loanJoinVC.title = @"投资债权";
-    loanJoinVC.loanId = self.loanTruansferDetailViewModel.loanTruansferDetailModel.transferId;
-    loanJoinVC.placeholderStr = self.loanTruansferDetailViewModel.startIncrease_Amount;
-    loanJoinVC.availablePoint = self.loanTruansferDetailViewModel.loanTruansferDetailModel.leftTransAmount;
-    loanJoinVC.minRegisterAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
-    loanJoinVC.registerMultipleAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
+    loanJoinVC.loanId = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.transferId;
+    loanJoinVC.placeholderStr = self.viewModel.loanTruansferDetailModel.startIncrease_Amount;
+    loanJoinVC.availablePoint = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.leftTransAmount;
+    loanJoinVC.minRegisterAmount = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.minInverst;
+    loanJoinVC.registerMultipleAmount = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.minInverst;
     [self.navigationController pushViewController:loanJoinVC animated:YES];
     
     
@@ -255,10 +255,9 @@
 - (void)downLoadData {
     kWeakSelf
     
-    [self.viewModel requestLoanDetailWithLoanTruansferId:self.loanID resultBlock:^(HXBFinDetailViewModel_LoanTruansferDetail *model, BOOL isSuccess) {
+    [self.viewModel requestLoanDetailWithLoanTruansferId:self.loanID resultBlock:^(BOOL isSuccess) {
         [weakSelf.hxbBaseVCScrollView endRefresh];
         if (isSuccess) {
-            weakSelf.loanTruansferDetailViewModel = model;
             [weakSelf setData];
             weakSelf.hxbBaseVCScrollView.hidden = NO;
             [weakSelf.hxbBaseVCScrollView reloadData];
@@ -268,8 +267,8 @@
 
 - (void) setData {
     self.topView.interestLabelLeftStr = self.loanTransfer_ViewModel.loanTruansferListModel.interest;
-    self.topView.remainTimeLabelLeftStr = self.loanTruansferDetailViewModel.leftMonths;
-    self.topView.truansferAmountLabelLeftStr = self.loanTruansferDetailViewModel.leftTransAmount;
+    self.topView.remainTimeLabelLeftStr = self.viewModel.loanTruansferDetailModel.leftMonths;
+    self.topView.truansferAmountLabelLeftStr = self.viewModel.loanTruansferDetailModel.leftTransAmount;
     self.topView.nextOneText = @"下一还款日";
 }
 

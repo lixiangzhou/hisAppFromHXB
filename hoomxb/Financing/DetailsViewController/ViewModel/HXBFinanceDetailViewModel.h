@@ -16,9 +16,16 @@
 
 @interface HXBFinanceDetailViewModel : HXBBaseViewModel
 /// 红利计划详情页
-- (void)requestPlanDetailWithPlanId:(NSString *)planId resultBlock:(void (^)(HXBFinDetailViewModel_PlanDetail *model, BOOL isSuccess))resultBlock;
+@property (nonatomic, strong) HXBFinDetailViewModel_PlanDetail *planDetailModel;
 /// 散标详情页
-- (void)requestLoanDetailWithLoanId:(NSString *)loanId resultBlock:(void (^)(HXBFinDetailViewModel_LoanDetail *model, BOOL isSuccess))resultBlock;
+@property (nonatomic, strong) HXBFinDetailViewModel_LoanDetail *loanDetailModel;
 /// 债权详情页
-- (void)requestLoanDetailWithLoanTruansferId:(NSString *)loanId resultBlock:(void (^)(HXBFinDetailViewModel_LoanTruansferDetail *model, BOOL isSuccess))resultBlock;
+@property (nonatomic, strong) HXBFinDetailViewModel_LoanTruansferDetail *loanTruansferDetailModel;
+
+/// 红利计划详情页
+- (void)requestPlanDetailWithPlanId:(NSString *)planId resultBlock:(void (^)(BOOL isSuccess))resultBlock;
+/// 散标详情页
+- (void)requestLoanDetailWithLoanId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock;
+/// 债权详情页
+- (void)requestLoanDetailWithLoanTruansferId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock;
 @end
