@@ -100,7 +100,7 @@
  */
 - (BOOL)defferRequest:(NYBaseRequest*)request
 {
-    if([self.requestUrl isEqualToString:request.requestUrl] && self.hudDelegate==request.hudDelegate && [self.requestArgument isEqualToString:request.requestArgument]) {
+    if([self.requestUrl isEqualToString:request.requestUrl] && self.hudDelegate==request.hudDelegate && [self.requestArgument isEqual:request.requestArgument]) {
         return YES;
     }
     return NO;
