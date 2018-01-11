@@ -103,7 +103,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = NO;
+    
+    self.isColourGradientNavigationBar = YES;
     //判断是否风险评测
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
