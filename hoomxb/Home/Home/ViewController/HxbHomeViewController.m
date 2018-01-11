@@ -9,8 +9,6 @@
 #import "HxbHomeViewController.h"
 #import "HxbAdvertiseViewController.h"
 #import "HXBHomeVCViewModel.h"
-#import "HxbHomeRequest_dataList.h"
-//#import "HxbSecurityCertificationViewController.h"
 #import "HXBHomeBaseModel.h"
 #import "HXBFinancing_PlanDetailsViewController.h"
 #import "HXBFinancing_LoanDetailsViewController.h"
@@ -146,7 +144,7 @@
         }
     }
     self.homeVimewModle = [[HXBHomeVCViewModel alloc] initWithBlock:^UIView *{
-        return nil;
+        return weakSelf.view;
     }];
     [self.homeVimewModle homePlanRecommendCallbackBlock:^(BOOL isSuccess) {
         if (isSuccess) {

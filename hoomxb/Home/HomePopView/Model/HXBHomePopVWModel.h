@@ -1,5 +1,5 @@
 //
-//  HXBHomePopViewModel.h
+//  HXBHomePopVWModel.h
 //  hoomxb
 //
 //  Created by hxb on 2017/12/13.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface HXBHomePopViewModel : NSObject
+@interface HXBHomePopVWModel : NSObject
 
 @property (nonatomic, copy) NSString *title;//弹窗名称
 @property (nonatomic, copy) NSString *image;//图片链接地址
