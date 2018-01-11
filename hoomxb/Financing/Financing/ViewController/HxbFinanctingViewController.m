@@ -29,6 +29,10 @@
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划的Model
 #import "HXBFinDatailModel_LoanDetail.h"//散标详情的MOdel
 #import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
+
+#import "HXBFinanceListViewModel.h" // 请求ViewModel
+
+
 @interface HxbFinanctingViewController ()
 @property (nonatomic,strong) HXBFinanctingView_HomePage *homePageView;//最主要的view
 
@@ -52,6 +56,7 @@
 
 ///MARK: ------------ 定时管理 -----------
 @property (nonatomic,strong) HXBBaseContDownManager *contDwonManager;
+@property (nonatomic, strong) HXBFinanceListViewModel *viewModel;
 @end
 
 
@@ -93,6 +98,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.countDownButton = [[HXBToolCountDownButton alloc]init];
     
+    self.viewModel = [[HXBFinanceListViewModel alloc] initWithBlock:^UIView *{
+        return self.view;
+    }];
     [self.countDownButton setValue:@1 forKey:@"selected"];
     
     //初始化属性
@@ -296,16 +304,24 @@
         self.finPlanListVMArray = planListViewModelArray;
     }
     __weak typeof(self)weakSelf = self;
-    [self.finantingRequest planBuyListWithIsUpData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray, NSInteger totalCount) {
-        weakSelf.homePageView.finPlanTotalCount = totalCount;
-        weakSelf.finPlanListVMArray = viewModelArray;
+    
+    [self.viewModel planBuyListWithIsUpData:isUPData resultBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray, NSInteger totalCount, BOOL isSuccess) {
         //结束下拉刷新与上拉刷新
         weakSelf.homePageView.isStopRefresh_Plan = YES;
+        weakSelf.homePageView.finPlanTotalCount = totalCount;
+        weakSelf.finPlanListVMArray = viewModelArray;
         weakSelf.isFirstLoadNetDataPlan = NO;
-    } andFailureBlock:^(NSError *error) {
-        weakSelf.homePageView.isStopRefresh_Plan = YES;
-        weakSelf.finPlanListVMArray = weakSelf.finPlanListVMArray;
     }];
+//    [self.finantingRequest planBuyListWithIsUpData:isUPData andSuccessBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray, NSInteger totalCount) {
+//        weakSelf.homePageView.finPlanTotalCount = totalCount;
+//        weakSelf.finPlanListVMArray = viewModelArray;
+//        //结束下拉刷新与上拉刷新
+//        weakSelf.homePageView.isStopRefresh_Plan = YES;
+//        weakSelf.isFirstLoadNetDataPlan = NO;
+//    } andFailureBlock:^(NSError *error) {
+//        weakSelf.homePageView.isStopRefresh_Plan = YES;
+//        weakSelf.finPlanListVMArray = weakSelf.finPlanListVMArray;
+//    }];
 }
 
 - (void)loanLoadDateWithIsUpData: (BOOL)isUpData {
