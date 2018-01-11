@@ -13,14 +13,22 @@
 
 @implementation NYBaseRequest
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _requestMethod = NYRequestMethodGet;
+        _timeoutInterval = 20;
+        _showHud = YES;
+    }
+    return self;
+}
+
 - (instancetype)initWithDelegate:(id<HXBRequestHudDelegate>)delegate
 {
     self = [super init];
     if (self) {
         self.hudDelegate = delegate;
-        _requestMethod = NYRequestMethodGet;
-        _timeoutInterval = 20;
-        _showHud = YES;
     }
     return self;
 }
