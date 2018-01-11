@@ -21,11 +21,12 @@
     homePlanRecommendAPI.requestArgument = @{
                                              @"cashType" : @"ALL"
                                              };
+    kWeakSelf
     [homePlanRecommendAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         int codeValue = [responseObject[@"status"] intValue];
         NSDictionary *baseDic = [responseObject valueForKey:@"data"];
-        self.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
+        weakSelf.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
         if (callbackBlock) {
             callbackBlock(!codeValue);
         }
