@@ -1,26 +1,22 @@
 //
-//  HXBHomePopViewRequest.m
+//  HXBHomePopVWViewModel.m
 //  hoomxb
 //
 //  Created by hxb on 2017/12/13.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBHomePopViewRequest.h"
-#import "HXBBaseRequest.h"///网络数据的请求
+#import "HXBHomePopVWViewModel.h"
+#import "HXBHomePopVWModel.h"
 
-@implementation HXBHomePopViewRequest
+@implementation HXBHomePopVWViewModel
 
-#pragma mark -  数据请求
-
-+ (void)homePopViewRequestSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)homePopViewRequestSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     versionUpdateAPI.requestUrl = kHXBHome_PopView;
     versionUpdateAPI.requestMethod = NYRequestMethodGet;
-//    versionUpdateAPI.requestArgument = @{
-//                                         @"versionCode" : versionCode
-//                                         };
+    versionUpdateAPI.showHud = NO;
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSInteger status =  [responseObject[@"status"] integerValue];
         
@@ -37,7 +33,6 @@
         }
     }];
 }
-
 
 
 @end

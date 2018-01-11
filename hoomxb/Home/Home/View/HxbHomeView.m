@@ -20,7 +20,6 @@
 @property (nonatomic, strong) HXBHomePageHeadView *headView;
 @property (nonatomic, strong) UIView *footerView;
 @property (nonatomic, strong) UILabel *footerLabel;
-@property (nonatomic, strong) HxbHomePageViewModel *dataViewModel;
 @property (nonatomic, strong) HXBBaseContDownManager *contDwonManager;
 
 @property (nonatomic, strong) UIView *tableBackgroundView;

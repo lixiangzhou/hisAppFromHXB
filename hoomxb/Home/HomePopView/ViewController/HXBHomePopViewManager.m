@@ -10,8 +10,8 @@
 #import "HXBHomePopView.h"
 #import "HxbHomeViewController.h"
 #import "HXBFinancing_PlanDetailsViewController.h"
-#import "HXBHomePopViewRequest.h"
-#import "HXBHomePopViewModel.h"
+#import "HXBHomePopVWViewModel.h"
+#import "HXBHomePopVWModel.h"
 #import <UIImageView+WebCache.h>
 #import "HXBBaseTabBarController.h"
 #import "NSString+HxbGeneral.h"
@@ -33,7 +33,7 @@
 @interface HXBHomePopViewManager ()
 
 @property (nonatomic, strong) HXBHomePopView *popView;
-@property (nonatomic, strong) HXBHomePopViewModel *homePopViewModel;
+@property (nonatomic, strong) HXBHomePopVWViewModel *homePopViewModel;
 @property (nonatomic, strong) NSDictionary *responseDict;
 
 @end
@@ -56,16 +56,19 @@
 - (void)getHomePopViewData
 {
     kWeakSelf
-    [HXBHomePopViewRequest homePopViewRequestSuccessBlock:^(id responseObject) {
+    self.homePopViewModel = [[HXBHomePopVWViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.popView;
+    }];
+    [self.homePopViewModel homePopViewRequestSuccessBlock:^(id responseObject) {
         
         if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
             weakSelf.isHide = YES;
             return ;
         }
-        weakSelf.homePopViewModel = [HXBHomePopViewModel yy_modelWithDictionary:responseObject[@"data"]];
+        weakSelf.homePopViewModel.homePopModel = [HXBHomePopVWModel yy_modelWithDictionary:responseObject[@"data"]];
         [weakSelf updateUserDefaultsPopViewDate:responseObject[@"data"]];
     } andFailureBlock:^(NSError *error) {
-        self.isHide = YES;
+        weakSelf.isHide = YES;
     }];
 }
 
@@ -161,9 +164,9 @@
         self.popView.clickImageBlock = ^{
             NSLog(@"1111点击图片");
             //校验可不可以跳转
-            if ([HXBHomePopViewManager checkHomePopViewWith:weakSelf.homePopViewModel]) {
+            if ([HXBHomePopViewManager checkHomePopViewWith:weakSelf.homePopViewModel.homePopModel]) {
                 //跳转到原生或h5
-                [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel fromController:controller];
+                [[HXBHomePopViewManager sharedInstance] jumpPageFromHomePopView:weakSelf.homePopViewModel.homePopModel fromController:controller];
             }
             
         };
@@ -187,7 +190,7 @@
     }
 }
 
-- (void)jumpPageFromHomePopView:(HXBHomePopViewModel *)homePopViewModel fromController:(UIViewController *)controller{
+- (void)jumpPageFromHomePopView:(HXBHomePopVWModel *)homePopViewModel fromController:(UIViewController *)controller{
     
     self.popView.userInteractionEnabled = NO;//避免重复点击
     if ([homePopViewModel.type isEqualToString:@"native"]) { //哪种类型
@@ -239,7 +242,7 @@
     [self.popView dismiss];
 }
 
-+ (BOOL)checkHomePopViewWith:(HXBHomePopViewModel *)homePopViewModel{
++ (BOOL)checkHomePopViewWith:(HXBHomePopVWModel *)homePopViewModel{
     
     if ([homePopViewModel.url isEqualToString:@""] || [homePopViewModel.url isEqualToString:@"/"]) {
         return NO;

@@ -96,14 +96,14 @@
  比较是否是同一个请求
  
  @param request 比较对象
- @return YES：相同；反之。
+ @return YES：不同；反之。
  */
 - (BOOL)defferRequest:(NYBaseRequest*)request
 {
     if([self.requestUrl isEqualToString:request.requestUrl] && self.hudDelegate==request.hudDelegate && [self.requestArgument isEqual:request.requestArgument]) {
-        return YES;
+        return NO;
     }
-    return NO;
+    return YES;
 }
 
 /**
