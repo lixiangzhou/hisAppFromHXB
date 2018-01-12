@@ -34,7 +34,7 @@
 - (UITableView *)mainTableView
 {
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - HXBNavigationBarHeight)];
+        _mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -45,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = YES;
-    self.title = @"选择银行卡";
+    self.title = @"银行限额";
     [self.view addSubview:self.mainTableView];
     [self settupNav];
     [self setupNavLeftBtn];
@@ -106,11 +106,7 @@
         cell = [[HXBBankListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    HXBBankList *bankModel  = self.bankListModels[indexPath.row];
-    cell.textLabel.text = bankModel.name;
-    cell.detailTextLabel.text = bankModel.quota;
-    NSLog(@"==name:%@ %@--",bankModel.name,bankModel.quota);
-    cell.imageView.svgImageString = [NSString stringWithFormat:@"%@.svg",bankModel.bankCode];
+    cell.bankModel = self.bankListModels[indexPath.row];
     return cell;
 }
 
