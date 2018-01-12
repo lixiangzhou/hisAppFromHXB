@@ -305,38 +305,38 @@
         self.finPlanListVMArray = planListViewModelArray;
     }
     kWeakSelf
-    [self.viewModel planListWithIsUpData:isUPData resultBlock:^(NSArray<HXBFinHomePageViewModel_PlanList *> *viewModelArray, NSInteger totalCount, BOOL isSuccess) {
-        //结束下拉刷新与上拉刷新
+    [self.viewModel planListWithIsUpData:isUPData resultBlock:^(NSInteger totalCount, BOOL isSuccess) {
         if (isSuccess) {
             weakSelf.homePageView.finPlanTotalCount = totalCount;
             weakSelf.isFirstLoadNetDataPlan = NO;
         }
+        // 结束下拉刷新与上拉刷新
         weakSelf.homePageView.isStopRefresh_Plan = YES;
-        weakSelf.finPlanListVMArray = viewModelArray;
+        weakSelf.finPlanListVMArray = weakSelf.viewModel.planListViewModelArray;
     }];
 }
 
 - (void)loanLoadDateWithIsUpData: (BOOL)isUpData {
     kWeakSelf
-    [self.viewModel loanListWithIsUpData:isUpData resultBlock:^(NSArray<HXBFinHomePageViewModel_LoanList *> *viewModelArray, NSInteger totalCount, BOOL isSuccess) {
+    [self.viewModel loanListWithIsUpData:isUpData resultBlock:^(NSInteger totalCount, BOOL isSuccess) {
         if (isSuccess) {
             weakSelf.homePageView.finLoanTotalCount = totalCount;
             weakSelf.isFirstLoadNetDataLoan = NO;
         }
         //结束下拉刷新与上拉刷新
         weakSelf.homePageView.isStopRefresh_loan = YES;
-        weakSelf.finLoanListVMArray = viewModelArray;
+        weakSelf.finLoanListVMArray = weakSelf.viewModel.loanListViewModelArray;
     }];
 }
 /// 债转的数据请求
 - (void)loanTruansferLoandDataWithIsUPData: (BOOL)isUPData {
     kWeakSelf
-    [self.viewModel loanTruansferListWithIsUpData:isUPData resultBlock:^(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *viewModelArray, NSInteger totalCount, BOOL isSuccess) {
+    [self.viewModel loanTruansferListWithIsUpData:isUPData resultBlock:^(NSInteger totalCount, BOOL isSuccess) {
         if (isSuccess) {
             weakSelf.homePageView.finLoanTruansferTotalCount = totalCount;
             weakSelf.isFirstLoadNetDataLoanTruansfer = NO;
         }
-        weakSelf.finloanTruansferVMArray = viewModelArray;
+        weakSelf.finloanTruansferVMArray = weakSelf.viewModel.loanTruansferViewModelArray;
         weakSelf.homePageView.isStopRefresh_LoanTruansfer = YES;
     }];
 }

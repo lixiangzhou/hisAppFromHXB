@@ -17,7 +17,7 @@
 
 // 红利计划列表请求
 - (void)planListWithIsUpData: (BOOL)isUpData
-                    resultBlock: (void(^)(NSArray<HXBFinHomePageViewModel_PlanList *>* viewModelArray, NSInteger totalCount, BOOL isSuccess))resultBlock {
+                    resultBlock: (void(^)(NSInteger totalCount, BOOL isSuccess))resultBlock {
     
     HXBBaseRequest *planListRequest = [[HXBBaseRequest alloc] initWithDelegate:self];
     planListRequest.isUPReloadData = isUpData; //是否为下拉刷新这里一定要 在前面  否则 api的page不会++ 或变为1
@@ -47,17 +47,17 @@
                 [PPNetworkCache setHttpCache:responseObject URL:@"/plan" parameters:nil];
             }
             NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
-            resultBlock(self.planListViewModelArray, totalCountStr.integerValue, YES);
+            resultBlock(totalCountStr.integerValue, YES);
             [HXBDataManager setFin_PlanListViewModelArrayWithArray:self.planListViewModelArray];// 缓存数据
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        resultBlock(nil, 0, NO);
+        resultBlock(0, NO);
     }];
 }
 
 // 散标列表请求
 - (void)loanListWithIsUpData: (BOOL)isUpData
-                    resultBlock: (void(^)(NSArray<HXBFinHomePageViewModel_LoanList *>* viewModelArray,NSInteger totalCount, BOOL isSuccess))resultBlock {
+                    resultBlock: (void(^)(NSInteger totalCount, BOOL isSuccess))resultBlock {
     
     HXBBaseRequest *loanListRequest = [[HXBBaseRequest alloc] initWithDelegate:self];
     loanListRequest.isUPReloadData = isUpData;
@@ -72,20 +72,19 @@
         // 请求成功
         if (resultBlock) {
             NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
-            resultBlock(self.loanListViewModelArray, totalCountStr.integerValue, YES);
+            resultBlock(totalCountStr.integerValue, YES);
         }
         [PPNetworkCache setHttpCache:responseObject URL:@"/loan" parameters:nil];
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        resultBlock(nil, 0, NO);
+        resultBlock(0, NO);
     }];
 }
 
 // 债权转让列表请求
 - (void)loanTruansferListWithIsUpData: (BOOL)isUPData
-                          resultBlock: (void (^)(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *>* viewModelArray, NSInteger totalCount, BOOL isSuccess))resultBlock {
+                          resultBlock: (void (^)(NSInteger totalCount, BOOL isSuccess))resultBlock {
     
     HXBBaseRequest *loanTruansferListRequest = [[HXBBaseRequest alloc] initWithDelegate:self];
-    
     loanTruansferListRequest.isUPReloadData = isUPData;
     loanTruansferListRequest.requestMethod = NYRequestMethodGet;
     loanTruansferListRequest.showHud = NO;
@@ -97,18 +96,17 @@
     [loanTruansferListRequest loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSArray *data = responseObject[kResponseData][kResponseDataList];
         
-        NSMutableArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*loanDataListModelArray = [self loanTruansfer_dataProcessingWithArr:data];
-        
         if (resultBlock) {
             if (request.isUPReloadData) {
                 [self.loanTruansferViewModelArray removeAllObjects];
             }
+            self.loanTruansferViewModelArray = [self loanTruansfer_dataProcessingWithArr:data];
             NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
-            resultBlock(loanDataListModelArray, totalCountStr.integerValue, YES);
+            resultBlock(totalCountStr.integerValue, YES);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         if (resultBlock) {
-            resultBlock(nil, 0, NO);
+            resultBlock(0, NO);
         }
     }];
 }
