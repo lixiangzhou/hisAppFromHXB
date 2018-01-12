@@ -276,19 +276,23 @@
     }
     kWeakSelf
     [self.viewModel planListWithIsUpData:isUPData resultBlock:^(NSInteger totalCount, BOOL isSuccess) {
-        if (isSuccess) {
-            weakSelf.homePageView.finPlanTotalCount = totalCount;
-            weakSelf.isFirstLoadNetDataPlan = NO;
-        }
-        //更换数据源之前， 要先取消定时器，然后再重新设置， 否则由于线程同步问题会引发crash
-        if(self.contDwonManager) {
-            [self.contDwonManager cancelTimer];
-            self.contDwonManager = nil;
-        }
-        [self creatCountDownManager];
-        self.homePageView.finPlanListVMArray = self.viewModel.planListViewModelArray;
-        weakSelf.homePageView.isStopRefresh_Plan = YES;
+        [weakSelf reloadPlanListDataWithSuccess:isSuccess totalCount:totalCount];
     }];
+}
+
+- (void)reloadPlanListDataWithSuccess:(BOOL) isSuccess totalCount:(NSInteger)totalCount  {
+    if (isSuccess) {
+        self.homePageView.finPlanTotalCount = totalCount;
+        self.isFirstLoadNetDataPlan = NO;
+    }
+    // 更换数据源之前， 要先取消定时器，然后再重新设置， 否则由于线程同步问题会引发crash
+    if(self.contDwonManager) {
+        [self.contDwonManager cancelTimer];
+        self.contDwonManager = nil;
+    }
+    [self creatCountDownManager];
+    self.homePageView.finPlanListVMArray = self.viewModel.planListViewModelArray;
+    self.homePageView.isStopRefresh_Plan = YES;
 }
 
 - (void)loanLoadDateWithIsUpData: (BOOL)isUpData {
@@ -298,7 +302,7 @@
             weakSelf.homePageView.finLoanTotalCount = totalCount;
             weakSelf.isFirstLoadNetDataLoan = NO;
         }
-        self.homePageView.finLoanListVMArray = self.viewModel.loanListViewModelArray;
+        weakSelf.homePageView.finLoanListVMArray = weakSelf.viewModel.loanListViewModelArray;
         weakSelf.homePageView.isStopRefresh_loan = YES;
     }];
 }
@@ -310,7 +314,7 @@
             weakSelf.homePageView.finLoanTruansferTotalCount = totalCount;
             weakSelf.isFirstLoadNetDataLoanTruansfer = NO;
         }
-        self.homePageView.finLoanTruansferVMArray = self.viewModel.loanTruansferViewModelArray;
+        weakSelf.homePageView.finLoanTruansferVMArray = weakSelf.viewModel.loanTruansferViewModelArray;
         weakSelf.homePageView.isStopRefresh_LoanTruansfer = YES;
     }];
 }
