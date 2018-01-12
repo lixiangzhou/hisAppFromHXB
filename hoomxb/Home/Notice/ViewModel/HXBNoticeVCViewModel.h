@@ -7,8 +7,10 @@
 //
 
 #import "HXBBaseViewModel.h"
-
+@class HXBNoticModel;
 @interface HXBNoticeVCViewModel : HXBBaseViewModel
+
+@property (nonatomic, strong, readonly) NSMutableArray <HXBNoticModel *>*noticModelArr;
 
 /**
  公告
@@ -17,6 +19,6 @@
  @param successDateBlock 成功回调
  @param failureBlock 失败回调
  */
-- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andSuccessBlock: (void(^)(id responseObject, NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andSuccessBlock: (void(^)(NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 @end

@@ -18,7 +18,7 @@
 @end
 @implementation HXBNoticeVCViewModel
 
-- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andSuccessBlock: (void(^)(id responseObject, NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andSuccessBlock: (void(^)(NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     self.versionUpdateAPI.isUPReloadData = isUPReloadData;
     self.versionUpdateAPI.requestUrl = kHXBHome_AnnounceURL;
@@ -46,7 +46,7 @@
                 [self.noticModelArr removeAllObjects];
             }
             [self.noticModelArr addObjectsFromArray:modelarr];
-            successDateBlock(self.noticModelArr, totalcount);
+            successDateBlock(totalcount);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         //        [HxbHUDProgress showTextWithMessage:@"请求失败"];
