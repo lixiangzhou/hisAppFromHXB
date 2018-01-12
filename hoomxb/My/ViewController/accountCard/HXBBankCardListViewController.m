@@ -45,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = YES;
-    self.title = @"银行限额";
+    self.title = @"银行卡列表";
     [self.view addSubview:self.mainTableView];
     [self settupNav];
     [self setupNavLeftBtn];
