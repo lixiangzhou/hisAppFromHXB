@@ -46,11 +46,11 @@
 //首页的网络请求类
 @property (nonatomic,strong) HXBFinanctingRequest *finantingRequest;
 //红利计划列表的数据数组
-@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList*>* finPlanListVMArray;
+//@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList*>* finPlanListVMArray;
 //散标列表的数据数组
-@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList*>* finLoanListVMArray;
+//@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList*>* finLoanListVMArray;
 //债转的数据列表
-@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*finloanTruansferVMArray;
+//@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*finloanTruansferVMArray;
 
 @property (nonatomic,strong) HXBToolCountDownButton *countDownButton;
 
@@ -63,34 +63,6 @@
 
 @implementation HxbFinanctingViewController
 
-#pragma mark - setter 方发
-//主要是给数据源赋值然后刷新UI
-- (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
-    _finPlanListVMArray = finPlanListVMArray;
-    
-    //更换数据源之前， 要先取消定时器，然后再重新设置， 否则由于线程同步问题会引发crash
-    if(self.contDwonManager) {
-        [self.contDwonManager cancelTimer];
-        self.contDwonManager = nil;
-    }
-    [self creatCountDownManager];
-    
-    self.homePageView.finPlanListVMArray = finPlanListVMArray;
-//    [self.contDwonManager countDownWithModelArray:finPlanListVMArray andModelDateKey:nil  andModelCountDownKey:nil];
-}
-- (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
-    _finLoanListVMArray = finLoanListVMArray;
-    self.homePageView.finLoanListVMArray = finLoanListVMArray;
-}
-- (void)setFinloanTruansferVMArray:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)finloanTruansferVMArray {
-    _finloanTruansferVMArray = finloanTruansferVMArray;
-    self.homePageView.finLoanTruansferVMArray = finloanTruansferVMArray;
-}
-
-- (void) pan: (UIPanGestureRecognizer *)pan {
-    NSLog(@"%@",pan);
-   
-}
 - (void)viewDidLoad {
     [super viewDidLoad];
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
@@ -127,14 +99,14 @@
 
 - (void)creatCountDownManager {
     kWeakSelf
-    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray: self.finPlanListVMArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
+    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray: self.viewModel.planListViewModelArray andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
     [self.contDwonManager countDownWithChangeModelBlock:^(HXBFinHomePageViewModel_PlanList *model, NSIndexPath *index) {
-        if (weakSelf.finPlanListVMArray.count > index.section) {
+        if (weakSelf.viewModel.planListViewModelArray.count > index.section) {
             UITableView *tableView = (UITableView *)[weakSelf.homePageView valueForKey:@"planListTableView"];
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index.row];
             
             //更新列表中对应的字段值
-            HXBFinHomePageViewModel_PlanList* pageModel = [weakSelf.finPlanListVMArray safeObjectAtIndex:index.row];
+            HXBFinHomePageViewModel_PlanList* pageModel = [weakSelf.viewModel.planListViewModelArray safeObjectAtIndex:index.row];
             [pageModel setValue:model.countDownLastStr forKey:@"countDownLastStr"];
             [pageModel setValue:model.countDownString forKey:@"countDownString"];
             
@@ -189,12 +161,10 @@
     }];
 }
 - (void)clickCell {
-    //点击了红利计划列表的cell，跳转了红利计划详情页
-    [self clickPlanListCell];
-    //点击了散标列表页测cell， 跳转详情页
-    [self clickLoanListCell];
-    //点击了债转列表页测cell， 跳转详情页
-    [self clickLoanTruansferCell];
+    
+    [self clickPlanListCell];       //点击了红利计划列表的cell，跳转了红利计划详情页
+    [self clickLoanListCell];       //点击了散标列表页测cell， 跳转详情页
+    [self clickLoanTruansferCell];  //点击了债转列表页测cell， 跳转详情页
 }
 //MARK: - 点击了红利计划列表页的 cell
 - (void) clickPlanListCell {
@@ -298,11 +268,11 @@
 
 #pragma mark - 网络数据请求
 - (void)planLoadDateWithIsUpData: (BOOL)isUPData {
-    if (!(self.finPlanListVMArray.count > 0)) {
+    
+    if (!(self.viewModel.planListViewModelArray.count > 0)) {
         id responseObject = [PPNetworkCache httpCacheForURL:@"/plan" parameters:nil];
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self.finantingRequest plan_dataProcessingWitharr:dataList];
-        self.finPlanListVMArray = planListViewModelArray;
+        self.viewModel.planListViewModelArray = [self.finantingRequest plan_dataProcessingWitharr:dataList];
     }
     kWeakSelf
     [self.viewModel planListWithIsUpData:isUPData resultBlock:^(NSInteger totalCount, BOOL isSuccess) {
@@ -310,9 +280,14 @@
             weakSelf.homePageView.finPlanTotalCount = totalCount;
             weakSelf.isFirstLoadNetDataPlan = NO;
         }
-        // 结束下拉刷新与上拉刷新
+        //更换数据源之前， 要先取消定时器，然后再重新设置， 否则由于线程同步问题会引发crash
+        if(self.contDwonManager) {
+            [self.contDwonManager cancelTimer];
+            self.contDwonManager = nil;
+        }
+        [self creatCountDownManager];
+        self.homePageView.finPlanListVMArray = self.viewModel.planListViewModelArray;
         weakSelf.homePageView.isStopRefresh_Plan = YES;
-        weakSelf.finPlanListVMArray = weakSelf.viewModel.planListViewModelArray;
     }];
 }
 
@@ -323,9 +298,8 @@
             weakSelf.homePageView.finLoanTotalCount = totalCount;
             weakSelf.isFirstLoadNetDataLoan = NO;
         }
-        //结束下拉刷新与上拉刷新
+        self.homePageView.finLoanListVMArray = self.viewModel.loanListViewModelArray;
         weakSelf.homePageView.isStopRefresh_loan = YES;
-        weakSelf.finLoanListVMArray = weakSelf.viewModel.loanListViewModelArray;
     }];
 }
 /// 债转的数据请求
@@ -336,18 +310,16 @@
             weakSelf.homePageView.finLoanTruansferTotalCount = totalCount;
             weakSelf.isFirstLoadNetDataLoanTruansfer = NO;
         }
-        weakSelf.finloanTruansferVMArray = weakSelf.viewModel.loanTruansferViewModelArray;
+        self.homePageView.finLoanTruansferVMArray = self.viewModel.loanTruansferViewModelArray;
         weakSelf.homePageView.isStopRefresh_LoanTruansfer = YES;
     }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-//    [self.homePageView.contDwonManager cancelTimer];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [self transparentNavigationTitle];
