@@ -37,12 +37,6 @@
         }
     } andFailureBlock:^(NSError *error) {
     }];
-    
-//      [[HXBFinanctingRequest sharedFinanctingRequest] loanAddRecortdWithISUPLoad:YES andFinanceLoanId:self.loanID andOrder:nil andSuccessBlock:^(FinModel_AddRecortdModel_Loan *model) {
-//          self.addRecortdTableView.loanModel = model;
-//      } andFailureBlock:^(NSError *error) {
-//
-//      }];
 }
 
 - (void)setUPViews {

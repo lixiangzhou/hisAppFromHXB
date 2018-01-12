@@ -29,7 +29,5 @@
 /// 债转-加入记录
 - (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess))successBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
-/// 债转详情  加入记录
-//- (void)loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)financeLoanId andOrder: (NSString *)order andSuccessBlock: (void(^)(NSArray< HXBFinModel_AddRecortdModel_LoanTruansfer *> *loanTruansferRecortdModel))successDateBlock andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock ;
 
 @end

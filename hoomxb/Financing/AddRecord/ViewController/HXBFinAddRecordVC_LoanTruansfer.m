@@ -38,16 +38,7 @@
             weakSelf.addRecortdTableView.loanTruansferModelArray = weakSelf.loanTruansferViewModel.loanTruansferRecortdModelArray;
         }
     } andFailureBlock:^(NSError *error) {
-//        NSString *massage = request.responseObject[kResponseMessage] ? request.responseObject[kResponseMessage] : @"请求失败";
-//        [HxbHUDProgress showMessageCenter:massage inView:weakSelf.view];
     }];
-    
-//    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansferAddRecortdWithISUPLoad:isUPLoad andFinanceLoanId:self.loanTruansferID andOrder:nil andSuccessBlock:^(NSArray<HXBFinModel_AddRecortdModel_LoanTruansfer *> *loanTruansferRecortdModelArray) {
-//        self.addRecortdTableView.loanTruansferModelArray = loanTruansferRecortdModelArray;
-//    } andFailureBlock:^(NSError *error, NYBaseRequest *request) {
-//        NSString *massage = request.responseObject[kResponseMessage] ? request.responseObject[kResponseMessage] : @"请求失败";
-//        [HxbHUDProgress showMessageCenter:massage inView:self.view];
-//    }];
 }
 
 - (void)setUPViews {
