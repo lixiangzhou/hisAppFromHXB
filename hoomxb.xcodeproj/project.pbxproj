@@ -370,6 +370,7 @@
 		E10EB4B81EEFE06F00F16CFA /* HxbMyAboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10EB4B71EEFE06F00F16CFA /* HxbMyAboutMeViewController.m */; };
 		E10EB4BE1EEFE0B500F16CFA /* HxbMyTopUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10EB4BB1EEFE0B500F16CFA /* HxbMyTopUpViewController.m */; };
 		E10EB4BF1EEFE0B500F16CFA /* HxbWithdrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10EB4BD1EEFE0B500F16CFA /* HxbWithdrawViewController.m */; };
+		E11D48B82007767C0044DCA0 /* HXBFinanceListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E11D48B72007767C0044DCA0 /* HXBFinanceListViewModel.m */; };
 		E11EF1751F395D76009027E1 /* HXBMY_Loan_TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E11EF1741F395D76009027E1 /* HXBMY_Loan_TableView.m */; };
 		E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8191EA0CAB900DC71ED /* NSArray+HxbLog.m */; };
 		E122D84D1EA0CAB900DC71ED /* NSObject+Hxb.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D81B1EA0CAB900DC71ED /* NSObject+Hxb.m */; };
@@ -1223,6 +1224,8 @@
 		E10EB4BB1EEFE0B500F16CFA /* HxbMyTopUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbMyTopUpViewController.m; sourceTree = "<group>"; };
 		E10EB4BC1EEFE0B500F16CFA /* HxbWithdrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HxbWithdrawViewController.h; sourceTree = "<group>"; };
 		E10EB4BD1EEFE0B500F16CFA /* HxbWithdrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HxbWithdrawViewController.m; sourceTree = "<group>"; };
+		E11D48B62007767C0044DCA0 /* HXBFinanceListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinanceListViewModel.h; sourceTree = "<group>"; };
+		E11D48B72007767C0044DCA0 /* HXBFinanceListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinanceListViewModel.m; sourceTree = "<group>"; };
 		E11EF1731F395D76009027E1 /* HXBMY_Loan_TableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_Loan_TableView.h; sourceTree = "<group>"; };
 		E11EF1741F395D76009027E1 /* HXBMY_Loan_TableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_Loan_TableView.m; sourceTree = "<group>"; };
 		E122D8181EA0CAB900DC71ED /* NSArray+HxbLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+HxbLog.h"; sourceTree = "<group>"; };
@@ -3322,6 +3325,7 @@
 		9A3E30842004A3410055620F /* Financing */ = {
 			isa = PBXGroup;
 			children = (
+				E11D48B52007767C0044DCA0 /* ViewModel */,
 				9A3E30852004A3410055620F /* Model */,
 				9A3E30932004A3410055620F /* View */,
 				9A3E30B22004A3410055620F /* ViewController */,
@@ -3518,6 +3522,15 @@
 				E10EB4BD1EEFE0B500F16CFA /* HxbWithdrawViewController.m */,
 			);
 			path = AccountWithdraw;
+			sourceTree = "<group>";
+		};
+		E11D48B52007767C0044DCA0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E11D48B62007767C0044DCA0 /* HXBFinanceListViewModel.h */,
+				E11D48B72007767C0044DCA0 /* HXBFinanceListViewModel.m */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		E11EF1721F395D5C009027E1 /* List */ = {
@@ -5276,6 +5289,7 @@
 				4E81E3FD1EE94FDE006AD3FC /* HXBModifyTransactionPasswordViewController.m in Sources */,
 				9A3E30CE2004A3410055620F /* HXBFinModel_BuyResoult_PlanModel.m in Sources */,
 				9A3E30B72004A3410055620F /* HXBFinModel_AddRecortdModel_LoanTruansfer.m in Sources */,
+				E11D48B82007767C0044DCA0 /* HXBFinanceListViewModel.m in Sources */,
 				4E94A86B1F5D4FE90001BE94 /* UITextField+BXExtension.m in Sources */,
 				4E16D82F1E9CD0FE002A1881 /* main.m in Sources */,
 				E1270B4A1ECED2E900729BC9 /* HXBMYModel_PlanDetailModel.m in Sources */,
