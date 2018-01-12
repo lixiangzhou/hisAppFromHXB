@@ -16,7 +16,6 @@
 #import "HXBFinModel_AddRecortdModel_Plan.h"//红利计划 - 加入计划的Model，这个没有ViewModel的封装（数据太简单）
 #import "HXBFinAddRecordViewModel.h"
 
-
 @interface HXBFinAddRecordVC_Plan ()
 @property (nonatomic,strong) HXBFinAddRecortdTableView_Plan *addRecortdTableView;
 @property (nonatomic,strong) HXBFinAddRecordViewModel *planRecordViewModel;
@@ -47,9 +46,14 @@ static NSString *CELLID = @"CELLID";
 
 - (void)downDoadDataWithISUPLoad: (BOOL)isUPLoad {
     kWeakSelf
-    [self.planRecordViewModel requestPlanAddRecortdFinanceWithId:self.planID andResultBlock:^(id model) {
-        weakSelf.addRecortdTableView.addRecortdModel_Plan = model;
+    [self.planRecordViewModel requestPlanAddRecortdFinanceWithId:self.planID planAddRecortdWithISUPLoad:true andOrder:nil resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.addRecortdTableView.addRecortdModel_Plan = weakSelf.planRecordViewModel.addRecortdModel_PlanModel;
+        }
+    } andFailureBlock:^(NSError *error) {
     }];
+    
+    
 //    [[HXBFinanctingRequest sharedFinanctingRequest] planAddRecortdWithISUPLoad:YES andFinancePlanId:self.planID andOrder:nil andSuccessBlock:^(HXBFinModel_AddRecortdModel_Plan *model) {
 //        self.addRecortdTableView.addRecortdModel_Plan = model;
 //    } andFailureBlock:^(NSError *error) {

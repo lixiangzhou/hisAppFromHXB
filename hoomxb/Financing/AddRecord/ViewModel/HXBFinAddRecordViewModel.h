@@ -7,28 +7,29 @@
 /// 计划、散标、债转投资记录viewmodel
 
 #import "HXBBaseViewModel.h"
+#import "HXBFinModel_AddRecortdModel_Plan.h"
+#import "FinModel_AddRecortdModel_Loan.h"
+#import "HXBFinModel_AddRecortdModel_LoanTruansfer.h"
 
 @interface HXBFinAddRecordViewModel : HXBBaseViewModel
 
-/**
- 计划-加入记录
+@property (nonatomic,strong) HXBFinModel_AddRecortdModel_Plan *addRecortdModel_PlanModel;
+@property (nonatomic,strong) FinModel_AddRecortdModel_Loan *addRecortdModel_LoanModel;
+@property (nonatomic,strong) NSArray<HXBFinModel_AddRecortdModel_LoanTruansfer *> *loanTruansferRecortdModelArray;
 
- @param resultBlock resultBlock description
- */
-- (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId andResultBlock:(void (^)(id model))resultBlock;
 
-/**
- 散标-加入记录
- 
- @param resultBlock resultBlock description
- */
-- (void)requestLoanAddRecortdWithId:(NSString *)loanId andResultBlock:(void (^)(id model))resultBlock;
+/// 计划-加入记录
+- (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId planAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess))successBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
-/**
- 债转-加入记录
- 
- @param resultBlock resultBlock description
- */
-- (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId andResultBlock:(void (^)(id model))resultBlock;
+
+/// 散标-加入记录
+- (void)requestLoanAddRecortdWithId:(NSString *)loanId loadAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess))successBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+
+/// 债转-加入记录
+- (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess))successBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+
+/// 债转详情  加入记录
+//- (void)loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)financeLoanId andOrder: (NSString *)order andSuccessBlock: (void(^)(NSArray< HXBFinModel_AddRecortdModel_LoanTruansfer *> *loanTruansferRecortdModel))successDateBlock andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock ;
 
 @end

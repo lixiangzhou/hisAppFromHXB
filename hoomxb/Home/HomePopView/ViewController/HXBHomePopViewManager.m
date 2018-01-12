@@ -59,9 +59,13 @@
     self.homePopViewModel = [[HXBHomePopVWViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.popView;
     }];
-    [self.homePopViewModel homePopViewRequestSuccessBlock:^(id responseObject) {
+    [self.homePopViewModel homePopViewRequestSuccessBlock:^(id responseObject,BOOL isSuccess) {
         
-        if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
+//        if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
+//            weakSelf.isHide = YES;
+//            return ;
+//        }
+        if (!isSuccess) {
             weakSelf.isHide = YES;
             return ;
         }
