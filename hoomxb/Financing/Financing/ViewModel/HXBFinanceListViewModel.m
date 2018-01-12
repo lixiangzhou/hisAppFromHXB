@@ -25,6 +25,7 @@
     planListRequest.requestUrl = planListUrl;
     planListRequest.requestMethod = NYRequestMethodGet;
     planListRequest.showHud = NO;
+    kWeakSelf
     [planListRequest loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         ///计划列表数据是否出错
         kHXBBuyErrorResponsShowHUD
@@ -36,10 +37,10 @@
             [dataList insertObjects:recommendList atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, recommendList.count)]];
         }
         
-        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
+        NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [weakSelf plan_dataProcessingWitharr:dataList];
         
         //数据的处理
-        [self plan_handleDataWithIsUPData:request.isUPReloadData andData:planListViewModelArray];
+        [weakSelf plan_handleDataWithIsUPData:request.isUPReloadData andData:planListViewModelArray];
         
         if (resultBlock) {
             ///数据的存储
@@ -48,7 +49,7 @@
             }
             NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
             resultBlock(totalCountStr.integerValue, YES);
-            [HXBDataManager setFin_PlanListViewModelArrayWithArray:self.planListViewModelArray];// 缓存数据
+            [HXBDataManager setFin_PlanListViewModelArrayWithArray:weakSelf.planListViewModelArray];// 缓存数据
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
         resultBlock(0, NO);
@@ -64,11 +65,12 @@
     loanListRequest.showHud = NO;
     loanListRequest.requestUrl =  kHXBFinanc_LoanListURL(loanListRequest.dataPage);
     loanListRequest.requestMethod = NYRequestMethodGet;
+    kWeakSelf
     [loanListRequest loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         kHXBBuyErrorResponsShowHUD
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-        NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [self loan_dataProcessingWithArr:dataList];
-        [self loan_handleDataWithIsUPData:loanListRequest.isUPReloadData andViewModel:loanDataListModelArray];
+        NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [weakSelf loan_dataProcessingWithArr:dataList];
+        [weakSelf loan_handleDataWithIsUPData:loanListRequest.isUPReloadData andViewModel:loanDataListModelArray];
         // 请求成功
         if (resultBlock) {
             NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
@@ -93,14 +95,14 @@
                                               @"page":@(loanTruansferListRequest.dataPage),//int    当前页
                                               @"pageSize":@kPageCount
                                               };
+    kWeakSelf
     [loanTruansferListRequest loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSArray *data = responseObject[kResponseData][kResponseDataList];
-        
         if (resultBlock) {
             if (request.isUPReloadData) {
-                [self.loanTruansferViewModelArray removeAllObjects];
+                [weakSelf.loanTruansferViewModelArray removeAllObjects];
             }
-            self.loanTruansferViewModelArray = [self loanTruansfer_dataProcessingWithArr:data];
+            weakSelf.loanTruansferViewModelArray = [weakSelf loanTruansfer_dataProcessingWithArr:data];
             NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
             resultBlock(totalCountStr.integerValue, YES);
         }
