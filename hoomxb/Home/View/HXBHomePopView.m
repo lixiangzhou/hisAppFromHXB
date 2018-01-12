@@ -41,7 +41,7 @@
     if (self) {
         
         _isClickBGDismiss = NO;
-        _popBGAlpha = 0.5f;
+        _popBGAlpha = 0.6f;
         _isTransparent = NO;
         self.backgroundColor = [UIColor clearColor];
         self.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
