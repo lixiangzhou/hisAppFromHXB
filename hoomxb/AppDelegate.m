@@ -88,7 +88,7 @@
     
     NSDate *nowTime = [NSDate date];
     NSTimeInterval timeDifference = [nowTime timeIntervalSinceDate: self.exitTime];
-    if (timeDifference > 300) {
+    if (timeDifference > 300 && ![HXBVersionUpdateManager sharedInstance].isMandatoryUpdate) {
         [[HXBRootVCManager manager] enterTheGesturePasswordVCOrTabBar];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_starCountDown object:nil];
