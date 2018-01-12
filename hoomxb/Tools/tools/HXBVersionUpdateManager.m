@@ -15,6 +15,10 @@
 @interface HXBVersionUpdateManager ()
 
 /**
+ 是否为强制升级
+ */
+@property (nonatomic, assign) BOOL isMandatoryUpdate;
+/**
  是否展示过升级弹框
  */
 @property (nonatomic, assign) BOOL isShow;
@@ -47,6 +51,13 @@
             if (![[HXBRootVCManager manager].topVC isKindOfClass:NSClassFromString(@"HXBGesturePasswordViewController")]) {
                 [weakSelf show];
             }
+        }
+        
+        if ([weakSelf.versionUpdateModel.force isEqualToString:@"1"]) {
+            weakSelf.isMandatoryUpdate = YES;
+        }
+        else {
+             weakSelf.isMandatoryUpdate = NO;
         }
         
     } andFailureBlock:^(NSError *error) {

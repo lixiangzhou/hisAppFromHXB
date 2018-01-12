@@ -10,6 +10,10 @@
 
 @interface HXBVersionUpdateManager : NSObject
 
+/**
+ 是否为强制升级
+ */
+@property (nonatomic, assign, readonly) BOOL isMandatoryUpdate;
 
 /**
  是否展示过升级弹框
