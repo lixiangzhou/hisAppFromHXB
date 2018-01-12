@@ -17,7 +17,7 @@
     versionUpdateAPI.requestUrl = kHXBHome_PopView;
     versionUpdateAPI.requestMethod = NYRequestMethodGet;
     versionUpdateAPI.showHud = NO;
-    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
         NSInteger status =  [responseObject[@"status"] integerValue];
         
         if (status) {

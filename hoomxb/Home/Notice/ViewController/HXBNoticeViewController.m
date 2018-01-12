@@ -9,7 +9,7 @@
 
 
 #import "HXBNoticeViewController.h"
-#import "HXBVersionUpdateRequest.h"
+#import "HXBNoticeVCViewModel.h"
 #import "HXBNoticModel.h"
 #import "HXBNoticeCell.h"
 @interface HXBNoticeViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -20,7 +20,7 @@
 /**
  请求
  */
-@property (nonatomic, strong) HXBVersionUpdateRequest *versionUpdateRequest;
+@property (nonatomic, strong) HXBNoticeVCViewModel *noticeViewModel;
 
 @property (nonatomic, strong) HXBNoDataView *nodataView;
 @end
@@ -57,7 +57,7 @@
 {
     kWeakSelf
     //公告请求接口
-    [self.versionUpdateRequest noticeRequestWithisUPReloadData:isUPReloadData andSuccessBlock:^(id responseObject, NSInteger totalCount) {
+    [self.noticeViewModel noticeRequestWithisUPReloadData:isUPReloadData andSuccessBlock:^(id responseObject, NSInteger totalCount) {
         NSLog(@"%@,\n %ld", responseObject, totalCount);
         weakSelf.modelArrs = responseObject;
         weakSelf.totalCount = totalCount;
@@ -142,12 +142,15 @@
 }
 
 
-- (HXBVersionUpdateRequest *)versionUpdateRequest
+- (HXBNoticeVCViewModel *)noticeViewModel
 {
-    if (!_versionUpdateRequest) {
-        _versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
+    if (!_noticeViewModel) {
+        kWeakSelf
+        _noticeViewModel = [[HXBNoticeVCViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
     }
-    return _versionUpdateRequest;
+    return _noticeViewModel;
 }
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {

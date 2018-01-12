@@ -8,7 +8,6 @@
 
 #import "HxbMyAboutMeViewController.h"
 #import "HXBFeedbackViewController.h"
-#import "HXBVersionUpdateRequest.h"//版本更新的数据请求
 #import "HXBVersionUpdateViewModel.h"
 #import "HXBVersionUpdateModel.h"//版本更新的model
 #import "HXBAgreementView.h"

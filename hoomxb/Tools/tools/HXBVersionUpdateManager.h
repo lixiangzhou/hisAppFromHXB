@@ -6,9 +6,9 @@
 //Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "HXBBaseViewModel.h"
 
-@interface HXBVersionUpdateManager : NSObject
+@interface HXBVersionUpdateManager : HXBBaseViewModel
 
 
 /**
