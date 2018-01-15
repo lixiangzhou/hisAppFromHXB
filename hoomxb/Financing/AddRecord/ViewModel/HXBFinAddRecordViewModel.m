@@ -49,7 +49,7 @@
         [planAddRecortdModel yy_modelSetWithDictionary:dataDic];
         weakSelf.addRecortdModel_PlanModel = planAddRecortdModel;
         if (resultBlock) {
-            resultBlock(true,nil);
+            resultBlock(YES,nil);
         };
     } failure:^(HXBBaseRequest *request, NSError *error) {
     }];
@@ -87,7 +87,7 @@
         [model yy_modelSetWithDictionary:dic];
         weakSelf.addRecortdModel_LoanModel = model;
         if (resultBlock) {
-            resultBlock(true,nil);
+            resultBlock(YES,nil);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
     }];
@@ -149,7 +149,7 @@
         }];
         weakSelf.loanTruansferRecortdModelArray = dataArray;
         if (resultBlock) {
-            resultBlock(true,nil);
+            resultBlock(YES,nil);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
     }];
