@@ -9,18 +9,17 @@
 
 
 #import "HXBNoticeViewController.h"
-#import "HXBVersionUpdateRequest.h"
+#import "HXBNoticeVCViewModel.h"
 #import "HXBNoticModel.h"
 #import "HXBNoticeCell.h"
 @interface HXBNoticeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *mainTabelView;
 
-@property (nonatomic, strong) NSMutableArray<HXBNoticModel *> *modelArrs;
 @property (nonatomic, assign) NSInteger totalCount;
 /**
  请求
  */
-@property (nonatomic, strong) HXBVersionUpdateRequest *versionUpdateRequest;
+@property (nonatomic, strong) HXBNoticeVCViewModel *noticeViewModel;
 
 @property (nonatomic, strong) HXBNoDataView *nodataView;
 @end
@@ -28,13 +27,6 @@
 @implementation HXBNoticeViewController
 
 
-- (NSMutableArray<HXBNoticModel *> *)modelArrs
-{
-    if (!_modelArrs) {
-        _modelArrs = [NSMutableArray array];
-    }
-    return _modelArrs;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -57,11 +49,10 @@
 {
     kWeakSelf
     //公告请求接口
-    [self.versionUpdateRequest noticeRequestWithisUPReloadData:isUPReloadData andSuccessBlock:^(id responseObject, NSInteger totalCount) {
-        NSLog(@"%@,\n %ld", responseObject, totalCount);
-        weakSelf.modelArrs = responseObject;
+    [self.noticeViewModel noticeRequestWithisUPReloadData:isUPReloadData andSuccessBlock:^(NSInteger totalCount) {
+        NSLog(@"%@,\n %ld", weakSelf.noticeViewModel, (long)totalCount);
         weakSelf.totalCount = totalCount;
-        if (!weakSelf.modelArrs.count) {
+        if (!weakSelf.noticeViewModel.noticModelArr.count) {
             weakSelf.nodataView.hidden = NO;
         }else
         {
@@ -71,7 +62,7 @@
         [weakSelf.mainTabelView reloadData];
         [weakSelf setTableFooterView:weakSelf.mainTabelView];
         [weakSelf.mainTabelView.mj_footer endRefreshing];
-        [self.mainTabelView.mj_header endRefreshing];
+        [weakSelf.mainTabelView.mj_header endRefreshing];
     } andFailureBlock:^(NSError *error) {
         [weakSelf.mainTabelView.mj_header endRefreshing];
         [weakSelf.mainTabelView.mj_footer endRefreshing];
@@ -80,7 +71,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.modelArrs.count;
+    return self.noticeViewModel.noticModelArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -90,7 +81,7 @@
     if (!cell) {
         cell = [[HXBNoticeCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
     }
-    HXBNoticModel *noticModel = self.modelArrs[indexPath.row];
+    HXBNoticModel *noticModel = self.noticeViewModel.noticModelArr[indexPath.row];
     cell.textLabel.text = noticModel.title;
     cell.detailTextLabel.text = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:noticModel.date andDateFormat:@"MM-dd"];
     return cell;
@@ -99,7 +90,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    HXBNoticModel *noticModel = self.modelArrs[indexPath.row];
+    HXBNoticModel *noticModel = self.noticeViewModel.noticModelArr[indexPath.row];
     NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],noticModel.ID];
     [HXBBaseWKWebViewController pushWithPageUrl:str fromController:self];
 }
@@ -142,12 +133,15 @@
 }
 
 
-- (HXBVersionUpdateRequest *)versionUpdateRequest
+- (HXBNoticeVCViewModel *)noticeViewModel
 {
-    if (!_versionUpdateRequest) {
-        _versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
+    if (!_noticeViewModel) {
+        kWeakSelf
+        _noticeViewModel = [[HXBNoticeVCViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
     }
-    return _versionUpdateRequest;
+    return _noticeViewModel;
 }
 - (HXBNoDataView *)nodataView {
     if (!_nodataView) {

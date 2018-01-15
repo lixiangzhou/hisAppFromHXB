@@ -17,7 +17,6 @@
 #import "HxbHomePageModel_DataList.h"
 #import "HXBGesturePasswordViewController.h"
 
-#import "HXBVersionUpdateRequest.h"//版本更新的请求
 #import "HXBVersionUpdateViewModel.h"//版本更新的viewModel
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 #import "HXBNoticeViewController.h"//公告界面
