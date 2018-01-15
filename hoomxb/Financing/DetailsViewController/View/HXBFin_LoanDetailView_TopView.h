@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import "HXBBaseView_TwoLable_View.h"
-
 @class HXBFin_LoanDetailView_TopViewManager;
 
 @interface HXBFin_LoanDetailView_TopView : HXBColourGradientView
