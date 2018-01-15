@@ -86,6 +86,8 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
 @property (nonatomic, assign) BOOL hasInvestMoney; // 是否是从上个页面带入的金额，是的话不校验金额，不是的话，校验金额
+@property (nonatomic, assign) double curruntInvestMoney; // 当前输入框的金额
+
 @end
 
 @implementation HXBFin_Plan_Buy_ViewController
@@ -468,6 +470,7 @@ static const NSInteger topView_high = 300;
         _discountTitle = @"不使用优惠券";
         _couponid = @"不使用优惠券";
     }
+    self.bottomView.addBtnIsUseable = YES;
     [self changeItemWithInvestMoney:_inputMoneyStr];
     [self setUpArray];
 }
@@ -503,7 +506,10 @@ static const NSInteger topView_high = 300;
     self.bottomView.addBtnIsUseable = NO;
     kWeakSelf
     [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
-        [weakSelf requestSuccessWithModel:model cell:cell money:money];
+        cell.isStartAnimation = NO;
+        if (_curruntInvestMoney == money.doubleValue) {
+            [weakSelf requestSuccessWithModel:model cell:cell money:money ];
+        }
     } andFailureBlock:^(NSError *error) {
         weakSelf.hasBestCoupon = NO;
         cell.isStartAnimation = NO;
@@ -515,7 +521,7 @@ static const NSInteger topView_high = 300;
 }
 
 - (void)requestSuccessWithModel:(HXBBestCouponModel *)model cell:(HXBFin_creditorChange_TableViewCell *)cell money: (NSString *)money {
-    cell.isStartAnimation = NO;
+    
     self.hasGetCoupon = NO;
     self.bottomView.addBtnIsUseable = YES;
     self.discountTitle = nil;
@@ -608,6 +614,7 @@ static const NSInteger topView_high = 300;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
         _topView.profitType = _featuredSlogan;
         _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
+            _curruntInvestMoney = text.doubleValue;
             weakSelf.bottomView.addBtnIsUseable = text.length;
             BOOL isFitToBuy = NO;
             if (weakSelf.isFirstBuy) {
