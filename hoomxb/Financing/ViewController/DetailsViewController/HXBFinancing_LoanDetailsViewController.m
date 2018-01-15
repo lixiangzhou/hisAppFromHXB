@@ -196,8 +196,8 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
-        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^{
-            [weakSelf enterLoanBuyViewController];
+        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^(NSString *hasBindCard) {
+            [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard];
         }];
     }];
 }
@@ -208,12 +208,13 @@
         [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:weakSelf];
     }];
 }
-- (void)enterLoanBuyViewController {
+- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
     //跳转加入界
     HXBFin_Loan_Buy_ViewController *loanJoinVC = [[HXBFin_Loan_Buy_ViewController alloc]init];
     loanJoinVC.title = @"投资散标";
     loanJoinVC.availablePoint = [NSString stringWithFormat:@"%.lf", self.loanDetailViewModel.loanDetailModel.loanVo.surplusAmount.doubleValue];
     loanJoinVC.placeholderStr = self.loanDetailViewModel.addCondition;
+    loanJoinVC.hasBindCard = hasBindCard;
     loanJoinVC.loanId = self.loanDetailViewModel.loanDetailModel.userVo.loanId;
     loanJoinVC.minRegisterAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
     loanJoinVC.registerMultipleAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
