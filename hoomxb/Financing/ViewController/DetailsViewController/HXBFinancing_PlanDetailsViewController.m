@@ -136,8 +136,9 @@
         return;
     }
 
-    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^{
-        [self enterPlanBuyViewController];
+    kWeakSelf
+    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard) {
+        [weakSelf enterPlanBuyViewControllerWithHasBindCard:hasBindCard];
     }];
 }
 
@@ -408,7 +409,7 @@
 /**
  跳转加入界面
  */
-- (void)enterPlanBuyViewController {
+- (void)enterPlanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
     HXBFin_Plan_Buy_ViewController *planJoinVC = [[HXBFin_Plan_Buy_ViewController alloc] init];
     float remainAmount = self.planDetailViewModel.planDetailModel.remainAmount.floatValue;
     float userRemainAmount = self.planDetailViewModel.planDetailModel.userRemainAmount.floatValue;
@@ -423,6 +424,7 @@
     planJoinVC.cashType                 = self.planDetailViewModel.planDetailModel.cashType;
     planJoinVC.registerMultipleAmount   = self.planDetailViewModel.planDetailModel.registerMultipleAmount;
     planJoinVC.placeholderStr           = self.planDetailViewModel.addCondition;
+    planJoinVC.hasBindCard              = hasBindCard;
     [self.navigationController pushViewController:planJoinVC animated:YES];
 }
 

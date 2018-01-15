@@ -88,12 +88,12 @@
 
 - (void)setIsStartAnimation:(BOOL)isStartAnimation {
     _isStartAnimation = isStartAnimation;
-    _detailLabel.hidden = _isStartAnimation;
     if (isStartAnimation) {
         [_activityView startAnimating];
     } else {
         [_activityView stopAnimating];
     }
+    _detailLabel.hidden = _isStartAnimation;
 }
 
 - (void)setDetailStr:(NSString *)detailStr {

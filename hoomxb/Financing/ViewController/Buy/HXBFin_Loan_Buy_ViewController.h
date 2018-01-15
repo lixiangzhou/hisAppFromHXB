@@ -16,5 +16,6 @@
 @property (nonatomic,copy) NSString *cashType; // 收益方式
 @property (nonatomic,copy) NSString *registerMultipleAmount; // 最小倍数
 @property (nonatomic,copy) NSString *minRegisterAmount; // 最小起投
+@property (nonatomic, copy) NSString *hasBindCard; //是否绑卡
 
 @end

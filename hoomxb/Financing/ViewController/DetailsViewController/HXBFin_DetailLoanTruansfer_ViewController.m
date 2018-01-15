@@ -220,12 +220,13 @@
         return;
     }
     ///判断是否实名。。。。
-    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^{
-        [self enterLoanBuyViewController];
+    kWeakSelf
+    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard) {
+        [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard];
     }];
 }
 
-- (void)enterLoanBuyViewController {
+- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
     if ([self.loanTruansferDetailViewModel.loanTruansferDetailModel.enabledBuy isEqualToString:@"0"]) {
         [HxbHUDProgress showTextWithMessage:@"自己转让的债权无法再次购买"];
         return;
@@ -235,6 +236,7 @@
     loanJoinVC.loanId = self.loanTruansferDetailViewModel.loanTruansferDetailModel.transferId;
     loanJoinVC.placeholderStr = self.loanTruansferDetailViewModel.startIncrease_Amount;
     loanJoinVC.availablePoint = self.loanTruansferDetailViewModel.loanTruansferDetailModel.leftTransAmount;
+    loanJoinVC.hasBindCard = hasBindCard;
     loanJoinVC.minRegisterAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
     loanJoinVC.registerMultipleAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
     [self.navigationController pushViewController:loanJoinVC animated:YES];

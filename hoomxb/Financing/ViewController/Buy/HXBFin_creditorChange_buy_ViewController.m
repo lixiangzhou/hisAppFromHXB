@@ -85,8 +85,8 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    [self getNewUserInfo];
     [self getBankCardLimit];
+    [self getNewUserInfo];
 }
 
 - (void)dealloc {
@@ -418,14 +418,15 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)getNewUserInfo {
     kWeakSelf
     [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.hxbBaseVCScrollView.hidden = NO;
         weakSelf.viewModel = viewModel;
         weakSelf.balanceMoneyStr = weakSelf.viewModel.userInfoModel.userAssets.availablePoint;
         [weakSelf setUpArray];
         [weakSelf.hxbBaseVCScrollView reloadData];
         [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+        weakSelf.hxbBaseVCScrollView.hidden = NO;
     } andFailure:^(NSError *error) {
         [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+        weakSelf.hxbBaseVCScrollView.hidden = NO;
     }];
 }
 
@@ -438,7 +439,7 @@ static const NSInteger topView_high = 230;
     [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
         weakSelf.hxbBaseVCScrollView.tableHeaderView = nil;
         weakSelf.cardModel = model;
-        if ([weakSelf.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+        if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
             weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
             weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
             weakSelf.topView.hasBank = YES;
