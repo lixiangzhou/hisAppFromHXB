@@ -62,7 +62,7 @@
         [weakSelf.mainTabelView reloadData];
         [weakSelf setTableFooterView:weakSelf.mainTabelView];
         [weakSelf.mainTabelView.mj_footer endRefreshing];
-        [self.mainTabelView.mj_header endRefreshing];
+        [weakSelf.mainTabelView.mj_header endRefreshing];
     } andFailureBlock:^(NSError *error) {
         [weakSelf.mainTabelView.mj_header endRefreshing];
         [weakSelf.mainTabelView.mj_footer endRefreshing];
