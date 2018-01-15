@@ -27,6 +27,7 @@
         
         if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
             successDateBlock(responseObject,NO);
+            return;
         }
         if (successDateBlock) {
             weakSelf.homePopModel = [HXBHomePopVWModel yy_modelWithDictionary:responseObject[@"data"]];

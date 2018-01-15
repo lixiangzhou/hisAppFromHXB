@@ -9,15 +9,6 @@
 #import <Foundation/Foundation.h>
 #pragma mark - 通用接口说
 
-/// ======================= 展示hud 并 判断请求是否成功   resultBlock:(isSuccess,error)  =======================
-#define kHXBResponsResultShowHUD int codeValue = [responseObject[@"status"] intValue];\
-if (codeValue != 0 && codeValue != 104) {\
-if (resultBlock) {\
-resultBlock(false,nil);\
-[HxbHUDProgress showTextWithMessage:responseObject[@"message"]];\
-return;\
-}\
-}
 /// ======================= 展示hud 并 判断请求是否成功    failureBlock(nil)  =======================
 #define kHXBResponsShowHUD int codeValue = [responseObject[@"status"] intValue];\
 if (codeValue != 0 && codeValue != 104) {\

@@ -39,12 +39,6 @@
             }
     }];
     
-//    [self.loanTruansferViewModel requestLoanTruaLnsferAddRecortdWithId:self.loanTruansferID loanTruansferAddRecortdWithISUPLoad:isUPLoad andOrder:nil resultBlock:^(BOOL isSuccess) {
-//        if (isSuccess) {
-//            weakSelf.addRecortdTableView.loanTruansferModelArray = weakSelf.loanTruansferViewModel.loanTruansferRecortdModelArray;
-//        }
-//    } andFailureBlock:^(NSError *error) {
-//    }];
 }
 
 - (void)setUPViews {

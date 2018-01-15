@@ -36,12 +36,7 @@
             weakSelf.addRecortdTableView.loanModel = weakSelf.loadRecordViewModel.addRecortdModel_LoanModel;
         }
     }];
-//    [self.loadRecordViewModel requestLoanAddRecortdWithId:self.loanID loadAddRecortdWithISUPLoad:true andOrder:nil resultBlock:^(BOOL isSuccess) {
-//        if (isSuccess) {
-//            weakSelf.addRecortdTableView.loanModel = weakSelf.loadRecordViewModel.addRecortdModel_LoanModel;
-//        }
-//    } andFailureBlock:^(NSError *error) {
-//    }];
+
 }
 
 - (void)setUPViews {
