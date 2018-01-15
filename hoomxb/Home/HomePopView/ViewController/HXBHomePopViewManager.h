@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HXBHomePopViewModel;
+@class HXBHomePopVWModel;
 
 @interface HXBHomePopViewManager : NSObject
 
@@ -21,7 +21,7 @@
 /**
  校验是否可以弹出首页弹窗
  */
-+ (BOOL)checkHomePopViewWith:(HXBHomePopViewModel *)homePopViewModel;
++ (BOOL)checkHomePopViewWith:(HXBHomePopVWModel *)homePopViewModel;
 
 /**
  弹出首页弹窗

@@ -8,9 +8,7 @@
 
 #import "HxbHomeViewController.h"
 #import "HxbAdvertiseViewController.h"
-#import "HxbHomeRequest.h"
-#import "HxbHomeRequest_dataList.h"
-//#import "HxbSecurityCertificationViewController.h"
+#import "HXBHomeVCViewModel.h"
 #import "HXBHomeBaseModel.h"
 #import "HXBFinancing_PlanDetailsViewController.h"
 #import "HXBFinancing_LoanDetailsViewController.h"
@@ -19,7 +17,6 @@
 #import "HxbHomePageModel_DataList.h"
 #import "HXBGesturePasswordViewController.h"
 
-#import "HXBVersionUpdateRequest.h"//版本更新的请求
 #import "HXBVersionUpdateViewModel.h"//版本更新的viewModel
 #import "HXBVersionUpdateModel.h"//版本更新的Model
 #import "HXBNoticeViewController.h"//公告界面
@@ -37,6 +34,8 @@
 
 @property (nonatomic, strong) HXBVersionUpdateViewModel *versionUpdateVM;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+
+@property (nonatomic, strong) HXBHomeVCViewModel *homeVimewModle;
 
 @end
 
@@ -143,16 +142,14 @@
             self.homeView.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
         }
     }
-    HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
-    [request homePlanRecommendWithIsUPReloadData:isUPReloadData andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
-        NSLog(@"%@",viewModel);
-        weakSelf.homeView.homeBaseModel = viewModel.homeBaseModel;
+    self.homeVimewModle = [[HXBHomeVCViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
+    [self.homeVimewModle homePlanRecommendCallbackBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.homeView.homeBaseModel = weakSelf.homeVimewModle.homeBaseModel;
+        }
         weakSelf.homeView.isStopRefresh_Home = YES;
-        
-    } andFailureBlock:^(NSError *error) {
-        weakSelf.homeView.isStopRefresh_Home = YES;
-        NSLog(@"%@",error);
-        
     }];
 
 }
