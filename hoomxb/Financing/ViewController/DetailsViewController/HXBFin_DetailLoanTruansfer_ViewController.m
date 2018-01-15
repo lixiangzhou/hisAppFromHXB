@@ -220,8 +220,9 @@
         return;
     }
     ///判断是否实名。。。。
+    kWeakSelf
     [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard) {
-        [self enterLoanBuyViewControllerWithHasBindCard:hasBindCard];
+        [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard];
     }];
 }
 

@@ -136,8 +136,9 @@
         return;
     }
 
+    kWeakSelf
     [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard) {
-        [self enterPlanBuyViewControllerWithHasBindCard:hasBindCard];
+        [weakSelf enterPlanBuyViewControllerWithHasBindCard:hasBindCard];
     }];
 }
 
