@@ -19,15 +19,18 @@
 
 
 /// 计划-加入记录
-- (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId planAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess))successBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId planAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess,NSError *error))resultBlock;
+//- (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId planAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess))successBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
 /// 散标-加入记录
-- (void)requestLoanAddRecortdWithId:(NSString *)loanId loadAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess))successBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)requestLoanAddRecortdWithId:(NSString *)loanId loadAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess,NSError *error))resultBlock;
+//- (void)requestLoanAddRecortdWithId:(NSString *)loanId loadAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess))successBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
 /// 债转-加入记录
-- (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess))successBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess,NSError *error))resultBlock;
+//- (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess))successBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
 @end

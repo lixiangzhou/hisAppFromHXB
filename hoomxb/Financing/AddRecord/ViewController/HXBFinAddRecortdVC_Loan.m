@@ -31,12 +31,17 @@
 
 - (void)downLoadData {
     kWeakSelf
-    [self.loadRecordViewModel requestLoanAddRecortdWithId:self.loanID loadAddRecortdWithISUPLoad:true andOrder:nil resultBlock:^(BOOL isSuccess) {
+    [self.loadRecordViewModel requestLoanAddRecortdWithId:self.loanID loadAddRecortdWithISUPLoad:true andOrder:nil resultBlock:^(BOOL isSuccess, NSError *error) {
         if (isSuccess) {
             weakSelf.addRecortdTableView.loanModel = weakSelf.loadRecordViewModel.addRecortdModel_LoanModel;
         }
-    } andFailureBlock:^(NSError *error) {
     }];
+//    [self.loadRecordViewModel requestLoanAddRecortdWithId:self.loanID loadAddRecortdWithISUPLoad:true andOrder:nil resultBlock:^(BOOL isSuccess) {
+//        if (isSuccess) {
+//            weakSelf.addRecortdTableView.loanModel = weakSelf.loadRecordViewModel.addRecortdModel_LoanModel;
+//        }
+//    } andFailureBlock:^(NSError *error) {
+//    }];
 }
 
 - (void)setUPViews {

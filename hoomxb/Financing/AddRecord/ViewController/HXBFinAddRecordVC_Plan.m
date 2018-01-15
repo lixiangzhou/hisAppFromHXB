@@ -46,12 +46,18 @@ static NSString *CELLID = @"CELLID";
 
 - (void)downDoadDataWithISUPLoad: (BOOL)isUPLoad {
     kWeakSelf
-    [self.planRecordViewModel requestPlanAddRecortdFinanceWithId:self.planID planAddRecortdWithISUPLoad:true andOrder:nil resultBlock:^(BOOL isSuccess) {
+    [self.planRecordViewModel requestPlanAddRecortdFinanceWithId:self.planID planAddRecortdWithISUPLoad:true andOrder:nil resultBlock:^(BOOL isSuccess, NSError *error) {
         if (isSuccess) {
             weakSelf.addRecortdTableView.addRecortdModel_Plan = weakSelf.planRecordViewModel.addRecortdModel_PlanModel;
         }
-    } andFailureBlock:^(NSError *error) {
     }];
+//    [self.planRecordViewModel requestPlanAddRecortdFinanceWithId:self.planID planAddRecortdWithISUPLoad:true andOrder:nil resultBlock:^(BOOL isSuccess) {
+//        if (isSuccess) {
+//            weakSelf.addRecortdTableView.addRecortdModel_Plan = weakSelf.planRecordViewModel.addRecortdModel_PlanModel;
+//        }
+//    } andFailureBlock:^(NSError *error) {
+//
+//    }];
 }
 
 @end
