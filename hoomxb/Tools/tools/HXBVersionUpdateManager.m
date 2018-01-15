@@ -43,6 +43,7 @@
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     versionUpdateAPI.requestUrl = kHXBMY_VersionUpdateURL;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
+    versionUpdateAPI.showHud = NO;
     versionUpdateAPI.requestArgument = @{
                                          @"versionCode" : version
                                          };
