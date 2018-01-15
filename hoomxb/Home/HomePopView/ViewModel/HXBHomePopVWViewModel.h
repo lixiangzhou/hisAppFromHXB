@@ -13,6 +13,6 @@
 
 @property (nonatomic,strong)HXBHomePopVWModel *homePopModel;
 
-- (void)homePopViewRequestSuccessBlock: (void(^)(id responseObject,BOOL isSuccess))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)homePopViewRequestSuccessBlock: (void(^)(BOOL isSuccess))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 @end

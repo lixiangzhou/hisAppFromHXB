@@ -11,7 +11,7 @@
 
 @implementation HXBHomePopVWViewModel
 
-- (void)homePopViewRequestSuccessBlock: (void(^)(id responseObject,BOOL isSuccess))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)homePopViewRequestSuccessBlock: (void(^)(BOOL isSuccess))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     kWeakSelf
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
@@ -26,12 +26,12 @@
         }
         
         if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
-            successDateBlock(responseObject,NO);
+            successDateBlock(NO);
             return;
         }
         if (successDateBlock) {
             weakSelf.homePopModel = [HXBHomePopVWModel yy_modelWithDictionary:responseObject[@"data"]];
-            successDateBlock(responseObject,YES);
+            successDateBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) {

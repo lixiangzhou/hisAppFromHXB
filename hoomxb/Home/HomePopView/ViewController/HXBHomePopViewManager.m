@@ -58,7 +58,7 @@
     self.homePopViewModel = [[HXBHomePopVWViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.popView;
     }];
-    [self.homePopViewModel homePopViewRequestSuccessBlock:^(id responseObject,BOOL isSuccess) {
+    [self.homePopViewModel homePopViewRequestSuccessBlock:^(BOOL isSuccess) {
         
         if (!isSuccess) {
             weakSelf.isHide = YES;
