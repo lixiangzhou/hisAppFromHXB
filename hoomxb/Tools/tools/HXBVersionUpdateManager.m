@@ -8,7 +8,6 @@
 
 #import "HXBVersionUpdateManager.h"
 #import "HXBVersionUpdateModel.h"
-#import "HXBVersionUpdateRequest.h"
 #import "HXBRootVCManager.h"
 #import "HXBHomePopViewManager.h"
 
@@ -30,7 +29,9 @@
     static HXBVersionUpdateManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [HXBVersionUpdateManager new];
+        manager = [[HXBVersionUpdateManager alloc] initWithBlock:^UIView *{
+            return [HXBRootVCManager manager].topVC.view;
+        }];
     });
     return manager;
 }
@@ -38,18 +39,35 @@
 - (void)checkVersionUpdate {
     kWeakSelf
     NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
-    [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
-        weakSelf.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
-        
-        if ([KeyWindow.rootViewController isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
-            //获取顶部控制器
-            if (![[HXBRootVCManager manager].topVC isKindOfClass:NSClassFromString(@"HXBGesturePasswordViewController")]) {
-                [weakSelf show];
+    
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    versionUpdateAPI.requestUrl = kHXBMY_VersionUpdateURL;
+    versionUpdateAPI.requestMethod = NYRequestMethodPost;
+    versionUpdateAPI.showHud = NO;
+    versionUpdateAPI.requestArgument = @{
+                                         @"versionCode" : version
+                                         };
+    [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
+        NSLog(@"%@",responseObject);
+        NSInteger status =  [responseObject[@"status"] integerValue];
+        if (status != 0) {
+            
+            weakSelf.isShow = YES;
+            [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
+            
+        }
+        else {
+            
+            weakSelf.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
+            
+            if ([KeyWindow.rootViewController isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
+                //获取顶部控制器
+                if (![[HXBRootVCManager manager].topVC isKindOfClass:NSClassFromString(@"HXBGesturePasswordViewController")]) {
+                    [weakSelf show];
+                }
             }
         }
-        
-    } andFailureBlock:^(NSError *error) {
+    } failure:^(NYBaseRequest *request, NSError *error) {
         weakSelf.isShow = YES;
         [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
     }];
