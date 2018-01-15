@@ -98,6 +98,28 @@
 }
 
 /**
+ 当前是否存在相同的请求实例，如果存在，则请求不能发出
+ 
+ @param request 请求对象
+ @return 是否存在
+ */
+- (BOOL)sameRequestInstance:(NYBaseRequest*)request
+{
+    BOOL result = NO;
+    [self.conditionLock lock];
+    
+    for(NYBaseRequest* base in self.requestList) {
+        if(base == request) {//同一个请求
+            result = YES;
+            break;
+        }
+    }
+    
+    [self.conditionLock unlock];
+    
+    return result;
+}
+/**
  删除请求
  
  @param request 请求对象
