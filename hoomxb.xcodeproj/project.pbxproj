@@ -212,6 +212,7 @@
 		8D2CF5271FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF51E1FC2DA5D008F7A89 /* HXBInviteListTableViewCell.m */; };
 		8D2CF5281FC2DA5D008F7A89 /* HXBInviteViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */; };
 		8D3E61EC1FDE5DB2008C8E67 /* HXBAccountSecureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3E61EB1FDE5DB2008C8E67 /* HXBAccountSecureCell.m */; };
+		8D3EFE29200C762400A54B1D /* HXBLoanTruansferDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3EFE28200C762400A54B1D /* HXBLoanTruansferDetailViewModel.m */; };
 		8D3F84EE1FD6899400E6CA97 /* NSDictionary+HXBResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3F84ED1FD6899400E6CA97 /* NSDictionary+HXBResponse.m */; };
 		8D3F84F11FD6A24400E6CA97 /* HXBWKWebviewViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3F84F01FD6A24400E6CA97 /* HXBWKWebviewViewModel.m */; };
 		8D4064F31FC67E2A00121E1C /* NSDate+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D4064F21FC67E2A00121E1C /* NSDate+HXB.m */; };
@@ -219,7 +220,6 @@
 		8D5A2F4B1FCE756300057DB3 /* HXBBankCardViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5A2F4A1FCE756300057DB3 /* HXBBankCardViewModel.m */; };
 		8D5A2F4E1FCE918400057DB3 /* NYBaseRequest+HXB.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D5A2F4D1FCE918400057DB3 /* NYBaseRequest+HXB.m */; };
 		8D935D05200747BA00296C26 /* HXBAdvertiseViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D935D04200747BA00296C26 /* HXBAdvertiseViewModel.m */; };
-		8D935D0C200753E400296C26 /* HXBFinanceDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D935D0B200753E400296C26 /* HXBFinanceDetailViewModel.m */; };
 		8D935D0F200C472D00296C26 /* HXBFinancingPlanDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D935D0E200C472D00296C26 /* HXBFinancingPlanDetailViewModel.m */; };
 		8D935D12200C57B600296C26 /* HXBFinancingLoanDetailViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D935D11200C57B600296C26 /* HXBFinancingLoanDetailViewModel.m */; };
 		8DAD30781FBA8F8C00E2AEE8 /* HXBAlertManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30421FBA8F8B00E2AEE8 /* HXBAlertManager.m */; };
@@ -339,7 +339,6 @@
 		9A3E30EC2004A3410055620F /* HXBFinanctingView_HomePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E30782004A3400055620F /* HXBFinanctingView_HomePage.m */; };
 		9A3E30ED2004A3410055620F /* HXBFinPlanDetailsView_FlowChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E307A2004A3400055620F /* HXBFinPlanDetailsView_FlowChart.m */; };
 		9A3E30EE2004A3410055620F /* HXBFin_DetailLoanTruansfer_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E307D2004A3400055620F /* HXBFin_DetailLoanTruansfer_ViewController.m */; };
-		9A3E30EF2004A3410055620F /* HXBFin_LoanTruansferDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E307F2004A3400055620F /* HXBFin_LoanTruansferDetailViewController.m */; };
 		9A3E30F02004A3410055620F /* HXBFinancing_LoanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E30812004A3400055620F /* HXBFinancing_LoanDetailsViewController.m */; };
 		9A3E30F12004A3410055620F /* HXBFinancing_PlanDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E30832004A3400055620F /* HXBFinancing_PlanDetailsViewController.m */; };
 		9A3E30F22004A3410055620F /* HXBFinHomePageViewModel_LoanList.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3E30882004A3410055620F /* HXBFinHomePageViewModel_LoanList.m */; };
@@ -911,6 +910,8 @@
 		8D2CF5211FC2DA5D008F7A89 /* HXBInviteViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBInviteViewModel.m; sourceTree = "<group>"; };
 		8D3E61EA1FDE5DB2008C8E67 /* HXBAccountSecureCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBAccountSecureCell.h; sourceTree = "<group>"; };
 		8D3E61EB1FDE5DB2008C8E67 /* HXBAccountSecureCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBAccountSecureCell.m; sourceTree = "<group>"; };
+		8D3EFE27200C762400A54B1D /* HXBLoanTruansferDetailViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBLoanTruansferDetailViewModel.h; sourceTree = "<group>"; };
+		8D3EFE28200C762400A54B1D /* HXBLoanTruansferDetailViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBLoanTruansferDetailViewModel.m; sourceTree = "<group>"; };
 		8D3F84EB1FD6877B00E6CA97 /* HXBRequestHudDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBRequestHudDelegate.h; sourceTree = "<group>"; };
 		8D3F84EC1FD6899400E6CA97 /* NSDictionary+HXBResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+HXBResponse.h"; sourceTree = "<group>"; };
 		8D3F84ED1FD6899400E6CA97 /* NSDictionary+HXBResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+HXBResponse.m"; sourceTree = "<group>"; };
@@ -927,8 +928,6 @@
 		8D6B046A1FC2A3BF0046F48A /* HXBBaseConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBaseConfig.h; sourceTree = "<group>"; };
 		8D935D03200747BA00296C26 /* HXBAdvertiseViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBAdvertiseViewModel.h; sourceTree = "<group>"; };
 		8D935D04200747BA00296C26 /* HXBAdvertiseViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBAdvertiseViewModel.m; sourceTree = "<group>"; };
-		8D935D0A200753E400296C26 /* HXBFinanceDetailViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFinanceDetailViewModel.h; sourceTree = "<group>"; };
-		8D935D0B200753E400296C26 /* HXBFinanceDetailViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFinanceDetailViewModel.m; sourceTree = "<group>"; };
 		8D935D0D200C472D00296C26 /* HXBFinancingPlanDetailViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFinancingPlanDetailViewModel.h; sourceTree = "<group>"; };
 		8D935D0E200C472D00296C26 /* HXBFinancingPlanDetailViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFinancingPlanDetailViewModel.m; sourceTree = "<group>"; };
 		8D935D10200C57B600296C26 /* HXBFinancingLoanDetailViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFinancingLoanDetailViewModel.h; sourceTree = "<group>"; };
@@ -1168,8 +1167,6 @@
 		9A3E307A2004A3400055620F /* HXBFinPlanDetailsView_FlowChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinPlanDetailsView_FlowChart.m; sourceTree = "<group>"; };
 		9A3E307C2004A3400055620F /* HXBFin_DetailLoanTruansfer_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_DetailLoanTruansfer_ViewController.h; sourceTree = "<group>"; };
 		9A3E307D2004A3400055620F /* HXBFin_DetailLoanTruansfer_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_DetailLoanTruansfer_ViewController.m; sourceTree = "<group>"; };
-		9A3E307E2004A3400055620F /* HXBFin_LoanTruansferDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanTruansferDetailViewController.h; sourceTree = "<group>"; };
-		9A3E307F2004A3400055620F /* HXBFin_LoanTruansferDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanTruansferDetailViewController.m; sourceTree = "<group>"; };
 		9A3E30802004A3400055620F /* HXBFinancing_LoanDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancing_LoanDetailsViewController.h; sourceTree = "<group>"; };
 		9A3E30812004A3400055620F /* HXBFinancing_LoanDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFinancing_LoanDetailsViewController.m; sourceTree = "<group>"; };
 		9A3E30822004A3400055620F /* HXBFinancing_PlanDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFinancing_PlanDetailsViewController.h; sourceTree = "<group>"; };
@@ -2667,12 +2664,12 @@
 		8D935D0620074D8D00296C26 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				8D935D0A200753E400296C26 /* HXBFinanceDetailViewModel.h */,
-				8D935D0B200753E400296C26 /* HXBFinanceDetailViewModel.m */,
 				8D935D0D200C472D00296C26 /* HXBFinancingPlanDetailViewModel.h */,
 				8D935D0E200C472D00296C26 /* HXBFinancingPlanDetailViewModel.m */,
 				8D935D10200C57B600296C26 /* HXBFinancingLoanDetailViewModel.h */,
 				8D935D11200C57B600296C26 /* HXBFinancingLoanDetailViewModel.m */,
+				8D3EFE27200C762400A54B1D /* HXBLoanTruansferDetailViewModel.h */,
+				8D3EFE28200C762400A54B1D /* HXBLoanTruansferDetailViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3377,8 +3374,6 @@
 			children = (
 				9A3E307C2004A3400055620F /* HXBFin_DetailLoanTruansfer_ViewController.h */,
 				9A3E307D2004A3400055620F /* HXBFin_DetailLoanTruansfer_ViewController.m */,
-				9A3E307E2004A3400055620F /* HXBFin_LoanTruansferDetailViewController.h */,
-				9A3E307F2004A3400055620F /* HXBFin_LoanTruansferDetailViewController.m */,
 				9A3E30802004A3400055620F /* HXBFinancing_LoanDetailsViewController.h */,
 				9A3E30812004A3400055620F /* HXBFinancing_LoanDetailsViewController.m */,
 				9A3E30822004A3400055620F /* HXBFinancing_PlanDetailsViewController.h */,
@@ -4970,7 +4965,6 @@
 				E133DCE21EEE3597009466DE /* HXBSendSmscodeView.m in Sources */,
 				4E0446DF1FBEA9970030E276 /* HXBUMShareModel.m in Sources */,
 				E133DD3E1EEEC14C009466DE /* NYNetworkConfig.m in Sources */,
-				8D935D0C200753E400296C26 /* HXBFinanceDetailViewModel.m in Sources */,
 				9A3E30C92004A3410055620F /* HXBFin_LoanTruansfer_BuyResoutViewModel.m in Sources */,
 				9A3E30FF2004A3410055620F /* HXBLoanInformation.m in Sources */,
 				E166C5921F03D0D700AA14F4 /* HXBMY_Plan_Capital_ViewController.m in Sources */,
@@ -5069,7 +5063,6 @@
 				E1270B371ECED1F300729BC9 /* HXBMYViewModel_MainLoanViewModel.m in Sources */,
 				4E94E3821F0F63D300746973 /* HXBWithdrawCardView.m in Sources */,
 				4EBE8D611FA9E2BA00F0F814 /* HXBWithdrawModel.m in Sources */,
-				9A3E30EF2004A3410055620F /* HXBFin_LoanTruansferDetailViewController.m in Sources */,
 				9A3E30F32004A3410055620F /* HXBFinHomePageViewModel_LoanTruansferViewModel.m in Sources */,
 				E10EB4B41EEFE04400F16CFA /* HxbMyAccountSecurityViewController.m in Sources */,
 				9A3E2F63200499970055620F /* HXBNoticeCell.m in Sources */,
@@ -5197,6 +5190,7 @@
 				8DAD307A1FBA8F8C00E2AEE8 /* HXBBaseNavigationController.m in Sources */,
 				4E9345501EFE0FD300D2886B /* HXBModifyPhoneViewController.m in Sources */,
 				E1270B381ECED1F300729BC9 /* HXBMYViewModel_MianPlanViewModel.m in Sources */,
+				8D3EFE29200C762400A54B1D /* HXBLoanTruansferDetailViewModel.m in Sources */,
 				9A3E30ED2004A3410055620F /* HXBFinPlanDetailsView_FlowChart.m in Sources */,
 				E190EFA71F25DB59001E0B14 /* HXBSignInWaterView.m in Sources */,
 				288BAA031FAC593B009DF8AB /* HXBChooseDiscountCouponViewController.m in Sources */,

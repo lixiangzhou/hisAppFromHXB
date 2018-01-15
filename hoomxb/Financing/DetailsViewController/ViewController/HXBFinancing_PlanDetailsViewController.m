@@ -7,29 +7,15 @@
 //  计划详情
 
 #import "HXBFinancing_PlanDetailsViewController.h"
-
 #import "HXBFin_PlanDetailView.h"///红利计划详情页的主视图
-#import "HXBFinanctingRequest.h"//请求类
-#import "HXBFinDetailViewModel_PlanDetail.h"//红利计划详情页Viewmodel
-#import "HXBFinDetailModel_PlanDetail.h"//红利计划详情model
-
-#import "HXBFinDetail_TableView.h"//详情页tableView的model
 #import "HXBFinHomePageViewModel_PlanList.h"//红利计划的Viewmodel
 #import "HXBFinHomePageModel_PlanList.h"//红利计划的Model
-
 #import "HXBFinAddRecordVC_Plan.h"//红利计划的加入记录
 #import "HXBFin_Detail_DetailsVC_Plan.h"//红利计划详情中的详情
-
-
-
-#pragma mark --- 新改（肖扬 红利计划 详情）
 #import "HXBFinanctingDetail_imageCell.h"
 #import "HXBFinanctingDetail_progressCell.h"
 #import "HXBFin_PlanDetailView_TopView.h"
 #import "HXBFinBase_FlowChartView.h"
-#import "HXBFin_DetailsViewBase.h"
-#import "HXBFin_creditorChange_buy_ViewController.h"
-#import "HXBFin_Plan_Buy_ViewController.h"
 #import "HXBFinancingPlanDetailViewModel.h"
 
 @interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>

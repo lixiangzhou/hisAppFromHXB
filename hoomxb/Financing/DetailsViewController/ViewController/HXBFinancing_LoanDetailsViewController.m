@@ -7,22 +7,11 @@
 //
 
 #import "HXBFinancing_LoanDetailsViewController.h"
-#import "HXBFinDetail_TableView.h"
-
 #import "HXBFin_DetailsView_LoanDetailsView.h"//贷款详情的View
-#import "HXBFinanctingRequest.h"//网络请求类
-#import "HXBFinDetailViewModel_LoanDetail.h"//贷款详情的ViewModel
 #import "HXBFinHomePageViewModel_LoanList.h"//贷款详情的Model
 #import "HXBFinHomePageModel_LoanList.h"//贷款列表的Model
-
 #import "HXBFin_Detail_DetailVC_Loan.h"//贷款信息的控制器
 #import "HXBFinAddRecortdVC_Loan.h"//贷款记录的控制器
-
-//#import "HXBFin_Loan_BuyViewController.h"//加入界面
-
-#pragma mark --- (肖扬 散标计划详情)
-#import "HXBFin_creditorChange_buy_ViewController.h"
-#import "HXBFin_Loan_Buy_ViewController.h"
 #import "HXBFinancingLoanDetailViewModel.h"
 
 @interface HXBFinancing_LoanDetailsViewController ()
