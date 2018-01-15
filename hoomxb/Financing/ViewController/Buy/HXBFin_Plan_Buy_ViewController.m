@@ -99,16 +99,17 @@ static NSString *const bankString = @"绑定银行卡";
     _discountTitle = @"";
     _balanceTitle = @"可用余额";
     [self buildUI];
+    [self unavailableMoney];
     [self hasBestCouponRequest];
     [self changeItemWithInvestMoney:_inputMoneyStr];
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
-    [self unavailableMoney];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
-    [self getNewUserInfo];
     [self getBankCardLimit];
+    [self getNewUserInfo];
+    
 }
 
 - (void)dealloc {
@@ -132,9 +133,9 @@ static NSString *const bankString = @"绑定银行卡";
     self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight) style:(UITableViewStylePlain)];
 
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+    self.hxbBaseVCScrollView.hidden = YES;
     self.hxbBaseVCScrollView.tableFooterView = [self footTableView];
     self.hxbBaseVCScrollView.tableHeaderView = self.topView;
-    self.hxbBaseVCScrollView.hidden = YES;
     self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
     self.hxbBaseVCScrollView.delegate = self;
@@ -152,7 +153,7 @@ static const NSInteger topView_high = 300;
     [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
         weakSelf.hxbBaseVCScrollView.tableHeaderView = nil;
         weakSelf.cardModel = model;
-        if ([weakSelf.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+        if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
             weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
             weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
             weakSelf.topView.hasBank = YES;
@@ -192,7 +193,6 @@ static const NSInteger topView_high = 300;
                                };
     kWeakSelf
     [HXBChooseCouponViewModel requestBestCouponWithParams:dic_post andSuccessBlock:^(HXBBestCouponModel *model) {
-        weakSelf.hxbBaseVCScrollView.hidden = NO;
         weakSelf.discountTitle = nil;
         weakSelf.model = model;
         weakSelf.hasCoupon = model.hasCoupon;
@@ -481,14 +481,15 @@ static const NSInteger topView_high = 300;
 - (void)getNewUserInfo {
     kWeakSelf
     [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.hxbBaseVCScrollView.hidden = NO;
         weakSelf.viewModel = viewModel;
         weakSelf.balanceMoneyStr = weakSelf.viewModel.userInfoModel.userAssets.availablePoint;
         [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
         [weakSelf setUpArray];
         [weakSelf.hxbBaseVCScrollView reloadData];
+        weakSelf.hxbBaseVCScrollView.hidden = NO;
     } andFailure:^(NSError *error) {
         [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+        weakSelf.hxbBaseVCScrollView.hidden = NO;
     }];
 }
 
