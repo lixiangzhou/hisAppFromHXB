@@ -10,40 +10,7 @@
 
 @implementation HXBFinanceDetailViewModel
 
-- (void)requestLoanDetailWithLoanId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock {
-    HXBBaseRequest *loanDetaileAPI = [[HXBBaseRequest alloc]initWithDelegate:self];
-    loanDetaileAPI.requestUrl = kHXBFinanc_LoanDetaileURL(loanId.integerValue);
-    
-    [loanDetaileAPI loadDataWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        ///数据是否出错
-        if ([responseObject[kResponseStatus] integerValue]) {
-            kNetWorkError(@"散标详情页 没有数据");
-            if (resultBlock) {
-                resultBlock(NO);
-            }
-        }
-        
-        NSDictionary *planDetaileDic = [responseObject valueForKey:@"data"];
-        HXBFinDatailModel_LoanDetail *loanDetaileModel = [[HXBFinDatailModel_LoanDetail alloc]init];
-        [loanDetaileModel yy_modelSetWithDictionary:planDetaileDic];
-        HXBFinDetailViewModel_LoanDetail *loanDetailViewModel = [[HXBFinDetailViewModel_LoanDetail alloc]init];
-        loanDetailViewModel.loanDetailModel = loanDetaileModel;
-        self.loanDetailModel = loanDetailViewModel;
-        if (!loanDetailViewModel.loanDetailModel) {
-            kNetWorkError(@"散标详情 没有数据");
-            if (resultBlock) resultBlock(NO);
-            return;
-        }
-        if (resultBlock) {
-            resultBlock(YES);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        if (error && resultBlock) {
-            kNetWorkError(@"✘散标计划详情 - 请求没有数据")
-            resultBlock(NO);
-        }
-    }];
-}
+
 
 
 - (void)requestLoanDetailWithLoanTruansferId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock {

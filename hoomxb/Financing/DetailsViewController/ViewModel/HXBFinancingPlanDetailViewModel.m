@@ -10,13 +10,11 @@
 
 @implementation HXBFinancingPlanDetailViewModel
 
-- (BOOL)hasExtraInterestRate
-{
+- (BOOL)hasExtraInterestRate {
     return [self.planDetailModel.planDetailModel.extraInterestRate floatValue] != 0;
 }
 
-- (BOOL)statusCanJoinIn
-{
+- (BOOL)statusCanJoinIn {
     return self.planDetailModel.planDetailModel.unifyStatus.integerValue <= 5;
 }
 
@@ -30,8 +28,7 @@
     return [self.planDetailModel.planDetailModel.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && self.planDetailModel.planDetailModel.interestDate ? self.planDetailModel.planDetailModel.interestDate : @"收益复投";
 }
 
-- (NSString *)countDownString:(CGFloat)countDown
-{
+- (NSString *)countDownString:(CGFloat)countDown {
     return [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDown) andDateFormat:@"mm分ss秒后开始加入"];
 }
 
@@ -101,4 +98,5 @@
         }
     }];
 }
+
 @end

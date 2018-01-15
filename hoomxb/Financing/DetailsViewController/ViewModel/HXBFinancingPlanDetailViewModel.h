@@ -14,6 +14,7 @@
 #import "HXBFin_Plan_Buy_ViewController.h"
 
 @interface HXBFinancingPlanDetailViewModel : HXBBaseViewModel
+
 /// 红利计划详情页
 @property (nonatomic, strong) HXBFinDetailViewModel_PlanDetail *planDetailModel;
 /// 等待加入状态
@@ -36,4 +37,5 @@
 - (HXBFin_Plan_Buy_ViewController *)getAPlanBuyController;
 /// 红利计划详情页
 - (void)requestPlanDetailWithPlanId:(NSString *)planId resultBlock:(void (^)(BOOL isSuccess))resultBlock;
+
 @end

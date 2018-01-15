@@ -7,19 +7,14 @@
 //
 
 #import "HXBBaseViewModel.h"
-
-#import "HXBFinDatailModel_LoanDetail.h"
-#import "HXBFinDetailViewModel_LoanDetail.h"
 #import "HXBFinDetailViewModel_LoanTruansferDetail.h"
 #import "HXBFinDetailModel_LoanTruansferDetail.h"
 
 @interface HXBFinanceDetailViewModel : HXBBaseViewModel
-/// 散标详情页
-@property (nonatomic, strong) HXBFinDetailViewModel_LoanDetail *loanDetailModel;
+
 /// 债权详情页
 @property (nonatomic, strong) HXBFinDetailViewModel_LoanTruansferDetail *loanTruansferDetailModel;
-/// 散标详情页
-- (void)requestLoanDetailWithLoanId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock;
+
 /// 债权详情页
 - (void)requestLoanDetailWithLoanTruansferId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock;
 @end

@@ -33,8 +33,6 @@
 #import "HXBFinancingPlanDetailViewModel.h"
 
 @interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
-//假的navigationBar
-@property (nonatomic,strong) UIImageView *topImageView;
 @property (nonatomic,weak) HXBFin_PlanDetailView_ViewModelVM *planDetailVM;
 @property (nonatomic,copy) NSString *availablePoint;//可用余额；
 @property (nonatomic,assign) BOOL isIdPassed;
@@ -64,7 +62,6 @@
 @property (nonatomic,copy) void(^downLodaDataBlock)();
 
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
-@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 
 @property (nonatomic, strong) HXBFinancingPlanDetailViewModel *viewModel;
 
@@ -78,7 +75,8 @@
         return self.view;
     }];
     
-    self.isColourGradientNavigationBar = YES;
+    self.isRedColorWithNavigationBar = YES;
+    
     [self setup];
     [self downLoadData];
 
@@ -89,20 +87,14 @@
     } andFailure:^(NSError *error) {
         
     }];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_starCountDown object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_checkLoginSuccess object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadData) name:kHXBNotification_starCountDown object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadData) name:kHXBNotification_checkLoginSuccess object:nil];
 }
 
 /**
  再次获取网络数据
  */
 - (void)getNetworkAgain
-{
-    [self downLoadData];
-}
-
-
-- (void)starCountDown
 {
     [self downLoadData];
 }
@@ -216,14 +208,13 @@
     [self.hxbBaseVCScrollView hxb_headerWithRefreshBlock:^{
         [weakSelf downLoadData];
     }];
-    [self setUPTopImageView];
 
     self.isTransparentNavigationBar = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
     [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
-        make.top.equalTo(self.topImageView.mas_bottom);
+        make.top.equalTo(@(HXBStatusBarAndNavigationBarHeight));
     }];
     self.hxbBaseVCScrollView.separatorColor = COR12;
     if ([self.hxbBaseVCScrollView respondsToSelector:@selector(setSeparatorInset:)]) {
@@ -348,19 +339,6 @@
     }
 }
 
-
-- (void)setUPTopImageView {
-    self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, HXBStatusBarAndNavigationBarHeight)];
-    self.topImageView.image = [UIImage imageNamed:@"NavigationBar"];
-    [self.view addSubview:self.topImageView];
-}
-
-
-///注册刷新事件
-- (void)registerLoadData {
-    [self downLoadData];
-}
-
 /**
  跳转加入界面
  */
@@ -408,7 +386,6 @@
 
         self.automaticallyAdjustsScrollViewInsets = NO;
         [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
-        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
         _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
         _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
         [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
@@ -417,23 +394,8 @@
 }
 
 - (void)dealloc {
-    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kHXBNotification_starCountDown object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kHXBNotification_checkLoginSuccess object:nil];
     NSLog(@"✅被销毁 %@",self);
 }
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    
-    if ([keyPath isEqualToString:@"state"]) {
-        NSNumber *tracking = change[NSKeyValueChangeNewKey];
-        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
-            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
-        }
-        return;
-    }
-    
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
-}
-
 @end
