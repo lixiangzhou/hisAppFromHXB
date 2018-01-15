@@ -30,21 +30,11 @@
 #import "HXBFin_DetailsViewBase.h"
 #import "HXBFin_creditorChange_buy_ViewController.h"
 #import "HXBFin_Plan_Buy_ViewController.h"
-#import "HXBFinanceDetailViewModel.h"
+#import "HXBFinancingPlanDetailViewModel.h"
 
 @interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 //假的navigationBar
 @property (nonatomic,strong) UIImageView *topImageView;
-//@property(nonatomic,strong) HXBFin_PlanDetailView *planDetailsView;
-///底部点的cellModel
-@property (nonatomic,strong) NSArray <HXBFinDetail_TableViewCellModel *>*tableViewModelArray;
-///tableView的tatile
-@property (nonatomic,strong) NSArray <NSString *>* tableViewTitleArray;
-///详情底部的tableView的图片数组
-@property (nonatomic,strong) NSArray <NSString *>* tableViewImageArray;
-///详情页的ViewMode
-//@property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planDetailViewModel;
-///addButtonStr
 @property (nonatomic,weak) HXBFin_PlanDetailView_ViewModelVM *planDetailVM;
 @property (nonatomic,copy) NSString *availablePoint;//可用余额；
 @property (nonatomic,assign) BOOL isIdPassed;
@@ -76,7 +66,7 @@
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 
-@property (nonatomic, strong) HXBFinanceDetailViewModel *viewModel;
+@property (nonatomic, strong) HXBFinancingPlanDetailViewModel *viewModel;
 
 @end
 
@@ -84,14 +74,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.viewModel = [[HXBFinanceDetailViewModel alloc] initWithBlock:^UIView *{
+    self.viewModel = [[HXBFinancingPlanDetailViewModel alloc] initWithBlock:^UIView *{
         return self.view;
     }];
     
     self.isColourGradientNavigationBar = YES;
     [self setup];
     [self downLoadData];
-    [self tableViewModelArray];
+
     [self setupAddView];
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         _availablePoint = viewModel.availablePoint;
@@ -172,11 +162,10 @@
                 [weakSelf.countDownManager stopTimer];
                 return;
             }
-            NSString *str = [[HXBBaseHandDate sharedHandleDate] stringFromDate:@(countDownValue) andDateFormat:@"mm分ss秒后开始加入"];
-            [weakSelf.addButton setTitle:str forState:UIControlStateNormal];
+            [weakSelf.addButton setTitle:[weakSelf.viewModel countDownString:countDownValue] forState:UIControlStateNormal];
         }];
     }else {
-        if (weakSelf.viewModel.planDetailModel.planDetailModel.unifyStatus.integerValue <= 5) {//等待加入
+        if (weakSelf.viewModel.statusCanJoinIn) {//等待加入
             [weakSelf.addButton setTitle:weakSelf.viewModel.planDetailModel.remainTimeString forState:UIControlStateNormal];
         }
     }
@@ -199,19 +188,10 @@
 - (void)setPlanDetailViewModel:(HXBFinDetailViewModel_PlanDetail *)planDetailViewModel {
     kWeakSelf
     [self.topView setUPValueWithManager:^HXBFin_PlanDetailView_TopViewManager *(HXBFin_PlanDetailView_TopViewManager *manager) {
-        if ([weakSelf.viewModel.planDetailModel.planDetailModel.extraInterestRate floatValue] != 0) {
+        if (weakSelf.viewModel.hasExtraInterestRate) {
             weakSelf.topView.attributeStringLength = weakSelf.viewModel.planDetailModel.planDetailModel.extraInterestRate.length + 2;
-            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%+%.1f%%",weakSelf.viewModel.planDetailModel.planDetailModel.baseInterestRate.doubleValue, weakSelf.viewModel.planDetailModel.planDetailModel.extraInterestRate.doubleValue];
-        } else {
-            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%",weakSelf.viewModel.planDetailModel.planDetailModel.expectedRate.doubleValue];
         }
-        manager.topViewManager.rightLabelStr = @"平均历史年化收益";
-        manager.leftViewManager.leftLabelStr = weakSelf.viewModel.planDetailModel.lockPeriodStr;
-        manager.leftViewManager.rightLabelStr = @"锁定期限";
-        manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithIntegetNumber:[weakSelf.viewModel.planDetailModel.minRegisterAmount doubleValue]];
-        manager.midViewManager.rightLabelStr = @"起投";
-        manager.rightViewManager.rightLabelStr = weakSelf.viewModel.planDetailModel.remainAmount_constStr;
-        manager.rightViewManager.leftLabelStr = weakSelf.viewModel.planDetailModel.remainAmount;
+        [weakSelf.viewModel setTopViewManagerData:manager];
         return manager;
     }];
     self.diffTime = weakSelf.viewModel.planDetailModel.countDownStr;
@@ -220,7 +200,7 @@
     //加入button设置 数据
     self.addButton.userInteractionEnabled = self.viewModel.planDetailModel.isAddButtonInteraction;
         [self.addButton setTitleColor:self.viewModel.planDetailModel.addButtonTitleColor forState:UIControlStateNormal];
-    if (self.viewModel.planDetailModel.planDetailModel.unifyStatus.integerValue <= 5) {//等待加入
+    if (self.viewModel.statusCanJoinIn) {//等待加入
         [self.addButton setTitle:self.viewModel.planDetailModel.remainTimeString forState:UIControlStateNormal];
     }else
     {
@@ -228,34 +208,6 @@
 
     }
     self.addButton.backgroundColor = self.viewModel.planDetailModel.addButtonBackgroundColor;
-}
-
-- (void) setupTableViewArray {
-    self.tableViewImageArray = @[
-                                 @"1",
-                                 @"1",
-                                 @"1",
-                                 ];
-    self.tableViewTitleArray = @[
-                                 @"计划详情",
-                                 @"加入记录",
-                                 @"红利计划服务协议"
-                                ];//[self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? @"按月付息服务协议" : @"红利计划服务协议"
-}
-
-- (NSArray<HXBFinDetail_TableViewCellModel *> *)tableViewModelArray {
-    if (!_tableViewModelArray) {
-        [self setupTableViewArray];
-        NSMutableArray *tableViewModelArrayM = [[NSMutableArray alloc]init];
-        for (int i = 0; i < self.tableViewImageArray.count; i++) {
-            NSString *imageName = self.tableViewImageArray[i];
-            NSString *title = self.tableViewTitleArray[i];
-            HXBFinDetail_TableViewCellModel *model = [[HXBFinDetail_TableViewCellModel alloc]initWithImageName:imageName andOptionIitle:title];
-            [tableViewModelArrayM addObject:model];
-        }
-        _tableViewModelArray = tableViewModelArrayM.copy;
-    }
-    return _tableViewModelArray;
 }
 
 //MARK: ------ setup -------
@@ -314,7 +266,7 @@
     if (section == 0 || section == 1) {
         return 1;
     } else {
-        return self.tableViewTitleArray.count;
+        return self.viewModel.tableViewTitleArray.count;
     }
 }
 
@@ -355,13 +307,10 @@
         if (self.viewModel.planDetailModel.planDetailModel.unifyStatus.integerValue) {
             cell.flowChartView.stage = self.viewModel.planDetailModel.planDetailModel.unifyStatus.integerValue;
             [cell.flowChartView setUPFlowChartViewManagerWithManager:^HXBFinBase_FlowChartView_Manager *(HXBFinBase_FlowChartView_Manager *manager) {
-                manager.stage = weakSelf.viewModel.planDetailModel.planDetailModel.unifyStatus.integerValue;;
-                manager.addTime = weakSelf.viewModel.planDetailModel.beginSellingTime_flow;
-                manager.beginTime = weakSelf.viewModel.planDetailModel.financeEndTime_flow;
-                manager.leaveTime = weakSelf.viewModel.planDetailModel.endLockingTime_flow;
+                [weakSelf.viewModel setFlowChartViewManagerData:manager];
                 return manager;
             }];
-            cell.flowChartView.profitStr = [self.viewModel.planDetailModel.planDetailModel.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] && self.viewModel.planDetailModel.planDetailModel.interestDate ? self.viewModel.planDetailModel.planDetailModel.interestDate : @"收益复投";
+            cell.flowChartView.profitStr = self.viewModel.profitString;
         }
         return cell;
     } else {
@@ -371,7 +320,7 @@
             cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         }
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.text = self.tableViewTitleArray[indexPath.row];
+        cell.textLabel.text = self.viewModel.tableViewTitleArray[indexPath.row];
         cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         return cell;
     }
@@ -416,21 +365,7 @@
  跳转加入界面
  */
 - (void)enterPlanBuyViewController {
-    HXBFin_Plan_Buy_ViewController *planJoinVC = [[HXBFin_Plan_Buy_ViewController alloc] init];
-    float remainAmount = self.viewModel.planDetailModel.planDetailModel.remainAmount.floatValue;
-    float userRemainAmount = self.viewModel.planDetailModel.planDetailModel.userRemainAmount.floatValue;
-    float creditorVCStr = remainAmount < userRemainAmount ? remainAmount : userRemainAmount;
-    planJoinVC.availablePoint = [NSString stringWithFormat:@"%.2f", creditorVCStr];
-    planJoinVC.title = @"加入计划";
-    planJoinVC.isFirstBuy               = [self.viewModel.planDetailModel.planDetailModel.isFirst boolValue];
-    planJoinVC.totalInterest            = self.viewModel.planDetailModel.totalInterest;
-    planJoinVC.loanId                   = self.viewModel.planDetailModel.ID;
-    planJoinVC.featuredSlogan           = self.viewModel.planDetailModel.planDetailModel.incomeApproach;
-    planJoinVC.minRegisterAmount        = self.viewModel.planDetailModel.planDetailModel.minRegisterAmount;
-    planJoinVC.cashType                 = self.viewModel.planDetailModel.planDetailModel.cashType;
-    planJoinVC.registerMultipleAmount   = self.viewModel.planDetailModel.planDetailModel.registerMultipleAmount;
-    planJoinVC.placeholderStr           = self.viewModel.planDetailModel.addCondition;
-    [self.navigationController pushViewController:planJoinVC animated:YES];
+    [self.navigationController pushViewController:[self.viewModel getAPlanBuyController] animated:YES];
 }
 
 - (HXBBaseCountDownManager_lightweight *)countDownManager {

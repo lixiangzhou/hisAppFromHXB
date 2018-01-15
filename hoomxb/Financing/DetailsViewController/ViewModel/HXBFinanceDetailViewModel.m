@@ -10,33 +10,6 @@
 
 @implementation HXBFinanceDetailViewModel
 
-- (void)requestPlanDetailWithPlanId:(NSString *)planId resultBlock:(void (^)(BOOL isSuccess))resultBlock {
-    HXBBaseRequest *planDetaileAPI = [[HXBBaseRequest alloc]initWithDelegate:self];
-    planDetaileAPI.requestUrl = kHXBFinanc_PlanDetaileURL(planId.integerValue);
-    
-    [planDetaileAPI loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        //数据是否出错
-        if ([responseObject[kResponseStatus] integerValue]) {
-            kNetWorkError(@"计划详情页 没有数据");
-            if(resultBlock) resultBlock(NO);
-            return;
-        }
-        NSDictionary *planDetaileDic = [responseObject valueForKey:@"data"];
-        HXBFinDetailModel_PlanDetail *planDetaileModel = [[HXBFinDetailModel_PlanDetail alloc]init];
-        [planDetaileModel yy_modelSetWithDictionary:planDetaileDic];
-        HXBFinDetailViewModel_PlanDetail *planDetailViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
-        planDetailViewModel.planDetailModel = planDetaileModel;
-        self.planDetailModel = planDetailViewModel;
-        ///回调
-        if (resultBlock) resultBlock(YES);
-    } failure:^(HXBBaseRequest *request, NSError *error) {
-        if (error && resultBlock) {
-            kNetWorkError(@"红利计划详情")
-            resultBlock(NO);
-        }
-    }];
-}
-
 - (void)requestLoanDetailWithLoanId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock {
     HXBBaseRequest *loanDetaileAPI = [[HXBBaseRequest alloc]initWithDelegate:self];
     loanDetaileAPI.requestUrl = kHXBFinanc_LoanDetaileURL(loanId.integerValue);
