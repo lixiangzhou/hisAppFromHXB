@@ -201,7 +201,7 @@
 }
 
 /**
- 提现短验
+ 发送验证码
  */
 - (void)withdrawSmscode
 {
@@ -214,6 +214,7 @@
     }];
 }
 
+#pragma mark --- 提现请求
 - (void)checkWithdrawals:(NSString *)smscode
 {
 //    self.view.userInteractionEnabled = NO;
