@@ -48,8 +48,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    kWeakSelf
     self.viewModel = [[HXBLoanTruansferDetailViewModel alloc] initWithBlock:^UIView *{
-        return self.view;
+        return weakSelf.view;
     }];
     
     self.isRedColorWithNavigationBar = YES;

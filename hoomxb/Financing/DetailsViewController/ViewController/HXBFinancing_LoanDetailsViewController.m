@@ -30,8 +30,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    kWeakSelf
     self.viewModel = [[HXBFinancingLoanDetailViewModel alloc] initWithBlock:^UIView *{
-        return self.view;
+        return weakSelf.view;
     }];
     
     self.isRedColorWithNavigationBar = YES;
