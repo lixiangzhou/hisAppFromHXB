@@ -45,7 +45,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [HXBHomePopViewManager new];
-//        [manager getHomePopViewData];
     });
     return manager;
 }
@@ -59,35 +58,31 @@
     self.homePopViewModel = [[HXBHomePopVWViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.popView;
     }];
-    [self.homePopViewModel homePopViewRequestSuccessBlock:^(id responseObject) {
+    [self.homePopViewModel homePopViewRequestSuccessBlock:^(BOOL isSuccess) {
         
-        if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
+        if (!isSuccess) {
             weakSelf.isHide = YES;
             return ;
         }
-        weakSelf.homePopViewModel.homePopModel = [HXBHomePopVWModel yy_modelWithDictionary:responseObject[@"data"]];
-        [weakSelf updateUserDefaultsPopViewDate:responseObject[@"data"]];
+        [weakSelf updateUserDefaultsPopViewDate];
     } andFailureBlock:^(NSError *error) {
         weakSelf.isHide = YES;
     }];
 }
 
-- (void)updateUserDefaultsPopViewDate:(NSDictionary *)dict{
+- (void)updateUserDefaultsPopViewDate{
 
-    _responseDict = (NSDictionary *)[kUserDefaults objectForKey:dict[@"id"]];
+    _responseDict = (NSDictionary *)[kUserDefaults objectForKey:self.homePopViewModel.homePopModel.ID];
     if (_responseDict[@"image"]) {
-        if (_responseDict[@"updateTime"] < dict[@"updateTime"]) { //已更新
-            _responseDict = dict;
-//            [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
-//            [kUserDefaults synchronize];
+        if ([_responseDict[@"updateTime"] longLongValue] < (long long)self.homePopViewModel.homePopModel.updateTime) { //已更新
+            
+            _responseDict = (NSDictionary *)[self.homePopViewModel.homePopModel yy_modelToJSONObject];
             [self cachePopHomeImage];
         } else {
             self.isHide = ![kUserDefaults boolForKey:[NSString stringWithFormat:@"%@%@",_responseDict[@"id"],_responseDict[@"frequency"]]];
         }
     } else {
-        _responseDict = dict;
-//        [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
-//        [kUserDefaults synchronize];
+        _responseDict = (NSDictionary *)[self.homePopViewModel.homePopModel yy_modelToJSONObject];
         [self cachePopHomeImage];
     }
 }

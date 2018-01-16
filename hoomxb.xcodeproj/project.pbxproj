@@ -482,6 +482,8 @@
 		E1A1BEED1F3849290006BAA7 /* HXBMYList_plan_Hold_TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A1BEEC1F3849290006BAA7 /* HXBMYList_plan_Hold_TableView.m */; };
 		E1A1BEF01F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A1BEEF1F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.m */; };
 		E1A1BEF21F386C080006BAA7 /* explain.svg in Resources */ = {isa = PBXBuildFile; fileRef = E1A1BEF11F386C080006BAA7 /* explain.svg */; };
+		E1A3290420076B8A001B2CF3 /* HXBFinAddRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A3290320076B8A001B2CF3 /* HXBFinAddRecordViewModel.m */; };
+		E1B1A2101FE13730009E1115 /* HXBHomePopViewRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B1A20F1FE13730009E1115 /* HXBHomePopViewRequest.m */; };
 		E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */; };
 		E1CB561A1ED2D1F500D962CA /* HXBMYModel_AssetStatistics_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CB56191ED2D1F500D962CA /* HXBMYModel_AssetStatistics_Plan.m */; };
 		E1CB561D1ED2D20D00D962CA /* HXBMYModel_AssetStatistics_Loan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CB561C1ED2D20D00D962CA /* HXBMYModel_AssetStatistics_Loan.m */; };
@@ -1460,6 +1462,10 @@
 		E1A1BEEE1F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_Plan_ExitTingTableView.h; sourceTree = "<group>"; };
 		E1A1BEEF1F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_Plan_ExitTingTableView.m; sourceTree = "<group>"; };
 		E1A1BEF11F386C080006BAA7 /* explain.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = explain.svg; sourceTree = "<group>"; };
+		E1A3290220076B8A001B2CF3 /* HXBFinAddRecordViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBFinAddRecordViewModel.h; sourceTree = "<group>"; };
+		E1A3290320076B8A001B2CF3 /* HXBFinAddRecordViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBFinAddRecordViewModel.m; sourceTree = "<group>"; };
+		E1B1A20E1FE13730009E1115 /* HXBHomePopViewRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBHomePopViewRequest.h; sourceTree = "<group>"; };
+		E1B1A20F1FE13730009E1115 /* HXBHomePopViewRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBHomePopViewRequest.m; sourceTree = "<group>"; };
 		E1B2D53E1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+HXBScrollView.h"; sourceTree = "<group>"; };
 		E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+HXBScrollView.m"; sourceTree = "<group>"; };
 		E1C10A581EBCA4FE00C21984 /* HXBScreenAdaptation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBScreenAdaptation.h; sourceTree = "<group>"; };
@@ -3043,6 +3049,7 @@
 		9A3E2FF12004A3400055620F /* AddRecord */ = {
 			isa = PBXGroup;
 			children = (
+				E1A328FF20076345001B2CF3 /* ViewModel */,
 				9A3E2FF22004A3400055620F /* Model */,
 				9A3E2FFC2004A3400055620F /* View */,
 				9A3E2FFF2004A3400055620F /* ViewController */,
@@ -4346,6 +4353,15 @@
 			path = List;
 			sourceTree = "<group>";
 		};
+		E1A328FF20076345001B2CF3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E1A3290220076B8A001B2CF3 /* HXBFinAddRecordViewModel.h */,
+				E1A3290320076B8A001B2CF3 /* HXBFinAddRecordViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E1CB56211ED3E7FA00D962CA /* CapitalRecord */ = {
 			isa = PBXGroup;
 			children = (
@@ -4691,6 +4707,7 @@
 					4E16D8291E9CD0FE002A1881 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = Z9M2NMJFP5;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					4E16D8421E9CD0FE002A1881 = {
@@ -5041,6 +5058,8 @@
 				E1270B371ECED1F300729BC9 /* HXBMYViewModel_MainLoanViewModel.m in Sources */,
 				4E94E3821F0F63D300746973 /* HXBWithdrawCardView.m in Sources */,
 				4EBE8D611FA9E2BA00F0F814 /* HXBWithdrawModel.m in Sources */,
+				E1A3290420076B8A001B2CF3 /* HXBFinAddRecordViewModel.m in Sources */,
+				9A3E30EF2004A3410055620F /* HXBFin_LoanTruansferDetailViewController.m in Sources */,
 				9A3E30F32004A3410055620F /* HXBFinHomePageViewModel_LoanTruansferViewModel.m in Sources */,
 				E10EB4B41EEFE04400F16CFA /* HxbMyAccountSecurityViewController.m in Sources */,
 				9A3E2F63200499970055620F /* HXBNoticeCell.m in Sources */,
@@ -5483,6 +5502,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: 聪聪 翟 (86S6Q378KL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -5507,6 +5527,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -5517,6 +5539,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -5541,6 +5564,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -5642,6 +5666,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -5666,6 +5691,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Adoc;
