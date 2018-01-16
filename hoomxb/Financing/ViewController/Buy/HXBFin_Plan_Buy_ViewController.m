@@ -155,13 +155,18 @@ static const NSInteger topView_high = 300;
         weakSelf.cardModel = model;
         if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
             weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
-            weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+            if (!weakSelf.cardModel) {
+                weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
+            } else {
+                weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+            }
             weakSelf.topView.hasBank = YES;
         } else {
             weakSelf.topView.height = kScrAdaptationH750(topView_high);
             weakSelf.topView.hasBank = NO;
         }
         weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
+        [weakSelf.hxbBaseVCScrollView reloadData];
     }];
 }
 
@@ -225,6 +230,7 @@ static const NSInteger topView_high = 300;
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
+        _curruntInvestMoney =_inputMoneyStr.doubleValue;
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
@@ -232,6 +238,7 @@ static const NSInteger topView_high = 300;
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_registerMultipleAmount.integerValue];
         _inputMoneyStr = _registerMultipleAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _registerMultipleAmount.floatValue*self.totalInterest.floatValue/100.0];
+        _curruntInvestMoney = _inputMoneyStr.floatValue;
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足递增金额"];
@@ -286,10 +293,37 @@ static const NSInteger topView_high = 300;
 
 - (void)sendSmsCodeWithMoney:(double)topupMoney {
     kWeakSelf
+    if (self.cardModel.securyMobile.length) {
+        [self alertSmsCodeWithMoney:topupMoney];
+    } else {
+        [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
+            weakSelf.hxbBaseVCScrollView.tableHeaderView = nil;
+            weakSelf.cardModel = model;
+            if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
+                weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
+                if (!weakSelf.cardModel) {
+                    weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
+                } else {
+                    weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+                    [weakSelf alertSmsCodeWithMoney:topupMoney];
+                }
+                weakSelf.topView.hasBank = YES;
+            } else {
+                weakSelf.topView.height = kScrAdaptationH750(topView_high);
+                weakSelf.topView.hasBank = NO;
+            }
+            weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
+            [weakSelf.hxbBaseVCScrollView reloadData];
+        }];
+    }
+}
+
+- (void)alertSmsCodeWithMoney:(double)topupMoney {
+    kWeakSelf
     HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
     [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:@"sms" andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
         weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-        [weakSelf alertSmsCode];
+        [weakSelf showRechargeAlertVC];
         [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
     } andFailureBlock:^(NSError *error) {
         NSInteger errorCode = 0;
@@ -305,7 +339,7 @@ static const NSInteger topView_high = 300;
     }];
 }
 
-- (void)alertSmsCode {
+- (void)showRechargeAlertVC {
     if (!self.presentedViewController) {
         self.alertVC = [[HXBVerificationCodeAlertVC alloc] init];
         self.alertVC.isCleanPassword = YES;
@@ -558,6 +592,7 @@ static const NSInteger topView_high = 300;
             _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _topView.disableKeyBorad = YES;
             _hasInvestMoney = YES;
+            _curruntInvestMoney = _inputMoneyStr.doubleValue;
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
             _hasInvestMoney = NO;
@@ -569,6 +604,7 @@ static const NSInteger topView_high = 300;
             _inputMoneyStr = [NSString stringWithFormat:@"%.lf", self.availablePoint.doubleValue];
             _topView.disableKeyBorad = YES;
             _hasInvestMoney = YES;
+            _curruntInvestMoney = _inputMoneyStr.doubleValue;
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
             _hasInvestMoney = NO;
@@ -614,35 +650,42 @@ static const NSInteger topView_high = 300;
         _topView.hiddenProfitLabel = NO;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
         _topView.profitType = _featuredSlogan;
-        _topView.changeBlock = ^(NSString *text) { // 检测输入框输入的信息
-            _curruntInvestMoney = text.doubleValue;
-            weakSelf.bottomView.addBtnIsUseable = text.length;
-            BOOL isFitToBuy = NO;
-            if (weakSelf.isFirstBuy) {
-                isFitToBuy = ((text.integerValue - weakSelf.minRegisterAmount.integerValue) % weakSelf.registerMultipleAmount.integerValue) ? NO : YES;
-            } else {
-                isFitToBuy = (text.integerValue) % weakSelf.registerMultipleAmount.integerValue ? NO : YES;
-            }
-            // 判断是否符合购买条件
-            if (text.doubleValue <= weakSelf.availablePoint.doubleValue && isFitToBuy) {
-                weakSelf.couponTitle = @"优惠券";
-                [weakSelf getBESTCouponWithMoney:text];
-            } else {
-                weakSelf.discountTitle = @"未使用";
-                weakSelf.couponid = @" ";
-                weakSelf.hasBestCoupon = NO;
-                weakSelf.couponTitle = @"优惠券";
-                weakSelf.handleDetailTitle = text;
-                [weakSelf changeItemWithInvestMoney:text];
-                [weakSelf setUpArray];
-            }
+        // 输入框值变化
+        _topView.changeBlock = ^(NSString *text) {
+            [weakSelf investMoneyTextFieldText:text];
         };
-        _topView.block = ^{ // 点击一键购买执行的方法
+        // 点击一键购买执行的方法
+        _topView.block = ^{
         };
     }
     _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
     _topView.placeholderStr = _placeholderStr;
     return _topView;
+}
+
+- (void)investMoneyTextFieldText:(NSString *)text {
+    self.curruntInvestMoney = text.doubleValue;
+    self.bottomView.addBtnIsUseable = text.length;
+    BOOL isFitToBuy = NO;
+    if (self.isFirstBuy) {
+        isFitToBuy = ((text.integerValue - self.minRegisterAmount.integerValue) % self.registerMultipleAmount.integerValue) ? NO : YES;
+    } else {
+        isFitToBuy = (text.integerValue) % self.registerMultipleAmount.integerValue ? NO : YES;
+    }
+    // 判断是否符合购买条件
+    if (text.doubleValue <= self.availablePoint.doubleValue && isFitToBuy) {
+        self.couponTitle = @"优惠券";
+        [self getBESTCouponWithMoney:text];
+    } else {
+        self.discountTitle = @"未使用";
+        self.couponid = @" ";
+        self.hasBestCoupon = NO;
+        self.couponTitle = @"优惠券";
+        self.discountMoney = 0;
+        self.handleDetailTitle = text;
+        [self changeItemWithInvestMoney:text];
+        [self setUpArray];
+    }
 }
 
 - (UIView *)footTableView {
