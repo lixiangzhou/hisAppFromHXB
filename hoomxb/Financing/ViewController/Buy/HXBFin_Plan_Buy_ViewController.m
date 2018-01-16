@@ -155,7 +155,11 @@ static const NSInteger topView_high = 300;
         weakSelf.cardModel = model;
         if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
             weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
-            weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+            if (!weakSelf.cardModel) {
+                weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
+            } else {
+                weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+            }
             weakSelf.topView.hasBank = YES;
         } else {
             weakSelf.topView.height = kScrAdaptationH750(topView_high);
