@@ -110,7 +110,7 @@
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(weakSelf.view);
         make.top.equalTo(weakSelf.progressView.mas_bottom);
-        make.bottom.equalTo(weakSelf.view).offset(-HXBBottomAdditionHeight);
+        make.bottom.equalTo(weakSelf.view);
     }];
 }
 
