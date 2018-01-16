@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
 @property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
+
 @end
 
 @implementation HxbMyTopUpViewController

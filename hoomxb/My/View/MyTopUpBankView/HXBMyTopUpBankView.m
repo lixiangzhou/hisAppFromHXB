@@ -54,8 +54,7 @@
             weakSelf.bankLogoImageView.svgImageString = @"默认";
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        NSLog(@"%@",error);
-        [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+
     }];
     
 }
@@ -87,8 +86,9 @@
 
 - (UIImageView *)bankLogoImageView{
     if (!_bankLogoImageView) {
-        _bankLogoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"默认"]];
+         _bankLogoImageView = [[UIImageView alloc]init];
         _bankLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _bankLogoImageView.svgImageString = @"默认";
     }
     return _bankLogoImageView;
 }
@@ -98,6 +98,7 @@
         _bankNameLabel = [[UILabel alloc] init];
         _bankNameLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _bankNameLabel.textColor = RGB(51, 51, 51);
+        _bankNameLabel.text = @"--";
     }
     return _bankNameLabel;
 }
@@ -117,6 +118,7 @@
         _amountLimitLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _amountLimitLabel.numberOfLines = 0;
         _amountLimitLabel.textColor = COR10;
+        _amountLimitLabel.text = @"--";
     }
     return _amountLimitLabel;
 }

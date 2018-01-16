@@ -10,6 +10,7 @@
 #import "HXBMyTopUpBankView.h"
 #import "HXBMyTopUpHeaderView.h"
 #import "HXBLeftLabelTextView.h"
+#import "HXBBankCardModel.h"
 @interface HXBMyTopUpBaseView ()<UITextFieldDelegate>
 //@property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) HXBLeftLabelTextView *amountTextField;
@@ -118,6 +119,7 @@
     }];
     kWeakSelf
     _amountTextField.haveStr = ^(BOOL haveStr) {
+        haveStr = (haveStr && self.mybankView.bankCardModel.mobile.length > 0);
         weakSelf.nextButton.userInteractionEnabled = haveStr;
         weakSelf.nextButton.backgroundColor = haveStr ? COR29 : COR12;
     };
