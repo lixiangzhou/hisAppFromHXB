@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class HXBFin_LoanDetailView_TopViewManager;
+
 @interface HXBFin_LoanDetailView_TopView : HXBColourGradientView
 - (void)setUPValueWithManager: (HXBFin_LoanDetailView_TopViewManager *(^)(HXBFin_LoanDetailView_TopViewManager *manager))managerBlock;
 @end
+
 @interface HXBFin_LoanDetailView_TopViewManager : NSObject
 @property (nonatomic,strong) HXBBaseView_TwoLable_View_ViewModel *topViewManager;//年利率
 @property (nonatomic,strong) HXBBaseView_TwoLable_View_ViewModel *leftViewManager;//期限
