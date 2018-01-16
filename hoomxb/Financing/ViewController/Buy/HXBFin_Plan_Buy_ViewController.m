@@ -636,6 +636,7 @@ static const NSInteger topView_high = 300;
                 weakSelf.couponid = @" ";
                 weakSelf.hasBestCoupon = NO;
                 weakSelf.couponTitle = @"优惠券";
+                weakSelf.discountMoney = 0;
                 weakSelf.handleDetailTitle = text;
                 [weakSelf changeItemWithInvestMoney:text];
                 [weakSelf setUpArray];
