@@ -165,6 +165,9 @@
         configuration.preferences = preferences;
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
         _webView.navigationDelegate = self.webViewModuel;
+        if (@available(iOS 11.0, *)) {
+            _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
     }
     return _webView;
 }
