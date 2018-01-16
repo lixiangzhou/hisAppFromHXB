@@ -23,7 +23,7 @@
 
 - (void)setLoanDetailViewModel:(HXBFin_DetailsView_LoanDetailsView_ViewModelVM *)viewModelVM;
 
-- (HXBFin_Loan_Buy_ViewController *)getALoanBuyController;
+- (HXBFin_Loan_Buy_ViewController *)getALoanBuyController:(NSString *)hasBindCard;
 /// 散标详情页
 - (void)requestLoanDetailWithLoanId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock;
 

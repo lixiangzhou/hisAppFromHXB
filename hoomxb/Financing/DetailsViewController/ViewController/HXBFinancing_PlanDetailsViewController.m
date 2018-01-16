@@ -113,8 +113,9 @@
         return;
     }
 
-    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^{
-        [self enterPlanBuyViewController];
+    kWeakSelf
+    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard) {
+        [weakSelf enterPlanBuyViewControllerWithHasBindCard:hasBindCard];
     }];
 }
 
@@ -329,8 +330,9 @@
 /**
  跳转加入界面
  */
-- (void)enterPlanBuyViewController {
-    [self.navigationController pushViewController:[self.viewModel getAPlanBuyController] animated:YES];
+
+- (void)enterPlanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
+    [self.navigationController pushViewController:[self.viewModel getAPlanBuyController:hasBindCard] animated:YES];
 }
 
 - (HXBBaseCountDownManager_lightweight *)countDownManager {

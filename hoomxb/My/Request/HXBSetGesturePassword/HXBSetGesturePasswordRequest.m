@@ -12,7 +12,7 @@
 
 
 /**
- 版本更新
+ 校验登录密码
  
  @param password 登录密码
  @param successDateBlock 成功回调

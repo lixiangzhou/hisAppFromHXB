@@ -17,10 +17,11 @@
     return _tableViewTitleArray;
 }
 
-- (HXBFin_creditorChange_buy_ViewController *)getACreditorChangeBuyController {
+- (HXBFin_creditorChange_buy_ViewController *)getACreditorChangeBuyController:(NSString *)hasBindCard {
     HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
     loanJoinVC.title = @"投资债权";
     loanJoinVC.loanId = self.loanTruansferDetailModel.loanTruansferDetailModel.transferId;
+    loanJoinVC.hasBindCard = hasBindCard;
     loanJoinVC.placeholderStr = self.loanTruansferDetailModel.startIncrease_Amount;
     loanJoinVC.availablePoint = self.loanTruansferDetailModel.loanTruansferDetailModel.leftTransAmount;
     loanJoinVC.minRegisterAmount = self.loanTruansferDetailModel.loanTruansferDetailModel.minInverst;

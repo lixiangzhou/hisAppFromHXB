@@ -54,7 +54,7 @@
     manager.leaveTime = self.planDetailModel.endLockingTime_flow;
 }
 
-- (HXBFin_Plan_Buy_ViewController *)getAPlanBuyController {
+- (HXBFin_Plan_Buy_ViewController *)getAPlanBuyController:(NSString *)hasBindCard {
     HXBFin_Plan_Buy_ViewController *planJoinVC = [[HXBFin_Plan_Buy_ViewController alloc] init];
     float remainAmount = self.planDetailModel.planDetailModel.remainAmount.floatValue;
     float userRemainAmount = self.planDetailModel.planDetailModel.userRemainAmount.floatValue;

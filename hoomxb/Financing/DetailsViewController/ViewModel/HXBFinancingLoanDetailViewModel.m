@@ -61,7 +61,7 @@
     
 }
 
-- (HXBFin_Loan_Buy_ViewController *)getALoanBuyController {
+- (HXBFin_Loan_Buy_ViewController *)getALoanBuyController:(NSString *)hasBindCard {
     //跳转加入界
     HXBFin_Loan_Buy_ViewController *loanJoinVC = [[HXBFin_Loan_Buy_ViewController alloc]init];
     loanJoinVC.title = @"投资散标";
@@ -70,6 +70,8 @@
     loanJoinVC.loanId = self.loanDetailModel.loanDetailModel.userVo.loanId;
     loanJoinVC.minRegisterAmount = self.loanDetailModel.loanDetailModel.minInverst;
     loanJoinVC.registerMultipleAmount = self.loanDetailModel.loanDetailModel.minInverst;
+    loanJoinVC.hasBindCard = hasBindCard;
+    
     return loanJoinVC;
 }
 

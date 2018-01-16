@@ -17,7 +17,7 @@
 ///tableView的tatile
 @property (nonatomic,strong) NSArray *tableViewTitleArray;
 
-- (HXBFin_creditorChange_buy_ViewController *)getACreditorChangeBuyController;
+- (HXBFin_creditorChange_buy_ViewController *)getACreditorChangeBuyController:(NSString *)hasBindCard;
 /// 债权详情页
 - (void)requestLoanDetailWithLoanTruansferId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock;
 
