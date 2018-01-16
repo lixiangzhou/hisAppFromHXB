@@ -7,17 +7,23 @@
 //
 
 #import "HxbAdvertiseViewController.h"
-
+#import "HXBAdvertiseViewModel.h"
 #import <UIImageView+WebCache.h>
 
 @interface HxbAdvertiseViewController ()
 @property (nonatomic, weak) UIImageView *imgView;
+@property (nonatomic, strong) HXBAdvertiseViewModel *viewModel;
 @end
 
 @implementation HxbAdvertiseViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    kWeakSelf
+    self.viewModel = [[HXBAdvertiseViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     
     [self setUI];
     
@@ -43,19 +49,9 @@
 }
 
 - (void)getData {
-    // 无论沙盒中是否存在广告图片，都需要重新调用广告接口，判断广告是否更新
-    NYBaseRequest *splashTRequest = [[NYBaseRequest alloc] init];
-    splashTRequest.requestUrl = kHXBSplash;
-    splashTRequest.requestMethod = NYRequestMethodGet;
-    
-    [splashTRequest startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSInteger status =  [responseObject[kResponseStatus] integerValue];
-        if (status == 0) {
-            NSString *imageURL = responseObject[kResponseData][@"url"];
-            [self.imgView sd_setImageWithURL:[NSURL URLWithString:imageURL] placeholderImage:[UIImage getLauchImage]];
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        
+    kWeakSelf
+    [self.viewModel requestSplashImages:^(NSString *imageUrl) {
+        [weakSelf.imgView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage getLauchImage]];
     }];
 }
 

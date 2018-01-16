@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "HXBRequestHudDelegate.h"
+#import "HXBBaseRequest.h"
 
 typedef UIView* (^HugViewBlock)();
 
