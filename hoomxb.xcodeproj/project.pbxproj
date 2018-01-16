@@ -3367,26 +3367,7 @@
 		9AA81BFE200762C6002D2944 /* accountCard */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81BFF200762C6002D2944 /* HXBBankCardListViewController.h */,
-				9AA81C00200762C6002D2944 /* HXBBankCardListViewController.m */,
-				9AA81C01200762C6002D2944 /* HXBBindBankCardViewController.h */,
-				9AA81C02200762C6002D2944 /* HXBBindBankCardViewController.m */,
-				9AA81C03200762C6002D2944 /* HXBDepositoryAlertViewController.h */,
-				9AA81C04200762C6002D2944 /* HXBDepositoryAlertViewController.m */,
-				9AA81C05200762C6002D2944 /* HxbMyBankCardViewController.h */,
-				9AA81C06200762C6002D2944 /* HxbMyBankCardViewController.m */,
-				9AA81C07200762C6002D2944 /* HXBMyBankResultViewController.h */,
-				9AA81C08200762C6002D2944 /* HXBMyBankResultViewController.m */,
-				9AA81C09200762C6002D2944 /* HXBOpenDepositAccountViewController.h */,
-				9AA81C0A200762C6002D2944 /* HXBOpenDepositAccountViewController.m */,
-				9AA81C0B200762C6002D2944 /* HXBRechargeCompletedViewController.h */,
-				9AA81C0C200762C6002D2944 /* HXBRechargeCompletedViewController.m */,
-				9AA81C0D200762C6002D2944 /* HXBUnBindCardController.h */,
-				9AA81C0E200762C6002D2944 /* HXBUnBindCardController.m */,
-				9AA81C0F200762C6002D2944 /* HxbWithdrawCardViewController.h */,
-				9AA81C10200762C6002D2944 /* HxbWithdrawCardViewController.m */,
-				9AA81C11200762C6002D2944 /* HxbWithdrawResultViewController.h */,
-				9AA81C12200762C6002D2944 /* HxbWithdrawResultViewController.m */,
+				9AB1B064200E063400985268 /* ViewController */,
 			);
 			path = accountCard;
 			sourceTree = "<group>";
@@ -3394,10 +3375,7 @@
 		9AA81C13200762C6002D2944 /* MY_GesturePasswordController */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81C14200762C6002D2944 /* HXBCheckLoginPasswordViewController.h */,
-				9AA81C15200762C6002D2944 /* HXBCheckLoginPasswordViewController.m */,
-				9AA81C16200762C6002D2944 /* HXBGesturePasswordViewController.h */,
-				9AA81C17200762C6002D2944 /* HXBGesturePasswordViewController.m */,
+				9AB1B069200E06A900985268 /* ViewController */,
 			);
 			path = MY_GesturePasswordController;
 			sourceTree = "<group>";
@@ -3405,12 +3383,7 @@
 		9AA81C18200762C6002D2944 /* MY_TransactionPassword */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81C19200762C6002D2944 /* HXBModifyTransactionPasswordViewController.h */,
-				9AA81C1A200762C6002D2944 /* HXBModifyTransactionPasswordViewController.m */,
-				9AA81C1B200762C6002D2944 /* HXBSetTransactionPasswordViewController.h */,
-				9AA81C1C200762C6002D2944 /* HXBSetTransactionPasswordViewController.m */,
-				9AA81C1D200762C6002D2944 /* HXBTransactionPasswordConfirmationViewController.h */,
-				9AA81C1E200762C6002D2944 /* HXBTransactionPasswordConfirmationViewController.m */,
+				9AB1B06F200E06FA00985268 /* ViewController */,
 			);
 			path = MY_TransactionPassword;
 			sourceTree = "<group>";
@@ -3418,8 +3391,7 @@
 		9AA81C1F200762C6002D2944 /* HXBAccount */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81C20200762C6002D2944 /* HXBAccount_AlterLoginPassword_ViewController.h */,
-				9AA81C21200762C6002D2944 /* HXBAccount_AlterLoginPassword_ViewController.m */,
+				9AB1B066200E067A00985268 /* ViewController */,
 			);
 			path = HXBAccount;
 			sourceTree = "<group>";
@@ -3427,8 +3399,7 @@
 		9AA81C22200762C6002D2944 /* MY_LoanController */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81C23200762C6002D2944 /* HXBMY_LoanListViewController.h */,
-				9AA81C24200762C6002D2944 /* HXBMY_LoanListViewController.m */,
+				9AB1B06A200E06B400985268 /* ViewController */,
 				9AA81C25200762C6002D2944 /* MY_Loan_Details */,
 			);
 			path = MY_LoanController;
@@ -3437,10 +3408,7 @@
 		9AA81C25200762C6002D2944 /* MY_Loan_Details */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81C26200762C6002D2944 /* HXBMY_LoanList_DetailViewController.h */,
-				9AA81C27200762C6002D2944 /* HXBMY_LoanList_DetailViewController.m */,
-				9AA81C28200762C6002D2944 /* HXBTransferCreditorViewController.h */,
-				9AA81C29200762C6002D2944 /* HXBTransferCreditorViewController.m */,
+				9AB1B06B200E06BD00985268 /* ViewController */,
 			);
 			path = MY_Loan_Details;
 			sourceTree = "<group>";
@@ -3456,10 +3424,7 @@
 		9AA81C2F200762C7002D2944 /* MY_CapitalRecordController */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81C30200762C7002D2944 /* HXBMY_Capital_Sift_ViewController.h */,
-				9AA81C31200762C7002D2944 /* HXBMY_Capital_Sift_ViewController.m */,
-				9AA81C32200762C7002D2944 /* HXBMY_CapitalRecordViewController.h */,
-				9AA81C33200762C7002D2944 /* HXBMY_CapitalRecordViewController.m */,
+				9AB1B068200E068D00985268 /* ViewController */,
 			);
 			path = MY_CapitalRecordController;
 			sourceTree = "<group>";
@@ -3467,8 +3432,7 @@
 		9AA81C34200762C7002D2944 /* MY_ModifyPhoneController */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81C35200762C7002D2944 /* HXBModifyPhoneViewController.h */,
-				9AA81C36200762C7002D2944 /* HXBModifyPhoneViewController.m */,
+				9AB1B06C200E06C600985268 /* ViewController */,
 			);
 			path = MY_ModifyPhoneController;
 			sourceTree = "<group>";
@@ -3476,8 +3440,7 @@
 		9AA81C37200762C7002D2944 /* MY_RiskAssessmentController */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81C38200762C7002D2944 /* HXBRiskAssessmentViewController.h */,
-				9AA81C39200762C7002D2944 /* HXBRiskAssessmentViewController.m */,
+				9AB1B06E200E06F200985268 /* ViewController */,
 			);
 			path = MY_RiskAssessmentController;
 			sourceTree = "<group>";
@@ -3485,10 +3448,7 @@
 		9AA81C3A200762C7002D2944 /* AccountWithdraw */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81C3B200762C7002D2944 /* HxbMyTopUpViewController.h */,
-				9AA81C3C200762C7002D2944 /* HxbMyTopUpViewController.m */,
-				9AA81C3D200762C7002D2944 /* HxbWithdrawViewController.h */,
-				9AA81C3E200762C7002D2944 /* HxbWithdrawViewController.m */,
+				9AB1B065200E066200985268 /* ViewController */,
 			);
 			path = AccountWithdraw;
 			sourceTree = "<group>";
@@ -3496,10 +3456,7 @@
 		9AA81C3F200762C7002D2944 /* MY_PlanController */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81C40200762C7002D2944 /* HXBMY_PlanListViewController.h */,
-				9AA81C41200762C7002D2944 /* HXBMY_PlanListViewController.m */,
-				9AA81C42200762C7002D2944 /* MY_Plan_Details */,
-				9AA81C45200762C7002D2944 /* MY_PlanCapitalRecord */,
+				9AB1B06D200E06DD00985268 /* ViewController */,
 			);
 			path = MY_PlanController;
 			sourceTree = "<group>";
@@ -3525,8 +3482,7 @@
 		9AA81C48200762C7002D2944 /* MY_AllFinanceController */ = {
 			isa = PBXGroup;
 			children = (
-				9AA81C49200762C7002D2944 /* HXBMY_AllFinanceViewController.h */,
-				9AA81C4A200762C7002D2944 /* HXBMY_AllFinanceViewController.m */,
+				9AB1B067200E068500985268 /* ViewController */,
 			);
 			path = MY_AllFinanceController;
 			sourceTree = "<group>";
@@ -3542,6 +3498,7 @@
 		9AA81C50200762C8002D2944 /* My */ = {
 			isa = PBXGroup;
 			children = (
+				9AB1B070200E078100985268 /* Model */,
 				9AA81C51200762C8002D2944 /* ViewController */,
 			);
 			path = My;
@@ -3576,6 +3533,155 @@
 				9AA81C4F200762C8002D2944 /* HxbMyAccountSecurityViewController.m */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B064200E063400985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81BFF200762C6002D2944 /* HXBBankCardListViewController.h */,
+				9AA81C00200762C6002D2944 /* HXBBankCardListViewController.m */,
+				9AA81C01200762C6002D2944 /* HXBBindBankCardViewController.h */,
+				9AA81C02200762C6002D2944 /* HXBBindBankCardViewController.m */,
+				9AA81C03200762C6002D2944 /* HXBDepositoryAlertViewController.h */,
+				9AA81C04200762C6002D2944 /* HXBDepositoryAlertViewController.m */,
+				9AA81C05200762C6002D2944 /* HxbMyBankCardViewController.h */,
+				9AA81C06200762C6002D2944 /* HxbMyBankCardViewController.m */,
+				9AA81C07200762C6002D2944 /* HXBMyBankResultViewController.h */,
+				9AA81C08200762C6002D2944 /* HXBMyBankResultViewController.m */,
+				9AA81C09200762C6002D2944 /* HXBOpenDepositAccountViewController.h */,
+				9AA81C0A200762C6002D2944 /* HXBOpenDepositAccountViewController.m */,
+				9AA81C0B200762C6002D2944 /* HXBRechargeCompletedViewController.h */,
+				9AA81C0C200762C6002D2944 /* HXBRechargeCompletedViewController.m */,
+				9AA81C0D200762C6002D2944 /* HXBUnBindCardController.h */,
+				9AA81C0E200762C6002D2944 /* HXBUnBindCardController.m */,
+				9AA81C0F200762C6002D2944 /* HxbWithdrawCardViewController.h */,
+				9AA81C10200762C6002D2944 /* HxbWithdrawCardViewController.m */,
+				9AA81C11200762C6002D2944 /* HxbWithdrawResultViewController.h */,
+				9AA81C12200762C6002D2944 /* HxbWithdrawResultViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B065200E066200985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81C3B200762C7002D2944 /* HxbMyTopUpViewController.h */,
+				9AA81C3C200762C7002D2944 /* HxbMyTopUpViewController.m */,
+				9AA81C3D200762C7002D2944 /* HxbWithdrawViewController.h */,
+				9AA81C3E200762C7002D2944 /* HxbWithdrawViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B066200E067A00985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81C20200762C6002D2944 /* HXBAccount_AlterLoginPassword_ViewController.h */,
+				9AA81C21200762C6002D2944 /* HXBAccount_AlterLoginPassword_ViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B067200E068500985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81C49200762C7002D2944 /* HXBMY_AllFinanceViewController.h */,
+				9AA81C4A200762C7002D2944 /* HXBMY_AllFinanceViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B068200E068D00985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81C30200762C7002D2944 /* HXBMY_Capital_Sift_ViewController.h */,
+				9AA81C31200762C7002D2944 /* HXBMY_Capital_Sift_ViewController.m */,
+				9AA81C32200762C7002D2944 /* HXBMY_CapitalRecordViewController.h */,
+				9AA81C33200762C7002D2944 /* HXBMY_CapitalRecordViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B069200E06A900985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81C14200762C6002D2944 /* HXBCheckLoginPasswordViewController.h */,
+				9AA81C15200762C6002D2944 /* HXBCheckLoginPasswordViewController.m */,
+				9AA81C16200762C6002D2944 /* HXBGesturePasswordViewController.h */,
+				9AA81C17200762C6002D2944 /* HXBGesturePasswordViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B06A200E06B400985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81C23200762C6002D2944 /* HXBMY_LoanListViewController.h */,
+				9AA81C24200762C6002D2944 /* HXBMY_LoanListViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B06B200E06BD00985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81C26200762C6002D2944 /* HXBMY_LoanList_DetailViewController.h */,
+				9AA81C27200762C6002D2944 /* HXBMY_LoanList_DetailViewController.m */,
+				9AA81C28200762C6002D2944 /* HXBTransferCreditorViewController.h */,
+				9AA81C29200762C6002D2944 /* HXBTransferCreditorViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B06C200E06C600985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81C35200762C7002D2944 /* HXBModifyPhoneViewController.h */,
+				9AA81C36200762C7002D2944 /* HXBModifyPhoneViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B06D200E06DD00985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81C40200762C7002D2944 /* HXBMY_PlanListViewController.h */,
+				9AA81C41200762C7002D2944 /* HXBMY_PlanListViewController.m */,
+				9AA81C42200762C7002D2944 /* MY_Plan_Details */,
+				9AA81C45200762C7002D2944 /* MY_PlanCapitalRecord */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B06E200E06F200985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81C38200762C7002D2944 /* HXBRiskAssessmentViewController.h */,
+				9AA81C39200762C7002D2944 /* HXBRiskAssessmentViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B06F200E06FA00985268 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AA81C19200762C6002D2944 /* HXBModifyTransactionPasswordViewController.h */,
+				9AA81C1A200762C6002D2944 /* HXBModifyTransactionPasswordViewController.m */,
+				9AA81C1B200762C6002D2944 /* HXBSetTransactionPasswordViewController.h */,
+				9AA81C1C200762C6002D2944 /* HXBSetTransactionPasswordViewController.m */,
+				9AA81C1D200762C6002D2944 /* HXBTransactionPasswordConfirmationViewController.h */,
+				9AA81C1E200762C6002D2944 /* HXBTransactionPasswordConfirmationViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		9AB1B070200E078100985268 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4E70B1911FACA0FB0049D2F1 /* HXBMyRequestAccountModel.h */,
+				4E70B1921FACA0FB0049D2F1 /* HXBMyRequestAccountModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		9AF220EA1FC2BA8F00002D1D /* BaseURL */ = {
@@ -4513,8 +4619,6 @@
 		E1D2CA501EAB4D6B000099C7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4E70B1911FACA0FB0049D2F1 /* HXBMyRequestAccountModel.h */,
-				4E70B1921FACA0FB0049D2F1 /* HXBMyRequestAccountModel.m */,
 				E17CCEE41F305D7800D6E98E /* HXBMY_LoanTruansferModel */,
 				4EB420911F2604EC00631A25 /* HXBMY_BankList */,
 				4E739B581F0A386D000A4D1E /* HXBMY_VersionUpdateModel */,
