@@ -20,7 +20,6 @@
     
     [planAddRecortdAPI loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         
-        [weakSelf erroStateCodeDeal:planAddRecortdAPI];
         HXBFinModel_AddRecortdModel_Plan *planAddRecortdModel = [[HXBFinModel_AddRecortdModel_Plan alloc]init];
         NSDictionary *dataDic = [responseObject valueForKey:@"data"];
         [planAddRecortdModel yy_modelSetWithDictionary:dataDic];
@@ -29,7 +28,6 @@
             resultBlock(YES,nil);
         };
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        [weakSelf erroResponseCodeDeal:request];
     }];
 }
 
@@ -39,7 +37,7 @@
     HXBBaseRequest *loanAddRecortdAPI = [[HXBBaseRequest alloc]initWithDelegate:self];
     loanAddRecortdAPI.requestUrl = kHXBFinanc_Loan_AddRecortdURL(loanId);
     [loanAddRecortdAPI loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        [weakSelf erroStateCodeDeal:loanAddRecortdAPI];
+        
         FinModel_AddRecortdModel_Loan *model = [[FinModel_AddRecortdModel_Loan alloc]init];
         NSDictionary *dic = [responseObject valueForKey:@"data"];
         [model yy_modelSetWithDictionary:dic];
@@ -48,7 +46,6 @@
             resultBlock(YES,nil);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        [weakSelf erroResponseCodeDeal:request];
     }];
 }
 
@@ -65,7 +62,6 @@
     
     [loanTruansferAddRecortdAPI loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         
-        [weakSelf erroStateCodeDeal:loanTruansferAddRecortdAPI];
         NSArray *array = responseObject[kResponseData][kResponseDataList];
         NSMutableArray *dataArray = [[NSMutableArray alloc]init];
         
@@ -80,7 +76,7 @@
             resultBlock(YES,nil);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        [weakSelf erroResponseCodeDeal:request];
+        
     }];
 }
 
