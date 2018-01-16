@@ -31,7 +31,7 @@
 
 - (void)downLoadData {
     kWeakSelf
-    [self.loadRecordViewModel requestLoanAddRecortdWithId:self.loanID loadAddRecortdWithISUPLoad:true andOrder:nil resultBlock:^(BOOL isSuccess, NSError *error) {
+    [self.loadRecordViewModel requestLoanAddRecortdWithId:self.loanID loadAddRecortdWithISUPLoad:YES andOrder:nil resultBlock:^(BOOL isSuccess, NSError *error) {
         if (isSuccess) {
             weakSelf.addRecortdTableView.loanModel = weakSelf.loadRecordViewModel.addRecortdModel_LoanModel;
         }
