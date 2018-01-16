@@ -36,6 +36,7 @@
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 @property (nonatomic, strong) HXBHomeVCViewModel *homeVimewModle;
+@property (nonatomic, assign) int times;
 
 @end
 
@@ -68,6 +69,11 @@
     [super viewDidAppear:animated];
     [self transparentNavigationTitle];
     self.tabBarController.tabBar.hidden = NO;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    self.times = 1;
 }
 
 #pragma mark - UI
@@ -267,14 +273,13 @@
 - (UIStatusBarStyle)preferredStatusBarStyle {
     //该方法联系调用两次，如果一直返回UIStatusBarStyleDefault， 就会导致下一个页面的导航栏混乱， 因此做了如下修改
     
-    static int times = 1;
-    if(1 == times) {
-        times++;
-        return UIStatusBarStyleDefault;
+    if(1 == self.times) {
+        self.times++;
+        return UIStatusBarStyleLightContent;
     }
     else{
-        times = 1;
-        return UIStatusBarStyleLightContent;
+        self.times = 1;
+        return UIStatusBarStyleDefault;
     }
 }
 

@@ -42,6 +42,9 @@
 
 
 @property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
+
+@property (nonatomic, assign) BOOL isLoadBankCardSuccess;
+
 @end
 
 @implementation HxbWithdrawViewController
@@ -201,7 +204,7 @@
 }
 
 /**
- 提现短验
+ 发送验证码
  */
 - (void)withdrawSmscode
 {
@@ -214,6 +217,7 @@
     }];
 }
 
+#pragma mark --- 提现请求
 - (void)checkWithdrawals:(NSString *)smscode
 {
 //    self.view.userInteractionEnabled = NO;
@@ -270,7 +274,7 @@
         }
         str = strM.copy;
     }
-    if (str.length > 0) {
+    if (str.length > 0 && self.isLoadBankCardSuccess) {
         _nextButton.backgroundColor = COR29;
         _nextButton.userInteractionEnabled = YES;
     } else {
@@ -298,14 +302,13 @@
     NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
     bankCardAPI.requestUrl = kHXBWithdraw;
     bankCardAPI.requestMethod = NYRequestMethodGet;
-    [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [bankCardAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         kHXBBuyErrorResponsShowHUD
         weakSelf.withdrawModel = [HXBWithdrawModel yy_modelWithJSON:responseObject[@"data"]];
-        
+        weakSelf.isLoadBankCardSuccess = YES;
     } failure:^(NYBaseRequest *request, NSError *error) {
-        NSLog(@"%@",error);
-        [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
+        weakSelf.isLoadBankCardSuccess = NO;
     }];
 }
 
@@ -405,6 +408,7 @@
         _availableBalanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, self.amountTextField.bottom + 20, 0, 0)];
         _availableBalanceLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _availableBalanceLabel.textColor = RGB(51, 51, 51);
+        _availableBalanceLabel.text = @"可提金额：--";
     }
     return _availableBalanceLabel;
 }
@@ -507,7 +511,6 @@
 @property (nonatomic, strong) UIImageView *bankLogoImageView;
 @property (nonatomic, strong) UILabel *bankNameLabel;
 @property (nonatomic, strong) UILabel *bankCardNumLabel;
-@property (nonatomic, strong) UILabel *amountLimitLabel;
 @property (nonatomic, strong) UILabel *arrivalDateLabel;
 @end
 
@@ -520,7 +523,6 @@
         [self addSubview:self.bankLogoImageView];
         [self addSubview:self.bankNameLabel];
         [self addSubview:self.bankCardNumLabel];
-        [self addSubview:self.amountLimitLabel];
         [self addSubview:self.arrivalDateLabel];
 //        [self getpaymentDate];
         [self setContentViewFrame];
@@ -582,13 +584,15 @@
 //        _arrivalDateLabel.text = [NSString stringWithFormat:@"预计%@(T+2工作日)到账",[[HXBBaseHandDate sharedHandleDate] stringFromDate:[NSDate date] andDateFormat:@"yyyy-MM-dd"]];
         _arrivalDateLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         _arrivalDateLabel.textColor = RGB(153, 153, 153);
+        _arrivalDateLabel.text = @"--";
     }
     return _arrivalDateLabel;
 }
 - (UIImageView *)bankLogoImageView{
     if (!_bankLogoImageView) {
-        _bankLogoImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"默认"]];
+        _bankLogoImageView = [[UIImageView alloc]init];
         _bankLogoImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _bankLogoImageView.svgImageString = @"默认";
     }
     return _bankLogoImageView;
 }
@@ -598,6 +602,7 @@
         _bankNameLabel = [[UILabel alloc] init];
         _bankNameLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(30);
         _bankNameLabel.textColor = RGB(51, 51, 51);
+        _bankNameLabel.text = @"--";
     }
     return _bankNameLabel;
 }
@@ -612,11 +617,5 @@
 }
 
 
-- (UILabel *)amountLimitLabel{
-    if (!_amountLimitLabel) {
-        
-    }
-    return _amountLimitLabel;
-}
 
 @end

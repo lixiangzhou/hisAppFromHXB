@@ -7,35 +7,23 @@
 //
 
 #import "HXBFin_DetailLoanTruansfer_ViewController.h"
-#import "HXBFinanctingRequest.h"
 #import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
 #import "HXBFin_Detail_DetailVC_Loan.h"
 ///详情的VIEW
 #import "HXBFinDetail_TableView.h"
-#import "HXBFin_LoanTruansferDetailViewController.h"
-#import "HXBMYViewModel_MainLoanViewModel.h"///借款信息
-#import "HXBFinAddRecortdVC_Loan.h"///转让记录
-#import "HXBFinDetailViewModel_LoanTruansferDetail.h"//详情的viewModel
 #import "HXBFinAddRecordVC_LoanTruansfer.h"//转让记录
 #import "HXBFinanctingDetail_imageCell.h"
 #import "HXBFinanctingDetail_progressCell.h"
 #import "HXBFin_LoanTruansferDetail_TopView.h"
 #import "HXBFinanctingDetail_trustCell.h"
-#import "HXBFin_creditorChange_buy_ViewController.h"
 
+#import "HXBLoanTruansferDetailViewModel.h"
 
 @interface HXBFin_DetailLoanTruansfer_ViewController ()<UITableViewDelegate, UITableViewDataSource>
-
-//假的navigationBar
-@property (nonatomic,strong) UIImageView *topImageView;
 ///底部的tableView被点击
 @property (nonatomic,copy) void (^clickBottomTabelViewCellBlock)(NSIndexPath *index, HXBFinDetail_TableViewCellModel *model);
 @property (nonatomic,copy) void (^clickAddButtonBlock)();
-
-///tableView的tatile
-@property (nonatomic,strong) NSArray *tableViewTitleArray;
 ///详情的viewModel
-@property (nonatomic,strong) HXBFinDetailViewModel_LoanTruansferDetail *loanTruansferDetailViewModel;
 @property (nonatomic,copy) NSString *addButtonStr;
 ///加入的button
 @property (nonatomic,strong) UIButton *addButton;
@@ -50,8 +38,9 @@
 /// 表头视图
 @property (nonatomic,strong) HXBFin_LoanTruansferDetail_TopView *topView;
 
-@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
-@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+@property (nonatomic,strong) UITableView *tableView;
+
+@property (nonatomic, strong) HXBLoanTruansferDetailViewModel *viewModel;
 @end
 
 @implementation HXBFin_DetailLoanTruansfer_ViewController
@@ -59,49 +48,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.isColourGradientNavigationBar = YES;
-    [self setUPTopImageView];
+    kWeakSelf
+    self.viewModel = [[HXBLoanTruansferDetailViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
+    
+    self.isRedColorWithNavigationBar = YES;
     [self setUP];
     [self setupAddView];
     [self downLoadData];
 }
 
-- (void)setUPTopImageView {
-    self.topImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, HXBStatusBarAndNavigationBarHeight)];
-    self.topImageView.image = [UIImage imageNamed:@"NavigationBar"];
-    [self.view addSubview:self.topImageView];
-}
-
 - (void) setUP {
     kWeakSelf
-    [self.hxbBaseVCScrollView hxb_headerWithRefreshBlock:^{
+    [self.tableView hxb_headerWithRefreshBlock:^{
         [weakSelf downLoadData];
     }];
     self.isTransparentNavigationBar = YES;
-    self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-    [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.tableView.backgroundColor = kHXBColor_BackGround;
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
-        make.top.equalTo(self.topImageView.mas_bottom);
+        make.top.equalTo(@(HXBStatusBarAndNavigationBarHeight));
     }];
-//    self.hxbBaseVCScrollView.frame = CGRectMake(0, 64, kScreenWidth, kScreenHeight - 64 - kScrAdaptationH(50));
-    self.hxbBaseVCScrollView.delegate = self;
-    self.hxbBaseVCScrollView.dataSource = self;
-    self.hxbBaseVCScrollView.tableHeaderView = [self tableViewHeadView];
-    self.hxbBaseVCScrollView.tableFooterView = [self tableViewFootView];
-//    self.hxbBaseVCScrollView.hidden = YES;
-    //    self.detailView = [[HXBFin_LoanTruansferDetailView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight - 64)];
-    //    [self.hxbBaseVCScrollView addSubview:self.detailView];
+
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.tableHeaderView = [self tableViewHeadView];
+    self.tableView.tableFooterView = [self tableViewFootView];
     self.self.automaticallyAdjustsScrollViewInsets = NO;
 }
 
 //MARK: - 立即加入按钮的添加
 - (void)setupAddView {
     self.addButton = [UIButton buttonWithType:(UIButtonTypeCustom)];
-//    self.addButton.frame = CGRectMake(0, kScreenHeight - kScrAdaptationH(50), kScreenWidth, kScrAdaptationH(50));
     [self.view addSubview:_addButton];
     [_addButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.width.equalTo(self.view);
-        make.top.equalTo(self.hxbBaseVCScrollView.mas_bottom);
+        make.top.equalTo(self.tableView.mas_bottom);
         make.height.equalTo(@(kScrAdaptationH(50)));
         make.bottom.equalTo(@(-HXBBottomAdditionHeight));
     }];
@@ -114,8 +97,6 @@
     [self.addButton addSubview: self.countDownLabel];
     self.addButton.userInteractionEnabled = YES;
 }
-
-
 
 // 表头
 - (UIView *)tableViewHeadView {
@@ -140,7 +121,7 @@
     if (section == 0 || section == 1) {
         return 1;
     } else {
-        return self.tableViewTitleArray.count;
+        return self.viewModel.tableViewTitleArray.count;
     }
 }
 
@@ -177,8 +158,8 @@
             cell = [[HXBFinanctingDetail_trustCell alloc] initWithStyle:(UITableViewCellStyleDefault) reuseIdentifier:@"trustCell"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }
-        cell.repaymentType = self.loanTruansferDetailViewModel.repaymentType;
-        cell.nextRepayDate = self.loanTruansferDetailViewModel.nextRepayDate;
+        cell.repaymentType = self.viewModel.loanTruansferDetailModel.repaymentType;
+        cell.nextRepayDate = self.viewModel.loanTruansferDetailModel.nextRepayDate;
         return cell;
     } else {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
@@ -188,7 +169,7 @@
         }
         cell.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(15), 0, kScrAdaptationW(15));
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.text = self.tableViewTitleArray[indexPath.row];
+        cell.textLabel.text = self.viewModel.tableViewTitleArray[indexPath.row];
         cell.textLabel.font = kHXBFont_PINGFANGSC_REGULAR(15);
         return cell;
     }
@@ -201,7 +182,7 @@
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.loanTruansferDetailViewModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.viewModel.loanTruansferDetailModel.fin_LoanInfoView_Manager;
             [self.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         } else if (indexPath.row == 1) {
             HXBFinAddRecordVC_LoanTruansfer *loanAddRecordVC = [[HXBFinAddRecordVC_LoanTruansfer alloc]init];
@@ -220,26 +201,19 @@
         return;
     }
     ///判断是否实名。。。。
-    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^{
-        [self enterLoanBuyViewController];
+    kWeakSelf
+    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard) {
+        [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard];
     }];
 }
 
-- (void)enterLoanBuyViewController {
-    if ([self.loanTruansferDetailViewModel.loanTruansferDetailModel.enabledBuy isEqualToString:@"0"]) {
+- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
+    if ([self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.enabledBuy isEqualToString:@"0"]) {
         [HxbHUDProgress showTextWithMessage:@"自己转让的债权无法再次购买"];
         return;
     }
-    HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
-    loanJoinVC.title = @"投资债权";
-    loanJoinVC.loanId = self.loanTruansferDetailViewModel.loanTruansferDetailModel.transferId;
-    loanJoinVC.placeholderStr = self.loanTruansferDetailViewModel.startIncrease_Amount;
-    loanJoinVC.availablePoint = self.loanTruansferDetailViewModel.loanTruansferDetailModel.leftTransAmount;
-    loanJoinVC.minRegisterAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
-    loanJoinVC.registerMultipleAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
-    [self.navigationController pushViewController:loanJoinVC animated:YES];
     
-    
+    [self.navigationController pushViewController:[self.viewModel getACreditorChangeBuyController:hasBindCard] animated:YES];
 }
 
 
@@ -248,60 +222,35 @@
 //MARK: 网络数据请求
 - (void)downLoadData {
     kWeakSelf
-    [[HXBFinanctingRequest sharedFinanctingRequest] loanTruansferDetileRequestWithLoanID:weakSelf.loanID andSuccessBlock:^(HXBFinDetailViewModel_LoanTruansferDetail *viewModel) {
-        weakSelf.loanTruansferDetailViewModel = viewModel;
-        [weakSelf setData];
-        weakSelf.hxbBaseVCScrollView.hidden = NO;
-        [weakSelf.hxbBaseVCScrollView reloadData];
-        [weakSelf.hxbBaseVCScrollView endRefresh];
-    } andFailureBlock:^(NSError *error, NSDictionary *respons) {
-        [weakSelf.hxbBaseVCScrollView endRefresh];
-        [HxbHUDProgress showMessageCenter:respons[kResponseMessage] inView:weakSelf.view];
+    
+    [self.viewModel requestLoanDetailWithLoanTruansferId:self.loanID resultBlock:^(BOOL isSuccess) {
+        [weakSelf.tableView endRefresh];
+        if (isSuccess) {
+            [weakSelf setData];
+            weakSelf.tableView.hidden = NO;
+            [weakSelf.tableView reloadData];
+        }
     }];
 }
 
-- (void) setData {
+- (void)setData {
     self.topView.interestLabelLeftStr = self.loanTransfer_ViewModel.loanTruansferListModel.interest;
-    self.topView.remainTimeLabelLeftStr = self.loanTruansferDetailViewModel.leftMonths;
-    self.topView.truansferAmountLabelLeftStr = self.loanTruansferDetailViewModel.leftTransAmount;
+    self.topView.remainTimeLabelLeftStr = self.viewModel.loanTruansferDetailModel.leftMonths;
+    self.topView.truansferAmountLabelLeftStr = self.viewModel.loanTruansferDetailModel.leftTransAmount;
     self.topView.nextOneText = @"下一还款日";
 }
 
-- (NSArray *) tableViewTitleArray {
-    if (!_tableViewTitleArray) {
-        _tableViewTitleArray = @[@"借款信息", @"转让记录", @"债权转让及受让协议"];
+- (UITableView *)tableView {
+    if (!_tableView) {
+        
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        
+        [self.view insertSubview:_tableView atIndex:0];
+        _tableView.tableFooterView = [[UIView alloc]init];
+        _tableView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_tableView];
     }
-    return _tableViewTitleArray;
+    return _tableView;
 }
 
-- (UITableView *)hxbBaseVCScrollView {
-    if (!_hxbBaseVCScrollView) {
-        
-        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
-        
-        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
-        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
-        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
-    }
-    return _hxbBaseVCScrollView;
-}
-- (void)dealloc {
-    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
-    NSLog(@"✅被销毁 %@",self);
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    
-    if ([keyPath isEqualToString:@"state"]) {
-        NSNumber *tracking = change[NSKeyValueChangeNewKey];
-        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
-            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
-        }
-        return;
-    }
-    
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
-}
 @end

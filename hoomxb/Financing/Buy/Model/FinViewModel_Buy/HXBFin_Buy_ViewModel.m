@@ -24,6 +24,7 @@
         successDateBlock(bankCardModel);
     } failure:^(NYBaseRequest *request, NSError *error) {
         NSLog(@"%@",error);
+        successDateBlock(nil);
         [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
     }];
 

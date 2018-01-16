@@ -27,11 +27,6 @@
 
 #import "HXBFinDetailViewModel_LoanTruansferDetail.h"//债转的viewModel
 
-//MARK: - 加入记录
-#import "HXBFinModel_AddRecortdModel_Plan.h"//加入记录的model
-#import "FinModel_AddRecortdModel_Loan.h"//加入记录的model loan
-#import "HXBFinModel_AddRecortdModel_LoanTruansfer.h"
-
 //MARK: - 购买
 #import "HXBFin_Plan_BuyViewModel.h"
 
@@ -73,8 +68,7 @@
 
 //
 @property (nonatomic,strong) NSMutableArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*loanTruansferViewModel;
-//加入记录的数组
-@property (nonatomic,strong) NSMutableArray <HXBFinModel_AddRecortdModel_LoanTruansfer *>*loanTruansferAddRecortdModelArray;
+
 @end
 
 
@@ -342,7 +336,7 @@
     self.loanTruansferAPI.requestMethod = NYRequestMethodGet;
     self.loanTruansferAPI.requestUrl = kHXBFin_LoanTruansferURL;
     self.loanTruansferAPI.requestArgument = @{
-                                              @"page":@(self.loanTruansferAPI.dataPage),//int	当前页
+                                              @"page":@(self.loanTruansferAPI.dataPage),//int    当前页
                                               @"pageSize":@kPageCount
                                               };
     [self.loanTruansferAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
@@ -479,85 +473,6 @@
         }
     }];
     
-}
-
-#pragma mark - 红利计划详情页 - 加入记录
-- (void)planAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinancePlanId: (NSString *)financePlanId andOrder: (NSString *)order andSuccessBlock: (void(^)(HXBFinModel_AddRecortdModel_Plan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
-    self.planAddRecortdAPI.isUPReloadData = isUPLoad;
-    self.planAddRecortdAPI.requestMethod = NYRequestMethodGet;
-    self.planAddRecortdAPI.requestUrl = kHXBFinanc_Plan_AddRecortdURL(financePlanId);
-    
-    [self.planAddRecortdAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        kHXBResponsShowHUD
-        HXBFinModel_AddRecortdModel_Plan *planAddRecortdModel = [[HXBFinModel_AddRecortdModel_Plan alloc]init];
-        NSDictionary *dataDic = [responseObject valueForKey:@"data"];
-        [planAddRecortdModel yy_modelSetWithDictionary:dataDic];
-        if (successDateBlock) {
-            successDateBlock(planAddRecortdModel);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        NSLog(@"✘ 红利计划的详情页 - 加入计划 - 网络请求失败");
-        if (error) {
-            failureBlock(error);
-        }
-    }];
-}
-#pragma mark - 散标计划详情 - 加入记录
-- (void)loanAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)financeLoanId andOrder: (NSString *)order andSuccessBlock: (void(^)(FinModel_AddRecortdModel_Loan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
-    self.loanAddRecortdAPI.requestMethod = NYRequestMethodGet;
-    
-    self.loanAddRecortdAPI.requestUrl = kHXBFinanc_Loan_AddRecortdURL(financeLoanId);
-    [self.loanAddRecortdAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-       kHXBResponsShowHUD
-        FinModel_AddRecortdModel_Loan *model = [[FinModel_AddRecortdModel_Loan alloc]init];
-        NSDictionary *dic = [responseObject valueForKey:@"data"];
-        [model yy_modelSetWithDictionary:dic];
-        if (successDateBlock) {
-            successDateBlock(model);
-        }
-    } failure:^(HXBBaseRequest *request, NSError *error) {
-         kNetWorkError(@"loan 加入计划 - 网络请求失败")
-        if (error) {
-            failureBlock(error);
-        }
-    }];
-}
-/// 债转详情  加入记录
-- (void)loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)loanTruanserId andOrder: (NSString *)order andSuccessBlock: (void(^)( NSArray< HXBFinModel_AddRecortdModel_LoanTruansfer *> * loanTruansferRecortdModel))successDateBlock andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock {
-    self.loanTruansferAddRecortdAPI.requestMethod = NYRequestMethodGet;
-    self.loanTruansferAddRecortdAPI.isUPReloadData = isUPLoad;
-    self.loanTruansferAddRecortdAPI.requestArgument = @{
-                                              @"page":@(self.loanTruansferAddRecortdAPI.dataPage)
-                                              };
-    self.loanTruansferAddRecortdAPI.requestUrl = kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserId);
-    
-    [self.loanTruansferAddRecortdAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        if ([responseObject[kResponseStatus] integerValue]) {
-            if (failureBlock) {
-                failureBlock(nil,request);
-            }
-            return;
-        }
-        
-        NSArray *array = responseObject[kResponseData][kResponseDataList];
-        NSMutableArray *dataArray = [[NSMutableArray alloc]init];
-        
-        [array enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            HXBFinModel_AddRecortdModel_LoanTruansfer *model = [[HXBFinModel_AddRecortdModel_LoanTruansfer alloc]init];
-            [model yy_modelSetWithDictionary:obj];
-            model.index = @(array.count - idx).description;
-            [dataArray addObject:model];
-        }];
-        
-        if (successDateBlock) {
-            successDateBlock(dataArray);
-        }
-    } failure:^(HXBBaseRequest *request, NSError *error) {
-        kNetWorkError(@"loan 加入计划 - 网络请求失败")
-        if (error) {
-            failureBlock(error,nil);
-        }
-    }];
 }
 
 #pragma mark - 购买

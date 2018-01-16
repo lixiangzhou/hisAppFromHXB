@@ -19,6 +19,6 @@
 @property (nonatomic,copy) NSString *minRegisterAmount; // 最小起投
 /** 还款方式 */
 @property (nonatomic, copy) NSString *featuredSlogan;
-
+@property (nonatomic, copy) NSString *hasBindCard; //是否绑卡
 
 @end

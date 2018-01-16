@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class HXBBankList;
 @interface HXBBankListCell : UITableViewCell
+
+@property (nonatomic, strong) HXBBankList *bankModel;
 
 @end
