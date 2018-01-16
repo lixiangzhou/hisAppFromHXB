@@ -13,8 +13,6 @@
 @class HXBFinHomePageViewModel_LoanList;//散标列表页- 一级界面ViewModel
 @class HXBFinDetailViewModel_PlanDetail;//红利计划详情页ViewModel
 @class HXBFinDetailViewModel_LoanDetail;//散标投递的详情页的ViewModel
-@class HXBFinModel_AddRecortdModel_Plan;//理财模块的加入记录接口
-@class FinModel_AddRecortdModel_Loan;   //加入记录model
 @class HXBFinModel_BuyResoult_PlanModel;//购买
 @class HXBFinModel_Buy_Plan;
 @class HXBFinModel_BuyResoult_LoanModel;
@@ -23,7 +21,6 @@
 @class HXBFinHomePageViewModel_LoanTruansferViewModel;///债转viewmodel
 @class HXBFinDetailViewModel_LoanTruansferDetail;//债转的详情的viewModel
 @class HXBFin_LoanTruansfer_BuyResoutViewModel;
-@class HXBFinModel_AddRecortdModel_LoanTruansfer;
 static NSString *const HXBFinHomePagePlan_ASC = @"";
 
 ///理财界面的所有网络请求页全部都在这里了

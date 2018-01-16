@@ -27,11 +27,6 @@
 
 #import "HXBFinDetailViewModel_LoanTruansferDetail.h"//债转的viewModel
 
-//MARK: - 加入记录
-#import "HXBFinModel_AddRecortdModel_Plan.h"//加入记录的model
-#import "FinModel_AddRecortdModel_Loan.h"//加入记录的model loan
-#import "HXBFinModel_AddRecortdModel_LoanTruansfer.h"
-
 //MARK: - 购买
 #import "HXBFin_Plan_BuyViewModel.h"
 
@@ -73,8 +68,7 @@
 
 //
 @property (nonatomic,strong) NSMutableArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*loanTruansferViewModel;
-//加入记录的数组
-@property (nonatomic,strong) NSMutableArray <HXBFinModel_AddRecortdModel_LoanTruansfer *>*loanTruansferAddRecortdModelArray;
+
 @end
 
 
@@ -342,7 +336,7 @@
     self.loanTruansferAPI.requestMethod = NYRequestMethodGet;
     self.loanTruansferAPI.requestUrl = kHXBFin_LoanTruansferURL;
     self.loanTruansferAPI.requestArgument = @{
-                                              @"page":@(self.loanTruansferAPI.dataPage),//int	当前页
+                                              @"page":@(self.loanTruansferAPI.dataPage),//int    当前页
                                               @"pageSize":@kPageCount
                                               };
     [self.loanTruansferAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
