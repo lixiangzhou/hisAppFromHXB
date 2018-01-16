@@ -101,7 +101,7 @@
             resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (error && resultBlock) {
+        if (resultBlock) {
             kNetWorkError(@"✘散标计划详情 - 请求没有数据")
             resultBlock(NO);
         }

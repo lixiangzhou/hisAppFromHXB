@@ -20,8 +20,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    kWeakSelf
     self.viewModel = [[HXBAdvertiseViewModel alloc] initWithBlock:^UIView *{
-        return self.view;
+        return weakSelf.view;
     }];
     
     [self setUI];
@@ -48,8 +49,9 @@
 }
 
 - (void)getData {
+    kWeakSelf
     [self.viewModel requestSplashImages:^(NSString *imageUrl) {
-        [self.imgView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage getLauchImage]];
+        [weakSelf.imgView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage getLauchImage]];
     }];
 }
 

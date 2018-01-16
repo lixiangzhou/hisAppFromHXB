@@ -92,7 +92,7 @@
         ///回调
         if (resultBlock) resultBlock(YES);
     } failure:^(HXBBaseRequest *request, NSError *error) {
-        if (error && resultBlock) {
+        if (resultBlock) {
             kNetWorkError(@"红利计划详情")
             resultBlock(NO);
         }
