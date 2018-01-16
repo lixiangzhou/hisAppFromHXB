@@ -110,7 +110,6 @@
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(weakSelf.view);
         make.top.equalTo(weakSelf.progressView.mas_bottom);
-        make.bottom.equalTo(weakSelf.view).offset(-HXBBottomAdditionHeight);
     }];
 }
 
@@ -166,6 +165,9 @@
         configuration.preferences = preferences;
         _webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
         _webView.navigationDelegate = self.webViewModuel;
+        if (@available(iOS 11.0, *)) {
+            _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
     }
     return _webView;
 }
