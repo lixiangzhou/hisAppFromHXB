@@ -93,6 +93,7 @@
     HXBNoticModel *noticModel = self.modelArrs[indexPath.row];
     cell.textLabel.text = noticModel.title;
     cell.detailTextLabel.text = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:noticModel.date andDateFormat:@"MM-dd"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
