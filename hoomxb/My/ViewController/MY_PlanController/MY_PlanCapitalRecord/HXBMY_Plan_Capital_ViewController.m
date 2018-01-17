@@ -83,7 +83,7 @@ static NSString *const cellID = @"cellID";
     self.planCapitalTableView.dataSource = self;
     
     [self.planCapitalTableView registerClass:[HXBMY_Plan_Capital_Cell class] forCellReuseIdentifier:cellID];
-    [self downLoadWithIsUPLoad:YES];
+    [self downLoadWithIsUPLoad:NO];
 }
 
 

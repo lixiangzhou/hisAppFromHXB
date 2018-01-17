@@ -42,7 +42,7 @@
 //    self.isRedColorWithNavigationBar = YES;
     self.isColourGradientNavigationBar = YES;
     [self.view addSubview:self.mainTabelView];
-    [self loadDataWithIsUPReloadData:YES];
+    [self loadDataWithIsUPReloadData:NO];
 }
 /**
  再次获取网络数据

@@ -502,6 +502,11 @@
     
     __weak typeof(self)weakSelf = self;
     self.capitalRecordAPI.requestUrl = kHXBMY_CapitalRecordURL;
+    if (self.isShowHUD) {
+        isUPData = NO;
+        self.capitalRecordAPI.dataPage = 1;
+        self.isShowHUD = NO;
+    }
     self.capitalRecordAPI.isUPReloadData = isUPData;
     self.capitalRecordAPI.requestArgument = @{
                                             @"page" : @(self.capitalRecordAPI.dataPage).description,

@@ -485,7 +485,7 @@
     self.planAddRecortdAPI.requestMethod = NYRequestMethodGet;
     self.planAddRecortdAPI.requestUrl = kHXBFinanc_Plan_AddRecortdURL(financePlanId);
     
-    [self.planAddRecortdAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [self.planAddRecortdAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
         kHXBResponsShowHUD
         HXBFinModel_AddRecortdModel_Plan *planAddRecortdModel = [[HXBFinModel_AddRecortdModel_Plan alloc]init];
         NSDictionary *dataDic = [responseObject valueForKey:@"data"];
@@ -529,7 +529,7 @@
                                               };
     self.loanTruansferAddRecortdAPI.requestUrl = kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserId);
     
-    [self.loanTruansferAddRecortdAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+    [self.loanTruansferAddRecortdAPI startWithHUDStr:kLoadIngText Success:^(HXBBaseRequest *request, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue]) {
             if (failureBlock) {
                 failureBlock(nil,request);
