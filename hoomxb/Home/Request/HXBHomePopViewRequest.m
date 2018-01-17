@@ -24,9 +24,10 @@
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSInteger status =  [responseObject[@"status"] integerValue];
         
-        if (status) {
-            kHXBResponsShowHUD
-        }
+        //不弹出错误提示弹窗
+//        if (status) {
+//            kHXBResponsShowHUD
+//        }
         
         if (successDateBlock) {
             successDateBlock(responseObject);

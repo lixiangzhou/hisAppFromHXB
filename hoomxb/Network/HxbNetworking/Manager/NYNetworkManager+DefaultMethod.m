@@ -19,6 +19,10 @@
     NSLog(@"👌👌相应 体 ------%@",request.responseObject);
     NSLog(@"======================👌👌 结束 👌👌====================================");
     
+    if ([self handlingSpecialRequests:request]) {
+        return;
+    }
+    
     if ([request.responseObject[@"code"]  isEqual: @"ESOCKETTIMEDOUT"]) {
         [HxbHUDProgress showTextWithMessage:@"请求超时,请稍后重试"];
     }
@@ -74,6 +78,16 @@
     }
 }
 
+/**
+ 升级和首页弹窗 不处理异常返回结果
+ */
+- (BOOL)handlingSpecialRequests:(NYBaseRequest *)request{
+    //升级和首页弹窗 不处理异常返回结果
+    if ([request.requestUrl isEqualToString:kHXBHome_PopView]||[request.requestUrl isEqualToString:kHXBMY_VersionUpdateURL]) {
+        return YES;
+    }
+    return NO;
+}
 
 /**
  处理不需要提示412问题
@@ -98,6 +112,9 @@
     NSLog(@"🌶🌶相应 体 ------%@",request.responseObject);
     NSLog(@"======================🌶🌶 结束 🌶🌶====================================");
     
+    if ([self handlingSpecialRequests:request]) {
+        return;
+    }
     
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:/// 没有登录
