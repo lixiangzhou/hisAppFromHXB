@@ -87,7 +87,7 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
 @property (nonatomic, assign) BOOL hasInvestMoney; // 是否是从上个页面带入的金额，是的话不校验金额，不是的话，校验金额
 @property (nonatomic, assign) double curruntInvestMoney; // 当前输入框的金额
-
+@property (nonatomic, strong) HxbHUDProgress *hud; // 展示HUD
 @end
 
 @implementation HXBFin_Plan_Buy_ViewController
@@ -98,6 +98,7 @@ static NSString *const bankString = @"绑定银行卡";
     _couponTitle = @"优惠券";
     _discountTitle = @"";
     _balanceTitle = @"可用余额";
+    _hud = [[HxbHUDProgress alloc] init];
     [self buildUI];
     [self unavailableMoney];
     [self hasBestCouponRequest];
@@ -512,15 +513,18 @@ static const NSInteger topView_high = 300;
 // 获取用户信息
 - (void)getNewUserInfo {
     kWeakSelf
+    [_hud showAnimationWithText:kLoadIngText];
     [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         weakSelf.viewModel = viewModel;
         weakSelf.balanceMoneyStr = weakSelf.viewModel.userInfoModel.userAssets.availablePoint;
         [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
         [weakSelf setUpArray];
         [weakSelf.hxbBaseVCScrollView reloadData];
+        [_hud hide];
         weakSelf.hxbBaseVCScrollView.hidden = NO;
     } andFailure:^(NSError *error) {
         [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+        [_hud hide];
         weakSelf.hxbBaseVCScrollView.hidden = NO;
     }];
 }
