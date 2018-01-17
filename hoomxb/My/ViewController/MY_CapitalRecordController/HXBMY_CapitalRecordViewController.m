@@ -46,6 +46,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     self.title = @"交易记录";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.screenType = @" ";
+    [HXBMYRequest sharedMYRequest].isShowHUD = YES;
     [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:YES];
     [self setUP];
     self.isColourGradientNavigationBar = YES;
