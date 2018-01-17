@@ -7,7 +7,6 @@
 //
 
 #import "HxbHomeViewController.h"
-#import "HxbAdvertiseViewController.h"
 #import "HxbHomeRequest.h"
 #import "HxbHomeRequest_dataList.h"
 //#import "HxbSecurityCertificationViewController.h"
