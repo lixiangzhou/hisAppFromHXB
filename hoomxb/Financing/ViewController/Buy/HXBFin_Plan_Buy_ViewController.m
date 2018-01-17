@@ -673,7 +673,7 @@ static const NSInteger topView_high = 300;
         isFitToBuy = (text.integerValue) % self.registerMultipleAmount.integerValue ? NO : YES;
     }
     // 判断是否符合购买条件
-    if (text.doubleValue <= self.availablePoint.doubleValue && isFitToBuy) {
+    if (text.length && text.doubleValue <= self.availablePoint.doubleValue && isFitToBuy) {
         self.couponTitle = @"优惠券";
         [self getBESTCouponWithMoney:text];
     } else {
