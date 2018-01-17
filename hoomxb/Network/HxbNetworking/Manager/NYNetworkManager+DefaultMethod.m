@@ -79,11 +79,11 @@
 }
 
 /**
- 升级和首页弹窗 不处理异常返回结果
+ 闪屏、升级和首页弹窗 不处理异常返回结果
  */
 - (BOOL)handlingSpecialRequests:(NYBaseRequest *)request{
-    //升级和首页弹窗 不处理异常返回结果
-    if ([request.requestUrl isEqualToString:kHXBHome_PopView]||[request.requestUrl isEqualToString:kHXBMY_VersionUpdateURL]) {
+    //闪屏、升级和首页弹窗 不处理异常返回结果
+    if ([request.requestUrl isEqualToString:kHXBSplash] || [request.requestUrl isEqualToString:kHXBHome_PopView]||[request.requestUrl isEqualToString:kHXBMY_VersionUpdateURL]) {
         return YES;
     }
     return NO;
