@@ -231,7 +231,7 @@
 
 - (void)setHasBank:(BOOL)hasBank {
     _hasBank = hasBank;
-    if (self.hasBank) {
+    if (_hasBank) {
         [_notifitionView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self);
             make.left.equalTo(self);
@@ -251,7 +251,6 @@
     }
 }
 
-// fixme
 - (void)setProfitType:(NSString *)profitType {
     _profitTypeLabel.hidden = !profitType.length;
     if (profitType.length) {

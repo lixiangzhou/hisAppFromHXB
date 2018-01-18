@@ -440,6 +440,31 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)chooseDiscountCouponViewController:(HXBChooseDiscountCouponViewController *)chooseDiscountCouponViewController didSendModel:(HXBCouponModel *)model {
 }
 
+// 获取银行限额
+static const NSInteger topView_bank_high = 300;
+static const NSInteger topView_high = 230;
+- (void)getBankCardLimit {
+    if ([self.hasBindCard isEqualToString:@"1"]) {
+        self.topView.height = kScrAdaptationH750(topView_bank_high);
+        kWeakSelf
+        [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
+            weakSelf.cardModel = model;
+            if (!weakSelf.cardModel) {
+                weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
+            } else {
+                weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
+            }
+            weakSelf.topView.hasBank = YES;
+            weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
+            [weakSelf.hxbBaseVCScrollView reloadData];
+        }];
+    } else {
+        self.topView.height = kScrAdaptationH750(topView_high);
+        self.topView.hasBank = NO;
+        self.hxbBaseVCScrollView.tableHeaderView = self.topView;
+        [self.hxbBaseVCScrollView reloadData];
+    }
+}
 
 // 获取用户信息
 - (void)getNewUserInfo {
@@ -454,32 +479,6 @@ static NSString *const bankString = @"绑定银行卡";
     } andFailure:^(NSError *error) {
         [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
         weakSelf.hxbBaseVCScrollView.hidden = NO;
-    }];
-}
-
-static const NSInteger topView_bank_high = 300;
-static const NSInteger topView_high = 230;
-
-// 获取银行限额
-- (void)getBankCardLimit {
-    kWeakSelf
-    [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
-        weakSelf.hxbBaseVCScrollView.tableHeaderView = nil;
-        weakSelf.cardModel = model;
-        if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
-            weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
-            if (!weakSelf.cardModel) {
-                weakSelf.topView.cardStr = @"--限额：单笔-- 单日--";
-            } else {
-                weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
-            }
-            weakSelf.topView.hasBank = YES;
-        } else {
-            weakSelf.topView.height = kScrAdaptationH750(topView_high);
-            weakSelf.topView.hasBank = NO;
-        }
-        weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
-        [weakSelf.hxbBaseVCScrollView reloadData];
     }];
 }
 
