@@ -506,6 +506,7 @@
         isUPData = NO;
         self.capitalRecordAPI.dataPage = 1;
         self.isShowHUD = NO;
+        [self.capitalRecordViewModel_array removeAllObjects];
     }
     self.capitalRecordAPI.isUPReloadData = isUPData;
     self.capitalRecordAPI.requestArgument = @{
