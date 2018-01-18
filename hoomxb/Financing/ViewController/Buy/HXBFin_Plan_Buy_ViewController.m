@@ -155,7 +155,7 @@ static NSString *const bankString = @"绑定银行卡";
         self.bottomView.clickBtnStr = @"立即加入";
         _balanceTitle = @"可用余额";
     }
-    self.topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", [NSString hxb_getPerMilWithDouble:investMoney.floatValue*self.totalInterest.floatValue/100.0]];
+    self.topView.profitStr = [NSString stringWithFormat:@"预期收益%@", [NSString hxb_getPerMilWithDouble:investMoney.floatValue*self.totalInterest.floatValue/100.0]];
     
     if (self.isNewPlan) {
         CGFloat subsidy = investMoney.floatValue * self.expectedSubsidyInterestAmount.floatValue;
@@ -460,6 +460,12 @@ static NSString *const bankString = @"绑定银行卡";
     }
     cell.titleStr = _titleArray[indexPath.row];
     cell.detailStr = _detailArray[indexPath.row];
+    
+    if (indexPath.row == 0 && self.isNewPlan) {
+        cell.detailStr = @"暂无可用优惠券";
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    
     if (indexPath.row == _titleArray.count - 1) {
         cell.isHeddenHine = YES;
     } else {
