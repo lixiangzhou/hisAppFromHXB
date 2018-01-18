@@ -139,6 +139,12 @@
     self.block();
 }
 
+- (void)alertTip {
+    if (self.alertTipBlock) {
+        self.alertTipBlock();
+    }
+}
+
 - (UILabel *)creditorLabel {
     if (!_creditorLabel) {
         _creditorLabel = [[UILabel alloc] init];
@@ -277,6 +283,34 @@
         [attributedStr addAttribute:NSForegroundColorAttributeName value:COR29 range:NSMakeRange(4, profitStr.length - 5)];
     }
     _profitLabel.attributedText = attributedStr;
+}
+
+- (void)setProfitStr:(NSString *)profitStr andSubsidy:(NSString *)subsidy {
+    NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:@"预期收益" attributes:@{NSForegroundColorAttributeName: COR10}];
+    [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:profitStr attributes:@{NSForegroundColorAttributeName: COR29}]];
+    [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:@"元，加息收益" attributes:@{NSForegroundColorAttributeName: COR10}]];
+    [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:subsidy attributes:@{NSForegroundColorAttributeName: COR29}]];
+    [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:@"元" attributes:@{NSForegroundColorAttributeName: COR10}]];
+    
+    NSTextAttachment *attachment = [NSTextAttachment new];
+    attachment.image = [UIImage imageNamed:@"lightblue_tip"];
+    attachment.bounds = CGRectMake(0, -2, 14, 14);
+    [attrText appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
+    
+    _profitLabel.attributedText = attrText;
+}
+
+- (void)setIsNewPlan:(BOOL)isNewPlan {
+    _isNewPlan = isNewPlan;
+    if (isNewPlan) {
+        kWeakSelf
+        [_profitLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(weakSelf).offset(-kScrAdaptationW(15));
+        }];
+        _profitTypeLabel.hidden = YES;
+        
+        [self.backView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(alertTip)]];
+    }
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {

@@ -420,6 +420,8 @@
     float creditorVCStr = isNewPlan ? MIN(remainAmount, newBiePlanLeftAmount) : MIN(remainAmount, userRemainAmount);
     
     planJoinVC.isNewPlan = isNewPlan;
+    planJoinVC.NewPlanJoinLimit = self.planDetailViewModel.planDetailModel.NewBiePlanAmount;
+    planJoinVC.expectedSubsidyInterestAmount = self.planDetailViewModel.planDetailModel.expectedSubsidyInterestAmount;
     planJoinVC.availablePoint = [NSString stringWithFormat:@"%.2f", creditorVCStr];
     planJoinVC.title = @"加入计划";
     planJoinVC.isFirstBuy               = [self.planDetailViewModel.planDetailModel.isFirst boolValue];
