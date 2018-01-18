@@ -82,8 +82,7 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, copy) NSString *couponid;
 /** 是否获取到优惠券 */
 @property (nonatomic, assign) BOOL hasGetCoupon;
-@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
-@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+@property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
 @property (nonatomic, assign) BOOL hasInvestMoney; // 是否是从上个页面带入的金额，是的话不校验金额，不是的话，校验金额
 @property (nonatomic, assign) double curruntInvestMoney; // 当前输入框的金额
@@ -113,37 +112,19 @@ static NSString *const bankString = @"绑定银行卡";
     
 }
 
-- (void)dealloc {
-    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    
-    if ([keyPath isEqualToString:@"state"]) {
-        NSNumber *tracking = change[NSKeyValueChangeNewKey];
-        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
-            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
-        }
-        return;
-    }
-    
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
-}
-
 - (void)buildUI {
-    self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight) style:(UITableViewStylePlain)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight) style:(UITableViewStylePlain)];
 
-    self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-    self.hxbBaseVCScrollView.hidden = YES;
-    self.hxbBaseVCScrollView.tableFooterView = [self footTableView];
-    self.hxbBaseVCScrollView.tableHeaderView = self.topView;
-    self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-    self.hxbBaseVCScrollView.delegate = self;
-    self.hxbBaseVCScrollView.dataSource = self;
-    self.hxbBaseVCScrollView.rowHeight = kScrAdaptationH750(110.5);
-    [self.view addSubview:self.hxbBaseVCScrollView];
-    [self.hxbBaseVCScrollView reloadData];
+    self.tableView.backgroundColor = kHXBColor_BackGround;
+    self.tableView.hidden = YES;
+    self.tableView.tableFooterView = [self footTableView];
+    self.tableView.tableHeaderView = self.topView;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.rowHeight = kScrAdaptationH750(110.5);
+    [self.view addSubview:self.tableView];
+    [self.tableView reloadData];
 }
 
 // 根据金额改变按钮文案
@@ -274,7 +255,7 @@ static NSString *const bankString = @"绑定银行卡";
         [self alertSmsCodeWithMoney:topupMoney];
     } else {
         [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
-            weakSelf.hxbBaseVCScrollView.tableHeaderView = nil;
+            weakSelf.tableView.tableHeaderView = nil;
             weakSelf.cardModel = model;
             if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
                 weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
@@ -289,8 +270,8 @@ static NSString *const bankString = @"绑定银行卡";
                 weakSelf.topView.height = kScrAdaptationH750(topView_high);
                 weakSelf.topView.hasBank = NO;
             }
-            weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
-            [weakSelf.hxbBaseVCScrollView reloadData];
+            weakSelf.tableView.tableHeaderView = weakSelf.topView;
+            [weakSelf.tableView reloadData];
         }];
     }
 }
@@ -500,14 +481,14 @@ static const NSInteger topView_high = 300;
                 weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
             }
             weakSelf.topView.hasBank = YES;
-            weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
-            [weakSelf.hxbBaseVCScrollView reloadData];
+            weakSelf.tableView.tableHeaderView = weakSelf.topView;
+            [weakSelf.tableView reloadData];
         }];
     } else {
         self.topView.height = kScrAdaptationH750(topView_high);
         self.topView.hasBank = NO;
-        self.hxbBaseVCScrollView.tableHeaderView = self.topView;
-        [self.hxbBaseVCScrollView reloadData];
+        self.tableView.tableHeaderView = self.topView;
+        [self.tableView reloadData];
     }
 }
 
@@ -520,13 +501,13 @@ static const NSInteger topView_high = 300;
         weakSelf.balanceMoneyStr = weakSelf.viewModel.userInfoModel.userAssets.availablePoint;
         [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
         [weakSelf setUpArray];
-        [weakSelf.hxbBaseVCScrollView reloadData];
+        [weakSelf.tableView reloadData];
         [_hud hide];
-        weakSelf.hxbBaseVCScrollView.hidden = NO;
+        weakSelf.tableView.hidden = NO;
     } andFailure:^(NSError *error) {
         [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
         [_hud hide];
-        weakSelf.hxbBaseVCScrollView.hidden = NO;
+        weakSelf.tableView.hidden = NO;
     }];
 }
 
@@ -538,7 +519,7 @@ static const NSInteger topView_high = 300;
                                @"type": @"plan"
                                };
     NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
-    HXBFin_creditorChange_TableViewCell *cell = [self.hxbBaseVCScrollView cellForRowAtIndexPath:indexpath];
+    HXBFin_creditorChange_TableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexpath];
     cell.isStartAnimation = YES;
     _hasGetCoupon = YES;
     self.bottomView.addBtnIsUseable = NO;
@@ -628,7 +609,7 @@ static const NSInteger topView_high = 300;
     _profitMoneyStr = _profitMoneyStr ? _profitMoneyStr : @"";
     self.titleArray = @[_couponTitle, @"支付金额", _balanceTitle];
     self.detailArray = @[_discountTitle,  [NSString hxb_getPerMilWithDouble: _handleDetailTitle.doubleValue],  [NSString hxb_getPerMilWithDouble: _balanceMoneyStr.doubleValue]];
-    [self.hxbBaseVCScrollView reloadData];
+    [self.tableView reloadData];
 }
 
 - (NSArray *)titleArray {
@@ -669,7 +650,11 @@ static const NSInteger topView_high = 300;
         _topView.block = ^{
         };
     }
-    _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+    if (self.isNewPlan) {
+        _topView.creditorMoney = [NSString stringWithFormat:@"新手产品剩余可购买金额%@元", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+    } else {
+        _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+    }
     _topView.placeholderStr = _placeholderStr;
     return _topView;
 }

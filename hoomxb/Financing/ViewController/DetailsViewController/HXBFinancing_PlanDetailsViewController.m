@@ -411,9 +411,15 @@
  */
 - (void)enterPlanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
     HXBFin_Plan_Buy_ViewController *planJoinVC = [[HXBFin_Plan_Buy_ViewController alloc] init];
+    
     float remainAmount = self.planDetailViewModel.planDetailModel.remainAmount.floatValue;
     float userRemainAmount = self.planDetailViewModel.planDetailModel.userRemainAmount.floatValue;
-    float creditorVCStr = remainAmount < userRemainAmount ? remainAmount : userRemainAmount;
+    float newBiePlanLeftAmount = self.planDetailViewModel.planDetailModel.NewBiePlanLeftAmount.floatValue;
+    
+    BOOL isNewPlan = self.planDetailViewModel.planDetailModel.novice == 1;
+    float creditorVCStr = isNewPlan ? MIN(remainAmount, newBiePlanLeftAmount) : MIN(remainAmount, userRemainAmount);
+    
+    planJoinVC.isNewPlan = isNewPlan;
     planJoinVC.availablePoint = [NSString stringWithFormat:@"%.2f", creditorVCStr];
     planJoinVC.title = @"加入计划";
     planJoinVC.isFirstBuy               = [self.planDetailViewModel.planDetailModel.isFirst boolValue];
