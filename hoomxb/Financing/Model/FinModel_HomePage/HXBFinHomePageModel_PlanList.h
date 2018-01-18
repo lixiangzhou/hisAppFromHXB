@@ -12,6 +12,8 @@
 
 // 锁定期限(月),计划期限
 @property (nonatomic, copy) NSString *lockPeriod;
+// 新手标志
+@property (nonatomic, assign) int novice;
 // 开始销售时间
 @property (nonatomic, copy) NSString *beginSellingTime;
 // 最小注册金额
@@ -100,7 +102,7 @@
 ///加入
 @property (nonatomic,copy) NSString *joined;
 ///锁天
-@property (nonatomic,copy) NSString *lockDays;
+@property (nonatomic, assign) int lockDays;
 
 ///过程比
 @property (nonatomic,copy) NSString *processRatio;

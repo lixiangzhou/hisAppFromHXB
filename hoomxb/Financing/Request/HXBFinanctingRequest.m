@@ -161,7 +161,7 @@
     
     //是否为下拉刷新
     self.planListAPI.isUPReloadData = isUPData;///这里一定要 在前面  否则 api的page不会++ 或变为1
-    NSString *planListUrl = isUPData ? @"/plan?page=1&cashType=HXB": [NSString stringWithFormat:@"/plan?page=%ld",self.planListAPI.dataPage];
+    NSString *planListUrl = isUPData ? @"/plan?page=1&cashType=hxb": [NSString stringWithFormat:@"/plan?page=%ld",self.planListAPI.dataPage];
     self.planListAPI.requestUrl = planListUrl;
     self.planListAPI.requestMethod = NYRequestMethodGet;
     [self.planListAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
@@ -170,9 +170,14 @@
         kHXBResponsShowHUD
         NSMutableArray <NSDictionary *>* dataList = [NSMutableArray arrayWithArray:responseObject[@"data"][@"dataList"]];
         NSArray <NSDictionary *>* recommendList = responseObject[@"data"][@"recommendList"];
+        NSArray <NSDictionary *>* newbieProductList = responseObject[@"data"][@"newbieProductList"];
+        
         // 插入按月付息的数组
         if (recommendList.count > 0) {
             [dataList insertObjects:recommendList atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, recommendList.count)]];
+        }
+        if (newbieProductList.count > 0) {
+            [dataList insertObjects:newbieProductList atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, newbieProductList.count)]];
         }
 
         NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];

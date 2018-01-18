@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@class HXBFinHomePageViewModel_PlanList;
+#import "HXBFinHomePageViewModel_PlanList.h"
+
 @class HXBFinHomePageViewModel_LoanList;
 
 @interface HXBFinancting_PlanListTableViewCell : HXBBaseTableViewCell
@@ -22,6 +23,6 @@
 ///期限——UI
 @property (nonatomic,strong) NSString *lockPeriodLabel_ConstStr;
 // 标的类型
-@property (nonatomic, strong) NSString *planType; // 按月计息 HXB, 普通 INVEST
+@property (nonatomic, assign) PlanType planType; // 按月计息 HXB, 普通 INVEST, 新手 NEWCOMER
 
 @end

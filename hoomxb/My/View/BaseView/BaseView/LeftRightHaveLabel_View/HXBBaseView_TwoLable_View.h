@@ -14,6 +14,8 @@
 @property (nonatomic,strong) HXBBaseView_TwoLable_View_ViewModel *ViewVM;
 @property (nonatomic,strong) UILabel *leftLabel;
 @property (nonatomic,strong) UILabel *rightLabel;
+// 是否是债转页
+@property (nonatomic, assign) BOOL isLoanTransfer;
 - (instancetype)initWithFrame:(CGRect)frame andSpacing: (CGFloat)spacing;
 
 ///赋值的viewModel

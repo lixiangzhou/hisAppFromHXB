@@ -71,30 +71,30 @@ typedef enum : NSUInteger {
         self.isHidden = NO;
         self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"dd日HH:mm"];
     }
-
 }
-///**
-// 剩余时间
-// */
-//- (NSString *) countDownLastStr {
-//    if (!_countDownLastStr) {
-//        _countDownLastStr = @(self.planListModel.diffTime.integerValue / 1000.0).description;
-//        if (_countDownLastStr.integerValue <= 3600 && _countDownLastStr.integerValue >= 0) {
-//            NSLog(@"%@倒计时",_countDownLastStr);
-//            self.isCountDown = YES;
-//            //会有倒计时
-//        }else if (_countDownLastStr.integerValue > 3600) {
-//            //显示的是数字 12日12：12
-//            NSDate *date = [[HXBBaseHandDate sharedHandleDate] returnDateWithOBJ:self.planListModel.beginSellingTime  andDateFormatter:@"yyyy-MM-dd HH:mm:ss"];
-//            NSString *datestr = @(date.timeIntervalSince1970).description;
-//            self.isHidden = NO;
-//            self.remainTimeString = [[HXBBaseHandDate sharedHandleDate] stringFromDate:datestr andDateFormat:@"dd日HH:mm"];
-//        }
-//    }
-//    
-//    return _countDownLastStr;
-//}
 
+// 期限
+- (NSString *)lockPeriod {
+    if (self.planListModel.lockPeriod.length) {
+        return [NSString stringWithFormat:@"%@", self.planListModel.lockPeriod];
+    }
+    if (self.planListModel.lockDays) {
+        return [NSString stringWithFormat:@"%d", self.planListModel.lockDays];
+    }
+    return  @"--";
+}
+
+- (PlanType)planType {
+    if (self.planListModel.novice) {
+        return planType_newComer;
+    } else {
+        if ([self.planListModel.cashType isEqualToString:@"HXB"]) {
+            return playType_HXB;
+        } else {
+            return planType_invest;
+        }
+    }
+}
 
 #pragma mark - getter
 //红利计划状态
@@ -105,7 +105,7 @@ typedef enum : NSUInteger {
 
 //红利计划状态
 - (NSString *)setupUnifyStatus {
-   [self setUPAddButtonColorWithType:YES];
+   [self setupAddButtonColorWithType:YES];
     switch (self.planListModel.unifyStatus.integerValue) {
         case 0:
 //            return @"等待预售开始超过30分";
@@ -120,10 +120,10 @@ typedef enum : NSUInteger {
         case 5:
 //            return @"等待开放购买小于30分钟";
 //            _isCountDown = YES;
-            [self setUPAddButtonColorWithType:YES];
+            [self setupAddButtonColorWithType:YES];
             return @"等待加入";
         case 6:
-            [self setUPAddButtonColorWithType:NO];
+            [self setupAddButtonColorWithType:NO];
             return @"立即加入";
         case 7:
         {
@@ -137,32 +137,37 @@ typedef enum : NSUInteger {
 //            if (self.planListModel.endSellingTime.floatValue >= millisecond) {
 //                str = @"已满额";
 //            }else {
-                str = @"销售结束";//需求换了,现在只有销售结束
-            [self setUPAddButtonColorWithType:YES];
+            str = @"销售结束"; //需求换了,现在只有销售结束
+            [self setupAddButtonColorWithType:YES];
 //            }
             return str;
         }
         case 8:
-            [self setUPAddButtonColorWithType:YES];
+            [self setupAddButtonColorWithType:YES];
             return @"收益中";
         case 9:
             return @"开放期";
         case 10:
-            [self setUPAddButtonColorWithType:YES];
+            [self setupAddButtonColorWithType:YES];
             return @"已退出";
     }
     return nil;
 }
-- (void)setUPAddButtonColorWithType:(BOOL) isSelected {
+- (void)setupAddButtonColorWithType:(BOOL) isSelected {
     if (isSelected) {
         self.addButtonTitleColor = kHXBColor_Font0_6;
         self.addButtonBackgroundColor = kHXBColor_Grey090909;
         self.addButtonBorderColor = kHXBColor_Font0_5;
         return;
     }
+    if (self.planListModel.novice) {
+        self.addButtonBackgroundColor = kHXBColor_Orange_newComer;
+        self.addButtonBorderColor = kHXBColor_Orange_newComer;
+    } else {
+        self.addButtonBackgroundColor = kHXBColor_Red_090303;
+        self.addButtonBorderColor = kHXBColor_Red_090303;
+    }
     self.addButtonTitleColor = [UIColor whiteColor];
-    self.addButtonBackgroundColor = kHXBColor_Red_090303;
-    self.addButtonBorderColor = kHXBColor_Red_090303;
 
 }
 //红利计划列表的年利率计算

@@ -26,21 +26,15 @@
 //#import "HXBFinance_MouthType_tableView.h"
 
 
-@interface HXBFinancting_PlanListTableView ()
-<
-UITableViewDelegate,
-UITableViewDataSource
->
-@property (nonatomic,strong) HXBNoDataView *nodataView;
-@end
+@interface HXBFinancting_PlanListTableView () <UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic,strong) HXBNoDataView *nodataView;
+
+@end
 
 @implementation HXBFinancting_PlanListTableView
 
-
-
 static NSString *CELLID = @"CELLID";
-
 
 - (void)setPlanListViewModelArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)planListViewModelArray {
     _planListViewModelArray = planListViewModelArray;
@@ -61,16 +55,6 @@ static NSString *CELLID = @"CELLID";
     self.delegate = self;
     self.dataSource = self;
     self.backgroundColor = kHXBColor_BackGround;
-//    self.headView = [[HXBFinance_MouthType_tableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH750(299)) style:(UITableViewStyleGrouped)];
-//    kWeakSelf
-//    self.headView.block = ^(id model) {
-//        if (weakSelf.block) {
-//            weakSelf.block(model);
-//        }
-//    };
-//    self.headView.expectedYearRateLable_ConstStr = @"平均历史年化收益";
-//    self.headView.lockPeriodLabel_ConstStr = @"期限(月)";
-//    self.tableHeaderView = self.headView;
     [self registerClass:[HXBFinancting_PlanListTableViewCell class] forCellReuseIdentifier:CELLID];
     self.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.backgroundColor = kHXBColor_BackGround;
@@ -90,9 +74,8 @@ static NSString *CELLID = @"CELLID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
     cell.finPlanListViewModel = self.planListViewModelArray[indexPath.section];
-    cell.lockPeriodLabel_ConstStr = self.lockPeriodLabel_ConstStr;
+    cell.lockPeriodLabel_ConstStr = self.planListViewModelArray[indexPath.section].planListModel.lockPeriod.length ? @"期限(月)" : @"期限(天)";
     cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;
-    
     return cell;
 }
 
@@ -106,15 +89,19 @@ static NSString *CELLID = @"CELLID";
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if ([self.planListViewModelArray[indexPath.section].planListModel.cashType isEqualToString:@"HXB"]) { //如果是按月付息
+    // 新手标
+    if (self.planListViewModelArray[indexPath.section].planType == planType_newComer) {
+        return kPlanListCellNoHasCouponHeight;
+    } else if (self.planListViewModelArray[indexPath.section].planType == playType_HXB) {
         return kPlanListCellHasCouponHeight;
-    } else {
+    } else if (self.planListViewModelArray[indexPath.section].planType == planType_invest) {
         if (self.planListViewModelArray[indexPath.section].planListModel.hasCoupon) {
             return kPlanListCellHasCouponHeight;
         } else {
             return kPlanListCellNoHasCouponHeight;
         }
     }
+    return kPlanListCellNoHasCouponHeight; // 默认高度
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
