@@ -12,8 +12,6 @@
 #import "HXBFinBase_FlowChartView.h"
 #import "HXBFinDetail_TableView.h"
 
-#import "HXBFinDetailViewModel_PlanDetail.h"//红利计划详情的ViewModel
-
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划详情的Model
 
 #import "HXBFinHomePageViewModel_PlanList.h"///红利计划列表页Viewmodel

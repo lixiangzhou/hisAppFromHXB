@@ -193,19 +193,30 @@
     kWeakSelf
     _planDetailViewModel = planDetailViewModel;
     [self.topView setUPValueWithManager:^HXBFin_PlanDetailView_TopViewManager *(HXBFin_PlanDetailView_TopViewManager *manager) {
-        if ([weakSelf.planDetailViewModel.planDetailModel.extraInterestRate floatValue] != 0) {
-            weakSelf.topView.attributeStringLength = weakSelf.planDetailViewModel.planDetailModel.extraInterestRate.length + 2;
-            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%+%.1f%%",weakSelf.planDetailViewModel.planDetailModel.baseInterestRate.doubleValue, weakSelf.planDetailViewModel.planDetailModel.extraInterestRate.doubleValue];
+        
+        if (weakSelf.planDetailViewModel.planDetailModel.novice == 1) { //新手计划
+            if ([weakSelf.planDetailViewModel.planDetailModel.subsidyInterestRate floatValue] != 0) {
+                weakSelf.topView.attributeStringLength = weakSelf.planDetailViewModel.planDetailModel.subsidyInterestRate.length + 2;
+                manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%+%.1f%%",weakSelf.planDetailViewModel.planDetailModel.baseInterestRate.doubleValue, weakSelf.planDetailViewModel.planDetailModel.subsidyInterestRate.doubleValue];
+            } else {
+                manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate.doubleValue];
+            }
         } else {
-            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate.doubleValue];
+            if ([weakSelf.planDetailViewModel.planDetailModel.extraInterestRate floatValue] != 0) {
+                weakSelf.topView.attributeStringLength = weakSelf.planDetailViewModel.planDetailModel.extraInterestRate.length + 2;
+                manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%+%.1f%%",weakSelf.planDetailViewModel.planDetailModel.baseInterestRate.doubleValue, weakSelf.planDetailViewModel.planDetailModel.extraInterestRate.doubleValue];
+            } else {
+                manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate.doubleValue];
+            }
         }
+        manager.leftViewManager.leftLabelStr = weakSelf.planDetailViewModel.lockPeriod;//期限
+        manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithIntegetNumber:[weakSelf.planDetailViewModel.minRegisterAmount doubleValue]];//起投
+        manager.rightViewManager.leftLabelStr = weakSelf.planDetailViewModel.remainAmount;
         manager.topViewManager.rightLabelStr = @"平均历史年化收益";
-        manager.leftViewManager.leftLabelStr = weakSelf.planDetailViewModel.lockPeriodStr;
         manager.leftViewManager.rightLabelStr = @"锁定期限";
-        manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithIntegetNumber:[weakSelf.planDetailViewModel.minRegisterAmount doubleValue]];
         manager.midViewManager.rightLabelStr = @"起投";
         manager.rightViewManager.rightLabelStr = weakSelf.planDetailViewModel.remainAmount_constStr;
-        manager.rightViewManager.leftLabelStr = weakSelf.planDetailViewModel.remainAmount;
+        
         return manager;
     }];
     self.diffTime = weakSelf.planDetailViewModel.countDownStr;

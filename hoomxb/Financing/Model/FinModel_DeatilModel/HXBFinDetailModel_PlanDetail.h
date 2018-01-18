@@ -129,6 +129,12 @@
 @property (nonatomic,copy) NSString *incomeApproach;//": "收益方式文案，文案规则：HXB返回：按月付息，INVEST返回：收益复投"
 @property (nonatomic,copy) NSString *interestDate;//": "按月付息日具体文案，拼接规则：每月+cashDrawDay+日付息"
 
+@property (nonatomic,copy) NSString *subsidyInterestRate;//新手贴息收益率
+@property (nonatomic,copy) NSString *expectedSubsidyInterestAmount;//新手贴息预期收益/100元
+@property (nonatomic,assign) int novice;//是否是新手计划(1:是新手 0:非新手)
+@property (nonatomic,copy) NSString *lockDays;//新手计划锁定期/天
+@property (nonatomic,copy) NSString *newbiePlanAmount;//新手产品购买额度
+@property (nonatomic,copy) NSString *newbiePlanLeftAmount;//新手产品剩余额度
 
 
 
@@ -207,51 +213,4 @@
 @end
 
 
-/**
- data": {
- "isRolePassed": "1",
- "principalBalanceContractName": "用户利益保障机制",
- "totalInterest": "0.00",
- "registerCount": "40",
- "contractUrl": "http://172.16.3.27:28131/account/wapContract.action?type=uplan",
- "dataList": [
- {
- "rsvCount": "0",
- "couponInterestRate": "",
- "introduce": "红利计划",
- "unifyStatus": "9",
- "baseInterestRate": "0.0",
- "lockPeriodStr": "2016年04月05日(3个月)",
- "endLockingTime": "2016-04-05 15:08:51",
- "financeStatus": "7",
- "id": "1",
- "extraInterestRate": "0.0",
- "quitRateAdvance": "加入本金的2%",
- "expectedRate": "6.0",
- "name": "红利计划-A160104期-k1",
- "expectedRateInvest": "6.0",
- "singleMaxRegisterAmount": "500000.0",
- "lockPeriod": "3",
- "beginSellingTime": "2016-01-04 15:08:11",
- "productsJson": "实地认证标",
- "interestName": "超出预期收益部分作为服务费",
- "minRegisterAmount": "1000",
- "fillTime": "1天0时0分40秒",
- "category": "A",
- "financeEndTime": "2016-01-05 15:08:11",
- "lockStart": "01-05 15:08",
- "joinCount": "0",
- "salePeriod": "1",
- "beginResellingTime": "2016-01-04 15:08:51"
- }
- ],
- "currentTime": "2017-05-09 16:35:34",
- "lockDay": 1,
- "contractName": "理财计划服务协议",
- "principalBalanceContractNameUrl": "http://www.we.com/wap/focuswap/capital.html"
- },
- "message": "success",
- "status": 0
- }
- */
 
