@@ -5,8 +5,8 @@
 //  Created by HXB-C on 2017/5/11.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
-
-#define kHXBBottomSpacing 10
+#define kHXBFooterLabelHeight kScrAdaptationH(12)
+#define kHXBBottomSpacing kScrAdaptationH(10)
 #define kHXBInvestViewHeight kScrAdaptationH(311)
 #define kHXBNotInvestViewHeight kScrAdaptationH(279)
 
@@ -80,11 +80,11 @@
     if([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
         //已经投资显示的界面
         self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBInvestViewHeight + HXBStatusBarAdditionHeight);
-        [weakSelf.headView showAlreadyInvestedView];
+        [self.headView showAlreadyInvestedView];
     }else{
         //没有投资显示的界面
         self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight);
-        [weakSelf.headView showNotValidatedView];
+        [self.headView showNotValidatedView];
     }
 }
 
@@ -102,14 +102,9 @@
 - (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
 {
     _homeBaseModel = homeBaseModel;
-     UIEdgeInsets contentInset = self.mainTableView.contentInset;
     if (homeBaseModel.homeTitle.baseTitle.length) {
         self.footerLabel.text = [NSString stringWithFormat:@"- %@ -",homeBaseModel.homeTitle.baseTitle];
         self.mainTableView.tableFooterView = self.footerView;
-    } else {
-        self.mainTableView.tableFooterView = nil;
-        contentInset.bottom = kHXBBottomSpacing;
-        self.mainTableView.contentInset = contentInset;
     }
     
     self.headView.homeBaseModel = homeBaseModel;
@@ -203,19 +198,19 @@
     }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *header = [[UIView alloc] init];
-    header.backgroundColor = [UIColor clearColor];
-    return header;
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *footer = [[UIView alloc] init];
+    footer.backgroundColor = [UIColor clearColor];
+    return footer;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.01;
+    return kHXBBottomSpacing;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return kScrAdaptationH(10);
+    return 0.01;
 }
 
 #pragma mark SET/GET METHODS
@@ -268,10 +263,11 @@
     if (!_footerView) {
         _footerView = [UIView new];
         _footerView.backgroundColor = [UIColor clearColor];
-        _footerView.frame = CGRectMake(0, 0, self.mainTableView.width, kScrAdaptationH(20) + 2 * kHXBBottomSpacing);
+        _footerView.frame = CGRectMake(0, 0, self.mainTableView.width, kHXBBottomSpacing + kHXBFooterLabelHeight);
         [_footerView addSubview:self.footerLabel];
         [self.footerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.center.equalTo(_footerView);
+            make.top.equalTo(_footerView);
+            make.centerX.equalTo(_footerView);
         }];
         
     }
@@ -291,7 +287,7 @@
 - (UITableView *)mainTableView
 {
     if (!_mainTableView) {
-        _mainTableView = [[UITableView alloc]initWithFrame:CGRectZero];
+        _mainTableView = [[UITableView alloc] initWithFrame:CGRectZero style:(UITableViewStyleGrouped)];
         _mainTableView.delegate = self;
         _mainTableView.dataSource = self;
         _mainTableView.backgroundColor = RGB(245, 245, 245);
