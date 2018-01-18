@@ -7,9 +7,9 @@
 //
 #define kHXBFooterLabelHeight kScrAdaptationH(12)
 #define kHXBBottomSpacing kScrAdaptationH(10)
-#define kHXBInvestViewHeight kScrAdaptationH(311)
-#define kHXBNotInvestViewHeight kScrAdaptationH(279)
-
+#define kHXBInvestViewHeight kScrAdaptationH(321)
+#define kHXBNotInvestViewHeight kScrAdaptationH(289)
+#define kHXBNewbieHeight kScrAdaptationH(90)
 
 #import "HxbHomeView.h"
 #import "HXBHomePageHeadView.h"
@@ -73,7 +73,7 @@
     kWeakSelf
     if (![KeyChain isLogin]) {
         //没有投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight);
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + kHXBNewbieHeight + HXBStatusBarAdditionHeight);
         [weakSelf.headView showNotValidatedView];
         return;
     }
@@ -85,6 +85,9 @@
         //没有投资显示的界面
         self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight);
         [self.headView showNotValidatedView];
+    }
+    if (viewModel.userInfoModel.userInfo.isNewbie) {
+        self.headView.height += kHXBNewbieHeight;
     }
 }
 

@@ -26,6 +26,10 @@
 
 @property (nonatomic, strong) UIButton *noticeBtn;
 
+@property (nonatomic, strong) UIView *newbieView;
+
+@property (nonatomic, strong) UIImageView *newbieImageView;
+
 @end
 
 @implementation HXBHomePageHeadView
@@ -39,6 +43,8 @@
         [self addSubview:self.indicationView];
         [self addSubview:self.bannerView];
         [self addSubview:self.noticeBtn];
+        [self addSubview:self.newbieView];
+        [self.newbieView addSubview:self.newbieImageView];
         [self setupUI];
     }
     return self;
@@ -53,9 +59,16 @@
         make.height.offset(kHXBNoticeButtonWithAndHeight);
         make.width.offset(kHXBNoticeButtonWithAndHeight);
     }];
-    [self.bannerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.offset(kScrAdaptationH(166));
+    [self.newbieView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(90));
+        make.top.equalTo(self.bannerView.mas_bottom).offset(kScrAdaptationH(10));
+    }];
+    [self.newbieImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.newbieView).offset(kHXBSpacing_30);
+        make.right.equalTo(self.newbieView).offset(-kHXBSpacing_30);
+        make.height.offset(kScrAdaptationH(65));
+        make.bottom.equalTo(self.newbieView.mas_bottom);
     }];
 }
 
@@ -73,6 +86,11 @@
 //    self.height = self.height - self.indicationView.height;
     self.indicationView.hidden = YES;
     [self resetView];
+    [self.bannerView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(166));
+        make.top.equalTo(self.afterLoginView.mas_bottom);
+    }];
 }
 
 // 显示投资页
@@ -85,6 +103,11 @@
     }
     self.indicationView.hidden = NO;
     [self resetView];
+    [self.bannerView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self);
+        make.height.offset(kScrAdaptationH(166));
+        make.top.equalTo(self.indicationView.mas_bottom);
+    }];
 }
 
 - (void)showSecurityCertificationOrInvest:(HXBRequestUserInfoViewModel *)viewModel{
@@ -138,7 +161,14 @@
 }
 
 #pragma mark Set Methods
-
+- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
+    _userInfoViewModel = userInfoViewModel;
+    if (KeyChain.isLogin) {
+        self.newbieView.hidden = !userInfoViewModel.userInfoModel.userInfo.isNewbie;
+    } else {
+        self.newbieView.hidden = NO;
+    }
+}
 #pragma mark Get Methods
 - (HXBHomePageLoginIndicationView *)indicationView
 {
@@ -199,5 +229,21 @@
     return _noticeBtn;
 }
 
+- (UIView *)newbieView {
+    if (!_newbieView) {
+        _newbieView = [[UIView alloc] init];
+        _newbieView.backgroundColor = [UIColor whiteColor];
+    }
+    return _newbieView;
+    
+}
+
+- (UIImageView *)newbieImageView {
+    if (!_newbieImageView) {
+        _newbieImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"newBie"]];
+        _newbieImageView.contentMode = UIViewContentModeScaleAspectFit;
+    }
+    return _newbieImageView;
+}
 
 @end
