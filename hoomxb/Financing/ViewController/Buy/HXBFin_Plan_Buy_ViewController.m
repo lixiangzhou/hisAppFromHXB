@@ -184,6 +184,7 @@ static NSString *const bankString = @"绑定银行卡";
         }
         [weakSelf setUpArray];
     } andFailureBlock:^(NSError *error) {
+        [weakSelf getBestCouponFailWithMoney:@"0" cell:nil];
         weakSelf.discountTitle = @"暂无可用优惠券";
     }];
 }
@@ -548,13 +549,21 @@ static const NSInteger topView_high = 300;
             [weakSelf requestSuccessWithModel:model cell:cell money:money ];
         }
     } andFailureBlock:^(NSError *error) {
-        weakSelf.hasBestCoupon = NO;
-        cell.isStartAnimation = NO;
+        [weakSelf getBestCouponFailWithMoney:money cell:cell];
         weakSelf.discountTitle = @"请选择优惠券";
-        [weakSelf setUpArray];
         [weakSelf changeItemWithInvestMoney:money];
     }];
-    
+}
+
+// 未匹配到优惠券调用方法
+- (void)getBestCouponFailWithMoney:(NSString *)money cell:(HXBFin_creditorChange_TableViewCell *)cell {
+    self.hasBestCoupon = NO;
+    self.hasGetCoupon = NO;
+    cell.isStartAnimation = NO;
+    self.bottomView.addBtnIsUseable = YES;
+    self.couponTitle = @"优惠券";
+    self.discountMoney = 0;
+    self.handleDetailTitle = money;
 }
 
 - (void)requestSuccessWithModel:(HXBBestCouponModel *)model cell:(HXBFin_creditorChange_TableViewCell *)cell money: (NSString *)money {
