@@ -461,11 +461,6 @@ static NSString *const bankString = @"绑定银行卡";
     cell.titleStr = _titleArray[indexPath.row];
     cell.detailStr = _detailArray[indexPath.row];
     
-    if (indexPath.row == 0 && self.isNewPlan) {
-        cell.detailStr = @"暂无可用优惠券";
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-    
     if (indexPath.row == _titleArray.count - 1) {
         cell.isHeddenHine = YES;
     } else {
@@ -485,7 +480,7 @@ static NSString *const bankString = @"绑定银行卡";
         chooseDiscountVC.planid = _loanId;
         chooseDiscountVC.investMoney = _inputMoneyStr ? _inputMoneyStr : @"";
         chooseDiscountVC.type = @"plan";
-        chooseDiscountVC.couponid = _couponid;
+        chooseDiscountVC.couponid = self.isNewPlan ? @"0" : _couponid;
         [self.navigationController pushViewController:chooseDiscountVC animated:YES];
     }
 }
@@ -655,6 +650,9 @@ static const NSInteger topView_high = 300;
 - (void)setUpArray {
     _profitMoneyStr = _profitMoneyStr ? _profitMoneyStr : @"";
     self.titleArray = @[_couponTitle, @"支付金额", _balanceTitle];
+    if (self.isNewPlan) {
+        _discountTitle = @"暂无可用优惠券";
+    }
     self.detailArray = @[_discountTitle,  [NSString hxb_getPerMilWithDouble: _handleDetailTitle.doubleValue],  [NSString hxb_getPerMilWithDouble: _balanceMoneyStr.doubleValue]];
     [self.tableView reloadData];
 }
