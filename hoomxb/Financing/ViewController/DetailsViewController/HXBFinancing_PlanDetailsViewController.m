@@ -373,9 +373,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    HXBTenderDetailViewController *tenderVC = [HXBTenderDetailViewController new];
-    [self.navigationController pushViewController:tenderVC animated:YES];
-    return;
     if (indexPath.section == 0) {
         [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:self];
     } else if (indexPath.section == 2) {
