@@ -129,12 +129,12 @@
 @property (nonatomic,copy) NSString *incomeApproach;//": "收益方式文案，文案规则：HXB返回：按月付息，INVEST返回：收益复投"
 @property (nonatomic,copy) NSString *interestDate;//": "按月付息日具体文案，拼接规则：每月+cashDrawDay+日付息"
 
-@property (nonatomic,copy) NSString *subsidyInterestRate;//新手贴息收益率
-@property (nonatomic,copy) NSString *expectedSubsidyInterestAmount;//新手贴息预期收益/100元
-@property (nonatomic,assign) int novice;//是否是新手计划(1:是新手 0:非新手)
-@property (nonatomic,copy) NSString *lockDays;//新手计划锁定期/天
-@property (nonatomic,copy) NSString *newbiePlanAmount;//新手产品购买额度
-@property (nonatomic,copy) NSString *newbiePlanLeftAmount;//新手产品剩余额度
+@property (nonatomic,copy) NSString *subsidyInterestRate;///新手贴息收益率
+@property (nonatomic,copy) NSString *expectedSubsidyInterestAmount;///新手贴息预期收益/100元
+@property (nonatomic,copy) NSString *novice;///是否是新手计划(1:是新手 0:非新手)
+@property (nonatomic,copy) NSString *lockDays;///新手计划锁定期/天
+@property (nonatomic,copy) NSString *newbiePlanAmount;///新手产品购买额度
+@property (nonatomic,copy) NSString *newbiePlanLeftAmount;///新手产品剩余额度
 
 
 

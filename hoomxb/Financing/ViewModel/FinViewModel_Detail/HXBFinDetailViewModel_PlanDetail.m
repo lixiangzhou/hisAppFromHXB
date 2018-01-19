@@ -118,7 +118,7 @@
 }
 ///计划期限（锁定期）
 - (void)setUPLockPeriod {
-    NSString *lockStr = self.planDetailModel.novice == 1&&self.planDetailModel.lockDays ? [NSString stringWithFormat: @"%@天",self.planDetailModel.lockPeriodStr] : [NSString stringWithFormat: @"%@个月",self.planDetailModel.lockPeriod];
+    NSString *lockStr = [self.planDetailModel.novice isEqualToString:@"1"]&&self.planDetailModel.lockDays ? [NSString stringWithFormat: @"%@天",self.planDetailModel.lockDays] : [NSString stringWithFormat: @"%@个月",self.planDetailModel.lockPeriod];
     self.lockPeriod = lockStr;
 }
 

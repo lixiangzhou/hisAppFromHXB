@@ -194,10 +194,10 @@
     _planDetailViewModel = planDetailViewModel;
     [self.topView setUPValueWithManager:^HXBFin_PlanDetailView_TopViewManager *(HXBFin_PlanDetailView_TopViewManager *manager) {
         
-        if (weakSelf.planDetailViewModel.planDetailModel.novice == 1) { //新手计划
+        if ([weakSelf.planDetailViewModel.planDetailModel.novice isEqualToString:@"1"]) { //新手计划
             if ([weakSelf.planDetailViewModel.planDetailModel.subsidyInterestRate floatValue] != 0) {
                 weakSelf.topView.attributeStringLength = weakSelf.planDetailViewModel.planDetailModel.subsidyInterestRate.length + 2;
-                manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%+%.1f%%",weakSelf.planDetailViewModel.planDetailModel.baseInterestRate.doubleValue, weakSelf.planDetailViewModel.planDetailModel.subsidyInterestRate.doubleValue];
+                manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%+%.1f%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate.doubleValue, weakSelf.planDetailViewModel.planDetailModel.subsidyInterestRate.doubleValue];
             } else {
                 manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate.doubleValue];
             }

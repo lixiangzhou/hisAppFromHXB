@@ -80,7 +80,12 @@
         alertVC.isCenterShow = YES;
         [self presentViewController:alertVC animated:YES completion:nil];
     };
-
+    self.planDetailView.tipNoviceClickBlock = ^{
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:[NSString stringWithFormat:@"计划按照%.1lf%%计息，加息收益%@元将在计划退出时发放至您的账户",weakSelf.planViewModel.planModelDataList.expectedRate.floatValue,weakSelf.planViewModel.planModelDataList.expectedSubsidyInterestAmount] force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
+        alertVC.isHIddenLeftBtn = YES;
+        alertVC.isCenterShow = YES;
+        [self presentViewController:alertVC animated:YES completion:nil];
+    };
     ///点击了立即加入button
     [self.planDetailView clickAddButtonWithBlock:^(UIButton *button) {
         [weakSelf clickAddButton];
@@ -181,7 +186,8 @@
         manager.topViewStatusStr = viewModel.status;
         manager.topViewMassgeManager.rightLabelStr = @"已获收益（元）";
         manager.topViewMassgeManager.leftLabelStr = viewModel.earnAmount;
-        
+        manager.type = weakSelf.type;
+        manager.planDetailModel = viewModel.planDetailModel;
         ///判断到底是哪种
         [weakSelf judgementStatusWithStauts: viewModel.statusInt andManager:manager andHXBMYViewModel_PlanDetailViewModel:viewModel];
 
