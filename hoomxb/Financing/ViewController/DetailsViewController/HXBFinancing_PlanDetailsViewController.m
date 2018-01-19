@@ -19,7 +19,7 @@
 
 #import "HXBFinAddRecordVC_Plan.h"//红利计划的加入记录
 #import "HXBFin_Detail_DetailsVC_Plan.h"//红利计划详情中的详情
-
+#import "HXBTenderDetailViewController.h"
 
 
 #pragma mark --- 新改（肖扬 红利计划 详情）
@@ -373,6 +373,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    HXBTenderDetailViewController *tenderVC = [HXBTenderDetailViewController new];
+    [self.navigationController pushViewController:tenderVC animated:YES];
+    return;
     if (indexPath.section == 0) {
         [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:self];
     } else if (indexPath.section == 2) {
