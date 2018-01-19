@@ -142,17 +142,17 @@
         self.homeView.userInfoViewModel = self.userInfoViewModel;
     }
     
-    if (!self.homeView.homeBaseModel) {
+    if (!self.homeView.homeBaseViewModel.homeBaseModel) {
         id responseObject = [PPNetworkCache httpCacheForURL:kHXBHome_HomeURL parameters:nil];
         if (responseObject) {
             NSDictionary *baseDic = [responseObject valueForKey:@"data"];
-            self.homeView.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
+            self.homeView.homeBaseViewModel.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
         }
     }
     HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
     [request homePlanRecommendWithIsUPReloadData:isUPReloadData andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
         NSLog(@"%@",viewModel);
-        weakSelf.homeView.homeBaseModel = viewModel.homeBaseModel;
+        weakSelf.homeView.homeBaseViewModel = viewModel;
         weakSelf.homeView.isStopRefresh_Home = YES;
         
     } andFailureBlock:^(NSError *error) {
@@ -190,7 +190,7 @@
             HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
             UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"红利计划##" style:UIBarButtonItemStylePlain target:nil action:nil];
             weakSelf.navigationItem.backBarButtonItem = leftBarButtonItem;
-            HxbHomePageModel_DataList *homePageModel = weakSelf.homeView.homeBaseModel.homePlanRecommend[indexPath.section];
+            HxbHomePageModel_DataList *homePageModel = weakSelf.homeView.homeBaseViewModel.homeDataList[indexPath.section];
             planDetailsVC.title = homePageModel.name;
             planDetailsVC.planID = homePageModel.ID;
             planDetailsVC.isPlan = YES;
@@ -206,7 +206,7 @@
             }else
             {
                 //判断首页的header各种逻辑
-                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController withOldUserInfo:weakSelf.userInfoViewModel];
+                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController withOldUserInfo:weakSelf.userInfoViewModel andWithHomeData:weakSelf.homeView.homeBaseViewModel];
             }
             
         };

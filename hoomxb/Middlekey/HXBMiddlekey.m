@@ -11,9 +11,14 @@
 #import "HXBOpenDepositAccountViewController.h"
 #import "HXBBaseTabBarController.h"
 #import "HxbWithdrawCardViewController.h"
+#import "HxbHomePageViewModel.h"
+#import "HXBFinancing_PlanDetailsViewController.h"
+#import "HXBHomeBaseModel.h"
+#import "HXBHomeNewbieProductModel.h"
+#import "HxbHomePageModel_DataList.h"
 @implementation HXBMiddlekey
 
-+ (void)depositoryJumpLogicWithNAV:(UINavigationController *)nav withOldUserInfo:(HXBRequestUserInfoViewModel *)viewModel
++ (void)depositoryJumpLogicWithNAV:(UINavigationController *)nav withOldUserInfo:(HXBRequestUserInfoViewModel *)viewModel andWithHomeData:(HxbHomePageViewModel *)homeViewModel
 {
     if (![KeyChain isLogin]) {
         //跳转登录注册
@@ -46,7 +51,17 @@
             openDepositAccountVC.title = @"完善信息";
             openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
             [nav pushViewController:openDepositAccountVC animated:YES];
-        }else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
+        }else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"] && viewModel.userInfoModel.userInfo.isNewbie){
+            //跳转新手详情
+            HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
+            HxbHomePageModel_DataList *homePageModel = homeViewModel.homeBaseModel.newbieProductData.dataList.firstObject;
+            planDetailsVC.title = homePageModel.name;
+            planDetailsVC.planID = homePageModel.ID;
+            planDetailsVC.isPlan = YES;
+            planDetailsVC.isFlowChart = YES;
+            planDetailsVC.cashType = homePageModel.cashType;
+            [nav pushViewController:planDetailsVC animated:YES];
+        } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
             //跳转立即投资
             HXBBaseTabBarController *tabBarVC = (HXBBaseTabBarController *)[UIApplication sharedApplication].keyWindow.rootViewController;
             tabBarVC.selectedIndex = 1;

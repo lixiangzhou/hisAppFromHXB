@@ -16,6 +16,9 @@
 
 #import "BannerModel.h"
 #import "HXBHomeBaseModel.h"
+#import "HXBHomeNewbieProductModel.h"
+#import <UIImageView+WebCache.h>
+#import "HxbHomePageModel_DataList.h"
 @interface HXBHomePageHeadView () 
 
 
@@ -126,6 +129,14 @@
             // 没有实名
             weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
             weakSelf.afterLoginView.tipString = @"完善存管信息";
+        } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"] && viewModel.userInfoModel.userInfo.isNewbie) {
+            //已经投资显示的界面
+            HxbHomePageModel_DataList *homePageModel = self.homeBaseModel.newbieProductData.dataList.firstObject;
+            CGFloat rate = [homePageModel.baseInterestRate doubleValue] + [homePageModel.subsidyInterestRate doubleValue];
+            NSString *newbieSubsidyInterestRate = [NSString stringWithFormat:@"新手专享%0.1f年化产品",rate];
+            
+            weakSelf.afterLoginView.headTipString = newbieSubsidyInterestRate;
+            weakSelf.afterLoginView.tipString = @"立即投资";
         } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]) {
             //已经投资显示的界面
             weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
@@ -151,6 +162,9 @@
         BannerModel *bannerModel = [[BannerModel alloc] init];
         self.bannerView.bannersModel = @[bannerModel];
     }
+    NSURL *imgURL = [NSURL URLWithString:homeBaseModel.newbieProductData.img];
+    [self.newbieImageView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"newBie"]];
+    [self showSecurityCertificationOrInvest:self.userInfoViewModel];
 }
 
 - (void)noticeBtnClick

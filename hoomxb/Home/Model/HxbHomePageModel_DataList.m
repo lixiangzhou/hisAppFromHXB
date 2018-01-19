@@ -35,6 +35,13 @@
     return _fixExtraInterestRate?:@"0";
 }
 
+- (NSString *)subsidyInterestRate {
+    if ([_subsidyInterestRate doubleValue] > 0) {
+        _subsidyInterestRate = [NSString stringWithFormat:@" + %.1f%%",[_subsidyInterestRate doubleValue]];
+    }
+    return _subsidyInterestRate?:@"0";
+}
+
 /**
  剩余时间
  */

@@ -23,7 +23,7 @@
 /**
  请求下来的数据模型
  */
-@property (nonatomic, strong) HXBHomeBaseModel *homeBaseModel;
+@property (nonatomic, strong) HxbHomePageViewModel *homeBaseViewModel;
 
 /**
  下拉加载回调的Block

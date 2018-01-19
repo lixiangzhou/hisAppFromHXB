@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class HxbHomePageViewModel;
 @interface HXBMiddlekey : NSObject
 
 /**
  存管的逻辑
  */
-+ (void)depositoryJumpLogicWithNAV:(UINavigationController *)nav withOldUserInfo:(HXBRequestUserInfoViewModel *)viewModel;
++ (void)depositoryJumpLogicWithNAV:(UINavigationController *)nav withOldUserInfo:(HXBRequestUserInfoViewModel *)viewMode andWithHomeData:(HxbHomePageViewModel *)homeViewModel;
 
 /**
  充值够没的逻辑

@@ -14,6 +14,7 @@
 #import "HxbHomeView.h"
 #import "HXBHomePageHeadView.h"
 #import "HXBHomePageProductCell.h"
+#import "HXBNewbieProductCell.h"
 #import "HXBHomeBaseModel.h"
 #import "HXBHomeTitleModel.h"
 @interface HxbHomeView ()<UITableViewDelegate,UITableViewDataSource,HXBHomePageHeadViewDelegate>
@@ -102,15 +103,15 @@
     self.mainTableView.tableHeaderView = self.headView;
 }
 
-- (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
+- (void)setHomeBaseViewModel:(HxbHomePageViewModel *)homeBaseViewModel
 {
-    _homeBaseModel = homeBaseModel;
-    if (homeBaseModel.homeTitle.baseTitle.length) {
-        self.footerLabel.text = [NSString stringWithFormat:@"- %@ -",homeBaseModel.homeTitle.baseTitle];
+    _homeBaseViewModel = homeBaseViewModel;
+    if (homeBaseViewModel.homeBaseModel.homeTitle.baseTitle.length) {
+        self.footerLabel.text = [NSString stringWithFormat:@"- %@ -",homeBaseViewModel.homeBaseModel.homeTitle.baseTitle];
         self.mainTableView.tableFooterView = self.footerView;
     }
     
-    self.headView.homeBaseModel = homeBaseModel;
+    self.headView.homeBaseModel = homeBaseViewModel.homeBaseModel;
    
     [self.mainTableView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subView, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([subView isKindOfClass:[UIImageView class]]) {
@@ -130,14 +131,14 @@
 - (void)creatCountDownManager {
     kWeakSelf
 
-    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray:self.homeBaseModel.homePlanRecommend andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
+    self.contDwonManager = [HXBBaseContDownManager countDownManagerWithCountDownStartTime: 3600 andCountDownUnit:1 andModelArray:self.homeBaseViewModel.homeDataList andModelDateKey:@"countDownLastStr" andModelCountDownKey:@"countDownString" andModelDateType:PYContDownManagerModelDateType_OriginalTime];
     
     [self.contDwonManager countDownWithChangeModelBlock:^(HxbHomePageModel_DataList *model, NSIndexPath *index) {
-        if (weakSelf.homeBaseModel.homePlanRecommend.count > index.row) {
+        if (weakSelf.homeBaseViewModel.homeDataList.count > index.row) {
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:index.row];
             HXBHomePageProductCell *cell = [self.mainTableView cellForRowAtIndexPath:indexPath];
             //更新列表中对应的字段值
-            HxbHomePageModel_DataList* pageModel = [weakSelf.homeBaseModel.homePlanRecommend safeObjectAtIndex:index.row];
+            HxbHomePageModel_DataList* pageModel = [weakSelf.homeBaseViewModel.homeDataList safeObjectAtIndex:index.row];
             [pageModel setValue:model.countDownLastStr forKey:@"countDownLastStr"];
             [pageModel setValue:model.countDownString forKey:@"countDownString"];
             
@@ -163,15 +164,18 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.homeBaseModel.homePlanRecommend.count;
+    return self.homeBaseViewModel.homeDataList.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HxbHomePageModel_DataList *homePageModel_DataList = self.homeBaseModel.homePlanRecommend[indexPath.section];
-    if (homePageModel_DataList.tag.length > 0) {
+    HxbHomePageModel_DataList *homePageModel_DataList = self.homeBaseViewModel.homeDataList[indexPath.section];
+    if (homePageModel_DataList.novice == 1) {
+        return kScrAdaptationH750(354);
+    }
+    else if (homePageModel_DataList.tag.length > 0) {
         return kScrAdaptationH750(526);
-    }else
+    } else
     {
         return kScrAdaptationH750(500);
     }
@@ -179,20 +183,44 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-    static NSString *identifier = @"ProductCelled";
+     HxbHomePageModel_DataList *homePageModel_DataList = self.homeBaseViewModel.homeDataList[indexPath.section];
+    if (homePageModel_DataList.novice == 1) {
+        HXBNewbieProductCell * cell = [self newBieProductCellWithTableView:tableView];
+        cell.homePageModel_DataList = homePageModel_DataList;
+         return cell;
+    }
+    else {
+        HXBHomePageProductCell *cell = (HXBHomePageProductCell *)[self planProductCellWithTableView:tableView];
+        cell.homePageModel_DataList = homePageModel_DataList;
+         return cell;
+    }
+    
+    
+   
+}
+
+- (HXBHomePageProductCell *)planProductCellWithTableView:(UITableView *)tableView {
+    static NSString *identifier = @"planProductCelled";
     HXBHomePageProductCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[HXBHomePageProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    
-    cell.homePageModel_DataList = self.homeBaseModel.homePlanRecommend[indexPath.section];
-    
     kWeakSelf
     cell.purchaseButtonClickBlock = ^(){
         weakSelf.purchaseButtonClickBlock();
     };
     return cell;
 }
+
+- (HXBNewbieProductCell *)newBieProductCellWithTableView:(UITableView *)tableView {
+    static NSString *identifier = @"newBieProductCelled";
+    HXBNewbieProductCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (!cell) {
+        cell = [[HXBNewbieProductCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
+    return cell;
+}
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
@@ -209,6 +237,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
+    if (self.homeBaseViewModel.homeDataList.count > (section + 1)) {
+        HxbHomePageModel_DataList *homePageModel_DataList = self.homeBaseViewModel.homeDataList[section + 1];
+        if (homePageModel_DataList.novice == 1) {
+            return 0.01;
+        }
+    }
     return kHXBBottomSpacing;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
