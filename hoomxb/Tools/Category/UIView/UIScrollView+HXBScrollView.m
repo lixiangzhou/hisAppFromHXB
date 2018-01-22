@@ -26,7 +26,7 @@ static NSString * const footerNoMoreDataStr = @"已加载全部";
 // MARK: 默认的上拉加载
 - (void)hxb_footerWithRefreshBlock:(void (^)())footerRefreshCallBack
 {
-    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:footerRefreshCallBack];
+    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:footerRefreshCallBack];
     footer.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     footer.stateLabel.textColor = COR6;
     [footer setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
