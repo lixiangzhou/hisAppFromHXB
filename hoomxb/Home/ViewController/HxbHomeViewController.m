@@ -219,6 +219,10 @@
         _homeView.clickBannerImageBlock = ^(BannerModel *model) {
             [weakSelf pushToViewControllerWithModel:model];
         };
+        
+        _homeView.newbieAreaActionBlock = ^{
+            NSLog(@"点击了新手专区");
+        };
     }
     return _homeView;
 }

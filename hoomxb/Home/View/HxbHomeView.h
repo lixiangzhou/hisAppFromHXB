@@ -48,6 +48,11 @@
  */
 @property (nonatomic, copy) void (^noticeBlock)();
 
+/**
+ 新手视图点击方法
+ */
+@property (nonatomic, copy) void (^newbieAreaActionBlock)();
+
 /*
  点击banner的回调
  */

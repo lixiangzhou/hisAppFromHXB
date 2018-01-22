@@ -291,6 +291,12 @@
                 weakSelf.clickBannerImageBlock(model);
             }
         };
+        
+        _headView.newbieAreaActionBlock = ^{
+            if (weakSelf.newbieAreaActionBlock) {
+                weakSelf.newbieAreaActionBlock();
+            }
+        };
     }
     return _headView;
 }

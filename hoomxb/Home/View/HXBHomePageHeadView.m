@@ -163,7 +163,7 @@
         self.bannerView.bannersModel = @[bannerModel];
     }
     NSURL *imgURL = [NSURL URLWithString:homeBaseModel.newbieProductData.img];
-    [self.newbieImageView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"newBie"]];
+    [self.newbieImageView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"Home_newbieArea_default"]];
     [self showSecurityCertificationOrInvest:self.userInfoViewModel];
 }
 
@@ -171,6 +171,16 @@
 {
     if (self.noticeBlock) {
         self.noticeBlock();
+    }
+}
+
+
+/**
+ 新手视图点击方法
+ */
+- (void)newbieAreaAction {
+    if (self.newbieAreaActionBlock) {
+        self.newbieAreaActionBlock();
     }
 }
 
@@ -254,8 +264,13 @@
 
 - (UIImageView *)newbieImageView {
     if (!_newbieImageView) {
-        _newbieImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"newBie"]];
+        _newbieImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Home_newbieArea_default"]];
         _newbieImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _newbieImageView.userInteractionEnabled = YES;
+        //创建手势对象
+        UITapGestureRecognizer *newbieGesture =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(newbieAreaAction)];
+        //讲手势添加到指定的视图上
+        [_newbieImageView addGestureRecognizer:newbieGesture];
     }
     return _newbieImageView;
 }

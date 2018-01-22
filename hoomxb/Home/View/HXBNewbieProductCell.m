@@ -103,8 +103,9 @@
 - (void)setHomePageModel_DataList:(HxbHomePageModel_DataList *)homePageModel_DataList {
     _homePageModel_DataList = homePageModel_DataList;
      if (![homePageModel_DataList.subsidyInterestRate isEqualToString:@"0"]) {
-         NSString *messageStr = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],homePageModel_DataList.subsidyInterestRate];
-         NSRange range = [messageStr rangeOfString:homePageModel_DataList.subsidyInterestRate];
+         NSString *subsidyInterestRate = [NSString stringWithFormat:@" + %.1f%%",[homePageModel_DataList.subsidyInterestRate doubleValue]];
+         NSString *messageStr = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],subsidyInterestRate];
+         NSRange range = [messageStr rangeOfString:subsidyInterestRate];
          self.subsidyInterestRateLabel.attributedText = [NSMutableAttributedString setupAttributeStringWithString:messageStr WithRange:(NSRange)range andAttributeColor:kHXBColor_FF6A0F_30 andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(50)];
      }
      else {
@@ -119,14 +120,56 @@
         self.lockLabel.text = [NSString stringWithFormat:@"%@",homePageModel_DataList.lockPeriod];
         self.lockTipLabel.text = @"期限（月）";
     }
-    [self.purchaseButton setTitle:homePageModel_DataList.cellBtnTitle forState:(UIControlStateNormal)];
     self.backgroundImageView.hidden = !homePageModel_DataList.isShowNewBieBackgroundImageView;
     self.lineView.hidden = homePageModel_DataList.isShowNewBieBackgroundImageView;
+    
+    [self setupBtnStyle];
 }
 
 - (void)setCountDownString:(NSString *)countDownString {
     _countDownString = countDownString;
-    
+    if (self.homePageModel_DataList.isCountDown) {
+        if ([self.homePageModel_DataList.countDownLastStr doubleValue] > 0) {
+            self.btnBackgroundView.hidden = YES;
+            [self.purchaseButton setTitle:countDownString forState:(UIControlStateNormal)];
+        }
+        else {
+            self.btnBackgroundView.hidden = NO;
+            [self.purchaseButton setTitle:@"立即加入" forState:(UIControlStateNormal)];
+        }
+    }
+    else {
+        [self setupBtnStyle];
+    }
+}
+
+/**
+ 根据数据返回
+ */
+- (void)setupBtnStyle
+{
+    if (!self.homePageModel_DataList.isCountDown) {
+        if ([self.homePageModel_DataList.cellBtnTitle rangeOfString:@"开售"].location != NSNotFound) {
+            self.btnBackgroundView.hidden = YES;
+            [self.purchaseButton setTitleColor:COR29 forState:UIControlStateNormal];
+            self.purchaseButton.layer.borderColor = RGB(255, 133, 133).CGColor;
+            self.purchaseButton.backgroundColor = RGB(255, 247, 247);
+        } else if([self.homePageModel_DataList.cellBtnTitle isEqualToString:@"立即加入"]) {
+            self.btnBackgroundView.hidden = NO;
+            [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
+            self.purchaseButton.layer.borderColor = [UIColor clearColor].CGColor;
+        } else {
+            self.btnBackgroundView.hidden = YES;
+            [self.purchaseButton setTitleColor:kHXBColor_Font0_6 forState:UIControlStateNormal];
+            self.purchaseButton.layer.borderColor = kHXBColor_Font0_5.CGColor;
+            self.purchaseButton.backgroundColor = kHXBColor_Grey090909;
+        }
+        [self.purchaseButton setTitle:self.homePageModel_DataList.cellBtnTitle forState:(UIControlStateNormal)];
+
+    } else {
+        self.btnBackgroundView.hidden = NO;
+        [self setCountDownString:self.countDownString];
+    }
 }
 
 #pragma mark - Getter / Lazy
@@ -196,14 +239,14 @@
                                     @1.00,@0.47,@0.1,@1.00
                                     ];
         [_btnBackgroundView colorArray:colorArrayTemp andLength:2 andColorLocation:@[@0,@1]];
-//        _btnBackgroundView.hidden = YES;
+        _btnBackgroundView.hidden = YES;
     }
     return _btnBackgroundView;
 }
 
 - (UIImageView *)backgroundImageView {
     if (!_backgroundImageView) {
-        _backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"HomeNewbie"]];
+        _backgroundImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Home_newbieList"]];
         _backgroundImageView.hidden = YES;
     }
     return _backgroundImageView;
