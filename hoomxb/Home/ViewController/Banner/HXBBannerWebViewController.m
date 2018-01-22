@@ -31,7 +31,9 @@ static NSString *const HXB_Dialog = @"dialog";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"";
+    if(!self.pageTitle) {
+       self.title = @"";
+    }
     self.isColourGradientNavigationBar = YES;
     self.pageReload = YES;
     self.view.backgroundColor = [UIColor whiteColor];
@@ -56,6 +58,10 @@ static NSString *const HXB_Dialog = @"dialog";
         NSLog(@"%@",data);
         [weakSelf showH5MessageWithData:data];
     }];
+    [self registJavascriptBridge:@"startH5Page" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"%@",data);
+        [weakSelf h5PageJumpWithData:data];
+    }];
     [self registJavascriptBridge:@"share" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSLog(@"%@",data);
         HXBUMShareViewModel *shareViewModel = [[HXBUMShareViewModel alloc] init];
@@ -65,6 +71,29 @@ static NSString *const HXB_Dialog = @"dialog";
     
 }
 
+/**
+ 跳转H5页面的回调
+
+ @param data 参数
+ */
+- (void)h5PageJumpWithData:(id)data
+{
+    NSDictionary* urlParamDic = data;
+    NSString *path = [urlParamDic stringAtPath:@"path"];
+    
+    if([path isEqualToString:kH5LandingDeposit]){
+        HXBBannerWebViewController* webviewVC = [[HXBBannerWebViewController alloc] init];
+        webviewVC.pageTitle = [urlParamDic stringAtPath:@"title"];
+        webviewVC.pageUrl = [NSString stringWithFormat:@"%@%@", [KeyChainManage sharedInstance].h5host, path];
+        [self.navigationController pushViewController:webviewVC animated:YES];
+    }
+    else if([path isEqualToString:kH5LandingTrust]) {
+        HXBBaseWKWebViewController* webviewVC = [[HXBBaseWKWebViewController alloc] init];
+        webviewVC.pageTitle = [urlParamDic stringAtPath:@"title"];
+        webviewVC.pageUrl = [NSString stringWithFormat:@"%@%@", [KeyChainManage sharedInstance].h5host, path];
+        [self.navigationController pushViewController:webviewVC animated:YES];
+    }
+}
 ///**
 // 再次获取网络数据
 // */
