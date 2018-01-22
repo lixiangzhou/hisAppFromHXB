@@ -21,7 +21,7 @@
 @property (nonatomic,strong) UILabel *lockPeriodLabel;          //计划期限
 @property (nonatomic,strong) UILabel *addStatus;                //加入的状态
 @property (nonatomic,strong) UILabel *preferentialLabel;        //打折的label
-@property (nonatomic,strong) UIImageView *arrowImageView;
+@property (nonatomic,strong) UIImageView *arrowImageView;       //时间的图标
 @property (nonatomic,strong) UILabel *expectedYearRateLable_Const;
 @property (nonatomic,strong) UILabel *lockPeriodLabel_Const;
 @property (nonatomic,strong) UILabel *countDownLable;           //倒计时label
@@ -40,27 +40,32 @@
 - (void)setFinPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)finPlanListViewModel {
     _finPlanListViewModel = finPlanListViewModel;
     self.nameLabel.text = finPlanListViewModel.planListModel.name;
+    self.addStatus.text = finPlanListViewModel.unifyStatus;
     self.countDownLable.text = finPlanListViewModel.countDownString;
+    
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
     self.expectedYearRateLable.textColor = (finPlanListViewModel.planType == planType_newComer) ? kHXBColor_Orange_newComer : kHXBColor_Red_090303;
     self.backgroundImageView.hidden = finPlanListViewModel.planType == planType_newComer ? NO : YES;
     self.lockPeriodLabel.text = finPlanListViewModel.lockPeriod;
-    self.addStatus.text = finPlanListViewModel.unifyStatus;
-    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
-    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
+    
     if (self.finPlanListViewModel.remainTimeString.length) {
         self.countDownLable.text = _finPlanListViewModel.remainTimeString;
     }
     self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
     self.addStatus.textColor = finPlanListViewModel.addButtonTitleColor;
     self.addStatus.layer.borderColor = finPlanListViewModel.addButtonBorderColor.CGColor;
+    [self setupAddStatusWithPlanType:_finPlanListViewModel.planType status:self.addStatus.text];
     
-    if (finPlanListViewModel.planType == planType_newComer) {
+    
+    if (finPlanListViewModel.planType == planType_newComer) { // 如果是新手标，隐藏一些图标
         self.HXBImageView.hidden = YES;
         self.lineImageView.hidden = YES;
         self.tagLabel.hidden = YES;
         [self.tagLableImageView setHidden:YES];
+        // fixme
+        self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_newComer"];
     } else {
+        self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_default"];
         if (finPlanListViewModel.planListModel.tag.length > 0) {
             self.tagLabel.text = finPlanListViewModel.planListModel.tag;
             self.tagLableImageView.hidden = NO;
@@ -72,6 +77,8 @@
         self.HXBImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: YES;
         self.lineImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: !finPlanListViewModel.planListModel.hasCoupon;
     }
+    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
+    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
     //设置优惠券
     [self setupCoupon];
 }
@@ -253,7 +260,7 @@
         make.right.equalTo(weakSelf.countDownLable.mas_right);
         make.bottom.equalTo(weakSelf.countDownLable.mas_bottom);
     }];
-    //时间的图标
+    
     [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.countDownView.mas_left);
         make.height.top.equalTo(weakSelf.countDownLable);
@@ -396,7 +403,6 @@
 - (UIImageView *)arrowImageView {
     if (!_arrowImageView) {
         _arrowImageView = [[UIImageView alloc]init];
-        _arrowImageView.image = [SVGKImage imageNamed:@"FinPlanList_CountDown.svg"].UIImage;
         _arrowImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _arrowImageView;

@@ -74,6 +74,7 @@ static NSString *CELLID = @"CELLID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
     cell.finPlanListViewModel = self.planListViewModelArray[indexPath.section];
+    NSLog(@"___++++%@", self.planListViewModelArray[1]);
     cell.lockPeriodLabel_ConstStr = self.planListViewModelArray[indexPath.section].planListModel.lockPeriod.length ? @"期限(月)" : @"期限(天)";
     cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;
     return cell;

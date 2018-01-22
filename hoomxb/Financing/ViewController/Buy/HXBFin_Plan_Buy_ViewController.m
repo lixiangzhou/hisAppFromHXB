@@ -702,6 +702,7 @@ static const NSInteger topView_high = 300;
 - (UIView *)footTableView {
     kWeakSelf
     _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
+    _bottomView.isShowRiskView = YES;
     _bottomView.delegateLabelText = @"红利计划服务协议》,《网络借贷协议书";
     _bottomView.delegateBlock = ^(NSInteger index) {
         if (index == 1) {
