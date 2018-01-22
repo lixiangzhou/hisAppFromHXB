@@ -173,9 +173,23 @@ typedef enum : NSUInteger {
 //红利计划列表的年利率计算
 - (void)setupExpectedYearRateAttributedStr {
 
+    if (self.planListModel.novice && self.planListModel.expectedRate.floatValue) {
+        NSString *numberStr = [NSString stringWithFormat:@"%.1lf%%",self.planListModel.expectedRate.floatValue];
+        NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
+        if (self.planListModel.subsidyInterestRate.floatValue) {
+            NSString *subsidyInterestRate = [NSString stringWithFormat:@"+%.1f%%",self.planListModel.subsidyInterestRate.doubleValue];
+            NSMutableAttributedString *subsidyInterestRateAtt = [[NSMutableAttributedString alloc] initWithString:subsidyInterestRate];
+            NSRange range = NSMakeRange(0, subsidyInterestRateAtt.length);
+            UIFont *font = kHXBFont_PINGFANGSC_REGULAR(14);
+            [subsidyInterestRateAtt addAttribute:NSFontAttributeName value:font range:range];
+            [numberAttributeString appendAttributedString:subsidyInterestRateAtt];
+        }
+        // 新手利息为基准利率和贴息利率之和
+        self.expectedYearRateAttributedStr = numberAttributeString;
+        return;
+    }
     NSString *numberStr = [NSString stringWithFormat:@"%.1lf%%",self.planListModel.baseInterestRate.floatValue];
     NSMutableAttributedString *numberAttributeString = [[NSMutableAttributedString alloc] initWithString:numberStr];
-
     //加息利率
     if (self.planListModel.extraInterestRate.floatValue) {
         NSString *extraInterestRateStr = [NSString stringWithFormat:@"+%.1f%%",self.planListModel.extraInterestRate.doubleValue];

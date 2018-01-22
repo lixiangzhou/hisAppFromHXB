@@ -54,20 +54,21 @@
     self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
     self.addStatus.textColor = finPlanListViewModel.addButtonTitleColor;
     self.addStatus.layer.borderColor = finPlanListViewModel.addButtonBorderColor.CGColor;
-
-    if (finPlanListViewModel.planListModel.tag.length > 0) {
-        self.tagLabel.text = finPlanListViewModel.planListModel.tag;
-        self.tagLableImageView.hidden = NO;
-        self.tagLabel.hidden = NO;
-    } else {
-        self.tagLabel.hidden = YES;
-        [self.tagLableImageView setHidden:YES];
-    }
     
     if (finPlanListViewModel.planType == planType_newComer) {
         self.HXBImageView.hidden = YES;
         self.lineImageView.hidden = YES;
+        self.tagLabel.hidden = YES;
+        [self.tagLableImageView setHidden:YES];
     } else {
+        if (finPlanListViewModel.planListModel.tag.length > 0) {
+            self.tagLabel.text = finPlanListViewModel.planListModel.tag;
+            self.tagLableImageView.hidden = NO;
+            self.tagLabel.hidden = NO;
+        } else {
+            self.tagLabel.hidden = YES;
+            [self.tagLableImageView setHidden:YES];
+        }
         self.HXBImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: YES;
         self.lineImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: !finPlanListViewModel.planListModel.hasCoupon;
     }
@@ -116,19 +117,25 @@
 - (void)setupAddStatusWithPlanType:(PlanType)planType status:(NSString *)status {
     if ([status isEqualToString:@"等待加入"]) {
         if (planType == planType_newComer) {
-            
+            self.addStatus.backgroundColor = kHXBColor_Orange_newComer_backColor;
+            self.addStatus.layer.borderColor = kHXBColor_Orange_newComer_boardColor.CGColor;
+            self.addStatus.textColor = kHXBColor_Orange_newComer;
+            self.countDownLable.textColor = kHXBColor_Orange_newComer;
         } else {
             self.addStatus.backgroundColor = RGB(255, 247, 247);
             self.addStatus.layer.borderColor = RGB(255, 133, 133).CGColor;
+            self.addStatus.textColor = RGB(253, 54, 54);
+            self.countDownLable.textColor = HXBC_Red_Deep;
         }
-        self.addStatus.textColor = RGB(253, 54, 54);
     } else if ([status isEqualToString:@"立即加入"]) {
         if (planType == planType_newComer) {
             self.addStatus.backgroundColor = kHXBColor_Orange_newComer;
             self.addStatus.layer.borderColor = kHXBColor_Orange_newComer.CGColor;
+            self.countDownLable.textColor = kHXBColor_Orange_newComer;
         } else {
             self.addStatus.backgroundColor = kHXBColor_Red_090303;
             self.addStatus.layer.borderColor = kHXBColor_Red_090303.CGColor;
+            self.countDownLable.textColor = HXBC_Red_Deep;
         }
         self.addStatus.textColor = [UIColor whiteColor];
     }
@@ -397,7 +404,6 @@
 - (UILabel *)countDownLable {
     if (!_countDownLable){
         _countDownLable = [[UILabel alloc]init];
-        _countDownLable.textColor = HXBC_Red_Deep;
         _countDownLable.font = kHXBFont_PINGFANGSC_REGULAR(13);
     }
     return _countDownLable;

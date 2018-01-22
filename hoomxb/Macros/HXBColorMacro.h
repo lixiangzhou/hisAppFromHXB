@@ -25,6 +25,10 @@
 
 // 新手专区颜色
 #define kHXBColor_Orange_newComer  [UIColor colorWithRed:1.00 green:0.49 blue:0.18 alpha:1.00]
+// 新手专区等待加入背景颜色
+#define kHXBColor_Orange_newComer_backColor  [UIColor colorWithRed:1.00 green:0.99 blue:0.96 alpha:1.00]
+// 新手专区描边颜色
+#define kHXBColor_Orange_newComer_boardColor  [UIColor colorWithRed:1.00 green:0.58 blue:0.21 alpha:1.00]
 
 ///账户内 toolBar颜色
 #define kHXBColor_Red_255_64_79 RGBA(255, 64, 79, 1)

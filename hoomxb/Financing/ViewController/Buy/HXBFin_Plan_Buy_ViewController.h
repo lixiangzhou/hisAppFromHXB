@@ -20,5 +20,7 @@
 /** 还款方式 */
 @property (nonatomic, copy) NSString *featuredSlogan;
 @property (nonatomic, copy) NSString *hasBindCard; //是否绑卡
+@property (nonatomic, assign) BOOL isNewComer; // 是否是新手计划
+
 
 @end

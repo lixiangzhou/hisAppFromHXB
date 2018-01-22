@@ -25,7 +25,8 @@
 
 ///    string    本期加息利率
 @property (nonatomic, copy) NSString *extraInterestRate;
-
+///    string    新手贴息利率
+@property (nonatomic, copy) NSString *subsidyInterestRate;
 ///    string    年化利率
 @property (nonatomic, copy) NSString *expectedRate;
 ///    string    计划名称
