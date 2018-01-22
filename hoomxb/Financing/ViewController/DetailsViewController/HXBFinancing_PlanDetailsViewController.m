@@ -1,5 +1,5 @@
 //
-//  HXBFinancing_PlanViewController.m
+//  HXBFinancing_PlanDetailsViewController.m
 //  hoomxb
 //
 //  Created by HXB on 2017/5/4.

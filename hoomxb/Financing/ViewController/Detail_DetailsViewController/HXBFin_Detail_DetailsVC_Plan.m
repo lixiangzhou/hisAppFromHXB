@@ -97,6 +97,8 @@
         if (!detailData) {
             return manager;
         }
+        manager.pursuitsViewManager.leftStrArray = @[@"适合人群"];
+        manager.pursuitsViewManager.rightStrArray = @[weakSelf.planDetailModel.planDetailModel.productsJson];
         manager.addViewManager.leftStrArray = @[
                                                 @"计划金额",
                                                 @"加入条件",
