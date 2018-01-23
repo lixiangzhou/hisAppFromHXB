@@ -196,8 +196,8 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
-        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^(NSString *hasBindCard) {
-            [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard];
+        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+            [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard userInfo:model];
         }];
     }];
 }
@@ -208,16 +208,17 @@
         [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:weakSelf];
     }];
 }
-- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
+- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard userInfo:(HXBRequestUserInfoViewModel *)viewModel{
     //跳转加入界
     HXBFin_Loan_Buy_ViewController *loanJoinVC = [[HXBFin_Loan_Buy_ViewController alloc]init];
-    loanJoinVC.title = @"投资散标";
-    loanJoinVC.availablePoint = [NSString stringWithFormat:@"%.lf", self.loanDetailViewModel.loanDetailModel.loanVo.surplusAmount.doubleValue];
-    loanJoinVC.placeholderStr = self.loanDetailViewModel.addCondition;
-    loanJoinVC.hasBindCard = hasBindCard;
-    loanJoinVC.loanId = self.loanDetailViewModel.loanDetailModel.userVo.loanId;
-    loanJoinVC.minRegisterAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
-    loanJoinVC.registerMultipleAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
+    loanJoinVC.title                    = @"投资散标";
+    loanJoinVC.availablePoint           = [NSString stringWithFormat:@"%.lf", self.loanDetailViewModel.loanDetailModel.loanVo.surplusAmount.doubleValue];
+    loanJoinVC.placeholderStr           = self.loanDetailViewModel.addCondition;
+    loanJoinVC.hasBindCard              = hasBindCard;
+    loanJoinVC.loanId                   = self.loanDetailViewModel.loanDetailModel.userVo.loanId;
+    loanJoinVC.minRegisterAmount        = self.loanDetailViewModel.loanDetailModel.minInverst;
+    loanJoinVC.registerMultipleAmount   = self.loanDetailViewModel.loanDetailModel.minInverst;
+    loanJoinVC.userInfoViewModel        = viewModel;
     [self.navigationController pushViewController:loanJoinVC animated:YES];
 }
 

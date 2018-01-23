@@ -28,6 +28,9 @@
 static NSString *const bankString = @"绑定银行卡";
 
 @interface HXBFin_Plan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
+@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+@property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
 /** topView */
 @property (nonatomic, strong) HXBCreditorChangeTopView *topView;
 /** bottomView*/
@@ -82,12 +85,15 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, copy) NSString *couponid;
 /** 是否获取到优惠券 */
 @property (nonatomic, assign) BOOL hasGetCoupon;
-@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
-@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
-@property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
-@property (nonatomic, assign) BOOL hasInvestMoney; // 是否是从上个页面带入的金额，是的话不校验金额，不是的话，校验金额
-@property (nonatomic, assign) double curruntInvestMoney; // 当前输入框的金额
-@property (nonatomic, strong) HxbHUDProgress *hud; // 展示HUD
+// 是否是从上个页面带入的金额，是的话不校验金额，不是的话，校验金额
+@property (nonatomic, assign) BOOL hasInvestMoney;
+// 当前输入框的金额
+@property (nonatomic, assign) double curruntInvestMoney;
+// 展示HUD
+@property (nonatomic, strong) HxbHUDProgress *hud;
+// 是否超出投资限制
+@property (nonatomic, assign) BOOL isExceedLimitInvest;
+
 @end
 
 @implementation HXBFin_Plan_Buy_ViewController
@@ -102,6 +108,7 @@ static NSString *const bankString = @"绑定银行卡";
     [self buildUI];
     [self unavailableMoney];
     [self hasBestCouponRequest];
+    [self isMatchToBuyWithMoney:@"0"];
     [self changeItemWithInvestMoney:_inputMoneyStr];
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
 }
@@ -199,6 +206,7 @@ static NSString *const bankString = @"绑定银行卡";
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
         return;
     }
+    
     if (_inputMoneyStr.length == 0) {
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     } else if (_inputMoneyStr.floatValue > _availablePoint.floatValue && !_hasInvestMoney) { // 超过可加入金额是，只check，不用强制到最大可加入金额
@@ -208,6 +216,7 @@ static NSString *const bankString = @"绑定银行卡";
         _inputMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
         _curruntInvestMoney =_inputMoneyStr.doubleValue;
+        [self isMatchToBuyWithMoney:_inputMoneyStr];
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
@@ -216,6 +225,7 @@ static NSString *const bankString = @"绑定银行卡";
         _inputMoneyStr = _registerMultipleAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _registerMultipleAmount.floatValue*self.totalInterest.floatValue/100.0];
         _curruntInvestMoney = _inputMoneyStr.floatValue;
+        [self isMatchToBuyWithMoney:_inputMoneyStr];
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足递增金额"];
@@ -227,9 +237,17 @@ static NSString *const bankString = @"绑定银行卡";
             isFitToBuy = _inputMoneyStr.integerValue % _registerMultipleAmount.integerValue ? NO : YES;
         }
         if (_hasInvestMoney) {
+            if (_isExceedLimitInvest) {
+                [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
+                return;
+            }
             [self chooseBuyTypeWithSting:_btnLabelText];
         } else {
             if (isFitToBuy) {
+                if (_isExceedLimitInvest) {
+                    [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
+                    return;
+                }
                 [self chooseBuyTypeWithSting:_btnLabelText];
             } else {
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
@@ -604,6 +622,7 @@ static const NSInteger topView_high = 300;
             _topView.disableKeyBorad = YES;
             _hasInvestMoney = YES;
             _curruntInvestMoney = _inputMoneyStr.doubleValue;
+            [self isMatchToBuyWithMoney:_inputMoneyStr];
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
             _hasInvestMoney = NO;
@@ -616,6 +635,7 @@ static const NSInteger topView_high = 300;
             _topView.disableKeyBorad = YES;
             _hasInvestMoney = YES;
             _curruntInvestMoney = _inputMoneyStr.doubleValue;
+            [self isMatchToBuyWithMoney:_inputMoneyStr];
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
             _hasInvestMoney = NO;
@@ -683,6 +703,10 @@ static const NSInteger topView_high = 300;
     } else {
         isFitToBuy = (text.integerValue) % self.registerMultipleAmount.integerValue ? NO : YES;
     }
+    
+    // 判断是否超出风险
+    [self isMatchToBuyWithMoney:text];
+    
     // 判断是否符合购买条件
     if (text.length && text.doubleValue <= self.availablePoint.doubleValue && isFitToBuy) {
         self.couponTitle = @"优惠券";
@@ -699,10 +723,25 @@ static const NSInteger topView_high = 300;
     }
 }
 
+// 根据金额匹配是否展示风险协议
+- (void)isMatchToBuyWithMoney:(NSString *)money {
+    if (_isMatchBuy) {
+        if (money.doubleValue > 50000) {
+            self.bottomView.isShowRiskView = YES;
+            self.isExceedLimitInvest = YES;
+        } else {
+            self.bottomView.isShowRiskView = NO;
+            self.isExceedLimitInvest = NO;
+        }
+    } else {
+        self.bottomView.isShowRiskView = YES;
+        self.isExceedLimitInvest = YES;
+    }
+}
+
 - (UIView *)footTableView {
     kWeakSelf
     _bottomView = [[HXBCreditorChangeBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(200))];
-    _bottomView.isShowRiskView = YES;
     _bottomView.delegateLabelText = @"红利计划服务协议》,《网络借贷协议书";
     _bottomView.delegateBlock = ^(NSInteger index) {
         if (index == 1) {
@@ -712,7 +751,9 @@ static const NSInteger topView_high = 300;
             [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Agreement_Hint] fromController:weakSelf];
         }
     };
-    
+    _bottomView.riskBlock = ^(BOOL selectStatus) {
+        weakSelf.isExceedLimitInvest = !selectStatus;
+    };
     _bottomView.addBlock = ^(NSString *investMoney) {
         weakSelf.btnLabelText = investMoney;
         [weakSelf.topView endEditing:YES];

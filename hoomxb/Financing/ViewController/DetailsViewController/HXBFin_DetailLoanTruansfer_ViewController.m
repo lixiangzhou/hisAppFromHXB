@@ -221,24 +221,25 @@
     }
     ///判断是否实名。。。。
     kWeakSelf
-    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard) {
-        [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard];
+    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+        [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard userInfo:model];
     }];
 }
 
-- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
+- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard userInfo:(HXBRequestUserInfoViewModel *)viewModel {
     if ([self.loanTruansferDetailViewModel.loanTruansferDetailModel.enabledBuy isEqualToString:@"0"]) {
         [HxbHUDProgress showTextWithMessage:@"自己转让的债权无法再次购买"];
         return;
     }
     HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
-    loanJoinVC.title = @"投资债权";
-    loanJoinVC.loanId = self.loanTruansferDetailViewModel.loanTruansferDetailModel.transferId;
-    loanJoinVC.placeholderStr = self.loanTruansferDetailViewModel.startIncrease_Amount;
-    loanJoinVC.availablePoint = self.loanTruansferDetailViewModel.loanTruansferDetailModel.leftTransAmount;
-    loanJoinVC.hasBindCard = hasBindCard;
-    loanJoinVC.minRegisterAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
-    loanJoinVC.registerMultipleAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
+    loanJoinVC.title                    = @"投资债权";
+    loanJoinVC.loanId                   = self.loanTruansferDetailViewModel.loanTruansferDetailModel.transferId;
+    loanJoinVC.placeholderStr           = self.loanTruansferDetailViewModel.startIncrease_Amount;
+    loanJoinVC.availablePoint           = self.loanTruansferDetailViewModel.loanTruansferDetailModel.leftTransAmount;
+    loanJoinVC.minRegisterAmount        = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
+    loanJoinVC.registerMultipleAmount   = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
+    loanJoinVC.hasBindCard              = hasBindCard;
+    loanJoinVC.userInfoViewModel        = viewModel;
     [self.navigationController pushViewController:loanJoinVC animated:YES];
     
     

@@ -49,6 +49,7 @@
         make.width.offset(kScreenWidth);
         make.height.offset(kScrAdaptationH(20));
     }];
+    
     [_protocolView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.riskView.mas_bottom);
         make.left.equalTo(weakSelf);
@@ -67,11 +68,7 @@
 - (void)setAddBtnIsUseable:(BOOL)addBtnIsUseable {
     _addBtnIsUseable = addBtnIsUseable;
     if (addBtnIsUseable && _isSelectDelegate) {
-        if (_isShowRiskView) {
-            [self isClickWithAble:_isSelectRiskDelegate];
-        } else {
-            [self isClickWithAble:YES];
-        }
+        [self isClickWithAble:YES];
     } else {
         [self isClickWithAble:NO];
     }
@@ -83,7 +80,7 @@
     kWeakSelf
     if (_isShowRiskView) {
         [_protocolView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf.riskView.mas_bottom);
+            make.top.equalTo(weakSelf).offset(kScrAdaptationH750(50));
         }];
     } else {
         [_protocolView mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -104,7 +101,6 @@
         }
     };
     [_protocolView clickCheckMarkWithBlock:^(BOOL isSelected) {
-        NSLog(@"_protocolView = %d", isSelected);
         _isSelectDelegate = isSelected;
         [self isClickWithAble:(isSelected && _addBtnIsUseable)];
     }];
@@ -119,9 +115,7 @@
     }
     kWeakSelf
     [_riskView clickCheckMarkWithBlock:^(BOOL isSelected) {
-        NSLog(@"_riskView = %d", isSelected);
         _isSelectRiskDelegate = isSelected;
-        [self isClickWithAble:(_isSelectDelegate && _addBtnIsUseable && isSelected)];
         if (weakSelf.riskBlock) {
             weakSelf.riskBlock(isSelected);
         }
