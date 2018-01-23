@@ -26,11 +26,16 @@ static NSString * const footerNoMoreDataStr = @"已加载全部";
 // MARK: 默认的上拉加载
 - (void)hxb_footerWithRefreshBlock:(void (^)())footerRefreshCallBack
 {
-    MJRefreshAutoNormalFooter *footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:footerRefreshCallBack];
+    MJRefreshBackNormalFooter *footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:footerRefreshCallBack];
     footer.stateLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     footer.stateLabel.textColor = COR6;
     [footer setTitle:footerNoMoreDataStr forState:MJRefreshStateNoMoreData];
     footer.automaticallyHidden = YES;
+    
+    UIEdgeInsets inset = self.contentInset;
+    inset.bottom = 0;
+    self.contentInset = inset;
+    
     self.mj_footer = footer;
 }
 
