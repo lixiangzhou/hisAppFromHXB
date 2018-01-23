@@ -247,7 +247,7 @@
         
         NSString *typeStr = planModel.dataList.firstObject.type;
         //数据的处理。。
-        NSArray *handleData = [weakSelf handleResponseArrayWithIsupData:weakSelf.planListAPI.isUPReloadData andTypeStr:typeStr andViewModel:planViewModelArray];
+        NSArray *handleData = [weakSelf handleResponseArrayWithIsupData:weakSelf.planListAPI.isUPReloadData andTypeStr:typeStr andPlanType:planRequestType andViewModel:planViewModelArray];
         //向外回调
         if (successDateBlock) {
             successDateBlock(handleData, [[responseDic valueForKey:@"totalCount"] integerValue]);
@@ -275,8 +275,11 @@
 }
 
 ///根据typeStr 来进行数据的处理
-- (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andTypeStr: (NSString *)typeStr andViewModel: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)viewMode {
-    HXBRequestType_MY_PlanRequestType type = [HXBEnumerateTransitionManager myPlan_requestTypeStr:typeStr];
+- (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andTypeStr: (NSString *)typeStr andPlanType:(HXBRequestType_MY_PlanRequestType)planType andViewModel: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)viewMode {
+    HXBRequestType_MY_PlanRequestType type = planType;
+    if (typeStr.length) {
+        type = [HXBEnumerateTransitionManager myPlan_requestTypeStr:typeStr];
+    }
     return [self plan_handleResponseArrayWithIsupData: isupdata andType:type andViewModel:viewMode];
 }
 
