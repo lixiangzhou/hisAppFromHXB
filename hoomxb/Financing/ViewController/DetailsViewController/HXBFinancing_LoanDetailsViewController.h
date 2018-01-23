@@ -10,11 +10,6 @@
 @class HXBFinDetail_TableViewCellModel;
 @class HXBFinHomePageViewModel_LoanList;
 
-typedef enum : NSUInteger {
-    HXBFinancing_LoanDetailFromOther,
-    HXBFinancing_LoanDetailFromTenderDetail,  /// 计划投标明细页
-} HXBFinancing_LoanDetailFrom;
-
 ///散标详情页的控制器
 @interface HXBFinancing_LoanDetailsViewController : HXBBaseViewController
 
@@ -26,8 +21,6 @@ typedef enum : NSUInteger {
 
 ///loanID
 @property (nonatomic,copy) NSString *loanID;
-
-@property (nonatomic, assign) HXBFinancing_LoanDetailFrom from;
 
 @property (nonatomic,strong) HXBFinHomePageViewModel_LoanList *loanListViewMode;
 @end

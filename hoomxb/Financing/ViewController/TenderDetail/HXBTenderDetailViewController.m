@@ -94,8 +94,6 @@
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
     loanDetailsVC.title = model.title;
     loanDetailsVC.loanID = model.loanId;
-    loanDetailsVC.from = HXBFinancing_LoanDetailFromTenderDetail;
-//    loanDetailsVC.isFlowChart = YES;
     [self.navigationController pushViewController:loanDetailsVC animated:YES];
 }
 

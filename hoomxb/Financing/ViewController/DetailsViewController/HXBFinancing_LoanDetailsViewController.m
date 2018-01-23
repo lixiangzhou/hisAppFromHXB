@@ -66,13 +66,6 @@
         viewModelVM.title                      = @"散标投资";
         return viewModelVM;
     }];
-    
-    if (self.from == HXBFinancing_LoanDetailFromTenderDetail) { /// 从投标明细页来 ，button显示等待投资，该button置灰。
-        [self.loanDetailsView.addButton setTitle:@"等待投资" forState:UIControlStateNormal];
-        self.loanDetailsView.addButton.backgroundColor = COR26;
-        [self.loanDetailsView.addButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        self.loanDetailsView.addButton.enabled = NO;
-    }
 }
 - (void)setLoanListViewMode:(HXBFinHomePageViewModel_LoanList *)loanListViewMode {
     _loanListViewMode = loanListViewMode;
