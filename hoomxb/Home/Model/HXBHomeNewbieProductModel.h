@@ -19,4 +19,9 @@
  新手图片img
  */
 @property (nonatomic, copy) NSString *img;
+
+/**
+ 点击新手图片跳转地址
+ */
+@property (nonatomic, copy) NSString *url;
 @end

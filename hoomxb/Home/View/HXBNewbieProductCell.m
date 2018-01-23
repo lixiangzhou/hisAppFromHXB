@@ -132,9 +132,14 @@
         if ([self.homePageModel_DataList.countDownLastStr doubleValue] > 0) {
             self.btnBackgroundView.hidden = YES;
             [self.purchaseButton setTitle:countDownString forState:(UIControlStateNormal)];
+            [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
+            self.purchaseButton.layer.borderColor = RGB(255, 133, 133).CGColor;
+            self.purchaseButton.backgroundColor = RGB(255, 247, 247);
         }
         else {
             self.btnBackgroundView.hidden = NO;
+            [self.purchaseButton setTitleColor:kHXBColor_FFFFFF_100 forState:UIControlStateNormal];
+            self.purchaseButton.layer.borderColor = [UIColor clearColor].CGColor;
             [self.purchaseButton setTitle:@"立即加入" forState:(UIControlStateNormal)];
         }
     }

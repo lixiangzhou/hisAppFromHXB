@@ -27,7 +27,8 @@
 #import "HXBHomePopViewManager.h"
 #import "HXBRootVCManager.h"
 #import "HXBVersionUpdateManager.h"
-
+#import "HxbHomePageViewModel.h"
+#import "HXBHomeNewbieProductModel.h"
 @interface HxbHomeViewController ()
 
 @property (nonatomic, strong) HxbHomeView *homeView;
@@ -36,6 +37,8 @@
 
 @property (nonatomic, strong) HXBVersionUpdateViewModel *versionUpdateVM;
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+
+@property (nonatomic, strong) HxbHomePageViewModel *homeViewModel;
 
 @property (nonatomic, assign) int times;
 
@@ -152,6 +155,7 @@
     HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
     [request homePlanRecommendWithIsUPReloadData:isUPReloadData andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
         NSLog(@"%@",viewModel);
+        weakSelf.homeViewModel = viewModel;
         weakSelf.homeView.homeBaseViewModel = viewModel;
         weakSelf.homeView.isStopRefresh_Home = YES;
         
@@ -222,6 +226,11 @@
         
         _homeView.newbieAreaActionBlock = ^{
             NSLog(@"点击了新手专区");
+            if (weakSelf.homeViewModel.homeBaseModel.newbieProductData.url.length > 0) {
+                HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+                webViewVC.pageUrl = weakSelf.homeViewModel.homeBaseModel.newbieProductData.url;
+                [weakSelf.navigationController pushViewController:webViewVC animated:YES];
+            }
         };
     }
     return _homeView;
