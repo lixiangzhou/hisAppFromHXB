@@ -35,8 +35,6 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, strong) HXBCreditorChangeTopView *topView;
 /** bottomView*/
 @property (nonatomic, strong) HXBCreditorChangeBottomView *bottomView;
-// 我的信息
-@property (nonatomic, strong) HXBRequestUserInfoViewModel *viewModel;
 /** 短验弹框 */
 @property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
 // 银行卡信息
@@ -45,18 +43,12 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, strong) NSArray *titleArray;
 /** titleArray */
 @property (nonatomic, strong) NSArray *detailArray;
-/** 充值金额 */
+/** 投资金额 */
 @property (nonatomic, copy) NSString *inputMoneyStr;
 /** 可用余额 */
 @property (nonatomic, copy) NSString *balanceMoneyStr;
 /** 预期收益 */
 @property (nonatomic, copy) NSString *profitMoneyStr;
-/** 还需金额 */
-@property (nonatomic, copy) NSString *needMoneyStr;
-/** 交易密码 */
-@property (nonatomic, copy) NSString *exchangePasswordStr;
-/** 短信验证码 */
-@property (nonatomic, copy) NSString *smsCodeStr;
 /** 点击按钮的文案 */
 @property (nonatomic, copy) NSString * btnLabelText;
 /** 购买类型 */
@@ -93,6 +85,8 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, strong) HxbHUDProgress *hud;
 // 是否超出投资限制
 @property (nonatomic, assign) BOOL isExceedLimitInvest;
+// 是否符合标的等级购买规则
+@property (nonatomic, assign) BOOL isMatchBuy;
 
 @end
 
@@ -101,22 +95,26 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.isColourGradientNavigationBar = YES;
+    
     _couponTitle = @"优惠券";
     _discountTitle = @"";
     _balanceTitle = @"可用余额";
     _hud = [[HxbHUDProgress alloc] init];
+    
+    _isMatchBuy = [self.userInfoViewModel.userInfoModel.userInfo.riskSet containsObject:self.riskType];
+    _balanceMoneyStr = self.userInfoViewModel.userInfoModel.userAssets.availablePoint;
+    
     [self buildUI];
     [self unavailableMoney];
     [self hasBestCouponRequest];
     [self isMatchToBuyWithMoney:@"0"];
-    [self changeItemWithInvestMoney:_inputMoneyStr];
+//    [self changeItemWithInvestMoney:_inputMoneyStr];
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [self getBankCardLimit];
-    [self getNewUserInfo];
     
 }
 
@@ -153,13 +151,14 @@ static NSString *const bankString = @"绑定银行卡";
     [self.hxbBaseVCScrollView reloadData];
 }
 
+
 // 根据金额改变按钮文案
 - (void)changeItemWithInvestMoney:(NSString *)investMoney {
     self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
     _inputMoneyStr = investMoney;
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue - _discountMoney;
     if (rechargeMoney > 0.00) { // 余额不足的情况
-        if ([self.viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+        if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
             self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
         } else {
             self.bottomView.clickBtnStr = bankString;
@@ -273,12 +272,12 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)fullAddtionFunc {
     kWeakSelf
     double topupMoney = [_inputMoneyStr doubleValue] - [_balanceMoneyStr doubleValue] - _discountMoney;
-    NSString *rechargeMoney =_viewModel.userInfoModel.userInfo.minChargeAmount_new;
-    if (topupMoney < _viewModel.userInfoModel.userInfo.minChargeAmount) {
+    NSString *rechargeMoney =_userInfoViewModel.userInfoModel.userInfo.minChargeAmount_new;
+    if (topupMoney < _userInfoViewModel.userInfoModel.userInfo.minChargeAmount) {
         HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:[NSString stringWithFormat:@"单笔充值最低金额%@元，\n是否确认充值？", rechargeMoney] andLeftBtnName:@"取消" andRightBtnName:@"确认充值" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
         alertVC.isCenterShow = YES;
         [alertVC setRightBtnBlock:^{
-                [weakSelf sendSmsCodeWithMoney:weakSelf.viewModel.userInfoModel.userInfo.minChargeAmount];
+                [weakSelf sendSmsCodeWithMoney:weakSelf.userInfoViewModel.userInfoModel.userInfo.minChargeAmount];
         }];
         [self presentViewController:alertVC animated:NO completion:nil];
     } else {
@@ -351,6 +350,7 @@ static NSString *const bankString = @"绑定银行卡";
                     @"buyType": weakSelf.buyType,
                     @"balanceAmount": weakSelf.balanceMoneyStr,
                     @"smsCode": pwd,
+                    @"willingToBuy": [NSString stringWithFormat:@"%d", _isExceedLimitInvest],
                     @"couponId": weakSelf.couponid
                     };
             [weakSelf buyPlanWithDic:dic];
@@ -380,6 +380,7 @@ static NSString *const bankString = @"绑定银行卡";
                 @"cashType": weakSelf.cashType,
                 @"buyType": weakSelf.buyType,
                 @"tradPassword": password,
+                @"willingToBuy": [NSString stringWithFormat:@"%d", _isExceedLimitInvest],
                 @"couponId": weakSelf.couponid
                 };
         [weakSelf buyPlanWithDic:dic];
@@ -517,35 +518,22 @@ static const NSInteger topView_high = 300;
             } else {
                 weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
             }
+            [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+            weakSelf.hxbBaseVCScrollView.hidden = NO;
             weakSelf.topView.hasBank = YES;
             weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
+            [weakSelf setUpArray];
             [weakSelf.hxbBaseVCScrollView reloadData];
         }];
     } else {
         self.topView.height = kScrAdaptationH750(topView_high);
         self.topView.hasBank = NO;
         self.hxbBaseVCScrollView.tableHeaderView = self.topView;
+        [self changeItemWithInvestMoney:_inputMoneyStr];
+        [self setUpArray];
+        self.hxbBaseVCScrollView.hidden = NO;
         [self.hxbBaseVCScrollView reloadData];
     }
-}
-
-// 获取用户信息
-- (void)getNewUserInfo {
-    kWeakSelf
-    [_hud showAnimationWithText:kLoadIngText];
-    [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.viewModel = viewModel;
-        weakSelf.balanceMoneyStr = weakSelf.viewModel.userInfoModel.userAssets.availablePoint;
-        [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-        [weakSelf setUpArray];
-        [weakSelf.hxbBaseVCScrollView reloadData];
-        [_hud hide];
-        weakSelf.hxbBaseVCScrollView.hidden = NO;
-    } andFailure:^(NSError *error) {
-        [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-        [_hud hide];
-        weakSelf.hxbBaseVCScrollView.hidden = NO;
-    }];
 }
 
 // 匹配最优优惠券
@@ -726,7 +714,7 @@ static const NSInteger topView_high = 300;
 // 根据金额匹配是否展示风险协议
 - (void)isMatchToBuyWithMoney:(NSString *)money {
     if (_isMatchBuy) {
-        if (money.doubleValue > 50000) {
+        if (money.doubleValue > self.userInfoViewModel.userInfoModel.userInfo.riskAccount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount) {
             self.bottomView.isShowRiskView = YES;
             self.isExceedLimitInvest = YES;
         } else {

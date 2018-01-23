@@ -42,6 +42,10 @@
 @property (nonatomic,copy) NSString *hasRecharge;
 /// 持有总资产
 @property (nonatomic,strong) NSNumber *holdingTotalAssets;
+/// 持有总资产
+@property (nonatomic, assign) double holdingAmount;
+
+
 @end
 
 
@@ -126,5 +130,17 @@
  是否有理财顾问
  */
 @property (nonatomic,assign) BOOL isDisplayAdvisor;
+/**
+ 用户可出借总金额
+ */
+@property (nonatomic,copy) NSString *riskAccount;
+/**
+ 用户可购买产品风险类型集合:
+    保守型：[“AA”,”A”,”CONSERVATIVE”];
+    稳健性：[“AA”,”A”, “B”,”CONSERVATIVE”, “PRUDENT”];
+    激进型：[“D”, “AA”, “A”,”PROACTIVE”, “B”,”C”,”CONSERVATIVE”, “PRUDENT”]
+ */
+@property (nonatomic,strong) NSArray *riskSet;
+
 
 @end

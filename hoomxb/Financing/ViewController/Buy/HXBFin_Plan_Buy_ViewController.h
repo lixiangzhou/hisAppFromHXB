@@ -21,7 +21,7 @@
 @property (nonatomic, copy) NSString *featuredSlogan;
 @property (nonatomic, copy) NSString *hasBindCard; //是否绑卡
 @property (nonatomic, assign) BOOL isNewComer; // 是否是新手计划
-@property (nonatomic, assign) BOOL isMatchBuy; // 是否符合标的等级购买规则
-@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;    // 用户信息
 
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;    // 用户信息
+@property (nonatomic, copy) NSString *riskType;     // 风险类型
 @end
