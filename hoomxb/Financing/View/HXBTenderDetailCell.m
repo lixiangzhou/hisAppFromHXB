@@ -118,9 +118,9 @@ const CGFloat HXBTenderDetailCellHeight = 81;
     _model = model;
     
     self.titleLabel.text = model.title;
-    self.timeLimitLabel.text = model.months;
+    self.timeLimitLabel.text = [NSString stringWithFormat:@"%@个月", model.months] ;
     self.tenderLabel.text = model.riskLevel;
-    self.moneyLabel.text = model.amount;
+    self.moneyLabel.text = [NSString hxb_getPerMilWithDouble:model.amount.doubleValue];
 }
 
 #pragma mark - Helper

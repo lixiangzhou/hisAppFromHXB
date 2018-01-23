@@ -78,22 +78,23 @@
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
     return self.viewModel.dataSource.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBTenderDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:HXBTenderDetailCellIdentifier forIndexPath:indexPath];
-//    cell.model = self.viewModel.dataSource[indexPath.row];
+    cell.model = self.viewModel.dataSource[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    HXBTenderDetailModel *model = self.viewModel.dataSource[indexPath.row];
     HXBFinancing_LoanDetailsViewController *loanDetailsVC = [[HXBFinancing_LoanDetailsViewController alloc]init];
-    loanDetailsVC.title = @"";
-//    loanDetailsVC.loanID = ;
+    loanDetailsVC.title = model.title;
+    loanDetailsVC.loanID = model.loanId;
+    loanDetailsVC.from = HXBFinancing_LoanDetailFromTenderDetail;
 //    loanDetailsVC.isFlowChart = YES;
     [self.navigationController pushViewController:loanDetailsVC animated:YES];
 }

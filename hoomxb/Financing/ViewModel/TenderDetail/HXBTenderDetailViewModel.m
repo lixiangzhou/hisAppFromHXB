@@ -42,23 +42,32 @@
     req.requestArgument = @{@"pageSize": self.pageSize,
                             @"page": @(page)};
     kWeakSelf
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [req startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+        NSInteger statusCode = [responseObject[kResponseStatus] integerValue];
+        if (statusCode != kHXBCode_Success) {
+            NSString *message = responseObject[kResponseMessage];
+            [HxbHUDProgress showTextWithMessage:message andView:weakSelf.view];
+        } else {
+            NSArray *temp = responseObject[kResponseData][@"dataList"];
+            if (temp.count) {
+                NSMutableArray *tempModels = [NSMutableArray new];
+                for (NSInteger i = 0; i < temp.count; i++) {
+                    [tempModels addObject:[HXBTenderDetailModel yy_modelWithDictionary:temp[i]]];
+                }
+                
+                if (isNew) {
+                    [self.dataSource removeAllObjects];
+                    [self.dataSource addObjectsFromArray:tempModels];
+                } else {
+                    [self.dataSource addObjectsFromArray:tempModels];
+                }
+            }
+            self.totalCount = responseObject[kResponseData][@"totalCount"];
+        }
         completion();
-    });
-    
-//    [req startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
-//        NSInteger statusCode = [responseObject[kResponseStatus] integerValue];
-//        if (statusCode != kHXBCode_Success) {
-//            NSString *message = responseObject[kResponseMessage];
-//            [HxbHUDProgress showTextWithMessage:message andView:weakSelf.view];
-//        } else {
-//            self.totalCount = responseObject[kResponseData][@"totalCount"];
-//        }
-//        completion();
-//    } failure:^(NYBaseRequest *request, NSError *error) {
-//        completion();
-//    }];
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        completion();
+    }];
 }
 
 @end
