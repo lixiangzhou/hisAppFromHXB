@@ -93,6 +93,7 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.isColourGradientNavigationBar = YES;
     _couponTitle = @"优惠券";
     _discountTitle = @"";
@@ -158,7 +159,7 @@ static NSString *const bankString = @"绑定银行卡";
     self.topView.profitStr = [NSString stringWithFormat:@"预期收益%@", [NSString hxb_getPerMilWithDouble:investMoney.floatValue*self.totalInterest.floatValue/100.0]];
     
     if (self.isNewPlan) {
-        CGFloat subsidy = investMoney.floatValue * self.expectedSubsidyInterestAmount.floatValue;
+        CGFloat subsidy = investMoney.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
         NSString *subsidyString = [NSString stringWithFormat:@"%.2f", subsidy];
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", investMoney.floatValue*self.totalInterest.floatValue/100.0 + subsidy];
         [_topView setProfitStr:_profitMoneyStr andSubsidy:subsidyString];
@@ -218,7 +219,7 @@ static NSString *const bankString = @"绑定银行卡";
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         
         if (self.isNewPlan) {
-            CGFloat subsidy = _inputMoneyStr.floatValue * self.expectedSubsidyInterestAmount.floatValue;
+            CGFloat subsidy = _inputMoneyStr.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
             NSString *subsidyString = [NSString stringWithFormat:@"%.2f", subsidy];
             _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0 + subsidy];
             [_topView setProfitStr:_profitMoneyStr andSubsidy:subsidyString];
@@ -234,7 +235,7 @@ static NSString *const bankString = @"绑定银行卡";
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         
         if (self.isNewPlan) {
-            CGFloat subsidy = _inputMoneyStr.floatValue * self.expectedSubsidyInterestAmount.floatValue;
+            CGFloat subsidy = _inputMoneyStr.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
             NSString *subsidyString = [NSString stringWithFormat:@"%.2f", subsidy];
             _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0 + subsidy];
             [_topView setProfitStr:_profitMoneyStr andSubsidy:subsidyString];
@@ -698,7 +699,7 @@ static const NSInteger topView_high = 300;
 
     _topView.isNewPlan = self.isNewPlan;
     if (self.isNewPlan) {
-        _topView.creditorMoney = [NSString stringWithFormat:@"新手产品剩余可购买金额%@元", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+        _topView.creditorMoney = [NSString stringWithFormat:@"新手产品剩余可购买金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
         _topView.alertTipBlock = ^{
             HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:@"加息收益将在计划退出时发放至您的账户" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
             alertVC.isHIddenLeftBtn = YES;

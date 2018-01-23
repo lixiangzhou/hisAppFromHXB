@@ -290,7 +290,7 @@
     [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:profitStr attributes:@{NSForegroundColorAttributeName: COR29}]];
     [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:@"元，加息收益" attributes:@{NSForegroundColorAttributeName: COR10}]];
     [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:subsidy attributes:@{NSForegroundColorAttributeName: COR29}]];
-    [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:@"元" attributes:@{NSForegroundColorAttributeName: COR10}]];
+    [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:@"元 " attributes:@{NSForegroundColorAttributeName: COR10}]];
     
     NSTextAttachment *attachment = [NSTextAttachment new];
     attachment.image = [UIImage imageNamed:@"lightblue_tip"];
