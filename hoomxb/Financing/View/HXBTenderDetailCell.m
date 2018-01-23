@@ -117,10 +117,10 @@ const CGFloat HXBTenderDetailCellHeight = 81;
 - (void)setModel:(HXBTenderDetailModel *)model {
     _model = model;
     
-    self.titleLabel.text = @"AAA产品";
-    self.timeLimitLabel.text = @"12个月";
-    self.tenderLabel.text = @"AAA";
-    self.moneyLabel.text = @"5,000.00元";
+    self.titleLabel.text = model.title;
+    self.timeLimitLabel.text = model.months;
+    self.tenderLabel.text = model.riskLevel;
+    self.moneyLabel.text = model.amount;
 }
 
 #pragma mark - Helper

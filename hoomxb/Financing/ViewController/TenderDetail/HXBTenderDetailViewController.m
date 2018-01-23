@@ -24,17 +24,22 @@
     [super viewDidLoad];
     
     self.viewModel = [HXBTenderDetailViewModel new];
+    self.viewModel.view = self.view;
+    
     [self setUI];
     kWeakSelf
-//    [self.viewModel getData:YES completion:^{
-//        [weakSelf.tableView reloadData];
-//    }];
+    [self.viewModel getData:YES completion:^{
+        [weakSelf.tableView reloadData];
+    }];
 }
 
 #pragma mark - UI
 
 - (void)setUI {
+    self.title = @"计划投标明细";
     self.isRedColorWithNavigationBar = YES;
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -53,17 +58,19 @@
     }];
 
     kWeakSelf
-//    [tableView hxb_headerWithRefreshBlock:^{
-//        [weakSelf.viewModel getData:YES completion:^{
-//            [weakSelf.tableView reloadData];
-//        }];
-//    }];
-//
-//    [tableView hxb_footerWithRefreshBlock:^{
-//        [weakSelf.viewModel getData:NO completion:^{
-//            [weakSelf.tableView reloadData];
-//        }];
-//    }];
+    [tableView hxb_headerWithRefreshBlock:^{
+        [weakSelf.viewModel getData:YES completion:^{
+            [weakSelf.tableView endRefresh];
+            [weakSelf.tableView reloadData];
+        }];
+    }];
+
+    [tableView hxb_footerWithRefreshBlock:^{
+        [weakSelf.viewModel getData:NO completion:^{
+            [weakSelf.tableView.mj_footer endRefreshing];
+            [weakSelf.tableView reloadData];
+        }];
+    }];
 }
 
 #pragma mark - Network
@@ -78,7 +85,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBTenderDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:HXBTenderDetailCellIdentifier forIndexPath:indexPath];
 //    cell.model = self.viewModel.dataSource[indexPath.row];
-    cell.model = @"";
     return cell;
 }
 

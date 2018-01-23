@@ -108,7 +108,7 @@
 /// 新手贴息预期收益/100元
 @property (nonatomic, copy) NSString *expectedSubsidyInterestAmount;
 /// 是否是新手计划(1:是新手 0:非新手)
-@property (nonatomic, assign) NSInteger novice;
+@property (nonatomic, copy) NSString *novice;
 /// 新手计划锁定期/天
 @property (nonatomic, copy) NSString *lockDays;
 /// 新手产品购买额度
