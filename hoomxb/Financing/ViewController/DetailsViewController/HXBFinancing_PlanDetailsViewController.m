@@ -31,6 +31,11 @@
 #import "HXBFin_creditorChange_buy_ViewController.h"
 #import "HXBFin_Plan_Buy_ViewController.h"
 
+static NSString* const kTitlePlanDetail = @"计划详情";
+static NSString* const kTitleInvestmentProjects = @"投资项目";
+static NSString* const kTitleJoinRecord = @"加入记录";
+static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
+
 @interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 //假的navigationBar
 @property (nonatomic,strong) UIImageView *topImageView;
@@ -229,12 +234,15 @@
                                  @"1",
                                  @"1",
                                  @"1",
+                                 @"1",
                                  ];
     self.tableViewTitleArray = @[
-                                 @"计划详情",
-                                 @"加入记录",
-                                 @"红利计划服务协议"
+                                 kTitlePlanDetail,
+                                 kTitleInvestmentProjects,
+                                 kTitleJoinRecord,
+                                 kTitlePlanServiceAgreement
                                 ];//[self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? @"按月付息服务协议" : @"红利计划服务协议"
+    
 }
 
 - (NSArray<HXBFinDetail_TableViewCellModel *> *)tableViewModelArray {
@@ -376,16 +384,22 @@
     if (indexPath.section == 0) {
         [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:self];
     } else if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
+        NSString* title = [self.tableViewTitleArray safeObjectAtIndex:indexPath.row];
+        if ([title isEqualToString:kTitlePlanDetail]) {
             HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc] init];
             detail_DetailPlanVC.planDetailModel = self.planDetailViewModel;
             [self.navigationController pushViewController:detail_DetailPlanVC animated:YES];
-        } else if (indexPath.row == 1) {
+        }
+        else if([title isEqualToString:kTitleInvestmentProjects]){
+            
+        }
+        else if ([title isEqualToString:kTitleJoinRecord]) {
             HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
             planAddRecordVC.planListViewModel = self.planListViewModel;
             planAddRecordVC.planID = self.planID;
             [self.navigationController pushViewController:planAddRecordVC animated:YES];
-        } else {
+        }
+        else if ([title isEqualToString:kTitlePlanServiceAgreement]){
             
             NSString *urlStr = [self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? kHXB_Negotiate_ServePlanMonthURL : kHXB_Negotiate_ServePlanURL;
             [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:urlStr] fromController:self];
