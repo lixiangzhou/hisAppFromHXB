@@ -78,13 +78,13 @@
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"按月付息" Massage:@"购买该计划产品的用户，收益将会按当月时间返回到账内即可提取，如当月无此付息日，则统一为当月最后一天为该月付息日。" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
         alertVC.isHIddenLeftBtn = YES;
         alertVC.isCenterShow = YES;
-        [self presentViewController:alertVC animated:YES completion:nil];
+        [weakSelf presentViewController:alertVC animated:YES completion:nil];
     };
     self.planDetailView.tipNoviceClickBlock = ^{
         HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:[NSString stringWithFormat:@"计划按照%.1lf%%计息，加息收益%@元将在计划退出时发放至您的账户",weakSelf.planViewModel.planModelDataList.expectedRate.floatValue,weakSelf.planViewModel.planModelDataList.expectedSubsidyInterestAmount] force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
         alertVC.isHIddenLeftBtn = YES;
         alertVC.isCenterShow = YES;
-        [self presentViewController:alertVC animated:YES completion:nil];
+        [weakSelf presentViewController:alertVC animated:YES completion:nil];
     };
     ///点击了立即加入button
     [self.planDetailView clickAddButtonWithBlock:^(UIButton *button) {
