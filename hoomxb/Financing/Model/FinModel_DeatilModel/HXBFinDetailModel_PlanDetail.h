@@ -26,8 +26,7 @@
 
 ///post /financeplan/financeplandetail.action 红利计划详情Model
 @interface HXBFinDetailModel_PlanDetail : NSObject
-///适合人群（计划的风险类型）。CONSERVATIVE：保守；PRUDENT：稳健；PROACTIVE：积极应对
-@property (nonatomic,copy) NSString *riskType;
+
 ///曾信地址
 @property (nonatomic,copy) NSString *contractUrl;
 ///本金余额合约名称
@@ -157,12 +156,6 @@
 @property (nonatomic,copy) NSString *incomeApproach;//": "收益方式文案，文案规则：HXB返回：按月付息，INVEST返回：收益复投"
 @property (nonatomic,copy) NSString *interestDate;//": "按月付息日具体文案，拼接规则：每月+cashDrawDay+日付息"
 
-@property (nonatomic,copy) NSString *subsidyInterestRate;///新手贴息收益率
-@property (nonatomic,copy) NSString *expectedSubsidyInterestAmount;///新手贴息预期收益/100元
-@property (nonatomic,copy) NSString *novice;///是否是新手计划(1:是新手 0:非新手)
-@property (nonatomic,copy) NSString *lockDays;///新手计划锁定期/天
-@property (nonatomic,copy) NSString *newbiePlanAmount;///新手产品购买额度
-@property (nonatomic,copy) NSString *newbiePlanLeftAmount;///新手产品剩余额度
 
 ///红利计划详情页的数据数组
 //@property (nonatomic,strong) NSArray <HXBFinDetailModel_PlanDetail_DataList *>*dataList;
