@@ -63,9 +63,7 @@
             return ;
         }
         weakSelf.homePopViewModel = [HXBHomePopViewModel yy_modelWithDictionary:responseObject[@"data"]];
-        if (responseObject[@"data"]) {
-//            [weakSelf updateUserDefaultsPopViewDate:responseObject[@"data"]];
-        }
+        [weakSelf updateUserDefaultsPopViewDate:responseObject[@"data"]];
     } andFailureBlock:^(NSError *error) {
         self.isHide = YES;
     }];
