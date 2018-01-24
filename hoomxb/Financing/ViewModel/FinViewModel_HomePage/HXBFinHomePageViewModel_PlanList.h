@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 @class HXBFinHomePageModel_PlanList;
 ///红利计划的首页ViewModel
+
+typedef enum : NSUInteger {
+    planType_newComer,
+    playType_HXB,
+    planType_invest
+} PlanType;
+
 @interface HXBFinHomePageViewModel_PlanList : NSObject
 ///红利计划的model
 @property (nonatomic,strong) HXBFinHomePageModel_PlanList *planListModel;
@@ -32,5 +39,12 @@
 @property (nonatomic,strong) UIColor *addButtonTitleColor;
 ///addbutton 边缘的颜色
 @property (nonatomic,strong) UIColor *addButtonBorderColor;
+
+#pragma mark --- 新手专区新增辅助属性
+// 计划类型
+@property (nonatomic, assign) PlanType planType;
+// 计划期限 （天就取天 月取月 没有值 --）
+@property (nonatomic, copy) NSString *lockPeriod;
+
 
 @end

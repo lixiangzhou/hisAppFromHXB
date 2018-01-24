@@ -10,14 +10,12 @@
 
 @class HXBFinHomePageViewModel_PlanList;
 
-typedef void(^clickHeadViewBlock)(id model);
-
 @interface HXBFinancting_PlanListTableView : HXBBaseTableView
 
+// 计划列表数据源
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList *>* planListViewModelArray;
-
+// 点击cell回调方法
 @property (nonatomic,copy) void (^clickPlanListCellBlock)(NSIndexPath *index, id model);
-@property (nonatomic, copy) clickHeadViewBlock block;
 ///年利率文字
 @property (nonatomic,strong) NSString *expectedYearRateLable_ConstStr;
 ///期限

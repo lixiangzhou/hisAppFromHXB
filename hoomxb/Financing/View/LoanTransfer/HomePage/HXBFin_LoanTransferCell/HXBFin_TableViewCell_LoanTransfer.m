@@ -58,8 +58,10 @@
   }
 
 - (void)creatViews {
-    _interestView       = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(10)];
-    _remainMonthsView   = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(10)];
+    _interestView       = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(20)];
+    _remainMonthsView   = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(20)];
+    _interestView.isLoanTransfer = YES;
+    _remainMonthsView.isLoanTransfer = YES;
     _amountTransferLabel = [[UILabel alloc] init];
     _stutasButton = [[UIButton  alloc]init];
     _stutasButton.layer.cornerRadius = kScrAdaptationW(2.5);

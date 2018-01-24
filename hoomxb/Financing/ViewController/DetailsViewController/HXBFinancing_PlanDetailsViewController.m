@@ -143,8 +143,8 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
     }
 
     kWeakSelf
-    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard) {
-        [weakSelf enterPlanBuyViewControllerWithHasBindCard:hasBindCard];
+    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+        [weakSelf enterPlanBuyViewControllerWithHasBindCard:hasBindCard userInfo:model];
     }];
 }
 

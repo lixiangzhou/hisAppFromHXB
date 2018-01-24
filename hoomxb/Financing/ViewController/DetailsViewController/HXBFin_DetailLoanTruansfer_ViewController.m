@@ -225,12 +225,12 @@
     }
     ///判断是否实名。。。。
     kWeakSelf
-    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard) {
-        [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard];
+    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+        [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard userInfo:model];
     }];
 }
 
-- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
+- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard userInfo:(HXBRequestUserInfoViewModel *)viewModel {
     if ([self.loanTruansferDetailViewModel.loanTruansferDetailModel.enabledBuy isEqualToString:@"0"]) {
         [HxbHUDProgress showTextWithMessage:@"自己转让的债权无法再次购买"];
         return;

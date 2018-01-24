@@ -15,6 +15,11 @@
 ///红色的背景色
 #define kHXBColor_F55151_100                RGBA(245, 81, 81, 1)
 
+///橙色的背景色
+#define kHXBColor_FF7D2F_100                RGBA(255, 125, 47, 1)
+#define kHXBColor_FFFCF5_100                RGBA(255, 252, 245, 1)
+#define kHXBColor_FF9535_100                RGBA(255, 149, 53, 1)
+
 ///灰色系列的背景色
 #define kHXBColor_333333_100                RGBA(51, 51, 51, 1)
 #define kHXBColor_666666_100                RGBA(102, 102, 102, 1)

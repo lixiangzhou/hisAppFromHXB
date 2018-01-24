@@ -69,22 +69,21 @@
     }];
 }
 
-- (void)updateUserDefaultsPopViewDate:(NSDictionary *)dict{
-
+- (void)updateUserDefaultsPopViewDate:(NSDictionary *)dict {
     _responseDict = (NSDictionary *)[kUserDefaults objectForKey:dict[@"id"]];
     if (_responseDict[@"image"]) {
         if (_responseDict[@"updateTime"] < dict[@"updateTime"]) { //已更新
             _responseDict = dict;
-//            [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
-//            [kUserDefaults synchronize];
+            //            [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
+            //            [kUserDefaults synchronize];
             [self cachePopHomeImage];
         } else {
             self.isHide = ![kUserDefaults boolForKey:[NSString stringWithFormat:@"%@%@",_responseDict[@"id"],_responseDict[@"frequency"]]];
         }
     } else {
         _responseDict = dict;
-//        [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
-//        [kUserDefaults synchronize];
+        //        [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
+        //        [kUserDefaults synchronize];
         [self cachePopHomeImage];
     }
 }

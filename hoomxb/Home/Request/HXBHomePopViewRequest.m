@@ -22,12 +22,6 @@
 //                                         @"versionCode" : versionCode
 //                                         };
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        
-        //不弹出错误提示弹窗
-//        if (status) {
-//            kHXBResponsShowHUD
-//        }
         
         if (successDateBlock) {
             successDateBlock(responseObject);
