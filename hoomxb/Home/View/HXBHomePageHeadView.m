@@ -129,7 +129,7 @@
             // 没有实名
             weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
             weakSelf.afterLoginView.tipString = @"完善存管信息";
-        } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"] && viewModel.userInfoModel.userInfo.isNewbie) {
+        } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"] && (self.homeBaseModel.newbieProductData.dataList.count > 0)) {
             //已经投资显示的界面
             HxbHomePageModel_DataList *homePageModel = self.homeBaseModel.newbieProductData.dataList.firstObject;
             CGFloat rate = [homePageModel.baseInterestRate doubleValue] + [homePageModel.subsidyInterestRate doubleValue];
@@ -152,20 +152,7 @@
     }
 }
 
-- (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
-{
-    _homeBaseModel = homeBaseModel;
-    
-    if (homeBaseModel.bannerList.count) {
-        self.bannerView.bannersModel = homeBaseModel.bannerList;
-    }else{
-        BannerModel *bannerModel = [[BannerModel alloc] init];
-        self.bannerView.bannersModel = @[bannerModel];
-    }
-    NSURL *imgURL = [NSURL URLWithString:homeBaseModel.newbieProductData.img];
-    [self.newbieImageView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"Home_newbieArea_default"]];
-    [self showSecurityCertificationOrInvest:self.userInfoViewModel];
-}
+
 
 - (void)noticeBtnClick
 {
@@ -185,12 +172,23 @@
 }
 
 #pragma mark Set Methods
-- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel {
-    _userInfoViewModel = userInfoViewModel;
-    if (KeyChain.isLogin) {
-        self.newbieView.hidden = !userInfoViewModel.userInfoModel.userInfo.isNewbie;
-    } else {
+- (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
+{
+    _homeBaseModel = homeBaseModel;
+    
+    if (homeBaseModel.bannerList.count) {
+        self.bannerView.bannersModel = homeBaseModel.bannerList;
+    }else{
+        BannerModel *bannerModel = [[BannerModel alloc] init];
+        self.bannerView.bannersModel = @[bannerModel];
+    }
+    NSURL *imgURL = [NSURL URLWithString:homeBaseModel.newbieProductData.img];
+    [self.newbieImageView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"Home_newbieArea_default"]];
+    [self showSecurityCertificationOrInvest:self.userInfoViewModel];
+    if (homeBaseModel.newbieProductData.img.length > 0) {
         self.newbieView.hidden = NO;
+    } else {
+        self.newbieView.hidden = YES;
     }
 }
 #pragma mark Get Methods

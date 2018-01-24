@@ -210,7 +210,7 @@
             }else
             {
                 //判断首页的header各种逻辑
-                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController withOldUserInfo:weakSelf.userInfoViewModel andWithHomeData:weakSelf.homeView.homeBaseViewModel];
+                [HXBMiddlekey depositoryJumpLogicWithNAV:weakSelf.navigationController withOldUserInfo:weakSelf.userInfoViewModel];
             }
             
         };

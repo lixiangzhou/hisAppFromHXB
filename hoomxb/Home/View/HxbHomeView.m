@@ -17,6 +17,7 @@
 #import "HXBNewbieProductCell.h"
 #import "HXBHomeBaseModel.h"
 #import "HXBHomeTitleModel.h"
+#import "HXBHomeNewbieProductModel.h"
 @interface HxbHomeView ()<UITableViewDelegate,UITableViewDataSource,HXBHomePageHeadViewDelegate>
 @property (nonatomic, strong) HXBHomePageHeadView *headView;
 @property (nonatomic, strong) UIView *footerView;
@@ -74,7 +75,7 @@
     kWeakSelf
     if (![KeyChain isLogin]) {
         //没有投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + kHXBNewbieHeight + HXBStatusBarAdditionHeight);
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight);
         [weakSelf.headView showNotValidatedView];
         return;
     }
@@ -87,9 +88,7 @@
         self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight);
         [self.headView showNotValidatedView];
     }
-    if (viewModel.userInfoModel.userInfo.isNewbie) {
-        self.headView.height += kHXBNewbieHeight;
-    }
+    
 }
 
 - (void)showSecurityCertificationOrInvest:(HXBRequestUserInfoViewModel *)viewModel{
@@ -109,6 +108,10 @@
     if (homeBaseViewModel.homeBaseModel.homeTitle.baseTitle.length) {
         self.footerLabel.text = [NSString stringWithFormat:@"- %@ -",homeBaseViewModel.homeBaseModel.homeTitle.baseTitle];
         self.mainTableView.tableFooterView = self.footerView;
+    }
+    [self changeIndicationView:self.userInfoViewModel];
+    if (homeBaseViewModel.homeBaseModel.newbieProductData.img.length > 0) {
+        self.headView.height += kHXBNewbieHeight;
     }
     
     self.headView.homeBaseModel = homeBaseViewModel.homeBaseModel;

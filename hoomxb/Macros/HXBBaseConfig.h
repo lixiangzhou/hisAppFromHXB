@@ -10,6 +10,6 @@
 #define HXBBaseConfig_h
 
 // 用于控制摇一摇修改baseUrl，发布线上的时候为NO，其他情况为YES
-#define HXBShakeChangeBaseUrl NO
+#define HXBShakeChangeBaseUrl YES
 
 #endif /* HXBBaseConfig_h */
