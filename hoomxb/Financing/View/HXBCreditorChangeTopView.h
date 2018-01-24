@@ -45,5 +45,12 @@ typedef void(^textfieldDidChange)(NSString *text);
 @property (nonatomic, copy) buyBlock block;
 /** buyBlock */
 @property (nonatomic, copy) textfieldDidChange changeBlock;
+/// 提示框
+@property (nonatomic, copy) void(^alertTipBlock)();
+/// 是否新手计划
+@property (nonatomic, assign) BOOL isNewPlan;
+
+/// 设置预期收益和加息收益 2.5版本加入
+- (void)setProfitStr:(NSString *)profitStr andSubsidy:(NSString *)subsidy;
 
 @end

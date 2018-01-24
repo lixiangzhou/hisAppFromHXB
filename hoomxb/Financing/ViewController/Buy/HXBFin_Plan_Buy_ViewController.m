@@ -94,6 +94,7 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.isColourGradientNavigationBar = YES;
     
     _couponTitle = @"优惠券";
@@ -117,37 +118,31 @@ static NSString *const bankString = @"绑定银行卡";
     
 }
 
-- (void)dealloc {
-    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    
-    if ([keyPath isEqualToString:@"state"]) {
-        NSNumber *tracking = change[NSKeyValueChangeNewKey];
-        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
-            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
-        }
-        return;
-    }
-    
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
-}
-
 - (void)buildUI {
-    self.hxbBaseVCScrollView = [[UITableView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight) style:(UITableViewStylePlain)];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight) style:(UITableViewStylePlain)];
 
-    self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-    self.hxbBaseVCScrollView.hidden = YES;
-    self.hxbBaseVCScrollView.tableFooterView = [self footTableView];
-    self.hxbBaseVCScrollView.tableHeaderView = self.topView;
-    self.hxbBaseVCScrollView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-    self.hxbBaseVCScrollView.delegate = self;
-    self.hxbBaseVCScrollView.dataSource = self;
-    self.hxbBaseVCScrollView.rowHeight = kScrAdaptationH750(110.5);
-    [self.view addSubview:self.hxbBaseVCScrollView];
-    [self.hxbBaseVCScrollView reloadData];
+    self.tableView.backgroundColor = kHXBColor_BackGround;
+    self.tableView.hidden = YES;
+    self.tableView.tableFooterView = [self footTableView];
+    self.tableView.tableHeaderView = self.topView;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.rowHeight = kScrAdaptationH750(110.5);
+    [self.view addSubview:self.tableView];
+    [self.tableView reloadData];
+    
+    if (self.isNewPlan) {
+        UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(24);
+        NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:@"温馨提示：" attributes:@{NSForegroundColorAttributeName: RGB(115, 173, 255)}];
+        [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:@"新手产品没人加入上限%@元" attributes:@{NSForegroundColorAttributeName: COR8}]];
+        CGFloat tipHeigt = ceil([font lineHeight]);
+        CGRect rect = CGRectMake(15, self.tableView.height - tipHeigt - 40 - HXBBottomAdditionHeight, kScreenW - 15 * 2, tipHeigt);
+        UILabel * tipLabel = [[UILabel alloc] initWithFrame:rect];
+        tipLabel.font = font;
+        tipLabel.attributedText = attrText;
+        [self.tableView addSubview:tipLabel];
+    }
 }
 
 
@@ -168,6 +163,9 @@ static NSString *const bankString = @"绑定银行卡";
         _balanceTitle = @"可用余额";
     }
     self.topView.profitStr = [NSString stringWithFormat:@"预期收益%@", [NSString hxb_getPerMilWithDouble:investMoney.floatValue*self.totalInterest.floatValue/100.0]];
+    
+    [self checkIfNeedNewPlanDatas:investMoney];
+    
     [self setUpArray];
 }
 
@@ -199,6 +197,11 @@ static NSString *const bankString = @"绑定银行卡";
     if (_availablePoint.integerValue == 0) {
         self.topView.totalMoney = @"";
         self.topView.profitStr = @"预期收益0.00元";
+        
+        if (self.isNewPlan) {
+            [self.topView setProfitStr:@"0.00" andSubsidy:@"0.00"];
+        }
+        
         _inputMoneyStr = @"";
         [self setUpArray];
         [HxbHUDProgress showTextWithMessage:@"已超可加入金额"];
@@ -216,6 +219,9 @@ static NSString *const bankString = @"绑定银行卡";
         _curruntInvestMoney =_inputMoneyStr.doubleValue;
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
+        
+        [self checkIfNeedNewPlanDatas:_inputMoneyStr];
+        
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else if (_inputMoneyStr.floatValue < _registerMultipleAmount.floatValue && !_hasInvestMoney && !_isFirstBuy) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_registerMultipleAmount.integerValue];
@@ -224,6 +230,9 @@ static NSString *const bankString = @"绑定银行卡";
         _curruntInvestMoney = _inputMoneyStr.floatValue;
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
+        
+        [self checkIfNeedNewPlanDatas:_inputMoneyStr];
+        
         [HxbHUDProgress showTextWithMessage:@"投资金额不足递增金额"];
     } else {
         BOOL isFitToBuy;
@@ -249,6 +258,15 @@ static NSString *const bankString = @"绑定银行卡";
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
             }
         }
+    }
+}
+
+- (void)checkIfNeedNewPlanDatas:(NSString *)baseMoney {
+    if (self.isNewPlan) {
+        CGFloat subsidy = baseMoney.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
+        NSString *subsidyString = [NSString stringWithFormat:@"%.2f", subsidy];
+        _profitMoneyStr = [NSString stringWithFormat:@"%.2f", baseMoney.floatValue*self.totalInterest.floatValue/100.0 + subsidy];
+        [_topView setProfitStr:_profitMoneyStr andSubsidy:subsidyString];
     }
 }
 
@@ -288,7 +306,7 @@ static NSString *const bankString = @"绑定银行卡";
         [self alertSmsCodeWithMoney:topupMoney];
     } else {
         [HXBFin_Buy_ViewModel requestForBankCardSuccessBlock:^(HXBBankCardModel *model) {
-            weakSelf.hxbBaseVCScrollView.tableHeaderView = nil;
+            weakSelf.tableView.tableHeaderView = nil;
             weakSelf.cardModel = model;
             if ([weakSelf.hasBindCard isEqualToString:@"1"]) {
                 weakSelf.topView.height = kScrAdaptationH750(topView_bank_high);
@@ -303,8 +321,8 @@ static NSString *const bankString = @"绑定银行卡";
                 weakSelf.topView.height = kScrAdaptationH750(topView_high);
                 weakSelf.topView.hasBank = NO;
             }
-            weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
-            [weakSelf.hxbBaseVCScrollView reloadData];
+            weakSelf.tableView.tableHeaderView = weakSelf.topView;
+            [weakSelf.tableView reloadData];
         }];
     }
 }
@@ -454,6 +472,7 @@ static NSString *const bankString = @"绑定银行卡";
     }
     cell.titleStr = _titleArray[indexPath.row];
     cell.detailStr = _detailArray[indexPath.row];
+    
     if (indexPath.row == _titleArray.count - 1) {
         cell.isHeddenHine = YES;
     } else {
@@ -473,7 +492,7 @@ static NSString *const bankString = @"绑定银行卡";
         chooseDiscountVC.planid = _loanId;
         chooseDiscountVC.investMoney = _inputMoneyStr ? _inputMoneyStr : @"";
         chooseDiscountVC.type = @"plan";
-        chooseDiscountVC.couponid = _couponid;
+        chooseDiscountVC.couponid = self.isNewPlan ? @"0" : _couponid;
         [self.navigationController pushViewController:chooseDiscountVC animated:YES];
     }
 }
@@ -542,7 +561,7 @@ static const NSInteger topView_high = 300;
                                @"type": @"plan"
                                };
     NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
-    HXBFin_creditorChange_TableViewCell *cell = [self.hxbBaseVCScrollView cellForRowAtIndexPath:indexpath];
+    HXBFin_creditorChange_TableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexpath];
     cell.isStartAnimation = YES;
     _hasGetCoupon = YES;
     self.bottomView.addBtnIsUseable = NO;
@@ -631,8 +650,11 @@ static const NSInteger topView_high = 300;
 - (void)setUpArray {
     _profitMoneyStr = _profitMoneyStr ? _profitMoneyStr : @"";
     self.titleArray = @[_couponTitle, @"支付金额", _balanceTitle];
+    if (self.isNewPlan) {
+        _discountTitle = @"暂无可用优惠券";
+    }
     self.detailArray = @[_discountTitle,  [NSString hxb_getPerMilWithDouble: _handleDetailTitle.doubleValue],  [NSString hxb_getPerMilWithDouble: _balanceMoneyStr.doubleValue]];
-    [self.hxbBaseVCScrollView reloadData];
+    [self.tableView reloadData];
 }
 
 - (NSArray *)titleArray {
@@ -673,7 +695,22 @@ static const NSInteger topView_high = 300;
         _topView.block = ^{
         };
     }
-    _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+
+    _topView.isNewPlan = self.isNewPlan;
+    if (self.isNewPlan) {
+        _topView.creditorMoney = [NSString stringWithFormat:@"新手产品剩余可购买金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+        _topView.alertTipBlock = ^{
+            HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:nil Massage:@"加息收益将在计划退出时发放至您的账户" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
+            alertVC.isHIddenLeftBtn = YES;
+            alertVC.isCenterShow = YES;
+            [weakSelf presentViewController:alertVC animated:YES completion:nil];
+
+        };
+
+        [_topView setProfitStr:@"0.00" andSubsidy:@"0.00"];
+    } else {
+        _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+    }
     _topView.placeholderStr = _placeholderStr;
     return _topView;
 }

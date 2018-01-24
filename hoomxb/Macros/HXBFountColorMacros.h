@@ -25,5 +25,7 @@
 #define kHXBFountColor_White_FFFFFF_100         RGBA(255, 255, 255, 1)
 #define kHXBFountColor_White_FFFFFF_50          RGBA(255, 255, 255, 0.5)
 
+///橘黄色
+#define kHXBColor_FF6A0F_30                 RGBA(255, 106, 15, 1)
 
 #endif /* HXBFountColorMacros_h */
