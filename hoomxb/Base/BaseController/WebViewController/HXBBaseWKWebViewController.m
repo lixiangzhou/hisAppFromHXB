@@ -54,6 +54,10 @@
     [self.view addSubview:self.progressView];
     [self setupConstraints];
     
+    if(self.pageTitle) {
+        self.title = self.pageTitle;
+    }
+    
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:(NSKeyValueObservingOptionNew) context:nil];
     [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
     

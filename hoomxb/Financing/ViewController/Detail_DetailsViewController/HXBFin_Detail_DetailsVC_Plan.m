@@ -97,6 +97,16 @@
         if (!detailData) {
             return manager;
         }
+        manager.pursuitsViewManager.leftStrArray = @[@"适合人群"];
+        NSString *riskType = @"";
+        if ([weakSelf.planDetailModel.planDetailModel.riskType isEqualToString:@"CONSERVATIVE"]) {
+            riskType = @"保守型";
+        } else if ([weakSelf.planDetailModel.planDetailModel.riskType isEqualToString:@"PRUDENT"]){
+            riskType = @"稳健型";
+        } else if ([weakSelf.planDetailModel.planDetailModel.riskType isEqualToString:@"PROACTIVE"]){
+            riskType = @"积极应对型";
+        }
+        manager.pursuitsViewManager.rightStrArray = @[riskType];
         manager.addViewManager.leftStrArray = @[
                                                 @"计划金额",
                                                 @"加入条件",

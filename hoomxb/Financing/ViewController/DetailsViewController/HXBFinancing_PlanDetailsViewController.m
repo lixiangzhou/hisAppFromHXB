@@ -1,5 +1,5 @@
 //
-//  HXBFinancing_PlanViewController.m
+//  HXBFinancing_PlanDetailsViewController.m
 //  hoomxb
 //
 //  Created by HXB on 2017/5/4.
@@ -30,6 +30,12 @@
 #import "HXBFin_DetailsViewBase.h"
 #import "HXBFin_creditorChange_buy_ViewController.h"
 #import "HXBFin_Plan_Buy_ViewController.h"
+#import "HXBTenderDetailViewController.h"
+
+static NSString* const kTitlePlanDetail = @"计划详情";
+static NSString* const kTitleInvestmentProjects = @"投资项目";
+static NSString* const kTitleJoinRecord = @"加入记录";
+static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
 
 @interface HXBFinancing_PlanDetailsViewController ()<UITableViewDelegate, UITableViewDataSource>
 //假的navigationBar
@@ -193,19 +199,30 @@
     kWeakSelf
     _planDetailViewModel = planDetailViewModel;
     [self.topView setUPValueWithManager:^HXBFin_PlanDetailView_TopViewManager *(HXBFin_PlanDetailView_TopViewManager *manager) {
-        if ([weakSelf.planDetailViewModel.planDetailModel.extraInterestRate floatValue] != 0) {
-            weakSelf.topView.attributeStringLength = weakSelf.planDetailViewModel.planDetailModel.extraInterestRate.length + 2;
-            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%+%.1f%%",weakSelf.planDetailViewModel.planDetailModel.baseInterestRate.doubleValue, weakSelf.planDetailViewModel.planDetailModel.extraInterestRate.doubleValue];
+        
+        if ([weakSelf.planDetailViewModel.planDetailModel.novice isEqualToString:@"1"]) { //新手计划
+            if ([weakSelf.planDetailViewModel.planDetailModel.subsidyInterestRate floatValue] != 0) {
+                weakSelf.topView.attributeStringLength = weakSelf.planDetailViewModel.planDetailModel.subsidyInterestRate.length + 2;
+                manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%+%.1f%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate.doubleValue, weakSelf.planDetailViewModel.planDetailModel.subsidyInterestRate.doubleValue];
+            } else {
+                manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate.doubleValue];
+            }
         } else {
-            manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate.doubleValue];
+            if ([weakSelf.planDetailViewModel.planDetailModel.extraInterestRate floatValue] != 0) {
+                weakSelf.topView.attributeStringLength = weakSelf.planDetailViewModel.planDetailModel.extraInterestRate.length + 2;
+                manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%+%.1f%%",weakSelf.planDetailViewModel.planDetailModel.baseInterestRate.doubleValue, weakSelf.planDetailViewModel.planDetailModel.extraInterestRate.doubleValue];
+            } else {
+                manager.topViewManager.leftLabelStr = [NSString stringWithFormat:@"%.1f%%",weakSelf.planDetailViewModel.planDetailModel.expectedRate.doubleValue];
+            }
         }
+        manager.leftViewManager.leftLabelStr = weakSelf.planDetailViewModel.lockPeriod;//期限
+        manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithIntegetNumber:[weakSelf.planDetailViewModel.minRegisterAmount doubleValue]];//起投
+        manager.rightViewManager.leftLabelStr = weakSelf.planDetailViewModel.remainAmount;
         manager.topViewManager.rightLabelStr = @"平均历史年化收益";
-        manager.leftViewManager.leftLabelStr = weakSelf.planDetailViewModel.lockPeriodStr;
         manager.leftViewManager.rightLabelStr = @"锁定期限";
-        manager.midViewManager.leftLabelStr = [NSString hxb_getPerMilWithIntegetNumber:[weakSelf.planDetailViewModel.minRegisterAmount doubleValue]];
         manager.midViewManager.rightLabelStr = @"起投";
         manager.rightViewManager.rightLabelStr = weakSelf.planDetailViewModel.remainAmount_constStr;
-        manager.rightViewManager.leftLabelStr = weakSelf.planDetailViewModel.remainAmount;
+        
         return manager;
     }];
     self.diffTime = weakSelf.planDetailViewModel.countDownStr;
@@ -229,12 +246,15 @@
                                  @"1",
                                  @"1",
                                  @"1",
+                                 @"1",
                                  ];
     self.tableViewTitleArray = @[
-                                 @"计划详情",
-                                 @"加入记录",
-                                 @"红利计划服务协议"
+                                 kTitlePlanDetail,
+                                 kTitleInvestmentProjects,
+                                 kTitleJoinRecord,
+                                 kTitlePlanServiceAgreement
                                 ];//[self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? @"按月付息服务协议" : @"红利计划服务协议"
+    
 }
 
 - (NSArray<HXBFinDetail_TableViewCellModel *> *)tableViewModelArray {
@@ -377,16 +397,23 @@
     if (indexPath.section == 0) {
         [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:self];
     } else if (indexPath.section == 2) {
-        if (indexPath.row == 0) {
+        NSString* title = [self.tableViewTitleArray safeObjectAtIndex:indexPath.row];
+        if ([title isEqualToString:kTitlePlanDetail]) {
             HXBFin_Detail_DetailsVC_Plan *detail_DetailPlanVC = [[HXBFin_Detail_DetailsVC_Plan alloc] init];
             detail_DetailPlanVC.planDetailModel = self.planDetailViewModel;
             [self.navigationController pushViewController:detail_DetailPlanVC animated:YES];
-        } else if (indexPath.row == 1) {
+        }
+        else if([title isEqualToString:kTitleInvestmentProjects]){
+            HXBTenderDetailViewController* VC = [[HXBTenderDetailViewController alloc] init];
+            [self.navigationController pushViewController:VC animated:YES];
+        }
+        else if ([title isEqualToString:kTitleJoinRecord]) {
             HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
             planAddRecordVC.planListViewModel = self.planListViewModel;
             planAddRecordVC.planID = self.planID;
             [self.navigationController pushViewController:planAddRecordVC animated:YES];
-        } else {
+        }
+        else if ([title isEqualToString:kTitlePlanServiceAgreement]){
             
             NSString *urlStr = [self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? kHXB_Negotiate_ServePlanMonthURL : kHXB_Negotiate_ServePlanURL;
             [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:urlStr] fromController:self];
@@ -411,6 +438,12 @@
  跳转加入界面
  */
 - (void)enterPlanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard userInfo:(HXBRequestUserInfoViewModel *)viewModel{
+    //如果不是新手， 并且这是一个新手计划， 那么提示用户
+    if([self.planDetailViewModel.planDetailModel.novice isEqualToString:@"1"] && [KeyChain.isNewbie isEqualToString:@"0"]) {
+        [HxbHUDProgress showTextWithMessage:@"非新手用户无法购买新手类产品"];
+        return;
+    }
+    
     HXBFin_Plan_Buy_ViewController *planJoinVC = [[HXBFin_Plan_Buy_ViewController alloc] init];
     
     float remainAmount = self.planDetailViewModel.planDetailModel.remainAmount.floatValue;
@@ -435,6 +468,7 @@
     planJoinVC.placeholderStr           = self.planDetailViewModel.addCondition;
     planJoinVC.hasBindCard              = hasBindCard;
     planJoinVC.userInfoViewModel        = viewModel;
+    planJoinVC.riskType                 = self.planDetailViewModel.planDetailModel.riskType;
     [self.navigationController pushViewController:planJoinVC animated:YES];
 }
 

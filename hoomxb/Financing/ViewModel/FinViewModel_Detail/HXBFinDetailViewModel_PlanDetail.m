@@ -118,7 +118,8 @@
 }
 ///计划期限（锁定期）
 - (void)setUPLockPeriod {
-    self.lockPeriod = [NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
+    NSString *lockStr = [self.planDetailModel.novice isEqualToString:@"1"]&&self.planDetailModel.lockDays ? [NSString stringWithFormat: @"%@天",self.planDetailModel.lockDays] : [NSString stringWithFormat: @"%@个月",self.planDetailModel.lockPeriod];
+    self.lockPeriod = lockStr;
 }
 
 /**
@@ -360,9 +361,9 @@
  */
 - (NSString *) lockPeriodStr {
     if (!_lockPeriodStr) {
-        _lockPeriodStr = [NSString stringWithFormat: @"%@个月",self.planDetailModel.lockPeriodStr];
+        _lockPeriodStr = self.planDetailModel.lockPeriodStr;
     }
-    return _lockPeriod;
+    return _lockPeriodStr;
 }
 /**
  剩余时间

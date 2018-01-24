@@ -4,7 +4,7 @@
 //
 //  Created by HXB on 2017/5/4.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
-//
+//  散标详情
 
 #import "HXBFinancing_LoanDetailsViewController.h"
 #import "HXBFinDetail_TableView.h"
@@ -169,6 +169,10 @@
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             //            detail_DetailLoanVC. = self.planDetailViewModel;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = weakSelf.loanDetailViewModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = weakSelf.loanDetailViewModel.loanDetailModel.loanVo.creditInfoItems;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = weakSelf.loanDetailViewModel.loanDetailModel.loanVo.riskLevel;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevelDesc = weakSelf.loanDetailViewModel.loanDetailModel.loanVo.riskLevelDesc;
+             detail_DetailLoanVC.loanDetailViewModel = weakSelf.loanDetailViewModel;
             [weakSelf.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         }
         ///  借款记录
@@ -219,6 +223,7 @@
     loanJoinVC.minRegisterAmount        = self.loanDetailViewModel.loanDetailModel.minInverst;
     loanJoinVC.registerMultipleAmount   = self.loanDetailViewModel.loanDetailModel.minInverst;
     loanJoinVC.userInfoViewModel        = viewModel;
+    loanJoinVC.riskType = self.loanDetailViewModel.loanDetailModel.loanVo.riskLevel;
     [self.navigationController pushViewController:loanJoinVC animated:YES];
 }
 

@@ -51,6 +51,10 @@
 /// 是否弹窗过忽略手势密码
 @property (nonatomic, assign) BOOL skipGestureAlertAppeared;
 
+/**
+ 是否是新手
+ */
+@property (nonatomic, copy) NSString* isNewbie;
 
 ///是否登录
 - (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock;
