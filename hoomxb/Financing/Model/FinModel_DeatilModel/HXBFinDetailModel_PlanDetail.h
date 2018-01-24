@@ -26,7 +26,8 @@
 
 ///post /financeplan/financeplandetail.action 红利计划详情Model
 @interface HXBFinDetailModel_PlanDetail : NSObject
-
+///适合人群（计划的风险类型）。CONSERVATIVE：保守；PRUDENT：稳健；PROACTIVE：积极应对
+@property (nonatomic,copy) NSString *riskType;
 ///曾信地址
 @property (nonatomic,copy) NSString *contractUrl;
 ///本金余额合约名称

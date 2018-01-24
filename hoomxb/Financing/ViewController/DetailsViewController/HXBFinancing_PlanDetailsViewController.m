@@ -436,6 +436,7 @@
     planJoinVC.registerMultipleAmount   = self.planDetailViewModel.planDetailModel.registerMultipleAmount;
     planJoinVC.placeholderStr           = self.planDetailViewModel.addCondition;
     planJoinVC.hasBindCard              = hasBindCard;
+//    planJoinVC.riskType                 = self.planDetailViewModel.planDetailModel.riskType;
     [self.navigationController pushViewController:planJoinVC animated:YES];
 }
 

@@ -99,7 +99,7 @@
 
 - (void)creatSubViews {
     UIEdgeInsets edgeInsets = UIEdgeInsetsMake(kScrAdaptationH(15), kScrAdaptationW(15), 0, kScrAdaptationW(15));
-    self.pursuitsView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:0 Space:edgeInsets andCashType:nil];
+    self.pursuitsView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:0 Space:UIEdgeInsetsMake(kScrAdaptationH(12), kScrAdaptationW(15), kScrAdaptationH(12), kScrAdaptationW(15)) andCashType:nil];
     
     self.addView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:0 Space:edgeInsets andCashType:nil];
     
@@ -177,7 +177,7 @@
     [self.pursuitsView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf).offset(kScrAdaptationH(10));
         make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@(kScrAdaptationH(38)));
+        make.height.equalTo(@(kScrAdaptationH(40)));
     }];
     [self.addView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.pursuitsView.mas_bottom).offset(kScrAdaptationH(10));
