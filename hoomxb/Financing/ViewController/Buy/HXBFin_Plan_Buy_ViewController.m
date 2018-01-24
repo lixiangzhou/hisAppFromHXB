@@ -28,8 +28,7 @@
 static NSString *const bankString = @"绑定银行卡";
 
 @interface HXBFin_Plan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
-@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
-@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+@property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic, strong) HXBTransactionPasswordView *passwordView;
 /** topView */
 @property (nonatomic, strong) HXBCreditorChangeTopView *topView;
@@ -115,7 +114,6 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
     [self getBankCardLimit];
-    
 }
 
 - (void)buildUI {
@@ -535,20 +533,20 @@ static const NSInteger topView_high = 300;
                 weakSelf.topView.cardStr = [NSString stringWithFormat:@"%@%@", weakSelf.cardModel.bankType, weakSelf.cardModel.quota];
             }
             [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-            weakSelf.hxbBaseVCScrollView.hidden = NO;
+            weakSelf.tableView.hidden = NO;
             weakSelf.topView.hasBank = YES;
-            weakSelf.hxbBaseVCScrollView.tableHeaderView = weakSelf.topView;
+            weakSelf.tableView.tableHeaderView = weakSelf.topView;
             [weakSelf setUpArray];
-            [weakSelf.hxbBaseVCScrollView reloadData];
+            [weakSelf.tableView reloadData];
         }];
     } else {
         self.topView.height = kScrAdaptationH750(topView_high);
         self.topView.hasBank = NO;
-        self.hxbBaseVCScrollView.tableHeaderView = self.topView;
+        self.tableView.tableHeaderView = self.topView;
         [self changeItemWithInvestMoney:_inputMoneyStr];
         [self setUpArray];
-        self.hxbBaseVCScrollView.hidden = NO;
-        [self.hxbBaseVCScrollView reloadData];
+        self.tableView.hidden = NO;
+        [self.tableView reloadData];
     }
 }
 

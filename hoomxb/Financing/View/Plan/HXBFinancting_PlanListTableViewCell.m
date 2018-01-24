@@ -46,7 +46,7 @@
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
     self.expectedYearRateLable.textColor = (finPlanListViewModel.planType == planType_newComer) ? kHXBColor_FF7D2F_100 : kHXBColor_Red_090303;
     self.backgroundImageView.hidden = finPlanListViewModel.planType == planType_newComer ? NO : YES;
-//    self.lockPeriodLabel.text = finPlanListViewModel.lockPeriod;
+    self.lockPeriodLabel.text = finPlanListViewModel.lockPeriod;
     
     if (self.finPlanListViewModel.remainTimeString.length) {
         self.countDownLable.text = _finPlanListViewModel.remainTimeString;

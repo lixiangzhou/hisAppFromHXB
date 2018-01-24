@@ -43,6 +43,8 @@ typedef enum : NSUInteger {
 #pragma mark --- 新手专区新增辅助属性
 // 计划类型
 @property (nonatomic, assign) PlanType planType;
+// 计划期限 （天就取天 月取月 没有值 --）
+@property (nonatomic, copy) NSString *lockPeriod;
 
 
 @end
