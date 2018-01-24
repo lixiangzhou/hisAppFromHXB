@@ -122,7 +122,7 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)changeItemWithInvestMoney:(NSString *)investMoney {
     self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
     _handleDetailTitle = [NSString stringWithFormat:@"%.2f", investMoney.doubleValue];
-    [self isMatchToBuyWithMoney:_handleDetailTitle];
+    [self isMatchToBuyWithMoney:investMoney];
     _inputMoneyStr = investMoney;
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue;
     if (rechargeMoney > 0.00) { // 余额不足的情况
@@ -498,8 +498,6 @@ static const NSInteger topView_high = 230;
 - (void)investMoneyTextFieldText:(NSString *)text {
     self.bottomView.addBtnIsUseable = text.length;
     BOOL isFitToBuy = ((text.integerValue - self.minRegisterAmount.integerValue) % self.registerMultipleAmount.integerValue) ? NO : YES;
-    // 判断是否超出风险
-    [self isMatchToBuyWithMoney:text];
     if (text.doubleValue >= self.minRegisterAmount.doubleValue && text.doubleValue <= self.availablePoint.doubleValue && isFitToBuy) {
         [self changeItemWithInvestMoney:text];
         [self setUpArray];

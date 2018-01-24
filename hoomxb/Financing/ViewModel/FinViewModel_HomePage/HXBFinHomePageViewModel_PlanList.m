@@ -150,8 +150,8 @@ typedef enum : NSUInteger {
         return;
     }
     if (self.planListModel.novice) {
-        self.addButtonBackgroundColor = kHXBColor_Orange_newComer;
-        self.addButtonBorderColor = kHXBColor_Orange_newComer;
+        self.addButtonBackgroundColor = kHXBColor_FF7D2F_100;
+        self.addButtonBorderColor = kHXBColor_FF7D2F_100;
     } else {
         self.addButtonBackgroundColor = kHXBColor_Red_090303;
         self.addButtonBorderColor = kHXBColor_Red_090303;

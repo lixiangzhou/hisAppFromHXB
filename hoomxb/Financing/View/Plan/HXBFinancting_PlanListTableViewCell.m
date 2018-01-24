@@ -44,7 +44,7 @@
     self.countDownLable.text = finPlanListViewModel.countDownString;
     
     self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
-    self.expectedYearRateLable.textColor = (finPlanListViewModel.planType == planType_newComer) ? kHXBColor_Orange_newComer : kHXBColor_Red_090303;
+    self.expectedYearRateLable.textColor = (finPlanListViewModel.planType == planType_newComer) ? kHXBColor_FF7D2F_100 : kHXBColor_Red_090303;
     self.backgroundImageView.hidden = finPlanListViewModel.planType == planType_newComer ? NO : YES;
 //    self.lockPeriodLabel.text = finPlanListViewModel.lockPeriod;
     
@@ -123,10 +123,10 @@
 - (void)setupAddStatusWithPlanType:(PlanType)planType status:(NSString *)status {
     if ([status isEqualToString:@"等待加入"]) {
         if (planType == planType_newComer) {
-            self.addStatus.backgroundColor = kHXBColor_Orange_newComer_backColor;
-            self.addStatus.layer.borderColor = kHXBColor_Orange_newComer_boardColor.CGColor;
-            self.addStatus.textColor = kHXBColor_Orange_newComer;
-            self.countDownLable.textColor = kHXBColor_Orange_newComer;
+            self.addStatus.backgroundColor = kHXBColor_FFFCF5_100;
+            self.addStatus.layer.borderColor = kHXBColor_FF9535_100.CGColor;
+            self.addStatus.textColor = kHXBColor_FF7D2F_100;
+            self.countDownLable.textColor = kHXBColor_FF7D2F_100;
         } else {
             self.addStatus.backgroundColor = RGB(255, 247, 247);
             self.addStatus.layer.borderColor = RGB(255, 133, 133).CGColor;
@@ -135,9 +135,9 @@
         }
     } else if ([status isEqualToString:@"立即加入"]) {
         if (planType == planType_newComer) {
-            self.addStatus.backgroundColor = kHXBColor_Orange_newComer;
-            self.addStatus.layer.borderColor = kHXBColor_Orange_newComer.CGColor;
-            self.countDownLable.textColor = kHXBColor_Orange_newComer;
+            self.addStatus.backgroundColor = kHXBColor_FF7D2F_100;
+            self.addStatus.layer.borderColor = kHXBColor_FF7D2F_100.CGColor;
+            self.countDownLable.textColor = kHXBColor_FF7D2F_100;
         } else {
             self.addStatus.backgroundColor = kHXBColor_Red_090303;
             self.addStatus.layer.borderColor = kHXBColor_Red_090303.CGColor;

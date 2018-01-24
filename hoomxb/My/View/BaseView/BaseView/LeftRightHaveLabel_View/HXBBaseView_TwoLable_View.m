@@ -84,12 +84,11 @@
 
 - (void)setIsLoanTransfer:(BOOL)isLoanTransfer {
     _isLoanTransfer = isLoanTransfer;
+    kWeakSelf
     if (_isLoanTransfer && !self.ViewVM.isLeftRight) {
         [self.rightLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.left.equalTo(self);
-                make.top.equalTo(self.leftLabel.mas_bottom).offset(kScrAdaptationH(15));
-            }];
+            make.right.left.equalTo(weakSelf);
+            make.top.equalTo(weakSelf.leftLabel.mas_bottom).offset(kScrAdaptationH(15));
         }];
     }
 }

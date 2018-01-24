@@ -156,7 +156,6 @@ static NSString *const bankString = @"绑定银行卡";
     self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
     _inputMoneyStr = investMoney;
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue - _discountMoney;
-    [self isMatchToBuyWithMoney:_handleDetailTitle];
     if (rechargeMoney > 0.00) { // 余额不足的情况
         if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
             self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
@@ -536,6 +535,7 @@ static const NSInteger topView_high = 300;
 
 // 匹配最优优惠券
 - (void)getBESTCouponWithMoney:(NSString *)money {
+    [self isMatchToBuyWithMoney:money];
     NSDictionary *dic_post = @{
                                @"id": _loanId,
                                @"amount": money,
@@ -688,11 +688,9 @@ static const NSInteger topView_high = 300;
         isFitToBuy = (text.integerValue) % self.registerMultipleAmount.integerValue ? NO : YES;
     }
     
-    // 判断是否超出风险
-    [self isMatchToBuyWithMoney:text];
-    
     // 判断是否符合购买条件
     if (text.length && text.doubleValue <= self.availablePoint.doubleValue && isFitToBuy) {
+        // 判断是否超出风险
         self.couponTitle = @"优惠券";
         [self getBESTCouponWithMoney:text];
     } else {
