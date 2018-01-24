@@ -157,7 +157,7 @@
 {
     if (!_bottomLabel) {
         _bottomLabel = [[UILabel alloc] init];
-        _bottomLabel.text = @"用户资金安全隔离";
+        _bottomLabel.text = @"用户资金有效隔离";
         _bottomLabel.textColor = COR10;
         _bottomLabel.font = kHXBFont_PINGFANGSC_REGULAR(14);
     }
