@@ -161,18 +161,22 @@
     
     //是否为下拉刷新
     self.planListAPI.isUPReloadData = isUPData;///这里一定要 在前面  否则 api的page不会++ 或变为1
-    NSString *planListUrl = isUPData ? @"/plan?page=1&cashType=HXB": [NSString stringWithFormat:@"/plan?page=%ld",self.planListAPI.dataPage];
+    NSString *planListUrl = isUPData ? @"/plan?page=1&cashType=newbie": [NSString stringWithFormat:@"/plan?page=%ld",self.planListAPI.dataPage];
     self.planListAPI.requestUrl = planListUrl;
     self.planListAPI.requestMethod = NYRequestMethodGet;
     [self.planListAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
         ///计划列表数据是否出错
         kHXBResponsShowHUD
         NSMutableArray <NSDictionary *>* dataList = [NSMutableArray arrayWithArray:responseObject[@"data"][@"dataList"]];
         NSArray <NSDictionary *>* recommendList = responseObject[@"data"][@"recommendList"];
+        NSArray <NSDictionary *>* newbieProductList = responseObject[@"data"][@"newbieProductList"];
+        
         // 插入按月付息的数组
         if (recommendList.count > 0) {
             [dataList insertObjects:recommendList atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, recommendList.count)]];
+        }
+        if (newbieProductList.count > 0) {
+            [dataList insertObjects:newbieProductList atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, newbieProductList.count)]];
         }
 
         NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
@@ -203,8 +207,7 @@
  @param dataList 数据数组
  @return 模型数组
  */
-- (NSMutableArray <HXBFinHomePageViewModel_PlanList *>*)plan_dataProcessingWitharr:(NSArray *)dataList
-{
+- (NSMutableArray <HXBFinHomePageViewModel_PlanList *>*)plan_dataProcessingWitharr:(NSArray *)dataList {
     NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [[NSMutableArray alloc]init];
     
     [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -262,7 +265,6 @@
             if(failureBlock) failureBlock(nil);
             return;
         }
-        NSLog(@"%@",responseObject);
         ///请求成功
         if (successDateBlock) {
             NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
@@ -271,19 +273,7 @@
         [PPNetworkCache setHttpCache:responseObject URL:@"/loan" parameters:nil];
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [self.loanListViewModelArray removeAllObjects];
-        id responseObject = [PPNetworkCache httpCacheForURL:@"/loan" parameters:nil];
-        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-        NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [self loan_dataProcessingWithArr:dataList];
-        //回调
-        [self loan_handleDataWithIsUPData:self.loanListAPI.isUPReloadData andViewModel:loanDataListModelArray];
-        if (responseObject) {
-            NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
-            successDateBlock(self.loanListViewModelArray,totalCountStr.integerValue);
-            return;
-        }
-        if (error && failureBlock) {
-             NSLog(@"✘散标购买请求没有数据");
+        if (failureBlock) {
             failureBlock(error);
         }
     }];
@@ -295,8 +285,7 @@
  @param dataList 数据数组
  @return 模型数组
  */
-- (NSMutableArray <HXBFinHomePageViewModel_LoanList *>*)loan_dataProcessingWithArr:(NSArray *)dataList
-{
+- (NSMutableArray <HXBFinHomePageViewModel_LoanList *>*)loan_dataProcessingWithArr:(NSArray *)dataList {
     NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [[NSMutableArray alloc]init];
     [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -344,13 +333,7 @@
                                               @"pageSize":@kPageCount
                                               };
     [self.loanTruansferAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        if ([responseObject[kResponseStatus] integerValue]) {
-            if (failureBlock) {
-                failureBlock(nil,responseObject);
-            }
-            return;
-        }
-        
+        kHXBBuyErrorResponsShowHUD
         NSArray *data = responseObject[kResponseData][kResponseDataList];
         NSMutableArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*arrayM = [[NSMutableArray alloc]init];
         [data enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -361,7 +344,6 @@
             [arrayM addObject:viewModel];
         }];
         
-        
         if (successDateBlock) {
             if (request.isUPReloadData) {
                 [self.loanTruansferViewModel removeAllObjects];
@@ -371,11 +353,10 @@
             successDateBlock(self.loanTruansferViewModel,totalCountStr.integerValue);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
-            if (failureBlock) {
-                failureBlock(error,nil);
-            }
+        if (failureBlock) {
+            failureBlock(error,nil);
+        }
     }];
-    
 }
 
 
@@ -416,7 +397,6 @@
     self.loanDetaileAPI.requestMethod = NYRequestMethodGet;
     
     [self.loanDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"responseObject = %@", responseObject);
         
         ///数据是否出错
         NSString *status = responseObject[kResponseStatus];

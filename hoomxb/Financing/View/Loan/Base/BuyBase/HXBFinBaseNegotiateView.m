@@ -98,19 +98,28 @@
 }
 
 - (void)clickNegotiateImageViewBackgroundButton: (UIButton *)button {
-    NSLog(@"点击了协议确认对勾%@",self);
     button.selected = !button.selected;
 //    self.negotiateImageView.hidden = button.selected;
-    if (button.selected) {
-        self.negotiateImageView.image = [UIImage imageNamed:@"Rectangle"];
-    }else
-    {
-        self.negotiateImageView.image = [UIImage imageNamed:@"duigou"];
-        
+    if ([_type isEqualToString:@"riskDelegate"]) {
+        if (button.selected) {
+            self.negotiateImageView.image = [UIImage imageNamed:@"duigou"];
+        } else {
+            self.negotiateImageView.image = [UIImage imageNamed:@"Rectangle"];
+        }
+        if (self.clickCheckMarkBlock) {
+            self.clickCheckMarkBlock(button.selected);
+        }
+    } else {
+        if (button.selected) {
+            self.negotiateImageView.image = [UIImage imageNamed:@"Rectangle"];
+        } else {
+            self.negotiateImageView.image = [UIImage imageNamed:@"duigou"];
+        }
+        if (self.clickCheckMarkBlock) {
+            self.clickCheckMarkBlock(!button.selected);
+        }
     }
-    if (self.clickCheckMarkBlock) {
-        self.clickCheckMarkBlock(!button.selected);
-    }
+    
 }
 
 - (void)clickNegotiateButton: (UIButton *)button {
@@ -127,7 +136,7 @@
 
 - (void)setNegotiateStr:(NSString *)negotiateStr {
     _negotiateStr = negotiateStr;
-    if (![negotiateStr containsString:@"《》"]) {
+    if (![negotiateStr containsString:@"《》"] && ![_type isEqualToString:@"riskDelegate"]) {
         _negotiateStr = [NSString stringWithFormat:@"《%@》",negotiateStr];
     }
     [self.planNegotiateButton setTitle:_negotiateStr  forState: UIControlStateNormal];
@@ -138,6 +147,10 @@
             [self.planNegotiateButton setTitle:[NSString stringWithFormat:@"%@》，", negotiateArray[0]]  forState: UIControlStateNormal];
             [self.reticuleNegotiateButton setTitle:[NSString stringWithFormat:@"《%@", negotiateArray[1]]  forState: UIControlStateNormal];
         }
+    } else if ([_type isEqualToString:@"riskDelegate"]) {
+        self.negotiateLabel.text = _negotiateStr;
+        [self.planNegotiateButton setTitle:@""  forState: UIControlStateNormal];
+        self.negotiateImageView.image = [UIImage imageNamed:@"Rectangle"];
     }
 }
 

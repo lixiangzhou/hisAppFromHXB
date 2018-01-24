@@ -105,7 +105,6 @@
         float width = weakSelf.bankNum.bounds.size.width - ceil(size.width);
         float space = width / (str.length-1);
         weakSelf.bankNum.text = str;
-        // fixme
         [self changeWordSpaceForLabel:weakSelf.bankNum WithSpace:space];
         weakSelf.bankTip.text = bankCardModel.quota;
         

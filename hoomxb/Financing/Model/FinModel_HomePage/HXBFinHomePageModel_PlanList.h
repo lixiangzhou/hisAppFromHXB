@@ -12,6 +12,8 @@
 
 // 锁定期限(月),计划期限
 @property (nonatomic, copy) NSString *lockPeriod;
+// 新手标志
+@property (nonatomic, assign) int novice;
 // 开始销售时间
 @property (nonatomic, copy) NSString *beginSellingTime;
 // 最小注册金额
@@ -23,7 +25,8 @@
 
 ///    string    本期加息利率
 @property (nonatomic, copy) NSString *extraInterestRate;
-
+///    string    新手贴息利率
+@property (nonatomic, copy) NSString *subsidyInterestRate;
 ///    string    年化利率
 @property (nonatomic, copy) NSString *expectedRate;
 ///    string    计划名称
@@ -100,7 +103,7 @@
 ///加入
 @property (nonatomic,copy) NSString *joined;
 ///锁天
-@property (nonatomic,copy) NSString *lockDays;
+@property (nonatomic, assign) int lockDays;
 
 ///过程比
 @property (nonatomic,copy) NSString *processRatio;

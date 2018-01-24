@@ -32,7 +32,7 @@
 #define kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserID) [NSString stringWithFormat:@"/transfer/%@/transferRecord",(loanTruanserID)];//账户外债转加入记录
 
 //MARK: ======================= 用户 =======================
-#define kHXBUser_UserInfoURL @"/user/info"///用户信息
+#define kHXBUser_UserInfoURL @"/account/info"///用户信息
 #define kHXBUser_LoginURL @"/user/login"//登录
 #define kHXBUser_SignUPURL @"/user/signup"//注册
 #define HXBAccount_ForgotPasswordURL @"/forgot"///忘记密码
