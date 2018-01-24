@@ -105,16 +105,24 @@
 /// -------------------------新手产品返回参数说明2.5.0新添加----------------------------
 /// 新手贴息收益率
 @property (nonatomic, copy) NSString *subsidyInterestRate;
+
 /// 新手贴息预期收益/100元
 @property (nonatomic, copy) NSString *expectedSubsidyInterestAmount;
+
 /// 是否是新手计划(1:是新手 0:非新手)
 @property (nonatomic, copy) NSString *novice;
+
 /// 新手计划锁定期/天
 @property (nonatomic, copy) NSString *lockDays;
-/// 新手产品购买额度
-@property (nonatomic, copy) NSString *NewBiePlanAmount;
-/// 新手产品剩余额度
-@property (nonatomic, copy) NSString *NewBiePlanLeftAmount;
+
+/// 新手购买额度
+@property (nonatomic, copy) NSString *newbiePlanAmount;
+
+/// 新手剩余额度
+@property (nonatomic, copy) NSString *newbiePlanLeftAmount;
+
+/// 适合人群（计划的风险类型）。CONSERVATIVE：保守；PRUDENT：稳健；PROACTIVE：积极应对
+@property (nonatomic, copy) NSString *riskType;
 /// -------------------------over----------------------------
 
 

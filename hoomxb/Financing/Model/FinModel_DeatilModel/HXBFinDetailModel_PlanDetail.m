@@ -14,8 +14,7 @@
 }
 
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"NewBiePlanAmount" : @"newBiePlanAmount",
-             @"NewBiePlanLeftAmount" : @"newBiePlanLeftAmount",
+    return @{
              @"ID" : @"id"
              };
 }
