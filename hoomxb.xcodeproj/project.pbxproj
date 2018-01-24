@@ -56,7 +56,6 @@
 		4E48FF451F69323500965BA2 /* HXBCardBinModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E48FF441F69323500965BA2 /* HXBCardBinModel.m */; };
 		4E4ACC911F05FBBB0031B326 /* HXBLoanInformation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */; };
 		4E4ACC941F060F550031B326 /* HXBLoanInstructionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC931F060F550031B326 /* HXBLoanInstructionView.m */; };
-		4E4ACC9A1F061F3D0031B326 /* HXBHXBBorrowUserinforView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4ACC991F061F3D0031B326 /* HXBHXBBorrowUserinforView.m */; };
 		4E4D07261F1C8D45003E8FB9 /* HXBBankListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E4D07251F1C8D45003E8FB9 /* HXBBankListCell.m */; };
 		4E5003371F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E5003361F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.m */; };
 		4E50B9F91FE3B2C8002C17D7 /* TYCyclePagerTransformLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E50B9F61FE3B2BD002C17D7 /* TYCyclePagerTransformLayout.m */; };
@@ -458,7 +457,6 @@
 		E190EFA71F25DB59001E0B14 /* HXBSignInWaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E190EFA61F25DB59001E0B14 /* HXBSignInWaterView.m */; };
 		E1A1BEE61F38325A0006BAA7 /* HXBBaseViewCell_MYListCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A1BEE51F38325A0006BAA7 /* HXBBaseViewCell_MYListCellTableViewCell.m */; };
 		E1A1BEED1F3849290006BAA7 /* HXBMYList_plan_Hold_TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A1BEEC1F3849290006BAA7 /* HXBMYList_plan_Hold_TableView.m */; };
-		E1A1BEF01F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1A1BEEF1F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.m */; };
 		E1A1BEF21F386C080006BAA7 /* explain.svg in Resources */ = {isa = PBXBuildFile; fileRef = E1A1BEF11F386C080006BAA7 /* explain.svg */; };
 		E1AAF3071F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AAF3061F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.m */; };
 		E1AEC8241FC278D000176F6F /* HXBFin_creditorChange_buy_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1AEC8221FC278CF00176F6F /* HXBFin_creditorChange_buy_ViewController.m */; };
@@ -648,8 +646,6 @@
 		4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLoanInformation.m; sourceTree = "<group>"; };
 		4E4ACC921F060F550031B326 /* HXBLoanInstructionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBLoanInstructionView.h; sourceTree = "<group>"; };
 		4E4ACC931F060F550031B326 /* HXBLoanInstructionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBLoanInstructionView.m; sourceTree = "<group>"; };
-		4E4ACC981F061F3D0031B326 /* HXBHXBBorrowUserinforView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBHXBBorrowUserinforView.h; sourceTree = "<group>"; };
-		4E4ACC991F061F3D0031B326 /* HXBHXBBorrowUserinforView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBHXBBorrowUserinforView.m; sourceTree = "<group>"; };
 		4E4D07241F1C8D45003E8FB9 /* HXBBankListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBankListCell.h; sourceTree = "<group>"; };
 		4E4D07251F1C8D45003E8FB9 /* HXBBankListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBankListCell.m; sourceTree = "<group>"; };
 		4E5003351F0496AF008AADC9 /* HXBCheckLoginPasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBCheckLoginPasswordViewController.h; sourceTree = "<group>"; };
@@ -1416,8 +1412,6 @@
 		E1A1BEE51F38325A0006BAA7 /* HXBBaseViewCell_MYListCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewCell_MYListCellTableViewCell.m; sourceTree = "<group>"; };
 		E1A1BEEB1F3849290006BAA7 /* HXBMYList_plan_Hold_TableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYList_plan_Hold_TableView.h; sourceTree = "<group>"; };
 		E1A1BEEC1F3849290006BAA7 /* HXBMYList_plan_Hold_TableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMYList_plan_Hold_TableView.m; sourceTree = "<group>"; };
-		E1A1BEEE1F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_Plan_ExitTingTableView.h; sourceTree = "<group>"; };
-		E1A1BEEF1F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_Plan_ExitTingTableView.m; sourceTree = "<group>"; };
 		E1A1BEF11F386C080006BAA7 /* explain.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = explain.svg; sourceTree = "<group>"; };
 		E1AAF3051F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBFin_LoanDetailView_TopView.h; sourceTree = "<group>"; };
 		E1AAF3061F1622EC00388D68 /* HXBFin_LoanDetailView_TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBFin_LoanDetailView_TopView.m; sourceTree = "<group>"; };
@@ -2011,8 +2005,6 @@
 				4E4ACC901F05FBBB0031B326 /* HXBLoanInformation.m */,
 				4E4ACC921F060F550031B326 /* HXBLoanInstructionView.h */,
 				4E4ACC931F060F550031B326 /* HXBLoanInstructionView.m */,
-				4E4ACC981F061F3D0031B326 /* HXBHXBBorrowUserinforView.h */,
-				4E4ACC991F061F3D0031B326 /* HXBHXBBorrowUserinforView.m */,
 				E17A32C91F1F6ED70079DBAE /* HXBFin_LoanDetail_LoanInfoCertifyButton.h */,
 				E17A32CA1F1F6ED70079DBAE /* HXBFin_LoanDetail_LoanInfoCertifyButton.m */,
 				E16D7EDB1F2B371000C5FBF5 /* HXBFin_LoanInfoView.h */,
@@ -4102,8 +4094,6 @@
 			children = (
 				E1A1BEEB1F3849290006BAA7 /* HXBMYList_plan_Hold_TableView.h */,
 				E1A1BEEC1F3849290006BAA7 /* HXBMYList_plan_Hold_TableView.m */,
-				E1A1BEEE1F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.h */,
-				E1A1BEEF1F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.m */,
 			);
 			path = List;
 			sourceTree = "<group>";
@@ -5259,7 +5249,6 @@
 				4E47DD301F9F460E0015232E /* HXBWithdrawRecordModel.m in Sources */,
 				E1270B751ECEEC6300729BC9 /* HXBMY_PlanDetail_InfoCell.m in Sources */,
 				E133DCE91EEE3597009466DE /* HxbSignInViewController.m in Sources */,
-				4E4ACC9A1F061F3D0031B326 /* HXBHXBBorrowUserinforView.m in Sources */,
 				E122D85D1EA0CAB900DC71ED /* UIView+HxbView.m in Sources */,
 				9AF220F01FC2BA8F00002D1D /* HXBBaseUrlSettingView.m in Sources */,
 				4E45F4361F4FC71E009708B7 /* AXHNewFeatureCell.m in Sources */,
@@ -5318,7 +5307,6 @@
 				8D2CF5241FC2DA5D008F7A89 /* HXBInviteModel.m in Sources */,
 				E1270B471ECED2D000729BC9 /* HXBMYModel_MainPlanModel.m in Sources */,
 				E14BDE931FCE8EB100A19731 /* HXBMyBankResultViewController.m in Sources */,
-				E1A1BEF01F3864D70006BAA7 /* HXBMY_Plan_ExitTingTableView.m in Sources */,
 				4E8CD07A1EBB571A00DCDC5A /* HxbMyViewHeaderView.m in Sources */,
 				E14B9BE61F14AF7100450692 /* HXBFin_PlanDetailView_TopView.m in Sources */,
 				E122D8561EA0CAB900DC71ED /* UIColor+HxbColor.m in Sources */,

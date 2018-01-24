@@ -77,7 +77,10 @@ HXBFinDetailModel_LoanTruansferDetail_userVo;
 
 @interface HXBFinDetailModel_LoanTruansferDetail_loanVO : HXBBaseModel
 @property (nonatomic,copy) NSString * guaranteedAmount;
-
+///string   标的认证类型（借款人审核状态）
+@property (nonatomic,copy) NSString *creditInfoItems;
+@property (nonatomic,copy) NSString *riskLevel;///标的风险等级
+@property (nonatomic,copy) NSString *riskLevelDesc;///标的风险等级描述
 ///": "0.0",
 @property (nonatomic,copy) NSString * monthAmount;
 ///": "100.0",

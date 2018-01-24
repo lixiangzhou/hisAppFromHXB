@@ -9,7 +9,6 @@
 #import "HXBFin_Detail_DetailVC_Loan.h"
 #import "HXBLoanInformation.h"
 #import "HXBLoanInstructionView.h"
-#import "HXBHXBBorrowUserinforView.h"
 #import "HXBFinDetailViewModel_LoanDetail.h"
 #import "HXBFin_LoanPerson_Info.h"
 
@@ -63,8 +62,9 @@
         NSLog(@"%@数据为空",self);
         return;
     }
-    /////借款说
+    /////借款说明
     self.loanInstuctionView.loanInstruction = self.fin_Detail_DetailVC_LoanManager.loanInstruction;
+    
     ///借款人信息(预留接口)
     //    self.loanPerson_infoView
     kWeakSelf
@@ -231,56 +231,95 @@
     }];
 }
 
+/// 返回借款人审核状态行数
+- (int)getLoanPersonInfoLineNumber{
+    NSArray *loanPerson_infoArr = [self.fin_Detail_DetailVC_LoanManager.creditInfoItems componentsSeparatedByString:@","];
+    if (loanPerson_infoArr.count <= 0) {
+        return 0;
+    } else {
+        return (int)((loanPerson_infoArr.count-1)/3+1);
+    }
+}
+
 - (void)setUPFrame {
     self.scrollView.showsHorizontalScrollIndicator = NO;
     self.scrollView.showsVerticalScrollIndicator = NO;
+    kWeakSelf
     
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view);
-        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(weakSelf.view);
+        make.left.right.bottom.equalTo(weakSelf.view);
     }];
     
     [self.loanInstuctionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.scrollView).offset(kScrAdaptationH(10));
-        make.left.right.equalTo(self.view);
+        make.top.equalTo(weakSelf.scrollView).offset(kScrAdaptationH(10));
+        make.left.right.equalTo(weakSelf.view);
     }];
     
     [self.loanPerson_infoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(kScrAdaptationH(140)));
-        make.right.left.equalTo(self.view);
-        make.top.equalTo(self.loanInstuctionView.mas_bottom).offset(kScrAdaptationH(10));
+        make.height.equalTo(@(kScrAdaptationH(70+[weakSelf getLoanPersonInfoLineNumber]*80)));//140 //210
+        make.right.left.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.loanInstuctionView.mas_bottom).offset(kScrAdaptationH(10));
     }];
     
     [self.loanInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.loanPerson_infoView.mas_bottom).offset(0);
-        make.left.right.equalTo(self.view);
-        make.height.equalTo(@(kScrAdaptationH(230)));
+        make.top.equalTo(weakSelf.loanPerson_infoView.mas_bottom).offset(0);
+        make.left.right.equalTo(weakSelf.view);
+        make.height.equalTo(@(kScrAdaptationH(215)));
+    }];
+    UIView* redFlagInfoView = [[UIView alloc]init];
+    redFlagInfoView.backgroundColor = RGB(245, 81, 81);
+    [self.loanInfoView addSubview:redFlagInfoView];
+    [redFlagInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.loanInfoView).offset(kScrAdaptationH(19));
+        make.height.mas_equalTo(kScrAdaptationW(12));
+        make.width.mas_equalTo(kScrAdaptationW(2));
+        make.left.equalTo(weakSelf.loanInfoView).offset(7);
     }];
     
     [self.loanFinView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.loanInfoView.mas_bottom).offset(0);
-        make.left.right.equalTo(self.view);
-        make.height.equalTo(@(kScrAdaptationH(180)));
+        make.top.equalTo(weakSelf.loanInfoView.mas_bottom).offset(0);
+        make.left.right.equalTo(weakSelf.view);
+        make.height.equalTo(@(kScrAdaptationH(155)));
+    }];
+    UIView* redFlagloanView = [[UIView alloc]init];
+    redFlagloanView.backgroundColor = RGB(245, 81, 81);
+    [self.loanFinView addSubview:redFlagloanView];
+    [redFlagloanView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.loanFinView).offset(kScrAdaptationH(19));
+        make.height.mas_equalTo(kScrAdaptationW(12));
+        make.width.mas_equalTo(kScrAdaptationW(2));
+        make.left.equalTo(weakSelf.loanFinView).offset(7);
     }];
     
     [self.workInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.loanFinView.mas_bottom).offset(0);
-        make.left.right.equalTo(self.view);
-        make.height.equalTo(@(kScrAdaptationH(170)));
+        make.top.equalTo(weakSelf.loanFinView.mas_bottom).offset(0);
+        make.left.right.equalTo(weakSelf.view);
+        make.height.equalTo(@(kScrAdaptationH(175)));
+    }];
+    UIView* redFlagworkView = [[UIView alloc]init];
+    redFlagworkView.backgroundColor = RGB(245, 81, 81);
+    [self.workInfoView addSubview:redFlagworkView];
+    [redFlagworkView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.workInfoView).offset(kScrAdaptationH(19));
+        make.height.mas_equalTo(kScrAdaptationW(12));
+        make.width.mas_equalTo(kScrAdaptationW(2));
+        make.left.equalTo(weakSelf.workInfoView).offset(7);
     }];
     
-    [self lienViewWithView:self.loanPerson_infoView];
-    [self lienViewWithView:self.loanInfoView];
-    [self lienViewWithView:self.loanFinView];
+//    [self lienViewWithView:self.loanPerson_infoView];
+//    [self lienViewWithView:self.loanInfoView];
+//    [self lienViewWithView:self.loanFinView];
 }
 
 - (UIView *)lienViewWithView:(UIView *)view {
+    kWeakSelf
     UIView *lienView = [[UIView alloc]init];
     [self.scrollView addSubview:lienView];
     [lienView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(view.mas_bottom).offset(0);
-        make.left.equalTo(self.view).offset(kScrAdaptationW(15));
-        make.right.equalTo(self.view).offset(kScrAdaptationW(-15));
+        make.left.equalTo(weakSelf.view).offset(kScrAdaptationW(15));
+        make.right.equalTo(weakSelf.view).offset(kScrAdaptationW(-15));
         make.height.equalTo(@(1));
     }];
     lienView.backgroundColor = kHXBColor_Grey093;
@@ -292,7 +331,7 @@
 ///借款说明
 - (HXBLoanInstructionView *)loanInstuctionView {
     if (!_loanInstuctionView) {
-        _loanInstuctionView = [[HXBLoanInstructionView alloc]initWithFrame:CGRectZero];
+         _loanInstuctionView = [[HXBLoanInstructionView alloc]initWithFrame:CGRectZero withRiskLevel:self.fin_Detail_DetailVC_LoanManager.riskLevel andRiskLevelDesc:self.fin_Detail_DetailVC_LoanManager.riskLevelDesc];
         [self.scrollView addSubview:_loanInstuctionView];
     }
     return _loanInstuctionView;
@@ -301,7 +340,7 @@
 ///借款人信息
 - (HXBFin_LoanPerson_Info *)loanPerson_infoView {
     if (!_loanPerson_infoView) {
-        _loanPerson_infoView = [[HXBFin_LoanPerson_Info alloc]initWithFrame:CGRectZero];
+        _loanPerson_infoView = [[HXBFin_LoanPerson_Info alloc]initWithFrame:CGRectZero withLoanPersonInfoArray:[self.fin_Detail_DetailVC_LoanManager.creditInfoItems componentsSeparatedByString:@","]];
         [self.scrollView addSubview:_loanPerson_infoView];
     }
     return _loanPerson_infoView;
@@ -310,7 +349,7 @@
 ///基础信息
 - (HXBBaseView_MoreTopBottomView *)loanInfoView {
     if (!_loanInfoView) {
-        UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15));
+        UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(0), kScrAdaptationW(15));
         _loanInfoView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:7 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
         _loanInfoView.backgroundColor = [UIColor whiteColor];
         [self.scrollView addSubview:_loanInfoView];
@@ -321,7 +360,7 @@
 /// 财务信息
 - (HXBBaseView_MoreTopBottomView *)loanFinView {
     if (!_loanFinView) {
-        UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15));
+        UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(0), kScrAdaptationW(15));
         _loanFinView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:5 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
         _loanFinView.backgroundColor = [UIColor whiteColor];
         [self.scrollView addSubview:_loanFinView];
