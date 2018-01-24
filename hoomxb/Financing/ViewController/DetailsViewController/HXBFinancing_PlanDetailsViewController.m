@@ -30,6 +30,7 @@
 #import "HXBFin_DetailsViewBase.h"
 #import "HXBFin_creditorChange_buy_ViewController.h"
 #import "HXBFin_Plan_Buy_ViewController.h"
+#import "HXBTenderDetailViewController.h"
 
 static NSString* const kTitlePlanDetail = @"计划详情";
 static NSString* const kTitleInvestmentProjects = @"投资项目";
@@ -392,7 +393,8 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
             [self.navigationController pushViewController:detail_DetailPlanVC animated:YES];
         }
         else if([title isEqualToString:kTitleInvestmentProjects]){
-            
+            HXBTenderDetailViewController* VC = [[HXBTenderDetailViewController alloc] init];
+            [self.navigationController pushViewController:VC animated:YES];
         }
         else if ([title isEqualToString:kTitleJoinRecord]) {
             HXBFinAddRecordVC_Plan *planAddRecordVC = [[HXBFinAddRecordVC_Plan alloc]init];
@@ -426,7 +428,7 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
  */
 - (void)enterPlanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
     //如果不是新手， 并且这是一个新手计划， 那么提示用户
-    if(!KeyChain.isNewbie.boolValue) {
+    if([self.planDetailViewModel.planDetailModel.novice isEqualToString:@"1"] && [KeyChain.isNewbie isEqualToString:@"0"]) {
         [HxbHUDProgress showTextWithMessage:@"非新手用户无法购买新手类产品"];
         return;
     }
