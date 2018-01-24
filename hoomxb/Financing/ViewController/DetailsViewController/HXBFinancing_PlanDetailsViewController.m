@@ -19,7 +19,7 @@
 
 #import "HXBFinAddRecordVC_Plan.h"//红利计划的加入记录
 #import "HXBFin_Detail_DetailsVC_Plan.h"//红利计划详情中的详情
-
+#import "HXBTenderDetailViewController.h"
 
 
 #pragma mark --- 新改（肖扬 红利计划 详情）
@@ -384,6 +384,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
     if (indexPath.section == 0) {
         [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:self];
     } else if (indexPath.section == 2) {
@@ -422,9 +423,17 @@
  */
 - (void)enterPlanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
     HXBFin_Plan_Buy_ViewController *planJoinVC = [[HXBFin_Plan_Buy_ViewController alloc] init];
+    
     float remainAmount = self.planDetailViewModel.planDetailModel.remainAmount.floatValue;
     float userRemainAmount = self.planDetailViewModel.planDetailModel.userRemainAmount.floatValue;
-    float creditorVCStr = remainAmount < userRemainAmount ? remainAmount : userRemainAmount;
+    float newBiePlanLeftAmount = self.planDetailViewModel.planDetailModel.newbiePlanLeftAmount.floatValue;
+    
+    BOOL isNewPlan = [self.planDetailViewModel.planDetailModel.novice isEqualToString:@"1"];
+    float creditorVCStr = isNewPlan ? MIN(remainAmount, newBiePlanLeftAmount) : MIN(remainAmount, userRemainAmount);
+    
+    planJoinVC.isNewPlan = isNewPlan;
+    planJoinVC.NewPlanJoinLimit = self.planDetailViewModel.planDetailModel.newbiePlanAmount;
+    planJoinVC.expectedSubsidyInterestAmount = self.planDetailViewModel.planDetailModel.expectedSubsidyInterestAmount;
     planJoinVC.availablePoint = [NSString stringWithFormat:@"%.2f", creditorVCStr];
     planJoinVC.title = @"加入计划";
     planJoinVC.isFirstBuy               = [self.planDetailViewModel.planDetailModel.isFirst boolValue];

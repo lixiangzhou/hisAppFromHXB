@@ -21,4 +21,11 @@
 @property (nonatomic, copy) NSString *featuredSlogan;
 @property (nonatomic, copy) NSString *hasBindCard; //是否绑卡
 
+/// --------------2.5 版本------------
+/// 是否新手计划
+@property (nonatomic, assign) BOOL isNewPlan;
+/// 新手加入上限
+@property (nonatomic, copy) NSString *NewPlanJoinLimit;
+/// 新手每百元收益
+@property (nonatomic, copy) NSString *expectedSubsidyInterestAmount;
 @end

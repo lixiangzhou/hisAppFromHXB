@@ -12,8 +12,11 @@
 + (NSDictionary *)modelContainerPropertyGenericClass {
     return @{@"dataList":[HXBFinDetailModel_PlanDetail_DataList class]};
 }
+
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"ID" : @"id"};
+    return @{
+             @"ID" : @"id"
+             };
 }
 
 //- (NSString *)potRemainAmount {
