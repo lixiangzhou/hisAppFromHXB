@@ -56,40 +56,41 @@
 }
 - (void)setupSubViewframe
 {
+    kWeakSelf
     [self mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.loanInstructionLabel.mas_top).offset(kScrAdaptationH(-15));
-        make.bottom.equalTo(self.securityLevelInstructionLabel.mas_bottom).offset(kScrAdaptationH(15));
+        make.top.equalTo(weakSelf.loanInstructionLabel.mas_top).offset(kScrAdaptationH(-15));
+        make.bottom.equalTo(weakSelf.securityLevelInstructionLabel.mas_bottom).offset(kScrAdaptationH(15));
     }];
     [self.loanInstructionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@(kScrAdaptationH(15)));
         make.left.equalTo(@(kScrAdaptationW(15)));
     }];
     [self.loanContentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.loanInstructionLabel.mas_bottom).offset(kScrAdaptationH(15));
+        make.top.equalTo(weakSelf.loanInstructionLabel.mas_bottom).offset(kScrAdaptationH(15));
         make.left.equalTo(@(kScrAdaptationW(15)));
-        make.right.equalTo(self.mas_right).offset(kScrAdaptationW(-15));
+        make.right.equalTo(weakSelf.mas_right).offset(kScrAdaptationW(-15));
     }];
     
     [self.securityLevelStrLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.loanContentLabel.mas_bottom).offset(kScrAdaptationH(15));
+        make.top.equalTo(weakSelf.loanContentLabel.mas_bottom).offset(kScrAdaptationH(15));
         make.left.equalTo(@(kScrAdaptationW(15)));
-        make.right.equalTo(self.mas_right).offset(kScrAdaptationW(-15));
+        make.right.equalTo(weakSelf.mas_right).offset(kScrAdaptationW(-15));
     }];
     [self.securityLevelImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(13));
+        make.top.equalTo(weakSelf.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(13));
         make.left.equalTo(@(kScrAdaptationW(15)));
         make.width.equalTo(@kScrAdaptationW(10));
         make.height.equalTo(@kScrAdaptationH(12));
     }];
     [self.securityLevelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(11));
-        make.left.equalTo(self.securityLevelImgV.mas_right);
+        make.top.equalTo(weakSelf.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(11));
+        make.left.equalTo(weakSelf.securityLevelImgV.mas_right);
         make.width.equalTo(@kScrAdaptationW(16));
     }];
     [self.securityLevelInstructionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(11));
-        make.left.equalTo(self.securityLevelLabel.mas_right).offset(kScrAdaptationH(10));
-        make.right.equalTo(self.mas_right).offset(kScrAdaptationW(-15));
+        make.top.equalTo(weakSelf.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(11));
+        make.left.equalTo(weakSelf.securityLevelLabel.mas_right).offset(kScrAdaptationH(10));
+        make.right.equalTo(weakSelf.mas_right).offset(kScrAdaptationW(-15));
     }];
 }
 
