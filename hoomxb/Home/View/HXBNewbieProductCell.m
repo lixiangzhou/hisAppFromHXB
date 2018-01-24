@@ -132,9 +132,9 @@
         if ([self.homePageModel_DataList.countDownLastStr doubleValue] > 0) {
             self.btnBackgroundView.hidden = YES;
             [self.purchaseButton setTitle:countDownString forState:(UIControlStateNormal)];
-            [self.purchaseButton setTitleColor:RGB(253, 54, 54) forState:UIControlStateNormal];
+            [self.purchaseButton setTitleColor:kHXBColor_FF7D2F_100 forState:UIControlStateNormal];
             self.purchaseButton.layer.borderColor = kHXBColor_FF9535_100.CGColor;
-            self.purchaseButton.backgroundColor = RGB(255, 247, 247);
+            self.purchaseButton.backgroundColor = kHXBColor_FFFCF5_100;
         }
         else {
             self.btnBackgroundView.hidden = NO;
@@ -158,7 +158,7 @@
             self.btnBackgroundView.hidden = YES;
             [self.purchaseButton setTitleColor:COR29 forState:UIControlStateNormal];
             self.purchaseButton.layer.borderColor = kHXBColor_FF9535_100.CGColor;
-            self.purchaseButton.backgroundColor = RGB(255, 247, 247);
+            self.purchaseButton.backgroundColor = kHXBColor_FFFCF5_100;
         } else if([self.homePageModel_DataList.cellBtnTitle isEqualToString:@"立即加入"]) {
             self.btnBackgroundView.hidden = NO;
             [self.purchaseButton setTitleColor:COR15 forState:UIControlStateNormal];
@@ -230,7 +230,7 @@
         _purchaseButton.layer.borderColor = kHXBColor_FF9535_100.CGColor;
         _purchaseButton.layer.cornerRadius = 4.0f;
         _purchaseButton.layer.masksToBounds = YES;
-        _purchaseButton.backgroundColor = RGB(255, 247, 247);
+        _purchaseButton.backgroundColor = kHXBColor_FFFCF5_100;
         [_purchaseButton insertSubview:self.btnBackgroundView atIndex:0];
     }
     return _purchaseButton;
