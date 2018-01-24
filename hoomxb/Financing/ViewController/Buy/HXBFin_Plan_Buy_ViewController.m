@@ -158,12 +158,7 @@ static NSString *const bankString = @"绑定银行卡";
     }
     self.topView.profitStr = [NSString stringWithFormat:@"预期收益%@", [NSString hxb_getPerMilWithDouble:investMoney.floatValue*self.totalInterest.floatValue/100.0]];
     
-    if (self.isNewPlan) {
-        CGFloat subsidy = investMoney.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
-        NSString *subsidyString = [NSString stringWithFormat:@"%.2f", subsidy];
-        _profitMoneyStr = [NSString stringWithFormat:@"%.2f", investMoney.floatValue*self.totalInterest.floatValue/100.0 + subsidy];
-        [_topView setProfitStr:_profitMoneyStr andSubsidy:subsidyString];
-    }
+    [self checkIfNeedNewPlanDatas:investMoney];
     
     [self setUpArray];
 }
@@ -218,12 +213,7 @@ static NSString *const bankString = @"绑定银行卡";
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         
-        if (self.isNewPlan) {
-            CGFloat subsidy = _inputMoneyStr.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
-            NSString *subsidyString = [NSString stringWithFormat:@"%.2f", subsidy];
-            _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0 + subsidy];
-            [_topView setProfitStr:_profitMoneyStr andSubsidy:subsidyString];
-        }
+        [self checkIfNeedNewPlanDatas:_inputMoneyStr];
         
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else if (_inputMoneyStr.floatValue < _registerMultipleAmount.floatValue && !_hasInvestMoney && !_isFirstBuy) {
@@ -234,12 +224,7 @@ static NSString *const bankString = @"绑定银行卡";
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         
-        if (self.isNewPlan) {
-            CGFloat subsidy = _inputMoneyStr.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
-            NSString *subsidyString = [NSString stringWithFormat:@"%.2f", subsidy];
-            _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0 + subsidy];
-            [_topView setProfitStr:_profitMoneyStr andSubsidy:subsidyString];
-        }
+        [self checkIfNeedNewPlanDatas:_inputMoneyStr];
         
         [HxbHUDProgress showTextWithMessage:@"投资金额不足递增金额"];
     } else {
@@ -258,6 +243,15 @@ static NSString *const bankString = @"绑定银行卡";
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
             }
         }
+    }
+}
+
+- (void)checkIfNeedNewPlanDatas:(NSString *)baseMoney {
+    if (self.isNewPlan) {
+        CGFloat subsidy = baseMoney.floatValue * self.expectedSubsidyInterestAmount.floatValue * 0.01;
+        NSString *subsidyString = [NSString stringWithFormat:@"%.2f", subsidy];
+        _profitMoneyStr = [NSString stringWithFormat:@"%.2f", baseMoney.floatValue*self.totalInterest.floatValue/100.0 + subsidy];
+        [_topView setProfitStr:_profitMoneyStr andSubsidy:subsidyString];
     }
 }
 
