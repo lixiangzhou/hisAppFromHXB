@@ -97,7 +97,7 @@
         _promptLabel.numberOfLines = 0;
         _promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
         _promptLabel.textColor = COR8;
-        _promptLabel.text = @"红小宝与恒丰银行完成存管对接\n用户资金安全隔离";
+        _promptLabel.text = @"红小宝与恒丰银行完成存管对接\n用户资金有效隔离";
         _promptLabel.textAlignment = NSTextAlignmentCenter;
     }
     return _promptLabel;
