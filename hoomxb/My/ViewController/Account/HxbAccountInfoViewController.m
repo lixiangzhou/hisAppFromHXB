@@ -296,7 +296,7 @@ UITableViewDataSource
         }
     } else if (indexPath.section == 2) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        _itemArray = @[@"风险评测",@"账户安全",@"我的理财顾问",@"关于我们"];
+        _itemArray = @[@"风险评测",@"账户安全",@"我的财富顾问",@"关于我们"];
         if (!_isDisplayAdvisor) {
             _itemArray = @[@"风险评测",@"账户安全",@"关于我们"];
         }
