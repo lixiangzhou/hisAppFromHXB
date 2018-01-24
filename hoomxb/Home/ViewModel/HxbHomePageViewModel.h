@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class HxbHomePageModel,HXBHomeBaseModel;
+@class HxbHomePageModel,HXBHomeBaseModel,HxbHomePageModel_DataList;
 
 @interface HxbHomePageViewModel : NSObject
 @property (nonatomic,strong)HxbHomePageModel *homePageModel;
@@ -15,4 +15,5 @@
 
 @property (nonatomic, strong) HXBHomeBaseModel *homeBaseModel;
 
+@property (nonatomic, strong) NSMutableArray <HxbHomePageModel_DataList *>*homeDataList;
 @end

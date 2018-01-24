@@ -48,7 +48,7 @@
     homePlanRecommendAPI.requestUrl = kHXBHome_HomeURL;
     homePlanRecommendAPI.isUPReloadData = isUPReloadData;
     homePlanRecommendAPI.requestArgument = @{
-                                             @"cashType" : @"ALL"
+                                             @"cashType" : @"newbie"
                                              };
     [homePlanRecommendAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);

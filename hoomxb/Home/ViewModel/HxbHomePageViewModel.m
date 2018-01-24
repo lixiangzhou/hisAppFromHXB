@@ -8,6 +8,9 @@
 
 #import "HxbHomePageViewModel.h"
 #import "HxbHomePageModel.h"
+#import "HXBHomeBaseModel.h"
+#import "HXBHomeNewbieProductModel.h"
+#import "HxbHomePageModel_DataList.h"
 @implementation HxbHomePageViewModel
 - (void)setHomePageModel:(HxbHomePageModel *)homePageModel{
     _homePageModel = homePageModel;
@@ -18,15 +21,12 @@
 - (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
 {
     _homeBaseModel = homeBaseModel;
-//    for (int i = 0; i<_homeBaseModel.homePlanRecommend.count; i++) {
-//        HxbHomePageModel_DataList *planRecommend = _homeBaseModel.homePlanRecommend[i];
-//        planRecommend.unifyStatus = [self judgmentStateValue:planRecommend.unifyStatus];
-//        _homeBaseModel.homePlanRecommend[i] = planRecommend;
-//    }
-//    for (HxbHomePageModel_DataList *planRecommend in _homeBaseModel.homePlanRecommend) {
-//        [self judgmentStateValue:planRecommend.unifyStatus];
-////        planRecommend.unifyStatus
-//    }
+    self.homeDataList = [NSMutableArray array];
+    if (homeBaseModel.newbieProductData.dataList.count > 0) {
+        [self.homeDataList addObjectsFromArray:homeBaseModel.newbieProductData.dataList];
+        homeBaseModel.newbieProductData.dataList.lastObject.isShowNewBieBackgroundImageView = YES;
+    }
+    [self.homeDataList addObjectsFromArray:homeBaseModel.homePlanRecommend];
 }
 
 @end

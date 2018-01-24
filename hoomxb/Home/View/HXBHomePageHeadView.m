@@ -16,6 +16,9 @@
 
 #import "BannerModel.h"
 #import "HXBHomeBaseModel.h"
+#import "HXBHomeNewbieProductModel.h"
+#import <UIImageView+WebCache.h>
+#import "HxbHomePageModel_DataList.h"
 @interface HXBHomePageHeadView () 
 
 
@@ -25,6 +28,10 @@
 @property (nonatomic, strong) HXBHomePageAfterLoginView *afterLoginView;
 
 @property (nonatomic, strong) UIButton *noticeBtn;
+
+@property (nonatomic, strong) UIView *newbieView;
+
+@property (nonatomic, strong) UIImageView *newbieImageView;
 
 @end
 
@@ -39,6 +46,8 @@
         [self addSubview:self.indicationView];
         [self addSubview:self.bannerView];
         [self addSubview:self.noticeBtn];
+        [self addSubview:self.newbieView];
+        [self.newbieView addSubview:self.newbieImageView];
         [self setupUI];
     }
     return self;
@@ -47,15 +56,23 @@
 #pragma mark - setupUI
 
 - (void)setupUI {
+    kWeakSelf
     [self.noticeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self);
+        make.right.equalTo(weakSelf);
         make.top.offset(kScrAdaptationH(18) + HXBStatusBarAdditionHeight);
         make.height.offset(kHXBNoticeButtonWithAndHeight);
         make.width.offset(kHXBNoticeButtonWithAndHeight);
     }];
-    [self.bannerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.offset(kScrAdaptationH(166));
+    [self.newbieView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(weakSelf);
+        make.height.offset(kScrAdaptationH(90));
+        make.top.equalTo(weakSelf.bannerView.mas_bottom).offset(kScrAdaptationH(10));
+    }];
+    [self.newbieImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf.newbieView).offset(kHXBSpacing_30);
+        make.right.equalTo(weakSelf.newbieView).offset(-kHXBSpacing_30);
+        make.height.offset(kScrAdaptationH(65));
+        make.bottom.equalTo(weakSelf.newbieView.mas_bottom);
     }];
 }
 
@@ -73,6 +90,12 @@
 //    self.height = self.height - self.indicationView.height;
     self.indicationView.hidden = YES;
     [self resetView];
+    kWeakSelf
+    [self.bannerView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(weakSelf);
+        make.height.offset(kScrAdaptationH(166));
+        make.top.equalTo(weakSelf.afterLoginView.mas_bottom);
+    }];
 }
 
 // 显示投资页
@@ -85,10 +108,15 @@
     }
     self.indicationView.hidden = NO;
     [self resetView];
+    kWeakSelf
+    [self.bannerView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(weakSelf);
+        make.height.offset(kScrAdaptationH(166));
+        make.top.equalTo(weakSelf.indicationView.mas_bottom);
+    }];
 }
 
 - (void)showSecurityCertificationOrInvest:(HXBRequestUserInfoViewModel *)viewModel{
-    kWeakSelf
     NSLog(@"________%d", [KeyChain isLogin]);
     if (![KeyChain isLogin]) {
         self.afterLoginView.headTipString = @"红小宝全新起航，新起点，新梦想";
@@ -97,16 +125,24 @@
         
         if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
             //没有开户
-            weakSelf.afterLoginView.headTipString = @"红小宝携手恒丰银行资金存管已上线";
-            weakSelf.afterLoginView.tipString = @"立即开通存管账户";
+            self.afterLoginView.headTipString = @"红小宝携手恒丰银行资金存管已上线";
+            self.afterLoginView.tipString = @"立即开通存管账户";
         } else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])) {
             // 没有实名
-            weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
-            weakSelf.afterLoginView.tipString = @"完善存管信息";
+            self.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
+            self.afterLoginView.tipString = @"完善存管信息";
+        } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"] && (self.homeBaseModel.newbieProductData.dataList.count > 0)) {
+            //已经投资显示的界面
+            HxbHomePageModel_DataList *homePageModel = self.homeBaseModel.newbieProductData.dataList.firstObject;
+            CGFloat rate = [homePageModel.baseInterestRate doubleValue] + [homePageModel.subsidyInterestRate doubleValue];
+            NSString *newbieSubsidyInterestRate = [NSString stringWithFormat:@"新手专享%0.1f年化产品",rate];
+            
+            self.afterLoginView.headTipString = newbieSubsidyInterestRate;
+            self.afterLoginView.tipString = @"立即投资";
         } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]) {
             //已经投资显示的界面
-            weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
-            weakSelf.afterLoginView.tipString = @"立即投资";
+            self.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
+            self.afterLoginView.tipString = @"立即投资";
         }
         
     }
@@ -118,6 +154,26 @@
     }
 }
 
+
+
+- (void)noticeBtnClick
+{
+    if (self.noticeBlock) {
+        self.noticeBlock();
+    }
+}
+
+
+/**
+ 新手视图点击方法
+ */
+- (void)newbieAreaAction {
+    if (self.newbieAreaActionBlock) {
+        self.newbieAreaActionBlock();
+    }
+}
+
+#pragma mark Set Methods
 - (void)setHomeBaseModel:(HXBHomeBaseModel *)homeBaseModel
 {
     _homeBaseModel = homeBaseModel;
@@ -128,17 +184,15 @@
         BannerModel *bannerModel = [[BannerModel alloc] init];
         self.bannerView.bannersModel = @[bannerModel];
     }
-}
-
-- (void)noticeBtnClick
-{
-    if (self.noticeBlock) {
-        self.noticeBlock();
+    NSURL *imgURL = [NSURL URLWithString:homeBaseModel.newbieProductData.img];
+    [self.newbieImageView sd_setImageWithURL:imgURL placeholderImage:[UIImage imageNamed:@"Home_newbieArea_default"]];
+    [self showSecurityCertificationOrInvest:self.userInfoViewModel];
+    if (homeBaseModel.newbieProductData.img.length > 0) {
+        self.newbieView.hidden = NO;
+    } else {
+        self.newbieView.hidden = YES;
     }
 }
-
-#pragma mark Set Methods
-
 #pragma mark Get Methods
 - (HXBHomePageLoginIndicationView *)indicationView
 {
@@ -199,5 +253,26 @@
     return _noticeBtn;
 }
 
+- (UIView *)newbieView {
+    if (!_newbieView) {
+        _newbieView = [[UIView alloc] init];
+        _newbieView.backgroundColor = [UIColor whiteColor];
+    }
+    return _newbieView;
+    
+}
+
+- (UIImageView *)newbieImageView {
+    if (!_newbieImageView) {
+        _newbieImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Home_newbieArea_default"]];
+        _newbieImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _newbieImageView.userInteractionEnabled = YES;
+        //创建手势对象
+        UITapGestureRecognizer *newbieGesture =[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(newbieAreaAction)];
+        //讲手势添加到指定的视图上
+        [_newbieImageView addGestureRecognizer:newbieGesture];
+    }
+    return _newbieImageView;
+}
 
 @end

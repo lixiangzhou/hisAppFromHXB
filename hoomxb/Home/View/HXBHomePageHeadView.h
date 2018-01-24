@@ -48,6 +48,12 @@
  公告的回调
  */
 @property (nonatomic, copy) void (^noticeBlock)();
+
+/**
+ 新手视图点击方法
+ */
+@property (nonatomic, copy) void (^newbieAreaActionBlock)();
+
 /**
  未投资显示的页面
  */
