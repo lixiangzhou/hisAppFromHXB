@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 @class HXBMYViewModel_PlanDetailViewModel;
 @class HXBMY_PlanDetailView_Manager;
+#import "HXBMYModel_PlanDetailModel.h"
 #import "HXBBaseView_TwoLable_View.h"///两个label的组件
 #import "HXBBaseView_MoreTopBottomView.h"///多个topBottomView
 @interface HXBMY_PlanDetailView : UIView
@@ -33,9 +34,17 @@
 - (void)setUPValueWithViewManagerBlock: (HXBMY_PlanDetailView_Manager *(^)(HXBMY_PlanDetailView_Manager *manager))viewManagerBlock;
 
 @property (nonatomic, copy) void (^tipClickBlock)();
+@property (nonatomic, copy) void (^tipNoviceClickBlock)();
 @end
 
+
 @interface HXBMY_PlanDetailView_Manager : NSObject
+/**
+ 判断是持有中、退出中、已退出
+ */
+@property (nonatomic, assign) HXBRequestType_MY_PlanRequestType type;
+///红利计划 详情的Model
+@property (nonatomic,strong) HXBMYModel_PlanDetailModel *planDetailModel;
 @property (nonatomic,copy) NSString                                 *typeImageName;
 /**
  顶部的VIew状态

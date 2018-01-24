@@ -73,7 +73,9 @@ static NSString *kINVEST = @"INVEST";
 ///年利率
 - (NSString *)expectedRate {
     if (!_expectedRate) {
-        _expectedRate = [NSString stringWithFormat:@"%.1f%%",self.planDetailModel.expectedRate.floatValue];
+        //收益中&新手计划&存在贴息
+        NSString *expectedRateStr = [self.planDetailModel.type isEqualToString:@"HOLD_PLAN"]&&[self.planDetailModel.novice isEqualToString:@"1"]&&self.planDetailModel.subsidyInterestRate ? [NSString stringWithFormat:@"%.1f%%+%.1f%%",self.planDetailModel.expectedRate.floatValue,self.planDetailModel.subsidyInterestRate.floatValue]: [NSString stringWithFormat:@"%.1f%%",self.planDetailModel.expectedRate.floatValue];
+        _expectedRate = expectedRateStr;
     }
     return _expectedRate;
 }

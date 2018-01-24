@@ -4,7 +4,7 @@
 //
 //  Created by HXB on 2017/7/10.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
-//
+//  债转详情
 
 #import "HXBFin_DetailLoanTruansfer_ViewController.h"
 #import "HXBFinanctingRequest.h"
@@ -200,8 +200,12 @@
         [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:self];
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
+
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.loanTruansferDetailViewModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.creditInfoItems;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevel;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevelDesc = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevelDesc;
             [self.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         } else if (indexPath.row == 1) {
             HXBFinAddRecordVC_LoanTruansfer *loanAddRecordVC = [[HXBFinAddRecordVC_LoanTruansfer alloc]init];
@@ -240,6 +244,7 @@
     loanJoinVC.registerMultipleAmount   = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
     loanJoinVC.hasBindCard              = hasBindCard;
     loanJoinVC.userInfoViewModel        = viewModel;
+    loanJoinVC.riskType = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevel;
     [self.navigationController pushViewController:loanJoinVC animated:YES];
     
     

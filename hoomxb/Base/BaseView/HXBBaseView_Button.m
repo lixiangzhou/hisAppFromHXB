@@ -34,6 +34,23 @@
 }
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
+    // Center image
+    CGPoint center = self.imageView.center;
+    center.x = self.frame.size.width/2;
+    center.y = self.imageView.frame.size.height/2;
+    self.imageView.center = center;
+    
+    //Center text
+    CGRect newFrame = [self titleLabel].frame;
+    newFrame.origin.x = 0;
+    newFrame.origin.y = self.imageView.frame.size.height + 5;
+    newFrame.size.width = self.frame.size.width;
+    
+    self.titleLabel.frame = newFrame;
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    /*
     self.imageView.center = CGPointMake(kScrAdaptationH(5), self.titleLabel.center.y);
     self.imageView.bounds = CGRectMake(0, 0, kScrAdaptationH(10), kScrAdaptationH(10));
     self.titleLabel.frame = CGRectMake(kScrAdaptationH(10) * 2, 0, self.titleLabel.frame.size.width, self.titleLabel.frame.size.height);
@@ -41,7 +58,8 @@
     self.imageView.layer.borderWidth = kXYBorderWidth;
     self.imageView.layer.masksToBounds = YES;
     self.imageView.layer.cornerRadius = kScrAdaptationH(10)/2.0;
-
+     */
+     
 //    CGFloat X, W;
 //    CGFloat titleX,titleY,titleW,titleH,centerY;
 // 
