@@ -80,7 +80,7 @@ static NSString *const bankString = @"绑定银行卡";
     _discountTitle = @"暂无可用优惠券";
     _balanceTitle = @"可用余额";
     
-    _isMatchBuy = [self.userInfoViewModel.userInfoModel.userAssets.riskSet containsObject:self.riskType];
+    _isMatchBuy = [self.userInfoViewModel.userInfoModel.userAssets.userRisk containsObject:self.riskType];
     _balanceMoneyStr = self.userInfoViewModel.userInfoModel.userAssets.availablePoint;
     
     [self buildUI];
@@ -568,7 +568,7 @@ static const NSInteger topView_high = 230;
 // 根据金额匹配是否展示风险协议
 - (void)isMatchToBuyWithMoney:(NSString *)money {
     if (_isMatchBuy) {
-        if (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.riskAccount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount) {
+        if (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.userRiskAmount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount) {
             self.bottomView.isShowRiskView = YES;
             self.isExceedLimitInvest = YES;
         } else {
