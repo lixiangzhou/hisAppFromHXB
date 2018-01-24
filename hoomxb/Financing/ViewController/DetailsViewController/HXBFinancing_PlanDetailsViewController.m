@@ -424,6 +424,12 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
  跳转加入界面
  */
 - (void)enterPlanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
+    //如果不是新手， 并且这是一个新手计划， 那么提示用户
+    if(!KeyChain.isNewbie.boolValue) {
+        [HxbHUDProgress showTextWithMessage:@"非新手用户无法购买新手类产品"];
+        return;
+    }
+    
     HXBFin_Plan_Buy_ViewController *planJoinVC = [[HXBFin_Plan_Buy_ViewController alloc] init];
     float remainAmount = self.planDetailViewModel.planDetailModel.remainAmount.floatValue;
     float userRemainAmount = self.planDetailViewModel.planDetailModel.userRemainAmount.floatValue;

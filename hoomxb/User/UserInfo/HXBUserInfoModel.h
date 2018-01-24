@@ -79,6 +79,10 @@
 @property (nonatomic,copy) NSString *realName;
 /// 身份证 640121197904299980
 @property (nonatomic,copy) NSString *idNo;
+/**
+ 1: 是新手；0: 不是新手
+ */
+@property (nonatomic, copy) NSString* isNewbie;
 
 /**
  性别：‘0’：男，‘1’：女
