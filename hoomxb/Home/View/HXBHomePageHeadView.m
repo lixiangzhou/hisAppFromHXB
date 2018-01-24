@@ -56,22 +56,23 @@
 #pragma mark - setupUI
 
 - (void)setupUI {
+    kWeakSelf
     [self.noticeBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self);
+        make.right.equalTo(weakSelf);
         make.top.offset(kScrAdaptationH(18) + HXBStatusBarAdditionHeight);
         make.height.offset(kHXBNoticeButtonWithAndHeight);
         make.width.offset(kHXBNoticeButtonWithAndHeight);
     }];
     [self.newbieView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
+        make.left.right.equalTo(weakSelf);
         make.height.offset(kScrAdaptationH(90));
-        make.top.equalTo(self.bannerView.mas_bottom).offset(kScrAdaptationH(10));
+        make.top.equalTo(weakSelf.bannerView.mas_bottom).offset(kScrAdaptationH(10));
     }];
     [self.newbieImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.newbieView).offset(kHXBSpacing_30);
-        make.right.equalTo(self.newbieView).offset(-kHXBSpacing_30);
+        make.left.equalTo(weakSelf.newbieView).offset(kHXBSpacing_30);
+        make.right.equalTo(weakSelf.newbieView).offset(-kHXBSpacing_30);
         make.height.offset(kScrAdaptationH(65));
-        make.bottom.equalTo(self.newbieView.mas_bottom);
+        make.bottom.equalTo(weakSelf.newbieView.mas_bottom);
     }];
 }
 
@@ -89,10 +90,11 @@
 //    self.height = self.height - self.indicationView.height;
     self.indicationView.hidden = YES;
     [self resetView];
+    kWeakSelf
     [self.bannerView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
+        make.left.right.equalTo(weakSelf);
         make.height.offset(kScrAdaptationH(166));
-        make.top.equalTo(self.afterLoginView.mas_bottom);
+        make.top.equalTo(weakSelf.afterLoginView.mas_bottom);
     }];
 }
 
@@ -106,15 +108,15 @@
     }
     self.indicationView.hidden = NO;
     [self resetView];
+    kWeakSelf
     [self.bannerView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self);
+        make.left.right.equalTo(weakSelf);
         make.height.offset(kScrAdaptationH(166));
-        make.top.equalTo(self.indicationView.mas_bottom);
+        make.top.equalTo(weakSelf.indicationView.mas_bottom);
     }];
 }
 
 - (void)showSecurityCertificationOrInvest:(HXBRequestUserInfoViewModel *)viewModel{
-    kWeakSelf
     NSLog(@"________%d", [KeyChain isLogin]);
     if (![KeyChain isLogin]) {
         self.afterLoginView.headTipString = @"红小宝全新起航，新起点，新梦想";
@@ -123,24 +125,24 @@
         
         if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
             //没有开户
-            weakSelf.afterLoginView.headTipString = @"红小宝携手恒丰银行资金存管已上线";
-            weakSelf.afterLoginView.tipString = @"立即开通存管账户";
+            self.afterLoginView.headTipString = @"红小宝携手恒丰银行资金存管已上线";
+            self.afterLoginView.tipString = @"立即开通存管账户";
         } else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"])) {
             // 没有实名
-            weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
-            weakSelf.afterLoginView.tipString = @"完善存管信息";
+            self.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
+            self.afterLoginView.tipString = @"完善存管信息";
         } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"] && (self.homeBaseModel.newbieProductData.dataList.count > 0)) {
             //已经投资显示的界面
             HxbHomePageModel_DataList *homePageModel = self.homeBaseModel.newbieProductData.dataList.firstObject;
             CGFloat rate = [homePageModel.baseInterestRate doubleValue] + [homePageModel.subsidyInterestRate doubleValue];
             NSString *newbieSubsidyInterestRate = [NSString stringWithFormat:@"新手专享%0.1f年化产品",rate];
             
-            weakSelf.afterLoginView.headTipString = newbieSubsidyInterestRate;
-            weakSelf.afterLoginView.tipString = @"立即投资";
+            self.afterLoginView.headTipString = newbieSubsidyInterestRate;
+            self.afterLoginView.tipString = @"立即投资";
         } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]) {
             //已经投资显示的界面
-            weakSelf.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
-            weakSelf.afterLoginView.tipString = @"立即投资";
+            self.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
+            self.afterLoginView.tipString = @"立即投资";
         }
         
     }
