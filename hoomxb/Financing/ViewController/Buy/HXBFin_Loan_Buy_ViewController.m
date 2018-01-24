@@ -70,7 +70,7 @@ static NSString *const bankString = @"绑定银行卡";
     _discountTitle = @"暂无可用优惠券";
     _balanceTitle = @"可用余额";
     
-    _isMatchBuy = [self.userInfoViewModel.userInfoModel.userInfo.riskSet containsObject:self.riskType];
+    _isMatchBuy = [self.userInfoViewModel.userInfoModel.userAssets.riskSet containsObject:self.riskType];
     _balanceMoneyStr = self.userInfoViewModel.userInfoModel.userAssets.availablePoint;
     
     [self buildUI];
@@ -121,6 +121,7 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)changeItemWithInvestMoney:(NSString *)investMoney {
     self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
     _handleDetailTitle = [NSString stringWithFormat:@"%.2f", investMoney.doubleValue];
+    [self isMatchToBuyWithMoney:_handleDetailTitle];
     _inputMoneyStr = investMoney;
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue;
     if (rechargeMoney > 0.00) { // 余额不足的情况
@@ -157,14 +158,12 @@ static NSString *const bankString = @"绑定银行卡";
         _inputMoneyStr = [NSString stringWithFormat:@"%.lf", _availablePoint.doubleValue];
         [self changeItemWithInvestMoney:_inputMoneyStr];
         [self setUpArray];
-        [self isMatchToBuyWithMoney:_inputMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"已超过剩余金额"];
     } else if (_inputMoneyStr.floatValue < _minRegisterAmount.floatValue) {
         _topView.totalMoney = [NSString stringWithFormat:@"%ld", (long)_minRegisterAmount.integerValue];
         _inputMoneyStr = _minRegisterAmount;
         [self changeItemWithInvestMoney:_inputMoneyStr];
         [self setUpArray];
-        [self isMatchToBuyWithMoney:_inputMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
     } else {
         BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
@@ -514,7 +513,7 @@ static const NSInteger topView_high = 230;
 // 根据金额匹配是否展示风险协议
 - (void)isMatchToBuyWithMoney:(NSString *)money {
     if (_isMatchBuy) {
-        if (money.doubleValue > self.userInfoViewModel.userInfoModel.userInfo.riskAccount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount) {
+        if (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.riskAccount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount) {
             self.bottomView.isShowRiskView = YES;
             self.isExceedLimitInvest = YES;
         } else {

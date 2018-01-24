@@ -101,14 +101,13 @@ static NSString *const bankString = @"绑定银行卡";
     _balanceTitle = @"可用余额";
     _hud = [[HxbHUDProgress alloc] init];
     
-    _isMatchBuy = [self.userInfoViewModel.userInfoModel.userInfo.riskSet containsObject:self.riskType];
+    _isMatchBuy = [self.userInfoViewModel.userInfoModel.userAssets.riskSet containsObject:self.riskType];
     _balanceMoneyStr = self.userInfoViewModel.userInfoModel.userAssets.availablePoint;
     
     [self buildUI];
     [self unavailableMoney];
     [self hasBestCouponRequest];
     [self isMatchToBuyWithMoney:@"0"];
-//    [self changeItemWithInvestMoney:_inputMoneyStr];
     self.bottomView.addBtnIsUseable = _inputMoneyStr.length;
 }
 
@@ -157,6 +156,7 @@ static NSString *const bankString = @"绑定银行卡";
     self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
     _inputMoneyStr = investMoney;
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue - _discountMoney;
+    [self isMatchToBuyWithMoney:_handleDetailTitle];
     if (rechargeMoney > 0.00) { // 余额不足的情况
         if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
             self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
@@ -215,7 +215,6 @@ static NSString *const bankString = @"绑定银行卡";
         _inputMoneyStr = _minRegisterAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _minRegisterAmount.floatValue*self.totalInterest.floatValue/100.0];
         _curruntInvestMoney =_inputMoneyStr.doubleValue;
-        [self isMatchToBuyWithMoney:_inputMoneyStr];
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
@@ -224,7 +223,6 @@ static NSString *const bankString = @"绑定银行卡";
         _inputMoneyStr = _registerMultipleAmount;
         _profitMoneyStr = [NSString stringWithFormat:@"%.2f", _registerMultipleAmount.floatValue*self.totalInterest.floatValue/100.0];
         _curruntInvestMoney = _inputMoneyStr.floatValue;
-        [self isMatchToBuyWithMoney:_inputMoneyStr];
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
         [HxbHUDProgress showTextWithMessage:@"投资金额不足递增金额"];
@@ -610,7 +608,6 @@ static const NSInteger topView_high = 300;
             _topView.disableKeyBorad = YES;
             _hasInvestMoney = YES;
             _curruntInvestMoney = _inputMoneyStr.doubleValue;
-            [self isMatchToBuyWithMoney:_inputMoneyStr];
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
             _hasInvestMoney = NO;
@@ -623,7 +620,6 @@ static const NSInteger topView_high = 300;
             _topView.disableKeyBorad = YES;
             _hasInvestMoney = YES;
             _curruntInvestMoney = _inputMoneyStr.doubleValue;
-            [self isMatchToBuyWithMoney:_inputMoneyStr];
             [self getBESTCouponWithMoney:_inputMoneyStr];
         } else {
             _hasInvestMoney = NO;
@@ -714,7 +710,7 @@ static const NSInteger topView_high = 300;
 // 根据金额匹配是否展示风险协议
 - (void)isMatchToBuyWithMoney:(NSString *)money {
     if (_isMatchBuy) {
-        if (money.doubleValue > self.userInfoViewModel.userInfoModel.userInfo.riskAccount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount) {
+        if (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.riskAccount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount) {
             self.bottomView.isShowRiskView = YES;
             self.isExceedLimitInvest = YES;
         } else {

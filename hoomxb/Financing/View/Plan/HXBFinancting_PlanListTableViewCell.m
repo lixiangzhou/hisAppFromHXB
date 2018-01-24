@@ -62,7 +62,6 @@
         self.lineImageView.hidden = YES;
         self.tagLabel.hidden = YES;
         [self.tagLableImageView setHidden:YES];
-        // fixme
         self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_newComer"];
     } else {
         self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_default"];
