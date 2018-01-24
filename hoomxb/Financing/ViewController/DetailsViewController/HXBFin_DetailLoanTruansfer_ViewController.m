@@ -236,14 +236,15 @@
         return;
     }
     HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
-    loanJoinVC.title = @"投资债权";
-    loanJoinVC.loanId = self.loanTruansferDetailViewModel.loanTruansferDetailModel.transferId;
-    loanJoinVC.placeholderStr = self.loanTruansferDetailViewModel.startIncrease_Amount;
-    loanJoinVC.availablePoint = self.loanTruansferDetailViewModel.loanTruansferDetailModel.leftTransAmount;
-    loanJoinVC.hasBindCard = hasBindCard;
-    loanJoinVC.minRegisterAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
-    loanJoinVC.registerMultipleAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
-//    loanJoinVC.riskType = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevel;
+    loanJoinVC.title                    = @"投资债权";
+    loanJoinVC.loanId                   = self.loanTruansferDetailViewModel.loanTruansferDetailModel.transferId;
+    loanJoinVC.placeholderStr           = self.loanTruansferDetailViewModel.startIncrease_Amount;
+    loanJoinVC.availablePoint           = self.loanTruansferDetailViewModel.loanTruansferDetailModel.leftTransAmount;
+    loanJoinVC.minRegisterAmount        = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
+    loanJoinVC.registerMultipleAmount   = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
+    loanJoinVC.hasBindCard              = hasBindCard;
+    loanJoinVC.userInfoViewModel        = viewModel;
+    loanJoinVC.riskType = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevel;
     [self.navigationController pushViewController:loanJoinVC animated:YES];
     
     

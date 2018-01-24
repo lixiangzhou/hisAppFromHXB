@@ -437,7 +437,7 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
 /**
  跳转加入界面
  */
-- (void)enterPlanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
+- (void)enterPlanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard userInfo:(HXBRequestUserInfoViewModel *)viewModel{
     //如果不是新手， 并且这是一个新手计划， 那么提示用户
     if([self.planDetailViewModel.planDetailModel.novice isEqualToString:@"1"] && [KeyChain.isNewbie isEqualToString:@"0"]) {
         [HxbHUDProgress showTextWithMessage:@"非新手用户无法购买新手类产品"];
@@ -467,7 +467,8 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
     planJoinVC.registerMultipleAmount   = self.planDetailViewModel.planDetailModel.registerMultipleAmount;
     planJoinVC.placeholderStr           = self.planDetailViewModel.addCondition;
     planJoinVC.hasBindCard              = hasBindCard;
-//    planJoinVC.riskType                 = self.planDetailViewModel.planDetailModel.riskType;
+    planJoinVC.userInfoViewModel        = viewModel;
+    planJoinVC.riskType                 = self.planDetailViewModel.planDetailModel.riskType;
     [self.navigationController pushViewController:planJoinVC animated:YES];
 }
 
