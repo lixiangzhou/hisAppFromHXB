@@ -243,7 +243,7 @@
     loanJoinVC.hasBindCard = hasBindCard;
     loanJoinVC.minRegisterAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
     loanJoinVC.registerMultipleAmount = self.loanTruansferDetailViewModel.loanTruansferDetailModel.minInverst;
-//    loanJoinVC.riskLevel = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevel;
+//    loanJoinVC.riskType = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevel;
     [self.navigationController pushViewController:loanJoinVC animated:YES];
     
     

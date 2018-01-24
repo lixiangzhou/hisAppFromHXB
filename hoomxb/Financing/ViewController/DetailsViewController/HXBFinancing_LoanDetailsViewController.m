@@ -222,7 +222,7 @@
     loanJoinVC.loanId = self.loanDetailViewModel.loanDetailModel.userVo.loanId;
     loanJoinVC.minRegisterAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
     loanJoinVC.registerMultipleAmount = self.loanDetailViewModel.loanDetailModel.minInverst;
-//    loanJoinVC.riskLevel = self.loanDetailViewModel.loanDetailModel.loanVo.riskLevel;
+//    loanJoinVC.riskType = self.loanDetailViewModel.loanDetailModel.loanVo.riskLevel;
     [self.navigationController pushViewController:loanJoinVC animated:YES];
 }
 
