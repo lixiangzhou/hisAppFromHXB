@@ -78,6 +78,31 @@
  */
 @property (nonatomic, assign) BOOL hasMoneyOffCoupon;
 
+/**
+ 2.4.0新增字段-计划的类型
+ */
+@property (nonatomic, copy) NSString *cashType;
+
+/**
+ 2.4.0新增字段-付息日
+ */
+@property (nonatomic, copy) NSString *cashDrawDay;
+
+/**
+ 2.5.0新增新手产品贴息利率
+ */
+@property (nonatomic, copy) NSString *subsidyInterestRate;
+
+/**
+ 2.5.0新手产品锁定期（天）
+ */
+@property (nonatomic, assign) int lockDays;
+
+/**
+ 2.5.0是否是新手计划(1:是新手 0:非新手)
+ */
+@property (nonatomic, assign) int novice;
+
 /*********************** 辅助字段 ****************************/
 ///倒计时的String
 @property (nonatomic,copy) NSString *countDownLastStr;
@@ -102,14 +127,9 @@
  */
 @property (nonatomic, copy) NSString *fixExtraInterestRate;
 
-/**
- 2.4.0新增字段-计划的类型
- */
-@property (nonatomic, copy) NSString *cashType;
 
 /**
- 2.4.0新增字段-付息日
+ 新手是否显示图片
  */
-@property (nonatomic, copy) NSString *cashDrawDay;
-
+@property (nonatomic, assign) BOOL isShowNewBieBackgroundImageView;
 @end

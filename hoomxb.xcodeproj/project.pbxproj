@@ -213,6 +213,8 @@
 		4EBE19441F73B44500AB5AB6 /* HXBTransferCreditorBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE19431F73B44500AB5AB6 /* HXBTransferCreditorBottomView.m */; };
 		4EBE19471F73D02800AB5AB6 /* HXBTransferConfirmModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE19461F73D02800AB5AB6 /* HXBTransferConfirmModel.m */; };
 		4EBE8D611FA9E2BA00F0F814 /* HXBWithdrawModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EBE8D5F1FA9E2BA00F0F814 /* HXBWithdrawModel.m */; };
+		4EC0CF1D20118E2C00FE9905 /* HXBHomeNewbieProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC0CF1C20118E2C00FE9905 /* HXBHomeNewbieProductModel.m */; };
+		4EC0CF232011A19500FE9905 /* HXBNewbieProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EC0CF222011A19500FE9905 /* HXBNewbieProductCell.m */; };
 		4EC492991EC19A7D00B7DAA2 /* zhaoshang.png in Resources */ = {isa = PBXBuildFile; fileRef = 4EC492981EC19A7D00B7DAA2 /* zhaoshang.png */; };
 		4ECFFD3E1FE3EDAD00DBB242 /* HXBBannerCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFFD3D1FE3EDAD00DBB242 /* HXBBannerCollectionViewCell.m */; };
 		4ED2F2781ECAD0BA0014E5C7 /* HXBMyBankCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4ED2F2771ECAD0BA0014E5C7 /* HXBMyBankCell.m */; };
@@ -927,6 +929,10 @@
 		4EBE19461F73D02800AB5AB6 /* HXBTransferConfirmModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBTransferConfirmModel.m; sourceTree = "<group>"; };
 		4EBE8D5F1FA9E2BA00F0F814 /* HXBWithdrawModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawModel.m; sourceTree = "<group>"; };
 		4EBE8D601FA9E2BA00F0F814 /* HXBWithdrawModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawModel.h; sourceTree = "<group>"; };
+		4EC0CF1B20118E2C00FE9905 /* HXBHomeNewbieProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBHomeNewbieProductModel.h; sourceTree = "<group>"; };
+		4EC0CF1C20118E2C00FE9905 /* HXBHomeNewbieProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBHomeNewbieProductModel.m; sourceTree = "<group>"; };
+		4EC0CF212011A19500FE9905 /* HXBNewbieProductCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBNewbieProductCell.h; sourceTree = "<group>"; };
+		4EC0CF222011A19500FE9905 /* HXBNewbieProductCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBNewbieProductCell.m; sourceTree = "<group>"; };
 		4EC492981EC19A7D00B7DAA2 /* zhaoshang.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zhaoshang.png; sourceTree = "<group>"; };
 		4ECFFD3C1FE3EDAD00DBB242 /* HXBBannerCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBannerCollectionViewCell.h; sourceTree = "<group>"; };
 		4ECFFD3D1FE3EDAD00DBB242 /* HXBBannerCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBBannerCollectionViewCell.m; sourceTree = "<group>"; };
@@ -1805,6 +1811,8 @@
 				4E96E2D41F28829D00C4AF27 /* HXBNoticeCell.m */,
 				E1B1A2081FE13417009E1115 /* HXBHomePopView.h */,
 				E1B1A2091FE13417009E1115 /* HXBHomePopView.m */,
+				4EC0CF212011A19500FE9905 /* HXBNewbieProductCell.h */,
+				4EC0CF222011A19500FE9905 /* HXBNewbieProductCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4323,6 +4331,8 @@
 				4EB45DAA1EF7ACCE00C2CF21 /* HXBHomeTitleModel.m */,
 				E1B1A2111FE13985009E1115 /* HXBHomePopViewModel.h */,
 				E1B1A2121FE13985009E1115 /* HXBHomePopViewModel.m */,
+				4EC0CF1B20118E2C00FE9905 /* HXBHomeNewbieProductModel.h */,
+				4EC0CF1C20118E2C00FE9905 /* HXBHomeNewbieProductModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4988,6 +4998,7 @@
 				E1CD4BD41ED83064000CC57B /* HXBBaseVersionUpdateManager.m in Sources */,
 				E103C41F1FF1F2050053AEE6 /* HXBGeneralAlertVC.m in Sources */,
 				E129A0071F0617D70051ADA0 /* HXBMYModel_Loan_LoanRequestModel.m in Sources */,
+				4EC0CF232011A19500FE9905 /* HXBNewbieProductCell.m in Sources */,
 				4EB45DA41EF7A2BF00C2CF21 /* HxbHomeRequest.m in Sources */,
 				9A226B211FE7B1AC00E27DAC /* NSDictionary+IDPExtension.m in Sources */,
 				E10EB4AD1EEFDFE800F16CFA /* HxbWithdrawResultViewController.m in Sources */,
@@ -5029,6 +5040,7 @@
 				E16314431EC076F40090567E /* HXBFinDetailModel_PlanDetail.m in Sources */,
 				E1FF8ED91F0F66A100C7F1AC /* HXBFin_LoanTruansfer_AddTrustworthinessView.m in Sources */,
 				4E739B571F0A356A000A4D1E /* HXBVersionUpdateRequest.m in Sources */,
+				4EC0CF1D20118E2C00FE9905 /* HXBHomeNewbieProductModel.m in Sources */,
 				4E99BF4E1F5505D700D197A3 /* HXBXYAlertViewController.m in Sources */,
 				E133DCE71EEE3597009466DE /* HxbPhoneVerifyViewController.m in Sources */,
 				E122D84E1EA0CAB900DC71ED /* NSObject+HxbRunTime.m in Sources */,

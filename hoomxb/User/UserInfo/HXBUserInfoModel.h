@@ -127,4 +127,9 @@
  */
 @property (nonatomic,assign) BOOL isDisplayAdvisor;
 
+/**
+ 2.5.0新增字段 - 是否为新手
+ */
+@property (nonatomic, assign) BOOL isNewbie;
+
 @end
