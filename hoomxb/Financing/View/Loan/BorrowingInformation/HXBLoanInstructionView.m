@@ -59,16 +59,16 @@
     if (!self.riskLevel&&!self.riskLevelDesc) {
         
         [self.securityLevelStrLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@kScrAdaptationH(0.01));
+            make.height.equalTo(@0);//@kScrAdaptationH(0.01)
         }];
         [self.securityLevelImgV mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@kScrAdaptationH(0.01));
+            make.height.equalTo(@0);
         }];
         [self.securityLevelLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@kScrAdaptationH(0.01));
+            make.height.equalTo(@0);
         }];
         [self.securityLevelInstructionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.height.equalTo(@kScrAdaptationH(0.01));
+            make.height.equalTo(@0);
         }];
     }
 }
