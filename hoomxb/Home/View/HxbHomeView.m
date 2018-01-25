@@ -7,8 +7,8 @@
 //
 #define kHXBFooterLabelHeight kScrAdaptationH(12)
 #define kHXBBottomSpacing kScrAdaptationH(10)
-#define kHXBInvestViewHeight kScrAdaptationH(321)
-#define kHXBNotInvestViewHeight kScrAdaptationH(289)
+#define kHXBInvestViewHeight (kScrAdaptationH(330) + kHXBBottomSpacing)
+#define kHXBNotInvestViewHeight (kScrAdaptationH(279) + kHXBBottomSpacing)
 #define kHXBNewbieHeight kScrAdaptationH(90)
 
 #import "HxbHomeView.h"

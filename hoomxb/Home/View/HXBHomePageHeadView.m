@@ -8,6 +8,8 @@
 
 #define kHXBNoticeButtonWithAndHeight kScrAdaptationH(60)
 
+#define kHXBBannerViewHeight kScrAdaptationH(185)
+
 #import "HXBHomePageHeadView.h"
 #import "HXBHomePageBulletinView.h"
 #import "HXBHomePageModuleView.h"
@@ -93,7 +95,7 @@
     kWeakSelf
     [self.bannerView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(weakSelf);
-        make.height.offset(kScrAdaptationH(166));
+        make.height.offset(kHXBBannerViewHeight);
         make.top.equalTo(weakSelf.afterLoginView.mas_bottom);
     }];
 }
@@ -111,7 +113,7 @@
     kWeakSelf
     [self.bannerView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(weakSelf);
-        make.height.offset(kScrAdaptationH(166));
+        make.height.offset(kHXBBannerViewHeight);
         make.top.equalTo(weakSelf.indicationView.mas_bottom);
     }];
 }
@@ -222,7 +224,7 @@
 {
     kWeakSelf
     if (!_bannerView) {
-        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kScrAdaptationH(166))];
+        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kHXBBannerViewHeight)];
 //        _bannerView.backgroundColor = [UIColor greenColor];
         BannerModel *bannerModel = [[BannerModel alloc] init];
 //        bannerModel.title = @"banner";
