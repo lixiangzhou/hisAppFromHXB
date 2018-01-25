@@ -133,7 +133,7 @@ static NSString *const bankString = @"绑定银行卡";
     if (self.isNewPlan) {
         UIFont *font = kHXBFont_PINGFANGSC_REGULAR_750(24);
         NSMutableAttributedString *attrText = [[NSMutableAttributedString alloc] initWithString:@"温馨提示：" attributes:@{NSForegroundColorAttributeName: RGB(115, 173, 255)}];
-        [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:@"新手产品没人加入上限%@元" attributes:@{NSForegroundColorAttributeName: COR8}]];
+        [attrText appendAttributedString:[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"新手产品每人加入上限%@元", self.NewPlanJoinLimit] attributes:@{NSForegroundColorAttributeName: COR8}]];
         CGFloat tipHeigt = ceil([font lineHeight]);
         CGRect rect = CGRectMake(15, self.tableView.height - tipHeigt - 40 - HXBBottomAdditionHeight, kScreenW - 15 * 2, tipHeigt);
         UILabel * tipLabel = [[UILabel alloc] initWithFrame:rect];
