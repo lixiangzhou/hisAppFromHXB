@@ -88,6 +88,7 @@ static NSString *const cellID = @"cellID";
     
     self.noDataView.imageName = @"Fin_NotData";
     self.noDataView.noDataMassage = @"暂无投资记录";
+    self.noDataView.hidden = YES;
     self.noDataView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.noDataView];
 }
