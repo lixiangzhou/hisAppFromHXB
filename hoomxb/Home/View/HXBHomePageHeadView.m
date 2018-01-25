@@ -66,14 +66,13 @@
         make.width.offset(kHXBNoticeButtonWithAndHeight);
     }];
     [self.newbieView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(weakSelf);
-        make.height.offset(kScrAdaptationH(90));
+        make.left.right.bottom.equalTo(weakSelf);
         make.top.equalTo(weakSelf.bannerView.mas_bottom).offset(kScrAdaptationH(10));
     }];
     [self.newbieImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.newbieView).offset(kHXBSpacing_30);
         make.right.equalTo(weakSelf.newbieView).offset(-kHXBSpacing_30);
-        make.height.offset(kScrAdaptationH(65));
+        make.top.offset(kScrAdaptationH(25));
         make.bottom.equalTo(weakSelf.newbieView.mas_bottom);
     }];
 }

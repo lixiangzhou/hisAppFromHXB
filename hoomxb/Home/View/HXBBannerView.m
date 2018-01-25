@@ -69,6 +69,7 @@
     layout.itemSize = CGSizeMake(CGRectGetWidth(pageView.frame)*0.8, kScrAdaptationH(130));
     layout.itemSpacing = kScrAdaptationW(10);
     layout.layoutType = TYCyclePagerTransformLayoutLinear;
+    layout.minimumScale = 0.9;
     //layout.minimumAlpha = 0.3;
     layout.itemHorizontalCenter = YES;
     return layout;

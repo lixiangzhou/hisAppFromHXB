@@ -47,39 +47,45 @@
 #pragma mark - UI
 
 - (void)setUI {
-    [self.subsidyInterestRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).offset(kScrAdaptationH750(60));
-        make.centerX.equalTo(self.expectAnnualizedRatesLabel.mas_centerX);
-    }];
-    [self.expectAnnualizedRatesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView).offset(kScrAdaptationW750(147));
-        make.top.equalTo(self.subsidyInterestRateLabel.mas_bottom).offset(kScrAdaptationH750(25));
-    }];
-    [self.lockLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.lockTipLabel.mas_centerX);
-        make.centerY.equalTo(self.subsidyInterestRateLabel.mas_centerY);
-    }];
-    [self.lockTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contentView).offset(-kScrAdaptationW750(100));
-        make.centerY.equalTo(self.expectAnnualizedRatesLabel.mas_centerY);
-    }];
+    kWeakSelf
     [self.purchaseButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView).offset(-kScrAdaptationH750(50));
-        make.left.equalTo(self.contentView).offset(kScrAdaptationW750(75));
-        make.right.equalTo(self.contentView).offset(-kScrAdaptationW750(75));
+        make.bottom.equalTo(weakSelf.contentView).offset(-kScrAdaptationH750(50));
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW750(75));
+        make.right.equalTo(weakSelf.contentView).offset(-kScrAdaptationW750(75));
         make.height.offset(kScrAdaptationH750(76));
     }];
+    
+    [self.subsidyInterestRateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.offset(kScrAdaptationH(40));
+        make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH750(60));
+        make.left.equalTo(weakSelf.purchaseButton.mas_left);
+    }];
+    [self.expectAnnualizedRatesLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.subsidyInterestRateLabel.mas_bottom).offset(kScrAdaptationH750(20));
+        make.centerX.equalTo(weakSelf.subsidyInterestRateLabel.mas_centerX);
+    }];
+    [self.lockLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(weakSelf.lockTipLabel.mas_centerX);
+        make.centerY.equalTo(weakSelf.subsidyInterestRateLabel.mas_centerY);
+        
+    }];
+    [self.lockTipLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(weakSelf.expectAnnualizedRatesLabel.mas_centerY);
+        make.right.equalTo(weakSelf.purchaseButton.mas_right);
+    }];
+
+    
     [self.btnBackgroundView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.top.bottom.equalTo(self.purchaseButton);
+        make.left.right.top.bottom.equalTo(weakSelf.purchaseButton);
     }];
     [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.contentView);
-        make.top.equalTo(self.subsidyInterestRateLabel.mas_top);
+        make.left.right.bottom.equalTo(weakSelf.contentView);
+        make.top.equalTo(weakSelf.subsidyInterestRateLabel.mas_top);
     }];
     [self.lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView).offset(kHXBSpacing_30);
-        make.right.equalTo(self.contentView).offset(-kHXBSpacing_30);
-        make.bottom.equalTo(self.contentView);
+        make.left.equalTo(weakSelf.contentView).offset(kHXBSpacing_30);
+        make.right.equalTo(weakSelf.contentView).offset(-kHXBSpacing_30);
+        make.bottom.equalTo(weakSelf.contentView);
         make.height.offset(kHXBDivisionLineHeight);
     }];
 }
@@ -103,7 +109,7 @@
 - (void)setHomePageModel_DataList:(HxbHomePageModel_DataList *)homePageModel_DataList {
     _homePageModel_DataList = homePageModel_DataList;
      if (![homePageModel_DataList.subsidyInterestRate isEqualToString:@"0"]) {
-         NSString *subsidyInterestRate = [NSString stringWithFormat:@" + %.1f%%",[homePageModel_DataList.subsidyInterestRate doubleValue]];
+         NSString *subsidyInterestRate = [NSString stringWithFormat:@" +%.1f%%",[homePageModel_DataList.subsidyInterestRate doubleValue]];
          NSString *messageStr = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],subsidyInterestRate];
          NSRange range = [messageStr rangeOfString:subsidyInterestRate];
          self.subsidyInterestRateLabel.attributedText = [NSMutableAttributedString setupAttributeStringWithString:messageStr WithRange:(NSRange)range andAttributeColor:kHXBColor_FF6A0F_30 andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(50)];
@@ -114,11 +120,11 @@
     
     if (homePageModel_DataList.lockDays > 0) {
         self.lockLabel.text = [NSString stringWithFormat:@"%d",homePageModel_DataList.lockDays];
-        self.lockTipLabel.text = @"期限（天）";
+        self.lockTipLabel.text = @"期限(天)";
     }
     else if (homePageModel_DataList.lockPeriod > 0) {
         self.lockLabel.text = [NSString stringWithFormat:@"%@",homePageModel_DataList.lockPeriod];
-        self.lockTipLabel.text = @"期限（月）";
+        self.lockTipLabel.text = @"期限(月)";
     }
     self.backgroundImageView.hidden = !homePageModel_DataList.isShowNewBieBackgroundImageView;
     self.lineView.hidden = homePageModel_DataList.isShowNewBieBackgroundImageView;
@@ -156,7 +162,7 @@
     if (!self.homePageModel_DataList.isCountDown) {
         if ([self.homePageModel_DataList.cellBtnTitle rangeOfString:@"开售"].location != NSNotFound) {
             self.btnBackgroundView.hidden = YES;
-            [self.purchaseButton setTitleColor:COR29 forState:UIControlStateNormal];
+            [self.purchaseButton setTitleColor:kHXBColor_FF6A0F_30 forState:UIControlStateNormal];
             self.purchaseButton.layer.borderColor = kHXBColor_FF9535_100.CGColor;
             self.purchaseButton.backgroundColor = kHXBColor_FFFCF5_100;
         } else if([self.homePageModel_DataList.cellBtnTitle isEqualToString:@"立即加入"]) {
@@ -214,7 +220,7 @@
     if (!_lockTipLabel) {
         _lockTipLabel = [[UILabel alloc] init];
         _lockTipLabel.textColor = kHXBColor_999999_100;
-        _lockTipLabel.text = @"期限（-）";
+        _lockTipLabel.text = @"期限(-)";
         _lockTipLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(24);
     }
     return _lockTipLabel;

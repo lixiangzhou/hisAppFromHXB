@@ -8,7 +8,7 @@
 #define kHXBFooterLabelHeight kScrAdaptationH(12)
 #define kHXBBottomSpacing kScrAdaptationH(10)
 #define kHXBInvestViewHeight (kScrAdaptationH(330) + kHXBBottomSpacing)
-#define kHXBNotInvestViewHeight (kScrAdaptationH(279) + kHXBBottomSpacing)
+#define kHXBNotInvestViewHeight (kScrAdaptationH(299) + kHXBBottomSpacing)
 #define kHXBNewbieHeight kScrAdaptationH(90)
 
 #import "HxbHomeView.h"
@@ -72,20 +72,24 @@
  */
 - (void)changeIndicationView:(HXBRequestUserInfoViewModel *)viewModel
 {
+    CGFloat newbieViewHeight = 0;
+    if (self.homeBaseViewModel.homeBaseModel.newbieProductData.img.length > 0) {
+        newbieViewHeight = kHXBNewbieHeight;
+    }
     kWeakSelf
     if (![KeyChain isLogin]) {
         //没有投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight);
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight + newbieViewHeight);
         [weakSelf.headView showNotValidatedView];
         return;
     }
     if([viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]){
         //已经投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBInvestViewHeight + HXBStatusBarAdditionHeight);
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBInvestViewHeight + HXBStatusBarAdditionHeight + newbieViewHeight);
         [self.headView showAlreadyInvestedView];
     }else{
         //没有投资显示的界面
-        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight);
+        self.headView.frame = CGRectMake(0, 0, kScreenWidth, kHXBNotInvestViewHeight + HXBStatusBarAdditionHeight + newbieViewHeight);
         [self.headView showNotValidatedView];
     }
     
@@ -109,13 +113,11 @@
         self.footerLabel.text = [NSString stringWithFormat:@"- %@ -",homeBaseViewModel.homeBaseModel.homeTitle.baseTitle];
         self.mainTableView.tableFooterView = self.footerView;
     }
-    [self changeIndicationView:self.userInfoViewModel];
-    if (homeBaseViewModel.homeBaseModel.newbieProductData.img.length > 0) {
-        self.headView.height += kHXBNewbieHeight;
-    }
     
+    [self changeIndicationView:self.userInfoViewModel];
     self.headView.homeBaseModel = homeBaseViewModel.homeBaseModel;
-   
+    
+    
     [self.mainTableView.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull subView, NSUInteger idx, BOOL * _Nonnull stop) {
         if ([subView isKindOfClass:[UIImageView class]]) {
             [subView removeFromSuperview];
