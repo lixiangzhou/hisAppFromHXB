@@ -112,7 +112,7 @@
          NSString *subsidyInterestRate = [NSString stringWithFormat:@" +%.1f%%",[homePageModel_DataList.subsidyInterestRate doubleValue]];
          NSString *messageStr = [NSString stringWithFormat:@"%.1f%%%@",[homePageModel_DataList.baseInterestRate doubleValue],subsidyInterestRate];
          NSRange range = [messageStr rangeOfString:subsidyInterestRate];
-         self.subsidyInterestRateLabel.attributedText = [NSMutableAttributedString setupAttributeStringWithString:messageStr WithRange:(NSRange)range andAttributeColor:kHXBColor_FF6A0F_30 andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(50)];
+         self.subsidyInterestRateLabel.attributedText = [NSMutableAttributedString setupAttributeStringWithString:messageStr WithRange:(NSRange)range andAttributeColor:kHXBColor_FF6A0F_100 andAttributeFont:kHXBFont_PINGFANGSC_REGULAR_750(50)];
      }
      else {
          self.subsidyInterestRateLabel.text = [NSString stringWithFormat:@"%.1f%%",[homePageModel_DataList.baseInterestRate doubleValue]];
@@ -162,7 +162,7 @@
     if (!self.homePageModel_DataList.isCountDown) {
         if ([self.homePageModel_DataList.cellBtnTitle rangeOfString:@"开售"].location != NSNotFound) {
             self.btnBackgroundView.hidden = YES;
-            [self.purchaseButton setTitleColor:kHXBColor_FF6A0F_30 forState:UIControlStateNormal];
+            [self.purchaseButton setTitleColor:kHXBColor_FF6A0F_100 forState:UIControlStateNormal];
             self.purchaseButton.layer.borderColor = kHXBColor_FF9535_100.CGColor;
             self.purchaseButton.backgroundColor = kHXBColor_FFFCF5_100;
         } else if([self.homePageModel_DataList.cellBtnTitle isEqualToString:@"立即加入"]) {
@@ -188,7 +188,7 @@
 - (UILabel *)subsidyInterestRateLabel {
     if (!_subsidyInterestRateLabel) {
         _subsidyInterestRateLabel = [[UILabel alloc] init];
-        _subsidyInterestRateLabel.textColor = kHXBColor_FF6A0F_30;
+        _subsidyInterestRateLabel.textColor = kHXBColor_FF6A0F_100;
         _subsidyInterestRateLabel.text = @"--";
         _subsidyInterestRateLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(74);
     }
@@ -209,7 +209,7 @@
 - (UILabel *)lockLabel {
     if (!_lockLabel) {
         _lockLabel = [[UILabel alloc] init];
-        _lockLabel.textColor = kHXBColor_FF6A0F_30;
+        _lockLabel.textColor = kHXBColor_FF6A0F_100;
         _lockLabel.text = @"--";
         _lockLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(74);
     }
