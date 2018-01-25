@@ -102,7 +102,7 @@
     }];
     [self.securityLevelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(12));
-        make.left.equalTo(weakSelf.securityLevelImgV.mas_right);
+        make.left.equalTo(weakSelf.securityLevelImgV.mas_right).offset(kScrAdaptationH(1));
         make.width.equalTo(@kScrAdaptationW(16));
     }];
     [self.securityLevelInstructionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
