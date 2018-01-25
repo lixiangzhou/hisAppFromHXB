@@ -355,7 +355,7 @@
     if (!_expectAnnualizedRatesTitleLabel) {
         _expectAnnualizedRatesTitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(16, 80, 100, 15)];
         _expectAnnualizedRatesTitleLabel.text = @"--";
-        _expectAnnualizedRatesTitleLabel.font = PINGFANG_Medium(40);
+        _expectAnnualizedRatesTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR_750(74);
         _expectAnnualizedRatesTitleLabel.textColor = RGB(253, 54, 54);
     }
     return _expectAnnualizedRatesTitleLabel;

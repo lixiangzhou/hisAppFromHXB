@@ -38,8 +38,6 @@
 - (UIImageView *)bannerImageView {
     if (!_bannerImageView) {
         _bannerImageView = [[UIImageView alloc] init];
-        _bannerImageView.layer.cornerRadius = 3;
-        _bannerImageView.layer.masksToBounds = YES;
     }
     return _bannerImageView;
 }

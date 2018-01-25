@@ -8,6 +8,8 @@
 
 #define kHXBNoticeButtonWithAndHeight kScrAdaptationH(60)
 
+#define kHXBBannerViewHeight kScrAdaptationH(185)
+
 #import "HXBHomePageHeadView.h"
 #import "HXBHomePageBulletinView.h"
 #import "HXBHomePageModuleView.h"
@@ -64,14 +66,13 @@
         make.width.offset(kHXBNoticeButtonWithAndHeight);
     }];
     [self.newbieView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(weakSelf);
-        make.height.offset(kScrAdaptationH(90));
+        make.left.right.bottom.equalTo(weakSelf);
         make.top.equalTo(weakSelf.bannerView.mas_bottom).offset(kScrAdaptationH(10));
     }];
     [self.newbieImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.newbieView).offset(kHXBSpacing_30);
         make.right.equalTo(weakSelf.newbieView).offset(-kHXBSpacing_30);
-        make.height.offset(kScrAdaptationH(65));
+        make.top.offset(kScrAdaptationH(25));
         make.bottom.equalTo(weakSelf.newbieView.mas_bottom);
     }];
 }
@@ -93,7 +94,7 @@
     kWeakSelf
     [self.bannerView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(weakSelf);
-        make.height.offset(kScrAdaptationH(166));
+        make.height.offset(kHXBBannerViewHeight);
         make.top.equalTo(weakSelf.afterLoginView.mas_bottom);
     }];
 }
@@ -111,7 +112,7 @@
     kWeakSelf
     [self.bannerView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(weakSelf);
-        make.height.offset(kScrAdaptationH(166));
+        make.height.offset(kHXBBannerViewHeight);
         make.top.equalTo(weakSelf.indicationView.mas_bottom);
     }];
 }
@@ -222,7 +223,7 @@
 {
     kWeakSelf
     if (!_bannerView) {
-        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kScrAdaptationH(166))];
+        _bannerView = [[HXBBannerView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.afterLoginView.frame), SCREEN_WIDTH, kHXBBannerViewHeight)];
 //        _bannerView.backgroundColor = [UIColor greenColor];
         BannerModel *bannerModel = [[BannerModel alloc] init];
 //        bannerModel.title = @"banner";
