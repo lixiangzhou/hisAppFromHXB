@@ -35,6 +35,8 @@ const CGFloat HXBTenderDetailCellHeight = 81;
 #pragma mark - UI
 
 - (void)setUI {
+    self.backgroundColor = [UIColor whiteColor];
+    
     UILabel *titleLabel = [self getLabelWithText:@"" color:kHXBColor_Grey_Font0_2];
     [self.contentView addSubview:titleLabel];
     self.titleLabel = titleLabel;
