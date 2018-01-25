@@ -22,7 +22,7 @@
 #import "HXBFin_LoanTruansferDetail_TopView.h"
 #import "HXBFinanctingDetail_trustCell.h"
 #import "HXBFin_creditorChange_buy_ViewController.h"
-
+#import "HXBFinDetailViewModel_LoanDetail.h"
 
 @interface HXBFin_DetailLoanTruansfer_ViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -206,6 +206,7 @@
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.creditInfoItems;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevel;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevelDesc = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevelDesc;
+//            detail_DetailLoanVC.loanDetailViewModel = [[HXBFinDetailViewModel_LoanDetail alloc]init];
             [self.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         } else if (indexPath.row == 1) {
             HXBFinAddRecordVC_LoanTruansfer *loanAddRecordVC = [[HXBFinAddRecordVC_LoanTruansfer alloc]init];

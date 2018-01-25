@@ -7,6 +7,7 @@
 //
 
 #import "HXBBaseViewController.h"
+
 @class HXBFinHomePageViewModel_LoanTruansferViewModel;
 @class HXBFinDetail_TableViewCellModel;
 @class HXBFinHomePageViewModel_LoanList;

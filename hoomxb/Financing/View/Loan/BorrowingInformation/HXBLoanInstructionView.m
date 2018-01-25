@@ -35,6 +35,7 @@
         [self addSubview:self.securityLevelInstructionLabel];
         
         [self setupSubViewframe];
+        [self updateFrame];
     }
     return self;
 }
@@ -44,16 +45,34 @@
     _loanDetailViewModel = loanDetailViewModel;
     self.loanContentLabel.text = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO;
     
-    self.securityLevelLabel.text = self.riskLevel;
-    self.securityLevelInstructionLabel.text = self.riskLevelDesc;
-    
-//    _loanContentLabel.text = @"借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明借款说明";
-//    self.height = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO_height + 60;
+    self.securityLevelLabel.text = self.riskLevel?self.riskLevel:@"";
+    self.securityLevelInstructionLabel.text = self.riskLevelDesc?self.riskLevelDesc:@"";
+    [self updateFrame];
 }
+
 - (void)setLoanInstruction:(NSString *)loanInstruction {
     _loanInstruction = loanInstruction;
     self.loanContentLabel.text = loanInstruction;
 }
+
+- (void)updateFrame{
+    if (!self.riskLevel&&!self.riskLevelDesc) {
+        
+        [self.securityLevelStrLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@kScrAdaptationH(0.01));
+        }];
+        [self.securityLevelImgV mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@kScrAdaptationH(0.01));
+        }];
+        [self.securityLevelLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@kScrAdaptationH(0.01));
+        }];
+        [self.securityLevelInstructionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@kScrAdaptationH(0.01));
+        }];
+    }
+}
+
 - (void)setupSubViewframe
 {
     kWeakSelf
@@ -70,7 +89,6 @@
         make.left.equalTo(@(kScrAdaptationW(15)));
         make.right.equalTo(weakSelf.mas_right).offset(kScrAdaptationW(-15));
     }];
-    
     [self.securityLevelStrLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.loanContentLabel.mas_bottom).offset(kScrAdaptationH(15));
         make.left.equalTo(@(kScrAdaptationW(15)));
@@ -78,12 +96,12 @@
     }];
     [self.securityLevelImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(13));
-        make.left.equalTo(@(kScrAdaptationW(15)));
+        make.left.equalTo(@(kScrAdaptationW(16)));
         make.width.equalTo(@kScrAdaptationW(10));
         make.height.equalTo(@kScrAdaptationH(12));
     }];
     [self.securityLevelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(11));
+        make.top.equalTo(weakSelf.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(12));
         make.left.equalTo(weakSelf.securityLevelImgV.mas_right);
         make.width.equalTo(@kScrAdaptationW(16));
     }];

@@ -43,8 +43,8 @@ static NSString *kINVEST = @"INVEST";
  */
 - (NSString *) lockTime {
     if (!_lockTime) {
-        
-        _lockTime = [NSString stringWithFormat:@"%@个月",self.self.planDetailModel.lockPeriod];
+        NSString *str = [self.planDetailModel.novice isEqualToString:@"1"] ? [NSString stringWithFormat:@"%@天",self.planDetailModel.lockDays]:[NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
+        _lockTime = str;
     }
     return _lockTime;
 }
