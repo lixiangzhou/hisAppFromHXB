@@ -18,8 +18,7 @@
 
 @property (nonatomic,strong) HXBColourGradientView *colorGradientView;
 @property (nonatomic,strong) UIImageView *nacigationBarImageView;
-//@property (nonatomic, assign) BOOL isCanSideBack;
-//@property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
+@property (nonatomic, strong, readwrite) HXBNoDataView *noDataView;
 
 @property (nonatomic, strong) HXBNoNetworkStatusView *noNetworkStatusView;
 
@@ -205,6 +204,16 @@
 }
 
 #pragma mark - Lazy
+
+- (HXBNoDataView *)noDataView {
+    if (!_noDataView) {
+        _noDataView = [[HXBNoDataView alloc] initWithFrame:CGRectZero];
+        _noDataView.imageName = @"Fin_NotData";
+        _noDataView.noDataMassage = @"暂无数据";
+        _noDataView.hidden = YES;
+    }
+    return _noDataView;
+}
 
 - (UIImageView *)nacigationBarImageView {
     if (!_nacigationBarImageView) {

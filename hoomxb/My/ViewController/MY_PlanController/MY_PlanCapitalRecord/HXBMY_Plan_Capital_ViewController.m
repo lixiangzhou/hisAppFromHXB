@@ -22,7 +22,7 @@ static NSString *const cellID = @"cellID";
 /**
  没有数据
  */
-@property (nonatomic, strong) HXBNoDataView *noDataView;
+//@property (nonatomic, strong) HXBNoDataView *noDataView;
 @end
 
 
@@ -49,7 +49,6 @@ static NSString *const cellID = @"cellID";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-     
     
     self.isColourGradientNavigationBar = YES;
     self.topView = [self headView];
@@ -84,6 +83,14 @@ static NSString *const cellID = @"cellID";
     
     [self.planCapitalTableView registerClass:[HXBMY_Plan_Capital_Cell class] forCellReuseIdentifier:cellID];
     [self downLoadWithIsUPLoad:NO];
+    
+    self.noDataView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight + kScrAdaptationH750(100), kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight);
+    
+    self.noDataView.imageName = @"Fin_NotData";
+    self.noDataView.noDataMassage = @"暂无投资记录";
+    self.noDataView.hidden = YES;
+    self.noDataView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.noDataView];
 }
 
 
@@ -198,26 +205,6 @@ static NSString *const cellID = @"cellID";
 {
     return kScrAdaptationH750(HXBStatusBarAndNavigationBarHeight);
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (HXBNoDataView *)noDataView
-{
-    if (!_noDataView) {
-         _noDataView = [[HXBNoDataView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight + kScrAdaptationH750(100), kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight)];
-        
-        _noDataView.imageName = @"Fin_NotData";
-        _noDataView.noDataMassage = @"暂无投资记录";
-//        _noDataView.hidden = YES;
-        _noDataView.backgroundColor = [UIColor whiteColor];
-        [self.view addSubview:_noDataView];
-    }
-    return _noDataView;
-}
-
 
 @end
 @interface HXBMY_Plan_Capital_Cell ()
