@@ -13,7 +13,7 @@
 /**
  适合人群
  */
-@property (nonatomic,strong) HXBBaseView_MoreTopBottomView *pursuitsView;
+//@property (nonatomic,strong) HXBBaseView_MoreTopBottomView *pursuitsView;
 /**
 计划金额
  加入条件
@@ -76,9 +76,9 @@
 }
 - (void)setManager:(HXBFinPlanDetail_DetailViewManager *)manager {
     _manager = manager;
-    [self.pursuitsView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
-        return manager.pursuitsViewManager;
-    }];
+//    [self.pursuitsView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+//        return manager.pursuitsViewManager;
+//    }];
     [self.addView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
         return manager.addViewManager;
     }];
@@ -99,7 +99,7 @@
 
 - (void)creatSubViews {
     UIEdgeInsets edgeInsets = UIEdgeInsetsMake(kScrAdaptationH(15), kScrAdaptationW(15), 0, kScrAdaptationW(15));
-    self.pursuitsView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:0 Space:UIEdgeInsetsMake(kScrAdaptationH(12), kScrAdaptationW(15), kScrAdaptationH(12), kScrAdaptationW(15)) andCashType:nil];
+//    self.pursuitsView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:1 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:0 Space:UIEdgeInsetsMake(kScrAdaptationH(12), kScrAdaptationW(15), kScrAdaptationH(12), kScrAdaptationW(15)) andCashType:nil];
     
     self.addView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:3 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(15) andTopBottomSpace:kScrAdaptationH(20) andLeftRightLeftProportion:0 Space:edgeInsets andCashType:nil];
     
@@ -136,7 +136,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickServerButton:)];
     [button addGestureRecognizer:tap];
     
-    self.pursuitsView.backgroundColor = [UIColor whiteColor];
+//    self.pursuitsView.backgroundColor = [UIColor whiteColor];
     self.addView.backgroundColor = [UIColor whiteColor];
     self.dateView.backgroundColor = [UIColor whiteColor];
     self.typeView.backgroundColor = [UIColor whiteColor];
@@ -167,20 +167,20 @@
 }
 
 - (void)setUPSubViewsFrame {
-    [self addSubview:self.pursuitsView];
+//    [self addSubview:self.pursuitsView];
     [self addSubview:self.addView];
     [self addSubview:self.dateView];
     [self addSubview:self.typeView];
     [self addSubview:self.serverView];
     
     kWeakSelf
-    [self.pursuitsView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH(10));
-        make.left.right.equalTo(weakSelf);
-        make.height.equalTo(@(kScrAdaptationH(40)));
-    }];
+//    [self.pursuitsView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(weakSelf).offset(kScrAdaptationH(10));
+//        make.left.right.equalTo(weakSelf);
+//        make.height.equalTo(@(kScrAdaptationH(40)));
+//    }];
     [self.addView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.pursuitsView.mas_bottom).offset(kScrAdaptationH(10));
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH(10));//make.top.equalTo(weakSelf.pursuitsView.mas_bottom).offset(kScrAdaptationH(10));
         make.left.right.equalTo(weakSelf);
         make.height.equalTo(@(kScrAdaptationH(115)));
     }];
@@ -222,13 +222,13 @@
     /**
      适合人群
      */
-    self.pursuitsViewManager = [[HXBBaseView_MoreTopBottomViewManager alloc]init];
-    self.pursuitsViewManager.leftLabelAlignment = NSTextAlignmentLeft;
-    self.pursuitsViewManager.rightLabelAlignment = NSTextAlignmentRight;
-    self.pursuitsViewManager.leftTextColor = kHXBColor_Grey_Font0_2;
-    self.pursuitsViewManager.rightTextColor = kHXBColor_Font0_6;
-    self.pursuitsViewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(16);
-    self.pursuitsViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(16);
+//    self.pursuitsViewManager = [[HXBBaseView_MoreTopBottomViewManager alloc]init];
+//    self.pursuitsViewManager.leftLabelAlignment = NSTextAlignmentLeft;
+//    self.pursuitsViewManager.rightLabelAlignment = NSTextAlignmentRight;
+//    self.pursuitsViewManager.leftTextColor = kHXBColor_Grey_Font0_2;
+//    self.pursuitsViewManager.rightTextColor = kHXBColor_Font0_6;
+//    self.pursuitsViewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(15);
+//    self.pursuitsViewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);
     /**
      计划金额
      加入条件
