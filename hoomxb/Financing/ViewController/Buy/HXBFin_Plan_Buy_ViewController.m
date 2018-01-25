@@ -84,8 +84,10 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, strong) HxbHUDProgress *hud;
 // 是否超出投资限制
 @property (nonatomic, assign) BOOL isExceedLimitInvest;
+// 是否选中同意选项
+@property (nonatomic, assign) BOOL isSelectLimit;
 // 是否符合标的等级购买规则
-@property (nonatomic, assign) BOOL isMatchBuy;
+//@property (nonatomic, assign) BOOL isMatchBuy;
 
 @end
 
@@ -101,7 +103,8 @@ static NSString *const bankString = @"绑定银行卡";
     _balanceTitle = @"可用余额";
     _hud = [[HxbHUDProgress alloc] init];
     
-    _isMatchBuy = [self.userInfoViewModel.userInfoModel.userAssets.userRisk containsObject:self.riskType];
+    
+//    _isMatchBuy = [self.userInfoViewModel.userInfoModel.userAssets.userRisk containsObject:self.riskType]; // 2.5.0版本暂时取消风险等级判断
     _balanceMoneyStr = self.userInfoViewModel.userInfoModel.userAssets.availablePoint;
     
     [self buildUI];
@@ -240,14 +243,14 @@ static NSString *const bankString = @"绑定银行卡";
             isFitToBuy = _inputMoneyStr.integerValue % _registerMultipleAmount.integerValue ? NO : YES;
         }
         if (_hasInvestMoney) {
-            if (_isExceedLimitInvest) {
+            if (!_isSelectLimit) {
                 [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                 return;
             }
             [self chooseBuyTypeWithSting:_btnLabelText];
         } else {
             if (isFitToBuy) {
-                if (_isExceedLimitInvest) {
+                if (!_isSelectLimit) {
                     [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                     return;
                 }
@@ -363,7 +366,7 @@ static NSString *const bankString = @"绑定银行卡";
                     @"buyType": weakSelf.buyType,
                     @"balanceAmount": weakSelf.balanceMoneyStr,
                     @"smsCode": pwd,
-                    @"willingToBuy": [NSString stringWithFormat:@"%d", _isExceedLimitInvest],
+                    @"willingToBuy": [NSString stringWithFormat:@"%d", _isSelectLimit],
                     @"couponId": weakSelf.couponid
                     };
             [weakSelf buyPlanWithDic:dic];
@@ -393,7 +396,7 @@ static NSString *const bankString = @"绑定银行卡";
                 @"cashType": weakSelf.cashType,
                 @"buyType": weakSelf.buyType,
                 @"tradPassword": password,
-                @"willingToBuy": [NSString stringWithFormat:@"%d", _isExceedLimitInvest],
+                @"willingToBuy": [NSString stringWithFormat:@"%d", _isSelectLimit],
                 @"couponId": weakSelf.couponid
                 };
         [weakSelf buyPlanWithDic:dic];
@@ -558,8 +561,7 @@ static const NSInteger topView_high = 300;
                                @"amount": money,
                                @"type": @"plan"
                                };
-    NSIndexPath *indexpath = [NSIndexPath indexPathForRow:0 inSection:0];
-    HXBFin_creditorChange_TableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexpath];
+    HXBFin_creditorChange_TableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     cell.isStartAnimation = YES;
     _hasGetCoupon = YES;
     self.bottomView.addBtnIsUseable = NO;
@@ -729,6 +731,7 @@ static const NSInteger topView_high = 300;
         self.couponTitle = @"优惠券";
         [self getBESTCouponWithMoney:text];
     } else {
+        [self isMatchToBuyWithMoney:@"0"];
         self.discountTitle = @"未使用";
         self.couponid = @" ";
         self.hasBestCoupon = NO;
@@ -742,18 +745,13 @@ static const NSInteger topView_high = 300;
 
 // 根据金额匹配是否展示风险协议
 - (void)isMatchToBuyWithMoney:(NSString *)money {
-    if (_isMatchBuy) {
-        if (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.userRiskAmount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount) {
-            self.bottomView.isShowRiskView = YES;
-            self.isExceedLimitInvest = YES;
-        } else {
-            self.bottomView.isShowRiskView = NO;
-            self.isExceedLimitInvest = NO;
-        }
-    } else {
-        self.bottomView.isShowRiskView = YES;
-        self.isExceedLimitInvest = YES;
-    }
+//    if (_isMatchBuy) {
+    self.bottomView.isShowRiskView = (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.userRiskAmount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount);
+    self.isExceedLimitInvest = (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.userRiskAmount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount);
+//    } else {
+//        self.bottomView.isShowRiskView = YES;
+//        self.isExceedLimitInvest = YES;
+//    }
 }
 
 - (UIView *)footTableView {
@@ -769,7 +767,7 @@ static const NSInteger topView_high = 300;
         }
     };
     _bottomView.riskBlock = ^(BOOL selectStatus) {
-        weakSelf.isExceedLimitInvest = !selectStatus;
+        weakSelf.isSelectLimit = selectStatus;
     };
     _bottomView.addBlock = ^(NSString *investMoney) {
         weakSelf.btnLabelText = investMoney;
