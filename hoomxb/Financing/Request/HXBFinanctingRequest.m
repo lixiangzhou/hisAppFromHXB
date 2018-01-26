@@ -161,7 +161,13 @@
     
     //是否为下拉刷新
     self.planListAPI.isUPReloadData = isUPData;///这里一定要 在前面  否则 api的page不会++ 或变为1
+
+#if kIsNewBieDevelopVersion
     NSString *planListUrl = isUPData ? @"/plan?page=1&cashType=newbie": [NSString stringWithFormat:@"/plan?page=%ld",self.planListAPI.dataPage];
+#else
+    NSString *planListUrl = isUPData ? @"/plan?page=1&cashType=hxb": [NSString stringWithFormat:@"/plan?page=%ld",self.planListAPI.dataPage];
+#endif
+    
     self.planListAPI.requestUrl = planListUrl;
     self.planListAPI.requestMethod = NYRequestMethodGet;
     [self.planListAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
