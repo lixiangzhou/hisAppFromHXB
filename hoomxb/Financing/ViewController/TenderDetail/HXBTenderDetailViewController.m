@@ -33,7 +33,6 @@
 #pragma mark - UI
 
 - (void)setUI {
-    self.title = @"计划投标明细";
     self.isRedColorWithNavigationBar = YES;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
