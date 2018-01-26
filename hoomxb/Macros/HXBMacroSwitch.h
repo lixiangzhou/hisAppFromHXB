@@ -15,7 +15,7 @@
 
 
 ///------------------------------------可变开关--------------------------------
-//是否是新手专区的版本，YES时， 在34环境上打包， NO时在35环境上打包
-#define kIsNewBieDevelopVersion YES
+//是否是新手专区的版本，1时， 在34环境上打包， 0时在35环境上打包
+#define kIsNewBieDevelopVersion 0
 
 #endif /* HXBMacroSwitch_h */
