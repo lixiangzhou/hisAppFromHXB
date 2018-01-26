@@ -46,7 +46,7 @@
         NSInteger statusCode = [responseObject[kResponseStatus] integerValue];
         if (statusCode != kHXBCode_Success) {
             NSString *message = responseObject[kResponseMessage];
-            [HxbHUDProgress showTextWithMessage:message andView:weakSelf.view];
+            [HxbHUDProgress showMessageCenter:message inView:weakSelf.view];
         } else {
             NSArray *temp = responseObject[kResponseData][@"dataList"];
             if (temp.count) {
