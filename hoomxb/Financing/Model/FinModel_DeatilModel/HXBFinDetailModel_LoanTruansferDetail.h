@@ -265,7 +265,7 @@ HXBFinDetailModel_LoanTruansferDetail_userVo;
 ///": 1493262666000,
 @property (nonatomic,copy) NSString *createTime;
 ///": "公司职员，现居北京市，从事批发和零售业行业，工作收入稳定",
-@property (nonatomic,copy) NSString *description;
+@property (nonatomic,copy) NSString *descriptionStr;
 ///行业
 @property (nonatomic,copy) NSString *companyIndustry;
 ///": "大专",

@@ -233,11 +233,15 @@
 
 /// 返回借款人审核状态行数
 - (int)getLoanPersonInfoLineNumber{
-    NSArray *loanPerson_infoArr = [self.fin_Detail_DetailVC_LoanManager.creditInfoItems componentsSeparatedByString:@","];
-    if (loanPerson_infoArr.count <= 0) {
+    if (!self.fin_Detail_DetailVC_LoanManager.creditInfoItems||[self.fin_Detail_DetailVC_LoanManager.creditInfoItems isEqualToString:@""]) {
         return 0;
     } else {
-        return (int)((loanPerson_infoArr.count-1)/3+1);
+        NSArray *loanPerson_infoArr = [self.fin_Detail_DetailVC_LoanManager.creditInfoItems componentsSeparatedByString:@","];
+        if (loanPerson_infoArr.count <= 0) {
+            return 0;
+        } else {
+            return (int)((loanPerson_infoArr.count-1)/3+1);
+        }
     }
 }
 
@@ -257,7 +261,8 @@
     }];
     
     [self.loanPerson_infoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.equalTo(@(kScrAdaptationH(70+[weakSelf getLoanPersonInfoLineNumber]*80)));//140 //210
+        float height = [weakSelf getLoanPersonInfoLineNumber]==0?0:kScrAdaptationH(70+[weakSelf getLoanPersonInfoLineNumber]*80);
+        make.height.equalTo(@kScrAdaptationH(height));//140 //210
         make.right.left.equalTo(weakSelf.view);
         make.top.equalTo(weakSelf.loanInstuctionView.mas_bottom).offset(kScrAdaptationH(10));
     }];
@@ -340,7 +345,8 @@
 ///借款人信息
 - (HXBFin_LoanPerson_Info *)loanPerson_infoView {
     if (!_loanPerson_infoView) {
-        _loanPerson_infoView = [[HXBFin_LoanPerson_Info alloc]initWithFrame:CGRectZero withLoanPersonInfoArray:[self.fin_Detail_DetailVC_LoanManager.creditInfoItems componentsSeparatedByString:@","]];
+        NSArray *arr = self.fin_Detail_DetailVC_LoanManager.creditInfoItems&&![self.fin_Detail_DetailVC_LoanManager.creditInfoItems isEqualToString:@""] ?[self.fin_Detail_DetailVC_LoanManager.creditInfoItems componentsSeparatedByString:@","]:nil;
+        _loanPerson_infoView = [[HXBFin_LoanPerson_Info alloc]initWithFrame:CGRectZero withLoanPersonInfoArray:arr];
         [self.scrollView addSubview:_loanPerson_infoView];
     }
     return _loanPerson_infoView;

@@ -33,7 +33,7 @@
 #import "HXBTenderDetailViewController.h"
 
 static NSString* const kTitlePlanDetail = @"计划详情";
-static NSString* const kTitleInvestmentProjects = @"投资项目";
+static NSString* const kTitleInvestmentProjects = @"待成交散标";
 static NSString* const kTitleJoinRecord = @"加入记录";
 static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
 
@@ -405,6 +405,7 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
         }
         else if([title isEqualToString:kTitleInvestmentProjects]){
             HXBTenderDetailViewController* VC = [[HXBTenderDetailViewController alloc] init];
+            VC.title = @"待成交散标";
             [self.navigationController pushViewController:VC animated:YES];
         }
         else if ([title isEqualToString:kTitleJoinRecord]) {

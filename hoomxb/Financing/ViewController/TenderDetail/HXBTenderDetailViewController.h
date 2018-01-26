@@ -8,7 +8,7 @@
 
 #import "HXBBaseViewController.h"
 
-/// 计划投标明细 页面
+/// 待成交散标 页面
 @interface HXBTenderDetailViewController : HXBBaseViewController
 
 @end

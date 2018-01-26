@@ -10,9 +10,10 @@
 #import "HXBTenderDetailCell.h"
 #import "HXBTenderDetailViewModel.h"
 #import "HXBFinancing_LoanDetailsViewController.h"
+#import "HXBBaseTableView.h"
 
 @interface HXBTenderDetailViewController () <UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, weak) UITableView *tableView;
+@property (nonatomic, weak) HXBBaseTableView *tableView;
 @property (nonatomic, strong) HXBTenderDetailViewModel *viewModel;
 @end
 
@@ -33,12 +34,10 @@
 #pragma mark - UI
 
 - (void)setUI {
-    self.title = @"计划投标明细";
     self.isRedColorWithNavigationBar = YES;
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    HXBBaseTableView *tableView = [[HXBBaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.dataSource = self;
     tableView.delegate = self;
@@ -51,7 +50,8 @@
     
     [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(@(HXBStatusBarAndNavigationBarHeight));
-        make.bottom.left.right.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(@(-HXBBottomAdditionHeight));
     }];
 
     kWeakSelf
