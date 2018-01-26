@@ -203,10 +203,10 @@
 
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.loanTruansferDetailViewModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.loanInstruction = self.loanTruansferDetailViewModel.loanTruansferDetailModel.userVo.descriptionStr;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.creditInfoItems;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevel;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevelDesc = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevelDesc;
-//            detail_DetailLoanVC.loanDetailViewModel = [[HXBFinDetailViewModel_LoanDetail alloc]init];
             [self.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         } else if (indexPath.row == 1) {
             HXBFinAddRecordVC_LoanTruansfer *loanAddRecordVC = [[HXBFinAddRecordVC_LoanTruansfer alloc]init];
