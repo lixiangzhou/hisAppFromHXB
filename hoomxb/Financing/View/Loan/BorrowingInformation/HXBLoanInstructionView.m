@@ -56,7 +56,18 @@
 }
 
 - (void)updateFrame{
-    if (!self.riskLevel&&!self.riskLevelDesc) {
+    if (!self.riskLevel&&self.riskLevelDesc) {
+        [self.securityLevelImgV mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@0);
+        }];
+        [self.securityLevelLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@0);
+        }];
+    } else if (self.riskLevel&&!self.riskLevelDesc){
+        [self.securityLevelInstructionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.equalTo(@kScrAdaptationH(12));
+        }];
+    } else if (!self.riskLevel&&!self.riskLevelDesc) {
         
         [self.securityLevelStrLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);//@kScrAdaptationH(0.01)
