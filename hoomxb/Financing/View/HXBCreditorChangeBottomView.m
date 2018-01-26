@@ -44,7 +44,7 @@
     kWeakSelf
     
     [_riskView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf).offset(kScrAdaptationH750(10));
+        make.top.equalTo(weakSelf).offset(kScrAdaptationH750(20));
         make.left.equalTo(weakSelf);
         make.width.offset(kScreenWidth);
         make.height.offset(kScrAdaptationH(20));
@@ -80,11 +80,11 @@
     kWeakSelf
     if (_isShowRiskView) {
         [_protocolView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf).offset(kScrAdaptationH750(50));
+            make.top.equalTo(weakSelf).offset(kScrAdaptationH750(60));
         }];
     } else {
         [_protocolView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(weakSelf).offset(kScrAdaptationH750(10));
+            make.top.equalTo(weakSelf).offset(kScrAdaptationH750(20));
         }];
     }
 }

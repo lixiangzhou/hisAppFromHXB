@@ -88,7 +88,7 @@
     if (_isLoanTransfer && !self.ViewVM.isLeftRight) {
         [self.rightLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.right.left.equalTo(weakSelf);
-            make.top.equalTo(weakSelf.leftLabel.mas_bottom).offset(kScrAdaptationH(15));
+            make.top.equalTo(weakSelf.leftLabel.mas_bottom).offset(kScrAdaptationH(6.5));
         }];
     }
 }

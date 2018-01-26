@@ -60,6 +60,10 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, copy) NSString *handleDetailTitle;
 /** 可用余额TextLabel */
 @property (nonatomic, copy) NSString *balanceTitle;
+// 是否符合标的等级购买规则
+@property (nonatomic, assign) BOOL isMatchBuy;
+// 是否选中同意选项
+@property (nonatomic, assign) BOOL isSelectLimit;
 /** 可用余额detailLabel */
 @property (nonatomic, copy) NSString *balanceDetailTitle;
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
@@ -160,7 +164,7 @@ static NSString *const bankString = @"绑定银行卡";
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     }else{
         if ([_availablePoint doubleValue] == 0.00) { // 如果待转是0元的话，直接请求接口
-            if (_isExceedLimitInvest) {
+            if (!_isSelectLimit) {
                 [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                 return;
             }
@@ -169,7 +173,7 @@ static NSString *const bankString = @"绑定银行卡";
         }
         if (isHasContainsNonzeroDecimals) {
             if ((long long)([_inputMoneyStr doubleValue] * 100) == (long long)([_availablePoint doubleValue] * 100)) {
-                if (_isExceedLimitInvest) {
+                if (!_isSelectLimit) {
                     [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                     return;
                 }
@@ -211,7 +215,7 @@ static NSString *const bankString = @"绑定银行卡";
             } else if (_availablePoint.floatValue - _inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
             } else {
-                if (_isExceedLimitInvest) {
+                if (!_isSelectLimit) {
                     [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                     return;
                 }
@@ -260,7 +264,7 @@ static NSString *const bankString = @"绑定银行卡";
         NSDictionary *dic = nil;
         dic = @{@"amount": weakSelf.inputMoneyStr,
                 @"buyType": weakSelf.buyType,
-                @"willingToBuy": [NSString stringWithFormat:@"%d", _isExceedLimitInvest],
+                @"willingToBuy": [NSString stringWithFormat:@"%d", _isSelectLimit],
                 @"tradPassword": password,
                 };
         [weakSelf buyCreditorWithDic:dic];
@@ -330,7 +334,7 @@ static NSString *const bankString = @"绑定银行卡";
             dic = @{@"amount": [NSString stringWithFormat:@"%.2f", weakSelf.inputMoneyStr.doubleValue],
                     @"buyType": weakSelf.buyType,
                     @"balanceAmount": weakSelf.balanceMoneyStr,
-                    @"willingToBuy": [NSString stringWithFormat:@"%d", _isExceedLimitInvest],
+                    @"willingToBuy": [NSString stringWithFormat:@"%d", _isSelectLimit],
                     @"smsCode": pwd};
             [weakSelf buyCreditorWithDic:dic];
         };
@@ -567,13 +571,8 @@ static const NSInteger topView_high = 230;
 // 根据金额匹配是否展示风险协议
 - (void)isMatchToBuyWithMoney:(NSString *)money {
     if (_isMatchBuy) {
-        if (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.userRiskAmount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount) {
-            self.bottomView.isShowRiskView = YES;
-            self.isExceedLimitInvest = YES;
-        } else {
-            self.bottomView.isShowRiskView = NO;
-            self.isExceedLimitInvest = NO;
-        }
+        self.bottomView.isShowRiskView = (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.userRiskAmount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount);
+        self.isExceedLimitInvest = (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.userRiskAmount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount);
     } else {
         self.bottomView.isShowRiskView = YES;
         self.isExceedLimitInvest = YES;
@@ -592,7 +591,7 @@ static const NSInteger topView_high = 230;
         }
     };
     _bottomView.riskBlock = ^(BOOL selectStatus) {
-        weakSelf.isExceedLimitInvest = !selectStatus;
+        weakSelf.isSelectLimit = selectStatus;
     };
     _bottomView.addBlock = ^(NSString *investMoney) {
         weakSelf.btnLabelText = investMoney;
