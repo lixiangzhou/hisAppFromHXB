@@ -36,7 +36,6 @@
 - (void)setUI {
     self.title = @"待成交散标";
     self.isRedColorWithNavigationBar = YES;
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     HXBBaseTableView *tableView = [[HXBBaseTableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
