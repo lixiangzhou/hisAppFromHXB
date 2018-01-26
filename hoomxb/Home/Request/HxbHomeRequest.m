@@ -47,7 +47,7 @@
     homePlanRecommendAPI.requestMethod = NYRequestMethodGet;
     homePlanRecommendAPI.requestUrl = kHXBHome_HomeURL;
     homePlanRecommendAPI.isUPReloadData = isUPReloadData;
-#if kIsNewBieDevelopVersion == YES
+#if kIsNewBieDevelopVersion
     homePlanRecommendAPI.requestArgument = @{
                                              @"cashType" : @"newbie"
                                              };
