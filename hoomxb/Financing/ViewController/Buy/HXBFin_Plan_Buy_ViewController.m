@@ -693,24 +693,25 @@ static const NSInteger topView_high = 300;
         // 点击一键购买执行的方法
         _topView.block = ^{
         };
-    }
-
-    _topView.isNewPlan = self.isNewPlan;
-    if (self.isNewPlan) {
-        _topView.creditorMoney = [NSString stringWithFormat:@"新手产品剩余可购买金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
-        _topView.alertTipBlock = ^{
-            HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"加息收益将在计划退出时发放至您的账户" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
-            alertVC.isHIddenLeftBtn = YES;
-            alertVC.isCenterShow = YES;
-            [weakSelf presentViewController:alertVC animated:YES completion:nil];
-
-        };
-
-        [_topView setProfitStr:@"0.00" andSubsidy:@"0.00"];
-    } else {
+        
+        _topView.isNewPlan = self.isNewPlan;
+        if (self.isNewPlan) {
+            _topView.creditorMoney = [NSString stringWithFormat:@"新手产品剩余可购买金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+            _topView.alertTipBlock = ^{
+                HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"温馨提示" Massage:@"加息收益将在计划退出时发放至您的账户" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
+                alertVC.isHIddenLeftBtn = YES;
+                alertVC.isCenterShow = YES;
+                [weakSelf presentViewController:alertVC animated:YES completion:nil];
+                
+            };
+            
+            [_topView setProfitStr:@"0.00" andSubsidy:@"0.00"];
+        }
         _topView.creditorMoney = [NSString stringWithFormat:@"本期剩余加入上限%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
+        _topView.placeholderStr = _placeholderStr;
     }
-    _topView.placeholderStr = _placeholderStr;
+    
+    
     return _topView;
 }
 

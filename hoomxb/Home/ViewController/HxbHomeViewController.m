@@ -289,13 +289,18 @@
 - (UIStatusBarStyle)preferredStatusBarStyle {
     //该方法联系调用两次，如果一直返回UIStatusBarStyleDefault， 就会导致下一个页面的导航栏混乱， 因此做了如下修改
     
-    if(1 == self.times) {
-        self.times++;
-        return UIStatusBarStyleLightContent;
-    }
-    else{
-        self.times = 1;
+    if (@available(iOS 11.0, *)) {
         return UIStatusBarStyleDefault;
+    }
+    else {
+        if(1 == self.times) {
+            self.times++;
+            return UIStatusBarStyleDefault;
+        }
+        else{
+            self.times = 1;
+            return UIStatusBarStyleDefault;
+        }
     }
 }
 
