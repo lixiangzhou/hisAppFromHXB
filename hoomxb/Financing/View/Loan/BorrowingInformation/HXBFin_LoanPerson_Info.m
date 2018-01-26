@@ -98,7 +98,7 @@
         make.centerY.equalTo(weakSelf.borrowUserTypeLabel);
         make.height.mas_equalTo(kScrAdaptationW(12));
         make.width.mas_equalTo(kScrAdaptationW(2));
-        make.left.equalTo(weakSelf.borrowUserTypeLabel).offset(-7);//kScrAdaptationW(-7)
+        make.left.equalTo(weakSelf).offset(7);
     }];
     //借款人审核状态
     [self.borrowUserTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {

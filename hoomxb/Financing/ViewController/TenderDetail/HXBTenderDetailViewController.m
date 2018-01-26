@@ -27,10 +27,7 @@
     self.viewModel.view = self.view;
     
     [self setUI];
-    kWeakSelf
-    [self.viewModel getData:YES completion:^{
-        [weakSelf.tableView reloadData];
-    }];
+    [self getData:YES];
 }
 
 #pragma mark - UI
@@ -59,21 +56,30 @@
 
     kWeakSelf
     [tableView hxb_headerWithRefreshBlock:^{
-        [weakSelf.viewModel getData:YES completion:^{
-            [weakSelf.tableView endRefresh];
-            [weakSelf.tableView reloadData];
-        }];
+        [weakSelf getData:YES];
     }];
 
     [tableView hxb_footerWithRefreshBlock:^{
-        [weakSelf.viewModel getData:NO completion:^{
-            [weakSelf.tableView.mj_footer endRefreshing];
-            [weakSelf.tableView reloadData];
-        }];
+        [weakSelf getData:NO];
+    }];
+    
+    self.tableView.backgroundColor = [UIColor clearColor];
+    
+    [self.tableView addSubview:self.noDataView];
+    [self.noDataView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.tableView);
     }];
 }
 
 #pragma mark - Network
+- (void)getData:(BOOL)isNew {
+    kWeakSelf
+    [self.viewModel getData:isNew completion:^{
+        [weakSelf.tableView endRefresh];
+        [weakSelf.tableView reloadData];
+        weakSelf.noDataView.hidden = weakSelf.viewModel.dataSource.count != 0;
+    }];
+}
 
 #pragma mark - UITableViewDataSource, UITableViewDelegate
 

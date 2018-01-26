@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "HXBNoNetworkStatusView.h"
+#import "HXBNoDataView.h"
 
 @interface HXBBaseViewController : UIViewController
 ///是否隐藏导航栏
@@ -23,6 +24,8 @@
 @property (nonatomic,assign) BOOL isBlueGradientNavigationBar;
 /// 是否忽略没有网络时显示无网界面
 @property (nonatomic, assign) BOOL ignoreNetwork;
+/// 页面没有数据时显示的View，需要自己添加到需要显示的地方，需要自己设置位置约束等，有默认的图片和文字
+@property (nonatomic, strong, readonly) HXBNoDataView *noDataView;
 
 ///可以重写返回方法
 - (void)leftBackBtnClick;
