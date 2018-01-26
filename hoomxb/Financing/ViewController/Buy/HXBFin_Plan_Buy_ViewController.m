@@ -555,7 +555,6 @@ static const NSInteger topView_high = 300;
 
 // 匹配最优优惠券
 - (void)getBESTCouponWithMoney:(NSString *)money {
-    [self isMatchToBuyWithMoney:money];
     NSDictionary *dic_post = @{
                                @"id": _loanId,
                                @"amount": money,
@@ -724,14 +723,13 @@ static const NSInteger topView_high = 300;
     } else {
         isFitToBuy = (text.integerValue) % self.registerMultipleAmount.integerValue ? NO : YES;
     }
-    
+    [self isMatchToBuyWithMoney:text];
     // 判断是否符合购买条件
     if (text.length && text.doubleValue <= self.availablePoint.doubleValue && isFitToBuy) {
         // 判断是否超出风险
         self.couponTitle = @"优惠券";
         [self getBESTCouponWithMoney:text];
     } else {
-        [self isMatchToBuyWithMoney:@"0"];
         self.discountTitle = @"未使用";
         self.couponid = @" ";
         self.hasBestCoupon = NO;
