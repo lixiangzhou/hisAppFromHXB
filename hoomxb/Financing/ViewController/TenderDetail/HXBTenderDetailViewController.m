@@ -34,7 +34,6 @@
 #pragma mark - UI
 
 - (void)setUI {
-    self.title = @"待成交散标";
     self.isRedColorWithNavigationBar = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
