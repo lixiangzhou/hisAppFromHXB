@@ -261,7 +261,7 @@
     }];
     
     [self.loanPerson_infoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        float height = [weakSelf getLoanPersonInfoLineNumber]==0?kScrAdaptationH(31):kScrAdaptationH(60+[weakSelf getLoanPersonInfoLineNumber]*70);
+        float height = [weakSelf getLoanPersonInfoLineNumber]==0?kScrAdaptationH(31):kScrAdaptationH(70+[weakSelf getLoanPersonInfoLineNumber]*70);
         make.height.equalTo(@kScrAdaptationH(height));//140 //210
         make.right.left.equalTo(weakSelf.view);
         make.top.equalTo(weakSelf.loanInstuctionView.mas_bottom).offset(kScrAdaptationH(10));
