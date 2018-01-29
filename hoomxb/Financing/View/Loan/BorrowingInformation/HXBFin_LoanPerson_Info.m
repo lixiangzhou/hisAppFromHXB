@@ -90,7 +90,11 @@
     kWeakSelf
     //借款人信息
     [self.borrowUserinforTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.equalTo(weakSelf).offset(kScrAdaptationH(15));
+        if (_infoArray&&_infoArray.count>0) {
+            make.top.left.equalTo(weakSelf).offset(kScrAdaptationH(15));
+        } else {
+            make.top.left.equalTo(weakSelf).offset(kScrAdaptationH(10));
+        }
         make.height.equalTo(@(kScrAdaptationH(21)));
     }];
     //红标记
