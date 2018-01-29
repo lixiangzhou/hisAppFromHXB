@@ -119,7 +119,14 @@
             self.clickCheckMarkBlock(!button.selected);
         }
     }
-    
+}
+
+- (void)setIsDefaultSelect:(BOOL)isDefaultSelect {
+    _isDefaultSelect = isDefaultSelect;
+    if ([_type isEqualToString:@"riskDelegate"]) {
+        self.negotiateImageView.image = [UIImage imageNamed:@"Rectangle"];
+        self.negotiateImageViewBackgroundButton.selected = NO;
+    }
 }
 
 - (void)clickNegotiateButton: (UIButton *)button {
