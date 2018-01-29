@@ -124,10 +124,13 @@
 }
 
 - (UIView *)tableViewFootView {
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(37))];
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(10))];
     footView.backgroundColor = [UIColor clearColor];
     UILabel *promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(17))];
-    promptLabel.text = @"- 预期收益不代表实际收益，投资需谨慎 -";
+    if (KeyChain.baseTitle.length > 0) {
+        promptLabel.text = [NSString stringWithFormat:@"- %@ -",KeyChain.baseTitle];
+        footView.height = kScrAdaptationH(37);
+    }
     promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     promptLabel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
     promptLabel.textAlignment = NSTextAlignmentCenter;
