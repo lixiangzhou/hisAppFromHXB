@@ -163,7 +163,7 @@ static NSString *const bankString = @"绑定银行卡";
         [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
     }else{
         if ([_availablePoint doubleValue] == 0.00) { // 如果待转是0元的话，直接请求接口
-            if (!_isSelectLimit) {
+            if (self.isExceedLimitInvest && !_isSelectLimit) {
                 [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                 return;
             }
@@ -172,7 +172,7 @@ static NSString *const bankString = @"绑定银行卡";
         }
         if (isHasContainsNonzeroDecimals) {
             if ((long long)([_inputMoneyStr doubleValue] * 100) == (long long)([_availablePoint doubleValue] * 100)) {
-                if (!_isSelectLimit) {
+                if (self.isExceedLimitInvest && !_isSelectLimit) {
                     [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                     return;
                 }
@@ -214,7 +214,7 @@ static NSString *const bankString = @"绑定银行卡";
             } else if (_availablePoint.floatValue - _inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"购买后剩余金额不能小于%@元", _minRegisterAmount]];
             } else {
-                if (!_isSelectLimit) {
+                if (self.isExceedLimitInvest && !_isSelectLimit) {
                     [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                     return;
                 }

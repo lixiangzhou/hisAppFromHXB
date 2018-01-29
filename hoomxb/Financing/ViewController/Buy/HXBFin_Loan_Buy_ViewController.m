@@ -147,7 +147,7 @@ static NSString *const bankString = @"绑定银行卡";
         self.topView.totalMoney = @"";
         _inputMoneyStr = @"";
         [self setUpArray];
-        if (!_isSelectLimit) {
+        if (self.isExceedLimitInvest && !_isSelectLimit) {
             [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
             return;
         }
@@ -171,7 +171,7 @@ static NSString *const bankString = @"绑定银行卡";
     } else {
         BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
         if (isFitToBuy) {
-            if (!_isSelectLimit) {
+            if (self.isExceedLimitInvest && !_isSelectLimit) {
                 [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                 return;
             }
