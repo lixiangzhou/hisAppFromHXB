@@ -10,4 +10,8 @@
 
 @implementation HXBHomeTitleModel
 
+- (void)setBaseTitle:(NSString *)baseTitle {
+    _baseTitle = baseTitle;
+    KeyChain.baseTitle = baseTitle;
+}
 @end

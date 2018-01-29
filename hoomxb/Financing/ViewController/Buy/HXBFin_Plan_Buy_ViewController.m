@@ -243,14 +243,14 @@ static NSString *const bankString = @"绑定银行卡";
             isFitToBuy = _inputMoneyStr.integerValue % _registerMultipleAmount.integerValue ? NO : YES;
         }
         if (_hasInvestMoney) {
-            if (!_isSelectLimit) {
+            if (self.isExceedLimitInvest && !_isSelectLimit) {
                 [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                 return;
             }
             [self chooseBuyTypeWithSting:_btnLabelText];
         } else {
             if (isFitToBuy) {
-                if (!_isSelectLimit) {
+                if (self.isExceedLimitInvest &&!_isSelectLimit) {
                     [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                     return;
                 }
