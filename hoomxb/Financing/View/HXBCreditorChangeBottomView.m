@@ -79,6 +79,7 @@
     _riskView.hidden = !_isShowRiskView;
     kWeakSelf
     if (_isShowRiskView) {
+        self.riskView.isDefaultSelect = YES;
         [_protocolView mas_updateConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(weakSelf).offset(kScrAdaptationH750(60));
         }];

@@ -409,6 +409,7 @@ static NSString *const bankString = @"绑定银行卡";
     [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:self.loanId parameter:dic andSuccessBlock:^(HXBFinModel_BuyResoult_PlanModel *model) {
         HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
         planBuySuccessVC.inviteButtonTitle = model.inviteActivityDesc;
+        // 投资成功，返回是否展示邀请好友按钮
         planBuySuccessVC.isShowInviteBtn = model.isInviteActivityShow;
         planBuySuccessVC.imageName = @"successful";
         planBuySuccessVC.buy_title = @"加入成功";
@@ -744,13 +745,8 @@ static const NSInteger topView_high = 300;
 
 // 根据金额匹配是否展示风险协议
 - (void)isMatchToBuyWithMoney:(NSString *)money {
-//    if (_isMatchBuy) {
     self.bottomView.isShowRiskView = (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.userRiskAmount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount);
     self.isExceedLimitInvest = (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.userRiskAmount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount);
-//    } else {
-//        self.bottomView.isShowRiskView = YES;
-//        self.isExceedLimitInvest = YES;
-//    }
 }
 
 - (UIView *)footTableView {

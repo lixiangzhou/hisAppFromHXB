@@ -17,6 +17,8 @@ typedef void(^clickDelegate)(NSInteger  type);
 - (void)clickNegotiateWithBlock:(void(^)())clickNegotiateBlock;
 ///点击了对勾，
 - (void)clickCheckMarkWithBlock:(void(^)(BOOL isSelected))clickCheckMarkBlock;
+// 是否重置风险协议选框状态
+@property (nonatomic, assign) BOOL isDefaultSelect;
 @property (nonatomic,copy) NSString *negotiateStr;
 /** 对有两个协议的单独处理 */
 @property (nonatomic, copy) NSString *type;
