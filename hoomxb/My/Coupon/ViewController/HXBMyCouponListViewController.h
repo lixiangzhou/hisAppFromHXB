@@ -10,4 +10,6 @@
 
 @interface HXBMyCouponListViewController : HXBBaseViewController
 
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *viewModel;
+
 @end
