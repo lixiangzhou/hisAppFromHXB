@@ -100,6 +100,9 @@
 
 @implementation HXBFinDetailModel_LoanTruansferDetail_userVo
 + (NSDictionary *)modelCustomPropertyMapper {
-    return @{@"ID" : @"id"};
+    return @{@"ID" : @"id",
+             @"descriptionStr":@"description"
+             };
+    
 }
 @end

@@ -56,6 +56,8 @@
 }
 
 - (void)updateFrame{
+    self.securityLevelLabel.text = self.riskLevel?self.riskLevel:@"";
+    self.securityLevelInstructionLabel.text = self.riskLevelDesc?self.riskLevelDesc:@"";
     if (!self.riskLevel&&self.riskLevelDesc) {
         [self.securityLevelImgV mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);
@@ -112,9 +114,10 @@
         make.height.equalTo(@kScrAdaptationH(12));
     }];
     [self.securityLevelLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(12));
+        make.top.equalTo(weakSelf.securityLevelImgV).offset(kScrAdaptationH(-2));
         make.left.equalTo(weakSelf.securityLevelImgV.mas_right).offset(kScrAdaptationH(1));
         make.width.equalTo(@kScrAdaptationW(16));
+        make.height.equalTo(@kScrAdaptationW(17));
     }];
     [self.securityLevelInstructionLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.securityLevelStrLabel.mas_bottom).offset(kScrAdaptationH(11));

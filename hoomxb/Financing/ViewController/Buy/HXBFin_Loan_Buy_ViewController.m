@@ -123,9 +123,9 @@ static NSString *const bankString = @"绑定银行卡";
 }
 
 - (void)changeItemWithInvestMoney:(NSString *)investMoney {
+    [self isMatchToBuyWithMoney:investMoney];
     self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
     _handleDetailTitle = [NSString stringWithFormat:@"%.2f", investMoney.doubleValue];
-    [self isMatchToBuyWithMoney:investMoney];
     _inputMoneyStr = investMoney;
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue;
     if (rechargeMoney > 0.00) { // 余额不足的情况
@@ -148,7 +148,7 @@ static NSString *const bankString = @"绑定银行卡";
         self.topView.totalMoney = @"";
         _inputMoneyStr = @"";
         [self setUpArray];
-        if (!_isSelectLimit) {
+        if (self.isExceedLimitInvest && !_isSelectLimit) {
             [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
             return;
         }
@@ -172,7 +172,7 @@ static NSString *const bankString = @"绑定银行卡";
     } else {
         BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
         if (isFitToBuy) {
-            if (!_isSelectLimit) {
+            if (self.isExceedLimitInvest && !_isSelectLimit) {
                 [HxbHUDProgress showTextWithMessage:@"请勾选同意风险提示"];
                 return;
             }
@@ -474,6 +474,7 @@ static const NSInteger topView_high = 230;
         _topView.keyboardType = UIKeyboardTypeNumberPad;
         _topView.creditorMoney = [NSString stringWithFormat:@"标的剩余金额%@", [NSString hxb_getPerMilWithIntegetNumber:_availablePoint.doubleValue]];
         _topView.placeholderStr = _placeholderStr;
+        
         // 输入框值变化
         _topView.changeBlock = ^(NSString *text) {
             [weakSelf investMoneyTextFieldText:text];

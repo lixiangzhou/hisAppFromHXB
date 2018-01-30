@@ -124,10 +124,13 @@
 }
 
 - (UIView *)tableViewFootView {
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(37))];
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(10))];
     footView.backgroundColor = [UIColor clearColor];
     UILabel *promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(17))];
-    promptLabel.text = @"- 预期收益不代表实际收益，投资需谨慎 -";
+    if (KeyChain.baseTitle.length > 0) {
+        promptLabel.text = [NSString stringWithFormat:@"- %@ -",KeyChain.baseTitle];
+        footView.height = kScrAdaptationH(37);
+    }
     promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     promptLabel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
     promptLabel.textAlignment = NSTextAlignmentCenter;
@@ -203,10 +206,10 @@
 
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.loanTruansferDetailViewModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.loanInstruction = self.loanTruansferDetailViewModel.loanTruansferDetailModel.userVo.descriptionStr;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.creditInfoItems;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevel;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevelDesc = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevelDesc;
-//            detail_DetailLoanVC.loanDetailViewModel = [[HXBFinDetailViewModel_LoanDetail alloc]init];
             [self.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         } else if (indexPath.row == 1) {
             HXBFinAddRecordVC_LoanTruansfer *loanAddRecordVC = [[HXBFinAddRecordVC_LoanTruansfer alloc]init];
