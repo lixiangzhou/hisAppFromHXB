@@ -221,6 +221,7 @@ MyViewHeaderDelegate
             cell.textLabel.text = @"邀请好友";
             cell.textLabel.textColor = RGBA(102, 102, 102, 1);
             cell.isShowLine = NO;
+            cell.desc = @"";
         }
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
