@@ -13,4 +13,5 @@
 
 @property (nonatomic, strong) HXBTopTabView *topTabView;
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *viewModel;
 @end

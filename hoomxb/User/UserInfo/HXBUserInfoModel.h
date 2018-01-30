@@ -134,6 +134,10 @@
  */
 @property (nonatomic, assign) BOOL isUnbundling;
 /**
+ 是否展示邀请好友
+ */
+@property (nonatomic, assign) BOOL isDisplayInvite;
+/**
  ip
  */
 @property (nonatomic,copy) NSString *ip;

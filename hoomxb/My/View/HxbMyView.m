@@ -109,6 +109,7 @@ MyViewHeaderDelegate
         if (indexPath.row == 0) {
             HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
             HXBMyCouponViewController *myCouponsViewController = [[HXBMyCouponViewController alloc]init];
+            myCouponsViewController.viewModel = self.userInfoViewModel;
             [vc.navigationController pushViewController:myCouponsViewController animated:YES];
         } else {
             [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_entrance];
@@ -215,7 +216,7 @@ MyViewHeaderDelegate
             } else {
                 cell.desc = @"";
             }
-            cell.isShowLine = kIsShowInviteFunction;
+            cell.isShowLine = self.userInfoViewModel.userInfoModel.userInfo.isDisplayInvite;
         } else {
             cell.textLabel.text = @"邀请好友";
             cell.textLabel.textColor = RGBA(102, 102, 102, 1);
@@ -233,7 +234,6 @@ MyViewHeaderDelegate
             cell.textLabel.text = @"散标债权资产";
             cell.textLabel.textColor = RGBA(102, 102, 102, 1);
             cell.desc = [NSString hxb_getPerMilWithDouble:self.accountModel.lenderPrincipal];
-//            cell.imageView.svgImageString = @"sanbiao.svg";
             cell.isShowLine = NO;
         }
     }else{
@@ -245,7 +245,7 @@ MyViewHeaderDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return  kIsShowInviteFunction ? 2 : 1;
+        return  self.userInfoViewModel.userInfoModel.userInfo.isDisplayInvite ? 2 : 1;
     } else if ( section == 1) {
         return 2;
     } else {

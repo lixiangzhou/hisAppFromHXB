@@ -24,6 +24,10 @@ typedef void(^tapToInviteVCBlock)(void);
  */
 @property (nonatomic,assign) BOOL isStopRefresh_Home;
 /**
+ 是否展示邀请好友
+ */
+@property (nonatomic,assign) BOOL isDisplayInvite;
+/**
  点击cell中按钮回调的Block
  */
 @property (nonatomic, copy) void(^actionButtonClickBlock)();
