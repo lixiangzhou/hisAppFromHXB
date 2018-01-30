@@ -34,8 +34,6 @@
 @property (nonatomic,strong) NSArray <NSString *>* tableViewTitleArray;
 ///详情底部的tableView的图片数组
 @property (nonatomic,strong) NSArray <NSString *>* tableViewImageArray;
-@property (nonatomic,copy) NSString *availablePoint;//可用余额；
-@property (nonatomic,assign) BOOL isIdPassed;
 
 
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
@@ -105,13 +103,6 @@
     [super viewDidLoad];
     
     self.isColourGradientNavigationBar = YES;
-    //判断是否风险评测
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        _availablePoint = viewModel.availablePoint;
-        _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
-    } andFailure:^(NSError *error) {
-        
-    }];
     [self setup];
     [self downLoadData];
     [self registerEvent];
