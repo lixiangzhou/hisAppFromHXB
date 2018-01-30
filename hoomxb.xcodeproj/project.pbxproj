@@ -288,6 +288,7 @@
 		8DAD308D1FBA8F8C00E2AEE8 /* SwipeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30721FBA8F8B00E2AEE8 /* SwipeTableView.m */; };
 		8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */; };
 		8DAD308F1FBA8F8C00E2AEE8 /* HXBBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */; };
+		9A110F52201B357F005781F0 /* HXBMyPlanListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A110F51201B357F005781F0 /* HXBMyPlanListViewModel.m */; };
 		9A226B1E1FE7B1AC00E27DAC /* NSArray+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B0D1FE7B1AB00E27DAC /* NSArray+IDPExtension.m */; };
 		9A226B211FE7B1AC00E27DAC /* NSDictionary+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B131FE7B1AB00E27DAC /* NSDictionary+IDPExtension.m */; };
 		9A226B281FE7B87E00E27DAC /* HXBBaseContDownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B271FE7B87E00E27DAC /* HXBBaseContDownModel.m */; };
@@ -1056,6 +1057,8 @@
 		8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+STFrame.m"; sourceTree = "<group>"; };
 		8DAD30761FBA8F8B00E2AEE8 /* HXBBaseTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTextField.h; sourceTree = "<group>"; };
 		8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTextField.m; sourceTree = "<group>"; };
+		9A110F50201B357F005781F0 /* HXBMyPlanListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanListViewModel.h; sourceTree = "<group>"; };
+		9A110F51201B357F005781F0 /* HXBMyPlanListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanListViewModel.m; sourceTree = "<group>"; };
 		9A226B0C1FE7B1AB00E27DAC /* NSArray+IDPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+IDPExtension.h"; sourceTree = "<group>"; };
 		9A226B0D1FE7B1AB00E27DAC /* NSArray+IDPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IDPExtension.m"; sourceTree = "<group>"; };
 		9A226B121FE7B1AB00E27DAC /* NSDictionary+IDPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+IDPExtension.h"; sourceTree = "<group>"; };
@@ -2916,6 +2919,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9A110F4F201B3539005781F0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9A110F50201B357F005781F0 /* HXBMyPlanListViewModel.h */,
+				9A110F51201B357F005781F0 /* HXBMyPlanListViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		9A226B071FE7B1AB00E27DAC /* IDPUtility */ = {
 			isa = PBXGroup;
 			children = (
@@ -4029,6 +4041,7 @@
 		E189D7541ECAD9F3004DB1DC /* MY_PlanController */ = {
 			isa = PBXGroup;
 			children = (
+				9A110F4F201B3539005781F0 /* ViewModel */,
 				E189D7551ECAD9F3004DB1DC /* HXBMY_PlanListViewController.h */,
 				E189D7561ECAD9F3004DB1DC /* HXBMY_PlanListViewController.m */,
 				E166C58F1F03D0B200AA14F4 /* MY_PlanCapitalRecord */,
@@ -4926,6 +4939,7 @@
 				E166C5921F03D0D700AA14F4 /* HXBMY_Plan_Capital_ViewController.m in Sources */,
 				8DAD308C1FBA8F8C00E2AEE8 /* STHeaderView.m in Sources */,
 				E17E6ADA1ECD826D0046888B /* HXBMY_LoanListViewController.m in Sources */,
+				9A110F52201B357F005781F0 /* HXBMyPlanListViewModel.m in Sources */,
 				8DAD30831FBA8F8C00E2AEE8 /* HXBBaseTableView.m in Sources */,
 				8DAD30881FBA8F8C00E2AEE8 /* HXBNoDataView.m in Sources */,
 				E1247B421ECC2AD000B2CD7C /* HXBMainListView_Loan_TopView.m in Sources */,
