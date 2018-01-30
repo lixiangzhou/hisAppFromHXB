@@ -51,8 +51,6 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
 @property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planDetailViewModel;
 ///addButtonStr
 @property (nonatomic,weak) HXBFin_PlanDetailView_ViewModelVM *planDetailVM;
-@property (nonatomic,copy) NSString *availablePoint;//可用余额；
-@property (nonatomic,assign) BOOL isIdPassed;
 @property (nonatomic,assign) BOOL isVerify;
 /// 表头视图
 @property (nonatomic,strong) HXBFin_PlanDetailView_TopView *topView;
@@ -91,12 +89,6 @@ static NSString* const kTitlePlanServiceAgreement = @"红利计划服务协议";
     [self downLoadData];
     [self tableViewModelArray];
     [self setupAddView];
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        _availablePoint = viewModel.availablePoint;
-        _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
-    } andFailure:^(NSError *error) {
-        
-    }];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_starCountDown object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(starCountDown) name:kHXBNotification_checkLoginSuccess object:nil];
 }
