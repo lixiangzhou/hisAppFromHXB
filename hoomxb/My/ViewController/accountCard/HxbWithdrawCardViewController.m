@@ -96,6 +96,9 @@
 
 - (void)leftBackBtnClick {
     if (_className.length > 0 && _type == HXBRechargeAndWithdrawalsLogicalJudgment_Other) {
+        if (self.block) {
+            self.block(0);
+        }
         [self popToViewControllerWithClassName:_className];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
@@ -139,6 +142,9 @@
             [self.navigationController pushViewController:withdrawViewController animated:YES];
             
         } else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other) {
+            if (self.block) { // 绑卡成功，返回
+                self.block(1);
+            };
             [self leftBackBtnClick];
         }
     } andFailureBlock:^(NSError *error) {

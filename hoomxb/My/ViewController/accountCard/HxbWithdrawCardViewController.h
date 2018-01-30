@@ -9,6 +9,8 @@
 #import "HXBBaseViewController.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
 
+typedef void(^returnBlindCardResult)(BOOL isBlindSuccess);
+
 @class HXBBankCardModel;
 ///银行卡绑定
 @interface HxbWithdrawCardViewController : HXBBaseViewController
@@ -22,6 +24,8 @@
  提现金额
  */
 @property (nonatomic, copy) NSString *amount;
+// 返回是否绑卡成功的block
+@property (nonatomic, copy) returnBlindCardResult block;
 
 @property (nonatomic, strong) HXBUserInfoModel *userInfoModel;
 /**
