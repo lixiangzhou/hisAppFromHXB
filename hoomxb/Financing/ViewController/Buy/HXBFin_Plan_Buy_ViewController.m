@@ -116,6 +116,7 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear: animated];
+    self.isSelectLimit = NO;
     [self getBankCardLimit];
 }
 
@@ -151,6 +152,7 @@ static NSString *const bankString = @"绑定银行卡";
 - (void)changeItemWithInvestMoney:(NSString *)investMoney {
     self.topView.hiddenMoneyLabel = !self.cardModel.bankType;
     _inputMoneyStr = investMoney;
+    [self isMatchToBuyWithMoney:investMoney];
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue - _discountMoney;
     if (rechargeMoney > 0.00) { // 余额不足的情况
         if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
@@ -231,9 +233,7 @@ static NSString *const bankString = @"绑定银行卡";
         _curruntInvestMoney = _inputMoneyStr.floatValue;
         [self getBESTCouponWithMoney:_inputMoneyStr];
         _topView.profitStr = [NSString stringWithFormat:@"预期收益%@元", _profitMoneyStr];
-        
         [self checkIfNeedNewPlanDatas:_inputMoneyStr];
-        
         [HxbHUDProgress showTextWithMessage:@"投资金额不足递增金额"];
     } else {
         BOOL isFitToBuy;
@@ -273,10 +273,19 @@ static NSString *const bankString = @"绑定银行卡";
 
 // 判断是什么投资类型（充值购买，余额购买、未绑卡）
 - (void)chooseBuyTypeWithSting:(NSString *)buyType {
+    kWeakSelf
     if ([buyType containsString:@"充值"]) {
         [self fullAddtionFunc];
     } else if ([buyType isEqualToString:bankString]) {
-        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc] init];
+        withdrawCardViewController.block = ^(BOOL isBlindSuccess) {
+            if (isBlindSuccess) {
+                weakSelf.hasBindCard = @"1";
+                [weakSelf getNewUserInfo];
+            } else {
+                weakSelf.hasBindCard = @"0";
+            }
+        };
         withdrawCardViewController.title = @"绑卡";
         withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
         [self.navigationController pushViewController:withdrawCardViewController animated:YES];
@@ -578,6 +587,19 @@ static const NSInteger topView_high = 300;
     }];
 }
 
+// 获取用户信息
+- (void)getNewUserInfo {
+    kWeakSelf
+    [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        weakSelf.userInfoViewModel = viewModel;
+        weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
+        [weakSelf.tableView reloadData];
+        [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+    } andFailure:^(NSError *error) {
+        [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+    }];
+}
+
 // 未匹配到优惠券调用方法
 - (void)getBestCouponFailWithMoney:(NSString *)money cell:(HXBFin_creditorChange_TableViewCell *)cell {
     self.hasBestCoupon = NO;
@@ -725,7 +747,7 @@ static const NSInteger topView_high = 300;
     } else {
         isFitToBuy = (text.integerValue) % self.registerMultipleAmount.integerValue ? NO : YES;
     }
-    [self isMatchToBuyWithMoney:text];
+
     // 判断是否符合购买条件
     if (text.length && text.doubleValue <= self.availablePoint.doubleValue && isFitToBuy) {
         // 判断是否超出风险
@@ -745,6 +767,7 @@ static const NSInteger topView_high = 300;
 
 // 根据金额匹配是否展示风险协议
 - (void)isMatchToBuyWithMoney:(NSString *)money {
+    self.isSelectLimit = NO;
     self.bottomView.isShowRiskView = (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.userRiskAmount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount);
     self.isExceedLimitInvest = (money.doubleValue > self.userInfoViewModel.userInfoModel.userAssets.userRiskAmount.doubleValue - self.userInfoViewModel.userInfoModel.userAssets.holdingAmount);
 }
