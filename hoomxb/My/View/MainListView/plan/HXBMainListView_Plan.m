@@ -344,7 +344,7 @@ kDealloc
 #pragma mark 底部加载更多控件以及状态控制的属性设置方法
 
 - (void)setIsExitedLastPage:(BOOL)isExitedLastPage {
-    _isExitedLastPage = _isExitedLastPage;
+    _isExitedLastPage = isExitedLastPage;
     
     if(isExitedLastPage) {
         [self.exit_Plan_TableView.mj_footer endRefreshingWithNoMoreData];

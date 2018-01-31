@@ -294,6 +294,7 @@
 		9A226B281FE7B87E00E27DAC /* HXBBaseContDownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B271FE7B87E00E27DAC /* HXBBaseContDownModel.m */; };
 		9A226B2B1FE7C22500E27DAC /* NSString+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B2A1FE7C22500E27DAC /* NSString+IDPExtension.m */; };
 		9A36E3301FC6AB1700C318B3 /* HXBBaseWKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */; };
+		9A376D7D20205E3F00A6EB26 /* HXBMY_LoanListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A376D7C20205E3F00A6EB26 /* HXBMY_LoanListViewModel.m */; };
 		9A5A2B711FE9136A00818846 /* NSTimer+Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5A2B6F1FE9136900818846 /* NSTimer+Addition.m */; };
 		9A5A2B741FEA284700818846 /* HXBThemAdapterManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A5A2B721FEA284600818846 /* HXBThemAdapterManager.m */; };
 		9AF220EF1FC2BA8F00002D1D /* HXBBaseUrlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AF220EC1FC2BA8F00002D1D /* HXBBaseUrlManager.m */; };
@@ -1069,6 +1070,8 @@
 		9A226B2A1FE7C22500E27DAC /* NSString+IDPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+IDPExtension.m"; sourceTree = "<group>"; };
 		9A36E32A1FC6AB1700C318B3 /* HXBBaseWKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseWKWebViewController.h; sourceTree = "<group>"; };
 		9A36E32B1FC6AB1700C318B3 /* HXBBaseWKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseWKWebViewController.m; sourceTree = "<group>"; };
+		9A376D7B20205E3F00A6EB26 /* HXBMY_LoanListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMY_LoanListViewModel.h; sourceTree = "<group>"; };
+		9A376D7C20205E3F00A6EB26 /* HXBMY_LoanListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMY_LoanListViewModel.m; sourceTree = "<group>"; };
 		9A37BCB01FCEA3E400B2B81F /* HXBMacroSwitch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMacroSwitch.h; sourceTree = "<group>"; };
 		9A5A2B6F1FE9136900818846 /* NSTimer+Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTimer+Addition.m"; sourceTree = "<group>"; };
 		9A5A2B701FE9136A00818846 /* NSTimer+Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSTimer+Addition.h"; sourceTree = "<group>"; };
@@ -2954,6 +2957,15 @@
 			path = WebViewController;
 			sourceTree = "<group>";
 		};
+		9A376D7A20205E0200A6EB26 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9A376D7B20205E3F00A6EB26 /* HXBMY_LoanListViewModel.h */,
+				9A376D7C20205E3F00A6EB26 /* HXBMY_LoanListViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		9AF220EA1FC2BA8F00002D1D /* BaseURL */ = {
 			isa = PBXGroup;
 			children = (
@@ -4031,6 +4043,7 @@
 		E189D7511ECAD9F3004DB1DC /* MY_LoanController */ = {
 			isa = PBXGroup;
 			children = (
+				9A376D7A20205E0200A6EB26 /* ViewModel */,
 				E189D7521ECAD9F3004DB1DC /* HXBMY_LoanListViewController.h */,
 				E189D7531ECAD9F3004DB1DC /* HXBMY_LoanListViewController.m */,
 				E1270B211ECED03900729BC9 /* MY_Loan_Details */,
@@ -5046,6 +5059,7 @@
 				E1270B781ECEEC9D00729BC9 /* HXBMY_PlanDetail_TypeCell.m in Sources */,
 				8DAD30851FBA8F8C00E2AEE8 /* HXBBaseToolBarView.m in Sources */,
 				4E8198AE1EC44BCE00D668A1 /* HXBHomePageModuleView.m in Sources */,
+				9A376D7D20205E3F00A6EB26 /* HXBMY_LoanListViewModel.m in Sources */,
 				E133DCDE1EEE3597009466DE /* SignUpModel.m in Sources */,
 				8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */,
 				9A226B1E1FE7B1AC00E27DAC /* NSArray+IDPExtension.m in Sources */,
