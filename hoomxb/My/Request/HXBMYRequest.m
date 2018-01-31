@@ -113,12 +113,6 @@
     self.planAssetsAPI = [[HXBBaseRequest alloc]init];
     self.loanAssetsAPI = [[HXBBaseRequest alloc]init];
     self.capitalRecordAPI = [[HXBBaseRequest alloc]init];
-    
-//    self.planListAPI.isJudgeLogin = YES;
-//    self.loanListAPI.isJudgeLogin = YES;
-//    self.planAssetsAPI.isJudgeLogin = YES;
-//    self.loanAssetsAPI.isJudgeLogin = YES;
-//    self.capitalRecordAPI.isJudgeLogin = YES;
 }
 
 #pragma mark - getter

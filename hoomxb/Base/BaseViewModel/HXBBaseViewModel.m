@@ -30,6 +30,9 @@
 - (void)dealloc
 {
     [[HXBBaseRequestManager sharedInstance] cancelRequest:self];
+    if([self getHugView] == [UIApplication sharedApplication].keyWindow) {
+        [self hideProgress];
+    }
 }
 
 - (UIView*)getHugView {
