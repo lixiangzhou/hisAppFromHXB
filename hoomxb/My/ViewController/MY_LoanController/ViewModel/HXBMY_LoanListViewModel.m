@@ -41,6 +41,7 @@
 
 - (void)loanAssets_AccountRequestSuccessBlock:(BOOL)isShowHug andResultBlock: (void(^)(BOOL isSuccess))resultBlock{
     
+    kWeakSelf
     NSString* hugContent = isShowHug? kLoadIngText : nil;
     NYBaseRequest *account_LoanRequest = [[NYBaseRequest alloc]init];
     account_LoanRequest.requestUrl = kHXBMY_LoanAccountRequestURL;
@@ -52,7 +53,7 @@
         HXBMYModel_Loan_LoanRequestModel *loanAcccountModel = [[HXBMYModel_Loan_LoanRequestModel alloc]init];
         NSDictionary *dataDic = responseObject[kResponseData];
         [loanAcccountModel yy_modelSetWithDictionary:dataDic];
-        self.loanAcccountModel = loanAcccountModel;
+        weakSelf.loanAcccountModel = loanAcccountModel;
         
         if (resultBlock) {
             resultBlock(YES);
