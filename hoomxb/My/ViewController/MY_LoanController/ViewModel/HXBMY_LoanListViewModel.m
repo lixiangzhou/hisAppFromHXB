@@ -19,6 +19,13 @@
 ///转让中 页码
 @property (nonatomic, assign) NSInteger truansferPage;
 
+///是否正在加载收益中数据
+@property (nonatomic, assign) BOOL isLoadingRepayingData;
+///是否正在加载投标中 数据
+@property (nonatomic, assign) BOOL isLoadingBigData;
+///是否正在加载转让中数据
+@property (nonatomic, assign) BOOL isLoadingTruansferData;
+
 @end
 
 @implementation HXBMY_LoanListViewModel
@@ -70,6 +77,19 @@
                          andUpData: (BOOL)isUPData
                     andResultBlock: (void(^)(BOOL isSuccess))resultBlock{
     
+    //如果正在请求当前类型的数据，则放弃这次请求
+    if([self getStateByRequestType:loanRequestType]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(resultBlock) {
+                resultBlock(NO);
+            }
+        });
+        return;
+    }
+    else{
+        [self updateStateByRequestType:loanRequestType requestState:YES];
+    }
+    
     __weak typeof(self)weakSelf = self;
     
     NSString *pageNumberStr = @(loanRequestType).description;
@@ -82,6 +102,7 @@
     
     [request startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         
+        [weakSelf updateStateByRequestType:loanRequestType requestState:NO];
         kHXBResponsResultShowHUD;
         
         NSMutableArray <HXBMYViewModel_MainLoanViewModel*> *loanViewModelArray = [[NSMutableArray alloc]init];
@@ -105,6 +126,7 @@
             resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        [weakSelf updateStateByRequestType:loanRequestType requestState:NO];
         if (resultBlock) {
             kNetWorkError(@"我的 界面 红利计划列表")
             resultBlock (NO);
@@ -191,10 +213,57 @@
     }
 }
 
+#pragma mark 获取指定债转类型的请求状态
+
+- (BOOL)getStateByRequestType:(HXBRequestType_MY_LoanRequestType)type {
+    BOOL state = NO;
+    switch (type) {
+        case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN:
+            state = self.isLoadingRepayingData;
+            break;
+        case HXBRequestType_MY_LoanRequestType_BID_LOAN:
+            state = self.isLoadingBigData;
+            break;
+        case HXBRequestType_MY_LoanRequestType_Truansfer:
+            state = self.isLoadingTruansferData;
+            break;
+    }
+    return state;
+}
+
+#pragma mark 更新指定债转类型的请求状态
+
+- (void)updateStateByRequestType:(HXBRequestType_MY_LoanRequestType)type requestState:(BOOL)state {
+    switch (type) {
+        case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN:
+            self.isLoadingRepayingData = state;
+            break;
+        case HXBRequestType_MY_LoanRequestType_BID_LOAN:
+            self.isLoadingBigData = state;
+            break;
+        case HXBRequestType_MY_LoanRequestType_Truansfer:
+            self.isLoadingTruansferData = state;
+            break;
+    }
+}
+
 #pragma mark 转让中 列表的网络数据的请求
 
 - (void)myLoanTruansfer_requestWithLoanTruansferWithIsUPData: (BOOL)isUPData
                                              andResultBlock: (void(^)(BOOL isSuccess))resultBlock{
+    
+    //如果正在请求当前类型的数据，则放弃这次请求
+    if([self getStateByRequestType:HXBRequestType_MY_LoanRequestType_Truansfer]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(resultBlock) {
+                resultBlock(NO);
+            }
+        });
+        return;
+    }
+    else{
+        [self updateStateByRequestType:HXBRequestType_MY_LoanRequestType_Truansfer requestState:YES];
+    }
     
     __weak typeof(self)weakSelf = self;
     
@@ -210,6 +279,7 @@
     
     [request startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         
+        [weakSelf updateStateByRequestType:HXBRequestType_MY_LoanRequestType_Truansfer requestState:NO];
         kHXBResponsResultShowHUD;
         
         NSMutableArray <HXBMY_LoanTruansferViewModel*> *truansferViewModelArray = [[NSMutableArray alloc]init];
@@ -231,6 +301,7 @@
             resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        [weakSelf updateStateByRequestType:HXBRequestType_MY_LoanRequestType_Truansfer requestState:NO];
         if (resultBlock) {
             kNetWorkError(@"我的 界面 红利计划列表")
             resultBlock (NO);
