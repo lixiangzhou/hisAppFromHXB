@@ -109,14 +109,10 @@
     
     //上拉刷新与下拉加载
     [self registerRefresh];
-//    [self planLoadDateWithIsUpData:YES];
+    [self planLoadDateWithIsUpData:YES];
     
 //    //创建定时器
 //    [self creatCountDownManager];
-    
-    [self planLoadDateWithIsUpData:YES];
-    [self loanLoadDateWithIsUpData:YES];
-    [self loanTruansferLoandDataWithIsUPData:YES];
 }
 
 
@@ -356,5 +352,10 @@
     [super viewWillAppear:animated];
     
     [self hideNavigationBar:animated];
+//    [self.homePageView.contDwonManager resumeTimer];
+//    [self.homePageView loadData];
+    [self planLoadDateWithIsUpData:YES];
+    [self loanLoadDateWithIsUpData:YES];
+    [self loanTruansferLoandDataWithIsUPData:YES];
 }
 @end

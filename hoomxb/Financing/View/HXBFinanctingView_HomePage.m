@@ -39,15 +39,34 @@
 #pragma mark - setter 主要是进行了UI的刷新
 - (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
     _finPlanListVMArray = finPlanListVMArray;
+    //上拉刷新，下拉加载
+    kWeakSelf
+    if (_finPlanListVMArray.count >= 20) {
+        [self.planListTableView hxb_footerWithRefreshBlock:^{
+            if (weakSelf.planRefreshFooterBlock) weakSelf.planRefreshFooterBlock();
+        }];
+    }
     self.planListTableView.planListViewModelArray = finPlanListVMArray;
 }
 - (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
     _finLoanListVMArray = finLoanListVMArray;
+    kWeakSelf
+    if (_finLoanListVMArray.count >= 20) {
+        [self.loanListTableView hxb_footerWithRefreshBlock:^{
+            if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
+        }];
+    }
     self.loanListTableView.loanListViewModelArray = finLoanListVMArray;
 
 }
 - (void)setFinLoanTruansferVMArray:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)finLoanTruansferVMArray {
     _finLoanTruansferVMArray = finLoanTruansferVMArray;
+    kWeakSelf
+    if (_finLoanTruansferVMArray.count >= 20) {
+        [self.loanTruansferTableView hxb_footerWithRefreshBlock:^{
+            if (weakSelf.loanTruansferFooterBlock) weakSelf.loanTruansferFooterBlock();
+        }];
+    }
     self.loanTruansferTableView.loanTruansferViewModel = finLoanTruansferVMArray;
 }
 
@@ -114,19 +133,6 @@
     [self setupScrollToolBarView];
     //定时器
     [self setupCountDownManager];
-    
-    kWeakSelf
-    [self.planListTableView hxb_footerWithRefreshBlock:^{
-        if (weakSelf.planRefreshFooterBlock) weakSelf.planRefreshFooterBlock();
-    }];
-    
-    [self.loanListTableView hxb_footerWithRefreshBlock:^{
-        if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
-    }];
-    
-    [self.loanTruansferTableView hxb_footerWithRefreshBlock:^{
-        if (weakSelf.loanTruansferFooterBlock) weakSelf.loanTruansferFooterBlock();
-    }];
 }
 
 //设置toolBarView
