@@ -40,33 +40,33 @@
 - (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
     _finPlanListVMArray = finPlanListVMArray;
     //上拉刷新，下拉加载
-    kWeakSelf
-    if (_finPlanListVMArray.count >= 20) {
-        [self.planListTableView hxb_footerWithRefreshBlock:^{
-            if (weakSelf.planRefreshFooterBlock) weakSelf.planRefreshFooterBlock();
-        }];
-    }
+//    kWeakSelf
+//    if (_finPlanListVMArray.count >= 20) {
+//        [self.planListTableView hxb_footerWithRefreshBlock:^{
+//            if (weakSelf.planRefreshFooterBlock) weakSelf.planRefreshFooterBlock();
+//        }];
+//    }
     self.planListTableView.planListViewModelArray = finPlanListVMArray;
 }
 - (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
     _finLoanListVMArray = finLoanListVMArray;
-    kWeakSelf
-    if (_finLoanListVMArray.count >= 20) {
-        [self.loanListTableView hxb_footerWithRefreshBlock:^{
-            if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
-        }];
-    }
+//    kWeakSelf
+//    if (_finLoanListVMArray.count >= 20) {
+//        [self.loanListTableView hxb_footerWithRefreshBlock:^{
+//            if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
+//        }];
+//    }
     self.loanListTableView.loanListViewModelArray = finLoanListVMArray;
 
 }
 - (void)setFinLoanTruansferVMArray:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)finLoanTruansferVMArray {
     _finLoanTruansferVMArray = finLoanTruansferVMArray;
-    kWeakSelf
-    if (_finLoanTruansferVMArray.count >= 20) {
-        [self.loanTruansferTableView hxb_footerWithRefreshBlock:^{
-            if (weakSelf.loanTruansferFooterBlock) weakSelf.loanTruansferFooterBlock();
-        }];
-    }
+//    kWeakSelf
+//    if (_finLoanTruansferVMArray.count >= 20) {
+//        [self.loanTruansferTableView hxb_footerWithRefreshBlock:^{
+//            if (weakSelf.loanTruansferFooterBlock) weakSelf.loanTruansferFooterBlock();
+//        }];
+//    }
     self.loanTruansferTableView.loanTruansferViewModel = finLoanTruansferVMArray;
 }
 
@@ -84,9 +84,9 @@
 - (void)setIsStopRefresh_Plan:(BOOL)isStopRefresh_Plan {
     _isStopRefresh_Plan = isStopRefresh_Plan;
     if (isStopRefresh_Plan) {
-        [self.planListTableView.mj_footer endRefreshing];
-        [self.planListTableView.mj_header endRefreshing];
+        [self.planListTableView endRefresh];
     }
+    
     if (self.finPlanTotalCount <= self.finPlanListVMArray.count) {
         [self.planListTableView.mj_footer endRefreshingWithNoMoreData];
     }
@@ -94,11 +94,10 @@
 - (void)setIsStopRefresh_LoanTruansfer:(BOOL)isStopRefresh_LoanTruansfer {
     _isStopRefresh_LoanTruansfer = isStopRefresh_LoanTruansfer;
     if (isStopRefresh_LoanTruansfer) {
-        [self.loanTruansferTableView.mj_footer endRefreshing];
-        [self.loanTruansferTableView.mj_header endRefreshing];
+        [self.loanTruansferTableView endRefresh];
     }
     if (self.finLoanTruansferTotalCount <= self.finLoanTruansferVMArray.count) {
-        [self.loanListTableView.mj_footer endRefreshingWithNoMoreData];
+        [self.loanTruansferTableView.mj_footer endRefreshingWithNoMoreData];
     }
 }
 
@@ -134,6 +133,19 @@
     [self setupScrollToolBarView];
     //定时器
     [self setupCountDownManager];
+    
+    kWeakSelf
+    [self.planListTableView hxb_footerWithRefreshBlock:^{
+        if (weakSelf.planRefreshFooterBlock) weakSelf.planRefreshFooterBlock();
+    }];
+    
+    [self.loanListTableView hxb_footerWithRefreshBlock:^{
+        if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
+    }];
+    
+    [self.loanTruansferTableView hxb_footerWithRefreshBlock:^{
+        if (weakSelf.loanTruansferFooterBlock) weakSelf.loanTruansferFooterBlock();
+    }];
 }
 
 //设置toolBarView
