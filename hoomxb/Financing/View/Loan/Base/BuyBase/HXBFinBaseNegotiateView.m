@@ -14,8 +14,10 @@
 @property (nonatomic,copy)void(^clickCheckMarkBlock)(BOOL isSelected);
 ///服务协议的Image
 @property (nonatomic,strong) UIImageView *negotiateImageView;
-///服务协议image后的北京视图
+///服务协议image后的背景视图
 @property (nonatomic,strong) UIButton *negotiateImageViewBackgroundButton;
+///服务协议image后的大背景视图(选框和label)
+@property (nonatomic,strong) UIButton *negotiateImageViewBackgroundButton_large;
 ///服务协议
 @property (nonatomic,strong) UILabel *negotiateLabel;
 ///服务协议 button
@@ -37,12 +39,14 @@
 }
 
 - (void)creatViews {
-    self.negotiateImageViewBackgroundButton = [[UIButton alloc]init];
+    self.negotiateImageViewBackgroundButton = [[UIButton alloc] init];
+    self.negotiateImageViewBackgroundButton_large = [[UIButton alloc] init];
     self.negotiateImageView = [[UIImageView alloc]init];
     self.planNegotiateButton = [[UIButton alloc]init];
     self.reticuleNegotiateButton = [[UIButton alloc]init];
     self.negotiateLabel = [[UILabel alloc]init];
     //协议
+    [self addSubview:self.negotiateImageViewBackgroundButton_large];
     [self addSubview:self.negotiateImageViewBackgroundButton];
     [self.negotiateImageViewBackgroundButton addSubview:self.negotiateImageView];
     [self addSubview:self.negotiateLabel];
@@ -51,28 +55,37 @@
 }
 
 - (void)setUPViewsFrame {
+    kWeakSelf
     //协议
     [self.negotiateImageViewBackgroundButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self);
-        make.left.equalTo(self).offset(kScrAdaptationW750(30));
+        make.centerY.equalTo(weakSelf);
+        make.left.equalTo(weakSelf).offset(kScrAdaptationW750(30));
         make.height.width.equalTo(@(kScrAdaptationW750(28)));
     }];
     [self.negotiateImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.negotiateImageViewBackgroundButton);
+        make.center.equalTo(weakSelf.negotiateImageViewBackgroundButton);
         make.height.width.equalTo(@(kScrAdaptationW750(28)));
     }];
     [self.negotiateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.negotiateImageViewBackgroundButton.mas_right).offset(kScrAdaptationW750(10));
+        make.left.equalTo(weakSelf.negotiateImageViewBackgroundButton.mas_right).offset(kScrAdaptationW750(10));
         make.height.equalTo(@(kScrAdaptationH750(26)));
-        make.centerY.equalTo(self);
+        make.centerY.equalTo(weakSelf);
     }];
+    //协议
+    [self.negotiateImageViewBackgroundButton_large mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(weakSelf);
+        make.centerY.equalTo(weakSelf);
+        make.right.equalTo(weakSelf.negotiateLabel.mas_right);
+        make.height.equalTo(@(kScrAdaptationW750(28)));
+    }];
+    
     [self.planNegotiateButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.negotiateLabel.mas_right).offset(0);
-        make.height.bottom.equalTo(self.negotiateLabel);
+        make.left.equalTo(weakSelf.negotiateLabel.mas_right).offset(0);
+        make.height.bottom.equalTo(weakSelf.negotiateLabel);
     }];
     [self.reticuleNegotiateButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.planNegotiateButton.mas_right).offset(0);
-        make.height.bottom.equalTo(self.negotiateLabel);
+        make.left.equalTo(weakSelf.planNegotiateButton.mas_right).offset(0);
+        make.height.bottom.equalTo(weakSelf.negotiateLabel);
     }];
     
     self.negotiateImageViewBackgroundButton.backgroundColor = [UIColor whiteColor];
@@ -95,6 +108,11 @@
     self.negotiateLabel.text = @"我已阅读并同意";///@"我已阅读并同意";
     
     [self.negotiateImageViewBackgroundButton addTarget:self action:@selector(clickNegotiateImageViewBackgroundButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.negotiateImageViewBackgroundButton_large addTarget:self action:@selector(clickNegotiateLargeButton:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)clickNegotiateLargeButton:(UIButton *)button {
+    [self clickNegotiateImageViewBackgroundButton:self.negotiateImageViewBackgroundButton];
 }
 
 - (void)clickNegotiateImageViewBackgroundButton: (UIButton *)button {

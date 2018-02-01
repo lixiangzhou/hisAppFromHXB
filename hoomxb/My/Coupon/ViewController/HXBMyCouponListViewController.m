@@ -81,10 +81,10 @@
 
 #pragma mark - Setter / Getter / Lazy
 
-- (void)setViewModel:(HXBRequestUserInfoViewModel *)viewModel {
+- (void)setViewModel:(HXBMyRequestAccountModel *)viewModel {
     _viewModel = viewModel;
     if (viewModel) {
-        _myView.isDisplayInvite = viewModel.userInfoModel.userInfo.isDisplayInvite;
+        _myView.isDisplayInvite = viewModel.isDisplayInvite;
     }
 }
 - (void)setParameter{

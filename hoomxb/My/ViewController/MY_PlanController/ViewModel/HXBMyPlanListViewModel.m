@@ -17,6 +17,14 @@
 @property (nonatomic,assign) NSInteger exitingPage;//记录了退出中的页数字段
 ///plan 已退出
 @property (nonatomic,assign) NSInteger exitPage;//记录了推出的页数字段
+
+///是否正在加载持有中数据
+@property (nonatomic, assign) BOOL isLoadingHoldPlanData;
+///是否正在加载推出中数据
+@property (nonatomic, assign) BOOL isLoadingExitingData;
+///是否正在加载已退出数据
+@property (nonatomic, assign) BOOL isLoadingExitedData;
+
 @end
 
 @implementation HXBMyPlanListViewModel
@@ -69,6 +77,20 @@
 - (void)myPlan_requestWithPlanType: (HXBRequestType_MY_PlanRequestType)planRequestType
                          andUpData: (BOOL)isUPData
                     andResultBlock: (void(^)(BOOL isSuccess))resultBlock {
+    
+    //如果正在请求当前类型的数据，则放弃这次请求
+    if([self getStateByRequestType:planRequestType]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(resultBlock) {
+                resultBlock(NO);
+            }
+        });
+        return;
+    }
+    else{
+        [self updateStateByRequestType:planRequestType requestState:YES];
+    }
+    
     __weak typeof(self)weakSelf = self;
     
     NSString *pageNumberStr = @(planRequestType).description;
@@ -80,6 +102,7 @@
     
     [request startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         
+        [weakSelf updateStateByRequestType:planRequestType requestState:NO];
         kHXBResponsResultShowHUD;
         NSDictionary *responseDic = responseObject[@"data"];
         HXBMYModel_MainPlanModel *planModel = [[HXBMYModel_MainPlanModel alloc]init];
@@ -91,6 +114,7 @@
             resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        [weakSelf updateStateByRequestType:planRequestType requestState:NO];
         if (resultBlock) {
             kNetWorkError(@"我的 界面 红利计划列表")
             resultBlock (NO);
@@ -116,6 +140,40 @@
         }
     }
     return page;
+}
+
+#pragma mark 获取指定债转类型的请求状态
+
+- (BOOL)getStateByRequestType:(HXBRequestType_MY_PlanRequestType)type {
+    BOOL state = NO;
+    switch (type) {
+        case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
+            state = self.isLoadingExitedData;
+            break;
+        case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:
+            state = self.isLoadingHoldPlanData;
+            break;
+        case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:
+            state = self.isLoadingExitingData;
+            break;
+    }
+    return state;
+}
+
+#pragma mark 更新指定债转类型的请求状态
+
+- (void)updateStateByRequestType:(HXBRequestType_MY_PlanRequestType)type requestState:(BOOL)state {
+    switch (type) {
+        case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
+            self.isLoadingExitedData = state;
+            break;
+        case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:
+            self.isLoadingHoldPlanData = state;
+            break;
+        case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:
+            self.isLoadingExitingData = state;
+            break;
+    }
 }
 
 #pragma mark 更新页码信息
