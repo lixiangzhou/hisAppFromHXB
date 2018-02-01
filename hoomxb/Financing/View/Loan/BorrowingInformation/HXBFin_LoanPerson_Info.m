@@ -225,6 +225,7 @@
         }
     }
     
+    
     /*
     //借款人审核状态
     [self.borrowUserTypeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
