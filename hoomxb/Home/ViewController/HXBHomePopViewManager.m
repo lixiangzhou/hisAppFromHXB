@@ -72,7 +72,7 @@
 - (void)updateUserDefaultsPopViewDate:(NSDictionary *)dict {
     _responseDict = (NSDictionary *)[kUserDefaults objectForKey:dict[@"id"]];
     if (_responseDict[@"image"]) {
-        if (_responseDict[@"updateTime"] < dict[@"updateTime"]) { //已更新
+        if ([_responseDict[@"updateTime"] longLongValue] < [dict[@"updateTime"] longLongValue]) { //已更新
             _responseDict = dict;
             //            [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
             //            [kUserDefaults synchronize];
