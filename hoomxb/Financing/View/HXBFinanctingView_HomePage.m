@@ -84,9 +84,9 @@
 - (void)setIsStopRefresh_Plan:(BOOL)isStopRefresh_Plan {
     _isStopRefresh_Plan = isStopRefresh_Plan;
     if (isStopRefresh_Plan) {
-        [self.planListTableView.mj_footer endRefreshing];
-        [self.planListTableView.mj_header endRefreshing];
+        [self.planListTableView endRefresh];
     }
+    
     if (self.finPlanTotalCount <= self.finPlanListVMArray.count) {
         [self.planListTableView.mj_footer endRefreshingWithNoMoreData];
     }
@@ -94,11 +94,10 @@
 - (void)setIsStopRefresh_LoanTruansfer:(BOOL)isStopRefresh_LoanTruansfer {
     _isStopRefresh_LoanTruansfer = isStopRefresh_LoanTruansfer;
     if (isStopRefresh_LoanTruansfer) {
-        [self.loanTruansferTableView.mj_footer endRefreshing];
-        [self.loanTruansferTableView.mj_header endRefreshing];
+        [self.loanTruansferTableView endRefresh];
     }
     if (self.finLoanTruansferTotalCount <= self.finLoanTruansferVMArray.count) {
-        [self.loanListTableView.mj_footer endRefreshingWithNoMoreData];
+        [self.loanTruansferTableView.mj_footer endRefreshingWithNoMoreData];
     }
 }
 
