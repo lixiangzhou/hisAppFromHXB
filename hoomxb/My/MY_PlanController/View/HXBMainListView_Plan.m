@@ -265,9 +265,6 @@ kDealloc
 ///上啦刷新下拉加载
 - (void)refresh {
     [self downLoadRefresh];
-    if (self.totalCount > 20) {
-        [self upDataRefresh];
-    }
 }
 
 ///下拉刷新
@@ -283,22 +280,6 @@ kDealloc
     
     [self.exit_Plan_TableView hxb_headerWithRefreshBlock:^{
         if (weakSelf.exit_Plan_DownRefresh) weakSelf.exiting_Plan_UPRefresh();
-    }];
-}
-
-//上啦加载
-- (void) upDataRefresh {
-    __weak typeof(self) weakSelf = self;
-    [self.hold_Plan_TableView hxb_footerWithRefreshBlock:^{
-        if (weakSelf.hold_Plan_DownRefresh) weakSelf.hold_Plan_DownRefresh();
-    }];
-    
-    [self.exiting_Plan_TableView hxb_footerWithRefreshBlock:^{
-        if(weakSelf.exiting_Plan_UPRefresh) weakSelf.exiting_Plan_DownRefresh();
-    }];
-    
-    [self.exit_Plan_TableView hxb_footerWithRefreshBlock:^{
-        if(weakSelf.exit_Plan_UPRefresh) weakSelf.exit_Plan_DownRefresh();
     }];
 }
 
@@ -358,5 +339,82 @@ kDealloc
 ///MARK: 开始刷新资产统计
 - (void)requestAssetStatisticsWithBlockFunc:(void (^)())assetStatisticsWithBlock {
     self.assetStatisticsWithBlock = assetStatisticsWithBlock;
+}
+
+#pragma mark 底部加载更多控件以及状态控制的属性设置方法
+
+- (void)setIsExitedLastPage:(BOOL)isExitedLastPage {
+    _isExitedLastPage = isExitedLastPage;
+    
+    if(isExitedLastPage) {
+        [self.exit_Plan_TableView.mj_footer endRefreshingWithNoMoreData];
+    }
+    else{
+        [self.exit_Plan_TableView.mj_footer endRefreshing];
+    }
+}
+
+- (void)setIsExitingLastPage:(BOOL)isExitingLastPage {
+    _isExitingLastPage = isExitingLastPage;
+    
+    if(isExitingLastPage) {
+        [self.exiting_Plan_TableView.mj_footer endRefreshingWithNoMoreData];
+    }
+    else {
+        [self.exiting_Plan_TableView.mj_footer endRefreshing];
+    }
+}
+
+- (void)setIsHoldPlanLastPage:(BOOL)isHoldPlanLastPage {
+    _isHoldPlanLastPage = isHoldPlanLastPage;
+    
+    if(isHoldPlanLastPage) {
+        [self.hold_Plan_TableView.mj_footer endRefreshingWithNoMoreData];
+    }
+    else {
+        [self.hold_Plan_TableView.mj_footer endRefreshing];
+    }
+}
+
+- (void)setIsHoldPlanShowLoadMore:(BOOL)isHoldPlanShowLoadMore {
+    _isHoldPlanShowLoadMore = isHoldPlanShowLoadMore;
+    kWeakSelf
+    
+    if(isHoldPlanShowLoadMore) {
+        [self.hold_Plan_TableView hxb_footerWithRefreshBlock:^{
+            if (weakSelf.hold_Plan_DownRefresh) weakSelf.hold_Plan_DownRefresh();
+        }];
+    }
+    else {
+        self.hold_Plan_TableView.mj_footer = nil;
+    }
+}
+
+- (void)setIsExitedShowLoadMore:(BOOL)isExitedShowLoadMore {
+    _isExitedShowLoadMore = isExitedShowLoadMore;
+    kWeakSelf
+    
+    if(isExitedShowLoadMore) {
+        [self.exit_Plan_TableView hxb_footerWithRefreshBlock:^{
+            if(weakSelf.exit_Plan_UPRefresh) weakSelf.exit_Plan_DownRefresh();
+        }];
+    }
+    else {
+        self.exit_Plan_TableView.mj_footer = nil;
+    }
+}
+
+- (void)setIsExitingShowLoadMore:(BOOL)isExitingShowLoadMore {
+    _isExitingShowLoadMore = isExitingShowLoadMore;
+    kWeakSelf
+    
+    if(isExitingShowLoadMore) {
+        [self.exiting_Plan_TableView hxb_footerWithRefreshBlock:^{
+            if(weakSelf.exiting_Plan_UPRefresh) weakSelf.exiting_Plan_DownRefresh();
+        }];
+    }
+    else {
+        self.exiting_Plan_TableView.mj_footer = nil;
+    }
 }
 @end

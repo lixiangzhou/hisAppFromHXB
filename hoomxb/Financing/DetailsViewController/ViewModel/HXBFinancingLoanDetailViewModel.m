@@ -61,16 +61,18 @@
     
 }
 
-- (HXBFin_Loan_Buy_ViewController *)getALoanBuyController:(NSString *)hasBindCard {
+- (HXBFin_Loan_Buy_ViewController *)getALoanBuyController:(NSString *)hasBindCard userInfoViewModel:(HXBRequestUserInfoViewModel*)model{
     //跳转加入界
     HXBFin_Loan_Buy_ViewController *loanJoinVC = [[HXBFin_Loan_Buy_ViewController alloc]init];
-    loanJoinVC.title = @"投资散标";
-    loanJoinVC.availablePoint = [NSString stringWithFormat:@"%.lf", self.loanDetailModel.loanDetailModel.loanVo.surplusAmount.doubleValue];
-    loanJoinVC.placeholderStr = self.loanDetailModel.addCondition;
-    loanJoinVC.loanId = self.loanDetailModel.loanDetailModel.userVo.loanId;
-    loanJoinVC.minRegisterAmount = self.loanDetailModel.loanDetailModel.minInverst;
-    loanJoinVC.registerMultipleAmount = self.loanDetailModel.loanDetailModel.minInverst;
-    loanJoinVC.hasBindCard = hasBindCard;
+    loanJoinVC.title                    = @"投资散标";
+    loanJoinVC.availablePoint           = [NSString stringWithFormat:@"%.lf", self.loanDetailModel.loanDetailModel.loanVo.surplusAmount.doubleValue];
+    loanJoinVC.placeholderStr           = self.loanDetailModel.addCondition;
+    loanJoinVC.hasBindCard              = hasBindCard;
+    loanJoinVC.loanId                   = self.loanDetailModel.loanDetailModel.userVo.loanId;
+    loanJoinVC.minRegisterAmount        = self.loanDetailModel.loanDetailModel.minInverst;
+    loanJoinVC.registerMultipleAmount   = self.loanDetailModel.loanDetailModel.minInverst;
+    loanJoinVC.userInfoViewModel        = model;
+    loanJoinVC.riskType = self.loanDetailModel.loanDetailModel.loanVo.riskLevel;
     
     return loanJoinVC;
 }

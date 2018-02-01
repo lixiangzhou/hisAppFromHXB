@@ -15,19 +15,17 @@
 #import "HXBMYRequest.h"
 #import "HXBMYModel_Plan_planRequestModel.h"
 #import "HXBMy_Plan_Swipe.h"
+#import "HXBMyPlanListViewModel.h"
+
 @interface HXBMY_PlanListViewController ()
 #pragma mark - view
 @property (nonatomic,strong) HXBMainListView_Plan *planListView;//里面有toolblarView
 
 #pragma mark -  关于plan list 的 数据
-///持有中
-@property (nonatomic,strong) NSArray <HXBMYViewModel_MianPlanViewModel *>*hold_Plan_array;
-///plan 推出中
-@property (nonatomic,strong) NSArray <HXBMYViewModel_MianPlanViewModel *>*exiting_Plan_array;
-///plan 已退出
-@property (nonatomic,strong) NSArray <HXBMYViewModel_MianPlanViewModel *>*exit_Plan_array;
 
-@property (nonatomic,strong) HXBMYModel_Plan_planRequestModel *planAccountModel;
+@property (nonatomic, strong) HXBMyPlanListViewModel* viewModel;
+///是否是首次进入页面
+@property (nonatomic, assign) BOOL isFirstEntry;
 @end
 
 @implementation HXBMY_PlanListViewController
@@ -40,12 +38,11 @@ kDealloc
     self.view.backgroundColor = [UIColor whiteColor];
     self.title  = @"红利计划";
     [self setUP];
-    ///网络请求
-//    [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
     //防止跳转的时候，tableView向上或者向下移动
     if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
         self.automaticallyAdjustsScrollViewInsets = NO;
     };
+    self.isFirstEntry = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -53,6 +50,7 @@ kDealloc
     [super viewWillAppear:animated];
     ///网络请求
     [self downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
+    self.isFirstEntry = NO;
 }
 
 //设置
@@ -71,6 +69,16 @@ kDealloc
     //cell 点击的加载
     [self registerClickCell];
 
+}
+
+#pragma 获取viewModel
+
+- (HXBMyPlanListViewModel *)viewModel {
+    if(!_viewModel) {
+        _viewModel = [[HXBMyPlanListViewModel alloc] init];
+    }
+    
+    return _viewModel;
 }
 
 /**
@@ -103,39 +111,70 @@ kDealloc
 - (void)downLoadDataWitRequestType: (HXBRequestType_MY_PlanRequestType) requestType andIsUpData: (BOOL)isUpData{
     __weak typeof (self)weakSelf = self;
     //请求资产数据
-    HXBMYRequest *request = [[HXBMYRequest alloc]init];
-    [request planAssets_AccountRequestSuccessBlock:^(HXBMYModel_Plan_planRequestModel *viewModel) {
-        self.planAccountModel = viewModel;
-        self.planListView.planAccountModel = viewModel;
-    } andFailureBlock:^(NSError *error) {
-    } andUpData:isUpData];
-    [[HXBMYRequest sharedMYRequest] myPlan_requestWithPlanType:requestType andUpData:isUpData andSuccessBlock:^(NSArray<HXBMYViewModel_MianPlanViewModel *> *viewModelArray, NSInteger totalCount) {
-        self.planListView.totalCount = totalCount;
-        //数据的分发
-        [weakSelf handleViewModelArrayWithViewModelArray:viewModelArray];
+    
+    [self.viewModel myPlanAssetStatistics_requestWithSuccessBlock:self.isFirstEntry andResultBlock:^(BOOL isSuccess) {
+        if(isSuccess) {
+            weakSelf.planListView.planAccountModel = weakSelf.viewModel.planAcccountModel;
+        }
+        
+    }];
+    
+    [self getDataWitRequestType:requestType andIsUpData:isUpData];
+    //如果是下拉刷新， 则刷新所有列表数据
+    if(isUpData) {
+        switch (requestType) {
+            case HXBRequestType_MY_PlanRequestType_HOLD_PLAN://持有中
+                [self getDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:isUpData];
+                [self getDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:isUpData];
+                break;
+            case HXBRequestType_MY_PlanRequestType_EXIT_PLAN: //已经推出
+                [self getDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:isUpData];
+                [self getDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:isUpData];
+                break;
+            case HXBRequestType_MY_PlanRequestType_EXITING_PLAN://正在推出
+                [self getDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:isUpData];
+                [self getDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:isUpData];
+                break;
+        }
+    }
+}
+
+- (void)getDataWitRequestType: (HXBRequestType_MY_PlanRequestType) requestType andIsUpData: (BOOL)isUpData{
+    kWeakSelf
+    [self.viewModel myPlan_requestWithPlanType:requestType andUpData:isUpData andResultBlock:^(BOOL isSuccess) {
         [weakSelf.planListView endRefresh];
-    } andFailureBlock:^(NSError *error) {
-        [weakSelf.planListView endRefresh];
+        if(isSuccess) {
+            //数据的分发
+            [weakSelf handleViewModelArrayWithViewModelArray:requestType];
+        }
     }];
 }
+
 ///网络数据请求数据处理
-- (void)handleViewModelArrayWithViewModelArray: (NSArray<HXBMYViewModel_MianPlanViewModel *>*)planViewModelArray{
-//    如果 没有值就直接return
-    if (!planViewModelArray.count) return;
-    //
-    switch (planViewModelArray.firstObject.requestType) {
+- (void)handleViewModelArrayWithViewModelArray: (HXBRequestType_MY_PlanRequestType) requestType{
+    
+    switch (requestType) {
         case HXBRequestType_MY_PlanRequestType_HOLD_PLAN://持有中
-            self.planListView.hold_Plan_array = planViewModelArray;
-            self.hold_Plan_array = planViewModelArray;
+        {
+            self.planListView.hold_Plan_array = self.viewModel.hold_Plan_array;
+            self.planListView.isHoldPlanShowLoadMore = self.viewModel.isHoldPlanShowLoadMore;
+            self.planListView.isHoldPlanLastPage = self.viewModel.isHoldPlanLastPage;
             break;
+        }
         case HXBRequestType_MY_PlanRequestType_EXIT_PLAN: //已经推出
-            self.exit_Plan_array = planViewModelArray;
-            self.planListView.exit_Plan_array = planViewModelArray;
+        {
+            self.planListView.exit_Plan_array = self.viewModel.exit_Plan_array;
+            self.planListView.isExitedShowLoadMore = self.viewModel.isExitedShowLoadMore;
+            self.planListView.isExitedLastPage = self.viewModel.isExitedLastPage;
             break;
+        }
         case HXBRequestType_MY_PlanRequestType_EXITING_PLAN://正在推出
-            self.planListView.exiting_Plan_array = planViewModelArray;
-            self.exiting_Plan_array = planViewModelArray;
+        {
+            self.planListView.exiting_Plan_array = self.viewModel.exiting_Plan_array;
+            self.planListView.isExitingShowLoadMore = self.viewModel.isExitingShowLoadMore;
+            self.planListView.isExitingLastPage = self.viewModel.isExitingLastPage;
             break;
+        }
     }
 }
 
@@ -155,17 +194,17 @@ kDealloc
         switch (type) {
                 //持有中
             case HXBRequestType_MY_PlanRequestType_HOLD_PLAN:
-                if (!weakSelf.hold_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
+                if (!weakSelf.viewModel.hold_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_HOLD_PLAN andIsUpData:YES];
                 break;
                 
                 //退出中
             case HXBRequestType_MY_PlanRequestType_EXITING_PLAN:
-                if (!weakSelf.exiting_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:YES];
+                if (!weakSelf.viewModel.exiting_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXITING_PLAN andIsUpData:YES];
                 break;
             
                 //已退出
             case HXBRequestType_MY_PlanRequestType_EXIT_PLAN:
-                if (!weakSelf.exit_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:YES];
+                if (!weakSelf.viewModel.exit_Plan_array.count) [weakSelf downLoadDataWitRequestType:HXBRequestType_MY_PlanRequestType_EXIT_PLAN andIsUpData:YES];
                 break;
         }
     }];

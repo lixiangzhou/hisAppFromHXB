@@ -18,5 +18,4 @@
 ///数据源
 @property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList *>*loanListViewModelArray;
 
-- (void)setSubView;
 @end

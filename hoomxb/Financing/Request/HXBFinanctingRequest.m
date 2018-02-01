@@ -27,6 +27,11 @@
 
 #import "HXBFinDetailViewModel_LoanTruansferDetail.h"//债转的viewModel
 
+//MARK: - 加入记录
+#import "HXBFinModel_AddRecortdModel_Plan.h"//加入记录的model
+#import "FinModel_AddRecortdModel_Loan.h"//加入记录的model loan
+#import "HXBFinModel_AddRecortdModel_LoanTruansfer.h"
+
 //MARK: - 购买
 #import "HXBFin_Plan_BuyViewModel.h"
 
@@ -35,8 +40,6 @@
 #import "HXBFinModel_Buy_LoanModel.h"//购买
 
 #import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"//债转的购买结果
-
-#import "HXBProductRequestModel.h"
 
 @interface HXBFinanctingRequest ()
 #pragma mark - Plan
@@ -68,7 +71,8 @@
 
 //
 @property (nonatomic,strong) NSMutableArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*loanTruansferViewModel;
-
+//加入记录的数组
+@property (nonatomic,strong) NSMutableArray <HXBFinModel_AddRecortdModel_LoanTruansfer *>*loanTruansferAddRecortdModelArray;
 @end
 
 
@@ -157,18 +161,28 @@
     
     //是否为下拉刷新
     self.planListAPI.isUPReloadData = isUPData;///这里一定要 在前面  否则 api的page不会++ 或变为1
-    NSString *planListUrl = isUPData ? @"/plan?page=1&cashType=HXB": [NSString stringWithFormat:@"/plan?page=%ld",self.planListAPI.dataPage];
+
+#if kIsNewBieDevelopVersion
+    NSString *planListUrl = isUPData ? @"/plan?page=1&cashType=newbie": [NSString stringWithFormat:@"/plan?page=%ld",self.planListAPI.dataPage];
+#else
+    NSString *planListUrl = isUPData ? @"/plan?page=1&cashType=hxb": [NSString stringWithFormat:@"/plan?page=%ld",self.planListAPI.dataPage];
+#endif
+    
     self.planListAPI.requestUrl = planListUrl;
     self.planListAPI.requestMethod = NYRequestMethodGet;
     [self.planListAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
         ///计划列表数据是否出错
         kHXBResponsShowHUD
         NSMutableArray <NSDictionary *>* dataList = [NSMutableArray arrayWithArray:responseObject[@"data"][@"dataList"]];
         NSArray <NSDictionary *>* recommendList = responseObject[@"data"][@"recommendList"];
+        NSArray <NSDictionary *>* newbieProductList = responseObject[@"data"][@"newbieProductList"];
+        
         // 插入按月付息的数组
         if (recommendList.count > 0) {
             [dataList insertObjects:recommendList atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, recommendList.count)]];
+        }
+        if (newbieProductList.count > 0) {
+            [dataList insertObjects:newbieProductList atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, newbieProductList.count)]];
         }
 
         NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [self plan_dataProcessingWitharr:dataList];
@@ -199,8 +213,7 @@
  @param dataList 数据数组
  @return 模型数组
  */
-- (NSMutableArray <HXBFinHomePageViewModel_PlanList *>*)plan_dataProcessingWitharr:(NSArray *)dataList
-{
+- (NSMutableArray <HXBFinHomePageViewModel_PlanList *>*)plan_dataProcessingWitharr:(NSArray *)dataList {
     NSMutableArray <HXBFinHomePageViewModel_PlanList *>*planListViewModelArray = [[NSMutableArray alloc]init];
     
     [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -258,7 +271,6 @@
             if(failureBlock) failureBlock(nil);
             return;
         }
-        NSLog(@"%@",responseObject);
         ///请求成功
         if (successDateBlock) {
             NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
@@ -267,19 +279,7 @@
         [PPNetworkCache setHttpCache:responseObject URL:@"/loan" parameters:nil];
         
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [self.loanListViewModelArray removeAllObjects];
-        id responseObject = [PPNetworkCache httpCacheForURL:@"/loan" parameters:nil];
-        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-        NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [self loan_dataProcessingWithArr:dataList];
-        //回调
-        [self loan_handleDataWithIsUPData:self.loanListAPI.isUPReloadData andViewModel:loanDataListModelArray];
-        if (responseObject) {
-            NSString *totalCountStr = responseObject[@"data"][@"totalCount"];
-            successDateBlock(self.loanListViewModelArray,totalCountStr.integerValue);
-            return;
-        }
-        if (error && failureBlock) {
-             NSLog(@"✘散标购买请求没有数据");
+        if (failureBlock) {
             failureBlock(error);
         }
     }];
@@ -291,8 +291,7 @@
  @param dataList 数据数组
  @return 模型数组
  */
-- (NSMutableArray <HXBFinHomePageViewModel_LoanList *>*)loan_dataProcessingWithArr:(NSArray *)dataList
-{
+- (NSMutableArray <HXBFinHomePageViewModel_LoanList *>*)loan_dataProcessingWithArr:(NSArray *)dataList {
     NSMutableArray <HXBFinHomePageViewModel_LoanList *>*loanDataListModelArray = [[NSMutableArray alloc]init];
     [dataList enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         
@@ -336,17 +335,11 @@
     self.loanTruansferAPI.requestMethod = NYRequestMethodGet;
     self.loanTruansferAPI.requestUrl = kHXBFin_LoanTruansferURL;
     self.loanTruansferAPI.requestArgument = @{
-                                              @"page":@(self.loanTruansferAPI.dataPage),//int    当前页
+                                              @"page":@(self.loanTruansferAPI.dataPage),//int	当前页
                                               @"pageSize":@kPageCount
                                               };
     [self.loanTruansferAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        if ([responseObject[kResponseStatus] integerValue]) {
-            if (failureBlock) {
-                failureBlock(nil,responseObject);
-            }
-            return;
-        }
-        
+        kHXBBuyErrorResponsShowHUD
         NSArray *data = responseObject[kResponseData][kResponseDataList];
         NSMutableArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*arrayM = [[NSMutableArray alloc]init];
         [data enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
@@ -357,7 +350,6 @@
             [arrayM addObject:viewModel];
         }];
         
-        
         if (successDateBlock) {
             if (request.isUPReloadData) {
                 [self.loanTruansferViewModel removeAllObjects];
@@ -367,11 +359,10 @@
             successDateBlock(self.loanTruansferViewModel,totalCountStr.integerValue);
         }
     } failure:^(HXBBaseRequest *request, NSError *error) {
-            if (failureBlock) {
-                failureBlock(error,nil);
-            }
+        if (failureBlock) {
+            failureBlock(error,nil);
+        }
     }];
-    
 }
 
 
@@ -412,7 +403,6 @@
     self.loanDetaileAPI.requestMethod = NYRequestMethodGet;
     
     [self.loanDetaileAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"responseObject = %@", responseObject);
         
         ///数据是否出错
         NSString *status = responseObject[kResponseStatus];
@@ -475,6 +465,85 @@
     
 }
 
+#pragma mark - 红利计划详情页 - 加入记录
+- (void)planAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinancePlanId: (NSString *)financePlanId andOrder: (NSString *)order andSuccessBlock: (void(^)(HXBFinModel_AddRecortdModel_Plan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
+    self.planAddRecortdAPI.isUPReloadData = isUPLoad;
+    self.planAddRecortdAPI.requestMethod = NYRequestMethodGet;
+    self.planAddRecortdAPI.requestUrl = kHXBFinanc_Plan_AddRecortdURL(financePlanId);
+    
+    [self.planAddRecortdAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
+        kHXBResponsShowHUD
+        HXBFinModel_AddRecortdModel_Plan *planAddRecortdModel = [[HXBFinModel_AddRecortdModel_Plan alloc]init];
+        NSDictionary *dataDic = [responseObject valueForKey:@"data"];
+        [planAddRecortdModel yy_modelSetWithDictionary:dataDic];
+        if (successDateBlock) {
+            successDateBlock(planAddRecortdModel);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        NSLog(@"✘ 红利计划的详情页 - 加入计划 - 网络请求失败");
+        if (error) {
+            failureBlock(error);
+        }
+    }];
+}
+#pragma mark - 散标计划详情 - 加入记录
+- (void)loanAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)financeLoanId andOrder: (NSString *)order andSuccessBlock: (void(^)(FinModel_AddRecortdModel_Loan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock {
+    self.loanAddRecortdAPI.requestMethod = NYRequestMethodGet;
+    
+    self.loanAddRecortdAPI.requestUrl = kHXBFinanc_Loan_AddRecortdURL(financeLoanId);
+    [self.loanAddRecortdAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+       kHXBResponsShowHUD
+        FinModel_AddRecortdModel_Loan *model = [[FinModel_AddRecortdModel_Loan alloc]init];
+        NSDictionary *dic = [responseObject valueForKey:@"data"];
+        [model yy_modelSetWithDictionary:dic];
+        if (successDateBlock) {
+            successDateBlock(model);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+         kNetWorkError(@"loan 加入计划 - 网络请求失败")
+        if (error) {
+            failureBlock(error);
+        }
+    }];
+}
+/// 债转详情  加入记录
+- (void)loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)loanTruanserId andOrder: (NSString *)order andSuccessBlock: (void(^)( NSArray< HXBFinModel_AddRecortdModel_LoanTruansfer *> * loanTruansferRecortdModel))successDateBlock andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock {
+    self.loanTruansferAddRecortdAPI.requestMethod = NYRequestMethodGet;
+    self.loanTruansferAddRecortdAPI.isUPReloadData = isUPLoad;
+    self.loanTruansferAddRecortdAPI.requestArgument = @{
+                                              @"page":@(self.loanTruansferAddRecortdAPI.dataPage)
+                                              };
+    self.loanTruansferAddRecortdAPI.requestUrl = kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruanserId);
+    
+    [self.loanTruansferAddRecortdAPI startWithHUDStr:kLoadIngText Success:^(HXBBaseRequest *request, id responseObject) {
+        if ([responseObject[kResponseStatus] integerValue]) {
+            if (failureBlock) {
+                failureBlock(nil,request);
+            }
+            return;
+        }
+        
+        NSArray *array = responseObject[kResponseData][kResponseDataList];
+        NSMutableArray *dataArray = [[NSMutableArray alloc]init];
+        
+        [array enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            HXBFinModel_AddRecortdModel_LoanTruansfer *model = [[HXBFinModel_AddRecortdModel_LoanTruansfer alloc]init];
+            [model yy_modelSetWithDictionary:obj];
+            model.index = @(array.count - idx).description;
+            [dataArray addObject:model];
+        }];
+        
+        if (successDateBlock) {
+            successDateBlock(dataArray);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        kNetWorkError(@"loan 加入计划 - 网络请求失败")
+        if (error) {
+            failureBlock(error,nil);
+        }
+    }];
+}
+
 #pragma mark - 购买
 /// 计划购买
 - (void)planBuyWithPlanID:(NSString *)planID
@@ -524,41 +593,47 @@
                        cashType : (NSString *)cashType
                  andSuccessBlock:(void (^)(HXBFin_Plan_BuyViewModel *model))successDateBlock
                  andFailureBlock:(void (^)(NSError *error, NSInteger status))failureBlock{
+    HXBBaseRequest *confirmBuyReslut = [[HXBBaseRequest alloc]init];
     
-    HXBProductRequestModel* reqModel = [[HXBProductRequestModel alloc] initWithDelegate:nil];
-    [reqModel plan_buyReslutWithPlanID:planID andAmount:amount cashType:cashType andResultBlock:^(HXBBaseRequest *request, id responseObject, NSError *error) {
-        if(!error) {
-            NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
-            if (status == kHXBNot_Sufficient_Funds) {
-                
-                if (failureBlock) failureBlock(nil,status);
-                return;
-            }
-            if (status == 3100) {
-                
-                if (failureBlock) failureBlock(nil,status);
-                return;
-            }
-            
-            if (status) {
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
-                return;
-            }
-            
-            NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
-            HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
-            
-            [reslut yy_modelSetWithDictionary:dataDic];
-            HXBFin_Plan_BuyViewModel *planViewModel = [[HXBFin_Plan_BuyViewModel alloc]init];
-            planViewModel.buyPlanModel = reslut;
-            
-            if (successDateBlock) {
-                successDateBlock(planViewModel);
-            }
+    if (!amount) amount = @"";
+    confirmBuyReslut.requestArgument = @{
+                                         @"amount" : amount,
+                                         @"cashType" : cashType
+                                         };
+    
+    confirmBuyReslut.requestUrl = kHXBFin_Plan_ConfirmBuyReslutURL(planID);
+    confirmBuyReslut.requestMethod = NYRequestMethodPost;
+    
+    [confirmBuyReslut startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+        NSInteger status = [[responseObject valueForKey:kResponseStatus] integerValue];
+        if (status == kHXBNot_Sufficient_Funds) {
+        
+            if (failureBlock) failureBlock(nil,status);
+            return;
         }
-        else{
-            if (failureBlock) failureBlock(nil,error.code);
+        if (status == 3100) {
+            
+            if (failureBlock) failureBlock(nil,status);
+            return;
         }
+        
+        if (status) {
+            [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
+            return;
+        }
+        
+        NSDictionary *dataDic = [responseObject valueForKey:kResponseData];
+        HXBFinModel_BuyResoult_PlanModel *reslut = [[HXBFinModel_BuyResoult_PlanModel alloc]init];
+        
+        [reslut yy_modelSetWithDictionary:dataDic];
+        HXBFin_Plan_BuyViewModel *planViewModel = [[HXBFin_Plan_BuyViewModel alloc]init];
+        planViewModel.buyPlanModel = reslut;
+        
+        if (successDateBlock) {
+            successDateBlock(planViewModel);
+        }
+    } failure:^(HXBBaseRequest *request, NSError *error) {
+        if (failureBlock) failureBlock(nil,error.code);
     }];
 }
 

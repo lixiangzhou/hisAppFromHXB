@@ -43,8 +43,20 @@ static NSString *kINVEST = @"INVEST";
  */
 - (NSString *) lockTime {
     if (!_lockTime) {
+        NSString *str = @"";
+        if ([self.planDetailModel.novice isEqualToString:@"1"]) {
+            if (self.planDetailModel.lockDays) {
+                str = [NSString stringWithFormat:@"%@天",self.planDetailModel.lockDays];
+            } else if(self.planDetailModel.lockPeriod){
+                str = [NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
+            }
+        } else if([self.planDetailModel.novice isEqualToString:@"0"]){
+            str = [NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
+        } else {
+            str = @"--";
+        }
         
-        _lockTime = [NSString stringWithFormat:@"%@个月",self.self.planDetailModel.lockPeriod];
+        _lockTime = str;
     }
     return _lockTime;
 }
@@ -73,7 +85,9 @@ static NSString *kINVEST = @"INVEST";
 ///年利率
 - (NSString *)expectedRate {
     if (!_expectedRate) {
-        _expectedRate = [NSString stringWithFormat:@"%.1f%%",self.planDetailModel.expectedRate.floatValue];
+        //收益中&新手计划&存在贴息
+        NSString *expectedRateStr = [self.planDetailModel.type isEqualToString:@"HOLD_PLAN"]&&[self.planDetailModel.novice isEqualToString:@"1"]&&self.planDetailModel.subsidyInterestRate ? [NSString stringWithFormat:@"%.1f%%+%.1f%%",self.planDetailModel.expectedRate.floatValue,self.planDetailModel.subsidyInterestRate.floatValue]: [NSString stringWithFormat:@"%.1f%%",self.planDetailModel.expectedRate.floatValue];
+        _expectedRate = expectedRateStr;
     }
     return _expectedRate;
 }

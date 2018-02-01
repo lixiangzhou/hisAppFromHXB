@@ -7,10 +7,11 @@
 //
 
 #import "HXBBaseViewController.h"
-
+#import "HXBMyRequestAccountModel.h"
 #import "HXBTopTabView.h"
 @interface HXBMyCouponViewController : HXBBaseViewController
 
 @property (nonatomic, strong) HXBTopTabView *topTabView;
 @property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) HXBMyRequestAccountModel *viewModel;
 @end

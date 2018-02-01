@@ -37,7 +37,7 @@
     
     _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _activityView.center = CGPointMake(kScreenWidth - kScrAdaptationW(60), kScrAdaptationH(25));
-    [_activityView startAnimating];
+    [_activityView stopAnimating];
     [self.contentView addSubview:_activityView];
     
     [self setupFrame];

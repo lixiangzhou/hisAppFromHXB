@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface HXBFin_LoanPerson_Info : UIView
-
+- (instancetype)initWithFrame:(CGRect)frame withLoanPersonInfoArray:(NSArray *)infoArray;
 @end

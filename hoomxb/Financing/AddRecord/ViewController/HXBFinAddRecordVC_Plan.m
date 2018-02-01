@@ -10,7 +10,6 @@
 #import "HXBFinanctingRequest.h"
 #import "HXBFinHomePageViewModel_PlanList.h"
 #import "HXBFinHomePageModel_PlanList.h"
-#import "HXBFinDetailViewModel_PlanDetail.h"
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划详情页Model
 #import "HXBFinAddRecortdTableView_Plan.h"//红利计划的加入计划View,里面自定义了 cell
 #import "HXBFinModel_AddRecortdModel_Plan.h"//红利计划 - 加入计划的Model，这个没有ViewModel的封装（数据太简单）

@@ -77,7 +77,10 @@ HXBFinDetailModel_LoanTruansferDetail_userVo;
 
 @interface HXBFinDetailModel_LoanTruansferDetail_loanVO : HXBBaseModel
 @property (nonatomic,copy) NSString * guaranteedAmount;
-
+///string   标的认证类型（借款人审核状态）
+@property (nonatomic,copy) NSString *creditInfoItems;
+@property (nonatomic,copy) NSString *riskLevel;///标的风险等级
+@property (nonatomic,copy) NSString *riskLevelDesc;///标的风险等级描述
 ///": "0.0",
 @property (nonatomic,copy) NSString * monthAmount;
 ///": "100.0",
@@ -262,7 +265,7 @@ HXBFinDetailModel_LoanTruansferDetail_userVo;
 ///": 1493262666000,
 @property (nonatomic,copy) NSString *createTime;
 ///": "公司职员，现居北京市，从事批发和零售业行业，工作收入稳定",
-@property (nonatomic,copy) NSString *description;
+@property (nonatomic,copy) NSString *descriptionStr;
 ///行业
 @property (nonatomic,copy) NSString *companyIndustry;
 ///": "大专",

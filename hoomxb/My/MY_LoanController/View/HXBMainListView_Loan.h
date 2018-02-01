@@ -13,7 +13,6 @@
 @class HXBMY_LoanTruansferViewModel;
 @interface HXBMainListView_Loan : UIView
 
-@property (nonatomic, assign) NSInteger totalCount;
 #pragma mark - 数据源
 ///资产统计model
 @property (nonatomic,strong) HXBMYModel_Loan_LoanRequestModel *loanAccountModel;
@@ -21,6 +20,18 @@
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel*> *repaying_ViewModelArray;
 @property (nonatomic,strong) NSArray <HXBMYViewModel_MainLoanViewModel*> *bid_ViewModelArray;
 @property (nonatomic,strong) NSArray <HXBMY_LoanTruansferViewModel *>* loanTruansferViewModelArray;
+
+///loan 收益中
+@property (nonatomic, assign) BOOL isRepayingLastPage; //收益中是否最后一页
+@property (nonatomic, assign) BOOL isRepayingShowLoadMore; //收益中是否显示加载更多
+
+/// loan 投标中
+@property (nonatomic, assign) BOOL isBidLastPage; //投标中是否最后一页
+@property (nonatomic, assign) BOOL isBidShowLoadMore; //投标中是否显示加载更多
+
+///转让中
+@property (nonatomic, assign) BOOL isTruanfserLastPage; //转让中是否最后一页
+@property (nonatomic, assign) BOOL isTruanfserShowLoadMore; //转让中是否显示加载更多
 
 #pragma mark - 事件的传递
 ///中间的toolBarView 的 select将要改变的时候

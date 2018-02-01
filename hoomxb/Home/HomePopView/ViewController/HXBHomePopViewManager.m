@@ -64,13 +64,13 @@
             weakSelf.isHide = YES;
             return ;
         }
-        [weakSelf updateUserDefaultsPopViewDate];
+        [weakSelf updateUserDefaultsPopViewDate:(NSDictionary *)[self.homePopViewModel.homePopModel yy_modelToJSONObject]];
     } andFailureBlock:^(NSError *error) {
         weakSelf.isHide = YES;
     }];
 }
 
-- (void)updateUserDefaultsPopViewDate{
+- (void)updateUserDefaultsPopViewDate:(NSDictionary *)dict{
 
     _responseDict = (NSDictionary *)[kUserDefaults objectForKey:self.homePopViewModel.homePopModel.ID];
     if (_responseDict[@"image"]) {
@@ -82,7 +82,9 @@
             self.isHide = ![kUserDefaults boolForKey:[NSString stringWithFormat:@"%@%@",_responseDict[@"id"],_responseDict[@"frequency"]]];
         }
     } else {
-        _responseDict = (NSDictionary *)[self.homePopViewModel.homePopModel yy_modelToJSONObject];
+        _responseDict = dict;
+        //        [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
+        //        [kUserDefaults synchronize];
         [self cachePopHomeImage];
     }
 }
@@ -221,17 +223,13 @@
         if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:homePopViewModel.url]]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:homePopViewModel.url]];
         }
-    } else {
-//                NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],@"0b025dfa-4613-4ba9-a9e8-5805fdb6a829"];
-        //        [HXBBaseWKWebViewController pushWithPageUrl:str fromController:controller];
-        //[HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:homePopViewModel.link] fromController:controller];
+    } else if ([homePopViewModel.type isEqualToString:@"h5"]) {
         
         if (homePopViewModel.url.length) {
             HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
             webViewVC.pageUrl = homePopViewModel.url;
             [controller.navigationController pushViewController:webViewVC animated:YES];
         }
-//        [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.url fromController:controller];
     }
     
     [self.popView dismiss];

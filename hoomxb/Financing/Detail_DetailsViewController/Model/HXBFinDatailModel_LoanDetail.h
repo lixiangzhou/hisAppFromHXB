@@ -53,6 +53,8 @@ typedef enum : NSUInteger {
 
 ///散标的基本信息
 @interface HXBFinDatailModel_LoanDetail_loanVo : NSObject
+///string   标的认证类型（借款人审核状态）
+@property (nonatomic,copy) NSString *creditInfoItems;
 ///string	籍贯所在地
 @property (nonatomic,copy) NSString *accountLocation;
 ///string	公司地址
@@ -75,6 +77,10 @@ typedef enum : NSUInteger {
 @property (nonatomic,copy) NSString *remainTime;
 ///利益
 @property (nonatomic,copy) NSString *interest;
+///标的风险等级
+@property (nonatomic,copy) NSString *riskLevel;
+///标的风险等级描述
+@property (nonatomic,copy) NSString *riskLevelDesc;
 ///描述
 @property (nonatomic,copy) NSString *description_loanVO;
 ///左边的月数

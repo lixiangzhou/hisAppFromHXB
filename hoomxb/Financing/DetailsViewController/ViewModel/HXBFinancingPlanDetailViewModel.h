@@ -21,8 +21,6 @@
 @property (nonatomic, assign) BOOL statusCanJoinIn;
 /// 是否有利率
 @property (nonatomic, assign) BOOL hasExtraInterestRate;
-/// tableView Title
-@property (nonatomic, strong) NSArray <NSString *> *tableViewTitleArray;
 /// 收益字段
 @property (nonatomic, copy) NSString *profitString;
 
@@ -34,7 +32,7 @@
 /// 设置数据
 - (void)setFlowChartViewManagerData:(HXBFinBase_FlowChartView_Manager *)manager;
 /// 获取一个将要push 的 HXBFin_Plan_Buy_ViewController，内部会设置要数据
-- (HXBFin_Plan_Buy_ViewController *)getAPlanBuyController:(NSString *)hasBindCard;
+- (HXBFin_Plan_Buy_ViewController *)getAPlanBuyController:(NSString *)hasBindCard userInfo:(HXBRequestUserInfoViewModel *)viewModel;
 /// 红利计划详情页
 - (void)requestPlanDetailWithPlanId:(NSString *)planId resultBlock:(void (^)(BOOL isSuccess))resultBlock;
 

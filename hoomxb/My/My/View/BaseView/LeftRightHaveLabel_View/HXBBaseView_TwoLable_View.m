@@ -82,6 +82,16 @@
     [self setUPViewFrame];
 }
 
+- (void)setIsLoanTransfer:(BOOL)isLoanTransfer {
+    _isLoanTransfer = isLoanTransfer;
+    kWeakSelf
+    if (_isLoanTransfer && !self.ViewVM.isLeftRight) {
+        [self.rightLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.right.left.equalTo(weakSelf);
+            make.top.equalTo(weakSelf.leftLabel.mas_bottom).offset(kScrAdaptationH(6.5));
+        }];
+    }
+}
 - (void)setUPViewFrame {
     if (self.ViewVM.isLeftRight) {///左右结构
         [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -96,16 +106,17 @@
         
     } else { //上下结构
         [self.leftLabel sizeToFit];
-        [self.leftLabel sizeToFit];
+        [self.rightLabel sizeToFit];
         
         [self.leftLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.left.top.equalTo(self);
         }];
-        
+
         [self.rightLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.left.equalTo(self);
             make.top.equalTo(self.leftLabel.mas_bottom);
         }];
+        
     }
 
 }

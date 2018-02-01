@@ -40,6 +40,7 @@
 
 
 @interface HXBFin_DetailsView_LoanDetailsView_ViewModelVM : NSObject
+
 ///* 预期收益不代表实际收益投资需谨慎
 @property (nonatomic,copy) NSString *promptStr;
 /// title

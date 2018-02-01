@@ -54,11 +54,18 @@
     manager.leaveTime = self.planDetailModel.endLockingTime_flow;
 }
 
-- (HXBFin_Plan_Buy_ViewController *)getAPlanBuyController:(NSString *)hasBindCard {
+- (HXBFin_Plan_Buy_ViewController *)getAPlanBuyController:(NSString *)hasBindCard userInfo:(HXBRequestUserInfoViewModel *)viewModel{
     HXBFin_Plan_Buy_ViewController *planJoinVC = [[HXBFin_Plan_Buy_ViewController alloc] init];
+
+    float newBiePlanLeftAmount = self.planDetailModel.planDetailModel.newbiePlanLeftAmount.floatValue;
+    BOOL isNewPlan = [self.planDetailModel.planDetailModel.novice isEqualToString:@"1"];
     float remainAmount = self.planDetailModel.planDetailModel.remainAmount.floatValue;
     float userRemainAmount = self.planDetailModel.planDetailModel.userRemainAmount.floatValue;
-    float creditorVCStr = remainAmount < userRemainAmount ? remainAmount : userRemainAmount;
+    float creditorVCStr = isNewPlan ? MIN(remainAmount, newBiePlanLeftAmount) : MIN(remainAmount, userRemainAmount);
+    
+    planJoinVC.isNewPlan = isNewPlan;
+    planJoinVC.NewPlanJoinLimit = self.planDetailModel.planDetailModel.newbiePlanAmount;
+    planJoinVC.expectedSubsidyInterestAmount = self.planDetailModel.planDetailModel.expectedSubsidyInterestAmount;
     planJoinVC.availablePoint = [NSString stringWithFormat:@"%.2f", creditorVCStr];
     planJoinVC.title = @"加入计划";
     planJoinVC.isFirstBuy               = [self.planDetailModel.planDetailModel.isFirst boolValue];
@@ -69,6 +76,10 @@
     planJoinVC.cashType                 = self.planDetailModel.planDetailModel.cashType;
     planJoinVC.registerMultipleAmount   = self.planDetailModel.planDetailModel.registerMultipleAmount;
     planJoinVC.placeholderStr           = self.planDetailModel.addCondition;
+    planJoinVC.hasBindCard              = hasBindCard;
+    planJoinVC.userInfoViewModel        = viewModel;
+    planJoinVC.riskType                 = self.planDetailModel.planDetailModel.riskType;
+    
     return planJoinVC;
 }
 

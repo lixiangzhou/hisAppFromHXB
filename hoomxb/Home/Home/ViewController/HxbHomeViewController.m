@@ -9,6 +9,8 @@
 #import "HxbHomeViewController.h"
 #import "HxbAdvertiseViewController.h"
 #import "HXBHomeVCViewModel.h"
+#import "HxbHomeRequest.h"
+//#import "HxbSecurityCertificationViewController.h"
 #import "HXBHomeBaseModel.h"
 #import "HXBFinancing_PlanDetailsViewController.h"
 #import "HXBFinancing_LoanDetailsViewController.h"
@@ -25,7 +27,8 @@
 #import "HXBHomePopViewManager.h"
 #import "HXBRootVCManager.h"
 #import "HXBVersionUpdateManager.h"
-
+#import "HxbHomePageViewModel.h"
+#import "HXBHomeNewbieProductModel.h"
 @interface HxbHomeViewController ()
 
 @property (nonatomic, strong) HxbHomeView *homeView;
@@ -36,6 +39,8 @@
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 @property (nonatomic, strong) HXBHomeVCViewModel *homeVimewModle;
+@property (nonatomic, strong) HxbHomePageViewModel *homeViewModel;
+
 @property (nonatomic, assign) int times;
 
 @end
@@ -141,23 +146,35 @@
         self.homeView.userInfoViewModel = self.userInfoViewModel;
     }
     
-    if (!self.homeView.homeBaseModel) {
+    if (!self.homeView.homeBaseViewModel.homeBaseModel) {
         id responseObject = [PPNetworkCache httpCacheForURL:kHXBHome_HomeURL parameters:nil];
         if (responseObject) {
             NSDictionary *baseDic = [responseObject valueForKey:@"data"];
-            self.homeView.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
+            self.homeView.homeBaseViewModel.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
         }
     }
-    self.homeVimewModle = [[HXBHomeVCViewModel alloc] initWithBlock:^UIView *{
+    
+    self.homeVimewModle = [[HXBHomeVCViewModel alloc]  initWithBlock:^UIView *{
         return weakSelf.view;
     }];
+    
     [self.homeVimewModle homePlanRecommendCallbackBlock:^(BOOL isSuccess) {
         if (isSuccess) {
-            weakSelf.homeView.homeBaseModel = weakSelf.homeVimewModle.homeBaseModel;
+            //chj 注释
+            //            weakSelf.homeView.homeBaseViewModel = weakSelf.homeVimewModle.homeBaseModel;
         }
-        weakSelf.homeView.isStopRefresh_Home = YES;
+        
+        HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
+        [request homePlanRecommendWithIsUPReloadData:isUPReloadData andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
+            NSLog(@"%@",viewModel);
+            weakSelf.homeViewModel = viewModel;
+            weakSelf.homeView.homeBaseViewModel = viewModel;
+            weakSelf.homeView.isStopRefresh_Home = YES;
+            
+        } andFailureBlock:^(NSError *error) {
+            weakSelf.homeView.isStopRefresh_Home = YES;
+        }];
     }];
-
 }
 
 ///登录
@@ -187,7 +204,7 @@
             HXBFinancing_PlanDetailsViewController *planDetailsVC = [[HXBFinancing_PlanDetailsViewController alloc]init];
             UIBarButtonItem *leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"红利计划##" style:UIBarButtonItemStylePlain target:nil action:nil];
             weakSelf.navigationItem.backBarButtonItem = leftBarButtonItem;
-            HxbHomePageModel_DataList *homePageModel = weakSelf.homeView.homeBaseModel.homePlanRecommend[indexPath.section];
+            HxbHomePageModel_DataList *homePageModel = weakSelf.homeView.homeBaseViewModel.homeDataList[indexPath.section];
             planDetailsVC.title = homePageModel.name;
             planDetailsVC.planID = homePageModel.ID;
             planDetailsVC.isPlan = YES;
@@ -215,6 +232,15 @@
         
         _homeView.clickBannerImageBlock = ^(BannerModel *model) {
             [weakSelf pushToViewControllerWithModel:model];
+        };
+        
+        _homeView.newbieAreaActionBlock = ^{
+            NSLog(@"点击了新手专区");
+            if (weakSelf.homeViewModel.homeBaseModel.newbieProductData.url.length > 0) {
+                HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
+                webViewVC.pageUrl = weakSelf.homeViewModel.homeBaseModel.newbieProductData.url;
+                [weakSelf.navigationController pushViewController:webViewVC animated:YES];
+            }
         };
     }
     return _homeView;
@@ -273,13 +299,18 @@
 - (UIStatusBarStyle)preferredStatusBarStyle {
     //该方法联系调用两次，如果一直返回UIStatusBarStyleDefault， 就会导致下一个页面的导航栏混乱， 因此做了如下修改
     
-    if(1 == self.times) {
-        self.times++;
-        return UIStatusBarStyleLightContent;
-    }
-    else{
-        self.times = 1;
+    if (@available(iOS 11.0, *)) {
         return UIStatusBarStyleDefault;
+    }
+    else {
+        if(1 == self.times) {
+            self.times++;
+            return UIStatusBarStyleDefault;
+        }
+        else{
+            self.times = 1;
+            return UIStatusBarStyleDefault;
+        }
     }
 }
 

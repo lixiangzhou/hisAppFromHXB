@@ -42,6 +42,21 @@
 @property (nonatomic,copy) NSString *hasRecharge;
 /// 持有总资产
 @property (nonatomic,strong) NSNumber *holdingTotalAssets;
+/// 持有总资产
+@property (nonatomic, assign) double holdingAmount;
+/**
+ 用户可出借总金额
+ */
+@property (nonatomic,copy) NSString *userRiskAmount;
+/**
+ 用户可购买产品风险类型集合:
+ 保守型：[“AA”,”A”,”CONSERVATIVE”];
+ 稳健性：[“AA”,”A”, “B”,”CONSERVATIVE”, “PRUDENT”];
+ 激进型：[“D”, “AA”, “A”,”PROACTIVE”, “B”,”C”,”CONSERVATIVE”, “PRUDENT”]
+ */
+@property (nonatomic,strong) NSArray *userRisk;
+
+
 @end
 
 
@@ -79,6 +94,10 @@
 @property (nonatomic,copy) NSString *realName;
 /// 身份证 640121197904299980
 @property (nonatomic,copy) NSString *idNo;
+/**
+ 1: 是新手；0: 不是新手
+ */
+@property (nonatomic, copy) NSString* isNewbie;
 
 /**
  性别：‘0’：男，‘1’：女
@@ -115,6 +134,10 @@
  */
 @property (nonatomic, assign) BOOL isUnbundling;
 /**
+ 是否展示邀请好友
+ */
+@property (nonatomic, assign) BOOL isDisplayInvite;
+/**
  ip
  */
 @property (nonatomic,copy) NSString *ip;
@@ -126,5 +149,7 @@
  是否有理财顾问
  */
 @property (nonatomic,assign) BOOL isDisplayAdvisor;
+
+
 
 @end

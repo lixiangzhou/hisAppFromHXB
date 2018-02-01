@@ -4,7 +4,7 @@
 //
 //  Created by HXB on 2017/7/10.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
-//
+//  债转详情
 
 #import "HXBFin_DetailLoanTruansfer_ViewController.h"
 #import "HXBFinHomePageViewModel_LoanTruansferViewModel.h"
@@ -16,8 +16,9 @@
 #import "HXBFinanctingDetail_progressCell.h"
 #import "HXBFin_LoanTruansferDetail_TopView.h"
 #import "HXBFinanctingDetail_trustCell.h"
-
 #import "HXBLoanTruansferDetailViewModel.h"
+#import "HXBFin_creditorChange_buy_ViewController.h"
+#import "HXBFinDetailViewModel_LoanDetail.h"
 
 @interface HXBFin_DetailLoanTruansfer_ViewController ()<UITableViewDelegate, UITableViewDataSource>
 ///底部的tableView被点击
@@ -105,10 +106,13 @@
 }
 
 - (UIView *)tableViewFootView {
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(37))];
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScrAdaptationH(10))];
     footView.backgroundColor = [UIColor clearColor];
     UILabel *promptLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, kScrAdaptationH(10), kScreenWidth, kScrAdaptationH(17))];
-    promptLabel.text = @"- 预期收益不代表实际收益，投资需谨慎 -";
+    if (KeyChain.baseTitle.length > 0) {
+        promptLabel.text = [NSString stringWithFormat:@"- %@ -",KeyChain.baseTitle];
+        footView.height = kScrAdaptationH(37);
+    }
     promptLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     promptLabel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
     promptLabel.textAlignment = NSTextAlignmentCenter;
@@ -181,8 +185,13 @@
         [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:kHXB_Negotiate_AddTrustURL] fromController:self];
     } else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
+
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.viewModel.loanTruansferDetailModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.loanInstruction = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.descriptionStr;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.loanVo.creditInfoItems;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.loanVo.riskLevel;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevelDesc = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.loanVo.riskLevelDesc;
             [self.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         } else if (indexPath.row == 1) {
             HXBFinAddRecordVC_LoanTruansfer *loanAddRecordVC = [[HXBFinAddRecordVC_LoanTruansfer alloc]init];
@@ -202,18 +211,18 @@
     }
     ///判断是否实名。。。。
     kWeakSelf
-    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard) {
-        [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard];
+    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+        [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard userInfo:model];
     }];
 }
 
-- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
+- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard userInfo:(HXBRequestUserInfoViewModel *)viewModel {
     if ([self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.enabledBuy isEqualToString:@"0"]) {
         [HxbHUDProgress showTextWithMessage:@"自己转让的债权无法再次购买"];
         return;
     }
     
-    [self.navigationController pushViewController:[self.viewModel getACreditorChangeBuyController:hasBindCard] animated:YES];
+    [self.navigationController pushViewController:[self.viewModel getACreditorChangeBuyController:hasBindCard userInfo:viewModel] animated:YES];
 }
 
 

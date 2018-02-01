@@ -278,7 +278,9 @@
     self.promptLablel.textAlignment = NSTextAlignmentCenter;
     self.promptLablel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.promptLablel.textColor = kHXBColor_RGB(0.6, 0.6, 0.6, 1);
-    self.promptLablel.text = @"- 预期收益不代表实际收益，投资需谨慎 -";
+    if (KeyChain.baseTitle.length > 0) {
+        self.promptLablel.text = [NSString stringWithFormat:@"- %@ -",KeyChain.baseTitle];
+    }
     [self.promptLablel mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(self.bottomTableView.mas_bottom).offset(kScrAdaptationH(20));
         make.top.equalTo(self.bottomTableView.mas_bottom).offset(kScrAdaptationH(10));

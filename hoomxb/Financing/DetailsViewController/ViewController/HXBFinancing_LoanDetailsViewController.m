@@ -119,8 +119,9 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
             return;
         }
-        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^(NSString *hasBindCard){
-            [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard];
+        
+        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+            [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard userInfoViewModel:model];
         }];
     }];
 }
@@ -132,8 +133,8 @@
     }];
 }
 
-- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard {
-    [self.navigationController pushViewController:[self.viewModel getALoanBuyController:hasBindCard] animated:YES];
+- (void)enterLoanBuyViewControllerWithHasBindCard:(NSString *)hasBindCard userInfoViewModel:(HXBRequestUserInfoViewModel*)model{
+    [self.navigationController pushViewController:[self.viewModel getALoanBuyController:hasBindCard userInfoViewModel:model] animated:YES];
 }
 
 //MARK: 网络数据请求

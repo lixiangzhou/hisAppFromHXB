@@ -15,31 +15,24 @@
 #import "HXBFinHomePageModel_LoanList.h"
 #import "SVGKit/SVGKImage.h"
 @interface HXBFinancting_PlanListTableViewCell ()
-@property (nonatomic,strong) UILabel *nameLabel;
-@property (nonatomic,strong) UILabel *expectedYearRateLable;//预期年化
-@property (nonatomic,strong) UILabel *lockPeriodLabel;//计划期限
-@property (nonatomic,strong) UILabel *addStatus;//加入的状态
-@property (nonatomic,strong) UILabel *preferentialLabel;//打折的label
-@property (nonatomic,strong) UIImageView *arrowImageView;
+
+@property (nonatomic,strong) UILabel *nameLabel;                //计划名称
+@property (nonatomic,strong) UILabel *expectedYearRateLable;    //预期年化
+@property (nonatomic,strong) UILabel *lockPeriodLabel;          //计划期限
+@property (nonatomic,strong) UILabel *addStatus;                //加入的状态
+@property (nonatomic,strong) UILabel *preferentialLabel;        //打折的label
+@property (nonatomic,strong) UIImageView *arrowImageView;       //时间的图标
 @property (nonatomic,strong) UILabel *expectedYearRateLable_Const;
 @property (nonatomic,strong) UILabel *lockPeriodLabel_Const;
-@property (nonatomic,strong) UILabel *countDownLable;//倒计时label
-@property (nonatomic, strong) UILabel *tagLabel;//tag标签
+@property (nonatomic,strong) UILabel *countDownLable;           //倒计时label
+@property (nonatomic,strong) UILabel *tagLabel;                 //tag标签
 @property (nonatomic,strong) UIImageView *tagLableImageView;
-
-@property (nonatomic, strong) UIImageView *lineImageView;
-
-@property (nonatomic, strong) UIImageView *HXBImageView; // 按月付息的icon
-
-@property (nonatomic, strong) UIView *countDownView;//承载倒计时的View
-/**
- 满减券
- */
-@property (nonatomic, strong) UIImageView *moneyOffCouponImageView;
-/**
- 抵扣券
- */
-@property (nonatomic, strong) UIImageView *discountCouponImageView;
+@property (nonatomic,strong) UIImageView *lineImageView;
+@property (nonatomic,strong) UIImageView *HXBImageView;                   // 按月付息的icon
+@property (nonatomic,strong) UIView *countDownView;                       //承载倒计时的View
+@property (nonatomic,strong) UIImageView *moneyOffCouponImageView;        // 满减券
+@property (nonatomic,strong) UIImageView *discountCouponImageView;        // 抵扣券
+@property (nonatomic,strong) UIImageView *backgroundImageView;            // 大背景颜色
 
 @end
 @implementation HXBFinancting_PlanListTableViewCell
@@ -47,34 +40,64 @@
 - (void)setFinPlanListViewModel:(HXBFinHomePageViewModel_PlanList *)finPlanListViewModel {
     _finPlanListViewModel = finPlanListViewModel;
     self.nameLabel.text = finPlanListViewModel.planListModel.name;
-    self.countDownLable.text = finPlanListViewModel.countDownString;
-    self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
-    self.lockPeriodLabel.text = finPlanListViewModel.planListModel.lockPeriod;
     self.addStatus.text = finPlanListViewModel.unifyStatus;
-    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
-    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
+    self.countDownLable.text = finPlanListViewModel.countDownString;
+    
+    self.expectedYearRateLable.attributedText = finPlanListViewModel.expectedYearRateAttributedStr;
+    self.expectedYearRateLable.textColor = (finPlanListViewModel.planType == planType_newComer) ? kHXBColor_FF7D2F_100 : kHXBColor_Red_090303;
+    self.backgroundImageView.hidden = finPlanListViewModel.planType == planType_newComer ? NO : YES;
+    self.lockPeriodLabel.text = finPlanListViewModel.lockPeriod;
+    
     if (self.finPlanListViewModel.remainTimeString.length) {
         self.countDownLable.text = _finPlanListViewModel.remainTimeString;
     }
     self.addStatus.backgroundColor = finPlanListViewModel.addButtonBackgroundColor;
     self.addStatus.textColor = finPlanListViewModel.addButtonTitleColor;
     self.addStatus.layer.borderColor = finPlanListViewModel.addButtonBorderColor.CGColor;
-    self.addStatus.layer.borderWidth = kScrAdaptationH(0.8f);
+    [self setupAddStatusWithPlanType:_finPlanListViewModel.planType status:self.addStatus.text];
     
-    if (finPlanListViewModel.planListModel.tag.length > 0) {
-        self.tagLabel.text = finPlanListViewModel.planListModel.tag;
-        self.tagLableImageView.hidden = NO;
-        self.tagLabel.hidden = NO;
-    } else {
+    
+    if (finPlanListViewModel.planType == planType_newComer) { // 如果是新手标，隐藏一些图标
+        self.HXBImageView.hidden = YES;
+        self.lineImageView.hidden = YES;
         self.tagLabel.hidden = YES;
         [self.tagLableImageView setHidden:YES];
+        self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_newComer"];
+    } else {
+        self.arrowImageView.image = [UIImage imageNamed:@"finPlanList_CountDown_default"];
+        if (finPlanListViewModel.planListModel.tag.length > 0) {
+            self.tagLabel.text = finPlanListViewModel.planListModel.tag;
+            self.tagLableImageView.hidden = NO;
+            self.tagLabel.hidden = NO;
+        } else {
+            self.tagLabel.hidden = YES;
+            [self.tagLableImageView setHidden:YES];
+        }
+        self.HXBImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: YES;
+        self.lineImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: !finPlanListViewModel.planListModel.hasCoupon;
     }
-    [self setupAddStatus];
-    self.HXBImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: YES;
-    self.lineImageView.hidden = [finPlanListViewModel.planListModel.cashType isEqualToString:@"HXB"] ? NO: !finPlanListViewModel.planListModel.hasCoupon;
+    [self.countDownLable setHidden:self.finPlanListViewModel.isHidden];
+    [self.arrowImageView setHidden:self.finPlanListViewModel.isHidden];
     //设置优惠券
     [self setupCoupon];
 }
+
+- (void) setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
+    _loanListViewModel = loanListViewModel;
+    HXBFinHomePageModel_LoanList *model = loanListViewModel.loanListModel;
+    self.nameLabel.text = model.title;
+    
+    self.addStatus.backgroundColor = loanListViewModel.addButtonBackgroundColor;
+    self.addStatus.textColor = loanListViewModel.addButtonTitleColor;
+    self.addStatus.layer.borderColor = loanListViewModel.addButtonBorderColor.CGColor;
+
+    
+    self.expectedYearRateLable.attributedText = loanListViewModel.expectedYearRateAttributedStr;
+    self.lockPeriodLabel.text = model.months;
+    self.addStatus.text = loanListViewModel.status;
+}
+
+
 //设置优惠券
 - (void)setupCoupon {
     self.moneyOffCouponImageView.hidden = !self.finPlanListViewModel.planListModel.hasMoneyOffCoupon;
@@ -97,29 +120,31 @@
 }
 
 //设置等待加入label的背景颜色
-- (void)setupAddStatus
-{
-    if ([self.addStatus.text isEqualToString:@"等待加入"]) {
-        self.addStatus.backgroundColor = RGB(255, 247, 247);
-        self.addStatus.textColor = RGB(253, 54, 54);
-        self.addStatus.layer.borderColor = RGB(255, 133, 133).CGColor;
-        self.addStatus.layer.borderWidth = kScrAdaptationH(0.5f);
+- (void)setupAddStatusWithPlanType:(PlanType)planType status:(NSString *)status {
+    if ([status isEqualToString:@"等待加入"]) {
+        if (planType == planType_newComer) {
+            self.addStatus.backgroundColor = kHXBColor_FFFCF5_100;
+            self.addStatus.layer.borderColor = kHXBColor_FF9535_100.CGColor;
+            self.addStatus.textColor = kHXBColor_FF7D2F_100;
+            self.countDownLable.textColor = kHXBColor_FF7D2F_100;
+        } else {
+            self.addStatus.backgroundColor = RGB(255, 247, 247);
+            self.addStatus.layer.borderColor = RGB(255, 133, 133).CGColor;
+            self.addStatus.textColor = RGB(253, 54, 54);
+            self.countDownLable.textColor = HXBC_Red_Deep;
+        }
+    } else if ([status isEqualToString:@"立即加入"]) {
+        if (planType == planType_newComer) {
+            self.addStatus.backgroundColor = kHXBColor_FF7D2F_100;
+            self.addStatus.layer.borderColor = kHXBColor_FF7D2F_100.CGColor;
+            self.countDownLable.textColor = kHXBColor_FF7D2F_100;
+        } else {
+            self.addStatus.backgroundColor = kHXBColor_Red_090303;
+            self.addStatus.layer.borderColor = kHXBColor_Red_090303.CGColor;
+            self.countDownLable.textColor = HXBC_Red_Deep;
+        }
+        self.addStatus.textColor = [UIColor whiteColor];
     }
-}
-
-- (void) setLoanListViewModel:(HXBFinHomePageViewModel_LoanList *)loanListViewModel {
-    _loanListViewModel = loanListViewModel;
-    HXBFinHomePageModel_LoanList *model = loanListViewModel.loanListModel;
-    self.nameLabel.text = model.title;
-    
-    self.addStatus.backgroundColor = loanListViewModel.addButtonBackgroundColor;
-    self.addStatus.textColor = loanListViewModel.addButtonTitleColor;
-    self.addStatus.layer.borderColor = loanListViewModel.addButtonBorderColor.CGColor;
-    self.addStatus.layer.borderWidth = kXYBorderWidth;
-
-    self.expectedYearRateLable.attributedText = loanListViewModel.expectedYearRateAttributedStr;
-    self.lockPeriodLabel.text = model.months;
-    self.addStatus.text = loanListViewModel.status;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -139,6 +164,7 @@
 ///添加子控件
 - (void)addSubUI {
     //添加
+    [self.contentView addSubview:self.backgroundImageView];
     [self.contentView addSubview:self.nameLabel];
     [self.contentView addSubview:self.expectedYearRateLable];
     [self.contentView addSubview:self.expectedYearRateLable_Const];
@@ -157,9 +183,15 @@
     [self.contentView addSubview:self.HXBImageView];
 }
 ///布局UI
+
 - (void)layoutSubUI {
     kWeakSelf
     //布局
+    [self.backgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH(13));
+        make.bottom.left.right.equalTo(weakSelf.contentView);
+    }];
+    
     [self.moneyOffCouponImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.lineImageView.mas_bottom);
         make.bottom.equalTo(weakSelf.contentView);
@@ -227,7 +259,7 @@
         make.right.equalTo(weakSelf.countDownLable.mas_right);
         make.bottom.equalTo(weakSelf.countDownLable.mas_bottom);
     }];
-    //时间的图标
+    
     [self.arrowImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(weakSelf.countDownView.mas_left);
         make.height.top.equalTo(weakSelf.countDownLable);
@@ -271,17 +303,11 @@
     if (self.finPlanListViewModel.isCountDown) {
         self.countDownLable.text = countDownString;
         self.addStatus.text = @"等待加入";
-        self.addStatus.backgroundColor = RGB(255, 247, 247);
-        self.addStatus.textColor = RGB(253, 54, 54);
-        self.addStatus.layer.borderColor = RGB(255, 133, 133).CGColor;
-        self.addStatus.layer.borderWidth = kScrAdaptationH(0.5f);
+        [self setupAddStatusWithPlanType:_finPlanListViewModel.planType status:self.addStatus.text];
     }
     if ([self.addStatus.text isEqualToString:@"等待加入"] && self.finPlanListViewModel.isHidden) {
         self.addStatus.text = @"立即加入";
-        self.addStatus.backgroundColor = kHXBColor_Red_090303;
-        self.addStatus.textColor = [UIColor whiteColor];
-        self.addStatus.layer.borderColor = kHXBColor_Red_090303.CGColor;
-        self.addStatus.layer.borderWidth = kXYBorderWidth;
+        [self setupAddStatusWithPlanType:_finPlanListViewModel.planType status:self.addStatus.text];
     }
 }
 - (void)setLockPeriodLabel_ConstStr:(NSString *)lockPeriodLabel_ConstStr {
@@ -324,8 +350,6 @@
     if (!_expectedYearRateLable) {
         _expectedYearRateLable = [[UILabel alloc]init];
         _expectedYearRateLable.font = kHXBFont_PINGFANGSC_REGULAR(24);
-        _expectedYearRateLable.textColor = kHXBColor_Red_090202;
-        
     }
     return _expectedYearRateLable;
 }
@@ -341,7 +365,8 @@
 }
 - (UILabel *)addStatus {
     if (!_addStatus) {
-        _addStatus = [[UILabel alloc]init];
+        _addStatus = [[UILabel alloc] init];
+        _addStatus.layer.borderWidth = kXYBorderWidth;
         
     }
     return _addStatus;
@@ -377,7 +402,6 @@
 - (UIImageView *)arrowImageView {
     if (!_arrowImageView) {
         _arrowImageView = [[UIImageView alloc]init];
-        _arrowImageView.image = [SVGKImage imageNamed:@"FinPlanList_CountDown.svg"].UIImage;
         _arrowImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _arrowImageView;
@@ -385,7 +409,6 @@
 - (UILabel *)countDownLable {
     if (!_countDownLable){
         _countDownLable = [[UILabel alloc]init];
-        _countDownLable.textColor = HXBC_Red_Deep;
         _countDownLable.font = kHXBFont_PINGFANGSC_REGULAR(13);
     }
     return _countDownLable;
@@ -439,5 +462,14 @@
     return _HXBImageView;
 }
 
+- (UIImageView *)backgroundImageView {
+    if (!_backgroundImageView) {
+        _backgroundImageView = [[UIImageView alloc]init];
+        _backgroundImageView.image = [UIImage imageNamed:@"planListBackImage"];
+        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _backgroundImageView.hidden = YES;
+    }
+    return _backgroundImageView;
+}
 
 @end

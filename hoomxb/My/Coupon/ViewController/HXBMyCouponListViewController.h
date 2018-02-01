@@ -7,7 +7,10 @@
 //
 
 #import "HXBBaseViewController.h"
+#import "HXBMyRequestAccountModel.h"
 
 @interface HXBMyCouponListViewController : HXBBaseViewController
+
+@property (nonatomic, strong) HXBMyRequestAccountModel *viewModel;
 
 @end

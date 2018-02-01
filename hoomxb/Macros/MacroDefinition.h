@@ -41,6 +41,11 @@
 // h5 调app 展示信息框
 #define kInviteSellerShowMessage @"/invite/seller"
 
+// h5 调app 恒丰银行资金存管说明
+#define kH5LandingDeposit @"/landing/deposit"
+// h5 调app 多重安全保障说明
+#define kH5LandingTrust @"/landing/trust"
+
 
 //-------------------请求头需要的字段-------------------------
 #define X_Hxb_User_Agent @"X-Hxb-User-Agent"

@@ -12,6 +12,10 @@
 @interface HXBBaseWKWebViewController : HXBBaseViewController
 
 @property (nonatomic, copy) NSString* pageUrl;
+/**
+ 页面title， 可以不传
+ */
+@property (nonatomic, copy) NSString* pageTitle;
 
 //重新获取焦点时，是否需要重新加载, 默认值是YES
 @property (nonatomic, assign) BOOL pageReload;

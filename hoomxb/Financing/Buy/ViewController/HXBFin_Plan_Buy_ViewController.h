@@ -20,5 +20,16 @@
 /** 还款方式 */
 @property (nonatomic, copy) NSString *featuredSlogan;
 @property (nonatomic, copy) NSString *hasBindCard; //是否绑卡
+@property (nonatomic, assign) BOOL isNewComer; // 是否是新手计划
+/// --------------2.5 版本------------
+/// 是否新手计划
+@property (nonatomic, assign) BOOL isNewPlan;
+/// 新手加入上限
+@property (nonatomic, copy) NSString *NewPlanJoinLimit;
+/// 新手每百元收益
+@property (nonatomic, copy) NSString *expectedSubsidyInterestAmount;
+
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;    // 用户信息
+@property (nonatomic, copy) NSString *riskType;     // 风险类型
 
 @end

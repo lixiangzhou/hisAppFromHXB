@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class HXBHomeTitleModel,HxbHomePageModel_DataList;
+@class HXBHomeTitleModel,HxbHomePageModel_DataList,HXBHomeNewbieProductModel;
 @interface HXBHomeBaseModel : NSObject
 
 /**
@@ -25,5 +25,10 @@
  homeTitle
  */
 @property (nonatomic, strong) HXBHomeTitleModel *homeTitle;
+
+/**
+ 新手产品
+ */
+@property (nonatomic, strong) HXBHomeNewbieProductModel *newbieProductData;
 
 @end
