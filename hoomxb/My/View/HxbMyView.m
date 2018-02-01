@@ -109,7 +109,7 @@ MyViewHeaderDelegate
         if (indexPath.row == 0) {
             HxbMyViewController *vc = (HxbMyViewController *)[UIResponder findNextResponderForClass:[HxbMyViewController class] ByFirstResponder:self];
             HXBMyCouponViewController *myCouponsViewController = [[HXBMyCouponViewController alloc]init];
-            myCouponsViewController.viewModel = self.userInfoViewModel;
+            myCouponsViewController.viewModel = self.accountModel;
             [vc.navigationController pushViewController:myCouponsViewController animated:YES];
         } else {
             [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_invite_entrance];
@@ -216,7 +216,7 @@ MyViewHeaderDelegate
             } else {
                 cell.desc = @"";
             }
-            cell.isShowLine = self.userInfoViewModel.userInfoModel.userInfo.isDisplayInvite;
+            cell.isShowLine = self.accountModel.isDisplayInvite;
         } else {
             cell.textLabel.text = @"邀请好友";
             cell.textLabel.textColor = RGBA(102, 102, 102, 1);
@@ -246,7 +246,7 @@ MyViewHeaderDelegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section == 0) {
-        return  self.userInfoViewModel.userInfoModel.userInfo.isDisplayInvite ? 2 : 1;
+        return  self.accountModel.isDisplayInvite ? 2 : 1;
     } else if ( section == 1) {
         return 2;
     } else {
