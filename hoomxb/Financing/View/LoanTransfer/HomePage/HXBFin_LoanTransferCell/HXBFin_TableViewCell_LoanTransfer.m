@@ -104,14 +104,6 @@
     }];
     
     
-    [self.loanLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(weakSelf.loanImageView);
-        make.left.equalTo(weakSelf.loanImageView.mas_right).offset(kScrAdaptationW(7));
-    }];
-    [self.loanLable sizeToFit];
-    self.loanLable.font = kHXBFont_PINGFANGSC_REGULAR(12);
-    self.loanLable.textColor = kHXBColor_Grey_Font0_2;
-    
     [self.amountTransferLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@(kScrAdaptationW(-15)));
         make.top.bottom.equalTo(weakSelf.loanLable);
@@ -119,6 +111,16 @@
     self.amountTransferLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.amountTransferLabel.textColor = kHXBColor_Font0_6;
     self.amountTransferLabel.textAlignment = NSTextAlignmentRight;
+    
+    [self.loanLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(weakSelf.loanImageView);
+        make.left.equalTo(weakSelf.loanImageView.mas_right).offset(kScrAdaptationW(7));
+        make.right.equalTo(weakSelf.amountTransferLabel.mas_left).offset(-kScrAdaptationW(10));
+    }];
+    [self.loanLable sizeToFit];
+    self.loanLable.font = kHXBFont_PINGFANGSC_REGULAR(12);
+    self.loanLable.textColor = kHXBColor_Grey_Font0_2;
+    
     
     [self.interestView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.contentView.mas_centerY).offset(kScrAdaptationH(-12));
