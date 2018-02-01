@@ -56,6 +56,7 @@
     [self registerRefresh];
     
     [self hiddenTabbarLine];
+    self.times = 1;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -295,7 +296,7 @@
     else {
         if(1 == self.times) {
             self.times++;
-            return UIStatusBarStyleDefault;
+            return UIStatusBarStyleLightContent;
         }
         else{
             self.times = 1;
