@@ -87,6 +87,10 @@
     NSLog(@"👌👌相应 体 ------%@",request.responseObject);
     NSLog(@"======================👌👌 结束 👌👌====================================");
     
+    if([self handlingSpecialRequests:request]){
+        return NO;
+    }
+    
     if ([request.responseObject[kResponseStatus] integerValue]) {
         NSLog(@" ---------- %@",request.responseObject[kResponseStatus]);
         NSString *status = request.responseObject[kResponseStatus];
@@ -107,6 +111,9 @@
                 [self showToast:request.responseObject[kResponseMessage]];
                 return YES;
             }
+        } else{
+            [self showToast:request.responseObject[kResponseMessage]];
+            return YES;
         }
         
     } else {
@@ -116,6 +123,17 @@
                 [self addRequestPage:requestHxb];
             }
         }
+    }
+    return NO;
+}
+
+/**
+ 闪屏、升级和首页弹窗 不处理异常返回结果
+ */
+- (BOOL)handlingSpecialRequests:(NYBaseRequest *)request{
+    //闪屏、升级和首页弹窗 不处理异常返回结果
+    if ([request.requestUrl isEqualToString:kHXBSplash] || [request.requestUrl isEqualToString:kHXBHome_PopView]||[request.requestUrl isEqualToString:kHXBMY_VersionUpdateURL]) {
+        return YES;
     }
     return NO;
 }
@@ -155,6 +173,10 @@
     NSLog(@"👌👌请求 体 ----- %@",request.requestArgument);
     NSLog(@"👌👌相应 体 ------%@",request.responseObject);
     NSLog(@"======================👌👌 结束 👌👌====================================");
+    
+    if([self handlingSpecialRequests:request]){
+        return NO;
+    }
     
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NotSigin:/// 没有登录
