@@ -29,10 +29,10 @@
 
 @implementation HXBMyPlanListViewModel
 
-- (instancetype)init
+- (instancetype)initWithBlock:(HugViewBlock)hugViewBlock
 {
-    self = [super init];
-    if (self) {
+    self = [super initWithBlock:hugViewBlock];
+    if(self) {
         _holdPlanPage = 1;
         _exitingPage = 1;
         _exitPage = 1;
@@ -47,11 +47,13 @@
 
 - (void)myPlanAssetStatistics_requestWithSuccessBlock:(BOOL)isShowHug andResultBlock: (void(^)(BOOL isSuccess))resultBlock{
     
-    NSString* hugContent = isShowHug? kLoadIngText : nil;
-    NYBaseRequest *account_PlanRequest = [[NYBaseRequest alloc]init];
+    NYBaseRequest *account_PlanRequest = [[NYBaseRequest alloc] initWithDelegate:self];
     account_PlanRequest.requestUrl = kHXBMY_PlanAccountRequestURL;
     account_PlanRequest.requestMethod = NYRequestMethodGet;
-    [account_PlanRequest startWithHUDStr:hugContent Success:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    account_PlanRequest.showHud = isShowHug;
+    
+    kWeakSelf
+    [account_PlanRequest loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         if([responseObject[kResponseStatus] integerValue]) {
             kNetWorkError(@" Plan 账户内计划资产");
         }
@@ -60,7 +62,7 @@
         HXBMYModel_Plan_planRequestModel *planAcccountModel = [[HXBMYModel_Plan_planRequestModel alloc]init];
         NSDictionary *dataDic = responseObject[kResponseData];
         [planAcccountModel yy_modelSetWithDictionary:dataDic];
-        self.planAcccountModel = planAcccountModel;
+        weakSelf.planAcccountModel = planAcccountModel;
         
         if (resultBlock) {
             resultBlock(YES);
@@ -91,17 +93,15 @@
         [self updateStateByRequestType:planRequestType requestState:YES];
     }
     
-    __weak typeof(self)weakSelf = self;
-    
     NSString *pageNumberStr = @(planRequestType).description;
     NSInteger page = [self getPageNumberWithType:planRequestType andIsUPData:isUPData];
     
-    NYBaseRequest* request = [[NYBaseRequest alloc] init];
+    NYBaseRequest* request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestUrl = kHXBMY_PlanListURL;
     request.requestArgument = @{@"filter" : pageNumberStr, @"page" : @(page).description};
     
-    [request startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        
+    kWeakSelf
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:planRequestType requestState:NO];
         kHXBResponsResultShowHUD;
         NSDictionary *responseDic = responseObject[@"data"];

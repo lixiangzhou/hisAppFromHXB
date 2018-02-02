@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "HXBMYViewModel_MianPlanViewModel.h"
 #import "HXBMYModel_Plan_planRequestModel.h"
+#import "HXBBaseViewModel.h"
 
-@interface HXBMyPlanListViewModel : NSObject
+@interface HXBMyPlanListViewModel : HXBBaseViewModel
 ///资金统计model
 @property (nonatomic, strong) HXBMYModel_Plan_planRequestModel* planAcccountModel;
 
