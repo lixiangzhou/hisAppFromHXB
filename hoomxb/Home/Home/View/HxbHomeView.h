@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 //#import "HXBBannerView.h"
 #import "HxbHomePageViewModel_dataList.h"
-#import "HxbHomePageViewModel.h"
+#import "HXBHomeVCViewModel.h"
 
 @class HXBHomeBaseModel,BannerModel;
 @interface HxbHomeView : UIView
@@ -24,7 +24,7 @@
 /**
  请求下来的数据模型
  */
-@property (nonatomic, strong) HxbHomePageViewModel *homeBaseViewModel;
+@property (nonatomic, strong) HXBHomeVCViewModel *homeBaseViewModel;
 
 /**
  下拉加载回调的Block
