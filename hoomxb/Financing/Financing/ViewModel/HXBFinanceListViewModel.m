@@ -240,5 +240,4 @@
     }
     return _loanTruansferViewModelArray;
 }
-
 @end
