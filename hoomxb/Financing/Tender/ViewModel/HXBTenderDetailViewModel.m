@@ -41,16 +41,16 @@
         }
         page = MAX(page, 1);
     }
-    
-    if (self.isFirstRequest) {
-        self.isFirstRequest = NO;
-    }
 
     NYBaseRequest *req = [[NYBaseRequest alloc] initWithDelegate:self];
     req.showHud = self.isFirstRequest;
     req.requestUrl = kHXBFinanc_PlanInvestList;
     req.requestArgument = @{@"pageSize": self.pageSize,
                             @"page": @(page)};
+    
+    if (self.isFirstRequest) {
+        self.isFirstRequest = NO;
+    }
     
     [req loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSInteger statusCode = [responseObject[kResponseStatus] integerValue];
