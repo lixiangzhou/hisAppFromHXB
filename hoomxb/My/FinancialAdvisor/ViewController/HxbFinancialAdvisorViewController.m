@@ -105,7 +105,7 @@
     [self.financialAdvisor_jobNumberTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.businessCardImageView).offset(kScrAdaptationH(107.5));
         make.height.equalTo(@kScrAdaptationH(16));
-        make.width.equalTo(@kScrAdaptationW(64));
+        make.width.equalTo(@kScrAdaptationW(76));
         make.left.equalTo(self.businessCardImageView).offset(kScrAdaptationW(76));
     }];
     [self.financialAdvisor_jobNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
