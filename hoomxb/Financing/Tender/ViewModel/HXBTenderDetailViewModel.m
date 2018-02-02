@@ -8,6 +8,10 @@
 
 #import "HXBTenderDetailViewModel.h"
 
+@interface HXBTenderDetailViewModel ()
+@property (nonatomic, assign) BOOL isFirstRequest;
+@end
+
 @implementation HXBTenderDetailViewModel
 
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock
@@ -16,6 +20,7 @@
     if (self) {
         self.totalCount = @"0";
         self.pageSize = @"20";
+        self.isFirstRequest = YES;
     }
     return self;
 }
@@ -36,14 +41,18 @@
         }
         page = MAX(page, 1);
     }
+    
+    if (self.isFirstRequest) {
+        self.isFirstRequest = NO;
+    }
 
     NYBaseRequest *req = [[NYBaseRequest alloc] initWithDelegate:self];
-    req.showHud = YES;
+    req.showHud = self.isFirstRequest;
     req.requestUrl = kHXBFinanc_PlanInvestList;
     req.requestArgument = @{@"pageSize": self.pageSize,
                             @"page": @(page)};
     
-    [req startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [req loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSInteger statusCode = [responseObject[kResponseStatus] integerValue];
         if (statusCode != kHXBCode_Success) {
             NSString *message = responseObject[kResponseMessage];
