@@ -22,6 +22,8 @@
 #define kHXBColor_Red_090202  [UIColor colorWithRed:0.99 green:0.21 blue:0.21 alpha:1.00]// 大红（渐变色深
 ///红色
 #define kHXBColor_Red_090303  [UIColor colorWithRed:0.96 green:0.32 blue:0.32 alpha:1.00]// 大红（渐变色深
+
+
 ///账户内 toolBar颜色
 #define kHXBColor_Red_255_64_79 RGBA(255, 64, 79, 1)
 

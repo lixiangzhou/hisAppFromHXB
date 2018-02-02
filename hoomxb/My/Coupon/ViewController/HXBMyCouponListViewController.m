@@ -81,6 +81,12 @@
 
 #pragma mark - Setter / Getter / Lazy
 
+- (void)setViewModel:(HXBMyRequestAccountModel *)viewModel {
+    _viewModel = viewModel;
+    if (viewModel) {
+        _myView.isDisplayInvite = viewModel.isDisplayInvite;
+    }
+}
 - (void)setParameter{
     _page = 1;
     _filter = @"available";//未使用

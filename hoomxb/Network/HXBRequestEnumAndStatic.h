@@ -11,12 +11,25 @@
 
 /// ======================= 展示hud 并 判断请求是否成功    failureBlock(nil)  =======================
 #define kHXBResponsShowHUD int codeValue = [responseObject[@"status"] intValue];\
-if (codeValue != 0 && codeValue != 104) {\
+if (codeValue != 0) {\
 if (failureBlock) {\
 failureBlock(nil);\
-[HxbHUDProgress showTextWithMessage:responseObject[@"message"]];\
-return;\
 }\
+if (codeValue != 104) {\
+[HxbHUDProgress showTextWithMessage:responseObject[@"message"]];\
+}\
+return;\
+}
+
+#define kHXBResponsResultShowHUD int codeValue = [responseObject[@"status"] intValue];\
+if (codeValue != 0) {\
+if (resultBlock) {\
+resultBlock(NO);\
+}\
+if (codeValue != 104) {\
+[HxbHUDProgress showTextWithMessage:responseObject[@"message"]];\
+}\
+return;\
 }
 /// ======================= 展示hud 并 判断请求是否成功 只弹框 不处理回调 =======================
 #define kHXBBuyErrorResponsShowHUD int codeValue = [responseObject[@"status"] intValue];\

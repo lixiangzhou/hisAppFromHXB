@@ -34,7 +34,7 @@
 //    self.isRedColorWithNavigationBar = YES;
     self.isColourGradientNavigationBar = YES;
     [self.view addSubview:self.mainTabelView];
-    [self loadDataWithIsUPReloadData:YES];
+    [self loadDataWithIsUPReloadData:NO];
 }
 /**
  再次获取网络数据
@@ -84,6 +84,7 @@
     HXBNoticModel *noticModel = self.noticeViewModel.noticModelArr[indexPath.row];
     cell.textLabel.text = noticModel.title;
     cell.detailTextLabel.text = [[HXBBaseHandDate sharedHandleDate] millisecond_StringFromDate:noticModel.date andDateFormat:@"MM-dd"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

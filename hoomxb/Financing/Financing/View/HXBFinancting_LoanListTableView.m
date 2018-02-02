@@ -54,7 +54,7 @@ static NSString *CELLID = @"CELLID";
     if ([self respondsToSelector:@selector(setLayoutMargins:)]) {
         [self setLayoutMargins:UIEdgeInsetsZero];
     }
-    self.rowHeight = kScrAdaptationH(121);
+    self.rowHeight = kScrAdaptationH750(219);
     self.nodataView.hidden = NO;
 }
 
@@ -71,10 +71,8 @@ static NSString *CELLID = @"CELLID";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBFinancting_PlanListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CELLID forIndexPath:indexPath];
     cell.loanListViewModel = self.loanListViewModelArray[indexPath.section];
-    
     cell.lockPeriodLabel_ConstStr = self.lockPeriodLabel_ConstStr;
     cell.expectedYearRateLable_ConstStr = self.expectedYearRateLable_ConstStr;
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 

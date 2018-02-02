@@ -25,6 +25,10 @@
 ///创建单利对象
 + (instancetype) sharedMYRequest;
 
+/**
+ 交易记录是否显示加载框
+ */
+@property (nonatomic, assign) BOOL isShowHUD;
 
 #pragma mark - 主要页面的网络请求
 ///资金统计的Request plan

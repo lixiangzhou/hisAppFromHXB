@@ -113,12 +113,6 @@
     self.planAssetsAPI = [[HXBBaseRequest alloc]init];
     self.loanAssetsAPI = [[HXBBaseRequest alloc]init];
     self.capitalRecordAPI = [[HXBBaseRequest alloc]init];
-    
-//    self.planListAPI.isJudgeLogin = YES;
-//    self.loanListAPI.isJudgeLogin = YES;
-//    self.planAssetsAPI.isJudgeLogin = YES;
-//    self.loanAssetsAPI.isJudgeLogin = YES;
-//    self.capitalRecordAPI.isJudgeLogin = YES;
 }
 
 #pragma mark - getter
@@ -247,7 +241,7 @@
         
         NSString *typeStr = planModel.dataList.firstObject.type;
         //数据的处理。。
-        NSArray *handleData = [weakSelf handleResponseArrayWithIsupData:weakSelf.planListAPI.isUPReloadData andTypeStr:typeStr andViewModel:planViewModelArray];
+        NSArray *handleData = [weakSelf handleResponseArrayWithIsupData:weakSelf.planListAPI.isUPReloadData andTypeStr:typeStr andPlanType:planRequestType andViewModel:planViewModelArray];
         //向外回调
         if (successDateBlock) {
             successDateBlock(handleData, [[responseDic valueForKey:@"totalCount"] integerValue]);
@@ -275,8 +269,11 @@
 }
 
 ///根据typeStr 来进行数据的处理
-- (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andTypeStr: (NSString *)typeStr andViewModel: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)viewMode {
-    HXBRequestType_MY_PlanRequestType type = [HXBEnumerateTransitionManager myPlan_requestTypeStr:typeStr];
+- (NSMutableArray *)handleResponseArrayWithIsupData: (BOOL)isupdata andTypeStr: (NSString *)typeStr andPlanType:(HXBRequestType_MY_PlanRequestType)planType andViewModel: (NSArray <HXBMYViewModel_MianPlanViewModel *>*)viewMode {
+    HXBRequestType_MY_PlanRequestType type = planType;
+    if (typeStr.length) {
+        type = [HXBEnumerateTransitionManager myPlan_requestTypeStr:typeStr];
+    }
     return [self plan_handleResponseArrayWithIsupData: isupdata andType:type andViewModel:viewMode];
 }
 
@@ -502,6 +499,12 @@
     
     __weak typeof(self)weakSelf = self;
     self.capitalRecordAPI.requestUrl = kHXBMY_CapitalRecordURL;
+    if (self.isShowHUD) {
+        isUPData = NO;
+        self.capitalRecordAPI.dataPage = 1;
+        self.isShowHUD = NO;
+        [self.capitalRecordViewModel_array removeAllObjects];
+    }
     self.capitalRecordAPI.isUPReloadData = isUPData;
     self.capitalRecordAPI.requestArgument = @{
                                             @"page" : @(self.capitalRecordAPI.dataPage).description,

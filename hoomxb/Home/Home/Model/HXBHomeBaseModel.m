@@ -10,14 +10,15 @@
 #import "HXBHomeTitleModel.h"
 #import "BannerModel.h"
 #import "HxbHomePageModel_DataList.h"
-
+#import "HXBHomeNewbieProductModel.h"
 @implementation HXBHomeBaseModel
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
     return @{
              @"homeTitle" : [HXBHomeTitleModel class],
              @"bannerList" : [BannerModel class],
-             @"homePlanRecommend" : [HxbHomePageModel_DataList class]
+             @"homePlanRecommend" : [HxbHomePageModel_DataList class],
+             @"newbieProductData" : [HXBHomeNewbieProductModel class]
              };
 }
 

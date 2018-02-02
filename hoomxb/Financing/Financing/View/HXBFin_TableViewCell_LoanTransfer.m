@@ -58,8 +58,10 @@
   }
 
 - (void)creatViews {
-    _interestView       = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(10)];
-    _remainMonthsView   = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(10)];
+    _interestView       = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(20)];
+    _remainMonthsView   = [[HXBBaseView_TwoLable_View alloc] initWithFrame:CGRectZero andSpacing:kScrAdaptationH(20)];
+    _interestView.isLoanTransfer = YES;
+    _remainMonthsView.isLoanTransfer = YES;
     _amountTransferLabel = [[UILabel alloc] init];
     _stutasButton = [[UIButton  alloc]init];
     _stutasButton.layer.cornerRadius = kScrAdaptationW(2.5);
@@ -93,17 +95,18 @@
         [self.contentView addSubview:obj];
     }];
     
+    kWeakSelf
     [self.loanImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).offset(kScrAdaptationH(18));
-        make.left.equalTo(self.contentView).offset(kScrAdaptationW(15));
+        make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH(16));
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
         make.width.equalTo(@(kScrAdaptationW(15)));
         make.height.equalTo(@(kScrAdaptationH(15)));
     }];
     
     
     [self.loanLable mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(self.loanImageView);
-        make.left.equalTo(self.loanImageView.mas_right).offset(kScrAdaptationW(7));
+        make.top.bottom.equalTo(weakSelf.loanImageView);
+        make.left.equalTo(weakSelf.loanImageView.mas_right).offset(kScrAdaptationW(7));
     }];
     [self.loanLable sizeToFit];
     self.loanLable.font = kHXBFont_PINGFANGSC_REGULAR(12);
@@ -111,28 +114,28 @@
     
     [self.amountTransferLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(@(kScrAdaptationW(-15)));
-        make.top.bottom.equalTo(self.loanLable);
+        make.top.bottom.equalTo(weakSelf.loanLable);
     }];
     self.amountTransferLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
     self.amountTransferLabel.textColor = kHXBColor_Font0_6;
     self.amountTransferLabel.textAlignment = NSTextAlignmentRight;
     
     [self.interestView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView.mas_centerY).offset(kScrAdaptationH(-12));
-        make.left.equalTo(self.contentView).offset(kScrAdaptationW(15));
-        make.width.equalTo(self.contentView.mas_width).multipliedBy(1/3.0).offset(kScrAdaptationW(10));
+        make.top.equalTo(weakSelf.contentView.mas_centerY).offset(kScrAdaptationH(-12));
+        make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
+        make.width.equalTo(weakSelf.contentView.mas_width).multipliedBy(1/3.0).offset(kScrAdaptationW(10));
         make.height.equalTo(@(kScrAdaptationH(47)));
     }];
     
     [self.remainMonthsView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.contentView);
-        make.top.bottom.equalTo(self.interestView);
+        make.centerX.equalTo(weakSelf.contentView);
+        make.top.bottom.equalTo(weakSelf.interestView);
     }];
     
     
     [self.stutasButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contentView.mas_right).offset(kScrAdaptationW(-15));
-        make.centerY.equalTo(self.contentView);
+        make.right.equalTo(weakSelf.contentView.mas_right).offset(kScrAdaptationW(-15));
+        make.centerY.equalTo(weakSelf.contentView);
         make.height.equalTo(@(kScrAdaptationH(30)));
         make.width.equalTo(@(kScrAdaptationW(85)));
     }];
@@ -166,7 +169,7 @@
     }];
     [self.remainMonthsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
         viewModelVM.leftLabelStr = LoanTruansferViewModel.loanTruansferListModel.leftMonths;
-        viewModelVM.rightLabelStr = @"剩余期限(月)";
+        viewModelVM.rightLabelStr = @"期限(月)";
         viewModelVM.leftLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.rightLabelAlignment = NSTextAlignmentCenter;
         viewModelVM.rightFont = kHXBFont_PINGFANGSC_REGULAR(13);

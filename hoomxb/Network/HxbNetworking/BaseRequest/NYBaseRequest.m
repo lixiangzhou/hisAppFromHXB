@@ -19,7 +19,6 @@
     if (self) {
         _requestMethod = NYRequestMethodGet;
         _timeoutInterval = 20;
-        _showHud = YES;
     }
     return self;
 }
@@ -91,6 +90,13 @@
 }
 
 #pragma mark  以下为重构后需要使用的各种方法
+
+- (NSString*)hudShowContent {
+    if(!_hudShowContent) {
+        _hudShowContent = [kLoadIngText copy];
+    }
+    return _hudShowContent;
+}
 
 /**
  比较是否是同一个请求

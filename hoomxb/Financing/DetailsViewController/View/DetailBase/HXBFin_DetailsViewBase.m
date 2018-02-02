@@ -10,7 +10,6 @@
 #import "HXBFinBase_FlowChartView.h"
 #import "HXBFinDetail_TableView.h"
 
-#import "HXBFinDetailViewModel_PlanDetail.h"//红利计划详情的ViewModel
 #import "HXBFinDetailViewModel_LoanDetail.h"//散标详情的ViewMOdel
 
 #import "HXBFinDetailModel_PlanDetail.h"//红利计划详情的Model

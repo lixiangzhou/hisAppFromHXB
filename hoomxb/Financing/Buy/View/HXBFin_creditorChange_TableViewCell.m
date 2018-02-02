@@ -37,7 +37,7 @@
     
     _activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     _activityView.center = CGPointMake(kScreenWidth - kScrAdaptationW(60), kScrAdaptationH(25));
-    [_activityView startAnimating];
+    [_activityView stopAnimating];
     [self.contentView addSubview:_activityView];
     
     [self setupFrame];
@@ -88,12 +88,12 @@
 
 - (void)setIsStartAnimation:(BOOL)isStartAnimation {
     _isStartAnimation = isStartAnimation;
-    _detailLabel.hidden = _isStartAnimation;
     if (isStartAnimation) {
         [_activityView startAnimating];
     } else {
         [_activityView stopAnimating];
     }
+    _detailLabel.hidden = _isStartAnimation;
 }
 
 - (void)setDetailStr:(NSString *)detailStr {

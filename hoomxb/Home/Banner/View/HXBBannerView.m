@@ -42,8 +42,8 @@
 #pragma mark - UI
 - (void)setupUI {
     [self.bannerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self);
-        make.height.offset(kScrAdaptationH(150));
+        make.left.right.equalTo(self);
+        make.top.equalTo(self);
         make.bottom.equalTo(self).offset(-kScrAdaptationH(16));
     }];
     [self.bannerPageControl mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -66,9 +66,10 @@
 
 - (TYCyclePagerViewLayout *)layoutForPagerView:(TYCyclePagerView *)pageView {
     TYCyclePagerViewLayout *layout = [[TYCyclePagerViewLayout alloc]init];
-    layout.itemSize = CGSizeMake(CGRectGetWidth(pageView.frame)*0.8, kScrAdaptationH(110));
+    layout.itemSize = CGSizeMake(CGRectGetWidth(pageView.frame)*0.8, kScrAdaptationH(130));
     layout.itemSpacing = kScrAdaptationW(10);
     layout.layoutType = TYCyclePagerTransformLayoutLinear;
+    layout.minimumScale = 0.9;
     //layout.minimumAlpha = 0.3;
     layout.itemHorizontalCenter = YES;
     return layout;

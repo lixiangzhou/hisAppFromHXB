@@ -14,6 +14,10 @@
 @interface HXBVersionUpdateManager ()
 
 /**
+ 是否为强制升级
+ */
+@property (nonatomic, assign) BOOL isMandatoryUpdate;
+/**
  是否展示过升级弹框
  */
 @property (nonatomic, assign) BOOL isShow;
@@ -66,9 +70,17 @@
                     [weakSelf show];
                 }
             }
+            
+            if ([weakSelf.versionUpdateModel.force isEqualToString:@"1"]) {
+                weakSelf.isMandatoryUpdate = YES;
+            }
+            else {
+                weakSelf.isMandatoryUpdate = NO;
+            }
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         weakSelf.isShow = YES;
+
         [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
     }];
 }

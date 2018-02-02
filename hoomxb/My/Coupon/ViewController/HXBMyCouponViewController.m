@@ -121,7 +121,7 @@
         
         self.couponListVC.view.frame = CGRectMake(0, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
         self.couponExchangeVC.view.frame = CGRectMake(_scrollView.frame.size.width, 0, _scrollView.frame.size.width, _scrollView.frame.size.height);
-        
+        self.couponListVC.viewModel = _viewModel;
         [_scrollView addSubview:self.couponListVC.view];
         [_scrollView addSubview:self.couponExchangeVC.view];
     }

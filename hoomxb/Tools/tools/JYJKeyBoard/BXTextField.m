@@ -135,6 +135,9 @@
     CGFloat doneButtonY = 0;
     if (self.displayingKeyboard) {
         doneButtonY = [UIScreen mainScreen].bounds.size.height - doneButtonH;
+        if (HXBIPhoneX) {
+            doneButtonY = [UIScreen mainScreen].bounds.size.height-73- doneButtonH;
+        }
     } else {
         doneButtonY = [UIScreen mainScreen].bounds.size.height + kbHeight - doneButtonH;
         if (HXBIPhoneX) {

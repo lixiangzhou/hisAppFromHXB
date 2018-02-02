@@ -13,8 +13,6 @@
 @class HXBFinHomePageViewModel_LoanList;//散标列表页- 一级界面ViewModel
 @class HXBFinDetailViewModel_PlanDetail;//红利计划详情页ViewModel
 @class HXBFinDetailViewModel_LoanDetail;//散标投递的详情页的ViewModel
-@class HXBFinModel_AddRecortdModel_Plan;//理财模块的加入记录接口
-@class FinModel_AddRecortdModel_Loan;   //加入记录model
 @class HXBFinModel_BuyResoult_PlanModel;//购买
 @class HXBFinModel_Buy_Plan;
 @class HXBFinModel_BuyResoult_LoanModel;
@@ -23,7 +21,6 @@
 @class HXBFinHomePageViewModel_LoanTruansferViewModel;///债转viewmodel
 @class HXBFinDetailViewModel_LoanTruansferDetail;//债转的详情的viewModel
 @class HXBFin_LoanTruansfer_BuyResoutViewModel;
-@class HXBFinModel_AddRecortdModel_LoanTruansfer;
 static NSString *const HXBFinHomePagePlan_ASC = @"";
 
 ///理财界面的所有网络请求页全部都在这里了
@@ -63,17 +60,6 @@ static NSString *const HXBFinHomePagePlan_ASC = @"";
 - (void)loanDetaileWithLoanID: (NSString *)financeLoanId andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 ///债转详情
 - (void)loanTruansferDetileRequestWithLoanID:(NSString *)loanID andSuccessBlock: (void(^)(HXBFinDetailViewModel_LoanTruansferDetail* viewModel))successDateBlock andFailureBlock: (void(^)(NSError *error,NSDictionary *respons))failureBlock;
-
-
-#pragma mark - 红利计划详情页 - 加入记录
-// 红利计划详情页 - 加入记录
-- (void)planAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinancePlanId: (NSString *)financePlanId andOrder: (NSString *)order andSuccessBlock: (void(^)(HXBFinModel_AddRecortdModel_Plan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
-
-// 散标详情页 加入记录
-- (void)loanAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)financeLoanId andOrder: (NSString *)order andSuccessBlock: (void(^)(FinModel_AddRecortdModel_Loan * model))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
-/// 债转详情  加入记录
-- (void)loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andFinanceLoanId: (NSString *)financeLoanId andOrder: (NSString *)order andSuccessBlock: (void(^)(NSArray< HXBFinModel_AddRecortdModel_LoanTruansfer *> *loanTruansferRecortdModel))successDateBlock andFailureBlock: (void(^)(NSError *error,HXBBaseRequest *request))failureBlock ;
-
 
 #pragma mark - 购买
 /// 计划 购买

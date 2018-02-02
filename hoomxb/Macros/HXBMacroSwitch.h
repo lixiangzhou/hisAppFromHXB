@@ -9,7 +9,11 @@
 #ifndef HXBMacroSwitch_h
 #define HXBMacroSwitch_h
 
-// 是否打开邀请好友功能
-#define kIsShowInviteFunction YES
+///------------------------------------固定开关--------------------------------
+
+
+///------------------------------------可变开关--------------------------------
+//是否是新手专区的版本，1时， 在34环境上打包， 0时在35环境上打包
+#define kIsNewBieDevelopVersion 0
 
 #endif /* HXBMacroSwitch_h */

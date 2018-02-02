@@ -45,7 +45,6 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [HXBHomePopViewManager new];
-//        [manager getHomePopViewData];
     });
     return manager;
 }
@@ -59,14 +58,13 @@
     self.homePopViewModel = [[HXBHomePopVWViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.popView;
     }];
-    [self.homePopViewModel homePopViewRequestSuccessBlock:^(id responseObject) {
+    [self.homePopViewModel homePopViewRequestSuccessBlock:^(BOOL isSuccess) {
         
-        if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
+        if (!isSuccess) {
             weakSelf.isHide = YES;
             return ;
         }
-        weakSelf.homePopViewModel.homePopModel = [HXBHomePopVWModel yy_modelWithDictionary:responseObject[@"data"]];
-        [weakSelf updateUserDefaultsPopViewDate:responseObject[@"data"]];
+        [weakSelf updateUserDefaultsPopViewDate:(NSDictionary *)[self.homePopViewModel.homePopModel yy_modelToJSONObject]];
     } andFailureBlock:^(NSError *error) {
         weakSelf.isHide = YES;
     }];
@@ -74,20 +72,19 @@
 
 - (void)updateUserDefaultsPopViewDate:(NSDictionary *)dict{
 
-    _responseDict = (NSDictionary *)[kUserDefaults objectForKey:dict[@"id"]];
+    _responseDict = (NSDictionary *)[kUserDefaults objectForKey:self.homePopViewModel.homePopModel.ID];
     if (_responseDict[@"image"]) {
-        if (_responseDict[@"updateTime"] < dict[@"updateTime"]) { //已更新
-            _responseDict = dict;
-//            [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
-//            [kUserDefaults synchronize];
+        if ([_responseDict[@"updateTime"] longLongValue] < (long long)self.homePopViewModel.homePopModel.updateTime) { //已更新
+            
+            _responseDict = (NSDictionary *)[self.homePopViewModel.homePopModel yy_modelToJSONObject];
             [self cachePopHomeImage];
         } else {
             self.isHide = ![kUserDefaults boolForKey:[NSString stringWithFormat:@"%@%@",_responseDict[@"id"],_responseDict[@"frequency"]]];
         }
     } else {
         _responseDict = dict;
-//        [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
-//        [kUserDefaults synchronize];
+        //        [kUserDefaults setObject:_responseDict forKey:_responseDict[@"id"]];
+        //        [kUserDefaults synchronize];
         [self cachePopHomeImage];
     }
 }
@@ -226,17 +223,13 @@
         if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:homePopViewModel.url]]) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:homePopViewModel.url]];
         }
-    } else {
-//                NSString *str = [NSString stringWithFormat:@"%@/about/announcement/%@",[KeyChain h5host],@"0b025dfa-4613-4ba9-a9e8-5805fdb6a829"];
-        //        [HXBBaseWKWebViewController pushWithPageUrl:str fromController:controller];
-        //[HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:homePopViewModel.link] fromController:controller];
+    } else if ([homePopViewModel.type isEqualToString:@"h5"]) {
         
         if (homePopViewModel.url.length) {
             HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
             webViewVC.pageUrl = homePopViewModel.url;
             [controller.navigationController pushViewController:webViewVC animated:YES];
         }
-//        [HXBBaseWKWebViewController pushWithPageUrl:homePopViewModel.url fromController:controller];
     }
     
     [self.popView dismiss];
@@ -257,7 +250,7 @@
         // 显示时点击背景是否移除弹框
         _popView.isClickBGDismiss = YES;
         // 显示时背景的透明度
-        _popView.popBGAlpha = 0.5f;
+        _popView.popBGAlpha = 0.6f;
     }
     return _popView;
 }

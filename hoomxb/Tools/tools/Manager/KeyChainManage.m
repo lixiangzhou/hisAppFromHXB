@@ -201,6 +201,8 @@ static NSString *const hostH5 = @"hostH5";
     _availablePoint = userInfoViewModel.userInfoModel.userAssets.availablePoint;
     ///    double    冻结余额
     _frozenPoint = userInfoViewModel.userInfoModel.userAssets.frozenPoint;
+    /// 是否是新手
+    _isNewbie = userInfoViewModel.userInfoModel.userInfo.isNewbie;
 }
 ///    double    总资产
 - (void)assetsTotalWithBlock: (void(^)(NSString *assetsTotal))assetsTotalWithBlock {
@@ -653,7 +655,7 @@ static NSString *const hostH5 = @"hostH5";
 {
     NSString *h5Host = self.keychain[hostH5];
     if (!h5Host.length) {
-        h5Host = @"https://m.hongxiaobao.com";
+        h5Host = @"https://m.hoomxb.com";
     }
     return h5Host;
 }

@@ -10,12 +10,6 @@
 @class
 HXBFinDetailViewModel_LoanTruansferDetail,
 HXBFin_JoinimmediateView_Loan_ViewModel;
-
-typedef enum : NSUInteger {
-    HXB_Plan,
-    HXB_Loan,
-    HXB_Creditor,
-} HXB_Fin_Type;
 @interface HXBFin_creditorChange_buy_ViewController : HXBBaseViewController
 
 @property (nonatomic,copy) NSString *availablePoint; // 待转让金额
@@ -24,5 +18,7 @@ typedef enum : NSUInteger {
 @property (nonatomic,copy) NSString *cashType; // 收益方式
 @property (nonatomic,copy) NSString *registerMultipleAmount; // 最小倍数
 @property (nonatomic,copy) NSString *minRegisterAmount; // 最小起投
-
+@property (nonatomic, copy) NSString *hasBindCard; //是否绑卡
+@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;    // 用户信息
+@property (nonatomic, copy) NSString *riskType;     // 风险类型
 @end

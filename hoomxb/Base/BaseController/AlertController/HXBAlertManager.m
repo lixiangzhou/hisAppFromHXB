@@ -20,6 +20,7 @@
 #import "HXBHomePopViewManager.h"
 #import "HXBGeneralAlertVC.h"
 
+
 @interface HXBAlertManager ()
 
 @property (nonatomic, strong) UIAlertController * alertController;
@@ -58,7 +59,7 @@
 /**
  判断购买 判断
  */
-+ (void)checkOutRiskAssessmentWithSuperVC:(UIViewController *)vc andWithPushBlock:(void(^)())pushBlock
++ (void)checkOutRiskAssessmentWithSuperVC:(UIViewController *)vc andWithPushBlock:(void(^)(NSString *hasBindCard, HXBRequestUserInfoViewModel *model))pushBlock
 {
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
 //        //判断是否安全认证
@@ -136,7 +137,7 @@
         
         ///条件全部满足
         if (pushBlock) {
-            pushBlock();
+            pushBlock(viewModel.userInfoModel.userInfo.hasBindCard, viewModel);
         }
     } andFailure:^(NSError *error) {
         

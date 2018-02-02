@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 //#import "HXBBannerView.h"
 #import "HxbHomePageViewModel_dataList.h"
+#import "HxbHomePageViewModel.h"
+
 @class HXBHomeBaseModel,BannerModel;
 @interface HxbHomeView : UIView
 
@@ -22,7 +24,7 @@
 /**
  请求下来的数据模型
  */
-@property (nonatomic, strong) HXBHomeBaseModel *homeBaseModel;
+@property (nonatomic, strong) HxbHomePageViewModel *homeBaseViewModel;
 
 /**
  下拉加载回调的Block
@@ -46,6 +48,11 @@
  公告的回调
  */
 @property (nonatomic, copy) void (^noticeBlock)();
+
+/**
+ 新手视图点击方法
+ */
+@property (nonatomic, copy) void (^newbieAreaActionBlock)();
 
 /*
  点击banner的回调

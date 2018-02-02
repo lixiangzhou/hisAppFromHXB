@@ -9,25 +9,34 @@
 #import "HXBFinAddRecortdVC_Loan.h"
 #import "HXBFinanctingRequest.h"
 #import "HXBFinAddRecortdTableView_Plan.h"
+#import "HXBFinAddRecordViewModel.h"
+
 @interface HXBFinAddRecortdVC_Loan ()
 @property (nonatomic,strong) HXBFinAddRecortdTableView_Plan *addRecortdTableView;
+@property (nonatomic,strong) HXBFinAddRecordViewModel *loadRecordViewModel;
 @end
 
 @implementation HXBFinAddRecortdVC_Loan
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    kWeakSelf
+    self.loadRecordViewModel = [[HXBFinAddRecordViewModel alloc]initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     [self setUPViews];
     [self downLoadData];
     self.title = @"投标记录";
 }
 
 - (void)downLoadData {
-      [[HXBFinanctingRequest sharedFinanctingRequest] loanAddRecortdWithISUPLoad:YES andFinanceLoanId:self.loanID andOrder:nil andSuccessBlock:^(FinModel_AddRecortdModel_Loan *model) {
-          self.addRecortdTableView.loanModel = model;
-      } andFailureBlock:^(NSError *error) {
-          
-      }];
+    kWeakSelf
+    [self.loadRecordViewModel requestLoanAddRecortdWithId:self.loanID loadAddRecortdWithISUPLoad:YES andOrder:nil resultBlock:^(BOOL isSuccess, NSError *error) {
+        if (isSuccess) {
+            weakSelf.addRecortdTableView.loanModel = weakSelf.loadRecordViewModel.addRecortdModel_LoanModel;
+        }
+    }];
+
 }
 
 - (void)setUPViews {

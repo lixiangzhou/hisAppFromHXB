@@ -38,7 +38,7 @@ UITableViewDelegate,UITableViewDataSource
     self.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     [self registerClass:NSClassFromString(kcellClass) forCellReuseIdentifier:kcellClass];
     self.tableFooterView = [[UIView alloc]init];
-    self.rowHeight = kScrAdaptationH(120);
+    self.rowHeight = kScrAdaptationH750(219);
 }
 - (void)setLoanTruansferViewModel:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)loanTruansferViewModel {
     _loanTruansferViewModel = loanTruansferViewModel;

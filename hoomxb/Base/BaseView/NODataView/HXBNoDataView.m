@@ -41,6 +41,7 @@
         make.top.equalTo(self.noDataLabel.mas_bottom).offset(kScrAdaptationH(14));
         make.centerX.equalTo(self.noDataLabel);
         make.height.equalTo(@(kScrAdaptationH(15)));
+        make.bottom.equalTo(self);
     }];
 }
 + (HXBNoDataView *)noDataViewWithImgName:(NSString *)imgName noDataMassage:(NSString *)noDataMassage downPullMassage:(NSString *)downPullMassage inView:(UIView *)view remakeConstraints:(void(^)(MASConstraintMaker *))remakeConstraints

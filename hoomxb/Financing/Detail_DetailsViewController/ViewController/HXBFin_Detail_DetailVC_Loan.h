@@ -21,7 +21,12 @@
 @interface HXBFin_Detail_DetailVC_LoanManager : NSObject
 ///借款说明
 @property (nonatomic,copy) NSString *loanInstruction;
-
+///string   标的认证类型（借款人审核状态）
+@property (nonatomic,copy) NSString *creditInfoItems;
+///标的风险等级
+@property (nonatomic,copy) NSString *riskLevel;
+///标的风险等级描述
+@property (nonatomic,copy) NSString *riskLevelDesc;
 #pragma mark     ------------ @"基础信息" ----------------
 ///@"姓名：",
 @property (nonatomic,copy) NSString *name;

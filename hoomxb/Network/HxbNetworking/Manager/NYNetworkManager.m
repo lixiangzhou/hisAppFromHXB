@@ -25,11 +25,24 @@
 
 - (void)addRequest:(NYBaseRequest *)request
 {
-    [self addRequest:request withHUD:nil];
+    NSString* hudShowContent = nil;
+    if(request.showHud) {
+        hudShowContent = request.hudShowContent;
+    }
+    [self addRequest:request withHUD:hudShowContent];
 }
 
 - (void)addRequest:(NYBaseRequest *)request withHUD:(NSString *)content
 {
+    if([[HXBBaseRequestManager sharedInstance] sameRequestInstance:request]){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (request.failure) {
+                request.failure(request, nil);
+            }
+        });
+        return;
+    }
+    
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     // 适配重构前的HUD
@@ -59,6 +72,14 @@
 
 - (void)addRequestWithAnimation:(NYBaseRequest *)request
 {
+    if([[HXBBaseRequestManager sharedInstance] sameRequestInstance:request]){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (request.failure) {
+                request.failure(request, nil);
+            }
+        });
+        return;
+    }
     // 适配重构前的HUD
     HxbHUDProgress *hud = nil;
     if (request.hudDelegate == nil) {

@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "HXBRequestHudDelegate.h"
+#import "HXBBaseRequest.h"
 
 typedef UIView* (^HugViewBlock)();
 
-@interface HXBBaseViewModel : NSObject <HXBRequestHudDelegate>
+@interface HXBBaseViewModel : HXBBaseModel <HXBRequestHudDelegate>
 
 @property (nonatomic, strong) HugViewBlock hugViewBlock;
 

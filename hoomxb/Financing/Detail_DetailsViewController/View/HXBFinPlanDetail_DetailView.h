@@ -22,6 +22,11 @@
 
 @end
 @interface HXBFinPlanDetail_DetailViewManager: NSObject
+
+/**
+ 适合人群
+ */
+//@property (nonatomic,strong) HXBBaseView_MoreTopBottomViewManager *pursuitsViewManager;
 /**
  计划金额
  加入条件
