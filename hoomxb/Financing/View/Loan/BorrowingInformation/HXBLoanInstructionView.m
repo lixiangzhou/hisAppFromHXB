@@ -46,7 +46,7 @@
     self.loanContentLabel.text = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO;
     
     self.securityLevelLabel.text = self.riskLevel&&![self.riskLevel isEqualToString:@""]?self.riskLevel:@"--";
-    self.securityLevelInstructionLabel.text = self.riskLevelDesc?self.riskLevelDesc:@"";
+    self.securityLevelInstructionLabel.text = self.riskLevelDesc&&![self.riskLevelDesc isEqualToString:@""]?self.riskLevelDesc:@"";
     [self updateFrame];
 }
 
@@ -57,19 +57,19 @@
 
 - (void)updateFrame{
     self.securityLevelLabel.text = self.riskLevel&&![self.riskLevel isEqualToString:@""]?self.riskLevel:@"--";
-    self.securityLevelInstructionLabel.text = self.riskLevelDesc?self.riskLevelDesc:@"";
-    if (!self.securityLevelLabel.text&&self.securityLevelInstructionLabel.text) {
+    self.securityLevelInstructionLabel.text = self.riskLevelDesc&&![self.riskLevelDesc isEqualToString:@""]?self.riskLevelDesc:@"";
+    if ([self.riskLevel isEqualToString:@"--"]&&![self.securityLevelInstructionLabel.text isEqualToString:@""]) {
         [self.securityLevelImgV mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);
         }];
         [self.securityLevelLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);
         }];
-    } else if (self.securityLevelLabel.text&&!self.securityLevelInstructionLabel.text){
+    } else if (![self.riskLevel isEqualToString:@"--"]&&[self.securityLevelInstructionLabel.text isEqualToString:@""]){
         [self.securityLevelInstructionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@kScrAdaptationH(12));
         }];
-    } else if (!self.securityLevelLabel.text&&!self.securityLevelInstructionLabel.text) {
+    } else if ([self.riskLevel isEqualToString:@"--"]&&[self.securityLevelInstructionLabel.text isEqualToString:@""]) {
         
         [self.securityLevelStrLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);//@kScrAdaptationH(0.01)
