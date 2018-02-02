@@ -8,9 +8,11 @@
 
 #import "HXBLoanInstructionView.h"
 #import "HXBFinDetailViewModel_LoanDetail.h"
+
+static NSString *const defaultString = @"--";
+
 @interface HXBLoanInstructionView()
 
-#define defaultString @"--"
 @property (nonatomic, strong) UILabel *loanInstructionLabel;
 @property (nonatomic, strong) UILabel *loanContentLabel;
 @property (nonatomic, strong) UILabel *securityLevelStrLabel;//”风险等级“标题
