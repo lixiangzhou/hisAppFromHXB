@@ -34,7 +34,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manager = [[HXBVersionUpdateManager alloc] initWithBlock:^UIView *{
-            return [HXBRootVCManager manager].topVC.view;
+            return nil;
         }];
     });
     return manager;
