@@ -105,7 +105,7 @@
     self.mainTableView.tableHeaderView = self.headView;
 }
 
-- (void)setHomeBaseViewModel:(HxbHomePageViewModel *)homeBaseViewModel
+- (void)setHomeBaseViewModel:(HXBHomeVCViewModel *)homeBaseViewModel
 {
     _homeBaseViewModel = homeBaseViewModel;
     if (homeBaseViewModel.homeBaseModel.homeTitle.baseTitle.length) {
