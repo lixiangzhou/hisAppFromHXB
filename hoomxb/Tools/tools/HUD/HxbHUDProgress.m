@@ -27,6 +27,9 @@
 }
 
 + (void)showTextWithMessage:(NSString *)message{
+    if(message.length <= 0) {
+        return;
+    }
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     MBProgressHUD *HUD = [[MBProgressHUD alloc]initWithView:keyWindow];
     [keyWindow addSubview:HUD];
