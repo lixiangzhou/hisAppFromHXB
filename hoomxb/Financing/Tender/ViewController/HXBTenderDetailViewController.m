@@ -24,8 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.viewModel = [HXBTenderDetailViewModel new];
-    self.viewModel.view = self.view;
+    kWeakSelf
+    self.viewModel = [[HXBTenderDetailViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     
     [self setUI];
     [self getData:YES];

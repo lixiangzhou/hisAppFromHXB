@@ -2314,6 +2314,53 @@
 			path = TextField;
 			sourceTree = "<group>";
 		};
+		8DE9504B2024104B00842B23 /* Tender */ = {
+			isa = PBXGroup;
+			children = (
+				8DE9504F2024106700842B23 /* View */,
+				8DE9504E2024106000842B23 /* ViewModel */,
+				8DE9504D2024105C00842B23 /* Model */,
+				8DE9504C2024105300842B23 /* ViewController */,
+			);
+			path = Tender;
+			sourceTree = "<group>";
+		};
+		8DE9504C2024105300842B23 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AE033212022C422006D6140 /* HXBTenderDetailViewController.h */,
+				9AE033222022C422006D6140 /* HXBTenderDetailViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		8DE9504D2024105C00842B23 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9AE0331B2022C422006D6140 /* HXBTenderDetailModel.h */,
+				9AE0331C2022C422006D6140 /* HXBTenderDetailModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8DE9504E2024106000842B23 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9AE033252022C422006D6140 /* HXBTenderDetailViewModel.h */,
+				9AE033262022C422006D6140 /* HXBTenderDetailViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8DE9504F2024106700842B23 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9AE033282022C422006D6140 /* HXBTenderDetailCell.h */,
+				9AE033292022C422006D6140 /* HXBTenderDetailCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		93AB8A7B8B5BF47D9A9FFDF5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -3759,74 +3806,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		9AE033192022C422006D6140 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				9AE0331A2022C422006D6140 /* TenderDetail */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		9AE0331A2022C422006D6140 /* TenderDetail */ = {
-			isa = PBXGroup;
-			children = (
-				9AE0331B2022C422006D6140 /* HXBTenderDetailModel.h */,
-				9AE0331C2022C422006D6140 /* HXBTenderDetailModel.m */,
-			);
-			path = TenderDetail;
-			sourceTree = "<group>";
-		};
-		9AE0331D2022C422006D6140 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				9AE0331E2022C422006D6140 /* DetailsViewController */,
-				9AE033202022C422006D6140 /* TenderDetail */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		9AE0331E2022C422006D6140 /* DetailsViewController */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DetailsViewController;
-			sourceTree = "<group>";
-		};
-		9AE033202022C422006D6140 /* TenderDetail */ = {
-			isa = PBXGroup;
-			children = (
-				9AE033212022C422006D6140 /* HXBTenderDetailViewController.h */,
-				9AE033222022C422006D6140 /* HXBTenderDetailViewController.m */,
-			);
-			path = TenderDetail;
-			sourceTree = "<group>";
-		};
-		9AE033232022C422006D6140 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				9AE033242022C422006D6140 /* TenderDetail */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		9AE033242022C422006D6140 /* TenderDetail */ = {
-			isa = PBXGroup;
-			children = (
-				9AE033252022C422006D6140 /* HXBTenderDetailViewModel.h */,
-				9AE033262022C422006D6140 /* HXBTenderDetailViewModel.m */,
-			);
-			path = TenderDetail;
-			sourceTree = "<group>";
-		};
-		9AE033272022C422006D6140 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				9AE033282022C422006D6140 /* HXBTenderDetailCell.h */,
-				9AE033292022C422006D6140 /* HXBTenderDetailCell.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		9AE0332A2022C422006D6140 /* DetailsViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -4833,6 +4812,7 @@
 		E1D2CA561EAB4EFC000099C7 /* Financing */ = {
 			isa = PBXGroup;
 			children = (
+				8DE9504B2024104B00842B23 /* Tender */,
 				9AE0344320232989006D6140 /* Request */,
 				9AE032822022C421006D6140 /* AddRecord */,
 				9AE032B82022C421006D6140 /* Buy */,
@@ -4840,10 +4820,6 @@
 				9AE0329A2022C421006D6140 /* Detail_DetailsViewController */,
 				9AE0332A2022C422006D6140 /* DetailsViewController */,
 				9AE032E82022C421006D6140 /* Financing */,
-				9AE033192022C422006D6140 /* Model */,
-				9AE033272022C422006D6140 /* View */,
-				9AE0331D2022C422006D6140 /* ViewController */,
-				9AE033232022C422006D6140 /* ViewModel */,
 			);
 			path = Financing;
 			sourceTree = "<group>";
