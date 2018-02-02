@@ -239,6 +239,7 @@ MyViewHeaderDelegate
         }
     }else{
         cell.textLabel.text = @"交易记录";
+        cell.desc = @"";
         cell.isShowLine = NO;
     }
     return cell;
