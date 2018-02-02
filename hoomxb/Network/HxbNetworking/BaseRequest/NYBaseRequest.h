@@ -56,6 +56,8 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
 /// 是否显示加载框
 @property (nonatomic, assign) BOOL showHud;
+/// 加载框上显示的文本
+@property (nonatomic, copy) NSString* hudShowContent;
 
 //================================== 发送者代理 ==================================
 /// 委托

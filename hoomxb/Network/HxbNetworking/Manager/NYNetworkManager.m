@@ -25,7 +25,11 @@
 
 - (void)addRequest:(NYBaseRequest *)request
 {
-    [self addRequest:request withHUD:nil];
+    NSString* hudShowContent = nil;
+    if(request.showHud) {
+        hudShowContent = request.hudShowContent;
+    }
+    [self addRequest:request withHUD:hudShowContent];
 }
 
 - (void)addRequest:(NYBaseRequest *)request withHUD:(NSString *)content
