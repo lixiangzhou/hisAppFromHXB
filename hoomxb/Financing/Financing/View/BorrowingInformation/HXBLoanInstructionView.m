@@ -45,7 +45,7 @@
     _loanDetailViewModel = loanDetailViewModel;
     self.loanContentLabel.text = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO;
     
-    self.securityLevelLabel.text = self.riskLevel?self.riskLevel:@"";
+    self.securityLevelLabel.text = self.riskLevel&&![self.riskLevel isEqualToString:@""]?self.riskLevel:@"--";
     self.securityLevelInstructionLabel.text = self.riskLevelDesc?self.riskLevelDesc:@"";
     [self updateFrame];
 }
@@ -56,20 +56,20 @@
 }
 
 - (void)updateFrame{
-    self.securityLevelLabel.text = self.riskLevel?self.riskLevel:@"";
+    self.securityLevelLabel.text = self.riskLevel&&![self.riskLevel isEqualToString:@""]?self.riskLevel:@"--";
     self.securityLevelInstructionLabel.text = self.riskLevelDesc?self.riskLevelDesc:@"";
-    if (!self.riskLevel&&self.riskLevelDesc) {
+    if (!self.securityLevelLabel.text&&self.securityLevelInstructionLabel.text) {
         [self.securityLevelImgV mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);
         }];
         [self.securityLevelLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);
         }];
-    } else if (self.riskLevel&&!self.riskLevelDesc){
+    } else if (self.securityLevelLabel.text&&!self.securityLevelInstructionLabel.text){
         [self.securityLevelInstructionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@kScrAdaptationH(12));
         }];
-    } else if (!self.riskLevel&&!self.riskLevelDesc) {
+    } else if (!self.securityLevelLabel.text&&!self.securityLevelInstructionLabel.text) {
         
         [self.securityLevelStrLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);//@kScrAdaptationH(0.01)

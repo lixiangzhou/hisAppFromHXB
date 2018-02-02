@@ -10,7 +10,6 @@
 #import "HXBTenderDetailModel.h"
 
 @interface HXBTenderDetailViewModel : HXBBaseViewModel
-@property (nonatomic, weak) UIView *view;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
 - (void)getData:(BOOL)isNew completion:(void(^)())completion;

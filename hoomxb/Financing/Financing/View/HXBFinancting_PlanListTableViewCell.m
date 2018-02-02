@@ -210,6 +210,7 @@
         make.top.equalTo(weakSelf.contentView).offset(kScrAdaptationH750(32));
         make.left.equalTo(weakSelf.contentView).offset(kScrAdaptationW(15));
         make.height.equalTo(@(kScrAdaptationH750(25)));
+        make.right.equalTo(weakSelf.contentView.mas_centerX);
     }];
     [self.tagLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.tagLableImageView);
