@@ -105,7 +105,7 @@
     [self.financialAdvisor_jobNumberTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.businessCardImageView).offset(kScrAdaptationH(107.5));
         make.height.equalTo(@kScrAdaptationH(16));
-        make.width.equalTo(@kScrAdaptationW(64));
+        make.width.equalTo(@kScrAdaptationW(76));
         make.left.equalTo(self.businessCardImageView).offset(kScrAdaptationW(76));
     }];
     [self.financialAdvisor_jobNumberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -162,7 +162,7 @@
     if (!_financialAdvisor_jobNumberTitleLabel) {
         _financialAdvisor_jobNumberTitleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW(76), kScrAdaptationH(107.5), kScrAdaptationW(64), kScrAdaptationH(16))];
         _financialAdvisor_jobNumberTitleLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
-        _financialAdvisor_jobNumberTitleLabel.text = @"员工工号";
+        _financialAdvisor_jobNumberTitleLabel.text = @"邀请码";
         _financialAdvisor_jobNumberTitleLabel.textAlignment = NSTextAlignmentLeft;
         _financialAdvisor_jobNumberTitleLabel.textColor = RGBA(51, 51, 51, 1);
     }

@@ -8,14 +8,19 @@
 
 #import "HXBTenderDetailViewModel.h"
 
+@interface HXBTenderDetailViewModel ()
+@property (nonatomic, assign) BOOL isFirstRequest;
+@end
+
 @implementation HXBTenderDetailViewModel
 
-- (instancetype)init
+- (instancetype)initWithBlock:(HugViewBlock)hugViewBlock
 {
-    self = [super init];
+    self = [super initWithBlock:hugViewBlock];
     if (self) {
         self.totalCount = @"0";
         self.pageSize = @"20";
+        self.isFirstRequest = YES;
     }
     return self;
 }
@@ -37,16 +42,21 @@
         page = MAX(page, 1);
     }
 
-    NYBaseRequest *req = [NYBaseRequest new];
+    NYBaseRequest *req = [[NYBaseRequest alloc] initWithDelegate:self];
+    req.showHud = self.isFirstRequest;
     req.requestUrl = kHXBFinanc_PlanInvestList;
     req.requestArgument = @{@"pageSize": self.pageSize,
                             @"page": @(page)};
-    kWeakSelf
-    [req startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    
+    if (self.isFirstRequest) {
+        self.isFirstRequest = NO;
+    }
+    
+    [req loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSInteger statusCode = [responseObject[kResponseStatus] integerValue];
         if (statusCode != kHXBCode_Success) {
             NSString *message = responseObject[kResponseMessage];
-            [HxbHUDProgress showMessageCenter:message inView:weakSelf.view];
+            [req showToast:message];
         } else {
             NSArray *temp = responseObject[kResponseData][@"dataList"];
             if (temp.count) {

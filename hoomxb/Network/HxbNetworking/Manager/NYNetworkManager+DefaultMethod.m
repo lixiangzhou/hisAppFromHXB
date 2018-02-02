@@ -39,16 +39,19 @@
         NSLog(@" ---------- %@",request.responseObject[kResponseStatus]);
         NSString *status = request.responseObject[kResponseStatus];
         if (status.integerValue == kHXBCode_Enum_ProcessingField) {
-            NSDictionary *dic = request.responseObject[kResponseData];
-            __block NSString *error = @"";
-            [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                NSArray *arr = obj;
-                if([arr isKindOfClass:[NSArray class]] && arr.count>0) {
-                    error = arr[0];
-                    *stop = YES;
-                }
-            }];
-            [self showToast:error withRequest:request];
+            NSString *errorType = [[request.responseObject valueForKey:kResponseErrorData] valueForKey:@"errorType"];
+            if (!errorType || [errorType isEqualToString:@"TOAST"]) {
+                NSDictionary *dic = request.responseObject[kResponseData];
+                __block NSString *error = @"";
+                [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                    NSArray *arr = obj;
+                    if([arr isKindOfClass:[NSArray class]] && arr.count>0) {
+                        error = arr[0];
+                        *stop = YES;
+                    }
+                }];
+                [self showToast:error withRequest:request];
+            }
         } else if(status.integerValue == kHXBCode_Enum_RequestOverrun){
             if ([self handlingSpecialErrorCodes:request]) {
                 return;
