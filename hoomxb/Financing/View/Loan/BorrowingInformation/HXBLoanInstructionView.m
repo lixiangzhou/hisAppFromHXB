@@ -45,7 +45,7 @@
     _loanDetailViewModel = loanDetailViewModel;
     self.loanContentLabel.text = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO;
     
-    self.securityLevelLabel.text = self.riskLevel?self.riskLevel:@"--";
+    self.securityLevelLabel.text = self.riskLevel&&![self.riskLevel isEqualToString:@""]?self.riskLevel:@"--";
     self.securityLevelInstructionLabel.text = self.riskLevelDesc?self.riskLevelDesc:@"";
     [self updateFrame];
 }
@@ -56,7 +56,7 @@
 }
 
 - (void)updateFrame{
-    self.securityLevelLabel.text = self.riskLevel?self.riskLevel:@"--";
+    self.securityLevelLabel.text = self.riskLevel&&![self.riskLevel isEqualToString:@""]?self.riskLevel:@"--";
     self.securityLevelInstructionLabel.text = self.riskLevelDesc?self.riskLevelDesc:@"";
     if (!self.securityLevelLabel.text&&self.securityLevelInstructionLabel.text) {
         [self.securityLevelImgV mas_updateConstraints:^(MASConstraintMaker *make) {
