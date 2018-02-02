@@ -27,6 +27,9 @@
 }
 
 + (void)showTextWithMessage:(NSString *)message{
+    if(message.length <= 0) {
+        return;
+    }
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     [self showTextInView:keyWindow text:message];
 }
@@ -354,6 +357,10 @@ typedef NS_ENUM(NSInteger, LCProgressHUDType){
 
 
 + (void)showMessage:(NSString *)msg inView:(UIView *)view{
+    if(msg.length <= 0){
+        return;
+    }
+    
     [self show:msg inView:view type:LCProgressHUDTypeOnlyText];
     [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1];
 }
