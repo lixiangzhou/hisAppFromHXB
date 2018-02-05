@@ -151,7 +151,8 @@
         if([request.hudDelegate respondsToSelector:@selector(erroStateCodeDeal:)]) {
             if([request.hudDelegate erroStateCodeDeal:request]) {
                 if(request.failure) {
-                    request.failure(request, nil);
+                    NSError* erro = [NSError errorWithDomain:@"" code:kHXBCode_AlreadyPopWindow userInfo:nil];
+                    request.failure(request, erro);
                     return;
                 }
             }
@@ -171,7 +172,8 @@
     if (request.failure) {
         if([request.hudDelegate respondsToSelector:@selector(erroResponseCodeDeal:)]) {
             if([request.hudDelegate erroResponseCodeDeal:request]) {
-                request.failure(request, nil);
+                NSError* erro = [NSError errorWithDomain:@"" code:kHXBCode_AlreadyPopWindow userInfo:nil];
+                request.failure(request, erro);
                 return;
             }
         }

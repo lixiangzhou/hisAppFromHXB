@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NYBaseRequest.h"
 
 #define KeyChain [KeyChainManage sharedInstance]
 
@@ -65,6 +66,14 @@
 - (void)downLoadUserInfoWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure;
 /// 用户信息的请求-无加载状态
 - (void)downLoadUserInfoNoHUDWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure;
+
+/**
+ 新增请求用户信息
+ 
+ @param requestBlock 请求回调， 补充request的参数
+ @param resultBlock 结果回调
+ */
+- (void)downLoadUserInfoWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock;
 
 - (void)removeGesture;     //!< 移除手势密码
 

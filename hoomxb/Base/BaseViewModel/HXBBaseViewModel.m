@@ -37,16 +37,14 @@
 
 - (UIView*)getHugView {
     UIView* view = nil;
-#ifndef DEBUG
-    view = [UIApplication sharedApplication].keyWindow;
-#else
     if(self.hugViewBlock) {
         view = self.hugViewBlock();
     }
+#ifndef DEBUG
+    if(view) {
+        view = [UIApplication sharedApplication].keyWindow;
+    }
 #endif
-//    if(!view) {
-//        view = [UIApplication sharedApplication].keyWindow;
-//    }
     return view;
 }
 

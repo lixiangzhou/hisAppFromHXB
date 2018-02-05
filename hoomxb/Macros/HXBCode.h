@@ -52,6 +52,8 @@ typedef enum : NSUInteger {
     kHXBCode_Enum_ConnectionTimeOut = -2009,
     // 解绑银行卡失败（跳结果页）
     kHXBCode_UnBindCardFail = 4002,
+    // 如果网络层已经做了弹窗处理， 那么就会返回这个错误码
+    kHXBCode_AlreadyPopWindow = -100000,
     // 成功
     kHXBCode_Success = 0
 } kHXBCode_Enum;

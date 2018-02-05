@@ -233,6 +233,26 @@ static NSString *const hostH5 = @"hostH5";
     }];
 }
 
+/**
+ 新增请求用户信息
+
+ @param requestBlock 请求回调， 补充request的参数
+ @param resultBlock 结果回调
+ */
+- (void)downLoadUserInfoWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock{
+    
+    [HXBRequestUserInfo downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        [self setValueWithUserInfoModel:viewModel];
+        if (resultBlock) {
+            resultBlock(viewModel, nil);
+        }
+    } andFailure:^(NSError *error) {
+        if (resultBlock) {
+            resultBlock(nil, error);
+        }
+    }];
+}
+
 - (BOOL)removeAllInfo
 {
     KeyChainManage *manager = KeyChain;
