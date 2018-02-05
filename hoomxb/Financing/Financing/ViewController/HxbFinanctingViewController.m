@@ -65,8 +65,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
-    [self.view addGestureRecognizer:pan];
     self.view.backgroundColor = [UIColor whiteColor];
     self.countDownButton = [[HXBToolCountDownButton alloc]init];
     

@@ -207,6 +207,21 @@
     }];
 }
 
+- (void)setIsStopRefresh_Plan:(BOOL)isStopRefresh_Plan {
+    _isStopRefresh_Plan = isStopRefresh_Plan;
+    [self.planListTableView.mj_header endRefreshing];
+}
+
+- (void)setIsStopRefresh_loan:(BOOL)isStopRefresh_loan {
+    _isStopRefresh_loan = isStopRefresh_loan;
+    [self.loanListTableView.mj_header endRefreshing];
+}
+
+- (void)setIsStopRefresh_LoanTruansfer:(BOOL)isStopRefresh_LoanTruansfer {
+    _isStopRefresh_LoanTruansfer = isStopRefresh_LoanTruansfer;
+    [self.loanTruansferTableView.mj_header endRefreshing];
+}
+
 #pragma mark 底部加载更多控件以及状态控制的属性设置方法
 
 - (void)setIsPlanLastPage:(BOOL)isPlanLastPage {
