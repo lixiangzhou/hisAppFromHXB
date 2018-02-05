@@ -99,7 +99,7 @@
     if(requestBlock) {
         requestBlock(userInfoAPI);
     }
-    [userInfoAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [userInfoAPI loadData:^(NYBaseRequest *request, id responseObject) {
         if (0 == [responseObject[kResponseStatus] integerValue]) {
             //        NSLog(@"%@",responseObject);
             //        NSLog(@"%@",[KeyChain token]);
