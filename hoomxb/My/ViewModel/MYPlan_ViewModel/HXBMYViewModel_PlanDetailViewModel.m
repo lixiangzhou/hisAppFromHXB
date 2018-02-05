@@ -50,7 +50,7 @@ static NSString *kINVEST = @"INVEST";
             } else if(self.planDetailModel.lockPeriod){
                 str = [NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
             }
-        } else if([self.planDetailModel.novice isEqualToString:@"0"]){
+        } else if(!self.planDetailModel.novice||[self.planDetailModel.novice isEqualToString:@"0"]){
             str = [NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
         } else {
             str = @"--";
