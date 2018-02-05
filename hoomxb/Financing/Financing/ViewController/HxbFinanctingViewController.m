@@ -45,13 +45,7 @@
 
 //首页的网络请求类
 @property (nonatomic,strong) HXBFinanctingRequest *finantingRequest;
-//红利计划列表的数据数组
-//@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList*>* finPlanListVMArray;
-//散标列表的数据数组
-//@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList*>* finLoanListVMArray;
-//债转的数据列表
-//@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*finloanTruansferVMArray;
-
+//倒计时按钮
 @property (nonatomic,strong) HXBToolCountDownButton *countDownButton;
 
 ///MARK: ------------ 定时管理 -----------

@@ -207,6 +207,8 @@
     }];
 }
 
+#pragma mark 结束下拉刷新的方法
+
 - (void)setIsStopRefresh_Plan:(BOOL)isStopRefresh_Plan {
     _isStopRefresh_Plan = isStopRefresh_Plan;
     [self.planListTableView.mj_header endRefreshing];
