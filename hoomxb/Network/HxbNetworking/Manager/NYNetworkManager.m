@@ -117,6 +117,8 @@
         request.responseObject = responseJsonObject;
         [self callBackRequestSuccess:request];
     }
+    
+    [self clearRequestBlock:request];
 }
 
 - (void)processConnection:(NYHTTPConnection *)connection withRequest:(NYBaseRequest *)request error:(NSError *)error  HUDProgress:(HxbHUDProgress*)hud
@@ -135,6 +137,8 @@
         request.error = error;
         [self callBackRequestFailure:request];
     }
+    
+    [self clearRequestBlock:request];
 }
 
 //--------------------------------------------回调--------------------------------------------
@@ -157,7 +161,6 @@
         }
         request.success(request,request.responseObject);
     }
-    [self clearRequestBlock:request];
 }
 
 /**
@@ -177,14 +180,11 @@
         }
         request.failure(request,request.error);
     }
-
-    [self clearRequestBlock:request];
 }
 
 - (void)clearRequestBlock:(NYBaseRequest *)request
 {
-    request.success = nil;
-    request.failure = nil;
+    request.connection = nil;
 }
 
 //---------------------------------在回调中默认执行方法，在扩展中重写--------------------------
