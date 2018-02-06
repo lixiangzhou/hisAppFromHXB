@@ -39,67 +39,18 @@
 #pragma mark - setter 主要是进行了UI的刷新
 - (void)setFinPlanListVMArray:(NSArray<HXBFinHomePageViewModel_PlanList *> *)finPlanListVMArray {
     _finPlanListVMArray = finPlanListVMArray;
-    //上拉刷新，下拉加载
-    kWeakSelf
-    if (_finPlanListVMArray.count >= 20) {
-        [self.planListTableView hxb_footerWithRefreshBlock:^{
-            if (weakSelf.planRefreshFooterBlock) weakSelf.planRefreshFooterBlock();
-        }];
-    }
     self.planListTableView.planListViewModelArray = finPlanListVMArray;
 }
 - (void)setFinLoanListVMArray:(NSArray<HXBFinHomePageViewModel_LoanList *> *)finLoanListVMArray {
     _finLoanListVMArray = finLoanListVMArray;
-    kWeakSelf
-    if (_finLoanListVMArray.count >= 20) {
-        [self.loanListTableView hxb_footerWithRefreshBlock:^{
-            if (weakSelf.loanRefreshFooterBlock) weakSelf.loanRefreshFooterBlock();
-        }];
-    }
     self.loanListTableView.loanListViewModelArray = finLoanListVMArray;
 
 }
 - (void)setFinLoanTruansferVMArray:(NSArray<HXBFinHomePageViewModel_LoanTruansferViewModel *> *)finLoanTruansferVMArray {
     _finLoanTruansferVMArray = finLoanTruansferVMArray;
-    kWeakSelf
-    if (_finLoanTruansferVMArray.count >= 20) {
-        [self.loanTruansferTableView hxb_footerWithRefreshBlock:^{
-            if (weakSelf.loanTruansferFooterBlock) weakSelf.loanTruansferFooterBlock();
-        }];
-    }
     self.loanTruansferTableView.loanTruansferViewModel = finLoanTruansferVMArray;
 }
 
-
-//MARK: - 关于刷新 停止
-- (void)setIsStopRefresh_loan:(BOOL)isStopRefresh_loan {
-    _isStopRefresh_loan = isStopRefresh_loan;
-    if (isStopRefresh_loan) {
-        [self.loanListTableView endRefresh];
-    }
-    if (self.finLoanTotalCount <= self.finLoanListVMArray.count) {
-        [self.loanListTableView.mj_footer endRefreshingWithNoMoreData];
-    }
-}
-- (void)setIsStopRefresh_Plan:(BOOL)isStopRefresh_Plan {
-    _isStopRefresh_Plan = isStopRefresh_Plan;
-    if (isStopRefresh_Plan) {
-        [self.planListTableView endRefresh];
-    }
-    
-    if (self.finPlanTotalCount <= self.finPlanListVMArray.count) {
-        [self.planListTableView.mj_footer endRefreshingWithNoMoreData];
-    }
-}
-- (void)setIsStopRefresh_LoanTruansfer:(BOOL)isStopRefresh_LoanTruansfer {
-    _isStopRefresh_LoanTruansfer = isStopRefresh_LoanTruansfer;
-    if (isStopRefresh_LoanTruansfer) {
-        [self.loanTruansferTableView endRefresh];
-    }
-    if (self.finLoanTruansferTotalCount <= self.finLoanTruansferVMArray.count) {
-        [self.loanTruansferTableView.mj_footer endRefreshingWithNoMoreData];
-    }
-}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -256,11 +207,92 @@
     }];
 }
 
+#pragma mark 结束下拉刷新的方法
 
-
-// 刷新UI
-- (void)loadData {
-    [self.loanListTableView.mj_header beginRefreshing];
-    [self.planListTableView.mj_header beginRefreshing];
+- (void)setIsStopRefresh_Plan:(BOOL)isStopRefresh_Plan {
+    _isStopRefresh_Plan = isStopRefresh_Plan;
+    [self.planListTableView.mj_header endRefreshing];
 }
+
+- (void)setIsStopRefresh_loan:(BOOL)isStopRefresh_loan {
+    _isStopRefresh_loan = isStopRefresh_loan;
+    [self.loanListTableView.mj_header endRefreshing];
+}
+
+- (void)setIsStopRefresh_LoanTruansfer:(BOOL)isStopRefresh_LoanTruansfer {
+    _isStopRefresh_LoanTruansfer = isStopRefresh_LoanTruansfer;
+    [self.loanTruansferTableView.mj_header endRefreshing];
+}
+
+#pragma mark 底部加载更多控件以及状态控制的属性设置方法
+
+- (void)setIsPlanLastPage:(BOOL)isPlanLastPage {
+    _isPlanLastPage = isPlanLastPage;
+    if (isPlanLastPage) {
+        [self.planListTableView.mj_footer endRefreshingWithNoMoreData];
+    } else {
+        [self.planListTableView.mj_footer endRefreshing];
+    }
+}
+
+- (void)setIsLoanLastPage:(BOOL)isLoanLastPage {
+    _isLoanLastPage = isLoanLastPage;
+    if (isLoanLastPage) {
+        [self.loanListTableView.mj_footer endRefreshingWithNoMoreData];
+    } else {
+        [self.loanListTableView.mj_footer endRefreshing];
+    }
+}
+
+- (void)setIsLoanTruansferLastPage:(BOOL)isLoanTruansferLastPage {
+    _isLoanTruansferLastPage = isLoanTruansferLastPage;
+    if (isLoanTruansferLastPage) {
+        [self.loanTruansferTableView.mj_footer endRefreshingWithNoMoreData];
+    } else {
+        [self.loanTruansferTableView.mj_footer endRefreshing];
+    }
+}
+
+- (void)setIsPlanShowLoadMore:(BOOL)isPlanShowLoadMore {
+    _isPlanShowLoadMore = isPlanShowLoadMore;
+    kWeakSelf
+    if (isPlanShowLoadMore) {
+        [self.planListTableView hxb_footerWithRefreshBlock:^{
+            if (weakSelf.planRefreshFooterBlock) {
+                weakSelf.planRefreshFooterBlock();
+            }
+        }];
+    } else {
+        self.planListTableView.mj_footer = nil;
+    }
+}
+
+- (void)setIsLoanShowLoadMore:(BOOL)isLoanShowLoadMore {
+    _isLoanShowLoadMore = isLoanShowLoadMore;
+    kWeakSelf
+    if (isLoanShowLoadMore) {
+        [self.loanListTableView hxb_footerWithRefreshBlock:^{
+            if (weakSelf.loanRefreshFooterBlock) {
+                weakSelf.loanRefreshFooterBlock();
+            }
+        }];
+    } else {
+        self.loanListTableView.mj_footer = nil;
+    }
+}
+
+- (void)setIsLoanTruansferShowLoadMore:(BOOL)isLoanTruansferShowLoadMore {
+    _isLoanTruansferShowLoadMore = isLoanTruansferShowLoadMore;
+    kWeakSelf
+    if (isLoanTruansferShowLoadMore) {
+        [self.loanTruansferTableView hxb_footerWithRefreshBlock:^{
+            if (weakSelf.loanTruansferFooterBlock) {
+                weakSelf.loanTruansferFooterBlock();
+            }
+        }];
+    } else {
+        self.loanTruansferTableView.mj_footer = nil;
+    }
+}
+
 @end

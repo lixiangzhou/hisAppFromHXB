@@ -13,6 +13,11 @@
 
 @implementation NYBaseRequest
 
+- (void)dealloc
+{
+    
+}
+
 - (instancetype)init
 {
     self = [super init];

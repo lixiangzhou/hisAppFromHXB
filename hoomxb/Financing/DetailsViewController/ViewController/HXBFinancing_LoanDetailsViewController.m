@@ -94,6 +94,10 @@
         if ([model.optionTitle isEqualToString:weakSelf.viewModel.tableViewTitleArray[0]]) {
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = weakSelf.viewModel.loanDetailModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = weakSelf.viewModel.loanDetailModel.loanDetailModel.loanVo.creditInfoItems;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = weakSelf.viewModel.loanDetailModel.loanDetailModel.loanVo.riskLevel;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevelDesc = weakSelf.viewModel.loanDetailModel.loanDetailModel.loanVo.riskLevelDesc;
+            detail_DetailLoanVC.loanDetailViewModel = weakSelf.viewModel.loanDetailModel;
             [weakSelf.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         }
         ///  借款记录

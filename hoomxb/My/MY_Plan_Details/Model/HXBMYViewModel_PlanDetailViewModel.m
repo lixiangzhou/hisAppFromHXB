@@ -7,7 +7,6 @@
 //
 
 #import "HXBMYViewModel_PlanDetailViewModel.h"
-#import "HXBRequestType_MYManager.h"
 
 static NSString *kHXBUI = @"当日提取至红小宝账户";
 static NSString *kINVESTUI = @"收益再投资";
@@ -43,19 +42,16 @@ static NSString *kINVEST = @"INVEST";
  */
 - (NSString *) lockTime {
     if (!_lockTime) {
-        NSString *str = @"";
-        if ([self.planDetailModel.novice isEqualToString:@"1"]) {
+        NSString *str = @"--";
+        if ([self.planDetailModel.novice isEqualToString:@"1"]) { //新手
             if (self.planDetailModel.lockDays) {
                 str = [NSString stringWithFormat:@"%@天",self.planDetailModel.lockDays];
-            } else if(self.planDetailModel.lockPeriod){
+            }
+        } else {
+            if (self.planDetailModel.lockPeriod) {
                 str = [NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
             }
-        } else if([self.planDetailModel.novice isEqualToString:@"0"]){
-            str = [NSString stringWithFormat:@"%@个月",self.planDetailModel.lockPeriod];
-        } else {
-            str = @"--";
         }
-        
         _lockTime = str;
     }
     return _lockTime;

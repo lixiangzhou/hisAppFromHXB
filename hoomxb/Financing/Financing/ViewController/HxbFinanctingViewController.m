@@ -43,15 +43,7 @@
 //散标第一次加载
 @property (nonatomic,assign) BOOL isFirstLoadNetDataLoanTruansfer;
 
-//首页的网络请求类
-@property (nonatomic,strong) HXBFinanctingRequest *finantingRequest;
-//红利计划列表的数据数组
-//@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_PlanList*>* finPlanListVMArray;
-//散标列表的数据数组
-//@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanList*>* finLoanListVMArray;
-//债转的数据列表
-//@property (nonatomic,strong) NSArray <HXBFinHomePageViewModel_LoanTruansferViewModel *>*finloanTruansferVMArray;
-
+//倒计时按钮
 @property (nonatomic,strong) HXBToolCountDownButton *countDownButton;
 
 ///MARK: ------------ 定时管理 -----------
@@ -65,8 +57,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(pan:)];
-    [self.view addGestureRecognizer:pan];
     self.view.backgroundColor = [UIColor whiteColor];
     self.countDownButton = [[HXBToolCountDownButton alloc]init];
     
@@ -126,7 +116,6 @@
     self.isFirstLoadNetDataLoan = YES;
     self.isFirstLoadNetDataPlan = YES;
     self.isFirstLoadNetDataLoanTruansfer = YES;
-    self.finantingRequest = [HXBFinanctingRequest sharedFinanctingRequest];
 }
 - (void)setup {
     //防止跳转的时候，tableView向上或者向下移动
@@ -267,52 +256,54 @@
 }
 
 #pragma mark - 网络数据请求
+/// 计划的数据请求
 - (void)planLoadDateWithIsUpData: (BOOL)isUPData {
     
-    if (!(self.viewModel.planListViewModelArray.count > 0)) {
+    if (self.viewModel.planListViewModelArray.count <= 0) {
         id responseObject = [PPNetworkCache httpCacheForURL:@"/plan" parameters:nil];
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-        self.viewModel.planListViewModelArray = [self.finantingRequest plan_dataProcessingWitharr:dataList];
+        self.viewModel.planListViewModelArray = [self.viewModel plan_dataProcessingWitharr:dataList];
     }
     kWeakSelf
-    [self.viewModel planListWithIsUpData:isUPData resultBlock:^(NSInteger totalCount, BOOL isSuccess) {
-        [weakSelf reloadPlanListDataWithSuccess:isSuccess totalCount:totalCount];
+    [self.viewModel planListWithIsUpData:isUPData financeType:HXBFinance_Plan resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.isFirstLoadNetDataPlan = NO;
+            weakSelf.homePageView.isPlanShowLoadMore = weakSelf.viewModel.isPlanShowLoadMore;
+            weakSelf.homePageView.isPlanLastPage = weakSelf.viewModel.isPlanLastPage;
+        }
+        // 更换数据源之前， 要先取消定时器，然后再重新设置， 否则由于线程同步问题会引发crash
+        if(weakSelf.contDwonManager) {
+            [weakSelf.contDwonManager cancelTimer];
+            weakSelf.contDwonManager = nil;
+        }
+        [weakSelf creatCountDownManager];
+        weakSelf.homePageView.finPlanListVMArray = self.viewModel.planListViewModelArray;
+        weakSelf.homePageView.isStopRefresh_Plan = YES;
     }];
 }
 
-- (void)reloadPlanListDataWithSuccess:(BOOL) isSuccess totalCount:(NSInteger)totalCount  {
-    if (isSuccess) {
-        self.homePageView.finPlanTotalCount = totalCount;
-        self.isFirstLoadNetDataPlan = NO;
-    }
-    // 更换数据源之前， 要先取消定时器，然后再重新设置， 否则由于线程同步问题会引发crash
-    if(self.contDwonManager) {
-        [self.contDwonManager cancelTimer];
-        self.contDwonManager = nil;
-    }
-    [self creatCountDownManager];
-    self.homePageView.finPlanListVMArray = self.viewModel.planListViewModelArray;
-    self.homePageView.isStopRefresh_Plan = YES;
-}
-
+/// 散标的数据请求
 - (void)loanLoadDateWithIsUpData: (BOOL)isUpData {
     kWeakSelf
-    [self.viewModel loanListWithIsUpData:isUpData resultBlock:^(NSInteger totalCount, BOOL isSuccess) {
+    [self.viewModel loanListWithIsUpData:isUpData financeType:HXBFinance_Loan resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
-            weakSelf.homePageView.finLoanTotalCount = totalCount;
             weakSelf.isFirstLoadNetDataLoan = NO;
+            weakSelf.homePageView.isLoanShowLoadMore = weakSelf.viewModel.isLoanShowLoadMore;
+            weakSelf.homePageView.isLoanLastPage = weakSelf.viewModel.isLoanLastPage;
         }
         weakSelf.homePageView.finLoanListVMArray = weakSelf.viewModel.loanListViewModelArray;
         weakSelf.homePageView.isStopRefresh_loan = YES;
     }];
 }
+
 /// 债转的数据请求
 - (void)loanTruansferLoandDataWithIsUPData: (BOOL)isUPData {
     kWeakSelf
-    [self.viewModel loanTruansferListWithIsUpData:isUPData resultBlock:^(NSInteger totalCount, BOOL isSuccess) {
+    [self.viewModel loanTruansferListWithIsUpData:isUPData financeType:HXBFinance_LoanTransfer resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
-            weakSelf.homePageView.finLoanTruansferTotalCount = totalCount;
             weakSelf.isFirstLoadNetDataLoanTruansfer = NO;
+            weakSelf.homePageView.isLoanTruansferShowLoadMore = weakSelf.viewModel.isLoanTruansferShowLoadMore;
+            weakSelf.homePageView.isLoanTruansferLastPage = weakSelf.viewModel.isLoanTruansferLastPage;
         }
         weakSelf.homePageView.finLoanTruansferVMArray = weakSelf.viewModel.loanTruansferViewModelArray;
         weakSelf.homePageView.isStopRefresh_LoanTruansfer = YES;

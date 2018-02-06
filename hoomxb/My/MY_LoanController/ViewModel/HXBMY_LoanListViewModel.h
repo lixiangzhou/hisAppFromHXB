@@ -10,8 +10,9 @@
 #import "HXBMYViewModel_MainLoanViewModel.h"
 #import "HXBMY_LoanTruansferViewModel.h"
 #import "HXBMYModel_Loan_LoanRequestModel.h"
+#import "HXBBaseViewModel.h"
 
-@interface HXBMY_LoanListViewModel : NSObject
+@interface HXBMY_LoanListViewModel : HXBBaseViewModel
 
 ///loan 收益中
 @property (nonatomic, strong) NSMutableArray <HXBMYViewModel_MainLoanViewModel *> *repaying_Loan_array;
