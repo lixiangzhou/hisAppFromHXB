@@ -77,11 +77,9 @@
             weakSelf.noDataView.hidden = weakSelf.viewModel.dataSource.count != 0;
             
             if (weakSelf.viewModel.showPullup) {
-                if (weakSelf.tableView.mj_footer == nil) {
-                    [weakSelf.tableView hxb_footerWithRefreshBlock:^{
-                        [weakSelf getData:NO];
-                    }];
-                }
+                [weakSelf.tableView hxb_footerWithRefreshBlock:^{
+                    [weakSelf getData:NO];
+                }];
             } else {
                 weakSelf.tableView.mj_footer = nil;
             }
