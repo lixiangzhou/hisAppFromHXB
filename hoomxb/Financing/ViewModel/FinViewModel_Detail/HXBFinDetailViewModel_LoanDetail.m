@@ -86,7 +86,7 @@
         
         ///	String	新申请
         if ([status isEqualToString:@"FIRST_APPLY"]){
-            self.addButtonStr = @"等待投资";
+            self.addButtonStr = @"待成交";
              _isAddButtonEditing = NO;
               _surplusAmount = [NSString hxb_getPerMilWithIntegetNumber:self.loanDetailModel.loanVo.amount.floatValue];
         }
