@@ -22,16 +22,6 @@
                                  andSuccessBlock: (void(^)(HXBMYViewModel_PlanDetailViewModel *viewModel))successDateBlock
                                  andFailureBlock: (void(^)(NSError *error))failureBlock;
 
-//MARK: 散标详情 接口
-/**
- * 计划 投资记录
- * @param loanID loanID
- * @param requestType 请求类型
- */
-- (void)loanListDetails_requestWithFinancePlanID: (NSString *)loanID
-                                  andRequestType: (NSString *)requestType
-                                 andSuccessBlock: (void(^)(HXBMYViewModel_LoanDetailViewModel *viewModelArray))successDateBlock
-                                 andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
 @end

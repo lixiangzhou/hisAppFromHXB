@@ -97,7 +97,10 @@ kDealloc
 #pragma mark 初始化 viewModel
 - (HXBMY_LoanListViewModel *)viewModel {
     if(!_viewModel) {
-        _viewModel = [[HXBMY_LoanListViewModel alloc] init];
+        kWeakSelf
+        _viewModel = [[HXBMY_LoanListViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
     }
     
     return _viewModel;

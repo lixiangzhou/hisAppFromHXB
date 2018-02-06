@@ -57,6 +57,12 @@ typedef enum : NSUInteger {
                           resultBlock: (void (^)(BOOL isSuccess))resultBlock;
 
 
-
+/**
+ 红利计划转模型
+ 
+ @param dataList 数据数组
+ @return 模型数组
+ */
+- (NSMutableArray <HXBFinHomePageViewModel_PlanList *>*)plan_dataProcessingWitharr:(NSArray *)dataList;
 
 @end

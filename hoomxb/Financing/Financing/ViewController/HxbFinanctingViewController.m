@@ -43,8 +43,6 @@
 //散标第一次加载
 @property (nonatomic,assign) BOOL isFirstLoadNetDataLoanTruansfer;
 
-//首页的网络请求类
-@property (nonatomic,strong) HXBFinanctingRequest *finantingRequest;
 //倒计时按钮
 @property (nonatomic,strong) HXBToolCountDownButton *countDownButton;
 
@@ -118,7 +116,6 @@
     self.isFirstLoadNetDataLoan = YES;
     self.isFirstLoadNetDataPlan = YES;
     self.isFirstLoadNetDataLoanTruansfer = YES;
-    self.finantingRequest = [HXBFinanctingRequest sharedFinanctingRequest];
 }
 - (void)setup {
     //防止跳转的时候，tableView向上或者向下移动
@@ -265,7 +262,7 @@
     if (self.viewModel.planListViewModelArray.count <= 0) {
         id responseObject = [PPNetworkCache httpCacheForURL:@"/plan" parameters:nil];
         NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-        self.viewModel.planListViewModelArray = [self.finantingRequest plan_dataProcessingWitharr:dataList];
+        self.viewModel.planListViewModelArray = [self.viewModel plan_dataProcessingWitharr:dataList];
     }
     kWeakSelf
     [self.viewModel planListWithIsUpData:isUPData financeType:HXBFinance_Plan resultBlock:^(BOOL isSuccess) {
