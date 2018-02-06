@@ -15,6 +15,8 @@
 #import "HXBMY_LoanListViewController.h"
 #import "HXBTransferConfirmModel.h"
 #import "HXBTransactionPasswordView.h"
+#import "HXBMyLoanDetailsViewModel.h"
+
 @interface HXBTransferCreditorViewController ()
 
 @property (nonatomic, strong) HXBTransferCreditorTopView *topView;
@@ -29,6 +31,8 @@
 
 @property (nonatomic, strong) HXBTransferConfirmModel *transferConfirmModel;
 
+@property (nonatomic, strong) HXBMyLoanDetailsViewModel *viewModel;
+
 @end
 
 @implementation HXBTransferCreditorViewController
@@ -41,6 +45,9 @@
     self.title = @"确认转让债权";
     self.view.backgroundColor = BACKGROUNDCOLOR;
     self.isRedColorWithNavigationBar = YES;
+    self.viewModel = [[HXBMyLoanDetailsViewModel alloc] initWithBlock:^UIView *{
+        return self.view;
+    }];
     [self.view addSubview:self.topView];
     [self.view addSubview:self.bottomView];
     [self.view addSubview:self.agreementView];
@@ -74,17 +81,15 @@
     }];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     kWeakSelf
-    HXBMYRequest *transferRequest = [[HXBMYRequest alloc] init];
-    [transferRequest transferRequest_AccountRequestTransferID:self.creditorID SuccessBlock:^(HXBTransferConfirmModel *transferConfirmModel) {
-        weakSelf.topView.transferConfirmModel = transferConfirmModel;
-        weakSelf.bottomView.transferConfirmModel = transferConfirmModel;
-        weakSelf.transferConfirmModel = transferConfirmModel;
-    } andFailureBlock:^(NSError *error) {
-        
+    [_viewModel accountLoanTransferRequestWithTransferID:self.creditorID resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.topView.transferConfirmModel = weakSelf.viewModel.transferConfirmModel;
+            weakSelf.bottomView.transferConfirmModel = weakSelf.viewModel.transferConfirmModel;
+            weakSelf.transferConfirmModel = weakSelf.viewModel.transferConfirmModel;
+        }
     }];
 }
 
@@ -100,38 +105,36 @@
     };
 }
 
-- (void)checkWithdrawals:(NSString *)pwd
-{
+- (void)checkWithdrawals:(NSString *)pwd {
     kWeakSelf
-    HXBMYRequest *transferRequest = [[HXBMYRequest alloc] init];
-    [transferRequest transferResultRequest_AccountRequestTransferID:self.creditorID andPWD:pwd andCurrentTransferValue:self.transferConfirmModel.currentTransValue SuccessBlock:^(id responseObject) {
-        HXBFBase_BuyResult_VC *successVC = [[HXBFBase_BuyResult_VC alloc] init];
-        successVC.isShowInviteBtn = NO;
-        successVC.imageName = @"successful";
-        successVC.buy_title = @"转让成功";
-        successVC.buy_description = @"确认成功，债权已进入转让中，具体完成时间以实际转让成功时间为准";
-        successVC.buy_ButtonTitle = @"我知道了";
-        successVC.title = @"债权转让";
-        [successVC clickButtonWithBlock:^{
-            for (UIViewController *VC in self.navigationController.viewControllers) {
-                if ([VC isKindOfClass:[HXBMY_LoanListViewController class]]) {
-                    [weakSelf.navigationController popToViewController:VC animated:YES];
+    [_viewModel accountLoanTransferRequestResultWithTransferID:self.creditorID password:pwd currentTransferValue:self.transferConfirmModel.currentTransValue resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            HXBFBase_BuyResult_VC *successVC = [[HXBFBase_BuyResult_VC alloc] init];
+            successVC.isShowInviteBtn = NO;
+            successVC.imageName = @"successful";
+            successVC.buy_title = @"转让成功";
+            successVC.buy_description = @"确认成功，债权已进入转让中，具体完成时间以实际转让成功时间为准";
+            successVC.buy_ButtonTitle = @"我知道了";
+            successVC.title = @"债权转让";
+            [successVC clickButtonWithBlock:^{
+                for (UIViewController *VC in self.navigationController.viewControllers) {
+                    if ([VC isKindOfClass:[HXBMY_LoanListViewController class]]) {
+                        [weakSelf.navigationController popToViewController:VC animated:YES];
+                    }
                 }
-            }
-        }];
-        [weakSelf.passwordView closePasswordView];
-        [weakSelf.navigationController pushViewController:successVC animated:YES];
-    } andFailureBlock:^(NSError *error,id responseObject) {
-        if (error) {
-            if (kHXBCode_Enum_NoConnectionNetwork == error.code || kHXBCode_Enum_ConnectionTimeOut == error.code) return ;
+            }];
+            [weakSelf.passwordView closePasswordView];
+            [weakSelf.navigationController pushViewController:successVC animated:YES];
         } else {
-            NSInteger status = [responseObject[kResponseStatus] integerValue];
-            if (status == kHXBTransaction_Password_Error) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-                [weakSelf.passwordView clearUpPassword];
-                return;
+            NSInteger errorStatus = [[weakSelf.viewModel.responseObject valueForKey:kResponseStatus] integerValue];
+            if (weakSelf.viewModel.responseObject) {
+                if (errorStatus == kHXBTransaction_Password_Error) {
+                    [weakSelf.passwordView clearUpPassword];
+//                    [HxbHUDProgress showTextWithMessage:weakSelf.viewModel.responseObject[kResponseMessage]];
+                    return ;
+                }
+                [weakSelf transferFailure:weakSelf.viewModel.responseObject];
             }
-            [weakSelf transferFailure:responseObject];
         }
     }];
 }
