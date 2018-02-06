@@ -256,7 +256,6 @@
 		9AE032432022C317006D6140 /* HXBRequestAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031442022C316006D6140 /* HXBRequestAccountInfo.m */; };
 		9AE032452022C317006D6140 /* HXBSetGesturePasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0314A2022C316006D6140 /* HXBSetGesturePasswordRequest.m */; };
 		9AE032462022C317006D6140 /* HXBModifyTransactionPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0314D2022C316006D6140 /* HXBModifyTransactionPasswordRequest.m */; };
-		9AE032472022C317006D6140 /* HXBPassword_LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0314F2022C316006D6140 /* HXBPassword_LoginRequest.m */; };
 		9AE032492022C317006D6140 /* HXBWithdrawalsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031542022C316006D6140 /* HXBWithdrawalsRequest.m */; };
 		9AE0324A2022C317006D6140 /* HXBAccumulatedIncomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031582022C316006D6140 /* HXBAccumulatedIncomeView.m */; };
 		9AE0324B2022C317006D6140 /* HXBAssetsCustomVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0315A2022C316006D6140 /* HXBAssetsCustomVIew.m */; };
@@ -1006,8 +1005,6 @@
 		9AE0314A2022C316006D6140 /* HXBSetGesturePasswordRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSetGesturePasswordRequest.m; sourceTree = "<group>"; };
 		9AE0314C2022C316006D6140 /* HXBModifyTransactionPasswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyTransactionPasswordRequest.h; sourceTree = "<group>"; };
 		9AE0314D2022C316006D6140 /* HXBModifyTransactionPasswordRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyTransactionPasswordRequest.m; sourceTree = "<group>"; };
-		9AE0314E2022C316006D6140 /* HXBPassword_LoginRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBPassword_LoginRequest.h; sourceTree = "<group>"; };
-		9AE0314F2022C316006D6140 /* HXBPassword_LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBPassword_LoginRequest.m; sourceTree = "<group>"; };
 		9AE031532022C316006D6140 /* HXBWithdrawalsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawalsRequest.h; sourceTree = "<group>"; };
 		9AE031542022C316006D6140 /* HXBWithdrawalsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBWithdrawalsRequest.m; sourceTree = "<group>"; };
 		9AE031572022C316006D6140 /* HXBAccumulatedIncomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBAccumulatedIncomeView.h; sourceTree = "<group>"; };
@@ -3062,7 +3059,6 @@
 				9AE031442022C316006D6140 /* HXBRequestAccountInfo.m */,
 				9AE031472022C316006D6140 /* HXBSetGesturePassword */,
 				9AE0314B2022C316006D6140 /* HXBTransactionPassword */,
-				9AE031502022C316006D6140 /* HXBVersionUpdate */,
 				9AE031522022C316006D6140 /* HXBWithdrawals */,
 			);
 			path = Request;
@@ -3107,18 +3103,10 @@
 		9AE031472022C316006D6140 /* HXBSetGesturePassword */ = {
 			isa = PBXGroup;
 			children = (
-				9AE031482022C316006D6140 /* HXBOpenDepositAccountRequse */,
 				9AE031492022C316006D6140 /* HXBSetGesturePasswordRequest.h */,
 				9AE0314A2022C316006D6140 /* HXBSetGesturePasswordRequest.m */,
 			);
 			path = HXBSetGesturePassword;
-			sourceTree = "<group>";
-		};
-		9AE031482022C316006D6140 /* HXBOpenDepositAccountRequse */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HXBOpenDepositAccountRequse;
 			sourceTree = "<group>";
 		};
 		9AE0314B2022C316006D6140 /* HXBTransactionPassword */ = {
@@ -3126,17 +3114,8 @@
 			children = (
 				9AE0314C2022C316006D6140 /* HXBModifyTransactionPasswordRequest.h */,
 				9AE0314D2022C316006D6140 /* HXBModifyTransactionPasswordRequest.m */,
-				9AE0314E2022C316006D6140 /* HXBPassword_LoginRequest.h */,
-				9AE0314F2022C316006D6140 /* HXBPassword_LoginRequest.m */,
 			);
 			path = HXBTransactionPassword;
-			sourceTree = "<group>";
-		};
-		9AE031502022C316006D6140 /* HXBVersionUpdate */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = HXBVersionUpdate;
 			sourceTree = "<group>";
 		};
 		9AE031522022C316006D6140 /* HXBWithdrawals */ = {
@@ -5175,7 +5154,6 @@
 				9AE032672022C317006D6140 /* HxbMyView.m in Sources */,
 				9AE0325F2022C317006D6140 /* HXBCallPhone_BottomView.m in Sources */,
 				9AE033B12022C423006D6140 /* HXBFinancing_PlanDetailsViewController.m in Sources */,
-				9AE032472022C317006D6140 /* HXBPassword_LoginRequest.m in Sources */,
 				9AE033942022C422006D6140 /* HXBFinancting_PlanListTableView.m in Sources */,
 				9AE034B220232B0F006D6140 /* HXBBannerCollectionViewCell.m in Sources */,
 				9AE0324A2022C317006D6140 /* HXBAccumulatedIncomeView.m in Sources */,
