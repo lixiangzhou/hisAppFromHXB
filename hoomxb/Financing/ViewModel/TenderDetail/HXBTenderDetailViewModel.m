@@ -34,6 +34,10 @@
         if (self.dataSource.count < self.totalCount.integerValue) {
             page++;
         }
+        if (page == MAX(page, 1)) {
+            completion();
+            return;
+        }
         page = MAX(page, 1);
     }
 
