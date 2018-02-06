@@ -27,14 +27,11 @@
     return _dataSource;
 }
 
-- (void)getData:(BOOL)isNew completion:(void (^)())completion {
+- (void)getData:(BOOL)isNew completion:(void (^)(BOOL))completion {
+    NSInteger currentPage = ceil(self.dataSource.count * 1.0 / self.pageSize.integerValue);
     NSInteger page = 1;
     if (isNew == NO) {
-        page = ceil(self.dataSource.count * 1.0 / self.pageSize.integerValue);
-        if (self.dataSource.count < self.totalCount.integerValue) {
-            page++;
-        }
-        page = MAX(page, 1);
+        page = currentPage + 1;
     }
 
     NYBaseRequest *req = [NYBaseRequest new];
@@ -47,6 +44,7 @@
         if (statusCode != kHXBCode_Success) {
             NSString *message = responseObject[kResponseMessage];
             [HxbHUDProgress showMessageCenter:message inView:weakSelf.view];
+            completion(NO);
         } else {
             NSArray *temp = responseObject[kResponseData][@"dataList"];
             if (temp.count) {
@@ -63,10 +61,13 @@
                 }
             }
             self.totalCount = responseObject[kResponseData][@"totalCount"];
+            
+            self.showNoMoreData = self.dataSource.count >= self.totalCount.integerValue;
+            self.showPullup = self.totalCount.integerValue > self.pageSize.integerValue;
+            completion(YES);
         }
-        completion();
     } failure:^(NYBaseRequest *request, NSError *error) {
-        completion();
+        completion(NO);
     }];
 }
 

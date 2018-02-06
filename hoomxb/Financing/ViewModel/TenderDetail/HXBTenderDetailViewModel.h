@@ -13,5 +13,8 @@
 @property (nonatomic, weak) UIView *view;
 @property (nonatomic, strong) NSMutableArray *dataSource;
 
-- (void)getData:(BOOL)isNew completion:(void(^)())completion;
+@property (nonatomic, assign) BOOL showNoMoreData;
+@property (nonatomic, assign) BOOL showPullup;
+
+- (void)getData:(BOOL)isNew completion:(void(^)(BOOL))completion;
 @end

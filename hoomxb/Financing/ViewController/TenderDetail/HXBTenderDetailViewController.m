@@ -58,10 +58,6 @@
     [tableView hxb_headerWithRefreshBlock:^{
         [weakSelf getData:YES];
     }];
-
-    [tableView hxb_footerWithRefreshBlock:^{
-        [weakSelf getData:NO];
-    }];
     
     self.tableView.backgroundColor = [UIColor clearColor];
     
@@ -74,10 +70,26 @@
 #pragma mark - Network
 - (void)getData:(BOOL)isNew {
     kWeakSelf
-    [self.viewModel getData:isNew completion:^{
+    [self.viewModel getData:isNew completion:^(BOOL isSuccess) {
         [weakSelf.tableView endRefresh];
-        [weakSelf.tableView reloadData];
-        weakSelf.noDataView.hidden = weakSelf.viewModel.dataSource.count != 0;
+        if (isSuccess) {
+            [weakSelf.tableView reloadData];
+            weakSelf.noDataView.hidden = weakSelf.viewModel.dataSource.count != 0;
+            
+            if (weakSelf.viewModel.showPullup) {
+                [weakSelf.tableView hxb_footerWithRefreshBlock:^{
+                    [weakSelf getData:NO];
+                }];
+            } else {
+                weakSelf.tableView.mj_footer = nil;
+            }
+            
+            if (weakSelf.viewModel.showNoMoreData) {
+                [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [weakSelf.tableView.mj_footer endRefreshing];
+            }
+        }
     }];
 }
 
