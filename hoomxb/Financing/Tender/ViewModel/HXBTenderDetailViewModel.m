@@ -32,14 +32,11 @@
     return _dataSource;
 }
 
-- (void)getData:(BOOL)isNew completion:(void (^)())completion {
+- (void)getData:(BOOL)isNew completion:(void (^)(BOOL))completion {
+    NSInteger currentPage = ceil(self.dataSource.count * 1.0 / self.pageSize.integerValue);
     NSInteger page = 1;
     if (isNew == NO) {
-        page = ceil(self.dataSource.count * 1.0 / self.pageSize.integerValue);
-        if (self.dataSource.count < self.totalCount.integerValue) {
-            page++;
-        }
-        page = MAX(page, 1);
+        page = currentPage + 1;
     }
 
     NYBaseRequest *req = [[NYBaseRequest alloc] initWithDelegate:self];
@@ -54,10 +51,7 @@
     
     [req loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSInteger statusCode = [responseObject[kResponseStatus] integerValue];
-        if (statusCode != kHXBCode_Success) {
-            NSString *message = responseObject[kResponseMessage];
-            [req showToast:message];
-        } else {
+        if (statusCode == kHXBCode_Success) {
             NSArray *temp = responseObject[kResponseData][@"dataList"];
             if (temp.count) {
                 NSMutableArray *tempModels = [NSMutableArray new];
@@ -73,10 +67,13 @@
                 }
             }
             self.totalCount = responseObject[kResponseData][@"totalCount"];
+            
+            self.showNoMoreData = self.dataSource.count >= self.totalCount.integerValue;
+            self.showPullup = self.totalCount.integerValue > self.pageSize.integerValue;
+            completion(YES);
         }
-        completion();
     } failure:^(NYBaseRequest *request, NSError *error) {
-        completion();
+        completion(NO);
     }];
 }
 
