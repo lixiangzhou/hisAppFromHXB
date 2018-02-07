@@ -10,12 +10,12 @@
 #import "HXBModifyPhoneView.h"
 #import "HXBSignUPAndLoginRequest.h"
 #import "HXBCheckCaptchaViewController.h"
-#import "HXBModifyPhoneRequest.h"
 #import "HXBSignUPAndLoginRequest.h"
 #import "HxbAccountInfoViewController.h"
+#import "HXBModifyPhoneViewModel.h"
 @interface HXBModifyPhoneViewController ()
 @property (nonatomic, strong) HXBModifyPhoneView *homeView;
-
+@property (nonatomic,strong)HXBModifyPhoneViewModel *modifyPhoneViewModel;
 /**
  图验证码
  */
@@ -42,20 +42,22 @@
             if (weakSelf.checkPaptcha.length == 0) {
                 [HxbHUDProgress showTextWithMessage:@"请输入正确的短信验证码"];
             } else {
-                HXBModifyPhoneRequest *modifyPhoneRequest = [[HXBModifyPhoneRequest alloc] init];
-                [modifyPhoneRequest mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(id responseObject) {
-                    NSLog(@"%@",responseObject);
-                    KeyChain.mobile = phoneNumber;
-                    [KeyChain removeGesture];
-                    KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
-                    [KeyChain signOut];
-                    weakSelf.tabBarController.selectedIndex = 0;
-                    [HxbHUDProgress showTextWithMessage:@"修改成功，请用新手机号登录"];
-                    [weakSelf.navigationController popToRootViewControllerAnimated:NO];
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-                    
+                
+                weakSelf.modifyPhoneViewModel = [[HXBModifyPhoneViewModel alloc] initWithBlock:^UIView *{
+                    return weakSelf.view;
+                }];
+                [weakSelf.modifyPhoneViewModel mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(BOOL isSuccess) {
+                    if (isSuccess) {
+                        KeyChain.mobile = weakSelf.modifyPhoneViewModel.modifyPhoneModel.mobile;//phoneNumber;
+                        [KeyChain removeGesture];
+                        KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
+                        [KeyChain signOut];
+                        weakSelf.tabBarController.selectedIndex = 0;
+                        [HxbHUDProgress showTextWithMessage:@"修改成功，请用新手机号登录"];
+                        [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+                    }
                 } andFailureBlock:^(NSError *error) {
-                    NSLog(@"%@",error);
                     
                 }];
             }

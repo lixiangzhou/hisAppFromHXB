@@ -1,25 +1,25 @@
 //
-//  HXBModifyPhoneRequest.m
+//  HXBModifyPhoneViewModel.m
 //  hoomxb
 //
-//  Created by HXB-C on 2017/6/24.
-//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
+//  Created by hxb on 2018/2/7.
+//  Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBModifyPhoneRequest.h"
+#import "HXBModifyPhoneViewModel.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
-@implementation HXBModifyPhoneRequest
-
+@implementation HXBModifyPhoneViewModel
 
 /**
  修改手机号
-
+ 
  @param newPhoneNumber 新的手机号码
  @param newsmscode 短信验证码
  @param captcha 图验
  */
-- (void)mobifyPhoneNumberWithNewPhoneNumber:(NSString *)newPhoneNumber andWithNewsmscode:(NSString *)newsmscode  andWithCaptcha:(NSString *)captcha andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)mobifyPhoneNumberWithNewPhoneNumber:(NSString *)newPhoneNumber andWithNewsmscode:(NSString *)newsmscode  andWithCaptcha:(NSString *)captcha andSuccessBlock: (void(^)(BOOL isSuccess))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
 {
+    kWeakSelf
     NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
     alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPhoneNumber_CashMobileEditURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
@@ -30,26 +30,22 @@
                                               @"captcha" : captcha,
                                               @"action" : kTypeKey_newmobile
                                               };
-    [alterLoginPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [alterLoginPasswordAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
         [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-        if (status != 0) {
-            if (failureBlock) {
-                failureBlock(responseObject);
-            }
-            return;
+        if (!status) {
+            weakSelf.modifyPhoneModel = [HXBModifyPhoneModel yy_modelWithDictionary:responseObject[@"data"]];
+            successDateBlock(YES);
         }
         if (successDateBlock) {
-            successDateBlock(responseObject);
+            successDateBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-//        [HxbHUDProgress showTextWithMessage:@"请求失败"];
         if (failureBlock) {
             failureBlock(error);
         }
     }];
 }
-
 
 @end
