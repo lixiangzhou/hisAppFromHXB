@@ -79,6 +79,7 @@
 		4EA8C1A11FBC2FB50064019C /* UIImage+HXBUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EA8C1A01FBC2FB50064019C /* UIImage+HXBUtil.m */; };
 		4EAD98D51EB838F80029A3FF /* UITextField+HxbTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAD98D41EB838F80029A3FF /* UITextField+HxbTextField.m */; };
 		4EADD2B8202A9DBA005DBAE8 /* HXBOpenDepositAccountVCViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EADD2B7202A9DBA005DBAE8 /* HXBOpenDepositAccountVCViewModel.m */; };
+		4EADD2BC202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EADD2BB202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.m */; };
 		4EB29C4F1F4A7AD800E33CDF /* YYCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB29C481F4A7AD800E33CDF /* YYCache.m */; };
 		4EB29C501F4A7AD800E33CDF /* YYDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB29C4A1F4A7AD800E33CDF /* YYDiskCache.m */; };
 		4EB29C511F4A7AD800E33CDF /* YYKVStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EB29C4C1F4A7AD800E33CDF /* YYKVStorage.m */; };
@@ -675,6 +676,8 @@
 		4EAD98D41EB838F80029A3FF /* UITextField+HxbTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+HxbTextField.m"; sourceTree = "<group>"; };
 		4EADD2B6202A9DBA005DBAE8 /* HXBOpenDepositAccountVCViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBOpenDepositAccountVCViewModel.h; sourceTree = "<group>"; };
 		4EADD2B7202A9DBA005DBAE8 /* HXBOpenDepositAccountVCViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBOpenDepositAccountVCViewModel.m; sourceTree = "<group>"; };
+		4EADD2BA202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyTopUpVCViewModel.h; sourceTree = "<group>"; };
+		4EADD2BB202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyTopUpVCViewModel.m; sourceTree = "<group>"; };
 		4EB29C471F4A7AD800E33CDF /* YYCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYCache.h; sourceTree = "<group>"; };
 		4EB29C481F4A7AD800E33CDF /* YYCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYCache.m; sourceTree = "<group>"; };
 		4EB29C491F4A7AD800E33CDF /* YYDiskCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYDiskCache.h; sourceTree = "<group>"; };
@@ -2043,6 +2046,15 @@
 			path = Macros;
 			sourceTree = "<group>";
 		};
+		4EADD2B9202AEF33005DBAE8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4EADD2BA202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.h */,
+				4EADD2BB202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		4EB29C461F4A7AD800E33CDF /* YYCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -2907,6 +2919,7 @@
 			isa = PBXGroup;
 			children = (
 				9AE030F62022C316006D6140 /* ViewController */,
+				4EADD2B9202AEF33005DBAE8 /* ViewModel */,
 			);
 			path = AccountWithdraw;
 			sourceTree = "<group>";
@@ -5317,6 +5330,7 @@
 				9AE0338A2022C422006D6140 /* HXBFinHomePageModel_PlanList.m in Sources */,
 				9AE033A92022C423006D6140 /* HXBFin_PlanDetailView_TopView.m in Sources */,
 				9AE032112022C317006D6140 /* HXBMainListView_Loan.m in Sources */,
+				4EADD2BC202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.m in Sources */,
 				8D2CF5221FC2DA5D008F7A89 /* HXBInviteListViewController.m in Sources */,
 				E133DD381EEEC14C009466DE /* BaseModel.m in Sources */,
 				9AE0323E2022C317006D6140 /* HXBModifyPhoneRequest.m in Sources */,

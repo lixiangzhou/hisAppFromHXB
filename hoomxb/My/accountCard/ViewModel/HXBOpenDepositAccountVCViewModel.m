@@ -41,9 +41,9 @@
             if (callBackBlock) {
                 callBackBlock(NO);
             }
-            if (status == 1) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-            }
+//            if (status == 1) {
+//                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+//            }
             return;
         }
         if (callBackBlock) {

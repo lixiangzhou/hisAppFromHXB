@@ -78,7 +78,7 @@
                 return ;
             } else {
                 if (status == kHXBCode_Enum_ProcessingField) return;
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+//                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
             if (finishBlock) {
                 finishBlock(NO);

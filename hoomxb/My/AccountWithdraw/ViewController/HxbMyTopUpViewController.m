@@ -14,6 +14,7 @@
 #import "HXBOpenDepositAccountRequest.h"
 #import "HXBBankCardModel.h"
 #import "HXBMyTopUpBankView.h"
+#import "HXBMyTopUpVCViewModel.h"
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
@@ -115,21 +116,14 @@
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
         self.alertVC.sureBtnClick = ^(NSString *pwd) {
-            HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-            [accountRequest accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:weakSelf.myTopUpBaseView.amount andSuccessBlock:^(id responseObject) {
-                NSInteger status =  [responseObject[@"status"] integerValue];
-                if (status == kHXBCode_Enum_ProcessingField) return ;
-                
-                if (status != 0) {
-                    [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-                } else {
+            HXBMyTopUpVCViewModel *accountVM = [[HXBMyTopUpVCViewModel alloc] init];
+            [accountVM accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:weakSelf.myTopUpBaseView.amount andCallBackBlock:^(BOOL isSuccess) {
+                if (isSuccess) {
                     [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                     HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
-                    rechargeCompletedVC.responseObject = responseObject;
                     rechargeCompletedVC.amount = weakSelf.myTopUpBaseView.amount;
                     [weakSelf.navigationController pushViewController:rechargeCompletedVC animated:YES];
                 }
-            } andFailureBlock:^(NSError *error) {
             }];
         };
         self.alertVC.getVerificationCodeBlock = ^{

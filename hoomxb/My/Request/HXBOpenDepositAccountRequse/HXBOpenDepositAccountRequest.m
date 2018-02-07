@@ -68,29 +68,6 @@
     
 }
 
-- (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
-{
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
-    versionUpdateAPI.requestUrl = kHXBAccount_quickpay;
-    versionUpdateAPI.requestMethod = NYRequestMethodPost;
-    versionUpdateAPI.requestArgument = @{
-                                         @"smscode" : smscode,
-                                         @"amount" : amount
-                                         };
-
-    [versionUpdateAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
-        if (successDateBlock) {
-            successDateBlock(responseObject);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        [HxbHUDProgress showTextWithMessage:@"请求失败"];
-        if (failureBlock) {
-            failureBlock(error);
-        }
-    }];
-    
-}
-
 
 /**
  卡bin校验
