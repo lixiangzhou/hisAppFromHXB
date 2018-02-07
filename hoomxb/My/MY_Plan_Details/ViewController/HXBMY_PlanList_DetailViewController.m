@@ -22,12 +22,14 @@
 #import "HXBFinDetailModel_PlanDetail.h"//model 购买
 #import "HXBMYViewModel_MianPlanViewModel.h"
 #import "HXBMY_Plan_Capital_ViewController.h"//投资记录
+#import "HXBMyPlanDetailsViewModel.h"
+
 @interface HXBMY_PlanList_DetailViewController ()
 @property (nonatomic,strong) HXBMYReqest_DetailRequest *detailRequest;
 @property (nonatomic,weak) HXBMY_PlanDetailView *planDetailView;
-@property (nonatomic,strong)HXBMYViewModel_PlanDetailViewModel *viewModel;
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+@property (nonatomic, strong) HXBMyPlanDetailsViewModel *viewModel;
 @end
 
 @implementation HXBMY_PlanList_DetailViewController
@@ -49,6 +51,9 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.isColourGradientNavigationBar = YES;
     [self setUP];
+    _viewModel = [[HXBMyPlanDetailsViewModel alloc] initWithBlock:^UIView *{
+        return self.view;
+    }];
     self.title = self.planViewModel.planModelDataList.name;
     [self downData];
 }
@@ -95,9 +100,9 @@
 //服务协议
 - (void)clickNegotiate {
     NSLog(@"点击了服务协议%@",self);
-    NSString *url = kHXB_Negotiate_ServePlan_AccountURL(self.viewModel.planDetailModel.ID);
-    if (self.viewModel.isMonthyPayment) {
-        url = kHXB_Negotiate_ServeMonthPlan_AccountURL(self.viewModel.planDetailModel.ID);
+    NSString *url = kHXB_Negotiate_ServePlan_AccountURL(self.viewModel.planDetailsViewModel.planDetailModel.ID);
+    if (self.viewModel.planDetailsViewModel.isMonthyPayment) {
+        url = kHXB_Negotiate_ServeMonthPlan_AccountURL(self.viewModel.planDetailsViewModel.planDetailModel.ID);
     }
     [HXBBaseWKWebViewController pushWithPageUrl:[NSString splicingH5hostWithURL:url] fromController:self];
 }
@@ -132,25 +137,25 @@
     HXBFinDetailViewModel_PlanDetail *BuyPlanDetailViewModel = [[HXBFinDetailViewModel_PlanDetail alloc]init];
     BuyPlanDetailViewModel.planDetailModel = [[HXBFinDetailModel_PlanDetail alloc]init];
     ///加入条件加入金额%@元起，%@元的整数倍递增
-    BuyPlanDetailViewModel.addCondition = [NSString stringWithFormat:@"%@元的整数倍递增",[NSString hxb_getPerMilWithDoubleNum:weakSelf.viewModel.planDetailModel.registerMultipleAmount.doubleValue]];
+    BuyPlanDetailViewModel.addCondition = [NSString stringWithFormat:@"%@元的整数倍递增",[NSString hxb_getPerMilWithDoubleNum:weakSelf.viewModel.planDetailsViewModel.planDetailModel.registerMultipleAmount.doubleValue]];
     ///余额 title
     ///收益方法
     BuyPlanDetailViewModel.profitType_UI = weakSelf.planViewModel.profitType_UI;
     ///待转金额
-    BuyPlanDetailViewModel.remainAmount = weakSelf.viewModel.planDetailModel.remainAmount;
+    BuyPlanDetailViewModel.remainAmount = weakSelf.viewModel.planDetailsViewModel.planDetailModel.remainAmount;
     ///服务协议 button str
-    BuyPlanDetailViewModel.contractName = weakSelf.viewModel.contractName;
+    BuyPlanDetailViewModel.contractName = weakSelf.viewModel.planDetailsViewModel.contractName;
     BuyPlanDetailViewModel.totalInterest = weakSelf.planViewModel.totalInterest;
-    BuyPlanDetailViewModel.minRegisterAmount = weakSelf.viewModel.planDetailModel.registerMultipleAmount;
+    BuyPlanDetailViewModel.minRegisterAmount = weakSelf.viewModel.planDetailsViewModel.planDetailModel.registerMultipleAmount;
     ///用户可用余额
-    BuyPlanDetailViewModel.planDetailModel.userRemainAmount = weakSelf.viewModel.planDetailModel.userRemainAmount;
+    BuyPlanDetailViewModel.planDetailModel.userRemainAmount = weakSelf.viewModel.planDetailsViewModel.planDetailModel.userRemainAmount;
     ///计划余额
-    BuyPlanDetailViewModel.planDetailModel.remainAmount = weakSelf.viewModel.planDetailModel.remainAmount;
+    BuyPlanDetailViewModel.planDetailModel.remainAmount = weakSelf.viewModel.planDetailsViewModel.planDetailModel.remainAmount;
     //递增金额
-    BuyPlanDetailViewModel.planDetailModel.registerMultipleAmount = weakSelf.viewModel.planDetailModel.registerMultipleAmount;
+    BuyPlanDetailViewModel.planDetailModel.registerMultipleAmount = weakSelf.viewModel.planDetailsViewModel.planDetailModel.registerMultipleAmount;
     planBuyVC.planViewModel = BuyPlanDetailViewModel;
-    planBuyVC.ID = weakSelf.viewModel.planDetailModel.ID.integerValue;
-    planBuyVC.planViewModel.ID = weakSelf.viewModel.planDetailModel.ID;
+    planBuyVC.ID = weakSelf.viewModel.planDetailsViewModel.planDetailModel.ID.integerValue;
+    planBuyVC.planViewModel.ID = weakSelf.viewModel.planDetailsViewModel.planDetailModel.ID;
     
 
     
@@ -171,16 +176,16 @@
 
 #pragma mark - 网络数据的请求
 - (void)downData {
-    __weak typeof (self)weakSelf = self;
+    kWeakSelf
     NSString *planID = self.planViewModel.planModelDataList.ID;
-    [self.detailRequest planListDetails_requestWithFinancePlanID:planID andSuccessBlock:^(HXBMYViewModel_PlanDetailViewModel *viewModel) {
-        [weakSelf dispatchValueWithDetailViewModel:viewModel];
-    } andFailureBlock:^(NSError *error) {
+    [self.viewModel accountPlanListDetailsRequestWithPlanID:planID resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf dispatchValueWithDetailViewModel:weakSelf.viewModel.planDetailsViewModel];
+        }
     }];
 }
 
 - (void)dispatchValueWithDetailViewModel: (HXBMYViewModel_PlanDetailViewModel *)viewModel {
-    self.viewModel = viewModel;
     kWeakSelf
     [self.planDetailView setUPValueWithViewManagerBlock:^HXBMY_PlanDetailView_Manager *(HXBMY_PlanDetailView_Manager *manager) {
         manager.topViewStatusStr = viewModel.status;

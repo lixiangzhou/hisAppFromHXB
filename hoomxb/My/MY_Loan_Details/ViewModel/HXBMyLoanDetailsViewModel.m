@@ -20,11 +20,15 @@
 - (instancetype)initWithBlock:(HugViewBlock)hugViewBlock {
     self = [super initWithBlock:hugViewBlock];
     if (self) {
-        
         _transferConfirmModel = [[HXBTransferConfirmModel alloc] init];
         _responseObject = [[NSDictionary alloc] init];
     }
     return self;
+}
+
+// 不同意处理错误，需要重写erroStateCodeDeal方法
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
+    return NO;
 }
 
 // 账户内-债权转让确认页
@@ -36,7 +40,6 @@
     request.showHud = NO;
     kWeakSelf
     [request startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        kHXBResponsResultShowHUD
         NSDictionary *dataDic = responseObject[kResponseData];
         [weakSelf.transferConfirmModel yy_modelSetWithDictionary:dataDic];
         if (resultBlock) resultBlock(YES);
@@ -55,12 +58,11 @@
     request.requestUrl = kHXBFin_TransferResultURL(transferID);
     currentTransferValue = currentTransferValue ? currentTransferValue : @"";
     request.requestArgument = @{@"tradPassword" : password, @"currentTransferValue" : currentTransferValue};
-    request.showHud = NO;
+    request.showHud = YES;
     kWeakSelf
     [request startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSLog(@"responseObject = %@", responseObject);
         weakSelf.responseObject = responseObject;
-//        kHXBResponsResultShowHUD
+        kHXBResponsResultShowHUD
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (resultBlock) resultBlock(NO);
