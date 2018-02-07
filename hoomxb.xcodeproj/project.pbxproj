@@ -512,6 +512,7 @@
 		E1CD4BDD1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BDC1ED856B4000CC57B /* PYFullScreenGesturePOPAnimationManager.m */; };
 		E1E4A025202AA3CD004F7D10 /* HXBModifyPhoneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E4A024202AA3CD004F7D10 /* HXBModifyPhoneModel.m */; };
 		E1E4A028202AA442004F7D10 /* HXBModifyPhoneViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E4A027202AA442004F7D10 /* HXBModifyPhoneViewModel.m */; };
+		E1E4A033202AD33A004F7D10 /* HXBMYCapitalRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E4A032202AD33A004F7D10 /* HXBMYCapitalRecordViewModel.m */; };
 		E1E5885A1EE165BF0045C4AE /* AnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588551EE165BF0045C4AE /* AnimatedTransition.m */; };
 		E1E5885B1EE165BF0045C4AE /* Animatr.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588571EE165BF0045C4AE /* Animatr.m */; };
 		E1E5885C1EE165BF0045C4AE /* PYPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588591EE165BF0045C4AE /* PYPresentationController.m */; };
@@ -1530,6 +1531,8 @@
 		E1E4A024202AA3CD004F7D10 /* HXBModifyPhoneModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBModifyPhoneModel.m; sourceTree = "<group>"; };
 		E1E4A026202AA442004F7D10 /* HXBModifyPhoneViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBModifyPhoneViewModel.h; sourceTree = "<group>"; };
 		E1E4A027202AA442004F7D10 /* HXBModifyPhoneViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBModifyPhoneViewModel.m; sourceTree = "<group>"; };
+		E1E4A031202AD33A004F7D10 /* HXBMYCapitalRecordViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMYCapitalRecordViewModel.h; sourceTree = "<group>"; };
+		E1E4A032202AD33A004F7D10 /* HXBMYCapitalRecordViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMYCapitalRecordViewModel.m; sourceTree = "<group>"; };
 		E1E588541EE165BF0045C4AE /* AnimatedTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedTransition.h; sourceTree = "<group>"; };
 		E1E588551EE165BF0045C4AE /* AnimatedTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedTransition.m; sourceTree = "<group>"; };
 		E1E588561EE165BF0045C4AE /* Animatr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animatr.h; sourceTree = "<group>"; };
@@ -2745,6 +2748,7 @@
 		9AE030C32022C315006D6140 /* MY_CapitalRecordController */ = {
 			isa = PBXGroup;
 			children = (
+				E1E4A02A202AD2A3004F7D10 /* ViewModel */,
 				9AE030C42022C315006D6140 /* ViewController */,
 			);
 			path = MY_CapitalRecordController;
@@ -4795,6 +4799,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		E1E4A02A202AD2A3004F7D10 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E1E4A031202AD33A004F7D10 /* HXBMYCapitalRecordViewModel.h */,
+				E1E4A032202AD33A004F7D10 /* HXBMYCapitalRecordViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E1E588531EE1650E0045C4AE /* TransitioningManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -5515,6 +5528,7 @@
 				9AE033AE2022C423006D6140 /* HXBFinPlanDetailsView_FlowChart.m in Sources */,
 				E13A534F1F0A65E9002C3416 /* UIScrollView+STRefresh.m in Sources */,
 				9AE032602022C317006D6140 /* HXBBaseView_MoreTopBottomView.m in Sources */,
+				E1E4A033202AD33A004F7D10 /* HXBMYCapitalRecordViewModel.m in Sources */,
 				9AE034B520232B0F006D6140 /* TYCyclePagerView.m in Sources */,
 				9AE032222022C317006D6140 /* HXBWithdrawRecordModel.m in Sources */,
 				4E94A86B1F5D4FE90001BE94 /* UITextField+BXExtension.m in Sources */,
