@@ -91,29 +91,33 @@
     
     if ([request.responseObject[kResponseStatus] integerValue]) {
         NSLog(@" ---------- %@",request.responseObject[kResponseStatus]);
-        NSString *status = request.responseObject[kResponseStatus];
-        if (status.integerValue == kHXBCode_Enum_ProcessingField) {
-            NSDictionary *dic = request.responseObject[kResponseData];
-            __block NSString *error = @"";
-            [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-                NSArray *arr = obj;
-                if([arr isKindOfClass:[NSArray class]] && arr.count>0) {
-                    error = arr[0];
-                    *stop = YES;
+        
+        //当errorType字段不存在或者其值等于“TOAST”的时候， 才做错误处理
+        NSString *errorType = [[request.responseObject valueForKey:kResponseErrorData] valueForKey:@"errorType"];
+        if (!errorType || [errorType isEqualToString:@"TOAST"]) {
+            NSString *status = request.responseObject[kResponseStatus];
+            if (status.integerValue == kHXBCode_Enum_ProcessingField) {
+                NSDictionary *dic = request.responseObject[kResponseData];
+                __block NSString *error = @"";
+                [dic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                    NSArray *arr = obj;
+                    if([arr isKindOfClass:[NSArray class]] && arr.count>0) {
+                        error = arr[0];
+                        *stop = YES;
+                    }
+                }];
+                [self showToast:error];
+                return YES;
+            } else if(status.integerValue == kHXBCode_Enum_RequestOverrun){
+                if (![self handlingSpecialErrorCodes:request]) {
+                    [self showToast:request.responseObject[kResponseMessage]];
+                    return YES;
                 }
-            }];
-            [self showToast:error];
-            return YES;
-        } else if(status.integerValue == kHXBCode_Enum_RequestOverrun){
-            if (![self handlingSpecialErrorCodes:request]) {
+            } else{
                 [self showToast:request.responseObject[kResponseMessage]];
                 return YES;
             }
-        } else{
-            [self showToast:request.responseObject[kResponseMessage]];
-            return YES;
         }
-        
     } else {
         if([request isKindOfClass:[HXBBaseRequest class]]) {
             HXBBaseRequest *requestHxb = (HXBBaseRequest *)request;
