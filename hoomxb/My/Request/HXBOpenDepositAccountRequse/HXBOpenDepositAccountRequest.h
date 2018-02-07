@@ -10,23 +10,6 @@
 @class HXBCardBinModel;
 @interface HXBOpenDepositAccountRequest : NSObject
 
-/**
- 开通存管账户
-
- @param requestArgument 存款账户的字典数据
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
- */
-- (void)openDepositAccountRequestWithArgument:(NSDictionary *)requestArgument andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
-
-/**
- 单独绑卡
-
- @param requestArgument 绑卡的字典数据
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
- */
-- (void)bindBankCardRequestWithArgument:(NSDictionary *)requestArgument andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 /**
  快捷充值

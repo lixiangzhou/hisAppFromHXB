@@ -15,7 +15,7 @@
 #import "HXBModifyTransactionPasswordViewController.h"//修改手机号
 #import "HXBBankCardModel.h"
 #import "HxbAccountInfoViewController.h"
-
+#import "HXBOpenDepositAccountVCViewModel.h"
 @interface HXBOpenDepositAccountViewController ()<UITableViewDelegate>
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
@@ -143,45 +143,49 @@
 - (void)openStorageWithArgument:(NSDictionary *)dic{
     kWeakSelf
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_commitBtn];
-    HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [openDepositAccountRequest openDepositAccountRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
-        if ([self.title isEqualToString:@"完善信息"]) {
-            [HxbHUDProgress showTextWithMessage:@"提交成功"];
-        } else {
-            [HxbHUDProgress showTextWithMessage:@"开户成功"];
+    HXBOpenDepositAccountVCViewModel *openDepositAccountVM = [[HXBOpenDepositAccountVCViewModel alloc] init];
+    [openDepositAccountVM openDepositAccountRequestWithArgument:dic andCallBack:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf openDepositRequestSuccess];
         }
-        if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
-            HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-            [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-        } else if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
-            HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
-            if (!KeyChain.isLogin)  return;
-            [self.navigationController pushViewController:withdrawViewController animated:YES];
-        } else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
-        {
-            if (_isFromUnbundBank) {
-                for (UIViewController *controller in self.navigationController.viewControllers) {
-                    if ([controller isKindOfClass:[HxbAccountInfoViewController class]]) {
-                        HxbAccountInfoViewController *accountInfoVC = (HxbAccountInfoViewController *)controller;
-                        [self.navigationController popToViewController:accountInfoVC animated:YES];
-                        break;
-                    }
-                }
-            } else {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        } else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_signup)
-        {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else if (weakSelf.type == HXBChangePhone){
-            HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
-            modifyTransactionPasswordVC.title = @"修改绑定手机号";
-            modifyTransactionPasswordVC.userInfoModel = self.userModel.userInfoModel;
-            [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
-        }
-    } andFailureBlock:^(NSError *error) {
-        
     }];
+}
+
+- (void)openDepositRequestSuccess {
+    if ([self.title isEqualToString:@"完善信息"]) {
+        [HxbHUDProgress showTextWithMessage:@"提交成功"];
+    } else {
+        [HxbHUDProgress showTextWithMessage:@"开户成功"];
+    }
+    if (self.type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
+        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+    } else if (self.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
+        HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+        if (!KeyChain.isLogin)  return;
+        [self.navigationController pushViewController:withdrawViewController animated:YES];
+    } else if(self.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other)
+    {
+        if (_isFromUnbundBank) {
+            for (UIViewController *controller in self.navigationController.viewControllers) {
+                if ([controller isKindOfClass:[HxbAccountInfoViewController class]]) {
+                    HxbAccountInfoViewController *accountInfoVC = (HxbAccountInfoViewController *)controller;
+                    [self.navigationController popToViewController:accountInfoVC animated:YES];
+                    break;
+                }
+            }
+        } else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    } else if(self.type == HXBRechargeAndWithdrawalsLogicalJudgment_signup)
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else if (self.type == HXBChangePhone){
+        HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+        modifyTransactionPasswordVC.title = @"修改绑定手机号";
+        modifyTransactionPasswordVC.userInfoModel = self.userModel.userInfoModel;
+        [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+    }
 }
 
 - (void)dealloc {
