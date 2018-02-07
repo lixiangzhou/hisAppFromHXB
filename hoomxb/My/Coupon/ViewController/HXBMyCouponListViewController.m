@@ -8,12 +8,12 @@
 
 #import "HXBMyCouponListViewController.h"
 #import "HXBMyCouponListView.h"
-#import "HXBRequestAccountInfo.h"
 #import "HXBMyCouponListModel.h"
 #import "AppDelegate.h"
 #import "HXBInviteListViewController.h"
 #import "HXBRootVCManager.h"
 #import "HXBBannerWebViewController.h"
+#import "HXBCouponListViewModel.h"
 
 @interface HXBMyCouponListViewController (){
     int _page;
@@ -22,7 +22,7 @@
 
 @property (nonatomic, strong) HXBMyCouponListView *myView;
 @property (nonatomic, strong) NSMutableArray <HXBMyCouponListModel*>* myCouponListModelMArray;//数据数组
-
+@property (nonatomic, strong) HXBCouponListViewModel *viewModel;
 @end
 
 @implementation HXBMyCouponListViewController
@@ -31,6 +31,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    kWeakSelf
+    self.viewModel = [[HXBCouponListViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     
     [self setParameter];
     self.view.backgroundColor = RGBA(244, 243, 248, 1);
@@ -44,33 +49,36 @@
 
 #pragma mark - 加载数据
 - (void)loadData_myCouponListInfo{
-    kWeakSelf
-    [HXBRequestAccountInfo downLoadMyAccountListInfoHUDWithParameterDict:@{@"page":[NSString stringWithFormat:@"%d",_page],@"filter":_filter} withSeccessBlock:^(NSArray<HXBMyCouponListModel *> *modelArray, NSInteger totalCount) {
+    NSDictionary *param = @{@"page":[NSString stringWithFormat:@"%d",_page],@"filter":_filter};
     
-        if (totalCount > kPageCount) {
-            if (!weakSelf.myView.mainTableView.mj_footer) {
-                [weakSelf.myView.mainTableView hxb_footerWithRefreshBlock:^{
-                    ++_page;
-                    [weakSelf loadData_myCouponListInfo];
-                }];
+    kWeakSelf
+    [self.viewModel downLoadMyAccountListInfoHUDWithParameterDict:param completion:^(BOOL isSuccess) {
+        weakSelf.myView.isStopRefresh_Home = YES;
+        
+        if (isSuccess) {
+            NSInteger totalCount = weakSelf.viewModel.totalCount.integerValue;
+            if (totalCount > kPageCount) {
+                if (!weakSelf.myView.mainTableView.mj_footer) {
+                    [weakSelf.myView.mainTableView hxb_footerWithRefreshBlock:^{
+                        ++_page;
+                        [weakSelf loadData_myCouponListInfo];
+                    }];
+                }
             }
-        }
-        if (_page == 1) {
-            [weakSelf.myCouponListModelMArray removeAllObjects];
-        }
-        if (weakSelf.myCouponListModelMArray.count == totalCount) {
-            [self.myView.mainTableView.mj_header endRefreshing];
-            [self.myView.mainTableView.mj_footer endRefreshingWithNoMoreData];
-            if (totalCount == 0) {
+            if (_page == 1) {
+                [weakSelf.myCouponListModelMArray removeAllObjects];
+            }
+            if (weakSelf.myCouponListModelMArray.count == totalCount) {
+                [weakSelf.myView.mainTableView.mj_header endRefreshing];
+                [weakSelf.myView.mainTableView.mj_footer endRefreshingWithNoMoreData];
+                if (totalCount == 0) {
+                    weakSelf.myView.myCouponListModelArray = weakSelf.myCouponListModelMArray;
+                }
+            } else {
+                [weakSelf.myCouponListModelMArray addObjectsFromArray:weakSelf.viewModel.appendCouponList];
                 weakSelf.myView.myCouponListModelArray = weakSelf.myCouponListModelMArray;
             }
-        } else {
-            weakSelf.myView.isStopRefresh_Home = YES;
-            [weakSelf.myCouponListModelMArray addObjectsFromArray:modelArray];
-            weakSelf.myView.myCouponListModelArray = weakSelf.myCouponListModelMArray;
         }
-    } andFailure:^(NSError *error) {
-        weakSelf.myView.isStopRefresh_Home = YES;
     }];
 }
 
