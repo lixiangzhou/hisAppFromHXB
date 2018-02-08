@@ -31,7 +31,7 @@
 
 @property (nonatomic, strong) HXBWithdrawCardView *withdrawCardView;
 
-
+@property (nonatomic, strong) HXBBankCardViewModel *bindBankCardVM;
 
 
 @end
@@ -129,9 +129,7 @@
  */
 - (void)openStorageWithArgument:(NSDictionary *)dic{
     kWeakSelf
-    HXBBankCardViewModel *bindBankCardVM = [[HXBBankCardViewModel alloc] init];
-    
-    [bindBankCardVM bindBankCardRequestWithArgument:dic andFinishBlock:^(BOOL isSuccess)  {
+    [self.bindBankCardVM bindBankCardRequestWithArgument:dic andFinishBlock:^(BOOL isSuccess)  {
         if (isSuccess) {
             [weakSelf bindBankCardRequest];
         }
@@ -158,7 +156,14 @@
     }
 }
 
-#pragma mark - --- delegate 视图委托 ---
+#pragma mark 懒加载
+- (HXBBankCardViewModel *)bindBankCardVM {
+    if (!_bindBankCardVM) {
+        _bindBankCardVM = [[HXBBankCardViewModel alloc] init];
+    }
+    return _bindBankCardVM;
+}
+
 
 @end
 

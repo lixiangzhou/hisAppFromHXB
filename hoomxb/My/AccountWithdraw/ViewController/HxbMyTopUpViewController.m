@@ -20,6 +20,9 @@
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
 @property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
 
+@property (nonatomic, strong) HXBMyTopUpVCViewModel *accountVM;
+
+
 @end
 
 @implementation HxbMyTopUpViewController
@@ -116,8 +119,7 @@
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
         self.alertVC.sureBtnClick = ^(NSString *pwd) {
-            HXBMyTopUpVCViewModel *accountVM = [[HXBMyTopUpVCViewModel alloc] init];
-            [accountVM accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:weakSelf.myTopUpBaseView.amount andCallBackBlock:^(BOOL isSuccess) {
+            [weakSelf.accountVM accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:weakSelf.myTopUpBaseView.amount andCallBackBlock:^(BOOL isSuccess) {
                 if (isSuccess) {
                     [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                     HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
@@ -149,6 +151,15 @@
         [super leftBackBtnClick];
     }
 }
+
+#pragma mark Get Methods
+- (HXBMyTopUpVCViewModel *)accountVM {
+    if (!_accountVM) {
+        _accountVM = [[HXBMyTopUpVCViewModel alloc] init];
+    }
+    return _accountVM;
+}
+
 @end
 
 

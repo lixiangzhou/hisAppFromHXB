@@ -24,6 +24,9 @@
 
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
+
+@property (nonatomic, strong) HXBOpenDepositAccountVCViewModel *openDepositAccountVM;
+
 @end
 
 @implementation HXBOpenDepositAccountViewController
@@ -143,8 +146,7 @@
 - (void)openStorageWithArgument:(NSDictionary *)dic{
     kWeakSelf
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_commitBtn];
-    HXBOpenDepositAccountVCViewModel *openDepositAccountVM = [[HXBOpenDepositAccountVCViewModel alloc] init];
-    [openDepositAccountVM openDepositAccountRequestWithArgument:dic andCallBack:^(BOOL isSuccess) {
+    [self.openDepositAccountVM openDepositAccountRequestWithArgument:dic andCallBack:^(BOOL isSuccess) {
         if (isSuccess) {
             [weakSelf openDepositRequestSuccess];
         }
@@ -207,6 +209,13 @@
 }
 
 #pragma mark - 懒加载
+- (HXBOpenDepositAccountVCViewModel *)openDepositAccountVM {
+    if (!_openDepositAccountVM) {
+        _openDepositAccountVM = [[HXBOpenDepositAccountVCViewModel alloc] init];
+    }
+    return _openDepositAccountVM;
+}
+
 - (UITableView *)hxbBaseVCScrollView {
     if (!_hxbBaseVCScrollView) {
         
