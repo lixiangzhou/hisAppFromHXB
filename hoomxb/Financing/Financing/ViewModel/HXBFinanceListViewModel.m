@@ -65,7 +65,7 @@
     request.requestArgument = isUpData ? @{@"page": @(page).description,@"cashType":@"newbie"} : @{@"page": @(page).description};
     request.showHud = NO;
     kWeakSelf
-    [request startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:financeType requestState:NO];
         ///计划列表数据是否出错
         kHXBBuyErrorResponsShowHUD
@@ -98,7 +98,7 @@
     request.requestArgument = @{@"page": @(page).description};
     request.showHud = NO;
     kWeakSelf
-    [request startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:financeType requestState:NO];
         ///计划列表数据是否出错
         kHXBBuyErrorResponsShowHUD
@@ -131,7 +131,7 @@
     request.requestArgument = @{@"page": @(page).description};
     request.showHud = NO;
     kWeakSelf
-    [request startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:financeType requestState:NO];
         ///计划列表数据是否出错
         kHXBBuyErrorResponsShowHUD

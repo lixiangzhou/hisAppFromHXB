@@ -39,7 +39,7 @@
     request.requestMethod = NYRequestMethodPost;
     request.showHud = NO;
     kWeakSelf
-    [request startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *dataDic = responseObject[kResponseData];
         [weakSelf.transferConfirmModel yy_modelSetWithDictionary:dataDic];
         if (resultBlock) resultBlock(YES);
@@ -60,7 +60,7 @@
     request.requestArgument = @{@"tradPassword" : password, @"currentTransferValue" : currentTransferValue};
     request.showHud = YES;
     kWeakSelf
-    [request startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         weakSelf.responseObject = responseObject;
         kHXBResponsResultShowHUD
         if (resultBlock) resultBlock(YES);

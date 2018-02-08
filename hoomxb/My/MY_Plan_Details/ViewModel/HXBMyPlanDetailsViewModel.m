@@ -33,7 +33,7 @@
     request.requestUrl = kHXBMY_PlanDetaileURL(planID);
     request.showHud = NO;
     kWeakSelf
-    [request startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSDictionary *dataDic = responseObject[kResponseData];
         [weakSelf.planDetailsModel yy_modelSetWithDictionary:dataDic];
         weakSelf.planDetailsViewModel.planDetailModel = weakSelf.planDetailsModel;
