@@ -224,49 +224,49 @@
         //判断是否安全认证
         kWeakSelf
 
-                [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.ID andAmount:capital cashType:self.planViewModel.profitType andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
-                    ///加入成功
-                    HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-                    planBuySuccessVC.imageName = @"successful";
-                    planBuySuccessVC.buy_title = @"加入成功";
-                    planBuySuccessVC.isShowInviteBtn = NO;
-                    planBuySuccessVC.buy_description = model.lockStart;
-                    planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
-                    planBuySuccessVC.title = @"投资成功";
-                    [planBuySuccessVC clickButtonWithBlock:^{
-                        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
-                        [self.navigationController popToRootViewControllerAnimated:YES];
-                    }];
-                    [self.navigationController pushViewController:planBuySuccessVC animated:YES];
-                    // [self.navigationController popToRootViewControllerAnimated:YES];
-                } andFailureBlock:^(NSError *error, NSInteger status) {
-                    
-                    HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-                    failViewController.title = @"投资结果";
-                    switch (status) {
-                        case kHXBNot_Sufficient_Funds:
-                            failViewController.imageName = @"yuebuzu";
-                            failViewController.buy_title = @"可用余额不足，请重新购买";
-                            failViewController.buy_ButtonTitle = @"重新投资";
-                            break;
-                        case 3100:
-                            failViewController.imageName = @"shouqin";
-                            failViewController.buy_title = @"手慢了，已售罄";
-                            failViewController.buy_ButtonTitle = @"重新投资";
-                            break;
-                        case kHXBCode_Enum_NoConnectionNetwork:
-                        case kHXBCode_Enum_ConnectionTimeOut:
-                            return ;
-                        default:
-                            failViewController.imageName = @"failure";
-                            failViewController.buy_title = @"加入失败";
-                            failViewController.buy_ButtonTitle = @"重新投资";
-                    }
-                    [failViewController clickButtonWithBlock:^{
-                        [self.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
-                    }];
-                    [weakSelf.navigationController pushViewController:failViewController animated:YES];
-                }];
+        [[HXBFinanctingRequest sharedFinanctingRequest] plan_buyReslutWithPlanID:weakSelf.planViewModel.ID andAmount:capital cashType:self.planViewModel.profitType andSuccessBlock:^(HXBFin_Plan_BuyViewModel *model) {
+            ///加入成功
+            HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+            planBuySuccessVC.imageName = @"successful";
+            planBuySuccessVC.buy_title = @"加入成功";
+            planBuySuccessVC.isShowInviteBtn = NO;
+            planBuySuccessVC.buy_description = model.lockStart;
+            planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
+            planBuySuccessVC.title = @"投资成功";
+            [planBuySuccessVC clickButtonWithBlock:^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            }];
+            [weakSelf.navigationController pushViewController:planBuySuccessVC animated:YES];
+            // [self.navigationController popToRootViewControllerAnimated:YES];
+        } andFailureBlock:^(NSError *error, NSInteger status) {
+            
+            HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
+            failViewController.title = @"投资结果";
+            switch (status) {
+                case kHXBNot_Sufficient_Funds:
+                    failViewController.imageName = @"yuebuzu";
+                    failViewController.buy_title = @"可用余额不足，请重新购买";
+                    failViewController.buy_ButtonTitle = @"重新投资";
+                    break;
+                case 3100:
+                    failViewController.imageName = @"shouqin";
+                    failViewController.buy_title = @"手慢了，已售罄";
+                    failViewController.buy_ButtonTitle = @"重新投资";
+                    break;
+                case kHXBCode_Enum_NoConnectionNetwork:
+                case kHXBCode_Enum_ConnectionTimeOut:
+                    return ;
+                default:
+                    failViewController.imageName = @"failure";
+                    failViewController.buy_title = @"加入失败";
+                    failViewController.buy_ButtonTitle = @"重新投资";
+            }
+            [failViewController clickButtonWithBlock:^{
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面
+            }];
+            [weakSelf.navigationController pushViewController:failViewController animated:YES];
+        }];
 //            }
 //        }];
     }];
