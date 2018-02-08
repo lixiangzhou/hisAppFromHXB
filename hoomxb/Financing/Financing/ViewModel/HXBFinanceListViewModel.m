@@ -65,10 +65,8 @@
     request.requestArgument = isUpData ? @{@"page": @(page).description,@"cashType":@"newbie"} : @{@"page": @(page).description};
     request.showHud = NO;
     kWeakSelf
-    [request startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:financeType requestState:NO];
-        ///计划列表数据是否出错
-        kHXBBuyErrorResponsShowHUD
         [weakSelf distributeResponseDataWithType:financeType responseObject:responseObject];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -98,10 +96,8 @@
     request.requestArgument = @{@"page": @(page).description};
     request.showHud = NO;
     kWeakSelf
-    [request startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:financeType requestState:NO];
-        ///计划列表数据是否出错
-        kHXBBuyErrorResponsShowHUD
         [weakSelf distributeResponseDataWithType:financeType responseObject:responseObject];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -131,10 +127,8 @@
     request.requestArgument = @{@"page": @(page).description};
     request.showHud = NO;
     kWeakSelf
-    [request startWithSuccess:^(NYBaseRequest *request, NSDictionary *responseObject) {
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:financeType requestState:NO];
-        ///计划列表数据是否出错
-        kHXBBuyErrorResponsShowHUD
         [weakSelf distributeResponseDataWithType:financeType responseObject:responseObject];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
