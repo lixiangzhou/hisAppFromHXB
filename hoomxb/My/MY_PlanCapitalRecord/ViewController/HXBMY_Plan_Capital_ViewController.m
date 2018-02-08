@@ -13,7 +13,7 @@
 #import "HXBMyPlanCapitalRecordViewModel.h"
 
 static NSString *const cellID = @"cellID";
-static NSInteger  defaultPageCount = 20;
+static NSInteger const defaultPageCount = 20;
 @interface HXBMY_Plan_Capital_ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *planCapitalTableView;
 

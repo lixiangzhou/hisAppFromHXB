@@ -31,7 +31,7 @@ static NSString *const kScreen_Plan = @"FINANCEPLAN";
 static NSString *const kScreen_Loan_UI = @"散标";
 static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 
-static NSInteger  defaultPageCount = 20;
+static NSInteger const defaultPageCount = 20;
 @interface HXBMY_CapitalRecordViewController ()
 @property (nonatomic,strong) HXBMYCapitalRecord_TableView *tableView;
 @property (nonatomic,strong) HXBMYCapitalRecordViewModel *capitalRecordViewModel;
