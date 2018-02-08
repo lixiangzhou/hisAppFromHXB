@@ -7,7 +7,6 @@
 //
 
 #import "HXBMY_CapitalRecordViewController.h"
-#import "HXBMYRequest.h"
 #import "HXBMYCapitalRecord_TableView.h"
 #import "HXBMYViewModel_MainCapitalRecordViewModel.h"
 
@@ -32,6 +31,7 @@ static NSString *const kScreen_Plan = @"FINANCEPLAN";
 static NSString *const kScreen_Loan_UI = @"散标";
 static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 
+static NSInteger  defaultPageCount = 20;
 @interface HXBMY_CapitalRecordViewController ()
 @property (nonatomic,strong) HXBMYCapitalRecord_TableView *tableView;
 @property (nonatomic,strong) HXBMYCapitalRecordViewModel *capitalRecordViewModel;
@@ -51,7 +51,6 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
         return weakSelf.view;
     }];
     self.screenType = @" ";
-    [HXBMYRequest sharedMYRequest].isShowHUD = YES;
     [self downDataWithScreenType:@" "];
     [self setUP];
     self.isColourGradientNavigationBar = YES;
@@ -90,7 +89,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     kWeakSelf
     [self.capitalRecordViewModel capitalRecord_requestWithScreenType:screenType andSuccessBlock:^(BOOL isSuccess) {
         weakSelf.totalCount = [weakSelf.capitalRecordViewModel.totalCount integerValue];
-        if (weakSelf.totalCount > 20 && weakSelf.capitalRecordViewModel.currentPageCount == 20) {
+        if (weakSelf.totalCount > defaultPageCount && weakSelf.capitalRecordViewModel.currentPageCount == defaultPageCount) {
             [weakSelf.tableView hxb_footerWithRefreshBlock:^{
                 weakSelf.capitalRecordViewModel.capitalRecordPage ++;
                 [weakSelf downDataWithScreenType:weakSelf.screenType];

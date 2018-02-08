@@ -4,7 +4,7 @@
 //
 //  Created by HXB on 2017/5/19.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
-//
+//  账户内计划详情
 
 #import "HXBMY_PlanList_DetailViewController.h"
 

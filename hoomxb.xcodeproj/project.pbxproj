@@ -516,6 +516,7 @@
 		E1E5885A1EE165BF0045C4AE /* AnimatedTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588551EE165BF0045C4AE /* AnimatedTransition.m */; };
 		E1E5885B1EE165BF0045C4AE /* Animatr.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588571EE165BF0045C4AE /* Animatr.m */; };
 		E1E5885C1EE165BF0045C4AE /* PYPresentationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E588591EE165BF0045C4AE /* PYPresentationController.m */; };
+		E1ED71E0202BF97300ECA2F4 /* HXBMyPlanCapitalRecordViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1ED71DF202BF97300ECA2F4 /* HXBMyPlanCapitalRecordViewModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1539,6 +1540,8 @@
 		E1E588571EE165BF0045C4AE /* Animatr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animatr.m; sourceTree = "<group>"; };
 		E1E588581EE165BF0045C4AE /* PYPresentationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPresentationController.h; sourceTree = "<group>"; };
 		E1E588591EE165BF0045C4AE /* PYPresentationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPresentationController.m; sourceTree = "<group>"; };
+		E1ED71DE202BF97300ECA2F4 /* HXBMyPlanCapitalRecordViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanCapitalRecordViewModel.h; sourceTree = "<group>"; };
+		E1ED71DF202BF97300ECA2F4 /* HXBMyPlanCapitalRecordViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyPlanCapitalRecordViewModel.m; sourceTree = "<group>"; };
 		E1F630821F20B4F100FC0122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -3394,6 +3397,7 @@
 		9AE031C52022C317006D6140 /* MY_PlanCapitalRecord */ = {
 			isa = PBXGroup;
 			children = (
+				E1ED71DD202BEFB700ECA2F4 /* ViewModel */,
 				9AE031C62022C317006D6140 /* Model */,
 				9AE031D32022C317006D6140 /* View */,
 				9AE031DA2022C317006D6140 /* ViewController */,
@@ -3406,14 +3410,10 @@
 			children = (
 				9AE031C72022C317006D6140 /* HXBMY_PlanModel_LoanRecordModel.h */,
 				9AE031C82022C317006D6140 /* HXBMY_PlanModel_LoanRecordModel.m */,
-				9AE031C92022C317006D6140 /* HXBMY_PlanViewModel_LoanRecordViewModel.h */,
-				9AE031CA2022C317006D6140 /* HXBMY_PlanViewModel_LoanRecordViewModel.m */,
 				9AE031CB2022C317006D6140 /* HXBMYModel_CapitalRecordDetailModel.h */,
 				9AE031CC2022C317006D6140 /* HXBMYModel_CapitalRecordDetailModel.m */,
 				9AE031CD2022C317006D6140 /* HXBMYModel_MainCapitalRecordModel.h */,
 				9AE031CE2022C317006D6140 /* HXBMYModel_MainCapitalRecordModel.m */,
-				9AE031CF2022C317006D6140 /* HXBMYViewModel_MainCapitalRecordViewModel.h */,
-				9AE031D02022C317006D6140 /* HXBMYViewModel_MainCapitalRecordViewModel.m */,
 				9AE031D12022C317006D6140 /* HXBTransferConfirmModel.h */,
 				9AE031D22022C317006D6140 /* HXBTransferConfirmModel.m */,
 			);
@@ -4821,6 +4821,19 @@
 			path = TransitioningManager;
 			sourceTree = "<group>";
 		};
+		E1ED71DD202BEFB700ECA2F4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9AE031CF2022C317006D6140 /* HXBMYViewModel_MainCapitalRecordViewModel.h */,
+				9AE031D02022C317006D6140 /* HXBMYViewModel_MainCapitalRecordViewModel.m */,
+				9AE031C92022C317006D6140 /* HXBMY_PlanViewModel_LoanRecordViewModel.h */,
+				9AE031CA2022C317006D6140 /* HXBMY_PlanViewModel_LoanRecordViewModel.m */,
+				E1ED71DE202BF97300ECA2F4 /* HXBMyPlanCapitalRecordViewModel.h */,
+				E1ED71DF202BF97300ECA2F4 /* HXBMyPlanCapitalRecordViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -5178,6 +5191,7 @@
 				E133DD3B1EEEC14C009466DE /* NYBaseRequest.m in Sources */,
 				9AE032582022C317006D6140 /* HXBWithdrawCardView.m in Sources */,
 				E133DCEC1EEE3597009466DE /* HxbSignUpViewController.m in Sources */,
+				E1ED71E0202BF97300ECA2F4 /* HXBMyPlanCapitalRecordViewModel.m in Sources */,
 				9AE032642022C317006D6140 /* HXBBottomLineTableViewCell.m in Sources */,
 				9AE032762022C317006D6140 /* HXBMY_LoanList_DetailViewController.m in Sources */,
 				E133DD391EEEC14C009466DE /* HXBTokenModel.m in Sources */,

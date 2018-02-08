@@ -4,7 +4,7 @@
 //
 //  Created by HXB on 2017/5/19.
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
-//
+//  账户内散标债转详情
 
 #import "HXBMY_LoanList_DetailViewController.h"
 #import "HXBMY_Loan_DetailView.h"

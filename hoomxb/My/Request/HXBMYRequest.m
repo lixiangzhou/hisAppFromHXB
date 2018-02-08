@@ -489,60 +489,6 @@
     }];
 }
 
-///plan 详情页的 交易记录
-- (void)loanRecord_my_Plan_WithIsUPData: (BOOL)isUPData
-                      andWithRequestUrl: (NSString *)requestUrl
-                              andPlanID: (NSString *)planID
-                        andSuccessBlock: (void(^)(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *>* viewModelArray))successDateBlock
-                        andFailureBlock: (void(^)(NSError *error))failureBlock{
-    HXBBaseRequest *loanRecordAPI = [[HXBBaseRequest alloc]init];
- 
-    loanRecordAPI.requestUrl =  requestUrl;
-    
-//    kHXBFin_loanRecordURL(planID);
-    
-    loanRecordAPI.isUPReloadData = isUPData;
-    if (isUPData) {
-        self.planLoanRecordPage = 1;
-    }
-    loanRecordAPI.requestMethod = NYRequestMethodGet;
-    loanRecordAPI.requestArgument = @{
-                                    @"page" : @(self.planLoanRecordPage).description,
-                                      };
-    [loanRecordAPI startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        
-        if (![responseObject[kResponseStatus] integerValue]) {
-            NSLog(@"%@",self);
-            if (failureBlock) {
-                failureBlock(nil);
-            }
-        }
-        NSArray <NSDictionary *>*dataArray = responseObject[kResponseData][@"dataList"];
-        NSMutableArray <HXBMY_PlanViewModel_LoanRecordViewModel *>*viewModelArray = [[NSMutableArray alloc]init];
-       
-        [dataArray enumerateObjectsUsingBlock:^(NSDictionary * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            HXBMY_PlanModel_LoanRecordModel *planModel = [[HXBMY_PlanModel_LoanRecordModel alloc]init];
-            [planModel yy_modelSetWithDictionary:obj];
-            HXBMY_PlanViewModel_LoanRecordViewModel *loanRecordViewModel = [[HXBMY_PlanViewModel_LoanRecordViewModel alloc]init];
-            
-            loanRecordViewModel.planLoanRecordModel = planModel;
-            [viewModelArray addObject:loanRecordViewModel];
-        }];
-        if (request.isUPReloadData) {
-            [self.planLoanRecordViewModel_array removeAllObjects];
-            
-        }
-        [self.planLoanRecordViewModel_array addObjectsFromArray:viewModelArray];
-        
-        if (successDateBlock) {
-            self.planLoanRecordPage ++;
-            successDateBlock(_planLoanRecordViewModel_array.copy);
-        }
-    } failure:^(HXBBaseRequest *request, NSError *error) {
-        
-    }];
-}
-
 /**
   loan  账户内散标资产
   */
