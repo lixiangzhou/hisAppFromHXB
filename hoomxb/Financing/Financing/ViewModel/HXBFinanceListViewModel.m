@@ -67,8 +67,6 @@
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:financeType requestState:NO];
-        ///计划列表数据是否出错
-        kHXBBuyErrorResponsShowHUD
         [weakSelf distributeResponseDataWithType:financeType responseObject:responseObject];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -100,8 +98,6 @@
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:financeType requestState:NO];
-        ///计划列表数据是否出错
-        kHXBBuyErrorResponsShowHUD
         [weakSelf distributeResponseDataWithType:financeType responseObject:responseObject];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
@@ -133,8 +129,6 @@
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:financeType requestState:NO];
-        ///计划列表数据是否出错
-        kHXBBuyErrorResponsShowHUD
         [weakSelf distributeResponseDataWithType:financeType responseObject:responseObject];
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {

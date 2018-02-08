@@ -51,8 +51,9 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.isColourGradientNavigationBar = YES;
     [self setUP];
+    kWeakSelf
     _viewModel = [[HXBMyPlanDetailsViewModel alloc] initWithBlock:^UIView *{
-        return self.view;
+        return weakSelf.view;
     }];
     self.title = self.planViewModel.planModelDataList.name;
     [self downData];

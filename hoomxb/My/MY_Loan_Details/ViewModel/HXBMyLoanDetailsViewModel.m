@@ -28,7 +28,11 @@
 
 // 不同意处理错误，需要重写erroStateCodeDeal方法
 - (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
-    return NO;
+    if ([request.requestUrl containsString:@"confirm"]) {
+        return [super erroStateCodeDeal:request];
+    } else {
+        return NO;
+    }
 }
 
 // 账户内-债权转让确认页

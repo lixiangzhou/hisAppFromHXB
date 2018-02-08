@@ -45,8 +45,9 @@
     self.title = @"确认转让债权";
     self.view.backgroundColor = BACKGROUNDCOLOR;
     self.isRedColorWithNavigationBar = YES;
+    kWeakSelf
     self.viewModel = [[HXBMyLoanDetailsViewModel alloc] initWithBlock:^UIView *{
-        return self.view;
+        return weakSelf.view;
     }];
     [self.view addSubview:self.topView];
     [self.view addSubview:self.bottomView];
@@ -117,7 +118,7 @@
             successVC.buy_ButtonTitle = @"我知道了";
             successVC.title = @"债权转让";
             [successVC clickButtonWithBlock:^{
-                for (UIViewController *VC in self.navigationController.viewControllers) {
+                for (UIViewController *VC in weakSelf.navigationController.viewControllers) {
                     if ([VC isKindOfClass:[HXBMY_LoanListViewController class]]) {
                         [weakSelf.navigationController popToViewController:VC animated:YES];
                     }
