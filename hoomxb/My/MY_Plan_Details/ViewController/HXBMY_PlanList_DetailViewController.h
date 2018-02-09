@@ -15,5 +15,4 @@
  判断是持有中、退出中、已退出
  */
 @property (nonatomic, assign) HXBRequestType_MY_PlanRequestType type;
-- (void)setUPValue;
 @end
