@@ -16,7 +16,7 @@
  @param password 登录密码
  @param resultBlock 返回结果
  */
-- (void)accountSetGesturePasswordWithPassword:(NSString *)password
+- (void)accountSetGesturePasswordWithPassword: (NSString *)password
                                   resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
 @end

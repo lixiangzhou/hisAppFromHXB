@@ -502,6 +502,7 @@
 		E18986CE1F2F048B00FAA054 /* audit_status.svg in Resources */ = {isa = PBXBuildFile; fileRef = E18986CD1F2F048B00FAA054 /* audit_status.svg */; };
 		E18B16BC202D52C500B5ACB8 /* HXBMyGestureViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B16BB202D52C500B5ACB8 /* HXBMyGestureViewModel.m */; };
 		E18B16C0202D7CDB00B5ACB8 /* HXBMyTraderPasswordGetVerifyCodeViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B16BF202D7CDA00B5ACB8 /* HXBMyTraderPasswordGetVerifyCodeViewModel.m */; };
+		E18B16C4202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E18B16C3202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.m */; };
 		E190EFA41F25D16E001E0B14 /* HXBNavWaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E190EFA31F25D16E001E0B14 /* HXBNavWaterView.m */; };
 		E190EFA71F25DB59001E0B14 /* HXBSignInWaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = E190EFA61F25DB59001E0B14 /* HXBSignInWaterView.m */; };
 		E1A1BEF21F386C080006BAA7 /* explain.svg in Resources */ = {isa = PBXBuildFile; fileRef = E1A1BEF11F386C080006BAA7 /* explain.svg */; };
@@ -1513,6 +1514,8 @@
 		E18B16BB202D52C500B5ACB8 /* HXBMyGestureViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyGestureViewModel.m; sourceTree = "<group>"; };
 		E18B16BE202D7CDA00B5ACB8 /* HXBMyTraderPasswordGetVerifyCodeViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyTraderPasswordGetVerifyCodeViewModel.h; sourceTree = "<group>"; };
 		E18B16BF202D7CDA00B5ACB8 /* HXBMyTraderPasswordGetVerifyCodeViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyTraderPasswordGetVerifyCodeViewModel.m; sourceTree = "<group>"; };
+		E18B16C2202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBAccountWithdrawViewModel.h; sourceTree = "<group>"; };
+		E18B16C3202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBAccountWithdrawViewModel.m; sourceTree = "<group>"; };
 		E190EFA21F25D16E001E0B14 /* HXBNavWaterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBNavWaterView.h; sourceTree = "<group>"; };
 		E190EFA31F25D16E001E0B14 /* HXBNavWaterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBNavWaterView.m; sourceTree = "<group>"; };
 		E190EFA51F25DB59001E0B14 /* HXBSignInWaterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSignInWaterView.h; sourceTree = "<group>"; };
@@ -2916,6 +2919,7 @@
 		9AE030F52022C316006D6140 /* AccountWithdraw */ = {
 			isa = PBXGroup;
 			children = (
+				E18B16C1202D815D00B5ACB8 /* ViewModel */,
 				9AE030F62022C316006D6140 /* ViewController */,
 			);
 			path = AccountWithdraw;
@@ -4709,6 +4713,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		E18B16C1202D815D00B5ACB8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E18B16C2202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.h */,
+				E18B16C3202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.m */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		E1CD4BA91ED83064000CC57B /* tools */ = {
 			isa = PBXGroup;
 			children = (
@@ -5176,6 +5189,7 @@
 				9A5A2B741FEA284700818846 /* HXBThemAdapterManager.m in Sources */,
 				9AE0322E2022C317006D6140 /* HXBTopTabView.m in Sources */,
 				9AE0321C2022C317006D6140 /* HXBVersionUpdateViewModel.m in Sources */,
+				E18B16C4202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.m in Sources */,
 				9AE0327B2022C317006D6140 /* HXBMYModel_MainCapitalRecordModel.m in Sources */,
 				4E2E15D71FE9150600AF3E7C /* HXBTransactionPasswordView.m in Sources */,
 				4E48FF421F69124600965BA2 /* HXBDeviceVersion.m in Sources */,

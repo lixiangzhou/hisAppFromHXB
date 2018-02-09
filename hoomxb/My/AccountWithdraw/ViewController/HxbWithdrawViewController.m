@@ -19,6 +19,9 @@
 #import "HXBWithdrawRecordViewController.h"
 #import "HXBWithdrawModel.h"
 #import "HXBBankCardModel.h"
+
+#import "HXBAccountWithdrawViewModel.h"
+
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIImageView *tipImage;
@@ -45,6 +48,7 @@
 
 @property (nonatomic, assign) BOOL isLoadBankCardSuccess;
 
+@property (nonatomic, strong) HXBAccountWithdrawViewModel *viewModel;
 @end
 
 @implementation HxbWithdrawViewController
@@ -55,6 +59,10 @@
     [super viewDidLoad];
     self.title = @"提现";
     self.isColourGradientNavigationBar = YES;
+    kWeakSelf
+    _viewModel = [[HXBAccountWithdrawViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.notifitionView];
     [self.view addSubview:self.backView];
@@ -228,18 +236,13 @@
     requestArgument[@"bank"] = self.withdrawModel.bankCard.cardId;
     requestArgument[@"smscode"] = smscode;
     requestArgument[@"amount"] = self.amountTextField.text;
-    HXBWithdrawalsRequest *withdrawals = [[HXBWithdrawalsRequest alloc] init];
-    [withdrawals withdrawalsRequestWithRequestArgument:requestArgument andSuccessBlock:^(id responseObject) {
-        NSLog(@"%@",responseObject);
-        
-        [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
-//        weakSelf.view.userInteractionEnabled = YES;
-        HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
-//        weakSelf.bankCardModel.arrivalTime = responseObject[@"data"][@"arrivalTime"];
-        withdrawResultVC.bankCardModel = weakSelf.withdrawModel.bankCard;
-        [weakSelf.navigationController pushViewController:withdrawResultVC animated:YES];
-    } andFailureBlock:^(NSError *error) {
-        NSLog(@"%@",error);
+    [_viewModel accountWithdrawaWithParameter:requestArgument resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
+            HxbWithdrawResultViewController *withdrawResultVC = [[HxbWithdrawResultViewController alloc]init];
+            withdrawResultVC.bankCardModel = weakSelf.withdrawModel.bankCard;
+            [weakSelf.navigationController pushViewController:withdrawResultVC animated:YES];
+        }
     }];
 }
 

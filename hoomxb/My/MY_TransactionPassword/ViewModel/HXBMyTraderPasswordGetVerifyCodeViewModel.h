@@ -17,7 +17,7 @@
  @param action 验证码类型
  @param resultBlock 返回结果
  */
-- (void)myTraderPasswordGetverifyCodeWithAction:(NSString *)action
+- (void)myTraderPasswordGetverifyCodeWithAction: (NSString *)action
                                     resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
 @end
