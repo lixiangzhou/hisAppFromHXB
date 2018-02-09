@@ -13,6 +13,7 @@
 #import "HXBModifyPhoneViewController.h"
 #import "HXBCallPhone_BottomView.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
+#import "HXBMyTraderPasswordGetVerifyCodeViewModel.h"
 
 @interface HXBModifyTransactionPasswordViewController ()
 
@@ -20,6 +21,7 @@
 
 @property (nonatomic, strong) HXBCallPhone_BottomView *callPhoneView;
 
+@property (nonatomic, strong) HXBMyTraderPasswordGetVerifyCodeViewModel *viewModel;
 @end
 
 @implementation HXBModifyTransactionPasswordViewController
@@ -38,6 +40,10 @@
     // Do any additional setup after loading the view.
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.isColourGradientNavigationBar = YES;
+    kWeakSelf
+    _viewModel = [[HXBMyTraderPasswordGetVerifyCodeViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
         self.userInfoModel = viewModel.userInfoModel;
         self.homeView.userInfoModel = viewModel.userInfoModel;
@@ -87,22 +93,14 @@
  获取验证码
  */
 - (void)getValidationCode {
-    HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
-    NSString *action = @"";
-    if ([self.title isEqualToString:@"修改交易密码"]){
-        action = kTypeKey_tradpwd;
-    }else if ([self.title isEqualToString:@"解绑原手机号"]){
-        action = kTypeKey_oldmobile;
-    }
-    [modifyTransactionPasswordRequest myTransactionPasswordWithAction:action andSuccessBlock:^(id responseObject) {
-        NSLog(@"获取验证码成功%@",responseObject);
-    } andFailureBlock:^(NSError *error) {
-        NSLog(@"%@",error);
-        //失败之后立即不去修改获取验证码的状态
-        kWeakSelf
-        [weakSelf.homeView sendCodeFail];
+    // fixme : 暂时获取验证码的action只有两个，目前处理为修改交易密码用前面的，其他均为解绑原手机号。
+    NSString *action = [self.title isEqualToString:@"修改交易密码"] ? kTypeKey_tradpwd : kTypeKey_oldmobile;
+    kWeakSelf
+    [_viewModel myTraderPasswordGetverifyCodeWithAction:action resultBlock:^(BOOL isSuccess) {
+        if (!isSuccess) {
+            [weakSelf.homeView sendCodeFail];
+        }
     }];
-    
 }
 
 /**
