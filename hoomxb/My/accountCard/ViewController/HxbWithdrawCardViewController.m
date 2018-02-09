@@ -159,7 +159,10 @@
 #pragma mark 懒加载
 - (HXBBankCardViewModel *)bindBankCardVM {
     if (!_bindBankCardVM) {
-        _bindBankCardVM = [[HXBBankCardViewModel alloc] init];
+        kWeakSelf
+        _bindBankCardVM = [[HXBBankCardViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
     }
     return _bindBankCardVM;
 }

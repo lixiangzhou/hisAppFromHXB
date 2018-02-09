@@ -155,7 +155,10 @@
 #pragma mark Get Methods
 - (HXBMyTopUpVCViewModel *)accountVM {
     if (!_accountVM) {
-        _accountVM = [[HXBMyTopUpVCViewModel alloc] init];
+        kWeakSelf
+        _accountVM = [[HXBMyTopUpVCViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
     }
     return _accountVM;
 }

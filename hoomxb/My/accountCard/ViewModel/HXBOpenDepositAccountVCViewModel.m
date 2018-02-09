@@ -10,12 +10,22 @@
 
 @implementation HXBOpenDepositAccountVCViewModel
 
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl isEqualToString:kHXBOpenDepositAccount_Escrow]) {
+        return NO;
+    }
+    else {
+        return YES;
+    }
+}
+
 - (void)openDepositAccountRequestWithArgument:(NSDictionary *)requestArgument andCallBack:(void(^)(BOOL isSuccess))callBackBlock
 {
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBOpenDepositAccount_Escrow;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
+    versionUpdateAPI.showHud = YES;
     [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
         
         NSInteger status =  [responseObject[@"status"] integerValue];
@@ -41,9 +51,9 @@
             if (callBackBlock) {
                 callBackBlock(NO);
             }
-//            if (status == 1) {
-//                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-//            }
+            if (status == 1) {
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+            }
             return;
         }
         if (callBackBlock) {

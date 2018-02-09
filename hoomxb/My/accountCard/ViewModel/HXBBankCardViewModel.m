@@ -11,6 +11,15 @@
 
 @implementation HXBBankCardViewModel
 
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl isEqualToString:kHXBAccount_Bindcard]) {
+        return NO;
+    }
+    else {
+        return YES;
+    }
+}
+
 - (void)setBankCardModel:(HXBBankCardModel *)bankCardModel {
     _bankCardModel = bankCardModel;
     
@@ -56,6 +65,7 @@
     versionUpdateAPI.requestUrl = kHXBAccount_Bindcard;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
+    versionUpdateAPI.showHud = YES;
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
         NSInteger status =  [responseObject[@"status"] integerValue];
@@ -78,7 +88,7 @@
                 return ;
             } else {
                 if (status == kHXBCode_Enum_ProcessingField) return;
-//                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
+                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
             if (finishBlock) {
                 finishBlock(NO);

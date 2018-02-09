@@ -19,8 +19,8 @@
                                          @"smscode" : smscode,
                                          @"amount" : amount
                                          };
-    
-    [versionUpdateAPI startWithHUDStr:kLoadIngText Success:^(NYBaseRequest *request, id responseObject) {
+    versionUpdateAPI.showHud = YES;
+    [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
         NSInteger status =  [responseObject[@"status"] integerValue];
         if (status != 0) {
             if (callBackBlock) {

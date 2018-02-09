@@ -211,7 +211,10 @@
 #pragma mark - 懒加载
 - (HXBOpenDepositAccountVCViewModel *)openDepositAccountVM {
     if (!_openDepositAccountVM) {
-        _openDepositAccountVM = [[HXBOpenDepositAccountVCViewModel alloc] init];
+        kWeakSelf
+        _openDepositAccountVM = [[HXBOpenDepositAccountVCViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
     }
     return _openDepositAccountVM;
 }
