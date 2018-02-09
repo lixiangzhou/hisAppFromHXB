@@ -15,9 +15,7 @@
     if ([request.requestUrl isEqualToString:kHXBAccount_Bindcard]) {
         return NO;
     }
-    else {
-        return YES;
-    }
+    return [super erroStateCodeDeal:request];
 }
 
 - (void)setBankCardModel:(HXBBankCardModel *)bankCardModel {

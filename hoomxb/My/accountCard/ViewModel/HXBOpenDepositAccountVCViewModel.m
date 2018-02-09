@@ -14,9 +14,7 @@
     if ([request.requestUrl isEqualToString:kHXBOpenDepositAccount_Escrow]) {
         return NO;
     }
-    else {
-        return YES;
-    }
+    return [super erroStateCodeDeal:request];
 }
 
 - (void)openDepositAccountRequestWithArgument:(NSDictionary *)requestArgument andCallBack:(void(^)(BOOL isSuccess))callBackBlock
