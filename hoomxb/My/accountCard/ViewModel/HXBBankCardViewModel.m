@@ -17,7 +17,6 @@
         if (status == kHXBOpenAccount_Outnumber) {
             return NO;
         }
-        return [super erroStateCodeDeal:request];
     }
     return [super erroStateCodeDeal:request];
 }
