@@ -13,7 +13,11 @@
 
 - (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
     if ([request.requestUrl isEqualToString:kHXBAccount_Bindcard]) {
-        return NO;
+        NSInteger status =  [request.responseObject[@"status"] integerValue];
+        if (status == kHXBOpenAccount_Outnumber) {
+            return NO;
+        }
+        return [super erroStateCodeDeal:request];
     }
     return [super erroStateCodeDeal:request];
 }
@@ -84,9 +88,6 @@
                 }];
                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:NO completion:nil];
                 return ;
-            } else {
-                if (status == kHXBCode_Enum_ProcessingField) return;
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
             if (finishBlock) {
                 finishBlock(NO);

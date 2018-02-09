@@ -12,7 +12,11 @@
 
 - (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
     if ([request.requestUrl isEqualToString:kHXBOpenDepositAccount_Escrow]) {
-        return NO;
+        NSInteger status =  [request.responseObject[@"status"] integerValue];
+        if (status == kHXBOpenAccount_Outnumber) {
+            return NO;
+        }
+        return [super erroStateCodeDeal:request];
     }
     return [super erroStateCodeDeal:request];
 }
@@ -48,9 +52,6 @@
         if (status != 0) {
             if (callBackBlock) {
                 callBackBlock(NO);
-            }
-            if (status == 1) {
-                [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
             }
             return;
         }
