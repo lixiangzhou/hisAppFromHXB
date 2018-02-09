@@ -11,12 +11,15 @@
 #import "HXBSetGesturePasswordRequest.h"
 #import "HXBCustomTextField.h"
 #import "SVGKit/SVGKImageView.h"
+#import "HXBMyGestureViewModel.h"
+
 @interface HXBCheckLoginPasswordViewController ()<UITextFieldDelegate>
 
 @property (nonatomic, strong) HXBCustomTextField *loginPasswordTextField;
 
 @property (nonatomic, strong) UIButton *checkLoginBtn;
 
+@property (nonatomic, strong) HXBMyGestureViewModel *viewModel;
 @end
 
 @implementation HXBCheckLoginPasswordViewController
@@ -42,11 +45,11 @@
         kWeakSelf
         _loginPasswordTextField.block = ^(NSString *text) {
             if (text.length > 0) {
-                _checkLoginBtn.backgroundColor = COR29;
-                _checkLoginBtn.userInteractionEnabled = YES;
+                weakSelf.checkLoginBtn.backgroundColor = COR29;
+                weakSelf.checkLoginBtn.userInteractionEnabled = YES;
             } else {
-                _checkLoginBtn.backgroundColor = COR26;
-                _checkLoginBtn.userInteractionEnabled = NO;
+                weakSelf.checkLoginBtn.backgroundColor = COR26;
+                weakSelf.checkLoginBtn.userInteractionEnabled = NO;
             }
         };
     }
@@ -56,6 +59,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"设置手势密码";
+    kWeakSelf
+    _viewModel = [[HXBMyGestureViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     [self.view addSubview:self.loginPasswordTextField];
     [self.view addSubview:self.checkLoginBtn];
     [self setupSubViewFrame];
@@ -91,23 +98,20 @@
         [HxbHUDProgress showTextWithMessage:message];
         return;
     } else {
-        
-        HXBSetGesturePasswordRequest *setGesturePasswordAPI =[[HXBSetGesturePasswordRequest alloc] init];
-        [setGesturePasswordAPI setGesturePasswordRequestWithPassword:self.loginPasswordTextField.text andSuccessBlock:^(id responseObject) {
-            if (weakSelf.switchType == HXBAccountSecureSwitchTypeOff) {
-                KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
-                [KeyChain removeGesture];
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-            } else {
-                HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
-                gesturePasswordVC.type = GestureViewControllerTypeSetting;
-                gesturePasswordVC.switchType = weakSelf.switchType;
-                [weakSelf.navigationController pushViewController:gesturePasswordVC animated:YES];
+        [_viewModel accountSetGesturePasswordWithPassword:self.loginPasswordTextField.text resultBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                if (weakSelf.switchType == HXBAccountSecureSwitchTypeOff) {
+                    KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
+                    [KeyChain removeGesture];
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                } else {
+                    HXBGesturePasswordViewController *gesturePasswordVC = [[HXBGesturePasswordViewController alloc] init];
+                    gesturePasswordVC.type = GestureViewControllerTypeSetting;
+                    gesturePasswordVC.switchType = weakSelf.switchType;
+                    [weakSelf.navigationController pushViewController:gesturePasswordVC animated:YES];
+                }
             }
-        } andFailureBlock:^(NSError *error) {
-            
         }];
-        
     }
 }
 
