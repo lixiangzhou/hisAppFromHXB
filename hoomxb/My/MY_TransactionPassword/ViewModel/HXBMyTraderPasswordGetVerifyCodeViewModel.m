@@ -12,7 +12,7 @@
 
 - (void)myTraderPasswordGetverifyCodeWithAction:(NSString *)action
                                     resultBlock: (void(^)(BOOL isSuccess))resultBlock {
-    NYBaseRequest *request = [[NYBaseRequest alloc] init];
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestUrl = kHXBUser_smscodeURL;
     request.requestMethod = NYRequestMethodPost;
     request.requestArgument = @{@"action" : action};

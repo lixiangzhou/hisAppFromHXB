@@ -12,7 +12,7 @@
 
 - (void)accountWithdrawaWithParameter:(NSMutableDictionary *)parameter
                           resultBlock: (void(^)(BOOL isSuccess))resultBlock {
-    NYBaseRequest *request = [[NYBaseRequest alloc] init];
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestUrl = kHXBSetWithdrawals_withdrawURL;
     request.requestMethod = NYRequestMethodPost;
     request.requestArgument = parameter;

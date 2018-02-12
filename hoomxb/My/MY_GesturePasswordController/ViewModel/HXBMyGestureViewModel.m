@@ -13,7 +13,7 @@
 
 - (void)accountSetGesturePasswordWithPassword:(NSString *)password
                                   resultBlock: (void(^)(BOOL isSuccess))resultBlock {
-    NYBaseRequest *request = [[NYBaseRequest alloc] init];
+    NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestUrl = kHXBSetGesturePasswordRequest_CheckLoginPasswordURL;
     request.requestMethod = NYRequestMethodPost;
     request.requestArgument = @{@"password" : password};
