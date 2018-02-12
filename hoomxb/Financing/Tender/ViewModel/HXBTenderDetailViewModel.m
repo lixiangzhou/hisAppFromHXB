@@ -50,30 +50,32 @@
     }
     
     [req loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSInteger statusCode = [responseObject[kResponseStatus] integerValue];
-        if (statusCode == kHXBCode_Success) {
-            NSArray *temp = responseObject[kResponseData][@"dataList"];
-            if (temp.count) {
-                NSMutableArray *tempModels = [NSMutableArray new];
-                for (NSInteger i = 0; i < temp.count; i++) {
-                    [tempModels addObject:[HXBTenderDetailModel yy_modelWithDictionary:temp[i]]];
-                }
-                
-                if (isNew) {
-                    [self.dataSource removeAllObjects];
-                    [self.dataSource addObjectsFromArray:tempModels];
-                } else {
-                    [self.dataSource addObjectsFromArray:tempModels];
-                }
+        NSArray *temp = responseObject[kResponseData][@"dataList"];
+        if (temp.count) {
+            NSMutableArray *tempModels = [NSMutableArray new];
+            for (NSInteger i = 0; i < temp.count; i++) {
+                [tempModels addObject:[HXBTenderDetailModel yy_modelWithDictionary:temp[i]]];
             }
-            self.totalCount = responseObject[kResponseData][@"totalCount"];
             
-            self.showNoMoreData = self.dataSource.count >= self.totalCount.integerValue;
-            self.showPullup = self.totalCount.integerValue > self.pageSize.integerValue;
-            completion(YES);
+            if (isNew) {
+                [self.dataSource removeAllObjects];
+                [self.dataSource addObjectsFromArray:tempModels];
+            } else {
+                [self.dataSource addObjectsFromArray:tempModels];
+            }
+        }
+        self.totalCount = responseObject[kResponseData][@"totalCount"];
+        
+        self.showNoMoreData = self.dataSource.count >= self.totalCount.integerValue;
+        self.showPullup = self.totalCount.integerValue > self.pageSize.integerValue;
+        
+        if(completion) {
+           completion(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        completion(NO);
+        if(completion) {
+            completion(NO);
+        }
     }];
 }
 

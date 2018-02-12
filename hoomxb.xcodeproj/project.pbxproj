@@ -755,7 +755,6 @@
 		8DAD304A1FBA8F8B00E2AEE8 /* HXBBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewController.m; sourceTree = "<group>"; };
 		8DAD304E1FBA8F8B00E2AEE8 /* HXBBaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseModel.h; sourceTree = "<group>"; };
 		8DAD304F1FBA8F8B00E2AEE8 /* HXBBaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseModel.m; sourceTree = "<group>"; };
-		8DAD30501FBA8F8B00E2AEE8 /* HXBBaseViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseViewModel.h; sourceTree = "<group>"; };
 		8DAD30541FBA8F8B00E2AEE8 /* HXBBaseViewConcentricCirclesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseViewConcentricCirclesView.h; sourceTree = "<group>"; };
 		8DAD30551FBA8F8B00E2AEE8 /* HXBBaseViewConcentricCirclesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewConcentricCirclesView.m; sourceTree = "<group>"; };
 		8DAD30561FBA8F8B00E2AEE8 /* HXBBasePasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBasePasswordView.h; sourceTree = "<group>"; };
@@ -2239,7 +2238,6 @@
 			children = (
 				8DAD304E1FBA8F8B00E2AEE8 /* HXBBaseModel.h */,
 				8DAD304F1FBA8F8B00E2AEE8 /* HXBBaseModel.m */,
-				8DAD30501FBA8F8B00E2AEE8 /* HXBBaseViewModel.h */,
 			);
 			path = BaseObject;
 			sourceTree = "<group>";

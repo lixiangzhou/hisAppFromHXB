@@ -151,6 +151,7 @@
         if([request.hudDelegate respondsToSelector:@selector(erroStateCodeDeal:)]) {
             if([request.hudDelegate erroStateCodeDeal:request]) {
                 if(request.failure) {
+                    request.responseObject = nil;
                     NSError* erro = [NSError errorWithDomain:@"" code:kHXBCode_AlreadyPopWindow userInfo:nil];
                     request.failure(request, erro);
                     return;
@@ -158,7 +159,19 @@
             }
         }
         else {
-            [self defaultMethodRequestSuccessWithRequest:request];
+            if(request.isNewRequestWay) {
+                NSDictionary* responseDic = request.responseObject;
+                NSString* codeValue = [responseDic stringAtPath:@"status"];
+                if(![codeValue isEqualToString:@"0"]) {
+                    if(request.failure) {
+                        request.failure(request, nil);
+                        return;
+                    }
+                }
+            }
+            else {
+                [self defaultMethodRequestSuccessWithRequest:request];
+            }
         }
         request.success(request,request.responseObject);
     }

@@ -52,31 +52,20 @@
                                          @"versionCode" : version
                                          };
     [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            
-            weakSelf.isShow = YES;
-            [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
-            
+        weakSelf.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
+        
+        if ([KeyWindow.rootViewController isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
+            //获取顶部控制器
+            if (![[HXBRootVCManager manager].topVC isKindOfClass:NSClassFromString(@"HXBGesturePasswordViewController")]) {
+                [weakSelf show];
+            }
+        }
+        
+        if ([weakSelf.versionUpdateModel.force isEqualToString:@"1"]) {
+            weakSelf.isMandatoryUpdate = YES;
         }
         else {
-            
-            weakSelf.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
-            
-            if ([KeyWindow.rootViewController isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
-                //获取顶部控制器
-                if (![[HXBRootVCManager manager].topVC isKindOfClass:NSClassFromString(@"HXBGesturePasswordViewController")]) {
-                    [weakSelf show];
-                }
-            }
-            
-            if ([weakSelf.versionUpdateModel.force isEqualToString:@"1"]) {
-                weakSelf.isMandatoryUpdate = YES;
-            }
-            else {
-                weakSelf.isMandatoryUpdate = NO;
-            }
+            weakSelf.isMandatoryUpdate = NO;
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         weakSelf.isShow = YES;

@@ -31,23 +31,19 @@
 #endif
     kWeakSelf
     [homePlanRecommendAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSLog(@"%@",responseObject);
-        int codeValue = [responseObject[@"status"] intValue];
         NSDictionary *baseDic = [responseObject valueForKey:@"data"];
         weakSelf.homeBaseModel = [HXBHomeBaseModel yy_modelWithDictionary:baseDic];
-        if (!codeValue) {
-            //对数据进行异步缓存
-            [PPNetworkCache setHttpCache:responseObject URL:kHXBHome_HomeURL parameters:nil];
-        }
-        else {
-            [weakSelf loadCacheData];
-        }
+        
+        //对数据进行异步缓存
+        [PPNetworkCache setHttpCache:responseObject URL:kHXBHome_HomeURL parameters:nil];
         if (callbackBlock) {
-            callbackBlock(!codeValue);
+            callbackBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         [weakSelf loadCacheData];
-        callbackBlock(NO);
+        if (callbackBlock) {
+            callbackBlock(NO);
+        }
     }];
 }
 
