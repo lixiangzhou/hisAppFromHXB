@@ -55,9 +55,6 @@
     
     kWeakSelf
     [account_LoanRequest loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        if([responseObject[kResponseStatus] integerValue]) {
-            kNetWorkError(@" Loan 账户内散标资产");
-        }
         HXBMYModel_Loan_LoanRequestModel *loanAcccountModel = [[HXBMYModel_Loan_LoanRequestModel alloc]init];
         NSDictionary *dataDic = responseObject[kResponseData];
         [loanAcccountModel yy_modelSetWithDictionary:dataDic];
@@ -103,7 +100,6 @@
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:loanRequestType requestState:NO];
-        kHXBResponsResultShowHUD;
         
         NSMutableArray <HXBMYViewModel_MainLoanViewModel*> *loanViewModelArray = [[NSMutableArray alloc]init];
         NSDictionary* dataDic = [responseObject valueForKey:@"data"];
@@ -278,7 +274,6 @@
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:HXBRequestType_MY_LoanRequestType_Truansfer requestState:NO];
-        kHXBResponsResultShowHUD;
         
         NSMutableArray <HXBMY_LoanTruansferViewModel*> *truansferViewModelArray = [[NSMutableArray alloc]init];
         NSDictionary* dataDic = [responseObject valueForKey:@"data"];

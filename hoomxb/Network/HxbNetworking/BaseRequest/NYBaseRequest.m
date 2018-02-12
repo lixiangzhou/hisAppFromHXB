@@ -163,6 +163,7 @@
         [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"我是重构接口：%@", self.requestUrl] inView:[UIApplication sharedApplication].keyWindow];
     }
 #endif
+    self.isNewRequestWay = YES;
     self.success = success;
     self.failure = failure;
     [[NYNetworkManager sharedManager] addRequest:self];
