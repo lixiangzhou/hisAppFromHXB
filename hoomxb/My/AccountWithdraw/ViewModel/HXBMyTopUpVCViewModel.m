@@ -12,7 +12,7 @@
 
 - (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     versionUpdateAPI.requestUrl = kHXBAccount_quickpay;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{
@@ -21,20 +21,10 @@
                                          };
     versionUpdateAPI.showHud = YES;
     [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            if (callBackBlock) {
-                callBackBlock(NO);
-            }
+        if (callBackBlock) {
+            callBackBlock(YES);
         }
-        else {
-            if (callBackBlock) {
-                callBackBlock(YES);
-            }
-        }
-        
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [HxbHUDProgress showTextWithMessage:@"请求失败"];
         if (callBackBlock) {
             callBackBlock(NO);
         }
