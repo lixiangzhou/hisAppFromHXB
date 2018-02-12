@@ -131,7 +131,6 @@
             if (weakSelf.viewModel.responseObject) {
                 if (errorStatus == kHXBTransaction_Password_Error) {
                     [weakSelf.passwordView clearUpPassword];
-//                    [HxbHUDProgress showTextWithMessage:weakSelf.viewModel.responseObject[kResponseMessage]];
                     return ;
                 }
                 [weakSelf transferFailure:weakSelf.viewModel.responseObject];
