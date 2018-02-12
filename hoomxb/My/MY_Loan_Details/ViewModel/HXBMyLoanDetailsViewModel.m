@@ -68,6 +68,7 @@
         weakSelf.responseObject = responseObject;
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
+        weakSelf.responseObject = request.responseObject;
         if (resultBlock) resultBlock(NO);
     }];
 }

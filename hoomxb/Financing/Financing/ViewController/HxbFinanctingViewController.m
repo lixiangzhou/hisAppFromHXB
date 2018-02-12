@@ -261,8 +261,7 @@
     
     if (self.viewModel.planListViewModelArray.count <= 0) {
         id responseObject = [PPNetworkCache httpCacheForURL:@"/plan" parameters:nil];
-        NSArray <NSDictionary *>* dataList = responseObject[@"data"][@"dataList"];
-        self.viewModel.planListViewModelArray = [self.viewModel plan_dataProcessingWitharr:dataList];
+        self.viewModel.planListViewModelArray = [self.viewModel updatePlanListModelWithResponseObject:responseObject];
     }
     kWeakSelf
     [self.viewModel planListWithIsUpData:isUPData financeType:HXBFinance_Plan resultBlock:^(BOOL isSuccess) {
