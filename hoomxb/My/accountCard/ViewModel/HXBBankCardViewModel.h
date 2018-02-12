@@ -6,10 +6,10 @@
 //Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "HXBBaseViewModel.h"
 #import "HXBBankCardModel.h"
 
-@interface HXBBankCardViewModel : NSObject
+@interface HXBBankCardViewModel : HXBBaseViewModel
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
 
 /// 银行图片
@@ -37,6 +37,12 @@
  */
 - (void)requestUnBindWithParam:(NSDictionary *)param finishBlock:(void (^)(BOOL succeed, NSString *errorMessage, BOOL canPush))finishBlock;
 
+/**
+ 单独绑卡
+ 
+ @param requestArgument 绑卡的字典数据
+ */
+- (void)bindBankCardRequestWithArgument:(NSDictionary *)requestArgument andFinishBlock:(void (^)(BOOL isSuccess))finishBlock;
 
 /**
  验证身份证号
