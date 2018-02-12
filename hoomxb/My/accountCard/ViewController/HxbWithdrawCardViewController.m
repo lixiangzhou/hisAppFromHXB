@@ -17,6 +17,7 @@
 #import "HxbMyTopUpViewController.h"
 #import "HXBOpenDepositAccountRequest.h"
 #import "HxbWithdrawViewController.h"
+#import "HXBBankCardViewModel.h"
 @interface HxbWithdrawCardViewController () <UITextFieldDelegate>
 
 /**
@@ -30,7 +31,7 @@
 
 @property (nonatomic, strong) HXBWithdrawCardView *withdrawCardView;
 
-
+@property (nonatomic, strong) HXBBankCardViewModel *bindBankCardVM;
 
 
 @end
@@ -128,32 +129,44 @@
  */
 - (void)openStorageWithArgument:(NSDictionary *)dic{
     kWeakSelf
-    HXBOpenDepositAccountRequest *openDepositAccountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [openDepositAccountRequest bindBankCardRequestWithArgument:dic andSuccessBlock:^(id responseObject) {
-        if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
-            
-            HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-            [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-            
-        } else if (weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals) {
-            
-            HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
-            if (!KeyChain.isLogin)  return;
-            [self.navigationController pushViewController:withdrawViewController animated:YES];
-            
-        } else if(weakSelf.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other) {
-            if (self.block) { // 绑卡成功，返回
-                self.block(1);
-            };
-            [self leftBackBtnClick];
+    [self.bindBankCardVM bindBankCardRequestWithArgument:dic andFinishBlock:^(BOOL isSuccess)  {
+        if (isSuccess) {
+            [weakSelf bindBankCardRequest];
         }
-    } andFailureBlock:^(NSError *error) {
-        
     }];
 }
 
+- (void)bindBankCardRequest {
+    if (self.type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
+        
+        HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+        [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+        
+    } else if (self.type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals) {
+        
+        HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+        if (!KeyChain.isLogin)  return;
+        [self.navigationController pushViewController:withdrawViewController animated:YES];
+        
+    } else if(self.type == HXBRechargeAndWithdrawalsLogicalJudgment_Other) {
+        if (self.block) { // 绑卡成功，返回
+            self.block(1);
+        };
+        [self leftBackBtnClick];
+    }
+}
 
-#pragma mark - --- delegate 视图委托 ---
+#pragma mark 懒加载
+- (HXBBankCardViewModel *)bindBankCardVM {
+    if (!_bindBankCardVM) {
+        kWeakSelf
+        _bindBankCardVM = [[HXBBankCardViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
+    }
+    return _bindBankCardVM;
+}
+
 
 @end
 

@@ -65,8 +65,6 @@
             return ;
         }
         [weakSelf updateUserDefaultsPopViewDate:(NSDictionary *)[self.homePopViewModel.homePopModel yy_modelToJSONObject]];
-    } andFailureBlock:^(NSError *error) {
-        weakSelf.isHide = YES;
     }];
 }
 

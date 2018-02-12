@@ -54,10 +54,6 @@
     
     kWeakSelf
     [account_PlanRequest loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        if([responseObject[kResponseStatus] integerValue]) {
-            kNetWorkError(@" Plan 账户内计划资产");
-        }
-        
         //解析
         HXBMYModel_Plan_planRequestModel *planAcccountModel = [[HXBMYModel_Plan_planRequestModel alloc]init];
         NSDictionary *dataDic = responseObject[kResponseData];
@@ -103,7 +99,7 @@
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:planRequestType requestState:NO];
-        kHXBResponsResultShowHUD;
+        
         NSDictionary *responseDic = responseObject[@"data"];
         HXBMYModel_MainPlanModel *planModel = [[HXBMYModel_MainPlanModel alloc]init];
         [planModel yy_modelSetWithDictionary:responseDic];
