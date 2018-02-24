@@ -8,17 +8,18 @@
 
 #import "HXBMY_Plan_Capital_ViewController.h"
 #import "HXBFinanctingRequest.h"
-#import "HXBMYRequest.h"
 #import "HXBMY_PlanViewModel_LoanRecordViewModel.h"
 #import "HXBNoDataView.h"
+#import "HXBMyPlanCapitalRecordViewModel.h"
 
 static NSString *const cellID = @"cellID";
+
 @interface HXBMY_Plan_Capital_ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic,strong) UITableView *planCapitalTableView;
 
 @property (nonatomic,strong) NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *dataArray;
 @property (nonatomic,strong) UIView *topView;
-@property (nonatomic,strong) HXBMYRequest *request;
+@property (nonatomic,strong) HXBMyPlanCapitalRecordViewModel *planCapitalRecordViewModel;
 /**
  没有数据
  */
@@ -35,12 +36,6 @@ static NSString *const cellID = @"cellID";
     [self.planCapitalTableView reloadData];
 }
 
-- (HXBMYRequest *)request {
-    if (!_request) {
-        _request = [[HXBMYRequest alloc]init];
-    }
-    return _request;
-}
 - (NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *)dataArray {
     if (!_dataArray) {
         _dataArray = [[NSArray alloc]init];
@@ -49,15 +44,19 @@ static NSString *const cellID = @"cellID";
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    kWeakSelf
     self.isColourGradientNavigationBar = YES;
     self.topView = [self headView];
     [self.view addSubview: self.topView];
+
+    self.planCapitalRecordViewModel = [[HXBMyPlanCapitalRecordViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     
     [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left);
-        make.right.equalTo(self.view.mas_right);
-        make.top.equalTo(self.view.mas_top).offset(HXBStatusBarAndNavigationBarHeight);
+        make.left.equalTo(weakSelf.view.mas_left);
+        make.right.equalTo(weakSelf.view.mas_right);
+        make.top.equalTo(weakSelf.view.mas_top).offset(HXBStatusBarAndNavigationBarHeight);
         make.height.offset(kScrAdaptationH750(100));
     }];
     
@@ -67,22 +66,26 @@ static NSString *const cellID = @"cellID";
     [self.view addSubview:self.planCapitalTableView];
 
     [self.planCapitalTableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
-        make.top.equalTo(self.topView.mas_bottom);
+        make.left.right.bottom.equalTo(weakSelf.view);
+        make.top.equalTo(weakSelf.topView.mas_bottom);
     }];
-    kWeakSelf
+    
     [self.planCapitalTableView hxb_footerWithRefreshBlock:^{
-        [weakSelf downLoadWithIsUPLoad:NO];
+        if ([weakSelf.planCapitalRecordViewModel.totalCount integerValue] > defaultPageCount && weakSelf.planCapitalRecordViewModel.currentPageCount >= defaultPageCount) {
+            weakSelf.planCapitalRecordViewModel.planLoanRecordPage++;
+            [weakSelf downLoadData];
+        }
     }];
     [self.planCapitalTableView hxb_headerWithRefreshBlock:^{
-        [weakSelf downLoadWithIsUPLoad:YES];
+        weakSelf.planCapitalRecordViewModel.planLoanRecordPage = 1;
+        [weakSelf downLoadData];
     }];
     
     self.planCapitalTableView.delegate = self;
     self.planCapitalTableView.dataSource = self;
     
     [self.planCapitalTableView registerClass:[HXBMY_Plan_Capital_Cell class] forCellReuseIdentifier:cellID];
-    [self downLoadWithIsUPLoad:NO];
+    [self downLoadData];
     
     self.noDataView.noDataMassage = @"暂无投资记录";
     [self.view addSubview:self.noDataView];
@@ -91,7 +94,6 @@ static NSString *const cellID = @"cellID";
         make.centerY.equalTo(weakSelf.view).offset(-50);
     }];
 }
-
 
 - (UIView *)headView{
     UIView *headView = [[UIView alloc] init];
@@ -147,7 +149,7 @@ static NSString *const cellID = @"cellID";
     return headView;
 }
 
-- (void)downLoadWithIsUPLoad: (BOOL)isUPLoad {
+- (void)downLoadData{
     kWeakSelf
     NSString *requestURL = @"";
     if (self.type == HXBInvestmentRecord) {
@@ -158,21 +160,29 @@ static NSString *const cellID = @"cellID";
         self.title = @"转让记录";
         requestURL = kHXBFin_CreditorRecordURL(self.planID);
     }
-    [self.request loanRecord_my_Plan_WithIsUPData: isUPLoad andWithRequestUrl:requestURL  andPlanID:self.planID andSuccessBlock:^(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *> *viewModelArray) {
-        weakSelf.dataArray= viewModelArray;
-        if (weakSelf.dataArray.count) {
-             [self.planCapitalTableView reloadData];
-            self.topView.hidden = NO;
-            self.planCapitalTableView.hidden = NO;
-            self.noDataView.hidden = YES;
-        }else
-        {
-            self.noDataView.hidden = NO;
-            self.planCapitalTableView.hidden = YES;
-            self.topView.hidden = YES;
+    
+    [self.planCapitalRecordViewModel loanRecord_my_Plan_WithRequestUrl:requestURL resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.dataArray= weakSelf.planCapitalRecordViewModel.planLoanRecordViewModel_array;
+            if ([weakSelf.planCapitalRecordViewModel.totalCount integerValue] == weakSelf.dataArray.count) {
+                [weakSelf.planCapitalTableView.mj_header endRefreshing];
+                [weakSelf.planCapitalTableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [weakSelf.planCapitalTableView endRefresh];
+            }
+            
+            if (weakSelf.dataArray.count>0) {
+                weakSelf.topView.hidden = NO;
+                weakSelf.planCapitalTableView.hidden = NO;
+                weakSelf.noDataView.hidden = YES;
+            } else {
+                weakSelf.noDataView.hidden = NO;
+                weakSelf.planCapitalTableView.hidden = YES;
+                weakSelf.topView.hidden = YES;
+            }
+        } else {
+            [weakSelf.planCapitalTableView endRefresh];
         }
-    } andFailureBlock:^(NSError *error) {
-        [weakSelf.planCapitalTableView endRefresh];
     }];
 }
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
