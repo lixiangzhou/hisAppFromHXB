@@ -19,12 +19,13 @@
 #import "HXBInviteListViewController.h"
 #import "HxbSignUpViewController.h"//注册
 #import "HXBDepositoryAlertViewController.h"//开户弹框
+#import "HXBBannerViewModel.h"
 
 static NSString *const HXB_Toast = @"toast";
 static NSString *const HXB_Dialog = @"dialog";
 
 @interface HXBBannerWebViewController ()
-
+@property (nonatomic, strong) HXBBannerViewModel* viewModel;
 @end
 
 @implementation HXBBannerWebViewController
@@ -40,7 +41,17 @@ static NSString *const HXB_Dialog = @"dialog";
     [self setupJavascriptBridge];
 }
 
-
+#pragma mark 初始化viewModel
+- (HXBBannerViewModel *)viewModel {
+    if(!_viewModel) {
+        kWeakSelf
+        _viewModel = [[HXBBannerViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
+    }
+    
+    return _viewModel;
+}
 
 /**
  初始化与H5交互
@@ -145,10 +156,10 @@ static NSString *const HXB_Dialog = @"dialog";
     }else if ([path isEqualToString:kLoginVC]){
         if(KeyChain.isLogin) {
             kWeakSelf
-            [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-                [weakSelf reloadPage];
-            } andFailure:^(NSError *error) {
-                
+            [self.viewModel loadUserInfoWithBlock:^(BOOL isSuccess) {
+                if(isSuccess) {
+                    [weakSelf reloadPage];
+                }
             }];
         }
         else{

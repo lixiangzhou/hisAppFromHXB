@@ -8,6 +8,9 @@
 
 #import "HXBLoanInstructionView.h"
 #import "HXBFinDetailViewModel_LoanDetail.h"
+
+static NSString *const defaultString = @"--";
+
 @interface HXBLoanInstructionView()
 
 @property (nonatomic, strong) UILabel *loanInstructionLabel;
@@ -45,8 +48,8 @@
     _loanDetailViewModel = loanDetailViewModel;
     self.loanContentLabel.text = loanDetailViewModel.loanDetailModel.loanVo.description_loanVO;
     
-    self.securityLevelLabel.text = self.riskLevel?self.riskLevel:@"";
-    self.securityLevelInstructionLabel.text = self.riskLevelDesc?self.riskLevelDesc:@"";
+    self.securityLevelLabel.text = self.riskLevel&&![self.riskLevel isEqualToString:@""]?self.riskLevel:defaultString;
+    self.securityLevelInstructionLabel.text = self.riskLevelDesc&&![self.riskLevelDesc isEqualToString:@""]?self.riskLevelDesc:@"";
     [self updateFrame];
 }
 
@@ -56,20 +59,20 @@
 }
 
 - (void)updateFrame{
-    self.securityLevelLabel.text = self.riskLevel?self.riskLevel:@"";
-    self.securityLevelInstructionLabel.text = self.riskLevelDesc?self.riskLevelDesc:@"";
-    if (!self.riskLevel&&self.riskLevelDesc) {
+    self.securityLevelLabel.text = self.riskLevel&&![self.riskLevel isEqualToString:@""]?self.riskLevel:defaultString;
+    self.securityLevelInstructionLabel.text = self.riskLevelDesc&&![self.riskLevelDesc isEqualToString:@""]?self.riskLevelDesc:@"";
+    if ([self.riskLevel isEqualToString:defaultString]&&![self.securityLevelInstructionLabel.text isEqualToString:@""]) {
         [self.securityLevelImgV mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);
         }];
         [self.securityLevelLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);
         }];
-    } else if (self.riskLevel&&!self.riskLevelDesc){
+    } else if (![self.riskLevel isEqualToString:defaultString]&&[self.securityLevelInstructionLabel.text isEqualToString:@""]){
         [self.securityLevelInstructionLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@kScrAdaptationH(12));
         }];
-    } else if (!self.riskLevel&&!self.riskLevelDesc) {
+    } else if ([self.riskLevel isEqualToString:defaultString]&&[self.securityLevelInstructionLabel.text isEqualToString:@""]) {
         
         [self.securityLevelStrLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.height.equalTo(@0);//@kScrAdaptationH(0.01)

@@ -84,13 +84,12 @@ static NSString *const cellID = @"cellID";
     [self.planCapitalTableView registerClass:[HXBMY_Plan_Capital_Cell class] forCellReuseIdentifier:cellID];
     [self downLoadWithIsUPLoad:NO];
     
-    self.noDataView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight + kScrAdaptationH750(100), kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight);
-    
-    self.noDataView.imageName = @"Fin_NotData";
     self.noDataView.noDataMassage = @"暂无投资记录";
-    self.noDataView.hidden = YES;
-    self.noDataView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.noDataView];
+    [self.noDataView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(weakSelf.view);
+        make.centerY.equalTo(weakSelf.view).offset(-50);
+    }];
 }
 
 

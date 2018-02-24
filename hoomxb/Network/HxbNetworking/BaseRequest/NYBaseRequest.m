@@ -13,6 +13,11 @@
 
 @implementation NYBaseRequest
 
+- (void)dealloc
+{
+    
+}
+
 - (instancetype)init
 {
     self = [super init];
@@ -153,6 +158,12 @@
  @param failure 失败回调
  */
 - (void)loadData:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure{
+#ifdef DEBUG
+    if([UIApplication sharedApplication].keyWindow) {
+        [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"我是重构接口：%@", self.requestUrl] inView:[UIApplication sharedApplication].keyWindow];
+    }
+#endif
+    self.isNewRequestWay = YES;
     self.success = success;
     self.failure = failure;
     [[NYNetworkManager sharedManager] addRequest:self];

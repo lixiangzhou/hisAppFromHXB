@@ -30,10 +30,9 @@
 
 @implementation HXBMY_LoanListViewModel
 
-- (instancetype)init
+- (instancetype)initWithBlock:(HugViewBlock)hugViewBlock
 {
-    self = [super init];
-    if (self) {
+    if(self = [super initWithBlock:hugViewBlock]) {
         _repayingPage = 1;
         _bidPage = 1;
         _truansferPage = 1;
@@ -41,6 +40,7 @@
         _bid_Loan_array = [NSMutableArray array];
         _loanTruanfserViewModelArray = [NSMutableArray array];
     }
+    
     return self;
 }
 
@@ -48,15 +48,13 @@
 
 - (void)loanAssets_AccountRequestSuccessBlock:(BOOL)isShowHug andResultBlock: (void(^)(BOOL isSuccess))resultBlock{
     
-    kWeakSelf
-    NSString* hugContent = isShowHug? kLoadIngText : nil;
-    NYBaseRequest *account_LoanRequest = [[NYBaseRequest alloc]init];
+    NYBaseRequest *account_LoanRequest = [[NYBaseRequest alloc] initWithDelegate:self];
     account_LoanRequest.requestUrl = kHXBMY_LoanAccountRequestURL;
     account_LoanRequest.requestMethod = NYRequestMethodGet;
-    [account_LoanRequest startWithHUDStr:hugContent Success:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        if([responseObject[kResponseStatus] integerValue]) {
-            kNetWorkError(@" Loan 账户内散标资产");
-        }
+    account_LoanRequest.showHud = isShowHug;
+    
+    kWeakSelf
+    [account_LoanRequest loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         HXBMYModel_Loan_LoanRequestModel *loanAcccountModel = [[HXBMYModel_Loan_LoanRequestModel alloc]init];
         NSDictionary *dataDic = responseObject[kResponseData];
         [loanAcccountModel yy_modelSetWithDictionary:dataDic];
@@ -70,6 +68,7 @@
             resultBlock(NO);
         }
     }];
+    
 }
 
 #pragma mark 散标列表的 请求
@@ -90,20 +89,17 @@
         [self updateStateByRequestType:loanRequestType requestState:YES];
     }
     
-    __weak typeof(self)weakSelf = self;
-    
     NSString *pageNumberStr = @(loanRequestType).description;
     NSInteger page = [self getPageNumberWithType:loanRequestType andIsUPData:isUPData];
     
-    NYBaseRequest* request = [[NYBaseRequest alloc] init];
+    NYBaseRequest* request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestUrl = kHXBMY_LoanListURL;
     request.requestMethod = NYRequestMethodGet;
     request.requestArgument = @{@"filter" : pageNumberStr, @"page" : @(page).description};
     
-    [request startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        
+    kWeakSelf
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:loanRequestType requestState:NO];
-        kHXBResponsResultShowHUD;
         
         NSMutableArray <HXBMYViewModel_MainLoanViewModel*> *loanViewModelArray = [[NSMutableArray alloc]init];
         NSDictionary* dataDic = [responseObject valueForKey:@"data"];
@@ -265,11 +261,9 @@
         [self updateStateByRequestType:HXBRequestType_MY_LoanRequestType_Truansfer requestState:YES];
     }
     
-    __weak typeof(self)weakSelf = self;
-    
     NSInteger page = [self getPageNumberWithType:HXBRequestType_MY_LoanRequestType_Truansfer andIsUPData:isUPData];
     
-    NYBaseRequest* request = [[NYBaseRequest alloc] init];
+    NYBaseRequest* request = [[NYBaseRequest alloc] initWithDelegate:self];
     request.requestUrl = kHXBMY_LoanTruansferListURL;
     request.requestMethod = NYRequestMethodGet;
     request.requestArgument = @{
@@ -277,10 +271,9 @@
                                 @"type": @"TRANSFERING_LOAN"
                                 };
     
-    [request startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        
+    kWeakSelf
+    [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf updateStateByRequestType:HXBRequestType_MY_LoanRequestType_Truansfer requestState:NO];
-        kHXBResponsResultShowHUD;
         
         NSMutableArray <HXBMY_LoanTruansferViewModel*> *truansferViewModelArray = [[NSMutableArray alloc]init];
         NSDictionary* dataDic = [responseObject valueForKey:@"data"];

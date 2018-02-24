@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HXBRequestType_MYManager.h"
 
 #import "HXBMyModel_MainLoanModel.h"
 

@@ -11,7 +11,7 @@
 
 @implementation HXBHomePopVWViewModel
 
-- (void)homePopViewRequestSuccessBlock: (void(^)(BOOL isSuccess))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
+- (void)homePopViewRequestSuccessBlock: (void(^)(BOOL isSuccess))successDateBlock
 {
     kWeakSelf
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
@@ -19,14 +19,11 @@
     versionUpdateAPI.requestMethod = NYRequestMethodGet;
     versionUpdateAPI.showHud = NO;
     [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        
-        if (status) {
-            kHXBResponsShowHUD
-        }
         
         if ([responseObject[@"data"] isKindOfClass:[NSDictionary class]] && !responseObject[@"data"][@"id"]) {
-            successDateBlock(NO);
+            if (successDateBlock) {
+                successDateBlock(NO);
+            }
             return;
         }
         if (successDateBlock) {
@@ -34,8 +31,8 @@
             successDateBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        if (failureBlock) {
-            failureBlock(error);
+        if (successDateBlock) {
+            successDateBlock(NO);
         }
     }];
 }

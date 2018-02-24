@@ -9,8 +9,6 @@
 #import "HxbHomeViewController.h"
 #import "HxbAdvertiseViewController.h"
 #import "HXBHomeVCViewModel.h"
-#import "HxbHomeRequest.h"
-//#import "HxbSecurityCertificationViewController.h"
 #import "HXBHomeBaseModel.h"
 #import "HXBFinancing_PlanDetailsViewController.h"
 #import "HXBFinancing_LoanDetailsViewController.h"
@@ -27,7 +25,6 @@
 #import "HXBHomePopViewManager.h"
 #import "HXBRootVCManager.h"
 #import "HXBVersionUpdateManager.h"
-#import "HxbHomePageViewModel.h"
 #import "HXBHomeNewbieProductModel.h"
 @interface HxbHomeViewController ()
 
@@ -39,7 +36,6 @@
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 
 @property (nonatomic, strong) HXBHomeVCViewModel *homeVimewModle;
-@property (nonatomic, strong) HxbHomePageViewModel *homeViewModel;
 
 @property (nonatomic, assign) int times;
 
@@ -57,6 +53,7 @@
     [self registerRefresh];
     
     [self hiddenTabbarLine];
+    self.times = 1;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -159,21 +156,8 @@
     }];
     
     [self.homeVimewModle homePlanRecommendCallbackBlock:^(BOOL isSuccess) {
-        if (isSuccess) {
-            //chj 注释
-            //            weakSelf.homeView.homeBaseViewModel = weakSelf.homeVimewModle.homeBaseModel;
-        }
-        
-        HxbHomeRequest *request = [[HxbHomeRequest alloc]init];
-        [request homePlanRecommendWithIsUPReloadData:isUPReloadData andSuccessBlock:^(HxbHomePageViewModel *viewModel) {
-            NSLog(@"%@",viewModel);
-            weakSelf.homeViewModel = viewModel;
-            weakSelf.homeView.homeBaseViewModel = viewModel;
-            weakSelf.homeView.isStopRefresh_Home = YES;
-            
-        } andFailureBlock:^(NSError *error) {
-            weakSelf.homeView.isStopRefresh_Home = YES;
-        }];
+        weakSelf.homeView.homeBaseViewModel = weakSelf.homeVimewModle;
+        weakSelf.homeView.isStopRefresh_Home = YES;
     }];
 }
 
@@ -236,9 +220,9 @@
         
         _homeView.newbieAreaActionBlock = ^{
             NSLog(@"点击了新手专区");
-            if (weakSelf.homeViewModel.homeBaseModel.newbieProductData.url.length > 0) {
+            if (weakSelf.homeVimewModle.homeBaseModel.newbieProductData.url.length > 0) {
                 HXBBannerWebViewController *webViewVC = [[HXBBannerWebViewController alloc] init];
-                webViewVC.pageUrl = weakSelf.homeViewModel.homeBaseModel.newbieProductData.url;
+                webViewVC.pageUrl = weakSelf.homeVimewModle.homeBaseModel.newbieProductData.url;
                 [weakSelf.navigationController pushViewController:webViewVC animated:YES];
             }
         };
@@ -305,7 +289,7 @@
     else {
         if(1 == self.times) {
             self.times++;
-            return UIStatusBarStyleDefault;
+            return UIStatusBarStyleLightContent;
         }
         else{
             self.times = 1;

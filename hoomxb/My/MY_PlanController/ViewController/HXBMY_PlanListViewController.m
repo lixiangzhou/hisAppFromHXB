@@ -75,7 +75,10 @@ kDealloc
 
 - (HXBMyPlanListViewModel *)viewModel {
     if(!_viewModel) {
-        _viewModel = [[HXBMyPlanListViewModel alloc] init];
+        kWeakSelf
+        _viewModel = [[HXBMyPlanListViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
     }
     
     return _viewModel;

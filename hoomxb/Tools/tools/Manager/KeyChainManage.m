@@ -204,240 +204,6 @@ static NSString *const hostH5 = @"hostH5";
     /// 是否是新手
     _isNewbie = userInfoViewModel.userInfoModel.userInfo.isNewbie;
 }
-///    double    总资产
-- (void)assetsTotalWithBlock: (void(^)(NSString *assetsTotal))assetsTotalWithBlock {
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self setValueWithUserInfoModel:viewModel];
-        if (assetsTotalWithBlock) {
-            assetsTotalWithBlock(_assetsTotal);
-        }
-    } andFailure:^(NSError *error) {
-        if (assetsTotalWithBlock) {
-            assetsTotalWithBlock(nil);
-        }
-    }];
-}
-///    double    累计收益
-- (void)earnTotalWithBlock: (void(^)(NSString *earnTotal))earnTotalBlock{
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self setValueWithUserInfoModel:viewModel];
-        if (earnTotalBlock) {
-            earnTotalBlock(_earnTotal);
-        }
-    } andFailure:^(NSError *error) {
-        if (earnTotalBlock) {
-            earnTotalBlock(nil);
-        }
-    }];
-}
-///    double    红利计划-持有资产
-- (void)financePlanAssetsWithBlock: (void(^)(NSString *financePlanAssets))financePlanAssetsBlock{
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self setValueWithUserInfoModel:viewModel];
-        if (financePlanAssetsBlock) {
-            financePlanAssetsBlock(_financePlanAssets);
-        }
-    } andFailure:^(NSError *error) {
-        if (financePlanAssetsBlock) {
-            financePlanAssetsBlock(nil);
-        }
-    }];
-}
-///    double    红利计划-累计收益
-- (void)financePlanSumPlanInterestWithBlock: (void(^)(NSString *financePlanSumPlanInterest))financePlanSumPlanInterestBlock{
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self setValueWithUserInfoModel:viewModel];
-        if (financePlanSumPlanInterestBlock) {
-            financePlanSumPlanInterestBlock(_financePlanSumPlanInterest);
-        }
-    } andFailure:^(NSError *error) {
-        if (financePlanSumPlanInterestBlock) {
-            financePlanSumPlanInterestBlock(nil);
-        }
-    }];
-}
-///    double    散标债权-持有资产
-- (void)lenderPrincipalWithBlock: (void(^)(NSString *lenderPrincipal))lenderPrincipalBlock{
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self setValueWithUserInfoModel:viewModel];
-        if (lenderPrincipalBlock) {
-            lenderPrincipalBlock(_lenderPrincipal);
-        }
-    } andFailure:^(NSError *error) {
-        if (lenderPrincipalBlock) {
-            lenderPrincipalBlock(nil);
-        }
-    }];
-}
-///    double    散标债权-累计收益
-- (void)lenderEarnedWithBlock: (void(^)(NSString *lenderEarned))lenderEarnedBlock{
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self setValueWithUserInfoModel:viewModel];
-        if (lenderEarnedBlock) {
-            lenderEarnedBlock(_lenderEarned);
-        }
-    } andFailure:^(NSError *error) {
-        if (lenderEarnedBlock) {
-            lenderEarnedBlock(nil);
-        }
-    }];
-}
-///    double    可用余额
-- (void)availablePointWithBlock: (void(^)(NSString *availablePoint))availablePointBlock{
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self setValueWithUserInfoModel:viewModel];
-        if (availablePointBlock) {
-            availablePointBlock(_availablePoint);
-        }
-    } andFailure:^(NSError *error) {
-        if (availablePointBlock) {
-            availablePointBlock(nil);
-        }
-    }];
-}
-///    double    冻结余额
-- (void)frozenPointWithBlock: (void(^)(NSString *frozenPoint))frozenPointBlock{
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self setValueWithUserInfoModel:viewModel];
-        if (frozenPointBlock) {
-            frozenPointBlock(_frozenPoint);
-        }
-    } andFailure:^(NSError *error) {
-        if (frozenPointBlock) {
-            frozenPointBlock(nil);
-        }
-    }];
-}
-
-
-
-///userId    int    用户id
-- (void)userIdWithBlock: (void(^)(NSString *userID))userIdBlock {
-    if (![_keychain[kUserName] length]) {
-        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            [self setValueWithUserInfoModel:viewModel];
-            if (userIdBlock) {
-                userIdBlock(_userId);
-            }
-        } andFailure:^(NSError *error) {
-            _userId = @"";
-            if (userIdBlock) {
-                userIdBlock(_userId);
-            }
-        }];
-        return;
-    }
-    if (userIdBlock) {
-        userIdBlock(_userId);
-    }
-}
-
-///用户名
-- (void)userNameWithBlock: (void(^)(NSString *userName))userNameBlock {
-    if (![_keychain[kUserName] length]) {
-        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            [self setValueWithUserInfoModel:viewModel];
-            if (userNameBlock) {
-                userNameBlock(_userName);
-            }
-        } andFailure:^(NSError *error) {
-            _userName = @"";
-            if (userNameBlock) {
-                userNameBlock(_userName);
-            }
-        }];
-        return;
-    }
-    if (userNameBlock) {
-        userNameBlock(_userName);
-    }
-}
-
-///用户手机号
-- (void)mobileWithBlock: (void(^)(NSString *mobile))userMobileBlock{
-    if (![_keychain[kMobile] length]) {
-        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            [self setValueWithUserInfoModel:viewModel];
-            if (userMobileBlock) {
-                userMobileBlock(_mobile);
-            }
-        } andFailure:^(NSError *error) {
-            _mobile = @"";
-            if (userMobileBlock) {
-                userMobileBlock(_mobile);
-            }
-        }];
-        return;
-    }
-    if (userMobileBlock) {
-        userMobileBlock(_mobile);
-    }
-}
-
-///isMobilePassed    String    是否手机号
-- (void)isMobilePassedWithBlock: (void(^)(NSString *mobilePassed))mobilePassedBlock {
-   if (![_isMobilePassed integerValue]) {
-        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            [self setValueWithUserInfoModel:viewModel];
-            if (mobilePassedBlock) {
-                mobilePassedBlock(_isMobilePassed);
-            }
-        } andFailure:^(NSError *error) {
-            _isMobilePassed = kNo;
-            if (mobilePassedBlock) {
-                mobilePassedBlock(_isMobilePassed);
-            }
-        }];
-       return;
-    }
-    if (mobilePassedBlock) {
-        mobilePassedBlock(_isMobilePassed);
-    }
-}
-
-///isIdPassed    String    是否实名
-- (void)isIdPassedWithBlock: (void(^)(NSString *isIdPassed))isIdPassedBlock {
-    if (!_isIdPassed.integerValue) {
-        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            [self setValueWithUserInfoModel:viewModel];
-            if(isIdPassedBlock) {
-                isIdPassedBlock(_isIdPassed);
-            }
-        } andFailure:^(NSError *error) {
-            _isIdPassed = kNo;
-            if(isIdPassedBlock) {
-                isIdPassedBlock(_isIdPassed);
-            }
-        }];
-        return;
-    }
-    if(isIdPassedBlock) {
-        isIdPassedBlock(_isIdPassed);
-    }
-}
-
-///是否有交易密码
-- (void)isCashPasswordPassedWithBlock: (void(^)(NSString *isCashPasswordPassed))isCashPasswordPassedBlock {
-    if (![_keychain[kISCashPasswordPassed] integerValue]) {
-        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            [self setValueWithUserInfoModel:viewModel];
-            if (isCashPasswordPassedBlock) {
-                isCashPasswordPassedBlock(_isCashPasswordPassed);
-            }
-        } andFailure:^(NSError *error) {
-            _isCashPasswordPassed = kNo;
-            if (isCashPasswordPassedBlock) {
-                isCashPasswordPassedBlock(_isCashPasswordPassed);
-            }
-        }];
-        return;
-    }
-    if (isCashPasswordPassedBlock) {
-        isCashPasswordPassedBlock(_isCashPasswordPassed);
-    }
-}
-
-
 
 /// 用户信息的请求
 - (void)downLoadUserInfoWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure{
@@ -467,69 +233,24 @@ static NSString *const hostH5 = @"hostH5";
     }];
 }
 
-///是否绑卡
-- (void)isBindCardWithBlock: (void (^)(NSString *isBindCard))isBindCardBlock {
-    if (![_keychain[kIsBindCard] integerValue]) {
-        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            [self setValueWithUserInfoModel:viewModel];
-            if (isBindCardBlock) {
-                isBindCardBlock(_isBindCard);
-            }
-        } andFailure:^(NSError *error) {
-            _isBindCard = kNo;
-            if (isBindCardBlock) {
-                isBindCardBlock(_isBindCard);
-            }
-        }];
-        return;
-    }
-    if (isBindCardBlock) {
-        isBindCardBlock(_isBindCard);
-    }
-}
-///    是否安全认证
-- (void) isVerifyWithBlock: (void(^)(NSString *isVerify))isVerifyBlock {
-    if (![KeyChain isLogin]) {
-        return;
-    }
-    if (![self.isVerify length]) {
-        [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            _isVerify = viewModel.userInfoModel.userInfo.isAllPassed;
-            [_keychain setObject:_isVerify forKeyedSubscript:kIsAllPassed];
-            if (isVerifyBlock) {
-                isVerifyBlock(_isVerify);
-            }
-        } andFailure:^(NSError *error) {
-            if (isVerifyBlock) {
-                isVerifyBlock(_isVerify);
-            }
-        }];
-        return;
-    }
-    if (isVerifyBlock) {
-        isVerifyBlock(_isVerify);
-    }
-}
-//!<手势密码是否开启
-- (BOOL)isSwitchOn
-{
-    BOOL isSwitchOn = (![[KeyChain gesturePwd] isEqualToString:@""] && [KeyChain isLogin]);
-    
-    return isSwitchOn;
-}
+/**
+ 新增请求用户信息
 
-- (BOOL)hasBindBankcard
-{
-    NSArray *bankArr = [KeyChain bankNumArr];
+ @param requestBlock 请求回调， 补充request的参数
+ @param resultBlock 结果回调
+ */
+- (void)downLoadUserInfoWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock{
     
-    BOOL hasBankcard = (bankArr != nil && ![bankArr  isEqual: @[]]);
-    
-    return hasBankcard;
-}
-
-- (BOOL)isInvest{
-    BOOL isInvest = ![[KeyChain assetsTotal] isEqualToString:@""] && [KeyChain isLogin];
-    return isInvest;
+    [HXBRequestUserInfo downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        [self setValueWithUserInfoModel:viewModel];
+        if (resultBlock) {
+            resultBlock(viewModel, nil);
+        }
+    } andFailure:^(NSError *error) {
+        if (resultBlock) {
+            resultBlock(nil, error);
+        }
+    }];
 }
 
 - (BOOL)removeAllInfo
@@ -551,14 +272,6 @@ static NSString *const hostH5 = @"hostH5";
     [manager.keychain removeItemForKey:kCiphertext];
 }
 
-- (void)removePassword
-{
-    KeyChainManage *manager = KeyChain;
-    [manager.keychain removeItemForKey:kLoginPwd];
-    [manager.keychain removeItemForKey:kTradePwd];
-    [self removeGesture];
-}
-
 - (void)removeGesture
 {
     KeyChainManage *manager = KeyChain;
@@ -566,31 +279,10 @@ static NSString *const hostH5 = @"hostH5";
     [manager.keychain removeItemForKey:kGesturePwdCount];
 }
 
-- (BOOL)validateGesturePwd {
-    return (KeyChain.gesturePwd.length >= 4) && [KeyChain isLogin] && [kUserDefaults boolForKey:kHXBGesturePWD];
-}
-
-- (void)removeGesturePwdCount
-{
-    KeyChainManage *manager = KeyChain;
-    [manager.keychain removeItemForKey:kGesturePwdCount];
-}
-
 - (void)removeToken
 {
     KeyChainManage *manager = KeyChain;
     [manager.keychain removeItemForKey:kToken];
-}
-- (void)removeMobile
-{
-    KeyChainManage *manager = KeyChain;
-    [manager.keychain removeItemForKey:kMobile];
-}
-
-- (void)removeCiphertext
-{
-    KeyChainManage *manager = KeyChain;
-    [manager.keychain removeItemForKey:kCiphertext];
 }
 
 #pragma mark - KVC
@@ -611,23 +303,6 @@ static NSString *const hostH5 = @"hostH5";
 - (void)setIsLogin:(BOOL)isLogin {
     self.keychain[kIsLogin] = @(isLogin).description;
     NSLog(@"description = %@",  @(isLogin).description);
-}
-
-- (void)isLoginWithInRealTimeBlock: (void (^)(BOOL isLogin))isLoginInRealTimeBlock {
-    if (!self.isLogin) {
-        isLoginInRealTimeBlock (NO);
-        return;
-    }
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        if (isLoginInRealTimeBlock) {
-            [self setValueWithUserInfoModel: viewModel];
-            isLoginInRealTimeBlock(YES);
-        }
-    } andFailure:^(NSError *error) {
-        if (isLoginInRealTimeBlock) {
-            isLoginInRealTimeBlock(NO);
-        }
-    }];
 }
 
 - (void)setMobile:(NSString *)mobile {

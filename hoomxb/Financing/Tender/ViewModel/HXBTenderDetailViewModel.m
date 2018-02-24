@@ -32,14 +32,11 @@
     return _dataSource;
 }
 
-- (void)getData:(BOOL)isNew completion:(void (^)())completion {
+- (void)getData:(BOOL)isNew completion:(void (^)(BOOL))completion {
+    NSInteger currentPage = ceil(self.dataSource.count * 1.0 / self.pageSize.integerValue);
     NSInteger page = 1;
     if (isNew == NO) {
-        page = ceil(self.dataSource.count * 1.0 / self.pageSize.integerValue);
-        if (self.dataSource.count < self.totalCount.integerValue) {
-            page++;
-        }
-        page = MAX(page, 1);
+        page = currentPage + 1;
     }
 
     NYBaseRequest *req = [[NYBaseRequest alloc] initWithDelegate:self];
@@ -53,30 +50,32 @@
     }
     
     [req loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSInteger statusCode = [responseObject[kResponseStatus] integerValue];
-        if (statusCode != kHXBCode_Success) {
-            NSString *message = responseObject[kResponseMessage];
-            [req showToast:message];
-        } else {
-            NSArray *temp = responseObject[kResponseData][@"dataList"];
-            if (temp.count) {
-                NSMutableArray *tempModels = [NSMutableArray new];
-                for (NSInteger i = 0; i < temp.count; i++) {
-                    [tempModels addObject:[HXBTenderDetailModel yy_modelWithDictionary:temp[i]]];
-                }
-                
-                if (isNew) {
-                    [self.dataSource removeAllObjects];
-                    [self.dataSource addObjectsFromArray:tempModels];
-                } else {
-                    [self.dataSource addObjectsFromArray:tempModels];
-                }
+        NSArray *temp = responseObject[kResponseData][@"dataList"];
+        if (temp.count) {
+            NSMutableArray *tempModels = [NSMutableArray new];
+            for (NSInteger i = 0; i < temp.count; i++) {
+                [tempModels addObject:[HXBTenderDetailModel yy_modelWithDictionary:temp[i]]];
             }
-            self.totalCount = responseObject[kResponseData][@"totalCount"];
+            
+            if (isNew) {
+                [self.dataSource removeAllObjects];
+                [self.dataSource addObjectsFromArray:tempModels];
+            } else {
+                [self.dataSource addObjectsFromArray:tempModels];
+            }
         }
-        completion();
+        self.totalCount = responseObject[kResponseData][@"totalCount"];
+        
+        self.showNoMoreData = self.dataSource.count >= self.totalCount.integerValue;
+        self.showPullup = self.totalCount.integerValue > self.pageSize.integerValue;
+        
+        if(completion) {
+           completion(YES);
+        }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        completion();
+        if(completion) {
+            completion(NO);
+        }
     }];
 }
 

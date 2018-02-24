@@ -46,12 +46,16 @@ typedef enum : NSUInteger {
     kHXBSold_Out = 999,
     //购买处理中
     kHXBPurchase_Processing = -999,
+    //开户或绑卡超过次数
+    kHXBOpenAccount_Outnumber = 5068,
     //优惠券购买失败
     kHXBBuy_Coupon_Error = 50000,
     //连接超时
     kHXBCode_Enum_ConnectionTimeOut = -2009,
     // 解绑银行卡失败（跳结果页）
     kHXBCode_UnBindCardFail = 4002,
+    // 如果网络层已经做了弹窗处理， 那么就会返回这个错误码
+    kHXBCode_AlreadyPopWindow = -100000,
     // 成功
     kHXBCode_Success = 0
 } kHXBCode_Enum;
