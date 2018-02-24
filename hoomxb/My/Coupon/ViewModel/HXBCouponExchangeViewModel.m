@@ -25,11 +25,19 @@
     [myAccountListInfoAPI showLoading:@"加载中..."];
     [myAccountListInfoAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [myAccountListInfoAPI hideLoading];
-        if (responseObject.isSuccess) {
-            self.couponListModel = [[HXBMyCouponListModel alloc]init];
-            [self.couponListModel yy_modelSetWithDictionary:responseObject[@"data"][@"coupon"]];
-            self.promptMessage = nil;
-        } else {
+        
+        self.couponListModel = [[HXBMyCouponListModel alloc]init];
+        [self.couponListModel yy_modelSetWithDictionary:responseObject[@"data"][@"coupon"]];
+        self.promptMessage = nil;
+        
+        if (completion) {
+            completion(YES);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        [myAccountListInfoAPI hideLoading];
+        NSDictionary *responseObject = request.responseObject;
+        
+        if (responseObject) {
             if (responseObject.statusCode == 2 || responseObject.statusCode == 500) {
                 self.promptMessage = responseObject.message;
             }
@@ -38,10 +46,10 @@
                 [myAccountListInfoAPI showToast:responseObject.message];
             }
         }
-        completion(responseObject.isSuccess);
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        [myAccountListInfoAPI hideLoading];
-        completion(NO);
+        
+        if (completion) {
+            completion(NO);
+        }
     }];
 }
 @end

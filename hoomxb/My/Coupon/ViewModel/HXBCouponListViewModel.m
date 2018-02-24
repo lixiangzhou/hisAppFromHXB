@@ -10,7 +10,6 @@
 
 @implementation HXBCouponListViewModel
 - (void)downLoadMyAccountListInfoHUDWithParameterDict:(NSDictionary *)parameterDict completion:(void (^)(BOOL isSuccess))completion
-//                                     withSeccessBlock:(void(^)(NSArray<HXBMyCouponListModel *>* modelArray, NSInteger totalCount))seccessBlock andFailure: (void(^)(NSError *error))failureBlock
 {
     
     NYBaseRequest *myAccountListInfoAPI = [[NYBaseRequest alloc]init];
@@ -22,37 +21,19 @@
     [myAccountListInfoAPI showLoading:@"加载中..."];
     [myAccountListInfoAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [myAccountListInfoAPI hideLoading];
-        if (responseObject.isSuccess) {
-            NSDictionary *data = [responseObject valueForKey:@"data"];
-            NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
-            self.totalCount = data[@"totalCount"];
-            self.appendCouponList = [self dataProcessingWitharr:dataList];
+        NSDictionary *data = [responseObject valueForKey:@"data"];
+        NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
+        self.totalCount = data[@"totalCount"];
+        self.appendCouponList = [self dataProcessingWitharr:dataList];
+        if (completion) {
+            completion(YES);
         }
-        completion(responseObject.isSuccess);
     } failure:^(NYBaseRequest *request, NSError *error) {
         [myAccountListInfoAPI hideLoading];
-        completion(NO);
+        if (completion) {
+            completion(NO);
+        }
     }];
-    
-//    //@"加载中..."
-//    [myAccountListInfoAPI startWithHUDStr:@"加载中..." Success:^(NYBaseRequest *request, id responseObject) {
-//        if ([responseObject[kResponseStatus] integerValue]) {
-//            kHXBResponsShowHUD
-//        }
-//        NSDictionary *data = [responseObject valueForKey:@"data"];
-//        NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
-//        NSMutableArray <HXBMyCouponListModel *>*modelArray = [self dataProcessingWitharr:dataList];
-//
-//        if (seccessBlock) {
-//            seccessBlock(modelArray, [[data valueForKey:@"totalCount"] integerValue]);
-//        }
-//    } failure:^(NYBaseRequest *request, NSError *error) {
-//        NSLog(@"%@",error);
-//        if (failureBlock) {
-//            failureBlock(error);
-//        }
-//        kNetWorkError(@"用户请求失败");
-//    }];
 }
 
 - (NSMutableArray <HXBMyCouponListModel *>*)dataProcessingWitharr:(NSArray *)dataList

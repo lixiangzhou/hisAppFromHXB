@@ -18,13 +18,15 @@
     accountInfoAPI.requestMethod = NYRequestMethodGet;
     
     [accountInfoAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        if (responseObject.isSuccess) {
-            self.accountModel = [[HXBMyRequestAccountModel alloc]init];
-            [self.accountModel yy_modelSetWithDictionary:responseObject[@"data"]];
+        self.accountModel = [[HXBMyRequestAccountModel alloc]init];
+        [self.accountModel yy_modelSetWithDictionary:responseObject[@"data"]];
+        if (completion) {
+            completion(YES);
         }
-        completion(responseObject.isSuccess);
     } failure:^(NYBaseRequest *request, NSError *error) {
-        completion(NO);
+        if (completion) {
+            completion(NO);
+        }
     }];
 }
 @end
