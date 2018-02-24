@@ -108,25 +108,6 @@ static NSInteger const defaultPageCount = 20;
             [weakSelf.tableView endRefresh];
         }
     }];
-//    [self.capitalRecordViewModel capitalRecord_requestWithScreenType:screenType andSuccessBlock:^(BOOL isSuccess) {
-//        weakSelf.totalCount = [weakSelf.capitalRecordViewModel.totalCount integerValue];
-//        if (weakSelf.totalCount > defaultPageCount && weakSelf.capitalRecordViewModel.currentPageCount == defaultPageCount) {
-//            [weakSelf.tableView hxb_footerWithRefreshBlock:^{
-//                weakSelf.capitalRecordViewModel.capitalRecordPage ++;
-//                [weakSelf downDataWithScreenType:weakSelf.screenType];
-//            }];
-//        }
-//        weakSelf.tableView.capitalRecortdDetailViewModelArray = weakSelf.capitalRecordViewModel.capitalRecordViewModel_array;
-//        weakSelf.tableView.totalCount = weakSelf.totalCount;
-//        if (weakSelf.capitalRecordViewModel.capitalRecordViewModel_array.count == weakSelf.totalCount) {
-//            [weakSelf.tableView.mj_header endRefreshing];
-//            [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
-//        } else {
-//            [weakSelf.tableView endRefresh];
-//        }
-//    } andFailureBlock:^(NSError *error) {
-//        [weakSelf.tableView endRefresh];
-//    }];
 }
 - (void)setUPNAVItem {
 //    UIBarButtonItem *rightButtonItem = [[UIBarButtonItem alloc]initWithTitle:kNAVRightTitle style:UIBarButtonItemStylePlain target:self action:@selector(clickRightItem)];

@@ -184,29 +184,6 @@ static NSString *const cellID = @"cellID";
             [weakSelf.planCapitalTableView endRefresh];
         }
     }];
-//    [self.planCapitalRecordViewModel loanRecord_my_Plan_WithRequestUrl:requestURL  andPlanID:self.planID andSuccessBlock:^(BOOL isSuccess) {
-//
-//        weakSelf.dataArray= weakSelf.planCapitalRecordViewModel.planLoanRecordViewModel_array;
-//        if ([weakSelf.planCapitalRecordViewModel.totalCount integerValue] == weakSelf.dataArray.count) {
-//            [weakSelf.planCapitalTableView.mj_header endRefreshing];
-//            [weakSelf.planCapitalTableView.mj_footer endRefreshingWithNoMoreData];
-//        } else {
-//            [weakSelf.planCapitalTableView endRefresh];
-//        }
-//
-//        if (weakSelf.dataArray.count>0) {
-//            weakSelf.topView.hidden = NO;
-//            weakSelf.planCapitalTableView.hidden = NO;
-//            weakSelf.noDataView.hidden = YES;
-//        } else {
-//            weakSelf.noDataView.hidden = NO;
-//            weakSelf.planCapitalTableView.hidden = YES;
-//            weakSelf.topView.hidden = YES;
-//        }
-//
-//    } andFailureBlock:^(NSError *error) {
-//        [weakSelf.planCapitalTableView endRefresh];
-//    }];
 }
 - (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.dataArray.count;
