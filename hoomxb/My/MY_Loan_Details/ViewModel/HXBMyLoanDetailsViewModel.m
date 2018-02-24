@@ -66,9 +66,9 @@
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         weakSelf.responseObject = responseObject;
-        kHXBResponsResultShowHUD
         if (resultBlock) resultBlock(YES);
     } failure:^(NYBaseRequest *request, NSError *error) {
+        weakSelf.responseObject = request.responseObject;
         if (resultBlock) resultBlock(NO);
     }];
 }

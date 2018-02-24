@@ -53,39 +53,6 @@
         }
     }];
 }
-/**
- 修改交易密码---获取短信验证码
- 
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
- */
-- (void)myTransactionPasswordWithAction:(NSString *)action andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
-{
-    HXBBaseRequest *alterLoginPasswordAPI = [[HXBBaseRequest alloc] init];
-    alterLoginPasswordAPI.requestUrl = kHXBUser_smscodeURL;
-    alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
-    NSLog(@"%@",kTypeKey_tradpwd);
-    
-    alterLoginPasswordAPI.requestArgument = @{
-                                              @"action" : action
-                                              };
-    [alterLoginPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"验证码验证%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-           kHXBResponsShowHUD
-        }
-        if (successDateBlock) {
-            successDateBlock(responseObject);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        NSLog(@"%@",error);
-         [HxbHUDProgress showTextWithMessage:@"验证码发送失败"];
-        if (failureBlock) {
-            failureBlock(error);
-        }
-    }];
-}
 
 /**
  修改交易密码---同时验证身份证和验证码

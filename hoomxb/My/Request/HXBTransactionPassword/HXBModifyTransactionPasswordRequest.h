@@ -18,14 +18,6 @@
  @param failureBlock 失败回调
  */
 - (void)myTransactionPasswordWithIDcard:(NSString *)IDcard andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
-/**
- 修改交易密码---获取短信验证码
-
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
- */
-//- (void)myTransactionPasswordWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
-- (void)myTransactionPasswordWithAction:(NSString *)action andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 /**
  修改交易密码---同时验证身份证和验证码

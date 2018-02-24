@@ -10,8 +10,6 @@
 
 @interface HXBRechargeCompletedViewController : HXBBaseViewController
 
-@property (nonatomic, strong) NSDictionary *responseObject;
-
 /**
  充值金额
  */

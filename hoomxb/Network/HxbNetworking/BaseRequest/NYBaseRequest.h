@@ -62,6 +62,8 @@ typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 //================================== 发送者代理 ==================================
 /// 委托
 @property (nonatomic, weak) id<HXBRequestHudDelegate> hudDelegate;
+//临时用的重构的新请求标识， 如果全部替换完成， 则删除此属性
+@property (nonatomic, assign) BOOL isNewRequestWay;
 
 //================================== response ==================================
 
