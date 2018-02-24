@@ -13,8 +13,7 @@
 
 #pragma mark - plan detail 交易记录 接口
 - (void)capitalRecord_requestWithScreenType: (NSString *)screenType
-                                andSuccessBlock: (void(^)(BOOL isSuccess))successDateBlock
-                                andFailureBlock: (void(^)(NSError *error))failureBlock {
+                                resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     
     kWeakSelf
     NYBaseRequest *capitalRecordAPI = [[NYBaseRequest alloc] initWithDelegate:self];
@@ -26,6 +25,7 @@
                                          @"filter" : screenType
                                          };
     [capitalRecordAPI loadData:^(NYBaseRequest *request, id responseObject) {
+        [capitalRecordAPI hideLoading];
         NSDictionary *data = [responseObject valueForKey:@"data"];
         NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
         weakSelf.totalCount = [NSString stringWithFormat:@"%@",[data valueForKey:@"totalCount"]];
@@ -40,16 +40,19 @@
         }];
         weakSelf.currentPageCount = viewModelArray.count;
         
-        if (successDateBlock) {
+        if (resultBlock) {
             if (weakSelf.capitalRecordPage<=1) {
                 weakSelf.capitalRecordPage = 1;
                 [weakSelf.capitalRecordViewModel_array removeAllObjects];
             }
             [weakSelf.capitalRecordViewModel_array addObjectsFromArray:viewModelArray];
-            successDateBlock(YES);
+            resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        
+        [capitalRecordAPI hideLoading];
+        if (resultBlock) {
+            resultBlock(NO);
+        }
     }];
 }
 

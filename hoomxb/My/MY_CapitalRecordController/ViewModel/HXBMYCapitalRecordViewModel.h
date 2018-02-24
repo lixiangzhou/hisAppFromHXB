@@ -20,11 +20,8 @@
  Description
 
  @param screenType 筛选条件 0：充值，1：提现，2：散标债权，3：红利计划 (暂时没用到)
- @param successDateBlock successDateBlock description
- @param failureBlock failureBlock description
  */
 - (void)capitalRecord_requestWithScreenType: (NSString *)screenType
-                            andSuccessBlock: (void(^)(BOOL isSuccess))successDateBlock
-                            andFailureBlock: (void(^)(NSError *error))failureBlock;
+                            resultBlock: (void(^)(BOOL isSuccess))resultBlock;
 
 @end

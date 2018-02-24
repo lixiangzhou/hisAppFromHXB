@@ -46,7 +46,7 @@
                 weakSelf.modifyPhoneViewModel = [[HXBModifyPhoneViewModel alloc] initWithBlock:^UIView *{
                     return weakSelf.view;
                 }];
-                [weakSelf.modifyPhoneViewModel mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(BOOL isSuccess) {
+                [weakSelf.modifyPhoneViewModel mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha resultBlock:^(BOOL isSuccess) {
                     if (isSuccess) {
                         KeyChain.mobile = weakSelf.modifyPhoneViewModel.modifyPhoneModel.mobile;//phoneNumber;
                         [KeyChain removeGesture];
@@ -57,9 +57,21 @@
                         [weakSelf.navigationController popToRootViewControllerAnimated:NO];
                         [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
                     }
-                } andFailureBlock:^(NSError *error) {
-                    
                 }];
+//                [weakSelf.modifyPhoneViewModel mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha andSuccessBlock:^(BOOL isSuccess) {
+//                    if (isSuccess) {
+//                        KeyChain.mobile = weakSelf.modifyPhoneViewModel.modifyPhoneModel.mobile;//phoneNumber;
+//                        [KeyChain removeGesture];
+//                        KeyChain.skipGesture = kHXBGesturePwdSkipeYES;
+//                        [KeyChain signOut];
+//                        weakSelf.tabBarController.selectedIndex = 0;
+//                        [HxbHUDProgress showTextWithMessage:@"修改成功，请用新手机号登录"];
+//                        [weakSelf.navigationController popToRootViewControllerAnimated:NO];
+//                        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
+//                    }
+//                } andFailureBlock:^(NSError *error) {
+//
+//                }];
             }
         };
     

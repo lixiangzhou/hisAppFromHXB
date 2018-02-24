@@ -12,10 +12,7 @@
 
 
 ///plan 详情页的 交易记录
-- (void)loanRecord_my_Plan_WithRequestUrl: (NSString *)requestUrl
-                              andPlanID: (NSString *)planID
-                        andSuccessBlock: (void(^)(BOOL isSuccess))successDateBlock
-                        andFailureBlock: (void(^)(NSError *error))failureBlock{
+- (void)loanRecord_my_Plan_WithRequestUrl: (NSString *)requestUrl resultBlock: (void(^)(BOOL isSuccess))resultBlock{
     
     kWeakSelf
     NYBaseRequest *loanRecordAPI = [[NYBaseRequest alloc] initWithDelegate:self];
@@ -26,7 +23,7 @@
                                       @"page" : @(self.planLoanRecordPage).description,
                                       };
     [loanRecordAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-
+        [loanRecordAPI hideLoading];
         NSArray <NSDictionary *>*dataArray = responseObject[kResponseData][@"dataList"];
         NSMutableArray <HXBMY_PlanViewModel_LoanRecordViewModel *>*viewModelArray = [[NSMutableArray alloc]init];
         
@@ -40,16 +37,19 @@
         weakSelf.currentPageCount = viewModelArray.count;
         weakSelf.totalCount = [NSString stringWithFormat:@"%@",[responseObject[kResponseData] valueForKey:@"totalCount"]];
         
-        if (successDateBlock) {
+        if (resultBlock) {
             if (weakSelf.planLoanRecordPage<=1) {
                 weakSelf.planLoanRecordPage=1;
                 [weakSelf.planLoanRecordViewModel_array removeAllObjects];
             }
             [weakSelf.planLoanRecordViewModel_array addObjectsFromArray:viewModelArray];
-            successDateBlock(YES);
+            resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        
+        [loanRecordAPI hideLoading];
+        if (resultBlock) {
+            resultBlock(NO);
+        }
     }];
 }
 
