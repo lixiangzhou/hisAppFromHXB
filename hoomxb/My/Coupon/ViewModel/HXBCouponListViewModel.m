@@ -9,22 +9,56 @@
 #import "HXBCouponListViewModel.h"
 
 @implementation HXBCouponListViewModel
-- (void)downLoadMyAccountListInfoHUDWithParameterDict:(NSDictionary *)parameterDict completion:(void (^)(BOOL isSuccess))completion
+
+- (instancetype)initWithBlock:(HugViewBlock)hugViewBlock
 {
+    self = [super initWithBlock:hugViewBlock];
+    if (self) {
+        self.totalCount = @"0";
+        self.pageSize = @"20";
+    }
+    return self;
+}
+
+- (void)downLoadMyAccountListInfo:(BOOL)isNew completion:(void (^)(BOOL isSuccess))completion;
+{
+    NSInteger currentPage = ceil(self.dataSource.count * 1.0 / self.pageSize.integerValue);
+    NSInteger page = 1;
+    if (isNew == NO) {
+        page = currentPage + 1;
+    }
     
     NYBaseRequest *myAccountListInfoAPI = [[NYBaseRequest alloc]init];
     myAccountListInfoAPI.requestUrl = kHXBMY_AccountListInfoURL;
     myAccountListInfoAPI.requestMethod = NYRequestMethodPost;
-    myAccountListInfoAPI.requestArgument = parameterDict;
+    
+    myAccountListInfoAPI.requestArgument = @{
+                                             @"page": [NSString stringWithFormat:@"%zd", page],
+                                             @"filter": @"available"
+                                             };
     myAccountListInfoAPI.hudDelegate = self;
     
     [myAccountListInfoAPI showLoading:@"加载中..."];
+    kWeakSelf
     [myAccountListInfoAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [myAccountListInfoAPI hideLoading];
+        
         NSDictionary *data = [responseObject valueForKey:@"data"];
         NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
-        self.totalCount = data[@"totalCount"];
-        self.appendCouponList = [self dataProcessingWitharr:dataList];
+        NSMutableArray <HXBMyCouponListModel *>* temp = [weakSelf dataProcessingWitharr:dataList];
+        
+        if (isNew) {
+            [weakSelf.dataSource removeAllObjects];
+            [weakSelf.dataSource addObjectsFromArray:temp];
+        } else {
+            [weakSelf.dataSource addObjectsFromArray:temp];
+        }
+        
+        weakSelf.totalCount = data[@"totalCount"];
+        
+        weakSelf.showNoMoreData = weakSelf.dataSource.count >= weakSelf.totalCount.integerValue;
+        weakSelf.showPullup = weakSelf.totalCount.integerValue > weakSelf.pageSize.integerValue;
+
         if (completion) {
             completion(YES);
         }
@@ -47,6 +81,13 @@
         [planListViewModelArray addObject:financtingPlanListModel];
     }];
     return planListViewModelArray;
+}
+
+- (NSMutableArray<HXBMyCouponListModel *> *)dataSource {
+    if (_dataSource == nil) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
 }
 
 @end

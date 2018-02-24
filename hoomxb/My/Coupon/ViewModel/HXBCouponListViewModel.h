@@ -11,7 +11,10 @@
 
 @interface HXBCouponListViewModel : HXBBaseViewModel
 
-@property (nonatomic, strong) NSMutableArray <HXBMyCouponListModel *>*appendCouponList;
+@property (nonatomic, strong) NSMutableArray <HXBMyCouponListModel *>*dataSource;
 
-- (void)downLoadMyAccountListInfoHUDWithParameterDict:(NSDictionary *)parameterDict completion:(void (^)(BOOL isSuccess))completion;
+@property (nonatomic, assign) BOOL showNoMoreData;
+@property (nonatomic, assign) BOOL showPullup;
+
+- (void)downLoadMyAccountListInfo:(BOOL)isNew completion:(void (^)(BOOL isSuccess))completion;
 @end

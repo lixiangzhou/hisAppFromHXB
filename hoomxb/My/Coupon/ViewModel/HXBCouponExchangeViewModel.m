@@ -23,12 +23,13 @@
     myAccountListInfoAPI.requestArgument = @{@"code":code};
     
     [myAccountListInfoAPI showLoading:@"加载中..."];
+    kWeakSelf
     [myAccountListInfoAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [myAccountListInfoAPI hideLoading];
         
-        self.couponListModel = [[HXBMyCouponListModel alloc]init];
-        [self.couponListModel yy_modelSetWithDictionary:responseObject[@"data"][@"coupon"]];
-        self.promptMessage = nil;
+        weakSelf.couponListModel = [[HXBMyCouponListModel alloc]init];
+        [weakSelf.couponListModel yy_modelSetWithDictionary:responseObject[@"data"][@"coupon"]];
+        weakSelf.promptMessage = nil;
         
         if (completion) {
             completion(YES);
@@ -39,7 +40,7 @@
         
         if (responseObject) {
             if (responseObject.statusCode == 2 || responseObject.statusCode == 500) {
-                self.promptMessage = responseObject.message;
+                weakSelf.promptMessage = responseObject.message;
             }
             
             if (responseObject.statusCode != kHXBCode_Enum_ProcessingField) {
