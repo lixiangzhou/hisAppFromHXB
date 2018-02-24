@@ -18,7 +18,6 @@
 @interface HXBMyCouponListViewController ()
 
 @property (nonatomic, strong) HXBMyCouponListView *myView;
-@property (nonatomic, strong) NSMutableArray <HXBMyCouponListModel*>* myCouponListModelMArray;//数据数组
 @property (nonatomic, strong) HXBCouponListViewModel *viewModel;
 @end
 
@@ -103,11 +102,5 @@
     return _myView;
 }
 
--(NSMutableArray<HXBMyCouponListModel *> *)myCouponListModelMArray{
-    if (!_myCouponListModelMArray) {
-        _myCouponListModelMArray = [NSMutableArray array];
-    }
-    return _myCouponListModelMArray;
-}
 
 @end
