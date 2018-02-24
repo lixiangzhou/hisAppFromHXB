@@ -31,13 +31,9 @@
                                               @"action" : kTypeKey_newmobile
                                               };
     [alterLoginPasswordAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
+
         [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-        if (!status) {
-            weakSelf.modifyPhoneModel = [HXBModifyPhoneModel yy_modelWithDictionary:responseObject[@"data"]];
-            resultBlock(YES);
-        }
+        weakSelf.modifyPhoneModel = [HXBModifyPhoneModel yy_modelWithDictionary:responseObject[@"data"]];
         if (resultBlock) {
             resultBlock(YES);
         }
