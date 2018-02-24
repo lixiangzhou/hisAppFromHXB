@@ -25,7 +25,6 @@
                                          @"filter" : screenType
                                          };
     [capitalRecordAPI loadData:^(NYBaseRequest *request, id responseObject) {
-        [capitalRecordAPI hideLoading];
         NSDictionary *data = [responseObject valueForKey:@"data"];
         NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
         weakSelf.totalCount = [NSString stringWithFormat:@"%@",[data valueForKey:@"totalCount"]];
@@ -49,7 +48,6 @@
             resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [capitalRecordAPI hideLoading];
         if (resultBlock) {
             resultBlock(NO);
         }

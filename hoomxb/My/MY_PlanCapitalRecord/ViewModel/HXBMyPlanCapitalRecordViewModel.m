@@ -23,7 +23,6 @@
                                       @"page" : @(self.planLoanRecordPage).description,
                                       };
     [loanRecordAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        [loanRecordAPI hideLoading];
         NSArray <NSDictionary *>*dataArray = responseObject[kResponseData][@"dataList"];
         NSMutableArray <HXBMY_PlanViewModel_LoanRecordViewModel *>*viewModelArray = [[NSMutableArray alloc]init];
         
@@ -46,7 +45,6 @@
             resultBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [loanRecordAPI hideLoading];
         if (resultBlock) {
             resultBlock(NO);
         }
