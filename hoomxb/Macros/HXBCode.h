@@ -56,6 +56,8 @@ typedef enum : NSUInteger {
     kHXBCode_UnBindCardFail = 4002,
     // 如果网络层已经做了弹窗处理， 那么就会返回这个错误码
     kHXBCode_AlreadyPopWindow = -100000,
+    // 当封装多处使用的通用接口时， 如果state的值是非0值， 那么就以这个错误吗构建一个NSErro对象，回传给调用者
+    kHXBCode_CommonInterfaceErro = -200000,
     // 成功
     kHXBCode_Success = 0
 } kHXBCode_Enum;
