@@ -81,10 +81,8 @@ kDealloc
 /// userinfo 数据请求
 - (void)assetStatisticsLoadData {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.loanListView.userInfoViewModel = viewModel;
-    } andFailure:^(NSError *error) {
-        
+    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        if (viewModel) weakSelf.loanListView.userInfoViewModel = viewModel;
     }];
 }
 
