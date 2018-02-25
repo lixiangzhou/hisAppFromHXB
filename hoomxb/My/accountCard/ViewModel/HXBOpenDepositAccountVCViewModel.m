@@ -7,7 +7,8 @@
 //
 
 #import "HXBOpenDepositAccountVCViewModel.h"
-
+#import "HXBCardBinModel.h"
+#import "HXBOpenDepositAccountAgent.h"
 @implementation HXBOpenDepositAccountVCViewModel
 
 - (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
@@ -65,6 +66,31 @@
     
 }
 
-
+/**
+ 卡bin校验
+ 
+ @param bankNumber 银行卡号
+ @param isToast 是否需要提示信息
+ @param callBackBlock 回调
+ */
++ (void)checkCardBinResultRequestWithBankNumber:(NSString *)bankNumber andisToastTip:(BOOL)isToast andCallBack:(void(^)(BOOL isSuccess))callBackBlock
+{
+    if (bankNumber == nil) bankNumber = @"";
+    
+    [HXBOpenDepositAccountAgent checkCardBinResultRequestWithWithResultBlock:^(NYBaseRequest *request) {
+        
+        request.requestArgument = @{
+                            @"bankCard" : bankNumber
+                            };
+        request.showHud = !isToast;
+    } resultBlock:^(HXBCardBinModel *cardBinModel, NSError *error) {
+        if (error) {
+            callBackBlock(NO);
+        }
+        else {
+            callBackBlock(YES);
+        }
+    }];
+}
 
 @end
