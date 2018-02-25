@@ -66,9 +66,7 @@ UITextFieldDelegate
 
 - (void)setModel{
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-        
-    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         self.userInfoViewModel = viewModel;
         if ([viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
             self.nameTextField.text = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];

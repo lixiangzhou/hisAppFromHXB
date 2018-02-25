@@ -67,9 +67,7 @@ UITableViewDataSource
         
     }else if(indexPath.section == 1){
         kWeakSelf
-        [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-            
-        } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
             self.userInfoViewModel = viewModel;
             if (indexPath.row == 0) {
                 //进入存管账户
@@ -409,9 +407,7 @@ UITableViewDataSource
 #pragma mark - 加载数据
 - (void)loadData_userInfo {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-        
-    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         weakSelf.userInfoViewModel = viewModel;
         _isDisplayAdvisor = weakSelf.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
         [weakSelf.tableView reloadData];

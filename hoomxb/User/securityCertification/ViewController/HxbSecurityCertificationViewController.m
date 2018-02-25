@@ -32,9 +32,7 @@
         //安全认证请求
         [HXBSecurityCertification_Request securityCertification_RequestWithName:name andIdCardNo:idCard andTradpwd:transactionPassword andURL:url andSuccessBlock:^(BOOL isExist) {
             //（获取用户信息）
-            [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-                
-            } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+            [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
                 [self.navigationController popViewControllerAnimated:YES];
                 //                //是否绑卡
                 //                if (!viewModel.userInfoModel.userInfo.hasBindCard.integerValue) {

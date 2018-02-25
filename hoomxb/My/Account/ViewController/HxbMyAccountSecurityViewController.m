@@ -59,9 +59,7 @@ UITableViewDataSource,UITableViewDelegate
         [self modifyPhone];
     }
     else if (model.type == HXBAccountSecureTypeLoginPwd) {
-        [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-            
-        } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
             HXBAccount_AlterLoginPassword_ViewController *signUPVC = [[HXBAccount_AlterLoginPassword_ViewController alloc] init];
             signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
             [weakSelf.navigationController pushViewController: signUPVC animated:YES];
@@ -133,9 +131,7 @@ UITableViewDataSource,UITableViewDelegate
 
 - (void)modifyTransactionPwd {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-        
-    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         if (viewModel.userInfoModel.userInfo.isUnbundling) {
             [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
             return;
@@ -173,9 +169,7 @@ UITableViewDataSource,UITableViewDelegate
 - (void)modifyPhone
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-        
-    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         weakSelf.userInfoViewModel = viewModel;
         if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
             if ([viewModel.userInfoModel.userInfo.isMobilePassed isEqualToString:@"1"]) {

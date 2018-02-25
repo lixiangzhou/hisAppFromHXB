@@ -37,9 +37,7 @@
     
     self.isRedColorWithNavigationBar = YES;
     //判断是否风险评测
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-        
-    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         _availablePoint = viewModel.availablePoint;
         _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
     }];

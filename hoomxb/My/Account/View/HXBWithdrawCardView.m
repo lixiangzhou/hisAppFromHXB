@@ -54,9 +54,7 @@
 - (void)loadUserInfoData
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-        
-    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         [weakSelf.cardholderLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
             viewModelVM.leftLabelStr = [NSString stringWithFormat:@"持卡人：%@",[viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1]];
             if (viewModel.userInfoModel.userInfo.realName.length > 4) {
