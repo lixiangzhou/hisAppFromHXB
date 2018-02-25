@@ -248,7 +248,6 @@
 		9AE032362022C317006D6140 /* HXBBaseTableView_MYPlanList_TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031242022C316006D6140 /* HXBBaseTableView_MYPlanList_TableView.m */; };
 		9AE032372022C317006D6140 /* HXBBaseView_MYList_TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031262022C316006D6140 /* HXBBaseView_MYList_TableViewCell.m */; };
 		9AE032382022C317006D6140 /* HXBBaseViewCell_MYListCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031282022C316006D6140 /* HXBBaseViewCell_MYListCellTableViewCell.m */; };
-		9AE0323A2022C317006D6140 /* HXBMainListView_Plan_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0312C2022C316006D6140 /* HXBMainListView_Plan_TopView.m */; };
 		9AE0323B2022C317006D6140 /* HXBMY_Plan_ExitTingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0312E2022C316006D6140 /* HXBMY_Plan_ExitTingTableView.m */; };
 		9AE0323C2022C317006D6140 /* HXBMYList_plan_Hold_TableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031302022C316006D6140 /* HXBMYList_plan_Hold_TableView.m */; };
 		9AE0323D2022C317006D6140 /* HXBMY_PlanListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031332022C316006D6140 /* HXBMY_PlanListViewController.m */; };
@@ -509,6 +508,7 @@
 		E1B21E642042B08300DD3784 /* HXBMy_Plan_Swipe.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B21E632042B08200DD3784 /* HXBMy_Plan_Swipe.m */; };
 		E1B21E662042B09200DD3784 /* HXBMY_PlanDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B21E652042B09200DD3784 /* HXBMY_PlanDetailView.m */; };
 		E1B21E682042B18B00DD3784 /* HXBMainListView_Plan.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B21E672042B18A00DD3784 /* HXBMainListView_Plan.m */; };
+		E1B21E6A2042B26800DD3784 /* HXBMainListView_Plan_TopView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B21E692042B26800DD3784 /* HXBMainListView_Plan_TopView.m */; };
 		E1B2D5401EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */; };
 		E1CD4BCA1ED83064000CC57B /* HxbHUDProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BAC1ED83064000CC57B /* HxbHUDProgress.m */; };
 		E1CD4BCB1ED83064000CC57B /* HxbFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1CD4BAF1ED83064000CC57B /* HxbFileManager.m */; };
@@ -1006,7 +1006,6 @@
 		9AE031282022C316006D6140 /* HXBBaseViewCell_MYListCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseViewCell_MYListCellTableViewCell.m; sourceTree = "<group>"; };
 		9AE031292022C316006D6140 /* HXBMainListView_Plan.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMainListView_Plan.h; sourceTree = "<group>"; };
 		9AE0312B2022C316006D6140 /* HXBMainListView_Plan_TopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMainListView_Plan_TopView.h; sourceTree = "<group>"; };
-		9AE0312C2022C316006D6140 /* HXBMainListView_Plan_TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMainListView_Plan_TopView.m; sourceTree = "<group>"; };
 		9AE0312D2022C316006D6140 /* HXBMY_Plan_ExitTingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMY_Plan_ExitTingTableView.h; sourceTree = "<group>"; };
 		9AE0312E2022C316006D6140 /* HXBMY_Plan_ExitTingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_Plan_ExitTingTableView.m; sourceTree = "<group>"; };
 		9AE0312F2022C316006D6140 /* HXBMYList_plan_Hold_TableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBMYList_plan_Hold_TableView.h; sourceTree = "<group>"; };
@@ -1535,6 +1534,7 @@
 		E1B21E632042B08200DD3784 /* HXBMy_Plan_Swipe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMy_Plan_Swipe.m; sourceTree = "<group>"; };
 		E1B21E652042B09200DD3784 /* HXBMY_PlanDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMY_PlanDetailView.m; sourceTree = "<group>"; };
 		E1B21E672042B18A00DD3784 /* HXBMainListView_Plan.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMainListView_Plan.m; sourceTree = "<group>"; };
+		E1B21E692042B26800DD3784 /* HXBMainListView_Plan_TopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMainListView_Plan_TopView.m; sourceTree = "<group>"; };
 		E1B2D53E1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+HXBScrollView.h"; sourceTree = "<group>"; };
 		E1B2D53F1EAF27BC00DE95A8 /* UIScrollView+HXBScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+HXBScrollView.m"; sourceTree = "<group>"; };
 		E1C10A581EBCA4FE00C21984 /* HXBScreenAdaptation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBScreenAdaptation.h; sourceTree = "<group>"; };
@@ -3108,7 +3108,7 @@
 				9AE031292022C316006D6140 /* HXBMainListView_Plan.h */,
 				E1B21E672042B18A00DD3784 /* HXBMainListView_Plan.m */,
 				9AE0312B2022C316006D6140 /* HXBMainListView_Plan_TopView.h */,
-				9AE0312C2022C316006D6140 /* HXBMainListView_Plan_TopView.m */,
+				E1B21E692042B26800DD3784 /* HXBMainListView_Plan_TopView.m */,
 				9AE0312D2022C316006D6140 /* HXBMY_Plan_ExitTingTableView.h */,
 				9AE0312E2022C316006D6140 /* HXBMY_Plan_ExitTingTableView.m */,
 				9AE0312F2022C316006D6140 /* HXBMYList_plan_Hold_TableView.h */,
@@ -5403,7 +5403,6 @@
 				9AE032142022C317006D6140 /* HXBMY_LoanListViewController.m in Sources */,
 				4E0446DE1FBEA98A0030E276 /* HXBUmengViewController.m in Sources */,
 				9AE0320B2022C317006D6140 /* HXBModifyTransactionPasswordViewController.m in Sources */,
-				9AE0323A2022C317006D6140 /* HXBMainListView_Plan_TopView.m in Sources */,
 				9AE0321D2022C317006D6140 /* HXBBaseVersionUpdateManager.m in Sources */,
 				8D5A2F4E1FCE918400057DB3 /* NYBaseRequest+HXB.m in Sources */,
 				9AE034B920232B0F006D6140 /* HXBAdvertiseViewModel.m in Sources */,
@@ -5680,6 +5679,7 @@
 				9AE031ED2022C317006D6140 /* HXBWithdrawModel.m in Sources */,
 				9AE034AE20232B0F006D6140 /* HxbHomeViewController.m in Sources */,
 				E1E5885C1EE165BF0045C4AE /* PYPresentationController.m in Sources */,
+				E1B21E6A2042B26800DD3784 /* HXBMainListView_Plan_TopView.m in Sources */,
 				E133DCF91EEE35D7009466DE /* HxbSecurityCertificationView.m in Sources */,
 				9AE0326C2022C317006D6140 /* HXBMYModel_Loan_LoanRequestModel.m in Sources */,
 				E1CD4BCD1ED83064000CC57B /* UserDefaultManage.m in Sources */,

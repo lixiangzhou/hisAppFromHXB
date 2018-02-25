@@ -127,19 +127,22 @@
     }];
 }
 - (void)setValue {
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-       [self.financePlanAssetsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-            viewModelVM.leftLabelStr = @"持有资产(元)";
-            viewModelVM.rightLabelStr = viewModel.lenderPrincipal;
-           return viewModelVM;
-       }];
-        [self.financePlanSumPlanInterestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-            viewModelVM.leftLabelStr = @"累计收益(元)";
-            viewModelVM.rightLabelStr = viewModel.lenderEarned;
-            return viewModelVM;
-        }];
-    } andFailure:^(NSError *error) {
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        if (viewModel) {
+            [weakSelf.financePlanAssetsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+                viewModelVM.leftLabelStr = @"持有资产(元)";
+                viewModelVM.rightLabelStr = viewModel.lenderPrincipal;
+                return viewModelVM;
+            }];
+            [weakSelf.financePlanSumPlanInterestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+                viewModelVM.leftLabelStr = @"累计收益(元)";
+                viewModelVM.rightLabelStr = viewModel.lenderEarned;
+                return viewModelVM;
+            }];
+        }
     }];
+    
 }
 @end
 @implementation HXBMainListView_Plan_TopViewManager
