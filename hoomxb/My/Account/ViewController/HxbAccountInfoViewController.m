@@ -67,7 +67,9 @@ UITableViewDataSource
         
     }else if(indexPath.section == 1){
         kWeakSelf
-        [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+            
+        } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
             self.userInfoViewModel = viewModel;
             if (indexPath.row == 0) {
                 //进入存管账户
@@ -83,9 +85,26 @@ UITableViewDataSource
                     [weakSelf bindBankCardClick];
                 }
             }
-        } andFailure:^(NSError *error) {
-            
         }];
+//        [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+//            self.userInfoViewModel = viewModel;
+//            if (indexPath.row == 0) {
+//                //进入存管账户
+//                [weakSelf entryDepositoryAccount:NO];
+//
+//            }else if (indexPath.row == 1){
+//
+//                if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+//                    //进入银行卡
+//                    [weakSelf entryDepositoryAccount:YES];
+//                }else{
+//                    //进入绑卡页面
+//                    [weakSelf bindBankCardClick];
+//                }
+//            }
+//        } andFailure:^(NSError *error) {
+//
+//        }];
        
     } else if(indexPath.section == 2){
         //账户安全
@@ -410,13 +429,20 @@ UITableViewDataSource
 #pragma mark - 加载数据
 - (void)loadData_userInfo {
     kWeakSelf
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+        
+    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         weakSelf.userInfoViewModel = viewModel;
         _isDisplayAdvisor = weakSelf.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
         [weakSelf.tableView reloadData];
-    } andFailure:^(NSError *error) {
-        NSLog(@"%@",self);
     }];
+//    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+//        weakSelf.userInfoViewModel = viewModel;
+//        _isDisplayAdvisor = weakSelf.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
+//        [weakSelf.tableView reloadData];
+//    } andFailure:^(NSError *error) {
+//        NSLog(@"%@",self);
+//    }];
 }
 
 @end

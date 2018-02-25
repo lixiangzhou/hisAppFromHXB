@@ -59,13 +59,20 @@ UITableViewDataSource,UITableViewDelegate
         [self modifyPhone];
     }
     else if (model.type == HXBAccountSecureTypeLoginPwd) {
-        [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+            
+        } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
             HXBAccount_AlterLoginPassword_ViewController *signUPVC = [[HXBAccount_AlterLoginPassword_ViewController alloc] init];
             signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
             [weakSelf.navigationController pushViewController: signUPVC animated:YES];
-        } andFailure:^(NSError *error) {
-            
         }];
+//        [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+//            HXBAccount_AlterLoginPassword_ViewController *signUPVC = [[HXBAccount_AlterLoginPassword_ViewController alloc] init];
+//            signUPVC.type = HXBSignUPAndLoginRequest_sendSmscodeType_forgot;
+//            [weakSelf.navigationController pushViewController: signUPVC animated:YES];
+//        } andFailure:^(NSError *error) {
+//
+//        }];
     }
     else if (model.type == HXBAccountSecureTypeTransactionPwd){
         [self modifyTransactionPwd];
@@ -133,7 +140,9 @@ UITableViewDataSource,UITableViewDelegate
 
 - (void)modifyTransactionPwd {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+        
+    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         if (viewModel.userInfoModel.userInfo.isUnbundling) {
             [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
             return;
@@ -165,15 +174,50 @@ UITableViewDataSource,UITableViewDelegate
                 [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
             }
         }
-    } andFailure:^(NSError *error) {
-        
     }];
+//    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+//        if (viewModel.userInfoModel.userInfo.isUnbundling) {
+//            [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
+//            return;
+//        }
+//
+//        if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
+//            HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
+//            modifyTransactionPasswordVC.title = @"修改交易密码";
+//            modifyTransactionPasswordVC.userInfoModel = self.userInfoViewModel.userInfoModel;
+//            [weakSelf.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
+//        }else
+//        {
+//            if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+//                HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
+//                kWeakSelf
+//                alertVC.immediateOpenBlock = ^{
+//                    HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+//                    openDepositAccountVC.title = @"开通存管账户";
+//                    //                        openDepositAccountVC.userModel = viewModel;
+//                    openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//                    [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+//                };
+//                [weakSelf presentViewController:alertVC animated:NO completion:nil];
+//            }else
+//            {
+//                HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+//                openDepositAccountVC.title = @"完善信息";
+//                openDepositAccountVC.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//                [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+//            }
+//        }
+//    } andFailure:^(NSError *error) {
+//
+//    }];
 }
 
 - (void)modifyPhone
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+        
+    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         weakSelf.userInfoViewModel = viewModel;
         if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
             if ([viewModel.userInfoModel.userInfo.isMobilePassed isEqualToString:@"1"]) {
@@ -199,27 +243,70 @@ UITableViewDataSource,UITableViewDelegate
                         withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
                         [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
                     }];
-            
+                    
                     [self presentViewController:alertVC animated:NO completion:nil];
                 } else {
-//                    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"信息不完善" andLeftBtnName:@"暂不完善" andRightBtnName:@"去完善信息" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
-//                    alertVC.isCenterShow = YES;
-//                    [alertVC setRightBtnBlock:^{
-                        //完善信息
-                        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-                        openDepositAccountVC.title = @"完善信息";
-                        openDepositAccountVC.type = HXBChangePhone;
-                        //                    openDepositAccountVC.userModel = self.userInfoViewModel;
-                        [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-//                    }];
-//                    [self presentViewController:alertVC animated:NO completion:nil];
+                    //                    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"信息不完善" andLeftBtnName:@"暂不完善" andRightBtnName:@"去完善信息" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+                    //                    alertVC.isCenterShow = YES;
+                    //                    [alertVC setRightBtnBlock:^{
+                    //完善信息
+                    HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                    openDepositAccountVC.title = @"完善信息";
+                    openDepositAccountVC.type = HXBChangePhone;
+                    //                    openDepositAccountVC.userModel = self.userInfoViewModel;
+                    [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+                    //                    }];
+                    //                    [self presentViewController:alertVC animated:NO completion:nil];
                 }
             }
         }
-        
-    } andFailure:^(NSError *error) {
     }];
-    
+//    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+//        weakSelf.userInfoViewModel = viewModel;
+//        if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+//            if ([viewModel.userInfoModel.userInfo.isMobilePassed isEqualToString:@"1"]) {
+//                [weakSelf getintoModifyPhone];
+//            }
+//        } else {
+//            if (viewModel.userInfoModel.userInfo.isUnbundling) {
+//                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
+//                return;
+//            }
+//            if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+//                if ([viewModel.userInfoModel.userInfo.isMobilePassed isEqualToString:@"1"]) {
+//                    [weakSelf getintoModifyPhone];
+//                }
+//            } else {
+//                if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
+//                    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"由于银行限制，您需要绑定银行卡后方可修改手机号" andLeftBtnName:@"暂不绑定" andRightBtnName:@"立即绑定" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+//                    alertVC.isCenterShow = YES;
+//                    [alertVC setRightBtnBlock:^{
+//                        //进入绑卡界面
+//                        HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+//                        withdrawCardViewController.title = @"绑卡";
+//                        withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Other;
+//                        [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+//                    }];
+//
+//                    [self presentViewController:alertVC animated:NO completion:nil];
+//                } else {
+////                    HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"温馨提示" andSubTitle:@"信息不完善" andLeftBtnName:@"暂不完善" andRightBtnName:@"去完善信息" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
+////                    alertVC.isCenterShow = YES;
+////                    [alertVC setRightBtnBlock:^{
+//                        //完善信息
+//                        HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+//                        openDepositAccountVC.title = @"完善信息";
+//                        openDepositAccountVC.type = HXBChangePhone;
+//                        //                    openDepositAccountVC.userModel = self.userInfoViewModel;
+//                        [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+////                    }];
+////                    [self presentViewController:alertVC animated:NO completion:nil];
+//                }
+//            }
+//        }
+//
+//    } andFailure:^(NSError *error) {
+//    }];
 }
 
 - (void)getintoModifyPhone
