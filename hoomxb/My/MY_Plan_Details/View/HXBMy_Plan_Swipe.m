@@ -361,10 +361,8 @@ kDealloc
 //}
 - (void)downLoadTopViewData {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.topView.userInfoViewModel = viewModel;
-    } andFailure:^(NSError *error) {
-        
+    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        if (viewModel) weakSelf.topView.userInfoViewModel = viewModel;
     }];
 }
 
