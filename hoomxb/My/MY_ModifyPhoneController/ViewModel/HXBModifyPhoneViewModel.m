@@ -20,7 +20,7 @@
 - (void)mobifyPhoneNumberWithNewPhoneNumber:(NSString *)newPhoneNumber andWithNewsmscode:(NSString *)newsmscode  andWithCaptcha:(NSString *)captcha resultBlock: (void(^)(BOOL isSuccess))resultBlock
 {
     kWeakSelf
-    NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     alterLoginPasswordAPI.requestUrl = kHXBSetTransaction_MobifyPhoneNumber_CashMobileEditURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodPost;
     if (!(newPhoneNumber.length && newsmscode.length)) return;
