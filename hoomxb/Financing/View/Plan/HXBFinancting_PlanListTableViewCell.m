@@ -280,7 +280,7 @@
     [self.HXBImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(weakSelf.moneyOffCouponImageView);
         make.right.equalTo(weakSelf.mas_right).offset(-kScrAdaptationW(15));
-        make.width.equalTo(@(kScrAdaptationW750(109)));
+        make.width.equalTo(@(kScrAdaptationW750(146)));
         make.height.equalTo(@(kScrAdaptationH750(32)));
     }];
     
