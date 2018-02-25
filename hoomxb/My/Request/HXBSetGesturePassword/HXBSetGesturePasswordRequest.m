@@ -10,40 +10,6 @@
 
 @implementation HXBSetGesturePasswordRequest
 
-
-/**
- 校验登录密码
- 
- @param password 登录密码
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
- */
-- (void)setGesturePasswordRequestWithPassword:(NSString *)password andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
-{
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
-    versionUpdateAPI.requestUrl = kHXBSetGesturePasswordRequest_CheckLoginPasswordURL;
-    versionUpdateAPI.requestMethod = NYRequestMethodPost;
-    versionUpdateAPI.requestArgument = @{
-                                         @"password" : password
-                                         };
-    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-           kHXBResponsShowHUD
-        }
-        if (successDateBlock) {
-            successDateBlock(responseObject);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-//        [HxbHUDProgress showTextWithMessage:@"请求失败"];
-        if (failureBlock) {
-            failureBlock(error);
-        }
-    }];
-
-}
-
 /**
  风险评测
 

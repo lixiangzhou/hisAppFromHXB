@@ -58,11 +58,11 @@ typedef enum : NSUInteger {
 
 
 /**
- 红利计划转模型
+ 更新计划的model数组
  
- @param dataList 数据数组
+ @param responseObject 数据源
  @return 模型数组
  */
-- (NSMutableArray <HXBFinHomePageViewModel_PlanList *>*)plan_dataProcessingWitharr:(NSArray *)dataList;
+- (NSMutableArray *)updatePlanListModelWithResponseObject:(id)responseObject;
 
 @end

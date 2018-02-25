@@ -20,13 +20,14 @@
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
 #import "HXBDepositoryAlertViewController.h"
 #import "HXBMyRequestAccountModel.h"
-#import "HXBRequestAccountInfo.h"
 
 #import "HXBInviteListViewController.h"
+#import "HXBMyViewModel.h"
 
 @interface HxbMyViewController ()<MyViewDelegate>
 @property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic, strong) HxbMyView *myView;
+@property (nonatomic, strong) HXBMyViewModel *viewModel;
 @end
 
 @implementation HxbMyViewController
@@ -35,6 +36,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    kWeakSelf
+    self.viewModel = [[HXBMyViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     [self setupSubView];
 }
 
@@ -177,10 +182,10 @@
 #pragma mark - Network
 - (void)loadData_accountInfo{
     kWeakSelf
-    [HXBRequestAccountInfo downLoadAccountInfoNoHUDWithSeccessBlock:^(HXBMyRequestAccountModel *viewModel) {
-        weakSelf.myView.accountModel = viewModel;
-        weakSelf.myView.isStopRefresh_Home = YES;
-    } andFailure:^(NSError *error) {
+    [self.viewModel downLoadAccountInfo:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.myView.accountModel = weakSelf.viewModel.accountModel;
+        }
         weakSelf.myView.isStopRefresh_Home = YES;
     }];
 }
