@@ -259,7 +259,6 @@
 		9AE032402022C317006D6140 /* HXBMYReqest_DetailRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0313C2022C316006D6140 /* HXBMYReqest_DetailRequest.m */; };
 		9AE032412022C317006D6140 /* HXBOpenDepositAccountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0313F2022C316006D6140 /* HXBOpenDepositAccountRequest.m */; };
 		9AE032422022C317006D6140 /* HXBMobifyPassword_LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031422022C316006D6140 /* HXBMobifyPassword_LoginRequest.m */; };
-		9AE032442022C317006D6140 /* HXBRequestType_MYManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031462022C316006D6140 /* HXBRequestType_MYManager.m */; };
 		9AE032452022C317006D6140 /* HXBSetGesturePasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0314A2022C316006D6140 /* HXBSetGesturePasswordRequest.m */; };
 		9AE032462022C317006D6140 /* HXBModifyTransactionPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0314D2022C316006D6140 /* HXBModifyTransactionPasswordRequest.m */; };
 		9AE032492022C317006D6140 /* HXBWithdrawalsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031542022C316006D6140 /* HXBWithdrawalsRequest.m */; };
@@ -442,6 +441,7 @@
 		9AFBE1DE1FE8FD2B000ED560 /* HXBNsTimerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AFBE1DD1FE8FD2B000ED560 /* HXBNsTimerManager.m */; };
 		E103C41F1FF1F2050053AEE6 /* HXBGeneralAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E103C41E1FF1F2050053AEE6 /* HXBGeneralAlertVC.m */; };
 		E1057D701EE28D0C00C63286 /* NSString+HXBPhonNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = E1057D6F1EE28D0C00C63286 /* NSString+HXBPhonNumber.m */; };
+		E10CC3F92042979D007BEE57 /* HXBBankCardListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E10CC3F82042979D007BEE57 /* HXBBankCardListViewModel.m */; };
 		E11D78192029AA4E00DFC124 /* HXBMyLoanDetailsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E11D78182029AA4E00DFC124 /* HXBMyLoanDetailsViewModel.m */; };
 		E11D781D202AA43D00DFC124 /* HXBMyPlanDetailsViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E11D781C202AA43D00DFC124 /* HXBMyPlanDetailsViewModel.m */; };
 		E122D84C1EA0CAB900DC71ED /* NSArray+HxbLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E122D8191EA0CAB900DC71ED /* NSArray+HxbLog.m */; };
@@ -1395,6 +1395,8 @@
 		E103C41E1FF1F2050053AEE6 /* HXBGeneralAlertVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBGeneralAlertVC.m; sourceTree = "<group>"; };
 		E1057D6E1EE28D0C00C63286 /* NSString+HXBPhonNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HXBPhonNumber.h"; sourceTree = "<group>"; };
 		E1057D6F1EE28D0C00C63286 /* NSString+HXBPhonNumber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HXBPhonNumber.m"; sourceTree = "<group>"; };
+		E10CC3F72042979D007BEE57 /* HXBBankCardListViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBBankCardListViewModel.h; sourceTree = "<group>"; };
+		E10CC3F82042979D007BEE57 /* HXBBankCardListViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBBankCardListViewModel.m; sourceTree = "<group>"; };
 		E11D78172029AA4E00DFC124 /* HXBMyLoanDetailsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyLoanDetailsViewModel.h; sourceTree = "<group>"; };
 		E11D78182029AA4E00DFC124 /* HXBMyLoanDetailsViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBMyLoanDetailsViewModel.m; sourceTree = "<group>"; };
 		E11D781B202AA43D00DFC124 /* HXBMyPlanDetailsViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBMyPlanDetailsViewModel.h; sourceTree = "<group>"; };
@@ -2626,6 +2628,8 @@
 				9AE030832022C314006D6140 /* HXBBankCardViewModel.m */,
 				4EADD2B6202A9DBA005DBAE8 /* HXBOpenDepositAccountVCViewModel.h */,
 				4EADD2B7202A9DBA005DBAE8 /* HXBOpenDepositAccountVCViewModel.m */,
+				E10CC3F72042979D007BEE57 /* HXBBankCardListViewModel.h */,
+				E10CC3F82042979D007BEE57 /* HXBBankCardListViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -5359,6 +5363,7 @@
 				9AE031E22022C317006D6140 /* HXBMY_PlanInvestmentRecordCell.m in Sources */,
 				9AE032682022C317006D6140 /* HxbMyViewHeaderView.m in Sources */,
 				E190EFA41F25D16E001E0B14 /* HXBNavWaterView.m in Sources */,
+				E10CC3F92042979D007BEE57 /* HXBBankCardListViewModel.m in Sources */,
 				9AE0337A2022C422006D6140 /* HXBCreditorChangeBottomView.m in Sources */,
 				9AE034C220232B0F006D6140 /* HXBNoticModel.m in Sources */,
 				9AE032242022C317006D6140 /* HXBWithdrawRecordViewController.m in Sources */,
