@@ -43,12 +43,6 @@
         _availablePoint = viewModel.availablePoint;
         _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
     }];
-//    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-//        _availablePoint = viewModel.availablePoint;
-//        _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
-//    } andFailure:^(NSError *error) {
-//
-//    }];
     [self setup];
     [self downLoadData];
     [self registerEvent];

@@ -57,32 +57,6 @@
                 //                    [self.navigationController popToViewController:viewController animated:YES];
                 //                }
             }];
-//            [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-//
-//                [self.navigationController popViewControllerAnimated:YES];
-////                //是否绑卡
-////                if (!viewModel.userInfoModel.userInfo.hasBindCard.integerValue) {
-//////                    HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];
-//////                    [self.navigationController pushViewController:bindCardVC animated:YES];
-////
-////                    HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-////                    withdrawCardViewController.title = @"绑定银行卡";
-//////                    withdrawCardViewController.amount = self.amountTextField.text;
-//////                    withdrawCardViewController.userInfoModel = weakSelf.userInfoViewModel.userInfoModel;
-////                    [self.navigationController pushViewController:withdrawCardViewController animated:YES];
-////                }else {
-////                    __block UIViewController *viewController = nil;
-////                    [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
-////                        if ([VC isKindOfClass:NSClassFromString(self.popToClass)]) {
-////                            viewController = VC;
-////                            * stop = YES;
-////                        }
-////                    }];
-////                    [self.navigationController popToViewController:viewController animated:YES];
-////                }
-//            } andFailure:^(NSError *error) {
-//
-//            }];
         } andFailureBlock:^(NSError *error, NSString *message) {
             
         }];

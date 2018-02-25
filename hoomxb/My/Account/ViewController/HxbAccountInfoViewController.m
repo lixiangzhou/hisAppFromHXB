@@ -86,26 +86,6 @@ UITableViewDataSource
                 }
             }
         }];
-//        [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-//            self.userInfoViewModel = viewModel;
-//            if (indexPath.row == 0) {
-//                //进入存管账户
-//                [weakSelf entryDepositoryAccount:NO];
-//
-//            }else if (indexPath.row == 1){
-//
-//                if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-//                    //进入银行卡
-//                    [weakSelf entryDepositoryAccount:YES];
-//                }else{
-//                    //进入绑卡页面
-//                    [weakSelf bindBankCardClick];
-//                }
-//            }
-//        } andFailure:^(NSError *error) {
-//
-//        }];
-       
     } else if(indexPath.section == 2){
         //账户安全
         HxbMyAccountSecurityViewController *myAccountSecurityVC = [[HxbMyAccountSecurityViewController alloc] init];
@@ -436,13 +416,6 @@ UITableViewDataSource
         _isDisplayAdvisor = weakSelf.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
         [weakSelf.tableView reloadData];
     }];
-//    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-//        weakSelf.userInfoViewModel = viewModel;
-//        _isDisplayAdvisor = weakSelf.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
-//        [weakSelf.tableView reloadData];
-//    } andFailure:^(NSError *error) {
-//        NSLog(@"%@",self);
-//    }];
 }
 
 @end
