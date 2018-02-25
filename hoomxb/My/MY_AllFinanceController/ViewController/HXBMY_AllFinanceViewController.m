@@ -36,11 +36,12 @@
 - (void)loadData_userInfo
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.allFinanceView.viewModel = viewModel;
-        weakSelf.accumulatedIncomeView.viewModel = viewModel;
-    } andFailure:^(NSError *error) {
-        
+    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        if (viewModel) {
+            weakSelf.allFinanceView.viewModel = viewModel;
+            weakSelf.accumulatedIncomeView.viewModel = viewModel;
+        }
     }];
 }
 
