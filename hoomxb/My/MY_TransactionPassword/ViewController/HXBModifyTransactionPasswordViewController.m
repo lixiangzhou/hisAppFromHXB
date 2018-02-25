@@ -44,15 +44,14 @@
     _viewModel = [[HXBMyTraderPasswordGetVerifyCodeViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
     }];
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        self.userInfoModel = viewModel.userInfoModel;
-        self.homeView.userInfoModel = viewModel.userInfoModel;
-        [self.homeView addSubview:self.callPhoneView];
-        [self setupSubViewFrame];
-    } andFailure:^(NSError *error) {
-        
+    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        if (viewModel) {
+            weakSelf.userInfoModel = viewModel.userInfoModel;
+            weakSelf.homeView.userInfoModel = viewModel.userInfoModel;
+            [weakSelf.homeView addSubview:weakSelf.callPhoneView];
+            [weakSelf setupSubViewFrame];
+        }
     }];
-    
 }
 
 - (void)setupSubViewFrame
