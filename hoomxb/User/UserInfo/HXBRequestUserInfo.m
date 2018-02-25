@@ -113,6 +113,9 @@
             resultBlock(viewModel, nil);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        if(request.responseObject){
+            error = [NSError errorWithDomain:@"" code:0 userInfo:request.responseObject];
+        }
         if (resultBlock) {
             resultBlock(nil, error);
         }

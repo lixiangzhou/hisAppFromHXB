@@ -524,7 +524,7 @@
     HXBBaseRequest *account_PlanRequest = [[HXBBaseRequest alloc] initWithDelegate:self];
     account_PlanRequest.requestUrl = kHXBMY_PlanAccountRequestURL;
     account_PlanRequest.isUPReloadData = YES;
-    [account_PlanRequest loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+    [account_PlanRequest startWithSuccess:^(HXBBaseRequest *request, id responseObject) {
         if([responseObject[kResponseStatus] integerValue]) {
             kNetWorkError(@" Plan 账户内计划资产");
         }
