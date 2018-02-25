@@ -130,7 +130,7 @@
         if ([detailData.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY]) {
             manager.typeViewManager.leftStrArray = @[
                                                      @"收益方式",
-                                                     @"付息日",
+                                                     @"收益提取日",
                                                      @"退出方式",
                                                      ];
             manager.typeViewManager.rightStrArray = @[
