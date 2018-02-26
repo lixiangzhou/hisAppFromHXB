@@ -16,7 +16,6 @@
         request.requestUrl = kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL;
         request.requestArgument =  @{ @"identity" : idCard };
         request.hudDelegate = weakSelf;
-        request.showHud = YES;
     } resultBlock:^(BOOL isSuccess, NSError *error) {
         if (isSuccess == NO) {
             NSDictionary *respObj = error.userInfo;

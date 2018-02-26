@@ -39,7 +39,6 @@
                                      @"action" : kTypeKey_tradpwd,
                                      @"smscode" : code };
         request.hudDelegate = weakSelf;
-        request.showHud = YES;
     } resultBlock:^(BOOL isSuccess, NSError *error) {
         resultBlock(isSuccess);
     }];

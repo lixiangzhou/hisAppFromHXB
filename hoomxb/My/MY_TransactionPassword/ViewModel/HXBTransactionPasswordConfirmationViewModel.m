@@ -18,7 +18,6 @@
         request.requestArgument = @{ @"cashPassword" : password,
                                     @"identity" : idCard };
         request.hudDelegate = weakSelf;
-        request.showHud = YES;
     } resultBlock:^(BOOL isSuccess, NSError *error) {
         if (isSuccess) {
             [weakSelf showToast:@"修改成功"];
