@@ -148,6 +148,7 @@
 		8DAD308D1FBA8F8C00E2AEE8 /* SwipeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30721FBA8F8B00E2AEE8 /* SwipeTableView.m */; };
 		8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */; };
 		8DAD308F1FBA8F8C00E2AEE8 /* HXBBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */; };
+		9A054D1C2042B7C900DD0BE7 /* HXBSetGesturePasswordAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A054D1B2042B7C900DD0BE7 /* HXBSetGesturePasswordAgent.m */; };
 		9A226B1E1FE7B1AC00E27DAC /* NSArray+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B0D1FE7B1AB00E27DAC /* NSArray+IDPExtension.m */; };
 		9A226B211FE7B1AC00E27DAC /* NSDictionary+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B131FE7B1AB00E27DAC /* NSDictionary+IDPExtension.m */; };
 		9A226B281FE7B87E00E27DAC /* HXBBaseContDownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B271FE7B87E00E27DAC /* HXBBaseContDownModel.m */; };
@@ -259,8 +260,6 @@
 		9AE032402022C317006D6140 /* HXBMYReqest_DetailRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0313C2022C316006D6140 /* HXBMYReqest_DetailRequest.m */; };
 		9AE032412022C317006D6140 /* HXBOpenDepositAccountRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0313F2022C316006D6140 /* HXBOpenDepositAccountRequest.m */; };
 		9AE032422022C317006D6140 /* HXBMobifyPassword_LoginRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031422022C316006D6140 /* HXBMobifyPassword_LoginRequest.m */; };
-		9AE032442022C317006D6140 /* HXBRequestType_MYManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031462022C316006D6140 /* HXBRequestType_MYManager.m */; };
-		9AE032452022C317006D6140 /* HXBSetGesturePasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0314A2022C316006D6140 /* HXBSetGesturePasswordRequest.m */; };
 		9AE032462022C317006D6140 /* HXBModifyTransactionPasswordRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE0314D2022C316006D6140 /* HXBModifyTransactionPasswordRequest.m */; };
 		9AE032492022C317006D6140 /* HXBWithdrawalsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031542022C316006D6140 /* HXBWithdrawalsRequest.m */; };
 		9AE0324A2022C317006D6140 /* HXBAccumulatedIncomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE031582022C316006D6140 /* HXBAccumulatedIncomeView.m */; };
@@ -802,6 +801,8 @@
 		8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+STFrame.m"; sourceTree = "<group>"; };
 		8DAD30761FBA8F8B00E2AEE8 /* HXBBaseTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTextField.h; sourceTree = "<group>"; };
 		8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTextField.m; sourceTree = "<group>"; };
+		9A054D1A2042B7C900DD0BE7 /* HXBSetGesturePasswordAgent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HXBSetGesturePasswordAgent.h; sourceTree = "<group>"; };
+		9A054D1B2042B7C900DD0BE7 /* HXBSetGesturePasswordAgent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HXBSetGesturePasswordAgent.m; sourceTree = "<group>"; };
 		9A226B0C1FE7B1AB00E27DAC /* NSArray+IDPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+IDPExtension.h"; sourceTree = "<group>"; };
 		9A226B0D1FE7B1AB00E27DAC /* NSArray+IDPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IDPExtension.m"; sourceTree = "<group>"; };
 		9A226B121FE7B1AB00E27DAC /* NSDictionary+IDPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+IDPExtension.h"; sourceTree = "<group>"; };
@@ -1027,8 +1028,6 @@
 		9AE031422022C316006D6140 /* HXBMobifyPassword_LoginRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBMobifyPassword_LoginRequest.m; sourceTree = "<group>"; };
 		9AE031452022C316006D6140 /* HXBRequestType_MYManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBRequestType_MYManager.h; sourceTree = "<group>"; };
 		9AE031462022C316006D6140 /* HXBRequestType_MYManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBRequestType_MYManager.m; sourceTree = "<group>"; };
-		9AE031492022C316006D6140 /* HXBSetGesturePasswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSetGesturePasswordRequest.h; sourceTree = "<group>"; };
-		9AE0314A2022C316006D6140 /* HXBSetGesturePasswordRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSetGesturePasswordRequest.m; sourceTree = "<group>"; };
 		9AE0314C2022C316006D6140 /* HXBModifyTransactionPasswordRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBModifyTransactionPasswordRequest.h; sourceTree = "<group>"; };
 		9AE0314D2022C316006D6140 /* HXBModifyTransactionPasswordRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBModifyTransactionPasswordRequest.m; sourceTree = "<group>"; };
 		9AE031532022C316006D6140 /* HXBWithdrawalsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBWithdrawalsRequest.h; sourceTree = "<group>"; };
@@ -2458,6 +2457,8 @@
 				9A6B578020299B0200798DE0 /* HXBOpenDepositAccountAgent.m */,
 				9A6B578220299B1D00798DE0 /* HXBModifyTransactionPasswordAgent.h */,
 				9A6B578320299B1D00798DE0 /* HXBModifyTransactionPasswordAgent.m */,
+				9A054D1A2042B7C900DD0BE7 /* HXBSetGesturePasswordAgent.h */,
+				9A054D1B2042B7C900DD0BE7 /* HXBSetGesturePasswordAgent.m */,
 			);
 			path = RequestAgent;
 			sourceTree = "<group>";
@@ -3187,8 +3188,6 @@
 		9AE031472022C316006D6140 /* HXBSetGesturePassword */ = {
 			isa = PBXGroup;
 			children = (
-				9AE031492022C316006D6140 /* HXBSetGesturePasswordRequest.h */,
-				9AE0314A2022C316006D6140 /* HXBSetGesturePasswordRequest.m */,
 			);
 			path = HXBSetGesturePassword;
 			sourceTree = "<group>";
@@ -5257,7 +5256,6 @@
 				E1CD4BD21ED83064000CC57B /* HXBBaseHandDate.m in Sources */,
 				4E823A801FB0354B00DD7079 /* UITextField+HLNumberFormatTextField.m in Sources */,
 				9AE0339D2022C422006D6140 /* HXBTenderDetailCell.m in Sources */,
-				9AE032452022C317006D6140 /* HXBSetGesturePasswordRequest.m in Sources */,
 				9AE033A62022C422006D6140 /* HXBFin_LoanTruansferDetail_TopView.m in Sources */,
 				9AE032022022C317006D6140 /* HXBCircleInfoView.m in Sources */,
 				E133DCE21EEE3597009466DE /* HXBSendSmscodeView.m in Sources */,
@@ -5466,6 +5464,7 @@
 				9AE0339E2022C422006D6140 /* HXBFin_DetailsViewBase.m in Sources */,
 				E133DCF11EEE3597009466DE /* HXBUserInfoModel.m in Sources */,
 				4EA8C1A11FBC2FB50064019C /* UIImage+HXBUtil.m in Sources */,
+				9A054D1C2042B7C900DD0BE7 /* HXBSetGesturePasswordAgent.m in Sources */,
 				9AE0338A2022C422006D6140 /* HXBFinHomePageModel_PlanList.m in Sources */,
 				9AE033A92022C423006D6140 /* HXBFin_PlanDetailView_TopView.m in Sources */,
 				9AE032112022C317006D6140 /* HXBMainListView_Loan.m in Sources */,

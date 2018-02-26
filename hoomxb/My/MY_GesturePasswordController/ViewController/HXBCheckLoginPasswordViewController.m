@@ -8,7 +8,6 @@
 
 #import "HXBCheckLoginPasswordViewController.h"
 #import "HXBGesturePasswordViewController.h"//手势密码
-#import "HXBSetGesturePasswordRequest.h"
 #import "HXBCustomTextField.h"
 #import "SVGKit/SVGKImageView.h"
 #import "HXBMyGestureViewModel.h"

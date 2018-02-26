@@ -22,7 +22,7 @@
  @param requestBlock 请求回调， 补充request的参数
  @param resultBlock 结果回调
  */
-- (void)downLoadUserInfoWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock;
++ (void)downLoadUserInfoWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock;
 
 + (void) signOut;
 @end

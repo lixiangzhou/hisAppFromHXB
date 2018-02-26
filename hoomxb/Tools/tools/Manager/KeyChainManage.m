@@ -240,15 +240,17 @@ static NSString *const hostH5 = @"hostH5";
  @param resultBlock 结果回调
  */
 - (void)downLoadUserInfoWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock{
-    
-    [HXBRequestUserInfo downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self setValueWithUserInfoModel:viewModel];
-        if (resultBlock) {
-            resultBlock(viewModel, nil);
+    [HXBRequestUserInfo downLoadUserInfoWithResultBlock:requestBlock resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        if(viewModel) {
+            [self setValueWithUserInfoModel:viewModel];
+            if (resultBlock) {
+                resultBlock(viewModel, nil);
+            }
         }
-    } andFailure:^(NSError *error) {
-        if (resultBlock) {
-            resultBlock(nil, error);
+        else{
+            if (resultBlock) {
+                resultBlock(nil, error);
+            }
         }
     }];
 }

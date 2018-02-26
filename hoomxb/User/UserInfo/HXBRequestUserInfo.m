@@ -91,7 +91,7 @@
  @param requestBlock 请求回调， 补充request的参数
  @param resultBlock 结果回调
  */
-- (void)downLoadUserInfoWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock {
++ (void)downLoadUserInfoWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock {
     
     NYBaseRequest *userInfoAPI = [[NYBaseRequest alloc]init];
     userInfoAPI.requestUrl = kHXBUser_UserInfoURL;
@@ -114,7 +114,7 @@
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
         if(request.responseObject){
-            error = [NSError errorWithDomain:@"" code:0 userInfo:request.responseObject];
+            error = [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject];
         }
         if (resultBlock) {
             resultBlock(nil, error);
