@@ -148,6 +148,7 @@
 		8DAD308D1FBA8F8C00E2AEE8 /* SwipeTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30721FBA8F8B00E2AEE8 /* SwipeTableView.m */; };
 		8DAD308E1FBA8F8C00E2AEE8 /* UIView+STFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */; };
 		8DAD308F1FBA8F8C00E2AEE8 /* HXBBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */; };
+		9A054D2320440B5A00DD0BE7 /* HXBBaseViewModel+KEYCHAIN.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A054D2220440B5A00DD0BE7 /* HXBBaseViewModel+KEYCHAIN.m */; };
 		9A226B1E1FE7B1AC00E27DAC /* NSArray+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B0D1FE7B1AB00E27DAC /* NSArray+IDPExtension.m */; };
 		9A226B211FE7B1AC00E27DAC /* NSDictionary+IDPExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B131FE7B1AB00E27DAC /* NSDictionary+IDPExtension.m */; };
 		9A226B281FE7B87E00E27DAC /* HXBBaseContDownModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A226B271FE7B87E00E27DAC /* HXBBaseContDownModel.m */; };
@@ -801,6 +802,8 @@
 		8DAD30741FBA8F8B00E2AEE8 /* UIView+STFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+STFrame.m"; sourceTree = "<group>"; };
 		8DAD30761FBA8F8B00E2AEE8 /* HXBBaseTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseTextField.h; sourceTree = "<group>"; };
 		8DAD30771FBA8F8B00E2AEE8 /* HXBBaseTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseTextField.m; sourceTree = "<group>"; };
+		9A054D2120440B5A00DD0BE7 /* HXBBaseViewModel+KEYCHAIN.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HXBBaseViewModel+KEYCHAIN.h"; sourceTree = "<group>"; };
+		9A054D2220440B5A00DD0BE7 /* HXBBaseViewModel+KEYCHAIN.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "HXBBaseViewModel+KEYCHAIN.m"; sourceTree = "<group>"; };
 		9A226B0C1FE7B1AB00E27DAC /* NSArray+IDPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+IDPExtension.h"; sourceTree = "<group>"; };
 		9A226B0D1FE7B1AB00E27DAC /* NSArray+IDPExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+IDPExtension.m"; sourceTree = "<group>"; };
 		9A226B121FE7B1AB00E27DAC /* NSDictionary+IDPExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+IDPExtension.h"; sourceTree = "<group>"; };
@@ -3951,6 +3954,8 @@
 			children = (
 				9AE033B62022F8BB006D6140 /* HXBBaseViewModel.h */,
 				9AE033B72022F8BB006D6140 /* HXBBaseViewModel.m */,
+				9A054D2120440B5A00DD0BE7 /* HXBBaseViewModel+KEYCHAIN.h */,
+				9A054D2220440B5A00DD0BE7 /* HXBBaseViewModel+KEYCHAIN.m */,
 			);
 			path = BaseViewModel;
 			sourceTree = "<group>";
@@ -5423,6 +5428,7 @@
 				9AE031F62022C317006D6140 /* HXBBindBankCardViewController.m in Sources */,
 				E1CD4BDA1ED85266000CC57B /* PYFullScreenGesturePOPManager.m in Sources */,
 				9AE034B320232B0F006D6140 /* EllipsePageControl.m in Sources */,
+				9A054D2320440B5A00DD0BE7 /* HXBBaseViewModel+KEYCHAIN.m in Sources */,
 				8DAD30791FBA8F8C00E2AEE8 /* HXBBaseAlertViewController.m in Sources */,
 				E133DCE81EEE3597009466DE /* HXBSendSmscodeViewController.m in Sources */,
 				9AE031F52022C317006D6140 /* HXBBankCardListViewController.m in Sources */,
