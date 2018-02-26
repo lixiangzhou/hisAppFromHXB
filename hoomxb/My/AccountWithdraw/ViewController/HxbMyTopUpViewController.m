@@ -48,9 +48,9 @@
     self.isColourGradientNavigationBar = YES;
     
     kWeakSelf
-    [self.viewModel downLoadUserInfoWithResultBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        if (viewModel) {
-            weakSelf.myTopUpBaseView.viewModel = viewModel;
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.myTopUpBaseView.viewModel = weakSelf.viewModel.userInfoModel;
         }
     }];
 }

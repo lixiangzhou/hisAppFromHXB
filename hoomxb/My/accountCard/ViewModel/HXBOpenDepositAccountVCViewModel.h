@@ -7,6 +7,7 @@
 //
 
 #import "HXBBaseViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBOpenDepositAccountVCViewModel : HXBBaseViewModel
 
@@ -17,10 +18,4 @@
  */
 - (void)openDepositAccountRequestWithArgument:(NSDictionary *)requestArgument andCallBack:(void(^)(BOOL isSuccess))callBackBlock;
 
-/**
- 更新用户信息
-
- @param resultBlock 结果回调
- */
-- (void)downLoadUserInfoWithResultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))resultBlock;
 @end

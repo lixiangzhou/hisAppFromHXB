@@ -20,8 +20,6 @@
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
 
-@property (nonatomic, strong) HXBRequestUserInfoViewModel *userModel;
-
 @property (nonatomic,strong) UITableView *tableView;
 
 @property (nonatomic, strong) HXBOpenDepositAccountVCViewModel *viewModel;
@@ -69,9 +67,9 @@
 - (void)loadUserInfo
 {
     kWeakSelf
-    [self.viewModel downLoadUserInfoWithResultBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        if (viewModel) {
-            if (viewModel.userInfoModel.userInfo.isCreateEscrowAcc)
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            if (weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isCreateEscrowAcc)
             {
                 [weakSelf.mainView.bottomBtn setTitle:@"提交" forState:UIControlStateNormal];
             }else
@@ -79,9 +77,9 @@
                 [weakSelf.mainView.bottomBtn setTitle:@"开通恒丰银行存管账户" forState:UIControlStateNormal];
             }
             //设置用户信息
-            [weakSelf.mainView setupUserIfoData:viewModel];
+            [weakSelf.mainView setupUserIfoData:weakSelf.viewModel.userInfoModel];
             
-            weakSelf.mainView.userModel = viewModel;
+            weakSelf.mainView.userModel = weakSelf.viewModel.userInfoModel;
         }
     }];
 }
@@ -160,7 +158,6 @@
     } else if (self.type == HXBChangePhone){
         HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
         modifyTransactionPasswordVC.title = @"修改绑定手机号";
-        modifyTransactionPasswordVC.userInfoModel = self.userModel.userInfoModel;
         [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
     }
 }
@@ -199,7 +196,6 @@
         kWeakSelf
         _mainView = [[HXBOpenDepositAccountView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _mainView.backgroundColor = kHXBColor_BackGround;
-        _mainView.userModel = self.userModel;
         
         _mainView.bankNameBlock = ^{
             [weakSelf enterBankCardListVC];

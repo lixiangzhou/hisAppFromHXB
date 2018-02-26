@@ -8,6 +8,7 @@
 
 #import "HXBBaseViewModel.h"
 #import "HXBMyRequestAccountModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBMyViewModel : HXBBaseViewModel
 @property (nonatomic, strong) HXBMyRequestAccountModel *accountModel;

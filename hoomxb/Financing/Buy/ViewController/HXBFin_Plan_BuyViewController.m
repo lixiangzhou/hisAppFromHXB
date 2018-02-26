@@ -21,7 +21,6 @@
 #import "HXBFinPlanBuyViewModel.h"
 
 @interface HXBFin_Plan_BuyViewController ()
-@property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) HXBJoinImmediateView *joinimmediateView;
 @property (nonatomic,copy) void (^clickLookMYInfoButtonBlock)();
 @property (nonatomic,strong) UITableView *tableView;
@@ -73,10 +72,10 @@
     
     //请求 个人数据
     kWeakSelf
-    [self.viewModel downLoadUserInfoWithResultBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        if (viewModel) {
-            weakSelf.availablePoint = viewModel.userInfoModel.userAssets.availablePoint;
-            weakSelf.assetsTotal = viewModel.userInfoModel.userAssets.assetsTotal;
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.availablePoint = weakSelf.viewModel.userInfoModel.userInfoModel.userAssets.availablePoint;
+            weakSelf.assetsTotal = weakSelf.viewModel.userInfoModel.userInfoModel.userAssets.assetsTotal;
         }
     }];
 }
@@ -103,11 +102,11 @@
 - (void) pushTopUPViewControllerWithAmount:(NSString *)amount {
     kWeakSelf
     
-    [self.viewModel downLoadUserInfoWithResultBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        if (viewModel) {
-            if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            if ([weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
             {
-                if (viewModel.userInfoModel.userInfo.isUnbundling) {
+                if (weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isUnbundling) {
                     [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
                     return;
                 }
@@ -200,7 +199,7 @@
         }
         
         //是否大于用户剩余金额
-        if (capital.integerValue > weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue) {
+        if (capital.integerValue > weakSelf.viewModel.userInfoModel.userInfoModel.userAssets.availablePoint.floatValue) {
             NSLog(@"%@",@"输入金额大于了剩余可投金额");
             [HxbHUDProgress showMessageCenter:@"余额不足，请先充值" inView:self.view andBlock:^{
                 
@@ -278,10 +277,10 @@
 - (void)setValue {
     [self setUPModel];
     
-    [self.viewModel downLoadUserInfoWithResultBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        if (viewModel) {
-            self.userInfoViewModel = viewModel;
-            [self setUPModel];
+    kWeakSelf
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf setUPModel];
         }
     }];
 }
@@ -304,7 +303,7 @@
         ///加入上限
         model.upperLimitLabel_constStr = @"本期计划加入上限";
         ///余额 title
-        model.balanceLabelStr = [NSString hxb_getPerMilWithDouble:weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue];
+        model.balanceLabelStr = [NSString hxb_getPerMilWithDouble:weakSelf.viewModel.userInfoModel.userInfoModel.userAssets.availablePoint.floatValue];
         ///收益方法
         model.profitTypeLabelStr = weakSelf.planViewModel.profitType_UI;
         /// ￥1000起投，1000递增 placeholder

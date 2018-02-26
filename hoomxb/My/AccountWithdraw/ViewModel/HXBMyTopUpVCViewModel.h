@@ -7,6 +7,7 @@
 //
 
 #import "HXBBaseViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBMyTopUpVCViewModel : HXBBaseViewModel
 
@@ -18,10 +19,4 @@
  */
 - (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock;
 
-/**
- 更新用户信息
- 
- @param resultBlock 结果回调
- */
-- (void)downLoadUserInfoWithResultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))resultBlock;
 @end
