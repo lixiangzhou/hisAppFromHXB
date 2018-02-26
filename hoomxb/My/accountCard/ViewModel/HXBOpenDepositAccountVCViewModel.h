@@ -10,6 +10,8 @@
 @class HXBCardBinModel;
 @interface HXBOpenDepositAccountVCViewModel : HXBBaseViewModel
 
+@property (nonatomic, strong) HXBCardBinModel *cardBinModel;
+
 /**
  开通存管账户
  
@@ -24,6 +26,6 @@
  @param isToast 是否需要提示信息
  @param callBackBlock 回调
  */
-+ (void)checkCardBinResultRequestWithBankNumber:(NSString *)bankNumber andisToastTip:(BOOL)isToast andCallBack:(void(^)(BOOL isSuccess))callBackBlock;
+- (void)checkCardBinResultRequestWithBankNumber:(NSString *)bankNumber andisToastTip:(BOOL)isToast andCallBack:(void(^)(BOOL isSuccess))callBackBlock;
 
 @end

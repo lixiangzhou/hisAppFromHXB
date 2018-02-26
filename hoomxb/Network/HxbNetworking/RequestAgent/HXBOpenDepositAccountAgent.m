@@ -37,7 +37,7 @@
     } failure:^(NYBaseRequest *request, NSError *error) {
         
         if (request.responseObject) {
-            error = [NSError errorWithDomain:@"" code:0 userInfo:request.responseObject];
+            error = [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject];
         }
         if (resultBlock) {
             resultBlock(nil,error);

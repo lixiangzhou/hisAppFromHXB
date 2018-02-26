@@ -23,15 +23,6 @@
 - (void)accountRechargeRequestWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;//短信和语音
 
 
-/**
- 卡bin校验
- 
- @param bankNumber 银行卡号
- @param isToast 是否需要提示信息
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
- */
-+ (void)checkCardBinResultRequestWithBankNumber:(NSString *)bankNumber andisToastTip:(BOOL)isToast andSuccessBlock: (void(^)(HXBCardBinModel *cardBinModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
 @end

@@ -8,6 +8,15 @@
 
 #import "HXBBankCardViewModel.h"
 #import "NYBaseRequest+HXB.h"
+#import "HXBOpenDepositAccountAgent.h"
+#import "HXBCardBinModel.h"
+@interface HXBBankCardViewModel()
+
+@property (nonatomic, strong) NYBaseRequest *cardBinrequest;
+
+@property (nonatomic, assign) BOOL cardBinIsShowTost;
+
+@end
 
 @implementation HXBBankCardViewModel
 
@@ -17,6 +26,16 @@
         if (status == kHXBOpenAccount_Outnumber) {
             return NO;
         }
+    }
+    else if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin] && !self.cardBinIsShowTost) {
+        return NO;
+    }
+    return [super erroStateCodeDeal:request];
+}
+
+- (BOOL)erroResponseCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin] && !self.cardBinIsShowTost) {
+        return NO;
     }
     return [super erroStateCodeDeal:request];
 }
@@ -62,7 +81,7 @@
 
 - (void)bindBankCardRequestWithArgument:(NSDictionary *)requestArgument andFinishBlock:(void (^)(BOOL isSuccess))finishBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     versionUpdateAPI.requestUrl = kHXBAccount_Bindcard;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
@@ -102,6 +121,38 @@
         }
     }];
     
+}
+
+/**
+ 卡bin校验
+ 
+ @param bankNumber 银行卡号
+ @param isToast 是否需要提示信息
+ @param callBackBlock 回调
+ */
+- (void)checkCardBinResultRequestWithBankNumber:(NSString *)bankNumber andisToastTip:(BOOL)isToast andCallBack:(void(^)(BOOL isSuccess))callBackBlock
+{
+    [self.cardBinrequest cancelRequest];
+    if (bankNumber == nil) bankNumber = @"";
+    kWeakSelf
+    [HXBOpenDepositAccountAgent checkCardBinResultRequestWithWithResultBlock:^(NYBaseRequest *request) {
+        request.hudDelegate = weakSelf;
+        request.requestArgument = @{
+                                    @"bankCard" : bankNumber
+                                    };
+        request.showHud = isToast;
+        weakSelf.cardBinrequest = request;
+        weakSelf.cardBinIsShowTost = isToast;
+    } resultBlock:^(HXBCardBinModel *cardBinModel, NSError *error) {
+        NSLog(@"%@",error);
+        if (error) {
+            callBackBlock(NO);
+        }
+        else {
+            weakSelf.cardBinModel = cardBinModel;
+            callBackBlock(YES);
+        }
+    }];
 }
 
 - (NSString *)validateIdCardNo:(NSString *)cardNo

@@ -68,48 +68,4 @@
     
 }
 
-
-/**
- 卡bin校验
-
- @param bankNumber 银行卡号
- @param isToast 是否需要提示信息
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
- */
-+ (void)checkCardBinResultRequestWithBankNumber:(NSString *)bankNumber andisToastTip:(BOOL)isToast andSuccessBlock: (void(^)(HXBCardBinModel *cardBinModel))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
-{
-    HXBBaseRequest *versionUpdateAPI = [[HXBBaseRequest alloc] init];
-    versionUpdateAPI.requestUrl = kHXBUser_checkCardBin;
-    versionUpdateAPI.requestMethod = NYRequestMethodPost;
-    if (bankNumber == nil) bankNumber = @"";
-    versionUpdateAPI.requestArgument = @{
-                                         @"bankCard" : bankNumber
-                                         };
-    versionUpdateAPI.isUPReloadData = !isToast;
-    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            if (isToast && (status != kHXBCode_Enum_ProcessingField)) {
-                [HxbHUDProgress showTextWithMessage:responseObject[kResponseMessage]];
-            }
-            if (failureBlock) {
-                failureBlock(responseObject);
-            }
-            return;
-        }
-        
-        HXBCardBinModel *cardBinModel = [HXBCardBinModel yy_modelWithDictionary:responseObject[@"data"]];
-        if (successDateBlock) {
-            successDateBlock(cardBinModel);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-        if (failureBlock) {
-            failureBlock(error);
-        }
-    }];
-
-}
-
 @end

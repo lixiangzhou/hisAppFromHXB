@@ -261,10 +261,13 @@
         
         //卡bin校验
         _mainView.checkCardBin = ^(NSString *bankNumber) {
-            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
-                [weakSelf checkCardBin:cardBinModel];
-            } andFailureBlock:^(NSError *error) {
-                weakSelf.mainView.isCheckFailed = YES;
+            [weakSelf.openDepositAccountVM checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andCallBack:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [weakSelf checkCardBin:weakSelf.openDepositAccountVM.cardBinModel];
+                }
+                else {
+                    weakSelf.mainView.isCheckFailed = YES;
+                }
             }];
         };
         

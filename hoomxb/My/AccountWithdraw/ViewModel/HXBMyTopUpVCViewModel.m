@@ -12,7 +12,7 @@
 
 - (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     versionUpdateAPI.requestUrl = kHXBAccount_quickpay;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{

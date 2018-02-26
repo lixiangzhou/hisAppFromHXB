@@ -53,10 +53,14 @@
         };
         
         _withdrawCardView.checkCardBin = ^(NSString *bankNumber) {
-            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
-                [weakSelf checkCardBin:cardBinModel];
-            } andFailureBlock:^(NSError *error) {
-                weakSelf.withdrawCardView.isCheckFailed = YES;
+            
+            [weakSelf.bindBankCardVM checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andCallBack:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [weakSelf checkCardBin:weakSelf.bindBankCardVM.cardBinModel];
+                }
+                else {
+                    weakSelf.withdrawCardView.isCheckFailed = YES;
+                }
             }];
         };
         

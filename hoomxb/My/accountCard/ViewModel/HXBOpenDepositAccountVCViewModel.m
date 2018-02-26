@@ -9,6 +9,15 @@
 #import "HXBOpenDepositAccountVCViewModel.h"
 #import "HXBCardBinModel.h"
 #import "HXBOpenDepositAccountAgent.h"
+
+@interface HXBOpenDepositAccountVCViewModel()
+
+@property (nonatomic, strong) NYBaseRequest *cardBinrequest;
+
+@property (nonatomic, assign) BOOL cardBinIsShowTost;
+
+@end
+
 @implementation HXBOpenDepositAccountVCViewModel
 
 - (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
@@ -18,12 +27,22 @@
             return NO;
         }
     }
+    else if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin] && !self.cardBinIsShowTost) {
+        return NO;
+    }
+    return [super erroStateCodeDeal:request];
+}
+
+- (BOOL)erroResponseCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl isEqualToString:kHXBUser_checkCardBin] && !self.cardBinIsShowTost) {
+        return NO;
+    }
     return [super erroStateCodeDeal:request];
 }
 
 - (void)openDepositAccountRequestWithArgument:(NSDictionary *)requestArgument andCallBack:(void(^)(BOOL isSuccess))callBackBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     versionUpdateAPI.requestUrl = kHXBOpenDepositAccount_Escrow;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
@@ -73,21 +92,26 @@
  @param isToast 是否需要提示信息
  @param callBackBlock 回调
  */
-+ (void)checkCardBinResultRequestWithBankNumber:(NSString *)bankNumber andisToastTip:(BOOL)isToast andCallBack:(void(^)(BOOL isSuccess))callBackBlock
+- (void)checkCardBinResultRequestWithBankNumber:(NSString *)bankNumber andisToastTip:(BOOL)isToast andCallBack:(void(^)(BOOL isSuccess))callBackBlock
 {
+    [self.cardBinrequest cancelRequest];
     if (bankNumber == nil) bankNumber = @"";
-    
+    kWeakSelf
     [HXBOpenDepositAccountAgent checkCardBinResultRequestWithWithResultBlock:^(NYBaseRequest *request) {
-        
+        request.hudDelegate = weakSelf;
         request.requestArgument = @{
                             @"bankCard" : bankNumber
                             };
-        request.showHud = !isToast;
+        request.showHud = isToast;
+        weakSelf.cardBinrequest = request;
+        weakSelf.cardBinIsShowTost = isToast;
     } resultBlock:^(HXBCardBinModel *cardBinModel, NSError *error) {
+        NSLog(@"%@",error);
         if (error) {
             callBackBlock(NO);
         }
         else {
+            weakSelf.cardBinModel = cardBinModel;
             callBackBlock(YES);
         }
     }];

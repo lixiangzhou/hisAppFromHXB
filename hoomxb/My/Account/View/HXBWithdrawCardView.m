@@ -12,6 +12,7 @@
 #import "HXBCustomTextField.h"
 #import "HXBCardBinModel.h"
 #import "HXBOpenDepositAccountRequest.h"
+#import "HXBBankCardViewModel.h"
 @interface HXBWithdrawCardView ()<UITextFieldDelegate>
 //@property (nonatomic, strong) UITextField *bankCardTextField;
 //@property (nonatomic, strong) UIButton *bankNameBtn;
@@ -27,6 +28,8 @@
 /** bankCardID */
 @property (nonatomic, copy) NSString *bankCardID;
 @property (nonatomic, strong) UIView *line;
+
+@property (nonatomic, strong) HXBBankCardViewModel *bindBankCardVM;
 @end
 
 @implementation HXBWithdrawCardView
@@ -139,18 +142,19 @@
     if (self.nextButtonClickBlock) {
         kWeakSelf
         if ([self judgeIsNull]) return;
-        [HXBOpenDepositAccountRequest checkCardBinResultRequestWithBankNumber:_bankCardID andisToastTip:YES andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
-//            [weakSelf checkCardBin:cardBinModel];
-            weakSelf.cardBinModel = cardBinModel;
-            NSDictionary *dic = @{
-                                  @"bankCard" : _bankCardID,
-                                  @"bankReservedMobile" : self.phoneNumberTextField.text,
-                                  @"bankCode" : self.cardBinModel.bankCode
-                                  };
-            self.nextButtonClickBlock(dic);
-            
-        } andFailureBlock:^(NSError *error) {
-            weakSelf.isCheckFailed = YES;
+        [self.bindBankCardVM checkCardBinResultRequestWithBankNumber:_bankCardID andisToastTip:YES andCallBack:^(BOOL isSuccess) {
+            if (isSuccess) {
+                weakSelf.cardBinModel = weakSelf.bindBankCardVM.cardBinModel;
+                NSDictionary *dic = @{
+                                      @"bankCard" : _bankCardID,
+                                      @"bankReservedMobile" : self.phoneNumberTextField.text,
+                                      @"bankCode" : self.cardBinModel.bankCode
+                                      };
+                weakSelf.nextButtonClickBlock(dic);
+            }
+            else {
+                
+            }weakSelf.isCheckFailed = YES;
         }];
         
     }
@@ -385,6 +389,17 @@
     NSScanner* scan = [NSScanner scannerWithString:string];
     int val;
     return [scan scanInt:&val] && [scan isAtEnd];
+}
+
+#pragma mark 懒加载
+- (HXBBankCardViewModel *)bindBankCardVM {
+    if (!_bindBankCardVM) {
+        kWeakSelf
+        _bindBankCardVM = [[HXBBankCardViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf.superview;
+        }];
+    }
+    return _bindBankCardVM;
 }
 
 
