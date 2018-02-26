@@ -37,9 +37,14 @@
     
     self.isRedColorWithNavigationBar = YES;
     //判断是否风险评测
-    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        _availablePoint = viewModel.availablePoint;
-        _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
+    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+        request.hudDelegate = weakSelf.viewModel;
+        request.showHud = YES;
+    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        if (viewModel) {
+            _availablePoint = viewModel.availablePoint;
+            _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
+        }
     }];
     [self setup];
     [self downLoadData];

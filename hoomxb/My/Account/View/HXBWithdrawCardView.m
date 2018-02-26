@@ -54,15 +54,19 @@
 - (void)loadUserInfoData
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        [weakSelf.cardholderLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-            viewModelVM.leftLabelStr = [NSString stringWithFormat:@"持卡人：%@",[viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1]];
-            if (viewModel.userInfoModel.userInfo.realName.length > 4) {
-                viewModelVM.leftLabelStr = [NSString stringWithFormat:@"持卡人：***%@", [viewModel.userInfoModel.userInfo.realName substringFromIndex:viewModel.userInfoModel.userInfo.realName.length - 1]];
-            }
-            viewModelVM.rightLabelStr = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:viewModel.userInfoModel.userInfo.idNo.length - 2];
-            return viewModelVM;
-        }];
+    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+        request.showHud = YES;
+    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        if (viewModel) {
+            [weakSelf.cardholderLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+                viewModelVM.leftLabelStr = [NSString stringWithFormat:@"持卡人：%@",[viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1]];
+                if (viewModel.userInfoModel.userInfo.realName.length > 4) {
+                    viewModelVM.leftLabelStr = [NSString stringWithFormat:@"持卡人：***%@", [viewModel.userInfoModel.userInfo.realName substringFromIndex:viewModel.userInfoModel.userInfo.realName.length - 1]];
+                }
+                viewModelVM.rightLabelStr = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:viewModel.userInfoModel.userInfo.idNo.length - 2];
+                return viewModelVM;
+            }];
+        }
     }];
 }
 

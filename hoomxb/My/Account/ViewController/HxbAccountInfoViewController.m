@@ -67,20 +67,24 @@ UITableViewDataSource
         
     }else if(indexPath.section == 1){
         kWeakSelf
-        [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-            self.userInfoViewModel = viewModel;
-            if (indexPath.row == 0) {
-                //进入存管账户
-                [weakSelf entryDepositoryAccount:NO];
-                
-            }else if (indexPath.row == 1){
-                
-                if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-                    //进入银行卡
-                    [weakSelf entryDepositoryAccount:YES];
-                }else{
-                    //进入绑卡页面
-                    [weakSelf bindBankCardClick];
+        [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+            request.showHud = YES;
+        } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+            if (viewModel) {
+                self.userInfoViewModel = viewModel;
+                if (indexPath.row == 0) {
+                    //进入存管账户
+                    [weakSelf entryDepositoryAccount:NO];
+                    
+                }else if (indexPath.row == 1){
+                    
+                    if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+                        //进入银行卡
+                        [weakSelf entryDepositoryAccount:YES];
+                    }else{
+                        //进入绑卡页面
+                        [weakSelf bindBankCardClick];
+                    }
                 }
             }
         }];
@@ -407,10 +411,14 @@ UITableViewDataSource
 #pragma mark - 加载数据
 - (void)loadData_userInfo {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        weakSelf.userInfoViewModel = viewModel;
-        _isDisplayAdvisor = weakSelf.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
-        [weakSelf.tableView reloadData];
+    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+        request.showHud = YES;
+    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        if (viewModel) {
+            weakSelf.userInfoViewModel = viewModel;
+            _isDisplayAdvisor = weakSelf.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
+            [weakSelf.tableView reloadData];
+        }
     }];
 }
 

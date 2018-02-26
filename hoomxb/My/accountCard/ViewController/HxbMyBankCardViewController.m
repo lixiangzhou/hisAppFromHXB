@@ -144,11 +144,15 @@
 - (void)loadUserInfo
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        weakSelf.userInfoView.leftStrArr = @[@"真实姓名",@"身份证号",@"存管协议"];
-        NSString *realName = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
-        NSString *idCard = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:viewModel.userInfoModel.userInfo.idNo.length - 2];
-        weakSelf.userInfoView.rightArr = @[realName,idCard,@"《恒丰银行…协议》"];
+    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+        request.showHud = YES;
+    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        if (viewModel) {
+            weakSelf.userInfoView.leftStrArr = @[@"真实姓名",@"身份证号",@"存管协议"];
+            NSString *realName = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
+            NSString *idCard = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:viewModel.userInfoModel.userInfo.idNo.length - 2];
+            weakSelf.userInfoView.rightArr = @[realName,idCard,@"《恒丰银行…协议》"];
+        }
     }];
 }
 

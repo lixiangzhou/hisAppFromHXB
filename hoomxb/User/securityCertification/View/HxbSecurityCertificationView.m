@@ -66,24 +66,28 @@ UITextFieldDelegate
 
 - (void)setModel{
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        self.userInfoViewModel = viewModel;
-        if ([viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
-            self.nameTextField.text = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
-            self.identityCardNumTextField.text =  [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:viewModel.userInfoModel.userInfo.idNo.length - 2];
-            self.nameTextField.enabled = NO;
-            self.identityCardNumTextField.enabled = NO;
+    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+        request.showHud = YES;
+    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+        if (viewModel) {
+            self.userInfoViewModel = viewModel;
+            if ([viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+                self.nameTextField.text = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
+                self.identityCardNumTextField.text =  [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:viewModel.userInfoModel.userInfo.idNo.length - 2];
+                self.nameTextField.enabled = NO;
+                self.identityCardNumTextField.enabled = NO;
+            }
+            if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
+                self.payPasswordTextField.secureTextEntry = NO;
+                self.payPasswordTextField.text = @"已设置";
+                self.payPasswordTextField.enabled = NO;
+                self.hidePwdBtn.hidden = YES;
+            }
+            if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+                self.securityCertificationButton.hidden = YES;
+            }
+            [weakSelf judgeURL];
         }
-        if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-            self.payPasswordTextField.secureTextEntry = NO;
-            self.payPasswordTextField.text = @"已设置";
-            self.payPasswordTextField.enabled = NO;
-            self.hidePwdBtn.hidden = YES;
-        }
-        if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
-            self.securityCertificationButton.hidden = YES;
-        }
-        [weakSelf judgeURL];
     }];
 }
 
