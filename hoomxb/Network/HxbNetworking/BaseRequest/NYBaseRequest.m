@@ -10,6 +10,7 @@
 #import "NYHTTPConnection.h"
 #import "NYNetworkManager.h"
 #import "HxbHUDProgress.h"
+#import "SGInfoAlert.h"
 
 @implementation NYBaseRequest
 
@@ -158,11 +159,11 @@
  @param failure 失败回调
  */
 - (void)loadData:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure{
-//#ifdef DEBUG
-//    if([UIApplication sharedApplication].keyWindow) {
-//        [HxbHUDProgress showMessageCenter:[NSString stringWithFormat:@"我是重构接口：%@", self.requestUrl] inView:[UIApplication sharedApplication].keyWindow];
-//    }
-//#endif
+#ifdef DEBUG
+    if([UIApplication sharedApplication].keyWindow) {
+        [SGInfoAlert showInfo:[NSString stringWithFormat:@"我是重构接口：%@", self.requestUrl] bgColor:[UIColor blackColor].CGColor inView:[UIApplication sharedApplication].keyWindow vertical:0.3];
+    }
+#endif
     self.isNewRequestWay = YES;
     self.success = success;
     self.failure = failure;
