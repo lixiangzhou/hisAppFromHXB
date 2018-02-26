@@ -42,6 +42,8 @@
 @property (nonatomic,strong) UITableView *tableView;
 
 @property (nonatomic, strong) HXBLoanTruansferDetailViewModel *viewModel;
+
+@property (nonatomic, strong) HXBAlertManager* alertManager;
 @end
 
 @implementation HXBFin_DetailLoanTruansfer_ViewController
@@ -58,6 +60,17 @@
     [self setUP];
     [self setupAddView];
     [self downLoadData];
+}
+
+- (HXBAlertManager *)alertManager {
+    if(!_alertManager) {
+        kWeakSelf
+        _alertManager = [[HXBAlertManager alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
+    }
+    
+    return _alertManager;
 }
 
 - (void) setUP {
@@ -211,7 +224,7 @@
     }
     ///判断是否实名。。。。
     kWeakSelf
-    [HXBAlertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+    [self.alertManager checkOutRiskAssessmentWithSuperVC:self andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
         [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard userInfo:model];
     }];
 }

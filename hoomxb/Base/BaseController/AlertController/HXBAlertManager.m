@@ -74,11 +74,14 @@
 /**
  判断购买 判断
  */
-+ (void)checkOutRiskAssessmentWithSuperVC:(UIViewController *)vc andWithPushBlock:(void(^)(NSString *hasBindCard, HXBRequestUserInfoViewModel *model))pushBlock
+- (void)checkOutRiskAssessmentWithSuperVC:(UIViewController *)vc andWithPushBlock:(void(^)(NSString *hasBindCard, HXBRequestUserInfoViewModel *model))pushBlock
 {
-    [self showLoadDlg:YES];
-    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        [self showLoadDlg:NO];
+    kWeakSelf
+    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+        request.showHud = YES;
+        request.hudDelegate = weakSelf;
+     } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+
         
         if(viewModel) {
             //        //判断是否安全认证
@@ -91,7 +94,7 @@
             //        }
             
             if (viewModel.userInfoModel.userInfo.isUnbundling) {
-                [self callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
+                [[weakSelf class] callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
                 return;
             }
             
@@ -262,5 +265,4 @@
 + (void)promptPriorityWithAlertVC:(UIViewController *)alertVC {
     [[HXBRootVCManager manager].topVC presentViewController:alertVC animated:YES completion:nil];
 }
-
 @end
