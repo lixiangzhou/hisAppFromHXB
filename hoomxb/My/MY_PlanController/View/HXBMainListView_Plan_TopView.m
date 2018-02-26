@@ -7,6 +7,8 @@
 //
 
 #import "HXBMainListView_Plan_TopView.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
+
 @interface HXBMainListView_Plan_TopView ()
 
 
@@ -18,6 +20,8 @@
  累计收益
  */
 @property (nonatomic,strong) HXBBaseView_TwoLable_View *financePlanSumPlanInterestView;
+@property (nonatomic, strong) HXBBaseViewModel *viewModel;
+
 @end
 @implementation HXBMainListView_Plan_TopView
 
@@ -58,6 +62,10 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self  = [super initWithFrame: frame]) {
+        kWeakSelf
+        _viewModel = [[HXBBaseViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf;
+        }];
         [self setUP];
         _manager = [[HXBMainListView_Plan_TopViewManager alloc]init];
     }
@@ -128,21 +136,20 @@
 }
 - (void)setValue {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        if (viewModel) {
+    [_viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
             [weakSelf.financePlanAssetsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
                 viewModelVM.leftLabelStr = @"持有资产(元)";
-                viewModelVM.rightLabelStr = viewModel.lenderPrincipal;
+                viewModelVM.rightLabelStr = weakSelf.viewModel.userInfoModel.lenderPrincipal;
                 return viewModelVM;
             }];
             [weakSelf.financePlanSumPlanInterestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
                 viewModelVM.leftLabelStr = @"累计收益(元)";
-                viewModelVM.rightLabelStr = viewModel.lenderEarned;
+                viewModelVM.rightLabelStr = weakSelf.viewModel.userInfoModel.lenderEarned;
                 return viewModelVM;
             }];
         }
     }];
-    
 }
 @end
 @implementation HXBMainListView_Plan_TopViewManager

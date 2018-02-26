@@ -15,6 +15,7 @@
 #import "HXBMYModel_Loan_LoanRequestModel.h"///资产
 #import "HXBMy_Loan_Swipe.h"
 #import "HXBMY_LoanListViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBMY_LoanListViewController ()
 
@@ -81,8 +82,8 @@ kDealloc
 /// userinfo 数据请求
 - (void)assetStatisticsLoadData {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        if (viewModel) weakSelf.loanListView.userInfoViewModel = viewModel;
+    [_viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) weakSelf.loanListView.userInfoViewModel = weakSelf.viewModel.userInfoModel;
     }];
 }
 

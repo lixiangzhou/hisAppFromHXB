@@ -16,6 +16,7 @@
 #import "HXBMYModel_Plan_planRequestModel.h"
 #import "HXBMy_Plan_Swipe.h"
 #import "HXBMyPlanListViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBMY_PlanListViewController ()
 #pragma mark - view
@@ -97,8 +98,8 @@ kDealloc
 ///资产统计网络请求
 - (void)assetStatisticsLoadData {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        if (viewModel) weakSelf.planListView.userInfoViewModel = viewModel;
+    [_viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) weakSelf.planListView.userInfoViewModel = weakSelf.viewModel.userInfoModel;
     }];
 }
 

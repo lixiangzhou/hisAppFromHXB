@@ -9,9 +9,12 @@
 #import "HXBMY_AllFinanceViewController.h"
 #import "HXBMY_AllFinanceView.h"
 #import "HXBAccumulatedIncomeView.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
+
 @interface HXBMY_AllFinanceViewController ()
 @property (nonatomic,strong) HXBMY_AllFinanceView *allFinanceView;
 @property (nonatomic, strong) HXBAccumulatedIncomeView *accumulatedIncomeView;
+@property (nonatomic, strong) HXBBaseViewModel *viewModel;
 @end
 
 @implementation HXBMY_AllFinanceViewController
@@ -20,6 +23,10 @@
     [super viewDidLoad];
     self.isColourGradientNavigationBar = YES;
     self.title = @"资产统计";
+    kWeakSelf
+    _viewModel = [[HXBBaseViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.allFinanceView];
     [self.view addSubview:self.accumulatedIncomeView];
@@ -36,11 +43,10 @@
 - (void)loadData_userInfo
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        if (viewModel) {
-            weakSelf.allFinanceView.viewModel = viewModel;
-            weakSelf.accumulatedIncomeView.viewModel = viewModel;
+    [_viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.allFinanceView.viewModel = weakSelf.viewModel.userInfoModel;
+            weakSelf.accumulatedIncomeView.viewModel = weakSelf.viewModel.userInfoModel;
         }
     }];
 }

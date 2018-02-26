@@ -12,8 +12,9 @@
 #import "HXBBaseScrollToolBarView.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
 #import "HXBMYModel_Plan_planRequestModel.h"
-
 #import "HXBMYList_plan_Hold_TableView.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
+
 static NSString *const holdTitle = @"持有中";
 static NSString *const exitTingTitle = @"退出中";
 static NSString *const exitTitle = @"已退出";
@@ -53,6 +54,8 @@ static NSString *const exitTitle = @"已退出";
 
 ///资产统计的事件注册
 @property (nonatomic,copy) void (^assetStatisticsWithBlock)();
+@property (nonatomic,strong) HXBBaseViewModel *viewModel;
+
 @end
 
 
@@ -65,6 +68,10 @@ kDealloc
 {
     self = [super initWithFrame:frame];
     if (self) {
+        kWeakSelf
+        _viewModel = [[HXBBaseViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf;
+        }];
         [self setUP];
     }
     return self;
@@ -158,8 +165,8 @@ kDealloc
 }
 - (void)downLoadTopViewData {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        if (viewModel) weakSelf.topView.userInfoViewModel = viewModel;
+    [_viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) weakSelf.topView.userInfoViewModel = weakSelf.viewModel.userInfoModel;
     }];
 }
 //搭建中部的toolBarView

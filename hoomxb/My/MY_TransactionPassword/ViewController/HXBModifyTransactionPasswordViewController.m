@@ -14,6 +14,7 @@
 #import "HXBCallPhone_BottomView.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
 #import "HXBMyTraderPasswordGetVerifyCodeViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBModifyTransactionPasswordViewController ()
 
@@ -44,10 +45,10 @@
     _viewModel = [[HXBMyTraderPasswordGetVerifyCodeViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
     }];
-    [KeyChain downLoadUserInfoWithResultBlock:nil resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        if (viewModel) {
-            weakSelf.userInfoModel = viewModel.userInfoModel;
-            weakSelf.homeView.userInfoModel = viewModel.userInfoModel;
+    [_viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.userInfoModel = weakSelf.viewModel.userInfoModel.userInfoModel;
+            weakSelf.homeView.userInfoModel = weakSelf.viewModel.userInfoModel.userInfoModel;
             [weakSelf.homeView addSubview:weakSelf.callPhoneView];
             [weakSelf setupSubViewFrame];
         }
