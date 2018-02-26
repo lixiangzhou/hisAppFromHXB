@@ -13,7 +13,7 @@
 
 - (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId planAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock:(void (^)(BOOL, NSError *))resultBlock{
     kWeakSelf
-    NYBaseRequest *planAddRecortdAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *planAddRecortdAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     planAddRecortdAPI.requestUrl = kHXBFinanc_Plan_AddRecortdURL(planId);
     planAddRecortdAPI.requestMethod = NYRequestMethodGet;
     [planAddRecortdAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
@@ -30,7 +30,7 @@
 
 - (void)requestLoanAddRecortdWithId:(NSString *)loanId loadAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock:(void (^)(BOOL, NSError *))resultBlock{
     kWeakSelf
-    NYBaseRequest *loanAddRecortdAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *loanAddRecortdAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     loanAddRecortdAPI.requestUrl = kHXBFinanc_Loan_AddRecortdURL(loanId);
     loanAddRecortdAPI.requestMethod = NYRequestMethodGet;
     [loanAddRecortdAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
@@ -48,7 +48,7 @@
 - (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andOrder: (NSString *)order resultBlock:(void (^)(BOOL, NSError *))resultBlock{
     kWeakSelf
     
-    NYBaseRequest *loanTruansferAddRecortdAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *loanTruansferAddRecortdAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     loanTruansferAddRecortdAPI.requestUrl = kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruaLnsferId);
     loanTruansferAddRecortdAPI.requestMethod = NYRequestMethodGet;
     [loanTruansferAddRecortdAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
