@@ -7,12 +7,11 @@
 //
 
 #import "HXBMY_CapitalRecordViewController.h"
-#import "HXBMYRequest.h"
 #import "HXBMYCapitalRecord_TableView.h"
 #import "HXBMYViewModel_MainCapitalRecordViewModel.h"
 
 #import "HXBMY_Capital_Sift_ViewController.h"//筛选的控制器
-
+#import "HXBMYCapitalRecordViewModel.h"
 static NSString *const kNAVRightTitle_UI = @"筛选";
 static NSString *const kNAVRightTitle = @"筛选";
 
@@ -32,8 +31,10 @@ static NSString *const kScreen_Plan = @"FINANCEPLAN";
 static NSString *const kScreen_Loan_UI = @"散标";
 static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 
+static NSInteger const defaultPageCount = 20;
 @interface HXBMY_CapitalRecordViewController ()
 @property (nonatomic,strong) HXBMYCapitalRecord_TableView *tableView;
+@property (nonatomic,strong) HXBMYCapitalRecordViewModel *capitalRecordViewModel;
 @property (nonatomic,copy) NSString *screenType;
 @property (nonatomic, assign) NSInteger totalCount;
 
@@ -45,9 +46,12 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
     [super viewDidLoad];
     self.title = @"交易记录";
     self.automaticallyAdjustsScrollViewInsets = NO;
+    kWeakSelf
+    self.capitalRecordViewModel = [[HXBMYCapitalRecordViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     self.screenType = @" ";
-    [HXBMYRequest sharedMYRequest].isShowHUD = YES;
-    [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:YES];
+    [self downDataWithScreenType:@" "];
     [self setUP];
     self.isColourGradientNavigationBar = YES;
 }
@@ -57,7 +61,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
  */
 - (void)getNetworkAgain
 {
-    [self downDataWithScreenType:@" " andStartDate:nil andEndDate:nil andIsUPData:YES];
+    [self downDataWithScreenType:@" "];
 }
 
 - (void)setUP {
@@ -76,33 +80,33 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
 - (void)refresh {
     kWeakSelf
     [self.tableView hxb_headerWithRefreshBlock:^{
-        [weakSelf downDataWithScreenType:weakSelf.screenType andStartDate:nil andEndDate:nil andIsUPData:YES];
+        weakSelf.capitalRecordViewModel.capitalRecordPage = 1;
+        [weakSelf downDataWithScreenType:weakSelf.screenType];
     }];
 }
 
-- (void)downDataWithScreenType: (NSString *)screenType andStartDate:(NSString *)startData andEndDate:(NSString *)endData andIsUPData:(BOOL)isUPData {
-    [[HXBMYRequest sharedMYRequest] capitalRecord_requestWithScreenType:screenType
-                                                           andStartDate:startData
-                                                             andEndDate:endData
-                                                            andIsUPData:isUPData
-                                                        andSuccessBlock:^(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *> *viewModelArray, NSInteger totalCount)
-    {
-        self.totalCount = totalCount;
-        if (self.totalCount > 20) {
-            [self.tableView hxb_footerWithRefreshBlock:^{
-                [self downDataWithScreenType:self.screenType andStartDate:nil andEndDate:nil andIsUPData:NO];
-            }];
-        }
-        self.tableView.capitalRecortdDetailViewModelArray = viewModelArray;
-        self.tableView.totalCount = self.totalCount;
-        if (viewModelArray.count == self.totalCount) {
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+- (void)downDataWithScreenType: (NSString *)screenType{
+    kWeakSelf
+    [self.capitalRecordViewModel capitalRecord_requestWithScreenType:screenType resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.totalCount = [weakSelf.capitalRecordViewModel.totalCount integerValue];
+            if (weakSelf.totalCount > defaultPageCount && weakSelf.capitalRecordViewModel.currentPageCount == defaultPageCount) {
+                [weakSelf.tableView hxb_footerWithRefreshBlock:^{
+                    weakSelf.capitalRecordViewModel.capitalRecordPage ++;
+                    [weakSelf downDataWithScreenType:weakSelf.screenType];
+                }];
+            }
+            weakSelf.tableView.capitalRecortdDetailViewModelArray = weakSelf.capitalRecordViewModel.capitalRecordViewModel_array;
+            weakSelf.tableView.totalCount = weakSelf.totalCount;
+            if (weakSelf.capitalRecordViewModel.capitalRecordViewModel_array.count == weakSelf.totalCount) {
+                [weakSelf.tableView.mj_header endRefreshing];
+                [weakSelf.tableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [weakSelf.tableView endRefresh];
+            }
         } else {
-            [self.tableView endRefresh];
+            [weakSelf.tableView endRefresh];
         }
-    } andFailureBlock:^(NSError *error) {
-        [self.tableView endRefresh];
     }];
 }
 - (void)setUPNAVItem {
@@ -138,7 +142,7 @@ static NSString *const kScreen_Loan = @"LOAN_AND_TRANSFER";
                 break;
         }
         weakSelf.screenType = typeString;
-        [weakSelf downDataWithScreenType:typeString andStartDate:nil andEndDate:nil andIsUPData:YES];
+        [weakSelf downDataWithScreenType:typeString];
     }];
     //跳转筛选
     [self presentViewController:siftVC animated:YES completion:nil];

@@ -30,23 +30,8 @@
  */
 @property (nonatomic, assign) BOOL isShowHUD;
 
+
 #pragma mark - 主要页面的网络请求
-
-/// 资金记录 接口
-- (void)capitalRecord_requestWithScreenType: (NSString *)screenType
-                               andStartDate: (NSString *)startDate
-                                 andEndDate: (NSString *)endDate
-                                andIsUPData: (BOOL)isUPData 
-                            andSuccessBlock: (void(^)(NSArray<HXBMYViewModel_MainCapitalRecordViewModel *>* viewModelArray, NSInteger totalCount))successDateBlock
-                            andFailureBlock: (void(^)(NSError *error))failureBlock;
-
-
-///plan 详情页的 交易记录
-- (void)loanRecord_my_Plan_WithIsUPData: (BOOL)isUPData
-                      andWithRequestUrl: (NSString *)requestUrl
-                              andPlanID: (NSString *)planID
-                        andSuccessBlock: (void(^)(NSArray<HXBMY_PlanViewModel_LoanRecordViewModel *>* viewModelArray))successDateBlock
-                        andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 /**
  账户内-债权转让确认页
