@@ -24,7 +24,6 @@
 #import "HXBChooseCouponViewModel.h"
 #import "HXBCouponModel.h"
 #import "HXBTransactionPasswordView.h"
-#import "HXBFinPlanBuy_ViewModel.h"
 
 static NSString *const bankString = @"绑定银行卡";
 
@@ -90,19 +89,12 @@ static NSString *const bankString = @"绑定银行卡";
 // 是否符合标的等级购买规则
 //@property (nonatomic, assign) BOOL isMatchBuy;
 
-@property (nonatomic, strong) HXBFinPlanBuy_ViewModel *viewModel;
-
 @end
 
 @implementation HXBFin_Plan_Buy_ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    kWeakSelf
-    self.viewModel = [[HXBFinPlanBuy_ViewModel alloc] initWithBlock:^UIView *{
-        return weakSelf.view;
-    }];
     
     self.isColourGradientNavigationBar = YES;
     
@@ -598,12 +590,12 @@ static const NSInteger topView_high = 300;
 // 获取用户信息
 - (void)getNewUserInfo {
     kWeakSelf
-    [self.viewModel downLoadUserInfoWithResultBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        if (viewModel) {
-            weakSelf.userInfoViewModel = viewModel;
-            weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
-            [weakSelf.tableView reloadData];
-        }
+    [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
+        weakSelf.userInfoViewModel = viewModel;
+        weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
+        [weakSelf.tableView reloadData];
+        [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+    } andFailure:^(NSError *error) {
         [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
     }];
 }
