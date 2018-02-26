@@ -157,6 +157,16 @@
                     return;
                 }
             }
+            else{
+                NSDictionary* responseDic = request.responseObject;
+                NSString* codeValue = [responseDic stringAtPath:@"status"];
+                if(![codeValue isEqualToString:@"0"]) {
+                    if(request.failure) {
+                        request.failure(request, nil);
+                        return;
+                    }
+                }
+            }
         }
         else {
             if(request.isNewRequestWay) {
