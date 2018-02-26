@@ -15,9 +15,13 @@
  
  @param smscode 短信验证码
  @param amount 充值金额
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
  */
 - (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock;
 
+/**
+ 更新用户信息
+ 
+ @param resultBlock 结果回调
+ */
+- (void)downLoadUserInfoWithResultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))resultBlock;
 @end

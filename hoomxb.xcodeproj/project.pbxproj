@@ -2078,15 +2078,6 @@
 			path = Macros;
 			sourceTree = "<group>";
 		};
-		4EADD2B9202AEF33005DBAE8 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				4EADD2BA202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.h */,
-				4EADD2BB202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.m */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		4EB29C461F4A7AD800E33CDF /* YYCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -2977,7 +2968,6 @@
 			children = (
 				E18B16C1202D815D00B5ACB8 /* ViewModel */,
 				9AE030F62022C316006D6140 /* ViewController */,
-				4EADD2B9202AEF33005DBAE8 /* ViewModel */,
 			);
 			path = AccountWithdraw;
 			sourceTree = "<group>";
@@ -4762,6 +4752,8 @@
 		E18B16C1202D815D00B5ACB8 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				4EADD2BA202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.h */,
+				4EADD2BB202AF0FB005DBAE8 /* HXBMyTopUpVCViewModel.m */,
 				E18B16C2202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.h */,
 				E18B16C3202D818A00B5ACB8 /* HXBAccountWithdrawViewModel.m */,
 			);
