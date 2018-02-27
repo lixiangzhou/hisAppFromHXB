@@ -13,6 +13,8 @@
 #import "HXBBaseScrollToolBarView.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
 #import "HXBMYModel_Plan_planRequestModel.h"
+#import "HXBMyPlanSwipeViewModel.h"
+
 static NSString *const holdTitle = @"持有中";
 static NSString *const exitTingTitle = @"退出中";
 static NSString *const exitTitle = @"已退出";
@@ -65,6 +67,7 @@ UIViewControllerTransitioningDelegate
 
 ///资产统计的事件注册
 @property (nonatomic,copy) void (^assetStatisticsWithBlock)();
+@property (nonatomic,strong) HXBMyPlanSwipeViewModel *viewModel;
 
 @end
 
@@ -349,7 +352,10 @@ kDealloc
 
 - (void)setupSubView {
 //    [self setupTopView];// 搭建顶部的View信息
-    
+    kWeakSelf
+    _viewModel = [[HXBMyPlanSwipeViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf;
+    }];
     [self addSubview: self.scrollToolBarView];
     [self refresh];//刷新的搭建
     [self registerClickCellEvent];//注册cell的点击事件
@@ -361,9 +367,8 @@ kDealloc
 //}
 - (void)downLoadTopViewData {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.topView.userInfoViewModel = viewModel;
-    } andFailure:^(NSError *error) {
+    [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) weakSelf.topView.userInfoViewModel = weakSelf.viewModel.userInfoModel;
         
     }];
 }
