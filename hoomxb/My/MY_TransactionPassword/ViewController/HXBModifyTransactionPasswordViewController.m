@@ -9,7 +9,6 @@
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBModifyTransactionPasswordHomeView.h"
 #import "HXBTransactionPasswordConfirmationViewController.h"
-#import "HXBModifyTransactionPasswordRequest.h"
 #import "HXBModifyPhoneViewController.h"
 #import "HXBCallPhone_BottomView.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
@@ -22,7 +21,7 @@
 
 @property (nonatomic, strong) HXBCallPhone_BottomView *callPhoneView;
 
-@property (nonatomic, strong) HXBMyTraderPasswordGetVerifyCodeViewModel *viewModel;
+@property (nonatomic, strong) HXBModifyTransactionPasswordViewModel *viewModel;
 @end
 
 @implementation HXBModifyTransactionPasswordViewController
@@ -42,7 +41,7 @@
 //    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.isColourGradientNavigationBar = YES;
     kWeakSelf
-    _viewModel = [[HXBMyTraderPasswordGetVerifyCodeViewModel alloc] initWithBlock:^UIView *{
+    self.viewModel = [[HXBModifyTransactionPasswordViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
     }];
     [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
@@ -72,14 +71,11 @@
 {
     kWeakSelf
     if ([self.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
-        HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
-        [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andSuccessBlock:^(id responseObject) {
-            NSLog(@"%@",responseObject);
-            [weakSelf.homeView idcardWasSuccessfully];
-            [weakSelf getValidationCode];
-        } andFailureBlock:^(NSError *error) {
-            NSLog(@"%@",error);
-//            [HxbHUDProgress showTextWithMessage:@"请输入正确的身份证号"];
+        [self.viewModel modifyTransactionPasswordWithIdCard:IDCard resultBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                [weakSelf.homeView idcardWasSuccessfully];
+                [weakSelf getValidationCode];
+            }
         }];
     } else {
         [weakSelf.homeView idcardWasSuccessfully];
@@ -112,13 +108,10 @@
         [HxbHUDProgress showTextWithMessage:@"短信验证码不能为空"];
     } else {
         kWeakSelf
-        HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
-        [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:IDCard andWithCode:code andSuccessBlock:^(id responseObject) {
-            
-            [weakSelf checkIdentitySmsSuccessWithIDCard:IDCard andCode:code];
-            
-        } andFailureBlock:^(NSError *error) {
-            NSLog(@"%@",error);
+        [self.viewModel modifyTransactionPasswordWithIdCard:IDCard code:code resultBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                [weakSelf checkIdentitySmsSuccessWithIDCard:IDCard andCode:code];
+            }
         }];
     }
 }

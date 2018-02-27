@@ -162,7 +162,7 @@
                 NSString* codeValue = [responseDic stringAtPath:@"status"];
                 if(![codeValue isEqualToString:@"0"]) {
                     if(request.failure) {
-                        request.failure(request, nil);
+                        request.failure(request, [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject]);
                         return;
                     }
                 }
@@ -174,7 +174,7 @@
                 NSString* codeValue = [responseDic stringAtPath:@"status"];
                 if(![codeValue isEqualToString:@"0"]) {
                     if(request.failure) {
-                        request.failure(request, nil);
+                        request.failure(request, [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject]);
                         return;
                     }
                 }
