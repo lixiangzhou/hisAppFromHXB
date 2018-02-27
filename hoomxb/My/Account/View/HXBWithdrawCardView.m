@@ -11,6 +11,7 @@
 #import "SVGKit/SVGKImage.h"
 #import "HXBCustomTextField.h"
 #import "HXBCardBinModel.h"
+#import "HXBWithdrawCardViewModel.h"
 #import "HXBBankCardViewModel.h"
 @interface HXBWithdrawCardView ()<UITextFieldDelegate>
 //@property (nonatomic, strong) UITextField *bankCardTextField;
@@ -27,6 +28,7 @@
 /** bankCardID */
 @property (nonatomic, copy) NSString *bankCardID;
 @property (nonatomic, strong) UIView *line;
+@property (nonatomic, strong) HXBWithdrawCardViewModel *viewModel;
 
 @property (nonatomic, strong) HXBBankCardViewModel *bindBankCardVM;
 @end

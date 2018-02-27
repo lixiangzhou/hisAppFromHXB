@@ -8,6 +8,7 @@
 
 #import "HXBBaseViewModel.h"
 #import "HXBBankCardModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 @class HXBCardBinModel;
 @interface HXBBankCardViewModel : HXBBaseViewModel
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
