@@ -18,14 +18,17 @@
 #import"HxbMyTopUpViewController.h"///充值
 #import "HXBMiddlekey.h"
 #import "HxbWithdrawCardViewController.h"
+#import "HXBFinPlanBuyViewModel.h"
+
 @interface HXBFin_Plan_BuyViewController ()
-@property (nonatomic,strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic,strong) HXBJoinImmediateView *joinimmediateView;
 @property (nonatomic,copy) void (^clickLookMYInfoButtonBlock)();
-@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
+@property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 ///个人总资产
 @property (nonatomic,copy) NSString *assetsTotal;
+
+@property (nonatomic, strong) HXBFinPlanBuyViewModel *viewModel;
 @end
 
 @implementation HXBFin_Plan_BuyViewController
@@ -40,24 +43,18 @@
 }
 
 - (void)viewDidLoad {
-    kWeakSelf
     [super viewDidLoad];
-    [self.hxbBaseVCScrollView hxb_headerWithRefreshBlock:^{
-        [weakSelf.hxbBaseVCScrollView endRefresh];
+    
+    kWeakSelf
+    self.viewModel = [[HXBFinPlanBuyViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
     }];
-    self.hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
+    
+    [self.tableView hxb_headerWithRefreshBlock:^{
+        [weakSelf.tableView endRefresh];
+    }];
+    self.tableView.backgroundColor = kHXBColor_BackGround;
     self.isColourGradientNavigationBar = YES;
-    
-//    //请求 个人数据
-//    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-//        _availablePoint = viewModel.userInfoModel.userAssets.availablePoint;
-//        _assetsTotal = viewModel.userInfoModel.userAssets.assetsTotal;
-//    } andFailure:^(NSError *error) {
-//        
-//    }];
-    
-    //判断是否登录
-    [self isLogin];
 
     ///UI的搭建
     [self setUPViews];
@@ -72,12 +69,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     //请求 个人数据
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        _availablePoint = viewModel.userInfoModel.userAssets.availablePoint;
-        _assetsTotal = viewModel.userInfoModel.userAssets.assetsTotal;
-    } andFailure:^(NSError *error) {
-        
+    kWeakSelf
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.availablePoint = weakSelf.viewModel.userInfoModel.userInfoModel.userAssets.availablePoint;
+            weakSelf.assetsTotal = weakSelf.viewModel.userInfoModel.userInfoModel.userAssets.assetsTotal;
+        }
     }];
 }
 
@@ -88,18 +87,11 @@
     [self registerNegotiate];//点击了 服务协议
 }
 
-///判断是否登录
-- (void)isLogin {
-//    if (!KeyChain.isLogin) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-//    }
-}
-
 ///UI搭建
 - (void)setUPViews {
     kWeakSelf
     self.joinimmediateView = [[HXBJoinImmediateView alloc] init];
-    [self.hxbBaseVCScrollView addSubview:self.joinimmediateView];
+    [self.tableView addSubview:self.joinimmediateView];
     
     self.trackingScrollViewBlock = ^(UIScrollView *scrollView) {
         weakSelf.joinimmediateView.isEndEditing = YES;
@@ -109,25 +101,27 @@
 }
 - (void) pushTopUPViewControllerWithAmount:(NSString *)amount {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
-        {
-            if (viewModel.userInfoModel.userInfo.isUnbundling) {
-                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
-                return;
+    
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            if ([weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
+            {
+                if (weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isUnbundling) {
+                    [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
+                    return;
+                }
+                //进入绑卡界面
+                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                withdrawCardViewController.title = @"绑卡";
+                withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Recharge;
+                [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+            }else
+            {
+                HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+                hxbMyTopUpViewController.amount = amount;
+                [weakSelf.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
             }
-            //进入绑卡界面
-            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-            withdrawCardViewController.title = @"绑卡";
-            withdrawCardViewController.type = HXBRechargeAndWithdrawalsLogicalJudgment_Recharge;
-            [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-        }else
-        {
-            HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-            hxbMyTopUpViewController.amount = amount;
-            [self.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
         }
-    }andFailure:^(NSError *error) {
     }];
 }
 
@@ -205,7 +199,7 @@
         }
         
         //是否大于用户剩余金额
-        if (capital.integerValue > weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue) {
+        if (capital.integerValue > weakSelf.viewModel.userInfoModel.userInfoModel.userAssets.availablePoint.floatValue) {
             NSLog(@"%@",@"输入金额大于了剩余可投金额");
             [HxbHUDProgress showMessageCenter:@"余额不足，请先充值" inView:self.view andBlock:^{
                 
@@ -282,10 +276,12 @@
 
 - (void)setValue {
     [self setUPModel];
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        self.userInfoViewModel = viewModel;
-        [self setUPModel];
-        } andFailure:^(NSError *error) {
+    
+    kWeakSelf
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf setUPModel];
+        }
     }];
 }
 ///赋值
@@ -307,7 +303,7 @@
         ///加入上限
         model.upperLimitLabel_constStr = @"本期计划加入上限";
         ///余额 title
-        model.balanceLabelStr = [NSString hxb_getPerMilWithDouble:weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint.floatValue];
+        model.balanceLabelStr = [NSString hxb_getPerMilWithDouble:weakSelf.viewModel.userInfoModel.userInfoModel.userAssets.availablePoint.floatValue];
         ///收益方法
         model.profitTypeLabelStr = weakSelf.planViewModel.profitType_UI;
         /// ￥1000起投，1000递增 placeholder
@@ -331,7 +327,7 @@
 }
 
 - (void)dealloc {
-    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
+    [self.tableView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
     NSLog(@"✅被销毁 %@",self);
 }
 
@@ -340,7 +336,7 @@
     if ([keyPath isEqualToString:@"state"]) {
         NSNumber *tracking = change[NSKeyValueChangeNewKey];
         if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
-            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
+            self.trackingScrollViewBlock(self.tableView);
         }
         return;
     }
@@ -348,17 +344,17 @@
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
 }
 
-- (UITableView *)hxbBaseVCScrollView {
-    if (!_hxbBaseVCScrollView) {
+- (UITableView *)tableView {
+    if (!_tableView) {
         
-        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         
-        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
-        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
-        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
+        [self.view insertSubview:_tableView atIndex:0];
+        [_tableView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+        _tableView.tableFooterView = [[UIView alloc]init];
+        _tableView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_tableView];
     }
-    return _hxbBaseVCScrollView;
+    return _tableView;
 }
 @end

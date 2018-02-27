@@ -7,6 +7,8 @@
 //
 
 #import "HXBMainListView_Plan_TopView.h"
+#import "HXBMainListViewPlanTopViewViewModel.h"
+
 @interface HXBMainListView_Plan_TopView ()
 
 
@@ -18,6 +20,8 @@
  累计收益
  */
 @property (nonatomic,strong) HXBBaseView_TwoLable_View *financePlanSumPlanInterestView;
+@property (nonatomic, strong) HXBMainListViewPlanTopViewViewModel *viewModel;
+
 @end
 @implementation HXBMainListView_Plan_TopView
 
@@ -58,6 +62,10 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self  = [super initWithFrame: frame]) {
+        kWeakSelf
+        _viewModel = [[HXBMainListViewPlanTopViewViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf;
+        }];
         [self setUP];
         _manager = [[HXBMainListView_Plan_TopViewManager alloc]init];
     }
@@ -127,18 +135,20 @@
     }];
 }
 - (void)setValue {
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-       [self.financePlanAssetsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-            viewModelVM.leftLabelStr = @"持有资产(元)";
-            viewModelVM.rightLabelStr = viewModel.lenderPrincipal;
-           return viewModelVM;
-       }];
-        [self.financePlanSumPlanInterestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-            viewModelVM.leftLabelStr = @"累计收益(元)";
-            viewModelVM.rightLabelStr = viewModel.lenderEarned;
-            return viewModelVM;
-        }];
-    } andFailure:^(NSError *error) {
+    kWeakSelf
+    [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf.financePlanAssetsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+                viewModelVM.leftLabelStr = @"持有资产(元)";
+                viewModelVM.rightLabelStr = weakSelf.viewModel.userInfoModel.lenderPrincipal;
+                return viewModelVM;
+            }];
+            [weakSelf.financePlanSumPlanInterestView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+                viewModelVM.leftLabelStr = @"累计收益(元)";
+                viewModelVM.rightLabelStr = weakSelf.viewModel.userInfoModel.lenderEarned;
+                return viewModelVM;
+            }];
+        }
     }];
 }
 @end
