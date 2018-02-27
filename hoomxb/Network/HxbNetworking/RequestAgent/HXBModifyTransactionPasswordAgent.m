@@ -9,6 +9,7 @@
 #import "HXBModifyTransactionPasswordAgent.h"
 
 @implementation HXBModifyTransactionPasswordAgent
+
 + (void)modifyTransactionPasswordWithRequestBlock:(void(^)(NYBaseRequest *request))requestBlock resultBlock:(void (^)(BOOL isSuccess, NSError *error))resultBlock
 {
     NYBaseRequest *request = [[NYBaseRequest alloc] init];
@@ -22,9 +23,13 @@
             resultBlock(YES, nil);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        if(request.responseObject){
+            error = [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject];
+        }
         if (resultBlock) {
             resultBlock(NO, error);
         }
     }];
 }
+
 @end
