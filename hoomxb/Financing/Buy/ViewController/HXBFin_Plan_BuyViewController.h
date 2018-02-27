@@ -16,8 +16,7 @@
 @property (nonatomic,strong) HXBFinDetailViewModel_PlanDetail *planViewModel;
 //可用余额；
 @property (nonatomic,copy) NSString *availablePoint;
-///设置 值
-- (void)setUPValueWithJoinImmediateView_Model: (HXBJoinImmediateView_Model *)model;
+
 @property (nonatomic,copy) void(^callBackBlock)();
 - (void)clickLookMYInfoButtonWithBlock: (void(^)())clickLoockMYInfoButton;
 

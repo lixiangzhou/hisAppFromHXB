@@ -7,6 +7,7 @@
 //
 
 #import "HXBBaseViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBMyTopUpVCViewModel : HXBBaseViewModel
 
@@ -15,8 +16,6 @@
  
  @param smscode 短信验证码
  @param amount 充值金额
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
  */
 - (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock;
 
