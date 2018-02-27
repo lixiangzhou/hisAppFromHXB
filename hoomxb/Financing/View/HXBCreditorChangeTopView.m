@@ -263,7 +263,7 @@
         _profitTypeLabel.text = profitType;
         CGFloat width = [profitType boundingRectWithSize:CGSizeMake(100, 100) options:0 attributes:@{NSFontAttributeName: self.profitTypeLabel.font} context:nil].size.width;
         [_profitTypeLabel mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.width.offset(width + 12);
+            make.width.equalTo(@(width + 12));
         }];
     }
 }
