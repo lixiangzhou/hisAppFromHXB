@@ -90,7 +90,7 @@
 - (void)enterRecharge
 {
     kWeakSelf
-    [self.accountVM getVerifyCodeRequesWithRechargeAmount:self.myTopUpBaseView.amount andWithType:@"sms" andWithAction:@"recharge" andCallbackBlock:^(BOOL isSuccess,NSError *error) {
+    [self.viewModel getVerifyCodeRequesWithRechargeAmount:self.myTopUpBaseView.amount andWithType:@"sms" andWithAction:@"recharge" andCallbackBlock:^(BOOL isSuccess,NSError *error) {
         if (isSuccess) {
             weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
             [weakSelf requestRechargeResult];
@@ -155,9 +155,9 @@
 }
 
 #pragma mark Get Methods
-- (HXBMyTopUpVCViewModel *)accountVM {
-    if (!_accountVM) {
-        _accountVM = [[HXBMyTopUpVCViewModel alloc] initWithBlock:^UIView *{
+- (HXBMyTopUpVCViewModel *)viewModel {
+    if (!_viewModel) {
+        _viewModel = [[HXBMyTopUpVCViewModel alloc] initWithBlock:^UIView *{
             return [HXBRootVCManager manager].topVC.view;
         }];
     }

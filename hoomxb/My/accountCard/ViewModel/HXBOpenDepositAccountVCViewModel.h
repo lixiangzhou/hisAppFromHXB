@@ -7,6 +7,8 @@
 //
 
 #import "HXBBaseViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
+
 @class HXBCardBinModel;
 @interface HXBOpenDepositAccountVCViewModel : HXBBaseViewModel
 

@@ -216,9 +216,9 @@
         
         //卡bin校验
         _mainView.checkCardBin = ^(NSString *bankNumber) {
-            [weakSelf.openDepositAccountVM checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andCallBack:^(BOOL isSuccess) {
+            [weakSelf.viewModel checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andCallBack:^(BOOL isSuccess) {
                 if (isSuccess) {
-                    [weakSelf checkCardBin:weakSelf.openDepositAccountVM.cardBinModel];
+                    [weakSelf checkCardBin:weakSelf.viewModel.cardBinModel];
                 }
                 else {
                     weakSelf.mainView.isCheckFailed = YES;
