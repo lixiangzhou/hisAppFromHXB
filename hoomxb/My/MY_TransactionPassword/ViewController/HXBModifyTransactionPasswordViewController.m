@@ -43,15 +43,14 @@
     self.viewModel = [[HXBModifyTransactionPasswordViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
     }];
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        self.userInfoModel = viewModel.userInfoModel;
-        self.homeView.userInfoModel = viewModel.userInfoModel;
-        [self.homeView addSubview:self.callPhoneView];
-        [self setupSubViewFrame];
-    } andFailure:^(NSError *error) {
-        
+    [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.userInfoModel = weakSelf.viewModel.userInfoModel.userInfoModel;
+            weakSelf.homeView.userInfoModel = weakSelf.viewModel.userInfoModel.userInfoModel;
+            [weakSelf.homeView addSubview:weakSelf.callPhoneView];
+            [weakSelf setupSubViewFrame];
+        }
     }];
-    
 }
 
 - (void)setupSubViewFrame
