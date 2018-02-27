@@ -11,6 +11,7 @@
 #import "HXBMY_LoanTruansferViewModel.h"
 #import "HXBMYModel_Loan_LoanRequestModel.h"
 #import "HXBBaseViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBMY_LoanListViewModel : HXBBaseViewModel
 

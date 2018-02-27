@@ -7,7 +7,7 @@
 //
 
 #import "HxbSecurityCertificationView.h"
-#import "HXBModifyTransactionPasswordRequest.h"
+
 @interface HxbSecurityCertificationView()
 <
 UITextFieldDelegate
@@ -241,19 +241,6 @@ UITextFieldDelegate
     return YES;
 }
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
-//    if ([textField isEqual:self.identityCardNumTextField]) {
-//        ///验证身份证是否合法
-//        HXBModifyTransactionPasswordRequest *request = [[HXBModifyTransactionPasswordRequest alloc]init];
-//        ///验证身份证是否合法
-//        [request myTransactionPasswordWithIDcard:self.identityCardNumTextField.text andSuccessBlock:^(id responseObject) {
-//       } andFailureBlock:^(NSError *error) {
-//           //
-//           NSLog(@"身份证不合法");
-//       }];
-//    }
-    return YES;
-}
 
 
 @end

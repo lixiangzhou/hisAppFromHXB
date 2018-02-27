@@ -7,6 +7,7 @@
 //
 
 #import "HXBBaseViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBMyTopUpVCViewModel : HXBBaseViewModel
 

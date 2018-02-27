@@ -20,7 +20,7 @@
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
 @property (nonatomic, strong) HXBVerificationCodeAlertVC *alertVC;
 
-@property (nonatomic, strong) HXBMyTopUpVCViewModel *accountVM;
+@property (nonatomic, strong) HXBMyTopUpVCViewModel *viewModel;
 
 
 @end
@@ -48,10 +48,10 @@
     self.isColourGradientNavigationBar = YES;
     
     kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.myTopUpBaseView.viewModel = viewModel;
-    } andFailure:^(NSError *error) {
-        
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.myTopUpBaseView.viewModel = weakSelf.viewModel.userInfoModel;
+        }
     }];
 }
 
@@ -121,7 +121,7 @@
         self.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [self.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
         kWeakSelf
         self.alertVC.sureBtnClick = ^(NSString *pwd) {
-            [weakSelf.accountVM accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:weakSelf.myTopUpBaseView.amount andCallBackBlock:^(BOOL isSuccess) {
+            [weakSelf.viewModel accountRechargeResultRequestWithSmscode:pwd andWithQuickpayAmount:weakSelf.myTopUpBaseView.amount andCallBackBlock:^(BOOL isSuccess) {
                 if (isSuccess) {
                     [weakSelf.alertVC dismissViewControllerAnimated:NO completion:nil];
                     HXBRechargeCompletedViewController *rechargeCompletedVC = [[HXBRechargeCompletedViewController alloc] init];
@@ -161,7 +161,7 @@
             return [HXBRootVCManager manager].topVC.view;
         }];
     }
-    return _accountVM;
+    return _viewModel;
 }
 
 @end

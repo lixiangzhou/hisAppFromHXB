@@ -8,21 +8,26 @@
 
 #import "HXBTransactionPasswordConfirmationViewController.h"
 #import "HXBTransactionPasswordConfirmationView.h"
-#import "HXBModifyTransactionPasswordRequest.h"
 #import "HxbAccountInfoViewController.h"
 #import "HXBUnBindCardController.h"
 #import "HxbAccountInfoViewController.h"
+#import "HXBTransactionPasswordConfirmationViewModel.h"
 
 @interface HXBTransactionPasswordConfirmationViewController ()
 
 @property (nonatomic, strong) HXBTransactionPasswordConfirmationView *homeView;
-
+@property (nonatomic, strong) HXBTransactionPasswordConfirmationViewModel *viewModel;
 @end
 
 @implementation HXBTransactionPasswordConfirmationViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    kWeakSelf
+    self.viewModel = [[HXBTransactionPasswordConfirmationViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     
     [self setupSubView];
 }
@@ -46,20 +51,16 @@
 - (void)confirmTransactionWithPassword:(NSString *)surePassword
 {
     kWeakSelf
-    HXBModifyTransactionPasswordRequest *modifyTransactionPasswordRequest = [[HXBModifyTransactionPasswordRequest alloc] init];
-    [modifyTransactionPasswordRequest myTransactionPasswordWithIDcard:self.idcard andWithCode:self.code andWithPassword:surePassword andSuccessBlock:^(id responseObject) {
-        [HxbHUDProgress showTextWithMessage:@"修改成功"];
-        
-        UIViewController *accountVC = [weakSelf shouldPopToAccountVC];
-        if (accountVC != nil) {
-            [weakSelf.navigationController popToViewController:accountVC animated:YES];
-        } else {
-            [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+    [self.viewModel modifyTransactionPasswordWithIdCard:self.idcard password:surePassword resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            UIViewController *accountVC = [weakSelf shouldPopToAccountVC];
+            if (accountVC != nil) {
+                [weakSelf.navigationController popToViewController:accountVC animated:YES];
+            } else {
+                [weakSelf.navigationController popToRootViewControllerAnimated:YES];
+            }
         }
-    } andFailureBlock:^(NSError *error) {
-        
     }];
-    
 }
 // 以下代码控制跳转到账户信息，从解绑银行卡 忘记密码 进入时 有效
 - (UIViewController *)shouldPopToAccountVC {

@@ -25,7 +25,7 @@
 #import "HXBMyViewModel.h"
 
 @interface HxbMyViewController ()<MyViewDelegate>
-@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
+//@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @property (nonatomic, strong) HxbMyView *myView;
 @property (nonatomic, strong) HXBMyViewModel *viewModel;
 @end
@@ -97,17 +97,13 @@
 }
 
 #pragma mark - Setter Getter
-- (void)setUserInfoViewModel:(HXBRequestUserInfoViewModel *)userInfoViewModel
-{
-    _userInfoViewModel = userInfoViewModel;
-    self.myView.userInfoViewModel = self.userInfoViewModel;
-}
+
 
 #pragma mark - MyViewDelegate
 - (void)didLeftHeadBtnClick:(UIButton *)sender{
     HxbAccountInfoViewController *accountInfoVC = [[HxbAccountInfoViewController alloc]init];
-    accountInfoVC.userInfoViewModel = self.userInfoViewModel;
-    accountInfoVC.isDisplayAdvisor = self.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
+    accountInfoVC.userInfoViewModel = self.viewModel.userInfoModel;
+    accountInfoVC.isDisplayAdvisor = self.viewModel.userInfoModel.userInfoModel.userInfo.isDisplayAdvisor;
     [self.navigationController pushViewController:accountInfoVC animated:YES];
 }
 ///充值
@@ -128,54 +124,56 @@
 - (void)logicalJudgment:(HXBRechargeAndWithdrawalsLogicalJudgment)type
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.userInfoViewModel = viewModel;
-        if (weakSelf.userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
-            [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
-            return;
-        }
-        if (!weakSelf.userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-            
-            HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
-            alertVC.immediateOpenBlock = ^{
-                [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_alertBtn];
+    
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.myView.userInfoViewModel = weakSelf.viewModel.userInfoModel;
+            HXBRequestUserInfoViewModel *userInfoViewModel = weakSelf.viewModel.userInfoModel;
+            if (userInfoViewModel.userInfoModel.userInfo.isUnbundling) {
+                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
+                return;
+            }
+            if (!userInfoViewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
+                
+                HXBDepositoryAlertViewController *alertVC = [[HXBDepositoryAlertViewController alloc] init];
+                alertVC.immediateOpenBlock = ^{
+                    [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_alertBtn];
+                    HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
+                    //                openDepositAccountVC.userModel = viewModel;
+                    openDepositAccountVC.title = @"开通存管账户";
+                    openDepositAccountVC.type = type;
+                    [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
+                };
+                [weakSelf presentViewController:alertVC animated:NO completion:nil];
+                
+                
+            } else if ([userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
+            {
+                //进入绑卡界面
+                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
+                withdrawCardViewController.title = @"绑卡";
+                withdrawCardViewController.type = type;
+                withdrawCardViewController.userInfoModel = userInfoViewModel.userInfoModel;
+                [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
+            } else if (!([userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
+            {
+                //完善信息
                 HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-                //                openDepositAccountVC.userModel = viewModel;
-                openDepositAccountVC.title = @"开通存管账户";
+                openDepositAccountVC.title = @"完善信息";
                 openDepositAccountVC.type = type;
                 [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-            };
-            [weakSelf presentViewController:alertVC animated:NO completion:nil];
-            
-            
-        } else if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
-        {
-            //进入绑卡界面
-            HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-            withdrawCardViewController.title = @"绑卡";
-            withdrawCardViewController.type = type;
-            withdrawCardViewController.userInfoModel = self.userInfoViewModel.userInfoModel;
-            [weakSelf.navigationController pushViewController:withdrawCardViewController animated:YES];
-        } else if (!([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
-        {
-            //完善信息
-            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-            openDepositAccountVC.title = @"完善信息";
-            openDepositAccountVC.type = type;
-            [weakSelf.navigationController pushViewController:openDepositAccountVC animated:YES];
-        } else
-        {
-            if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
-                HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
-                [weakSelf.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
-            } else if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
-                if (!KeyChain.isLogin)  return;
-                HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
-                [weakSelf.navigationController pushViewController:withdrawViewController animated:YES];
+            } else
+            {
+                if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Recharge) {
+                    HxbMyTopUpViewController *hxbMyTopUpViewController = [[HxbMyTopUpViewController alloc]init];
+                    [weakSelf.navigationController pushViewController:hxbMyTopUpViewController animated:YES];
+                } else if (type == HXBRechargeAndWithdrawalsLogicalJudgment_Withdrawals){
+                    if (!KeyChain.isLogin)  return;
+                    HxbWithdrawViewController *withdrawViewController = [[HxbWithdrawViewController alloc]init];
+                    [weakSelf.navigationController pushViewController:withdrawViewController animated:YES];
+                }
             }
         }
-    } andFailure:^(NSError *error) {
-        
     }];
 }
 
@@ -191,10 +189,10 @@
 }
 - (void)loadData_userInfo {
     kWeakSelf
-    [HXBRequestUserInfo downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.userInfoViewModel = viewModel;
-        weakSelf.myView.isStopRefresh_Home = YES;
-    } andFailure:^(NSError *error) {
+    [self.viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.myView.userInfoViewModel = weakSelf.viewModel.userInfoModel;
+        }
         weakSelf.myView.isStopRefresh_Home = YES;
     }];
 }
