@@ -137,7 +137,7 @@
                 weakSelf.smscodeView.startsCountdown = NO;
                 weakSelf.smscodeView.isSendSpeechCode = NO;
                 NSInteger errorCode = 0;
-                if ([error isKindOfClass:[NSDictionary class]]) {
+                if ([error.userInfo isKindOfClass:[NSDictionary class]]) {
                     NSDictionary *dic = (NSDictionary *)error;
                     errorCode = [dic[@"status"] integerValue];
                 }else{

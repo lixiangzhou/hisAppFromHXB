@@ -319,7 +319,7 @@ static NSString *const bankString = @"绑定银行卡";
         }
         else {
             NSInteger errorCode = 0;
-            if ([error isKindOfClass:[NSDictionary class]]) {
+            if ([error.userInfo isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dic = (NSDictionary *)error;
                 errorCode = [dic[@"status"] integerValue];
             } else {
