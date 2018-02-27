@@ -10,29 +10,6 @@
 
 @implementation HXBWithdrawalsRequest
 
-- (void)bankCardListRequestWithSuccessBlock: (void(^)(id responseObject))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock
-{
-    NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
-    alterLoginPasswordAPI.requestUrl = kHXBSetWithdrawals_banklistURL;
-    alterLoginPasswordAPI.requestMethod = NYRequestMethodGet;
-//    alterLoginPasswordAPI.requestArgument = requestArgument;
-    [alterLoginPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            kHXBResponsShowHUD
-        }
-        if (successDateBlock) {
-            successDateBlock(responseObject);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
-//        [HxbHUDProgress showTextWithMessage:@"请求失败"];
-        if (failureBlock) {
-            failureBlock(error);
-        }
-    }];
-}
-
 /**
  获取到账时间
 

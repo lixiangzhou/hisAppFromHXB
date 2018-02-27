@@ -34,14 +34,13 @@
     self.viewModel = [[HXBFinancingLoanDetailViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
     }];
-    
     self.isRedColorWithNavigationBar = YES;
     //判断是否风险评测
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        _availablePoint = viewModel.availablePoint;
-        _isIdPassed = viewModel.userInfoModel.userInfo.isIdPassed.integerValue;
-    } andFailure:^(NSError *error) {
-        
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.availablePoint = weakSelf.viewModel.userInfoModel.availablePoint;
+            weakSelf.isIdPassed = weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isIdPassed.integerValue;
+        }
     }];
     [self setup];
     [self downLoadData];
