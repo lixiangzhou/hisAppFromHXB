@@ -14,14 +14,14 @@
 #import "HXBUnBindCardController.h"
 #import "HXBGeneralAlertVC.h"
 #import "HXBOpenDepositAccountViewController.h"
-
+#import "HXBBankCardViewModel.h"
 @interface HxbMyBankCardViewController ()
 
 /**
  数据模型
  */
 @property (nonatomic, strong) HXBBankCardModel *bankCardModel;
-
+@property (nonatomic, strong) HXBBankCardViewModel *viewModel;
 @property (nonatomic, strong) HXBUserInfoView *userInfoView;
 
 @property (nonatomic, strong) UILabel *tipLabel;
@@ -39,6 +39,10 @@
     [super viewDidLoad];
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.tipLabel];
+    kWeakSelf
+    self.viewModel = [[HXBBankCardViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     if (self.isBank) {
         self.title = @"银行卡信息";
         self.tipLabel.text = @"您在红小宝平台充值，提现均会使用该卡";
@@ -144,13 +148,11 @@
 - (void)loadUserInfo
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-        request.showHud = YES;
-    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        if (viewModel) {
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
             weakSelf.userInfoView.leftStrArr = @[@"真实姓名",@"身份证号",@"存管协议"];
-            NSString *realName = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
-            NSString *idCard = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:viewModel.userInfoModel.userInfo.idNo.length - 2];
+            NSString *realName = [weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.realName.length - 1];
+            NSString *idCard = [weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.idNo.length - 2];
             weakSelf.userInfoView.rightArr = @[realName,idCard,@"《恒丰银行…协议》"];
         }
     }];

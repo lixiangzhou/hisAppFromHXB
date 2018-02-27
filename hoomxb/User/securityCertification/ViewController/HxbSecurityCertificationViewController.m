@@ -11,16 +11,19 @@
 #import "HXBSignUPAndLoginRequest.h"//网络请求
 #import "HXBSecurityCertification_Request.h"
 #import "HxbWithdrawCardViewController.h"//绑卡
+#import "HXBSecurityCertificationViewModel.h"
 @interface HxbSecurityCertificationViewController ()
+@property (nonatomic, strong)HXBSecurityCertificationViewModel *viewModel;
 @end
 
 @implementation HxbSecurityCertificationViewController
 
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    kWeakSelf
+    self.viewModel = [[HXBSecurityCertificationViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     self.title = @"安全认证";
     HxbSecurityCertificationView *securityCertificationView = [[HxbSecurityCertificationView alloc]initWithFrame:self.view.frame];
     securityCertificationView.userInfoViewModel = self.userInfoViewModel;
@@ -32,11 +35,9 @@
         //安全认证请求
         [HXBSecurityCertification_Request securityCertification_RequestWithName:name andIdCardNo:idCard andTradpwd:transactionPassword andURL:url andSuccessBlock:^(BOOL isExist) {
             //（获取用户信息）
-            [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-                request.showHud = YES;
-            } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-                if (viewModel) {
-                    [self.navigationController popViewControllerAnimated:YES];
+            [weakSelf.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
                     //                //是否绑卡
                     //                if (!viewModel.userInfoModel.userInfo.hasBindCard.integerValue) {
                     ////                    HxbBindCardViewController *bindCardVC = [[HxbBindCardViewController alloc]init];

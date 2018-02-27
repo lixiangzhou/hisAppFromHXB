@@ -8,6 +8,7 @@
 
 #import "HxbSecurityCertificationView.h"
 #import "HXBModifyTransactionPasswordRequest.h"
+#import "HXBSecurityCertificationViewModel.h"
 @interface HxbSecurityCertificationView()
 <
 UITextFieldDelegate
@@ -20,6 +21,7 @@ UITextFieldDelegate
 @property (nonatomic, strong) UIButton *hidePwdBtn;
 /**安全认证 点击了下一步按钮*/
 @property (nonatomic,copy) void(^clickNextButtonBlock)(NSString *name, NSString *idCard, NSString *transactionPassword,NSString *url);
+@property (nonatomic, strong)HXBSecurityCertificationViewModel *viewModel;
 /**
  url
  */
@@ -58,7 +60,10 @@ UITextFieldDelegate
 //        [self addSubview:self.payPasswordConfirmTextField];
         [self addSubview:self.securityCertificationButton];
         [self addSubview:self.hidePwdBtn];
-        
+        kWeakSelf
+        self.viewModel = [[HXBSecurityCertificationViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf;
+        }];
         [self setModel];
     }
     return self;
@@ -66,25 +71,23 @@ UITextFieldDelegate
 
 - (void)setModel{
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
-        request.showHud = YES;
-    } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
-        if (viewModel) {
-            self.userInfoViewModel = viewModel;
-            if ([viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
-                self.nameTextField.text = [viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1];
-                self.identityCardNumTextField.text =  [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:viewModel.userInfoModel.userInfo.idNo.length - 2];
-                self.nameTextField.enabled = NO;
-                self.identityCardNumTextField.enabled = NO;
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
+            if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+                weakSelf.nameTextField.text = [weakSelf.userInfoViewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:weakSelf.userInfoViewModel.userInfoModel.userInfo.realName.length - 1];
+                weakSelf.identityCardNumTextField.text =  [weakSelf.userInfoViewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:weakSelf.userInfoViewModel.userInfoModel.userInfo.idNo.length - 2];
+                weakSelf.nameTextField.enabled = NO;
+                weakSelf.identityCardNumTextField.enabled = NO;
             }
-            if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
-                self.payPasswordTextField.secureTextEntry = NO;
-                self.payPasswordTextField.text = @"已设置";
-                self.payPasswordTextField.enabled = NO;
-                self.hidePwdBtn.hidden = YES;
+            if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"]) {
+                weakSelf.payPasswordTextField.secureTextEntry = NO;
+                weakSelf.payPasswordTextField.text = @"已设置";
+                weakSelf.payPasswordTextField.enabled = NO;
+                weakSelf.hidePwdBtn.hidden = YES;
             }
-            if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
-                self.securityCertificationButton.hidden = YES;
+            if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [weakSelf.userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"]) {
+                weakSelf.securityCertificationButton.hidden = YES;
             }
             [weakSelf judgeURL];
         }
