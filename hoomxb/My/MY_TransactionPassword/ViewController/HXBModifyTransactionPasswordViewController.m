@@ -12,8 +12,7 @@
 #import "HXBModifyPhoneViewController.h"
 #import "HXBCallPhone_BottomView.h"
 #import "HXBSignUPAndLoginRequest_EnumManager.h"
-#import "HXBMyTraderPasswordGetVerifyCodeViewModel.h"
-#import "HXBBaseViewModel+KEYCHAIN.h"
+#import "HXBModifyTransactionPasswordViewModel.h"
 
 @interface HXBModifyTransactionPasswordViewController ()
 

@@ -15,7 +15,6 @@
 #import "HXBMYModel_Loan_LoanRequestModel.h"///资产
 #import "HXBMy_Loan_Swipe.h"
 #import "HXBMY_LoanListViewModel.h"
-#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBMY_LoanListViewController ()
 

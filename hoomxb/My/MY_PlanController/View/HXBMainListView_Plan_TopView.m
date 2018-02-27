@@ -7,7 +7,7 @@
 //
 
 #import "HXBMainListView_Plan_TopView.h"
-#import "HXBBaseViewModel+KEYCHAIN.h"
+#import "HXBMainListViewPlanTopViewViewModel.h"
 
 @interface HXBMainListView_Plan_TopView ()
 
@@ -20,7 +20,7 @@
  累计收益
  */
 @property (nonatomic,strong) HXBBaseView_TwoLable_View *financePlanSumPlanInterestView;
-@property (nonatomic, strong) HXBBaseViewModel *viewModel;
+@property (nonatomic, strong) HXBMainListViewPlanTopViewViewModel *viewModel;
 
 @end
 @implementation HXBMainListView_Plan_TopView
@@ -63,7 +63,7 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self  = [super initWithFrame: frame]) {
         kWeakSelf
-        _viewModel = [[HXBBaseViewModel alloc] initWithBlock:^UIView *{
+        _viewModel = [[HXBMainListViewPlanTopViewViewModel alloc] initWithBlock:^UIView *{
             return weakSelf;
         }];
         [self setUP];

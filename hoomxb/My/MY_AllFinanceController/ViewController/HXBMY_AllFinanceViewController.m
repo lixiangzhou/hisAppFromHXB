@@ -9,12 +9,12 @@
 #import "HXBMY_AllFinanceViewController.h"
 #import "HXBMY_AllFinanceView.h"
 #import "HXBAccumulatedIncomeView.h"
-#import "HXBBaseViewModel+KEYCHAIN.h"
+#import "HXBMYAllFinanceViewModel.h"
 
 @interface HXBMY_AllFinanceViewController ()
 @property (nonatomic,strong) HXBMY_AllFinanceView *allFinanceView;
 @property (nonatomic, strong) HXBAccumulatedIncomeView *accumulatedIncomeView;
-@property (nonatomic, strong) HXBBaseViewModel *viewModel;
+@property (nonatomic, strong) HXBMYAllFinanceViewModel *viewModel;
 @end
 
 @implementation HXBMY_AllFinanceViewController
@@ -24,7 +24,7 @@
     self.isColourGradientNavigationBar = YES;
     self.title = @"资产统计";
     kWeakSelf
-    _viewModel = [[HXBBaseViewModel alloc] initWithBlock:^UIView *{
+    _viewModel = [[HXBMYAllFinanceViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
     }];
     self.view.backgroundColor = BACKGROUNDCOLOR;

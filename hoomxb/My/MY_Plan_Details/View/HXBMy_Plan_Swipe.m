@@ -13,7 +13,7 @@
 #import "HXBBaseScrollToolBarView.h"
 #import "HXBBaseTableView_MYPlanList_TableView.h"
 #import "HXBMYModel_Plan_planRequestModel.h"
-#import "HXBBaseViewModel+KEYCHAIN.h"
+#import "HXBMyPlanSwipeViewModel.h"
 
 static NSString *const holdTitle = @"持有中";
 static NSString *const exitTingTitle = @"退出中";
@@ -67,7 +67,7 @@ UIViewControllerTransitioningDelegate
 
 ///资产统计的事件注册
 @property (nonatomic,copy) void (^assetStatisticsWithBlock)();
-@property (nonatomic,strong) HXBBaseViewModel *viewModel;
+@property (nonatomic,strong) HXBMyPlanSwipeViewModel *viewModel;
 
 @end
 
@@ -353,7 +353,7 @@ kDealloc
 - (void)setupSubView {
 //    [self setupTopView];// 搭建顶部的View信息
     kWeakSelf
-    _viewModel = [[HXBBaseViewModel alloc] initWithBlock:^UIView *{
+    _viewModel = [[HXBMyPlanSwipeViewModel alloc] initWithBlock:^UIView *{
         return weakSelf;
     }];
     [self addSubview: self.scrollToolBarView];
