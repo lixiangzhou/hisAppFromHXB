@@ -98,7 +98,7 @@ kDealloc
 ///资产统计网络请求
 - (void)assetStatisticsLoadData {
     kWeakSelf
-    [_viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+    [self.viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
         if (isSuccess) weakSelf.planListView.userInfoViewModel = weakSelf.viewModel.userInfoModel;
     }];
 }
