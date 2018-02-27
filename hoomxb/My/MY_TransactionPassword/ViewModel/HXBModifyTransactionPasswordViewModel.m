@@ -15,16 +15,16 @@
 
 - (BOOL)erroResponseCodeDeal:(NYBaseRequest *)request {
     if ([request.requestUrl isEqual:kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL]) {
-        return YES;
+        return NO;
     }
-    return NO;
+    return [super erroResponseCodeDeal:request];
 }
 
 - (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
     if ([request.requestUrl isEqual:kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL]) {
-        return YES;
+        return NO;
     }
-    return NO;
+    return [super erroStateCodeDeal:request];
 }
 
 - (void)myTraderPasswordGetverifyCodeWithAction:(NSString *)action
