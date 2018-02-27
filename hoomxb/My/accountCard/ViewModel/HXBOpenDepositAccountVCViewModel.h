@@ -7,6 +7,7 @@
 //
 
 #import "HXBBaseViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @interface HXBOpenDepositAccountVCViewModel : HXBBaseViewModel
 
@@ -16,6 +17,5 @@
  @param requestArgument 存款账户的字典数据
  */
 - (void)openDepositAccountRequestWithArgument:(NSDictionary *)requestArgument andCallBack:(void(^)(BOOL isSuccess))callBackBlock;
-
 
 @end

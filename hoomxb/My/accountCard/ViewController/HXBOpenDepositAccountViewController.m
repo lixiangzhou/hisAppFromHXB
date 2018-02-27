@@ -20,12 +20,9 @@
 
 @property (nonatomic, strong) HXBOpenDepositAccountView *mainView;
 
-@property (nonatomic, strong) HXBRequestUserInfoViewModel *userModel;
+@property (nonatomic,strong) UITableView *tableView;
 
-@property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
-@property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
-
-@property (nonatomic, strong) HXBOpenDepositAccountVCViewModel *openDepositAccountVM;
+@property (nonatomic, strong) HXBOpenDepositAccountVCViewModel *viewModel;
 
 @end
 
@@ -33,10 +30,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self.hxbBaseVCScrollView addSubview:self.mainView];
-    self.hxbBaseVCScrollView.tableHeaderView = self.mainView;
-    self.hxbBaseVCScrollView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight);
-    self.hxbBaseVCScrollView.delegate = self;
+
+    self.tableView.tableHeaderView = self.mainView;
+    self.tableView.frame = CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScreenHeight - HXBStatusBarAndNavigationBarHeight);
+    self.tableView.delegate = self;
     self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     [self loadUserInfo];
     [self setupSubView];
@@ -45,12 +42,12 @@
 - (void)setupSubView
 {
     kWeakSelf
-    [self.hxbBaseVCScrollView hxb_headerWithRefreshBlock:^{
+    [self.tableView hxb_headerWithRefreshBlock:^{
         [weakSelf loadUserInfo];
-        [weakSelf.hxbBaseVCScrollView.mj_header endRefreshing];
+        [weakSelf.tableView.mj_header endRefreshing];
     }];
     [self.view addSubview:self.mainView.bottomBtn];
-    [self.hxbBaseVCScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.equalTo(self.view);
         make.top.offset(HXBStatusBarAndNavigationBarHeight);
         make.bottom.equalTo(self.mainView.bottomBtn.mas_top);
@@ -61,54 +58,30 @@
         make.bottom.equalTo(self.view).offset(-HXBBottomAdditionHeight);
     }];
     [self.view layoutIfNeeded];
-    self.mainView.frame = CGRectMake(0, 0, kScreenW, self.hxbBaseVCScrollView.height);
+    self.mainView.frame = CGRectMake(0, 0, kScreenW, self.tableView.height);
 }
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [self.hxbBaseVCScrollView endEditing:YES];
+    [self.view endEditing:YES];
 }
 - (void)loadUserInfo
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-
-        if (viewModel.userInfoModel.userInfo.isCreateEscrowAcc)
-        {
-            [weakSelf.mainView.bottomBtn setTitle:@"提交" forState:UIControlStateNormal];
-        }else
-        {
-            [weakSelf.mainView.bottomBtn setTitle:@"开通恒丰银行存管账户" forState:UIControlStateNormal];
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            if (weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.isCreateEscrowAcc)
+            {
+                [weakSelf.mainView.bottomBtn setTitle:@"提交" forState:UIControlStateNormal];
+            }else
+            {
+                [weakSelf.mainView.bottomBtn setTitle:@"开通恒丰银行存管账户" forState:UIControlStateNormal];
+            }
+            //设置用户信息
+            [weakSelf.mainView setupUserIfoData:weakSelf.viewModel.userInfoModel];
+            
+            weakSelf.mainView.userModel = weakSelf.viewModel.userInfoModel;
         }
-        //设置用户信息
-        [weakSelf.mainView setupUserIfoData:viewModel];
-        
-        weakSelf.mainView.userModel = viewModel;
-        
-//        if ([viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-//            //已经绑卡
-//            NYBaseRequest *bankCardAPI = [[NYBaseRequest alloc] init];
-//            bankCardAPI.requestUrl = kHXBUserInfo_BankCard;
-//            bankCardAPI.requestMethod = NYRequestMethodGet;
-//            [bankCardAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-//                NSLog(@"%@",responseObject);
-//                NSInteger status =  [responseObject[@"status"] integerValue];
-//                if (status != 0) {
-//                    [HxbHUDProgress showTextWithMessage:responseObject[@"message"]];
-//                    return;
-//                }
-//                HXBBankCardModel *bankCardModel = [HXBBankCardModel yy_modelWithJSON:responseObject[@"data"]];
-//                //设置绑卡信息
-//                [weakSelf.mainView setupBankCardData:bankCardModel];
-//            } failure:^(NYBaseRequest *request, NSError *error) {
-//                NSLog(@"%@",error);
-//                [HxbHUDProgress showTextWithMessage:@"银行卡请求失败"];
-//            }];
-//        }
-        
-    } andFailure:^(NSError *error) {
-        
     }];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -146,7 +119,7 @@
 - (void)openStorageWithArgument:(NSDictionary *)dic{
     kWeakSelf
     [HXBUmengManagar HXB_clickEventWithEnevtId:kHXBUmeng_commitBtn];
-    [self.openDepositAccountVM openDepositAccountRequestWithArgument:dic andCallBack:^(BOOL isSuccess) {
+    [self.viewModel openDepositAccountRequestWithArgument:dic andCallBack:^(BOOL isSuccess) {
         if (isSuccess) {
             [weakSelf openDepositRequestSuccess];
         }
@@ -185,52 +158,36 @@
     } else if (self.type == HXBChangePhone){
         HXBModifyTransactionPasswordViewController *modifyTransactionPasswordVC = [[HXBModifyTransactionPasswordViewController alloc] init];
         modifyTransactionPasswordVC.title = @"修改绑定手机号";
-        modifyTransactionPasswordVC.userInfoModel = self.userModel.userInfoModel;
         [self.navigationController pushViewController:modifyTransactionPasswordVC animated:YES];
     }
 }
 
 - (void)dealloc {
-    [self.hxbBaseVCScrollView.panGestureRecognizer removeObserver: self forKeyPath:@"state"];
     NSLog(@"✅被销毁 %@",self);
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    
-    if ([keyPath isEqualToString:@"state"]) {
-        NSNumber *tracking = change[NSKeyValueChangeNewKey];
-        if (tracking.integerValue == UIGestureRecognizerStateBegan && self.trackingScrollViewBlock) {
-            self.trackingScrollViewBlock(self.hxbBaseVCScrollView);
-        }
-        return;
-    }
-    
-    [super observeValueForKeyPath:keyPath ofObject:object change:change context:nil];
-}
-
 #pragma mark - 懒加载
-- (HXBOpenDepositAccountVCViewModel *)openDepositAccountVM {
-    if (!_openDepositAccountVM) {
+- (HXBOpenDepositAccountVCViewModel *)viewModel {
+    if (!_viewModel) {
         kWeakSelf
-        _openDepositAccountVM = [[HXBOpenDepositAccountVCViewModel alloc] initWithBlock:^UIView *{
+        _viewModel = [[HXBOpenDepositAccountVCViewModel alloc] initWithBlock:^UIView *{
             return weakSelf.view;
         }];
     }
-    return _openDepositAccountVM;
+    return _viewModel;
 }
 
-- (UITableView *)hxbBaseVCScrollView {
-    if (!_hxbBaseVCScrollView) {
-        
-        _hxbBaseVCScrollView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+- (UITableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         self.automaticallyAdjustsScrollViewInsets = NO;
-        [self.view insertSubview:_hxbBaseVCScrollView atIndex:0];
-        [_hxbBaseVCScrollView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
-        _hxbBaseVCScrollView.tableFooterView = [[UIView alloc]init];
-        _hxbBaseVCScrollView.backgroundColor = kHXBColor_BackGround;
-        [HXBMiddlekey AdaptationiOS11WithTableView:_hxbBaseVCScrollView];
+        [self.view insertSubview:_tableView atIndex:0];
+        [_tableView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
+        _tableView.tableFooterView = [[UIView alloc]init];
+        _tableView.backgroundColor = kHXBColor_BackGround;
+        [HXBMiddlekey AdaptationiOS11WithTableView:_tableView];
     }
-    return _hxbBaseVCScrollView;
+    return _tableView;
 }
 
 - (HXBOpenDepositAccountView *)mainView
@@ -239,7 +196,6 @@
         kWeakSelf
         _mainView = [[HXBOpenDepositAccountView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _mainView.backgroundColor = kHXBColor_BackGround;
-        _mainView.userModel = self.userModel;
         
         _mainView.bankNameBlock = ^{
             [weakSelf enterBankCardListVC];
