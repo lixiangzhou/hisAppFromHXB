@@ -14,14 +14,13 @@
 #import "HXBVerificationCodeAlertVC.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBCallPhone_BottomView.h"
-#import "HXBOpenDepositAccountRequest.h"
 #import "HXBMy_Withdraw_notifitionView.h"
 #import "HXBWithdrawRecordViewController.h"
 #import "HXBWithdrawModel.h"
 #import "HXBBankCardModel.h"
 
 #import "HXBAccountWithdrawViewModel.h"
-
+#import "HXBRootVCManager.h"
 @interface HxbWithdrawViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UITextField *amountTextField;
 @property (nonatomic, strong) UIImageView *tipImage;
@@ -59,9 +58,8 @@
     [super viewDidLoad];
     self.title = @"提现";
     self.isColourGradientNavigationBar = YES;
-    kWeakSelf
     _viewModel = [[HXBAccountWithdrawViewModel alloc] initWithBlock:^UIView *{
-        return weakSelf.view;
+        return [HXBRootVCManager manager].topVC.view;
     }];
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.notifitionView];
@@ -217,11 +215,23 @@
 - (void)withdrawSmscode
 {
     kWeakSelf
-    HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:self.amountTextField.text andWithAction:@"withdraw" andSuccessBlock:^(id responseObject) {
-        [weakSelf withdrawals];
-    } andFailureBlock:^(NSError *error) {
-        NSLog(@"%@",error);
+    [self.viewModel getVerifyCodeRequesWithRechargeAmount:self.amountTextField.text andWithType:@"sms" andWithAction:@"withdraw" andCallbackBlock:^(BOOL isSuccess,NSError *error) {
+        if (isSuccess) {
+            [weakSelf withdrawals];
+            [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
+        }
+        else {
+            NSInteger errorCode = 0;
+            if ([error isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dic = (NSDictionary *)error;
+                errorCode = [dic[@"status"] integerValue];
+            }else{
+                errorCode = error.code;
+            }
+            if (errorCode != kHXBCode_Success) {
+                [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
+            }
+        }
     }];
 }
 
@@ -490,6 +500,7 @@
         };
         
         _alertVC.getVerificationCodeBlock = ^{
+            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
             [weakSelf withdrawSmscode];
         };
     }

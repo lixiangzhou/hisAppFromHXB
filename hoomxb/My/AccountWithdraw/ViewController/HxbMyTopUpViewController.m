@@ -11,10 +11,10 @@
 #import "HXBMyTopUpBaseView.h"
 #import "HXBRechargeCompletedViewController.h"
 #import "HXBVerificationCodeAlertVC.h"
-#import "HXBOpenDepositAccountRequest.h"
 #import "HXBBankCardModel.h"
 #import "HXBMyTopUpBankView.h"
 #import "HXBMyTopUpVCViewModel.h"
+#import "HXBRootVCManager.h"
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
@@ -90,21 +90,23 @@
 - (void)enterRecharge
 {
     kWeakSelf
-    HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:self.myTopUpBaseView.amount andWithType:@"sms" andWithAction:@"recharge" andSuccessBlock:^(id responseObject) {
-        weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
-        [weakSelf requestRechargeResult];
-        [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
-    } andFailureBlock:^(NSError *error) {
-        NSInteger errorCode = 0;
-        if ([error isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dic = (NSDictionary *)error;
-            errorCode = [dic[@"status"] integerValue];
-        }else{
-            errorCode = error.code;
+    [self.accountVM getVerifyCodeRequesWithRechargeAmount:self.myTopUpBaseView.amount andWithType:@"sms" andWithAction:@"recharge" andCallbackBlock:^(BOOL isSuccess,NSError *error) {
+        if (isSuccess) {
+            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
+            [weakSelf requestRechargeResult];
+            [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
         }
-        if (errorCode != kHXBCode_Success) {
-            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
+        else {
+            NSInteger errorCode = 0;
+            if ([error isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dic = (NSDictionary *)error;
+                errorCode = [dic[@"status"] integerValue];
+            }else{
+                errorCode = error.code;
+            }
+            if (errorCode != kHXBCode_Success) {
+                [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
+            }
         }
     }];
 }
@@ -155,9 +157,8 @@
 #pragma mark Get Methods
 - (HXBMyTopUpVCViewModel *)accountVM {
     if (!_accountVM) {
-        kWeakSelf
         _accountVM = [[HXBMyTopUpVCViewModel alloc] initWithBlock:^UIView *{
-            return weakSelf.view;
+            return [HXBRootVCManager manager].topVC.view;
         }];
     }
     return _accountVM;

@@ -10,7 +10,6 @@
 #import "HXBBankCardListViewController.h"
 #import "HxbMyTopUpViewController.h"
 #import "HXBOpenDepositAccountView.h"
-#import "HXBOpenDepositAccountRequest.h"
 #import "HxbWithdrawViewController.h"
 #import "HXBModifyTransactionPasswordViewController.h"//修改手机号
 #import "HXBBankCardModel.h"

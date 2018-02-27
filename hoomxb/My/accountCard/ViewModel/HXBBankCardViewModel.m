@@ -86,10 +86,14 @@
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = requestArgument;
     versionUpdateAPI.showHud = YES;
-    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
         NSLog(@"%@",responseObject);
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
+        if (finishBlock) {
+            finishBlock(YES);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (request.responseObject) {
+            NSInteger status =  [request.responseObject[@"status"] integerValue];
             if (status == kHXBOpenAccount_Outnumber) {
                 NSString *string = [NSString stringWithFormat:@"您今日绑卡错误次数已超限，请明日再试。如有疑问可联系客服 \n%@", kServiceMobile];
                 HXBGeneralAlertVC *alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"" andSubTitle:string andLeftBtnName:@"取消" andRightBtnName:@"联系客服" isHideCancelBtn:YES isClickedBackgroundDiss:NO];
@@ -107,15 +111,7 @@
                 [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertVC animated:NO completion:nil];
                 return ;
             }
-            if (finishBlock) {
-                finishBlock(NO);
-            }
-            return;
         }
-        if (finishBlock) {
-            finishBlock(YES);
-        }
-    } failure:^(NYBaseRequest *request, NSError *error) {
         if (finishBlock) {
             finishBlock(NO);
         }
@@ -135,7 +131,7 @@
     [self.cardBinrequest cancelRequest];
     if (bankNumber == nil) bankNumber = @"";
     kWeakSelf
-    [HXBOpenDepositAccountAgent checkCardBinResultRequestWithWithResultBlock:^(NYBaseRequest *request) {
+    [HXBOpenDepositAccountAgent checkCardBinResultRequestWithResultBlock:^(NYBaseRequest *request) {
         request.hudDelegate = weakSelf;
         request.requestArgument = @{
                                     @"bankCard" : bankNumber

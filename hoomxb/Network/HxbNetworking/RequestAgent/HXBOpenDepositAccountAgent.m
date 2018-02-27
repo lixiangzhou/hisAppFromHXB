@@ -18,7 +18,7 @@
  @param requestBlock 请求配置的block
  @param resultBlock 请求结果回调的block
  */
-+ (void)checkCardBinResultRequestWithWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBCardBinModel *cardBinModel, NSError *error))resultBlock
++ (void)checkCardBinResultRequestWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBCardBinModel *cardBinModel, NSError *error))resultBlock
 {
     NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
     versionUpdateAPI.requestUrl = kHXBUser_checkCardBin;
@@ -45,6 +45,33 @@
         
     }];
     
+}
+
+/**
+ 获取短信验证码和语音验证码
+ 
+ @param requestBlock 请求配置的block
+ @param resultBlock 请求结果回调的block
+ */
++ (void)verifyCodeRequestWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(id responseObject, NSError *error))resultBlock {
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    versionUpdateAPI.requestUrl = kHXBUser_smscodeURL;
+    versionUpdateAPI.requestMethod = NYRequestMethodPost;
+    if (requestBlock) {
+        requestBlock(versionUpdateAPI);
+    }
+    [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        if (resultBlock) {
+            resultBlock(responseObject,nil);
+        }
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (request.responseObject) {
+            error = [NSError errorWithDomain:@"" code:kHXBCode_CommonInterfaceErro userInfo:request.responseObject];
+        }
+        if (resultBlock) {
+            resultBlock(nil,error);
+        }
+    }];
 }
 
 @end

@@ -11,7 +11,6 @@
 #import "SVGKit/SVGKImage.h"
 #import "HXBCustomTextField.h"
 #import "HXBCardBinModel.h"
-#import "HXBOpenDepositAccountRequest.h"
 #import "HXBBankCardViewModel.h"
 @interface HXBWithdrawCardView ()<UITextFieldDelegate>
 //@property (nonatomic, strong) UITextField *bankCardTextField;
@@ -146,15 +145,15 @@
             if (isSuccess) {
                 weakSelf.cardBinModel = weakSelf.bindBankCardVM.cardBinModel;
                 NSDictionary *dic = @{
-                                      @"bankCard" : _bankCardID,
-                                      @"bankReservedMobile" : self.phoneNumberTextField.text,
-                                      @"bankCode" : self.cardBinModel.bankCode
+                                      @"bankCard" : weakSelf.bankCardID,
+                                      @"bankReservedMobile" : weakSelf.phoneNumberTextField.text,
+                                      @"bankCode" : weakSelf.cardBinModel.bankCode
                                       };
                 weakSelf.nextButtonClickBlock(dic);
             }
             else {
-                
-            }weakSelf.isCheckFailed = YES;
+                weakSelf.isCheckFailed = YES;
+            }
         }];
         
     }

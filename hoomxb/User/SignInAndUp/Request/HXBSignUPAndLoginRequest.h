@@ -32,12 +32,6 @@
                  andInviteCode: (NSString *)inviteCode
                andSuccessBlock: (void(^)())successBlock
                andFailureBlock: (void(^)(NSError *error))failureBlock;
-+ (void)smscodeRequestWithMobile: (NSString *)mobile
-                       andAction: (HXBSignUPAndLoginRequest_sendSmscodeType)action
-                      andCaptcha: (NSString *)captcha
-                         andType:(NSString *)type
-                 andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
-                 andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
 /**
@@ -72,17 +66,6 @@
                         andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
                         andFailureBlock: (void(^)(NSError *error))failureBlock;
 
-/**
- * 发送短信的接口
- * @param mobile    用户名
- * @param action    signup(参照通用短信发送类型)
- * @param captcha 	校验图片二维码 的数字
- */
-+ (void)smscodeRequestWithMobile: (NSString *)mobile
-                       andAction: (HXBSignUPAndLoginRequest_sendSmscodeType)action
-                      andCaptcha: (NSString *)captcha
-                 andSuccessBlock: (void(^)(BOOL isSuccessBlock))successBlock
-                 andFailureBlock: (void(^)(NSError *error))failureBlock;
 
 
 /**

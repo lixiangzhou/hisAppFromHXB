@@ -15,9 +15,16 @@
  
  @param smscode 短信验证码
  @param amount 充值金额
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
+ @param callBackBlock 成功回调
  */
 - (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock;
 
+/**
+ 获取充值短验
+ @param amount 充值金额
+ @param action 判断是否为提现或者充值
+ @param type 短信验证码或是语言验证码
+ @param callbackBlock 请求回调
+ */
+- (void)getVerifyCodeRequesWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock;
 @end

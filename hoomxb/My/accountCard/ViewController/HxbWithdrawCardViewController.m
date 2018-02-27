@@ -15,7 +15,6 @@
 #import "HXBWithdrawCardView.h"
 
 #import "HxbMyTopUpViewController.h"
-#import "HXBOpenDepositAccountRequest.h"
 #import "HxbWithdrawViewController.h"
 #import "HXBBankCardViewModel.h"
 @interface HxbWithdrawCardViewController () <UITextFieldDelegate>

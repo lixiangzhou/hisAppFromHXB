@@ -13,6 +13,8 @@
 #import "HXBCheckCaptchaViewController.h"///modal 出来的校验码
 #import "HXBSendSmscodeViewController.h"///短信验证的Vc
 #import "HxbSignInViewController.h"
+#import "HXBSign_InAndUPViewModel.h"
+#import "HXBRootVCManager.h"
 
 ///注册按钮的title
 static NSString *const kSignUPButtonString = @"注册";
@@ -23,6 +25,7 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 
 @property (nonatomic, strong) HXBSignUPView *signUPView;
 
+@property (nonatomic, strong) HXBSign_InAndUPViewModel *viewModel;
 @end
 
 @implementation HxbSignUpViewController
@@ -60,16 +63,19 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
         [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
             NSLog(@"发送 验证码");
             
-            [HXBSignUPAndLoginRequest smscodeRequestWithMobile:mobile andAction:self.type andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
-                //发送短信vc
-                HXBSendSmscodeViewController *sendSmscodeVC = [[HXBSendSmscodeViewController alloc]init];
-                sendSmscodeVC.title = self.title;
-                sendSmscodeVC.phonNumber = mobile;
-                sendSmscodeVC.captcha = checkPaptcha;
-                sendSmscodeVC.type = self.type;
-                [weakSelf.navigationController pushViewController:sendSmscodeVC animated:YES];
-            } andFailureBlock:^(NSError *error) {
-//                [HxbHUDProgress showMessageCenter:@"短信发送失败" inView:self.view];
+            [weakSelf.viewModel getVerifyCodeRequesWithMobile:mobile andAction:self.type andCaptcha:checkPaptcha andType:@"" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+                if (isSuccess) {
+                    //发送短信vc
+                    HXBSendSmscodeViewController *sendSmscodeVC = [[HXBSendSmscodeViewController alloc]init];
+                    sendSmscodeVC.title = self.title;
+                    sendSmscodeVC.phonNumber = mobile;
+                    sendSmscodeVC.captcha = checkPaptcha;
+                    sendSmscodeVC.type = self.type;
+                    [weakSelf.navigationController pushViewController:sendSmscodeVC animated:YES];
+                }
+                else {
+                    
+                }
             }];
         }];
         
@@ -177,4 +183,12 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
     return _signUPView;
 }
 
+- (HXBSign_InAndUPViewModel *)viewModel {
+    if (!_viewModel) {
+        _viewModel = [[HXBSign_InAndUPViewModel alloc] initWithBlock:^UIView *{
+            return [HXBRootVCManager manager].topVC.view;
+        }];
+    }
+    return _viewModel;
+}
 @end
