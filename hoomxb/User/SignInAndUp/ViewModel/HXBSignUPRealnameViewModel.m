@@ -10,6 +10,21 @@
 #import "HXBModifyTransactionPasswordAgent.h"
 
 @implementation HXBSignUPRealnameViewModel
+
+- (BOOL)erroResponseCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl isEqual:kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl isEqual:kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL]) {
+        return YES;
+    }
+    return NO;
+}
+
 - (void)modifyTransactionPasswordWithIdCard:(NSString *)idCard resultBlock:(void(^)(BOOL isSuccess))resultBlock {
     kWeakSelf
     [HXBModifyTransactionPasswordAgent modifyTransactionPasswordWithRequestBlock:^(NYBaseRequest *request) {

@@ -13,6 +13,20 @@
 
 @implementation HXBModifyTransactionPasswordViewModel
 
+- (BOOL)erroResponseCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl isEqual:kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)erroStateCodeDeal:(NYBaseRequest *)request {
+    if ([request.requestUrl isEqual:kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL]) {
+        return YES;
+    }
+    return NO;
+}
+
 - (void)myTraderPasswordGetverifyCodeWithAction:(NSString *)action
                                     resultBlock: (void(^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *request = [[NYBaseRequest alloc] initWithDelegate:self];
