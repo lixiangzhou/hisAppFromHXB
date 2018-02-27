@@ -19,15 +19,15 @@
 
 
 /// 计划-加入记录
-- (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId planAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess,NSError *error))resultBlock;
+- (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId resultBlock: (void(^)(BOOL isSuccess,NSError *error))resultBlock;
 
 
 /// 散标-加入记录
-- (void)requestLoanAddRecortdWithId:(NSString *)loanId loadAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess,NSError *error))resultBlock;
+- (void)requestLoanAddRecortdWithId:(NSString *)loanId resultBlock: (void(^)(BOOL isSuccess,NSError *error))resultBlock;
 
 
 /// 债转-加入记录
-- (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andOrder: (NSString *)order resultBlock: (void(^)(BOOL isSuccess,NSError *error))resultBlock;
+- (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId resultBlock: (void(^)(BOOL isSuccess,NSError *error))resultBlock;
 
 
 @end

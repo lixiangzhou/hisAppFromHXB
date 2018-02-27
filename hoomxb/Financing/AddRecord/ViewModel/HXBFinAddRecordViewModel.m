@@ -11,9 +11,10 @@
 
 @implementation HXBFinAddRecordViewModel
 
-- (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId planAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock:(void (^)(BOOL, NSError *))resultBlock{
+- (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId resultBlock:(void (^)(BOOL, NSError *))resultBlock{
     kWeakSelf
     NYBaseRequest *planAddRecortdAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    planAddRecortdAPI.showHud = YES;
     planAddRecortdAPI.requestUrl = kHXBFinanc_Plan_AddRecortdURL(planId);
     planAddRecortdAPI.requestMethod = NYRequestMethodGet;
     [planAddRecortdAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
@@ -25,12 +26,16 @@
             resultBlock(YES,nil);
         };
     } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(YES,nil);
+        };
     }];
 }
 
-- (void)requestLoanAddRecortdWithId:(NSString *)loanId loadAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock:(void (^)(BOOL, NSError *))resultBlock{
+- (void)requestLoanAddRecortdWithId:(NSString *)loanId resultBlock:(void (^)(BOOL, NSError *))resultBlock{
     kWeakSelf
     NYBaseRequest *loanAddRecortdAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    loanAddRecortdAPI.showHud = YES;
     loanAddRecortdAPI.requestUrl = kHXBFinanc_Loan_AddRecortdURL(loanId);
     loanAddRecortdAPI.requestMethod = NYRequestMethodGet;
     [loanAddRecortdAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
@@ -45,10 +50,10 @@
     }];
 }
 
-- (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andOrder: (NSString *)order resultBlock:(void (^)(BOOL, NSError *))resultBlock{
+- (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId  resultBlock:(void (^)(BOOL, NSError *))resultBlock{
     kWeakSelf
-    
     NYBaseRequest *loanTruansferAddRecortdAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    loanTruansferAddRecortdAPI.showHud = YES;
     loanTruansferAddRecortdAPI.requestUrl = kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruaLnsferId);
     loanTruansferAddRecortdAPI.requestMethod = NYRequestMethodGet;
     [loanTruansferAddRecortdAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {

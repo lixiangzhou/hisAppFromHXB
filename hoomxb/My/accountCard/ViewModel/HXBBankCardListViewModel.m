@@ -13,12 +13,12 @@
 
 - (void)bankCardListRequestWithResultBlock: (void(^)(BOOL isSuccess))resultBlock
 {
+    kWeakSelf
     NYBaseRequest *alterLoginPasswordAPI = [[NYBaseRequest alloc] init];
     alterLoginPasswordAPI.requestUrl = kHXBSetWithdrawals_banklistURL;
     alterLoginPasswordAPI.requestMethod = NYRequestMethodGet;
     //    alterLoginPasswordAPI.requestArgument = requestArgument;
-    [alterLoginPasswordAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        kWeakSelf
+    [alterLoginPasswordAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSArray *bankArr = responseObject[@"data"][@"dataList"];
         [bankArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             [weakSelf.bankListModels addObject:[HXBBankList yy_modelWithJSON:obj]];
