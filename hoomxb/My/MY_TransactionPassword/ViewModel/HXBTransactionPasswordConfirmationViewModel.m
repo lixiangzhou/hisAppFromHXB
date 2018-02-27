@@ -13,7 +13,7 @@
 
 - (void)modifyTransactionPasswordWithIdCard:(NSString *)idCard password:(NSString *)password resultBlock:(void(^)(BOOL isSuccess))resultBlock {
     kWeakSelf
-    [[HXBModifyTransactionPasswordAgent new] modifyTransactionPasswordWithRequestBlock:^(NYBaseRequest *request) {
+    [HXBModifyTransactionPasswordAgent modifyTransactionPasswordWithRequestBlock:^(NYBaseRequest *request) {
         request.requestUrl = kHXBSetTransaction_MobifyPassword_CashpwdEditURL;
         request.requestArgument = @{ @"cashPassword" : password,
                                     @"identity" : idCard };

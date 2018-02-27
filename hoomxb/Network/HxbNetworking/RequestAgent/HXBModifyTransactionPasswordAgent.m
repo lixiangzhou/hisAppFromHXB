@@ -9,7 +9,7 @@
 #import "HXBModifyTransactionPasswordAgent.h"
 
 @implementation HXBModifyTransactionPasswordAgent
-- (void)modifyTransactionPasswordWithRequestBlock:(void(^)(NYBaseRequest *request))requestBlock resultBlock:(void (^)(BOOL isSuccess, NSError *error))resultBlock
++ (void)modifyTransactionPasswordWithRequestBlock:(void(^)(NYBaseRequest *request))requestBlock resultBlock:(void (^)(BOOL isSuccess, NSError *error))resultBlock
 {
     NYBaseRequest *request = [[NYBaseRequest alloc] init];
     request.requestMethod = NYRequestMethodPost;

@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface HXBModifyTransactionPasswordAgent : NSObject
-- (void)modifyTransactionPasswordWithRequestBlock:(void(^)(NYBaseRequest *request))requestBlock resultBlock:(void (^)(BOOL isSuccess, NSError *error))resultBlock;
++ (void)modifyTransactionPasswordWithRequestBlock:(void(^)(NYBaseRequest *request))requestBlock resultBlock:(void (^)(BOOL isSuccess, NSError *error))resultBlock;
 @end

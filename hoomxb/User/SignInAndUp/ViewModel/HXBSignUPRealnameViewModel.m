@@ -12,7 +12,7 @@
 @implementation HXBSignUPRealnameViewModel
 - (void)modifyTransactionPasswordWithIdCard:(NSString *)idCard resultBlock:(void(^)(BOOL isSuccess))resultBlock {
     kWeakSelf
-    [[HXBModifyTransactionPasswordAgent new] modifyTransactionPasswordWithRequestBlock:^(NYBaseRequest *request) {
+    [HXBModifyTransactionPasswordAgent modifyTransactionPasswordWithRequestBlock:^(NYBaseRequest *request) {
         request.requestUrl = kHXBSetTransaction_MobifyPassword_CheckIdentityAuthURL;
         request.requestArgument =  @{ @"identity" : idCard };
         request.hudDelegate = weakSelf;
