@@ -38,6 +38,10 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = kHXBColor_BackGround;
+        kWeakSelf
+        self.viewModel = [[HXBWithdrawCardViewModel alloc] initWithBlock:^UIView *{
+            return weakSelf;
+        }];
         [self addSubview:self.bankCardTextField];
         [self addSubview:self.bankNameTextField];
         [self addSubview:self.seeLimitBtn];
@@ -55,17 +59,18 @@
 
 - (void)loadUserInfoData
 {
-    [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self.cardholderLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
-            viewModelVM.leftLabelStr = [NSString stringWithFormat:@"持卡人：%@",[viewModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:viewModel.userInfoModel.userInfo.realName.length - 1]];
-            if (viewModel.userInfoModel.userInfo.realName.length > 4) {
-                viewModelVM.leftLabelStr = [NSString stringWithFormat:@"持卡人：***%@", [viewModel.userInfoModel.userInfo.realName substringFromIndex:viewModel.userInfoModel.userInfo.realName.length - 1]];
-            }
-            viewModelVM.rightLabelStr = [viewModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:viewModel.userInfoModel.userInfo.idNo.length - 2];
-            return viewModelVM;
-        }];
-    } andFailure:^(NSError *error) {
-        
+    kWeakSelf
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf.cardholderLabel setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
+                viewModelVM.leftLabelStr = [NSString stringWithFormat:@"持卡人：%@",[weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.realName replaceStringWithStartLocation:0 lenght:weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.realName.length - 1]];
+                if (weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.realName.length > 4) {
+                    viewModelVM.leftLabelStr = [NSString stringWithFormat:@"持卡人：***%@", [weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.realName substringFromIndex:weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.realName.length - 1]];
+                }
+                viewModelVM.rightLabelStr = [weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.idNo replaceStringWithStartLocation:1 lenght:weakSelf.viewModel.userInfoModel.userInfoModel.userInfo.idNo.length - 2];
+                return viewModelVM;
+            }];
+        }
     }];
 }
 

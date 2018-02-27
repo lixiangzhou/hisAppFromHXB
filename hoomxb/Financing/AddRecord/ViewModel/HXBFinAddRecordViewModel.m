@@ -11,15 +11,13 @@
 
 @implementation HXBFinAddRecordViewModel
 
-- (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId planAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock:(void (^)(BOOL, NSError *))resultBlock{
+- (void)requestPlanAddRecortdFinanceWithId:(NSString *)planId resultBlock:(void (^)(BOOL, NSError *))resultBlock{
     kWeakSelf
-    HXBBaseRequest *planAddRecortdAPI = [[HXBBaseRequest alloc]initWithDelegate:self];
-    planAddRecortdAPI.isUPReloadData = isUPLoad;
-    planAddRecortdAPI.requestMethod = NYRequestMethodGet;
+    NYBaseRequest *planAddRecortdAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    planAddRecortdAPI.showHud = YES;
     planAddRecortdAPI.requestUrl = kHXBFinanc_Plan_AddRecortdURL(planId);
-    
-    [planAddRecortdAPI loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        
+    planAddRecortdAPI.requestMethod = NYRequestMethodGet;
+    [planAddRecortdAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         HXBFinModel_AddRecortdModel_Plan *planAddRecortdModel = [[HXBFinModel_AddRecortdModel_Plan alloc]init];
         NSDictionary *dataDic = [responseObject valueForKey:@"data"];
         [planAddRecortdModel yy_modelSetWithDictionary:dataDic];
@@ -27,17 +25,20 @@
         if (resultBlock) {
             resultBlock(YES,nil);
         };
-    } failure:^(HXBBaseRequest *request, NSError *error) {
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO,error);
+        };
     }];
 }
 
-
-- (void)requestLoanAddRecortdWithId:(NSString *)loanId loadAddRecortdWithISUPLoad:(BOOL)isUPLoad andOrder: (NSString *)order resultBlock:(void (^)(BOOL, NSError *))resultBlock{
+- (void)requestLoanAddRecortdWithId:(NSString *)loanId resultBlock:(void (^)(BOOL, NSError *))resultBlock{
     kWeakSelf
-    HXBBaseRequest *loanAddRecortdAPI = [[HXBBaseRequest alloc]initWithDelegate:self];
+    NYBaseRequest *loanAddRecortdAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    loanAddRecortdAPI.showHud = YES;
     loanAddRecortdAPI.requestUrl = kHXBFinanc_Loan_AddRecortdURL(loanId);
-    [loanAddRecortdAPI loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        
+    loanAddRecortdAPI.requestMethod = NYRequestMethodGet;
+    [loanAddRecortdAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         FinModel_AddRecortdModel_Loan *model = [[FinModel_AddRecortdModel_Loan alloc]init];
         NSDictionary *dic = [responseObject valueForKey:@"data"];
         [model yy_modelSetWithDictionary:dic];
@@ -45,23 +46,20 @@
         if (resultBlock) {
             resultBlock(YES,nil);
         }
-    } failure:^(HXBBaseRequest *request, NSError *error) {
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO,error);
+        };
     }];
 }
 
-
-- (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId loanTruansferAddRecortdWithISUPLoad: (BOOL)isUPLoad andOrder: (NSString *)order resultBlock:(void (^)(BOOL, NSError *))resultBlock{
+- (void)requestLoanTruaLnsferAddRecortdWithId:(NSString *)loanTruaLnsferId  resultBlock:(void (^)(BOOL, NSError *))resultBlock{
     kWeakSelf
-    HXBBaseRequest *loanTruansferAddRecortdAPI = [[HXBBaseRequest alloc]initWithDelegate:self];
-    loanTruansferAddRecortdAPI.requestMethod = NYRequestMethodGet;
-    loanTruansferAddRecortdAPI.isUPReloadData = isUPLoad;
-    loanTruansferAddRecortdAPI.requestArgument = @{
-                                                   @"page":@(loanTruansferAddRecortdAPI.dataPage)
-                                                   };
+    NYBaseRequest *loanTruansferAddRecortdAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    loanTruansferAddRecortdAPI.showHud = YES;
     loanTruansferAddRecortdAPI.requestUrl = kHXBFinanc_LoanTruansfer_AddRecortdURL(loanTruaLnsferId);
-    
-    [loanTruansferAddRecortdAPI loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
-        
+    loanTruansferAddRecortdAPI.requestMethod = NYRequestMethodGet;
+    [loanTruansferAddRecortdAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         NSArray *array = responseObject[kResponseData][kResponseDataList];
         NSMutableArray *dataArray = [[NSMutableArray alloc]init];
         
@@ -75,12 +73,11 @@
         if (resultBlock) {
             resultBlock(YES,nil);
         }
-    } failure:^(HXBBaseRequest *request, NSError *error) {
-        
+    } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO,error);
+        };
     }];
 }
-
-
-
 
 @end

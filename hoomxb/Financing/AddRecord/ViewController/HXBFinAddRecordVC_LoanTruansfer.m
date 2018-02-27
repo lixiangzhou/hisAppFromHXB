@@ -33,7 +33,7 @@
 
 - (void)downLoadDataWihtIsUPLoad:(BOOL)isUPLoad{
     kWeakSelf
-    [self.loanTruansferViewModel requestLoanTruaLnsferAddRecortdWithId:self.loanTruansferID loanTruansferAddRecortdWithISUPLoad:isUPLoad andOrder:nil resultBlock:^(BOOL isSuccess, NSError *error) {
+    [self.loanTruansferViewModel requestLoanTruaLnsferAddRecortdWithId:self.loanTruansferID resultBlock:^(BOOL isSuccess, NSError *error) {
             if (isSuccess) {
                 weakSelf.addRecortdTableView.loanTruansferModelArray = weakSelf.loanTruansferViewModel.loanTruansferRecortdModelArray;
             }

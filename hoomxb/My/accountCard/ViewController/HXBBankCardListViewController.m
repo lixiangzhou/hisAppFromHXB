@@ -7,29 +7,19 @@
 //
 
 #import "HXBBankCardListViewController.h"
-#import "HXBWithdrawalsRequest.h"
+#import "HXBBankCardListViewModel.h"
 #import "HXBBankListCell.h"
 #import "SVGKit/SVGKImage.h"
 #import "HXBBankList.h"
 @interface HXBBankCardListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *mainTableView;
-
-
-@property (nonatomic, strong) NSMutableArray *bankListModels;
+@property (nonatomic, strong) HXBBankCardListViewModel *viewModel;
+//@property (nonatomic, strong) NSMutableArray *bankListModels;
 
 @end
 
 @implementation HXBBankCardListViewController
-
-
-- (NSMutableArray *)bankListModels
-{
-    if (!_bankListModels) {
-        _bankListModels = [NSMutableArray array];
-    }
-    return _bankListModels;
-}
 
 - (UITableView *)mainTableView
 {
@@ -47,6 +37,10 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.title = @"银行卡列表";
     [self.view addSubview:self.mainTableView];
+    kWeakSelf
+    self.viewModel = [[HXBBankCardListViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     [self settupNav];
     [self setupNavLeftBtn];
     [self loadData];
@@ -77,17 +71,10 @@
 - (void)loadData
 {
     kWeakSelf
-    HXBWithdrawalsRequest *bankCardList = [[HXBWithdrawalsRequest alloc] init];
-    
-    [bankCardList bankCardListRequestWithSuccessBlock:^(id responseObject) {
-        NSArray *bankArr = responseObject[@"data"][@"dataList"];
-        [bankArr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            [weakSelf.bankListModels addObject:[HXBBankList yy_modelWithJSON:obj]];
-        }];
-        
-        [weakSelf.mainTableView reloadData];
-    } andFailureBlock:^(NSError *error) {
-        
+    [self.viewModel bankCardListRequestWithResultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf.mainTableView reloadData];
+        }
     }];
 }
 
@@ -95,7 +82,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.bankListModels.count;
+    return self.viewModel.bankListModels.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -106,14 +93,14 @@
         cell = [[HXBBankListCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    cell.bankModel = self.bankListModels[indexPath.row];
+    cell.bankModel = self.viewModel.bankListModels[indexPath.row];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.bankCardListBlock) {
-        HXBBankList *bankModel  = self.bankListModels[indexPath.row];
+        HXBBankList *bankModel  = self.viewModel.bankListModels[indexPath.row];
         self.bankCardListBlock(bankModel.bankCode,bankModel.name);
     }
 //    [self back];

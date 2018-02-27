@@ -20,7 +20,7 @@
 #import "HXBBottomLineTableViewCell.h"
 #import "HXBDepositoryAlertViewController.h"
 #import "HxbFinancialAdvisorViewController.h"
-
+#import "HXBAccountInfoViewModel.h"
 // 是否展示理财顾问的开关
 #define kIsDisplayAdvisor self.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor
 
@@ -32,6 +32,7 @@ UITableViewDataSource
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UILabel *signOutLabel;
 @property (nonatomic, strong) NSArray *itemArray;
+@property (nonatomic, strong) HXBAccountInfoViewModel *viewModel;
 //@property (nonatomic, strong) UIButton *signOutButton;
 //@property (nonatomic, strong) HXBRequestUserInfoViewModel *userInfoViewModel;
 @end
@@ -41,7 +42,10 @@ UITableViewDataSource
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"账户信息";
-
+    kWeakSelf
+    self.viewModel = [[HXBAccountInfoViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     [self.view addSubview:self.tableView];
     
 }
@@ -67,26 +71,25 @@ UITableViewDataSource
         
     }else if(indexPath.section == 1){
         kWeakSelf
-        [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            self.userInfoViewModel = viewModel;
-            if (indexPath.row == 0) {
-                //进入存管账户
-                [weakSelf entryDepositoryAccount:NO];
-                
-            }else if (indexPath.row == 1){
-                
-                if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-                    //进入银行卡
-                    [weakSelf entryDepositoryAccount:YES];
-                }else{
-                    //进入绑卡页面
-                    [weakSelf bindBankCardClick];
+        [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+            if (isSuccess) {
+                weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
+                if (indexPath.row == 0) {
+                    //进入存管账户
+                    [weakSelf entryDepositoryAccount:NO];
+                    
+                }else if (indexPath.row == 1){
+                    
+                    if ([weakSelf.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
+                        //进入银行卡
+                        [weakSelf entryDepositoryAccount:YES];
+                    }else{
+                        //进入绑卡页面
+                        [weakSelf bindBankCardClick];
+                    }
                 }
             }
-        } andFailure:^(NSError *error) {
-            
         }];
-       
     } else if(indexPath.section == 2){
         //账户安全
         HxbMyAccountSecurityViewController *myAccountSecurityVC = [[HxbMyAccountSecurityViewController alloc] init];
@@ -410,12 +413,12 @@ UITableViewDataSource
 #pragma mark - 加载数据
 - (void)loadData_userInfo {
     kWeakSelf
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.userInfoViewModel = viewModel;
-        _isDisplayAdvisor = weakSelf.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
-        [weakSelf.tableView reloadData];
-    } andFailure:^(NSError *error) {
-        NSLog(@"%@",self);
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
+            _isDisplayAdvisor = weakSelf.userInfoViewModel.userInfoModel.userInfo.isDisplayAdvisor;
+            [weakSelf.tableView reloadData];
+        }
     }];
 }
 
