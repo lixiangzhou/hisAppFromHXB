@@ -27,7 +27,7 @@
         };
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (resultBlock) {
-            resultBlock(YES,nil);
+            resultBlock(NO,error);
         };
     }];
 }
@@ -47,6 +47,9 @@
             resultBlock(YES,nil);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO,error);
+        };
     }];
 }
 
@@ -71,6 +74,9 @@
             resultBlock(YES,nil);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
+        if (resultBlock) {
+            resultBlock(NO,error);
+        };
     }];
 }
 
