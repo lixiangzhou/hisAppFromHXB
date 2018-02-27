@@ -7,7 +7,6 @@
 //
 
 #import "HxbSecurityCertificationView.h"
-#import "HXBModifyTransactionPasswordRequest.h"
 #import "HXBSecurityCertificationViewModel.h"
 @interface HxbSecurityCertificationView()
 <
@@ -96,9 +95,9 @@ UITextFieldDelegate
 
 - (void)judgeURL
 {
-    ///	是否实名
+    ///    是否实名
     BOOL isIdPassed = [self.userInfoViewModel.userInfoModel.userInfo.isIdPassed isEqualToString:@"1"];
-    ///	是否有交易密码
+    ///    是否有交易密码
     BOOL isCashPasswordPassed = [self.userInfoViewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"];
     if (isIdPassed && (!isCashPasswordPassed)) {
         self.url = @"/account/tradCashPwd";
