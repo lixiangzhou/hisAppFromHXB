@@ -45,7 +45,7 @@
     _viewModel = [[HXBMyTraderPasswordGetVerifyCodeViewModel alloc] initWithBlock:^UIView *{
         return weakSelf.view;
     }];
-    [_viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+    [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             weakSelf.userInfoModel = weakSelf.viewModel.userInfoModel.userInfoModel;
             weakSelf.homeView.userInfoModel = weakSelf.viewModel.userInfoModel.userInfoModel;

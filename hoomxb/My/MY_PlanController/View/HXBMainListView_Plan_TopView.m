@@ -136,7 +136,7 @@
 }
 - (void)setValue {
     kWeakSelf
-    [_viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+    [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             [weakSelf.financePlanAssetsView setUP_TwoViewVMFunc:^HXBBaseView_TwoLable_View_ViewModel *(HXBBaseView_TwoLable_View_ViewModel *viewModelVM) {
                 viewModelVM.leftLabelStr = @"持有资产(元)";

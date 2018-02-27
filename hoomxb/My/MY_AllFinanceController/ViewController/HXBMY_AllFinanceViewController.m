@@ -43,7 +43,7 @@
 - (void)loadData_userInfo
 {
     kWeakSelf
-    [_viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+    [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
         if (isSuccess) {
             weakSelf.allFinanceView.viewModel = weakSelf.viewModel.userInfoModel;
             weakSelf.accumulatedIncomeView.viewModel = weakSelf.viewModel.userInfoModel;
