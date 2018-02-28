@@ -23,6 +23,8 @@
 
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic, strong) HXBFinancingLoanDetailViewModel *viewModel;
+
+@property (nonatomic, strong) HXBAlertManager* alertManager;
 @end
 
 @implementation HXBFinancing_LoanDetailsViewController
@@ -45,6 +47,17 @@
     [self setup];
     [self downLoadData];
     [self registerEvent];
+}
+
+- (HXBAlertManager *)alertManager {
+    if(!_alertManager) {
+        kWeakSelf
+        _alertManager = [[HXBAlertManager alloc] initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
+    }
+    
+    return _alertManager;
 }
 
 - (void)clickLeftBarButtonItem {
@@ -123,7 +136,7 @@
             return;
         }
         
-        [HXBAlertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+        [weakSelf.alertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
             [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard userInfoViewModel:model];
         }];
     }];

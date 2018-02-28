@@ -6,7 +6,7 @@
 //  Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
-#import "HXBBaseViewModel.h"
+#import "HXBBaseViewModel+KEYCHAIN.h"
 
 @class HXBHomeBaseModel,HxbHomePageModel_DataList;
 
