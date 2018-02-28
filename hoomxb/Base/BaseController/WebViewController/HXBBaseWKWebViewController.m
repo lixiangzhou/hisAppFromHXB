@@ -40,6 +40,7 @@
     if (self) {
         _pageReload = YES;
         _firstLoadPage = YES;
+        _showCloseButton = NO;
     }
     return self;
 }
@@ -60,13 +61,29 @@
     
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:(NSKeyValueObservingOptionNew) context:nil];
     [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
+    [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     
     [self loadWebPage];
+}
+
+- (void)leftBackBtnClick {
+    if(self.showCloseButton) {
+        if(self.webView.canGoBack) {
+            [self.webView goBack];
+        }
+        else {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)dealloc {
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
     [self.webView removeObserver:self forKeyPath:@"title"];
+    [self.webView.scrollView removeObserver:self forKeyPath:@"contentSize"];
 }
 
 - (void)reLoadWhenViewAppear {
