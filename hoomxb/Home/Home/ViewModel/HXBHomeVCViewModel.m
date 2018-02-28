@@ -7,7 +7,6 @@
 //
 
 #import "HXBHomeVCViewModel.h"
-#import "HXBBaseRequest.h"
 #import "HXBHomeBaseModel.h"
 #import "HXBHomeNewbieProductModel.h"
 #import "HxbHomePageModel_DataList.h"

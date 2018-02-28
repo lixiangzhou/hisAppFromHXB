@@ -501,7 +501,6 @@
 		E14B9BDF1F14731400450692 /* HXBColourGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = E14B9BDE1F14731400450692 /* HXBColourGradientView.m */; };
 		E157A8961EE67A1F002BF6AC /* HXBToolCountDownButton.m in Sources */ = {isa = PBXBuildFile; fileRef = E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */; };
 		E16017791EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m in Sources */ = {isa = PBXBuildFile; fileRef = E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */; };
-		E1625B241EFB620200FE9ABF /* HXBSecurityCertification_Request.m in Sources */ = {isa = PBXBuildFile; fileRef = E1625B231EFB620200FE9ABF /* HXBSecurityCertification_Request.m */; };
 		E173D6651F00D75300D04BDA /* HXBEnumerateTransitionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */; };
 		E18330AC1EF23D75009807A9 /* HXBKeyBoardManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E18330AB1EF23D75009807A9 /* HXBKeyBoardManager.m */; };
 		E18986CE1F2F048B00FAA054 /* audit_status.svg in Resources */ = {isa = PBXBuildFile; fileRef = E18986CD1F2F048B00FAA054 /* audit_status.svg */; };
@@ -1538,8 +1537,6 @@
 		E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBToolCountDownButton.m; sourceTree = "<group>"; };
 		E16017771EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBBaseCountDownManager_lightweight.h; sourceTree = "<group>"; };
 		E16017781EF3F31400A2AAE8 /* HXBBaseCountDownManager_lightweight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBBaseCountDownManager_lightweight.m; sourceTree = "<group>"; };
-		E1625B221EFB620200FE9ABF /* HXBSecurityCertification_Request.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBSecurityCertification_Request.h; sourceTree = "<group>"; };
-		E1625B231EFB620200FE9ABF /* HXBSecurityCertification_Request.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBSecurityCertification_Request.m; sourceTree = "<group>"; };
 		E173D6631F00D75300D04BDA /* HXBEnumerateTransitionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBEnumerateTransitionManager.h; sourceTree = "<group>"; };
 		E173D6641F00D75300D04BDA /* HXBEnumerateTransitionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HXBEnumerateTransitionManager.m; sourceTree = "<group>"; };
 		E18330AA1EF23D75009807A9 /* HXBKeyBoardManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HXBKeyBoardManager.h; sourceTree = "<group>"; };
@@ -4633,7 +4630,6 @@
 			isa = PBXGroup;
 			children = (
 				E12A4CA92044FC0C0095951E /* ViewModel */,
-				E1625B211EFB619E00FE9ABF /* Request */,
 				E133DCF31EEE35D7009466DE /* View */,
 				E133DCF61EEE35D7009466DE /* ViewController */,
 			);
@@ -4782,15 +4778,6 @@
 				E157A8951EE67A1F002BF6AC /* HXBToolCountDownButton.m */,
 			);
 			path = CountDownButton;
-			sourceTree = "<group>";
-		};
-		E1625B211EFB619E00FE9ABF /* Request */ = {
-			isa = PBXGroup;
-			children = (
-				E1625B221EFB620200FE9ABF /* HXBSecurityCertification_Request.h */,
-				E1625B231EFB620200FE9ABF /* HXBSecurityCertification_Request.m */,
-			);
-			path = Request;
 			sourceTree = "<group>";
 		};
 		E18330A91EF23D62009807A9 /* KeyBoardManager */ = {
@@ -5700,7 +5687,6 @@
 				9AE033832022C422006D6140 /* HXBFin_Plan_Buy_ViewController.m in Sources */,
 				9AE0322D2022C317006D6140 /* HXBMyCouponListView.m in Sources */,
 				9AE031EB2022C317006D6140 /* HXBBankList.m in Sources */,
-				E1625B241EFB620200FE9ABF /* HXBSecurityCertification_Request.m in Sources */,
 				288BAA061FAC593B009DF8AB /* HXBCouponModel.m in Sources */,
 				9AE032592022C317006D6140 /* HxbAccountInfoViewController.m in Sources */,
 				8D2B8010202AAAEC00307564 /* HXBCouponListViewModel.m in Sources */,
