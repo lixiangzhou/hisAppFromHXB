@@ -11,10 +11,10 @@
 #import "HXBMyTopUpBaseView.h"
 #import "HXBRechargeCompletedViewController.h"
 #import "HXBVerificationCodeAlertVC.h"
-#import "HXBOpenDepositAccountRequest.h"
 #import "HXBBankCardModel.h"
 #import "HXBMyTopUpBankView.h"
 #import "HXBMyTopUpVCViewModel.h"
+#import "HXBRootVCManager.h"
 @interface HxbMyTopUpViewController ()
 
 @property (nonatomic, strong) HXBMyTopUpBaseView *myTopUpBaseView;
@@ -90,20 +90,13 @@
 - (void)enterRecharge
 {
     kWeakSelf
-    HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:self.myTopUpBaseView.amount andWithType:@"sms" andWithAction:@"recharge" andSuccessBlock:^(id responseObject) {
-        weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
-        [weakSelf requestRechargeResult];
-        [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
-    } andFailureBlock:^(NSError *error) {
-        NSInteger errorCode = 0;
-        if ([error isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dic = (NSDictionary *)error;
-            errorCode = [dic[@"status"] integerValue];
-        }else{
-            errorCode = error.code;
+    [self.viewModel getVerifyCodeRequesWithRechargeAmount:self.myTopUpBaseView.amount andWithType:@"sms" andWithAction:@"recharge" andCallbackBlock:^(BOOL isSuccess,NSError *error) {
+        if (isSuccess) {
+            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.myTopUpBaseView.mybankView.bankCardModel.mobile replaceStringWithStartLocation:3 lenght:4]];
+            [weakSelf requestRechargeResult];
+            [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
         }
-        if (errorCode != kHXBCode_Success) {
+        else {
             [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
         }
     }];
@@ -157,7 +150,12 @@
     if (!_viewModel) {
         kWeakSelf
         _viewModel = [[HXBMyTopUpVCViewModel alloc] initWithBlock:^UIView *{
-            return weakSelf.view;
+            if (weakSelf.presentedViewController) {
+                return weakSelf.presentedViewController.view;
+            }
+            else {
+                return weakSelf.view;
+            }
         }];
     }
     return _viewModel;

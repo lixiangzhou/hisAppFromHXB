@@ -13,6 +13,7 @@
 #import "HXBSignUPAndLoginRequest.h"
 #import "HxbAccountInfoViewController.h"
 #import "HXBModifyPhoneViewModel.h"
+#import "HXBRootVCManager.h"
 @interface HXBModifyPhoneViewController ()
 @property (nonatomic, strong) HXBModifyPhoneView *homeView;
 @property (nonatomic,strong)HXBModifyPhoneViewModel *modifyPhoneViewModel;
@@ -44,7 +45,12 @@
             } else {
                 
                 weakSelf.modifyPhoneViewModel = [[HXBModifyPhoneViewModel alloc] initWithBlock:^UIView *{
-                    return weakSelf.view;
+                    if (weakSelf.presentedViewController) {
+                        return weakSelf.presentedViewController.view;
+                    }
+                    else {
+                        return weakSelf.view;
+                    }
                 }];
                 [weakSelf.modifyPhoneViewModel mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha resultBlock:^(BOOL isSuccess) {
                     if (isSuccess) {
@@ -104,12 +110,13 @@
  */
 - (void)graphicSuccessWithPhoneNumber:(NSString *)phoneNumber andWithCheckPaptcha:(NSString *)checkPaptcha
 {
-    [HXBSignUPAndLoginRequest smscodeRequestWithMobile:phoneNumber andAction:HXBSignUPAndLoginRequest_sendSmscodeType_newmobile andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
-        NSLog(@"%d",isSuccessBlock);
-    } andFailureBlock:^(NSError *error) {
-        NSLog(@"%@",error);
-        //请求失败不会将按钮状态改变
-//        [weakSelf.homeView sendCodeFail];
+    [self.modifyPhoneViewModel getVerifyCodeRequesWithMobile:phoneNumber andAction:HXBSignUPAndLoginRequest_sendSmscodeType_newmobile andCaptcha:checkPaptcha andType:@"" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+        if (isSuccess) {
+            NSLog(@"%d",isSuccess);
+        }
+        else {
+            NSLog(@"%@",error);
+        }
     }];
 }
 

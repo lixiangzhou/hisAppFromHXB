@@ -16,7 +16,6 @@
 #import "HxbMyTopUpViewController.h"
 #import "HXBFin_Buy_ViewModel.h"
 #import "HXBVerificationCodeAlertVC.h"
-#import "HXBOpenDepositAccountRequest.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HxbWithdrawCardViewController.h"
 #import "HXBFin_LoanTruansfer_BuyResoutViewModel.h"
@@ -24,7 +23,7 @@
 #import "HXBChooseCouponViewModel.h"
 #import "HXBCouponModel.h"
 #import "HXBTransactionPasswordView.h"
-
+#import "HXBRootVCManager.h"
 static NSString *const bankString = @"绑定银行卡";
 
 @interface HXBFin_Plan_Buy_ViewController ()<UITableViewDelegate, UITableViewDataSource, HXBChooseDiscountCouponViewControllerDelegate>
@@ -88,7 +87,7 @@ static NSString *const bankString = @"绑定银行卡";
 @property (nonatomic, assign) BOOL isSelectLimit;
 // 是否符合标的等级购买规则
 //@property (nonatomic, assign) BOOL isMatchBuy;
-
+@property (nonatomic, strong) HXBFin_Buy_ViewModel *viewModel;
 @end
 
 @implementation HXBFin_Plan_Buy_ViewController
@@ -339,21 +338,14 @@ static NSString *const bankString = @"绑定银行卡";
 
 - (void)alertSmsCodeWithMoney:(double)topupMoney {
     kWeakSelf
-    HXBOpenDepositAccountRequest *accountRequest = [[HXBOpenDepositAccountRequest alloc] init];
-    [accountRequest accountRechargeRequestWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:@"sms" andWithAction:@"buy" andSuccessBlock:^(id responseObject) {
-        weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
-        [weakSelf showRechargeAlertVC];
-        [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
-    } andFailureBlock:^(NSError *error) {
-        NSInteger errorCode = 0;
-        if ([error isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dic = (NSDictionary *)error;
-            errorCode = [dic[@"status"] integerValue];
-        }else{
-            errorCode = error.code;
+    [self.viewModel getVerifyCodeRequesWithRechargeAmount:[NSString stringWithFormat:@"%.2f", topupMoney] andWithType:@"sms" andWithAction:@"buy" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+        if (isSuccess) {
+            weakSelf.alertVC.subTitle = [NSString stringWithFormat:@"已发送到%@上，请查收", [weakSelf.cardModel.securyMobile replaceStringWithStartLocation:3 lenght:4]];
+            [weakSelf showRechargeAlertVC];
+            [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
         }
-        if (errorCode != kHXBCode_Success) {
-            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
+        else {
+           [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
         }
     }];
 }
@@ -795,5 +787,19 @@ static const NSInteger topView_high = 300;
     return _bottomView;
 }
 
+- (HXBFin_Buy_ViewModel *)viewModel {
+    if (!_viewModel) {
+        kWeakSelf
+        _viewModel = [[HXBFin_Buy_ViewModel alloc] initWithBlock:^UIView *{
+            if (weakSelf.presentedViewController) {
+                return weakSelf.presentedViewController.view;
+            }
+            else {
+                return weakSelf.view;
+            }
+        }];
+    }
+    return _viewModel;
+}
 
 @end
