@@ -7,7 +7,7 @@
 //
 
 #import "HXBAccountWithdrawViewModel.h"
-
+#import "HXBOpenDepositAccountAgent.h"
 @implementation HXBAccountWithdrawViewModel
 
 - (void)accountWithdrawaWithParameter:(NSMutableDictionary *)parameter
@@ -25,5 +25,31 @@
     }];
 }
 
+/**
+ 获取充值短验
+ @param amount 充值金额
+ @param action 判断是否为提现或者充值
+ @param type 短信验证码或是语言验证码
+ @param callbackBlock 请求回调
+ */
+- (void)getVerifyCodeRequesWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andCallbackBlock: (void(^)(BOOL isSuccess,NSError *error))callbackBlock {
+    kWeakSelf
+    [HXBOpenDepositAccountAgent verifyCodeRequestWithResultBlock:^(NYBaseRequest *request) {
+        request.requestArgument = @{
+                                    @"amount" : amount,
+                                    @"action":action,
+                                    @"type":type
+                                    };
+        request.hudDelegate = weakSelf;
+        request.showHud = YES;
+    } resultBlock:^(id responseObject, NSError *error) {
+        if (error) {
+            callbackBlock(NO,error);
+        }
+        else {
+            callbackBlock(YES,nil);
+        }
+    }];
+}
 
 @end

@@ -10,7 +10,6 @@
 #import "HXBBankCardListViewController.h"
 #import "HxbMyTopUpViewController.h"
 #import "HXBOpenDepositAccountView.h"
-#import "HXBOpenDepositAccountRequest.h"
 #import "HxbWithdrawViewController.h"
 #import "HXBModifyTransactionPasswordViewController.h"//修改手机号
 #import "HXBBankCardModel.h"
@@ -217,10 +216,13 @@
         
         //卡bin校验
         _mainView.checkCardBin = ^(NSString *bankNumber) {
-            [HXBOpenDepositAccountRequest checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andSuccessBlock:^(HXBCardBinModel *cardBinModel) {
-                [weakSelf checkCardBin:cardBinModel];
-            } andFailureBlock:^(NSError *error) {
-                weakSelf.mainView.isCheckFailed = YES;
+            [weakSelf.viewModel checkCardBinResultRequestWithBankNumber:bankNumber andisToastTip:NO andCallBack:^(BOOL isSuccess) {
+                if (isSuccess) {
+                    [weakSelf checkCardBin:weakSelf.viewModel.cardBinModel];
+                }
+                else {
+                    weakSelf.mainView.isCheckFailed = YES;
+                }
             }];
         };
         

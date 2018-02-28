@@ -7,12 +7,12 @@
 //
 
 #import "HXBMyTopUpVCViewModel.h"
-
+#import "HXBOpenDepositAccountAgent.h"
 @implementation HXBMyTopUpVCViewModel
 
 - (void)accountRechargeResultRequestWithSmscode:(NSString *)smscode andWithQuickpayAmount:(NSString *)amount andCallBackBlock:(void(^)(BOOL isSuccess))callBackBlock
 {
-    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] init];
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
     versionUpdateAPI.requestUrl = kHXBAccount_quickpay;
     versionUpdateAPI.requestMethod = NYRequestMethodPost;
     versionUpdateAPI.requestArgument = @{
@@ -21,25 +21,42 @@
                                          };
     versionUpdateAPI.showHud = YES;
     [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
-        NSInteger status =  [responseObject[@"status"] integerValue];
-        if (status != 0) {
-            if (callBackBlock) {
-                callBackBlock(NO);
-            }
+        if (callBackBlock) {
+            callBackBlock(YES);
         }
-        else {
-            if (callBackBlock) {
-                callBackBlock(YES);
-            }
-        }
-        
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [HxbHUDProgress showTextWithMessage:@"请求失败"];
         if (callBackBlock) {
             callBackBlock(NO);
         }
     }];
     
+}
+
+/**
+ 获取充值短验
+ @param amount 充值金额
+ @param action 判断是否为提现或者充值
+ @param type 短信验证码或是语言验证码
+ @param callbackBlock 请求回调
+ */
+- (void)getVerifyCodeRequesWithRechargeAmount:(NSString *)amount andWithType:(NSString *)type  andWithAction:(NSString *)action andCallbackBlock: (void(^)(BOOL isSuccess, NSError *error))callbackBlock {
+    kWeakSelf
+    [HXBOpenDepositAccountAgent verifyCodeRequestWithResultBlock:^(NYBaseRequest *request) {
+        request.requestArgument = @{
+                                    @"amount" : amount,
+                                    @"action":action,
+                                    @"type":type
+                                    };
+        request.hudDelegate = weakSelf;
+        request.showHud = YES;
+    } resultBlock:^(id responseObject, NSError *error) {
+        if (error) {
+            callbackBlock(NO,error);
+        }
+        else {
+            callbackBlock(YES,nil);
+        }
+    }];
 }
 
 @end
