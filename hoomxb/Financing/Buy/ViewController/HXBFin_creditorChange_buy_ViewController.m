@@ -532,8 +532,14 @@ static const NSInteger topView_high = 230;
 
 - (HXBFin_Buy_ViewModel *)viewModel {
     if (!_viewModel) {
+        kWeakSelf
         _viewModel = [[HXBFin_Buy_ViewModel alloc] initWithBlock:^UIView *{
-            return [HXBRootVCManager manager].topVC.view;
+            if (weakSelf.presentedViewController) {
+                return weakSelf.presentedViewController.view;
+            }
+            else {
+                return weakSelf.view;
+            }
         }];
     }
     return _viewModel;

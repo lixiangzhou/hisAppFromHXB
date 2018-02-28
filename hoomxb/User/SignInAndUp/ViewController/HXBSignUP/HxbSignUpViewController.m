@@ -185,8 +185,14 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
 
 - (HXBSign_InAndUPViewModel *)viewModel {
     if (!_viewModel) {
+        kWeakSelf
         _viewModel = [[HXBSign_InAndUPViewModel alloc] initWithBlock:^UIView *{
-            return [HXBRootVCManager manager].topVC.view;
+            if (weakSelf.presentedViewController) {
+                return weakSelf.presentedViewController.view;
+            }
+            else {
+                return weakSelf.view;
+            }
         }];
     }
     return _viewModel;

@@ -157,8 +157,14 @@
 #pragma mark Get Methods
 - (HXBMyTopUpVCViewModel *)viewModel {
     if (!_viewModel) {
+        kWeakSelf
         _viewModel = [[HXBMyTopUpVCViewModel alloc] initWithBlock:^UIView *{
-            return [HXBRootVCManager manager].topVC.view;
+            if (weakSelf.presentedViewController) {
+                return weakSelf.presentedViewController.view;
+            }
+            else {
+                return weakSelf.view;
+            }
         }];
     }
     return _viewModel;

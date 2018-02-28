@@ -58,8 +58,14 @@
     [super viewDidLoad];
     self.title = @"提现";
     self.isColourGradientNavigationBar = YES;
+    kWeakSelf
     _viewModel = [[HXBAccountWithdrawViewModel alloc] initWithBlock:^UIView *{
-        return [HXBRootVCManager manager].topVC.view;
+        if (weakSelf.presentedViewController) {
+            return weakSelf.presentedViewController.view;
+        }
+        else {
+            return weakSelf.view;
+        }
     }];
     self.view.backgroundColor = BACKGROUNDCOLOR;
     [self.view addSubview:self.notifitionView];

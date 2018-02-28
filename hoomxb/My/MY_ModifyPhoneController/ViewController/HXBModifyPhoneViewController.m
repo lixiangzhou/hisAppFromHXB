@@ -45,7 +45,12 @@
             } else {
                 
                 weakSelf.modifyPhoneViewModel = [[HXBModifyPhoneViewModel alloc] initWithBlock:^UIView *{
-                    return [HXBRootVCManager manager].topVC.view;
+                    if (weakSelf.presentedViewController) {
+                        return weakSelf.presentedViewController.view;
+                    }
+                    else {
+                        return weakSelf.view;
+                    }
                 }];
                 [weakSelf.modifyPhoneViewModel mobifyPhoneNumberWithNewPhoneNumber:phoneNumber andWithNewsmscode:verificationCode andWithCaptcha:weakSelf.checkPaptcha resultBlock:^(BOOL isSuccess) {
                     if (isSuccess) {
