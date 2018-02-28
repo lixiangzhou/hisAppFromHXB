@@ -63,14 +63,14 @@ static NSString *const kAlreadyRegistered = @"该手机号已注册";
         [checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
             NSLog(@"发送 验证码");
             
-            [weakSelf.viewModel getVerifyCodeRequesWithMobile:mobile andAction:self.type andCaptcha:checkPaptcha andType:@"" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+            [weakSelf.viewModel getVerifyCodeRequesWithMobile:mobile andAction:weakSelf.type andCaptcha:checkPaptcha andType:@"" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
                 if (isSuccess) {
                     //发送短信vc
                     HXBSendSmscodeViewController *sendSmscodeVC = [[HXBSendSmscodeViewController alloc]init];
-                    sendSmscodeVC.title = self.title;
+                    sendSmscodeVC.title = weakSelf.title;
                     sendSmscodeVC.phonNumber = mobile;
                     sendSmscodeVC.captcha = checkPaptcha;
-                    sendSmscodeVC.type = self.type;
+                    sendSmscodeVC.type = weakSelf.type;
                     [weakSelf.navigationController pushViewController:sendSmscodeVC animated:YES];
                 }
                 else {
