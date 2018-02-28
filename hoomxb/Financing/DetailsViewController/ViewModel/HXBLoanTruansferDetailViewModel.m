@@ -34,10 +34,12 @@
 }
 
 - (void)requestLoanDetailWithLoanTruansferId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock {
-    HXBBaseRequest *loanTruansferRequest = [[HXBBaseRequest alloc]initWithDelegate:self];
+    NYBaseRequest *loanTruansferRequest = [[NYBaseRequest alloc]initWithDelegate:self];
     loanTruansferRequest.requestUrl = kHXBFin_LoanTruansfer_DetailURL(loanId.integerValue);
     
-    [loanTruansferRequest loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+    
+    
+    [loanTruansferRequest loadData:^(NYBaseRequest *request, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue]) {
             if (resultBlock) {
                 resultBlock(NO);
@@ -56,7 +58,7 @@
             resultBlock(YES);
         }
         
-    } failure:^(HXBBaseRequest *request, NSError *error) {
+    } failure:^(NYBaseRequest *request, NSError *error) {
         if (resultBlock) {
             resultBlock(NO);
         }

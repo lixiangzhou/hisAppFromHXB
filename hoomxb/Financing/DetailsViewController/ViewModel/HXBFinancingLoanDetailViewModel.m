@@ -78,10 +78,10 @@
 }
 
 - (void)requestLoanDetailWithLoanId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock {
-    HXBBaseRequest *loanDetaileAPI = [[HXBBaseRequest alloc]initWithDelegate:self];
+    NYBaseRequest *loanDetaileAPI = [[NYBaseRequest alloc]initWithDelegate:self];
     loanDetaileAPI.requestUrl = kHXBFinanc_LoanDetaileURL(loanId.integerValue);
     
-    [loanDetaileAPI loadDataWithSuccess:^(NYBaseRequest *request, id responseObject) {
+    [loanDetaileAPI loadData:^(NYBaseRequest *request, id responseObject) {
         ///数据是否出错
         if ([responseObject[kResponseStatus] integerValue]) {
             kNetWorkError(@"散标详情页 没有数据");
