@@ -318,16 +318,7 @@ static NSString *const bankString = @"绑定银行卡";
             [weakSelf.alertVC.verificationCodeAlertView disEnabledBtns];
         }
         else {
-            NSInteger errorCode = 0;
-            if ([error.userInfo isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *dic = (NSDictionary *)error;
-                errorCode = [dic[@"status"] integerValue];
-            } else {
-                errorCode = error.code;
-            }
-            if (errorCode != kHXBCode_Success) {
-                [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
-            }
+            [weakSelf.alertVC.verificationCodeAlertView enabledBtns];
         }
     }];
 }
