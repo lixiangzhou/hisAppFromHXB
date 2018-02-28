@@ -205,42 +205,14 @@ static NSString *const hostH5 = @"hostH5";
     _isNewbie = userInfoViewModel.userInfoModel.userInfo.isNewbie;
 }
 
-/// 用户信息的请求
-- (void)downLoadUserInfoWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure{
-    [HXBRequestUserInfo downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self setValueWithUserInfoModel:viewModel];
-        if (seccessBlock) {
-            seccessBlock(viewModel);
-        }
-    } andFailure:^(NSError *error) {
-        if (failure) {
-            failure (error);
-        }
-    }];
-}
-
-- (void)downLoadUserInfoNoHUDWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failure
-{
-    [HXBRequestUserInfo downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        [self setValueWithUserInfoModel:viewModel];
-        if (seccessBlock) {
-            seccessBlock(viewModel);
-        }
-    } andFailure:^(NSError *error) {
-        if (failure) {
-            failure (error);
-        }
-    }];
-}
-
 /**
  新增请求用户信息
 
  @param requestBlock 请求回调， 补充request的参数
  @param resultBlock 结果回调
  */
-- (void)downLoadUserInfoWithResultBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock{
-    [HXBRequestUserInfo downLoadUserInfoWithResultBlock:requestBlock resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
+- (void)downLoadUserInfoWithRequestBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock{
+    [HXBRequestUserInfo downLoadUserInfoWithRequestBlock:requestBlock resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {
         if(viewModel) {
             [self setValueWithUserInfoModel:viewModel];
             if (resultBlock) {

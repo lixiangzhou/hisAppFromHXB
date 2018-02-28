@@ -501,13 +501,16 @@ static const NSInteger topView_high = 230;
 // 获取用户信息
 - (void)getNewUserInfo {
     kWeakSelf
-    [KeyChain downLoadUserInfoNoHUDWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-        weakSelf.userInfoViewModel = viewModel;
-        weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
-        [weakSelf.hxbBaseVCScrollView reloadData];
-        [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
-    } andFailure:^(NSError *error) {
-        [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+    [self.viewModel downLoadUserInfo:NO resultBlock:^(BOOL isSuccess) {
+        if(isSuccess) {
+            weakSelf.userInfoViewModel = weakSelf.viewModel.userInfoModel;
+            weakSelf.balanceMoneyStr = weakSelf.userInfoViewModel.userInfoModel.userAssets.availablePoint;
+            [weakSelf.hxbBaseVCScrollView reloadData];
+            [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+        }
+        else {
+            [weakSelf changeItemWithInvestMoney:weakSelf.inputMoneyStr];
+        }
     }];
 }
 

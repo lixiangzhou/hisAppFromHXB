@@ -25,7 +25,7 @@ static const char HXBRequestUserInfoViewModelKey = '\0';
 
 #pragma mark 通过keychain加载用户信息
 - (void)downLoadUserInfo:(BOOL)isShowHud resultBlock:(void(^)(BOOL isSuccess))resultBlock {
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+    [KeyChain downLoadUserInfoWithRequestBlock:^(NYBaseRequest *request) {
         request.showHud = isShowHud;
         request.hudDelegate = self;
     } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {

@@ -77,7 +77,7 @@
 - (void)checkOutRiskAssessmentWithSuperVC:(UIViewController *)vc andWithPushBlock:(void(^)(NSString *hasBindCard, HXBRequestUserInfoViewModel *model))pushBlock
 {
     kWeakSelf
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+    [KeyChain downLoadUserInfoWithRequestBlock:^(NYBaseRequest *request) {
         request.showHud = YES;
         request.hudDelegate = weakSelf;
      } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {

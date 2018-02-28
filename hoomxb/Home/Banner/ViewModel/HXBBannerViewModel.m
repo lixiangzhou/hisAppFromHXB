@@ -14,7 +14,7 @@
 #pragma mark  加载用户信息
 
 - (void)loadUserInfoWithBlock:(void(^)(BOOL isSuccess))resultBlock {
-    [KeyChain downLoadUserInfoWithResultBlock:^(NYBaseRequest *request) {
+    [KeyChain downLoadUserInfoWithRequestBlock:^(NYBaseRequest *request) {
         request.showHud = NO;
         request.hudDelegate = self;
     } resultBlock:^(HXBRequestUserInfoViewModel *viewModel, NSError *error) {

@@ -136,7 +136,7 @@
             return;
         }
         
-        [self.alertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
+        [weakSelf.alertManager checkOutRiskAssessmentWithSuperVC:weakSelf andWithPushBlock:^(NSString *hasBindCard, HXBRequestUserInfoViewModel *model) {
             [weakSelf enterLoanBuyViewControllerWithHasBindCard:hasBindCard userInfoViewModel:model];
         }];
     }];
