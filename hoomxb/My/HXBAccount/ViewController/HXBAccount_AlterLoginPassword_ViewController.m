@@ -8,9 +8,12 @@
 
 #import "HXBAccount_AlterLoginPassword_ViewController.h"
 #import "HXBAccount_AlterLoginPassword_View.h"///修改登录密码的view
-#import "HXBMobifyPassword_LoginRequest.h"///修改密码接口
+#import "HXBAccountAlterLoginPasswordViewModel.h"///修改密码接口
+
 @interface HXBAccount_AlterLoginPassword_ViewController ()
 @property (nonatomic,strong) HXBAccount_AlterLoginPassword_View *alterLoginPasswordView;
+
+@property (nonatomic, strong) HXBAccountAlterLoginPasswordViewModel* viewModel;
 @end
 
 @implementation HXBAccount_AlterLoginPassword_ViewController
@@ -19,6 +22,11 @@
     [super viewDidLoad];
     self.title = @"修改登录密码";
     [self setUPView];
+    
+    kWeakSelf
+    self.viewModel = [[HXBAccountAlterLoginPasswordViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -46,7 +54,7 @@ kWeakSelf
             [HxbHUDProgress showTextWithMessage:message];
             return;
         }
-        [HXBMobifyPassword_LoginRequest mobifyPassword_LoginRequest_requestWithOldPwd:password_Original andNewPwd:password_New andSuccessBlock:^{
+        [self.viewModel mobifyPassword_LoginRequest_requestWithOldPwd:password_Original andNewPwd:password_New andSuccessBlock:^{
             KeyChain.siginCount = @(0).description;
             [KeyChain signOut];
             weakSelf.tabBarController.selectedIndex = 0;
@@ -54,11 +62,7 @@ kWeakSelf
             [weakSelf.navigationController popToRootViewControllerAnimated:NO];
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
         } andFailureBlock:^(NSError *error) {
-            if (error) {
-                NSLog(@"%@",error);
-            }else {
-                KeyChain.siginCount = @(KeyChain.siginCount.integerValue + 1).description;
-            }
+            KeyChain.siginCount = @(KeyChain.siginCount.integerValue + 1).description;
         }];
     }];
     

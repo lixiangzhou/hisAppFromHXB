@@ -1,42 +1,38 @@
 //
-//  HXBMobifyPassword_LoginRequest.m
+//  HXBAccountAlterLoginPasswordViewModel.m
 //  hoomxb
 //
-//  Created by HXB on 2017/6/9.
-//  Copyright © 2017年 hoomsun-miniX. All rights reserved.
+//  Created by caihongji on 2018/3/1.
+//  Copyright © 2018年 hoomsun-miniX. All rights reserved.
 //
 
+#import "HXBAccountAlterLoginPasswordViewModel.h"
 
-#import "HXBMobifyPassword_LoginRequest.h"
-#import "HXBBaseRequest.h"//请求工具类
-@implementation HXBMobifyPassword_LoginRequest
-+ (void)mobifyPassword_LoginRequest_requestWithOldPwd: (NSString *)oldPassword
+@implementation HXBAccountAlterLoginPasswordViewModel
+
+- (void)mobifyPassword_LoginRequest_requestWithOldPwd: (NSString *)oldPassword
                                             andNewPwd: (NSString *)newPassword
                                       andSuccessBlock: (void(^)())successDateBlock
                                       andFailureBlock: (void(^)(NSError *error))failureBlock
 {
     ///请求信息配置
-    HXBBaseRequest *mobifyPassword_LoginRequest = [[HXBBaseRequest alloc]init];
+    NYBaseRequest *mobifyPassword_LoginRequest = [[NYBaseRequest alloc] initWithDelegate:self];
     mobifyPassword_LoginRequest.requestUrl = kHXBSetUPAccount_MobifyPassword_LoginRequestURL;
     mobifyPassword_LoginRequest.requestMethod = NYRequestMethodPost;
     mobifyPassword_LoginRequest.requestArgument = @{
                                                     @"oldpwd" : oldPassword,//旧的按钮
                                                     @"newpwd" : newPassword
                                                     };
-    
-    [mobifyPassword_LoginRequest startWithSuccess:^(NYBaseRequest *request, id responseObject) {
-        if ([[responseObject valueForKey:@"status"] integerValue]) {
-            kHXBResponsShowHUD
-        }
-        
+    mobifyPassword_LoginRequest.showHud = YES;
+    [mobifyPassword_LoginRequest loadData:^(NYBaseRequest *request, id responseObject) {
         if (successDateBlock) successDateBlock();
     } failure:^(NYBaseRequest *request, NSError *error) {
         if (failureBlock) failureBlock(error);
-        
     }];
     
     
     
     
 }
+
 @end

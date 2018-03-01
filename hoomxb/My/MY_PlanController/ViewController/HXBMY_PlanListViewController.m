@@ -12,7 +12,6 @@
 #import "HXBMYViewModel_MianPlanViewModel.h"// plan ViewModel
 #import "HXBMYModel_MainPlanModel.h"//plan model
 #import "HXBMainListView_Plan.h"
-#import "HXBMYRequest.h"
 #import "HXBMYModel_Plan_planRequestModel.h"
 #import "HXBMy_Plan_Swipe.h"
 #import "HXBMyPlanListViewModel.h"
