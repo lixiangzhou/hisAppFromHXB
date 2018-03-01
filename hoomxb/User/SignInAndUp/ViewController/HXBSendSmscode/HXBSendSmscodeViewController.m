@@ -16,7 +16,8 @@
 #import "HXBGeneralAlertVC.h"
 #import "HXBCheckCaptchaViewController.h"///modal 出来的校验码
 #import "HXBSignUPAndLoginRequest.h"///数据请求
-
+#import "HXBSendSmscodeVCViewModel.h"
+#import "HXBRootVCManager.h"
 ///短信验证 VC
 @interface HXBSendSmscodeViewController ()
 @property (nonatomic,strong) HXBSendSmscodeView *smscodeView;
@@ -25,6 +26,7 @@
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
 @property (nonatomic, strong) HXBCheckCaptchaViewController *checkCaptchVC;
+@property (nonatomic, strong) HXBSendSmscodeVCViewModel *viewModel;
 @end
 
 @implementation HXBSendSmscodeViewController
@@ -107,98 +109,106 @@
     kWeakSelf
     //请求网络数据
     if (typeStr) {
-        [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:self.captcha andType:typeStr andSuccessBlock:^(BOOL isSuccessBlock) {
-
-            switch (weakSelf.type) {
-                case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
-                    weakSelf.smscodeView.startsCountdown = YES;
-                    NSLog(@"发送 验证码");
-                }
-                    break;
-                case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
-                {
-                    NSLog(@"注册");
-                    weakSelf.smscodeView.startsCountdown = YES;
-                    if ([typeStr isEqualToString:@"sms"]) {
-                        weakSelf.smscodeView.isSendSpeechCode = NO;
-                    } else if([typeStr isEqualToString:@"voice"]){
-                        weakSelf.smscodeView.isSendSpeechCode = YES;
+        [self.viewModel getVerifyCodeRequesWithMobile:self.phonNumber andAction:self.type andCaptcha:self.captcha andType:typeStr andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+            if (isSuccess) {
+                switch (weakSelf.type) {
+                    case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
+                        weakSelf.smscodeView.startsCountdown = YES;
+                        NSLog(@"发送 验证码");
                     }
-                }
-                    break;
-            }
-        } andFailureBlock:^(NSError *error) {
-            kNetWorkError(@"短信发送失败");
-            weakSelf.smscodeView.startsCountdown = NO;
-            weakSelf.smscodeView.isSendSpeechCode = NO;
-            NSInteger errorCode = 0;
-            if ([error isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *dic = (NSDictionary *)error;
-                errorCode = [dic[@"status"] integerValue];
-            }else{
-                errorCode = error.code;
-            }
-        
-            if (errorCode == kHXBCode_Enum_CaptchaTransfinite) {
-                weakSelf.checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
-                [weakSelf.checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
-                    weakSelf.captcha = checkPaptcha;
-                    NSLog(@"发送 验证码");
-                    
-                    [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:checkPaptcha andSuccessBlock:^(BOOL isSuccessBlock) {
-                        
-                        HXBGeneralAlertVC *alertVC = nil;
-                        if (weakSelf.presentedViewController)
-                        {
-                            alertVC = (HXBGeneralAlertVC *)weakSelf.presentedViewController;
-                        }else
-                        {
-                            alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"获取语音验证码" andSubTitle:@"使用语音验证码，您将收到告知验证码的电话，您可放心接听" andLeftBtnName:@"获取短信" andRightBtnName:@"接听电话" isHideCancelBtn:NO isClickedBackgroundDiss:NO];
-                            [weakSelf presentViewController:alertVC animated:NO completion:nil];
+                        break;
+                    case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
+                    {
+                        NSLog(@"注册");
+                        weakSelf.smscodeView.startsCountdown = YES;
+                        if ([typeStr isEqualToString:@"sms"]) {
+                            weakSelf.smscodeView.isSendSpeechCode = NO;
+                        } else if([typeStr isEqualToString:@"voice"]){
+                            weakSelf.smscodeView.isSendSpeechCode = YES;
                         }
+                    }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else {
+                kNetWorkError(@"短信发送失败");
+                weakSelf.smscodeView.startsCountdown = NO;
+                weakSelf.smscodeView.isSendSpeechCode = NO;
+                NSInteger errorCode = 0;
+                if (error.code == kHXBCode_CommonInterfaceErro) {
+                    NSDictionary *dic = (NSDictionary *)error;
+                    errorCode = [dic[@"status"] integerValue];
+                }else{
+                    errorCode = error.code;
+                }
+                
+                if (errorCode == kHXBCode_Enum_CaptchaTransfinite) {
+                    weakSelf.checkCaptchVC = [[HXBCheckCaptchaViewController alloc] init];
+                    [weakSelf.checkCaptchVC checkCaptchaSucceedFunc:^(NSString *checkPaptcha){
+                        weakSelf.captcha = checkPaptcha;
+                        NSLog(@"发送 验证码");
                         
-                        [alertVC setLeftBtnBlock:^{
-                            
-                            [weakSelf sendSmscode:@"sms"];
-                            [weakSelf.smscodeView clickSendButton:nil];
+                        [weakSelf.viewModel getVerifyCodeRequesWithMobile:weakSelf.phonNumber andAction:weakSelf.type andCaptcha:checkPaptcha andType:@"" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+                            if (isSuccess) {
+                                HXBGeneralAlertVC *alertVC = nil;
+                                if (weakSelf.presentedViewController)
+                                {
+                                    alertVC = (HXBGeneralAlertVC *)weakSelf.presentedViewController;
+                                }else
+                                {
+                                    alertVC = [[HXBGeneralAlertVC alloc] initWithMessageTitle:@"获取语音验证码" andSubTitle:@"使用语音验证码，您将收到告知验证码的电话，您可放心接听" andLeftBtnName:@"获取短信" andRightBtnName:@"接听电话" isHideCancelBtn:NO isClickedBackgroundDiss:NO];
+                                    [weakSelf presentViewController:alertVC animated:NO completion:nil];
+                                }
+                                
+                                [alertVC setLeftBtnBlock:^{
+                                    
+                                    [weakSelf sendSmscode:@"sms"];
+                                    [weakSelf.smscodeView clickSendButton:nil];
+                                }];
+                                [alertVC setRightBtnBlock:^{
+                                    
+                                    [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
+                                    [weakSelf.smscodeView clickSendButton:nil];
+                                }];
+                                [alertVC setCancelBtnClickBlock:^{
+                                    
+                                    weakSelf.smscodeView.startsCountdown = NO;
+                                    NSLog(@"点击取消按钮");
+                                }];
+                            }
+                            else {
+                                
+                            }
                         }];
-                        [alertVC setRightBtnBlock:^{
-                            
-                            [weakSelf sendSmscode:@"voice"];//获取语音验证码 注意参数
-                            [weakSelf.smscodeView clickSendButton:nil];
-                        }];
-                        [alertVC setCancelBtnClickBlock:^{
-    
-                            weakSelf.smscodeView.startsCountdown = NO;
-                            NSLog(@"点击取消按钮");
-                        }];
-                        
-                    } andFailureBlock:^(NSError *error) {
-                        
                     }];
-                }];
-                [weakSelf presentViewController:weakSelf.checkCaptchVC animated:YES completion:nil];
+                    [weakSelf presentViewController:weakSelf.checkCaptchVC animated:YES completion:nil];
+                }
             }
-            
         }];
-        
     }else{
-        [HXBSignUPAndLoginRequest smscodeRequestWithMobile:self.phonNumber andAction:self.type andCaptcha:self.captcha andSuccessBlock:^(BOOL isSuccessBlock) {
-            switch (weakSelf.type) {
-                case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
-                    NSLog(@"发送 验证码");
+        [self.viewModel getVerifyCodeRequesWithMobile:self.phonNumber andAction:self.type andCaptcha:self.captcha andType:@"" andCallbackBlock:^(BOOL isSuccess, NSError *error) {
+            if (isSuccess) {
+                switch (weakSelf.type) {
+                    case HXBSignUPAndLoginRequest_sendSmscodeType_forgot:{
+                        NSLog(@"发送 验证码");
+                    }
+                        break;
+                    case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
+                    {
+                        NSLog(@"注册");
+                        weakSelf.smscodeView.startsCountdown = YES;
+                    }
+                        break;
+                    default:
+                        break;
                 }
-                    break;
-                case HXBSignUPAndLoginRequest_sendSmscodeType_signup:
-                {
-                    NSLog(@"注册");
-                    weakSelf.smscodeView.startsCountdown = YES;
-                }
-                    break;
             }
-        } andFailureBlock:^(NSError *error) {
-            kNetWorkError(@"短信发送失败");
-            weakSelf.smscodeView.startsCountdown = NO;
+            else {
+                kNetWorkError(@"短信发送失败");
+                weakSelf.smscodeView.startsCountdown = NO;
+            }
         }];
     }
     
@@ -288,4 +298,18 @@
     return _hxbBaseVCScrollView;
 }
 
+- (HXBSendSmscodeVCViewModel *)viewModel {
+    if (!_viewModel) {
+        kWeakSelf
+        _viewModel = [[HXBSendSmscodeVCViewModel alloc] initWithBlock:^UIView *{
+            if (weakSelf.presentedViewController) {
+                return weakSelf.presentedViewController.view;
+            }
+            else {
+                return weakSelf.view;
+            }
+        }];
+    }
+    return _viewModel;
+}
 @end

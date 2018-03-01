@@ -8,19 +8,27 @@
 
 #import "HXBSignUPRealnameViewController.h"
 #import "HXBSignUPAndLoginRequest.h"
-#import "HXBModifyTransactionPasswordRequest.h"
+#import "HXBSignUPRealnameViewModel.h"
+
 ///实名认证的VC
 @interface HXBSignUPRealnameViewController () <UITextFieldDelegate>
 @property (nonatomic,strong) UIButton *goRealnameButton;
 @property (nonatomic,strong) UITextField *nameTextField;
 @property (nonatomic,strong) UITextField *idCardTextField;
 @property (nonatomic,strong) UITextField *setupPasswordTextField;
+
+@property (nonatomic, strong) HXBSignUPRealnameViewModel *viewModel;
 @end
 
 @implementation HXBSignUPRealnameViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    kWeakSelf
+    self.viewModel = [[HXBSignUPRealnameViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     [self setUPView];
 }
 
@@ -87,12 +95,8 @@
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField {
     if ([textField isEqual:self.idCardTextField]) {
         if([NSString validateIDCardNumber: textField.text]) {
-            // 发送请求 校验身份证是否合法
-            HXBModifyTransactionPasswordRequest *request = [[HXBModifyTransactionPasswordRequest alloc]init];
-            [request myTransactionPasswordWithIDcard:textField.text andSuccessBlock:^(id responseObject) {
-                NSLog(@"%@",responseObject);
-            } andFailureBlock:^(NSError *error) {
-                NSLog(@"🌶  银行卡不合法");
+            [self.viewModel modifyTransactionPasswordWithIdCard:textField.text resultBlock:^(BOOL isSuccess) {
+                
             }];
         }
     }

@@ -11,15 +11,15 @@
 
 @class NYHTTPConnection;
 
-typedef void (^ConnectionSuccessBlock)(NYHTTPConnection *connection, id responseJsonObject);
-typedef void (^ConnectionFailureBlock)(NYHTTPConnection *connection, NSError *error);
+typedef void (^HXBConnectionSuccessBlock)(NYHTTPConnection *connection, id responseJsonObject);
+typedef void (^HXBConnectionFailureBlock)(NYHTTPConnection *connection, NSError *error);
 
 
 ///网络数据的请求
 @interface NYHTTPConnection : NSObject
 
-@property (nonatomic, strong, readonly) NSURLSessionDataTask *task;
+@property (atomic, strong, readonly) NSURLSessionDataTask *task;
 
-- (void)connectWithRequest:(NYBaseRequest *)request success:(ConnectionSuccessBlock)success failure:(ConnectionFailureBlock)failure;
-
+- (void)connectWithRequest:(NYBaseRequest *)request success:(HXBConnectionSuccessBlock)success failure:(HXBConnectionFailureBlock)failure;
+- (void)tokenUpdateNotify:(NYBaseRequest *)request updateState:(BOOL)isSuccess;
 @end

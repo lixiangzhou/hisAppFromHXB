@@ -11,6 +11,6 @@
 
 @interface HXBMyCouponListViewController : HXBBaseViewController
 
-@property (nonatomic, strong) HXBMyRequestAccountModel *viewModel;
+@property (nonatomic, strong) HXBMyRequestAccountModel *accountModel;
 
 @end

@@ -46,4 +46,25 @@
     }
 }
 
+- (CGSize)caleFontSize:(UIFont *)font forMaxSize:(CGSize)maxSize lineBreakMode:(NSLineBreakMode)lineBreakMode{
+    CGSize properSize = CGSizeZero;
+    int lineSpace = 0;
+    if (self != nil && ![self isEqualToString:@""])
+    {
+        NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+        paragraphStyle.lineBreakMode = lineBreakMode;
+        paragraphStyle.lineSpacing = lineSpace;
+        NSDictionary *attributes = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:paragraphStyle.copy};
+        
+        properSize = [self boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil].size;
+    }
+    
+    if([UIDevice currentDevice].systemVersion.intValue >= 7.0){
+        if(properSize.height > 0){
+            properSize.height += 1;
+        }
+    }
+    return properSize;
+}
+
 @end

@@ -8,21 +8,24 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
-///服务器返回未知异常
+#import "HXBRequestHudDelegate.h"
+#import "NSDictionary+HXBResponse.h"
+
+@class NYBaseRequest;
+@class NYHTTPConnection;
+
+/// 服务器返回未知异常
 static  NSInteger const kResponseStatusError = 300000;
-///服务器返回的常用字段
+/// 服务器返回的常用字段
 static NSString *const kResponseStatus = @"status";
-///服务器返回的常用字段
+/// 服务器返回的常用字段
 static NSString *const kResponseData = @"data";
 ///服务器错误返回的常用字段
 static NSString *const kResponseErrorData = @"errorData";
 ///服务器返回的常用字段
 static NSString *const kResponseDataList = @"dataList";
-///服务器返回的常用字段
+/// 服务器返回的常用字段
 static NSString *const kResponseMessage = @"message";
-
-@class NYBaseRequest;
-@class NYHTTPConnection;
 
 //================================== 定义方法序列化枚举，成功失败回调 ==================================
 typedef NS_ENUM(NSInteger, NYRequestMethod){
@@ -32,88 +35,111 @@ typedef NS_ENUM(NSInteger, NYRequestMethod){
     NYRequestMethodDelete,
 };
 
-typedef NS_ENUM(NSInteger, NYRequestSerializerType){
-    NYRequestSerializerTypeHTTP = 0,
-    NYRequestSerializerTypeJson,
-};
-
-typedef NS_ENUM(NSInteger, NYResponseSerializerType){
-    NYResponseSerializerTypeHTTP = 0,
-    NYResponseSerializerTypeJson,
-};
-
-typedef void (^SuccessBlock)(NYBaseRequest *request, NSDictionary *responseObject);
-typedef void (^FailureBlock)(NYBaseRequest *request, NSError *error);
-
-//==================================  请求完成代理方法 ==================================
-@protocol NYRequestDelegate <NSObject>
-
-@optional
-
-- (void)requesetFinished:(NYBaseRequest *)request;
-- (void)requestFailed:(NYBaseRequest *)request;
-
-@end
+typedef void (^HXBRequestSuccessBlock)(NYBaseRequest *request, NSDictionary *responseObject);
+typedef void (^HXBRequestFailureBlock)(NYBaseRequest *request, NSError *error);
 
 @interface NYBaseRequest : NSObject
 
-//================================== request ==================================
-@property (nonatomic, weak) NYHTTPConnection *connection;
-//请求方法 Get/Post
+// ================================== request ==================================
+@property (nonatomic, strong) NYHTTPConnection *connection;
+/// 请求方法 Get/Post， 默认是Get
 @property (nonatomic, assign) NYRequestMethod requestMethod;
-//baseUrl之后的请求Url
+/// baseUrl之后的请求Url
 @property (nonatomic, copy) NSString *requestUrl;
-//baseUrl，如http://api.hoomxb.com
+/// baseUrl，如http://api.hoomxb.com
 @property (nonatomic, copy) NSString *baseUrl;
-//最终请求时传的Url，根据baseUrl的有无来生成
-@property (nonatomic, copy, readonly) NSURL *url;
-//请求参数字典
+/// 请求参数字典
 @property (nonatomic, strong) id requestArgument;
-//向请求头中添加的附加信息，除token、version等公共信息
-@property (nonatomic, copy) NSDictionary *requestHeaderFieldValueDictionary;
-//请求序列化类型
-@property (nonatomic, assign) NYRequestSerializerType requestSerializerType;
-//请求超时时间
+/// 向请求头中添加的附加信息，除token、version等公共信息
+@property (nonatomic, copy) NSDictionary *httpHeaderFields;
+/// 请求超时时间， 默认是20秒
 @property (nonatomic, assign) NSTimeInterval timeoutInterval;
+/// 是否显示加载框
+@property (nonatomic, assign) BOOL showHud;
+/// 加载框上显示的文本
+@property (nonatomic, copy) NSString* hudShowContent;
 
+//================================== 发送者代理 ==================================
+/// 委托
+@property (nonatomic, weak) id<HXBRequestHudDelegate> hudDelegate;
+//临时用的重构的新请求标识， 如果全部替换完成， 则删除此属性
+@property (nonatomic, assign) BOOL isNewRequestWay;
 
 //================================== response ==================================
-//响应序列化类型
-@property (nonatomic, assign) NYResponseSerializerType responseSerializerType;
-//响应状态码，如403
-@property (nonatomic, assign, readonly) NSInteger responseStatusCode;
-//响应头
-@property (nonatomic, copy, readonly) NSDictionary *responseHeaderFieldValueDictionary;
-//回调成功内容
-@property (nonatomic, strong) id responseObject;
-//回调失败错误
-@property (nonatomic, strong) NSError *error;
 
+/// 响应状态码，如403
+@property (nonatomic, assign) NSInteger responseStatusCode;
+/// 响应头
+@property (nonatomic, copy) NSDictionary *responseAllHeaderFields;
+/// 回调成功内容
+@property (nonatomic, strong) id responseObject;
+/// 回调失败错误
+@property (nonatomic, strong) NSError *error;
+/// 响应出错信息
+@property (nonatomic, copy) NSString *responseErrorMessage;
 
 //================================== callback ==================================
-//返回成功回调
-@property (nonatomic, copy) SuccessBlock success;
-/**
- 自定义特殊状态拦截返回成功回调
- */
-@property (nonatomic, copy) SuccessBlock customCodeSuccessBlock;
-//返回失败回调
-@property (nonatomic, copy) FailureBlock failure;
-/**
- 自定义特殊状态拦截返回失败回调
- */
-@property (nonatomic, copy) FailureBlock customCodeFailureBlock;
-//代理
-@property (nonatomic, weak) id<NYRequestDelegate> delegate;
+/// 返回成功回调
+@property (nonatomic, copy) HXBRequestSuccessBlock success;
+/// 返回失败回调
+@property (nonatomic, copy) HXBRequestFailureBlock failure;
 
 
 //================================== function ==================================
 - (void)start;
 
-- (void)startWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void)startWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
 
-- (void)startWithHUDStr:(NSString *)string Success:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void)startWithHUDStr:(NSString *)string Success:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
 
-- (void)startAnimationWithSuccess:(SuccessBlock)success failure:(FailureBlock)failure;
+- (void)startAnimationWithSuccess:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
+
+
+- (NYBaseRequest *)copyRequest;
+
+
+#pragma mark  以下为重构后需要使用的各种方法
+
+- (instancetype)initWithDelegate:(id<HXBRequestHudDelegate>)delegate;
+
+/**
+ 比较是否是同一个请求
+
+ @param request 比较对象
+ @return YES：不同；反之。
+ */
+- (BOOL)defferRequest:(NYBaseRequest*)request;
+/**
+ 显示加载框
+ 
+ @param hudContent 显示的文本内容
+ */
+- (void)showLoading:(NSString*)hudContent;
+
+/**
+ 隐藏加载框
+ 
+ */
+- (void)hideLoading;
+
+/**
+ 显示提示文本
+
+ @param content 提示内容
+ */
+- (void)showToast:(NSString*)content;
+
+/**
+ 请求数据
+
+ @param success 成功回调
+ @param failure 失败回调
+ */
+- (void)loadData:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
+
+/**
+ 取消请求
+ */
+- (void)cancelRequest;
 
 @end

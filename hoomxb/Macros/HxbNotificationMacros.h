@@ -29,6 +29,7 @@ extern NSString *const kHXBNotification_PlanAndLoan_Fragment;
 extern NSString *const kHXBNotification_starCountDown;
 //注册开始倒计时
 extern NSString *const kHXBNotification_registrationStartCountdown;
+
 @interface HxbNotificationMacros : NSObject
 
 

@@ -8,32 +8,14 @@
 
 #import "NYBaseRequest+HXB.h"
 
-@implementation NSDictionary (HXBResponse)
-- (id)data {
-    return self[kResponseData];
-}
-
-- (NSString *)message {
-    return self[kResponseMessage];
-}
-
-- (NSInteger)statusCode {
-    return [self[kResponseStatus] integerValue];
-}
-
-- (BOOL)isSuccess {
-    return self.statusCode == kHXBCode_Success;
-}
-@end
-
 @implementation NYBaseRequest (HXB)
 
-+ (NYBaseRequest *)requestWithRequestUrl:(NSString *)requestUrl param:(NSDictionary *)param method:(NYRequestMethod)method success:(SuccessBlock)success failure:(FailureBlock)failure;
++ (NYBaseRequest *)requestWithRequestUrl:(NSString *)requestUrl param:(NSDictionary *)param method:(NYRequestMethod)method success:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure;
 {
     return [self requestWithRequestUrl:requestUrl param:param method:method success:success failure:failure configRequestBlock:nil];
 }
 
-+ (NYBaseRequest *)requestWithRequestUrl:(NSString *)requestUrl param:(NSDictionary *)param method:(NYRequestMethod)method success:(SuccessBlock)success failure:(FailureBlock)failure configRequestBlock:(void (^)(NYBaseRequest *))configRequestBlock
++ (NYBaseRequest *)requestWithRequestUrl:(NSString *)requestUrl param:(NSDictionary *)param method:(NYRequestMethod)method success:(HXBRequestSuccessBlock)success failure:(HXBRequestFailureBlock)failure configRequestBlock:(void (^)(NYBaseRequest *))configRequestBlock
 {
     NYBaseRequest *request = [NYBaseRequest new];
     request.requestUrl = requestUrl;
