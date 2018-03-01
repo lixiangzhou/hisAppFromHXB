@@ -5855,6 +5855,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_OTHER_FLAGS = "–fstack-protector-all";
 				CODE_SIGN_IDENTITY = "iPhone Developer: 聪聪 翟 (86S6Q378KL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -5868,6 +5869,7 @@
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
+				IBSC_OTHER_FLAGS = "";
 				INFOPLIST_FILE = hoomxb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -5875,6 +5877,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
 				);
+				OTHER_OSACOMPILEFLAGS = "–fstack-protector-all";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -5889,6 +5892,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_OTHER_FLAGS = "–fstack-protector-all";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -5902,6 +5906,7 @@
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
+				IBSC_OTHER_FLAGS = "";
 				INFOPLIST_FILE = hoomxb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -5909,6 +5914,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
 				);
+				OTHER_OSACOMPILEFLAGS = "–fstack-protector-all";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -6014,6 +6020,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				ASSETCATALOG_OTHER_FLAGS = "–fstack-protector-all";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -6027,6 +6034,7 @@
 				);
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PREFIX_HEADER = hoomxb/PrefixHeader.pch;
+				IBSC_OTHER_FLAGS = "";
 				INFOPLIST_FILE = hoomxb/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -6034,6 +6042,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
 				);
+				OTHER_OSACOMPILEFLAGS = "–fstack-protector-all";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
