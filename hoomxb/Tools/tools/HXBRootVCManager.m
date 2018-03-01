@@ -9,7 +9,6 @@
 #import "HXBRootVCManager.h"
 
 #import "AXHNewFeatureController.h"
-#import "HXBVersionUpdateRequest.h"
 #import "HxbAdvertiseViewController.h"
 #import "HXBVersionUpdateModel.h"
 #import "HXBGesturePasswordViewController.h"

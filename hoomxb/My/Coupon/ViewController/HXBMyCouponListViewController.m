@@ -8,21 +8,17 @@
 
 #import "HXBMyCouponListViewController.h"
 #import "HXBMyCouponListView.h"
-#import "HXBRequestAccountInfo.h"
 #import "HXBMyCouponListModel.h"
 #import "AppDelegate.h"
 #import "HXBInviteListViewController.h"
 #import "HXBRootVCManager.h"
 #import "HXBBannerWebViewController.h"
+#import "HXBCouponListViewModel.h"
 
-@interface HXBMyCouponListViewController (){
-    int _page;
-    NSString* _filter;
-}
+@interface HXBMyCouponListViewController ()
 
 @property (nonatomic, strong) HXBMyCouponListView *myView;
-@property (nonatomic, strong) NSMutableArray <HXBMyCouponListModel*>* myCouponListModelMArray;//数据数组
-
+@property (nonatomic, strong) HXBCouponListViewModel *viewModel;
 @end
 
 @implementation HXBMyCouponListViewController
@@ -32,65 +28,53 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setParameter];
+    kWeakSelf
+    self.viewModel = [[HXBCouponListViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
+    
     self.view.backgroundColor = RGBA(244, 243, 248, 1);
     [self.view addSubview:self.myView];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadData_myCouponListInfo];
+    [self loadData_myCouponListInfo:YES];
 }
 
 #pragma mark - 加载数据
-- (void)loadData_myCouponListInfo{
-    kWeakSelf
-    [HXBRequestAccountInfo downLoadMyAccountListInfoHUDWithParameterDict:@{@"page":[NSString stringWithFormat:@"%d",_page],@"filter":_filter} withSeccessBlock:^(NSArray<HXBMyCouponListModel *> *modelArray, NSInteger totalCount) {
+- (void)loadData_myCouponListInfo:(BOOL)isNew {
     
-        if (totalCount > kPageCount) {
-            if (!weakSelf.myView.mainTableView.mj_footer) {
-                [weakSelf.myView.mainTableView hxb_footerWithRefreshBlock:^{
-                    ++_page;
-                    [weakSelf loadData_myCouponListInfo];
-                }];
-            }
-        }
-        if (_page == 1) {
-            [weakSelf.myCouponListModelMArray removeAllObjects];
-        }
-        if (weakSelf.myCouponListModelMArray.count == totalCount) {
-            [self.myView.mainTableView.mj_header endRefreshing];
-            [self.myView.mainTableView.mj_footer endRefreshingWithNoMoreData];
-            if (totalCount == 0) {
-                weakSelf.myView.myCouponListModelArray = weakSelf.myCouponListModelMArray;
-            }
-        } else {
-            weakSelf.myView.isStopRefresh_Home = YES;
-            [weakSelf.myCouponListModelMArray addObjectsFromArray:modelArray];
-            weakSelf.myView.myCouponListModelArray = weakSelf.myCouponListModelMArray;
-        }
-    } andFailure:^(NSError *error) {
+    kWeakSelf
+    [self.viewModel downLoadMyAccountListInfo:isNew completion:^(BOOL isSuccess) {
         weakSelf.myView.isStopRefresh_Home = YES;
+        
+        if (isSuccess) {
+            weakSelf.myView.myCouponListModelArray = weakSelf.viewModel.dataSource;
+            
+            if (weakSelf.viewModel.showPullup) {
+                [weakSelf.myView.mainTableView hxb_footerWithRefreshBlock:^{
+                    [weakSelf loadData_myCouponListInfo:NO];
+                }];
+            } else {
+                weakSelf.myView.mainTableView.mj_footer = nil;
+            }
+            
+            if (weakSelf.viewModel.showNoMoreData) {
+                [weakSelf.myView.mainTableView.mj_footer endRefreshingWithNoMoreData];
+            } else {
+                [weakSelf.myView.mainTableView.mj_footer endRefreshing];
+            }
+            
+        }
     }];
 }
 
 - (void)getNetworkAgain{
-    _page = 1;
-    [self loadData_myCouponListInfo];
+    [self loadData_myCouponListInfo:YES];
 }
 
 #pragma mark - Setter / Getter / Lazy
-
-- (void)setViewModel:(HXBMyRequestAccountModel *)viewModel {
-    _viewModel = viewModel;
-    if (viewModel) {
-        _myView.isDisplayInvite = viewModel.isDisplayInvite;
-    }
-}
-- (void)setParameter{
-    _page = 1;
-    _filter = @"available";//未使用
-}
 
 -(HXBMyCouponListView *)myView{
     if (!_myView) {
@@ -112,18 +96,11 @@
             [[HXBRootVCManager manager].mainTabbarVC setSelectedIndex:1];
         };
         _myView.homeRefreshHeaderBlock = ^(){
-            _page = 1;
-            [weakSelf loadData_myCouponListInfo];
+            [weakSelf loadData_myCouponListInfo:YES];
         };
     }
     return _myView;
 }
 
--(NSMutableArray<HXBMyCouponListModel *> *)myCouponListModelMArray{
-    if (!_myCouponListModelMArray) {
-        _myCouponListModelMArray = [NSMutableArray array];
-    }
-    return _myCouponListModelMArray;
-}
 
 @end

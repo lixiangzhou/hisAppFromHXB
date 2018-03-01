@@ -24,13 +24,13 @@
     }
     
     if ([request.responseObject[@"code"]  isEqual: @"ESOCKETTIMEDOUT"]) {
-        [HxbHUDProgress showTextWithMessage:@"请求超时,请稍后重试"];
+        [self showToast:@"请求超时,请稍后重试" withRequest:request];
     }
     
     switch (request.responseStatusCode) {
         case kHXBCode_Enum_NoServerFaile:
         {
-            [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
+            [self showToast:@"网络连接失败，请稍后再试" withRequest:request];
             return;
         }
     }
@@ -50,27 +50,15 @@
                         *stop = YES;
                     }
                 }];
-                [HxbHUDProgress showTextWithMessage:error];
+                [self showToast:error withRequest:request];
             }
         } else if(status.integerValue == kHXBCode_Enum_RequestOverrun){
             if ([self handlingSpecialErrorCodes:request]) {
                 return;
             }
-
-            [HxbHUDProgress showTextWithMessage:request.responseObject[kResponseMessage]];
+            [self showToast:request.responseObject[kResponseMessage] withRequest:request];
         }
-//        else if (status.integerValue == kHXBCode_Enum_SingleLogin) {
-//            // 单点登录时，显示tabVC的HomeVC，并弹框提示
-//            if (KeyChain.isLogin) {
-//                // 忽略广告和刷新的请求，因为这种情况不需要手势密码，需要在首页弹框
-//                if ([request.requestUrl isEqualToString:kHXBSplash] || [request.requestUrl isEqualToString:kHXBMY_VersionUpdateURL]) {
-//                } else {
-//                    KeyChain.isLogin = NO;
-//                    [HXBAlertManager alertNeedLoginAgainWithMeaage:request.responseObject[kResponseMessage]];
-//                }
-//            }
-//            return;
-//        }
+
     } else {
         if([request isKindOfClass:[HXBBaseRequest class]]) {
             HXBBaseRequest *requestHxb = (HXBBaseRequest *)request;
@@ -123,18 +111,9 @@
         case kHXBCode_Enum_NotSigin:/// 没有登录
             [self tokenInvidateProcess];
             return;
-        case kHXBCode_Enum_TokenNotJurisdiction:// token 失效
-            return;
-        case kHXBCode_Enum_RequestOverrun:
-        {
-            [HxbHUDProgress showMessageCenter:@"系统时间与服务器时间相差过大" inView:nil];
-            return;
-        }
-            break;
-            
         case kHXBCode_Enum_NoServerFaile:
         {
-            [HxbHUDProgress showMessageCenter:@"网络连接失败，请稍后再试" inView:nil];
+            [self showToast:@"网络连接失败，请稍后再试" withRequest:request];
             return;
         }
             break;
@@ -143,33 +122,38 @@
     }
     
     if (!KeyChain.ishaveNet) {
-        [HxbHUDProgress showMessageCenter:kNoNetworkText inView:nil];
+        [self showToast:@"暂无网络，请稍后再试" withRequest:request];
         request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_NoConnectionNetwork userInfo:@{@"message":@"暂无网络"}];
-        return;
-    }
-
-    if ([request.responseObject[@"code"]  isEqual: @"ESOCKETTIMEDOUT"]) {
-        [HxbHUDProgress showMessageCenter:@"请求超时,请稍后重试"];
         return;
     }
     
     NSString *str = request.error.userInfo[@"NSLocalizedDescription"];
-    if (str.length>0) {
-        if ([[str substringFromIndex:str.length-1] isEqualToString:@"。"]) {
-            str = [str substringToIndex:str.length-1];
-            [HxbHUDProgress showMessageCenter:str];
+    if (str.length > 0) {
+        if ([[str substringFromIndex:str.length - 1] isEqualToString:@"。"]) {
+            str = [str substringToIndex:str.length - 1];
             if ([str containsString:@"请求超时"]) {
                 request.error = [NSError errorWithDomain:request.error.domain code:kHXBCode_Enum_ConnectionTimeOut userInfo:@{@"message":@"连接超时"}];
             }
+            [self showToast:str withRequest:request];
         } else {
             if (request.error.code == kHXBPurchase_Processing) { // 请求任务取消
             } else {
-                [HxbHUDProgress showMessageCenter:request.error.userInfo[@"NSLocalizedDescription"]];
+                [self showToast:str withRequest:request];
             }
         }
     }
 }
 
+#pragma mark - Toast
+- (void)showToast:(NSString *)toast withRequest:(NYBaseRequest *)request {
+    if (request.hudDelegate) {  // 重构后的提示
+        [request.hudDelegate showToast:toast];
+    } else {    // 适配重构前的提示
+        [HxbHUDProgress showMessageCenter:toast inView:nil];
+    }
+}
+
+#pragma mark -
 - (void)tokenInvidateProcess {
     // token 失效，静态登出并回到首页
     if (KeyChain.isLogin) {
@@ -188,13 +172,6 @@
 }
 
 #pragma mark - 部分页面用到Page++ 的处理
-// status != 0
-//未登录状态 弹出登录框 status 为1 message 为@“请登录后操作”
-- (void)showLoginVCWithRequest: (NYBaseRequest *)request {
-    if ([request.responseObject[kResponseMessage] isEqualToString:@"请登录后操作"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-    }
-}
 
 // status == 0
 //page++

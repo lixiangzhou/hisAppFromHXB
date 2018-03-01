@@ -11,6 +11,7 @@
 @interface HxbHUDProgress : NSObject
 
 + (void)showTextWithMessage:(NSString *)message;
++ (void)showTextInView:(UIView*)view text:(NSString *)message;
 + (void)showMessageCenter:(NSString *) msg hideAnimatedAfterDelay:(NSTimeInterval) delay;
 + (void)errorWithErrorCode:(NSInteger)errorCode;
 - (void)showAnimationWithText:(NSString *)text;
@@ -19,7 +20,7 @@
 /**
  自定义HUD加载
  */
-+ (void)showLoadDataHUD:(UIView *)showView;
++ (void)showLoadDataHUD:(UIView *)showView text:(NSString*)message;
 + (void)hidenHUD:(UIView *)hidenView;
 + (void)showTextWithMessage: (NSString *)message andView: (UIView *)view;
 

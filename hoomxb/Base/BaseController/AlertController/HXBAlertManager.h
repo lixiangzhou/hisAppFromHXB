@@ -10,9 +10,10 @@
 
 #import <Foundation/Foundation.h>
 #import "HXBRequestUserInfoViewModel.h"
+#import "HXBBaseViewModel.h"
 
 @class HXBVersionUpdateModel;
-@interface HXBAlertManager : NSObject
+@interface HXBAlertManager : HXBBaseViewModel
 /**
  重新登录的alert
  */
@@ -27,7 +28,7 @@
 /**
  判断是否风险评测 开通存管银行账户 ///完善信息
  */
-+ (void)checkOutRiskAssessmentWithSuperVC:(UIViewController *)vc andWithPushBlock:(void(^)(NSString *hasBindCard, HXBRequestUserInfoViewModel *model))pushBlock;
+- (void)checkOutRiskAssessmentWithSuperVC:(UIViewController *)vc andWithPushBlock:(void(^)(NSString *hasBindCard, HXBRequestUserInfoViewModel *model))pushBlock;
 
 /**
  初始化警告视图

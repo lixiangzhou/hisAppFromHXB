@@ -31,12 +31,16 @@
         return;
     }
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    MBProgressHUD *HUD = [[MBProgressHUD alloc]initWithView:keyWindow];
-    [keyWindow addSubview:HUD];
+    [self showTextInView:keyWindow text:message];
+}
+
++ (void)showTextInView:(UIView*)view text:(NSString *)message {
+    MBProgressHUD *HUD = [[MBProgressHUD alloc]initWithView:view];
+    [view addSubview:HUD];
     HUD.removeFromSuperViewOnHide = YES;
-        NSString *text = message;
-//        HUD.detailsLabel.text = text;
-//        HUD.detailsLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
+    NSString *text = message;
+    //        HUD.detailsLabel.text = text;
+    //        HUD.detailsLabel.font = kHXBFont_PINGFANGSC_REGULAR(16);
     HUD.mode = MBProgressHUDModeText;
     HUD.bezelView.backgroundColor = [UIColor blackColor];
     HUD.label.text = NSLocalizedString(text, @"HUD loading title");
@@ -155,20 +159,21 @@
 /**
  自定义HUD加载
  */
-+ (void)showLoadDataHUD:(UIView *)showView{
++ (void)showLoadDataHUD:(UIView *)showView text:(NSString*)message{
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     if (showView == nil) {
         showView = keyWindow;
+    }
+    if(!message) {
+        message = NSLocalizedString(kLoadIngText, @"HUD loading title");
     }
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:showView animated:YES];
     //    hud.backgroundColor = [UIColor colorWithRed:125/255.0f green:125/255.0f blue:125/255.0f alpha:1.f];
     hud.bezelView.backgroundColor = [UIColor blackColor];
     hud.contentColor = [UIColor whiteColor];
-    hud.label.text = NSLocalizedString(kLoadIngText, @"HUD loading title");
+    hud.label.text = message;
     hud.label.textColor = [UIColor whiteColor];
     hud.backgroundColor = [UIColor clearColor];
-    //加载完成
-    //    [hud hideAnimated:YES];
 }
 
 + (void)hidenHUD:(UIView *)hidenView
@@ -352,6 +357,10 @@ typedef NS_ENUM(NSInteger, LCProgressHUDType){
 
 
 + (void)showMessage:(NSString *)msg inView:(UIView *)view{
+    if(msg.length <= 0){
+        return;
+    }
+    
     [self show:msg inView:view type:LCProgressHUDTypeOnlyText];
     [[HxbHUDProgress shareInstance].HUD hideAnimated:YES afterDelay:1];
 }

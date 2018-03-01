@@ -8,7 +8,6 @@
 
 #import "HXBVersionUpdateManager.h"
 #import "HXBVersionUpdateModel.h"
-#import "HXBVersionUpdateRequest.h"
 #import "HXBRootVCManager.h"
 #import "HXBHomePopViewManager.h"
 
@@ -34,7 +33,9 @@
     static HXBVersionUpdateManager *manager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manager = [HXBVersionUpdateManager new];
+        manager = [[HXBVersionUpdateManager alloc] initWithBlock:^UIView *{
+            return nil;
+        }];
     });
     return manager;
 }
@@ -42,8 +43,15 @@
 - (void)checkVersionUpdate {
     kWeakSelf
     NSString *version = [[[NSBundle mainBundle]infoDictionary]objectForKey:@"CFBundleShortVersionString"];
-    HXBVersionUpdateRequest *versionUpdateRequest = [[HXBVersionUpdateRequest alloc] init];
-    [versionUpdateRequest versionUpdateRequestWitversionCode:version andSuccessBlock:^(id responseObject) {
+    
+    NYBaseRequest *versionUpdateAPI = [[NYBaseRequest alloc] initWithDelegate:self];
+    versionUpdateAPI.requestUrl = kHXBMY_VersionUpdateURL;
+    versionUpdateAPI.requestMethod = NYRequestMethodPost;
+    versionUpdateAPI.showHud = NO;
+    versionUpdateAPI.requestArgument = @{
+                                         @"versionCode" : version
+                                         };
+    [versionUpdateAPI loadData:^(NYBaseRequest *request, id responseObject) {
         weakSelf.versionUpdateModel = [HXBVersionUpdateModel yy_modelWithDictionary:responseObject[@"data"]];
         
         if ([KeyWindow.rootViewController isKindOfClass:NSClassFromString(@"HXBBaseTabBarController")]) {
@@ -57,11 +65,11 @@
             weakSelf.isMandatoryUpdate = YES;
         }
         else {
-             weakSelf.isMandatoryUpdate = NO;
+            weakSelf.isMandatoryUpdate = NO;
         }
-        
-    } andFailureBlock:^(NSError *error) {
+    } failure:^(NYBaseRequest *request, NSError *error) {
         weakSelf.isShow = YES;
+
         [[HXBHomePopViewManager sharedInstance] popHomeViewfromController:[HXBRootVCManager manager].topVC];//展示首页弹窗
     }];
 }

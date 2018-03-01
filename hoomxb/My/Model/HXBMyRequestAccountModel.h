@@ -20,6 +20,4 @@
 @property (nonatomic,assign) long long availableCouponCount;//可用优惠券数量
 /// 持有总资产
 @property (nonatomic, strong) NSNumber *holdingTotalAssets;
-/// 是否展示邀请好友入口
-@property (nonatomic, assign) BOOL isDisplayInvite;
 @end

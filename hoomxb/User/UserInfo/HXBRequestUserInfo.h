@@ -8,11 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "HXBRequestUserInfoViewModel.h"
-@interface HXBRequestUserInfo : NSObject
-///请求数据
-+ (void) downLoadUserInfoWithSeccessBlock: (void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure:(void(^)( NSError *error))failureBlock;
+#import "NYBaseRequest.h"
 
-+ (void)downLoadUserInfoNoHUDWithSeccessBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel))seccessBlock andFailure: (void(^)(NSError *error))failureBlock;
+@interface HXBRequestUserInfo : NSObject
+
+/**
+ 新增请求用户信息
+ 
+ @param requestBlock 请求回调， 补充request的参数
+ @param resultBlock 结果回调
+ */
++ (void)downLoadUserInfoWithRequestBlock:(void(^)(NYBaseRequest* request)) requestBlock resultBlock:(void(^)(HXBRequestUserInfoViewModel *viewModel, NSError *error))resultBlock;
 
 + (void) signOut;
 @end
