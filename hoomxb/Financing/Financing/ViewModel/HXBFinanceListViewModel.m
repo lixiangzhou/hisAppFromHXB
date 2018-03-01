@@ -7,7 +7,6 @@
 //
 
 #import "HXBFinanceListViewModel.h"
-#import "HXBBaseRequest.h"
 
 #import "HXBFinHomePageModel_PlanList.h"            // 计划列表的 model
 #import "HXBFinHomePageModel_LoanList.h"            // 散标列表的 model

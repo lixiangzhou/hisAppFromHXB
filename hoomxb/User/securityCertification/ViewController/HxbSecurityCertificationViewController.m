@@ -8,8 +8,6 @@
 
 #import "HxbSecurityCertificationViewController.h"
 #import "HxbSecurityCertificationView.h"
-#import "HXBSignUPAndLoginRequest.h"//网络请求
-#import "HXBSecurityCertification_Request.h"
 #import "HxbWithdrawCardViewController.h"//绑卡
 #import "HXBSecurityCertificationViewModel.h"
 @interface HxbSecurityCertificationViewController ()
@@ -33,7 +31,7 @@
     [securityCertificationView clickNextButtonFuncWithBlock:^(NSString *name, NSString *idCard, NSString *transactionPassword,NSString *url) {
         
         //安全认证请求
-        [HXBSecurityCertification_Request securityCertification_RequestWithName:name andIdCardNo:idCard andTradpwd:transactionPassword andURL:url andSuccessBlock:^(BOOL isExist) {
+        [weakSelf.viewModel securityCertification_RequestWithName:name andIdCardNo:idCard andTradpwd:transactionPassword andURL:url andSuccessBlock:^(BOOL isExist) {
             //（获取用户信息）
             [weakSelf.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
                 if (isSuccess) {

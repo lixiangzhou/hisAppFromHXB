@@ -7,7 +7,6 @@
 //
 
 #import "HXBFinAddRecordViewModel.h"
-#import "HXBBaseRequest.h"///网络数据请求
 
 @implementation HXBFinAddRecordViewModel
 
