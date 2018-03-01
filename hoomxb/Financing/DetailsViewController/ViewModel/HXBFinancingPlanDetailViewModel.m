@@ -84,10 +84,11 @@
 }
 
 - (void)requestPlanDetailWithPlanId:(NSString *)planId resultBlock:(void (^)(BOOL isSuccess))resultBlock {
-    HXBBaseRequest *planDetaileAPI = [[HXBBaseRequest alloc]initWithDelegate:self];
+    NYBaseRequest *planDetaileAPI = [[NYBaseRequest alloc]initWithDelegate:self];
     planDetaileAPI.requestUrl = kHXBFinanc_PlanDetaileURL(planId.integerValue);
+    planDetaileAPI.showHud = YES;
     
-    [planDetaileAPI loadDataWithSuccess:^(HXBBaseRequest *request, id responseObject) {
+    [planDetaileAPI loadData:^(NYBaseRequest *request, id responseObject) {
         //数据是否出错
         if ([responseObject[kResponseStatus] integerValue]) {
             kNetWorkError(@"计划详情页 没有数据");
@@ -102,7 +103,7 @@
         self.planDetailModel = planDetailViewModel;
         ///回调
         if (resultBlock) resultBlock(YES);
-    } failure:^(HXBBaseRequest *request, NSError *error) {
+    } failure:^(NYBaseRequest *request, NSError *error) {
         if (resultBlock) {
             kNetWorkError(@"红利计划详情")
             resultBlock(NO);
