@@ -11,4 +11,18 @@
 
 @interface HXBSecurityCertificationViewModel : HXBBaseViewModel
 
+/*
+ name    是    string    真实姓名
+ idCardNo    是    string    身份证号
+ tradpwd    否    string    交易密码
+ **/
+- (void)securityCertification_RequestWithName: (NSString *)name
+                                  andIdCardNo: (NSString *)idCardNo
+                                   andTradpwd: (NSString *)tradpwd
+                                       andURL: (NSString *)URL
+                              andSuccessBlock: (void(^)(BOOL isExist))successBlock
+                              andFailureBlock: (void(^)(NSError *error,NSString *message))failureBlock;
+
+
 @end
+

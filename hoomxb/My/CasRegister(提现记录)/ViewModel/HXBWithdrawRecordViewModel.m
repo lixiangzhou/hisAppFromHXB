@@ -7,7 +7,6 @@
 //
 
 #import "HXBWithdrawRecordViewModel.h"
-#import "HXBBaseRequest.h"
 #import "HXBWithdrawRecordListModel.h"
 
 @interface HXBWithdrawRecordViewModel ()
