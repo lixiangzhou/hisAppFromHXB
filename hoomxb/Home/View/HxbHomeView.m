@@ -6,6 +6,7 @@
 //  Copyright © 2017年 hoomsun-miniX. All rights reserved.
 //
 #define kHXBFooterLabelHeight kScrAdaptationH(12)
+#define kHXBFooterViewHeight kScrAdaptationH750(280)
 #define kHXBBottomSpacing kScrAdaptationH(10)
 #define kHXBInvestViewHeight (kScrAdaptationH(330) + kHXBBottomSpacing)
 #define kHXBNotInvestViewHeight (kScrAdaptationH(299) + kHXBBottomSpacing)
@@ -18,10 +19,10 @@
 #import "HXBHomeBaseModel.h"
 #import "HXBHomeTitleModel.h"
 #import "HXBHomeNewbieProductModel.h"
+#import "HXBHomeFooterView.h"
 @interface HxbHomeView ()<UITableViewDelegate,UITableViewDataSource,HXBHomePageHeadViewDelegate>
 @property (nonatomic, strong) HXBHomePageHeadView *headView;
-@property (nonatomic, strong) UIView *footerView;
-@property (nonatomic, strong) UILabel *footerLabel;
+@property (nonatomic, strong) HXBHomeFooterView *footerView;
 @property (nonatomic, strong) HxbHomePageViewModel *dataViewModel;
 @property (nonatomic, strong) HXBBaseContDownManager *contDwonManager;
 
@@ -109,11 +110,11 @@
 - (void)setHomeBaseViewModel:(HxbHomePageViewModel *)homeBaseViewModel
 {
     _homeBaseViewModel = homeBaseViewModel;
-    if (homeBaseViewModel.homeBaseModel.homeTitle.baseTitle.length) {
-        self.footerLabel.text = [NSString stringWithFormat:@"- %@ -",homeBaseViewModel.homeBaseModel.homeTitle.baseTitle];
+    if (homeBaseViewModel.homeBaseModel.homeTitle.baseTitle.length || homeBaseViewModel.homeBaseModel.homePlatformIntroduction.count) {
+        [self setupFooterView];
         self.mainTableView.tableFooterView = self.footerView;
     }
-    
+    self.footerView.homeBaseViewModel = homeBaseViewModel;
     [self changeIndicationView:self.userInfoViewModel];
     self.headView.homeBaseModel = homeBaseViewModel.homeBaseModel;
     
@@ -131,6 +132,18 @@
     }
     [self creatCountDownManager];
     [self.mainTableView reloadData];
+}
+
+- (void)setupFooterView {
+    if (self.homeBaseViewModel.homeBaseModel.homeTitle.baseTitle.length && self.homeBaseViewModel.homeBaseModel.homePlatformIntroduction.count) {
+        self.footerView.frame = CGRectMake(0, 0, self.mainTableView.width, kHXBFooterViewHeight);
+    }
+    else if (self.homeBaseViewModel.homeBaseModel.homeTitle.baseTitle.length && !self.homeBaseViewModel.homeBaseModel.homePlatformIntroduction.count){
+        self.footerView.frame = CGRectMake(0, 0, self.mainTableView.width, kHXBBottomSpacing + kHXBFooterLabelHeight);
+    }
+    else if (!self.homeBaseViewModel.homeBaseModel.homeTitle.baseTitle.length && self.homeBaseViewModel.homeBaseModel.homePlatformIntroduction.count) {
+        self.footerView.frame = CGRectMake(0, 0, self.mainTableView.width,kScrAdaptationH750(190));
+    }
 }
 
 - (void)creatCountDownManager {
@@ -306,30 +319,22 @@
     return _headView;
 }
 
-- (UIView *)footerView
+- (HXBHomeFooterView *)footerView
 {
     if (!_footerView) {
-        _footerView = [UIView new];
+        _footerView = [HXBHomeFooterView new];
         _footerView.backgroundColor = [UIColor clearColor];
-        _footerView.frame = CGRectMake(0, 0, self.mainTableView.width, kHXBBottomSpacing + kHXBFooterLabelHeight);
-        [_footerView addSubview:self.footerLabel];
-        [self.footerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(_footerView);
-            make.centerX.equalTo(_footerView);
-        }];
-        
+        _footerView.frame = CGRectMake(0, 0, self.mainTableView.width, kHXBFooterViewHeight);
+        kWeakSelf
+        _footerView.homePlatformIntroduction = ^(HXBHomePlatformIntroductionModel *model) {
+            if (weakSelf.homePlatformIntroduction) {
+                weakSelf.homePlatformIntroduction(model);
+            }
+        };
     }
     return _footerView;
 }
 
-- (UILabel *)footerLabel {
-    if (!_footerLabel) {
-        _footerLabel = [UILabel new];
-        _footerLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-        _footerLabel.textColor = kHXBColor_999999_100;
-    }
-    return _footerLabel;
-}
 
 - (UITableView *)mainTableView
 {

@@ -10,7 +10,7 @@
 //#import "HXBBannerView.h"
 #import "HxbHomePageViewModel.h"
 #import "HxbHomePageViewModel_dataList.h"
-@class HXBHomeBaseModel,BannerModel;
+@class HXBHomeBaseModel,BannerModel,HXBHomePlatformIntroductionModel;
 @interface HxbHomeView : UIView
 
 @property (nonatomic, strong) UITableView *mainTableView;
@@ -57,6 +57,11 @@
  点击banner的回调
  */
 @property (nonatomic, copy) void (^clickBannerImageBlock)(BannerModel *model);
+
+/**
+ 点击平台介绍回调的block
+ */
+@property (nonatomic, copy) void (^homePlatformIntroduction)(HXBHomePlatformIntroductionModel *model);
 
 /**
  是否停止刷新
