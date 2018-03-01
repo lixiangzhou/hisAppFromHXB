@@ -160,6 +160,14 @@
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             //            detail_DetailLoanVC. = self.planDetailViewModel;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = weakSelf.loanDetailViewModel.fin_LoanInfoView_Manager;
+            
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.overDueStatus = weakSelf.loanDetailViewModel.loanDetailModel.userVo.overDueStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.otherPlatStatus = weakSelf.loanDetailViewModel.loanDetailModel.userVo.otherPlatStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.protectSolution = weakSelf.loanDetailViewModel.loanDetailModel.userVo.protectSolution;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.userFinanceStatus = weakSelf.loanDetailViewModel.loanDetailModel.userVo.userFinanceStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.repaymentCapacity = weakSelf.loanDetailViewModel.loanDetailModel.userVo.repaymentCapacity;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.punishedStatus = weakSelf.loanDetailViewModel.loanDetailModel.userVo.punishedStatus;
+            
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = weakSelf.loanDetailViewModel.loanDetailModel.loanVo.creditInfoItems;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = weakSelf.loanDetailViewModel.loanDetailModel.loanVo.riskLevel;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevelDesc = weakSelf.loanDetailViewModel.loanDetailModel.loanVo.riskLevelDesc;
