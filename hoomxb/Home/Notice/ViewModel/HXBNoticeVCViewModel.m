@@ -47,7 +47,7 @@
             callbackBlock(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        weakSelf.dataPage++;
+        weakSelf.dataPage--;
         if (callbackBlock) {
             callbackBlock(NO);
         }
