@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 //#import "HXBBannerView.h"
 #import "HxbHomePageViewModel_dataList.h"
-@class HXBHomeBaseModel,BannerModel,HXBHomePlatformIntroductionModel;
+@class HXBHomeBaseModel,BannerModel,HXBHomePlatformIntroductionModel,HXBHomeVCViewModel;
 @interface HxbHomeView : UIView
 
 @property (nonatomic, strong) UITableView *mainTableView;

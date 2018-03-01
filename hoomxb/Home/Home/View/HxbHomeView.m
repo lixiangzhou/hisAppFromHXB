@@ -20,10 +20,10 @@
 #import "HXBHomeTitleModel.h"
 #import "HXBHomeNewbieProductModel.h"
 #import "HXBHomeFooterView.h"
+#import "HXBHomeVCViewModel.h"
 @interface HxbHomeView ()<UITableViewDelegate,UITableViewDataSource,HXBHomePageHeadViewDelegate>
 @property (nonatomic, strong) HXBHomePageHeadView *headView;
 @property (nonatomic, strong) HXBHomeFooterView *footerView;
-@property (nonatomic, strong) HxbHomePageViewModel *dataViewModel;
 @property (nonatomic, strong) HXBBaseContDownManager *contDwonManager;
 
 @property (nonatomic, strong) UIView *tableBackgroundView;
