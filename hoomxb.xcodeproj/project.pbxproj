@@ -5855,7 +5855,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				ASSETCATALOG_OTHER_FLAGS = "–fstack-protector-all";
+				ASSETCATALOG_OTHER_FLAGS = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer: 聪聪 翟 (86S6Q378KL)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -5877,7 +5877,51 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
 				);
-				OTHER_OSACOMPILEFLAGS = "–fstack-protector-all";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AvoidCrash\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CJLabel\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/IQKeyboardManager\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/ReactiveObjC\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SDCycleScrollView\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SVGKit\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UICKeyChainStore\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UMengAnalytics-NO-IDFA\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UMengUShare\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/WebViewJavascriptBridge\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
+					"-fstack-protector-all",
+				);
+				OTHER_OSACOMPILEFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -5892,7 +5936,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				ASSETCATALOG_OTHER_FLAGS = "–fstack-protector-all";
+				ASSETCATALOG_OTHER_FLAGS = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -5914,7 +5958,51 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
 				);
-				OTHER_OSACOMPILEFLAGS = "–fstack-protector-all";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AvoidCrash\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CJLabel\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/IQKeyboardManager\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/ReactiveObjC\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SDCycleScrollView\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SVGKit\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UICKeyChainStore\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UMengAnalytics-NO-IDFA\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UMengUShare\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/WebViewJavascriptBridge\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
+					"-fstack-protector-all",
+				);
+				OTHER_OSACOMPILEFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -6020,7 +6108,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				ASSETCATALOG_OTHER_FLAGS = "–fstack-protector-all";
+				ASSETCATALOG_OTHER_FLAGS = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Hoomsun Financial Information Services Shanghai Co.,Ltd. (Z9M2NMJFP5)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -6042,7 +6130,51 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/hoomxb/Lib/SVGKit.framework",
 				);
-				OTHER_OSACOMPILEFLAGS = "–fstack-protector-all";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AvoidCrash\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CJLabel\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/CocoaLumberjack\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Crashlytics\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/IQKeyboardManager\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/ReactiveObjC\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SDCycleScrollView\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SVGKit\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UICKeyChainStore\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UMengAnalytics-NO-IDFA\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/UMengUShare\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/WebViewJavascriptBridge\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
+					"-fstack-protector-all",
+				);
+				OTHER_OSACOMPILEFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
