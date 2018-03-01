@@ -36,8 +36,7 @@
 - (void)requestLoanDetailWithLoanTruansferId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *loanTruansferRequest = [[NYBaseRequest alloc]initWithDelegate:self];
     loanTruansferRequest.requestUrl = kHXBFin_LoanTruansfer_DetailURL(loanId.integerValue);
-    
-    
+    loanTruansferRequest.showHud = YES;
     
     [loanTruansferRequest loadData:^(NYBaseRequest *request, id responseObject) {
         if ([responseObject[kResponseStatus] integerValue]) {

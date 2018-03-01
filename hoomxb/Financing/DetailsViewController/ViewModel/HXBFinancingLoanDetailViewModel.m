@@ -80,6 +80,7 @@
 - (void)requestLoanDetailWithLoanId:(NSString *)loanId resultBlock:(void (^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *loanDetaileAPI = [[NYBaseRequest alloc]initWithDelegate:self];
     loanDetaileAPI.requestUrl = kHXBFinanc_LoanDetaileURL(loanId.integerValue);
+    loanDetaileAPI.showHud = YES;
     
     [loanDetaileAPI loadData:^(NYBaseRequest *request, id responseObject) {
         ///数据是否出错

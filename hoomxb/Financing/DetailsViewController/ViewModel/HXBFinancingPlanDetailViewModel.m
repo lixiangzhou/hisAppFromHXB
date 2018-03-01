@@ -86,6 +86,7 @@
 - (void)requestPlanDetailWithPlanId:(NSString *)planId resultBlock:(void (^)(BOOL isSuccess))resultBlock {
     NYBaseRequest *planDetaileAPI = [[NYBaseRequest alloc]initWithDelegate:self];
     planDetaileAPI.requestUrl = kHXBFinanc_PlanDetaileURL(planId.integerValue);
+    planDetaileAPI.showHud = YES;
     
     [planDetaileAPI loadData:^(NYBaseRequest *request, id responseObject) {
         //数据是否出错
