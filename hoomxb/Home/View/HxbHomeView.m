@@ -326,8 +326,7 @@
     if (!_footerLabel) {
         _footerLabel = [UILabel new];
         _footerLabel.font = kHXBFont_PINGFANGSC_REGULAR(12);
-        _footerLabel.textColor = RGB(184, 184, 184);
-        _footerLabel.backgroundColor = RGB(245, 245, 245);
+        _footerLabel.textColor = kHXBColor_999999_100;
     }
     return _footerLabel;
 }
