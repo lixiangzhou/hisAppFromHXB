@@ -30,16 +30,6 @@
                                 @"cashPassword" : tradpwd
                                 };
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        NSString *message = responseObject[kResponseMessage];
-        if ([responseObject[kResponseStatus] integerValue] == 1) {
-            if (failureBlock) {
-                [HxbHUDProgress showTextWithMessage:message];
-                failureBlock(nil,message);
-            }
-            
-            NSLog(@"用户已经进行过实名认证。");
-            return;
-        }
         if (successBlock) {
             successBlock(YES);
         }
