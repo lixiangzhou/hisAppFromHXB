@@ -16,9 +16,8 @@
  公告
  
  @param isUPReloadData 是否为下拉加载
- @param successDateBlock 成功回调
- @param failureBlock 失败回调
+ @param callbackBlock 回调
  */
-- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andSuccessBlock: (void(^)(NSInteger totalCount))successDateBlock andFailureBlock: (void(^)(NSError *error))failureBlock;
+- (void)noticeRequestWithisUPReloadData:(BOOL)isUPReloadData andCallbackBlock: (void(^)(BOOL isSuccess))callbackBlock;
 
 @end
