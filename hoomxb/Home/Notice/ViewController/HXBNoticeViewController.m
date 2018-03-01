@@ -49,23 +49,31 @@
 {
     kWeakSelf
     //公告请求接口
-    [self.noticeViewModel noticeRequestWithisUPReloadData:isUPReloadData andSuccessBlock:^(NSInteger totalCount) {
-        NSLog(@"%@,\n %ld", weakSelf.noticeViewModel, (long)totalCount);
-        weakSelf.totalCount = totalCount;
-        if (!weakSelf.noticeViewModel.noticModelArr.count) {
-            weakSelf.nodataView.hidden = NO;
-        }else
-        {
-            weakSelf.nodataView.hidden = YES;
+    [self.noticeViewModel noticeRequestWithisUPReloadData:isUPReloadData andCallbackBlock:^(BOOL isSuccess) {
+        if (isSuccess) {
+            NSLog(@"%@,\n %ld", weakSelf.noticeViewModel, (long)weakSelf.noticeViewModel.totalCount);
+            weakSelf.totalCount = [weakSelf.noticeViewModel.totalCount integerValue];
+            if (!weakSelf.noticeViewModel.noticModelArr.count) {
+                weakSelf.nodataView.hidden = NO;
+            }else
+            {
+                weakSelf.nodataView.hidden = YES;
+            }
+            weakSelf.mainTabelView.hidden = NO;
+            [weakSelf.mainTabelView reloadData];
+            [weakSelf setTableFooterView:weakSelf.mainTabelView];
+            if (weakSelf.noticeViewModel.noticModelArr.count < weakSelf.totalCount) {
+                [weakSelf.mainTabelView.mj_footer endRefreshing];
+            }
+            else {
+                [weakSelf.mainTabelView.mj_footer endRefreshingWithNoMoreData];
+            }
+            [weakSelf.mainTabelView.mj_header endRefreshing];
         }
-        weakSelf.mainTabelView.hidden = NO;
-        [weakSelf.mainTabelView reloadData];
-        [weakSelf setTableFooterView:weakSelf.mainTabelView];
-        [weakSelf.mainTabelView.mj_footer endRefreshing];
-        [weakSelf.mainTabelView.mj_header endRefreshing];
-    } andFailureBlock:^(NSError *error) {
-        [weakSelf.mainTabelView.mj_header endRefreshing];
-        [weakSelf.mainTabelView.mj_footer endRefreshing];
+        else {
+            [weakSelf.mainTabelView.mj_header endRefreshing];
+            [weakSelf.mainTabelView.mj_footer endRefreshing];
+        }
     }];
 }
 
@@ -113,12 +121,11 @@
         [_mainTabelView hxb_headerWithRefreshBlock:^{
             [weakSelf loadDataWithIsUPReloadData:YES];
         }];
-        if (self.totalCount >= kPageCount) {
-            [_mainTabelView hxb_footerWithRefreshBlock:^{
-                [weakSelf loadDataWithIsUPReloadData:NO];
-            }];
-        }
-        
+    }
+    if (self.totalCount > kPageCount && (_mainTabelView.mj_footer == nil)) {
+        [_mainTabelView hxb_footerWithRefreshBlock:^{
+            [self loadDataWithIsUPReloadData:NO];
+        }];
     }
     return _mainTabelView;
 }
