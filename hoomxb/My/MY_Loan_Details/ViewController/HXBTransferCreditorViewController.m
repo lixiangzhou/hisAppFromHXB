@@ -9,7 +9,6 @@
 #import "HXBTransferCreditorViewController.h"
 #import "HXBTransferCreditorTopView.h"
 #import "HXBTransferCreditorBottomView.h"
-#import "HXBMYRequest.h"
 #import "HXBModifyTransactionPasswordViewController.h"
 #import "HXBFBase_BuyResult_VC.h"
 #import "HXBMY_LoanListViewController.h"

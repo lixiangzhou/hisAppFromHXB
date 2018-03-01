@@ -7,9 +7,6 @@
 //  账户内计划详情
 
 #import "HXBMY_PlanList_DetailViewController.h"
-
-#import "HXBMYReqest_DetailRequest.h"//请求的工具类
-
 #import "HXBMYViewModel_MianPlanViewModel.h"//红利计划列表页的ViewModel
 #import "HXBMYModel_MainPlanModel.h"//红利计划列表页的Model
 
@@ -25,7 +22,6 @@
 #import "HXBMyPlanDetailsViewModel.h"
 
 @interface HXBMY_PlanList_DetailViewController ()
-@property (nonatomic,strong) HXBMYReqest_DetailRequest *detailRequest;
 @property (nonatomic,weak) HXBMY_PlanDetailView *planDetailView;
 @property (nonatomic,strong) UITableView *hxbBaseVCScrollView;
 @property (nonatomic,copy) void(^trackingScrollViewBlock)(UIScrollView *scrollView);
@@ -33,18 +29,6 @@
 @end
 
 @implementation HXBMY_PlanList_DetailViewController
-#pragma mark - getter 
-- (HXBMYReqest_DetailRequest *)detailRequest {
-    if (!_detailRequest) {
-        _detailRequest = [[HXBMYReqest_DetailRequest alloc]init];
-    }
-    return _detailRequest;
-}
-
-//- (void)setPlanViewModel:(HXBMYViewModel_MianPlanViewModel *)planViewModel {
-//    _planViewModel = planViewModel;
-//    [self downData];
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
