@@ -55,47 +55,6 @@
     }
 }
 
-+ (void)rechargePurchaseJumpLogicWithNAV:(UINavigationController *)nav
-{
-    if (![KeyChain isLogin]) {
-        //跳转登录注册
-        [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowLoginVC object:nil];
-    }else
-    {
-        
-        [KeyChain downLoadUserInfoWithSeccessBlock:^(HXBRequestUserInfoViewModel *viewModel) {
-            
-            if (viewModel.userInfoModel.userInfo.isUnbundling) {
-                [HXBAlertManager callupWithphoneNumber:kServiceMobile andWithTitle:@"温馨提示" Message:[NSString stringWithFormat:@"您的身份信息不完善，请联系客服 %@", kServiceMobile]];
-                return;
-            }
-            
-            HXBOpenDepositAccountViewController *openDepositAccountVC = [[HXBOpenDepositAccountViewController alloc] init];
-            
-            if (!viewModel.userInfoModel.userInfo.isCreateEscrowAcc) {
-                //开通存管银行账户
-                openDepositAccountVC.title = @"开通存管账户";
-                [nav pushViewController:openDepositAccountVC animated:YES];
-                
-            } else if ([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"0"])
-            {
-                
-                //进入绑卡界面
-                HxbWithdrawCardViewController *withdrawCardViewController = [[HxbWithdrawCardViewController alloc]init];
-                withdrawCardViewController.title = @"绑卡";
-                [nav pushViewController:withdrawCardViewController animated:YES];
-            }else if (!([viewModel.userInfoModel.userInfo.isCashPasswordPassed isEqualToString:@"1"] && [viewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]))
-            {
-                //完善信息
-                openDepositAccountVC.title = @"完善信息";
-                [nav pushViewController:openDepositAccountVC animated:YES];
-            }
-        } andFailure:^(NSError *error) {
-            
-        }];
-    }
-}
-
 /**
  tableView适配iOS11
  */

@@ -28,7 +28,7 @@
 @property (nonatomic,copy) NSString *name;
 ///	string	已获收益
 @property (nonatomic,copy) NSString *earnAmount;
-///	string	预期收益率 新手产品基础利率也取此字段）
+///	string	预期收益率
 @property (nonatomic,copy) NSString *expectedRate;
 ///	string	投资期限
 @property (nonatomic,copy) NSString *lockPeriod;
@@ -62,10 +62,7 @@
 /// interestDate 按月付息日具体文案，拼接规则：每月+cashDrawDay+日付息
 @property (nonatomic, copy) NSString *interestDate;
 
-@property (nonatomic, copy) NSString *subsidyInterestRate;///贴息收益率
-@property (nonatomic, copy) NSString *expectedSubsidyInterestAmount;///贴息预期收益
-@property (nonatomic, copy) NSString *novice;///新手标志(1:是 0:否)
-@property (nonatomic, copy) NSString *lockDays;///新手计划锁定期/天
+
 
 @property (nonatomic,copy) NSString *type;//": "HOLD_PLAN",
 @property (nonatomic,copy) NSString *isUseCoupon;//": "0",

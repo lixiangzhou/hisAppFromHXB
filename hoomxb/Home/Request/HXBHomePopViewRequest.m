@@ -22,6 +22,11 @@
 //                                         @"versionCode" : versionCode
 //                                         };
     [versionUpdateAPI startWithSuccess:^(NYBaseRequest *request, id responseObject) {
+        NSInteger status =  [responseObject[@"status"] integerValue];
+        
+        if (status) {
+            kHXBResponsShowHUD
+        }
         
         if (successDateBlock) {
             successDateBlock(responseObject);

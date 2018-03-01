@@ -15,4 +15,6 @@
  @param resultCall 通过block回调解析结果
  */
 - (void)parseUrlParam:(void (^)(NSString* path, NSDictionary* paramDic))resultCall;
+
+- (CGSize)caleFontSize:(UIFont *)font forMaxSize:(CGSize)maxSize lineBreakMode:(NSLineBreakMode)lineBreakMode;
 @end

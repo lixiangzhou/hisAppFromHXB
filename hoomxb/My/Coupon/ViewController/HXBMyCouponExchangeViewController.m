@@ -7,11 +7,10 @@
 //
 
 #import "HXBMyCouponExchangeViewController.h"
-#import "HXBRequestAccountInfo.h"
 #import "HXBFBase_BuyResult_VC.h"
 #import "HXBMyCouponListViewController.h"
-#import "HXBMyCouponListModel.h"
 #import "HXBMyCouponViewController.h"
+#import "HXBCouponExchangeViewModel.h"
 
 @interface HXBMyCouponExchangeViewController ()<UITextFieldDelegate>
 
@@ -20,7 +19,7 @@
 @property (nonatomic, strong)HXBCustomTextField *redeemCodeTextField;
 @property (nonatomic, strong)UILabel *promptLab;
 @property (nonatomic, strong)UIButton *redeemCodeBtn;
-@property (nonatomic, strong)HXBMyCouponListModel *myCouponListModel;
+@property (nonatomic, strong) HXBCouponExchangeViewModel *viewModel;
 @end
 
 @implementation HXBMyCouponExchangeViewController
@@ -30,6 +29,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = RGBA(244, 243, 248, 1);
+    
+    kWeakSelf
+    self.viewModel = [[HXBCouponExchangeViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     
     [self buildUI];
     [self setupSubViewFrame];
@@ -79,41 +83,18 @@
 
 #pragma mark - Network
 
-- (void)loadData_myAccountExchangeInfo{
+- (void)loadData_myAccountExchangeInfo {
     kWeakSelf
-    [HXBRequestAccountInfo downLoadMyCouponExchangeInfoHUDWithCode: [weakSelf.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""] withSeccessBlock:^(HXBMyCouponListModel *Model, NSString *message) {
-        if (message.length > 0) {
-            self.promptLab.hidden = NO;
-            self.promptLab.text = message;
+    NSString *code = [weakSelf.redeemCodeTextField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    [self.viewModel downLoadMyCouponExchangeInfoHUDWithCode:code completion:^(BOOL isSuccess) {
+        if (isSuccess) {
+            [weakSelf exchangeSuccess];
         } else {
-            self.myCouponListModel = Model;
-            HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
-            planBuySuccessVC.isShowInviteBtn = NO;
-            planBuySuccessVC.imageName = @"SuccessfulCoupon";
-            planBuySuccessVC.buy_title = @"兑换成功";
-            planBuySuccessVC.midStr = [NSString stringWithFormat:@"您已成功兑换\n%@", Model.summaryContent];
-            planBuySuccessVC.buy_ButtonTitle = @"查看我的优惠券";
-            planBuySuccessVC.title = @"兑换优惠券";
-            [planBuySuccessVC clickButtonWithBlock:^{
-                __block HXBMyCouponViewController *viewController = nil;
-                [self.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
-                    if ([VC isKindOfClass:[HXBMyCouponViewController class]]) {
-                        viewController = VC;
-                        * stop = YES;
-                    }
-                }];
-                if ((HXBMyCouponViewController * )viewController.childViewControllers[0] && [(HXBMyCouponViewController * )viewController.childViewControllers[0] isKindOfClass:[HXBMyCouponListViewController class]]) {
-                    
-                    UIButton *btn = viewController.topTabView.tabs[0];
-                    [viewController.topTabView tabAnimation:btn];
-                    [viewController.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-                    [self.navigationController popToViewController:viewController animated:YES];
-                }
-            }];
-            self.redeemCodeTextField.text = @"";
-            [self.navigationController pushViewController:planBuySuccessVC animated:YES];
+            if (weakSelf.viewModel.promptMessage.length > 0) {
+                weakSelf.promptLab.hidden = NO;
+                weakSelf.promptLab.text = weakSelf.viewModel.promptMessage;
+            }
         }
-    } andFailure:^(NSError *error) {
     }];
 }
 
@@ -146,6 +127,36 @@
     return YES;
 }
 
+#pragma mark - Helper
+- (void)exchangeSuccess {
+    HXBFBase_BuyResult_VC *planBuySuccessVC = [[HXBFBase_BuyResult_VC alloc]init];
+    planBuySuccessVC.isShowInviteBtn = NO;
+    planBuySuccessVC.imageName = @"SuccessfulCoupon";
+    planBuySuccessVC.buy_title = @"兑换成功";
+    planBuySuccessVC.midStr = [NSString stringWithFormat:@"您已成功兑换\n%@", self.viewModel.couponListModel.summaryContent];
+    planBuySuccessVC.buy_ButtonTitle = @"查看我的优惠券";
+    planBuySuccessVC.title = @"兑换优惠券";
+    kWeakSelf
+    [planBuySuccessVC clickButtonWithBlock:^{
+        __block HXBMyCouponViewController *viewController = nil;
+        [weakSelf.navigationController.childViewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull VC, NSUInteger idx, BOOL * _Nonnull stop) {
+            if ([VC isKindOfClass:[HXBMyCouponViewController class]]) {
+                viewController = VC;
+                * stop = YES;
+            }
+        }];
+        if ((HXBMyCouponViewController * )viewController.childViewControllers[0] && [(HXBMyCouponViewController * )viewController.childViewControllers[0] isKindOfClass:[HXBMyCouponListViewController class]]) {
+            
+            UIButton *btn = viewController.topTabView.tabs[0];
+            [viewController.topTabView tabAnimation:btn];
+            [viewController.scrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+            [weakSelf.navigationController popToViewController:viewController animated:YES];
+        }
+    }];
+    self.redeemCodeTextField.text = @"";
+    [self.navigationController pushViewController:planBuySuccessVC animated:YES];
+}
+
 #pragma mark - Action
 
 - (void)clickRedeemCodeBtn:(UIButton *)sender{
@@ -157,11 +168,7 @@
 
 #pragma mark - Setter / Getter / Lazy
 
--(void)setMyCouponListModel:(HXBMyCouponListModel *)myCouponListModel{
-    _myCouponListModel = myCouponListModel;
-}
-
--(UILabel *)promptLab{
+-(UILabel *)promptLab {
     if (!_promptLab) {
         _promptLab = [[UILabel alloc]initWithFrame:CGRectMake(kScrAdaptationW750(30), kScrAdaptationH750(180), kScreenWidth - kScrAdaptationW750(60), kScrAdaptationH750(28))];
         _promptLab.text = @"";
