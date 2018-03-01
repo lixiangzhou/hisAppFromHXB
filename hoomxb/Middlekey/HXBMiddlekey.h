@@ -15,10 +15,6 @@
  */
 + (void)depositoryJumpLogicWithNAV:(UINavigationController *)nav withOldUserInfo:(HXBRequestUserInfoViewModel *)viewMode;
 
-/**
- 充值够没的逻辑
- */
-+ (void)rechargePurchaseJumpLogicWithNAV:(UINavigationController *)nav;
 
 
 
