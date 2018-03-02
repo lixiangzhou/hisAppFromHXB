@@ -30,6 +30,9 @@
 ///可以重写返回方法
 - (void)leftBackBtnClick;
 
+///可以重写返回按钮样式
+- (void)setupLeftBackBtn;
+
 ///无网状态的网络连接
 - (void)getNetworkAgain;
 

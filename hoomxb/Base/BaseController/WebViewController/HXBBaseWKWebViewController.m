@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 #import "HXBWKWebviewViewModel.h"
 #import "HXBWKWebViewProgressView.h"
+#import "SVGKit/SVGKImage.h"
 
 @interface HXBBaseWKWebViewController ()<WKNavigationDelegate> {
     //进度视图的高度
@@ -66,6 +67,24 @@
     [self loadWebPage];
 }
 
+- (void)setupLeftBackBtn {
+    UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 35)];
+//    self.leftBackBtn = leftBackBtn;
+    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
+    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateHighlighted];
+    
+    [leftBackBtn addTarget:self action:@selector(leftBackBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem * spaceItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    if (@available(iOS 11.0, *)) {
+        leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    } else {
+        spaceItem.width = -15;
+    }
+    self.navigationItem.leftBarButtonItems = @[spaceItem,[[UIBarButtonItem alloc] initWithCustomView:leftBackBtn]];
+}
+
 - (void)leftBackBtnClick {
     if(self.showCloseButton) {
         if(self.webView.canGoBack) {
@@ -104,6 +123,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    NSLog(@"______%@", keyPath);
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
         [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
 
