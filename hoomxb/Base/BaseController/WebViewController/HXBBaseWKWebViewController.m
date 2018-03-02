@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 #import "HXBWKWebviewViewModel.h"
 #import "HXBWKWebViewProgressView.h"
+#import "SVGKit/SVGKImage.h"
 
 @interface HXBBaseWKWebViewController ()<WKNavigationDelegate> {
     //进度视图的高度
@@ -29,6 +30,10 @@
 @property (nonatomic, strong) HXBWKWebviewViewModuel *webViewModuel;
 
 @property (nonatomic, assign) BOOL loadResult;
+
+@property (nonatomic, strong) UIButton *leftBackBtn;
+
+@property (nonatomic, strong) UIButton *closeBtn;
 
 @end
 
@@ -66,6 +71,30 @@
     [self loadWebPage];
 }
 
+- (void)setupLeftBackBtn {
+    UIButton *leftBackBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 35)];
+    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateNormal];
+    [leftBackBtn setImage:[SVGKImage imageNamed:@"back.svg"].UIImage forState:UIControlStateHighlighted];
+    
+    [leftBackBtn addTarget:self action:@selector(leftBackBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    self.leftBackBtn = leftBackBtn;
+    
+    UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
+    [closeBtn setImage:[UIImage imageNamed:@"webView_close"] forState:(UIControlStateNormal)];
+    [closeBtn addTarget:self action:@selector(closeBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    self.closeBtn = closeBtn;
+    
+    UIBarButtonItem * spaceItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    
+    if (@available(iOS 11.0, *)) {
+        leftBackBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        closeBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    } else {
+        spaceItem.width = -15;
+    }
+    self.navigationItem.leftBarButtonItems = @[spaceItem,[[UIBarButtonItem alloc] initWithCustomView:leftBackBtn]];
+}
+
 - (void)leftBackBtnClick {
     if(self.showCloseButton) {
         if(self.webView.canGoBack) {
@@ -78,6 +107,10 @@
     else {
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (void)closeBtnClick {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)dealloc {
@@ -106,11 +139,20 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"estimatedProgress"]) {
         [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
-
     } else if ([keyPath isEqualToString:@"title"]) {
         self.title = [NSString H5Title:self.webView.title];
+    } else if ([keyPath isEqualToString:@"contentSize"]) {
+        self.showCloseButton = self.webView.canGoBack;
     }
-    
+}
+
+- (void)setShowCloseButton:(BOOL)showCloseButton {
+    _showCloseButton = showCloseButton;
+    if (showCloseButton) {
+        self.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:self.leftBackBtn],[[UIBarButtonItem alloc] initWithCustomView:self.closeBtn]];
+    } else {
+        self.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:self.leftBackBtn]];
+    }
 }
 
 #pragma mark 无网络重新加载H5
