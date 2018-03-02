@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 //#import "HXBBannerView.h"
 #import "HxbHomePageViewModel_dataList.h"
-#import "HXBHomeVCViewModel.h"
-
-@class HXBHomeBaseModel,BannerModel;
+@class HXBHomeBaseModel,BannerModel,HXBHomePlatformIntroductionModel,HXBHomeVCViewModel;
 @interface HxbHomeView : UIView
 
 @property (nonatomic, strong) UITableView *mainTableView;
@@ -60,12 +58,16 @@
 @property (nonatomic, copy) void (^clickBannerImageBlock)(BannerModel *model);
 
 /**
+ 点击平台介绍回调的block
+ */
+@property (nonatomic, copy) void (^homePlatformIntroduction)(HXBHomePlatformIntroductionModel *model);
+
+/**
  是否停止刷新
  */
 @property (nonatomic,assign) BOOL isStopRefresh_Home;
 
 - (void)changeIndicationView:(HXBRequestUserInfoViewModel *)viewModel;
-- (void)showBulletinView;
 - (void)showSecurityCertificationOrInvest:(HXBRequestUserInfoViewModel *)viewModel;
 
 @end

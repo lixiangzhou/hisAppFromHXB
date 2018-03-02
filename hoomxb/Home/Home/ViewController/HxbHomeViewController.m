@@ -26,6 +26,7 @@
 #import "HXBRootVCManager.h"
 #import "HXBVersionUpdateManager.h"
 #import "HXBHomeNewbieProductModel.h"
+#import "HXBHomePlatformIntroductionModel.h"
 @interface HxbHomeViewController ()
 
 @property (nonatomic, strong) HxbHomeView *homeView;
@@ -220,6 +221,14 @@
             [weakSelf pushToViewControllerWithModel:model];
         };
         
+        _homeView.homePlatformIntroduction = ^(HXBHomePlatformIntroductionModel *model) {
+            //进行模型转换
+            BannerModel *pushVCmodel = [[BannerModel alloc] init];
+            pushVCmodel.type = model.type;
+            pushVCmodel.link = model.url;
+            pushVCmodel.url = model.url;
+            [weakSelf pushToViewControllerWithModel:pushVCmodel];
+        };
         _homeView.newbieAreaActionBlock = ^{
             NSLog(@"点击了新手专区");
             if (weakSelf.homeVimewModle.homeBaseModel.newbieProductData.url.length > 0) {
