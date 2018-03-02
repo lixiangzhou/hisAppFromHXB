@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class HXBHomeTitleModel,HxbHomePageModel_DataList,HXBHomeNewbieProductModel;
+@class HXBHomeTitleModel,HxbHomePageModel_DataList,HXBHomeNewbieProductModel,HXBHomePlatformIntroductionModel;
 @interface HXBHomeBaseModel : NSObject
 
 /**
@@ -30,5 +30,8 @@
  新手产品
  */
 @property (nonatomic, strong) HXBHomeNewbieProductModel *newbieProductData;
+
+//平台介绍
+@property (nonatomic, strong) NSArray <HXBHomePlatformIntroductionModel *>*homePlatformIntroduction;
 
 @end

@@ -11,6 +11,7 @@
 #import "BannerModel.h"
 #import "HxbHomePageModel_DataList.h"
 #import "HXBHomeNewbieProductModel.h"
+#import "HXBHomePlatformIntroductionModel.h"
 @implementation HXBHomeBaseModel
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
@@ -18,7 +19,8 @@
              @"homeTitle" : [HXBHomeTitleModel class],
              @"bannerList" : [BannerModel class],
              @"homePlanRecommend" : [HxbHomePageModel_DataList class],
-             @"newbieProductData" : [HXBHomeNewbieProductModel class]
+             @"newbieProductData" : [HXBHomeNewbieProductModel class],
+             @"homePlatformIntroduction" : [HXBHomePlatformIntroductionModel class]
              };
 }
 
