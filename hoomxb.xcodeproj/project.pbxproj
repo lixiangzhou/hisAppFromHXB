@@ -5555,8 +5555,6 @@
 					"\"${PODS_ROOT}/Headers/Public/WebViewJavascriptBridge\"",
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
-					"-fstack-protector-all",
-					"-fstack-protector",
 				);
 				OTHER_OSACOMPILEFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
@@ -5637,8 +5635,6 @@
 					"\"${PODS_ROOT}/Headers/Public/WebViewJavascriptBridge\"",
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
-					"-fstack-protector-all",
-					"-fstack-protector",
 				);
 				OTHER_OSACOMPILEFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
@@ -5810,8 +5806,6 @@
 					"\"${PODS_ROOT}/Headers/Public/WebViewJavascriptBridge\"",
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
-					"-fstack-protector-all",
-					"-fstack-protector",
 				);
 				OTHER_OSACOMPILEFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
