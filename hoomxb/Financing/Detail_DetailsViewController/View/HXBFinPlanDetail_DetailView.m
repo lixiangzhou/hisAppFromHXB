@@ -145,7 +145,7 @@
 
 - (void)clickInfoBtn{
     NSLog(@"点击infoBtn");
-    NSString *titleStr = self.cashType && [self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? @"按月付息" : @"";
+    NSString *titleStr = self.cashType && [self.cashType isEqualToString:FIN_PLAN_INCOMEAPPROACH_MONTHLY] ? @"按月提取收益" : @"";
     HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:titleStr Massage:@"收益会按月返回到账户内，如当月无此提取日，则当月最后一天为收益提取日。" force:2 andLeftButtonMassage:@"" andRightButtonMassage:@"确定"];
     alertVC.isHIddenLeftBtn = YES;
     alertVC.isCenterShow = YES;
