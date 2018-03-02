@@ -190,7 +190,7 @@
             manager.monthlyPamentViewManager.rightStrArray = @[viewModel.planDetailModel.interestDate ?: @""];
         }
    
-        manager.strArray = @[@"投资记录", @"红利计划服务协议"];
+        manager.strArray = @[@"出借记录", @"红利计划服务协议"];
         
         manager.isHiddenAddButton = viewModel.isAddButtonHidden;
         return manager;

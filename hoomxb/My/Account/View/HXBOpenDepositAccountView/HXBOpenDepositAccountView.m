@@ -479,7 +479,7 @@
     if (!_headerTipView) {
         _headerTipView = [[HXBDepositoryHeaderView alloc] init];
         _headerTipView.titel = @"安全认证";
-        _headerTipView.describe = @"按国家规定投资用户需满18岁";
+        _headerTipView.describe = @"按国家规定出借用户需满18岁";
     }
     return _headerTipView;
 }
