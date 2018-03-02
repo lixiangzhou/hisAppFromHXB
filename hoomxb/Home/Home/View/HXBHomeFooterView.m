@@ -68,9 +68,9 @@
     }
     if (homeBaseViewModel.homeBaseModel.homePlatformIntroduction.count) {
         NSLog(@"%@",homeBaseViewModel.homeBaseModel.homePlatformIntroduction.firstObject.url);
-        [self.messageBtn sd_setImageWithURL:[NSURL URLWithString:homeBaseViewModel.homeBaseModel.homePlatformIntroduction.firstObject.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"bannerplaceholder"]];
+        [self.messageBtn sd_setImageWithURL:[NSURL URLWithString:homeBaseViewModel.homeBaseModel.homePlatformIntroduction.firstObject.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"homePlatformIntroductionPlaceholder"]];
         
-        [self.dataBtn sd_setImageWithURL:[NSURL URLWithString:homeBaseViewModel.homeBaseModel.homePlatformIntroduction.lastObject.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"bannerplaceholder"]];
+        [self.dataBtn sd_setImageWithURL:[NSURL URLWithString:homeBaseViewModel.homeBaseModel.homePlatformIntroduction.lastObject.image] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"homePlatformIntroductionPlaceholder"]];
     }
     else {
         self.messageBtn.hidden = YES;
