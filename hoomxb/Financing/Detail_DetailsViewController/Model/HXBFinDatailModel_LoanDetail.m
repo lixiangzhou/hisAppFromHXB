@@ -60,6 +60,11 @@
              @"description_userVO" : @"description"
              };
 }
+
+- (NSString *)companyIndustry{
+    return _companyIndustry ? _companyIndustry : @"--";
+}
+
 @end
 
 
