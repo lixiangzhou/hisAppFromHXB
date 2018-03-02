@@ -200,19 +200,18 @@
         if (indexPath.row == 0) {
 
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.loanTruansferDetailViewModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = self.viewModel.loanTruansferDetailModel.fin_LoanInfoView_Manager;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.overDueStatus = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.overDueStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.otherPlatStatus = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.otherPlatStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.protectSolution = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.protectSolution;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.userFinanceStatus = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.userFinanceStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.repaymentCapacity = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.repaymentCapacity;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.punishedStatus = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.punishedStatus;
             
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.overDueStatus = self.loanTruansferDetailViewModel.loanTruansferDetailModel.userVo.overDueStatus;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.otherPlatStatus = self.loanTruansferDetailViewModel.loanTruansferDetailModel.userVo.otherPlatStatus;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.protectSolution = self.loanTruansferDetailViewModel.loanTruansferDetailModel.userVo.protectSolution;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.userFinanceStatus = self.loanTruansferDetailViewModel.loanTruansferDetailModel.userVo.userFinanceStatus;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.repaymentCapacity = self.loanTruansferDetailViewModel.loanTruansferDetailModel.userVo.repaymentCapacity;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.punishedStatus = self.loanTruansferDetailViewModel.loanTruansferDetailModel.userVo.punishedStatus;
-            
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.loanInstruction = self.loanTruansferDetailViewModel.loanTruansferDetailModel.userVo.descriptionStr;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.creditInfoItems;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevel;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevelDesc = self.loanTruansferDetailViewModel.loanTruansferDetailModel.loanVo.riskLevelDesc;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.loanInstruction = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.descriptionStr;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.loanVo.creditInfoItems;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.loanVo.riskLevel;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevelDesc = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.loanVo.riskLevelDesc;
             [self.navigationController pushViewController:detail_DetailLoanVC animated:YES];
         } else if (indexPath.row == 1) {
             HXBFinAddRecordVC_LoanTruansfer *loanAddRecordVC = [[HXBFinAddRecordVC_LoanTruansfer alloc]init];
