@@ -85,9 +85,7 @@
                                          self.fin_Detail_DetailVC_LoanManager.homeTown,
                               
                               self.fin_Detail_DetailVC_LoanManager.overDueStatus&&![self.fin_Detail_DetailVC_LoanManager.overDueStatus isEqualToString:@""]?self.fin_Detail_DetailVC_LoanManager.overDueStatus:@"",
-                              
                               self.fin_Detail_DetailVC_LoanManager.otherPlatStatus&&![self.fin_Detail_DetailVC_LoanManager.otherPlatStatus isEqualToString:@""]?self.fin_Detail_DetailVC_LoanManager.otherPlatStatus:@"",
-                                         
                                          self.fin_Detail_DetailVC_LoanManager.userFinanceStatus&&![self.fin_Detail_DetailVC_LoanManager.userFinanceStatus isEqualToString:@""]?self.fin_Detail_DetailVC_LoanManager.userFinanceStatus:@"",
                                          self.fin_Detail_DetailVC_LoanManager.repaymentCapacity&&![self.fin_Detail_DetailVC_LoanManager.repaymentCapacity isEqualToString:@""]?self.fin_Detail_DetailVC_LoanManager.repaymentCapacity:@"",
                                          self.fin_Detail_DetailVC_LoanManager.punishedStatus&&![self.fin_Detail_DetailVC_LoanManager.punishedStatus isEqualToString:@""]?self.fin_Detail_DetailVC_LoanManager.punishedStatus:@"",
