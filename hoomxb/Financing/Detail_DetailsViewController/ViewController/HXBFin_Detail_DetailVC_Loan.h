@@ -40,8 +40,12 @@
 @property (nonatomic,copy) NSString *graduation;
 ///@"籍贯：",
 @property (nonatomic,copy) NSString *homeTown;
-
-
+@property (nonatomic,copy) NSString *overDueStatus;// 截止借款前6个月内借款人征信报告中逾期情况
+@property (nonatomic,copy) NSString *otherPlatStatus;// 借款人在其他网络借贷平台借款情况
+@property (nonatomic,copy) NSString *protectSolution;// 还款保障措施(担保方式)
+@property (nonatomic,copy) NSString *userFinanceStatus;// 借款人经营及财务状况
+@property (nonatomic,copy) NSString *repaymentCapacity;// 借款人还款能力变化
+@property (nonatomic,copy) NSString *punishedStatus;// 受罚情况
 #pragma mark     ------------  @"财务信息", ----------------
 ///@"车产：",
 @property (nonatomic,copy) NSString *hasCar;
