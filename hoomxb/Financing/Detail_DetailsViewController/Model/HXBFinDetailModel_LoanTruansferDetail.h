@@ -250,6 +250,9 @@ HXBFinDetailModel_LoanTruansferDetail_userVo;
 
 
 @interface HXBFinDetailModel_LoanTruansferDetail_userVo: HXBBaseModel
+
+@property (nonatomic,copy) NSString *cashDrawStatus;//资金运用状况 状态
+
 @property (nonatomic,copy) NSString *overDueStatus;// 截止借款前6个月内借款人征信报告中逾期情况
 @property (nonatomic,copy) NSString *otherPlatStatus;// 借款人在其他网络借贷平台借款情况
 @property (nonatomic,copy) NSString *protectSolution;// 还款保障措施(担保方式)
