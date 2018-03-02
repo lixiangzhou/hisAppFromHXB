@@ -5556,6 +5556,7 @@
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
 					"-fstack-protector-all",
+					"-fstack-protector",
 				);
 				OTHER_OSACOMPILEFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
@@ -5637,6 +5638,7 @@
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
 					"-fstack-protector-all",
+					"-fstack-protector",
 				);
 				OTHER_OSACOMPILEFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
@@ -5809,6 +5811,7 @@
 					"-isystem",
 					"\"${PODS_ROOT}/Headers/Public/YYModel\"",
 					"-fstack-protector-all",
+					"-fstack-protector",
 				);
 				OTHER_OSACOMPILEFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hoomsun.hoombaby;
