@@ -167,7 +167,7 @@
         // 先判断是否>=1000，再判断是否为1000的整数倍（追加时只需判断是否为1000的整数倍），错误，toast提示“起投金额1000元”或“投资金额应为1000的整数倍
         NSInteger minRegisterAmount = weakSelf.planViewModel.minRegisterAmount.integerValue;
         if (capital.length == 0) {
-            [HxbHUDProgress showMessageCenter:@"请输入投资金额" inView:self.view];
+            [HxbHUDProgress showMessageCenter:@"请输入出借金额" inView:self.view];
             return ;
         }
         if ((capital.floatValue < minRegisterAmount)) {
@@ -179,7 +179,7 @@
         NSInteger minRegisterAmountInteger = minRegisterAmount;
         if ((capital.integerValue % minRegisterAmountInteger) != 0) {
             NSLog(@"1000的整数倍");
-            NSString *message = [NSString stringWithFormat:@"投资金额应为%ld的整数倍",(long)minRegisterAmountInteger];
+            NSString *message = [NSString stringWithFormat:@"出借金额应为%ld的整数倍",(long)minRegisterAmountInteger];
             [HxbHUDProgress showMessageCenter:message inView:self.view];
             return;
         }
@@ -225,8 +225,8 @@
             planBuySuccessVC.buy_title = @"加入成功";
             planBuySuccessVC.isShowInviteBtn = NO;
             planBuySuccessVC.buy_description = model.lockStart;
-            planBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
-            planBuySuccessVC.title = @"投资成功";
+            planBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
+            planBuySuccessVC.title = @"出借成功";
             [planBuySuccessVC clickButtonWithBlock:^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
                 [weakSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -236,17 +236,17 @@
         } andFailureBlock:^(NSError *error, NSInteger status) {
             
             HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-            failViewController.title = @"投资结果";
+            failViewController.title = @"出借结果";
             switch (status) {
                 case kHXBNot_Sufficient_Funds:
                     failViewController.imageName = @"yuebuzu";
                     failViewController.buy_title = @"可用余额不足，请重新购买";
-                    failViewController.buy_ButtonTitle = @"重新投资";
+                    failViewController.buy_ButtonTitle = @"重新出借";
                     break;
                 case 3100:
                     failViewController.imageName = @"shouqin";
                     failViewController.buy_title = @"手慢了，已售罄";
-                    failViewController.buy_ButtonTitle = @"重新投资";
+                    failViewController.buy_ButtonTitle = @"重新出借";
                     break;
                 case kHXBCode_Enum_NoConnectionNetwork:
                 case kHXBCode_Enum_ConnectionTimeOut:
@@ -254,7 +254,7 @@
                 default:
                     failViewController.imageName = @"failure";
                     failViewController.buy_title = @"加入失败";
-                    failViewController.buy_ButtonTitle = @"重新投资";
+                    failViewController.buy_ButtonTitle = @"重新出借";
             }
             [failViewController clickButtonWithBlock:^{
                 [weakSelf.navigationController popToRootViewControllerAnimated:YES];  //跳回理财页面

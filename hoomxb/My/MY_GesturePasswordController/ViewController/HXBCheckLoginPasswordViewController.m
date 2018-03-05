@@ -27,9 +27,9 @@
 {
     if (!_checkLoginBtn) {
         _checkLoginBtn = [UIButton btnwithTitle:@"下一步" andTarget:self andAction:@selector(checkLoginPassword) andFrameByCategory:CGRectZero];
+        _checkLoginBtn.backgroundColor = COR26;
+        _checkLoginBtn.userInteractionEnabled = NO;
     }
-    _checkLoginBtn.backgroundColor = COR26;
-    _checkLoginBtn.userInteractionEnabled = NO;
     return _checkLoginBtn;
 }
 

@@ -20,7 +20,7 @@
 - (HXBFin_creditorChange_buy_ViewController *)getACreditorChangeBuyController:(NSString *)hasBindCard userInfo:(HXBRequestUserInfoViewModel *)viewModel{
     
     HXBFin_creditorChange_buy_ViewController *loanJoinVC = [[HXBFin_creditorChange_buy_ViewController alloc]init];
-    loanJoinVC.title = @"投资债权";
+    loanJoinVC.title = @"出借债权";
     loanJoinVC.loanId = self.loanTruansferDetailModel.loanTruansferDetailModel.transferId;
     loanJoinVC.hasBindCard = hasBindCard;
     loanJoinVC.placeholderStr = self.loanTruansferDetailModel.startIncrease_Amount;
