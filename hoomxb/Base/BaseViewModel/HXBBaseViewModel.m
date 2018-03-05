@@ -12,7 +12,7 @@
 #import "HXBBaseRequestManager.h"
 
 @interface HXBBaseViewModel()
-
+@property (nonatomic, strong) MBProgressHUD* mbpView;
 @end
 
 @implementation HXBBaseViewModel
@@ -48,13 +48,30 @@
     return view;
 }
 
+#pragma mark 自定义弹窗
+- (void)showMBP:(BOOL)isShow withHudContent:(NSString*)hudContent{
+    UIView* parentV = [self getHugView];
+    if (!_mbpView) {
+        _mbpView = [[MBProgressHUD alloc] initWithView:parentV];
+        _mbpView.removeFromSuperViewOnHide = YES;
+        _mbpView.contentColor = [UIColor whiteColor];
+        _mbpView.bezelView.backgroundColor = [UIColor blackColor];
+        _mbpView.label.text = hudContent;
+        _mbpView.label.textColor = [UIColor whiteColor];
+    }
+    [parentV addSubview:self.mbpView];
+    if(isShow){
+        [parentV bringSubviewToFront:self.mbpView];
+        [self.mbpView showAnimated:NO];
+    }
+    else{
+        [self.mbpView hideAnimated:YES];
+    }
+}
+
 #pragma mark 弹框显示
 - (void)showProgress:(NSString*)hudContent {
-    UIView* parentView = [self getHugView];
-    if(parentView) {
-        [HxbHUDProgress showLoadDataHUD:parentView text:hudContent];
-    }
-    
+    [self showMBP:YES withHudContent:hudContent];
 }
 
 - (void)showToast:(NSString *)toast {
@@ -65,10 +82,7 @@
 }
 
 - (void)hideProgress {
-    UIView* parentView = [self getHugView];
-    if(parentView) {
-        [HxbHUDProgress hidenHUD:parentView];
-    }
+    [self showMBP:NO withHudContent:nil];
 }
 
 #pragma mark 错误码处理
