@@ -76,6 +76,13 @@
 
 #pragma mark - Setter / Getter / Lazy
 
+- (void)setAccountModel:(HXBMyRequestAccountModel *)accountModel {
+    _accountModel = accountModel;
+    if (accountModel) {
+        self.myView.isDisplayInvite = accountModel.isDisplayInvite;
+    }
+}
+
 -(HXBMyCouponListView *)myView{
     if (!_myView) {
         _myView = [[HXBMyCouponListView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - HXBStatusBarAndNavigationBarHeight - 44)];

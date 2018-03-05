@@ -338,9 +338,9 @@ static NSString *const bankString = @"绑定银行卡";
         loanBuySuccessVC.isShowInviteBtn = model.isInviteActivityShow;
         loanBuySuccessVC.imageName = @"successful";
         loanBuySuccessVC.buy_title = @"投标成功";
-        loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的投资金额，放款成功后开始计息";
+        loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的出借金额，放款成功后开始计息";
         loanBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
-        loanBuySuccessVC.title = @"出借成功";
+        loanBuySuccessVC.title = @"购买成功";
         [loanBuySuccessVC clickButtonWithBlock:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -349,12 +349,12 @@ static NSString *const bankString = @"绑定银行卡";
         [weakSelf.navigationController pushViewController:loanBuySuccessVC animated:YES];
     } andFailureBlock:^(NSString *errorMessage, NSInteger status) {
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc] init];
-        failViewController.title = @"出借结果";
+        failViewController.title = @"出借失败";
         switch (status) {
                 // 加入失败跳转到失败页（3408:余额不足， 999:已售罄， 1:普通错误状态码）
             case kBuy_Result:
                 failViewController.imageName = @"failure";
-                failViewController.buy_title = @"加入失败";
+                failViewController.buy_title = @"出借失败";
                 failViewController.buy_description = errorMessage;
                 failViewController.buy_ButtonTitle = @"重新出借";
                 break;
