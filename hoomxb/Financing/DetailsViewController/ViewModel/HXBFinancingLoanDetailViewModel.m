@@ -64,7 +64,7 @@
 - (HXBFin_Loan_Buy_ViewController *)getALoanBuyController:(NSString *)hasBindCard userInfoViewModel:(HXBRequestUserInfoViewModel*)model{
     //跳转加入界
     HXBFin_Loan_Buy_ViewController *loanJoinVC = [[HXBFin_Loan_Buy_ViewController alloc]init];
-    loanJoinVC.title                    = @"出借散标";
+    loanJoinVC.title                    = @"散标出借";
     loanJoinVC.availablePoint           = [NSString stringWithFormat:@"%.lf", self.loanDetailModel.loanDetailModel.loanVo.surplusAmount.doubleValue];
     loanJoinVC.placeholderStr           = self.loanDetailModel.addCondition;
     loanJoinVC.hasBindCard              = hasBindCard;

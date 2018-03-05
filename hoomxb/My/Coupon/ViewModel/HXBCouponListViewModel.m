@@ -37,11 +37,11 @@
                                              @"filter": @"available"
                                              };
     myAccountListInfoAPI.hudDelegate = self;
+    myAccountListInfoAPI.showHud = YES;
+    myAccountListInfoAPI.hudShowContent = @"加载中...";
     
-    [myAccountListInfoAPI showLoading:@"加载中..."];
     kWeakSelf
     [myAccountListInfoAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        [myAccountListInfoAPI hideLoading];
         
         NSDictionary *data = [responseObject valueForKey:@"data"];
         NSArray <NSDictionary *>*dataList = [data valueForKey:@"dataList"];
@@ -63,7 +63,6 @@
             completion(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [myAccountListInfoAPI hideLoading];
         if (completion) {
             completion(NO);
         }
