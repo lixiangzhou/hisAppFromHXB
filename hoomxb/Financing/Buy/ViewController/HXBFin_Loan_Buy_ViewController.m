@@ -338,7 +338,7 @@ static NSString *const bankString = @"绑定银行卡";
         loanBuySuccessVC.isShowInviteBtn = model.isInviteActivityShow;
         loanBuySuccessVC.imageName = @"successful";
         loanBuySuccessVC.buy_title = @"投标成功";
-        loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的投资金额，放款成功后开始计息";
+        loanBuySuccessVC.buy_description = @"放款前系统将会冻结您的出借金额，放款成功后开始计息";
         loanBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
         loanBuySuccessVC.title = @"购买成功";
         [loanBuySuccessVC clickButtonWithBlock:^{
