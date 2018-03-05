@@ -20,12 +20,12 @@
     myAccountListInfoAPI.requestUrl = kHXBMY_CouponExchangeInfoURL;
     myAccountListInfoAPI.requestMethod = NYRequestMethodPost;
     myAccountListInfoAPI.hudDelegate = self;
+    myAccountListInfoAPI.showHud = YES;
+    myAccountListInfoAPI.hudShowContent = @"加载中...";
     myAccountListInfoAPI.requestArgument = @{@"code":code};
     
-    [myAccountListInfoAPI showLoading:@"加载中..."];
     kWeakSelf
     [myAccountListInfoAPI loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
-        [myAccountListInfoAPI hideLoading];
         
         weakSelf.couponListModel = [[HXBMyCouponListModel alloc]init];
         [weakSelf.couponListModel yy_modelSetWithDictionary:responseObject[@"data"][@"coupon"]];
@@ -35,7 +35,6 @@
             completion(YES);
         }
     } failure:^(NYBaseRequest *request, NSError *error) {
-        [myAccountListInfoAPI hideLoading];
         NSDictionary *responseObject = request.responseObject;
         
         if (responseObject) {
