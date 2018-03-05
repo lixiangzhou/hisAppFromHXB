@@ -181,7 +181,6 @@
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         self.automaticallyAdjustsScrollViewInsets = NO;
         [self.view insertSubview:_tableView atIndex:0];
-        [_tableView.panGestureRecognizer addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:nil];
         _tableView.tableFooterView = [[UIView alloc]init];
         _tableView.backgroundColor = kHXBColor_BackGround;
         [HXBMiddlekey AdaptationiOS11WithTableView:_tableView];
