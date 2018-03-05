@@ -51,6 +51,8 @@
 #pragma mark     ------------  @"财务信息", ----------------
 ///@"车产：",
 @property (nonatomic,copy) NSString *hasCar;
+///@"车贷：",
+@property (nonatomic,copy) NSString *hasCarLoan;
 ///@"房产：",
 @property (nonatomic,copy) NSString *hasHouse;
 ///@"房贷：",
