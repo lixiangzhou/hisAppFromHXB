@@ -66,7 +66,7 @@
 - (void)modifyTransactionPasswordWithIdCard:(NSString *)idCard code:(NSString *)code resultBlock:(void(^)(BOOL isSuccess))resultBlock {
     kWeakSelf
     [HXBModifyTransactionPasswordAgent modifyTransactionPasswordWithRequestBlock:^(NYBaseRequest *request) {
-        request.requestUrl = kHXBSetTransaction_MobifyPassword_CashpwdEditURL;
+        request.requestUrl = kHXBSetTransaction_MobifyPassword_CheckIdentitySmsURL;
         request.requestArgument =  @{ @"identity" : idCard,
                                      @"action" : kTypeKey_tradpwd,
                                      @"smscode" : code };
