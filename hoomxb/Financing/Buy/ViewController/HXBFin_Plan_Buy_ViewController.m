@@ -416,7 +416,7 @@ static NSString *const bankString = @"绑定银行卡";
         planBuySuccessVC.buy_title = @"加入成功";
         planBuySuccessVC.buy_description =model.lockStart;
         planBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
-        planBuySuccessVC.title = @"出借成功";
+        planBuySuccessVC.title = @"加入成功";
         [planBuySuccessVC clickButtonWithBlock:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_PlanList object:nil];
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -425,7 +425,7 @@ static NSString *const bankString = @"绑定银行卡";
         [weakSelf.navigationController pushViewController:planBuySuccessVC animated:YES];
     } andFailureBlock:^(NSString *errorMessage, NSInteger status) {
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-        failViewController.title = @"出借结果";
+        failViewController.title = @"加入失败";
         switch (status) {
             case kBuy_Result:
                 failViewController.imageName = @"failure";
