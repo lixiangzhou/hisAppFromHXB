@@ -149,7 +149,7 @@
 - (UIButton *)investmentBtn
 {
     if (!_investmentBtn) {
-        _investmentBtn = [UIButton btnwithTitle:@"立即投资" andTarget:self andAction:@selector(investmentBtnClick) andFrameByCategory:CGRectZero];
+        _investmentBtn = [UIButton btnwithTitle:@"立即出借" andTarget:self andAction:@selector(investmentBtnClick) andFrameByCategory:CGRectZero];
     }
     return _investmentBtn;
 }

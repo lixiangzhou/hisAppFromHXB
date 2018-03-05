@@ -80,7 +80,7 @@ kDealloc
 /// userinfo 数据请求
 - (void)assetStatisticsLoadData {
     kWeakSelf
-    [_viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
+    [self.viewModel downLoadUserInfo:YES resultBlock:^(BOOL isSuccess) {
         if (isSuccess) weakSelf.loanListView.userInfoViewModel = weakSelf.viewModel.userInfoModel;
     }];
 }

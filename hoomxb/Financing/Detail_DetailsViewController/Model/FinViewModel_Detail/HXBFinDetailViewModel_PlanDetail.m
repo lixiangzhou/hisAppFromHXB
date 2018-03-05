@@ -324,7 +324,7 @@
  */
 - (NSString *) profitType_UI {
     if (!_profitType_UI) {
-        _profitType_UI = @"收益再投资";
+        _profitType_UI = @"收益复投";
     }
     return _profitType_UI;
 }

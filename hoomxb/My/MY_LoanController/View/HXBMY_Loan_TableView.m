@@ -97,7 +97,7 @@ static NSString *const exitTitle = @"已退出";
         case HXBRequestType_MY_LoanRequestType_REPAYING_LOAN:
         {
             titleArray = @[
-                           @"投资金额(元)",
+                           @"出借金额(元)",
                            @"待收本息(元)",
                            @"下一还款日"
                            ];
@@ -125,8 +125,8 @@ static NSString *const exitTitle = @"已退出";
         case HXBRequestType_MY_LoanRequestType_BID_LOAN:
         {
             titleArray = @[
-                           @"投资金额(元)",
-                           @"投资进度",
+                           @"出借金额(元)",
+                           @"出借进度",
                            @"年利率"
                            ];
 //            exiTingImageViewName = @"explain.svg";

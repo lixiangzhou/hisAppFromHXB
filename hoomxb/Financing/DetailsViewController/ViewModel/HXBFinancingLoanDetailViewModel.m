@@ -49,7 +49,7 @@
     viewModelVM.remainAmount_const         = self.loanDetailModel.surplusAmount_ConstStr;
     viewModelVM.startInvestmentStr         = self.loanDetailModel.months;
     viewModelVM.startInvestmentStr_const   = @"标的期限";
-    viewModelVM.promptStr                  = @"- 预期收益不代表实际收益，投资需谨慎 -";
+    viewModelVM.promptStr                  = @"- 预期收益不代表实际收益，出借需谨慎 -";
     viewModelVM.addButtonStr               = self.loanDetailModel.addButtonStr;
     viewModelVM.remainAmount_const         = self.loanDetailModel.surplusAmount_ConstStr;
     viewModelVM.remainAmount               = self.loanDetailModel.surplusAmount;
@@ -57,14 +57,14 @@
     viewModelVM.remainTime                 = self.loanDetailModel.loanDetailModel.remainTime;
     viewModelVM.addButtonTitleColor        = self.loanDetailModel.addButtonTitleColor;
     viewModelVM.addButtonBackgroundColor   = self.loanDetailModel.addButtonBackgroundColor;
-    viewModelVM.title                      = @"散标投资";
+    viewModelVM.title                      = @"散标出借";
     
 }
 
 - (HXBFin_Loan_Buy_ViewController *)getALoanBuyController:(NSString *)hasBindCard userInfoViewModel:(HXBRequestUserInfoViewModel*)model{
     //跳转加入界
     HXBFin_Loan_Buy_ViewController *loanJoinVC = [[HXBFin_Loan_Buy_ViewController alloc]init];
-    loanJoinVC.title                    = @"投资散标";
+    loanJoinVC.title                    = @"出借散标";
     loanJoinVC.availablePoint           = [NSString stringWithFormat:@"%.lf", self.loanDetailModel.loanDetailModel.loanVo.surplusAmount.doubleValue];
     loanJoinVC.placeholderStr           = self.loanDetailModel.addCondition;
     loanJoinVC.hasBindCard              = hasBindCard;
