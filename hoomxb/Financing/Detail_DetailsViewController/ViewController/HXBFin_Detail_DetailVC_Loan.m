@@ -26,6 +26,8 @@
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *loanFinView;
 ///工作信息
 @property (nonatomic,strong) HXBBaseView_MoreTopBottomView *workInfoView;
+///状态信息
+@property (nonatomic,strong) HXBBaseView_MoreTopBottomView *statusInfoView;
 @property (nonatomic,assign) NSInteger loanInfoViewBottomViewCount;
 @property (nonatomic,strong) NSMutableArray *tempLeftStrArray;
 @property (nonatomic,strong) NSMutableArray *tempRightStrArray;
@@ -36,7 +38,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.scrollView.contentSize = CGSizeMake(0, self.workInfoView.bottom);
+    self.scrollView.contentSize = CGSizeMake(0, self.statusInfoView.bottom);
 }
 
 - (void)viewDidLoad {
@@ -175,7 +177,23 @@
         viewManager.rightLabelAlignment = NSTextAlignmentLeft;
         return viewManager;
     }];
-
+    
+    [self.statusInfoView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+        viewManager.leftStrArray = @[
+                                     @"资金运用状况",
+                                     @"状态：",
+                                     ];
+        viewManager.rightStrArray = @[
+                                      @" ",
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.cashDrawStatus ? weakSelf.fin_Detail_DetailVC_LoanManager.cashDrawStatus :@"--",
+                                      ];
+        viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(14);
+        viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(14);
+        viewManager.leftTextColor = kHXBColor_HeightGrey_Font0_4;
+        viewManager.rightTextColor = kHXBColor_Font0_6;
+        viewManager.rightLabelAlignment = NSTextAlignmentLeft;
+        return viewManager;
+    }];
 }
 - (void)setUPValue {
     if (!self.loanDetailViewModel) {
@@ -312,9 +330,9 @@
     }];
     
     [self.workInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.loanFinView.mas_bottom).offset(0);
+        make.top.equalTo(weakSelf.workInfoView.mas_bottom).offset(0);
         make.left.right.equalTo(weakSelf.view);
-        make.height.equalTo(@(kScrAdaptationH(175)));
+        make.height.equalTo(@(kScrAdaptationH(170)));
     }];
     UIView* redFlagworkView = [[UIView alloc]init];
     redFlagworkView.backgroundColor = RGB(245, 81, 81);
@@ -324,6 +342,21 @@
         make.height.mas_equalTo(kScrAdaptationW(12));
         make.width.mas_equalTo(kScrAdaptationW(2));
         make.left.equalTo(weakSelf.workInfoView).offset(7);
+    }];
+    
+    [self.statusInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.loanFinView.mas_bottom).offset(0);
+        make.left.right.equalTo(weakSelf.view);
+        make.height.equalTo(@(kScrAdaptationH(70)));
+    }];
+    UIView* redFlagstatusView = [[UIView alloc]init];
+    redFlagstatusView.backgroundColor = RGB(245, 81, 81);
+    [self.statusInfoView addSubview:redFlagstatusView];
+    [redFlagstatusView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(weakSelf.statusInfoView).offset(kScrAdaptationH(19));
+        make.height.mas_equalTo(kScrAdaptationW(12));
+        make.width.mas_equalTo(kScrAdaptationW(2));
+        make.left.equalTo(weakSelf.statusInfoView).offset(7);
     }];
     
 //    [self lienViewWithView:self.loanPerson_infoView];
@@ -380,7 +413,7 @@
 /// 财务信息
 - (HXBBaseView_MoreTopBottomView *)loanFinView {
     if (!_loanFinView) {
-        UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(0), kScrAdaptationW(15));
+        UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15));
         _loanFinView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:5 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
         _loanFinView.backgroundColor = [UIColor whiteColor];
         [self.scrollView addSubview:_loanFinView];
@@ -395,6 +428,15 @@
         [self.scrollView addSubview:_workInfoView];
     }
     return _workInfoView;
+}
+- (HXBBaseView_MoreTopBottomView *)statusInfoView {
+    if (!_statusInfoView) {
+        UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(0), kScrAdaptationW(15));
+        _statusInfoView = [[HXBBaseView_MoreTopBottomView alloc] initWithFrame:CGRectZero andTopBottomViewNumber:2 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
+        _statusInfoView.backgroundColor = [UIColor whiteColor];
+        [self.scrollView addSubview:_statusInfoView];
+    }
+    return _statusInfoView;
 }
 @end
 @implementation HXBFin_Detail_DetailVC_LoanManager

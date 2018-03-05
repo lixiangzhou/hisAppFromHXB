@@ -46,6 +46,8 @@
 @property (nonatomic,copy) NSString *userFinanceStatus;// 借款人经营及财务状况
 @property (nonatomic,copy) NSString *repaymentCapacity;// 借款人还款能力变化
 @property (nonatomic,copy) NSString *punishedStatus;// 受罚情况
+
+@property (nonatomic,copy) NSString *cashDrawStatus;//资金运用状况
 #pragma mark     ------------  @"财务信息", ----------------
 ///@"车产：",
 @property (nonatomic,copy) NSString *hasCar;
