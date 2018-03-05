@@ -208,6 +208,8 @@
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.repaymentCapacity = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.repaymentCapacity;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.punishedStatus = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.punishedStatus;
             
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.cashDrawStatus = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.cashDrawStatus;
+            
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.loanInstruction = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.userVo.descriptionStr;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.loanVo.creditInfoItems;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = self.viewModel.loanTruansferDetailModel.loanTruansferDetailModel.loanVo.riskLevel;

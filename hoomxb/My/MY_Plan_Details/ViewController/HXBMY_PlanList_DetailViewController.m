@@ -65,7 +65,7 @@
     }];
     
     self.planDetailView.tipClickBlock = ^{
-        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"按月付息" Massage:@"收益会按月返回到账户内，如当月无此提取日，则当月最后一天为收益提取日。" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
+        HXBXYAlertViewController *alertVC = [[HXBXYAlertViewController alloc] initWithTitle:@"按月提取收益" Massage:@"收益会按月返回到账户内，如当月无此提取日，则当月最后一天为收益提取日。" force:2 andLeftButtonMassage:nil andRightButtonMassage:@"确定"];
         alertVC.isHIddenLeftBtn = YES;
         alertVC.isCenterShow = YES;
         [weakSelf presentViewController:alertVC animated:YES completion:nil];
@@ -190,7 +190,7 @@
             manager.monthlyPamentViewManager.rightStrArray = @[viewModel.planDetailModel.interestDate ?: @""];
         }
    
-        manager.strArray = @[@"投资记录", @"红利计划服务协议"];
+        manager.strArray = @[@"出借记录", @"红利计划服务协议"];
         
         manager.isHiddenAddButton = viewModel.isAddButtonHidden;
         return manager;

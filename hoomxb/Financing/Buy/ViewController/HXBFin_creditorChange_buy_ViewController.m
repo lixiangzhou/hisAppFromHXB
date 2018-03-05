@@ -140,13 +140,13 @@ static NSString *const bankString = @"绑定银行卡";
     double rechargeMoney = investMoney.doubleValue - _balanceMoneyStr.doubleValue;
     if (rechargeMoney > 0.00) { // 余额不足的情况
         if ([self.userInfoViewModel.userInfoModel.userInfo.hasBindCard isEqualToString:@"1"]) {
-            self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并投资", rechargeMoney];
+            self.bottomView.clickBtnStr = [NSString stringWithFormat:@"充值%.2f元并出借", rechargeMoney];
         } else {
             self.bottomView.clickBtnStr = bankString;
         }
         _balanceTitle = @"可用余额（余额不足）";
     } else {
-        self.bottomView.clickBtnStr = @"立即投资";
+        self.bottomView.clickBtnStr = @"立即出借";
         _balanceTitle = @"可用余额";
     }
     [self setUpArray];
@@ -163,7 +163,7 @@ static NSString *const bankString = @"绑定银行卡";
     BOOL isHasContainsNonzeroDecimals = (long long)([_inputMoneyStr doubleValue] * 100) % 100 != 0 ? YES:NO;//YES:含非零小数
     BOOL isFitToBuy = ((_inputMoneyStr.integerValue - _minRegisterAmount.integerValue) % _registerMultipleAmount.integerValue) ? NO : YES;
     if (_inputMoneyStr.length <= 0) {
-        [HxbHUDProgress showTextWithMessage:@"请输入投资金额"];
+        [HxbHUDProgress showTextWithMessage:@"请输入出借金额"];
     }else{
         if ([_availablePoint doubleValue] == 0.00) { // 如果待转是0元的话，直接请求接口
             if (self.isExceedLimitInvest && !_isSelectLimit) {
@@ -187,7 +187,7 @@ static NSString *const bankString = @"绑定银行卡";
                     _inputMoneyStr = _minRegisterAmount;
                     [self setUpArray];
                     [self changeItemWithInvestMoney:_inputMoneyStr];
-                    [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
+                    [HxbHUDProgress showTextWithMessage:@"出借金额不足起投金额"];
                 } else if ([_inputMoneyStr doubleValue] > _availablePoint.floatValue) {
                     _topView.totalMoney = [NSString stringWithFormat:@"%.2f", _availablePoint.doubleValue];
                     _inputMoneyStr = _availablePoint;
@@ -211,7 +211,7 @@ static NSString *const bankString = @"绑定银行卡";
                 _inputMoneyStr = _minRegisterAmount;
                 [self setUpArray];
                 [self changeItemWithInvestMoney:_inputMoneyStr];
-                [HxbHUDProgress showTextWithMessage:@"投资金额不足起投金额"];
+                [HxbHUDProgress showTextWithMessage:@"出借金额不足起投金额"];
             } else if (!isFitToBuy) {
                 [HxbHUDProgress showTextWithMessage:[NSString stringWithFormat:@"金额需为%@的整数倍", self.registerMultipleAmount]];
             } else if (_availablePoint.floatValue - _inputMoneyStr.floatValue < _minRegisterAmount.floatValue && _inputMoneyStr.doubleValue != _availablePoint.doubleValue) {
@@ -368,14 +368,14 @@ static NSString *const bankString = @"绑定银行卡";
         loanBuySuccessVC.title = @"购买成功";
         loanBuySuccessVC.buy_title = @"购买成功";
         loanBuySuccessVC.imageName = @"successful";
-        loanBuySuccessVC.massage_Left_StrArray = @[@"下一还款日", @"投资金额", @"实际买入本金", @"公允利息"];
+        loanBuySuccessVC.massage_Left_StrArray = @[@"下一还款日", @"出借金额", @"实际买入本金", @"公允利息"];
         loanBuySuccessVC.massage_Right_StrArray = @[model.nextRepayDate_new, model.buyAmount_new, model.principal_new, model.interest_new];
         if (model.isRepayed) {
             loanBuySuccessVC.buy_description = @"公允利息为您垫付的转让人持有天利息，还款人将会在下个还款日予以返回";
         } else {
-            loanBuySuccessVC.buy_description = @"公允利息：当期已还时，债权人将多收利息进行补偿，均放入投资本金";
+            loanBuySuccessVC.buy_description = @"公允利息：当期已还时，债权人将多收利息进行补偿，均放入出借本金";
         }
-        loanBuySuccessVC.buy_ButtonTitle = @"查看我的投资";
+        loanBuySuccessVC.buy_ButtonTitle = @"查看我的出借";
         [loanBuySuccessVC clickButtonWithBlock:^{
             [[NSNotificationCenter defaultCenter] postNotificationName:kHXBNotification_ShowMYVC_LoanList object:nil];
             [weakSelf.navigationController popToRootViewControllerAnimated:YES];
@@ -386,14 +386,14 @@ static NSString *const bankString = @"绑定银行卡";
     } andFailureBlock:^(NSString *errorMessage, NSInteger status) {
         
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-        failViewController.title = @"投资结果";
+        failViewController.title = @"出借结果";
         switch (status) {
                 // 加入失败跳转到失败页（3408:余额不足， 999:已售罄， 1:普通错误状态码）
             case kBuy_Result:
                 failViewController.imageName = @"failure";
                 failViewController.buy_title = @"加入失败";
                 failViewController.buy_description = errorMessage;
-                failViewController.buy_ButtonTitle = @"重新投资";
+                failViewController.buy_ButtonTitle = @"重新出借";
                 break;
                 
                 // 处理中(3016:恒丰银行处理中 -999:处理中)
@@ -401,7 +401,7 @@ static NSString *const bankString = @"绑定银行卡";
                 failViewController.imageName = @"outOffTime";
                 failViewController.buy_title = @"处理中";
                 failViewController.buy_description = errorMessage;
-                failViewController.buy_ButtonTitle = @"重新投资";
+                failViewController.buy_ButtonTitle = @"重新出借";
                 break;
                 
                 // 弹toast（3014：交易密码错误， 3015：短验错误， 3413：产品购买过于频繁）

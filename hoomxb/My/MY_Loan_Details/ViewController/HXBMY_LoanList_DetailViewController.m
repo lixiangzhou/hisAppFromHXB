@@ -57,7 +57,7 @@
         manager.monthlyPrincipalManager.rightLabelAlignment = NSTextAlignmentCenter;
         
         manager.infoViewManager.leftStrArray = @[
-                                                 @"投资金额",
+                                                 @"出借金额",
                                                  @"年利率",
                                                  @"期限",
                                                  @"还款方式",

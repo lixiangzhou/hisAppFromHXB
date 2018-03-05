@@ -137,11 +137,11 @@
             NSString *newbieSubsidyInterestRate = [NSString stringWithFormat:@"新手专享%0.1f年化产品",rate];
             
             self.afterLoginView.headTipString = newbieSubsidyInterestRate;
-            self.afterLoginView.tipString = @"立即投资";
+            self.afterLoginView.tipString = @"立即出借";
         } else if (![viewModel.userInfoModel.userInfo.hasEverInvest isEqualToString:@"1"]) {
             //已经投资显示的界面
             self.afterLoginView.headTipString = @"多重安全措施，保护用户资金安全";
-            self.afterLoginView.tipString = @"立即投资";
+            self.afterLoginView.tipString = @"立即出借";
         }
         
     }
