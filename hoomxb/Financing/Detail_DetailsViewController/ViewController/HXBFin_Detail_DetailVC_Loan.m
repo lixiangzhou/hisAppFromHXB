@@ -261,6 +261,22 @@
         viewManager.rightLabelAlignment = NSTextAlignmentLeft;
         return viewManager;
     }];
+//    [self.statusInfoView setUPViewManagerWithBlock:^HXBBaseView_MoreTopBottomViewManager *(HXBBaseView_MoreTopBottomViewManager *viewManager) {
+//        viewManager.leftStrArray = @[
+//                                     @"资金运用状况",
+//                                     @"状态：",
+//                                     ];
+//        viewManager.rightStrArray = @[
+//                                      @" ",
+//                                      weakSelf.fin_Detail_DetailVC_LoanManager.cashDrawStatus ? weakSelf.fin_Detail_DetailVC_LoanManager.cashDrawStatus :@"--",
+//                                      ];
+//        viewManager.leftFont = kHXBFont_PINGFANGSC_REGULAR(14);
+//        viewManager.rightFont = kHXBFont_PINGFANGSC_REGULAR(14);
+//        viewManager.leftTextColor = kHXBColor_HeightGrey_Font0_4;
+//        viewManager.rightTextColor = kHXBColor_Font0_6;
+//        viewManager.rightLabelAlignment = NSTextAlignmentLeft;
+//        return viewManager;
+//    }];
 }
 
 /// 返回借款人审核状态行数
@@ -330,7 +346,7 @@
     }];
     
     [self.workInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.workInfoView.mas_bottom).offset(0);
+        make.top.equalTo(weakSelf.loanFinView.mas_bottom).offset(0);
         make.left.right.equalTo(weakSelf.view);
         make.height.equalTo(@(kScrAdaptationH(170)));
     }];
@@ -345,7 +361,7 @@
     }];
     
     [self.statusInfoView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(weakSelf.loanFinView.mas_bottom).offset(0);
+        make.top.equalTo(weakSelf.workInfoView.mas_bottom).offset(0);
         make.left.right.equalTo(weakSelf.view);
         make.height.equalTo(@(kScrAdaptationH(70)));
     }];
