@@ -135,6 +135,7 @@
         viewManager.leftStrArray = @[
                                      @"财务信息",
                                      @"车产：",
+                                     @"车贷：",
                                      @"房产：",
                                      @"房贷：",
                                      @"月收入："
@@ -142,6 +143,7 @@
         viewManager.rightStrArray = @[
                                       @" ",
                                       weakSelf.fin_Detail_DetailVC_LoanManager.hasCar,
+                                      weakSelf.fin_Detail_DetailVC_LoanManager.hasCarLoan,
                                       weakSelf.fin_Detail_DetailVC_LoanManager.hasHouse,
                                       weakSelf.fin_Detail_DetailVC_LoanManager.hasHouseLoan,
                                       weakSelf.fin_Detail_DetailVC_LoanManager.monthlyIncome
@@ -219,6 +221,7 @@
         viewManager.leftStrArray = @[
                                      @"财务信息",
                                      @"车产：",
+                                     @"车贷：",
                                      @"房产：",
                                      @"房贷：",
                                      @"月收入（月）："
@@ -226,6 +229,7 @@
         viewManager.rightStrArray = @[
                                       @" ",
                                       weakSelf.loanDetailViewModel.hasCar,
+                                      weakSelf.loanDetailViewModel.hasCarLoan,
                                       weakSelf.loanDetailViewModel.hasHouse,
                                       weakSelf.loanDetailViewModel.hasHouseLoan,
                                       weakSelf.loanDetailViewModel.monthlyIncome
@@ -333,7 +337,7 @@
     [self.loanFinView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(weakSelf.loanInfoView.mas_bottom).offset(0);
         make.left.right.equalTo(weakSelf.view);
-        make.height.equalTo(@(kScrAdaptationH(155)));
+        make.height.equalTo(@(kScrAdaptationH(183)));
     }];
     UIView* redFlagloanView = [[UIView alloc]init];
     redFlagloanView.backgroundColor = RGB(245, 81, 81);
@@ -430,7 +434,7 @@
 - (HXBBaseView_MoreTopBottomView *)loanFinView {
     if (!_loanFinView) {
         UIEdgeInsets insets = UIEdgeInsetsMake(kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15), kScrAdaptationW(15));
-        _loanFinView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:5 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
+        _loanFinView = [[HXBBaseView_MoreTopBottomView alloc]initWithFrame:CGRectZero andTopBottomViewNumber:6 andViewClass:[UILabel class] andViewHeight:kScrAdaptationH(20) andTopBottomSpace:kScrAdaptationH(10) andLeftRightLeftProportion:kScrAdaptationW(5) Space:insets andCashType:nil];
         _loanFinView.backgroundColor = [UIColor whiteColor];
         [self.scrollView addSubview:_loanFinView];
     }

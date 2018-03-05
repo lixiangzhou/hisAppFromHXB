@@ -430,6 +430,7 @@
         _fin_LoanInfoView_Manager.homeTown = self.homeTown;
 
         _fin_LoanInfoView_Manager.hasCar = self.hasCar;
+        _fin_LoanInfoView_Manager.hasCarLoan = self.hasCarLoan;
         _fin_LoanInfoView_Manager.hasHouse = self.hasHouse;
         _fin_LoanInfoView_Manager.hasHouseLoan = self.hasHouseLoan;
         _fin_LoanInfoView_Manager.monthlyIncome = self.monthlyIncome;
