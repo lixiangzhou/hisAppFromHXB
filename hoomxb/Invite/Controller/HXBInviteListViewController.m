@@ -11,17 +11,18 @@
 #import "HXBInviteListTableViewCell.h"
 #import "HXBInviteViewModel.h"
 #import "HXBInviteModel.h"
+#import "HXBInviteListViewModel.h"
 
 @interface HXBInviteListViewController ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, strong) HXBHeadView *headView;
-@property (nonatomic, strong) HXBBaseTableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dataArray;
 @property (nonatomic, strong) HXBNoDataView *nodataView;
-@property (nonatomic, strong) HXBInviteModel *model;
-@property (nonatomic, assign) NSInteger page;
-@property (nonatomic, assign) NSInteger totalCount;
+@property (nonatomic, strong) HXBBaseTableView *tableView;
+
 @property (nonatomic, strong) UIView *sectionHeadView;
+@property (nonatomic, assign) BOOL isUpData;
+@property (nonatomic, strong) HXBInviteListViewModel *viewModel;
+
 @end
 
 @implementation HXBInviteListViewController
@@ -33,10 +34,13 @@
     self.isRedColorWithNavigationBar = YES;
     self.title = @"邀请记录";
     self.view.backgroundColor = BACKGROUNDCOLOR;
+    kWeakSelf
+    _viewModel = [[HXBInviteListViewModel alloc] initWithBlock:^UIView *{
+        return weakSelf.view;
+    }];
     [self setUI];
-    _page = 1;
     [self setUpDataForInviteOverView];
-    [self setUpDataForInviteList];
+    [self setUpDataForInviteListWithIsUpData:YES];
     
 }
 
@@ -45,27 +49,33 @@
 - (void)setUI {
     [self.view addSubview:self.headView];
     [self.view addSubview:self.tableView];
+    // 下拉刷新
+    kWeakSelf
+    [self.tableView hxb_headerWithRefreshBlock:^{
+        [weakSelf setUpDataForInviteListWithIsUpData:YES];
+        [weakSelf setUpDataForInviteOverView];
+    }];
 }
 
 #pragma mark - Network
 - (void)getNetworkAgain {
     [self setUpDataForInviteOverView];
-    [self setUpDataForInviteList];
+    [self setUpDataForInviteListWithIsUpData:YES];
 }
 
 #pragma mark - Delegate Internal
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _dataArray.count;
+    return _viewModel.investListArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HXBInviteListTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:HXBInviteListTableViewCellIdentifier forIndexPath:indexPath];
     cell.separatorInset = UIEdgeInsetsMake(0, kScrAdaptationW(20), 0, kScrAdaptationW(20));
-    if (self.dataArray.count) {
-        cell.model = self.dataArray[indexPath.row];
+    if (_viewModel.investListArray.count) {
+        cell.model = self.viewModel.investListArray[indexPath.row];
     }
-    cell.isHiddenLine = (indexPath.row == self.dataArray.count - 1) ? YES : NO; // 最后一行隐藏横线
+    cell.isHiddenLine = (indexPath.row == self.viewModel.investListArray.count - 1) ? YES : NO; // 最后一行隐藏横线
     return cell;
 }
 
@@ -92,72 +102,60 @@
     return _sectionHeadView;
 }
 
-#pragma mark -
-
-
-#pragma mark - Delegate External
-
-#pragma mark -
-
-
 #pragma mark - Action
-- (void)setUpDataForInviteList {
-    NSDictionary *dic_post = @{
-                               @"page": [NSString stringWithFormat:@"%ld", _page]
-                               };
-    [HXBInviteViewModel requestForInviteListWithParams:dic_post andSuccessBlock:^(HXBInviteListModel *model) {
-        for (HXBInviteModel *inviteModel in model.dataList) {
-            [self.dataArray addObject:inviteModel];
+- (void)setUpDataForInviteListWithIsUpData:(BOOL)isUpData {
+    kWeakSelf
+    [_viewModel inviteListWithIsUpData:isUpData resultBlock:^(BOOL isSuccess) {
+        [weakSelf.tableView endRefresh];
+        if (isSuccess) {
+            [weakSelf displayInvestListView];
         }
-        if (self.dataArray.count) {
-            _tableView.hidden = NO;
-            _sectionHeadView.hidden = NO;
-            self.nodataView.hidden = YES;
-            [self.tableView.tableHeaderView setHidden:NO];
-            [_tableView endRefresh];
-            
-            if (model.dataList.count >= kPageCount) {
-                // 上拉加载
-                [_tableView hxb_footerWithRefreshBlock:^{
-                    _page++;
-                    [self setUpDataForInviteList];
-                }];
-                
-            } else if (model.totalCount == self.dataArray.count) {
-                [_tableView.mj_footer endRefreshingWithNoMoreData];
-            }
-        } else {
-            [self.tableView.tableHeaderView setHidden:YES];
-            _tableView.hidden = NO;
-            _sectionHeadView.hidden = YES;
-            self.nodataView.hidden = NO;
-            [_tableView endRefresh];
-        }
-        [_tableView reloadData];
-    } andFailureBlock:^(NSError *error) {
-        [_tableView endRefresh];
-        if (error.code == kHXBCode_Enum_ConnectionTimeOut) {
-            _tableView.hidden = NO;
-            self.nodataView.hidden = NO;
-            _sectionHeadView.hidden = YES;
-        }
-        [_tableView reloadData];
     }];
+}
+
+- (void)displayInvestListView {
+    [self.tableView endRefresh];
+    self.tableView.hidden = NO;
+    // 如果需要展示更多
+    if (self.viewModel.isShowLoadMore) {
+        [self.tableView hxb_footerWithRefreshBlock:^{
+            kWeakSelf
+            [weakSelf setUpDataForInviteListWithIsUpData: NO];
+        }];
+    } else {
+        self.tableView.mj_footer = nil;
+    }
+    
+    // 如果是最后一页
+    if (self.viewModel.isLastPage) {
+        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+    } else {
+        [self.tableView.mj_footer endRefreshing];
+    }
+    
+    if (self.viewModel.investListArray.count) {
+        self.sectionHeadView.hidden = NO;
+        [self.tableView.tableHeaderView setHidden:NO];
+        self.nodataView.hidden = YES;
+    } else {
+        [self.tableView.tableHeaderView setHidden:YES];
+        self.sectionHeadView.hidden = YES;
+        self.nodataView.hidden = NO;
+    }
+    [self.tableView reloadData];
 }
 
 - (void)setUpDataForInviteOverView {
     NSString *noDataText = @"--";
-    [HXBInviteViewModel requestForInviteOverViewWithParams:nil andSuccessBlock:^(HXBInviteOverViewModel *model) {
-        _headView.hidden = NO;
-        if (model.cashBackAmount) {
-            self.headView.dataDic = [self dataDicWithCashBackAmount:model.cashBackAmount couponNumber:[NSString stringWithFormat:@"%ld", model.couponNumber] inviteNumber:[NSString stringWithFormat:@"%ld", model.inviteNumber]];
-        } else {
-            self.headView.dataDic = [self dataDicWithCashBackAmount:noDataText couponNumber:noDataText inviteNumber:noDataText];
-        }
-    } andFailureBlock:^(NSError *error) {
-        if (error.code == kHXBCode_Enum_ConnectionTimeOut) {
-            _headView.hidden = NO;
-            self.headView.dataDic = [self dataDicWithCashBackAmount:noDataText couponNumber:noDataText inviteNumber:noDataText];
+    kWeakSelf
+    [_viewModel inviteOverViewWithParams:nil resultBlock:^(BOOL isSuccess) {
+        weakSelf.headView.hidden = NO;
+        if (isSuccess) {
+            if (weakSelf.viewModel.overViewModel.cashBackAmount) {
+                weakSelf.headView.dataDic = [weakSelf dataDicWithCashBackAmount:weakSelf.viewModel.overViewModel.cashBackAmount couponNumber:[NSString stringWithFormat:@"%ld", weakSelf.viewModel.overViewModel.couponNumber] inviteNumber:[NSString stringWithFormat:@"%ld", weakSelf.viewModel.overViewModel.inviteNumber]];
+            } else {
+                weakSelf.headView.dataDic = [weakSelf dataDicWithCashBackAmount:noDataText couponNumber:noDataText inviteNumber:noDataText];
+            }
         }
     }];
 }
@@ -178,7 +176,7 @@
 #pragma mark - Setter / Getter / Lazy
 - (HXBHeadView *)headView {
     if (!_headView) {
-        _headView = [[HXBHeadView alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, kScrAdaptationH(258) - 64)];
+        _headView = [[HXBHeadView alloc] initWithFrame:CGRectMake(0, HXBStatusBarAndNavigationBarHeight, kScreenWidth, kScrAdaptationH(258) - HXBStatusBarAndNavigationBarHeight)];
         _headView.hidden = YES;
     }
     return _headView;
@@ -194,24 +192,9 @@
         _tableView.delegate = self;
         _tableView.separatorStyle = NO;
         _tableView.tableHeaderView = [self tableHeader];
-        kWeakSelf
-        // 下拉刷新
-        [_tableView hxb_headerWithRefreshBlock:^{
-            _page = 1;
-            [weakSelf.dataArray removeAllObjects];
-            [weakSelf setUpDataForInviteList];
-            [weakSelf setUpDataForInviteOverView];
-        }];
         _tableView.rowHeight = kScrAdaptationH(60);
     }
     return _tableView;
-}
-
-- (NSMutableArray *)dataArray {
-    if (!_dataArray) {
-        _dataArray = [NSMutableArray array];
-    }
-    return _dataArray;
 }
 
 - (HXBNoDataView *)nodataView {
@@ -229,13 +212,5 @@
     }
     return _nodataView;
 }
-
-#pragma mark - Helper
-
-
-#pragma mark - Other
-
-
-#pragma mark - Public
 
 @end
