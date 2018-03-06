@@ -386,12 +386,12 @@ static NSString *const bankString = @"绑定银行卡";
     } andFailureBlock:^(NSString *errorMessage, NSInteger status) {
         
         HXBFBase_BuyResult_VC *failViewController = [[HXBFBase_BuyResult_VC alloc]init];
-        failViewController.title = @"出借结果";
+        failViewController.title = @"出借失败";
         switch (status) {
                 // 加入失败跳转到失败页（3408:余额不足， 999:已售罄， 1:普通错误状态码）
             case kBuy_Result:
                 failViewController.imageName = @"failure";
-                failViewController.buy_title = @"加入失败";
+                failViewController.buy_title = @"出借失败";
                 failViewController.buy_description = errorMessage;
                 failViewController.buy_ButtonTitle = @"重新出借";
                 break;
