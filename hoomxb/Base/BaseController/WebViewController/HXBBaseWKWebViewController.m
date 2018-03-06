@@ -66,6 +66,7 @@
     [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
     [self.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     
+    self.pageUrl = @"http://192.168.1.29:5300/riskvail";
     [self loadWebPage];
 }
 
