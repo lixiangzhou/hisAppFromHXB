@@ -154,10 +154,6 @@
         }
     }
     
-    self.homeVimewModle = [[HXBHomeVCViewModel alloc]  initWithBlock:^UIView *{
-        return weakSelf.view;
-    }];
-    
     [self.homeVimewModle homePlanRecommendCallbackBlock:^(BOOL isSuccess) {
         weakSelf.homeView.homeBaseViewModel = weakSelf.homeVimewModle;
         weakSelf.homeView.isStopRefresh_Home = YES;
@@ -172,6 +168,16 @@
 }
 
 #pragma mark Get Methods
+
+- (HXBHomeVCViewModel *)homeVimewModle {
+    if (!_homeVimewModle) {
+        kWeakSelf
+        _homeVimewModle = [[HXBHomeVCViewModel alloc]  initWithBlock:^UIView *{
+            return weakSelf.view;
+        }];
+    }
+    return _homeVimewModle;
+}
 
 - (HxbHomeView *)homeView{
     if (!_homeView) {
