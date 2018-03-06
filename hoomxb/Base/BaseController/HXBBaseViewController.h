@@ -27,6 +27,9 @@
 /// 页面没有数据时显示的View，需要自己添加到需要显示的地方，需要自己设置位置约束等，有默认的图片和文字
 @property (nonatomic, strong, readonly) HXBNoDataView *noDataView;
 
+///导航栏左侧按钮
+@property (nonatomic, strong) UIButton *leftBackBtn;
+
 ///可以重写返回方法
 - (void)leftBackBtnClick;
 

@@ -31,8 +31,6 @@
 
 @property (nonatomic, assign) BOOL loadResult;
 
-@property (nonatomic, strong) UIButton *leftBackBtn;
-
 @property (nonatomic, strong) UIButton *closeBtn;
 
 @end
@@ -83,6 +81,7 @@
     [closeBtn setImage:[UIImage imageNamed:@"webView_close"] forState:(UIControlStateNormal)];
     [closeBtn addTarget:self action:@selector(closeBtnClick) forControlEvents:UIControlEventTouchUpInside];
     self.closeBtn = closeBtn;
+    self.closeBtn.hidden = YES;
     
     UIBarButtonItem * spaceItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     
@@ -92,7 +91,7 @@
     } else {
         spaceItem.width = -15;
     }
-    self.navigationItem.leftBarButtonItems = @[spaceItem,[[UIBarButtonItem alloc] initWithCustomView:leftBackBtn]];
+    self.navigationItem.leftBarButtonItems = @[spaceItem,[[UIBarButtonItem alloc] initWithCustomView:leftBackBtn], [[UIBarButtonItem alloc] initWithCustomView:closeBtn]];
 }
 
 - (void)leftBackBtnClick {
@@ -148,10 +147,12 @@
 
 - (void)setShowCloseButton:(BOOL)showCloseButton {
     _showCloseButton = showCloseButton;
-    if (showCloseButton) {
-        self.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:self.leftBackBtn],[[UIBarButtonItem alloc] initWithCustomView:self.closeBtn]];
-    } else {
-        self.navigationItem.leftBarButtonItems = @[[[UIBarButtonItem alloc] initWithCustomView:self.leftBackBtn]];
+    self.closeBtn.hidden = !showCloseButton;
+    if(showCloseButton) {
+        self.leftBackBtn.width = 25;
+    }
+    else {
+        self.leftBackBtn.width = 50;
     }
 }
 
