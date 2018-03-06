@@ -87,7 +87,7 @@ static NSString *const cellID = @"cellID";
     [self.planCapitalTableView registerClass:[HXBMY_Plan_Capital_Cell class] forCellReuseIdentifier:cellID];
     [self downLoadData];
     
-    self.noDataView.noDataMassage = @"暂无投资记录";
+    self.noDataView.noDataMassage = @"暂无数据";
     [self.view addSubview:self.noDataView];
     [self.noDataView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(weakSelf.view);
