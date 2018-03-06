@@ -107,14 +107,14 @@
             HXBFin_Detail_DetailVC_Loan *detail_DetailLoanVC = [[HXBFin_Detail_DetailVC_Loan alloc]init];
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager = weakSelf.viewModel.loanDetailModel.fin_LoanInfoView_Manager;
             
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.overDueStatus = self.viewModel.loanDetailModel.loanDetailModel.userVo.overDueStatus;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.otherPlatStatus = self.viewModel.loanDetailModel.loanDetailModel.userVo.otherPlatStatus;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.protectSolution = self.viewModel.loanDetailModel.loanDetailModel.userVo.protectSolution;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.userFinanceStatus = self.viewModel.loanDetailModel.loanDetailModel.userVo.userFinanceStatus;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.repaymentCapacity = self.viewModel.loanDetailModel.loanDetailModel.userVo.repaymentCapacity;
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.punishedStatus = self.viewModel.loanDetailModel.loanDetailModel.userVo.punishedStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.overDueStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.overDueStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.otherPlatStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.otherPlatStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.protectSolution = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.protectSolution;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.userFinanceStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.userFinanceStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.repaymentCapacity = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.repaymentCapacity;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.punishedStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.punishedStatus;
             
-            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.cashDrawStatus = self.viewModel.loanDetailModel.loanDetailModel.userVo.cashDrawStatus;
+            detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.cashDrawStatus = weakSelf.viewModel.loanDetailModel.loanDetailModel.userVo.cashDrawStatus;
             
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.creditInfoItems = weakSelf.viewModel.loanDetailModel.loanDetailModel.loanVo.creditInfoItems;
             detail_DetailLoanVC.fin_Detail_DetailVC_LoanManager.riskLevel = weakSelf.viewModel.loanDetailModel.loanDetailModel.loanVo.riskLevel;

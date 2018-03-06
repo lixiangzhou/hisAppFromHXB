@@ -15,7 +15,7 @@ static const char HXBRequestUserInfoViewModelKey = '\0';
 - (void)setUserInfoModel:(HXBRequestUserInfoViewModel *)userInfoModel {
     [self willChangeValueForKey:@"userInfoModel"]; // KVO
     objc_setAssociatedObject(self, &HXBRequestUserInfoViewModelKey,
-                             userInfoModel, OBJC_ASSOCIATION_ASSIGN);
+                             userInfoModel, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self didChangeValueForKey:@"userInfoModel"]; // KVO
 }
 

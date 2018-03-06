@@ -111,6 +111,7 @@
     if (!_messageBtn) {
         _messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_messageBtn addTarget:self action:@selector(messageBtnClick) forControlEvents:(UIControlEventTouchUpInside)];
+        _messageBtn.adjustsImageWhenHighlighted = NO;
     }
     return _messageBtn;
 }
@@ -119,6 +120,7 @@
     if (!_dataBtn) {
         _dataBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [_dataBtn addTarget:self action:@selector(dataBtnClick) forControlEvents:(UIControlEventTouchUpInside)];
+         _dataBtn.adjustsImageWhenHighlighted = NO;
     }
     return _dataBtn;
 }
