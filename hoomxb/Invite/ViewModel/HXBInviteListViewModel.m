@@ -40,7 +40,7 @@
     request.requestMethod = NYRequestMethodPost;
     request.requestUrl = kHXB_Invite_List;
     request.requestArgument = @{@"page": @(page).description};
-    request.showHud = NO;
+    request.showHud = YES;
     kWeakSelf
     [request loadData:^(NYBaseRequest *request, NSDictionary *responseObject) {
         [weakSelf displayInvestListWithResponseObject:responseObject];
